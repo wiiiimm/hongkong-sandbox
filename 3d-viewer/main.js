@@ -13,7 +13,7 @@ const SOURCES = {
     mesh:    'data/lantau-hk5m.json',
     georef:  { file: 'data/lantau-georefs.json', key: 'hk5m' },
     texbb:   'data/lantau-texbb.json',
-    overlay: 'data/lantau-b50k-overlay.json',
+    overlay: 'data/lantau-b50k-vectors.json',   // re-extracted from B50K GML, grid-aligned
     texture: 'data/lantau-b50k-topo-texture.png',
     ve: 2.6,
   },
@@ -21,10 +21,13 @@ const SOURCES = {
 
 // vector layer styling (colour + default visibility)
 const LAYER_STYLE = {
-  contour: { colour: 0x7a5a36, on: true,  label: 'Contours' },
-  coast:   { colour: 0x2f6090, on: true,  label: 'Coast' },
-  trail:   { colour: 0xb0402c, on: true,  label: 'Trails' },
-  // richer GML layers get merged in here later: roads / hydro / boundaries
+  contour:  { colour: 0x7a5a36, on: true,  label: 'Contours' },
+  road:     { colour: 0x5b5f68, on: true,  label: 'Roads' },
+  trail:    { colour: 0xb0402c, on: true,  label: 'Trails' },
+  hydro:    { colour: 0x3f6f82, on: true,  label: 'Hydro' },
+  coast:    { colour: 0x2f6090, on: true,  label: 'Coast' },
+  boundary: { colour: 0x9c6d8a, on: false, label: 'Boundaries' },
+  cliff:    { colour: 0x6d5a4a, on: false, label: 'Cliffs' },
 };
 
 const BG = { dark: 0x0e1116, paper: 0xf4f1e9 };
