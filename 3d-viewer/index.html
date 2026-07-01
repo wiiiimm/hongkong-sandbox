@@ -16,19 +16,39 @@
   :root{
     --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans CJK TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
     --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-    --ink:#eef2f6; --sub:#7d8896;
+    --ink:#eef2f6; --sub:#7d8896; --panel-ink:#eef2f6;
     --panel:rgba(11,14,19,.72); --edge:rgba(255,255,255,.09); --edge-soft:rgba(255,255,255,.055);
     --field:rgba(255,255,255,.045); --field-edge:rgba(255,255,255,.11);
     --accent:#3fe0b0; --accent-dim:rgba(63,224,176,.16);
+    --panel-glow:rgba(255,255,255,.05);
+    --panel-shadow:0 18px 48px rgba(0,0,0,.38);
   }
+  /* light UI — follows the Paper background mode */
+  body.ui-light{
+    --ink:#20262c; --sub:#5d6873; --panel-ink:#20262c;
+    --panel:rgba(250,248,243,.66); --edge:rgba(25,35,40,.14); --edge-soft:rgba(25,35,40,.08);
+    --field:rgba(25,35,40,.05); --field-edge:rgba(25,35,40,.17);
+    --accent:#0b8f66; --accent-dim:rgba(11,143,102,.13);
+    --panel-glow:rgba(255,255,255,.55);
+    --panel-shadow:0 18px 48px rgba(50,60,70,.22);
+  }
+  body.ui-light option{background:#f4f2ec;color:#20262c}
+  body.ui-light #wxhud #wx-tidegraph{background:rgba(25,35,40,.04);border-color:var(--edge-soft)}
+  body.ui-light #wxhud #wx-warn:not(:empty){color:#a05a10}
+  /* liquid-glass layer (glass-gl): panel + HUD refract the live terrain canvas.
+     Above map labels/stations (they frost out under the glass), below the UI. */
+  #glassgl{position:fixed;inset:0;z-index:16;pointer-events:none}
+  body.glass #panel, body.glass #wxhud{
+    background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #panel, body.glass.ui-light #wxhud{background:rgba(252,250,246,.22)}
   html,body{margin:0;height:100%;overflow:hidden;background:#0b0e12;color:var(--ink);
     font-family:var(--sans);font-size:13px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   #app{position:fixed;inset:0}
   #panel{position:fixed;top:16px;left:16px;z-index:20;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-radius:14px;padding:14px 15px;font-size:12.5px;line-height:1.5;
+    border:1px solid var(--edge);border-radius:16px;padding:14px 15px;font-size:12.5px;line-height:1.5;
     width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 32px);overflow:auto;
-    box-shadow:0 12px 44px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05)}
+    box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   #panel::-webkit-scrollbar{width:8px}
   #panel::-webkit-scrollbar-thumb{background:var(--field-edge);border-radius:4px}
   #panel h1{font-size:14px;margin:0;letter-spacing:.01em;font-weight:600}
@@ -79,8 +99,8 @@
   button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
   #wxhud{position:fixed;top:16px;right:16px;z-index:20;min-width:150px;max-width:250px;text-align:right;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-radius:12px;padding:11px 13px;
-    box-shadow:0 10px 30px rgba(0,0,0,.45);font-size:12px}
+    border:1px solid var(--edge);border-radius:14px;padding:11px 13px;
+    box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);font-size:12px}
   #wxhud #wx-status{font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
   #wxhud .wx-big{font-size:23px;font-weight:600;margin:3px 0;letter-spacing:.01em}
   #wxhud .wx-sub{font-size:11px;color:var(--sub);line-height:1.5}

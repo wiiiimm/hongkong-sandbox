@@ -5,6 +5,7 @@
 // terrain and the draped skin so contours stay welded to the ridges.
 import * as THREE from './vendor/three.module.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
+import { createGlass } from './vendor/glass-gl.js';
 
 // ---- source registry (extend with whole-HK + SRTM later) -------------------
 const SOURCES = {
@@ -121,8 +122,11 @@ const t = k => (I18N[locale] && I18N[locale][k] != null) ? I18N[locale][k] : (I1
 const isZh = () => locale === 'zh-hk';
 
 // ---- three.js boilerplate --------------------------------------------------
+// Liquid-glass panels (glass-gl) refract the live scene, which needs the drawing
+// buffer kept readable. Desktop / fine-pointer only — phones keep the CSS look.
+const GLASS_OK = matchMedia('(pointer: fine)').matches && innerWidth > 640;
 const app = document.getElementById('app');
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: GLASS_OK });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 app.appendChild(renderer.domElement);
@@ -705,6 +709,7 @@ function applyBg(mode) {
   renderSky();
   if (wireOverlay) wireLook();
   setFog();
+  applyGlassPreset(mode);
 }
 
 // storm signal badge + wind visuals (rain density, cloud tone, sky) --------
@@ -867,6 +872,40 @@ app.addEventListener('pointerdown', () => {
   panelEl.classList.add('collapsed');
   wxhudEl.classList.remove('expanded');
 }, { passive: true });
+
+// ---- liquid-glass panels (glass-gl) -----------------------------------------
+// The panel and weather HUD are real refracting lenses over the live scene: the
+// three.js canvas is the glass background, re-uploaded every frame. Two fixed
+// presets follow the background mode (dark → obsidian glass, paper → milk
+// glass) — no user-facing glass controls. Falls back to the CSS look if WebGL
+// is unavailable.
+let glassFx = null;
+if (GLASS_OK) {
+  try {
+    const gcv = document.createElement('canvas');
+    gcv.id = 'glassgl';
+    document.body.insertBefore(gcv, document.getElementById('flashfx'));
+    glassFx = createGlass({ canvas: gcv, background: renderer.domElement });
+    glassFx.register(panelEl, { radius: 16 });
+    glassFx.register(wxhudEl, { radius: 14 });
+    document.body.classList.add('glass');
+  } catch (e) {
+    console.warn('glass-gl unavailable, keeping CSS panels', e);
+    const gcv = document.getElementById('glassgl'); if (gcv) gcv.remove();
+    glassFx = null;
+  }
+}
+const GLASS_PRESETS = {
+  dark:  { refraction: 0.15, blur: 2.6, liquidness: 0.30, edgeLight: 0.8,
+           edgeFrost: 0, dispersion: 0.28, tint: [0.05, 0.075, 0.10] },
+  paper: { refraction: 0.13, blur: 2.4, liquidness: 0.34, edgeLight: 1.05,
+           edgeFrost: 0, dispersion: 0.22, tint: [1, 1, 1] },
+};
+function applyGlassPreset(mode) {
+  document.body.classList.toggle('ui-light', mode === 'paper');
+  if (glassFx) glassFx.setParams(GLASS_PRESETS[mode] || GLASS_PRESETS.dark);
+  drawTideGraph();   // tide-graph ink follows the theme
+}
 document.getElementById('navhelp-btn').addEventListener('click', () => {
   const n = document.getElementById('navhelp'); n.style.display = n.style.display === 'none' ? '' : 'none';
 });
@@ -992,21 +1031,25 @@ function drawTideGraph() {
     const x = xOf(h), y = yOf(v);
     started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true);
   }
-  ctx.lineJoin = 'round'; ctx.strokeStyle = 'rgba(120,200,235,.95)'; ctx.lineWidth = 1.8; ctx.stroke();
+  const lightUi = document.body.classList.contains('ui-light');
+  ctx.lineJoin = 'round'; ctx.strokeStyle = lightUi ? 'rgba(28,110,150,.95)' : 'rgba(120,200,235,.95)';
+  ctx.lineWidth = 1.8; ctx.stroke();
   // fill under the curve
   ctx.lineTo(xOf(hi), gBot); ctx.lineTo(xOf(lo), gBot); ctx.closePath();
-  ctx.fillStyle = 'rgba(90,170,215,.16)'; ctx.fill();
+  ctx.fillStyle = lightUi ? 'rgba(40,120,160,.14)' : 'rgba(90,170,215,.16)'; ctx.fill();
   // "now" marker + dot
   const nx = xOf(nowHour), nv = tideAt(vals, nowHour);
   ctx.strokeStyle = 'rgba(63,224,176,.85)'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(nx, gTop - 3); ctx.lineTo(nx, gBot); ctx.stroke();
   if (isFinite(nv)) { ctx.fillStyle = '#3fe0b0'; ctx.beginPath(); ctx.arc(nx, yOf(nv), 2.8, 0, 7); ctx.fill(); }
   // axis ticks + high-water marker
-  ctx.font = '9px ui-monospace, monospace'; ctx.fillStyle = 'rgba(255,255,255,.5)';
+  ctx.font = '9px ui-monospace, monospace';
+  ctx.fillStyle = lightUi ? 'rgba(20,30,40,.55)' : 'rgba(255,255,255,.5)';
   ctx.textAlign = 'left';   ctx.fillText('−12h', pad, Hc - 3);
   ctx.textAlign = 'center'; ctx.fillText('now', nx, Hc - 3);
   ctx.textAlign = 'right';  ctx.fillText('+12h', Wc - pad, Hc - 3);
-  ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillText(max.toFixed(1) + ' m', Wc - pad, gTop + 7);
+  ctx.fillStyle = lightUi ? 'rgba(20,30,40,.45)' : 'rgba(255,255,255,.4)';
+  ctx.fillText(max.toFixed(1) + ' m', Wc - pad, gTop + 7);
 }
 
 async function syncLiveWeather() {
