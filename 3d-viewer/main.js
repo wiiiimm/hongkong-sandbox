@@ -90,6 +90,7 @@ let skinBase = new Map();                               // layer -> Float32Array
 let labels = [];
 let VE = 2.8, surfStyle = 'shaded', bgMode = 'dark';
 let matShaded, matTint, matMatte, matSolid, matTopo, texTopo = null;
+const tidalMats = [];   // materials with the intertidal "wet band" shader injected
 let spinDir = 1, spinSpeed = 1;   // horizontal auto-spin (0 = off; 1 = clockwise)
 let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
 let solidColor = '#262626';       // fill colour for the "Solid colour" surface
@@ -179,6 +180,27 @@ function axisSamples(n, step) {
   return s;
 }
 
+// Intertidal "wet band": tint terrain within uBand (world units) above the water
+// line. A fixed VERTICAL band renders WIDE on gentle natural coasts/beaches and
+// vanishingly THIN on steep seawalls/cliffs — so tides read only where they'd
+// really show. Purely geometric; no shoreline classification needed.
+function attachTidalBand(mat) {
+  mat.onBeforeCompile = (sh) => {
+    sh.uniforms.uWaterY = { value: -1e9 };
+    sh.uniforms.uBand = { value: 12.0 };
+    sh.vertexShader = sh.vertexShader
+      .replace('#include <common>', '#include <common>\nvarying float vTideY;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvTideY = position.y;');
+    sh.fragmentShader = sh.fragmentShader
+      .replace('#include <common>', '#include <common>\nvarying float vTideY;\nuniform float uWaterY;\nuniform float uBand;')
+      .replace('#include <dithering_fragment>',
+        '#include <dithering_fragment>\n{ float d = vTideY - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d)); gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet*0.5); }');
+    mat.userData.sh = sh;
+  };
+  mat.needsUpdate = true;
+  tidalMats.push(mat);
+}
+
 function buildTerrain() {
   if (terrain) { world.remove(terrain); terrain.geometry.dispose(); }
   const rows = axisSamples(H, meshStep), cols = axisSamples(W, meshStep);
@@ -211,6 +233,8 @@ function buildTerrain() {
   matMatte  = new THREE.MeshStandardMaterial({ color: 0x8a8f86, roughness: 1, metalness: 0 });
   matSolid  = new THREE.MeshBasicMaterial({ color: solidColor });                  // flat solid fill
   matTopo   = new THREE.MeshBasicMaterial({});   // unlit: show the map flat, no hillshade darkening
+  tidalMats.length = 0;
+  [matShaded, matTint, matMatte].forEach(attachTidalBand);   // wet intertidal band on the terrain surfaces
 
   terrain = new THREE.Mesh(geo, matShaded);
   world.add(terrain);
@@ -392,6 +416,9 @@ function animateWeather() {
     const ripple = weather.waves ? (Math.sin(wavePhase += 0.03 * (1 + w * 3)) * 0.5 + 0.5) * amp : 0;
     sea.position.y = SEA_Y + tide + surge + ripple;
   }
+  // drive the intertidal wet-band shader from the live water level (~4.5 m band)
+  const wy = (sea && sea.visible) ? sea.position.y : -1e9;
+  for (const m of tidalMats) { const sh = m.userData.sh; if (sh) { sh.uniforms.uWaterY.value = wy; sh.uniforms.uBand.value = 4.5 * VE; } }
   if (weather.lightning) {
     if (flash > 0) { flash -= 0.07; hemi.intensity = baseHemi + flash * 5; }
     else { const p = 0.006 + (stormLevel >= 8 ? 0.02 * (stormLevel / 10) : 0); if (Math.random() < p) flash = 1; }
