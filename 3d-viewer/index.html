@@ -68,6 +68,8 @@
     letter-spacing:0;text-align:center;margin-top:1px}
   .lbl:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:10px;
     background:linear-gradient(rgba(255,255,255,.75),transparent);transform:translateX(-50%)}
+  .lbl.lmk{font-size:12.5px}
+  .lbl.lmk small{color:var(--accent)}
   button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
   #wxhud{position:fixed;top:16px;right:16px;z-index:20;min-width:150px;max-width:250px;text-align:right;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
@@ -210,6 +212,7 @@
     <div class="gt" data-i18n="grp.overlays">Overlays · stack on top</div>
     <div class="chks">
       <label class="chk"><input type="checkbox" id="water" checked/> <span data-i18n="ov.water">Water</span></label>
+      <label class="chk"><input type="checkbox" id="landmarks" checked/> <span data-i18n="ov.landmarks">Landmarks</span></label>
       <label class="chk"><input type="checkbox" id="labels"/> <span data-i18n="ov.labels">Peaks</span></label>
       <label class="chk"><input type="checkbox" id="stations"/> <span data-i18n="ov.stations">Stations (live)</span></label>
     </div>

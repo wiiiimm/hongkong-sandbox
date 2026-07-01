@@ -73,7 +73,7 @@ const I18N = {
     'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
-    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)',
+    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.weather': 'Weather', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
@@ -97,7 +97,7 @@ const I18N = {
     'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
-    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）',
+    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.weather': '天氣', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
@@ -141,6 +141,7 @@ const world = new THREE.Group(); scene.add(world);
 // ---- per-source state ------------------------------------------------------
 let W, H, cell, elev, zmax, peaks = [];
 let peaksData = null;   // named HK peaks POI set (data/hk-peaks.json), placed by E/N per source
+let landmarksData = null, landmarks = [];   // curated landmarks POI set (data/hk-landmarks.json)
 let meshStep = 1, gridW = 0, gridH = 0, curG = null, curTexbb = null;   // mesh density state
 let firstLoad = true;   // apply per-source default VE only on the very first load
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
@@ -205,7 +206,9 @@ async function loadSource(id) {
   buildWeather();
   updateWindVisuals();     // renderSky + fog + rain/cloud look for the current wind
   if (!peaksData) peaksData = await fj('data/hk-peaks.json').catch(() => ({ peaks: [] }));
+  if (!landmarksData) landmarksData = await fj('data/hk-landmarks.json').catch(() => ({ landmarks: [] }));
   buildLabels();
+  buildLandmarks();
   if (texTopo) texTopo.dispose();
   texTopo = buildBaseTexture(landcover);   // clean B50K base map (fills only), aligned by construction
   matTopo.map = texTopo; matTopo.needsUpdate = true;
@@ -501,6 +504,21 @@ function buildLabels() {
     div.innerHTML = `${top}<small>${sub}</small>`;
     document.body.appendChild(div);
     labels.push({ div, E: p.E, N: p.N, ele: p.ele });
+  }
+}
+
+// Curated landmark labels (iconic peaks + towns) — a separate, lighter POI layer.
+function buildLandmarks() {
+  landmarks.forEach(l => l.div.remove()); landmarks = [];
+  const list = (landmarksData && landmarksData.landmarks) || [];
+  for (const p of list) {
+    const div = document.createElement('div'); div.className = 'lbl lmk';
+    const icon = p.kind === 'peak' ? '⛰' : '📍';
+    const top = `${icon} ${p.zh || p.en}`;
+    const sub = p.kind === 'peak' ? (p.en + (p.ele ? ` · ${p.ele} m` : '')) : p.en;
+    div.innerHTML = `${top}<small>${sub}</small>`;
+    document.body.appendChild(div);
+    landmarks.push({ div, E: p.E, N: p.N, ele: p.ele || 0 });
   }
 }
 
@@ -1207,12 +1225,16 @@ function occludedLocal(lx, ly, lz) {
   }
   return false;
 }
-function updateLabels() {
-  if (!document.getElementById('labels').checked) { for (const l of labels) l.div.style.display = 'none'; return; }
+function updateLabels() { projectLabelSet(labels, document.getElementById('labels').checked); }
+function updateLandmarks() { projectLabelSet(landmarks, document.getElementById('landmarks').checked); }
+
+// shared: project a label set to screen, drop off-mesh/behind/occluded, then declutter
+// (tallest first; hide overlaps). Used by both the peaks layer and the landmarks layer.
+function projectLabelSet(set, show) {
+  if (!show) { for (const l of set) l.div.style.display = 'none'; return; }
   const g = curG; if (!g) return;
-  // 1) project each peak (E/N → this source's grid), drop off-mesh / behind-camera / terrain-occluded
   const cand = [];
-  for (const l of labels) {
+  for (const l of set) {
     const col = (l.E - g.bE) / g.aE, row = (l.N - g.bN) / g.aN;
     if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { l.div.style.display = 'none'; continue; }
     const lx = (col - W/2)*cell, ly = sampleE(col, row)*VE, lz = (row - H/2)*cell;
@@ -1253,6 +1275,7 @@ function animate() {
   world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests
   _camLocal.copy(camera.position); world.worldToLocal(_camLocal);
   updateLabels();
+  updateLandmarks();
   updateStations();
 }
 
@@ -1268,6 +1291,7 @@ function serializeState() {
   p.set('ml', g('meshlines').checked ? '1' : '0');
   p.set('w', g('water').checked ? '1' : '0');
   p.set('lb', g('labels').checked ? '1' : '0');
+  p.set('lm', g('landmarks').checked ? '1' : '0');
   p.set('L', [...document.querySelectorAll('#layers input:checked')].map(i => i.id.slice(4)).join('.'));
   if (wireColor) p.set('mc', wireColor.slice(1));
   p.set('sc', solidColor.slice(1));
@@ -1313,6 +1337,7 @@ function applyState(p) {
   if (p.has('ml'))   setChk('meshlines', p.get('ml') === '1');
   if (p.has('w'))    setChk('water', p.get('w') === '1');
   if (p.has('lb'))   setChk('labels', p.get('lb') === '1');
+  if (p.has('lm'))   setChk('landmarks', p.get('lm') === '1');
   if (p.has('L')) {
     const on = new Set(p.get('L').split('.').filter(Boolean));
     for (const inp of document.querySelectorAll('#layers input')) setChk(inp.id, on.has(inp.id.slice(4)));
