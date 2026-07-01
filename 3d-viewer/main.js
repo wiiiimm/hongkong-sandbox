@@ -1039,9 +1039,9 @@ function drawTideGraph() {
   ctx.fillStyle = lightUi ? 'rgba(40,120,160,.14)' : 'rgba(90,170,215,.16)'; ctx.fill();
   // "now" marker + dot
   const nx = xOf(nowHour), nv = tideAt(vals, nowHour);
-  ctx.strokeStyle = 'rgba(63,224,176,.85)'; ctx.lineWidth = 1;
+  ctx.strokeStyle = lightUi ? 'rgba(11,143,102,.8)' : 'rgba(53,203,160,.85)'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(nx, gTop - 3); ctx.lineTo(nx, gBot); ctx.stroke();
-  if (isFinite(nv)) { ctx.fillStyle = '#3fe0b0'; ctx.beginPath(); ctx.arc(nx, yOf(nv), 2.8, 0, 7); ctx.fill(); }
+  if (isFinite(nv)) { ctx.fillStyle = lightUi ? '#0b8f66' : '#35cba0'; ctx.beginPath(); ctx.arc(nx, yOf(nv), 2.8, 0, 7); ctx.fill(); }
   // axis ticks + high-water marker
   ctx.font = '9px ui-monospace, monospace';
   ctx.fillStyle = lightUi ? 'rgba(20,30,40,.55)' : 'rgba(255,255,255,.5)';
@@ -1217,7 +1217,7 @@ function applyStationReadings(R) {
     } else if (isFinite(parseFloat(d.wspd))) {
       const gust = parseFloat(d.gust), dir = d.wdir && d.wdir !== 'N/A' ? d.wdir : '';
       ic.textContent = '💨';
-      tEl.textContent = Math.round(parseFloat(d.wspd)); tEl.style.color = '#cfe6ff';
+      tEl.textContent = Math.round(parseFloat(d.wspd)); tEl.style.color = 'rgba(224,236,245,.9)';
       rhEl.textContent = `${dir}${isFinite(gust) ? ` · ${t('tip.gust')} ${gust}` : ''}`.trim();
     } else {
       ic.textContent = wxEmoji;
