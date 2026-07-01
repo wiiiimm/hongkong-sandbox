@@ -33,7 +33,7 @@ const SOURCES = {
     texbb:   'data/hk-texbb.json',
     overlay: 'data/hk-b50k-vectors.json',
     landcover: 'data/hk-b50k-landcover.json',
-    ve: 2.2,
+    ve: 2.8,
   },
   'hk-srtm': {
     label: 'Hong Kong · AWS Terrarium ~30 m',
@@ -481,7 +481,7 @@ function animate() {
 
 resize();
 applyBg('dark');
-loadSource('lantau-hk5m').then(animate).catch(err => {
+loadSource('hk-landsd-5m').then(animate).catch(err => {
   document.getElementById('note').textContent = 'Load failed: ' + err.message;
   console.error(err);
 });
