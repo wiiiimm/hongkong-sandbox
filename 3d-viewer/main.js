@@ -64,6 +64,7 @@ let VE = 2.6, surfStyle = 'shaded', bgMode = 'dark';
 let matShaded, matTint, matMatte, matSolid, matTopo, texTopo = null;
 let spinDir = 0, spinSpeed = 1;   // horizontal auto-spin (0 = off)
 let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
+let solidColor = '#262626';       // fill colour for the "Solid colour" surface
 
 // ---- helpers (ported from the original viewer) -----------------------------
 function hyps(e, zmax) {
@@ -170,7 +171,7 @@ function buildTerrain() {
   matShaded = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0 });
   matTint   = new THREE.MeshBasicMaterial({ vertexColors: true });                 // flat hypsometric
   matMatte  = new THREE.MeshStandardMaterial({ color: 0x8a8f86, roughness: 1, metalness: 0 });
-  matSolid  = new THREE.MeshBasicMaterial({ color: 0x262626 });                    // flat solid fill
+  matSolid  = new THREE.MeshBasicMaterial({ color: solidColor });                  // flat solid fill
   matTopo   = new THREE.MeshStandardMaterial({ roughness: 0.96, metalness: 0 });
 
   terrain = new THREE.Mesh(geo, matShaded);
@@ -275,6 +276,7 @@ function applyStyle(style) {
   // 'none' = no filled surface; every other style fills the terrain.
   terrain.visible = (style !== 'none');
   if (terrain.visible) terrain.material = mats[style] || matShaded;
+  document.getElementById('solidrow').style.display = (style === 'solid') ? '' : 'none';
   // mesh lines are an independent overlay in ALL styles (incl. none)
   wireOverlay.visible = document.getElementById('meshlines').checked;
   wireLook();
@@ -323,6 +325,15 @@ function setWireColor(hex) {
 mlColor.addEventListener('input', e => setWireColor(e.target.value));
 mlHex.addEventListener('change', e => setWireColor(e.target.value));
 document.getElementById('mlauto').addEventListener('click', () => { wireColor = null; wireLook(); });
+const solidColorEl = document.getElementById('solidcolor'), solidHexEl = document.getElementById('solidhex');
+function setSolidColor(hex) {
+  hex = hex.trim(); if (!/^#?[0-9a-fA-F]{6}$/.test(hex)) return;
+  if (hex[0] !== '#') hex = '#' + hex;
+  solidColor = hex; solidColorEl.value = hex; solidHexEl.value = hex;
+  if (matSolid) matSolid.color.set(hex);
+}
+solidColorEl.addEventListener('input', e => setSolidColor(e.target.value));
+solidHexEl.addEventListener('change', e => setSolidColor(e.target.value));
 document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; });
 document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); });
 document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); });

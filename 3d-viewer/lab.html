@@ -54,9 +54,14 @@
         <option value="shaded" selected>Shaded relief</option>
         <option value="tint">Elevation tint (flat)</option>
         <option value="matte">Matte</option>
-        <option value="solid">Solid · #262626</option>
+        <option value="solid">Solid colour</option>
         <option value="topo">Topographic (B50K)</option>
       </select>
+    </div>
+    <div class="row" id="solidrow" style="display:none"><label class="k">Fill colour</label>
+      <input type="color" id="solidcolor" value="#262626" style="flex:0 0 34px;height:24px;padding:0;border:1px solid var(--field-edge);border-radius:6px;background:none;cursor:pointer"/>
+      <input type="text" id="solidhex" value="#262626" spellcheck="false"
+             style="flex:1;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
     </div>
     <div class="row"><label class="k">Background</label>
       <select id="bg"><option value="dark">Dark</option><option value="paper">Paper</option></select>
