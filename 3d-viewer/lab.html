@@ -12,9 +12,9 @@
   html,body{margin:0;height:100%;overflow:hidden;background:#0e1116;color:#e8e6df;
     font-family:-apple-system,Segoe UI,Roboto,'Noto Serif CJK TC',serif}
   #app{position:fixed;inset:0}
-  #panel{position:fixed;top:14px;left:14px;background:var(--panel-dark);backdrop-filter:blur(6px);
+  #panel{position:fixed;top:14px;left:14px;z-index:20;background:var(--panel-dark);backdrop-filter:blur(6px);
     border:1px solid var(--edge);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.5;
-    max-width:280px;max-height:calc(100vh - 28px);overflow:auto}
+    width:320px;max-width:calc(100vw - 28px);max-height:calc(100vh - 28px);overflow:auto}
   #panel h1{font-size:14px;margin:0 0 4px;letter-spacing:.04em;font-weight:600}
   #panel .sub{color:var(--panel-sub);font-size:11px;margin-bottom:10px;min-height:16px}
   .grp{border-top:1px solid var(--edge);margin-top:8px;padding-top:8px}

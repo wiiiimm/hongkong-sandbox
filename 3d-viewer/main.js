@@ -84,6 +84,7 @@ const world = new THREE.Group(); scene.add(world);
 // ---- per-source state ------------------------------------------------------
 let W, H, cell, elev, zmax, peaks = [];
 let meshStep = 1, gridW = 0, gridH = 0, curG = null, curTexbb = null;   // mesh density state
+let firstLoad = true;   // apply per-source default VE only on the very first load
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
 let skinBase = new Map();                               // layer -> Float32Array of base (unexaggerated) y
 let labels = [];
@@ -120,11 +121,12 @@ const skinOffset = () => cell * 0.6; // lift lines just above the surface, scale
 async function loadSource(id) {
   const s = SOURCES[id];
   document.getElementById('note').textContent = 'Loading ' + s.label + '…';
+  // dev: propagate the page's ?v to data fetches so edits bust cache; no-op in prod
+  const ver = new URLSearchParams(location.search).get('v');
+  const q = ver ? ('?v=' + ver) : '';
+  const fj = u => fetch(u + q).then(r => r.json());
   const [mesh, georefAll, texbbWrap, overlay] = await Promise.all([
-    fetch(s.mesh).then(r => r.json()),
-    fetch(s.georef.file).then(r => r.json()),
-    fetch(s.texbb).then(r => r.json()),
-    fetch(s.overlay).then(r => r.json()),
+    fj(s.mesh), fj(s.georef.file), fj(s.texbb), fj(s.overlay),
   ]);
   const g = s.georef.key ? georefAll[s.georef.key] : georefAll;   // keyed (lantau) or flat (hk)
   const texbb = texbbWrap.texbb;
@@ -132,7 +134,7 @@ async function loadSource(id) {
   W = mesh.w; H = mesh.h; cell = mesh.cell; elev = mesh.elev; zmax = mesh.zmax;
   peaks = mesh.peaks || [];
   curG = g; curTexbb = texbb;
-  VE = s.ve;
+  if (firstLoad) VE = s.ve;   // apply source default only on first load; otherwise keep user's setting
   document.getElementById('ve').value = VE;
   document.getElementById('vev').textContent = VE.toFixed(1);
 
@@ -147,6 +149,7 @@ async function loadSource(id) {
   applyVE();
   frameCamera();
   updateNote();
+  firstLoad = false;
 }
 
 function updateNote() {
@@ -215,7 +218,11 @@ function buildTerrain() {
 function buildSkin(overlay, g, texbb) {
   if (skin) { world.remove(skin); skin.traverse(o => o.geometry?.dispose()); }
   skin = new THREE.Group(); skinBase.clear();
-  const layersDiv = document.getElementById('layers'); layersDiv.innerHTML = '';
+  const layersDiv = document.getElementById('layers');
+  // preserve the user's per-layer toggle choices across a source switch
+  const prev = {};
+  for (const inp of layersDiv.querySelectorAll('input')) prev[inp.id.replace('lyr_', '')] = inp.checked;
+  layersDiv.innerHTML = '';
 
   for (const [name, style] of Object.entries(LAYER_STYLE)) {
     const lines = overlay[name]; if (!lines || !lines.length) continue;
@@ -234,16 +241,17 @@ function buildSkin(overlay, g, texbb) {
     }
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    const on = (name in prev) ? prev[name] : style.on;   // keep prior choice, else default
     const seg = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ color: style.colour }));
     seg.name = name;
-    seg.visible = style.on;
+    seg.visible = on;
     skin.add(seg);
     skinBase.set(name, new Float32Array(baseY));
 
     // toggle UI
     const id = 'lyr_' + name;
     const lab = document.createElement('label'); lab.className = 'chk';
-    lab.innerHTML = `<input type="checkbox" id="${id}" ${style.on?'checked':''}/> ${style.label}`;
+    lab.innerHTML = `<input type="checkbox" id="${id}" ${on?'checked':''}/> ${style.label}`;
     layersDiv.appendChild(lab);
     lab.querySelector('input').addEventListener('change', e => { seg.visible = e.target.checked; });
   }
