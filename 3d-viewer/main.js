@@ -825,6 +825,103 @@ document.getElementById('reset').addEventListener('click', frameCamera);
 document.getElementById('south').addEventListener('click', southView);
 document.getElementById('top').addEventListener('click', topView);
 
+// ---- live per-station weather overlay (HKO automatic weather stations) -----
+// Coordinates are baked (data/hko-stations.json, HK1980 grid). Live readings
+// come from HKO's regional-weather CSVs, which lack CORS headers — so we route
+// them through data.gov.hk's historical-archive, which re-serves with CORS *.
+let stationData = null, stationMarkers = [], stationsOn = false, stationT = null;
+const ARCHIVE = 'https://api.data.gov.hk/v1/historical-archive/get-file?url=';
+const REGIONAL = 'https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/';
+
+function ghTime() {   // HKT ~15 min ago as YYYYMMDD-HHMM: the archive only has snapshots
+  const m = new Date(Date.now() - 15 * 60000)   // up to the last archived version, not the current minute
+    .toLocaleString('en-CA', { timeZone: 'Asia/Hong_Kong', hour12: false })
+    .match(/(\d{4})-(\d{2})-(\d{2})[,\s]+(\d{2}):(\d{2})/);
+  return m ? `${m[1]}${m[2]}${m[3]}-${m[4]}${m[5]}` : '';
+}
+const regUrl = file => ARCHIVE + encodeURIComponent(REGIONAL + file) + '&time=' + ghTime();
+function parseCsv(text) {
+  const out = [];
+  for (const line of (text || '').trim().split(/\r?\n/).slice(1)) {
+    const c = line.split(','); if (c.length >= 2) out.push(c);
+  }
+  return out;
+}
+async function fetchStationReadings() {
+  const grab = f => fetch(regUrl(f)).then(r => r.ok ? r.text() : '').catch(() => '');
+  const [t, h, w, p] = await Promise.all([
+    grab('latest_1min_temperature.csv'), grab('latest_1min_humidity.csv'),
+    grab('latest_10min_wind.csv'), grab('latest_1min_pressure.csv'),
+  ]);
+  const R = {}, at = n => (R[n] || (R[n] = {}));
+  for (const r of parseCsv(t)) at(r[1].trim()).temp = r[2];
+  for (const r of parseCsv(h)) at(r[1].trim()).rh = r[2];
+  for (const r of parseCsv(w)) { const s = at(r[1].trim()); s.wdir = r[2]; s.wspd = r[3]; s.gust = r[4]; }
+  for (const r of parseCsv(p)) at(r[1].trim()).pres = r[2];
+  return R;
+}
+function tempColor(t) {           // 12°C (blue) -> 36°C (red)
+  const x = Math.max(0, Math.min(1, (t - 12) / 24));
+  return `rgb(${Math.round(70 + x*170)},${Math.round(130 - x*40)},${Math.round(210 - x*170)})`;
+}
+async function ensureStations() {
+  if (stationData) return;
+  const ver = new URLSearchParams(location.search).get('v');
+  stationData = await fetch('data/hko-stations.json' + (ver ? '?v=' + ver : '')).then(r => r.json());
+}
+function clearStationMarkers() { stationMarkers.forEach(m => m.el.remove()); stationMarkers = []; }
+function buildStationMarkers() {
+  clearStationMarkers();
+  for (const s of stationData.stations) {
+    const el = document.createElement('div'); el.className = 'stn'; el.style.display = 'none';
+    el.innerHTML = `<span class="t">–</span><div class="tip"></div>`;
+    document.body.appendChild(el);
+    stationMarkers.push({ el, E: s.E, N: s.N, name: s.name, zh: s.zh });
+  }
+}
+function applyStationReadings(R) {
+  for (const m of stationMarkers) {
+    const d = R[m.name] || {}, t = parseFloat(d.temp);
+    m.el.querySelector('.t').textContent = isFinite(t) ? Math.round(t) + '°' : '–';
+    m.el.style.background = isFinite(t) ? tempColor(t) : 'rgba(20,24,30,.72)';
+    const rows = [`<b>${m.zh ? m.zh + ' · ' : ''}${m.name}</b>`];
+    if (isFinite(t)) rows.push(`${t}°C`);
+    if (d.rh) rows.push(`humidity ${d.rh}%`);
+    if (d.wdir) rows.push(`wind ${d.wdir} ${d.wspd || '–'} km/h${d.gust ? ` · gust ${d.gust}` : ''}`);
+    if (d.pres) rows.push(`${d.pres} hPa`);
+    m.el.querySelector('.tip').innerHTML = rows.join('<br>');
+  }
+}
+async function refreshStations() {
+  await ensureStations();
+  if (!stationMarkers.length) buildStationMarkers();
+  try { applyStationReadings(await fetchStationReadings()); }
+  catch (e) { console.error('stations', e); }
+}
+async function setStations(on) {
+  stationsOn = on;
+  clearInterval(stationT);
+  if (on) { await refreshStations(); stationT = setInterval(refreshStations, 300000); }
+  else clearStationMarkers();
+}
+document.getElementById('stations').addEventListener('change', e => setStations(e.target.checked));
+
+// project station markers onto the terrain each frame (like the peak labels)
+function updateStations() {
+  if (!stationsOn || !stationMarkers.length || !curG) return;
+  const g = curG;
+  for (const m of stationMarkers) {
+    const col = (m.E - g.bE) / g.aE, row = (m.N - g.bN) / g.aN;
+    if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { m.el.style.display = 'none'; continue; }
+    v.set((col - W/2)*cell, sampleE(col, row)*VE, (row - H/2)*cell);
+    world.localToWorld(v); v.project(camera);
+    if (v.z > 1) { m.el.style.display = 'none'; continue; }
+    m.el.style.display = '';
+    m.el.style.left = ((v.x*0.5 + 0.5) * innerWidth) + 'px';
+    m.el.style.top  = ((-v.y*0.5 + 0.5) * innerHeight) + 'px';
+  }
+}
+
 // ---- label projection + render loop ---------------------------------------
 const v = new THREE.Vector3();
 function updateLabels() {
@@ -857,6 +954,7 @@ function animate() {
   updateClip();                 // keep near/far tuned to the current zoom distance
   renderer.render(scene, camera);
   updateLabels();
+  updateStations();
 }
 
 // ---- shareable state: sync all controls + camera to the URL ----------------
@@ -886,6 +984,7 @@ function serializeState() {
   p.set('wi', String(Math.round(windStrength * 100)));
   p.set('wd', g('winddir').value);
   p.set('lv', liveMode ? '1' : '0');
+  p.set('ws', stationsOn ? '1' : '0');
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
                 r(controls.target.x), r(controls.target.y), r(controls.target.z),
@@ -930,6 +1029,7 @@ function applyState(p) {
   if (p.has('wd')) setVal('winddir', p.get('wd'));       // direction before signal (badge quadrant)
   if (p.has('st')) setVal('storm', p.get('st'));         // applies the signal preset
   if (p.has('wi')) setVal('wind', p.get('wi'), 'input'); // then any custom wind override
+  if (p.has('ws')) setChk('stations', p.get('ws') === '1');
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
     if (c.length >= 6 && c.every(isFinite)) {

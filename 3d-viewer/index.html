@@ -88,6 +88,18 @@
   #stormbadge small{display:block;font-weight:500;font-size:9.5px;opacity:.82;letter-spacing:.14em;margin-top:1px;text-transform:uppercase}
   @keyframes stormpulse{0%,100%{opacity:1}50%{opacity:.62}}
   #stormbadge.sev{animation:stormpulse 1.1s ease-in-out infinite}
+  /* live weather-station markers */
+  .stn{position:fixed;transform:translate(-50%,-50%);z-index:15;pointer-events:auto;cursor:default;
+    font-family:var(--mono);font-size:10.5px;font-weight:600;color:#fff;padding:2px 5px;border-radius:9px;
+    white-space:nowrap;background:rgba(20,24,30,.7);border:1px solid rgba(255,255,255,.2);
+    text-shadow:0 1px 2px rgba(0,0,0,.95);box-shadow:0 1px 4px rgba(0,0,0,.4)}
+  .stn:hover{z-index:31;border-color:var(--accent)}
+  .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
+    background:rgba(11,14,19,.94);border:1px solid var(--edge);border-radius:8px;padding:6px 9px;
+    font-size:10.5px;font-weight:400;line-height:1.55;color:var(--ink);min-width:130px;text-align:left;
+    box-shadow:0 8px 24px rgba(0,0,0,.55);backdrop-filter:blur(10px)}
+  .stn:hover .tip{display:block}
+  .stn .tip b{color:var(--accent);font-weight:600}
   input[type=range]:disabled{opacity:.45;cursor:not-allowed}
   input[type=checkbox]:disabled{opacity:.45;cursor:not-allowed}
   .chk input:disabled + *, label.chk:has(input:disabled){opacity:.5;cursor:not-allowed}
@@ -177,6 +189,7 @@
     <div class="chks">
       <label class="chk"><input type="checkbox" id="water" checked/> Water</label>
       <label class="chk"><input type="checkbox" id="labels" checked/> Labels</label>
+      <label class="chk"><input type="checkbox" id="stations"/> Stations (live)</label>
     </div>
     <div class="chks" id="layers" style="margin-top:4px"></div>
   </div>
