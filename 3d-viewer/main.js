@@ -59,7 +59,7 @@ let labels = [];
 let VE = 2.6, surfStyle = 'shaded', bgMode = 'dark';
 let matShaded, matTint, matMatte, matTopo, texTopo = null;
 let spinDir = 0, spinSpeed = 1;   // horizontal auto-spin (0 = off)
-let wireColor = null;             // user-picked mesh-line colour; null = auto by background
+let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
 
 // ---- helpers (ported from the original viewer) -----------------------------
 function hyps(e, zmax) {
