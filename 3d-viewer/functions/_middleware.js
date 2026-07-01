@@ -32,7 +32,8 @@ export async function onRequest(context) {
 
   const seg = url.pathname.split('/')[1];
   if (LOCALES.includes(seg)) {                                    // /<locale>/… → serve the SPA
-    const res = await env.ASSETS.fetch(new Request(new URL('/index.html', url), request));
+    // fetch '/' (not '/index.html' — Pages 308-redirects that to '/', which would loop)
+    const res = await env.ASSETS.fetch(new URL('/', url));
     const out = new Response(res.body, res);
     out.headers.set('Content-Type', 'text/html; charset=utf-8');
     out.headers.append('Set-Cookie', cookie(seg));
