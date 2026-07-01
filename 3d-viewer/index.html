@@ -89,10 +89,23 @@
   @keyframes stormpulse{0%,100%{opacity:1}50%{opacity:.62}}
   #stormbadge.sev{animation:stormpulse 1.1s ease-in-out infinite}
   /* live weather-station markers */
-  .stn{position:fixed;transform:translate(-50%,-50%);z-index:15;pointer-events:auto;cursor:default;
-    font-family:var(--mono);font-size:10.5px;font-weight:600;color:#fff;padding:2px 5px;border-radius:9px;
-    white-space:nowrap;background:rgba(20,24,30,.7);border:1px solid rgba(255,255,255,.2);
-    text-shadow:0 1px 2px rgba(0,0,0,.95);box-shadow:0 1px 4px rgba(0,0,0,.4)}
+  /* TV-style weather cards: icon + big temp + place name, on a stem to the point */
+  .stn{position:fixed;transform:translate(-50%,-100%);z-index:15;pointer-events:auto;cursor:default;
+    font-family:var(--sans);white-space:nowrap;text-align:center;padding:3px 9px 4px;border-radius:10px;
+    background:linear-gradient(180deg,rgba(24,30,40,.9),rgba(12,16,22,.9));
+    border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 18px rgba(0,0,0,.55);
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+  .stn:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:11px;
+    background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,0));transform:translateX(-50%)}
+  .stn:after{content:'';position:absolute;left:50%;top:calc(100% + 11px);width:5px;height:5px;border-radius:50%;
+    background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 2px rgba(0,0,0,.45),0 0 6px rgba(255,255,255,.4)}
+  .stn .row{display:flex;align-items:center;justify-content:center;gap:5px;line-height:1}
+  .stn .ic{font-size:14px}
+  .stn .t{font-size:15px;font-weight:700;letter-spacing:-.02em;color:#fff}
+  .stn .rh{display:block;font-size:8.5px;font-weight:600;color:#84b6de;margin-top:2px}
+  .stn .nm{display:block;margin-top:2px}
+  .stn .nm .zh{font-size:10px;font-weight:600;color:var(--ink)}
+  .stn .nm .en{font-size:7.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--sub);margin-left:3px}
   .stn:hover{z-index:31;border-color:var(--accent)}
   .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
     background:rgba(11,14,19,.94);border:1px solid var(--edge);border-radius:8px;padding:6px 9px;

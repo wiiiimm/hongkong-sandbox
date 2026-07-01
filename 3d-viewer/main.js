@@ -829,7 +829,7 @@ document.getElementById('top').addEventListener('click', topView);
 // Coordinates are baked (data/hko-stations.json, HK1980 grid). Live readings
 // come from HKO's regional-weather CSVs, which lack CORS headers — so we route
 // them through data.gov.hk's historical-archive, which re-serves with CORS *.
-let stationData = null, stationMarkers = [], stationsOn = false, stationT = null;
+let stationData = null, stationMarkers = [], stationsOn = false, stationT = null, wxEmoji = '⛅';
 const ARCHIVE = 'https://api.data.gov.hk/v1/historical-archive/get-file?url=';
 const REGIONAL = 'https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/';
 
@@ -860,6 +860,27 @@ async function fetchStationReadings() {
   for (const r of parseCsv(p)) at(r[1].trim()).pres = r[2];
   return R;
 }
+function iconEmoji(c) {            // HKO weather-icon code -> emoji (rain/sun status)
+  if (c == null) return '⛅';
+  if (c === 50) return '☀️';
+  if ([51, 52, 77].includes(c)) return '🌤️';
+  if ([53, 54, 62, 63].includes(c)) return '🌦️';
+  if ([60, 61, 76].includes(c)) return '☁️';
+  if (c === 64) return '🌧️';
+  if (c === 65) return '⛈️';
+  if ([83, 84, 85].includes(c)) return '🌫️';
+  if ([70, 71, 72, 73, 74, 75].includes(c)) return '🌙';
+  if (c === 80) return '💨';
+  if ([90, 91].includes(c)) return '🔥';
+  if ([92, 93].includes(c)) return '❄️';
+  return '⛅';
+}
+async function fetchWxEmoji() {   // territory-wide current condition (rhrread is CORS-open)
+  try {
+    const j = await fetch('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=rhrread').then(r => r.json());
+    wxEmoji = iconEmoji((j.icon || [])[0]);
+  } catch (_) {}
+}
 function tempColor(t) {           // 12°C (blue) -> 36°C (red)
   const x = Math.max(0, Math.min(1, (t - 12) / 24));
   return `rgb(${Math.round(70 + x*170)},${Math.round(130 - x*40)},${Math.round(210 - x*170)})`;
@@ -874,7 +895,8 @@ function buildStationMarkers() {
   clearStationMarkers();
   for (const s of stationData.stations) {
     const el = document.createElement('div'); el.className = 'stn'; el.style.display = 'none';
-    el.innerHTML = `<span class="t">–</span><div class="tip"></div>`;
+    const nm = `<span class="nm">${s.zh ? `<span class="zh">${s.zh}</span>` : ''}<span class="en">${s.name}</span></span>`;
+    el.innerHTML = `<div class="row"><span class="ic">·</span><span class="t">–</span></div><span class="rh"></span>${nm}<div class="tip"></div>`;
     document.body.appendChild(el);
     stationMarkers.push({ el, E: s.E, N: s.N, name: s.name, zh: s.zh });
   }
@@ -882,8 +904,11 @@ function buildStationMarkers() {
 function applyStationReadings(R) {
   for (const m of stationMarkers) {
     const d = R[m.name] || {}, t = parseFloat(d.temp);
-    m.el.querySelector('.t').textContent = isFinite(t) ? Math.round(t) + '°' : '–';
-    m.el.style.background = isFinite(t) ? tempColor(t) : 'rgba(20,24,30,.72)';
+    m.el.querySelector('.ic').textContent = wxEmoji;
+    const tEl = m.el.querySelector('.t');
+    tEl.textContent = isFinite(t) ? Math.round(t) + '°' : '–';
+    tEl.style.color = isFinite(t) ? tempColor(t) : 'var(--sub)';
+    m.el.querySelector('.rh').textContent = d.rh ? `💧 ${d.rh}%` : '';
     const rows = [`<b>${m.zh ? m.zh + ' · ' : ''}${m.name}</b>`];
     if (isFinite(t)) rows.push(`${t}°C`);
     if (d.rh) rows.push(`humidity ${d.rh}%`);
@@ -895,8 +920,10 @@ function applyStationReadings(R) {
 async function refreshStations() {
   await ensureStations();
   if (!stationMarkers.length) buildStationMarkers();
-  try { applyStationReadings(await fetchStationReadings()); }
-  catch (e) { console.error('stations', e); }
+  try {
+    const [readings] = await Promise.all([fetchStationReadings(), fetchWxEmoji()]);
+    applyStationReadings(readings);
+  } catch (e) { console.error('stations', e); }
 }
 async function setStations(on) {
   stationsOn = on;
