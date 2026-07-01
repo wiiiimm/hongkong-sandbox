@@ -70,7 +70,7 @@ const I18N = {
     'src.lan5m': 'Lantau · LandsD 5 m', 'src.lansrtm': 'Lantau · AWS Terrarium ~30 m',
     'lbl.surface': 'Surface', 'surf.none': 'None (no fill)', 'surf.shaded': 'Shaded relief', 'surf.tint': 'Elevation tint (flat)',
     'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
-    'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.mappan': 'Map pan', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
+    'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.labels': 'Labels', 'ov.stations': 'Stations (live)',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
@@ -93,7 +93,7 @@ const I18N = {
     'src.lan5m': '大嶼山 · 地政總署 5 米', 'src.lansrtm': '大嶼山 · AWS Terrarium ~30 米',
     'lbl.surface': '表面', 'surf.none': '無填色', 'surf.shaded': '陰影地貌', 'surf.tint': '高程著色（平面）',
     'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
-    'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.mappan': '地圖平移', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
+    'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.labels': '地名', 'ov.stations': '氣象站（即時）',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
@@ -151,7 +151,6 @@ let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null =
 let solidColor = '#262626';       // fill colour for the "Solid colour" surface
 let texRot = 0;                   // B50K raster rotation in degrees (manual alignment)
 let baseUV = null, webTex = null, webUVAttr = null, webKind = null, matWeb = null;   // web-map drape
-let webOffX = 0, webOffY = 0, webRotDeg = 0;   // manual alignment nudge for the web-map skin
 
 // ---- helpers (ported from the original viewer) -----------------------------
 function hyps(e, zmax) {
@@ -652,37 +651,13 @@ function applyWebSurface() {
   terrain.geometry.setAttribute('uv', webUVAttr);
   terrain.material = matWeb;
   const a = document.getElementById('mapattr'); a.textContent = TILE_SRC[webKind].attr;
-  applyWebAdjust();
 }
-// manual alignment nudge for the draped web map (debug: pan + rotate the texture)
-function applyWebAdjust() {
-  if (webTex) {
-    webTex.center.set(0.5, 0.5);
-    webTex.offset.set(webOffX, webOffY);
-    webTex.rotation = webRotDeg * Math.PI / 180;
-    webTex.needsUpdate = true;
-  }
-  const pv = document.getElementById('wpanv'); if (pv) pv.textContent = `${webOffX.toFixed(4)}, ${webOffY.toFixed(4)}`;
-  const rv = document.getElementById('wrotv'); if (rv) rv.textContent = webRotDeg.toFixed(1) + '°';
-}
-const wpan = (dx, dy) => () => { webOffX = +(webOffX + dx).toFixed(4); webOffY = +(webOffY + dy).toFixed(4); applyWebAdjust(); syncUrl(); };
-document.getElementById('wpanL').addEventListener('click', wpan(-0.001, 0));
-document.getElementById('wpanR').addEventListener('click', wpan(0.001, 0));
-document.getElementById('wpanU').addEventListener('click', wpan(0, -0.001));
-document.getElementById('wpanD').addEventListener('click', wpan(0, 0.001));
-document.getElementById('wpan0').addEventListener('click', () => { webOffX = webOffY = 0; applyWebAdjust(); syncUrl(); });
-const wrot = d => () => { webRotDeg = +(webRotDeg + d).toFixed(1); applyWebAdjust(); syncUrl(); };
-document.getElementById('wrotL').addEventListener('click', wrot(-0.2));
-document.getElementById('wrotR').addEventListener('click', wrot(0.2));
-document.getElementById('wrot0').addEventListener('click', () => { webRotDeg = 0; applyWebAdjust(); syncUrl(); });
 
 function applyStyle(style) {
   surfStyle = style;
   const web = (style === 'osm' || style === 'sat');
   document.getElementById('solidrow').style.display = (style === 'solid') ? '' : 'none';
   document.getElementById('toporow').style.display = (style === 'topo') ? '' : 'none';
-  document.getElementById('webadjrow').style.display = web ? '' : 'none';
-  document.getElementById('webrotrow').style.display = web ? '' : 'none';
   document.getElementById('mapattr').style.display = web ? 'block' : 'none';
   // mesh lines are an independent overlay in ALL styles (incl. none)
   wireOverlay.visible = document.getElementById('meshlines').checked;
@@ -1262,7 +1237,6 @@ function serializeState() {
   p.set('lv', liveMode ? '1' : '0');
   p.set('ws', stationsOn ? '1' : '0');
   if (!pathRouted()) p.set('locale', locale);   // in path mode the locale lives in the URL path instead
-  if (webOffX) p.set('wox', webOffX); if (webOffY) p.set('woy', webOffY); if (webRotDeg) p.set('wor', webRotDeg);
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
                 r(controls.target.x), r(controls.target.y), r(controls.target.z),
@@ -1309,10 +1283,6 @@ function applyState(p) {
   if (p.has('st')) setVal('storm', p.get('st'));         // applies the signal preset
   if (p.has('wi')) setVal('wind', p.get('wi'), 'input'); // then any custom wind override
   if (p.has('ws')) setChk('stations', p.get('ws') === '1');
-  if (p.has('wox')) webOffX = parseFloat(p.get('wox')) || 0;
-  if (p.has('woy')) webOffY = parseFloat(p.get('woy')) || 0;
-  if (p.has('wor')) webRotDeg = parseFloat(p.get('wor')) || 0;
-  applyWebAdjust();
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
     if (c.length >= 6 && c.every(isFinite)) {
