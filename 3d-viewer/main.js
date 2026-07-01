@@ -14,7 +14,6 @@ const SOURCES = {
     georef:  { file: 'data/lantau-georefs.json', key: 'hk5m' },
     texbb:   'data/lantau-texbb.json',
     overlay: 'data/lantau-b50k-vectors.json',   // re-extracted from B50K GML, grid-aligned
-    texture: 'data/lantau-b50k-topo-texture.png',
     landcover: 'data/lantau-b50k-landcover.json',
     ve: 2.6,
   },
@@ -24,7 +23,6 @@ const SOURCES = {
     georef:  { file: 'data/lantau-georefs.json', key: 'srtm30' },
     texbb:   'data/lantau-texbb.json',           // shared: B50K texture geographic bounds
     overlay: 'data/lantau-b50k-vectors.json',    // shared: vectors are in absolute E/N via texbb
-    texture: 'data/lantau-b50k-topo-texture.png',
     landcover: 'data/lantau-b50k-landcover.json',
     ve: 2.6,
   },
@@ -34,7 +32,6 @@ const SOURCES = {
     georef:  { file: 'data/hk-georef.json' },     // flat georef (no key)
     texbb:   'data/hk-texbb.json',
     overlay: 'data/hk-b50k-vectors.json',
-    texture: 'data/hk-b50k-topo-texture.png',
     landcover: 'data/hk-b50k-landcover.json',
     ve: 2.2,
   },
@@ -44,7 +41,6 @@ const SOURCES = {
     georef:  { file: 'data/hk-georef.json' },
     texbb:   'data/hk-texbb.json',
     overlay: 'data/hk-b50k-vectors.json',
-    texture: 'data/hk-b50k-topo-texture.png',
     landcover: 'data/hk-b50k-landcover.json',
     ve: 2.2,
   },
