@@ -27,9 +27,12 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4 pages project create hongkong-3d-model --production-branch=main || true
 
+      # run from 3d-viewer/ so wrangler picks up 3d-viewer/functions/ (the locale
+      # middleware) — it looks for functions/ in the working directory, not the asset arg
       - name: Deploy 3d-viewer to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy 3d-viewer --project-name=hongkong-3d-model --branch=main
+          workingDirectory: 3d-viewer
+          command: pages deploy . --project-name=hongkong-3d-model --branch=main
