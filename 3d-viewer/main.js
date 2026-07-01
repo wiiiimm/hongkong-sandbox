@@ -600,6 +600,9 @@ function enToLL(E, N) {                    // HK1980 grid -> { lon, lat } degree
 }
 const lonToMx = lon => (lon + 180)/360;
 const latToMy = lat => { const r = lat*Math.PI/180; return (1 - Math.log(Math.tan(r) + 1/Math.cos(r))/Math.PI)/2; };
+// constant Web-Mercator shift for the WGS84↔HK1980 datum difference (~270 m), from
+// manual alignment on the Esri satellite skin (UV offset 0.0040, -0.0030 on the HK mosaic)
+const DATUM_MX = 7.3242e-6, DATUM_MY = 4.3945e-6;
 const TILE_SRC = {
   osm: { url: (z,x,y) => `https://tile.openstreetmap.org/${z}/${x}/${y}.png`, attr: '© OpenStreetMap contributors' },
   sat: { url: (z,x,y) => `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`, attr: 'Imagery © Esri, Maxar, Earthstar Geographics' },
@@ -632,8 +635,8 @@ async function buildWebMap(kind) {
   for (let i = 0; i < nV; i++) {
     const c = pos[i*3]/cell + W/2, r = pos[i*3+2]/cell + H/2;
     const ll = enToLL(g.aE*c + g.bE, g.aN*r + g.bN);
-    uv[i*2]   = (lonToMx(ll.lon) - cmx0)/(cmx1 - cmx0);
-    uv[i*2+1] = 1 - (latToMy(ll.lat) - cmy0)/(cmy1 - cmy0);
+    uv[i*2]   = (lonToMx(ll.lon) + DATUM_MX - cmx0)/(cmx1 - cmx0);   // + baked datum correction
+    uv[i*2+1] = 1 - (latToMy(ll.lat) + DATUM_MY - cmy0)/(cmy1 - cmy0);
   }
   webUVAttr = new THREE.BufferAttribute(uv, 2);
   if (webTex) webTex.dispose();
