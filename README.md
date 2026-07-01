@@ -8,8 +8,6 @@ Built from real Digital Elevation Models and layered with live open data. Pure s
 HTML + ES modules + Three.js — **no build step, no framework** — so it runs by opening a
 file (via any static server) and deploys as plain files.
 
-<!-- TODO: hero screenshot / GIF (tracked as HKS-10) -->
-
 **Live:** https://hongkong-sandbox.pages.dev
 
 ## Features
