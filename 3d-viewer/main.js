@@ -1171,9 +1171,10 @@ function updateStations() {
     if (m.hidden) { m.el.style.display = 'none'; continue; }   // no-temperature station (temp-only mode)
     const col = (m.E - g.bE) / g.aE, row = (m.N - g.bN) / g.aN;
     if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { m.el.style.display = 'none'; continue; }
-    v.set((col - W/2)*cell, sampleE(col, row)*VE, (row - H/2)*cell);
+    const lx = (col - W/2)*cell, ly = sampleE(col, row)*VE, lz = (row - H/2)*cell;
+    v.set(lx, ly, lz);
     world.localToWorld(v); v.project(camera);
-    if (v.z > 1) { m.el.style.display = 'none'; continue; }
+    if (v.z > 1 || occludedLocal(lx, ly, lz)) { m.el.style.display = 'none'; continue; }
     m.el.style.display = '';
     m.el.style.left = ((v.x*0.5 + 0.5) * innerWidth) + 'px';
     m.el.style.top  = ((-v.y*0.5 + 0.5) * innerHeight) + 'px';
@@ -1182,14 +1183,36 @@ function updateStations() {
 
 // ---- label projection + render loop ---------------------------------------
 const v = new THREE.Vector3();
+
+// Terrain occlusion for the DOM overlays (labels + station cards): hide a marker
+// when a mountain sits between it and the camera. Instead of raycasting the huge
+// mesh, we ray-march the elevation grid (heightfield) in the world group's LOCAL
+// frame — cheap (O(steps) height lookups) and correct while the model spins.
+const LABEL_OCCLUSION = true;   // set false to always show markers regardless of terrain
+const _camLocal = new THREE.Vector3();
+function occludedLocal(lx, ly, lz) {
+  if (!LABEL_OCCLUSION) return false;
+  const cx = _camLocal.x, cy = _camLocal.y, cz = _camLocal.z;
+  const STEPS = 22, EPS = cell * 0.35;                 // small tolerance so grazing sightlines don't flicker
+  for (let s = 1; s < STEPS; s++) {
+    const f = s / STEPS;
+    if (f > 0.9) break;                                // ignore the anchor's own surface near the target
+    const px = cx + (lx - cx) * f, py = cy + (ly - cy) * f, pz = cz + (lz - cz) * f;
+    const col = px / cell + W / 2, row = pz / cell + H / 2;
+    if (col < 0 || col > W - 1 || row < 0 || row > H - 1) continue;
+    if (py < sampleE(col, row) * VE - EPS) return true;   // terrain rises above the sightline → hidden
+  }
+  return false;
+}
 function updateLabels() {
   const show = document.getElementById('labels').checked;
   for (const l of labels) {
     if (!show) { l.div.style.display = 'none'; continue; }
-    v.set((l.col-W/2)*cell, sampleE(l.col, l.row)*VE, (l.row-H/2)*cell);
+    const lx = (l.col-W/2)*cell, ly = sampleE(l.col, l.row)*VE, lz = (l.row-H/2)*cell;
+    v.set(lx, ly, lz);
     world.localToWorld(v); v.project(camera);
-    const behind = v.z > 1;
-    l.div.style.display = behind ? 'none' : '';
+    const hide = v.z > 1 || occludedLocal(lx, ly, lz);
+    l.div.style.display = hide ? 'none' : '';
     l.div.style.left = ((v.x*0.5+0.5)*innerWidth) + 'px';
     l.div.style.top  = ((-v.y*0.5+0.5)*innerHeight) + 'px';
   }
@@ -1211,6 +1234,8 @@ function animate() {
   controls.update();
   updateClip();                 // keep near/far tuned to the current zoom distance
   renderer.render(scene, camera);
+  world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests
+  _camLocal.copy(camera.position); world.worldToLocal(_camLocal);
   updateLabels();
   updateStations();
 }
