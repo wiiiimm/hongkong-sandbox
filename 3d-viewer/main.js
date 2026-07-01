@@ -61,7 +61,7 @@ let terrain, terrainBase, wireOverlay, sea, skin;      // objects
 let skinBase = new Map();                               // layer -> Float32Array of base (unexaggerated) y
 let labels = [];
 let VE = 2.6, surfStyle = 'shaded', bgMode = 'dark';
-let matShaded, matTint, matMatte, matTopo, texTopo = null;
+let matShaded, matTint, matMatte, matSolid, matTopo, texTopo = null;
 let spinDir = 0, spinSpeed = 1;   // horizontal auto-spin (0 = off)
 let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
 
@@ -170,6 +170,7 @@ function buildTerrain() {
   matShaded = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0 });
   matTint   = new THREE.MeshBasicMaterial({ vertexColors: true });                 // flat hypsometric
   matMatte  = new THREE.MeshStandardMaterial({ color: 0x8a8f86, roughness: 1, metalness: 0 });
+  matSolid  = new THREE.MeshBasicMaterial({ color: 0x262626 });                    // flat solid fill
   matTopo   = new THREE.MeshStandardMaterial({ roughness: 0.96, metalness: 0 });
 
   terrain = new THREE.Mesh(geo, matShaded);
@@ -270,7 +271,7 @@ function wireLook() {
 
 function applyStyle(style) {
   surfStyle = style;
-  const mats = { shaded: matShaded, tint: matTint, matte: matMatte, topo: matTopo };
+  const mats = { shaded: matShaded, tint: matTint, matte: matMatte, solid: matSolid, topo: matTopo };
   // 'none' = no filled surface; every other style fills the terrain.
   terrain.visible = (style !== 'none');
   if (terrain.visible) terrain.material = mats[style] || matShaded;
