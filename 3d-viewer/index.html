@@ -107,6 +107,8 @@
   .stn .nm .en{font-size:7.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.78);margin-left:3px}
   .stn:hover{z-index:31}
   .stn:hover .t{color:var(--accent)}
+  #mapattr{position:fixed;right:9px;bottom:7px;z-index:14;display:none;font-size:9.5px;font-family:var(--mono);
+    color:rgba(255,255,255,.72);background:rgba(0,0,0,.4);padding:2px 7px;border-radius:5px;pointer-events:none}
   .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
     background:rgba(11,14,19,.94);border:1px solid var(--edge);border-radius:8px;padding:6px 9px;
     font-size:10.5px;font-weight:400;line-height:1.55;color:var(--ink);min-width:130px;text-align:left;
@@ -158,6 +160,8 @@
         <option value="matte">Matte</option>
         <option value="solid">Solid colour</option>
         <option value="topo">Topographic (B50K)</option>
+        <option value="osm">Street map (OSM)</option>
+        <option value="sat">Satellite (Esri)</option>
       </select>
     </div>
     <div class="row" id="solidrow" style="display:none"><label class="k">Fill colour</label>
@@ -264,6 +268,7 @@
 </div>
 
 <div id="stormbadge"></div>
+<div id="mapattr"></div>
 <div id="wxhud" style="display:none">
   <div id="wx-status">—</div>
   <div class="wx-big"><span id="wx-temp">—</span></div>

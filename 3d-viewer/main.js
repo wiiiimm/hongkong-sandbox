@@ -94,6 +94,7 @@ let spinDir = 1, spinSpeed = 1;   // horizontal auto-spin (0 = off; 1 = clockwis
 let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
 let solidColor = '#262626';       // fill colour for the "Solid colour" surface
 let texRot = 0;                   // B50K raster rotation in degrees (manual alignment)
+let baseUV = null, webTex = null, webUVAttr = null, webKind = null, matWeb = null;   // web-map drape
 
 // ---- helpers (ported from the original viewer) -----------------------------
 function hyps(e, zmax) {
@@ -203,6 +204,7 @@ function buildTerrain() {
   geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
   geo.setIndex(idx);
   terrainBase = pos.slice();  // unexaggerated heights
+  baseUV = uv; webKind = null;   // keep base UVs for restore; force web-map rebuild after any remesh
 
   matShaded = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0 });
   matTint   = new THREE.MeshBasicMaterial({ vertexColors: true });                 // flat hypsometric
@@ -477,17 +479,109 @@ function applyTexRot() {
   texTopo.needsUpdate = true;
 }
 
+// ---- web-map drape (OSM / satellite) --------------------------------------
+// The terrain is in the HK1980 grid; web tiles are Web Mercator. We reproject
+// the mesh UVs (not the imagery): each vertex E/N -> lon/lat (inverse HK1980 TM)
+// -> Web Mercator, so a plain tile mosaic lands exactly on the terrain.
+const HK = { a: 6378388.0, FE: 836694.05, FN: 819069.80, k0: 1.0 };
+HK.f = 1 / 297; HK.e2 = HK.f * (2 - HK.f);
+HK.lat0 = (22 + 18/60 + 43.68/3600) * Math.PI/180;
+HK.lon0 = (114 + 10/60 + 42.80/3600) * Math.PI/180;
+function meridianArc(lat) {
+  const e2 = HK.e2, e4 = e2*e2, e6 = e2*e2*e2;
+  return HK.a * ((1 - e2/4 - 3*e4/64 - 5*e6/256)*lat - (3*e2/8 + 3*e4/32 + 45*e6/1024)*Math.sin(2*lat)
+    + (15*e4/256 + 45*e6/1024)*Math.sin(4*lat) - (35*e6/3072)*Math.sin(6*lat));
+}
+function enToLL(E, N) {                    // HK1980 grid -> { lon, lat } degrees
+  const e2 = HK.e2, ep2 = e2/(1-e2);
+  const M = meridianArc(HK.lat0) + (N - HK.FN)/HK.k0;
+  const mu = M / (HK.a*(1 - e2/4 - 3*e2*e2/64 - 5*e2*e2*e2/256));
+  const e1 = (1 - Math.sqrt(1-e2))/(1 + Math.sqrt(1-e2));
+  const phi1 = mu + (3*e1/2 - 27*e1**3/32)*Math.sin(2*mu) + (21*e1*e1/16 - 55*e1**4/32)*Math.sin(4*mu)
+    + (151*e1**3/96)*Math.sin(6*mu) + (1097*e1**4/512)*Math.sin(8*mu);
+  const s = Math.sin(phi1), c = Math.cos(phi1), t = Math.tan(phi1);
+  const C1 = ep2*c*c, T1 = t*t, N1 = HK.a/Math.sqrt(1 - e2*s*s), R1 = HK.a*(1-e2)/Math.pow(1 - e2*s*s, 1.5);
+  const D = (E - HK.FE)/(N1*HK.k0);
+  const lat = phi1 - (N1*t/R1)*(D*D/2 - (5 + 3*T1 + 10*C1 - 4*C1*C1 - 9*ep2)*D**4/24
+    + (61 + 90*T1 + 298*C1 + 45*T1*T1 - 252*ep2 - 3*C1*C1)*D**6/720);
+  const lon = HK.lon0 + (D - (1 + 2*T1 + C1)*D**3/6
+    + (5 - 2*C1 + 28*T1 - 3*C1*C1 + 8*ep2 + 24*T1*T1)*D**5/120)/c;
+  return { lon: lon*180/Math.PI, lat: lat*180/Math.PI };
+}
+const lonToMx = lon => (lon + 180)/360;
+const latToMy = lat => { const r = lat*Math.PI/180; return (1 - Math.log(Math.tan(r) + 1/Math.cos(r))/Math.PI)/2; };
+const TILE_SRC = {
+  osm: { url: (z,x,y) => `https://tile.openstreetmap.org/${z}/${x}/${y}.png`, attr: '© OpenStreetMap contributors' },
+  sat: { url: (z,x,y) => `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`, attr: 'Imagery © Esri, Maxar, Earthstar Geographics' },
+};
+
+async function buildWebMap(kind) {
+  const g = curG, tb = curTexbb;
+  const corners = [[tb.E0,tb.N0],[tb.E1,tb.N0],[tb.E0,tb.N1],[tb.E1,tb.N1]].map(([E,N]) => {
+    const ll = enToLL(E, N); return { mx: lonToMx(ll.lon), my: latToMy(ll.lat) };
+  });
+  const mx0 = Math.min(...corners.map(c=>c.mx)), mx1 = Math.max(...corners.map(c=>c.mx));
+  const my0 = Math.min(...corners.map(c=>c.my)), my1 = Math.max(...corners.map(c=>c.my));
+  let z = 16; while (z > 8 && (mx1-mx0)*Math.pow(2,z)*256 > 4096) z--;   // ~4k-px mosaic
+  const n = Math.pow(2, z);
+  const tx0 = Math.floor(mx0*n), tx1 = Math.floor(mx1*n), ty0 = Math.floor(my0*n), ty1 = Math.floor(my1*n);
+  const cv = document.createElement('canvas'); cv.width = (tx1-tx0+1)*256; cv.height = (ty1-ty0+1)*256;
+  const ctx = cv.getContext('2d'); ctx.fillStyle = '#8aa9c4'; ctx.fillRect(0, 0, cv.width, cv.height);
+  const src = TILE_SRC[kind], jobs = [];
+  for (let tx = tx0; tx <= tx1; tx++) for (let ty = ty0; ty <= ty1; ty++) {
+    jobs.push(new Promise(res => {
+      const img = new Image(); img.crossOrigin = 'anonymous';
+      img.onload = () => { try { ctx.drawImage(img, (tx-tx0)*256, (ty-ty0)*256); } catch (_) {} res(); };
+      img.onerror = () => res();
+      img.src = src.url(z, tx, ty);
+    }));
+  }
+  await Promise.all(jobs);
+  const cmx0 = tx0/n, cmx1 = (tx1+1)/n, cmy0 = ty0/n, cmy1 = (ty1+1)/n;
+  const pos = terrain.geometry.attributes.position.array, nV = pos.length/3, uv = new Float32Array(nV*2);
+  for (let i = 0; i < nV; i++) {
+    const c = pos[i*3]/cell + W/2, r = pos[i*3+2]/cell + H/2;
+    const ll = enToLL(g.aE*c + g.bE, g.aN*r + g.bN);
+    uv[i*2]   = (lonToMx(ll.lon) - cmx0)/(cmx1 - cmx0);
+    uv[i*2+1] = 1 - (latToMy(ll.lat) - cmy0)/(cmy1 - cmy0);
+  }
+  webUVAttr = new THREE.BufferAttribute(uv, 2);
+  if (webTex) webTex.dispose();
+  webTex = new THREE.CanvasTexture(cv);
+  webTex.colorSpace = THREE.SRGBColorSpace;
+  webTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  if (!matWeb) matWeb = new THREE.MeshBasicMaterial();
+  matWeb.map = webTex; matWeb.needsUpdate = true;
+  webKind = kind;
+}
+function applyWebSurface() {
+  terrain.visible = true;
+  terrain.geometry.setAttribute('uv', webUVAttr);
+  terrain.material = matWeb;
+  const a = document.getElementById('mapattr'); a.textContent = TILE_SRC[webKind].attr;
+}
+
 function applyStyle(style) {
   surfStyle = style;
-  const mats = { shaded: matShaded, tint: matTint, matte: matMatte, solid: matSolid, topo: matTopo };
-  // 'none' = no filled surface; every other style fills the terrain.
-  terrain.visible = (style !== 'none');
-  if (terrain.visible) terrain.material = mats[style] || matShaded;
+  const web = (style === 'osm' || style === 'sat');
   document.getElementById('solidrow').style.display = (style === 'solid') ? '' : 'none';
   document.getElementById('toporow').style.display = (style === 'topo') ? '' : 'none';
+  document.getElementById('mapattr').style.display = web ? 'block' : 'none';
   // mesh lines are an independent overlay in ALL styles (incl. none)
   wireOverlay.visible = document.getElementById('meshlines').checked;
   wireLook();
+  if (web) {
+    if (webKind === style && webTex) { applyWebSurface(); return; }
+    document.getElementById('note').textContent = 'Loading ' + (style === 'osm' ? 'street map' : 'satellite imagery') + '…';
+    buildWebMap(style).then(() => { if (surfStyle === style) applyWebSurface(); updateNote(); })
+      .catch(err => { document.getElementById('note').textContent = 'Map load failed'; console.error(err); });
+    return;
+  }
+  // non-web styles: restore the base (B50K-aligned) UVs
+  if (baseUV) terrain.geometry.setAttribute('uv', new THREE.BufferAttribute(baseUV, 2));
+  const mats = { shaded: matShaded, tint: matTint, matte: matMatte, solid: matSolid, topo: matTopo };
+  terrain.visible = (style !== 'none');   // 'none' = no filled surface
+  if (terrain.visible) terrain.material = mats[style] || matShaded;
 }
 function applyBg(mode) {
   bgMode = mode;
