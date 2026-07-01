@@ -3,51 +3,69 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Hong Kong · Lantau — 3D terrain (layered)</title>
+<title>Hong Kong — 3D terrain</title>
 <style>
   :root{
-    --panel-dark:rgba(18,22,28,.82); --panel-ink:#e8e6df; --panel-sub:#9aa6b3;
-    --edge:#2a3340; --field:#26303d; --field-edge:#3a4654;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans CJK TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --ink:#eef2f6; --sub:#7d8896;
+    --panel:rgba(11,14,19,.72); --edge:rgba(255,255,255,.09); --edge-soft:rgba(255,255,255,.055);
+    --field:rgba(255,255,255,.045); --field-edge:rgba(255,255,255,.11);
+    --accent:#3fe0b0; --accent-dim:rgba(63,224,176,.16);
   }
-  html,body{margin:0;height:100%;overflow:hidden;background:#0e1116;color:#e8e6df;
-    font-family:-apple-system,Segoe UI,Roboto,'Noto Serif CJK TC',serif}
+  html,body{margin:0;height:100%;overflow:hidden;background:#0b0e12;color:var(--ink);
+    font-family:var(--sans);font-size:13px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   #app{position:fixed;inset:0}
-  #panel{position:fixed;top:14px;left:14px;z-index:20;background:var(--panel-dark);backdrop-filter:blur(6px);
-    border:1px solid var(--edge);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.5;
-    width:320px;max-width:calc(100vw - 28px);max-height:calc(100vh - 28px);overflow:auto}
-  #panel h1{font-size:14px;margin:0 0 4px;letter-spacing:.04em;font-weight:600}
-  #panel .sub{color:var(--panel-sub);font-size:11px;margin-bottom:10px;min-height:16px}
-  #phead{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-  #phead h1{margin:0}
-  .pbtns{display:flex;gap:4px;flex:0 0 auto}
-  .pbtns button{width:24px;height:24px;padding:0;line-height:1;font-size:15px;display:grid;place-items:center}
-  #navhelp{font-size:11px;color:var(--panel-sub);line-height:1.7;border-top:1px solid var(--edge);margin-top:8px;padding-top:8px}
-  #navhelp b{color:var(--panel-ink)}
-  #collapsedbar{display:none;align-items:center;gap:8px}
-  #collapsedbar button{width:26px;height:26px;padding:0;font-size:17px;line-height:1;display:grid;place-items:center}
-  .navmini{font-size:11px;color:var(--panel-sub);white-space:normal;max-width:210px;line-height:1.4}
-  #panel.collapsed{width:auto}
+  #panel{position:fixed;top:16px;left:16px;z-index:20;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);border-radius:14px;padding:14px 15px;font-size:12.5px;line-height:1.5;
+    width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 32px);overflow:auto;
+    box-shadow:0 12px 44px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05)}
+  #panel::-webkit-scrollbar{width:8px}
+  #panel::-webkit-scrollbar-thumb{background:var(--field-edge);border-radius:4px}
+  #panel h1{font-size:14px;margin:0;letter-spacing:.01em;font-weight:600}
+  #panel .sub{color:var(--sub);font-size:10.5px;font-family:var(--mono);margin:9px 0 2px;min-height:14px}
+  #phead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .pbtns{display:flex;gap:5px;flex:0 0 auto}
+  .pbtns button, #collapsedbar button{width:26px;height:26px;padding:0;display:grid;place-items:center;font-size:14px;border-radius:8px}
+  #navhelp{font-size:11px;color:var(--sub);line-height:1.7;border-top:1px solid var(--edge-soft);margin-top:10px;padding-top:9px}
+  #navhelp b{color:var(--ink);font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:10px;font-family:var(--mono)}
+  #collapsedbar{display:none;align-items:center;gap:10px}
+  .navmini{font-size:11px;color:var(--sub);white-space:normal;max-width:210px;line-height:1.45}
+  #panel.collapsed{width:auto;padding:10px 12px}
   #panel.collapsed #phead,#panel.collapsed #pbody,#panel.collapsed #navhelp{display:none}
   #panel.collapsed #collapsedbar{display:flex}
-  .grp{border-top:1px solid var(--edge);margin-top:8px;padding-top:8px}
-  .grp .gt{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--panel-sub);margin-bottom:5px}
-  .row{display:flex;align-items:center;gap:8px;margin:6px 0}
-  .row label.k{flex:0 0 78px;color:#aeb8c4}
-  input[type=range]{flex:1}
-  select{flex:1;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);
-    border-radius:6px;padding:4px 6px;font-size:12px}
-  .chk{display:flex;align-items:center;gap:6px;font-size:12px;color:#c4ccd6}
-  .chks{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px}
-  button{background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);
-    border-radius:6px;padding:5px 9px;cursor:pointer;font-size:12px}
-  button:hover{background:#33414f}
+  .grp{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
+  .grp .gt{font-size:9.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--accent);opacity:.9;
+    font-weight:600;margin-bottom:9px;font-family:var(--mono)}
+  .row{display:flex;align-items:center;gap:10px;margin:8px 0}
+  .row label.k{flex:0 0 76px;color:var(--sub);font-size:11.5px}
+  input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:3px;border-radius:3px;background:var(--field-edge);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+    background:var(--accent);cursor:pointer;box-shadow:0 0 0 4px var(--accent-dim)}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;border:none;border-radius:50%;background:var(--accent);cursor:pointer}
+  select{flex:1;min-width:0;-webkit-appearance:none;appearance:none;background:var(--field);color:var(--ink);
+    border:1px solid var(--field-edge);border-radius:8px;padding:6px 26px 6px 10px;font-size:12px;font-family:var(--sans);cursor:pointer;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%237d8896' stroke-width='1.5'><path d='M1 1l4 4 4-4'/></svg>");
+    background-repeat:no-repeat;background-position:right 10px center}
+  select:hover{border-color:var(--accent)}
+  select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
+  option{background:#12161c;color:var(--ink)}
+  input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer}
+  .chk{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);cursor:pointer}
+  .chks{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
+  button{background:var(--field);color:var(--ink);border:1px solid var(--field-edge);
+    border-radius:8px;padding:6px 11px;cursor:pointer;font-size:11px;font-family:var(--sans);letter-spacing:.02em;
+    transition:border-color .12s, background .12s}
+  button:hover{background:rgba(255,255,255,.08);border-color:var(--accent)}
   .btns{display:flex;gap:6px;flex-wrap:wrap}
+  #vev,#meshdensv{font-family:var(--mono);color:var(--accent)}
   .lbl{position:fixed;transform:translate(-50%,-100%);pointer-events:none;font-size:12px;white-space:nowrap;
-    color:#fff;text-shadow:0 1px 3px #000,0 0 2px #000;font-weight:600}
-  .lbl small{display:block;font-weight:400;color:#cfd6de;font-size:10px;text-align:center}
-  .lbl:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:9px;background:#fff;opacity:.6;transform:translateX(-50%)}
-  .hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#8893a0;font-size:11px;
-    background:rgba(18,22,28,.7);padding:5px 12px;border-radius:20px;border:1px solid var(--edge)}
+    color:#fff;font-weight:600;letter-spacing:.02em;text-shadow:0 1px 4px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.85)}
+  .lbl small{display:block;font-weight:400;color:rgba(255,255,255,.72);font-size:9.5px;font-family:var(--mono);
+    letter-spacing:0;text-align:center;margin-top:1px}
+  .lbl:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:10px;
+    background:linear-gradient(rgba(255,255,255,.75),transparent);transform:translateX(-50%)}
 </style>
 </head>
 <body>
@@ -58,7 +76,7 @@
     <span class="navmini">drag / 1‑finger rotate · scroll / pinch zoom · 2‑finger pan</span>
   </div>
   <div id="phead">
-    <h1>香港 · Lantau 大嶼山</h1>
+    <h1>香港 · Hong Kong 3D</h1>
     <div class="pbtns">
       <button id="navhelp-btn" title="How to navigate">?</button>
       <button id="collapse-btn" title="Collapse panel">–</button>
@@ -76,10 +94,10 @@
   <div class="grp">
     <div class="row"><label class="k">Source</label>
       <select id="src">
+        <option value="hk-landsd-5m" selected>Hong Kong · LandsD 5 m</option>
+        <option value="hk-srtm">Hong Kong · AWS Terrarium ~30 m</option>
         <option value="lantau-hk5m">Lantau · LandsD 5 m</option>
         <option value="lantau-srtm30">Lantau · AWS Terrarium ~30 m</option>
-        <option value="hk-landsd-5m">Hong Kong · LandsD 5 m</option>
-        <option value="hk-srtm">Hong Kong · AWS Terrarium ~30 m</option>
       </select>
     </div>
     <div class="row"><label class="k">Surface</label>
