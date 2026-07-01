@@ -15,7 +15,7 @@ const SOURCES = {
     texbb:   'data/lantau-texbb.json',
     overlay: 'data/lantau-b50k-vectors.json',   // re-extracted from B50K GML, grid-aligned
     landcover: 'data/lantau-b50k-landcover.json',
-    ve: 2.6,
+    ve: 2.8,
   },
   'lantau-srtm30': {
     label: 'Lantau · AWS Terrarium ~30 m',
@@ -88,9 +88,9 @@ let firstLoad = true;   // apply per-source default VE only on the very first lo
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
 let skinBase = new Map();                               // layer -> Float32Array of base (unexaggerated) y
 let labels = [];
-let VE = 2.6, surfStyle = 'shaded', bgMode = 'dark';
+let VE = 2.8, surfStyle = 'none', bgMode = 'dark';
 let matShaded, matTint, matMatte, matSolid, matTopo, texTopo = null;
-let spinDir = 0, spinSpeed = 1;   // horizontal auto-spin (0 = off)
+let spinDir = 1, spinSpeed = 1;   // horizontal auto-spin (0 = off; 1 = clockwise)
 let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
 let solidColor = '#262626';       // fill colour for the "Solid colour" surface
 let texRot = 0;                   // B50K raster rotation in degrees (manual alignment)
@@ -388,7 +388,9 @@ function frameCamera() {
   camera.far  = b.span * 6;
   camera.updateProjectionMatrix();
   controls.target.set(0, b.peakY*0.35, 0);
-  camera.position.set(0, b.span*0.55, b.span*0.95);
+  // start 30° above the horizontal (sea-level) plane
+  const elev = 30 * Math.PI / 180, dist = b.span * 1.1;
+  camera.position.set(0, controls.target.y + dist*Math.sin(elev), dist*Math.cos(elev));
   controls.minDistance = b.span*0.3; controls.maxDistance = b.span*3;
   controls.update();
 }
@@ -479,7 +481,7 @@ function animate() {
 
 resize();
 applyBg('dark');
-loadSource('hk-landsd-5m').then(animate).catch(err => {
+loadSource('lantau-hk5m').then(animate).catch(err => {
   document.getElementById('note').textContent = 'Load failed: ' + err.message;
   console.error(err);
 });

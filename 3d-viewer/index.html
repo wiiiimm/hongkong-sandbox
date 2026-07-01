@@ -94,16 +94,16 @@
   <div class="grp">
     <div class="row"><label class="k">Source</label>
       <select id="src">
-        <option value="hk-landsd-5m" selected>Hong Kong · LandsD 5 m</option>
+        <option value="hk-landsd-5m">Hong Kong · LandsD 5 m</option>
         <option value="hk-srtm">Hong Kong · AWS Terrarium ~30 m</option>
-        <option value="lantau-hk5m">Lantau · LandsD 5 m</option>
+        <option value="lantau-hk5m" selected>Lantau · LandsD 5 m</option>
         <option value="lantau-srtm30">Lantau · AWS Terrarium ~30 m</option>
       </select>
     </div>
     <div class="row"><label class="k">Surface</label>
       <select id="surf">
-        <option value="none">None (no fill)</option>
-        <option value="shaded" selected>Shaded relief</option>
+        <option value="none" selected>None (no fill)</option>
+        <option value="shaded">Shaded relief</option>
         <option value="tint">Elevation tint (flat)</option>
         <option value="matte">Matte</option>
         <option value="solid">Solid colour</option>
@@ -127,14 +127,14 @@
       <select id="bg"><option value="dark">Dark</option><option value="paper">Paper</option></select>
     </div>
     <div class="row"><label class="k">Vertical ×</label>
-      <input id="ve" type="range" min="1" max="9" step="0.1" value="2.6"/>
-      <span id="vev" style="flex:0 0 26px;text-align:right">2.6</span>
+      <input id="ve" type="range" min="1" max="9" step="0.1" value="2.8"/>
+      <span id="vev" style="flex:0 0 26px;text-align:right">2.8</span>
     </div>
   </div>
 
   <div class="grp">
     <div class="gt">Mesh</div>
-    <div class="row"><label class="chk" style="flex:1"><input type="checkbox" id="meshlines"/> Show mesh lines</label></div>
+    <div class="row"><label class="chk" style="flex:1"><input type="checkbox" id="meshlines" checked/> Show mesh lines</label></div>
     <div class="row"><label class="k">Density</label>
       <input id="meshdens" type="range" min="1" max="12" step="1" value="12"/>
       <span id="meshdensv" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--panel-sub)">full</span>
@@ -159,7 +159,7 @@
   <div class="grp">
     <div class="gt">Auto‑spin (horizontal)</div>
     <div class="row"><label class="k">Direction</label>
-      <select id="spindir"><option value="0">Off</option><option value="1">⟳ Clockwise</option><option value="-1">⟲ Counter‑cw</option></select>
+      <select id="spindir"><option value="0">Off</option><option value="1" selected>⟳ Clockwise</option><option value="-1">⟲ Counter‑cw</option></select>
     </div>
     <div class="row"><label class="k">Speed</label>
       <input id="spinspd" type="range" min="0.15" max="3" step="0.05" value="1"/>
