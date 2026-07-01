@@ -142,6 +142,8 @@ async function loadSource(id) {
   buildTerrain();
   buildSkin(overlay, g, texbb);
   buildSea();
+  buildWeather();
+  setFog();
   buildLabels();
   if (texTopo) texTopo.dispose();
   texTopo = buildBaseTexture(landcover);   // clean B50K base map (fills only), aligned by construction
@@ -268,6 +270,72 @@ function buildSea() {
   sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x2b5d78, transparent: true, opacity: 0.55, roughness: 0.4, depthWrite: false }));
   sea.rotation.x = -Math.PI/2; sea.position.y = 0.5;
   world.add(sea);
+}
+
+// ---- weather effects: rain / clouds / fog / lightning / waves --------------
+let rainPts = null, cloudGrp = null, wavePhase = 0, flash = 0;
+const SEA_Y = 0.5;
+const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false };
+
+const CLOUD_TEX = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d'), g = x.createRadialGradient(64, 64, 6, 64, 64, 64);
+  g.addColorStop(0, 'rgba(255,255,255,0.85)'); g.addColorStop(0.55, 'rgba(238,242,247,0.35)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  return new THREE.CanvasTexture(c);
+})();
+
+// (re)build rain + clouds sized to the current source; visibility follows toggles
+function buildWeather() {
+  const b = bounds(), hx = b.halfX, hz = b.halfZ, top = b.span * 0.45;
+  if (rainPts) { world.remove(rainPts); rainPts.geometry.dispose(); rainPts.material.dispose(); }
+  const N = 7000, pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    pos[i*3] = (Math.random()*2 - 1) * hx;
+    pos[i*3+1] = Math.random() * top;
+    pos[i*3+2] = (Math.random()*2 - 1) * hz;
+  }
+  const rg = new THREE.BufferGeometry();
+  rg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  rainPts = new THREE.Points(rg, new THREE.PointsMaterial({ color: 0xbcd2e2, size: b.span*0.0016, transparent: true, opacity: 0.55, depthWrite: false }));
+  rainPts.userData.top = top; rainPts.visible = weather.rain;
+  world.add(rainPts);
+
+  if (cloudGrp) { world.remove(cloudGrp); cloudGrp.traverse(o => o.material && o.material.dispose()); }
+  cloudGrp = new THREE.Group();
+  const H = b.span * 0.34, n = 22, size = b.span * 0.34;
+  for (let i = 0; i < n; i++) {
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: CLOUD_TEX, color: 0xe2e8ef, transparent: true, opacity: 0.5, depthWrite: false }));
+    s.position.set((Math.random()*2-1)*hx, H + Math.random()*b.span*0.12, (Math.random()*2-1)*hz);
+    const w = size * (0.6 + Math.random());
+    s.scale.set(w, w*0.55, 1);
+    cloudGrp.add(s);
+  }
+  cloudGrp.visible = weather.clouds;
+  world.add(cloudGrp);
+}
+
+function setFog() {
+  const b = bounds();
+  scene.fog = weather.fog ? new THREE.Fog(BG[bgMode], b.span*0.35, b.span*1.5) : null;
+}
+
+function animateWeather() {
+  const b = bounds();
+  if (rainPts && rainPts.visible) {
+    const p = rainPts.geometry.attributes.position.array, top = rainPts.userData.top, spd = b.span*0.012;
+    for (let i = 1; i < p.length; i += 3) { p[i] -= spd; if (p[i] < 0) p[i] = top; }
+    rainPts.geometry.attributes.position.needsUpdate = true;
+  }
+  if (cloudGrp && cloudGrp.visible) {
+    const lim = b.halfX * 1.3;
+    for (const s of cloudGrp.children) { s.position.x += b.span*0.0006; if (s.position.x > lim) s.position.x = -lim; }
+  }
+  if (sea) sea.position.y = weather.waves ? SEA_Y + Math.sin(wavePhase += 0.02) * b.span*0.003 : SEA_Y;
+  if (weather.lightning) {
+    if (flash > 0) { flash -= 0.07; hemi.intensity = (bgMode === 'paper' ? 1.9 : 1.4) + flash * 5; }
+    else if (Math.random() < 0.007) flash = 1;
+  }
 }
 
 function buildLabels() {
@@ -447,6 +515,11 @@ document.getElementById('expand-btn').addEventListener('click', () => panelEl.cl
 document.getElementById('navhelp-btn').addEventListener('click', () => {
   const n = document.getElementById('navhelp'); n.style.display = n.style.display === 'none' ? '' : 'none';
 });
+document.getElementById('fog').addEventListener('change', e => { weather.fog = e.target.checked; setFog(); });
+document.getElementById('rain').addEventListener('change', e => { weather.rain = e.target.checked; if (rainPts) rainPts.visible = weather.rain; });
+document.getElementById('clouds').addEventListener('change', e => { weather.clouds = e.target.checked; if (cloudGrp) cloudGrp.visible = weather.clouds; });
+document.getElementById('lightning').addEventListener('change', e => { weather.lightning = e.target.checked; if (!weather.lightning) { flash = 0; applyBg(bgMode); } });
+document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
 document.getElementById('reset').addEventListener('click', frameCamera);
 document.getElementById('south').addEventListener('click', southView);
 document.getElementById('top').addEventListener('click', topView);
@@ -474,6 +547,7 @@ addEventListener('resize', resize);
 function animate() {
   requestAnimationFrame(animate);
   if (spinDir) world.rotation.y += 0.0016 * spinSpeed * spinDir;
+  animateWeather();
   controls.update();
   renderer.render(scene, camera);
   updateLabels();
@@ -496,6 +570,11 @@ function serializeState() {
   p.set('sc', solidColor.slice(1));
   p.set('sp', String(spinDir));
   p.set('ss', String(spinSpeed));
+  p.set('fo', weather.fog ? '1' : '0');
+  p.set('ra', weather.rain ? '1' : '0');
+  p.set('cl', weather.clouds ? '1' : '0');
+  p.set('li', weather.lightning ? '1' : '0');
+  p.set('wv', weather.waves ? '1' : '0');
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
                 r(controls.target.x), r(controls.target.y), r(controls.target.z),
@@ -531,6 +610,11 @@ function applyState(p) {
   if (p.has('sc')) setSolidColor('#' + p.get('sc'));
   if (p.has('sp')) setVal('spindir', p.get('sp'));
   if (p.has('ss')) setVal('spinspd', p.get('ss'), 'input');
+  if (p.has('fo')) setChk('fog', p.get('fo') === '1');
+  if (p.has('ra')) setChk('rain', p.get('ra') === '1');
+  if (p.has('cl')) setChk('clouds', p.get('cl') === '1');
+  if (p.has('li')) setChk('lightning', p.get('li') === '1');
+  if (p.has('wv')) setChk('waves', p.get('wv') === '1');
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
     if (c.length >= 6 && c.every(isFinite)) {
