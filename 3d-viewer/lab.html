@@ -17,6 +17,18 @@
     width:320px;max-width:calc(100vw - 28px);max-height:calc(100vh - 28px);overflow:auto}
   #panel h1{font-size:14px;margin:0 0 4px;letter-spacing:.04em;font-weight:600}
   #panel .sub{color:var(--panel-sub);font-size:11px;margin-bottom:10px;min-height:16px}
+  #phead{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  #phead h1{margin:0}
+  .pbtns{display:flex;gap:4px;flex:0 0 auto}
+  .pbtns button{width:24px;height:24px;padding:0;line-height:1;font-size:15px;display:grid;place-items:center}
+  #navhelp{font-size:11px;color:var(--panel-sub);line-height:1.7;border-top:1px solid var(--edge);margin-top:8px;padding-top:8px}
+  #navhelp b{color:var(--panel-ink)}
+  #collapsedbar{display:none;align-items:center;gap:8px}
+  #collapsedbar button{width:26px;height:26px;padding:0;font-size:17px;line-height:1;display:grid;place-items:center}
+  .navmini{font-size:11px;color:var(--panel-sub);white-space:nowrap}
+  #panel.collapsed{width:auto}
+  #panel.collapsed #phead,#panel.collapsed #pbody,#panel.collapsed #navhelp{display:none}
+  #panel.collapsed #collapsedbar{display:flex}
   .grp{border-top:1px solid var(--edge);margin-top:8px;padding-top:8px}
   .grp .gt{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--panel-sub);margin-bottom:5px}
   .row{display:flex;align-items:center;gap:8px;margin:6px 0}
@@ -41,7 +53,24 @@
 <body>
 <div id="app"></div>
 <div id="panel">
-  <h1>香港 · Lantau 大嶼山</h1>
+  <div id="collapsedbar">
+    <button id="expand-btn" title="Show controls">+</button>
+    <span class="navmini">drag rotate · scroll zoom · right‑drag pan</span>
+  </div>
+  <div id="phead">
+    <h1>香港 · Lantau 大嶼山</h1>
+    <div class="pbtns">
+      <button id="navhelp-btn" title="How to navigate">?</button>
+      <button id="collapse-btn" title="Collapse panel">–</button>
+    </div>
+  </div>
+  <div id="navhelp" style="display:none">
+    <b>Navigate</b><br>
+    Drag — rotate · Scroll — zoom<br>
+    Right‑drag / two‑finger — pan<br>
+    Reset — recenter the view
+  </div>
+  <div id="pbody">
   <div class="sub" id="note">Loading…</div>
 
   <div class="grp">
@@ -116,8 +145,8 @@
     <button id="south">South</button>
     <button id="top">Top‑down</button>
   </div>
+  </div><!-- /#pbody -->
 </div>
-<div class="hint">drag to orbit · scroll to zoom</div>
 
 <!-- dev: cache-bust the module so edits always load fresh -->
 <script type="module">import('./main.js?t=' + Date.now());</script>
