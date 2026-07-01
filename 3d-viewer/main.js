@@ -88,7 +88,7 @@ let firstLoad = true;   // apply per-source default VE only on the very first lo
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
 let skinBase = new Map();                               // layer -> Float32Array of base (unexaggerated) y
 let labels = [];
-let VE = 2.8, surfStyle = 'none', bgMode = 'dark';
+let VE = 2.8, surfStyle = 'shaded', bgMode = 'dark';
 let matShaded, matTint, matMatte, matSolid, matTopo, texTopo = null;
 let spinDir = 1, spinSpeed = 1;   // horizontal auto-spin (0 = off; 1 = clockwise)
 let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
@@ -479,9 +479,91 @@ function animate() {
   updateLabels();
 }
 
+// ---- shareable state: sync all controls + camera to the URL ----------------
+function serializeState() {
+  const g = id => document.getElementById(id);
+  const p = new URLSearchParams();
+  p.set('s', g('src').value);
+  p.set('surf', g('surf').value);
+  p.set('bg', g('bg').value);
+  p.set('ve', g('ve').value);
+  p.set('d', String(meshStep));
+  p.set('ml', g('meshlines').checked ? '1' : '0');
+  p.set('w', g('water').checked ? '1' : '0');
+  p.set('lb', g('labels').checked ? '1' : '0');
+  p.set('L', [...document.querySelectorAll('#layers input:checked')].map(i => i.id.slice(4)).join('.'));
+  if (wireColor) p.set('mc', wireColor.slice(1));
+  p.set('sc', solidColor.slice(1));
+  p.set('sp', String(spinDir));
+  p.set('ss', String(spinSpeed));
+  const r = n => Math.round(n);
+  p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
+                r(controls.target.x), r(controls.target.y), r(controls.target.z),
+                world.rotation.y.toFixed(3)].join(','));
+  return p.toString();
+}
+
+let syncTimer = null, restoring = false;
+function syncUrl() {
+  if (restoring) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => history.replaceState(null, '', '?' + serializeState()), 200);
+}
+
+function applyState(p) {
+  restoring = true;
+  const g = id => document.getElementById(id);
+  const fire = (el, ev) => el.dispatchEvent(new Event(ev));
+  const setVal = (id, v, ev = 'change') => { const el = g(id); el.value = v; fire(el, ev); };
+  const setChk = (id, on) => { const el = g(id); if (el && el.checked !== on) { el.checked = on; fire(el, 'change'); } };
+  if (p.has('bg'))   setVal('bg', p.get('bg'));
+  if (p.has('surf')) setVal('surf', p.get('surf'));
+  if (p.has('ve'))   setVal('ve', p.get('ve'), 'input');
+  if (p.has('d'))    setVal('meshdens', String(13 - parseInt(p.get('d'), 10)), 'change');
+  if (p.has('ml'))   setChk('meshlines', p.get('ml') === '1');
+  if (p.has('w'))    setChk('water', p.get('w') === '1');
+  if (p.has('lb'))   setChk('labels', p.get('lb') === '1');
+  if (p.has('L')) {
+    const on = new Set(p.get('L').split('.').filter(Boolean));
+    for (const inp of document.querySelectorAll('#layers input')) setChk(inp.id, on.has(inp.id.slice(4)));
+  }
+  if (p.has('mc')) setWireColor('#' + p.get('mc'));
+  if (p.has('sc')) setSolidColor('#' + p.get('sc'));
+  if (p.has('sp')) setVal('spindir', p.get('sp'));
+  if (p.has('ss')) setVal('spinspd', p.get('ss'), 'input');
+  if (p.has('cam')) {
+    const c = p.get('cam').split(',').map(Number);
+    if (c.length >= 6 && c.every(isFinite)) {
+      camera.position.set(c[0], c[1], c[2]); controls.target.set(c[3], c[4], c[5]);
+      if (c.length >= 7) world.rotation.y = c[6];
+      controls.update();
+    }
+  }
+  restoring = false;
+}
+
+document.getElementById('copylink').addEventListener('click', async e => {
+  const btn = e.currentTarget, label = btn.textContent;
+  const url = location.origin + location.pathname + '?' + serializeState();
+  try { await navigator.clipboard.writeText(url); btn.textContent = 'Copied!'; }
+  catch (_) { history.replaceState(null, '', '?' + serializeState()); btn.textContent = 'In address bar'; }
+  setTimeout(() => { btn.textContent = label; }, 1400);
+});
+
 resize();
 applyBg('dark');
-loadSource('hk-landsd-5m').then(animate).catch(err => {
+const startParams = new URLSearchParams(location.search);
+const startSrc = SOURCES[startParams.get('s')] ? startParams.get('s') : 'hk-landsd-5m';
+document.getElementById('src').value = startSrc;
+loadSource(startSrc).then(() => {
+  applyState(startParams);
+  controls.addEventListener('change', syncUrl);     // camera orbit/zoom/pan
+  const panel = document.getElementById('panel');
+  panel.addEventListener('change', syncUrl);         // selects + checkboxes
+  panel.addEventListener('input', syncUrl);          // sliders + colour
+  syncUrl();
+  animate();
+}).catch(err => {
   document.getElementById('note').textContent = 'Load failed: ' + err.message;
   console.error(err);
 });

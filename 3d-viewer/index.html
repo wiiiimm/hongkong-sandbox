@@ -102,8 +102,8 @@
     </div>
     <div class="row"><label class="k">Surface</label>
       <select id="surf">
-        <option value="none" selected>None (no fill)</option>
-        <option value="shaded">Shaded relief</option>
+        <option value="none">None (no fill)</option>
+        <option value="shaded" selected>Shaded relief</option>
         <option value="tint">Elevation tint (flat)</option>
         <option value="matte">Matte</option>
         <option value="solid">Solid colour</option>
@@ -134,7 +134,7 @@
 
   <div class="grp">
     <div class="gt">Mesh</div>
-    <div class="row"><label class="chk" style="flex:1"><input type="checkbox" id="meshlines" checked/> Show mesh lines</label></div>
+    <div class="row"><label class="chk" style="flex:1"><input type="checkbox" id="meshlines"/> Show mesh lines</label></div>
     <div class="row"><label class="k">Density</label>
       <input id="meshdens" type="range" min="1" max="12" step="1" value="12"/>
       <span id="meshdensv" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--panel-sub)">full</span>
@@ -170,6 +170,7 @@
     <button id="reset">Reset</button>
     <button id="south">South</button>
     <button id="top">Top‑down</button>
+    <button id="copylink" title="Copy a link to this exact view">Copy link</button>
   </div>
   </div><!-- /#pbody -->
 </div>
