@@ -9,6 +9,12 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
 - **Use semantic / conventional commit messages** (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `perf:`, etc.). Commit as you go — one logical change per commit — rather than batching unrelated changes.
 - Deployment target is **Vercel** (static hosting for the viewer). Keep the deployable app self-contained and buildable from the repo.
 
+## Project Management
+
+- Work for this project is tracked in **Linear** — team **HKS** (Hong Kong Sandbox):
+  https://linear.app/stealth-company/team/HKS/overview
+- Reference the relevant Linear issue (e.g. `HKS-123`) in commits/PRs when a change maps to one.
+
 ## Project Context
 
 - Treat `references/lantau-maps/` as the source reference set for Lantau map work.
