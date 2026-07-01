@@ -270,8 +270,14 @@ function buildLabels() {
   labels.forEach(l => l.div.remove()); labels = [];
   for (const pk of peaks) {
     const div = document.createElement('div'); div.className = 'lbl';
-    const parts = (pk.name || '').split(' ');
-    div.innerHTML = `${parts[0]||''}<small>${parts.slice(1).join(' ')} · ${Math.round(pk.elev)} m</small>`;
+    // names are "English 中文" — split trailing CJK from the English part
+    const name = pk.name || '';
+    const m = name.match(/^(.*?)\s*([㐀-鿿][㐀-鿿\s]*)$/);
+    const english = (m ? m[1] : name).trim();
+    const chinese = m ? m[2].trim() : '';
+    const top = chinese || english;                       // Chinese on top when present
+    const sub = (chinese ? english + ' · ' : '') + Math.round(pk.elev) + ' m';
+    div.innerHTML = `${top}<small>${sub}</small>`;
     document.body.appendChild(div);
     labels.push({ div, col: pk.col, row: pk.row });
   }
@@ -378,6 +384,12 @@ document.getElementById('water').addEventListener('change', e => { sea.visible =
 document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); });
 document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); });
 document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = parseFloat(e.target.value); });
+const panelEl = document.getElementById('panel');
+document.getElementById('collapse-btn').addEventListener('click', () => panelEl.classList.add('collapsed'));
+document.getElementById('expand-btn').addEventListener('click', () => panelEl.classList.remove('collapsed'));
+document.getElementById('navhelp-btn').addEventListener('click', () => {
+  const n = document.getElementById('navhelp'); n.style.display = n.style.display === 'none' ? '' : 'none';
+});
 document.getElementById('reset').addEventListener('click', frameCamera);
 document.getElementById('south').addEventListener('click', southView);
 document.getElementById('top').addEventListener('click', topView);
