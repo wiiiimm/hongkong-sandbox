@@ -507,6 +507,20 @@ function updateStormBadge() {
   el.classList.toggle('sev', stormLevel >= 9);
   el.style.display = 'block';
 }
+// lock the controls that are driven for you: live mode owns everything; a storm
+// signal owns the weather effects + wind strength (but you can still steer "wind from").
+function applyControlLocks() {
+  const g = id => document.getElementById(id);
+  const storm = stormLevel > 0;
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'wind'].forEach(id => g(id).disabled = liveMode || storm);
+  g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
+  g('tide').disabled    = liveMode;
+  g('storm').disabled   = liveMode;
+  const lock = g('wxlock');
+  if (liveMode)     { lock.textContent = '◈ controls locked to live data'; lock.style.display = 'block'; }
+  else if (storm)   { lock.textContent = '◈ effects set by storm signal';  lock.style.display = 'block'; }
+  else              { lock.style.display = 'none'; }
+}
 function updateWindVisuals() {
   const b = bounds(), w = windStrength;
   if (rainPts) { rainPts.material.opacity = 0.45 + 0.4 * w; rainPts.material.size = b.span * 0.0016 * (1 + w * 1.2); }
@@ -532,6 +546,7 @@ function applyStorm(level) {
   }
   updateWindVisuals();
   updateStormBadge();
+  applyControlLocks();
 }
 // HKO warning summary -> { level, dir? }
 function stormFromWarn(ws) {
@@ -789,9 +804,7 @@ function tickHKClock() {
 function setLiveMode(on) {
   liveMode = on;
   document.getElementById('wxhud').style.display = on ? '' : 'none';
-  document.getElementById('wxlock').style.display = on ? 'block' : 'none';
-  // live data owns the weather + tide controls, so lock them while it's on
-  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'tide', 'storm', 'wind', 'winddir'].forEach(id => { const e = document.getElementById(id); if (e) e.disabled = on; });
+  applyControlLocks();     // live data owns everything; keeps storm-driven locks coherent too
   const btn = document.getElementById('livebtn');
   btn.textContent = on ? '⛅ Live weather · ON' : '⛅ Sync live weather';
   btn.classList.toggle('on', on);
@@ -872,6 +885,7 @@ function serializeState() {
   p.set('st', String(stormLevel));
   p.set('wi', String(Math.round(windStrength * 100)));
   p.set('wd', g('winddir').value);
+  p.set('lv', liveMode ? '1' : '0');
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
                 r(controls.target.x), r(controls.target.y), r(controls.target.z),
@@ -948,6 +962,8 @@ loadSource(startSrc).then(() => {
   panel.addEventListener('input', syncUrl);          // sliders + colour
   syncUrl();
   animate();
+  // default to live weather on (unless a shared link explicitly opted out with lv=0)
+  if (startParams.has('lv') ? startParams.get('lv') === '1' : true) setLiveMode(true);
 }).catch(err => {
   document.getElementById('note').textContent = 'Load failed: ' + err.message;
   console.error(err);
