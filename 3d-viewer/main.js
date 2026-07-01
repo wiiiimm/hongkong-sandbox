@@ -338,6 +338,11 @@ function bounds() {
 }
 function frameCamera() {
   const b = bounds();
+  // tune depth range to the scene scale: a tight near/far ratio gives the depth
+  // precision needed to stop the flat sea z-fighting while the camera drifts
+  camera.near = b.span * 0.03;
+  camera.far  = b.span * 6;
+  camera.updateProjectionMatrix();
   controls.target.set(0, b.peakY*0.35, 0);
   camera.position.set(0, b.span*0.55, b.span*0.95);
   controls.minDistance = b.span*0.3; controls.maxDistance = b.span*3;
