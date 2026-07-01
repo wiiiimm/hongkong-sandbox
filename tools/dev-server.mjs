@@ -41,7 +41,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  let file = path.join(ROOT, url === '/' ? '/lab.html' : url);
+  let file = path.join(ROOT, url === '/' ? '/index.html' : url);
   if (!file.startsWith(ROOT)) { res.writeHead(403).end('forbidden'); return; }   // no path traversal
 
   fs.stat(file, (err, st) => {
