@@ -61,6 +61,61 @@ const BG = { dark: 0x0e1116, paper: 0xf4f1e9 };
 const LINE_ON_PAPER = 0x2f5b43;   // wireframe colour on paper bg (the "geeky" look)
 const LINE_ON_DARK  = 0x6fe0c0;
 
+// ---- i18n (en-hk / zh-hk) --------------------------------------------------
+const LOCALES = ['en-hk', 'zh-hk'];
+const DEFAULT_LOCALE = 'en-hk';
+const I18N = {
+  'en-hk': {
+    'lbl.source': 'Source', 'src.hk5m': 'Hong Kong · LandsD 5 m', 'src.hksrtm': 'Hong Kong · AWS Terrarium ~30 m',
+    'src.lan5m': 'Lantau · LandsD 5 m', 'src.lansrtm': 'Lantau · AWS Terrarium ~30 m',
+    'lbl.surface': 'Surface', 'surf.none': 'None (no fill)', 'surf.shaded': 'Shaded relief', 'surf.tint': 'Elevation tint (flat)',
+    'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
+    'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
+    'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
+    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.labels': 'Labels', 'ov.stations': 'Stations (live)',
+    'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
+    'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
+    'grp.weather': 'Weather', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
+    'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
+    'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
+    'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link',
+    'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
+    'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON', 'lock.live': '◈ controls locked to live data', 'lock.storm': '◈ effects set by storm signal',
+    'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.loadfail': 'Load failed',
+    'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
+    'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
+    'sig.9': 'Increasing Gale or Storm Signal No.9', 'sig.10': 'Hurricane Signal No.10', 'badge.pre': '⚠ TYPHOON SIGNAL No.', 'badge.post': '',
+    'tip.humidity': 'humidity', 'tip.wind': 'wind', 'tip.gust': 'gust', 'tide.word': 'tide', 'tide.rising': '↑ rising', 'tide.falling': '↓ falling', 'tide.slack': '→ slack',
+    'tide.24h': '24 h tide', 'st.QUB': 'Quarry Bay', 'st.CCH': 'Cheung Chau', 'wx.unavail': 'live weather unavailable', 'wx.live': 'Live',
+  },
+  'zh-hk': {
+    'lbl.source': '資料來源', 'src.hk5m': '香港 · 地政總署 5 米', 'src.hksrtm': '香港 · AWS Terrarium ~30 米',
+    'src.lan5m': '大嶼山 · 地政總署 5 米', 'src.lansrtm': '大嶼山 · AWS Terrarium ~30 米',
+    'lbl.surface': '表面', 'surf.none': '無填色', 'surf.shaded': '陰影地貌', 'surf.tint': '高程著色（平面）',
+    'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
+    'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
+    'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
+    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.labels': '地名', 'ov.stations': '氣象站（即時）',
+    'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
+    'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
+    'grp.weather': '天氣', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
+    'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
+    'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
+    'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結',
+    'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
+    'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟', 'lock.live': '◈ 已鎖定為即時數據', 'lock.storm': '◈ 效果由風暴信號設定',
+    'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.loadfail': '載入失敗',
+    'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
+    'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
+    'sig.9': '九號烈風或暴風增強信號', 'sig.10': '十號颶風信號', 'badge.pre': '⚠ 颱風信號 ', 'badge.post': ' 號',
+    'tip.humidity': '濕度', 'tip.wind': '風', 'tip.gust': '陣風', 'tide.word': '潮汐', 'tide.rising': '↑ 上漲', 'tide.falling': '↓ 回落', 'tide.slack': '→ 平潮',
+    'tide.24h': '24 小時潮汐', 'st.QUB': '鰂魚涌', 'st.CCH': '長洲', 'wx.unavail': '無法取得即時天氣', 'wx.live': '即時',
+  },
+};
+let locale = DEFAULT_LOCALE;
+const t = k => (I18N[locale] && I18N[locale][k] != null) ? I18N[locale][k] : (I18N[DEFAULT_LOCALE][k] != null ? I18N[DEFAULT_LOCALE][k] : k);
+const isZh = () => locale === 'zh-hk';
+
 // ---- three.js boilerplate --------------------------------------------------
 const app = document.getElementById('app');
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -123,7 +178,7 @@ const skinOffset = () => cell * 0.6; // lift lines just above the surface, scale
 // ---- load a source ---------------------------------------------------------
 async function loadSource(id) {
   const s = SOURCES[id];
-  document.getElementById('note').textContent = 'Loading ' + s.label + '…';
+  document.getElementById('note').textContent = t('note.loading') + '…';
   // dev: propagate the page's ?v to data fetches so edits bust cache; no-op in prod
   const ver = new URLSearchParams(location.search).get('v');
   const q = ver ? ('?v=' + ver) : '';
@@ -161,7 +216,7 @@ async function loadSource(id) {
 
 function updateNote() {
   document.getElementById('note').textContent =
-    `${gridW}×${gridH} mesh · ${(gridW*gridH/1e3).toFixed(0)}k verts · peak ${Math.round(zmax)} m`;
+    `${gridW}×${gridH} ${t('note.mesh')} · ${(gridW*gridH/1e3).toFixed(0)}k ${t('note.verts')} · ${t('note.peak')} ${Math.round(zmax)} ${t('note.m')}`;
 }
 
 // rebuild terrain at the current density, preserving style/VE/camera
@@ -283,7 +338,7 @@ function buildSkin(overlay, g, texbb) {
     // toggle UI
     const id = 'lyr_' + name;
     const lab = document.createElement('label'); lab.className = 'chk';
-    lab.innerHTML = `<input type="checkbox" id="${id}" ${on?'checked':''}/> ${style.label}`;
+    lab.innerHTML = `<input type="checkbox" id="${id}" ${on?'checked':''}/> <span data-i18n="lyr.${name}">${I18N[locale]['lyr.'+name] || style.label}</span>`;
     layersDiv.appendChild(lab);
     lab.querySelector('input').addEventListener('change', e => { seg.visible = e.target.checked; });
   }
@@ -602,9 +657,9 @@ function applyStyle(style) {
   wireLook();
   if (web) {
     if (webKind === style && webTex) { applyWebSurface(); return; }
-    document.getElementById('note').textContent = 'Loading ' + (style === 'osm' ? 'street map' : 'satellite imagery') + '…';
+    document.getElementById('note').textContent = t('note.loading') + ' ' + (style === 'osm' ? t('load.osm') : t('load.sat')) + '…';
     buildWebMap(style).then(() => { if (surfStyle === style) applyWebSurface(); updateNote(); })
-      .catch(err => { document.getElementById('note').textContent = 'Map load failed'; console.error(err); });
+      .catch(err => { document.getElementById('note').textContent = t('load.mapfail'); console.error(err); });
     return;
   }
   // non-web styles: restore the base (B50K-aligned) UVs
@@ -625,7 +680,7 @@ function updateStormBadge() {
   const el = document.getElementById('stormbadge');
   if (!stormLevel) { el.style.display = 'none'; return; }
   const quad = stormLevel === 8 ? document.getElementById('winddir').value : '';
-  el.innerHTML = `⚠ TYPHOON SIGNAL No.${stormLevel}${quad ? ' · ' + quad : ''}<small>${SIGNAL_NAME[stormLevel] || ''}</small>`;
+  el.innerHTML = `${t('badge.pre')}${stormLevel}${t('badge.post')}${quad ? ' · ' + quad : ''}<small>${t('sig.' + stormLevel)}</small>`;
   const colours = { 1:'rgba(176,140,26,.92)', 3:'rgba(200,128,20,.93)', 8:'rgba(212,88,20,.94)', 9:'rgba(198,42,30,.95)', 10:'rgba(176,18,28,.97)' };
   el.style.background = colours[stormLevel] || 'rgba(200,60,30,.9)';
   el.classList.toggle('sev', stormLevel >= 9);
@@ -641,8 +696,8 @@ function applyControlLocks() {
   g('tide').disabled    = liveMode;
   g('storm').disabled   = liveMode;
   const lock = g('wxlock');
-  if (liveMode)     { lock.textContent = '◈ controls locked to live data'; lock.style.display = 'block'; }
-  else if (storm)   { lock.textContent = '◈ effects set by storm signal';  lock.style.display = 'block'; }
+  if (liveMode)     { lock.textContent = t('lock.live');  lock.style.display = 'block'; }
+  else if (storm)   { lock.textContent = t('lock.storm'); lock.style.display = 'block'; }
   else              { lock.style.display = 'none'; }
 }
 function updateWindVisuals() {
@@ -718,7 +773,7 @@ function topView()   { const b = bounds(); camera.position.set(0, b.span*1.4, 0.
 // ---- UI wiring -------------------------------------------------------------
 document.getElementById('src').addEventListener('change', e => {
   loadSource(e.target.value).then(() => { if (liveMode) syncLiveTide(); }).catch(err => {
-    document.getElementById('note').textContent = 'Load failed: ' + err.message; console.error(err);
+    document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message; console.error(err);
   });
 });
 document.getElementById('surf').addEventListener('change', e => applyStyle(e.target.value));
@@ -729,7 +784,7 @@ document.getElementById('ve').addEventListener('input', e => {
 document.getElementById('meshlines').addEventListener('change', e => { wireOverlay.visible = e.target.checked; });
 const meshdens = document.getElementById('meshdens'), meshdensv = document.getElementById('meshdensv');
 const densStep = () => 13 - parseInt(meshdens.value, 10);   // slider right = finest (step 1)
-meshdens.addEventListener('input', () => { const s = densStep(); meshdensv.textContent = s === 1 ? 'full' : '÷' + s; });
+meshdens.addEventListener('input', () => { const s = densStep(); meshdensv.textContent = s === 1 ? t('dens.full') : '÷' + s; });
 meshdens.addEventListener('change', () => { meshStep = densStep(); rebuildTerrain(); });
 const mlColor = document.getElementById('mlcolor'), mlHex = document.getElementById('mlhex');
 function setWireColor(hex) {
@@ -791,6 +846,14 @@ const HKO_ICON = {
   76:'Mainly cloudy',77:'Mainly fine',80:'Windy',81:'Dry',82:'Humid',83:'Fog',84:'Mist',85:'Haze',
   90:'Hot',91:'Warm',92:'Cool',93:'Cold'
 };
+const HKO_ICON_ZH = {
+  50:'天晴',51:'部分時間有陽光',52:'短暫時間有陽光',53:'天晴，有幾陣驟雨',
+  54:'短暫時間有陽光，有驟雨',60:'多雲',61:'密雲',62:'微雨',63:'雨',
+  64:'大雨',65:'雷暴',70:'天色良好',71:'天色良好',72:'天色良好',73:'天色良好',74:'天色良好',75:'天色良好',
+  76:'大致多雲',77:'天色大致良好',80:'有風',81:'乾燥',82:'潮濕',83:'霧',84:'薄霧',85:'煙霞',
+  90:'炎熱',91:'和暖',92:'清涼',93:'寒冷'
+};
+const wxIcon = code => (isZh() ? HKO_ICON_ZH : HKO_ICON)[code];
 let liveMode = false, wxClockT = null, wxRefreshT = null;
 const wxStation = arr => (arr || []).find(d => /observatory/i.test(d.place)) || (arr || [])[0];
 const windFromForecast = desc => { const m = (desc || '').match(/[^.]*\bwind[s]?\b[^.]*/i); return m ? m[0].trim().replace(/\s+/g, ' ') : ''; };
@@ -842,9 +905,9 @@ async function syncLiveTide() {
     document.getElementById('tidev').textContent = Math.round(tideLevel * 100) + '%';
     // HUD readout + trend
     const trend = tideAt(vals, nowHour + 0.5) - cur;
-    const arrow = trend > 0.02 ? '↑ rising' : trend < -0.02 ? '↓ falling' : '→ slack';
-    document.getElementById('wx-tide').textContent = isFinite(cur) ? `tide ${cur.toFixed(2)} m  ${arrow}` : '';
-    document.getElementById('wx-tidecap').textContent = `24 h tide · ${stName}`;
+    const arrow = trend > 0.02 ? t('tide.rising') : trend < -0.02 ? t('tide.falling') : t('tide.slack');
+    document.getElementById('wx-tide').textContent = isFinite(cur) ? `${t('tide.word')} ${cur.toFixed(2)} m  ${arrow}` : '';
+    document.getElementById('wx-tidecap').textContent = `${t('tide.24h')} · ${I18N[locale]['st.' + st] || stName}`;
     drawTideGraph();
   } catch (e) { console.error('tide', e); }
 }
@@ -891,24 +954,24 @@ async function syncLiveWeather() {
   const el = id => document.getElementById(id);
   const chk = (id, on) => { const e = el(id); if (e.checked !== on) { e.checked = on; e.dispatchEvent(new Event('change', { bubbles: true })); } };
   try {
-    const base = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=';
+    const base = `https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=${isZh() ? 'tc' : 'en'}&dataType=`;
     const [rh, fl, ws] = await Promise.all([
       fetch(base + 'rhrread').then(r => r.json()),
       fetch(base + 'flw').then(r => r.json()).catch(() => ({})),
       fetch(base + 'warnsum').then(r => r.json()).catch(() => ({})),
     ]);
-    const t = wxStation(rh.temperature && rh.temperature.data), h = wxStation(rh.humidity && rh.humidity.data);
+    const tst = wxStation(rh.temperature && rh.temperature.data), h = wxStation(rh.humidity && rh.humidity.data);
     const code = (rh.icon || [])[0];
     let warn = rh.warningMessage || ''; if (Array.isArray(warn)) warn = warn.join(' ');
     let rainMax = 0; for (const r of ((rh.rainfall && rh.rainfall.data) || [])) rainMax = Math.max(rainMax, +r.max || 0);
-    el('wx-status').textContent = HKO_ICON[code] || 'Live';
-    el('wx-temp').textContent = t ? `${t.value}°${t.unit || 'C'}` : '—';
-    el('wx-hum').textContent = h ? `humidity ${h.value}%` : '';
+    el('wx-status').textContent = wxIcon(code) || t('wx.live');
+    el('wx-temp').textContent = tst ? `${tst.value}°${tst.unit || 'C'}` : '—';
+    el('wx-hum').textContent = h ? `${t('tip.humidity')} ${h.value}%` : '';
     el('wx-wind').textContent = windFromForecast(fl.forecastDesc) || '—';
     el('wx-warn').textContent = warn || '';
     const rainy = [53,54,62,63,64,65].includes(code) || rainMax > 0;
     chk('rain', rainy);
-    chk('lightning', code === 65 || /thunderstorm/i.test(warn));
+    chk('lightning', code === 65 || /thunderstorm|雷暴/i.test(warn));
     chk('clouds', rainy || [60,61,76].includes(code));
     chk('fog', [83,84,85].includes(code) || (h && +h.value >= 90));
     chk('waves', true);
@@ -917,7 +980,7 @@ async function syncLiveWeather() {
     if (tc.dir) { el('winddir').value = tc.dir; setWindDir(tc.dir); }
     el('storm').value = String(tc.level);
     applyStorm(tc.level);
-  } catch (e) { el('wx-status').textContent = 'live weather unavailable'; console.error(e); }
+  } catch (e) { el('wx-status').textContent = t('wx.unavail'); console.error(e); }
 }
 
 function tickHKClock() {
@@ -930,7 +993,7 @@ function setLiveMode(on) {
   document.getElementById('wxhud').style.display = on ? '' : 'none';
   applyControlLocks();     // live data owns everything; keeps storm-driven locks coherent too
   const btn = document.getElementById('livebtn');
-  btn.textContent = on ? '⛅ Live weather · ON' : '⛅ Sync live weather';
+  btn.textContent = on ? t('live.on') : t('live.sync');
   btn.classList.toggle('on', on);
   clearInterval(wxClockT); clearInterval(wxRefreshT);
   if (on) {
@@ -1027,27 +1090,27 @@ function buildStationMarkers() {
 }
 function applyStationReadings(R) {
   for (const m of stationMarkers) {
-    const d = R[m.name] || {}, t = parseFloat(d.temp);
+    const d = R[m.name] || {}, temp = parseFloat(d.temp);
     const ic = m.el.querySelector('.ic'), tEl = m.el.querySelector('.t'), rhEl = m.el.querySelector('.rh');
     // temperature stations lead with temp; wind-only stations lead with wind
-    if (isFinite(t)) {
+    if (isFinite(temp)) {
       ic.textContent = wxEmoji;
-      tEl.textContent = Math.round(t) + '°'; tEl.style.color = tempColor(t);
+      tEl.textContent = Math.round(temp) + '°'; tEl.style.color = tempColor(temp);
       rhEl.textContent = d.rh ? `💧 ${d.rh}%` : '';
     } else if (isFinite(parseFloat(d.wspd))) {
       const gust = parseFloat(d.gust), dir = d.wdir && d.wdir !== 'N/A' ? d.wdir : '';
       ic.textContent = '💨';
       tEl.textContent = Math.round(parseFloat(d.wspd)); tEl.style.color = '#cfe6ff';
-      rhEl.textContent = `${dir}${isFinite(gust) ? ` · gust ${gust}` : ''}`.trim();
+      rhEl.textContent = `${dir}${isFinite(gust) ? ` · ${t('tip.gust')} ${gust}` : ''}`.trim();
     } else {
       ic.textContent = wxEmoji;
       tEl.textContent = '–'; tEl.style.color = 'var(--sub)';
       rhEl.textContent = d.pres ? `${d.pres} hPa` : '';
     }
     const rows = [`<b>${m.zh ? m.zh + ' · ' : ''}${m.name}</b>`];
-    if (isFinite(t)) rows.push(`${t}°C`);
-    if (d.rh) rows.push(`humidity ${d.rh}%`);
-    if (d.wdir) rows.push(`wind ${d.wdir} ${d.wspd || '–'} km/h${d.gust ? ` · gust ${d.gust}` : ''}`);
+    if (isFinite(temp)) rows.push(`${temp}°C`);
+    if (d.rh) rows.push(`${t('tip.humidity')} ${d.rh}%`);
+    if (d.wdir) rows.push(`${t('tip.wind')} ${d.wdir} ${d.wspd || '–'} km/h${d.gust ? ` · ${t('tip.gust')} ${d.gust}` : ''}`);
     if (d.pres) rows.push(`${d.pres} hPa`);
     m.el.querySelector('.tip').innerHTML = rows.join('<br>');
   }
@@ -1147,6 +1210,7 @@ function serializeState() {
   p.set('wd', g('winddir').value);
   p.set('lv', liveMode ? '1' : '0');
   p.set('ws', stationsOn ? '1' : '0');
+  if (!pathRouted()) p.set('locale', locale);   // in path mode the locale lives in the URL path instead
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
                 r(controls.target.x), r(controls.target.y), r(controls.target.z),
@@ -1211,8 +1275,53 @@ document.getElementById('copylink').addEventListener('click', async e => {
   setTimeout(() => { btn.textContent = label; }, 1400);
 });
 
+// ---- locale routing + toggle ----------------------------------------------
+function pathLocale() { const seg = location.pathname.split('/')[1]; return LOCALES.includes(seg) ? seg : null; }
+function pathRouted() { return pathLocale() !== null; }
+function detectLocale() {
+  const fromPath = pathLocale(); if (fromPath) return fromPath;                 // /en-hk/ (CF Function route)
+  const q = new URLSearchParams(location.search).get('locale'); if (LOCALES.includes(q)) return q;
+  try { const s = localStorage.getItem('locale'); if (LOCALES.includes(s)) return s; } catch (_) {}
+  for (const p of (navigator.languages || [navigator.language || ''])) {        // browser preference
+    const l = p.toLowerCase(); if (LOCALES.includes(l)) return l;
+    const m = LOCALES.find(x => x.split('-')[0] === l.split('-')[0]); if (m) return m;
+  }
+  return DEFAULT_LOCALE;
+}
+function applyLocale(loc) {
+  locale = LOCALES.includes(loc) ? loc : DEFAULT_LOCALE;
+  document.documentElement.lang = isZh() ? 'zh-HK' : 'en';
+  document.body.dataset.locale = locale;
+  for (const el of document.querySelectorAll('[data-i18n]'))       el.textContent = t(el.getAttribute('data-i18n'));
+  for (const el of document.querySelectorAll('[data-i18n-title]')) el.title = t(el.getAttribute('data-i18n-title'));
+  for (const el of document.querySelectorAll('[data-i18n-html]'))  el.innerHTML = t(el.getAttribute('data-i18n-html'));
+  try { localStorage.setItem('locale', locale); } catch (_) {}
+  const lb = document.getElementById('langbtn'); if (lb) lb.textContent = isZh() ? 'EN' : '中';
+  const md = document.getElementById('meshdensv'); if (md) md.textContent = meshStep === 1 ? t('dens.full') : '÷' + meshStep;
+  if (gridW) updateNote();
+  updateStormBadge(); applyControlLocks();
+  const btn = document.getElementById('livebtn'); if (btn) btn.textContent = liveMode ? t('live.on') : t('live.sync');
+  if (liveMode) { syncLiveWeather(); syncLiveTide(); }
+  if (stationsOn) refreshStations();
+}
+function switchLocale(loc) {
+  if (!LOCALES.includes(loc) || loc === locale) return;
+  try { localStorage.setItem('locale', loc); } catch (_) {}
+  if (pathRouted()) {                       // prod: navigate to /<loc>/… (CF Function stamps the cookie)
+    const rest = location.pathname.split('/').slice(2).join('/');
+    location.href = `/${loc}/${rest}${location.search}${location.hash}`;
+  } else {                                  // dev / query mode: switch in place
+    const p = new URLSearchParams(location.search); p.set('locale', loc);
+    history.replaceState(null, '', location.pathname + '?' + p.toString() + location.hash);
+    applyLocale(loc);
+  }
+}
+document.getElementById('langbtn').addEventListener('click', () => switchLocale(isZh() ? 'en-hk' : 'zh-hk'));
+
 resize();
 applyBg('dark');
+locale = detectLocale();
+applyLocale(locale);
 const startParams = new URLSearchParams(location.search);
 const startSrc = SOURCES[startParams.get('s')] ? startParams.get('s') : 'hk-landsd-5m';
 document.getElementById('src').value = startSrc;
@@ -1227,6 +1336,6 @@ loadSource(startSrc).then(() => {
   // default to live weather on (unless a shared link explicitly opted out with lv=0)
   if (startParams.has('lv') ? startParams.get('lv') === '1' : true) setLiveMode(true);
 }).catch(err => {
-  document.getElementById('note').textContent = 'Load failed: ' + err.message;
+  document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message;
   console.error(err);
 });

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<base href="/"/><!-- keep relative asset paths root-anchored when served under /en-hk/ etc -->
 <title>Hong Kong — 3D terrain</title>
 <style>
   :root{
@@ -130,11 +131,12 @@
   <div id="phead">
     <h1>香港 · Hong Kong 3D</h1>
     <div class="pbtns">
+      <button id="langbtn" title="Language" style="width:auto;padding:0 8px;font-size:11px;font-weight:600">中</button>
       <button id="navhelp-btn" title="How to navigate">?</button>
       <button id="collapse-btn" title="Collapse panel">–</button>
     </div>
   </div>
-  <div id="navhelp" style="display:none">
+  <div id="navhelp" data-i18n-html="navhelp" style="display:none">
     <b>Navigate</b><br>
     Mouse — drag rotate · scroll zoom · right‑drag pan<br>
     Touch — one finger rotate · pinch zoom · two‑finger pan<br>
@@ -144,32 +146,32 @@
   <div class="sub" id="note">Loading…</div>
 
   <div class="grp">
-    <div class="row"><label class="k">Source</label>
+    <div class="row"><label class="k" data-i18n="lbl.source">Source</label>
       <select id="src">
-        <option value="hk-landsd-5m" selected>Hong Kong · LandsD 5 m</option>
-        <option value="hk-srtm">Hong Kong · AWS Terrarium ~30 m</option>
-        <option value="lantau-hk5m">Lantau · LandsD 5 m</option>
-        <option value="lantau-srtm30">Lantau · AWS Terrarium ~30 m</option>
+        <option value="hk-landsd-5m" selected data-i18n="src.hk5m">Hong Kong · LandsD 5 m</option>
+        <option value="hk-srtm" data-i18n="src.hksrtm">Hong Kong · AWS Terrarium ~30 m</option>
+        <option value="lantau-hk5m" data-i18n="src.lan5m">Lantau · LandsD 5 m</option>
+        <option value="lantau-srtm30" data-i18n="src.lansrtm">Lantau · AWS Terrarium ~30 m</option>
       </select>
     </div>
-    <div class="row"><label class="k">Surface</label>
+    <div class="row"><label class="k" data-i18n="lbl.surface">Surface</label>
       <select id="surf">
-        <option value="none">None (no fill)</option>
-        <option value="shaded" selected>Shaded relief</option>
-        <option value="tint">Elevation tint (flat)</option>
-        <option value="matte">Matte</option>
-        <option value="solid">Solid colour</option>
-        <option value="topo">Topographic (B50K)</option>
-        <option value="osm">Street map (OSM)</option>
-        <option value="sat">Satellite (Esri)</option>
+        <option value="none" data-i18n="surf.none">None (no fill)</option>
+        <option value="shaded" selected data-i18n="surf.shaded">Shaded relief</option>
+        <option value="tint" data-i18n="surf.tint">Elevation tint (flat)</option>
+        <option value="matte" data-i18n="surf.matte">Matte</option>
+        <option value="solid" data-i18n="surf.solid">Solid colour</option>
+        <option value="topo" data-i18n="surf.topo">Topographic (B50K)</option>
+        <option value="osm" data-i18n="surf.osm">Street map (OSM)</option>
+        <option value="sat" data-i18n="surf.sat">Satellite (Esri)</option>
       </select>
     </div>
-    <div class="row" id="solidrow" style="display:none"><label class="k">Fill colour</label>
+    <div class="row" id="solidrow" style="display:none"><label class="k" data-i18n="lbl.fill">Fill colour</label>
       <input type="color" id="solidcolor" value="#262626" style="flex:0 0 34px;height:24px;padding:0;border:1px solid var(--field-edge);border-radius:6px;background:none;cursor:pointer"/>
       <input type="text" id="solidhex" value="#262626" spellcheck="false"
              style="flex:1;min-width:0;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
     </div>
-    <div class="row" id="toporow" style="display:none"><label class="k">Map rotate</label>
+    <div class="row" id="toporow" style="display:none"><label class="k" data-i18n="lbl.maprotate">Map rotate</label>
       <button id="toporotL" title="rotate left">◄</button>
       <button id="toporotLf" title="rotate left 0.2°" style="opacity:.75">‹</button>
       <span id="toporotv" style="flex:1;text-align:center;font-family:var(--mono);color:var(--accent)">0.0°</span>
@@ -177,78 +179,78 @@
       <button id="toporotR" title="rotate right">►</button>
       <button id="toporot0" title="reset to 0°">0</button>
     </div>
-    <div class="row"><label class="k">Background</label>
-      <select id="bg"><option value="dark">Dark</option><option value="paper">Paper</option></select>
+    <div class="row"><label class="k" data-i18n="lbl.background">Background</label>
+      <select id="bg"><option value="dark" data-i18n="bg.dark">Dark</option><option value="paper" data-i18n="bg.paper">Paper</option></select>
     </div>
-    <div class="row"><label class="k">Vertical ×</label>
+    <div class="row"><label class="k" data-i18n="lbl.vertical">Vertical ×</label>
       <input id="ve" type="range" min="1" max="9" step="0.1" value="2.8"/>
       <span id="vev" style="flex:0 0 26px;text-align:right">2.8</span>
     </div>
   </div>
 
   <div class="grp">
-    <div class="gt">Mesh</div>
-    <div class="row"><label class="chk" style="flex:1"><input type="checkbox" id="meshlines"/> Show mesh lines</label></div>
-    <div class="row"><label class="k">Density</label>
+    <div class="gt" data-i18n="grp.mesh">Mesh</div>
+    <div class="row"><label class="chk" style="flex:1"><input type="checkbox" id="meshlines"/> <span data-i18n="lbl.showmesh">Show mesh lines</span></label></div>
+    <div class="row"><label class="k" data-i18n="lbl.density">Density</label>
       <input id="meshdens" type="range" min="1" max="12" step="1" value="12"/>
       <span id="meshdensv" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--panel-sub)">full</span>
     </div>
-    <div class="row"><label class="k">Colour</label>
+    <div class="row"><label class="k" data-i18n="lbl.colour">Colour</label>
       <input type="color" id="mlcolor" value="#2a4c33" style="flex:0 0 34px;height:24px;padding:0;border:1px solid var(--field-edge);border-radius:6px;background:none;cursor:pointer"/>
       <input type="text" id="mlhex" value="#2a4c33" spellcheck="false"
              style="flex:1;min-width:0;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
-      <button id="mlauto" title="Back to automatic colour" style="flex:0 0 auto;padding:5px 7px">auto</button>
+      <button id="mlauto" title="Back to automatic colour" data-i18n="btn.auto" style="flex:0 0 auto;padding:5px 7px">auto</button>
     </div>
   </div>
 
   <div class="grp">
-    <div class="gt">Overlays · stack on top</div>
+    <div class="gt" data-i18n="grp.overlays">Overlays · stack on top</div>
     <div class="chks">
-      <label class="chk"><input type="checkbox" id="water" checked/> Water</label>
-      <label class="chk"><input type="checkbox" id="labels" checked/> Labels</label>
-      <label class="chk"><input type="checkbox" id="stations"/> Stations (live)</label>
+      <label class="chk"><input type="checkbox" id="water" checked/> <span data-i18n="ov.water">Water</span></label>
+      <label class="chk"><input type="checkbox" id="labels" checked/> <span data-i18n="ov.labels">Labels</span></label>
+      <label class="chk"><input type="checkbox" id="stations"/> <span data-i18n="ov.stations">Stations (live)</span></label>
     </div>
     <div class="chks" id="layers" style="margin-top:4px"></div>
   </div>
 
   <div class="grp">
-    <div class="gt">Auto‑spin (horizontal)</div>
-    <div class="row"><label class="k">Direction</label>
-      <select id="spindir"><option value="0">Off</option><option value="1" selected>⟳ Clockwise</option><option value="-1">⟲ Counter‑cw</option></select>
+    <div class="gt" data-i18n="grp.spin">Auto‑spin (horizontal)</div>
+    <div class="row"><label class="k" data-i18n="lbl.direction">Direction</label>
+      <select id="spindir"><option value="0" data-i18n="spin.off">Off</option><option value="1" selected data-i18n="spin.cw">⟳ Clockwise</option><option value="-1" data-i18n="spin.ccw">⟲ Counter‑cw</option></select>
     </div>
-    <div class="row"><label class="k">Speed</label>
+    <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
       <input id="spinspd" type="range" min="0.15" max="3" step="0.05" value="1"/>
     </div>
   </div>
 
   <div class="grp">
-    <div class="gt">Weather</div>
+    <div class="gt" data-i18n="grp.weather">Weather</div>
     <div class="chks">
-      <label class="chk"><input type="checkbox" id="rain"/> Rain</label>
-      <label class="chk"><input type="checkbox" id="clouds"/> Clouds</label>
-      <label class="chk"><input type="checkbox" id="fog"/> Fog</label>
-      <label class="chk"><input type="checkbox" id="lightning"/> Thunder</label>
-      <label class="chk"><input type="checkbox" id="waves"/> Waves</label>
+      <label class="chk"><input type="checkbox" id="rain"/> <span data-i18n="wx.rain">Rain</span></label>
+      <label class="chk"><input type="checkbox" id="clouds"/> <span data-i18n="wx.clouds">Clouds</span></label>
+      <label class="chk"><input type="checkbox" id="fog"/> <span data-i18n="wx.fog">Fog</span></label>
+      <label class="chk"><input type="checkbox" id="lightning"/> <span data-i18n="wx.thunder">Thunder</span></label>
+      <label class="chk"><input type="checkbox" id="waves"/> <span data-i18n="wx.waves">Waves</span></label>
     </div>
-    <div class="row" style="margin-top:8px"><label class="k">Tide</label>
+    <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.tide">Tide</label>
       <input id="tide" type="range" min="0" max="100" step="1" value="50"/>
       <span id="tidev" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--accent);font-family:var(--mono)">50%</span>
     </div>
-    <div class="row" style="margin-top:10px"><label class="k">Storm signal</label>
+    <div class="row" style="margin-top:10px"><label class="k" data-i18n="lbl.storm">Storm signal</label>
       <select id="storm">
-        <option value="0" selected>None</option>
-        <option value="1">T1 · Standby</option>
-        <option value="3">T3 · Strong wind</option>
-        <option value="8">T8 · Gale / Storm</option>
-        <option value="9">T9 · Incr. gale</option>
-        <option value="10">T10 · Hurricane</option>
+        <option value="0" selected data-i18n="storm.0">None</option>
+        <option value="1" data-i18n="storm.1">T1 · Standby</option>
+        <option value="3" data-i18n="storm.3">T3 · Strong wind</option>
+        <option value="8" data-i18n="storm.8">T8 · Gale / Storm</option>
+        <option value="9" data-i18n="storm.9">T9 · Incr. gale</option>
+        <option value="10" data-i18n="storm.10">T10 · Hurricane</option>
       </select>
     </div>
-    <div class="row"><label class="k">Wind</label>
+    <div class="row"><label class="k" data-i18n="lbl.wind">Wind</label>
       <input id="wind" type="range" min="0" max="100" step="1" value="0"/>
       <span id="windv" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--accent);font-family:var(--mono)">0%</span>
     </div>
-    <div class="row"><label class="k">Wind from</label>
+    <div class="row"><label class="k" data-i18n="lbl.windfrom">Wind from</label>
       <select id="winddir">
         <option>N</option><option>NE</option><option>E</option><option>SE</option>
         <option>S</option><option>SW</option><option>W</option><option>NW</option>
@@ -259,10 +261,10 @@
   </div>
 
   <div class="grp btns">
-    <button id="reset">Reset</button>
-    <button id="south">South</button>
-    <button id="top">Top‑down</button>
-    <button id="copylink" title="Copy a link to this exact view">Copy link</button>
+    <button id="reset" data-i18n="btn.reset">Reset</button>
+    <button id="south" data-i18n="btn.south">South</button>
+    <button id="top" data-i18n="btn.top">Top‑down</button>
+    <button id="copylink" title="Copy a link to this exact view" data-i18n="btn.copylink">Copy link</button>
   </div>
   </div><!-- /#pbody -->
 </div>
