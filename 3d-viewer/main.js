@@ -93,6 +93,7 @@ let matShaded, matTint, matMatte, matSolid, matTopo, texTopo = null;
 let spinDir = 0, spinSpeed = 1;   // horizontal auto-spin (0 = off)
 let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
 let solidColor = '#262626';       // fill colour for the "Solid colour" surface
+let texRot = 0;                   // B50K raster rotation in degrees (manual alignment)
 
 // ---- helpers (ported from the original viewer) -----------------------------
 function hyps(e, zmax) {
@@ -144,6 +145,7 @@ async function loadSource(id) {
   buildLabels();
   texTopo = new THREE.TextureLoader().load(s.texture, t => { t.colorSpace = THREE.SRGBColorSpace; if (matTopo) matTopo.needsUpdate = true; });
   matTopo.map = texTopo;
+  applyTexRot();
 
   applyStyle(surfStyle);
   applyVE();
@@ -312,6 +314,16 @@ function wireLook() {
   wireOverlay.material.opacity = primary ? (onPaper ? 0.9 : 0.8) : (onPaper ? 0.22 : 0.14);
 }
 
+// rotate the B50K raster around its centre (manual alignment aid)
+function applyTexRot() {
+  const el = document.getElementById('toporotv');
+  if (el) el.textContent = texRot.toFixed(1) + '°';
+  if (!texTopo) return;
+  texTopo.center.set(0.5, 0.5);
+  texTopo.rotation = texRot * Math.PI / 180;
+  texTopo.needsUpdate = true;
+}
+
 function applyStyle(style) {
   surfStyle = style;
   const mats = { shaded: matShaded, tint: matTint, matte: matMatte, solid: matSolid, topo: matTopo };
@@ -319,6 +331,7 @@ function applyStyle(style) {
   terrain.visible = (style !== 'none');
   if (terrain.visible) terrain.material = mats[style] || matShaded;
   document.getElementById('solidrow').style.display = (style === 'solid') ? '' : 'none';
+  document.getElementById('toporow').style.display = (style === 'topo') ? '' : 'none';
   // mesh lines are an independent overlay in ALL styles (incl. none)
   wireOverlay.visible = document.getElementById('meshlines').checked;
   wireLook();
@@ -386,6 +399,12 @@ function setSolidColor(hex) {
 }
 solidColorEl.addEventListener('input', e => setSolidColor(e.target.value));
 solidHexEl.addEventListener('change', e => setSolidColor(e.target.value));
+const rot = d => () => { texRot = Math.round((texRot + d) * 10) / 10; applyTexRot(); };
+document.getElementById('toporotL').addEventListener('click', rot(-1));
+document.getElementById('toporotLf').addEventListener('click', rot(-0.2));
+document.getElementById('toporotRf').addEventListener('click', rot(0.2));
+document.getElementById('toporotR').addEventListener('click', rot(1));
+document.getElementById('toporot0').addEventListener('click', () => { texRot = 0; applyTexRot(); });
 document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; });
 document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); });
 document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); });

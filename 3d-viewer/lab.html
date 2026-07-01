@@ -115,6 +115,14 @@
       <input type="text" id="solidhex" value="#262626" spellcheck="false"
              style="flex:1;min-width:0;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
     </div>
+    <div class="row" id="toporow" style="display:none"><label class="k">Map rotate</label>
+      <button id="toporotL" title="rotate left">◄</button>
+      <button id="toporotLf" title="rotate left 0.2°" style="opacity:.75">‹</button>
+      <span id="toporotv" style="flex:1;text-align:center;font-family:var(--mono);color:var(--accent)">0.0°</span>
+      <button id="toporotRf" title="rotate right 0.2°" style="opacity:.75">›</button>
+      <button id="toporotR" title="rotate right">►</button>
+      <button id="toporot0" title="reset to 0°">0</button>
+    </div>
     <div class="row"><label class="k">Background</label>
       <select id="bg"><option value="dark">Dark</option><option value="paper">Paper</option></select>
     </div>
