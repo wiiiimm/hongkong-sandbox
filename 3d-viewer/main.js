@@ -383,11 +383,14 @@ function animateWeather() {
   // tide = slow water level; storm adds a surge on top; waves = ripple that gets
   // choppier (but still upward-only, so it never drains) as the wind picks up.
   if (sea) {
-    const surge = stormLevel >= 8 ? (stormLevel >= 10 ? 0.5 : stormLevel >= 9 ? 0.36 : 0.24) : 0;
-    const tideY = SEA_Y + Math.min(1.3, tideLevel + surge) * b.span * 0.0012;
-    const amp   = b.span * (0.00004 + w * 0.0006);
+    // sea rests AT the coastline (SEA_Y); tide is a small band around mean (50% = mean),
+    // sized to real HK tides (~±3 m) so it never floods the city. Storm adds a modest
+    // surge on top, and waves a small upward chop.
+    const tide   = (tideLevel - 0.5) * b.span * 0.00016;                       // ~±5 units ≈ ±3 m
+    const surge  = stormLevel >= 8 ? (stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.65 : 0.4) * b.span * 0.00022 : 0;
+    const amp    = b.span * (0.00004 + w * 0.0001);
     const ripple = weather.waves ? (Math.sin(wavePhase += 0.03 * (1 + w * 3)) * 0.5 + 0.5) * amp : 0;
-    sea.position.y = tideY + ripple;
+    sea.position.y = SEA_Y + tide + surge + ripple;
   }
   if (weather.lightning) {
     if (flash > 0) { flash -= 0.07; hemi.intensity = baseHemi + flash * 5; }
