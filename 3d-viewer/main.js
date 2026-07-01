@@ -1042,6 +1042,10 @@ document.getElementById('top').addEventListener('click', topView);
 // come from HKO's regional-weather CSVs, which lack CORS headers — so we route
 // them through data.gov.hk's historical-archive, which re-serves with CORS *.
 let stationData = null, stationMarkers = [], stationsOn = false, stationT = null, wxEmoji = '⛅';
+// When true, only plot stations that report air temperature — HKO's wind/marine-only
+// stations (Central Pier, Star Ferry, Waglan…) are hidden. Set false to show them too
+// (they fall back to a wind-speed reading). The wind-lead rendering below stays intact.
+const STATIONS_TEMP_ONLY = true;
 const ARCHIVE = 'https://api.data.gov.hk/v1/historical-archive/get-file?url=';
 const REGIONAL = 'https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/';
 
@@ -1117,6 +1121,9 @@ function applyStationReadings(R) {
   for (const m of stationMarkers) {
     const d = R[m.name] || {}, temp = parseFloat(d.temp);
     const ic = m.el.querySelector('.ic'), tEl = m.el.querySelector('.t'), rhEl = m.el.querySelector('.rh');
+    // in temp-only mode, flag stations with no thermometer so updateStations skips them
+    m.hidden = STATIONS_TEMP_ONLY && !isFinite(temp);
+    if (m.hidden) { m.el.style.display = 'none'; continue; }
     // temperature stations lead with temp; wind-only stations lead with wind
     if (isFinite(temp)) {
       ic.textContent = wxEmoji;
@@ -1161,6 +1168,7 @@ function updateStations() {
   if (!stationsOn || !stationMarkers.length || !curG) return;
   const g = curG;
   for (const m of stationMarkers) {
+    if (m.hidden) { m.el.style.display = 'none'; continue; }   // no-temperature station (temp-only mode)
     const col = (m.E - g.bE) / g.aE, row = (m.N - g.bN) / g.aN;
     if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { m.el.style.display = 'none'; continue; }
     v.set((col - W/2)*cell, sampleE(col, row)*VE, (row - H/2)*cell);
