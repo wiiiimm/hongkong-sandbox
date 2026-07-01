@@ -15,6 +15,7 @@ const SOURCES = {
     texbb:   'data/lantau-texbb.json',
     overlay: 'data/lantau-b50k-vectors.json',   // re-extracted from B50K GML, grid-aligned
     texture: 'data/lantau-b50k-topo-texture.png',
+    landcover: 'data/lantau-b50k-landcover.json',
     ve: 2.6,
   },
   'lantau-srtm30': {
@@ -24,6 +25,7 @@ const SOURCES = {
     texbb:   'data/lantau-texbb.json',           // shared: B50K texture geographic bounds
     overlay: 'data/lantau-b50k-vectors.json',    // shared: vectors are in absolute E/N via texbb
     texture: 'data/lantau-b50k-topo-texture.png',
+    landcover: 'data/lantau-b50k-landcover.json',
     ve: 2.6,
   },
   'hk-landsd-5m': {
@@ -33,6 +35,7 @@ const SOURCES = {
     texbb:   'data/hk-texbb.json',
     overlay: 'data/hk-b50k-vectors.json',
     texture: 'data/hk-b50k-topo-texture.png',
+    landcover: 'data/hk-b50k-landcover.json',
     ve: 2.2,
   },
   'hk-srtm': {
@@ -42,6 +45,7 @@ const SOURCES = {
     texbb:   'data/hk-texbb.json',
     overlay: 'data/hk-b50k-vectors.json',
     texture: 'data/hk-b50k-topo-texture.png',
+    landcover: 'data/hk-b50k-landcover.json',
     ve: 2.2,
   },
 };
@@ -126,8 +130,8 @@ async function loadSource(id) {
   const ver = new URLSearchParams(location.search).get('v');
   const q = ver ? ('?v=' + ver) : '';
   const fj = u => fetch(u + q, { cache: 'no-cache' }).then(r => r.json());   // revalidate (304 if unchanged) so stale DEMs never stick
-  const [mesh, georefAll, texbbWrap, overlay] = await Promise.all([
-    fj(s.mesh), fj(s.georef.file), fj(s.texbb), fj(s.overlay),
+  const [mesh, georefAll, texbbWrap, overlay, landcover] = await Promise.all([
+    fj(s.mesh), fj(s.georef.file), fj(s.texbb), fj(s.overlay), fj(s.landcover),
   ]);
   const g = s.georef.key ? georefAll[s.georef.key] : georefAll;   // keyed (lantau) or flat (hk)
   const texbb = texbbWrap.texbb;
@@ -143,8 +147,9 @@ async function loadSource(id) {
   buildSkin(overlay, g, texbb);
   buildSea();
   buildLabels();
-  texTopo = new THREE.TextureLoader().load(s.texture, t => { t.colorSpace = THREE.SRGBColorSpace; if (matTopo) matTopo.needsUpdate = true; });
-  matTopo.map = texTopo;
+  if (texTopo) texTopo.dispose();
+  texTopo = buildBaseTexture(landcover);   // clean B50K base map (fills only), aligned by construction
+  matTopo.map = texTopo; matTopo.needsUpdate = true;
   applyTexRot();
 
   applyStyle(surfStyle);
@@ -312,6 +317,35 @@ function wireLook() {
   wireOverlay.material.color.set(wireColor != null ? wireColor : auto);
   const primary = surfStyle === 'none';
   wireOverlay.material.opacity = primary ? (onPaper ? 0.9 : 0.8) : (onPaper ? 0.22 : 0.14);
+}
+
+// paint a clean B50K base map (land-cover + water fills, no linework) onto a
+// canvas at the grid's geographic aspect -> CanvasTexture. Aligned by construction.
+function buildBaseTexture(lc) {
+  const tb = curTexbb;
+  const aspect = (tb.E1 - tb.E0) / (tb.N1 - tb.N0);
+  const W = 2048, H = Math.max(1, Math.round(W / aspect));
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#efe9dd'; ctx.fillRect(0, 0, W, H);   // land base
+  const paint = (rings, color) => {
+    if (!rings || !rings.length) return;
+    ctx.fillStyle = color; ctx.beginPath();
+    for (const ring of rings) {
+      ctx.moveTo(ring[0][0]*W, ring[0][1]*H);
+      for (let i = 1; i < ring.length; i++) ctx.lineTo(ring[i][0]*W, ring[i][1]*H);
+      ctx.closePath();
+    }
+    ctx.fill('evenodd');
+  };
+  paint(lc.wood,   '#b7cca4');   // woodland
+  paint(lc.veg,    '#cfdab3');   // cultivation / other vegetation
+  paint(lc.barren, '#ddccae');   // sand / mud / barren
+  paint(lc.water,  '#a7c4d6');   // reservoirs / water bodies
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  return tex;
 }
 
 // rotate the B50K raster around its centre (manual alignment aid)
