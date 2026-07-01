@@ -188,8 +188,8 @@ function buildTerrain() {
     pos[k*3] = (c-W/2)*cell; pos[k*3+1] = e; pos[k*3+2] = (r-H/2)*cell;
     const cc = hyps(e, zmax); col[k*3] = cc[0]/255; col[k*3+1] = cc[1]/255; col[k*3+2] = cc[2]/255;
     const E = g.aE*c + g.bE, N = g.aN*r + g.bN;
-    // the B50K raster is authored mirrored east-west, so flip U to un-mirror it
-    uv[k*2] = (tb.E1-E)/(tb.E1-tb.E0); uv[k*2+1] = (tb.N1-N)/(tb.N1-tb.N0);
+    // the B50K raster is authored rotated 180° (stored upside-down); this UV un-rotates it
+    uv[k*2] = (E-tb.E0)/(tb.E1-tb.E0); uv[k*2+1] = (N-tb.N0)/(tb.N1-tb.N0);
   }
   const idx = [];
   for (let j = 0; j < gH-1; j++) for (let i = 0; i < gW-1; i++) {
