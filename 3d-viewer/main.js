@@ -79,6 +79,7 @@ const I18N = {
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.weather': 'Weather', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
+    'lbl.skyheight': 'Sky height ×',
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link',
@@ -104,6 +105,7 @@ const I18N = {
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.weather': '天氣', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
+    'lbl.skyheight': '天空高度 ×',
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結',
@@ -370,6 +372,7 @@ function buildSea() {
 let rainPts = null, cloudGrp = null, wavePhase = 0, flash = 0;
 const SEA_Y = 0.5;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false };
+let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
 let tideManual = 0.5;    // slider 0..1 — used when not in live mode
 let tideLevel  = 0.5;    // effective water level 0..1 (drives the sea height)
 let tideSeries = null;   // live prediction: { vals[72] m, nowHour, min, max, cur, stationName } or null
@@ -413,7 +416,7 @@ function buildWeather() {
   const rg = new THREE.BufferGeometry();
   rg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   rainPts = new THREE.Points(rg, new THREE.PointsMaterial({ color: 0xbcd2e2, size: b.span*0.0016, transparent: true, opacity: 0.55, depthWrite: false }));
-  rainPts.userData.top = top; rainPts.visible = weather.rain;
+  rainPts.userData.baseTop = top; rainPts.visible = weather.rain;
   world.add(rainPts);
 
   if (cloudGrp) { world.remove(cloudGrp); cloudGrp.traverse(o => o.material && o.material.dispose()); }
@@ -421,13 +424,22 @@ function buildWeather() {
   const H = b.span * 0.34, n = 22, size = b.span * 0.34;
   for (let i = 0; i < n; i++) {
     const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: CLOUD_TEX, color: 0xe2e8ef, transparent: true, opacity: 0.5, depthWrite: false }));
-    s.position.set((Math.random()*2-1)*hx, H + Math.random()*b.span*0.12, (Math.random()*2-1)*hz);
+    s.position.set((Math.random()*2-1)*hx, 0, (Math.random()*2-1)*hz);
+    s.userData.baseY = H + Math.random()*b.span*0.12;
     const w = size * (0.6 + Math.random());
     s.scale.set(w, w*0.55, 1);
     cloudGrp.add(s);
   }
   cloudGrp.visible = weather.clouds;
   world.add(cloudGrp);
+  applySkyScale();
+}
+
+// sky-layer height ×: view-only lift/scale of the weather layer (clouds + rain
+// ceiling), so low clouds don't bury the peaks at high vertical exaggeration
+function applySkyScale() {
+  if (rainPts) rainPts.userData.top = rainPts.userData.baseTop * skyScale;
+  if (cloudGrp) for (const s of cloudGrp.children) s.position.y = s.userData.baseY * skyScale;
 }
 
 // clear colour + light levels, darkened toward a storm sky as the wind rises
@@ -914,6 +926,11 @@ document.getElementById('rain').addEventListener('change', e => { weather.rain =
 document.getElementById('clouds').addEventListener('change', e => { weather.clouds = e.target.checked; if (cloudGrp) cloudGrp.visible = weather.clouds; });
 document.getElementById('lightning').addEventListener('change', e => { weather.lightning = e.target.checked; if (!weather.lightning) { flash = 0; applyBg(bgMode); } });
 document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
+document.getElementById('skyh').addEventListener('input', e => {
+  skyScale = parseFloat(e.target.value);
+  document.getElementById('skyhv').textContent = skyScale.toFixed(1);
+  applySkyScale();
+});
 document.getElementById('tide').addEventListener('input', e => {
   tideManual = parseInt(e.target.value, 10) / 100;
   if (!liveMode) tideLevel = tideManual;                 // live mode drives tideLevel from data instead
@@ -1372,6 +1389,7 @@ function serializeState() {
   p.set('cl', weather.clouds ? '1' : '0');
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
+  p.set('sk', g('skyh').value);
   p.set('ti', String(Math.round(tideManual * 100)));
   p.set('tr', String(Math.round(thunderRate * 100)));
   p.set('st', String(stormLevel));
@@ -1421,6 +1439,7 @@ function applyState(p) {
   if (p.has('cl')) setChk('clouds', p.get('cl') === '1');
   if (p.has('li')) setChk('lightning', p.get('li') === '1');
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
+  if (p.has('sk')) setVal('skyh', p.get('sk'), 'input');
   if (p.has('ti')) setVal('tide', p.get('ti'), 'input');
   if (p.has('tr')) setVal('thunderrate', p.get('tr'), 'input');
   if (p.has('wd')) setVal('winddir', p.get('wd'));       // direction before signal (badge quadrant)
