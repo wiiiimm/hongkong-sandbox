@@ -56,6 +56,7 @@ const world = new THREE.Group(); scene.add(world);
 
 // ---- per-source state ------------------------------------------------------
 let W, H, cell, elev, zmax, peaks = [];
+let meshStep = 1, gridW = 0, gridH = 0, curG = null, curTexbb = null;   // mesh density state
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
 let skinBase = new Map();                               // layer -> Float32Array of base (unexaggerated) y
 let labels = [];
@@ -102,6 +103,7 @@ async function loadSource(id) {
 
   W = mesh.w; H = mesh.h; cell = mesh.cell; elev = mesh.elev; zmax = mesh.zmax;
   peaks = mesh.peaks || [];
+  curG = g; curTexbb = texbb;
   VE = s.ve;
   document.getElementById('ve').value = VE;
   document.getElementById('vev').textContent = VE.toFixed(1);
@@ -116,25 +118,52 @@ async function loadSource(id) {
   applyStyle(surfStyle);
   applyVE();
   frameCamera();
+  updateNote();
+}
+
+function updateNote() {
   document.getElementById('note').textContent =
-    `${W}×${H} grid · ${(W*H/1e3).toFixed(0)}k verts · peak ${Math.round(zmax)} m`;
+    `${gridW}×${gridH} mesh · ${(gridW*gridH/1e3).toFixed(0)}k verts · peak ${Math.round(zmax)} m`;
+}
+
+// rebuild terrain at the current density, preserving style/VE/camera
+function rebuildTerrain() {
+  buildTerrain();
+  if (texTopo) matTopo.map = texTopo;   // re-attach texture to freshly-made material
+  applyStyle(surfStyle);
+  applyVE();
+  updateNote();
+}
+
+// Subsampled sample indices along an axis (always includes the last row/col).
+function axisSamples(n, step) {
+  const s = []; for (let i = 0; i < n; i += step) s.push(i);
+  if (s[s.length - 1] !== n - 1) s.push(n - 1);
+  return s;
 }
 
 function buildTerrain() {
   if (terrain) { world.remove(terrain); terrain.geometry.dispose(); }
+  const rows = axisSamples(H, meshStep), cols = axisSamples(W, meshStep);
+  const gW = cols.length, gH = rows.length;
+  gridW = gW; gridH = gH;
+  const g = curG, tb = curTexbb;
   const geo = new THREE.BufferGeometry();
-  const pos = new Float32Array(W*H*3), col = new Float32Array(W*H*3), uv = new Float32Array(W*H*2);
-  for (let r = 0; r < H; r++) for (let c = 0; c < W; c++) {
-    const i = r*W+c, e = elev[i];
-    pos[i*3] = (c-W/2)*cell; pos[i*3+1] = e; pos[i*3+2] = (r-H/2)*cell;
-    const cc = hyps(e, zmax); col[i*3] = cc[0]/255; col[i*3+1] = cc[1]/255; col[i*3+2] = cc[2]/255;
+  const pos = new Float32Array(gW*gH*3), col = new Float32Array(gW*gH*3), uv = new Float32Array(gW*gH*2);
+  for (let j = 0; j < gH; j++) for (let i = 0; i < gW; i++) {
+    const r = rows[j], c = cols[i], k = j*gW+i, e = elev[r*W+c];
+    pos[k*3] = (c-W/2)*cell; pos[k*3+1] = e; pos[k*3+2] = (r-H/2)*cell;
+    const cc = hyps(e, zmax); col[k*3] = cc[0]/255; col[k*3+1] = cc[1]/255; col[k*3+2] = cc[2]/255;
+    const E = g.aE*c + g.bE, N = g.aN*r + g.bN;
+    uv[k*2] = (E-tb.E0)/(tb.E1-tb.E0); uv[k*2+1] = (tb.N1-N)/(tb.N1-tb.N0);
   }
   const idx = [];
-  for (let r = 0; r < H-1; r++) for (let c = 0; c < W-1; c++) {
-    const a = r*W+c, b = a+1, d = a+W, e = d+1; idx.push(a,d,b, b,d,e);
+  for (let j = 0; j < gH-1; j++) for (let i = 0; i < gW-1; i++) {
+    const a = j*gW+i, b = a+1, d = a+gW, e = d+1; idx.push(a,d,b, b,d,e);
   }
   geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
   geo.setIndex(idx);
   terrainBase = pos.slice();  // unexaggerated heights
 
@@ -214,7 +243,8 @@ function buildLabels() {
 // ---- vertical exaggeration drives terrain AND skin -------------------------
 function applyVE() {
   const p = terrain.geometry.attributes.position.array;
-  for (let i = 0; i < W*H; i++) p[i*3+1] = terrainBase[i*3+1] * VE;
+  const nVerts = terrainBase.length / 3;
+  for (let i = 0; i < nVerts; i++) p[i*3+1] = terrainBase[i*3+1] * VE;
   terrain.geometry.attributes.position.needsUpdate = true;
   terrain.geometry.computeVertexNormals();
 
@@ -279,6 +309,10 @@ document.getElementById('ve').addEventListener('input', e => {
   VE = parseFloat(e.target.value); document.getElementById('vev').textContent = VE.toFixed(1); applyVE();
 });
 document.getElementById('meshlines').addEventListener('change', e => { wireOverlay.visible = e.target.checked; });
+const meshdens = document.getElementById('meshdens'), meshdensv = document.getElementById('meshdensv');
+const densStep = () => 13 - parseInt(meshdens.value, 10);   // slider right = finest (step 1)
+meshdens.addEventListener('input', () => { const s = densStep(); meshdensv.textContent = s === 1 ? 'full' : '÷' + s; });
+meshdens.addEventListener('change', () => { meshStep = densStep(); rebuildTerrain(); });
 const mlColor = document.getElementById('mlcolor'), mlHex = document.getElementById('mlhex');
 function setWireColor(hex) {
   hex = hex.trim(); if (!/^#?[0-9a-fA-F]{6}$/.test(hex)) return;

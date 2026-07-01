@@ -67,19 +67,27 @@
   </div>
 
   <div class="grp">
-    <div class="gt">Overlays · stack on top</div>
-    <div class="chks">
-      <label class="chk"><input type="checkbox" id="meshlines"/> Mesh lines</label>
-      <label class="chk"><input type="checkbox" id="water" checked/> Water</label>
-      <label class="chk"><input type="checkbox" id="labels" checked/> Labels</label>
+    <div class="gt">Mesh</div>
+    <div class="row"><label class="chk" style="flex:1"><input type="checkbox" id="meshlines"/> Show mesh lines</label></div>
+    <div class="row"><label class="k">Density</label>
+      <input id="meshdens" type="range" min="1" max="12" step="1" value="12"/>
+      <span id="meshdensv" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--panel-sub)">full</span>
     </div>
-    <div class="chks" id="layers" style="margin-top:4px"></div>
-    <div class="row" style="margin-top:8px"><label class="k">Mesh colour</label>
+    <div class="row"><label class="k">Colour</label>
       <input type="color" id="mlcolor" value="#2a4c33" style="flex:0 0 34px;height:24px;padding:0;border:1px solid var(--field-edge);border-radius:6px;background:none;cursor:pointer"/>
       <input type="text" id="mlhex" value="#2a4c33" spellcheck="false"
              style="flex:1;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
       <button id="mlauto" title="Back to automatic colour" style="flex:0 0 auto;padding:5px 7px">auto</button>
     </div>
+  </div>
+
+  <div class="grp">
+    <div class="gt">Overlays · stack on top</div>
+    <div class="chks">
+      <label class="chk"><input type="checkbox" id="water" checked/> Water</label>
+      <label class="chk"><input type="checkbox" id="labels" checked/> Labels</label>
+    </div>
+    <div class="chks" id="layers" style="margin-top:4px"></div>
   </div>
 
   <div class="grp">
