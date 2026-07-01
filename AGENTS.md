@@ -6,6 +6,7 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
 
 - **This top-level folder is the single project root.** All agents work directly in it — there are no per-agent working folders anymore.
 - This project is (being) tracked as a **git repository**. Commit meaningful units of work; keep generated artefacts and source references in their documented locations rather than scattering scratch files at the root.
+- **Use semantic / conventional commit messages** (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `perf:`, etc.). Commit as you go — one logical change per commit — rather than batching unrelated changes.
 - Deployment target is **Vercel** (static hosting for the viewer). Keep the deployable app self-contained and buildable from the repo.
 
 ## Project Context
