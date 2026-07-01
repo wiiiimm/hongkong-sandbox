@@ -143,7 +143,7 @@ async function loadSource(id) {
   buildSkin(overlay, g, texbb);
   buildSea();
   buildWeather();
-  setFog();
+  updateWindVisuals();     // renderSky + fog + rain/cloud look for the current wind
   buildLabels();
   if (texTopo) texTopo.dispose();
   texTopo = buildBaseTexture(landcover);   // clean B50K base map (fills only), aligned by construction
@@ -280,6 +280,22 @@ let tideManual = 0.5;    // slider 0..1 — used when not in live mode
 let tideLevel  = 0.5;    // effective water level 0..1 (drives the sea height)
 let tideSeries = null;   // live prediction: { vals[72] m, nowHour, min, max, cur, stationName } or null
 
+// ---- wind + tropical-cyclone storm system ----------------------------------
+let stormLevel = 0;      // 0 none, else HK signal 1 / 3 / 8 / 9 / 10
+let windStrength = 0;    // 0..1 wind intensity (storm presets it; slider overrides)
+let baseHemi = 1.4, baseSun = 2.0;   // light levels before the lightning flash is added
+const windVec = { x: 0, z: 1 };      // unit heading the wind blows TOWARD (screen space)
+const WIND_VEC = {   // compass the wind blows FROM -> push vector (toward the opposite)
+  N:[0,1], NE:[-0.707,0.707], E:[-1,0], SE:[-0.707,-0.707],
+  S:[0,-1], SW:[0.707,-0.707], W:[1,0], NW:[0.707,0.707],
+};
+const STORM_W = { 0:0, 1:0.2, 3:0.45, 8:0.72, 9:0.86, 10:1 };   // signal -> wind strength
+const SIGNAL_NAME = {
+  1:'Standby Signal No.1', 3:'Strong Wind Signal No.3', 8:'Gale or Storm Signal No.8',
+  9:'Increasing Gale or Storm Signal No.9', 10:'Hurricane Signal No.10',
+};
+const setWindDir = dir => { const v = WIND_VEC[dir] || WIND_VEC.N; windVec.x = v[0]; windVec.z = v[1]; };
+
 const CLOUD_TEX = (() => {
   const c = document.createElement('canvas'); c.width = c.height = 128;
   const x = c.getContext('2d'), g = x.createRadialGradient(64, 64, 6, 64, 64, 64);
@@ -318,33 +334,62 @@ function buildWeather() {
   world.add(cloudGrp);
 }
 
+// clear colour + light levels, darkened toward a storm sky as the wind rises
+function renderSky() {
+  const onPaper = bgMode === 'paper';
+  const k = stormLevel > 0 ? Math.min(0.6, 0.15 + windStrength * 0.55) : 0;
+  const col = new THREE.Color(BG[bgMode]).lerp(new THREE.Color(0x1a2028), k);
+  renderer.setClearColor(col, 1);
+  const dim = 1 - (stormLevel > 0 ? windStrength * 0.4 : 0);
+  baseHemi = (onPaper ? 1.9 : 1.4) * dim;
+  baseSun  = (onPaper ? 2.4 : 2.0) * dim;
+  hemi.intensity = baseHemi + flash * 5;
+  sun.intensity  = baseSun;
+}
+
 function setFog() {
-  const b = bounds();
-  scene.fog = weather.fog ? new THREE.Fog(BG[bgMode], b.span*0.35, b.span*1.5) : null;
+  if (!weather.fog) { scene.fog = null; return; }
+  const b = bounds(), w = stormLevel > 0 ? windStrength : 0;
+  const near = Math.max(b.span * 0.12, b.span * (0.35 - 0.08 * w));   // storm fog thickens (but stays past the camera)
+  const far  = b.span * (1.5 - 0.35 * w);
+  scene.fog = new THREE.Fog(renderer.getClearColor(new THREE.Color()).getHex(), near, far);
 }
 
 function animateWeather() {
-  const b = bounds();
+  const b = bounds(), w = windStrength, hx = b.halfX, hz = b.halfZ;
   if (rainPts && rainPts.visible) {
-    const p = rainPts.geometry.attributes.position.array, top = rainPts.userData.top, spd = b.span*0.012;
-    for (let i = 1; i < p.length; i += 3) { p[i] -= spd; if (p[i] < 0) p[i] = top; }
+    const p = rainPts.geometry.attributes.position.array, top = rainPts.userData.top;
+    const fall = b.span * 0.012 * (1 + w * 1.6);          // driving rain falls faster in wind
+    const dx = windVec.x * b.span * 0.02 * w, dz = windVec.z * b.span * 0.02 * w;   // blown sideways
+    for (let i = 0; i < p.length; i += 3) {
+      p[i] += dx; p[i+1] -= fall; p[i+2] += dz;
+      if (p[i+1] < 0) p[i+1] = top;
+      if (p[i]   >  hx) p[i]   -= 2*hx; else if (p[i]   < -hx) p[i]   += 2*hx;   // wrap horizontally
+      if (p[i+2] >  hz) p[i+2] -= 2*hz; else if (p[i+2] < -hz) p[i+2] += 2*hz;
+    }
     rainPts.geometry.attributes.position.needsUpdate = true;
   }
   if (cloudGrp && cloudGrp.visible) {
-    const lim = b.halfX * 1.3;
-    for (const s of cloudGrp.children) { s.position.x += b.span*0.0006; if (s.position.x > lim) s.position.x = -lim; }
+    const spd = b.span * 0.0006 * (1 + w * 7);            // clouds race with the wind
+    const cx = windVec.x * spd, cz = windVec.z * spd, lx = hx * 1.3, lz = hz * 1.3;
+    for (const s of cloudGrp.children) {
+      s.position.x += cx; s.position.z += cz;
+      if (s.position.x >  lx) s.position.x = -lx; else if (s.position.x < -lx) s.position.x = lx;
+      if (s.position.z >  lz) s.position.z = -lz; else if (s.position.z < -lz) s.position.z = lz;
+    }
   }
-  // tide = slow water level (0..1, from live prediction or the manual slider);
-  // waves = a small ripple layered on top of that level.
+  // tide = slow water level; storm adds a surge on top; waves = ripple that gets
+  // choppier (but still upward-only, so it never drains) as the wind picks up.
   if (sea) {
-    const tideY  = SEA_Y + tideLevel * b.span * 0.0012;
-    // ripple laps UP from the tide line only (0..amp) so it never drains below it, even at low tide
-    const ripple = weather.waves ? (Math.sin(wavePhase += 0.03) * 0.5 + 0.5) * b.span * 0.00004 : 0;
+    const surge = stormLevel >= 8 ? (stormLevel >= 10 ? 0.5 : stormLevel >= 9 ? 0.36 : 0.24) : 0;
+    const tideY = SEA_Y + Math.min(1.3, tideLevel + surge) * b.span * 0.0012;
+    const amp   = b.span * (0.00004 + w * 0.0006);
+    const ripple = weather.waves ? (Math.sin(wavePhase += 0.03 * (1 + w * 3)) * 0.5 + 0.5) * amp : 0;
     sea.position.y = tideY + ripple;
   }
   if (weather.lightning) {
-    if (flash > 0) { flash -= 0.07; hemi.intensity = (bgMode === 'paper' ? 1.9 : 1.4) + flash * 5; }
-    else if (Math.random() < 0.007) flash = 1;
+    if (flash > 0) { flash -= 0.07; hemi.intensity = baseHemi + flash * 5; }
+    else { const p = 0.006 + (stormLevel >= 8 ? 0.02 * (stormLevel / 10) : 0); if (Math.random() < p) flash = 1; }
   }
 }
 
@@ -446,11 +491,59 @@ function applyStyle(style) {
 }
 function applyBg(mode) {
   bgMode = mode;
-  renderer.setClearColor(BG[mode], 1);
-  const onPaper = mode === 'paper';
-  hemi.intensity = onPaper ? 1.9 : 1.4;
-  sun.intensity  = onPaper ? 2.4 : 2.0;
+  renderSky();
   if (wireOverlay) wireLook();
+  setFog();
+}
+
+// storm signal badge + wind visuals (rain density, cloud tone, sky) --------
+function updateStormBadge() {
+  const el = document.getElementById('stormbadge');
+  if (!stormLevel) { el.style.display = 'none'; return; }
+  const quad = stormLevel === 8 ? document.getElementById('winddir').value : '';
+  el.innerHTML = `⚠ TYPHOON SIGNAL No.${stormLevel}${quad ? ' · ' + quad : ''}<small>${SIGNAL_NAME[stormLevel] || ''}</small>`;
+  const colours = { 1:'rgba(176,140,26,.92)', 3:'rgba(200,128,20,.93)', 8:'rgba(212,88,20,.94)', 9:'rgba(198,42,30,.95)', 10:'rgba(176,18,28,.97)' };
+  el.style.background = colours[stormLevel] || 'rgba(200,60,30,.9)';
+  el.classList.toggle('sev', stormLevel >= 9);
+  el.style.display = 'block';
+}
+function updateWindVisuals() {
+  const b = bounds(), w = windStrength;
+  if (rainPts) { rainPts.material.opacity = 0.45 + 0.4 * w; rainPts.material.size = b.span * 0.0016 * (1 + w * 1.2); }
+  if (cloudGrp) {
+    const d = stormLevel > 0 ? 1 - w * 0.55 : 1;
+    for (const s of cloudGrp.children) { s.material.color.setRGB(0.89 * d, 0.91 * d, 0.94 * d); s.material.opacity = 0.5 + w * 0.4; }
+  }
+  renderSky(); setFog();
+}
+// apply a storm signal: preset the wind + escalate the weather effects
+function applyStorm(level) {
+  stormLevel = level;
+  windStrength = STORM_W[level] || 0;
+  document.getElementById('wind').value = Math.round(windStrength * 100);
+  document.getElementById('windv').textContent = Math.round(windStrength * 100) + '%';
+  if (level > 0) {   // "None" just calms the wind and leaves your weather toggles alone
+    const chk = (id, on) => { const e = document.getElementById(id); if (e.checked !== on) { e.checked = on; e.dispatchEvent(new Event('change', { bubbles: true })); } };
+    chk('clouds', true);
+    chk('rain', level >= 3);
+    chk('waves', level >= 3);
+    chk('fog', level >= 8);
+    chk('lightning', level >= 8);
+  }
+  updateWindVisuals();
+  updateStormBadge();
+}
+// HKO warning summary -> { level, dir? }
+function stormFromWarn(ws) {
+  const s = ws && ws.WTCSGNL;
+  if (!s || !s.code || s.actionCode === 'CANCEL') return { level: 0 };
+  const c = s.code;                                   // TC1 / TC3 / TC8NE.. / TC9 / TC10
+  if (c === 'TC1') return { level: 1 };
+  if (c === 'TC3') return { level: 3 };
+  if (c === 'TC9') return { level: 9 };
+  if (c === 'TC10') return { level: 10 };
+  if (c.startsWith('TC8')) return { level: 8, dir: c.slice(3) };
+  return { level: 0 };
 }
 
 // ---- camera framing + presets ---------------------------------------------
@@ -543,6 +636,13 @@ document.getElementById('tide').addEventListener('input', e => {
   if (!liveMode) tideLevel = tideManual;                 // live mode drives tideLevel from data instead
   document.getElementById('tidev').textContent = Math.round(tideManual * 100) + '%';
 });
+document.getElementById('storm').addEventListener('change', e => applyStorm(parseInt(e.target.value, 10)));
+document.getElementById('wind').addEventListener('input', e => {
+  windStrength = parseInt(e.target.value, 10) / 100;     // fine wind override (keeps the current signal)
+  document.getElementById('windv').textContent = Math.round(windStrength * 100) + '%';
+  updateWindVisuals();
+});
+document.getElementById('winddir').addEventListener('change', e => { setWindDir(e.target.value); updateStormBadge(); });
 
 // ---- live weather from HKO / data.gov.hk -----------------------------------
 const HKO_ICON = {
@@ -653,9 +753,10 @@ async function syncLiveWeather() {
   const chk = (id, on) => { const e = el(id); if (e.checked !== on) { e.checked = on; e.dispatchEvent(new Event('change', { bubbles: true })); } };
   try {
     const base = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=';
-    const [rh, fl] = await Promise.all([
+    const [rh, fl, ws] = await Promise.all([
       fetch(base + 'rhrread').then(r => r.json()),
       fetch(base + 'flw').then(r => r.json()).catch(() => ({})),
+      fetch(base + 'warnsum').then(r => r.json()).catch(() => ({})),
     ]);
     const t = wxStation(rh.temperature && rh.temperature.data), h = wxStation(rh.humidity && rh.humidity.data);
     const code = (rh.icon || [])[0];
@@ -672,6 +773,11 @@ async function syncLiveWeather() {
     chk('clouds', rainy || [60,61,76].includes(code));
     chk('fog', [83,84,85].includes(code) || (h && +h.value >= 90));
     chk('waves', true);
+    // real tropical-cyclone signal from the HKO warning summary
+    const tc = stormFromWarn(ws);
+    if (tc.dir) { el('winddir').value = tc.dir; setWindDir(tc.dir); }
+    el('storm').value = String(tc.level);
+    applyStorm(tc.level);
   } catch (e) { el('wx-status').textContent = 'live weather unavailable'; console.error(e); }
 }
 
@@ -685,7 +791,7 @@ function setLiveMode(on) {
   document.getElementById('wxhud').style.display = on ? '' : 'none';
   document.getElementById('wxlock').style.display = on ? 'block' : 'none';
   // live data owns the weather + tide controls, so lock them while it's on
-  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'tide'].forEach(id => { const e = document.getElementById(id); if (e) e.disabled = on; });
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'tide', 'storm', 'wind', 'winddir'].forEach(id => { const e = document.getElementById(id); if (e) e.disabled = on; });
   const btn = document.getElementById('livebtn');
   btn.textContent = on ? '⛅ Live weather · ON' : '⛅ Sync live weather';
   btn.classList.toggle('on', on);
@@ -730,6 +836,10 @@ function animate() {
   requestAnimationFrame(animate);
   if (spinDir) world.rotation.y += 0.0016 * spinSpeed * spinDir;
   animateWeather();
+  // storm screen shake — the terrain judders under the strongest signals
+  const sh = stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.6 : stormLevel >= 8 ? 0.32 : 0;
+  if (sh > 0) { const a = bounds().span * 0.0012 * sh; world.position.set((Math.random()*2-1)*a, (Math.random()*2-1)*a, (Math.random()*2-1)*a); }
+  else if (world.position.x || world.position.y || world.position.z) world.position.set(0, 0, 0);
   controls.update();
   updateClip();                 // keep near/far tuned to the current zoom distance
   renderer.render(scene, camera);
@@ -759,6 +869,9 @@ function serializeState() {
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
   p.set('ti', String(Math.round(tideManual * 100)));
+  p.set('st', String(stormLevel));
+  p.set('wi', String(Math.round(windStrength * 100)));
+  p.set('wd', g('winddir').value);
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
                 r(controls.target.x), r(controls.target.y), r(controls.target.z),
@@ -800,6 +913,9 @@ function applyState(p) {
   if (p.has('li')) setChk('lightning', p.get('li') === '1');
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
   if (p.has('ti')) setVal('tide', p.get('ti'), 'input');
+  if (p.has('wd')) setVal('winddir', p.get('wd'));       // direction before signal (badge quadrant)
+  if (p.has('st')) setVal('storm', p.get('st'));         // applies the signal preset
+  if (p.has('wi')) setVal('wind', p.get('wi'), 'input'); // then any custom wind override
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
     if (c.length >= 6 && c.every(isFinite)) {
