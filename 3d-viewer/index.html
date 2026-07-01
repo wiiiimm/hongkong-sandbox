@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <base href="/"/><!-- keep relative asset paths root-anchored when served under /en-hk/ etc -->
 <title>Hong Kong Sandbox — 3D terrain, live weather &amp; typhoon sim</title>
 <meta name="description" content="Hong Kong Sandbox (香港沙盤) — an interactive 3D Hong Kong from real LiDAR terrain, with live Hong Kong Observatory weather, tides and typhoon signals (No.1–10), live weather stations, and OSM / satellite skins. Bilingual (EN / 繁中)."/>
@@ -129,12 +129,56 @@
   input[type=range]:disabled{opacity:.45;cursor:not-allowed}
   input[type=checkbox]:disabled{opacity:.45;cursor:not-allowed}
   .chk input:disabled + *, label.chk:has(input:disabled){opacity:.5;cursor:not-allowed}
+
+  /* ---- touch ergonomics: bigger tap targets on coarse pointers (HKS-16) ---- */
+  #sheetgrip{display:none}
+  @media (pointer:coarse){
+    input[type=range]::-webkit-slider-thumb{width:20px;height:20px}
+    input[type=range]::-moz-range-thumb{width:20px;height:20px}
+    input[type=checkbox]{width:18px;height:18px}
+    .chk{gap:9px;padding:3px 0}
+    .chks{gap:8px 12px}
+    .row{margin:10px 0}
+    button{padding:9px 13px;font-size:12px;-webkit-tap-highlight-color:transparent}
+    .pbtns button, #collapsedbar button{width:34px;height:34px;font-size:16px}
+    select{padding:9px 28px 9px 10px;font-size:13px}
+  }
+
+  /* ---- phones: panel becomes a bottom sheet, weather HUD a tap-to-expand chip ---- */
+  @media (max-width:640px), (pointer:coarse) and (max-height:500px){
+    #panel{top:auto;left:0;right:0;bottom:0;width:auto;max-width:none;
+      border-radius:16px 16px 0 0;border-left:none;border-right:none;border-bottom:none;
+      max-height:72vh;max-height:72dvh;
+      padding:6px 16px calc(14px + env(safe-area-inset-bottom));
+      box-shadow:0 -12px 44px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05)}
+    #sheetgrip{display:block;padding:5px 0 10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    #sheetgrip:before{content:'';display:block;width:42px;height:4px;border-radius:2px;
+      background:var(--field-edge);margin:0 auto}
+    #panel.collapsed{left:12px;right:auto;bottom:calc(12px + env(safe-area-inset-bottom));
+      border:1px solid var(--edge);border-radius:14px;padding:9px 12px}
+    #panel.collapsed #sheetgrip{display:none}
+    #panel .navmini{display:none}   /* nav hint lives behind the ? button on phones */
+    #wxhud{top:12px;right:12px;min-width:0;max-width:46vw;box-sizing:border-box;padding:8px 11px;
+      cursor:pointer;-webkit-tap-highlight-color:transparent}
+    #wxhud .wx-big{font-size:18px;margin:2px 0}
+    #wxhud.expanded{max-width:min(280px,calc(100vw - 24px))}
+    #wxhud:not(.expanded) .wx-sub, #wxhud:not(.expanded) #wx-tide, #wxhud:not(.expanded) #wx-tidecap,
+    #wxhud:not(.expanded) #wx-clock, #wxhud:not(.expanded) .wx-src{display:none}
+    #wxhud:not(.expanded) #wx-tidegraph{display:none !important}
+    #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
+      font-family:var(--mono);margin-top:3px}
+    #wxhud.expanded:after{content:'⌃'}
+    #stormbadge{left:12px;right:auto;transform:none;max-width:calc(52vw - 24px);box-sizing:border-box;
+      white-space:normal;text-align:left;font-size:12px;padding:8px 12px}
+    #mapattr{bottom:calc(7px + env(safe-area-inset-bottom))}
+  }
 </style>
 </head>
 <body>
 <div id="app"></div>
 <div id="flashfx"></div>
 <div id="panel">
+  <div id="sheetgrip" title="Hide controls" aria-hidden="true"></div>
   <div id="collapsedbar">
     <button id="expand-btn" title="Show controls">+</button>
     <span class="navmini">drag / 1‑finger rotate · scroll / pinch zoom · 2‑finger pan</span>

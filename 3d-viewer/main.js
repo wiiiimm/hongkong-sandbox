@@ -850,6 +850,23 @@ document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = 
 const panelEl = document.getElementById('panel');
 document.getElementById('collapse-btn').addEventListener('click', () => panelEl.classList.add('collapsed'));
 document.getElementById('expand-btn').addEventListener('click', () => panelEl.classList.remove('collapsed'));
+// ---- mobile drawers (HKS-16): panel is a bottom sheet, HUD a tap-to-expand chip.
+// Start tucked away on phones so the map is unobstructed; tapping the map dismisses both.
+const mobileMQ = matchMedia('(max-width: 640px), (pointer: coarse) and (max-height: 500px)');
+const wxhudEl = document.getElementById('wxhud');
+function applyMobileLayout(mobile) {
+  panelEl.classList.toggle('collapsed', mobile);
+  if (!mobile) wxhudEl.classList.remove('expanded');
+}
+applyMobileLayout(mobileMQ.matches);
+mobileMQ.addEventListener('change', e => applyMobileLayout(e.matches));
+document.getElementById('sheetgrip').addEventListener('click', () => panelEl.classList.add('collapsed'));
+wxhudEl.addEventListener('click', () => { if (mobileMQ.matches) wxhudEl.classList.toggle('expanded'); });
+app.addEventListener('pointerdown', () => {
+  if (!mobileMQ.matches) return;
+  panelEl.classList.add('collapsed');
+  wxhudEl.classList.remove('expanded');
+}, { passive: true });
 document.getElementById('navhelp-btn').addEventListener('click', () => {
   const n = document.getElementById('navhelp'); n.style.display = n.style.display === 'none' ? '' : 'none';
 });
