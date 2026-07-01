@@ -338,7 +338,8 @@ function animateWeather() {
   // waves = a small ripple layered on top of that level.
   if (sea) {
     const tideY  = SEA_Y + tideLevel * b.span * 0.0012;
-    const ripple = weather.waves ? Math.sin(wavePhase += 0.03) * b.span * 0.00025 : 0;
+    // ripple laps UP from the tide line only (0..amp) so it never drains below it, even at low tide
+    const ripple = weather.waves ? (Math.sin(wavePhase += 0.03) * 0.5 + 0.5) * b.span * 0.00004 : 0;
     sea.position.y = tideY + ripple;
   }
   if (weather.lightning) {
@@ -694,7 +695,8 @@ function setLiveMode(on) {
     syncLiveWeather(); syncLiveTide();
     wxRefreshT = setInterval(() => { syncLiveWeather(); syncLiveTide(); }, 300000);
   } else {
-    tideSeries = null; tideLevel = tideManual;      // hand the tide back to the manual slider
+    // keep whatever live sync produced: adopt the last live tide level as the manual value
+    tideManual = tideLevel; tideSeries = null;
     document.getElementById('tide').value = Math.round(tideManual * 100);
     document.getElementById('tidev').textContent = Math.round(tideManual * 100) + '%';
   }
