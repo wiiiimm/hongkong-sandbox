@@ -50,10 +50,10 @@
     </div>
     <div class="row"><label class="k">Surface</label>
       <select id="surf">
-        <option value="shaded">Shaded relief</option>
+        <option value="none">None (no fill)</option>
+        <option value="shaded" selected>Shaded relief</option>
         <option value="tint">Elevation tint (flat)</option>
         <option value="matte">Matte</option>
-        <option value="wire">Bare wireframe · geeky</option>
         <option value="topo">Topographic (B50K)</option>
       </select>
     </div>
@@ -67,17 +67,28 @@
   </div>
 
   <div class="grp">
-    <div class="gt">Vector layers</div>
-    <div class="chks" id="layers"></div>
-  </div>
-
-  <div class="grp">
-    <div class="gt">Display</div>
+    <div class="gt">Overlays · stack on top</div>
     <div class="chks">
       <label class="chk"><input type="checkbox" id="meshlines"/> Mesh lines</label>
       <label class="chk"><input type="checkbox" id="water" checked/> Water</label>
       <label class="chk"><input type="checkbox" id="labels" checked/> Labels</label>
-      <label class="chk"><input type="checkbox" id="spin"/> Spin</label>
+    </div>
+    <div class="chks" id="layers" style="margin-top:4px"></div>
+    <div class="row" style="margin-top:8px"><label class="k">Mesh colour</label>
+      <input type="color" id="mlcolor" value="#6fe0c0" style="flex:0 0 34px;height:24px;padding:0;border:1px solid var(--field-edge);border-radius:6px;background:none;cursor:pointer"/>
+      <input type="text" id="mlhex" value="#6fe0c0" spellcheck="false"
+             style="flex:1;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
+      <button id="mlauto" title="Back to automatic colour" style="flex:0 0 auto;padding:5px 7px">auto</button>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="gt">Auto‑spin (horizontal)</div>
+    <div class="row"><label class="k">Direction</label>
+      <select id="spindir"><option value="0">Off</option><option value="1">⟳ Clockwise</option><option value="-1">⟲ Counter‑cw</option></select>
+    </div>
+    <div class="row"><label class="k">Speed</label>
+      <input id="spinspd" type="range" min="0.15" max="3" step="0.05" value="1"/>
     </div>
   </div>
 
@@ -89,6 +100,7 @@
 </div>
 <div class="hint">drag to orbit · scroll to zoom</div>
 
-<script type="module" src="./main.js"></script>
+<!-- dev: cache-bust the module so edits always load fresh -->
+<script type="module">import('./main.js?t=' + Date.now());</script>
 </body>
 </html>

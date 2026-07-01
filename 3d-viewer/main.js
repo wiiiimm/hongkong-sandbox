@@ -58,7 +58,8 @@ let skinBase = new Map();                               // layer -> Float32Array
 let labels = [];
 let VE = 2.6, surfStyle = 'shaded', bgMode = 'dark';
 let matShaded, matTint, matMatte, matTopo, texTopo = null;
-let spinning = false;
+let spinDir = 0, spinSpeed = 1;   // horizontal auto-spin (0 = off)
+let wireColor = null;             // user-picked mesh-line colour; null = auto by background
 
 // ---- helpers (ported from the original viewer) -----------------------------
 function hyps(e, zmax) {
@@ -224,16 +225,25 @@ function applyVE() {
 }
 
 // ---- surface style + background -------------------------------------------
+// colour + opacity of the mesh-line overlay. When the mesh is the *only* thing
+// on screen (style 'none') the lines go bold; when overlaid on a fill they stay faint.
+function wireLook() {
+  const onPaper = bgMode === 'paper';
+  const auto = onPaper ? LINE_ON_PAPER : LINE_ON_DARK;
+  wireOverlay.material.color.set(wireColor != null ? wireColor : auto);
+  const primary = surfStyle === 'none';
+  wireOverlay.material.opacity = primary ? (onPaper ? 0.9 : 0.8) : (onPaper ? 0.22 : 0.14);
+}
+
 function applyStyle(style) {
   surfStyle = style;
   const mats = { shaded: matShaded, tint: matTint, matte: matMatte, topo: matTopo };
-  if (style === 'wire') {
-    terrain.material = new THREE.MeshBasicMaterial({ color: bgMode === 'paper' ? LINE_ON_PAPER : LINE_ON_DARK, wireframe: true });
-    wireOverlay.visible = false;                 // the surface itself is the mesh now
-  } else {
-    terrain.material = mats[style] || matShaded;
-    wireOverlay.visible = document.getElementById('meshlines').checked;
-  }
+  // 'none' = no filled surface; every other style fills the terrain.
+  terrain.visible = (style !== 'none');
+  if (terrain.visible) terrain.material = mats[style] || matShaded;
+  // mesh lines are an independent overlay in ALL styles (incl. none)
+  wireOverlay.visible = document.getElementById('meshlines').checked;
+  wireLook();
 }
 function applyBg(mode) {
   bgMode = mode;
@@ -241,11 +251,7 @@ function applyBg(mode) {
   const onPaper = mode === 'paper';
   hemi.intensity = onPaper ? 1.9 : 1.4;
   sun.intensity  = onPaper ? 2.4 : 2.0;
-  if (wireOverlay) {
-    wireOverlay.material.color.setHex(onPaper ? LINE_ON_PAPER : LINE_ON_DARK);
-    wireOverlay.material.opacity = onPaper ? 0.22 : 0.14;
-  }
-  if (terrain && surfStyle === 'wire') applyStyle('wire');   // recolour bare mesh for contrast
+  if (wireOverlay) wireLook();
 }
 
 // ---- camera framing + presets ---------------------------------------------
@@ -269,10 +275,20 @@ document.getElementById('bg').addEventListener('change', e => applyBg(e.target.v
 document.getElementById('ve').addEventListener('input', e => {
   VE = parseFloat(e.target.value); document.getElementById('vev').textContent = VE.toFixed(1); applyVE();
 });
-document.getElementById('meshlines').addEventListener('change', e => { if (surfStyle !== 'wire') wireOverlay.visible = e.target.checked; });
+document.getElementById('meshlines').addEventListener('change', e => { wireOverlay.visible = e.target.checked; });
+const mlColor = document.getElementById('mlcolor'), mlHex = document.getElementById('mlhex');
+function setWireColor(hex) {
+  hex = hex.trim(); if (!/^#?[0-9a-fA-F]{6}$/.test(hex)) return;
+  if (hex[0] !== '#') hex = '#' + hex;
+  wireColor = hex; mlColor.value = hex; mlHex.value = hex; wireLook();
+}
+mlColor.addEventListener('input', e => setWireColor(e.target.value));
+mlHex.addEventListener('change', e => setWireColor(e.target.value));
+document.getElementById('mlauto').addEventListener('click', () => { wireColor = null; wireLook(); });
 document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; });
 document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); });
-document.getElementById('spin').addEventListener('change', e => { spinning = e.target.checked; });
+document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); });
+document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = parseFloat(e.target.value); });
 document.getElementById('reset').addEventListener('click', frameCamera);
 document.getElementById('south').addEventListener('click', southView);
 document.getElementById('top').addEventListener('click', topView);
@@ -299,7 +315,7 @@ addEventListener('resize', resize);
 
 function animate() {
   requestAnimationFrame(animate);
-  if (spinning) world.rotation.y += 0.0016;
+  if (spinDir) world.rotation.y += 0.0016 * spinSpeed * spinDir;
   controls.update();
   renderer.render(scene, camera);
   updateLabels();
