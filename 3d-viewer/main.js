@@ -63,7 +63,7 @@ const LINE_ON_DARK  = 0x6fe0c0;
 
 // ---- three.js boilerplate --------------------------------------------------
 const app = document.getElementById('app');
-const renderer = new THREE.WebGLRenderer({ antialias: true, logarithmicDepthBuffer: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 app.appendChild(renderer.domElement);
@@ -124,7 +124,7 @@ async function loadSource(id) {
   // dev: propagate the page's ?v to data fetches so edits bust cache; no-op in prod
   const ver = new URLSearchParams(location.search).get('v');
   const q = ver ? ('?v=' + ver) : '';
-  const fj = u => fetch(u + q).then(r => r.json());
+  const fj = u => fetch(u + q, { cache: 'no-cache' }).then(r => r.json());   // revalidate (304 if unchanged) so stale DEMs never stick
   const [mesh, georefAll, texbbWrap, overlay] = await Promise.all([
     fj(s.mesh), fj(s.georef.file), fj(s.texbb), fj(s.overlay),
   ]);
@@ -261,7 +261,7 @@ function buildSkin(overlay, g, texbb) {
 function buildSea() {
   if (sea) { world.remove(sea); sea.geometry.dispose(); sea.material.dispose(); }
   const geo = new THREE.PlaneGeometry(cell*W*1.8, cell*H*1.8);
-  sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x2b5d78, transparent: true, opacity: 0.55, roughness: 0.4 }));
+  sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x2b5d78, transparent: true, opacity: 0.55, roughness: 0.4, depthWrite: false }));
   sea.rotation.x = -Math.PI/2; sea.position.y = 0.5;
   world.add(sea);
 }
