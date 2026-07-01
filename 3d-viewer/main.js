@@ -1,0 +1,313 @@
+// Hong Kong / Lantau layered 3D terrain viewer.
+// Base terrain = Claude's smooth external DEM meshes; skin = draped vector layers.
+// Best-of-both: shaded / elevation / matte / bare-wireframe / raster surface styles,
+// per-layer vector toggles, and a vertical-exaggeration slider that drives BOTH the
+// terrain and the draped skin so contours stay welded to the ridges.
+import * as THREE from './vendor/three.module.js';
+import { OrbitControls } from './vendor/OrbitControls.js';
+
+// ---- source registry (extend with whole-HK + SRTM later) -------------------
+const SOURCES = {
+  'lantau-hk5m': {
+    label: 'Lantau · LandsD 5 m DTM',
+    mesh:    'data/lantau-hk5m.json',
+    georef:  { file: 'data/lantau-georefs.json', key: 'hk5m' },
+    texbb:   'data/lantau-texbb.json',
+    overlay: 'data/lantau-b50k-overlay.json',
+    texture: 'data/lantau-b50k-topo-texture.png',
+    ve: 2.6,
+  },
+};
+
+// vector layer styling (colour + default visibility)
+const LAYER_STYLE = {
+  contour: { colour: 0x7a5a36, on: true,  label: 'Contours' },
+  coast:   { colour: 0x2f6090, on: true,  label: 'Coast' },
+  trail:   { colour: 0xb0402c, on: true,  label: 'Trails' },
+  // richer GML layers get merged in here later: roads / hydro / boundaries
+};
+
+const BG = { dark: 0x0e1116, paper: 0xf4f1e9 };
+const LINE_ON_PAPER = 0x2f5b43;   // wireframe colour on paper bg (the "geeky" look)
+const LINE_ON_DARK  = 0x6fe0c0;
+
+// ---- three.js boilerplate --------------------------------------------------
+const app = document.getElementById('app');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+app.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, 1, 1, 400000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.maxPolarAngle = Math.PI * 0.495;
+
+const hemi = new THREE.HemisphereLight(0xffffff, 0x2b3038, 1.4); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 2.0); sun.position.set(-1, 2, 1.4); scene.add(sun);
+
+// group everything so spin rotates terrain + skin + labels together
+const world = new THREE.Group(); scene.add(world);
+
+// ---- per-source state ------------------------------------------------------
+let W, H, cell, elev, zmax, peaks = [];
+let terrain, terrainBase, wireOverlay, sea, skin;      // objects
+let skinBase = new Map();                               // layer -> Float32Array of base (unexaggerated) y
+let labels = [];
+let VE = 2.6, surfStyle = 'shaded', bgMode = 'dark';
+let matShaded, matTint, matMatte, matTopo, texTopo = null;
+let spinning = false;
+
+// ---- helpers (ported from the original viewer) -----------------------------
+function hyps(e, zmax) {
+  const t = Math.max(0, Math.min(1, e / zmax));
+  const s = [[0,[46,92,58]],[0.18,[78,110,60]],[0.42,[150,140,96]],
+             [0.68,[140,110,80]],[0.86,[170,150,128]],[1,[235,232,224]]];
+  for (let i = 0; i < s.length - 1; i++) {
+    const a = s[i], b = s[i + 1];
+    if (t >= a[0] && t <= b[0]) {
+      const u = (t - a[0]) / (b[0] - a[0]);
+      return [a[1][0]+(b[1][0]-a[1][0])*u, a[1][1]+(b[1][1]-a[1][1])*u, a[1][2]+(b[1][2]-a[1][2])*u];
+    }
+  }
+  return s[s.length - 1][1];
+}
+function sampleE(col, row) {
+  col = Math.max(0, Math.min(W - 1.001, col));
+  row = Math.max(0, Math.min(H - 1.001, row));
+  const c0 = Math.floor(col), r0 = Math.floor(row), fc = col - c0, fr = row - r0;
+  const a = elev[r0*W+c0], b = elev[r0*W+c0+1], c = elev[(r0+1)*W+c0], d = elev[(r0+1)*W+c0+1];
+  return (a*(1-fc)+b*fc)*(1-fr) + (c*(1-fc)+d*fc)*fr;
+}
+const skinOffset = () => cell * 0.6; // lift lines just above the surface, scaled to grid
+
+// ---- load a source ---------------------------------------------------------
+async function loadSource(id) {
+  const s = SOURCES[id];
+  document.getElementById('note').textContent = 'Loading ' + s.label + '…';
+  const [mesh, georefAll, texbbWrap, overlay] = await Promise.all([
+    fetch(s.mesh).then(r => r.json()),
+    fetch(s.georef.file).then(r => r.json()),
+    fetch(s.texbb).then(r => r.json()),
+    fetch(s.overlay).then(r => r.json()),
+  ]);
+  const g = georefAll[s.georef.key];
+  const texbb = texbbWrap.texbb;
+
+  W = mesh.w; H = mesh.h; cell = mesh.cell; elev = mesh.elev; zmax = mesh.zmax;
+  peaks = mesh.peaks || [];
+  VE = s.ve;
+  document.getElementById('ve').value = VE;
+  document.getElementById('vev').textContent = VE.toFixed(1);
+
+  buildTerrain();
+  buildSkin(overlay, g, texbb);
+  buildSea();
+  buildLabels();
+  texTopo = new THREE.TextureLoader().load(s.texture, t => { t.colorSpace = THREE.SRGBColorSpace; if (matTopo) matTopo.needsUpdate = true; });
+  matTopo.map = texTopo;
+
+  applyStyle(surfStyle);
+  applyVE();
+  frameCamera();
+  document.getElementById('note').textContent =
+    `${W}×${H} grid · ${(W*H/1e3).toFixed(0)}k verts · peak ${Math.round(zmax)} m`;
+}
+
+function buildTerrain() {
+  if (terrain) { world.remove(terrain); terrain.geometry.dispose(); }
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(W*H*3), col = new Float32Array(W*H*3), uv = new Float32Array(W*H*2);
+  for (let r = 0; r < H; r++) for (let c = 0; c < W; c++) {
+    const i = r*W+c, e = elev[i];
+    pos[i*3] = (c-W/2)*cell; pos[i*3+1] = e; pos[i*3+2] = (r-H/2)*cell;
+    const cc = hyps(e, zmax); col[i*3] = cc[0]/255; col[i*3+1] = cc[1]/255; col[i*3+2] = cc[2]/255;
+  }
+  const idx = [];
+  for (let r = 0; r < H-1; r++) for (let c = 0; c < W-1; c++) {
+    const a = r*W+c, b = a+1, d = a+W, e = d+1; idx.push(a,d,b, b,d,e);
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  geo.setIndex(idx);
+  terrainBase = pos.slice();  // unexaggerated heights
+
+  matShaded = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0 });
+  matTint   = new THREE.MeshBasicMaterial({ vertexColors: true });                 // flat hypsometric
+  matMatte  = new THREE.MeshStandardMaterial({ color: 0x8a8f86, roughness: 1, metalness: 0 });
+  matTopo   = new THREE.MeshStandardMaterial({ roughness: 0.96, metalness: 0 });
+
+  terrain = new THREE.Mesh(geo, matShaded);
+  world.add(terrain);
+
+  // wireframe overlay (mesh lines on top of any fill) — shares live geometry
+  if (wireOverlay) { world.remove(wireOverlay); wireOverlay.material.dispose(); }
+  wireOverlay = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: LINE_ON_DARK, wireframe: true, transparent: true, opacity: 0.14 }));
+  wireOverlay.visible = false;
+  world.add(wireOverlay);
+}
+
+// build one merged LineSegments per vector layer, draped on the terrain
+function buildSkin(overlay, g, texbb) {
+  if (skin) { world.remove(skin); skin.traverse(o => o.geometry?.dispose()); }
+  skin = new THREE.Group(); skinBase.clear();
+  const layersDiv = document.getElementById('layers'); layersDiv.innerHTML = '';
+
+  for (const [name, style] of Object.entries(LAYER_STYLE)) {
+    const lines = overlay[name]; if (!lines || !lines.length) continue;
+    const pos = [], baseY = [];
+    for (const line of lines) {
+      for (let k = 0; k < line.length - 1; k++) {         // emit segment pairs (connected polyline)
+        for (const p of [line[k], line[k+1]]) {
+          const E = texbb.E0 + p[0]*(texbb.E1 - texbb.E0);
+          const N = texbb.N1 - p[1]*(texbb.N1 - texbb.N0);
+          const cc = (E - g.bE)/g.aE, rr = (N - g.bN)/g.aN;
+          const y = sampleE(cc, rr);
+          pos.push((cc-W/2)*cell, y, (rr-H/2)*cell);
+          baseY.push(y);
+        }
+      }
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    const seg = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ color: style.colour }));
+    seg.name = name;
+    seg.visible = style.on;
+    skin.add(seg);
+    skinBase.set(name, new Float32Array(baseY));
+
+    // toggle UI
+    const id = 'lyr_' + name;
+    const lab = document.createElement('label'); lab.className = 'chk';
+    lab.innerHTML = `<input type="checkbox" id="${id}" ${style.on?'checked':''}/> ${style.label}`;
+    layersDiv.appendChild(lab);
+    lab.querySelector('input').addEventListener('change', e => { seg.visible = e.target.checked; });
+  }
+  world.add(skin);
+}
+
+function buildSea() {
+  if (sea) { world.remove(sea); sea.geometry.dispose(); sea.material.dispose(); }
+  const geo = new THREE.PlaneGeometry(cell*W*1.8, cell*H*1.8);
+  sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x2b5d78, transparent: true, opacity: 0.55, roughness: 0.4 }));
+  sea.rotation.x = -Math.PI/2; sea.position.y = 0.5;
+  world.add(sea);
+}
+
+function buildLabels() {
+  labels.forEach(l => l.div.remove()); labels = [];
+  for (const pk of peaks) {
+    const div = document.createElement('div'); div.className = 'lbl';
+    const parts = (pk.name || '').split(' ');
+    div.innerHTML = `${parts[0]||''}<small>${parts.slice(1).join(' ')} · ${Math.round(pk.elev)} m</small>`;
+    document.body.appendChild(div);
+    labels.push({ div, col: pk.col, row: pk.row });
+  }
+}
+
+// ---- vertical exaggeration drives terrain AND skin -------------------------
+function applyVE() {
+  const p = terrain.geometry.attributes.position.array;
+  for (let i = 0; i < W*H; i++) p[i*3+1] = terrainBase[i*3+1] * VE;
+  terrain.geometry.attributes.position.needsUpdate = true;
+  terrain.geometry.computeVertexNormals();
+
+  const off = skinOffset();
+  for (const seg of skin.children) {
+    const base = skinBase.get(seg.name);
+    const arr = seg.geometry.attributes.position.array;
+    for (let i = 0; i < base.length; i++) arr[i*3+1] = base[i]*VE + off;
+    seg.geometry.attributes.position.needsUpdate = true;
+  }
+}
+
+// ---- surface style + background -------------------------------------------
+function applyStyle(style) {
+  surfStyle = style;
+  const mats = { shaded: matShaded, tint: matTint, matte: matMatte, topo: matTopo };
+  if (style === 'wire') {
+    terrain.material = new THREE.MeshBasicMaterial({ color: bgMode === 'paper' ? LINE_ON_PAPER : LINE_ON_DARK, wireframe: true });
+    wireOverlay.visible = false;                 // the surface itself is the mesh now
+  } else {
+    terrain.material = mats[style] || matShaded;
+    wireOverlay.visible = document.getElementById('meshlines').checked;
+  }
+}
+function applyBg(mode) {
+  bgMode = mode;
+  renderer.setClearColor(BG[mode], 1);
+  const onPaper = mode === 'paper';
+  hemi.intensity = onPaper ? 1.9 : 1.4;
+  sun.intensity  = onPaper ? 2.4 : 2.0;
+  if (wireOverlay) {
+    wireOverlay.material.color.setHex(onPaper ? LINE_ON_PAPER : LINE_ON_DARK);
+    wireOverlay.material.opacity = onPaper ? 0.22 : 0.14;
+  }
+  if (terrain && surfStyle === 'wire') applyStyle('wire');   // recolour bare mesh for contrast
+}
+
+// ---- camera framing + presets ---------------------------------------------
+function bounds() {
+  const halfX = W*cell/2, halfZ = H*cell/2, peakY = zmax*VE;
+  return { halfX, halfZ, peakY, span: Math.max(W,H)*cell };
+}
+function frameCamera() {
+  const b = bounds();
+  controls.target.set(0, b.peakY*0.35, 0);
+  camera.position.set(0, b.span*0.55, b.span*0.95);
+  controls.minDistance = b.span*0.3; controls.maxDistance = b.span*3;
+  controls.update();
+}
+function southView() { const b = bounds(); camera.position.set(0, b.peakY*1.2, b.span*1.1); controls.target.set(0, b.peakY*0.3, 0); controls.update(); }
+function topView()   { const b = bounds(); camera.position.set(0, b.span*1.4, 0.01);       controls.target.set(0, 0, 0);           controls.update(); }
+
+// ---- UI wiring -------------------------------------------------------------
+document.getElementById('surf').addEventListener('change', e => applyStyle(e.target.value));
+document.getElementById('bg').addEventListener('change', e => applyBg(e.target.value));
+document.getElementById('ve').addEventListener('input', e => {
+  VE = parseFloat(e.target.value); document.getElementById('vev').textContent = VE.toFixed(1); applyVE();
+});
+document.getElementById('meshlines').addEventListener('change', e => { if (surfStyle !== 'wire') wireOverlay.visible = e.target.checked; });
+document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; });
+document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); });
+document.getElementById('spin').addEventListener('change', e => { spinning = e.target.checked; });
+document.getElementById('reset').addEventListener('click', frameCamera);
+document.getElementById('south').addEventListener('click', southView);
+document.getElementById('top').addEventListener('click', topView);
+
+// ---- label projection + render loop ---------------------------------------
+const v = new THREE.Vector3();
+function updateLabels() {
+  const show = document.getElementById('labels').checked;
+  for (const l of labels) {
+    if (!show) { l.div.style.display = 'none'; continue; }
+    v.set((l.col-W/2)*cell, sampleE(l.col, l.row)*VE, (l.row-H/2)*cell);
+    world.localToWorld(v); v.project(camera);
+    const behind = v.z > 1;
+    l.div.style.display = behind ? 'none' : '';
+    l.div.style.left = ((v.x*0.5+0.5)*innerWidth) + 'px';
+    l.div.style.top  = ((-v.y*0.5+0.5)*innerHeight) + 'px';
+  }
+}
+function resize() {
+  renderer.setSize(innerWidth, innerHeight);
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize);
+
+function animate() {
+  requestAnimationFrame(animate);
+  if (spinning) world.rotation.y += 0.0016;
+  controls.update();
+  renderer.render(scene, camera);
+  updateLabels();
+}
+
+resize();
+applyBg('dark');
+loadSource('lantau-hk5m').then(animate).catch(err => {
+  document.getElementById('note').textContent = 'Load failed: ' + err.message;
+  console.error(err);
+});

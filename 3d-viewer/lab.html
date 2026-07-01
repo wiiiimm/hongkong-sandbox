@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Hong Kong · Lantau — 3D terrain (layered)</title>
+<style>
+  :root{
+    --panel-dark:rgba(18,22,28,.82); --panel-ink:#e8e6df; --panel-sub:#9aa6b3;
+    --edge:#2a3340; --field:#26303d; --field-edge:#3a4654;
+  }
+  html,body{margin:0;height:100%;overflow:hidden;background:#0e1116;color:#e8e6df;
+    font-family:-apple-system,Segoe UI,Roboto,'Noto Serif CJK TC',serif}
+  #app{position:fixed;inset:0}
+  #panel{position:fixed;top:14px;left:14px;background:var(--panel-dark);backdrop-filter:blur(6px);
+    border:1px solid var(--edge);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.5;
+    max-width:280px;max-height:calc(100vh - 28px);overflow:auto}
+  #panel h1{font-size:14px;margin:0 0 4px;letter-spacing:.04em;font-weight:600}
+  #panel .sub{color:var(--panel-sub);font-size:11px;margin-bottom:10px;min-height:16px}
+  .grp{border-top:1px solid var(--edge);margin-top:8px;padding-top:8px}
+  .grp .gt{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--panel-sub);margin-bottom:5px}
+  .row{display:flex;align-items:center;gap:8px;margin:6px 0}
+  .row label.k{flex:0 0 78px;color:#aeb8c4}
+  input[type=range]{flex:1}
+  select{flex:1;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);
+    border-radius:6px;padding:4px 6px;font-size:12px}
+  .chk{display:flex;align-items:center;gap:6px;font-size:12px;color:#c4ccd6}
+  .chks{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px}
+  button{background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);
+    border-radius:6px;padding:5px 9px;cursor:pointer;font-size:12px}
+  button:hover{background:#33414f}
+  .btns{display:flex;gap:6px;flex-wrap:wrap}
+  .lbl{position:fixed;transform:translate(-50%,-100%);pointer-events:none;font-size:12px;white-space:nowrap;
+    color:#fff;text-shadow:0 1px 3px #000,0 0 2px #000;font-weight:600}
+  .lbl small{display:block;font-weight:400;color:#cfd6de;font-size:10px;text-align:center}
+  .lbl:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:9px;background:#fff;opacity:.6;transform:translateX(-50%)}
+  .hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#8893a0;font-size:11px;
+    background:rgba(18,22,28,.7);padding:5px 12px;border-radius:20px;border:1px solid var(--edge)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="panel">
+  <h1>香港 · Lantau 大嶼山</h1>
+  <div class="sub" id="note">Loading…</div>
+
+  <div class="grp">
+    <div class="row"><label class="k">Source</label>
+      <select id="src"><option value="lantau-hk5m">Lantau · LandsD 5 m</option></select>
+    </div>
+    <div class="row"><label class="k">Surface</label>
+      <select id="surf">
+        <option value="shaded">Shaded relief</option>
+        <option value="tint">Elevation tint (flat)</option>
+        <option value="matte">Matte</option>
+        <option value="wire">Bare wireframe · geeky</option>
+        <option value="topo">Topographic (B50K)</option>
+      </select>
+    </div>
+    <div class="row"><label class="k">Background</label>
+      <select id="bg"><option value="dark">Dark</option><option value="paper">Paper</option></select>
+    </div>
+    <div class="row"><label class="k">Vertical ×</label>
+      <input id="ve" type="range" min="1" max="9" step="0.1" value="2.6"/>
+      <span id="vev" style="flex:0 0 26px;text-align:right">2.6</span>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="gt">Vector layers</div>
+    <div class="chks" id="layers"></div>
+  </div>
+
+  <div class="grp">
+    <div class="gt">Display</div>
+    <div class="chks">
+      <label class="chk"><input type="checkbox" id="meshlines"/> Mesh lines</label>
+      <label class="chk"><input type="checkbox" id="water" checked/> Water</label>
+      <label class="chk"><input type="checkbox" id="labels" checked/> Labels</label>
+      <label class="chk"><input type="checkbox" id="spin"/> Spin</label>
+    </div>
+  </div>
+
+  <div class="grp btns">
+    <button id="reset">Reset</button>
+    <button id="south">South</button>
+    <button id="top">Top‑down</button>
+  </div>
+</div>
+<div class="hint">drag to orbit · scroll to zoom</div>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>
