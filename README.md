@@ -1,11 +1,12 @@
-# Hong Kong 3D Model — terrain-derived 3D viewer & artwork
+# Hong Kong Sandbox · 香港沙盤
 
-*Lantau Island & all of Hong Kong, rendered from real elevation data.*
+*An interactive 3D Hong Kong you can play with — real LiDAR terrain, live Hong Kong
+Observatory weather & tides, a full typhoon simulator (signals No.1–10), live weather
+stations, and OSM / satellite skins. Bilingual (EN / 繁中).*
 
-An interactive 3D terrain viewer for Hong Kong, built from real Digital Elevation
-Models and layered with live open data. Pure static HTML + ES modules + Three.js —
-**no build step, no framework** — so it runs by opening a file (via any static
-server) and deploys as plain files.
+Built from real Digital Elevation Models and layered with live open data. Pure static
+HTML + ES modules + Three.js — **no build step, no framework** — so it runs by opening a
+file (via any static server) and deploys as plain files.
 
 ![viewer](docs/) <!-- add a screenshot here -->
 
