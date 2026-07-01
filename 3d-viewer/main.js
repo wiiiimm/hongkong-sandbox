@@ -76,7 +76,7 @@ const I18N = {
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.weather': 'Weather', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
-    'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
+    'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
@@ -99,7 +99,7 @@ const I18N = {
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.weather': '天氣', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
-    'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
+    'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
@@ -364,6 +364,8 @@ let tideSeries = null;   // live prediction: { vals[72] m, nowHour, min, max, cu
 // ---- wind + tropical-cyclone storm system ----------------------------------
 let stormLevel = 0;      // 0 none, else HK signal 1 / 3 / 8 / 9 / 10
 let windStrength = 0;    // 0..1 wind intensity (storm presets it; slider overrides)
+let thunderRate = 0.4;   // 0..1 lightning strike frequency (storm/live preset it)
+const flashfx = document.getElementById('flashfx');   // full-screen lightning flash
 let baseHemi = 1.4, baseSun = 2.0;   // light levels before the lightning flash is added
 const windVec = { x: 0, z: 1 };      // unit heading the wind blows TOWARD (screen space)
 const WIND_VEC = {   // compass the wind blows FROM -> push vector (toward the opposite)
@@ -475,9 +477,10 @@ function animateWeather() {
   const wy = (sea && sea.visible) ? sea.position.y : -1e9;
   for (const m of tidalMats) { const sh = m.userData.sh; if (sh) { sh.uniforms.uWaterY.value = wy; sh.uniforms.uBand.value = 4.5 * VE; } }
   if (weather.lightning) {
-    if (flash > 0) { flash -= 0.07; hemi.intensity = baseHemi + flash * 5; }
-    else { const p = 0.006 + (stormLevel >= 8 ? 0.02 * (stormLevel / 10) : 0); if (Math.random() < p) flash = 1; }
+    if (flash > 0) { flash -= 0.06; hemi.intensity = baseHemi + flash * 5; }
+    else if (Math.random() < 0.003 + thunderRate * 0.06) flash = 1;   // strike frequency ∝ thunder rate
   }
+  if (flashfx) flashfx.style.opacity = weather.lightning ? (flash * 0.6).toFixed(3) : 0;   // white screen flash
 }
 
 function buildLabels() {
@@ -691,7 +694,7 @@ function updateStormBadge() {
 function applyControlLocks() {
   const g = id => document.getElementById(id);
   const storm = stormLevel > 0;
-  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'wind'].forEach(id => g(id).disabled = liveMode || storm);
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm);
   g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
   g('tide').disabled    = liveMode;
   g('storm').disabled   = liveMode;
@@ -722,6 +725,7 @@ function applyStorm(level) {
     chk('waves', level >= 3);
     chk('fog', level >= 8);
     chk('lightning', level >= 8);
+    if (level >= 8) setThunderRate(level >= 10 ? 0.9 : level >= 9 ? 0.65 : 0.45);   // storm drives strike rate
   }
   updateWindVisuals();
   updateStormBadge();
@@ -835,6 +839,15 @@ document.getElementById('wind').addEventListener('input', e => {
   windStrength = parseInt(e.target.value, 10) / 100;     // fine wind override (keeps the current signal)
   document.getElementById('windv').textContent = Math.round(windStrength * 100) + '%';
   updateWindVisuals();
+});
+function setThunderRate(v) {
+  thunderRate = Math.max(0, Math.min(1, v));
+  const el = document.getElementById('thunderrate'); if (el) el.value = Math.round(thunderRate * 100);
+  const d = document.getElementById('thunderratev'); if (d) d.textContent = Math.round(thunderRate * 100) + '%';
+}
+document.getElementById('thunderrate').addEventListener('input', e => {
+  thunderRate = parseInt(e.target.value, 10) / 100;
+  document.getElementById('thunderratev').textContent = Math.round(thunderRate * 100) + '%';
 });
 document.getElementById('winddir').addEventListener('change', e => { setWindDir(e.target.value); updateStormBadge(); });
 
@@ -971,7 +984,9 @@ async function syncLiveWeather() {
     el('wx-warn').textContent = warn || '';
     const rainy = [53,54,62,63,64,65].includes(code) || rainMax > 0;
     chk('rain', rainy);
-    chk('lightning', code === 65 || /thunderstorm|雷暴/i.test(warn));
+    const stormy = code === 65 || /thunderstorm|雷暴/i.test(warn);
+    chk('lightning', stormy);
+    setThunderRate(stormy ? 0.7 : 0.2);                 // HKO has no lightning-rate feed; derive from the warning
     chk('clouds', rainy || [60,61,76].includes(code));
     chk('fog', [83,84,85].includes(code) || (h && +h.value >= 90));
     chk('waves', true);
@@ -1205,6 +1220,7 @@ function serializeState() {
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
   p.set('ti', String(Math.round(tideManual * 100)));
+  p.set('tr', String(Math.round(thunderRate * 100)));
   p.set('st', String(stormLevel));
   p.set('wi', String(Math.round(windStrength * 100)));
   p.set('wd', g('winddir').value);
@@ -1252,6 +1268,7 @@ function applyState(p) {
   if (p.has('li')) setChk('lightning', p.get('li') === '1');
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
   if (p.has('ti')) setVal('tide', p.get('ti'), 'input');
+  if (p.has('tr')) setVal('thunderrate', p.get('tr'), 'input');
   if (p.has('wd')) setVal('winddir', p.get('wd'));       // direction before signal (badge quadrant)
   if (p.has('st')) setVal('storm', p.get('st'));         // applies the signal preset
   if (p.has('wi')) setVal('wind', p.get('wi'), 'input'); // then any custom wind override
