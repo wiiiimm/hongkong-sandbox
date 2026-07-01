@@ -520,6 +520,61 @@ document.getElementById('rain').addEventListener('change', e => { weather.rain =
 document.getElementById('clouds').addEventListener('change', e => { weather.clouds = e.target.checked; if (cloudGrp) cloudGrp.visible = weather.clouds; });
 document.getElementById('lightning').addEventListener('change', e => { weather.lightning = e.target.checked; if (!weather.lightning) { flash = 0; applyBg(bgMode); } });
 document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
+
+// ---- live weather from HKO / data.gov.hk -----------------------------------
+const HKO_ICON = {
+  50:'Sunny',51:'Sunny periods',52:'Sunny intervals',53:'Sunny periods · a few showers',
+  54:'Sunny intervals · showers',60:'Cloudy',61:'Overcast',62:'Light rain',63:'Rain',
+  64:'Heavy rain',65:'Thunderstorms',70:'Fine',71:'Fine',72:'Fine',73:'Fine',74:'Fine',75:'Fine',
+  76:'Mainly cloudy',77:'Mainly fine',80:'Windy',81:'Dry',82:'Humid',83:'Fog',84:'Mist',85:'Haze',
+  90:'Hot',91:'Warm',92:'Cool',93:'Cold'
+};
+let liveMode = false, wxClockT = null, wxRefreshT = null;
+const wxStation = arr => (arr || []).find(d => /observatory/i.test(d.place)) || (arr || [])[0];
+const windFromForecast = desc => { const m = (desc || '').match(/[^.]*\bwind[s]?\b[^.]*/i); return m ? m[0].trim().replace(/\s+/g, ' ') : ''; };
+
+async function syncLiveWeather() {
+  const el = id => document.getElementById(id);
+  const chk = (id, on) => { const e = el(id); if (e.checked !== on) { e.checked = on; e.dispatchEvent(new Event('change', { bubbles: true })); } };
+  try {
+    const base = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=';
+    const [rh, fl] = await Promise.all([
+      fetch(base + 'rhrread').then(r => r.json()),
+      fetch(base + 'flw').then(r => r.json()).catch(() => ({})),
+    ]);
+    const t = wxStation(rh.temperature && rh.temperature.data), h = wxStation(rh.humidity && rh.humidity.data);
+    const code = (rh.icon || [])[0];
+    let warn = rh.warningMessage || ''; if (Array.isArray(warn)) warn = warn.join(' ');
+    let rainMax = 0; for (const r of ((rh.rainfall && rh.rainfall.data) || [])) rainMax = Math.max(rainMax, +r.max || 0);
+    el('wx-status').textContent = HKO_ICON[code] || 'Live';
+    el('wx-temp').textContent = t ? `${t.value}°${t.unit || 'C'}` : '—';
+    el('wx-hum').textContent = h ? `humidity ${h.value}%` : '';
+    el('wx-wind').textContent = windFromForecast(fl.forecastDesc) || '—';
+    el('wx-warn').textContent = warn || '';
+    const rainy = [53,54,62,63,64,65].includes(code) || rainMax > 0;
+    chk('rain', rainy);
+    chk('lightning', code === 65 || /thunderstorm/i.test(warn));
+    chk('clouds', rainy || [60,61,76].includes(code));
+    chk('fog', [83,84,85].includes(code) || (h && +h.value >= 90));
+    chk('waves', true);
+  } catch (e) { el('wx-status').textContent = 'live weather unavailable'; console.error(e); }
+}
+
+function tickHKClock() {
+  document.getElementById('wx-clock').textContent =
+    new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Hong_Kong', hour12: false }) + ' HKT';
+}
+
+function setLiveMode(on) {
+  liveMode = on;
+  document.getElementById('wxhud').style.display = on ? '' : 'none';
+  const btn = document.getElementById('livebtn');
+  btn.textContent = on ? '⛅ Live weather · ON' : '⛅ Sync live weather';
+  btn.classList.toggle('on', on);
+  clearInterval(wxClockT); clearInterval(wxRefreshT);
+  if (on) { tickHKClock(); wxClockT = setInterval(tickHKClock, 1000); syncLiveWeather(); wxRefreshT = setInterval(syncLiveWeather, 300000); }
+}
+document.getElementById('livebtn').addEventListener('click', () => setLiveMode(!liveMode));
 document.getElementById('reset').addEventListener('click', frameCamera);
 document.getElementById('south').addEventListener('click', southView);
 document.getElementById('top').addEventListener('click', topView);

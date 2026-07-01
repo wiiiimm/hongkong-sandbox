@@ -66,6 +66,17 @@
     letter-spacing:0;text-align:center;margin-top:1px}
   .lbl:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:10px;
     background:linear-gradient(rgba(255,255,255,.75),transparent);transform:translateX(-50%)}
+  button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+  #wxhud{position:fixed;top:16px;right:16px;z-index:20;min-width:150px;max-width:250px;text-align:right;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);border-radius:12px;padding:11px 13px;
+    box-shadow:0 10px 30px rgba(0,0,0,.45);font-size:12px}
+  #wxhud #wx-status{font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
+  #wxhud .wx-big{font-size:23px;font-weight:600;margin:3px 0;letter-spacing:.01em}
+  #wxhud .wx-sub{font-size:11px;color:var(--sub);line-height:1.5}
+  #wxhud #wx-clock{font-family:var(--mono);font-size:13px;color:var(--ink);margin-top:7px}
+  #wxhud #wx-warn:not(:empty){color:#e6a23c;margin-top:4px;font-size:11px}
+  #wxhud .wx-src{font-size:9px;color:var(--sub);opacity:.7;margin-top:5px;font-family:var(--mono);letter-spacing:.04em}
 </style>
 </head>
 <body>
@@ -175,6 +186,7 @@
       <label class="chk"><input type="checkbox" id="lightning"/> Thunder</label>
       <label class="chk"><input type="checkbox" id="waves"/> Waves</label>
     </div>
+    <div class="row" style="margin-top:8px"><button id="livebtn" style="flex:1">⛅ Sync live weather</button></div>
   </div>
 
   <div class="grp btns">
@@ -184,6 +196,16 @@
     <button id="copylink" title="Copy a link to this exact view">Copy link</button>
   </div>
   </div><!-- /#pbody -->
+</div>
+
+<div id="wxhud" style="display:none">
+  <div id="wx-status">—</div>
+  <div class="wx-big"><span id="wx-temp">—</span></div>
+  <div class="wx-sub"><span id="wx-hum"></span></div>
+  <div class="wx-sub" id="wx-wind">—</div>
+  <div id="wx-warn"></div>
+  <div id="wx-clock">—</div>
+  <div class="wx-src">HKO · data.gov.hk</div>
 </div>
 
 <script type="module" src="./main.js"></script>
