@@ -17,6 +17,15 @@ const SOURCES = {
     texture: 'data/lantau-b50k-topo-texture.png',
     ve: 2.6,
   },
+  'lantau-srtm30': {
+    label: 'Lantau · AWS Terrarium ~30 m',
+    mesh:    'data/lantau-srtm30.json',
+    georef:  { file: 'data/lantau-georefs.json', key: 'srtm30' },
+    texbb:   'data/lantau-texbb.json',           // shared: B50K texture geographic bounds
+    overlay: 'data/lantau-b50k-vectors.json',    // shared: vectors are in absolute E/N via texbb
+    texture: 'data/lantau-b50k-topo-texture.png',
+    ve: 2.6,
+  },
 };
 
 // vector layer styling (colour + default visibility)
@@ -306,6 +315,11 @@ function southView() { const b = bounds(); camera.position.set(0, b.peakY*1.2, b
 function topView()   { const b = bounds(); camera.position.set(0, b.span*1.4, 0.01);       controls.target.set(0, 0, 0);           controls.update(); }
 
 // ---- UI wiring -------------------------------------------------------------
+document.getElementById('src').addEventListener('change', e => {
+  loadSource(e.target.value).catch(err => {
+    document.getElementById('note').textContent = 'Load failed: ' + err.message; console.error(err);
+  });
+});
 document.getElementById('surf').addEventListener('change', e => applyStyle(e.target.value));
 document.getElementById('bg').addEventListener('change', e => applyBg(e.target.value));
 document.getElementById('ve').addEventListener('input', e => {
