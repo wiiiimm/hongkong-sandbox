@@ -74,6 +74,8 @@ Pushing to `main` deploys `3d-viewer/` via GitHub Actions
   (`Whole_HK_DTM_5m.zip`). HK1980 grid (EPSG:2326), ±5 m. *Lantau Peak 933 m (true ≈ 934).*
 - **SRTM ~30 m** — AWS Open Data "Terrain Tiles" (Mapzen/Tilezen Terrarium). *Lantau Peak ~897 m.*
 - **B50K** — 1:50 000 topographic vectors, Lands Department.
+- **Peak labels** — named summits (`natural=peak`, name + elevation) from © OpenStreetMap
+  contributors (ODbL), baked to the HK1980 grid.
 - **Live weather / tides / warnings** — Hong Kong Observatory via DATA.GOV.HK
   (per-station feeds routed through the `api.data.gov.hk` historical archive for CORS).
 - **Web-map surfaces** — © OpenStreetMap contributors; Esri World Imagery

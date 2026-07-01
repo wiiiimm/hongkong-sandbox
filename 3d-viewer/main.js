@@ -138,6 +138,7 @@ const world = new THREE.Group(); scene.add(world);
 
 // ---- per-source state ------------------------------------------------------
 let W, H, cell, elev, zmax, peaks = [];
+let peaksData = null;   // named HK peaks POI set (data/hk-peaks.json), placed by E/N per source
 let meshStep = 1, gridW = 0, gridH = 0, curG = null, curTexbb = null;   // mesh density state
 let firstLoad = true;   // apply per-source default VE only on the very first load
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
@@ -201,6 +202,7 @@ async function loadSource(id) {
   buildSea();
   buildWeather();
   updateWindVisuals();     // renderSky + fog + rain/cloud look for the current wind
+  if (!peaksData) peaksData = await fj('data/hk-peaks.json').catch(() => ({ peaks: [] }));
   buildLabels();
   if (texTopo) texTopo.dispose();
   texTopo = buildBaseTexture(landcover);   // clean B50K base map (fills only), aligned by construction
@@ -484,20 +486,19 @@ function animateWeather() {
   if (flashfx) flashfx.style.opacity = weather.lightning ? (flash * 0.6).toFixed(3) : 0;   // white screen flash
 }
 
+// Build one DOM label per named peak POI (data/hk-peaks.json). Positions are held
+// in HK1980 E/N and converted to the current source's grid each frame, so one POI
+// set serves every source. Chinese name on top, English · height below.
 function buildLabels() {
   labels.forEach(l => l.div.remove()); labels = [];
-  for (const pk of peaks) {
+  const list = (peaksData && peaksData.peaks) || [];
+  for (const p of list) {
     const div = document.createElement('div'); div.className = 'lbl';
-    // names are "English 中文" — split trailing CJK from the English part
-    const name = pk.name || '';
-    const m = name.match(/^(.*?)\s*([㐀-鿿][㐀-鿿\s]*)$/);
-    const english = (m ? m[1] : name).trim();
-    const chinese = m ? m[2].trim() : '';
-    const top = chinese || english;                       // Chinese on top when present
-    const sub = (chinese ? english + ' · ' : '') + Math.round(pk.elev) + ' m';
+    const top = p.zh || p.en;
+    const sub = (p.zh && p.en ? p.en + ' · ' : '') + p.ele + ' m';
     div.innerHTML = `${top}<small>${sub}</small>`;
     document.body.appendChild(div);
-    labels.push({ div, col: pk.col, row: pk.row });
+    labels.push({ div, E: p.E, N: p.N, ele: p.ele });
   }
 }
 
@@ -1205,16 +1206,29 @@ function occludedLocal(lx, ly, lz) {
   return false;
 }
 function updateLabels() {
-  const show = document.getElementById('labels').checked;
+  if (!document.getElementById('labels').checked) { for (const l of labels) l.div.style.display = 'none'; return; }
+  const g = curG; if (!g) return;
+  // 1) project each peak (E/N → this source's grid), drop off-mesh / behind-camera / terrain-occluded
+  const cand = [];
   for (const l of labels) {
-    if (!show) { l.div.style.display = 'none'; continue; }
-    const lx = (l.col-W/2)*cell, ly = sampleE(l.col, l.row)*VE, lz = (l.row-H/2)*cell;
-    v.set(lx, ly, lz);
-    world.localToWorld(v); v.project(camera);
-    const hide = v.z > 1 || occludedLocal(lx, ly, lz);
-    l.div.style.display = hide ? 'none' : '';
-    l.div.style.left = ((v.x*0.5+0.5)*innerWidth) + 'px';
-    l.div.style.top  = ((-v.y*0.5+0.5)*innerHeight) + 'px';
+    const col = (l.E - g.bE) / g.aE, row = (l.N - g.bN) / g.aN;
+    if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { l.div.style.display = 'none'; continue; }
+    const lx = (col - W/2)*cell, ly = sampleE(col, row)*VE, lz = (row - H/2)*cell;
+    v.set(lx, ly, lz); world.localToWorld(v); v.project(camera);
+    if (v.z > 1 || occludedLocal(lx, ly, lz)) { l.div.style.display = 'none'; continue; }
+    l._sx = (v.x*0.5 + 0.5) * innerWidth; l._sy = (-v.y*0.5 + 0.5) * innerHeight;
+    cand.push(l);
+  }
+  // 2) declutter: tallest peaks win; hide any that would overlap one already placed
+  //    (naturally reveals more peaks as you zoom in, since anchors spread apart)
+  cand.sort((a, b) => b.ele - a.ele);
+  const placed = [], PADX = 68, PADY = 36;
+  for (const l of cand) {
+    if (placed.some(q => Math.abs(q._sx - l._sx) < PADX && Math.abs(q._sy - l._sy) < PADY)) { l.div.style.display = 'none'; continue; }
+    placed.push(l);
+    l.div.style.display = '';
+    l.div.style.left = l._sx + 'px';
+    l.div.style.top  = l._sy + 'px';
   }
 }
 function resize() {
