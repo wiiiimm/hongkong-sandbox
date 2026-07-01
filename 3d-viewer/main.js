@@ -424,7 +424,7 @@ function animate() {
 
 resize();
 applyBg('dark');
-loadSource('lantau-hk5m').then(animate).catch(err => {
+loadSource('hk-landsd-5m').then(animate).catch(err => {
   document.getElementById('note').textContent = 'Load failed: ' + err.message;
   console.error(err);
 });
