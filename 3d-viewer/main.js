@@ -904,11 +904,22 @@ function buildStationMarkers() {
 function applyStationReadings(R) {
   for (const m of stationMarkers) {
     const d = R[m.name] || {}, t = parseFloat(d.temp);
-    m.el.querySelector('.ic').textContent = wxEmoji;
-    const tEl = m.el.querySelector('.t');
-    tEl.textContent = isFinite(t) ? Math.round(t) + '°' : '–';
-    tEl.style.color = isFinite(t) ? tempColor(t) : 'var(--sub)';
-    m.el.querySelector('.rh').textContent = d.rh ? `💧 ${d.rh}%` : '';
+    const ic = m.el.querySelector('.ic'), tEl = m.el.querySelector('.t'), rhEl = m.el.querySelector('.rh');
+    // temperature stations lead with temp; wind-only stations lead with wind
+    if (isFinite(t)) {
+      ic.textContent = wxEmoji;
+      tEl.textContent = Math.round(t) + '°'; tEl.style.color = tempColor(t);
+      rhEl.textContent = d.rh ? `💧 ${d.rh}%` : '';
+    } else if (isFinite(parseFloat(d.wspd))) {
+      const gust = parseFloat(d.gust), dir = d.wdir && d.wdir !== 'N/A' ? d.wdir : '';
+      ic.textContent = '💨';
+      tEl.textContent = Math.round(parseFloat(d.wspd)); tEl.style.color = '#cfe6ff';
+      rhEl.textContent = `${dir}${isFinite(gust) ? ` · gust ${gust}` : ''}`.trim();
+    } else {
+      ic.textContent = wxEmoji;
+      tEl.textContent = '–'; tEl.style.color = 'var(--sub)';
+      rhEl.textContent = d.pres ? `${d.pres} hPa` : '';
+    }
     const rows = [`<b>${m.zh ? m.zh + ' · ' : ''}${m.name}</b>`];
     if (isFinite(t)) rows.push(`${t}°C`);
     if (d.rh) rows.push(`humidity ${d.rh}%`);

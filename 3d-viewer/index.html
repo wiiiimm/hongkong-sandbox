@@ -89,24 +89,24 @@
   @keyframes stormpulse{0%,100%{opacity:1}50%{opacity:.62}}
   #stormbadge.sev{animation:stormpulse 1.1s ease-in-out infinite}
   /* live weather-station markers */
-  /* TV-style weather cards: icon + big temp + place name, on a stem to the point */
+  /* TV-style weather graphics: no card — icon + temp + name float with a shadow halo,
+     anchored by a small locator dot at the exact point */
   .stn{position:fixed;transform:translate(-50%,-100%);z-index:15;pointer-events:auto;cursor:default;
-    font-family:var(--sans);white-space:nowrap;text-align:center;padding:3px 9px 4px;border-radius:10px;
-    background:linear-gradient(180deg,rgba(24,30,40,.9),rgba(12,16,22,.9));
-    border:1px solid rgba(255,255,255,.16);box-shadow:0 6px 18px rgba(0,0,0,.55);
-    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
-  .stn:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:11px;
-    background:linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,0));transform:translateX(-50%)}
-  .stn:after{content:'';position:absolute;left:50%;top:calc(100% + 11px);width:5px;height:5px;border-radius:50%;
-    background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 0 2px rgba(0,0,0,.45),0 0 6px rgba(255,255,255,.4)}
-  .stn .row{display:flex;align-items:center;justify-content:center;gap:5px;line-height:1}
-  .stn .ic{font-size:14px}
-  .stn .t{font-size:15px;font-weight:700;letter-spacing:-.02em;color:#fff}
-  .stn .rh{display:block;font-size:8.5px;font-weight:600;color:#84b6de;margin-top:2px}
-  .stn .nm{display:block;margin-top:2px}
-  .stn .nm .zh{font-size:10px;font-weight:600;color:var(--ink)}
-  .stn .nm .en{font-size:7.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--sub);margin-left:3px}
-  .stn:hover{z-index:31;border-color:var(--accent)}
+    font-family:var(--sans);white-space:nowrap;text-align:center;line-height:1.15;padding-bottom:11px;
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,.98)) drop-shadow(0 2px 7px rgba(0,0,0,.75))}
+  .stn:before{content:'';position:absolute;left:50%;bottom:6px;width:1px;height:6px;
+    background:rgba(255,255,255,.75);transform:translateX(-50%)}
+  .stn:after{content:'';position:absolute;left:50%;bottom:0;width:5px;height:5px;border-radius:50%;
+    background:#fff;transform:translateX(-50%);box-shadow:0 0 3px rgba(0,0,0,.7)}
+  .stn .row{display:flex;align-items:center;justify-content:center;gap:4px;line-height:1}
+  .stn .ic{font-size:15px}
+  .stn .t{font-size:17px;font-weight:800;letter-spacing:-.02em;color:#fff}
+  .stn .rh{display:block;font-size:9px;font-weight:700;color:#cfe6ff;margin-top:1px}
+  .stn .nm{display:block;margin-top:1px}
+  .stn .nm .zh{font-size:10px;font-weight:700;color:#fff}
+  .stn .nm .en{font-size:7.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.78);margin-left:3px}
+  .stn:hover{z-index:31}
+  .stn:hover .t{color:var(--accent)}
   .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
     background:rgba(11,14,19,.94);border:1px solid var(--edge);border-radius:8px;padding:6px 9px;
     font-size:10.5px;font-weight:400;line-height:1.55;color:var(--ink);min-width:130px;text-align:left;
