@@ -25,7 +25,7 @@
   #navhelp b{color:var(--panel-ink)}
   #collapsedbar{display:none;align-items:center;gap:8px}
   #collapsedbar button{width:26px;height:26px;padding:0;font-size:17px;line-height:1;display:grid;place-items:center}
-  .navmini{font-size:11px;color:var(--panel-sub);white-space:nowrap}
+  .navmini{font-size:11px;color:var(--panel-sub);white-space:normal;max-width:210px;line-height:1.4}
   #panel.collapsed{width:auto}
   #panel.collapsed #phead,#panel.collapsed #pbody,#panel.collapsed #navhelp{display:none}
   #panel.collapsed #collapsedbar{display:flex}
@@ -55,7 +55,7 @@
 <div id="panel">
   <div id="collapsedbar">
     <button id="expand-btn" title="Show controls">+</button>
-    <span class="navmini">drag rotate · scroll zoom · right‑drag pan</span>
+    <span class="navmini">drag / 1‑finger rotate · scroll / pinch zoom · 2‑finger pan</span>
   </div>
   <div id="phead">
     <h1>香港 · Lantau 大嶼山</h1>
@@ -66,8 +66,8 @@
   </div>
   <div id="navhelp" style="display:none">
     <b>Navigate</b><br>
-    Drag — rotate · Scroll — zoom<br>
-    Right‑drag / two‑finger — pan<br>
+    Mouse — drag rotate · scroll zoom · right‑drag pan<br>
+    Touch — one finger rotate · pinch zoom · two‑finger pan<br>
     Reset — recenter the view
   </div>
   <div id="pbody">
@@ -95,7 +95,7 @@
     <div class="row" id="solidrow" style="display:none"><label class="k">Fill colour</label>
       <input type="color" id="solidcolor" value="#262626" style="flex:0 0 34px;height:24px;padding:0;border:1px solid var(--field-edge);border-radius:6px;background:none;cursor:pointer"/>
       <input type="text" id="solidhex" value="#262626" spellcheck="false"
-             style="flex:1;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
+             style="flex:1;min-width:0;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
     </div>
     <div class="row"><label class="k">Background</label>
       <select id="bg"><option value="dark">Dark</option><option value="paper">Paper</option></select>
@@ -116,7 +116,7 @@
     <div class="row"><label class="k">Colour</label>
       <input type="color" id="mlcolor" value="#2a4c33" style="flex:0 0 34px;height:24px;padding:0;border:1px solid var(--field-edge);border-radius:6px;background:none;cursor:pointer"/>
       <input type="text" id="mlhex" value="#2a4c33" spellcheck="false"
-             style="flex:1;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
+             style="flex:1;min-width:0;background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:6px;padding:4px 6px;font-size:12px;font-family:ui-monospace,monospace"/>
       <button id="mlauto" title="Back to automatic colour" style="flex:0 0 auto;padding:5px 7px">auto</button>
     </div>
   </div>
