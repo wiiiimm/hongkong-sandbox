@@ -276,6 +276,9 @@ function buildSea() {
 let rainPts = null, cloudGrp = null, wavePhase = 0, flash = 0;
 const SEA_Y = 0.5;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false };
+let tideManual = 0.5;    // slider 0..1 — used when not in live mode
+let tideLevel  = 0.5;    // effective water level 0..1 (drives the sea height)
+let tideSeries = null;   // live prediction: { vals[72] m, nowHour, min, max, cur, stationName } or null
 
 const CLOUD_TEX = (() => {
   const c = document.createElement('canvas'); c.width = c.height = 128;
@@ -331,7 +334,13 @@ function animateWeather() {
     const lim = b.halfX * 1.3;
     for (const s of cloudGrp.children) { s.position.x += b.span*0.0006; if (s.position.x > lim) s.position.x = -lim; }
   }
-  if (sea) sea.position.y = weather.waves ? SEA_Y + Math.sin(wavePhase += 0.02) * b.span*0.003 : SEA_Y;
+  // tide = slow water level (0..1, from live prediction or the manual slider);
+  // waves = a small ripple layered on top of that level.
+  if (sea) {
+    const tideY  = SEA_Y + tideLevel * b.span * 0.0012;
+    const ripple = weather.waves ? Math.sin(wavePhase += 0.03) * b.span * 0.00025 : 0;
+    sea.position.y = tideY + ripple;
+  }
   if (weather.lightning) {
     if (flash > 0) { flash -= 0.07; hemi.intensity = (bgMode === 'paper' ? 1.9 : 1.4) + flash * 5; }
     else if (Math.random() < 0.007) flash = 1;
@@ -450,24 +459,32 @@ function bounds() {
 }
 function frameCamera() {
   const b = bounds();
-  // tune depth range to the scene scale: a tight near/far ratio gives the depth
-  // precision needed to stop the flat sea z-fighting while the camera drifts
-  camera.near = b.span * 0.03;
-  camera.far  = b.span * 6;
-  camera.updateProjectionMatrix();
   controls.target.set(0, b.peakY*0.35, 0);
   // start 30° above the horizontal (sea-level) plane
   const elev = 30 * Math.PI / 180, dist = b.span * 1.1;
   camera.position.set(0, controls.target.y + dist*Math.sin(elev), dist*Math.cos(elev));
-  controls.minDistance = b.span*0.3; controls.maxDistance = b.span*3;
+  controls.minDistance = b.span*0.04; controls.maxDistance = b.span*4;   // much more zoom range
   controls.update();
+  updateClip();
+}
+
+// adaptive depth range: keeps precision (no sea z-fighting) at any zoom, and lets
+// the near plane shrink when close so you can zoom right in
+let clipNear = -1;
+function updateClip() {
+  const d = camera.position.distanceTo(controls.target);
+  const near = Math.max(d * 0.02, 0.5);
+  if (clipNear < 0 || Math.abs(near - clipNear) / clipNear > 0.04) {
+    camera.near = near; camera.far = d * 3 + bounds().span * 2.5;
+    camera.updateProjectionMatrix(); clipNear = near;
+  }
 }
 function southView() { const b = bounds(); camera.position.set(0, b.peakY*1.2, b.span*1.1); controls.target.set(0, b.peakY*0.3, 0); controls.update(); }
 function topView()   { const b = bounds(); camera.position.set(0, b.span*1.4, 0.01);       controls.target.set(0, 0, 0);           controls.update(); }
 
 // ---- UI wiring -------------------------------------------------------------
 document.getElementById('src').addEventListener('change', e => {
-  loadSource(e.target.value).catch(err => {
+  loadSource(e.target.value).then(() => { if (liveMode) syncLiveTide(); }).catch(err => {
     document.getElementById('note').textContent = 'Load failed: ' + err.message; console.error(err);
   });
 });
@@ -520,6 +537,11 @@ document.getElementById('rain').addEventListener('change', e => { weather.rain =
 document.getElementById('clouds').addEventListener('change', e => { weather.clouds = e.target.checked; if (cloudGrp) cloudGrp.visible = weather.clouds; });
 document.getElementById('lightning').addEventListener('change', e => { weather.lightning = e.target.checked; if (!weather.lightning) { flash = 0; applyBg(bgMode); } });
 document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
+document.getElementById('tide').addEventListener('input', e => {
+  tideManual = parseInt(e.target.value, 10) / 100;
+  if (!liveMode) tideLevel = tideManual;                 // live mode drives tideLevel from data instead
+  document.getElementById('tidev').textContent = Math.round(tideManual * 100) + '%';
+});
 
 // ---- live weather from HKO / data.gov.hk -----------------------------------
 const HKO_ICON = {
@@ -532,6 +554,98 @@ const HKO_ICON = {
 let liveMode = false, wxClockT = null, wxRefreshT = null;
 const wxStation = arr => (arr || []).find(d => /observatory/i.test(d.place)) || (arr || [])[0];
 const windFromForecast = desc => { const m = (desc || '').match(/[^.]*\bwind[s]?\b[^.]*/i); return m ? m[0].trim().replace(/\s+/g, ' ') : ''; };
+
+// ---- live tide prediction (HKO HHOT hourly heights) + HUD waveform ---------
+// nearest tide station per source (Cheung Chau for Lantau, Quarry Bay for HK-wide)
+const TIDE_STATION = {
+  'lantau-hk5m':  ['CCH', 'Cheung Chau'], 'lantau-srtm30': ['CCH', 'Cheung Chau'],
+  'hk-landsd-5m': ['QUB', 'Quarry Bay'],  'hk-srtm':       ['QUB', 'Quarry Bay'],
+};
+// HK-local calendar parts for today ± offsetDays (HKT = UTC+8, no DST)
+function hkYMD(offsetDays) {
+  const d = new Date(Date.now() + offsetDays * 86400000);
+  const [y, m, dd] = d.toLocaleDateString('en-CA', { timeZone: 'Asia/Hong_Kong' }).split('-');
+  return { y: +y, m: +m, d: +dd };
+}
+function hkHourFloat() {
+  const [H, M] = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Hong_Kong', hour12: false }).split(':').map(Number);
+  return H + M / 60;
+}
+// vals[i] is the predicted height at clock hour (i+1) measured from yesterday 00:00;
+// sample (with linear interpolation) at an absolute window-hour
+function tideAt(vals, absHour) {
+  const idx = absHour - 1, i0 = Math.floor(idx);
+  const cl = i => vals[Math.max(0, Math.min(vals.length - 1, i))];
+  const a = cl(i0), b = cl(i0 + 1);
+  return (isFinite(a) && isFinite(b)) ? a + (b - a) * (idx - i0) : NaN;
+}
+
+async function syncLiveTide() {
+  const [st, stName] = TIDE_STATION[document.getElementById('src').value] || ['QUB', 'Quarry Bay'];
+  const base = 'https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=' + st;
+  const day = off => { const { y, m, d } = hkYMD(off); return fetch(`${base}&year=${y}&month=${m}&day=${d}`).then(r => r.json()).catch(() => null); };
+  try {
+    const rows = await Promise.all([day(-1), day(0), day(1)]);   // yesterday, today, tomorrow
+    const dayVals = j => (j && j.data && j.data[0]) ? j.data[0].slice(2).map(Number) : new Array(24).fill(NaN);
+    const vals = [...dayVals(rows[0]), ...dayVals(rows[1]), ...dayVals(rows[2])];   // 72 hourly heights
+    const nowHour = 24 + hkHourFloat();                          // today 00:00 sits at window-hour 24
+    // min/max over the ±12 h window drives both the graph scale and the level normalisation
+    let mn = Infinity, mx = -Infinity;
+    for (let x = Math.ceil(nowHour - 12); x <= Math.floor(nowHour + 12); x++) {
+      const v = tideAt(vals, x); if (isFinite(v)) { mn = Math.min(mn, v); mx = Math.max(mx, v); }
+    }
+    const cur = tideAt(vals, nowHour);
+    tideSeries = { vals, nowHour, min: mn, max: mx, cur, stationName: stName };
+    if (mx > mn && isFinite(cur)) tideLevel = Math.max(0, Math.min(1, (cur - mn) / (mx - mn)));
+    // reflect the live level on the (locked) slider
+    document.getElementById('tide').value = Math.round(tideLevel * 100);
+    document.getElementById('tidev').textContent = Math.round(tideLevel * 100) + '%';
+    // HUD readout + trend
+    const trend = tideAt(vals, nowHour + 0.5) - cur;
+    const arrow = trend > 0.02 ? '↑ rising' : trend < -0.02 ? '↓ falling' : '→ slack';
+    document.getElementById('wx-tide').textContent = isFinite(cur) ? `tide ${cur.toFixed(2)} m  ${arrow}` : '';
+    document.getElementById('wx-tidecap').textContent = `24 h tide · ${stName}`;
+    drawTideGraph();
+  } catch (e) { console.error('tide', e); }
+}
+
+// past-and-upcoming tide waveform for the HUD (±12 h around now)
+function drawTideGraph() {
+  const cv = document.getElementById('wx-tidegraph');
+  if (!cv || !tideSeries) return;
+  const { vals, nowHour, min, max } = tideSeries;
+  const dpr = Math.min(devicePixelRatio || 1, 2), Wc = 224, Hc = 56;
+  if (cv.width !== Wc * dpr) { cv.width = Wc * dpr; cv.height = Hc * dpr; }
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cv.style.display = 'block'; ctx.clearRect(0, 0, Wc, Hc);
+  const lo = nowHour - 12, hi = nowHour + 12, pad = 6, gTop = 7, gBot = Hc - 13;
+  const range = Math.max(0.2, max - min);
+  const ymin = min - range * 0.18, ymax = max + range * 0.18;
+  const xOf = h => pad + (h - lo) / (hi - lo) * (Wc - pad * 2);
+  const yOf = v => gBot - (v - ymin) / (ymax - ymin) * (gBot - gTop);
+  // curve
+  ctx.beginPath(); let started = false;
+  for (let h = lo; h <= hi + 1e-6; h += 0.2) {
+    const v = tideAt(vals, h); if (!isFinite(v)) continue;
+    const x = xOf(h), y = yOf(v);
+    started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true);
+  }
+  ctx.lineJoin = 'round'; ctx.strokeStyle = 'rgba(120,200,235,.95)'; ctx.lineWidth = 1.8; ctx.stroke();
+  // fill under the curve
+  ctx.lineTo(xOf(hi), gBot); ctx.lineTo(xOf(lo), gBot); ctx.closePath();
+  ctx.fillStyle = 'rgba(90,170,215,.16)'; ctx.fill();
+  // "now" marker + dot
+  const nx = xOf(nowHour), nv = tideAt(vals, nowHour);
+  ctx.strokeStyle = 'rgba(63,224,176,.85)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(nx, gTop - 3); ctx.lineTo(nx, gBot); ctx.stroke();
+  if (isFinite(nv)) { ctx.fillStyle = '#3fe0b0'; ctx.beginPath(); ctx.arc(nx, yOf(nv), 2.8, 0, 7); ctx.fill(); }
+  // axis ticks + high-water marker
+  ctx.font = '9px ui-monospace, monospace'; ctx.fillStyle = 'rgba(255,255,255,.5)';
+  ctx.textAlign = 'left';   ctx.fillText('−12h', pad, Hc - 3);
+  ctx.textAlign = 'center'; ctx.fillText('now', nx, Hc - 3);
+  ctx.textAlign = 'right';  ctx.fillText('+12h', Wc - pad, Hc - 3);
+  ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillText(max.toFixed(1) + ' m', Wc - pad, gTop + 7);
+}
 
 async function syncLiveWeather() {
   const el = id => document.getElementById(id);
@@ -568,11 +682,22 @@ function tickHKClock() {
 function setLiveMode(on) {
   liveMode = on;
   document.getElementById('wxhud').style.display = on ? '' : 'none';
+  document.getElementById('wxlock').style.display = on ? 'block' : 'none';
+  // live data owns the weather + tide controls, so lock them while it's on
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'tide'].forEach(id => { const e = document.getElementById(id); if (e) e.disabled = on; });
   const btn = document.getElementById('livebtn');
   btn.textContent = on ? '⛅ Live weather · ON' : '⛅ Sync live weather';
   btn.classList.toggle('on', on);
   clearInterval(wxClockT); clearInterval(wxRefreshT);
-  if (on) { tickHKClock(); wxClockT = setInterval(tickHKClock, 1000); syncLiveWeather(); wxRefreshT = setInterval(syncLiveWeather, 300000); }
+  if (on) {
+    tickHKClock(); wxClockT = setInterval(tickHKClock, 1000);
+    syncLiveWeather(); syncLiveTide();
+    wxRefreshT = setInterval(() => { syncLiveWeather(); syncLiveTide(); }, 300000);
+  } else {
+    tideSeries = null; tideLevel = tideManual;      // hand the tide back to the manual slider
+    document.getElementById('tide').value = Math.round(tideManual * 100);
+    document.getElementById('tidev').textContent = Math.round(tideManual * 100) + '%';
+  }
 }
 document.getElementById('livebtn').addEventListener('click', () => setLiveMode(!liveMode));
 document.getElementById('reset').addEventListener('click', frameCamera);
@@ -604,6 +729,7 @@ function animate() {
   if (spinDir) world.rotation.y += 0.0016 * spinSpeed * spinDir;
   animateWeather();
   controls.update();
+  updateClip();                 // keep near/far tuned to the current zoom distance
   renderer.render(scene, camera);
   updateLabels();
 }
@@ -630,6 +756,7 @@ function serializeState() {
   p.set('cl', weather.clouds ? '1' : '0');
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
+  p.set('ti', String(Math.round(tideManual * 100)));
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
                 r(controls.target.x), r(controls.target.y), r(controls.target.z),
@@ -670,6 +797,7 @@ function applyState(p) {
   if (p.has('cl')) setChk('clouds', p.get('cl') === '1');
   if (p.has('li')) setChk('lightning', p.get('li') === '1');
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
+  if (p.has('ti')) setVal('tide', p.get('ti'), 'input');
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
     if (c.length >= 6 && c.every(isFinite)) {

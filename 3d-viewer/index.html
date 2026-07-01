@@ -77,6 +77,13 @@
   #wxhud #wx-clock{font-family:var(--mono);font-size:13px;color:var(--ink);margin-top:7px}
   #wxhud #wx-warn:not(:empty){color:#e6a23c;margin-top:4px;font-size:11px}
   #wxhud .wx-src{font-size:9px;color:var(--sub);opacity:.7;margin-top:5px;font-family:var(--mono);letter-spacing:.04em}
+  #wxhud #wx-tide{font-size:11px;color:var(--ink);margin-top:7px;font-family:var(--mono)}
+  #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
+  #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
+  #wxlock{display:none;font-size:10px;color:var(--accent);font-family:var(--mono);margin-top:8px;letter-spacing:.04em}
+  input[type=range]:disabled{opacity:.45;cursor:not-allowed}
+  input[type=checkbox]:disabled{opacity:.45;cursor:not-allowed}
+  .chk input:disabled + *, label.chk:has(input:disabled){opacity:.5;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -186,6 +193,11 @@
       <label class="chk"><input type="checkbox" id="lightning"/> Thunder</label>
       <label class="chk"><input type="checkbox" id="waves"/> Waves</label>
     </div>
+    <div class="row" style="margin-top:8px"><label class="k">Tide</label>
+      <input id="tide" type="range" min="0" max="100" step="1" value="50"/>
+      <span id="tidev" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--accent);font-family:var(--mono)">50%</span>
+    </div>
+    <div id="wxlock">◈ controls locked to live data</div>
     <div class="row" style="margin-top:8px"><button id="livebtn" style="flex:1">⛅ Sync live weather</button></div>
   </div>
 
@@ -204,6 +216,9 @@
   <div class="wx-sub"><span id="wx-hum"></span></div>
   <div class="wx-sub" id="wx-wind">—</div>
   <div id="wx-warn"></div>
+  <div id="wx-tide"></div>
+  <canvas id="wx-tidegraph"></canvas>
+  <div id="wx-tidecap"></div>
   <div id="wx-clock">—</div>
   <div class="wx-src">HKO · data.gov.hk</div>
 </div>
