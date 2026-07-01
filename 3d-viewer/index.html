@@ -6,6 +6,12 @@
 <base href="/"/><!-- keep relative asset paths root-anchored when served under /en-hk/ etc -->
 <title>Hong Kong Sandbox — 3D terrain, live weather &amp; typhoon sim</title>
 <meta name="description" content="Hong Kong Sandbox (香港沙盤) — an interactive 3D Hong Kong from real LiDAR terrain, with live Hong Kong Observatory weather, tides and typhoon signals (No.1–10), live weather stations, and OSM / satellite skins. Bilingual (EN / 繁中)."/>
+<meta name="robots" content="index,follow"/>
+<!-- SEO: canonical is set to the current locale URL by main.js; hreflang lists both -->
+<link id="canonical" rel="canonical" href="https://hongkong-sandbox.pages.dev/en-hk/"/>
+<link rel="alternate" hreflang="en-hk" href="https://hongkong-sandbox.pages.dev/en-hk/"/>
+<link rel="alternate" hreflang="zh-hk" href="https://hongkong-sandbox.pages.dev/zh-hk/"/>
+<link rel="alternate" hreflang="x-default" href="https://hongkong-sandbox.pages.dev/en-hk/"/>
 <style>
   :root{
     --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans CJK TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
@@ -225,7 +231,7 @@
       <select id="spindir"><option value="0" data-i18n="spin.off">Off</option><option value="1" selected data-i18n="spin.cw">⟳ Clockwise</option><option value="-1" data-i18n="spin.ccw">⟲ Counter‑cw</option></select>
     </div>
     <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
-      <input id="spinspd" type="range" min="0.15" max="3" step="0.05" value="1"/>
+      <input id="spinspd" type="range" min="0.15" max="3" step="0.05" value="0.2"/>
     </div>
   </div>
 

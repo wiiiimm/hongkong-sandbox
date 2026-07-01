@@ -23,15 +23,27 @@ LANDMARKS = {
     "Lion Rock":       (22.3520, 114.1875, "獅子山", "peak", 495),
     "Sharp Peak":      (22.4197, 114.3667, "蚺蛇尖", "peak", 468),
     "High Junk Peak":  (22.2836, 114.2681, "釣魚翁", "peak", 344),
-    # towns / districts
+    "Nei Lak Shan":    (22.2560, 113.9050, "彌勒山", "peak", 751),
+    "Grassy Hill":     (22.4030, 114.1560, "草山",   "peak", 647),
+    "Tai To Yan":      (22.4640, 114.1310, "大刀屻", "peak", 566),
+    "Needle Hill":     (22.3860, 114.1470, "針山",   "peak", 532),
+    "Violet Hill":     (22.2560, 114.1897, "紫羅蘭山", "peak", 433),
+    "Dragon's Back":   (22.2246, 114.2455, "龍脊",   "peak", 284),
+    # towns / districts / islands
     "Central":         (22.2819, 114.1582, "中環",   "town", None),
     "Tsim Sha Tsui":   (22.2970, 114.1722, "尖沙咀", "town", None),
     "Tai Po":          (22.4501, 114.1642, "大埔",   "town", None),
     "Fanling":         (22.4922, 114.1386, "粉嶺",   "town", None),
+    "Sai Kung":        (22.3817, 114.2710, "西貢",   "town", None),
     "Tseung Kwan O":   (22.3076, 114.2600, "將軍澳", "town", None),
     "Yuen Long":       (22.4445, 114.0225, "元朗",   "town", None),
     "Mui Wo":          (22.2660, 113.9967, "梅窩",   "town", None),
     "Tai O":           (22.2540, 113.8620, "大澳",   "town", None),
+    "Cheung Chau":     (22.2100, 114.0270, "長洲",   "town", None),
+    "Lamma Island":    (22.2130, 114.1230, "南丫島", "town", None),
+    "Shek O":          (22.2295, 114.2525, "石澳",   "town", None),
+    "HK Airport":      (22.3080, 113.9185, "香港機場", "town", None),
+    "Tung Ping Chau":  (22.5417, 114.4306, "東平洲", "town", None),
 }
 
 # --- Hong Kong 1980 Grid transverse-Mercator forward (International 1924) -----

@@ -67,6 +67,7 @@ const DEFAULT_LOCALE = 'en-hk';
 const I18N = {
   'en-hk': {
     'app.title': 'Hong Kong Sandbox',
+    'doc.title': 'Hong Kong Sandbox — 3D terrain, live weather & typhoon sim',
     'lbl.source': 'Source', 'src.hk5m': 'Hong Kong · LandsD 5 m', 'src.hksrtm': 'Hong Kong · AWS Terrarium ~30 m',
     'src.lan5m': 'Lantau · LandsD 5 m', 'src.lansrtm': 'Lantau · AWS Terrarium ~30 m',
     'lbl.surface': 'Surface', 'surf.none': 'None (no fill)', 'surf.shaded': 'Shaded relief', 'surf.tint': 'Elevation tint (flat)',
@@ -91,6 +92,7 @@ const I18N = {
   },
   'zh-hk': {
     'app.title': '香港沙盤',
+    'doc.title': '香港沙盤 — 3D 地形、實時天氣與颱風模擬',
     'lbl.source': '資料來源', 'src.hk5m': '香港 · 地政總署 5 米', 'src.hksrtm': '香港 · AWS Terrarium ~30 米',
     'src.lan5m': '大嶼山 · 地政總署 5 米', 'src.lansrtm': '大嶼山 · AWS Terrarium ~30 米',
     'lbl.surface': '表面', 'surf.none': '無填色', 'surf.shaded': '陰影地貌', 'surf.tint': '高程著色（平面）',
@@ -141,7 +143,7 @@ const world = new THREE.Group(); scene.add(world);
 // ---- per-source state ------------------------------------------------------
 let W, H, cell, elev, zmax, peaks = [];
 let peaksData = null;   // named HK peaks POI set (data/hk-peaks.json), placed by E/N per source
-let landmarksData = null, landmarks = [];   // curated landmarks POI set (data/hk-landmarks.json)
+let landmarksData = null, landmarks = [], landmarkPeakPts = [];   // curated landmarks POI set (data/hk-landmarks.json)
 let meshStep = 1, gridW = 0, gridH = 0, curG = null, curTexbb = null;   // mesh density state
 let firstLoad = true;   // apply per-source default VE only on the very first load
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
@@ -150,7 +152,7 @@ let labels = [];
 let VE = 2.8, surfStyle = 'shaded', bgMode = 'dark';
 let matShaded, matTint, matMatte, matSolid, matTopo, texTopo = null;
 const tidalMats = [];   // materials with the intertidal "wet band" shader injected
-let spinDir = 1, spinSpeed = 1;   // horizontal auto-spin (0 = off; 1 = clockwise)
+let spinDir = 1, spinSpeed = 0.2;   // horizontal auto-spin (0 = off; 1 = clockwise); default a gentle 20%
 let wireColor = '#2a4c33';        // mesh-line colour; 'auto' button sets null = auto by background
 let solidColor = '#262626';       // fill colour for the "Solid colour" surface
 let texRot = 0;                   // B50K raster rotation in degrees (manual alignment)
@@ -520,6 +522,8 @@ function buildLandmarks() {
     document.body.appendChild(div);
     landmarks.push({ div, E: p.E, N: p.N, ele: p.ele || 0 });
   }
+  // positions of landmark peaks — the Peaks layer dedupes against these when both are on
+  landmarkPeakPts = landmarks.filter(l => l.ele > 0).map(l => ({ E: l.E, N: l.N }));
 }
 
 // ---- vertical exaggeration drives terrain AND skin -------------------------
@@ -1225,18 +1229,24 @@ function occludedLocal(lx, ly, lz) {
   }
   return false;
 }
-function updateLabels() { projectLabelSet(labels, document.getElementById('labels').checked); }
+// Peaks dedupe against landmark peaks when the Landmarks layer is also on (landmarks win).
+function updateLabels() {
+  const lmOn = document.getElementById('landmarks').checked;
+  projectLabelSet(labels, document.getElementById('labels').checked, lmOn ? landmarkPeakPts : null);
+}
 function updateLandmarks() { projectLabelSet(landmarks, document.getElementById('landmarks').checked); }
 
 // shared: project a label set to screen, drop off-mesh/behind/occluded, then declutter
 // (tallest first; hide overlaps). Used by both the peaks layer and the landmarks layer.
-function projectLabelSet(set, show) {
+// `dedupe` (optional) is a list of {E,N} — labels within ~400 m of one are skipped.
+function projectLabelSet(set, show, dedupe) {
   if (!show) { for (const l of set) l.div.style.display = 'none'; return; }
   const g = curG; if (!g) return;
   const cand = [];
   for (const l of set) {
     const col = (l.E - g.bE) / g.aE, row = (l.N - g.bN) / g.aN;
     if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { l.div.style.display = 'none'; continue; }
+    if (dedupe) { let dup = false; for (const p of dedupe) { const dE = p.E - l.E, dN = p.N - l.N; if (dE*dE + dN*dN < 160000) { dup = true; break; } } if (dup) { l.div.style.display = 'none'; continue; } }
     const lx = (col - W/2)*cell, ly = sampleE(col, row)*VE, lz = (row - H/2)*cell;
     v.set(lx, ly, lz); world.localToWorld(v); v.project(camera);
     if (v.z > 1 || occludedLocal(lx, ly, lz)) { l.div.style.display = 'none'; continue; }
@@ -1392,6 +1402,8 @@ function detectLocale() {
 function applyLocale(loc) {
   locale = LOCALES.includes(loc) ? loc : DEFAULT_LOCALE;
   document.documentElement.lang = isZh() ? 'zh-HK' : 'en';
+  document.title = t('doc.title');
+  const canon = document.getElementById('canonical'); if (canon) canon.href = location.origin + location.pathname;
   document.body.dataset.locale = locale;
   for (const el of document.querySelectorAll('[data-i18n]'))       el.textContent = t(el.getAttribute('data-i18n'));
   for (const el of document.querySelectorAll('[data-i18n-title]')) el.title = t(el.getAttribute('data-i18n-title'));
