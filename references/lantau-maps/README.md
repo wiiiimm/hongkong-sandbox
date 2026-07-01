@@ -1,0 +1,15 @@
+# Historical Lantau / 大嶼山 map set
+
+Search/name variants used: Lantau, Lantao, Lan Tao, Lanto, Tai Yue Shan, Tai-ü-shan, Nam-tao/Nam Tau, Tyho, 大嶼山, 爛頭島／爛頭山, 大庾山, 大虞, 大奚山.
+
+| File | Year | Title | Dimensions | Source | Notes |
+|---|---:|---|---:|---|---|
+| `1771-lantau-lantao-french-chart.jpg` | 1771 | Map of part of the coast of China | 1780×1274 | https://commons.wikimedia.org/wiki/File:Lantau_Island_1771_French.jpg | French/European charting context; Lantau appears as Lantao in related historical sources. |
+| `1810-lantau-huddart-larkins-chart.jpg` | 1810 | Steel's new Chart of the Coast of China / Lantau detail | 2206×1414 | https://commons.wikimedia.org/wiki/File:Lantau_Island_1810_British.jpg | Based on Huddart/Larkins surveys; related sources record Lanto and Tyho forms. |
+| `1840-lantau-daniel-ross-chart.jpg` | 1840 | China South Coast, Entrance to the Chau-Kiang / Lantau detail | 1974×1496 | https://commons.wikimedia.org/wiki/File:Lantau_Island_1840.jpg | Ross/Admiralty chart based on 1815 survey and First Opium War era updates. |
+| `1980-western-approaches-lantau-tai-yue-shan-ucsd.jpg` | 1980 issue / 1905 survey base | South China Sea: western approaches to Hong Kong Harbour: Lantau I. (Tai Yue Shan) to Kowloon Pt. | 450×318 | https://library.ucsd.edu/dc/object/bb27315831 | UCSD object page states the chart covers Lantau I. (Tai Yue Shan) to Kowloon Pt. |
+| `1866-san-on-district-lantau-crop-stitched.jpg` | 1866 | Map of the San-On District / 新安縣全圖 (Lantau crop) | 16640×15872 | https://www.hkmaps.hk/map.html?1866 | Volonteri map; useful for Tai-ü-shan / Nam-tao Island context. This is a Lantau-area crop, not the whole county map. Stitched from hkmaps.hk tiles at z=16; tile bounds x=53484-53548, y=28578-28639. |
+| `1905-hongkong-approaches-lantau-east-coast-stitched.jpg` | 1905 | Hongkong Approaches: Lantau Island, East Coast | 8192×9728 | https://www.hkmaps.hk/map.html?1905 | Unpublished UKHO survey of Lantau Island east coast by Commander C. E. Monro, HMS Rambler, Apr-Jun 1905. Stitched from hkmaps.hk tiles at z=16; tile bounds x=53503-53534, y=28592-28629. |
+| `1839-toong-koo-urmstone-bay-north-lantau-stitched.jpg` | 1839 | Toong-Koo or Urmstone Bay | 9728×8192 | https://www.hkmaps.hk/map.html?1839 | Chart of the Pearl River showing the north side of Lantau Island. Stitched from hkmaps.hk tiles at z=16; tile bounds x=53488-53525, y=28586-28617. |
+| `1920-hongkong-waters-west-lantau-stitched.jpg` | 1920 | Hongkong Waters West | 5888×4096 | https://www.hkmaps.hk/map.html?1920.1 | Admiralty sea chart of western approaches to Hong Kong Harbour extending westwards to Lantau Island. Stitched from hkmaps.hk tiles at z=16; tile bounds x=53530-53552, y=28592-28607. |
+| `1901-map-hong-kong-new-territory-lantau-stitched.jpg` | 1901/1902 | Map of Hong Kong and New Territory | 16896×13824 | https://www.hkmaps.hk/map.html?1901.1 | Survey map/boundary context with notes on north and south sides of Lantao/Lantau. Stitched from hkmaps.hk tiles at z=16; tile bounds x=53488-53553, y=28582-28635. |

@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lantau Island 3D Terrain Model</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #141414;
+      --muted: #68645d;
+      --paper: #f7f4ec;
+      --panel: rgba(247, 244, 236, 0.9);
+      --line: rgba(20, 20, 20, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font: 14px/1.4 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #scene {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+    .toolbar {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      display: grid;
+      grid-template-columns: auto auto minmax(220px, 310px) auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    button, select {
+      height: 34px;
+      border: 1px solid rgba(20, 20, 20, 0.22);
+      background: #fffdf7;
+      color: var(--ink);
+    }
+    button {
+      width: 38px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+    button:hover, select:hover { background: #eee8db; }
+    select {
+      min-width: 220px;
+      padding: 0 32px 0 10px;
+      font: inherit;
+    }
+    .readout {
+      min-width: 240px;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+    @media (max-width: 760px) {
+      .toolbar {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        grid-template-columns: auto auto 1fr;
+      }
+      .readout {
+        grid-column: 1 / -1;
+        min-width: 0;
+      }
+      select { min-width: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="scene" aria-label="Rotatable 3D terrain model of Lantau Island"></canvas>
+  <div class="toolbar" aria-label="3D model controls">
+    <button id="reset" title="Reset view" aria-label="Reset view">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/></svg>
+    </button>
+    <button id="spin" title="Toggle rotation" aria-label="Toggle rotation">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    </button>
+    <select id="source" aria-label="Terrain data source">
+      <option value="hk-landsd-5m">Hong Kong LandsD 5 m DTM</option>
+      <option value="aws-terrarium">AWS Terrarium Terrain Tiles</option>
+    </select>
+    <div class="readout" id="readout">Loading terrain</div>
+  </div>
+
+  <script type="module">
+    import * as THREE from './vendor/three.module.js';
+    import { OrbitControls } from './vendor/OrbitControls.js';
+
+    const SOURCES = {
+      'hk-landsd-5m': {
+        label: 'Hong Kong LandsD 5 m DTM',
+        path: './data/hk-landsd-5m/terrain-mesh.json',
+        scale: 0.82,
+        camera: [0, 9800, 21800],
+        target: [0, 1050, 0],
+        colour: 0x2f5b43,
+        wireOpacity: 0.14
+      },
+      'aws-terrarium': {
+        label: 'AWS Terrarium Terrain Tiles',
+        path: './data/aws-terrarium/terrain-mesh.json',
+        scale: 0.82,
+        camera: [0, 10400, 22400],
+        target: [0, 1200, 0],
+        colour: 0x2f5b43,
+        wireOpacity: 0.16
+      }
+    };
+
+    const canvas = document.querySelector('#scene');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0xf7f4ec, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0xf7f4ec, 17000, 43000);
+
+    const camera = new THREE.PerspectiveCamera(34, 1, 50, 65000);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.minDistance = 8500;
+    controls.maxDistance = 39000;
+    controls.maxPolarAngle = Math.PI * 0.49;
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xb5aa98, 2.4));
+    const sun = new THREE.DirectionalLight(0xffffff, 2.8);
+    sun.position.set(-9000, 18000, 12000);
+    scene.add(sun);
+
+    const base = new THREE.Mesh(
+      new THREE.CircleGeometry(12500, 96),
+      new THREE.MeshBasicMaterial({ color: 0xe8e0d0, transparent: true, opacity: 0.55 })
+    );
+    base.rotation.x = -Math.PI / 2;
+    base.position.y = -90;
+    scene.add(base);
+
+    const readout = document.querySelector('#readout');
+    const sourceSelect = document.querySelector('#source');
+    let terrain;
+    let wire;
+    let spinning = true;
+    let activeSource = 'hk-landsd-5m';
+
+    function setCamera(source) {
+      camera.position.set(...source.camera);
+      controls.target.set(...source.target);
+      controls.update();
+    }
+
+    async function loadSource(id) {
+      activeSource = id;
+      const source = SOURCES[id];
+      readout.textContent = `Loading ${source.label}`;
+      const response = await fetch(source.path);
+      const meshData = await response.json();
+
+      if (terrain) {
+        scene.remove(terrain);
+        terrain.geometry.dispose();
+        terrain.material.dispose();
+      }
+      if (wire) {
+        scene.remove(wire);
+        wire.geometry.dispose();
+        wire.material.dispose();
+      }
+
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(meshData.vertices, 3));
+      geometry.setIndex(meshData.indices);
+      geometry.computeVertexNormals();
+      geometry.computeBoundingSphere();
+      geometry.computeBoundingBox();
+
+      terrain = new THREE.Mesh(
+        geometry,
+        new THREE.MeshStandardMaterial({
+          color: source.colour,
+          roughness: 0.92,
+          metalness: 0,
+          flatShading: false
+        })
+      );
+      terrain.rotation.y = Math.PI;
+      terrain.scale.setScalar(source.scale);
+      scene.add(terrain);
+
+      wire = new THREE.LineSegments(
+        new THREE.WireframeGeometry(geometry),
+        new THREE.LineBasicMaterial({ color: 0xf1eadb, transparent: true, opacity: source.wireOpacity })
+      );
+      wire.rotation.copy(terrain.rotation);
+      wire.scale.copy(terrain.scale);
+      scene.add(wire);
+
+      setCamera(source);
+      const peak = Math.round(meshData.metadata.bounds_m.y_max / meshData.metadata.vertical_exaggeration);
+      readout.textContent = `${meshData.metadata.vertex_count.toLocaleString()} vertices · ${source.label} · peak ${peak} m`;
+    }
+
+    document.querySelector('#spin').addEventListener('click', () => {
+      spinning = !spinning;
+    });
+    document.querySelector('#reset').addEventListener('click', () => {
+      setCamera(SOURCES[activeSource]);
+    });
+    sourceSelect.addEventListener('change', () => {
+      loadSource(sourceSelect.value).catch((error) => {
+        console.error(error);
+        readout.textContent = 'Failed to load terrain source';
+      });
+    });
+
+    function resize() {
+      renderer.setSize(window.innerWidth, window.innerHeight, false);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (spinning && terrain && wire) {
+        terrain.rotation.y += 0.0018;
+        wire.rotation.y = terrain.rotation.y;
+      }
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    await loadSource(activeSource);
+    animate();
+  </script>
+</body>
+</html>

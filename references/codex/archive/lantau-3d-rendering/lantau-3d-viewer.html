@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lantau Island 3D Terrain</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #151515;
+      --muted: #68645d;
+      --paper: #f7f4ec;
+      --panel: rgba(247, 244, 236, 0.86);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font: 14px/1.4 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #scene {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+    .toolbar {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: var(--panel);
+      border: 1px solid rgba(21, 21, 21, 0.14);
+      backdrop-filter: blur(10px);
+    }
+    button {
+      width: 38px;
+      height: 34px;
+      border: 1px solid rgba(21, 21, 21, 0.22);
+      background: #fffdf7;
+      color: var(--ink);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+    button:hover { background: #eee8db; }
+    .readout {
+      min-width: 128px;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+    @media (max-width: 720px) {
+      .toolbar {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        justify-content: center;
+      }
+      .readout { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="scene" aria-label="Rotatable 3D terrain model of Lantau Island"></canvas>
+  <div class="toolbar" aria-label="3D view controls">
+    <button id="reset" title="Reset view" aria-label="Reset view">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/></svg>
+    </button>
+    <button id="spin" title="Toggle rotation" aria-label="Toggle rotation">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    </button>
+    <div class="readout" id="readout">Loading terrain</div>
+  </div>
+  <script type="module">
+    import * as THREE from './vendor/three.module.js';
+    import { OrbitControls } from './vendor/OrbitControls.js';
+
+    const canvas = document.querySelector('#scene');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0xf7f4ec, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0xf7f4ec, 18500, 43000);
+
+    const camera = new THREE.PerspectiveCamera(34, 1, 50, 65000);
+    camera.position.set(0, 10400, 22400);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.minDistance = 9000;
+    controls.maxDistance = 39000;
+    controls.maxPolarAngle = Math.PI * 0.48;
+    controls.target.set(0, 1200, 0);
+
+    const hemi = new THREE.HemisphereLight(0xffffff, 0xb5aa98, 2.4);
+    scene.add(hemi);
+    const sun = new THREE.DirectionalLight(0xffffff, 2.8);
+    sun.position.set(-9000, 18000, 12000);
+    scene.add(sun);
+
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x2f5b43,
+      roughness: 0.92,
+      metalness: 0.0,
+      flatShading: false
+    });
+    const wireMaterial = new THREE.LineBasicMaterial({
+      color: 0xf1eadb,
+      transparent: true,
+      opacity: 0.16
+    });
+
+    const readout = document.querySelector('#readout');
+    const response = await fetch('./lantau-terrain-mesh.json');
+    const meshData = await response.json();
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(meshData.vertices, 3));
+    geometry.setIndex(meshData.indices);
+    geometry.computeVertexNormals();
+    geometry.computeBoundingSphere();
+    geometry.computeBoundingBox();
+
+    const terrain = new THREE.Mesh(geometry, material);
+    terrain.rotation.y = Math.PI;
+    terrain.scale.setScalar(0.82);
+    scene.add(terrain);
+
+    const wire = new THREE.LineSegments(new THREE.WireframeGeometry(geometry), wireMaterial);
+    wire.rotation.copy(terrain.rotation);
+    wire.scale.copy(terrain.scale);
+    scene.add(wire);
+
+    const baseGeometry = new THREE.CircleGeometry(12500, 96);
+    const baseMaterial = new THREE.MeshBasicMaterial({ color: 0xe8e0d0, transparent: true, opacity: 0.55 });
+    const base = new THREE.Mesh(baseGeometry, baseMaterial);
+    base.rotation.x = -Math.PI / 2;
+    base.position.y = -90;
+    scene.add(base);
+
+    const peak = Math.round(meshData.metadata.bounds_m.y_max / meshData.metadata.vertical_exaggeration);
+    readout.textContent = `${meshData.metadata.vertex_count.toLocaleString()} vertices · peak ${peak} m`;
+
+    let spinning = true;
+    document.querySelector('#spin').addEventListener('click', () => {
+      spinning = !spinning;
+    });
+    document.querySelector('#reset').addEventListener('click', () => {
+      camera.position.set(0, 10400, 22400);
+      controls.target.set(0, 1200, 0);
+      controls.update();
+    });
+
+    function resize() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (spinning) {
+        terrain.rotation.y += 0.0018;
+        wire.rotation.y = terrain.rotation.y;
+      }
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

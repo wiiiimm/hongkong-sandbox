@@ -1,0 +1,25 @@
+# We work across multiple devices and sandboxes, so ALL project files
+# (app, scripts, docs, references, data, meshes) are committed.
+# Only truly local / regeneratable dev cruft is ignored below.
+
+# === OS / editor cruft ===
+.DS_Store
+**/.DS_Store
+*.swp
+Thumbs.db
+
+# === Python (regeneratable) ===
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# === Node / build output (regeneratable) ===
+node_modules/
+dist/
+.vercel/
+
+# === Secrets / local env (must stay local) ===
+.env
+.env.*
+!.env.example

@@ -1,0 +1,84 @@
+{
+  "agent": "Codex",
+  "projection": "South-facing orthographic skyline; camera offshore south, looking north.",
+  "terrain_source": "AWS public elevation-tiles-prod Terrarium tiles, zoom 13.",
+  "terrain_tile_url_template": "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png",
+  "bbox_lon_lat": {
+    "west": 113.825,
+    "south": 22.185,
+    "east": 114.055,
+    "north": 22.325
+  },
+  "dem_tile_extent_lon_lat": {
+    "west": 113.818359375,
+    "east": 114.08203125,
+    "north": 22.350075806124853,
+    "south": 22.146707780012623
+  },
+  "island_mask": "Approximate Lantau coastline polygon embedded in generate_lantau_skyline.py.",
+  "method": [
+    "Decode Terrarium DEM tiles to metres.",
+    "Mask points outside approximate Lantau island polygon.",
+    "For each west-east column, take maximum elevation over north-south depth.",
+    "Smooth and simplify exported artwork paths using Douglas-Peucker while keeping the raw skyline CSV in metres."
+  ],
+  "vertical_export_note": "CSV retains DEM elevations in metres. SVG/PNG exports normalise vertical height for graphic legibility while preserving relative terrain geometry.",
+  "landmark_checks": [
+    {
+      "name": "Tai O",
+      "lon": 113.862,
+      "expected_elevation_m": 0,
+      "projected_skyline_elevation_m_at_lon": 393.2
+    },
+    {
+      "name": "Lantau Peak",
+      "lon": 113.921,
+      "expected_elevation_m": 934,
+      "projected_skyline_elevation_m_at_lon": 829.5
+    },
+    {
+      "name": "Sunset Peak",
+      "lon": 113.958,
+      "expected_elevation_m": 869,
+      "projected_skyline_elevation_m_at_lon": 765.1
+    },
+    {
+      "name": "Yi Tung Shan",
+      "lon": 113.974,
+      "expected_elevation_m": 747,
+      "projected_skyline_elevation_m_at_lon": 585.0
+    },
+    {
+      "name": "Lin Fa Shan",
+      "lon": 113.995,
+      "expected_elevation_m": 766,
+      "projected_skyline_elevation_m_at_lon": 419.7
+    },
+    {
+      "name": "Mui Wo",
+      "lon": 114.002,
+      "expected_elevation_m": 0,
+      "projected_skyline_elevation_m_at_lon": 374.8
+    },
+    {
+      "name": "Lo Fu Tau",
+      "lon": 114.021,
+      "expected_elevation_m": 465,
+      "projected_skyline_elevation_m_at_lon": 76.5
+    },
+    {
+      "name": "Discovery Bay",
+      "lon": 114.016,
+      "expected_elevation_m": 0,
+      "projected_skyline_elevation_m_at_lon": 182.7
+    }
+  ],
+  "outputs": [
+    "lantau-projected-skyline.csv",
+    "lantau-raw-projected-skyline.svg",
+    "lantau-logo-silhouette.svg",
+    "lantau-logo-silhouette-8000.png",
+    "lantau-engraved-illustration.svg",
+    "lantau-engraved-illustration-12000.png"
+  ]
+}

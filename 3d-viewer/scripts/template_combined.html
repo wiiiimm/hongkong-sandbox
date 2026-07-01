@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Hong Kong & Lantau — 3D terrain + topographic skin</title>
+<style>
+ html,body{margin:0;height:100%;background:#0e1116;color:#e8e6df;font-family:-apple-system,Segoe UI,Roboto,'Noto Serif CJK TC',serif;overflow:hidden}
+ #app{position:fixed;inset:0}
+ #panel{position:fixed;top:14px;left:14px;background:rgba(18,22,28,.82);backdrop-filter:blur(6px);border:1px solid #2a3340;border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.5;max-width:280px}
+ #panel h1{font-size:14px;margin:0 0 6px;letter-spacing:.04em;font-weight:600}
+ #panel .sub{color:#9aa6b3;font-size:11px;margin-bottom:10px;min-height:28px}
+ .row{display:flex;align-items:center;gap:8px;margin:7px 0}
+ .row label{flex:0 0 84px;color:#aeb8c4}
+ input[type=range]{flex:1}
+ select{flex:1;background:#26303d;color:#e8e6df;border:1px solid #3a4654;border-radius:6px;padding:4px 6px;font-size:12px}
+ button{background:#26303d;color:#e8e6df;border:1px solid #3a4654;border-radius:6px;padding:5px 9px;cursor:pointer;font-size:12px}
+ button:hover{background:#33414f}
+ .hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);color:#8893a0;font-size:11px;background:rgba(18,22,28,.7);padding:5px 12px;border-radius:20px;border:1px solid #2a3340}
+ .lbl{position:fixed;transform:translate(-50%,-100%);pointer-events:none;font-size:12px;white-space:nowrap;color:#fff;text-shadow:0 1px 3px #000,0 0 2px #000;font-weight:600}
+ .lbl small{display:block;font-weight:400;color:#cfd6de;font-size:10px;text-align:center}
+ .lbl:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:9px;background:#fff;opacity:.6;transform:translateX(-50%)}
+</style></head><body>
+<div id="app"></div>
+<div id="panel">
+ <h1>香港 · Hong Kong &amp; 大嶼山 · Lantau</h1>
+ <div class="sub" id="note"></div>
+ <div class="row"><label>View</label><select id="src"></select></div>
+ <div class="row"><label>Surface</label><select id="surf"><option value="shaded">Shaded relief</option><option value="topo">Topographic map (B50K)</option></select></div>
+ <div class="row"><label>Contours+trails</label><input id="ovl" type="checkbox"></div>
+ <div class="row"><label>Vertical ×</label><input id="ve" type="range" min="1" max="9" step="0.1" value="2.6"><span id="vev">2.6</span></div>
+ <div class="row"><label>Spin</label><input id="spin" type="checkbox" checked></div>
+ <div class="row"><label>Labels</label><input id="lab" type="checkbox" checked></div>
+ <div class="row"><label>Water</label><input id="water" type="checkbox" checked></div>
+ <div class="row"><button id="south">South view</button><button id="top">Top‑down</button></div>
+</div>
+<div class="hint">drag · scroll · right‑drag to pan</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const SKINS=__SKINS__, DATASETS=__DATASETS__;
+let VE=2.6, spin=true, showLabels=true, curKey=Object.keys(DATASETS)[0], curSkin=null, TEXBB=null, OVERLAY=null;
+const app=document.getElementById('app');
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0x0e1116);
+const camera=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,10,1e7);
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(innerWidth,innerHeight); app.appendChild(renderer.domElement);
+scene.add(new THREE.AmbientLight(0xffffff,0.6));
+const sun=new THREE.DirectionalLight(0xfff4e2,1.0); sun.position.set(-1,1.4,-0.6); scene.add(sun);
+const fill=new THREE.DirectionalLight(0x88aaff,0.25); fill.position.set(1,0.6,1); scene.add(fill);
+const _ld=new THREE.TextureLoader();
+const TEX={lantau:_ld.load("__TEX_LANTAU__"), hk:_ld.load("__TEX_HK__")};
+for(const k in TEX){TEX[k].flipY=false; TEX[k].anisotropy=4;}
+const matTopo=new THREE.MeshStandardMaterial({roughness:.96,metalness:0,transparent:true});
+function hyps(e,zmax){const t=Math.max(0,Math.min(1,e/zmax));
+ const s=[[0,[46,92,58]],[0.18,[78,110,60]],[0.42,[150,140,96]],[0.68,[140,110,80]],[0.86,[170,150,128]],[1,[235,232,224]]];
+ for(let i=0;i<s.length-1;i++){const a=s[i],b=s[i+1];if(t>=a[0]&&t<=b[0]){const u=(t-a[0])/(b[0]-a[0]);
+  return [a[1][0]+(b[1][0]-a[1][0])*u,a[1][1]+(b[1][1]-a[1][1])*u,a[1][2]+(b[1][2]-a[1][2])*u];}}return s[5][1];}
+let terrain=null,sea=null,base=null,matShaded=null,overlay=null,W,H,cell,elev,zmax;
+let labels=[]; const target=new THREE.Vector3(0,60,0); let theta=Math.PI,phi=1.12,radius=1000;
+function clearLabels(){labels.forEach(l=>l.div.remove());labels=[];}
+function sampleE(col,row){col=Math.max(0,Math.min(W-1.001,col));row=Math.max(0,Math.min(H-1.001,row));
+ const c0=Math.floor(col),r0=Math.floor(row),fc=col-c0,fr=row-r0;
+ const a=elev[r0*W+c0],b=elev[r0*W+c0+1],c=elev[(r0+1)*W+c0],d=elev[(r0+1)*W+c0+1];
+ return (a*(1-fc)+b*fc)*(1-fr)+(c*(1-fc)+d*fc)*fr;}
+function buildOverlay(){
+ if(overlay){scene.remove(overlay);overlay.children.forEach(o=>o.geometry.dispose());}
+ overlay=new THREE.Group(); const g=DATASETS[curKey].georef, off=Math.max(8,zmax*0.012);
+ function add(polys,color){const pos=[];
+  polys.forEach(poly=>{for(let i=0;i<poly.length-1;i++){for(const p of [poly[i],poly[i+1]]){
+    const E=TEXBB.E0+p[0]*(TEXBB.E1-TEXBB.E0), N=TEXBB.N1-p[1]*(TEXBB.N1-TEXBB.N0);
+    const col=(E-g.bE)/g.aE, row=(N-g.bN)/g.aN;
+    pos.push((col-W/2)*cell, sampleE(col,row)*VE+off, (row-H/2)*cell);}}});
+  if(!pos.length)return; const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  overlay.add(new THREE.LineSegments(geo,new THREE.LineBasicMaterial({color})));}
+ add(OVERLAY.contour,0x7a5a36); add(OVERLAY.coast,0x2f6090); add(OVERLAY.trail||[],0xb0402c);
+ overlay.visible=document.getElementById('ovl').checked; scene.add(overlay);}
+function applyVE(){const p=terrain.geometry.attributes.position.array;
+ for(let i=0;i<W*H;i++)p[i*3+1]=base[i*3+1]*VE; terrain.geometry.attributes.position.needsUpdate=true; terrain.geometry.computeVertexNormals();}
+function applySurface(){terrain.material=document.getElementById('surf').value==='topo'?matTopo:matShaded;}
+function build(key){
+ curKey=key; const ds=DATASETS[key], d=ds.data, g=ds.georef;
+ curSkin=ds.skin; TEXBB=SKINS[curSkin].texbb; OVERLAY=SKINS[curSkin].overlay;
+ matTopo.map=TEX[curSkin]; matTopo.needsUpdate=true;
+ VE=ds.ve; const ve=document.getElementById('ve'); ve.value=VE; document.getElementById('vev').textContent=VE.toFixed(1);
+ W=d.w;H=d.h;cell=d.cell;elev=d.elev;zmax=d.zmax;
+ if(terrain){scene.remove(terrain);terrain.geometry.dispose();}
+ if(sea){scene.remove(sea);sea.geometry.dispose();sea.material.dispose();}
+ const geo=new THREE.BufferGeometry();
+ const pos=new Float32Array(W*H*3),col=new Float32Array(W*H*3),uv=new Float32Array(W*H*2);
+ for(let r=0;r<H;r++)for(let c=0;c<W;c++){const i=r*W+c,e=elev[i];
+  pos[i*3]=(c-W/2)*cell;pos[i*3+1]=e;pos[i*3+2]=(r-H/2)*cell;
+  const cc=hyps(e,zmax);col[i*3]=cc[0]/255;col[i*3+1]=cc[1]/255;col[i*3+2]=cc[2]/255;
+  const E=g.aE*c+g.bE,N=g.aN*r+g.bN;
+  uv[i*2]=(E-TEXBB.E0)/(TEXBB.E1-TEXBB.E0); uv[i*2+1]=(TEXBB.N1-N)/(TEXBB.N1-TEXBB.N0);}
+ const idx=[];for(let r=0;r<H-1;r++)for(let c=0;c<W-1;c++){const a=r*W+c,b=a+1,dd=a+W,e=dd+1;idx.push(a,dd,b,b,dd,e);}
+ geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+ geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+ geo.setAttribute('uv',new THREE.BufferAttribute(uv,2));
+ geo.setIndex(idx); base=pos.slice();
+ matShaded=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.95,metalness:0});
+ terrain=new THREE.Mesh(geo,matShaded); scene.add(terrain); applyVE(); applySurface();
+ const seaGeo=new THREE.PlaneGeometry(cell*W*1.8,cell*H*1.8);
+ sea=new THREE.Mesh(seaGeo,new THREE.MeshStandardMaterial({color:0x2b5d78,transparent:true,opacity:.62,roughness:.4}));
+ sea.rotation.x=-Math.PI/2; sea.position.y=0.5; sea.visible=document.getElementById('water').checked; scene.add(sea);
+ clearLabels();
+ d.peaks.forEach(p=>{const x=(p.col-W/2)*cell,z=(p.row-H/2)*cell,y=elev[p.row*W+p.col];
+  const div=document.createElement('div');div.className='lbl';div.innerHTML=p.name+'<small>'+p.elev+' m</small>';
+  document.body.appendChild(div);labels.push({div,x,y,z});});
+ buildOverlay();
+ scene.fog=new THREE.Fog(0x0e1116,cell*W*0.9,cell*W*2.6); camera.far=cell*W*6; camera.updateProjectionMatrix();
+ target.set(0,zmax*VE*0.18,0); radius=cell*W*1.05;
+ document.getElementById('note').textContent=ds.label+" — "+ds.note;}
+function update(){camera.position.set(target.x+radius*Math.sin(phi)*Math.sin(theta),target.y+radius*Math.cos(phi),target.z+radius*Math.sin(phi)*Math.cos(theta));camera.lookAt(target);}
+let dragging=false,panning=false,px=0,py=0,lt=null;
+renderer.domElement.addEventListener('mousedown',e=>{dragging=e.button===0;panning=e.button===2;px=e.clientX;py=e.clientY;});
+addEventListener('mouseup',()=>{dragging=panning=false;});
+addEventListener('mousemove',e=>{const dx=e.clientX-px,dy=e.clientY-py;px=e.clientX;py=e.clientY;
+ if(dragging){theta-=dx*0.005;phi=Math.max(0.12,Math.min(1.54,phi-dy*0.005));}
+ else if(panning){const s=radius*0.0013;const right=new THREE.Vector3(Math.cos(theta),0,-Math.sin(theta));target.addScaledVector(right,-dx*s);target.y+=dy*s;}});
+renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();radius*=(1+Math.sign(e.deltaY)*0.08);radius=Math.max(cell*W*0.2,Math.min(cell*W*2.8,radius));},{passive:false});
+renderer.domElement.addEventListener('contextmenu',e=>e.preventDefault());
+renderer.domElement.addEventListener('touchstart',e=>{if(e.touches.length){px=e.touches[0].clientX;py=e.touches[0].clientY;}lt=e.touches.length===2?Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY):null;},{passive:true});
+renderer.domElement.addEventListener('touchmove',e=>{if(e.touches.length===1){const dx=e.touches[0].clientX-px,dy=e.touches[0].clientY-py;px=e.touches[0].clientX;py=e.touches[0].clientY;theta-=dx*0.005;phi=Math.max(0.12,Math.min(1.54,phi-dy*0.005));}else if(e.touches.length===2){const dd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);if(lt)radius*=lt/dd;lt=dd;radius=Math.max(cell*W*0.2,Math.min(cell*W*2.8,radius));}},{passive:true});
+const sel=document.getElementById('src');
+Object.keys(DATASETS).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=DATASETS[k].label;sel.appendChild(o);});
+sel.value=curKey; sel.onchange=()=>build(sel.value);
+document.getElementById('surf').onchange=applySurface;
+document.getElementById('ovl').onchange=e=>{if(overlay)overlay.visible=e.target.checked;};
+const veEl=document.getElementById('ve'),vev=document.getElementById('vev');
+veEl.oninput=()=>{VE=parseFloat(veEl.value);vev.textContent=VE.toFixed(1);applyVE();buildOverlay();target.y=zmax*VE*0.18;};
+document.getElementById('spin').onchange=e=>spin=e.target.checked;
+document.getElementById('lab').onchange=e=>{showLabels=e.target.checked;};
+document.getElementById('water').onchange=e=>{if(sea)sea.visible=e.target.checked;};
+document.getElementById('south').onclick=()=>{theta=Math.PI;phi=1.12;radius=cell*W*1.05;};
+document.getElementById('top').onclick=()=>{theta=Math.PI;phi=0.18;radius=cell*W*1.15;};
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+build(curKey);
+const v=new THREE.Vector3();
+function tick(){if(spin&&!dragging&&!panning)theta+=0.0016;update();
+ labels.forEach(l=>{v.set(l.x,l.y*VE,l.z).project(camera);const ok=v.z<1&&showLabels;l.div.style.display=ok?'':'none';
+  if(ok){l.div.style.left=(v.x*0.5+0.5)*innerWidth+'px';l.div.style.top=(-v.y*0.5+0.5)*innerHeight+'px';}});
+ renderer.render(scene,camera);requestAnimationFrame(tick);}
+tick();
+</script></body></html>

@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hong Kong and Lantau 3D Terrain Model</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #141414;
+      --muted: #68645d;
+      --paper: #f7f4ec;
+      --panel: rgba(247, 244, 236, 0.92);
+      --line: rgba(20, 20, 20, 0.16);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font: 14px/1.4 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #scene {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+    .toolbar {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      max-width: 1040px;
+      padding: 8px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    button, select, label {
+      height: 34px;
+      border: 1px solid rgba(20, 20, 20, 0.22);
+      background: #fffdf7;
+      color: var(--ink);
+    }
+    button {
+      width: 38px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+    button:hover, select:hover, label:hover { background: #eee8db; }
+    select {
+      min-width: 240px;
+      padding: 0 32px 0 10px;
+      font: inherit;
+    }
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 10px;
+      font-size: 12px;
+      user-select: none;
+    }
+    input { accent-color: #2f5b43; }
+    .readout {
+      min-width: 260px;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+    @media (max-width: 760px) {
+      .toolbar {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+      }
+      select { min-width: 0; flex: 1 1 100%; }
+      .readout {
+        flex: 1 1 100%;
+        min-width: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="scene" aria-label="Rotatable 3D terrain model of Hong Kong and Lantau"></canvas>
+  <div class="toolbar" aria-label="3D model controls">
+    <button id="reset" title="Reset view" aria-label="Reset view">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v6h6"/></svg>
+    </button>
+    <button id="spin" title="Toggle rotation" aria-label="Toggle rotation">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+    </button>
+    <select id="source" aria-label="Terrain data source">
+      <option value="hk-landsd-5m">Hong Kong LandsD 5 m DTM</option>
+      <option value="aws-terrarium">AWS Terrarium Terrain Tiles</option>
+      <option value="lantau-hk-landsd-5m">Lantau LandsD 5 m DTM</option>
+      <option value="lantau-aws-terrarium">Lantau AWS Terrarium Terrain Tiles</option>
+    </select>
+    <select id="quality" aria-label="Terrain mesh quality">
+      <option value="adaptive">Adaptive detail</option>
+      <option value="detail" selected>Detail mesh</option>
+      <option value="standard">Standard mesh</option>
+    </select>
+    <label><input id="skin-toggle" type="checkbox" checked> B50K skin</label>
+    <label><input type="checkbox" data-layer="transport" checked> roads</label>
+    <label><input type="checkbox" data-layer="hydro" checked> hydro</label>
+    <label><input type="checkbox" data-layer="contours" checked> contours</label>
+    <label><input type="checkbox" data-layer="boundaries"> boundaries</label>
+    <label><input type="checkbox" data-layer="terrain"> terrain</label>
+    <div class="readout" id="readout">Loading terrain</div>
+  </div>
+
+  <script type="module">
+    import * as THREE from './vendor/three.module.js';
+    import { OrbitControls } from './vendor/OrbitControls.js';
+
+    const SOURCES = {
+      'hk-landsd-5m': {
+        label: 'Hong Kong LandsD 5 m DTM',
+        region: 'hong-kong',
+        paths: {
+          standard: './data/hong-kong-hk-landsd-5m/terrain-mesh.json',
+          detail: './data/hong-kong-hk-landsd-5m/terrain-mesh-detail.json'
+        },
+        colour: 0x3f654c,
+        wireOpacity: { standard: 0.06, detail: 0.035 },
+        scale: 1,
+        rotationY: 0,
+        camera: [0, 36000, 76000],
+        target: [0, 1100, 0],
+        minDistance: 26000,
+        maxDistance: 132000,
+        fog: [78000, 165000],
+        supportsQuality: true,
+        supportsSkin: true,
+        skinPath: './data/hk-b50k-gml/skin-lines.json'
+      },
+      'aws-terrarium': {
+        label: 'AWS Terrarium Terrain Tiles',
+        region: 'hong-kong',
+        paths: {
+          standard: './data/hong-kong-aws-terrarium/terrain-mesh.json',
+          detail: './data/hong-kong-aws-terrarium/terrain-mesh-detail.json'
+        },
+        colour: 0x46614f,
+        wireOpacity: { standard: 0.07, detail: 0.04 },
+        scale: 1,
+        rotationY: 0,
+        camera: [0, 36000, 76000],
+        target: [0, 1100, 0],
+        minDistance: 26000,
+        maxDistance: 132000,
+        fog: [78000, 165000],
+        supportsQuality: true,
+        supportsSkin: true,
+        skinPath: './data/hk-b50k-gml/skin-lines.json'
+      },
+      'lantau-hk-landsd-5m': {
+        label: 'Lantau LandsD 5 m DTM',
+        region: 'lantau',
+        paths: {
+          standard: './data/hk-landsd-5m/terrain-mesh.json'
+        },
+        colour: 0x2f5b43,
+        wireOpacity: { standard: 0.14 },
+        scale: 0.82,
+        rotationY: Math.PI,
+        camera: [0, 9800, 21800],
+        target: [0, 1050, 0],
+        minDistance: 8500,
+        maxDistance: 39000,
+        fog: [17000, 43000],
+        supportsQuality: false,
+        supportsSkin: true,
+        skinPath: './data/hk-b50k-gml/skin-lines-lantau.json'
+      },
+      'lantau-aws-terrarium': {
+        label: 'Lantau AWS Terrarium Terrain Tiles',
+        region: 'lantau',
+        paths: {
+          standard: './data/aws-terrarium/terrain-mesh.json'
+        },
+        colour: 0x2f5b43,
+        wireOpacity: { standard: 0.16 },
+        scale: 0.82,
+        rotationY: Math.PI,
+        camera: [0, 10400, 22400],
+        target: [0, 1200, 0],
+        minDistance: 8500,
+        maxDistance: 39000,
+        fog: [17000, 43000],
+        supportsQuality: false,
+        supportsSkin: true,
+        skinPath: './data/hk-b50k-gml/skin-lines-lantau.json'
+      }
+    };
+
+    const SKIN_PATH = './data/hk-b50k-gml/skin-lines.json';
+    const canvas = document.querySelector('#scene');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0xf7f4ec, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0xf7f4ec, 78000, 165000);
+
+    const camera = new THREE.PerspectiveCamera(33, 1, 100, 180000);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.minDistance = 26000;
+    controls.maxDistance = 132000;
+    controls.maxPolarAngle = Math.PI * 0.49;
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xb5aa98, 2.2));
+    const sun = new THREE.DirectionalLight(0xffffff, 2.4);
+    sun.position.set(-26000, 52000, 42000);
+    scene.add(sun);
+
+    const water = new THREE.Mesh(
+      new THREE.PlaneGeometry(76000, 62000),
+      new THREE.MeshStandardMaterial({ color: 0xdfe8e4, transparent: true, opacity: 0.62, roughness: 0.7 })
+    );
+    water.rotation.x = -Math.PI / 2;
+    water.position.y = 3;
+    water.visible = false;
+    scene.add(water);
+
+    const base = new THREE.Mesh(
+      new THREE.CircleGeometry(12500, 96),
+      new THREE.MeshBasicMaterial({ color: 0xe8e0d0, transparent: true, opacity: 0.55 })
+    );
+    base.rotation.x = -Math.PI / 2;
+    base.position.y = -90;
+    base.visible = false;
+    scene.add(base);
+
+    const readout = document.querySelector('#readout');
+    const sourceSelect = document.querySelector('#source');
+    const qualitySelect = document.querySelector('#quality');
+    const skinToggle = document.querySelector('#skin-toggle');
+    let terrain;
+    let wire;
+    let skin;
+    let activeSource = 'hk-landsd-5m';
+    let activeProfile = 'standard';
+    let activeMeshData;
+    let loadSequence = 0;
+    let adaptiveFrame = 0;
+    let spinning = true;
+
+    function setCamera(source = SOURCES[activeSource]) {
+      camera.position.set(...source.camera);
+      controls.target.set(...source.target);
+      controls.minDistance = source.minDistance;
+      controls.maxDistance = source.maxDistance;
+      scene.fog.near = source.fog[0];
+      scene.fog.far = source.fog[1];
+      base.visible = source.region === 'lantau';
+      water.visible = source.region === 'hong-kong';
+      controls.update();
+    }
+
+    function disposeObject(object) {
+      if (!object) return;
+      scene.remove(object);
+      object.traverse?.((child) => {
+        child.geometry?.dispose?.();
+        child.material?.dispose?.();
+      });
+      object.geometry?.dispose?.();
+      object.material?.dispose?.();
+    }
+
+    function wantedProfile(source = SOURCES[activeSource]) {
+      if (!source.supportsQuality) return 'standard';
+      if (qualitySelect.value === 'detail') return 'detail';
+      if (qualitySelect.value === 'standard') return 'standard';
+      const distance = camera.position.distanceTo(controls.target);
+      return distance < 62000 ? 'detail' : 'standard';
+    }
+
+    function updateReadout(meshData, source, profile) {
+      const peak = Math.round(meshData.metadata.bounds_m.y_max / meshData.metadata.vertical_exaggeration);
+      const quality = source.supportsQuality ? ` · ${profile === 'detail' ? 'detail' : 'standard'}` : '';
+      const skinStatus = source.supportsSkin && skinToggle.checked ? ' · B50K skin' : '';
+      readout.textContent = `${meshData.metadata.vertex_count.toLocaleString()} vertices · ${source.label}${quality} · peak ${peak} m${skinStatus}`;
+    }
+
+    function syncControlsForSource(source) {
+      qualitySelect.disabled = !source.supportsQuality;
+      skinToggle.disabled = !source.supportsSkin;
+      for (const checkbox of document.querySelectorAll('input[data-layer]')) {
+        checkbox.disabled = !source.supportsSkin || !skinToggle.checked;
+      }
+    }
+
+    function buildGridIndices(width, height) {
+      const indices = new Uint32Array((width - 1) * (height - 1) * 6);
+      let offset = 0;
+      for (let z = 0; z < height - 1; z++) {
+        for (let x = 0; x < width - 1; x++) {
+          const a = z * width + x;
+          const b = a + 1;
+          const c = (z + 1) * width + x;
+          const d = c + 1;
+          indices[offset++] = a;
+          indices[offset++] = c;
+          indices[offset++] = b;
+          indices[offset++] = b;
+          indices[offset++] = c;
+          indices[offset++] = d;
+        }
+      }
+      return new THREE.Uint32BufferAttribute(indices, 1);
+    }
+
+    function buildSmoothedHongKongGrid(meshData) {
+      const grid = meshData.metadata.grid;
+      const width = grid.x_samples;
+      const height = grid.z_samples;
+      let heights = Float32Array.from(meshData.heights_m);
+
+      for (let pass = 0; pass < 2; pass++) {
+        const next = new Float32Array(heights.length);
+        for (let z = 0; z < height; z++) {
+          for (let x = 0; x < width; x++) {
+            let total = 0;
+            let weight = 0;
+            for (let dz = -1; dz <= 1; dz++) {
+              for (let dx = -1; dx <= 1; dx++) {
+                const xx = Math.max(0, Math.min(width - 1, x + dx));
+                const zz = Math.max(0, Math.min(height - 1, z + dz));
+                const w = dx === 0 && dz === 0 ? 4 : (dx === 0 || dz === 0 ? 2 : 1);
+                total += heights[zz * width + xx] * w;
+                weight += w;
+              }
+            }
+            next[z * width + x] = total / weight;
+          }
+        }
+        heights = next;
+      }
+
+      const vertices = Float32Array.from(meshData.vertices);
+      for (let i = 0; i < heights.length; i++) {
+        vertices[i * 3 + 1] = heights[i] * meshData.metadata.vertical_exaggeration;
+      }
+      return { vertices, heights, width, height };
+    }
+
+    function terrainColour(elevation, peak) {
+      const t = Math.max(0, Math.min(1, elevation / peak));
+      const stops = [
+        [0.00, [0.56, 0.68, 0.62]],
+        [0.10, [0.30, 0.49, 0.38]],
+        [0.32, [0.43, 0.57, 0.36]],
+        [0.58, [0.63, 0.57, 0.39]],
+        [0.82, [0.54, 0.43, 0.32]],
+        [1.00, [0.80, 0.75, 0.66]]
+      ];
+      for (let i = 0; i < stops.length - 1; i++) {
+        const a = stops[i];
+        const b = stops[i + 1];
+        if (t >= a[0] && t <= b[0]) {
+          const u = (t - a[0]) / (b[0] - a[0]);
+          return [
+            a[1][0] + (b[1][0] - a[1][0]) * u,
+            a[1][1] + (b[1][1] - a[1][1]) * u,
+            a[1][2] + (b[1][2] - a[1][2]) * u
+          ];
+        }
+      }
+      return stops[stops.length - 1][1];
+    }
+
+    async function loadSource(id, profile = null, resetView = true) {
+      const sequence = ++loadSequence;
+      activeSource = id;
+      const source = SOURCES[id];
+      profile = profile ?? wantedProfile(source);
+      profile = source.supportsQuality ? profile : 'standard';
+      syncControlsForSource(source);
+      readout.textContent = `Loading ${source.label}${source.supportsQuality ? ` ${profile}` : ''}`;
+      const response = await fetch(source.paths[profile]);
+      const meshData = await response.json();
+      if (sequence !== loadSequence) return;
+
+      disposeObject(terrain);
+      disposeObject(wire);
+
+      const geometry = new THREE.BufferGeometry();
+      const renderGrid = source.region === 'hong-kong' ? buildSmoothedHongKongGrid(meshData) : null;
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(renderGrid?.vertices ?? meshData.vertices, 3));
+      geometry.setIndex(source.region === 'hong-kong' ? buildGridIndices(renderGrid.width, renderGrid.height) : meshData.indices);
+      if (source.region === 'hong-kong') {
+        const peak = meshData.metadata.bounds_m.y_max / meshData.metadata.vertical_exaggeration;
+        const colours = [];
+        for (const elevation of renderGrid.heights) {
+          colours.push(...terrainColour(elevation, peak));
+        }
+        geometry.setAttribute('color', new THREE.Float32BufferAttribute(colours, 3));
+      }
+      geometry.computeVertexNormals();
+      geometry.computeBoundingSphere();
+      geometry.computeBoundingBox();
+
+      terrain = new THREE.Mesh(
+        geometry,
+        new THREE.MeshStandardMaterial({
+          color: source.colour,
+          vertexColors: source.region === 'hong-kong',
+          roughness: 0.93,
+          metalness: 0,
+          flatShading: false
+        })
+      );
+      terrain.scale.setScalar(source.scale);
+      terrain.rotation.y = source.rotationY;
+      scene.add(terrain);
+
+      wire = new THREE.LineSegments(
+        new THREE.WireframeGeometry(geometry),
+        new THREE.LineBasicMaterial({ color: 0xf1eadb, transparent: true, opacity: source.wireOpacity[profile] })
+      );
+      wire.scale.copy(terrain.scale);
+      wire.rotation.copy(terrain.rotation);
+      wire.visible = source.region !== 'hong-kong';
+      scene.add(wire);
+
+      if (resetView) setCamera(source);
+      if (source.supportsSkin) {
+        await loadSkin(meshData.metadata.vertical_exaggeration, source);
+      } else {
+        disposeObject(skin);
+        skin = undefined;
+      }
+      activeProfile = profile;
+      activeMeshData = meshData;
+      updateReadout(meshData, source, profile);
+    }
+
+    function makeLayer(layer, verticalExaggeration, layerName) {
+      const positions = [];
+      for (const line of layer.lines) {
+        for (let i = 0; i < line.length - 3; i += 3) {
+          const x1 = line[i];
+          const z1 = line[i + 1];
+          const e1 = line[i + 2];
+          const x2 = line[i + 3];
+          const z2 = line[i + 4];
+          const e2 = line[i + 5];
+          positions.push(x1, e1 * verticalExaggeration + 24, z1, x2, e2 * verticalExaggeration + 24, z2);
+        }
+      }
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      const material = new THREE.LineBasicMaterial({
+        color: new THREE.Color(layer.colour),
+        transparent: true,
+        opacity: layerName === 'contours' ? 0.5 : 0.74
+      });
+      const object = new THREE.LineSegments(geometry, material);
+      object.name = layerName;
+      return object;
+    }
+
+    async function loadSkin(verticalExaggeration, source) {
+      disposeObject(skin);
+      const response = await fetch(source.skinPath ?? SKIN_PATH);
+      const skinData = await response.json();
+      skin = new THREE.Group();
+      for (const [name, layer] of Object.entries(skinData.layers)) {
+        const object = makeLayer(layer, verticalExaggeration, name);
+        const checkbox = document.querySelector(`input[data-layer="${name}"]`);
+        object.visible = skinToggle.checked && (checkbox ? checkbox.checked : true);
+        skin.add(object);
+      }
+      skin.scale.setScalar(source.scale);
+      skin.rotation.y = source.rotationY;
+      scene.add(skin);
+    }
+
+    document.querySelector('#spin').addEventListener('click', () => {
+      spinning = !spinning;
+    });
+    document.querySelector('#reset').addEventListener('click', setCamera);
+    sourceSelect.addEventListener('change', () => {
+      loadSource(sourceSelect.value, null, true).catch((error) => {
+        console.error(error);
+        readout.textContent = 'Failed to load terrain source';
+      });
+    });
+    qualitySelect.addEventListener('change', () => {
+      loadSource(activeSource, null, false).catch((error) => {
+        console.error(error);
+        readout.textContent = 'Failed to load terrain quality';
+      });
+    });
+    for (const checkbox of document.querySelectorAll('input[data-layer]')) {
+      checkbox.addEventListener('change', () => {
+        const layer = skin?.getObjectByName(checkbox.dataset.layer);
+        if (layer) layer.visible = skinToggle.checked && checkbox.checked;
+      });
+    }
+    skinToggle.addEventListener('change', () => {
+      const source = SOURCES[activeSource];
+      for (const checkbox of document.querySelectorAll('input[data-layer]')) {
+        checkbox.disabled = !source.supportsSkin || !skinToggle.checked;
+        const layer = skin?.getObjectByName(checkbox.dataset.layer);
+        if (layer) layer.visible = skinToggle.checked && checkbox.checked;
+      }
+    });
+
+    function resize() {
+      renderer.setSize(window.innerWidth, window.innerHeight, false);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (spinning && terrain && wire && skin) {
+        terrain.rotation.y += 0.001;
+        wire.rotation.y = terrain.rotation.y;
+        skin.rotation.y = terrain.rotation.y;
+      } else if (spinning && terrain && wire) {
+        terrain.rotation.y += 0.001;
+        wire.rotation.y = terrain.rotation.y;
+      }
+      if (SOURCES[activeSource].supportsQuality && qualitySelect.value === 'adaptive' && terrain && ++adaptiveFrame % 90 === 0) {
+        const nextProfile = wantedProfile();
+        if (nextProfile !== activeProfile) {
+          loadSource(activeSource, nextProfile, false).catch((error) => {
+            console.error(error);
+            readout.textContent = 'Failed to adapt terrain quality';
+          });
+        } else if (activeMeshData) {
+          updateReadout(activeMeshData, SOURCES[activeSource], activeProfile);
+        }
+      }
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    await loadSource(activeSource, null);
+    animate();
+  </script>
+</body>
+</html>
