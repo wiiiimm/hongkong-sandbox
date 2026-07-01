@@ -477,8 +477,9 @@ function animateWeather() {
   const wy = (sea && sea.visible) ? sea.position.y : -1e9;
   for (const m of tidalMats) { const sh = m.userData.sh; if (sh) { sh.uniforms.uWaterY.value = wy; sh.uniforms.uBand.value = 4.5 * VE; } }
   if (weather.lightning) {
-    if (flash > 0) { flash -= 0.06; hemi.intensity = baseHemi + flash * 5; }
-    else if (Math.random() < 0.003 + thunderRate * 0.06) flash = 1;   // strike frequency ∝ thunder rate
+    if (flash > 0) { flash -= 0.08; hemi.intensity = baseHemi + flash * 5; }
+    // quadratic, zero-floored: ~0 at low rate, intense near 100% (no always-on base term)
+    else if (Math.random() < thunderRate * thunderRate * 0.1) flash = 1;
   }
   if (flashfx) flashfx.style.opacity = weather.lightning ? (flash * 0.6).toFixed(3) : 0;   // white screen flash
 }
@@ -968,10 +969,12 @@ async function syncLiveWeather() {
   const chk = (id, on) => { const e = el(id); if (e.checked !== on) { e.checked = on; e.dispatchEvent(new Event('change', { bubbles: true })); } };
   try {
     const base = `https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=${isZh() ? 'tc' : 'en'}&dataType=`;
-    const [rh, fl, ws] = await Promise.all([
+    const oBase = 'https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?lang=en&rformat=json&dataType=';
+    const [rh, fl, ws, lhl] = await Promise.all([
       fetch(base + 'rhrread').then(r => r.json()),
       fetch(base + 'flw').then(r => r.json()).catch(() => ({})),
       fetch(base + 'warnsum').then(r => r.json()).catch(() => ({})),
+      fetch(oBase + 'LHL').then(r => r.json()).catch(() => ({})),   // past-hour lightning counts by region
     ]);
     const tst = wxStation(rh.temperature && rh.temperature.data), h = wxStation(rh.humidity && rh.humidity.data);
     const code = (rh.icon || [])[0];
@@ -984,9 +987,13 @@ async function syncLiveWeather() {
     el('wx-warn').textContent = warn || '';
     const rainy = [53,54,62,63,64,65].includes(code) || rainMax > 0;
     chk('rain', rainy);
-    const stormy = code === 65 || /thunderstorm|雷暴/i.test(warn);
+    // real past-hour cloud-to-ground lightning count (data.gov.hk LHL), region-aware
+    const lregion = /lantau/.test(el('src').value) ? 'Lantau' : 'Hong Kong territory';
+    let cg = 0; for (const row of (lhl.data || [])) if (row[1] === 'Cloud-to-ground' && row[2] === lregion) cg = +row[3] || 0;
+    const stormy = cg > 0 || code === 65 || /thunderstorm|雷暴/i.test(warn);
     chk('lightning', stormy);
-    setThunderRate(stormy ? 0.7 : 0.2);                 // HKO has no lightning-rate feed; derive from the warning
+    setThunderRate(cg > 0 ? Math.min(1, 0.15 + cg / 150) : (stormy ? 0.4 : 0));   // strikes/hr → rate
+    el('wx-warn').dataset.ltg = cg;                     // (available for a HUD readout if wanted)
     chk('clouds', rainy || [60,61,76].includes(code));
     chk('fog', [83,84,85].includes(code) || (h && +h.value >= 90));
     chk('waves', true);
