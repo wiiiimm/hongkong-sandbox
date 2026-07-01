@@ -26,6 +26,24 @@ const SOURCES = {
     texture: 'data/lantau-b50k-topo-texture.png',
     ve: 2.6,
   },
+  'hk-landsd-5m': {
+    label: 'Hong Kong · LandsD 5 m DTM',
+    mesh:    'data/hk-dtm5m.json',
+    georef:  { file: 'data/hk-georef.json' },     // flat georef (no key)
+    texbb:   'data/hk-texbb.json',
+    overlay: 'data/hk-b50k-vectors.json',
+    texture: 'data/hk-b50k-topo-texture.png',
+    ve: 2.2,
+  },
+  'hk-srtm': {
+    label: 'Hong Kong · AWS Terrarium ~30 m',
+    mesh:    'data/hk-srtm.json',
+    georef:  { file: 'data/hk-georef.json' },
+    texbb:   'data/hk-texbb.json',
+    overlay: 'data/hk-b50k-vectors.json',
+    texture: 'data/hk-b50k-topo-texture.png',
+    ve: 2.2,
+  },
 };
 
 // vector layer styling (colour + default visibility)
@@ -108,7 +126,7 @@ async function loadSource(id) {
     fetch(s.texbb).then(r => r.json()),
     fetch(s.overlay).then(r => r.json()),
   ]);
-  const g = georefAll[s.georef.key];
+  const g = s.georef.key ? georefAll[s.georef.key] : georefAll;   // keyed (lantau) or flat (hk)
   const texbb = texbbWrap.texbb;
 
   W = mesh.w; H = mesh.h; cell = mesh.cell; elev = mesh.elev; zmax = mesh.zmax;
