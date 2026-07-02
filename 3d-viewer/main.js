@@ -1653,6 +1653,65 @@ function stepFlight() {
     : `${stats}<small>${hints}</small>`;
 }
 
+// ---- corner UI (HKS-32): compass + snapshot ---------------------------------
+// The compass rose tracks the camera heading relative to TERRAIN north (the
+// world group may be auto-spun); clicking snaps the view — or the plane — back
+// to north. The snapshot renders the scene at a 2× supersampled buffer, bakes
+// in the wordmark + tile attribution, and downloads a timestamped PNG. Works
+// identically in orbit and flight modes: it's the same scene camera.
+const compassRose = document.getElementById('compassrose');
+function updateCompass() {
+  const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
+  if (!fx && !fz) return;
+  const heading = Math.atan2(fx, -fz) + world.rotation.y;
+  compassRose.style.transform = `rotate(${(-heading / D2R).toFixed(1)}deg)`;
+}
+document.getElementById('compass').addEventListener('click', () => {
+  if (flight.on) { flight.yaw = 0; return; }             // point the plane north
+  const t = controls.target, p = camera.position, ry = world.rotation.y;
+  const d = Math.hypot(p.x - t.x, p.z - t.z);
+  p.x = t.x + Math.sin(ry) * d;                          // due terrain-south of the target
+  p.z = t.z + Math.cos(ry) * d;
+  controls.update();
+});
+async function snapshot() {
+  const btn = document.getElementById('snapbtn');
+  const pr = renderer.getPixelRatio();
+  renderer.setPixelRatio(Math.min(4, pr * 2));           // documented 2× supersample
+  renderer.render(scene, camera);
+  const shot = renderer.domElement.toDataURL('image/png');
+  renderer.setPixelRatio(pr);
+  const img = new Image();
+  await new Promise(res => { img.onload = res; img.src = shot; });
+  const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+  const x = c.getContext('2d');
+  x.drawImage(img, 0, 0);
+  const pad = Math.round(c.width * 0.012), fs = Math.max(14, Math.round(c.width * 0.011));
+  x.textBaseline = 'bottom'; x.shadowColor = 'rgba(0,0,0,.65)'; x.shadowBlur = fs * 0.4;
+  x.font = `600 ${fs}px ui-monospace, monospace`;
+  x.fillStyle = 'rgba(255,255,255,.82)';
+  x.textAlign = 'left';
+  x.fillText('Hong Kong Sandbox 香港沙盤 · wiiiimm', pad, c.height - pad);
+  const attrEl = document.getElementById('mapattr');     // tile attribution rides along
+  if (attrEl.textContent && getComputedStyle(attrEl).display !== 'none') {
+    x.textAlign = 'right';
+    x.font = `${Math.round(fs * 0.8)}px ui-monospace, monospace`;
+    x.fillText(attrEl.textContent, c.width - pad, c.height - pad);
+  }
+  const n = new Date();
+  const ts = `${n.getFullYear()}${String(n.getMonth() + 1).padStart(2, '0')}${String(n.getDate()).padStart(2, '0')}-${String(n.getHours()).padStart(2, '0')}${String(n.getMinutes()).padStart(2, '0')}`;
+  const a = document.createElement('a');
+  a.download = `hongkong-sandbox_${document.getElementById('src').value}_${ts}.png`;
+  a.href = c.toDataURL('image/png');
+  a.click();
+  btn.classList.add('on'); setTimeout(() => btn.classList.remove('on'), 400);
+}
+document.getElementById('snapbtn').addEventListener('click', snapshot);
+if (glassFx) {                                           // the corner controls are glass too
+  glassFx.register(document.getElementById('compass'), { radius: 19 });
+  glassFx.register(document.getElementById('snapbtn'), { radius: 19 });
+}
+
 // ---- camera framing + presets ---------------------------------------------
 function bounds() {
   const halfX = W*cell/2, halfZ = H*cell/2, peakY = zmax*VE;
@@ -2399,6 +2458,7 @@ function animate() {
   if (sunRays.visible) sunRays.material.rotation += 0.0004;   // slow crown turn
   stepDrips();
   stepFlight();
+  updateCompass();
   animateWeather();
   // storm screen shake — the terrain judders under the strongest signals
   const sh = stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.6 : stormLevel >= 8 ? 0.32 : 0;

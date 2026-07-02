@@ -173,6 +173,15 @@
     background:rgba(10,13,18,.6);border:1px solid var(--edge);border-radius:11px;padding:8px 15px;
     text-align:center;white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
   #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:4px;letter-spacing:.09em}
+  #cornerui{position:fixed;right:12px;bottom:calc(30px + env(safe-area-inset-bottom));z-index:22;
+    display:flex;flex-direction:column;gap:8px;align-items:center}
+  #cornerui button,#compass{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+    background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--edge);cursor:pointer;font-size:16px;padding:0;
+    box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  body.glass #cornerui button,body.glass #compass{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #cornerui button,body.glass.ui-light #compass{background:rgba(252,250,246,.22)}
+  #compassrose{transform-origin:20px 20px;transition:transform .12s linear}
   #mapattr{position:fixed;right:9px;bottom:7px;z-index:14;display:none;font-size:9.5px;font-family:var(--mono);
     color:rgba(255,255,255,.72);background:rgba(0,0,0,.4);padding:2px 7px;border-radius:5px;pointer-events:none}
   .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
@@ -446,6 +455,21 @@
 
 <div id="stormbadge"></div>
 <div id="flyhud"></div>
+<div id="cornerui">
+  <div id="compass" title="Compass — click to face north" role="button">
+    <svg viewBox="0 0 40 40" width="36" height="36">
+      <circle cx="20" cy="20" r="16" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+      <g id="compassrose">
+        <polygon points="20,5 24,21 20,18 16,21" fill="#e05548"/>
+        <polygon points="20,35 24,19 20,22 16,19" fill="#8b95a3"/>
+        <text x="20" y="12.5" text-anchor="middle" font-size="7.5" font-weight="700"
+              fill="#eef2f6" font-family="ui-monospace,monospace">N</text>
+      </g>
+      <circle cx="20" cy="20" r="1.6" fill="#eef2f6"/>
+    </svg>
+  </div>
+  <button id="snapbtn" title="Save a photo of the view (PNG)">📷</button>
+</div>
 <div id="mapattr"></div>
 <div id="wxhud" style="display:none">
   <div id="wx-status">—</div>
