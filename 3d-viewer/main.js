@@ -1161,7 +1161,6 @@ function applyControlLocks() {
   const g = id => document.getElementById(id);
   const storm = stormLevel > 0;
   ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm);
-  if (matrixOn) g('rain').disabled = true;   // Matrix owns the rain
   g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
   g('tide').disabled    = liveMode;
   g('storm').disabled   = liveMode;
@@ -1228,7 +1227,8 @@ function updateWindVisuals() {
     const d = stormLevel > 0 ? 1 - w * 0.55 : 1;
     const cover = 0.6 + w * 0.4;              // coverage builds toward overcast with the wind
     for (const s of cloudGrp.children) {
-      s.material.color.setRGB(0.89 * d, 0.91 * d, 0.94 * d);
+      if (matrixOn) s.material.color.setRGB(0.18 * d, 0.56 * d, 0.31 * d);   // banks of corrupted code
+      else s.material.color.setRGB(0.89 * d, 0.91 * d, 0.94 * d);
       s.material.opacity = Math.min(1, s.userData.baseOp * (1 + w * 0.9));
       s.visible = s.userData.cov < cover;
     }
@@ -1867,8 +1867,13 @@ if (FLY_DEBUG) { window.__walk = walk; window.__stepWalk = () => stepWalk(); }
 // with the iconic digital rain falling as a glyph overlay (katakana + digits +
 // 香港沙盒), green lightning, green fog, glyphified labels and a CRT flicker.
 // Works in orbit, flight and walk — it's all materials and overlays. Surface,
-// background, mesh and rain controls lock while Matrix owns them (locknote
-// pattern) and everything restores cleanly on exit.
+// background and mesh controls lock while Matrix owns them (locknote pattern)
+// and everything restores cleanly on exit.
+// The weather stays live INSIDE the Matrix (you're still jacked in when it
+// storms): world rain falls as green code streaks, snow as pale glyph-dust,
+// clouds/mist/storm-wall read as banks of corrupted code, the glyph overlay
+// falls harder and leans with the wind, and every lightning strike GLITCHES
+// the simulation — screen tears, columns jump, the rain surges white-green.
 let matrixOn = false;
 const MX_CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789香港沙盒中環大嶼山日月風雨雷ΦΣΞψ$#*+';
 const matMxBlack = new THREE.MeshBasicMaterial({ color: 0x02120a });
@@ -1891,7 +1896,12 @@ function applyMatrixLook() {          // idempotent — re-asserted after source
       o.material.color.setHex(0x2fe463);
     }
   });
-  if (rainPts) rainPts.visible = false;          // Matrix owns the rain
+  // the weather is code too (colours restored from the buildWeather constants)
+  if (rainPts) { rainPts.material.color.setHex(0x39ff6a); rainPts.material.opacity = 0.5; }
+  if (snowPts) snowPts.material.color.setHex(0xbfffd6);
+  if (cloudGrp) for (const s of cloudGrp.children) s.material.color.setHex(0x2f8f4f);
+  if (mistGrp) for (const mp of mistGrp.children) mp.material.color.setHex(0x35995c);
+  if (wallGrp) for (const s of wallGrp.children) s.material.color.setHex(0x1a5c30);
 }
 function setMatrix(on) {
   if (on === matrixOn || !terrain) return;
@@ -1915,11 +1925,15 @@ function setMatrix(on) {
         delete o.userData.preMatrix;
       }
     });
-    if (rainPts) rainPts.visible = weather.rain;
+    if (rainPts) { rainPts.material.color.setHex(0xaec8da); rainPts.material.opacity = 0.38; }
+    if (snowPts) snowPts.material.color.setHex(0xffffff);
+    if (cloudGrp) for (const s of cloudGrp.children) s.material.color.setHex(0xe2e8ef);
+    if (mistGrp) for (const mp of mistGrp.children) mp.material.color.setHex(0xdde6ee);
+    if (wallGrp) for (const s of wallGrp.children) s.material.color.setHex(0x3a4048);
     matrixCtx.clearRect(0, 0, matrixCv.width, matrixCv.height);
   }
   applyControlLocks();
-  renderSky(); setFog();
+  updateWindVisuals();       // re-grades clouds/rain for the new reality (calls renderSky + setFog)
   syncUrl();
 }
 document.getElementById('matrixbtn').addEventListener('click', () => setMatrix(!matrixOn));
@@ -1929,7 +1943,7 @@ addEventListener('keydown', e => {
   if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
   setMatrix(!matrixOn);
 });
-function stepMatrix() {               // the digital rain overlay
+function stepMatrix() {               // the digital rain overlay — weather-aware
   if (!matrixOn) return;
   const cv = matrixCv;
   if (cv.width !== innerWidth || cv.height !== innerHeight) {
@@ -1938,18 +1952,38 @@ function stepMatrix() {               // the digital rain overlay
   const fs = 15, nCols = Math.ceil(cv.width / fs);
   if (mxCols.length !== nCols)
     mxCols = Array.from({ length: nCols }, () => ({ y: Math.random() * -cv.height, s: 2 + Math.random() * 4 }));
+  // the storm reaches into the code: rain makes the glyphs pour, wind makes
+  // them lean downwind, a lightning flash makes the whole stream surge
+  const wet = weather.rain ? 1 : 0, w = windStrength;
+  const rush = 1 + wet * 0.9 + w * 0.8 + (weather.lightning ? flash * 1.5 : 0);
+  const lean = windVec.x * w * fs * 14;                  // px of downwind drift over a full fall
   const x = matrixCtx;
   x.globalCompositeOperation = 'destination-out';        // trails melt away
-  x.fillStyle = 'rgba(0,0,0,0.06)';
+  x.fillStyle = `rgba(0,0,0,${wet ? 0.05 : 0.06})`;      // rain leaves longer trails
   x.fillRect(0, 0, cv.width, cv.height);
   x.globalCompositeOperation = 'source-over';
   x.font = `${fs}px ui-monospace, monospace`;
+  const headP = 0.08 + (weather.lightning ? flash * 0.35 : 0);   // strikes whiten the heads
   for (let i = 0; i < nCols; i++) {
     const c = mxCols[i];
-    x.fillStyle = Math.random() < 0.08 ? '#d6ffe2' : 'rgba(57,255,106,.9)';   // heads glint
-    x.fillText(MX_CHARS[(Math.random() * MX_CHARS.length) | 0], i * fs, c.y);
-    c.y += c.s;
+    const px = ((i * fs + c.y / cv.height * lean) % cv.width + cv.width) % cv.width;
+    x.fillStyle = Math.random() < headP ? '#d6ffe2' : 'rgba(57,255,106,.9)';
+    x.fillText(MX_CHARS[(Math.random() * MX_CHARS.length) | 0], px, c.y);
+    if (wet && Math.random() < 0.5)                      // heavy rain doubles the stream
+      x.fillText(MX_CHARS[(Math.random() * MX_CHARS.length) | 0], px, c.y - fs * (1 + (Math.random() * 3 | 0)));
+    c.y += c.s * rush;
     if (c.y > cv.height + 30) { c.y = Math.random() * -300; c.s = 2 + Math.random() * 4; }
+  }
+  // déjà vu: a close strike tears the simulation — horizontal slices of the
+  // glyph field jump sideways and a couple of bright scanlines flicker through
+  if (weather.lightning && flash > 0.35) {
+    for (let n = 0; n < 5; n++) {
+      const sy = Math.random() * cv.height, sh = 6 + Math.random() * 26;
+      const dx = (Math.random() - 0.5) * 90 * flash;
+      x.drawImage(cv, 0, sy, cv.width, sh, dx, sy, cv.width, sh);
+    }
+    x.fillStyle = `rgba(140,255,170,${(0.25 * flash).toFixed(3)})`;
+    for (let n = 0; n < 2; n++) x.fillRect(0, Math.random() * cv.height, cv.width, 1.5);
   }
 }
 if (FLY_DEBUG) window.__setMatrix = setMatrix;
@@ -2781,15 +2815,17 @@ function stepDrips() {
     drips.push({ x: Math.random() * innerWidth, y: -30, v: 2 + Math.random() * 4,
                  r: 1.5 + Math.random() * 2.5, wob: Math.random() * 6.28 });
   const slant = windVec.x * windStrength * 0.8;
+  const mx = matrixOn;                                   // in the Matrix the lens streaks green
   for (const d of drips) {
     d.y += d.v * (0.7 + Math.random() * 0.6);            // stutter like real drips
     d.x += slant + Math.sin(d.y * 0.02 + d.wob) * 0.4;
     const tail = d.r * 14;
     const g = dripCtx.createLinearGradient(d.x, d.y - tail, d.x, d.y);
-    g.addColorStop(0, 'rgba(205,222,240,0)'); g.addColorStop(1, 'rgba(212,230,246,0.26)');
+    g.addColorStop(0, mx ? 'rgba(57,255,106,0)' : 'rgba(205,222,240,0)');
+    g.addColorStop(1, mx ? 'rgba(57,255,106,0.22)' : 'rgba(212,230,246,0.26)');
     dripCtx.fillStyle = g;
     dripCtx.beginPath(); dripCtx.roundRect(d.x - d.r * 0.6, d.y - tail, d.r * 1.2, tail, d.r); dripCtx.fill();
-    dripCtx.fillStyle = 'rgba(226,239,250,0.4)';
+    dripCtx.fillStyle = mx ? 'rgba(150,255,180,0.4)' : 'rgba(226,239,250,0.4)';
     dripCtx.beginPath(); dripCtx.arc(d.x, d.y, d.r, 0, 7); dripCtx.fill();
   }
   drips = drips.filter(d => d.y < innerHeight + 30);
