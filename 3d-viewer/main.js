@@ -77,7 +77,7 @@ const I18N = {
     'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
-    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)',
+    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
@@ -107,7 +107,7 @@ const I18N = {
     'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
-    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）',
+    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
@@ -1958,6 +1958,80 @@ async function setStations(on) {
 }
 document.getElementById('stations').addEventListener('change', e => setStations(e.target.checked));
 
+// ---- EPD air quality (HKS-5): AQHI chips per monitoring station -------------
+// dashboard.data.gov.hk serves the individual-station AQHI feed with open CORS
+// (the EPD origin itself doesn't) — no proxy needed. Chips are coloured by the
+// official AQHI bands and refresh every 10 minutes while the layer is on.
+let aqhiData = null, aqhiMarkers = [], aqhiOn = false, aqhiT = null;
+const AQHI_URL = 'https://dashboard.data.gov.hk/api/aqhi-individual?format=json';
+const AQHI_RISK_ZH = { 'Low': '低', 'Moderate': '中', 'High': '高', 'Very High': '甚高', 'Serious': '嚴重' };
+function aqhiBand(v) {             // official band colours: low→serious
+  if (v >= 11) return '#3d3a45';   // serious (black)
+  if (v >= 8)  return '#8d5524';   // very high (brown)
+  if (v >= 7)  return '#d23c2a';   // high (red)
+  if (v >= 4)  return '#e8892b';   // moderate (orange)
+  return '#3f9e4d';                // low (green)
+}
+async function ensureAqhiStations() {
+  if (aqhiData) return;
+  aqhiData = await fetch('data/epd-aqhi-stations.json').then(r => r.json());
+}
+function clearAqhiMarkers() { aqhiMarkers.forEach(m => m.el.remove()); aqhiMarkers = []; }
+function buildAqhiMarkers() {
+  clearAqhiMarkers();
+  for (const s of aqhiData.stations) {
+    const el = document.createElement('div'); el.className = 'aqm'; el.style.display = 'none';
+    el.innerHTML = `<span class="ix">–</span>` +
+      `<span class="nm"><span class="zh">${s.zh}</span><span class="en">${s.name}</span></span><div class="tip"></div>`;
+    document.body.appendChild(el);
+    aqhiMarkers.push({ el, E: s.E, N: s.N, name: s.name, zh: s.zh, kind: s.kind, hidden: true });
+  }
+}
+async function refreshAqhi() {
+  await ensureAqhiStations();
+  if (!aqhiMarkers.length) buildAqhiMarkers();
+  try {
+    const rows = await fetch(AQHI_URL).then(r => r.json());
+    const byName = new Map(rows.map(r => [r.station, r]));
+    for (const m of aqhiMarkers) {
+      const d = byName.get(m.name);
+      m.hidden = !d || !isFinite(+d.aqhi);
+      if (m.hidden) { m.el.style.display = 'none'; continue; }
+      const ix = m.el.querySelector('.ix');
+      ix.textContent = d.aqhi;
+      ix.style.background = aqhiBand(+d.aqhi);
+      const risk = isZh() ? (AQHI_RISK_ZH[d.health_risk] || d.health_risk) : d.health_risk;
+      m.el.querySelector('.tip').innerHTML =
+        `<b>${m.zh} · ${m.name}</b><br>AQHI ${d.aqhi} · ${risk}` +
+        `<br>${m.kind === 'roadside' ? (isZh() ? '路邊監測站' : 'roadside station') : (isZh() ? '一般監測站' : 'general station')}` +
+        `<br>${(d.publish_date || '').replace('T', ' ')}`;
+    }
+  } catch (e) { console.error('aqhi', e); }
+}
+async function setAqhi(on) {
+  aqhiOn = on;
+  clearInterval(aqhiT);
+  if (on) { await refreshAqhi(); aqhiT = setInterval(refreshAqhi, 600000); }
+  else clearAqhiMarkers();
+}
+document.getElementById('aqhi').addEventListener('change', e => setAqhi(e.target.checked));
+function updateAqhi() {
+  if (!aqhiOn || !aqhiMarkers.length || !curG) return;
+  const g = curG;
+  for (const m of aqhiMarkers) {
+    if (m.hidden) { m.el.style.display = 'none'; continue; }
+    const col = (m.E - g.bE) / g.aE, row = (m.N - g.bN) / g.aN;
+    if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { m.el.style.display = 'none'; continue; }
+    const lx = (col - W/2)*cell, ly = sampleE(col, row)*VE, lz = (row - H/2)*cell;
+    v.set(lx, ly, lz);
+    world.localToWorld(v); v.project(camera);
+    if (v.z > 1 || occludedLocal(lx, ly, lz)) { m.el.style.display = 'none'; continue; }
+    m.el.style.display = '';
+    m.el.style.left = ((v.x*0.5 + 0.5) * innerWidth) + 'px';
+    m.el.style.top  = ((-v.y*0.5 + 0.5) * innerHeight) + 'px';
+  }
+}
+
 // project station markers onto the terrain each frame (like the peak labels)
 function updateStations() {
   if (!stationsOn || !stationMarkers.length || !curG) return;
@@ -2092,6 +2166,7 @@ function animate() {
   updateLabels();
   updateLandmarks();
   updateStations();
+  updateAqhi();
 }
 
 // ---- shareable state: sync all controls + camera to the URL ----------------
@@ -2131,6 +2206,7 @@ function serializeState() {
   p.set('wd', g('winddir').value);
   p.set('lv', liveMode ? '1' : '0');
   p.set('ws', stationsOn ? '1' : '0');
+  p.set('aq', aqhiOn ? '1' : '0');
   if (!pathRouted()) p.set('locale', locale);   // in path mode the locale lives in the URL path instead
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
@@ -2190,6 +2266,7 @@ function applyState(p) {
   if (p.has('st')) setVal('storm', p.get('st'));         // applies the signal preset
   if (p.has('wi')) setVal('wind', p.get('wi'), 'input'); // then any custom wind override
   if (p.has('ws')) setChk('stations', p.get('ws') === '1');
+  if (p.has('aq')) setChk('aqhi', p.get('aq') === '1');
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
     if (c.length >= 6 && c.every(isFinite)) {

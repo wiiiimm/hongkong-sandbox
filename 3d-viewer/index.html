@@ -151,6 +151,25 @@
     box-shadow:0 8px 24px rgba(0,0,0,.55);backdrop-filter:blur(10px)}
   .stn:hover .tip{display:block}
   .stn .tip b{color:var(--accent);font-weight:600}
+  /* EPD AQHI chips: band-coloured index + district name, same anchor/tip pattern */
+  .aqm{position:fixed;transform:translate(-50%,-100%);z-index:15;pointer-events:auto;cursor:default;
+    font-family:var(--sans);white-space:nowrap;text-align:center;line-height:1.15;padding-bottom:11px;
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,.95)) drop-shadow(0 2px 6px rgba(0,0,0,.7))}
+  .aqm:before{content:'';position:absolute;left:50%;bottom:6px;width:1px;height:6px;
+    background:rgba(255,255,255,.75);transform:translateX(-50%)}
+  .aqm:after{content:'';position:absolute;left:50%;bottom:0;width:5px;height:5px;border-radius:50%;
+    background:#fff;transform:translateX(-50%);box-shadow:0 0 3px rgba(0,0,0,.7)}
+  .aqm .ix{display:inline-block;min-width:20px;padding:1px 6px;border-radius:7px;
+    font-size:13px;font-weight:800;color:#fff;letter-spacing:-.01em}
+  .aqm .nm{display:block;margin-top:2px}
+  .aqm .nm .zh{font-size:10px;font-weight:700;color:#fff}
+  .aqm .nm .en{font-size:7.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.78);margin-left:3px}
+  .aqm .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
+    background:rgba(11,14,19,.94);border:1px solid var(--edge);border-radius:8px;padding:6px 9px;
+    font-size:10.5px;font-weight:400;line-height:1.55;color:#eef2f6;min-width:120px;text-align:left;
+    box-shadow:0 8px 24px rgba(0,0,0,.55);backdrop-filter:blur(10px)}
+  .aqm:hover{z-index:31}
+  .aqm:hover .tip{display:block}
   input[type=range]:disabled{opacity:.45;cursor:not-allowed}
   input[type=checkbox]:disabled{opacity:.45;cursor:not-allowed}
   select:disabled{opacity:.45;cursor:not-allowed}
@@ -292,6 +311,7 @@
       <label class="chk"><input type="checkbox" id="landmarks" checked/> <span data-i18n="ov.landmarks">Landmarks</span></label>
       <label class="chk"><input type="checkbox" id="labels"/> <span data-i18n="ov.labels">Peaks</span></label>
       <label class="chk"><input type="checkbox" id="stations"/> <span data-i18n="ov.stations">Stations (live)</span></label>
+      <label class="chk"><input type="checkbox" id="aqhi"/> <span data-i18n="ov.aqhi">Air · AQHI (live)</span></label>
     </div>
     <div class="chks" id="layers" style="margin-top:4px"></div>
   </div>
