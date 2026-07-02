@@ -81,7 +81,7 @@ const I18N = {
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
-    'grp.weather': 'Weather', 'lbl.sound': 'Sound', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
+    'grp.weather': 'Weather', 'lbl.sound': 'Sound', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves', 'wx.snow': 'Snow',
     'lbl.skyheight': 'Sky height ×',
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
@@ -108,7 +108,7 @@ const I18N = {
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
-    'grp.weather': '天氣', 'lbl.sound': '音效', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
+    'grp.weather': '天氣', 'lbl.sound': '音效', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪', 'wx.snow': '雪',
     'lbl.skyheight': '天空高度 ×',
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
@@ -298,6 +298,8 @@ function attachTerrainFX(mat, wet, water) {
     sh.uniforms.uWaveAmp = { value: 0 };
     sh.uniforms.uWaveK = { value: 1 / 400 };
     sh.uniforms.uSparkAmt = { value: 0 };
+    sh.uniforms.uSnowAmt = { value: 0 };
+    sh.uniforms.uSnowLine = { value: 1e9 };
     // world position: correct height for the rotated sea plane, and an xz frame
     // that spins with the world group exactly like the cloud sprites do
     sh.vertexShader = sh.vertexShader
@@ -309,7 +311,8 @@ function attachTerrainFX(mat, wet, water) {
         uniform float uWaterY; uniform float uBand; uniform float uWetAmt; uniform float uFoamAmt;
         uniform sampler2D uCloudTex; uniform vec2 uCloudOfs; uniform float uCloudScale; uniform float uCloudAmt;
         uniform float uFogY; uniform float uFogAmt; uniform vec3 uFogCol;
-        uniform float uTime; uniform float uWaveAmp; uniform float uWaveK; uniform float uSparkAmt;`)
+        uniform float uTime; uniform float uWaveAmp; uniform float uWaveK; uniform float uSparkAmt;
+        uniform float uSnowAmt; uniform float uSnowLine;`)
       .replace('#include <dithering_fragment>', `#include <dithering_fragment>
         { float d = vWpos.y - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d));
           gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet * 0.5 * uWetAmt);
@@ -317,6 +320,11 @@ function attachTerrainFX(mat, wet, water) {
           float fn = texture2D(uCloudTex, vWpos.xz * uCloudScale * 60.0 + vec2(uTime * 0.02, uTime * 0.013)).r;
           gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.93,0.96,0.97),
             foam * smoothstep(0.32, 0.78, fn) * uFoamAmt * uWetAmt); }
+        { // snow-caps: higher, colder ground whitens first, mottled by the noise tex
+          float sl = smoothstep(uSnowLine, uSnowLine * 1.7, vWpos.y);
+          float sn = texture2D(uCloudTex, vWpos.xz * uCloudScale * 24.0).r;
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.94,0.96,0.99),
+            sl * uSnowAmt * (0.85 + 0.15 * sn) * uWetAmt); }
         { float s = texture2D(uCloudTex, vWpos.xz * uCloudScale + uCloudOfs).r;
           gl_FragColor.rgb *= 1.0 - smoothstep(0.35, 0.85, s) * uCloudAmt * 0.34; }
         { float hf = (1.0 - smoothstep(0.0, uFogY, vWpos.y)) * uFogAmt;
@@ -452,8 +460,9 @@ function buildSea() {
 
 // ---- weather effects: rain / clouds / fog / lightning / waves --------------
 let rainPts = null, rainHeads = null, cloudGrp = null, mistGrp = null, wavePhase = 0, waveT = 0, flash = 0;
+let snowPts = null, snowMeta = null, snowAcc = 0;   // flakes + snow-cap build-up (0..1)
 const SEA_Y = 0.5;
-const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false };
+const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false, snow: false };
 let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
 let tideManual = 0.5;    // slider 0..1 — used when not in live mode
 let tideLevel  = 0.5;    // effective water level 0..1 (drives the sea height)
@@ -500,6 +509,17 @@ const CLOUD_TEXS = (() => {
   return [mk(), mk(), mk()];
 })();
 
+// soft round flake sprite for the snow points (HKS-17)
+const SNOW_TEX = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(32, 32, 0, 32, 32, 30);
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.5, 'rgba(255,255,255,.75)');
+  g.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+  return new THREE.CanvasTexture(c);
+})();
+
 // soft blotch deck for the pooled mist (HKS-14) — edge-faded so the plane rim never shows
 const MIST_TEX = (() => {
   const c = document.createElement('canvas'); c.width = c.height = 256;
@@ -534,6 +554,24 @@ function buildWeather() {
   rainPts = new THREE.LineSegments(rg, new THREE.LineBasicMaterial({ color: 0xaec8da, transparent: true, opacity: 0.38, depthWrite: false }));
   rainPts.userData.baseTop = top; rainPts.userData.N = N; rainPts.visible = weather.rain;
   world.add(rainPts);
+
+  // snow (HKS-17): slower, lighter points that wobble as they drift down
+  if (snowPts) { world.remove(snowPts); snowPts.geometry.dispose(); snowPts.material.dispose(); }
+  const NS = 4500, spos = new Float32Array(NS * 3);
+  snowMeta = new Float32Array(NS * 2);                 // [wobble phase, fall-speed factor]
+  for (let i = 0; i < NS; i++) {
+    spos[i*3] = (Math.random()*2 - 1) * hx;
+    spos[i*3+1] = Math.random() * top * 0.8;
+    spos[i*3+2] = (Math.random()*2 - 1) * hz;
+    snowMeta[i*2] = Math.random() * Math.PI * 2;
+    snowMeta[i*2+1] = 0.55 + Math.random() * 0.9;
+  }
+  const sg = new THREE.BufferGeometry();
+  sg.setAttribute('position', new THREE.BufferAttribute(spos, 3));
+  snowPts = new THREE.Points(sg, new THREE.PointsMaterial({ map: SNOW_TEX, color: 0xffffff,
+    size: b.span * 0.0034, transparent: true, opacity: 0.85, depthWrite: false }));
+  snowPts.userData.baseTop = top * 0.8; snowPts.userData.N = NS; snowPts.visible = weather.snow;
+  world.add(snowPts);
 
   if (cloudGrp) { world.remove(cloudGrp); cloudGrp.traverse(o => o.material && o.material.dispose()); }
   cloudGrp = new THREE.Group();
@@ -586,6 +624,7 @@ function buildWeather() {
 // ceiling), so low clouds don't bury the peaks at high vertical exaggeration
 function applySkyScale() {
   if (rainPts) rainPts.userData.top = rainPts.userData.baseTop * skyScale;
+  if (snowPts) snowPts.userData.top = snowPts.userData.baseTop * skyScale;
   // storm ceilings hang lower — the decks drop as the wind rises
   const low = stormLevel > 0 ? 1 - 0.18 * windStrength : 1;
   if (cloudGrp) for (const s of cloudGrp.children) s.position.y = s.userData.baseY * skyScale * low;
@@ -620,6 +659,10 @@ function renderSky() {
     // paper dims to a deep night blue; dark keeps its void, just a touch deeper
     base.lerp(new THREE.Color(onPaper ? 0x1b2430 : 0x04060a), (onPaper ? 0.82 : 0.6) * (1 - dayF));
   } else sun.color.setHex(0xffffff);
+  if (snowAcc > 0) {           // cooler, desaturated grade while snowing
+    sun.color.lerp(new THREE.Color(0xdce8f8), snowAcc * 0.45);
+    base.lerp(new THREE.Color(0x9fb3c8), snowAcc * (onPaper ? 0.25 : 0.12));
+  }
   base.lerp(new THREE.Color(0x1a2028), k);
   renderer.setClearColor(base, 1);
   baseHemi = hemiI * dim;
@@ -660,6 +703,26 @@ function animateWeather() {
     // density tracks intensity: drizzle uses ~55% of the drops, gales all of them
     g.setDrawRange(0, Math.floor(N * (stormLevel >= 8 ? 1 : 0.55 + 0.45 * w)) * 2);
   }
+  if (snowPts && snowPts.visible) {
+    const p = snowPts.geometry.attributes.position.array, top = snowPts.userData.top, NS = snowPts.userData.N;
+    const fall = b.span * 0.0022, wob = b.span * 0.0008;
+    const dx = windVec.x * b.span * 0.009 * w, dz = windVec.z * b.span * 0.009 * w;
+    for (let i = 0; i < NS; i++) {
+      const ph = snowMeta[i*2], sf = snowMeta[i*2+1];
+      p[i*3]   += dx + Math.cos(waveT * 1.8 + ph) * wob;         // flutter
+      p[i*3+1] -= fall * sf;
+      p[i*3+2] += dz + Math.sin(waveT * 1.4 + ph * 1.7) * wob * 0.7;
+      if (p[i*3+1] < 0) p[i*3+1] = top;
+      if (p[i*3]   >  hx) p[i*3]   -= 2*hx; else if (p[i*3]   < -hx) p[i*3]   += 2*hx;
+      if (p[i*3+2] >  hz) p[i*3+2] -= 2*hz; else if (p[i*3+2] < -hz) p[i*3+2] += 2*hz;
+    }
+    snowPts.geometry.attributes.position.needsUpdate = true;
+  }
+  // snow-caps build while it snows, melt when it stops (~8 s each way);
+  // the sky/light grade cools alongside
+  const prevSnow = snowAcc;
+  snowAcc = Math.max(0, Math.min(1, snowAcc + (weather.snow ? 0.002 : -0.002)));
+  if (snowAcc !== prevSnow) renderSky();
   if (mistGrp && mistGrp.visible) {
     const drift = b.span * 0.00012 * (1 + w * 4), lim = b.span * 0.25;
     for (const mp of mistGrp.children) {
@@ -715,6 +778,8 @@ function animateWeather() {
     sh.uniforms.uWaveK.value = 1100 / b.span;
     sh.uniforms.uFoamAmt.value = weather.waves ? 0.45 + 0.4 * w : 0.18;
     sh.uniforms.uSparkAmt.value = (m.userData.isWater && weather.rain) ? 0.35 + 0.45 * w : 0;
+    sh.uniforms.uSnowAmt.value = snowAcc * 0.9;
+    sh.uniforms.uSnowLine.value = 380 * VE;
     renderer.getClearColor(sh.uniforms.uFogCol.value);
   }
   if (weather.lightning) {
@@ -965,7 +1030,7 @@ function updateStormBadge() {
 function applyControlLocks() {
   const g = id => document.getElementById(id);
   const storm = stormLevel > 0;
-  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm);
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm);
   g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
   g('tide').disabled    = liveMode;
   g('storm').disabled   = liveMode;
@@ -1361,6 +1426,7 @@ document.getElementById('lightning').addEventListener('change', e => {
   if (!weather.lightning) { flash = 0; boltLife = 0; disposeBolt(); if (boltLight) boltLight.intensity = 0; applyBg(bgMode); }
 });
 document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
+document.getElementById('snow').addEventListener('change', e => { weather.snow = e.target.checked; if (snowPts) snowPts.visible = weather.snow; });
 // ---- weather soundboard (HKS-2): procedural ambience, gesture-gated --------
 let sndOn = false;
 const sndBtn = document.getElementById('sndbtn');
@@ -1882,6 +1948,7 @@ function serializeState() {
   p.set('cl', weather.clouds ? '1' : '0');
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
+  p.set('sn', weather.snow ? '1' : '0');
   p.set('au', sndOn ? '1' : '0');
   p.set('av', g('sndvol').value);
   p.set('su', skySim.on ? '1' : '0');
@@ -1937,6 +2004,7 @@ function applyState(p) {
   if (p.has('cl')) setChk('clouds', p.get('cl') === '1');
   if (p.has('li')) setChk('lightning', p.get('li') === '1');
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
+  if (p.has('sn')) setChk('snow', p.get('sn') === '1');
   if (p.has('av')) setVal('sndvol', p.get('av'), 'input');
   if (p.get('au') === '1')                       // autoplay policy: arm on first gesture
     addEventListener('pointerdown', () => setSound(true), { once: true });
