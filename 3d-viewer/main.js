@@ -78,7 +78,7 @@ const I18N = {
     'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
-    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)',
+    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
@@ -123,7 +123,7 @@ const I18N = {
     'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
     'sig.9': 'Increasing Gale or Storm Signal No.9', 'sig.10': 'Hurricane Signal No.10', 'badge.pre': '⚠ TYPHOON SIGNAL No.', 'badge.post': '',
-    'tip.humidity': 'humidity', 'tip.wind': 'wind', 'tip.gust': 'gust', 'tide.word': 'tide', 'tide.rising': '↑ rising', 'tide.falling': '↓ falling', 'tide.slack': '→ slack',
+    'tip.humidity': 'humidity', 'tip.wind': 'wind', 'tip.gust': 'gust', 'tip.rain': 'Rain (district, 1 h):', 'tide.word': 'tide', 'tide.rising': '↑ rising', 'tide.falling': '↓ falling', 'tide.slack': '→ slack',
     'tide.24h': '24 h tide', 'st.QUB': 'Quarry Bay', 'st.CCH': 'Cheung Chau', 'wx.unavail': 'live weather unavailable', 'wx.live': 'Live',
   },
   'zh-hk': {
@@ -136,7 +136,7 @@ const I18N = {
     'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
-    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）',
+    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
@@ -181,7 +181,7 @@ const I18N = {
     'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
     'sig.9': '九號烈風或暴風增強信號', 'sig.10': '十號颶風信號', 'badge.pre': '⚠ 颱風信號 ', 'badge.post': ' 號',
-    'tip.humidity': '濕度', 'tip.wind': '風', 'tip.gust': '陣風', 'tide.word': '潮汐', 'tide.rising': '↑ 上漲', 'tide.falling': '↓ 回落', 'tide.slack': '→ 平潮',
+    'tip.humidity': '濕度', 'tip.wind': '風', 'tip.gust': '陣風', 'tip.rain': '雨量（地區，1小時）：', 'tide.word': '潮汐', 'tide.rising': '↑ 上漲', 'tide.falling': '↓ 回落', 'tide.slack': '→ 平潮',
     'tide.24h': '24 小時潮汐', 'st.QUB': '鰂魚涌', 'st.CCH': '長洲', 'wx.unavail': '無法取得即時天氣', 'wx.live': '即時',
   },
 };
@@ -2820,10 +2820,31 @@ document.getElementById('top').addEventListener('click', topView);
 // come from HKO's regional-weather CSVs, which lack CORS headers — so we route
 // them through data.gov.hk's historical-archive, which re-serves with CORS *.
 let stationData = null, stationMarkers = [], stationsOn = false, stationT = null, wxEmoji = '⛅';
+let lastStationReadings = {};   // cache so the wind/marine toggle re-filters without a refetch
 // When true, only plot stations that report air temperature — HKO's wind/marine-only
-// stations (Central Pier, Star Ferry, Waglan…) are hidden. Set false to show them too
-// (they fall back to a wind-speed reading). The wind-lead rendering below stays intact.
-const STATIONS_TEMP_ONLY = true;
+// stations (Central Pier, Star Ferry, Waglan…) are hidden. The "+ wind/marine stns"
+// checkbox flips this (HKS-7); the wind-lead rendering below stays intact.
+let stationsTempOnly = true;
+// Per-station rainfall isn't published — HKO's regional-weather set has no rainfall CSV,
+// only district totals (18) via rhrread. So map each station to its district and show
+// that district's past-hour rainfall on the card/tooltip, honestly labelled (HKS-6).
+const STATION_DISTRICT = {
+  'Central Pier': 'Central & Western District', 'Chek Lap Kok': 'Islands District', 'Cheung Chau': 'Islands District',
+  'Cheung Chau Beach': 'Islands District', 'Clear Water Bay': 'Sai Kung', 'Green Island': 'Central & Western District',
+  'HK Observatory': 'Yau Tsim Mong', 'HK Park': 'Central & Western District', 'Happy Valley': 'Wan Chai',
+  'Hong Kong Sea School': 'Southern District', 'Kai Tak': 'Kowloon City', 'Kai Tak Runway Park': 'Kowloon City',
+  'Kau Sai Chau': 'Sai Kung', "King's Park": 'Yau Tsim Mong', 'Kowloon City': 'Kowloon City', 'Kwun Tong': 'Kwun Tong',
+  'Lamma Island': 'Islands District', 'Lau Fau Shan': 'Yuen Long', 'Ngong Ping': 'Islands District', 'North Point': 'Eastern District',
+  'Pak Tam Chung': 'Sai Kung', 'Peng Chau': 'Islands District', 'Sai Kung': 'Sai Kung', 'Sha Chau': 'Islands District',
+  'Sha Tin': 'Sha Tin', 'Sham Shui Po': 'Sham Shui Po', 'Shau Kei Wan': 'Eastern District', 'Shek Kong': 'Yuen Long',
+  'Sheung Shui': 'North District', 'Stanley': 'Southern District', 'Star Ferry': 'Yau Tsim Mong', 'Ta Kwu Ling': 'North District',
+  'Tai Lung': 'North District', 'Tai Mei Tuk': 'Tai Po', 'Tai Mo Shan': 'Tsuen Wan', 'Tai Po': 'Tai Po', 'Tai Po Kau': 'Tai Po',
+  'Tap Mun': 'Tai Po', "Tate's Cairn": 'Wong Tai Sin', 'The Peak': 'Central & Western District', 'Tseung Kwan O': 'Sai Kung',
+  'Tsing Yi': 'Kwai Tsing', 'Tsuen Wan Ho Koon': 'Tsuen Wan', 'Tsuen Wan Shing Mun Valley': 'Tsuen Wan', 'Tuen Mun': 'Tuen Mun',
+  'Waglan Island': 'Islands District', 'Wetland Park': 'Yuen Long', 'Wong Chuk Hang': 'Southern District',
+  'Wong Tai Sin': 'Wong Tai Sin', 'Yuen Long Park': 'Yuen Long',
+};
+let districtRain = {};   // { district: max mm, past hour } from rhrread
 const ARCHIVE = 'https://api.data.gov.hk/v1/historical-archive/get-file?url=';
 const REGIONAL = 'https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/';
 
@@ -2869,10 +2890,13 @@ function iconEmoji(c) {            // HKO weather-icon code -> emoji (rain/sun s
   if ([92, 93].includes(c)) return '❄️';
   return '⛅';
 }
-async function fetchWxEmoji() {   // territory-wide current condition (rhrread is CORS-open)
+async function fetchWxEmoji() {   // territory-wide condition + per-district rainfall (rhrread is CORS-open)
   try {
     const j = await fetch('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=rhrread').then(r => r.json());
     wxEmoji = iconEmoji((j.icon || [])[0]);
+    const R = {};
+    for (const d of ((j.rainfall && j.rainfall.data) || [])) if (d.place != null && isFinite(+d.max)) R[d.place] = +d.max;
+    districtRain = R;
   } catch (_) {}
 }
 function tempColor(t) {           // 12°C (blue) -> 36°C (red)
@@ -2898,15 +2922,16 @@ function buildStationMarkers() {
 function applyStationReadings(R) {
   for (const m of stationMarkers) {
     const d = R[m.name] || {}, temp = parseFloat(d.temp);
+    const rain = districtRain[STATION_DISTRICT[m.name]];   // district past-hour rainfall, mm (HKS-6)
     const ic = m.el.querySelector('.ic'), tEl = m.el.querySelector('.t'), rhEl = m.el.querySelector('.rh');
     // in temp-only mode, flag stations with no thermometer so updateStations skips them
-    m.hidden = STATIONS_TEMP_ONLY && !isFinite(temp);
+    m.hidden = stationsTempOnly && !isFinite(temp);
     if (m.hidden) { m.el.style.display = 'none'; continue; }
     // temperature stations lead with temp; wind-only stations lead with wind
     if (isFinite(temp)) {
       ic.textContent = wxEmoji;
       tEl.textContent = Math.round(temp) + '°'; tEl.style.color = tempColor(temp);
-      rhEl.textContent = d.rh ? `💧 ${d.rh}%` : '';
+      rhEl.textContent = [d.rh ? `💧 ${d.rh}%` : '', rain > 0 ? `🌧${rain}` : ''].filter(Boolean).join(' · ');
     } else if (isFinite(parseFloat(d.wspd))) {
       const gust = parseFloat(d.gust), dir = d.wdir && d.wdir !== 'N/A' ? d.wdir : '';
       ic.textContent = '💨';
@@ -2922,6 +2947,7 @@ function applyStationReadings(R) {
     if (d.rh) rows.push(`${t('tip.humidity')} ${d.rh}%`);
     if (d.wdir) rows.push(`${t('tip.wind')} ${d.wdir} ${d.wspd || '–'} km/h${d.gust ? ` · ${t('tip.gust')} ${d.gust}` : ''}`);
     if (d.pres) rows.push(`${d.pres} hPa`);
+    if (rain != null) rows.push(`${t('tip.rain')} ${rain} mm`);
     m.el.querySelector('.tip').innerHTML = rows.join('<br>');
   }
 }
@@ -2930,6 +2956,7 @@ async function refreshStations() {
   if (!stationMarkers.length) buildStationMarkers();
   try {
     const [readings] = await Promise.all([fetchStationReadings(), fetchWxEmoji()]);
+    lastStationReadings = readings;
     applyStationReadings(readings);
   } catch (e) { console.error('stations', e); }
 }
@@ -2940,6 +2967,11 @@ async function setStations(on) {
   else clearStationMarkers();
 }
 document.getElementById('stations').addEventListener('change', e => setStations(e.target.checked));
+// HKS-7: include HKO's wind/marine-only stations (checked) vs temperature stations only
+document.getElementById('stationswind').addEventListener('change', e => {
+  stationsTempOnly = !e.target.checked;
+  if (stationsOn && stationMarkers.length) { applyStationReadings(lastStationReadings); updateStations(); }
+});
 
 // ---- EPD air quality (HKS-5): AQHI chips per monitoring station -------------
 // dashboard.data.gov.hk serves the individual-station AQHI feed with open CORS
@@ -3202,6 +3234,7 @@ function serializeState() {
   p.set('wd', g('winddir').value);
   p.set('lv', liveMode ? '1' : '0');
   p.set('ws', stationsOn ? '1' : '0');
+  p.set('wm', document.getElementById('stationswind').checked ? '1' : '0');
   p.set('aq', aqhiOn ? '1' : '0');
   if (!pathRouted()) p.set('locale', locale);   // in path mode the locale lives in the URL path instead
   const r = n => Math.round(n);
@@ -3263,6 +3296,7 @@ function applyState(p) {
   if (p.has('wd')) setVal('winddir', p.get('wd'));       // direction before signal (badge quadrant)
   if (p.has('st')) setVal('storm', p.get('st'));         // applies the signal preset
   if (p.has('wi')) setVal('wind', p.get('wi'), 'input'); // then any custom wind override
+  if (p.has('wm')) setChk('stationswind', p.get('wm') === '1');   // before stations so the filter is set when they load
   if (p.has('ws')) setChk('stations', p.get('ws') === '1');
   if (p.has('aq')) setChk('aqhi', p.get('aq') === '1');
   if (p.has('cam')) {
