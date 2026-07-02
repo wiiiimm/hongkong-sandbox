@@ -86,7 +86,7 @@ const I18N = {
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
-    'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!',
+    'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!', 'share.embed': 'Embed', 'share.embedcopied': 'Embed code copied!',
     'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ boost · C cockpit · Esc exit',
     'fly.touch': 'tilt your phone to steer · auto throttle',
     'fly.view': 'view', 'fly.exit': 'exit',
@@ -139,7 +139,7 @@ const I18N = {
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
-    'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！',
+    'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！', 'share.embed': '嵌入', 'share.embedcopied': '已複製嵌入碼！',
     'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · C 駕駛艙 · Esc 離開',
     'fly.touch': '傾斜手機轉向 · 自動油門',
     'fly.view': '視角', 'fly.exit': '離開',
@@ -2852,6 +2852,25 @@ document.getElementById('sh-copy').addEventListener('click', async e => {
   setTimeout(() => { btn.textContent = label; }, 1400);
 });
 
+// ---- embed (HKS-27): copy-paste <iframe> snippet ---------------------------
+// The embed URL carries the current view plus embed=1, which boots map-forward
+// (control panel collapsed) so the iframe shows the scene, not the chrome.
+function embedSnippet() {
+  const url = shareUrl() + (shareUrl().includes('?') ? '&' : '?') + 'embed=1';
+  return `<iframe src="${url}" width="800" height="600" style="border:0;border-radius:12px" `
+    + `loading="lazy" allow="fullscreen" allowfullscreen title="Hong Kong Sandbox · 香港沙盒"></iframe>`;
+}
+document.getElementById('sh-embed').addEventListener('click', async e => {
+  const btn = e.currentTarget, label = btn.textContent;
+  const ta = document.getElementById('embedcode');
+  ta.value = embedSnippet();
+  ta.style.display = 'block';
+  ta.focus(); ta.select();
+  try { await navigator.clipboard.writeText(ta.value); btn.textContent = t('share.embedcopied'); }
+  catch (_) { /* textarea is shown + selected for manual copy */ }
+  setTimeout(() => { btn.textContent = label; }, 1600);
+});
+
 // ---- locale routing + toggle ----------------------------------------------
 function pathLocale() { const seg = location.pathname.split('/')[1]; return LOCALES.includes(seg) ? seg : null; }
 function pathRouted() { return pathLocale() !== null; }
@@ -2912,6 +2931,9 @@ loadSource(startSrc).then(() => {
   panel.addEventListener('change', syncUrl);         // selects + checkboxes
   panel.addEventListener('input', syncUrl);          // sliders + colour
   syncUrl();
+  // embed mode (HKS-27): boot map-forward with the panel collapsed to the gear;
+  // the scene fills the iframe and the controls are one tap away.
+  if (startParams.get('embed') === '1') document.getElementById('panel').classList.add('collapsed');
   animate();
   // default to live weather on (unless a shared link explicitly opted out with lv=0)
   if (startParams.has('lv') ? startParams.get('lv') === '1' : true) setLiveMode(true);
