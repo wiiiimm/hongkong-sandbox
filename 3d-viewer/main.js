@@ -2045,10 +2045,15 @@ function stepWalk() {
     camera.position.copy(_fc);
     _fl.copy(walk.pos).addScaledVector(_fv, 150); world.localToWorld(_fl);
     camera.lookAt(_fl);
-  } else {                                              // chase: ~7 m back, watching the hiker
-    _fc.set(walk.pos.x + Math.sin(walk.yaw) * 7,
-            walk.pos.y + 1.4 * VE,
-            walk.pos.z + Math.cos(walk.yaw) * 7);
+  } else {                                              // chase: ~7 m back, watching the hiker.
+    // Mouse pitch swings the boom arm: look down → camera climbs above you,
+    // look up → it sinks toward the ground and aims up past the hiker.
+    const boomR = 7, cp = Math.cos(walk.pitch);
+    _fc.set(walk.pos.x + Math.sin(walk.yaw) * boomR * cp,
+            walk.pos.y + 1.4 * VE - Math.sin(walk.pitch) * boomR * 0.7 * VE,
+            walk.pos.z + Math.cos(walk.yaw) * boomR * cp);
+    const cg = sampleE(_fc.x / cell + W / 2, _fc.z / cell + H / 2);
+    _fc.y = Math.max(_fc.y, (cg + 0.5) * VE);           // the boom never digs into the DEM
     world.localToWorld(_fc);
     camera.position.lerp(_fc, 0.18);
     _fl.copy(walk.pos); _fl.y -= 0.5 * VE; world.localToWorld(_fl);
