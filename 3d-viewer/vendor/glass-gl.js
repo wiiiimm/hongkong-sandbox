@@ -5,34 +5,39 @@
  * so animated backgrounds (Ken Burns, playing video) refract in real time.
  * Any DOM element you register() becomes a refracting glass surface: the engine
  * reads its screen rect every frame and draws the lens (rounded-rect mask →
- * magnification → blur → chromatic edge → edge light/frost) at that spot. Your
- * content sits on top. To refract text/graphics, bake them into the background.
+ * droplet-profile refraction → blur → chromatic edge → vibrancy → directional
+ * rim glint → frost) at that spot. Your content sits on top. To refract
+ * text/graphics, bake them into the background.
  *
  *   const glass = createGlass({ canvas, background: '/bg.jpg' });
  *   glass.register(el);
  *   glass.setParams({ refraction: 0.22, blur: 1.2, ... });
  *   glass.unregister(el);  glass.destroy();
  *
+ * Options: { dpr } — render at devicePixelRatio (clamped ≤2) so lenses stay
+ * sharp on retina; on by default, pass a number for a custom cap or false for
+ * legacy 1:1. { transparent: true } — draw ONLY the glass surfaces and leave
+ * every other pixel transparent (premultiplied alpha), for when the background
+ * you refract IS the page's own live canvas (e.g. a WebGL scene): the page
+ * stays crisp and the engine composites just the lenses on top. Default mode
+ * paints the background across the whole canvas (glass over a media backdrop).
+ *
  * The effect needs a background to bend — that's the one rule of this technique.
  *
- * ---------------------------------------------------------------------------
- * VENDORED for hongkong-3d-model from https://github.com/wiiiimm/glass-gl
- * (packages/glass-gl/glass-gl.js @ 98d9591, MIT). Local patches, candidates
- * for upstreaming:
- *   1. DPR-aware buffer: canvas renders at devicePixelRatio (≤2) so the lens
- *      isn't soft on retina; rects/radius/blur scale to buffer px.
- *   2. Transparent outside the lens: the shader outputs premultiplied alpha
- *      and skips the fullscreen background copy, so the page's own (crisp)
- *      canvas shows through everywhere except the glass surfaces.
- *   3. Hidden elements (zero-size rects) are skipped instead of drawing a
- *      stray lens dot at the origin.
- *   4. edgeFrost 0 now means NO rim band (upstream keeps a 0.12 floor).
- * ---------------------------------------------------------------------------
+ * Copyright (C) 2026 wiiiimm
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. See the bundled LICENSE file. Distributed WITHOUT ANY WARRANTY.
  */
 
 const MAX = 16; // max simultaneous glass surfaces (shader array size)
 
-const FRAG = `
+// The fragment shader is compiled per-instance: transparent mode drops the
+// fullscreen background fetch and outputs premultiplied alpha instead of
+// repainting the backdrop, so the host page's own pixels show through crisp.
+const FRAG = (transparent) => `
   precision highp float;
   const int MAX = ${MAX};
   uniform vec3  iResolution;
@@ -46,6 +51,9 @@ const FRAG = `
   uniform float uEdge;     // edge-light strength
   uniform float uFrost;    // edge frost: rim width + brightness (0..1)
   uniform float uDisperse; // chromatic aberration: R/G/B split at the lens edge (0..1)
+  uniform float uSat;      // vibrancy: saturation boost of the refracted backdrop (1 = off)
+  uniform float uCurve;    // lens profile exponent: 1 = linear, ~3 = droplet (flat centre, steep rim)
+  uniform vec2  uLightDir; // light direction for the specular rim glint (unit vector, y up)
   uniform float uRad[MAX]; // per-surface corner radius (px) — match each element's border-radius
   uniform vec3  uTint;     // milk colour
   uniform sampler2D iChannel0;
@@ -64,13 +72,14 @@ const FRAG = `
   void main() {
     vec2 frag = gl_FragCoord.xy;
     vec2 uv = frag / iResolution.xy;
+    ${transparent ? "" : "vec4 bg = texture2D(iChannel0, coverUv(uv));"}
 
-    float best = 1e9; vec2 bPos = vec2(0.0); vec2 bHalf = vec2(1.0);
+    float best = 1e9; vec2 bPos = vec2(0.0); vec2 bHalf = vec2(1.0); float bRad = 0.0;
     for (int i = 0; i < MAX; i++) {
       if (i < uCount) {
         float r = min(uRad[i], min(uHalf[i].x, uHalf[i].y));
         float d = sdRoundBox(frag - uPos[i], uHalf[i], r);
-        if (d < best) { best = d; bPos = uPos[i]; bHalf = uHalf[i]; }
+        if (d < best) { best = d; bPos = uPos[i]; bHalf = uHalf[i]; bRad = r; }
       }
     }
 
@@ -80,12 +89,15 @@ const FRAG = `
     float fw = mix(2.0, 20.0, uFrost);
     float rim = clamp(1.0 - abs(best + fw) / fw, 0.0, 1.0);
 
-    // patch 2: transparent outside the lens (premultiplied alpha) — the page's
-    // own background shows through crisp; only glass surfaces are drawn.
-    vec4 color = vec4(0.0);
+    vec4 color = ${transparent ? "vec4(0.0)" : "vec4(bg.rgb, 1.0)"};
     if (bodyMask > 0.0) {
       vec2 cuv = bPos / iResolution.xy;
-      vec2 lens = cuv + (uv - cuv) * (1.0 - lensField * uLens);
+
+      // droplet lens profile — a real liquid-glass blob is optically flat in the
+      // middle and bends hard only near the rim. pow() reshapes the linear field:
+      // curve 1 = old linear lens, ~2.5-3.5 = flat centre + steep rim (droplet).
+      float prof = pow(lensField, max(uCurve, 1.0));
+      vec2 lens = cuv + (uv - cuv) * (1.0 - prof * uLens);
 
       vec4 acc = vec4(0.0); float total = 0.0;
       for (float x = -4.0; x <= 4.0; x++) {
@@ -98,21 +110,41 @@ const FRAG = `
       acc /= total;
 
       // chromatic aberration — split R/B along the radial direction by a small
-      // FIXED offset (independent of surface size), edge-weighted (lensField^2)
-      // so only the rim fringes. White edges break into colour, like real glass.
+      // FIXED offset (independent of surface size), weighted by the lens profile
+      // so the fringe lives exactly where the bending is. White edges break into
+      // colour, like real glass.
       if (uDisperse > 0.0) {
         vec2 dir = normalize(uv - cuv + vec2(1e-5));
-        vec2 disp = dir * uDisperse * lensField * lensField * 0.010;
+        vec2 disp = dir * uDisperse * prof * 0.010;
         acc.r = texture2D(iChannel0, coverUv(lens + disp)).r;
         acc.b = texture2D(iChannel0, coverUv(lens - disp)).b;
       }
 
-      float dy = clamp(uv.y - cuv.y, 0.0, 0.2);
-      float grad = (dy + 0.05) * 0.6;
-      // patch 4: rim scales fully with uFrost (no 0.12 floor) so 0 = no rim band
-      vec4 lighting = clamp(acc + vec4(grad) * uEdge + vec4(rim) * uFrost * 0.72, 0.0, 1.0);
+      // vibrancy — saturate the refracted backdrop so the glass reads luminous
+      // (Apple materials do the same with backdrop saturate()).
+      float luma = dot(acc.rgb, vec3(0.299, 0.587, 0.114));
+      acc.rgb = mix(vec3(luma), acc.rgb, uSat);
+
+      // specular rim lighting — surface normal from the SDF gradient, then a
+      // bright glint on the rim facing the light and a soft shade opposite.
+      // This directional pair is what makes the slab read as a physical object.
+      vec2 e = vec2(1.5, 0.0);
+      vec2 nrm = normalize(vec2(
+        sdRoundBox(frag + e.xy - bPos, bHalf, bRad) - sdRoundBox(frag - e.xy - bPos, bHalf, bRad),
+        sdRoundBox(frag + e.yx - bPos, bHalf, bRad) - sdRoundBox(frag - e.yx - bPos, bHalf, bRad)
+      ) + vec2(1e-5));
+      float band  = pow(lensField, 3.0);                                  // hug the rim
+      float glint = pow(max(dot(nrm,  uLightDir), 0.0), 2.0) * band;
+      float shade = pow(max(dot(nrm, -uLightDir), 0.0), 2.0) * band;
+      float sheen = max(dot(normalize(uv - cuv + vec2(1e-5)), uLightDir), 0.0) * 0.06;
+
+      // rim scales fully with uFrost (no hard-coded floor): edgeFrost 0 = NO rim band
+      vec4 lighting = clamp(acc + vec4((glint * 0.55 - shade * 0.22 + sheen) * uEdge)
+                                + vec4(rim) * (uFrost * 0.72), 0.0, 1.0);
       lighting = mix(lighting, vec4(uTint, 1.0), uWhite);
-      color = vec4(lighting.rgb * bodyMask, bodyMask);
+      color = ${transparent
+        ? "vec4(lighting.rgb * bodyMask, bodyMask)"                 /* premultiplied */
+        : "vec4(mix(bg, lighting, bodyMask).rgb, 1.0)"};
     }
     gl_FragColor = color;
   }
@@ -124,19 +156,31 @@ const DEFAULT_PARAMS = {
   blur: 1.2,        // sample spread (px)
   refraction: 0.22, // lens strength
   liquidness: 0.0,  // 0..~0.6, mix toward tint
-  edgeLight: 1.0,   // top sheen
+  edgeLight: 1.0,   // rim glint strength
   edgeFrost: 0.22,  // rim band 0..1
   dispersion: 0.0,  // chromatic aberration at the edge (0..1)
+  saturation: 1.0,  // vibrancy of the refracted backdrop (1 = neutral, ~1.3 = luminous)
+  curve: 2.5,       // lens profile: 1 = linear, ~2.5-3.5 = droplet (flat centre, steep rim)
+  lightAngle: 0,    // degrees the rim glint comes from (0 = top, 90 = right)
   radius: 30,       // px — keep in sync with the element's border-radius
   tint: [1, 1, 1],  // milk colour (white = light glass)
 };
 
-export function createGlass({ canvas, background, params } = {}) {
+export function createGlass({ canvas, background, params, dpr, transparent = false } = {}) {
   if (!canvas) throw new Error("createGlass: { canvas } is required");
-  const gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
+  // alpha + premultipliedAlpha are the WebGL defaults, but transparent mode
+  // depends on them for compositing with the page — state them explicitly.
+  const gl = canvas.getContext("webgl", { preserveDrawingBuffer: true, alpha: true, premultipliedAlpha: true });
   if (!gl) throw new Error("createGlass: WebGL not available");
 
   const P = { ...DEFAULT_PARAMS, ...(params || {}) };
+
+  // DPR-aware rendering: buffer at devicePixelRatio (clamped, default ≤2) so
+  // the lens isn't soft on retina. { dpr: false | 0 } = legacy 1:1;
+  // { dpr: n } = clamp to n. Re-read live — it changes across monitors.
+  const DPR = () => (dpr === false || dpr === 0)
+    ? 1
+    : Math.min(window.devicePixelRatio || 1, typeof dpr === "number" ? dpr : 2);
   const surfaces = new Map();          // registered element -> opts ({ radius? })
   let imgW = 1600, imgH = 1000;
   let liveSource = null;               // canvas/video → re-uploaded every frame
@@ -151,7 +195,7 @@ export function createGlass({ canvas, background, params } = {}) {
   };
   const prog = gl.createProgram();
   gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
-  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+  gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG(!!transparent)));
   gl.linkProgram(prog); gl.useProgram(prog);
   if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) console.error(gl.getProgramInfoLog(prog));
 
@@ -164,7 +208,8 @@ export function createGlass({ canvas, background, params } = {}) {
 
   const U = {};
   ["iResolution","uImgRes","uPos","uHalf","uCount","uBlur","uLens","uWhite",
-   "uEdge","uFrost","uDisperse","uRad","uTint","iChannel0"].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+   "uEdge","uFrost","uDisperse","uSat","uCurve","uLightDir","uRad","uTint","iChannel0"]
+    .forEach(n => U[n] = gl.getUniformLocation(prog, n));
 
   /* ---- background texture ---- */
   const tex = gl.createTexture();
@@ -218,12 +263,10 @@ export function createGlass({ canvas, background, params } = {}) {
   setBackground(background);
 
   /* ---- sizing (matches buffer to display; fixes iOS 100vh ≠ innerHeight) ---- */
-  // patch 1: render at devicePixelRatio (≤2) so the lens stays sharp on retina
-  const DPR = () => Math.min(window.devicePixelRatio || 1, 2);
   function resize() {
-    const w = window.innerWidth, h = window.innerHeight, dpr = DPR();
-    canvas.width = w * dpr; canvas.height = h * dpr;
-    canvas.style.width = w + "px"; canvas.style.height = h + "px";
+    const w = window.innerWidth, h = window.innerHeight, d = DPR();
+    canvas.width = Math.round(w * d); canvas.height = Math.round(h * d);   // buffer px
+    canvas.style.width = w + "px"; canvas.style.height = h + "px";         // CSS px
   }
   resize();
   window.addEventListener("resize", resize);
@@ -248,16 +291,16 @@ export function createGlass({ canvas, background, params } = {}) {
     }
 
     let n = 0;
-    const dpr = DPR();                 // patch 1: rects → buffer px
+    const d = DPR();                     // rects are CSS px → scale to buffer px
     surfaces.forEach((opts, el) => {
       if (n >= MAX) return;
       const r = el.getBoundingClientRect();
-      if (!r.width || !r.height) return;   // patch 3: skip hidden elements
-      posArr[n*2]   = (r.left + r.width / 2) * dpr;
-      posArr[n*2+1] = canvas.height - (r.top + r.height / 2) * dpr;  // flip y
-      halfArr[n*2]   = (r.width / 2) * dpr + 2;
-      halfArr[n*2+1] = (r.height / 2) * dpr + 2;
-      radArr[n]      = ((opts && opts.radius != null) ? opts.radius : P.radius) * dpr;
+      if (!r.width || !r.height) return; // hidden (display:none) — no stray lens at origin
+      posArr[n*2]   = (r.left + r.width / 2) * d;
+      posArr[n*2+1] = canvas.height - (r.top + r.height / 2) * d;  // flip y
+      halfArr[n*2]   = (r.width / 2) * d + 2;                      // +2 slack in buffer px
+      halfArr[n*2+1] = (r.height / 2) * d + 2;
+      radArr[n]      = ((opts && opts.radius != null) ? opts.radius : P.radius) * d;
       n++;
     });
 
@@ -267,12 +310,16 @@ export function createGlass({ canvas, background, params } = {}) {
     gl.uniform2fv(U.uPos, posArr);
     gl.uniform2fv(U.uHalf, halfArr);
     gl.uniform1i(U.uCount, n);
-    gl.uniform1f(U.uBlur, Math.max(0.001, P.blur) * dpr);   // patch 1: blur in buffer px
+    gl.uniform1f(U.uBlur, Math.max(0.001, P.blur) * d);   // blur in buffer px → resolution-independent frost
     gl.uniform1f(U.uLens, P.refraction);
     gl.uniform1f(U.uWhite, P.liquidness);
     gl.uniform1f(U.uEdge, P.edgeLight);
     gl.uniform1f(U.uFrost, P.edgeFrost);
     gl.uniform1f(U.uDisperse, P.dispersion);
+    gl.uniform1f(U.uSat, P.saturation);
+    gl.uniform1f(U.uCurve, P.curve);
+    const la = (P.lightAngle || 0) * Math.PI / 180;              // 0° = top; y-up in GL
+    gl.uniform2f(U.uLightDir, Math.sin(la), Math.cos(la));
     gl.uniform1fv(U.uRad, radArr);
     gl.uniform3f(U.uTint, P.tint[0], P.tint[1], P.tint[2]);
     gl.activeTexture(gl.TEXTURE0);

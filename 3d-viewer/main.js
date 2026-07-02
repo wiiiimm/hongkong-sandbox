@@ -1444,7 +1444,7 @@ if (GLASS_OK) {
     const gcv = document.createElement('canvas');
     gcv.id = 'glassgl';
     document.body.insertBefore(gcv, document.getElementById('flashfx'));
-    glassFx = createGlass({ canvas: gcv, background: renderer.domElement });
+    glassFx = createGlass({ canvas: gcv, background: renderer.domElement, transparent: true });
     glassFx.register(panelEl, { radius: 16 });
     glassFx.register(wxhudEl, { radius: 14 });
     document.body.classList.add('glass');
