@@ -13,7 +13,7 @@ You need a **commercial licence** only if you want to step outside those terms, 
 A separate commercial licence for those cases is available from the maintainer — get in
 touch to arrange terms:
 
-**William Li — william@bbi.studio**
+**wiiiimm — email@wiiiimm.codes**
 
 You do **not** need a commercial licence for personal, hobby, educational, research, or
 any use where you're happy to comply with the AGPL. Go wild. 🇭🇰
