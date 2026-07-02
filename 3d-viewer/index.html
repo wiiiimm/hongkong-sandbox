@@ -143,6 +143,11 @@
   .stn:hover .t{color:var(--accent)}
   #flashfx{position:fixed;inset:0;z-index:12;background:#eaf2ff;opacity:0;pointer-events:none;will-change:opacity}
   #dripfx{position:fixed;inset:0;z-index:15;pointer-events:none}
+  #flyhud{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);
+    z-index:22;display:none;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:#eef2f6;
+    background:rgba(10,13,18,.6);border:1px solid var(--edge);border-radius:11px;padding:8px 15px;
+    text-align:center;white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:4px;letter-spacing:.09em}
   #mapattr{position:fixed;right:9px;bottom:7px;z-index:14;display:none;font-size:9.5px;font-family:var(--mono);
     color:rgba(255,255,255,.72);background:rgba(0,0,0,.4);padding:2px 7px;border-radius:5px;pointer-events:none}
   .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
@@ -401,11 +406,13 @@
     <button id="south" data-i18n="btn.south">South</button>
     <button id="top" data-i18n="btn.top">Top‑down</button>
     <button id="copylink" title="Copy a link to this exact view" data-i18n="btn.copylink">Copy link</button>
+    <button id="flybtn" title="Fly a plane over the terrain" data-i18n="btn.fly">✈ Fly</button>
   </div>
   </div><!-- /#pbody -->
 </div>
 
 <div id="stormbadge"></div>
+<div id="flyhud"></div>
 <div id="mapattr"></div>
 <div id="wxhud" style="display:none">
   <div id="wx-status">—</div>
