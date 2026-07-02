@@ -2453,12 +2453,13 @@ function setSolidColor(hex) {
 }
 solidColorEl.addEventListener('input', e => setSolidColor(e.target.value));
 solidHexEl.addEventListener('change', e => setSolidColor(e.target.value));
-const rot = d => () => { texRot = Math.round((texRot + d) * 10) / 10; applyTexRot(); };
+// buttons fire 'click', not the change/input the panel listens to, so sync the URL explicitly
+const rot = d => () => { texRot = Math.round((texRot + d) * 10) / 10; applyTexRot(); syncUrl(); };
 document.getElementById('toporotL').addEventListener('click', rot(-1));
 document.getElementById('toporotLf').addEventListener('click', rot(-0.2));
 document.getElementById('toporotRf').addEventListener('click', rot(0.2));
 document.getElementById('toporotR').addEventListener('click', rot(1));
-document.getElementById('toporot0').addEventListener('click', () => { texRot = 0; applyTexRot(); });
+document.getElementById('toporot0').addEventListener('click', () => { texRot = 0; applyTexRot(); syncUrl(); });
 document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; });
 document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); });
 document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); });
@@ -3210,6 +3211,7 @@ function serializeState() {
   p.set('L', [...document.querySelectorAll('#layers input:checked')].map(i => i.id.slice(4)).join('.'));
   if (wireColor) p.set('mc', wireColor.slice(1));
   p.set('sc', solidColor.slice(1));
+  if (texRot) p.set('tx', String(texRot));          // B50K topo raster rotation (only when nudged)
   p.set('sp', String(spinDir));
   p.set('ss', String(spinSpeed));
   p.set('fo', weather.fog ? '1' : '0');
@@ -3271,6 +3273,7 @@ function applyState(p) {
   }
   if (p.has('mc')) setWireColor('#' + p.get('mc'));
   if (p.has('sc')) setSolidColor('#' + p.get('sc'));
+  if (p.has('tx')) { texRot = parseFloat(p.get('tx')) || 0; applyTexRot(); }   // topo raster rotation
   if (p.has('sp')) setVal('spindir', p.get('sp'));
   if (p.has('ss')) setVal('spinspd', p.get('ss'), 'input');
   if (p.has('fo')) setChk('fog', p.get('fo') === '1');
