@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/brand/hongkong-sandbox-logo.png" alt="Hong Kong Sandbox · 香港沙盤" width="320"/>
+</p>
+
 # Hong Kong Sandbox · 香港沙盤
 <a id="top"></a>
 
