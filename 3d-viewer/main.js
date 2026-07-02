@@ -281,11 +281,12 @@ const CLOUD_SHADOW_TEX = (() => {
 //               cloud layer is on; offset advances with the sprite drift.
 //   height fog — geometry below uFogY fades toward the sky/fog colour, so haze
 //               sits IN the valleys and over the sea, not just in front of them.
-function attachTerrainFX(mat, wet) {
+function attachTerrainFX(mat, wet, water) {
   mat.onBeforeCompile = (sh) => {
     sh.uniforms.uWaterY = { value: -1e9 };
     sh.uniforms.uBand = { value: 12.0 };
     sh.uniforms.uWetAmt = { value: wet ? 1 : 0 };
+    sh.uniforms.uFoamAmt = { value: 0 };
     sh.uniforms.uCloudTex = { value: CLOUD_SHADOW_TEX };
     sh.uniforms.uCloudOfs = { value: new THREE.Vector2(0, 0) };
     sh.uniforms.uCloudScale = { value: 1 / 60000 };
@@ -293,22 +294,46 @@ function attachTerrainFX(mat, wet) {
     sh.uniforms.uFogY = { value: 0 };
     sh.uniforms.uFogAmt = { value: 0 };
     sh.uniforms.uFogCol = { value: new THREE.Color(0x0e1116) };
+    sh.uniforms.uTime = { value: 0 };
+    sh.uniforms.uWaveAmp = { value: 0 };
+    sh.uniforms.uWaveK = { value: 1 / 400 };
+    // world position: correct height for the rotated sea plane, and an xz frame
+    // that spins with the world group exactly like the cloud sprites do
     sh.vertexShader = sh.vertexShader
-      .replace('#include <common>', '#include <common>\nvarying vec3 vLpos;')
-      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvLpos = position.xyz;');
+      .replace('#include <common>', '#include <common>\nvarying vec3 vWpos;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvWpos = (modelMatrix * vec4(transformed, 1.0)).xyz;');
     sh.fragmentShader = sh.fragmentShader
       .replace('#include <common>', `#include <common>
-        varying vec3 vLpos;
-        uniform float uWaterY; uniform float uBand; uniform float uWetAmt;
+        varying vec3 vWpos;
+        uniform float uWaterY; uniform float uBand; uniform float uWetAmt; uniform float uFoamAmt;
         uniform sampler2D uCloudTex; uniform vec2 uCloudOfs; uniform float uCloudScale; uniform float uCloudAmt;
-        uniform float uFogY; uniform float uFogAmt; uniform vec3 uFogCol;`)
+        uniform float uFogY; uniform float uFogAmt; uniform vec3 uFogCol;
+        uniform float uTime; uniform float uWaveAmp; uniform float uWaveK;`)
       .replace('#include <dithering_fragment>', `#include <dithering_fragment>
-        { float d = vLpos.y - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d));
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet * 0.5 * uWetAmt); }
-        { float s = texture2D(uCloudTex, vLpos.xz * uCloudScale + uCloudOfs).r;
+        { float d = vWpos.y - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d));
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet * 0.5 * uWetAmt);
+          float foam = step(0.0, d) * (1.0 - smoothstep(0.0, uBand * 0.22, d));
+          float fn = texture2D(uCloudTex, vWpos.xz * uCloudScale * 60.0 + vec2(uTime * 0.02, uTime * 0.013)).r;
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.93,0.96,0.97),
+            foam * smoothstep(0.32, 0.78, fn) * uFoamAmt * uWetAmt); }
+        { float s = texture2D(uCloudTex, vWpos.xz * uCloudScale + uCloudOfs).r;
           gl_FragColor.rgb *= 1.0 - smoothstep(0.35, 0.85, s) * uCloudAmt * 0.34; }
-        { float hf = (1.0 - smoothstep(0.0, uFogY, vLpos.y)) * uFogAmt;
+        { float hf = (1.0 - smoothstep(0.0, uFogY, vWpos.y)) * uFogAmt;
           gl_FragColor.rgb = mix(gl_FragColor.rgb, uFogCol, hf * 0.8); }`);
+    if (water) {
+      // animated wave normals: three sine octaves' analytic slopes, rotated into
+      // view space — the PBR sun/moon specular then glints off the moving water
+      sh.fragmentShader = sh.fragmentShader.replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
+        { vec2 p = vWpos.xz * uWaveK; float t = uTime;
+          float sx = cos(p.x * 1.00 + t * 1.1) * 1.0
+                   + cos((p.x + p.y) * 1.7 + t * 1.7) * 0.6
+                   + cos(p.x * 3.1 - p.y * 2.2 + t * 2.3) * 0.35;
+          float sz = cos(p.y * 1.13 - t * 0.9) * 1.0
+                   + cos((p.y - p.x) * 1.9 + t * 1.4) * 0.6
+                   + cos(p.y * 2.7 + p.x * 2.4 + t * 2.1) * 0.35;
+          vec3 wn = (viewMatrix * vec4(sx, 0.0, sz, 0.0)).xyz;
+          normal = normalize(normal + wn * uWaveAmp); }`);
+    }
     mat.userData.sh = sh;
   };
   mat.needsUpdate = true;
@@ -409,14 +434,14 @@ function buildSkin(overlay, g, texbb) {
 function buildSea() {
   if (sea) { world.remove(sea); sea.geometry.dispose(); sea.material.dispose(); }
   const geo = new THREE.PlaneGeometry(cell*W*1.8, cell*H*1.8);
-  sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x2b5d78, transparent: true, opacity: 0.55, roughness: 0.4, depthWrite: false }));
+  sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x2b5d78, transparent: true, opacity: 0.55, roughness: 0.32, depthWrite: false }));
   sea.rotation.x = -Math.PI/2; sea.position.y = 0.5;
-  attachTerrainFX(sea.material, false);   // cloud shadows sweep the water; fog swallows it
+  attachTerrainFX(sea.material, false, true);   // living water: waves + glint; shadows + fog too
   world.add(sea);
 }
 
 // ---- weather effects: rain / clouds / fog / lightning / waves --------------
-let rainPts = null, rainHeads = null, cloudGrp = null, mistGrp = null, wavePhase = 0, flash = 0;
+let rainPts = null, rainHeads = null, cloudGrp = null, mistGrp = null, wavePhase = 0, waveT = 0, flash = 0;
 const SEA_Y = 0.5;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false };
 let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
@@ -663,6 +688,8 @@ function animateWeather() {
   const cAmt = (weather.clouds && cloudGrp) ? 0.4 + 0.45 * w : 0;
   const fAmt = weather.fog ? 0.5 + 0.5 * w : 0;
   const fogY = (30 + w * 40) * VE;
+  const waveAmp = weather.waves ? 0.14 + w * 0.22 : 0.05;   // calm water still shimmers a little
+  waveT += 0.016 * (1 + w * 1.5);                           // seas quicken smoothly with the wind
   for (const m of tidalMats) {
     const sh = m.userData.sh; if (!sh) continue;
     sh.uniforms.uWaterY.value = wy; sh.uniforms.uBand.value = 4.5 * VE;
@@ -673,6 +700,10 @@ function animateWeather() {
     sh.uniforms.uCloudAmt.value = cAmt;
     sh.uniforms.uFogAmt.value = fAmt;
     sh.uniforms.uFogY.value = fogY;
+    sh.uniforms.uTime.value = waveT;
+    sh.uniforms.uWaveAmp.value = waveAmp;
+    sh.uniforms.uWaveK.value = 1100 / b.span;
+    sh.uniforms.uFoamAmt.value = weather.waves ? 0.45 + 0.4 * w : 0.18;
     renderer.getClearColor(sh.uniforms.uFogCol.value);
   }
   if (weather.lightning) {
