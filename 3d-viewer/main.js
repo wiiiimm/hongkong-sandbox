@@ -372,10 +372,23 @@ function buildTerrain() {
   const g = curG, tb = curTexbb;
   const geo = new THREE.BufferGeometry();
   const pos = new Float32Array(gW*gH*3), col = new Float32Array(gW*gH*3), uv = new Float32Array(gW*gH*2);
+  // baked terrain relief (HKS-15): curvature AO (valleys darken, ridge crests
+  // lift) and a slope-based rocky tint on steep faces, folded into the vertex
+  // colours at build time — zero per-frame cost, works for shaded + tint styles
+  const EV = (r, c) => elev[Math.max(0, Math.min(H - 1, r)) * W + Math.max(0, Math.min(W - 1, c))];
+  const ds = meshStep, dd = 2 * ds * cell;
   for (let j = 0; j < gH; j++) for (let i = 0; i < gW; i++) {
     const r = rows[j], c = cols[i], k = j*gW+i, e = elev[r*W+c];
     pos[k*3] = (c-W/2)*cell; pos[k*3+1] = e; pos[k*3+2] = (r-H/2)*cell;
-    const cc = hyps(e, zmax); col[k*3] = cc[0]/255; col[k*3+1] = cc[1]/255; col[k*3+2] = cc[2]/255;
+    const eN = EV(r - ds, c), eS = EV(r + ds, c), eE = EV(r, c + ds), eW2 = EV(r, c - ds);
+    const curv = ((eN + eS + eE + eW2) / 4 - e) / (ds * cell);
+    const shade = Math.max(0.78, Math.min(1.14, 1 - curv * 5));
+    const gx = (eE - eW2) / dd, gz = (eS - eN) / dd;
+    const rockT = Math.max(0, Math.min(1, (Math.sqrt(gx*gx + gz*gz) - 0.35) / 0.55)) * 0.45;
+    const cc = hyps(e, zmax);
+    col[k*3]   = Math.min(1, (cc[0] * (1 - rockT) + 122 * rockT) * shade / 255);
+    col[k*3+1] = Math.min(1, (cc[1] * (1 - rockT) + 116 * rockT) * shade / 255);
+    col[k*3+2] = Math.min(1, (cc[2] * (1 - rockT) + 106 * rockT) * shade / 255);
     const E = g.aE*c + g.bE, N = g.aN*r + g.bN;
     // the B50K raster is authored rotated 180° (stored upside-down); this UV un-rotates it
     uv[k*2] = (E-tb.E0)/(tb.E1-tb.E0); uv[k*2+1] = (N-tb.N0)/(tb.N1-tb.N0);
