@@ -1881,7 +1881,7 @@ const matMxSea = new THREE.MeshBasicMaterial({ color: 0x1c9e50, wireframe: true,
 let mxPrevSea = null;
 const matrixCv = document.getElementById('matrixfx');
 const matrixCtx = matrixCv.getContext('2d');
-let mxCols = [];
+let mxCols = [], mxFlakes = [];
 function applyMatrixLook() {          // idempotent — re-asserted after source rebuilds
   if (!matrixOn || !terrain) return;
   terrain.visible = true;
@@ -1952,28 +1952,50 @@ function stepMatrix() {               // the digital rain overlay — weather-aw
   const fs = 15, nCols = Math.ceil(cv.width / fs);
   if (mxCols.length !== nCols)
     mxCols = Array.from({ length: nCols }, () => ({ y: Math.random() * -cv.height, s: 2 + Math.random() * 4 }));
-  // the storm reaches into the code: rain makes the glyphs pour, wind makes
-  // them lean downwind, a lightning flash makes the whole stream surge
+  // the storm reaches into the code: the code-fall is only an ambient drizzle
+  // when dry — turn the rain on and it becomes the full torrent, leaning
+  // downwind, surging on every lightning flash
   const wet = weather.rain ? 1 : 0, w = windStrength;
+  const act = wet ? 1 : 0.16;                            // fraction of columns streaming
   const rush = 1 + wet * 0.9 + w * 0.8 + (weather.lightning ? flash * 1.5 : 0);
   const lean = windVec.x * w * fs * 14;                  // px of downwind drift over a full fall
   const x = matrixCtx;
   x.globalCompositeOperation = 'destination-out';        // trails melt away
-  x.fillStyle = `rgba(0,0,0,${wet ? 0.05 : 0.06})`;      // rain leaves longer trails
+  x.fillStyle = `rgba(0,0,0,${wet ? 0.05 : 0.07})`;      // rain leaves longer trails
   x.fillRect(0, 0, cv.width, cv.height);
   x.globalCompositeOperation = 'source-over';
   x.font = `${fs}px ui-monospace, monospace`;
   const headP = 0.08 + (weather.lightning ? flash * 0.35 : 0);   // strikes whiten the heads
   for (let i = 0; i < nCols; i++) {
     const c = mxCols[i];
+    if (c.a == null) c.a = Math.random();                // column activity lottery
+    if (c.a > act) continue;                             // dormant until the rain recruits it
     const px = ((i * fs + c.y / cv.height * lean) % cv.width + cv.width) % cv.width;
     x.fillStyle = Math.random() < headP ? '#d6ffe2' : 'rgba(57,255,106,.9)';
     x.fillText(MX_CHARS[(Math.random() * MX_CHARS.length) | 0], px, c.y);
     if (wet && Math.random() < 0.5)                      // heavy rain doubles the stream
       x.fillText(MX_CHARS[(Math.random() * MX_CHARS.length) | 0], px, c.y - fs * (1 + (Math.random() * 3 | 0)));
     c.y += c.s * rush;
-    if (c.y > cv.height + 30) { c.y = Math.random() * -300; c.s = 2 + Math.random() * 4; }
+    if (c.y > cv.height + 30) { c.y = Math.random() * -300; c.s = 2 + Math.random() * 4; c.a = Math.random(); }
   }
+  // glyph snow: when it snows, characters drift down gently and sway like
+  // flakes — code falling out of the sky one glyph at a time
+  if (weather.snow) {
+    if (mxFlakes.length === 0)
+      mxFlakes = Array.from({ length: 130 }, () => ({
+        x: Math.random(), y: Math.random() * cv.height, v: 0.5 + Math.random() * 0.8,
+        ph: Math.random() * Math.PI * 2, fs: 10 + Math.random() * 6 }));
+    for (const f of mxFlakes) {
+      f.y += f.v * (1 + w * 0.6);
+      const fx = ((f.x * cv.width + Math.sin(f.y * 0.008 + f.ph) * 26 + windVec.x * w * f.y * 0.12)
+                  % cv.width + cv.width) % cv.width;
+      x.font = `${f.fs}px ui-monospace, monospace`;
+      x.fillStyle = Math.random() < 0.04 ? '#ffffff' : 'rgba(191,255,214,.8)';
+      x.fillText(MX_CHARS[(Math.random() * MX_CHARS.length) | 0], fx, f.y);
+      if (f.y > cv.height + 20) { f.y = -20; f.x = Math.random(); }
+    }
+    x.font = `${fs}px ui-monospace, monospace`;
+  } else if (mxFlakes.length) mxFlakes = [];
   // déjà vu: a close strike tears the simulation — horizontal slices of the
   // glyph field jump sideways and a couple of bright scanlines flicker through
   if (weather.lightning && flash > 0.35) {
