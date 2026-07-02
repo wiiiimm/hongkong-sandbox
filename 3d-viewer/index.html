@@ -203,6 +203,11 @@
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);font-size:12px}
   #wxhud #wx-status{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:.1em;font-family:var(--mono)}
   #wxhud .wx-big{font-size:23px;font-weight:600;margin:3px 0;letter-spacing:.01em}
+  /* compact tropical-cyclone signal chip (T1…T10) — the one line shown when collapsed */
+  #wxhud #wx-sig:not(:empty){display:inline-block;margin-left:8px;padding:1px 7px;border-radius:6px;
+    font-size:13px;font-weight:700;vertical-align:middle;font-family:var(--mono);letter-spacing:.02em;
+    background:rgba(230,162,60,.92);color:#1a1205}
+  #wxhud #wx-sig.sev{background:rgba(214,60,40,.95);color:#fff}
   #wxhud .wx-sub{font-size:11px;color:var(--sub);line-height:1.5}
   #wxhud #wx-clock{font-family:var(--mono);font-size:13px;color:var(--ink);margin-top:7px}
   #wxhud #wx-warn:not(:empty){color:#e6a23c;margin-top:4px;font-size:11px}
@@ -346,7 +351,8 @@
     #wxhud .wx-big{font-size:18px;margin:2px 0}
     #wxhud.expanded{max-width:min(280px,calc(100vw - 24px))}
     #wxhud:not(.expanded) .wx-sub, #wxhud:not(.expanded) #wx-tide, #wxhud:not(.expanded) #wx-tidecap,
-    #wxhud:not(.expanded) #wx-clock, #wxhud:not(.expanded) .wx-src{display:none}
+    #wxhud:not(.expanded) #wx-clock, #wxhud:not(.expanded) .wx-src,
+    #wxhud:not(.expanded) #wx-warn, #wxhud:not(.expanded) #wx-status{display:none}   /* collapsed = temp + T-signal only */
     #wxhud:not(.expanded) #wx-tidegraph{display:none !important}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
       font-family:var(--mono);margin-top:3px}
@@ -616,7 +622,7 @@
 <div id="mapattr"></div>
 <div id="wxhud" style="display:none">
   <div id="wx-status">—</div>
-  <div class="wx-big"><span id="wx-temp">—</span></div>
+  <div class="wx-big"><span id="wx-temp">—</span><span id="wx-sig"></span></div>
   <div class="wx-sub"><span id="wx-hum"></span></div>
   <div class="wx-sub" id="wx-wind">—</div>
   <div id="wx-warn"></div>
