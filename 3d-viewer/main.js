@@ -369,7 +369,7 @@ function buildSea() {
 }
 
 // ---- weather effects: rain / clouds / fog / lightning / waves --------------
-let rainPts = null, rainHeads = null, cloudGrp = null, wavePhase = 0, flash = 0;
+let rainPts = null, rainHeads = null, cloudGrp = null, mistGrp = null, wavePhase = 0, flash = 0;
 const SEA_Y = 0.5;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false };
 let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
@@ -418,6 +418,22 @@ const CLOUD_TEXS = (() => {
   return [mk(), mk(), mk()];
 })();
 
+// soft blotch deck for the pooled mist (HKS-14) — edge-faded so the plane rim never shows
+const MIST_TEX = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 256;
+  const x = c.getContext('2d');
+  for (let i = 0; i < 14; i++) {
+    const px = Math.random()*256, py = Math.random()*256, r = 50 + Math.random()*80;
+    const g = x.createRadialGradient(px, py, 0, px, py, r);
+    g.addColorStop(0, 'rgba(255,255,255,0.55)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    x.fillStyle = g; x.fillRect(0, 0, 256, 256);
+  }
+  const m = x.createRadialGradient(128, 128, 60, 128, 128, 128);
+  m.addColorStop(0, 'rgba(0,0,0,1)'); m.addColorStop(1, 'rgba(0,0,0,0)');
+  x.globalCompositeOperation = 'destination-in'; x.fillStyle = m; x.fillRect(0, 0, 256, 256);
+  return new THREE.CanvasTexture(c);
+})();
+
 // (re)build rain + clouds sized to the current source; visibility follows toggles
 function buildWeather() {
   const b = bounds(), hx = b.halfX, hz = b.halfZ, top = b.span * 0.45;
@@ -462,6 +478,24 @@ function buildWeather() {
   }
   cloudGrp.visible = weather.clouds;
   world.add(cloudGrp);
+
+  // pooled mist decks (HKS-14): translucent noise planes at low ABSOLUTE heights,
+  // depth-tested against the terrain — haze fills the harbours and valley floors
+  // while the hills poke through. Heights are metres above datum (× VE per frame).
+  if (mistGrp) { world.remove(mistGrp); mistGrp.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material) o.material.dispose(); }); }
+  mistGrp = new THREE.Group();
+  const MIST_H = [6, 14, 26, 40];
+  for (let i = 0; i < MIST_H.length; i++) {
+    const w2 = b.span * (1.5 + i * 0.15);
+    const mp = new THREE.Mesh(new THREE.PlaneGeometry(w2, w2),
+      new THREE.MeshBasicMaterial({ map: MIST_TEX, transparent: true, opacity: 0.10,
+        color: 0xdde6ee, depthWrite: false }));
+    mp.rotation.set(-Math.PI / 2, 0, Math.random() * Math.PI);
+    mp.userData.h = MIST_H[i];
+    mistGrp.add(mp);
+  }
+  mistGrp.visible = weather.fog;
+  world.add(mistGrp);
   applySkyScale();
   updateWindVisuals();
 }
@@ -519,6 +553,15 @@ function animateWeather() {
     g.attributes.position.needsUpdate = true;
     // density tracks intensity: drizzle uses ~55% of the drops, gales all of them
     g.setDrawRange(0, Math.floor(N * (stormLevel >= 8 ? 1 : 0.55 + 0.45 * w)) * 2);
+  }
+  if (mistGrp && mistGrp.visible) {
+    const drift = b.span * 0.00012 * (1 + w * 4), lim = b.span * 0.25;
+    for (const mp of mistGrp.children) {
+      mp.position.y = mp.userData.h * VE;                 // pooled height follows exaggeration
+      mp.position.x += windVec.x * drift; mp.position.z += windVec.z * drift;
+      if (mp.position.x >  lim) mp.position.x = -lim; else if (mp.position.x < -lim) mp.position.x = lim;
+      if (mp.position.z >  lim) mp.position.z = -lim; else if (mp.position.z < -lim) mp.position.z = lim;
+    }
   }
   if (cloudGrp && cloudGrp.visible) {
     const spd = b.span * 0.0006 * (1 + w * 7);            // clouds race with the wind
@@ -851,6 +894,7 @@ function spawnBolt() {
 function updateWindVisuals() {
   const w = windStrength;
   if (rainPts) rainPts.material.opacity = 0.3 + 0.4 * w;
+  if (mistGrp) for (const mp of mistGrp.children) mp.material.opacity = 0.09 * (1 + w * 1.3);
   if (cloudGrp) {
     const d = stormLevel > 0 ? 1 - w * 0.55 : 1;
     const cover = 0.6 + w * 0.4;              // coverage builds toward overcast with the wind
@@ -1026,7 +1070,10 @@ function applyGlassPreset(mode) {
 document.getElementById('navhelp-btn').addEventListener('click', () => {
   const n = document.getElementById('navhelp'); n.style.display = n.style.display === 'none' ? '' : 'none';
 });
-document.getElementById('fog').addEventListener('change', e => { weather.fog = e.target.checked; setFog(); });
+document.getElementById('fog').addEventListener('change', e => {
+  weather.fog = e.target.checked; setFog();
+  if (mistGrp) mistGrp.visible = weather.fog;
+});
 document.getElementById('rain').addEventListener('change', e => { weather.rain = e.target.checked; if (rainPts) rainPts.visible = weather.rain; });
 document.getElementById('clouds').addEventListener('change', e => { weather.clouds = e.target.checked; if (cloudGrp) cloudGrp.visible = weather.clouds; });
 document.getElementById('lightning').addEventListener('change', e => {
