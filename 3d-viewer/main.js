@@ -116,6 +116,7 @@ const I18N = {
     'lock.storm': '◈ set by the storm signal — choose None to adjust',
     'lock.sky': '◈ following live weather — turn off sync to adjust',
     'lock.matrix': '◈ set by Matrix mode — 🕶 to wake up',
+    'lock.neon': '◈ set by 風林火山 mode — 🌃 to leave the neon night',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.loadfail': 'Load failed',
     'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
@@ -171,6 +172,7 @@ const I18N = {
     'lock.storm': '◈ 由風暴信號設定 — 選「無」即可調整',
     'lock.sky': '◈ 跟隨即時天氣 — 關閉同步即可調整',
     'lock.matrix': '◈ 由 Matrix 模式設定 — 按 🕶 醒來',
+    'lock.neon': '◈ 由風林火山模式設定 — 按 🌃 離開霓虹夜',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.loadfail': '載入失敗',
     'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
@@ -1161,6 +1163,7 @@ function applyControlLocks() {
   const g = id => document.getElementById(id);
   const storm = stormLevel > 0;
   ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm);
+  if (neonOn) g('snow').disabled = true;   // 風林火山 keeps Hong Kong snowbound
   g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
   g('tide').disabled    = liveMode;
   g('storm').disabled   = liveMode;
@@ -1905,6 +1908,7 @@ function applyMatrixLook() {          // idempotent — re-asserted after source
 }
 function setMatrix(on) {
   if (on === matrixOn || !terrain) return;
+  if (on && neonOn) setNeon(false);    // one reality at a time
   matrixOn = on;
   document.body.classList.toggle('matrix', on);
   document.getElementById('matrixbtn').classList.toggle('on', on);
@@ -2010,6 +2014,65 @@ function stepMatrix() {               // the digital rain overlay — weather-aw
 }
 if (FLY_DEBUG) window.__setMatrix = setMatrix;
 
+// ---- Sons of the Neon Night 風林火山 mode (HKS-35) ---------------------------
+// Juno Mak's snowbound noir: an alternate-1994 Hong Kong buried in snow, graded
+// to the film's desaturated murky grey (grayscale + lifted contrast on the GL
+// canvas), under a heavy vignette with live film grain and the odd print
+// scratch. Colour "only occasionally seeps through" — here it's the landmark
+// labels, restyled as neon signage, the one thing the grade can't touch.
+// Snow weather is forced on and locked; 🌃 (or N) toggles; exclusive with 🕶.
+let neonOn = false, nnPrevSnow = null;
+const NN_FILTER = 'grayscale(1) contrast(1.22) brightness(.9)';
+const noirCv = document.getElementById('noirfx');
+const noirCtx = noirCv.getContext('2d');
+let noirImg = null, noirTick = 0;
+function setNeon(on) {
+  if (on === neonOn || !terrain) return;
+  if (on && matrixOn) setMatrix(false); // one reality at a time
+  neonOn = on;
+  document.body.classList.toggle('neon', on);
+  document.getElementById('neonbtn').classList.toggle('on', on);
+  const lock = document.getElementById('nnlock');
+  lock.textContent = t('lock.neon');
+  lock.style.display = on ? 'block' : 'none';
+  const snow = document.getElementById('snow');
+  const flip = to => { if (snow.checked !== to) { snow.checked = to; snow.dispatchEvent(new Event('change', { bubbles: true })); } };
+  if (on) {
+    nnPrevSnow = snow.checked;
+    flip(true);                        // the wasteland is snowbound
+  } else {
+    if (nnPrevSnow != null && !liveMode && stormLevel === 0) flip(nnPrevSnow);
+    nnPrevSnow = null;
+    noirCtx.clearRect(0, 0, noirCv.width, noirCv.height);
+  }
+  applyControlLocks();
+  syncUrl();
+}
+function stepNoir() {                  // live film grain + the odd print scratch
+  if (!neonOn) return;
+  if (!noirImg) noirImg = noirCtx.createImageData(noirCv.width, noirCv.height);
+  if ((noirTick++ & 1) === 0) {        // re-grain at half rate — film cadence
+    const d = noirImg.data;
+    for (let i = 0; i < d.length; i += 4) {
+      d[i] = d[i+1] = d[i+2] = 128 + (Math.random() - 0.5) * 96 | 0;
+      d[i+3] = 30;
+    }
+    noirCtx.putImageData(noirImg, 0, 0);
+    if (Math.random() < 0.025) {
+      noirCtx.fillStyle = 'rgba(238,238,238,.55)';
+      noirCtx.fillRect((Math.random() * noirCv.width) | 0, 0, 1, noirCv.height);
+    }
+  }
+}
+document.getElementById('neonbtn').addEventListener('click', () => setNeon(!neonOn));
+addEventListener('keydown', e => {
+  if (e.key.toLowerCase() !== 'n' || flight.on || walk.on) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
+  setNeon(!neonOn);
+});
+if (FLY_DEBUG) window.__setNeon = setNeon;
+
 // ---- corner UI (HKS-32): compass + snapshot ---------------------------------
 // The compass rose tracks the camera heading relative to TERRAIN north (the
 // world group may be auto-spun); clicking snaps the view — or the plane — back
@@ -2087,7 +2150,15 @@ async function snapshot() {
   await new Promise(res => { img.onload = res; img.src = shot; });
   const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
   const x = c.getContext('2d');
+  if (neonOn) x.filter = NN_FILTER;                      // bake the noir grade into the photo
   x.drawImage(img, 0, 0);
+  x.filter = 'none';
+  if (neonOn) {                                          // …and the vignette
+    const vg = x.createRadialGradient(c.width / 2, c.height * 0.45, c.height * 0.5,
+                                      c.width / 2, c.height * 0.45, c.width * 0.72);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.62)');
+    x.fillStyle = vg; x.fillRect(0, 0, c.width, c.height);
+  }
   const pad = Math.round(c.width * 0.012), fs = Math.max(14, Math.round(c.width * 0.011));
   x.textBaseline = 'bottom'; x.shadowColor = 'rgba(0,0,0,.65)'; x.shadowBlur = fs * 0.4;
   x.font = `600 ${fs}px ui-monospace, monospace`;
@@ -2862,6 +2933,7 @@ function animate() {
   stepFlight();
   stepWalk();
   stepMatrix();
+  stepNoir();
   updateCompass();
   animateWeather();
   // storm screen shake — the terrain judders under the strongest signals
@@ -2906,6 +2978,7 @@ function serializeState() {
   if (FLY_DEBUG) p.set('debug', '1');
   p.set('ts', g('topspd').value);
   p.set('mx', matrixOn ? '1' : '0');
+  p.set('nn', neonOn ? '1' : '0');
   p.set('au', sndOn ? '1' : '0');
   p.set('av', g('sndvol').value);
   p.set('su', skySim.on ? '1' : '0');
@@ -2966,6 +3039,7 @@ function applyState(p) {
   if (p.has('av')) setVal('sndvol', p.get('av'), 'input');
   if (p.has('ts')) setVal('topspd', p.get('ts'), 'input');
   if (p.get('mx') === '1') setMatrix(true);
+  if (p.get('nn') === '1') setNeon(true);
   if (p.get('au') === '1')                       // autoplay policy: arm on first gesture
     addEventListener('pointerdown', () => setSound(true), { once: true });
   if (p.has('sd')) setVal('skydate', p.get('sd'));

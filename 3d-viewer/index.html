@@ -215,6 +215,17 @@
   body.matrix #matrixfx{display:block}
   body.matrix{--accent:#39ff6a;--accent-dim:rgba(57,255,106,.16)}
   body.matrix #flashfx{background:#49ff7d}  /* lightning strobes phosphor, not white */
+  /* Sons of the Neon Night 風林火山 (HKS-35): snowbound noir — desaturated murky
+     grade on the world, film grain + vignette, neon signage the only colour */
+  body.neon #app>canvas{filter:grayscale(1) contrast(1.22) brightness(.9)}
+  #noirvig{position:fixed;inset:0;z-index:12;pointer-events:none;display:none;
+    background:radial-gradient(ellipse at 50% 45%, transparent 50%, rgba(0,0,0,.62) 100%)}
+  #noirfx{position:fixed;inset:0;width:100vw;height:100vh;z-index:13;pointer-events:none;
+    display:none;opacity:.5;mix-blend-mode:overlay}
+  body.neon #noirvig,body.neon #noirfx{display:block}
+  body.neon{--accent:#ff3d67;--accent-dim:rgba(255,61,103,.15)}
+  body.neon .lbl,body.neon .lbl small,body.neon .lbl.lmk small{color:#ff5c8a!important;
+    text-shadow:0 0 7px rgba(255,61,120,.75),0 0 18px rgba(255,61,120,.4),0 1px 4px rgba(0,0,0,.9)}
   body.matrix .lbl,body.matrix .lbl small,body.matrix .lbl.lmk small{color:#4bff79!important;
     font-family:var(--mono);text-shadow:0 0 6px rgba(57,255,106,.6),0 1px 4px rgba(0,0,0,.9)}
   @keyframes mxflicker{0%,91%,95%,100%{opacity:.5}92%{opacity:.36}93%{opacity:.56}94%{opacity:.42}}
@@ -334,6 +345,8 @@
 <div id="flashfx"></div>
 <canvas id="dripfx"></canvas>
 <canvas id="matrixfx"></canvas>
+<div id="noirvig"></div>
+<canvas id="noirfx" width="256" height="144"></canvas>
 <div id="panel">
   <div id="sheetgrip" title="Hide controls" aria-hidden="true"></div>
   <div id="collapsedbar">
@@ -345,6 +358,7 @@
     <div class="pbtns">
       <button id="langbtn" title="Language" style="width:auto;padding:0 8px;font-size:11px;font-weight:600">中</button>
       <button id="matrixbtn" title="See the simulation for what it is (M)">🕶</button>
+      <button id="neonbtn" title="Sons of the Neon Night 風林火山 — snowbound noir (N)">🌃</button>
       <button id="navhelp-btn" title="How to navigate">?</button>
       <button id="collapse-btn" title="Collapse panel">–</button>
     </div>
@@ -474,6 +488,7 @@
       <label class="chk"><input type="checkbox" id="snow"/> <span data-i18n="wx.snow">Snow</span></label>
     </div>
     <div id="wxlock" class="locknote"></div>
+    <div id="nnlock" class="locknote">◈ set by 風林火山 mode</div>
     <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.skyheight">Sky height ×</label>
       <input id="skyh" type="range" min="0.5" max="4" step="0.1" value="1"/>
       <span id="skyhv" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">1.0</span>
