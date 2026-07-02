@@ -17,6 +17,24 @@ file (via any static server) and deploys as plain files.
 
 **Live:** https://hongkong-sandbox.pages.dev
 
+<p align="center">
+  <img src="assets/screenshots/hero-satellite-night-flight.png" alt="Flying a plane over Victoria Harbour at night — Esri satellite skin, live weather HUD, real terrain" width="900"/>
+  <br/><sub>Flying over Victoria Harbour at night — satellite imagery, live weather, real terrain.</sub>
+</p>
+
+<table>
+<tr>
+<td width="33%"><img src="assets/screenshots/overview-control-panel.png" width="380"/><br/><sub>Control panel — sources, surfaces, overlays, weather</sub></td>
+<td width="33%"><img src="assets/screenshots/satellite-live-stations.png" width="380"/><br/><sub>Satellite skin + live HKO station cards</sub></td>
+<td width="33%"><img src="assets/screenshots/walk-mode.png" width="380"/><br/><sub>Walk mode — first-person, real pace</sub></td>
+</tr>
+<tr>
+<td width="33%"><img src="assets/screenshots/flight-mode.png" width="380"/><br/><sub>Flight mode — fly a plane over real terrain</sub></td>
+<td width="33%"><img src="assets/screenshots/matrix-mode.png" width="380"/><br/><sub>🕴 Matrix mode — the code behind the sandbox</sub></td>
+<td width="33%"><img src="assets/screenshots/neon-night-mode.png" width="380"/><br/><sub>❄️ 風林火山 — snowbound neon-noir</sub></td>
+</tr>
+</table>
+
 ## Features
 
 - **Real terrain** — official **HK 5 m LiDAR** (Lands Dept) and **SRTM ~30 m**, for
@@ -130,6 +148,24 @@ Notes:
 以真實數碼高程模型（DEM）建構，疊加實時開放數據。純靜態 HTML + ES modules + Three.js —— **零建置、無框架** —— 只要用任何靜態伺服器開啟檔案即可運行，部署就是複製檔案。
 
 **線上版：** https://hongkong-sandbox.pages.dev
+
+<p align="center">
+  <img src="assets/screenshots/hero-satellite-night-flight.png" alt="夜間駕駛飛機飛越維多利亞港 —— Esri 衛星圖、實時天氣資訊、真實地形" width="900"/>
+  <br/><sub>夜間飛越維多利亞港 —— 衛星影像、實時天氣、真實地形。</sub>
+</p>
+
+<table>
+<tr>
+<td width="33%"><img src="assets/screenshots/overview-control-panel.png" width="380"/><br/><sub>控制面板 —— 資料來源、表面、圖層、天氣</sub></td>
+<td width="33%"><img src="assets/screenshots/satellite-live-stations.png" width="380"/><br/><sub>衛星圖層 + 實時天文台氣象站資訊卡</sub></td>
+<td width="33%"><img src="assets/screenshots/walk-mode.png" width="380"/><br/><sub>步行模式 —— 第一人稱、真實步速</sub></td>
+</tr>
+<tr>
+<td width="33%"><img src="assets/screenshots/flight-mode.png" width="380"/><br/><sub>飛行模式 —— 駕駛飛機飛越真實地形</sub></td>
+<td width="33%"><img src="assets/screenshots/matrix-mode.png" width="380"/><br/><sub>🕴 Matrix 模式 —— 沙盤背後的程式碼</sub></td>
+<td width="33%"><img src="assets/screenshots/neon-night-mode.png" width="380"/><br/><sub>❄️ 風林火山 —— 雪夜霓虹</sub></td>
+</tr>
+</table>
 
 ### 功能
 
