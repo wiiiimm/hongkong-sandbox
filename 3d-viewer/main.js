@@ -548,7 +548,16 @@ function animateWeather() {
   if (weather.lightning) {
     if (flash > 0) { flash -= 0.08; hemi.intensity = baseHemi + flash * 5; }
     // quadratic, zero-floored: ~0 at low rate, intense near 100% (no always-on base term)
-    else if (Math.random() < thunderRate * thunderRate * 0.1) flash = 1;
+    else if (Math.random() < thunderRate * thunderRate * 0.1) {
+      if (Math.random() < 0.6) { spawnBolt(); flash = 1; }   // close forked strike
+      else flash = 0.55;                                     // distant sheet lightning
+    }
+  }
+  if (boltLife > 0) {
+    boltLife = Math.max(0, boltLife - 0.07);
+    if (boltGrp) boltGrp.material.opacity = boltLife > 0.7 ? 1 : boltLife / 0.7;
+    if (boltLight) boltLight.intensity = boltLife * 4;
+    if (boltLife === 0) disposeBolt();
   }
   if (flashfx) flashfx.style.opacity = weather.lightning ? (flash * 0.6).toFixed(3) : 0;   // white screen flash
 }
@@ -793,6 +802,52 @@ function applyControlLocks() {
   else if (storm)   { lock.textContent = t('lock.storm'); lock.style.display = 'block'; }
   else              { lock.style.display = 'none'; }
 }
+// ---- lightning bolts (HKS-13): forked channel geometry + localized glow ----
+// A strike builds a midpoint-displaced main channel from cloud base to a random
+// ground point, with 1–3 dying side forks, drawn additive and faded over ~15
+// frames. A point light at the channel glows nearby terrain; the existing
+// hemisphere pulse + screen flash stay in sync (sheet lightning skips the bolt).
+let boltGrp = null, boltLife = 0, boltLight = null;
+function disposeBolt() {
+  if (boltGrp) { world.remove(boltGrp); boltGrp.geometry.dispose(); boltGrp.material.dispose(); boltGrp = null; }
+}
+function spawnBolt() {
+  const b = bounds();
+  disposeBolt();
+  const gx = (Math.random()*2 - 1) * b.halfX * 0.8, gz = (Math.random()*2 - 1) * b.halfZ * 0.8;
+  const low = stormLevel > 0 ? 1 - 0.18 * windStrength : 1;
+  const topY = b.span * 0.30 * skyScale * low;               // cloud-base height
+  const v = [];
+  const jag = (x0, y0, z0, x1, y1, z1, steps, amp, forkDepth) => {
+    let px = x0, py = y0, pz = z0;
+    for (let i = 1; i <= steps; i++) {
+      const t = i / steps;
+      const nx = x0 + (x1-x0)*t + (Math.random()*2 - 1) * amp * (1 - t*0.5);
+      const ny = y0 + (y1-y0)*t;
+      const nz = z0 + (z1-z0)*t + (Math.random()*2 - 1) * amp * (1 - t*0.5);
+      v.push(px, py, pz, nx, ny, nz);
+      if (forkDepth > 0 && i > 2 && i < steps - 2 && Math.random() < 0.28) {
+        jag(nx, ny, nz,
+            nx + (Math.random()*2 - 1) * b.span*0.08, Math.max(ny - topY*(0.1 + Math.random()*0.2), 0),
+            nz + (Math.random()*2 - 1) * b.span*0.08,
+            4 + (Math.random()*3 | 0), amp * 0.6, forkDepth - 1);
+      }
+      px = nx; py = ny; pz = nz;
+    }
+  };
+  jag(gx + (Math.random()*2-1)*b.span*0.05, topY, gz + (Math.random()*2-1)*b.span*0.05, gx, 0, gz,
+      14, b.span * 0.02, 2);
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(v), 3));
+  boltGrp = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: 0xeaf4ff,
+    transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false }));
+  world.add(boltGrp);
+  if (!boltLight) { boltLight = new THREE.PointLight(0xcfe0ff, 0); world.add(boltLight); }
+  boltLight.distance = b.span * 0.6;
+  boltLight.position.set(gx, topY * 0.25, gz);
+  boltLife = 1;
+}
+
 function updateWindVisuals() {
   const w = windStrength;
   if (rainPts) rainPts.material.opacity = 0.3 + 0.4 * w;
@@ -974,7 +1029,10 @@ document.getElementById('navhelp-btn').addEventListener('click', () => {
 document.getElementById('fog').addEventListener('change', e => { weather.fog = e.target.checked; setFog(); });
 document.getElementById('rain').addEventListener('change', e => { weather.rain = e.target.checked; if (rainPts) rainPts.visible = weather.rain; });
 document.getElementById('clouds').addEventListener('change', e => { weather.clouds = e.target.checked; if (cloudGrp) cloudGrp.visible = weather.clouds; });
-document.getElementById('lightning').addEventListener('change', e => { weather.lightning = e.target.checked; if (!weather.lightning) { flash = 0; applyBg(bgMode); } });
+document.getElementById('lightning').addEventListener('change', e => {
+  weather.lightning = e.target.checked;
+  if (!weather.lightning) { flash = 0; boltLife = 0; disposeBolt(); if (boltLight) boltLight.intensity = 0; applyBg(bgMode); }
+});
 document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
 document.getElementById('skyh').addEventListener('input', e => {
   skyScale = parseFloat(e.target.value);
