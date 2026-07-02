@@ -254,21 +254,61 @@ function axisSamples(n, step) {
   return s;
 }
 
-// Intertidal "wet band": tint terrain within uBand (world units) above the water
-// line. A fixed VERTICAL band renders WIDE on gentle natural coasts/beaches and
-// vanishingly THIN on steep seawalls/cliffs — so tides read only where they'd
-// really show. Purely geometric; no shoreline classification needed.
-function attachTidalBand(mat) {
+// Tileable blotch texture driving the cloud-shadow pass (blobs re-drawn at ±size
+// offsets so the wrap is seamless when it scrolls with the wind)
+const CLOUD_SHADOW_TEX = (() => {
+  const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
+  const x = c.getContext('2d');
+  x.fillStyle = '#000'; x.fillRect(0, 0, S, S);
+  for (let i = 0; i < 26; i++) {
+    const px = Math.random() * S, py = Math.random() * S, r = 26 + Math.random() * 58;
+    for (const ox of [-S, 0, S]) for (const oy of [-S, 0, S]) {
+      const g = x.createRadialGradient(px + ox, py + oy, 0, px + ox, py + oy, r);
+      g.addColorStop(0, 'rgba(255,255,255,.5)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      x.fillStyle = g; x.fillRect(0, 0, S, S);
+    }
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return t;
+})();
+
+// Surface FX injected into every terrain/sea material (HKS-21/22, composing the
+// original intertidal band):
+//   wet band  — tint within uBand above the waterline (wide on beaches, thin on
+//               seawalls; purely geometric). Gated per-material by uWetAmt.
+//   cloud shadows — wind-scrolled tileable blotches darken the ground while the
+//               cloud layer is on; offset advances with the sprite drift.
+//   height fog — geometry below uFogY fades toward the sky/fog colour, so haze
+//               sits IN the valleys and over the sea, not just in front of them.
+function attachTerrainFX(mat, wet) {
   mat.onBeforeCompile = (sh) => {
     sh.uniforms.uWaterY = { value: -1e9 };
     sh.uniforms.uBand = { value: 12.0 };
+    sh.uniforms.uWetAmt = { value: wet ? 1 : 0 };
+    sh.uniforms.uCloudTex = { value: CLOUD_SHADOW_TEX };
+    sh.uniforms.uCloudOfs = { value: new THREE.Vector2(0, 0) };
+    sh.uniforms.uCloudScale = { value: 1 / 60000 };
+    sh.uniforms.uCloudAmt = { value: 0 };
+    sh.uniforms.uFogY = { value: 0 };
+    sh.uniforms.uFogAmt = { value: 0 };
+    sh.uniforms.uFogCol = { value: new THREE.Color(0x0e1116) };
     sh.vertexShader = sh.vertexShader
-      .replace('#include <common>', '#include <common>\nvarying float vTideY;')
-      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvTideY = position.y;');
+      .replace('#include <common>', '#include <common>\nvarying vec3 vLpos;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvLpos = position.xyz;');
     sh.fragmentShader = sh.fragmentShader
-      .replace('#include <common>', '#include <common>\nvarying float vTideY;\nuniform float uWaterY;\nuniform float uBand;')
-      .replace('#include <dithering_fragment>',
-        '#include <dithering_fragment>\n{ float d = vTideY - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d)); gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet*0.5); }');
+      .replace('#include <common>', `#include <common>
+        varying vec3 vLpos;
+        uniform float uWaterY; uniform float uBand; uniform float uWetAmt;
+        uniform sampler2D uCloudTex; uniform vec2 uCloudOfs; uniform float uCloudScale; uniform float uCloudAmt;
+        uniform float uFogY; uniform float uFogAmt; uniform vec3 uFogCol;`)
+      .replace('#include <dithering_fragment>', `#include <dithering_fragment>
+        { float d = vLpos.y - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d));
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet * 0.5 * uWetAmt); }
+        { float s = texture2D(uCloudTex, vLpos.xz * uCloudScale + uCloudOfs).r;
+          gl_FragColor.rgb *= 1.0 - smoothstep(0.35, 0.85, s) * uCloudAmt * 0.34; }
+        { float hf = (1.0 - smoothstep(0.0, uFogY, vLpos.y)) * uFogAmt;
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, uFogCol, hf * 0.8); }`);
     mat.userData.sh = sh;
   };
   mat.needsUpdate = true;
@@ -308,7 +348,9 @@ function buildTerrain() {
   matSolid  = new THREE.MeshBasicMaterial({ color: solidColor });                  // flat solid fill
   matTopo   = new THREE.MeshBasicMaterial({});   // unlit: show the map flat, no hillshade darkening
   tidalMats.length = 0;
-  [matShaded, matTint, matMatte].forEach(attachTidalBand);   // wet intertidal band on the terrain surfaces
+  [matShaded, matTint, matMatte].forEach(m => attachTerrainFX(m, true));   // wet band + shadows + fog
+  [matSolid, matTopo].forEach(m => attachTerrainFX(m, false));             // raster/solid: shadows + fog only
+  if (matWeb) tidalMats.push(matWeb);   // keep the web drape driven across source switches
 
   terrain = new THREE.Mesh(geo, matShaded);
   world.add(terrain);
@@ -369,6 +411,7 @@ function buildSea() {
   const geo = new THREE.PlaneGeometry(cell*W*1.8, cell*H*1.8);
   sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x2b5d78, transparent: true, opacity: 0.55, roughness: 0.4, depthWrite: false }));
   sea.rotation.x = -Math.PI/2; sea.position.y = 0.5;
+  attachTerrainFX(sea.material, false);   // cloud shadows sweep the water; fog swallows it
   world.add(sea);
 }
 
@@ -613,9 +656,25 @@ function animateWeather() {
     const ripple = weather.waves ? (Math.sin(wavePhase += 0.03 * (1 + w * 3)) * 0.5 + 0.5) * amp : 0;
     sea.position.y = SEA_Y + tide + surge + ripple;
   }
-  // drive the intertidal wet-band shader from the live water level (~4.5 m band)
+  // drive the surface FX: wet band from the live water level, cloud shadows
+  // scrolling with the sprite drift, height fog pooling below uFogY
   const wy = (sea && sea.visible) ? sea.position.y : -1e9;
-  for (const m of tidalMats) { const sh = m.userData.sh; if (sh) { sh.uniforms.uWaterY.value = wy; sh.uniforms.uBand.value = 4.5 * VE; } }
+  const shadowSpd = b.span * 0.0006 * (1 + w * 7);          // match the cloud sprites
+  const cAmt = (weather.clouds && cloudGrp) ? 0.4 + 0.45 * w : 0;
+  const fAmt = weather.fog ? 0.5 + 0.5 * w : 0;
+  const fogY = (30 + w * 40) * VE;
+  for (const m of tidalMats) {
+    const sh = m.userData.sh; if (!sh) continue;
+    sh.uniforms.uWaterY.value = wy; sh.uniforms.uBand.value = 4.5 * VE;
+    const sc = 1.6 / b.span;
+    sh.uniforms.uCloudScale.value = sc;
+    sh.uniforms.uCloudOfs.value.x -= windVec.x * shadowSpd * sc;
+    sh.uniforms.uCloudOfs.value.y -= windVec.z * shadowSpd * sc;
+    sh.uniforms.uCloudAmt.value = cAmt;
+    sh.uniforms.uFogAmt.value = fAmt;
+    sh.uniforms.uFogY.value = fogY;
+    renderer.getClearColor(sh.uniforms.uFogCol.value);
+  }
   if (weather.lightning) {
     if (flash > 0) { flash -= 0.08; hemi.intensity = baseHemi + flash * 5; }
     // quadratic, zero-floored: ~0 at low rate, intense near 100% (no always-on base term)
@@ -807,7 +866,7 @@ async function buildWebMap(kind) {
   webTex = new THREE.CanvasTexture(cv);
   webTex.colorSpace = THREE.SRGBColorSpace;
   webTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  if (!matWeb) matWeb = new THREE.MeshBasicMaterial();
+  if (!matWeb) { matWeb = new THREE.MeshBasicMaterial(); attachTerrainFX(matWeb, false); }
   matWeb.map = webTex; matWeb.needsUpdate = true;
   webKind = kind;
 }
