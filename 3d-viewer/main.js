@@ -1531,6 +1531,7 @@ function exitFlight() {
   document.getElementById('spindir').value = String(spinDir);
   setEngine(0);
   camera.up.set(0, 1, 0);
+  camera.fov = 38; camera.updateProjectionMatrix();   // back to the map's telephoto look
   controls.enabled = true;
   frameCamera();
 }
@@ -1618,6 +1619,14 @@ function stepFlight() {
   planeGrp.visible = !F.pov;                           // you can't see your own plane from inside
   if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += 0.25 + F.speed * 0.004;
   setEngine(sndOn ? 0.25 + 0.75 * (F.speed - 28) / 97 : 0);
+  // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
+  // — chase 55°, cockpit 68° — and stretches a few degrees more near full
+  // throttle. Eased so view switches breathe instead of snapping.
+  const fovT = (F.pov ? 68 : 55) + 6 * (F.speed - 62) / 63;
+  if (Math.abs(camera.fov - fovT) > 0.05) {
+    camera.fov += (fovT - camera.fov) * 0.06;
+    camera.updateProjectionMatrix();
+  }
   // --- cameras (world space: survives any leftover world spin)
   if (F.pov) {                                         // cockpit: rigid mount, horizon rolls
     _fc.copy(F.pos).addScaledVector(_fv, 8); _fc.y += 2.5;
