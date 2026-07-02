@@ -87,6 +87,21 @@ const I18N = {
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
+    'title.about': 'About · licence · contact',
+    'about': '<b>Hong Kong Sandbox · 香港沙盤</b>'
+      + '<p>Built by <b>wiiiimm</b> (William Li) — <a href="https://wiiiimm.design" target="_blank" rel="noopener">portfolio</a>. '
+      + 'Originally made for <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a>’s design work.</p>'
+      + '<p><a href="https://github.com/wiiiimm" target="_blank" rel="noopener">GitHub</a> · '
+      + '<a href="https://x.com/wiiiimm" target="_blank" rel="noopener">X</a> · '
+      + '<a href="https://www.threads.com/@_wiiiimm" target="_blank" rel="noopener">Threads</a></p>'
+      + '<p>Liquid‑glass panels by <a href="https://github.com/wiiiimm/glass-gl" target="_blank" rel="noopener">glass‑gl</a> — droplet refraction, blur, liquidness, chromatic dispersion & a directional rim glint, all refracting the live 3D scene.</p>'
+      + '<p>Free & open source under <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/LICENSE" target="_blank" rel="noopener">AGPL‑3.0</a> · '
+      + '<a href="https://github.com/wiiiimm/hongkong-sandbox" target="_blank" rel="noopener">source on GitHub</a>. '
+      + 'Feature requests & bug reports → <a href="https://github.com/wiiiimm/hongkong-sandbox/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>'
+      + '<p>Contact: <a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> · '
+      + 'commercial licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>'
+      + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
+      + '© 2026 William Li',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
     'lock.live': '◈ set by live weather — turn off sync below to adjust',
     'lock.storm': '◈ set by the storm signal — choose None to adjust',
@@ -117,6 +132,21 @@ const I18N = {
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
+    'title.about': '關於 · 授權 · 聯絡',
+    'about': '<b>香港沙盤 · Hong Kong Sandbox</b>'
+      + '<p>由 <b>wiiiimm</b>（William Li）製作 — <a href="https://wiiiimm.design" target="_blank" rel="noopener">作品集</a>。'
+      + '原為 <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a> 的設計工作而建。</p>'
+      + '<p><a href="https://github.com/wiiiimm" target="_blank" rel="noopener">GitHub</a> · '
+      + '<a href="https://x.com/wiiiimm" target="_blank" rel="noopener">X</a> · '
+      + '<a href="https://www.threads.com/@_wiiiimm" target="_blank" rel="noopener">Threads</a></p>'
+      + '<p>液態玻璃面板由 <a href="https://github.com/wiiiimm/glass-gl" target="_blank" rel="noopener">glass‑gl</a> 驅動 — 水滴折射、模糊、乳化、色散及方向性邊緣反光，全部即時折射 3D 場景。</p>'
+      + '<p>自由開源軟件，採用 <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/LICENSE" target="_blank" rel="noopener">AGPL‑3.0</a> 授權 · '
+      + '<a href="https://github.com/wiiiimm/hongkong-sandbox" target="_blank" rel="noopener">GitHub 原始碼</a>。'
+      + '功能建議及錯誤回報 → <a href="https://github.com/wiiiimm/hongkong-sandbox/issues" target="_blank" rel="noopener">GitHub issues</a>。</p>'
+      + '<p>聯絡：<a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> · '
+      + '商業授權<a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">條款</a>。</p>'
+      + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
+      + '© 2026 William Li',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
     'lock.live': '◈ 由即時天氣設定 — 關閉下方同步即可調整',
     'lock.storm': '◈ 由風暴信號設定 — 選「無」即可調整',
@@ -1467,6 +1497,11 @@ function applyGlassPreset(mode) {
 }
 document.getElementById('navhelp-btn').addEventListener('click', () => {
   const n = document.getElementById('navhelp'); n.style.display = n.style.display === 'none' ? '' : 'none';
+  document.getElementById('about').style.display = 'none';
+});
+document.getElementById('about-btn').addEventListener('click', () => {
+  const a = document.getElementById('about'); a.style.display = a.style.display === 'none' ? '' : 'none';
+  document.getElementById('navhelp').style.display = 'none';
 });
 document.getElementById('fog').addEventListener('change', e => {
   weather.fog = e.target.checked; setFog();
