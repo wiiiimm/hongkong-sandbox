@@ -369,7 +369,7 @@ function buildSea() {
 }
 
 // ---- weather effects: rain / clouds / fog / lightning / waves --------------
-let rainPts = null, cloudGrp = null, wavePhase = 0, flash = 0;
+let rainPts = null, rainHeads = null, cloudGrp = null, wavePhase = 0, flash = 0;
 const SEA_Y = 0.5;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false };
 let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
@@ -407,16 +407,19 @@ const CLOUD_TEX = (() => {
 function buildWeather() {
   const b = bounds(), hx = b.halfX, hz = b.halfZ, top = b.span * 0.45;
   if (rainPts) { world.remove(rainPts); rainPts.geometry.dispose(); rainPts.material.dispose(); }
-  const N = 7000, pos = new Float32Array(N * 3);
+  // rain as velocity-aligned streaks (HKS-11): drop heads live in rainHeads;
+  // the geometry holds head+tail per drop, tails stretched along the fall vector
+  const N = 6000;
+  rainHeads = new Float32Array(N * 3);
   for (let i = 0; i < N; i++) {
-    pos[i*3] = (Math.random()*2 - 1) * hx;
-    pos[i*3+1] = Math.random() * top;
-    pos[i*3+2] = (Math.random()*2 - 1) * hz;
+    rainHeads[i*3] = (Math.random()*2 - 1) * hx;
+    rainHeads[i*3+1] = Math.random() * top;
+    rainHeads[i*3+2] = (Math.random()*2 - 1) * hz;
   }
   const rg = new THREE.BufferGeometry();
-  rg.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  rainPts = new THREE.Points(rg, new THREE.PointsMaterial({ color: 0xbcd2e2, size: b.span*0.0016, transparent: true, opacity: 0.55, depthWrite: false }));
-  rainPts.userData.baseTop = top; rainPts.visible = weather.rain;
+  rg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 6), 3));
+  rainPts = new THREE.LineSegments(rg, new THREE.LineBasicMaterial({ color: 0xaec8da, transparent: true, opacity: 0.38, depthWrite: false }));
+  rainPts.userData.baseTop = top; rainPts.userData.N = N; rainPts.visible = weather.rain;
   world.add(rainPts);
 
   if (cloudGrp) { world.remove(cloudGrp); cloudGrp.traverse(o => o.material && o.material.dispose()); }
@@ -466,16 +469,26 @@ function setFog() {
 function animateWeather() {
   const b = bounds(), w = windStrength, hx = b.halfX, hz = b.halfZ;
   if (rainPts && rainPts.visible) {
-    const p = rainPts.geometry.attributes.position.array, top = rainPts.userData.top;
+    const g = rainPts.geometry, v = g.attributes.position.array;
+    const top = rainPts.userData.top, N = rainPts.userData.N;
     const fall = b.span * 0.012 * (1 + w * 1.6);          // driving rain falls faster in wind
     const dx = windVec.x * b.span * 0.02 * w, dz = windVec.z * b.span * 0.02 * w;   // blown sideways
-    for (let i = 0; i < p.length; i += 3) {
-      p[i] += dx; p[i+1] -= fall; p[i+2] += dz;
-      if (p[i+1] < 0) p[i+1] = top;
-      if (p[i]   >  hx) p[i]   -= 2*hx; else if (p[i]   < -hx) p[i]   += 2*hx;   // wrap horizontally
-      if (p[i+2] >  hz) p[i+2] -= 2*hz; else if (p[i+2] < -hz) p[i+2] += 2*hz;
+    // streak tails trail the velocity vector — longer with speed, sheet-like at T8+
+    const stretch = (0.55 + w * 1.1) * (stormLevel >= 8 ? 1.5 : 1);
+    const sx = -dx * stretch, sy = fall * stretch, sz = -dz * stretch;
+    for (let i = 0; i < N; i++) {
+      let x = rainHeads[i*3] + dx, y = rainHeads[i*3+1] - fall, z = rainHeads[i*3+2] + dz;
+      if (y < 0) y = top;
+      if (x >  hx) x -= 2*hx; else if (x < -hx) x += 2*hx;   // wrap horizontally
+      if (z >  hz) z -= 2*hz; else if (z < -hz) z += 2*hz;
+      rainHeads[i*3] = x; rainHeads[i*3+1] = y; rainHeads[i*3+2] = z;
+      const o = i * 6;
+      v[o]   = x;      v[o+1] = y;      v[o+2] = z;
+      v[o+3] = x + sx; v[o+4] = y + sy; v[o+5] = z + sz;
     }
-    rainPts.geometry.attributes.position.needsUpdate = true;
+    g.attributes.position.needsUpdate = true;
+    // density tracks intensity: drizzle uses ~55% of the drops, gales all of them
+    g.setDrawRange(0, Math.floor(N * (stormLevel >= 8 ? 1 : 0.55 + 0.45 * w)) * 2);
   }
   if (cloudGrp && cloudGrp.visible) {
     const spd = b.span * 0.0006 * (1 + w * 7);            // clouds race with the wind
@@ -750,8 +763,8 @@ function applyControlLocks() {
   else              { lock.style.display = 'none'; }
 }
 function updateWindVisuals() {
-  const b = bounds(), w = windStrength;
-  if (rainPts) { rainPts.material.opacity = 0.45 + 0.4 * w; rainPts.material.size = b.span * 0.0016 * (1 + w * 1.2); }
+  const w = windStrength;
+  if (rainPts) rainPts.material.opacity = 0.3 + 0.4 * w;
   if (cloudGrp) {
     const d = stormLevel > 0 ? 1 - w * 0.55 : 1;
     for (const s of cloudGrp.children) { s.material.color.setRGB(0.89 * d, 0.91 * d, 0.94 * d); s.material.opacity = 0.5 + w * 0.4; }
