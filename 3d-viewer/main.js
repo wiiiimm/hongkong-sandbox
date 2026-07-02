@@ -7,6 +7,7 @@ import * as THREE from './vendor/three.module.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
 import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, compassDeg } from './vendor/astro.js';
+import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, audioSupported } from './audio.js';
 
 // ---- source registry (extend with whole-HK + SRTM later) -------------------
 const SOURCES = {
@@ -80,7 +81,7 @@ const I18N = {
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
-    'grp.weather': 'Weather', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
+    'grp.weather': 'Weather', 'lbl.sound': 'Sound', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
     'lbl.skyheight': 'Sky height ×',
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
@@ -107,7 +108,7 @@ const I18N = {
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
-    'grp.weather': '天氣', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
+    'grp.weather': '天氣', 'lbl.sound': '音效', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
     'lbl.skyheight': '天空高度 ×',
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
@@ -619,8 +620,8 @@ function animateWeather() {
     if (flash > 0) { flash -= 0.08; hemi.intensity = baseHemi + flash * 5; }
     // quadratic, zero-floored: ~0 at low rate, intense near 100% (no always-on base term)
     else if (Math.random() < thunderRate * thunderRate * 0.1) {
-      if (Math.random() < 0.6) { spawnBolt(); flash = 1; }   // close forked strike
-      else flash = 0.55;                                     // distant sheet lightning
+      if (Math.random() < 0.6) { spawnBolt(); flash = 1; thunder(true); }   // close forked strike
+      else { flash = 0.55; thunder(false); }                 // distant sheet lightning
     }
   }
   if (boltLife > 0) {
@@ -933,6 +934,7 @@ function updateWindVisuals() {
     applySkyScale();
   }
   renderSky(); setFog();
+  updateAudioMix();
 }
 // apply a storm signal: preset the wind + escalate the weather effects
 function applyStorm(level) {
@@ -1257,6 +1259,31 @@ document.getElementById('lightning').addEventListener('change', e => {
   if (!weather.lightning) { flash = 0; boltLife = 0; disposeBolt(); if (boltLight) boltLight.intensity = 0; applyBg(bgMode); }
 });
 document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
+// ---- weather soundboard (HKS-2): procedural ambience, gesture-gated --------
+let sndOn = false;
+const sndBtn = document.getElementById('sndbtn');
+function setSound(on) {
+  sndOn = on && audioSupported();
+  setAudioEnabled(sndOn);
+  sndBtn.textContent = sndOn ? '🔊' : '🔇';
+  sndBtn.classList.toggle('on', sndOn);
+  if (sndOn) updateAudioMix();
+  syncUrl();
+}
+function updateAudioMix() {
+  if (!sndOn) return;
+  const w = windStrength;
+  setWeatherMix({
+    rain:  weather.rain  ? 0.35 + 0.65 * Math.max(w, stormLevel >= 8 ? 0.6 : 0) : 0,
+    wind:  Math.max(w, stormLevel > 0 ? 0.25 : 0),
+    waves: weather.waves ? 0.3 + 0.7 * w : 0,
+    fog:   weather.fog ? 1 : 0,
+  });
+}
+sndBtn.addEventListener('click', () => setSound(!sndOn));
+document.getElementById('sndvol').addEventListener('input', e => setMasterVolume(parseInt(e.target.value, 10) / 100));
+setInterval(updateAudioMix, 700);   // live/tide/storm drift folds into the mix
+
 function syncSkyControls() {
   const g = id => document.getElementById(id);
   const manual = skySim.on && !skySim.live;    // Custom time = the only scrubable mode
@@ -1749,6 +1776,8 @@ function serializeState() {
   p.set('cl', weather.clouds ? '1' : '0');
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
+  p.set('au', sndOn ? '1' : '0');
+  p.set('av', g('sndvol').value);
   p.set('su', skySim.on ? '1' : '0');
   p.set('sl', skySim.live ? '1' : '0');
   if (!skySim.live) { p.set('sd', skySim.date); p.set('sm', String(skySim.minutes)); }
@@ -1802,6 +1831,9 @@ function applyState(p) {
   if (p.has('cl')) setChk('clouds', p.get('cl') === '1');
   if (p.has('li')) setChk('lightning', p.get('li') === '1');
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
+  if (p.has('av')) setVal('sndvol', p.get('av'), 'input');
+  if (p.get('au') === '1')                       // autoplay policy: arm on first gesture
+    addEventListener('pointerdown', () => setSound(true), { once: true });
   if (p.has('sd')) setVal('skydate', p.get('sd'));
   if (p.has('sm')) setVal('skytime', p.get('sm'), 'input');
   if (p.has('su') || p.has('sl')) {
