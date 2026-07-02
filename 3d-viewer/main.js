@@ -395,12 +395,27 @@ const SIGNAL_NAME = {
 };
 const setWindDir = dir => { const v = WIND_VEC[dir] || WIND_VEC.N; windVec.x = v[0]; windVec.z = v[1]; };
 
-const CLOUD_TEX = (() => {
-  const c = document.createElement('canvas'); c.width = c.height = 128;
-  const x = c.getContext('2d'), g = x.createRadialGradient(64, 64, 6, 64, 64, 64);
-  g.addColorStop(0, 'rgba(255,255,255,0.85)'); g.addColorStop(0.55, 'rgba(238,242,247,0.35)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
-  return new THREE.CanvasTexture(c);
+// three puff-cluster textures (HKS-12) — overlapping soft blobs with a shaded
+// underside, so clouds read as lumpy masses instead of uniform smudges
+const CLOUD_TEXS = (() => {
+  const mk = () => {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 128;
+    const x = c.getContext('2d');
+    for (let i = 0; i < 9; i++) {
+      const px = 40 + Math.random() * 176, py = 46 + Math.random() * 36;
+      const r = 26 + Math.random() * 42;
+      const g = x.createRadialGradient(px, py, r * 0.1, px, py, r);
+      g.addColorStop(0, `rgba(255,255,255,${0.28 + Math.random() * 0.3})`);
+      g.addColorStop(0.6, 'rgba(240,244,249,0.16)');
+      g.addColorStop(1, 'rgba(255,255,255,0)');
+      x.fillStyle = g; x.fillRect(0, 0, 256, 128);
+    }
+    const sh = x.createLinearGradient(0, 40, 0, 128);   // flat, shaded base
+    sh.addColorStop(0, 'rgba(0,0,0,0)'); sh.addColorStop(1, 'rgba(120,132,148,0.18)');
+    x.globalCompositeOperation = 'source-atop'; x.fillStyle = sh; x.fillRect(0, 0, 256, 128);
+    return new THREE.CanvasTexture(c);
+  };
+  return [mk(), mk(), mk()];
 })();
 
 // (re)build rain + clouds sized to the current source; visibility follows toggles
@@ -424,25 +439,40 @@ function buildWeather() {
 
   if (cloudGrp) { world.remove(cloudGrp); cloudGrp.traverse(o => o.material && o.material.dispose()); }
   cloudGrp = new THREE.Group();
-  const H = b.span * 0.34, n = 22, size = b.span * 0.34;
-  for (let i = 0; i < n; i++) {
-    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: CLOUD_TEX, color: 0xe2e8ef, transparent: true, opacity: 0.5, depthWrite: false }));
+  const size = b.span * 0.34;
+  // three altitude decks (HKS-12): low cumulus, mid scattered, high thin veil.
+  // cov buckets drive coverage (calm skies hide the tail; storms show everything)
+  const DECKS = [
+    { n: 18, y: 0.30, s: 1.0, flat: 0.50, op: 0.55 },
+    { n: 12, y: 0.42, s: 1.3, flat: 0.34, op: 0.34 },
+    { n: 8,  y: 0.56, s: 1.9, flat: 0.18, op: 0.20 },
+  ];
+  for (const d of DECKS) for (let i = 0; i < d.n; i++) {
+    const tex = CLOUD_TEXS[(Math.random() * CLOUD_TEXS.length) | 0];
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, color: 0xe2e8ef,
+      transparent: true, opacity: d.op, depthWrite: false, rotation: Math.random() * 0.4 - 0.2 }));
     s.position.set((Math.random()*2-1)*hx, 0, (Math.random()*2-1)*hz);
-    s.userData.baseY = H + Math.random()*b.span*0.12;
-    const w = size * (0.6 + Math.random());
-    s.scale.set(w, w*0.55, 1);
+    s.userData.baseY = b.span * (d.y + Math.random() * 0.06);
+    s.userData.baseOp = d.op;
+    s.userData.cov = Math.random();
+    s.userData.drift = 0.6 + Math.random() * 0.8;   // per-cloud speed variance
+    const w2 = size * d.s * (0.6 + Math.random());
+    s.scale.set(w2, w2 * d.flat, 1);
     cloudGrp.add(s);
   }
   cloudGrp.visible = weather.clouds;
   world.add(cloudGrp);
   applySkyScale();
+  updateWindVisuals();
 }
 
 // sky-layer height ×: view-only lift/scale of the weather layer (clouds + rain
 // ceiling), so low clouds don't bury the peaks at high vertical exaggeration
 function applySkyScale() {
   if (rainPts) rainPts.userData.top = rainPts.userData.baseTop * skyScale;
-  if (cloudGrp) for (const s of cloudGrp.children) s.position.y = s.userData.baseY * skyScale;
+  // storm ceilings hang lower — the decks drop as the wind rises
+  const low = stormLevel > 0 ? 1 - 0.18 * windStrength : 1;
+  if (cloudGrp) for (const s of cloudGrp.children) s.position.y = s.userData.baseY * skyScale * low;
 }
 
 // clear colour + light levels, darkened toward a storm sky as the wind rises
@@ -494,7 +524,8 @@ function animateWeather() {
     const spd = b.span * 0.0006 * (1 + w * 7);            // clouds race with the wind
     const cx = windVec.x * spd, cz = windVec.z * spd, lx = hx * 1.3, lz = hz * 1.3;
     for (const s of cloudGrp.children) {
-      s.position.x += cx; s.position.z += cz;
+      s.position.x += cx * s.userData.drift; s.position.z += cz * s.userData.drift;
+      s.material.rotation += 0.00015 * s.userData.drift * (1 + w * 2);   // slow churn
       if (s.position.x >  lx) s.position.x = -lx; else if (s.position.x < -lx) s.position.x = lx;
       if (s.position.z >  lz) s.position.z = -lz; else if (s.position.z < -lz) s.position.z = lz;
     }
@@ -767,7 +798,13 @@ function updateWindVisuals() {
   if (rainPts) rainPts.material.opacity = 0.3 + 0.4 * w;
   if (cloudGrp) {
     const d = stormLevel > 0 ? 1 - w * 0.55 : 1;
-    for (const s of cloudGrp.children) { s.material.color.setRGB(0.89 * d, 0.91 * d, 0.94 * d); s.material.opacity = 0.5 + w * 0.4; }
+    const cover = 0.6 + w * 0.4;              // coverage builds toward overcast with the wind
+    for (const s of cloudGrp.children) {
+      s.material.color.setRGB(0.89 * d, 0.91 * d, 0.94 * d);
+      s.material.opacity = Math.min(1, s.userData.baseOp * (1 + w * 0.9));
+      s.visible = s.userData.cov < cover;
+    }
+    applySkyScale();
   }
   renderSky(); setFog();
 }
