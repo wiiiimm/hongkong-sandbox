@@ -7,7 +7,7 @@ import * as THREE from './vendor/three.module.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
 import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
-import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, audioSupported } from './audio.js';
+import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, audioSupported } from './audio.js';
 
 // ---- source registry (extend with whole-HK + SRTM later) -------------------
 const SOURCES = {
@@ -86,7 +86,9 @@ const I18N = {
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
-    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · Esc exit',
+    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · C cockpit · Esc exit',
+    'fly.touch': 'tilt your phone to steer · auto throttle',
+    'fly.view': 'view', 'fly.exit': 'exit',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
     'lock.live': '◈ set by live weather — turn off sync below to adjust',
@@ -117,7 +119,9 @@ const I18N = {
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
-    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · Esc 離開',
+    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · C 駕駛艙 · Esc 離開',
+    'fly.touch': '傾斜手機轉向 · 自動油門',
+    'fly.view': '視角', 'fly.exit': '離開',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
     'lock.live': '◈ 由即時天氣設定 — 關閉下方同步即可調整',
@@ -1426,11 +1430,12 @@ function updateCelestial() {
 // Arcade model: ↑↓ pitch, ←→ bank (banking turns), ⇧/⌃ throttle; stalls sink,
 // the wind shoves you, storms rattle the stick, and the DEM heightfield is
 // solid — clip a ridge and you bounce off with a jolt. Chase camera; Esc exits.
-const flight = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0, roll: 0,
-                 speed: 0, keys: {}, prevSpin: 1 };
+const flight = { on: false, pov: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0, roll: 0,
+                 speed: 0, keys: {}, prevSpin: 1, helpT: 0,
+                 tilt: false, tiltRef: null, tiltBeta: 0, tiltGamma: 0 };
 let planeGrp = null;
 function buildPlane() {
-  const s = bounds().span * 0.0022;
+  const s = 4;                                          // ~18 m wingspan: readable, near real scale
   const grp = new THREE.Group();
   const body = new THREE.MeshStandardMaterial({ color: 0xe3e8f0, roughness: 0.55, metalness: 0.15 });
   const red  = new THREE.MeshStandardMaterial({ color: 0xc23b2e, roughness: 0.6 });
@@ -1449,6 +1454,10 @@ function buildPlane() {
   const fin = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.65, 0.55), red);
   fin.position.set(0, 0.4, 1.4);
   grp.add(fin);
+  const prop = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.09, 0.05), red);
+  prop.position.z = -2.16;
+  grp.add(prop);
+  grp.userData.prop = prop;
   grp.scale.setScalar(s);
   grp.visible = false;
   return grp;
@@ -1464,10 +1473,19 @@ function enterFlight() {
   // spawn over Chek Lap Kok heading east toward Kowloon; centre if out of source
   let col = (809897 - g.bE) / g.aE, row = (818635 - g.bN) / g.aN;
   if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { col = W / 2; row = H / 2; }
-  flight.pos.set((col - W/2) * cell, sampleE(col, row) * VE + b.span * 0.035, (row - H/2) * cell);
+  flight.pos.set((col - W/2) * cell, sampleE(col, row) * VE + 400 * VE, (row - H/2) * cell);
   flight.yaw = -Math.PI / 2;                           // east
   flight.pitch = 0; flight.roll = 0;
-  flight.speed = b.span * 0.0020;
+  flight.speed = 62;                                   // m/s — light-aircraft cruise (~120 kt)
+  flight.helpT = 480;                                  // show the how-to card for ~8 s
+  flight.tilt = false; flight.tiltRef = null;
+  // phones fly by tilting — ask iOS for the sensor from this tap's gesture
+  if (matchMedia('(pointer: coarse)').matches && typeof DeviceOrientationEvent !== 'undefined') {
+    const arm = () => { flight.tilt = true; flight.tiltRef = null; };
+    if (typeof DeviceOrientationEvent.requestPermission === 'function')
+      DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') arm(); }).catch(() => {});
+    else arm();
+  }
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('flybtn').classList.add('on');
   controls.enabled = false;
@@ -1481,6 +1499,8 @@ function exitFlight() {
   document.getElementById('flybtn').classList.remove('on');
   spinDir = flight.prevSpin;
   document.getElementById('spindir').value = String(spinDir);
+  setEngine(0);
+  camera.up.set(0, 1, 0);
   controls.enabled = true;
   frameCamera();
 }
@@ -1488,68 +1508,119 @@ document.getElementById('flybtn').addEventListener('click', () => flight.on ? ex
 addEventListener('keydown', e => {
   if (!flight.on) return;
   if (e.key === 'Escape') { exitFlight(); return; }
+  if (e.key.toLowerCase() === 'c') { flight.pov = !flight.pov; camera.up.set(0, 1, 0); return; }
   flight.keys[e.key.toLowerCase()] = true;
   if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
 });
 addEventListener('keyup', e => { flight.keys[e.key.toLowerCase()] = false; });
-if (new URLSearchParams(location.search).has('debug')) {   // automated-test handles
+addEventListener('deviceorientation', e => {           // phone tilt = the stick
+  if (!flight.on || !flight.tilt || e.beta == null) return;
+  if (flight.tiltRef == null) flight.tiltRef = e.beta;  // first reading calibrates neutral
+  flight.tiltBeta = e.beta; flight.tiltGamma = e.gamma || 0;
+});
+document.getElementById('flyhud').addEventListener('click', e => {   // touch affordances in the HUD
+  if (e.target.dataset.fly === 'exit') exitFlight();
+  else if (e.target.dataset.fly === 'view') { flight.pov = !flight.pov; camera.up.set(0, 1, 0); }
+});
+const FLY_DEBUG = new URLSearchParams(location.search).has('debug');
+if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serialization
   window.__flight = flight;
   window.__stepFlight = () => stepFlight();
 }
 
-const _fq = new THREE.Quaternion(), _fe = new THREE.Euler(), _fv = new THREE.Vector3(), _fc = new THREE.Vector3();
+const _fq = new THREE.Quaternion(), _fe = new THREE.Euler(), _fv = new THREE.Vector3();
+const _fc = new THREE.Vector3(), _fl = new THREE.Vector3(), _fu = new THREE.Vector3();
 const CARD = ['N','NE','E','SE','S','SW','W','NW'];
+const wrapPI = a => ((a + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
 function stepFlight() {
   if (!flight.on) return;
   const b = bounds(), F = flight, K = F.keys;
-  const pIn = (K['arrowup'] || K['w'] ? 1 : 0) - (K['arrowdown'] || K['s'] ? 1 : 0);
-  const rIn = (K['arrowright'] || K['d'] ? 1 : 0) - (K['arrowleft'] || K['a'] ? 1 : 0);
+  // --- stick: keyboard, or phone tilt when armed (speeds are real m/s at 60 fps)
+  let pIn = (K['arrowup'] || K['w'] ? 1 : 0) - (K['arrowdown'] || K['s'] ? 1 : 0);
+  let rIn = (K['arrowright'] || K['d'] ? 1 : 0) - (K['arrowleft'] || K['a'] ? 1 : 0);
   const tIn = (K['shift'] || K['e'] ? 1 : 0) - (K['control'] || K['q'] ? 1 : 0);
-  F.pitch = Math.max(-0.9, Math.min(0.9, F.pitch + pIn * 0.012 - F.pitch * 0.012));
-  F.roll  = Math.max(-1.0, Math.min(1.0, F.roll + rIn * 0.022 - F.roll * 0.03));
-  F.yaw  -= F.roll * 0.016;                            // bank into the turn
-  if (windStrength > 0.15) {                           // turbulence rattles the stick
-    F.pitch += (Math.random() - 0.5) * 0.007 * windStrength;
-    F.roll  += (Math.random() - 0.5) * 0.012 * windStrength;
+  if (F.tilt && F.tiltRef != null) {
+    pIn = Math.max(-1, Math.min(1, (F.tiltBeta - F.tiltRef) / 22));   // tilt forward = dive
+    rIn = Math.max(-1, Math.min(1, F.tiltGamma / 25));                // tilt sideways = bank
   }
-  const cruise = b.span * 0.0020, vmin = b.span * 0.0009, vmax = b.span * 0.0042;
-  F.speed = Math.max(vmin, Math.min(vmax, F.speed + tIn * b.span * 0.00004 - (F.speed - cruise) * 0.0015));
-  _fe.set(F.pitch, F.yaw, -F.roll * 0.9, 'YXZ');   // right bank = right wing down
+  F.pitch = Math.max(-0.55, Math.min(0.55, F.pitch + pIn * 0.007 - F.pitch * 0.012));
+  F.roll  = Math.max(-1.0, Math.min(1.0, F.roll + rIn * 0.02 - F.roll * 0.025));
+  // --- out of bounds: within the buffer a gentle hand banks you back to the map
+  const overX = Math.abs(F.pos.x) - b.halfX, overZ = Math.abs(F.pos.z) - b.halfZ;
+  const over = Math.max(overX, overZ), BUF = b.span * 0.18;
+  if (over > 0) {
+    const dyaw = wrapPI(Math.atan2(F.pos.x, F.pos.z) - F.yaw);        // heading toward centre
+    const grip = Math.min(1, over / BUF);
+    F.yaw += dyaw * grip * 0.005;                                     // a wide, patient arc
+    F.roll += Math.max(-1, Math.min(1, -dyaw)) * grip * 0.010;        // lean into the guided turn
+  }
+  F.yaw -= F.roll * 0.0016;                            // full bank ≈ 5.5°/s — a real, patient turn
+  if (windStrength > 0.15) {                           // turbulence rattles the stick
+    F.pitch += (Math.random() - 0.5) * 0.006 * windStrength;
+    F.roll  += (Math.random() - 0.5) * 0.010 * windStrength;
+  }
+  F.speed = Math.max(28, Math.min(125, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
+  _fe.set(F.pitch, F.yaw, -F.roll * 0.9, 'YXZ');       // right bank = right wing down
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
-  F.pos.addScaledVector(_fv, F.speed);
-  F.pos.y -= Math.max(0, cruise - F.speed) * 0.45;     // slow = sink (stall-ish)
-  F.pos.x += windVec.x * b.span * 0.0005 * windStrength;   // the wind shoves you
-  F.pos.z += windVec.z * b.span * 0.0005 * windStrength;
-  F.pos.x = Math.max(-b.halfX * 1.15, Math.min(b.halfX * 1.15, F.pos.x));
-  F.pos.z = Math.max(-b.halfZ * 1.15, Math.min(b.halfZ * 1.15, F.pos.z));
-  F.pos.y = Math.min(F.pos.y, b.span * 0.7);
-  // the DEM is solid: clip a ridge → jolt, bounce up, bleed speed
+  const mpf = F.speed / 60;                            // metres per frame
+  F.pos.x += _fv.x * mpf;
+  F.pos.z += _fv.z * mpf;
+  F.pos.y += _fv.y * mpf * VE;                         // climb in exaggerated y: slopes fly true
+  F.pos.y -= Math.max(0, 62 - F.speed) * 0.004 * VE;   // below cruise the nose gets heavy
+  F.pos.x += windVec.x * (25 * windStrength) / 60;     // a full gale drifts you ~25 m/s
+  F.pos.z += windVec.z * (25 * windStrength) / 60;
+  F.pos.x = Math.max(-(b.halfX + BUF), Math.min(b.halfX + BUF, F.pos.x));
+  F.pos.z = Math.max(-(b.halfZ + BUF), Math.min(b.halfZ + BUF, F.pos.z));
+  F.pos.y = Math.min(F.pos.y, 4000 * VE);              // service ceiling
+  // --- the DEM is solid: clip a ridge → jolt, bounce up, bleed speed
   const col = F.pos.x / cell + W / 2, row = F.pos.z / cell + H / 2;
   const gy = (col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1 ? sampleE(col, row) : 0) * VE;
-  const agl = F.pos.y - gy;
-  if (agl < b.span * 0.0015) {
-    F.pos.y = gy + b.span * 0.009;
-    F.pitch = 0.4; F.roll *= 0.3;
-    F.speed = Math.max(F.speed * 0.6, vmin);
+  const agl = (F.pos.y - gy) / VE;                     // real metres above ground
+  if (agl < 5) {
+    F.pos.y = gy + 30 * VE;
+    F.pitch = 0.35; F.roll *= 0.3;
+    F.speed = Math.max(F.speed * 0.65, 30);
     flash = Math.max(flash, 0.55);
   }
   planeGrp.position.copy(F.pos);
   planeGrp.quaternion.copy(_fq);
-  // chase camera in world space (survives any leftover world spin)
-  _fc.set(Math.sin(F.yaw), 0, Math.cos(F.yaw)).multiplyScalar(b.span * 0.045);
-  _fc.add(F.pos); _fc.y += b.span * 0.016;
-  world.localToWorld(_fc);
-  camera.position.lerp(_fc, 0.12);
-  _fv.copy(F.pos); world.localToWorld(_fv);
-  controls.target.copy(_fv);                           // keeps the adaptive clip planes honest
-  camera.lookAt(_fv);
-  // HUD: altitude (real metres), AGL, compass heading, arcade speed
+  planeGrp.visible = !F.pov;                           // you can't see your own plane from inside
+  if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += 0.25 + F.speed * 0.004;
+  setEngine(sndOn ? 0.25 + 0.75 * (F.speed - 28) / 97 : 0);
+  // --- cameras (world space: survives any leftover world spin)
+  if (F.pov) {                                         // cockpit: rigid mount, horizon rolls
+    _fc.copy(F.pos).addScaledVector(_fv, 8); _fc.y += 2.5;
+    world.localToWorld(_fc);
+    camera.position.copy(_fc);
+    _fl.copy(F.pos).addScaledVector(_fv, 2000); world.localToWorld(_fl);
+    _fu.set(0, 1, 0).applyQuaternion(_fq);
+    camera.up.copy(_fu);
+    camera.lookAt(_fl);
+  } else {                                             // chase: ~55 m back, 20 m up
+    _fc.set(Math.sin(F.yaw), 0, Math.cos(F.yaw)).multiplyScalar(55);
+    _fc.add(F.pos); _fc.y += 20;
+    world.localToWorld(_fc);
+    camera.up.set(0, 1, 0);
+    camera.position.lerp(_fc, 0.12);
+    _fl.copy(F.pos); world.localToWorld(_fl);
+    camera.lookAt(_fl);
+  }
+  _fl.copy(F.pos); world.localToWorld(_fl);
+  controls.target.copy(_fl);                           // keeps the adaptive clip planes honest
+  // --- HUD: real numbers (metres, knots), how-to card for the first seconds
   const az = ((-F.yaw / D2R) % 360 + 360) % 360;
-  document.getElementById('flyhud').innerHTML =
-    `✈ ${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl / VE))} m` +
+  const touch = F.tilt && F.tiltRef != null;
+  const stats = `✈ ${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
-    ` · ${Math.round(F.speed / vmax * 480)} kt<small>${t('fly.help')}</small>`;
+    ` · ${Math.round(F.speed * 1.944)} kt`;
+  const hints = (touch ? t('fly.touch') : t('fly.help')) +
+    ` &nbsp;<span data-fly="view" style="cursor:pointer;text-decoration:underline">${t('fly.view')}</span>` +
+    ` · <span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
+  if (F.helpT > 0) F.helpT--;
+  document.getElementById('flyhud').innerHTML = F.helpT > 0
+    ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
+    : `${stats}<small>${hints}</small>`;
 }
 
 // ---- camera framing + presets ---------------------------------------------
@@ -2326,6 +2397,7 @@ function serializeState() {
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
   p.set('sn', weather.snow ? '1' : '0');
+  if (FLY_DEBUG) p.set('debug', '1');
   p.set('au', sndOn ? '1' : '0');
   p.set('av', g('sndvol').value);
   p.set('su', skySim.on ? '1' : '0');

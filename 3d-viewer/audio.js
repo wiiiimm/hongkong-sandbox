@@ -100,6 +100,35 @@ export function setWeatherMix(m) {
   muffle.frequency.setTargetAtTime(m.fog > 0 ? 2200 : 20000, t, 0.8);
 }
 
+// aircraft engine (HKS-4): two detuned oscillators through a lowpass — pitch,
+// brightness and volume all follow the throttle. level 0 spins it down.
+let engine = null;
+export function setEngine(level) {
+  if (!ctx || !enabled) level = 0;
+  if (level > 0 && !engine) {
+    if (!ctx) return;
+    const o1 = ctx.createOscillator(); o1.type = 'sawtooth';
+    const o2 = ctx.createOscillator(); o2.type = 'triangle';
+    const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 700;
+    const g = ctx.createGain(); g.gain.value = 0;
+    o1.connect(f); o2.connect(f); f.connect(g); g.connect(muffle);
+    o1.start(); o2.start();
+    engine = { o1, o2, f, g };
+  }
+  if (!engine) return;
+  const t = ctx.currentTime;
+  if (level <= 0) {
+    engine.g.gain.setTargetAtTime(0, t, 0.25);
+    const e = engine; engine = null;
+    setTimeout(() => { try { e.o1.stop(); e.o2.stop(); } catch (_) {} }, 1200);
+    return;
+  }
+  engine.o1.frequency.setTargetAtTime(68 + level * 65, t, 0.12);
+  engine.o2.frequency.setTargetAtTime(34 + level * 32, t, 0.12);   // octave-down growl
+  engine.f.frequency.setTargetAtTime(450 + level * 950, t, 0.12);
+  engine.g.gain.setTargetAtTime(0.05 + level * 0.10, t, 0.15);
+}
+
 // one-shot rumble per strike. close: short delay, louder, with an initial
 // crack; distant sheet lightning: long delay, soft low roll.
 export function thunder(close) {
