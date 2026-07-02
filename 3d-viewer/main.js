@@ -86,6 +86,7 @@ const I18N = {
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
+    'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!',
     'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ boost · C cockpit · Esc exit',
     'fly.touch': 'tilt your phone to steer · auto throttle',
     'fly.view': 'view', 'fly.exit': 'exit',
@@ -138,6 +139,7 @@ const I18N = {
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
+    'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！',
     'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · C 駕駛艙 · Esc 離開',
     'fly.touch': '傾斜手機轉向 · 自動油門',
     'fly.view': '視角', 'fly.exit': '離開',
@@ -2808,11 +2810,45 @@ function applyState(p) {
   restoring = false;
 }
 
+const shareUrl = () => location.origin + location.pathname + '?' + serializeState();
+
 document.getElementById('copylink').addEventListener('click', async e => {
   const btn = e.currentTarget, label = btn.textContent;
-  const url = location.origin + location.pathname + '?' + serializeState();
-  try { await navigator.clipboard.writeText(url); btn.textContent = 'Copied!'; }
+  const url = shareUrl();
+  try { await navigator.clipboard.writeText(url); btn.textContent = t('share.copied'); }
   catch (_) { history.replaceState(null, '', '?' + serializeState()); btn.textContent = 'In address bar'; }
+  setTimeout(() => { btn.textContent = label; }, 1400);
+});
+
+// ---- share (HKS-26) --------------------------------------------------------
+// Touch devices with the Web Share API → the native OS sheet (WhatsApp / X /
+// Threads / … from installed apps). Desktop → an explicit per-network menu.
+const shareMenu = document.getElementById('sharemenu');
+function shareLink(target) {
+  const url = shareUrl(), text = t('share.text'), e = encodeURIComponent;
+  const links = {
+    wa: `https://wa.me/?text=${e(text + ' ' + url)}`,
+    x:  `https://twitter.com/intent/tweet?text=${e(text)}&url=${e(url)}`,
+    th: `https://www.threads.net/intent/post?text=${e(text + ' ' + url)}`,
+  };
+  if (links[target]) window.open(links[target], '_blank', 'noopener,noreferrer');
+}
+document.getElementById('sharebtn').addEventListener('click', () => {
+  const preferNative = navigator.share && matchMedia('(pointer: coarse)').matches;
+  if (preferNative) {
+    navigator.share({ title: t('share.title'), text: t('share.text'), url: shareUrl() })
+      .catch(() => { shareMenu.style.display = ''; });   // cancelled / unsupported → show the menu
+  } else {
+    shareMenu.style.display = shareMenu.style.display === 'none' ? '' : 'none';
+  }
+});
+document.getElementById('sh-wa').addEventListener('click', () => shareLink('wa'));
+document.getElementById('sh-x').addEventListener('click', () => shareLink('x'));
+document.getElementById('sh-th').addEventListener('click', () => shareLink('th'));
+document.getElementById('sh-copy').addEventListener('click', async e => {
+  const btn = e.currentTarget, label = btn.textContent;
+  try { await navigator.clipboard.writeText(shareUrl()); btn.textContent = t('share.copied'); }
+  catch (_) { history.replaceState(null, '', '?' + serializeState()); }
   setTimeout(() => { btn.textContent = label; }, 1400);
 });
 
