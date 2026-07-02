@@ -305,9 +305,12 @@
 
   <div class="grp">
     <div class="gt" data-i18n="grp.sky">Sun &amp; moon</div>
-    <div class="row">
-      <label class="chk" style="flex:1"><input type="checkbox" id="skyon" checked/> <span data-i18n="sky.sim">Real sun &amp; moon</span></label>
-      <label class="chk"><input type="checkbox" id="skylive" checked/> <span data-i18n="sky.live">Live</span></label>
+    <div class="row"><label class="k" data-i18n="lbl.skymode">Sky</label>
+      <select id="skymode">
+        <option value="live" selected data-i18n="sky.live">Live (HKT)</option>
+        <option value="fixed" data-i18n="sky.fixed">Custom time</option>
+        <option value="off" data-i18n="sky.off">Off · studio light</option>
+      </select>
     </div>
     <div class="row"><label class="k" data-i18n="lbl.date">Date</label>
       <input type="date" id="skydate"/>

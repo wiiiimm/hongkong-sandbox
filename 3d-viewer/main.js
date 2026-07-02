@@ -79,7 +79,7 @@ const I18N = {
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
-    'grp.sky': 'Sun & moon', 'sky.sim': 'Real sun & moon', 'sky.live': 'Live', 'lbl.date': 'Date', 'lbl.time': 'Time',
+    'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
     'grp.weather': 'Weather', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
     'lbl.skyheight': 'Sky height ×',
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
@@ -106,7 +106,7 @@ const I18N = {
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
-    'grp.sky': '日與月', 'sky.sim': '真實日月', 'sky.live': '即時', 'lbl.date': '日期', 'lbl.time': '時間',
+    'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
     'grp.weather': '天氣', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
     'lbl.skyheight': '天空高度 ×',
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
@@ -1259,17 +1259,21 @@ document.getElementById('lightning').addEventListener('change', e => {
 document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
 function syncSkyControls() {
   const g = id => document.getElementById(id);
-  g('skylive').disabled = !skySim.on;
-  g('skydate').disabled = !skySim.on || skySim.live;
-  g('skytime').disabled = !skySim.on || skySim.live;
-  if (!skySim.live) {          // leaving live: the scrub shows the fixed instant again
+  const manual = skySim.on && !skySim.live;    // Custom time = the only scrubable mode
+  g('skydate').disabled = !manual;
+  g('skytime').disabled = !manual;
+  if (manual) {                // entering custom: the scrub shows the fixed instant again
     g('skydate').value = skySim.date;
     g('skytime').value = skySim.minutes;
     g('skytimev').textContent = mmToHHMM(skySim.minutes);
   }
 }
-document.getElementById('skyon').addEventListener('change', e => { skySim.on = e.target.checked; celKey = ''; syncSkyControls(); updateCelestial(); });
-document.getElementById('skylive').addEventListener('change', e => { skySim.live = e.target.checked; celKey = ''; syncSkyControls(); updateCelestial(); });
+document.getElementById('skymode').addEventListener('change', e => {
+  const v = e.target.value;                    // live | fixed | off
+  skySim.on = v !== 'off';
+  skySim.live = v === 'live';
+  celKey = ''; syncSkyControls(); updateCelestial();
+});
 document.getElementById('skydate').addEventListener('change', e => { if (e.target.value) skySim.date = e.target.value; celKey = ''; updateCelestial(); });
 document.getElementById('skytime').addEventListener('input', e => {
   skySim.minutes = parseInt(e.target.value, 10) || 0;
@@ -1800,8 +1804,10 @@ function applyState(p) {
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
   if (p.has('sd')) setVal('skydate', p.get('sd'));
   if (p.has('sm')) setVal('skytime', p.get('sm'), 'input');
-  if (p.has('sl')) setChk('skylive', p.get('sl') === '1');
-  if (p.has('su')) setChk('skyon', p.get('su') === '1');
+  if (p.has('su') || p.has('sl')) {
+    const on = p.get('su') !== '0', live = p.get('sl') !== '0';
+    setVal('skymode', on ? (live ? 'live' : 'fixed') : 'off');
+  }
   if (p.has('sk')) setVal('skyh', p.get('sk'), 'input');
   if (p.has('ti')) setVal('tide', p.get('ti'), 'input');
   if (p.has('tr')) setVal('thunderrate', p.get('tr'), 'input');
