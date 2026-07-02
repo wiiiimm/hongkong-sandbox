@@ -49,7 +49,7 @@
   #panel{position:fixed;top:16px;left:16px;z-index:20;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:16px;padding:14px 15px;font-size:12.5px;line-height:1.5;
-    width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 32px);overflow:auto;
+    width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 76px);overflow:auto;
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   #panel::-webkit-scrollbar{width:8px}
   #panel::-webkit-scrollbar-thumb{background:var(--field-edge);border-radius:4px}
@@ -58,11 +58,31 @@
   #phead{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .pbtns{display:flex;gap:5px;flex:0 0 auto}
   .pbtns button, #collapsedbar button{width:26px;height:26px;padding:0;display:grid;place-items:center;font-size:14px;border-radius:8px}
-  #navhelp,#about{font-size:11px;color:var(--sub);line-height:1.7;border-top:1px solid var(--edge-soft);margin-top:10px;padding-top:9px}
-  #navhelp b,#about b{color:var(--ink);font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:10px;font-family:var(--mono)}
-  #about p{margin:7px 0 0}
-  #about a{color:var(--accent);text-decoration:none}
-  #about a:hover{text-decoration:underline}
+  #navhelp{font-size:11px;color:var(--sub);line-height:1.7;border-top:1px solid var(--edge-soft);margin-top:10px;padding-top:9px}
+  #navhelp b{color:var(--ink);font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-size:10px;font-family:var(--mono)}
+  /* floating branding / licence / credits — a corner chip that opens a popover.
+     Desktop: bottom-left (below the control panel). Mobile: top-left (see media query). */
+  #creditsbtn{position:fixed;left:16px;bottom:14px;z-index:21;display:flex;align-items:center;gap:6px;
+    padding:6px 11px;border-radius:10px;font-size:11px;color:var(--sub);letter-spacing:.02em;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass #creditsbtn{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #creditsbtn{background:rgba(252,250,246,.22)}
+  #creditsbtn .ci{font-size:13px;line-height:1;color:var(--accent)}
+  #creditsbtn:hover{border-color:var(--accent);color:var(--ink)}
+  #creditsbtn.on{border-color:var(--accent);color:var(--accent)}
+  #creditspop{position:fixed;left:16px;bottom:54px;z-index:22;display:none;
+    width:330px;max-width:calc(100vw - 32px);max-height:60vh;overflow:auto;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);border-radius:14px;padding:13px 15px;font-size:11px;color:var(--sub);line-height:1.7;
+    box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass #creditspop{background:rgba(10,13,18,.6)}
+  body.glass.ui-light #creditspop{background:rgba(252,250,246,.72)}
+  #creditspop.open{display:block}
+  #creditspop b{color:var(--ink);font-weight:600}
+  #creditspop p{margin:7px 0 0}
+  #creditspop a{color:var(--accent);text-decoration:none}
+  #creditspop a:hover{text-decoration:underline}
   #collapsedbar{display:none;align-items:center;gap:10px}
   .navmini{font-size:11px;color:var(--sub);white-space:normal;max-width:210px;line-height:1.45}
   #panel.collapsed{width:auto;padding:10px 12px}
@@ -202,6 +222,13 @@
     #stormbadge{left:12px;right:auto;transform:none;max-width:calc(52vw - 24px);box-sizing:border-box;
       white-space:normal;text-align:left;font-size:12px;padding:8px 12px}
     #mapattr{bottom:calc(7px + env(safe-area-inset-bottom))}
+    /* credits chip → top-left on phones (clear of the bottom sheet); icon-only to stay compact */
+    #creditsbtn{top:calc(12px + env(safe-area-inset-top));left:12px;bottom:auto;padding:0;
+      width:34px;height:34px;justify-content:center}
+    #creditsbtn .clabel{display:none}
+    #creditspop{top:calc(54px + env(safe-area-inset-top));left:12px;right:12px;bottom:auto;
+      width:auto;max-width:none;max-height:64vh}
+    #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
   }
 </style>
 </head>
@@ -388,22 +415,6 @@
     <button id="copylink" title="Copy a link to this exact view" data-i18n="btn.copylink">Copy link</button>
   </div>
 
-  <div id="about" data-i18n-html="about">
-    <b>Hong Kong Sandbox · 香港沙盤</b>
-    <p>Built by <b>wiiiimm</b> — <a href="https://wiiiimm.design" target="_blank" rel="noopener">portfolio</a>.
-    Originally made for <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a>'s design work.</p>
-    <p><a href="https://github.com/wiiiimm" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="https://x.com/wiiiimm" target="_blank" rel="noopener">X</a> ·
-    <a href="https://www.threads.com/@_wiiiimm" target="_blank" rel="noopener">Threads</a></p>
-    <p>Liquid‑glass panels by <a href="https://github.com/wiiiimm/glass-gl" target="_blank" rel="noopener">glass‑gl</a> — droplet refraction, blur, liquidness, chromatic dispersion &amp; a directional rim glint, all refracting the live 3D scene.</p>
-    <p>Free &amp; open source under <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/LICENSE" target="_blank" rel="noopener">AGPL‑3.0</a> ·
-    <a href="https://github.com/wiiiimm/hongkong-sandbox" target="_blank" rel="noopener">source on GitHub</a>.
-    Feature requests &amp; bug reports → <a href="https://github.com/wiiiimm/hongkong-sandbox/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>
-    <p>Contact &amp; commercial licensing: <a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> ·
-    licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>
-    <p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM &amp; B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>
-    © 2026 wiiiimm
-  </div>
   </div><!-- /#pbody -->
 </div>
 
@@ -422,6 +433,25 @@
   <div class="wx-src">HKO · data.gov.hk</div>
 </div>
 
+<button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">
+  <span class="ci" aria-hidden="true">ⓘ</span><span class="clabel" data-i18n="lbl.credits">Credits</span>
+</button>
+<div id="creditspop" role="dialog" aria-label="About Hong Kong Sandbox" data-i18n-html="about">
+  <b>Hong Kong Sandbox · 香港沙盤</b>
+  <p>Built by <b>wiiiimm</b> — <a href="https://wiiiimm.design" target="_blank" rel="noopener">portfolio</a>.
+  Originally made for <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a>'s design work.</p>
+  <p><a href="https://github.com/wiiiimm" target="_blank" rel="noopener">GitHub</a> ·
+  <a href="https://x.com/wiiiimm" target="_blank" rel="noopener">X</a> ·
+  <a href="https://www.threads.com/@_wiiiimm" target="_blank" rel="noopener">Threads</a></p>
+  <p>Liquid‑glass panels by <a href="https://github.com/wiiiimm/glass-gl" target="_blank" rel="noopener">glass‑gl</a> — droplet refraction, blur, liquidness, chromatic dispersion &amp; a directional rim glint, all refracting the live 3D scene.</p>
+  <p>Free &amp; open source under <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/LICENSE" target="_blank" rel="noopener">AGPL‑3.0</a> ·
+  <a href="https://github.com/wiiiimm/hongkong-sandbox" target="_blank" rel="noopener">source on GitHub</a>.
+  Feature requests &amp; bug reports → <a href="https://github.com/wiiiimm/hongkong-sandbox/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>
+  <p>Contact &amp; commercial licensing: <a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> ·
+  licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>
+  <p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM &amp; B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>
+  © 2026 wiiiimm
+</div>
 <script type="module" src="./main.js"></script>
 </body>
 </html>

@@ -87,7 +87,7 @@ const I18N = {
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
-    'title.about': 'About · licence · contact',
+    'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'about': '<b>Hong Kong Sandbox · 香港沙盤</b>'
       + '<p>Built by <b>wiiiimm</b> — <a href="https://wiiiimm.design" target="_blank" rel="noopener">portfolio</a>. '
       + 'Originally made for <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a>’s design work.</p>'
@@ -132,7 +132,7 @@ const I18N = {
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
-    'title.about': '關於 · 授權 · 聯絡',
+    'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'about': '<b>香港沙盤 · Hong Kong Sandbox</b>'
       + '<p>由 <b>wiiiimm</b> 製作 — <a href="https://wiiiimm.design" target="_blank" rel="noopener">作品集</a>。'
       + '原為 <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a> 的設計工作而建。</p>'
@@ -1498,6 +1498,18 @@ function applyGlassPreset(mode) {
 document.getElementById('navhelp-btn').addEventListener('click', () => {
   const n = document.getElementById('navhelp'); n.style.display = n.style.display === 'none' ? '' : 'none';
 });
+// ---- credits popover (floating corner chip) --------------------------------
+const creditsBtn = document.getElementById('creditsbtn');
+const creditsPop = document.getElementById('creditspop');
+function setCredits(open) {
+  creditsPop.classList.toggle('open', open);
+  creditsBtn.classList.toggle('on', open);
+  creditsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+creditsBtn.addEventListener('click', e => { e.stopPropagation(); setCredits(!creditsPop.classList.contains('open')); });
+creditsPop.addEventListener('click', e => e.stopPropagation());   // clicks inside stay open
+document.addEventListener('click', () => setCredits(false));       // click anywhere else closes
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setCredits(false); });
 document.getElementById('fog').addEventListener('change', e => {
   weather.fog = e.target.checked; setFog();
   if (mistGrp) mistGrp.visible = weather.fog;
