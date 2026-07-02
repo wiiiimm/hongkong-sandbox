@@ -114,6 +114,7 @@ const I18N = {
     'lock.live': '◈ set by live weather — turn off sync below to adjust',
     'lock.storm': '◈ set by the storm signal — choose None to adjust',
     'lock.sky': '◈ following live weather — turn off sync to adjust',
+    'lock.matrix': '◈ set by Matrix mode — 🕶 to wake up',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.loadfail': 'Load failed',
     'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
@@ -167,6 +168,7 @@ const I18N = {
     'lock.live': '◈ 由即時天氣設定 — 關閉下方同步即可調整',
     'lock.storm': '◈ 由風暴信號設定 — 選「無」即可調整',
     'lock.sky': '◈ 跟隨即時天氣 — 關閉同步即可調整',
+    'lock.matrix': '◈ 由 Matrix 模式設定 — 按 🕶 醒來',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.loadfail': '載入失敗',
     'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
@@ -723,6 +725,7 @@ function buildWeather() {
   applySkyScale();
   updateWindVisuals();
   celKey = '';   // bounds changed: reposition sun/moon/stars for the new span
+  if (matrixOn) applyMatrixLook();   // a source switch rebuilt the materials
 }
 
 // sky-layer height ×: view-only lift/scale of the weather layer (clouds + rain
@@ -770,6 +773,10 @@ function renderSky() {
     base.lerp(new THREE.Color(0x9fb3c8), snowAcc * (onPaper ? 0.25 : 0.12));
   }
   base.lerp(new THREE.Color(0x1a2028), k);
+  if (matrixOn) {                    // the void: near-black green, phosphor light
+    base.setHex(0x020a05);
+    sun.color.setHex(0x9cffb0);
+  }
   renderer.setClearColor(base, 1);
   baseHemi = hemiI * dim;
   baseSun  = sunI * dim;
@@ -1152,6 +1159,7 @@ function applyControlLocks() {
   const g = id => document.getElementById(id);
   const storm = stormLevel > 0;
   ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm);
+  if (matrixOn) g('rain').disabled = true;   // Matrix owns the rain
   g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
   g('tide').disabled    = liveMode;
   g('storm').disabled   = liveMode;
@@ -1201,7 +1209,7 @@ function spawnBolt() {
       14, b.span * 0.02, 2);
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(v), 3));
-  boltGrp = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: 0xeaf4ff,
+  boltGrp = new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color: matrixOn ? 0x66ff88 : 0xeaf4ff,
     transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false }));
   world.add(boltGrp);
   if (!boltLight) { boltLight = new THREE.PointLight(0xcfe0ff, 0); world.add(boltLight); }
@@ -1833,6 +1841,98 @@ function stepWalk() {
     : `${stats}<small>${hints}</small>`;
 }
 if (FLY_DEBUG) { window.__walk = walk; window.__stepWalk = () => stepWalk(); }
+
+// ---- Matrix mode (HKS-31): see the simulation for what it is ----------------
+// 🕶 (or M) reskins the whole scene into green-phosphor wireframe over a void,
+// with the iconic digital rain falling as a glyph overlay (katakana + digits +
+// 香港沙盒), green lightning, green fog, glyphified labels and a CRT flicker.
+// Works in orbit, flight and walk — it's all materials and overlays. Surface,
+// background, mesh and rain controls lock while Matrix owns them (locknote
+// pattern) and everything restores cleanly on exit.
+let matrixOn = false;
+const MX_CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789香港沙盒中環大嶼山日月風雨雷ΦΣΞψ$#*+';
+const matMxBlack = new THREE.MeshBasicMaterial({ color: 0x02120a });
+const matMxSea = new THREE.MeshBasicMaterial({ color: 0x1c9e50, wireframe: true, transparent: true, opacity: 0.3 });
+let mxPrevSea = null;
+const matrixCv = document.getElementById('matrixfx');
+const matrixCtx = matrixCv.getContext('2d');
+let mxCols = [];
+function applyMatrixLook() {          // idempotent — re-asserted after source rebuilds
+  if (!matrixOn || !terrain) return;
+  terrain.visible = true;
+  terrain.material = matMxBlack;
+  wireOverlay.visible = true;
+  wireOverlay.material.color.setHex(0x35ff6e);
+  wireOverlay.material.opacity = 0.4;
+  if (sea) { if (sea.material !== matMxSea) mxPrevSea = sea.material; sea.material = matMxSea; }
+  if (skin) skin.traverse(o => {
+    if (o.material && o.material.color) {
+      if (o.userData.preMatrix == null) o.userData.preMatrix = o.material.color.getHex();
+      o.material.color.setHex(0x2fe463);
+    }
+  });
+  if (rainPts) rainPts.visible = false;          // Matrix owns the rain
+}
+function setMatrix(on) {
+  if (on === matrixOn || !terrain) return;
+  matrixOn = on;
+  document.body.classList.toggle('matrix', on);
+  document.getElementById('matrixbtn').classList.toggle('on', on);
+  ['surf', 'bg', 'meshlines', 'mlcolor', 'mlhex', 'mlauto', 'solidcolor', 'solidhex']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.disabled = on; });
+  const lock = document.getElementById('mxlock');
+  lock.textContent = t('lock.matrix');
+  lock.style.display = on ? 'block' : 'none';
+  if (on) {
+    applyMatrixLook();
+    mxCols = [];
+  } else {
+    applyStyle(surfStyle);                       // restores surface + mesh overlay + wireLook
+    if (sea && mxPrevSea) sea.material = mxPrevSea;
+    if (skin) skin.traverse(o => {
+      if (o.material && o.material.color && o.userData.preMatrix != null) {
+        o.material.color.setHex(o.userData.preMatrix);
+        delete o.userData.preMatrix;
+      }
+    });
+    if (rainPts) rainPts.visible = weather.rain;
+    matrixCtx.clearRect(0, 0, matrixCv.width, matrixCv.height);
+  }
+  applyControlLocks();
+  renderSky(); setFog();
+  syncUrl();
+}
+document.getElementById('matrixbtn').addEventListener('click', () => setMatrix(!matrixOn));
+addEventListener('keydown', e => {
+  if (e.key.toLowerCase() !== 'm' || flight.on || walk.on) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
+  setMatrix(!matrixOn);
+});
+function stepMatrix() {               // the digital rain overlay
+  if (!matrixOn) return;
+  const cv = matrixCv;
+  if (cv.width !== innerWidth || cv.height !== innerHeight) {
+    cv.width = innerWidth; cv.height = innerHeight; mxCols = [];
+  }
+  const fs = 15, nCols = Math.ceil(cv.width / fs);
+  if (mxCols.length !== nCols)
+    mxCols = Array.from({ length: nCols }, () => ({ y: Math.random() * -cv.height, s: 2 + Math.random() * 4 }));
+  const x = matrixCtx;
+  x.globalCompositeOperation = 'destination-out';        // trails melt away
+  x.fillStyle = 'rgba(0,0,0,0.06)';
+  x.fillRect(0, 0, cv.width, cv.height);
+  x.globalCompositeOperation = 'source-over';
+  x.font = `${fs}px ui-monospace, monospace`;
+  for (let i = 0; i < nCols; i++) {
+    const c = mxCols[i];
+    x.fillStyle = Math.random() < 0.08 ? '#d6ffe2' : 'rgba(57,255,106,.9)';   // heads glint
+    x.fillText(MX_CHARS[(Math.random() * MX_CHARS.length) | 0], i * fs, c.y);
+    c.y += c.s;
+    if (c.y > cv.height + 30) { c.y = Math.random() * -300; c.s = 2 + Math.random() * 4; }
+  }
+}
+if (FLY_DEBUG) window.__setMatrix = setMatrix;
 
 // ---- corner UI (HKS-32): compass + snapshot ---------------------------------
 // The compass rose tracks the camera heading relative to TERRAIN north (the
@@ -2683,6 +2783,7 @@ function animate() {
   stepDrips();
   stepFlight();
   stepWalk();
+  stepMatrix();
   updateCompass();
   animateWeather();
   // storm screen shake — the terrain judders under the strongest signals
@@ -2725,6 +2826,7 @@ function serializeState() {
   p.set('wv', weather.waves ? '1' : '0');
   p.set('sn', weather.snow ? '1' : '0');
   if (FLY_DEBUG) p.set('debug', '1');
+  p.set('mx', matrixOn ? '1' : '0');
   p.set('au', sndOn ? '1' : '0');
   p.set('av', g('sndvol').value);
   p.set('su', skySim.on ? '1' : '0');
@@ -2783,6 +2885,7 @@ function applyState(p) {
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
   if (p.has('sn')) setChk('snow', p.get('sn') === '1');
   if (p.has('av')) setVal('sndvol', p.get('av'), 'input');
+  if (p.get('mx') === '1') setMatrix(true);
   if (p.get('au') === '1')                       // autoplay policy: arm on first gesture
     addEventListener('pointerdown', () => setSound(true), { once: true });
   if (p.has('sd')) setVal('skydate', p.get('sd'));

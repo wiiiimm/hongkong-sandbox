@@ -206,6 +206,14 @@
   .stn:hover .t{color:var(--accent)}
   #flashfx{position:fixed;inset:0;z-index:12;background:#eaf2ff;opacity:0;pointer-events:none;will-change:opacity}
   #dripfx{position:fixed;inset:0;z-index:15;pointer-events:none}
+  /* Matrix mode (HKS-31): glyph-rain overlay + phosphor accents + CRT flicker */
+  #matrixfx{position:fixed;inset:0;z-index:13;pointer-events:none;display:none;
+    opacity:.5;mix-blend-mode:screen;animation:mxflicker 4.7s steps(1) infinite}
+  body.matrix #matrixfx{display:block}
+  body.matrix{--accent:#39ff6a;--accent-dim:rgba(57,255,106,.16)}
+  body.matrix .lbl,body.matrix .lbl small,body.matrix .lbl.lmk small{color:#4bff79!important;
+    font-family:var(--mono);text-shadow:0 0 6px rgba(57,255,106,.6),0 1px 4px rgba(0,0,0,.9)}
+  @keyframes mxflicker{0%,91%,95%,100%{opacity:.5}92%{opacity:.36}93%{opacity:.56}94%{opacity:.42}}
   #flyhud{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);
     z-index:22;display:none;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:#eef2f6;
     background:rgba(10,13,18,.6);border:1px solid var(--edge);border-radius:11px;padding:8px 15px;
@@ -321,6 +329,7 @@
 <div id="app"></div>
 <div id="flashfx"></div>
 <canvas id="dripfx"></canvas>
+<canvas id="matrixfx"></canvas>
 <div id="panel">
   <div id="sheetgrip" title="Hide controls" aria-hidden="true"></div>
   <div id="collapsedbar">
@@ -331,6 +340,7 @@
     <h1 data-i18n="app.title">Hong Kong Sandbox</h1>
     <div class="pbtns">
       <button id="langbtn" title="Language" style="width:auto;padding:0 8px;font-size:11px;font-weight:600">中</button>
+      <button id="matrixbtn" title="See the simulation for what it is (M)">🕶</button>
       <button id="navhelp-btn" title="How to navigate">?</button>
       <button id="collapse-btn" title="Collapse panel">–</button>
     </div>
@@ -365,6 +375,7 @@
         <option value="sat" data-i18n="surf.sat">Satellite (Esri)</option>
       </select>
     </div>
+    <div id="mxlock" class="locknote">◈ set by Matrix mode</div>
     <div class="row" id="solidrow" style="display:none"><label class="k" data-i18n="lbl.fill">Fill colour</label>
       <input type="color" id="solidcolor" value="#262626" style="flex:0 0 34px;height:24px;padding:0;border:1px solid var(--field-edge);border-radius:6px;background:none;cursor:pointer"/>
       <input type="text" id="solidhex" value="#262626" spellcheck="false"
