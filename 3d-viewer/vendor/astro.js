@@ -135,6 +135,17 @@ export function moonTimes(date, lat, lng) {
   return r;
 }
 
+/* ---- stars -------------------------------------------------------------- */
+
+// az/alt of a fixed J2000 object (star) from its RA/Dec — the same hour-angle
+// reduction the sun/moon use, driven by local sidereal time. Precession since
+// J2000 is ~0.4° — irrelevant at scene scale.
+export function starPosition(date, lat, lng, raRad, decRad) {
+  const lw = rad * -lng, phi = rad * lat, d = toDays(date);
+  const H = siderealTime(d, lw) - raRad;
+  return { azimuth: azimuth(H, phi, decRad), altitude: altitude(H, phi, decRad) };
+}
+
 /* ---- helpers ----------------------------------------------------------- */
 
 // astro azimuth (from south, +west) → compass bearing degrees (0 N, 90 E)

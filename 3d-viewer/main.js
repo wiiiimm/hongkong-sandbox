@@ -6,7 +6,7 @@
 import * as THREE from './vendor/three.module.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
 import { createGlass } from './vendor/glass-gl.js';
-import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, compassDeg } from './vendor/astro.js';
+import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
 import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, audioSupported } from './audio.js';
 
 // ---- source registry (extend with whole-HK + SRTM later) -------------------
@@ -657,6 +657,7 @@ function buildWeather() {
   world.add(wallGrp);
   applySkyScale();
   updateWindVisuals();
+  celKey = '';   // bounds changed: reposition sun/moon/stars for the new span
 }
 
 // sky-layer height ×: view-only lift/scale of the weather layer (clouds + rain
@@ -1275,6 +1276,86 @@ const moonSpr  = new THREE.Sprite(new THREE.SpriteMaterial({ transparent: true, 
 sunRays.visible = sunSpr.visible = moonGlow.visible = moonSpr.visible = false;
 scene.add(sunRays, sunSpr, moonGlow, moonSpr);            // scene, not world: sky doesn't auto-spin
 
+// ---- star field (HKS-3): the real HK sky, sidereal-time oriented -----------
+// Bright-star catalogue on the celestial sphere in three magnitude buckets +
+// constellation stick figures. Fades in through astronomical twilight, dims
+// under a bright moon, and stars set below the horizon like everything else.
+let starData = null, starPts = [], starLines = null, starGeoms = null;
+const STAR_TEX = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 32;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(16, 16, 0, 16, 16, 15);
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.35, 'rgba(230,238,250,.65)');
+  g.addColorStop(1, 'rgba(220,230,250,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 32, 32);
+  return new THREE.CanvasTexture(c);
+})();
+const STAR_BUCKETS = [
+  { max: 0.6, size: 6.5, op: 1.0 },    // screen-space px — the famous ones burn brightest
+  { max: 1.7, size: 4.5, op: 0.9 },
+  { max: 9.0, size: 3.0, op: 0.7 },
+];
+fetch('data/hk-stars.json').then(r => r.json()).then(d => {
+  starData = d;
+  const idx = new Map(d.stars.map((s, i) => [s.id, i]));
+  starGeoms = STAR_BUCKETS.map(b => {
+    const members = d.stars.map((s, i) => i).filter(i => {
+      const m = d.stars[i].mag;
+      return m <= b.max && (b === STAR_BUCKETS[0] || m > STAR_BUCKETS[STAR_BUCKETS.indexOf(b) - 1].max);
+    });
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(members.length * 3), 3));
+    const pts = new THREE.Points(g, new THREE.PointsMaterial({ map: STAR_TEX, color: 0xeaf0fc,
+      size: 1, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false }));
+    pts.visible = false; scene.add(pts); starPts.push(pts);
+    return { members, geom: g };
+  });
+  const lg = new THREE.BufferGeometry();
+  lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(d.lines.length * 6), 3));
+  starLines = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: 0x9fb6d8,
+    transparent: true, opacity: 0, depthWrite: false }));
+  starLines.userData.lineIdx = d.lines.map(([a, b2]) => [idx.get(a), idx.get(b2)]);
+  starLines.visible = false; scene.add(starLines);
+  celKey = '';   // force a celestial refresh so the sky populates immediately
+});
+function updateStars(now) {
+  if (!starData || !starGeoms) return;
+  // fade: 0 above -4° sun altitude → 1 below -10°; a bright high moon washes stars out
+  const sunAltD = cel.sunAlt / D2R;
+  let fade = Math.max(0, Math.min(1, (-4 - sunAltD) / 6));
+  if (skySim.on && fade > 0 && cel.moonAlt > 0) fade *= 1 - 0.3 * cel.frac * Math.sin(cel.moonAlt);
+  const show = skySim.on && fade > 0.01;
+  const R = bounds().span * 1.5;
+  const dirs = new Float32Array(starData.stars.length * 3);
+  if (show) {
+    for (let i = 0; i < starData.stars.length; i++) {
+      const s = starData.stars[i];
+      const p = starPosition(now, HK_LAT, HK_LON, s.ra / 24 * Math.PI * 2, s.dec * D2R);
+      const az = compassDeg(p.azimuth) * D2R, alt = p.altitude;
+      if (alt < -0.02) { dirs[i*3+1] = -R; continue; }          // set stars park under the map
+      dirs[i*3]   = Math.sin(az) * Math.cos(alt) * R;
+      dirs[i*3+1] = Math.sin(alt) * R;
+      dirs[i*3+2] = -Math.cos(az) * Math.cos(alt) * R;
+    }
+  }
+  starGeoms.forEach((b, bi) => {
+    const pts = starPts[bi], arr = b.geom.attributes.position.array;
+    b.members.forEach((si, k) => { arr[k*3] = dirs[si*3]; arr[k*3+1] = dirs[si*3+1]; arr[k*3+2] = dirs[si*3+2]; });
+    b.geom.attributes.position.needsUpdate = true;
+    pts.material.size = STAR_BUCKETS[bi].size * Math.min(devicePixelRatio || 1, 2);
+    pts.material.opacity = STAR_BUCKETS[bi].op * fade;
+    pts.visible = show;
+  });
+  const la = starLines.geometry.attributes.position.array;
+  starLines.userData.lineIdx.forEach(([a, b2], k) => {
+    la[k*6]   = dirs[a*3]; la[k*6+1] = dirs[a*3+1]; la[k*6+2] = dirs[a*3+2];
+    la[k*6+3] = dirs[b2*3]; la[k*6+4] = dirs[b2*3+1]; la[k*6+5] = dirs[b2*3+2];
+  });
+  starLines.geometry.attributes.position.needsUpdate = true;
+  starLines.material.opacity = 0.3 * fade;
+  starLines.visible = show;
+}
+
 function placeCelestial() {
   if (!cel) return;
   const b = bounds(), R = b.span * 1.35, s = b.span;
@@ -1315,6 +1396,7 @@ function updateCelestial() {
     if (cel) {
       cel = null; celKey = '';
       sunSpr.visible = sunRays.visible = moonSpr.visible = moonGlow.visible = false;
+      starPts.forEach(p => p.visible = false); if (starLines) starLines.visible = false;
       sun.position.set(-1, 2, 1.4); sun.color.setHex(0xffffff);   // legacy fixed light
       renderSky(); setFog(); updateSkyInfo();
     }
@@ -1329,6 +1411,7 @@ function updateCelestial() {
           moonAlt: mp.altitude, moonAz: compassDeg(mp.azimuth) * D2R,
           frac: mi.fraction, phase: mi.phase };
   placeCelestial();
+  updateStars(now);
   if (skySim.live) {   // keep the scrub + date mirroring the live clock
     const tEl = document.getElementById('skytime'), dEl = document.getElementById('skydate');
     if (tEl) { tEl.value = hktMinutes(now); document.getElementById('skytimev').textContent = mmToHHMM(+tEl.value); }
