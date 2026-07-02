@@ -137,6 +137,9 @@
   select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
   option{background:#12161c;color:var(--ink)}
   input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer}
+  #spdgauge{flex:1;height:8px;border-radius:4px;background:var(--field-edge);overflow:hidden}
+  #spdfill{height:100%;width:0%;border-radius:4px;background:var(--accent)}
+  #spdfill.hot{background:#e0774a}
   input[type=date]{flex:1;min-width:0;background:var(--field);color:var(--ink);border:1px solid var(--field-edge);
     border-radius:8px;padding:5px 8px;font-size:12px;font-family:var(--mono);color-scheme:dark}
   input[type=date]:disabled{opacity:.45;cursor:not-allowed}
@@ -532,6 +535,15 @@
               style="flex:1;padding:10px 0;font-size:13px;font-weight:600" data-i18n="btn.walk">🚶 Walk</button>
       <button id="viewbtn" title="Camera view — chase / cockpit (C)"
               style="flex:0 0 92px;padding:10px 0" disabled>🎥 Chase</button>
+    </div>
+    <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
+      <input id="topspd" type="range" min="130" max="300" step="2" value="214"
+             title="Full-throttle speed — hold ␣ to get there"/>
+      <span id="topspdv" style="flex:0 0 48px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">214 kt</span>
+    </div>
+    <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
+      <div id="spdgauge"><div id="spdfill"></div></div>
+      <span id="spdpct" style="flex:0 0 48px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
     </div>
   </div>
 

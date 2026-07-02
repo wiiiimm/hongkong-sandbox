@@ -91,6 +91,7 @@ const I18N = {
     'fly.touch': 'tilt your phone to steer · auto throttle',
     'fly.view': 'view', 'fly.exit': 'exit',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
+    'lbl.topspeed': 'Top speed',
     'btn.walk': '🚶 Walk',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ jog · Esc exit',
     'walk.touch': 'drag to look', 'walk.jog': 'jogging',
@@ -145,6 +146,7 @@ const I18N = {
     'fly.touch': '傾斜手機轉向 · 自動油門',
     'fly.view': '視角', 'fly.exit': '離開',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
+    'lbl.topspeed': '極速',
     'btn.walk': '🚶 步行',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 快走 · Esc 離開',
     'walk.touch': '拖動視角', 'walk.jog': '快走中',
@@ -1503,7 +1505,7 @@ function updateCelestial() {
 // the wind shoves you, storms rattle the stick, and the DEM heightfield is
 // solid — clip a ridge and you bounce off with a jolt. Chase camera; Esc exits.
 const flight = { on: false, pov: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0, roll: 0,
-                 speed: 0, keys: {}, prevSpin: 1, helpT: 0,
+                 speed: 0, top: 110, keys: {}, prevSpin: 1, helpT: 0,
                  tilt: false, tiltRef: null, tiltBeta: 0, tiltGamma: 0 };
 let planeGrp = null;
 function buildPlane() {
@@ -1575,6 +1577,7 @@ function exitFlight() {
   spinDir = flight.prevSpin;
   document.getElementById('spindir').value = String(spinDir);
   setEngine(0);
+  updateSpeedGauge();                                 // park the gauge at —
   camera.up.set(0, 1, 0);
   camera.fov = 38; camera.updateProjectionMatrix();   // back to the map's telephoto look
   controls.enabled = true;
@@ -1597,6 +1600,22 @@ function toggleView() {
 }
 document.getElementById('flybtn').addEventListener('click', () => flight.on ? exitFlight() : enterFlight());
 document.getElementById('viewbtn').addEventListener('click', toggleView);
+// top-speed slider: what full gas (␣) accelerates to. Stored in real m/s,
+// shown in knots to match the HUD. The gauge below it reads % of this.
+function applyTopSpeed(kt) {
+  flight.top = kt / 1.944;
+  document.getElementById('topspdv').textContent = `${kt} kt`;
+}
+document.getElementById('topspd').addEventListener('input',
+  e => applyTopSpeed(+e.target.value));
+function updateSpeedGauge() {
+  const fill = document.getElementById('spdfill'), pct = document.getElementById('spdpct');
+  if (!flight.on) { fill.style.width = '0%'; pct.textContent = '—'; fill.classList.remove('hot'); return; }
+  const p = Math.max(0, Math.min(100, 100 * flight.speed / flight.top));
+  fill.style.width = p.toFixed(1) + '%';
+  pct.textContent = Math.round(p) + '%';
+  fill.classList.toggle('hot', p >= 97);              // redline glow at full gas
+}
 addEventListener('keydown', e => {
   if (walk.on) {
     if (e.key === 'Escape') { exitWalk(); return; }
@@ -1662,8 +1681,8 @@ function stepFlight() {
     F.pitch += (Math.random() - 0.5) * 0.006 * windStrength;
     F.roll  += (Math.random() - 0.5) * 0.010 * windStrength;
   }
-  F.speed = Math.max(28, Math.min(125, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
-  if (K[' ']) F.speed = Math.min(110, F.speed + 0.8);  // ␣ steps on the gas — brisk, not silly
+  F.speed = Math.max(28, Math.min(F.top, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
+  if (K[' ']) F.speed = Math.min(F.top, F.speed + 0.8); // ␣ steps on the gas, up to the top-speed slider
   _fe.set(F.pitch, F.yaw, -F.roll * 0.9, 'YXZ');       // right bank = right wing down
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
@@ -1690,11 +1709,11 @@ function stepFlight() {
   planeGrp.position.copy(F.pos);
   planeGrp.quaternion.copy(_fq);
   if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += 0.25 + F.speed * 0.004;
-  setEngine(sndOn ? 0.25 + 0.75 * (F.speed - 28) / 97 : 0);
+  setEngine(sndOn ? 0.25 + 0.75 * (F.speed - 28) / Math.max(20, F.top - 28) : 0);
   // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
   // — chase 55°, cockpit 68° — and stretches a few degrees more near full
   // throttle. Eased so view switches breathe instead of snapping.
-  const fovT = (F.pov ? 68 : 55) + 6 * (F.speed - 62) / 63;
+  const fovT = (F.pov ? 68 : 55) + 6 * (F.speed - 62) / Math.max(20, F.top - 62);
   if (Math.abs(camera.fov - fovT) > 0.05) {
     camera.fov += (fovT - camera.fov) * 0.06;
     camera.updateProjectionMatrix();
@@ -1732,6 +1751,7 @@ function stepFlight() {
   document.getElementById('flyhud').innerHTML = F.helpT > 0
     ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
     : `${stats}<small>${hints}</small>`;
+  updateSpeedGauge();
 }
 
 // ---- walk mode (HKS-33): first person on foot, at a real walking pace -------
@@ -2826,6 +2846,7 @@ function serializeState() {
   p.set('wv', weather.waves ? '1' : '0');
   p.set('sn', weather.snow ? '1' : '0');
   if (FLY_DEBUG) p.set('debug', '1');
+  p.set('ts', g('topspd').value);
   p.set('mx', matrixOn ? '1' : '0');
   p.set('au', sndOn ? '1' : '0');
   p.set('av', g('sndvol').value);
@@ -2885,6 +2906,7 @@ function applyState(p) {
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
   if (p.has('sn')) setChk('snow', p.get('sn') === '1');
   if (p.has('av')) setVal('sndvol', p.get('av'), 'input');
+  if (p.has('ts')) setVal('topspd', p.get('ts'), 'input');
   if (p.get('mx') === '1') setMatrix(true);
   if (p.get('au') === '1')                       // autoplay policy: arm on first gesture
     addEventListener('pointerdown', () => setSound(true), { once: true });
