@@ -168,13 +168,13 @@
     border-radius:8px;padding:6px 11px;cursor:pointer;font-size:11px;font-family:var(--sans);letter-spacing:.02em;
     transition:border-color .12s, background .12s}
   button:hover{background:rgba(255,255,255,.08);border-color:var(--accent)}
-  /* Fly is a split button: the flight-camera segment (chase/cockpit) docks onto
-     it and only exists while flying — the pairing is the explanation */
+  /* Fly and Walk are split buttons: the camera segment docks onto the mode
+     button and only exists while the mode is active — the pairing explains it */
   .splitbtn{display:flex;flex:1;gap:0}
-  .splitbtn #flybtn{flex:1;padding:10px 0;font-size:13px;font-weight:600}
-  .splitbtn #viewbtn{display:none;border-radius:0 8px 8px 0;border-left:none;padding:10px 12px;white-space:nowrap}
-  .splitbtn #flybtn.on{border-radius:8px 0 0 8px}
-  .splitbtn #flybtn.on+#viewbtn{display:block}
+  .splitbtn>button:first-child{flex:1;padding:10px 0;font-size:13px;font-weight:600}
+  .splitbtn>button+button{display:none;border-radius:0 8px 8px 0;border-left:none;padding:10px 12px;white-space:nowrap}
+  .splitbtn>button:first-child.on{border-radius:8px 0 0 8px}
+  .splitbtn>button.on+button{display:block}
   .btns{display:flex;gap:6px;flex-wrap:wrap}
   #sharemenu{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
   .sharebtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
@@ -575,13 +575,16 @@
                 data-i18n="btn.fly">✈ Fly</button>
         <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
       </div>
-      <button id="walkbtn" title="Air-drop at the view centre and walk the terrain in first person"
-              style="flex:1;padding:10px 0;font-size:13px;font-weight:600" data-i18n="btn.walk">🪂 Walk</button>
+      <div class="splitbtn">
+        <button id="walkbtn" title="Air-drop at the view centre and walk the terrain in first person"
+                data-i18n="btn.walk">🪂 Walk</button>
+        <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
+      </div>
     </div>
     <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
-      <input id="topspd" type="range" min="130" max="600" step="2" value="214"
-             title="Full-throttle speed — hold ␣ to get there"/>
-      <span id="topspdv" style="flex:0 0 48px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">214 kt</span>
+      <input id="topspd" type="range" min="130" max="600" step="2" value="214" disabled
+             title="Boost target — ␣ in flight, ⇧ on foot"/>
+      <span id="topspdv" style="flex:0 0 56px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
     </div>
     <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
       <div id="spdgauge"><div id="spdfill"></div></div>

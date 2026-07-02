@@ -94,8 +94,9 @@ const I18N = {
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
     'lbl.topspeed': 'Top speed',
     'btn.walk': '🪂 Walk',
-    'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ jog · Esc exit',
-    'walk.touch': 'drag to look', 'walk.jog': 'jogging', 'walk.dist': 'walked',
+    'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
+    'walk.touch': 'drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
+    'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'about': '<b>Hong Kong Sandbox · 香港沙盒</b>'
@@ -151,8 +152,9 @@ const I18N = {
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
     'lbl.topspeed': '極速',
     'btn.walk': '🪂 步行',
-    'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 快走 · Esc 離開',
-    'walk.touch': '拖動視角', 'walk.jog': '快走中', 'walk.dist': '已行',
+    'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
+    'walk.touch': '拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
+    'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'about': '<b>香港沙盒 · Hong Kong Sandbox</b>'
@@ -1570,6 +1572,7 @@ function enterFlight() {
   document.getElementById('flybtn').classList.add('on');
   document.getElementById('flybtn').blur();   // else Space (boost!) re-clicks the button and exits
   document.body.classList.add('flying');
+  setTopMode('fly');
   updateViewBtn();
   controls.enabled = false;
 }
@@ -1583,6 +1586,7 @@ function exitFlight() {
   spinDir = flight.prevSpin;
   document.getElementById('spindir').value = String(spinDir);
   setEngine(0);
+  setTopMode(null);
   updateSpeedGauge();                                 // park the gauge at —
   camera.up.set(0, 1, 0);
   camera.fov = 38; camera.updateProjectionMatrix();   // back to the map's telephoto look
@@ -1606,21 +1610,50 @@ function toggleView() {
 }
 document.getElementById('flybtn').addEventListener('click', () => flight.on ? exitFlight() : enterFlight());
 document.getElementById('viewbtn').addEventListener('click', toggleView);
-// top-speed slider: what full gas (␣) accelerates to. Stored in real m/s,
-// shown in knots to match the HUD. The gauge below it reads % of this.
-function applyTopSpeed(kt) {
-  flight.top = kt / 1.944;
-  document.getElementById('topspdv').textContent = `${kt} kt`;
+// top-speed slider — shared by fly and walk (William: one control, reset on
+// mode switch, disabled outside both). It sets what the boost key accelerates
+// to: ␣ in flight (knots), ⇧ on foot (km/h — the top end is frankly
+// superhuman). Stored in real m/s on the mode's own object.
+const TOPSPD = {
+  fly:  { min: 130, max: 600, step: 2, def: 214, unit: 'kt',   toMS: v => v / 1.944 },
+  walk: { min: 6,   max: 100, step: 1, def: 24,  unit: 'km/h', toMS: v => v / 3.6 },
+};
+let topMode = null;                                   // null | 'fly' | 'walk'
+function setTopMode(mode) {
+  topMode = mode;
+  const el = document.getElementById('topspd');
+  el.disabled = !mode;
+  if (!mode) { document.getElementById('topspdv').textContent = '—'; return; }
+  const c = TOPSPD[mode];
+  el.min = c.min; el.max = c.max; el.step = c.step;
+  el.value = c.def;                                   // reset on every mode switch
+  applyTopSpeed(c.def);
+}
+function applyTopSpeed(v) {
+  if (!topMode) return;
+  const c = TOPSPD[topMode];
+  if (topMode === 'fly') flight.top = c.toMS(v); else walk.top = c.toMS(v);
+  document.getElementById('topspdv').textContent = `${v} ${c.unit}`;
 }
 document.getElementById('topspd').addEventListener('input',
   e => applyTopSpeed(+e.target.value));
 function updateSpeedGauge() {
   const fill = document.getElementById('spdfill'), pct = document.getElementById('spdpct');
-  if (!flight.on) { fill.style.width = '0%'; pct.textContent = '—'; fill.classList.remove('hot'); return; }
-  const p = Math.max(0, Math.min(100, 100 * flight.speed / flight.top));
+  let p = null, hot = false;
+  if (flight.on) {
+    p = 100 * flight.speed / flight.top;
+    hot = p >= 97;
+  } else if (walk.on) {
+    p = 100 * walk.spd / walk.top;
+    if (walk.spd > 0.2)                               // a human gait is never a steady needle
+      p *= 1 + Math.sin(walk.bob * 2.1) * 0.05 + (Math.random() - 0.5) * 0.05;
+    hot = p >= 90;
+  }
+  if (p == null) { fill.style.width = '0%'; pct.textContent = '—'; fill.classList.remove('hot'); return; }
+  p = Math.max(0, Math.min(100, p));
   fill.style.width = p.toFixed(1) + '%';
   pct.textContent = Math.round(p) + '%';
-  fill.classList.toggle('hot', p >= 97);              // redline glow at full gas
+  fill.classList.toggle('hot', hot);                  // redline glow at full gas
 }
 // Resolve the LOGICAL key from the physical e.code first: with a CJK/IME input
 // source active, letter keydowns arrive as e.key === 'Process' and WASD would
@@ -1638,6 +1671,7 @@ function keyOf(e) {
 addEventListener('keydown', e => {
   if (walk.on) {
     if (e.key === 'Escape') { exitWalk(); return; }
+    if (keyOf(e) === 'c') { toggleWalkView(); return; }
     walk.keys[keyOf(e)] = true;
     if (e.code.startsWith('Arrow') || e.code === 'Space') e.preventDefault();
     return;
@@ -1779,7 +1813,8 @@ function stepFlight() {
 // with a ▶ auto-walk toggle in the HUD. Slopes steeper than ~45° block you.
 const walk = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: -0.04,
                keys: {}, prevSpin: 1, auto: false, helpT: 0, dist: 0, bob: 0,
-               dropV: 0, land: 0 };
+               vy: 0, land: 0, spd: 0, top: 24 / 3.6, pov: true };
+let hikerGrp = null;
 // ?nolock=1 — debug switch: skip pointer lock; mouse look becomes drag-to-look
 // so the keyboard path can be tested in isolation from the lock
 const NO_LOCK = new URLSearchParams(location.search).has('nolock');
@@ -1805,8 +1840,11 @@ function enterWalk() {
   if (Math.hypot(gx, gz) > 0.7) walk.yaw = Math.atan2(gx, gz);         // > ~35°: face downhill
   // air-drop insertion: start 60 m over the ground and fall in — you always
   // arrive ON the surface (never wedged inside a slope), and it reads as a spawn
-  walk.dropV = 0; walk.land = 0;
+  walk.vy = 0; walk.land = 0; walk.spd = 0;
   walk.pos.y = (sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
+  if (!hikerGrp) { hikerGrp = buildHiker(); world.add(hikerGrp); }
+  setTopMode('walk');
+  updateWalkViewBtn();
   camera.fov = 70; camera.updateProjectionMatrix();
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('walkbtn').classList.add('on');
@@ -1818,6 +1856,9 @@ function enterWalk() {
 function exitWalk() {
   if (!walk.on) return;
   walk.on = false; walk.keys = {};
+  if (hikerGrp) hikerGrp.visible = false;
+  setTopMode(null);
+  updateSpeedGauge();
   if (document.exitPointerLock) document.exitPointerLock();
   document.getElementById('flyhud').style.display = 'none';
   document.getElementById('walkbtn').classList.remove('on');
@@ -1856,16 +1897,61 @@ addEventListener('touchmove', e => {
 }, { passive: true });
 addEventListener('touchend', () => { _lastTouch = null; });
 
+// a low-poly hiker — olive jacket, backpack, sun hat, and the walking stick.
+// Built in real metres with limb pivots at hip/shoulder, scaled by VE so the
+// body matches the exaggerated eye height (1.7 m × VE).
+function buildHiker() {
+  const grp = new THREE.Group();
+  const m = c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.85 });
+  const olive = m(0x5a6b3f), pack = m(0xb0713a), skin = m(0xd7a97c),
+        pants = m(0x3b4148), hat = m(0xc9b37e), wood = m(0x6e4f2f);
+  const put = (mesh, x, y, z) => { mesh.position.set(x, y, z); grp.add(mesh); return mesh; };
+  const legG = new THREE.BoxGeometry(0.16, 0.9, 0.2);  legG.translate(0, -0.45, 0);   // pivot at hip
+  const armG = new THREE.BoxGeometry(0.12, 0.62, 0.14); armG.translate(0, -0.31, 0);  // pivot at shoulder
+  const legL = put(new THREE.Mesh(legG, pants), -0.12, 0.9, 0);
+  const legR = put(new THREE.Mesh(legG, pants),  0.12, 0.9, 0);
+  put(new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.62, 0.26), olive), 0, 1.21, 0);    // torso
+  put(new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.48, 0.2), pack), 0, 1.26, 0.24);   // backpack
+  put(new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 10), skin), 0, 1.64, 0);      // head
+  put(new THREE.Mesh(new THREE.ConeGeometry(0.24, 0.18, 12), hat), 0, 1.8, 0);        // sun hat
+  const armL = put(new THREE.Mesh(armG, olive), -0.3, 1.46, 0);
+  const armR = put(new THREE.Mesh(armG, olive),  0.3, 1.46, 0);
+  const stick = put(new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.035, 1.5, 8), wood),
+                    0.42, 0.75, -0.12);
+  stick.rotation.x = 0.15;
+  grp.userData = { legL, legR, armL, armR, stick };
+  grp.scale.setScalar(VE);
+  grp.visible = false;
+  return grp;
+}
+// walk camera views — first person ↔ chase, mirroring the flight pattern
+function updateWalkViewBtn() {
+  const b = document.getElementById('walkviewbtn');
+  b.textContent = walk.pov ? t('walk.fp') : t('walk.chase');
+  b.classList.toggle('on', !walk.pov);
+}
+function toggleWalkView() {
+  if (!walk.on) return;
+  walk.pov = !walk.pov;
+  updateWalkViewBtn();
+}
+document.getElementById('walkviewbtn').addEventListener('click', toggleWalkView);
+
 function stepWalk() {
   if (!walk.on) return;
   const K = walk.keys;
   const fwdIn = (K['w'] || K['arrowup'] ? 1 : 0) - (K['s'] || K['arrowdown'] ? 1 : 0) + (walk.auto ? 1 : 0);
   const strIn = (K['d'] || K['arrowright'] ? 1 : 0) - (K['a'] || K['arrowleft'] ? 1 : 0);
-  // pace scales with the vertical exaggeration: VE lifts the eye (1.7 m × VE),
-  // which makes true 1.4 m/s read as standing still on a 5 m DEM with no
-  // near-field detail — William's "bobbing but not moving". Scaling by VE keeps
-  // the motion parallax matched to the apparent eye height (≈4 m/s at VE 2.8).
-  const mps = (K['shift'] ? 4.0 : 1.4) * Math.max(1, VE) / 60;
+  // ⇧ is the gas on foot: speed winds up toward the top-speed slider (the top
+  // end is superhuman) and settles back to a 1.4 m/s stroll when released.
+  // Pace scales with the vertical exaggeration: VE lifts the eye (1.7 m × VE),
+  // so unscaled real pace reads as standing still on a 5 m DEM with no
+  // near-field detail. Scaling by VE keeps motion parallax matched.
+  const moving = !!(fwdIn || strIn);
+  const target = moving ? (K['shift'] ? walk.top : 1.4) : 0;
+  walk.spd += (target - walk.spd) * (target > walk.spd ? 0.045 : 0.12);
+  if (walk.spd < 0.02) walk.spd = 0;
+  const mps = walk.spd * Math.max(1, VE) / 60;
   const sy = Math.sin(walk.yaw), cy = Math.cos(walk.yaw);
   const dx = (-sy * fwdIn + cy * strIn) * mps;
   const dz = (-cy * fwdIn - sy * strIn) * mps;
@@ -1889,35 +1975,64 @@ function stepWalk() {
     // cliff dead ahead? slide along it (per-axis fallback) instead of freezing —
     // spawning face-first into a mountain used to pin you until you backed out
     if (step(dx, dz) || step(dx, 0) || step(0, dz))
-      walk.bob += K['shift'] ? 0.19 : 0.11;               // step cadence rises with a jog
+      walk.bob += Math.min(0.55, 0.07 + walk.spd * 0.035);   // cadence rises with speed
   }
   const g = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
   const eyeY = (g + 1.7) * VE;
-  const airborne = walk.pos.y > eyeY + 0.6 * VE;
-  if (airborne) {                                         // the drop: real gravity, soft cap
-    walk.dropV = Math.min(26, walk.dropV + 9.81 / 60);
-    walk.pos.y = Math.max(eyeY, walk.pos.y - (walk.dropV / 60) * VE);
-    if (walk.pos.y === eyeY) { walk.land = 0.6; walk.dropV = 0; }   // touchdown thud
+  const airborne = walk.pos.y > eyeY + 0.05 * VE || walk.vy > 0;
+  if (airborne) {                                         // drop-in / jump: real gravity
+    walk.vy = Math.max(-26, walk.vy - 9.81 / 60);         // soft terminal cap
+    walk.pos.y += (walk.vy / 60) * VE;
+    if (walk.pos.y <= eyeY && walk.vy < 0) {
+      walk.pos.y = eyeY;
+      walk.land = Math.min(0.7, -walk.vy / 35);           // thud scales with impact
+      walk.vy = 0;
+    }
   } else {
     walk.pos.y += (eyeY - walk.pos.y) * 0.3;              // smooth over the 5 m DEM stairs
+    if (K[' ']) walk.vy = 5.2;                            // ␣ = jump (~1.4 m apex)
   }
   walk.land *= 0.88;
   const bobY = Math.sin(walk.bob) * 0.08 * VE - walk.land * 1.1 * VE;   // bob + landing dip
   _fe.set(walk.pitch, walk.yaw, 0, 'YXZ');
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
-  _fc.copy(walk.pos); _fc.y += bobY; world.localToWorld(_fc);
-  camera.position.copy(_fc);
-  _fl.copy(walk.pos).addScaledVector(_fv, 150); world.localToWorld(_fl);
+  // the hiker's body: visible in chase view, gait swings limbs + stick
+  if (hikerGrp) {
+    hikerGrp.visible = !walk.pov;
+    if (!walk.pov) {
+      hikerGrp.position.set(walk.pos.x, walk.pos.y - 1.7 * VE + (airborne ? 0 : bobY), walk.pos.z);
+      hikerGrp.rotation.y = walk.yaw;
+      const u = hikerGrp.userData;
+      const sw = walk.spd > 0.2 ? Math.sin(walk.bob) * Math.min(0.75, 0.25 + walk.spd * 0.05) : 0;
+      u.legL.rotation.x = sw;         u.legR.rotation.x = -sw;
+      u.armL.rotation.x = -sw * 0.7;  u.armR.rotation.x = sw * 0.7;
+      u.stick.rotation.x = 0.15 + sw * 0.55;            // the stick plants with the stride
+    }
+  }
   camera.up.set(0, 1, 0);
-  camera.lookAt(_fl);
+  if (walk.pov) {                                       // first person: eyes on the ground
+    _fc.copy(walk.pos); _fc.y += bobY; world.localToWorld(_fc);
+    camera.position.copy(_fc);
+    _fl.copy(walk.pos).addScaledVector(_fv, 150); world.localToWorld(_fl);
+    camera.lookAt(_fl);
+  } else {                                              // chase: ~7 m back, watching the hiker
+    _fc.set(walk.pos.x + Math.sin(walk.yaw) * 7,
+            walk.pos.y + 1.4 * VE,
+            walk.pos.z + Math.cos(walk.yaw) * 7);
+    world.localToWorld(_fc);
+    camera.position.lerp(_fc, 0.18);
+    _fl.copy(walk.pos); _fl.y -= 0.5 * VE; world.localToWorld(_fl);
+    camera.lookAt(_fl);
+  }
   controls.target.copy(_fl);
   const az = ((-walk.yaw / D2R) % 360 + 360) % 360;
   const touch = matchMedia('(pointer: coarse)').matches;
   const odo = walk.dist < 1000 ? `${Math.round(walk.dist)} m` : `${(walk.dist / 1000).toFixed(2)} km`;
   const stats = `${airborne ? '🪂' : '🚶'} ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
+    (walk.spd > 0.3 ? ` · ${Math.round(walk.spd * 3.6)} km/h` : '') +
     ` · ${t('walk.dist')} ${odo}` +                       // odometer: live proof the keys register
-    (K['shift'] ? ` · ${t('walk.jog')}` : '');
+    (K['shift'] && moving ? ` · ${t('walk.jog')}` : '');
   const hints = (touch ? t('walk.touch') : t('walk.help')) +
     (touch ? ` &nbsp;<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '') +
     ` · <span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
@@ -1925,6 +2040,7 @@ function stepWalk() {
   document.getElementById('flyhud').innerHTML = walk.helpT > 0
     ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
     : `${stats}<small>${hints}</small>`;
+  updateSpeedGauge();
 }
 if (FLY_DEBUG) { window.__walk = walk; window.__stepWalk = () => stepWalk(); }
 
@@ -3042,7 +3158,6 @@ function serializeState() {
   p.set('wv', weather.waves ? '1' : '0');
   p.set('sn', weather.snow ? '1' : '0');
   if (FLY_DEBUG) p.set('debug', '1');
-  p.set('ts', g('topspd').value);
   p.set('mx', matrixOn ? '1' : '0');
   p.set('nn', neonOn ? '1' : '0');
   p.set('au', sndOn ? '1' : '0');
@@ -3103,7 +3218,6 @@ function applyState(p) {
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
   if (p.has('sn')) setChk('snow', p.get('sn') === '1');
   if (p.has('av')) setVal('sndvol', p.get('av'), 'input');
-  if (p.has('ts')) setVal('topspd', p.get('ts'), 'input');
   if (p.get('mx') === '1') setMatrix(true);
   if (p.get('nn') === '1') setNeon(true);
   if (p.get('au') === '1')                       // autoplay policy: arm on first gesture
@@ -3230,6 +3344,7 @@ function applyLocale(loc) {
   updateStormBadge(); applyControlLocks();
   const btn = document.getElementById('livebtn'); if (btn) btn.textContent = liveMode ? t('live.on') : t('live.sync');
   updateViewBtn();   // chase/cockpit label follows the locale
+  updateWalkViewBtn();
   if (liveMode) { syncLiveWeather(); syncLiveTide(); }
   if (stationsOn) refreshStations();
 }
