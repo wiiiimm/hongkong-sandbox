@@ -1,18 +1,29 @@
-# OG image generator (HKS-28).
-# Source hero = the in-app Snapshot (📷) taken in fly mode over the satellite
-# surface (renders the WebGL scene only — no UI). Point HERO at that PNG, then:
-#   python3 -m venv venv && venv/bin/pip install Pillow && venv/bin/python compose-og.py
-# Edit HERO/REPO paths below to your checkout. Output → 3d-viewer/og-image.jpg (1200x630).
-
 #!/usr/bin/env python3
-"""Compose the 1200x630 OG image: fly-mode+satellite hero + brand overlay (HKS-28)."""
+"""Compose the 1200x630 OG image: fly-mode + satellite hero + brand overlay (HKS-28).
+
+The hero is the in-app Snapshot (📷) taken in fly mode over the satellite surface
+(it renders the WebGL scene only — no UI chrome). Usage, from any checkout:
+
+    python3 -m venv venv && venv/bin/pip install Pillow
+    venv/bin/python assets/brand/compose-og.py path/to/hero.png
+
+All repo paths are derived from this file's location, so it runs anywhere; only the
+hero PNG is passed in (or drop it at assets/brand/og-hero.png as the default).
+Output → 3d-viewer/og-image.jpg (1200x630).
+"""
 import os
+import sys
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-REPO = "/Users/williamli/projects/wiiiimm/hongkong-3d-model/.claude/worktrees/hks-28-og"
-HERO = "/Users/williamli/.claude/jobs/9e1f6522/tmp/hero.png"
-ICON = f"{REPO}/assets/brand/hongkong-sandbox-icon-v2-rounded.png"
-OUT  = f"{REPO}/3d-viewer/og-image.jpg"
+# repo root = two levels up from this file (assets/brand/compose-og.py)
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ICON = os.path.join(REPO, "assets/brand/hongkong-sandbox-icon-v2-rounded.png")
+OUT  = os.path.join(REPO, "3d-viewer/og-image.jpg")
+HERO = sys.argv[1] if len(sys.argv) > 1 else os.path.join(REPO, "assets/brand/og-hero.png")
+if not os.path.exists(HERO):
+    sys.exit(f"hero image not found: {HERO}\n"
+             f"usage: python {os.path.basename(__file__)} <hero.png>  "
+             f"(a fly-mode + satellite Snapshot from the app)")
 
 W, H = 1200, 630
 

@@ -3154,6 +3154,7 @@ function applyLocale(loc) {
   setMeta('og-desc', t('meta.desc'));  setMeta('tw-desc', t('meta.desc'));
   setMeta('og-url', location.origin + location.pathname);
   setMeta('og-locale', isZh() ? 'zh_HK' : 'en_HK');
+  setMeta('og-locale-alt', isZh() ? 'en_HK' : 'zh_HK');
   document.body.dataset.locale = locale;
   for (const el of document.querySelectorAll('[data-i18n]'))       el.textContent = t(el.getAttribute('data-i18n'));
   for (const el of document.querySelectorAll('[data-i18n-title]')) el.title = t(el.getAttribute('data-i18n-title'));

@@ -25,6 +25,39 @@ function negotiate(request) {
 }
 const cookie = loc => `LOCALE=${loc}; Path=/; Max-Age=31536000; SameSite=Lax`;
 
+// Localized SEO / social-share metadata, rewritten into the served HTML per locale so
+// crawlers (which don't run main.js) get the right title/description/OG for /zh-hk/ vs
+// /en-hk/. Keep the strings in sync with main.js's doc.title / meta.desc (HKS-28).
+const SEO = {
+  'en-hk': { lang: 'en',
+    title: 'Hong Kong Sandbox — 3D terrain, live weather & typhoon sim',
+    desc: 'An interactive 3D Hong Kong — real LiDAR terrain, live Hong Kong Observatory weather, tides and typhoon signals (No.1–10). Fly it yourself. Bilingual (EN / 繁中).',
+    ogLocale: 'en_HK', ogAlt: 'zh_HK' },
+  'zh-hk': { lang: 'zh-HK',
+    title: '香港沙盒 — 3D 地形、實時天氣與颱風模擬',
+    desc: '互動 3D 香港 — 真實 LiDAR 地形、香港天文台實時天氣、潮汐及颱風信號（一號至十號）。親自駕駛飛越香港。中英雙語。',
+    ogLocale: 'zh_HK', ogAlt: 'en_HK' },
+};
+function localizeSEO(response, seg, origin) {
+  const s = SEO[seg];
+  if (!s) return response;
+  const canonical = `${origin}/${seg}/`;
+  const content = v => ({ element(el) { el.setAttribute('content', v); } });
+  return new HTMLRewriter()
+    .on('html',                                 { element(el) { el.setAttribute('lang', s.lang); } })
+    .on('title',                                { element(el) { el.setInnerContent(s.title); } })
+    .on('meta[name="description"]',             content(s.desc))
+    .on('link[rel="canonical"]',                { element(el) { el.setAttribute('href', canonical); } })
+    .on('meta[property="og:title"]',            content(s.title))
+    .on('meta[property="og:description"]',      content(s.desc))
+    .on('meta[property="og:url"]',              content(canonical))
+    .on('meta[property="og:locale"]',           content(s.ogLocale))
+    .on('meta[property="og:locale:alternate"]', content(s.ogAlt))
+    .on('meta[name="twitter:title"]',           content(s.title))
+    .on('meta[name="twitter:description"]',     content(s.desc))
+    .transform(response);
+}
+
 export async function onRequest(context) {
   const { request, next, env } = context;
   const url = new URL(request.url);
@@ -38,7 +71,7 @@ export async function onRequest(context) {
     out.headers.set('Content-Type', 'text/html; charset=utf-8');
     out.headers.append('Set-Cookie', cookie(seg));
     out.headers.set('x-locale', seg);
-    return out;
+    return localizeSEO(out, seg, url.origin);   // rewrite OG/canonical/title for crawlers (HKS-28)
   }
 
   const loc = negotiate(request);                                 // unprefixed → negotiate + redirect
