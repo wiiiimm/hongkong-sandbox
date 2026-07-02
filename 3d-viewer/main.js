@@ -89,6 +89,7 @@ const I18N = {
     'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ boost · C cockpit · Esc exit',
     'fly.touch': 'tilt your phone to steer · auto throttle',
     'fly.view': 'view', 'fly.exit': 'exit',
+    'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'about': '<b>Hong Kong Sandbox · 香港沙盒</b>'
@@ -137,6 +138,7 @@ const I18N = {
     'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · C 駕駛艙 · Esc 離開',
     'fly.touch': '傾斜手機轉向 · 自動油門',
     'fly.view': '視角', 'fly.exit': '離開',
+    'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'about': '<b>香港沙盒 · Hong Kong Sandbox</b>'
@@ -175,9 +177,6 @@ const isZh = () => locale === 'zh-hk';
 const GLASS_OK = matchMedia('(pointer: fine)').matches && innerWidth > 640;
 const app = document.getElementById('app');
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: GLASS_OK });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-app.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(38, 1, 10, 400000);
@@ -1484,7 +1483,7 @@ function buildPlane() {
   const fin = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.65, 0.55), red);
   fin.position.set(0, 0.4, 1.4);
   grp.add(fin);
-  const prop = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.09, 0.05), red);
+  const prop = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.07, 0.04), red);   // ~2.2 m blade
   prop.position.z = -2.16;
   grp.add(prop);
   grp.userData.prop = prop;
@@ -1518,6 +1517,8 @@ function enterFlight() {
   }
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('flybtn').classList.add('on');
+  document.body.classList.add('flying');
+  updateViewBtn();
   controls.enabled = false;
 }
 function exitFlight() {
@@ -1533,13 +1534,29 @@ function exitFlight() {
   camera.up.set(0, 1, 0);
   camera.fov = 38; camera.updateProjectionMatrix();   // back to the map's telephoto look
   controls.enabled = true;
+  document.body.classList.remove('flying');
+  updateViewBtn();
   frameCamera();
 }
+// the view button beside Fly mirrors the C key: chase ↔ cockpit
+function updateViewBtn() {
+  const b = document.getElementById('viewbtn');
+  b.disabled = !flight.on;
+  b.classList.toggle('on', flight.on && flight.pov);
+  b.textContent = flight.pov ? t('fly.cockpit') : t('fly.chase');
+}
+function toggleView() {
+  if (!flight.on) return;
+  flight.pov = !flight.pov;
+  camera.up.set(0, 1, 0);
+  updateViewBtn();
+}
 document.getElementById('flybtn').addEventListener('click', () => flight.on ? exitFlight() : enterFlight());
+document.getElementById('viewbtn').addEventListener('click', toggleView);
 addEventListener('keydown', e => {
   if (!flight.on) return;
   if (e.key === 'Escape') { exitFlight(); return; }
-  if (e.key.toLowerCase() === 'c') { flight.pov = !flight.pov; camera.up.set(0, 1, 0); return; }
+  if (e.key.toLowerCase() === 'c') { toggleView(); return; }
   flight.keys[e.key.toLowerCase()] = true;
   if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
 });
@@ -1551,7 +1568,7 @@ addEventListener('deviceorientation', e => {           // phone tilt = the stick
 });
 document.getElementById('flyhud').addEventListener('click', e => {   // touch affordances in the HUD
   if (e.target.dataset.fly === 'exit') exitFlight();
-  else if (e.target.dataset.fly === 'view') { flight.pov = !flight.pov; camera.up.set(0, 1, 0); }
+  else if (e.target.dataset.fly === 'view') toggleView();
 });
 const FLY_DEBUG = new URLSearchParams(location.search).has('debug');
 if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serialization
@@ -1630,7 +1647,7 @@ function stepFlight() {
   // --- cameras (world space: survives any leftover world spin)
   if (F.pov) {                                         // cockpit: seated just behind the cowl —
     _fu.set(0, 1, 0).applyQuaternion(_fq);             // nose + spinning prop stay in frame,
-    _fc.copy(F.pos).addScaledVector(_fv, 1.2).addScaledVector(_fu, 1.7);   // horizon rolls
+    _fc.copy(F.pos).addScaledVector(_fv, 2.2).addScaledVector(_fu, 2.3);   // horizon rolls
     world.localToWorld(_fc);
     camera.position.copy(_fc);
     _fl.copy(F.pos).addScaledVector(_fv, 2000); world.localToWorld(_fl);
@@ -1668,12 +1685,56 @@ function stepFlight() {
 // to north. The snapshot renders the scene at a 2× supersampled buffer, bakes
 // in the wordmark + tile attribution, and downloads a timestamped PNG. Works
 // identically in orbit and flight modes: it's the same scene camera.
-const compassRose = document.getElementById('compassrose');
+const compassCv = document.getElementById('compass');
+const compassCtx = compassCv.getContext('2d');
+const CARD4 = { 0: 'N', 90: 'E', 180: 'S', 270: 'W' };
 function updateCompass() {
-  const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
-  if (!fx && !fz) return;
-  const heading = Math.atan2(fx, -fz) + world.rotation.y;
-  compassRose.style.transform = `rotate(${(-heading / D2R).toFixed(1)}deg)`;
+  let heading;
+  if (flight.on) heading = -flight.yaw;                // in the air the tape IS the plane's heading
+  else {
+    const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
+    if (!fx && !fz) return;
+    heading = Math.atan2(fx, -fz) + world.rotation.y;
+  }
+  const deg = ((heading / D2R) % 360 + 360) % 360;
+  const w = compassCv.clientWidth, h = compassCv.clientHeight;
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  if (compassCv.width !== Math.round(w * dpr)) { compassCv.width = Math.round(w * dpr); compassCv.height = Math.round(h * dpr); }
+  const x = compassCtx;
+  x.setTransform(dpr, 0, 0, dpr, 0, 0);
+  x.clearRect(0, 0, w, h);
+  const lightUi = document.body.classList.contains('ui-light');
+  const ink = lightUi ? 'rgba(32,38,44,.9)' : 'rgba(238,242,246,.9)';
+  const sub2 = lightUi ? 'rgba(32,38,44,.42)' : 'rgba(238,242,246,.38)';
+  const acc = lightUi ? '#0b8f66' : '#35cba0';
+  const ppd = w / 80;                                  // 80° of tape in view
+  x.textAlign = 'center'; x.textBaseline = 'top'; x.lineWidth = 1;
+  for (let d = Math.floor((deg - 42) / 5) * 5; d <= deg + 42; d += 5) {
+    const px = w / 2 + (d - deg) * ppd;
+    if (px < 4 || px > w - 4) continue;
+    const dd = ((d % 360) + 360) % 360;
+    const major = dd % 30 === 0;
+    x.strokeStyle = major ? ink : sub2;
+    x.beginPath(); x.moveTo(px, h - 5); x.lineTo(px, h - 5 - (major ? 8 : dd % 10 === 0 ? 6 : 4)); x.stroke();
+    if (major) {
+      const card = CARD4[dd];
+      x.font = `${card ? '700 ' : ''}10px ui-monospace, monospace`;
+      x.fillStyle = dd === 0 ? acc : (card ? ink : sub2);
+      x.fillText(card || String(dd / 10).padStart(2, '0'), px, 5);
+    }
+  }
+  const fadeW = Math.min(34, w * 0.13);                // ends melt out like a real tape
+  x.globalCompositeOperation = 'destination-out';
+  let g = x.createLinearGradient(0, 0, fadeW, 0);
+  g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+  x.fillStyle = g; x.fillRect(0, 0, fadeW, h);
+  g = x.createLinearGradient(w, 0, w - fadeW, 0);
+  g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+  x.fillStyle = g; x.fillRect(w - fadeW, 0, fadeW, h);
+  x.globalCompositeOperation = 'source-over';
+  x.fillStyle = acc;                                   // lubber line
+  x.beginPath(); x.moveTo(w / 2 - 4, 0); x.lineTo(w / 2 + 4, 0); x.lineTo(w / 2, 6); x.closePath(); x.fill();
+  x.fillRect(w / 2 - 0.5, 6, 1, h - 10);
 }
 document.getElementById('compass').addEventListener('click', () => {
   if (flight.on) { flight.yaw = 0; return; }             // point the plane north
@@ -1827,7 +1888,7 @@ if (GLASS_OK) {
     glassFx = createGlass({ canvas: gcv, background: renderer.domElement, transparent: true });
     glassFx.register(panelEl, { radius: 16 });
     glassFx.register(wxhudEl, { radius: 14 });
-    glassFx.register(document.getElementById('compass'), { radius: 19 });   // corner controls too
+    glassFx.register(document.getElementById('compass'), { radius: 10 });   // corner controls too
     glassFx.register(document.getElementById('snapbtn'), { radius: 19 });
     document.body.classList.add('glass');
   } catch (e) {
@@ -2628,6 +2689,7 @@ function applyLocale(loc) {
   if (gridW) updateNote();
   updateStormBadge(); applyControlLocks();
   const btn = document.getElementById('livebtn'); if (btn) btn.textContent = liveMode ? t('live.on') : t('live.sync');
+  updateViewBtn();   // chase/cockpit label follows the locale
   if (liveMode) { syncLiveWeather(); syncLiveTide(); }
   if (stationsOn) refreshStations();
 }
