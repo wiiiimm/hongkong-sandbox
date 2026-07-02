@@ -461,6 +461,7 @@ function buildSea() {
 // ---- weather effects: rain / clouds / fog / lightning / waves --------------
 let rainPts = null, rainHeads = null, cloudGrp = null, mistGrp = null, wavePhase = 0, waveT = 0, flash = 0;
 let snowPts = null, snowMeta = null, snowAcc = 0;   // flakes + snow-cap build-up (0..1)
+let wallGrp = null, wallOp = 0;                     // T8+ rotating storm wall
 const SEA_Y = 0.5;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false, snow: false };
 let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
@@ -616,6 +617,25 @@ function buildWeather() {
   }
   mistGrp.visible = weather.fog;
   world.add(mistGrp);
+
+  // storm wall (HKS-21): a ragged ring of dark cloud circling the territory at
+  // low altitude, slowly rotating — the eyewall feel under gale signals (T8+)
+  if (wallGrp) { world.remove(wallGrp); wallGrp.traverse(o => o.material && o.material.dispose()); }
+  wallGrp = new THREE.Group();
+  const NW = 18, rr = b.span * 0.72;
+  for (let i = 0; i < NW; i++) {
+    const a = i / NW * Math.PI * 2, rj = 0.92 + Math.random() * 0.16;
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: CLOUD_TEXS[(Math.random() * CLOUD_TEXS.length) | 0], color: 0x3a4048,
+      transparent: true, opacity: 0, depthWrite: false, rotation: Math.random() * 0.5 - 0.25 }));
+    s.position.set(Math.cos(a) * rr * rj, 0, Math.sin(a) * rr * rj);
+    s.userData.baseY = b.span * (0.10 + Math.random() * 0.05);
+    const w2 = b.span * 0.42 * (0.8 + Math.random() * 0.5);
+    s.scale.set(w2, w2 * 0.42, 1);
+    wallGrp.add(s);
+  }
+  wallGrp.visible = false;
+  world.add(wallGrp);
   applySkyScale();
   updateWindVisuals();
 }
@@ -628,6 +648,7 @@ function applySkyScale() {
   // storm ceilings hang lower — the decks drop as the wind rises
   const low = stormLevel > 0 ? 1 - 0.18 * windStrength : 1;
   if (cloudGrp) for (const s of cloudGrp.children) s.position.y = s.userData.baseY * skyScale * low;
+  if (wallGrp) for (const s of wallGrp.children) s.position.y = s.userData.baseY * skyScale;
 }
 
 // clear colour + light levels: celestial sun/moon (when the sim is on) shape
@@ -717,6 +738,16 @@ function animateWeather() {
       if (p[i*3+2] >  hz) p[i*3+2] -= 2*hz; else if (p[i*3+2] < -hz) p[i*3+2] += 2*hz;
     }
     snowPts.geometry.attributes.position.needsUpdate = true;
+  }
+  // the storm wall fades in and slowly circles the map under gale signals
+  if (wallGrp) {
+    const target = stormLevel >= 8 ? 0.42 + 0.25 * w : 0;
+    wallOp += (target - wallOp) * 0.02;
+    wallGrp.visible = wallOp > 0.01;
+    if (wallGrp.visible) {
+      wallGrp.rotation.y -= 0.0009 * (0.5 + w);          // cyclonic drift
+      for (const s of wallGrp.children) s.material.opacity = wallOp;
+    }
   }
   // snow-caps build while it snows, melt when it stops (~8 s each way);
   // the sky/light grade cools alongside
