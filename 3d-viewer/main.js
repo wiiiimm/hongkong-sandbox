@@ -868,6 +868,7 @@ function applyControlLocks() {
   g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
   g('tide').disabled    = liveMode;
   g('storm').disabled   = liveMode;
+  g('skymode').disabled = liveMode;      // live weather owns the clock too (sky = live HKT)
   const lock = g('wxlock');
   if (liveMode)     { lock.textContent = t('lock.live');  lock.style.display = 'block'; }
   else if (storm)   { lock.textContent = t('lock.storm'); lock.style.display = 'block'; }
@@ -1503,6 +1504,10 @@ function tickHKClock() {
 function setLiveMode(on) {
   liveMode = on;
   document.getElementById('wxhud').style.display = on ? '' : 'none';
+  if (on) {                // live weather forces the sky to live HKT as well
+    const m = document.getElementById('skymode');
+    if (m.value !== 'live') { m.value = 'live'; m.dispatchEvent(new Event('change')); }
+  }
   applyControlLocks();     // live data owns everything; keeps storm-driven locks coherent too
   const btn = document.getElementById('livebtn');
   btn.textContent = on ? t('live.on') : t('live.sync');
