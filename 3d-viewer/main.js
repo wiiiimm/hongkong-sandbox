@@ -91,6 +91,7 @@ const I18N = {
     'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ boost · C cockpit · Esc exit',
     'fly.touch': 'tilt your phone to steer · auto throttle',
     'fly.view': 'view', 'fly.exit': 'exit',
+    'fly.landed': 'landed', 'fly.takeoff': '🛫 take off — ␣ or tap',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
     'lbl.topspeed': 'Top speed',
     'btn.walk': '🪂 Walk',
@@ -149,6 +150,7 @@ const I18N = {
     'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · C 駕駛艙 · Esc 離開',
     'fly.touch': '傾斜手機轉向 · 自動油門',
     'fly.view': '視角', 'fly.exit': '離開',
+    'fly.landed': '已降落', 'fly.takeoff': '🛫 起飛 — ␣ 或點擊',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
     'lbl.topspeed': '極速',
     'btn.walk': '🪂 步行',
@@ -1541,8 +1543,16 @@ function updateCelestial() {
 // the wind shoves you, storms rattle the stick, and the DEM heightfield is
 // solid — clip a ridge and you bounce off with a jolt. Chase camera; Esc exits.
 const flight = { on: false, pov: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0, roll: 0,
-                 speed: 0, top: 110, keys: {}, prevSpin: 1, helpT: 0,
+                 speed: 0, top: 110, keys: {}, prevSpin: 1, helpT: 0, landed: false,
                  tilt: false, tiltRef: null, tiltBeta: 0, tiltGamma: 0 };
+// lift off from a landing: a short catapult roll into a climb. ␣, a tap on the
+// map, or the HUD's take-off button all call this.
+function takeOff() {
+  if (!flight.on || !flight.landed) return;
+  flight.landed = false;
+  flight.speed = 55;
+  flight.pitch = 0.28;
+}
 let planeGrp = null;
 function buildPlane() {
   const s = 4;                                          // ~18 m wingspan: readable, near real scale
@@ -1588,6 +1598,7 @@ function enterFlight() {
   flight.yaw = -Math.PI / 2;                           // east
   flight.pitch = 0; flight.roll = 0;
   flight.speed = 62;                                   // m/s — light-aircraft cruise (~120 kt)
+  flight.landed = false;
   flight.helpT = 480;                                  // show the how-to card for ~8 s
   flight.tilt = false; flight.tiltRef = null;
   // phones fly by tilting — ask iOS for the sensor from this tap's gesture
@@ -1722,6 +1733,7 @@ addEventListener('deviceorientation', e => {           // phone tilt = the stick
 });
 document.getElementById('flyhud').addEventListener('click', e => {   // touch affordances in the HUD
   if (e.target.dataset.fly === 'exit') { exitFlight(); exitWalk(); }
+  else if (e.target.dataset.fly === 'takeoff') takeOff();
   else if (e.target.dataset.fly === 'view') toggleView();
   else if (e.target.dataset.fly === 'autowalk') walk.auto = !walk.auto;
 });
@@ -1763,8 +1775,10 @@ function stepFlight() {
     F.pitch += (Math.random() - 0.5) * 0.006 * windStrength;
     F.roll  += (Math.random() - 0.5) * 0.010 * windStrength;
   }
-  F.speed = Math.max(28, Math.min(F.top, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
-  if (K[' ']) F.speed = Math.min(F.top, F.speed + 0.8); // ␣ steps on the gas, up to the top-speed slider
+  if (!F.landed) {
+    F.speed = Math.max(28, Math.min(F.top, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
+    if (K[' ']) F.speed = Math.min(F.top, F.speed + 0.8); // ␣ steps on the gas, up to the top-speed slider
+  }
   _fe.set(F.pitch, F.yaw, -F.roll * 0.9, 'YXZ');       // right bank = right wing down
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
@@ -1778,20 +1792,27 @@ function stepFlight() {
   F.pos.x = Math.max(-(b.halfX + BUF), Math.min(b.halfX + BUF, F.pos.x));
   F.pos.z = Math.max(-(b.halfZ + BUF), Math.min(b.halfZ + BUF, F.pos.z));
   F.pos.y = Math.min(F.pos.y, 4000 * VE);              // service ceiling
-  // --- the DEM is solid: clip a ridge → jolt, bounce up, bleed speed
+  // --- touch the ground or the water and you LAND: wheels down, roll out to a
+  // stop, then ␣ / a tap / the HUD button lifts you off again
   const col = F.pos.x / cell + W / 2, row = F.pos.z / cell + H / 2;
   const gy = (col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1 ? sampleE(col, row) : 0) * VE;
-  const agl = (F.pos.y - gy) / VE;                     // real metres above ground
-  if (agl < 5) {
-    F.pos.y = gy + 30 * VE;
-    F.pitch = 0.35; F.roll *= 0.3;
-    F.speed = Math.max(F.speed * 0.65, 30);
-    flash = Math.max(flash, 0.55);
+  const surfY = Math.max(gy, sea && sea.visible ? sea.position.y : -Infinity);
+  const agl = (F.pos.y - surfY) / VE;                  // real metres above ground/water
+  if (F.landed) {
+    F.speed = Math.max(0, F.speed - 1.5);              // roll-out braking
+    F.pitch *= 0.8; F.roll *= 0.75;                    // settle level on the gear
+    F.pos.y = surfY + 2.2;
+    if (K[' ']) takeOff();
+  } else if (agl < 4 && _fv.y <= 0.02) {               // only while descending — a fresh
+    F.landed = true;                                   // climb-out stays airborne
+    F.pitch = Math.max(0, F.pitch * 0.3); F.roll *= 0.5;
+    F.pos.y = surfY + 2.2;
+    flash = Math.max(flash, 0.15);                     // a soft touchdown bump
   }
   planeGrp.position.copy(F.pos);
   planeGrp.quaternion.copy(_fq);
   if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += 0.25 + F.speed * 0.004;
-  setEngine(sndOn ? 0.25 + 0.75 * (F.speed - 28) / Math.max(20, F.top - 28) : 0);
+  setEngine(sndOn ? (F.landed ? 0.12 : 0.25 + 0.75 * (F.speed - 28) / Math.max(20, F.top - 28)) : 0);
   // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
   // — chase 55°, cockpit 68° — and stretches a few degrees more near full
   // throttle. Eased so view switches breathe instead of snapping.
@@ -1823,11 +1844,14 @@ function stepFlight() {
   // --- HUD: real numbers (metres, knots), how-to card for the first seconds
   const az = ((-F.yaw / D2R) % 360 + 360) % 360;
   const touch = F.tilt && F.tiltRef != null;
-  const stats = `✈ ${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +
+  const stats = `${F.landed ? '🛬' : '✈'} ${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
-    ` · ${Math.round(F.speed * 1.944)} kt`;
-  const hints = (touch ? t('fly.touch') : t('fly.help')) +
-    ` &nbsp;<span data-fly="view" style="cursor:pointer;text-decoration:underline">${t('fly.view')}</span>` +
+    ` · ${Math.round(F.speed * 1.944)} kt` +
+    (F.landed ? ` · ${t('fly.landed')}` : '');
+  const hints = (F.landed
+    ? `<span data-fly="takeoff" style="cursor:pointer;text-decoration:underline;font-weight:700">${t('fly.takeoff')}</span>`
+    : (touch ? t('fly.touch') : t('fly.help')) +
+      ` &nbsp;<span data-fly="view" style="cursor:pointer;text-decoration:underline">${t('fly.view')}</span>`) +
     ` · <span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
   if (F.helpT > 0) F.helpT--;
   document.getElementById('flyhud').innerHTML = F.helpT > 0
@@ -1907,6 +1931,9 @@ addEventListener('mousemove', e => {                      // pointer-lock look
 });
 renderer.domElement.addEventListener('click', () => {     // re-arm the lock after Esc
   if (walk.on && !NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+});
+renderer.domElement.addEventListener('pointerdown', () => {   // tap anywhere = take off
+  if (flight.on && flight.landed) takeOff();
 });
 // nolock debug mode: hold the left button and drag to look
 addEventListener('mousemove', e => {
