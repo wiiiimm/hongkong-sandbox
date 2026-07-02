@@ -263,7 +263,40 @@ async function loadSource(id) {
   // dev: propagate the page's ?v to data fetches so edits bust cache; no-op in prod
   const ver = new URLSearchParams(location.search).get('v');
   const q = ver ? ('?v=' + ver) : '';
-  const fj = u => fetch(u + q, { cache: 'no-cache' }).then(r => r.json());   // revalidate (304 if unchanged) so stale DEMs never stick
+  // streamed fetch with byte progress: the loader and the panel note show real
+  // MB downloaded, and a % + bar when Content-Length adds up (with gzip the
+  // decoded byte count can pass the compressed total — then we show MB only)
+  const prog = {};
+  const fmtMB = b => (b / 1048576).toFixed(1) + ' MB';
+  const report = () => {
+    let got = 0, total = 0, known = true;
+    for (const k in prog) { got += prog[k].got; if (prog[k].total > 0) total += prog[k].total; else known = false; }
+    const pct = known && total && got <= total ? Math.round(100 * got / total) : null;
+    const txt = `${t('note.loading')}… ${fmtMB(got)}${pct != null ? ` / ${fmtMB(total)} · ${pct}%` : ''}`;
+    document.getElementById('note').textContent = txt;
+    const ld = document.getElementById('loader');
+    if (ld && !ld.classList.contains('done')) {
+      const ls = document.getElementById('loaderstatus');
+      if (ls) ls.textContent = txt;
+      const lb = document.getElementById('loaderbar');
+      if (lb) lb.style.width = (pct != null ? pct : 30) + '%';
+    }
+  };
+  const fj = async u => {   // revalidate (304 if unchanged) so stale DEMs never stick
+    const res = await fetch(u + q, { cache: 'no-cache' });
+    if (!res.body || !res.body.getReader) return res.json();
+    prog[u] = { got: 0, total: +res.headers.get('Content-Length') || 0 };
+    const rd = res.body.getReader(), chunks = [];
+    for (;;) {
+      const { done, value } = await rd.read();
+      if (done) break;
+      chunks.push(value); prog[u].got += value.length; report();
+    }
+    let n = 0; for (const c of chunks) n += c.length;
+    const buf = new Uint8Array(n); let o = 0;
+    for (const c of chunks) { buf.set(c, o); o += c.length; }
+    return JSON.parse(new TextDecoder().decode(buf));
+  };
   const [mesh, georefAll, texbbWrap, overlay, landcover] = await Promise.all([
     fj(s.mesh), fj(s.georef.file), fj(s.texbb), fj(s.overlay), fj(s.landcover),
   ]);
@@ -1152,14 +1185,10 @@ function applyBg(mode) {
 
 // storm signal badge + wind visuals (rain density, cloud tone, sky) --------
 function updateStormBadge() {
-  const el = document.getElementById('stormbadge');
-  if (!stormLevel) { el.style.display = 'none'; return; }
-  const quad = stormLevel === 8 ? document.getElementById('winddir').value : '';
-  el.innerHTML = `${t('badge.pre')}${stormLevel}${t('badge.post')}${quad ? ' · ' + quad : ''}<small>${t('sig.' + stormLevel)}</small>`;
-  const colours = { 1:'rgba(176,140,26,.92)', 3:'rgba(200,128,20,.93)', 8:'rgba(212,88,20,.94)', 9:'rgba(198,42,30,.95)', 10:'rgba(176,18,28,.97)' };
-  el.style.background = colours[stormLevel] || 'rgba(200,60,30,.9)';
-  el.classList.toggle('sev', stormLevel >= 9);
-  el.style.display = 'block';
+  // retired (William): the top-centre badge duplicated the signal already shown
+  // in the live-weather box and collided with it on mobile. The panel's Storm
+  // signal select (and the wx HUD when live) carry the state.
+  document.getElementById('stormbadge').style.display = 'none';
 }
 // lock the controls that are driven for you: live mode owns everything; a storm
 // signal owns the weather effects + wind strength (but you can still steer "wind from").

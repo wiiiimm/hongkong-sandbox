@@ -93,6 +93,11 @@
     letter-spacing:.08em;animation:lpulse 2.2s ease-in-out infinite}
   #loader.err .ring{display:none}
   #loader.err .st{animation:none;color:#e6a23c}
+  #loader .bar{width:210px;height:3px;border-radius:2px;background:rgba(255,255,255,.09);
+    margin-top:14px;overflow:hidden}
+  #loader .bar i{display:block;height:100%;width:0%;background:var(--accent);border-radius:2px;
+    transition:width .25s ease}
+  #loader.err .bar{display:none}
   @keyframes lspin{to{transform:rotate(360deg)}}
   @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.5}}
   #app{position:fixed;inset:0}
@@ -356,6 +361,11 @@
     #creditspop{top:calc(54px + env(safe-area-inset-top));left:12px;right:12px;bottom:auto;
       width:auto;max-width:none;max-height:64vh}
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
+    /* fly/walk HUD: lift clear of the collapsed-controls chip (bottom-left) and
+       the snapshot/corner buttons (bottom-right); wrap instead of running under them */
+    #flyhud{left:12px;right:12px;transform:none;white-space:normal;
+      bottom:calc(64px + env(safe-area-inset-bottom));font-size:11.5px;padding:7px 10px}
+    body.flying #compass{bottom:calc(142px + env(safe-area-inset-bottom))}
   }
 </style>
 </head>
@@ -365,6 +375,7 @@
   <div class="wm">香港沙盒</div>
   <div class="wm-en">Hong Kong Sandbox</div>
   <div class="st" id="loaderstatus">loading terrain · 載入地形中</div>
+  <div class="bar"><i id="loaderbar"></i></div>
 </div>
 <div id="app"></div>
 <div id="flashfx"></div>
@@ -396,6 +407,30 @@
   </div>
   <div id="pbody">
   <div class="sub" id="note">Loading…</div>
+
+  <div class="grp"><!-- explore modes live right under the header, by their mode toggles -->
+    <div class="row">
+      <div class="splitbtn">
+        <button id="flybtn" title="Fly a plane over the terrain"
+                data-i18n="btn.fly">✈ Fly</button>
+        <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
+      </div>
+      <div class="splitbtn">
+        <button id="walkbtn" title="Air-drop at the view centre and walk the terrain in first person"
+                data-i18n="btn.walk">🪂 Walk</button>
+        <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
+      </div>
+    </div>
+    <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
+      <input id="topspd" type="range" min="130" max="600" step="2" value="214" disabled
+             title="Boost target — ␣ in flight, ⇧ on foot"/>
+      <span id="topspdv" style="flex:0 0 56px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
+    </div>
+    <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
+      <div id="spdgauge"><div id="spdfill"></div></div>
+      <span id="spdpct" style="flex:0 0 48px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
+    </div>
+  </div>
 
   <div class="grp">
     <div class="row"><label class="k" data-i18n="lbl.source">Source</label>
@@ -566,30 +601,6 @@
       <button id="sh-embed" data-i18n="share.embed">Embed</button>
     </div>
     <textarea id="embedcode" readonly spellcheck="false" style="display:none"></textarea>
-  </div>
-
-  <div class="grp">
-    <div class="row">
-      <div class="splitbtn">
-        <button id="flybtn" title="Fly a plane over the terrain"
-                data-i18n="btn.fly">✈ Fly</button>
-        <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
-      </div>
-      <div class="splitbtn">
-        <button id="walkbtn" title="Air-drop at the view centre and walk the terrain in first person"
-                data-i18n="btn.walk">🪂 Walk</button>
-        <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
-      </div>
-    </div>
-    <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
-      <input id="topspd" type="range" min="130" max="600" step="2" value="214" disabled
-             title="Boost target — ␣ in flight, ⇧ on foot"/>
-      <span id="topspdv" style="flex:0 0 56px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
-    </div>
-    <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
-      <div id="spdgauge"><div id="spdfill"></div></div>
-      <span id="spdpct" style="flex:0 0 48px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
-    </div>
   </div>
 
   </div><!-- /#pbody -->
