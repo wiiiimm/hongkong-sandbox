@@ -1278,6 +1278,8 @@ function updateWindVisuals() {
 // apply a storm signal: preset the wind + escalate the weather effects
 function applyStorm(level) {
   stormLevel = level;
+  const sig = document.getElementById('wx-sig');           // compact HUD signal chip (collapsed view)
+  if (sig) { sig.textContent = level > 0 ? 'T' + level : ''; sig.classList.toggle('sev', level >= 8); }
   windStrength = STORM_W[level] || 0;
   document.getElementById('wind').value = Math.round(windStrength * 100);
   document.getElementById('windv').textContent = Math.round(windStrength * 100) + '%';
