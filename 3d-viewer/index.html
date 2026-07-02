@@ -142,6 +142,7 @@
   .stn:hover{z-index:31}
   .stn:hover .t{color:var(--accent)}
   #flashfx{position:fixed;inset:0;z-index:12;background:#eaf2ff;opacity:0;pointer-events:none;will-change:opacity}
+  #dripfx{position:fixed;inset:0;z-index:15;pointer-events:none}
   #mapattr{position:fixed;right:9px;bottom:7px;z-index:14;display:none;font-size:9.5px;font-family:var(--mono);
     color:rgba(255,255,255,.72);background:rgba(0,0,0,.4);padding:2px 7px;border-radius:5px;pointer-events:none}
   .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
@@ -202,6 +203,7 @@
 <body>
 <div id="app"></div>
 <div id="flashfx"></div>
+<canvas id="dripfx"></canvas>
 <div id="panel">
   <div id="sheetgrip" title="Hide controls" aria-hidden="true"></div>
   <div id="collapsedbar">

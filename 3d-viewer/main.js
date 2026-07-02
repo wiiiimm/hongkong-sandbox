@@ -1936,11 +1936,44 @@ function resize() {
 }
 addEventListener('resize', resize);
 
+// screen drips (HKS-20): droplets run down the "lens" in driving rain (T8+ or
+// rain with strong wind) — subtle, capped, and cleared the moment it eases
+const dripCv = document.getElementById('dripfx');
+const dripCtx = dripCv.getContext('2d');
+let drips = [], dripActive = false;
+function stepDrips() {
+  const heavy = weather.rain && (windStrength >= 0.55 || stormLevel >= 8);
+  if (!heavy && !drips.length) {
+    if (dripActive) { dripCtx.clearRect(0, 0, dripCv.width, dripCv.height); dripActive = false; }
+    return;
+  }
+  dripActive = true;
+  if (dripCv.width !== innerWidth || dripCv.height !== innerHeight) { dripCv.width = innerWidth; dripCv.height = innerHeight; }
+  dripCtx.clearRect(0, 0, dripCv.width, dripCv.height);
+  if (heavy && drips.length < 14 && Math.random() < 0.05 + windStrength * 0.06)
+    drips.push({ x: Math.random() * innerWidth, y: -30, v: 2 + Math.random() * 4,
+                 r: 1.5 + Math.random() * 2.5, wob: Math.random() * 6.28 });
+  const slant = windVec.x * windStrength * 0.8;
+  for (const d of drips) {
+    d.y += d.v * (0.7 + Math.random() * 0.6);            // stutter like real drips
+    d.x += slant + Math.sin(d.y * 0.02 + d.wob) * 0.4;
+    const tail = d.r * 14;
+    const g = dripCtx.createLinearGradient(d.x, d.y - tail, d.x, d.y);
+    g.addColorStop(0, 'rgba(205,222,240,0)'); g.addColorStop(1, 'rgba(212,230,246,0.26)');
+    dripCtx.fillStyle = g;
+    dripCtx.beginPath(); dripCtx.roundRect(d.x - d.r * 0.6, d.y - tail, d.r * 1.2, tail, d.r); dripCtx.fill();
+    dripCtx.fillStyle = 'rgba(226,239,250,0.4)';
+    dripCtx.beginPath(); dripCtx.arc(d.x, d.y, d.r, 0, 7); dripCtx.fill();
+  }
+  drips = drips.filter(d => d.y < innerHeight + 30);
+}
+
 function animate() {
   requestAnimationFrame(animate);
   if (spinDir) world.rotation.y += 0.0016 * spinSpeed * spinDir;
   updateCelestial();                    // throttled internally to the sim minute
   if (sunRays.visible) sunRays.material.rotation += 0.0004;   // slow crown turn
+  stepDrips();
   animateWeather();
   // storm screen shake — the terrain judders under the strongest signals
   const sh = stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.6 : stormLevel >= 8 ? 0.32 : 0;
