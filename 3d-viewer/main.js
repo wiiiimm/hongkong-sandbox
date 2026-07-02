@@ -6,6 +6,7 @@
 import * as THREE from './vendor/three.module.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
 import { createGlass } from './vendor/glass-gl.js';
+import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, compassDeg } from './vendor/astro.js';
 
 // ---- source registry (extend with whole-HK + SRTM later) -------------------
 const SOURCES = {
@@ -78,6 +79,7 @@ const I18N = {
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
+    'grp.sky': 'Sun & moon', 'sky.sim': 'Real sun & moon', 'sky.live': 'Live', 'lbl.date': 'Date', 'lbl.time': 'Time',
     'grp.weather': 'Weather', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves',
     'lbl.skyheight': 'Sky height ×',
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
@@ -104,6 +106,7 @@ const I18N = {
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
+    'grp.sky': '日與月', 'sky.sim': '真實日月', 'sky.live': '即時', 'lbl.date': '日期', 'lbl.time': '時間',
     'grp.weather': '天氣', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪',
     'lbl.skyheight': '天空高度 ×',
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
@@ -509,15 +512,39 @@ function applySkyScale() {
   if (cloudGrp) for (const s of cloudGrp.children) s.position.y = s.userData.baseY * skyScale * low;
 }
 
-// clear colour + light levels, darkened toward a storm sky as the wind rises
+// clear colour + light levels: celestial sun/moon (when the sim is on) shape
+// the key light and sky brightness; a storm then darkens whatever they chose.
 function renderSky() {
   const onPaper = bgMode === 'paper';
   const k = stormLevel > 0 ? Math.min(0.6, 0.15 + windStrength * 0.55) : 0;
-  const col = new THREE.Color(BG[bgMode]).lerp(new THREE.Color(0x1a2028), k);
-  renderer.setClearColor(col, 1);
   const dim = 1 - (stormLevel > 0 ? windStrength * 0.4 : 0);
-  baseHemi = (onPaper ? 1.9 : 1.4) * dim;
-  baseSun  = (onPaper ? 2.4 : 2.0) * dim;
+  const base = new THREE.Color(BG[bgMode]);
+  let sunI = onPaper ? 2.4 : 2.0, hemiI = onPaper ? 1.9 : 1.4;
+  if (cel) {
+    const altD = cel.sunAlt / D2R;
+    const dayF = Math.max(0, Math.min(1, (altD + 6) / 16));      // −6° → 0 … +10° → 1
+    const day = altD > -6;
+    const az = day ? cel.sunAz : cel.moonAz;
+    const alt = Math.max(day ? cel.sunAlt : cel.moonAlt, 0.06);
+    sun.position.set(Math.sin(az) * Math.cos(alt), Math.sin(alt), -Math.cos(az) * Math.cos(alt)).multiplyScalar(bounds().span);
+    if (day) {
+      const warm = Math.max(0, Math.min(1, 1 - altD / 12));      // golden/blue hour
+      sun.color.setHex(0xffffff).lerp(new THREE.Color(0xff9a4d), warm * 0.8);
+      sunI *= 0.12 + 0.88 * dayF;
+      hemiI *= 0.3 + 0.7 * dayF;
+    } else {                                                     // moonlight takes over
+      const moonUp = Math.max(0, Math.sin(Math.max(cel.moonAlt, 0)));
+      sun.color.setHex(0x9db8d8);
+      sunI *= 0.18 * cel.frac * (moonUp > 0 ? 0.4 + 0.6 * moonUp : 0);
+      hemiI *= 0.22;
+    }
+    // paper dims to a deep night blue; dark keeps its void, just a touch deeper
+    base.lerp(new THREE.Color(onPaper ? 0x1b2430 : 0x04060a), (onPaper ? 0.82 : 0.6) * (1 - dayF));
+  } else sun.color.setHex(0xffffff);
+  base.lerp(new THREE.Color(0x1a2028), k);
+  renderer.setClearColor(base, 1);
+  baseHemi = hemiI * dim;
+  baseSun  = sunI * dim;
   hemi.intensity = baseHemi + flash * 5;
   sun.intensity  = baseSun;
 }
@@ -939,6 +966,155 @@ function stormFromWarn(ws) {
   return { level: 0 };
 }
 
+// ---- sun & moon simulation (HKS-1) ------------------------------------------
+// Real celestial positions over Hong Kong drive the key light, sky brightness
+// and two sprite bodies that rise and set behind the actual terrain. Pure math
+// (vendor/astro.js) — no API. Defaults to live HKT; a date + time scrub lets
+// you replay any sky. World axes: -z = north, +x = east.
+const HK_LAT = 22.302, HK_LON = 114.174, D2R = Math.PI / 180;
+const skySim = { on: true, live: true, date: '', minutes: 720 };
+let cel = null, celKey = '', moonTexPhase = -1;
+
+const hktDateStr = d => new Date(d.getTime() + 8 * 3.6e6).toISOString().slice(0, 10);
+const hktMinutes = d => { const t = new Date(d.getTime() + 8 * 3.6e6); return t.getUTCHours() * 60 + t.getUTCMinutes(); };
+const mmToHHMM = m => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+const hktHHMM = d => d ? d.toLocaleTimeString('en-GB', { timeZone: 'Asia/Hong_Kong', hour12: false }).slice(0, 5) : '—';
+skySim.date = hktDateStr(new Date());
+skySim.minutes = hktMinutes(new Date());
+function simDate() {
+  return skySim.live ? new Date()
+    : new Date(`${skySim.date}T${mmToHHMM(skySim.minutes)}:00+08:00`);
+}
+
+// sun: a white-hot disc + a slowly turning crown of soft rays (both additive)
+function makeSunTextures() {
+  const d = document.createElement('canvas'); d.width = d.height = 128;
+  let x = d.getContext('2d');
+  let g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.22, 'rgba(255,246,220,1)');
+  g.addColorStop(0.38, 'rgba(255,214,140,.85)'); g.addColorStop(0.62, 'rgba(255,176,90,.25)');
+  g.addColorStop(1, 'rgba(255,160,70,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  const r = document.createElement('canvas'); r.width = r.height = 256;
+  x = r.getContext('2d');
+  g = x.createRadialGradient(128, 128, 0, 128, 128, 128);
+  g.addColorStop(0, 'rgba(255,220,160,.55)'); g.addColorStop(0.35, 'rgba(255,190,120,.16)');
+  g.addColorStop(1, 'rgba(255,170,90,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 256, 256);
+  x.translate(128, 128); x.lineCap = 'round';
+  for (let i = 0; i < 14; i++) {                          // long/short alternating rays
+    const a = i / 14 * Math.PI * 2 + (i % 2 ? 0.13 : 0);
+    const len = 112 * (i % 2 ? 0.66 : 1), lw = i % 2 ? 4.5 : 7.5;
+    const lg = x.createLinearGradient(0, 0, Math.cos(a) * len, Math.sin(a) * len);
+    lg.addColorStop(0, 'rgba(255,236,190,.5)'); lg.addColorStop(0.55, 'rgba(255,210,140,.14)');
+    lg.addColorStop(1, 'rgba(255,190,110,0)');
+    x.strokeStyle = lg; x.lineWidth = lw;
+    x.beginPath(); x.moveTo(Math.cos(a) * 18, Math.sin(a) * 18); x.lineTo(Math.cos(a) * len, Math.sin(a) * len); x.stroke();
+  }
+  return { disc: new THREE.CanvasTexture(d), rays: new THREE.CanvasTexture(r) };
+}
+
+// moon: limb-darkened disc with fixed maria, correct phase shadow (waxing lit
+// on the right, as seen from HK), plus a soft cool halo sprite behind it
+function drawMoonTexture(phase) {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d'), cx = 64, r = 56;
+  let g = x.createRadialGradient(cx - 14, cx - 14, 6, cx, cx, r);
+  g.addColorStop(0, '#f2f5f8'); g.addColorStop(0.75, '#cfd8e2'); g.addColorStop(1, '#aab6c4');
+  x.fillStyle = g; x.beginPath(); x.arc(cx, cx, r, 0, 7); x.fill();
+  const MARIA = [[-14,-18,16],[10,-8,20],[-4,12,13],[22,16,9],[-26,6,8],[16,-26,7]];
+  x.globalAlpha = 0.16; x.fillStyle = '#6d7d90';
+  for (const [dx, dy, rr] of MARIA) { x.beginPath(); x.arc(cx + dx, cx + dy, rr, 0, 7); x.fill(); }
+  x.globalAlpha = 1;
+  const k = Math.cos(phase * 2 * Math.PI);                // 1 new → −1 full
+  const waxing = phase < 0.5;
+  x.globalCompositeOperation = 'source-atop';
+  x.fillStyle = 'rgba(10,14,22,.94)';
+  x.beginPath();
+  x.arc(cx, cx, r, -Math.PI / 2, Math.PI / 2, waxing);    // dark half (left while waxing)
+  x.ellipse(cx, cx, r * Math.abs(k), r, 0, Math.PI / 2, -Math.PI / 2, (k > 0) === waxing);
+  x.fill();
+  return new THREE.CanvasTexture(c);
+}
+const SUN_TEX = makeSunTextures();
+const MOON_GLOW_TEX = (() => {
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, 'rgba(205,222,242,.55)'); g.addColorStop(0.4, 'rgba(185,205,230,.16)');
+  g.addColorStop(1, 'rgba(180,200,230,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  return new THREE.CanvasTexture(c);
+})();
+const sunRays = new THREE.Sprite(new THREE.SpriteMaterial({ map: SUN_TEX.rays, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.85 }));
+const sunSpr  = new THREE.Sprite(new THREE.SpriteMaterial({ map: SUN_TEX.disc, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+const moonGlow = new THREE.Sprite(new THREE.SpriteMaterial({ map: MOON_GLOW_TEX, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+const moonSpr  = new THREE.Sprite(new THREE.SpriteMaterial({ transparent: true, depthWrite: false }));
+sunRays.visible = sunSpr.visible = moonGlow.visible = moonSpr.visible = false;
+scene.add(sunRays, sunSpr, moonGlow, moonSpr);            // scene, not world: sky doesn't auto-spin
+
+function placeCelestial() {
+  if (!cel) return;
+  const b = bounds(), R = b.span * 1.35, s = b.span;
+  sunSpr.position.set(Math.sin(cel.sunAz) * Math.cos(cel.sunAlt), Math.sin(cel.sunAlt), -Math.cos(cel.sunAz) * Math.cos(cel.sunAlt)).multiplyScalar(R);
+  sunRays.position.copy(sunSpr.position);
+  moonSpr.position.set(Math.sin(cel.moonAz) * Math.cos(cel.moonAlt), Math.sin(cel.moonAlt), -Math.cos(cel.moonAz) * Math.cos(cel.moonAlt)).multiplyScalar(R);
+  moonGlow.position.copy(moonSpr.position);
+  sunSpr.scale.set(s * 0.10, s * 0.10, 1); sunRays.scale.set(s * 0.26, s * 0.26, 1);
+  moonSpr.scale.set(s * 0.065, s * 0.065, 1); moonGlow.scale.set(s * 0.15, s * 0.15, 1);
+  sunSpr.visible = sunRays.visible = cel.sunAlt > -4 * D2R;
+  moonSpr.visible = moonGlow.visible = cel.moonAlt > -2.5 * D2R;
+  const warm = Math.max(0, Math.min(1, 1 - (cel.sunAlt / D2R) / 17));   // golden toward the horizon
+  sunSpr.material.color.setHex(0xffffff).lerp(new THREE.Color(0xff8a3d), warm * 0.55);
+  sunRays.material.color.setHex(0xfff2da).lerp(new THREE.Color(0xff8a3d), warm * 0.65);
+  if (Math.abs(cel.phase - moonTexPhase) > 0.004) {       // redraw the phase only when it moves
+    moonTexPhase = cel.phase;
+    if (moonSpr.material.map) moonSpr.material.map.dispose();
+    moonSpr.material.map = drawMoonTexture(cel.phase);
+    moonSpr.material.needsUpdate = true;
+  }
+  moonGlow.material.opacity = 0.25 + 0.55 * cel.frac;
+}
+
+function updateSkyInfo() {
+  const el = document.getElementById('skyinfo'); if (!el) return;
+  if (!skySim.on) { el.innerHTML = ''; return; }
+  const dstr = skySim.live ? hktDateStr(new Date()) : skySim.date;
+  const st = sunTimes(new Date(dstr + 'T12:00:00+08:00'), HK_LAT, HK_LON);
+  const mt = moonTimes(new Date(dstr + 'T00:00:00+08:00'), HK_LAT, HK_LON);
+  const mi = moonIllumination(simDate());
+  const azd = t => t ? Math.round(compassDeg(sunPosition(t, HK_LAT, HK_LON).azimuth)) + '°' : '';
+  el.innerHTML = `☀ ↑${hktHHMM(st.sunrise)} ${azd(st.sunrise)} · ↓${hktHHMM(st.sunset)} ${azd(st.sunset)}<br>` +
+                 `☾ ↑${hktHHMM(mt.rise)} · ↓${hktHHMM(mt.set)} · ${Math.round(mi.fraction * 100)}%`;
+}
+
+function updateCelestial() {
+  if (!skySim.on) {
+    if (cel) {
+      cel = null; celKey = '';
+      sunSpr.visible = sunRays.visible = moonSpr.visible = moonGlow.visible = false;
+      sun.position.set(-1, 2, 1.4); sun.color.setHex(0xffffff);   // legacy fixed light
+      renderSky(); setFog(); updateSkyInfo();
+    }
+    return;
+  }
+  const now = simDate();
+  const key = skySim.live ? 'L' + Math.floor(now.getTime() / 60000) : 'F' + skySim.date + ':' + skySim.minutes;
+  if (key === celKey) return;
+  celKey = key;
+  const sp = sunPosition(now, HK_LAT, HK_LON), mp = moonPosition(now, HK_LAT, HK_LON), mi = moonIllumination(now);
+  cel = { sunAlt: sp.altitude, sunAz: compassDeg(sp.azimuth) * D2R,
+          moonAlt: mp.altitude, moonAz: compassDeg(mp.azimuth) * D2R,
+          frac: mi.fraction, phase: mi.phase };
+  placeCelestial();
+  if (skySim.live) {   // keep the scrub + date mirroring the live clock
+    const tEl = document.getElementById('skytime'), dEl = document.getElementById('skydate');
+    if (tEl) { tEl.value = hktMinutes(now); document.getElementById('skytimev').textContent = mmToHHMM(+tEl.value); }
+    if (dEl) dEl.value = hktDateStr(now);
+  }
+  renderSky(); setFog(); updateSkyInfo();
+}
+
 // ---- camera framing + presets ---------------------------------------------
 function bounds() {
   const halfX = W*cell/2, halfZ = H*cell/2, peakY = zmax*VE;
@@ -1081,6 +1257,29 @@ document.getElementById('lightning').addEventListener('change', e => {
   if (!weather.lightning) { flash = 0; boltLife = 0; disposeBolt(); if (boltLight) boltLight.intensity = 0; applyBg(bgMode); }
 });
 document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
+function syncSkyControls() {
+  const g = id => document.getElementById(id);
+  g('skylive').disabled = !skySim.on;
+  g('skydate').disabled = !skySim.on || skySim.live;
+  g('skytime').disabled = !skySim.on || skySim.live;
+  if (!skySim.live) {          // leaving live: the scrub shows the fixed instant again
+    g('skydate').value = skySim.date;
+    g('skytime').value = skySim.minutes;
+    g('skytimev').textContent = mmToHHMM(skySim.minutes);
+  }
+}
+document.getElementById('skyon').addEventListener('change', e => { skySim.on = e.target.checked; celKey = ''; syncSkyControls(); updateCelestial(); });
+document.getElementById('skylive').addEventListener('change', e => { skySim.live = e.target.checked; celKey = ''; syncSkyControls(); updateCelestial(); });
+document.getElementById('skydate').addEventListener('change', e => { if (e.target.value) skySim.date = e.target.value; celKey = ''; updateCelestial(); });
+document.getElementById('skytime').addEventListener('input', e => {
+  skySim.minutes = parseInt(e.target.value, 10) || 0;
+  document.getElementById('skytimev').textContent = mmToHHMM(skySim.minutes);
+  celKey = ''; updateCelestial();
+});
+document.getElementById('skydate').value = skySim.date;
+document.getElementById('skytime').value = skySim.minutes;
+document.getElementById('skytimev').textContent = mmToHHMM(skySim.minutes);
+syncSkyControls();
 document.getElementById('skyh').addEventListener('input', e => {
   skyScale = parseFloat(e.target.value);
   document.getElementById('skyhv').textContent = skyScale.toFixed(1);
@@ -1506,6 +1705,8 @@ addEventListener('resize', resize);
 function animate() {
   requestAnimationFrame(animate);
   if (spinDir) world.rotation.y += 0.0016 * spinSpeed * spinDir;
+  updateCelestial();                    // throttled internally to the sim minute
+  if (sunRays.visible) sunRays.material.rotation += 0.0004;   // slow crown turn
   animateWeather();
   // storm screen shake — the terrain judders under the strongest signals
   const sh = stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.6 : stormLevel >= 8 ? 0.32 : 0;
@@ -1544,6 +1745,9 @@ function serializeState() {
   p.set('cl', weather.clouds ? '1' : '0');
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
+  p.set('su', skySim.on ? '1' : '0');
+  p.set('sl', skySim.live ? '1' : '0');
+  if (!skySim.live) { p.set('sd', skySim.date); p.set('sm', String(skySim.minutes)); }
   p.set('sk', g('skyh').value);
   p.set('ti', String(Math.round(tideManual * 100)));
   p.set('tr', String(Math.round(thunderRate * 100)));
@@ -1594,6 +1798,10 @@ function applyState(p) {
   if (p.has('cl')) setChk('clouds', p.get('cl') === '1');
   if (p.has('li')) setChk('lightning', p.get('li') === '1');
   if (p.has('wv')) setChk('waves', p.get('wv') === '1');
+  if (p.has('sd')) setVal('skydate', p.get('sd'));
+  if (p.has('sm')) setVal('skytime', p.get('sm'), 'input');
+  if (p.has('sl')) setChk('skylive', p.get('sl') === '1');
+  if (p.has('su')) setChk('skyon', p.get('su') === '1');
   if (p.has('sk')) setVal('skyh', p.get('sk'), 'input');
   if (p.has('ti')) setVal('tide', p.get('ti'), 'input');
   if (p.has('tr')) setVal('thunderrate', p.get('tr'), 'input');

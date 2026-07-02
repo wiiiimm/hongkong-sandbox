@@ -80,6 +80,10 @@
   select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
   option{background:#12161c;color:var(--ink)}
   input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer}
+  input[type=date]{flex:1;min-width:0;background:var(--field);color:var(--ink);border:1px solid var(--field-edge);
+    border-radius:8px;padding:5px 8px;font-size:12px;font-family:var(--mono);color-scheme:dark}
+  input[type=date]:disabled{opacity:.45;cursor:not-allowed}
+  body.ui-light input[type=date]{color-scheme:light}
   .chk{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);cursor:pointer}
   .chks{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
   button{background:var(--field);color:var(--ink);border:1px solid var(--field-edge);
@@ -297,6 +301,22 @@
     <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
       <input id="spinspd" type="range" min="0.15" max="3" step="0.05" value="0.2"/>
     </div>
+  </div>
+
+  <div class="grp">
+    <div class="gt" data-i18n="grp.sky">Sun &amp; moon</div>
+    <div class="row">
+      <label class="chk" style="flex:1"><input type="checkbox" id="skyon" checked/> <span data-i18n="sky.sim">Real sun &amp; moon</span></label>
+      <label class="chk"><input type="checkbox" id="skylive" checked/> <span data-i18n="sky.live">Live</span></label>
+    </div>
+    <div class="row"><label class="k" data-i18n="lbl.date">Date</label>
+      <input type="date" id="skydate"/>
+    </div>
+    <div class="row"><label class="k" data-i18n="lbl.time">Time</label>
+      <input id="skytime" type="range" min="0" max="1439" step="1" value="720"/>
+      <span id="skytimev" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">12:00</span>
+    </div>
+    <div id="skyinfo" style="font-family:var(--mono);font-size:10px;color:var(--sub);line-height:1.8;margin-top:6px"></div>
   </div>
 
   <div class="grp">
