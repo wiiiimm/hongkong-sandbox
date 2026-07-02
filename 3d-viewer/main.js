@@ -1707,10 +1707,6 @@ async function snapshot() {
   btn.classList.add('on'); setTimeout(() => btn.classList.remove('on'), 400);
 }
 document.getElementById('snapbtn').addEventListener('click', snapshot);
-if (glassFx) {                                           // the corner controls are glass too
-  glassFx.register(document.getElementById('compass'), { radius: 19 });
-  glassFx.register(document.getElementById('snapbtn'), { radius: 19 });
-}
 
 // ---- camera framing + presets ---------------------------------------------
 function bounds() {
@@ -1822,6 +1818,8 @@ if (GLASS_OK) {
     glassFx = createGlass({ canvas: gcv, background: renderer.domElement, transparent: true });
     glassFx.register(panelEl, { radius: 16 });
     glassFx.register(wxhudEl, { radius: 14 });
+    glassFx.register(document.getElementById('compass'), { radius: 19 });   // corner controls too
+    glassFx.register(document.getElementById('snapbtn'), { radius: 19 });
     document.body.classList.add('glass');
   } catch (e) {
     console.warn('glass-gl unavailable, keeping CSS panels', e);
@@ -2655,7 +2653,11 @@ loadSource(startSrc).then(() => {
   animate();
   // default to live weather on (unless a shared link explicitly opted out with lv=0)
   if (startParams.has('lv') ? startParams.get('lv') === '1' : true) setLiveMode(true);
+  const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
+  if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
 }).catch(err => {
   document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message;
+  const ld = document.getElementById('loader');
+  if (ld) { ld.classList.add('err'); document.getElementById('loaderstatus').textContent = t('note.loadfail') + ': ' + err.message; }
   console.error(err);
 });
