@@ -15,7 +15,7 @@ Built from real Digital Elevation Models and layered with live open data. Pure s
 HTML + ES modules + Three.js — **no build step, no framework** — so it runs by opening a
 file (via any static server) and deploys as plain files.
 
-**Live:** https://hongkong-sandbox.pages.dev
+**Live:** https://hk-sandbox.wiiiimm.codes
 
 <p align="center">
   <img src="assets/screenshots/hero-satellite-night-flight.png" alt="Flying a plane over Victoria Harbour at night — Esri satellite skin, live weather HUD, real terrain" width="900"/>
@@ -147,7 +147,7 @@ Notes:
 
 以真實數碼高程模型（DEM）建構，疊加實時開放數據。純靜態 HTML + ES modules + Three.js —— **零建置、無框架** —— 只要用任何靜態伺服器開啟檔案即可運行，部署就是複製檔案。
 
-**線上版：** https://hongkong-sandbox.pages.dev
+**線上版：** https://hk-sandbox.wiiiimm.codes
 
 <p align="center">
   <img src="assets/screenshots/hero-satellite-night-flight.png" alt="夜間駕駛飛機飛越維多利亞港 —— Esri 衛星圖、實時天氣資訊、真實地形" width="900"/>
