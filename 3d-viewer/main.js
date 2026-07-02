@@ -1778,7 +1778,8 @@ function stepFlight() {
 // jogs at 4). WASD/arrows move, pointer-lock mouse looks; phones drag to look
 // with a ▶ auto-walk toggle in the HUD. Slopes steeper than ~45° block you.
 const walk = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: -0.04,
-               keys: {}, prevSpin: 1, auto: false, helpT: 0, dist: 0, bob: 0 };
+               keys: {}, prevSpin: 1, auto: false, helpT: 0, dist: 0, bob: 0,
+               dropV: 0, land: 0 };
 // ?nolock=1 — debug switch: skip pointer lock; mouse look becomes drag-to-look
 // so the keyboard path can be tested in isolation from the lock
 const NO_LOCK = new URLSearchParams(location.search).has('nolock');
@@ -1797,7 +1798,15 @@ function enterWalk() {
   walk.yaw = -(Math.atan2(fx, -fz) + world.rotation.y);   // keep facing the way you looked
   walk.pitch = -0.04;
   walk.auto = false; walk.helpT = 480; walk.dist = 0; walk.bob = 0;
-  walk.pos.y = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) * VE + 1.7 * VE;
+  // spawned against a steep face? turn to look downhill so the first step works
+  const sc = walk.pos.x / cell + W / 2, sr = walk.pos.z / cell + H / 2;
+  const gx = (sampleE(sc + 0.5, sr) - sampleE(sc - 0.5, sr)) / cell;   // m rise per m east
+  const gz = (sampleE(sc, sr + 0.5) - sampleE(sc, sr - 0.5)) / cell;   // m rise per m south
+  if (Math.hypot(gx, gz) > 0.7) walk.yaw = Math.atan2(gx, gz);         // > ~35°: face downhill
+  // air-drop insertion: start 60 m over the ground and fall in — you always
+  // arrive ON the surface (never wedged inside a slope), and it reads as a spawn
+  walk.dropV = 0; walk.land = 0;
+  walk.pos.y = (sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
   camera.fov = 70; camera.updateProjectionMatrix();
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('walkbtn').classList.add('on');
@@ -1859,18 +1868,37 @@ function stepWalk() {
   const b = bounds();
   if (dx || dz) {
     const gCur = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
-    const nx = Math.max(-b.halfX, Math.min(b.halfX, walk.pos.x + dx));
-    const nz = Math.max(-b.halfZ, Math.min(b.halfZ, walk.pos.z + dz));
-    const gNew = sampleE(nx / cell + W / 2, nz / cell + H / 2);
-    if (gNew - gCur < Math.hypot(dx, dz) + 0.25) {        // ~45° slope gate
-      walk.dist += Math.hypot(nx - walk.pos.x, nz - walk.pos.z);   // odometer (real m)
+    const step = (mx, mz) => {                            // one gated move attempt
+      if (!mx && !mz) return false;
+      const nx = Math.max(-b.halfX, Math.min(b.halfX, walk.pos.x + mx));
+      const nz = Math.max(-b.halfZ, Math.min(b.halfZ, walk.pos.z + mz));
+      const gNew = sampleE(nx / cell + W / 2, nz / cell + H / 2);
+      // ~50° climb gate with a 25 cm step-up allowance. (The old form added the
+      // allowance to a 2 cm per-frame run, so it only blocked >85° — cliffs in
+      // the 5 m DEM could pin you at spawn while everything else walked through.)
+      const run = Math.hypot(mx, mz), rise = gNew - gCur;
+      if (rise > run * 1.2 && rise > 0.25) return false;            // too steep this way
+      walk.dist += Math.hypot(nx - walk.pos.x, nz - walk.pos.z);    // odometer (real m)
       walk.pos.x = nx; walk.pos.z = nz;
+      return true;
+    };
+    // cliff dead ahead? slide along it (per-axis fallback) instead of freezing —
+    // spawning face-first into a mountain used to pin you until you backed out
+    if (step(dx, dz) || step(dx, 0) || step(0, dz))
       walk.bob += K['shift'] ? 0.19 : 0.11;               // step cadence rises with a jog
-    }
   }
   const g = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
-  walk.pos.y += (g * VE + 1.7 * VE - walk.pos.y) * 0.3;   // smooth over the 5 m DEM stairs
-  const bobY = Math.sin(walk.bob) * 0.08 * VE;            // head-bob: ~8 cm at step cadence
+  const eyeY = (g + 1.7) * VE;
+  const airborne = walk.pos.y > eyeY + 0.6 * VE;
+  if (airborne) {                                         // the drop: real gravity, soft cap
+    walk.dropV = Math.min(26, walk.dropV + 9.81 / 60);
+    walk.pos.y = Math.max(eyeY, walk.pos.y - (walk.dropV / 60) * VE);
+    if (walk.pos.y === eyeY) { walk.land = 0.6; walk.dropV = 0; }   // touchdown thud
+  } else {
+    walk.pos.y += (eyeY - walk.pos.y) * 0.3;              // smooth over the 5 m DEM stairs
+  }
+  walk.land *= 0.88;
+  const bobY = Math.sin(walk.bob) * 0.08 * VE - walk.land * 1.1 * VE;   // bob + landing dip
   _fe.set(walk.pitch, walk.yaw, 0, 'YXZ');
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
@@ -1883,7 +1911,7 @@ function stepWalk() {
   const az = ((-walk.yaw / D2R) % 360 + 360) % 360;
   const touch = matchMedia('(pointer: coarse)').matches;
   const odo = walk.dist < 1000 ? `${Math.round(walk.dist)} m` : `${(walk.dist / 1000).toFixed(2)} km`;
-  const stats = `🚶 ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
+  const stats = `${airborne ? '🪂' : '🚶'} ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
     ` · ${t('walk.dist')} ${odo}` +                       // odometer: live proof the keys register
     (K['shift'] ? ` · ${t('walk.jog')}` : '');
   const hints = (touch ? t('walk.touch') : t('walk.help')) +
