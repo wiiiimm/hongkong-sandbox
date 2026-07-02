@@ -115,8 +115,8 @@ const I18N = {
     'lock.live': '◈ set by live weather — turn off sync below to adjust',
     'lock.storm': '◈ set by the storm signal — choose None to adjust',
     'lock.sky': '◈ following live weather — turn off sync to adjust',
-    'lock.matrix': '◈ set by Matrix mode — 🕶 to wake up',
-    'lock.neon': '◈ set by 風林火山 mode — 🌃 to leave the neon night',
+    'lock.matrix': '◈ set by Matrix mode — 🕴 to wake up',
+    'lock.neon': '◈ set by 風林火山 mode — ❄️ to leave the neon night',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.loadfail': 'Load failed',
     'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
@@ -171,8 +171,8 @@ const I18N = {
     'lock.live': '◈ 由即時天氣設定 — 關閉下方同步即可調整',
     'lock.storm': '◈ 由風暴信號設定 — 選「無」即可調整',
     'lock.sky': '◈ 跟隨即時天氣 — 關閉同步即可調整',
-    'lock.matrix': '◈ 由 Matrix 模式設定 — 按 🕶 醒來',
-    'lock.neon': '◈ 由風林火山模式設定 — 按 🌃 離開霓虹夜',
+    'lock.matrix': '◈ 由 Matrix 模式設定 — 按 🕴 醒來',
+    'lock.neon': '◈ 由風林火山模式設定 — 按 ❄️ 離開霓虹夜',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.loadfail': '載入失敗',
     'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
@@ -1866,7 +1866,7 @@ function stepWalk() {
 if (FLY_DEBUG) { window.__walk = walk; window.__stepWalk = () => stepWalk(); }
 
 // ---- Matrix mode (HKS-31): see the simulation for what it is ----------------
-// 🕶 (or M) reskins the whole scene into green-phosphor wireframe over a void,
+// 🕴 (or M) reskins the whole scene into green-phosphor wireframe over a void,
 // with the iconic digital rain falling as a glyph overlay (katakana + digits +
 // 香港沙盒), green lightning, green fog, glyphified labels and a CRT flicker.
 // Works in orbit, flight and walk — it's all materials and overlays. Surface,
@@ -2020,7 +2020,7 @@ if (FLY_DEBUG) window.__setMatrix = setMatrix;
 // canvas), under a heavy vignette with live film grain and the odd print
 // scratch. Colour "only occasionally seeps through" — here it's the landmark
 // labels, restyled as neon signage, the one thing the grade can't touch.
-// Snow weather is forced on and locked; 🌃 (or N) toggles; exclusive with 🕶.
+// Snow weather is forced on and locked; ❄️ (or N) toggles; exclusive with 🕴.
 let neonOn = false, nnPrevSnow = null;
 const NN_FILTER = 'grayscale(1) contrast(1.22) brightness(.9)';
 const noirCv = document.getElementById('noirfx');
