@@ -87,7 +87,10 @@ const I18N = {
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
-    'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON', 'lock.live': '◈ controls locked to live data', 'lock.storm': '◈ effects set by storm signal',
+    'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
+    'lock.live': '◈ set by live weather — turn off sync below to adjust',
+    'lock.storm': '◈ set by the storm signal — choose None to adjust',
+    'lock.sky': '◈ following live weather — turn off sync to adjust',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.loadfail': 'Load failed',
     'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
@@ -114,7 +117,10 @@ const I18N = {
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
-    'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟', 'lock.live': '◈ 已鎖定為即時數據', 'lock.storm': '◈ 效果由風暴信號設定',
+    'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
+    'lock.live': '◈ 由即時天氣設定 — 關閉下方同步即可調整',
+    'lock.storm': '◈ 由風暴信號設定 — 選「無」即可調整',
+    'lock.sky': '◈ 跟隨即時天氣 — 關閉同步即可調整',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.loadfail': '載入失敗',
     'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
@@ -1070,6 +1076,9 @@ function applyControlLocks() {
   if (liveMode)     { lock.textContent = t('lock.live');  lock.style.display = 'block'; }
   else if (storm)   { lock.textContent = t('lock.storm'); lock.style.display = 'block'; }
   else              { lock.style.display = 'none'; }
+  const slock = g('skylock');
+  slock.textContent = t('lock.sky');
+  slock.style.display = liveMode ? 'block' : 'none';
 }
 // ---- lightning bolts (HKS-13): forked channel geometry + localized glow ----
 // A strike builds a midpoint-displaced main channel from cloud base to a random
