@@ -297,6 +297,7 @@ function attachTerrainFX(mat, wet, water) {
     sh.uniforms.uTime = { value: 0 };
     sh.uniforms.uWaveAmp = { value: 0 };
     sh.uniforms.uWaveK = { value: 1 / 400 };
+    sh.uniforms.uSparkAmt = { value: 0 };
     // world position: correct height for the rotated sea plane, and an xz frame
     // that spins with the world group exactly like the cloud sprites do
     sh.vertexShader = sh.vertexShader
@@ -308,7 +309,7 @@ function attachTerrainFX(mat, wet, water) {
         uniform float uWaterY; uniform float uBand; uniform float uWetAmt; uniform float uFoamAmt;
         uniform sampler2D uCloudTex; uniform vec2 uCloudOfs; uniform float uCloudScale; uniform float uCloudAmt;
         uniform float uFogY; uniform float uFogAmt; uniform vec3 uFogCol;
-        uniform float uTime; uniform float uWaveAmp; uniform float uWaveK;`)
+        uniform float uTime; uniform float uWaveAmp; uniform float uWaveK; uniform float uSparkAmt;`)
       .replace('#include <dithering_fragment>', `#include <dithering_fragment>
         { float d = vWpos.y - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d));
           gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet * 0.5 * uWetAmt);
@@ -332,10 +333,19 @@ function attachTerrainFX(mat, wet, water) {
                    + cos((p.y - p.x) * 1.9 + t * 1.4) * 0.6
                    + cos(p.y * 2.7 + p.x * 2.4 + t * 2.1) * 0.35;
           vec3 wn = (viewMatrix * vec4(sx, 0.0, sz, 0.0)).xyz;
-          normal = normalize(normal + wn * uWaveAmp); }`);
+          normal = normalize(normal + wn * uWaveAmp);
+          // rain pocks the surface: fine time-jittered normal noise scatters the
+          // glint while it rains, reading as a roughened, drizzled sea
+          if (uSparkAmt > 0.0) {
+            vec2 rc = floor(vWpos.xz * uWaveK * 60.0) + floor(uTime * 8.0);
+            float rj = fract(sin(dot(rc, vec2(12.9898, 78.233))) * 43758.5453) - 0.5;
+            float rk = fract(sin(dot(rc, vec2(39.3468, 11.135))) * 24634.6345) - 0.5;
+            normal = normalize(normal + (viewMatrix * vec4(rj, 0.0, rk, 0.0)).xyz * uSparkAmt * 0.9);
+          } }`);
     }
     mat.userData.sh = sh;
   };
+  mat.userData.isWater = !!water;
   mat.needsUpdate = true;
   tidalMats.push(mat);
 }
@@ -704,6 +714,7 @@ function animateWeather() {
     sh.uniforms.uWaveAmp.value = waveAmp;
     sh.uniforms.uWaveK.value = 1100 / b.span;
     sh.uniforms.uFoamAmt.value = weather.waves ? 0.45 + 0.4 * w : 0.18;
+    sh.uniforms.uSparkAmt.value = (m.userData.isWater && weather.rain) ? 0.35 + 0.45 * w : 0;
     renderer.getClearColor(sh.uniforms.uFogCol.value);
   }
   if (weather.lightning) {
