@@ -93,7 +93,7 @@ const I18N = {
     'fly.view': 'view', 'fly.exit': 'exit',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
     'lbl.topspeed': 'Top speed',
-    'btn.walk': '🚶 Walk',
+    'btn.walk': '🪂 Walk',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ jog · Esc exit',
     'walk.touch': 'drag to look', 'walk.jog': 'jogging', 'walk.dist': 'walked',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
@@ -150,7 +150,7 @@ const I18N = {
     'fly.view': '視角', 'fly.exit': '離開',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
     'lbl.topspeed': '極速',
-    'btn.walk': '🚶 步行',
+    'btn.walk': '🪂 步行',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 快走 · Esc 離開',
     'walk.touch': '拖動視角', 'walk.jog': '快走中', 'walk.dist': '已行',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
@@ -1861,7 +1861,11 @@ function stepWalk() {
   const K = walk.keys;
   const fwdIn = (K['w'] || K['arrowup'] ? 1 : 0) - (K['s'] || K['arrowdown'] ? 1 : 0) + (walk.auto ? 1 : 0);
   const strIn = (K['d'] || K['arrowright'] ? 1 : 0) - (K['a'] || K['arrowleft'] ? 1 : 0);
-  const mps = (K['shift'] ? 4.0 : 1.4) / 60;              // real pace, per frame
+  // pace scales with the vertical exaggeration: VE lifts the eye (1.7 m × VE),
+  // which makes true 1.4 m/s read as standing still on a 5 m DEM with no
+  // near-field detail — William's "bobbing but not moving". Scaling by VE keeps
+  // the motion parallax matched to the apparent eye height (≈4 m/s at VE 2.8).
+  const mps = (K['shift'] ? 4.0 : 1.4) * Math.max(1, VE) / 60;
   const sy = Math.sin(walk.yaw), cy = Math.cos(walk.yaw);
   const dx = (-sy * fwdIn + cy * strIn) * mps;
   const dz = (-cy * fwdIn - sy * strIn) * mps;
