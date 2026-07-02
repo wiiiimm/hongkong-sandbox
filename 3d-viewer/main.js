@@ -91,7 +91,7 @@ const I18N = {
     'fly.view': 'view', 'fly.exit': 'exit',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
-    'about': '<b>Hong Kong Sandbox · 香港沙盤</b>'
+    'about': '<b>Hong Kong Sandbox · 香港沙盒</b>'
       + '<p>Built by <b>wiiiimm</b> — <a href="https://wiiiimm.design" target="_blank" rel="noopener">portfolio</a>. '
       + 'Originally made for <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a>’s design work.</p>'
       + '<p><a href="https://github.com/wiiiimm" target="_blank" rel="noopener">GitHub</a> · '
@@ -117,8 +117,8 @@ const I18N = {
     'tide.24h': '24 h tide', 'st.QUB': 'Quarry Bay', 'st.CCH': 'Cheung Chau', 'wx.unavail': 'live weather unavailable', 'wx.live': 'Live',
   },
   'zh-hk': {
-    'app.title': '香港沙盤',
-    'doc.title': '香港沙盤 — 3D 地形、實時天氣與颱風模擬',
+    'app.title': '香港沙盒',
+    'doc.title': '香港沙盒 — 3D 地形、實時天氣與颱風模擬',
     'lbl.source': '資料來源', 'src.hk5m': '香港 · 地政總署 5 米', 'src.hksrtm': '香港 · AWS Terrarium ~30 米',
     'src.lan5m': '大嶼山 · 地政總署 5 米', 'src.lansrtm': '大嶼山 · AWS Terrarium ~30 米',
     'lbl.surface': '表面', 'surf.none': '無填色', 'surf.shaded': '陰影地貌', 'surf.tint': '高程著色（平面）',
@@ -139,7 +139,7 @@ const I18N = {
     'fly.view': '視角', 'fly.exit': '離開',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
-    'about': '<b>香港沙盤 · Hong Kong Sandbox</b>'
+    'about': '<b>香港沙盒 · Hong Kong Sandbox</b>'
       + '<p>由 <b>wiiiimm</b> 製作 — <a href="https://wiiiimm.design" target="_blank" rel="noopener">作品集</a>。'
       + '原為 <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a> 的設計工作而建。</p>'
       + '<p><a href="https://github.com/wiiiimm" target="_blank" rel="noopener">GitHub</a> · '
@@ -1700,7 +1700,7 @@ async function snapshot() {
   x.font = `600 ${fs}px ui-monospace, monospace`;
   x.fillStyle = 'rgba(255,255,255,.82)';
   x.textAlign = 'left';
-  x.fillText('Hong Kong Sandbox 香港沙盤 · wiiiimm', pad, c.height - pad);
+  x.fillText('Hong Kong Sandbox 香港沙盒 · wiiiimm', pad, c.height - pad);
   const attrEl = document.getElementById('mapattr');     // tile attribution rides along
   if (attrEl.textContent && getComputedStyle(attrEl).display !== 'none') {
     x.textAlign = 'right';

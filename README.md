@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/brand/hongkong-sandbox-logo.png" alt="Hong Kong Sandbox · 香港沙盤" width="320"/>
+  <img src="assets/brand/hongkong-sandbox-logo.png" alt="Hong Kong Sandbox · 香港沙盒" width="320"/>
 </p>
 
-# Hong Kong Sandbox · 香港沙盤
+# Hong Kong Sandbox · 香港沙盒
 <a id="top"></a>
 
 **English** · [繁體中文](#繁體中文)
