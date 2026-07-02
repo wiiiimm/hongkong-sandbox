@@ -2940,7 +2940,10 @@ function animate() {
   const sh = stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.6 : stormLevel >= 8 ? 0.32 : 0;
   if (sh > 0) { const a = bounds().span * 0.0012 * sh; world.position.set((Math.random()*2-1)*a, (Math.random()*2-1)*a, (Math.random()*2-1)*a); }
   else if (world.position.x || world.position.y || world.position.z) world.position.set(0, 0, 0);
-  if (!flight.on) controls.update();   // the chase camera owns the view while flying
+  // flight and walk own the camera; OrbitControls.update() ignores .enabled and
+  // would re-seat the camera on its orbit sphere every frame (the walk-mode
+  // "rotating from a weird point" bug) — so skip it entirely in both modes
+  if (!flight.on && !walk.on) controls.update();
   updateClip();                 // keep near/far tuned to the current zoom distance
   renderer.render(scene, camera);
   world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests
