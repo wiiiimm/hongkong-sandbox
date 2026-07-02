@@ -71,6 +71,7 @@ const I18N = {
   'en-hk': {
     'app.title': 'Hong Kong Sandbox',
     'doc.title': 'Hong Kong Sandbox — 3D terrain, live weather & typhoon sim',
+    'meta.desc': 'An interactive 3D Hong Kong — real LiDAR terrain, live Hong Kong Observatory weather, tides and typhoon signals (No.1–10). Fly it yourself. Bilingual (EN / 繁中).',
     'lbl.source': 'Source', 'src.hk5m': 'Hong Kong · LandsD 5 m', 'src.hksrtm': 'Hong Kong · AWS Terrarium ~30 m',
     'src.lan5m': 'Lantau · LandsD 5 m', 'src.lansrtm': 'Lantau · AWS Terrarium ~30 m',
     'lbl.surface': 'Surface', 'surf.none': 'None (no fill)', 'surf.shaded': 'Shaded relief', 'surf.tint': 'Elevation tint (flat)',
@@ -127,6 +128,7 @@ const I18N = {
   'zh-hk': {
     'app.title': '香港沙盒',
     'doc.title': '香港沙盒 — 3D 地形、實時天氣與颱風模擬',
+    'meta.desc': '互動 3D 香港 — 真實 LiDAR 地形、香港天文台實時天氣、潮汐及颱風信號（一號至十號）。親自駕駛飛越香港。中英雙語。',
     'lbl.source': '資料來源', 'src.hk5m': '香港 · 地政總署 5 米', 'src.hksrtm': '香港 · AWS Terrarium ~30 米',
     'src.lan5m': '大嶼山 · 地政總署 5 米', 'src.lansrtm': '大嶼山 · AWS Terrarium ~30 米',
     'lbl.surface': '表面', 'surf.none': '無填色', 'surf.shaded': '陰影地貌', 'surf.tint': '高程著色（平面）',
@@ -3146,6 +3148,12 @@ function applyLocale(loc) {
   document.documentElement.lang = isZh() ? 'zh-HK' : 'en';
   document.title = t('doc.title');
   const canon = document.getElementById('canonical'); if (canon) canon.href = location.origin + location.pathname;
+  // keep social-share meta (HKS-28) in sync with the active locale
+  const setMeta = (id, v) => { const el = document.getElementById(id); if (el) el.setAttribute('content', v); };
+  setMeta('og-title', t('doc.title')); setMeta('tw-title', t('doc.title'));
+  setMeta('og-desc', t('meta.desc'));  setMeta('tw-desc', t('meta.desc'));
+  setMeta('og-url', location.origin + location.pathname);
+  setMeta('og-locale', isZh() ? 'zh_HK' : 'en_HK');
   document.body.dataset.locale = locale;
   for (const el of document.querySelectorAll('[data-i18n]'))       el.textContent = t(el.getAttribute('data-i18n'));
   for (const el of document.querySelectorAll('[data-i18n-title]')) el.title = t(el.getAttribute('data-i18n-title'));
