@@ -176,7 +176,10 @@ const isZh = () => locale === 'zh-hk';
 // buffer kept readable. Desktop / fine-pointer only — phones keep the CSS look.
 const GLASS_OK = matchMedia('(pointer: fine)').matches && innerWidth > 640;
 const app = document.getElementById('app');
-const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: GLASS_OK });
+// logarithmicDepthBuffer: the flight camera sits metres from geometry while the
+// horizon is ~100 km out — a linear depth buffer z-fights the sea against the
+// coast at that ratio (bad flicker in flight). Log depth spreads the precision.
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: GLASS_OK, logarithmicDepthBuffer: true });
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(38, 1, 10, 400000);
