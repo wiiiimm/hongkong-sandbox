@@ -2895,7 +2895,7 @@ async function fetchWxEmoji() {   // territory-wide condition + per-district rai
     const j = await fetch('https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=rhrread').then(r => r.json());
     wxEmoji = iconEmoji((j.icon || [])[0]);
     const R = {};
-    for (const d of ((j.rainfall && j.rainfall.data) || [])) if (d.place != null && d.max != null) R[d.place] = d.max;
+    for (const d of ((j.rainfall && j.rainfall.data) || [])) if (d.place != null && isFinite(+d.max)) R[d.place] = +d.max;
     districtRain = R;
   } catch (_) {}
 }
@@ -2931,7 +2931,7 @@ function applyStationReadings(R) {
     if (isFinite(temp)) {
       ic.textContent = wxEmoji;
       tEl.textContent = Math.round(temp) + '°'; tEl.style.color = tempColor(temp);
-      rhEl.textContent = (d.rh ? `💧 ${d.rh}%` : '') + (rain > 0 ? ` · 🌧${rain}` : '');
+      rhEl.textContent = [d.rh ? `💧 ${d.rh}%` : '', rain > 0 ? `🌧${rain}` : ''].filter(Boolean).join(' · ');
     } else if (isFinite(parseFloat(d.wspd))) {
       const gust = parseFloat(d.gust), dir = d.wdir && d.wdir !== 'N/A' ? d.wdir : '';
       ic.textContent = '💨';
