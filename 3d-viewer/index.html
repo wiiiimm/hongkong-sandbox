@@ -411,23 +411,23 @@
   <div class="grp"><!-- explore modes live right under the header, by their mode toggles -->
     <div class="row">
       <div class="splitbtn">
-        <button id="flybtn" title="Fly a plane over the terrain"
+        <button id="flybtn" title="Fly a plane over the terrain — land anywhere (even water) and take off again"
                 data-i18n="btn.fly">✈ Fly</button>
         <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
       </div>
       <div class="splitbtn">
-        <button id="walkbtn" title="Air-drop at the view centre and walk the terrain in first person"
+        <button id="walkbtn" title="Air-drop at the view centre and hike the terrain — ␣ jumps, ⇧ (or a two-finger hold) runs"
                 data-i18n="btn.walk">🪂 Walk</button>
         <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
       </div>
     </div>
     <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
       <input id="topspd" type="range" min="130" max="600" step="2" value="214" disabled
-             title="Boost target — ␣ in flight, ⇧ on foot"/>
+             title="Boost target — hold ␣ in flight · ⇧ or a two-finger hold on foot"/>
       <span id="topspdv" style="flex:0 0 56px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
     </div>
     <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
-      <div id="spdgauge"><div id="spdfill"></div></div>
+      <div id="spdgauge" title="Current speed as % of top speed — redlines at full boost"><div id="spdfill"></div></div>
       <span id="spdpct" style="flex:0 0 48px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
     </div>
   </div>

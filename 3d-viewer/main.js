@@ -96,7 +96,7 @@ const I18N = {
     'lbl.topspeed': 'Top speed',
     'btn.walk': '🪂 Walk',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
-    'walk.touch': 'drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
+    'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
@@ -155,7 +155,7 @@ const I18N = {
     'lbl.topspeed': '極速',
     'btn.walk': '🪂 步行',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
-    'walk.touch': '拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
+    'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
@@ -1866,7 +1866,7 @@ function stepFlight() {
 // with a ▶ auto-walk toggle in the HUD. Slopes steeper than ~45° block you.
 const walk = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: -0.04,
                keys: {}, prevSpin: 1, auto: false, helpT: 0, dist: 0, bob: 0,
-               vy: 0, land: 0, spd: 0, top: 24 / 3.6, pov: true };
+               vy: 0, land: 0, spd: 0, top: 24 / 3.6, pov: true, touchHold: 0 };
 let hikerGrp = null;
 // ?nolock=1 — debug switch: skip pointer lock; mouse look becomes drag-to-look
 // so the keyboard path can be tested in isolation from the lock
@@ -1951,7 +1951,16 @@ addEventListener('touchmove', e => {
   }
   _lastTouch = { x: t0.clientX, y: t0.clientY };
 }, { passive: true });
-addEventListener('touchend', () => { _lastTouch = null; });
+// phones: hold the map to walk, hold with TWO fingers to run (boost) — the
+// same finger drags to steer while you go. walk.touchHold counts live touches.
+addEventListener('touchstart', e => {
+  if (walk.on && e.target === renderer.domElement) walk.touchHold = e.touches.length;
+}, { passive: true });
+addEventListener('touchend', e => {
+  _lastTouch = null;
+  walk.touchHold = walk.on ? e.touches.length : 0;
+});
+addEventListener('touchcancel', () => { _lastTouch = null; walk.touchHold = 0; });
 
 // a low-poly hiker — olive jacket, backpack, sun hat, and the walking stick.
 // Built in real metres with limb pivots at hip/shoulder, scaled by VE so the
@@ -1996,15 +2005,18 @@ document.getElementById('walkviewbtn').addEventListener('click', toggleWalkView)
 function stepWalk() {
   if (!walk.on) return;
   const K = walk.keys;
-  const fwdIn = (K['w'] || K['arrowup'] ? 1 : 0) - (K['s'] || K['arrowdown'] ? 1 : 0) + (walk.auto ? 1 : 0);
+  const fwdIn = Math.max(-1, Math.min(1,
+    (K['w'] || K['arrowup'] ? 1 : 0) - (K['s'] || K['arrowdown'] ? 1 : 0) +
+    (walk.auto ? 1 : 0) + (walk.touchHold > 0 ? 1 : 0)));   // hold the map = walk
   const strIn = (K['d'] || K['arrowright'] ? 1 : 0) - (K['a'] || K['arrowleft'] ? 1 : 0);
+  const boost = K['shift'] || walk.touchHold >= 2;          // ⇧ or a two-finger hold = run
   // ⇧ is the gas on foot: speed winds up toward the top-speed slider (the top
   // end is superhuman) and settles back to a 1.4 m/s stroll when released.
   // Pace scales with the vertical exaggeration: VE lifts the eye (1.7 m × VE),
   // so unscaled real pace reads as standing still on a 5 m DEM with no
   // near-field detail. Scaling by VE keeps motion parallax matched.
   const moving = !!(fwdIn || strIn);
-  const target = moving ? (K['shift'] ? walk.top : 1.4) : 0;
+  const target = moving ? (boost ? walk.top : 1.4) : 0;
   walk.spd += (target - walk.spd) * (target > walk.spd ? 0.045 : 0.12);
   if (walk.spd < 0.02) walk.spd = 0;
   const mps = walk.spd * Math.max(1, VE) / 60;
@@ -2093,7 +2105,7 @@ function stepWalk() {
   const stats = `${airborne ? '🪂' : '🚶'} ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
     (walk.spd > 0.3 ? ` · ${Math.round(walk.spd * 3.6)} km/h` : '') +
     ` · ${t('walk.dist')} ${odo}` +                       // odometer: live proof the keys register
-    (K['shift'] && moving ? ` · ${t('walk.jog')}` : '');
+    (boost && moving ? ` · ${t('walk.jog')}` : '');
   const hints = (touch ? t('walk.touch') : t('walk.help')) +
     (touch ? ` &nbsp;<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '') +
     ` · <span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
