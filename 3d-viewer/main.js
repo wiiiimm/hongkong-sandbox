@@ -86,7 +86,7 @@ const I18N = {
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
-    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · C cockpit · Esc exit',
+    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ boost · C cockpit · Esc exit',
     'fly.touch': 'tilt your phone to steer · auto throttle',
     'fly.view': 'view', 'fly.exit': 'exit',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
@@ -134,7 +134,7 @@ const I18N = {
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
-    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · C 駕駛艙 · Esc 離開',
+    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · C 駕駛艙 · Esc 離開',
     'fly.touch': '傾斜手機轉向 · 自動油門',
     'fly.view': '視角', 'fly.exit': '離開',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
@@ -1591,6 +1591,7 @@ function stepFlight() {
     F.roll  += (Math.random() - 0.5) * 0.010 * windStrength;
   }
   F.speed = Math.max(28, Math.min(125, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
+  if (K[' ']) F.speed = Math.min(110, F.speed + 0.8);  // ␣ steps on the gas — brisk, not silly
   _fe.set(F.pitch, F.yaw, -F.roll * 0.9, 'YXZ');       // right bank = right wing down
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
@@ -1616,7 +1617,6 @@ function stepFlight() {
   }
   planeGrp.position.copy(F.pos);
   planeGrp.quaternion.copy(_fq);
-  planeGrp.visible = !F.pov;                           // you can't see your own plane from inside
   if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += 0.25 + F.speed * 0.004;
   setEngine(sndOn ? 0.25 + 0.75 * (F.speed - 28) / 97 : 0);
   // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
@@ -1628,12 +1628,12 @@ function stepFlight() {
     camera.updateProjectionMatrix();
   }
   // --- cameras (world space: survives any leftover world spin)
-  if (F.pov) {                                         // cockpit: rigid mount, horizon rolls
-    _fc.copy(F.pos).addScaledVector(_fv, 8); _fc.y += 2.5;
+  if (F.pov) {                                         // cockpit: seated just behind the cowl —
+    _fu.set(0, 1, 0).applyQuaternion(_fq);             // nose + spinning prop stay in frame,
+    _fc.copy(F.pos).addScaledVector(_fv, 1.2).addScaledVector(_fu, 1.7);   // horizon rolls
     world.localToWorld(_fc);
     camera.position.copy(_fc);
     _fl.copy(F.pos).addScaledVector(_fv, 2000); world.localToWorld(_fl);
-    _fu.set(0, 1, 0).applyQuaternion(_fq);
     camera.up.copy(_fu);
     camera.lookAt(_fl);
   } else {                                             // chase: ~55 m back, 20 m up
