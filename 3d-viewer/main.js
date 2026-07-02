@@ -90,6 +90,9 @@ const I18N = {
     'fly.touch': 'tilt your phone to steer · auto throttle',
     'fly.view': 'view', 'fly.exit': 'exit',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
+    'btn.walk': '🚶 Walk',
+    'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ jog · Esc exit',
+    'walk.touch': 'drag to look', 'walk.jog': 'jogging',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'about': '<b>Hong Kong Sandbox · 香港沙盒</b>'
@@ -139,6 +142,9 @@ const I18N = {
     'fly.touch': '傾斜手機轉向 · 自動油門',
     'fly.view': '視角', 'fly.exit': '離開',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
+    'btn.walk': '🚶 步行',
+    'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 快走 · Esc 離開',
+    'walk.touch': '拖動視角', 'walk.jog': '快走中',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'about': '<b>香港沙盒 · Hong Kong Sandbox</b>'
@@ -1520,6 +1526,7 @@ function buildPlane() {
 }
 function enterFlight() {
   if (flight.on || !curG) return;
+  if (walk.on) exitWalk();
   flight.on = true;
   flight.prevSpin = spinDir; spinDir = 0;              // the world holds still while you fly
   document.getElementById('spindir').value = '0';
@@ -1581,21 +1588,31 @@ function toggleView() {
 document.getElementById('flybtn').addEventListener('click', () => flight.on ? exitFlight() : enterFlight());
 document.getElementById('viewbtn').addEventListener('click', toggleView);
 addEventListener('keydown', e => {
+  if (walk.on) {
+    if (e.key === 'Escape') { exitWalk(); return; }
+    walk.keys[e.key.toLowerCase()] = true;
+    if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
+    return;
+  }
   if (!flight.on) return;
   if (e.key === 'Escape') { exitFlight(); return; }
   if (e.key.toLowerCase() === 'c') { toggleView(); return; }
   flight.keys[e.key.toLowerCase()] = true;
   if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
 });
-addEventListener('keyup', e => { flight.keys[e.key.toLowerCase()] = false; });
+addEventListener('keyup', e => {
+  flight.keys[e.key.toLowerCase()] = false;
+  walk.keys[e.key.toLowerCase()] = false;
+});
 addEventListener('deviceorientation', e => {           // phone tilt = the stick
   if (!flight.on || !flight.tilt || e.beta == null) return;
   if (flight.tiltRef == null) flight.tiltRef = e.beta;  // first reading calibrates neutral
   flight.tiltBeta = e.beta; flight.tiltGamma = e.gamma || 0;
 });
 document.getElementById('flyhud').addEventListener('click', e => {   // touch affordances in the HUD
-  if (e.target.dataset.fly === 'exit') exitFlight();
+  if (e.target.dataset.fly === 'exit') { exitFlight(); exitWalk(); }
   else if (e.target.dataset.fly === 'view') toggleView();
+  else if (e.target.dataset.fly === 'autowalk') walk.auto = !walk.auto;
 });
 const FLY_DEBUG = new URLSearchParams(location.search).has('debug');
 if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serialization
@@ -1707,6 +1724,114 @@ function stepFlight() {
     : `${stats}<small>${hints}</small>`;
 }
 
+// ---- walk mode (HKS-33): first person on foot, at a real walking pace -------
+// Drops you at the current view centre, eye 1.7 m over the DEM, 1.4 m/s (Shift
+// jogs at 4). WASD/arrows move, pointer-lock mouse looks; phones drag to look
+// with a ▶ auto-walk toggle in the HUD. Slopes steeper than ~45° block you.
+const walk = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: -0.04,
+               keys: {}, prevSpin: 1, auto: false, helpT: 0 };
+function enterWalk() {
+  if (walk.on || !curG) return;
+  if (flight.on) exitFlight();
+  walk.on = true;
+  walk.prevSpin = spinDir; spinDir = 0;
+  document.getElementById('spindir').value = '0';
+  const b0 = bounds();
+  const t0 = controls.target.clone(); world.worldToLocal(t0);
+  walk.pos.set(
+    Math.max(-b0.halfX, Math.min(b0.halfX, t0.x)), 0,
+    Math.max(-b0.halfZ, Math.min(b0.halfZ, t0.z)));
+  const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
+  walk.yaw = -(Math.atan2(fx, -fz) + world.rotation.y);   // keep facing the way you looked
+  walk.pitch = -0.04;
+  walk.auto = false; walk.helpT = 480;
+  walk.pos.y = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) * VE + 1.7 * VE;
+  camera.fov = 70; camera.updateProjectionMatrix();
+  document.getElementById('flyhud').style.display = 'block';
+  document.getElementById('walkbtn').classList.add('on');
+  document.body.classList.add('flying');                  // lifts the heading tape
+  controls.enabled = false;
+  if (renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+}
+function exitWalk() {
+  if (!walk.on) return;
+  walk.on = false; walk.keys = {};
+  if (document.exitPointerLock) document.exitPointerLock();
+  document.getElementById('flyhud').style.display = 'none';
+  document.getElementById('walkbtn').classList.remove('on');
+  document.body.classList.remove('flying');
+  spinDir = walk.prevSpin;
+  document.getElementById('spindir').value = String(spinDir);
+  camera.fov = 38; camera.updateProjectionMatrix();
+  camera.up.set(0, 1, 0);
+  controls.enabled = true;
+  frameCamera();
+}
+document.getElementById('walkbtn').addEventListener('click', () => walk.on ? exitWalk() : enterWalk());
+addEventListener('mousemove', e => {                      // pointer-lock look
+  if (!walk.on || document.pointerLockElement !== renderer.domElement) return;
+  walk.yaw -= e.movementX * 0.0022;
+  walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - e.movementY * 0.0022));
+});
+renderer.domElement.addEventListener('click', () => {     // re-arm the lock after Esc
+  if (walk.on && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+});
+let _lastTouch = null;                                    // phones: drag to look
+addEventListener('touchmove', e => {
+  if (!walk.on || e.target !== renderer.domElement) return;
+  const t0 = e.touches[0];
+  if (_lastTouch) {
+    walk.yaw -= (t0.clientX - _lastTouch.x) * 0.005;
+    walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - (t0.clientY - _lastTouch.y) * 0.005));
+  }
+  _lastTouch = { x: t0.clientX, y: t0.clientY };
+}, { passive: true });
+addEventListener('touchend', () => { _lastTouch = null; });
+
+function stepWalk() {
+  if (!walk.on) return;
+  const K = walk.keys;
+  const fwdIn = (K['w'] || K['arrowup'] ? 1 : 0) - (K['s'] || K['arrowdown'] ? 1 : 0) + (walk.auto ? 1 : 0);
+  const strIn = (K['d'] || K['arrowright'] ? 1 : 0) - (K['a'] || K['arrowleft'] ? 1 : 0);
+  const mps = (K['shift'] ? 4.0 : 1.4) / 60;              // real pace, per frame
+  const sy = Math.sin(walk.yaw), cy = Math.cos(walk.yaw);
+  const dx = (-sy * fwdIn + cy * strIn) * mps;
+  const dz = (-cy * fwdIn - sy * strIn) * mps;
+  const b = bounds();
+  if (dx || dz) {
+    const gCur = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
+    const nx = Math.max(-b.halfX, Math.min(b.halfX, walk.pos.x + dx));
+    const nz = Math.max(-b.halfZ, Math.min(b.halfZ, walk.pos.z + dz));
+    const gNew = sampleE(nx / cell + W / 2, nz / cell + H / 2);
+    if (gNew - gCur < Math.hypot(dx, dz) + 0.25) {        // ~45° slope gate
+      walk.pos.x = nx; walk.pos.z = nz;
+    }
+  }
+  const g = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
+  walk.pos.y += (g * VE + 1.7 * VE - walk.pos.y) * 0.3;   // smooth over the 5 m DEM stairs
+  _fe.set(walk.pitch, walk.yaw, 0, 'YXZ');
+  _fq.setFromEuler(_fe);
+  _fv.set(0, 0, -1).applyQuaternion(_fq);
+  _fc.copy(walk.pos); world.localToWorld(_fc);
+  camera.position.copy(_fc);
+  _fl.copy(walk.pos).addScaledVector(_fv, 150); world.localToWorld(_fl);
+  camera.up.set(0, 1, 0);
+  camera.lookAt(_fl);
+  controls.target.copy(_fl);
+  const az = ((-walk.yaw / D2R) % 360 + 360) % 360;
+  const touch = matchMedia('(pointer: coarse)').matches;
+  const stats = `🚶 ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
+    (K['shift'] ? ` · ${t('walk.jog')}` : '');
+  const hints = (touch ? t('walk.touch') : t('walk.help')) +
+    (touch ? ` &nbsp;<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '') +
+    ` · <span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
+  if (walk.helpT > 0) walk.helpT--;
+  document.getElementById('flyhud').innerHTML = walk.helpT > 0
+    ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
+    : `${stats}<small>${hints}</small>`;
+}
+if (FLY_DEBUG) { window.__walk = walk; window.__stepWalk = () => stepWalk(); }
+
 // ---- corner UI (HKS-32): compass + snapshot ---------------------------------
 // The compass rose tracks the camera heading relative to TERRAIN north (the
 // world group may be auto-spun); clicking snaps the view — or the plane — back
@@ -1719,6 +1844,7 @@ const CARD4 = { 0: 'N', 90: 'E', 180: 'S', 270: 'W' };
 function updateCompass() {
   let heading;
   if (flight.on) heading = -flight.yaw;                // in the air the tape IS the plane's heading
+  else if (walk.on) heading = -walk.yaw;               // on foot, where you're facing
   else {
     const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
     if (!fx && !fz) return;
@@ -2554,6 +2680,7 @@ function animate() {
   if (sunRays.visible) sunRays.material.rotation += 0.0004;   // slow crown turn
   stepDrips();
   stepFlight();
+  stepWalk();
   updateCompass();
   animateWeather();
   // storm screen shake — the terrain judders under the strongest signals
