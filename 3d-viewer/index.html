@@ -148,6 +148,9 @@
     transition:border-color .12s, background .12s}
   button:hover{background:rgba(255,255,255,.08);border-color:var(--accent)}
   .btns{display:flex;gap:6px;flex-wrap:wrap}
+  #sharemenu{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
+  .sharebtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+  .sharebtns button{width:100%}
   #vev,#meshdensv{font-family:var(--mono);color:var(--ink)}
   .lbl{position:fixed;transform:translate(-50%,-100%);pointer-events:none;font-size:12px;white-space:nowrap;
     color:#fff;font-weight:600;letter-spacing:.02em;text-shadow:0 1px 4px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.85)}
@@ -493,6 +496,16 @@
     <button id="south" data-i18n="btn.south">South</button>
     <button id="top" data-i18n="btn.top">Top‑down</button>
     <button id="copylink" title="Copy a link to this exact view" data-i18n="btn.copylink">Copy link</button>
+    <button id="sharebtn" title="Share this view" data-i18n="btn.share">Share</button>
+  </div>
+  <div id="sharemenu" style="display:none">
+    <div class="gt" data-i18n="share.title">Share this view</div>
+    <div class="sharebtns">
+      <button id="sh-wa">WhatsApp</button>
+      <button id="sh-x">X</button>
+      <button id="sh-th">Threads</button>
+      <button id="sh-copy" data-i18n="btn.copylink">Copy link</button>
+    </div>
   </div>
 
   <div class="grp">
