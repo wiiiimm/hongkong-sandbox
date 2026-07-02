@@ -150,6 +150,13 @@
     border-radius:8px;padding:6px 11px;cursor:pointer;font-size:11px;font-family:var(--sans);letter-spacing:.02em;
     transition:border-color .12s, background .12s}
   button:hover{background:rgba(255,255,255,.08);border-color:var(--accent)}
+  /* Fly is a split button: the flight-camera segment (chase/cockpit) docks onto
+     it and only exists while flying — the pairing is the explanation */
+  .splitbtn{display:flex;flex:1;gap:0}
+  .splitbtn #flybtn{flex:1;padding:10px 0;font-size:13px;font-weight:600}
+  .splitbtn #viewbtn{display:none;border-radius:0 8px 8px 0;border-left:none;padding:10px 12px;white-space:nowrap}
+  .splitbtn #flybtn.on{border-radius:8px 0 0 8px}
+  .splitbtn #flybtn.on+#viewbtn{display:block}
   .btns{display:flex;gap:6px;flex-wrap:wrap}
   #sharemenu{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
   .sharebtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
@@ -545,12 +552,13 @@
 
   <div class="grp">
     <div class="row">
-      <button id="flybtn" title="Fly a plane over the terrain"
-              style="flex:1;padding:10px 0;font-size:13px;font-weight:600" data-i18n="btn.fly">✈ Fly</button>
+      <div class="splitbtn">
+        <button id="flybtn" title="Fly a plane over the terrain"
+                data-i18n="btn.fly">✈ Fly</button>
+        <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
+      </div>
       <button id="walkbtn" title="Walk the terrain in first person (drops at the view centre)"
               style="flex:1;padding:10px 0;font-size:13px;font-weight:600" data-i18n="btn.walk">🚶 Walk</button>
-      <button id="viewbtn" title="Camera view — chase / cockpit (C)"
-              style="flex:0 0 92px;padding:10px 0" disabled>🎥 Chase</button>
     </div>
     <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
       <input id="topspd" type="range" min="130" max="600" step="2" value="214"
