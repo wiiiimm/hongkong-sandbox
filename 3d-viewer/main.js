@@ -180,6 +180,9 @@ const app = document.getElementById('app');
 // horizon is ~100 km out — a linear depth buffer z-fights the sea against the
 // coast at that ratio (bad flicker in flight). Log depth spreads the precision.
 const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: GLASS_OK, logarithmicDepthBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+app.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(38, 1, 10, 400000);
@@ -342,6 +345,8 @@ function attachTerrainFX(mat, wet, water) {
     sh.uniforms.uWaveAmp = { value: 0 };
     sh.uniforms.uWaveK = { value: 1 / 400 };
     sh.uniforms.uSparkAmt = { value: 0 };
+    sh.uniforms.uGlintAmt = { value: 0 };
+    sh.uniforms.uSunDirV = { value: new THREE.Vector3(0, 1, 0) };
     sh.uniforms.uSnowAmt = { value: 0 };
     sh.uniforms.uSnowLine = { value: 1e9 };
     // world position: correct height for the rotated sea plane, and an xz frame
@@ -356,6 +361,7 @@ function attachTerrainFX(mat, wet, water) {
         uniform sampler2D uCloudTex; uniform vec2 uCloudOfs; uniform float uCloudScale; uniform float uCloudAmt;
         uniform float uFogY; uniform float uFogAmt; uniform vec3 uFogCol;
         uniform float uTime; uniform float uWaveAmp; uniform float uWaveK; uniform float uSparkAmt;
+        uniform float uGlintAmt; uniform vec3 uSunDirV;
         uniform float uSnowAmt; uniform float uSnowLine;`)
       .replace('#include <dithering_fragment>', `#include <dithering_fragment>
         { float d = vWpos.y - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d));
@@ -394,6 +400,18 @@ function attachTerrainFX(mat, wet, water) {
             float rk = fract(sin(dot(rc, vec2(39.3468, 11.135))) * 24634.6345) - 0.5;
             normal = normalize(normal + (viewMatrix * vec4(rj, 0.0, rk, 0.0)).xyz * uSparkAmt * 0.9);
           } }`);
+      // sun-glitter: per-cell micro-facets whose normals slowly rotate — each
+      // flashes as it sweeps through alignment between the sun (or moon) and
+      // the eye. Injected before the shared passes so height fog dims it.
+      sh.fragmentShader = sh.fragmentShader.replace('#include <dithering_fragment>', `#include <dithering_fragment>
+        if (uGlintAmt > 0.0) {
+          vec2 gc = floor(vWpos.xz * uWaveK * 80.0);
+          float gr = fract(sin(dot(gc, vec2(127.1, 311.7))) * 43758.5453);
+          float ph = gr * 6.2831 + uTime * (1.0 + gr * 2.5);
+          vec3 mj = normalize(normal + (viewMatrix * vec4(cos(ph) * 0.22, 0.0, sin(ph) * 0.22, 0.0)).xyz);
+          vec3 Hh = normalize(uSunDirV + normalize(vViewPosition));
+          gl_FragColor.rgb += vec3(1.0, 0.97, 0.88) * pow(max(dot(mj, Hh), 0.0), 420.0) * uGlintAmt;
+        }`);
     }
     mat.userData.sh = sh;
   };
@@ -517,6 +535,7 @@ function buildSea() {
 
 // ---- weather effects: rain / clouds / fog / lightning / waves --------------
 let rainPts = null, rainHeads = null, cloudGrp = null, mistGrp = null, wavePhase = 0, waveT = 0, flash = 0;
+const _sunDirV = new THREE.Vector3(0, 1, 0);   // key-light direction in view space (for water glitter)
 let snowPts = null, snowMeta = null, snowAcc = 0;   // flakes + snow-cap build-up (0..1)
 let wallGrp = null, wallOp = 0;                     // T8+ rotating storm wall
 const SEA_Y = 0.5;
@@ -852,6 +871,7 @@ function animateWeather() {
   const fogY = (30 + w * 40) * VE;
   const waveAmp = weather.waves ? 0.14 + w * 0.22 : 0.05;   // calm water still shimmers a little
   waveT += 0.016 * (1 + w * 1.5);                           // seas quicken smoothly with the wind
+  _sunDirV.copy(sun.position).normalize().transformDirection(camera.matrixWorldInverse);
   for (const m of tidalMats) {
     const sh = m.userData.sh; if (!sh) continue;
     sh.uniforms.uWaterY.value = wy; sh.uniforms.uBand.value = 4.5 * VE;
@@ -867,6 +887,10 @@ function animateWeather() {
     sh.uniforms.uWaveK.value = 1100 / b.span;
     sh.uniforms.uFoamAmt.value = weather.waves ? 0.45 + 0.4 * w : 0.18;
     sh.uniforms.uSparkAmt.value = (m.userData.isWater && weather.rain) ? 0.35 + 0.45 * w : 0;
+    if (m.userData.isWater) {
+      sh.uniforms.uGlintAmt.value = 0.55 + w * 0.45;
+      sh.uniforms.uSunDirV.value.copy(_sunDirV);
+    }
     sh.uniforms.uSnowAmt.value = snowAcc * 0.9;
     sh.uniforms.uSnowLine.value = 380 * VE;
     renderer.getClearColor(sh.uniforms.uFogCol.value);
@@ -1577,6 +1601,7 @@ const FLY_DEBUG = new URLSearchParams(location.search).has('debug');
 if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serialization
   window.__flight = flight;
   window.__stepFlight = () => stepFlight();
+  window.__three = () => ({ renderer, scene, camera, sun, hemi, terrain, sea, tidalMats });
 }
 
 const _fq = new THREE.Quaternion(), _fe = new THREE.Euler(), _fv = new THREE.Vector3();
