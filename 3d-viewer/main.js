@@ -1568,6 +1568,7 @@ function enterFlight() {
   }
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('flybtn').classList.add('on');
+  document.getElementById('flybtn').blur();   // else Space (boost!) re-clicks the button and exits
   document.body.classList.add('flying');
   updateViewBtn();
   controls.enabled = false;
@@ -1621,22 +1622,35 @@ function updateSpeedGauge() {
   pct.textContent = Math.round(p) + '%';
   fill.classList.toggle('hot', p >= 97);              // redline glow at full gas
 }
+// Resolve the LOGICAL key from the physical e.code first: with a CJK/IME input
+// source active, letter keydowns arrive as e.key === 'Process' and WASD would
+// never register (arrows pass through IMEs, which is why flight seemed fine).
+// e.code names the physical key regardless of layout or composition state.
+function keyOf(e) {
+  const c = e.code || '';
+  if (c.startsWith('Key')) return c.slice(3).toLowerCase();
+  if (c.startsWith('Arrow')) return c.toLowerCase();
+  if (c === 'Space') return ' ';
+  if (c.startsWith('Shift')) return 'shift';
+  if (c.startsWith('Control')) return 'control';
+  return (e.key || '').toLowerCase();
+}
 addEventListener('keydown', e => {
   if (walk.on) {
     if (e.key === 'Escape') { exitWalk(); return; }
-    walk.keys[e.key.toLowerCase()] = true;
-    if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
+    walk.keys[keyOf(e)] = true;
+    if (e.code.startsWith('Arrow') || e.code === 'Space') e.preventDefault();
     return;
   }
   if (!flight.on) return;
   if (e.key === 'Escape') { exitFlight(); return; }
-  if (e.key.toLowerCase() === 'c') { toggleView(); return; }
-  flight.keys[e.key.toLowerCase()] = true;
-  if (e.key.startsWith('Arrow') || e.key === ' ') e.preventDefault();
+  if (keyOf(e) === 'c') { toggleView(); return; }
+  flight.keys[keyOf(e)] = true;
+  if (e.code.startsWith('Arrow') || e.code === 'Space') e.preventDefault();
 });
 addEventListener('keyup', e => {
-  flight.keys[e.key.toLowerCase()] = false;
-  walk.keys[e.key.toLowerCase()] = false;
+  flight.keys[keyOf(e)] = false;
+  walk.keys[keyOf(e)] = false;
 });
 addEventListener('deviceorientation', e => {           // phone tilt = the stick
   if (!flight.on || !flight.tilt || e.beta == null) return;
@@ -1784,6 +1798,7 @@ function enterWalk() {
   camera.fov = 70; camera.updateProjectionMatrix();
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('walkbtn').classList.add('on');
+  document.getElementById('walkbtn').blur();  // else Space/Enter re-clicks the button and exits
   document.body.classList.add('flying');                  // lifts the heading tape
   controls.enabled = false;
   if (renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
@@ -1944,7 +1959,7 @@ function setMatrix(on) {
 }
 document.getElementById('matrixbtn').addEventListener('click', () => setMatrix(!matrixOn));
 addEventListener('keydown', e => {
-  if (e.key.toLowerCase() !== 'm' || flight.on || walk.on) return;
+  if (keyOf(e) !== 'm' || flight.on || walk.on) return;
   const tag = (e.target.tagName || '').toLowerCase();
   if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
   setMatrix(!matrixOn);
@@ -2068,7 +2083,7 @@ function stepNoir() {                  // live film grain + the odd print scratc
 }
 document.getElementById('neonbtn').addEventListener('click', () => setNeon(!neonOn));
 addEventListener('keydown', e => {
-  if (e.key.toLowerCase() !== 'n' || flight.on || walk.on) return;
+  if (keyOf(e) !== 'n' || flight.on || walk.on) return;
   const tag = (e.target.tagName || '').toLowerCase();
   if (tag === 'input' || tag === 'select' || tag === 'textarea') return;
   setNeon(!neonOn);
