@@ -22,7 +22,7 @@ that:
    the right to submit it under these terms (Developer Certificate of Origin 1.1).
 2. **AGPL grant.** You license your contribution to the project and to everyone under the
    GNU AGPL-3.0 — the project's public licence.
-3. **Relicensing grant.** You *also* grant the maintainer (**William Li**) a perpetual,
+3. **Relicensing grant.** You *also* grant the maintainer (**wiiiimm**) a perpetual,
    worldwide, irrevocable, royalty-free right to use, modify, sublicense, and **relicense
    your contribution under any terms, including proprietary / commercial licences.** This
    lets the project keep offering commercial licences without chasing per-contributor
