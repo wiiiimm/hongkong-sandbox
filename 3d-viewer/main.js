@@ -95,7 +95,7 @@ const I18N = {
     'lbl.topspeed': 'Top speed',
     'btn.walk': '🚶 Walk',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ jog · Esc exit',
-    'walk.touch': 'drag to look', 'walk.jog': 'jogging',
+    'walk.touch': 'drag to look', 'walk.jog': 'jogging', 'walk.dist': 'walked',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'about': '<b>Hong Kong Sandbox · 香港沙盒</b>'
@@ -152,7 +152,7 @@ const I18N = {
     'lbl.topspeed': '極速',
     'btn.walk': '🚶 步行',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 快走 · Esc 離開',
-    'walk.touch': '拖動視角', 'walk.jog': '快走中',
+    'walk.touch': '拖動視角', 'walk.jog': '快走中', 'walk.dist': '已行',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'about': '<b>香港沙盒 · Hong Kong Sandbox</b>'
@@ -1778,7 +1778,10 @@ function stepFlight() {
 // jogs at 4). WASD/arrows move, pointer-lock mouse looks; phones drag to look
 // with a ▶ auto-walk toggle in the HUD. Slopes steeper than ~45° block you.
 const walk = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: -0.04,
-               keys: {}, prevSpin: 1, auto: false, helpT: 0 };
+               keys: {}, prevSpin: 1, auto: false, helpT: 0, dist: 0, bob: 0 };
+// ?nolock=1 — debug switch: skip pointer lock; mouse look becomes drag-to-look
+// so the keyboard path can be tested in isolation from the lock
+const NO_LOCK = new URLSearchParams(location.search).has('nolock');
 function enterWalk() {
   if (walk.on || !curG) return;
   if (flight.on) exitFlight();
@@ -1793,7 +1796,7 @@ function enterWalk() {
   const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
   walk.yaw = -(Math.atan2(fx, -fz) + world.rotation.y);   // keep facing the way you looked
   walk.pitch = -0.04;
-  walk.auto = false; walk.helpT = 480;
+  walk.auto = false; walk.helpT = 480; walk.dist = 0; walk.bob = 0;
   walk.pos.y = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) * VE + 1.7 * VE;
   camera.fov = 70; camera.updateProjectionMatrix();
   document.getElementById('flyhud').style.display = 'block';
@@ -1801,7 +1804,7 @@ function enterWalk() {
   document.getElementById('walkbtn').blur();  // else Space/Enter re-clicks the button and exits
   document.body.classList.add('flying');                  // lifts the heading tape
   controls.enabled = false;
-  if (renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+  if (!NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
 }
 function exitWalk() {
   if (!walk.on) return;
@@ -1824,7 +1827,13 @@ addEventListener('mousemove', e => {                      // pointer-lock look
   walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - e.movementY * 0.0022));
 });
 renderer.domElement.addEventListener('click', () => {     // re-arm the lock after Esc
-  if (walk.on && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+  if (walk.on && !NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+});
+// nolock debug mode: hold the left button and drag to look
+addEventListener('mousemove', e => {
+  if (!walk.on || !NO_LOCK || e.buttons !== 1) return;
+  walk.yaw -= e.movementX * 0.0035;
+  walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - e.movementY * 0.0035));
 });
 let _lastTouch = null;                                    // phones: drag to look
 addEventListener('touchmove', e => {
@@ -1854,15 +1863,18 @@ function stepWalk() {
     const nz = Math.max(-b.halfZ, Math.min(b.halfZ, walk.pos.z + dz));
     const gNew = sampleE(nx / cell + W / 2, nz / cell + H / 2);
     if (gNew - gCur < Math.hypot(dx, dz) + 0.25) {        // ~45° slope gate
+      walk.dist += Math.hypot(nx - walk.pos.x, nz - walk.pos.z);   // odometer (real m)
       walk.pos.x = nx; walk.pos.z = nz;
+      walk.bob += K['shift'] ? 0.19 : 0.11;               // step cadence rises with a jog
     }
   }
   const g = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
   walk.pos.y += (g * VE + 1.7 * VE - walk.pos.y) * 0.3;   // smooth over the 5 m DEM stairs
+  const bobY = Math.sin(walk.bob) * 0.08 * VE;            // head-bob: ~8 cm at step cadence
   _fe.set(walk.pitch, walk.yaw, 0, 'YXZ');
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
-  _fc.copy(walk.pos); world.localToWorld(_fc);
+  _fc.copy(walk.pos); _fc.y += bobY; world.localToWorld(_fc);
   camera.position.copy(_fc);
   _fl.copy(walk.pos).addScaledVector(_fv, 150); world.localToWorld(_fl);
   camera.up.set(0, 1, 0);
@@ -1870,7 +1882,9 @@ function stepWalk() {
   controls.target.copy(_fl);
   const az = ((-walk.yaw / D2R) % 360 + 360) % 360;
   const touch = matchMedia('(pointer: coarse)').matches;
+  const odo = walk.dist < 1000 ? `${Math.round(walk.dist)} m` : `${(walk.dist / 1000).toFixed(2)} km`;
   const stats = `🚶 ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
+    ` · ${t('walk.dist')} ${odo}` +                       // odometer: live proof the keys register
     (K['shift'] ? ` · ${t('walk.jog')}` : '');
   const hints = (touch ? t('walk.touch') : t('walk.help')) +
     (touch ? ` &nbsp;<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '') +
