@@ -2760,3 +2760,13 @@ loadSource(startSrc).then(() => {
   if (ld) { ld.classList.add('err'); document.getElementById('loaderstatus').textContent = t('note.loadfail') + ': ' + err.message; }
   console.error(err);
 });
+
+// ---- PWA: register the offline service worker (HKS-29) ----------------------
+// Static app, so this only adds offline resilience + installability; failure is
+// non-fatal (e.g. unsupported browser, or opened over file://).
+if ('serviceWorker' in navigator) {
+  const registerSW = () => navigator.serviceWorker.register('/sw.js')
+    .catch(err => console.warn('service worker registration failed', err));
+  if (document.readyState === 'complete') registerSW();
+  else addEventListener('load', registerSW);
+}
