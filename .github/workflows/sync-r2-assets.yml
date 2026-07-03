@@ -1,0 +1,56 @@
+name: Sync data assets to R2
+
+# Mirrors 3d-viewer/data/** into the R2 bucket `hk-sandbox-assets`, served at
+# assets.hk-sandbox.wiiiimm.codes, so the heavy JSON never touches Vercel's
+# metered bandwidth (R2 egress is free). The app only fetches from R2 on the
+# official host (ASSET_BASE is hostname-gated in index.html — HKS-46/HKS-50);
+# forks keep serving /data/ from their own origin.
+#
+# Uses R2's S3-compatible API via `aws s3 sync` for incremental, delete-aware
+# uploads (only changed files move). Requires three repo secrets:
+#   R2_ACCESS_KEY_ID       — from Cloudflare → R2 → Manage R2 API Tokens (S3 creds)
+#   R2_SECRET_ACCESS_KEY   — the secret half of that token
+#   CLOUDFLARE_ACCOUNT_ID  — already set for the Pages deploy (R2 S3 endpoint host)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '3d-viewer/data/**'
+      - '.github/workflows/sync-r2-assets.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: r2-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # sparse checkout: only the data payload, not the 700MB+ reference set
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: 3d-viewer/data
+          sparse-checkout-cone-mode: false
+
+      # `data/…` keys so the R2 custom domain serves assets.hk-sandbox.wiiiimm.codes/data/<file>,
+      # matching ASSET_BASE + asset('data/<file>') in main.js. --delete keeps the
+      # bucket a faithful mirror; --size-only avoids re-uploading on clone mtime churn.
+      - name: Sync 3d-viewer/data → r2://hk-sandbox-assets/data
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          aws s3 sync 3d-viewer/data "s3://hk-sandbox-assets/data" \
+            --endpoint-url "https://${ACCOUNT_ID}.r2.cloudflarestorage.com" \
+            --delete \
+            --size-only \
+            --no-progress \
+            --content-type "application/json" \
+            --cache-control "public, max-age=3600"
