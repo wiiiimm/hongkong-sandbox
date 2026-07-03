@@ -120,7 +120,7 @@ const I18N = {
     'lock.sky': '◈ following live weather — turn off sync to adjust',
     'lock.matrix': '◈ set by Matrix mode — 🕴 to wake up',
     'lock.neon': '◈ set by 風林火山 mode — ❄️ to leave the neon night',
-    'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.loadfail': 'Load failed',
+    'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.layers': 'Loading map layers', 'note.loadfail': 'Load failed',
     'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
     'sig.9': 'Increasing Gale or Storm Signal No.9', 'sig.10': 'Hurricane Signal No.10', 'badge.pre': '⚠ TYPHOON SIGNAL No.', 'badge.post': '',
@@ -179,7 +179,7 @@ const I18N = {
     'lock.sky': '◈ 跟隨即時天氣 — 關閉同步即可調整',
     'lock.matrix': '◈ 由 Matrix 模式設定 — 按 🕴 醒來',
     'lock.neon': '◈ 由風林火山模式設定 — 按 ❄️ 離開霓虹夜',
-    'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.loadfail': '載入失敗',
+    'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.layers': '載入地圖圖層中', 'note.loadfail': '載入失敗',
     'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
     'sig.9': '九號烈風或暴風增強信號', 'sig.10': '十號颶風信號', 'badge.pre': '⚠ 颱風信號 ', 'badge.post': ' 號',
@@ -225,6 +225,7 @@ let meshStep = 1, gridW = 0, gridH = 0, curG = null, curTexbb = null;   // mesh 
 let firstLoad = true;   // apply per-source default VE only on the very first load
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
 let skinBase = new Map();                               // layer -> Float32Array of base (unexaggerated) y
+let loadGen = 0;                                        // bumped per loadSource; late overlay fetches check it before painting (HKS-49)
 let labels = [];
 let VE = 2.8, surfStyle = 'shaded', bgMode = 'dark';
 let matShaded, matTint, matMatte, matSolid, matTopo, texTopo = null;
@@ -261,6 +262,7 @@ const skinOffset = () => cell * 0.6; // lift lines just above the surface, scale
 // ---- load a source ---------------------------------------------------------
 async function loadSource(id) {
   const s = SOURCES[id];
+  const gen = ++loadGen;   // HKS-49: any in-flight overlay from a prior source is now stale
   document.getElementById('note').textContent = t('note.loading') + '…';
   // dev: propagate the page's ?v to data fetches so edits bust cache; no-op in prod
   const ver = new URLSearchParams(location.search).get('v');
@@ -299,8 +301,10 @@ async function loadSource(id) {
     for (const c of chunks) { buf.set(c, o); o += c.length; }
     return JSON.parse(new TextDecoder().decode(buf));
   };
-  const [mesh, georefAll, texbbWrap, overlay, landcover] = await Promise.all([
-    fj(s.mesh), fj(s.georef.file), fj(s.texbb), fj(s.overlay), fj(s.landcover),
+  // HKS-49: the 12 MB vector overlay is *not* in the critical path — terrain goes
+  // interactive on the lighter payload, then the overlay streams in behind a mini-loader.
+  const [mesh, georefAll, texbbWrap, landcover] = await Promise.all([
+    fj(s.mesh), fj(s.georef.file), fj(s.texbb), fj(s.landcover),
   ]);
   const g = s.georef.key ? georefAll[s.georef.key] : georefAll;   // keyed (lantau) or flat (hk)
   const texbb = texbbWrap.texbb;
@@ -313,7 +317,7 @@ async function loadSource(id) {
   document.getElementById('vev').textContent = VE.toFixed(1);
 
   buildTerrain();
-  buildSkin(overlay, g, texbb);
+  preRenderLayers();   // HKS-49: layer toggles exist before the overlay lands (URL L= + toggles-during-load)
   buildSea();
   buildWeather();
   updateWindVisuals();     // renderSky + fog + rain/cloud look for the current wind
@@ -331,6 +335,87 @@ async function loadSource(id) {
   frameCamera();
   updateNote();
   firstLoad = false;
+
+  // HKS-49: stream the vector overlay in the background; when it lands (and this
+  // source is still current) drape the layers at the toggle state the user sees now.
+  loadVectorOverlay(s.overlay + q, gen, g, texbb);
+}
+
+// Render the layer toggles from LAYER_STYLE before the vector overlay arrives, so
+// applyState's URL L= and any toggles-during-load are captured in checkbox state;
+// buildSkin() reads that state back (its `prev` logic) when the lines are built.
+function preRenderLayers() {
+  const layersDiv = document.getElementById('layers');
+  const prev = {};
+  for (const inp of layersDiv.querySelectorAll('input')) prev[inp.id.replace('lyr_', '')] = inp.checked;
+  // drop any stale vectors from the previous source at once — never paint them under new terrain
+  if (skin) { world.remove(skin); skin.traverse(o => o.geometry?.dispose()); }
+  skin = new THREE.Group(); skinBase.clear(); world.add(skin);
+  layersDiv.innerHTML = '';
+  for (const [name, style] of Object.entries(LAYER_STYLE)) {
+    const on = (name in prev) ? prev[name] : style.on;
+    const id = 'lyr_' + name;
+    const lab = document.createElement('label'); lab.className = 'chk';
+    lab.innerHTML = `<input type="checkbox" id="${id}" ${on?'checked':''}/> <span data-i18n="lyr.${name}">${I18N[locale]['lyr.'+name] || style.label}</span>`;
+    layersDiv.appendChild(lab);
+  }
+}
+
+// Stream the vector overlay behind the non-blocking mini-loader, then build the skin.
+// Guarded by `gen`: a source switch bumps loadGen, so a superseded fetch is discarded.
+async function loadVectorOverlay(url, gen, g, texbb) {
+  showMini(t('note.layers'));
+  try {
+    const res = await fetch(url, { cache: 'no-cache' });
+    let overlay;
+    if (!res.body || !res.body.getReader) {
+      overlay = await res.json();
+    } else {
+      const total = +res.headers.get('Content-Length') || 0;
+      const rd = res.body.getReader(), chunks = []; let got = 0;
+      for (;;) {
+        const { done, value } = await rd.read();
+        if (done) break;
+        chunks.push(value); got += value.length;
+        if (gen === loadGen) miniProgress(got, total);
+      }
+      let n = 0; for (const c of chunks) n += c.length;
+      const buf = new Uint8Array(n); let o = 0;
+      for (const c of chunks) { buf.set(c, o); o += c.length; }
+      overlay = JSON.parse(new TextDecoder().decode(buf));
+    }
+    if (gen !== loadGen) return;   // a newer source superseded us mid-download
+    buildSkin(overlay, g, texbb);
+    applyVE();                     // drape the fresh lines at the current exaggeration
+  } catch (e) {
+    console.warn('vector overlay load failed', e);   // silent to the user — layers just stay absent
+  } finally {
+    if (gen === loadGen) hideMini();
+  }
+}
+
+// ---- non-blocking mini-loader (HKS-49) ------------------------------------
+// A small transparent glass chip, top-centre, for the background overlay stream.
+// Unlike #loader it never blocks interaction (pointer-events:none) and never gates boot.
+function showMini(label) {
+  const el = document.getElementById('miniloader'); if (!el) return;
+  const lb = el.querySelector('.mlabel'); if (lb) lb.textContent = label;
+  const bar = el.querySelector('.mbar > i'); if (bar) bar.style.width = '8%';
+  el.classList.add('show');
+}
+function miniProgress(got, total) {
+  const el = document.getElementById('miniloader'); if (!el) return;
+  const mb = (got / 1048576).toFixed(1) + ' MB';
+  const pct = total && got <= total ? Math.round(100 * got / total) : null;
+  const lb = el.querySelector('.mlabel');
+  if (lb) lb.textContent = `${t('note.layers')}… ${mb}${pct != null ? ` · ${pct}%` : ''}`;
+  const bar = el.querySelector('.mbar > i');
+  if (bar) bar.style.width = (pct != null ? pct : 30) + '%';
+}
+function hideMini() {
+  const el = document.getElementById('miniloader'); if (!el) return;
+  const bar = el.querySelector('.mbar > i'); if (bar) bar.style.width = '100%';
+  el.classList.remove('show');
 }
 
 function updateNote() {
@@ -1012,7 +1097,7 @@ function applyVE() {
   terrain.geometry.computeVertexNormals();
 
   const off = skinOffset();
-  for (const seg of skin.children) {
+  for (const seg of (skin?.children ?? [])) {
     const base = skinBase.get(seg.name);
     const arr = seg.geometry.attributes.position.array;
     for (let i = 0; i < base.length; i++) arr[i*3+1] = base[i]*VE + off;
