@@ -9,6 +9,18 @@ import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
 import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, audioSupported } from './audio.js';
 
+// ---- configurable asset base (HKS-46) --------------------------------------
+// The heavy bundled data (the /data/ JSON — DEM meshes, vector overlays, POIs)
+// can be served from a separate origin, e.g. an R2 bucket at
+// assets.hk-sandbox.wiiiimm.codes, to keep bulk egress off the app host. This
+// defaults to '' (relative), so forks and self-hosts serve /data/ from their
+// own origin with zero config and never hit the maintainer's bucket. Override
+// by setting window.ASSET_BASE before main.js loads, or edit this constant.
+const ASSET_BASE = (typeof window !== 'undefined' && window.ASSET_BASE) || '';
+// Prefix an origin onto a bundled data path only when a base is configured;
+// leaves absolute URLs and non-data paths untouched.
+const asset = p => (ASSET_BASE && /^data\//.test(p)) ? ASSET_BASE.replace(/\/+$/, '') + '/' + p : p;
+
 // ---- source registry (extend with whole-HK + SRTM later) -------------------
 const SOURCES = {
   'lantau-hk5m': {
@@ -289,7 +301,7 @@ async function loadSource(id) {
     }
   };
   const fj = async u => {   // revalidate (304 if unchanged) so stale DEMs never stick
-    const res = await fetch(u + q, { cache: 'no-cache' });
+    const res = await fetch(asset(u) + q, { cache: 'no-cache' });   // HKS-46: honour ASSET_BASE
     if (!res.body || !res.body.getReader) return res.json();
     prog[u] = { got: 0, total: +res.headers.get('Content-Length') || 0 };
     const rd = res.body.getReader(), chunks = [];
@@ -340,7 +352,7 @@ async function loadSource(id) {
 
   // HKS-49: stream the vector overlay in the background; when it lands (and this
   // source is still current) drape the layers at the toggle state the user sees now.
-  loadVectorOverlay(s.overlay + q, gen, g, texbb);
+  loadVectorOverlay(asset(s.overlay) + q, gen, g, texbb);   // HKS-46: honour ASSET_BASE
 }
 
 // Render the layer toggles from LAYER_STYLE before the vector overlay arrives, so
@@ -1502,7 +1514,7 @@ const STAR_BUCKETS = [
   { max: 1.7, size: 4.5, op: 0.9 },
   { max: 9.0, size: 3.0, op: 0.7 },
 ];
-fetch('data/hk-stars.json').then(r => r.json()).then(d => {
+fetch(asset('data/hk-stars.json')).then(r => r.json()).then(d => {
   starData = d;
   const idx = new Map(d.stars.map((s, i) => [s.id, i]));
   starGeoms = STAR_BUCKETS.map(b => {
@@ -3040,7 +3052,7 @@ function tempColor(t) {           // 12°C (blue) -> 36°C (red)
 async function ensureStations() {
   if (stationData) return;
   const ver = new URLSearchParams(location.search).get('v');
-  stationData = await fetch('data/hko-stations.json' + (ver ? '?v=' + ver : '')).then(r => r.json());
+  stationData = await fetch(asset('data/hko-stations.json') + (ver ? '?v=' + ver : '')).then(r => r.json());
 }
 function clearStationMarkers() { stationMarkers.forEach(m => m.el.remove()); stationMarkers = []; }
 function buildStationMarkers() {
@@ -3123,7 +3135,7 @@ function aqhiBand(v) {             // official band colours: low→serious
 }
 async function ensureAqhiStations() {
   if (aqhiData) return;
-  aqhiData = await fetch('data/epd-aqhi-stations.json').then(r => r.json());
+  aqhiData = await fetch(asset('data/epd-aqhi-stations.json')).then(r => r.json());
 }
 function clearAqhiMarkers() { aqhiMarkers.forEach(m => m.el.remove()); aqhiMarkers = []; }
 function buildAqhiMarkers() {
