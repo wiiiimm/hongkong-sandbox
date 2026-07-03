@@ -88,8 +88,8 @@ const I18N = {
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
     'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!', 'share.embed': 'Embed', 'share.embedcopied': 'Embed code copied!',
-    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ boost · C cockpit · Esc exit',
-    'fly.touch': 'tilt your phone to steer · auto throttle',
+    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ gas · drag to look · C cockpit · Esc exit',
+    'fly.touch': 'tilt to steer · hold for gas · drag to look',
     'fly.view': 'view', 'fly.exit': 'exit',
     'fly.landed': 'landed', 'fly.takeoff': '🛫 take off — ␣ or tap',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
@@ -148,8 +148,8 @@ const I18N = {
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
     'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！', 'share.embed': '嵌入', 'share.embedcopied': '已複製嵌入碼！',
-    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · C 駕駛艙 · Esc 離開',
-    'fly.touch': '傾斜手機轉向 · 自動油門',
+    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · 拖曳環視 · C 駕駛艙 · Esc 離開',
+    'fly.touch': '傾斜轉向 · 按住加速 · 拖曳環視',
     'fly.view': '視角', 'fly.exit': '離開',
     'fly.landed': '已降落', 'fly.takeoff': '🛫 起飛 — ␣ 或點擊',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
@@ -1633,7 +1633,9 @@ function updateCelestial() {
 // solid — clip a ridge and you bounce off with a jolt. Chase camera; Esc exits.
 const flight = { on: false, pov: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0, roll: 0,
                  speed: 0, top: 110, keys: {}, prevSpin: 1, helpT: 0, landed: false,
-                 tilt: false, tiltRef: null, tiltBeta: 0, tiltGamma: 0 };
+                 tilt: false, tiltRef: null, tiltBeta: 0, tiltGamma: 0,
+                 // HKS-53: hold-to-gas + drag-to-look (shared boom offset, both cameras)
+                 touchHold: 0, mouseLook: false, lookYaw: 0, lookPitch: 0 };
 // lift off from a landing: a short catapult roll into a climb. ␣, a tap on the
 // map, or the HUD's take-off button all call this.
 function takeOff() {
@@ -1709,6 +1711,7 @@ function exitFlight() {
   if (!flight.on) return;
   flight.on = false;
   flight.keys = {};
+  flight.touchHold = 0; flight.mouseLook = false; flight.lookYaw = 0; flight.lookPitch = 0;   // HKS-53
   if (planeGrp) planeGrp.visible = false;
   document.getElementById('flyhud').style.display = 'none';
   document.getElementById('flybtn').classList.remove('on');
@@ -1835,6 +1838,8 @@ if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serializa
 
 const _fq = new THREE.Quaternion(), _fe = new THREE.Euler(), _fv = new THREE.Vector3();
 const _fc = new THREE.Vector3(), _fl = new THREE.Vector3(), _fu = new THREE.Vector3();
+// HKS-53: temps for the cockpit head-turn (plane orientation × look offset)
+const _fq2 = new THREE.Quaternion(), _lookQ = new THREE.Quaternion(), _fe2 = new THREE.Euler(), _fv2 = new THREE.Vector3();
 const CARD = ['N','NE','E','SE','S','SW','W','NW'];
 const wrapPI = a => ((a + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI;
 function stepFlight() {
@@ -1866,7 +1871,7 @@ function stepFlight() {
   }
   if (!F.landed) {
     F.speed = Math.max(28, Math.min(F.top, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
-    if (K[' ']) F.speed = Math.min(F.top, F.speed + 0.8); // ␣ steps on the gas, up to the top-speed slider
+    if (K[' '] || F.touchHold > 0) F.speed = Math.min(F.top, F.speed + 0.8); // ␣ or a held finger steps on the gas (HKS-53)
   }
   _fe.set(F.pitch, F.yaw, -F.roll * 0.9, 'YXZ');       // right bank = right wing down
   _fq.setFromEuler(_fe);
@@ -1891,7 +1896,7 @@ function stepFlight() {
     F.speed = Math.max(0, F.speed - 1.5);              // roll-out braking
     F.pitch *= 0.8; F.roll *= 0.75;                    // settle level on the gear
     F.pos.y = surfY + 2.2;
-    if (K[' ']) takeOff();
+    if (K[' '] || F.touchHold > 0) takeOff();   // HKS-53: hold to launch, then keep the gas on
   } else if (agl < 4 && _fv.y <= 0.02) {               // only while descending — a fresh
     F.landed = true;                                   // climb-out stays airborne
     F.pitch = Math.max(0, F.pitch * 0.3); F.roll *= 0.5;
@@ -1910,18 +1915,28 @@ function stepFlight() {
     camera.fov += (fovT - camera.fov) * 0.06;
     camera.updateProjectionMatrix();
   }
+  // look-around boom (HKS-53): drag offsets the view the same way in both cameras;
+  // ease back to centre once nothing is held (no finger down, no mouse drag)
+  if (!F.touchHold && !F.mouseLook) { F.lookYaw *= 0.9; F.lookPitch *= 0.9; }
   // --- cameras (world space: survives any leftover world spin)
   if (F.pov) {                                         // cockpit: seated just behind the cowl —
     _fu.set(0, 1, 0).applyQuaternion(_fq);             // nose + spinning prop stay in frame,
     _fc.copy(F.pos).addScaledVector(_fv, 2.2).addScaledVector(_fu, 2.3);   // horizon rolls
     world.localToWorld(_fc);
     camera.position.copy(_fc);
-    _fl.copy(F.pos).addScaledVector(_fv, 2000); world.localToWorld(_fl);
+    // head-turn: rotate the look direction by the shared boom offset (HKS-53)
+    _fe2.set(F.lookPitch, F.lookYaw, 0, 'YXZ');
+    _fq2.copy(_fq).multiply(_lookQ.setFromEuler(_fe2));
+    _fv2.set(0, 0, -1).applyQuaternion(_fq2);
+    _fl.copy(F.pos).addScaledVector(_fv2, 2000); world.localToWorld(_fl);
     camera.up.copy(_fu);
     camera.lookAt(_fl);
-  } else {                                             // chase: ~55 m back, 20 m up
-    _fc.set(Math.sin(F.yaw), 0, Math.cos(F.yaw)).multiplyScalar(55);
-    _fc.add(F.pos); _fc.y += 20;
+  } else {                                             // chase: boom ~58 m out, orbitable (HKS-53)
+    const az = F.yaw + F.lookYaw;                      // lookYaw swings the boom around the plane
+    const el = Math.max(0.05, Math.min(1.3, 0.34 + F.lookPitch));   // lookPitch raises/lowers it
+    const ce = Math.cos(el);
+    _fc.set(Math.sin(az) * ce, Math.sin(el), Math.cos(az) * ce).multiplyScalar(58);
+    _fc.add(F.pos);
     world.localToWorld(_fc);
     camera.up.set(0, 1, 0);
     camera.position.lerp(_fc, 0.12);
@@ -2024,6 +2039,14 @@ renderer.domElement.addEventListener('click', () => {     // re-arm the lock aft
 renderer.domElement.addEventListener('pointerdown', () => {   // tap anywhere = take off
   if (flight.on && flight.landed) takeOff();
 });
+// flight: hold the left mouse button and drag to look around (shared boom, HKS-53)
+addEventListener('mousemove', e => {
+  if (!flight.on || e.buttons !== 1) return;
+  flight.lookYaw = Math.max(-2.8, Math.min(2.8, flight.lookYaw - e.movementX * 0.004));
+  flight.lookPitch = Math.max(-1.0, Math.min(1.0, flight.lookPitch - e.movementY * 0.004));
+  flight.mouseLook = true;
+});
+addEventListener('mouseup', () => { flight.mouseLook = false; });
 // nolock debug mode: hold the left button and drag to look
 addEventListener('mousemove', e => {
   if (!walk.on || !NO_LOCK || e.buttons !== 1) return;
@@ -2032,24 +2055,33 @@ addEventListener('mousemove', e => {
 });
 let _lastTouch = null;                                    // phones: drag to look
 addEventListener('touchmove', e => {
-  if (!walk.on || e.target !== renderer.domElement) return;
+  if (e.target !== renderer.domElement || !(walk.on || flight.on)) return;
   const t0 = e.touches[0];
   if (_lastTouch) {
-    walk.yaw -= (t0.clientX - _lastTouch.x) * 0.005;
-    walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - (t0.clientY - _lastTouch.y) * 0.005));
+    const dx = t0.clientX - _lastTouch.x, dy = t0.clientY - _lastTouch.y;
+    if (walk.on) {
+      walk.yaw -= dx * 0.005;
+      walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - dy * 0.005));
+    } else {                                             // flight: same drag = look around (HKS-53)
+      flight.lookYaw = Math.max(-2.8, Math.min(2.8, flight.lookYaw - dx * 0.005));
+      flight.lookPitch = Math.max(-1.0, Math.min(1.0, flight.lookPitch - dy * 0.005));
+    }
   }
   _lastTouch = { x: t0.clientX, y: t0.clientY };
 }, { passive: true });
-// phones: hold the map to walk, hold with TWO fingers to run (boost) — the
-// same finger drags to steer while you go. walk.touchHold counts live touches.
+// phones: hold the map to walk (or step on the gas in flight), TWO fingers to run;
+// the same finger drags to steer/look while you go. touchHold counts live touches.
 addEventListener('touchstart', e => {
-  if (walk.on && e.target === renderer.domElement) walk.touchHold = e.touches.length;
+  if (e.target !== renderer.domElement) return;
+  if (walk.on) walk.touchHold = e.touches.length;         // hold = walk
+  else if (flight.on) flight.touchHold = e.touches.length; // hold = gas (HKS-53)
 }, { passive: true });
 addEventListener('touchend', e => {
   _lastTouch = null;
   walk.touchHold = walk.on ? e.touches.length : 0;
+  flight.touchHold = flight.on ? e.touches.length : 0;   // HKS-53: lifting the last finger cuts the gas
 });
-addEventListener('touchcancel', () => { _lastTouch = null; walk.touchHold = 0; });
+addEventListener('touchcancel', () => { _lastTouch = null; walk.touchHold = 0; flight.touchHold = 0; });
 
 // a low-poly hiker — olive jacket, backpack, sun hat, and the walking stick.
 // Built in real metres with limb pivots at hip/shoulder, scaled by VE so the
