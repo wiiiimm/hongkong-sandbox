@@ -25,6 +25,13 @@
 const LOCALES = ['en-hk', 'zh-hk'];
 const DEFAULT = 'en-hk';
 
+// Canonical site origin — hardcoded so canonical/og:url always point at the one
+// production domain regardless of how the page was reached (preview *.vercel.app
+// or an aliased domain that 301s here). The other domain redirects at the Vercel
+// domain level; to change the canonical domain, edit this one line + the static
+// absolute URLs in index.html / sitemap.xml / robots.txt.
+const SITE = 'https://hongkong-sandbox.wiiiimm.codes';
+
 // Localized SEO / social-share metadata, rewritten into the served HTML per locale so
 // crawlers (which don't run main.js) get the right title/description/OG for /zh-hk/ vs
 // /en-hk/. Keep the strings in sync with functions/_middleware.js and main.js (HKS-28).
@@ -50,10 +57,10 @@ function setMetaById(html, id, val) {
   );
 }
 
-function localizeSEO(html, seg, origin) {
+function localizeSEO(html, seg) {
   const s = SEO[seg];
   if (!s) return html;
-  const canonical = `${origin}/${seg}/`;
+  const canonical = `${SITE}/${seg}/`;
   let h = html;
   h = h.replace(/(<html[^>]*\blang=")[^"]*(")/, `$1${esc(s.lang)}$2`);
   h = h.replace(/(<title>)[^<]*(<\/title>)/, `$1${esc(s.title)}$2`);
@@ -90,7 +97,7 @@ export default async function middleware(request) {
   if (LOCALES.includes(seg)) {                                    // /<locale>/… → serve the SPA
     // fetch the static index.html directly (cleanUrls is off, so no 308 → '/' loop)
     const res = await fetch(new URL('/index.html', url));
-    const html = localizeSEO(await res.text(), seg, url.origin);  // OG/canonical/title for crawlers (HKS-28)
+    const html = localizeSEO(await res.text(), seg);              // OG/canonical/title for crawlers (HKS-28)
     const headers = new Headers({
       'Content-Type': 'text/html; charset=utf-8',
       'Set-Cookie': cookie(seg),
