@@ -6,12 +6,15 @@ name: Sync data assets to R2
 # official deploy); forks keep serving /data/ from their own origin.
 #
 # Uses the bucket's S3 API via `aws s3 sync` for incremental, delete-aware
-# uploads (only changed files move). Entirely opt-in: it no-ops for any fork that
-# hasn't configured the secrets below. Configure in repo Settings → Secrets:
-#   R2_ACCESS_KEY_ID       — S3 access key for the bucket
-#   R2_SECRET_ACCESS_KEY   — its secret half
-#   R2_ACCOUNT_ID          — account id for the S3 endpoint host
-#   R2_BUCKET              — destination bucket name
+# uploads (only changed files move). Entirely opt-in: the job is skipped unless
+# the destination bucket variable is set, so forks no-op. Configure in repo
+# Settings → Secrets and variables → Actions:
+#   Secrets (masked in the public run logs):
+#     R2_ACCESS_KEY_ID       — S3 access key for the bucket
+#     R2_SECRET_ACCESS_KEY   — its secret half
+#     R2_ACCOUNT_ID          — account id for the S3 endpoint host
+#   Variables:
+#     R2_BUCKET              — destination bucket name
 
 on:
   push:
@@ -30,6 +33,9 @@ concurrency:
 
 jobs:
   sync:
+    # opt-in: only runs where the destination bucket variable is configured
+    # (vars — unlike secrets — are available in job-level if conditions)
+    if: ${{ vars.R2_BUCKET != '' }}
     runs-on: ubuntu-latest
     steps:
       # sparse checkout: only the data payload, not the rest of the repo
@@ -41,19 +47,14 @@ jobs:
       # `data/…` keys so the bucket's custom domain serves <origin>/data/<file>,
       # matching ASSET_BASE + asset('data/<file>') in main.js. --delete keeps the
       # bucket a faithful mirror; --size-only avoids re-uploading on clone mtime churn.
-      # No-ops (clean skip) for any fork that hasn't set the destination secret.
       - name: Sync 3d-viewer/data → bucket /data
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: auto
           ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          BUCKET: ${{ secrets.R2_BUCKET }}
+          BUCKET: ${{ vars.R2_BUCKET }}
         run: |
-          if [ -z "${BUCKET}" ]; then
-            echo "R2_BUCKET not set — skipping asset sync (expected on forks)."
-            exit 0
-          fi
           aws s3 sync 3d-viewer/data "s3://${BUCKET}/data" \
             --endpoint-url "https://${ACCOUNT_ID}.r2.cloudflarestorage.com" \
             --delete \
