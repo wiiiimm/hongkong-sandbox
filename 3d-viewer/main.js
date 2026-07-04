@@ -135,6 +135,7 @@ const I18N = {
     'lock.matrix': '◈ set by Matrix mode — 🕴 to wake up',
     'lock.neon': '◈ set by 風林火山 mode — ❄️ to leave the neon night',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.layers': 'Loading map layers', 'note.loadfail': 'Load failed',
+    'install.ios': 'Add Hong Kong Sandbox to your home screen — tap Share, then "Add to Home Screen".', 'install.android': 'Install Hong Kong Sandbox — a full-screen, offline-ready app.', 'install.action': 'Install',
     'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
     'sig.9': 'Increasing Gale or Storm Signal No.9', 'sig.10': 'Hurricane Signal No.10', 'badge.pre': '⚠ TYPHOON SIGNAL No.', 'badge.post': '',
@@ -196,6 +197,7 @@ const I18N = {
     'lock.matrix': '◈ 由 Matrix 模式設定 — 按 🕴 醒來',
     'lock.neon': '◈ 由風林火山模式設定 — 按 ❄️ 離開霓虹夜',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.layers': '載入地圖圖層中', 'note.loadfail': '載入失敗',
+    'install.ios': '將香港沙盒加到主畫面 —— 點擊分享，再選「加入主畫面」。', 'install.android': '安裝香港沙盒 —— 全螢幕、離線使用。', 'install.action': '安裝',
     'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
     'sig.9': '九號烈風或暴風增強信號', 'sig.10': '十號颶風信號', 'badge.pre': '⚠ 颱風信號 ', 'badge.post': ' 號',
@@ -3656,3 +3658,54 @@ if ('serviceWorker' in navigator) {
   if (document.readyState === 'complete') registerSW();
   else addEventListener('load', registerSW);
 }
+
+// ---- PWA install nudge (HKS-64): mobile "add to home screen" reminder --------
+// The SW + installability already work without this; it's just a dismissable
+// nudge. Android/Chromium uses the native beforeinstallprompt event; iOS Safari
+// (which has no such API) gets manual Share → Add to Home Screen instructions.
+// Never shown on desktop, when already installed (standalone), or if dismissed
+// within the re-show window.
+(() => {
+  const bar = document.getElementById('installbar');
+  if (!bar) return;
+  const KEY = 'hks-install-dismissed', RESHOW_DAYS = 21;
+  // the dismissal is remembered on PRODUCTION only — on previews/localhost we
+  // ignore any stored key so the bar always shows fresh for testing (HKS-64)
+  const isProd = location.hostname === 'hongkong-sandbox.wiiiimm.codes';
+  // launched from the installed home-screen icon → runs standalone → never nudge
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  // touch devices only (mobile / iPad, incl. iPadOS masquerading as desktop)
+  const touch = matchMedia('(pointer:coarse)').matches || navigator.maxTouchPoints > 0;
+  if (standalone || !touch) return;                        // desktop (no touch) / already installed → never
+  if (isProd) {
+    const last = +localStorage.getItem(KEY) || 0;
+    if (last && Date.now() - last < RESHOW_DAYS * 864e5) return;   // dismissed recently → don't nag
+  }
+
+  const ua = navigator.userAgent;
+  const isIOS = /iP(hone|od|ad)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isSafari = /safari/i.test(ua) && !/(chrome|crios|fxios|edg|android)/i.test(ua);
+
+  const dismiss = () => { bar.classList.remove('show'); if (isProd) localStorage.setItem(KEY, String(Date.now())); };
+  document.getElementById('ib-close').addEventListener('click', dismiss);
+  const show = () => bar.classList.add('show');
+
+  let deferred = null;
+  if (isIOS && isSafari) {
+    bar.classList.add('ios');                              // manual instructions, no button
+    setTimeout(show, 15000);                               // after a little engagement, not on first paint
+  } else {
+    addEventListener('beforeinstallprompt', (e) => {       // Chromium fires this only when installable
+      e.preventDefault(); deferred = e;                    // stash it for our own button
+      bar.classList.add('android');
+      setTimeout(show, 8000);
+    });
+    document.getElementById('ib-install').addEventListener('click', async () => {
+      if (!deferred) return;
+      deferred.prompt();
+      await deferred.userChoice.catch(() => {});
+      deferred = null; dismiss();
+    });
+  }
+  addEventListener('appinstalled', dismiss);               // installed → stop nudging
+})();

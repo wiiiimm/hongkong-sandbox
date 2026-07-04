@@ -120,6 +120,26 @@
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
     opacity:0;transition:opacity .3s ease, transform .3s ease}
   #miniloader.show{opacity:1;transform:translate(-50%,0)}
+  /* HKS-64: mobile install nudge — glass bar, dismissable, non-blocking. Hidden
+     (opacity/pointer-events) until main.js decides the device is eligible. */
+  /* full-width on phones (12px gutters), but centred + capped on tablets so it
+     doesn't stretch to a silly length on iPad-width screens (HKS-64) */
+  #installbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));
+    width:calc(100vw - 24px);max-width:460px;
+    z-index:40;display:flex;align-items:center;gap:10px;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.4;
+    box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
+    opacity:0;pointer-events:none;transform:translate(-50%,16px);transition:opacity .3s ease, transform .3s ease}
+  #installbar.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+  #installbar .ib-icon{width:48px;height:48px;border-radius:12px;flex:0 0 auto}   /* rounded app-icon preview */
+  #installbar .ib-msg{flex:1 1 auto;min-width:0}
+  #installbar .ib-ios,#installbar .ib-android{display:none}
+  #installbar.ios .ib-ios{display:inline}
+  #installbar.android .ib-android{display:inline}
+  #installbar #ib-install{flex:0 0 auto;padding:10px 16px;font-weight:600;font-size:14px;white-space:nowrap}
+  #installbar.ios #ib-install{display:none}
+  #installbar #ib-close{flex:0 0 auto;width:30px;height:30px;padding:0;display:grid;place-items:center;font-size:19px;border-radius:9px}
   #miniloader .mlabel{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--sub)}
   #miniloader .mbar{height:3px;border-radius:2px;background:rgba(127,136,150,.18);overflow:hidden}
   #miniloader .mbar > i{display:block;height:100%;width:0%;background:var(--accent);border-radius:2px;
@@ -421,6 +441,16 @@
   <div class="bar"><i id="loaderbar"></i></div>
 </div>
 <div id="miniloader"><div class="mlabel"></div><div class="mbar"><i></i></div></div>
+<!-- HKS-64: mobile "add to home screen" nudge — shown by main.js on eligible devices -->
+<div id="installbar" role="dialog" aria-live="polite">
+  <img class="ib-icon" src="/apple-touch-icon.png" alt="" width="48" height="48"/>
+  <span class="ib-msg">
+    <span class="ib-ios" data-i18n="install.ios">Add to your home screen — tap Share, then "Add to Home Screen".</span>
+    <span class="ib-android" data-i18n="install.android">Install for a full-screen, offline-ready app.</span>
+  </span>
+  <button id="ib-install" data-i18n="install.action">Install</button>
+  <button id="ib-close" aria-label="Dismiss">×</button>
+</div>
 <div id="app"></div>
 <div id="flashfx"></div>
 <canvas id="dripfx"></canvas>
