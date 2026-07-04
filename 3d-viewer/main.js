@@ -1907,8 +1907,10 @@ function stepFlight() {
   F.pos.z += _fv.z * mpf;
   F.pos.y += _fv.y * mpf * VE;                         // climb in exaggerated y: slopes fly true
   F.pos.y -= Math.max(0, 62 - F.speed) * 0.004 * VE;   // below cruise the nose gets heavy
-  F.pos.x += windVec.x * (25 * windStrength) / 60;     // a full gale drifts you ~25 m/s
-  F.pos.z += windVec.z * (25 * windStrength) / 60;
+  if (!F.landed) {                                     // parked on the runway you don't drift downwind
+    F.pos.x += windVec.x * (25 * windStrength) / 60;   // a full gale drifts you ~25 m/s
+    F.pos.z += windVec.z * (25 * windStrength) / 60;
+  }
   F.pos.x = Math.max(-(b.halfX + BUF), Math.min(b.halfX + BUF, F.pos.x));
   F.pos.z = Math.max(-(b.halfZ + BUF), Math.min(b.halfZ + BUF, F.pos.z));
   F.pos.y = Math.min(F.pos.y, 4000 * VE);              // service ceiling
