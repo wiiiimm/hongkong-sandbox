@@ -6,16 +6,28 @@
  *   • heavy static assets (terrain data under /data/, icons, images, fonts)
  *       → stale-while-revalidate: instant from cache, refreshed in the background.
  *
- * Cross-origin requests are never intercepted, so live data (HKO / data.gov.hk)
- * and map tiles (OSM / Esri) always hit the network — no stale weather or tides.
+ * Cross-origin requests are never intercepted — EXCEPT the R2 assets origin that
+ * serves the offloaded terrain JSON on the official deploy (HKS-50/52), which is
+ * cached like /data/ so opened sources stay available offline. Everything else
+ * cross-origin — live data (HKO / data.gov.hk) and map tiles (OSM / Esri) —
+ * always hits the network, so weather and tides are never stale.
  *
- * The terrain JSON in /data/ (~21 MB total) is NOT precached; it is cached on
- * first use, so a source you have opened once stays available offline.
+ * The terrain JSON (~21 MB total, same-origin /data/ or the R2 assets origin) is
+ * NOT precached; it is cached on first use, so a source you have opened once
+ * stays available offline.
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v1';
+const VERSION = 'hks-sandbox-v2';
 const CACHE = VERSION;
+
+// The heavy terrain JSON is served from the R2 assets origin on the official
+// deploy (HKS-50). Mirror index.html's hostname gate so the SW caches those
+// (now cross-origin) requests too; any other host — forks, previews, localhost —
+// keeps ASSET_ORIGIN null and stays strictly same-origin (fork-safe).
+const ASSET_ORIGIN = self.location.hostname === 'hongkong-sandbox.wiiiimm.codes'
+  ? 'https://assets.hongkong-sandbox.wiiiimm.codes'
+  : null;
 
 // Small, critical boot files — enough to open the app offline.
 const SHELL = [
@@ -82,7 +94,12 @@ self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  if (url.origin !== self.location.origin) return;   // live feeds & map tiles stay fresh
+  // Offloaded terrain data on the R2 assets origin — cache like /data/ so opened
+  // sources stay available offline even though they're now cross-origin (HKS-52).
+  // These are cors-mode, non-opaque responses (correct R2 CORS from HKS-50), so
+  // they're safe to cache and serve.
+  if (ASSET_ORIGIN && url.origin === ASSET_ORIGIN) { e.respondWith(staleWhileRevalidate(req)); return; }
+  if (url.origin !== self.location.origin) return;   // all other cross-origin (HKO / tiles) stay fresh
   if (req.mode === 'navigate') { e.respondWith(networkFirst(req)); return; }
   e.respondWith(isHeavyAsset(url.pathname) ? staleWhileRevalidate(req) : networkFirst(req));
 });
