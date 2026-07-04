@@ -122,13 +122,16 @@
   #miniloader.show{opacity:1;transform:translate(-50%,0)}
   /* HKS-64: mobile install nudge — glass bar, dismissable, non-blocking. Hidden
      (opacity/pointer-events) until main.js decides the device is eligible. */
-  #installbar{position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom));
+  /* full-width on phones (12px gutters), but centred + capped on tablets so it
+     doesn't stretch to a silly length on iPad-width screens (HKS-64) */
+  #installbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));
+    width:calc(100vw - 24px);max-width:460px;
     z-index:40;display:flex;align-items:center;gap:10px;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.4;
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
-    opacity:0;pointer-events:none;transform:translateY(16px);transition:opacity .3s ease, transform .3s ease}
-  #installbar.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+    opacity:0;pointer-events:none;transform:translate(-50%,16px);transition:opacity .3s ease, transform .3s ease}
+  #installbar.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
   #installbar .ib-icon{width:48px;height:48px;border-radius:12px;flex:0 0 auto}   /* rounded app-icon preview */
   #installbar .ib-msg{flex:1 1 auto;min-width:0}
   #installbar .ib-ios,#installbar .ib-android{display:none}
