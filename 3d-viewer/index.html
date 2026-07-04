@@ -172,7 +172,7 @@
     border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   body.glass #creditsbtn{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #creditsbtn{background:rgba(252,250,246,.22)}
-  #creditsbtn .ci{font-size:13px;line-height:1;color:var(--accent)}
+  #creditsbtn .ci{display:inline-flex;align-items:center;line-height:0;color:var(--accent)}
   #creditsbtn:hover{border-color:var(--accent);color:var(--ink)}
   #creditsbtn.on{border-color:var(--accent);color:var(--accent)}
   #creditspop{position:fixed;left:16px;bottom:54px;z-index:22;display:none;
@@ -470,8 +470,8 @@
     </div>
     <div class="pbtns">
       <button id="langbtn" title="Language" style="width:auto;padding:0 8px;font-size:11px;font-weight:600">中</button>
-      <button id="navhelp-btn" title="How to navigate">?</button>
-      <button id="collapse-btn" title="Collapse panel">–</button>
+      <button id="navhelp-btn" title="How to navigate" aria-label="How to navigate"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></button>
+      <button id="collapse-btn" title="Collapse panel" aria-label="Collapse panel"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
     </div>
   </div>
   <div id="navhelp" data-i18n-html="navhelp" style="display:none">
@@ -689,7 +689,7 @@
 <div id="stormbadge"></div>
 <div id="flyhud"></div>
 <div id="cornerui">
-  <button id="snapbtn" title="Save a photo of the view (PNG)">📷</button>
+  <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>
 <canvas id="compass" title="Heading — click to face north"></canvas>
 <div id="mapattr"></div>
@@ -707,7 +707,7 @@
 </div>
 
 <button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">
-  <span class="ci" aria-hidden="true">ⓘ</span><span class="clabel" data-i18n="lbl.credits">Credits</span>
+  <span class="ci" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span class="clabel" data-i18n="lbl.credits">Credits</span>
 </button>
 <div id="creditspop" role="dialog" aria-label="About Hong Kong Sandbox" data-i18n-html="about">
   <b>Hong Kong Sandbox · 香港沙盒</b>
