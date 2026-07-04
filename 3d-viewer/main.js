@@ -2654,30 +2654,45 @@ function stopRadar() {
   radarRunning = false;
   clearInterval(radarAnimT); clearInterval(radarRefreshT);
 }
-// mode/range/zoom labels are state- AND locale-dependent, so set them from JS
-// (applyLocale calls this too, so a language switch keeps them in sync)
+// mode + range/zoom are segmented toggles; their labels/segments are state- AND
+// locale-dependent, so build them from JS (applyLocale calls this too, so a
+// language switch keeps them in sync).
 function renderWxviewControls() {
-  const mode = document.getElementById('rh-mode'), range = document.getElementById('rh-range');
-  if (!mode || !range) return;
-  mode.textContent = isSat() ? t('sat.title') : t('radar.title');
-  range.textContent = isSat() ? (satZoom === 'x2M' ? t('sat.wide') : t('sat.local'))
-                              : (radarRange === '064' ? '64km' : radarRange === '128' ? '128km' : '256km');
+  const radarBtn = document.getElementById('rh-radar'), satBtn = document.getElementById('rh-sat'),
+        ranges = document.getElementById('rh-ranges');
+  if (!radarBtn || !satBtn || !ranges) return;
+  radarBtn.textContent = t('radar.title'); satBtn.textContent = t('sat.title');
+  radarBtn.classList.toggle('on', !isSat()); satBtn.classList.toggle('on', isSat());
+  const opts = isSat() ? [['x2M', t('sat.wide')], ['x8M', t('sat.local')]]
+                       : [['064', '64km'], ['128', '128km'], ['256', '256km']];
+  const cur = isSat() ? satZoom : radarRange;
+  ranges.innerHTML = opts.map(([v, l]) =>
+    `<button class="rh-seg${v === cur ? ' on' : ''}" data-val="${v}">${l}</button>`).join('');
+  // radar carries an HKO legend strip on the right → crop to the left square; the
+  // satellite frame is a full map → centre it.
+  if (radarImg) radarImg.style.objectPosition = isSat() ? '50% 50%' : 'left center';
 }
-document.getElementById('rh-mode').addEventListener('click', () => {
-  wxMode = isSat() ? 'radar' : 'sat';
+function setWxMode(m) {
+  if (wxMode === m) return;
+  wxMode = m;
   if (isSat() && radarImg) radarImg.style.transform = 'none';   // satellite is north-up
+  renderWxviewControls();
+  if (radarRunning) startRadar();
+}
+document.getElementById('rh-radar').addEventListener('click', () => setWxMode('radar'));
+document.getElementById('rh-sat').addEventListener('click', () => setWxMode('sat'));
+document.getElementById('rh-ranges').addEventListener('click', e => {
+  const b = e.target.closest('button[data-val]'); if (!b) return;
+  if (isSat()) satZoom = b.dataset.val; else radarRange = b.dataset.val;
   renderWxviewControls();
   if (radarRunning) startRadar();
 });
 document.getElementById('rh-play').addEventListener('click', () => {
   radarPlaying = !radarPlaying; document.getElementById('rh-play').textContent = radarPlaying ? '⏸' : '▶';
 });
-document.getElementById('rh-range').addEventListener('click', () => {
-  if (isSat()) satZoom = satZoom === 'x2M' ? 'x8M' : 'x2M';
-  else radarRange = radarRange === '064' ? '128' : radarRange === '128' ? '256' : '064';
-  renderWxviewControls();
-  if (radarRunning) startRadar();
-});
+// the block lives inside #wxhud, whose tap toggles the collapsed chip on mobile —
+// keep taps on the radar controls from bubbling up and closing the weather box
+document.getElementById('radarblock').addEventListener('click', e => e.stopPropagation());
 
 // ---- camera framing + presets ---------------------------------------------
 function bounds() {

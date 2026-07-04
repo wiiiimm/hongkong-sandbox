@@ -265,18 +265,28 @@
   #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
   #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
   /* HKS-74: live HKO rain-radar loop — glass panel under the weather box */
-  /* rain radar — folded into the weather box, under the tide readout (HKS-74) */
+  /* radar + satellite — folded into the weather box, under the tide readout (HKS-74/79) */
   #wxhud #radarblock{margin-top:9px;padding-top:9px;border-top:1px solid var(--edge-soft);text-align:left}
-  #wxhud #radarblock .rh-head{display:flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);
-    letter-spacing:.04em;color:var(--sub);margin-bottom:6px}
-  #wxhud #radarblock .rh-head button{width:auto;min-width:24px;height:22px;padding:0 6px;font-size:11px;border-radius:6px}
-  #wxhud #radarblock #rh-mode{flex:1 1 auto;text-align:left;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  /* segmented toggles (mode + range/zoom) — the highlighted segment reads as "current" */
+  #wxhud #radarblock .rh-segs{display:flex;border:1px solid var(--edge-soft);border-radius:8px;overflow:hidden}
+  #wxhud #radarblock .rh-modes{margin-bottom:7px}
+  #wxhud #radarblock .rh-seg{flex:1 1 0;min-width:0;height:24px;padding:0 6px;border:none;border-radius:0;
+    background:transparent;color:var(--sub);font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .12s,color .12s}
+  #wxhud #radarblock .rh-seg+.rh-seg{border-left:1px solid var(--edge-soft)}
+  #wxhud #radarblock .rh-seg.on{background:var(--accent);color:#0a0d12;font-weight:600}
+  #wxhud #radarblock .rh-seg:not(.on):hover{background:rgba(255,255,255,.06);color:var(--ink)}
+  #wxhud #radarblock .rh-ctrls{display:flex;align-items:center;gap:6px;margin-top:7px}
+  #wxhud #radarblock .rh-ctrls .rh-segs{flex:1 1 auto}
+  #wxhud #radarblock .rh-pill{flex:0 0 auto;width:auto;min-width:30px;height:26px;padding:0 8px;font-size:12px;border-radius:8px}
   /* circular clip so the compass-rotating image never shows its square corners */
   #wxhud #radarblock .rh-frame{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:50%;
     background:rgba(0,0,0,.25);border:1px solid var(--edge-soft)}
-  /* image sits 12% larger than the circle so its edges stay outside the clip at every angle */
+  /* image sits 12% larger than the circle so its edges stay outside the clip at every angle.
+     object-position is set per-view in JS: radar → left (crops the HKO legend strip on the
+     right); satellite → centre (full-frame map, no legend). */
   #wxhud #radarblock #radar-img{position:absolute;top:-6%;left:-6%;width:112%;height:112%;object-fit:cover;
-    transition:transform .4s ease}   /* rotates with the compass heading */
+    object-position:left center;transition:transform .4s ease}
   #wxhud #radarblock .rh-foot{font-size:9px;color:var(--sub);opacity:.8;font-family:var(--mono);letter-spacing:.03em;margin-top:4px}
   .locknote{display:none;font-size:10px;color:var(--sub);font-family:var(--mono);margin:2px 0 5px;letter-spacing:.04em}
   #stormbadge{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:25;display:none;
@@ -716,14 +726,17 @@
   <div id="wx-tide"></div>
   <canvas id="wx-tidegraph"></canvas>
   <div id="wx-tidecap"></div>
-  <!-- HKS-74: live HKO rain-radar loop, folded into the weather box under the tide readout -->
+  <!-- HKS-74/79: live HKO radar + satellite loop, folded into the weather box under the tide readout -->
   <div id="radarblock">
-    <div class="rh-head">
-      <button id="rh-mode" title="Rain radar / satellite">Rain radar</button>
-      <button id="rh-range" title="Range / zoom">64km</button>
-      <button id="rh-play" title="Play / pause" aria-label="Play / pause">⏸</button>
+    <div class="rh-segs rh-modes">
+      <button id="rh-radar" class="rh-seg on">Rain radar</button>
+      <button id="rh-sat" class="rh-seg">Satellite</button>
     </div>
     <div class="rh-frame"><img id="radar-img" alt=""/></div>
+    <div class="rh-ctrls">
+      <div id="rh-ranges" class="rh-segs"></div>
+      <button id="rh-play" class="rh-pill" title="Play / pause" aria-label="Play / pause">⏸</button>
+    </div>
     <div class="rh-foot"><span id="radar-time">—</span> · <span data-i18n="radar.credit">© Hong Kong Observatory</span></div>
   </div>
   <div id="wx-clock">—</div>
