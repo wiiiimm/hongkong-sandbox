@@ -3669,17 +3669,24 @@ if ('serviceWorker' in navigator) {
   const bar = document.getElementById('installbar');
   if (!bar) return;
   const KEY = 'hks-install-dismissed', RESHOW_DAYS = 21;
+  // the dismissal is remembered on PRODUCTION only — on previews/localhost we
+  // ignore any stored key so the bar always shows fresh for testing (HKS-64)
+  const isProd = location.hostname === 'hongkong-sandbox.wiiiimm.codes';
+  // launched from the installed home-screen icon → runs standalone → never nudge
   const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-  const mobile = matchMedia('(pointer:coarse)').matches || innerWidth <= 640;
-  if (standalone || !mobile) return;                       // desktop / already installed → never
-  const last = +localStorage.getItem(KEY) || 0;
-  if (last && Date.now() - last < RESHOW_DAYS * 864e5) return;   // dismissed recently → don't nag
+  // touch devices only (mobile / iPad, incl. iPadOS masquerading as desktop)
+  const touch = matchMedia('(pointer:coarse)').matches || navigator.maxTouchPoints > 0;
+  if (standalone || !touch) return;                        // desktop (no touch) / already installed → never
+  if (isProd) {
+    const last = +localStorage.getItem(KEY) || 0;
+    if (last && Date.now() - last < RESHOW_DAYS * 864e5) return;   // dismissed recently → don't nag
+  }
 
   const ua = navigator.userAgent;
   const isIOS = /iP(hone|od|ad)/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const isSafari = /safari/i.test(ua) && !/(chrome|crios|fxios|edg|android)/i.test(ua);
 
-  const dismiss = () => { bar.classList.remove('show'); localStorage.setItem(KEY, String(Date.now())); };
+  const dismiss = () => { bar.classList.remove('show'); if (isProd) localStorage.setItem(KEY, String(Date.now())); };
   document.getElementById('ib-close').addEventListener('click', dismiss);
   const show = () => bar.classList.add('show');
 
