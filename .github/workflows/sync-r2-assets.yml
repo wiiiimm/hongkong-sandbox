@@ -1,0 +1,64 @@
+name: Sync data assets to R2
+
+# Mirrors 3d-viewer/data/** into an S3-compatible bucket (Cloudflare R2) so the
+# heavy JSON can be served from a separate origin instead of the app host. The
+# app only fetches from that origin when ASSET_BASE is set (hostname-gated on the
+# official deploy); forks keep serving /data/ from their own origin.
+#
+# Uses the bucket's S3 API via `aws s3 sync` for incremental, delete-aware
+# uploads (only changed files move). Entirely opt-in: the job is skipped unless
+# the destination bucket variable is set, so forks no-op. Configure in repo
+# Settings → Secrets and variables → Actions:
+#   Secrets (masked in the public run logs):
+#     R2_ACCESS_KEY_ID       — S3 access key for the bucket
+#     R2_SECRET_ACCESS_KEY   — its secret half
+#     R2_ACCOUNT_ID          — account id for the S3 endpoint host
+#   Variables:
+#     R2_BUCKET              — destination bucket name
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '3d-viewer/data/**'
+      - '.github/workflows/sync-r2-assets.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: r2-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    # opt-in: only runs where the destination bucket variable is configured
+    # (vars — unlike secrets — are available in job-level if conditions)
+    if: ${{ vars.R2_BUCKET != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      # sparse checkout: only the data payload, not the rest of the repo
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: 3d-viewer/data
+          sparse-checkout-cone-mode: false
+
+      # `data/…` keys so the bucket's custom domain serves <origin>/data/<file>,
+      # matching ASSET_BASE + asset('data/<file>') in main.js. --delete keeps the
+      # bucket a faithful mirror; --size-only avoids re-uploading on clone mtime churn.
+      - name: Sync 3d-viewer/data → bucket /data
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          BUCKET: ${{ vars.R2_BUCKET }}
+        run: |
+          aws s3 sync 3d-viewer/data "s3://${BUCKET}/data" \
+            --endpoint-url "https://${ACCOUNT_ID}.r2.cloudflarestorage.com" \
+            --delete \
+            --size-only \
+            --no-progress \
+            --content-type "application/json" \
+            --cache-control "public, max-age=3600"
