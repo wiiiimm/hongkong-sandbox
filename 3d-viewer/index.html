@@ -264,8 +264,33 @@
   #wxhud #wx-sig.sev{background:rgba(214,60,40,.95);color:#fff}
   #wxhud .wx-sub{font-size:11px;color:var(--sub);line-height:1.5}
   #wxhud #wx-clock{font-family:var(--mono);font-size:13px;color:var(--ink);margin-top:7px}
-  #wxhud #wx-warn:not(:empty){color:#e6a23c;margin-top:4px;font-size:11px}
+  /* wx-warn is now a compact tappable chip; the full text lives in the pull-up bulletin (HKS-80) */
+  #wxhud #wx-warn:not(:empty){display:inline-block;margin-top:5px;font-size:10.5px;cursor:pointer;
+    padding:2px 8px;border-radius:7px;border:1px solid var(--edge-soft);color:var(--sub);
+    font-family:var(--mono);letter-spacing:.03em;transition:border-color .12s,color .12s}
+  #wxhud #wx-warn.warn:not(:empty){color:#e6a23c;border-color:rgba(230,162,60,.5)}
+  #wxhud #wx-warn:not(:empty):hover{border-color:var(--accent);color:var(--ink)}
   #wxhud .wx-src{font-size:9px;color:var(--sub);opacity:.7;margin-top:5px;font-family:var(--mono);letter-spacing:.04em}
+  /* pull-up weather-notices bulletin (HKS-80) — glass sheet, slides up from the bottom */
+  #wxbulletin{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));z-index:41;
+    width:calc(100vw - 30px);max-width:420px;box-sizing:border-box;max-height:56vh;overflow:auto;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);border-radius:16px;padding:13px 16px;font-size:12px;color:var(--sub);line-height:1.65;
+    box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
+    opacity:0;pointer-events:none;transform:translate(-50%,120%);transition:transform .34s cubic-bezier(.22,1,.36,1),opacity .3s ease}
+  #wxbulletin.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
+  body.glass #wxbulletin{background:rgba(10,13,18,.62)}
+  body.glass.ui-light #wxbulletin{background:rgba(252,250,246,.72)}
+  #wxbulletin .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+  #wxbulletin .wb-title{color:var(--ink);font-weight:600;font-size:13px}
+  #wxbulletin #wb-close{width:28px;height:28px;padding:0;flex:0 0 auto;display:grid;place-items:center;font-size:15px;border-radius:8px}
+  #wxbulletin .wb-sec{margin-top:9px}
+  #wxbulletin .wb-sec:empty{display:none}
+  #wxbulletin .wb-sec b{display:block;color:var(--ink);font-weight:600;font-size:9.5px;text-transform:uppercase;
+    letter-spacing:.14em;margin-bottom:4px;font-family:var(--mono)}
+  #wxbulletin .wb-sec div{margin-top:3px}
+  #wxbulletin #wb-warn b{color:#e6a23c}
+  #wxbulletin .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
   #wxhud #wx-tide{font-size:11px;color:var(--ink);margin-top:7px;font-family:var(--mono)}
   #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
   #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
@@ -717,6 +742,16 @@
   <div id="wx-tidecap"></div>
   <div id="wx-clock">—</div>
   <div class="wx-src">HKO · data.gov.hk</div>
+</div>
+<!-- HKS-80: dismissable pull-up bulletin for HKO warnings + forecast -->
+<div id="wxbulletin" role="dialog" aria-label="Weather notices" aria-modal="false">
+  <div class="wb-head">
+    <span class="wb-title" data-i18n="wb.title">Weather notices</span>
+    <button id="wb-close" aria-label="Dismiss">✕</button>
+  </div>
+  <div id="wb-warn" class="wb-sec"></div>
+  <div id="wb-fcast" class="wb-sec"></div>
+  <div class="wb-src">© Hong Kong Observatory · data.gov.hk</div>
 </div>
 
 <button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">
