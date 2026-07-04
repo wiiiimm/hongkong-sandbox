@@ -2494,7 +2494,7 @@ function updateCompass() {
     heading = Math.atan2(fx, -fz) + world.rotation.y;
   }
   const deg = ((heading / D2R) % 360 + 360) % 360;
-  if (radarRunning && radarImg && !isSat()) radarImg.style.transform = `rotate(${-deg}deg)`;   // radar tracks the compass; satellite stays north-up (HKS-74/79)
+  if (radarRunning && radarImg) radarImg.style.transform = `rotate(${-deg}deg)`;   // radar + satellite track the compass (HKS-74/79)
   const w = compassCv.clientWidth, h = compassCv.clientHeight;
   const dpr = Math.min(devicePixelRatio || 1, 2);
   if (compassCv.width !== Math.round(w * dpr)) { compassCv.width = Math.round(w * dpr); compassCv.height = Math.round(h * dpr); }
@@ -2589,9 +2589,9 @@ document.getElementById('snapbtn').addEventListener('click', snapshot);
 // fine; CORS is irrelevant for <img>). Two views share the circular frame:
 //   • radar    — rainfall, HK-centred, 64/128/256 km, HKT 6-min cadence; rotates
 //                with the compass so it aligns with the 3D scene.
-//   • satellite— Himawari IR, wide (x2M) / local (x8M), UTC 10-min cadence; kept
-//                north-up (a wide geographic frame shouldn't spin). Lets you see
-//                a typhoon while it's still out at sea, beyond radar range.
+//   • satellite— Himawari IR, wide (x2M) / local (x8M), UTC 10-min cadence. Lets
+//                you see a typhoon while it's still out at sea, beyond radar range.
+// Both views rotate with the compass so they align with the 3D scene.
 // Frame timestamps are computed client-side (rounded to the cadence, backed off
 // one frame for publish lag) so we never need the CORS-less frame-list JSON. A
 // frame that 404s (not published yet) is skipped. © Hong Kong Observatory.
@@ -2679,7 +2679,6 @@ function renderWxviewControls() {
 function setWxMode(m) {
   if (wxMode === m) return;
   wxMode = m;
-  if (isSat() && radarImg) radarImg.style.transform = 'none';   // satellite is north-up
   renderWxviewControls();
   if (radarRunning) startRadar();
 }
