@@ -1,9 +1,12 @@
 name: Deploy to Cloudflare Pages
 
+# Production moved to Vercel (HKS-47). The automatic push-to-main deploy is
+# disabled so we don't double-deploy — but this workflow is kept as a manual
+# rollback: run it (Actions → "Run workflow", or `gh workflow run
+# deploy-cloudflare-pages.yml`) to refresh the Cloudflare Pages project before
+# flipping DNS back to Cloudflare if Vercel ever has a problem. All the CF code
+# (functions/_middleware.js, _routes.json, _headers) stays in the repo.
 on:
-  push:
-    branches: [main]
-    paths: ['3d-viewer/**', '.github/workflows/deploy-cloudflare-pages.yml']
   workflow_dispatch: {}
 
 permissions:
