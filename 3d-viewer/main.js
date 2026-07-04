@@ -11,11 +11,11 @@ import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder,
 
 // ---- configurable asset base (HKS-46) --------------------------------------
 // The heavy bundled data (the /data/ JSON — DEM meshes, vector overlays, POIs)
-// can be served from a separate origin, e.g. an R2 bucket at
-// assets.hk-sandbox.wiiiimm.codes, to keep bulk egress off the app host. This
-// defaults to '' (relative), so forks and self-hosts serve /data/ from their
-// own origin with zero config and never hit the maintainer's bucket. Override
-// by setting window.ASSET_BASE before main.js loads, or edit this constant.
+// can be served from a separate origin (e.g. an object-storage bucket) to keep
+// bulk egress off the app host. Defaults to '' (relative), so forks and
+// self-hosts serve /data/ from their own origin with zero config and never hit
+// anyone else's bucket. Override by setting window.ASSET_BASE before main.js
+// loads, or edit this constant.
 const ASSET_BASE = (typeof window !== 'undefined' && window.ASSET_BASE) || '';
 // Prefix an origin onto a bundled data path only when a base is configured;
 // leaves absolute URLs and non-data paths untouched.
