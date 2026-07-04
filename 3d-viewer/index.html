@@ -125,7 +125,7 @@
   /* full-width on phones (12px gutters), but centred + capped on tablets so it
      doesn't stretch to a silly length on iPad-width screens (HKS-64) */
   #installbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));
-    width:calc(100vw - 24px);max-width:460px;
+    width:calc(100vw - 32px);max-width:460px;   /* 16px side margins so the card clears the screen edges */
     z-index:40;display:flex;align-items:center;gap:10px;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.4;
