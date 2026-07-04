@@ -265,29 +265,29 @@
   #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
   #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
   /* HKS-74: live HKO rain-radar loop — glass panel under the weather box */
-  /* radar + satellite — folded into the weather box, under the tide readout (HKS-74/79) */
-  #wxhud #radarblock{margin-top:9px;padding-top:9px;border-top:1px solid var(--edge-soft);text-align:left}
-  /* segmented toggles (mode + range/zoom) — the highlighted segment reads as "current" */
-  #wxhud #radarblock .rh-segs{display:flex;border:1px solid var(--edge-soft);border-radius:8px;overflow:hidden}
-  #wxhud #radarblock .rh-modes{margin-bottom:7px}
-  #wxhud #radarblock .rh-seg{flex:1 1 0;min-width:0;height:24px;padding:0 6px;border:none;border-radius:0;
-    background:transparent;color:var(--sub);font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .12s,color .12s}
-  #wxhud #radarblock .rh-seg+.rh-seg{border-left:1px solid var(--edge-soft)}
-  #wxhud #radarblock .rh-seg.on{background:var(--accent);color:#0a0d12;font-weight:600}
-  #wxhud #radarblock .rh-seg:not(.on):hover{background:rgba(255,255,255,.06);color:var(--ink)}
-  #wxhud #radarblock .rh-ctrls{display:flex;align-items:center;gap:6px;margin-top:7px}
-  #wxhud #radarblock .rh-ctrls .rh-segs{flex:1 1 auto}
-  #wxhud #radarblock .rh-pill{flex:0 0 auto;width:auto;min-width:30px;height:26px;padding:0 8px;font-size:12px;border-radius:8px}
-  /* circular clip so the compass-rotating image never shows its square corners */
-  #wxhud #radarblock .rh-frame{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:50%;
-    background:rgba(0,0,0,.25);border:1px solid var(--edge-soft)}
-  /* image sits 12% larger than the circle so its edges stay outside the clip at every angle.
-     object-position is set per-view in JS: radar → left (crops the HKO legend strip on the
-     right); satellite → centre (full-frame map, no legend). */
-  #wxhud #radarblock #radar-img{position:absolute;top:-6%;left:-6%;width:112%;height:112%;object-fit:cover;
+  /* floating circular radar/satellite HUD (HKS-74/79) — bottom-right, above the camera.
+     The radar image is a rotating circle in the centre; SVG tab bands curve around the
+     top (mode) and bottom (range/zoom) so the whole thing reads as one dial. */
+  #radarhud{position:fixed;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:20;
+    width:168px;height:168px;display:none;filter:drop-shadow(0 8px 20px rgba(0,0,0,.45))}
+  #radarhud.show{display:block}
+  #radarhud .rf-ring{position:absolute;left:16.5%;top:16.5%;width:67%;height:67%;border-radius:50%;
+    overflow:hidden;background:rgba(0,0,0,.28);border:1px solid var(--edge)}
+  /* image sits 12% larger than the clip so its edges stay outside the circle at every angle.
+     object-position per view (JS): radar → left (crops the HKO legend strip); satellite → centre. */
+  #radarhud #radar-img{position:absolute;top:-6%;left:-6%;width:112%;height:112%;object-fit:cover;
     object-position:left center;transition:transform .4s ease, opacity .35s ease}
-  #wxhud #radarblock .rh-foot{font-size:9px;color:var(--sub);opacity:.8;font-family:var(--mono);letter-spacing:.03em;margin-top:4px}
+  #radarhud #rf-tabs{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  #radarhud .rf-tab{fill:rgba(14,18,24,.66);stroke:var(--edge);stroke-width:.6;cursor:pointer;transition:fill .12s}
+  body.glass #radarhud .rf-tab{fill:rgba(10,13,18,.52)}
+  body.glass.ui-light #radarhud .rf-tab{fill:rgba(252,250,246,.5)}
+  #radarhud .rf-tab:hover{fill:rgba(255,255,255,.12)}
+  #radarhud .rf-tab.on{fill:var(--accent)}
+  #radarhud .rf-lab{fill:var(--sub);font-family:var(--mono);font-size:8.5px;letter-spacing:.02em;
+    text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+  #radarhud .rf-lab.on{fill:#0a0d12;font-weight:600}
+  #radarhud .rf-time{position:absolute;left:0;right:0;bottom:39%;text-align:center;pointer-events:none;
+    font-family:var(--mono);font-size:8.5px;color:var(--sub);text-shadow:0 1px 3px rgba(0,0,0,.9)}
   .locknote{display:none;font-size:10px;color:var(--sub);font-family:var(--mono);margin:2px 0 5px;letter-spacing:.04em}
   #stormbadge{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:25;display:none;
     padding:9px 18px;border-radius:11px;font-weight:700;letter-spacing:.05em;font-size:13px;
@@ -431,12 +431,14 @@
     #wxhud .wx-big{font-size:18px;margin:2px 0}
     #wxhud.expanded{max-width:min(280px,calc(100vw - 24px))}
     #wxhud:not(.expanded) .wx-sub, #wxhud:not(.expanded) #wx-tide, #wxhud:not(.expanded) #wx-tidecap,
-    #wxhud:not(.expanded) #wx-clock, #wxhud:not(.expanded) .wx-src, #wxhud:not(.expanded) #radarblock,
+    #wxhud:not(.expanded) #wx-clock, #wxhud:not(.expanded) .wx-src,
     #wxhud:not(.expanded) #wx-warn, #wxhud:not(.expanded) #wx-status{display:none}   /* collapsed = temp + T-signal only */
     #wxhud:not(.expanded) #wx-tidegraph{display:none !important}
     /* keep the radar/satellite circle compact on phones so the weather box doesn't
        grow tall enough to sit over the controls behind it */
-    #wxhud #radarblock .rh-frame{width:56%;max-width:130px;margin-left:auto;margin-right:auto}
+    /* compact circular HUD on phones; sits above the camera button (bottom-right) */
+    #radarhud{width:128px;height:128px;bottom:calc(76px + env(safe-area-inset-bottom))}
+    #radarhud .rf-lab{font-size:9px}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
       font-family:var(--mono);margin-top:3px}
     #wxhud.expanded:after{content:'⌃'}
@@ -729,21 +731,14 @@
   <div id="wx-tide"></div>
   <canvas id="wx-tidegraph"></canvas>
   <div id="wx-tidecap"></div>
-  <!-- HKS-74/79: live HKO radar + satellite loop, folded into the weather box under the tide readout -->
-  <div id="radarblock">
-    <div class="rh-segs rh-modes">
-      <button id="rh-radar" class="rh-seg on">Rain radar</button>
-      <button id="rh-sat" class="rh-seg">Satellite</button>
-    </div>
-    <div class="rh-frame"><img id="radar-img" alt=""/></div>
-    <div class="rh-ctrls">
-      <div id="rh-ranges" class="rh-segs"></div>
-      <button id="rh-play" class="rh-pill" title="Play / pause" aria-label="Play / pause">⏸</button>
-    </div>
-    <div class="rh-foot"><span id="radar-time">—</span> · <span data-i18n="radar.credit">© Hong Kong Observatory</span></div>
-  </div>
   <div id="wx-clock">—</div>
   <div class="wx-src">HKO · data.gov.hk</div>
+</div>
+<!-- HKS-74/79: live HKO radar + satellite as a floating circular HUD (bottom-right, above the camera) -->
+<div id="radarhud" aria-label="Weather radar / satellite" title="© Hong Kong Observatory · data.gov.hk">
+  <div class="rf-ring"><img id="radar-img" alt=""/></div>
+  <svg id="rf-tabs" viewBox="0 0 176 176" aria-hidden="true"></svg>
+  <div class="rf-time"><span id="radar-time">—</span></div>
 </div>
 
 <button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">

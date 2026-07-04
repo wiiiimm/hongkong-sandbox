@@ -2643,10 +2643,12 @@ function radarTick() {
     }
   }
 }
-// The imagery lives inside the weather box, so it runs with live weather
-// (started/stopped by setLiveMode) rather than a standalone overlay toggle.
+// The HUD floats bottom-right and runs with live weather (started/stopped by
+// setLiveMode) rather than a standalone overlay toggle.
+const radarHudEl = document.getElementById('radarhud');
 function startRadar() {
   radarRunning = true;
+  radarHudEl.classList.add('show');
   if (radarImg) radarImg.style.opacity = '0';   // fade the current view out; the first fresh frame fades back in
   radarReveal = true;
   loadFrames();
@@ -2656,24 +2658,43 @@ function startRadar() {
 }
 function stopRadar() {
   radarRunning = false;
+  radarHudEl.classList.remove('show');
   clearInterval(radarAnimT); clearInterval(radarRefreshT);
 }
-// mode + range/zoom are segmented toggles; their labels/segments are state- AND
-// locale-dependent, so build them from JS (applyLocale calls this too, so a
-// language switch keeps them in sync).
+
+// ---- curved SVG tabs around the dial -----------------------------------------
+// viewBox 176×176; tab bands are annular sectors between ri and ro, labels ride a
+// mid-band arc. Top band = mode (radar/sat), bottom band = range/zoom.
+const RF = { cx: 88, cy: 88, ri: 60, ro: 84, rt: 73 };
+const rfPolar = (r, deg) => { const a = (deg - 90) * Math.PI / 180; return [RF.cx + r * Math.cos(a), RF.cy + r * Math.sin(a)]; };
+const rfPt = (r, d) => rfPolar(r, d).map(n => n.toFixed(2)).join(' ');
+function rfSector(a0, a1) {                      // filled annular sector, clockwise a0→a1
+  const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
+  return `M${rfPt(RF.ro, a0)} A${RF.ro} ${RF.ro} 0 ${large} 1 ${rfPt(RF.ro, a1)} L${rfPt(RF.ri, a1)} A${RF.ri} ${RF.ri} 0 ${large} 0 ${rfPt(RF.ri, a0)} Z`;
+}
+function rfLabelSvg(ac, text, on, top) {         // straight label at the sector centre, rotated tangentially
+  const [x, y] = rfPolar(RF.rt, ac);
+  const rot = top ? ac : ac - 180;               // bottom labels flip so they stay upright
+  return `<text class="rf-lab${on ? ' on' : ''}" x="${x.toFixed(2)}" y="${y.toFixed(2)}" transform="rotate(${rot.toFixed(1)} ${x.toFixed(2)} ${y.toFixed(2)})">${text}</text>`;
+}
+// build the tab dial; state- and locale-dependent, so applyLocale/applyState call it too
 function renderWxviewControls() {
-  const radarBtn = document.getElementById('rh-radar'), satBtn = document.getElementById('rh-sat'),
-        ranges = document.getElementById('rh-ranges');
-  if (!radarBtn || !satBtn || !ranges) return;
-  radarBtn.textContent = t('radar.title'); satBtn.textContent = t('sat.title');
-  radarBtn.classList.toggle('on', !isSat()); satBtn.classList.toggle('on', isSat());
+  const svg = document.getElementById('rf-tabs');
+  if (!svg) return;
+  const modes = [
+    { a0: -78, a1: -3, ac: -40.5, key: 'radar', lab: t('radar.title'), on: !isSat() },
+    { a0: 3,   a1: 78, ac: 40.5,  key: 'sat',   lab: t('sat.title'),   on: isSat() },
+  ];
   const opts = isSat() ? [['x2M', t('sat.wide')], ['x8M', t('sat.local')]]
                        : [['064', '64km'], ['128', '128km'], ['256', '256km']];
   const cur = isSat() ? satZoom : radarRange;
-  ranges.innerHTML = opts.map(([v, l]) =>
-    `<button class="rh-seg${v === cur ? ' on' : ''}" data-val="${v}">${l}</button>`).join('');
-  // radar carries an HKO legend strip on the right → crop to the left square; the
-  // satellite frame is a full map → centre it.
+  const bStart = 102, bEnd = 258, gap = 4, n = opts.length, w = (bEnd - bStart - gap * (n - 1)) / n;
+  const ranges = opts.map(([v, l], i) => { const a0 = bStart + i * (w + gap), a1 = a0 + w; return { a0, a1, ac: (a0 + a1) / 2, key: v, lab: l, on: v === cur }; });
+  const tab = (d, grp) => `<path class="rf-tab${d.on ? ' on' : ''}" data-grp="${grp}" data-key="${d.key}" d="${rfSector(d.a0, d.a1)}"/>`;
+  svg.innerHTML =
+    modes.map(m => tab(m, 'mode')).join('') + ranges.map(r => tab(r, 'range')).join('') +
+    modes.map(m => rfLabelSvg(m.ac, m.lab, m.on, true)).join('') + ranges.map(r => rfLabelSvg(r.ac, r.lab, r.on, false)).join('');
+  // radar carries an HKO legend strip on the right → crop to the left square; satellite is a full map → centre it.
   if (radarImg) radarImg.style.objectPosition = isSat() ? '50% 50%' : 'left center';
 }
 function setWxMode(m) {
@@ -2682,20 +2703,13 @@ function setWxMode(m) {
   renderWxviewControls();
   if (radarRunning) startRadar();
 }
-document.getElementById('rh-radar').addEventListener('click', () => setWxMode('radar'));
-document.getElementById('rh-sat').addEventListener('click', () => setWxMode('sat'));
-document.getElementById('rh-ranges').addEventListener('click', e => {
-  const b = e.target.closest('button[data-val]'); if (!b) return;
-  if (isSat()) satZoom = b.dataset.val; else radarRange = b.dataset.val;
+document.getElementById('rf-tabs').addEventListener('click', e => {
+  const p = e.target.closest('path[data-grp]'); if (!p) return;
+  if (p.dataset.grp === 'mode') { setWxMode(p.dataset.key); return; }
+  if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key;
   renderWxviewControls();
   if (radarRunning) startRadar();
 });
-document.getElementById('rh-play').addEventListener('click', () => {
-  radarPlaying = !radarPlaying; document.getElementById('rh-play').textContent = radarPlaying ? '⏸' : '▶';
-});
-// the block lives inside #wxhud, whose tap toggles the collapsed chip on mobile —
-// keep taps on the radar controls from bubbling up and closing the weather box
-document.getElementById('radarblock').addEventListener('click', e => e.stopPropagation());
 
 // ---- camera framing + presets ---------------------------------------------
 function bounds() {
