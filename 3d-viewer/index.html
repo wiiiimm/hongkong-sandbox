@@ -173,6 +173,7 @@
   body.glass #creditsbtn{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #creditsbtn{background:rgba(252,250,246,.22)}
   #creditsbtn .ci{display:inline-flex;align-items:center;line-height:0;color:var(--accent)}
+  #creditsbtn .ci svg{display:block}   /* kill inline-baseline offset so the glyph centres on the label */
   #creditsbtn:hover{border-color:var(--accent);color:var(--ink)}
   #creditsbtn.on{border-color:var(--accent);color:var(--accent)}
   #creditspop{position:fixed;left:16px;bottom:54px;z-index:22;display:none;
@@ -188,6 +189,10 @@
   #creditspop a{color:var(--accent);text-decoration:none}
   #creditspop a:hover{text-decoration:underline}
   #collapsedbar{display:none;align-items:center;gap:10px}
+  /* the collapsed panel is already a bordered chip — the cog inside is icon-only
+     so it doesn't render a second nested border box */
+  #collapsedbar button{border:none;background:none;box-shadow:none;color:var(--sub)}
+  #collapsedbar button:hover{background:none;border-color:transparent;color:var(--accent)}
   .navmini{font-size:11px;color:var(--sub);white-space:normal;max-width:210px;line-height:1.45}
   #panel.collapsed{width:auto;padding:10px 12px}
   #panel.collapsed #phead,#panel.collapsed #pbody,#panel.collapsed #navhelp{display:none}
@@ -320,10 +325,11 @@
   #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:4px;letter-spacing:.09em}
   #cornerui{position:fixed;right:12px;bottom:calc(30px + env(safe-area-inset-bottom));z-index:22;
     display:flex;flex-direction:column;gap:8px;align-items:center}
-  #cornerui button{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  #cornerui button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);cursor:pointer;font-size:16px;padding:0;
     box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  #cornerui button svg{display:block;transform:translateY(.5px)}   /* camera glyph is top-heavy — nudge to optical centre */
   body.glass #cornerui button{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #cornerui button{background:rgba(252,250,246,.22)}
   /* band heading indicator (directional-gyro tape), bottom-centre; lifts above
@@ -689,7 +695,7 @@
 <div id="stormbadge"></div>
 <div id="flyhud"></div>
 <div id="cornerui">
-  <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
+  <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>
 <canvas id="compass" title="Heading — click to face north"></canvas>
 <div id="mapattr"></div>
@@ -707,7 +713,7 @@
 </div>
 
 <button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">
-  <span class="ci" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span class="clabel" data-i18n="lbl.credits">Credits</span>
+  <span class="ci" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span class="clabel" data-i18n="lbl.credits">Credits</span>
 </button>
 <div id="creditspop" role="dialog" aria-label="About Hong Kong Sandbox" data-i18n-html="about">
   <b>Hong Kong Sandbox · 香港沙盒</b>
