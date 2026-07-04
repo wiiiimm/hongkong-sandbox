@@ -269,8 +269,8 @@
   #wxhud #radarblock{margin-top:9px;padding-top:9px;border-top:1px solid var(--edge-soft);text-align:left}
   #wxhud #radarblock .rh-head{display:flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);
     letter-spacing:.04em;color:var(--sub);margin-bottom:6px}
-  #wxhud #radarblock .rh-title{flex:1 1 auto;color:var(--ink)}
   #wxhud #radarblock .rh-head button{width:auto;min-width:24px;height:22px;padding:0 6px;font-size:11px;border-radius:6px}
+  #wxhud #radarblock #rh-mode{flex:1 1 auto;text-align:left;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   /* circular clip so the compass-rotating image never shows its square corners */
   #wxhud #radarblock .rh-frame{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:50%;
     background:rgba(0,0,0,.25);border:1px solid var(--edge-soft)}
@@ -719,8 +719,8 @@
   <!-- HKS-74: live HKO rain-radar loop, folded into the weather box under the tide readout -->
   <div id="radarblock">
     <div class="rh-head">
-      <span class="rh-title" data-i18n="radar.title">Rain radar</span>
-      <button id="rh-range" title="Toggle range">64km</button>
+      <button id="rh-mode" title="Rain radar / satellite">Rain radar</button>
+      <button id="rh-range" title="Range / zoom">64km</button>
       <button id="rh-play" title="Play / pause" aria-label="Play / pause">⏸</button>
     </div>
     <div class="rh-frame"><img id="radar-img" alt=""/></div>
