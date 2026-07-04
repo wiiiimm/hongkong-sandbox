@@ -3636,7 +3636,18 @@ resize();
 applyBg('dark');
 locale = detectLocale();
 applyLocale(locale);
-const startParams = new URLSearchParams(location.search);
+// Curated default view: a bare visit boots into this scene. Any shared/deep link
+// that carries a recognised viewer-state key is honoured verbatim and wins.
+// "State" is decided by the canonical key set below — NOT "any unknown key" — so a
+// marketing/tracking link (?utm_source=…, ?fbclid=…), a lang-only or embed-only URL
+// still lands on the curated default, with its own extra params carried through.
+const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
+// canonical serialized keys + the optional ones serializeState only emits sometimes
+const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm']);
+const urlParams = new URLSearchParams(location.search);
+const hasState = [...urlParams.keys()].some(k => STATE_KEYS.has(k));
+const startParams = hasState ? urlParams : new URLSearchParams(DEFAULT_STATE);
+if (!hasState) for (const [k, v] of urlParams) startParams.set(k, v);   // carry locale/embed/utm/etc onto the default
 const startSrc = SOURCES[startParams.get('s')] ? startParams.get('s') : 'hk-landsd-5m';
 document.getElementById('src').value = startSrc;
 loadSource(startSrc).then(() => {
