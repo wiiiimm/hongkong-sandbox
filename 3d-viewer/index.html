@@ -398,7 +398,10 @@
     #sheetgrip:before{content:'';display:block;width:42px;height:4px;border-radius:2px;
       background:var(--field-edge);margin:0 auto}
     #panel.collapsed{left:12px;right:auto;bottom:calc(12px + env(safe-area-inset-bottom));
-      border:1px solid var(--edge);border-radius:14px;padding:9px 12px}
+      border:1px solid var(--edge);border-radius:12px;padding:7px 9px}
+    /* keep the reopen cog compact so the chip clears the compass bar (bottom-centre) */
+    #panel.collapsed #expand-btn{width:28px;height:28px}
+    #panel.collapsed #expand-btn svg{width:14px;height:14px}
     #panel.collapsed #sheetgrip{display:none}
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
        camera button (#cornerui, bottom-right) AND the separate compass canvas
