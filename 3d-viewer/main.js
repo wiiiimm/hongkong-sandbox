@@ -2426,8 +2426,17 @@ function setNeon(on) {
     nnPrevSnow = snow.checked;
     flip(true);                        // the wasteland is snowbound
   } else {
-    if (nnPrevSnow != null && !liveMode && stormLevel === 0) flip(nnPrevSnow);
+    // Hand the weather back to whoever was driving it (HKS-72). The snapshot
+    // always restores: snow is exclusively user-owned — neither the live sim
+    // (syncLiveWeather) nor the storm presets (applyStorm) ever touch it — so
+    // the old "skip under live/storm" guard just stranded the forced ❄ behind
+    // checkboxes those modes keep locked, with no way to clear it.
+    if (nnPrevSnow != null) flip(nnPrevSnow);
     nnPrevSnow = null;
+    // …then let the live sim re-assert real conditions right away rather than
+    // waiting for its next 5-minute refresh. (A storm signal needs no
+    // re-assert: Neon only ever displaced snow, which applyStorm ignores.)
+    if (liveMode) syncLiveWeather();
     noirCtx.clearRect(0, 0, noirCv.width, noirCv.height);
   }
   applyControlLocks();
@@ -3396,7 +3405,9 @@ function serializeState() {
   p.set('cl', weather.clouds ? '1' : '0');
   p.set('li', weather.lightning ? '1' : '0');
   p.set('wv', weather.waves ? '1' : '0');
-  p.set('sn', weather.snow ? '1' : '0');
+  // under Neon Night snow is forced on — share the user's own pre-Neon value so
+  // a reloaded link re-snapshots it and still exits the mode cleanly (HKS-72)
+  p.set('sn', (neonOn && nnPrevSnow != null ? nnPrevSnow : weather.snow) ? '1' : '0');
   if (FLY_DEBUG) p.set('debug', '1');
   p.set('mx', matrixOn ? '1' : '0');
   p.set('nn', neonOn ? '1' : '0');
