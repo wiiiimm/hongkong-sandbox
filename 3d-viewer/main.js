@@ -3502,6 +3502,7 @@ function serializeState() {
   p.set('ws', stationsOn ? '1' : '0');
   p.set('wm', document.getElementById('stationswind').checked ? '1' : '0');
   p.set('aq', aqhiOn ? '1' : '0');
+  p.set('rdr', radarOn ? (radarRange === '256' ? '2' : '1') : '0');   // radar overlay + range (HKS-74)
   if (!pathRouted()) p.set('locale', locale);   // in path mode the locale lives in the URL path instead
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
@@ -3566,6 +3567,11 @@ function applyState(p) {
   if (p.has('wm')) setChk('stationswind', p.get('wm') === '1');   // before stations so the filter is set when they load
   if (p.has('ws')) setChk('stations', p.get('ws') === '1');
   if (p.has('aq')) setChk('aqhi', p.get('aq') === '1');
+  if (p.has('rdr') && p.get('rdr') !== '0') {                     // radar overlay + range (HKS-74)
+    radarRange = p.get('rdr') === '2' ? '256' : '064';
+    document.getElementById('rh-range').textContent = radarRange === '064' ? '64km' : '256km';
+    setRadar(true);
+  }
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
     if (c.length >= 6 && c.every(isFinite)) {
