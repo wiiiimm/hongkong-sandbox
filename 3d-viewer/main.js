@@ -1698,14 +1698,24 @@ function enterFlight() {
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
   planeGrp.visible = true;
   const b = bounds(), g = curG;
-  // spawn over Chek Lap Kok heading east toward Kowloon; centre if out of source
+  // start LANDED on the HKIA runway (Chek Lap Kok), facing east toward Kowloon —
+  // hold-to-gas / ␣ / a tap rolls you down the runway and lifts off (HKS-73).
+  // If the airport falls outside this source's extent, fall back to an airborne
+  // cruise spawn over the map centre.
   let col = (809897 - g.bE) / g.aE, row = (818635 - g.bN) / g.aN;
-  if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { col = W / 2; row = H / 2; }
-  flight.pos.set((col - W/2) * cell, sampleE(col, row) * VE + 400 * VE, (row - H/2) * cell);
-  flight.yaw = -Math.PI / 2;                           // east
+  const onRunway = col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1;
+  if (onRunway) {
+    flight.pos.set((col - W/2) * cell, sampleE(col, row) * VE + 2.2, (row - H/2) * cell);
+    flight.speed = 0;                                  // engine idle on the tarmac
+    flight.landed = true;
+  } else {
+    col = W / 2; row = H / 2;
+    flight.pos.set((col - W/2) * cell, sampleE(col, row) * VE + 400 * VE, (row - H/2) * cell);
+    flight.speed = 62;                                 // m/s — light-aircraft cruise (~120 kt)
+    flight.landed = false;
+  }
+  flight.yaw = -Math.PI / 2;                           // east — down the runway toward Kowloon
   flight.pitch = 0; flight.roll = 0;
-  flight.speed = 62;                                   // m/s — light-aircraft cruise (~120 kt)
-  flight.landed = false;
   flight.helpT = 480;                                  // show the how-to card for ~8 s
   flight.tilt = false; flight.tiltRef = null;
   // phones fly by tilting — ask iOS for the sensor from this tap's gesture
@@ -1897,8 +1907,10 @@ function stepFlight() {
   F.pos.z += _fv.z * mpf;
   F.pos.y += _fv.y * mpf * VE;                         // climb in exaggerated y: slopes fly true
   F.pos.y -= Math.max(0, 62 - F.speed) * 0.004 * VE;   // below cruise the nose gets heavy
-  F.pos.x += windVec.x * (25 * windStrength) / 60;     // a full gale drifts you ~25 m/s
-  F.pos.z += windVec.z * (25 * windStrength) / 60;
+  if (!F.landed) {                                     // parked on the runway you don't drift downwind
+    F.pos.x += windVec.x * (25 * windStrength) / 60;   // a full gale drifts you ~25 m/s
+    F.pos.z += windVec.z * (25 * windStrength) / 60;
+  }
   F.pos.x = Math.max(-(b.halfX + BUF), Math.min(b.halfX + BUF, F.pos.x));
   F.pos.z = Math.max(-(b.halfZ + BUF), Math.min(b.halfZ + BUF, F.pos.z));
   F.pos.y = Math.min(F.pos.y, 4000 * VE);              // service ceiling
