@@ -265,21 +265,17 @@
   #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
   #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
   /* HKS-74: live HKO rain-radar loop — glass panel under the weather box */
-  #radarhud{position:fixed;top:16px;right:16px;z-index:19;display:none;flex-direction:column;gap:6px;
-    width:200px;max-width:calc(100vw - 32px);
-    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-radius:14px;padding:9px 10px;
-    box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
-  #radarhud.show{display:flex}
-  #radarhud .rh-head{display:flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);
-    letter-spacing:.04em;color:var(--sub)}
-  #radarhud .rh-title{flex:1 1 auto;color:var(--ink)}
-  #radarhud .rh-head button{width:auto;min-width:24px;height:22px;padding:0 6px;font-size:11px;border-radius:6px}
-  #radarhud .rh-frame{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:9px;
+  /* rain radar — folded into the weather box, under the tide readout (HKS-74) */
+  #wxhud #radarblock{margin-top:9px;padding-top:9px;border-top:1px solid var(--edge-soft);text-align:left}
+  #wxhud #radarblock .rh-head{display:flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);
+    letter-spacing:.04em;color:var(--sub);margin-bottom:6px}
+  #wxhud #radarblock .rh-title{flex:1 1 auto;color:var(--ink)}
+  #wxhud #radarblock .rh-head button{width:auto;min-width:24px;height:22px;padding:0 6px;font-size:11px;border-radius:6px}
+  #wxhud #radarblock .rh-frame{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:9px;
     background:rgba(0,0,0,.25);border:1px solid var(--edge-soft)}
-  #radarhud #radar-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  #wxhud #radarblock #radar-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
     transition:transform .4s ease}   /* rotates with the compass heading */
-  #radarhud .rh-foot{font-size:9px;color:var(--sub);opacity:.8;font-family:var(--mono);letter-spacing:.03em;text-align:left}
+  #wxhud #radarblock .rh-foot{font-size:9px;color:var(--sub);opacity:.8;font-family:var(--mono);letter-spacing:.03em;margin-top:4px}
   .locknote{display:none;font-size:10px;color:var(--sub);font-family:var(--mono);margin:2px 0 5px;letter-spacing:.04em}
   #stormbadge{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:25;display:none;
     padding:9px 18px;border-radius:11px;font-weight:700;letter-spacing:.05em;font-size:13px;
@@ -423,7 +419,7 @@
     #wxhud .wx-big{font-size:18px;margin:2px 0}
     #wxhud.expanded{max-width:min(280px,calc(100vw - 24px))}
     #wxhud:not(.expanded) .wx-sub, #wxhud:not(.expanded) #wx-tide, #wxhud:not(.expanded) #wx-tidecap,
-    #wxhud:not(.expanded) #wx-clock, #wxhud:not(.expanded) .wx-src,
+    #wxhud:not(.expanded) #wx-clock, #wxhud:not(.expanded) .wx-src, #wxhud:not(.expanded) #radarblock,
     #wxhud:not(.expanded) #wx-warn, #wxhud:not(.expanded) #wx-status{display:none}   /* collapsed = temp + T-signal only */
     #wxhud:not(.expanded) #wx-tidegraph{display:none !important}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
@@ -595,7 +591,6 @@
       <label class="chk"><input type="checkbox" id="stations"/> <span data-i18n="ov.stations">Stations (live)</span></label>
       <label class="chk"><input type="checkbox" id="aqhi"/> <span data-i18n="ov.aqhi">Air · AQHI (live)</span></label>
       <label class="chk"><input type="checkbox" id="stationswind"/> <span data-i18n="ov.stationswind">+ wind/marine stns</span></label>
-      <label class="chk"><input type="checkbox" id="radar"/> <span data-i18n="ov.radar">Rain radar (live)</span></label>
     </div>
     <div class="chks" id="layers" style="margin-top:4px"></div>
   </div>
@@ -719,19 +714,18 @@
   <div id="wx-tide"></div>
   <canvas id="wx-tidegraph"></canvas>
   <div id="wx-tidecap"></div>
+  <!-- HKS-74: live HKO rain-radar loop, folded into the weather box under the tide readout -->
+  <div id="radarblock">
+    <div class="rh-head">
+      <span class="rh-title" data-i18n="radar.title">Rain radar</span>
+      <button id="rh-range" title="Toggle range">64km</button>
+      <button id="rh-play" title="Play / pause" aria-label="Play / pause">⏸</button>
+    </div>
+    <div class="rh-frame"><img id="radar-img" alt=""/></div>
+    <div class="rh-foot"><span id="radar-time">—</span> · <span data-i18n="radar.credit">© Hong Kong Observatory</span></div>
+  </div>
   <div id="wx-clock">—</div>
   <div class="wx-src">HKO · data.gov.hk</div>
-</div>
-<!-- HKS-74: live HKO rain-radar loop, sits under the weather box (top-right) -->
-<div id="radarhud">
-  <div class="rh-head">
-    <span class="rh-title" data-i18n="radar.title">Rain radar</span>
-    <button id="rh-range" title="Toggle range">64km</button>
-    <button id="rh-play" title="Play / pause" aria-label="Play / pause">⏸</button>
-    <button id="rh-close" title="Hide radar" aria-label="Hide radar">×</button>
-  </div>
-  <div class="rh-frame"><img id="radar-img" alt=""/></div>
-  <div class="rh-foot"><span id="radar-time">—</span> · <span data-i18n="radar.credit">© Hong Kong Observatory</span></div>
 </div>
 
 <button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">

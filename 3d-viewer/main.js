@@ -90,7 +90,7 @@ const I18N = {
     'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
-    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns', 'ov.radar': 'Rain radar (live)',
+    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
@@ -153,7 +153,7 @@ const I18N = {
     'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
-    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站', 'ov.radar': '雨區雷達（即時）',
+    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
@@ -2492,7 +2492,7 @@ function updateCompass() {
     heading = Math.atan2(fx, -fz) + world.rotation.y;
   }
   const deg = ((heading / D2R) % 360 + 360) % 360;
-  if (radarOn && radarImg) radarImg.style.transform = `rotate(${-deg}deg)`;   // radar tracks the compass (HKS-74)
+  if (radarRunning && radarImg) radarImg.style.transform = `rotate(${-deg}deg)`;   // radar tracks the compass (HKS-74)
   const w = compassCv.clientWidth, h = compassCv.clientHeight;
   const dpr = Math.min(devicePixelRatio || 1, 2);
   if (compassCv.width !== Math.round(w * dpr)) { compassCv.width = Math.round(w * dpr); compassCv.height = Math.round(h * dpr); }
@@ -2589,11 +2589,10 @@ document.getElementById('snapbtn').addEventListener('click', snapshot);
 // publish lag — so we never need the (CORS-less) frame-list JSON. A frame that
 // 404s (not published yet) is skipped. The image rotates with the compass. It
 // rides the CDN so the JPEGs transfer compressed. © Hong Kong Observatory.
-let radarOn = false, radarImg = document.getElementById('radar-img');
-let radarRange = '064', radarPlaying = true;
+let radarImg = document.getElementById('radar-img');
+let radarRange = '064', radarPlaying = true, radarRunning = false;
 let radarFrames = [], radarIdx = 0, radarAnimT = null, radarRefreshT = null;
 const radarTimeEl = document.getElementById('radar-time');
-const radarEl = document.getElementById('radarhud');
 const p2 = n => String(n).padStart(2, '0');
 function radarTimestamps(n) {
   const t = new Date(Date.now() + 8 * 3.6e6);          // epoch shifted → HKT in the UTC fields
@@ -2623,33 +2622,26 @@ function radarTick() {
     }
   }
 }
-function positionRadar() {                             // sit just under the weather box (or top if it's hidden)
-  const wx = document.getElementById('wxhud');
-  radarEl.style.top = (wx && wx.style.display !== 'none' ? wx.getBoundingClientRect().bottom + 10 : 16) + 'px';
-}
+// The radar lives inside the weather box, so it runs with live weather (started
+// and stopped by setLiveMode) rather than a standalone overlay toggle.
 function startRadar() {
+  radarRunning = true;
   loadRadar();
   clearInterval(radarAnimT); radarAnimT = setInterval(() => { if (radarPlaying) radarTick(); }, 220);
   clearInterval(radarRefreshT); radarRefreshT = setInterval(loadRadar, 6 * 60000);
-  positionRadar();
 }
-function setRadar(on) {
-  radarOn = on;
-  radarEl.classList.toggle('show', on);
-  document.getElementById('radar').checked = on;
-  if (on) startRadar(); else { clearInterval(radarAnimT); clearInterval(radarRefreshT); }
+function stopRadar() {
+  radarRunning = false;
+  clearInterval(radarAnimT); clearInterval(radarRefreshT);
 }
-document.getElementById('radar').addEventListener('change', e => setRadar(e.target.checked));
-document.getElementById('rh-close').addEventListener('click', () => setRadar(false));
 document.getElementById('rh-play').addEventListener('click', () => {
   radarPlaying = !radarPlaying; document.getElementById('rh-play').textContent = radarPlaying ? '⏸' : '▶';
 });
 document.getElementById('rh-range').addEventListener('click', () => {
   radarRange = radarRange === '064' ? '256' : '064';
   document.getElementById('rh-range').textContent = radarRange === '064' ? '64km' : '256km';
-  if (radarOn) startRadar();
+  if (radarRunning) startRadar();
 });
-addEventListener('resize', () => { if (radarOn) positionRadar(); });
 
 // ---- camera framing + presets ---------------------------------------------
 function bounds() {
@@ -3066,7 +3058,9 @@ function setLiveMode(on) {
     tickHKClock(); wxClockT = setInterval(tickHKClock, 1000);
     syncLiveWeather(); syncLiveTide();
     wxRefreshT = setInterval(() => { syncLiveWeather(); syncLiveTide(); }, 300000);
+    startRadar();                                         // radar rides with the live weather box (HKS-74)
   } else {
+    stopRadar();
     // keep whatever live sync produced: adopt the last live tide level as the manual value
     tideManual = tideLevel; tideSeries = null;
     document.getElementById('tide').value = Math.round(tideManual * 100);
@@ -3502,7 +3496,7 @@ function serializeState() {
   p.set('ws', stationsOn ? '1' : '0');
   p.set('wm', document.getElementById('stationswind').checked ? '1' : '0');
   p.set('aq', aqhiOn ? '1' : '0');
-  p.set('rdr', radarOn ? (radarRange === '256' ? '2' : '1') : '0');   // radar overlay + range (HKS-74)
+  p.set('rdr', radarRange === '256' ? '1' : '0');   // radar range: 0=64km, 1=256km (HKS-74)
   if (!pathRouted()) p.set('locale', locale);   // in path mode the locale lives in the URL path instead
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
@@ -3567,10 +3561,10 @@ function applyState(p) {
   if (p.has('wm')) setChk('stationswind', p.get('wm') === '1');   // before stations so the filter is set when they load
   if (p.has('ws')) setChk('stations', p.get('ws') === '1');
   if (p.has('aq')) setChk('aqhi', p.get('aq') === '1');
-  if (p.has('rdr') && p.get('rdr') !== '0') {                     // radar overlay + range (HKS-74)
-    radarRange = p.get('rdr') === '2' ? '256' : '064';
-    document.getElementById('rh-range').textContent = radarRange === '064' ? '64km' : '256km';
-    setRadar(true);
+  if (p.get('rdr') === '1') {                                    // radar range preference (HKS-74)
+    radarRange = '256';
+    document.getElementById('rh-range').textContent = '256km';
+    if (radarRunning) startRadar();                              // live weather may have started it already
   }
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
