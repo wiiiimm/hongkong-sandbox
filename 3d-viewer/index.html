@@ -434,6 +434,9 @@
     #wxhud:not(.expanded) #wx-clock, #wxhud:not(.expanded) .wx-src, #wxhud:not(.expanded) #radarblock,
     #wxhud:not(.expanded) #wx-warn, #wxhud:not(.expanded) #wx-status{display:none}   /* collapsed = temp + T-signal only */
     #wxhud:not(.expanded) #wx-tidegraph{display:none !important}
+    /* keep the radar/satellite circle compact on phones so the weather box doesn't
+       grow tall enough to sit over the controls behind it */
+    #wxhud #radarblock .rh-frame{width:56%;max-width:130px;margin-left:auto;margin-right:auto}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
       font-family:var(--mono);margin-top:3px}
     #wxhud.expanded:after{content:'⌃'}
