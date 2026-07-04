@@ -3636,7 +3636,16 @@ resize();
 applyBg('dark');
 locale = detectLocale();
 applyLocale(locale);
-const startParams = new URLSearchParams(location.search);
+// Curated default view: a bare visit (no state params) boots into this scene.
+// Any shared/deep link that carries a state param is honoured verbatim and wins;
+// only the meta keys below (locale / cache-buster / embed / debug) don't count as
+// "state", so a lang- or embed-only URL still lands on the curated default.
+const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
+const META_PARAMS = new Set(['locale', 'v', 'embed', 'debug', 'nolock']);
+const urlParams = new URLSearchParams(location.search);
+const hasState = [...urlParams.keys()].some(k => !META_PARAMS.has(k));
+const startParams = hasState ? urlParams : new URLSearchParams(DEFAULT_STATE);
+if (!hasState) for (const k of META_PARAMS) if (urlParams.has(k)) startParams.set(k, urlParams.get(k));
 const startSrc = SOURCES[startParams.get('s')] ? startParams.get('s') : 'hk-landsd-5m';
 document.getElementById('src').value = startSrc;
 loadSource(startSrc).then(() => {
