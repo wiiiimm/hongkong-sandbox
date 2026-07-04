@@ -2598,7 +2598,7 @@ document.getElementById('snapbtn').addEventListener('click', snapshot);
 let radarImg = document.getElementById('radar-img');
 let wxMode = 'radar';                                  // 'radar' | 'sat'
 let radarRange = '064', satZoom = 'x2M';               // radar: 064|128|256 · sat: x2M(wide)|x8M(local)
-let radarPlaying = true, radarRunning = false;
+let radarPlaying = true, radarRunning = false, radarReveal = false;
 let radarFrames = [], radarIdx = 0, radarAnimT = null, radarRefreshT = null;
 const radarTimeEl = document.getElementById('radar-time');
 const p2 = n => String(n).padStart(2, '0');
@@ -2638,6 +2638,7 @@ function radarTick() {
     if (im.complete && im.naturalWidth > 0) {
       radarImg.src = im.src;
       radarTimeEl.textContent = stampLabel(im.dataset.ts);   // HKT HH:MM
+      if (radarReveal) { radarReveal = false; radarImg.style.opacity = '1'; }   // fade the first frame of a switch/reload in
       return;
     }
   }
@@ -2646,7 +2647,10 @@ function radarTick() {
 // (started/stopped by setLiveMode) rather than a standalone overlay toggle.
 function startRadar() {
   radarRunning = true;
+  if (radarImg) radarImg.style.opacity = '0';   // fade the current view out; the first fresh frame fades back in
+  radarReveal = true;
   loadFrames();
+  radarTick();                                  // try to reveal a cached frame immediately, else the interval catches it
   clearInterval(radarAnimT); radarAnimT = setInterval(() => { if (radarPlaying) radarTick(); }, 220);
   clearInterval(radarRefreshT); radarRefreshT = setInterval(loadFrames, (isSat() ? 10 : 6) * 60000);
 }

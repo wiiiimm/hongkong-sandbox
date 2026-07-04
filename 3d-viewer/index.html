@@ -286,7 +286,7 @@
      object-position is set per-view in JS: radar → left (crops the HKO legend strip on the
      right); satellite → centre (full-frame map, no legend). */
   #wxhud #radarblock #radar-img{position:absolute;top:-6%;left:-6%;width:112%;height:112%;object-fit:cover;
-    object-position:left center;transition:transform .4s ease}
+    object-position:left center;transition:transform .4s ease, opacity .35s ease}
   #wxhud #radarblock .rh-foot{font-size:9px;color:var(--sub);opacity:.8;font-family:var(--mono);letter-spacing:.03em;margin-top:4px}
   .locknote{display:none;font-size:10px;color:var(--sub);font-family:var(--mono);margin:2px 0 5px;letter-spacing:.04em}
   #stormbadge{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:25;display:none;
