@@ -271,9 +271,11 @@
     letter-spacing:.04em;color:var(--sub);margin-bottom:6px}
   #wxhud #radarblock .rh-title{flex:1 1 auto;color:var(--ink)}
   #wxhud #radarblock .rh-head button{width:auto;min-width:24px;height:22px;padding:0 6px;font-size:11px;border-radius:6px}
-  #wxhud #radarblock .rh-frame{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:9px;
+  /* circular clip so the compass-rotating image never shows its square corners */
+  #wxhud #radarblock .rh-frame{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:50%;
     background:rgba(0,0,0,.25);border:1px solid var(--edge-soft)}
-  #wxhud #radarblock #radar-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  /* image sits 12% larger than the circle so its edges stay outside the clip at every angle */
+  #wxhud #radarblock #radar-img{position:absolute;top:-6%;left:-6%;width:112%;height:112%;object-fit:cover;
     transition:transform .4s ease}   /* rotates with the compass heading */
   #wxhud #radarblock .rh-foot{font-size:9px;color:var(--sub);opacity:.8;font-family:var(--mono);letter-spacing:.03em;margin-top:4px}
   .locknote{display:none;font-size:10px;color:var(--sub);font-family:var(--mono);margin:2px 0 5px;letter-spacing:.04em}
