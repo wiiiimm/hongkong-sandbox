@@ -374,6 +374,11 @@
     #panel.collapsed{left:12px;right:auto;bottom:calc(12px + env(safe-area-inset-bottom));
       border:1px solid var(--edge);border-radius:14px;padding:9px 12px}
     #panel.collapsed #sheetgrip{display:none}
+    /* HKS-75: the open bottom-sheet drawer overlaps the bottom-right corner UI
+       (compass + camera, z-index 22 > panel 20). Hide them while the sheet is
+       open; they return when it collapses to the chip. (creditsbtn already
+       moves top-left on mobile, so it's clear.) */
+    #panel:not(.collapsed) ~ #cornerui{display:none}
     #panel .navmini{display:none}   /* nav hint lives behind the ? button on phones */
     #wxhud{top:12px;right:12px;min-width:0;max-width:46vw;box-sizing:border-box;padding:8px 11px;
       cursor:pointer;-webkit-tap-highlight-color:transparent}
