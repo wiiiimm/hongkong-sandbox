@@ -397,12 +397,16 @@
     #sheetgrip{display:block;padding:5px 0 10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
     #sheetgrip:before{content:'';display:block;width:42px;height:4px;border-radius:2px;
       background:var(--field-edge);margin:0 auto}
+    /* collapsed chip, compass bar and camera button share one 36px-tall bottom row,
+       all anchored to the same 12px baseline so they line up left / centre / right */
     #panel.collapsed{left:12px;right:auto;bottom:calc(12px + env(safe-area-inset-bottom));
-      border:1px solid var(--edge);border-radius:12px;padding:7px 9px}
-    /* keep the reopen cog compact so the chip clears the compass bar (bottom-centre) */
+      box-sizing:border-box;height:36px;display:flex;align-items:center;overflow:hidden;
+      border:1px solid var(--edge);border-radius:12px;padding:0 9px}
     #panel.collapsed #expand-btn{width:28px;height:28px}
     #panel.collapsed #expand-btn svg{width:14px;height:14px}
     #panel.collapsed #sheetgrip{display:none}
+    #cornerui{bottom:calc(12px + env(safe-area-inset-bottom))}          /* drop the camera to the compass baseline */
+    #cornerui button{width:36px;height:36px;box-sizing:border-box}      /* same 36px height as the compass bar */
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
        camera button (#cornerui, bottom-right) AND the separate compass canvas
        (#compass, bottom-centre), both above the panel. Hide both while the sheet
