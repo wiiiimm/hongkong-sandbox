@@ -4,6 +4,11 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <base href="/"/><!-- keep relative asset paths root-anchored when served under /en-hk/ etc -->
+<!-- HKS-50: on the production domain, serve the heavy /data/ JSON from the R2 bucket
+     (keeps bulk egress off the app host). Any other host — forks, previews, localhost —
+     leaves ASSET_BASE unset, so /data/ stays relative and self-hosted. Runs before the
+     deferred main.js, which reads window.ASSET_BASE at load. -->
+<script>if(location.hostname==='hongkong-sandbox.wiiiimm.codes')window.ASSET_BASE='https://assets.hongkong-sandbox.wiiiimm.codes';</script>
 <title>Hong Kong Sandbox — 3D terrain, live weather &amp; typhoon sim</title>
 <meta name="description" content="Hong Kong Sandbox (香港沙盒) — an interactive 3D Hong Kong from real LiDAR terrain, with live Hong Kong Observatory weather, tides and typhoon signals (No.1–10), live weather stations, and OSM / satellite skins. Bilingual (EN / 繁中)."/>
 <meta name="robots" content="index,follow"/>
