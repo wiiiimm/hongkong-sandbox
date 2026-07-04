@@ -50,8 +50,8 @@ file (via any static server) and deploys as plain files.
   HKT clock, tide-prediction waveform), and drives the effects from real conditions.
 - **Live weather stations** — all ~50 HKO automatic weather stations plotted as TV-style
   cards (temp / humidity / wind, bilingual names), fed by the per-station feeds.
-- **Bilingual** — English (HK) / 繁體中文（香港）, with `/en-hk/` `/zh-hk/` routing on
-  Cloudflare and `?locale=` / browser-detection fallback everywhere else.
+- **Bilingual** — English (HK) / 繁體中文（香港）, with `/en-hk/` `/zh-hk/` routing at
+  the edge (Vercel / Cloudflare) and `?locale=` / browser-detection fallback everywhere else.
 - **Landmarks & peaks** — a curated landmarks layer (iconic hiking peaks + key towns) plus a full named-peaks layer from OSM, both terrain-occluded (labels hide behind mountains) and decluttered.
 - **Shareable** — every control, the camera, and the locale serialise to the URL.
 
@@ -62,7 +62,7 @@ The whole thing is deliberately **static and dependency-light** — this is a de
 - **Zero build, no framework.** Plain `index.html` + ES-module JavaScript + a *vendored* copy of Three.js. No React/Vue/Svelte, no bundler, no `npm install`, no build step. Open it through any static file server and it runs; "deploying" is just copying files.
 - **Why:** longevity and hackability. Anyone can read the source, change a number, and hit refresh — no toolchain to learn or keep alive, and it'll still run years from now. Ideal for "here, go fuck around with it."
 - **Precomputed offline, rendered client-side.** DEMs are sliced and georeferenced by small Python scripts (`source-scripts/`) into compact JSON the browser loads directly; all projections (HK1980 grid ↔ WGS84 ↔ Web Mercator) run in plain JS in the browser. No server, no database, no API keys.
-- **Live data from open, CORS-friendly endpoints.** Weather/tides/lightning come straight from HKO / data.gov.hk (per-station feeds routed through data.gov.hk's archive for CORS). The *only* server-side code is a ~40-line Cloudflare Pages Function for `/en-hk/` `/zh-hk/` locale routing — and the app degrades gracefully to `?locale=` + browser detection when it isn't running.
+- **Live data from open, CORS-friendly endpoints.** Weather/tides/lightning come straight from HKO / data.gov.hk (per-station feeds routed through data.gov.hk's archive for CORS). The *only* server-side code is a small edge middleware for `/en-hk/` `/zh-hk/` locale routing (Vercel `middleware.js` in production, with an equivalent Cloudflare Pages Function kept for that platform) — and the app degrades gracefully to `?locale=` + browser detection when it isn't running.
 - **State lives in the URL.** Every control, the camera, and the locale serialise to the query string, so any view is shareable and bookmarkable with no backend.
 - **Trade-offs, honestly:** hand-written WebGL + DOM instead of a scene-graph/UI framework, a fairly large vendored Three.js, and plenty of hand-tuned magic numbers. All accepted in exchange for the no-dependency, no-build simplicity.
 
@@ -79,29 +79,37 @@ node tools/dev-server.mjs           # → http://127.0.0.1:8777/
 python3 -m http.server -d 3d-viewer 8777
 ```
 
-To exercise the **`/en-hk/` `/zh-hk/` locale routing** (the Cloudflare Pages Function),
-run it through Wrangler, which emulates Pages Functions locally:
+To exercise the **`/en-hk/` `/zh-hk/` locale routing** locally, run it through the
+platform emulator that matches the deploy — Vercel (production) or Cloudflare:
 
 ```bash
-npx wrangler pages dev 3d-viewer    # → http://localhost:8788/  (redirects / → /en-hk/)
+vercel dev 3d-viewer                 # Vercel Edge Middleware  → http://localhost:3000/
+npx wrangler pages dev 3d-viewer     # Cloudflare Pages Function → http://localhost:8788/
 ```
 
-Without Wrangler the routing simply falls back to `?locale=` + `localStorage` +
-`navigator.languages`, so the plain dev server is fine for everything except the
-path-based URLs.
+Both redirect `/` → `/en-hk/`. Without either, the routing simply falls back to
+`?locale=` + `localStorage` + `navigator.languages`, so the plain dev server is
+fine for everything except the path-based URLs.
 
-## Deploy (Cloudflare Pages)
+## Deploy (Vercel)
 
-Pushing to `main` deploys `3d-viewer/` via GitHub Actions
-(`.github/workflows/deploy-cloudflare-pages.yml`). It needs two repo secrets:
-`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. The locale middleware lives in
-`3d-viewer/functions/_middleware.js` and ships automatically with the deploy.
+Production is hosted on **Vercel** at
+[hongkong-sandbox.wiiiimm.codes](https://hongkong-sandbox.wiiiimm.codes). Pushing to
+`main` auto-deploys `3d-viewer/` via Vercel's Git integration — no build step, no
+CI secrets. Config is `3d-viewer/vercel.json`; the locale routing + per-locale
+SEO run in `3d-viewer/middleware.js` (Vercel Edge Middleware).
+
+The repo also keeps a **Cloudflare Pages** path as an alternative/rollback:
+`.github/workflows/deploy-cloudflare-pages.yml` (needs `CLOUDFLARE_API_TOKEN` +
+`CLOUDFLARE_ACCOUNT_ID`), with the equivalent locale Function in
+`3d-viewer/functions/_middleware.js`. Either host serves the same static
+`3d-viewer/`, so forks can deploy to whichever they prefer.
 
 ## Folders
 
 | Folder | What's inside |
 |--------|---------------|
-| **`3d-viewer/`** | The deployable app: `index.html`, `main.js`, vendored Three.js, `data/` (meshes, georefs, B50K vectors, station coords), and `functions/` (the locale middleware). |
+| **`3d-viewer/`** | The deployable app: `index.html`, `main.js`, vendored Three.js, `data/` (meshes, georefs, B50K vectors, station coords), plus the locale middleware — `middleware.js` (Vercel) and `functions/_middleware.js` (Cloudflare). |
 | **`source-scripts/`** | Reproducible pipelines — DEM slicing/projection (`srtm-30m/`, `hk-5m/`), B50K vector/land-cover extraction, DEM despiking, and HKO station coordinates. |
 | **`docs/`** | Method & provenance notes. |
 | **`references/`** | Read-only source references and prior work (not required to run). |
@@ -180,7 +188,7 @@ Infrastructure by [stealth.co](https://stealth-company.co).
 - **天氣模擬** —— 雨、雲、霧、閃電、潮汐與波浪，以及香港 **熱帶氣旋警告信號 T1/T3/T8/T9/T10**，隨信號增強風力、風暴潮、天色與震動。
 - **實時天氣** —— 一鍵同步香港天文台報告（氣溫／濕度／風／天氣狀況、香港時間、潮汐預報波形圖），並以實況驅動特效。
 - **實時氣象站** —— 約 50 個香港天文台自動氣象站，以電視天氣報告式資訊卡顯示（氣溫／濕度／風，中英名稱），資料來自各站數據。
-- **雙語** —— 英文（香港）／繁體中文（香港），在 Cloudflare 以 `/en-hk/`、`/zh-hk/` 路由，其他環境則以 `?locale=`／瀏覽器偵測作後備。
+- **雙語** —— 英文（香港）／繁體中文（香港），在邊緣（Vercel／Cloudflare）以 `/en-hk/`、`/zh-hk/` 路由，其他環境則以 `?locale=`／瀏覽器偵測作後備。
 - **地標與山峰** —— 精選地標圖層（著名行山山峰＋主要市鎮），以及來自 OSM 的完整命名山峰圖層；兩者均有地形遮擋（標籤會被山體遮住）並自動避免重疊。
 - **可分享** —— 所有控制項、鏡頭與語言都會寫入網址。
 
@@ -191,7 +199,7 @@ Infrastructure by [stealth.co](https://stealth-company.co).
 - **零建置、無框架。** 純 `index.html` + ES module JavaScript + 內附（vendored）的 Three.js。沒有 React／Vue／Svelte、沒有打包工具、無需 `npm install`、沒有建置步驟。用任何靜態伺服器開啟即可運行，「部署」不過是複製檔案。
 - **原因：** 長壽與可玩性。任何人都能讀原始碼、改個數字、重新整理就見效 —— 不用學或維護工具鏈，多年後仍然跑得動。正好適合「喏，拿去玩」。
 - **離線預先計算、瀏覽器端渲染。** DEM 由小型 Python 腳本（`source-scripts/`）切割與地理配準成精簡 JSON，瀏覽器直接載入；所有投影（HK1980 格網 ↔ WGS84 ↔ Web Mercator）都在瀏覽器以純 JS 計算。沒有伺服器、沒有資料庫、不需 API 金鑰。
-- **實時數據來自開放且支援 CORS 的端點。** 天氣／潮汐／閃電直接取自香港天文台／data.gov.hk（各站數據經 data.gov.hk 封存代理以解決 CORS）。唯一的伺服器端程式，是約 40 行的 Cloudflare Pages Function 用作 `/en-hk/`、`/zh-hk/` 語言路由 —— 若它未運行，程式會優雅地退回 `?locale=` ＋瀏覽器偵測。
+- **實時數據來自開放且支援 CORS 的端點。** 天氣／潮汐／閃電直接取自香港天文台／data.gov.hk（各站數據經 data.gov.hk 封存代理以解決 CORS）。唯一的伺服器端程式，是一段小型邊緣中介程式，用作 `/en-hk/`、`/zh-hk/` 語言路由（生產環境為 Vercel `middleware.js`，並保留對應的 Cloudflare Pages Function）—— 若它未運行，程式會優雅地退回 `?locale=` ＋瀏覽器偵測。
 - **狀態存於網址。** 所有控制項、鏡頭與語言都序列化到查詢字串，任何畫面都可分享、可加書籤，毋須後端。
 - **老實說的取捨：** 手寫 WebGL + DOM 而非場景圖／UI 框架、內附的 Three.js 體積不小、以及大量人手調校的魔術數字 —— 全為換取無依賴、零建置的簡潔。
 
@@ -207,23 +215,26 @@ node tools/dev-server.mjs           # → http://127.0.0.1:8777/
 python3 -m http.server -d 3d-viewer 8777
 ```
 
-要測試 **`/en-hk/`、`/zh-hk/` 語言路由**（Cloudflare Pages Function），用 Wrangler 在本機模擬 Pages Functions：
+要測試 **`/en-hk/`、`/zh-hk/` 語言路由**，用與部署相符的平台模擬器在本機運行 —— Vercel（生產）或 Cloudflare：
 
 ```bash
-npx wrangler pages dev 3d-viewer    # → http://localhost:8788/（會將 / 導向 /en-hk/）
+vercel dev 3d-viewer                 # Vercel Edge Middleware  → http://localhost:3000/
+npx wrangler pages dev 3d-viewer     # Cloudflare Pages Function → http://localhost:8788/
 ```
 
-沒有 Wrangler 時，路由會退回 `?locale=` + `localStorage` + `navigator.languages`，所以除路徑式網址外，普通開發伺服器已足夠。
+兩者都會將 `/` 導向 `/en-hk/`。兩者皆無時，路由會退回 `?locale=` + `localStorage` + `navigator.languages`，所以除路徑式網址外，普通開發伺服器已足夠。
 
-### 部署（Cloudflare Pages）
+### 部署（Vercel）
 
-推送到 `main` 會經 GitHub Actions（`.github/workflows/deploy-cloudflare-pages.yml`）部署 `3d-viewer/`。需要兩個 repo secrets：`CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID`。語言中介程式位於 `3d-viewer/functions/_middleware.js`，會隨部署一併上載。
+生產環境託管於 **Vercel**，網址為 [hongkong-sandbox.wiiiimm.codes](https://hongkong-sandbox.wiiiimm.codes)。推送到 `main` 會經 Vercel 的 Git 整合自動部署 `3d-viewer/` —— 無建置步驟、無 CI secrets。設定檔為 `3d-viewer/vercel.json`；語言路由與各語言 SEO 由 `3d-viewer/middleware.js`（Vercel Edge Middleware）處理。
+
+repo 亦保留一條 **Cloudflare Pages** 路徑作替代／回退：`.github/workflows/deploy-cloudflare-pages.yml`（需 `CLOUDFLARE_API_TOKEN` ＋ `CLOUDFLARE_ACCOUNT_ID`），對應的語言 Function 位於 `3d-viewer/functions/_middleware.js`。兩個平台都提供相同的靜態 `3d-viewer/`，fork 可自由選擇部署到任一平台。
 
 ### 資料夾
 
 | 資料夾 | 內容 |
 |--------|------|
-| **`3d-viewer/`** | 可部署的程式：`index.html`、`main.js`、內附 Three.js、`data/`（網格、地理配準、B50K 向量、氣象站座標）及 `functions/`（語言中介程式）。 |
+| **`3d-viewer/`** | 可部署的程式：`index.html`、`main.js`、內附 Three.js、`data/`（網格、地理配準、B50K 向量、氣象站座標），以及語言中介程式 —— `middleware.js`（Vercel）與 `functions/_middleware.js`（Cloudflare）。 |
 | **`source-scripts/`** | 可重現的流程 —— DEM 切割／投影（`srtm-30m/`、`hk-5m/`）、B50K 向量／土地覆蓋擷取、DEM 去尖峰，以及香港天文台氣象站座標。 |
 | **`docs/`** | 方法與出處說明。 |
 | **`references/`** | 唯讀來源參考與早期作品（運行時不需要）。 |
