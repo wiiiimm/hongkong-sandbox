@@ -145,7 +145,7 @@
   #miniloader .mbar > i{display:block;height:100%;width:0%;background:var(--accent);border-radius:2px;
     transition:width .25s ease}
   #app{position:fixed;inset:0}
-  #panel{position:fixed;top:16px;left:16px;z-index:20;
+  #panel{position:fixed;top:16px;left:16px;z-index:42;   /* above the weather-notices drawer (41) so the controls stay on top */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:16px;padding:14px 15px;font-size:12.5px;line-height:1.5;
     width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 76px);overflow:auto;
@@ -289,7 +289,7 @@
   #wxbulletin #wb-tab:hover{color:var(--ink);border-color:var(--accent)}
   #wxbulletin .wb-panel{width:min(320px,calc(100vw - 40px));max-height:64vh;overflow:auto;box-sizing:border-box;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-right:none;border-radius:14px 0 0 14px;padding:13px 16px;
+    border:1px solid var(--edge);border-right:none;border-radius:0 0 0 14px;padding:13px 16px;   /* square top-left so it butts flush against the tab */
     font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   body.glass #wxbulletin #wb-tab, body.glass #wxbulletin .wb-panel{background:rgba(10,13,18,.62)}
   body.glass.ui-light #wxbulletin #wb-tab, body.glass.ui-light #wxbulletin .wb-panel{background:rgba(252,250,246,.72)}
