@@ -114,6 +114,9 @@ const I18N = {
     'dock.orbit': 'Orbit', 'dock.fly': 'Fly', 'dock.walk': 'Walk', 'dock.star': 'Stargaze',
     'dock.matrix': 'Matrix', 'dock.neon': '風林火山', 'dock.settings': 'Settings',
     'tray.end': 'End', 'grp.move': 'Fly & walk',
+    'sg.live': '● Live sky', 'sg.custom': '🕐 Custom',
+    'sg.orient': '🧭 Point at the sky', 'sg.follow': '📍 Follow me',
+    'sg.hint': 'drag to look · tap a constellation',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
     'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
@@ -189,6 +192,9 @@ const I18N = {
     'dock.orbit': '環繞', 'dock.fly': '飛行', 'dock.walk': '步行', 'dock.star': '觀星',
     'dock.matrix': 'Matrix', 'dock.neon': '風林火山', 'dock.settings': '設定',
     'tray.end': '結束', 'grp.move': '飛行與步行',
+    'sg.live': '● 即時星空', 'sg.custom': '🕐 自訂',
+    'sg.orient': '🧭 指向天空', 'sg.follow': '📍 跟隨我',
+    'sg.hint': '拖曳環視 · 點選星座',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
     'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
@@ -2193,6 +2199,7 @@ function buildPlane() {
 function enterFlight() {
   if (flight.on || !curG) return;
   if (walk.on) exitWalk();
+  if (stargaze.on) exitStargaze();
   flight.on = true;
   flight.prevSpin = spinDir; spinDir = 0;              // the world holds still while you fly
   document.getElementById('spindir').value = '0';
@@ -2512,6 +2519,7 @@ const NO_LOCK = new URLSearchParams(location.search).has('nolock');
 function enterWalk(startLocal) {
   if (walk.on || !curG) return;
   if (flight.on) exitFlight();
+  if (stargaze.on) exitStargaze();
   walk.on = true;
   walk.prevSpin = spinDir; spinDir = 0;
   document.getElementById('spindir').value = '0';
@@ -2581,18 +2589,19 @@ function refreshDock() {
     if (el.getAttribute('role') === 'radio') el.setAttribute('aria-checked', v ? 'true' : 'false');
     if (el.hasAttribute('aria-pressed')) el.setAttribute('aria-pressed', v ? 'true' : 'false');
   };
-  set('orbitbtn', !flight.on && !walk.on);
+  set('orbitbtn', !flight.on && !walk.on && !stargaze.on);
   set('flybtn', flight.on);
   set('walkbtn', walk.on);
+  set('stargazebtn', stargaze.on);
   set('matrixbtn', matrixOn);
   set('neonbtn', neonOn);
   const tray = document.getElementById('modetray');
-  const mode = flight.on ? 'fly' : walk.on ? 'walk' : '';
+  const mode = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : '';
   tray.dataset.mode = mode;
   tray.hidden = !mode;
 }
-document.getElementById('orbitbtn').addEventListener('click', () => { exitFlight(); exitWalk(); refreshDock(); });
-document.getElementById('trayend').addEventListener('click', () => { exitFlight(); exitWalk(); });
+document.getElementById('orbitbtn').addEventListener('click', () => { exitFlight(); exitWalk(); exitStargaze(); refreshDock(); });
+document.getElementById('trayend').addEventListener('click', () => { exitFlight(); exitWalk(); exitStargaze(); });
 document.getElementById('dockgear').addEventListener('click', () =>
   document.getElementById('panel').classList.toggle('collapsed'));
 // no init call: matrixOn/neonOn are declared further down (TDZ) and the static
@@ -2750,6 +2759,10 @@ function teleportToMarker() {       // jump the ACTIVE movement mode to the fix
     flight.pos.set(p.x, (sampleE(p.col, p.row) + 300) * VE, p.z);
     flight.landed = false;
     flight.speed = Math.max(flight.speed, 62);
+  } else if (stargaze.on) {         // re-plant the planetarium at the fix
+    const b = bounds();
+    stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, p.x));
+    stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, p.z));
   }
 }
 function gpsTeleport() {            // movement modes: locate, jump there, disengage
@@ -2813,7 +2826,7 @@ function setCompassView(on) {
   if (on && typeof DeviceOrientationEvent === 'undefined') geoToast(t('loc.nocompass'));   // device has no compass at all
 }
 function updateCompassView() {                            // per-frame camera drive; called from animate()
-  if (!geo.compass || flight.on || walk.on) return;        // yield to the flight/walk chase camera
+  if (!geo.compass || flight.on || walk.on || stargaze.on) return;   // yield to the mode cameras
   const drive = geo.has && geoHeading != null && geoInBounds();
   controls.enabled = !drive;                               // stay orbitable until we can actually drive (no heading / off-map)
   if (!drive) return;
@@ -2845,7 +2858,7 @@ function updateGeoMarker() {                              // called from animate
   geo.el.style.top = ((-v.y * 0.5 + 0.5) * innerHeight) + 'px';
 }
 // is a movement mode driving the camera? then GPS never persists (HKS-86 §2)
-const inMovementMode = () => flight.on || walk.on;
+const inMovementMode = () => flight.on || walk.on || stargaze.on;
 locateBtn.addEventListener('click', e => {
   e.stopPropagation();
   enableCompass();   // request device-orientation on this user gesture (needed for iOS)
@@ -2887,13 +2900,16 @@ addEventListener('mousemove', e => {
 });
 let _lastTouch = null;                                    // phones: drag to look
 addEventListener('touchmove', e => {
-  if (e.target !== renderer.domElement || !(walk.on || flight.on)) return;
+  if (e.target !== renderer.domElement || !(walk.on || flight.on || stargaze.on)) return;
   const t0 = e.touches[0];
   if (_lastTouch) {
     const dx = t0.clientX - _lastTouch.x, dy = t0.clientY - _lastTouch.y;
     if (walk.on) {
       walk.yaw -= dx * 0.005;
       walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - dy * 0.005));
+    } else if (stargaze.on) {                            // stargaze: drag pans the sky (HKS-86)
+      stargaze.yaw -= dx * 0.005;
+      stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - dy * 0.005));
     } else {                                             // flight: same drag = look around (HKS-53)
       flight.lookYaw = Math.max(-2.8, Math.min(2.8, flight.lookYaw - dx * 0.005));
       flight.lookPitch = Math.max(-1.0, Math.min(1.0, flight.lookPitch - dy * 0.005));
@@ -3289,6 +3305,187 @@ addEventListener('keydown', e => {
 });
 if (FLY_DEBUG) window.__setNeon = setNeon;
 
+// ---- Stargaze mode (HKS-86 §4) -----------------------------------------------
+// A planetarium anchored at the current view centre: the camera plants eye-high
+// on the terrain, FIXED — look-only, no locomotion — biased up at the star layer
+// (HKS-84 catalogue + constellations; hover/tap picking keeps working). Its tray
+// carries a proxy for the existing sky clock (#skymode/#skytime) plus the two
+// special toggles: 🧭 point-at-the-sky (device orientation) and 📍 follow-me
+// (GPS anchor tracking, default OFF, experimental). World themes (Matrix/Neon)
+// stay combinable. Entering dims the weather chip + radar dial (CSS,
+// body.stargazing); everything restores on exit.
+const stargaze = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0.9,
+                   prevSpin: 1, prevSky: null, orient: false, followWatch: null };
+function setSkyControl(mode, date, minutes) {   // drive the existing panel controls
+  const g = id => document.getElementById(id);
+  if (date != null) { g('skydate').value = date; g('skydate').dispatchEvent(new Event('change')); }
+  if (minutes != null) { g('skytime').value = minutes; g('skytime').dispatchEvent(new Event('input')); }
+  if (g('skymode').value !== mode) { g('skymode').value = mode; g('skymode').dispatchEvent(new Event('change')); }
+}
+function enterStargaze() {
+  if (stargaze.on || !curG) return;
+  if (flight.on) exitFlight();
+  if (walk.on) exitWalk();
+  stargaze.on = true;
+  stargaze.prevSpin = spinDir; spinDir = 0;             // the world holds still under the sky
+  document.getElementById('spindir').value = '0';
+  // anchor at the current view centre, eye 1.7 m over the DEM
+  const b = bounds();
+  const t0 = world.worldToLocal(controls.target.clone());
+  stargaze.pos.set(
+    Math.max(-b.halfX, Math.min(b.halfX, t0.x)), 0,
+    Math.max(-b.halfZ, Math.min(b.halfZ, t0.z)));
+  const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
+  stargaze.yaw = -(Math.atan2(fx, -fz) + world.rotation.y);   // keep facing the way you looked
+  stargaze.pitch = 0.9;                                        // biased up at the sky
+  // HKS-86 §2: GPS follow/compass engaged → plant at the fix, then disengage
+  if (geo.following || geo.compass) {
+    if (geoInBounds()) { const p = markerLocalPoint(); stargaze.pos.x = p.x; stargaze.pos.z = p.z; }
+    gpsDisengage();
+  }
+  // guarantee the star layer: if the sky sim is off or it's daylight, jump the
+  // clock to tonight 22:00 (custom time); the previous setting restores on exit
+  updateCelestial();
+  if (!starGroup.visible) {
+    stargaze.prevSky = { mode: document.getElementById('skymode').value,
+                        date: document.getElementById('skydate').value,
+                        minutes: document.getElementById('skytime').value };
+    setSkyControl('fixed', hktDateStr(new Date()), 1320);
+  }
+  camera.fov = 60; camera.updateProjectionMatrix();     // wide for sky sweep
+  controls.enabled = false;
+  document.body.classList.add('stargazing');            // dims wx chip + radar dial (CSS)
+  syncSgTray();
+  refreshDock();
+}
+function exitStargaze() {
+  if (!stargaze.on) return;
+  stargaze.on = false;
+  setStargazeOrient(false);
+  setStargazeFollow(false);
+  if (stargaze.prevSky) {                               // hand the sky clock back
+    setSkyControl(stargaze.prevSky.mode, stargaze.prevSky.date, stargaze.prevSky.minutes);
+    stargaze.prevSky = null;
+  }
+  spinDir = stargaze.prevSpin;
+  document.getElementById('spindir').value = String(spinDir);
+  camera.fov = 38; camera.updateProjectionMatrix();
+  camera.up.set(0, 1, 0);
+  controls.enabled = true;
+  document.body.classList.remove('stargazing');
+  frameCamera();
+  refreshDock();
+}
+function stepStargaze() {                               // per-frame planetarium camera
+  if (!stargaze.on) return;
+  const col = stargaze.pos.x / cell + W / 2, row = stargaze.pos.z / cell + H / 2;
+  stargaze.pos.y = (sampleE(col, row) + 1.7) * VE;      // stay planted through VE changes
+  _fe.set(stargaze.pitch, stargaze.yaw, 0, 'YXZ');
+  _fq.setFromEuler(_fe);
+  _fv.set(0, 0, -1).applyQuaternion(_fq);
+  _fc.copy(stargaze.pos); world.localToWorld(_fc);
+  camera.up.set(0, 1, 0);
+  camera.position.copy(_fc);
+  _fl.copy(stargaze.pos).addScaledVector(_fv, 1000); world.localToWorld(_fl);
+  camera.lookAt(_fl);
+  controls.target.copy(_fl);                            // keeps the adaptive clip planes honest
+}
+// 🧭 point-at-the-sky: device orientation aims the camera (iOS asks permission
+// on the toggle tap); hidden where there's no sensor at all
+function onSgOrient(e) {
+  if (!stargaze.on) return;
+  let h = null;
+  if (typeof e.webkitCompassHeading === 'number') h = e.webkitCompassHeading;   // iOS: true-north, clockwise
+  else if (e.absolute && typeof e.alpha === 'number') h = 360 - e.alpha;         // Android absolute
+  if (h != null) {
+    const so = (screen.orientation && screen.orientation.angle) || 0;
+    // scene-frame azimuth (the star sphere lives in the scene, not the spun world group)
+    stargaze.yaw = -(((h + so) % 360 + 360) % 360) * D2R - world.rotation.y;
+  }
+  if (typeof e.beta === 'number')                        // back camera elevation ≈ beta − 90°
+    stargaze.pitch = Math.max(-0.15, Math.min(1.5, (e.beta - 90) * D2R));
+}
+function setStargazeOrient(on) {
+  if (on === stargaze.orient) return;
+  const arm = () => {
+    stargaze.orient = true;
+    addEventListener('deviceorientation', onSgOrient, true);
+    syncSgToggles();
+  };
+  if (!on) {
+    stargaze.orient = false;
+    removeEventListener('deviceorientation', onSgOrient, true);
+    syncSgToggles();
+    return;
+  }
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function')
+    DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') arm(); }).catch(() => {});
+  else arm();
+}
+// 📍 follow-me (experimental, default OFF): a watch drags the anchor with you
+function setStargazeFollow(on) {
+  if (on === (stargaze.followWatch != null)) return;
+  if (on) {
+    stargaze.followWatch = navigator.geolocation.watchPosition(pos => {
+      const gg = gpsToGrid(pos.coords.latitude, pos.coords.longitude);
+      if (!gg || !gg.inBounds) return;
+      const b = bounds();
+      stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, (gg.col - W / 2) * cell));
+      stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, (gg.row - H / 2) * cell));
+    }, geoErr, { enableHighAccuracy: true, timeout: 15000, maximumAge: 2000 });
+  } else {
+    navigator.geolocation.clearWatch(stargaze.followWatch);
+    stargaze.followWatch = null;
+  }
+  syncSgToggles();
+}
+function syncSgToggles() {
+  const g = id => document.getElementById(id);
+  g('sg-orient').classList.toggle('on', stargaze.orient);
+  g('sg-orient').setAttribute('aria-pressed', stargaze.orient ? 'true' : 'false');
+  g('sg-follow').classList.toggle('on', stargaze.followWatch != null);
+  g('sg-follow').setAttribute('aria-pressed', stargaze.followWatch != null ? 'true' : 'false');
+}
+function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
+  const g = id => document.getElementById(id);
+  const live = skySim.on && skySim.live;
+  g('sg-live').classList.toggle('on', live);
+  g('sg-custom').classList.toggle('on', !live);
+  g('sg-time').disabled = live;
+  g('sg-time').value = live ? hktMinutes(new Date()) : skySim.minutes;
+  g('sg-timev').textContent = mmToHHMM(+g('sg-time').value);
+  g('sg-orient').hidden = typeof DeviceOrientationEvent === 'undefined';
+  g('sg-follow').hidden = !window.isSecureContext || !('geolocation' in navigator);
+  syncSgToggles();
+  const mi = moonIllumination(simDate());
+  g('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}% · ${t('sg.hint')}`;
+}
+document.getElementById('stargazebtn').addEventListener('click', () => stargaze.on ? exitStargaze() : enterStargaze());
+document.getElementById('sg-live').addEventListener('click', () => { setSkyControl('live'); syncSgTray(); });
+document.getElementById('sg-custom').addEventListener('click', () => {
+  setSkyControl('fixed', hktDateStr(new Date()), skySim.minutes);
+  syncSgTray();
+});
+document.getElementById('sg-time').addEventListener('input', e => {
+  if (skySim.on && skySim.live) return;                 // scrub only drives custom time
+  setSkyControl('fixed', null, +e.target.value);
+  document.getElementById('sg-timev').textContent = mmToHHMM(+e.target.value);
+  const mi = moonIllumination(simDate());
+  document.getElementById('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}% · ${t('sg.hint')}`;
+});
+document.getElementById('sg-orient').addEventListener('click', () => setStargazeOrient(!stargaze.orient));
+document.getElementById('sg-follow').addEventListener('click', () => setStargazeFollow(stargaze.followWatch == null));
+// panel-side sky changes keep the tray proxy honest while stargazing
+document.getElementById('skymode').addEventListener('change', () => { if (stargaze.on) syncSgTray(); });
+addEventListener('keydown', e => { if (stargaze.on && e.key === 'Escape') exitStargaze(); });
+// drag-to-look (desktop): hold the left button; phones reuse the shared touch path
+addEventListener('mousemove', e => {
+  if (!stargaze.on || e.buttons !== 1) return;
+  stargaze.yaw -= e.movementX * 0.003;
+  stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - e.movementY * 0.003));
+});
+if (FLY_DEBUG) { window.__stargaze = stargaze; window.__stepStargaze = () => stepStargaze(); }
+
 // ---- corner UI (HKS-32): compass + snapshot ---------------------------------
 // The compass rose tracks the camera heading relative to TERRAIN north (the
 // world group may be auto-spun); clicking snaps the view — or the plane — back
@@ -3302,6 +3499,7 @@ function updateCompass() {
   let heading;
   if (flight.on) heading = -flight.yaw;                // in the air the tape IS the plane's heading
   else if (walk.on) heading = -walk.yaw;               // on foot, where you're facing
+  else if (stargaze.on) heading = -stargaze.yaw;       // under the stars, where you're looking
   else {
     const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
     if (!fx && !fz) return;
@@ -3353,6 +3551,7 @@ function updateCompass() {
 }
 document.getElementById('compass').addEventListener('click', () => {
   if (flight.on) { flight.yaw = 0; return; }             // point the plane north
+  if (stargaze.on) { stargaze.yaw = 0; return; }         // face north under the stars
   const t = controls.target, p = camera.position, ry = world.rotation.y;
   const d = Math.hypot(p.x - t.x, p.z - t.z);
   p.x = t.x + Math.sin(ry) * d;                          // due terrain-south of the target
@@ -4375,6 +4574,7 @@ function animate() {
   stepDrips();
   stepFlight();
   stepWalk();
+  stepStargaze();
   stepMatrix();
   stepNoir();
   updateCompass();
@@ -4383,10 +4583,10 @@ function animate() {
   const sh = stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.6 : stormLevel >= 8 ? 0.32 : 0;
   if (sh > 0) { const a = bounds().span * 0.0012 * sh; world.position.set((Math.random()*2-1)*a, (Math.random()*2-1)*a, (Math.random()*2-1)*a); }
   else if (world.position.x || world.position.y || world.position.z) world.position.set(0, 0, 0);
-  // flight and walk own the camera; OrbitControls.update() ignores .enabled and
-  // would re-seat the camera on its orbit sphere every frame (the walk-mode
-  // "rotating from a weird point" bug) — so skip it entirely in both modes
-  if (!flight.on && !walk.on) controls.update();
+  // flight, walk and stargaze own the camera; OrbitControls.update() ignores
+  // .enabled and would re-seat the camera on its orbit sphere every frame (the
+  // walk-mode "rotating from a weird point" bug) — so skip it in all three
+  if (!flight.on && !walk.on && !stargaze.on) controls.update();
   updateClip();                 // keep near/far tuned to the current zoom distance
   renderer.render(scene, camera);
   world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests

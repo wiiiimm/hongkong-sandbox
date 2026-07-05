@@ -424,6 +424,20 @@
   #modetray:not([data-mode="walk"]) #walkviewbtn{display:none}
   #trayend{color:var(--sub)}
   #trayend:hover{color:var(--ink)}
+  /* Stargaze tray (HKS-86 §4) */
+  #modetray:not([data-mode="star"]) #sgrow{display:none}
+  #sgrow{display:flex;flex-direction:column;gap:8px}
+  .sgline{display:flex;align-items:center;justify-content:center;gap:8px}
+  #sgskypill{display:flex;border:1px solid var(--field-edge);border-radius:9px;overflow:hidden;flex:0 0 auto}
+  #sgskypill button{border:none;border-radius:0;background:none;box-shadow:none;padding:5px 10px;font-size:11px;color:var(--sub)}
+  #sgskypill button.on{background:var(--accent-dim);color:var(--accent)}
+  #sg-time{flex:1;min-width:60px}
+  #sg-timev{flex:0 0 40px;text-align:right;font-family:var(--mono);font-size:10.5px;color:var(--ink)}
+  #sg-orient[hidden],#sg-follow[hidden]{display:none}
+  #sg-hint{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--sub);text-align:center}
+  /* stargazing dims the weather chip + radar dial for a cleaner sky (restored on exit) */
+  #wxhud,#radarhud{transition:opacity .5s ease}
+  body.stargazing #wxhud,body.stargazing #radarhud{opacity:.12;pointer-events:none}
   /* live speed gauge — docks under the compass tape during fly/walk (HKS-86 §3) */
   #spdwrap{display:none;align-items:center;gap:8px;width:min(230px,60vw);box-sizing:border-box;
     padding:5px 10px;border-radius:9px;
@@ -869,6 +883,22 @@
       <button id="trayend" title="Exit this mode (Esc)">✕ <span data-i18n="tray.end">End</span></button>
     </div>
     <div id="flyhud"></div>
+    <!-- Stargaze tray (HKS-86 §4): sky clock proxy + the two special toggles -->
+    <div id="sgrow">
+      <div class="sgline">
+        <span id="sgskypill">
+          <button id="sg-live" data-i18n="sg.live">● Live sky</button>
+          <button id="sg-custom" data-i18n="sg.custom">🕐 Custom</button>
+        </span>
+        <input id="sg-time" type="range" min="0" max="1439" step="1" value="1320" aria-label="Sky time"/>
+        <span id="sg-timev">22:00</span>
+      </div>
+      <div class="sgline">
+        <button id="sg-orient" data-i18n="sg.orient" aria-pressed="false">🧭 Point at the sky</button>
+        <button id="sg-follow" data-i18n="sg.follow" aria-pressed="false">📍 Follow me</button>
+      </div>
+      <div id="sg-hint"></div>
+    </div>
   </div>
   <canvas id="compass" title="Heading — click to face north"></canvas>
   <div id="spdwrap" title="Current speed as % of top speed — redlines at full boost">
@@ -885,6 +915,8 @@
         <span aria-hidden="true">✈️</span><small data-i18n="dock.fly">Fly</small></button>
       <button id="walkbtn" class="dockbtn" role="radio" aria-checked="false" title="Air-drop at the view centre and hike the terrain — ␣ jumps, ⇧ (or a two-finger hold) runs">
         <span aria-hidden="true">🪂</span><small data-i18n="dock.walk">Walk</small></button>
+      <button id="stargazebtn" class="dockbtn" role="radio" aria-checked="false" title="Stargaze — plant a planetarium camera at the view centre and look around the night sky">
+        <span aria-hidden="true">🌌</span><small data-i18n="dock.star">Stargaze</small></button>
     </span>
     <span class="dockdiv" aria-hidden="true"></span>
     <button id="matrixbtn" class="dockbtn theme" aria-pressed="false" title="Matrix — see the simulation for what it is (M)">
