@@ -289,7 +289,7 @@
   #radarhud .rf-time{position:absolute;left:0;right:0;bottom:39%;text-align:center;pointer-events:none;
     font-family:var(--mono);font-size:8.5px;color:var(--sub);text-shadow:0 1px 3px rgba(0,0,0,.9)}
   /* size toggle — a round button in the empty left-side gap; tap to enlarge, tap to restore */
-  #radarhud.big{width:252px;height:252px}
+  #radarhud.big{width:218px;height:218px}   /* 30% larger than the 168px default */
   #radarhud .rf-size circle{fill:rgba(14,18,24,.66);stroke:var(--edge);stroke-width:.6;cursor:pointer;transition:fill .12s}
   body.glass #radarhud .rf-size circle{fill:rgba(10,13,18,.52)}
   body.glass.ui-light #radarhud .rf-size circle{fill:rgba(252,250,246,.5)}
@@ -446,7 +446,7 @@
        grow tall enough to sit over the controls behind it */
     /* compact circular HUD on phones; sits above the camera button (bottom-right) */
     #radarhud{width:128px;height:128px;bottom:calc(76px + env(safe-area-inset-bottom))}
-    #radarhud.big{width:min(210px,calc(100vw - 24px));height:min(210px,calc(100vw - 24px))}
+    #radarhud.big{width:min(166px,calc(100vw - 24px));height:min(166px,calc(100vw - 24px))}   /* 30% larger than the 128px default */
     #radarhud .rf-lab{font-size:9px}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
       font-family:var(--mono);margin-top:3px}
