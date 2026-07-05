@@ -667,10 +667,7 @@
              title="Boost target — hold ␣ in flight · ⇧ or a two-finger hold on foot"/>
       <span id="topspdv" style="flex:0 0 56px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
     </div>
-    <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
-      <div id="spdgauge" title="Current speed as % of top speed — redlines at full boost"><div id="spdfill"></div></div>
-      <span id="spdpct" style="flex:0 0 48px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
-    </div>
+    <!-- the live speed gauge docked under the compass tape (HKS-86 §3) -->
   </div>
 
   <div class="grp">
@@ -874,6 +871,10 @@
     <div id="flyhud"></div>
   </div>
   <canvas id="compass" title="Heading — click to face north"></canvas>
+  <div id="spdwrap" title="Current speed as % of top speed — redlines at full boost">
+    <div id="spdgauge"><div id="spdfill"></div></div>
+    <span id="spdpct">—</span>
+  </div>
   <div id="dock" role="toolbar" aria-label="Explore modes and world themes">
     <button id="dockgear" class="dockbtn" title="Settings" data-i18n-title="dock.settings" aria-label="Settings" data-i18n-aria-label="dock.settings">⚙</button>
     <span class="dockdiv" aria-hidden="true"></span>
