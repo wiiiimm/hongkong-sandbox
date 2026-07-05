@@ -282,12 +282,14 @@
   #sidedrawer.ready{visibility:visible}
   #sidedrawer.open{transform:translateX(0)}
   #sd-tabs{position:absolute;left:-30px;top:0;display:flex;flex-direction:column;gap:6px}
-  .sd-tab{width:30px;min-height:90px;padding:14px 0;
-    writing-mode:vertical-rl;text-orientation:mixed;text-align:center;white-space:nowrap;
+  .sd-tab{width:30px;min-height:90px;padding:14px 2px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-right:none;border-radius:12px 0 0 12px;
     color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow);
     transition:color .12s,border-color .12s,background .12s}
+  .sd-tab .sd-tab-lab{writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap}
+  .sd-tab-ic{flex:0 0 auto;display:block}
   .sd-tab:hover{color:var(--ink);border-color:var(--accent)}
   .sd-tab.on{color:var(--accent);border-color:var(--accent);background:var(--accent-dim)}   /* active tab highlighted */
   #sd-tab-wx.warn{color:#e6a23c;border-color:rgba(230,162,60,.5)}                             /* amber when a warning is in force */
@@ -695,9 +697,9 @@
       <button id="collapse-btn" title="Collapse panel" aria-label="Collapse panel"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
     </div>
   </div>
+  <div class="sub" id="note">Loading…</div>
   </div><!-- /#pstick -->
   <div id="pbody">
-  <div class="sub" id="note">Loading…</div>
 
   <div class="grp"><!-- HKS-86: modes moved to the bottom dock — this group is settings only -->
     <div class="gt" data-i18n="grp.move">Fly &amp; walk</div>
@@ -981,7 +983,7 @@
 <aside id="sidedrawer" aria-label="Notices and help">
   <div id="sd-tabs" role="tablist" aria-orientation="vertical">
     <button id="sd-tab-wx" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><span class="sd-tab-lab" data-i18n="wb.title">Weather notices</span></button>
-    <button id="sd-tab-help" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><span class="sd-tab-lab" data-i18n="help.tab">Help</span></button>
+    <button id="sd-tab-help" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><svg class="sd-tab-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="sd-tab-lab" data-i18n="help.tab">Help</span></button>
   </div>
   <div class="wb-panel" id="sd-panel" role="dialog" aria-label="Notices and help">
     <div class="wb-head">

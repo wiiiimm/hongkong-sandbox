@@ -3845,8 +3845,8 @@ document.getElementById('collapse-btn').addEventListener('click', () => panelEl.
 const mobileMQ = matchMedia('(max-width: 640px), (pointer: coarse) and (max-height: 500px)');
 const wxhudEl = document.getElementById('wxhud');
 function applyMobileLayout(mobile) {
-  panelEl.classList.toggle('collapsed', mobile);
-  if (!mobile) wxhudEl.classList.remove('expanded');
+  if (mobile) panelEl.classList.add('collapsed');   // HKS-86: phones always tuck it away; desktop keeps its state (starts collapsed, opened via the dock ⚙) — never auto-open
+  else wxhudEl.classList.remove('expanded');
 }
 applyMobileLayout(mobileMQ.matches);
 mobileMQ.addEventListener('change', e => applyMobileLayout(e.matches));
