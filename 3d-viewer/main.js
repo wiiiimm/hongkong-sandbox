@@ -2745,9 +2745,12 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') setCredits(f
 // cluttering the weather box. Dismissal is session-only — never written to storage,
 // so a fresh load re-surfaces an active warning.
 const wxBulletin = document.getElementById('wxbulletin');
+const wbTab = document.getElementById('wb-tab');
 let bulletinDismissed = false, bulletinAutoShown = false;
+const bulletinOpen = () => wxBulletin.classList.contains('open');
 function setBulletin(open) {
-  wxBulletin.classList.toggle('show', open);
+  wxBulletin.classList.toggle('open', open);
+  wbTab.setAttribute('aria-expanded', open ? 'true' : 'false');
   if (!open) bulletinDismissed = true;      // a manual close stops it auto-reopening this session
 }
 // fill a section with a bold label + one <div> per paragraph (textContent = no injection)
@@ -2759,14 +2762,13 @@ function fillWbSection(elm, label, body) {
     const d = document.createElement('div'); d.textContent = para; elm.appendChild(d);
   });
 }
-document.getElementById('wb-close').addEventListener('click', e => { e.stopPropagation(); setBulletin(false); });
-wxBulletin.addEventListener('click', e => e.stopPropagation());
+wbTab.addEventListener('click', () => setBulletin(!bulletinOpen()));            // tap the tab to open / close
+document.getElementById('wb-close').addEventListener('click', () => setBulletin(false));
 document.getElementById('wx-warn').addEventListener('click', e => {
   e.stopPropagation();                      // don't collapse the weather chip on mobile
-  if (document.getElementById('wx-warn').textContent.trim()) setBulletin(!wxBulletin.classList.contains('show'));
+  if (document.getElementById('wx-warn').textContent.trim()) setBulletin(!bulletinOpen());
 });
-document.addEventListener('click', () => { if (wxBulletin.classList.contains('show')) setBulletin(false); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && wxBulletin.classList.contains('show')) setBulletin(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && bulletinOpen()) setBulletin(false); });
 document.getElementById('fog').addEventListener('change', e => {
   weather.fog = e.target.checked; setFog();
   if (mistGrp) mistGrp.visible = weather.fog;
@@ -2998,6 +3000,9 @@ async function syncLiveWeather() {
     const fcast = [fl.generalSituation, fl.forecastDesc, fl.outlook].filter(Boolean).join('\n');
     fillWbSection(el('wb-warn'), t('wb.warn'), warn);
     fillWbSection(el('wb-fcast'), t('wb.fcast'), fcast);
+    wxBulletin.classList.toggle('ready', !!(warn || fcast));   // reveal the pull-out tab once there's content
+    wxBulletin.classList.toggle('warn', !!warn);               // amber tab + ⚠ when a warning is in force
+    // keep the compact in-box chip too, as a secondary indicator that opens the drawer
     const warnChip = el('wx-warn');
     warnChip.classList.toggle('warn', !!warn);
     warnChip.textContent = warn ? `⚠ ${t('wb.chip')}` : (fcast ? t('wb.chip') : '');

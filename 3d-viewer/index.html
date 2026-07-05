@@ -272,15 +272,27 @@
   #wxhud #wx-warn:not(:empty):hover{border-color:var(--accent);color:var(--ink)}
   #wxhud .wx-src{font-size:9px;color:var(--sub);opacity:.7;margin-top:5px;font-family:var(--mono);letter-spacing:.04em}
   /* pull-up weather-notices bulletin (HKS-80) — glass sheet, slides up from the bottom */
-  #wxbulletin{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));z-index:41;
-    width:calc(100vw - 30px);max-width:420px;box-sizing:border-box;max-height:56vh;overflow:auto;
+  /* pull-out weather-notices drawer from the right edge; the tab handle rides the
+     panel's left edge and pokes out at ~the top third when closed (HKS-80) */
+  #wxbulletin{position:fixed;top:33%;right:0;z-index:41;display:flex;align-items:flex-start;
+    transform:translateX(100%);visibility:hidden;
+    transition:transform .34s cubic-bezier(.22,1,.36,1), visibility .34s}
+  #wxbulletin.ready{visibility:visible}
+  #wxbulletin.open{transform:translateX(0)}
+  #wxbulletin #wb-tab{position:absolute;left:-30px;top:0;width:30px;min-height:118px;padding:14px 0;
+    writing-mode:vertical-rl;text-orientation:mixed;text-align:center;white-space:nowrap;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-radius:16px;padding:13px 16px;font-size:12px;color:var(--sub);line-height:1.65;
-    box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
-    opacity:0;pointer-events:none;transform:translate(-50%,120%);transition:transform .34s cubic-bezier(.22,1,.36,1),opacity .3s ease}
-  #wxbulletin.show{opacity:1;pointer-events:auto;transform:translate(-50%,0)}
-  body.glass #wxbulletin{background:rgba(10,13,18,.62)}
-  body.glass.ui-light #wxbulletin{background:rgba(252,250,246,.72)}
+    border:1px solid var(--edge);border-right:none;border-radius:12px 0 0 12px;
+    color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow)}
+  #wxbulletin.warn #wb-tab{color:#e6a23c;border-color:rgba(230,162,60,.5)}
+  #wxbulletin.warn #wb-tab .wb-tab-lab::before{content:'⚠ '}
+  #wxbulletin #wb-tab:hover{color:var(--ink);border-color:var(--accent)}
+  #wxbulletin .wb-panel{width:min(320px,calc(100vw - 40px));max-height:64vh;overflow:auto;box-sizing:border-box;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);border-right:none;border-radius:14px 0 0 14px;padding:13px 16px;
+    font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass #wxbulletin #wb-tab, body.glass #wxbulletin .wb-panel{background:rgba(10,13,18,.62)}
+  body.glass.ui-light #wxbulletin #wb-tab, body.glass.ui-light #wxbulletin .wb-panel{background:rgba(252,250,246,.72)}
   #wxbulletin .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
   #wxbulletin .wb-title{color:var(--ink);font-weight:600;font-size:13px}
   #wxbulletin #wb-close{width:28px;height:28px;padding:0;flex:0 0 auto;display:grid;place-items:center;font-size:15px;border-radius:8px}
@@ -744,15 +756,18 @@
   <div class="wx-src">HKO · data.gov.hk</div>
 </div>
 <!-- HKS-80: dismissable pull-up bulletin for HKO warnings + forecast -->
-<div id="wxbulletin" role="dialog" aria-label="Weather notices" aria-modal="false">
-  <div class="wb-head">
-    <span class="wb-title" data-i18n="wb.title">Weather notices</span>
-    <button id="wb-close" aria-label="Dismiss">✕</button>
+<aside id="wxbulletin" aria-label="Weather notices">
+  <button id="wb-tab" aria-expanded="false" aria-controls="wb-panel"><span class="wb-tab-lab" data-i18n="wb.title">Weather notices</span></button>
+  <div class="wb-panel" id="wb-panel" role="dialog" aria-label="Weather notices">
+    <div class="wb-head">
+      <span class="wb-title" data-i18n="wb.title">Weather notices</span>
+      <button id="wb-close" aria-label="Close">✕</button>
+    </div>
+    <div id="wb-warn" class="wb-sec"></div>
+    <div id="wb-fcast" class="wb-sec"></div>
+    <div class="wb-src">© Hong Kong Observatory · data.gov.hk</div>
   </div>
-  <div id="wb-warn" class="wb-sec"></div>
-  <div id="wb-fcast" class="wb-sec"></div>
-  <div class="wb-src">© Hong Kong Observatory · data.gov.hk</div>
-</div>
+</aside>
 
 <button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">
   <span class="ci" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span class="clabel" data-i18n="lbl.credits">Credits</span>
