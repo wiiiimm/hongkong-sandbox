@@ -2735,13 +2735,22 @@ function refreshGpsBtn() {          // morph the button icon + label to the stat
   locateBtn.setAttribute('aria-label', lbl);
   locateBtn.title = lbl;
 }
+// Try a GPS-accurate fix, then fall back to a coarse WiFi/IP fix — desktops often
+// have no GPS chip and return UNAVAILABLE/timeout at high accuracy even with
+// permission granted (HKS-86). Permission-denied (code 1) doesn't retry.
+function getFix(onOk, onErr) {
+  navigator.geolocation.getCurrentPosition(onOk, e => {
+    if (e && e.code === 1) { onErr(e); return; }
+    navigator.geolocation.getCurrentPosition(onOk, onErr, { enableHighAccuracy: false, timeout: 12000, maximumAge: 60000 });
+  }, { enableHighAccuracy: true, timeout: 9000, maximumAge: 30000 });
+}
 function locateThenFollow() {       // off → follow: one fix, zoom to it, then track
   locateBtn.classList.add('locating');
-  navigator.geolocation.getCurrentPosition(pos => {
+  getFix(pos => {
     locateBtn.classList.remove('locating');
     if (placeFix(pos.coords)) { centreOnMarker(true, false); startFollow(); }
     refreshGpsBtn();
-  }, e => { geoErr(e); refreshGpsBtn(); }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+  }, e => { geoErr(e); refreshGpsBtn(); });
 }
 // HKS-86: fully turn GPS OFF (no pin) — the single "disengage" path now (there's
 // no idle located-but-not-following state). Used by the Orbit cycle's off step
@@ -2780,11 +2789,11 @@ function teleportToMarker() {       // jump the ACTIVE movement mode to the fix
 }
 function gpsTeleport() {            // movement modes: locate, jump there, disengage
   locateBtn.classList.add('locating');
-  navigator.geolocation.getCurrentPosition(pos => {
+  getFix(pos => {
     locateBtn.classList.remove('locating');
     if (placeFix(pos.coords)) teleportToMarker();
     gpsDrop();
-  }, e => { geoErr(e); gpsDrop(); }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+  }, e => { geoErr(e); gpsDrop(); });
 }
 function startWatch() {
   geo.watch = navigator.geolocation.watchPosition(pos => {
