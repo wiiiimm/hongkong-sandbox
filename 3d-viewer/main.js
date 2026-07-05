@@ -3355,6 +3355,7 @@ function enterStargaze() {
   camera.fov = 60; camera.updateProjectionMatrix();     // wide for sky sweep
   controls.enabled = false;
   document.body.classList.add('stargazing');            // dims wx chip + radar dial (CSS)
+  document.getElementById('stargazebtn').blur();        // else ␣/Enter re-clicks and exits
   syncSgTray();
   refreshDock();
 }
@@ -4830,6 +4831,7 @@ function applyLocale(loc) {
   updateViewBtn();   // chase/cockpit label follows the locale
   updateWalkViewBtn();
   refreshGpsBtn();   // GPS button label/icon follows the locale + state (HKS-86)
+  if (stargaze.on) syncSgTray();   // stargaze tray hint/pills follow too
   if (liveMode) { syncLiveWeather(); syncLiveTide(); }
   if (stationsOn) refreshStations();
 }

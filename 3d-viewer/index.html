@@ -574,9 +574,10 @@
     #dock .dockbtn{padding:11px 11px;font-size:17px}
     #dock .dockbtn small{display:none}
     #dock #dockgear{padding:11px 11px;font-size:16px}
-    #cornerui{bottom:calc(12px + env(safe-area-inset-bottom))}          /* camera keeps the right corner */
+    /* right column stacks clear of the dock: snapshot → radar dial → GPS FAB */
+    #cornerui{bottom:calc(64px + env(safe-area-inset-bottom))}
     #cornerui button{width:36px;height:36px;box-sizing:border-box}
-    #locateui{right:12px;left:auto;bottom:calc(212px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
+    #locateui{right:12px;left:auto;bottom:calc(248px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
     #locateui #locatebtn{width:36px;height:36px;box-sizing:border-box}
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
        camera button (#cornerui, bottom-right) AND the instrument cluster
@@ -599,7 +600,7 @@
     /* keep the radar/satellite circle compact on phones so the weather box doesn't
        grow tall enough to sit over the controls behind it */
     /* compact circular HUD on phones; sits above the camera button (bottom-right) */
-    #radarhud{width:128px;height:128px;bottom:calc(76px + env(safe-area-inset-bottom))}
+    #radarhud{width:128px;height:128px;bottom:calc(112px + env(safe-area-inset-bottom))}
     #radarhud.big{width:min(166px,calc(100vw - 24px));height:min(166px,calc(100vw - 24px))}   /* 30% larger than the 128px default */
     #radarhud .rf-lab{font-size:9px}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
@@ -619,6 +620,11 @@
     #flyhud{font-size:10px;line-height:1.4}
     #flyhud small{font-size:8.5px;margin-top:2px;letter-spacing:.06em}
     #compass{width:min(186px,52vw);height:26px}
+  }
+  /* very narrow phones: compress the dock so it clears the corner buttons */
+  @media (max-width:374px){
+    #dock .dockbtn{padding:10px 7px;font-size:15px}
+    #dock #dockgear{padding:10px 7px;font-size:14px}
   }
 </style>
 </head>
