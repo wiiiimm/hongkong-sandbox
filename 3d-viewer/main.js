@@ -2387,6 +2387,7 @@ if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serializa
 
 const _fq = new THREE.Quaternion(), _fe = new THREE.Euler(), _fv = new THREE.Vector3();
 const _fc = new THREE.Vector3(), _fl = new THREE.Vector3(), _fu = new THREE.Vector3();
+const _sgF = new THREE.Vector3(), _sgR = new THREE.Vector3();   // stargaze surface-pan basis (HKS-90)
 // HKS-53: temps for the cockpit head-turn (plane orientation × look offset)
 const _fq2 = new THREE.Quaternion(), _lookQ = new THREE.Quaternion(), _fe2 = new THREE.Euler(), _fv2 = new THREE.Vector3();
 const CARD = ['N','NE','E','SE','S','SW','W','NW'];
@@ -2924,9 +2925,13 @@ addEventListener('touchmove', e => {
     if (walk.on) {
       walk.yaw -= dx * 0.005;
       walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - dy * 0.005));
-    } else if (stargaze.on) {                            // stargaze: drag pans the sky (HKS-86)
-      stargaze.yaw -= dx * 0.005;
-      stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - dy * 0.005));
+    } else if (stargaze.on) {                            // stargaze: 1 finger looks, 2 fingers move (HKS-90)
+      if (e.touches.length >= 2) {
+        stargazePan(dx, dy);
+      } else {
+        stargaze.yaw -= dx * 0.005;
+        stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - dy * 0.005));
+      }
     } else {                                             // flight: same drag = look around (HKS-53)
       flight.lookYaw = Math.max(-2.8, Math.min(2.8, flight.lookYaw - dx * 0.005));
       flight.lookPitch = Math.max(-1.0, Math.min(1.0, flight.lookPitch - dy * 0.005));
@@ -3506,12 +3511,29 @@ document.getElementById('sg-follow').addEventListener('click', () => setStargaze
 // panel-side sky changes keep the tray proxy honest while stargazing
 document.getElementById('skymode').addEventListener('change', () => { if (stargaze.on) syncSgTray(); });
 addEventListener('keydown', e => { if (stargaze.on && e.key === 'Escape') exitStargaze(); });
-// drag-to-look (desktop): hold the left button; phones reuse the shared touch path
+// HKS-90: move the vantage across the terrain surface (right-drag / two-finger).
+// Basis is the horizontal facing (yaw only); "grab the ground" feel, clamped to bounds.
+function stargazePan(dx, dy) {
+  _fe.set(0, stargaze.yaw, 0, 'YXZ'); _fq.setFromEuler(_fe);
+  _sgF.set(0, 0, -1).applyQuaternion(_fq);   // horizontal forward (compass facing)
+  _sgR.set(1, 0, 0).applyQuaternion(_fq);    // horizontal right
+  const b = bounds(), spd = b.span * 0.00035;
+  stargaze.pos.addScaledVector(_sgR, -dx * spd).addScaledVector(_sgF, dy * spd);
+  stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, stargaze.pos.x));
+  stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, stargaze.pos.z));
+}
+// drag-to-look (desktop): LEFT button looks around; RIGHT button drags across the
+// surface. Phones reuse the shared touch path (1 finger look, 2 finger move).
 addEventListener('mousemove', e => {
-  if (!stargaze.on || e.buttons !== 1) return;
-  stargaze.yaw -= e.movementX * 0.003;
-  stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - e.movementY * 0.003));
+  if (!stargaze.on) return;
+  if (e.buttons === 1) {                     // left drag = look
+    stargaze.yaw -= e.movementX * 0.003;
+    stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - e.movementY * 0.003));
+  } else if (e.buttons === 2) {              // right drag = move across the surface
+    stargazePan(e.movementX, e.movementY);
+  }
 });
+renderer.domElement.addEventListener('contextmenu', e => { if (stargaze.on) e.preventDefault(); });   // free the right-drag in Stargaze
 if (FLY_DEBUG) { window.__stargaze = stargaze; window.__stepStargaze = () => stepStargaze(); }
 
 // ---- corner UI (HKS-32): compass + snapshot ---------------------------------
