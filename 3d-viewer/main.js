@@ -1551,18 +1551,19 @@ scene.add(sunRays, sunSpr, moonGlow, moonSpr);            // scene, not world: s
 // a single rigid rotation of the group per sim-minute — zero per-star JS after
 // build. Fades in through astronomical twilight; a bright moon washes out its
 // own neighbourhood (uMoonDir) on top of the global dim.
-let starData = null, starLines = null;
+let starLines = null;
 const SKY_COARSE = matchMedia('(pointer: coarse)').matches;
 const SKY_N = { deep: SKY_COARSE ? 2000 : 4500, haze: SKY_COARSE ? 150 : 340 };
 const starGroup = new THREE.Group();
 starGroup.visible = false;
 scene.add(starGroup);
 const starUniforms = { uTime: { value: 0 }, uFade: { value: 0 }, uDpr: { value: 1 },
-                       uMoonDir: { value: new THREE.Vector3(0, -1, 0) }, uMoonWash: { value: 0 } };
+                       uMoonDir: { value: new THREE.Vector3(0, -1, 0) }, uMoonWash: { value: 0 },
+                       uSelGain: { value: 2.3 } };   // HKS-84: brightness gain on selected constellations
 const STAR_VERT = `
   attribute float aSize; attribute vec3 aColor;
-  attribute float aPhase; attribute float aTwk; attribute float aHalo;
-  uniform float uTime, uFade, uDpr, uMoonWash;
+  attribute float aPhase; attribute float aTwk; attribute float aHalo; attribute float aSel;
+  uniform float uTime, uFade, uDpr, uMoonWash, uSelGain;
   uniform vec3 uMoonDir;
   varying vec3 vColor; varying float vI, vHalo;
   void main() {
@@ -1571,10 +1572,12 @@ const STAR_VERT = `
     float horizon = smoothstep(-0.02, 0.055, dir.y);   // melt at the skyline, hide set stars
     float tw = 1.0 - aTwk * (0.5 + 0.3 * sin(uTime * 0.31 + aPhase)
                                  + 0.2 * sin(uTime * 0.53 + aPhase * 2.09));
+    tw = mix(tw, 1.0, 0.55 * aSel);                    // selected stars steady their breathing
     float wash = 1.0 - uMoonWash * (0.4 + 0.6 * smoothstep(0.45, 0.99, dot(dir, uMoonDir)));
-    vI = uFade * horizon * max(tw, 0.0) * max(wash, 0.0);
-    vColor = aColor; vHalo = aHalo;
-    gl_PointSize = aSize * uDpr * (0.85 + 0.3 * tw);
+    wash = mix(wash, 1.0, 0.5 * aSel);                 // and punch through the moon wash
+    vI = uFade * horizon * max(tw, 0.0) * max(wash, 0.0) * mix(1.0, uSelGain, aSel);
+    vColor = aColor; vHalo = max(aHalo, 0.7 * aSel);
+    gl_PointSize = aSize * uDpr * (0.85 + 0.3 * tw) * (1.0 + 0.3 * aSel);
     gl_Position = projectionMatrix * viewMatrix * wp;
   }`;
 const STAR_FRAG = `
@@ -1620,6 +1623,7 @@ function bakeStars(n, fill, mat) {       // fill(i, set) writes one star through
   g.setAttribute('aPhase', new THREE.BufferAttribute(phase, 1));
   g.setAttribute('aTwk', new THREE.BufferAttribute(twk, 1));
   g.setAttribute('aHalo', new THREE.BufferAttribute(halo, 1));
+  g.setAttribute('aSel', new THREE.BufferAttribute(new Float32Array(n), 1));   // HKS-84 selection level
   const p = new THREE.Points(g, mat);
   p.frustumCulled = false;               // we live inside the sphere
   starGroup.add(p);
@@ -1667,51 +1671,250 @@ function galToEq(l, b, out) {
     set(i, v, [0.58 * lum, 0.66 * lum, 0.95 * lum], 20 + 26 * rnd(), rnd() * Math.PI * 2, 0.12, 0);
   }, hazeMat);
 }
-// measured B−V for the distinctly-coloured catalogue stars (default: blue-white)
-const STAR_BV = { betelgeuse: 1.85, antares: 1.83, scheat: 1.66, gacrux: 1.59, aldebaran: 1.54,
-  kochab: 1.47, alphard: 1.44, almach: 1.37, arcturus: 1.23, schedar: 1.17, epsilonSco: 1.14,
-  algieba: 1.13, albireo: 1.1, dubhe: 1.07, gienahCyg: 1.03, pollux: 1.0, capella: 0.8,
-  alphaCen: 0.71, wezen: 0.68, sadr: 0.67, polaris: 0.6, mirfak: 0.48, procyon: 0.42,
-  sargas: 0.4, caph: 0.34, altair: 0.22, rasalhague: 0.16, ruchbah: 0.16, canopus: 0.15,
-  zosma: 0.13, mirzam: -0.24, acrux: -0.24, spica: -0.23, mimosa: -0.23, hadar: -0.23,
-  bellatrix: -0.22, shaula: -0.22, adhara: -0.21, alnitak: -0.2, alkaid: -0.19, algenib: -0.19,
-  deltaCru: -0.19, piSco: -0.19, alnilam: -0.18, saiph: -0.17, achernar: -0.16, gammaCas: -0.15,
-  segin: -0.15, elnath: -0.13, nunki: -0.13, alnair: -0.13, dschubba: -0.12, regulus: -0.11,
-  alpheratz: -0.11, gienahCrv: -0.11 };
-fetch(asset('data/hk-stars.json')).then(r => r.json()).then(d => {
-  starData = d;
-  const dir = s => { const ra = s.ra / 24 * Math.PI * 2, dec = s.dec * D2R;
-    return [Math.cos(dec) * Math.cos(ra), Math.cos(dec) * Math.sin(ra), Math.sin(dec)]; };
-  const c = [0, 0, 0];
-  bakeStars(d.stars.length, (i, set) => {
-    const s = d.stars[i];
-    bvColor(STAR_BV[s.id] !== undefined ? STAR_BV[s.id] : 0.03, c);
-    set(i, dir(s), c, Math.max(2.8, Math.min(10, 7.2 - 1.4 * s.mag)),
+// ---- HKS-84: the real sky — BSC5 catalogue + interactive constellations -----
+// data/hk-sky.json (built by source-scripts/hk-sky/build_hk_sky.mjs) carries
+// ~1,570 Yale Bright Star Catalogue stars [HR, ra_h, dec°, mag, B−V] and ~24
+// curated IAU constellations with stick figures keyed by HR. Member stars
+// brighten through a per-star aSel attribute (one buffer upload per selection
+// change, eased ~250 ms in stepSky); figures draw twice — a faint always-on
+// ghost inviting exploration, and a dynamic highlight layer for the selection.
+let skyCat = null;   // { stars, dirs, aSel, cons[], selGeo, selPos, selLvl }
+const skySel = { hover: -1, taps: new Set(), auto: new Set(), lastPick: 0, lastAuto: 0, anim: false };
+const CON_PICK_RAD = 3.5 * D2R;   // hover/tap: max angular distance ray → figure segment
+fetch(asset('data/hk-sky.json')).then(r => r.json()).then(d => {
+  const n = d.stars.length;
+  const dirs = new Float32Array(n * 3);
+  const hrIdx = new Map();
+  for (let i = 0; i < n; i++) {
+    const s = d.stars[i];                              // [HR, ra_hours, dec_deg, mag, bv]
+    const ra = s[1] / 24 * Math.PI * 2, dec = s[2] * D2R;
+    dirs[i*3] = Math.cos(dec) * Math.cos(ra); dirs[i*3+1] = Math.cos(dec) * Math.sin(ra);
+    dirs[i*3+2] = Math.sin(dec);
+    hrIdx.set(s[0], i);
+  }
+  const c = [0, 0, 0], v = [0, 0, 0];
+  const pts = bakeStars(n, (i, set) => {
+    const s = d.stars[i], mag = s[3];
+    bvColor(s[4], c);
+    // magnitude → size/halo/lum: Sirius ~8.6 px full halo, the mag-5 crowd
+    // ~1.7 px — meeting the procedural deep field (1.4–4.2 px) where they blend
+    const lum = Math.max(0.62, Math.min(1.05, 1.05 - 0.09 * (mag - 1)));
+    v[0] = dirs[i*3]; v[1] = dirs[i*3+1]; v[2] = dirs[i*3+2];
+    set(i, v, [c[0] * lum, c[1] * lum, c[2] * lum],
+        Math.max(1.7, Math.min(10, 7.0 - 1.1 * mag)),
         (i * 2.399) % (Math.PI * 2),     // golden-angle phases: no two neighbours breathe together
-        Math.max(0.08, Math.min(0.4, 0.1 + 0.07 * (s.mag + 1.5))),
-        Math.max(0, Math.min(1, (1.5 - s.mag) / 2.2)));
+        Math.max(0.08, Math.min(0.42, 0.1 + 0.06 * (mag + 1.5))),
+        Math.max(0, Math.min(1, (2.0 - mag) / 2.4)));
   }, starMat);
-  const idx = new Map(d.stars.map((s, i) => [s.id, i]));
-  const la = new Float32Array(d.lines.length * 6);
-  d.lines.forEach(([a, b], k) => {
-    la.set(dir(d.stars[idx.get(a)]), k * 6);
-    la.set(dir(d.stars[idx.get(b)]), k * 6 + 3);
+  // constellation records: star indices, figure segments, centroid direction
+  const _cv = new THREE.Vector3();
+  const cons = d.constellations.map(cd => {
+    const idx = cd.stars.map(hr => hrIdx.get(hr));
+    const segs = cd.lines.map(([a, b]) => [hrIdx.get(a), hrIdx.get(b)]);
+    const ra = cd.centroid[0] / 24 * Math.PI * 2, dec = cd.centroid[1] * D2R;
+    const dir = new THREE.Vector3(Math.cos(dec) * Math.cos(ra), Math.cos(dec) * Math.sin(ra), Math.sin(dec));
+    let rad = 0;
+    for (const i of idx) rad = Math.max(rad, dir.angleTo(_cv.set(dirs[i*3], dirs[i*3+1], dirs[i*3+2])));
+    return { iau: cd.iau, en: cd.en, zh: cd.zh, idx, segs, dir, rad, lvl: 0, tgt: 0, div: null };
   });
+  // ghost figures: every curated segment, always on but barely-there
+  const nSeg = cons.reduce((a, cc) => a + cc.segs.length, 0);
+  const ga = new Float32Array(nSeg * 6);
+  let k = 0;
+  for (const cc of cons) for (const [a, b] of cc.segs) {
+    ga.set(dirs.subarray(a*3, a*3+3), k); ga.set(dirs.subarray(b*3, b*3+3), k + 3); k += 6;
+  }
   const lg = new THREE.BufferGeometry();
-  lg.setAttribute('position', new THREE.BufferAttribute(la, 3));
+  lg.setAttribute('position', new THREE.BufferAttribute(ga, 3));
   starLines = new THREE.LineSegments(lg, new THREE.ShaderMaterial({
     uniforms: starUniforms, transparent: true, depthWrite: false,
     vertexShader: `varying float vY;
       void main() { vec4 wp = modelMatrix * vec4(position, 1.0);
         vY = normalize(wp.xyz).y; gl_Position = projectionMatrix * viewMatrix * wp; }`,
     fragmentShader: `uniform float uFade; varying float vY;
-      void main() { float a = uFade * 0.3 * smoothstep(0.0, 0.06, vY);
+      void main() { float a = uFade * 0.15 * smoothstep(0.0, 0.06, vY);
         if (a < 0.004) discard; gl_FragColor = vec4(0.62, 0.71, 0.85, a); }`,
   }));
   starLines.frustumCulled = false;
   starGroup.add(starLines);
+  // highlight figures: a small dynamic buffer, rebuilt only while a selection eases
+  const selPos = new Float32Array(nSeg * 6), selLvl = new Float32Array(nSeg * 2);
+  const selGeo = new THREE.BufferGeometry();
+  selGeo.setAttribute('position', new THREE.BufferAttribute(selPos, 3));
+  selGeo.setAttribute('aLvl', new THREE.BufferAttribute(selLvl, 1));
+  selGeo.setDrawRange(0, 0);
+  const selLines = new THREE.LineSegments(selGeo, new THREE.ShaderMaterial({
+    uniforms: starUniforms, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `attribute float aLvl; varying float vY, vL;
+      void main() { vec4 wp = modelMatrix * vec4(position, 1.0);
+        vY = normalize(wp.xyz).y; vL = aLvl; gl_Position = projectionMatrix * viewMatrix * wp; }`,
+    fragmentShader: `uniform float uFade; varying float vY, vL;
+      void main() { float a = uFade * 0.55 * vL * smoothstep(0.0, 0.06, vY);
+        if (a < 0.004) discard; gl_FragColor = vec4(0.62, 0.74, 1.0, a); }`,
+  }));
+  selLines.frustumCulled = false;
+  starGroup.add(selLines);
+  skyCat = { stars: d.stars, dirs, aSel: pts.geometry.getAttribute('aSel'), cons, selGeo, selPos, selLvl };
   celKey = '';   // force a celestial refresh so the sky populates immediately
 });
+// selection targets: hover (desktop) ∪ taps (mobile toggle) ∪ auto (stargazing walk)
+function conRetarget() {
+  if (!skyCat) return;
+  skyCat.cons.forEach((c, i) => {
+    c.tgt = (skySel.hover === i || skySel.taps.has(i) || skySel.auto.has(i)) ? 1 : 0;
+    if (c.tgt !== c.lvl) skySel.anim = true;
+  });
+}
+function conClearAll() {
+  if (skySel.hover < 0 && !skySel.taps.size && !skySel.auto.size) return;
+  skySel.hover = -1; skySel.taps.clear(); skySel.auto.clear();
+  conRetarget();
+}
+// rebuild the highlight-figure buffer from constellations with any glow
+function rebuildSelLines() {
+  const { cons, dirs, selGeo, selPos, selLvl } = skyCat;
+  let k = 0;
+  for (const c of cons) {
+    if (c.lvl < 0.01) continue;
+    for (const [a, b] of c.segs) {
+      selPos.set(dirs.subarray(a*3, a*3+3), k*3); selPos.set(dirs.subarray(b*3, b*3+3), k*3+3);
+      selLvl[k] = selLvl[k+1] = c.lvl;
+      k += 2;
+    }
+  }
+  selGeo.setDrawRange(0, k);
+  selGeo.attributes.position.needsUpdate = true;
+  selGeo.attributes.aLvl.needsUpdate = true;
+}
+// hover/tap picking: angular distance from the pointer ray to each figure's
+// segments (in the sidereal catalogue frame) — never a Points raycast
+const _pkR = new THREE.Vector3(), _pkQ = new THREE.Quaternion(), _pkA = new THREE.Vector3(),
+      _pkB = new THREE.Vector3(), _pkN = new THREE.Vector3(), _pkP = new THREE.Vector3();
+function arcDist(p, a, b) {   // angular distance from unit vector p to great-circle arc a→b
+  _pkN.crossVectors(a, b);
+  const nl = _pkN.length();
+  if (nl < 1e-6) return p.angleTo(a);
+  _pkN.divideScalar(nl);
+  const s = p.dot(_pkN);
+  _pkP.copy(p).addScaledVector(_pkN, -s).normalize();   // p projected onto the great circle
+  const arc = a.angleTo(b);
+  if (_pkP.angleTo(a) <= arc && _pkP.angleTo(b) <= arc) return Math.abs(Math.asin(Math.max(-1, Math.min(1, s))));
+  return Math.min(p.angleTo(a), p.angleTo(b));
+}
+function pickConstellation(clientX, clientY) {
+  if (!skyCat || !starGroup.visible) return -1;
+  _pkR.set((clientX / innerWidth) * 2 - 1, -(clientY / innerHeight) * 2 + 1, 0.5)
+      .unproject(camera).sub(camera.position).normalize();
+  // the camera is NOT at the celestial sphere's centre — intersect the pointer
+  // ray with the sphere and take the hit point's direction, else parallax
+  // skews the pick by up to ~25° when orbiting far off-centre
+  const R = starGroup.scale.x || 1;
+  const od = camera.position.dot(_pkR), oo = camera.position.lengthSq();
+  const disc = od * od - oo + R * R;
+  if (disc <= 0) return -1;                            // outside the sphere, looking past it
+  _pkR.multiplyScalar(-od + Math.sqrt(disc)).add(camera.position).divideScalar(R);
+  if (_pkR.y < 0.02) return -1;                        // below the skyline melt: terrain, not sky
+  _pkQ.copy(starGroup.quaternion).invert();
+  _pkR.applyQuaternion(_pkQ).normalize();              // into the sidereal frame
+  const dirs = skyCat.dirs;
+  let best = -1, bestD = CON_PICK_RAD;
+  skyCat.cons.forEach((c, ci) => {
+    if (_pkR.angleTo(c.dir) > c.rad + CON_PICK_RAD) return;
+    for (const [i, j] of c.segs) {
+      _pkA.set(dirs[i*3], dirs[i*3+1], dirs[i*3+2]);
+      _pkB.set(dirs[j*3], dirs[j*3+1], dirs[j*3+2]);
+      const dd = arcDist(_pkR, _pkA, _pkB);
+      if (dd < bestD) { bestD = dd; best = ci; }
+    }
+  });
+  return best;
+}
+// desktop hover (throttled ~10 Hz; pointer-locked walk never sends these)
+renderer.domElement.addEventListener('pointermove', e => {
+  if (SKY_COARSE || walk.on || !skyCat || !starGroup.visible || e.buttons) return;
+  const now = performance.now();
+  if (now - skySel.lastPick < 100) return;
+  skySel.lastPick = now;
+  const h = pickConstellation(e.clientX, e.clientY);
+  if (h !== skySel.hover) { skySel.hover = h; conRetarget(); }
+});
+// mobile tap-to-toggle: a touch that barely moved (< 8 px) is a pick, not a
+// look-drag; tapping empty sky clears. Works in orbit, flight and walk.
+let _skyTap = null;
+renderer.domElement.addEventListener('touchstart', e => {
+  _skyTap = e.touches.length === 1
+    ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: performance.now() } : null;
+}, { passive: true });
+renderer.domElement.addEventListener('touchend', e => {
+  if (!_skyTap || e.touches.length) return;
+  const t = e.changedTouches[0];
+  const moved = Math.hypot(t.clientX - _skyTap.x, t.clientY - _skyTap.y);
+  const held = performance.now() - _skyTap.t;
+  _skyTap = null;
+  if (moved > 8 || held > 600 || !skyCat || !starGroup.visible) return;
+  const h = pickConstellation(t.clientX, t.clientY);
+  if (h < 0) { if (skySel.taps.size) { skySel.taps.clear(); conRetarget(); } return; }
+  if (skySel.taps.has(h)) skySel.taps.delete(h); else skySel.taps.add(h);
+  conRetarget();
+});
+// stargazing walk mode (HKS-84 P2): look up while walking and the figures in
+// view light themselves — centroids tested against the camera forward vector
+// every ~300 ms, 1–3 at once, with enter/exit hysteresis so nothing flickers
+const _saF = new THREE.Vector3(), _saW = new THREE.Vector3(), _saP = new THREE.Vector3();
+function updateSkyAuto() {
+  if (!skyCat) return;
+  if (!(walk.on && starGroup.visible && walk.pitch > 0.35)) {
+    if (skySel.auto.size) { skySel.auto.clear(); conRetarget(); }
+    return;
+  }
+  const now = performance.now();
+  if (now - skySel.lastAuto < 300) return;
+  skySel.lastAuto = now;
+  camera.getWorldDirection(_saF);
+  const half = camera.fov * 0.5 * D2R;
+  const R = starGroup.scale.x || 1;
+  const cand = [];
+  skyCat.cons.forEach((c, i) => {
+    _saW.copy(c.dir).applyQuaternion(starGroup.quaternion);   // sidereal → world (sphere dir)
+    if (_saW.y < 0.03) return;                                // set, or melting at the skyline
+    // apparent direction from the hiker's eye, not the sphere centre
+    _saP.copy(_saW).multiplyScalar(R).sub(camera.position).normalize();
+    const ang = _saF.angleTo(_saP);
+    const lim = Math.min(half * (skySel.auto.has(i) ? 0.95 : 0.8), c.rad + 0.24);
+    if (ang < lim) cand.push([ang, i]);
+  });
+  cand.sort((a, b) => a[0] - b[0]);
+  const next = new Set(cand.slice(0, 3).map(x => x[1]));
+  if (next.size !== skySel.auto.size || [...next].some(i => !skySel.auto.has(i)))
+    { skySel.auto = next; conRetarget(); }
+}
+// bilingual name card per lit constellation — the peak-label pattern, aimed at
+// the sky: reprojected from the centroid each frame, faded with the starlight
+const _clV = new THREE.Vector3();
+function updateConstLabels() {
+  if (!skyCat) return;
+  const fade = starUniforms.uFade.value;
+  for (const c of skyCat.cons) {
+    const show = starGroup.visible && c.lvl > 0.05 && fade > 0.06;
+    if (!show) { if (c.div) c.div.style.display = 'none'; continue; }
+    if (!c.div) {
+      c.div = document.createElement('div'); c.div.className = 'lbl con';
+      document.body.appendChild(c.div);
+    }
+    if (c.div._loc !== locale) {   // en-hk: English big / 中文 small; zh-hk flips
+      c.div.innerHTML = isZh() ? `${c.zh}<small>${c.en}</small>` : `${c.en}<small>${c.zh}</small>`;
+      c.div._loc = locale;
+    }
+    _clV.copy(c.dir).applyMatrix4(starGroup.matrixWorld);
+    const horizonY = _clV.y / starGroup.scale.x;               // ≈ unit-sphere height
+    _clV.project(camera);
+    if (_clV.z > 1 || horizonY < 0.04) { c.div.style.display = 'none'; continue; }
+    c.div.style.display = '';
+    c.div.style.opacity = (Math.min(1, fade * 1.25) * c.lvl).toFixed(2);
+    c.div.style.left = ((_clV.x * 0.5 + 0.5) * innerWidth) + 'px';
+    c.div.style.top = ((-_clV.y * 0.5 + 0.5) * innerHeight) + 'px';
+  }
+}
 const _eqM = new THREE.Matrix4(), _eqX = new THREE.Vector3(), _eqY = new THREE.Vector3(), _eqZ = new THREE.Vector3();
 function eqAxis(now, ra, dec, out) {
   const p = starPosition(now, HK_LAT, HK_LON, ra, dec);
@@ -1724,7 +1927,7 @@ function updateStars(now) {
   let fade = Math.max(0, Math.min(1, (-4 - sunAltD) / 6));
   if (skySim.on && fade > 0 && cel.moonAlt > 0) fade *= 1 - 0.25 * cel.frac * Math.sin(cel.moonAlt);
   starGroup.visible = skySim.on && fade > 0.01;
-  if (!starGroup.visible) return;
+  if (!starGroup.visible) { conClearAll(); return; }   // daylight: drop any lit constellations
   // the whole celestial sphere turns as one rigid body: image the equatorial
   // basis through the same hour-angle math the sun/moon use, once a sim-minute
   eqAxis(now, 0, 0, _eqX); eqAxis(now, Math.PI / 2, 0, _eqY); eqAxis(now, 0, Math.PI / 2, _eqZ);
@@ -1770,6 +1973,24 @@ function spawnMeteor(tS) {
 function stepSky() {   // per-frame sky life: twinkle clock, meteors, moon limb aim
   const tS = performance.now() * 0.001;
   if (starGroup.visible) starUniforms.uTime.value = tS % 4096;
+  // HKS-84: constellation selection bloom — runs ONLY while a transition is
+  // live (~250 ms), touching just the member stars' aSel entries + the small
+  // highlight-line buffer. Zero per-frame cost once settled.
+  if (skyCat && skySel.anim) {
+    let live = false;
+    for (const c of skyCat.cons) {
+      if (c.lvl === c.tgt) continue;
+      c.lvl += (c.tgt - c.lvl) * 0.22;
+      if (Math.abs(c.lvl - c.tgt) < 0.02) c.lvl = c.tgt; else live = true;
+    }
+    const a = skyCat.aSel.array;
+    for (const c of skyCat.cons) for (const i of c.idx) a[i] = 0;
+    for (const c of skyCat.cons) if (c.lvl > 0)
+      for (const i of c.idx) if (c.lvl > a[i]) a[i] = c.lvl;
+    skyCat.aSel.needsUpdate = true;
+    rebuildSelLines();
+    skySel.anim = live;
+  }
   if (cel && moonSpr.visible) {   // spin the lit limb toward the real sun (screen space)
     _mp.copy(sunSpr.position).sub(moonSpr.position);
     const e = camera.matrixWorld.elements;
@@ -1841,7 +2062,7 @@ function updateCelestial() {
     if (cel) {
       cel = null; celKey = '';
       sunSpr.visible = sunRays.visible = moonSpr.visible = moonGlow.visible = false;
-      starGroup.visible = false; meteor.visible = false;
+      starGroup.visible = false; meteor.visible = false; conClearAll();
       sun.position.set(-1, 2, 1.4); sun.color.setHex(0xffffff);   // legacy fixed light
       renderSky(); setFog(); updateSkyInfo();
     }
@@ -3811,6 +4032,8 @@ function animate() {
   updateLandmarks();
   updateStations();
   updateAqhi();
+  updateSkyAuto();        // stargazing walk mode: figures in view light up (HKS-84)
+  updateConstLabels();    // bilingual constellation name cards (HKS-84)
 }
 
 // ---- shareable state: sync all controls + camera to the URL ----------------
