@@ -4997,6 +4997,14 @@ if ('serviceWorker' in navigator) {
   addEventListener('appinstalled', dismiss);               // installed → stop nudging
 })();
 
+// HKS-86: UI chrome (panel, drawer, dock/tray/compass, GPS, corner buttons,
+// weather/radar, coach, install bar, brand chip) must not leak pointer/touch/click
+// events to the document/window viewport handlers (hold-to-gas, take-off, etc.).
+// Stop them bubbling — the canvas keeps its own listeners either way.
+for (const el of document.querySelectorAll('#panel,#sidedrawer,#dockwrap,#locateui,#cornerui,#wxhud,#radarhud,#coachtip,#installbar,#brandchip,#stormbadge,#miniloader'))
+  for (const ev of ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'click'])
+    el.addEventListener(ev, e => e.stopPropagation());
+
 // ---- first-visit coach-mark (HKS-86): a blue halo on the dock ⚙ nudging new
 // visitors to open the settings. Shown once; the dismissal is stored on
 // production only (previews always re-show for testing), like the install nudge.
