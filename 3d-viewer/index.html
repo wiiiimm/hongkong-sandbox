@@ -406,8 +406,8 @@
   #cornerui button svg{display:block;transform:translateY(.5px)}   /* camera glyph is top-heavy — nudge to optical centre */
   body.glass #cornerui button{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #cornerui button{background:rgba(252,250,246,.22)}
-  /* GPS "you are here" locate control (HKS-83) — bottom-left, above the credits chip */
-  #locateui{position:fixed;left:16px;bottom:56px;z-index:22}
+  /* GPS "you are here" locate control (HKS-83) — right column, above the radar dial */
+  #locateui{position:fixed;right:12px;bottom:260px;z-index:22}
   #locateui #locatebtn{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);cursor:pointer;color:var(--ink);padding:0;box-shadow:0 6px 18px rgba(0,0,0,.35);
@@ -421,7 +421,7 @@
   #locateui #locatebtn svg{display:block}
   @keyframes locpulse{0%,100%{opacity:1}50%{opacity:.42}}
   @keyframes locring{0%{transform:scale(.8);opacity:.7}100%{transform:scale(1.55);opacity:0}}
-  #locatepop{position:absolute;left:0;bottom:calc(100% + 8px);display:none;flex-direction:column;gap:2px;min-width:150px;
+  #locatepop{position:absolute;right:0;bottom:calc(100% + 8px);display:none;flex-direction:column;gap:2px;min-width:150px;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:12px;padding:5px;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   body.glass #locatepop{background:rgba(10,13,18,.6)}
@@ -431,7 +431,7 @@
     font-size:12px;color:var(--ink);cursor:pointer;font-family:var(--sans);letter-spacing:.01em}
   #locatepop button:hover{background:rgba(255,255,255,.08)}
   #locatepop button.stop{color:#e6a23c}
-  #geotoast{position:absolute;left:0;bottom:calc(100% + 8px);max-width:230px;display:none;
+  #geotoast{position:absolute;right:0;bottom:calc(100% + 8px);max-width:230px;display:none;
     background:rgba(11,14,19,.94);border:1px solid var(--edge);border-radius:10px;padding:8px 11px;
     font-size:11px;line-height:1.45;color:#eef2f6;box-shadow:0 8px 24px rgba(0,0,0,.55);backdrop-filter:blur(10px)}
   #geotoast.show{display:block}
@@ -521,7 +521,7 @@
     #panel.collapsed #sheetgrip{display:none}
     #cornerui{bottom:calc(12px + env(safe-area-inset-bottom))}          /* drop the camera to the compass baseline */
     #cornerui button{width:36px;height:36px;box-sizing:border-box}      /* same 36px height as the compass bar */
-    #locateui{left:12px;bottom:calc(56px + env(safe-area-inset-bottom))}   /* above the collapsed control chip (bottom-left) */
+    #locateui{right:12px;left:auto;bottom:calc(212px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
     #locateui #locatebtn{width:36px;height:36px;box-sizing:border-box}
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
        camera button (#cornerui, bottom-right) AND the separate compass canvas
