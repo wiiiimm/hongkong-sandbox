@@ -192,9 +192,9 @@
   #collapsedbar button{border:none;background:none;box-shadow:none;color:var(--sub)}
   #collapsedbar button:hover{background:none;border-color:transparent;color:var(--accent)}
   .navmini{font-size:11px;color:var(--sub);white-space:normal;max-width:210px;line-height:1.45}
-  #panel.collapsed{width:auto;padding:10px 12px}
-  #panel.collapsed #phead,#panel.collapsed #pbody,#panel.collapsed #navhelp{display:none}
-  #panel.collapsed #collapsedbar{display:flex}
+  /* HKS-86: the dock's ⚙ is now the single settings toggle on every screen, so a
+     collapsed panel just hides (the old top-left cog chip is retired) */
+  #panel.collapsed{display:none}
   .grp{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
   .grp .gt{font-size:9.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--sub);
     font-weight:600;margin-bottom:9px;font-family:var(--mono)}
@@ -409,7 +409,9 @@
   .dockbtn small{font-size:8.5px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase}
   .dockbtn:hover{color:var(--ink);background:var(--field);border-color:transparent}
   .dockbtn.on{color:var(--accent);background:var(--accent-dim);border-color:var(--accent)}
-  #dockgear{padding:9px 10px;font-size:14px}
+  /* HKS-86: the ⚙ is the single settings affordance now — size it to match the
+     camera button (#cornerui, 40px circle) so it reads as a peer, not a speck */
+  #dockgear{width:40px;height:40px;padding:0;justify-content:center;font-size:19px}
   .dockdiv{width:1px;align-self:stretch;margin:4px 3px;background:var(--edge-soft)}
   /* contextual tray — per-mode affordances above the compass tape */
   #modetray{display:flex;flex-direction:column;gap:8px;padding:9px 13px;border-radius:13px;
@@ -573,7 +575,7 @@
     #panel.collapsed{display:none}
     #dock .dockbtn{padding:11px 11px;font-size:17px}
     #dock .dockbtn small{display:none}
-    #dock #dockgear{padding:11px 11px;font-size:16px}
+    #dock #dockgear{width:36px;height:36px;padding:0;font-size:18px}
     /* right column stacks clear of the dock: snapshot → radar dial → GPS FAB */
     #cornerui{bottom:calc(64px + env(safe-area-inset-bottom))}
     #cornerui button{width:36px;height:36px;box-sizing:border-box}
@@ -624,7 +626,7 @@
   /* very narrow phones: compress the dock so it clears the corner buttons */
   @media (max-width:374px){
     #dock .dockbtn{padding:10px 7px;font-size:15px}
-    #dock #dockgear{padding:10px 7px;font-size:14px}
+    #dock #dockgear{width:34px;height:34px;padding:0;font-size:16px}
   }
 </style>
 </head>
