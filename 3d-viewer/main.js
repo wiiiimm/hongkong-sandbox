@@ -1487,8 +1487,9 @@ function drawMoonTexture(phase, frac) {
   for (const [dx, dy, rr, a] of MOON_MARIA) {             // soft-edged seas
     const mx = cx + dx * r, my = cx + dy * r;
     const mg = x.createRadialGradient(mx, my, 0, mx, my, rr * r);
-    mg.addColorStop(0, `rgba(90,104,122,${a})`); mg.addColorStop(0.7, `rgba(90,104,122,${a * 0.8})`);
-    mg.addColorStop(1, 'rgba(90,104,122,0)');
+    const ma = Math.min(0.92, a * 1.5);                    // deeper, crisper seas so the texture reads
+    mg.addColorStop(0, `rgba(72,84,102,${ma.toFixed(3)})`); mg.addColorStop(0.78, `rgba(72,84,102,${(ma * 0.82).toFixed(3)})`);
+    mg.addColorStop(1, 'rgba(72,84,102,0)');
     x.fillStyle = mg; x.beginPath(); x.arc(mx, my, rr * r, 0, 7); x.fill();
   }
   for (const [dx, dy, rr] of MOON_CRATERS) {              // pinpricks of fresh ejecta
@@ -1582,8 +1583,8 @@ const STAR_FRAG = `
     vec2 q = gl_PointCoord - 0.5;
     float d = length(q) * 2.0;
     float lim = smoothstep(1.0, 0.8, d);
-    float core = exp(-d * d * 10.0);
-    float glow = exp(-d * 3.0) * 0.5 * max(vHalo, 0.16) * lim;
+    float core = exp(-d * d * 9.0);
+    float glow = exp(-d * 2.4) * 0.62 * max(vHalo, 0.24) * lim;   // wider, brighter halo = more "spread"
     vec2 aq = abs(q);                    // faint diffraction cross on the bright ones
     float spike = exp(-min(aq.x, aq.y) * 30.0) * exp(-d * 2.5) * 0.4 * vHalo * lim;
     float i = (core + glow + spike) * vI;
@@ -1654,9 +1655,9 @@ function galToEq(l, b, out) {
            v[0] = q * Math.cos(a); v[1] = q * Math.sin(a); v[2] = z; }
     const m = rnd();                     // pseudo-magnitude — most stars stay faint
     bvColor(-0.25 + 2.1 * Math.pow(rnd(), 2.6), c);
-    const lum = (0.5 + 0.5 * m) * (band ? 0.85 : 1);
+    const lum = (0.72 + 0.58 * m) * (band ? 0.9 : 1);   // brighter so faint stars read
     set(i, v, [c[0] * lum, c[1] * lum, c[2] * lum],
-        (1.0 + 2.3 * m * m) * (band ? 0.92 : 1), rnd() * Math.PI * 2, 0.26 + 0.3 * rnd(), 0);
+        (1.4 + 2.8 * m * m) * (band ? 0.92 : 1), rnd() * Math.PI * 2, 0.24 + 0.3 * rnd(), 0.18 * m);
   }, starMat);
   bakeStars(SKY_N.haze, (i, set) => {    // the soft wash behind the band
     const l = rnd() * Math.PI * 2;
@@ -1802,7 +1803,7 @@ function placeCelestial() {
   moonSpr.position.set(Math.sin(cel.moonAz) * Math.cos(cel.moonAlt), Math.sin(cel.moonAlt), -Math.cos(cel.moonAz) * Math.cos(cel.moonAlt)).multiplyScalar(R);
   moonGlow.position.copy(moonSpr.position);
   sunSpr.scale.set(s * 0.10, s * 0.10, 1); sunRays.scale.set(s * 0.26, s * 0.26, 1);
-  moonSpr.scale.set(s * 0.065, s * 0.065, 1);
+  moonSpr.scale.set(s * 0.078, s * 0.078, 1);   // a touch larger so it reads as the moon
   sunSpr.visible = sunRays.visible = cel.sunAlt > -4 * D2R;
   moonSpr.visible = moonGlow.visible = cel.moonAlt > -2.5 * D2R;
   const warm = Math.max(0, Math.min(1, 1 - (cel.sunAlt / D2R) / 17));   // golden toward the horizon
