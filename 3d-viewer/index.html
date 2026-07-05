@@ -334,7 +334,11 @@
   body.glass #radarhud .rf-tab{fill:rgba(10,13,18,.52)}
   body.glass.ui-light #radarhud .rf-tab{fill:rgba(252,250,246,.5)}
   #radarhud .rf-tab:hover{fill:rgba(255,255,255,.12)}
-  #radarhud .rf-tab.on{fill:#f2f5f8;stroke:var(--accent);stroke-width:1.1}   /* selected: white fill so the dark label is always legible, accent outline keeps it themed */
+  /* selected: opaque white fill so the dark label is always legible, accent outline keeps it themed.
+     NB: the glass-mode overrides must repeat the fill — `body.glass #radarhud .rf-tab` (line above)
+     outranks a plain `.rf-tab.on` on specificity, so without these it stays dark in glass mode. */
+  #radarhud .rf-tab.on{fill:#f2f5f8;stroke:var(--accent);stroke-width:1.1}
+  body.glass #radarhud .rf-tab.on, body.glass.ui-light #radarhud .rf-tab.on{fill:#f2f5f8}
   #radarhud .rf-tab:focus-visible{stroke:var(--accent);stroke-width:1.6;outline:none}
   #radarhud .rf-size:focus-visible circle{stroke:var(--accent);stroke-width:1.6;outline:none}
   #radarhud .rf-lab{fill:var(--sub);font-family:var(--mono);font-size:8.5px;letter-spacing:.02em;
