@@ -148,15 +148,15 @@
   #panel{position:fixed;top:16px;left:16px;z-index:42;   /* above the weather-notices drawer (41) so the controls stay on top */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:16px;padding:14px 15px;font-size:12.5px;line-height:1.5;
-    width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 76px);overflow:auto;
+    width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 76px);overflow:hidden;
+    display:flex;flex-direction:column;
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
-  #panel::-webkit-scrollbar{width:8px}
-  #panel::-webkit-scrollbar-thumb{background:var(--field-edge);border-radius:4px}
-  /* HKS-86: pin the drag handle + title header while the panel body scrolls */
-  #pstick{position:sticky;top:0;z-index:6;background:var(--panel);
-    margin:-14px -15px 10px;padding:14px 15px 8px;border-radius:16px 16px 0 0}
-  body.glass #pstick{background:rgba(10,13,18,.72)}
-  body.glass.ui-light #pstick{background:rgba(252,250,246,.85)}
+  /* HKS-86: header (drag handle + title) is a fixed flex row; only the body below
+     scrolls — no opaque sticky overlay, so the liquid-glass stays uniform */
+  #pstick{flex:0 0 auto;margin-bottom:6px}
+  #pbody{overflow-y:auto;flex:1 1 auto;min-height:0}
+  #pbody::-webkit-scrollbar{width:8px}
+  #pbody::-webkit-scrollbar-thumb{background:var(--field-edge);border-radius:4px}
   #panel h1{font-size:14px;margin:0;letter-spacing:.01em;font-weight:600}
   /* brand icon left of the title (HKS-65) */
   .ptitle{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 auto}
@@ -273,67 +273,44 @@
   #wxhud #wx-warn.warn:not(:empty){color:#e6a23c;border-color:rgba(230,162,60,.5)}
   #wxhud #wx-warn:not(:empty):hover{border-color:var(--accent);color:var(--ink)}
   #wxhud .wx-src{font-size:9px;color:var(--sub);opacity:.7;margin-top:5px;font-family:var(--mono);letter-spacing:.04em}
-  /* pull-up weather-notices bulletin (HKS-80) — glass sheet, slides up from the bottom */
-  /* pull-out weather-notices drawer from the right edge; the tab handle rides the
-     panel's left edge and pokes out at ~the top third when closed (HKS-80) */
-  #wxbulletin{position:fixed;top:33%;right:0;z-index:41;display:flex;align-items:flex-start;
+  /* HKS-86: unified right-edge drawer — Weather notices (HKS-80) + Help share ONE
+     sliding panel. Both tabs stack together on the edge (always visible); the
+     active tab is highlighted; clicking a tab swaps the panel content, no slide. */
+  #sidedrawer{position:fixed;top:33%;right:0;z-index:41;display:flex;align-items:flex-start;
     transform:translateX(100%);visibility:hidden;
     transition:transform .34s cubic-bezier(.22,1,.36,1), visibility .34s}
-  #wxbulletin.ready{visibility:visible}
-  #wxbulletin.open{transform:translateX(0)}
-  #wxbulletin #wb-tab{position:absolute;left:-30px;top:0;width:30px;min-height:118px;padding:14px 0;
+  #sidedrawer.ready{visibility:visible}
+  #sidedrawer.open{transform:translateX(0)}
+  #sd-tabs{position:absolute;left:-30px;top:0;display:flex;flex-direction:column;gap:6px}
+  .sd-tab{width:30px;min-height:90px;padding:14px 0;
     writing-mode:vertical-rl;text-orientation:mixed;text-align:center;white-space:nowrap;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-right:none;border-radius:12px 0 0 12px;
-    color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow)}
-  #wxbulletin.warn #wb-tab{color:#e6a23c;border-color:rgba(230,162,60,.5)}
-  #wxbulletin.warn #wb-tab .wb-tab-lab::before{content:'⚠ '}
-  #wxbulletin #wb-tab:hover{color:var(--ink);border-color:var(--accent)}
-  #wxbulletin .wb-panel{width:min(320px,calc(100vw - 40px));max-height:64vh;overflow:auto;box-sizing:border-box;
+    color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow);
+    transition:color .12s,border-color .12s,background .12s}
+  .sd-tab:hover{color:var(--ink);border-color:var(--accent)}
+  .sd-tab.on{color:var(--accent);border-color:var(--accent);background:var(--accent-dim)}   /* active tab highlighted */
+  #sd-tab-wx.warn{color:#e6a23c;border-color:rgba(230,162,60,.5)}                             /* amber when a warning is in force */
+  #sd-tab-wx.warn .sd-tab-lab::before{content:'⚠ '}
+  #sd-tab-wx.warn.on{color:#e6a23c;border-color:#e6a23c;background:rgba(230,162,60,.14)}
+  body.glass .sd-tab, body.glass #sidedrawer .wb-panel{background:rgba(10,13,18,.62)}
+  body.glass.ui-light .sd-tab, body.glass.ui-light #sidedrawer .wb-panel{background:rgba(252,250,246,.72)}
+  body.glass .sd-tab.on{color:var(--accent);border-color:var(--accent)}
+  #sidedrawer .wb-panel{width:min(320px,calc(100vw - 40px));max-height:64vh;overflow:auto;box-sizing:border-box;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-right:none;border-radius:0 0 0 14px;padding:13px 16px;   /* square top-left so it butts flush against the tab */
+    border:1px solid var(--edge);border-right:none;border-radius:0 0 0 14px;padding:13px 16px;   /* square top-left so it butts flush against the tabs */
     font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
-  body.glass #wxbulletin #wb-tab, body.glass #wxbulletin .wb-panel{background:rgba(10,13,18,.62)}
-  body.glass.ui-light #wxbulletin #wb-tab, body.glass.ui-light #wxbulletin .wb-panel{background:rgba(252,250,246,.72)}
-  #wxbulletin .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
-  #wxbulletin .wb-title{color:var(--ink);font-weight:600;font-size:13px}
-  #wxbulletin #wb-close{width:28px;height:28px;padding:0;flex:0 0 auto;display:grid;place-items:center;font-size:15px;border-radius:8px}
-  #wxbulletin .wb-sec{margin-top:9px}
-  #wxbulletin .wb-sec:empty{display:none}
-  #wxbulletin .wb-sec b{display:block;color:var(--ink);font-weight:600;font-size:9.5px;text-transform:uppercase;
+  #sidedrawer .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+  #sidedrawer .wb-title{color:var(--ink);font-weight:600;font-size:13px}
+  #sidedrawer #sd-close{width:28px;height:28px;padding:0;flex:0 0 auto;display:grid;place-items:center;font-size:15px;border-radius:8px}
+  #sidedrawer .sd-body[hidden]{display:none}
+  #sidedrawer .wb-sec{margin-top:9px}
+  #sidedrawer .wb-sec:empty{display:none}
+  #sidedrawer .wb-sec b{display:block;color:var(--ink);font-weight:600;font-size:9.5px;text-transform:uppercase;
     letter-spacing:.14em;margin-bottom:4px;font-family:var(--mono)}
-  #wxbulletin .wb-sec div{margin-top:3px}
-  #wxbulletin #wb-warn b{color:#e6a23c}
-  #wxbulletin .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
-  /* HKS-86: Help / controls drawer — same right-edge pattern, tab sits just below
-     the weather-notices tab; the panel reuses the .wb-* chrome classes */
-  #helpdrawer{position:fixed;top:calc(33% + 132px);right:0;z-index:41;display:flex;align-items:flex-start;
-    transform:translateX(100%);visibility:hidden;
-    transition:transform .34s cubic-bezier(.22,1,.36,1), visibility .34s}
-  #helpdrawer.ready{visibility:visible}
-  #helpdrawer.open{transform:translateX(0)}
-  #helpdrawer #hp-tab{position:absolute;left:-30px;top:0;width:30px;min-height:74px;padding:14px 0;
-    writing-mode:vertical-rl;text-orientation:mixed;text-align:center;white-space:nowrap;
-    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-right:none;border-radius:12px 0 0 12px;
-    color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow)}
-  #helpdrawer #hp-tab .hp-tab-lab::before{content:'? ';font-family:var(--mono)}
-  #helpdrawer #hp-tab:hover{color:var(--ink);border-color:var(--accent)}
-  #helpdrawer .wb-panel{width:min(320px,calc(100vw - 40px));max-height:60vh;overflow:auto;box-sizing:border-box;
-    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-right:none;border-radius:0 0 0 14px;padding:13px 16px;
-    font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
-  body.glass #helpdrawer #hp-tab, body.glass #helpdrawer .wb-panel{background:rgba(10,13,18,.62)}
-  body.glass.ui-light #helpdrawer #hp-tab, body.glass.ui-light #helpdrawer .wb-panel{background:rgba(252,250,246,.72)}
-  #helpdrawer .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
-  #helpdrawer .wb-title{color:var(--ink);font-weight:600;font-size:13px}
-  #helpdrawer #hp-close{width:28px;height:28px;padding:0;flex:0 0 auto;display:grid;place-items:center;font-size:15px;border-radius:8px}
-  #helpdrawer .wb-sec{margin-top:9px}
-  #helpdrawer .wb-sec:empty{display:none}
-  #helpdrawer .wb-sec b{display:block;color:var(--ink);font-weight:600;font-size:9.5px;text-transform:uppercase;
-    letter-spacing:.14em;margin-bottom:4px;font-family:var(--mono)}
-  #helpdrawer .wb-sec div{margin-top:3px}
-  #helpdrawer .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
+  #sidedrawer .wb-sec div{margin-top:3px}
+  #sidedrawer #wb-warn b{color:#e6a23c}
+  #sidedrawer .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
   #wxhud #wx-tide{font-size:11px;color:var(--ink);margin-top:7px;font-family:var(--mono)}
   #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
   #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
@@ -998,32 +975,29 @@
   <svg id="rf-tabs" viewBox="0 0 176 176" role="group" aria-label="Radar / satellite controls"></svg>
   <div class="rf-time"><span id="radar-time">—</span></div>
 </div>
-<!-- HKS-80: dismissable right-edge pull-out bulletin for HKO warnings + forecast -->
-<aside id="wxbulletin" aria-label="Weather notices">
-  <button id="wb-tab" aria-expanded="false" aria-controls="wb-panel"><span class="wb-tab-lab" data-i18n="wb.title">Weather notices</span></button>
-  <div class="wb-panel" id="wb-panel" role="dialog" aria-label="Weather notices">
-    <div class="wb-head">
-      <span class="wb-title" data-i18n="wb.title">Weather notices</span>
-      <button id="wb-close" aria-label="Close">✕</button>
-    </div>
-    <div id="wb-warn" class="wb-sec"></div>
-    <div id="wb-fcast" class="wb-sec"></div>
-    <div class="wb-src">© Hong Kong Observatory · data.gov.hk</div>
+<!-- HKS-86: unified right-edge drawer — Weather notices (HKS-80) + Help share ONE
+     sliding panel. Both tabs stack together on the edge and stay visible; the
+     active tab is highlighted and clicking a tab swaps the panel content. -->
+<aside id="sidedrawer" aria-label="Notices and help">
+  <div id="sd-tabs" role="tablist" aria-orientation="vertical">
+    <button id="sd-tab-wx" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><span class="sd-tab-lab" data-i18n="wb.title">Weather notices</span></button>
+    <button id="sd-tab-help" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><span class="sd-tab-lab" data-i18n="help.tab">Help</span></button>
   </div>
-</aside>
-
-<!-- HKS-86: adaptive Help / controls drawer — same right-edge pattern as the
-     weather bulletin, tab stacked just below it. Content follows the active mode. -->
-<aside id="helpdrawer" aria-label="Help and controls">
-  <button id="hp-tab" aria-expanded="false" aria-controls="hp-panel"><span class="hp-tab-lab" data-i18n="help.tab">Help</span></button>
-  <div class="wb-panel" id="hp-panel" role="dialog" aria-label="Help and controls">
+  <div class="wb-panel" id="sd-panel" role="dialog" aria-label="Notices and help">
     <div class="wb-head">
-      <span class="wb-title" data-i18n="help.title">Help &amp; controls</span>
-      <button id="hp-close" aria-label="Close">✕</button>
+      <span class="wb-title" id="sd-title"></span>
+      <button id="sd-close" aria-label="Close">✕</button>
     </div>
-    <div id="hp-context" class="wb-sec"></div>
-    <div id="hp-general" class="wb-sec"></div>
-    <div class="wb-src" data-i18n="help.src">Modes live in the bottom bar · themes toggle in any mode</div>
+    <div id="sd-wx" class="sd-body" hidden>
+      <div id="wb-warn" class="wb-sec"></div>
+      <div id="wb-fcast" class="wb-sec"></div>
+      <div class="wb-src">© Hong Kong Observatory · data.gov.hk</div>
+    </div>
+    <div id="sd-help" class="sd-body" hidden>
+      <div id="hp-context" class="wb-sec"></div>
+      <div id="hp-general" class="wb-sec"></div>
+      <div class="wb-src" data-i18n="help.src">Modes live in the bottom bar · themes toggle in any mode</div>
+    </div>
   </div>
 </aside>
 

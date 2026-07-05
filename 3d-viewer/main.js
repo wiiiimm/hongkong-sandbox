@@ -3906,20 +3906,18 @@ creditsPop.addEventListener('click', e => e.stopPropagation());   // clicks insi
 document.addEventListener('click', () => setCredits(false));       // click anywhere else closes
 document.addEventListener('keydown', e => { if (e.key === 'Escape') setCredits(false); });
 
-// ---- weather-notices bulletin (HKS-80) --------------------------------------
-// The long HKO warning + forecast texts live in a pull-up glass sheet instead of
-// cluttering the weather box. Dismissal is session-only — never written to storage,
-// so a fresh load re-surfaces an active warning.
-const wxBulletin = document.getElementById('wxbulletin');
-const wbTab = document.getElementById('wb-tab');
-let bulletinDismissed = false;
-const bulletinOpen = () => wxBulletin.classList.contains('open');
-function setBulletin(open) {
-  if (open && typeof setHelp === 'function') setHelp(false);   // only one right-edge drawer open at a time
-  wxBulletin.classList.toggle('open', open);
-  wbTab.setAttribute('aria-expanded', open ? 'true' : 'false');
-  if (!open) bulletinDismissed = true;      // a manual close stops it auto-reopening this session
-}
+// ---- unified right-edge drawer: Weather notices + Help (HKS-86) -------------
+// Both share ONE sliding panel. Two tabs stack together on the edge (always
+// visible); the active tab is highlighted and clicking a tab swaps the panel's
+// content — no cross-fade, no per-drawer slide. Weather (HKO warnings + forecast)
+// never auto-opens; the amber tab + ⚠ chip flag a warning. Session-only, no storage.
+const sideDrawer = document.getElementById('sidedrawer');
+const sdTitleEl = document.getElementById('sd-title');
+const SD = {
+  wx:   { tab: document.getElementById('sd-tab-wx'),   body: document.getElementById('sd-wx'),   title: 'wb.title' },
+  help: { tab: document.getElementById('sd-tab-help'), body: document.getElementById('sd-help'), title: 'help.title' },
+};
+let sdActive = null;   // null | 'wx' | 'help'
 // fill a section with a bold label + one <div> per paragraph (textContent = no injection)
 function fillWbSection(elm, label, body) {
   elm.textContent = '';
@@ -3929,45 +3927,39 @@ function fillWbSection(elm, label, body) {
     const d = document.createElement('div'); d.textContent = para; elm.appendChild(d);
   });
 }
-wbTab.addEventListener('click', () => setBulletin(!bulletinOpen()));            // tap the tab to open / close
-document.getElementById('wb-close').addEventListener('click', () => setBulletin(false));
-document.getElementById('wx-warn').addEventListener('click', e => {
-  e.stopPropagation();                      // don't collapse the weather chip on mobile
-  if (document.getElementById('wx-warn').textContent.trim()) setBulletin(!bulletinOpen());
-});
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && bulletinOpen()) setBulletin(false); });
-
-// ---- adaptive Help / controls drawer (HKS-86) -------------------------------
-// All navigation help centralises here: a right-edge tab below the weather tab.
-// A general section (how to reach each mode) is always shown; a contextual
-// section follows the active mode. Refreshed from refreshDock() + on locale
-// switch. Reuses fillWbSection (bold label + one <div> per line, textContent).
-const helpDrawer = document.getElementById('helpdrawer');
-const hpTab = document.getElementById('hp-tab');
-const helpOpen = () => helpDrawer.classList.contains('open');
-function setHelp(open) {
-  if (open) setBulletin(false);   // only one right-edge drawer open at a time
-  helpDrawer.classList.toggle('open', open);
-  hpTab.setAttribute('aria-expanded', open ? 'true' : 'false');
-}
-// dock the Help tab directly beneath the weather tab, whose height is variable
-// and locale-dependent (long "Weather notices" vs short "天氣提示") — measure it
-function stackHelpTab() {
-  if (!wxBulletin || !wbTab) return;
-  helpDrawer.style.top = Math.round(wxBulletin.getBoundingClientRect().top + wbTab.offsetHeight + 8) + 'px';
-}
-function updateHelp() {
+function updateHelp() {   // adaptive help: general section always, contextual follows the mode
   const ctx = document.getElementById('hp-context'), gen = document.getElementById('hp-general');
   if (!ctx || !gen) return;
   const mode = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : 'orbit';
   fillWbSection(ctx, t('help.' + mode + '.t'), t('help.' + mode + '.b'));
   fillWbSection(gen, t('help.gen.t'), t('help.gen.b'));
 }
-hpTab.addEventListener('click', () => setHelp(!helpOpen()));
-document.getElementById('hp-close').addEventListener('click', () => setHelp(false));
-addEventListener('resize', stackHelpTab);
+function renderSide() {
+  const open = sdActive != null;
+  sideDrawer.classList.toggle('open', open);
+  for (const k in SD) {
+    const on = k === sdActive;
+    SD[k].tab.classList.toggle('on', on);
+    SD[k].tab.setAttribute('aria-selected', on ? 'true' : 'false');
+    SD[k].body.hidden = !on;
+  }
+  if (open) sdTitleEl.textContent = t(SD[sdActive].title);
+}
+function setSide(which) {   // which: 'wx' | 'help' | null — swap content, no slide
+  sdActive = which;
+  if (which === 'help') updateHelp();
+  renderSide();
+}
+SD.wx.tab.addEventListener('click',   () => setSide(sdActive === 'wx'   ? null : 'wx'));
+SD.help.tab.addEventListener('click', () => setSide(sdActive === 'help' ? null : 'help'));
+document.getElementById('sd-close').addEventListener('click', () => setSide(null));
+document.getElementById('wx-warn').addEventListener('click', e => {
+  e.stopPropagation();                      // don't collapse the weather chip on mobile
+  if (document.getElementById('wx-warn').textContent.trim()) setSide('wx');
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && sdActive) setSide(null); });
 updateHelp();
-requestAnimationFrame(() => { helpDrawer.classList.add('ready'); stackHelpTab(); });
+requestAnimationFrame(() => sideDrawer.classList.add('ready'));
 
 document.getElementById('fog').addEventListener('change', e => {
   weather.fog = e.target.checked; setFog();
@@ -4200,14 +4192,11 @@ async function syncLiveWeather() {
     const fcast = [fl.generalSituation, fl.forecastDesc, fl.outlook].filter(Boolean).join('\n');
     fillWbSection(el('wb-warn'), t('wb.warn'), warn);
     fillWbSection(el('wb-fcast'), t('wb.fcast'), fcast);
-    wxBulletin.classList.toggle('ready', !!(warn || fcast));   // reveal the pull-out tab once there's content
-    wxBulletin.classList.toggle('warn', !!warn);               // amber tab + ⚠ when a warning is in force
-    // keep the compact in-box chip too, as a secondary indicator that opens the drawer
+    // HKS-86: never auto-open — flag a warning by amber-ing the weather tab + the ⚠ chip
+    document.getElementById('sd-tab-wx').classList.toggle('warn', !!warn);
     const warnChip = el('wx-warn');
     warnChip.classList.toggle('warn', !!warn);
     warnChip.textContent = warn ? `⚠ ${t('wb.chip')}` : (fcast ? t('wb.chip') : '');
-    // HKS-86: never auto-open on launch — the amber tab + ⚠ chip flag a warning; the user opens the drawer when they choose
-    if (typeof stackHelpTab === 'function') requestAnimationFrame(stackHelpTab);   // ⚠ changes the weather tab height — re-dock the Help tab below it
     const rainy = [53,54,62,63,64,65].includes(code) || rainMax > 0;
     chk('rain', rainy);
     // real past-hour cloud-to-ground lightning count (data.gov.hk LHL), region-aware
@@ -4876,8 +4865,8 @@ function applyLocale(loc) {
   const btn = document.getElementById('livebtn'); if (btn) btn.textContent = liveMode ? t('live.on') : t('live.sync');
   updateViewBtn();   // chase/cockpit label follows the locale
   updateWalkViewBtn();
-  if (typeof updateHelp === 'function') updateHelp();   // Help drawer section bodies follow the locale (HKS-86)
-  if (typeof stackHelpTab === 'function') requestAnimationFrame(stackHelpTab);   // weather tab height changes with locale — re-dock the Help tab
+  if (typeof updateHelp === 'function') updateHelp();     // Help section bodies follow the locale (HKS-86)
+  if (typeof renderSide === 'function') renderSide();     // drawer title + tab state follow the locale
   refreshGpsBtn();   // GPS button label/icon follows the locale + state (HKS-86)
   if (stargaze.on) syncSgTray();   // stargaze tray hint/pills follow too
   if (liveMode) { syncLiveWeather(); syncLiveTide(); }
