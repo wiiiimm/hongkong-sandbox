@@ -113,6 +113,7 @@ const I18N = {
     // HKS-86: the bottom mode dock + contextual tray
     'dock.orbit': 'Orbit', 'dock.fly': 'Fly', 'dock.walk': 'Walk', 'dock.star': 'Stargaze',
     'dock.matrix': 'Matrix', 'dock.neon': '風林火山', 'dock.settings': 'Settings',
+    'coach.text': 'New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.', 'coach.ok': 'Got it',
     'tray.end': 'End', 'grp.move': 'Fly & walk',
     'sg.live': '● Live sky', 'sg.custom': '🕐 Custom',
     'sg.orient': '🧭 Point at the sky', 'sg.follow': '📍 Follow me',
@@ -197,6 +198,7 @@ const I18N = {
     // HKS-86: the bottom mode dock + contextual tray
     'dock.orbit': '環繞', 'dock.fly': '飛行', 'dock.walk': '步行', 'dock.star': '觀星',
     'dock.matrix': 'Matrix', 'dock.neon': '風林火山', 'dock.settings': '設定',
+    'coach.text': '第一次來？點一下 <b>⚙</b> 設定畫面 — 地表、天氣、天空等。', 'coach.ok': '知道了',
     'tray.end': '結束', 'grp.move': '飛行與步行',
     'sg.live': '● 即時星空', 'sg.custom': '🕐 自訂',
     'sg.orient': '🧭 指向天空', 'sg.follow': '📍 跟隨我',
@@ -4985,4 +4987,46 @@ if ('serviceWorker' in navigator) {
     });
   }
   addEventListener('appinstalled', dismiss);               // installed → stop nudging
+})();
+
+// ---- first-visit coach-mark (HKS-86): a blue halo on the dock ⚙ nudging new
+// visitors to open the settings. Shown once; the dismissal is stored on
+// production only (previews always re-show for testing), like the install nudge.
+(() => {
+  const gear = document.getElementById('dockgear'), tip = document.getElementById('coachtip');
+  if (!gear || !tip) return;
+  if (startParams.get('embed') === '1') return;            // no chrome nudges inside embeds
+  const KEY = 'hks-coach-dismissed';
+  const isProd = location.hostname === 'hongkong-sandbox.wiiiimm.codes';
+  if (isProd) { try { if (localStorage.getItem(KEY)) return; } catch (_) {} }
+  const arrow = tip.querySelector('.ct-arrow');
+  let shown = false;
+  const place = () => {                                     // park the bubble above the ⚙, arrow pointing at it
+    const g = gear.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+    const left = Math.max(10, Math.min(g.left + g.width / 2 - tw / 2, innerWidth - tw - 10));
+    tip.style.left = left + 'px';
+    tip.style.top = (g.top - th - 12) + 'px';
+    arrow.style.left = (g.left + g.width / 2 - left - 6) + 'px';
+  };
+  const dismiss = () => {
+    if (!shown) return;
+    shown = false;
+    gear.classList.remove('coach');
+    tip.classList.remove('show');
+    setTimeout(() => { tip.style.display = 'none'; }, 220);
+    removeEventListener('resize', place);
+    if (isProd) { try { localStorage.setItem(KEY, '1'); } catch (_) {} }   // remember the dismissal (prod only)
+  };
+  const show = () => {
+    if (shown || !panelEl.classList.contains('collapsed')) return;   // panel already open → they found it
+    shown = true;
+    gear.classList.add('coach');
+    tip.style.display = 'block';
+    place();
+    requestAnimationFrame(() => tip.classList.add('show'));
+    addEventListener('resize', place);
+  };
+  document.getElementById('coach-ok').addEventListener('click', dismiss);
+  gear.addEventListener('click', dismiss);                 // tapped the ⚙ (which opens the panel) → done
+  setTimeout(show, 2200);                                  // after the scene settles in
 })();

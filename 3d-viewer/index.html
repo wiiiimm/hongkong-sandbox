@@ -334,7 +334,7 @@
   body.glass #radarhud .rf-tab{fill:rgba(10,13,18,.52)}
   body.glass.ui-light #radarhud .rf-tab{fill:rgba(252,250,246,.5)}
   #radarhud .rf-tab:hover{fill:rgba(255,255,255,.12)}
-  #radarhud .rf-tab.on{fill:var(--accent)}
+  #radarhud .rf-tab.on{fill:#f2f5f8;stroke:var(--accent);stroke-width:1.1}   /* selected: white fill so the dark label is always legible, accent outline keeps it themed */
   #radarhud .rf-tab:focus-visible{stroke:var(--accent);stroke-width:1.6;outline:none}
   #radarhud .rf-size:focus-visible circle{stroke:var(--accent);stroke-width:1.6;outline:none}
   #radarhud .rf-lab{fill:var(--sub);font-family:var(--mono);font-size:8.5px;letter-spacing:.02em;
@@ -656,6 +656,25 @@
     #dock .dockbtn{padding:10px 7px;font-size:15px}
     #dock #dockgear{width:34px;height:34px;padding:0;font-size:16px}
   }
+  /* HKS-86: first-visit coach-mark — a blue halo on the dock ⚙ + a nudge bubble.
+     Dismissal is stored (prod only) like the install nudge, so it shows once. */
+  @keyframes coachpulse{0%{box-shadow:0 0 0 0 rgba(66,133,244,.5)}
+    70%{box-shadow:0 0 0 11px rgba(66,133,244,0)}100%{box-shadow:0 0 0 0 rgba(66,133,244,0)}}
+  #dockgear.coach{border-color:#4285f4;color:#7fb0ff;animation:coachpulse 1.8s ease-out infinite}
+  @media (prefers-reduced-motion:reduce){#dockgear.coach{animation:none;box-shadow:0 0 0 3px rgba(66,133,244,.5)}}
+  #coachtip{position:fixed;z-index:60;display:none;max-width:236px;box-sizing:border-box;
+    background:rgba(18,24,32,.96);color:#eef2f6;border:1px solid rgba(66,133,244,.55);border-radius:12px;
+    padding:11px 13px;font-size:12.5px;line-height:1.5;font-family:var(--sans);
+    box-shadow:0 12px 34px rgba(0,0,0,.5), 0 0 0 4px rgba(66,133,244,.12)}
+  #coachtip.show{display:block;animation:coachin .28s ease}
+  @keyframes coachin{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  #coachtip .ct-msg b{color:#8ab4f8;font-weight:600}
+  #coachtip .ct-go{display:flex;justify-content:flex-end;margin-top:9px}
+  #coachtip .ct-go button{background:#4285f4;color:#fff;border:none;border-radius:8px;
+    padding:5px 13px;font-size:11.5px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+  #coachtip .ct-go button:hover{background:#3670d6}
+  #coachtip .ct-arrow{position:absolute;bottom:-6px;width:12px;height:12px;background:rgba(18,24,32,.96);
+    border-right:1px solid rgba(66,133,244,.55);border-bottom:1px solid rgba(66,133,244,.55);transform:rotate(45deg)}
 </style>
 </head>
 <body>
@@ -1022,6 +1041,12 @@
   <p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM &amp; B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>
   <p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>
   © 2026 wiiiimm
+</div>
+<!-- HKS-86: first-visit coach-mark bubble (positioned over the dock ⚙ by JS) -->
+<div id="coachtip" role="dialog" aria-live="polite">
+  <div class="ct-msg" data-i18n-html="coach.text">New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.</div>
+  <div class="ct-go"><button id="coach-ok" data-i18n="coach.ok">Got it</button></div>
+  <span class="ct-arrow" aria-hidden="true"></span>
 </div>
 <script type="module" src="./main.js"></script>
 <!-- HKS-51: Vercel Web Analytics — script-tag form for a build-free static site
