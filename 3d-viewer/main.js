@@ -2558,7 +2558,7 @@ document.getElementById('walkbtn').addEventListener('click', () => walk.on ? exi
 const locateBtn = document.getElementById('locatebtn');
 const locatePop = document.getElementById('locatepop');
 const geoToastEl = document.getElementById('geotoast');
-const geo = { el: null, ring: null, cone: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null, compass: false };
+const geo = { el: null, ring: null, cone: null, arrow: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null, compass: false };
 let geoToastT = null, geoEaseRAF = null, geoHeading = null, geoOrient = false;
 // device compass → true-north heading (deg). iOS needs a permission gesture (the
 // locate tap); Android/absolute uses alpha; both compensated for screen rotation.
@@ -2588,19 +2588,30 @@ function geoErr(e) { locateBtn.classList.remove('locating'); geoToast(t(e && e.c
 function ensureGeoMarker() {
   if (geo.el) return;
   const el = document.createElement('div'); el.className = 'geoloc'; el.style.display = 'none';
-  el.innerHTML = `<span class="gl-stem"></span><span class="gl-dot"></span><span class="gl-lbl" data-i18n="loc.you">${t('loc.you')}</span>`;
+  el.innerHTML = `<span class="gl-dot"></span><span class="gl-lbl" data-i18n="loc.you">${t('loc.you')}</span>`;
   document.body.appendChild(el); geo.el = el;
   const rg = new THREE.RingGeometry(0.86, 1, 48); rg.rotateX(-Math.PI / 2);
   const dg = new THREE.CircleGeometry(1, 48); dg.rotateX(-Math.PI / 2);
   const mk = op => new THREE.MeshBasicMaterial({ color: 0x35cba0, transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide });
   const grp = new THREE.Group(); grp.add(new THREE.Mesh(dg, mk(0.08)), new THREE.Mesh(rg, mk(0.42)));
   grp.visible = false; world.add(grp); geo.ring = grp;
-  // POV cone (HKS-83): a ground fan pointing where the phone faces (device compass).
-  // Built pointing local north (−Z); rotated by −heading so it tracks the bearing.
+  // POV beam + heading chevron (HKS-83) — emanate from the dot toward the phone's
+  // heading. Sized by camera distance each frame (constant on screen, like a map
+  // pointer) and depthTest:false so they always draw on top of the terrain.
+  const povMat = op => new THREE.MeshBasicMaterial({ color: 0x35cba0, transparent: true, opacity: op, depthWrite: false, depthTest: false, side: THREE.DoubleSide });
   const half = 0.33;                                        // ~38° total spread
   const cg = new THREE.CircleGeometry(1, 20, Math.PI / 2 - half, 2 * half); cg.rotateX(-Math.PI / 2);
-  const cone = new THREE.Mesh(cg, mk(0.24)); const cgrp = new THREE.Group(); cgrp.add(cone);
-  cgrp.visible = false; world.add(cgrp); geo.cone = cgrp;
+  const cone = new THREE.Mesh(cg, povMat(0.3)); cone.renderOrder = 6;
+  const cgrp = new THREE.Group(); cgrp.add(cone); cgrp.visible = false; world.add(cgrp); geo.cone = cgrp;
+  // solid notched arrowhead chevron centred on the dot
+  const sh = new THREE.Shape(); sh.moveTo(0, 1.1); sh.lineTo(-0.62, -0.6); sh.lineTo(0, -0.18); sh.lineTo(0.62, -0.6); sh.closePath();
+  const ag = new THREE.ShapeGeometry(sh); ag.rotateX(-Math.PI / 2);
+  const arrow = new THREE.Mesh(ag, povMat(0.95)); arrow.renderOrder = 7;
+  const pts = [[0, 1.1], [-0.62, -0.6], [0, -0.18], [0.62, -0.6]].map(([px, py]) => new THREE.Vector3(px, 0, -py));
+  const abord = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts),
+    new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, depthTest: false, depthWrite: false }));
+  abord.renderOrder = 8;
+  const agrp = new THREE.Group(); agrp.add(arrow, abord); agrp.visible = false; world.add(agrp); geo.arrow = agrp;
 }
 function markerWorld() {
   const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
@@ -2711,17 +2722,20 @@ function updateCompassView() {                            // per-frame camera dr
   controls.target.lerp(m, 0.12); controls.update();
 }
 function updateGeoMarker() {                              // called from animate(), like updateAqhi()
-  const hide = () => { if (geo.el) geo.el.style.display = 'none'; if (geo.ring) geo.ring.visible = false; if (geo.cone) geo.cone.visible = false; };
+  const hide = () => { if (geo.el) geo.el.style.display = 'none'; if (geo.ring) geo.ring.visible = false; if (geo.cone) geo.cone.visible = false; if (geo.arrow) geo.arrow.visible = false; };
   if (!geo.has || !geo.el || !curG) { hide(); return; }
   const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
   if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { hide(); return; }
   const lx = (col - W / 2) * cell, gy = sampleE(col, row) * VE, lz = (row - H / 2) * cell;
   geo.ring.visible = true; geo.ring.position.set(lx, gy + 0.4, lz); geo.ring.scale.set(geo.acc, 1, geo.acc);
-  if (geoHeading != null) {                               // POV cone tracks the phone's compass bearing
-    const cs = Math.max(28, geo.acc);
-    geo.cone.visible = true; geo.cone.position.set(lx, gy + 0.5, lz);
-    geo.cone.scale.set(cs, 1, cs); geo.cone.rotation.y = -geoHeading * Math.PI / 180;
-  } else geo.cone.visible = false;
+  if (geoHeading != null) {                               // beam + chevron track the phone's compass bearing
+    const rot = -geoHeading * Math.PI / 180;
+    const camD = camera.position.distanceTo(markerWorld());   // scale so both stay a constant on-screen size
+    geo.cone.visible = true; geo.cone.position.set(lx, gy + 1, lz);
+    geo.cone.scale.set(camD * 0.12, 1, camD * 0.12); geo.cone.rotation.y = rot;
+    geo.arrow.visible = true; geo.arrow.position.set(lx, gy + 2, lz);
+    geo.arrow.scale.set(camD * 0.05, 1, camD * 0.05); geo.arrow.rotation.y = rot;
+  } else { geo.cone.visible = false; geo.arrow.visible = false; }
   v.set(lx, gy + 2, lz); world.localToWorld(v); v.project(camera);
   if (v.z > 1 || occludedLocal(lx, gy + 2, lz)) { geo.el.style.display = 'none'; return; }
   geo.el.style.display = '';
