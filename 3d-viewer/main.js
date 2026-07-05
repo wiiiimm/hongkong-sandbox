@@ -91,6 +91,8 @@ const I18N = {
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
+    'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
+    'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
@@ -154,6 +156,8 @@ const I18N = {
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
+    'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
+    'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
@@ -2504,6 +2508,10 @@ function updateCompass() {
     heading = Math.atan2(fx, -fz) + world.rotation.y;
   }
   const deg = ((heading / D2R) % 360 + 360) % 360;
+  if (radarRunning && radarImg) {   // accumulate the shortest step so it never reverses across the 0/360 seam (HKS-74/79)
+    radarRot += ((-deg - radarRot + 180) % 360 + 360) % 360 - 180;
+    radarImg.style.transform = `rotate(${radarRot}deg)`;
+  }
   const w = compassCv.clientWidth, h = compassCv.clientHeight;
   const dpr = Math.min(devicePixelRatio || 1, 2);
   if (compassCv.width !== Math.round(w * dpr)) { compassCv.width = Math.round(w * dpr); compassCv.height = Math.round(h * dpr); }
@@ -2592,6 +2600,150 @@ async function snapshot() {
   btn.classList.add('on'); setTimeout(() => btn.classList.remove('on'), 400);
 }
 document.getElementById('snapbtn').addEventListener('click', snapshot);
+
+// ---- HKO radar + satellite loop (HKS-74 / HKS-79) ---------------------------
+// Animated HKO imagery, embedded straight from hko.gov.hk (the images hotlink
+// fine; CORS is irrelevant for <img>). Two views share the circular frame:
+//   • radar    — rainfall, HK-centred, 64/128/256 km, HKT 6-min cadence; rotates
+//                with the compass so it aligns with the 3D scene.
+//   • satellite— Himawari IR, wide (x2M) / local (x8M), UTC 10-min cadence. Lets
+//                you see a typhoon while it's still out at sea, beyond radar range.
+// Both views rotate with the compass so they align with the 3D scene.
+// Frame timestamps are computed client-side (rounded to the cadence, backed off
+// one frame for publish lag) so we never need the CORS-less frame-list JSON. A
+// frame that 404s (not published yet) is skipped. © Hong Kong Observatory.
+let radarImg = document.getElementById('radar-img');
+let wxMode = 'radar';                                  // 'radar' | 'sat'
+let radarRange = '064', satZoom = 'x2M';               // radar: 064|128|256 · sat: x2M(wide)|x8M(local)
+let radarPlaying = true, radarRunning = false, radarReveal = false;
+let radarRot = 0;   // continuous (unwrapped) rotation so the dial never spins the long way across the 0/360 seam
+let radarBig = false;   // size toggle (default ↔ enlarged)
+let radarFrames = [], radarIdx = 0, radarAnimT = null, radarRefreshT = null;
+const radarTimeEl = document.getElementById('radar-time');
+const p2 = n => String(n).padStart(2, '0');
+// stamps YYYYMMDDHHMM[SS] for a cadence in minutes; `utc` false = shift to HKT fields
+function wxStamps(n, stepMin, utc, secs) {
+  const t = new Date(Date.now() + (utc ? 0 : 8 * 3.6e6));
+  t.setUTCSeconds(0, 0);
+  t.setUTCMinutes(t.getUTCMinutes() - (t.getUTCMinutes() % stepMin) - stepMin);   // newest published mark
+  const out = [];
+  for (let i = n - 1; i >= 0; i--) {
+    const d = new Date(t.getTime() - i * stepMin * 60000);
+    out.push(`${d.getUTCFullYear()}${p2(d.getUTCMonth()+1)}${p2(d.getUTCDate())}${p2(d.getUTCHours())}${p2(d.getUTCMinutes())}${secs ? '00' : ''}`);
+  }
+  return out;                                          // oldest → newest
+}
+const radarUrl = ts => `https://www.hko.gov.hk/wxinfo/radars/rad_${radarRange}_png/2d${radarRange}nradar_${ts}.jpg`;
+const satUrl   = ts => `https://www.hko.gov.hk/wxinfo/intersat/satellite/image/images/h8_ir_${satZoom}_${ts}.jpg`;
+const isSat = () => wxMode === 'sat';
+function frameStamps() { return isSat() ? wxStamps(10, 10, true, true) : wxStamps(12, 6, false, false); }
+function frameUrl(ts)  { return isSat() ? satUrl(ts) : radarUrl(ts); }
+// satellite stamps are UTC → show HKT HH:MM; radar stamps are already HKT
+function stampLabel(ts) {
+  if (!isSat()) return `${ts.slice(8,10)}:${ts.slice(10,12)}`;
+  const d = new Date(Date.UTC(+ts.slice(0,4), +ts.slice(4,6)-1, +ts.slice(6,8), +ts.slice(8,10), +ts.slice(10,12)));
+  d.setUTCHours(d.getUTCHours() + 8);
+  return `${p2(d.getUTCHours())}:${p2(d.getUTCMinutes())}`;
+}
+function loadFrames() {
+  radarFrames = frameStamps().map(ts => { const im = new Image(); im.src = frameUrl(ts); im.dataset.ts = ts; return im; });
+  radarIdx = 0;
+}
+function radarTick() {
+  if (!radarFrames.length) return;
+  for (let k = 0; k < radarFrames.length; k++) {       // advance to the next frame that actually loaded
+    radarIdx = (radarIdx + 1) % radarFrames.length;
+    const im = radarFrames[radarIdx];
+    if (im.complete && im.naturalWidth > 0) {
+      radarImg.src = im.src;
+      radarTimeEl.textContent = stampLabel(im.dataset.ts);   // HKT HH:MM
+      if (radarReveal) { radarReveal = false; radarImg.style.opacity = '1'; }   // fade the first frame of a switch/reload in
+      return;
+    }
+  }
+}
+// The HUD floats bottom-right and runs with live weather (started/stopped by
+// setLiveMode) rather than a standalone overlay toggle.
+const radarHudEl = document.getElementById('radarhud');
+function startRadar() {
+  radarRunning = true;
+  radarHudEl.classList.add('show');
+  if (radarImg) radarImg.style.opacity = '0';   // fade the current view out; the first fresh frame fades back in
+  radarReveal = true;
+  loadFrames();
+  radarTick();                                  // try to reveal a cached frame immediately, else the interval catches it
+  clearInterval(radarAnimT); radarAnimT = setInterval(() => { if (radarPlaying) radarTick(); }, 220);
+  clearInterval(radarRefreshT); radarRefreshT = setInterval(loadFrames, (isSat() ? 10 : 6) * 60000);
+}
+function stopRadar() {
+  radarRunning = false;
+  radarHudEl.classList.remove('show');
+  clearInterval(radarAnimT); clearInterval(radarRefreshT);
+}
+
+// ---- curved SVG tabs around the dial -----------------------------------------
+// viewBox 176×176; tab bands are annular sectors between ri and ro, labels ride a
+// mid-band arc. Top band = mode (radar/sat), bottom band = range/zoom.
+const RF = { cx: 88, cy: 88, ri: 60, ro: 84, rt: 73 };
+const rfPolar = (r, deg) => { const a = (deg - 90) * Math.PI / 180; return [RF.cx + r * Math.cos(a), RF.cy + r * Math.sin(a)]; };
+const rfPt = (r, d) => rfPolar(r, d).map(n => n.toFixed(2)).join(' ');
+function rfSector(a0, a1) {                      // filled annular sector, clockwise a0→a1
+  const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
+  return `M${rfPt(RF.ro, a0)} A${RF.ro} ${RF.ro} 0 ${large} 1 ${rfPt(RF.ro, a1)} L${rfPt(RF.ri, a1)} A${RF.ri} ${RF.ri} 0 ${large} 0 ${rfPt(RF.ri, a0)} Z`;
+}
+function rfLabelSvg(ac, text, on, top) {         // straight label at the sector centre, rotated tangentially
+  const [x, y] = rfPolar(RF.rt, ac);
+  const rot = top ? ac : ac - 180;               // bottom labels flip so they stay upright
+  return `<text class="rf-lab${on ? ' on' : ''}" x="${x.toFixed(2)}" y="${y.toFixed(2)}" transform="rotate(${rot.toFixed(1)} ${x.toFixed(2)} ${y.toFixed(2)})">${text}</text>`;
+}
+// build the tab dial; state- and locale-dependent, so applyLocale/applyState call it too
+function renderWxviewControls() {
+  const svg = document.getElementById('rf-tabs');
+  if (!svg) return;
+  const modes = [
+    { a0: -78, a1: -3, ac: -40.5, key: 'radar', lab: t('radar.title'), on: !isSat() },
+    { a0: 3,   a1: 78, ac: 40.5,  key: 'sat',   lab: t('sat.title'),   on: isSat() },
+  ];
+  const opts = isSat() ? [['x2M', t('sat.wide')], ['x8M', t('sat.local')]]
+                       : [['064', '64km'], ['128', '128km'], ['256', '256km']];
+  const cur = isSat() ? satZoom : radarRange;
+  const bStart = 102, bEnd = 258, gap = 4, n = opts.length, w = (bEnd - bStart - gap * (n - 1)) / n;
+  const ranges = opts.map(([v, l], i) => { const a0 = bStart + i * (w + gap), a1 = a0 + w; return { a0, a1, ac: (a0 + a1) / 2, key: v, lab: l, on: v === cur }; });
+  const tab = (d, grp) => `<path class="rf-tab${d.on ? ' on' : ''}" data-grp="${grp}" data-key="${d.key}" ` +
+    `role="button" tabindex="0" aria-pressed="${d.on}" aria-label="${d.lab}" d="${rfSector(d.a0, d.a1)}"/>`;
+  // size toggle: a round button in the empty left-side gap (270°)
+  const [sx, sy] = rfPolar(RF.rt, 270);
+  const sizeBtn = `<g class="rf-size" data-size="1" role="button" tabindex="0" ` +
+    `aria-label="${radarBig ? t('rf.smaller') : t('rf.bigger')}"><circle cx="${sx.toFixed(2)}" cy="${sy.toFixed(2)}" r="11"/>` +
+    `<text class="rf-glyph" x="${sx.toFixed(2)}" y="${sy.toFixed(2)}">${radarBig ? '−' : '+'}</text></g>`;
+  svg.innerHTML =
+    modes.map(m => tab(m, 'mode')).join('') + ranges.map(r => tab(r, 'range')).join('') + sizeBtn +
+    modes.map(m => rfLabelSvg(m.ac, m.lab, m.on, true)).join('') + ranges.map(r => rfLabelSvg(r.ac, r.lab, r.on, false)).join('');
+  // radar carries an HKO legend strip on the right → crop to the left square; satellite is a full map → centre it.
+  if (radarImg) radarImg.style.objectPosition = isSat() ? '50% 50%' : 'left center';
+}
+function setWxMode(m) {
+  if (wxMode === m) return;
+  wxMode = m;
+  renderWxviewControls();
+  if (radarRunning) startRadar();
+}
+function activateRfTab(target) {
+  if (target.closest('[data-size]')) {   // size toggle — no reload, not persisted
+    radarBig = !radarBig; radarHudEl.classList.toggle('big', radarBig); renderWxviewControls(); return;
+  }
+  const p = target.closest('path[data-grp]'); if (!p) return;
+  if (p.dataset.grp === 'mode') setWxMode(p.dataset.key);
+  else { if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key; renderWxviewControls(); if (radarRunning) startRadar(); }
+  syncUrl();   // write the new mode/range into the address bar (the dial lives outside #panel)
+}
+const rfTabsEl = document.getElementById('rf-tabs');
+rfTabsEl.addEventListener('click', e => activateRfTab(e.target));
+rfTabsEl.addEventListener('keydown', e => {   // keyboard access for the SVG tabs (a11y)
+  if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+  if (!e.target.closest('[data-grp],[data-size]')) return;
+  e.preventDefault(); activateRfTab(e.target);
+});
 
 // ---- camera framing + presets ---------------------------------------------
 function bounds() {
@@ -3048,7 +3200,9 @@ function setLiveMode(on) {
     tickHKClock(); wxClockT = setInterval(tickHKClock, 1000);
     syncLiveWeather(); syncLiveTide();
     wxRefreshT = setInterval(() => { syncLiveWeather(); syncLiveTide(); }, 300000);
+    startRadar();                                         // radar rides with the live weather box (HKS-74)
   } else {
+    stopRadar();
     // keep whatever live sync produced: adopt the last live tide level as the manual value
     tideManual = tideLevel; tideSeries = null;
     document.getElementById('tide').value = Math.round(tideManual * 100);
@@ -3484,6 +3638,9 @@ function serializeState() {
   p.set('ws', stationsOn ? '1' : '0');
   p.set('wm', document.getElementById('stationswind').checked ? '1' : '0');
   p.set('aq', aqhiOn ? '1' : '0');
+  p.set('rdr', radarRange === '256' ? '2' : radarRange === '128' ? '1' : '0');   // radar range 0/1/2 = 64/128/256 (HKS-74)
+  if (wxMode === 'sat') p.set('wxv', 's');          // weather-imagery view: radar (default) | satellite (HKS-79)
+  if (satZoom === 'x8M') p.set('sz', '1');          // satellite zoom: wide (default) | local
   if (!pathRouted()) p.set('locale', locale);   // in path mode the locale lives in the URL path instead
   const r = n => Math.round(n);
   p.set('cam', [r(camera.position.x), r(camera.position.y), r(camera.position.z),
@@ -3548,6 +3705,11 @@ function applyState(p) {
   if (p.has('wm')) setChk('stationswind', p.get('wm') === '1');   // before stations so the filter is set when they load
   if (p.has('ws')) setChk('stations', p.get('ws') === '1');
   if (p.has('aq')) setChk('aqhi', p.get('aq') === '1');
+  if (p.has('rdr')) radarRange = p.get('rdr') === '2' ? '256' : p.get('rdr') === '1' ? '128' : '064';   // radar range (HKS-74)
+  if (p.get('sz') === '1') satZoom = 'x8M';                      // satellite zoom (HKS-79)
+  if (p.get('wxv') === 's') wxMode = 'sat';                      // satellite view
+  renderWxviewControls();
+  if (radarRunning) startRadar();                                // live weather may have started it already
   if (p.has('cam')) {
     const c = p.get('cam').split(',').map(Number);
     if (c.length >= 6 && c.every(isFinite)) {
@@ -3651,6 +3813,7 @@ function applyLocale(loc) {
   for (const el of document.querySelectorAll('[data-i18n-html]'))  el.innerHTML = t(el.getAttribute('data-i18n-html'));
   try { localStorage.setItem('locale', locale); } catch (_) {}
   const lb = document.getElementById('langbtn'); if (lb) lb.textContent = isZh() ? 'EN' : '中';
+  renderWxviewControls();   // radar/satellite labels are set in JS, refresh them for the new locale
   const md = document.getElementById('meshdensv'); if (md) md.textContent = meshStep === 1 ? t('dens.full') : '÷' + meshStep;
   if (gridW) updateNote();
   updateStormBadge(); applyControlLocks();
