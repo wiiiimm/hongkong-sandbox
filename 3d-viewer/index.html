@@ -288,6 +288,14 @@
   #radarhud .rf-lab.on{fill:#0a0d12;font-weight:600}
   #radarhud .rf-time{position:absolute;left:0;right:0;bottom:39%;text-align:center;pointer-events:none;
     font-family:var(--mono);font-size:8.5px;color:var(--sub);text-shadow:0 1px 3px rgba(0,0,0,.9)}
+  /* size toggle — a round button in the empty left-side gap; tap to enlarge, tap to restore */
+  #radarhud.big{width:252px;height:252px}
+  #radarhud .rf-size circle{fill:rgba(14,18,24,.66);stroke:var(--edge);stroke-width:.6;cursor:pointer;transition:fill .12s}
+  body.glass #radarhud .rf-size circle{fill:rgba(10,13,18,.52)}
+  body.glass.ui-light #radarhud .rf-size circle{fill:rgba(252,250,246,.5)}
+  #radarhud .rf-size:hover circle{fill:rgba(255,255,255,.12)}
+  #radarhud .rf-glyph{fill:var(--sub);font-family:var(--mono);font-size:14px;font-weight:600;
+    text-anchor:middle;dominant-baseline:central;pointer-events:none}
   .locknote{display:none;font-size:10px;color:var(--sub);font-family:var(--mono);margin:2px 0 5px;letter-spacing:.04em}
   #stormbadge{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:25;display:none;
     padding:9px 18px;border-radius:11px;font-weight:700;letter-spacing:.05em;font-size:13px;
@@ -438,6 +446,7 @@
        grow tall enough to sit over the controls behind it */
     /* compact circular HUD on phones; sits above the camera button (bottom-right) */
     #radarhud{width:128px;height:128px;bottom:calc(76px + env(safe-area-inset-bottom))}
+    #radarhud.big{width:min(210px,calc(100vw - 24px));height:min(210px,calc(100vw - 24px))}
     #radarhud .rf-lab{font-size:9px}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
       font-family:var(--mono);margin-top:3px}

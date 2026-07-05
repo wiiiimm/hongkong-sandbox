@@ -2603,6 +2603,7 @@ let wxMode = 'radar';                                  // 'radar' | 'sat'
 let radarRange = '064', satZoom = 'x2M';               // radar: 064|128|256 · sat: x2M(wide)|x8M(local)
 let radarPlaying = true, radarRunning = false, radarReveal = false;
 let radarRot = 0;   // continuous (unwrapped) rotation so the dial never spins the long way across the 0/360 seam
+let radarBig = false;   // size toggle (default ↔ enlarged)
 let radarFrames = [], radarIdx = 0, radarAnimT = null, radarRefreshT = null;
 const radarTimeEl = document.getElementById('radar-time');
 const p2 = n => String(n).padStart(2, '0');
@@ -2695,8 +2696,12 @@ function renderWxviewControls() {
   const bStart = 102, bEnd = 258, gap = 4, n = opts.length, w = (bEnd - bStart - gap * (n - 1)) / n;
   const ranges = opts.map(([v, l], i) => { const a0 = bStart + i * (w + gap), a1 = a0 + w; return { a0, a1, ac: (a0 + a1) / 2, key: v, lab: l, on: v === cur }; });
   const tab = (d, grp) => `<path class="rf-tab${d.on ? ' on' : ''}" data-grp="${grp}" data-key="${d.key}" d="${rfSector(d.a0, d.a1)}"/>`;
+  // size toggle: a round button in the empty left-side gap (270°); ⤢ enlarge / ⤡ restore
+  const [sx, sy] = rfPolar(RF.rt, 270);
+  const sizeBtn = `<g class="rf-size" data-size="1"><circle cx="${sx.toFixed(2)}" cy="${sy.toFixed(2)}" r="11"/>` +
+    `<text class="rf-glyph" x="${sx.toFixed(2)}" y="${sy.toFixed(2)}">${radarBig ? '−' : '+'}</text></g>`;
   svg.innerHTML =
-    modes.map(m => tab(m, 'mode')).join('') + ranges.map(r => tab(r, 'range')).join('') +
+    modes.map(m => tab(m, 'mode')).join('') + ranges.map(r => tab(r, 'range')).join('') + sizeBtn +
     modes.map(m => rfLabelSvg(m.ac, m.lab, m.on, true)).join('') + ranges.map(r => rfLabelSvg(r.ac, r.lab, r.on, false)).join('');
   // radar carries an HKO legend strip on the right → crop to the left square; satellite is a full map → centre it.
   if (radarImg) radarImg.style.objectPosition = isSat() ? '50% 50%' : 'left center';
@@ -2708,6 +2713,9 @@ function setWxMode(m) {
   if (radarRunning) startRadar();
 }
 document.getElementById('rf-tabs').addEventListener('click', e => {
+  if (e.target.closest('[data-size]')) {   // size toggle — no reload needed
+    radarBig = !radarBig; radarHudEl.classList.toggle('big', radarBig); renderWxviewControls(); return;
+  }
   const p = e.target.closest('path[data-grp]'); if (!p) return;
   if (p.dataset.grp === 'mode') { setWxMode(p.dataset.key); return; }
   if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key;
