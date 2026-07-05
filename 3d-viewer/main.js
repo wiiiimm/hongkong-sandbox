@@ -116,7 +116,7 @@ const I18N = {
     'coach.text': 'New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.', 'coach.ok': 'Got it',
     'tray.end': 'End', 'grp.move': 'Fly & walk',
     'sg.live': '● Live sky', 'sg.custom': '🕐 Custom',
-    'sg.orient': '🧭 Point at the sky',
+    'sg.orient': '🤳 Point at the sky',
     'sg.hint': 'drag to look · tap a constellation',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
     'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
@@ -126,7 +126,7 @@ const I18N = {
     'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
     'help.fly.t': 'Flying', 'help.fly.b': 'Hold to accelerate — Space, or press & hold\nTake off: when landed, hold the gas to roll down the runway & lift off (or tap “Take off”)\nDrag to look around\nPress C for chase / cockpit\nLand anywhere — even water',
     'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump\nShift or a two‑finger hold to run\nDrag to look around\nPress C for first‑person / chase',
-    'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🧭 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
+    'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🤳 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
     'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'loc.find': 'Find my location', 'loc.locating': 'Locating…', 'loc.you': 'You', 'loc.relocate': 'Re-locate',
@@ -201,7 +201,7 @@ const I18N = {
     'coach.text': '第一次來？點一下 <b>⚙</b> 設定畫面 — 地表、天氣、天空等。', 'coach.ok': '知道了',
     'tray.end': '結束', 'grp.move': '飛行與步行',
     'sg.live': '● 即時星空', 'sg.custom': '🕐 自訂',
-    'sg.orient': '🧭 指向天空',
+    'sg.orient': '🤳 指向天空',
     'sg.hint': '拖曳環視 · 點選星座',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
     'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
@@ -211,7 +211,7 @@ const I18N = {
     'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
     'help.fly.t': '飛行', 'help.fly.b': '按住加速 — 空白鍵，或長按畫面\n起飛：著陸時按住油門沿跑道滑行升空（或點「起飛」）\n拖曳環顧四周\n按 C 切換追尾 / 座艙視角\n可降落任何地方（連水面）',
     'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍\nShift 或雙指按住奔跑\n拖曳環顧四周\n按 C 切換第一人稱 / 追尾',
-    'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🧭 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
+    'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🤳 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
     'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'loc.find': '定位', 'loc.locating': '定位中…', 'loc.you': '你', 'loc.relocate': '重新定位',
@@ -3362,7 +3362,7 @@ if (FLY_DEBUG) window.__setNeon = setNeon;
 // on the terrain — look-only for the eyes, but the vantage can pan across the
 // surface (right-drag / two-finger, HKS-90) — biased up at the star layer (HKS-84
 // catalogue + constellations; hover/tap picking keeps working). Its tray now
-// carries just the sky clock (#skymode/#skytime); 🧭 auto-arm moved beside the
+// carries just the sky clock (#skymode/#skytime); 🤳 auto-arm moved beside the
 // compass and 📍 follow-me folded into the standard GPS button (off → follow →
 // compass), which now persists in Stargaze. World themes (Matrix/Neon) stay
 // combinable. Entering hides the weather chip + radar dial (CSS, body.stargazing);
@@ -3443,7 +3443,7 @@ function stepStargaze() {                               // per-frame planetarium
   camera.lookAt(_fl);
   controls.target.copy(_fl);                            // keeps the adaptive clip planes honest
 }
-// 🧭 point-at-the-sky: device orientation aims the camera (iOS asks permission
+// 🤳 point-at-the-sky: device orientation aims the camera (iOS asks permission
 // on the toggle tap); hidden where there's no sensor at all
 function onSgOrient(e) {
   if (!stargaze.on) return;
