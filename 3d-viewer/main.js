@@ -2109,8 +2109,25 @@ document.getElementById('walkbtn').addEventListener('click', () => walk.on ? exi
 const locateBtn = document.getElementById('locatebtn');
 const locatePop = document.getElementById('locatepop');
 const geoToastEl = document.getElementById('geotoast');
-const geo = { el: null, ring: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null };
-let geoToastT = null, geoEaseRAF = null;
+const geo = { el: null, ring: null, cone: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null };
+let geoToastT = null, geoEaseRAF = null, geoHeading = null, geoOrient = false;
+// device compass → true-north heading (deg). iOS needs a permission gesture (the
+// locate tap); Android/absolute uses alpha; both compensated for screen rotation.
+function enableCompass() {
+  if (geoOrient) return; geoOrient = true;
+  const onOrient = e => {
+    let h = null;
+    if (typeof e.webkitCompassHeading === 'number') h = e.webkitCompassHeading;   // iOS: true-north, clockwise
+    else if (e.absolute && typeof e.alpha === 'number') h = 360 - e.alpha;         // Android absolute
+    if (h == null) return;
+    const so = (screen.orientation && screen.orientation.angle) || 0;
+    geoHeading = ((h + so) % 360 + 360) % 360;
+  };
+  const attach = () => { addEventListener('deviceorientationabsolute', onOrient, true); addEventListener('deviceorientation', onOrient, true); };
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function')
+    DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') attach(); else geoOrient = false; }).catch(() => { geoOrient = false; });
+  else attach();
+}
 if (!window.isSecureContext || !('geolocation' in navigator)) {
   const lu = document.getElementById('locateui'); if (lu) lu.style.display = 'none';   // needs HTTPS + Geolocation API
 }
@@ -2129,6 +2146,12 @@ function ensureGeoMarker() {
   const mk = op => new THREE.MeshBasicMaterial({ color: 0x35cba0, transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide });
   const grp = new THREE.Group(); grp.add(new THREE.Mesh(dg, mk(0.08)), new THREE.Mesh(rg, mk(0.42)));
   grp.visible = false; world.add(grp); geo.ring = grp;
+  // POV cone (HKS-83): a ground fan pointing where the phone faces (device compass).
+  // Built pointing local north (−Z); rotated by −heading so it tracks the bearing.
+  const half = 0.33;                                        // ~38° total spread
+  const cg = new THREE.CircleGeometry(1, 20, Math.PI / 2 - half, 2 * half); cg.rotateX(-Math.PI / 2);
+  const cone = new THREE.Mesh(cg, mk(0.24)); const cgrp = new THREE.Group(); cgrp.add(cone);
+  cgrp.visible = false; world.add(cgrp); geo.cone = cgrp;
 }
 function markerWorld() {
   const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
@@ -2218,11 +2241,17 @@ function walkFromHere() {
   enterWalk({ x: (col - W / 2) * cell, z: (row - H / 2) * cell });
 }
 function updateGeoMarker() {                              // called from animate(), like updateAqhi()
-  if (!geo.has || !geo.el || !curG) { if (geo.el) geo.el.style.display = 'none'; if (geo.ring) geo.ring.visible = false; return; }
+  const hide = () => { if (geo.el) geo.el.style.display = 'none'; if (geo.ring) geo.ring.visible = false; if (geo.cone) geo.cone.visible = false; };
+  if (!geo.has || !geo.el || !curG) { hide(); return; }
   const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
-  if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { geo.el.style.display = 'none'; geo.ring.visible = false; return; }
+  if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { hide(); return; }
   const lx = (col - W / 2) * cell, gy = sampleE(col, row) * VE, lz = (row - H / 2) * cell;
   geo.ring.visible = true; geo.ring.position.set(lx, gy + 0.4, lz); geo.ring.scale.set(geo.acc, 1, geo.acc);
+  if (geoHeading != null) {                               // POV cone tracks the phone's compass bearing
+    const cs = Math.max(28, geo.acc);
+    geo.cone.visible = true; geo.cone.position.set(lx, gy + 0.5, lz);
+    geo.cone.scale.set(cs, 1, cs); geo.cone.rotation.y = -geoHeading * Math.PI / 180;
+  } else geo.cone.visible = false;
   v.set(lx, gy + 2, lz); world.localToWorld(v); v.project(camera);
   if (v.z > 1 || occludedLocal(lx, gy + 2, lz)) { geo.el.style.display = 'none'; return; }
   geo.el.style.display = '';
@@ -2237,6 +2266,7 @@ function buildLocatePop() {
 }
 locateBtn.addEventListener('click', e => {
   e.stopPropagation();
+  enableCompass();   // request device-orientation on this user gesture (needed for iOS)
   if (!geo.has) { locateOnce(); return; }
   const open = !locatePop.classList.contains('open');
   if (open) buildLocatePop();
