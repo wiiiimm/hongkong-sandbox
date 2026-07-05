@@ -4928,6 +4928,7 @@ loadSource(startSrc).then(() => {
   if (startParams.has('lv') ? startParams.get('lv') === '1' : true) setLiveMode(true);
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
+  window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)
 }).catch(err => {
   document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message;
   const ld = document.getElementById('loader');
@@ -5035,5 +5036,7 @@ if ('serviceWorker' in navigator) {
   };
   document.getElementById('coach-ok').addEventListener('click', dismiss);
   gear.addEventListener('click', dismiss);                 // tapped the ⚙ (which opens the panel) → done
-  setTimeout(show, 2200);                                  // after the scene settles in
+  const armCoach = () => setTimeout(show, 5000);           // 5s after the boot screen finishes
+  if (window.__hkLoaded) armCoach();                       // load already done → start the 5s timer now
+  else addEventListener('hk:loaded', armCoach, { once: true });
 })();
