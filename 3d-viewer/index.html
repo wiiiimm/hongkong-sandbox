@@ -206,6 +206,9 @@
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;
     background:var(--accent);cursor:pointer;box-shadow:0 0 0 4px var(--accent-dim)}
   input[type=range]::-moz-range-thumb{width:14px;height:14px;border:none;border-radius:50%;background:var(--accent);cursor:pointer}
+  /* shooting-star rate markings, aligned under the slider track (HKS-84) */
+  .meteorscale{display:flex;justify-content:space-between;font-size:8.5px;letter-spacing:.02em;
+    color:var(--sub);font-family:var(--mono);padding:0 72px 0 86px;margin:-2px 0 4px;opacity:.72}
   select{flex:1;min-width:0;-webkit-appearance:none;appearance:none;background:var(--field);color:var(--ink);
     border:1px solid var(--field-edge);border-radius:8px;padding:6px 26px 6px 10px;font-size:12px;font-family:var(--sans);cursor:pointer;
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%237d8896' stroke-width='1.5'><path d='M1 1l4 4 4-4'/></svg>");
@@ -714,6 +717,14 @@
       <span id="skytimev" style="flex:0 0 40px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">12:00</span>
     </div>
     <div id="skyinfo" style="font-family:var(--mono);font-size:10px;color:var(--sub);line-height:1.8;margin-top:6px"></div>
+    <div class="row" style="margin-top:8px">
+      <label class="chk"><input type="checkbox" id="shootstars" checked/> <span data-i18n="wx.shootingstars">Shooting stars</span></label>
+    </div>
+    <div class="row" style="margin-bottom:2px"><label class="k" data-i18n="lbl.meteorrate">Rate</label>
+      <input id="meteorrate" type="range" min="0" max="100" step="1" value="18"/>
+      <span id="meteorratev" style="flex:0 0 62px;text-align:right;font-size:10px;color:var(--ink);font-family:var(--mono)">calm</span>
+    </div>
+    <div class="meteorscale"><span data-i18n="meteor.calm">calm</span><span data-i18n="meteor.romantic">romantic</span><span data-i18n="meteor.apoc">apocalypse</span></div>
   </div>
 
   <div class="grp">
