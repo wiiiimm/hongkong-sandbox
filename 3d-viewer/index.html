@@ -301,7 +301,7 @@
   body.glass .sd-tab.on{color:var(--accent);border-color:var(--accent)}
   #sidedrawer .wb-panel{width:min(320px,calc(100vw - 40px));max-height:64vh;overflow:auto;box-sizing:border-box;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-left:none;border-radius:0 14px 14px 0;padding:13px 16px;   /* square left so it butts flush against the tabs on the left edge */
+    border:1px solid var(--edge);border-left:none;border-radius:0 0 14px 0;padding:13px 16px;   /* square top-right so it butts flush against the tabs; only the outer bottom-right is rounded */
     font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   #sidedrawer .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
   #sidedrawer .wb-title{color:var(--ink);font-weight:600;font-size:13px}
@@ -411,14 +411,14 @@
   /* HKS-86: flight/walk stats + speed share ONE glass box, stacked above the
      compass tape (flyhud on top, speed bar below) */
   #hudbox{display:none;flex-direction:column;align-items:center;gap:7px;box-sizing:border-box;
-    width:min(280px,64vw);padding:8px 13px;border-radius:12px;
+    width:max-content;max-width:calc(100vw - 20px);padding:8px 13px;border-radius:12px;
     background:var(--panel);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
     border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   body.flying #hudbox{display:flex}
   body.glass #hudbox{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #hudbox{background:rgba(252,250,246,.3)}
-  #flyhud{display:none;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink);
-    line-height:1.45;text-align:center;white-space:normal}
+  #flyhud{display:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--ink);
+    line-height:1.45;text-align:center;white-space:nowrap}   /* HKS-86: keep stats on one line */
   body.flying #flyhud{display:block}
   #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:2px;letter-spacing:.08em}
   /* HKS-86: bottom-centre instrument cluster — contextual tray · compass tape ·
