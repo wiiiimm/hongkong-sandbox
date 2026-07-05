@@ -407,6 +407,11 @@
     text-shadow:0 0 7px rgba(255,61,120,.75),0 0 18px rgba(255,61,120,.4),0 1px 4px rgba(0,0,0,.9)}
   body.matrix .lbl,body.matrix .lbl small,body.matrix .lbl.lmk small{color:#4bff79!important;
     font-family:var(--mono);text-shadow:0 0 6px rgba(57,255,106,.6),0 1px 4px rgba(0,0,0,.9)}
+  /* HKS-89: theme the radar/satellite image to match the active world grade.
+     Neon (風林火山) → B&W to match the grayscaled world canvas above; Matrix →
+     phosphor green via grayscale→sepia→hue-rotate, matching --accent:#39ff6a. */
+  body.neon #radar-img{filter:grayscale(1) contrast(1.1)}
+  body.matrix #radar-img{filter:grayscale(1) sepia(1) hue-rotate(70deg) saturate(3) brightness(.9)}
   @keyframes mxflicker{0%,91%,95%,100%{opacity:.5}92%{opacity:.36}93%{opacity:.56}94%{opacity:.42}}
   /* HKS-86: flight/walk stats + speed share ONE glass box, stacked above the
      compass tape (flyhud on top, speed bar below) */
