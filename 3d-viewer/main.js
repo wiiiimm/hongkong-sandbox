@@ -117,6 +117,7 @@ const I18N = {
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'loc.find': 'Find my location', 'loc.locating': 'Locating…', 'loc.you': 'You', 'loc.relocate': 'Re-locate',
     'loc.follow': 'Follow me', 'loc.following': 'Following', 'loc.stopfollow': 'Stop following',
+    'loc.compass': 'Compass view', 'loc.compassoff': 'Exit compass', 'loc.nocompass': 'Compass unavailable on this device.',
     'loc.walk': 'Walk from here', 'loc.remove': 'Remove pin',
     'loc.denied': 'Location blocked — allow it in your browser settings.', 'loc.unavail': 'Location unavailable.',
     'loc.outside': 'You don’t appear to be in Hong Kong.', 'loc.outsrc': 'Off this map — switch source to Hong Kong.',
@@ -187,6 +188,7 @@ const I18N = {
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'loc.find': '定位', 'loc.locating': '定位中…', 'loc.you': '你', 'loc.relocate': '重新定位',
     'loc.follow': '跟隨我', 'loc.following': '跟隨中', 'loc.stopfollow': '停止跟隨',
+    'loc.compass': '指南針視角', 'loc.compassoff': '退出指南針', 'loc.nocompass': '此裝置沒有指南針。',
     'loc.walk': '由此步行', 'loc.remove': '移除定位',
     'loc.denied': '位置被封鎖 —— 請在瀏覽器設定中允許。', 'loc.unavail': '無法取得位置。',
     'loc.outside': '你似乎不在香港範圍內。', 'loc.outsrc': '超出此地圖範圍 —— 請切換至香港圖層。',
@@ -2109,7 +2111,7 @@ document.getElementById('walkbtn').addEventListener('click', () => walk.on ? exi
 const locateBtn = document.getElementById('locatebtn');
 const locatePop = document.getElementById('locatepop');
 const geoToastEl = document.getElementById('geotoast');
-const geo = { el: null, ring: null, cone: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null };
+const geo = { el: null, ring: null, cone: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null, compass: false };
 let geoToastT = null, geoEaseRAF = null, geoHeading = null, geoOrient = false;
 // device compass → true-north heading (deg). iOS needs a permission gesture (the
 // locate tap); Android/absolute uses alpha; both compensated for screen rotation.
@@ -2229,6 +2231,7 @@ addEventListener('visibilitychange', () => {              // pause the watch whi
 });
 function removeMarker() {
   stopFollow();
+  if (geo.compass) setCompassView(false);                 // re-enable orbit controls
   geo.has = false;
   if (geo.el) geo.el.style.display = 'none';
   if (geo.ring) geo.ring.visible = false;
@@ -2239,6 +2242,26 @@ function walkFromHere() {
   if (!geo.has || !curG) return;
   const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
   enterWalk({ x: (col - W / 2) * cell, z: (row - H / 2) * cell });
+}
+// heading-up "compass view" (like Google/Apple Maps): the map rotates so the way
+// you face is up, you stay centred, the POV cone points forward. (HKS-83)
+function setCompassView(on) {
+  if (on && !geoOrient) enableCompass();
+  geo.compass = on;
+  controls.enabled = !on;                                 // take over the camera while compass-locked
+  locateBtn.classList.toggle('compass', on);
+  if (on && spinDir !== 0) { geo.prevSpin = spinDir; spinDir = 0; document.getElementById('spindir').value = '0'; }
+  if (!on && geoHeading == null) geoToast(t('loc.nocompass'));   // toggled on a device with no compass
+}
+function updateCompassView() {                            // per-frame camera drive; called from animate()
+  if (!geo.compass || !geo.has || geoHeading == null || !curG) return;
+  const m = markerWorld(), wy = world.rotation.y, H = geoHeading * Math.PI / 180;
+  const lx = Math.sin(H), lz = -Math.cos(H);              // heading dir in world-local (N = −Z)
+  const dx = lx * Math.cos(wy) + lz * Math.sin(wy), dz = -lx * Math.sin(wy) + lz * Math.cos(wy);   // → world
+  const dist = bounds().span * 0.085, pitch = 52 * Math.PI / 180;
+  const hor = dist * Math.cos(pitch), ver = dist * Math.sin(pitch);
+  camera.position.lerp(new THREE.Vector3(m.x - dx * hor, m.y + ver, m.z - dz * hor), 0.12);   // smooth = filters compass jitter
+  controls.target.lerp(m, 0.12); controls.update();
 }
 function updateGeoMarker() {                              // called from animate(), like updateAqhi()
   const hide = () => { if (geo.el) geo.el.style.display = 'none'; if (geo.ring) geo.ring.visible = false; if (geo.cone) geo.cone.visible = false; };
@@ -2262,6 +2285,7 @@ function buildLocatePop() {
   const b = (act, lab, cls) => `<button data-loc="${act}"${cls ? ` class="${cls}"` : ''} role="menuitem">${lab}</button>`;
   locatePop.innerHTML =
     (geo.following ? b('stopfollow', t('loc.stopfollow'), 'stop') : b('follow', t('loc.follow'))) +
+    b('compass', geo.compass ? t('loc.compassoff') : t('loc.compass'), geo.compass ? 'stop' : '') +
     b('relocate', t('loc.relocate')) + b('walk', t('loc.walk')) + b('remove', t('loc.remove'));
 }
 locateBtn.addEventListener('click', e => {
@@ -2277,7 +2301,8 @@ locatePop.addEventListener('click', e => {
   const btn = e.target.closest('button[data-loc]'); if (!btn) return;
   e.stopPropagation();
   locatePop.classList.remove('open'); locateBtn.setAttribute('aria-expanded', 'false');
-  ({ relocate: locateOnce, follow: startFollow, stopfollow: stopFollow, walk: walkFromHere, remove: removeMarker })[btn.dataset.loc]?.();
+  ({ relocate: locateOnce, follow: startFollow, stopfollow: stopFollow, walk: walkFromHere, remove: removeMarker,
+     compass: () => setCompassView(!geo.compass) })[btn.dataset.loc]?.();
 });
 document.addEventListener('click', () => { locatePop.classList.remove('open'); locateBtn.setAttribute('aria-expanded', 'false'); });
 addEventListener('mousemove', e => {                      // pointer-lock look
@@ -3810,6 +3835,7 @@ function animate() {
   updateStations();
   updateAqhi();
   updateGeoMarker();
+  updateCompassView();
 }
 
 // ---- shareable state: sync all controls + camera to the URL ----------------
