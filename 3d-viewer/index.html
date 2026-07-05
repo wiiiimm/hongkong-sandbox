@@ -124,7 +124,7 @@
      (opacity/pointer-events) until main.js decides the device is eligible. */
   /* full-width on phones (12px gutters), but centred + capped on tablets so it
      doesn't stretch to a silly length on iPad-width screens (HKS-64) */
-  #installbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));
+  #installbar{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));   /* slides in ABOVE the mode dock (HKS-86) */
     width:calc(100vw - 30px);max-width:460px;box-sizing:border-box;   /* border-box so padding+border stay inside the 15px side gutters */
     z-index:40;display:flex;align-items:center;gap:10px;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
@@ -156,8 +156,6 @@
   /* brand icon left of the title (HKS-65) */
   .ptitle{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 auto}
   .titleicon{width:22px;height:22px;border-radius:6px;flex:0 0 auto}
-  /* labelled mode toggles, moved above Fly/Walk (HKS-65) */
-  .modebtn{flex:1;padding:9px 0;font-size:12.5px;font-weight:600;white-space:nowrap}
   #panel .sub{color:var(--sub);font-size:10.5px;font-family:var(--mono);margin:9px 0 2px;min-height:14px}
   #phead{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .pbtns{display:flex;gap:5px;flex:0 0 auto}
@@ -227,13 +225,6 @@
     border-radius:8px;padding:6px 11px;cursor:pointer;font-size:11px;font-family:var(--sans);letter-spacing:.02em;
     transition:border-color .12s, background .12s}
   button:hover{background:rgba(255,255,255,.08);border-color:var(--accent)}
-  /* Fly and Walk are split buttons: the camera segment docks onto the mode
-     button and only exists while the mode is active — the pairing explains it */
-  .splitbtn{display:flex;flex:1;gap:0}
-  .splitbtn>button:first-child{flex:1;padding:10px 0;font-size:13px;font-weight:600}
-  .splitbtn>button+button{display:none;border-radius:0 8px 8px 0;border-left:none;padding:10px 12px;white-space:nowrap}
-  .splitbtn>button:first-child.on{border-radius:8px 0 0 8px}
-  .splitbtn>button.on+button{display:block}
   .btns{display:flex;gap:6px;flex-wrap:wrap}
   #sharemenu{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
   .sharebtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
@@ -395,11 +386,53 @@
   body.matrix .lbl,body.matrix .lbl small,body.matrix .lbl.lmk small{color:#4bff79!important;
     font-family:var(--mono);text-shadow:0 0 6px rgba(57,255,106,.6),0 1px 4px rgba(0,0,0,.9)}
   @keyframes mxflicker{0%,91%,95%,100%{opacity:.5}92%{opacity:.36}93%{opacity:.56}94%{opacity:.42}}
-  #flyhud{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);
-    z-index:22;display:none;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:#eef2f6;
-    background:rgba(10,13,18,.6);border:1px solid var(--edge);border-radius:11px;padding:8px 15px;
-    text-align:center;white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  /* HKS-86: the flight/walk HUD lives inside the mode tray now — the tray is the
+     glass surface, so the HUD itself is a transparent block */
+  #flyhud{display:none;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:var(--ink);
+    text-align:center;white-space:normal;line-height:1.5}
   #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:4px;letter-spacing:.09em}
+  /* HKS-86: bottom-centre instrument cluster — contextual tray · compass tape ·
+     speed gauge · mode dock, one column. Replaces the strays that used to share
+     the bottom edge (mode buttons in the panel, #flyhud, floating compass). */
+  #dockwrap{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));
+    z-index:21;display:flex;flex-direction:column;align-items:center;gap:7px;
+    width:max-content;max-width:calc(100vw - 16px)}
+  #dock{display:flex;align-items:center;gap:3px;padding:5px;border-radius:15px;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass #dock{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #dock{background:rgba(252,250,246,.22)}
+  #dockmodes{display:flex;gap:3px}
+  .dockbtn{border:1px solid transparent;background:none;box-shadow:none;color:var(--sub);border-radius:10px;
+    display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;font-size:15px;line-height:1;
+    transition:color .15s, background .15s, border-color .15s}
+  .dockbtn small{font-size:8.5px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase}
+  .dockbtn:hover{color:var(--ink);background:var(--field);border-color:transparent}
+  .dockbtn.on{color:var(--accent);background:var(--accent-dim);border-color:var(--accent)}
+  #dockgear{padding:9px 10px;font-size:14px}
+  .dockdiv{width:1px;align-self:stretch;margin:4px 3px;background:var(--edge-soft)}
+  /* contextual tray — per-mode affordances above the compass tape */
+  #modetray{display:flex;flex-direction:column;gap:8px;padding:9px 13px;border-radius:13px;
+    width:min(400px,calc(100vw - 24px));box-sizing:border-box;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass #modetray{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #modetray{background:rgba(252,250,246,.3)}
+  #modetray[hidden]{display:none}
+  #trayrow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+  #modetray:not([data-mode="fly"]) #viewbtn{display:none}
+  #modetray:not([data-mode="walk"]) #walkviewbtn{display:none}
+  #trayend{color:var(--sub)}
+  #trayend:hover{color:var(--ink)}
+  /* live speed gauge — docks under the compass tape during fly/walk (HKS-86 §3) */
+  #spdwrap{display:none;align-items:center;gap:8px;width:min(230px,60vw);box-sizing:border-box;
+    padding:5px 10px;border-radius:9px;
+    background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  body.glass #spdwrap{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #spdwrap{background:rgba(252,250,246,.3)}
+  body.flying #spdwrap{display:flex}
+  #spdwrap #spdpct{flex:0 0 34px;text-align:right;font-size:10px;color:var(--ink);font-family:var(--mono)}
   /* fly/walk: hold-to-gas must never trigger text selection or the iOS long-press callout (HKS-81) */
   body.flying{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
   body.flying #flyhud [data-fly]{-webkit-user-select:auto;user-select:auto}   /* keep the HUD links tappable */
@@ -453,15 +486,13 @@
     animation:locring 1.7s ease-out infinite}
   .geoloc .gl-lbl{margin-top:4px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em;
     background:#1a73e8;padding:1px 7px;border-radius:7px}
-  /* band heading indicator (directional-gyro tape), bottom-centre; lifts above
-     the flight HUD while flying. Click/tap = face north. */
-  #compass{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));
-    z-index:21;width:min(340px,62vw);height:34px;border-radius:10px;cursor:pointer;
+  /* band heading indicator (directional-gyro tape) — rides on top of the mode
+     dock inside the bottom instrument cluster (HKS-86). Click/tap = face north. */
+  #compass{width:min(230px,60vw);height:30px;border-radius:10px;cursor:pointer;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35);transition:bottom .25s ease}
+    border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35)}
   body.glass #compass{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #compass{background:rgba(252,250,246,.3)}
-  body.flying #compass{bottom:calc(92px + env(safe-area-inset-bottom))}
   #mapattr{position:fixed;right:9px;bottom:7px;z-index:14;display:none;font-size:9.5px;font-family:var(--mono);
     color:rgba(255,255,255,.72);background:rgba(0,0,0,.4);padding:2px 7px;border-radius:5px;pointer-events:none}
   .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
@@ -518,27 +549,26 @@
     #sheetgrip{display:block;padding:5px 0 10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
     #sheetgrip:before{content:'';display:block;width:42px;height:4px;border-radius:2px;
       background:var(--field-edge);margin:0 auto}
-    /* collapsed chip, compass bar and camera button share one 36px-tall bottom row,
-       all anchored to the same 12px baseline so they line up left / centre / right */
-    #panel.collapsed{left:12px;right:auto;bottom:calc(12px + env(safe-area-inset-bottom));
-      box-sizing:border-box;height:36px;display:flex;align-items:center;overflow:hidden;
-      border:1px solid var(--edge);border-radius:12px;padding:0 9px}
-    #panel.collapsed #expand-btn{width:28px;height:28px}
-    #panel.collapsed #expand-btn svg{width:14px;height:14px}
-    #panel.collapsed #sheetgrip{display:none}
-    #cornerui{bottom:calc(12px + env(safe-area-inset-bottom))}          /* drop the camera to the compass baseline */
-    #cornerui button{width:36px;height:36px;box-sizing:border-box}      /* same 36px height as the compass bar */
+    /* HKS-86: the dock IS the bottom bar — the old collapsed chip retires on
+       phones (the dock's ⚙ reopens the sheet); the dock goes icon-only with
+       ~44px targets */
+    #panel.collapsed{display:none}
+    #dock .dockbtn{padding:11px 11px;font-size:17px}
+    #dock .dockbtn small{display:none}
+    #dock #dockgear{padding:11px 11px;font-size:16px}
+    #cornerui{bottom:calc(12px + env(safe-area-inset-bottom))}          /* camera keeps the right corner */
+    #cornerui button{width:36px;height:36px;box-sizing:border-box}
     #locateui{right:12px;left:auto;bottom:calc(212px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
     #locateui #locatebtn{width:36px;height:36px;box-sizing:border-box}
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
-       camera button (#cornerui, bottom-right) AND the separate compass canvas
-       (#compass, bottom-centre), both above the panel. Hide both while the sheet
-       is open; they return when it collapses to the chip. (creditsbtn already
+       camera button (#cornerui, bottom-right) AND the instrument cluster
+       (#dockwrap, bottom-centre), both above the panel. Hide both while the
+       sheet is open; they return when it collapses. (creditsbtn already
        moves top-left on mobile, so it's clear.) */
     #panel:not(.collapsed) ~ #cornerui,
     #panel:not(.collapsed) ~ #radarhud,
     #panel:not(.collapsed) ~ #locateui,
-    #panel:not(.collapsed) ~ #compass{display:none}
+    #panel:not(.collapsed) ~ #dockwrap{display:none}
     #panel .navmini{display:none}   /* nav hint lives behind the ? button on phones */
     #wxhud{top:12px;right:12px;min-width:0;max-width:46vw;box-sizing:border-box;padding:8px 11px;
       cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -567,14 +597,10 @@
     #creditspop{top:calc(54px + env(safe-area-inset-top));left:12px;right:12px;bottom:auto;
       width:auto;max-width:none;max-height:64vh}
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
-    /* fly/walk HUD: lift clear of the collapsed-controls chip (bottom-left) and
-       the snapshot/corner buttons (bottom-right); wrap instead of running under them */
-    /* fit the speed/info HUD into the bottom row, between the collapsed cog (left)
-       and the camera (right); smaller font keeps the stats on one line (HKS-81) */
-    #flyhud{left:60px;right:60px;transform:none;white-space:normal;
-      bottom:calc(12px + env(safe-area-inset-bottom));font-size:9px;padding:5px 8px;line-height:1.35}
-    #flyhud small{font-size:8px;margin-top:2px;letter-spacing:.06em}
-    body.flying #compass{bottom:calc(142px + env(safe-area-inset-bottom))}   /* unchanged: clear of the HUD */
+    /* fly/walk HUD lives in the tray (HKS-86); tighten it for narrow screens */
+    #flyhud{font-size:10px;line-height:1.4}
+    #flyhud small{font-size:8.5px;margin-top:2px;letter-spacing:.06em}
+    #compass{width:min(186px,52vw);height:26px}
   }
 </style>
 </head>
@@ -630,24 +656,9 @@
   <div id="pbody">
   <div class="sub" id="note">Loading…</div>
 
-  <div class="grp"><!-- explore modes live right under the header, by their mode toggles -->
-    <div class="row">
-      <button id="matrixbtn" class="modebtn" title="Matrix — see the simulation for what it is (M)" data-i18n="btn.matrix">🕴 Matrix</button>
-      <button id="neonbtn" class="modebtn" title="Sons of the Neon Night 風林火山 — snowbound noir (N)" data-i18n="btn.neon">❄️ 風林火山</button>
-    </div>
-    <div class="row">
-      <div class="splitbtn">
-        <button id="flybtn" title="Fly a plane over the terrain — land anywhere (even water) and take off again"
-                data-i18n="btn.fly">✈ Fly</button>
-        <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
-      </div>
-      <div class="splitbtn">
-        <button id="walkbtn" title="Air-drop at the view centre and hike the terrain — ␣ jumps, ⇧ (or a two-finger hold) runs"
-                data-i18n="btn.walk">🪂 Walk</button>
-        <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
-      </div>
-    </div>
-    <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
+  <div class="grp"><!-- HKS-86: modes moved to the bottom dock — this group is settings only -->
+    <div class="gt" data-i18n="grp.move">Fly &amp; walk</div>
+    <div class="row"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
       <input id="topspd" type="range" min="130" max="600" step="2" value="214" disabled
              title="Boost target — hold ␣ in flight · ⇧ or a two-finger hold on foot"/>
       <span id="topspdv" style="flex:0 0 56px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
@@ -834,7 +845,6 @@
 </div>
 
 <div id="stormbadge"></div>
-<div id="flyhud"></div>
 <div id="cornerui">
   <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>
@@ -844,7 +854,38 @@
   <div id="locatepop" role="menu"></div>
   <div id="geotoast" role="status" aria-live="polite"></div>
 </div>
-<canvas id="compass" title="Heading — click to face north"></canvas>
+<!-- HKS-86: bottom-centre instrument cluster — contextual mode tray, compass
+     tape, live speed gauge and the mode dock, one column. The dock re-homes the
+     mode buttons that used to live in the settings panel; their IDs (and thus
+     their existing handlers) are unchanged. -->
+<div id="dockwrap">
+  <div id="modetray" data-mode="" role="group" aria-label="Mode controls" hidden>
+    <div id="trayrow">
+      <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
+      <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
+      <button id="trayend" title="Exit this mode (Esc)">✕ <span data-i18n="tray.end">End</span></button>
+    </div>
+    <div id="flyhud"></div>
+  </div>
+  <canvas id="compass" title="Heading — click to face north"></canvas>
+  <div id="dock" role="toolbar" aria-label="Explore modes and world themes">
+    <button id="dockgear" class="dockbtn" title="Settings" data-i18n-title="dock.settings" aria-label="Settings" data-i18n-aria-label="dock.settings">⚙</button>
+    <span class="dockdiv" aria-hidden="true"></span>
+    <span id="dockmodes" role="radiogroup" aria-label="Explore mode">
+      <button id="orbitbtn" class="dockbtn on" role="radio" aria-checked="true" title="Orbit — the map view">
+        <span aria-hidden="true">🗺️</span><small data-i18n="dock.orbit">Orbit</small></button>
+      <button id="flybtn" class="dockbtn" role="radio" aria-checked="false" title="Fly a plane over the terrain — land anywhere (even water) and take off again">
+        <span aria-hidden="true">✈️</span><small data-i18n="dock.fly">Fly</small></button>
+      <button id="walkbtn" class="dockbtn" role="radio" aria-checked="false" title="Air-drop at the view centre and hike the terrain — ␣ jumps, ⇧ (or a two-finger hold) runs">
+        <span aria-hidden="true">🪂</span><small data-i18n="dock.walk">Walk</small></button>
+    </span>
+    <span class="dockdiv" aria-hidden="true"></span>
+    <button id="matrixbtn" class="dockbtn theme" aria-pressed="false" title="Matrix — see the simulation for what it is (M)">
+      <span aria-hidden="true">🕴</span><small data-i18n="dock.matrix">Matrix</small></button>
+    <button id="neonbtn" class="dockbtn theme" aria-pressed="false" title="Sons of the Neon Night 風林火山 — snowbound noir (N)">
+      <span aria-hidden="true">❄️</span><small data-i18n="dock.neon">風林火山</small></button>
+  </div>
+</div>
 <div id="mapattr"></div>
 <div id="wxhud" style="display:none">
   <div id="wx-status">—</div>

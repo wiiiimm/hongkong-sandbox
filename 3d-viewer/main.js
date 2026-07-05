@@ -110,6 +110,10 @@ const I18N = {
     'lbl.topspeed': 'Top speed',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
+    // HKS-86: the bottom mode dock + contextual tray
+    'dock.orbit': 'Orbit', 'dock.fly': 'Fly', 'dock.walk': 'Walk', 'dock.star': 'Stargaze',
+    'dock.matrix': 'Matrix', 'dock.neon': '風林火山', 'dock.settings': 'Settings',
+    'tray.end': 'End', 'grp.move': 'Fly & walk',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
     'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
@@ -181,6 +185,10 @@ const I18N = {
     'lbl.topspeed': '極速',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
+    // HKS-86: the bottom mode dock + contextual tray
+    'dock.orbit': '環繞', 'dock.fly': '飛行', 'dock.walk': '步行', 'dock.star': '觀星',
+    'dock.matrix': 'Matrix', 'dock.neon': '風林火山', 'dock.settings': '設定',
+    'tray.end': '結束', 'grp.move': '飛行與步行',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
     'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
@@ -2225,6 +2233,7 @@ function enterFlight() {
   setTopMode('fly');
   updateViewBtn();
   controls.enabled = false;
+  refreshDock();
 }
 function exitFlight() {
   if (!flight.on) return;
@@ -2245,6 +2254,7 @@ function exitFlight() {
   document.body.classList.remove('flying');
   updateViewBtn();
   frameCamera();
+  refreshDock();
 }
 // the view button beside Fly mirrors the C key: chase ↔ cockpit
 function updateViewBtn() {
@@ -2528,8 +2538,9 @@ function enterWalk(startLocal) {
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('walkbtn').classList.add('on');
   document.getElementById('walkbtn').blur();  // else Space/Enter re-clicks the button and exits
-  document.body.classList.add('flying');                  // lifts the heading tape
+  document.body.classList.add('flying');                  // fly/walk shared UI state (speed gauge, no-select)
   controls.enabled = false;
+  refreshDock();
   if (!NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
 }
 function exitWalk() {
@@ -2548,8 +2559,39 @@ function exitWalk() {
   camera.up.set(0, 1, 0);
   controls.enabled = true;
   frameCamera();
+  refreshDock();
 }
 document.getElementById('walkbtn').addEventListener('click', () => walk.on ? exitWalk() : enterWalk());
+
+// ---- HKS-86: the mode dock (bottom-centre instrument cluster) ---------------
+// The dock re-homes the existing mode buttons (same IDs, same handlers) and adds
+// Orbit (exit-to-map) + a ⚙ that reopens the settings panel. refreshDock() only
+// REFLECTS mode state into the dock/tray — it never owns the mode logic; the
+// enter/exit/set* functions stay the single source of truth and call it last.
+function refreshDock() {
+  const set = (id, v) => {
+    const el = document.getElementById(id); if (!el) return;
+    el.classList.toggle('on', v);
+    if (el.getAttribute('role') === 'radio') el.setAttribute('aria-checked', v ? 'true' : 'false');
+    if (el.hasAttribute('aria-pressed')) el.setAttribute('aria-pressed', v ? 'true' : 'false');
+  };
+  set('orbitbtn', !flight.on && !walk.on);
+  set('flybtn', flight.on);
+  set('walkbtn', walk.on);
+  set('matrixbtn', matrixOn);
+  set('neonbtn', neonOn);
+  const tray = document.getElementById('modetray');
+  const mode = flight.on ? 'fly' : walk.on ? 'walk' : '';
+  tray.dataset.mode = mode;
+  tray.hidden = !mode;
+}
+document.getElementById('orbitbtn').addEventListener('click', () => { exitFlight(); exitWalk(); refreshDock(); });
+document.getElementById('trayend').addEventListener('click', () => { exitFlight(); exitWalk(); });
+document.getElementById('dockgear').addEventListener('click', () =>
+  document.getElementById('panel').classList.toggle('collapsed'));
+// no init call: matrixOn/neonOn are declared further down (TDZ) and the static
+// HTML default (Orbit active, tray hidden) is already the boot state — every
+// later mode change routes through refreshDock().
 
 // ---- GPS "you are here" location (HKS-83) -----------------------------------
 // Two modes: set & forget (one getCurrentPosition) and follow (watchPosition). The
@@ -3059,6 +3101,7 @@ function setMatrix(on) {
   }
   applyControlLocks();
   updateWindVisuals();       // re-grades clouds/rain for the new reality (calls renderSky + setFog)
+  refreshDock();
   syncUrl();
 }
 document.getElementById('matrixbtn').addEventListener('click', () => setMatrix(!matrixOn));
@@ -3176,6 +3219,7 @@ function setNeon(on) {
     noirCtx.clearRect(0, 0, noirCv.width, noirCv.height);
   }
   applyControlLocks();
+  refreshDock();
   syncUrl();
 }
 function stepNoir() {                  // live film grain + the odd print scratch
