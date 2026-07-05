@@ -510,7 +510,9 @@
     transition:border-color .12s,color .12s}
   body.glass #locateui #locatebtn{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #locateui #locatebtn{background:rgba(252,250,246,.22)}
-  #locateui #locatebtn:hover{border-color:#4285f4;color:#4285f4}
+  /* hover only on real pointers — on touch, :hover sticks after a tap and would
+     leave the button blue after it's toggled off (HKS-90) */
+  @media (hover:hover){#locateui #locatebtn:hover{border-color:#4285f4;color:#4285f4}}
   #locateui #locatebtn.on,#locateui #locatebtn.follow,#locateui #locatebtn.compass{border-color:#4285f4;color:#4285f4}   /* maps-style location blue, matching the marker (never the green accent) */
   #locateui #locatebtn.locating{border-color:#4285f4;color:#4285f4;animation:locpulse 1.1s ease-in-out infinite}
   #locateui #locatebtn.follow::after,#locateui #locatebtn.compass::after{content:'';position:absolute;inset:-4px;border-radius:50%;
