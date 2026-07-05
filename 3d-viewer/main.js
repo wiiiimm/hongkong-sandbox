@@ -110,10 +110,24 @@ const I18N = {
     'lbl.topspeed': 'Top speed',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
+    // HKS-86: the bottom mode dock + contextual tray
+    'dock.orbit': 'Orbit', 'dock.fly': 'Fly', 'dock.walk': 'Walk', 'dock.star': 'Stargaze',
+    'dock.matrix': 'Matrix', 'dock.neon': '風林火山', 'dock.settings': 'Settings',
+    'coach.text': 'New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.', 'coach.ok': 'Got it',
+    'tray.end': 'End', 'grp.move': 'Fly & walk',
+    'sg.live': '● Live sky', 'sg.custom': '🕐 Custom',
+    'sg.orient': '🧭 Point at the sky', 'sg.follow': '📍 Follow me',
+    'sg.hint': 'drag to look · tap a constellation',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
     'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
-    'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
+    'help.tab': 'Help', 'help.title': 'Help & controls',
+    'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
+    'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
+    'help.fly.t': 'Flying', 'help.fly.b': 'Hold to accelerate — Space, or press & hold\nTake off: when landed, hold the gas to roll down the runway & lift off (or tap “Take off”)\nDrag to look around\nPress C for chase / cockpit\nLand anywhere — even water',
+    'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump\nShift or a two‑finger hold to run\nDrag to look around\nPress C for first‑person / chase',
+    'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTap a star to trace its constellation\n🧭 Point at the sky — aim with your phone\n📍 Follow me — track your GPS position\nDrag the time slider to move the sky',
+    'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'loc.find': 'Find my location', 'loc.locating': 'Locating…', 'loc.you': 'You', 'loc.relocate': 'Re-locate',
     'loc.follow': 'Follow me', 'loc.following': 'Following', 'loc.stopfollow': 'Stop following',
@@ -181,10 +195,24 @@ const I18N = {
     'lbl.topspeed': '極速',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
+    // HKS-86: the bottom mode dock + contextual tray
+    'dock.orbit': '環繞', 'dock.fly': '飛行', 'dock.walk': '步行', 'dock.star': '觀星',
+    'dock.matrix': 'Matrix', 'dock.neon': '風林火山', 'dock.settings': '設定',
+    'coach.text': '第一次來？點一下 <b>⚙</b> 設定畫面 — 地表、天氣、天空等。', 'coach.ok': '知道了',
+    'tray.end': '結束', 'grp.move': '飛行與步行',
+    'sg.live': '● 即時星空', 'sg.custom': '🕐 自訂',
+    'sg.orient': '🧭 指向天空', 'sg.follow': '📍 跟隨我',
+    'sg.hint': '拖曳環視 · 點選星座',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
     'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
-    'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
+    'help.tab': '說明', 'help.title': '操作說明',
+    'help.src': '模式在底部工具列 · 風格可於任何模式切換',
+    'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
+    'help.fly.t': '飛行', 'help.fly.b': '按住加速 — 空白鍵，或長按畫面\n起飛：著陸時按住油門沿跑道滑行升空（或點「起飛」）\n拖曳環顧四周\n按 C 切換追尾 / 座艙視角\n可降落任何地方（連水面）',
+    'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍\nShift 或雙指按住奔跑\n拖曳環顧四周\n按 C 切換第一人稱 / 追尾',
+    'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n點選星星顯示所屬星座\n🧭 對準天空 — 用手機方向瞄準\n📍 跟隨我 — 追蹤你的 GPS 位置\n拖動時間軸移動星空',
+    'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'loc.find': '定位', 'loc.locating': '定位中…', 'loc.you': '你', 'loc.relocate': '重新定位',
     'loc.follow': '跟隨我', 'loc.following': '跟隨中', 'loc.stopfollow': '停止跟隨',
@@ -2185,6 +2213,7 @@ function buildPlane() {
 function enterFlight() {
   if (flight.on || !curG) return;
   if (walk.on) exitWalk();
+  if (stargaze.on) exitStargaze();
   flight.on = true;
   flight.prevSpin = spinDir; spinDir = 0;              // the world holds still while you fly
   document.getElementById('spindir').value = '0';
@@ -2225,6 +2254,10 @@ function enterFlight() {
   setTopMode('fly');
   updateViewBtn();
   controls.enabled = false;
+  // HKS-86 §2: GPS follow/compass never persists outside Orbit — entering a
+  // movement mode spawns at the fix (if it's on this map), then disengages
+  if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
+  refreshDock();
 }
 function exitFlight() {
   if (!flight.on) return;
@@ -2245,14 +2278,10 @@ function exitFlight() {
   document.body.classList.remove('flying');
   updateViewBtn();
   frameCamera();
+  refreshDock();
 }
 // the view button beside Fly mirrors the C key: chase ↔ cockpit
-function updateViewBtn() {
-  const b = document.getElementById('viewbtn');
-  b.disabled = !flight.on;
-  b.classList.toggle('on', flight.on && flight.pov);
-  b.textContent = flight.pov ? t('fly.cockpit') : t('fly.chase');
-}
+function updateViewBtn() { syncCamSeg(); }   // fly camera (chase ⇄ cockpit) reflects in the segmented control
 function toggleView() {
   if (!flight.on) return;
   flight.pov = !flight.pov;
@@ -2260,7 +2289,6 @@ function toggleView() {
   updateViewBtn();
 }
 document.getElementById('flybtn').addEventListener('click', () => flight.on ? exitFlight() : enterFlight());
-document.getElementById('viewbtn').addEventListener('click', toggleView);
 // top-speed slider — shared by fly and walk (William: one control, reset on
 // mode switch, disabled outside both). It sets what the boost key accelerates
 // to: ␣ in flight (knots), ⇧ on foot (km/h — the top end is frankly
@@ -2290,20 +2318,22 @@ document.getElementById('topspd').addEventListener('input',
   e => applyTopSpeed(+e.target.value));
 function updateSpeedGauge() {
   const fill = document.getElementById('spdfill'), pct = document.getElementById('spdpct');
-  let p = null, hot = false;
+  let p = null, hot = false, label = '—';
   if (flight.on) {
     p = 100 * flight.speed / flight.top;
     hot = p >= 97;
+    label = `${Math.round(flight.speed * 1.944)} kt`;          // real airspeed, not %
   } else if (walk.on) {
     p = 100 * walk.spd / walk.top;
     if (walk.spd > 0.2)                               // a human gait is never a steady needle
       p *= 1 + Math.sin(walk.bob * 2.1) * 0.05 + (Math.random() - 0.5) * 0.05;
     hot = p >= 90;
+    label = `${Math.round(walk.spd * 3.6)} km/h`;              // real pace, not %
   }
   if (p == null) { fill.style.width = '0%'; pct.textContent = '—'; fill.classList.remove('hot'); return; }
   p = Math.max(0, Math.min(100, p));
-  fill.style.width = p.toFixed(1) + '%';
-  pct.textContent = Math.round(p) + '%';
+  fill.style.width = p.toFixed(1) + '%';                       // the bar still fills by % of top speed
+  pct.textContent = label;                                    // the readout shows the actual speed + unit
   fill.classList.toggle('hot', hot);                  // redline glow at full gas
 }
 // Resolve the LOGICAL key from the physical e.code first: with a CJK/IME input
@@ -2470,14 +2500,11 @@ function stepFlight() {
   const az = ((-F.yaw / D2R) % 360 + 360) % 360;
   const touch = F.tilt && F.tiltRef != null;
   const stats = `${F.landed ? '🛬' : '✈'} ${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +
-    ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
-    ` · ${Math.round(F.speed * 1.944)} kt` +
+    ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // speed now shows on the speed bar
     (F.landed ? ` · ${t('fly.landed')}` : '');
-  const hints = (F.landed
-    ? `<span data-fly="takeoff" style="cursor:pointer;text-decoration:underline;font-weight:700">${t('fly.takeoff')}</span>`
-    : (touch ? t('fly.touch') : t('fly.help')) +
-      ` &nbsp;<span data-fly="view" style="cursor:pointer;text-decoration:underline">${t('fly.view')}</span>`) +
-    ` · <span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
+  // HKS-86: the fly HUD is just live stats now — how-to + take-off in the Help
+  // drawer, camera toggle in the tray, exit via the dock/Esc
+  const hints = '';
   if (F.helpT > 0) F.helpT--;
   document.getElementById('flyhud').innerHTML = F.helpT > 0
     ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
@@ -2499,6 +2526,7 @@ const NO_LOCK = new URLSearchParams(location.search).has('nolock');
 function enterWalk(startLocal) {
   if (walk.on || !curG) return;
   if (flight.on) exitFlight();
+  if (stargaze.on) exitStargaze();
   walk.on = true;
   walk.prevSpin = spinDir; spinDir = 0;
   document.getElementById('spindir').value = '0';
@@ -2528,8 +2556,12 @@ function enterWalk(startLocal) {
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('walkbtn').classList.add('on');
   document.getElementById('walkbtn').blur();  // else Space/Enter re-clicks the button and exits
-  document.body.classList.add('flying');                  // lifts the heading tape
+  document.body.classList.add('flying');                  // fly/walk shared UI state (speed gauge, no-select)
   controls.enabled = false;
+  // HKS-86 §2: GPS follow/compass never persists outside Orbit — entering a
+  // movement mode spawns at the fix (if it's on this map), then disengages
+  if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
+  refreshDock();
   if (!NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
 }
 function exitWalk() {
@@ -2548,15 +2580,47 @@ function exitWalk() {
   camera.up.set(0, 1, 0);
   controls.enabled = true;
   frameCamera();
+  refreshDock();
 }
 document.getElementById('walkbtn').addEventListener('click', () => walk.on ? exitWalk() : enterWalk());
+
+// ---- HKS-86: the mode dock (bottom-centre instrument cluster) ---------------
+// The dock re-homes the existing mode buttons (same IDs, same handlers) and adds
+// Orbit (exit-to-map) + a ⚙ that reopens the settings panel. refreshDock() only
+// REFLECTS mode state into the dock/tray — it never owns the mode logic; the
+// enter/exit/set* functions stay the single source of truth and call it last.
+function refreshDock() {
+  const set = (id, v) => {
+    const el = document.getElementById(id); if (!el) return;
+    el.classList.toggle('on', v);
+    if (el.getAttribute('role') === 'radio') el.setAttribute('aria-checked', v ? 'true' : 'false');
+    if (el.hasAttribute('aria-pressed')) el.setAttribute('aria-pressed', v ? 'true' : 'false');
+  };
+  set('orbitbtn', !flight.on && !walk.on && !stargaze.on);
+  set('flybtn', flight.on);
+  set('walkbtn', walk.on);
+  set('stargazebtn', stargaze.on);
+  set('matrixbtn', matrixOn);
+  set('neonbtn', neonOn);
+  const tray = document.getElementById('modetray');
+  const mode = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : '';
+  tray.dataset.mode = mode;
+  tray.hidden = mode !== 'star';   // HKS-86: the tray is now Stargaze-only (fly/walk camera lives beside the compass; exit via dock/Esc)
+  syncCamSeg();                     // show/hide + sync the camera segmented control
+  if (typeof updateHelp === 'function') updateHelp();   // keep the Help drawer's contextual section in sync
+}
+document.getElementById('orbitbtn').addEventListener('click', () => { exitFlight(); exitWalk(); exitStargaze(); refreshDock(); });
+document.getElementById('dockgear').addEventListener('click', () =>
+  document.getElementById('panel').classList.toggle('collapsed'));
+// no init call: matrixOn/neonOn are declared further down (TDZ) and the static
+// HTML default (Orbit active, tray hidden) is already the boot state — every
+// later mode change routes through refreshDock().
 
 // ---- GPS "you are here" location (HKS-83) -----------------------------------
 // Two modes: set & forget (one getCurrentPosition) and follow (watchPosition). The
 // marker stores HK1980 E/N and is reprojected each frame like the AQHI markers, so it
 // survives source/VE changes. Nothing is persisted — no URL, no storage, no logs.
 const locateBtn = document.getElementById('locatebtn');
-const locatePop = document.getElementById('locatepop');
 const geoToastEl = document.getElementById('geotoast');
 const geo = { el: null, ring: null, cone: null, arrow: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null, compass: false };
 let geoToastT = null, geoEaseRAF = null, geoHeading = null, geoOrient = false;
@@ -2656,12 +2720,80 @@ function placeFix(c) {                                    // c = GeolocationCoor
   ensureGeoMarker();
   geo.E = gg.E; geo.N = gg.N; geo.acc = Math.max(6, c.accuracy || 0); geo.has = true; return true;
 }
-function locateOnce() {
+// HKS-86 §2: maps-style state machine. In Orbit the tap cycles
+// follow → compass → off (the first tap locates AND follows); in a movement
+// mode a tap is a one-shot teleport (see gpsTeleport) — never a persistent
+// follow. The underlying locate/watch/compass internals are unchanged.
+const GPS_SVG = fill => `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><line x1="12" y1="1.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22.5" y2="12"/>${fill ? '<circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/>' : ''}</svg>`;
+const GPS_ARROW_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 2 L19 21 L12 16.4 L5 21 Z"/></svg>`;
+const gpsState = () => geo.compass ? 'compass' : geo.following ? 'follow' : 'off';
+function refreshGpsBtn() {          // morph the button icon + label to the state
+  const st = gpsState();
+  locateBtn.innerHTML = st === 'compass' ? GPS_ARROW_SVG : GPS_SVG(st === 'follow' || geo.has);
+  locateBtn.classList.toggle('on', geo.has);
+  const lbl = st === 'follow' ? t('loc.following') : st === 'compass' ? t('loc.compass') : t('loc.find');
+  locateBtn.setAttribute('aria-label', lbl);
+  locateBtn.title = lbl;
+}
+// Try a GPS-accurate fix, then fall back to a coarse WiFi/IP fix — desktops often
+// have no GPS chip and return UNAVAILABLE/timeout at high accuracy even with
+// permission granted (HKS-86). Permission-denied (code 1) doesn't retry.
+function getFix(onOk, onErr) {
+  navigator.geolocation.getCurrentPosition(onOk, e => {
+    if (e && e.code === 1) { onErr(e); return; }
+    navigator.geolocation.getCurrentPosition(onOk, onErr, { enableHighAccuracy: false, timeout: 12000, maximumAge: 60000 });
+  }, { enableHighAccuracy: true, timeout: 9000, maximumAge: 30000 });
+}
+function locateThenFollow() {       // off → follow: one fix, zoom to it, then track
   locateBtn.classList.add('locating');
-  navigator.geolocation.getCurrentPosition(pos => {
+  getFix(pos => {
     locateBtn.classList.remove('locating');
-    if (placeFix(pos.coords)) { locateBtn.classList.add('on'); centreOnMarker(true, false); }
-  }, geoErr, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+    if (placeFix(pos.coords)) { centreOnMarker(true, false); startFollow(); }
+    refreshGpsBtn();
+  }, e => { geoErr(e); refreshGpsBtn(); });
+}
+// HKS-86: fully turn GPS OFF (no pin) — the single "disengage" path now (there's
+// no idle located-but-not-following state). Used by the Orbit cycle's off step
+// (via removeMarker) and when entering a mode that can't follow (fly/walk/stargaze;
+// here it must not touch controls/spinDir — the mode owns them).
+function gpsDrop() {
+  stopFollow();
+  geo.compass = false; locateBtn.classList.remove('compass');
+  geo.has = false; geo.prevSpin = null;
+  if (geo.el) geo.el.style.display = 'none';
+  if (geo.ring) geo.ring.visible = false;
+  refreshGpsBtn();
+}
+function markerLocalPoint() {       // stored fix → world-local grid point
+  const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
+  return { col, row, x: (col - W / 2) * cell, z: (row - H / 2) * cell };
+}
+function teleportToMarker() {       // jump the ACTIVE movement mode to the fix
+  if (!geoInBounds()) { geoToast(t('loc.outsrc')); return; }
+  const p = markerLocalPoint();
+  if (walk.on) {                    // re-run the air-drop insertion at the fix
+    const b = bounds();
+    walk.pos.x = Math.max(-b.halfX, Math.min(b.halfX, p.x));
+    walk.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, p.z));
+    walk.vy = 0; walk.land = 0; walk.spd = 0;
+    walk.pos.y = (sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
+  } else if (flight.on) {           // pop out airborne over the fix, at cruise
+    flight.pos.set(p.x, (sampleE(p.col, p.row) + 300) * VE, p.z);
+    flight.landed = false;
+    flight.speed = Math.max(flight.speed, 62);
+  } else if (stargaze.on) {         // re-plant the planetarium at the fix
+    const b = bounds();
+    stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, p.x));
+    stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, p.z));
+  }
+}
+function gpsTeleport() {            // movement modes: locate, jump there, disengage
+  locateBtn.classList.add('locating');
+  getFix(pos => {
+    locateBtn.classList.remove('locating');
+    if (placeFix(pos.coords)) teleportToMarker();
+    gpsDrop();
+  }, e => { geoErr(e); gpsDrop(); });
 }
 function startWatch() {
   geo.watch = navigator.geolocation.watchPosition(pos => {
@@ -2705,11 +2837,6 @@ function geoInBounds() {                                   // is the stored fix 
   const col = (geo.E - curG.bE) / curG.aE, row = (geo.N - curG.bN) / curG.aN;
   return col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1;
 }
-function walkFromHere() {
-  if (!geoInBounds()) { geoToast(t('loc.outsrc')); return; }   // off the active map → don't drop them at an edge
-  const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
-  enterWalk({ x: (col - W / 2) * cell, z: (row - H / 2) * cell });
-}
 // heading-up "compass view" (like Google/Apple Maps): the map rotates so the way
 // you face is up, you stay centred, the POV cone points forward. (HKS-83)
 function setCompassView(on) {
@@ -2721,7 +2848,7 @@ function setCompassView(on) {
   if (on && typeof DeviceOrientationEvent === 'undefined') geoToast(t('loc.nocompass'));   // device has no compass at all
 }
 function updateCompassView() {                            // per-frame camera drive; called from animate()
-  if (!geo.compass || flight.on || walk.on) return;        // yield to the flight/walk chase camera
+  if (!geo.compass || flight.on || walk.on || stargaze.on) return;   // yield to the mode cameras
   const drive = geo.has && geoHeading != null && geoInBounds();
   controls.enabled = !drive;                               // stay orbitable until we can actually drive (no heading / off-map)
   if (!drive) return;
@@ -2752,30 +2879,17 @@ function updateGeoMarker() {                              // called from animate
   geo.el.style.left = ((v.x * 0.5 + 0.5) * innerWidth) + 'px';
   geo.el.style.top = ((-v.y * 0.5 + 0.5) * innerHeight) + 'px';
 }
-function buildLocatePop() {
-  const b = (act, lab, cls) => `<button data-loc="${act}"${cls ? ` class="${cls}"` : ''} role="menuitem">${lab}</button>`;
-  locatePop.innerHTML =
-    (geo.following ? b('stopfollow', t('loc.stopfollow'), 'stop') : b('follow', t('loc.follow'))) +
-    b('compass', geo.compass ? t('loc.compassoff') : t('loc.compass'), geo.compass ? 'stop' : '') +
-    b('relocate', t('loc.relocate')) + b('walk', t('loc.walk')) + b('remove', t('loc.remove'));
-}
+// is a movement mode driving the camera? then GPS never persists (HKS-86 §2)
+const inMovementMode = () => flight.on || walk.on || stargaze.on;
 locateBtn.addEventListener('click', e => {
   e.stopPropagation();
   enableCompass();   // request device-orientation on this user gesture (needed for iOS)
-  if (!geo.has) { locateOnce(); return; }
-  const open = !locatePop.classList.contains('open');
-  if (open) buildLocatePop();
-  locatePop.classList.toggle('open', open);
-  locateBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (inMovementMode()) { gpsTeleport(); return; }
+  const st = gpsState();                    // Orbit: follow → compass → off
+  if (st === 'off') locateThenFollow();
+  else if (st === 'follow') { setCompassView(true); refreshGpsBtn(); }
+  else { removeMarker(); refreshGpsBtn(); }   // compass → off: clear the pin (cycle: locate/follow → compass → off), no ✕ needed
 });
-locatePop.addEventListener('click', e => {
-  const btn = e.target.closest('button[data-loc]'); if (!btn) return;
-  e.stopPropagation();
-  locatePop.classList.remove('open'); locateBtn.setAttribute('aria-expanded', 'false');
-  ({ relocate: locateOnce, follow: startFollow, stopfollow: stopFollow, walk: walkFromHere, remove: removeMarker,
-     compass: () => setCompassView(!geo.compass) })[btn.dataset.loc]?.();
-});
-document.addEventListener('click', () => { locatePop.classList.remove('open'); locateBtn.setAttribute('aria-expanded', 'false'); });
 addEventListener('mousemove', e => {                      // pointer-lock look
   if (!walk.on || document.pointerLockElement !== renderer.domElement) return;
   walk.yaw -= e.movementX * 0.0022;
@@ -2803,13 +2917,16 @@ addEventListener('mousemove', e => {
 });
 let _lastTouch = null;                                    // phones: drag to look
 addEventListener('touchmove', e => {
-  if (e.target !== renderer.domElement || !(walk.on || flight.on)) return;
+  if (e.target !== renderer.domElement || !(walk.on || flight.on || stargaze.on)) return;
   const t0 = e.touches[0];
   if (_lastTouch) {
     const dx = t0.clientX - _lastTouch.x, dy = t0.clientY - _lastTouch.y;
     if (walk.on) {
       walk.yaw -= dx * 0.005;
       walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - dy * 0.005));
+    } else if (stargaze.on) {                            // stargaze: drag pans the sky (HKS-86)
+      stargaze.yaw -= dx * 0.005;
+      stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - dy * 0.005));
     } else {                                             // flight: same drag = look around (HKS-53)
       flight.lookYaw = Math.max(-2.8, Math.min(2.8, flight.lookYaw - dx * 0.005));
       flight.lookPitch = Math.max(-1.0, Math.min(1.0, flight.lookPitch - dy * 0.005));
@@ -2859,17 +2976,28 @@ function buildHiker() {
   return grp;
 }
 // walk camera views — first person ↔ chase, mirroring the flight pattern
-function updateWalkViewBtn() {
-  const b = document.getElementById('walkviewbtn');
-  b.textContent = walk.pov ? t('walk.fp') : t('walk.chase');
-  b.classList.toggle('on', !walk.pov);
-}
+function updateWalkViewBtn() { syncCamSeg(); }   // walk camera (chase ⇄ first-person) reflects in the segmented control
 function toggleWalkView() {
   if (!walk.on) return;
   walk.pov = !walk.pov;
   updateWalkViewBtn();
 }
-document.getElementById('walkviewbtn').addEventListener('click', toggleWalkView);
+// unified camera segmented control (HKS-86): 🎥 external/chase ⇄ 👁 first-person,
+// routing to whichever movement mode is active (pov=false external · pov=true first-person)
+function syncCamSeg() {
+  const active = flight.on || walk.on;
+  const pov = flight.on ? flight.pov : walk.on ? walk.pov : false;
+  const ext = document.getElementById('cam-ext'), fp = document.getElementById('cam-pov');
+  if (!ext || !fp) return;
+  ext.classList.toggle('on', active && !pov); ext.setAttribute('aria-pressed', active && !pov ? 'true' : 'false');
+  fp.classList.toggle('on', active && pov);   fp.setAttribute('aria-pressed', active && pov ? 'true' : 'false');
+}
+function setCamView(fp) {   // fp = true → first-person
+  if (flight.on) { if (flight.pov !== fp) toggleView(); }
+  else if (walk.on) { if (walk.pov !== fp) toggleWalkView(); }
+}
+document.getElementById('cam-ext').addEventListener('click', () => setCamView(false));
+document.getElementById('cam-pov').addEventListener('click', () => setCamView(true));
 
 function stepWalk() {
   if (!walk.on) return;
@@ -2972,12 +3100,11 @@ function stepWalk() {
   const touch = matchMedia('(pointer: coarse)').matches;
   const odo = walk.dist < 1000 ? `${Math.round(walk.dist)} m` : `${(walk.dist / 1000).toFixed(2)} km`;
   const stats = `${airborne ? '🪂' : '🚶'} ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
-    (walk.spd > 0.3 ? ` · ${Math.round(walk.spd * 3.6)} km/h` : '') +
-    ` · ${t('walk.dist')} ${odo}` +                       // odometer: live proof the keys register
+    ` · ${t('walk.dist')} ${odo}` +                       // odometer (speed now shows on the speed bar)
     (boost && moving ? ` · ${t('walk.jog')}` : '');
-  const hints = (touch ? t('walk.touch') : t('walk.help')) +
-    (touch ? ` &nbsp;<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '') +
-    ` · <span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
+  // HKS-86: how-to lives in the Help drawer, End is the tray's ✕ button — keep only
+  // live stats + the auto-walk toggle (touch)
+  const hints = touch ? `<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '';
   if (walk.helpT > 0) walk.helpT--;
   document.getElementById('flyhud').innerHTML = walk.helpT > 0
     ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
@@ -3059,6 +3186,7 @@ function setMatrix(on) {
   }
   applyControlLocks();
   updateWindVisuals();       // re-grades clouds/rain for the new reality (calls renderSky + setFog)
+  refreshDock();
   syncUrl();
 }
 document.getElementById('matrixbtn').addEventListener('click', () => setMatrix(!matrixOn));
@@ -3176,6 +3304,7 @@ function setNeon(on) {
     noirCtx.clearRect(0, 0, noirCv.width, noirCv.height);
   }
   applyControlLocks();
+  refreshDock();
   syncUrl();
 }
 function stepNoir() {                  // live film grain + the odd print scratch
@@ -3203,6 +3332,188 @@ addEventListener('keydown', e => {
 });
 if (FLY_DEBUG) window.__setNeon = setNeon;
 
+// ---- Stargaze mode (HKS-86 §4) -----------------------------------------------
+// A planetarium anchored at the current view centre: the camera plants eye-high
+// on the terrain, FIXED — look-only, no locomotion — biased up at the star layer
+// (HKS-84 catalogue + constellations; hover/tap picking keeps working). Its tray
+// carries a proxy for the existing sky clock (#skymode/#skytime) plus the two
+// special toggles: 🧭 point-at-the-sky (device orientation) and 📍 follow-me
+// (GPS anchor tracking, default OFF, experimental). World themes (Matrix/Neon)
+// stay combinable. Entering dims the weather chip + radar dial (CSS,
+// body.stargazing); everything restores on exit.
+const stargaze = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0.9,
+                   prevSpin: 1, prevSky: null, orient: false, followWatch: null };
+function setSkyControl(mode, date, minutes) {   // drive the existing panel controls
+  const g = id => document.getElementById(id);
+  if (date != null) { g('skydate').value = date; g('skydate').dispatchEvent(new Event('change')); }
+  if (minutes != null) { g('skytime').value = minutes; g('skytime').dispatchEvent(new Event('input')); }
+  if (g('skymode').value !== mode) { g('skymode').value = mode; g('skymode').dispatchEvent(new Event('change')); }
+}
+function enterStargaze() {
+  if (stargaze.on || !curG) return;
+  if (flight.on) exitFlight();
+  if (walk.on) exitWalk();
+  stargaze.on = true;
+  stargaze.prevSpin = spinDir; spinDir = 0;             // the world holds still under the sky
+  document.getElementById('spindir').value = '0';
+  // anchor at the current view centre, eye 1.7 m over the DEM
+  const b = bounds();
+  const t0 = world.worldToLocal(controls.target.clone());
+  stargaze.pos.set(
+    Math.max(-b.halfX, Math.min(b.halfX, t0.x)), 0,
+    Math.max(-b.halfZ, Math.min(b.halfZ, t0.z)));
+  const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
+  stargaze.yaw = -(Math.atan2(fx, -fz) + world.rotation.y);   // keep facing the way you looked
+  stargaze.pitch = 0.9;                                        // biased up at the sky
+  // HKS-86 §2: GPS follow/compass engaged → plant at the fix, then turn GPS fully off
+  if (geo.following || geo.compass) {
+    if (geoInBounds()) { const p = markerLocalPoint(); stargaze.pos.x = p.x; stargaze.pos.z = p.z; }
+    gpsDrop();
+  }
+  // guarantee the star layer: if the sky sim is off or it's daylight, jump the
+  // clock to tonight 22:00 (custom time); the previous setting restores on exit
+  updateCelestial();
+  if (!starGroup.visible) {
+    stargaze.prevSky = { mode: document.getElementById('skymode').value,
+                        date: document.getElementById('skydate').value,
+                        minutes: document.getElementById('skytime').value };
+    setSkyControl('fixed', hktDateStr(new Date()), 1320);
+  }
+  camera.fov = 60; camera.updateProjectionMatrix();     // wide for sky sweep
+  controls.enabled = false;
+  document.body.classList.add('stargazing');            // dims wx chip + radar dial (CSS)
+  document.getElementById('stargazebtn').blur();        // else ␣/Enter re-clicks and exits
+  syncSgTray();
+  refreshDock();
+}
+function exitStargaze() {
+  if (!stargaze.on) return;
+  stargaze.on = false;
+  setStargazeOrient(false);
+  setStargazeFollow(false);
+  if (stargaze.prevSky) {                               // hand the sky clock back
+    setSkyControl(stargaze.prevSky.mode, stargaze.prevSky.date, stargaze.prevSky.minutes);
+    stargaze.prevSky = null;
+  }
+  spinDir = stargaze.prevSpin;
+  document.getElementById('spindir').value = String(spinDir);
+  camera.fov = 38; camera.updateProjectionMatrix();
+  camera.up.set(0, 1, 0);
+  controls.enabled = true;
+  document.body.classList.remove('stargazing');
+  frameCamera();
+  refreshDock();
+}
+function stepStargaze() {                               // per-frame planetarium camera
+  if (!stargaze.on) return;
+  const col = stargaze.pos.x / cell + W / 2, row = stargaze.pos.z / cell + H / 2;
+  stargaze.pos.y = (sampleE(col, row) + 1.7) * VE;      // stay planted through VE changes
+  _fe.set(stargaze.pitch, stargaze.yaw, 0, 'YXZ');
+  _fq.setFromEuler(_fe);
+  _fv.set(0, 0, -1).applyQuaternion(_fq);
+  _fc.copy(stargaze.pos); world.localToWorld(_fc);
+  camera.up.set(0, 1, 0);
+  camera.position.copy(_fc);
+  _fl.copy(stargaze.pos).addScaledVector(_fv, 1000); world.localToWorld(_fl);
+  camera.lookAt(_fl);
+  controls.target.copy(_fl);                            // keeps the adaptive clip planes honest
+}
+// 🧭 point-at-the-sky: device orientation aims the camera (iOS asks permission
+// on the toggle tap); hidden where there's no sensor at all
+function onSgOrient(e) {
+  if (!stargaze.on) return;
+  let h = null;
+  if (typeof e.webkitCompassHeading === 'number') h = e.webkitCompassHeading;   // iOS: true-north, clockwise
+  else if (e.absolute && typeof e.alpha === 'number') h = 360 - e.alpha;         // Android absolute
+  if (h != null) {
+    const so = (screen.orientation && screen.orientation.angle) || 0;
+    // scene-frame azimuth (the star sphere lives in the scene, not the spun world group)
+    stargaze.yaw = -(((h + so) % 360 + 360) % 360) * D2R - world.rotation.y;
+  }
+  if (typeof e.beta === 'number')                        // back camera elevation ≈ beta − 90°
+    stargaze.pitch = Math.max(-0.15, Math.min(1.5, (e.beta - 90) * D2R));
+}
+function setStargazeOrient(on) {
+  if (on === stargaze.orient) return;
+  const arm = () => {
+    stargaze.orient = true;
+    addEventListener('deviceorientation', onSgOrient, true);
+    syncSgToggles();
+  };
+  if (!on) {
+    stargaze.orient = false;
+    removeEventListener('deviceorientation', onSgOrient, true);
+    syncSgToggles();
+    return;
+  }
+  if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function')
+    DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') arm(); }).catch(() => {});
+  else arm();
+}
+// 📍 follow-me (experimental, default OFF): a watch drags the anchor with you
+function setStargazeFollow(on) {
+  if (on === (stargaze.followWatch != null)) return;
+  if (on) {
+    stargaze.followWatch = navigator.geolocation.watchPosition(pos => {
+      const gg = gpsToGrid(pos.coords.latitude, pos.coords.longitude);
+      if (!gg || !gg.inBounds) return;
+      const b = bounds();
+      stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, (gg.col - W / 2) * cell));
+      stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, (gg.row - H / 2) * cell));
+    }, geoErr, { enableHighAccuracy: true, timeout: 15000, maximumAge: 2000 });
+  } else {
+    navigator.geolocation.clearWatch(stargaze.followWatch);
+    stargaze.followWatch = null;
+  }
+  syncSgToggles();
+}
+function syncSgToggles() {
+  const g = id => document.getElementById(id);
+  g('sg-orient').classList.toggle('on', stargaze.orient);
+  g('sg-orient').setAttribute('aria-pressed', stargaze.orient ? 'true' : 'false');
+  g('sg-follow').classList.toggle('on', stargaze.followWatch != null);
+  g('sg-follow').setAttribute('aria-pressed', stargaze.followWatch != null ? 'true' : 'false');
+}
+function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
+  const g = id => document.getElementById(id);
+  const live = skySim.on && skySim.live;
+  g('sg-live').classList.toggle('on', live);
+  g('sg-custom').classList.toggle('on', !live);
+  g('sg-time').disabled = live;
+  g('sg-time').value = live ? hktMinutes(new Date()) : skySim.minutes;
+  g('sg-timev').textContent = mmToHHMM(+g('sg-time').value);
+  g('sg-orient').hidden = typeof DeviceOrientationEvent === 'undefined';
+  g('sg-follow').hidden = !window.isSecureContext || !('geolocation' in navigator);
+  syncSgToggles();
+  const mi = moonIllumination(simDate());
+  g('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
+}
+document.getElementById('stargazebtn').addEventListener('click', () => stargaze.on ? exitStargaze() : enterStargaze());
+document.getElementById('sg-live').addEventListener('click', () => { setSkyControl('live'); syncSgTray(); });
+document.getElementById('sg-custom').addEventListener('click', () => {
+  setSkyControl('fixed', hktDateStr(new Date()), skySim.minutes);
+  syncSgTray();
+});
+document.getElementById('sg-time').addEventListener('input', e => {
+  if (skySim.on && skySim.live) return;                 // scrub only drives custom time
+  setSkyControl('fixed', null, +e.target.value);
+  document.getElementById('sg-timev').textContent = mmToHHMM(+e.target.value);
+  const mi = moonIllumination(simDate());
+  document.getElementById('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
+});
+document.getElementById('sg-orient').addEventListener('click', () => setStargazeOrient(!stargaze.orient));
+document.getElementById('sg-follow').addEventListener('click', () => setStargazeFollow(stargaze.followWatch == null));
+// panel-side sky changes keep the tray proxy honest while stargazing
+document.getElementById('skymode').addEventListener('change', () => { if (stargaze.on) syncSgTray(); });
+addEventListener('keydown', e => { if (stargaze.on && e.key === 'Escape') exitStargaze(); });
+// drag-to-look (desktop): hold the left button; phones reuse the shared touch path
+addEventListener('mousemove', e => {
+  if (!stargaze.on || e.buttons !== 1) return;
+  stargaze.yaw -= e.movementX * 0.003;
+  stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - e.movementY * 0.003));
+});
+if (FLY_DEBUG) { window.__stargaze = stargaze; window.__stepStargaze = () => stepStargaze(); }
+
 // ---- corner UI (HKS-32): compass + snapshot ---------------------------------
 // The compass rose tracks the camera heading relative to TERRAIN north (the
 // world group may be auto-spun); clicking snaps the view — or the plane — back
@@ -3216,6 +3527,7 @@ function updateCompass() {
   let heading;
   if (flight.on) heading = -flight.yaw;                // in the air the tape IS the plane's heading
   else if (walk.on) heading = -walk.yaw;               // on foot, where you're facing
+  else if (stargaze.on) heading = -stargaze.yaw;       // under the stars, where you're looking
   else {
     const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
     if (!fx && !fz) return;
@@ -3267,6 +3579,7 @@ function updateCompass() {
 }
 document.getElementById('compass').addEventListener('click', () => {
   if (flight.on) { flight.yaw = 0; return; }             // point the plane north
+  if (stargaze.on) { stargaze.yaw = 0; return; }         // face north under the stars
   const t = controls.target, p = camera.position, ry = world.rotation.y;
   const d = Math.hypot(p.x - t.x, p.z - t.z);
   p.x = t.x + Math.sin(ry) * d;                          // due terrain-south of the target
@@ -3385,6 +3698,7 @@ const radarHudEl = document.getElementById('radarhud');
 function startRadar() {
   radarRunning = true;
   radarHudEl.classList.add('show');
+  document.body.classList.add('radar-on');   // GPS button sits above the radar; drops to the camera button when off
   if (radarImg) radarImg.style.opacity = '0';   // fade the current view out; the first fresh frame fades back in
   radarReveal = true;
   loadFrames();
@@ -3395,6 +3709,7 @@ function startRadar() {
 function stopRadar() {
   radarRunning = false;
   radarHudEl.classList.remove('show');
+  document.body.classList.remove('radar-on');
   clearInterval(radarAnimT); clearInterval(radarRefreshT);
 }
 
@@ -3408,10 +3723,16 @@ function rfSector(a0, a1) {                      // filled annular sector, clock
   const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
   return `M${rfPt(RF.ro, a0)} A${RF.ro} ${RF.ro} 0 ${large} 1 ${rfPt(RF.ro, a1)} L${rfPt(RF.ri, a1)} A${RF.ri} ${RF.ri} 0 ${large} 0 ${rfPt(RF.ri, a0)} Z`;
 }
-function rfLabelSvg(ac, text, on, top) {         // straight label at the sector centre, rotated tangentially
-  const [x, y] = rfPolar(RF.rt, ac);
-  const rot = top ? ac : ac - 180;               // bottom labels flip so they stay upright
-  return `<text class="rf-lab${on ? ' on' : ''}" x="${x.toFixed(2)}" y="${y.toFixed(2)}" transform="rotate(${rot.toFixed(1)} ${x.toFixed(2)} ${y.toFixed(2)})">${text}</text>`;
+function rfArc(r, a0, a1) {                       // open arc a0→a1 at radius r, for a label to ride
+  const large = Math.abs(a1 - a0) > 180 ? 1 : 0, sweep = a1 > a0 ? 1 : 0;
+  return `M${rfPt(r, a0)} A${r} ${r} 0 ${large} ${sweep} ${rfPt(r, a1)}`;
+}
+function rfLabelSvg(d, top) {                     // label follows the mid-band arc (upright top & bottom)
+  const id = 'rflab-' + d.key;
+  // top band reads left→right along the arc; bottom band reverses so it isn't upside-down
+  const path = top ? rfArc(RF.rt, d.a0, d.a1) : rfArc(RF.rt, d.a1, d.a0);
+  return `<path id="${id}" d="${path}" fill="none"/>` +
+    `<text class="rf-lab${d.on ? ' on' : ''}"><textPath href="#${id}" startOffset="50%">${d.lab}</textPath></text>`;
 }
 // build the tab dial; state- and locale-dependent, so applyLocale/applyState call it too
 function renderWxviewControls() {
@@ -3435,7 +3756,7 @@ function renderWxviewControls() {
     `<text class="rf-glyph" x="${sx.toFixed(2)}" y="${sy.toFixed(2)}">${radarBig ? '−' : '+'}</text></g>`;
   svg.innerHTML =
     modes.map(m => tab(m, 'mode')).join('') + ranges.map(r => tab(r, 'range')).join('') + sizeBtn +
-    modes.map(m => rfLabelSvg(m.ac, m.lab, m.on, true)).join('') + ranges.map(r => rfLabelSvg(r.ac, r.lab, r.on, false)).join('');
+    modes.map(m => rfLabelSvg(m, true)).join('') + ranges.map(r => rfLabelSvg(r, false)).join('');
   // radar carries an HKO legend strip on the right → crop to the left square; satellite is a full map → centre it.
   if (radarImg) radarImg.style.objectPosition = isSat() ? '50% 50%' : 'left center';
 }
@@ -3539,14 +3860,13 @@ document.getElementById('spindir').addEventListener('change', e => { spinDir = p
 document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = parseFloat(e.target.value); });
 const panelEl = document.getElementById('panel');
 document.getElementById('collapse-btn').addEventListener('click', () => panelEl.classList.add('collapsed'));
-document.getElementById('expand-btn').addEventListener('click', () => panelEl.classList.remove('collapsed'));
 // ---- mobile drawers (HKS-16): panel is a bottom sheet, HUD a tap-to-expand chip.
 // Start tucked away on phones so the map is unobstructed; tapping the map dismisses both.
 const mobileMQ = matchMedia('(max-width: 640px), (pointer: coarse) and (max-height: 500px)');
 const wxhudEl = document.getElementById('wxhud');
 function applyMobileLayout(mobile) {
-  panelEl.classList.toggle('collapsed', mobile);
-  if (!mobile) wxhudEl.classList.remove('expanded');
+  if (mobile) panelEl.classList.add('collapsed');   // HKS-86: phones always tuck it away; desktop keeps its state (starts collapsed, opened via the dock ⚙) — never auto-open
+  else wxhudEl.classList.remove('expanded');
 }
 applyMobileLayout(mobileMQ.matches);
 mobileMQ.addEventListener('change', e => applyMobileLayout(e.matches));
@@ -3593,35 +3913,19 @@ function applyGlassPreset(mode) {
   if (glassFx) glassFx.setParams(GLASS_PRESETS[mode] || GLASS_PRESETS.dark);
   drawTideGraph();   // tide-graph ink follows the theme
 }
-document.getElementById('navhelp-btn').addEventListener('click', () => {
-  const n = document.getElementById('navhelp'); n.style.display = n.style.display === 'none' ? '' : 'none';
-});
-// ---- credits popover (floating corner chip) --------------------------------
-const creditsBtn = document.getElementById('creditsbtn');
-const creditsPop = document.getElementById('creditspop');
-function setCredits(open) {
-  creditsPop.classList.toggle('open', open);
-  creditsBtn.classList.toggle('on', open);
-  creditsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-}
-creditsBtn.addEventListener('click', e => { e.stopPropagation(); setCredits(!creditsPop.classList.contains('open')); });
-creditsPop.addEventListener('click', e => e.stopPropagation());   // clicks inside stay open
-document.addEventListener('click', () => setCredits(false));       // click anywhere else closes
-document.addEventListener('keydown', e => { if (e.key === 'Escape') setCredits(false); });
-
-// ---- weather-notices bulletin (HKS-80) --------------------------------------
-// The long HKO warning + forecast texts live in a pull-up glass sheet instead of
-// cluttering the weather box. Dismissal is session-only — never written to storage,
-// so a fresh load re-surfaces an active warning.
-const wxBulletin = document.getElementById('wxbulletin');
-const wbTab = document.getElementById('wb-tab');
-let bulletinDismissed = false, bulletinAutoShown = false;
-const bulletinOpen = () => wxBulletin.classList.contains('open');
-function setBulletin(open) {
-  wxBulletin.classList.toggle('open', open);
-  wbTab.setAttribute('aria-expanded', open ? 'true' : 'false');
-  if (!open) bulletinDismissed = true;      // a manual close stops it auto-reopening this session
-}
+// ---- unified left-edge drawer: Weather · Help · Credits (HKS-86) ------------
+// Both share ONE sliding panel. Two tabs stack together on the edge (always
+// visible); the active tab is highlighted and clicking a tab swaps the panel's
+// content — no cross-fade, no per-drawer slide. Weather (HKO warnings + forecast)
+// never auto-opens; the amber tab + ⚠ chip flag a warning. Session-only, no storage.
+const sideDrawer = document.getElementById('sidedrawer');
+const sdTitleEl = document.getElementById('sd-title');
+const SD = {
+  wx:      { tab: document.getElementById('sd-tab-wx'),      body: document.getElementById('sd-wx'),      title: 'wb.title' },
+  help:    { tab: document.getElementById('sd-tab-help'),    body: document.getElementById('sd-help'),    title: 'help.title' },
+  credits: { tab: document.getElementById('sd-tab-credits'), body: document.getElementById('sd-credits'), title: 'title.about' },
+};
+let sdActive = null;   // null | 'wx' | 'help' | 'credits'
 // fill a section with a bold label + one <div> per paragraph (textContent = no injection)
 function fillWbSection(elm, label, body) {
   elm.textContent = '';
@@ -3631,13 +3935,41 @@ function fillWbSection(elm, label, body) {
     const d = document.createElement('div'); d.textContent = para; elm.appendChild(d);
   });
 }
-wbTab.addEventListener('click', () => setBulletin(!bulletinOpen()));            // tap the tab to open / close
-document.getElementById('wb-close').addEventListener('click', () => setBulletin(false));
+function updateHelp() {   // adaptive help: general section always, contextual follows the mode
+  const ctx = document.getElementById('hp-context'), gen = document.getElementById('hp-general');
+  if (!ctx || !gen) return;
+  const mode = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : 'orbit';
+  fillWbSection(ctx, t('help.' + mode + '.t'), t('help.' + mode + '.b'));
+  fillWbSection(gen, t('help.gen.t'), t('help.gen.b'));
+}
+function renderSide() {
+  const open = sdActive != null;
+  sideDrawer.classList.toggle('open', open);
+  for (const k in SD) {
+    const on = k === sdActive;
+    SD[k].tab.classList.toggle('on', on);
+    SD[k].tab.setAttribute('aria-selected', on ? 'true' : 'false');
+    SD[k].body.hidden = !on;
+  }
+  if (open) sdTitleEl.textContent = t(SD[sdActive].title);
+}
+function setSide(which) {   // which: 'wx' | 'help' | null — swap content, no slide
+  sdActive = which;
+  if (which === 'help') updateHelp();
+  renderSide();
+}
+SD.wx.tab.addEventListener('click',      () => setSide(sdActive === 'wx'      ? null : 'wx'));
+SD.help.tab.addEventListener('click',    () => setSide(sdActive === 'help'    ? null : 'help'));
+SD.credits.tab.addEventListener('click', () => setSide(sdActive === 'credits' ? null : 'credits'));
+document.getElementById('sd-close').addEventListener('click', () => setSide(null));
 document.getElementById('wx-warn').addEventListener('click', e => {
   e.stopPropagation();                      // don't collapse the weather chip on mobile
-  if (document.getElementById('wx-warn').textContent.trim()) setBulletin(!bulletinOpen());
+  if (document.getElementById('wx-warn').textContent.trim()) setSide('wx');
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && bulletinOpen()) setBulletin(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && sdActive) setSide(null); });
+updateHelp();
+requestAnimationFrame(() => sideDrawer.classList.add('ready'));
+
 document.getElementById('fog').addEventListener('change', e => {
   weather.fog = e.target.checked; setFog();
   if (mistGrp) mistGrp.visible = weather.fog;
@@ -3869,13 +4201,11 @@ async function syncLiveWeather() {
     const fcast = [fl.generalSituation, fl.forecastDesc, fl.outlook].filter(Boolean).join('\n');
     fillWbSection(el('wb-warn'), t('wb.warn'), warn);
     fillWbSection(el('wb-fcast'), t('wb.fcast'), fcast);
-    wxBulletin.classList.toggle('ready', !!(warn || fcast));   // reveal the pull-out tab once there's content
-    wxBulletin.classList.toggle('warn', !!warn);               // amber tab + ⚠ when a warning is in force
-    // keep the compact in-box chip too, as a secondary indicator that opens the drawer
+    // HKS-86: never auto-open — flag a warning by amber-ing the weather tab + the ⚠ chip
+    document.getElementById('sd-tab-wx').classList.toggle('warn', !!warn);
     const warnChip = el('wx-warn');
     warnChip.classList.toggle('warn', !!warn);
     warnChip.textContent = warn ? `⚠ ${t('wb.chip')}` : (fcast ? t('wb.chip') : '');
-    if (warn && !bulletinDismissed && !bulletinAutoShown) { bulletinAutoShown = true; setBulletin(true); }   // surface an active warning once/session
     const rainy = [53,54,62,63,64,65].includes(code) || rainMax > 0;
     chk('rain', rainy);
     // real past-hour cloud-to-ground lightning count (data.gov.hk LHL), region-aware
@@ -4289,6 +4619,7 @@ function animate() {
   stepDrips();
   stepFlight();
   stepWalk();
+  stepStargaze();
   stepMatrix();
   stepNoir();
   updateCompass();
@@ -4297,10 +4628,10 @@ function animate() {
   const sh = stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.6 : stormLevel >= 8 ? 0.32 : 0;
   if (sh > 0) { const a = bounds().span * 0.0012 * sh; world.position.set((Math.random()*2-1)*a, (Math.random()*2-1)*a, (Math.random()*2-1)*a); }
   else if (world.position.x || world.position.y || world.position.z) world.position.set(0, 0, 0);
-  // flight and walk own the camera; OrbitControls.update() ignores .enabled and
-  // would re-seat the camera on its orbit sphere every frame (the walk-mode
-  // "rotating from a weird point" bug) — so skip it entirely in both modes
-  if (!flight.on && !walk.on) controls.update();
+  // flight, walk and stargaze own the camera; OrbitControls.update() ignores
+  // .enabled and would re-seat the camera on its orbit sphere every frame (the
+  // walk-mode "rotating from a weird point" bug) — so skip it in all three
+  if (!flight.on && !walk.on && !stargaze.on) controls.update();
   updateClip();                 // keep near/far tuned to the current zoom distance
   renderer.render(scene, camera);
   world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests
@@ -4543,6 +4874,10 @@ function applyLocale(loc) {
   const btn = document.getElementById('livebtn'); if (btn) btn.textContent = liveMode ? t('live.on') : t('live.sync');
   updateViewBtn();   // chase/cockpit label follows the locale
   updateWalkViewBtn();
+  if (typeof updateHelp === 'function') updateHelp();     // Help section bodies follow the locale (HKS-86)
+  if (typeof renderSide === 'function') renderSide();     // drawer title + tab state follow the locale
+  refreshGpsBtn();   // GPS button label/icon follows the locale + state (HKS-86)
+  if (stargaze.on) syncSgTray();   // stargaze tray hint/pills follow too
   if (liveMode) { syncLiveWeather(); syncLiveTide(); }
   if (stationsOn) refreshStations();
 }
@@ -4593,6 +4928,7 @@ loadSource(startSrc).then(() => {
   if (startParams.has('lv') ? startParams.get('lv') === '1' : true) setLiveMode(true);
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
+  window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)
 }).catch(err => {
   document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message;
   const ld = document.getElementById('loader');
@@ -4659,4 +4995,56 @@ if ('serviceWorker' in navigator) {
     });
   }
   addEventListener('appinstalled', dismiss);               // installed → stop nudging
+})();
+
+// HKS-86: UI chrome (panel, drawer, dock/tray/compass, GPS, corner buttons,
+// weather/radar, coach, install bar, brand chip) must not leak pointer/touch/click
+// events to the document/window viewport handlers (hold-to-gas, take-off, etc.).
+// Stop them bubbling — the canvas keeps its own listeners either way.
+for (const el of document.querySelectorAll('#panel,#sidedrawer,#dockwrap,#locateui,#cornerui,#wxhud,#radarhud,#coachtip,#installbar,#brandchip,#stormbadge,#miniloader'))
+  for (const ev of ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'click'])
+    el.addEventListener(ev, e => e.stopPropagation());
+
+// ---- first-visit coach-mark (HKS-86): a blue halo on the dock ⚙ nudging new
+// visitors to open the settings. Shown once; the dismissal is stored on
+// production only (previews always re-show for testing), like the install nudge.
+(() => {
+  const gear = document.getElementById('dockgear'), tip = document.getElementById('coachtip');
+  if (!gear || !tip) return;
+  if (startParams.get('embed') === '1') return;            // no chrome nudges inside embeds
+  const KEY = 'hks-coach-dismissed';
+  const isProd = location.hostname === 'hongkong-sandbox.wiiiimm.codes';
+  if (isProd) { try { if (localStorage.getItem(KEY)) return; } catch (_) {} }
+  const arrow = tip.querySelector('.ct-arrow');
+  let shown = false;
+  const place = () => {                                     // park the bubble above the ⚙, arrow pointing at it
+    const g = gear.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
+    const left = Math.max(10, Math.min(g.left + g.width / 2 - tw / 2, innerWidth - tw - 10));
+    tip.style.left = left + 'px';
+    tip.style.top = (g.top - th - 12) + 'px';
+    arrow.style.left = (g.left + g.width / 2 - left - 6) + 'px';
+  };
+  const dismiss = () => {
+    if (!shown) return;
+    shown = false;
+    gear.classList.remove('coach');
+    tip.classList.remove('show');
+    setTimeout(() => { tip.style.display = 'none'; }, 220);
+    removeEventListener('resize', place);
+    if (isProd) { try { localStorage.setItem(KEY, '1'); } catch (_) {} }   // remember the dismissal (prod only)
+  };
+  const show = () => {
+    if (shown || !panelEl.classList.contains('collapsed')) return;   // panel already open → they found it
+    shown = true;
+    gear.classList.add('coach');
+    tip.style.display = 'block';
+    place();
+    requestAnimationFrame(() => tip.classList.add('show'));
+    addEventListener('resize', place);
+  };
+  document.getElementById('coach-ok').addEventListener('click', dismiss);
+  gear.addEventListener('click', dismiss);                 // tapped the ⚙ (which opens the panel) → done
+  const armCoach = () => setTimeout(show, 5000);           // 5s after the boot screen finishes
+  if (window.__hkLoaded) armCoach();                       // load already done → start the 5s timer now
+  else addEventListener('hk:loaded', armCoach, { once: true });
 })();

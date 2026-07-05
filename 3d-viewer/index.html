@@ -124,7 +124,7 @@
      (opacity/pointer-events) until main.js decides the device is eligible. */
   /* full-width on phones (12px gutters), but centred + capped on tablets so it
      doesn't stretch to a silly length on iPad-width screens (HKS-64) */
-  #installbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));
+  #installbar{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));   /* slides in ABOVE the mode dock (HKS-86) */
     width:calc(100vw - 30px);max-width:460px;box-sizing:border-box;   /* border-box so padding+border stay inside the 15px side gutters */
     z-index:40;display:flex;align-items:center;gap:10px;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
@@ -148,16 +148,20 @@
   #panel{position:fixed;top:16px;left:16px;z-index:42;   /* above the weather-notices drawer (41) so the controls stay on top */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:16px;padding:14px 15px;font-size:12.5px;line-height:1.5;
-    width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 76px);overflow:auto;
+    width:322px;max-width:calc(100vw - 32px);max-height:calc(100vh - 76px);overflow:hidden;
+    display:flex;flex-direction:column;
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
-  #panel::-webkit-scrollbar{width:8px}
-  #panel::-webkit-scrollbar-thumb{background:var(--field-edge);border-radius:4px}
+  /* HKS-86: header (drag handle + title) is a fixed flex row; only the body below
+     scrolls — no opaque sticky overlay, so the liquid-glass stays uniform */
+  #pstick{flex:0 0 auto;margin-bottom:6px}
+  #pbody{overflow-y:auto;flex:1 1 auto;min-height:0}
+  /* HKS-86: no custom ::-webkit-scrollbar — a styled webkit scrollbar is always
+     shown; dropping it lets macOS use its auto-hiding overlay scrollbar (thin on FF) */
+  #pbody{scrollbar-width:thin}
   #panel h1{font-size:14px;margin:0;letter-spacing:.01em;font-weight:600}
   /* brand icon left of the title (HKS-65) */
   .ptitle{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 auto}
   .titleicon{width:22px;height:22px;border-radius:6px;flex:0 0 auto}
-  /* labelled mode toggles, moved above Fly/Walk (HKS-65) */
-  .modebtn{flex:1;padding:9px 0;font-size:12.5px;font-weight:600;white-space:nowrap}
   #panel .sub{color:var(--sub);font-size:10.5px;font-family:var(--mono);margin:9px 0 2px;min-height:14px}
   #phead{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .pbtns{display:flex;gap:5px;flex:0 0 auto}
@@ -194,9 +198,9 @@
   #collapsedbar button{border:none;background:none;box-shadow:none;color:var(--sub)}
   #collapsedbar button:hover{background:none;border-color:transparent;color:var(--accent)}
   .navmini{font-size:11px;color:var(--sub);white-space:normal;max-width:210px;line-height:1.45}
-  #panel.collapsed{width:auto;padding:10px 12px}
-  #panel.collapsed #phead,#panel.collapsed #pbody,#panel.collapsed #navhelp{display:none}
-  #panel.collapsed #collapsedbar{display:flex}
+  /* HKS-86: the dock's ⚙ is now the single settings toggle on every screen, so a
+     collapsed panel just hides (the old top-left cog chip is retired) */
+  #panel.collapsed{display:none}
   .grp{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
   .grp .gt{font-size:9.5px;text-transform:uppercase;letter-spacing:.16em;color:var(--sub);
     font-weight:600;margin-bottom:9px;font-family:var(--mono)}
@@ -227,13 +231,6 @@
     border-radius:8px;padding:6px 11px;cursor:pointer;font-size:11px;font-family:var(--sans);letter-spacing:.02em;
     transition:border-color .12s, background .12s}
   button:hover{background:rgba(255,255,255,.08);border-color:var(--accent)}
-  /* Fly and Walk are split buttons: the camera segment docks onto the mode
-     button and only exists while the mode is active — the pairing explains it */
-  .splitbtn{display:flex;flex:1;gap:0}
-  .splitbtn>button:first-child{flex:1;padding:10px 0;font-size:13px;font-weight:600}
-  .splitbtn>button+button{display:none;border-radius:0 8px 8px 0;border-left:none;padding:10px 12px;white-space:nowrap}
-  .splitbtn>button:first-child.on{border-radius:8px 0 0 8px}
-  .splitbtn>button.on+button{display:block}
   .btns{display:flex;gap:6px;flex-wrap:wrap}
   #sharemenu{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
   .sharebtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
@@ -277,38 +274,51 @@
   #wxhud #wx-warn.warn:not(:empty){color:#e6a23c;border-color:rgba(230,162,60,.5)}
   #wxhud #wx-warn:not(:empty):hover{border-color:var(--accent);color:var(--ink)}
   #wxhud .wx-src{font-size:9px;color:var(--sub);opacity:.7;margin-top:5px;font-family:var(--mono);letter-spacing:.04em}
-  /* pull-up weather-notices bulletin (HKS-80) — glass sheet, slides up from the bottom */
-  /* pull-out weather-notices drawer from the right edge; the tab handle rides the
-     panel's left edge and pokes out at ~the top third when closed (HKS-80) */
-  #wxbulletin{position:fixed;top:33%;right:0;z-index:41;display:flex;align-items:flex-start;
-    transform:translateX(100%);visibility:hidden;
+  /* HKS-86: unified right-edge drawer — Weather notices (HKS-80) + Help share ONE
+     sliding panel. Both tabs stack together on the edge (always visible); the
+     active tab is highlighted; clicking a tab swaps the panel content, no slide. */
+  #sidedrawer{position:fixed;top:25%;left:0;z-index:41;display:flex;align-items:flex-start;
+    transform:translateX(-100%);visibility:hidden;
     transition:transform .34s cubic-bezier(.22,1,.36,1), visibility .34s}
-  #wxbulletin.ready{visibility:visible}
-  #wxbulletin.open{transform:translateX(0)}
-  #wxbulletin #wb-tab{position:absolute;left:-30px;top:0;width:30px;min-height:118px;padding:14px 0;
-    writing-mode:vertical-rl;text-orientation:mixed;text-align:center;white-space:nowrap;
+  #sidedrawer.ready{visibility:visible}
+  #sidedrawer.open{transform:translateX(0)}
+  #sd-tabs{position:absolute;right:-30px;left:auto;top:0;display:flex;flex-direction:column;gap:6px}
+  .sd-tab{width:30px;min-height:90px;padding:14px 2px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-right:none;border-radius:12px 0 0 12px;
-    color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow)}
-  #wxbulletin.warn #wb-tab{color:#e6a23c;border-color:rgba(230,162,60,.5)}
-  #wxbulletin.warn #wb-tab .wb-tab-lab::before{content:'⚠ '}
-  #wxbulletin #wb-tab:hover{color:var(--ink);border-color:var(--accent)}
-  #wxbulletin .wb-panel{width:min(320px,calc(100vw - 40px));max-height:64vh;overflow:auto;box-sizing:border-box;
+    border:1px solid var(--edge);border-left:none;border-radius:0 12px 12px 0;
+    color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow);
+    transition:color .12s,border-color .12s,background .12s}
+  .sd-tab .sd-tab-lab{writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap}
+  .sd-tab-ic{flex:0 0 auto;display:block}
+  .sd-tab:hover{color:var(--ink);border-color:var(--accent)}
+  .sd-tab.on{color:var(--accent);border-color:var(--accent);background:var(--accent-dim)}   /* active tab highlighted */
+  #sd-tab-wx.warn{color:#e6a23c;border-color:rgba(230,162,60,.5)}                             /* amber when a warning is in force */
+  #sd-tab-wx.warn .sd-tab-lab::before{content:'⚠ '}
+  #sd-tab-wx.warn.on{color:#e6a23c;border-color:#e6a23c;background:rgba(230,162,60,.14)}
+  body.glass .sd-tab, body.glass #sidedrawer .wb-panel{background:rgba(10,13,18,.62)}
+  body.glass.ui-light .sd-tab, body.glass.ui-light #sidedrawer .wb-panel{background:rgba(252,250,246,.72)}
+  body.glass .sd-tab.on{color:var(--accent);border-color:var(--accent)}
+  #sidedrawer .wb-panel{width:min(320px,calc(100vw - 40px));min-height:346px;max-height:64vh;overflow:auto;box-sizing:border-box;   /* cover the stacked tabs (~323px) + clearance so the rounded bottom-right corner clears the last tab */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-right:none;border-radius:0 0 0 14px;padding:13px 16px;   /* square top-left so it butts flush against the tab */
+    border:1px solid var(--edge);border-left:none;border-radius:0 0 14px 0;padding:13px 16px;   /* square top-right so it butts flush against the tabs; only the outer bottom-right is rounded */
     font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
-  body.glass #wxbulletin #wb-tab, body.glass #wxbulletin .wb-panel{background:rgba(10,13,18,.62)}
-  body.glass.ui-light #wxbulletin #wb-tab, body.glass.ui-light #wxbulletin .wb-panel{background:rgba(252,250,246,.72)}
-  #wxbulletin .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
-  #wxbulletin .wb-title{color:var(--ink);font-weight:600;font-size:13px}
-  #wxbulletin #wb-close{width:28px;height:28px;padding:0;flex:0 0 auto;display:grid;place-items:center;font-size:15px;border-radius:8px}
-  #wxbulletin .wb-sec{margin-top:9px}
-  #wxbulletin .wb-sec:empty{display:none}
-  #wxbulletin .wb-sec b{display:block;color:var(--ink);font-weight:600;font-size:9.5px;text-transform:uppercase;
+  #sidedrawer .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+  #sidedrawer .wb-title{color:var(--ink);font-weight:600;font-size:13px}
+  #sidedrawer #sd-close{width:28px;height:28px;padding:0;flex:0 0 auto;display:grid;place-items:center;font-size:15px;border-radius:8px}
+  #sidedrawer .sd-body[hidden]{display:none}
+  #sidedrawer .wb-sec{margin-top:9px}
+  #sidedrawer .wb-sec:empty{display:none}
+  #sidedrawer .wb-sec b{display:block;color:var(--ink);font-weight:600;font-size:9.5px;text-transform:uppercase;
     letter-spacing:.14em;margin-bottom:4px;font-family:var(--mono)}
-  #wxbulletin .wb-sec div{margin-top:3px}
-  #wxbulletin #wb-warn b{color:#e6a23c}
-  #wxbulletin .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
+  #sidedrawer .wb-sec div{margin-top:3px}
+  #sidedrawer #wb-warn b{color:#e6a23c}
+  #sidedrawer .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
+  /* Credits tab body (the about content) */
+  #sidedrawer #sd-credits b{color:var(--ink);font-weight:600}
+  #sidedrawer #sd-credits p{margin:7px 0 0}
+  #sidedrawer .sd-body a{color:var(--accent);text-decoration:none}
+  #sidedrawer .sd-body a:hover{text-decoration:underline}
   #wxhud #wx-tide{font-size:11px;color:var(--ink);margin-top:7px;font-family:var(--mono)}
   #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
   #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
@@ -330,14 +340,17 @@
   body.glass #radarhud .rf-tab{fill:rgba(10,13,18,.52)}
   body.glass.ui-light #radarhud .rf-tab{fill:rgba(252,250,246,.5)}
   #radarhud .rf-tab:hover{fill:rgba(255,255,255,.12)}
-  #radarhud .rf-tab.on{fill:var(--accent)}
+  /* selected: opaque white fill so the dark label is always legible, accent outline keeps it themed.
+     NB: the glass-mode overrides must repeat the fill — `body.glass #radarhud .rf-tab` (line above)
+     outranks a plain `.rf-tab.on` on specificity, so without these it stays dark in glass mode. */
+  #radarhud .rf-tab.on{fill:#f2f5f8;stroke:var(--accent);stroke-width:1.1}
+  body.glass #radarhud .rf-tab.on, body.glass.ui-light #radarhud .rf-tab.on{fill:#f2f5f8}
   #radarhud .rf-tab:focus-visible{stroke:var(--accent);stroke-width:1.6;outline:none}
   #radarhud .rf-size:focus-visible circle{stroke:var(--accent);stroke-width:1.6;outline:none}
   #radarhud .rf-lab{fill:var(--sub);font-family:var(--mono);font-size:8.5px;letter-spacing:.02em;
     text-anchor:middle;dominant-baseline:middle;pointer-events:none}
   #radarhud .rf-lab.on{fill:#0a0d12;font-weight:600}
-  #radarhud .rf-time{position:absolute;left:0;right:0;bottom:39%;text-align:center;pointer-events:none;
-    font-family:var(--mono);font-size:8.5px;color:var(--sub);text-shadow:0 1px 3px rgba(0,0,0,.9)}
+  #radarhud .rf-time{display:none}   /* HKS-86: hide the radar frame timestamp on the dial */
   /* size toggle — a round button in the empty left-side gap; tap to enlarge, tap to restore */
   #radarhud.big{width:218px;height:218px}   /* 30% larger than the 168px default */
   #radarhud .rf-size circle{fill:rgba(14,18,24,.66);stroke:var(--edge);stroke-width:.6;cursor:pointer;transition:fill .12s}
@@ -395,11 +408,68 @@
   body.matrix .lbl,body.matrix .lbl small,body.matrix .lbl.lmk small{color:#4bff79!important;
     font-family:var(--mono);text-shadow:0 0 6px rgba(57,255,106,.6),0 1px 4px rgba(0,0,0,.9)}
   @keyframes mxflicker{0%,91%,95%,100%{opacity:.5}92%{opacity:.36}93%{opacity:.56}94%{opacity:.42}}
-  #flyhud{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);
-    z-index:22;display:none;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:#eef2f6;
-    background:rgba(10,13,18,.6);border:1px solid var(--edge);border-radius:11px;padding:8px 15px;
-    text-align:center;white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-  #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:4px;letter-spacing:.09em}
+  /* HKS-86: flight/walk stats + speed share ONE glass box, stacked above the
+     compass tape (flyhud on top, speed bar below) */
+  #hudbox{display:none;flex-direction:column;align-items:center;gap:7px;box-sizing:border-box;
+    width:max-content;max-width:calc(100vw - 20px);padding:8px 13px;border-radius:12px;
+    background:var(--panel);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.flying #hudbox{display:flex}
+  body.glass #hudbox{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #hudbox{background:rgba(252,250,246,.3)}
+  #flyhud{display:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--ink);
+    line-height:1.45;text-align:center;white-space:nowrap}   /* HKS-86: keep stats on one line */
+  body.flying #flyhud{display:block}
+  #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:2px;letter-spacing:.08em}
+  /* HKS-86: bottom-centre instrument cluster — contextual tray · compass tape ·
+     speed gauge · mode dock, one column. Replaces the strays that used to share
+     the bottom edge (mode buttons in the panel, #flyhud, floating compass). */
+  #dockwrap{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));
+    z-index:21;display:flex;flex-direction:column;align-items:center;gap:7px;
+    width:max-content;max-width:calc(100vw - 16px)}
+  #dock{display:flex;align-items:center;gap:3px;padding:5px;border-radius:15px;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass #dock{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #dock{background:rgba(252,250,246,.22)}
+  #dockmodes{display:flex;gap:3px}
+  .dockbtn{border:1px solid transparent;background:none;box-shadow:none;color:var(--sub);border-radius:10px;
+    display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;font-size:15px;line-height:1;
+    transition:color .15s, background .15s, border-color .15s}
+  .dockbtn small{font-size:8.5px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase}
+  .dockbtn:hover{color:var(--ink);background:var(--field);border-color:transparent}
+  .dockbtn.on{color:var(--accent);background:var(--accent-dim);border-color:var(--accent)}
+  /* HKS-86: the ⚙ is the single settings affordance now — size it to match the
+     camera button (#cornerui, 40px circle) so it reads as a peer, not a speck */
+  #dockgear{width:40px;height:40px;padding:0;justify-content:center;font-size:19px}
+  .dockdiv{width:1px;align-self:stretch;margin:4px 3px;background:var(--edge-soft)}
+  /* contextual tray — per-mode affordances above the compass tape */
+  #modetray{display:flex;flex-direction:column;gap:8px;padding:9px 13px;border-radius:13px;
+    width:min(400px,calc(100vw - 24px));box-sizing:border-box;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass #modetray{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #modetray{background:rgba(252,250,246,.3)}
+  #modetray[hidden]{display:none}
+  /* Stargaze tray (HKS-86 §4) */
+  #modetray:not([data-mode="star"]) #sgrow{display:none}
+  #sgrow{display:flex;flex-direction:column;gap:8px}
+  .sgline{display:flex;align-items:center;justify-content:center;gap:8px}
+  #sgskypill{display:flex;border:1px solid var(--field-edge);border-radius:9px;overflow:hidden;flex:0 0 auto}
+  #sgskypill button{border:none;border-radius:0;background:none;box-shadow:none;padding:5px 10px;font-size:11px;color:var(--sub)}
+  #sgskypill button.on{background:var(--accent-dim);color:var(--accent)}
+  #sg-time{flex:1;min-width:60px}
+  #sg-timev{flex:0 0 40px;text-align:right;font-family:var(--mono);font-size:10.5px;color:var(--ink)}
+  #sg-orient[hidden],#sg-follow[hidden]{display:none}
+  #sg-hint{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--sub);text-align:center}
+  /* stargazing dims the weather chip + radar dial for a cleaner sky (restored on exit) */
+  #wxhud,#radarhud{transition:opacity .5s ease}
+  body.stargazing #wxhud,body.stargazing #radarhud{opacity:.12;pointer-events:none}
+  /* live speed gauge — shares the #hudbox glass with the flyhud (HKS-86); the
+     readout shows the actual speed (kt / km·h), no percentage */
+  #spdwrap{display:none;align-items:center;gap:8px;width:100%;box-sizing:border-box}
+  body.flying #spdwrap{display:flex}
+  #spdwrap #spdpct{flex:0 0 auto;min-width:58px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)}
   /* fly/walk: hold-to-gas must never trigger text selection or the iOS long-press callout (HKS-81) */
   body.flying{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
   body.flying #flyhud [data-fly]{-webkit-user-select:auto;user-select:auto}   /* keep the HUD links tappable */
@@ -412,31 +482,37 @@
   #cornerui button svg{display:block;transform:translateY(.5px)}   /* camera glyph is top-heavy — nudge to optical centre */
   body.glass #cornerui button{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #cornerui button{background:rgba(252,250,246,.22)}
-  /* GPS "you are here" locate control (HKS-83) — right column, above the radar dial */
-  #locateui{position:fixed;right:12px;bottom:260px;z-index:22}
+  /* HKS-86: sandbox identity chip — icon + title in a glass container */
+  #brandchip{position:fixed;top:16px;left:16px;z-index:40;display:flex;align-items:center;gap:9px;
+    padding:8px 14px 8px 11px;border-radius:13px;pointer-events:none;white-space:nowrap;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
+    font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+  #brandchip img{width:22px;height:22px;border-radius:6px;flex:0 0 auto}
+  body.glass #brandchip{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #brandchip{background:rgba(252,250,246,.22)}
+  #panel:not(.collapsed) ~ #brandchip{display:none}   /* the open panel shows the same title in its header */
+  /* GPS "you are here" locate control (HKS-83/86) — right column, above the radar
+     dial. Maps-style stateful button: outline target (off) → filled my-location
+     (follow, Google-location blue) → navigation arrow (compass, heading-up). */
+  #locateui{position:fixed;right:12px;bottom:260px;z-index:22;display:flex;flex-direction:column;align-items:center;gap:6px;transition:bottom .3s ease}
+  body:not(.radar-on) #locateui{bottom:calc(78px + env(safe-area-inset-bottom))}   /* radar hidden → sit right above the camera button */
   #locateui #locatebtn{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);cursor:pointer;color:var(--ink);padding:0;box-shadow:0 6px 18px rgba(0,0,0,.35);
     transition:border-color .12s,color .12s}
   body.glass #locateui #locatebtn{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #locateui #locatebtn{background:rgba(252,250,246,.22)}
-  #locateui #locatebtn:hover,#locateui #locatebtn.on,#locateui #locatebtn.follow,#locateui #locatebtn.compass{border-color:var(--accent);color:var(--accent)}
-  #locateui #locatebtn.locating{border-color:var(--accent);color:var(--accent);animation:locpulse 1.1s ease-in-out infinite}
-  #locateui #locatebtn.follow::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1.5px solid var(--accent);
-    animation:locring 1.7s ease-out infinite;pointer-events:none}
+  #locateui #locatebtn:hover{border-color:#4285f4;color:#4285f4}
+  #locateui #locatebtn.on,#locateui #locatebtn.follow,#locateui #locatebtn.compass{border-color:#4285f4;color:#4285f4}   /* maps-style location blue, matching the marker (never the green accent) */
+  #locateui #locatebtn.locating{border-color:#4285f4;color:#4285f4;animation:locpulse 1.1s ease-in-out infinite}
+  #locateui #locatebtn.follow::after,#locateui #locatebtn.compass::after{content:'';position:absolute;inset:-4px;border-radius:50%;
+    border:1.5px solid #4285f4;animation:locring 1.7s ease-out infinite;pointer-events:none}
   #locateui #locatebtn svg{display:block}
   @keyframes locpulse{0%,100%{opacity:1}50%{opacity:.42}}
   @keyframes locring{0%{transform:scale(.8);opacity:.7}100%{transform:scale(1.55);opacity:0}}
-  #locatepop{position:absolute;right:0;bottom:calc(100% + 8px);display:none;flex-direction:column;gap:2px;min-width:150px;
-    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-radius:12px;padding:5px;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
-  body.glass #locatepop{background:rgba(10,13,18,.6)}
-  body.glass.ui-light #locatepop{background:rgba(252,250,246,.72)}
-  #locatepop.open{display:flex}
-  #locatepop button{width:100%;text-align:left;background:none;border:none;border-radius:8px;padding:7px 10px;
-    font-size:12px;color:var(--ink);cursor:pointer;font-family:var(--sans);letter-spacing:.01em}
-  #locatepop button:hover{background:rgba(255,255,255,.08)}
-  #locatepop button.stop{color:#e6a23c}
+  /* the one surviving flyout action: remove the pin (HKS-86 — locate/follow/
+     walk-from-here/compass all collapsed into the tap cycle) */
   #geotoast{position:absolute;right:0;bottom:calc(100% + 8px);max-width:230px;display:none;
     background:rgba(11,14,19,.94);border:1px solid var(--edge);border-radius:10px;padding:8px 11px;
     font-size:11px;line-height:1.45;color:#eef2f6;box-shadow:0 8px 24px rgba(0,0,0,.55);backdrop-filter:blur(10px)}
@@ -453,15 +529,27 @@
     animation:locring 1.7s ease-out infinite}
   .geoloc .gl-lbl{margin-top:4px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em;
     background:#1a73e8;padding:1px 7px;border-radius:7px}
-  /* band heading indicator (directional-gyro tape), bottom-centre; lifts above
-     the flight HUD while flying. Click/tap = face north. */
-  #compass{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));
-    z-index:21;width:min(340px,62vw);height:34px;border-radius:10px;cursor:pointer;
+  /* HKS-86: camera-angle segmented toggle sits to the left of the compass; both
+     share a centered row. The toggle only shows in fly/walk (body.flying). */
+  #cmprow{display:flex;align-items:center;justify-content:center;gap:7px}
+  #camseg{display:none;align-items:center;height:30px;border-radius:9px;overflow:hidden;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35);transition:bottom .25s ease}
+    border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  body.flying #camseg{display:inline-flex}
+  body.glass #camseg{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #camseg{background:rgba(252,250,246,.3)}
+  #camseg button{height:100%;min-width:32px;padding:0 8px;border:none;background:none;cursor:pointer;
+    font-size:13px;line-height:1;color:var(--sub);display:grid;place-items:center;transition:color .12s,background .12s}
+  #camseg button:first-child{border-right:1px solid var(--edge-soft)}
+  #camseg button.on{background:var(--accent-dim);color:var(--accent)}
+  #camseg button:hover{color:var(--ink)}
+  /* band heading indicator (directional-gyro tape) — rides on top of the mode
+     dock inside the bottom instrument cluster (HKS-86). Click/tap = face north. */
+  #compass{width:min(230px,60vw);height:30px;border-radius:10px;cursor:pointer;
+    background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35)}
   body.glass #compass{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #compass{background:rgba(252,250,246,.3)}
-  body.flying #compass{bottom:calc(92px + env(safe-area-inset-bottom))}
   #mapattr{position:fixed;right:9px;bottom:7px;z-index:14;display:none;font-size:9.5px;font-family:var(--mono);
     color:rgba(255,255,255,.72);background:rgba(0,0,0,.4);padding:2px 7px;border-radius:5px;pointer-events:none}
   .stn .tip{display:none;position:absolute;left:50%;top:calc(100% + 5px);transform:translateX(-50%);
@@ -518,27 +606,28 @@
     #sheetgrip{display:block;padding:5px 0 10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
     #sheetgrip:before{content:'';display:block;width:42px;height:4px;border-radius:2px;
       background:var(--field-edge);margin:0 auto}
-    /* collapsed chip, compass bar and camera button share one 36px-tall bottom row,
-       all anchored to the same 12px baseline so they line up left / centre / right */
-    #panel.collapsed{left:12px;right:auto;bottom:calc(12px + env(safe-area-inset-bottom));
-      box-sizing:border-box;height:36px;display:flex;align-items:center;overflow:hidden;
-      border:1px solid var(--edge);border-radius:12px;padding:0 9px}
-    #panel.collapsed #expand-btn{width:28px;height:28px}
-    #panel.collapsed #expand-btn svg{width:14px;height:14px}
-    #panel.collapsed #sheetgrip{display:none}
-    #cornerui{bottom:calc(12px + env(safe-area-inset-bottom))}          /* drop the camera to the compass baseline */
-    #cornerui button{width:36px;height:36px;box-sizing:border-box}      /* same 36px height as the compass bar */
-    #locateui{right:12px;left:auto;bottom:calc(212px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
+    /* HKS-86: the dock IS the bottom bar — the old collapsed chip retires on
+       phones (the dock's ⚙ reopens the sheet); the dock goes icon-only with
+       ~44px targets */
+    #panel.collapsed{display:none}
+    #dock .dockbtn{padding:11px 11px;font-size:17px}
+    #dock .dockbtn small{display:none}
+    #dock #dockgear{width:36px;height:36px;padding:0;font-size:18px}
+    /* right column stacks clear of the dock: snapshot → radar dial → GPS FAB */
+    #cornerui{bottom:calc(64px + env(safe-area-inset-bottom))}
+    #cornerui button{width:36px;height:36px;box-sizing:border-box}
+    #locateui{right:12px;left:auto;bottom:calc(248px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
+    body:not(.radar-on) #locateui{bottom:calc(108px + env(safe-area-inset-bottom))}   /* radar hidden → above the camera button */
     #locateui #locatebtn{width:36px;height:36px;box-sizing:border-box}
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
-       camera button (#cornerui, bottom-right) AND the separate compass canvas
-       (#compass, bottom-centre), both above the panel. Hide both while the sheet
-       is open; they return when it collapses to the chip. (creditsbtn already
+       camera button (#cornerui, bottom-right) AND the instrument cluster
+       (#dockwrap, bottom-centre), both above the panel. Hide both while the
+       sheet is open; they return when it collapses. (creditsbtn already
        moves top-left on mobile, so it's clear.) */
     #panel:not(.collapsed) ~ #cornerui,
     #panel:not(.collapsed) ~ #radarhud,
     #panel:not(.collapsed) ~ #locateui,
-    #panel:not(.collapsed) ~ #compass{display:none}
+    #panel:not(.collapsed) ~ #dockwrap{display:none}
     #panel .navmini{display:none}   /* nav hint lives behind the ? button on phones */
     #wxhud{top:12px;right:12px;min-width:0;max-width:46vw;box-sizing:border-box;padding:8px 11px;
       cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -551,7 +640,7 @@
     /* keep the radar/satellite circle compact on phones so the weather box doesn't
        grow tall enough to sit over the controls behind it */
     /* compact circular HUD on phones; sits above the camera button (bottom-right) */
-    #radarhud{width:128px;height:128px;bottom:calc(76px + env(safe-area-inset-bottom))}
+    #radarhud{width:128px;height:128px;bottom:calc(112px + env(safe-area-inset-bottom))}
     #radarhud.big{width:min(166px,calc(100vw - 24px));height:min(166px,calc(100vw - 24px))}   /* 30% larger than the 128px default */
     #radarhud .rf-lab{font-size:9px}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
@@ -564,18 +653,45 @@
     #creditsbtn{top:calc(12px + env(safe-area-inset-top));left:12px;bottom:auto;padding:0;
       width:34px;height:34px;justify-content:center}
     #creditsbtn .clabel{display:none}
+    /* brand chip → right of the credits (i) button on phones */
+    #brandchip{top:calc(12px + env(safe-area-inset-top));left:12px;height:34px;padding:0 12px;box-sizing:border-box;
+      gap:7px;font-size:12.5px;max-width:calc(100vw - 90px)}
+    #brandchip img{width:18px;height:18px}
+    #brandchip span{min-width:0;overflow:hidden;text-overflow:ellipsis}
     #creditspop{top:calc(54px + env(safe-area-inset-top));left:12px;right:12px;bottom:auto;
       width:auto;max-width:none;max-height:64vh}
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
-    /* fly/walk HUD: lift clear of the collapsed-controls chip (bottom-left) and
-       the snapshot/corner buttons (bottom-right); wrap instead of running under them */
-    /* fit the speed/info HUD into the bottom row, between the collapsed cog (left)
-       and the camera (right); smaller font keeps the stats on one line (HKS-81) */
-    #flyhud{left:60px;right:60px;transform:none;white-space:normal;
-      bottom:calc(12px + env(safe-area-inset-bottom));font-size:9px;padding:5px 8px;line-height:1.35}
-    #flyhud small{font-size:8px;margin-top:2px;letter-spacing:.06em}
-    body.flying #compass{bottom:calc(142px + env(safe-area-inset-bottom))}   /* unchanged: clear of the HUD */
+    /* fly/walk stats HUD — tighten inside the shared hudbox on phones */
+    #flyhud{font-size:10px;line-height:1.4}
+    #flyhud small{font-size:8.5px;margin-top:2px;letter-spacing:.06em}
+    #compass{width:min(186px,52vw);height:26px}
+    #camseg{height:26px}
+    #camseg button{min-width:28px;font-size:12px}
   }
+  /* very narrow phones: compress the dock so it clears the corner buttons */
+  @media (max-width:374px){
+    #dock .dockbtn{padding:10px 7px;font-size:15px}
+    #dock #dockgear{width:34px;height:34px;padding:0;font-size:16px}
+  }
+  /* HKS-86: first-visit coach-mark — a blue halo on the dock ⚙ + a nudge bubble.
+     Dismissal is stored (prod only) like the install nudge, so it shows once. */
+  @keyframes coachpulse{0%{box-shadow:0 0 0 0 rgba(66,133,244,.5)}
+    70%{box-shadow:0 0 0 11px rgba(66,133,244,0)}100%{box-shadow:0 0 0 0 rgba(66,133,244,0)}}
+  #dockgear.coach{border-color:#4285f4;color:#7fb0ff;animation:coachpulse 1.8s ease-out infinite}
+  @media (prefers-reduced-motion:reduce){#dockgear.coach{animation:none;box-shadow:0 0 0 3px rgba(66,133,244,.5)}}
+  #coachtip{position:fixed;z-index:60;display:none;max-width:236px;box-sizing:border-box;
+    background:rgba(18,24,32,.96);color:#eef2f6;border:1px solid rgba(66,133,244,.55);border-radius:12px;
+    padding:11px 13px;font-size:12.5px;line-height:1.5;font-family:var(--sans);
+    box-shadow:0 12px 34px rgba(0,0,0,.5), 0 0 0 4px rgba(66,133,244,.12)}
+  #coachtip.show{display:block;animation:coachin .28s ease}
+  @keyframes coachin{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  #coachtip .ct-msg b{color:#8ab4f8;font-weight:600;font-size:2em;vertical-align:-.18em;line-height:1}
+  #coachtip .ct-go{display:flex;justify-content:flex-end;margin-top:9px}
+  #coachtip .ct-go button{background:#4285f4;color:#fff;border:none;border-radius:8px;
+    padding:5px 13px;font-size:11.5px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+  #coachtip .ct-go button:hover{background:#3670d6}
+  #coachtip .ct-arrow{position:absolute;bottom:-6px;width:12px;height:12px;background:rgba(18,24,32,.96);
+    border-right:1px solid rgba(66,133,244,.55);border-bottom:1px solid rgba(66,133,244,.55);transform:rotate(45deg)}
 </style>
 </head>
 <body>
@@ -604,12 +720,9 @@
 <canvas id="matrixfx"></canvas>
 <div id="noirvig"></div>
 <canvas id="noirfx" width="256" height="144"></canvas>
-<div id="panel">
+<div id="panel" class="collapsed">
+  <div id="pstick">
   <div id="sheetgrip" title="Hide controls" aria-hidden="true"></div>
-  <div id="collapsedbar">
-    <button id="expand-btn" title="Show controls" aria-label="Show controls"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
-    <span class="navmini">drag / 1‑finger rotate · scroll / pinch zoom · 2‑finger pan</span>
-  </div>
   <div id="phead">
     <div class="ptitle">
       <img class="titleicon" src="/favicon-32.png" alt=""/>
@@ -617,45 +730,21 @@
     </div>
     <div class="pbtns">
       <button id="langbtn" title="Language" style="width:auto;padding:0 8px;font-size:11px;font-weight:600">中</button>
-      <button id="navhelp-btn" title="How to navigate" aria-label="How to navigate"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></button>
       <button id="collapse-btn" title="Collapse panel" aria-label="Collapse panel"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
     </div>
   </div>
-  <div id="navhelp" data-i18n-html="navhelp" style="display:none">
-    <b>Navigate</b><br>
-    Mouse — drag rotate · scroll zoom · right‑drag pan<br>
-    Touch — one finger rotate · pinch zoom · two‑finger pan<br>
-    Reset — recenter the view
-  </div>
-  <div id="pbody">
   <div class="sub" id="note">Loading…</div>
+  </div><!-- /#pstick -->
+  <div id="pbody">
 
-  <div class="grp"><!-- explore modes live right under the header, by their mode toggles -->
-    <div class="row">
-      <button id="matrixbtn" class="modebtn" title="Matrix — see the simulation for what it is (M)" data-i18n="btn.matrix">🕴 Matrix</button>
-      <button id="neonbtn" class="modebtn" title="Sons of the Neon Night 風林火山 — snowbound noir (N)" data-i18n="btn.neon">❄️ 風林火山</button>
-    </div>
-    <div class="row">
-      <div class="splitbtn">
-        <button id="flybtn" title="Fly a plane over the terrain — land anywhere (even water) and take off again"
-                data-i18n="btn.fly">✈ Fly</button>
-        <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
-      </div>
-      <div class="splitbtn">
-        <button id="walkbtn" title="Air-drop at the view centre and hike the terrain — ␣ jumps, ⇧ (or a two-finger hold) runs"
-                data-i18n="btn.walk">🪂 Walk</button>
-        <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
-      </div>
-    </div>
-    <div class="row" style="margin-top:8px"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
+  <div class="grp"><!-- HKS-86: modes moved to the bottom dock — this group is settings only -->
+    <div class="gt" data-i18n="grp.move">Fly &amp; walk</div>
+    <div class="row"><label class="k" data-i18n="lbl.topspeed">Top speed</label>
       <input id="topspd" type="range" min="130" max="600" step="2" value="214" disabled
              title="Boost target — hold ␣ in flight · ⇧ or a two-finger hold on foot"/>
       <span id="topspdv" style="flex:0 0 56px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
     </div>
-    <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
-      <div id="spdgauge" title="Current speed as % of top speed — redlines at full boost"><div id="spdfill"></div></div>
-      <span id="spdpct" style="flex:0 0 48px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
-    </div>
+    <!-- the live speed gauge docked under the compass tape (HKS-86 §3) -->
   </div>
 
   <div class="grp">
@@ -834,17 +923,81 @@
 </div>
 
 <div id="stormbadge"></div>
-<div id="flyhud"></div>
+<!-- HKS-86: sandbox identity chip (icon + title) — top-left on desktop while the
+     panel is collapsed; on mobile it sits to the right of the credits (i) button -->
+<div id="brandchip">
+  <img src="/favicon-32.png" alt=""/>
+  <span data-i18n="app.title">Hong Kong Sandbox</span>
+</div>
 <div id="cornerui">
   <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>
-<!-- HKS-83: GPS "you are here" locate control -->
+<!-- HKS-83/86: GPS "you are here" — a maps-style stateful button. Tap cycles
+     locate/follow → compass → off in Orbit (press again to flip around); in a
+     movement mode a tap is a one-shot teleport. -->
 <div id="locateui">
-  <button id="locatebtn" title="Find my location" data-i18n-title="loc.find" aria-label="Find my location" data-i18n-aria-label="loc.find" aria-haspopup="menu" aria-expanded="false"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><line x1="12" y1="1.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22.5" y2="12"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg></button>
-  <div id="locatepop" role="menu"></div>
+  <button id="locatebtn" title="Find my location" aria-label="Find my location"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><line x1="12" y1="1.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22.5" y2="12"/></svg></button>
   <div id="geotoast" role="status" aria-live="polite"></div>
 </div>
-<canvas id="compass" title="Heading — click to face north"></canvas>
+<!-- HKS-86: bottom-centre instrument cluster — contextual mode tray, compass
+     tape, live speed gauge and the mode dock, one column. The dock re-homes the
+     mode buttons that used to live in the settings panel; their IDs (and thus
+     their existing handlers) are unchanged. -->
+<div id="dockwrap">
+  <div id="modetray" data-mode="" role="group" aria-label="Stargaze controls" hidden>
+    <!-- Stargaze tray (HKS-86 §4): sky clock proxy + the two special toggles -->
+    <div id="sgrow">
+      <div class="sgline">
+        <span id="sgskypill">
+          <button id="sg-live" data-i18n="sg.live">● Live sky</button>
+          <button id="sg-custom" data-i18n="sg.custom">🕐 Custom</button>
+        </span>
+        <input id="sg-time" type="range" min="0" max="1439" step="1" value="1320" aria-label="Sky time"/>
+        <span id="sg-timev">22:00</span>
+      </div>
+      <div class="sgline">
+        <button id="sg-orient" data-i18n="sg.orient" aria-pressed="false">🧭 Point at the sky</button>
+        <button id="sg-follow" data-i18n="sg.follow" aria-pressed="false">📍 Follow me</button>
+      </div>
+      <div id="sg-hint"></div>
+    </div>
+  </div>
+  <!-- HKS-86: flight/walk stats + speed share one glass box, above the compass -->
+  <div id="hudbox">
+    <div id="flyhud"></div>
+    <div id="spdwrap" title="Speed — the readout shows your actual speed (kt / km·h); the bar fills toward top speed and redlines at full boost">
+      <div id="spdgauge"><div id="spdfill"></div></div>
+      <span id="spdpct">—</span>
+    </div>
+  </div>
+  <!-- HKS-86: camera-angle segmented toggle (fly/walk) sits left of the compass -->
+  <div id="cmprow">
+    <span id="camseg" role="group" aria-label="Camera angle">
+      <button id="cam-ext" type="button" aria-pressed="false" title="Chase / external camera (C)"><span aria-hidden="true">🎥</span></button>
+      <button id="cam-pov" type="button" aria-pressed="false" title="First-person camera (C)"><span aria-hidden="true">👁</span></button>
+    </span>
+    <canvas id="compass" title="Heading — click to face north"></canvas>
+  </div>
+  <div id="dock" role="toolbar" aria-label="Explore modes and world themes">
+    <button id="dockgear" class="dockbtn" title="Settings" data-i18n-title="dock.settings" aria-label="Settings" data-i18n-aria-label="dock.settings">⚙</button>
+    <span class="dockdiv" aria-hidden="true"></span>
+    <span id="dockmodes" role="radiogroup" aria-label="Explore mode">
+      <button id="orbitbtn" class="dockbtn on" role="radio" aria-checked="true" title="Orbit — the map view">
+        <span aria-hidden="true">🗺️</span><small data-i18n="dock.orbit">Orbit</small></button>
+      <button id="flybtn" class="dockbtn" role="radio" aria-checked="false" title="Fly a plane over the terrain — land anywhere (even water) and take off again">
+        <span aria-hidden="true">✈️</span><small data-i18n="dock.fly">Fly</small></button>
+      <button id="walkbtn" class="dockbtn" role="radio" aria-checked="false" title="Air-drop at the view centre and hike the terrain — ␣ jumps, ⇧ (or a two-finger hold) runs">
+        <span aria-hidden="true">🥾</span><small data-i18n="dock.walk">Walk</small></button>
+      <button id="stargazebtn" class="dockbtn" role="radio" aria-checked="false" title="Stargaze — plant a planetarium camera at the view centre and look around the night sky">
+        <span aria-hidden="true">🌟</span><small data-i18n="dock.star">Stargaze</small></button>
+    </span>
+    <span class="dockdiv" aria-hidden="true"></span>
+    <button id="matrixbtn" class="dockbtn theme" aria-pressed="false" title="Matrix — see the simulation for what it is (M)">
+      <span aria-hidden="true">🕴</span><small data-i18n="dock.matrix">Matrix</small></button>
+    <button id="neonbtn" class="dockbtn theme" aria-pressed="false" title="Sons of the Neon Night 風林火山 — snowbound noir (N)">
+      <span aria-hidden="true">❄️</span><small data-i18n="dock.neon">風林火山</small></button>
+  </div>
+</div>
 <div id="mapattr"></div>
 <div id="wxhud" style="display:none">
   <div id="wx-status">—</div>
@@ -864,39 +1017,40 @@
   <svg id="rf-tabs" viewBox="0 0 176 176" role="group" aria-label="Radar / satellite controls"></svg>
   <div class="rf-time"><span id="radar-time">—</span></div>
 </div>
-<!-- HKS-80: dismissable right-edge pull-out bulletin for HKO warnings + forecast -->
-<aside id="wxbulletin" aria-label="Weather notices">
-  <button id="wb-tab" aria-expanded="false" aria-controls="wb-panel"><span class="wb-tab-lab" data-i18n="wb.title">Weather notices</span></button>
-  <div class="wb-panel" id="wb-panel" role="dialog" aria-label="Weather notices">
+<!-- HKS-86: unified right-edge drawer — Weather notices (HKS-80) + Help share ONE
+     sliding panel. Both tabs stack together on the edge and stay visible; the
+     active tab is highlighted and clicking a tab swaps the panel content. -->
+<aside id="sidedrawer" aria-label="Notices and help">
+  <div id="sd-tabs" role="tablist" aria-orientation="vertical">
+    <button id="sd-tab-wx" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><span class="sd-tab-lab" data-i18n="wb.title">Weather notices</span></button>
+    <button id="sd-tab-help" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><svg class="sd-tab-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="sd-tab-lab" data-i18n="help.tab">Help</span></button>
+    <button id="sd-tab-credits" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><svg class="sd-tab-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span class="sd-tab-lab" data-i18n="lbl.credits">Credits</span></button>
+  </div>
+  <div class="wb-panel" id="sd-panel" role="dialog" aria-label="Notices and help">
     <div class="wb-head">
-      <span class="wb-title" data-i18n="wb.title">Weather notices</span>
-      <button id="wb-close" aria-label="Close">✕</button>
+      <span class="wb-title" id="sd-title"></span>
+      <button id="sd-close" aria-label="Close">✕</button>
     </div>
-    <div id="wb-warn" class="wb-sec"></div>
-    <div id="wb-fcast" class="wb-sec"></div>
-    <div class="wb-src">© Hong Kong Observatory · data.gov.hk</div>
+    <div id="sd-wx" class="sd-body" hidden>
+      <div id="wb-warn" class="wb-sec"></div>
+      <div id="wb-fcast" class="wb-sec"></div>
+      <div class="wb-src">© Hong Kong Observatory · data.gov.hk</div>
+    </div>
+    <div id="sd-help" class="sd-body" hidden>
+      <div id="hp-context" class="wb-sec"></div>
+      <div id="hp-general" class="wb-sec"></div>
+      <div class="wb-src" data-i18n="help.src">Modes live in the bottom bar · themes toggle in any mode</div>
+    </div>
+    <div id="sd-credits" class="sd-body" data-i18n-html="about" hidden></div>
   </div>
 </aside>
 
-<button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">
-  <span class="ci" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span class="clabel" data-i18n="lbl.credits">Credits</span>
-</button>
-<div id="creditspop" role="dialog" aria-label="About Hong Kong Sandbox" data-i18n-html="about">
-  <b>Hong Kong Sandbox · 香港沙盒</b>
-  <p>Built by <b>wiiiimm</b> — <a href="https://wiiiimm.design" target="_blank" rel="noopener">portfolio</a>.
-  Originally made for <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a>'s design work.</p>
-  <p><a href="https://github.com/wiiiimm" target="_blank" rel="noopener">GitHub</a> ·
-  <a href="https://x.com/wiiiimm" target="_blank" rel="noopener">X</a> ·
-  <a href="https://www.threads.com/@_wiiiimm" target="_blank" rel="noopener">Threads</a></p>
-  <p>Liquid‑glass panels by <a href="https://github.com/wiiiimm/glass-gl" target="_blank" rel="noopener">glass‑gl</a> — droplet refraction, blur, liquidness, chromatic dispersion &amp; a directional rim glint, all refracting the live 3D scene.</p>
-  <p>Free &amp; open source under <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/LICENSE" target="_blank" rel="noopener">AGPL‑3.0</a> ·
-  <a href="https://github.com/wiiiimm/hongkong-sandbox" target="_blank" rel="noopener">source on GitHub</a>.
-  Feature requests &amp; bug reports → <a href="https://github.com/wiiiimm/hongkong-sandbox/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>
-  <p>Contact &amp; commercial licensing: <a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> ·
-  licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>
-  <p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM &amp; B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>
-  <p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>
-  © 2026 wiiiimm
+<!-- HKS-86: credits now live in the left drawer's Credits tab (#sd-credits) -->
+<!-- HKS-86: first-visit coach-mark bubble (positioned over the dock ⚙ by JS) -->
+<div id="coachtip" role="dialog" aria-live="polite">
+  <div class="ct-msg" data-i18n-html="coach.text">New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.</div>
+  <div class="ct-go"><button id="coach-ok" data-i18n="coach.ok">Got it</button></div>
+  <span class="ct-arrow" aria-hidden="true"></span>
 </div>
 <script type="module" src="./main.js"></script>
 <!-- HKS-51: Vercel Web Analytics — script-tag form for a build-free static site
