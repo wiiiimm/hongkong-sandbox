@@ -250,6 +250,12 @@
     background:linear-gradient(rgba(255,255,255,.75),transparent);transform:translateX(-50%)}
   .lbl.lmk{font-size:12.5px}
   .lbl.lmk small{color:rgba(255,255,255,.7)}
+  /* constellation name cards (HKS-84) — big name in the UI locale, the other
+     language small underneath; opacity is driven per-frame with the starlight */
+  .lbl.con{font-size:15px;letter-spacing:.08em;color:#dbe6ff;
+    text-shadow:0 1px 6px rgba(0,0,0,.95),0 0 14px rgba(120,160,255,.35)}
+  .lbl.con small{font-size:11px;color:rgba(199,214,246,.78);margin-top:2px}
+  .lbl.con:before{height:13px;background:linear-gradient(rgba(170,195,255,.5),transparent)}
   button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
   #wxhud{position:fixed;top:16px;right:16px;z-index:20;min-width:150px;max-width:250px;text-align:right;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);

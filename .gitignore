@@ -26,3 +26,8 @@ dist/
 
 # wrangler local cache/state (never commit — may hold account info)
 .wrangler/
+
+# HKS-84 sky data prep: the 53 MB Hipparcos main catalogue is fetched on
+# demand by source-scripts/hk-sky/build_hk_sky.mjs — too big to commit;
+# the smaller cached sources (BSC5, constellationship.fab) ARE committed.
+source-scripts/hk-sky/cache/hip_main.dat

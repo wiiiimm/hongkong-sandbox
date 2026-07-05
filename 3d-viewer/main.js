@@ -1506,36 +1506,72 @@ function makeSunTextures() {
   return { disc: new THREE.CanvasTexture(d), rays: new THREE.CanvasTexture(r) };
 }
 
-// moon: limb-darkened disc with fixed maria, correct phase shadow (waxing lit
-// on the right, as seen from HK), plus a soft cool halo sprite behind it
-function drawMoonTexture(phase) {
-  const c = document.createElement('canvas'); c.width = c.height = 128;
-  const x = c.getContext('2d'), cx = 64, r = 56;
-  let g = x.createRadialGradient(cx - 14, cx - 14, 6, cx, cx, r);
-  g.addColorStop(0, '#f2f5f8'); g.addColorStop(0.75, '#cfd8e2'); g.addColorStop(1, '#aab6c4');
+// moon (HKS-78): limb-darkened disc, soft-edged maria + ray craters, a phase
+// terminator laid down as a graded penumbra, and earthshine cradling thin
+// crescents. Drawn with the lit limb always toward +x — stepSky() then spins
+// the sprite so that limb tracks the real sun, which keeps waxing/waning and
+// horizon-tilted phases honest without redrawing.
+const MOON_MARIA = [   // [dx, dy, r, alpha] in unit-radius moon space, +x = lit limb
+  [-0.25, -0.32, 0.30, 0.21], [0.18, -0.14, 0.36, 0.23], [-0.07, 0.21, 0.24, 0.20],
+  [0.39, 0.29, 0.16, 0.18], [-0.46, 0.11, 0.14, 0.17], [0.29, -0.46, 0.13, 0.17],
+  [0.05, -0.55, 0.10, 0.14], [-0.35, 0.42, 0.10, 0.13]];
+const MOON_CRATERS = [ // bright ray craters — [dx, dy, r]
+  [0.10, 0.56, 0.050], [-0.52, -0.20, 0.038], [0.58, -0.30, 0.034], [-0.16, 0.70, 0.028]];
+function drawMoonTexture(phase, frac) {
+  const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
+  const x = c.getContext('2d'), cx = S / 2, r = S * 0.44;
+  const g = x.createRadialGradient(cx + r * 0.32, cx - r * 0.18, r * 0.1, cx, cx, r);
+  g.addColorStop(0, '#f6f8fa'); g.addColorStop(0.55, '#dfe6ee');
+  g.addColorStop(0.85, '#bfc9d6'); g.addColorStop(1, '#8b97a7');
   x.fillStyle = g; x.beginPath(); x.arc(cx, cx, r, 0, 7); x.fill();
-  const MARIA = [[-14,-18,16],[10,-8,20],[-4,12,13],[22,16,9],[-26,6,8],[16,-26,7]];
-  x.globalAlpha = 0.16; x.fillStyle = '#6d7d90';
-  for (const [dx, dy, rr] of MARIA) { x.beginPath(); x.arc(cx + dx, cx + dy, rr, 0, 7); x.fill(); }
-  x.globalAlpha = 1;
+  for (const [dx, dy, rr, a] of MOON_MARIA) {             // soft-edged seas
+    const mx = cx + dx * r, my = cx + dy * r;
+    const mg = x.createRadialGradient(mx, my, 0, mx, my, rr * r);
+    const ma = Math.min(0.92, a * 1.5);                    // deeper, crisper seas so the texture reads
+    mg.addColorStop(0, `rgba(72,84,102,${ma.toFixed(3)})`); mg.addColorStop(0.78, `rgba(72,84,102,${(ma * 0.82).toFixed(3)})`);
+    mg.addColorStop(1, 'rgba(72,84,102,0)');
+    x.fillStyle = mg; x.beginPath(); x.arc(mx, my, rr * r, 0, 7); x.fill();
+  }
+  for (const [dx, dy, rr] of MOON_CRATERS) {              // pinpricks of fresh ejecta
+    const mx = cx + dx * r, my = cx + dy * r;
+    const cg = x.createRadialGradient(mx, my, 0, mx, my, rr * r * 2.4);
+    cg.addColorStop(0, 'rgba(255,255,255,.3)'); cg.addColorStop(0.35, 'rgba(255,255,255,.1)');
+    cg.addColorStop(1, 'rgba(255,255,255,0)');
+    x.fillStyle = cg; x.beginPath(); x.arc(mx, my, rr * r * 2.4, 0, 7); x.fill();
+  }
+  // terminator: five graded passes give the shadow edge a real penumbra; thin
+  // crescents keep a translucent shadow so earthshine lets the maria ghost through
   const k = Math.cos(phase * 2 * Math.PI);                // 1 new → −1 full
-  const waxing = phase < 0.5;
+  const es = Math.max(0, Math.min(1, (0.25 - frac) / 0.22));   // earthshine strength
+  const aPass = 1 - Math.pow(1 - (0.93 - 0.1 * es), 1 / 5);
   x.globalCompositeOperation = 'source-atop';
-  x.fillStyle = 'rgba(10,14,22,.94)';
-  x.beginPath();
-  x.arc(cx, cx, r, -Math.PI / 2, Math.PI / 2, waxing);    // dark half (left while waxing)
-  x.ellipse(cx, cx, r * Math.abs(k), r, 0, Math.PI / 2, -Math.PI / 2, (k > 0) === waxing);
-  x.fill();
+  x.fillStyle = `rgba(${16 + 18 * es | 0},${21 + 20 * es | 0},${34 + 24 * es | 0},${aPass.toFixed(3)})`;
+  for (let i = 0; i < 5; i++) {
+    const kk = Math.max(-1, Math.min(1, k + 0.05 * (i / 2 - 1)));
+    x.beginPath();
+    x.arc(cx, cx, r, -Math.PI / 2, Math.PI / 2, true);    // dark half on the left
+    x.ellipse(cx, cx, r * Math.abs(kk), r, 0, Math.PI / 2, -Math.PI / 2, kk > 0);
+    x.fill();
+  }
+  if (es > 0) {                    // ashen light: the old moon in the new moon's arms
+    const eg = x.createLinearGradient(0, 0, S, 0);
+    eg.addColorStop(0, `rgba(150,166,194,${(0.1 * es).toFixed(3)})`);
+    eg.addColorStop(0.55, `rgba(150,166,194,${(0.05 * es).toFixed(3)})`);
+    eg.addColorStop(0.75, 'rgba(150,166,194,0)');
+    x.fillStyle = eg; x.fillRect(0, 0, S, S);
+  }
+  x.globalCompositeOperation = 'source-over';
   return new THREE.CanvasTexture(c);
 }
 const SUN_TEX = makeSunTextures();
 const MOON_GLOW_TEX = (() => {
-  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const c = document.createElement('canvas'); c.width = c.height = 256;
   const x = c.getContext('2d');
-  const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
-  g.addColorStop(0, 'rgba(205,222,242,.55)'); g.addColorStop(0.4, 'rgba(185,205,230,.16)');
+  const g = x.createRadialGradient(128, 128, 0, 128, 128, 128);
+  g.addColorStop(0, 'rgba(210,226,246,.6)'); g.addColorStop(0.22, 'rgba(198,215,238,.28)');
+  g.addColorStop(0.5, 'rgba(186,206,232,.11)'); g.addColorStop(0.78, 'rgba(180,200,230,.035)');
   g.addColorStop(1, 'rgba(180,200,230,0)');
-  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  x.fillStyle = g; x.fillRect(0, 0, 256, 256);
   return new THREE.CanvasTexture(c);
 })();
 const sunRays = new THREE.Sprite(new THREE.SpriteMaterial({ map: SUN_TEX.rays, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.85 }));
@@ -1545,84 +1581,489 @@ const moonSpr  = new THREE.Sprite(new THREE.SpriteMaterial({ transparent: true, 
 sunRays.visible = sunSpr.visible = moonGlow.visible = moonSpr.visible = false;
 scene.add(sunRays, sunSpr, moonGlow, moonSpr);            // scene, not world: sky doesn't auto-spin
 
-// ---- star field (HKS-3): the real HK sky, sidereal-time oriented -----------
-// Bright-star catalogue on the celestial sphere in three magnitude buckets +
-// constellation stick figures. Fades in through astronomical twilight, dims
-// under a bright moon, and stars set below the horizon like everything else.
-let starData = null, starPts = [], starLines = null, starGeoms = null;
-const STAR_TEX = (() => {
-  const c = document.createElement('canvas'); c.width = c.height = 32;
-  const x = c.getContext('2d');
-  const g = x.createRadialGradient(16, 16, 0, 16, 16, 15);
-  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.35, 'rgba(230,238,250,.65)');
-  g.addColorStop(1, 'rgba(220,230,250,0)');
-  x.fillStyle = g; x.fillRect(0, 0, 32, 32);
-  return new THREE.CanvasTexture(c);
-})();
-const STAR_BUCKETS = [
-  { max: 0.6, size: 6.5, op: 1.0 },    // screen-space px — the famous ones burn brightest
-  { max: 1.7, size: 4.5, op: 0.9 },
-  { max: 9.0, size: 3.0, op: 0.7 },
-];
-fetch(asset('data/hk-stars.json')).then(r => r.json()).then(d => {
-  starData = d;
-  const idx = new Map(d.stars.map((s, i) => [s.id, i]));
-  starGeoms = STAR_BUCKETS.map(b => {
-    const members = d.stars.map((s, i) => i).filter(i => {
-      const m = d.stars[i].mag;
-      return m <= b.max && (b === STAR_BUCKETS[0] || m > STAR_BUCKETS[STAR_BUCKETS.indexOf(b) - 1].max);
-    });
-    const g = new THREE.BufferGeometry();
-    g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(members.length * 3), 3));
-    const pts = new THREE.Points(g, new THREE.PointsMaterial({ map: STAR_TEX, color: 0xeaf0fc,
-      size: 1, sizeAttenuation: false, transparent: true, opacity: 0, depthWrite: false }));
-    pts.visible = false; scene.add(pts); starPts.push(pts);
-    return { members, geom: g };
+// ---- star field (HKS-3, deepened for HKS-78): stargazing over Hong Kong ----
+// One sidereally-rotated celestial sphere carries three layers: a procedural
+// deep field (thousands of faint stars, Milky-Way-weighted, deterministic
+// seed), a soft galactic haze wash, and the named-star catalogue with real
+// colour temperatures + constellation figures. Each layer is one THREE.Points
+// with per-star attributes (size / colour / twinkle phase & depth / halo); a
+// uTime uniform breathes them slowly in the vertex shader. Sidereal motion is
+// a single rigid rotation of the group per sim-minute — zero per-star JS after
+// build. Fades in through astronomical twilight; a bright moon washes out its
+// own neighbourhood (uMoonDir) on top of the global dim.
+let starLines = null;
+const SKY_COARSE = matchMedia('(pointer: coarse)').matches;
+const SKY_N = { deep: SKY_COARSE ? 2000 : 4500, haze: SKY_COARSE ? 150 : 340 };
+const starGroup = new THREE.Group();
+starGroup.visible = false;
+scene.add(starGroup);
+const starUniforms = { uTime: { value: 0 }, uFade: { value: 0 }, uDpr: { value: 1 },
+                       uMoonDir: { value: new THREE.Vector3(0, -1, 0) }, uMoonWash: { value: 0 },
+                       uSelGain: { value: 2.3 } };   // HKS-84: brightness gain on selected constellations
+const STAR_VERT = `
+  attribute float aSize; attribute vec3 aColor;
+  attribute float aPhase; attribute float aTwk; attribute float aHalo; attribute float aSel;
+  uniform float uTime, uFade, uDpr, uMoonWash, uSelGain;
+  uniform vec3 uMoonDir;
+  varying vec3 vColor; varying float vI, vHalo;
+  void main() {
+    vec4 wp = modelMatrix * vec4(position, 1.0);
+    vec3 dir = normalize(wp.xyz);
+    float horizon = smoothstep(-0.02, 0.055, dir.y);   // melt at the skyline, hide set stars
+    float tw = 1.0 - aTwk * (0.5 + 0.3 * sin(uTime * 0.31 + aPhase)
+                                 + 0.2 * sin(uTime * 0.53 + aPhase * 2.09));
+    tw = mix(tw, 1.0, 0.55 * aSel);                    // selected stars steady their breathing
+    float wash = 1.0 - uMoonWash * (0.4 + 0.6 * smoothstep(0.45, 0.99, dot(dir, uMoonDir)));
+    wash = mix(wash, 1.0, 0.5 * aSel);                 // and punch through the moon wash
+    vI = uFade * horizon * max(tw, 0.0) * max(wash, 0.0) * mix(1.0, uSelGain, aSel);
+    vColor = aColor; vHalo = max(aHalo, 0.7 * aSel);
+    gl_PointSize = aSize * uDpr * (0.85 + 0.3 * tw) * (1.0 + 0.3 * aSel);
+    gl_Position = projectionMatrix * viewMatrix * wp;
+  }`;
+const STAR_FRAG = `
+  varying vec3 vColor; varying float vI, vHalo;
+  void main() {
+    vec2 q = gl_PointCoord - 0.5;
+    float d = length(q) * 2.0;
+    float lim = smoothstep(1.0, 0.8, d);
+    float core = exp(-d * d * 9.0);
+    float glow = exp(-d * 2.4) * 0.62 * max(vHalo, 0.24) * lim;   // wider, brighter halo = more "spread"
+    vec2 aq = abs(q);                    // faint diffraction cross on the bright ones
+    float spike = exp(-min(aq.x, aq.y) * 30.0) * exp(-d * 2.5) * 0.4 * vHalo * lim;
+    float i = (core + glow + spike) * vI;
+    if (i < 0.004) discard;
+    gl_FragColor = vec4(vColor, i);
+  }`;
+const HAZE_FRAG = `
+  varying vec3 vColor; varying float vI, vHalo;
+  void main() {
+    float d = length(gl_PointCoord - 0.5) * 2.0;
+    float s = max(1.0 - d, 0.0);
+    float i = s * s * vI;
+    if (i < 0.004) discard;
+    gl_FragColor = vec4(vColor, i);
+  }`;
+const starMat = new THREE.ShaderMaterial({ uniforms: starUniforms, vertexShader: STAR_VERT,
+  fragmentShader: STAR_FRAG, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
+const hazeMat = new THREE.ShaderMaterial({ uniforms: starUniforms, vertexShader: STAR_VERT,
+  fragmentShader: HAZE_FRAG, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
+function bakeStars(n, fill, mat) {       // fill(i, set) writes one star through set(...)
+  const pos = new Float32Array(n * 3), col = new Float32Array(n * 3), size = new Float32Array(n),
+        phase = new Float32Array(n), twk = new Float32Array(n), halo = new Float32Array(n);
+  const set = (i, v, c, s, ph, tw, ha) => {
+    pos[i*3] = v[0]; pos[i*3+1] = v[1]; pos[i*3+2] = v[2];
+    col[i*3] = c[0]; col[i*3+1] = c[1]; col[i*3+2] = c[2];
+    size[i] = s; phase[i] = ph; twk[i] = tw; halo[i] = ha;
+  };
+  for (let i = 0; i < n; i++) fill(i, set);
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('aColor', new THREE.BufferAttribute(col, 3));
+  g.setAttribute('aSize', new THREE.BufferAttribute(size, 1));
+  g.setAttribute('aPhase', new THREE.BufferAttribute(phase, 1));
+  g.setAttribute('aTwk', new THREE.BufferAttribute(twk, 1));
+  g.setAttribute('aHalo', new THREE.BufferAttribute(halo, 1));
+  g.setAttribute('aSel', new THREE.BufferAttribute(new Float32Array(n), 1));   // HKS-84 selection level
+  const p = new THREE.Points(g, mat);
+  p.frustumCulled = false;               // we live inside the sphere
+  starGroup.add(p);
+  return p;
+}
+// B−V colour index → gentle warm/cool RGB (piecewise fit)
+function bvColor(bv, out) {
+  const S = [[-0.33, 0.62, 0.75, 1], [0, 0.84, 0.9, 1], [0.4, 1, 0.98, 0.94],
+             [0.8, 1, 0.92, 0.81], [1.5, 1, 0.81, 0.59], [2, 1, 0.71, 0.45]];
+  bv = Math.max(-0.33, Math.min(2, bv));
+  let a = S[0], b = S[1];
+  for (let i = 0; i < S.length - 1; i++) if (bv >= S[i][0]) { a = S[i]; b = S[i + 1]; }
+  const t = (bv - a[0]) / (b[0] - a[0]);
+  out[0] = a[1] + (b[1] - a[1]) * t; out[1] = a[2] + (b[2] - a[2]) * t; out[2] = a[3] + (b[3] - a[3]) * t;
+  return out;
+}
+// galactic (l, b) → equatorial J2000 unit vector (IAU rotation, transposed)
+function galToEq(l, b, out) {
+  const gx = Math.cos(b) * Math.cos(l), gy = Math.cos(b) * Math.sin(l), gz = Math.sin(b);
+  out[0] = -0.0548755604 * gx + 0.4941094279 * gy - 0.8676661490 * gz;
+  out[1] = -0.8734370902 * gx - 0.4448296300 * gy - 0.1980763734 * gz;
+  out[2] = -0.4838350155 * gx + 0.7469822445 * gy + 0.4559837762 * gz;
+  return out;
+}
+{ // deep field + Milky-Way haze — deterministic seed, so everyone shares one sky
+  let seed = 76543210;
+  const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+  const v = [0, 0, 0], c = [0, 0, 0];
+  bakeStars(SKY_N.deep, (i, set) => {
+    const band = rnd() < 0.42;           // extra stars crowd the galactic plane
+    if (band) galToEq(rnd() * Math.PI * 2, (rnd() + rnd() - 1) * 0.16, v);
+    else { const z = rnd() * 2 - 1, a = rnd() * Math.PI * 2, q = Math.sqrt(1 - z * z);
+           v[0] = q * Math.cos(a); v[1] = q * Math.sin(a); v[2] = z; }
+    const m = rnd();                     // pseudo-magnitude — most stars stay faint
+    bvColor(-0.25 + 2.1 * Math.pow(rnd(), 2.6), c);
+    const lum = (0.72 + 0.58 * m) * (band ? 0.9 : 1);   // brighter so faint stars read
+    set(i, v, [c[0] * lum, c[1] * lum, c[2] * lum],
+        (1.4 + 2.8 * m * m) * (band ? 0.92 : 1), rnd() * Math.PI * 2, 0.24 + 0.3 * rnd(), 0.18 * m);
+  }, starMat);
+  bakeStars(SKY_N.haze, (i, set) => {    // the soft wash behind the band
+    const l = rnd() * Math.PI * 2;
+    galToEq(l, (rnd() + rnd() - 1) * 0.13, v);
+    const dl = Math.min(l, Math.PI * 2 - l);   // brightest toward the galactic core
+    const lum = (0.024 + 0.026 * rnd()) * (0.7 + 0.9 * Math.exp(-(dl / 0.85) * (dl / 0.85)));
+    set(i, v, [0.58 * lum, 0.66 * lum, 0.95 * lum], 20 + 26 * rnd(), rnd() * Math.PI * 2, 0.12, 0);
+  }, hazeMat);
+}
+// ---- HKS-84: the real sky — BSC5 catalogue + interactive constellations -----
+// data/hk-sky.json (built by source-scripts/hk-sky/build_hk_sky.mjs) carries
+// ~1,570 Yale Bright Star Catalogue stars [HR, ra_h, dec°, mag, B−V] and ~24
+// curated IAU constellations with stick figures keyed by HR. Member stars
+// brighten through a per-star aSel attribute (one buffer upload per selection
+// change, eased ~250 ms in stepSky); figures draw twice — a faint always-on
+// ghost inviting exploration, and a dynamic highlight layer for the selection.
+let skyCat = null;   // { stars, dirs, aSel, cons[], selGeo, selPos, selLvl }
+const skySel = { hover: -1, taps: new Set(), auto: new Set(), lastPick: 0, lastAuto: 0, anim: false };
+const CON_PICK_RAD = 3.5 * D2R;   // hover/tap: max angular distance ray → figure segment
+fetch(asset('data/hk-sky.json')).then(r => {
+  if (!r.ok) throw new Error(`hk-sky.json HTTP ${r.status}`);
+  return r.json();
+}).then(d => {
+  const n = d.stars.length;
+  const dirs = new Float32Array(n * 3);
+  const hrIdx = new Map();
+  for (let i = 0; i < n; i++) {
+    const s = d.stars[i];                              // [HR, ra_hours, dec_deg, mag, bv]
+    const ra = s[1] / 24 * Math.PI * 2, dec = s[2] * D2R;
+    dirs[i*3] = Math.cos(dec) * Math.cos(ra); dirs[i*3+1] = Math.cos(dec) * Math.sin(ra);
+    dirs[i*3+2] = Math.sin(dec);
+    hrIdx.set(s[0], i);
+  }
+  const c = [0, 0, 0], v = [0, 0, 0];
+  const pts = bakeStars(n, (i, set) => {
+    const s = d.stars[i], mag = s[3];
+    bvColor(s[4], c);
+    // magnitude → size/halo/lum: Sirius ~8.6 px full halo, the mag-5 crowd
+    // ~1.7 px — meeting the procedural deep field (1.4–4.2 px) where they blend
+    const lum = Math.max(0.62, Math.min(1.05, 1.05 - 0.09 * (mag - 1)));
+    v[0] = dirs[i*3]; v[1] = dirs[i*3+1]; v[2] = dirs[i*3+2];
+    set(i, v, [c[0] * lum, c[1] * lum, c[2] * lum],
+        Math.max(1.7, Math.min(10, 7.0 - 1.1 * mag)),
+        (i * 2.399) % (Math.PI * 2),     // golden-angle phases: no two neighbours breathe together
+        Math.max(0.08, Math.min(0.42, 0.1 + 0.06 * (mag + 1.5))),
+        Math.max(0, Math.min(1, (2.0 - mag) / 2.4)));
+  }, starMat);
+  // constellation records: star indices, figure segments, centroid direction
+  const _cv = new THREE.Vector3();
+  const cons = d.constellations.map(cd => {
+    const idx = cd.stars.map(hr => hrIdx.get(hr));
+    const segs = cd.lines.map(([a, b]) => [hrIdx.get(a), hrIdx.get(b)]);
+    const ra = cd.centroid[0] / 24 * Math.PI * 2, dec = cd.centroid[1] * D2R;
+    const dir = new THREE.Vector3(Math.cos(dec) * Math.cos(ra), Math.cos(dec) * Math.sin(ra), Math.sin(dec));
+    let rad = 0;
+    for (const i of idx) rad = Math.max(rad, dir.angleTo(_cv.set(dirs[i*3], dirs[i*3+1], dirs[i*3+2])));
+    return { iau: cd.iau, en: cd.en, zh: cd.zh, idx, segs, dir, rad, lvl: 0, tgt: 0, div: null };
   });
+  // ghost figures: every curated segment, always on but barely-there
+  const nSeg = cons.reduce((a, cc) => a + cc.segs.length, 0);
+  const ga = new Float32Array(nSeg * 6);
+  let k = 0;
+  for (const cc of cons) for (const [a, b] of cc.segs) {
+    ga.set(dirs.subarray(a*3, a*3+3), k); ga.set(dirs.subarray(b*3, b*3+3), k + 3); k += 6;
+  }
   const lg = new THREE.BufferGeometry();
-  lg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(d.lines.length * 6), 3));
-  starLines = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: 0x9fb6d8,
-    transparent: true, opacity: 0, depthWrite: false }));
-  starLines.userData.lineIdx = d.lines.map(([a, b2]) => [idx.get(a), idx.get(b2)]);
-  starLines.visible = false; scene.add(starLines);
+  lg.setAttribute('position', new THREE.BufferAttribute(ga, 3));
+  starLines = new THREE.LineSegments(lg, new THREE.ShaderMaterial({
+    uniforms: starUniforms, transparent: true, depthWrite: false,
+    vertexShader: `varying float vY;
+      void main() { vec4 wp = modelMatrix * vec4(position, 1.0);
+        vY = normalize(wp.xyz).y; gl_Position = projectionMatrix * viewMatrix * wp; }`,
+    fragmentShader: `uniform float uFade; varying float vY;
+      void main() { float a = uFade * 0.15 * smoothstep(0.0, 0.06, vY);
+        if (a < 0.004) discard; gl_FragColor = vec4(0.62, 0.71, 0.85, a); }`,
+  }));
+  starLines.frustumCulled = false;
+  starGroup.add(starLines);
+  // highlight figures: a small dynamic buffer, rebuilt only while a selection eases
+  const selPos = new Float32Array(nSeg * 6), selLvl = new Float32Array(nSeg * 2);
+  const selGeo = new THREE.BufferGeometry();
+  selGeo.setAttribute('position', new THREE.BufferAttribute(selPos, 3));
+  selGeo.setAttribute('aLvl', new THREE.BufferAttribute(selLvl, 1));
+  selGeo.setDrawRange(0, 0);
+  const selLines = new THREE.LineSegments(selGeo, new THREE.ShaderMaterial({
+    uniforms: starUniforms, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `attribute float aLvl; varying float vY, vL;
+      void main() { vec4 wp = modelMatrix * vec4(position, 1.0);
+        vY = normalize(wp.xyz).y; vL = aLvl; gl_Position = projectionMatrix * viewMatrix * wp; }`,
+    fragmentShader: `uniform float uFade; varying float vY, vL;
+      void main() { float a = uFade * 0.55 * vL * smoothstep(0.0, 0.06, vY);
+        if (a < 0.004) discard; gl_FragColor = vec4(0.62, 0.74, 1.0, a); }`,
+  }));
+  selLines.frustumCulled = false;
+  starGroup.add(selLines);
+  skyCat = { stars: d.stars, dirs, aSel: pts.geometry.getAttribute('aSel'), cons, selGeo, selPos, selLvl };
   celKey = '';   // force a celestial refresh so the sky populates immediately
+}).catch(err => console.error('HKS-84: failed to load sky catalogue (data/hk-sky.json)', err));
+// selection targets: hover (desktop) ∪ taps (mobile toggle) ∪ auto (stargazing walk)
+function conRetarget() {
+  if (!skyCat) return;
+  skyCat.cons.forEach((c, i) => {
+    c.tgt = (skySel.hover === i || skySel.taps.has(i) || skySel.auto.has(i)) ? 1 : 0;
+    if (c.tgt !== c.lvl) skySel.anim = true;
+  });
+}
+function conClearAll() {
+  if (skySel.hover < 0 && !skySel.taps.size && !skySel.auto.size) return;
+  skySel.hover = -1; skySel.taps.clear(); skySel.auto.clear();
+  conRetarget();
+}
+// rebuild the highlight-figure buffer from constellations with any glow
+function rebuildSelLines() {
+  const { cons, dirs, selGeo, selPos, selLvl } = skyCat;
+  let k = 0;
+  for (const c of cons) {
+    if (c.lvl < 0.01) continue;
+    for (const [a, b] of c.segs) {
+      selPos.set(dirs.subarray(a*3, a*3+3), k*3); selPos.set(dirs.subarray(b*3, b*3+3), k*3+3);
+      selLvl[k] = selLvl[k+1] = c.lvl;
+      k += 2;
+    }
+  }
+  selGeo.setDrawRange(0, k);
+  selGeo.attributes.position.needsUpdate = true;
+  selGeo.attributes.aLvl.needsUpdate = true;
+}
+// hover/tap picking: angular distance from the pointer ray to each figure's
+// segments (in the sidereal catalogue frame) — never a Points raycast
+const _pkR = new THREE.Vector3(), _pkQ = new THREE.Quaternion(), _pkA = new THREE.Vector3(),
+      _pkB = new THREE.Vector3(), _pkN = new THREE.Vector3(), _pkP = new THREE.Vector3();
+function arcDist(p, a, b) {   // angular distance from unit vector p to great-circle arc a→b
+  _pkN.crossVectors(a, b);
+  const nl = _pkN.length();
+  if (nl < 1e-6) return p.angleTo(a);
+  _pkN.divideScalar(nl);
+  const s = p.dot(_pkN);
+  _pkP.copy(p).addScaledVector(_pkN, -s).normalize();   // p projected onto the great circle
+  const arc = a.angleTo(b);
+  if (_pkP.angleTo(a) <= arc && _pkP.angleTo(b) <= arc) return Math.abs(Math.asin(Math.max(-1, Math.min(1, s))));
+  return Math.min(p.angleTo(a), p.angleTo(b));
+}
+function pickConstellation(clientX, clientY) {
+  if (!skyCat || !starGroup.visible) return -1;
+  _pkR.set((clientX / innerWidth) * 2 - 1, -(clientY / innerHeight) * 2 + 1, 0.5)
+      .unproject(camera).sub(camera.position).normalize();
+  // the camera is NOT at the celestial sphere's centre — intersect the pointer
+  // ray with the sphere and take the hit point's direction, else parallax
+  // skews the pick by up to ~25° when orbiting far off-centre
+  const R = starGroup.scale.x || 1;
+  const od = camera.position.dot(_pkR), oo = camera.position.lengthSq();
+  const disc = od * od - oo + R * R;
+  if (disc <= 0) return -1;                            // ray misses the sphere entirely
+  // nearest intersection ahead of the camera: when zoomed OUTSIDE the dome
+  // (maxDistance span×4 vs sphere span×1.5) both roots are positive and the
+  // −√ root is the near hit under the cursor; when inside, that root is behind
+  // us so we fall through to the +√ (forward) root
+  const sq = Math.sqrt(disc); let tHit = -od - sq;
+  if (tHit < 1e-6) tHit = -od + sq;
+  if (tHit < 1e-6) return -1;                          // whole sphere is behind the camera
+  _pkR.multiplyScalar(tHit).add(camera.position).divideScalar(R);
+  if (_pkR.y < 0.02) return -1;                        // below the skyline melt: terrain, not sky
+  _pkQ.copy(starGroup.quaternion).invert();
+  _pkR.applyQuaternion(_pkQ).normalize();              // into the sidereal frame
+  const dirs = skyCat.dirs;
+  let best = -1, bestD = CON_PICK_RAD;
+  skyCat.cons.forEach((c, ci) => {
+    if (_pkR.angleTo(c.dir) > c.rad + CON_PICK_RAD) return;
+    for (const [i, j] of c.segs) {
+      _pkA.set(dirs[i*3], dirs[i*3+1], dirs[i*3+2]);
+      _pkB.set(dirs[j*3], dirs[j*3+1], dirs[j*3+2]);
+      const dd = arcDist(_pkR, _pkA, _pkB);
+      if (dd < bestD) { bestD = dd; best = ci; }
+    }
+  });
+  return best;
+}
+// desktop hover (throttled ~10 Hz; pointer-locked walk never sends these)
+renderer.domElement.addEventListener('pointermove', e => {
+  if (SKY_COARSE || walk.on || !skyCat || !starGroup.visible || e.buttons) return;
+  const now = performance.now();
+  if (now - skySel.lastPick < 100) return;
+  skySel.lastPick = now;
+  const h = pickConstellation(e.clientX, e.clientY);
+  if (h !== skySel.hover) { skySel.hover = h; conRetarget(); }
 });
+// mobile tap-to-toggle: a touch that barely moved (< 8 px) is a pick, not a
+// look-drag; tapping empty sky clears. Works in orbit, flight and walk.
+let _skyTap = null;
+renderer.domElement.addEventListener('touchstart', e => {
+  _skyTap = e.touches.length === 1
+    ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: performance.now() } : null;
+}, { passive: true });
+renderer.domElement.addEventListener('touchend', e => {
+  if (!_skyTap || e.touches.length) return;
+  const t = e.changedTouches[0];
+  const moved = Math.hypot(t.clientX - _skyTap.x, t.clientY - _skyTap.y);
+  const held = performance.now() - _skyTap.t;
+  _skyTap = null;
+  if (moved > 8 || held > 600 || !skyCat || !starGroup.visible) return;
+  const h = pickConstellation(t.clientX, t.clientY);
+  if (h < 0) { if (skySel.taps.size) { skySel.taps.clear(); conRetarget(); } return; }
+  if (skySel.taps.has(h)) skySel.taps.delete(h); else skySel.taps.add(h);
+  conRetarget();
+});
+// stargazing walk mode (HKS-84 P2): look up while walking and the figures in
+// view light themselves — centroids tested against the camera forward vector
+// every ~300 ms, 1–3 at once, with enter/exit hysteresis so nothing flickers
+const _saF = new THREE.Vector3(), _saW = new THREE.Vector3(), _saP = new THREE.Vector3();
+function updateSkyAuto() {
+  if (!skyCat) return;
+  if (!(walk.on && starGroup.visible && walk.pitch > 0.35)) {
+    if (skySel.auto.size) { skySel.auto.clear(); conRetarget(); }
+    return;
+  }
+  const now = performance.now();
+  if (now - skySel.lastAuto < 300) return;
+  skySel.lastAuto = now;
+  camera.getWorldDirection(_saF);
+  const half = camera.fov * 0.5 * D2R;
+  const R = starGroup.scale.x || 1;
+  const cand = [];
+  skyCat.cons.forEach((c, i) => {
+    _saW.copy(c.dir).applyQuaternion(starGroup.quaternion);   // sidereal → world (sphere dir)
+    if (_saW.y < 0.03) return;                                // set, or melting at the skyline
+    // apparent direction from the hiker's eye, not the sphere centre
+    _saP.copy(_saW).multiplyScalar(R).sub(camera.position).normalize();
+    const ang = _saF.angleTo(_saP);
+    const lim = Math.min(half * (skySel.auto.has(i) ? 0.95 : 0.8), c.rad + 0.24);
+    if (ang < lim) cand.push([ang, i]);
+  });
+  cand.sort((a, b) => a[0] - b[0]);
+  const next = new Set(cand.slice(0, 3).map(x => x[1]));
+  if (next.size !== skySel.auto.size || [...next].some(i => !skySel.auto.has(i)))
+    { skySel.auto = next; conRetarget(); }
+}
+// bilingual name card per lit constellation — the peak-label pattern, aimed at
+// the sky: reprojected from the centroid each frame, faded with the starlight
+const _clV = new THREE.Vector3();
+function updateConstLabels() {
+  if (!skyCat) return;
+  const fade = starUniforms.uFade.value;
+  for (const c of skyCat.cons) {
+    const show = starGroup.visible && c.lvl > 0.05 && fade > 0.06;
+    if (!show) { if (c.div) c.div.style.display = 'none'; continue; }
+    if (!c.div) {
+      c.div = document.createElement('div'); c.div.className = 'lbl con';
+      document.body.appendChild(c.div);
+    }
+    if (c.div._loc !== locale) {   // en-hk: English big / 中文 small; zh-hk flips
+      c.div.innerHTML = isZh() ? `${c.zh}<small>${c.en}</small>` : `${c.en}<small>${c.zh}</small>`;
+      c.div._loc = locale;
+    }
+    _clV.copy(c.dir).applyMatrix4(starGroup.matrixWorld);
+    const horizonY = _clV.y / starGroup.scale.x;               // ≈ unit-sphere height
+    _clV.project(camera);
+    if (_clV.z > 1 || horizonY < 0.04) { c.div.style.display = 'none'; continue; }
+    c.div.style.display = '';
+    c.div.style.opacity = (Math.min(1, fade * 1.25) * c.lvl).toFixed(2);
+    c.div.style.left = ((_clV.x * 0.5 + 0.5) * innerWidth) + 'px';
+    c.div.style.top = ((-_clV.y * 0.5 + 0.5) * innerHeight) + 'px';
+  }
+}
+const _eqM = new THREE.Matrix4(), _eqX = new THREE.Vector3(), _eqY = new THREE.Vector3(), _eqZ = new THREE.Vector3();
+function eqAxis(now, ra, dec, out) {
+  const p = starPosition(now, HK_LAT, HK_LON, ra, dec);
+  const az = compassDeg(p.azimuth) * D2R;
+  return out.set(Math.sin(az) * Math.cos(p.altitude), Math.sin(p.altitude), -Math.cos(az) * Math.cos(p.altitude));
+}
 function updateStars(now) {
-  if (!starData || !starGeoms) return;
   // fade: 0 above -4° sun altitude → 1 below -10°; a bright high moon washes stars out
   const sunAltD = cel.sunAlt / D2R;
   let fade = Math.max(0, Math.min(1, (-4 - sunAltD) / 6));
-  if (skySim.on && fade > 0 && cel.moonAlt > 0) fade *= 1 - 0.3 * cel.frac * Math.sin(cel.moonAlt);
-  const show = skySim.on && fade > 0.01;
-  const R = bounds().span * 1.5;
-  const dirs = new Float32Array(starData.stars.length * 3);
-  if (show) {
-    for (let i = 0; i < starData.stars.length; i++) {
-      const s = starData.stars[i];
-      const p = starPosition(now, HK_LAT, HK_LON, s.ra / 24 * Math.PI * 2, s.dec * D2R);
-      const az = compassDeg(p.azimuth) * D2R, alt = p.altitude;
-      if (alt < -0.02) { dirs[i*3+1] = -R; continue; }          // set stars park under the map
-      dirs[i*3]   = Math.sin(az) * Math.cos(alt) * R;
-      dirs[i*3+1] = Math.sin(alt) * R;
-      dirs[i*3+2] = -Math.cos(az) * Math.cos(alt) * R;
-    }
+  if (skySim.on && fade > 0 && cel.moonAlt > 0) fade *= 1 - 0.25 * cel.frac * Math.sin(cel.moonAlt);
+  starGroup.visible = skySim.on && fade > 0.01;
+  if (!starGroup.visible) { conClearAll(); return; }   // daylight: drop any lit constellations
+  // the whole celestial sphere turns as one rigid body: image the equatorial
+  // basis through the same hour-angle math the sun/moon use, once a sim-minute
+  eqAxis(now, 0, 0, _eqX); eqAxis(now, Math.PI / 2, 0, _eqY); eqAxis(now, 0, Math.PI / 2, _eqZ);
+  starGroup.quaternion.setFromRotationMatrix(_eqM.makeBasis(_eqX, _eqY, _eqZ));
+  starGroup.scale.setScalar(bounds().span * 1.5);
+  starUniforms.uFade.value = fade;
+  starUniforms.uDpr.value = Math.min(devicePixelRatio || 1, 2);
+  if (cel.moonAlt > 0) {   // the moon's halo drowns its neighbours first (shader-side)
+    starUniforms.uMoonDir.value.set(Math.sin(cel.moonAz) * Math.cos(cel.moonAlt),
+      Math.sin(cel.moonAlt), -Math.cos(cel.moonAz) * Math.cos(cel.moonAlt));
+    starUniforms.uMoonWash.value = 0.5 * cel.frac * Math.sin(cel.moonAlt);
+  } else starUniforms.uMoonWash.value = 0;
+}
+// shooting stars: one reused trail, rare and quick — blink and you miss it
+const METEOR_N = 20;
+const meteor = (() => {
+  const pos = new Float32Array(METEOR_N * 3), col = new Float32Array(METEOR_N * 3);
+  for (let j = 0; j < METEOR_N; j++) {   // white-hot head cooling down the tail
+    const w = Math.pow(1 - j / (METEOR_N - 1), 1.6);
+    col[j*3] = (0.75 + 0.25 * w) * w; col[j*3+1] = (0.85 + 0.15 * w) * w; col[j*3+2] = w;
   }
-  starGeoms.forEach((b, bi) => {
-    const pts = starPts[bi], arr = b.geom.attributes.position.array;
-    b.members.forEach((si, k) => { arr[k*3] = dirs[si*3]; arr[k*3+1] = dirs[si*3+1]; arr[k*3+2] = dirs[si*3+2]; });
-    b.geom.attributes.position.needsUpdate = true;
-    pts.material.size = STAR_BUCKETS[bi].size * Math.min(devicePixelRatio || 1, 2);
-    pts.material.opacity = STAR_BUCKETS[bi].op * fade;
-    pts.visible = show;
-  });
-  const la = starLines.geometry.attributes.position.array;
-  starLines.userData.lineIdx.forEach(([a, b2], k) => {
-    la[k*6]   = dirs[a*3]; la[k*6+1] = dirs[a*3+1]; la[k*6+2] = dirs[a*3+2];
-    la[k*6+3] = dirs[b2*3]; la[k*6+4] = dirs[b2*3+1]; la[k*6+5] = dirs[b2*3+2];
-  });
-  starLines.geometry.attributes.position.needsUpdate = true;
-  starLines.material.opacity = 0.3 * fade;
-  starLines.visible = show;
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  const m = new THREE.Line(g, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true,
+    opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+  m.visible = false; m.frustumCulled = false; scene.add(m);
+  return m;
+})();
+const met = { t0: 0, dur: 1, next: 0, A: new THREE.Vector3(), B: new THREE.Vector3() };
+const _mp = new THREE.Vector3(), _mt = new THREE.Vector3();
+function spawnMeteor(tS) {
+  const az = Math.random() * Math.PI * 2, alt = (20 + 45 * Math.random()) * D2R;
+  met.A.set(Math.sin(az) * Math.cos(alt), Math.sin(alt), -Math.cos(az) * Math.cos(alt));
+  _mt.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
+  _mt.addScaledVector(met.A, -_mt.dot(met.A)).normalize();   // tangent to the sky sphere
+  if (_mt.y > 0.15) _mt.multiplyScalar(-1);                  // meteors prefer to fall
+  met.B.copy(met.A).addScaledVector(_mt, 0.18 + 0.22 * Math.random()).normalize();
+  met.t0 = tS; met.dur = 0.7 + 0.6 * Math.random();
+  met.next = tS + 20 + Math.random() * 50;
+  meteor.visible = true;
+}
+function stepSky() {   // per-frame sky life: twinkle clock, meteors, moon limb aim
+  const tS = performance.now() * 0.001;
+  if (starGroup.visible) starUniforms.uTime.value = tS % 4096;
+  // HKS-84: constellation selection bloom — runs ONLY while a transition is
+  // live (~250 ms), touching just the member stars' aSel entries + the small
+  // highlight-line buffer. Zero per-frame cost once settled.
+  if (skyCat && skySel.anim) {
+    let live = false;
+    for (const c of skyCat.cons) {
+      if (c.lvl === c.tgt) continue;
+      c.lvl += (c.tgt - c.lvl) * 0.22;
+      if (Math.abs(c.lvl - c.tgt) < 0.02) c.lvl = c.tgt; else live = true;
+    }
+    const a = skyCat.aSel.array;
+    for (const c of skyCat.cons) for (const i of c.idx) a[i] = 0;
+    for (const c of skyCat.cons) if (c.lvl > 0)
+      for (const i of c.idx) if (c.lvl > a[i]) a[i] = c.lvl;
+    skyCat.aSel.needsUpdate = true;
+    rebuildSelLines();
+    skySel.anim = live;
+  }
+  if (cel && moonSpr.visible) {   // spin the lit limb toward the real sun (screen space)
+    _mp.copy(sunSpr.position).sub(moonSpr.position);
+    const e = camera.matrixWorld.elements;
+    moonSpr.material.rotation = Math.atan2(
+      _mp.x * e[4] + _mp.y * e[5] + _mp.z * e[6],
+      _mp.x * e[0] + _mp.y * e[1] + _mp.z * e[2]);
+  }
+  if (!starGroup.visible || starUniforms.uFade.value < 0.55) { meteor.visible = false; return; }
+  if (!meteor.visible) {
+    if (!met.next) met.next = tS + 8 + Math.random() * 20;   // first dark sky: a short wait
+    if (tS >= met.next) spawnMeteor(tS);
+    return;
+  }
+  const p = (tS - met.t0) / met.dur, R = bounds().span * 1.47;
+  if (p > 1.4) { meteor.visible = false; return; }
+  const arr = meteor.geometry.attributes.position.array;
+  for (let j = 0; j < METEOR_N; j++) {   // trail vertices chase the head down the arc
+    const pj = Math.max(0, Math.min(1, p - 0.35 * j / (METEOR_N - 1)));
+    _mp.copy(met.A).lerp(met.B, pj).normalize().multiplyScalar(R);
+    arr[j*3] = _mp.x; arr[j*3+1] = _mp.y; arr[j*3+2] = _mp.z;
+  }
+  meteor.geometry.attributes.position.needsUpdate = true;
+  meteor.material.opacity = 0.85 * Math.min(1, p * 5) * Math.max(0, 1 - Math.max(0, p - 1) / 0.4);
 }
 
 function placeCelestial() {
@@ -1633,7 +2074,7 @@ function placeCelestial() {
   moonSpr.position.set(Math.sin(cel.moonAz) * Math.cos(cel.moonAlt), Math.sin(cel.moonAlt), -Math.cos(cel.moonAz) * Math.cos(cel.moonAlt)).multiplyScalar(R);
   moonGlow.position.copy(moonSpr.position);
   sunSpr.scale.set(s * 0.10, s * 0.10, 1); sunRays.scale.set(s * 0.26, s * 0.26, 1);
-  moonSpr.scale.set(s * 0.065, s * 0.065, 1); moonGlow.scale.set(s * 0.15, s * 0.15, 1);
+  moonSpr.scale.set(s * 0.078, s * 0.078, 1);   // a touch larger so it reads as the moon
   sunSpr.visible = sunRays.visible = cel.sunAlt > -4 * D2R;
   moonSpr.visible = moonGlow.visible = cel.moonAlt > -2.5 * D2R;
   const warm = Math.max(0, Math.min(1, 1 - (cel.sunAlt / D2R) / 17));   // golden toward the horizon
@@ -1642,10 +2083,16 @@ function placeCelestial() {
   if (Math.abs(cel.phase - moonTexPhase) > 0.004) {       // redraw the phase only when it moves
     moonTexPhase = cel.phase;
     if (moonSpr.material.map) moonSpr.material.map.dispose();
-    moonSpr.material.map = drawMoonTexture(cel.phase);
+    moonSpr.material.map = drawMoonTexture(cel.phase, cel.frac);
     moonSpr.material.needsUpdate = true;
   }
-  moonGlow.material.opacity = 0.25 + 0.55 * cel.frac;
+  // phase-aware glow: swells + warms toward full, and goes amber near the horizon
+  const mWarm = Math.max(0, Math.min(1, 1 - (cel.moonAlt / D2R) / 14));
+  const gs = s * (0.10 + 0.09 * cel.frac);
+  moonGlow.scale.set(gs, gs, 1);
+  moonGlow.material.opacity = 0.16 + 0.55 * cel.frac;
+  moonGlow.material.color.setHex(0xd9e5f4).lerp(new THREE.Color(0xffedc9), Math.min(1, cel.frac * 0.7 + mWarm * 0.45));
+  moonSpr.material.color.setHex(0xffffff).lerp(new THREE.Color(0xffc98d), mWarm * 0.35);
 }
 
 function updateSkyInfo() {
@@ -1665,7 +2112,7 @@ function updateCelestial() {
     if (cel) {
       cel = null; celKey = '';
       sunSpr.visible = sunRays.visible = moonSpr.visible = moonGlow.visible = false;
-      starPts.forEach(p => p.visible = false); if (starLines) starLines.visible = false;
+      starGroup.visible = false; meteor.visible = false; conClearAll();
       sun.position.set(-1, 2, 1.4); sun.color.setHex(0xffffff);   // legacy fixed light
       renderSky(); setFog(); updateSkyInfo();
     }
@@ -2805,10 +3252,13 @@ document.getElementById('compass').addEventListener('click', () => {
 async function snapshot() {
   const btn = document.getElementById('snapbtn');
   const pr = renderer.getPixelRatio();
+  const sDpr = starUniforms.uDpr.value;
+  starUniforms.uDpr.value = sDpr * Math.min(4, pr * 2) / pr;   // stars keep their size in the supersample
   renderer.setPixelRatio(Math.min(4, pr * 2));           // documented 2× supersample
   renderer.render(scene, camera);
   const shot = renderer.domElement.toDataURL('image/png');
   renderer.setPixelRatio(pr);
+  starUniforms.uDpr.value = sDpr;
   const img = new Image();
   await new Promise(res => { img.onload = res; img.src = shot; });
   const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
@@ -3810,6 +4260,7 @@ function animate() {
   requestAnimationFrame(animate);
   if (spinDir) world.rotation.y += 0.0016 * spinSpeed * spinDir;
   updateCelestial();                    // throttled internally to the sim minute
+  stepSky();                            // twinkle clock, shooting stars, moon limb aim (HKS-78)
   if (sunRays.visible) sunRays.material.rotation += 0.0004;   // slow crown turn
   stepDrips();
   stepFlight();
@@ -3836,6 +4287,8 @@ function animate() {
   updateAqhi();
   updateGeoMarker();
   updateCompassView();
+  updateSkyAuto();        // stargazing walk mode: figures in view light up (HKS-84)
+  updateConstLabels();    // bilingual constellation name cards (HKS-84)
 }
 
 // ---- shareable state: sync all controls + camera to the URL ----------------
