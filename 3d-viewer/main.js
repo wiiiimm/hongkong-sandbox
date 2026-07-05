@@ -1685,7 +1685,10 @@ function galToEq(l, b, out) {
 let skyCat = null;   // { stars, dirs, aSel, cons[], selGeo, selPos, selLvl }
 const skySel = { hover: -1, taps: new Set(), auto: new Set(), lastPick: 0, lastAuto: 0, anim: false };
 const CON_PICK_RAD = 3.5 * D2R;   // hover/tap: max angular distance ray → figure segment
-fetch(asset('data/hk-sky.json')).then(r => r.json()).then(d => {
+fetch(asset('data/hk-sky.json')).then(r => {
+  if (!r.ok) throw new Error(`hk-sky.json HTTP ${r.status}`);
+  return r.json();
+}).then(d => {
   const n = d.stars.length;
   const dirs = new Float32Array(n * 3);
   const hrIdx = new Map();
@@ -1760,7 +1763,7 @@ fetch(asset('data/hk-sky.json')).then(r => r.json()).then(d => {
   starGroup.add(selLines);
   skyCat = { stars: d.stars, dirs, aSel: pts.geometry.getAttribute('aSel'), cons, selGeo, selPos, selLvl };
   celKey = '';   // force a celestial refresh so the sky populates immediately
-});
+}).catch(err => console.error('HKS-84: failed to load sky catalogue (data/hk-sky.json)', err));
 // selection targets: hover (desktop) ∪ taps (mobile toggle) ∪ auto (stargazing walk)
 function conRetarget() {
   if (!skyCat) return;
@@ -1815,8 +1818,15 @@ function pickConstellation(clientX, clientY) {
   const R = starGroup.scale.x || 1;
   const od = camera.position.dot(_pkR), oo = camera.position.lengthSq();
   const disc = od * od - oo + R * R;
-  if (disc <= 0) return -1;                            // outside the sphere, looking past it
-  _pkR.multiplyScalar(-od + Math.sqrt(disc)).add(camera.position).divideScalar(R);
+  if (disc <= 0) return -1;                            // ray misses the sphere entirely
+  // nearest intersection ahead of the camera: when zoomed OUTSIDE the dome
+  // (maxDistance span×5.2 vs sphere span×1.5) both roots are positive and the
+  // −√ root is the near hit under the cursor; when inside, that root is behind
+  // us so we fall through to the +√ (forward) root
+  const sq = Math.sqrt(disc); let tHit = -od - sq;
+  if (tHit < 1e-6) tHit = -od + sq;
+  if (tHit < 1e-6) return -1;                          // whole sphere is behind the camera
+  _pkR.multiplyScalar(tHit).add(camera.position).divideScalar(R);
   if (_pkR.y < 0.02) return -1;                        // below the skyline melt: terrain, not sky
   _pkQ.copy(starGroup.quaternion).invert();
   _pkR.applyQuaternion(_pkQ).normalize();              // into the sidereal frame
