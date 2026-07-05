@@ -2494,7 +2494,10 @@ function updateCompass() {
     heading = Math.atan2(fx, -fz) + world.rotation.y;
   }
   const deg = ((heading / D2R) % 360 + 360) % 360;
-  if (radarRunning && radarImg) radarImg.style.transform = `rotate(${-deg}deg)`;   // radar + satellite track the compass (HKS-74/79)
+  if (radarRunning && radarImg) {   // accumulate the shortest step so it never reverses across the 0/360 seam (HKS-74/79)
+    radarRot += ((-deg - radarRot + 180) % 360 + 360) % 360 - 180;
+    radarImg.style.transform = `rotate(${radarRot}deg)`;
+  }
   const w = compassCv.clientWidth, h = compassCv.clientHeight;
   const dpr = Math.min(devicePixelRatio || 1, 2);
   if (compassCv.width !== Math.round(w * dpr)) { compassCv.width = Math.round(w * dpr); compassCv.height = Math.round(h * dpr); }
@@ -2599,6 +2602,7 @@ let radarImg = document.getElementById('radar-img');
 let wxMode = 'radar';                                  // 'radar' | 'sat'
 let radarRange = '064', satZoom = 'x2M';               // radar: 064|128|256 · sat: x2M(wide)|x8M(local)
 let radarPlaying = true, radarRunning = false, radarReveal = false;
+let radarRot = 0;   // continuous (unwrapped) rotation so the dial never spins the long way across the 0/360 seam
 let radarFrames = [], radarIdx = 0, radarAnimT = null, radarRefreshT = null;
 const radarTimeEl = document.getElementById('radar-time');
 const p2 = n => String(n).padStart(2, '0');
