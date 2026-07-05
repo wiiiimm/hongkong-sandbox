@@ -155,8 +155,9 @@
      scrolls — no opaque sticky overlay, so the liquid-glass stays uniform */
   #pstick{flex:0 0 auto;margin-bottom:6px}
   #pbody{overflow-y:auto;flex:1 1 auto;min-height:0}
-  #pbody::-webkit-scrollbar{width:8px}
-  #pbody::-webkit-scrollbar-thumb{background:var(--field-edge);border-radius:4px}
+  /* HKS-86: no custom ::-webkit-scrollbar — a styled webkit scrollbar is always
+     shown; dropping it lets macOS use its auto-hiding overlay scrollbar (thin on FF) */
+  #pbody{scrollbar-width:thin}
   #panel h1{font-size:14px;margin:0;letter-spacing:.01em;font-weight:600}
   /* brand icon left of the title (HKS-65) */
   .ptitle{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 auto}
