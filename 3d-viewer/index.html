@@ -300,6 +300,35 @@
   #wxbulletin .wb-sec div{margin-top:3px}
   #wxbulletin #wb-warn b{color:#e6a23c}
   #wxbulletin .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
+  /* HKS-86: Help / controls drawer — same right-edge pattern, tab sits just below
+     the weather-notices tab; the panel reuses the .wb-* chrome classes */
+  #helpdrawer{position:fixed;top:calc(33% + 132px);right:0;z-index:41;display:flex;align-items:flex-start;
+    transform:translateX(100%);visibility:hidden;
+    transition:transform .34s cubic-bezier(.22,1,.36,1), visibility .34s}
+  #helpdrawer.ready{visibility:visible}
+  #helpdrawer.open{transform:translateX(0)}
+  #helpdrawer #hp-tab{position:absolute;left:-30px;top:0;width:30px;min-height:74px;padding:14px 0;
+    writing-mode:vertical-rl;text-orientation:mixed;text-align:center;white-space:nowrap;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);border-right:none;border-radius:12px 0 0 12px;
+    color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow)}
+  #helpdrawer #hp-tab .hp-tab-lab::before{content:'? ';font-family:var(--mono)}
+  #helpdrawer #hp-tab:hover{color:var(--ink);border-color:var(--accent)}
+  #helpdrawer .wb-panel{width:min(320px,calc(100vw - 40px));max-height:60vh;overflow:auto;box-sizing:border-box;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);border-right:none;border-radius:0 0 0 14px;padding:13px 16px;
+    font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass #helpdrawer #hp-tab, body.glass #helpdrawer .wb-panel{background:rgba(10,13,18,.62)}
+  body.glass.ui-light #helpdrawer #hp-tab, body.glass.ui-light #helpdrawer .wb-panel{background:rgba(252,250,246,.72)}
+  #helpdrawer .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+  #helpdrawer .wb-title{color:var(--ink);font-weight:600;font-size:13px}
+  #helpdrawer #hp-close{width:28px;height:28px;padding:0;flex:0 0 auto;display:grid;place-items:center;font-size:15px;border-radius:8px}
+  #helpdrawer .wb-sec{margin-top:9px}
+  #helpdrawer .wb-sec:empty{display:none}
+  #helpdrawer .wb-sec b{display:block;color:var(--ink);font-weight:600;font-size:9.5px;text-transform:uppercase;
+    letter-spacing:.14em;margin-bottom:4px;font-family:var(--mono)}
+  #helpdrawer .wb-sec div{margin-top:3px}
+  #helpdrawer .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
   #wxhud #wx-tide{font-size:11px;color:var(--ink);margin-top:7px;font-family:var(--mono)}
   #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
   #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
@@ -658,10 +687,6 @@
 <canvas id="noirfx" width="256" height="144"></canvas>
 <div id="panel">
   <div id="sheetgrip" title="Hide controls" aria-hidden="true"></div>
-  <div id="collapsedbar">
-    <button id="expand-btn" title="Show controls" aria-label="Show controls"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
-    <span class="navmini">drag / 1‑finger rotate · scroll / pinch zoom · 2‑finger pan</span>
-  </div>
   <div id="phead">
     <div class="ptitle">
       <img class="titleicon" src="/favicon-32.png" alt=""/>
@@ -669,15 +694,8 @@
     </div>
     <div class="pbtns">
       <button id="langbtn" title="Language" style="width:auto;padding:0 8px;font-size:11px;font-weight:600">中</button>
-      <button id="navhelp-btn" title="How to navigate" aria-label="How to navigate"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></button>
       <button id="collapse-btn" title="Collapse panel" aria-label="Collapse panel"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
     </div>
-  </div>
-  <div id="navhelp" data-i18n-html="navhelp" style="display:none">
-    <b>Navigate</b><br>
-    Mouse — drag rotate · scroll zoom · right‑drag pan<br>
-    Touch — one finger rotate · pinch zoom · two‑finger pan<br>
-    Reset — recenter the view
   </div>
   <div id="pbody">
   <div class="sub" id="note">Loading…</div>
@@ -963,6 +981,21 @@
     <div id="wb-warn" class="wb-sec"></div>
     <div id="wb-fcast" class="wb-sec"></div>
     <div class="wb-src">© Hong Kong Observatory · data.gov.hk</div>
+  </div>
+</aside>
+
+<!-- HKS-86: adaptive Help / controls drawer — same right-edge pattern as the
+     weather bulletin, tab stacked just below it. Content follows the active mode. -->
+<aside id="helpdrawer" aria-label="Help and controls">
+  <button id="hp-tab" aria-expanded="false" aria-controls="hp-panel"><span class="hp-tab-lab" data-i18n="help.tab">Help</span></button>
+  <div class="wb-panel" id="hp-panel" role="dialog" aria-label="Help and controls">
+    <div class="wb-head">
+      <span class="wb-title" data-i18n="help.title">Help &amp; controls</span>
+      <button id="hp-close" aria-label="Close">✕</button>
+    </div>
+    <div id="hp-context" class="wb-sec"></div>
+    <div id="hp-general" class="wb-sec"></div>
+    <div class="wb-src" data-i18n="help.src">Modes live in the bottom bar · themes toggle in any mode</div>
   </div>
 </aside>
 
