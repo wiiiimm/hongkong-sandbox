@@ -299,7 +299,7 @@
   body.glass .sd-tab, body.glass #sidedrawer .wb-panel{background:rgba(10,13,18,.62)}
   body.glass.ui-light .sd-tab, body.glass.ui-light #sidedrawer .wb-panel{background:rgba(252,250,246,.72)}
   body.glass .sd-tab.on{color:var(--accent);border-color:var(--accent)}
-  #sidedrawer .wb-panel{width:min(320px,calc(100vw - 40px));max-height:64vh;overflow:auto;box-sizing:border-box;
+  #sidedrawer .wb-panel{width:min(320px,calc(100vw - 40px));min-height:326px;max-height:64vh;overflow:auto;box-sizing:border-box;   /* cover the stacked tabs (~323px) so they never poke out below a short panel */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-left:none;border-radius:0 0 14px 0;padding:13px 16px;   /* square top-right so it butts flush against the tabs; only the outer bottom-right is rounded */
     font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
