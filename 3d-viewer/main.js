@@ -2677,6 +2677,7 @@ function startFollow() {
   if (geo.watch != null) return;
   geo.following = true; locateBtn.classList.add('follow', 'on');
   if (geo.el) geo.el.classList.add('live');
+  if (geo.has) centreOnMarker(true, true);                 // recentre now — the first watch fix is usually the stored one (jitter-gated)
   startWatch();
   clearTimeout(geo.autoStop); geo.autoStop = setTimeout(() => stopFollow(), 15 * 60000);   // battery backstop
 }
@@ -2699,8 +2700,13 @@ function removeMarker() {
   locateBtn.classList.remove('on');
   if (geo.prevSpin != null) { spinDir = geo.prevSpin; document.getElementById('spindir').value = String(spinDir); geo.prevSpin = null; }
 }
+function geoInBounds() {                                   // is the stored fix on the active source's grid?
+  if (!geo.has || !curG) return false;
+  const col = (geo.E - curG.bE) / curG.aE, row = (geo.N - curG.bN) / curG.aN;
+  return col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1;
+}
 function walkFromHere() {
-  if (!geo.has || !curG) return;
+  if (!geoInBounds()) { geoToast(t('loc.outsrc')); return; }   // off the active map → don't drop them at an edge
   const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
   enterWalk({ x: (col - W / 2) * cell, z: (row - H / 2) * cell });
 }
@@ -2709,13 +2715,16 @@ function walkFromHere() {
 function setCompassView(on) {
   if (on && !geoOrient) enableCompass();
   geo.compass = on;
-  controls.enabled = !on;                                 // take over the camera while compass-locked
+  if (!on) controls.enabled = true;                        // restore orbit on exit (updateCompassView won't run)
   locateBtn.classList.toggle('compass', on);
   if (on && spinDir !== 0) { geo.prevSpin = spinDir; spinDir = 0; document.getElementById('spindir').value = '0'; }
-  if (!on && geoHeading == null) geoToast(t('loc.nocompass'));   // toggled on a device with no compass
+  if (on && typeof DeviceOrientationEvent === 'undefined') geoToast(t('loc.nocompass'));   // device has no compass at all
 }
 function updateCompassView() {                            // per-frame camera drive; called from animate()
-  if (!geo.compass || !geo.has || geoHeading == null || !curG) return;
+  if (!geo.compass || flight.on || walk.on) return;        // yield to the flight/walk chase camera
+  const drive = geo.has && geoHeading != null && geoInBounds();
+  controls.enabled = !drive;                               // stay orbitable until we can actually drive (no heading / off-map)
+  if (!drive) return;
   const m = markerWorld(), wy = world.rotation.y, H = geoHeading * Math.PI / 180;
   const lx = Math.sin(H), lz = -Math.cos(H);              // heading dir in world-local (N = −Z)
   const dx = lx * Math.cos(wy) + lz * Math.sin(wy), dz = -lx * Math.sin(wy) + lz * Math.cos(wy);   // → world
@@ -4523,6 +4532,7 @@ function applyLocale(loc) {
   document.body.dataset.locale = locale;
   for (const el of document.querySelectorAll('[data-i18n]'))       el.textContent = t(el.getAttribute('data-i18n'));
   for (const el of document.querySelectorAll('[data-i18n-title]')) el.title = t(el.getAttribute('data-i18n-title'));
+  for (const el of document.querySelectorAll('[data-i18n-aria-label]')) el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria-label')));
   for (const el of document.querySelectorAll('[data-i18n-html]'))  el.innerHTML = t(el.getAttribute('data-i18n-html'));
   try { localStorage.setItem('locale', locale); } catch (_) {}
   const lb = document.getElementById('langbtn'); if (lb) lb.textContent = isZh() ? 'EN' : '中';
