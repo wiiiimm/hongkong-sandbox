@@ -3711,10 +3711,16 @@ function rfSector(a0, a1) {                      // filled annular sector, clock
   const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
   return `M${rfPt(RF.ro, a0)} A${RF.ro} ${RF.ro} 0 ${large} 1 ${rfPt(RF.ro, a1)} L${rfPt(RF.ri, a1)} A${RF.ri} ${RF.ri} 0 ${large} 0 ${rfPt(RF.ri, a0)} Z`;
 }
-function rfLabelSvg(ac, text, on, top) {         // straight label at the sector centre, rotated tangentially
-  const [x, y] = rfPolar(RF.rt, ac);
-  const rot = top ? ac : ac - 180;               // bottom labels flip so they stay upright
-  return `<text class="rf-lab${on ? ' on' : ''}" x="${x.toFixed(2)}" y="${y.toFixed(2)}" transform="rotate(${rot.toFixed(1)} ${x.toFixed(2)} ${y.toFixed(2)})">${text}</text>`;
+function rfArc(r, a0, a1) {                       // open arc a0→a1 at radius r, for a label to ride
+  const large = Math.abs(a1 - a0) > 180 ? 1 : 0, sweep = a1 > a0 ? 1 : 0;
+  return `M${rfPt(r, a0)} A${r} ${r} 0 ${large} ${sweep} ${rfPt(r, a1)}`;
+}
+function rfLabelSvg(d, top) {                     // label follows the mid-band arc (upright top & bottom)
+  const id = 'rflab-' + d.key;
+  // top band reads left→right along the arc; bottom band reverses so it isn't upside-down
+  const path = top ? rfArc(RF.rt, d.a0, d.a1) : rfArc(RF.rt, d.a1, d.a0);
+  return `<path id="${id}" d="${path}" fill="none"/>` +
+    `<text class="rf-lab${d.on ? ' on' : ''}"><textPath href="#${id}" startOffset="50%">${d.lab}</textPath></text>`;
 }
 // build the tab dial; state- and locale-dependent, so applyLocale/applyState call it too
 function renderWxviewControls() {
@@ -3738,7 +3744,7 @@ function renderWxviewControls() {
     `<text class="rf-glyph" x="${sx.toFixed(2)}" y="${sy.toFixed(2)}">${radarBig ? '−' : '+'}</text></g>`;
   svg.innerHTML =
     modes.map(m => tab(m, 'mode')).join('') + ranges.map(r => tab(r, 'range')).join('') + sizeBtn +
-    modes.map(m => rfLabelSvg(m.ac, m.lab, m.on, true)).join('') + ranges.map(r => rfLabelSvg(r.ac, r.lab, r.on, false)).join('');
+    modes.map(m => rfLabelSvg(m, true)).join('') + ranges.map(r => rfLabelSvg(r, false)).join('');
   // radar carries an HKO legend strip on the right → crop to the left square; satellite is a full map → centre it.
   if (radarImg) radarImg.style.objectPosition = isSat() ? '50% 50%' : 'left center';
 }
