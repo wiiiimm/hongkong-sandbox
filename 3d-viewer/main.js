@@ -2734,8 +2734,6 @@ function refreshGpsBtn() {          // morph the button icon + label to the stat
   const lbl = st === 'follow' ? t('loc.following') : st === 'compass' ? t('loc.compass') : t('loc.find');
   locateBtn.setAttribute('aria-label', lbl);
   locateBtn.title = lbl;
-  const rm = document.getElementById('locateremove');
-  if (rm) rm.hidden = !geo.has;
 }
 function locateThenFollow() {       // off → follow: one fix, zoom to it, then track
   locateBtn.classList.add('locating');
@@ -2874,12 +2872,7 @@ locateBtn.addEventListener('click', e => {
   const st = gpsState();                    // Orbit: follow → compass → off
   if (st === 'off') locateThenFollow();
   else if (st === 'follow') { setCompassView(true); refreshGpsBtn(); }
-  else gpsDisengage();
-});
-document.getElementById('locateremove').addEventListener('click', e => {
-  e.stopPropagation();
-  removeMarker();
-  refreshGpsBtn();
+  else { removeMarker(); refreshGpsBtn(); }   // compass → off: clear the pin (cycle: locate/follow → compass → off), no ✕ needed
 });
 addEventListener('mousemove', e => {                      // pointer-lock look
   if (!walk.on || document.pointerLockElement !== renderer.domElement) return;

@@ -503,9 +503,8 @@
     transition:border-color .12s,color .12s}
   body.glass #locateui #locatebtn{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #locateui #locatebtn{background:rgba(252,250,246,.22)}
-  #locateui #locatebtn:hover{border-color:var(--accent);color:var(--accent)}
-  #locateui #locatebtn.on{border-color:var(--accent);color:var(--accent)}
-  #locateui #locatebtn.follow,#locateui #locatebtn.compass{border-color:#4285f4;color:#4285f4}
+  #locateui #locatebtn:hover{border-color:#4285f4;color:#4285f4}
+  #locateui #locatebtn.on,#locateui #locatebtn.follow,#locateui #locatebtn.compass{border-color:#4285f4;color:#4285f4}   /* maps-style location blue, matching the marker (never the green accent) */
   #locateui #locatebtn.locating{border-color:#4285f4;color:#4285f4;animation:locpulse 1.1s ease-in-out infinite}
   #locateui #locatebtn.follow::after,#locateui #locatebtn.compass::after{content:'';position:absolute;inset:-4px;border-radius:50%;
     border:1.5px solid #4285f4;animation:locring 1.7s ease-out infinite;pointer-events:none}
@@ -514,14 +513,6 @@
   @keyframes locring{0%{transform:scale(.8);opacity:.7}100%{transform:scale(1.55);opacity:0}}
   /* the one surviving flyout action: remove the pin (HKS-86 — locate/follow/
      walk-from-here/compass all collapsed into the tap cycle) */
-  #locateui #locateremove{width:24px;height:24px;padding:0;border-radius:50%;display:grid;place-items:center;
-    font-size:11px;line-height:1;color:var(--sub);cursor:pointer;
-    background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    border:1px solid var(--edge);box-shadow:0 4px 12px rgba(0,0,0,.3)}
-  #locateui #locateremove:hover{color:var(--ink);border-color:#4285f4}
-  #locateui #locateremove[hidden]{display:none}
-  body.glass #locateui #locateremove{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
-  body.glass.ui-light #locateui #locateremove{background:rgba(252,250,246,.22)}
   #geotoast{position:absolute;right:0;bottom:calc(100% + 8px);max-width:230px;display:none;
     background:rgba(11,14,19,.94);border:1px solid var(--edge);border-radius:10px;padding:8px 11px;
     font-size:11px;line-height:1.45;color:#eef2f6;box-shadow:0 8px 24px rgba(0,0,0,.55);backdrop-filter:blur(10px)}
@@ -942,10 +933,9 @@
   <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>
 <!-- HKS-83/86: GPS "you are here" — a maps-style stateful button. Tap cycles
-     follow → compass → off in Orbit; in a movement mode a tap is a one-shot
-     teleport. The ✕ above it removes the pin. -->
+     locate/follow → compass → off in Orbit (press again to flip around); in a
+     movement mode a tap is a one-shot teleport. -->
 <div id="locateui">
-  <button id="locateremove" title="Remove pin" data-i18n-title="loc.remove" aria-label="Remove pin" data-i18n-aria-label="loc.remove" hidden>✕</button>
   <button id="locatebtn" title="Find my location" aria-label="Find my location"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><line x1="12" y1="1.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22.5" y2="12"/></svg></button>
   <div id="geotoast" role="status" aria-live="polite"></div>
 </div>
