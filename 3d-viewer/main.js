@@ -116,7 +116,7 @@ const I18N = {
     'coach.text': 'New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.', 'coach.ok': 'Got it',
     'tray.end': 'End', 'grp.move': 'Fly & walk',
     'sg.live': '● Live sky', 'sg.custom': '🕐 Custom',
-    'sg.orient': '🤳 Point at the sky',
+    'sg.orient': '🤳 Point at the sky', 'sg.clock': 'Show / hide the sky time',
     'sg.hint': 'drag to look · tap a constellation',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
     'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
@@ -201,7 +201,7 @@ const I18N = {
     'coach.text': '第一次來？點一下 <b>⚙</b> 設定畫面 — 地表、天氣、天空等。', 'coach.ok': '知道了',
     'tray.end': '結束', 'grp.move': '飛行與步行',
     'sg.live': '● 即時星空', 'sg.custom': '🕐 自訂',
-    'sg.orient': '🤳 指向天空',
+    'sg.orient': '🤳 指向天空', 'sg.clock': '顯示／隱藏天空時間',
     'sg.hint': '拖曳環視 · 點選星座',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
     'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
@@ -3483,9 +3483,18 @@ function setStargazeOrient(on) {
   else arm();
 }
 function syncSgToggles() {
-  const g = document.getElementById('sg-orient');
-  g.classList.toggle('on', stargaze.orient);
-  g.setAttribute('aria-pressed', stargaze.orient ? 'true' : 'false');
+  const o = document.getElementById('sg-orient');
+  o.classList.toggle('on', stargaze.orient);
+  o.setAttribute('aria-pressed', stargaze.orient ? 'true' : 'false');
+  const timeOn = !document.body.classList.contains('sg-time-hidden');   // 🕐 lit = sky-time panel showing
+  const c = document.getElementById('sg-clock');
+  c.classList.toggle('on', timeOn);
+  c.setAttribute('aria-pressed', timeOn ? 'true' : 'false');
+}
+// 🕐 show / hide the whole sky-time container for a clean sky (HKS-90)
+function setSgTimeVisible(show) {
+  document.body.classList.toggle('sg-time-hidden', !show);
+  syncSgToggles();
 }
 function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
   const g = id => document.getElementById(id);
@@ -3517,6 +3526,7 @@ document.getElementById('sg-time').addEventListener('input', e => {
   document.getElementById('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
 });
 document.getElementById('sg-orient').addEventListener('click', () => setStargazeOrient(!stargaze.orient));
+document.getElementById('sg-clock').addEventListener('click', () => setSgTimeVisible(document.body.classList.contains('sg-time-hidden')));
 // panel-side sky changes keep the tray proxy honest while stargazing
 document.getElementById('skymode').addEventListener('change', () => { if (stargaze.on) syncSgTray(); });
 addEventListener('keydown', e => { if (stargaze.on && e.key === 'Escape') exitStargaze(); });

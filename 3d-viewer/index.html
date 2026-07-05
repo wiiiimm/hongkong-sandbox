@@ -552,18 +552,20 @@
   #camseg button:first-child{border-right:1px solid var(--edge-soft)}
   #camseg button.on{background:var(--accent-dim);color:var(--accent)}
   #camseg button:hover{color:var(--ink)}
-  /* HKS-90: auto-arm (point-at-the-sky) toggle takes the same left-of-compass slot
-     in Stargaze that the camera toggle takes in fly/walk. Icon-only, single toggle. */
-  #sg-orient{display:none;align-items:center;justify-content:center;height:30px;min-width:34px;padding:0 9px;
+  /* HKS-90: Stargaze's left-of-compass toggles (🕐 sky-time, 🤳 auto-arm) take the
+     same slot the fly/walk camera toggle uses. Icon-only. */
+  #sg-orient,#sg-clock{display:none;align-items:center;justify-content:center;height:30px;min-width:34px;padding:0 9px;
     border-radius:9px;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35);
     font-size:14px;line-height:1;color:var(--sub);cursor:pointer;transition:color .12s,background .12s}
-  body.stargazing #sg-orient{display:inline-flex}
+  body.stargazing #sg-orient,body.stargazing #sg-clock{display:inline-flex}
   body.stargazing #sg-orient[hidden]{display:none}   /* device with no orientation sensor */
-  body.glass #sg-orient{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
-  body.glass.ui-light #sg-orient{background:rgba(252,250,246,.3)}
-  #sg-orient.on{background:var(--accent-dim);color:var(--accent)}
-  #sg-orient:hover{color:var(--ink)}
+  body.glass #sg-orient,body.glass #sg-clock{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #sg-orient,body.glass.ui-light #sg-clock{background:rgba(252,250,246,.3)}
+  #sg-orient.on,#sg-clock.on{background:var(--accent-dim);color:var(--accent)}
+  @media (hover:hover){#sg-orient:hover,#sg-clock:hover{color:var(--ink)}}   /* no sticky hover on touch */
+  /* 🕐 toggle hides the whole sky-time container for a clean sky */
+  body.sg-time-hidden #modetray{display:none}
   /* band heading indicator (directional-gyro tape) — rides on top of the mode
      dock inside the bottom instrument cluster (HKS-86). Click/tap = face north. */
   #compass{width:min(230px,60vw);height:30px;border-radius:10px;cursor:pointer;
@@ -993,7 +995,8 @@
       <button id="cam-ext" type="button" aria-pressed="false" title="Chase / external camera (C)"><span aria-hidden="true">🎥</span></button>
       <button id="cam-pov" type="button" aria-pressed="false" title="First-person camera (C)"><span aria-hidden="true">👁</span></button>
     </span>
-    <!-- HKS-90: auto-arm (point-at-the-sky) — Stargaze's left-of-compass toggle -->
+    <!-- HKS-90: Stargaze's left-of-compass control strip — 🕐 sky-time toggle + 🤳 auto-arm -->
+    <button id="sg-clock" type="button" aria-pressed="true" title="Show / hide the sky time" data-i18n-title="sg.clock" data-i18n-aria-label="sg.clock"><span aria-hidden="true">🕐</span></button>
     <button id="sg-orient" type="button" aria-pressed="false" title="🤳 Point at the sky" data-i18n-title="sg.orient" data-i18n-aria-label="sg.orient"><span aria-hidden="true">🤳</span></button>
     <canvas id="compass" title="Heading — click to face north"></canvas>
   </div>
