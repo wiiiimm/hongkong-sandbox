@@ -495,7 +495,8 @@
   /* GPS "you are here" locate control (HKS-83/86) — right column, above the radar
      dial. Maps-style stateful button: outline target (off) → filled my-location
      (follow, Google-location blue) → navigation arrow (compass, heading-up). */
-  #locateui{position:fixed;right:12px;bottom:260px;z-index:22;display:flex;flex-direction:column;align-items:center;gap:6px}
+  #locateui{position:fixed;right:12px;bottom:260px;z-index:22;display:flex;flex-direction:column;align-items:center;gap:6px;transition:bottom .3s ease}
+  body:not(.radar-on) #locateui{bottom:calc(78px + env(safe-area-inset-bottom))}   /* radar hidden → sit right above the camera button */
   #locateui #locatebtn{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);cursor:pointer;color:var(--ink);padding:0;box-shadow:0 6px 18px rgba(0,0,0,.35);
@@ -625,6 +626,7 @@
     #cornerui{bottom:calc(64px + env(safe-area-inset-bottom))}
     #cornerui button{width:36px;height:36px;box-sizing:border-box}
     #locateui{right:12px;left:auto;bottom:calc(248px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
+    body:not(.radar-on) #locateui{bottom:calc(108px + env(safe-area-inset-bottom))}   /* radar hidden → above the camera button */
     #locateui #locatebtn{width:36px;height:36px;box-sizing:border-box}
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
        camera button (#cornerui, bottom-right) AND the instrument cluster

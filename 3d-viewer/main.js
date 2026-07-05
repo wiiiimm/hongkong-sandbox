@@ -3689,6 +3689,7 @@ const radarHudEl = document.getElementById('radarhud');
 function startRadar() {
   radarRunning = true;
   radarHudEl.classList.add('show');
+  document.body.classList.add('radar-on');   // GPS button sits above the radar; drops to the camera button when off
   if (radarImg) radarImg.style.opacity = '0';   // fade the current view out; the first fresh frame fades back in
   radarReveal = true;
   loadFrames();
@@ -3699,6 +3700,7 @@ function startRadar() {
 function stopRadar() {
   radarRunning = false;
   radarHudEl.classList.remove('show');
+  document.body.classList.remove('radar-on');
   clearInterval(radarAnimT); clearInterval(radarRefreshT);
 }
 
