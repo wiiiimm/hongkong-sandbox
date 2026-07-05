@@ -152,6 +152,11 @@
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   #panel::-webkit-scrollbar{width:8px}
   #panel::-webkit-scrollbar-thumb{background:var(--field-edge);border-radius:4px}
+  /* HKS-86: pin the drag handle + title header while the panel body scrolls */
+  #pstick{position:sticky;top:0;z-index:6;background:var(--panel);
+    margin:-14px -15px 10px;padding:14px 15px 8px;border-radius:16px 16px 0 0}
+  body.glass #pstick{background:rgba(10,13,18,.72)}
+  body.glass.ui-light #pstick{background:rgba(252,250,246,.85)}
   #panel h1{font-size:14px;margin:0;letter-spacing:.01em;font-weight:600}
   /* brand icon left of the title (HKS-65) */
   .ptitle{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 auto}
@@ -490,6 +495,16 @@
   #cornerui button svg{display:block;transform:translateY(.5px)}   /* camera glyph is top-heavy — nudge to optical centre */
   body.glass #cornerui button{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #cornerui button{background:rgba(252,250,246,.22)}
+  /* HKS-86: sandbox identity chip — icon + title in a glass container */
+  #brandchip{position:fixed;top:16px;left:16px;z-index:40;display:flex;align-items:center;gap:9px;
+    padding:8px 14px 8px 11px;border-radius:13px;pointer-events:none;white-space:nowrap;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
+    font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+  #brandchip img{width:22px;height:22px;border-radius:6px;flex:0 0 auto}
+  body.glass #brandchip{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #brandchip{background:rgba(252,250,246,.22)}
+  #panel:not(.collapsed) ~ #brandchip{display:none}   /* the open panel shows the same title in its header */
   /* GPS "you are here" locate control (HKS-83/86) — right column, above the radar
      dial. Maps-style stateful button: outline target (off) → filled my-location
      (follow, Google-location blue) → navigation arrow (compass, heading-up). */
@@ -644,6 +659,11 @@
     #creditsbtn{top:calc(12px + env(safe-area-inset-top));left:12px;bottom:auto;padding:0;
       width:34px;height:34px;justify-content:center}
     #creditsbtn .clabel{display:none}
+    /* brand chip → right of the credits (i) button on phones */
+    #brandchip{top:calc(12px + env(safe-area-inset-top));left:54px;height:34px;padding:0 12px;box-sizing:border-box;
+      gap:7px;font-size:12.5px;max-width:calc(100vw - 120px)}
+    #brandchip img{width:18px;height:18px}
+    #brandchip span{min-width:0;overflow:hidden;text-overflow:ellipsis}
     #creditspop{top:calc(54px + env(safe-area-inset-top));left:12px;right:12px;bottom:auto;
       width:auto;max-width:none;max-height:64vh}
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
@@ -685,7 +705,8 @@
 <canvas id="matrixfx"></canvas>
 <div id="noirvig"></div>
 <canvas id="noirfx" width="256" height="144"></canvas>
-<div id="panel">
+<div id="panel" class="collapsed">
+  <div id="pstick">
   <div id="sheetgrip" title="Hide controls" aria-hidden="true"></div>
   <div id="phead">
     <div class="ptitle">
@@ -697,6 +718,7 @@
       <button id="collapse-btn" title="Collapse panel" aria-label="Collapse panel"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
     </div>
   </div>
+  </div><!-- /#pstick -->
   <div id="pbody">
   <div class="sub" id="note">Loading…</div>
 
@@ -886,6 +908,12 @@
 </div>
 
 <div id="stormbadge"></div>
+<!-- HKS-86: sandbox identity chip (icon + title) — top-left on desktop while the
+     panel is collapsed; on mobile it sits to the right of the credits (i) button -->
+<div id="brandchip">
+  <img src="/favicon-32.png" alt=""/>
+  <span data-i18n="app.title">Hong Kong Sandbox</span>
+</div>
 <div id="cornerui">
   <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>

@@ -3912,9 +3912,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') setCredits(f
 // so a fresh load re-surfaces an active warning.
 const wxBulletin = document.getElementById('wxbulletin');
 const wbTab = document.getElementById('wb-tab');
-let bulletinDismissed = false, bulletinAutoShown = false;
+let bulletinDismissed = false;
 const bulletinOpen = () => wxBulletin.classList.contains('open');
 function setBulletin(open) {
+  if (open && typeof setHelp === 'function') setHelp(false);   // only one right-edge drawer open at a time
   wxBulletin.classList.toggle('open', open);
   wbTab.setAttribute('aria-expanded', open ? 'true' : 'false');
   if (!open) bulletinDismissed = true;      // a manual close stops it auto-reopening this session
@@ -3944,7 +3945,17 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && bulletinOp
 const helpDrawer = document.getElementById('helpdrawer');
 const hpTab = document.getElementById('hp-tab');
 const helpOpen = () => helpDrawer.classList.contains('open');
-function setHelp(open) { helpDrawer.classList.toggle('open', open); hpTab.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+function setHelp(open) {
+  if (open) setBulletin(false);   // only one right-edge drawer open at a time
+  helpDrawer.classList.toggle('open', open);
+  hpTab.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+// dock the Help tab directly beneath the weather tab, whose height is variable
+// and locale-dependent (long "Weather notices" vs short "天氣提示") — measure it
+function stackHelpTab() {
+  if (!wxBulletin || !wbTab) return;
+  helpDrawer.style.top = Math.round(wxBulletin.getBoundingClientRect().top + wbTab.offsetHeight + 8) + 'px';
+}
 function updateHelp() {
   const ctx = document.getElementById('hp-context'), gen = document.getElementById('hp-general');
   if (!ctx || !gen) return;
@@ -3954,8 +3965,9 @@ function updateHelp() {
 }
 hpTab.addEventListener('click', () => setHelp(!helpOpen()));
 document.getElementById('hp-close').addEventListener('click', () => setHelp(false));
+addEventListener('resize', stackHelpTab);
 updateHelp();
-requestAnimationFrame(() => helpDrawer.classList.add('ready'));   // enable slide-in after first paint
+requestAnimationFrame(() => { helpDrawer.classList.add('ready'); stackHelpTab(); });
 
 document.getElementById('fog').addEventListener('change', e => {
   weather.fog = e.target.checked; setFog();
@@ -4194,7 +4206,8 @@ async function syncLiveWeather() {
     const warnChip = el('wx-warn');
     warnChip.classList.toggle('warn', !!warn);
     warnChip.textContent = warn ? `⚠ ${t('wb.chip')}` : (fcast ? t('wb.chip') : '');
-    if (warn && !bulletinDismissed && !bulletinAutoShown) { bulletinAutoShown = true; setBulletin(true); }   // surface an active warning once/session
+    // HKS-86: never auto-open on launch — the amber tab + ⚠ chip flag a warning; the user opens the drawer when they choose
+    if (typeof stackHelpTab === 'function') requestAnimationFrame(stackHelpTab);   // ⚠ changes the weather tab height — re-dock the Help tab below it
     const rainy = [53,54,62,63,64,65].includes(code) || rainMax > 0;
     chk('rain', rainy);
     // real past-hour cloud-to-ground lightning count (data.gov.hk LHL), region-aware
@@ -4864,6 +4877,7 @@ function applyLocale(loc) {
   updateViewBtn();   // chase/cockpit label follows the locale
   updateWalkViewBtn();
   if (typeof updateHelp === 'function') updateHelp();   // Help drawer section bodies follow the locale (HKS-86)
+  if (typeof stackHelpTab === 'function') requestAnimationFrame(stackHelpTab);   // weather tab height changes with locale — re-dock the Help tab
   refreshGpsBtn();   // GPS button label/icon follows the locale + state (HKS-86)
   if (stargaze.on) syncSgTray();   // stargaze tray hint/pills follow too
   if (liveMode) { syncLiveWeather(); syncLiveTide(); }
