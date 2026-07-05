@@ -2233,6 +2233,9 @@ function enterFlight() {
   setTopMode('fly');
   updateViewBtn();
   controls.enabled = false;
+  // HKS-86 §2: GPS follow/compass never persists outside Orbit — entering a
+  // movement mode spawns at the fix (if it's on this map), then disengages
+  if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDisengage(); }
   refreshDock();
 }
 function exitFlight() {
@@ -2540,6 +2543,9 @@ function enterWalk(startLocal) {
   document.getElementById('walkbtn').blur();  // else Space/Enter re-clicks the button and exits
   document.body.classList.add('flying');                  // fly/walk shared UI state (speed gauge, no-select)
   controls.enabled = false;
+  // HKS-86 §2: GPS follow/compass never persists outside Orbit — entering a
+  // movement mode spawns at the fix (if it's on this map), then disengages
+  if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDisengage(); }
   refreshDock();
   if (!NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
 }
@@ -2598,7 +2604,6 @@ document.getElementById('dockgear').addEventListener('click', () =>
 // marker stores HK1980 E/N and is reprojected each frame like the AQHI markers, so it
 // survives source/VE changes. Nothing is persisted — no URL, no storage, no logs.
 const locateBtn = document.getElementById('locatebtn');
-const locatePop = document.getElementById('locatepop');
 const geoToastEl = document.getElementById('geotoast');
 const geo = { el: null, ring: null, cone: null, arrow: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null, compass: false };
 let geoToastT = null, geoEaseRAF = null, geoHeading = null, geoOrient = false;
@@ -2698,12 +2703,62 @@ function placeFix(c) {                                    // c = GeolocationCoor
   ensureGeoMarker();
   geo.E = gg.E; geo.N = gg.N; geo.acc = Math.max(6, c.accuracy || 0); geo.has = true; return true;
 }
-function locateOnce() {
+// HKS-86 §2: maps-style state machine. In Orbit the tap cycles
+// follow → compass → off (the first tap locates AND follows); in a movement
+// mode a tap is a one-shot teleport (see gpsTeleport) — never a persistent
+// follow. The underlying locate/watch/compass internals are unchanged.
+const GPS_SVG = fill => `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><line x1="12" y1="1.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="22.5" y2="12"/>${fill ? '<circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/>' : ''}</svg>`;
+const GPS_ARROW_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 2 L19 21 L12 16.4 L5 21 Z"/></svg>`;
+const gpsState = () => geo.compass ? 'compass' : geo.following ? 'follow' : 'off';
+function refreshGpsBtn() {          // morph the button icon + label to the state
+  const st = gpsState();
+  locateBtn.innerHTML = st === 'compass' ? GPS_ARROW_SVG : GPS_SVG(st === 'follow' || geo.has);
+  locateBtn.classList.toggle('on', geo.has);
+  const lbl = st === 'follow' ? t('loc.following') : st === 'compass' ? t('loc.compass') : t('loc.find');
+  locateBtn.setAttribute('aria-label', lbl);
+  locateBtn.title = lbl;
+  const rm = document.getElementById('locateremove');
+  if (rm) rm.hidden = !geo.has;
+}
+function locateThenFollow() {       // off → follow: one fix, zoom to it, then track
   locateBtn.classList.add('locating');
   navigator.geolocation.getCurrentPosition(pos => {
     locateBtn.classList.remove('locating');
-    if (placeFix(pos.coords)) { locateBtn.classList.add('on'); centreOnMarker(true, false); }
-  }, geoErr, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+    if (placeFix(pos.coords)) { centreOnMarker(true, false); startFollow(); }
+    refreshGpsBtn();
+  }, e => { geoErr(e); refreshGpsBtn(); }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+}
+function gpsDisengage() {           // drop follow + compass; the pin stays
+  stopFollow();
+  if (geo.compass) setCompassView(false);
+  refreshGpsBtn();
+}
+function markerLocalPoint() {       // stored fix → world-local grid point
+  const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
+  return { col, row, x: (col - W / 2) * cell, z: (row - H / 2) * cell };
+}
+function teleportToMarker() {       // jump the ACTIVE movement mode to the fix
+  if (!geoInBounds()) { geoToast(t('loc.outsrc')); return; }
+  const p = markerLocalPoint();
+  if (walk.on) {                    // re-run the air-drop insertion at the fix
+    const b = bounds();
+    walk.pos.x = Math.max(-b.halfX, Math.min(b.halfX, p.x));
+    walk.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, p.z));
+    walk.vy = 0; walk.land = 0; walk.spd = 0;
+    walk.pos.y = (sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
+  } else if (flight.on) {           // pop out airborne over the fix, at cruise
+    flight.pos.set(p.x, (sampleE(p.col, p.row) + 300) * VE, p.z);
+    flight.landed = false;
+    flight.speed = Math.max(flight.speed, 62);
+  }
+}
+function gpsTeleport() {            // movement modes: locate, jump there, disengage
+  locateBtn.classList.add('locating');
+  navigator.geolocation.getCurrentPosition(pos => {
+    locateBtn.classList.remove('locating');
+    if (placeFix(pos.coords)) teleportToMarker();
+    gpsDisengage();
+  }, e => { geoErr(e); gpsDisengage(); }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
 }
 function startWatch() {
   geo.watch = navigator.geolocation.watchPosition(pos => {
@@ -2747,11 +2802,6 @@ function geoInBounds() {                                   // is the stored fix 
   const col = (geo.E - curG.bE) / curG.aE, row = (geo.N - curG.bN) / curG.aN;
   return col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1;
 }
-function walkFromHere() {
-  if (!geoInBounds()) { geoToast(t('loc.outsrc')); return; }   // off the active map → don't drop them at an edge
-  const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
-  enterWalk({ x: (col - W / 2) * cell, z: (row - H / 2) * cell });
-}
 // heading-up "compass view" (like Google/Apple Maps): the map rotates so the way
 // you face is up, you stay centred, the POV cone points forward. (HKS-83)
 function setCompassView(on) {
@@ -2794,30 +2844,22 @@ function updateGeoMarker() {                              // called from animate
   geo.el.style.left = ((v.x * 0.5 + 0.5) * innerWidth) + 'px';
   geo.el.style.top = ((-v.y * 0.5 + 0.5) * innerHeight) + 'px';
 }
-function buildLocatePop() {
-  const b = (act, lab, cls) => `<button data-loc="${act}"${cls ? ` class="${cls}"` : ''} role="menuitem">${lab}</button>`;
-  locatePop.innerHTML =
-    (geo.following ? b('stopfollow', t('loc.stopfollow'), 'stop') : b('follow', t('loc.follow'))) +
-    b('compass', geo.compass ? t('loc.compassoff') : t('loc.compass'), geo.compass ? 'stop' : '') +
-    b('relocate', t('loc.relocate')) + b('walk', t('loc.walk')) + b('remove', t('loc.remove'));
-}
+// is a movement mode driving the camera? then GPS never persists (HKS-86 §2)
+const inMovementMode = () => flight.on || walk.on;
 locateBtn.addEventListener('click', e => {
   e.stopPropagation();
   enableCompass();   // request device-orientation on this user gesture (needed for iOS)
-  if (!geo.has) { locateOnce(); return; }
-  const open = !locatePop.classList.contains('open');
-  if (open) buildLocatePop();
-  locatePop.classList.toggle('open', open);
-  locateBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (inMovementMode()) { gpsTeleport(); return; }
+  const st = gpsState();                    // Orbit: follow → compass → off
+  if (st === 'off') locateThenFollow();
+  else if (st === 'follow') { setCompassView(true); refreshGpsBtn(); }
+  else gpsDisengage();
 });
-locatePop.addEventListener('click', e => {
-  const btn = e.target.closest('button[data-loc]'); if (!btn) return;
+document.getElementById('locateremove').addEventListener('click', e => {
   e.stopPropagation();
-  locatePop.classList.remove('open'); locateBtn.setAttribute('aria-expanded', 'false');
-  ({ relocate: locateOnce, follow: startFollow, stopfollow: stopFollow, walk: walkFromHere, remove: removeMarker,
-     compass: () => setCompassView(!geo.compass) })[btn.dataset.loc]?.();
+  removeMarker();
+  refreshGpsBtn();
 });
-document.addEventListener('click', () => { locatePop.classList.remove('open'); locateBtn.setAttribute('aria-expanded', 'false'); });
 addEventListener('mousemove', e => {                      // pointer-lock look
   if (!walk.on || document.pointerLockElement !== renderer.domElement) return;
   walk.yaw -= e.movementX * 0.0022;
@@ -4587,6 +4629,7 @@ function applyLocale(loc) {
   const btn = document.getElementById('livebtn'); if (btn) btn.textContent = liveMode ? t('live.on') : t('live.sync');
   updateViewBtn();   // chase/cockpit label follows the locale
   updateWalkViewBtn();
+  refreshGpsBtn();   // GPS button label/icon follows the locale + state (HKS-86)
   if (liveMode) { syncLiveWeather(); syncLiveTide(); }
   if (stationsOn) refreshStations();
 }
