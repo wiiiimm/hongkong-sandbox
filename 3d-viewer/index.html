@@ -441,7 +441,7 @@
   .dockbtn.on{color:var(--accent);background:var(--accent-dim);border-color:var(--accent)}
   /* HKS-86: the ⚙ is the single settings affordance now — size it to match the
      camera button (#cornerui, 40px circle) so it reads as a peer, not a speck */
-  #dockgear{width:40px;height:40px;padding:0;justify-content:center;font-size:19px}
+  #dockgear{width:40px;height:40px;padding:0;justify-content:center;font-size:28px}   /* 1.5× the glyph in the same tap target */
   .dockdiv{width:1px;align-self:stretch;margin:4px 3px;background:var(--edge-soft)}
   /* contextual tray — per-mode affordances above the compass tape */
   #modetray{display:flex;flex-direction:column;gap:8px;padding:9px 13px;border-radius:13px;
@@ -626,7 +626,7 @@
     #panel.collapsed{display:none}
     #dock .dockbtn{padding:11px 11px;font-size:17px}
     #dock .dockbtn small{display:none}
-    #dock #dockgear{width:36px;height:36px;padding:0;font-size:18px}
+    #dock #dockgear{width:36px;height:36px;padding:0;font-size:27px}
     /* right column stacks clear of the dock: snapshot → radar dial → GPS FAB */
     #cornerui{bottom:calc(64px + env(safe-area-inset-bottom))}
     #cornerui button{width:36px;height:36px;box-sizing:border-box}
@@ -685,7 +685,7 @@
   /* very narrow phones: compress the dock so it clears the corner buttons */
   @media (max-width:374px){
     #dock .dockbtn{padding:10px 7px;font-size:15px}
-    #dock #dockgear{width:34px;height:34px;padding:0;font-size:16px}
+    #dock #dockgear{width:34px;height:34px;padding:0;font-size:24px}
   }
   /* HKS-86: first-visit coach-mark — a blue halo on the dock ⚙ + a nudge bubble.
      Dismissal is stored (prod only) like the install nudge, so it shows once. */
