@@ -446,7 +446,7 @@
   .dockbtn.on{color:var(--accent);background:var(--accent-dim);border-color:var(--accent)}
   /* HKS-86: the ⚙ is the single settings affordance now — size it to match the
      camera button (#cornerui, 40px circle) so it reads as a peer, not a speck */
-  #dockgear{width:40px;height:40px;padding:0;justify-content:center;font-size:19px}
+  #dockgear{width:40px;height:40px;padding:0;justify-content:center;font-size:28px}   /* 1.5× the glyph in the same tap target */
   .dockdiv{width:1px;align-self:stretch;margin:4px 3px;background:var(--edge-soft)}
   /* contextual tray — per-mode affordances above the compass tape */
   #modetray{display:flex;flex-direction:column;gap:8px;padding:9px 13px;border-radius:13px;
@@ -465,11 +465,13 @@
   #sgskypill button.on{background:var(--accent-dim);color:var(--accent)}
   #sg-time{flex:1;min-width:60px}
   #sg-timev{flex:0 0 40px;text-align:right;font-family:var(--mono);font-size:10.5px;color:var(--ink)}
-  #sg-orient[hidden],#sg-follow[hidden]{display:none}
   #sg-hint{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--sub);text-align:center}
   /* stargazing dims the weather chip + radar dial for a cleaner sky (restored on exit) */
   #wxhud,#radarhud{transition:opacity .5s ease}
-  body.stargazing #wxhud,body.stargazing #radarhud{opacity:.12;pointer-events:none}
+  /* HKS-90: fully hide the weather box + radar in Stargaze — dimming to a low
+     opacity left the glass-gl lens drawing at full strength over faint content
+     (a broken washed-out look); display:none makes glass-gl skip the panel. */
+  body.stargazing #wxhud,body.stargazing #radarhud{display:none}
   /* live speed gauge — shares the #hudbox glass with the flyhud (HKS-86); the
      readout shows the actual speed (kt / km·h), no percentage */
   #spdwrap{display:none;align-items:center;gap:8px;width:100%;box-sizing:border-box}
@@ -508,7 +510,9 @@
     transition:border-color .12s,color .12s}
   body.glass #locateui #locatebtn{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #locateui #locatebtn{background:rgba(252,250,246,.22)}
-  #locateui #locatebtn:hover{border-color:#4285f4;color:#4285f4}
+  /* hover only on real pointers — on touch, :hover sticks after a tap and would
+     leave the button blue after it's toggled off (HKS-90) */
+  @media (hover:hover){#locateui #locatebtn:hover{border-color:#4285f4;color:#4285f4}}
   #locateui #locatebtn.on,#locateui #locatebtn.follow,#locateui #locatebtn.compass{border-color:#4285f4;color:#4285f4}   /* maps-style location blue, matching the marker (never the green accent) */
   #locateui #locatebtn.locating{border-color:#4285f4;color:#4285f4;animation:locpulse 1.1s ease-in-out infinite}
   #locateui #locatebtn.follow::after,#locateui #locatebtn.compass::after{content:'';position:absolute;inset:-4px;border-radius:50%;
@@ -548,6 +552,20 @@
   #camseg button:first-child{border-right:1px solid var(--edge-soft)}
   #camseg button.on{background:var(--accent-dim);color:var(--accent)}
   #camseg button:hover{color:var(--ink)}
+  /* HKS-90: Stargaze's left-of-compass toggles (🕐 sky-time, 🤳 auto-arm) take the
+     same slot the fly/walk camera toggle uses. Icon-only. */
+  #sg-orient,#sg-clock{display:none;align-items:center;justify-content:center;height:30px;min-width:34px;padding:0 9px;
+    border-radius:9px;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35);
+    font-size:14px;line-height:1;color:var(--sub);cursor:pointer;transition:color .12s,background .12s}
+  body.stargazing #sg-orient,body.stargazing #sg-clock{display:inline-flex}
+  body.stargazing #sg-orient[hidden]{display:none}   /* device with no orientation sensor */
+  body.glass #sg-orient,body.glass #sg-clock{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #sg-orient,body.glass.ui-light #sg-clock{background:rgba(252,250,246,.3)}
+  #sg-orient.on,#sg-clock.on{background:var(--accent-dim);color:var(--accent)}
+  @media (hover:hover){#sg-orient:hover,#sg-clock:hover{color:var(--ink)}}   /* no sticky hover on touch */
+  /* 🕐 toggle hides the whole sky-time container for a clean sky */
+  body.sg-time-hidden #modetray{display:none}
   /* band heading indicator (directional-gyro tape) — rides on top of the mode
      dock inside the bottom instrument cluster (HKS-86). Click/tap = face north. */
   #compass{width:min(230px,60vw);height:30px;border-radius:10px;cursor:pointer;
@@ -617,7 +635,7 @@
     #panel.collapsed{display:none}
     #dock .dockbtn{padding:11px 11px;font-size:17px}
     #dock .dockbtn small{display:none}
-    #dock #dockgear{width:36px;height:36px;padding:0;font-size:18px}
+    #dock #dockgear{width:36px;height:36px;padding:0;font-size:27px}
     /* right column stacks clear of the dock: snapshot → radar dial → GPS FAB */
     #cornerui{bottom:calc(64px + env(safe-area-inset-bottom))}
     #cornerui button{width:36px;height:36px;box-sizing:border-box}
@@ -676,7 +694,7 @@
   /* very narrow phones: compress the dock so it clears the corner buttons */
   @media (max-width:374px){
     #dock .dockbtn{padding:10px 7px;font-size:15px}
-    #dock #dockgear{width:34px;height:34px;padding:0;font-size:16px}
+    #dock #dockgear{width:34px;height:34px;padding:0;font-size:24px}
   }
   /* HKS-86: first-visit coach-mark — a blue halo on the dock ⚙ + a nudge bubble.
      Dismissal is stored (prod only) like the install nudge, so it shows once. */
@@ -960,10 +978,6 @@
         <input id="sg-time" type="range" min="0" max="1439" step="1" value="1320" aria-label="Sky time"/>
         <span id="sg-timev">22:00</span>
       </div>
-      <div class="sgline">
-        <button id="sg-orient" data-i18n="sg.orient" aria-pressed="false">🧭 Point at the sky</button>
-        <button id="sg-follow" data-i18n="sg.follow" aria-pressed="false">📍 Follow me</button>
-      </div>
       <div id="sg-hint"></div>
     </div>
   </div>
@@ -981,6 +995,9 @@
       <button id="cam-ext" type="button" aria-pressed="false" title="Chase / external camera (C)"><span aria-hidden="true">🎥</span></button>
       <button id="cam-pov" type="button" aria-pressed="false" title="First-person camera (C)"><span aria-hidden="true">👁</span></button>
     </span>
+    <!-- HKS-90: Stargaze's left-of-compass control strip — 🕐 sky-time toggle + 🤳 auto-arm -->
+    <button id="sg-clock" type="button" aria-pressed="true" title="Show / hide the sky time" data-i18n-title="sg.clock" data-i18n-aria-label="sg.clock"><span aria-hidden="true">🕐</span></button>
+    <button id="sg-orient" type="button" aria-pressed="false" title="🤳 Point at the sky" data-i18n-title="sg.orient" data-i18n-aria-label="sg.orient"><span aria-hidden="true">🤳</span></button>
     <canvas id="compass" title="Heading — click to face north"></canvas>
   </div>
   <div id="dock" role="toolbar" aria-label="Explore modes and world themes">
