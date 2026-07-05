@@ -323,6 +323,9 @@
     background:rgba(10,13,18,.6);border:1px solid var(--edge);border-radius:11px;padding:8px 15px;
     text-align:center;white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
   #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:4px;letter-spacing:.09em}
+  /* fly/walk: hold-to-gas must never trigger text selection or the iOS long-press callout (HKS-81) */
+  body.flying{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+  body.flying #flyhud [data-fly]{-webkit-user-select:auto;user-select:auto}   /* keep the HUD links tappable */
   #cornerui{position:fixed;right:12px;bottom:calc(30px + env(safe-area-inset-bottom));z-index:22;
     display:flex;flex-direction:column;gap:8px;align-items:center}
   #cornerui button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
@@ -438,9 +441,12 @@
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
     /* fly/walk HUD: lift clear of the collapsed-controls chip (bottom-left) and
        the snapshot/corner buttons (bottom-right); wrap instead of running under them */
-    #flyhud{left:12px;right:12px;transform:none;white-space:normal;
-      bottom:calc(64px + env(safe-area-inset-bottom));font-size:11.5px;padding:7px 10px}
-    body.flying #compass{bottom:calc(142px + env(safe-area-inset-bottom))}
+    /* fit the speed/info HUD into the bottom row, between the collapsed cog (left)
+       and the camera (right); smaller font keeps the stats on one line (HKS-81) */
+    #flyhud{left:60px;right:60px;transform:none;white-space:normal;
+      bottom:calc(12px + env(safe-area-inset-bottom));font-size:9px;padding:5px 8px;line-height:1.35}
+    #flyhud small{font-size:8px;margin-top:2px;letter-spacing:.06em}
+    body.flying #compass{bottom:calc(142px + env(safe-area-inset-bottom))}   /* unchanged: clear of the HUD */
   }
 </style>
 </head>
