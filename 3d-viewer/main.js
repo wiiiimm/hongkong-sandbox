@@ -92,7 +92,7 @@ const I18N = {
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
-    'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local',
+    'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
@@ -156,7 +156,7 @@ const I18N = {
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
-    'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地',
+    'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
@@ -2695,10 +2695,12 @@ function renderWxviewControls() {
   const cur = isSat() ? satZoom : radarRange;
   const bStart = 102, bEnd = 258, gap = 4, n = opts.length, w = (bEnd - bStart - gap * (n - 1)) / n;
   const ranges = opts.map(([v, l], i) => { const a0 = bStart + i * (w + gap), a1 = a0 + w; return { a0, a1, ac: (a0 + a1) / 2, key: v, lab: l, on: v === cur }; });
-  const tab = (d, grp) => `<path class="rf-tab${d.on ? ' on' : ''}" data-grp="${grp}" data-key="${d.key}" d="${rfSector(d.a0, d.a1)}"/>`;
-  // size toggle: a round button in the empty left-side gap (270°); ⤢ enlarge / ⤡ restore
+  const tab = (d, grp) => `<path class="rf-tab${d.on ? ' on' : ''}" data-grp="${grp}" data-key="${d.key}" ` +
+    `role="button" tabindex="0" aria-pressed="${d.on}" aria-label="${d.lab}" d="${rfSector(d.a0, d.a1)}"/>`;
+  // size toggle: a round button in the empty left-side gap (270°)
   const [sx, sy] = rfPolar(RF.rt, 270);
-  const sizeBtn = `<g class="rf-size" data-size="1"><circle cx="${sx.toFixed(2)}" cy="${sy.toFixed(2)}" r="11"/>` +
+  const sizeBtn = `<g class="rf-size" data-size="1" role="button" tabindex="0" ` +
+    `aria-label="${radarBig ? t('rf.smaller') : t('rf.bigger')}"><circle cx="${sx.toFixed(2)}" cy="${sy.toFixed(2)}" r="11"/>` +
     `<text class="rf-glyph" x="${sx.toFixed(2)}" y="${sy.toFixed(2)}">${radarBig ? '−' : '+'}</text></g>`;
   svg.innerHTML =
     modes.map(m => tab(m, 'mode')).join('') + ranges.map(r => tab(r, 'range')).join('') + sizeBtn +
@@ -2712,15 +2714,21 @@ function setWxMode(m) {
   renderWxviewControls();
   if (radarRunning) startRadar();
 }
-document.getElementById('rf-tabs').addEventListener('click', e => {
-  if (e.target.closest('[data-size]')) {   // size toggle — no reload needed
+function activateRfTab(target) {
+  if (target.closest('[data-size]')) {   // size toggle — no reload, not persisted
     radarBig = !radarBig; radarHudEl.classList.toggle('big', radarBig); renderWxviewControls(); return;
   }
-  const p = e.target.closest('path[data-grp]'); if (!p) return;
-  if (p.dataset.grp === 'mode') { setWxMode(p.dataset.key); return; }
-  if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key;
-  renderWxviewControls();
-  if (radarRunning) startRadar();
+  const p = target.closest('path[data-grp]'); if (!p) return;
+  if (p.dataset.grp === 'mode') setWxMode(p.dataset.key);
+  else { if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key; renderWxviewControls(); if (radarRunning) startRadar(); }
+  syncUrl();   // write the new mode/range into the address bar (the dial lives outside #panel)
+}
+const rfTabsEl = document.getElementById('rf-tabs');
+rfTabsEl.addEventListener('click', e => activateRfTab(e.target));
+rfTabsEl.addEventListener('keydown', e => {   // keyboard access for the SVG tabs (a11y)
+  if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+  if (!e.target.closest('[data-grp],[data-size]')) return;
+  e.preventDefault(); activateRfTab(e.target);
 });
 
 // ---- camera framing + presets ---------------------------------------------
