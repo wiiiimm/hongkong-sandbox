@@ -3533,6 +3533,7 @@ addEventListener('keydown', e => { if (stargaze.on && e.key === 'Escape') exitSt
 // HKS-90: move the vantage across the terrain surface (right-drag / two-finger).
 // Basis is the horizontal facing (yaw only); "grab the ground" feel, clamped to bounds.
 function stargazePan(dx, dy) {
+  if (geo.following || geo.compass) return;   // GPS owns the vantage while tracking — no manual pan, so "Following" never goes stale (codex P2, HKS-90)
   _fe.set(0, stargaze.yaw, 0, 'YXZ'); _fq.setFromEuler(_fe);
   _sgF.set(0, 0, -1).applyQuaternion(_fq);   // horizontal forward (compass facing)
   _sgR.set(1, 0, 0).applyQuaternion(_fq);    // horizontal right
@@ -3544,7 +3545,7 @@ function stargazePan(dx, dy) {
 // drag-to-look (desktop): LEFT button looks around; RIGHT button drags across the
 // surface. Phones reuse the shared touch path (1 finger look, 2 finger move).
 addEventListener('mousemove', e => {
-  if (!stargaze.on) return;
+  if (!stargaze.on || e.target !== renderer.domElement) return;   // only the canvas drives look/pan — dragging HUD controls must not (parity with the touch path, CodeRabbit)
   if (e.buttons === 1) {                     // left drag = look
     stargaze.yaw -= e.movementX * 0.003;
     stargaze.pitch = Math.max(-0.15, Math.min(1.5, stargaze.pitch - e.movementY * 0.003));
