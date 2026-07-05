@@ -115,6 +115,11 @@ const I18N = {
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
     'navhelp': '<b>Navigate</b><br>Mouse — drag rotate · scroll zoom · right‑drag pan<br>Touch — one finger rotate · pinch zoom · two‑finger pan<br>Reset — recenter the view',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
+    'loc.find': 'Find my location', 'loc.locating': 'Locating…', 'loc.you': 'You', 'loc.relocate': 'Re-locate',
+    'loc.follow': 'Follow me', 'loc.following': 'Following', 'loc.stopfollow': 'Stop following',
+    'loc.walk': 'Walk from here', 'loc.remove': 'Remove pin',
+    'loc.denied': 'Location blocked — allow it in your browser settings.', 'loc.unavail': 'Location unavailable.',
+    'loc.outside': 'You don’t appear to be in Hong Kong.', 'loc.outsrc': 'Off this map — switch source to Hong Kong.',
     'about': '<b>Hong Kong Sandbox · 香港沙盒</b>'
       + '<p>Built by <b>wiiiimm</b> — <a href="https://wiiiimm.design" target="_blank" rel="noopener">portfolio</a>. '
       + 'Originally made for <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a>’s design work.</p>'
@@ -180,6 +185,11 @@ const I18N = {
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
     'navhelp': '<b>操作</b><br>滑鼠 — 拖曳旋轉 · 滾輪縮放 · 右鍵拖曳平移<br>觸控 — 單指旋轉 · 雙指縮放 · 雙指平移<br>重設 — 重新置中',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
+    'loc.find': '定位', 'loc.locating': '定位中…', 'loc.you': '你', 'loc.relocate': '重新定位',
+    'loc.follow': '跟隨我', 'loc.following': '跟隨中', 'loc.stopfollow': '停止跟隨',
+    'loc.walk': '由此步行', 'loc.remove': '移除定位',
+    'loc.denied': '位置被封鎖 —— 請在瀏覽器設定中允許。', 'loc.unavail': '無法取得位置。',
+    'loc.outside': '你似乎不在香港範圍內。', 'loc.outsrc': '超出此地圖範圍 —— 請切換至香港圖層。',
     'about': '<b>香港沙盒 · Hong Kong Sandbox</b>'
       + '<p>由 <b>wiiiimm</b> 製作 — <a href="https://wiiiimm.design" target="_blank" rel="noopener">作品集</a>。'
       + '原為 <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a> 的設計工作而建。</p>'
@@ -1213,6 +1223,34 @@ const latToMy = lat => { const r = lat*Math.PI/180; return (1 - Math.log(Math.ta
 // constant Web-Mercator shift for the WGS84↔HK1980 datum difference (~270 m), from
 // manual alignment on the Esri satellite skin (UV offset 0.0040, -0.0030 on the HK mosaic)
 const DATUM_MX = 7.3242e-6, DATUM_MY = 4.3945e-6;
+const mxToLon = mx => mx * 360 - 180;
+const myToLat = my => Math.atan(Math.sinh(Math.PI * (1 - 2 * my))) * 180 / Math.PI;
+// forward HK1980 Transverse Mercator (HK80 geodetic lon/lat -> grid E/N) — the exact
+// complement of enToLL, reusing the same HK constants + meridianArc (HKS-83)
+function llToEN(lat, lon) {
+  const e2 = HK.e2, ep2 = e2 / (1 - e2);
+  const phi = lat * Math.PI / 180, lam = lon * Math.PI / 180;
+  const s = Math.sin(phi), c = Math.cos(phi), t = Math.tan(phi);
+  const N1 = HK.a / Math.sqrt(1 - e2 * s * s), T = t * t, C = ep2 * c * c, A = (lam - HK.lon0) * c;
+  const M = meridianArc(phi);
+  const E = HK.FE + HK.k0 * N1 * (A + (1 - T + C) * A ** 3 / 6 + (5 - 18 * T + T * T + 72 * C - 58 * ep2) * A ** 5 / 120);
+  const N = HK.FN + HK.k0 * (M - meridianArc(HK.lat0) + N1 * t * (A * A / 2 + (5 - T + 9 * C + 4 * C * C) * A ** 4 / 24 + (61 - 58 * T + T * T + 600 * C - 330 * ep2) * A ** 6 / 720));
+  return { E, N };
+}
+// GPS (WGS84 lat/lon) -> HK1980 grid E/N. The WGS84↔HK80 datum step reverses the SAME
+// baked Web-Mercator shift the satellite drape uses, so the marker lands exactly where
+// the imagery shows you (a few metres, well under GPS's own error).
+function gpsToEN(lat, lon) {
+  const hlon = mxToLon(lonToMx(lon) - DATUM_MX), hlat = myToLat(latToMy(lat) - DATUM_MY);
+  return llToEN(hlat, hlon);
+}
+// -> grid col/row against the loaded source; inBounds is false if the user is off the map
+function gpsToGrid(lat, lon) {
+  const { E, N } = gpsToEN(lat, lon), g = curG;
+  if (!g) return null;
+  const col = (E - g.bE) / g.aE, row = (N - g.bN) / g.aN;
+  return { E, N, col, row, inBounds: col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1 };
+}
 const TILE_SRC = {
   osm: { url: (z,x,y) => `https://tile.openstreetmap.org/${z}/${x}/${y}.png`, attr: '© OpenStreetMap contributors' },
   sat: { url: (z,x,y) => `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`, attr: 'Imagery © Esri, Maxar, Earthstar Geographics' },
@@ -2009,14 +2047,15 @@ let hikerGrp = null;
 // ?nolock=1 — debug switch: skip pointer lock; mouse look becomes drag-to-look
 // so the keyboard path can be tested in isolation from the lock
 const NO_LOCK = new URLSearchParams(location.search).has('nolock');
-function enterWalk() {
+function enterWalk(startLocal) {
   if (walk.on || !curG) return;
   if (flight.on) exitFlight();
   walk.on = true;
   walk.prevSpin = spinDir; spinDir = 0;
   document.getElementById('spindir').value = '0';
   const b0 = bounds();
-  const t0 = controls.target.clone(); world.worldToLocal(t0);
+  // seed from a given world-local point (e.g. GPS "walk from here", HKS-83) or the view centre
+  const t0 = startLocal ? new THREE.Vector3(startLocal.x, 0, startLocal.z) : world.worldToLocal(controls.target.clone());
   walk.pos.set(
     Math.max(-b0.halfX, Math.min(b0.halfX, t0.x)), 0,
     Math.max(-b0.halfZ, Math.min(b0.halfZ, t0.z)));
@@ -2062,6 +2101,155 @@ function exitWalk() {
   frameCamera();
 }
 document.getElementById('walkbtn').addEventListener('click', () => walk.on ? exitWalk() : enterWalk());
+
+// ---- GPS "you are here" location (HKS-83) -----------------------------------
+// Two modes: set & forget (one getCurrentPosition) and follow (watchPosition). The
+// marker stores HK1980 E/N and is reprojected each frame like the AQHI markers, so it
+// survives source/VE changes. Nothing is persisted — no URL, no storage, no logs.
+const locateBtn = document.getElementById('locatebtn');
+const locatePop = document.getElementById('locatepop');
+const geoToastEl = document.getElementById('geotoast');
+const geo = { el: null, ring: null, has: false, E: 0, N: 0, acc: 0, watch: null, following: false, prevSpin: null, paused: false, autoStop: null };
+let geoToastT = null, geoEaseRAF = null;
+if (!window.isSecureContext || !('geolocation' in navigator)) {
+  const lu = document.getElementById('locateui'); if (lu) lu.style.display = 'none';   // needs HTTPS + Geolocation API
+}
+function geoToast(msg) {
+  geoToastEl.textContent = msg; geoToastEl.classList.add('show');
+  clearTimeout(geoToastT); geoToastT = setTimeout(() => geoToastEl.classList.remove('show'), 4200);
+}
+function geoErr(e) { locateBtn.classList.remove('locating'); geoToast(t(e && e.code === 1 ? 'loc.denied' : 'loc.unavail')); }
+function ensureGeoMarker() {
+  if (geo.el) return;
+  const el = document.createElement('div'); el.className = 'geoloc'; el.style.display = 'none';
+  el.innerHTML = `<span class="gl-stem"></span><span class="gl-dot"></span><span class="gl-lbl" data-i18n="loc.you">${t('loc.you')}</span>`;
+  document.body.appendChild(el); geo.el = el;
+  const rg = new THREE.RingGeometry(0.86, 1, 48); rg.rotateX(-Math.PI / 2);
+  const dg = new THREE.CircleGeometry(1, 48); dg.rotateX(-Math.PI / 2);
+  const mk = op => new THREE.MeshBasicMaterial({ color: 0x35cba0, transparent: true, opacity: op, depthWrite: false, side: THREE.DoubleSide });
+  const grp = new THREE.Group(); grp.add(new THREE.Mesh(dg, mk(0.08)), new THREE.Mesh(rg, mk(0.42)));
+  grp.visible = false; world.add(grp); geo.ring = grp;
+}
+function markerWorld() {
+  const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
+  const p = new THREE.Vector3((col - W / 2) * cell, sampleE(col, row) * VE, (row - H / 2) * cell);
+  world.localToWorld(p); return p;
+}
+function easeCamera(camTo, tgtTo, ms) {
+  cancelAnimationFrame(geoEaseRAF);
+  if (ms <= 0) { camera.position.copy(camTo); controls.target.copy(tgtTo); controls.update(); return; }
+  const c0 = camera.position.clone(), t0 = controls.target.clone(), t = performance.now();
+  const tick = () => {
+    const k = Math.min(1, (performance.now() - t) / ms), e = k * k * (3 - 2 * k);
+    camera.position.lerpVectors(c0, camTo, e); controls.target.lerpVectors(t0, tgtTo, e); controls.update();
+    if (k < 1) geoEaseRAF = requestAnimationFrame(tick);
+  };
+  geoEaseRAF = requestAnimationFrame(tick);
+}
+function centreOnMarker(ease, panOnly) {
+  if (!geo.has || !curG) return;
+  const tgt = markerWorld();
+  let camTo;
+  if (panOnly) camTo = camera.position.clone().add(tgt.clone().sub(controls.target));   // shift camera by the same delta
+  else {
+    if (spinDir !== 0) { geo.prevSpin = spinDir; spinDir = 0; document.getElementById('spindir').value = '0'; }
+    const dist = bounds().span * 0.14;
+    let dir = camera.position.clone().sub(controls.target); dir.y = Math.max(dir.y, dist * 0.3);
+    if (dir.lengthSq() < 1) dir.set(0, dist, dist);
+    camTo = tgt.clone().add(dir.normalize().multiplyScalar(dist));
+  }
+  easeCamera(camTo, tgt, ease ? 720 : 0);
+}
+function placeFix(c) {                                    // c = GeolocationCoordinates
+  const gg = gpsToGrid(c.latitude, c.longitude);
+  if (!gg) return false;
+  if (!gg.inBounds) {
+    const inHK = c.latitude > 22.13 && c.latitude < 22.58 && c.longitude > 113.82 && c.longitude < 114.45;
+    geoToast(t(inHK ? 'loc.outsrc' : 'loc.outside')); return false;
+  }
+  ensureGeoMarker();
+  geo.E = gg.E; geo.N = gg.N; geo.acc = Math.max(6, c.accuracy || 0); geo.has = true; return true;
+}
+function locateOnce() {
+  locateBtn.classList.add('locating');
+  navigator.geolocation.getCurrentPosition(pos => {
+    locateBtn.classList.remove('locating');
+    if (placeFix(pos.coords)) { locateBtn.classList.add('on'); centreOnMarker(true, false); }
+  }, geoErr, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+}
+function startWatch() {
+  geo.watch = navigator.geolocation.watchPosition(pos => {
+    const c = pos.coords, gg = gpsToGrid(c.latitude, c.longitude);
+    if (!gg || !gg.inBounds) return;                     // skip out-of-bounds fixes while following
+    const gate = Math.max(5, (c.accuracy || 0) * 0.5);   // jitter gate: ignore sub-accuracy wiggle
+    if (geo.has && Math.hypot(gg.E - geo.E, gg.N - geo.N) < gate) { geo.acc = Math.max(6, c.accuracy || geo.acc); return; }
+    geo.E = gg.E; geo.N = gg.N; geo.acc = Math.max(6, c.accuracy || 0); geo.has = true;
+    centreOnMarker(true, true);                           // pan to follow, keep the user's zoom/angle
+  }, geoErr, { enableHighAccuracy: true, timeout: 15000, maximumAge: 2000 });
+}
+function startFollow() {
+  if (geo.watch != null) return;
+  geo.following = true; locateBtn.classList.add('follow', 'on');
+  if (geo.el) geo.el.classList.add('live');
+  startWatch();
+  clearTimeout(geo.autoStop); geo.autoStop = setTimeout(() => stopFollow(), 15 * 60000);   // battery backstop
+}
+function stopFollow() {
+  if (geo.watch != null) { navigator.geolocation.clearWatch(geo.watch); geo.watch = null; }
+  clearTimeout(geo.autoStop); geo.paused = false; geo.following = false;
+  locateBtn.classList.remove('follow'); if (geo.el) geo.el.classList.remove('live');
+}
+addEventListener('visibilitychange', () => {              // pause the watch while hidden, resume on return
+  if (!geo.following) return;
+  if (document.hidden && geo.watch != null) { navigator.geolocation.clearWatch(geo.watch); geo.watch = null; geo.paused = true; }
+  else if (!document.hidden && geo.paused) { geo.paused = false; startWatch(); }
+});
+function removeMarker() {
+  stopFollow();
+  geo.has = false;
+  if (geo.el) geo.el.style.display = 'none';
+  if (geo.ring) geo.ring.visible = false;
+  locateBtn.classList.remove('on');
+  if (geo.prevSpin != null) { spinDir = geo.prevSpin; document.getElementById('spindir').value = String(spinDir); geo.prevSpin = null; }
+}
+function walkFromHere() {
+  if (!geo.has || !curG) return;
+  const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
+  enterWalk({ x: (col - W / 2) * cell, z: (row - H / 2) * cell });
+}
+function updateGeoMarker() {                              // called from animate(), like updateAqhi()
+  if (!geo.has || !geo.el || !curG) { if (geo.el) geo.el.style.display = 'none'; if (geo.ring) geo.ring.visible = false; return; }
+  const g = curG, col = (geo.E - g.bE) / g.aE, row = (geo.N - g.bN) / g.aN;
+  if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { geo.el.style.display = 'none'; geo.ring.visible = false; return; }
+  const lx = (col - W / 2) * cell, gy = sampleE(col, row) * VE, lz = (row - H / 2) * cell;
+  geo.ring.visible = true; geo.ring.position.set(lx, gy + 0.4, lz); geo.ring.scale.set(geo.acc, 1, geo.acc);
+  v.set(lx, gy + 2, lz); world.localToWorld(v); v.project(camera);
+  if (v.z > 1 || occludedLocal(lx, gy + 2, lz)) { geo.el.style.display = 'none'; return; }
+  geo.el.style.display = '';
+  geo.el.style.left = ((v.x * 0.5 + 0.5) * innerWidth) + 'px';
+  geo.el.style.top = ((-v.y * 0.5 + 0.5) * innerHeight) + 'px';
+}
+function buildLocatePop() {
+  const b = (act, lab, cls) => `<button data-loc="${act}"${cls ? ` class="${cls}"` : ''} role="menuitem">${lab}</button>`;
+  locatePop.innerHTML =
+    (geo.following ? b('stopfollow', t('loc.stopfollow'), 'stop') : b('follow', t('loc.follow'))) +
+    b('relocate', t('loc.relocate')) + b('walk', t('loc.walk')) + b('remove', t('loc.remove'));
+}
+locateBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  if (!geo.has) { locateOnce(); return; }
+  const open = !locatePop.classList.contains('open');
+  if (open) buildLocatePop();
+  locatePop.classList.toggle('open', open);
+  locateBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+locatePop.addEventListener('click', e => {
+  const btn = e.target.closest('button[data-loc]'); if (!btn) return;
+  e.stopPropagation();
+  locatePop.classList.remove('open'); locateBtn.setAttribute('aria-expanded', 'false');
+  ({ relocate: locateOnce, follow: startFollow, stopfollow: stopFollow, walk: walkFromHere, remove: removeMarker })[btn.dataset.loc]?.();
+});
+document.addEventListener('click', () => { locatePop.classList.remove('open'); locateBtn.setAttribute('aria-expanded', 'false'); });
 addEventListener('mousemove', e => {                      // pointer-lock look
   if (!walk.on || document.pointerLockElement !== renderer.domElement) return;
   walk.yaw -= e.movementX * 0.0022;
@@ -3591,6 +3779,7 @@ function animate() {
   updateLandmarks();
   updateStations();
   updateAqhi();
+  updateGeoMarker();
 }
 
 // ---- shareable state: sync all controls + camera to the URL ----------------
