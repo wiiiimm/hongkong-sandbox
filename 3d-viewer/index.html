@@ -446,12 +446,13 @@
   .geoloc{position:fixed;transform:translate(-50%,-6px);z-index:16;pointer-events:none;
     font-family:var(--sans);white-space:nowrap;line-height:1;display:flex;flex-direction:column;align-items:center;
     filter:drop-shadow(0 1px 2px rgba(0,0,0,.95)) drop-shadow(0 2px 6px rgba(0,0,0,.7))}
+  /* Google-Maps-style location blue, hard-coded (not the app accent) */
   .geoloc .gl-dot{position:relative;width:11px;height:11px;border-radius:50%;
-    background:var(--accent);border:2px solid #fff;box-shadow:0 0 4px rgba(0,0,0,.85)}
-  .geoloc.live .gl-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid var(--accent);
+    background:#4285f4;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.55),0 0 8px rgba(66,133,244,.45)}
+  .geoloc.live .gl-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid #4285f4;
     animation:locring 1.7s ease-out infinite}
   .geoloc .gl-lbl{margin-top:4px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em;
-    background:var(--accent);padding:1px 7px;border-radius:7px}
+    background:#1a73e8;padding:1px 7px;border-radius:7px}
   /* band heading indicator (directional-gyro tape), bottom-centre; lifts above
      the flight HUD while flying. Click/tap = face north. */
   #compass{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));
