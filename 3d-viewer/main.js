@@ -2456,7 +2456,10 @@ function stepFlight() {
   }
   planeGrp.position.copy(F.pos);
   planeGrp.quaternion.copy(_fq);
-  if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += 0.25 + F.speed * 0.004;
+  // HKS-87: the prop is tied to engine/airspeed — airborne it keeps a base
+  // spin plus a speed term; landed it's driven purely by ground speed, so it
+  // winds down to a dead stop as the plane brakes and stays still while parked.
+  if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += F.landed ? F.speed * 0.01 : 0.25 + F.speed * 0.004;
   setEngine(sndOn ? (F.landed ? 0.12 : 0.25 + 0.75 * (F.speed - 28) / Math.max(20, F.top - 28)) : 0);
   // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
   // — chase 55°, cockpit 68° — and stretches a few degrees more near full
