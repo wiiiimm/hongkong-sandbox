@@ -276,16 +276,16 @@
   /* HKS-86: unified right-edge drawer — Weather notices (HKS-80) + Help share ONE
      sliding panel. Both tabs stack together on the edge (always visible); the
      active tab is highlighted; clicking a tab swaps the panel content, no slide. */
-  #sidedrawer{position:fixed;top:33%;right:0;z-index:41;display:flex;align-items:flex-start;
-    transform:translateX(100%);visibility:hidden;
+  #sidedrawer{position:fixed;top:25%;left:0;z-index:41;display:flex;align-items:flex-start;
+    transform:translateX(-100%);visibility:hidden;
     transition:transform .34s cubic-bezier(.22,1,.36,1), visibility .34s}
   #sidedrawer.ready{visibility:visible}
   #sidedrawer.open{transform:translateX(0)}
-  #sd-tabs{position:absolute;left:-30px;top:0;display:flex;flex-direction:column;gap:6px}
+  #sd-tabs{position:absolute;right:-30px;left:auto;top:0;display:flex;flex-direction:column;gap:6px}
   .sd-tab{width:30px;min-height:90px;padding:14px 2px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-right:none;border-radius:12px 0 0 12px;
+    border:1px solid var(--edge);border-left:none;border-radius:0 12px 12px 0;
     color:var(--sub);font-size:11px;letter-spacing:.08em;cursor:pointer;box-shadow:var(--panel-shadow);
     transition:color .12s,border-color .12s,background .12s}
   .sd-tab .sd-tab-lab{writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap}
@@ -300,7 +300,7 @@
   body.glass .sd-tab.on{color:var(--accent);border-color:var(--accent)}
   #sidedrawer .wb-panel{width:min(320px,calc(100vw - 40px));max-height:64vh;overflow:auto;box-sizing:border-box;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
-    border:1px solid var(--edge);border-right:none;border-radius:0 0 0 14px;padding:13px 16px;   /* square top-left so it butts flush against the tabs */
+    border:1px solid var(--edge);border-left:none;border-radius:0 14px 14px 0;padding:13px 16px;   /* square left so it butts flush against the tabs on the left edge */
     font-size:12px;color:var(--sub);line-height:1.65;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   #sidedrawer .wb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
   #sidedrawer .wb-title{color:var(--ink);font-weight:600;font-size:13px}
@@ -313,6 +313,11 @@
   #sidedrawer .wb-sec div{margin-top:3px}
   #sidedrawer #wb-warn b{color:#e6a23c}
   #sidedrawer .wb-src{margin-top:11px;font-size:9px;color:var(--sub);opacity:.7;font-family:var(--mono);letter-spacing:.04em}
+  /* Credits tab body (the about content) */
+  #sidedrawer #sd-credits b{color:var(--ink);font-weight:600}
+  #sidedrawer #sd-credits p{margin:7px 0 0}
+  #sidedrawer .sd-body a{color:var(--accent);text-decoration:none}
+  #sidedrawer .sd-body a:hover{text-decoration:underline}
   #wxhud #wx-tide{font-size:11px;color:var(--ink);margin-top:7px;font-family:var(--mono)}
   #wxhud #wx-tidegraph{display:none;width:100%;height:56px;margin-top:5px;border-radius:7px;background:rgba(255,255,255,.03);border:1px solid var(--edge-soft)}
   #wxhud #wx-tidecap{font-size:9px;color:var(--sub);opacity:.75;margin-top:3px;font-family:var(--mono);letter-spacing:.04em;text-align:left}
@@ -402,11 +407,15 @@
   body.matrix .lbl,body.matrix .lbl small,body.matrix .lbl.lmk small{color:#4bff79!important;
     font-family:var(--mono);text-shadow:0 0 6px rgba(57,255,106,.6),0 1px 4px rgba(0,0,0,.9)}
   @keyframes mxflicker{0%,91%,95%,100%{opacity:.5}92%{opacity:.36}93%{opacity:.56}94%{opacity:.42}}
-  /* HKS-86: the flight/walk HUD lives inside the mode tray now — the tray is the
-     glass surface, so the HUD itself is a transparent block */
-  #flyhud{display:none;font-family:var(--mono);font-size:12.5px;letter-spacing:.05em;color:var(--ink);
-    text-align:center;white-space:normal;line-height:1.5}
-  #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:4px;letter-spacing:.09em}
+  /* HKS-86: flight/walk live-stats HUD — top-left, tucked under the brand chip;
+     its own glass block, shown (via JS display) while in a movement mode */
+  #flyhud{display:none;position:fixed;top:64px;left:16px;z-index:20;max-width:min(300px,64vw);
+    font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink);line-height:1.5;
+    background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--edge);border-radius:11px;padding:7px 12px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  body.glass #flyhud{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #flyhud{background:rgba(252,250,246,.3)}
+  #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:3px;letter-spacing:.08em}
   /* HKS-86: bottom-centre instrument cluster — contextual tray · compass tape ·
      speed gauge · mode dock, one column. Replaces the strays that used to share
      the bottom edge (mode buttons in the panel, #flyhud, floating compass). */
@@ -642,15 +651,15 @@
       width:34px;height:34px;justify-content:center}
     #creditsbtn .clabel{display:none}
     /* brand chip → right of the credits (i) button on phones */
-    #brandchip{top:calc(12px + env(safe-area-inset-top));left:54px;height:34px;padding:0 12px;box-sizing:border-box;
-      gap:7px;font-size:12.5px;max-width:calc(100vw - 120px)}
+    #brandchip{top:calc(12px + env(safe-area-inset-top));left:12px;height:34px;padding:0 12px;box-sizing:border-box;
+      gap:7px;font-size:12.5px;max-width:calc(100vw - 90px)}
     #brandchip img{width:18px;height:18px}
     #brandchip span{min-width:0;overflow:hidden;text-overflow:ellipsis}
     #creditspop{top:calc(54px + env(safe-area-inset-top));left:12px;right:12px;bottom:auto;
       width:auto;max-width:none;max-height:64vh}
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
-    /* fly/walk HUD lives in the tray (HKS-86); tighten it for narrow screens */
-    #flyhud{font-size:10px;line-height:1.4}
+    /* fly/walk stats HUD sits under the brand chip on phones too */
+    #flyhud{top:calc(52px + env(safe-area-inset-top));left:12px;font-size:10px;line-height:1.4;max-width:64vw}
     #flyhud small{font-size:8.5px;margin-top:2px;letter-spacing:.06em}
     #compass{width:min(186px,52vw);height:26px}
   }
@@ -915,6 +924,8 @@
   <img src="/favicon-32.png" alt=""/>
   <span data-i18n="app.title">Hong Kong Sandbox</span>
 </div>
+<!-- HKS-86: flight/walk live-stats HUD — top-left, tucked under the brand chip -->
+<div id="flyhud"></div>
 <div id="cornerui">
   <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>
@@ -937,7 +948,6 @@
       <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
       <button id="trayend" title="Exit this mode (Esc)">✕ <span data-i18n="tray.end">End</span></button>
     </div>
-    <div id="flyhud"></div>
     <!-- Stargaze tray (HKS-86 §4): sky clock proxy + the two special toggles -->
     <div id="sgrow">
       <div class="sgline">
@@ -1006,6 +1016,7 @@
   <div id="sd-tabs" role="tablist" aria-orientation="vertical">
     <button id="sd-tab-wx" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><span class="sd-tab-lab" data-i18n="wb.title">Weather notices</span></button>
     <button id="sd-tab-help" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><svg class="sd-tab-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span class="sd-tab-lab" data-i18n="help.tab">Help</span></button>
+    <button id="sd-tab-credits" class="sd-tab" role="tab" aria-selected="false" aria-controls="sd-panel"><svg class="sd-tab-ic" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span class="sd-tab-lab" data-i18n="lbl.credits">Credits</span></button>
   </div>
   <div class="wb-panel" id="sd-panel" role="dialog" aria-label="Notices and help">
     <div class="wb-head">
@@ -1022,29 +1033,11 @@
       <div id="hp-general" class="wb-sec"></div>
       <div class="wb-src" data-i18n="help.src">Modes live in the bottom bar · themes toggle in any mode</div>
     </div>
+    <div id="sd-credits" class="sd-body" data-i18n-html="about" hidden></div>
   </div>
 </aside>
 
-<button id="creditsbtn" title="About · licence · contact" data-i18n-title="title.about" aria-haspopup="dialog" aria-expanded="false">
-  <span class="ci" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span class="clabel" data-i18n="lbl.credits">Credits</span>
-</button>
-<div id="creditspop" role="dialog" aria-label="About Hong Kong Sandbox" data-i18n-html="about">
-  <b>Hong Kong Sandbox · 香港沙盒</b>
-  <p>Built by <b>wiiiimm</b> — <a href="https://wiiiimm.design" target="_blank" rel="noopener">portfolio</a>.
-  Originally made for <a href="https://madeinlantau.com" target="_blank" rel="noopener">Made in Lantau</a>'s design work.</p>
-  <p><a href="https://github.com/wiiiimm" target="_blank" rel="noopener">GitHub</a> ·
-  <a href="https://x.com/wiiiimm" target="_blank" rel="noopener">X</a> ·
-  <a href="https://www.threads.com/@_wiiiimm" target="_blank" rel="noopener">Threads</a></p>
-  <p>Liquid‑glass panels by <a href="https://github.com/wiiiimm/glass-gl" target="_blank" rel="noopener">glass‑gl</a> — droplet refraction, blur, liquidness, chromatic dispersion &amp; a directional rim glint, all refracting the live 3D scene.</p>
-  <p>Free &amp; open source under <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/LICENSE" target="_blank" rel="noopener">AGPL‑3.0</a> ·
-  <a href="https://github.com/wiiiimm/hongkong-sandbox" target="_blank" rel="noopener">source on GitHub</a>.
-  Feature requests &amp; bug reports → <a href="https://github.com/wiiiimm/hongkong-sandbox/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>
-  <p>Contact &amp; commercial licensing: <a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> ·
-  licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>
-  <p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM &amp; B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>
-  <p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>
-  © 2026 wiiiimm
-</div>
+<!-- HKS-86: credits now live in the left drawer's Credits tab (#sd-credits) -->
 <!-- HKS-86: first-visit coach-mark bubble (positioned over the dock ⚙ by JS) -->
 <div id="coachtip" role="dialog" aria-live="polite">
   <div class="ct-msg" data-i18n-html="coach.text">New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.</div>

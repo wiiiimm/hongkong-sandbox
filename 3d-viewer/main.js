@@ -3897,20 +3897,7 @@ function applyGlassPreset(mode) {
   if (glassFx) glassFx.setParams(GLASS_PRESETS[mode] || GLASS_PRESETS.dark);
   drawTideGraph();   // tide-graph ink follows the theme
 }
-// ---- credits popover (floating corner chip) --------------------------------
-const creditsBtn = document.getElementById('creditsbtn');
-const creditsPop = document.getElementById('creditspop');
-function setCredits(open) {
-  creditsPop.classList.toggle('open', open);
-  creditsBtn.classList.toggle('on', open);
-  creditsBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-}
-creditsBtn.addEventListener('click', e => { e.stopPropagation(); setCredits(!creditsPop.classList.contains('open')); });
-creditsPop.addEventListener('click', e => e.stopPropagation());   // clicks inside stay open
-document.addEventListener('click', () => setCredits(false));       // click anywhere else closes
-document.addEventListener('keydown', e => { if (e.key === 'Escape') setCredits(false); });
-
-// ---- unified right-edge drawer: Weather notices + Help (HKS-86) -------------
+// ---- unified left-edge drawer: Weather · Help · Credits (HKS-86) ------------
 // Both share ONE sliding panel. Two tabs stack together on the edge (always
 // visible); the active tab is highlighted and clicking a tab swaps the panel's
 // content — no cross-fade, no per-drawer slide. Weather (HKO warnings + forecast)
@@ -3918,10 +3905,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') setCredits(f
 const sideDrawer = document.getElementById('sidedrawer');
 const sdTitleEl = document.getElementById('sd-title');
 const SD = {
-  wx:   { tab: document.getElementById('sd-tab-wx'),   body: document.getElementById('sd-wx'),   title: 'wb.title' },
-  help: { tab: document.getElementById('sd-tab-help'), body: document.getElementById('sd-help'), title: 'help.title' },
+  wx:      { tab: document.getElementById('sd-tab-wx'),      body: document.getElementById('sd-wx'),      title: 'wb.title' },
+  help:    { tab: document.getElementById('sd-tab-help'),    body: document.getElementById('sd-help'),    title: 'help.title' },
+  credits: { tab: document.getElementById('sd-tab-credits'), body: document.getElementById('sd-credits'), title: 'title.about' },
 };
-let sdActive = null;   // null | 'wx' | 'help'
+let sdActive = null;   // null | 'wx' | 'help' | 'credits'
 // fill a section with a bold label + one <div> per paragraph (textContent = no injection)
 function fillWbSection(elm, label, body) {
   elm.textContent = '';
@@ -3954,8 +3942,9 @@ function setSide(which) {   // which: 'wx' | 'help' | null — swap content, no 
   if (which === 'help') updateHelp();
   renderSide();
 }
-SD.wx.tab.addEventListener('click',   () => setSide(sdActive === 'wx'   ? null : 'wx'));
-SD.help.tab.addEventListener('click', () => setSide(sdActive === 'help' ? null : 'help'));
+SD.wx.tab.addEventListener('click',      () => setSide(sdActive === 'wx'      ? null : 'wx'));
+SD.help.tab.addEventListener('click',    () => setSide(sdActive === 'help'    ? null : 'help'));
+SD.credits.tab.addEventListener('click', () => setSide(sdActive === 'credits' ? null : 'credits'));
 document.getElementById('sd-close').addEventListener('click', () => setSide(null));
 document.getElementById('wx-warn').addEventListener('click', e => {
   e.stopPropagation();                      // don't collapse the weather chip on mobile
