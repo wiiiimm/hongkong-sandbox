@@ -116,7 +116,7 @@ const I18N = {
     'coach.text': 'New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.', 'coach.ok': 'Got it',
     'tray.end': 'End', 'grp.move': 'Fly & walk',
     'sg.live': '● Live sky', 'sg.custom': '🕐 Custom',
-    'sg.orient': '🧭 Point at the sky', 'sg.follow': '📍 Follow me',
+    'sg.orient': '🧭 Point at the sky',
     'sg.hint': 'drag to look · tap a constellation',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
     'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
@@ -126,7 +126,7 @@ const I18N = {
     'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
     'help.fly.t': 'Flying', 'help.fly.b': 'Hold to accelerate — Space, or press & hold\nTake off: when landed, hold the gas to roll down the runway & lift off (or tap “Take off”)\nDrag to look around\nPress C for chase / cockpit\nLand anywhere — even water',
     'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump\nShift or a two‑finger hold to run\nDrag to look around\nPress C for first‑person / chase',
-    'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTap a star to trace its constellation\n🧭 Point at the sky — aim with your phone\n📍 Follow me — track your GPS position\nDrag the time slider to move the sky',
+    'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🧭 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
     'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'loc.find': 'Find my location', 'loc.locating': 'Locating…', 'loc.you': 'You', 'loc.relocate': 'Re-locate',
@@ -201,7 +201,7 @@ const I18N = {
     'coach.text': '第一次來？點一下 <b>⚙</b> 設定畫面 — 地表、天氣、天空等。', 'coach.ok': '知道了',
     'tray.end': '結束', 'grp.move': '飛行與步行',
     'sg.live': '● 即時星空', 'sg.custom': '🕐 自訂',
-    'sg.orient': '🧭 指向天空', 'sg.follow': '📍 跟隨我',
+    'sg.orient': '🧭 指向天空',
     'sg.hint': '拖曳環視 · 點選星座',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
     'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
@@ -211,7 +211,7 @@ const I18N = {
     'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
     'help.fly.t': '飛行', 'help.fly.b': '按住加速 — 空白鍵，或長按畫面\n起飛：著陸時按住油門沿跑道滑行升空（或點「起飛」）\n拖曳環顧四周\n按 C 切換追尾 / 座艙視角\n可降落任何地方（連水面）',
     'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍\nShift 或雙指按住奔跑\n拖曳環顧四周\n按 C 切換第一人稱 / 追尾',
-    'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n點選星星顯示所屬星座\n🧭 對準天空 — 用手機方向瞄準\n📍 跟隨我 — 追蹤你的 GPS 位置\n拖動時間軸移動星空',
+    'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🧭 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
     'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'loc.find': '定位', 'loc.locating': '定位中…', 'loc.you': '你', 'loc.relocate': '重新定位',
@@ -2749,9 +2749,19 @@ function locateThenFollow() {       // off → follow: one fix, zoom to it, then
   locateBtn.classList.add('locating');
   getFix(pos => {
     locateBtn.classList.remove('locating');
-    if (placeFix(pos.coords)) { centreOnMarker(true, false); startFollow(); }
+    if (placeFix(pos.coords)) {
+      if (stargaze.on) followVantage(); else centreOnMarker(true, false);   // HKS-90: Stargaze moves the vantage, not the map
+      startFollow();
+    }
     refreshGpsBtn();
   }, e => { geoErr(e); refreshGpsBtn(); });
+}
+// HKS-90: drop the Stargaze vantage onto the current fix (clamped to bounds)
+function followVantage() {
+  if (!stargaze.on || !geoInBounds()) return;
+  const b = bounds(), p = markerLocalPoint();
+  stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, p.x));
+  stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, p.z));
 }
 // HKS-86: fully turn GPS OFF (no pin) — the single "disengage" path now (there's
 // no idle located-but-not-following state). Used by the Orbit cycle's off step
@@ -2803,14 +2813,15 @@ function startWatch() {
     const gate = Math.max(5, (c.accuracy || 0) * 0.5);   // jitter gate: ignore sub-accuracy wiggle
     if (geo.has && Math.hypot(gg.E - geo.E, gg.N - geo.N) < gate) { geo.acc = Math.max(6, c.accuracy || geo.acc); return; }
     geo.E = gg.E; geo.N = gg.N; geo.acc = Math.max(6, c.accuracy || 0); geo.has = true;
-    centreOnMarker(true, true);                           // pan to follow, keep the user's zoom/angle
+    if (stargaze.on) followVantage();                     // HKS-90: track the vantage under the stars
+    else centreOnMarker(true, true);                      // pan to follow, keep the user's zoom/angle
   }, geoErr, { enableHighAccuracy: true, timeout: 15000, maximumAge: 2000 });
 }
 function startFollow() {
   if (geo.watch != null) return;
   geo.following = true; locateBtn.classList.add('follow', 'on');
   if (geo.el) geo.el.classList.add('live');
-  if (geo.has) centreOnMarker(true, true);                 // recentre now — the first watch fix is usually the stored one (jitter-gated)
+  if (geo.has) { if (stargaze.on) followVantage(); else centreOnMarker(true, true); }   // recentre now — the first watch fix is usually the stored one (jitter-gated)
   startWatch();
   clearTimeout(geo.autoStop); geo.autoStop = setTimeout(() => stopFollow(), 15 * 60000);   // battery backstop
 }
@@ -2880,16 +2891,18 @@ function updateGeoMarker() {                              // called from animate
   geo.el.style.left = ((v.x * 0.5 + 0.5) * innerWidth) + 'px';
   geo.el.style.top = ((-v.y * 0.5 + 0.5) * innerHeight) + 'px';
 }
-// is a movement mode driving the camera? then GPS never persists (HKS-86 §2)
-const inMovementMode = () => flight.on || walk.on || stargaze.on;
 locateBtn.addEventListener('click', e => {
   e.stopPropagation();
   enableCompass();   // request device-orientation on this user gesture (needed for iOS)
-  if (inMovementMode()) { gpsTeleport(); return; }
-  const st = gpsState();                    // Orbit: follow → compass → off
+  if (flight.on || walk.on) { gpsTeleport(); return; }   // locomotion modes: one-shot teleport, never persistent
+  // Orbit AND Stargaze: persistent off → follow → compass → off (HKS-90)
+  const st = gpsState();
   if (st === 'off') locateThenFollow();
   else if (st === 'follow') { setCompassView(true); refreshGpsBtn(); }
-  else { removeMarker(); refreshGpsBtn(); }   // compass → off: clear the pin (cycle: locate/follow → compass → off), no ✕ needed
+  else {                                     // compass → off: clear the pin, no ✕ needed
+    if (stargaze.orient) setStargazeOrient(false);   // auto-arm needs GPS+compass — drop it too
+    removeMarker(); refreshGpsBtn();
+  }
 });
 addEventListener('mousemove', e => {                      // pointer-lock look
   if (!walk.on || document.pointerLockElement !== renderer.domElement) return;
@@ -3339,15 +3352,16 @@ if (FLY_DEBUG) window.__setNeon = setNeon;
 
 // ---- Stargaze mode (HKS-86 §4) -----------------------------------------------
 // A planetarium anchored at the current view centre: the camera plants eye-high
-// on the terrain, FIXED — look-only, no locomotion — biased up at the star layer
-// (HKS-84 catalogue + constellations; hover/tap picking keeps working). Its tray
-// carries a proxy for the existing sky clock (#skymode/#skytime) plus the two
-// special toggles: 🧭 point-at-the-sky (device orientation) and 📍 follow-me
-// (GPS anchor tracking, default OFF, experimental). World themes (Matrix/Neon)
-// stay combinable. Entering dims the weather chip + radar dial (CSS,
-// body.stargazing); everything restores on exit.
+// on the terrain — look-only for the eyes, but the vantage can pan across the
+// surface (right-drag / two-finger, HKS-90) — biased up at the star layer (HKS-84
+// catalogue + constellations; hover/tap picking keeps working). Its tray now
+// carries just the sky clock (#skymode/#skytime); 🧭 auto-arm moved beside the
+// compass and 📍 follow-me folded into the standard GPS button (off → follow →
+// compass), which now persists in Stargaze. World themes (Matrix/Neon) stay
+// combinable. Entering hides the weather chip + radar dial (CSS, body.stargazing);
+// everything restores on exit.
 const stargaze = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0.9,
-                   prevSpin: 1, prevSky: null, orient: false, followWatch: null };
+                   prevSpin: 1, prevSky: null, orient: false };
 function setSkyControl(mode, date, minutes) {   // drive the existing panel controls
   const g = id => document.getElementById(id);
   if (date != null) { g('skydate').value = date; g('skydate').dispatchEvent(new Event('change')); }
@@ -3370,10 +3384,10 @@ function enterStargaze() {
   const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
   stargaze.yaw = -(Math.atan2(fx, -fz) + world.rotation.y);   // keep facing the way you looked
   stargaze.pitch = 0.9;                                        // biased up at the sky
-  // HKS-86 §2: GPS follow/compass engaged → plant at the fix, then turn GPS fully off
-  if (geo.following || geo.compass) {
-    if (geoInBounds()) { const p = markerLocalPoint(); stargaze.pos.x = p.x; stargaze.pos.z = p.z; }
-    gpsDrop();
+  // HKS-90: Stargaze keeps GPS follow/compass (unlike fly/walk) — if it's already
+  // engaged, plant at the fix and let the shared watch keep tracking the vantage.
+  if ((geo.following || geo.compass) && geoInBounds()) {
+    const p = markerLocalPoint(); stargaze.pos.x = p.x; stargaze.pos.z = p.z;
   }
   // guarantee the star layer: if the sky sim is off or it's daylight, jump the
   // clock to tonight 22:00 (custom time); the previous setting restores on exit
@@ -3394,8 +3408,7 @@ function enterStargaze() {
 function exitStargaze() {
   if (!stargaze.on) return;
   stargaze.on = false;
-  setStargazeOrient(false);
-  setStargazeFollow(false);
+  setStargazeOrient(false);   // GPS follow/compass persists into Orbit; only auto-arm drops
   if (stargaze.prevSky) {                               // hand the sky clock back
     setSkyControl(stargaze.prevSky.mode, stargaze.prevSky.date, stargaze.prevSky.minutes);
     stargaze.prevSky = null;
@@ -3438,11 +3451,18 @@ function onSgOrient(e) {
   if (typeof e.beta === 'number')                        // back camera elevation ≈ beta − 90°
     stargaze.pitch = Math.max(-0.15, Math.min(1.5, (e.beta - 90) * D2R));
 }
+// Auto-arm (HKS-90): compass heading aims yaw + accelerometer tilts pitch. It's
+// linked to GPS compass — arming needs device-orientation permission and flips GPS
+// into compass mode (locate → follow → compass); it disengages when GPS goes off.
 function setStargazeOrient(on) {
   if (on === stargaze.orient) return;
   const arm = () => {
     stargaze.orient = true;
     addEventListener('deviceorientation', onSgOrient, true);
+    if (gpsState() !== 'compass') {                     // pull GPS up to compass mode
+      if (gpsState() === 'off') locateThenFollow();     // locate + follow the vantage first
+      setCompassView(true); refreshGpsBtn();
+    }
     syncSgToggles();
   };
   if (!on) {
@@ -3452,32 +3472,13 @@ function setStargazeOrient(on) {
     return;
   }
   if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function')
-    DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') arm(); }).catch(() => {});
+    DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') arm(); else geoToast(t('loc.nocompass')); }).catch(() => {});
   else arm();
 }
-// 📍 follow-me (experimental, default OFF): a watch drags the anchor with you
-function setStargazeFollow(on) {
-  if (on === (stargaze.followWatch != null)) return;
-  if (on) {
-    stargaze.followWatch = navigator.geolocation.watchPosition(pos => {
-      const gg = gpsToGrid(pos.coords.latitude, pos.coords.longitude);
-      if (!gg || !gg.inBounds) return;
-      const b = bounds();
-      stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, (gg.col - W / 2) * cell));
-      stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, (gg.row - H / 2) * cell));
-    }, geoErr, { enableHighAccuracy: true, timeout: 15000, maximumAge: 2000 });
-  } else {
-    navigator.geolocation.clearWatch(stargaze.followWatch);
-    stargaze.followWatch = null;
-  }
-  syncSgToggles();
-}
 function syncSgToggles() {
-  const g = id => document.getElementById(id);
-  g('sg-orient').classList.toggle('on', stargaze.orient);
-  g('sg-orient').setAttribute('aria-pressed', stargaze.orient ? 'true' : 'false');
-  g('sg-follow').classList.toggle('on', stargaze.followWatch != null);
-  g('sg-follow').setAttribute('aria-pressed', stargaze.followWatch != null ? 'true' : 'false');
+  const g = document.getElementById('sg-orient');
+  g.classList.toggle('on', stargaze.orient);
+  g.setAttribute('aria-pressed', stargaze.orient ? 'true' : 'false');
 }
 function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
   const g = id => document.getElementById(id);
@@ -3488,7 +3489,6 @@ function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
   g('sg-time').value = live ? hktMinutes(new Date()) : skySim.minutes;
   g('sg-timev').textContent = mmToHHMM(+g('sg-time').value);
   g('sg-orient').hidden = typeof DeviceOrientationEvent === 'undefined';
-  g('sg-follow').hidden = !window.isSecureContext || !('geolocation' in navigator);
   syncSgToggles();
   const mi = moonIllumination(simDate());
   g('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
@@ -3507,7 +3507,6 @@ document.getElementById('sg-time').addEventListener('input', e => {
   document.getElementById('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
 });
 document.getElementById('sg-orient').addEventListener('click', () => setStargazeOrient(!stargaze.orient));
-document.getElementById('sg-follow').addEventListener('click', () => setStargazeFollow(stargaze.followWatch == null));
 // panel-side sky changes keep the tray proxy honest while stargazing
 document.getElementById('skymode').addEventListener('change', () => { if (stargaze.on) syncSgTray(); });
 addEventListener('keydown', e => { if (stargaze.on && e.key === 'Escape') exitStargaze(); });
