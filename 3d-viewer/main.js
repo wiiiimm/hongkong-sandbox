@@ -3495,7 +3495,10 @@ function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
   g('sg-time').disabled = live;
   g('sg-time').value = live ? hktMinutes(new Date()) : skySim.minutes;
   g('sg-timev').textContent = mmToHHMM(+g('sg-time').value);
-  g('sg-orient').hidden = typeof DeviceOrientationEvent === 'undefined';
+  // auto-arm only makes sense on a device with real motion sensors. Desktop Chrome
+  // defines DeviceOrientationEvent even with no compass, so also require a coarse
+  // pointer (phone/tablet) — matches the startup gate above (HKS-90).
+  g('sg-orient').hidden = !(matchMedia('(pointer: coarse)').matches && typeof DeviceOrientationEvent !== 'undefined');
   syncSgToggles();
   const mi = moonIllumination(simDate());
   g('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
