@@ -464,7 +464,10 @@
   #sg-hint{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--sub);text-align:center}
   /* stargazing dims the weather chip + radar dial for a cleaner sky (restored on exit) */
   #wxhud,#radarhud{transition:opacity .5s ease}
-  body.stargazing #wxhud,body.stargazing #radarhud{opacity:.12;pointer-events:none}
+  /* HKS-90: fully hide the weather box + radar in Stargaze — dimming to a low
+     opacity left the glass-gl lens drawing at full strength over faint content
+     (a broken washed-out look); display:none makes glass-gl skip the panel. */
+  body.stargazing #wxhud,body.stargazing #radarhud{display:none}
   /* live speed gauge — shares the #hudbox glass with the flyhud (HKS-86); the
      readout shows the actual speed (kt / km·h), no percentage */
   #spdwrap{display:none;align-items:center;gap:8px;width:100%;box-sizing:border-box}
