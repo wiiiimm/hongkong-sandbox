@@ -124,7 +124,7 @@ const I18N = {
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
     'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
-    'help.fly.t': 'Flying', 'help.fly.b': 'Hold to accelerate — Space, or press & hold\nDrag to look around\nPress C for chase / cockpit\nLand anywhere (even water), then take off again',
+    'help.fly.t': 'Flying', 'help.fly.b': 'Hold to accelerate — Space, or press & hold\nTake off: when landed, hold the gas to roll down the runway & lift off (or tap “Take off”)\nDrag to look around\nPress C for chase / cockpit\nLand anywhere — even water',
     'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump\nShift or a two‑finger hold to run\nDrag to look around\nPress C for first‑person / chase',
     'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTap a star to trace its constellation\n🧭 Point at the sky — aim with your phone\n📍 Follow me — track your GPS position\nDrag the time slider to move the sky',
     'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings',
@@ -209,7 +209,7 @@ const I18N = {
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
     'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
-    'help.fly.t': '飛行', 'help.fly.b': '按住加速 — 空白鍵，或長按畫面\n拖曳環顧四周\n按 C 切換追尾 / 座艙視角\n可降落任何地方（連水面），再起飛',
+    'help.fly.t': '飛行', 'help.fly.b': '按住加速 — 空白鍵，或長按畫面\n起飛：著陸時按住油門沿跑道滑行升空（或點「起飛」）\n拖曳環顧四周\n按 C 切換追尾 / 座艙視角\n可降落任何地方（連水面）',
     'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍\nShift 或雙指按住奔跑\n拖曳環顧四周\n按 C 切換第一人稱 / 追尾',
     'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n點選星星顯示所屬星座\n🧭 對準天空 — 用手機方向瞄準\n📍 跟隨我 — 追蹤你的 GPS 位置\n拖動時間軸移動星空',
     'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定',
@@ -2507,12 +2507,9 @@ function stepFlight() {
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
     ` · ${Math.round(F.speed * 1.944)} kt` +
     (F.landed ? ` · ${t('fly.landed')}` : '');
-  // HKS-86: the how-to now lives in the Help drawer — the HUD keeps only the live
-  // stats + the functional tap-controls (takeoff / view / exit)
-  const hints = (F.landed
-    ? `<span data-fly="takeoff" style="cursor:pointer;text-decoration:underline;font-weight:700">${t('fly.takeoff')}</span>`
-    : `<span data-fly="view" style="cursor:pointer;text-decoration:underline">${t('fly.view')}</span>`) +
-    ` · <span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
+  // HKS-86: how-to (incl. take-off) lives in the Help drawer, and End is the tray's
+  // ✕ button — so the HUD keeps only live stats + the airborne camera toggle
+  const hints = F.landed ? '' : `<span data-fly="view" style="cursor:pointer;text-decoration:underline">${t('fly.view')}</span>`;
   if (F.helpT > 0) F.helpT--;
   document.getElementById('flyhud').innerHTML = F.helpT > 0
     ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
@@ -3091,10 +3088,9 @@ function stepWalk() {
     (walk.spd > 0.3 ? ` · ${Math.round(walk.spd * 3.6)} km/h` : '') +
     ` · ${t('walk.dist')} ${odo}` +                       // odometer: live proof the keys register
     (boost && moving ? ` · ${t('walk.jog')}` : '');
-  // HKS-86: how-to moved to the Help drawer — keep the live stats + the functional
-  // tap-controls (auto-walk toggle on touch, exit)
-  const hints = (touch ? `<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span> · ` : '') +
-    `<span data-fly="exit" style="cursor:pointer;text-decoration:underline">${t('fly.exit')}</span>`;
+  // HKS-86: how-to lives in the Help drawer, End is the tray's ✕ button — keep only
+  // live stats + the auto-walk toggle (touch)
+  const hints = touch ? `<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '';
   if (walk.helpT > 0) walk.helpT--;
   document.getElementById('flyhud').innerHTML = walk.helpT > 0
     ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
