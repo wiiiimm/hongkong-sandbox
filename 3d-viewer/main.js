@@ -2256,7 +2256,7 @@ function enterFlight() {
   controls.enabled = false;
   // HKS-86 §2: GPS follow/compass never persists outside Orbit — entering a
   // movement mode spawns at the fix (if it's on this map), then disengages
-  if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDisengage(); }
+  if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
   refreshDock();
 }
 function exitFlight() {
@@ -2560,7 +2560,7 @@ function enterWalk(startLocal) {
   controls.enabled = false;
   // HKS-86 §2: GPS follow/compass never persists outside Orbit — entering a
   // movement mode spawns at the fix (if it's on this map), then disengages
-  if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDisengage(); }
+  if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
   refreshDock();
   if (!NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
 }
@@ -2743,9 +2743,16 @@ function locateThenFollow() {       // off → follow: one fix, zoom to it, then
     refreshGpsBtn();
   }, e => { geoErr(e); refreshGpsBtn(); }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
 }
-function gpsDisengage() {           // drop follow + compass; the pin stays
+// HKS-86: fully turn GPS OFF (no pin) — the single "disengage" path now (there's
+// no idle located-but-not-following state). Used by the Orbit cycle's off step
+// (via removeMarker) and when entering a mode that can't follow (fly/walk/stargaze;
+// here it must not touch controls/spinDir — the mode owns them).
+function gpsDrop() {
   stopFollow();
-  if (geo.compass) setCompassView(false);
+  geo.compass = false; locateBtn.classList.remove('compass');
+  geo.has = false; geo.prevSpin = null;
+  if (geo.el) geo.el.style.display = 'none';
+  if (geo.ring) geo.ring.visible = false;
   refreshGpsBtn();
 }
 function markerLocalPoint() {       // stored fix → world-local grid point
@@ -2776,8 +2783,8 @@ function gpsTeleport() {            // movement modes: locate, jump there, disen
   navigator.geolocation.getCurrentPosition(pos => {
     locateBtn.classList.remove('locating');
     if (placeFix(pos.coords)) teleportToMarker();
-    gpsDisengage();
-  }, e => { geoErr(e); gpsDisengage(); }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+    gpsDrop();
+  }, e => { geoErr(e); gpsDrop(); }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
 }
 function startWatch() {
   geo.watch = navigator.geolocation.watchPosition(pos => {
@@ -3349,10 +3356,10 @@ function enterStargaze() {
   const fx = controls.target.x - camera.position.x, fz = controls.target.z - camera.position.z;
   stargaze.yaw = -(Math.atan2(fx, -fz) + world.rotation.y);   // keep facing the way you looked
   stargaze.pitch = 0.9;                                        // biased up at the sky
-  // HKS-86 §2: GPS follow/compass engaged → plant at the fix, then disengage
+  // HKS-86 §2: GPS follow/compass engaged → plant at the fix, then turn GPS fully off
   if (geo.following || geo.compass) {
     if (geoInBounds()) { const p = markerLocalPoint(); stargaze.pos.x = p.x; stargaze.pos.z = p.z; }
-    gpsDisengage();
+    gpsDrop();
   }
   // guarantee the star layer: if the sky sim is off or it's daylight, jump the
   // clock to tonight 22:00 (custom time); the previous setting restores on exit
