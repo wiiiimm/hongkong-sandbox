@@ -143,6 +143,7 @@ const I18N = {
     'sig.9': 'Increasing Gale or Storm Signal No.9', 'sig.10': 'Hurricane Signal No.10', 'badge.pre': '⚠ TYPHOON SIGNAL No.', 'badge.post': '',
     'tip.humidity': 'humidity', 'tip.wind': 'wind', 'tip.gust': 'gust', 'tip.rain': 'Rain (district, 1 h):', 'tide.word': 'tide', 'tide.rising': '↑ rising', 'tide.falling': '↓ falling', 'tide.slack': '→ slack',
     'tide.24h': '24 h tide', 'st.QUB': 'Quarry Bay', 'st.CCH': 'Cheung Chau', 'wx.unavail': 'live weather unavailable', 'wx.live': 'Live',
+    'wb.title': 'Weather notices', 'wb.chip': 'Notices', 'wb.warn': 'Warnings in force', 'wb.fcast': 'Forecast',
   },
   'zh-hk': {
     'app.title': '香港沙盒',
@@ -207,6 +208,7 @@ const I18N = {
     'sig.9': '九號烈風或暴風增強信號', 'sig.10': '十號颶風信號', 'badge.pre': '⚠ 颱風信號 ', 'badge.post': ' 號',
     'tip.humidity': '濕度', 'tip.wind': '風', 'tip.gust': '陣風', 'tip.rain': '雨量（地區，1小時）：', 'tide.word': '潮汐', 'tide.rising': '↑ 上漲', 'tide.falling': '↓ 回落', 'tide.slack': '→ 平潮',
     'tide.24h': '24 小時潮汐', 'st.QUB': '鰂魚涌', 'st.CCH': '長洲', 'wx.unavail': '無法取得即時天氣', 'wx.live': '即時',
+    'wb.title': '天氣提示', 'wb.chip': '提示', 'wb.warn': '生效警告', 'wb.fcast': '天氣預報',
   },
 };
 let locale = DEFAULT_LOCALE;
@@ -2889,6 +2891,36 @@ creditsBtn.addEventListener('click', e => { e.stopPropagation(); setCredits(!cre
 creditsPop.addEventListener('click', e => e.stopPropagation());   // clicks inside stay open
 document.addEventListener('click', () => setCredits(false));       // click anywhere else closes
 document.addEventListener('keydown', e => { if (e.key === 'Escape') setCredits(false); });
+
+// ---- weather-notices bulletin (HKS-80) --------------------------------------
+// The long HKO warning + forecast texts live in a pull-up glass sheet instead of
+// cluttering the weather box. Dismissal is session-only — never written to storage,
+// so a fresh load re-surfaces an active warning.
+const wxBulletin = document.getElementById('wxbulletin');
+const wbTab = document.getElementById('wb-tab');
+let bulletinDismissed = false, bulletinAutoShown = false;
+const bulletinOpen = () => wxBulletin.classList.contains('open');
+function setBulletin(open) {
+  wxBulletin.classList.toggle('open', open);
+  wbTab.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (!open) bulletinDismissed = true;      // a manual close stops it auto-reopening this session
+}
+// fill a section with a bold label + one <div> per paragraph (textContent = no injection)
+function fillWbSection(elm, label, body) {
+  elm.textContent = '';
+  if (!body) return;
+  const b = document.createElement('b'); b.textContent = label; elm.appendChild(b);
+  body.split(/\n+/).map(s => s.trim()).filter(Boolean).forEach(para => {
+    const d = document.createElement('div'); d.textContent = para; elm.appendChild(d);
+  });
+}
+wbTab.addEventListener('click', () => setBulletin(!bulletinOpen()));            // tap the tab to open / close
+document.getElementById('wb-close').addEventListener('click', () => setBulletin(false));
+document.getElementById('wx-warn').addEventListener('click', e => {
+  e.stopPropagation();                      // don't collapse the weather chip on mobile
+  if (document.getElementById('wx-warn').textContent.trim()) setBulletin(!bulletinOpen());
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && bulletinOpen()) setBulletin(false); });
 document.getElementById('fog').addEventListener('change', e => {
   weather.fog = e.target.checked; setFog();
   if (mistGrp) mistGrp.visible = weather.fog;
@@ -3116,7 +3148,17 @@ async function syncLiveWeather() {
     el('wx-temp').textContent = tst ? `${tst.value}°${tst.unit || 'C'}` : '—';
     el('wx-hum').textContent = h ? `${t('tip.humidity')} ${h.value}%` : '';
     el('wx-wind').textContent = windFromForecast(fl.forecastDesc) || '—';
-    el('wx-warn').textContent = warn || '';
+    // route the long texts into the pull-up bulletin; the box keeps only a compact chip (HKS-80)
+    const fcast = [fl.generalSituation, fl.forecastDesc, fl.outlook].filter(Boolean).join('\n');
+    fillWbSection(el('wb-warn'), t('wb.warn'), warn);
+    fillWbSection(el('wb-fcast'), t('wb.fcast'), fcast);
+    wxBulletin.classList.toggle('ready', !!(warn || fcast));   // reveal the pull-out tab once there's content
+    wxBulletin.classList.toggle('warn', !!warn);               // amber tab + ⚠ when a warning is in force
+    // keep the compact in-box chip too, as a secondary indicator that opens the drawer
+    const warnChip = el('wx-warn');
+    warnChip.classList.toggle('warn', !!warn);
+    warnChip.textContent = warn ? `⚠ ${t('wb.chip')}` : (fcast ? t('wb.chip') : '');
+    if (warn && !bulletinDismissed && !bulletinAutoShown) { bulletinAutoShown = true; setBulletin(true); }   // surface an active warning once/session
     const rainy = [53,54,62,63,64,65].includes(code) || rainMax > 0;
     chk('rain', rainy);
     // real past-hour cloud-to-ground lightning count (data.gov.hk LHL), region-aware
