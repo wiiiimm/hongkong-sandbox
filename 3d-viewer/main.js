@@ -2324,20 +2324,22 @@ document.getElementById('topspd').addEventListener('input',
   e => applyTopSpeed(+e.target.value));
 function updateSpeedGauge() {
   const fill = document.getElementById('spdfill'), pct = document.getElementById('spdpct');
-  let p = null, hot = false;
+  let p = null, hot = false, label = '—';
   if (flight.on) {
     p = 100 * flight.speed / flight.top;
     hot = p >= 97;
+    label = `${Math.round(flight.speed * 1.944)} kt`;          // real airspeed, not %
   } else if (walk.on) {
     p = 100 * walk.spd / walk.top;
     if (walk.spd > 0.2)                               // a human gait is never a steady needle
       p *= 1 + Math.sin(walk.bob * 2.1) * 0.05 + (Math.random() - 0.5) * 0.05;
     hot = p >= 90;
+    label = `${Math.round(walk.spd * 3.6)} km/h`;              // real pace, not %
   }
   if (p == null) { fill.style.width = '0%'; pct.textContent = '—'; fill.classList.remove('hot'); return; }
   p = Math.max(0, Math.min(100, p));
-  fill.style.width = p.toFixed(1) + '%';
-  pct.textContent = Math.round(p) + '%';
+  fill.style.width = p.toFixed(1) + '%';                       // the bar still fills by % of top speed
+  pct.textContent = label;                                    // the readout shows the actual speed + unit
   fill.classList.toggle('hot', hot);                  // redline glow at full gas
 }
 // Resolve the LOGICAL key from the physical e.code first: with a CJK/IME input
@@ -2504,12 +2506,11 @@ function stepFlight() {
   const az = ((-F.yaw / D2R) % 360 + 360) % 360;
   const touch = F.tilt && F.tiltRef != null;
   const stats = `${F.landed ? '🛬' : '✈'} ${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +
-    ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
-    ` · ${Math.round(F.speed * 1.944)} kt` +
+    ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // speed now shows on the speed bar
     (F.landed ? ` · ${t('fly.landed')}` : '');
-  // HKS-86: how-to (incl. take-off) lives in the Help drawer, and End is the tray's
-  // ✕ button — so the HUD keeps only live stats + the airborne camera toggle
-  const hints = F.landed ? '' : `<span data-fly="view" style="cursor:pointer;text-decoration:underline">${t('fly.view')}</span>`;
+  // HKS-86: the fly HUD is just live stats now — how-to + take-off in the Help
+  // drawer, camera toggle in the tray, exit via the dock/Esc
+  const hints = '';
   if (F.helpT > 0) F.helpT--;
   document.getElementById('flyhud').innerHTML = F.helpT > 0
     ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
@@ -3085,8 +3086,7 @@ function stepWalk() {
   const touch = matchMedia('(pointer: coarse)').matches;
   const odo = walk.dist < 1000 ? `${Math.round(walk.dist)} m` : `${(walk.dist / 1000).toFixed(2)} km`;
   const stats = `${airborne ? '🪂' : '🚶'} ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
-    (walk.spd > 0.3 ? ` · ${Math.round(walk.spd * 3.6)} km/h` : '') +
-    ` · ${t('walk.dist')} ${odo}` +                       // odometer: live proof the keys register
+    ` · ${t('walk.dist')} ${odo}` +                       // odometer (speed now shows on the speed bar)
     (boost && moving ? ` · ${t('walk.jog')}` : '');
   // HKS-86: how-to lives in the Help drawer, End is the tray's ✕ button — keep only
   // live stats + the auto-walk toggle (touch)
