@@ -3196,7 +3196,9 @@ function frameCamera() {
   // start 30° above the horizontal (sea-level) plane
   const elev = 30 * Math.PI / 180, dist = b.span * 1.1;
   camera.position.set(0, controls.target.y + dist*Math.sin(elev), dist*Math.cos(elev));
-  controls.minDistance = b.span*0.04; controls.maxDistance = b.span*4;   // much more zoom range
+  // maxDistance pulls back past the star sphere (radius span*1.5) so you can
+  // frame the whole celestial globe around the terrain (HKS-84); +30% headroom
+  controls.minDistance = b.span*0.04; controls.maxDistance = b.span*5.2;
   controls.update();
   updateClip();
 }
