@@ -2281,12 +2281,7 @@ function exitFlight() {
   refreshDock();
 }
 // the view button beside Fly mirrors the C key: chase ↔ cockpit
-function updateViewBtn() {
-  const b = document.getElementById('viewbtn');
-  b.disabled = !flight.on;
-  b.classList.toggle('on', flight.on && flight.pov);
-  b.textContent = flight.pov ? t('fly.cockpit') : t('fly.chase');
-}
+function updateViewBtn() { syncCamSeg(); }   // fly camera (chase ⇄ cockpit) reflects in the segmented control
 function toggleView() {
   if (!flight.on) return;
   flight.pov = !flight.pov;
@@ -2294,7 +2289,6 @@ function toggleView() {
   updateViewBtn();
 }
 document.getElementById('flybtn').addEventListener('click', () => flight.on ? exitFlight() : enterFlight());
-document.getElementById('viewbtn').addEventListener('click', toggleView);
 // top-speed slider — shared by fly and walk (William: one control, reset on
 // mode switch, disabled outside both). It sets what the boost key accelerates
 // to: ␣ in flight (knots), ⇧ on foot (km/h — the top end is frankly
@@ -2611,11 +2605,11 @@ function refreshDock() {
   const tray = document.getElementById('modetray');
   const mode = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : '';
   tray.dataset.mode = mode;
-  tray.hidden = !mode;
+  tray.hidden = mode !== 'star';   // HKS-86: the tray is now Stargaze-only (fly/walk camera lives beside the compass; exit via dock/Esc)
+  syncCamSeg();                     // show/hide + sync the camera segmented control
   if (typeof updateHelp === 'function') updateHelp();   // keep the Help drawer's contextual section in sync
 }
 document.getElementById('orbitbtn').addEventListener('click', () => { exitFlight(); exitWalk(); exitStargaze(); refreshDock(); });
-document.getElementById('trayend').addEventListener('click', () => { exitFlight(); exitWalk(); exitStargaze(); });
 document.getElementById('dockgear').addEventListener('click', () =>
   document.getElementById('panel').classList.toggle('collapsed'));
 // no init call: matrixOn/neonOn are declared further down (TDZ) and the static
@@ -2973,17 +2967,28 @@ function buildHiker() {
   return grp;
 }
 // walk camera views — first person ↔ chase, mirroring the flight pattern
-function updateWalkViewBtn() {
-  const b = document.getElementById('walkviewbtn');
-  b.textContent = walk.pov ? t('walk.fp') : t('walk.chase');
-  b.classList.toggle('on', !walk.pov);
-}
+function updateWalkViewBtn() { syncCamSeg(); }   // walk camera (chase ⇄ first-person) reflects in the segmented control
 function toggleWalkView() {
   if (!walk.on) return;
   walk.pov = !walk.pov;
   updateWalkViewBtn();
 }
-document.getElementById('walkviewbtn').addEventListener('click', toggleWalkView);
+// unified camera segmented control (HKS-86): 🎥 external/chase ⇄ 👁 first-person,
+// routing to whichever movement mode is active (pov=false external · pov=true first-person)
+function syncCamSeg() {
+  const active = flight.on || walk.on;
+  const pov = flight.on ? flight.pov : walk.on ? walk.pov : false;
+  const ext = document.getElementById('cam-ext'), fp = document.getElementById('cam-pov');
+  if (!ext || !fp) return;
+  ext.classList.toggle('on', active && !pov); ext.setAttribute('aria-pressed', active && !pov ? 'true' : 'false');
+  fp.classList.toggle('on', active && pov);   fp.setAttribute('aria-pressed', active && pov ? 'true' : 'false');
+}
+function setCamView(fp) {   // fp = true → first-person
+  if (flight.on) { if (flight.pov !== fp) toggleView(); }
+  else if (walk.on) { if (walk.pov !== fp) toggleWalkView(); }
+}
+document.getElementById('cam-ext').addEventListener('click', () => setCamView(false));
+document.getElementById('cam-pov').addEventListener('click', () => setCamView(true));
 
 function stepWalk() {
   if (!walk.on) return;

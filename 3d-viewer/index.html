@@ -451,11 +451,6 @@
   body.glass #modetray{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #modetray{background:rgba(252,250,246,.3)}
   #modetray[hidden]{display:none}
-  #trayrow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
-  #modetray:not([data-mode="fly"]) #viewbtn{display:none}
-  #modetray:not([data-mode="walk"]) #walkviewbtn{display:none}
-  #trayend{color:var(--sub)}
-  #trayend:hover{color:var(--ink)}
   /* Stargaze tray (HKS-86 §4) */
   #modetray:not([data-mode="star"]) #sgrow{display:none}
   #sgrow{display:flex;flex-direction:column;gap:8px}
@@ -542,6 +537,20 @@
     animation:locring 1.7s ease-out infinite}
   .geoloc .gl-lbl{margin-top:4px;font-size:10px;font-weight:700;color:#fff;letter-spacing:.02em;
     background:#1a73e8;padding:1px 7px;border-radius:7px}
+  /* HKS-86: camera-angle segmented toggle sits to the left of the compass; both
+     share a centered row. The toggle only shows in fly/walk (body.flying). */
+  #cmprow{display:flex;align-items:center;justify-content:center;gap:7px}
+  #camseg{display:none;align-items:center;height:30px;border-radius:9px;overflow:hidden;
+    background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  body.flying #camseg{display:inline-flex}
+  body.glass #camseg{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #camseg{background:rgba(252,250,246,.3)}
+  #camseg button{height:100%;min-width:32px;padding:0 8px;border:none;background:none;cursor:pointer;
+    font-size:13px;line-height:1;color:var(--sub);display:grid;place-items:center;transition:color .12s,background .12s}
+  #camseg button:first-child{border-right:1px solid var(--edge-soft)}
+  #camseg button.on{background:var(--accent-dim);color:var(--accent)}
+  #camseg button:hover{color:var(--ink)}
   /* band heading indicator (directional-gyro tape) — rides on top of the mode
      dock inside the bottom instrument cluster (HKS-86). Click/tap = face north. */
   #compass{width:min(230px,60vw);height:30px;border-radius:10px;cursor:pointer;
@@ -663,6 +672,8 @@
     #flyhud{font-size:10px;line-height:1.4}
     #flyhud small{font-size:8.5px;margin-top:2px;letter-spacing:.06em}
     #compass{width:min(186px,52vw);height:26px}
+    #camseg{height:26px}
+    #camseg button{min-width:28px;font-size:12px}
   }
   /* very narrow phones: compress the dock so it clears the corner buttons */
   @media (max-width:374px){
@@ -941,12 +952,7 @@
      mode buttons that used to live in the settings panel; their IDs (and thus
      their existing handlers) are unchanged. -->
 <div id="dockwrap">
-  <div id="modetray" data-mode="" role="group" aria-label="Mode controls" hidden>
-    <div id="trayrow">
-      <button id="viewbtn" title="Flight camera — chase / cockpit (C)">🎥 Chase</button>
-      <button id="walkviewbtn" title="Walk camera — first person / chase (C)">🎥 Chase</button>
-      <button id="trayend" title="Exit this mode (Esc)">✕ <span data-i18n="tray.end">End</span></button>
-    </div>
+  <div id="modetray" data-mode="" role="group" aria-label="Stargaze controls" hidden>
     <!-- Stargaze tray (HKS-86 §4): sky clock proxy + the two special toggles -->
     <div id="sgrow">
       <div class="sgline">
@@ -972,7 +978,14 @@
       <span id="spdpct">—</span>
     </div>
   </div>
-  <canvas id="compass" title="Heading — click to face north"></canvas>
+  <!-- HKS-86: camera-angle segmented toggle (fly/walk) sits left of the compass -->
+  <div id="cmprow">
+    <span id="camseg" role="group" aria-label="Camera angle">
+      <button id="cam-ext" type="button" aria-pressed="false" title="Chase / external camera (C)"><span aria-hidden="true">🎥</span></button>
+      <button id="cam-pov" type="button" aria-pressed="false" title="First-person camera (C)"><span aria-hidden="true">👁</span></button>
+    </span>
+    <canvas id="compass" title="Heading — click to face north"></canvas>
+  </div>
   <div id="dock" role="toolbar" aria-label="Explore modes and world themes">
     <button id="dockgear" class="dockbtn" title="Settings" data-i18n-title="dock.settings" aria-label="Settings" data-i18n-aria-label="dock.settings">⚙</button>
     <span class="dockdiv" aria-hidden="true"></span>
