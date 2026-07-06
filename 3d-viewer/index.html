@@ -608,17 +608,19 @@
   #camseg button:hover{color:var(--ink)}
   /* HKS-90: Stargaze's left-of-compass toggles (🕐 sky-time, 🤳 auto-arm) take the
      same slot the fly/walk camera toggle uses. Icon-only. */
-  #sg-orient,#sg-clock,#walk-auto{display:none;align-items:center;justify-content:center;height:30px;min-width:34px;padding:0 9px;
+  #sg-orient,#sg-clock,#walk-auto,#walk-lock{display:none;align-items:center;justify-content:center;height:30px;min-width:34px;padding:0 9px;
     border-radius:9px;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35);
     font-size:14px;line-height:1;color:var(--sub);cursor:pointer;transition:color .12s,background .12s}
+  #walk-lock svg{display:block}
   body.stargazing #sg-orient,body.stargazing #sg-clock{display:inline-flex}
   body.stargazing #sg-orient[hidden]{display:none}   /* device with no orientation sensor */
   body.walking #walk-auto{display:inline-flex}       /* auto-walk play/pause — walk mode only (HKS-91) */
-  body.glass #sg-orient,body.glass #sg-clock,body.glass #walk-auto{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
-  body.glass.ui-light #sg-orient,body.glass.ui-light #sg-clock,body.glass.ui-light #walk-auto{background:rgba(252,250,246,.3)}
-  #sg-orient.on,#sg-clock.on,#walk-auto.on{background:var(--accent-dim);color:var(--accent)}
-  @media (hover:hover){#sg-orient:hover,#sg-clock:hover,#walk-auto:hover{color:var(--ink)}}   /* no sticky hover on touch */
+  @media (hover:hover) and (pointer:fine){body.walking #walk-lock{display:inline-flex}}   /* HKS-88: pointer-lock only makes sense with a real mouse */
+  body.glass #sg-orient,body.glass #sg-clock,body.glass #walk-auto,body.glass #walk-lock{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #sg-orient,body.glass.ui-light #sg-clock,body.glass.ui-light #walk-auto,body.glass.ui-light #walk-lock{background:rgba(252,250,246,.3)}
+  #sg-orient.on,#sg-clock.on,#walk-auto.on,#walk-lock.on{background:var(--accent-dim);color:var(--accent)}
+  @media (hover:hover){#sg-orient:hover,#sg-clock:hover,#walk-auto:hover,#walk-lock:hover{color:var(--ink)}}   /* no sticky hover on touch */
   /* 🕐 toggle hides the whole sky-time container for a clean sky */
   body.sg-time-hidden #modetray{display:none}
   /* band heading indicator (directional-gyro tape) — rides on top of the mode
@@ -1052,6 +1054,7 @@
     <span class="cmpside cmpright">
       <button id="sg-orient" type="button" aria-pressed="false" title="🤳 Point at the sky" data-i18n-title="sg.orient" data-i18n-aria-label="sg.orient"><span aria-hidden="true">🤳</span></button>
       <button id="walk-auto" type="button" aria-pressed="false" title="Auto-walk (play / pause)" data-i18n-title="walk.auto" data-i18n-aria-label="walk.auto"><span aria-hidden="true">▶</span></button>
+      <button id="walk-lock" type="button" aria-pressed="false" title="View lock — mouse looks around (Esc to release)" data-i18n-title="walk.lock" data-i18n-aria-label="walk.lock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="6"/><line x1="12" y1="7" x2="12" y2="11"/></svg></button>
     </span>
   </div>
   <div id="dock" role="toolbar" aria-label="Explore modes and world themes">
