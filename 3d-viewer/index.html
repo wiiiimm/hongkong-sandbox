@@ -261,6 +261,7 @@
   .ss-grid button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
     min-height:66px;padding:11px 4px;border-radius:12px;
     background:var(--field);border:1px solid var(--field-edge);color:var(--ink);cursor:pointer;transition:color .12s,background .12s,border-color .12s}
+  .ss-grid button[hidden]{display:none}   /* author display rule was overriding UA [hidden] — hide the native button without Web Share (codex) */
   @media (hover:hover){.ss-grid button:hover{color:var(--accent);border-color:var(--accent)}}
   .ss-grid button svg{display:block;width:22px;height:22px}
   .ss-grid small{font-size:10px;letter-spacing:.01em;line-height:1;color:inherit}
@@ -1135,7 +1136,7 @@
      drives the OS native share sheet (shown only where navigator.share exists) -->
 <div id="sharesheet" hidden>
   <div class="ss-backdrop"></div>
-  <div class="ss-card" role="dialog" aria-modal="true" aria-label="Share this view">
+  <div class="ss-card" role="dialog" aria-modal="true" aria-label="Share this view" data-i18n-aria-label="share.title">
     <div class="ss-head">
       <span data-i18n="share.title">Share this view</span>
       <button id="ss-close" title="Close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
