@@ -428,10 +428,20 @@
   body.flying #hudbox{display:flex}
   body.glass #hudbox{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #hudbox{background:rgba(252,250,246,.3)}
-  #flyhud{display:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--ink);
-    line-height:1.45;text-align:center;white-space:nowrap}   /* HKS-86: keep stats on one line */
+  /* HKS-91: live fly/walk stats — a single-line glass strip under the brand chip,
+     fading with the load bar exactly like the chip (body.dl-active). */
+  #flyhud{position:fixed;top:62px;left:16px;z-index:40;display:none;box-sizing:border-box;
+    max-width:calc(100vw - 32px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    padding:6px 13px;border-radius:12px;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
+    font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink);
+    transition:opacity .4s ease .5s}
   body.flying #flyhud{display:block}
-  #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:2px;letter-spacing:.08em}
+  body.dl-active #flyhud{opacity:0;pointer-events:none;transition:opacity .2s ease 0s}
+  #panel:not(.collapsed) ~ #flyhud{display:none}   /* open panel covers the top-left */
+  body.glass #flyhud{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #flyhud{background:rgba(252,250,246,.22)}
   /* HKS-86: bottom-centre instrument cluster — contextual tray · compass tape ·
      speed gauge · mode dock, one column. Replaces the strays that used to share
      the bottom edge (mode buttons in the panel, #flyhud, floating compass). */
@@ -705,8 +715,7 @@
       width:auto;max-width:none;max-height:64vh}
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
     /* fly/walk stats HUD — tighten inside the shared hudbox on phones */
-    #flyhud{font-size:10px;line-height:1.4}
-    #flyhud small{font-size:8.5px;margin-top:2px;letter-spacing:.06em}
+    #flyhud{top:calc(52px + env(safe-area-inset-top));font-size:10px;padding:5px 11px}   /* under the shorter mobile brand chip */
     #compass{width:min(186px,52vw);height:26px}
     #camseg{height:26px}
     #camseg button{min-width:28px;font-size:12px}
@@ -972,6 +981,8 @@
   <img src="/favicon-32.png" alt=""/>
   <span data-i18n="app.title">Hong Kong Sandbox</span>
 </div>
+<!-- HKS-91: live fly/walk stats — a single line under the brand chip, same fade as it -->
+<div id="flyhud"></div>
 <div id="cornerui">
   <button id="fsbtn" title="Full screen" aria-label="Toggle full screen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
   <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
@@ -1004,9 +1015,9 @@
       </div>
     </div>
   </div>
-  <!-- HKS-86: flight/walk stats + speed share one glass box, above the compass -->
+  <!-- HKS-91: the speed gauge sits above the compass; the stats line moved to the
+       top-left under the brand chip (#flyhud) -->
   <div id="hudbox">
-    <div id="flyhud"></div>
     <div id="spdwrap" title="Speed — the readout shows your actual speed (kt / km·h); the bar fills toward top speed and redlines at full boost">
       <div id="spdgauge"><div id="spdfill"></div></div>
       <span id="spdpct">—</span>

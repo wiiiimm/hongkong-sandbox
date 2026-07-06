@@ -2540,13 +2540,9 @@ function stepFlight() {
   const stats = `${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +   // no emoji — ✈/🛬 flickered as landed toggled (HKS-91)
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // speed now shows on the speed bar
     (F.landed ? ` · ${t('fly.landed')}` : '');
-  // HKS-86: the fly HUD is just live stats now — how-to + take-off in the Help
-  // drawer, camera toggle in the tray, exit via the dock/Esc
-  const hints = '';
-  if (F.helpT > 0) F.helpT--;
-  document.getElementById('flyhud').innerHTML = F.helpT > 0
-    ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
-    : `${stats}<small>${hints}</small>`;
+  // HKS-91: single-line live stats, top-left under the brand chip (how-to lives in
+  // the Help drawer, camera toggle by the compass, exit via the dock/Esc)
+  document.getElementById('flyhud').innerHTML = stats;
   updateSpeedGauge();
 }
 
