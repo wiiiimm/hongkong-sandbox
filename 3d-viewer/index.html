@@ -332,7 +332,7 @@
   /* floating circular radar/satellite HUD (HKS-74/79) — bottom-right, above the camera.
      The radar image is a rotating circle in the centre; SVG tab bands curve around the
      top (mode) and bottom (range/zoom) so the whole thing reads as one dial. */
-  #radarhud{position:fixed;right:12px;bottom:calc(99px + env(safe-area-inset-bottom));z-index:20;   /* HKS-91: +15px up to clear the speed bar */
+  #radarhud{position:fixed;right:12px;bottom:calc(109px + env(safe-area-inset-bottom));z-index:20;   /* HKS-91: lifted to clear the speed bar + corner buttons */
     width:168px;height:168px;display:none;filter:drop-shadow(0 8px 20px rgba(0,0,0,.45))}
   #radarhud.show{display:block}
   #radarhud .rf-ring{position:absolute;left:16.5%;top:16.5%;width:67%;height:67%;border-radius:50%;
@@ -502,7 +502,7 @@
   body.flying{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
   body.flying #flyhud [data-fly]{-webkit-user-select:auto;user-select:auto}   /* keep the HUD links tappable */
   #cornerui{position:fixed;right:12px;bottom:calc(30px + env(safe-area-inset-bottom));z-index:22;
-    display:flex;flex-direction:row;gap:8px;align-items:center}   /* HKS-91: side-by-side (fullscreen + camera) so the corner stays short and clears the radar */
+    display:flex;flex-direction:column;gap:8px;align-items:center}   /* fullscreen above camera */
   #cornerui button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);cursor:pointer;font-size:16px;padding:0;
@@ -526,7 +526,7 @@
   /* GPS "you are here" locate control (HKS-83/86) — right column, above the radar
      dial. Maps-style stateful button: outline target (off) → filled my-location
      (follow, Google-location blue) → navigation arrow (compass, heading-up). */
-  #locateui{position:fixed;right:12px;bottom:260px;z-index:22;display:flex;flex-direction:column;align-items:center;gap:6px;transition:bottom .3s ease}
+  #locateui{position:fixed;right:12px;bottom:280px;z-index:22;display:flex;flex-direction:column;align-items:center;gap:6px;transition:bottom .3s ease}
   body:not(.radar-on) #locateui{bottom:calc(78px + env(safe-area-inset-bottom))}   /* radar hidden → sit right above the camera button */
   #locateui #locatebtn{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
@@ -669,7 +669,7 @@
     /* right column stacks clear of the dock: snapshot → radar dial → GPS FAB */
     #cornerui{bottom:calc(64px + env(safe-area-inset-bottom))}
     #cornerui button{width:36px;height:36px;box-sizing:border-box}
-    #locateui{right:12px;left:auto;bottom:calc(248px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
+    #locateui{right:12px;left:auto;bottom:calc(268px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
     body:not(.radar-on) #locateui{bottom:calc(108px + env(safe-area-inset-bottom))}   /* radar hidden → above the camera button */
     #locateui #locatebtn{width:36px;height:36px;box-sizing:border-box}
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
@@ -693,7 +693,7 @@
     /* keep the radar/satellite circle compact on phones so the weather box doesn't
        grow tall enough to sit over the controls behind it */
     /* compact circular HUD on phones; sits above the camera button (bottom-right) */
-    #radarhud{width:128px;height:128px;bottom:calc(127px + env(safe-area-inset-bottom))}   /* HKS-91: +15px up */
+    #radarhud{width:128px;height:128px;bottom:calc(137px + env(safe-area-inset-bottom))}   /* HKS-91: lifted to clear the speed bar + corner buttons */
     #radarhud.big{width:min(166px,calc(100vw - 24px));height:min(166px,calc(100vw - 24px))}   /* 30% larger than the 128px default */
     #radarhud .rf-lab{font-size:9px}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
