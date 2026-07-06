@@ -500,7 +500,7 @@ const fsActive = () => document.fullscreenElement || document.webkitFullscreenEl
 function toggleFullscreen() {
   if (fsActive()) { (document.exitFullscreen || document.webkitExitFullscreen || (() => {})).call(document); return; }
   const req = fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen;
-  if (req) { req.call(fsRoot).catch(() => {}); return; }
+  if (req) { const r = req.call(fsRoot); if (r && r.catch) r.catch(() => {}); return; }   // prefixed webkit form returns undefined, not a Promise
   const bar = document.getElementById('installbar');        // iOS: no fullscreen API → show "Add to Home Screen"
   if (bar && !(matchMedia('(display-mode: standalone)').matches || navigator.standalone === true)) bar.classList.add('ios', 'show');
 }
@@ -4780,6 +4780,9 @@ function serializeState() {
   const md = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : '';   // HKS-91: share the movement mode
   if (md) p.set('md', md);
   if (geo.has) p.set('gps', Math.round(geo.E) + ',' + Math.round(geo.N));         // HKS-91: share your location (HK1980 grid E,N)
+  // HKS-91: the Stargaze vantage + look — the serialized `cam` target is 1000m in
+  // front of the viewer (stepStargaze), so restore the anchor from this instead (codex)
+  if (stargaze.on) p.set('sg', [Math.round(stargaze.pos.x), Math.round(stargaze.pos.z), stargaze.yaw.toFixed(3), stargaze.pitch.toFixed(3)].join(','));
   p.set('au', sndOn ? '1' : '0');
   p.set('av', g('sndvol').value);
   p.set('su', skySim.on ? '1' : '0');
@@ -4884,7 +4887,18 @@ function applyState(p) {
   const md = p.get('md');                                  // HKS-91: restore the movement mode
   if (md === 'fly' && !flight.on) enterFlight();
   else if (md === 'walk' && !walk.on) enterWalk();
-  else if (md === 'star' && !stargaze.on) enterStargaze();
+  else if (md === 'star' && !stargaze.on) {
+    enterStargaze();
+    if (p.has('sg')) {                                     // anchor the vantage + look from the shared sg (not the 1000m-forward cam target)
+      const s = p.get('sg').split(',').map(Number);
+      if (s.length >= 4 && s.every(isFinite)) {
+        const b = bounds();
+        stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, s[0]));
+        stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, s[1]));
+        stargaze.yaw = s[2]; stargaze.pitch = s[3];
+      }
+    }
+  }
   restoring = false;
 }
 
@@ -5021,7 +5035,7 @@ applyLocale(locale);
 // still lands on the curated default, with its own extra params carried through.
 const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
 // canonical serialized keys + the optional ones serializeState only emits sometimes
-const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm', 'md', 'gps']);
+const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm', 'md', 'gps', 'sg']);
 const urlParams = new URLSearchParams(location.search);
 const hasState = [...urlParams.keys()].some(k => STATE_KEYS.has(k));
 const startParams = hasState ? urlParams : new URLSearchParams(DEFAULT_STATE);
