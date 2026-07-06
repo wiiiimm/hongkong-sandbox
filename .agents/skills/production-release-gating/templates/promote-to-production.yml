@@ -1,0 +1,82 @@
+name: Promote to production
+# [AUTOMATED] Fast-forwards a dedicated `production` branch to the just-released
+# commit, then lets your platform's NATIVE git integration deploy it.
+#
+# This is the portable "Promotion Branch" gate: set your platform's
+# Production Branch to `production` (NOT `main`), so `main` deploys only previews/
+# staging on every merge, and prod ships only when this workflow advances
+# `production`. Works on any host with a configurable production branch
+# (Vercel, Netlify, Cloudflare Pages, …) — no platform CLI, no ignore script.
+#
+# Trigger: the published GitHub Release (created by semantic-release). A plain
+# push to `main` never touches `production`, so it never ships to prod.
+
+on:
+  release:
+    types: [published]
+
+# Serialize promotions so two releases can't race the production branch update.
+# Prereleases get a SEPARATE group: concurrency is joined BEFORE the job-level `if`
+# below, so without this a skipped prerelease run could still evict a queued STABLE
+# promotion from the single pending slot.
+concurrency:
+  group: ${{ github.event.release.prerelease && 'promote-prerelease' || 'promote-production' }}
+  cancel-in-progress: false # never half-apply a production promotion
+
+permissions:
+  contents: write # to push the production branch
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    # Pre-releases (semantic-release `next`/`beta` channels publish a Release with
+    # prerelease: true) must NOT advance `production` — only stable releases promote.
+    if: ${{ !github.event.release.prerelease }}
+    timeout-minutes: 10 # don't hold the promote-production concurrency slot if git hangs
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # need the released commit's history to fast-forward
+
+      - name: Fast-forward `production` to the released tag
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          # The release must come from the repo's default (staging) branch — resolved
+          # from the event payload, so this works regardless of its name.
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          # Same SemVer shape guard as the deploy path — refuse a non-release tag (a
+          # Release published for `foo`) so it can't advance production.
+          if [[ ! "$TAG" =~ ^v?(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "::error::$TAG is not a SemVer release tag — refusing to promote."
+            exit 1
+          fi
+          SHA="$(git rev-list -n1 "$TAG")"
+          echo "Promoting $TAG ($SHA) → production"
+
+          # Guard: only promote commits that are on the default branch. A tag pushed
+          # on an off-main or unrelated commit must NOT be able to ship arbitrary code
+          # to prod. Fetch the default branch into the SAME ref we then validate
+          # against, so the check can't pass against a stale/missing ref.
+          git fetch --no-tags origin "$DEFAULT_BRANCH:refs/remotes/origin/$DEFAULT_BRANCH"
+          if ! git merge-base --is-ancestor "$SHA" "refs/remotes/origin/$DEFAULT_BRANCH"; then
+            echo "::error::$TAG ($SHA) is not an ancestor of origin/$DEFAULT_BRANCH — refusing to promote."
+            exit 1
+          fi
+
+          # Plain (non-force) push: `production` only ever receives fast-forwards
+          # from main, so it stays an ancestor of the release commit. If this is
+          # ever rejected as non-fast-forward, that's a real divergence to inspect,
+          # NOT something to --force past.
+          git push origin "${SHA}:refs/heads/production"
+
+# ── Setup (one-time) ─────────────────────────────────────────────────────────
+# 1. Create the branch once:  git branch production main && git push -u origin production
+# 2. Platform → Project → Git → set the *Production Branch* to `production`.
+#    `main` is now a preview/staging branch (deploys on every merge, but not prod).
+# 3. Token caveat (same as Release-Triggered Deploy): a Release created with the built-in
+#    GITHUB_TOKEN does NOT fire `on: release`. Have semantic-release run with a
+#    PAT/bot GH_TOKEN so its Release triggers this promotion.
+#    (The push here can use the default token — the platform's webhook, not a
+#    GitHub workflow, is what deploys, so it isn't subject to that restriction.)
