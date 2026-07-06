@@ -154,6 +154,7 @@ const I18N = {
     'lock.live': '◈ set by live weather — turn off sync below to adjust',
     'lock.storm': '◈ set by the storm signal — choose None to adjust',
     'lock.sky': '◈ following live weather — turn off sync to adjust',
+    'lock.stargaze': '◈ weather is off for a clear sky in Stargaze',
     'lock.matrix': '◈ set by Matrix mode — 🕴 to wake up',
     'lock.neon': '◈ set by 風林火山 mode — ❄️ to leave the neon night',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.layers': 'Loading map layers', 'note.loadfail': 'Load failed',
@@ -239,6 +240,7 @@ const I18N = {
     'lock.live': '◈ 由即時天氣設定 — 關閉下方同步即可調整',
     'lock.storm': '◈ 由風暴信號設定 — 選「無」即可調整',
     'lock.sky': '◈ 跟隨即時天氣 — 關閉同步即可調整',
+    'lock.stargaze': '◈ 觀星模式已關閉天氣，保持淨空',
     'lock.matrix': '◈ 由 Matrix 模式設定 — 按 🕴 醒來',
     'lock.neon': '◈ 由風林火山模式設定 — 按 ❄️ 離開霓虹夜',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.layers': '載入地圖圖層中', 'note.loadfail': '載入失敗',
@@ -1374,14 +1376,17 @@ function updateStormBadge() {
 function applyControlLocks() {
   const g = id => document.getElementById(id);
   const storm = stormLevel > 0;
-  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm);
+  const sg = document.body.classList.contains('stargazing');   // Stargaze clears + locks all weather/typhoon/live (HKS-91)
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm || sg);
   if (neonOn) g('snow').disabled = true;   // 風林火山 keeps Hong Kong snowbound
-  g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
-  g('tide').disabled    = liveMode;
-  g('storm').disabled   = liveMode;
-  g('skymode').disabled = liveMode;      // live weather owns the clock too (sky = live HKT)
+  g('winddir').disabled = liveMode || sg;   // direction stays adjustable under a storm
+  g('tide').disabled    = liveMode || sg;
+  g('storm').disabled   = liveMode || sg;
+  g('skymode').disabled = liveMode;      // live weather owns the clock; Stargaze leaves sky/time adjustable (time=now, unlocked)
+  const live = g('livebtn'); if (live) live.disabled = sg;   // no live-weather sync while stargazing
   const lock = g('wxlock');
-  if (liveMode)     { lock.textContent = t('lock.live');  lock.style.display = 'block'; }
+  if (sg)           { lock.textContent = t('lock.stargaze'); lock.style.display = 'block'; }
+  else if (liveMode){ lock.textContent = t('lock.live');  lock.style.display = 'block'; }
   else if (storm)   { lock.textContent = t('lock.storm'); lock.style.display = 'block'; }
   else              { lock.style.display = 'none'; }
   const slock = g('skylock');
@@ -3368,7 +3373,7 @@ if (FLY_DEBUG) window.__setNeon = setNeon;
 // combinable. Entering hides the weather chip + radar dial (CSS, body.stargazing);
 // everything restores on exit.
 const stargaze = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0.9,
-                   prevSpin: 1, prevSky: null, orient: false };
+                   prevSpin: 1, prevWx: null, orient: false };
 function setSkyControl(mode, date, minutes) {   // drive the existing panel controls
   const g = id => document.getElementById(id);
   if (date != null) { g('skydate').value = date; g('skydate').dispatchEvent(new Event('change')); }
@@ -3396,18 +3401,29 @@ function enterStargaze() {
   if ((geo.following || geo.compass) && geoInBounds()) {
     const p = markerLocalPoint(); stargaze.pos.x = p.x; stargaze.pos.z = p.z;
   }
-  // guarantee the star layer: if the sky sim is off or it's daylight, jump the
-  // clock to tonight 22:00 (custom time); the previous setting restores on exit
-  updateCelestial();
-  if (!starGroup.visible) {
-    stargaze.prevSky = { mode: document.getElementById('skymode').value,
-                        date: document.getElementById('skydate').value,
-                        minutes: document.getElementById('skytime').value };
-    setSkyControl('fixed', hktDateStr(new Date()), 1320);
-  }
+  document.body.classList.add('stargazing');            // hides wx chip + radar dial; drives applyControlLocks (HKS-91)
+  // HKS-91: save the pre-stargaze "session", then clear the sky — live weather,
+  // all weather effects and the typhoon signal are turned off AND locked, so the
+  // planetarium always has a clean sky. Everything restores on exit.
+  const g = id => document.getElementById(id);
+  stargaze.prevWx = {
+    live: liveMode, storm: stormLevel,
+    rain: weather.rain, clouds: weather.clouds, fog: weather.fog,
+    lightning: weather.lightning, waves: weather.waves, snow: weather.snow,
+    wind: +g('wind').value, winddir: g('winddir').value,
+    skymode: g('skymode').value, skydate: g('skydate').value, skytime: g('skytime').value,
+  };
+  if (liveMode) setLiveMode(false);                     // off live weather data
+  if (stormLevel > 0) { g('storm').value = '0'; applyStorm(0); }   // off typhoon signal
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow'].forEach(k => {   // off every weather effect
+    const cb = g(k); if (cb.checked) { cb.checked = false; cb.dispatchEvent(new Event('change')); }
+  });
+  if (+g('wind').value) { g('wind').value = 0; g('wind').dispatchEvent(new Event('input')); }
+  setSkyControl('live');                                // sky time = now (unlocked — scrub via the 🕐 panel)
+  setSgTimeVisible(false);                              // 🕐 sky-time panel hidden by default
+  applyControlLocks();                                  // lock the now-cleared weather/typhoon/live controls
   camera.fov = 60; camera.updateProjectionMatrix();     // wide for sky sweep
   controls.enabled = false;
-  document.body.classList.add('stargazing');            // dims wx chip + radar dial (CSS)
   document.getElementById('stargazebtn').blur();        // else ␣/Enter re-clicks and exits
   syncSgTray();
   refreshDock();
@@ -3416,16 +3432,32 @@ function exitStargaze() {
   if (!stargaze.on) return;
   stargaze.on = false;
   setStargazeOrient(false);   // GPS follow/compass persists into Orbit; only auto-arm drops
-  if (stargaze.prevSky) {                               // hand the sky clock back
-    setSkyControl(stargaze.prevSky.mode, stargaze.prevSky.date, stargaze.prevSky.minutes);
-    stargaze.prevSky = null;
+  document.body.classList.remove('stargazing');         // drop the lock before restoring (HKS-91)
+  // HKS-91: restore the pre-stargaze session (weather, typhoon, live sync, sky/time).
+  // If there was none, applyControlLocks below just leaves the current defaults.
+  const p = stargaze.prevWx;
+  if (p) {
+    const g = id => document.getElementById(id);
+    if (p.live) {
+      setLiveMode(true);                                // live re-derives weather + storm + live sky
+    } else {
+      if (p.storm > 0) { g('storm').value = String(p.storm); applyStorm(p.storm); }
+      else if (stormLevel > 0) { g('storm').value = '0'; applyStorm(0); }
+      ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow'].forEach(k => {
+        const cb = g(k); if (cb.checked !== p[k]) { cb.checked = p[k]; cb.dispatchEvent(new Event('change')); }
+      });
+      if (+g('wind').value !== p.wind) { g('wind').value = p.wind; g('wind').dispatchEvent(new Event('input')); }
+      if (g('winddir').value !== p.winddir) { g('winddir').value = p.winddir; g('winddir').dispatchEvent(new Event('change')); }
+      setSkyControl(p.skymode, p.skydate, p.skytime);   // hand the sky clock back
+    }
+    stargaze.prevWx = null;
   }
   spinDir = stargaze.prevSpin;
   document.getElementById('spindir').value = String(spinDir);
   camera.fov = 38; camera.updateProjectionMatrix();
   camera.up.set(0, 1, 0);
   controls.enabled = true;
-  document.body.classList.remove('stargazing');
+  applyControlLocks();                                  // unlock now that stargazing is off
   frameCamera();
   refreshDock();
 }
