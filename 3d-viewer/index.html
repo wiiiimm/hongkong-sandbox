@@ -238,12 +238,35 @@
     transition:border-color .12s, background .12s}
   button:hover{background:rgba(255,255,255,.08);border-color:var(--accent)}
   .btns{display:flex;gap:6px;flex-wrap:wrap}
-  #sharemenu{border-top:1px solid var(--edge-soft);margin-top:12px;padding-top:11px}
-  .sharebtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
-  .sharebtns button{width:100%}
-  #embedcode{width:100%;box-sizing:border-box;margin-top:8px;height:64px;resize:none;
+  /* HKS-92: share trigger icon (panel header + brand chip) */
+  .shareico{flex:0 0 auto;width:26px;height:26px;padding:0;display:grid;place-items:center;border-radius:8px;
+    background:none;border:1px solid transparent;color:var(--ink);cursor:pointer;pointer-events:auto;transition:color .12s,background .12s}
+  .ptitle .shareico{margin-left:2px}
+  @media (hover:hover){.shareico:hover{color:var(--accent);background:var(--accent-dim)}}
+  #brandchip .shareico{color:var(--ink)}
+  #brandchip{pointer-events:none}   /* the chip is a label; only its share button takes clicks */
+  .shareico svg{display:block}
+  /* HKS-92: custom share sheet (icon-only services; text = alt) */
+  #sharesheet[hidden]{display:none}
+  #sharesheet{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center}
+  .ss-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+  .ss-card{position:relative;width:min(340px,calc(100vw - 32px));box-sizing:border-box;padding:16px;
+    background:var(--panel);backdrop-filter:blur(20px) saturate(1.25);-webkit-backdrop-filter:blur(20px) saturate(1.25);
+    border:1px solid var(--edge);border-radius:16px;box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
+  body.glass .ss-card{background:rgba(14,18,24,.72)}
+  .ss-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;font-size:13px;font-weight:600;color:var(--ink)}
+  .ss-head button{width:28px;height:28px;padding:0;display:grid;place-items:center;border-radius:8px;background:none;border:none;color:var(--sub);cursor:pointer}
+  .ss-head button:hover{color:var(--ink)}
+  .ss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .ss-grid button{display:grid;place-items:center;height:58px;border-radius:12px;
+    background:var(--field);border:1px solid var(--field-edge);color:var(--ink);cursor:pointer;transition:color .12s,background .12s,border-color .12s}
+  @media (hover:hover){.ss-grid button:hover{color:var(--accent);border-color:var(--accent)}}
+  .ss-grid button svg{display:block;width:22px;height:22px}
+  #ss-status{min-height:15px;margin-top:11px;text-align:center;font-size:11px;font-family:var(--mono);color:var(--accent)}
+  #embedcode{width:100%;box-sizing:border-box;margin-top:10px;height:64px;resize:none;
     background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:8px;
     padding:7px 9px;font-size:10.5px;font-family:var(--mono);line-height:1.5}
+  #embedcode[hidden]{display:none}
   #vev,#meshdensv{font-family:var(--mono);color:var(--ink)}
   .lbl{position:fixed;transform:translate(-50%,-100%);pointer-events:none;font-size:12px;white-space:nowrap;
     color:#fff;font-weight:600;letter-spacing:.02em;text-shadow:0 1px 4px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.85)}
@@ -780,6 +803,7 @@
     <div class="ptitle">
       <img class="titleicon" src="/favicon-32.png" alt=""/>
       <h1 data-i18n="app.title">Hong Kong Sandbox</h1>
+      <button id="share-hdr" class="shareico" title="Share this view" data-i18n-title="btn.share" aria-label="Share this view" data-i18n-aria-label="btn.share"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button>
     </div>
     <div class="pbtns">
       <button id="langbtn" title="Language" style="width:auto;padding:0 8px;font-size:11px;font-weight:600">中</button>
@@ -957,19 +981,6 @@
     <button id="reset" data-i18n="btn.reset">Reset</button>
     <button id="south" data-i18n="btn.south">South</button>
     <button id="top" data-i18n="btn.top">Top‑down</button>
-    <button id="copylink" title="Copy a link to this exact view" data-i18n="btn.copylink">Copy link</button>
-    <button id="sharebtn" title="Share this view" data-i18n="btn.share">Share</button>
-  </div>
-  <div id="sharemenu" style="display:none">
-    <div class="gt" data-i18n="share.title">Share this view</div>
-    <div class="sharebtns">
-      <button id="sh-wa">WhatsApp</button>
-      <button id="sh-x">X</button>
-      <button id="sh-th">Threads</button>
-      <button id="sh-copy" data-i18n="btn.copylink">Copy link</button>
-      <button id="sh-embed" data-i18n="share.embed">Embed</button>
-    </div>
-    <textarea id="embedcode" readonly spellcheck="false" style="display:none"></textarea>
   </div>
 
   </div><!-- /#pbody -->
@@ -981,6 +992,7 @@
 <div id="brandchip">
   <img src="/favicon-32.png" alt=""/>
   <span data-i18n="app.title">Hong Kong Sandbox</span>
+  <button id="share-brand" class="shareico" title="Share this view" data-i18n-title="btn.share" aria-label="Share this view" data-i18n-aria-label="btn.share"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button>
 </div>
 <!-- HKS-91: live fly/walk stats — a single line under the brand chip, same fade as it -->
 <div id="flyhud"></div>
@@ -1113,6 +1125,27 @@
   <div class="ct-msg" data-i18n-html="coach.text">New here? Tap the <b>⚙</b> to set up the view — surface, weather, sky &amp; more.</div>
   <div class="ct-go"><button id="coach-ok" data-i18n="coach.ok">Got it</button></div>
   <span class="ct-arrow" aria-hidden="true"></span>
+</div>
+<!-- HKS-91: custom share sheet — icon-only services (text is alt only); one button
+     drives the OS native share sheet (shown only where navigator.share exists) -->
+<div id="sharesheet" hidden>
+  <div class="ss-backdrop"></div>
+  <div class="ss-card" role="dialog" aria-modal="true" aria-label="Share this view">
+    <div class="ss-head">
+      <span data-i18n="share.title">Share this view</span>
+      <button id="ss-close" title="Close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="ss-grid">
+      <button id="ss-native" title="Share…" aria-label="Open the system share sheet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button>
+      <button id="ss-wa" title="WhatsApp" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.3A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.5 9c0 4 2.5 6.5 6.5 6.5" stroke-width="1.6"/></svg></button>
+      <button id="ss-x" title="X" aria-label="Share on X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+      <button id="ss-th" title="Threads" aria-label="Share on Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 12v1a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg></button>
+      <button id="ss-copy" title="Copy link" data-i18n-title="btn.copylink" aria-label="Copy link" data-i18n-aria-label="btn.copylink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></button>
+      <button id="ss-embed" title="Embed" data-i18n-title="share.embed" aria-label="Copy embed code" data-i18n-aria-label="share.embed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></button>
+    </div>
+    <div id="ss-status" aria-live="polite"></div>
+    <textarea id="embedcode" readonly spellcheck="false" hidden></textarea>
+  </div>
 </div>
 <script type="module" src="./main.js"></script>
 <!-- HKS-51: Vercel Web Analytics — script-tag form for a build-free static site
