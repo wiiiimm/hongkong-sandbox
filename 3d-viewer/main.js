@@ -4904,18 +4904,32 @@ function applyState(p) {
 
 const shareUrl = () => location.origin + location.pathname + '?' + serializeState();
 
-document.getElementById('copylink').addEventListener('click', async e => {
-  const btn = e.currentTarget, label = btn.textContent;
-  const url = shareUrl();
-  try { await navigator.clipboard.writeText(url); btn.textContent = t('share.copied'); }
-  catch (_) { history.replaceState(null, '', '?' + serializeState()); btn.textContent = 'In address bar'; }
-  setTimeout(() => { btn.textContent = label; }, 1400);
-});
+// ---- share sheet (HKS-92) --------------------------------------------------
+// A share icon (panel header + brand chip) opens a custom icon-only sheet of
+// services; one button drives the OS native share sheet where it exists. Icons
+// carry the service name as aria-label/title only (no visible text).
+const shareSheet = document.getElementById('sharesheet');
+const ssStatus = document.getElementById('ss-status');
+let ssFlashT = null;
+function ssFlash(msg) { ssStatus.textContent = msg; clearTimeout(ssFlashT); ssFlashT = setTimeout(() => { ssStatus.textContent = ''; }, 1600); }
+function openShareSheet() {
+  history.replaceState(null, '', '?' + serializeState());       // address bar == exactly what we share (incl. live GPS)
+  document.getElementById('embedcode').hidden = true;
+  ssStatus.textContent = '';
+  document.getElementById('ss-native').hidden = !navigator.share;   // native button only where the OS sheet exists
+  shareSheet.hidden = false;
+}
+function closeShareSheet() { shareSheet.hidden = true; }
+document.getElementById('share-hdr').addEventListener('click', e => { e.stopPropagation(); openShareSheet(); });
+document.getElementById('share-brand').addEventListener('click', e => { e.stopPropagation(); openShareSheet(); });
+document.getElementById('ss-close').addEventListener('click', closeShareSheet);
+shareSheet.querySelector('.ss-backdrop').addEventListener('click', closeShareSheet);
+addEventListener('keydown', e => { if (e.key === 'Escape' && !shareSheet.hidden) closeShareSheet(); });
 
-// ---- share (HKS-26) --------------------------------------------------------
-// Touch devices with the Web Share API → the native OS sheet (WhatsApp / X /
-// Threads / … from installed apps). Desktop → an explicit per-network menu.
-const shareMenu = document.getElementById('sharemenu');
+document.getElementById('ss-native').addEventListener('click', () => {
+  if (!navigator.share) return;
+  navigator.share({ title: t('share.title'), text: t('share.text'), url: shareUrl() }).then(closeShareSheet).catch(() => {});
+});
 function shareLink(target) {
   const url = shareUrl(), text = t('share.text'), e = encodeURIComponent;
   const links = {
@@ -4925,43 +4939,25 @@ function shareLink(target) {
   };
   if (links[target]) window.open(links[target], '_blank', 'noopener,noreferrer');
 }
-document.getElementById('sharebtn').addEventListener('click', () => {
-  history.replaceState(null, '', '?' + serializeState());   // HKS-91: sync the address bar to exactly what we're sharing (incl. live GPS)
-  const preferNative = navigator.share && matchMedia('(pointer: coarse)').matches;
-  if (preferNative) {
-    navigator.share({ title: t('share.title'), text: t('share.text'), url: shareUrl() })
-      .catch(() => { shareMenu.style.display = ''; });   // cancelled / unsupported → show the menu
-  } else {
-    shareMenu.style.display = shareMenu.style.display === 'none' ? '' : 'none';
-  }
+document.getElementById('ss-wa').addEventListener('click', () => shareLink('wa'));
+document.getElementById('ss-x').addEventListener('click', () => shareLink('x'));
+document.getElementById('ss-th').addEventListener('click', () => shareLink('th'));
+document.getElementById('ss-copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(shareUrl()); ssFlash(t('share.copied')); }
+  catch (_) { history.replaceState(null, '', '?' + serializeState()); ssFlash(t('share.copied')); }
 });
-document.getElementById('sh-wa').addEventListener('click', () => shareLink('wa'));
-document.getElementById('sh-x').addEventListener('click', () => shareLink('x'));
-document.getElementById('sh-th').addEventListener('click', () => shareLink('th'));
-document.getElementById('sh-copy').addEventListener('click', async e => {
-  const btn = e.currentTarget, label = btn.textContent;
-  try { await navigator.clipboard.writeText(shareUrl()); btn.textContent = t('share.copied'); }
-  catch (_) { history.replaceState(null, '', '?' + serializeState()); }
-  setTimeout(() => { btn.textContent = label; }, 1400);
-});
-
 // ---- embed (HKS-27): copy-paste <iframe> snippet ---------------------------
-// The embed URL carries the current view plus embed=1, which boots map-forward
-// (control panel collapsed) so the iframe shows the scene, not the chrome.
+// The embed URL carries the current view plus embed=1, which boots map-forward.
 function embedSnippet() {
   const url = shareUrl() + (shareUrl().includes('?') ? '&' : '?') + 'embed=1';
   return `<iframe src="${url}" width="800" height="600" style="border:0;border-radius:12px" `
     + `loading="lazy" allow="fullscreen" allowfullscreen title="Hong Kong Sandbox · 香港沙盒"></iframe>`;
 }
-document.getElementById('sh-embed').addEventListener('click', async e => {
-  const btn = e.currentTarget, label = btn.textContent;
+document.getElementById('ss-embed').addEventListener('click', async () => {
   const ta = document.getElementById('embedcode');
-  ta.value = embedSnippet();
-  ta.style.display = 'block';
-  ta.focus(); ta.select();
-  try { await navigator.clipboard.writeText(ta.value); btn.textContent = t('share.embedcopied'); }
-  catch (_) { /* textarea is shown + selected for manual copy */ }
-  setTimeout(() => { btn.textContent = label; }, 1600);
+  ta.value = embedSnippet(); ta.hidden = false; ta.focus(); ta.select();
+  try { await navigator.clipboard.writeText(ta.value); ssFlash(t('share.embedcopied')); }
+  catch (_) { ssFlash(t('share.embed')); }
 });
 
 // ---- locale routing + toggle ----------------------------------------------
@@ -5131,7 +5127,7 @@ if ('serviceWorker' in navigator) {
 // weather/radar, coach, install bar, brand chip) must not leak pointer/touch/click
 // events to the document/window viewport handlers (hold-to-gas, take-off, etc.).
 // Stop them bubbling — the canvas keeps its own listeners either way.
-for (const el of document.querySelectorAll('#panel,#sidedrawer,#dockwrap,#locateui,#cornerui,#wxhud,#radarhud,#coachtip,#installbar,#brandchip,#stormbadge,#miniloader'))
+for (const el of document.querySelectorAll('#panel,#sidedrawer,#dockwrap,#locateui,#cornerui,#wxhud,#radarhud,#coachtip,#installbar,#brandchip,#stormbadge,#miniloader,#sharesheet'))
   for (const ev of ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'click'])
     el.addEventListener(ev, e => e.stopPropagation());
 
