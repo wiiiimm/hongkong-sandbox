@@ -416,7 +416,7 @@
   /* HKS-86: flight/walk stats + speed share ONE glass box, stacked above the
      compass tape (flyhud on top, speed bar below) */
   #hudbox{display:none;flex-direction:column;align-items:center;gap:7px;box-sizing:border-box;
-    width:max-content;max-width:calc(100vw - 20px);padding:8px 13px;border-radius:12px;
+    width:min(330px,calc(100vw - 20px));overflow:hidden;padding:8px 13px;border-radius:12px;   /* HKS-91: fixed width — content no longer resizes the box (speed bar stays put, no overlap) */
     background:var(--panel);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
     border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   body.flying #hudbox{display:flex}
@@ -476,7 +476,8 @@
      readout shows the actual speed (kt / km·h), no percentage */
   #spdwrap{display:none;align-items:center;gap:8px;width:100%;box-sizing:border-box}
   body.flying #spdwrap{display:flex}
-  #spdwrap #spdpct{flex:0 0 auto;min-width:58px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)}
+  /* HKS-91: reserve a fixed 8 mono chars — 3 speed + 1 space + 4 unit (e.g. "120 km·h") — so the readout never resizes the gauge */
+  #spdwrap #spdpct{flex:0 0 auto;width:8ch;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono);font-variant-numeric:tabular-nums}
   /* fly/walk: hold-to-gas must never trigger text selection or the iOS long-press callout (HKS-81) */
   body.flying{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
   body.flying #flyhud [data-fly]{-webkit-user-select:auto;user-select:auto}   /* keep the HUD links tappable */
