@@ -2328,6 +2328,7 @@ function buildPropPlane() {
   prop.position.z = -2.05;                             // hub tucked into the spinner
   grp.add(prop);
   grp.userData.prop = prop;
+  grp.userData.povFwd = 2.2; grp.userData.povUp = 2.3;   // POV eye: seated behind the cowl
   grp.scale.setScalar(s);
   grp.visible = false;
   return grp;
@@ -2422,6 +2423,65 @@ function buildCX747() {
     grp.add(wheel);
   };
   gearAt(0, -1.45); gearAt(-0.3, 0.45); gearAt(0.3, 0.45);
+  // --- flight-deck interior (HKS-93): a foreground cockpit the pilot sees only in
+  // POV. Parented to the plane, so it rolls with the horizon and slides aside as
+  // you head-turn; toggled visible = F.pov by stepFlight, hidden in chase. Built in
+  // plane-local units (×4 in world) around the upper-deck eye at ~(0, 0.75, -0.65).
+  // Designed in REAL METRES (cock.scale = 1/s cancels the group's ×4), around the
+  // upper-deck eye at ~(0, 3.0, -2.6) looking down -z. The dark glareshield fills
+  // the lower ~third; glowing screens peek up over its lip; the windscreen frame
+  // edges the view without blocking the horizon.
+  const cock = new THREE.Group();
+  const trim   = new THREE.MeshStandardMaterial({ color: 0x15181c, roughness: 0.85 });   // dark glareshield/panel silhouette
+  const post   = new THREE.MeshStandardMaterial({ color: 0x20242a, roughness: 0.7 });     // windscreen frame pillars
+  const pfd     = new THREE.MeshStandardMaterial({ color: 0x0a2733, roughness: 0.5, emissive: 0x0e6f8c, emissiveIntensity: 1.0 });
+  const pfdWarm = new THREE.MeshStandardMaterial({ color: 0x2a2410, roughness: 0.5, emissive: 0x8a6410, emissiveIntensity: 0.8 });
+  const horizonMat = new THREE.MeshStandardMaterial({ color: 0x2fd0ff, roughness: 0.4, emissive: 0x2fd0ff, emissiveIntensity: 1.3 });
+  // (the eye sits at plane-local metres ~(0, 3.0, -2.6); everything below is placed
+  // relative to the plane origin with that sight line in mind)
+  // Layered in depth so nothing swallows anything: panel farthest, glareshield lip
+  // behind the screens, screens closest. All dark except the glowing screens.
+  // instrument panel — the big dark mass filling the lower frame
+  const panel = new THREE.Mesh(new THREE.BoxGeometry(5.2, 1.7, 0.3), trim);
+  panel.position.set(0, 1.55, -4.7); panel.rotation.x = 0.4;
+  cock.add(panel);
+  // glareshield lip — the dark top edge the pilot looks out over (~12° below sight)
+  const glare = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.34, 0.42), trim);
+  glare.position.set(0, 2.62, -4.35); glare.rotation.x = -0.18;
+  cock.add(glare);
+  // PFD/ND screens either side + a warm engine display centred, standing proud so
+  // they glow up below the lip (each gets a bright horizon bar to read as an
+  // instrument rather than a plain rectangle)
+  const scrAt = (x, mat) => {
+    const scr = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.35, 0.05), mat);
+    scr.position.set(x, 2.44, -4.05); scr.rotation.x = 0.42;
+    cock.add(scr);
+  };
+  for (const sx of [-1, 1]) {
+    scrAt(sx * 1.02, pfd);
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.05, 0.02), horizonMat);
+    bar.position.set(sx * 1.02, 2.44, -4.01); bar.rotation.x = 0.42;
+    cock.add(bar);
+  }
+  scrAt(0, pfdWarm);
+  // windscreen frame: a top header, two raked side pillars, and a thin centre post
+  // that lives up in the sky band (above the eye line) so terrain stays open
+  const header = new THREE.Mesh(new THREE.BoxGeometry(5.6, 0.32, 0.3), post);
+  header.position.set(0, 4.5, -5.4);
+  cock.add(header);
+  const cpost = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.9, 0.22), post);
+  cpost.position.set(0, 3.7, -5.4);
+  cock.add(cpost);
+  for (const sx of [-1, 1]) {
+    const side = new THREE.Mesh(new THREE.BoxGeometry(0.26, 3.6, 0.26), post);
+    side.position.set(sx * 2.7, 3.4, -5.0); side.rotation.z = sx * 0.34;
+    cock.add(side);
+  }
+  cock.scale.setScalar(1 / s);                          // cancel the group's ×4 so the metres above are literal
+  cock.visible = false;
+  grp.add(cock);
+  grp.userData.cockpit = cock;
+  grp.userData.povFwd = 2.6; grp.userData.povUp = 3.0;   // eye up in the upper-deck flight deck
   grp.scale.setScalar(s);
   grp.visible = false;
   return grp;
@@ -2694,9 +2754,12 @@ function stepFlight() {
   // ease back to centre once nothing is held (no finger down, no mouse drag)
   if (!F.touchHold && !F.mouseLook) { F.lookYaw *= 0.9; F.lookPitch *= 0.9; }
   // --- cameras (world space: survives any leftover world spin)
-  if (F.pov) {                                         // cockpit: seated just behind the cowl —
-    _fu.set(0, 1, 0).applyQuaternion(_fq);             // nose + spinning prop stay in frame,
-    _fc.copy(F.pos).addScaledVector(_fv, 2.2).addScaledVector(_fu, 2.3);   // horizon rolls
+  if (F.pov) {                                         // cockpit: seated in the flight deck —
+    const ck = planeGrp.userData.cockpit;              // 747 has a foreground interior (HKS-93)
+    if (ck) ck.visible = true;
+    _fu.set(0, 1, 0).applyQuaternion(_fq);             // nose (+ prop / dashboard) stay in frame,
+    const eF = planeGrp.userData.povFwd ?? 2.2, eU = planeGrp.userData.povUp ?? 2.3;
+    _fc.copy(F.pos).addScaledVector(_fv, eF).addScaledVector(_fu, eU);   // horizon rolls
     world.localToWorld(_fc);
     camera.position.copy(_fc);
     // head-turn: rotate the look direction by the shared boom offset (HKS-53)
@@ -2707,6 +2770,7 @@ function stepFlight() {
     camera.up.copy(_fu);
     camera.lookAt(_fl);
   } else {                                             // chase: boom ~58 m out, orbitable (HKS-53)
+    if (planeGrp.userData.cockpit) planeGrp.userData.cockpit.visible = false;   // no interior from outside
     const az = F.yaw + F.lookYaw;                      // lookYaw swings the boom around the plane
     const el = Math.max(0.05, Math.min(1.3, 0.34 + F.lookPitch));   // lookPitch raises/lowers it
     const ce = Math.cos(el);
