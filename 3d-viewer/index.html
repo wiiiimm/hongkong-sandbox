@@ -332,7 +332,7 @@
   /* floating circular radar/satellite HUD (HKS-74/79) — bottom-right, above the camera.
      The radar image is a rotating circle in the centre; SVG tab bands curve around the
      top (mode) and bottom (range/zoom) so the whole thing reads as one dial. */
-  #radarhud{position:fixed;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:20;
+  #radarhud{position:fixed;right:12px;bottom:calc(99px + env(safe-area-inset-bottom));z-index:20;   /* HKS-91: +15px up to clear the speed bar */
     width:168px;height:168px;display:none;filter:drop-shadow(0 8px 20px rgba(0,0,0,.45))}
   #radarhud.show{display:block}
   #radarhud .rf-ring{position:absolute;left:16.5%;top:16.5%;width:67%;height:67%;border-radius:50%;
@@ -716,6 +716,7 @@
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
     /* fly/walk stats HUD — tighten inside the shared hudbox on phones */
     #flyhud{top:calc(52px + env(safe-area-inset-top));font-size:10px;padding:5px 11px}   /* under the shorter mobile brand chip */
+    #hudbox{width:min(264px,calc((100vw - 20px) * 0.8))}   /* HKS-91: -20% so the speed bar clears the radar / corner buttons */
     #compass{width:min(186px,52vw);height:26px}
     #camseg{height:26px}
     #camseg button{min-width:28px;font-size:12px}
