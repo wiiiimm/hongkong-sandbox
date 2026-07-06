@@ -108,6 +108,7 @@ const I18N = {
     'fly.landed': 'landed', 'fly.takeoff': '🛫 take off — ␣ or tap',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
     'lbl.topspeed': 'Top speed',
+    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.cx747': 'Cathay Pacific 747',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
     // HKS-86: the bottom mode dock + contextual tray
@@ -194,6 +195,7 @@ const I18N = {
     'fly.landed': '已降落', 'fly.takeoff': '🛫 起飛 — ␣ 或點擊',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
     'lbl.topspeed': '極速',
+    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.cx747': '國泰航空 747',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
     // HKS-86: the bottom mode dock + contextual tray
@@ -2212,30 +2214,214 @@ function takeOff() {
   flight.pitch = 0.28;
 }
 let planeGrp = null;
+// ---- plane skins (HKS-93) ---------------------------------------------------
+// Each skin is a livery + builder pair. All builders share the flight frame:
+// forward = -z, group origin at mid-fuselage, group scale 4, wheels touching
+// y = -0.55 (the landed pose parks the origin 2.2 real metres above the deck).
+// Adding a skin = one row here + an <option> in #planeskin + its i18n strings.
+const PLANE_SKINS = [
+  { id: 'prop',  build: buildPropPlane },   // the original red-trim single-prop
+  { id: 'cx747', build: buildCX747 },       // Cathay Pacific Boeing 747
+];
+let planeSkin = 'prop';
 function buildPlane() {
-  const s = 4;                                          // ~18 m wingspan: readable, near real scale
+  return (PLANE_SKINS.find(k => k.id === planeSkin) || PLANE_SKINS[0]).build();
+}
+// swap the live model in place — mid-flight the new skin inherits the pose on
+// the next stepFlight tick (position/quaternion are re-copied every frame)
+function setPlaneSkin(id) {
+  if (!PLANE_SKINS.some(k => k.id === id)) id = 'prop';
+  if (id === planeSkin) return;
+  planeSkin = id;
+  if (!planeGrp) return;                    // not built yet — first flight uses the new skin
+  const vis = planeGrp.visible;
+  world.remove(planeGrp);
+  planeGrp.traverse(o => { if (o.geometry) o.geometry.dispose(); if (o.material && o.material.dispose) o.material.dispose(); });
+  planeGrp = buildPlane();
+  planeGrp.visible = vis;
+  planeGrp.position.copy(flight.pos);
+  world.add(planeGrp);
+}
+document.getElementById('planeskin').addEventListener('change', e => setPlaneSkin(e.target.value));
+// a swept, tapered wing as one symmetric extrusion laid flat: shape x = span
+// (± out to the tips), shape y = fore-aft (+aft); `sweep` is how far aft the
+// tip leading edge sits. After rotateX the top skin lies at y = 0.
+function wingGeo(span, rootChord, tipChord, sweep, th, half) {
+  const s = new THREE.Shape();
+  s.moveTo(0, 0);
+  s.lineTo(span, sweep); s.lineTo(span, sweep + tipChord);
+  s.lineTo(0, rootChord);
+  if (!half) { s.lineTo(-span, sweep + tipChord); s.lineTo(-span, sweep); }   // symmetric one-piece wing
+  s.closePath();
+  const g = new THREE.ExtrudeGeometry(s, { depth: th, bevelEnabled: false });
+  g.rotateX(Math.PI / 2);
+  return g;
+}
+// a fin / brush-stroke profile stood upright in the zy plane: pts are
+// [fore-aft (+aft), up] outline pairs, extruded `th` across the fuselage.
+function finGeo(pts, th) {
+  const s = new THREE.Shape();
+  s.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length; i++) s.lineTo(pts[i][0], pts[i][1]);
+  s.closePath();
+  const g = new THREE.ExtrudeGeometry(s, { depth: th, bevelEnabled: false });
+  g.rotateY(-Math.PI / 2);                  // shape +x → +z (aft), thickness across x
+  g.translate(th / 2, 0, 0);                // centre on the fuselage line
+  return g;
+}
+function buildPropPlane() {
+  const s = 4;                                          // ~19 m wingspan: readable, near real scale
   const grp = new THREE.Group();
-  const body = new THREE.MeshStandardMaterial({ color: 0xe3e8f0, roughness: 0.55, metalness: 0.15 });
-  const red  = new THREE.MeshStandardMaterial({ color: 0xc23b2e, roughness: 0.6 });
-  const fus = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.3, 3.0, 10), body);
-  fus.rotation.x = -Math.PI / 2;                       // axis along z, taper to the nose
+  const body  = new THREE.MeshStandardMaterial({ color: 0xe8ecf2, roughness: 0.5, metalness: 0.15 });
+  const red   = new THREE.MeshStandardMaterial({ color: 0xc23b2e, roughness: 0.55 });
+  const glass = new THREE.MeshStandardMaterial({ color: 0x27343f, roughness: 0.25, metalness: 0.5 });
+  const dark  = new THREE.MeshStandardMaterial({ color: 0x22262b, roughness: 0.8 });
+  // fuselage: cabin barrel tapering to the tail, red engine cowl + spinner up front
+  const fus = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.26, 1.7, 14), body);
+  fus.rotation.x = -Math.PI / 2; fus.position.z = -0.55;
   grp.add(fus);
-  const nose = new THREE.Mesh(new THREE.ConeGeometry(0.21, 0.7, 10), red);
-  nose.rotation.x = -Math.PI / 2; nose.position.z = -1.8;
-  grp.add(nose);
-  const wing = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.07, 0.85), body);
-  wing.position.set(0, 0.05, -0.25);
+  const aft = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.07, 1.9, 14), body);
+  aft.rotation.x = -Math.PI / 2; aft.position.z = 1.25;  // wide end forward, tapering to the tail
+  grp.add(aft);
+  const cowl = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.26, 0.5, 14), red);
+  cowl.rotation.x = -Math.PI / 2; cowl.position.z = -1.62;
+  grp.add(cowl);
+  const spinner = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.28, 12), red);
+  spinner.rotation.x = -Math.PI / 2; spinner.position.z = -2.0;
+  grp.add(spinner);
+  const canopy = new THREE.Mesh(new THREE.SphereGeometry(0.22, 14, 10), glass);
+  canopy.scale.set(0.85, 0.6, 1.5); canopy.position.set(0, 0.16, -0.6);
+  grp.add(canopy);
+  // high wing with a little sweep, red tips
+  const wing = new THREE.Mesh(wingGeo(2.4, 0.78, 0.5, 0.16, 0.07), body);
+  wing.position.set(0, 0.2, -0.95);
   grp.add(wing);
-  const tail = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.06, 0.5), body);
-  tail.position.set(0, 0.1, 1.35);
-  grp.add(tail);
-  const fin = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.65, 0.55), red);
-  fin.position.set(0, 0.4, 1.4);
+  for (const sx of [-1, 1]) {
+    const tip = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.075, 0.5), red);
+    tip.position.set(sx * 2.34, 0.165, -0.55);
+    grp.add(tip);
+  }
+  // tailplane + the classic rounded rudder in red
+  const tailW = new THREE.Mesh(wingGeo(0.85, 0.42, 0.26, 0.12, 0.05), body);
+  tailW.position.set(0, 0.12, 1.55);
+  grp.add(tailW);
+  const fin = new THREE.Mesh(finGeo([[0.1, 0], [0.62, 0], [0.56, 0.5], [0.3, 0.58], [0, 0.2]], 0.06), red);
+  fin.position.set(0, 0.12, 1.4);
   grp.add(fin);
-  const prop = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.07, 0.04), red);   // ~2.2 m blade
-  prop.position.z = -2.16;
+  // fixed gear so the parked plane stands on something (origin lands at +2.2 m)
+  for (const sx of [-1, 1]) {
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.34, 0.08), dark);
+    leg.position.set(sx * 0.42, -0.3, -0.72);
+    grp.add(leg);
+    const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.08, 12), dark);
+    wheel.rotation.z = Math.PI / 2; wheel.position.set(sx * 0.42, -0.45, -0.72);
+    grp.add(wheel);
+  }
+  const tailWheel = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.05, 10), dark);
+  tailWheel.rotation.z = Math.PI / 2; tailWheel.position.set(0, -0.14, 1.7);
+  grp.add(tailWheel);
+  // two-blade prop, spun by stepFlight (HKS-87 landed behaviour unchanged)
+  const prop = new THREE.Group();
+  const b1 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.07, 0.03), dark);
+  const b2 = new THREE.Mesh(new THREE.BoxGeometry(0.07, 0.6, 0.03), dark);
+  prop.add(b1); prop.add(b2);
+  prop.position.z = -2.05;                             // hub tucked into the spinner
   grp.add(prop);
   grp.userData.prop = prop;
+  grp.scale.setScalar(s);
+  grp.visible = false;
+  return grp;
+}
+// Cathay Pacific Boeing 747 (HKS-93): the classic 90s "brushwing" livery —
+// light upper fuselage, deep jade belly and tail, a white brush stroke on the
+// fin. Low-poly, same frame/scale as the prop plane; no propeller (jet), so
+// stepFlight's prop guard simply skips and the engine audio carries the sound.
+function buildCX747() {
+  const s = 4;                                          // ~22 m long / ~23 m span — jumbo next to the prop
+  const grp = new THREE.Group();
+  const white = new THREE.MeshStandardMaterial({ color: 0xf2f5f7, roughness: 0.4, metalness: 0.2 });
+  const jade  = new THREE.MeshStandardMaterial({ color: 0x00564d, roughness: 0.5, metalness: 0.15 });
+  const brush = new THREE.MeshStandardMaterial({ color: 0xf4f7f6, roughness: 0.45 });
+  const grey  = new THREE.MeshStandardMaterial({ color: 0xb7bec4, roughness: 0.5, metalness: 0.3 });
+  const dark  = new THREE.MeshStandardMaterial({ color: 0x22282e, roughness: 0.7 });
+  // fuselage barrel + nose + upswept tail cone
+  const fus = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 3.4, 18), white);
+  fus.rotation.x = -Math.PI / 2; fus.position.z = 0.1;
+  grp.add(fus);
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.3, 18, 12), white);
+  nose.scale.set(1, 1, 1.8); nose.position.z = -1.6;
+  grp.add(nose);
+  const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.05, 1.5, 18), white);
+  tail.rotation.x = -Math.PI / 2 - 0.09;               // wide end forward, tip swept slightly up
+  tail.position.set(0, 0.06, 2.53);
+  grp.add(tail);
+  // the signature upper-deck hump over the front third
+  const hump = new THREE.Mesh(new THREE.SphereGeometry(0.26, 16, 12), white);
+  hump.scale.set(1.0, 0.9, 3.0); hump.position.set(0, 0.19, -0.85);
+  grp.add(hump);
+  // cockpit glare band on the hump's brow
+  const brow = new THREE.Mesh(new THREE.SphereGeometry(0.16, 12, 8), dark);
+  brow.scale.set(1.0, 0.35, 0.7); brow.position.set(0, 0.24, -1.38);
+  grp.add(brow);
+  // livery: jade belly (lower half-shell) + a thin window line each side
+  const jade2 = new THREE.MeshStandardMaterial({ color: 0x00564d, roughness: 0.5, metalness: 0.15, side: THREE.DoubleSide });
+  const belly = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.306, 0.306, 3.35, 18, 1, true, Math.PI / 2, Math.PI), jade2);
+  belly.rotation.x = -Math.PI / 2; belly.position.z = 0.1;
+  grp.add(belly);
+  const bellyAft = new THREE.Mesh(                     // carry the green under the tail cone
+    new THREE.CylinderGeometry(0.306, 0.052, 1.5, 18, 1, true, Math.PI / 2, Math.PI), jade2);
+  bellyAft.rotation.x = -Math.PI / 2 - 0.09; bellyAft.position.set(0, 0.055, 2.53);
+  grp.add(bellyAft);
+  for (const sx of [-1, 1]) {
+    const win = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.045, 3.0), dark);
+    win.position.set(sx * 0.297, 0.09, 0);
+    grp.add(win);
+  }
+  // swept wings with dihedral, four podded engines slung ahead of the leading edge
+  const wingMat = new THREE.MeshStandardMaterial({ color: 0xf2f5f7, roughness: 0.4, metalness: 0.2, side: THREE.DoubleSide });
+  const wingG = wingGeo(2.8, 0.95, 0.28, 1.6, 0.06, true);   // one half, mirrored below
+  for (const sx of [-1, 1]) {
+    const w = new THREE.Mesh(wingG, wingMat);
+    w.scale.x = sx; w.rotation.z = sx * 0.09;          // mirrored halves → dihedral
+    w.position.set(0, -0.14, -0.5);
+    grp.add(w);
+    for (const ex of [1.15, 1.95]) {
+      const ey = -0.14 + ex * 0.09 - 0.17;             // hang below the (dihedralled) wing
+      const ez = -0.5 + 1.6 * (ex / 2.8) - 0.28;       // ahead of the local leading edge
+      const nac = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.085, 0.44, 12), grey);
+      nac.rotation.x = -Math.PI / 2; nac.position.set(sx * ex, ey, ez);
+      grp.add(nac);
+      const inlet = new THREE.Mesh(new THREE.CylinderGeometry(0.105, 0.105, 0.07, 12), dark);
+      inlet.rotation.x = -Math.PI / 2; inlet.position.set(sx * ex, ey, ez - 0.2);
+      grp.add(inlet);
+      const pylon = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.16, 0.3), white);
+      pylon.position.set(sx * ex, ey + 0.13, ez + 0.16);
+      grp.add(pylon);
+    }
+  }
+  // tailplane + the tall jade fin with an approximate white "brushwing" stroke
+  const tailW = new THREE.Mesh(wingGeo(1.1, 0.5, 0.18, 0.55, 0.05), white);
+  tailW.position.set(0, 0.14, 2.55);
+  grp.add(tailW);
+  const fin = new THREE.Mesh(finGeo([[0, 0], [0.9, 0], [1.3, 1.05], [1.0, 1.05]], 0.07), jade);
+  fin.position.set(0, 0.24, 2.15);
+  grp.add(fin);
+  for (const sx of [-1, 1]) {
+    const bw = new THREE.Mesh(finGeo([[0.34, 0.1], [0.7, 0.18], [1.16, 0.92], [1.06, 0.94], [0.52, 0.32], [0.4, 0.16]], 0.012), brush);
+    bw.position.set(sx * 0.041, 0.24, 2.15);
+    grp.add(bw);
+  }
+  // gear: nose strut + two main bogies (wheels reach y = -0.55, the landed line)
+  const gearAt = (x, z) => {
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.26, 0.06), dark);
+    leg.position.set(x, -0.34, z);
+    grp.add(leg);
+    const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.095, 0.16, 12), dark);
+    wheel.rotation.z = Math.PI / 2; wheel.position.set(x, -0.455, z);
+    grp.add(wheel);
+  };
+  gearAt(0, -1.45); gearAt(-0.3, 0.45); gearAt(0.3, 0.45);
   grp.scale.setScalar(s);
   grp.visible = false;
   return grp;
@@ -4788,6 +4974,7 @@ function serializeState() {
   p.set('nn', neonOn ? '1' : '0');
   const md = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : '';   // HKS-91: share the movement mode
   if (md) p.set('md', md);
+  if (g('planeskin').value !== 'prop') p.set('pl', g('planeskin').value);        // HKS-93: aircraft skin (only off the default)
   if (geo.has) p.set('gps', Math.round(geo.E) + ',' + Math.round(geo.N));         // HKS-91: share your location (HK1980 grid E,N)
   // HKS-91: the Stargaze vantage + look — the serialized `cam` target is 1000m in
   // front of the viewer (stepStargaze), so restore the anchor from this instead (codex)
@@ -4893,6 +5080,7 @@ function applyState(p) {
     const [E, N] = p.get('gps').split(',').map(Number);
     if (isFinite(E) && isFinite(N)) { ensureGeoMarker(); geo.E = E; geo.N = N; geo.acc = Math.max(6, geo.acc); geo.has = true; refreshGpsBtn(); }
   }
+  if (p.has('pl')) setVal('planeskin', p.get('pl'));       // HKS-93: aircraft skin — before md, so Fly spawns in it
   const md = p.get('md');                                  // HKS-91: restore the movement mode
   if (md === 'fly' && !flight.on) enterFlight();
   else if (md === 'walk' && !walk.on) enterWalk();
@@ -5040,7 +5228,7 @@ applyLocale(locale);
 // still lands on the curated default, with its own extra params carried through.
 const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
 // canonical serialized keys + the optional ones serializeState only emits sometimes
-const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm', 'md', 'gps', 'sg']);
+const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm', 'md', 'gps', 'sg', 'pl']);
 const urlParams = new URLSearchParams(location.search);
 const hasState = [...urlParams.keys()].some(k => STATE_KEYS.has(k));
 const startParams = hasState ? urlParams : new URLSearchParams(DEFAULT_STATE);
