@@ -112,14 +112,15 @@
   @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.5}}
   /* HKS-49: non-blocking mini-loader for the background vector-overlay stream.
      Top-centre glass chip; never intercepts input, never gates boot. */
-  #miniloader{position:fixed;top:16px;left:50%;transform:translate(-50%,-14px);z-index:30;
+  /* HKS-91: top-LEFT, sharing the brand chip's slot — they're mutually exclusive */
+  #miniloader{position:fixed;top:16px;left:16px;transform:translateY(-14px);z-index:41;
     pointer-events:none;display:flex;flex-direction:column;gap:6px;align-items:stretch;
     min-width:190px;max-width:calc(100vw - 32px);
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:12px;padding:9px 12px;
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
     opacity:0;transition:opacity .3s ease, transform .3s ease}
-  #miniloader.show{opacity:1;transform:translate(-50%,0)}
+  #miniloader.show{opacity:1;transform:translateY(0)}
   /* HKS-64: mobile install nudge — glass bar, dismissable, non-blocking. Hidden
      (opacity/pointer-events) until main.js decides the device is eligible. */
   /* full-width on phones (12px gutters), but centred + capped on tablets so it
@@ -499,7 +500,9 @@
     padding:8px 14px 8px 11px;border-radius:13px;pointer-events:none;white-space:nowrap;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
-    font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+    font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.01em;
+    transition:opacity .4s ease .5s}   /* HKS-91: fades back in 0.5s after the load bar hides */
+  body.dl-active #brandchip{opacity:0;pointer-events:none;transition:opacity .2s ease 0s}   /* the load bar owns the top-left slot while downloading */
   #brandchip img{width:22px;height:22px;border-radius:6px;flex:0 0 auto}
   body.glass #brandchip{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #brandchip{background:rgba(252,250,246,.22)}

@@ -468,6 +468,7 @@ function showMini(label) {
   const lb = el.querySelector('.mlabel'); if (lb) lb.textContent = label;
   const bar = el.querySelector('.mbar > i'); if (bar) bar.style.width = '8%';
   el.classList.add('show');
+  document.body.classList.add('dl-active');   // HKS-91: load bar takes the top-left slot → fade the brand chip out
 }
 function miniProgress(got, total) {
   const el = document.getElementById('miniloader'); if (!el) return;
@@ -482,6 +483,7 @@ function hideMini() {
   const el = document.getElementById('miniloader'); if (!el) return;
   const bar = el.querySelector('.mbar > i'); if (bar) bar.style.width = '100%';
   el.classList.remove('show');
+  document.body.classList.remove('dl-active');   // HKS-91: load bar gone → brand chip fades back in (0.5s delay, via CSS)
 }
 
 function updateNote() {
