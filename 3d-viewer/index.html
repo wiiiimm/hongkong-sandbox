@@ -449,8 +449,8 @@
   #dockgear{width:40px;height:40px;padding:0;justify-content:center;font-size:28px}   /* 1.5× the glyph in the same tap target */
   .dockdiv{width:1px;align-self:stretch;margin:4px 3px;background:var(--edge-soft)}
   /* contextual tray — per-mode affordances above the compass tape */
-  #modetray{display:flex;flex-direction:column;gap:8px;padding:9px 13px;border-radius:13px;
-    width:min(400px,calc(100vw - 24px));box-sizing:border-box;
+  #modetray{display:flex;flex-direction:column;gap:6px;padding:8px 12px;border-radius:13px;
+    width:min(280px,calc(100vw - 108px));box-sizing:border-box;   /* HKS-91: narrow + locked so it clears the GPS buttons on the right */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   body.glass #modetray{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
@@ -464,8 +464,12 @@
   #sgskypill button{border:none;border-radius:0;background:none;box-shadow:none;padding:5px 10px;font-size:11px;color:var(--sub)}
   #sgskypill button.on{background:var(--accent-dim);color:var(--accent)}
   #sg-time{flex:1;min-width:60px}
-  #sg-timev{flex:0 0 40px;text-align:right;font-family:var(--mono);font-size:10.5px;color:var(--ink)}
-  #sg-hint{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--sub);text-align:center}
+  #sg-timev{flex:0 0 44px;text-align:right;font-family:var(--mono);font-size:11px;color:var(--ink);font-variant-numeric:tabular-nums}
+  /* HKS-91: 2-line sky clock — tabs on top; live shows the current HK time, custom shows slider + value */
+  #sg-line2{min-height:24px}
+  #sg-livetime{font-family:var(--mono);font-size:15px;letter-spacing:.04em;color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+  #sgrow.live #sg-time,#sgrow.live #sg-timev{display:none}
+  #sgrow:not(.live) #sg-livetime{display:none}
   /* stargazing dims the weather chip + radar dial for a cleaner sky (restored on exit) */
   #wxhud,#radarhud{transition:opacity .5s ease}
   /* HKS-90: fully hide the weather box + radar in Stargaze — dimming to a low
@@ -982,10 +986,12 @@
           <button id="sg-live" data-i18n="sg.live">● Live sky</button>
           <button id="sg-custom" data-i18n="sg.custom">🕐 Custom</button>
         </span>
-        <input id="sg-time" type="range" min="0" max="1439" step="1" value="1320" aria-label="Sky time"/>
-        <span id="sg-timev">22:00</span>
       </div>
-      <div id="sg-hint"></div>
+      <div class="sgline" id="sg-line2">
+        <span id="sg-livetime">—</span>                <!-- live: current HK time -->
+        <input id="sg-time" type="range" min="0" max="1439" step="1" value="1320" aria-label="Sky time"/>
+        <span id="sg-timev">22:00</span>               <!-- custom: slider value -->
+      </div>
     </div>
   </div>
   <!-- HKS-86: flight/walk stats + speed share one glass box, above the compass -->

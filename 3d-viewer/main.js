@@ -3539,16 +3539,16 @@ function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
   const live = skySim.on && skySim.live;
   g('sg-live').classList.toggle('on', live);
   g('sg-custom').classList.toggle('on', !live);
+  g('sgrow').classList.toggle('live', live);            // 2-line: live shows the clock, custom the slider (HKS-91)
   g('sg-time').disabled = live;
   g('sg-time').value = live ? hktMinutes(new Date()) : skySim.minutes;
   g('sg-timev').textContent = mmToHHMM(+g('sg-time').value);
+  if (live) g('sg-livetime').textContent = mmToHHMM(hktMinutes(new Date()));   // current HK time (ticks per frame)
   // auto-arm only makes sense on a device with real motion sensors. Desktop Chrome
   // defines DeviceOrientationEvent even with no compass, so also require a coarse
   // pointer (phone/tablet) — matches the startup gate above (HKS-90).
   g('sg-orient').hidden = !(matchMedia('(pointer: coarse)').matches && typeof DeviceOrientationEvent !== 'undefined');
   syncSgToggles();
-  const mi = moonIllumination(simDate());
-  g('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
 }
 document.getElementById('stargazebtn').addEventListener('click', () => stargaze.on ? exitStargaze() : enterStargaze());
 document.getElementById('sg-live').addEventListener('click', () => { setSkyControl('live'); syncSgTray(); });
@@ -3560,8 +3560,6 @@ document.getElementById('sg-time').addEventListener('input', e => {
   if (skySim.on && skySim.live) return;                 // scrub only drives custom time
   setSkyControl('fixed', null, +e.target.value);
   document.getElementById('sg-timev').textContent = mmToHHMM(+e.target.value);
-  const mi = moonIllumination(simDate());
-  document.getElementById('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
 });
 document.getElementById('sg-orient').addEventListener('click', () => setStargazeOrient(!stargaze.orient));
 document.getElementById('sg-clock').addEventListener('click', () => setSgTimeVisible(document.body.classList.contains('sg-time-hidden')));
