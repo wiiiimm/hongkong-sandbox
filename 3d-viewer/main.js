@@ -119,7 +119,7 @@ const I18N = {
     'sg.orient': '🤳 Point at the sky', 'sg.clock': 'Show / hide the sky time',
     'sg.hint': 'drag to look · tap a constellation',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
-    'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
+    'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked', 'walk.auto': 'Auto-walk (play / pause)',
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
@@ -154,6 +154,7 @@ const I18N = {
     'lock.live': '◈ set by live weather — turn off sync below to adjust',
     'lock.storm': '◈ set by the storm signal — choose None to adjust',
     'lock.sky': '◈ following live weather — turn off sync to adjust',
+    'lock.stargaze': '◈ weather is off for a clear sky in Stargaze',
     'lock.matrix': '◈ set by Matrix mode — 🕴 to wake up',
     'lock.neon': '◈ set by 風林火山 mode — ❄️ to leave the neon night',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.layers': 'Loading map layers', 'note.loadfail': 'Load failed',
@@ -204,7 +205,7 @@ const I18N = {
     'sg.orient': '🤳 指向天空', 'sg.clock': '顯示／隱藏天空時間',
     'sg.hint': '拖曳環視 · 點選星座',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
-    'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
+    'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行', 'walk.auto': '自動步行（播放／暫停）',
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
@@ -239,6 +240,7 @@ const I18N = {
     'lock.live': '◈ 由即時天氣設定 — 關閉下方同步即可調整',
     'lock.storm': '◈ 由風暴信號設定 — 選「無」即可調整',
     'lock.sky': '◈ 跟隨即時天氣 — 關閉同步即可調整',
+    'lock.stargaze': '◈ 觀星模式已關閉天氣，保持淨空',
     'lock.matrix': '◈ 由 Matrix 模式設定 — 按 🕴 醒來',
     'lock.neon': '◈ 由風林火山模式設定 — 按 ❄️ 離開霓虹夜',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.layers': '載入地圖圖層中', 'note.loadfail': '載入失敗',
@@ -466,6 +468,7 @@ function showMini(label) {
   const lb = el.querySelector('.mlabel'); if (lb) lb.textContent = label;
   const bar = el.querySelector('.mbar > i'); if (bar) bar.style.width = '8%';
   el.classList.add('show');
+  document.body.classList.add('dl-active');   // HKS-91: load bar takes the top-left slot → fade the brand chip out
 }
 function miniProgress(got, total) {
   const el = document.getElementById('miniloader'); if (!el) return;
@@ -480,7 +483,31 @@ function hideMini() {
   const el = document.getElementById('miniloader'); if (!el) return;
   const bar = el.querySelector('.mbar > i'); if (bar) bar.style.width = '100%';
   el.classList.remove('show');
+  document.body.classList.remove('dl-active');   // HKS-91: load bar gone → brand chip fades back in (0.5s delay, via CSS)
 }
+
+// HKS-91: lock the viewport zoom. iOS Safari ignores user-scalable=no, so kill its
+// pinch gesture directly; touch-action (CSS) handles double-tap + non-iOS pinch.
+// The app's own 2-finger gestures use touch events, not gesture events — untouched.
+['gesturestart', 'gesturechange', 'gestureend'].forEach(ev =>
+  addEventListener(ev, e => e.preventDefault(), { passive: false }));
+
+// HKS-91: full-screen toggle (reclaims the mobile browser chrome, esp. landscape).
+// Fullscreen API covers desktop + Android; iOS Safari has no element fullscreen, so
+// fall back to the Add-to-Home-Screen nudge (standalone launch has no browser chrome).
+const fsRoot = document.documentElement;
+const fsActive = () => document.fullscreenElement || document.webkitFullscreenElement;
+function toggleFullscreen() {
+  if (fsActive()) { (document.exitFullscreen || document.webkitExitFullscreen || (() => {})).call(document); return; }
+  const req = fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen;
+  if (req) { const r = req.call(fsRoot); if (r && r.catch) r.catch(() => {}); return; }   // prefixed webkit form returns undefined, not a Promise
+  const bar = document.getElementById('installbar');        // iOS: no fullscreen API → show "Add to Home Screen"
+  if (bar && !(matchMedia('(display-mode: standalone)').matches || navigator.standalone === true)) bar.classList.add('ios', 'show');
+}
+function syncFsBtn() { const b = document.getElementById('fsbtn'); if (b) b.classList.toggle('on', !!fsActive()); }
+document.getElementById('fsbtn').addEventListener('click', e => { e.stopPropagation(); toggleFullscreen(); });
+document.addEventListener('fullscreenchange', syncFsBtn);
+document.addEventListener('webkitfullscreenchange', syncFsBtn);
 
 function updateNote() {
   document.getElementById('note').textContent =
@@ -1374,14 +1401,17 @@ function updateStormBadge() {
 function applyControlLocks() {
   const g = id => document.getElementById(id);
   const storm = stormLevel > 0;
-  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm);
+  const sg = document.body.classList.contains('stargazing');   // Stargaze clears + locks all weather/typhoon/live (HKS-91)
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow', 'wind', 'thunderrate'].forEach(id => g(id).disabled = liveMode || storm || sg);
   if (neonOn) g('snow').disabled = true;   // 風林火山 keeps Hong Kong snowbound
-  g('winddir').disabled = liveMode;      // direction stays adjustable under a storm
-  g('tide').disabled    = liveMode;
-  g('storm').disabled   = liveMode;
-  g('skymode').disabled = liveMode;      // live weather owns the clock too (sky = live HKT)
+  g('winddir').disabled = liveMode || sg;   // direction stays adjustable under a storm
+  g('tide').disabled    = liveMode || sg;
+  g('storm').disabled   = liveMode || sg;
+  g('skymode').disabled = liveMode;      // live weather owns the clock; Stargaze leaves sky/time adjustable (time=now, unlocked)
+  const live = g('livebtn'); if (live) live.disabled = sg;   // no live-weather sync while stargazing
   const lock = g('wxlock');
-  if (liveMode)     { lock.textContent = t('lock.live');  lock.style.display = 'block'; }
+  if (sg)           { lock.textContent = t('lock.stargaze'); lock.style.display = 'block'; }
+  else if (liveMode){ lock.textContent = t('lock.live');  lock.style.display = 'block'; }
   else if (storm)   { lock.textContent = t('lock.storm'); lock.style.display = 'block'; }
   else              { lock.style.display = 'none'; }
   const slock = g('skylock');
@@ -2507,16 +2537,12 @@ function stepFlight() {
   // --- HUD: real numbers (metres, knots), how-to card for the first seconds
   const az = ((-F.yaw / D2R) % 360 + 360) % 360;
   const touch = F.tilt && F.tiltRef != null;
-  const stats = `${F.landed ? '🛬' : '✈'} ${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +
+  const stats = `${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +   // no emoji — ✈/🛬 flickered as landed toggled (HKS-91)
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // speed now shows on the speed bar
     (F.landed ? ` · ${t('fly.landed')}` : '');
-  // HKS-86: the fly HUD is just live stats now — how-to + take-off in the Help
-  // drawer, camera toggle in the tray, exit via the dock/Esc
-  const hints = '';
-  if (F.helpT > 0) F.helpT--;
-  document.getElementById('flyhud').innerHTML = F.helpT > 0
-    ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
-    : `${stats}<small>${hints}</small>`;
+  // HKS-91: single-line live stats, top-left under the brand chip (how-to lives in
+  // the Help drawer, camera toggle by the compass, exit via the dock/Esc)
+  document.getElementById('flyhud').innerHTML = stats;
   updateSpeedGauge();
 }
 
@@ -2564,11 +2590,12 @@ function enterWalk(startLocal) {
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('walkbtn').classList.add('on');
   document.getElementById('walkbtn').blur();  // else Space/Enter re-clicks the button and exits
-  document.body.classList.add('flying');                  // fly/walk shared UI state (speed gauge, no-select)
+  document.body.classList.add('flying', 'walking');       // fly/walk shared UI state; walking gates the auto-walk button (HKS-91)
   controls.enabled = false;
   // HKS-86 §2: GPS follow/compass never persists outside Orbit — entering a
   // movement mode spawns at the fix (if it's on this map), then disengages
   if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
+  syncWalkAuto();
   refreshDock();
   if (!NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
 }
@@ -2581,7 +2608,7 @@ function exitWalk() {
   if (document.exitPointerLock) document.exitPointerLock();
   document.getElementById('flyhud').style.display = 'none';
   document.getElementById('walkbtn').classList.remove('on');
-  document.body.classList.remove('flying');
+  document.body.classList.remove('flying', 'walking');
   spinDir = walk.prevSpin;
   document.getElementById('spindir').value = String(spinDir);
   camera.fov = 38; camera.updateProjectionMatrix();
@@ -2831,9 +2858,11 @@ function startFollow() {
   if (geo.has) { if (stargaze.on) followVantage(); else centreOnMarker(true, true); }   // recentre now — the first watch fix is usually the stored one (jitter-gated)
   startWatch();
   clearTimeout(geo.autoStop); geo.autoStop = setTimeout(() => stopFollow(), 15 * 60000);   // battery backstop
+  clearInterval(geo.urlTimer); geo.urlTimer = setInterval(syncUrl, 30000);   // HKS-91: keep the shareable gps in the URL fresh (~30s)
 }
 function stopFollow() {
   if (geo.watch != null) { navigator.geolocation.clearWatch(geo.watch); geo.watch = null; }
+  clearInterval(geo.urlTimer); geo.urlTimer = null;
   clearTimeout(geo.autoStop); geo.paused = false; geo.following = false;
   locateBtn.classList.remove('follow'); if (geo.el) geo.el.classList.remove('live');
 }
@@ -3023,6 +3052,15 @@ function setCamView(fp) {   // fp = true → first-person
 }
 document.getElementById('cam-ext').addEventListener('click', () => setCamView(false));
 document.getElementById('cam-pov').addEventListener('click', () => setCamView(true));
+// HKS-91: auto-walk play/pause, beside the compass (was a ▶/⏸ link in the walk HUD)
+function syncWalkAuto() {
+  const b = document.getElementById('walk-auto');
+  if (!b) return;
+  b.classList.toggle('on', walk.auto);
+  b.setAttribute('aria-pressed', walk.auto ? 'true' : 'false');
+  b.firstElementChild.textContent = walk.auto ? '⏸' : '▶';   // ▶ = tap to auto-walk, ⏸ = tap to stop
+}
+document.getElementById('walk-auto').addEventListener('click', () => { walk.auto = !walk.auto; syncWalkAuto(); });
 
 function stepWalk() {
   if (!walk.on) return;
@@ -3122,18 +3160,14 @@ function stepWalk() {
   }
   controls.target.copy(_fl);
   const az = ((-walk.yaw / D2R) % 360 + 360) % 360;
-  const touch = matchMedia('(pointer: coarse)').matches;
   const odo = walk.dist < 1000 ? `${Math.round(walk.dist)} m` : `${(walk.dist / 1000).toFixed(2)} km`;
-  const stats = `${airborne ? '🪂' : '🚶'} ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
+  const stats = `${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // no emoji — 🚶/🪂 flickered as airborne toggled (HKS-91)
     ` · ${t('walk.dist')} ${odo}` +                       // odometer (speed now shows on the speed bar)
     (boost && moving ? ` · ${t('walk.jog')}` : '');
-  // HKS-86: how-to lives in the Help drawer, End is the tray's ✕ button — keep only
-  // live stats + the auto-walk toggle (touch)
-  const hints = touch ? `<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '';
-  if (walk.helpT > 0) walk.helpT--;
-  document.getElementById('flyhud').innerHTML = walk.helpT > 0
-    ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
-    : `${stats}<small>${hints}</small>`;
+  // HKS-91: stats only — auto-walk is now the ▶/⏸ button beside the compass;
+  // how-to lives in the Help drawer, End is the dock's Orbit button.
+  document.getElementById('flyhud').innerHTML = stats;
+  syncWalkAuto();
   updateSpeedGauge();
 }
 if (FLY_DEBUG) { window.__walk = walk; window.__stepWalk = () => stepWalk(); }
@@ -3368,7 +3402,7 @@ if (FLY_DEBUG) window.__setNeon = setNeon;
 // combinable. Entering hides the weather chip + radar dial (CSS, body.stargazing);
 // everything restores on exit.
 const stargaze = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0.9,
-                   prevSpin: 1, prevSky: null, orient: false };
+                   prevSpin: 1, prevWx: null, orient: false };
 function setSkyControl(mode, date, minutes) {   // drive the existing panel controls
   const g = id => document.getElementById(id);
   if (date != null) { g('skydate').value = date; g('skydate').dispatchEvent(new Event('change')); }
@@ -3396,18 +3430,29 @@ function enterStargaze() {
   if ((geo.following || geo.compass) && geoInBounds()) {
     const p = markerLocalPoint(); stargaze.pos.x = p.x; stargaze.pos.z = p.z;
   }
-  // guarantee the star layer: if the sky sim is off or it's daylight, jump the
-  // clock to tonight 22:00 (custom time); the previous setting restores on exit
-  updateCelestial();
-  if (!starGroup.visible) {
-    stargaze.prevSky = { mode: document.getElementById('skymode').value,
-                        date: document.getElementById('skydate').value,
-                        minutes: document.getElementById('skytime').value };
-    setSkyControl('fixed', hktDateStr(new Date()), 1320);
-  }
+  document.body.classList.add('stargazing');            // hides wx chip + radar dial; drives applyControlLocks (HKS-91)
+  // HKS-91: save the pre-stargaze "session", then clear the sky — live weather,
+  // all weather effects and the typhoon signal are turned off AND locked, so the
+  // planetarium always has a clean sky. Everything restores on exit.
+  const g = id => document.getElementById(id);
+  stargaze.prevWx = {
+    live: liveMode, storm: stormLevel,
+    rain: weather.rain, clouds: weather.clouds, fog: weather.fog,
+    lightning: weather.lightning, waves: weather.waves, snow: weather.snow,
+    wind: +g('wind').value, winddir: g('winddir').value,
+    skymode: g('skymode').value, skydate: g('skydate').value, skytime: g('skytime').value,
+  };
+  if (liveMode) setLiveMode(false);                     // off live weather data
+  if (stormLevel > 0) { g('storm').value = '0'; applyStorm(0); }   // off typhoon signal
+  ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow'].forEach(k => {   // off every weather effect
+    const cb = g(k); if (cb.checked) { cb.checked = false; cb.dispatchEvent(new Event('change')); }
+  });
+  if (+g('wind').value) { g('wind').value = 0; g('wind').dispatchEvent(new Event('input')); }
+  setSkyControl('live');                                // sky time = now (unlocked — scrub via the 🕐 panel)
+  setSgTimeVisible(false);                              // 🕐 sky-time panel hidden by default
+  applyControlLocks();                                  // lock the now-cleared weather/typhoon/live controls
   camera.fov = 60; camera.updateProjectionMatrix();     // wide for sky sweep
   controls.enabled = false;
-  document.body.classList.add('stargazing');            // dims wx chip + radar dial (CSS)
   document.getElementById('stargazebtn').blur();        // else ␣/Enter re-clicks and exits
   syncSgTray();
   refreshDock();
@@ -3416,16 +3461,32 @@ function exitStargaze() {
   if (!stargaze.on) return;
   stargaze.on = false;
   setStargazeOrient(false);   // GPS follow/compass persists into Orbit; only auto-arm drops
-  if (stargaze.prevSky) {                               // hand the sky clock back
-    setSkyControl(stargaze.prevSky.mode, stargaze.prevSky.date, stargaze.prevSky.minutes);
-    stargaze.prevSky = null;
+  document.body.classList.remove('stargazing');         // drop the lock before restoring (HKS-91)
+  // HKS-91: restore the pre-stargaze session (weather, typhoon, live sync, sky/time).
+  // If there was none, applyControlLocks below just leaves the current defaults.
+  const p = stargaze.prevWx;
+  if (p) {
+    const g = id => document.getElementById(id);
+    if (p.live) {
+      setLiveMode(true);                                // live re-derives weather + storm + live sky
+    } else {
+      if (p.storm > 0) { g('storm').value = String(p.storm); applyStorm(p.storm); }
+      else if (stormLevel > 0) { g('storm').value = '0'; applyStorm(0); }
+      ['rain', 'clouds', 'fog', 'lightning', 'waves', 'snow'].forEach(k => {
+        const cb = g(k); if (cb.checked !== p[k]) { cb.checked = p[k]; cb.dispatchEvent(new Event('change')); }
+      });
+      if (+g('wind').value !== p.wind) { g('wind').value = p.wind; g('wind').dispatchEvent(new Event('input')); }
+      if (g('winddir').value !== p.winddir) { g('winddir').value = p.winddir; g('winddir').dispatchEvent(new Event('change')); }
+      setSkyControl(p.skymode, p.skydate, p.skytime);   // hand the sky clock back
+    }
+    stargaze.prevWx = null;
   }
   spinDir = stargaze.prevSpin;
   document.getElementById('spindir').value = String(spinDir);
   camera.fov = 38; camera.updateProjectionMatrix();
   camera.up.set(0, 1, 0);
   controls.enabled = true;
-  document.body.classList.remove('stargazing');
+  applyControlLocks();                                  // unlock now that stargazing is off
   frameCamera();
   refreshDock();
 }
@@ -3501,16 +3562,16 @@ function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
   const live = skySim.on && skySim.live;
   g('sg-live').classList.toggle('on', live);
   g('sg-custom').classList.toggle('on', !live);
+  g('sgrow').classList.toggle('live', live);            // 2-line: live shows the clock, custom the slider (HKS-91)
   g('sg-time').disabled = live;
   g('sg-time').value = live ? hktMinutes(new Date()) : skySim.minutes;
   g('sg-timev').textContent = mmToHHMM(+g('sg-time').value);
+  if (live) g('sg-livetime').textContent = mmToHHMM(hktMinutes(new Date()));   // current HK time (ticks per frame)
   // auto-arm only makes sense on a device with real motion sensors. Desktop Chrome
   // defines DeviceOrientationEvent even with no compass, so also require a coarse
   // pointer (phone/tablet) — matches the startup gate above (HKS-90).
   g('sg-orient').hidden = !(matchMedia('(pointer: coarse)').matches && typeof DeviceOrientationEvent !== 'undefined');
   syncSgToggles();
-  const mi = moonIllumination(simDate());
-  g('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
 }
 document.getElementById('stargazebtn').addEventListener('click', () => stargaze.on ? exitStargaze() : enterStargaze());
 document.getElementById('sg-live').addEventListener('click', () => { setSkyControl('live'); syncSgTray(); });
@@ -3522,8 +3583,6 @@ document.getElementById('sg-time').addEventListener('input', e => {
   if (skySim.on && skySim.live) return;                 // scrub only drives custom time
   setSkyControl('fixed', null, +e.target.value);
   document.getElementById('sg-timev').textContent = mmToHHMM(+e.target.value);
-  const mi = moonIllumination(simDate());
-  document.getElementById('sg-hint').textContent = `☾ ${Math.round(mi.fraction * 100)}%`;   // how-to lives in the Help drawer (HKS-86)
 });
 document.getElementById('sg-orient').addEventListener('click', () => setStargazeOrient(!stargaze.orient));
 document.getElementById('sg-clock').addEventListener('click', () => setSgTimeVisible(document.body.classList.contains('sg-time-hidden')));
@@ -4718,6 +4777,12 @@ function serializeState() {
   if (FLY_DEBUG) p.set('debug', '1');
   p.set('mx', matrixOn ? '1' : '0');
   p.set('nn', neonOn ? '1' : '0');
+  const md = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : '';   // HKS-91: share the movement mode
+  if (md) p.set('md', md);
+  if (geo.has) p.set('gps', Math.round(geo.E) + ',' + Math.round(geo.N));         // HKS-91: share your location (HK1980 grid E,N)
+  // HKS-91: the Stargaze vantage + look — the serialized `cam` target is 1000m in
+  // front of the viewer (stepStargaze), so restore the anchor from this instead (codex)
+  if (stargaze.on) p.set('sg', [Math.round(stargaze.pos.x), Math.round(stargaze.pos.z), stargaze.yaw.toFixed(3), stargaze.pitch.toFixed(3)].join(','));
   p.set('au', sndOn ? '1' : '0');
   p.set('av', g('sndvol').value);
   p.set('su', skySim.on ? '1' : '0');
@@ -4813,6 +4878,27 @@ function applyState(p) {
       controls.update();
     }
   }
+  // HKS-91: restore a shared GPS location as a "you are here" pin (before the mode,
+  // so Stargaze can spawn on it). Matrix/Neon were applied above via mx/nn.
+  if (p.has('gps') && curG) {
+    const [E, N] = p.get('gps').split(',').map(Number);
+    if (isFinite(E) && isFinite(N)) { ensureGeoMarker(); geo.E = E; geo.N = N; geo.acc = Math.max(6, geo.acc); geo.has = true; refreshGpsBtn(); }
+  }
+  const md = p.get('md');                                  // HKS-91: restore the movement mode
+  if (md === 'fly' && !flight.on) enterFlight();
+  else if (md === 'walk' && !walk.on) enterWalk();
+  else if (md === 'star' && !stargaze.on) {
+    enterStargaze();
+    if (p.has('sg')) {                                     // anchor the vantage + look from the shared sg (not the 1000m-forward cam target)
+      const s = p.get('sg').split(',').map(Number);
+      if (s.length >= 4 && s.every(isFinite)) {
+        const b = bounds();
+        stargaze.pos.x = Math.max(-b.halfX, Math.min(b.halfX, s[0]));
+        stargaze.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, s[1]));
+        stargaze.yaw = s[2]; stargaze.pitch = s[3];
+      }
+    }
+  }
   restoring = false;
 }
 
@@ -4840,6 +4926,7 @@ function shareLink(target) {
   if (links[target]) window.open(links[target], '_blank', 'noopener,noreferrer');
 }
 document.getElementById('sharebtn').addEventListener('click', () => {
+  history.replaceState(null, '', '?' + serializeState());   // HKS-91: sync the address bar to exactly what we're sharing (incl. live GPS)
   const preferNative = navigator.share && matchMedia('(pointer: coarse)').matches;
   if (preferNative) {
     navigator.share({ title: t('share.title'), text: t('share.text'), url: shareUrl() })
@@ -4948,7 +5035,7 @@ applyLocale(locale);
 // still lands on the curated default, with its own extra params carried through.
 const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
 // canonical serialized keys + the optional ones serializeState only emits sometimes
-const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm']);
+const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm', 'md', 'gps', 'sg']);
 const urlParams = new URLSearchParams(location.search);
 const hasState = [...urlParams.keys()].some(k => STATE_KEYS.has(k));
 const startParams = hasState ? urlParams : new URLSearchParams(DEFAULT_STATE);
@@ -4966,8 +5053,9 @@ loadSource(startSrc).then(() => {
   // the scene fills the iframe and the controls are one tap away.
   if (startParams.get('embed') === '1') document.getElementById('panel').classList.add('collapsed');
   animate();
-  // default to live weather on (unless a shared link explicitly opted out with lv=0)
-  if (startParams.has('lv') ? startParams.get('lv') === '1' : true) setLiveMode(true);
+  // default to live weather on (unless a shared link explicitly opted out with lv=0,
+  // or we booted straight into Stargaze — which owns a clean, weather-free sky, HKS-91)
+  if (!stargaze.on && (startParams.has('lv') ? startParams.get('lv') === '1' : true)) setLiveMode(true);
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
   window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
 <base href="/"/><!-- keep relative asset paths root-anchored when served under /en-hk/ etc -->
 <!-- HKS-50: on the production domain, serve the heavy /data/ JSON from the R2 bucket
      (keeps bulk egress off the app host). Any other host — forks, previews, localhost —
@@ -112,14 +112,15 @@
   @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.5}}
   /* HKS-49: non-blocking mini-loader for the background vector-overlay stream.
      Top-centre glass chip; never intercepts input, never gates boot. */
-  #miniloader{position:fixed;top:16px;left:50%;transform:translate(-50%,-14px);z-index:30;
+  /* HKS-91: top-LEFT, sharing the brand chip's slot — they're mutually exclusive */
+  #miniloader{position:fixed;top:16px;left:16px;transform:translateY(-14px);z-index:41;
     pointer-events:none;display:flex;flex-direction:column;gap:6px;align-items:stretch;
     min-width:190px;max-width:calc(100vw - 32px);
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:12px;padding:9px 12px;
     box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
     opacity:0;transition:opacity .3s ease, transform .3s ease}
-  #miniloader.show{opacity:1;transform:translate(-50%,0)}
+  #miniloader.show{opacity:1;transform:translateY(0)}
   /* HKS-64: mobile install nudge — glass bar, dismissable, non-blocking. Hidden
      (opacity/pointer-events) until main.js decides the device is eligible. */
   /* full-width on phones (12px gutters), but centred + capped on tablets so it
@@ -144,7 +145,12 @@
   #miniloader .mbar{height:3px;border-radius:2px;background:rgba(127,136,150,.18);overflow:hidden}
   #miniloader .mbar > i{display:block;height:100%;width:0%;background:var(--accent);border-radius:2px;
     transition:width .25s ease}
-  #app{position:fixed;inset:0}
+  /* HKS-91: lock the viewport — kill double-tap zoom everywhere (manipulation) and
+     all browser gestures on the map canvas (none). The app's own 2-finger gestures
+     use touch events, which still fire; scrollable panels re-enable pan below. */
+  html,body{touch-action:manipulation}
+  #app{position:fixed;inset:0;touch-action:none}
+  #app>canvas{touch-action:none}
   #panel{position:fixed;top:16px;left:16px;z-index:42;   /* above the weather-notices drawer (41) so the controls stay on top */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:16px;padding:14px 15px;font-size:12.5px;line-height:1.5;
@@ -326,7 +332,7 @@
   /* floating circular radar/satellite HUD (HKS-74/79) — bottom-right, above the camera.
      The radar image is a rotating circle in the centre; SVG tab bands curve around the
      top (mode) and bottom (range/zoom) so the whole thing reads as one dial. */
-  #radarhud{position:fixed;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:20;
+  #radarhud{position:fixed;right:12px;bottom:calc(114px + env(safe-area-inset-bottom));z-index:20;   /* HKS-91: lifted to clear the speed bar + corner buttons */
     width:168px;height:168px;display:none;filter:drop-shadow(0 8px 20px rgba(0,0,0,.45))}
   #radarhud.show{display:block}
   #radarhud .rf-ring{position:absolute;left:16.5%;top:16.5%;width:67%;height:67%;border-radius:50%;
@@ -416,16 +422,26 @@
   /* HKS-86: flight/walk stats + speed share ONE glass box, stacked above the
      compass tape (flyhud on top, speed bar below) */
   #hudbox{display:none;flex-direction:column;align-items:center;gap:7px;box-sizing:border-box;
-    width:max-content;max-width:calc(100vw - 20px);padding:8px 13px;border-radius:12px;
+    width:min(330px,calc(100vw - 20px));overflow:hidden;padding:8px 13px;border-radius:12px;   /* HKS-91: fixed width — content no longer resizes the box (speed bar stays put, no overlap) */
     background:var(--panel);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);
     border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   body.flying #hudbox{display:flex}
   body.glass #hudbox{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #hudbox{background:rgba(252,250,246,.3)}
-  #flyhud{display:none;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--ink);
-    line-height:1.45;text-align:center;white-space:nowrap}   /* HKS-86: keep stats on one line */
+  /* HKS-91: live fly/walk stats — a single-line glass strip under the brand chip,
+     fading with the load bar exactly like the chip (body.dl-active). */
+  #flyhud{position:fixed;top:62px;left:16px;z-index:40;display:none;box-sizing:border-box;
+    max-width:calc(100vw - 32px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    padding:6px 13px;border-radius:12px;
+    background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
+    font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink);
+    transition:opacity .4s ease .5s}
   body.flying #flyhud{display:block}
-  #flyhud small{display:block;color:var(--sub);font-size:9.5px;margin-top:2px;letter-spacing:.08em}
+  body.dl-active #flyhud{opacity:0;pointer-events:none;transition:opacity .2s ease 0s}
+  #panel:not(.collapsed) ~ #flyhud{display:none}   /* open panel covers the top-left */
+  body.glass #flyhud{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #flyhud{background:rgba(252,250,246,.22)}
   /* HKS-86: bottom-centre instrument cluster — contextual tray · compass tape ·
      speed gauge · mode dock, one column. Replaces the strays that used to share
      the bottom edge (mode buttons in the panel, #flyhud, floating compass). */
@@ -449,8 +465,8 @@
   #dockgear{width:40px;height:40px;padding:0;justify-content:center;font-size:28px}   /* 1.5× the glyph in the same tap target */
   .dockdiv{width:1px;align-self:stretch;margin:4px 3px;background:var(--edge-soft)}
   /* contextual tray — per-mode affordances above the compass tape */
-  #modetray{display:flex;flex-direction:column;gap:8px;padding:9px 13px;border-radius:13px;
-    width:min(400px,calc(100vw - 24px));box-sizing:border-box;
+  #modetray{display:flex;flex-direction:column;gap:6px;padding:8px 12px;border-radius:13px;
+    width:min(280px,calc(100vw - 108px));box-sizing:border-box;   /* HKS-91: narrow + locked so it clears the GPS buttons on the right */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow)}
   body.glass #modetray{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
@@ -464,8 +480,12 @@
   #sgskypill button{border:none;border-radius:0;background:none;box-shadow:none;padding:5px 10px;font-size:11px;color:var(--sub)}
   #sgskypill button.on{background:var(--accent-dim);color:var(--accent)}
   #sg-time{flex:1;min-width:60px}
-  #sg-timev{flex:0 0 40px;text-align:right;font-family:var(--mono);font-size:10.5px;color:var(--ink)}
-  #sg-hint{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--sub);text-align:center}
+  #sg-timev{flex:0 0 44px;text-align:right;font-family:var(--mono);font-size:11px;color:var(--ink);font-variant-numeric:tabular-nums}
+  /* HKS-91: 2-line sky clock — tabs on top; live shows the current HK time, custom shows slider + value */
+  #sg-line2{min-height:24px}
+  #sg-livetime{font-family:var(--mono);font-size:15px;letter-spacing:.04em;color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+  #sgrow.live #sg-time,#sgrow.live #sg-timev{display:none}
+  #sgrow:not(.live) #sg-livetime{display:none}
   /* stargazing dims the weather chip + radar dial for a cleaner sky (restored on exit) */
   #wxhud,#radarhud{transition:opacity .5s ease}
   /* HKS-90: fully hide the weather box + radar in Stargaze — dimming to a low
@@ -476,12 +496,13 @@
      readout shows the actual speed (kt / km·h), no percentage */
   #spdwrap{display:none;align-items:center;gap:8px;width:100%;box-sizing:border-box}
   body.flying #spdwrap{display:flex}
-  #spdwrap #spdpct{flex:0 0 auto;min-width:58px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)}
+  /* HKS-91: reserve a fixed 8 mono chars — 3 speed + 1 space + 4 unit (e.g. "120 km·h") — so the readout never resizes the gauge */
+  #spdwrap #spdpct{flex:0 0 auto;width:8ch;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono);font-variant-numeric:tabular-nums}
   /* fly/walk: hold-to-gas must never trigger text selection or the iOS long-press callout (HKS-81) */
   body.flying{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
   body.flying #flyhud [data-fly]{-webkit-user-select:auto;user-select:auto}   /* keep the HUD links tappable */
   #cornerui{position:fixed;right:12px;bottom:calc(30px + env(safe-area-inset-bottom));z-index:22;
-    display:flex;flex-direction:column;gap:8px;align-items:center}
+    display:flex;flex-direction:column;gap:8px;align-items:center}   /* fullscreen above camera */
   #cornerui button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);cursor:pointer;font-size:16px;padding:0;
@@ -489,12 +510,15 @@
   #cornerui button svg{display:block;transform:translateY(.5px)}   /* camera glyph is top-heavy — nudge to optical centre */
   body.glass #cornerui button{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #cornerui button{background:rgba(252,250,246,.22)}
+  #cornerui #fsbtn.on{border-color:var(--accent);color:var(--accent)}   /* HKS-91: lit while in full screen */
   /* HKS-86: sandbox identity chip — icon + title in a glass container */
   #brandchip{position:fixed;top:16px;left:16px;z-index:40;display:flex;align-items:center;gap:9px;
     padding:8px 14px 8px 11px;border-radius:13px;pointer-events:none;white-space:nowrap;
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);box-shadow:var(--panel-shadow), inset 0 1px 0 var(--panel-glow);
-    font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.01em}
+    font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.01em;
+    transition:opacity .4s ease .5s}   /* HKS-91: fades back in 0.5s after the load bar hides */
+  body.dl-active #brandchip{opacity:0;pointer-events:none;transition:opacity .2s ease 0s}   /* the load bar owns the top-left slot while downloading */
   #brandchip img{width:22px;height:22px;border-radius:6px;flex:0 0 auto}
   body.glass #brandchip{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #brandchip{background:rgba(252,250,246,.22)}
@@ -502,7 +526,7 @@
   /* GPS "you are here" locate control (HKS-83/86) — right column, above the radar
      dial. Maps-style stateful button: outline target (off) → filled my-location
      (follow, Google-location blue) → navigation arrow (compass, heading-up). */
-  #locateui{position:fixed;right:12px;bottom:260px;z-index:22;display:flex;flex-direction:column;align-items:center;gap:6px;transition:bottom .3s ease}
+  #locateui{position:fixed;right:12px;bottom:280px;z-index:22;display:flex;flex-direction:column;align-items:center;gap:6px;transition:bottom .3s ease}
   body:not(.radar-on) #locateui{bottom:calc(78px + env(safe-area-inset-bottom))}   /* radar hidden → sit right above the camera button */
   #locateui #locatebtn{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
@@ -540,7 +564,12 @@
     background:#1a73e8;padding:1px 7px;border-radius:7px}
   /* HKS-86: camera-angle segmented toggle sits to the left of the compass; both
      share a centered row. The toggle only shows in fly/walk (body.flying). */
-  #cmprow{display:flex;align-items:center;justify-content:center;gap:7px}
+  /* HKS-91: 3-column grid keeps the compass dead-centre on screen; equal 1fr side
+     slots flank it, so per-mode controls never shift the compass off-centre. */
+  #cmprow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:7px}
+  .cmpside{display:flex;align-items:center;gap:7px;min-width:0}
+  .cmpleft{justify-content:flex-end}
+  .cmpright{justify-content:flex-start}
   #camseg{display:none;align-items:center;height:30px;border-radius:9px;overflow:hidden;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35)}
@@ -554,16 +583,17 @@
   #camseg button:hover{color:var(--ink)}
   /* HKS-90: Stargaze's left-of-compass toggles (🕐 sky-time, 🤳 auto-arm) take the
      same slot the fly/walk camera toggle uses. Icon-only. */
-  #sg-orient,#sg-clock{display:none;align-items:center;justify-content:center;height:30px;min-width:34px;padding:0 9px;
+  #sg-orient,#sg-clock,#walk-auto{display:none;align-items:center;justify-content:center;height:30px;min-width:34px;padding:0 9px;
     border-radius:9px;background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);box-shadow:0 6px 18px rgba(0,0,0,.35);
     font-size:14px;line-height:1;color:var(--sub);cursor:pointer;transition:color .12s,background .12s}
   body.stargazing #sg-orient,body.stargazing #sg-clock{display:inline-flex}
   body.stargazing #sg-orient[hidden]{display:none}   /* device with no orientation sensor */
-  body.glass #sg-orient,body.glass #sg-clock{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
-  body.glass.ui-light #sg-orient,body.glass.ui-light #sg-clock{background:rgba(252,250,246,.3)}
-  #sg-orient.on,#sg-clock.on{background:var(--accent-dim);color:var(--accent)}
-  @media (hover:hover){#sg-orient:hover,#sg-clock:hover{color:var(--ink)}}   /* no sticky hover on touch */
+  body.walking #walk-auto{display:inline-flex}       /* auto-walk play/pause — walk mode only (HKS-91) */
+  body.glass #sg-orient,body.glass #sg-clock,body.glass #walk-auto{background:rgba(10,13,18,.4);backdrop-filter:none;-webkit-backdrop-filter:none}
+  body.glass.ui-light #sg-orient,body.glass.ui-light #sg-clock,body.glass.ui-light #walk-auto{background:rgba(252,250,246,.3)}
+  #sg-orient.on,#sg-clock.on,#walk-auto.on{background:var(--accent-dim);color:var(--accent)}
+  @media (hover:hover){#sg-orient:hover,#sg-clock:hover,#walk-auto:hover{color:var(--ink)}}   /* no sticky hover on touch */
   /* 🕐 toggle hides the whole sky-time container for a clean sky */
   body.sg-time-hidden #modetray{display:none}
   /* band heading indicator (directional-gyro tape) — rides on top of the mode
@@ -639,7 +669,7 @@
     /* right column stacks clear of the dock: snapshot → radar dial → GPS FAB */
     #cornerui{bottom:calc(64px + env(safe-area-inset-bottom))}
     #cornerui button{width:36px;height:36px;box-sizing:border-box}
-    #locateui{right:12px;left:auto;bottom:calc(248px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
+    #locateui{right:12px;left:auto;bottom:calc(268px + env(safe-area-inset-bottom))}   /* above the radar dial (right column) */
     body:not(.radar-on) #locateui{bottom:calc(108px + env(safe-area-inset-bottom))}   /* radar hidden → above the camera button */
     #locateui #locatebtn{width:36px;height:36px;box-sizing:border-box}
     /* HKS-75: the open bottom-sheet drawer overlaps the bottom corner UI — the
@@ -663,7 +693,7 @@
     /* keep the radar/satellite circle compact on phones so the weather box doesn't
        grow tall enough to sit over the controls behind it */
     /* compact circular HUD on phones; sits above the camera button (bottom-right) */
-    #radarhud{width:128px;height:128px;bottom:calc(112px + env(safe-area-inset-bottom))}
+    #radarhud{width:128px;height:128px;bottom:calc(142px + env(safe-area-inset-bottom))}   /* HKS-91: lifted to clear the speed bar + corner buttons */
     #radarhud.big{width:min(166px,calc(100vw - 24px));height:min(166px,calc(100vw - 24px))}   /* 30% larger than the 128px default */
     #radarhud .rf-lab{font-size:9px}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
@@ -685,8 +715,8 @@
       width:auto;max-width:none;max-height:64vh}
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
     /* fly/walk stats HUD — tighten inside the shared hudbox on phones */
-    #flyhud{font-size:10px;line-height:1.4}
-    #flyhud small{font-size:8.5px;margin-top:2px;letter-spacing:.06em}
+    #flyhud{top:calc(52px + env(safe-area-inset-top));font-size:10px;padding:5px 11px}   /* under the shorter mobile brand chip */
+    #hudbox{width:min(264px,calc((100vw - 20px) * 0.8))}   /* HKS-91: -20% so the speed bar clears the radar / corner buttons */
     #compass{width:min(186px,52vw);height:26px}
     #camseg{height:26px}
     #camseg button{min-width:28px;font-size:12px}
@@ -952,7 +982,10 @@
   <img src="/favicon-32.png" alt=""/>
   <span data-i18n="app.title">Hong Kong Sandbox</span>
 </div>
+<!-- HKS-91: live fly/walk stats — a single line under the brand chip, same fade as it -->
+<div id="flyhud"></div>
 <div id="cornerui">
+  <button id="fsbtn" title="Full screen" aria-label="Toggle full screen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
   <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>
 <!-- HKS-83/86: GPS "you are here" — a maps-style stateful button. Tap cycles
@@ -975,30 +1008,37 @@
           <button id="sg-live" data-i18n="sg.live">● Live sky</button>
           <button id="sg-custom" data-i18n="sg.custom">🕐 Custom</button>
         </span>
-        <input id="sg-time" type="range" min="0" max="1439" step="1" value="1320" aria-label="Sky time"/>
-        <span id="sg-timev">22:00</span>
       </div>
-      <div id="sg-hint"></div>
+      <div class="sgline" id="sg-line2">
+        <span id="sg-livetime">—</span>                <!-- live: current HK time -->
+        <input id="sg-time" type="range" min="0" max="1439" step="1" value="1320" aria-label="Sky time"/>
+        <span id="sg-timev">22:00</span>               <!-- custom: slider value -->
+      </div>
     </div>
   </div>
-  <!-- HKS-86: flight/walk stats + speed share one glass box, above the compass -->
+  <!-- HKS-91: the speed gauge sits above the compass; the stats line moved to the
+       top-left under the brand chip (#flyhud) -->
   <div id="hudbox">
-    <div id="flyhud"></div>
     <div id="spdwrap" title="Speed — the readout shows your actual speed (kt / km·h); the bar fills toward top speed and redlines at full boost">
       <div id="spdgauge"><div id="spdfill"></div></div>
       <span id="spdpct">—</span>
     </div>
   </div>
-  <!-- HKS-86: camera-angle segmented toggle (fly/walk) sits left of the compass -->
+  <!-- HKS-91: compass tape stays dead-centre; per-mode controls flank it in equal
+       side slots (left: camera toggle + 🕐 sky-time · right: 🤳 auto-arm + ▶ auto-walk) -->
   <div id="cmprow">
-    <span id="camseg" role="group" aria-label="Camera angle">
-      <button id="cam-ext" type="button" aria-pressed="false" title="Chase / external camera (C)"><span aria-hidden="true">🎥</span></button>
-      <button id="cam-pov" type="button" aria-pressed="false" title="First-person camera (C)"><span aria-hidden="true">👁</span></button>
+    <span class="cmpside cmpleft">
+      <span id="camseg" role="group" aria-label="Camera angle">
+        <button id="cam-ext" type="button" aria-pressed="false" title="Chase / external camera (C)"><span aria-hidden="true">🎥</span></button>
+        <button id="cam-pov" type="button" aria-pressed="false" title="First-person camera (C)"><span aria-hidden="true">👁</span></button>
+      </span>
+      <button id="sg-clock" type="button" aria-pressed="true" title="Show / hide the sky time" data-i18n-title="sg.clock" data-i18n-aria-label="sg.clock"><span aria-hidden="true">🕐</span></button>
     </span>
-    <!-- HKS-90: Stargaze's left-of-compass control strip — 🕐 sky-time toggle + 🤳 auto-arm -->
-    <button id="sg-clock" type="button" aria-pressed="true" title="Show / hide the sky time" data-i18n-title="sg.clock" data-i18n-aria-label="sg.clock"><span aria-hidden="true">🕐</span></button>
-    <button id="sg-orient" type="button" aria-pressed="false" title="🤳 Point at the sky" data-i18n-title="sg.orient" data-i18n-aria-label="sg.orient"><span aria-hidden="true">🤳</span></button>
     <canvas id="compass" title="Heading — click to face north"></canvas>
+    <span class="cmpside cmpright">
+      <button id="sg-orient" type="button" aria-pressed="false" title="🤳 Point at the sky" data-i18n-title="sg.orient" data-i18n-aria-label="sg.orient"><span aria-hidden="true">🤳</span></button>
+      <button id="walk-auto" type="button" aria-pressed="false" title="Auto-walk (play / pause)" data-i18n-title="walk.auto" data-i18n-aria-label="walk.auto"><span aria-hidden="true">▶</span></button>
+    </span>
   </div>
   <div id="dock" role="toolbar" aria-label="Explore modes and world themes">
     <button id="dockgear" class="dockbtn" title="Settings" data-i18n-title="dock.settings" aria-label="Settings" data-i18n-aria-label="dock.settings">⚙</button>
