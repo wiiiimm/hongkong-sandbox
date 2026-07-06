@@ -1,0 +1,52 @@
+name: Release
+# [AUTOMATED] On push to main, semantic-release reads Conventional Commits,
+# computes the next version, updates CHANGELOG.md, tags, and publishes a GitHub
+# Release (and npm package, if @semantic-release/npm is configured).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {} # manual "cut a release" button (also enables pooled releases)
+
+# Lets semantic-release push the release commit/tag and create the GitHub Release.
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false # never cancel an in-flight release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # Don't loop: the release commit semantic-release pushes (chore(release): …)
+    # would otherwise re-trigger this workflow. AND — since workflow_dispatch can be
+    # launched from ANY branch — only ever release from the default branch (a release
+    # cut from a feature branch would be wrong). Push events already only fire on main.
+    if: ${{ !startsWith(github.event.head_commit.message || '', 'chore(release):') && (github.event_name != 'workflow_dispatch' || github.ref_name == github.event.repository.default_branch) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # REQUIRED: semantic-release needs full history + tags
+          persist-credentials: false # use the token below, not the checkout token
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/* # current LTS; satisfies semantic-release's Node >= 22.14.0
+          cache: npm
+
+      - run: npm ci
+
+      - name: Release
+        env:
+          # A token with write access (a PAT/bot if you need release commits to
+          # trigger downstream workflows; the built-in GITHUB_TOKEN does not).
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # only needed if publishing to npm
+        # Pass the live repo URL so an org/name rename can't desync it from
+        # package.json's repository field (avoids EMISMATCHGITHUBURL).
+        # GITHUB_SERVER_URL (not hard-coded github.com) keeps this portable on GHES.
+        run: npx semantic-release --repository-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
