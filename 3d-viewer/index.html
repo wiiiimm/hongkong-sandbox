@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
 <base href="/"/><!-- keep relative asset paths root-anchored when served under /en-hk/ etc -->
 <!-- HKS-50: on the production domain, serve the heavy /data/ JSON from the R2 bucket
      (keeps bulk egress off the app host). Any other host — forks, previews, localhost —
@@ -145,7 +145,12 @@
   #miniloader .mbar{height:3px;border-radius:2px;background:rgba(127,136,150,.18);overflow:hidden}
   #miniloader .mbar > i{display:block;height:100%;width:0%;background:var(--accent);border-radius:2px;
     transition:width .25s ease}
-  #app{position:fixed;inset:0}
+  /* HKS-91: lock the viewport — kill double-tap zoom everywhere (manipulation) and
+     all browser gestures on the map canvas (none). The app's own 2-finger gestures
+     use touch events, which still fire; scrollable panels re-enable pan below. */
+  html,body{touch-action:manipulation}
+  #app{position:fixed;inset:0;touch-action:none}
+  #app>canvas{touch-action:none}
   #panel{position:fixed;top:16px;left:16px;z-index:42;   /* above the weather-notices drawer (41) so the controls stay on top */
     background:var(--panel);backdrop-filter:blur(18px) saturate(1.25);-webkit-backdrop-filter:blur(18px) saturate(1.25);
     border:1px solid var(--edge);border-radius:16px;padding:14px 15px;font-size:12.5px;line-height:1.5;

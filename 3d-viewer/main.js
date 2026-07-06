@@ -486,6 +486,12 @@ function hideMini() {
   document.body.classList.remove('dl-active');   // HKS-91: load bar gone → brand chip fades back in (0.5s delay, via CSS)
 }
 
+// HKS-91: lock the viewport zoom. iOS Safari ignores user-scalable=no, so kill its
+// pinch gesture directly; touch-action (CSS) handles double-tap + non-iOS pinch.
+// The app's own 2-finger gestures use touch events, not gesture events — untouched.
+['gesturestart', 'gesturechange', 'gestureend'].forEach(ev =>
+  addEventListener(ev, e => e.preventDefault(), { passive: false }));
+
 function updateNote() {
   document.getElementById('note').textContent =
     `${gridW}×${gridH} ${t('note.mesh')} · ${(gridW*gridH/1e3).toFixed(0)}k ${t('note.verts')} · ${t('note.peak')} ${Math.round(zmax)} ${t('note.m')}`;
