@@ -492,6 +492,23 @@ function hideMini() {
 ['gesturestart', 'gesturechange', 'gestureend'].forEach(ev =>
   addEventListener(ev, e => e.preventDefault(), { passive: false }));
 
+// HKS-91: full-screen toggle (reclaims the mobile browser chrome, esp. landscape).
+// Fullscreen API covers desktop + Android; iOS Safari has no element fullscreen, so
+// fall back to the Add-to-Home-Screen nudge (standalone launch has no browser chrome).
+const fsRoot = document.documentElement;
+const fsActive = () => document.fullscreenElement || document.webkitFullscreenElement;
+function toggleFullscreen() {
+  if (fsActive()) { (document.exitFullscreen || document.webkitExitFullscreen || (() => {})).call(document); return; }
+  const req = fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen;
+  if (req) { req.call(fsRoot).catch(() => {}); return; }
+  const bar = document.getElementById('installbar');        // iOS: no fullscreen API → show "Add to Home Screen"
+  if (bar && !(matchMedia('(display-mode: standalone)').matches || navigator.standalone === true)) bar.classList.add('ios', 'show');
+}
+function syncFsBtn() { const b = document.getElementById('fsbtn'); if (b) b.classList.toggle('on', !!fsActive()); }
+document.getElementById('fsbtn').addEventListener('click', e => { e.stopPropagation(); toggleFullscreen(); });
+document.addEventListener('fullscreenchange', syncFsBtn);
+document.addEventListener('webkitfullscreenchange', syncFsBtn);
+
 function updateNote() {
   document.getElementById('note').textContent =
     `${gridW}×${gridH} ${t('note.mesh')} · ${(gridW*gridH/1e3).toFixed(0)}k ${t('note.verts')} · ${t('note.peak')} ${Math.round(zmax)} ${t('note.m')}`;

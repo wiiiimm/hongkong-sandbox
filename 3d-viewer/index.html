@@ -500,6 +500,7 @@
   #cornerui button svg{display:block;transform:translateY(.5px)}   /* camera glyph is top-heavy — nudge to optical centre */
   body.glass #cornerui button{background:rgba(10,13,18,.34);backdrop-filter:none;-webkit-backdrop-filter:none}
   body.glass.ui-light #cornerui button{background:rgba(252,250,246,.22)}
+  #cornerui #fsbtn.on{border-color:var(--accent);color:var(--accent)}   /* HKS-91: lit while in full screen */
   /* HKS-86: sandbox identity chip — icon + title in a glass container */
   #brandchip{position:fixed;top:16px;left:16px;z-index:40;display:flex;align-items:center;gap:9px;
     padding:8px 14px 8px 11px;border-radius:13px;pointer-events:none;white-space:nowrap;
@@ -972,6 +973,7 @@
   <span data-i18n="app.title">Hong Kong Sandbox</span>
 </div>
 <div id="cornerui">
+  <button id="fsbtn" title="Full screen" aria-label="Toggle full screen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
   <button id="snapbtn" title="Save a photo of the view (PNG)" aria-label="Save a photo of the view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></button>
 </div>
 <!-- HKS-83/86: GPS "you are here" — a maps-style stateful button. Tap cycles
