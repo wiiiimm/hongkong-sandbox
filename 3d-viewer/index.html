@@ -258,10 +258,12 @@
   .ss-head button{width:28px;height:28px;padding:0;display:grid;place-items:center;border-radius:8px;background:none;border:none;color:var(--sub);cursor:pointer}
   .ss-head button:hover{color:var(--ink)}
   .ss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .ss-grid button{display:grid;place-items:center;height:58px;border-radius:12px;
+  .ss-grid button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+    min-height:66px;padding:11px 4px;border-radius:12px;
     background:var(--field);border:1px solid var(--field-edge);color:var(--ink);cursor:pointer;transition:color .12s,background .12s,border-color .12s}
   @media (hover:hover){.ss-grid button:hover{color:var(--accent);border-color:var(--accent)}}
   .ss-grid button svg{display:block;width:22px;height:22px}
+  .ss-grid small{font-size:10px;letter-spacing:.01em;line-height:1;color:inherit}
   #ss-status{min-height:15px;margin-top:11px;text-align:center;font-size:11px;font-family:var(--mono);color:var(--accent)}
   #embedcode{width:100%;box-sizing:border-box;margin-top:10px;height:64px;resize:none;
     background:var(--field);color:var(--panel-ink);border:1px solid var(--field-edge);border-radius:8px;
@@ -1136,12 +1138,12 @@
       <button id="ss-close" title="Close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <div class="ss-grid">
-      <button id="ss-native" title="Share…" aria-label="Open the system share sheet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg></button>
-      <button id="ss-wa" title="WhatsApp" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.3A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.5 9c0 4 2.5 6.5 6.5 6.5" stroke-width="1.6"/></svg></button>
-      <button id="ss-x" title="X" aria-label="Share on X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
-      <button id="ss-th" title="Threads" aria-label="Share on Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 12v1a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg></button>
-      <button id="ss-copy" title="Copy link" data-i18n-title="btn.copylink" aria-label="Copy link" data-i18n-aria-label="btn.copylink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></button>
-      <button id="ss-embed" title="Embed" data-i18n-title="share.embed" aria-label="Copy embed code" data-i18n-aria-label="share.embed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></button>
+      <button id="ss-native" title="Share…" aria-label="Open the system share sheet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg><small data-i18n="btn.share">Share</small></button>
+      <button id="ss-wa" title="WhatsApp" aria-label="Share on WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.3A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.5 9c0 4 2.5 6.5 6.5 6.5" stroke-width="1.6"/></svg><small>WhatsApp</small></button>
+      <button id="ss-x" title="X" aria-label="Share on X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><small>X</small></button>
+      <button id="ss-th" title="Threads" aria-label="Share on Threads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 12v1a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg><small>Threads</small></button>
+      <button id="ss-copy" title="Copy link" data-i18n-title="btn.copylink" aria-label="Copy link" data-i18n-aria-label="btn.copylink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><small data-i18n="btn.copylink">Copy link</small></button>
+      <button id="ss-embed" title="Embed" data-i18n-title="share.embed" aria-label="Copy embed code" data-i18n-aria-label="share.embed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><small data-i18n="share.embed">Embed</small></button>
     </div>
     <div id="ss-status" aria-live="polite"></div>
     <textarea id="embedcode" readonly spellcheck="false" hidden></textarea>
