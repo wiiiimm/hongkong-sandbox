@@ -119,7 +119,7 @@ const I18N = {
     'sg.orient': '🤳 Point at the sky', 'sg.clock': 'Show / hide the sky time',
     'sg.hint': 'drag to look · tap a constellation',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
-    'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked', 'walk.auto': 'Auto-walk (play / pause)',
+    'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked', 'walk.auto': 'Auto-walk (play / pause)', 'walk.lock': 'View lock — move the mouse to look (Esc to release)',
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
@@ -205,7 +205,7 @@ const I18N = {
     'sg.orient': '🤳 指向天空', 'sg.clock': '顯示／隱藏天空時間',
     'sg.hint': '拖曳環視 · 點選星座',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
-    'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行', 'walk.auto': '自動步行（播放／暫停）',
+    'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行', 'walk.auto': '自動步行（播放／暫停）', 'walk.lock': '視角鎖定 — 移動滑鼠環顧（按 Esc 解除）',
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
@@ -2554,9 +2554,6 @@ const walk = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: -0.04,
                keys: {}, prevSpin: 1, auto: false, helpT: 0, dist: 0, bob: 0,
                vy: 0, land: 0, spd: 0, top: 24 / 3.6, pov: true, touchHold: 0 };
 let hikerGrp = null;
-// ?nolock=1 — debug switch: skip pointer lock; mouse look becomes drag-to-look
-// so the keyboard path can be tested in isolation from the lock
-const NO_LOCK = new URLSearchParams(location.search).has('nolock');
 function enterWalk(startLocal) {
   if (walk.on || !curG) return;
   if (flight.on) exitFlight();
@@ -2597,7 +2594,9 @@ function enterWalk(startLocal) {
   if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
   syncWalkAuto();
   refreshDock();
-  if (!NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+  // HKS-88: Walk no longer auto-grabs the pointer — look is hold-left-drag by
+  // default (like Fly/Stargaze), so the dock/compass/GPS stay clickable. The 🖱
+  // view-lock button opts into pointer-lock (immersive FPS) on desktop.
 }
 function exitWalk() {
   if (!walk.on) return;
@@ -2940,13 +2939,15 @@ locateBtn.addEventListener('click', e => {
     removeMarker(); refreshGpsBtn();
   }
 });
-addEventListener('mousemove', e => {                      // pointer-lock look
-  if (!walk.on || document.pointerLockElement !== renderer.domElement) return;
-  walk.yaw -= e.movementX * 0.0022;
-  walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - e.movementY * 0.0022));
-});
-renderer.domElement.addEventListener('click', () => {     // re-arm the lock after Esc
-  if (walk.on && !NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+// HKS-88: walk look — pointer-lock (move = look) when the 🖱 view-lock is engaged,
+// otherwise hold-left-drag (cursor stays free for the dock/compass/UI).
+addEventListener('mousemove', e => {
+  if (!walk.on) return;
+  const locked = document.pointerLockElement === renderer.domElement;
+  if (!locked && e.buttons !== 1) return;                 // unlocked → only while holding the left button
+  const k = locked ? 0.0022 : 0.0035;
+  walk.yaw -= e.movementX * k;
+  walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - e.movementY * k));
 });
 renderer.domElement.addEventListener('pointerdown', () => {   // tap anywhere = take off
   if (flight.on && flight.landed) takeOff();
@@ -2959,12 +2960,6 @@ addEventListener('mousemove', e => {
   flight.mouseLook = true;
 });
 addEventListener('mouseup', () => { flight.mouseLook = false; });
-// nolock debug mode: hold the left button and drag to look
-addEventListener('mousemove', e => {
-  if (!walk.on || !NO_LOCK || e.buttons !== 1) return;
-  walk.yaw -= e.movementX * 0.0035;
-  walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - e.movementY * 0.0035));
-});
 let _lastTouch = null;                                    // phones: drag to look
 addEventListener('touchmove', e => {
   if (e.target !== renderer.domElement || !(walk.on || flight.on || stargaze.on)) return;
@@ -3061,6 +3056,20 @@ function syncWalkAuto() {
   b.firstElementChild.textContent = walk.auto ? '⏸' : '▶';   // ▶ = tap to auto-walk, ⏸ = tap to stop
 }
 document.getElementById('walk-auto').addEventListener('click', () => { walk.auto = !walk.auto; syncWalkAuto(); });
+// HKS-88: 🖱 view-lock — opt into pointer-lock (immersive FPS look) in Walk. Default
+// is hold-drag; this button captures the pointer so moving the mouse looks around.
+// Esc releases it (browser); pointerlockchange keeps the button state honest.
+function syncWalkLock() {
+  const b = document.getElementById('walk-lock'); if (!b) return;
+  const on = document.pointerLockElement === renderer.domElement;
+  b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+}
+document.getElementById('walk-lock').addEventListener('click', e => {
+  e.stopPropagation();
+  if (document.pointerLockElement === renderer.domElement) { if (document.exitPointerLock) document.exitPointerLock(); }
+  else if (renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+});
+document.addEventListener('pointerlockchange', syncWalkLock);
 
 function stepWalk() {
   if (!walk.on) return;
