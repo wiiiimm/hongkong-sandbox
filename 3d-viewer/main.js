@@ -2845,9 +2845,11 @@ function startFollow() {
   if (geo.has) { if (stargaze.on) followVantage(); else centreOnMarker(true, true); }   // recentre now — the first watch fix is usually the stored one (jitter-gated)
   startWatch();
   clearTimeout(geo.autoStop); geo.autoStop = setTimeout(() => stopFollow(), 15 * 60000);   // battery backstop
+  clearInterval(geo.urlTimer); geo.urlTimer = setInterval(syncUrl, 30000);   // HKS-91: keep the shareable gps in the URL fresh (~30s)
 }
 function stopFollow() {
   if (geo.watch != null) { navigator.geolocation.clearWatch(geo.watch); geo.watch = null; }
+  clearInterval(geo.urlTimer); geo.urlTimer = null;
   clearTimeout(geo.autoStop); geo.paused = false; geo.following = false;
   locateBtn.classList.remove('follow'); if (geo.el) geo.el.classList.remove('live');
 }
@@ -4762,6 +4764,9 @@ function serializeState() {
   if (FLY_DEBUG) p.set('debug', '1');
   p.set('mx', matrixOn ? '1' : '0');
   p.set('nn', neonOn ? '1' : '0');
+  const md = flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'star' : '';   // HKS-91: share the movement mode
+  if (md) p.set('md', md);
+  if (geo.has) p.set('gps', Math.round(geo.E) + ',' + Math.round(geo.N));         // HKS-91: share your location (HK1980 grid E,N)
   p.set('au', sndOn ? '1' : '0');
   p.set('av', g('sndvol').value);
   p.set('su', skySim.on ? '1' : '0');
@@ -4857,6 +4862,16 @@ function applyState(p) {
       controls.update();
     }
   }
+  // HKS-91: restore a shared GPS location as a "you are here" pin (before the mode,
+  // so Stargaze can spawn on it). Matrix/Neon were applied above via mx/nn.
+  if (p.has('gps') && curG) {
+    const [E, N] = p.get('gps').split(',').map(Number);
+    if (isFinite(E) && isFinite(N)) { ensureGeoMarker(); geo.E = E; geo.N = N; geo.acc = Math.max(6, geo.acc); geo.has = true; refreshGpsBtn(); }
+  }
+  const md = p.get('md');                                  // HKS-91: restore the movement mode
+  if (md === 'fly' && !flight.on) enterFlight();
+  else if (md === 'walk' && !walk.on) enterWalk();
+  else if (md === 'star' && !stargaze.on) enterStargaze();
   restoring = false;
 }
 
@@ -4884,6 +4899,7 @@ function shareLink(target) {
   if (links[target]) window.open(links[target], '_blank', 'noopener,noreferrer');
 }
 document.getElementById('sharebtn').addEventListener('click', () => {
+  history.replaceState(null, '', '?' + serializeState());   // HKS-91: sync the address bar to exactly what we're sharing (incl. live GPS)
   const preferNative = navigator.share && matchMedia('(pointer: coarse)').matches;
   if (preferNative) {
     navigator.share({ title: t('share.title'), text: t('share.text'), url: shareUrl() })
@@ -4992,7 +5008,7 @@ applyLocale(locale);
 // still lands on the curated default, with its own extra params carried through.
 const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
 // canonical serialized keys + the optional ones serializeState only emits sometimes
-const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm']);
+const STATE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'tx', 'sd', 'sm', 'md', 'gps']);
 const urlParams = new URLSearchParams(location.search);
 const hasState = [...urlParams.keys()].some(k => STATE_KEYS.has(k));
 const startParams = hasState ? urlParams : new URLSearchParams(DEFAULT_STATE);
@@ -5010,8 +5026,9 @@ loadSource(startSrc).then(() => {
   // the scene fills the iframe and the controls are one tap away.
   if (startParams.get('embed') === '1') document.getElementById('panel').classList.add('collapsed');
   animate();
-  // default to live weather on (unless a shared link explicitly opted out with lv=0)
-  if (startParams.has('lv') ? startParams.get('lv') === '1' : true) setLiveMode(true);
+  // default to live weather on (unless a shared link explicitly opted out with lv=0,
+  // or we booted straight into Stargaze — which owns a clean, weather-free sky, HKS-91)
+  if (!stargaze.on && (startParams.has('lv') ? startParams.get('lv') === '1' : true)) setLiveMode(true);
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
   window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)
