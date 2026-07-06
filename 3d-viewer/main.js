@@ -119,7 +119,7 @@ const I18N = {
     'sg.orient': '🤳 Point at the sky', 'sg.clock': 'Show / hide the sky time',
     'sg.hint': 'drag to look · tap a constellation',
     'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
-    'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked',
+    'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked', 'walk.auto': 'Auto-walk (play / pause)',
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
@@ -205,7 +205,7 @@ const I18N = {
     'sg.orient': '🤳 指向天空', 'sg.clock': '顯示／隱藏天空時間',
     'sg.hint': '拖曳環視 · 點選星座',
     'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
-    'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行',
+    'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行', 'walk.auto': '自動步行（播放／暫停）',
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
@@ -2569,11 +2569,12 @@ function enterWalk(startLocal) {
   document.getElementById('flyhud').style.display = 'block';
   document.getElementById('walkbtn').classList.add('on');
   document.getElementById('walkbtn').blur();  // else Space/Enter re-clicks the button and exits
-  document.body.classList.add('flying');                  // fly/walk shared UI state (speed gauge, no-select)
+  document.body.classList.add('flying', 'walking');       // fly/walk shared UI state; walking gates the auto-walk button (HKS-91)
   controls.enabled = false;
   // HKS-86 §2: GPS follow/compass never persists outside Orbit — entering a
   // movement mode spawns at the fix (if it's on this map), then disengages
   if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
+  syncWalkAuto();
   refreshDock();
   if (!NO_LOCK && renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
 }
@@ -2586,7 +2587,7 @@ function exitWalk() {
   if (document.exitPointerLock) document.exitPointerLock();
   document.getElementById('flyhud').style.display = 'none';
   document.getElementById('walkbtn').classList.remove('on');
-  document.body.classList.remove('flying');
+  document.body.classList.remove('flying', 'walking');
   spinDir = walk.prevSpin;
   document.getElementById('spindir').value = String(spinDir);
   camera.fov = 38; camera.updateProjectionMatrix();
@@ -3028,6 +3029,15 @@ function setCamView(fp) {   // fp = true → first-person
 }
 document.getElementById('cam-ext').addEventListener('click', () => setCamView(false));
 document.getElementById('cam-pov').addEventListener('click', () => setCamView(true));
+// HKS-91: auto-walk play/pause, beside the compass (was a ▶/⏸ link in the walk HUD)
+function syncWalkAuto() {
+  const b = document.getElementById('walk-auto');
+  if (!b) return;
+  b.classList.toggle('on', walk.auto);
+  b.setAttribute('aria-pressed', walk.auto ? 'true' : 'false');
+  b.firstElementChild.textContent = walk.auto ? '⏸' : '▶';   // ▶ = tap to auto-walk, ⏸ = tap to stop
+}
+document.getElementById('walk-auto').addEventListener('click', () => { walk.auto = !walk.auto; syncWalkAuto(); });
 
 function stepWalk() {
   if (!walk.on) return;
@@ -3127,18 +3137,14 @@ function stepWalk() {
   }
   controls.target.copy(_fl);
   const az = ((-walk.yaw / D2R) % 360 + 360) % 360;
-  const touch = matchMedia('(pointer: coarse)').matches;
   const odo = walk.dist < 1000 ? `${Math.round(walk.dist)} m` : `${(walk.dist / 1000).toFixed(2)} km`;
   const stats = `${airborne ? '🪂' : '🚶'} ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
     ` · ${t('walk.dist')} ${odo}` +                       // odometer (speed now shows on the speed bar)
     (boost && moving ? ` · ${t('walk.jog')}` : '');
-  // HKS-86: how-to lives in the Help drawer, End is the tray's ✕ button — keep only
-  // live stats + the auto-walk toggle (touch)
-  const hints = touch ? `<span data-fly="autowalk" style="cursor:pointer;text-decoration:underline">${walk.auto ? '⏸' : '▶'}</span>` : '';
-  if (walk.helpT > 0) walk.helpT--;
-  document.getElementById('flyhud').innerHTML = walk.helpT > 0
-    ? `${stats}<small style="font-size:11px;line-height:1.9">${hints}</small>`
-    : `${stats}<small>${hints}</small>`;
+  // HKS-91: stats only — auto-walk is now the ▶/⏸ button beside the compass;
+  // how-to lives in the Help drawer, End is the dock's Orbit button.
+  document.getElementById('flyhud').innerHTML = stats;
+  syncWalkAuto();
   updateSpeedGauge();
 }
 if (FLY_DEBUG) { window.__walk = walk; window.__stepWalk = () => stepWalk(); }
