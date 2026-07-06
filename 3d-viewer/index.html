@@ -502,7 +502,7 @@
   body.flying{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
   body.flying #flyhud [data-fly]{-webkit-user-select:auto;user-select:auto}   /* keep the HUD links tappable */
   #cornerui{position:fixed;right:12px;bottom:calc(30px + env(safe-area-inset-bottom));z-index:22;
-    display:flex;flex-direction:column;gap:8px;align-items:center}
+    display:flex;flex-direction:row;gap:8px;align-items:center}   /* HKS-91: side-by-side (fullscreen + camera) so the corner stays short and clears the radar */
   #cornerui button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--panel);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
     border:1px solid var(--edge);cursor:pointer;font-size:16px;padding:0;
@@ -693,7 +693,7 @@
     /* keep the radar/satellite circle compact on phones so the weather box doesn't
        grow tall enough to sit over the controls behind it */
     /* compact circular HUD on phones; sits above the camera button (bottom-right) */
-    #radarhud{width:128px;height:128px;bottom:calc(112px + env(safe-area-inset-bottom))}
+    #radarhud{width:128px;height:128px;bottom:calc(127px + env(safe-area-inset-bottom))}   /* HKS-91: +15px up */
     #radarhud.big{width:min(166px,calc(100vw - 24px));height:min(166px,calc(100vw - 24px))}   /* 30% larger than the 128px default */
     #radarhud .rf-lab{font-size:9px}
     #wxhud:after{content:'⌄';display:block;font-size:10px;line-height:1;color:var(--sub);
