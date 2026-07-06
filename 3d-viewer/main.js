@@ -2537,7 +2537,7 @@ function stepFlight() {
   // --- HUD: real numbers (metres, knots), how-to card for the first seconds
   const az = ((-F.yaw / D2R) % 360 + 360) % 360;
   const touch = F.tilt && F.tiltRef != null;
-  const stats = `${F.landed ? '🛬' : '✈'} ${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +
+  const stats = `${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +   // no emoji — ✈/🛬 flickered as landed toggled (HKS-91)
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // speed now shows on the speed bar
     (F.landed ? ` · ${t('fly.landed')}` : '');
   // HKS-86: the fly HUD is just live stats now — how-to + take-off in the Help
@@ -3165,7 +3165,7 @@ function stepWalk() {
   controls.target.copy(_fl);
   const az = ((-walk.yaw / D2R) % 360 + 360) % 360;
   const odo = walk.dist < 1000 ? `${Math.round(walk.dist)} m` : `${(walk.dist / 1000).toFixed(2)} km`;
-  const stats = `${airborne ? '🪂' : '🚶'} ${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +
+  const stats = `${Math.round(g)} m · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // no emoji — 🚶/🪂 flickered as airborne toggled (HKS-91)
     ` · ${t('walk.dist')} ${odo}` +                       // odometer (speed now shows on the speed bar)
     (boost && moving ? ` · ${t('walk.jog')}` : '');
   // HKS-91: stats only — auto-walk is now the ▶/⏸ button beside the compass;
