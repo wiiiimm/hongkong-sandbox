@@ -7046,6 +7046,76 @@ WxField.onRefresh(async data => {
   WxField.set('lightning', pts, { fallback: 0 });
 });
 
+// ---- HKS-71: regional haze — EPD per-station AQHI feeds the 'haze' field ---
+// WxField consumer over the same EPD air-quality feed the AQHI chip layer uses
+// (dashboard.data.gov.hk, open CORS) with the baked HK1980 E/N per station in
+// data/epd-aqhi-stations.json. Every live sync rebuilds a smooth 'haze' field
+// of raw AQHI (1..10+); the feed itself updates ~hourly, so the rows are
+// cached and refetched at the chip layer's 10-min cadence rather than every
+// 5-min sync. The render loop samples the field at the camera (updateHaze).
+// A fetch failure keeps the last rows; no rows at all leaves the field empty
+// -> zero haze, today's behaviour.
+let hazeRows = null, hazeRowsAt = 0;
+WxField.onRefresh(async () => {
+  try {
+    await ensureAqhiStations();                  // baked E/N (also used by the chip layer)
+    if (!hazeRows || Date.now() - hazeRowsAt > 600000) {
+      hazeRows = await fetch(AQHI_URL).then(r => r.json());
+      hazeRowsAt = Date.now();
+    }
+  } catch (e) { console.error('haze', e); }      // keep any stale rows
+  if (!Array.isArray(hazeRows) || !aqhiData) { WxField.set('haze', [], { fallback: 0 }); return; }
+  const byName = new Map(hazeRows.map(r => [r.station, r]));
+  const pts = [];
+  for (const s of aqhiData.stations) {
+    const d = byName.get(s.name), w = WxField.mapStationToWorld(s);
+    if (w && d && isFinite(+d.aqhi)) pts.push({ x: w.x, z: w.z, v: +d.aqhi });
+  }
+  WxField.set('haze', pts, { fallback: 0 });     // fallback = clean air
+});
+
+// Per-frame pollution haze (called from animate() once _camLocal is fresh).
+// Samples local AQHI at the camera and eases hazeAmt toward it — flying or
+// walking into a polluted district thickens the haze, leaving it clears.
+// Pollution haze ≠ weather fog: a faint warm-brown desaturating distance
+// tint, never white cloud. With the weather fog up (manual toggle or live)
+// haze only warms its colour — an additive tint term; near/far stay the
+// weather fog's own, so the two never fight. With no weather fog it owns a
+// light THREE.Fog of its own (tagged __haze so setFog's fog is never
+// mistaken for it) whose density scales with local AQHI, always thinner
+// than the real weather fog. AQHI ≤ 3 (low band) is the clean-air baseline
+// -> zero haze, today's behaviour; the live gates mirror the rain/lightning
+// fields (liveMode, no T8+ storm override), and the Matrix skin keeps its
+// own phosphor palette.
+let hazeAmt = 0, hazeTinted = false;
+const _hazeC = new THREE.Color(), HAZE_TINT = new THREE.Color(0x967f5f);
+function updateHaze() {
+  let target = 0;
+  if (liveMode && stormLevel < 8 && !matrixOn) {
+    const f = WxField.get('haze');
+    if (f && !f.empty) target = Math.max(0, Math.min(1, (f.sample(_camLocal.x, _camLocal.z) - 3) / 7));
+  }
+  hazeAmt += (target - hazeAmt) * 0.03;          // eased — district borders never pop
+  if (hazeAmt < 0.005) {
+    if (scene.fog && scene.fog.__haze) scene.fog = null;   // remove our fog
+    else if (hazeTinted) setFog();                         // un-tint the weather fog
+    hazeTinted = false;
+    return;
+  }
+  renderer.getClearColor(_hazeC);                // sky base — same source as setFog / uFogCol
+  if (!scene.fog) { scene.fog = new THREE.Fog(0xffffff, 1, 2); scene.fog.__haze = true; }
+  if (scene.fog.__haze) {                        // haze-owned fog: subtle, AQHI-scaled visibility
+    const span = bounds().span;
+    scene.fog.near = span * (0.55 - 0.20 * hazeAmt);
+    scene.fog.far  = span * (3.2  - 1.50 * hazeAmt);   // even AQHI 10+ stays lighter than weather fog
+    scene.fog.color.copy(_hazeC).lerp(HAZE_TINT, 0.22 + 0.38 * hazeAmt);
+    hazeTinted = false;
+  } else {                                       // weather fog up: only warm/brown its colour
+    scene.fog.color.copy(_hazeC).lerp(HAZE_TINT, 0.35 * hazeAmt);
+    hazeTinted = true;
+  }
+}
+
 if (FLY_DEBUG) {
   window.__wxField = WxField;   // inspect fields / sample() from the console
   // demo consumer proving the plumbing: per-station air temperature from the
@@ -7190,6 +7260,7 @@ function animate() {
   renderer.render(scene, camera);
   world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests
   _camLocal.copy(camera.position); world.worldToLocal(_camLocal);
+  updateHaze();                 // HKS-71: local AQHI haze at the camera (renders next frame)
   updateLabels();
   updateLandmarks();
   updateStations();
