@@ -604,7 +604,8 @@
   body.glass.ui-light #camseg{background:rgba(252,250,246,.3)}
   #camseg button{height:100%;min-width:32px;padding:0 8px;border:none;background:none;cursor:pointer;
     font-size:13px;line-height:1;color:var(--sub);display:grid;place-items:center;transition:color .12s,background .12s}
-  #camseg button:first-child{border-right:1px solid var(--edge-soft)}
+  #camseg button+button{border-left:1px solid var(--edge-soft)}  /* HKS-93: seams between all 3 segments */
+  #camseg button[hidden]{display:none}   /* 🧑‍✈️ cockpit segment is Fly-only (and per-skin) */
   #camseg button.on{background:var(--accent-dim);color:var(--accent)}
   #camseg button:hover{color:var(--ink)}
   /* HKS-90: Stargaze's left-of-compass toggles (🕐 sky-time, 🤳 auto-arm) take the
@@ -826,6 +827,16 @@
              title="Boost target — hold ␣ in flight · ⇧ or a two-finger hold on foot"/>
       <span id="topspdv" style="flex:0 0 56px;text-align:right;font-size:11px;color:var(--ink);font-family:var(--mono)">—</span>
     </div>
+    <!-- HKS-93: aircraft skin — swaps the flight model live, shared via ?pl= -->
+    <div class="row"><label class="k" data-i18n="lbl.plane">Aircraft</label>
+      <select id="planeskin">
+        <option value="prop" selected data-i18n="plane.prop">Prop plane</option>
+        <option value="betsy" data-i18n="plane.betsy">Cathay Pacific Betsy (DC-3)</option>
+        <option value="cx747" data-i18n="plane.cx747">Cathay Pacific 747</option>
+        <option value="cx777" data-i18n="plane.cx777">Cathay Pacific 777</option>
+        <option value="a350" data-i18n="plane.a350">Cathay Pacific A350-1000</option>
+      </select>
+    </div>
     <!-- the live speed gauge docked under the compass tape (HKS-86 §3) -->
   </div>
 
@@ -1046,8 +1057,10 @@
   <div id="cmprow">
     <span class="cmpside cmpleft">
       <span id="camseg" role="group" aria-label="Camera angle">
-        <button id="cam-ext" type="button" aria-pressed="false" title="Chase / external camera (C)"><span aria-hidden="true">🎥</span></button>
-        <button id="cam-pov" type="button" aria-pressed="false" title="First-person camera (C)"><span aria-hidden="true">👁</span></button>
+        <button id="cam-ext" type="button" aria-pressed="false" title="Chase / external camera (C)" data-i18n-title="cam.ext" data-i18n-aria-label="cam.ext"><span aria-hidden="true">🎥</span></button>
+        <button id="cam-pov" type="button" aria-pressed="false" title="First-person eye camera (C)" data-i18n-title="cam.eye" data-i18n-aria-label="cam.eye"><span aria-hidden="true">👁</span></button>
+        <!-- HKS-93: cockpit interior view — Fly-only, hidden on skins without a flight deck -->
+        <button id="cam-ck" type="button" hidden aria-pressed="false" title="Cockpit camera (C)" data-i18n-title="cam.ck" data-i18n-aria-label="cam.ck"><span aria-hidden="true">🧑‍✈️</span></button>
       </span>
       <button id="sg-clock" type="button" aria-pressed="true" title="Show / hide the sky time" data-i18n-title="sg.clock" data-i18n-aria-label="sg.clock"><span aria-hidden="true">🕐</span></button>
     </span>
