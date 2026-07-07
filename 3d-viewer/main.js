@@ -789,9 +789,11 @@ let thunderRate = 0.4;   // 0..1 lightning strike frequency (storm/live preset i
 const flashfx = document.getElementById('flashfx');   // full-screen lightning flash
 let baseHemi = 1.4, baseSun = 2.0;   // light levels before the lightning flash is added
 const windVec = { x: 0, z: 1 };      // unit heading the wind blows TOWARD (screen space)
-const WIND_VEC = {   // compass the wind blows FROM -> push vector (toward the opposite)
-  N:[0,1], NE:[-0.707,0.707], E:[-1,0], SE:[-0.707,-0.707],
-  S:[0,-1], SW:[0.707,-0.707], W:[1,0], NW:[0.707,0.707],
+const WIND_VEC = {   // 16-point compass the wind blows FROM -> push vector (toward the opposite)
+  N:[0,1], NNE:[-0.383,0.924], NE:[-0.707,0.707], ENE:[-0.924,0.383],
+  E:[-1,0], ESE:[-0.924,-0.383], SE:[-0.707,-0.707], SSE:[-0.383,-0.924],
+  S:[0,-1], SSW:[0.383,-0.924], SW:[0.707,-0.707], WSW:[0.924,-0.383],
+  W:[1,0], WNW:[0.924,0.383], NW:[0.707,0.707], NNW:[0.383,0.924],
 };
 const STORM_W = { 0:0, 1:0.2, 3:0.45, 8:0.72, 9:0.86, 10:1 };   // signal -> wind strength
 const SIGNAL_NAME = {
@@ -951,6 +953,7 @@ function buildWeather() {
   world.add(wallGrp);
   applySkyScale();
   updateWindVisuals();
+  if (liveMode) refreshCloudField();   // HKS-101: re-georeference the live field to the new bounds
   celKey = '';   // bounds changed: reposition sun/moon/stars for the new span
   if (matrixOn) applyMatrixLook();   // a source switch rebuilt the materials
 }
@@ -1085,11 +1088,27 @@ function animateWeather() {
   if (cloudGrp && cloudGrp.visible) {
     const spd = b.span * 0.0006 * (1 + w * 7);            // clouds race with the wind
     const cx = windVec.x * spd, cz = windVec.z * spd, lx = hx * 1.3, lz = hz * 1.3;
+    // HKS-101: with live sync on, a spatial cover field says which districts are
+    // actually cloudy — each sprite fades toward its LOCAL cover (clear districts
+    // genuinely open up, overcast ones fill in). Manual/storm skies keep the
+    // uniform behaviour (updateWindVisuals owns opacity/visibility there).
+    const fieldOn = cloudFieldActive();
+    if (fieldOn) { cloudField.ox += cx; cloudField.oz += cz; }   // the field drifts with the deck
     for (const s of cloudGrp.children) {
       s.position.x += cx * s.userData.drift; s.position.z += cz * s.userData.drift;
       s.material.rotation += 0.00015 * s.userData.drift * (1 + w * 2);   // slow churn
       if (s.position.x >  lx) s.position.x = -lx; else if (s.position.x < -lx) s.position.x = lx;
       if (s.position.z >  lz) s.position.z = -lz; else if (s.position.z < -lz) s.position.z = lz;
+      if (fieldOn) {
+        const cov = cloudCoverAt(s.position.x, s.position.z);
+        // the sprite's cov bucket jitters the threshold, so decks thin cloud-by-cloud
+        let k = (cov - 0.12 - s.userData.cov * 0.22) / 0.45;
+        k = Math.max(0, Math.min(1, k));
+        const target = s.userData.baseOp * (1 + w * 0.9) * k * (0.6 + 0.4 * cov);
+        const o = s.material.opacity + (target - s.material.opacity) * 0.05;   // eased — no popping across cells
+        s.material.opacity = o;
+        s.visible = o > 0.015;
+      }
     }
   }
   // tide = slow water level; storm adds a surge on top; waves = ripple that gets
@@ -1108,7 +1127,12 @@ function animateWeather() {
   // scrolling with the sprite drift, height fog pooling below uFogY
   const wy = (sea && sea.visible) ? sea.position.y : -1e9;
   const shadowSpd = b.span * 0.0006 * (1 + w * 7);          // match the cloud sprites
-  const cAmt = (weather.clouds && cloudGrp) ? 0.4 + 0.45 * w : 0;
+  let cAmt = (weather.clouds && cloudGrp) ? 0.4 + 0.45 * w : 0;
+  if (cAmt && cloudFieldActive()) {   // HKS-101: ground shadows track the live field —
+    // local cover at the view centre blended with the territory mean
+    _cfV.copy(controls.target); world.worldToLocal(_cfV);
+    cAmt *= 0.15 + 0.85 * (0.5 * cloudCoverAt(_cfV.x, _cfV.z) + 0.5 * cloudField.mean);
+  }
   const fAmt = weather.fog ? 0.5 + 0.5 * w : 0;
   const fogY = (30 + w * 40) * VE;
   const waveAmp = weather.waves ? 0.14 + w * 0.22 : 0.05;   // calm water still shimmers a little
@@ -2042,6 +2066,7 @@ function updateStars(now) {
   const sunAltD = cel.sunAlt / D2R;
   let fade = Math.max(0, Math.min(1, (-4 - sunAltD) / 6));
   if (skySim.on && fade > 0 && cel.moonAlt > 0) fade *= 1 - 0.25 * cel.frac * Math.sin(cel.moonAlt);
+  starGroup.userData.fade0 = fade;   // HKS-101: pre-cloud fade — stepSky() applies the live cover per frame
   starGroup.visible = skySim.on && fade > 0.01;
   if (!starGroup.visible) { conClearAll(); return; }   // daylight: drop any lit constellations
   // the whole celestial sphere turns as one rigid body: image the equatorial
@@ -2088,7 +2113,21 @@ function spawnMeteor(tS) {
 }
 function stepSky() {   // per-frame sky life: twinkle clock, meteors, moon limb aim
   const tS = performance.now() * 0.001;
-  if (starGroup.visible) starUniforms.uTime.value = tS % 4096;
+  if (starGroup.visible) {
+    starUniforms.uTime.value = tS % 4096;
+    // HKS-101: live overcast blots out the stars — the cover over the viewer
+    // decides, per frame (cross a district boundary and the sky answers).
+    // Clear districts keep their full sky. Stargaze is unaffected: HKS-91
+    // locks weather off there, so the field is inactive and the planetarium
+    // keeps its guaranteed-clear sky.
+    const f0 = starGroup.userData.fade0 != null ? starGroup.userData.fade0 : starUniforms.uFade.value;
+    let occ = 1;
+    if (cloudFieldActive()) {
+      _cfV.copy(camera.position); world.worldToLocal(_cfV);
+      occ = 1 - 0.94 * Math.min(1, Math.max(0, (cloudCoverAt(_cfV.x, _cfV.z) - 0.12) / 0.55));
+    }
+    starUniforms.uFade.value = f0 * occ;
+  }
   // HKS-84: constellation selection bloom — runs ONLY while a transition is
   // live (~250 ms), touching just the member stars' aSel entries + the small
   // highlight-line buffer. Zero per-frame cost once settled.
@@ -5769,6 +5808,186 @@ rfTabsEl.addEventListener('keydown', e => {   // keyboard access for the SVG tab
   e.preventDefault(); activateRfTab(e.target);
 });
 
+// ---- live spatial cloud field (HKS-101) --------------------------------------
+// When live-weather sync is ON, the cloud layer stops being uniform: a coarse
+// cover grid (0..1 per cell, over the map extent) says how cloudy each district
+// actually is, and the sprites / ground shadows / stars follow it. Two sources,
+// best first, with graceful degradation:
+//   • satellite — the same HKO Himawari IR frames the wx HUD hotlinks (© Hong
+//     Kong Observatory, fetched at runtime, never stored), sampled into the grid
+//     through an offscreen canvas. Pixel access needs a CORS grant; hko.gov.hk
+//     currently sends no Access-Control-Allow-Origin, so the anonymous load is
+//     attempted, its failure detected, and the fallback takes over — if HKO ever
+//     enables CORS (or a proxy is added), the spatial path lights up by itself.
+//   • procedural — wind-advected, seeded value noise whose coverage tracks a
+//     live territory cloudiness derived from HKO obs (weather icon + humidity +
+//     rain). Live-driven and believable, just less spatially precise.
+// The grid refreshes with the live sync (5 min), never per frame; per-frame cost
+// is one bilinear lookup per sprite. Manual toggles and storm presets bypass the
+// field entirely (cloudFieldActive gates every consumer on liveMode).
+const cloudField = {
+  data: null,       // Float32Array(N*N), row-major over the map extent, 0..1 cover
+  N: 48,            // grid resolution — ~1.2 km cells on the HK map
+  src: '',          // 'sat' | 'proc'
+  mean: 0.6,        // field mean (blended into the ground-shadow strength)
+  amt: 0.6,         // live territory cloudiness 0..1 (procedural density, from obs)
+  ox: 0, oz: 0,     // wind-advection offset (world units; the pattern drifts with the deck)
+  satDead: 0,       // consecutive satellite failures; ≥2 → stop retrying this session
+  seed: Math.random() * 100,
+};
+const _cfV = new THREE.Vector3();   // scratch: viewer position in world-local xz
+const cloudFieldActive = () => liveMode && weather.clouds && !!cloudField.data;
+
+// bilinear cover lookup at a world-local (x, z) — the only per-frame math.
+// The procedural field wraps (its noise lattice tiles), the satellite crop clamps.
+function cloudCoverAt(x, z) {
+  const f = cloudField, d = f.data;
+  if (!d) return 1;
+  const b = bounds(), N = f.N, wrap = f.src === 'proc';
+  let u = (x - f.ox) / (2 * b.halfX) + 0.5, v = (z - f.oz) / (2 * b.halfZ) + 0.5;
+  let gx, gz, x0, z0, x1, z1;
+  if (wrap) {
+    u -= Math.floor(u); v -= Math.floor(v);
+    gx = u * N; gz = v * N;
+    x0 = gx | 0; z0 = gz | 0; x1 = (x0 + 1) % N; z1 = (z0 + 1) % N;
+    if (x0 >= N) x0 = N - 1; if (z0 >= N) z0 = N - 1;   // guard u/v == 1 exactly
+  } else {
+    u = Math.max(0, Math.min(1, u)); v = Math.max(0, Math.min(1, v));
+    gx = u * (N - 1); gz = v * (N - 1);
+    x0 = gx | 0; z0 = gz | 0; x1 = Math.min(N - 1, x0 + 1); z1 = Math.min(N - 1, z0 + 1);
+  }
+  const fx = gx - x0, fz = gz - z0;
+  const a = d[z0 * N + x0] * (1 - fx) + d[z0 * N + x1] * fx;
+  const c = d[z1 * N + x0] * (1 - fx) + d[z1 * N + x1] * fx;
+  return a * (1 - fz) + c * fz;
+}
+
+// territory cloudiness 0..1 from what syncLiveWeather already fetched: the HKO
+// weather-icon code is the dominant signal, humidity nudges it, rain floors it.
+// (Approximate by design — HKO publishes no gridded cloud-cover product.)
+const CLOUD_AMT_ICON = { 50: .05, 51: .35, 52: .55, 53: .62, 54: .72, 60: .82, 61: .97,
+  62: .9, 63: .95, 64: 1, 65: 1, 70: .05, 71: .1, 72: .15, 73: .2, 74: .25, 75: .3,
+  76: .82, 77: .25, 80: .55, 81: .3, 82: .6, 83: .85, 84: .8, 85: .6 };
+function cloudAmtFromObs(code, rh, rainMax) {
+  let a = CLOUD_AMT_ICON[code];
+  if (a == null) a = 0.6;
+  if (isFinite(rh)) a += (rh - 78) / 60 * 0.15;
+  if (rainMax > 0) a = Math.max(a, 0.85);
+  return Math.max(0, Math.min(1, a));
+}
+
+// fallback: 3-octave seeded value noise on a wrapping lattice, shaped so roughly
+// `amt` of the sky is covered — the clear side of the threshold really hits 0
+function buildProcCloudField() {
+  const f = cloudField, N = f.N;
+  const d = (f.data && f.src === 'proc') ? f.data : new Float32Array(N * N);
+  const rnd = (i, j, o) => { const s = Math.sin(i * 127.1 + j * 311.7 + o * 74.7 + f.seed) * 43758.5453; return s - Math.floor(s); };
+  const val = (u, v, P, o) => {   // one wrapped value-noise octave, period P lattice cells
+    const x = u * P, y = v * P;
+    const xi = Math.floor(x), yi = Math.floor(y);
+    const x0 = ((xi % P) + P) % P, y0 = ((yi % P) + P) % P;
+    const x1 = (x0 + 1) % P, y1 = (y0 + 1) % P;
+    const fx = x - xi, fy = y - yi;
+    const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+    const a = rnd(x0, y0, o) * (1 - sx) + rnd(x1, y0, o) * sx;
+    const c = rnd(x0, y1, o) * (1 - sx) + rnd(x1, y1, o) * sx;
+    return a * (1 - sy) + c * sy;
+  };
+  const th = 0.95 - f.amt * 0.9;   // the coverage threshold slides with live cloudiness
+  let sum = 0;
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+    const u = i / N, v = j / N;
+    const n = val(u, v, 4, 1) * 0.55 + val(u, v, 8, 2) * 0.3 + val(u, v, 16, 3) * 0.15;
+    let c = (n - th) / 0.35;
+    c = Math.max(0, Math.min(1, c));
+    sum += (d[j * N + i] = c * c * (3 - 2 * c));
+  }
+  f.data = d; f.mean = sum / (N * N);
+  if (f.src !== 'proc') {
+    f.src = 'proc'; f.ox = f.oz = 0;
+    console.info('[HKS-101] cloud field: procedural, live-driven (HKO satellite pixels not readable in-browser)');
+  }
+}
+
+// primary: sample the HKO Himawari IR "local" (x8M) crop. Approximate linear
+// georef of the 750×749 frame, calibrated against the Taiwan / Hainan / Pearl
+// River estuary coastlines (~±10 px ≈ ±0.2°; good to a couple of grid cells):
+const SAT_GEO = { lon0: 106.0, pxPerLon: 44.2, lat0: 29.7, pxPerLat: 45.0 };
+const satFieldUrl = ts => `https://www.hko.gov.hk/wxinfo/intersat/satellite/image/images/h8_ir_x8M_${ts}.jpg`;
+function buildSatCloudField(img) {
+  const f = cloudField, N = f.N, g = curG;
+  if (!g) return false;
+  const cv = document.createElement('canvas');
+  cv.width = img.naturalWidth; cv.height = img.naturalHeight;
+  const ctx = cv.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(img, 0, 0);
+  let px;
+  try { px = ctx.getImageData(0, 0, cv.width, cv.height); }
+  catch (e) { return false; }               // tainted canvas — no CORS pixel grant
+  const P = px.data, Wp = px.width, Hp = px.height;
+  const d = new Float32Array(N * N);
+  let sum = 0;
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+    // field cell → grid col/row → HK1980 E/N → lon/lat → satellite pixel
+    const c = i / (N - 1) * (W - 1), r = j / (N - 1) * (H - 1);
+    const ll = enToLL(g.aE * c + g.bE, g.aN * r + g.bN);
+    const sx = Math.round((ll.lon - SAT_GEO.lon0) * SAT_GEO.pxPerLon);
+    const sy = Math.round((SAT_GEO.lat0 - ll.lat) * SAT_GEO.pxPerLat);
+    // 3×3 box — the IR pixel pitch (~2.5 km here) is near our cell pitch anyway
+    let lum = 0, sat = 0, n = 0;
+    for (let oy = -1; oy <= 1; oy++) for (let ox = -1; ox <= 1; ox++) {
+      const qx = sx + ox, qy = sy + oy;
+      if (qx < 0 || qy < 0 || qx >= Wp || qy >= Hp) continue;
+      const k = (qy * Wp + qx) * 4, R = P[k], G = P[k + 1], B = P[k + 2];
+      if (Math.min(R, G, B) >= 250) continue;   // burnt-in coastline overlay, not cloud
+      lum += (R + G + B) / 3;
+      sat += Math.max(R, G, B) - Math.min(R, G, B);
+      n++;
+    }
+    if (!n) { sum += (d[j * N + i] = f.amt); continue; }
+    lum /= n; sat /= n;
+    // IR: bright grey/white = cold cloud tops. Land/sea show through darker and
+    // colour-saturated (green/tan/blue), so saturation votes against cloud.
+    let cvr = Math.max(0, Math.min(1, (lum - 115) / 100)) * Math.max(0, 1 - sat / 80);
+    sum += (d[j * N + i] = cvr * cvr * (3 - 2 * cvr));
+  }
+  f.data = d; f.mean = sum / (N * N); f.ox = f.oz = 0;
+  if (f.src !== 'sat') {
+    f.src = 'sat';
+    console.info('[HKS-101] cloud field: HKO Himawari IR satellite sampling active');
+  }
+  return true;
+}
+
+// refresh the field: try the newest few satellite frames (anonymous CORS load;
+// a 404 or a CORS-refused response both land in onerror), else go procedural.
+// Called by syncLiveWeather (5 min cadence) and on a source/bounds rebuild.
+let _cfImg = null;   // in-flight loader — a newer refresh supersedes it
+function refreshCloudField() {
+  if (!liveMode) return;
+  if (cloudField.satDead >= 2) { buildProcCloudField(); return; }
+  const stamps = wxStamps(3, 10, true, true).reverse();   // newest first, ~30 min back
+  let k = 0, timer = 0;
+  const attempt = () => {
+    if (k >= stamps.length) { cloudField.satDead++; buildProcCloudField(); return; }
+    const im = new Image();
+    _cfImg = im;
+    im.crossOrigin = 'anonymous';           // pixel readback needs the CORS grant
+    const fail = () => { clearTimeout(timer); if (_cfImg !== im) return; k++; attempt(); };
+    timer = setTimeout(fail, 12000);        // a hung load must not strand the field
+    im.onerror = fail;
+    im.onload = () => {
+      clearTimeout(timer);
+      if (_cfImg !== im) return;
+      if (buildSatCloudField(im)) { cloudField.satDead = 0; return; }
+      cloudField.satDead = 2;               // tainted canvas: CORS is off for good
+      buildProcCloudField();
+    };
+    im.src = satFieldUrl(stamps[k]);
+  };
+  attempt();
+}
+
 // ---- camera framing + presets ---------------------------------------------
 function bounds() {
   const halfX = W*cell/2, halfZ = H*cell/2, peakY = zmax*VE;
@@ -6163,6 +6382,50 @@ function drawTideGraph() {
   ctx.fillText(max.toFixed(1) + ' m', Wc - pad, gTop + 7);
 }
 
+// HKS-101: live wind DIRECTION. The drift vector (windVec) was only ever set by the
+// manual dropdown or a T8 typhoon signal, so in ordinary live weather the clouds/rain
+// drifted in the default (northerly) direction regardless of the real wind — not
+// matching the radar. Derive the actual territory wind from HKO's 10-min station winds
+// and steer windVec so the whole weather deck moves the way the radar shows.
+const COMPASS_DEG = {
+  N: 0, NNE: 22.5, NE: 45, ENE: 67.5, E: 90, ESE: 112.5, SE: 135, SSE: 157.5,
+  S: 180, SSW: 202.5, SW: 225, WSW: 247.5, W: 270, WNW: 292.5, NW: 315, NNW: 337.5,
+  NORTH: 0, NORTHNORTHEAST: 22.5, NORTHEAST: 45, EASTNORTHEAST: 67.5, EAST: 90,
+  EASTSOUTHEAST: 112.5, SOUTHEAST: 135, SOUTHSOUTHEAST: 157.5, SOUTH: 180,
+  SOUTHSOUTHWEST: 202.5, SOUTHWEST: 225, WESTSOUTHWEST: 247.5, WEST: 270,
+  WESTNORTHWEST: 292.5, NORTHWEST: 315, NORTHNORTHWEST: 337.5,
+};
+function windFromBearing(v) {              // HKO wind-direction cell → degrees the wind blows FROM
+  if (v == null) return null;
+  const s = String(v).trim();
+  if (!s || /^(n\/?a|variable|calm)$/i.test(s)) return null;
+  if (/^\d+(\.\d+)?$/.test(s)) return +s % 360;
+  const k = s.toUpperCase().replace(/[^A-Z]/g, '');
+  return k in COMPASS_DEG ? COMPASS_DEG[k] : null;
+}
+async function syncLiveWind() {            // steer windVec from the real HKO 10-min station winds
+  if (!liveMode) return;
+  let sx = 0, sz = 0, n = 0;
+  try {
+    const txt = await fetch(regUrl('latest_10min_wind.csv')).then(r => r.ok ? r.text() : '').catch(() => '');
+    for (const r of parseCsv(txt)) {       // r = [type, station, wdir, wspd, gust]
+      const b = windFromBearing(r[2]), spd = parseFloat(r[3]);
+      if (b == null || !isFinite(spd) || spd <= 0) continue;
+      const from = b * Math.PI / 180;      // speed-weighted toward-vector: (−sin, cos); world −z=N, +x=E
+      sx += -Math.sin(from) * spd; sz += Math.cos(from) * spd; n++;
+    }
+  } catch (_) { return; }
+  if (!liveMode || n < 3) return;          // too few stations reporting → keep the current vector
+  const mag = Math.hypot(sx, sz);
+  if (mag < 1e-3) return;                   // light & variable → don't spin the deck on noise
+  windVec.x = sx / mag; windVec.z = sz / mag;                     // continuous, matches the radar
+  const toward = (Math.atan2(windVec.x, -windVec.z) * 180 / Math.PI + 360) % 360;
+  const CARD16 = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  const sel = document.getElementById('winddir');
+  if (sel) sel.value = CARD16[Math.round(((toward + 180) % 360) / 22.5) % 16];   // wind-from, nearest 16-pt (dropdown display only — no snap to windVec)
+  updateWindVisuals();
+  if (typeof updateStormBadge === 'function') updateStormBadge();
+}
 async function syncLiveWeather() {
   const el = id => document.getElementById(id);
   const chk = (id, on) => { const e = el(id); if (e.checked !== on) { e.checked = on; e.dispatchEvent(new Event('change', { bubbles: true })); } };
@@ -6201,7 +6464,12 @@ async function syncLiveWeather() {
     chk('lightning', stormy);
     setThunderRate(cg > 0 ? Math.min(1, 0.15 + cg / 150) : (stormy ? 0.4 : 0));   // strikes/hr → rate
     el('wx-warn').dataset.ltg = cg;                     // (available for a HUD readout if wanted)
-    chk('clouds', rainy || [60,61,76].includes(code));
+    // HKS-101: derive the live territory cloudiness and refresh the spatial
+    // cloud field. Partial skies (sunny periods/intervals) now turn the cloud
+    // layer ON with a sparse field, instead of an all-or-nothing toggle.
+    cloudField.amt = cloudAmtFromObs(code, h ? +h.value : NaN, rainMax);
+    chk('clouds', rainy || [60,61,76].includes(code) || cloudField.amt >= 0.3);
+    refreshCloudField();
     chk('fog', [83,84,85].includes(code) || (h && +h.value >= 90));
     chk('waves', true);
     // real tropical-cyclone signal from the HKO warning summary
@@ -6213,6 +6481,7 @@ async function syncLiveWeather() {
     // (rain/lightning/haze/flood fields) rebuild on this same 5-min cadence
     // without refetching; rebuildFields isolates consumer errors internally.
     WxField.rebuildFields({ rhrread: rh, flw: fl, warnsum: ws, lhl });
+    syncLiveWind();                        // HKS-101: steer the drift to the real observed wind (overrides the default / tc.dir)
   } catch (e) { el('wx-status').textContent = t('wx.unavail'); console.error(e); }
 }
 
@@ -6240,6 +6509,11 @@ function setLiveMode(on) {
     startRadar();                                         // radar rides with the live weather box (HKS-74)
   } else {
     stopRadar();
+    // HKS-101: drop the live cloud field; the sprite deck returns to the uniform
+    // manual behaviour (updateWindVisuals restores opacity/visibility)
+    cloudField.data = null; cloudField.src = ''; cloudField.satDead = 0;
+    setWindDir(document.getElementById('winddir').value);   // HKS-101: revert the drift to the manual dropdown (live steered windVec continuously)
+    if (cloudGrp) updateWindVisuals();
     // keep whatever live sync produced: adopt the last live tide level as the manual value
     tideManual = tideLevel; tideSeries = null;
     document.getElementById('tide').value = Math.round(tideManual * 100);
