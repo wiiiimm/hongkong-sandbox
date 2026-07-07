@@ -1190,11 +1190,17 @@ function animateWeather() {
     // is across the territory. Manual toggle / storm presets keep the global
     // uniform sim below.
     const live68 = liveMode && stormLevel < 8 && liveLtg;
-    const rate = live68 ? liveLtg.rate : thunderRate;
+    // rate keeps thunderRate's stormy-warning baseline even when the live past-hour
+    // strike count is 0, so a warned storm still flashes instead of going dark (review #1)
+    const rate = live68 ? Math.max(liveLtg.rate, thunderRate) : thunderRate;
+    // localize placement only when the LHL field actually resolved region data;
+    // else fall back to the global sim so bolts never land at empty-field/NaN coords (review #3)
+    const ltgF = live68 && WxField.get('lightning');
+    const localized = !!(ltgF && !ltgF.empty && ltgF.max > 0);
     if (flash > 0) { flash -= 0.08; hemi.intensity = baseHemi + flash * 5; }
     // quadratic, zero-floored: ~0 at low rate, intense near 100% (no always-on base term)
     else if (rate > 0 && Math.random() < rate * rate * 0.1) {
-      if (live68) {
+      if (localized) {
         const near = ltgNearCamera();   // 0..1 strike activity over the camera
         if (Math.random() < 0.25 + 0.5 * near) { spawnBolt(pickStrikeXZ()); flash = 0.6 + 0.4 * near; thunder(true, 0.25 + 0.75 * near); }
         else { flash = 0.55 * (0.4 + 0.6 * near); thunder(false, 0.25 + 0.75 * near); }   // sheet flash dims with distance from the cell
@@ -7209,7 +7215,7 @@ WxField.onRefresh(async data => {
   }
   const total = isFinite(territory) ? territory : sum;   // territory row is authoritative (covers waters)
   // same strikes/hr -> rate curve syncLiveWeather uses, territory-wide
-  liveLtg = { total, rate: total > 0 ? Math.min(1, 0.15 + total / 150) : 0 };
+  liveLtg = { rate: total > 0 ? Math.min(1, 0.15 + total / 150) : 0 };   // total is derived here, not stored (review #10)
   WxField.set('lightning', pts, { fallback: 0 });
 });
 
@@ -7227,8 +7233,8 @@ WxField.onRefresh(async () => {
   try {
     await ensureAqhiStations();                  // baked E/N (also used by the chip layer)
     if (!hazeRows || Date.now() - hazeRowsAt > 600000) {
-      hazeRows = await fetch(AQHI_URL).then(r => r.json());
-      hazeRowsAt = Date.now();
+      const j = await fetch(AQHI_URL).then(r => r.json());
+      if (Array.isArray(j)) { hazeRows = j; hazeRowsAt = Date.now(); }   // don't cache a 200-but-non-array error body for 10 min (review #4)
     }
   } catch (e) { console.error('haze', e); }      // keep any stale rows
   if (!Array.isArray(hazeRows) || !aqhiData) { WxField.set('haze', [], { fallback: 0 }); return; }
@@ -7236,7 +7242,8 @@ WxField.onRefresh(async () => {
   const pts = [];
   for (const s of aqhiData.stations) {
     const d = byName.get(s.name), w = WxField.mapStationToWorld(s);
-    if (w && d && isFinite(+d.aqhi)) pts.push({ x: w.x, z: w.z, v: +d.aqhi });
+    const a = d ? parseFloat(d.aqhi) : NaN;   // parseFloat so "10+" (Serious band) reads 10, not NaN → keeps haze heaviest under worst air (review #2)
+    if (w && isFinite(a)) pts.push({ x: w.x, z: w.z, v: a });
   }
   WxField.set('haze', pts, { fallback: 0 });     // fallback = clean air
 });
@@ -7257,6 +7264,7 @@ WxField.onRefresh(async () => {
 let hazeAmt = 0, hazeTinted = false;
 const _hazeC = new THREE.Color(), HAZE_TINT = new THREE.Color(0x967f5f);
 function updateHaze() {
+  if (matrixOn) hazeAmt = 0;   // Matrix owns the palette — clear instantly, no eased brown fog over the phosphor void (review #6)
   let target = 0;
   if (liveMode && stormLevel < 8 && !matrixOn) {
     const f = WxField.get('haze');
