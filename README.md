@@ -7,9 +7,10 @@
 
 **English** · [繁體中文](#繁體中文)
 
-*An interactive 3D Hong Kong you can play with — real LiDAR terrain, live Hong Kong
-Observatory weather & tides, a full typhoon simulator (signals No.1–10), live weather
-stations, and OSM / satellite skins. Bilingual (EN / 繁中).*
+*An interactive 3D Hong Kong you can play with — real LiDAR terrain you can orbit, fly,
+walk and stargaze over; live Hong Kong Observatory weather & tides that vary across the
+map, a full typhoon simulator (signals No.1–10), live weather stations and rain radar,
+and OSM / satellite skins. Bilingual (EN / 繁中).*
 
 Built from real Digital Elevation Models and layered with live open data. Pure static
 HTML + ES modules + Three.js — **no build step, no framework** — so it runs by opening a
@@ -44,16 +45,35 @@ file (via any static server) and deploys as plain files.
   from the HK1980 grid to Web Mercator so imagery lands exactly on the coast).
 - **Vector layers** — contours, roads, trails, hydro, coastline, boundaries, cliffs.
 - **Vertical exaggeration**, adjustable **mesh density**, auto-spin, dark/paper themes.
+- **Four ways to explore** — **Orbit** the map, **Fly** a plane, **Walk** it in first person,
+  or **Stargaze**; plus two looks — **Matrix** and **風林火山** (snowbound neon-noir) —
+  toggleable in any mode.
+- **Flight** — take off from the real **HKIA runway** and fly the terrain; choose a livery
+  (**Cathay Pacific 747 / 777 / A350**, the DC-3 **"Betsy"**, or a prop plane), switch
+  between **chase / cockpit-eye / flight-deck** cameras, with tilt-to-steer on phones.
+- **Walk** — first-person at real pace: hold-drag to look (or 🖱 lock the mouse),
+  auto-walk, jump, run.
+- **Stargaze** — an accurate night sky from the **Bright Star Catalogue** with interactive
+  constellations and real **moon phases**; 🤳 point your phone at the sky (GPS-aware) to
+  find what's actually overhead.
 - **Weather simulation** — rain, clouds, fog, lightning, tides + waves, and Hong Kong
   **tropical-cyclone signals T1/T3/T8/T9/T10** with escalating wind, surge, sky and shake.
+  In **live** mode it goes **spatial**, driven by real data: cloud cover, per-district
+  rain (sunny one side, raining the other), lightning over the regions actually striking,
+  pollution haze by district **AQHI**, and flood / landslip cues.
 - **Live weather** — one click syncs to the HKO bulletin (temp/humidity/wind/status,
   HKT clock, tide-prediction waveform), and drives the effects from real conditions.
+- **Live radar & bulletin** — an animated **HKO rain-radar / satellite** loop in the HUD,
+  and a pull-up bulletin with live HKO **warnings + forecast**.
 - **Live weather stations** — all ~50 HKO automatic weather stations plotted as TV-style
   cards (temp / humidity / wind, bilingual names), fed by the per-station feeds.
+- **GPS "you are here"** — locate your real position, follow it, or a heading-up compass
+  view — and walk Hong Kong from where you actually are.
 - **Bilingual** — English (HK) / 繁體中文（香港）, with `/en-hk/` `/zh-hk/` routing at
   the edge (Vercel / Cloudflare) and `?locale=` / browser-detection fallback everywhere else.
 - **Landmarks & peaks** — a curated landmarks layer (iconic hiking peaks + key towns) plus a full named-peaks layer from OSM, both terrain-occluded (labels hide behind mountains) and decluttered.
-- **Shareable** — every control, the camera, and the locale serialise to the URL.
+- **Installable** — add it to your home screen (PWA); a service worker caches assets for offline use.
+- **Shareable** — every control, the camera, and the locale serialise to the URL; share via a one-tap icon sheet or grab an embed.
 
 ## Design & constraints
 
@@ -121,6 +141,8 @@ Everything is built on open data. Each source keeps its own licence/terms; attri
 | Source | Used for | Licence / terms |
 |---|---|---|
 | **Hong Kong Observatory (HKO)** via DATA.GOV.HK | live temperature, humidity, wind, rainfall; tide predictions (HHOT); warnings (warnsum); past-hour lightning counts (LHL); forecast (flw) | [DATA.GOV.HK Terms of Use](https://data.gov.hk/en/terms-and-conditions) — free to use with attribution |
+| **Environmental Protection Department (EPD) AQHI** via dashboard.data.gov.hk | per-district Air Quality Health Index → live pollution haze | [DATA.GOV.HK Terms of Use](https://data.gov.hk/en/terms-and-conditions) — free to use with attribution |
+| **HKO rain-radar & satellite imagery** (hko.gov.hk) | animated radar / Himawari satellite loop in the HUD | © Hong Kong Observatory — hotlinked at runtime, not redistributed |
 | **Lands Department 5 m DTM** (2020 LiDAR) via DATA.GOV.HK / CSDI | HK & Lantau terrain meshes — HK1980 grid (EPSG:2326), ±5 m | DATA.GOV.HK Terms of Use |
 | **Lands Department B50K** (1:50 000) | topographic skin + vector layers (contours, roads, trails, hydro, coastline, boundaries, cliffs) | DATA.GOV.HK Terms of Use |
 | **NASA SRTM / Mapzen "Terrarium"** via AWS Open Data | ~30 m fallback terrain | public domain / [AWS Open Data](https://registry.opendata.aws/terrain-tiles/) |
@@ -155,7 +177,7 @@ Infrastructure by [stealth.co](https://stealth-company.co).
 
 [English ↑](#top)
 
-*一個可以任你把玩的互動 3D 香港 —— 真實光學雷達（LiDAR）地形、香港天文台實時天氣及潮汐、完整颱風模擬（一號至十號風球）、實時氣象站，以及 OSM／衛星圖層。中英雙語。*
+*一個可以任你把玩的互動 3D 香港 —— 真實光學雷達（LiDAR）地形，可環繞、駕駛飛機、步行與觀星；香港天文台實時天氣及潮汐更會按地區變化、完整颱風模擬（一號至十號風球）、實時氣象站與雨區雷達，以及 OSM／衛星圖層。中英雙語。*
 
 以真實數碼高程模型（DEM）建構，疊加實時開放數據。純靜態 HTML + ES modules + Three.js —— **零建置、無框架** —— 只要用任何靜態伺服器開啟檔案即可運行，部署就是複製檔案。
 
@@ -185,12 +207,19 @@ Infrastructure by [stealth.co](https://stealth-company.co).
 - **表面樣式** —— 陰影地貌、高程著色、霧面、純色、**B50K 地形圖皮膚**，以及可披覆的 **網上地圖**：OpenStreetMap 與 Esri 衛星圖（UV 由 HK1980 格網重新投影至 Web Mercator，令影像準確貼合海岸線）。
 - **向量圖層** —— 等高線、道路、山徑、水系、海岸線、界線、懸崖。
 - **垂直誇張**、可調 **網格密度**、自動旋轉、深色／紙本主題。
-- **天氣模擬** —— 雨、雲、霧、閃電、潮汐與波浪，以及香港 **熱帶氣旋警告信號 T1/T3/T8/T9/T10**，隨信號增強風力、風暴潮、天色與震動。
+- **四種探索方式** —— **環繞** 地圖、**駕駛飛機**、**第一人稱步行**，或 **觀星**；另有兩款風格 —— **Matrix** 與 **風林火山**（雪境霓虹黑色電影風）—— 可於任何模式切換。
+- **飛行** —— 由真實的 **香港國際機場跑道** 起飛，飛越地形；可選塗裝（**國泰航空 747／777／A350**、道格拉斯 DC-3 **「Betsy」**，或螺旋槳小飛機），並在 **追機／駕駛艙主視角／駕駛艙儀表** 鏡頭間切換，手機可傾斜操控。
+- **步行** —— 以真實步速第一人稱行走：拖曳環視（或用 🖱 鎖定滑鼠）、自動步行、跳躍、奔跑。
+- **觀星** —— 以 **Bright Star Catalogue（亮星星表）** 呈現準確夜空，附互動星座與真實 **月相**；🤳 用手機對準天空（配合 GPS）即可找出頭頂實際的星體。
+- **天氣模擬** —— 雨、雲、霧、閃電、潮汐與波浪，以及香港 **熱帶氣旋警告信號 T1/T3/T8/T9/T10**，隨信號增強風力、風暴潮、天色與震動。在 **實時** 模式下更會 **按地區變化**，以實況數據驅動：雲量、各區降雨（一邊晴天、一邊下雨）、於實際有雷擊的地區出現的閃電、按各區 **AQHI** 的污染霾，以及水浸／山泥傾瀉提示。
 - **實時天氣** —— 一鍵同步香港天文台報告（氣溫／濕度／風／天氣狀況、香港時間、潮汐預報波形圖），並以實況驅動特效。
+- **實時雷達與報告** —— HUD 內的 **香港天文台雨區雷達／衛星** 動畫循環，以及可拉出的實時天文台 **警告＋預報** 報告。
 - **實時氣象站** —— 約 50 個香港天文台自動氣象站，以電視天氣報告式資訊卡顯示（氣溫／濕度／風，中英名稱），資料來自各站數據。
+- **GPS「你在這裏」** —— 定位你的真實位置、跟隨定位，或朝向式指南針檢視 —— 更可從你實際所在之處步行遊香港。
 - **雙語** —— 英文（香港）／繁體中文（香港），在邊緣（Vercel／Cloudflare）以 `/en-hk/`、`/zh-hk/` 路由，其他環境則以 `?locale=`／瀏覽器偵測作後備。
 - **地標與山峰** —— 精選地標圖層（著名行山山峰＋主要市鎮），以及來自 OSM 的完整命名山峰圖層；兩者均有地形遮擋（標籤會被山體遮住）並自動避免重疊。
-- **可分享** —— 所有控制項、鏡頭與語言都會寫入網址。
+- **可安裝** —— 可加到主畫面（PWA）；service worker 會快取資源以供離線使用。
+- **可分享** —— 所有控制項、鏡頭與語言都會寫入網址；可用一鍵圖示分享面板分享，或取得嵌入碼。
 
 ### 設計與取捨
 
@@ -246,6 +275,8 @@ repo 亦保留一條 **Cloudflare Pages** 路徑作替代／回退：`.github/wo
 | 來源 | 用途 | 授權／條款 |
 |---|---|---|
 | **香港天文台（HKO）** 經 DATA.GOV.HK | 實時氣溫、濕度、風、雨量；潮汐預報（HHOT）；警告（warnsum）；過去一小時閃電次數（LHL）；天氣預報（flw） | [DATA.GOV.HK 使用條款](https://data.gov.hk/tc/terms-and-conditions) —— 可免費使用，須註明出處 |
+| **環境保護署（EPD）AQHI** 經 dashboard.data.gov.hk | 各區空氣質素健康指數 → 實時污染霾 | [DATA.GOV.HK 使用條款](https://data.gov.hk/tc/terms-and-conditions) —— 可免費使用，須註明出處 |
+| **香港天文台雨區雷達及衛星圖像**（hko.gov.hk） | HUD 內的雷達／向日葵衛星動畫循環 | © 香港天文台 —— 執行時實時連結，不會轉存 |
 | **地政總署 5 米數碼地形模型**（2020 LiDAR）經 DATA.GOV.HK／CSDI | 香港及大嶼山地形網格 —— HK1980 格網（EPSG:2326），±5 米 | DATA.GOV.HK 使用條款 |
 | **地政總署 B50K**（1:50 000） | 地形圖皮膚＋向量圖層（等高線、道路、山徑、水系、海岸線、界線、懸崖） | DATA.GOV.HK 使用條款 |
 | **NASA SRTM／Mapzen「Terrarium」** 經 AWS Open Data | ~30 米後備地形 | 公有領域／[AWS Open Data](https://registry.opendata.aws/terrain-tiles/) |
