@@ -108,7 +108,7 @@ const I18N = {
     'fly.landed': 'landed', 'fly.takeoff': '🛫 take off — ␣ or tap',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
     'lbl.topspeed': 'Top speed',
-    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.cx747': 'Cathay Pacific 747',
+    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
     // HKS-86: the bottom mode dock + contextual tray
@@ -195,7 +195,7 @@ const I18N = {
     'fly.landed': '已降落', 'fly.takeoff': '🛫 起飛 — ␣ 或點擊',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
     'lbl.topspeed': '極速',
-    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.cx747': '國泰航空 747',
+    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
     // HKS-86: the bottom mode dock + contextual tray
@@ -2222,6 +2222,7 @@ let planeGrp = null;
 const PLANE_SKINS = [
   { id: 'prop',  build: buildPropPlane },   // the original red-trim single-prop
   { id: 'cx747', build: buildCX747 },       // Cathay Pacific Boeing 747
+  { id: 'cx777', build: buildCX777 },       // Cathay Pacific Boeing 777-300
 ];
 let planeSkin = 'prop';
 function buildPlane() {
@@ -2384,7 +2385,9 @@ function drawCxBarrel(ctx, w, h) {
 // nose: per-pixel bands + swoosh wrapping the front above the radome, then the
 // four-pane windscreen. The sphere is re-oriented pole-forward, so u wraps the
 // hull (crown at ¼W) and v runs tip (row 0) → barrel joint (row h/2).
-function drawCxNose(ctx, w, h) {
+// mode '747' paints the 90s jade nose swoosh + red pinstripe; mode '777'
+// (modern livery) runs the slim jade window-line cheatline through instead.
+function drawCxNose(ctx, w, h, mode = '747') {
   const img = ctx.createImageData(w, h), px = img.data;
   const C = s => [parseInt(s.slice(1, 3), 16), parseInt(s.slice(3, 5), 16), parseInt(s.slice(5, 7), 16)];
   const crown = C(CX_CROWN), band = C(CX_BAND), belly = C(CX_BELLY), jade = C(CX_JADE), red = C(CX_RED);
@@ -2395,8 +2398,10 @@ function drawCxNose(ctx, w, h) {
       const a = ((x + 0.5) / w - 0.25) * 2 * Math.PI;  // 0 at crown
       const yw = 0.3 * Math.cos(a) * sinT;             // world height
       let c = yw > 0.135 ? crown : yw > -0.115 ? band : belly;
-      if (zw > -2.04 && yw < CX_SW.jadeTop && yw > CX_SW.jadeBot) c = jade;
-      else if (zw > -2.05 && yw < CX_SW.redTop && yw > CX_SW.redBot) c = red;
+      if (mode === '747') {
+        if (zw > -2.04 && yw < CX_SW.jadeTop && yw > CX_SW.jadeBot) c = jade;
+        else if (zw > -2.05 && yw < CX_SW.redTop && yw > CX_SW.redBot) c = red;
+      } else if (zw > -2.02 && yw < 0.108 && yw > 0.070) c = jade;   // 777 cheatline runs to the radome
       const i = (y * w + x) * 4;
       px[i] = c[0]; px[i + 1] = c[1]; px[i + 2] = c[2]; px[i + 3] = 255;
     }
@@ -2419,18 +2424,21 @@ function drawCxNose(ctx, w, h) {
   pane(cx - 56, cx - 32, 7); pane(cx - 27, cx - 3, 0);
   ctx.restore();
 }
-// upper-deck hump: white skin with the short upper-deck window rows
+// upper-deck skin for the faired hump lathe (unwrap: canvas x = around the
+// deck — 0 crown, ~0.17·W starboard flank, ~0.83·W port; canvas y = along it,
+// BOTTOM = aft blend, top = front tip behind the cockpit). White crown skin,
+// faint frame rings, and the short upper-deck window row on each flank of the
+// level mid-section only — the tapered ends stay clean where they sink into
+// the fuselage crown.
 function drawCxHump(ctx, w, h) {
-  ctx.fillStyle = '#f5f7f9'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = CX_CROWN; ctx.fillRect(0, 0, w, h);
   ctx.strokeStyle = 'rgba(20,30,40,0.05)'; ctx.lineWidth = 1;
-  for (let y = 40; y < h; y += 55) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+  for (let y = 30; y < h; y += 42) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
   ctx.fillStyle = CX_WIN;
-  for (let v = 0.30; v <= 0.72; v += 0.045) {
-    const sinT = Math.sin((1 - v) * Math.PI), c = 0.47 / sinT;
-    if (c > 0.97) continue;                            // window height off this ring
-    const a = Math.acos(c) / (2 * Math.PI);
-    ctx.fillRect((0.25 + a) * w - 2, (1 - v) * h - 3, 5, 6);
-    ctx.fillRect((0.25 - a) * w - 2, (1 - v) * h - 3, 5, 6);
+  for (let v = 0.30; v <= 0.66; v += 0.033) {          // the level run of the deck
+    const y = (1 - v) * h - 3;
+    ctx.fillRect(0.168 * w - 3, y, 6, 6);              // starboard row, just off the crest
+    ctx.fillRect(0.832 * w - 3, y, 6, 6);              // port row
   }
 }
 // tail cone: bands follow the shrinking radius, windows curve with them
@@ -2459,21 +2467,25 @@ function drawCxTail(ctx, w, h) {
 }
 // fin side: jade field, white cap, red base stripe, and the white brushstroke
 // with bristle streaks (the "brushwing"). mirror=true flips the art for the
-// starboard face so the stroke sweeps up-and-aft on both sides.
-function drawCxFin(ctx, w, h, mirror) {
+// starboard face so the stroke sweeps up-and-aft on both sides. red=false
+// paints the modern (post-2015) variant: deeper jade field, no red stripe.
+function drawCxFin(ctx, w, h, mirror, red = true) {
   if (mirror) { ctx.translate(w, 0); ctx.scale(-1, 1); }
   const Y = up => (1.05 - up) / 1.05 * h;              // fin-up metres → canvas y
   ctx.fillStyle = '#f2f5f6'; ctx.fillRect(0, 0, w, h);
   ctx.fillStyle = CX_JADE;                             // jade field over the stripe
   ctx.beginPath();
   ctx.moveTo(0, Y(0.90)); ctx.lineTo(w, Y(0.90));
-  ctx.lineTo(w, Y(0.19)); ctx.lineTo(0, Y(0.13));
+  if (red) { ctx.lineTo(w, Y(0.19)); ctx.lineTo(0, Y(0.13)); }
+  else { ctx.lineTo(w, Y(0.06)); ctx.lineTo(0, Y(0.02)); }
   ctx.closePath(); ctx.fill();
-  ctx.fillStyle = CX_RED;                              // red stripe rising aft
-  ctx.beginPath();
-  ctx.moveTo(0, Y(0.115)); ctx.lineTo(w, Y(0.175));
-  ctx.lineTo(w, Y(0.13)); ctx.lineTo(0, Y(0.07));
-  ctx.closePath(); ctx.fill();
+  if (red) {
+    ctx.fillStyle = CX_RED;                            // red stripe rising aft
+    ctx.beginPath();
+    ctx.moveTo(0, Y(0.115)); ctx.lineTo(w, Y(0.175));
+    ctx.lineTo(w, Y(0.13)); ctx.lineTo(0, Y(0.07));
+    ctx.closePath(); ctx.fill();
+  }
   // brushstroke: thick body sweeping down-forward from the cap...
   ctx.strokeStyle = '#f2f5f6'; ctx.lineCap = 'round'; ctx.lineWidth = 30;
   ctx.beginPath();
@@ -2503,6 +2515,65 @@ function drawCxFin(ctx, w, h, mirror) {
     ctx.quadraticCurveTo(w * 0.78 + o, Y(0.56), w * 0.68 + o, Y(0.44));
     ctx.stroke();
   }
+}
+// 777 main-deck barrel (modern livery, per the CX 777-300 press reference):
+// white/grey bands, a slim jade cheatline hugging the single long window row,
+// big jade titles FORWARD (no hump in the way), doors, and the registration.
+function drawCx777Barrel(ctx, w, h) {
+  for (let x = 0; x < w; x++) {                        // base bands per column
+    const a = Math.min(x, w - x) / w * 2 * Math.PI;    // angle from the crown
+    ctx.fillStyle = cxHull(0.28 * Math.cos(a));
+    ctx.fillRect(x, 0, 1, h);
+  }
+  const X = a => a / 360 * w;                          // degrees-from-crown → px
+  // faint frame/panel lines under everything
+  ctx.strokeStyle = 'rgba(20,30,40,0.05)'; ctx.lineWidth = 1;
+  for (let y = 75; y < h; y += 75) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+  // the slim jade cheatline along the window line, both sides, full length
+  ctx.fillStyle = CX_JADE;
+  ctx.fillRect(X(68.5), 0, X(8), h);
+  ctx.fillRect(w - X(76.5), 0, X(8), h);
+  // doors: outlined at the window line, windows skip around them
+  const doors = [120, 350, 590, 830, 975];
+  ctx.strokeStyle = 'rgba(90,100,110,0.55)'; ctx.lineWidth = 1.5;
+  for (const wx of [X(72.5), w - X(72.5)])
+    for (const dy of doors) { ctx.strokeRect(wx - 14, dy - 12, 28, 24); ctx.fillStyle = CX_WIN; ctx.fillRect(wx - 4, dy - 3, 8, 6); }
+  // one LONG continuous window row — the humpless single deck
+  ctx.fillStyle = CX_WIN;
+  for (const wx of [X(72.5), w - X(72.5)])
+    for (let y = 60; y < 1000; y += 12) {
+      if (doors.some(d => Math.abs(y - d) < 20)) continue;
+      ctx.fillRect(wx - 4, y, 8, 6);
+    }
+  // big jade titles on the FORWARD crown (the 777 signature placement)
+  const font = 'bold 30px "Helvetica Neue", Arial, sans-serif';
+  hullText(ctx, 'CATHAY PACIFIC', X(42), 268, -Math.PI / 2, font, CX_JADE, '4px');
+  hullText(ctx, 'CATHAY PACIFIC', w - X(42), 268, Math.PI / 2, font, CX_JADE, '4px');
+  // registration near the tail
+  const rfont = 'bold 13px Arial, sans-serif';
+  hullText(ctx, 'B-HKT', X(38), 985, -Math.PI / 2, rfont, '#5c666e');
+  hullText(ctx, 'B-HKT', w - X(38), 985, Math.PI / 2, rfont, '#5c666e');
+}
+// a big turbofan face for the 777 nacelles: dark intake, a ring of swept fan
+// blades and the grey spinner with its white swirl
+function drawCxFan(ctx, w, h) {
+  const cx = w / 2, cy = h / 2, r = w / 2;
+  ctx.fillStyle = '#0d1114'; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 7); ctx.fill();
+  ctx.strokeStyle = '#2c343b'; ctx.lineWidth = 3;      // swept blades
+  for (let i = 0; i < 22; i++) {
+    const a = i / 22 * 2 * Math.PI;
+    ctx.beginPath();
+    ctx.moveTo(cx + 11 * Math.cos(a), cy + 11 * Math.sin(a));
+    ctx.quadraticCurveTo(cx + r * 0.6 * Math.cos(a + 0.22), cy + r * 0.6 * Math.sin(a + 0.22),
+                         cx + (r - 4) * Math.cos(a + 0.38), cy + (r - 4) * Math.sin(a + 0.38));
+    ctx.stroke();
+  }
+  ctx.strokeStyle = 'rgba(160,170,178,0.5)'; ctx.lineWidth = 2;   // rub-strip ring
+  ctx.beginPath(); ctx.arc(cx, cy, r - 3, 0, 7); ctx.stroke();
+  ctx.fillStyle = '#8f979e'; ctx.beginPath(); ctx.arc(cx, cy, 11, 0, 7); ctx.fill();   // spinner
+  ctx.strokeStyle = '#f2f5f7'; ctx.lineWidth = 3;      // the swirl
+  ctx.beginPath(); ctx.moveTo(cx, cy);
+  ctx.quadraticCurveTo(cx + 8, cy - 4, cx + 4, cy + 8); ctx.stroke();
 }
 // 747 main instrument panel: PFD | ND | EICAS | ND | PFD, painted as lit CRTs
 function drawCxPanel(ctx, w, h) {
@@ -2791,18 +2862,22 @@ function buildPropPlane() {
   const fin = new THREE.Mesh(finGeo([[0.1, 0], [0.62, 0], [0.56, 0.5], [0.3, 0.58], [0, 0.2]], 0.06), [finFace, red]);
   fin.position.set(0, 0.12, 1.4);
   grp.add(fin);
-  // fixed gear so the parked plane stands on something (origin lands at +2.2 m)
+  // gear so the parked plane stands on something (origin lands at +2.2 m) —
+  // grouped so stepFlight can hide the wheels once airborne (HKS-93)
+  const gear = new THREE.Group();
   for (const sx of [-1, 1]) {
     const leg = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.34, 0.08), dark);
     leg.position.set(sx * 0.42, -0.3, -0.72);
-    grp.add(leg);
+    gear.add(leg);
     const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.08, 12), dark);
     wheel.rotation.z = Math.PI / 2; wheel.position.set(sx * 0.42, -0.45, -0.72);
-    grp.add(wheel);
+    gear.add(wheel);
   }
   const tailWheel = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.05, 10), dark);
   tailWheel.rotation.z = Math.PI / 2; tailWheel.position.set(0, -0.14, 1.7);
-  grp.add(tailWheel);
+  gear.add(tailWheel);
+  grp.add(gear);
+  grp.userData.gear = gear;
   // two-blade prop, spun by stepFlight (HKS-87 landed behaviour unchanged)
   const prop = new THREE.Group();
   const b1 = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.07, 0.03), dark);
@@ -2868,11 +2943,21 @@ function buildCX747() {
   tail.rotation.x = -Math.PI / 2 - 0.09;               // wide end forward, tip swept slightly up
   tail.position.set(0, 0.06, 2.53);
   grp.add(tail);
-  // the signature upper-deck hump, pole-forward too, with its window rows
+  // the signature upper deck — a FAIRED hump, not a blob (checked against a
+  // CX 747-400 side profile): a lathe body of revolution laid along the hull
+  // that rises out of the crown just behind the cockpit, runs nearly level
+  // over the forward third, then tapers gently aft and sinks back into the
+  // crown. The revolve axis sits INSIDE the fuselage (y 0.24 < crown 0.3), so
+  // both pointed ends emerge from the skin instead of capping in mid-air.
   const humpMat = new THREE.MeshStandardMaterial({ map: canvasTex(512, 256, drawCxHump), roughness: 0.4, metalness: 0.15 });
-  const hump = new THREE.Mesh(new THREE.SphereGeometry(0.26, 20, 14), humpMat);
-  hump.rotation.x = -Math.PI / 2; hump.scale.set(1.0, 3.0, 0.9);
-  hump.position.set(0, 0.19, -0.85);
+  const humpPts = [[0.02, 0], [0.09, 0.35], [0.15, 0.8], [0.175, 1.2], [0.18, 1.6],
+                   [0.18, 1.95], [0.155, 2.15], [0.09, 2.28], [0.02, 2.35]]
+    .map(p => new THREE.Vector2(p[0], p[1]));
+  const humpG = new THREE.LatheGeometry(humpPts, 20);
+  humpG.rotateX(-Math.PI / 2);                          // profile runs forward (-z); u=0 stays at the crown
+  const hump = new THREE.Mesh(humpG, humpMat);
+  hump.scale.x = 1.3;                                   // the upper deck reads nearly fuselage-wide
+  hump.position.set(0, 0.24, 0.6);                      // aft blend at z 0.6 → front tip z -1.75, behind the cockpit
   grp.add(hump);
   // swept wings with dihedral, four podded engines slung ahead of the leading edge
   const wingMat = new THREE.MeshStandardMaterial({ map: wingTileTex(0.7), roughness: 0.4, metalness: 0.2, side: THREE.DoubleSide });
@@ -2919,16 +3004,20 @@ function buildCX747() {
     side.position.set(sx * 0.041, 0.24, 2.15);
     grp.add(side);
   }
-  // gear: nose strut + two main bogies (wheels reach y = -0.55, the landed line)
+  // gear: nose strut + two main bogies (wheels reach y = -0.55, the landed
+  // line), grouped so stepFlight can retract it — wheels only show on the ground
+  const gear = new THREE.Group();
   const gearAt = (x, z) => {
     const leg = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.26, 0.06), dark);
     leg.position.set(x, -0.34, z);
-    grp.add(leg);
+    gear.add(leg);
     const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.095, 0.16, 12), dark);
     wheel.rotation.z = Math.PI / 2; wheel.position.set(x, -0.455, z);
-    grp.add(wheel);
+    gear.add(wheel);
   };
   gearAt(0, -1.45); gearAt(-0.3, 0.45); gearAt(0.3, 0.45);
+  grp.add(gear);
+  grp.userData.gear = gear;
   // --- flight-deck interior (HKS-93): a painted panel the pilot sees only in
   // POV. Parented to the plane so it rolls with the horizon; toggled visible =
   // F.pov by stepFlight, hidden in chase. Designed in REAL METRES (cock.scale
@@ -2967,6 +3056,148 @@ function buildCX747() {
   grp.add(cock);
   grp.userData.cockpit = cock;
   grp.userData.povFwd = 2.6; grp.userData.povUp = 3.0;   // eye up in the upper-deck flight deck
+  grp.scale.setScalar(s);
+  grp.visible = false;
+  return grp;
+}
+// Cathay Pacific Boeing 777-300 (HKS-93): the humpless long twin-jet, built
+// from the CX 777-300 press side profile — one clean single deck, TWO very
+// large underwing turbofans with painted fan faces, swept wings ending in the
+// 777's raked tips, and the tall single fin carrying the brushwing (modern
+// livery: deeper jade, no red stripe). Same frame/scale/texture conventions
+// as the 747; no propeller, so stepFlight's prop guard skips it too.
+function buildCX777() {
+  const s = 4;                                          // ~26 m long / ~26 m span at ×4 — long and lean
+  const grp = new THREE.Group();
+  const white = new THREE.MeshStandardMaterial({ color: 0xf2f5f7, roughness: 0.4, metalness: 0.2 });
+  const jade  = new THREE.MeshStandardMaterial({ color: 0x00655b, roughness: 0.5, metalness: 0.15 });
+  const grey  = new THREE.MeshStandardMaterial({ color: 0xb7bec4, roughness: 0.5, metalness: 0.3 });
+  const dark  = new THREE.MeshStandardMaterial({ color: 0x22282e, roughness: 0.7 });
+  // the LONG single-deck barrel — the 777-300 stretch is the silhouette
+  const fus = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 4.4, 24),
+    new THREE.MeshStandardMaterial({ map: canvasTex(512, 1024, drawCx777Barrel), roughness: 0.4, metalness: 0.15 }));
+  fus.rotation.x = -Math.PI / 2; fus.position.z = 0.1;   // z -2.1 … 2.3
+  grp.add(fus);
+  // pointed nose, pole-forward like the 747's; the jade cheatline runs through
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.28, 24, 16),
+    new THREE.MeshStandardMaterial({ map: canvasTex(512, 256, (c, w2, h2) => drawCxNose(c, w2, h2, '777')), roughness: 0.4, metalness: 0.15 }));
+  nose.rotation.x = -Math.PI / 2; nose.scale.set(1, 2.1, 1);
+  nose.position.z = -2.1;                               // tip reaches z ≈ -2.69
+  grp.add(nose);
+  // long tail cone, tip swept slightly up
+  const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.04, 1.8, 24),
+    new THREE.MeshStandardMaterial({ map: canvasTex(256, 256, drawCxTail), roughness: 0.4, metalness: 0.15 }));
+  tail.rotation.x = -Math.PI / 2 - 0.08;               // wide end forward
+  tail.position.set(0, 0.055, 3.18);
+  grp.add(tail);
+  // swept wings with dihedral and the raked-tip kink drawn into the planform
+  const wingMat = new THREE.MeshStandardMaterial({ map: wingTileTex(0.7), roughness: 0.4, metalness: 0.2, side: THREE.DoubleSide });
+  const wShape = new THREE.Shape();                     // half-wing, root at x 0
+  wShape.moveTo(0, 0);
+  wShape.lineTo(2.55, 1.55);                            // leading edge out to the tip-break…
+  wShape.lineTo(3.15, 2.45);                            // …then the sharply raked tip
+  wShape.lineTo(3.15, 2.52);
+  wShape.lineTo(2.55, 1.86);                            // trailing edge back in
+  wShape.lineTo(0, 1.05);
+  wShape.closePath();
+  const wingG = new THREE.ExtrudeGeometry(wShape, { depth: 0.06, bevelEnabled: false });
+  wingG.rotateX(Math.PI / 2);
+  for (const sx of [-1, 1]) {
+    const wg = new THREE.Mesh(wingG, wingMat);
+    wg.scale.x = sx; wg.rotation.z = sx * 0.10;        // mirrored halves → dihedral
+    wg.position.set(0, -0.15, -0.35);
+    grp.add(wg);
+    // ONE very large turbofan per side — the 777's engines are its signature:
+    // nearly half the fuselage diameter, slung well ahead of the leading edge
+    const ex = 0.95, ey = -0.29, ez = -0.10;
+    const nac = new THREE.Mesh(new THREE.CylinderGeometry(0.165, 0.145, 0.78, 16), grey);
+    nac.rotation.x = -Math.PI / 2; nac.position.set(sx * ex, ey, ez);
+    grp.add(nac);
+    const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.175, 0.10, 16), grey);
+    lip.rotation.x = -Math.PI / 2; lip.position.set(sx * ex, ey, ez - 0.36);
+    grp.add(lip);
+    const fan = new THREE.Mesh(new THREE.CircleGeometry(0.16, 20),
+      new THREE.MeshStandardMaterial({ map: canvasTex(128, 128, drawCxFan), roughness: 0.6 }));
+    fan.rotation.y = Math.PI;                          // face forward (-z)
+    fan.position.set(sx * ex, ey, ez - 0.405);
+    grp.add(fan);
+    const core = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.24, 12), dark);
+    core.rotation.x = Math.PI / 2;                     // exhaust cone points aft
+    core.position.set(sx * ex, ey, ez + 0.47);
+    grp.add(core);
+    const pylon = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.20, 0.5), white);
+    pylon.position.set(sx * ex, ey + 0.19, ez + 0.30);
+    grp.add(pylon);
+  }
+  // tailplane + the tall single fin: jade core, painted brushwing side faces
+  const tailW = new THREE.Mesh(wingGeo(1.2, 0.55, 0.18, 0.6, 0.05), wingMat);
+  tailW.position.set(0, 0.12, 3.02);
+  grp.add(tailW);
+  const finPts = [[0, 0], [0.95, 0], [1.35, 1.15], [1.02, 1.15]];
+  const fin = new THREE.Mesh(finGeo(finPts, 0.07), jade);
+  fin.position.set(0, 0.22, 2.62);
+  grp.add(fin);
+  const finShape = new THREE.Shape();
+  finShape.moveTo(0, 0); finShape.lineTo(0.95, 0);
+  finShape.lineTo(1.35, 1.15); finShape.lineTo(1.02, 1.15);
+  finShape.closePath();
+  const finSideG = new THREE.ShapeGeometry(finShape);
+  finSideG.rotateY(-Math.PI / 2);                      // faces -x (port)
+  for (const sx of [-1, 1]) {
+    const tex = canvasTex(320, 256, (c, w2, h2) => drawCxFin(c, w2, h2, sx === 1, false));
+    tex.repeat.set(1 / 1.35, 1 / 1.15);                // shape UVs are raw metres
+    const side = new THREE.Mesh(finSideG, new THREE.MeshStandardMaterial({ map: tex, roughness: 0.5 }));
+    if (sx === 1) side.scale.x = -1;                   // starboard: mirrored geometry + art
+    side.position.set(sx * 0.041, 0.22, 2.62);
+    grp.add(side);
+  }
+  // gear: nose strut + two main bogies (wheels reach y = -0.55), grouped so
+  // stepFlight can retract it — wheels only show on the ground
+  const gear = new THREE.Group();
+  const gearAt = (x, z) => {
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.26, 0.06), dark);
+    leg.position.set(x, -0.34, z);
+    gear.add(leg);
+    const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.095, 0.16, 12), dark);
+    wheel.rotation.z = Math.PI / 2; wheel.position.set(x, -0.455, z);
+    gear.add(wheel);
+  };
+  gearAt(0, -1.85); gearAt(-0.3, 0.35); gearAt(0.3, 0.35);
+  grp.add(gear);
+  grp.userData.gear = gear;
+  // POV flight deck (glass cockpit): the same painted-panel treatment as the
+  // 747 — big-LCD main panel + MCP glareshield + windscreen frame — sat lower,
+  // this deck is on the single main level. REAL METRES around the eye at
+  // ~(0, 2.4, -2.8) looking down -z; toggled visible = F.pov by stepFlight.
+  const cock = new THREE.Group();
+  const trim = new THREE.MeshStandardMaterial({ color: 0x15181c, roughness: 0.85 });
+  const post = new THREE.MeshStandardMaterial({ color: 0x20242a, roughness: 0.7 });
+  const panelMats = [trim, trim, trim, trim,
+    new THREE.MeshBasicMaterial({ map: canvasTex(1024, 320, drawCxPanel) }), trim];
+  const panel = new THREE.Mesh(new THREE.BoxGeometry(5.2, 1.6, 0.3), panelMats);
+  panel.position.set(0, 1.22, -4.75); panel.rotation.x = 0.42;
+  cock.add(panel);
+  const glareMats = [trim, trim, trim, trim,
+    new THREE.MeshBasicMaterial({ map: canvasTex(1024, 64, drawCxMCP) }), trim];
+  const glare = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.34, 0.42), glareMats);
+  glare.position.set(0, 2.02, -4.55); glare.rotation.x = -0.18;
+  cock.add(glare);
+  const header = new THREE.Mesh(new THREE.BoxGeometry(5.6, 0.32, 0.3), post);
+  header.position.set(0, 3.9, -5.6);
+  cock.add(header);
+  const cpost = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.9, 0.22), post);
+  cpost.position.set(0, 3.1, -5.6);
+  cock.add(cpost);
+  for (const sx of [-1, 1]) {
+    const side = new THREE.Mesh(new THREE.BoxGeometry(0.26, 3.6, 0.26), post);
+    side.position.set(sx * 2.7, 2.8, -5.2); side.rotation.z = sx * 0.34;
+    cock.add(side);
+  }
+  cock.scale.setScalar(1 / s);                          // cancel the group's ×4 so the metres above are literal
+  cock.visible = false;
+  grp.add(cock);
+  grp.userData.cockpit = cock;
+  grp.userData.povFwd = 2.8; grp.userData.povUp = 2.4;   // eye on the single deck, ahead of the wing
   grp.scale.setScalar(s);
   grp.visible = false;
   return grp;
@@ -3218,6 +3449,8 @@ function stepFlight() {
   }
   planeGrp.position.copy(F.pos);
   planeGrp.quaternion.copy(_fq);
+  // HKS-93: the gear retracts — wheels render only while on the ground
+  if (planeGrp.userData.gear) planeGrp.userData.gear.visible = F.landed;
   // HKS-87: the prop is tied to engine/airspeed — airborne it keeps a base
   // spin plus a speed term; landed it's driven purely by ground speed, so it
   // winds down to a dead stop as the plane brakes and stays still while parked.
