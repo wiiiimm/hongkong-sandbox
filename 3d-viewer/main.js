@@ -6209,6 +6209,10 @@ async function syncLiveWeather() {
     if (tc.dir) { el('winddir').value = tc.dir; setWindDir(tc.dir); }
     el('storm').value = String(tc.level);
     applyStorm(tc.level);
+    // HKS-67: hand the fetched payloads to WxField so registered consumers
+    // (rain/lightning/haze/flood fields) rebuild on this same 5-min cadence
+    // without refetching; rebuildFields isolates consumer errors internally.
+    WxField.rebuildFields({ rhrread: rh, flw: fl, warnsum: ws, lhl });
   } catch (e) { el('wx-status').textContent = t('wx.unavail'); console.error(e); }
 }
 
@@ -6495,6 +6499,181 @@ function updateStations() {
     m.el.style.left = ((v.x*0.5 + 0.5) * innerWidth) + 'px';
     m.el.style.top  = ((-v.y*0.5 + 0.5) * innerHeight) + 'px';
   }
+}
+
+// ---- WxField (HKS-67): region → geography scalar fields --------------------
+// Foundation for the regional-weather epic (HKS-66). Turns per-region scalar
+// readings (one number per HKO/EPD station, baked HK1980 E/N coordinates) into
+// a smooth spatial field that the render loop can sample cheaply at any
+// terrain-local coordinate. No user-visible output of its own — the phenomenon
+// issues each feed it their own scalars:
+//   rain (HKS-69), lightning (HKS-68), AQHI haze (HKS-71), flood (HKS-70).
+//
+// How a consumer uses it (all coordinates are terrain-LOCAL x/z — the same
+// frame as rainPts/cloudGrp children of `world`, metres × mesh cell):
+//   WxField.onRefresh(data => {              // runs after each live-data sync
+//     const pts = myScalars(data)            // data = { rhrread, flw, warnsum, lhl }
+//       .map(s => ({ ...WxField.mapStationToWorld(s), v: s.value }));
+//     WxField.set('rain', pts);              // precomputes the coarse grid
+//   });
+//   ...per frame / per particle:  WxField.sample('rain', x, z)   // O(1) bilinear
+//
+// Interpolation: inverse-distance weighting (power 2 by default) over the
+// station points, precomputed once per refresh into a coarse grid covering the
+// map extent; sample() bilinearly interpolates that grid — smooth everywhere,
+// no blocky region boundaries, and graceful at the edges (clamped) and with
+// sparse/no data (fallback value).
+const WxField = (() => {
+  const fields = Object.create(null);   // name -> last built field
+  const refreshCbs = [];                // consumer callbacks, run per live sync
+
+  // HK1980 grid E/N -> terrain-local { x, z }. This is the SAME transform the
+  // station cards / AQHI chips / GPS marker use (see updateStations):
+  //   col = (E - g.bE) / g.aE, row = (N - g.bN) / g.aN, then grid-centre offset.
+  // Returns null until the terrain (curG) is loaded or for bad input.
+  function mapStationToWorld(station) {
+    if (!curG || !station || !isFinite(station.E) || !isFinite(station.N)) return null;
+    const g = curG, col = (station.E - g.bE) / g.aE, row = (station.N - g.bN) / g.aN;
+    return { x: (col - W / 2) * cell, z: (row - H / 2) * cell };
+  }
+
+  // Look up a baked HKO station (data/hko-stations.json) by the names the live
+  // feeds use. Normalised so rhrread's "Hong Kong Observatory" / "Hong Kong
+  // Park" match the JSON's "HK Observatory" / "HK Park". Consumers must
+  // `await ensureStations()` first — returns null until that JSON is loaded.
+  let hkoIdx = null, hkoIdxSrc = null;
+  const normName = s => String(s).toLowerCase().replace(/hong kong/g, 'hk').replace(/[^a-z0-9]/g, '');
+  function hkoStationEN(name) {
+    if (!stationData) return null;
+    if (!hkoIdx || hkoIdxSrc !== stationData) {
+      hkoIdx = new Map(stationData.stations.map(s => [normName(s.name), s]));
+      hkoIdxSrc = stationData;
+    }
+    const s = hkoIdx.get(normName(name));
+    return s ? { E: s.E, N: s.N, name: s.name } : null;
+  }
+
+  // Build a smooth field from points = [{ x, z, v }] (terrain-local coords +
+  // scalar). opts: { res = 48 grid cells per side, power = 2 IDW exponent,
+  // fallback = 0 value when there is no data }. Cost: res² × nPoints once per
+  // refresh (48² × ~50 ≈ 115k mul — negligible); sample() is a bilinear lookup.
+  function makeField(points, opts) {
+    const o = opts || {}, res = Math.max(2, o.res || 48), power = o.power || 2, fallback = o.fallback ?? 0;
+    const pts = (points || []).filter(p => p && isFinite(p.x) && isFinite(p.z) && isFinite(p.v));
+    if (!curG || !W || !pts.length)   // no terrain yet or no data: constant field
+      return { sample: () => fallback, grid: null, res: 0, min: fallback, max: fallback, n: 0, empty: true };
+    const b = bounds(), x0 = -b.halfX, z0 = -b.halfZ, dx = (2 * b.halfX) / (res - 1), dz = (2 * b.halfZ) / (res - 1);
+    // soften the IDW kernel by ~one grid cell so the surface stays smooth (no
+    // singular spikes) right on top of a station, and never divides by zero
+    const soft2 = Math.pow(Math.max(dx, dz), 2);
+    const grid = new Float32Array(res * res);
+    let min = Infinity, max = -Infinity;
+    for (let iz = 0; iz < res; iz++) {
+      const z = z0 + iz * dz;
+      for (let ix = 0; ix < res; ix++) {
+        const x = x0 + ix * dx;
+        let sw = 0, sv = 0;
+        for (const p of pts) {
+          const ddx = p.x - x, ddz = p.z - z;
+          const w = 1 / Math.pow(ddx * ddx + ddz * ddz + soft2, power / 2);
+          sw += w; sv += w * p.v;
+        }
+        const val = sv / sw;
+        grid[iz * res + ix] = val;
+        if (val < min) min = val;
+        if (val > max) max = val;
+      }
+    }
+    function sample(x, z) {          // O(1) bilinear lookup, clamped at the edges
+      const fx = Math.min(res - 1, Math.max(0, (x - x0) / dx));
+      const fz = Math.min(res - 1, Math.max(0, (z - z0) / dz));
+      const ix = Math.min(res - 2, fx | 0), iz = Math.min(res - 2, fz | 0);
+      const tx = fx - ix, tz = fz - iz, r0 = iz * res + ix, r1 = r0 + res;
+      const a = grid[r0] + (grid[r0 + 1] - grid[r0]) * tx;
+      const c = grid[r1] + (grid[r1 + 1] - grid[r1]) * tx;
+      return a + (c - a) * tz;
+    }
+    return { sample, grid, res, x0, z0, dx, dz, min, max, n: pts.length, empty: false };
+  }
+
+  function set(name, points, opts) { return (fields[name] = makeField(points, opts)); }
+  function get(name) { return fields[name] || null; }
+  function sample(name, x, z, fallback) {
+    const f = fields[name];
+    return f && !f.empty ? f.sample(x, z) : (fallback ?? 0);
+  }
+  function onRefresh(cb) { refreshCbs.push(cb); }
+  // Called by syncLiveWeather after each live fetch (5-min cadence) with the
+  // payloads it already has — { rhrread, flw, warnsum, lhl } — so consumers
+  // rebuild their fields without refetching. Errors in one consumer never
+  // break the weather HUD or other consumers.
+  function rebuildFields(data) {
+    for (const cb of refreshCbs) {
+      try {
+        const p = cb(data || {});
+        if (p && typeof p.catch === 'function') p.catch(e => console.error('wxfield', e));
+      } catch (e) { console.error('wxfield', e); }
+    }
+  }
+
+  // ?debug heatmap: paint a field as a low-opacity canopy plane floating above
+  // the terrain (added to `world`, so it spins with the map) to eyeball the
+  // interpolation smoothness. Never created without the FLY_DEBUG flag.
+  let dbgMesh = null, dbgCv = null, dbgTex = null;
+  function debugShowField(name) {
+    if (!FLY_DEBUG || !curG || !W) return;
+    const f = fields[name];
+    if (!f || f.empty) { if (dbgMesh) dbgMesh.visible = false; return; }
+    const res = f.res;
+    if (!dbgCv) dbgCv = document.createElement('canvas');
+    dbgCv.width = res; dbgCv.height = res;
+    const ctx = dbgCv.getContext('2d'), img = ctx.createImageData(res, res);
+    const span = Math.max(1e-9, f.max - f.min);
+    for (let i = 0; i < res * res; i++) {          // blue→cyan→yellow→red ramp
+      const t = (f.grid[i] - f.min) / span, q = i * 4;
+      img.data[q]     = Math.round(255 * Math.min(1, Math.max(0, 2 * t - 0.5)));
+      img.data[q + 1] = Math.round(255 * Math.min(1, Math.max(0, t < 0.5 ? 2.4 * t : 2.4 * (1 - t))));
+      img.data[q + 2] = Math.round(255 * Math.min(1, Math.max(0, 1.4 - 2.4 * t)));
+      img.data[q + 3] = 235;
+    }
+    ctx.putImageData(img, 0, 0);
+    const b = bounds();
+    if (!dbgMesh) {
+      dbgTex = new THREE.CanvasTexture(dbgCv);
+      dbgTex.minFilter = dbgTex.magFilter = THREE.LinearFilter;   // GPU bilinear ≈ sample()
+      dbgMesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(1, 1),
+        new THREE.MeshBasicMaterial({ map: dbgTex, transparent: true, opacity: 0.35, depthWrite: false }));
+      dbgMesh.rotation.x = -Math.PI / 2;   // canvas row 0 lands at z = -halfZ (grid iz = 0)
+      dbgMesh.renderOrder = 3;
+      world.add(dbgMesh);
+    }
+    dbgTex.needsUpdate = true;
+    dbgMesh.scale.set(2 * b.halfX, 2 * b.halfZ, 1);
+    dbgMesh.position.y = zmax * VE + b.span * 0.02;   // canopy just above the peaks
+    dbgMesh.visible = true;
+  }
+
+  return { mapStationToWorld, hkoStationEN, makeField, set, get, sample, onRefresh, rebuildFields, debugShowField, fields };
+})();
+
+if (FLY_DEBUG) {
+  window.__wxField = WxField;   // inspect fields / sample() from the console
+  // demo consumer proving the plumbing: per-station air temperature from the
+  // same rhrread payload syncLiveWeather fetched, rendered as the debug canopy.
+  // Later phenomenon issues follow this exact pattern with their own scalars.
+  WxField.onRefresh(async data => {
+    const rows = (((data.rhrread || {}).temperature || {}).data) || [];
+    if (!rows.length) return;
+    await ensureStations();                    // baked E/N for the rhrread names
+    const pts = [];
+    for (const r of rows) {
+      const en = WxField.hkoStationEN(r.place), w = en && WxField.mapStationToWorld(en);
+      if (w && isFinite(+r.value)) pts.push({ x: w.x, z: w.z, v: +r.value });
+    }
+    WxField.set('demo-temp', pts);
+    WxField.debugShowField('demo-temp');
+  });
 }
 
 // ---- label projection + render loop ---------------------------------------
