@@ -102,11 +102,13 @@ const I18N = {
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
     'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!', 'share.embed': 'Embed', 'share.embedcopied': 'Embed code copied!',
-    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ gas · drag to look · C cockpit · Esc exit',
+    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ gas · drag to look · C camera · Esc exit',
     'fly.touch': 'tilt to steer · hold for gas · drag to look',
     'fly.view': 'view', 'fly.exit': 'exit',
     'fly.landed': 'landed', 'fly.takeoff': '🛫 take off — ␣ or tap',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
+    // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
+    'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)',
     'lbl.topspeed': 'Top speed',
     'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777',
     'btn.walk': '🪂 Walk',
@@ -125,7 +127,7 @@ const I18N = {
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
     'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
-    'help.fly.t': 'Flying', 'help.fly.b': 'Hold to accelerate — Space, or press & hold\nTake off: when landed, hold the gas to roll down the runway & lift off (or tap “Take off”)\nDrag to look around\nPress C for chase / cockpit\nLand anywhere — even water',
+    'help.fly.t': 'Flying', 'help.fly.b': 'Hold to accelerate — Space, or press & hold\nTake off: when landed, hold the gas to roll down the runway & lift off (or tap “Take off”)\nDrag to look around\nPress C to cycle chase / eye / cockpit\nLand anywhere — even water',
     'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump\nShift or a two‑finger hold to run\nDrag to look around\nPress C for first‑person / chase',
     'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🤳 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
     'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings',
@@ -190,11 +192,13 @@ const I18N = {
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
     'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！', 'share.embed': '嵌入', 'share.embedcopied': '已複製嵌入碼！',
-    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · 拖曳環視 · C 駕駛艙 · Esc 離開',
+    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · 拖曳環視 · C 鏡頭 · Esc 離開',
     'fly.touch': '傾斜轉向 · 按住加速 · 拖曳環視',
     'fly.view': '視角', 'fly.exit': '離開',
     'fly.landed': '已降落', 'fly.takeoff': '🛫 起飛 — ␣ 或點擊',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
+    // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
+    'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)',
     'lbl.topspeed': '極速',
     'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777',
     'btn.walk': '🪂 步行',
@@ -213,7 +217,7 @@ const I18N = {
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
     'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
-    'help.fly.t': '飛行', 'help.fly.b': '按住加速 — 空白鍵，或長按畫面\n起飛：著陸時按住油門沿跑道滑行升空（或點「起飛」）\n拖曳環顧四周\n按 C 切換追尾 / 座艙視角\n可降落任何地方（連水面）',
+    'help.fly.t': '飛行', 'help.fly.b': '按住加速 — 空白鍵，或長按畫面\n起飛：著陸時按住油門沿跑道滑行升空（或點「起飛」）\n拖曳環顧四周\n按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）',
     'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍\nShift 或雙指按住奔跑\n拖曳環顧四周\n按 C 切換第一人稱 / 追尾',
     'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🤳 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
     'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定',
@@ -2202,7 +2206,9 @@ function updateCelestial() {
 // Arcade model: ↑↓ pitch, ←→ bank (banking turns), ⇧/⌃ throttle; stalls sink,
 // the wind shoves you, storms rattle the stick, and the DEM heightfield is
 // solid — clip a ridge and you bounce off with a jolt. Chase camera; Esc exits.
-const flight = { on: false, pov: false, pos: new THREE.Vector3(), yaw: 0, pitch: 0, roll: 0,
+// HKS-93: view is three-way — 'chase' (external boom), 'eye' (the clean
+// first-person pilot's eye, no interior) or 'cockpit' (the flight-deck set)
+const flight = { on: false, view: 'chase', pos: new THREE.Vector3(), yaw: 0, pitch: 0, roll: 0,
                  speed: 0, top: 110, keys: {}, prevSpin: 1, helpT: 0, landed: false,
                  tilt: false, tiltRef: null, tiltBeta: 0, tiltGamma: 0,
                  // HKS-53: hold-to-gas + drag-to-look (shared boom offset, both cameras)
@@ -2250,6 +2256,10 @@ function setPlaneSkin(id) {
   planeGrp.visible = vis;
   planeGrp.position.copy(flight.pos);
   world.add(planeGrp);
+  // HKS-93: a skin without a flight deck can't hold cockpit view — fall back to
+  // the clean eye; the 🧑‍✈️ segment shows/hides with the new skin either way
+  if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
+  syncCamSeg();
 }
 document.getElementById('planeskin').addEventListener('change', e => setPlaneSkin(e.target.value));
 // a swept, tapered wing as one symmetric extrusion laid flat: shape x = span
@@ -3060,9 +3070,10 @@ function buildPropPlane() {
   prop.position.z = -2.05;                             // hub tucked into the spinner
   grp.add(prop);
   grp.userData.prop = prop;
-  // POV cockpit (HKS-93): a painted six-pack panel the pilot sees only in POV.
-  // Built in REAL METRES (cock.scale = 1/s cancels the ×4) around the eye at
-  // ~(0, 2.3, -2.2) looking down -z; toggled visible = F.pov by stepFlight.
+  // Cockpit (HKS-93): a painted six-pack panel the pilot sees only in the
+  // 🧑‍✈️ cockpit view. Built in REAL METRES (cock.scale = 1/s cancels the ×4)
+  // around the eye at ~(0, 2.3, -2.2) looking down -z; stepFlight shows it
+  // only while F.view === 'cockpit'.
   const cock = new THREE.Group();
   const trim = new THREE.MeshStandardMaterial({ color: 0x0e1013, roughness: 0.95 });
   const panelMats = [trim, trim, trim, trim,
@@ -3082,7 +3093,8 @@ function buildPropPlane() {
   cock.visible = false;
   grp.add(cock);
   grp.userData.cockpit = cock;
-  grp.userData.povFwd = 2.2; grp.userData.povUp = 2.3;   // POV eye: seated behind the cowl
+  grp.userData.povFwd = 2.2; grp.userData.povUp = 2.3;   // cockpit eye: seated behind the cowl
+  grp.userData.eyeFwd = 2.2; grp.userData.eyeUp = 2.3;   // 👁 eye view: same seat, panel hidden
   // nav lights: wingtips, tail, and the beacon on the fin tip (Cessna-style)
   addNavLights(grp, { wingL: [-2.42, 0.165, -0.55], wingR: [2.42, 0.165, -0.55],
                       tail: [0, 0.16, 1.80], top: [0, 0.70, 1.66], bot: [0, -0.30, -0.5] });
@@ -3196,11 +3208,12 @@ function buildCX747() {
   gearAt(0, -1.45); gearAt(-0.3, 0.45); gearAt(0.3, 0.45);
   grp.add(gear);
   grp.userData.gear = gear;
-  // --- flight-deck interior (HKS-93): the 747 cockpit the pilot sees in POV,
-  // photo-textured from a real 747-400 deck (see DECK_PHOTO_URL — CC BY 2.0,
-  // credited in the Credits drawer) with 3D yokes/throttles/frame in front so
-  // head-look still parallaxes. Parented to the plane so it rolls with the
-  // horizon; toggled visible = F.pov by stepFlight, hidden in chase. Designed
+  // --- flight-deck interior (HKS-93): the 747 cockpit the pilot sees in the
+  // 🧑‍✈️ cockpit view, photo-textured from a real 747-400 deck (see
+  // DECK_PHOTO_URL — CC BY 2.0, credited in the Credits drawer) with 3D
+  // yokes/throttles/frame in front so head-look still parallaxes. Parented to
+  // the plane so it rolls with the horizon; stepFlight shows it only while
+  // F.view === 'cockpit' — hidden in chase AND in the clean 👁 eye view. Designed
   // in REAL METRES (cock.scale = 1/s cancels the ×4) around the captain-height
   // eye at (0, 2.72, -2.9) looking down -z with a 6° default nose-down head
   // tilt (povPitch): straight ahead, the glareshield lip crosses just below
@@ -3328,8 +3341,9 @@ function buildCX747() {
   cock.visible = false;
   grp.add(cock);
   grp.userData.cockpit = cock;
-  grp.userData.povFwd = 2.9; grp.userData.povUp = 2.72;  // captain-height eye in the upper deck
-  grp.userData.povPitch = -0.105;                        // default gaze ~6° below the horizon
+  grp.userData.povFwd = 2.9; grp.userData.povUp = 2.72;  // cockpit eye: captain height behind the panel
+  grp.userData.povPitch = -0.105;                        // cockpit resting gaze ~6° below the horizon
+  grp.userData.eyeFwd = 2.6; grp.userData.eyeUp = 3.0;   // 👁 eye view: the original clean upper-deck eye — higher, level, no interior
   // nav lights: swept wingtips, tail cone, beacons on the hump crest & belly
   addNavLights(grp, { wingL: [-2.8, 0.11, 1.12], wingR: [2.8, 0.11, 1.12],
                       tail: [0, 0.13, 3.30], top: [0, 0.40, -0.3], bot: [0, -0.32, 0] });
@@ -3458,10 +3472,10 @@ function buildCX777() {
   gearAt(0, -1.85); gearAt(-0.3, 0.35); gearAt(0.3, 0.35);
   grp.add(gear);
   grp.userData.gear = gear;
-  // POV flight deck (glass cockpit): the same painted-panel treatment as the
+  // Flight deck (glass cockpit): the same painted-panel treatment as the
   // 747 — big-LCD main panel + MCP glareshield + windscreen frame — sat lower,
   // this deck is on the single main level. REAL METRES around the eye at
-  // ~(0, 2.4, -2.8) looking down -z; toggled visible = F.pov by stepFlight.
+  // ~(0, 2.4, -2.8) looking down -z; stepFlight shows it only in 🧑‍✈️ cockpit view.
   const cock = new THREE.Group();
   const trim = new THREE.MeshStandardMaterial({ color: 0x15181c, roughness: 0.85 });
   const post = new THREE.MeshStandardMaterial({ color: 0x20242a, roughness: 0.7 });
@@ -3490,7 +3504,8 @@ function buildCX777() {
   cock.visible = false;
   grp.add(cock);
   grp.userData.cockpit = cock;
-  grp.userData.povFwd = 2.8; grp.userData.povUp = 2.4;   // eye on the single deck, ahead of the wing
+  grp.userData.povFwd = 2.8; grp.userData.povUp = 2.4;   // cockpit eye on the single deck, ahead of the wing
+  grp.userData.eyeFwd = 2.8; grp.userData.eyeUp = 2.4;   // 👁 eye view: same seat, deck hidden
   // nav lights: raked wingtips, tail cone, beacons on the crown & belly
   addNavLights(grp, { wingL: [-3.15, 0.17, 2.10], wingR: [3.15, 0.17, 2.10],
                       tail: [0, 0.13, 4.02], top: [0, 0.31, 0.1], bot: [0, -0.31, 0.1] });
@@ -3507,6 +3522,8 @@ function enterFlight() {
   document.getElementById('spindir').value = '0';
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
   planeGrp.visible = true;
+  // HKS-93: a remembered cockpit view can't survive onto a skin with no flight deck
+  if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   const b = bounds(), g = curG;
   // start LANDED on the HKIA runway (Chek Lap Kok), facing east toward Kowloon —
   // hold-to-gas / ␣ / a tap rolls you down the runway and lifts off (HKS-73).
@@ -3568,11 +3585,22 @@ function exitFlight() {
   frameCamera();
   refreshDock();
 }
-// the view button beside Fly mirrors the C key: chase ↔ cockpit
-function updateViewBtn() { syncCamSeg(); }   // fly camera (chase ⇄ cockpit) reflects in the segmented control
+// the camera control beside the compass mirrors the C key — in Fly it cycles
+// 🎥 chase → 👁 eye (clean first person) → 🧑‍✈️ cockpit (interior), skipping
+// cockpit on any skin without a built flight deck (HKS-93)
+function updateViewBtn() { syncCamSeg(); }   // fly camera state reflects in the segmented control
+function flyViews() {
+  return (planeGrp && planeGrp.userData.cockpit) ? ['chase', 'eye', 'cockpit'] : ['chase', 'eye'];
+}
 function toggleView() {
   if (!flight.on) return;
-  flight.pov = !flight.pov;
+  const order = flyViews();                 // indexOf -1 (stale cockpit) cycles back to chase
+  setFlightView(order[(order.indexOf(flight.view) + 1) % order.length]);
+}
+function setFlightView(v) {
+  if (!flight.on) return;
+  if (v === 'cockpit' && !(planeGrp && planeGrp.userData.cockpit)) v = 'eye';   // no flight deck → clean eye
+  flight.view = v;
   camera.up.set(0, 1, 0);
   updateViewBtn();
 }
@@ -3768,9 +3796,9 @@ function stepFlight() {
   // the plane is stationary/parked. Airborne throttle mapping is unchanged.
   setEngine(sndOn ? (F.landed ? F.speed * 0.004 : 0.25 + 0.75 * (F.speed - 28) / Math.max(20, F.top - 28)) : 0);
   // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
-  // — chase 55°, cockpit 68° — and stretches a few degrees more near full
+  // — chase 55°, eye/cockpit 68° — and stretches a few degrees more near full
   // throttle. Eased so view switches breathe instead of snapping.
-  const fovT = (F.pov ? 68 : 55) + 6 * (F.speed - 62) / Math.max(20, F.top - 62);
+  const fovT = (F.view !== 'chase' ? 68 : 55) + 6 * (F.speed - 62) / Math.max(20, F.top - 62);
   if (Math.abs(camera.fov - fovT) > 0.05) {
     camera.fov += (fovT - camera.fov) * 0.06;
     camera.updateProjectionMatrix();
@@ -3779,21 +3807,25 @@ function stepFlight() {
   // ease back to centre once nothing is held (no finger down, no mouse drag)
   if (!F.touchHold && !F.mouseLook) { F.lookYaw *= 0.9; F.lookPitch *= 0.9; }
   // --- cameras (world space: survives any leftover world spin)
-  if (F.pov) {                                         // cockpit: seated in the flight deck —
-    const ck = planeGrp.userData.cockpit;              // 747 has a foreground interior (HKS-93)
+  if (F.view !== 'chase') {                            // first person: 👁 eye or 🧑‍✈️ cockpit —
+    const ud = planeGrp.userData, ck = ud.cockpit;     // interiors exist per skin (HKS-93)
+    const inCk = F.view === 'cockpit' && !!ck;         // no deck built → render the clean eye
     if (ck) {
-      ck.visible = true;
-      if (ck.userData.rain) ck.userData.rain.visible = weather.rain;   // wet windscreen only in rain
+      ck.visible = inCk;                               // the interior shows ONLY in cockpit view
+      if (inCk && ck.userData.rain) ck.userData.rain.visible = weather.rain;   // wet windscreen only in rain
     }
     _fu.set(0, 1, 0).applyQuaternion(_fq);             // nose (+ prop / dashboard) stay in frame,
-    const eF = planeGrp.userData.povFwd ?? 2.2, eU = planeGrp.userData.povUp ?? 2.3;
+    // eye view sits at the skin's ORIGINAL clean POV seat (eyeFwd/eyeUp — higher
+    // and level on the 747); cockpit view uses the reframed captain eye
+    const eF = inCk ? (ud.povFwd ?? 2.2) : (ud.eyeFwd ?? ud.povFwd ?? 2.2);
+    const eU = inCk ? (ud.povUp ?? 2.3) : (ud.eyeUp ?? ud.povUp ?? 2.3);
     _fc.copy(F.pos).addScaledVector(_fv, eF).addScaledVector(_fu, eU);   // horizon rolls
     world.localToWorld(_fc);
     camera.position.copy(_fc);
     // head-turn: rotate the look direction by the shared boom offset (HKS-53);
-    // povPitch (HKS-93) is the skin's resting head tilt — a few degrees down so
-    // the panel fills the lower view and the horizon rides above screen centre
-    _fe2.set(F.lookPitch + (planeGrp.userData.povPitch || 0), F.lookYaw, 0, 'YXZ');
+    // povPitch (HKS-93) is the cockpit's resting head tilt — a few degrees down
+    // so the panel fills the lower view; the clean eye view stays level
+    _fe2.set(F.lookPitch + (inCk ? (ud.povPitch || 0) : 0), F.lookYaw, 0, 'YXZ');
     _fq2.copy(_fq).multiply(_lookQ.setFromEuler(_fe2));
     _fv2.set(0, 0, -1).applyQuaternion(_fq2);
     _fl.copy(F.pos).addScaledVector(_fv2, 2000); world.localToWorld(_fl);
@@ -4311,22 +4343,25 @@ function toggleWalkView() {
   walk.pov = !walk.pov;
   updateWalkViewBtn();
 }
-// unified camera segmented control (HKS-86): 🎥 external/chase ⇄ 👁 first-person,
-// routing to whichever movement mode is active (pov=false external · pov=true first-person)
+// unified camera segmented control (HKS-86/93): 🎥 external/chase · 👁 first-person
+// eye · 🧑‍✈️ cockpit interior. Fly shows all three (cockpit only when the skin
+// has a flight deck); Walk keeps the two-way 🎥 ⇄ 👁 — no cockpit on foot.
 function syncCamSeg() {
-  const active = flight.on || walk.on;
-  const pov = flight.on ? flight.pov : walk.on ? walk.pov : false;
-  const ext = document.getElementById('cam-ext'), fp = document.getElementById('cam-pov');
-  if (!ext || !fp) return;
-  ext.classList.toggle('on', active && !pov); ext.setAttribute('aria-pressed', active && !pov ? 'true' : 'false');
-  fp.classList.toggle('on', active && pov);   fp.setAttribute('aria-pressed', active && pov ? 'true' : 'false');
+  const mode = flight.on ? flight.view : walk.on ? (walk.pov ? 'eye' : 'chase') : null;
+  const ext = document.getElementById('cam-ext'), fp = document.getElementById('cam-pov'),
+        ckb = document.getElementById('cam-ck');
+  if (!ext || !fp || !ckb) return;
+  ckb.hidden = !flight.on || !(planeGrp && planeGrp.userData.cockpit);   // Fly-only, needs a flight deck
+  const mark = (btn, on) => { btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false'); };
+  mark(ext, mode === 'chase'); mark(fp, mode === 'eye'); mark(ckb, mode === 'cockpit');
 }
-function setCamView(fp) {   // fp = true → first-person
-  if (flight.on) { if (flight.pov !== fp) toggleView(); }
-  else if (walk.on) { if (walk.pov !== fp) toggleWalkView(); }
+function setCamView(mode) {   // 'chase' | 'eye' | 'cockpit'
+  if (flight.on) setFlightView(mode);
+  else if (walk.on) { const fp = mode !== 'chase'; if (walk.pov !== fp) toggleWalkView(); }
 }
-document.getElementById('cam-ext').addEventListener('click', () => setCamView(false));
-document.getElementById('cam-pov').addEventListener('click', () => setCamView(true));
+document.getElementById('cam-ext').addEventListener('click', () => setCamView('chase'));
+document.getElementById('cam-pov').addEventListener('click', () => setCamView('eye'));
+document.getElementById('cam-ck').addEventListener('click', () => setCamView('cockpit'));
 // HKS-91: auto-walk play/pause, beside the compass (was a ▶/⏸ link in the walk HUD)
 function syncWalkAuto() {
   const b = document.getElementById('walk-auto');
