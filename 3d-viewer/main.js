@@ -2680,6 +2680,87 @@ function drawCxMCP(ctx, w, h) {
   }
   knob(972);
 }
+// 747 overhead panel, seen from below: module plates dense with switch rows,
+// dim amber annunciators and a few round gauges — the jumbo's switch canopy
+// (kept dark so it glows softly, not glaring, at night)
+function drawCxOverhead(ctx, w, h) {
+  ctx.fillStyle = '#322f2b'; ctx.fillRect(0, 0, w, h);
+  const mod = (x, y, mw, mh) => {                       // one panel module
+    ctx.fillStyle = '#3d3934'; ctx.fillRect(x, y, mw, mh);
+    ctx.strokeStyle = '#4c4740'; ctx.lineWidth = 2; ctx.strokeRect(x, y, mw, mh);
+  };
+  const toggles = (x, y, n, gap) => {                   // a row of toggle switches
+    for (let i = 0; i < n; i++) {
+      ctx.fillStyle = '#191715'; ctx.beginPath(); ctx.arc(x + i * gap, y, 6, 0, 7); ctx.fill();
+      ctx.fillStyle = '#b9bec4'; ctx.fillRect(x + i * gap - 2, y - 8, 4, 10);
+    }
+  };
+  const lights = (x, y, n, on) => {                     // annunciator strip
+    for (let i = 0; i < n; i++) {
+      ctx.fillStyle = (i % on === 0) ? '#d9a13a' : '#4a443a';
+      ctx.fillRect(x + i * 22, y, 16, 9);
+    }
+  };
+  const gauge = (x, y) => {
+    ctx.fillStyle = '#12100e'; ctx.beginPath(); ctx.arc(x, y, 15, 0, 7); ctx.fill();
+    ctx.strokeStyle = '#8a847a'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y, 15, 0, 7); ctx.stroke();
+    ctx.strokeStyle = '#e4e8ec'; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 9, y - 8); ctx.stroke();
+  };
+  // module grid: fuel / hydraulics / electrics / air-con / anti-ice / lights
+  mod(14, 14, 230, 150);  toggles(40, 60, 6, 36);  toggles(40, 120, 6, 36);  lights(34, 24, 9, 4);
+  mod(258, 14, 240, 150); gauge(300, 55); gauge(350, 55); gauge(400, 55); gauge(450, 55);
+  toggles(292, 120, 5, 40); lights(280, 24, 9, 3);
+  mod(14, 178, 230, 150); toggles(40, 220, 6, 36); toggles(40, 290, 6, 36); lights(34, 250, 9, 5);
+  mod(258, 178, 240, 150); toggles(292, 220, 5, 40); lights(280, 250, 9, 4);
+  gauge(300, 295); gauge(360, 295); gauge(420, 295);
+  mod(14, 342, 484, 156);                               // aft block over the pedestal
+  toggles(60, 390, 10, 44); toggles(60, 460, 10, 44); lights(46, 352, 19, 6);
+  ctx.fillStyle = '#191715';                            // rotary selectors
+  for (const x of [150, 260, 370]) { ctx.beginPath(); ctx.arc(x, 425, 13, 0, 7); ctx.fill();
+    ctx.fillStyle = '#b9bec4'; ctx.fillRect(x - 2, 412, 4, 13); ctx.fillStyle = '#191715'; }
+}
+// centre-pedestal top: radio blocks with amber frequency windows, knob rows,
+// and the black throttle-quadrant slot up front
+function drawCxPedestal(ctx, w, h) {
+  ctx.fillStyle = '#33302c'; ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = '#0c0a09'; ctx.fillRect(w * 0.18, 8, w * 0.64, h * 0.30);   // quadrant slot
+  ctx.strokeStyle = '#4c4740'; ctx.lineWidth = 2; ctx.strokeRect(w * 0.18, 8, w * 0.64, h * 0.30);
+  const radio = (y, txt) => {
+    ctx.fillStyle = '#242220'; ctx.fillRect(20, y, w - 40, 44);
+    ctx.strokeStyle = '#45403a'; ctx.lineWidth = 1.5; ctx.strokeRect(20, y, w - 40, 44);
+    ctx.fillStyle = '#0b0e10'; ctx.fillRect(32, y + 10, 84, 24);
+    ctx.fillStyle = '#d9a13a'; ctx.font = 'bold 15px monospace'; ctx.textAlign = 'left';
+    ctx.fillText(txt, 38, y + 28);
+    for (const kx of [150, 190, 226]) {
+      ctx.fillStyle = '#15130f'; ctx.beginPath(); ctx.arc(kx, y + 22, 11, 0, 7); ctx.fill();
+      ctx.fillStyle = '#9aa0a7'; ctx.beginPath(); ctx.arc(kx, y + 22, 8, 0, 7); ctx.fill();
+    }
+  };
+  radio(h * 0.36, '118.25'); radio(h * 0.36 + 54, '121.50'); radio(h * 0.36 + 108, '7600');
+  ctx.fillStyle = '#e9e5da';                            // stab-trim wheels along the sides
+  ctx.fillRect(4, h * 0.06, 10, h * 0.26); ctx.fillRect(w - 14, h * 0.06, 10, h * 0.26);
+  ctx.fillStyle = '#1a1815';
+  for (let y = h * 0.07; y < h * 0.31; y += 9) { ctx.fillRect(4, y, 10, 3); ctx.fillRect(w - 14, y, 10, 3); }
+}
+// windscreen rain film: faint wind-driven streaks + clinging droplets on a
+// transparent canvas — the plane only shows it while the rain toggle is live
+function drawCxRain(ctx, w, h) {
+  ctx.clearRect(0, 0, w, h);
+  for (let i = 0; i < 90; i++) {                        // runback streaks, slanted by the airflow
+    const x = Math.random() * w, y = Math.random() * h, len = 14 + Math.random() * 60;
+    ctx.strokeStyle = `rgba(214,228,238,${0.06 + Math.random() * 0.18})`;
+    ctx.lineWidth = 0.8 + Math.random() * 1.4;
+    ctx.beginPath(); ctx.moveTo(x, y);
+    ctx.lineTo(x + len * 0.18 * (Math.random() < 0.5 ? -1 : 1), y + len);
+    ctx.stroke();
+  }
+  for (let i = 0; i < 70; i++) {                        // clinging droplets
+    ctx.fillStyle = `rgba(222,234,242,${0.10 + Math.random() * 0.20})`;
+    ctx.beginPath();
+    ctx.arc(Math.random() * w, Math.random() * h, 0.8 + Math.random() * 2.0, 0, 7);
+    ctx.fill();
+  }
+}
 // ---- prop-plane (Cessna-170-informed) canvases ------------------------------
 const GA_RED = '#9c2a1e', GA_STRIPE = '#98a1a8', GA_WHITE = '#f3f5f7', GA_REG = '#6d7680';
 // cabin barrel: white hull, maroon top wash over the nose, twin-pinstriped
@@ -3018,28 +3099,34 @@ function buildCX747() {
   gearAt(0, -1.45); gearAt(-0.3, 0.45); gearAt(0.3, 0.45);
   grp.add(gear);
   grp.userData.gear = gear;
-  // --- flight-deck interior (HKS-93): a painted panel the pilot sees only in
-  // POV. Parented to the plane so it rolls with the horizon; toggled visible =
+  // --- flight-deck interior (HKS-93): the full 747 cockpit the pilot sees in
+  // POV — built from study of 747-400 flight-deck photography (Wikimedia: a
+  // Cathay 747 deck and a KLM 747-400 deck; nothing traced or embedded).
+  // Parented to the plane so it rolls with the horizon; toggled visible =
   // F.pov by stepFlight, hidden in chase. Designed in REAL METRES (cock.scale
   // = 1/s cancels the ×4) around the upper-deck eye at ~(0, 3.0, -2.6) looking
   // down -z: the glareshield lip sits ~7° below the sight line with the MCP on
   // its face, the raked main panel (PFD/ND/EICAS CRTs) fills the frame below,
   // and the windscreen posts edge the view without blocking the horizon.
+  // Cinematic-simulator ambience over systems accuracy; no logos inside.
   const cock = new THREE.Group();
   const trim = new THREE.MeshStandardMaterial({ color: 0x15181c, roughness: 0.85 });
   const post = new THREE.MeshStandardMaterial({ color: 0x20242a, roughness: 0.7 });
+  const bezel = new THREE.MeshStandardMaterial({ color: 0x24211e, roughness: 0.8 });
+  // — main instrument panel: five lit CRTs across (PFD | ND | EICAS | ND | PFD)
   const panelMats = [trim, trim, trim, trim,
     new THREE.MeshBasicMaterial({ map: canvasTex(1024, 320, drawCxPanel) }), trim];
   const panel = new THREE.Mesh(new THREE.BoxGeometry(5.2, 1.6, 0.3), panelMats);
   panel.position.set(0, 1.82, -4.55); panel.rotation.x = 0.42;
   cock.add(panel);
+  // — glareshield with the mode-control panel on its face
   const glareMats = [trim, trim, trim, trim,
     new THREE.MeshBasicMaterial({ map: canvasTex(1024, 64, drawCxMCP) }), trim];
   const glare = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.34, 0.42), glareMats);
   glare.position.set(0, 2.62, -4.35); glare.rotation.x = -0.18;
   cock.add(glare);
-  // windscreen frame: a top header, two raked side pillars, and a thin centre post
-  // that lives up in the sky band (above the eye line) so terrain stays open
+  // — windscreen frame: a top header, two raked side pillars, and a thin centre
+  // post that lives up in the sky band (above the eye line) so terrain stays open
   const header = new THREE.Mesh(new THREE.BoxGeometry(5.6, 0.32, 0.3), post);
   header.position.set(0, 4.5, -5.4);
   cock.add(header);
@@ -3050,7 +3137,86 @@ function buildCX747() {
     const side = new THREE.Mesh(new THREE.BoxGeometry(0.26, 3.6, 0.26), post);
     side.position.set(sx * 2.7, 3.4, -5.0); side.rotation.z = sx * 0.34;
     cock.add(side);
+    // side walls up to the sill line below the open side glass
+    const sill = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.3, 2.6), post);
+    sill.position.set(sx * 2.58, 1.85, -3.5);
+    cock.add(sill);
   }
+  // — overhead panel: the jumbo's switch canopy over both seats, its painted
+  // underside dense with toggle rows and dim amber annunciators
+  const ovhMats = [trim, trim, trim,
+    new THREE.MeshBasicMaterial({ map: canvasTex(512, 512, drawCxOverhead) }), trim, trim];
+  const ovh = new THREE.Mesh(new THREE.BoxGeometry(2.3, 0.14, 1.7), ovhMats);
+  ovh.position.set(0, 4.3, -4.2); ovh.rotation.x = 0.16;   // forward edge dips toward the header
+  cock.add(ovh);
+  // — twin control YOKES (columns + U-wheels): the 747 flies on wheels, not
+  // sticks. NOTE: the deck furniture below all sits ABOVE y 1.7 — the exterior
+  // upper-deck hump crests at 1.68 real metres here, and the flight deck rides
+  // on top of it (anything lower pokes through the white hull skin in POV).
+  const yokeWheelG = new THREE.TorusGeometry(0.26, 0.038, 8, 20, Math.PI);
+  yokeWheelG.rotateZ(Math.PI);                          // U-shape: horns up, open at the top
+  for (const sx of [-1, 1]) {
+    const col = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.055, 0.7, 10), bezel);
+    col.position.set(sx * 1.15, 1.82, -3.85); col.rotation.x = 0.25;
+    cock.add(col);
+    const hub = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.18, 0.07), bezel);
+    hub.position.set(sx * 1.15, 2.13, -3.76);
+    cock.add(hub);
+    const wheel = new THREE.Mesh(yokeWheelG, bezel);
+    wheel.position.set(sx * 1.15, 2.26, -3.74); wheel.rotation.x = -0.1;
+    cock.add(wheel);
+  }
+  // — centre pedestal with the FOUR-lever throttle quadrant (one per engine),
+  // flanked by the shorter speedbrake (port) and flap (starboard) levers
+  const pedMats = [trim, trim,
+    new THREE.MeshBasicMaterial({ map: canvasTex(256, 384, drawCxPedestal) }), trim, trim, trim];
+  const ped = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.5, 1.5), pedMats);
+  ped.position.set(0, 1.62, -3.1);                      // top face at y 1.87, between the seats
+  cock.add(ped);
+  const knobW = new THREE.MeshStandardMaterial({ color: 0xc9ced4, roughness: 0.6 });
+  const knobD = new THREE.MeshStandardMaterial({ color: 0x3a3f45, roughness: 0.7 });
+  for (let i = 0; i < 4; i++) {                         // the four throttles
+    const lx = (i - 1.5) * 0.14;
+    const lever = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.4, 0.05), bezel);
+    lever.position.set(lx, 2.04, -3.45); lever.rotation.x = -0.35;
+    cock.add(lever);
+    const knob = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 6), knobW);
+    knob.position.set(lx, 2.225, -3.52);
+    cock.add(knob);
+  }
+  for (const sx of [-1, 1]) {                           // speedbrake / flap levers
+    const lever = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.28, 0.045), bezel);
+    lever.position.set(sx * 0.36, 1.98, -3.35); lever.rotation.x = -0.5;
+    cock.add(lever);
+    const knob = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 6), knobD);
+    knob.position.set(sx * 0.36, 2.10, -3.42);
+    cock.add(knob);
+  }
+  // — two pilot seats (pale sheepskin cushions on dark frames), just behind the eye
+  const wool = new THREE.MeshStandardMaterial({ color: 0xcfc9ba, roughness: 1.0 });
+  for (const sx of [-1, 1]) {
+    const cushion = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.16, 0.65), wool);
+    cushion.position.set(sx * 1.15, 1.80, -2.15);
+    cock.add(cushion);
+    const back = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.95, 0.18), wool);
+    back.position.set(sx * 1.15, 2.30, -1.75); back.rotation.x = -0.1;
+    cock.add(back);
+  }
+  // — deck floor over the hump crown so a look down reads as cockpit, not hull;
+  // it stops short of the raked main panel so it never slices the CRTs
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.1, 3.2),
+    new THREE.MeshStandardMaterial({ color: 0x2a2624, roughness: 0.95 }));
+  floor.position.set(0, 1.67, -2.7);
+  cock.add(floor);
+  // — windscreen rain film: streaks + droplets, shown only while it rains
+  // (stepFlight syncs visibility with the live weather each POV frame)
+  const rainFilm = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 2.2),
+    new THREE.MeshBasicMaterial({ map: canvasTex(512, 256, drawCxRain), transparent: true,
+                                  opacity: 0.55, depthWrite: false }));
+  rainFilm.position.set(0, 3.55, -5.32);
+  rainFilm.visible = false;
+  cock.add(rainFilm);
+  cock.userData.rain = rainFilm;
   cock.scale.setScalar(1 / s);                          // cancel the group's ×4 so the metres above are literal
   cock.visible = false;
   grp.add(cock);
@@ -3474,7 +3640,10 @@ function stepFlight() {
   // --- cameras (world space: survives any leftover world spin)
   if (F.pov) {                                         // cockpit: seated in the flight deck —
     const ck = planeGrp.userData.cockpit;              // 747 has a foreground interior (HKS-93)
-    if (ck) ck.visible = true;
+    if (ck) {
+      ck.visible = true;
+      if (ck.userData.rain) ck.userData.rain.visible = weather.rain;   // wet windscreen only in rain
+    }
     _fu.set(0, 1, 0).applyQuaternion(_fq);             // nose (+ prop / dashboard) stay in frame,
     const eF = planeGrp.userData.povFwd ?? 2.2, eU = planeGrp.userData.povUp ?? 2.3;
     _fc.copy(F.pos).addScaledVector(_fv, eF).addScaledVector(_fu, eU);   // horizon rolls
