@@ -4811,7 +4811,9 @@ locateBtn.addEventListener('click', e => {
     if (stargaze.orient) setStargazeOrient(false);   // auto-arm needs GPS+compass — drop it too
     removeMarker(); refreshGpsBtn();
   }
-  track('gps', { state: gpsState() });       // follow | compass | off (never coordinates)
+  // track the user's intended next state — off→follow's geo.following is set async in the
+  // geolocation callback, so re-reading gpsState() here would log 'off' (codex)
+  track('gps', { state: st === 'off' ? 'follow' : st === 'follow' ? 'compass' : 'off' });   // never coordinates
 });
 // HKS-88: walk look — pointer-lock (move = look) when the 🖱 view-lock is engaged,
 // otherwise hold-left-drag (cursor stays free for the dock/compass/UI).

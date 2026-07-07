@@ -18,7 +18,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v2';
+const VERSION = 'hks-sandbox-v3';
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -34,6 +34,7 @@ const SHELL = [
   '/index.html',
   '/main.js',
   '/audio.js',
+  '/analytics.js',
   '/vendor/three.module.js',
   '/vendor/OrbitControls.js',
   '/vendor/glass-gl.js',

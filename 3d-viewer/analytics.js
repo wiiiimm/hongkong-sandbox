@@ -107,7 +107,7 @@ export function VercelSink() {
     send(evt) {
       const va = (typeof window !== 'undefined') && window.va;
       if (typeof va !== 'function') return;                 // script not present → no-op
-      va('event', { name: evt.name, ...evt.props });
+      va('event', { name: evt.name, data: evt.props });   // Vercel custom data must be inside `data` to be segmentable (codex)
     },
   };
 }
