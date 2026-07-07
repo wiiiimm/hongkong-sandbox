@@ -3343,7 +3343,7 @@ function buildCX747() {
   grp.userData.cockpit = cock;
   grp.userData.povFwd = 2.9; grp.userData.povUp = 2.72;  // cockpit eye: captain height behind the panel
   grp.userData.povPitch = -0.105;                        // cockpit resting gaze ~6° below the horizon
-  grp.userData.eyeFwd = 2.6; grp.userData.eyeUp = 3.0;   // 👁 eye view: the original clean upper-deck eye — higher, level, no interior
+  grp.userData.eyeFwd = 5.6; grp.userData.eyeUp = 3.05;   // 👁 eye view: the original clean upper-deck eye — higher, level, no interior
   // nav lights: swept wingtips, tail cone, beacons on the hump crest & belly
   addNavLights(grp, { wingL: [-2.8, 0.11, 1.12], wingR: [2.8, 0.11, 1.12],
                       tail: [0, 0.13, 3.30], top: [0, 0.40, -0.3], bot: [0, -0.32, 0] });
@@ -3505,7 +3505,7 @@ function buildCX777() {
   grp.add(cock);
   grp.userData.cockpit = cock;
   grp.userData.povFwd = 2.8; grp.userData.povUp = 2.4;   // cockpit eye on the single deck, ahead of the wing
-  grp.userData.eyeFwd = 2.8; grp.userData.eyeUp = 2.4;   // 👁 eye view: same seat, deck hidden
+  grp.userData.eyeFwd = 5.6; grp.userData.eyeUp = 2.5;   // 👁 eye view: same seat, deck hidden
   // nav lights: raked wingtips, tail cone, beacons on the crown & belly
   addNavLights(grp, { wingL: [-3.15, 0.17, 2.10], wingR: [3.15, 0.17, 2.10],
                       tail: [0, 0.13, 4.02], top: [0, 0.31, 0.1], bot: [0, -0.31, 0.1] });
