@@ -7116,6 +7116,118 @@ function updateHaze() {
   }
 }
 
+// ---- HKS-70: regional flood / landslip cues — warnsum feeds the 'flood' field
+// WxField consumer over the HKO warning summary syncLiveWeather already
+// fetches (no new endpoint). warnsum is an object keyed by warning type —
+// each member { name, code, actionCode, issueTime, ... }; a warning counts as
+// active unless it is absent or its actionCode is CANCEL. Three warnings
+// become a ground-hazard cue:
+//   WFNTSA — Special Announcement on Flooding in the Northern New Territories:
+//            AREA-specific → the northern-NT districts (North District,
+//            Tai Po, Yuen Long), anchored by the HKS-69 district-centroid
+//            pattern so the cue fades smoothly out of the region.
+//   WL     — Landslip Warning: HKO issues it territory-wide → a low uniform
+//            floor everywhere, tinted silty (saturated ground / muddy runoff).
+//   WRAIN  — Rainstorm Warning Signal: territory-wide flood-risk context,
+//            scaled by colour (Amber 0.25 / Red 0.55 / Black 0.85).
+// The visual (rebuildFloodCue) is ONE quiet "risen water" sheen: a translucent
+// plane a few metres above sea level whose per-cell alpha comes from the
+// smooth 'flood' field masked to low-lying LAND — it pools in the flood
+// plains of the affected regions and higher terrain hides it naturally.
+// Deliberately non-alarmist: ≤ ~0.16 opacity, slow breathing, eased in/out
+// (updateFloodCue), live-mode only, no new UI. No active warning, or live
+// sync off → the sheen fades away and manual behaviour is untouched.
+const FLOOD_NNT_DISTRICT = { 'North District': 1, 'Tai Po': 0.85, 'Yuen Long': 0.7 };
+let floodCue = null;                  // { lvl 0..1, slipMix 0..1 } while a cue is active, else null
+let floodCueMesh = null, floodCueTex = null, floodCueCv = null, floodCueOp = 0;
+WxField.onRefresh(async data => {
+  const ws = data.warnsum || {};
+  const on = w => !!(w && w.code && w.actionCode !== 'CANCEL');
+  const nnt  = on(ws.WFNTSA) ? 1 : 0;                                    // flooding in the northern NT
+  const slip = on(ws.WL) ? 0.45 : 0;                                     // landslip, territory-wide
+  const rain = on(ws.WRAIN) ? ({ WRAINA: 0.25, WRAINR: 0.55, WRAINB: 0.85 }[ws.WRAIN.code] || 0.25) : 0;
+  const base = Math.max(slip, rain);                                     // territory-wide floor
+  if (!nnt && !base) {                                                   // nothing active → no cue
+    floodCue = null; WxField.set('flood', [], { fallback: 0 });
+    return;
+  }
+  await ensureStations();                      // baked E/N for the station names
+  // district → world centroid of its stations (HKS-69 rain pattern). Rebuilt
+  // each sync on purpose: the terrain source and bounds can change between
+  // refreshes, and 50 station lookups every 5 minutes cost nothing.
+  const cent = Object.create(null);
+  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
+    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
+    if (!w) continue;
+    const c = cent[dist] || (cent[dist] = { x: 0, z: 0, n: 0 });
+    c.x += w.x; c.z += w.z; c.n++;
+  }
+  // every district carries the territory-wide floor; the WFNTSA districts add
+  // the area-specific flooding on top, so IDW fades the cue out of the region
+  const pts = [];
+  for (const [dist, c] of Object.entries(cent))
+    pts.push({ x: c.x / c.n, z: c.z / c.n,
+               v: Math.min(1, Math.max(base, nnt * (FLOOD_NNT_DISTRICT[dist] || 0))) });
+  WxField.set('flood', pts, { fallback: base });
+  // silt share: landslip alone reads muddy; alongside flood/rain it only warms
+  floodCue = { lvl: Math.max(base, nnt), slipMix: slip > 0 ? ((nnt || rain) ? 0.4 : 0.8) : 0 };
+  rebuildFloodCue();
+});
+
+// Paint the sheen texture from the current 'flood' field: per-cell alpha =
+// field intensity masked to land above ~1 m (the open sea is already water),
+// colour a muted flood-water blue pulled toward silt while the landslip
+// warning is up. Runs once per live sync (≤ 48² field cells) — negligible.
+function rebuildFloodCue() {
+  if (!floodCue || !curG || !W) return;
+  const f = WxField.get('flood');
+  const res = (f && !f.empty) ? f.res : 32;    // no field (stations not loaded): uniform floor
+  if (!floodCueCv) floodCueCv = document.createElement('canvas');
+  floodCueCv.width = res; floodCueCv.height = res;
+  const ctx = floodCueCv.getContext('2d'), img = ctx.createImageData(res, res);
+  const b = bounds(), x0 = -b.halfX, z0 = -b.halfZ, dx = 2 * b.halfX / (res - 1), dz = 2 * b.halfZ / (res - 1);
+  const mix = 0.65 * floodCue.slipMix;         // water blue → silt
+  const R = Math.round(96 + (168 - 96) * mix), G = Math.round(148 + (132 - 148) * mix), B = Math.round(196 + (84 - 196) * mix);
+  for (let iz = 0; iz < res; iz++) for (let ix = 0; ix < res; ix++) {
+    const x = x0 + ix * dx, z = z0 + iz * dz;
+    let a = (f && !f.empty) ? f.grid[iz * res + ix] : floodCue.lvl;
+    if (sampleE(x / cell + W / 2, z / cell + H / 2) < 1) a = 0;   // open water / shoreline
+    const q = (iz * res + ix) * 4;
+    img.data[q] = R; img.data[q + 1] = G; img.data[q + 2] = B;
+    img.data[q + 3] = Math.round(255 * Math.max(0, Math.min(1, a)));
+  }
+  ctx.putImageData(img, 0, 0);
+  if (!floodCueMesh) {
+    floodCueTex = new THREE.CanvasTexture(floodCueCv);
+    floodCueTex.minFilter = floodCueTex.magFilter = THREE.LinearFilter;   // soft region edges
+    floodCueMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({ map: floodCueTex, transparent: true, opacity: 0, depthWrite: false }));
+    floodCueMesh.rotation.x = -Math.PI / 2;    // canvas row 0 at z = -halfZ, same as the debug canopy
+    floodCueMesh.renderOrder = 2;              // draws over the (also translucent) sea
+    floodCueMesh.visible = false;
+    world.add(floodCueMesh);
+  }
+  floodCueTex.needsUpdate = true;
+  floodCueMesh.scale.set(2 * b.halfX, 2 * b.halfZ, 1);
+}
+
+// Per-frame flood-cue fade (called from animate()). Eases the sheen in/out
+// and keeps it riding a few metres above sea level, breathing slowly. Gates
+// mirror the other regional fields: live mode only, no T8+ storm override
+// (the storm owns the drama), and never under the Matrix skin.
+function updateFloodCue() {
+  if (!floodCueMesh) return;
+  const active = floodCue && liveMode && stormLevel < 8 && !matrixOn;
+  const breath = 0.85 + 0.15 * Math.sin(performance.now() * 0.0005);
+  const target = active ? (0.06 + 0.10 * Math.min(1, floodCue.lvl)) * breath : 0;
+  floodCueOp += (target - floodCueOp) * 0.03;  // eased — warnings never pop
+  if (floodCueOp < 0.005) { floodCueMesh.visible = false; return; }
+  floodCueMesh.visible = true;
+  floodCueMesh.material.opacity = floodCueOp;
+  floodCueMesh.position.y = SEA_Y + 8 * VE;    // ~8 m of "risen water": pools in the flood plains
+}
+
 if (FLY_DEBUG) {
   window.__wxField = WxField;   // inspect fields / sample() from the console
   // demo consumer proving the plumbing: per-station air temperature from the
@@ -7261,6 +7373,7 @@ function animate() {
   world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests
   _camLocal.copy(camera.position); world.worldToLocal(_camLocal);
   updateHaze();                 // HKS-71: local AQHI haze at the camera (renders next frame)
+  updateFloodCue();             // HKS-70: regional flood/landslip warning sheen
   updateLabels();
   updateLandmarks();
   updateStations();
