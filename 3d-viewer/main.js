@@ -8,6 +8,7 @@ import { OrbitControls } from './vendor/OrbitControls.js';
 import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
 import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, audioSupported } from './audio.js';
+import { initAnalytics, track, armAnalytics, VercelSink, GA4Sink } from './analytics.js';
 
 // ---- configurable asset base (HKS-46) --------------------------------------
 // The heavy bundled data (the /data/ JSON — DEM meshes, vector overlays, POIs)
@@ -513,7 +514,7 @@ function toggleFullscreen() {
   if (bar && !(matchMedia('(display-mode: standalone)').matches || navigator.standalone === true)) bar.classList.add('ios', 'show');
 }
 function syncFsBtn() { const b = document.getElementById('fsbtn'); if (b) b.classList.toggle('on', !!fsActive()); }
-document.getElementById('fsbtn').addEventListener('click', e => { e.stopPropagation(); toggleFullscreen(); });
+document.getElementById('fsbtn').addEventListener('click', e => { e.stopPropagation(); track('fullscreen', { on: !fsActive() }); toggleFullscreen(); });
 document.addEventListener('fullscreenchange', syncFsBtn);
 document.addEventListener('webkitfullscreenchange', syncFsBtn);
 
@@ -2057,8 +2058,10 @@ renderer.domElement.addEventListener('touchend', e => {
   if (moved > 8 || held > 600 || !skyCat || !starGroup.visible) return;
   const h = pickConstellation(t.clientX, t.clientY);
   if (h < 0) { if (skySel.taps.size) { skySel.taps.clear(); conRetarget(); } return; }
+  const on = !skySel.taps.has(h);
   if (skySel.taps.has(h)) skySel.taps.delete(h); else skySel.taps.add(h);
   conRetarget();
+  track('constellation_tap', { on });
 });
 // stargazing walk mode (HKS-84 P2): look up while walking and the figures in
 // view light themselves — centroids tested against the camera forward vector
@@ -2345,6 +2348,7 @@ function takeOff() {
   flight.landed = false;
   flight.speed = 55;
   flight.pitch = 0.28;
+  track('takeoff');
 }
 let planeGrp = null;
 // ---- plane skins (HKS-93) ---------------------------------------------------
@@ -2388,7 +2392,7 @@ function setPlaneSkin(id) {
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   syncCamSeg();
 }
-document.getElementById('planeskin').addEventListener('change', e => setPlaneSkin(e.target.value));
+document.getElementById('planeskin').addEventListener('change', e => { setPlaneSkin(e.target.value); if (e.isTrusted) track('plane_skin', { skin: e.target.value }); });
 // a swept, tapered wing as one symmetric extrusion laid flat: shape x = span
 // (± out to the tips), shape y = fore-aft (+aft); `sweep` is how far aft the
 // tip leading edge sits. After rotateX the top skin lies at y = 0.
@@ -4236,6 +4240,7 @@ function enterFlight() {
   // movement mode spawns at the fix (if it's on this map), then disengages
   if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
   refreshDock();
+  track('mode_enter', { mode: 'fly' });
 }
 function exitFlight() {
   if (!flight.on) return;
@@ -4256,6 +4261,7 @@ function exitFlight() {
   updateViewBtn();
   frameCamera();
   refreshDock();
+  track('mode_exit', { mode: 'fly' });
 }
 // the camera control beside the compass mirrors the C key — in Fly it cycles
 // 🎥 chase → 👁 eye (clean first person) → 🧑‍✈️ cockpit (interior), skipping
@@ -4275,6 +4281,7 @@ function setFlightView(v) {
   flight.view = v;
   camera.up.set(0, 1, 0);
   updateViewBtn();
+  track('camera_view', { view: v, mode: 'fly' });
 }
 document.getElementById('flybtn').addEventListener('click', () => flight.on ? exitFlight() : enterFlight());
 // top-speed slider — shared by fly and walk (William: one control, reset on
@@ -4364,7 +4371,7 @@ document.getElementById('flyhud').addEventListener('click', e => {   // touch af
   if (e.target.dataset.fly === 'exit') { exitFlight(); exitWalk(); }
   else if (e.target.dataset.fly === 'takeoff') takeOff();
   else if (e.target.dataset.fly === 'view') toggleView();
-  else if (e.target.dataset.fly === 'autowalk') walk.auto = !walk.auto;
+  else if (e.target.dataset.fly === 'autowalk') { walk.auto = !walk.auto; track('auto_walk', { on: walk.auto }); }
 });
 const FLY_DEBUG = new URLSearchParams(location.search).has('debug');
 if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serialization
@@ -4580,6 +4587,7 @@ function enterWalk(startLocal) {
   if (geo.following || geo.compass) { if (geoInBounds()) teleportToMarker(); gpsDrop(); }   // spawn at the fix, then turn GPS fully off
   syncWalkAuto();
   refreshDock();
+  track('mode_enter', { mode: 'walk' });
   // HKS-88: Walk no longer auto-grabs the pointer — look is hold-left-drag by
   // default (like Fly/Stargaze), so the dock/compass/GPS stay clickable. The 🖱
   // view-lock button opts into pointer-lock (immersive FPS) on desktop.
@@ -4600,6 +4608,7 @@ function exitWalk() {
   controls.enabled = true;
   frameCamera();
   refreshDock();
+  track('mode_exit', { mode: 'walk' });
 }
 document.getElementById('walkbtn').addEventListener('click', () => walk.on ? exitWalk() : enterWalk());
 
@@ -4628,9 +4637,13 @@ function refreshDock() {
   syncCamSeg();                     // show/hide + sync the camera segmented control
   if (typeof updateHelp === 'function') updateHelp();   // keep the Help drawer's contextual section in sync
 }
-document.getElementById('orbitbtn').addEventListener('click', () => { exitFlight(); exitWalk(); exitStargaze(); refreshDock(); });
-document.getElementById('dockgear').addEventListener('click', () =>
-  document.getElementById('panel').classList.toggle('collapsed'));
+document.getElementById('orbitbtn').addEventListener('click', () => { exitFlight(); exitWalk(); exitStargaze(); refreshDock(); track('mode_enter', { mode: 'orbit' }); });
+document.getElementById('dockgear').addEventListener('click', () => {
+  const panel = document.getElementById('panel');
+  const opening = panel.classList.contains('collapsed');
+  panel.classList.toggle('collapsed');
+  track(opening ? 'settings_open' : 'panel_collapse', { via: 'dock' });
+});
 // no init call: matrixOn/neonOn are declared further down (TDZ) and the static
 // HTML default (Orbit active, tray hidden) is already the boot state — every
 // later mode change routes through refreshDock().
@@ -4923,6 +4936,9 @@ locateBtn.addEventListener('click', e => {
     if (stargaze.orient) setStargazeOrient(false);   // auto-arm needs GPS+compass — drop it too
     removeMarker(); refreshGpsBtn();
   }
+  // track the user's intended next state — off→follow's geo.following is set async in the
+  // geolocation callback, so re-reading gpsState() here would log 'off' (codex)
+  track('gps', { state: st === 'off' ? 'follow' : st === 'follow' ? 'compass' : 'off' });   // never coordinates
 });
 // HKS-88: walk look — pointer-lock (move = look) when the 🖱 view-lock is engaged,
 // otherwise hold-left-drag (cursor stays free for the dock/compass/UI).
@@ -5028,6 +5044,7 @@ function toggleWalkView() {
   if (!walk.on) return;
   walk.pov = !walk.pov;
   updateWalkViewBtn();
+  track('camera_view', { view: walk.pov ? 'eye' : 'chase', mode: 'walk' });
 }
 // unified camera segmented control (HKS-86/93): 🎥 external/chase · 👁 first-person
 // eye · 🧑‍✈️ cockpit interior. Fly shows all three (cockpit only when the skin
@@ -5056,7 +5073,7 @@ function syncWalkAuto() {
   b.setAttribute('aria-pressed', walk.auto ? 'true' : 'false');
   b.firstElementChild.textContent = walk.auto ? '⏸' : '▶';   // ▶ = tap to auto-walk, ⏸ = tap to stop
 }
-document.getElementById('walk-auto').addEventListener('click', () => { walk.auto = !walk.auto; syncWalkAuto(); });
+document.getElementById('walk-auto').addEventListener('click', () => { walk.auto = !walk.auto; syncWalkAuto(); track('auto_walk', { on: walk.auto }); });
 // HKS-88: 🖱 view-lock — opt into pointer-lock (immersive FPS look) in Walk. Default
 // is hold-drag; this button captures the pointer so moving the mouse looks around.
 // Esc releases it (browser); pointerlockchange keeps the button state honest.
@@ -5067,8 +5084,10 @@ function syncWalkLock() {
 }
 document.getElementById('walk-lock').addEventListener('click', e => {
   e.stopPropagation();
-  if (document.pointerLockElement === renderer.domElement) { if (document.exitPointerLock) document.exitPointerLock(); }
+  const willLock = document.pointerLockElement !== renderer.domElement;
+  if (!willLock) { if (document.exitPointerLock) document.exitPointerLock(); }
   else if (renderer.domElement.requestPointerLock) renderer.domElement.requestPointerLock();
+  track('view_lock', { on: willLock });
 });
 document.addEventListener('pointerlockchange', syncWalkLock);
 
@@ -5257,6 +5276,7 @@ function setMatrix(on) {
   updateWindVisuals();       // re-grades clouds/rain for the new reality (calls renderSky + setFog)
   refreshDock();
   syncUrl();
+  track('look_matrix', { on });
 }
 document.getElementById('matrixbtn').addEventListener('click', () => setMatrix(!matrixOn));
 addEventListener('keydown', e => {
@@ -5375,6 +5395,7 @@ function setNeon(on) {
   applyControlLocks();
   refreshDock();
   syncUrl();
+  track('look_neon', { on });
 }
 function stepNoir() {                  // live film grain + the odd print scratch
   if (!neonOn) return;
@@ -5466,6 +5487,7 @@ function enterStargaze() {
   document.getElementById('stargazebtn').blur();        // else ␣/Enter re-clicks and exits
   syncSgTray();
   refreshDock();
+  track('mode_enter', { mode: 'stargaze' });
 }
 function exitStargaze() {
   if (!stargaze.on) return;
@@ -5499,6 +5521,7 @@ function exitStargaze() {
   applyControlLocks();                                  // unlock now that stargazing is off
   frameCamera();
   refreshDock();
+  track('mode_exit', { mode: 'stargaze' });
 }
 function stepStargaze() {                               // per-frame planetarium camera
   if (!stargaze.on) return;
@@ -5584,18 +5607,21 @@ function syncSgTray() {   // mirror the panel's sky clock into the tray proxy
   syncSgToggles();
 }
 document.getElementById('stargazebtn').addEventListener('click', () => stargaze.on ? exitStargaze() : enterStargaze());
-document.getElementById('sg-live').addEventListener('click', () => { setSkyControl('live'); syncSgTray(); });
+document.getElementById('sg-live').addEventListener('click', () => { setSkyControl('live'); syncSgTray(); track('sg_time_mode', { mode: 'live' }); });
 document.getElementById('sg-custom').addEventListener('click', () => {
   setSkyControl('fixed', hktDateStr(new Date()), skySim.minutes);
   syncSgTray();
+  track('sg_time_mode', { mode: 'custom' });
 });
 document.getElementById('sg-time').addEventListener('input', e => {
   if (skySim.on && skySim.live) return;                 // scrub only drives custom time
   setSkyControl('fixed', null, +e.target.value);
   document.getElementById('sg-timev').textContent = mmToHHMM(+e.target.value);
 });
-document.getElementById('sg-orient').addEventListener('click', () => setStargazeOrient(!stargaze.orient));
-document.getElementById('sg-clock').addEventListener('click', () => setSgTimeVisible(document.body.classList.contains('sg-time-hidden')));
+// one committed event per stargaze-time scrub (on release), not per input tick
+document.getElementById('sg-time').addEventListener('change', e => { if (e.isTrusted && !(skySim.on && skySim.live)) track('sky_time_scrub', { via: 'stargaze' }); });
+document.getElementById('sg-orient').addEventListener('click', () => { const on = !stargaze.orient; setStargazeOrient(on); track('sg_orient', { on }); });
+document.getElementById('sg-clock').addEventListener('click', () => { const show = document.body.classList.contains('sg-time-hidden'); setSgTimeVisible(show); track('sg_clock', { on: show }); });
 // panel-side sky changes keep the tray proxy honest while stargazing
 document.getElementById('skymode').addEventListener('change', () => { if (stargaze.on) syncSgTray(); });
 addEventListener('keydown', e => { if (stargaze.on && e.key === 'Escape') exitStargaze(); });
@@ -5689,6 +5715,7 @@ function updateCompass() {
   x.fillRect(w / 2 - 0.5, 6, 1, h - 10);
 }
 document.getElementById('compass').addEventListener('click', () => {
+  track('compass_click', { dir: 'N' });                  // always snaps north
   if (flight.on) { flight.yaw = 0; return; }             // point the plane north
   if (stargaze.on) { stargaze.yaw = 0; return; }         // face north under the stars
   const t = controls.target, p = camera.position, ry = world.rotation.y;
@@ -5698,6 +5725,7 @@ document.getElementById('compass').addEventListener('click', () => {
   controls.update();
 });
 async function snapshot() {
+  track('screenshot');
   const btn = document.getElementById('snapbtn');
   const pr = renderer.getPixelRatio();
   const sDpr = starUniforms.uDpr.value;
@@ -5879,11 +5907,13 @@ function setWxMode(m) {
 }
 function activateRfTab(target) {
   if (target.closest('[data-size]')) {   // size toggle — no reload, not persisted
-    radarBig = !radarBig; radarHudEl.classList.toggle('big', radarBig); renderWxviewControls(); return;
+    radarBig = !radarBig; radarHudEl.classList.toggle('big', radarBig); renderWxviewControls();
+    track('radar', { expand: radarBig });
+    return;
   }
   const p = target.closest('path[data-grp]'); if (!p) return;
-  if (p.dataset.grp === 'mode') setWxMode(p.dataset.key);
-  else { if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key; renderWxviewControls(); if (radarRunning) startRadar(); }
+  if (p.dataset.grp === 'mode') { setWxMode(p.dataset.key); track('radar', { mode: p.dataset.key }); }   // radar <-> satellite (HKS-74/79/89)
+  else { if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key; renderWxviewControls(); if (radarRunning) startRadar(); track('radar', { size: p.dataset.key }); }   // range 064/128/256 or sat zoom x2M/x8M
   syncUrl();   // write the new mode/range into the address bar (the dial lives outside #panel)
 }
 const rfTabsEl = document.getElementById('rf-tabs');
@@ -6167,16 +6197,17 @@ function topView()   { const b = bounds(); camera.position.set(0, b.span*1.4, 0.
 
 // ---- UI wiring -------------------------------------------------------------
 document.getElementById('src').addEventListener('change', e => {
+  if (e.isTrusted) track('map_source', { source: e.target.value });
   loadSource(e.target.value).then(() => { if (liveMode) syncLiveTide(); }).catch(err => {
     document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message; console.error(err);
   });
 });
-document.getElementById('surf').addEventListener('change', e => applyStyle(e.target.value));
-document.getElementById('bg').addEventListener('change', e => applyBg(e.target.value));
+document.getElementById('surf').addEventListener('change', e => { applyStyle(e.target.value); if (e.isTrusted) track('map_surface', { surface: e.target.value }); });
+document.getElementById('bg').addEventListener('change', e => { applyBg(e.target.value); if (e.isTrusted) track('theme', { bg: e.target.value }); });
 document.getElementById('ve').addEventListener('input', e => {
   VE = parseFloat(e.target.value); document.getElementById('vev').textContent = VE.toFixed(1); applyVE();
 });
-document.getElementById('meshlines').addEventListener('change', e => { wireOverlay.visible = e.target.checked; });
+document.getElementById('meshlines').addEventListener('change', e => { wireOverlay.visible = e.target.checked; if (e.isTrusted) track('layer_toggle', { layer: 'meshlines', on: e.target.checked }); });
 const meshdens = document.getElementById('meshdens'), meshdensv = document.getElementById('meshdensv');
 const densStep = () => 13 - parseInt(meshdens.value, 10);   // slider right = finest (step 1)
 meshdens.addEventListener('input', () => { const s = densStep(); meshdensv.textContent = s === 1 ? t('dens.full') : '÷' + s; });
@@ -6200,18 +6231,19 @@ function setSolidColor(hex) {
 solidColorEl.addEventListener('input', e => setSolidColor(e.target.value));
 solidHexEl.addEventListener('change', e => setSolidColor(e.target.value));
 // buttons fire 'click', not the change/input the panel listens to, so sync the URL explicitly
-const rot = d => () => { texRot = Math.round((texRot + d) * 10) / 10; applyTexRot(); syncUrl(); };
+const rot = d => () => { texRot = Math.round((texRot + d) * 10) / 10; applyTexRot(); syncUrl(); track('topo_rotate', { delta: d }); };
 document.getElementById('toporotL').addEventListener('click', rot(-1));
 document.getElementById('toporotLf').addEventListener('click', rot(-0.2));
 document.getElementById('toporotRf').addEventListener('click', rot(0.2));
 document.getElementById('toporotR').addEventListener('click', rot(1));
-document.getElementById('toporot0').addEventListener('click', () => { texRot = 0; applyTexRot(); syncUrl(); });
-document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; });
-document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); });
-document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); });
+document.getElementById('toporot0').addEventListener('click', () => { texRot = 0; applyTexRot(); syncUrl(); track('topo_rotate', { delta: 0 }); });
+document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; if (e.isTrusted) track('layer_toggle', { layer: 'water', on: e.target.checked }); });
+document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); if (e.isTrusted) track('layer_toggle', { layer: 'labels', on: e.target.checked }); });
+document.getElementById('landmarks').addEventListener('change', e => { if (e.isTrusted) track('layer_toggle', { layer: 'landmarks', on: e.target.checked }); });
+document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); if (e.isTrusted) track('spin', { dir: spinDir > 0 ? 'cw' : spinDir < 0 ? 'ccw' : 'off' }); });
 document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = parseFloat(e.target.value); });
 const panelEl = document.getElementById('panel');
-document.getElementById('collapse-btn').addEventListener('click', () => panelEl.classList.add('collapsed'));
+document.getElementById('collapse-btn').addEventListener('click', () => { panelEl.classList.add('collapsed'); track('panel_collapse', { via: 'panel' }); });
 // ---- mobile drawers (HKS-16): panel is a bottom sheet, HUD a tap-to-expand chip.
 // Start tucked away on phones so the map is unobstructed; tapping the map dismisses both.
 const mobileMQ = matchMedia('(max-width: 640px), (pointer: coarse) and (max-height: 500px)');
@@ -6222,7 +6254,7 @@ function applyMobileLayout(mobile) {
 }
 applyMobileLayout(mobileMQ.matches);
 mobileMQ.addEventListener('change', e => applyMobileLayout(e.matches));
-document.getElementById('sheetgrip').addEventListener('click', () => panelEl.classList.add('collapsed'));
+document.getElementById('sheetgrip').addEventListener('click', () => { panelEl.classList.add('collapsed'); track('panel_collapse', { via: 'grip' }); });
 wxhudEl.addEventListener('click', () => { if (mobileMQ.matches) wxhudEl.classList.toggle('expanded'); });
 app.addEventListener('pointerdown', () => {
   if (!mobileMQ.matches) return;
@@ -6310,13 +6342,13 @@ function setSide(which) {   // which: 'wx' | 'help' | null — swap content, no 
   if (which === 'help') updateHelp();
   renderSide();
 }
-SD.wx.tab.addEventListener('click',      () => setSide(sdActive === 'wx'      ? null : 'wx'));
-SD.help.tab.addEventListener('click',    () => setSide(sdActive === 'help'    ? null : 'help'));
-SD.credits.tab.addEventListener('click', () => setSide(sdActive === 'credits' ? null : 'credits'));
+SD.wx.tab.addEventListener('click',      () => { const open = sdActive !== 'wx';      setSide(open ? 'wx' : null);      if (open) track('weather_panel_open'); });
+SD.help.tab.addEventListener('click',    () => { const open = sdActive !== 'help';    setSide(open ? 'help' : null);    if (open) track('help_open'); });
+SD.credits.tab.addEventListener('click', () => { const open = sdActive !== 'credits'; setSide(open ? 'credits' : null); if (open) track('credits_open'); });
 document.getElementById('sd-close').addEventListener('click', () => setSide(null));
 document.getElementById('wx-warn').addEventListener('click', e => {
   e.stopPropagation();                      // don't collapse the weather chip on mobile
-  if (document.getElementById('wx-warn').textContent.trim()) setSide('wx');
+  if (document.getElementById('wx-warn').textContent.trim()) { setSide('wx'); track('weather_panel_open', { via: 'chip' }); }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && sdActive) setSide(null); });
 updateHelp();
@@ -6325,15 +6357,17 @@ requestAnimationFrame(() => sideDrawer.classList.add('ready'));
 document.getElementById('fog').addEventListener('change', e => {
   weather.fog = e.target.checked; setFog();
   if (mistGrp) mistGrp.visible = weather.fog;
+  if (e.isTrusted) track('weather_toggle', { kind: 'fog', on: e.target.checked });
 });
-document.getElementById('rain').addEventListener('change', e => { weather.rain = e.target.checked; if (rainPts) rainPts.visible = weather.rain; });
-document.getElementById('clouds').addEventListener('change', e => { weather.clouds = e.target.checked; if (cloudGrp) cloudGrp.visible = weather.clouds; });
+document.getElementById('rain').addEventListener('change', e => { weather.rain = e.target.checked; if (rainPts) rainPts.visible = weather.rain; if (e.isTrusted) track('weather_toggle', { kind: 'rain', on: e.target.checked }); });
+document.getElementById('clouds').addEventListener('change', e => { weather.clouds = e.target.checked; if (cloudGrp) cloudGrp.visible = weather.clouds; if (e.isTrusted) track('weather_toggle', { kind: 'clouds', on: e.target.checked }); });
 document.getElementById('lightning').addEventListener('change', e => {
   weather.lightning = e.target.checked;
   if (!weather.lightning) { flash = 0; boltLife = 0; disposeBolt(); if (boltLight) boltLight.intensity = 0; applyBg(bgMode); }
+  if (e.isTrusted) track('weather_toggle', { kind: 'lightning', on: e.target.checked });
 });
-document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; });
-document.getElementById('snow').addEventListener('change', e => { weather.snow = e.target.checked; if (snowPts) snowPts.visible = weather.snow; });
+document.getElementById('waves').addEventListener('change', e => { weather.waves = e.target.checked; if (e.isTrusted) track('weather_toggle', { kind: 'waves', on: e.target.checked }); });
+document.getElementById('snow').addEventListener('change', e => { weather.snow = e.target.checked; if (snowPts) snowPts.visible = weather.snow; if (e.isTrusted) track('weather_toggle', { kind: 'snow', on: e.target.checked }); });
 // ---- weather soundboard (HKS-2): procedural ambience, gesture-gated --------
 let sndOn = false;
 const sndBtn = document.getElementById('sndbtn');
@@ -6355,7 +6389,7 @@ function updateAudioMix() {
     fog:   weather.fog ? 1 : 0,
   });
 }
-sndBtn.addEventListener('click', () => setSound(!sndOn));
+sndBtn.addEventListener('click', () => { setSound(!sndOn); track('sound', { on: sndOn }); });
 document.getElementById('sndvol').addEventListener('input', e => setMasterVolume(parseInt(e.target.value, 10) / 100));
 setInterval(updateAudioMix, 700);   // live/tide/storm drift folds into the mix
 
@@ -6375,6 +6409,7 @@ document.getElementById('skymode').addEventListener('change', e => {
   skySim.on = v !== 'off';
   skySim.live = v === 'live';
   celKey = ''; syncSkyControls(); updateCelestial();
+  if (e.isTrusted) track('sky_mode', { mode: v });
 });
 document.getElementById('skydate').addEventListener('change', e => { if (e.target.value) skySim.date = e.target.value; celKey = ''; updateCelestial(); });
 document.getElementById('skytime').addEventListener('input', e => {
@@ -6382,6 +6417,9 @@ document.getElementById('skytime').addEventListener('input', e => {
   document.getElementById('skytimev').textContent = mmToHHMM(skySim.minutes);
   celKey = ''; updateCelestial();
 });
+// scrub commits on release ('change'), so we log one canonical event per scrub, not
+// one per input tick — and applyState()'s synthetic 'input' never trips it.
+document.getElementById('skytime').addEventListener('change', e => { if (e.isTrusted) track('sky_time_scrub', { via: 'panel' }); });
 document.getElementById('skydate').value = skySim.date;
 document.getElementById('skytime').value = skySim.minutes;
 document.getElementById('skytimev').textContent = mmToHHMM(skySim.minutes);
@@ -6396,11 +6434,19 @@ document.getElementById('tide').addEventListener('input', e => {
   if (!liveMode) tideLevel = tideManual;                 // live mode drives tideLevel from data instead
   document.getElementById('tidev').textContent = Math.round(tideManual * 100) + '%';
 });
-document.getElementById('storm').addEventListener('change', e => applyStorm(parseInt(e.target.value, 10)));
+document.getElementById('storm').addEventListener('change', e => {
+  const level = parseInt(e.target.value, 10);
+  applyStorm(level);
+  if (e.isTrusted) track('typhoon', { signal: level > 0 ? 'T' + level : 'none' });
+});
 document.getElementById('wind').addEventListener('input', e => {
   windStrength = parseInt(e.target.value, 10) / 100;     // fine wind override (keeps the current signal)
   document.getElementById('windv').textContent = Math.round(windStrength * 100) + '%';
   updateWindVisuals();
+});
+// commit the wind-strength scrub on release (bucketed, low-cardinality)
+document.getElementById('wind').addEventListener('change', e => {
+  if (e.isTrusted) track('wind', { dir: document.getElementById('winddir').value, strength_bucket: windBucket() });
 });
 function setThunderRate(v) {
   thunderRate = Math.max(0, Math.min(1, v));
@@ -6411,7 +6457,7 @@ document.getElementById('thunderrate').addEventListener('input', e => {
   thunderRate = parseInt(e.target.value, 10) / 100;
   document.getElementById('thunderratev').textContent = Math.round(thunderRate * 100) + '%';
 });
-document.getElementById('winddir').addEventListener('change', e => { setWindDir(e.target.value); updateStormBadge(); });
+document.getElementById('winddir').addEventListener('change', e => { setWindDir(e.target.value); updateStormBadge(); if (e.isTrusted) track('wind', { dir: e.target.value, strength_bucket: windBucket() }); });
 
 // ---- live weather from HKO / data.gov.hk -----------------------------------
 const HKO_ICON = {
@@ -6674,8 +6720,8 @@ function setLiveMode(on) {
     document.getElementById('tidev').textContent = Math.round(tideManual * 100) + '%';
   }
 }
-document.getElementById('livebtn').addEventListener('click', () => setLiveMode(!liveMode));
-document.getElementById('reset').addEventListener('click', frameCamera);
+document.getElementById('livebtn').addEventListener('click', () => { setLiveMode(!liveMode); track('live_weather', { on: liveMode }); });
+document.getElementById('reset').addEventListener('click', () => { frameCamera(); track('reset_view'); });
 document.getElementById('south').addEventListener('click', southView);
 document.getElementById('top').addEventListener('click', topView);
 
@@ -6830,11 +6876,12 @@ async function setStations(on) {
   if (on) { await refreshStations(); stationT = setInterval(refreshStations, 300000); }
   else clearStationMarkers();
 }
-document.getElementById('stations').addEventListener('change', e => setStations(e.target.checked));
+document.getElementById('stations').addEventListener('change', e => { setStations(e.target.checked); if (e.isTrusted) track('layer_toggle', { layer: 'stations', on: e.target.checked }); });
 // HKS-7: include HKO's wind/marine-only stations (checked) vs temperature stations only
 document.getElementById('stationswind').addEventListener('change', e => {
   stationsTempOnly = !e.target.checked;
   if (stationsOn && stationMarkers.length) { applyStationReadings(lastStationReadings); updateStations(); }
+  if (e.isTrusted) track('layer_toggle', { layer: 'stationswind', on: e.target.checked });
 });
 
 // ---- EPD air quality (HKS-5): AQHI chips per monitoring station -------------
@@ -6893,7 +6940,7 @@ async function setAqhi(on) {
   if (on) { await refreshAqhi(); aqhiT = setInterval(refreshAqhi, 600000); }
   else clearAqhiMarkers();
 }
-document.getElementById('aqhi').addEventListener('change', e => setAqhi(e.target.checked));
+document.getElementById('aqhi').addEventListener('change', e => { setAqhi(e.target.checked); if (e.isTrusted) track('layer_toggle', { layer: 'aqhi', on: e.target.checked }); });
 function updateAqhi() {
   if (!aqhiOn || !aqhiMarkers.length || !curG) return;
   const g = curG;
@@ -7735,6 +7782,7 @@ function openShareSheet() {
   ssReturnFocus = document.activeElement;
   shareSheet.hidden = false;
   document.getElementById('ss-close').focus();                  // move focus into the dialog (CodeRabbit)
+  track('share_open');
 }
 function closeShareSheet() {
   shareSheet.hidden = true;
@@ -7759,6 +7807,7 @@ addEventListener('keydown', e => {                               // Esc closes; 
 
 document.getElementById('ss-native').addEventListener('click', () => {
   if (!navigator.share) return;
+  track('share_action', { channel: 'native' });
   navigator.share({ title: t('share.title'), text: t('share.text'), url: shareUrl() }).then(closeShareSheet).catch(() => {});
 });
 function shareLink(target) {
@@ -7770,10 +7819,11 @@ function shareLink(target) {
   };
   if (links[target]) window.open(links[target], '_blank', 'noopener,noreferrer');
 }
-document.getElementById('ss-wa').addEventListener('click', () => shareLink('wa'));
-document.getElementById('ss-x').addEventListener('click', () => shareLink('x'));
-document.getElementById('ss-th').addEventListener('click', () => shareLink('th'));
+document.getElementById('ss-wa').addEventListener('click', () => { track('share_action', { channel: 'whatsapp' }); shareLink('wa'); });
+document.getElementById('ss-x').addEventListener('click', () => { track('share_action', { channel: 'x' }); shareLink('x'); });
+document.getElementById('ss-th').addEventListener('click', () => { track('share_action', { channel: 'threads' }); shareLink('th'); });
 document.getElementById('ss-copy').addEventListener('click', async () => {
+  track('share_action', { channel: 'copy' });
   try { await navigator.clipboard.writeText(shareUrl()); ssFlash(t('share.copied')); }
   catch (_) { history.replaceState(null, '', '?' + serializeState()); ssFlash(t('share.inbar')); }   // honest: clipboard failed, URL is in the bar (CodeRabbit)
 });
@@ -7785,6 +7835,7 @@ function embedSnippet() {
     + `loading="lazy" allow="fullscreen" allowfullscreen title="Hong Kong Sandbox · 香港沙盒"></iframe>`;
 }
 document.getElementById('ss-embed').addEventListener('click', async () => {
+  track('share_action', { channel: 'embed' });
   const ta = document.getElementById('embedcode');
   ta.value = embedSnippet(); ta.hidden = false; ta.focus(); ta.select();
   try { await navigator.clipboard.writeText(ta.value); ssFlash(t('share.embedcopied')); }
@@ -7839,6 +7890,7 @@ function applyLocale(loc) {
 }
 function switchLocale(loc) {
   if (!LOCALES.includes(loc) || loc === locale) return;
+  track('language', { to: loc === 'zh-hk' ? 'zh' : 'en' });   // before any navigation (prod path-routes away)
   try { localStorage.setItem('locale', loc); } catch (_) {}
   if (pathRouted()) {                       // prod: navigate to /<loc>/… (CF Function stamps the cookie)
     const rest = location.pathname.split('/').slice(2).join('/');
@@ -7850,6 +7902,32 @@ function switchLocale(loc) {
   }
 }
 document.getElementById('langbtn').addEventListener('click', () => switchLocale(isZh() ? 'en-hk' : 'zh-hk'));
+
+// ---- analytics (HKS-102): provider-agnostic custom events -------------------
+// Every instrumented control calls track()/trackDebounced() — never window.va or
+// gtag directly. The library attaches locale/mode/theme/device centrally, gates out
+// embed mode + programmatic URL-state restore, and fans out to each enabled sink.
+// VercelSink ships now; GA4Sink is registered too but opts itself out until a
+// measurement ID exists (set window.__GA4_ID, or pass one here — no call-site edits).
+const ANALYTICS_EMBED = new URLSearchParams(location.search).get('embed') === '1';
+const ANALYTICS_TOUCH = matchMedia('(pointer: coarse)').matches;
+function analyticsMode() { return flight.on ? 'fly' : walk.on ? 'walk' : stargaze.on ? 'stargaze' : 'orbit'; }
+function windBucket() {
+  const w = windStrength;
+  return w <= 0 ? 'calm' : w < 0.25 ? 'light' : w < 0.5 ? 'moderate' : w < 0.75 ? 'strong' : 'severe';
+}
+initAnalytics({
+  enabled: !ANALYTICS_EMBED,                       // embeds are excluded entirely
+  debug: new URLSearchParams(location.search).has('adebug'),
+  isRestoring: () => restoring,                    // never count applyState()'s synthetic sets
+  baseProps: () => ({
+    locale: isZh() ? 'zh' : 'en',                  // language segment (en / zh-HK)
+    mode: analyticsMode(),                         // orbit | fly | walk | stargaze
+    theme: bgMode,                                 // dark | paper
+    device: ANALYTICS_TOUCH ? 'touch' : 'pointer',
+  }),
+  sinks: [VercelSink(), GA4Sink({ measurementId: window.__GA4_ID || '' })],
+});
 
 resize();
 applyBg('dark');
@@ -7887,6 +7965,20 @@ loadSource(startSrc).then(() => {
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
   window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)
+  // HKS-102: boot + URL-state restore are done — arm analytics and log the session.
+  // "shared" = the visited URL carried a recognised viewer-state key (a deep/share
+  // link), so we can tell organic visits from shared ones.
+  const SHARE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'md', 'pl', 'gps', 'sg', 'mx', 'nn']);
+  const shared = [...urlParams.keys()].some(k => SHARE_KEYS.has(k));
+  armAnalytics();
+  track('app_load', {
+    shared,
+    embed: ANALYTICS_EMBED,
+    start_mode: startParams.get('md') || 'orbit',
+    start_skin: startParams.get('pl') || 'prop',
+    surface: startParams.get('surf') || surfStyle,
+    source: startSrc,
+  });
 }).catch(err => {
   document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message;
   const ld = document.getElementById('loader');
@@ -7933,7 +8025,9 @@ if ('serviceWorker' in navigator) {
 
   const dismiss = () => { bar.classList.remove('show'); if (isProd) localStorage.setItem(KEY, String(Date.now())); };
   document.getElementById('ib-close').addEventListener('click', dismiss);
-  const show = () => bar.classList.add('show');
+  const platform = (isIOS && isSafari) ? 'ios' : 'android';
+  let shownOnce = false;
+  const show = () => { bar.classList.add('show'); if (!shownOnce) { shownOnce = true; track('install_prompt_shown', { platform }); } };
 
   let deferred = null;
   if (isIOS && isSafari) {
@@ -7948,7 +8042,8 @@ if ('serviceWorker' in navigator) {
     document.getElementById('ib-install').addEventListener('click', async () => {
       if (!deferred) return;
       deferred.prompt();
-      await deferred.userChoice.catch(() => {});
+      const choice = await deferred.userChoice.catch(() => null);
+      if (choice && choice.outcome) track('install_result', { outcome: choice.outcome });
       deferred = null; dismiss();
     });
   }
@@ -7985,6 +8080,7 @@ for (const el of document.querySelectorAll('#panel,#sidedrawer,#dockwrap,#locate
   const dismiss = () => {
     if (!shown) return;
     shown = false;
+    track('coach_dismiss');
     gear.classList.remove('coach');
     tip.classList.remove('show');
     setTimeout(() => { tip.style.display = 'none'; }, 220);
