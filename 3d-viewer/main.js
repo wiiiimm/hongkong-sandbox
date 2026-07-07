@@ -6380,6 +6380,50 @@ function drawTideGraph() {
   ctx.fillText(max.toFixed(1) + ' m', Wc - pad, gTop + 7);
 }
 
+// HKS-101: live wind DIRECTION. The drift vector (windVec) was only ever set by the
+// manual dropdown or a T8 typhoon signal, so in ordinary live weather the clouds/rain
+// drifted in the default (northerly) direction regardless of the real wind — not
+// matching the radar. Derive the actual territory wind from HKO's 10-min station winds
+// and steer windVec so the whole weather deck moves the way the radar shows.
+const COMPASS_DEG = {
+  N: 0, NNE: 22.5, NE: 45, ENE: 67.5, E: 90, ESE: 112.5, SE: 135, SSE: 157.5,
+  S: 180, SSW: 202.5, SW: 225, WSW: 247.5, W: 270, WNW: 292.5, NW: 315, NNW: 337.5,
+  NORTH: 0, NORTHNORTHEAST: 22.5, NORTHEAST: 45, EASTNORTHEAST: 67.5, EAST: 90,
+  EASTSOUTHEAST: 112.5, SOUTHEAST: 135, SOUTHSOUTHEAST: 157.5, SOUTH: 180,
+  SOUTHSOUTHWEST: 202.5, SOUTHWEST: 225, WESTSOUTHWEST: 247.5, WEST: 270,
+  WESTNORTHWEST: 292.5, NORTHWEST: 315, NORTHNORTHWEST: 337.5,
+};
+function windFromBearing(v) {              // HKO wind-direction cell → degrees the wind blows FROM
+  if (v == null) return null;
+  const s = String(v).trim();
+  if (!s || /^(n\/?a|variable|calm)$/i.test(s)) return null;
+  if (/^\d+(\.\d+)?$/.test(s)) return +s % 360;
+  const k = s.toUpperCase().replace(/[^A-Z]/g, '');
+  return k in COMPASS_DEG ? COMPASS_DEG[k] : null;
+}
+async function syncLiveWind() {            // steer windVec from the real HKO 10-min station winds
+  if (!liveMode) return;
+  let sx = 0, sz = 0, n = 0;
+  try {
+    const txt = await fetch(regUrl('latest_10min_wind.csv')).then(r => r.ok ? r.text() : '').catch(() => '');
+    for (const r of parseCsv(txt)) {       // r = [type, station, wdir, wspd, gust]
+      const b = windFromBearing(r[2]), spd = parseFloat(r[3]);
+      if (b == null || !isFinite(spd) || spd <= 0) continue;
+      const from = b * Math.PI / 180;      // speed-weighted toward-vector: (−sin, cos); world −z=N, +x=E
+      sx += -Math.sin(from) * spd; sz += Math.cos(from) * spd; n++;
+    }
+  } catch (_) { return; }
+  if (!liveMode || n < 3) return;          // too few stations reporting → keep the current vector
+  const mag = Math.hypot(sx, sz);
+  if (mag < 1e-3) return;                   // light & variable → don't spin the deck on noise
+  windVec.x = sx / mag; windVec.z = sz / mag;                     // continuous, matches the radar
+  const toward = (Math.atan2(windVec.x, -windVec.z) * 180 / Math.PI + 360) % 360;
+  const CARD8 = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  const sel = document.getElementById('winddir');
+  if (sel) sel.value = CARD8[Math.round(((toward + 180) % 360) / 45) % 8];   // wind-from, nearest 8-pt (badge/UI only — no snap)
+  updateWindVisuals();
+  if (typeof updateStormBadge === 'function') updateStormBadge();
+}
 async function syncLiveWeather() {
   const el = id => document.getElementById(id);
   const chk = (id, on) => { const e = el(id); if (e.checked !== on) { e.checked = on; e.dispatchEvent(new Event('change', { bubbles: true })); } };
@@ -6431,6 +6475,7 @@ async function syncLiveWeather() {
     if (tc.dir) { el('winddir').value = tc.dir; setWindDir(tc.dir); }
     el('storm').value = String(tc.level);
     applyStorm(tc.level);
+    syncLiveWind();                        // HKS-101: steer the drift to the real observed wind (overrides the default / tc.dir)
   } catch (e) { el('wx-status').textContent = t('wx.unavail'); console.error(e); }
 }
 
@@ -6461,6 +6506,7 @@ function setLiveMode(on) {
     // HKS-101: drop the live cloud field; the sprite deck returns to the uniform
     // manual behaviour (updateWindVisuals restores opacity/visibility)
     cloudField.data = null; cloudField.src = ''; cloudField.satDead = 0;
+    setWindDir(document.getElementById('winddir').value);   // HKS-101: revert the drift to the manual dropdown (live steered windVec continuously)
     if (cloudGrp) updateWindVisuals();
     // keep whatever live sync produced: adopt the last live tide level as the manual value
     tideManual = tideLevel; tideSeries = null;
