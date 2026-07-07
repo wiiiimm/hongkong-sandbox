@@ -789,9 +789,11 @@ let thunderRate = 0.4;   // 0..1 lightning strike frequency (storm/live preset i
 const flashfx = document.getElementById('flashfx');   // full-screen lightning flash
 let baseHemi = 1.4, baseSun = 2.0;   // light levels before the lightning flash is added
 const windVec = { x: 0, z: 1 };      // unit heading the wind blows TOWARD (screen space)
-const WIND_VEC = {   // compass the wind blows FROM -> push vector (toward the opposite)
-  N:[0,1], NE:[-0.707,0.707], E:[-1,0], SE:[-0.707,-0.707],
-  S:[0,-1], SW:[0.707,-0.707], W:[1,0], NW:[0.707,0.707],
+const WIND_VEC = {   // 16-point compass the wind blows FROM -> push vector (toward the opposite)
+  N:[0,1], NNE:[-0.383,0.924], NE:[-0.707,0.707], ENE:[-0.924,0.383],
+  E:[-1,0], ESE:[-0.924,-0.383], SE:[-0.707,-0.707], SSE:[-0.383,-0.924],
+  S:[0,-1], SSW:[0.383,-0.924], SW:[0.707,-0.707], WSW:[0.924,-0.383],
+  W:[1,0], WNW:[0.924,0.383], NW:[0.707,0.707], NNW:[0.383,0.924],
 };
 const STORM_W = { 0:0, 1:0.2, 3:0.45, 8:0.72, 9:0.86, 10:1 };   // signal -> wind strength
 const SIGNAL_NAME = {
@@ -6418,9 +6420,9 @@ async function syncLiveWind() {            // steer windVec from the real HKO 10
   if (mag < 1e-3) return;                   // light & variable → don't spin the deck on noise
   windVec.x = sx / mag; windVec.z = sz / mag;                     // continuous, matches the radar
   const toward = (Math.atan2(windVec.x, -windVec.z) * 180 / Math.PI + 360) % 360;
-  const CARD8 = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  const CARD16 = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
   const sel = document.getElementById('winddir');
-  if (sel) sel.value = CARD8[Math.round(((toward + 180) % 360) / 45) % 8];   // wind-from, nearest 8-pt (badge/UI only — no snap)
+  if (sel) sel.value = CARD16[Math.round(((toward + 180) % 360) / 22.5) % 16];   // wind-from, nearest 16-pt (dropdown display only — no snap to windVec)
   updateWindVisuals();
   if (typeof updateStormBadge === 'function') updateStormBadge();
 }
