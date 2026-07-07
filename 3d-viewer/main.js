@@ -149,6 +149,7 @@ const I18N = {
       + '<p>Contact & commercial licensing: <a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> · '
       + 'licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>'
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
+      + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -236,6 +237,7 @@ const I18N = {
       + '<p>聯絡及商業授權：<a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> · '
       + '授權<a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">條款</a>。</p>'
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
+      + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2276,13 +2278,38 @@ function finGeo(pts, th) {
   g.translate(th / 2, 0, 0);                // centre on the fuselage line
   return g;
 }
+// navigation + anti-collision lights (HKS-93), shared by every skin: steady
+// position lights — RED port wingtip / GREEN starboard / WHITE tail — plus
+// white wingtip+tail strobes (double-flash) and red beacons above and below
+// the fuselage. Unlit MeshBasic markers so they glow at night and in rain;
+// stepFlight drives the flashing (strobes airborne only, like real ops).
+function addNavLights(grp, spec) {
+  const mk = (p, color, r, hidden) => {
+    const m = new THREE.Mesh(new THREE.SphereGeometry(r, 8, 6),
+      new THREE.MeshBasicMaterial({ color }));
+    m.position.set(p[0], p[1], p[2]);
+    if (hidden) m.visible = false;          // flashers start dark until stepFlight ticks
+    grp.add(m);
+    return m;
+  };
+  const L = { strobes: [], beacons: [] };
+  mk(spec.wingL, 0xff2418, 0.045);          // port = red, starboard = green — never swapped
+  mk(spec.wingR, 0x1fe04c, 0.045);
+  mk(spec.tail, 0xffffff, 0.04);
+  for (const p of [spec.wingL, spec.wingR, spec.tail])
+    L.strobes.push(mk([p[0], p[1] + 0.06, p[2]], 0xffffff, 0.055, true));
+  L.beacons.push(mk(spec.top, 0xff2222, 0.05, true));
+  L.beacons.push(mk(spec.bot, 0xff2222, 0.05, true));
+  grp.userData.lights = L;
+}
 // ---- runtime canvas textures (HKS-93) ---------------------------------------
 // All livery and cockpit detail below is PAINTED at runtime onto canvases and
-// wrapped as CanvasTextures — no image assets, no new deps, disposed on skin
+// wrapped as CanvasTextures — no build step, no new deps, disposed on skin
 // swap. The art is original, drawn from study of reference photography
 // (Wikimedia Commons: CX 747-467 B-HUJ & B-HOW exteriors, B-HKU tail close-up,
-// a Cathay 747 flight deck, and Cessna 170 N2670V for the prop plane); nothing
-// photographic is embedded or traced.
+// a Cathay 747 flight deck, and Cessna 170 N2670V for the prop plane). The one
+// photographic asset is the 747 POV panel/glareshield photo (CC BY 2.0, see
+// DECK_PHOTO_URL below) — properly licensed and credited in the Credits drawer.
 //
 // Cylindrical unwrap convention (all hull barrels are cylinders laid along -z
 // with thetaStart 0): canvas x = around the hull — 0 crown, ¼W starboard
@@ -2435,7 +2462,7 @@ function drawCxHump(ctx, w, h) {
   ctx.strokeStyle = 'rgba(20,30,40,0.05)'; ctx.lineWidth = 1;
   for (let y = 30; y < h; y += 42) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
   ctx.fillStyle = CX_WIN;
-  for (let v = 0.30; v <= 0.66; v += 0.033) {          // the level run of the deck
+  for (let v = 0.46; v <= 0.70; v += 0.028) {          // the level run of the deck
     const y = (1 - v) * h - 3;
     ctx.fillRect(0.168 * w - 3, y, 6, 6);              // starboard row, just off the crest
     ctx.fillRect(0.832 * w - 3, y, 6, 6);              // port row
@@ -2575,84 +2602,150 @@ function drawCxFan(ctx, w, h) {
   ctx.beginPath(); ctx.moveTo(cx, cy);
   ctx.quadraticCurveTo(cx + 8, cy - 4, cx + 4, cy + 8); ctx.stroke();
 }
+// ---- photoreal flight deck (HKS-93) -----------------------------------------
+// The 747 panel + glareshield are textured from a real 747-400 flight-deck
+// photograph: "G-bnlp (45518246055).jpg" by Jeroen Stroes Aviation Photography
+// (flickr.com/photos/jeroenstroesphotography/45518246055), a British Airways
+// 747-436 — via Wikimedia Commons, licensed CC BY 2.0 (attribution in the
+// Credits drawer). The JPEG is cropped into the panel canvases at build time;
+// the painted art below fills in until it arrives, then the photo repaints
+// over it with the lit PFD/ND/EICAS art composited into its dark CRTs so the
+// instruments still glow (and stay readable at night).
+const DECK_PHOTO_URL = 'textures/747-deck-gbnlp.jpg';
+let deckPhoto = null;
+function withDeckPhoto(cb) {
+  if (!deckPhoto) { deckPhoto = new Image(); deckPhoto.src = DECK_PHOTO_URL; }
+  if (deckPhoto.complete && deckPhoto.naturalWidth) cb(deckPhoto);
+  else deckPhoto.addEventListener('load', () => cb(deckPhoto), { once: true });
+}
+// canvas texture that boots with painted art and upgrades to the photo crop
+function photoTex(w, h, drawFallback, drawPhoto) {
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+  drawFallback(ctx, w, h);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 4;
+  withDeckPhoto(img => { drawPhoto(ctx, w, h, img); t.needsUpdate = true; });
+  return t;
+}
+// lit-CRT painters, shared by the painted panel and the photo composite
+function cxScreen(ctx, x, y, sw, sh) {
+  ctx.fillStyle = '#191c20'; ctx.fillRect(x - 7, y - 7, sw + 14, sh + 14);
+  ctx.strokeStyle = '#3f444b'; ctx.lineWidth = 2; ctx.strokeRect(x - 7, y - 7, sw + 14, sh + 14);
+  ctx.fillStyle = '#05080a'; ctx.fillRect(x, y, sw, sh);
+}
+function cxPFD(ctx, x, y, sw, sh) {
+  const ax = x + sw * 0.24, aw = sw * 0.52, ay = y + sh * 0.10, ah = sh * 0.58;
+  ctx.fillStyle = '#1565c8'; ctx.fillRect(ax, ay, aw, ah * 0.5);      // sky
+  ctx.fillStyle = '#7c5122'; ctx.fillRect(ax, ay + ah * 0.5, aw, ah * 0.5);  // ground
+  ctx.fillStyle = '#fff'; ctx.fillRect(ax, ay + ah * 0.5 - 1, aw, 2); // horizon
+  for (const p of [0.30, 0.40, 0.60, 0.70]) ctx.fillRect(ax + aw * 0.32, ay + ah * p, aw * 0.36, 1.5);
+  ctx.fillStyle = '#e836e8';                                          // FD bars
+  ctx.fillRect(ax + aw / 2 - 1, ay + ah * 0.34, 2, ah * 0.32);
+  ctx.fillRect(ax + aw * 0.34, ay + ah * 0.5 - 1, aw * 0.32, 2);
+  ctx.fillStyle = '#101418';                                          // tapes
+  ctx.fillRect(x + 3, ay, sw * 0.15, sh * 0.72); ctx.fillRect(x + sw - 3 - sw * 0.15, ay, sw * 0.15, sh * 0.72);
+  ctx.fillStyle = '#cfd4d9';
+  for (let i = 0; i < 7; i++) { ctx.fillRect(x + 3, ay + 6 + i * sh * 0.10, 8, 1.5); ctx.fillRect(x + sw - 11, ay + 6 + i * sh * 0.10, 8, 1.5); }
+  ctx.fillStyle = '#33e07a'; ctx.font = `bold ${Math.round(sh * 0.09)}px monospace`; ctx.textAlign = 'left';
+  ctx.fillText('250', x + 4, ay + sh * 0.40); ctx.fillText('FL118', x + sw * 0.60, ay + sh * 0.40);
+  ctx.fillText('SPD LNAV', x + sw * 0.22, y + sh * 0.08);             // FMA row
+  ctx.strokeStyle = '#cfd4d9'; ctx.lineWidth = 1.5;                   // compass arc
+  ctx.beginPath(); ctx.arc(x + sw / 2, y + sh * 1.28, sh * 0.48, -2.2, -0.94); ctx.stroke();
+}
+function cxND(ctx, x, y, sw, sh) {
+  const cx = x + sw / 2, cy = y + sh * 0.88;
+  ctx.strokeStyle = '#2ecc71'; ctx.lineWidth = 1.5;
+  for (const r of [0.28, 0.52, 0.76]) { ctx.beginPath(); ctx.arc(cx, cy, sh * r, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke(); }
+  ctx.strokeStyle = '#e836e8'; ctx.lineWidth = 2.5;                   // route
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx - sw * 0.10, cy - sh * 0.42); ctx.lineTo(cx + sw * 0.14, cy - sh * 0.70); ctx.stroke();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.moveTo(cx, cy - 8); ctx.lineTo(cx - 6, cy + 4); ctx.lineTo(cx + 6, cy + 4); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = '#28d0d0'; ctx.font = `bold ${Math.round(sh * 0.08)}px monospace`; ctx.textAlign = 'left';
+  ctx.fillText('SILVA', cx + sw * 0.16, cy - sh * 0.68);
+  ctx.fillStyle = '#33e07a'; ctx.fillText('GS 488', x + 5, y + sh * 0.10);
+}
+function cxEICAS(ctx, x, y, sw, sh) {
+  for (let e = 0; e < 4; e++) {
+    const gx = x + sw * (0.14 + e * 0.24), gy = y + sh * 0.22, gr = sw * 0.085;
+    ctx.strokeStyle = '#3a4046'; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.arc(gx, gy, gr, Math.PI * 0.75, Math.PI * 2.1); ctx.stroke();
+    ctx.strokeStyle = '#2ecc71';
+    ctx.beginPath(); ctx.arc(gx, gy, gr, Math.PI * 0.75, Math.PI * 1.7); ctx.stroke();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + gr * Math.cos(Math.PI * 1.7), gy + gr * Math.sin(Math.PI * 1.7)); ctx.stroke();
+    ctx.fillStyle = '#2ecc71'; ctx.font = `bold ${Math.round(sh * 0.058)}px monospace`; ctx.textAlign = 'center';
+    ctx.fillText('98.2', gx, gy + gr + sh * 0.07);
+    ctx.strokeStyle = '#3a4046'; ctx.lineWidth = 3;                   // EGT row
+    ctx.beginPath(); ctx.arc(gx, y + sh * 0.72, gr * 0.7, Math.PI * 0.75, Math.PI * 1.9); ctx.stroke();
+  }
+  ctx.fillStyle = '#28d0d0'; ctx.font = `bold ${Math.round(sh * 0.053)}px monospace`; ctx.textAlign = 'left';
+  ctx.fillText('N1', x + 4, y + sh * 0.06); ctx.fillText('EGT', x + 4, y + sh * 0.66);
+}
 // 747 main instrument panel: PFD | ND | EICAS | ND | PFD, painted as lit CRTs
 function drawCxPanel(ctx, w, h) {
   const g = ctx.createLinearGradient(0, 0, 0, h);
   g.addColorStop(0, '#33373d'); g.addColorStop(1, '#26292e');
   ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
   ctx.fillStyle = '#1e2126'; ctx.fillRect(0, 0, w, 12);
-  const screen = (x, y, sw, sh) => {
-    ctx.fillStyle = '#191c20'; ctx.fillRect(x - 7, y - 7, sw + 14, sh + 14);
-    ctx.strokeStyle = '#3f444b'; ctx.lineWidth = 2; ctx.strokeRect(x - 7, y - 7, sw + 14, sh + 14);
-    ctx.fillStyle = '#05080a'; ctx.fillRect(x, y, sw, sh);
-  };
-  const pfd = (x, y, sw, sh) => {
-    screen(x, y, sw, sh);
-    const ax = x + sw * 0.24, aw = sw * 0.52, ay = y + sh * 0.10, ah = sh * 0.58;
-    ctx.fillStyle = '#1565c8'; ctx.fillRect(ax, ay, aw, ah * 0.5);      // sky
-    ctx.fillStyle = '#7c5122'; ctx.fillRect(ax, ay + ah * 0.5, aw, ah * 0.5);  // ground
-    ctx.fillStyle = '#fff'; ctx.fillRect(ax, ay + ah * 0.5 - 1, aw, 2); // horizon
-    for (const p of [0.30, 0.40, 0.60, 0.70]) ctx.fillRect(ax + aw * 0.32, ay + ah * p, aw * 0.36, 1.5);
-    ctx.fillStyle = '#e836e8';                                          // FD bars
-    ctx.fillRect(ax + aw / 2 - 1, ay + ah * 0.34, 2, ah * 0.32);
-    ctx.fillRect(ax + aw * 0.34, ay + ah * 0.5 - 1, aw * 0.32, 2);
-    ctx.fillStyle = '#101418';                                          // tapes
-    ctx.fillRect(x + 3, ay, sw * 0.15, sh * 0.72); ctx.fillRect(x + sw - 3 - sw * 0.15, ay, sw * 0.15, sh * 0.72);
-    ctx.fillStyle = '#cfd4d9';
-    for (let i = 0; i < 7; i++) { ctx.fillRect(x + 3, ay + 6 + i * sh * 0.10, 8, 1.5); ctx.fillRect(x + sw - 11, ay + 6 + i * sh * 0.10, 8, 1.5); }
-    ctx.fillStyle = '#33e07a'; ctx.font = `bold ${Math.round(sh * 0.09)}px monospace`; ctx.textAlign = 'left';
-    ctx.fillText('250', x + 4, ay + sh * 0.40); ctx.fillText('FL118', x + sw * 0.60, ay + sh * 0.40);
-    ctx.fillText('SPD LNAV', x + sw * 0.22, y + sh * 0.08);             // FMA row
-    ctx.strokeStyle = '#cfd4d9'; ctx.lineWidth = 1.5;                   // compass arc
-    ctx.beginPath(); ctx.arc(x + sw / 2, y + sh * 1.28, sh * 0.48, -2.2, -0.94); ctx.stroke();
-  };
-  const nd = (x, y, sw, sh) => {
-    screen(x, y, sw, sh);
-    const cx = x + sw / 2, cy = y + sh * 0.88;
-    ctx.strokeStyle = '#2ecc71'; ctx.lineWidth = 1.5;
-    for (const r of [0.28, 0.52, 0.76]) { ctx.beginPath(); ctx.arc(cx, cy, sh * r, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke(); }
-    ctx.strokeStyle = '#e836e8'; ctx.lineWidth = 2.5;                   // route
-    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx - sw * 0.10, cy - sh * 0.42); ctx.lineTo(cx + sw * 0.14, cy - sh * 0.70); ctx.stroke();
-    ctx.fillStyle = '#fff';
-    ctx.beginPath(); ctx.moveTo(cx, cy - 8); ctx.lineTo(cx - 6, cy + 4); ctx.lineTo(cx + 6, cy + 4); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = '#28d0d0'; ctx.font = `bold ${Math.round(sh * 0.08)}px monospace`; ctx.textAlign = 'left';
-    ctx.fillText('SILVA', cx + sw * 0.16, cy - sh * 0.68);
-    ctx.fillStyle = '#33e07a'; ctx.fillText('GS 488', x + 5, y + sh * 0.10);
-  };
-  const eicas = (x, y, sw, sh) => {
-    screen(x, y, sw, sh);
-    for (let e = 0; e < 4; e++) {
-      const gx = x + sw * (0.14 + e * 0.24), gy = y + sh * 0.22, gr = sw * 0.085;
-      ctx.strokeStyle = '#3a4046'; ctx.lineWidth = 4;
-      ctx.beginPath(); ctx.arc(gx, gy, gr, Math.PI * 0.75, Math.PI * 2.1); ctx.stroke();
-      ctx.strokeStyle = '#2ecc71';
-      ctx.beginPath(); ctx.arc(gx, gy, gr, Math.PI * 0.75, Math.PI * 1.7); ctx.stroke();
-      ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(gx, gy); ctx.lineTo(gx + gr * Math.cos(Math.PI * 1.7), gy + gr * Math.sin(Math.PI * 1.7)); ctx.stroke();
-      ctx.fillStyle = '#2ecc71'; ctx.font = 'bold 11px monospace'; ctx.textAlign = 'center';
-      ctx.fillText('98.2', gx, gy + gr + 13);
-      ctx.strokeStyle = '#3a4046'; ctx.lineWidth = 3;                   // EGT row
-      ctx.beginPath(); ctx.arc(gx, y + sh * 0.72, gr * 0.7, Math.PI * 0.75, Math.PI * 1.9); ctx.stroke();
-    }
-    ctx.fillStyle = '#28d0d0'; ctx.font = 'bold 10px monospace'; ctx.textAlign = 'left';
-    ctx.fillText('N1', x + 4, y + 12); ctx.fillText('EGT', x + 4, y + sh * 0.66);
-  };
-  pfd(56, 36, 168, 190); nd(258, 36, 168, 190);
-  eicas(460, 36, 176, 190);
-  nd(660, 36, 168, 190); pfd(852, 36, 168, 190);
+  const pfd = (x, y, sw, sh) => { cxScreen(ctx, x, y, sw, sh); cxPFD(ctx, x, y, sw, sh); };
+  const nd = (x, y, sw, sh) => { cxScreen(ctx, x, y, sw, sh); cxND(ctx, x, y, sw, sh); };
+  const eicas = (x, y, sw, sh) => { cxScreen(ctx, x, y, sw, sh); cxEICAS(ctx, x, y, sw, sh); };
+  const sy = h * 0.113, sh = h * 0.594;
+  pfd(w * 0.055, sy, w * 0.164, sh); nd(w * 0.252, sy, w * 0.164, sh);
+  eicas(w * 0.449, sy, w * 0.172, sh);
+  nd(w * 0.645, sy, w * 0.164, sh); pfd(w * 0.832, sy, w * 0.164, sh);
   // standby ADI + gear lever between the centre screens and the F/O side
-  ctx.fillStyle = '#0a0d10'; ctx.beginPath(); ctx.arc(444, 90, 16, 0, 7); ctx.fill();
-  ctx.strokeStyle = '#cfd4d9'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(444, 90, 16, 0, 7); ctx.stroke();
-  ctx.fillStyle = '#1565c8'; ctx.beginPath(); ctx.arc(444, 90, 11, Math.PI, 2 * Math.PI); ctx.fill();
-  ctx.fillStyle = '#7c5122'; ctx.beginPath(); ctx.arc(444, 90, 11, 0, Math.PI); ctx.fill();
-  ctx.fillStyle = '#14171b'; ctx.fillRect(645, 240, 8, 66);             // gear slot
-  ctx.fillStyle = '#d9dde1'; ctx.beginPath(); ctx.arc(649, 306, 10, 0, 7); ctx.fill();
+  const ax = w * 0.434, ay = h * 0.28;
+  ctx.fillStyle = '#0a0d10'; ctx.beginPath(); ctx.arc(ax, ay, 16, 0, 7); ctx.fill();
+  ctx.strokeStyle = '#cfd4d9'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(ax, ay, 16, 0, 7); ctx.stroke();
+  ctx.fillStyle = '#1565c8'; ctx.beginPath(); ctx.arc(ax, ay, 11, Math.PI, 2 * Math.PI); ctx.fill();
+  ctx.fillStyle = '#7c5122'; ctx.beginPath(); ctx.arc(ax, ay, 11, 0, Math.PI); ctx.fill();
+  ctx.fillStyle = '#14171b'; ctx.fillRect(w * 0.63, h * 0.75, 8, h * 0.2);   // gear slot
+  ctx.fillStyle = '#d9dde1'; ctx.beginPath(); ctx.arc(w * 0.63 + 4, h * 0.955, 10, 0, 7); ctx.fill();
   // knob row along the bottom edge
-  for (let x = 60; x < w - 40; x += 62) {
-    ctx.fillStyle = '#15181c'; ctx.beginPath(); ctx.arc(x, 278, 11, 0, 7); ctx.fill();
-    ctx.fillStyle = '#8f969e'; ctx.beginPath(); ctx.arc(x, 278, 8, 0, 7); ctx.fill();
-    ctx.fillStyle = '#15181c'; ctx.fillRect(x - 1, 271, 2, 7);
+  for (let x = w * 0.06; x < w - 40; x += w * 0.06) {
+    ctx.fillStyle = '#15181c'; ctx.beginPath(); ctx.arc(x, h * 0.87, 11, 0, 7); ctx.fill();
+    ctx.fillStyle = '#8f969e'; ctx.beginPath(); ctx.arc(x, h * 0.87, 8, 0, 7); ctx.fill();
+    ctx.fillStyle = '#15181c'; ctx.fillRect(x - 1, h * 0.85 - 7, 2, 7);
   }
+}
+// photo upgrade for the 747 main panel: the real panel band cropped from the
+// flight-deck photograph, with the lit CRT art composited into its five dark
+// (powered-down) screens so the instruments read live. Photo-pixel rects were
+// measured off the 1024×683 source.
+function drawCxPanelPhoto(ctx, w, h, img) {
+  const cx0 = 88, cy0 = 238, cw = 848, chh = 196;        // panel band crop (photo px)
+  ctx.drawImage(img, cx0, cy0, cw, chh, 0, 0, w, h);
+  const R = (x0, y0, x1, y1) => [(x0 - cx0) / cw * w, (y0 - cy0) / chh * h,
+                                 (x1 - x0) / cw * w, (y1 - y0) / chh * h];
+  const lit = (kind, r) => {
+    const [x, y, sw, sh] = r;
+    ctx.fillStyle = '#05080a'; ctx.fillRect(x, y, sw, sh);   // wake the dark CRT
+    kind(ctx, x, y, sw, sh);
+    const glow = ctx.createRadialGradient(x + sw / 2, y + sh / 2, sh * 0.2, x + sw / 2, y + sh / 2, sh * 0.85);
+    glow.addColorStop(0, 'rgba(120,200,170,0.10)'); glow.addColorStop(1, 'rgba(120,200,170,0)');
+    ctx.fillStyle = glow; ctx.fillRect(x - 4, y - 4, sw + 8, sh + 8);
+  };
+  lit(cxPFD, R(221, 270, 305, 360));                     // captain PFD | ND
+  lit(cxND,  R(317, 267, 397, 357));
+  lit(cxEICAS, R(462, 267, 552, 365));                   // upper EICAS
+  lit(cxND,  R(612, 270, 697, 362));                     // F/O ND | PFD
+  lit(cxPFD, R(702, 270, 788, 362));
+}
+// photo upgrade for the glareshield face: the MCP strip crop, with the mode
+// windows re-lit in amber so the autopilot targets glow like the painted art
+function drawCxMCPPhoto(ctx, w, h, img) {
+  ctx.drawImage(img, 88, 186, 848, 44, 0, 0, w, h);
+  ctx.font = `bold ${Math.round(h * 0.30)}px monospace`; ctx.textAlign = 'center';
+  const win = (px, txt) => {                             // photo px → lit window
+    const x = (px - 88) / 848 * w, y = h * 0.22, wd = 46 / 848 * w, ht = h * 0.40;
+    ctx.fillStyle = '#0b0e10'; ctx.fillRect(x, y, wd, ht);
+    ctx.fillStyle = '#d9a13a'; ctx.fillText(txt, x + wd / 2, y + ht * 0.80);
+  };
+  win(352, '250'); win(464, '088'); win(552, '11000'); win(630, '+0000');
 }
 // glareshield face: the mode-control panel — amber digit windows and knobs
 function drawCxMCP(ctx, w, h) {
@@ -2990,6 +3083,9 @@ function buildPropPlane() {
   grp.add(cock);
   grp.userData.cockpit = cock;
   grp.userData.povFwd = 2.2; grp.userData.povUp = 2.3;   // POV eye: seated behind the cowl
+  // nav lights: wingtips, tail, and the beacon on the fin tip (Cessna-style)
+  addNavLights(grp, { wingL: [-2.42, 0.165, -0.55], wingR: [2.42, 0.165, -0.55],
+                      tail: [0, 0.16, 1.80], top: [0, 0.70, 1.66], bot: [0, -0.30, -0.5] });
   grp.scale.setScalar(s);
   grp.visible = false;
   return grp;
@@ -3024,21 +3120,22 @@ function buildCX747() {
   tail.rotation.x = -Math.PI / 2 - 0.09;               // wide end forward, tip swept slightly up
   tail.position.set(0, 0.06, 2.53);
   grp.add(tail);
-  // the signature upper deck — a FAIRED hump, not a blob (checked against a
-  // CX 747-400 side profile): a lathe body of revolution laid along the hull
-  // that rises out of the crown just behind the cockpit, runs nearly level
-  // over the forward third, then tapers gently aft and sinks back into the
-  // crown. The revolve axis sits INSIDE the fuselage (y 0.24 < crown 0.3), so
-  // both pointed ends emerge from the skin instead of capping in mid-air.
+  // the signature upper deck — a low, STREAMLINED raised roofline (iterated
+  // against the real 747-400 side profile, where the hump adds only ~25% over
+  // the main-deck crown and fades out through a long aft fairing): a lathe
+  // body of revolution laid along the hull that rises just behind the cockpit,
+  // runs nearly level over the forward third, then tapers away gently. The
+  // revolve axis sits INSIDE the fuselage (y 0.25 < crown 0.3), so both
+  // pointed ends emerge from the skin instead of capping in mid-air.
   const humpMat = new THREE.MeshStandardMaterial({ map: canvasTex(512, 256, drawCxHump), roughness: 0.4, metalness: 0.15 });
-  const humpPts = [[0.02, 0], [0.09, 0.35], [0.15, 0.8], [0.175, 1.2], [0.18, 1.6],
-                   [0.18, 1.95], [0.155, 2.15], [0.09, 2.28], [0.02, 2.35]]
+  const humpPts = [[0.02, 0], [0.05, 0.5], [0.085, 1.0], [0.118, 1.5], [0.14, 1.95],
+                   [0.145, 2.3], [0.145, 2.6], [0.12, 2.8], [0.065, 2.95], [0.02, 3.02]]
     .map(p => new THREE.Vector2(p[0], p[1]));
   const humpG = new THREE.LatheGeometry(humpPts, 20);
   humpG.rotateX(-Math.PI / 2);                          // profile runs forward (-z); u=0 stays at the crown
   const hump = new THREE.Mesh(humpG, humpMat);
-  hump.scale.x = 1.3;                                   // the upper deck reads nearly fuselage-wide
-  hump.position.set(0, 0.24, 0.6);                      // aft blend at z 0.6 → front tip z -1.75, behind the cockpit
+  hump.scale.x = 1.45;                                  // the upper deck reads nearly fuselage-wide
+  hump.position.set(0, 0.25, 1.15);                     // long aft fairing from z 1.15 → front tip z -1.87, behind the cockpit
   grp.add(hump);
   // swept wings with dihedral, four podded engines slung ahead of the leading edge
   const wingMat = new THREE.MeshStandardMaterial({ map: wingTileTex(0.7), roughness: 0.4, metalness: 0.2, side: THREE.DoubleSide });
@@ -3099,121 +3196,131 @@ function buildCX747() {
   gearAt(0, -1.45); gearAt(-0.3, 0.45); gearAt(0.3, 0.45);
   grp.add(gear);
   grp.userData.gear = gear;
-  // --- flight-deck interior (HKS-93): the full 747 cockpit the pilot sees in
-  // POV — built from study of 747-400 flight-deck photography (Wikimedia: a
-  // Cathay 747 deck and a KLM 747-400 deck; nothing traced or embedded).
-  // Parented to the plane so it rolls with the horizon; toggled visible =
-  // F.pov by stepFlight, hidden in chase. Designed in REAL METRES (cock.scale
-  // = 1/s cancels the ×4) around the upper-deck eye at ~(0, 3.0, -2.6) looking
-  // down -z: the glareshield lip sits ~7° below the sight line with the MCP on
-  // its face, the raked main panel (PFD/ND/EICAS CRTs) fills the frame below,
-  // and the windscreen posts edge the view without blocking the horizon.
+  // --- flight-deck interior (HKS-93): the 747 cockpit the pilot sees in POV,
+  // photo-textured from a real 747-400 deck (see DECK_PHOTO_URL — CC BY 2.0,
+  // credited in the Credits drawer) with 3D yokes/throttles/frame in front so
+  // head-look still parallaxes. Parented to the plane so it rolls with the
+  // horizon; toggled visible = F.pov by stepFlight, hidden in chase. Designed
+  // in REAL METRES (cock.scale = 1/s cancels the ×4) around the captain-height
+  // eye at (0, 2.72, -2.9) looking down -z with a 6° default nose-down head
+  // tilt (povPitch): straight ahead, the glareshield lip crosses just below
+  // screen centre, the photo panel + yoke tops fill the lower ~45%, the four
+  // throttles peek in at lower-centre, and the upper half stays windscreen.
   // Cinematic-simulator ambience over systems accuracy; no logos inside.
   const cock = new THREE.Group();
   const trim = new THREE.MeshStandardMaterial({ color: 0x15181c, roughness: 0.85 });
   const post = new THREE.MeshStandardMaterial({ color: 0x20242a, roughness: 0.7 });
   const bezel = new THREE.MeshStandardMaterial({ color: 0x24211e, roughness: 0.8 });
-  // — main instrument panel: five lit CRTs across (PFD | ND | EICAS | ND | PFD)
+  // — main instrument panel (photo band, CRTs re-lit), ~1.15 m ahead of the eye
   const panelMats = [trim, trim, trim, trim,
-    new THREE.MeshBasicMaterial({ map: canvasTex(1024, 320, drawCxPanel) }), trim];
-  const panel = new THREE.Mesh(new THREE.BoxGeometry(5.2, 1.6, 0.3), panelMats);
-  panel.position.set(0, 1.82, -4.55); panel.rotation.x = 0.42;
+    new THREE.MeshBasicMaterial({ map: photoTex(1024, 240, drawCxPanel, drawCxPanelPhoto) }), trim];
+  const panel = new THREE.Mesh(new THREE.BoxGeometry(3.0, 0.72, 0.12), panelMats);
+  panel.position.set(0, 2.10, -4.25); panel.rotation.x = 0.30;   // top edge ~0.28 below the eye
   cock.add(panel);
-  // — glareshield with the mode-control panel on its face
+  // — glareshield: a THIN eyebrow shelf over the panel top (the real one is a
+  // narrow lip, not a fascia) with the photo MCP strip on its face, re-lit
   const glareMats = [trim, trim, trim, trim,
-    new THREE.MeshBasicMaterial({ map: canvasTex(1024, 64, drawCxMCP) }), trim];
-  const glare = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.34, 0.42), glareMats);
-  glare.position.set(0, 2.62, -4.35); glare.rotation.x = -0.18;
+    new THREE.MeshBasicMaterial({ map: photoTex(1024, 48, drawCxMCP, drawCxMCPPhoto) }), trim];
+  const glare = new THREE.Mesh(new THREE.BoxGeometry(3.06, 0.10, 0.30), glareMats);
+  glare.position.set(0, 2.51, -4.15); glare.rotation.x = -0.08;
   cock.add(glare);
-  // — windscreen frame: a top header, two raked side pillars, and a thin centre
-  // post that lives up in the sky band (above the eye line) so terrain stays open
-  const header = new THREE.Mesh(new THREE.BoxGeometry(5.6, 0.32, 0.3), post);
-  header.position.set(0, 4.5, -5.4);
+  // — windscreen frame: header and the two slim pane dividers, up in the sky
+  // band so terrain stays open; raked side pillars edge the view
+  const header = new THREE.Mesh(new THREE.BoxGeometry(3.7, 0.24, 0.26), post);
+  header.position.set(0, 3.56, -4.5);
   cock.add(header);
-  const cpost = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.9, 0.22), post);
-  cpost.position.set(0, 3.7, -5.4);
-  cock.add(cpost);
+  for (const px of [-0.55, 0.55]) {
+    const cpost = new THREE.Mesh(new THREE.BoxGeometry(0.07, 1.0, 0.14), post);
+    cpost.position.set(px, 3.0, -4.38); cpost.rotation.x = 0.12;
+    cock.add(cpost);
+  }
   for (const sx of [-1, 1]) {
-    const side = new THREE.Mesh(new THREE.BoxGeometry(0.26, 3.6, 0.26), post);
-    side.position.set(sx * 2.7, 3.4, -5.0); side.rotation.z = sx * 0.34;
+    const side = new THREE.Mesh(new THREE.BoxGeometry(0.22, 2.1, 0.24), post);
+    side.position.set(sx * 1.75, 2.9, -4.05); side.rotation.z = sx * 0.30; side.rotation.x = 0.12;
     cock.add(side);
     // side walls up to the sill line below the open side glass
-    const sill = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.3, 2.6), post);
-    sill.position.set(sx * 2.58, 1.85, -3.5);
+    const sill = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.85, 2.4), post);
+    sill.position.set(sx * 1.68, 1.9, -2.9);
     cock.add(sill);
+    // side console filling floor → sill so a down-glance never leaks terrain
+    const console_ = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.5, 2.6), trim);
+    console_.position.set(sx * 1.32, 1.78, -2.9);
+    cock.add(console_);
   }
   // — overhead panel: the jumbo's switch canopy over both seats, its painted
-  // underside dense with toggle rows and dim amber annunciators
+  // underside dense with toggle rows and dim amber annunciators; pushed up to
+  // the header line so it only leans into view when the pilot looks up
   const ovhMats = [trim, trim, trim,
     new THREE.MeshBasicMaterial({ map: canvasTex(512, 512, drawCxOverhead) }), trim, trim];
-  const ovh = new THREE.Mesh(new THREE.BoxGeometry(2.3, 0.14, 1.7), ovhMats);
-  ovh.position.set(0, 4.3, -4.2); ovh.rotation.x = 0.16;   // forward edge dips toward the header
+  const ovh = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.12, 1.2), ovhMats);
+  ovh.position.set(0, 3.52, -3.95); ovh.rotation.x = 0.14;   // forward edge dips toward the header
   cock.add(ovh);
-  // — twin control YOKES (columns + U-wheels): the 747 flies on wheels, not
-  // sticks. NOTE: the deck furniture below all sits ABOVE y 1.7 — the exterior
-  // upper-deck hump crests at 1.68 real metres here, and the flight deck rides
-  // on top of it (anything lower pokes through the white hull skin in POV).
-  const yokeWheelG = new THREE.TorusGeometry(0.26, 0.038, 8, 20, Math.PI);
+  // — twin control YOKES (columns + U-wheels) in front of each seat; their
+  // horns rise into the bottom of the forward view for the 3D parallax layer
+  // (warm grey-brown like the photo's, so they read against the dark panel)
+  const yokeMat = new THREE.MeshStandardMaterial({ color: 0x6e6156, roughness: 0.7 });
+  const yokeWheelG = new THREE.TorusGeometry(0.20, 0.036, 8, 20, Math.PI);
   yokeWheelG.rotateZ(Math.PI);                          // U-shape: horns up, open at the top
   for (const sx of [-1, 1]) {
-    const col = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.055, 0.7, 10), bezel);
-    col.position.set(sx * 1.15, 1.82, -3.85); col.rotation.x = 0.25;
+    const col = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.05, 0.55, 10), yokeMat);
+    col.position.set(sx * 0.48, 1.85, -3.55); col.rotation.x = 0.22;
     cock.add(col);
-    const hub = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.18, 0.07), bezel);
-    hub.position.set(sx * 1.15, 2.13, -3.76);
+    const hub = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.15, 0.06), yokeMat);
+    hub.position.set(sx * 0.48, 2.10, -3.61);
     cock.add(hub);
-    const wheel = new THREE.Mesh(yokeWheelG, bezel);
-    wheel.position.set(sx * 1.15, 2.26, -3.74); wheel.rotation.x = -0.1;
+    const wheel = new THREE.Mesh(yokeWheelG, yokeMat);
+    wheel.position.set(sx * 0.48, 2.21, -3.60); wheel.rotation.x = -0.1;
     cock.add(wheel);
   }
   // — centre pedestal with the FOUR-lever throttle quadrant (one per engine),
-  // flanked by the shorter speedbrake (port) and flap (starboard) levers
+  // flanked by the shorter speedbrake (port) and flap (starboard) levers;
+  // knob tops reach ~2.42 so they show at lower-centre in the straight-ahead view
   const pedMats = [trim, trim,
     new THREE.MeshBasicMaterial({ map: canvasTex(256, 384, drawCxPedestal) }), trim, trim, trim];
-  const ped = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.5, 1.5), pedMats);
-  ped.position.set(0, 1.62, -3.1);                      // top face at y 1.87, between the seats
+  const ped = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.5, 1.5), pedMats);
+  ped.position.set(0, 1.85, -3.15);                     // top face at y 2.10, between the seats
   cock.add(ped);
   const knobW = new THREE.MeshStandardMaterial({ color: 0xc9ced4, roughness: 0.6 });
   const knobD = new THREE.MeshStandardMaterial({ color: 0x3a3f45, roughness: 0.7 });
   for (let i = 0; i < 4; i++) {                         // the four throttles
-    const lx = (i - 1.5) * 0.14;
-    const lever = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.4, 0.05), bezel);
-    lever.position.set(lx, 2.04, -3.45); lever.rotation.x = -0.35;
+    const lx = (i - 1.5) * 0.10;
+    const lever = new THREE.Mesh(new THREE.BoxGeometry(0.034, 0.26, 0.04), bezel);
+    lever.position.set(lx, 2.20, -3.58); lever.rotation.x = -0.28;
     cock.add(lever);
-    const knob = new THREE.Mesh(new THREE.SphereGeometry(0.045, 8, 6), knobW);
-    knob.position.set(lx, 2.225, -3.52);
+    const knob = new THREE.Mesh(new THREE.SphereGeometry(0.034, 8, 6), knobW);
+    knob.position.set(lx, 2.32, -3.62);
     cock.add(knob);
   }
   for (const sx of [-1, 1]) {                           // speedbrake / flap levers
-    const lever = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.28, 0.045), bezel);
-    lever.position.set(sx * 0.36, 1.98, -3.35); lever.rotation.x = -0.5;
+    const lever = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.20, 0.036), bezel);
+    lever.position.set(sx * 0.24, 2.14, -3.46); lever.rotation.x = -0.40;
     cock.add(lever);
-    const knob = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 6), knobD);
-    knob.position.set(sx * 0.36, 2.10, -3.42);
+    const knob = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 6), knobD);
+    knob.position.set(sx * 0.24, 2.23, -3.51);
     cock.add(knob);
   }
   // — two pilot seats (pale sheepskin cushions on dark frames), just behind the eye
   const wool = new THREE.MeshStandardMaterial({ color: 0xcfc9ba, roughness: 1.0 });
   for (const sx of [-1, 1]) {
-    const cushion = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.16, 0.65), wool);
-    cushion.position.set(sx * 1.15, 1.80, -2.15);
+    const cushion = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.16, 0.6), wool);
+    cushion.position.set(sx * 0.7, 1.95, -2.35);
     cock.add(cushion);
-    const back = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.95, 0.18), wool);
-    back.position.set(sx * 1.15, 2.30, -1.75); back.rotation.x = -0.1;
+    const back = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.9, 0.16), wool);
+    back.position.set(sx * 0.7, 2.42, -1.95); back.rotation.x = -0.1;
     cock.add(back);
   }
   // — deck floor over the hump crown so a look down reads as cockpit, not hull;
   // it stops short of the raked main panel so it never slices the CRTs
-  const floor = new THREE.Mesh(new THREE.BoxGeometry(3.8, 0.1, 3.2),
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.1, 4.2),
     new THREE.MeshStandardMaterial({ color: 0x2a2624, roughness: 0.95 }));
-  floor.position.set(0, 1.67, -2.7);
+  floor.position.set(0, 1.55, -2.6);
   cock.add(floor);
   // — windscreen rain film: streaks + droplets, shown only while it rains
   // (stepFlight syncs visibility with the live weather each POV frame)
-  const rainFilm = new THREE.Mesh(new THREE.PlaneGeometry(5.0, 2.2),
+  const rainFilm = new THREE.Mesh(new THREE.PlaneGeometry(3.5, 1.15),
     new THREE.MeshBasicMaterial({ map: canvasTex(512, 256, drawCxRain), transparent: true,
                                   opacity: 0.55, depthWrite: false }));
-  rainFilm.position.set(0, 3.55, -5.32);
+  rainFilm.position.set(0, 2.98, -4.3); rainFilm.rotation.x = 0.12;
   rainFilm.visible = false;
   cock.add(rainFilm);
   cock.userData.rain = rainFilm;
@@ -3221,7 +3328,11 @@ function buildCX747() {
   cock.visible = false;
   grp.add(cock);
   grp.userData.cockpit = cock;
-  grp.userData.povFwd = 2.6; grp.userData.povUp = 3.0;   // eye up in the upper-deck flight deck
+  grp.userData.povFwd = 2.9; grp.userData.povUp = 2.72;  // captain-height eye in the upper deck
+  grp.userData.povPitch = -0.105;                        // default gaze ~6° below the horizon
+  // nav lights: swept wingtips, tail cone, beacons on the hump crest & belly
+  addNavLights(grp, { wingL: [-2.8, 0.11, 1.12], wingR: [2.8, 0.11, 1.12],
+                      tail: [0, 0.13, 3.30], top: [0, 0.40, -0.3], bot: [0, -0.32, 0] });
   grp.scale.setScalar(s);
   grp.visible = false;
   return grp;
@@ -3248,25 +3359,34 @@ function buildCX777() {
   const nose = new THREE.Mesh(new THREE.SphereGeometry(0.28, 24, 16),
     new THREE.MeshStandardMaterial({ map: canvasTex(512, 256, (c, w2, h2) => drawCxNose(c, w2, h2, '777')), roughness: 0.4, metalness: 0.15 }));
   nose.rotation.x = -Math.PI / 2; nose.scale.set(1, 2.1, 1);
-  nose.position.z = -2.1;                               // tip reaches z ≈ -2.69
+  nose.position.z = -2.08;                              // equator tucked 0.02 into the barrel — no seam ring
   grp.add(nose);
-  // long tail cone, tip swept slightly up
+  // long tail cone, tip swept slightly up; wide end nosed into the barrel so
+  // the join never shows a diameter step
   const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.04, 1.8, 24),
     new THREE.MeshStandardMaterial({ map: canvasTex(256, 256, drawCxTail), roughness: 0.4, metalness: 0.15 }));
   tail.rotation.x = -Math.PI / 2 - 0.08;               // wide end forward
-  tail.position.set(0, 0.055, 3.18);
+  tail.position.set(0, 0.055, 3.14);
   grp.add(tail);
-  // swept wings with dihedral and the raked-tip kink drawn into the planform
+  // wing-root belly fairing: an ellipsoid over the wing box so the wings grow
+  // out of the hull instead of poking from a bare cylinder
+  const fairing = new THREE.Mesh(new THREE.SphereGeometry(0.28, 20, 12),
+    new THREE.MeshStandardMaterial({ color: 0xb2bbc2, roughness: 0.45, metalness: 0.2 }));
+  fairing.scale.set(1.25, 0.62, 2.4);
+  fairing.position.set(0, -0.10, 0.15);
+  grp.add(fairing);
+  // swept wings with dihedral; the raked tip flows off the leading edge in one
+  // smooth curve (no planform kink) and the trailing edge curves back in
   const wingMat = new THREE.MeshStandardMaterial({ map: wingTileTex(0.7), roughness: 0.4, metalness: 0.2, side: THREE.DoubleSide });
   const wShape = new THREE.Shape();                     // half-wing, root at x 0
   wShape.moveTo(0, 0);
-  wShape.lineTo(2.55, 1.55);                            // leading edge out to the tip-break…
-  wShape.lineTo(3.15, 2.45);                            // …then the sharply raked tip
+  wShape.lineTo(2.3, 1.40);                             // leading edge out to the tip run…
+  wShape.quadraticCurveTo(2.85, 1.83, 3.15, 2.42);      // …curving aft into the raked tip
   wShape.lineTo(3.15, 2.52);
-  wShape.lineTo(2.55, 1.86);                            // trailing edge back in
+  wShape.quadraticCurveTo(2.72, 2.06, 2.3, 1.76);       // trailing edge eases back in
   wShape.lineTo(0, 1.05);
   wShape.closePath();
-  const wingG = new THREE.ExtrudeGeometry(wShape, { depth: 0.06, bevelEnabled: false });
+  const wingG = new THREE.ExtrudeGeometry(wShape, { depth: 0.06, bevelEnabled: false, curveSegments: 8 });
   wingG.rotateX(Math.PI / 2);
   for (const sx of [-1, 1]) {
     const wg = new THREE.Mesh(wingG, wingMat);
@@ -3274,47 +3394,54 @@ function buildCX777() {
     wg.position.set(0, -0.15, -0.35);
     grp.add(wg);
     // ONE very large turbofan per side — the 777's engines are its signature:
-    // nearly half the fuselage diameter, slung well ahead of the leading edge
-    const ex = 0.95, ey = -0.29, ez = -0.10;
-    const nac = new THREE.Mesh(new THREE.CylinderGeometry(0.165, 0.145, 0.78, 16), grey);
+    // nearly half the fuselage diameter, hung under and ahead of the leading
+    // edge on a real pylon that bridges nacelle → wing in one piece
+    const ex = 0.95, ey = -0.27, ez = -0.12;
+    const nac = new THREE.Mesh(new THREE.CylinderGeometry(0.165, 0.15, 0.72, 16), grey);
     nac.rotation.x = -Math.PI / 2; nac.position.set(sx * ex, ey, ez);
     grp.add(nac);
-    const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.175, 0.10, 16), grey);
-    lip.rotation.x = -Math.PI / 2; lip.position.set(sx * ex, ey, ez - 0.36);
+    const lip = new THREE.Mesh(new THREE.TorusGeometry(0.158, 0.022, 10, 18), grey);
+    lip.position.set(sx * ex, ey, ez - 0.36);          // rounded inlet ring, not a can rim
     grp.add(lip);
-    const fan = new THREE.Mesh(new THREE.CircleGeometry(0.16, 20),
+    const fan = new THREE.Mesh(new THREE.CircleGeometry(0.152, 20),
       new THREE.MeshStandardMaterial({ map: canvasTex(128, 128, drawCxFan), roughness: 0.6 }));
     fan.rotation.y = Math.PI;                          // face forward (-z)
-    fan.position.set(sx * ex, ey, ez - 0.405);
+    fan.position.set(sx * ex, ey, ez - 0.35);
     grp.add(fan);
-    const core = new THREE.Mesh(new THREE.ConeGeometry(0.07, 0.24, 12), dark);
-    core.rotation.x = Math.PI / 2;                     // exhaust cone points aft
-    core.position.set(sx * ex, ey, ez + 0.47);
+    const exh = new THREE.Mesh(new THREE.CylinderGeometry(0.145, 0.085, 0.30, 16), grey);
+    exh.rotation.x = -Math.PI / 2; exh.position.set(sx * ex, ey, ez + 0.50);
+    grp.add(exh);                                      // tapered exhaust sleeve…
+    const core = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.22, 12), dark);
+    core.rotation.x = Math.PI / 2;                     // …around the dark core cone
+    core.position.set(sx * ex, ey, ez + 0.70);
     grp.add(core);
-    const pylon = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.20, 0.5), white);
-    pylon.position.set(sx * ex, ey + 0.19, ez + 0.30);
+    // pylon: a swept wedge sunk into the nacelle crown below and the wing
+    // underside above, so engine and wing read as one connected structure
+    const pylon = new THREE.Mesh(finGeo([[-0.30, 0], [0.50, 0], [0.50, 0.09], [0.05, 0.09]], 0.075), white);
+    pylon.position.set(sx * ex, -0.15, ez + 0.10);     // base in the nacelle, top in the wing skin
     grp.add(pylon);
   }
-  // tailplane + the tall single fin: jade core, painted brushwing side faces
+  // tailplane + the tall single fin: jade core, painted brushwing side faces;
+  // the fin base is sunk into the tail-cone crown so it never floats
   const tailW = new THREE.Mesh(wingGeo(1.2, 0.55, 0.18, 0.6, 0.05), wingMat);
-  tailW.position.set(0, 0.12, 3.02);
+  tailW.position.set(0, 0.10, 3.02);
   grp.add(tailW);
-  const finPts = [[0, 0], [0.95, 0], [1.35, 1.15], [1.02, 1.15]];
+  const finPts = [[0.10, 0], [1.05, 0], [1.40, 1.15], [1.07, 1.15]];
   const fin = new THREE.Mesh(finGeo(finPts, 0.07), jade);
-  fin.position.set(0, 0.22, 2.62);
+  fin.position.set(0, 0.13, 2.52);
   grp.add(fin);
   const finShape = new THREE.Shape();
-  finShape.moveTo(0, 0); finShape.lineTo(0.95, 0);
-  finShape.lineTo(1.35, 1.15); finShape.lineTo(1.02, 1.15);
+  finShape.moveTo(0.10, 0); finShape.lineTo(1.05, 0);
+  finShape.lineTo(1.40, 1.15); finShape.lineTo(1.07, 1.15);
   finShape.closePath();
   const finSideG = new THREE.ShapeGeometry(finShape);
   finSideG.rotateY(-Math.PI / 2);                      // faces -x (port)
   for (const sx of [-1, 1]) {
     const tex = canvasTex(320, 256, (c, w2, h2) => drawCxFin(c, w2, h2, sx === 1, false));
-    tex.repeat.set(1 / 1.35, 1 / 1.15);                // shape UVs are raw metres
+    tex.repeat.set(1 / 1.40, 1 / 1.15);                // shape UVs are raw metres
     const side = new THREE.Mesh(finSideG, new THREE.MeshStandardMaterial({ map: tex, roughness: 0.5 }));
     if (sx === 1) side.scale.x = -1;                   // starboard: mirrored geometry + art
-    side.position.set(sx * 0.041, 0.22, 2.62);
+    side.position.set(sx * 0.041, 0.13, 2.52);
     grp.add(side);
   }
   // gear: nose strut + two main bogies (wheels reach y = -0.55), grouped so
@@ -3364,6 +3491,9 @@ function buildCX777() {
   grp.add(cock);
   grp.userData.cockpit = cock;
   grp.userData.povFwd = 2.8; grp.userData.povUp = 2.4;   // eye on the single deck, ahead of the wing
+  // nav lights: raked wingtips, tail cone, beacons on the crown & belly
+  addNavLights(grp, { wingL: [-3.15, 0.17, 2.10], wingR: [3.15, 0.17, 2.10],
+                      tail: [0, 0.13, 4.02], top: [0, 0.31, 0.1], bot: [0, -0.31, 0.1] });
   grp.scale.setScalar(s);
   grp.visible = false;
   return grp;
@@ -3617,6 +3747,17 @@ function stepFlight() {
   planeGrp.quaternion.copy(_fq);
   // HKS-93: the gear retracts — wheels render only while on the ground
   if (planeGrp.userData.gear) planeGrp.userData.gear.visible = F.landed;
+  // HKS-93: anti-collision flashers — position lights stay steady, the white
+  // wingtip/tail strobes double-flash once a second while AIRBORNE (real ops:
+  // strobes off on the ground), and the red beacons pulse slower, always on
+  if (planeGrp.userData.lights) {
+    const Lg = planeGrp.userData.lights, tms = performance.now();
+    const ts = tms % 1000;
+    const strobeOn = !F.landed && (ts < 60 || (ts > 150 && ts < 210));   // flash-flash-pause
+    for (const m of Lg.strobes) m.visible = strobeOn;
+    const beaconOn = (tms % 1400) < 240;
+    for (const m of Lg.beacons) m.visible = beaconOn;
+  }
   // HKS-87: the prop is tied to engine/airspeed — airborne it keeps a base
   // spin plus a speed term; landed it's driven purely by ground speed, so it
   // winds down to a dead stop as the plane brakes and stays still while parked.
@@ -3649,8 +3790,10 @@ function stepFlight() {
     _fc.copy(F.pos).addScaledVector(_fv, eF).addScaledVector(_fu, eU);   // horizon rolls
     world.localToWorld(_fc);
     camera.position.copy(_fc);
-    // head-turn: rotate the look direction by the shared boom offset (HKS-53)
-    _fe2.set(F.lookPitch, F.lookYaw, 0, 'YXZ');
+    // head-turn: rotate the look direction by the shared boom offset (HKS-53);
+    // povPitch (HKS-93) is the skin's resting head tilt — a few degrees down so
+    // the panel fills the lower view and the horizon rides above screen centre
+    _fe2.set(F.lookPitch + (planeGrp.userData.povPitch || 0), F.lookYaw, 0, 'YXZ');
     _fq2.copy(_fq).multiply(_lookQ.setFromEuler(_fe2));
     _fv2.set(0, 0, -1).applyQuaternion(_fq2);
     _fl.copy(F.pos).addScaledVector(_fv2, 2000); world.localToWorld(_fl);
