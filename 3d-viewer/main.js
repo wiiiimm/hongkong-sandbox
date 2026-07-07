@@ -4101,7 +4101,6 @@ function enterFlight() {
       DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') arm(); }).catch(() => {});
     else arm();
   }
-  document.getElementById('flyhud').style.display = 'block';
   document.getElementById('flybtn').classList.add('on');
   document.getElementById('flybtn').blur();   // else Space (boost!) re-clicks the button and exits
   document.body.classList.add('flying');
@@ -4119,7 +4118,6 @@ function exitFlight() {
   flight.keys = {};
   flight.touchHold = 0; flight.mouseLook = false; flight.lookYaw = 0; flight.lookPitch = 0;   // HKS-53
   if (planeGrp) planeGrp.visible = false;
-  document.getElementById('flyhud').style.display = 'none';
   document.getElementById('flybtn').classList.remove('on');
   spinDir = flight.prevSpin;
   document.getElementById('spindir').value = String(spinDir);
@@ -4448,7 +4446,6 @@ function enterWalk(startLocal) {
   setTopMode('walk');
   updateWalkViewBtn();
   camera.fov = 70; camera.updateProjectionMatrix();
-  document.getElementById('flyhud').style.display = 'block';
   document.getElementById('walkbtn').classList.add('on');
   document.getElementById('walkbtn').blur();  // else Space/Enter re-clicks the button and exits
   document.body.classList.add('flying', 'walking');       // fly/walk shared UI state; walking gates the auto-walk button (HKS-91)
@@ -4469,7 +4466,6 @@ function exitWalk() {
   setTopMode(null);
   updateSpeedGauge();
   if (document.exitPointerLock) document.exitPointerLock();
-  document.getElementById('flyhud').style.display = 'none';
   document.getElementById('walkbtn').classList.remove('on');
   document.body.classList.remove('flying', 'walking');
   spinDir = walk.prevSpin;
