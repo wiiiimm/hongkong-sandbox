@@ -110,7 +110,7 @@ const I18N = {
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
     'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)',
     'lbl.topspeed': 'Top speed',
-    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777',
+    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a350': 'Cathay Pacific A350-1000',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
     // HKS-86: the bottom mode dock + contextual tray
@@ -200,7 +200,7 @@ const I18N = {
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
     'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)',
     'lbl.topspeed': '極速',
-    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777',
+    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a350': '國泰航空 A350-1000',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
     // HKS-86: the bottom mode dock + contextual tray
@@ -2229,8 +2229,10 @@ let planeGrp = null;
 // Adding a skin = one row here + an <option> in #planeskin + its i18n strings.
 const PLANE_SKINS = [
   { id: 'prop',  build: buildPropPlane },   // the original red-trim single-prop
+  { id: 'betsy', build: buildBetsyDC3 },    // Cathay Pacific "Betsy" — the Douglas DC-3, VR-HDB
   { id: 'cx747', build: buildCX747 },       // Cathay Pacific Boeing 747
   { id: 'cx777', build: buildCX777 },       // Cathay Pacific Boeing 777-300
+  { id: 'a350',  build: buildCXA350 },      // Cathay Pacific Airbus A350-1000
 ];
 let planeSkin = 'prop';
 function buildPlane() {
@@ -2317,7 +2319,9 @@ function addNavLights(grp, spec) {
 // wrapped as CanvasTextures — no build step, no new deps, disposed on skin
 // swap. The art is original, drawn from study of reference photography
 // (Wikimedia Commons: CX 747-467 B-HUJ & B-HOW exteriors, B-HKU tail close-up,
-// a Cathay 747 flight deck, and Cessna 170 N2670V for the prop plane). The one
+// a Cathay 747 flight deck, Cessna 170 N2670V for the prop plane, the
+// preserved DC-3 VR-HDB "Betsy" at the HK Science Museum for the Betsy skin,
+// and CX A350-1000 B-LXA at HKG for the A350). The one
 // photographic asset is the 747 POV panel/glareshield photo (CC BY 2.0, see
 // DECK_PHOTO_URL below) — properly licensed and credited in the Credits drawer.
 //
@@ -2423,7 +2427,9 @@ function drawCxBarrel(ctx, w, h) {
 // four-pane windscreen. The sphere is re-oriented pole-forward, so u wraps the
 // hull (crown at ¼W) and v runs tip (row 0) → barrel joint (row h/2).
 // mode '747' paints the 90s jade nose swoosh + red pinstripe; mode '777'
-// (modern livery) runs the slim jade window-line cheatline through instead.
+// (modern livery) runs the slim jade window-line cheatline through instead;
+// mode 'a350' is the clean modern hull plus Airbus's black cockpit "mask" —
+// the curved dark surround swallowing the windscreen (panes seamed inside it).
 function drawCxNose(ctx, w, h, mode = '747') {
   const img = ctx.createImageData(w, h), px = img.data;
   const C = s => [parseInt(s.slice(1, 3), 16), parseInt(s.slice(3, 5), 16), parseInt(s.slice(5, 7), 16)];
@@ -2438,7 +2444,7 @@ function drawCxNose(ctx, w, h, mode = '747') {
       if (mode === '747') {
         if (zw > -2.04 && yw < CX_SW.jadeTop && yw > CX_SW.jadeBot) c = jade;
         else if (zw > -2.05 && yw < CX_SW.redTop && yw > CX_SW.redBot) c = red;
-      } else if (zw > -2.02 && yw < 0.108 && yw > 0.070) c = jade;   // 777 cheatline runs to the radome
+      } else if (mode === '777' && zw > -2.02 && yw < 0.108 && yw > 0.070) c = jade;   // 777 cheatline runs to the radome
       const i = (y * w + x) * 4;
       px[i] = c[0]; px[i + 1] = c[1]; px[i + 2] = c[2]; px[i + 3] = 255;
     }
@@ -2447,8 +2453,22 @@ function drawCxNose(ctx, w, h, mode = '747') {
   // radome seam arc
   ctx.strokeStyle = 'rgba(30,40,50,0.10)'; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(w * 0.10, 46); ctx.quadraticCurveTo(w * 0.25, 40, w * 0.40, 46); ctx.stroke();
+  // the A350 mask: one black curved blob around the whole windscreen band, its
+  // outer corners sweeping up-and-aft like the real "sunglasses" — painted
+  // UNDER the panes so their seams read as glass inside the mask
+  if (mode === 'a350') {
+    const mx = w * 0.25;
+    ctx.fillStyle = '#14181d';
+    ctx.beginPath();
+    ctx.moveTo(mx - w * 0.125, 108);                    // lower-forward corner, port
+    ctx.quadraticCurveTo(mx, 122, mx + w * 0.125, 108); // curved chin under the panes
+    ctx.quadraticCurveTo(mx + w * 0.145, 92, mx + w * 0.115, 68);  // aft corner curls up
+    ctx.quadraticCurveTo(mx, 56, mx - w * 0.115, 68);   // brow over the panes
+    ctx.quadraticCurveTo(mx - w * 0.145, 92, mx - w * 0.125, 108);
+    ctx.closePath(); ctx.fill();
+  }
   // windscreen: four panes around the crown (x = w/4), raked outer panes
-  ctx.fillStyle = CX_WIN;
+  ctx.fillStyle = mode === 'a350' ? '#232b33' : CX_WIN;
   const cy0 = 77, cy1 = 97, cx = w * 0.25;
   const pane = (x0, x1, slant) => {
     ctx.beginPath();
@@ -2953,8 +2973,9 @@ function drawPropFin(ctx, w, h) {
   ctx.fillStyle = '#f3f5f7'; ctx.fillRect(0, h * 0.80, w, 4);
   ctx.fillStyle = GA_STRIPE; ctx.fillRect(0, h * 0.80 + 6, w, 2);
 }
-// little six-pack panel + radio stack for the prop plane's POV
-function drawPropPanel(ctx, w, h) {
+// little six-pack panel + radio stack for the prop plane's POV — Betsy reuses
+// it with her own registration placard (classic prop-era deck for both)
+function drawPropPanel(ctx, w, h, reg = 'VR-HKS') {
   const g = ctx.createLinearGradient(0, 0, 0, h);
   g.addColorStop(0, '#2c2f34'); g.addColorStop(1, '#212327');
   ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
@@ -2998,7 +3019,7 @@ function drawPropPanel(ctx, w, h) {
     ctx.fillStyle = '#c3c8ce'; ctx.beginPath(); ctx.arc(406, 47 + r * 42, 6, 0, 7); ctx.fill();
   }
   ctx.fillStyle = '#e8ebee'; ctx.font = 'bold 10px Arial, sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText('VR-HKS', 360, 180);
+  ctx.fillText(reg, 360, 180);
 }
 function buildPropPlane() {
   const s = 4;                                          // ~19 m wingspan: readable, near real scale
@@ -3513,6 +3534,534 @@ function buildCX777() {
   grp.visible = false;
   return grp;
 }
+// ---- Cathay Pacific "Betsy" — Douglas DC-3 (HKS-93) -------------------------
+// Cathay's first aircraft (reg VR-HDB, 1946), restored and hanging in the Hong
+// Kong Science Museum today — painted from study of the museum aircraft's
+// photos on Wikimedia Commons: polished-metal hull, the black anti-glare nose
+// cap, the period CPA globe roundel + dark-teal pennant on the forward
+// fuselage, big black VR-HDB on the rear, and a Union Jack up the fin.
+const BETSY_TEAL = '#123f4e', BETSY_YEL = '#e8b73a';
+const BETSY_HULL = ['#e3e7eb', '#c6ccd2', '#a2a9b0'];
+const betsyHull = yw => yw > 0.10 ? BETSY_HULL[0] : yw > -0.10 ? BETSY_HULL[1] : BETSY_HULL[2];
+// polished-metal panel grid: frame seams + rivet dots over any silver piece
+function betsyPanels(ctx, w, h, step) {
+  ctx.strokeStyle = 'rgba(40,50,60,0.10)'; ctx.lineWidth = 1;
+  for (let y = step; y < h; y += step) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+  ctx.fillStyle = 'rgba(40,50,60,0.09)';
+  for (let y = step; y < h; y += step)
+    for (let x = 5; x < w; x += 15) ctx.fillRect(x, y - 2, 1.5, 1.5);
+}
+// cabin barrel: silver bands, the CPA globe + letters + forward pennant, and
+// the DC-3's row of squarish cabin windows down each side
+function drawBetsyBarrel(ctx, w, h) {
+  for (let x = 0; x < w; x++) {                        // metal bands per column
+    const a = Math.min(x, w - x) / w * 2 * Math.PI;
+    ctx.fillStyle = betsyHull(0.24 * Math.cos(a));
+    ctx.fillRect(x, 0, 1, h);
+  }
+  const X = a => a / 360 * w;
+  betsyPanels(ctx, w, h, 80);
+  for (const m of [0, 1]) {                            // 0 = starboard, 1 = port
+    const px = x => m ? w - x : x;
+    // the CPA pennant: a slender dark-teal flag sweeping forward under the titles
+    ctx.fillStyle = BETSY_TEAL;
+    ctx.beginPath();
+    ctx.moveTo(px(X(60)), 150);                        // apex points forward
+    ctx.lineTo(px(X(48)), 292); ctx.lineTo(px(X(70)), 300);
+    ctx.closePath(); ctx.fill();
+    // the globe roundel ahead of the letters: white disc, yellow landmasses
+    const gx = px(X(56)), gy = 118;
+    ctx.fillStyle = '#f2f4f6'; ctx.beginPath(); ctx.arc(gx, gy, 27, 0, 7); ctx.fill();
+    ctx.strokeStyle = BETSY_TEAL; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.arc(gx, gy, 27, 0, 7); ctx.stroke();
+    ctx.fillStyle = BETSY_YEL;
+    ctx.beginPath(); ctx.ellipse(gx - 6, gy - 8, 12, 8, 0.5, 0, 7); ctx.fill();  // Asia blob
+    ctx.beginPath(); ctx.ellipse(gx + 9, gy + 10, 8, 5, -0.4, 0, 7); ctx.fill(); // the islands
+    ctx.beginPath(); ctx.ellipse(gx - 11, gy + 12, 5, 4, 0.2, 0, 7); ctx.fill();
+  }
+  // 'CPA' titles aft of the roundel, reading correctly per side
+  const font = 'bold 38px "Arial Black", Arial, sans-serif';
+  hullText(ctx, 'CPA', X(56), 218, -Math.PI / 2, font, BETSY_TEAL, '12px');
+  hullText(ctx, 'CPA', w - X(56), 218, Math.PI / 2, font, BETSY_TEAL, '12px');
+  // squarish cabin windows — the DC-3 has a short row of big panes
+  ctx.fillStyle = '#20262c';
+  for (const wx of [X(71), w - X(71)])
+    for (let y = 360; y <= 880; y += 74) ctx.fillRect(wx - 6, y, 12, 22);
+  // aft port cargo/pax door outline
+  ctx.strokeStyle = 'rgba(70,80,90,0.5)'; ctx.lineWidth = 2;
+  ctx.strokeRect(w - X(80), 900, X(26), 92);
+}
+// tapering rear fuselage: bands follow the shrinking radius; the big black
+// registration rides the taper exactly as on the museum aircraft
+function drawBetsyAft(ctx, w, h) {
+  const img = ctx.createImageData(w, h), px = img.data;
+  const C = s => [parseInt(s.slice(1, 3), 16), parseInt(s.slice(3, 5), 16), parseInt(s.slice(5, 7), 16)];
+  const cols = BETSY_HULL.map(C);
+  for (let y = 0; y < h; y++) {
+    const v = 1 - (y + 0.5) / h, r = 0.05 + 0.19 * v;  // radius shrinking to the tail
+    for (let x = 0; x < w; x++) {
+      const a = Math.min(x, w - x) / w * 2 * Math.PI;
+      const yw = r * Math.cos(a);
+      const c = cols[yw > 0.10 ? 0 : yw > -0.10 ? 1 : 2];
+      const i = (y * w + x) * 4;
+      px[i] = c[0]; px[i + 1] = c[1]; px[i + 2] = c[2]; px[i + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  betsyPanels(ctx, w, h, 72);
+  const font = 'italic bold 56px "Arial Black", Arial, sans-serif';
+  hullText(ctx, 'VR-HDB', w * 0.25, 150, -Math.PI / 2, font, '#14181c', '3px');
+  hullText(ctx, 'VR-HDB', w * 0.75, 150, Math.PI / 2, font, '#14181c', '3px');
+}
+// rounded nose: silver bands, the black anti-glare cap over the crown (widest
+// at the tip, thinning back to the windscreen) and the DC-3's flat, stepped
+// two-pane windscreen with its centre post. Same pole-forward unwrap as the
+// jets: u wraps the hull (crown at ¼W), v runs tip → barrel joint.
+function drawBetsyNose(ctx, w, h) {
+  const img = ctx.createImageData(w, h), px = img.data;
+  const C = s => [parseInt(s.slice(1, 3), 16), parseInt(s.slice(3, 5), 16), parseInt(s.slice(5, 7), 16)];
+  const cols = BETSY_HULL.map(C), glare = C('#1b1f24');
+  for (let y = 0; y < h; y++) {
+    const th = Math.PI * (y + 0.5) / h, sinT = Math.sin(th);
+    for (let x = 0; x < w; x++) {
+      const a = ((x + 0.5) / w - 0.25) * 2 * Math.PI;  // 0 at crown
+      const yw = 0.24 * Math.cos(a) * sinT;            // world height on the sphere
+      let c = cols[yw > 0.10 ? 0 : yw > -0.10 ? 1 : 2];
+      // anti-glare cap: covers the upper nose ahead of the windscreen, wrapping
+      // lowest right at the tip and pulling up toward the crown as it runs aft
+      if (y < 98 && yw > 0.015 + 0.115 * (y / 98)) c = glare;
+      const i = (y * w + x) * 4;
+      px[i] = c[0]; px[i + 1] = c[1]; px[i + 2] = c[2]; px[i + 3] = 255;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  // stepped flat windscreen well aft of the tip, right where the crown meets
+  // the cabin roof: two main panes + raked side quarter-panes
+  const cx = w * 0.25;
+  ctx.fillStyle = '#1c232a';
+  ctx.fillRect(cx - 40, 100, 36, 26); ctx.fillRect(cx + 4, 100, 36, 26);   // mains, centre post between
+  const quarter = (x0, x1, slant) => {                 // raked side panes
+    ctx.beginPath();
+    ctx.moveTo(x0, 104 + slant); ctx.lineTo(x1, 102);
+    ctx.lineTo(x1, 126); ctx.lineTo(x0, 126 + slant * 0.5);
+    ctx.closePath(); ctx.fill();
+  };
+  quarter(cx - 66, cx - 44, 6);
+  ctx.save(); ctx.translate(2 * cx, 0); ctx.scale(-1, 1);
+  quarter(cx - 66, cx - 44, 6);
+  ctx.restore();
+}
+// fin/rudder side: silver, the rudder's fabric rib lines, and the Union Jack
+// the museum aircraft carries near the top. mirror=true flips for starboard.
+function drawBetsyFin(ctx, w, h, mirror) {
+  if (mirror) { ctx.translate(w, 0); ctx.scale(-1, 1); }
+  ctx.fillStyle = '#ccd2d8'; ctx.fillRect(0, 0, w, h);
+  ctx.strokeStyle = 'rgba(40,50,60,0.22)'; ctx.lineWidth = 2;   // rudder hinge line
+  ctx.beginPath(); ctx.moveTo(w * 0.55, 0); ctx.lineTo(w * 0.62, h); ctx.stroke();
+  ctx.strokeStyle = 'rgba(40,50,60,0.12)';                      // fabric ribs on the rudder
+  for (let x = w * 0.66; x < w * 0.97; x += w * 0.075) {
+    ctx.beginPath(); ctx.moveTo(x, h * 0.10); ctx.lineTo(x - w * 0.03, h * 0.92); ctx.stroke();
+  }
+  // Union Jack: blue field, white + red diagonals, white + red cross
+  const fx = w * 0.60, fy = h * 0.16, fw = w * 0.20, fh = h * 0.19;
+  ctx.save();
+  ctx.beginPath(); ctx.rect(fx, fy, fw, fh); ctx.clip();
+  ctx.fillStyle = '#1f3f8f'; ctx.fillRect(fx, fy, fw, fh);
+  ctx.strokeStyle = '#f2f4f6'; ctx.lineWidth = 7;
+  ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx + fw, fy + fh);
+  ctx.moveTo(fx + fw, fy); ctx.lineTo(fx, fy + fh); ctx.stroke();
+  ctx.strokeStyle = '#c8322e'; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx + fw, fy + fh);
+  ctx.moveTo(fx + fw, fy); ctx.lineTo(fx, fy + fh); ctx.stroke();
+  ctx.strokeStyle = '#f2f4f6'; ctx.lineWidth = 11;
+  ctx.beginPath(); ctx.moveTo(fx + fw / 2, fy); ctx.lineTo(fx + fw / 2, fy + fh);
+  ctx.moveTo(fx, fy + fh / 2); ctx.lineTo(fx + fw, fy + fh / 2); ctx.stroke();
+  ctx.strokeStyle = '#c8322e'; ctx.lineWidth = 6;
+  ctx.beginPath(); ctx.moveTo(fx + fw / 2, fy); ctx.lineTo(fx + fw / 2, fy + fh);
+  ctx.moveTo(fx, fy + fh / 2); ctx.lineTo(fx + fw, fy + fh / 2); ctx.stroke();
+  ctx.restore();
+}
+// open-cowl radial engine face: dark well, a ring of finned cylinders around
+// the crankcase, and the bare gear hub — the Twin Wasp stare of the photos
+function drawBetsyEngine(ctx, w, h) {
+  const cx = w / 2, cy = h / 2, r = w / 2;
+  ctx.fillStyle = '#101418'; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 7); ctx.fill();
+  for (let i = 0; i < 9; i++) {                        // nine radial cylinders
+    const a = i / 9 * 2 * Math.PI - Math.PI / 2;
+    const x1 = cx + 18 * Math.cos(a), y1 = cy + 18 * Math.sin(a);
+    const x2 = cx + (r - 8) * Math.cos(a), y2 = cy + (r - 8) * Math.sin(a);
+    ctx.strokeStyle = '#4c545c'; ctx.lineWidth = 11; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+    ctx.strokeStyle = '#2b3238'; ctx.lineWidth = 11;   // cooling-fin shading stripe
+    ctx.beginPath(); ctx.moveTo((x1 + x2) / 2, (y1 + y2) / 2); ctx.lineTo(x2, y2); ctx.stroke();
+  }
+  ctx.fillStyle = '#3a4148'; ctx.beginPath(); ctx.arc(cx, cy, 19, 0, 7); ctx.fill();   // crankcase
+  ctx.strokeStyle = '#565e66'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx, cy, 19, 0, 7); ctx.stroke();
+  ctx.fillStyle = '#20262c'; ctx.beginPath(); ctx.arc(cx, cy, 8, 0, 7); ctx.fill();    // gear hub
+  ctx.strokeStyle = 'rgba(200,208,214,0.35)'; ctx.lineWidth = 2;                       // cowl lip glint
+  ctx.beginPath(); ctx.arc(cx, cy, r - 2, 0, 7); ctx.stroke();
+}
+// nacelle cowl wrap: silver with panel seams and the exhaust's oil stain
+// trailing under the belly (canvas x = around, y = along, top = front)
+function drawBetsyCowl(ctx, w, h) {
+  for (let x = 0; x < w; x++) {
+    const a = Math.min(x, w - x) / w * 2 * Math.PI;
+    ctx.fillStyle = Math.cos(a) < -0.4 ? '#a9b0b7' : '#cfd5da';
+    ctx.fillRect(x, 0, 1, h);
+  }
+  ctx.strokeStyle = 'rgba(40,50,60,0.16)'; ctx.lineWidth = 1.5;
+  for (const y of [h * 0.22, h * 0.5]) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+  ctx.fillStyle = 'rgba(30,34,38,0.20)';               // exhaust stain aft of the stack
+  ctx.beginPath(); ctx.moveTo(w / 2 - 7, h * 0.4); ctx.lineTo(w / 2 + 7, h * 0.4);
+  ctx.lineTo(w / 2 + 16, h); ctx.lineTo(w / 2 - 16, h); ctx.closePath(); ctx.fill();
+}
+// the DC-3 herself: twin radial engines with spinning three-blade props, low
+// tapered wings with dihedral, tail-dragger gear (mains forward under the
+// nacelles + a tailwheel) and the rounded swept fin. Same frame/scale as the
+// other skins; props wired into the shared prop-spin + HKS-87 landed logic.
+function buildBetsyDC3() {
+  const s = 4;                                          // ~24 m span / ~16 m long at ×4
+  const grp = new THREE.Group();
+  const silver = new THREE.MeshStandardMaterial({ color: 0xd4d9de, roughness: 0.4, metalness: 0.3 });
+  const dark   = new THREE.MeshStandardMaterial({ color: 0x22262b, roughness: 0.8 });
+  const blade  = new THREE.MeshStandardMaterial({ color: 0x3a3e43, roughness: 0.6, metalness: 0.3 });
+  const yellow = new THREE.MeshStandardMaterial({ color: 0xe8b73a, roughness: 0.6 });
+  // fuselage: cabin barrel + rounded painted nose + the long tapering rear
+  const fus = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 1.9, 20),
+    new THREE.MeshStandardMaterial({ map: canvasTex(512, 1024, drawBetsyBarrel), roughness: 0.35, metalness: 0.45 }));
+  fus.rotation.x = -Math.PI / 2; fus.position.z = -0.4;   // z -1.35 … 0.55
+  grp.add(fus);
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.24, 20, 14),
+    new THREE.MeshStandardMaterial({ map: canvasTex(512, 256, drawBetsyNose), roughness: 0.35, metalness: 0.45 }));
+  nose.rotation.x = -Math.PI / 2; nose.scale.set(1, 1.6, 1);
+  nose.position.z = -1.35;                              // tip at ≈ -1.73
+  grp.add(nose);
+  const aft = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.045, 1.75, 20),
+    new THREE.MeshStandardMaterial({ map: canvasTex(512, 512, drawBetsyAft), roughness: 0.35, metalness: 0.45 }));
+  aft.rotation.x = -Math.PI / 2 - 0.05;                 // wide end forward, tip eased up
+  aft.position.set(0, 0.02, 1.42);
+  grp.add(aft);
+  // low tapered wing with the DC-3's swept leading edge, mirrored for dihedral
+  const wingMat = new THREE.MeshStandardMaterial({ map: wingTileTex(0.8), roughness: 0.35, metalness: 0.4, side: THREE.DoubleSide });
+  const wingG = wingGeo(3.05, 1.05, 0.34, 0.85, 0.055, true);
+  for (const sx of [-1, 1]) {
+    const wg = new THREE.Mesh(wingG, wingMat);
+    wg.scale.x = sx; wg.rotation.z = sx * 0.10;
+    wg.position.set(0, -0.19, -0.5);
+    grp.add(wg);
+    // radial engine nacelle on the leading edge, its open cowl face + prop
+    const ny = -0.13, nz = -0.82;
+    const nac = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.14, 0.85, 16),
+      new THREE.MeshStandardMaterial({ map: canvasTex(256, 128, drawBetsyCowl), roughness: 0.35, metalness: 0.45 }));
+    nac.rotation.x = -Math.PI / 2; nac.position.set(sx * 0.8, ny, nz);
+    grp.add(nac);
+    const face = new THREE.Mesh(new THREE.CircleGeometry(0.152, 18),
+      new THREE.MeshStandardMaterial({ map: canvasTex(128, 128, drawBetsyEngine), roughness: 0.6 }));
+    face.rotation.y = Math.PI;                          // face forward (-z)
+    face.position.set(sx * 0.8, ny, nz - 0.43);
+    grp.add(face);
+  }
+  // three-blade props with yellow tips, one per engine — stepFlight spins
+  // everything in userData.props with the shared HKS-87 landed behaviour
+  const props = [];
+  for (const sx of [-1, 1]) {
+    const prop = new THREE.Group();
+    for (let i = 0; i < 3; i++) {
+      const arm = new THREE.Group();
+      arm.rotation.z = i * 2 * Math.PI / 3;
+      const bl = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.34, 0.022), blade);
+      bl.position.y = 0.21;
+      arm.add(bl);
+      const tip = new THREE.Mesh(new THREE.BoxGeometry(0.052, 0.06, 0.024), yellow);
+      tip.position.y = 0.37;
+      arm.add(tip);
+      prop.add(arm);
+    }
+    const hub = new THREE.Mesh(new THREE.SphereGeometry(0.05, 10, 8), dark);
+    hub.scale.z = 1.4;
+    prop.add(hub);
+    prop.position.set(sx * 0.8, -0.13, -1.30);
+    grp.add(prop);
+    props.push(prop);
+  }
+  grp.userData.props = props;
+  // tailplane + the rounded swept fin with painted sides (Union Jack up top)
+  const tailW = new THREE.Mesh(wingGeo(1.05, 0.52, 0.20, 0.4, 0.045), wingMat);
+  tailW.position.set(0, 0.05, 1.72);
+  grp.add(tailW);
+  const finPts = [[0, 0.05], [1.02, 0], [1.10, 0.28], [1.04, 0.46], [0.88, 0.58],
+                  [0.66, 0.62], [0.44, 0.56], [0.24, 0.40], [0.08, 0.18]];
+  const fin = new THREE.Mesh(finGeo(finPts, 0.05), silver);
+  fin.position.set(0, 0.10, 1.18);
+  grp.add(fin);
+  const finShape = new THREE.Shape();
+  finShape.moveTo(finPts[0][0], finPts[0][1]);
+  for (let i = 1; i < finPts.length; i++) finShape.lineTo(finPts[i][0], finPts[i][1]);
+  finShape.closePath();
+  const finSideG = new THREE.ShapeGeometry(finShape);
+  finSideG.rotateY(-Math.PI / 2);                      // faces -x (port)
+  for (const sx of [-1, 1]) {
+    const tex = canvasTex(320, 256, (c, w2, h2) => drawBetsyFin(c, w2, h2, sx === 1));
+    tex.repeat.set(1 / 1.10, 1 / 0.62);                // shape UVs are raw metres
+    const side = new THREE.Mesh(finSideG, new THREE.MeshStandardMaterial({ map: tex, roughness: 0.45, metalness: 0.15 }));
+    if (sx === 1) side.scale.x = -1;                   // starboard: mirrored geometry + art
+    side.position.set(sx * 0.028, 0.10, 1.18);
+    grp.add(side);
+  }
+  // tail-dragger gear: main wheels half-hung under the nacelles ahead of the
+  // wing + the little tailwheel — grouped so stepFlight retracts it in flight
+  const gear = new THREE.Group();
+  for (const sx of [-1, 1]) {
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.28, 0.07), dark);
+    leg.position.set(sx * 0.8, -0.30, -0.60);
+    gear.add(leg);
+    const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.10, 14), dark);
+    wheel.rotation.z = Math.PI / 2; wheel.position.set(sx * 0.8, -0.42, -0.60);
+    gear.add(wheel);
+  }
+  const tStrut = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.14, 0.03), dark);
+  tStrut.position.set(0, -0.15, 1.94);
+  gear.add(tStrut);
+  const tWheel = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.045, 10), dark);
+  tWheel.rotation.z = Math.PI / 2; tWheel.position.set(0, -0.23, 1.96);
+  gear.add(tWheel);
+  grp.add(gear);
+  grp.userData.gear = gear;
+  // Cockpit (HKS-93): the classic prop-era six-pack, re-registered VR-HDB —
+  // REAL METRES around the eye at ~(0, 1.35, -4.4) looking down -z
+  const cock = new THREE.Group();
+  const trim = new THREE.MeshStandardMaterial({ color: 0x101317, roughness: 0.95 });
+  const panelMats = [trim, trim, trim, trim,
+    new THREE.MeshBasicMaterial({ map: canvasTex(512, 224, (c, w2, h2) => drawPropPanel(c, w2, h2, 'VR-HDB')) }), trim];
+  const panel = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.75, 0.16), panelMats);
+  panel.position.set(0, 0.97, -5.45); panel.rotation.x = 0.40;   // top edge well below the 1.6 m eye
+  cock.add(panel);
+  const glare = new THREE.Mesh(new THREE.BoxGeometry(2.9, 0.16, 0.55), trim);
+  glare.position.set(0, 1.38, -5.30); glare.rotation.x = -0.10;  // the coaming the nose peeks over
+  cock.add(glare);
+  const cpost = new THREE.Mesh(new THREE.BoxGeometry(0.08, 1.1, 0.10), trim);   // the DC-3 centre post
+  cpost.position.set(0, 2.0, -5.65); cpost.rotation.x = 0.10;
+  cock.add(cpost);
+  for (const sx of [-1, 1]) {
+    const p = new THREE.Mesh(new THREE.BoxGeometry(0.12, 2.0, 0.12), trim);
+    p.position.set(sx * 1.25, 1.85, -5.35); p.rotation.z = sx * 0.35;
+    cock.add(p);
+  }
+  cock.scale.setScalar(1 / s);
+  cock.visible = false;
+  grp.add(cock);
+  grp.userData.cockpit = cock;
+  grp.userData.povFwd = 4.4; grp.userData.povUp = 1.6;    // cockpit eye right behind the windscreen,
+  grp.userData.povPitch = -0.09;                          // high enough that the nose stays past the coaming
+  grp.userData.eyeFwd = 4.4; grp.userData.eyeUp = 1.6;    // 👁 eye: the short nose sits low in the frame
+  // nav lights: wingtips, tail cone, beacons on the crown & belly
+  addNavLights(grp, { wingL: [-2.95, 0.10, 0.62], wingR: [2.95, 0.10, 0.62],
+                      tail: [0, 0.05, 2.32], top: [0, 0.32, -0.2], bot: [0, -0.30, -0.2] });
+  grp.scale.setScalar(s);
+  grp.visible = false;
+  return grp;
+}
+// ---- Cathay Pacific Airbus A350-1000 (HKS-93) -------------------------------
+// The modern flagship twin, painted from the B-LXA reference photos at HKG:
+// clean white hull with big jade titles + the brushwing glyph forward, grey
+// belly, the black Airbus cockpit mask, TWO very large white turbofans, and
+// the A350's signature upturned wingtips. Modern (no red stripe) jade fin.
+function drawCxA350Barrel(ctx, w, h) {
+  for (let x = 0; x < w; x++) {                        // base bands per column
+    const a = Math.min(x, w - x) / w * 2 * Math.PI;    // angle from the crown
+    ctx.fillStyle = cxHull(0.28 * Math.cos(a));
+    ctx.fillRect(x, 0, 1, h);
+  }
+  const X = a => a / 360 * w;                          // degrees-from-crown → px
+  // faint frame/panel lines under everything
+  ctx.strokeStyle = 'rgba(20,30,40,0.05)'; ctx.lineWidth = 1;
+  for (let y = 75; y < h; y += 75) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+  // doors: outlined at the window line, windows skip around them
+  const doors = [115, 340, 580, 820, 970];
+  ctx.strokeStyle = 'rgba(90,100,110,0.55)'; ctx.lineWidth = 1.5;
+  for (const wx of [X(72.5), w - X(72.5)])
+    for (const dy of doors) { ctx.strokeRect(wx - 14, dy - 12, 28, 24); ctx.fillStyle = CX_WIN; ctx.fillRect(wx - 4, dy - 3, 8, 6); }
+  // one long clean window row — no cheatline on the 2015 livery
+  ctx.fillStyle = CX_WIN;
+  for (const wx of [X(72.5), w - X(72.5)])
+    for (let y = 60; y < 1000; y += 12) {
+      if (doors.some(d => Math.abs(y - d) < 20)) continue;
+      ctx.fillRect(wx - 4, y, 8, 6);
+    }
+  // big jade titles forward + the little jade brushwing glyph trailing them
+  const font = 'bold 30px "Helvetica Neue", Arial, sans-serif';
+  hullText(ctx, 'CATHAY PACIFIC', X(42), 265, -Math.PI / 2, font, CX_JADE, '4px');
+  hullText(ctx, 'CATHAY PACIFIC', w - X(42), 265, Math.PI / 2, font, CX_JADE, '4px');
+  const brush = (bx, by, mirror) => {                  // the brushwing mark aft of the titles
+    ctx.save(); ctx.translate(bx, by); ctx.rotate(mirror ? Math.PI / 2 : -Math.PI / 2);
+    if (mirror) ctx.scale(-1, 1);                      // the stroke sweeps the same way per side
+    ctx.strokeStyle = CX_JADE; ctx.lineCap = 'round'; ctx.lineWidth = 8;
+    ctx.beginPath(); ctx.moveTo(16, -13); ctx.quadraticCurveTo(4, 2, -6, 8); ctx.stroke();
+    ctx.fillStyle = CX_JADE;
+    ctx.beginPath(); ctx.moveTo(0, 4);
+    ctx.quadraticCurveTo(-14, 13, -25, 12); ctx.quadraticCurveTo(-11, 5, -3, -3);
+    ctx.closePath(); ctx.fill();
+    ctx.restore();
+  };
+  brush(X(42), 448, false); brush(w - X(42), 448, true);
+  // registration near the tail
+  const rfont = 'bold 13px Arial, sans-serif';
+  hullText(ctx, 'B-LXA', X(38), 985, -Math.PI / 2, rfont, '#5c666e');
+  hullText(ctx, 'B-LXA', w - X(38), 985, Math.PI / 2, rfont, '#5c666e');
+}
+function buildCXA350() {
+  const s = 4;                                          // the -1000: as long and lean as the 777
+  const grp = new THREE.Group();
+  const white = new THREE.MeshStandardMaterial({ color: 0xf2f5f7, roughness: 0.4, metalness: 0.2 });
+  const jade  = new THREE.MeshStandardMaterial({ color: 0x00655b, roughness: 0.5, metalness: 0.15 });
+  const grey  = new THREE.MeshStandardMaterial({ color: 0xd6dade, roughness: 0.45, metalness: 0.25 });
+  const dark  = new THREE.MeshStandardMaterial({ color: 0x22282e, roughness: 0.7 });
+  // the long clean single-deck barrel
+  const fus = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 4.4, 24),
+    new THREE.MeshStandardMaterial({ map: canvasTex(512, 1024, drawCxA350Barrel), roughness: 0.4, metalness: 0.15 }));
+  fus.rotation.x = -Math.PI / 2; fus.position.z = 0.1;   // z -2.1 … 2.3
+  grp.add(fus);
+  // curved Airbus nose wearing the black cockpit mask, pole-forward unwrap
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.28, 24, 16),
+    new THREE.MeshStandardMaterial({ map: canvasTex(512, 256, (c, w2, h2) => drawCxNose(c, w2, h2, 'a350')), roughness: 0.4, metalness: 0.15 }));
+  nose.rotation.x = -Math.PI / 2; nose.scale.set(1, 1.9, 1);   // the A350 nose is blunter than the 777's
+  nose.position.z = -2.08;
+  grp.add(nose);
+  // long tail cone, tip swept slightly up, nosed into the barrel
+  const tail = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.04, 1.8, 24),
+    new THREE.MeshStandardMaterial({ map: canvasTex(256, 256, drawCxTail), roughness: 0.4, metalness: 0.15 }));
+  tail.rotation.x = -Math.PI / 2 - 0.08;
+  tail.position.set(0, 0.055, 3.14);
+  grp.add(tail);
+  // wing-root belly fairing (same trick as the 777 — wings grow from the hull)
+  const fairing = new THREE.Mesh(new THREE.SphereGeometry(0.28, 20, 12),
+    new THREE.MeshStandardMaterial({ color: 0xb2bbc2, roughness: 0.45, metalness: 0.2 }));
+  fairing.scale.set(1.25, 0.62, 2.4);
+  fairing.position.set(0, -0.10, 0.15);
+  grp.add(fairing);
+  // swept wings; the tip run curves gently aft, then the upturned winglet —
+  // the A350's scimitar tip — cants ~35° off vertical from the very tip
+  const wingMat = new THREE.MeshStandardMaterial({ map: wingTileTex(0.7), roughness: 0.4, metalness: 0.2, side: THREE.DoubleSide });
+  const wShape = new THREE.Shape();                     // half-wing, root at x 0
+  wShape.moveTo(0, 0);
+  wShape.lineTo(2.55, 1.42);                            // leading edge out…
+  wShape.quadraticCurveTo(2.82, 1.60, 2.92, 1.86);      // …easing aft into the tip
+  wShape.lineTo(2.92, 2.02);
+  wShape.quadraticCurveTo(2.6, 1.86, 2.3, 1.68);        // trailing edge curves back in
+  wShape.lineTo(0, 1.08);
+  wShape.closePath();
+  const wingG = new THREE.ExtrudeGeometry(wShape, { depth: 0.06, bevelEnabled: false, curveSegments: 8 });
+  wingG.rotateX(Math.PI / 2);
+  const wingletG = finGeo([[0, 0], [0.30, 0], [0.46, 0.34], [0.36, 0.36]], 0.045);
+  for (const sx of [-1, 1]) {
+    const wg = new THREE.Mesh(wingG, wingMat);
+    wg.scale.x = sx; wg.rotation.z = sx * 0.10;        // mirrored halves → dihedral
+    wg.position.set(0, -0.15, -0.35);
+    grp.add(wg);
+    // the upturned tip: a swept blade rising from the tip chord, canted outward
+    const wl = new THREE.Mesh(wingletG, white);
+    wl.position.set(sx * 2.89, 0.14, 1.52);            // base on the (dihedralled) tip
+    wl.rotation.z = -sx * 0.62;                        // top leans outboard — the scimitar cant
+    grp.add(wl);
+    // ONE very large turbofan per side, white nacelle with the dark inlet lip
+    const ex = 1.0, ey = -0.28, ez = -0.15;
+    const nac = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.155, 0.75, 16), grey);
+    nac.rotation.x = -Math.PI / 2; nac.position.set(sx * ex, ey, ez);
+    grp.add(nac);
+    const lip = new THREE.Mesh(new THREE.TorusGeometry(0.162, 0.02, 10, 18), dark);
+    lip.position.set(sx * ex, ey, ez - 0.375);         // the A350's black intake ring
+    grp.add(lip);
+    const fan = new THREE.Mesh(new THREE.CircleGeometry(0.155, 20),
+      new THREE.MeshStandardMaterial({ map: canvasTex(128, 128, drawCxFan), roughness: 0.6 }));
+    fan.rotation.y = Math.PI;                          // face forward (-z)
+    fan.position.set(sx * ex, ey, ez - 0.365);
+    grp.add(fan);
+    const exh = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.088, 0.30, 16), grey);
+    exh.rotation.x = -Math.PI / 2; exh.position.set(sx * ex, ey, ez + 0.52);
+    grp.add(exh);
+    const core = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.22, 12), dark);
+    core.rotation.x = Math.PI / 2;
+    core.position.set(sx * ex, ey, ez + 0.72);
+    grp.add(core);
+    // pylon bridging nacelle crown → wing underside, one connected structure
+    const pylon = new THREE.Mesh(finGeo([[-0.30, 0], [0.50, 0], [0.50, 0.09], [0.05, 0.09]], 0.075), white);
+    pylon.position.set(sx * ex, -0.16, ez + 0.12);
+    grp.add(pylon);
+  }
+  // tailplane + the tall fin carrying the modern brushwing (deep jade, no red)
+  const tailW = new THREE.Mesh(wingGeo(1.2, 0.55, 0.18, 0.6, 0.05), wingMat);
+  tailW.position.set(0, 0.10, 3.02);
+  grp.add(tailW);
+  const finPts = [[0.10, 0], [1.05, 0], [1.40, 1.12], [1.07, 1.12]];
+  const fin = new THREE.Mesh(finGeo(finPts, 0.07), jade);
+  fin.position.set(0, 0.13, 2.52);
+  grp.add(fin);
+  const finShape = new THREE.Shape();
+  finShape.moveTo(0.10, 0); finShape.lineTo(1.05, 0);
+  finShape.lineTo(1.40, 1.12); finShape.lineTo(1.07, 1.12);
+  finShape.closePath();
+  const finSideG = new THREE.ShapeGeometry(finShape);
+  finSideG.rotateY(-Math.PI / 2);                      // faces -x (port)
+  for (const sx of [-1, 1]) {
+    const tex = canvasTex(320, 256, (c, w2, h2) => drawCxFin(c, w2, h2, sx === 1, false));
+    tex.repeat.set(1 / 1.40, 1 / 1.12);                // shape UVs are raw metres
+    const side = new THREE.Mesh(finSideG, new THREE.MeshStandardMaterial({ map: tex, roughness: 0.5 }));
+    if (sx === 1) side.scale.x = -1;                   // starboard: mirrored geometry + art
+    side.position.set(sx * 0.041, 0.13, 2.52);
+    grp.add(side);
+  }
+  // gear: nose strut + two main bogies (wheels reach y = -0.55), grouped so
+  // stepFlight can retract it — wheels only show on the ground
+  const gear = new THREE.Group();
+  const gearAt = (x, z) => {
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.26, 0.06), dark);
+    leg.position.set(x, -0.34, z);
+    gear.add(leg);
+    const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.095, 0.16, 12), dark);
+    wheel.rotation.z = Math.PI / 2; wheel.position.set(x, -0.455, z);
+    gear.add(wheel);
+  };
+  gearAt(0, -1.85); gearAt(-0.3, 0.35); gearAt(0.3, 0.35);
+  grp.add(gear);
+  grp.userData.gear = gear;
+  // Flight deck (glass cockpit): the 777 treatment — big-LCD main panel + MCP
+  // glareshield + windscreen frame. REAL METRES around the eye at ~(0, 2.4, -2.8)
+  const cock = new THREE.Group();
+  const trim = new THREE.MeshStandardMaterial({ color: 0x15181c, roughness: 0.85 });
+  const post = new THREE.MeshStandardMaterial({ color: 0x20242a, roughness: 0.7 });
+  const panelMats = [trim, trim, trim, trim,
+    new THREE.MeshBasicMaterial({ map: canvasTex(1024, 320, drawCxPanel) }), trim];
+  const panel = new THREE.Mesh(new THREE.BoxGeometry(5.2, 1.6, 0.3), panelMats);
+  panel.position.set(0, 1.22, -4.75); panel.rotation.x = 0.42;
+  cock.add(panel);
+  const glareMats = [trim, trim, trim, trim,
+    new THREE.MeshBasicMaterial({ map: canvasTex(1024, 64, drawCxMCP) }), trim];
+  const glare = new THREE.Mesh(new THREE.BoxGeometry(5.4, 0.34, 0.42), glareMats);
+  glare.position.set(0, 2.02, -4.55); glare.rotation.x = -0.18;
+  cock.add(glare);
+  const header = new THREE.Mesh(new THREE.BoxGeometry(5.6, 0.32, 0.3), post);
+  header.position.set(0, 3.9, -5.6);
+  cock.add(header);
+  const cpost = new THREE.Mesh(new THREE.BoxGeometry(0.16, 1.9, 0.22), post);
+  cpost.position.set(0, 3.1, -5.6);
+  cock.add(cpost);
+  for (const sx of [-1, 1]) {
+    const side = new THREE.Mesh(new THREE.BoxGeometry(0.26, 3.6, 0.26), post);
+    side.position.set(sx * 2.7, 2.8, -5.2); side.rotation.z = sx * 0.34;
+    cock.add(side);
+  }
+  cock.scale.setScalar(1 / s);                          // cancel the ×4 so the metres are literal
+  cock.visible = false;
+  grp.add(cock);
+  grp.userData.cockpit = cock;
+  grp.userData.povFwd = 2.8; grp.userData.povUp = 2.4;   // cockpit eye ahead of the wing
+  grp.userData.eyeFwd = 5.8; grp.userData.eyeUp = 2.5;   // 👁 eye near the nose — no snout in frame
+  // nav lights: winglet tops, tail cone, beacons on the crown & belly
+  addNavLights(grp, { wingL: [-3.10, 0.44, 1.93], wingR: [3.10, 0.44, 1.93],
+                      tail: [0, 0.13, 4.02], top: [0, 0.31, 0.1], bot: [0, -0.31, 0.1] });
+  grp.scale.setScalar(s);
+  grp.visible = false;
+  return grp;
+}
 function enterFlight() {
   if (flight.on || !curG) return;
   if (walk.on) exitWalk();
@@ -3789,7 +4338,10 @@ function stepFlight() {
   // HKS-87: the prop is tied to engine/airspeed — airborne it keeps a base
   // spin plus a speed term; landed it's driven purely by ground speed, so it
   // winds down to a dead stop as the plane brakes and stays still while parked.
-  if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += F.landed ? F.speed * 0.01 : 0.25 + F.speed * 0.004;
+  // (userData.props is the twin-engine variant — every prop shares the one spin rate)
+  const spinD = F.landed ? F.speed * 0.01 : 0.25 + F.speed * 0.004;
+  if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += spinD;
+  if (planeGrp.userData.props) for (const pr of planeGrp.userData.props) pr.rotation.z += spinD;
   // HKS-87: engine audio follows the same landed rule as the prop — on the
   // ground it's driven purely by ground speed, so it fades out through the
   // roll-out and falls silent (setEngine(0) spins the oscillators down) once
