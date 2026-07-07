@@ -777,6 +777,7 @@ let snowPts = null, snowMeta = null, snowAcc = 0;   // flakes + snow-cap build-u
 let wallGrp = null, wallOp = 0;                     // T8+ rotating storm wall
 const SEA_Y = 0.5;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false, snow: false };
+let lastWxData = null;   // HKS-69: last live payload (English rhrread) — lets a source change re-map the WxField grids without a refetch (codex)
 let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
 let tideManual = 0.5;    // slider 0..1 — used when not in live mode
 let tideLevel  = 0.5;    // effective water level 0..1 (drives the sea height)
@@ -952,6 +953,7 @@ function buildWeather() {
   applySkyScale();
   updateWindVisuals();
   if (liveMode) refreshCloudField();   // HKS-101: re-georeference the live field to the new bounds
+  if (liveMode && lastWxData) WxField.rebuildFields(lastWxData);   // HKS-69: re-map the WxField rain/cloud grids to the new terrain source (codex)
   celKey = '';   // bounds changed: reposition sun/moon/stars for the new span
   if (matrixOn) applyMatrixLook();   // a source switch rebuilt the materials
 }
@@ -6483,11 +6485,16 @@ async function syncLiveWeather() {
   try {
     const base = `https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=${isZh() ? 'tc' : 'en'}&dataType=`;
     const oBase = 'https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?lang=en&rformat=json&dataType=';
-    const [rh, fl, ws, lhl] = await Promise.all([
+    const enBase = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=';
+    const [rh, fl, ws, lhl, rhEn] = await Promise.all([
       fetch(base + 'rhrread').then(r => r.json()),
       fetch(base + 'flw').then(r => r.json()).catch(() => ({})),
       fetch(base + 'warnsum').then(r => r.json()).catch(() => ({})),
       fetch(oBase + 'LHL').then(r => r.json()).catch(() => ({})),   // past-hour lightning counts by region
+      // HKS-69: the WxField consumers match HKO place/station names against the English
+      // STATION_DISTRICT map, so the spatial-field data must be English even when the UI is
+      // zh-hk (rh above stays localized for the displayed warning text). (codex)
+      isZh() ? fetch(enBase + 'rhrread').then(r => r.json()).catch(() => null) : Promise.resolve(null),
     ]);
     const tst = wxStation(rh.temperature && rh.temperature.data), h = wxStation(rh.humidity && rh.humidity.data);
     const code = (rh.icon || [])[0];
@@ -6528,10 +6535,12 @@ async function syncLiveWeather() {
     if (tc.dir) { el('winddir').value = tc.dir; setWindDir(tc.dir); }
     el('storm').value = String(tc.level);
     applyStorm(tc.level);
-    // HKS-67: hand the fetched payloads to WxField so registered consumers
-    // (rain/lightning/haze/flood fields) rebuild on this same 5-min cadence
-    // without refetching; rebuildFields isolates consumer errors internally.
-    WxField.rebuildFields({ rhrread: rh, flw: fl, warnsum: ws, lhl });
+    // HKS-67/69: hand the fetched payloads to WxField so registered consumers
+    // (rain/cloud/lightning/haze/flood fields) rebuild on this same 5-min cadence
+    // without refetching; rebuildFields isolates consumer errors internally. The
+    // English rhrread drives the spatial fields so name lookups work in zh-hk.
+    lastWxData = { rhrread: rhEn || rh, flw: fl, warnsum: ws, lhl };   // cached for source-change re-maps (codex)
+    WxField.rebuildFields(lastWxData);
   } catch (e) { el('wx-status').textContent = t('wx.unavail'); console.error(e); }
 }
 
