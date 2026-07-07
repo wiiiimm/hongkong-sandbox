@@ -4818,7 +4818,7 @@ renderer.domElement.addEventListener('pointerdown', () => {   // tap anywhere = 
 });
 // flight: hold the left mouse button and drag to look around (shared boom, HKS-53)
 addEventListener('mousemove', e => {
-  if (!flight.on || e.buttons !== 1) return;
+  if (!flight.on || e.buttons !== 1 || e.target !== renderer.domElement) return;   // only a left-drag on the canvas — dragging a panel slider must not turn the view (parity with walk/stargaze)
   flight.lookYaw = Math.max(-2.8, Math.min(2.8, flight.lookYaw - e.movementX * 0.004));
   flight.lookPitch = Math.max(-1.0, Math.min(1.0, flight.lookPitch - e.movementY * 0.004));
   flight.mouseLook = true;
