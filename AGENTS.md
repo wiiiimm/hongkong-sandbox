@@ -13,13 +13,15 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
 
 - Work for this repo is tracked in **Linear** under team **HKS** (Hong Kong Sandbox) —
   this one team owns the whole repo: https://linear.app/stealth-company/team/HKS/overview
-- There are **two Linear projects** under that team:
+- There are **three Linear projects** under that team:
   - **Hong Kong Sandbox** — the main / general project (most issues go here):
     https://linear.app/stealth-company/project/hong-kong-sandbox-e6dde81f1f15/overview
   - **Hong Kong Sandbox · Leaderboard** — for leaderboard-related issues only:
     https://linear.app/stealth-company/project/hong-kong-sandbox-leaderboard-60acd5a407db/overview
+  - **Reconstruct Old Hong Kong in 3D** — historical HK reconstruction (old contour maps + photos + the 2010 LiDAR, for a 2010↔2020 comparison):
+    https://linear.app/stealth-company/project/reconstruct-old-hong-kong-in-3d-35bb1aa0f997
 - When creating an issue, file it under the **HKS** team and pick the right project:
-  leaderboard work → the Leaderboard project; everything else → the main project.
+  leaderboard work → the Leaderboard project; historical / old-Hong-Kong reconstruction → the Reconstruct Old Hong Kong project; everything else → the main project.
 - Reference the relevant Linear issue (e.g. `HKS-123`) in commits/PRs when a change maps to one.
 
 ## Project Context
