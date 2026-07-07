@@ -787,6 +787,11 @@ let tideSeries = null;   // live prediction: { vals[72] m, nowHour, min, max, cu
 let stormLevel = 0;      // 0 none, else HK signal 1 / 3 / 8 / 9 / 10
 let windStrength = 0;    // 0..1 wind intensity (storm presets it; slider overrides)
 let thunderRate = 0.4;   // 0..1 lightning strike frequency (storm/live preset it)
+// HKS-68: live regional lightning state from HKO's LHL feed — { total, rate }
+// where total is the territory's real past-hour cloud-to-ground count and rate
+// is the strike frequency it maps to. null = no live LHL data (fetch failed or
+// live sync off), which keeps today's global thunderRate behaviour.
+let liveLtg = null;
 const flashfx = document.getElementById('flashfx');   // full-screen lightning flash
 let baseHemi = 1.4, baseSun = 2.0;   // light levels before the lightning flash is added
 const windVec = { x: 0, z: 1 };      // unit heading the wind blows TOWARD (screen space)
@@ -1177,10 +1182,24 @@ function animateWeather() {
     renderer.getClearColor(sh.uniforms.uFogCol.value);
   }
   if (weather.lightning) {
+    // HKS-68: with live sync on (and no T8+ storm override, mirroring the rain
+    // field gate) the LHL feed owns the strikes — the rate follows the
+    // territory's real past-hour cloud-to-ground count (zero live strikes
+    // anywhere = zero bolts), bolts land where the 'lightning' field is hot,
+    // and thunder is loud under an active cell but a faint roll when the storm
+    // is across the territory. Manual toggle / storm presets keep the global
+    // uniform sim below.
+    const live68 = liveMode && stormLevel < 8 && liveLtg;
+    const rate = live68 ? liveLtg.rate : thunderRate;
     if (flash > 0) { flash -= 0.08; hemi.intensity = baseHemi + flash * 5; }
     // quadratic, zero-floored: ~0 at low rate, intense near 100% (no always-on base term)
-    else if (Math.random() < thunderRate * thunderRate * 0.1) {
-      if (Math.random() < 0.6) { spawnBolt(); flash = 1; thunder(true); }   // close forked strike
+    else if (rate > 0 && Math.random() < rate * rate * 0.1) {
+      if (live68) {
+        const near = ltgNearCamera();   // 0..1 strike activity over the camera
+        if (Math.random() < 0.25 + 0.5 * near) { spawnBolt(pickStrikeXZ()); flash = 0.6 + 0.4 * near; thunder(true, 0.25 + 0.75 * near); }
+        else { flash = 0.55 * (0.4 + 0.6 * near); thunder(false, 0.25 + 0.75 * near); }   // sheet flash dims with distance from the cell
+      }
+      else if (Math.random() < 0.6) { spawnBolt(); flash = 1; thunder(true); }   // close forked strike
       else { flash = 0.55; thunder(false); }                 // distant sheet lightning
     }
   }
@@ -1474,10 +1493,10 @@ let boltGrp = null, boltLife = 0, boltLight = null;
 function disposeBolt() {
   if (boltGrp) { world.remove(boltGrp); boltGrp.geometry.dispose(); boltGrp.material.dispose(); boltGrp = null; }
 }
-function spawnBolt() {
+function spawnBolt(at) {   // at: optional terrain-local { x, z } ground point (HKS-68); default random
   const b = bounds();
   disposeBolt();
-  const gx = (Math.random()*2 - 1) * b.halfX * 0.8, gz = (Math.random()*2 - 1) * b.halfZ * 0.8;
+  const gx = at ? at.x : (Math.random()*2 - 1) * b.halfX * 0.8, gz = at ? at.z : (Math.random()*2 - 1) * b.halfZ * 0.8;
   const low = stormLevel > 0 ? 1 - 0.18 * windStrength : 1;
   const topY = b.span * 0.30 * skyScale * low;               // cloud-base height
   const v = [];
@@ -1509,6 +1528,29 @@ function spawnBolt() {
   boltLight.distance = b.span * 0.6;
   boltLight.position.set(gx, topY * 0.25, gz);
   boltLife = 1;
+}
+
+// HKS-68 helpers over the live 'lightning' WxField (LHL past-hour CG counts,
+// one point per LHL region — see the WxField consumer). Both run only at
+// strike time (a handful of O(1) bilinear lookups), never per frame.
+const _ltgV = new THREE.Vector3();
+function ltgField() {   // the field, or null when absent/empty/all-zero
+  const f = WxField.get('lightning');
+  return f && !f.empty && f.max > 0 ? f : null;
+}
+function ltgNearCamera() {   // 0..1 strike activity over the camera (0.5 when unknowable)
+  const f = ltgField(); if (!f) return 0.5;
+  _ltgV.copy(camera.position); world.worldToLocal(_ltgV);
+  return Math.max(0, Math.min(1, f.sample(_ltgV.x, _ltgV.z) / f.max));
+}
+function pickStrikeXZ() {   // weighted-random ground point: P ∝ local field intensity
+  const b = bounds(), f = ltgField();
+  let x = 0, z = 0;
+  for (let i = 0; i < 24; i++) {   // rejection sampling; falls back to the last candidate
+    x = (Math.random()*2 - 1) * b.halfX * 0.8; z = (Math.random()*2 - 1) * b.halfZ * 0.8;
+    if (!f || Math.random() * f.max <= f.sample(x, z)) break;
+  }
+  return { x, z };
 }
 
 function updateWindVisuals() {
@@ -7113,6 +7155,62 @@ WxField.onRefresh(async data => {
   // no district rainfall rows: fall back to the humidity stations alone
   if (!pts.length) for (const p of humPts) pts.push({ x: p.x, z: p.z, v: cloudFromObs(p.v, 0) });
   WxField.set('cloud', pts, { fallback: 0.5 });
+});
+
+// ---- HKS-68: regional lightning — LHL CG counts feed the 'lightning' field -
+// HKO's LHL feed reports past-hour cloud-to-ground lightning counts for four
+// regions — New Territories West / New Territories East / Hong Kong Island and
+// Kowloon / Lantau — plus a "Hong Kong territory" total, as rows of
+// [DateTime, Type, Region, count]. The regions name no coordinates, so each is
+// anchored at the world centroid of the stations whose STATION_DISTRICT
+// district falls inside it (the HKS-69 rain-centroid pattern, one level up).
+// Every sync rebuilds the smooth 'lightning' field + liveLtg; the render loop
+// then rate-limits strikes by the territory total, places bolts by
+// rejection-sampling the field, and scales thunder by the field at the camera.
+// An LHL fetch failure leaves liveLtg null -> today's global behaviour.
+const LHL_DISTRICT_REGION = {
+  'Yuen Long': 'New Territories West', 'Tuen Mun': 'New Territories West',
+  'Tsuen Wan': 'New Territories West', 'Kwai Tsing': 'New Territories West',
+  'North District': 'New Territories East', 'Tai Po': 'New Territories East',
+  'Sha Tin': 'New Territories East', 'Sai Kung': 'New Territories East',
+  'Central & Western District': 'Hong Kong Island and Kowloon', 'Wan Chai': 'Hong Kong Island and Kowloon',
+  'Eastern District': 'Hong Kong Island and Kowloon', 'Southern District': 'Hong Kong Island and Kowloon',
+  'Yau Tsim Mong': 'Hong Kong Island and Kowloon', 'Sham Shui Po': 'Hong Kong Island and Kowloon',
+  'Kowloon City': 'Hong Kong Island and Kowloon', 'Wong Tai Sin': 'Hong Kong Island and Kowloon',
+  'Kwun Tong': 'Hong Kong Island and Kowloon',
+  'Islands District': 'Lantau',
+};
+WxField.onRefresh(async data => {
+  const rows = (data.lhl || {}).data;
+  if (!Array.isArray(rows)) { liveLtg = null; WxField.set('lightning', [], { fallback: 0 }); return; }
+  await ensureStations();                      // baked E/N for the station names
+  // LHL region -> world centroid of the stations in its districts. Rebuilt each
+  // sync on purpose: the terrain source (HK/Lantau) and bounds can change
+  // between refreshes, and 50 station lookups every 5 minutes cost nothing.
+  const cent = Object.create(null);
+  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
+    const reg = LHL_DISTRICT_REGION[dist]; if (!reg) continue;
+    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
+    if (!w) continue;
+    const c = cent[reg] || (cent[reg] = { x: 0, z: 0, n: 0 });
+    c.x += w.x; c.z += w.z; c.n++;
+  }
+  const counts = Object.create(null);
+  let territory = NaN;
+  for (const r of rows) {
+    if (!r || r[1] !== 'Cloud-to-ground') continue;      // cloud-to-cloud never grounds a bolt
+    if (r[2] === 'Hong Kong territory') territory = Math.max(0, +r[3] || 0);
+    else if (r[2] != null) counts[r[2]] = Math.max(0, +r[3] || 0);
+  }
+  const pts = []; let sum = 0;
+  for (const [reg, c] of Object.entries(cent)) {
+    const v = counts[reg] || 0; sum += v;
+    pts.push({ x: c.x / c.n, z: c.z / c.n, v });
+  }
+  const total = isFinite(territory) ? territory : sum;   // territory row is authoritative (covers waters)
+  // same strikes/hr -> rate curve syncLiveWeather uses, territory-wide
+  liveLtg = { total, rate: total > 0 ? Math.min(1, 0.15 + total / 150) : 0 };
+  WxField.set('lightning', pts, { fallback: 0 });
 });
 
 if (FLY_DEBUG) {
