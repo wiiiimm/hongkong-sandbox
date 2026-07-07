@@ -787,6 +787,11 @@ let tideSeries = null;   // live prediction: { vals[72] m, nowHour, min, max, cu
 let stormLevel = 0;      // 0 none, else HK signal 1 / 3 / 8 / 9 / 10
 let windStrength = 0;    // 0..1 wind intensity (storm presets it; slider overrides)
 let thunderRate = 0.4;   // 0..1 lightning strike frequency (storm/live preset it)
+// HKS-68: live regional lightning state from HKO's LHL feed — { total, rate }
+// where total is the territory's real past-hour cloud-to-ground count and rate
+// is the strike frequency it maps to. null = no live LHL data (fetch failed or
+// live sync off), which keeps today's global thunderRate behaviour.
+let liveLtg = null;
 const flashfx = document.getElementById('flashfx');   // full-screen lightning flash
 let baseHemi = 1.4, baseSun = 2.0;   // light levels before the lightning flash is added
 const windVec = { x: 0, z: 1 };      // unit heading the wind blows TOWARD (screen space)
@@ -1177,10 +1182,30 @@ function animateWeather() {
     renderer.getClearColor(sh.uniforms.uFogCol.value);
   }
   if (weather.lightning) {
+    // HKS-68: with live sync on (and no T8+ storm override, mirroring the rain
+    // field gate) the LHL feed owns the strikes — the rate follows the
+    // territory's real past-hour cloud-to-ground count (zero live strikes
+    // anywhere = zero bolts), bolts land where the 'lightning' field is hot,
+    // and thunder is loud under an active cell but a faint roll when the storm
+    // is across the territory. Manual toggle / storm presets keep the global
+    // uniform sim below.
+    const live68 = liveMode && stormLevel < 8 && liveLtg;
+    // rate keeps thunderRate's stormy-warning baseline even when the live past-hour
+    // strike count is 0, so a warned storm still flashes instead of going dark (review #1)
+    const rate = live68 ? Math.max(liveLtg.rate, thunderRate) : thunderRate;
+    // localize placement only when the LHL field actually resolved region data;
+    // else fall back to the global sim so bolts never land at empty-field/NaN coords (review #3)
+    const ltgF = live68 && WxField.get('lightning');
+    const localized = !!(ltgF && !ltgF.empty && ltgF.max > 0);
     if (flash > 0) { flash -= 0.08; hemi.intensity = baseHemi + flash * 5; }
     // quadratic, zero-floored: ~0 at low rate, intense near 100% (no always-on base term)
-    else if (Math.random() < thunderRate * thunderRate * 0.1) {
-      if (Math.random() < 0.6) { spawnBolt(); flash = 1; thunder(true); }   // close forked strike
+    else if (rate > 0 && Math.random() < rate * rate * 0.1) {
+      if (localized) {
+        const near = ltgNearCamera();   // 0..1 strike activity over the camera
+        if (Math.random() < 0.25 + 0.5 * near) { spawnBolt(pickStrikeXZ()); flash = 0.6 + 0.4 * near; thunder(true, 0.25 + 0.75 * near); }
+        else { flash = 0.55 * (0.4 + 0.6 * near); thunder(false, 0.25 + 0.75 * near); }   // sheet flash dims with distance from the cell
+      }
+      else if (Math.random() < 0.6) { spawnBolt(); flash = 1; thunder(true); }   // close forked strike
       else { flash = 0.55; thunder(false); }                 // distant sheet lightning
     }
   }
@@ -1474,10 +1499,10 @@ let boltGrp = null, boltLife = 0, boltLight = null;
 function disposeBolt() {
   if (boltGrp) { world.remove(boltGrp); boltGrp.geometry.dispose(); boltGrp.material.dispose(); boltGrp = null; }
 }
-function spawnBolt() {
+function spawnBolt(at) {   // at: optional terrain-local { x, z } ground point (HKS-68); default random
   const b = bounds();
   disposeBolt();
-  const gx = (Math.random()*2 - 1) * b.halfX * 0.8, gz = (Math.random()*2 - 1) * b.halfZ * 0.8;
+  const gx = at ? at.x : (Math.random()*2 - 1) * b.halfX * 0.8, gz = at ? at.z : (Math.random()*2 - 1) * b.halfZ * 0.8;
   const low = stormLevel > 0 ? 1 - 0.18 * windStrength : 1;
   const topY = b.span * 0.30 * skyScale * low;               // cloud-base height
   const v = [];
@@ -1509,6 +1534,29 @@ function spawnBolt() {
   boltLight.distance = b.span * 0.6;
   boltLight.position.set(gx, topY * 0.25, gz);
   boltLife = 1;
+}
+
+// HKS-68 helpers over the live 'lightning' WxField (LHL past-hour CG counts,
+// one point per LHL region — see the WxField consumer). Both run only at
+// strike time (a handful of O(1) bilinear lookups), never per frame.
+const _ltgV = new THREE.Vector3();
+function ltgField() {   // the field, or null when absent/empty/all-zero
+  const f = WxField.get('lightning');
+  return f && !f.empty && f.max > 0 ? f : null;
+}
+function ltgNearCamera() {   // 0..1 strike activity over the camera (0.5 when unknowable)
+  const f = ltgField(); if (!f) return 0.5;
+  _ltgV.copy(camera.position); world.worldToLocal(_ltgV);
+  return Math.max(0, Math.min(1, f.sample(_ltgV.x, _ltgV.z) / f.max));
+}
+function pickStrikeXZ() {   // weighted-random ground point: P ∝ local field intensity
+  const b = bounds(), f = ltgField();
+  let x = 0, z = 0;
+  for (let i = 0; i < 24; i++) {   // rejection sampling; falls back to the last candidate
+    x = (Math.random()*2 - 1) * b.halfX * 0.8; z = (Math.random()*2 - 1) * b.halfZ * 0.8;
+    if (!f || Math.random() * f.max <= f.sample(x, z)) break;
+  }
+  return { x, z };
 }
 
 function updateWindVisuals() {
@@ -7115,6 +7163,246 @@ WxField.onRefresh(async data => {
   WxField.set('cloud', pts, { fallback: 0.5 });
 });
 
+// ---- HKS-68: regional lightning — LHL CG counts feed the 'lightning' field -
+// HKO's LHL feed reports past-hour cloud-to-ground lightning counts for four
+// regions — New Territories West / New Territories East / Hong Kong Island and
+// Kowloon / Lantau — plus a "Hong Kong territory" total, as rows of
+// [DateTime, Type, Region, count]. The regions name no coordinates, so each is
+// anchored at the world centroid of the stations whose STATION_DISTRICT
+// district falls inside it (the HKS-69 rain-centroid pattern, one level up).
+// Every sync rebuilds the smooth 'lightning' field + liveLtg; the render loop
+// then rate-limits strikes by the territory total, places bolts by
+// rejection-sampling the field, and scales thunder by the field at the camera.
+// An LHL fetch failure leaves liveLtg null -> today's global behaviour.
+const LHL_DISTRICT_REGION = {
+  'Yuen Long': 'New Territories West', 'Tuen Mun': 'New Territories West',
+  'Tsuen Wan': 'New Territories West', 'Kwai Tsing': 'New Territories West',
+  'North District': 'New Territories East', 'Tai Po': 'New Territories East',
+  'Sha Tin': 'New Territories East', 'Sai Kung': 'New Territories East',
+  'Central & Western District': 'Hong Kong Island and Kowloon', 'Wan Chai': 'Hong Kong Island and Kowloon',
+  'Eastern District': 'Hong Kong Island and Kowloon', 'Southern District': 'Hong Kong Island and Kowloon',
+  'Yau Tsim Mong': 'Hong Kong Island and Kowloon', 'Sham Shui Po': 'Hong Kong Island and Kowloon',
+  'Kowloon City': 'Hong Kong Island and Kowloon', 'Wong Tai Sin': 'Hong Kong Island and Kowloon',
+  'Kwun Tong': 'Hong Kong Island and Kowloon',
+  'Islands District': 'Lantau',
+};
+WxField.onRefresh(async data => {
+  const rows = (data.lhl || {}).data;
+  if (!Array.isArray(rows)) { liveLtg = null; WxField.set('lightning', [], { fallback: 0 }); return; }
+  await ensureStations();                      // baked E/N for the station names
+  // LHL region -> world centroid of the stations in its districts. Rebuilt each
+  // sync on purpose: the terrain source (HK/Lantau) and bounds can change
+  // between refreshes, and 50 station lookups every 5 minutes cost nothing.
+  const cent = Object.create(null);
+  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
+    const reg = LHL_DISTRICT_REGION[dist]; if (!reg) continue;
+    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
+    if (!w) continue;
+    const c = cent[reg] || (cent[reg] = { x: 0, z: 0, n: 0 });
+    c.x += w.x; c.z += w.z; c.n++;
+  }
+  const counts = Object.create(null);
+  let territory = NaN;
+  for (const r of rows) {
+    if (!r || r[1] !== 'Cloud-to-ground') continue;      // cloud-to-cloud never grounds a bolt
+    if (r[2] === 'Hong Kong territory') territory = Math.max(0, +r[3] || 0);
+    else if (r[2] != null) counts[r[2]] = Math.max(0, +r[3] || 0);
+  }
+  const pts = []; let sum = 0;
+  for (const [reg, c] of Object.entries(cent)) {
+    const v = counts[reg] || 0; sum += v;
+    pts.push({ x: c.x / c.n, z: c.z / c.n, v });
+  }
+  const total = isFinite(territory) ? territory : sum;   // territory row is authoritative (covers waters)
+  // same strikes/hr -> rate curve syncLiveWeather uses, territory-wide
+  liveLtg = { rate: total > 0 ? Math.min(1, 0.15 + total / 150) : 0 };   // total is derived here, not stored (review #10)
+  WxField.set('lightning', pts, { fallback: 0 });
+});
+
+// ---- HKS-71: regional haze — EPD per-station AQHI feeds the 'haze' field ---
+// WxField consumer over the same EPD air-quality feed the AQHI chip layer uses
+// (dashboard.data.gov.hk, open CORS) with the baked HK1980 E/N per station in
+// data/epd-aqhi-stations.json. Every live sync rebuilds a smooth 'haze' field
+// of raw AQHI (1..10+); the feed itself updates ~hourly, so the rows are
+// cached and refetched at the chip layer's 10-min cadence rather than every
+// 5-min sync. The render loop samples the field at the camera (updateHaze).
+// A fetch failure keeps the last rows; no rows at all leaves the field empty
+// -> zero haze, today's behaviour.
+let hazeRows = null, hazeRowsAt = 0;
+WxField.onRefresh(async () => {
+  try {
+    await ensureAqhiStations();                  // baked E/N (also used by the chip layer)
+    if (!hazeRows || Date.now() - hazeRowsAt > 600000) {
+      const j = await fetch(AQHI_URL).then(r => r.json());
+      if (Array.isArray(j)) { hazeRows = j; hazeRowsAt = Date.now(); }   // don't cache a 200-but-non-array error body for 10 min (review #4)
+    }
+  } catch (e) { console.error('haze', e); }      // keep any stale rows
+  if (!Array.isArray(hazeRows) || !aqhiData) { WxField.set('haze', [], { fallback: 0 }); return; }
+  const byName = new Map(hazeRows.filter(r => r && r.station != null).map(r => [r.station, r]));   // skip malformed feed rows (CodeRabbit)
+  const pts = [];
+  for (const s of aqhiData.stations) {
+    const d = byName.get(s.name), w = WxField.mapStationToWorld(s);
+    const a = d ? parseFloat(d.aqhi) : NaN;   // parseFloat so "10+" (Serious band) reads 10, not NaN → keeps haze heaviest under worst air (review #2)
+    if (w && isFinite(a)) pts.push({ x: w.x, z: w.z, v: a });
+  }
+  WxField.set('haze', pts, { fallback: 0 });     // fallback = clean air
+});
+
+// Per-frame pollution haze (called from animate() once _camLocal is fresh).
+// Samples local AQHI at the camera and eases hazeAmt toward it — flying or
+// walking into a polluted district thickens the haze, leaving it clears.
+// Pollution haze ≠ weather fog: a faint warm-brown desaturating distance
+// tint, never white cloud. With the weather fog up (manual toggle or live)
+// haze only warms its colour — an additive tint term; near/far stay the
+// weather fog's own, so the two never fight. With no weather fog it owns a
+// light THREE.Fog of its own (tagged __haze so setFog's fog is never
+// mistaken for it) whose density scales with local AQHI, always thinner
+// than the real weather fog. AQHI ≤ 3 (low band) is the clean-air baseline
+// -> zero haze, today's behaviour; the live gates mirror the rain/lightning
+// fields (liveMode, no T8+ storm override), and the Matrix skin keeps its
+// own phosphor palette.
+let hazeAmt = 0, hazeTinted = false;
+const _hazeC = new THREE.Color(), HAZE_TINT = new THREE.Color(0x967f5f);
+function updateHaze() {
+  if (matrixOn) hazeAmt = 0;   // Matrix owns the palette — clear instantly, no eased brown fog over the phosphor void (review #6)
+  let target = 0;
+  if (liveMode && stormLevel < 8 && !matrixOn) {
+    const f = WxField.get('haze');
+    if (f && !f.empty) target = Math.max(0, Math.min(1, (f.sample(_camLocal.x, _camLocal.z) - 3) / 7));
+  }
+  hazeAmt += (target - hazeAmt) * 0.03;          // eased — district borders never pop
+  if (hazeAmt < 0.005) {
+    if (scene.fog && scene.fog.__haze) scene.fog = null;   // remove our fog
+    else if (hazeTinted) setFog();                         // un-tint the weather fog
+    hazeTinted = false;
+    return;
+  }
+  renderer.getClearColor(_hazeC);                // sky base — same source as setFog / uFogCol
+  if (!scene.fog) { scene.fog = new THREE.Fog(0xffffff, 1, 2); scene.fog.__haze = true; }
+  if (scene.fog.__haze) {                        // haze-owned fog: subtle, AQHI-scaled visibility
+    const span = bounds().span;
+    scene.fog.near = span * (0.55 - 0.20 * hazeAmt);
+    scene.fog.far  = span * (3.2  - 1.50 * hazeAmt);   // even AQHI 10+ stays lighter than weather fog
+    scene.fog.color.copy(_hazeC).lerp(HAZE_TINT, 0.22 + 0.38 * hazeAmt);
+    hazeTinted = false;
+  } else {                                       // weather fog up: only warm/brown its colour
+    scene.fog.color.copy(_hazeC).lerp(HAZE_TINT, 0.35 * hazeAmt);
+    hazeTinted = true;
+  }
+}
+
+// ---- HKS-70: regional flood / landslip cues — warnsum feeds the 'flood' field
+// WxField consumer over the HKO warning summary syncLiveWeather already
+// fetches (no new endpoint). warnsum is an object keyed by warning type —
+// each member { name, code, actionCode, issueTime, ... }; a warning counts as
+// active unless it is absent or its actionCode is CANCEL. Three warnings
+// become a ground-hazard cue:
+//   WFNTSA — Special Announcement on Flooding in the Northern New Territories:
+//            AREA-specific → the northern-NT districts (North District,
+//            Tai Po, Yuen Long), anchored by the HKS-69 district-centroid
+//            pattern so the cue fades smoothly out of the region.
+//   WL     — Landslip Warning: HKO issues it territory-wide → a low uniform
+//            floor everywhere, tinted silty (saturated ground / muddy runoff).
+//   WRAIN  — Rainstorm Warning Signal: territory-wide flood-risk context,
+//            scaled by colour (Amber 0.25 / Red 0.55 / Black 0.85).
+// The visual (rebuildFloodCue) is ONE quiet "risen water" sheen: a translucent
+// plane a few metres above sea level whose per-cell alpha comes from the
+// smooth 'flood' field masked to low-lying LAND — it pools in the flood
+// plains of the affected regions and higher terrain hides it naturally.
+// Deliberately non-alarmist: ≤ ~0.16 opacity, slow breathing, eased in/out
+// (updateFloodCue), live-mode only, no new UI. No active warning, or live
+// sync off → the sheen fades away and manual behaviour is untouched.
+const FLOOD_NNT_DISTRICT = { 'North District': 1, 'Tai Po': 0.85, 'Yuen Long': 0.7 };
+let floodCue = null;                  // { lvl 0..1, slipMix 0..1 } while a cue is active, else null
+let floodCueMesh = null, floodCueTex = null, floodCueCv = null, floodCueOp = 0;
+WxField.onRefresh(async data => {
+  const ws = data.warnsum || {};
+  const on = w => !!(w && w.code && w.actionCode !== 'CANCEL');
+  const nnt  = on(ws.WFNTSA) ? 1 : 0;                                    // flooding in the northern NT
+  const slip = on(ws.WL) ? 0.45 : 0;                                     // landslip, territory-wide
+  const rain = on(ws.WRAIN) ? ({ WRAINA: 0.25, WRAINR: 0.55, WRAINB: 0.85 }[ws.WRAIN.code] || 0.25) : 0;
+  const base = Math.max(slip, rain);                                     // territory-wide floor
+  if (!nnt && !base) {                                                   // nothing active → no cue
+    floodCue = null; WxField.set('flood', [], { fallback: 0 });
+    return;
+  }
+  await ensureStations();                      // baked E/N for the station names
+  // district → world centroid of its stations (HKS-69 rain pattern). Rebuilt
+  // each sync on purpose: the terrain source and bounds can change between
+  // refreshes, and 50 station lookups every 5 minutes cost nothing.
+  const cent = Object.create(null);
+  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
+    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
+    if (!w) continue;
+    const c = cent[dist] || (cent[dist] = { x: 0, z: 0, n: 0 });
+    c.x += w.x; c.z += w.z; c.n++;
+  }
+  // every district carries the territory-wide floor; the WFNTSA districts add
+  // the area-specific flooding on top, so IDW fades the cue out of the region
+  const pts = [];
+  for (const [dist, c] of Object.entries(cent))
+    pts.push({ x: c.x / c.n, z: c.z / c.n,
+               v: Math.min(1, Math.max(base, nnt * (FLOOD_NNT_DISTRICT[dist] || 0))) });
+  WxField.set('flood', pts, { fallback: base });
+  // silt share: landslip alone reads muddy; alongside flood/rain it only warms
+  floodCue = { lvl: Math.max(base, nnt), slipMix: slip > 0 ? ((nnt || rain) ? 0.4 : 0.8) : 0 };
+  rebuildFloodCue();
+});
+
+// Paint the sheen texture from the current 'flood' field: per-cell alpha =
+// field intensity masked to land above ~1 m (the open sea is already water),
+// colour a muted flood-water blue pulled toward silt while the landslip
+// warning is up. Runs once per live sync (≤ 48² field cells) — negligible.
+function rebuildFloodCue() {
+  if (!floodCue || !curG || !W) return;
+  const f = WxField.get('flood');
+  const res = (f && !f.empty) ? f.res : 32;    // no field (stations not loaded): uniform floor
+  if (!floodCueCv) floodCueCv = document.createElement('canvas');
+  floodCueCv.width = res; floodCueCv.height = res;
+  const ctx = floodCueCv.getContext('2d'), img = ctx.createImageData(res, res);
+  const b = bounds(), x0 = -b.halfX, z0 = -b.halfZ, dx = 2 * b.halfX / (res - 1), dz = 2 * b.halfZ / (res - 1);
+  const mix = 0.65 * floodCue.slipMix;         // water blue → silt
+  const R = Math.round(96 + (168 - 96) * mix), G = Math.round(148 + (132 - 148) * mix), B = Math.round(196 + (84 - 196) * mix);
+  for (let iz = 0; iz < res; iz++) for (let ix = 0; ix < res; ix++) {
+    const x = x0 + ix * dx, z = z0 + iz * dz;
+    let a = (f && !f.empty) ? f.grid[iz * res + ix] : floodCue.lvl;
+    if (sampleE(x / cell + W / 2, z / cell + H / 2) < 1) a = 0;   // open water / shoreline
+    const q = (iz * res + ix) * 4;
+    img.data[q] = R; img.data[q + 1] = G; img.data[q + 2] = B;
+    img.data[q + 3] = Math.round(255 * Math.max(0, Math.min(1, a)));
+  }
+  ctx.putImageData(img, 0, 0);
+  if (!floodCueMesh) {
+    floodCueTex = new THREE.CanvasTexture(floodCueCv);
+    floodCueTex.minFilter = floodCueTex.magFilter = THREE.LinearFilter;   // soft region edges
+    floodCueMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(1, 1),
+      new THREE.MeshBasicMaterial({ map: floodCueTex, transparent: true, opacity: 0, depthWrite: false }));
+    floodCueMesh.rotation.x = -Math.PI / 2;    // canvas row 0 at z = -halfZ, same as the debug canopy
+    floodCueMesh.renderOrder = 2;              // draws over the (also translucent) sea
+    floodCueMesh.visible = false;
+    world.add(floodCueMesh);
+  }
+  floodCueTex.needsUpdate = true;
+  floodCueMesh.scale.set(2 * b.halfX, 2 * b.halfZ, 1);
+}
+
+// Per-frame flood-cue fade (called from animate()). Eases the sheen in/out
+// and keeps it riding a few metres above sea level, breathing slowly. Gates
+// mirror the other regional fields: live mode only, no T8+ storm override
+// (the storm owns the drama), and never under the Matrix skin.
+function updateFloodCue() {
+  if (!floodCueMesh) return;
+  const active = floodCue && liveMode && stormLevel < 8 && !matrixOn;
+  const breath = 0.85 + 0.15 * Math.sin(performance.now() * 0.0005);
+  const target = active ? (0.06 + 0.10 * Math.min(1, floodCue.lvl)) * breath : 0;
+  floodCueOp += (target - floodCueOp) * 0.03;  // eased — warnings never pop
+  if (floodCueOp < 0.005) { floodCueMesh.visible = false; return; }
+  floodCueMesh.visible = true;
+  floodCueMesh.material.opacity = floodCueOp;
+  floodCueMesh.position.y = SEA_Y + 8 * VE;    // ~8 m of "risen water": pools in the flood plains
+}
+
 if (FLY_DEBUG) {
   window.__wxField = WxField;   // inspect fields / sample() from the console
   // demo consumer proving the plumbing: per-station air temperature from the
@@ -7259,6 +7547,8 @@ function animate() {
   renderer.render(scene, camera);
   world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests
   _camLocal.copy(camera.position); world.worldToLocal(_camLocal);
+  updateHaze();                 // HKS-71: local AQHI haze at the camera (renders next frame)
+  updateFloodCue();             // HKS-70: regional flood/landslip warning sheen
   updateLabels();
   updateLandmarks();
   updateStations();
