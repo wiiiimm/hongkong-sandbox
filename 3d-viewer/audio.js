@@ -130,9 +130,13 @@ export function setEngine(level) {
 }
 
 // one-shot rumble per strike. close: short delay, louder, with an initial
-// crack; distant sheet lightning: long delay, soft low roll.
-export function thunder(close) {
+// crack; distant sheet lightning: long delay, soft low roll. vol (optional,
+// 0..1, default 1) scales the rumble+crack peaks — HKS-68 passes the live
+// lightning-field intensity at the camera so a storm across the territory
+// rolls faintly while a cell overhead cracks at full level.
+export function thunder(close, vol) {
   if (!ctx || !enabled) return;
+  const v = Math.min(1, Math.max(0.05, vol ?? 1));   // floor keeps the exponential ramps legal
   const t0 = ctx.currentTime + (close ? 0.25 + Math.random() * 0.5 : 1.2 + Math.random() * 1.8);
   const dur = 2.2 + Math.random() * 1.8;
   const src = ctx.createBufferSource();
@@ -142,7 +146,7 @@ export function thunder(close) {
   f.frequency.exponentialRampToValueAtTime(60, t0 + dur);      // rumble darkens as it rolls
   const g = ctx.createGain();
   g.gain.setValueAtTime(0.0001, t0);
-  g.gain.exponentialRampToValueAtTime(close ? 0.9 : 0.35, t0 + 0.07);
+  g.gain.exponentialRampToValueAtTime((close ? 0.9 : 0.35) * v, t0 + 0.07);
   g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
   src.connect(f); f.connect(g); g.connect(muffle);
   src.start(t0); src.stop(t0 + dur + 0.1);
@@ -151,7 +155,7 @@ export function thunder(close) {
     const cf = ctx.createBiquadFilter(); cf.type = 'bandpass'; cf.frequency.value = 900; cf.Q.value = 0.7;
     const cg = ctx.createGain();
     cg.gain.setValueAtTime(0.0001, t0);
-    cg.gain.exponentialRampToValueAtTime(0.5, t0 + 0.02);
+    cg.gain.exponentialRampToValueAtTime(0.5 * v, t0 + 0.02);
     cg.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.35);
     c.connect(cf); cf.connect(cg); cg.connect(muffle);
     c.start(t0); c.stop(t0 + 0.5);
