@@ -103,7 +103,7 @@ const I18N = {
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
     'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!', 'share.inbar': 'Link is in the address bar', 'share.embed': 'Embed', 'share.embedcopied': 'Embed code copied!',
     'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ gas · drag to look · C camera · Esc exit',
-    'fly.touch': 'tilt to steer · hold for gas · drag to look',
+    'fly.touch': 'tap to take off · tilt to steer · hold for gas · drag to look',
     'fly.view': 'view', 'fly.exit': 'exit',
     'fly.landed': 'landed', 'fly.takeoff': '🛫 take off — ␣ or tap',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
@@ -121,14 +121,14 @@ const I18N = {
     'sg.live': '● Live sky', 'sg.custom': '🕐 Custom',
     'sg.orient': '🤳 Point at the sky', 'sg.clock': 'Show / hide the sky time',
     'sg.hint': 'drag to look · tap a constellation',
-    'walk.help': 'WASD/↑↓←→ move · mouse look · ⇧ boost · ␣ jump · C view · Esc exit',
+    'walk.help': 'WASD/↑↓←→ move · drag to look (🖱 to lock) · ⇧ boost · ␣ jump · C view · Esc exit',
     'walk.touch': 'hold to walk · 2-finger hold to run · drag to look', 'walk.jog': 'boosting', 'walk.dist': 'walked', 'walk.auto': 'Auto-walk (play / pause)', 'walk.lock': 'View lock — move the mouse to look (Esc to release)',
     'walk.fp': '👁 POV', 'walk.chase': '🎥 Chase',
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
     'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
-    'help.fly.t': 'Flying', 'help.fly.b': 'Hold to accelerate — Space, or press & hold\nTake off: when landed, hold the gas to roll down the runway & lift off (or tap “Take off”)\nDrag to look around\nPress C to cycle chase / eye / cockpit\nLand anywhere — even water',
-    'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump\nShift or a two‑finger hold to run\nDrag to look around\nPress C for first‑person / chase',
+    'help.fly.t': 'Flying', 'help.fly.b': 'Take off — tap the plane, press Space, or the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water',
+    'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump · Shift or a two‑finger hold to run\nDrag to look around — 🖱 locks the mouse for look (Esc releases)\nPress C for first‑person / chase',
     'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🤳 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
     'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
@@ -193,7 +193,7 @@ const I18N = {
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
     'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！', 'share.inbar': '連結已在網址列', 'share.embed': '嵌入', 'share.embedcopied': '已複製嵌入碼！',
     'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · 拖曳環視 · C 鏡頭 · Esc 離開',
-    'fly.touch': '傾斜轉向 · 按住加速 · 拖曳環視',
+    'fly.touch': '點擊起飛 · 傾斜轉向 · 按住加速 · 拖曳環視',
     'fly.view': '視角', 'fly.exit': '離開',
     'fly.landed': '已降落', 'fly.takeoff': '🛫 起飛 — ␣ 或點擊',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
@@ -211,14 +211,14 @@ const I18N = {
     'sg.live': '● 即時星空', 'sg.custom': '🕐 自訂',
     'sg.orient': '🤳 指向天空', 'sg.clock': '顯示／隱藏天空時間',
     'sg.hint': '拖曳環視 · 點選星座',
-    'walk.help': 'WASD/↑↓←→ 移動 · 滑鼠視角 · ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
+    'walk.help': 'WASD/↑↓←→ 移動 · 拖曳環視（🖱 鎖定）· ⇧ 加速 · ␣ 跳 · C 視角 · Esc 離開',
     'walk.touch': '按住行走 · 雙指快跑 · 拖動視角', 'walk.jog': '加速中', 'walk.dist': '已行', 'walk.auto': '自動步行（播放／暫停）', 'walk.lock': '視角鎖定 — 移動滑鼠環顧（按 Esc 解除）',
     'walk.fp': '👁 主視角', 'walk.chase': '🎥 跟隨',
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
     'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
-    'help.fly.t': '飛行', 'help.fly.b': '按住加速 — 空白鍵，或長按畫面\n起飛：著陸時按住油門沿跑道滑行升空（或點「起飛」）\n拖曳環顧四周\n按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）',
-    'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍\nShift 或雙指按住奔跑\n拖曳環顧四周\n按 C 切換第一人稱 / 追尾',
+    'help.fly.t': '飛行', 'help.fly.b': '起飛 — 點擊飛機、按空白鍵，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）',
+    'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍 · Shift 或雙指按住奔跑\n拖曳環顧四周 — 🖱 鎖定滑鼠環視（Esc 解除）\n按 C 切換第一人稱 / 追尾',
     'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🤳 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
     'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
@@ -4311,7 +4311,7 @@ function stepFlight() {
     F.speed = Math.max(0, F.speed - 1.5);              // roll-out braking
     F.pitch *= 0.8; F.roll *= 0.75;                    // settle level on the gear
     F.pos.y = surfY + 2.2;
-    if (K[' '] || F.touchHold > 0) takeOff();   // HKS-53: hold to launch, then keep the gas on
+    if (K[' ']) takeOff();   // ␣ launches; a tap/🛫 launches too. Holding no longer auto-launches so you can drag to look at the parked plane; touchHold still feeds the gas once airborne (HKS-53)
   } else if (agl < 4 && _fv.y <= 0.02) {               // only while descending — a fresh
     F.landed = true;                                   // climb-out stays airborne
     F.pitch = Math.max(0, F.pitch * 0.3); F.roll *= 0.5;
@@ -4809,9 +4809,22 @@ addEventListener('mousemove', e => {
   walk.yaw -= e.movementX * k;
   walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - e.movementY * k));
 });
-renderer.domElement.addEventListener('pointerdown', () => {   // tap anywhere = take off
-  if (flight.on && flight.landed) takeOff();
+// A parked plane launches on a quick tap/click on the canvas — but a press that
+// drags, or a long hold, is a look-around gesture and must NOT take off (so you can
+// inspect the plane from the ground). Track the press: only a short, still gesture
+// counts as a tap. Holding no longer auto-launches; Space and the 🛫 button still do.
+let _flyTap = null;   // {x,y,t} for a press begun on the canvas while landed, else null
+renderer.domElement.addEventListener('pointerdown', e => {
+  _flyTap = (flight.on && flight.landed) ? { x: e.clientX, y: e.clientY, t: e.timeStamp } : null;
 });
+addEventListener('pointermove', e => {
+  if (_flyTap && Math.hypot(e.clientX - _flyTap.x, e.clientY - _flyTap.y) > 8) _flyTap = null;   // moved → a look-drag, not a tap
+});
+addEventListener('pointerup', e => {
+  if (_flyTap && e.timeStamp - _flyTap.t < 400 && flight.on && flight.landed) takeOff();          // quick still tap = take off
+  _flyTap = null;
+});
+addEventListener('pointercancel', () => { _flyTap = null; });
 // flight: hold the left mouse button and drag to look around (shared boom, HKS-53)
 addEventListener('mousemove', e => {
   if (!flight.on || e.buttons !== 1 || e.target !== renderer.domElement) return;   // only a left-drag on the canvas — dragging a panel slider must not turn the view (parity with walk/stargaze)
