@@ -72,7 +72,7 @@ registration line** — no call-site churn.
 | Modes & camera | `mode_enter` / `mode_exit` `{ mode: orbit\|fly\|walk\|stargaze }` · `camera_view` `{ view: chase\|eye\|cockpit, mode }` · `takeoff` · `auto_walk` `{ on }` · `view_lock` `{ on }` |
 | Look / theme | `look_matrix` `{ on }` · `look_neon` `{ on }` · `theme` `{ bg: dark\|paper }` |
 | Map & plane | `map_source` `{ source }` · `map_surface` `{ surface }` · `plane_skin` `{ skin }` · `spin` `{ dir: off\|cw\|ccw }` · `layer_toggle` `{ layer, on }` |
-| Manual weather | `weather_toggle` `{ kind, on }` · `typhoon` `{ signal }` · `wind` `{ dir, strength_bucket }` · `live_weather` `{ on }` |
+| Manual weather | `weather_toggle` `{ kind, on }` · `typhoon` `{ signal }` · `wind` `{ dir, strength_bucket }` · `live_weather` `{ on }` · `radar` `{ mode: radar\|sat, size?, expand? }` (rain-radar / satellite HUD) |
 | Sky / time | `sky_mode` `{ mode: live\|fixed\|off }` · `sky_time_scrub` `{ via }` · `sound` `{ on }` |
 | Stargaze | `sg_orient` `{ on }` · `sg_clock` `{ on }` · `sg_time_mode` `{ mode }` · `constellation_tap` `{ on }` · `gps` `{ state: follow\|compass\|off }` |
 | Share | `share_open` · `share_action` `{ channel: copy\|embed\|native\|x\|threads\|whatsapp }` |

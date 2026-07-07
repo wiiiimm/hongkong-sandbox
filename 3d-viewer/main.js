@@ -5780,11 +5780,13 @@ function setWxMode(m) {
 }
 function activateRfTab(target) {
   if (target.closest('[data-size]')) {   // size toggle — no reload, not persisted
-    radarBig = !radarBig; radarHudEl.classList.toggle('big', radarBig); renderWxviewControls(); return;
+    radarBig = !radarBig; radarHudEl.classList.toggle('big', radarBig); renderWxviewControls();
+    track('radar', { expand: radarBig });
+    return;
   }
   const p = target.closest('path[data-grp]'); if (!p) return;
-  if (p.dataset.grp === 'mode') setWxMode(p.dataset.key);
-  else { if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key; renderWxviewControls(); if (radarRunning) startRadar(); }
+  if (p.dataset.grp === 'mode') { setWxMode(p.dataset.key); track('radar', { mode: p.dataset.key }); }   // radar <-> satellite (HKS-74/79/89)
+  else { if (isSat()) satZoom = p.dataset.key; else radarRange = p.dataset.key; renderWxviewControls(); if (radarRunning) startRadar(); track('radar', { size: p.dataset.key }); }   // range 064/128/256 or sat zoom x2M/x8M
   syncUrl();   // write the new mode/range into the address bar (the dial lives outside #panel)
 }
 const rfTabsEl = document.getElementById('rf-tabs');
