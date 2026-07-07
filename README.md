@@ -45,7 +45,7 @@ file (via any static server) and deploys as plain files.
   from the HK1980 grid to Web Mercator so imagery lands exactly on the coast).
 - **Vector layers** — contours, roads, trails, hydro, coastline, boundaries, cliffs.
 - **Vertical exaggeration**, adjustable **mesh density**, auto-spin, dark/paper themes.
-- **Four ways to explore** — **Orbit** the map, **Fly** a plane, **Walk** it first-person,
+- **Four ways to explore** — **Orbit** the map, **Fly** a plane, **Walk** it in first person,
   or **Stargaze**; plus two looks — **Matrix** and **風林火山** (snowbound neon-noir) —
   toggleable in any mode.
 - **Flight** — take off from the real **HKIA runway** and fly the terrain; choose a livery
@@ -141,6 +141,8 @@ Everything is built on open data. Each source keeps its own licence/terms; attri
 | Source | Used for | Licence / terms |
 |---|---|---|
 | **Hong Kong Observatory (HKO)** via DATA.GOV.HK | live temperature, humidity, wind, rainfall; tide predictions (HHOT); warnings (warnsum); past-hour lightning counts (LHL); forecast (flw) | [DATA.GOV.HK Terms of Use](https://data.gov.hk/en/terms-and-conditions) — free to use with attribution |
+| **Environmental Protection Department (EPD) AQHI** via dashboard.data.gov.hk | per-district Air Quality Health Index → live pollution haze | [DATA.GOV.HK Terms of Use](https://data.gov.hk/en/terms-and-conditions) — free to use with attribution |
+| **HKO rain-radar & satellite imagery** (hko.gov.hk) | animated radar / Himawari satellite loop in the HUD | © Hong Kong Observatory — hotlinked at runtime, not redistributed |
 | **Lands Department 5 m DTM** (2020 LiDAR) via DATA.GOV.HK / CSDI | HK & Lantau terrain meshes — HK1980 grid (EPSG:2326), ±5 m | DATA.GOV.HK Terms of Use |
 | **Lands Department B50K** (1:50 000) | topographic skin + vector layers (contours, roads, trails, hydro, coastline, boundaries, cliffs) | DATA.GOV.HK Terms of Use |
 | **NASA SRTM / Mapzen "Terrarium"** via AWS Open Data | ~30 m fallback terrain | public domain / [AWS Open Data](https://registry.opendata.aws/terrain-tiles/) |
@@ -273,6 +275,8 @@ repo 亦保留一條 **Cloudflare Pages** 路徑作替代／回退：`.github/wo
 | 來源 | 用途 | 授權／條款 |
 |---|---|---|
 | **香港天文台（HKO）** 經 DATA.GOV.HK | 實時氣溫、濕度、風、雨量；潮汐預報（HHOT）；警告（warnsum）；過去一小時閃電次數（LHL）；天氣預報（flw） | [DATA.GOV.HK 使用條款](https://data.gov.hk/tc/terms-and-conditions) —— 可免費使用，須註明出處 |
+| **環境保護署（EPD）AQHI** 經 dashboard.data.gov.hk | 各區空氣質素健康指數 → 實時污染霾 | [DATA.GOV.HK 使用條款](https://data.gov.hk/tc/terms-and-conditions) —— 可免費使用，須註明出處 |
+| **香港天文台雨區雷達及衛星圖像**（hko.gov.hk） | HUD 內的雷達／向日葵衛星動畫循環 | © 香港天文台 —— 執行時實時連結，不會轉存 |
 | **地政總署 5 米數碼地形模型**（2020 LiDAR）經 DATA.GOV.HK／CSDI | 香港及大嶼山地形網格 —— HK1980 格網（EPSG:2326），±5 米 | DATA.GOV.HK 使用條款 |
 | **地政總署 B50K**（1:50 000） | 地形圖皮膚＋向量圖層（等高線、道路、山徑、水系、海岸線、界線、懸崖） | DATA.GOV.HK 使用條款 |
 | **NASA SRTM／Mapzen「Terrarium」** 經 AWS Open Data | ~30 米後備地形 | 公有領域／[AWS Open Data](https://registry.opendata.aws/terrain-tiles/) |
