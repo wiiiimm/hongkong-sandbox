@@ -7238,7 +7238,7 @@ WxField.onRefresh(async () => {
     }
   } catch (e) { console.error('haze', e); }      // keep any stale rows
   if (!Array.isArray(hazeRows) || !aqhiData) { WxField.set('haze', [], { fallback: 0 }); return; }
-  const byName = new Map(hazeRows.map(r => [r.station, r]));
+  const byName = new Map(hazeRows.filter(r => r && r.station != null).map(r => [r.station, r]));   // skip malformed feed rows (CodeRabbit)
   const pts = [];
   for (const s of aqhiData.stations) {
     const d = byName.get(s.name), w = WxField.mapStationToWorld(s);
