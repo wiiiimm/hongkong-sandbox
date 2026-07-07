@@ -777,6 +777,7 @@ let snowPts = null, snowMeta = null, snowAcc = 0;   // flakes + snow-cap build-u
 let wallGrp = null, wallOp = 0;                     // T8+ rotating storm wall
 const SEA_Y = 0.5;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false, snow: false };
+let lastWxData = null;   // HKS-69: last live payload (English rhrread) — lets a source change re-map the WxField grids without a refetch (codex)
 let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
 let tideManual = 0.5;    // slider 0..1 — used when not in live mode
 let tideLevel  = 0.5;    // effective water level 0..1 (drives the sea height)
@@ -954,6 +955,7 @@ function buildWeather() {
   applySkyScale();
   updateWindVisuals();
   if (liveMode) refreshCloudField();   // HKS-101: re-georeference the live field to the new bounds
+  if (liveMode && lastWxData) WxField.rebuildFields(lastWxData);   // HKS-69: re-map the WxField rain/cloud grids to the new terrain source (codex)
   celKey = '';   // bounds changed: reposition sun/moon/stars for the new span
   if (matrixOn) applyMatrixLook();   // a source switch rebuilt the materials
 }
@@ -1032,6 +1034,13 @@ function animateWeather() {
     // streak tails trail the velocity vector — longer with speed, sheet-like at T8+
     const stretch = (0.55 + w * 1.1) * (stormLevel >= 8 ? 1.5 : 1);
     const sx = -dx * stretch, sy = fall * stretch, sz = -dz * stretch;
+    // HKS-69: regional rain — with live sync on, the per-district rainfall
+    // field (WxField 'rain', rebuilt each 5-min sync) culls drops over dry
+    // districts: each drop runs a stable lottery against its LOCAL density,
+    // so a wet district pours while a dry one stays clear. Manual rain and
+    // T8+ signals keep today's uniform territory-wide sheets.
+    const rf = (liveMode && stormLevel < 8) ? WxField.get('rain') : null;
+    const spatial = !!(rf && !rf.empty && rf.max > 0);
     for (let i = 0; i < N; i++) {
       let x = rainHeads[i*3] + dx, y = rainHeads[i*3+1] - fall, z = rainHeads[i*3+2] + dz;
       if (y < 0) y = top;
@@ -1039,6 +1048,12 @@ function animateWeather() {
       if (z >  hz) z -= 2*hz; else if (z < -hz) z += 2*hz;
       rainHeads[i*3] = x; rainHeads[i*3+1] = y; rainHeads[i*3+2] = z;
       const o = i * 6;
+      if (spatial && (i * 0.618033988749895) % 1 >= rainMmToDensity(rf.sample(x, z))) {
+        // dry district: collapse the streak to a point (invisible) — the head
+        // keeps advecting, so the drop re-appears once it drifts somewhere wet
+        v[o] = v[o+3] = x; v[o+1] = v[o+4] = y; v[o+2] = v[o+5] = z;
+        continue;
+      }
       v[o]   = x;      v[o+1] = y;      v[o+2] = z;
       v[o+3] = x + sx; v[o+4] = y + sy; v[o+5] = z + sz;
     }
@@ -2111,6 +2126,7 @@ function spawnMeteor(tS) {
   met.next = tS + 20 + Math.random() * 50;
   meteor.visible = true;
 }
+let celDim = 0;   // HKS-69: eased "overcast over the viewer" 0..1 — dims sun/moon locally
 function stepSky() {   // per-frame sky life: twinkle clock, meteors, moon limb aim
   const tS = performance.now() * 0.001;
   if (starGroup.visible) {
@@ -2127,6 +2143,28 @@ function stepSky() {   // per-frame sky life: twinkle clock, meteors, moon limb 
       occ = 1 - 0.94 * Math.min(1, Math.max(0, (cloudCoverAt(_cfV.x, _cfV.z) - 0.12) / 0.55));
     }
     starUniforms.uFade.value = f0 * occ;
+  }
+  // HKS-69: local overcast mutes the sun and moon — the daytime analogue of
+  // the star occlusion above, driven by the same probe (cloud cover over the
+  // VIEWER's ground position). Over a clear district the sun blazes with its
+  // rays; drift under a humid/raining district and disc, rays, glow and the
+  // key light all grey down (never to black). Eased so crossing a district
+  // boundary never pops, and converging back to full brightness whenever the
+  // live field is inactive — manual weather keeps today's global behaviour.
+  let cd = 0;
+  if (cloudFieldActive()) {
+    _cfV.copy(camera.position); world.worldToLocal(_cfV);
+    cd = Math.min(1, Math.max(0, (cloudCoverAt(_cfV.x, _cfV.z) - 0.15) / 0.6));
+  }
+  celDim += (cd - celDim) * 0.05;
+  if (celDim < 0.002) celDim = 0;
+  if (cel) {
+    sunSpr.material.opacity  = 1 - 0.62 * celDim;
+    sunRays.material.opacity = 0.85 * (1 - 0.8 * celDim);
+    moonSpr.material.opacity = 1 - 0.55 * celDim;
+    const g0 = moonGlow.userData.op0;
+    if (g0 != null) moonGlow.material.opacity = g0 * (1 - 0.6 * celDim);
+    sun.intensity = baseSun * (1 - 0.4 * celDim);   // key light follows the local sky
   }
   // HKS-84: constellation selection bloom — runs ONLY while a transition is
   // live (~250 ms), touching just the member stars' aSel entries + the small
@@ -2195,7 +2233,7 @@ function placeCelestial() {
   const mWarm = Math.max(0, Math.min(1, 1 - (cel.moonAlt / D2R) / 14));
   const gs = s * (0.10 + 0.09 * cel.frac);
   moonGlow.scale.set(gs, gs, 1);
-  moonGlow.material.opacity = 0.16 + 0.55 * cel.frac;
+  moonGlow.material.opacity = moonGlow.userData.op0 = 0.16 + 0.55 * cel.frac;   // op0: pre-dim base (HKS-69)
   moonGlow.material.color.setHex(0xd9e5f4).lerp(new THREE.Color(0xffedc9), Math.min(1, cel.frac * 0.7 + mWarm * 0.45));
   moonSpr.material.color.setHex(0xffffff).lerp(new THREE.Color(0xffc98d), mWarm * 0.35);
 }
@@ -5827,6 +5865,7 @@ rfTabsEl.addEventListener('keydown', e => {   // keyboard access for the SVG tab
 // field entirely (cloudFieldActive gates every consumer on liveMode).
 const cloudField = {
   data: null,       // Float32Array(N*N), row-major over the map extent, 0..1 cover
+  form: null,       // raw procedural noise (pre-threshold) — HKS-69 local re-shaping
   N: 48,            // grid resolution — ~1.2 km cells on the HK map
   src: '',          // 'sat' | 'proc'
   mean: 0.6,        // field mean (blended into the ground-shadow strength)
@@ -5859,7 +5898,50 @@ function cloudCoverAt(x, z) {
   const fx = gx - x0, fz = gz - z0;
   const a = d[z0 * N + x0] * (1 - fx) + d[z0 * N + x1] * fx;
   const c = d[z1 * N + x0] * (1 - fx) + d[z1 * N + x1] * fx;
-  return a * (1 - fz) + c * fz;
+  let cov = a * (1 - fz) + c * fz;
+  // HKS-69: when live obs give a real per-district cloud AMOUNT (the WxField
+  // 'cloud' field — humidity + rainfall, see cloudFromObs), the local amount
+  // comes from that field and the procedural noise only shapes the lumps:
+  // the same raw lattice (f.form) is re-thresholded per sample with the LOCAL
+  // amount instead of the territory-wide cloudField.amt. A dry low-humidity
+  // district then genuinely clears while a humid one stays overcast. Only the
+  // procedural source is reshaped — the satellite field is already real
+  // spatial data — and an empty/no-data 'cloud' field falls back to the
+  // territory-amount grid baked into f.data (HKS-101 standalone behaviour).
+  if (f.src === 'proc' && f.form) {
+    const cf = WxField.get('cloud');
+    if (cf && !cf.empty) {
+      const fm = f.form;
+      const na = fm[z0 * N + x0] * (1 - fx) + fm[z0 * N + x1] * fx;
+      const nc = fm[z1 * N + x0] * (1 - fx) + fm[z1 * N + x1] * fx;
+      const n = na * (1 - fz) + nc * fz;
+      const th = 0.95 - cf.sample(x, z) * 0.9;   // buildProcCloudField's ramp, local amount
+      let cc = Math.max(0, Math.min(1, (n - th) / 0.35));
+      cov = cc * cc * (3 - 2 * cc);
+    }
+  }
+  // HKS-69 coordination hook: rain falls FROM cloud — floor the local cover
+  // with the live rainfall field so an actively raining district never reads
+  // as clear sky. Sample-time only and capped at 0.8, so the cloud field
+  // itself (HKS-101, satellite/procedural) stays untouched.
+  const rd = rainDensityAt(x, z) * 0.8;
+  return rd > cov ? rd : cov;
+}
+
+// ---- HKS-69: regional rain density helpers ----------------------------------
+// mm (district past-hour rainfall) -> rain particle density 0..1. A 0.1 mm
+// deadband stops IDW bleed from wetting genuinely dry districts; above it,
+// light rain keeps a visible floor (0.25) and ramps to full sheets at ≥10 mm.
+function rainMmToDensity(mm) {
+  return mm <= 0.1 ? 0 : Math.min(1, 0.25 + 0.75 * (mm / 10));
+}
+// Local rain density at world-local (x, z): 0 unless live sync is on AND at
+// least one district actually reports rain — an all-zero field carries no
+// spatial signal (icon-only "rainy" keeps the uniform territory-wide rain).
+function rainDensityAt(x, z) {
+  if (!liveMode) return 0;
+  const f = WxField.get('rain');
+  return (f && !f.empty && f.max > 0) ? rainMmToDensity(f.sample(x, z)) : 0;
 }
 
 // territory cloudiness 0..1 from what syncLiveWeather already fetched: the HKO
@@ -5874,6 +5956,18 @@ function cloudAmtFromObs(code, rh, rainMax) {
   if (isFinite(rh)) a += (rh - 78) / 60 * 0.15;
   if (rainMax > 0) a = Math.max(a, 0.85);
   return Math.max(0, Math.min(1, a));
+}
+
+// HKS-69: LOCAL cloudiness 0..1 for one spot from real obs — humidity ramps it
+// (dry air ⇒ clear sky, near-saturated ⇒ overcast) and rainfall floors it (an
+// actively raining district is overcast by definition). Deliberately steeper
+// than cloudAmtFromObs: this drives the visible sunny-here/overcast-there
+// split across the map, so a genuinely dry low-humidity district must read
+// near-clear. Feeds the WxField 'cloud' field; consumed by cloudCoverAt.
+function cloudFromObs(rhPct, rainMm) {
+  let c = isFinite(rhPct) ? Math.max(0, Math.min(1, (rhPct - 55) / 40)) * 0.9 : 0.5;
+  if (rainMm > 0.1) c = Math.max(c, 0.75 + 0.25 * Math.min(1, rainMm / 10));
+  return Math.max(0, Math.min(1, c));
 }
 
 // fallback: 3-octave seeded value noise on a wrapping lattice, shaped so roughly
@@ -5893,16 +5987,21 @@ function buildProcCloudField() {
     const c = rnd(x0, y1, o) * (1 - sx) + rnd(x1, y1, o) * sx;
     return a * (1 - sy) + c * sy;
   };
+  // f.form keeps the raw pre-threshold noise so cloudCoverAt can re-threshold
+  // it per sample with a LOCAL amount (HKS-69 'cloud' field) — same lumps,
+  // locally-true coverage. f.data stays the territory-amount grid (fallback).
+  const fm = (f.form && f.src === 'proc') ? f.form : new Float32Array(N * N);
   const th = 0.95 - f.amt * 0.9;   // the coverage threshold slides with live cloudiness
   let sum = 0;
   for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
     const u = i / N, v = j / N;
     const n = val(u, v, 4, 1) * 0.55 + val(u, v, 8, 2) * 0.3 + val(u, v, 16, 3) * 0.15;
+    fm[j * N + i] = n;
     let c = (n - th) / 0.35;
     c = Math.max(0, Math.min(1, c));
     sum += (d[j * N + i] = c * c * (3 - 2 * c));
   }
-  f.data = d; f.mean = sum / (N * N);
+  f.data = d; f.form = fm; f.mean = sum / (N * N);
   if (f.src !== 'proc') {
     f.src = 'proc'; f.ox = f.oz = 0;
     console.info('[HKS-101] cloud field: procedural, live-driven (HKO satellite pixels not readable in-browser)');
@@ -6432,11 +6531,16 @@ async function syncLiveWeather() {
   try {
     const base = `https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=${isZh() ? 'tc' : 'en'}&dataType=`;
     const oBase = 'https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?lang=en&rformat=json&dataType=';
-    const [rh, fl, ws, lhl] = await Promise.all([
+    const enBase = 'https://data.weather.gov.hk/weatherAPI/opendata/weather.php?lang=en&dataType=';
+    const [rh, fl, ws, lhl, rhEn] = await Promise.all([
       fetch(base + 'rhrread').then(r => r.json()),
       fetch(base + 'flw').then(r => r.json()).catch(() => ({})),
       fetch(base + 'warnsum').then(r => r.json()).catch(() => ({})),
       fetch(oBase + 'LHL').then(r => r.json()).catch(() => ({})),   // past-hour lightning counts by region
+      // HKS-69: the WxField consumers match HKO place/station names against the English
+      // STATION_DISTRICT map, so the spatial-field data must be English even when the UI is
+      // zh-hk (rh above stays localized for the displayed warning text). (codex)
+      isZh() ? fetch(enBase + 'rhrread').then(r => r.json()).catch(() => null) : Promise.resolve(null),
     ]);
     const tst = wxStation(rh.temperature && rh.temperature.data), h = wxStation(rh.humidity && rh.humidity.data);
     const code = (rh.icon || [])[0];
@@ -6477,10 +6581,12 @@ async function syncLiveWeather() {
     if (tc.dir) { el('winddir').value = tc.dir; setWindDir(tc.dir); }
     el('storm').value = String(tc.level);
     applyStorm(tc.level);
-    // HKS-67: hand the fetched payloads to WxField so registered consumers
-    // (rain/lightning/haze/flood fields) rebuild on this same 5-min cadence
-    // without refetching; rebuildFields isolates consumer errors internally.
-    WxField.rebuildFields({ rhrread: rh, flw: fl, warnsum: ws, lhl });
+    // HKS-67/69: hand the fetched payloads to WxField so registered consumers
+    // (rain/cloud/lightning/haze/flood fields) rebuild on this same 5-min cadence
+    // without refetching; rebuildFields isolates consumer errors internally. The
+    // English rhrread drives the spatial fields so name lookups work in zh-hk.
+    lastWxData = { rhrread: rhEn || rh, flw: fl, warnsum: ws, lhl };   // cached for source-change re-maps (codex)
+    WxField.rebuildFields(lastWxData);
     syncLiveWind();                        // HKS-101: steer the drift to the real observed wind (overrides the default / tc.dir)
   } catch (e) { el('wx-status').textContent = t('wx.unavail'); console.error(e); }
 }
@@ -6511,7 +6617,7 @@ function setLiveMode(on) {
     stopRadar();
     // HKS-101: drop the live cloud field; the sprite deck returns to the uniform
     // manual behaviour (updateWindVisuals restores opacity/visibility)
-    cloudField.data = null; cloudField.src = ''; cloudField.satDead = 0;
+    cloudField.data = null; cloudField.form = null; cloudField.src = ''; cloudField.satDead = 0;
     setWindDir(document.getElementById('winddir').value);   // HKS-101: revert the drift to the manual dropdown (live steered windVec continuously)
     if (cloudGrp) updateWindVisuals();
     // keep whatever live sync produced: adopt the last live tide level as the manual value
@@ -6930,6 +7036,84 @@ const WxField = (() => {
 
   return { mapStationToWorld, hkoStationEN, makeField, set, get, sample, onRefresh, rebuildFields, debugShowField, fields };
 })();
+
+// ---- HKS-69: regional rain — per-district rainfall feeds the 'rain' field --
+// WxField consumer (the first real phenomenon on the HKS-67 foundation): every
+// live sync rebuilds a smooth 'rain' scalar field (mm, past hour) from
+// rhrread's 18 district totals. rhrread names DISTRICTS, not stations, so each
+// district is anchored at the centroid of its member stations — the same
+// STATION_DISTRICT mapping the station cards already use for the district-
+// rainfall tooltip (HKS-6), inverted. The render loop then samples the field
+// per rain drop (animateWeather) and per cloud-cover lookup (cloudCoverAt).
+WxField.onRefresh(async data => {
+  const rows = (((data.rhrread || {}).rainfall || {}).data) || [];
+  await ensureStations();                      // baked E/N for the station names
+  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+  // district -> world centroid of its stations. Rebuilt each sync on purpose:
+  // the terrain source (HK/Lantau) and bounds can change between refreshes,
+  // and 50 station lookups every 5 minutes cost nothing.
+  const cent = Object.create(null);
+  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
+    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
+    if (!w) continue;
+    const k = norm(dist), c = cent[k] || (cent[k] = { x: 0, z: 0, n: 0 });
+    c.x += w.x; c.z += w.z; c.n++;
+  }
+  const pts = [];
+  for (const r of rows) {
+    const c = r.place != null && cent[norm(r.place)];
+    if (c) pts.push({ x: c.x / c.n, z: c.z / c.n, v: Math.max(0, +r.max || 0) });
+  }
+  WxField.set('rain', pts, { fallback: 0 });
+});
+
+// ---- HKS-69: per-district cloud — real humidity + rainfall feed 'cloud' ----
+// Second WxField consumer: every live sync rebuilds a smooth 'cloud' amount
+// field (0..1 local cloudiness, cloudFromObs) from the SAME rhrread payload —
+// per-station humidity (stations map directly via hkoStationEN) and the
+// per-district rainfall totals anchored at their station centroids, exactly
+// like the 'rain' consumer above. cloudCoverAt then reads the LOCAL amount
+// from this field (procedural noise just shapes the lumps), so a dry
+// low-humidity district shows broken/clear sky while a humid or raining one
+// sits under overcast — the real sunny-side/rainy-side split. With no usable
+// rows the field is set empty and cloudCoverAt keeps the HKS-101
+// territory-amount behaviour.
+WxField.onRefresh(async data => {
+  const rr = data.rhrread || {};
+  const humRows = ((rr.humidity || {}).data) || [];
+  const rainRows = ((rr.rainfall || {}).data) || [];
+  await ensureStations();                      // baked E/N for the station names
+  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+  // per-station humidity → world points (rhrread often carries a single
+  // station; the IDW field then degrades to a flat territory RH — the spatial
+  // signal still comes from the district rainfall below)
+  const humPts = [];
+  for (const r of humRows) {
+    const en = WxField.hkoStationEN(r.place), w = en && WxField.mapStationToWorld(en);
+    if (w && isFinite(+r.value)) humPts.push({ x: w.x, z: w.z, v: +r.value });
+  }
+  const rhAvg = humPts.length ? humPts.reduce((s, p) => s + p.v, 0) / humPts.length : NaN;
+  const humF = humPts.length > 1 ? WxField.makeField(humPts, { fallback: rhAvg }) : null;
+  // district centroids — same STATION_DISTRICT pattern as the 'rain' consumer
+  const cent = Object.create(null);
+  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
+    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
+    if (!w) continue;
+    const k = norm(dist), c = cent[k] || (cent[k] = { x: 0, z: 0, n: 0 });
+    c.x += w.x; c.z += w.z; c.n++;
+  }
+  const pts = [];
+  for (const r of rainRows) {
+    const c = r.place != null && cent[norm(r.place)];
+    if (!c) continue;
+    const x = c.x / c.n, z = c.z / c.n;
+    const rhHere = (humF && !humF.empty) ? humF.sample(x, z) : rhAvg;
+    pts.push({ x, z, v: cloudFromObs(rhHere, Math.max(0, +r.max || 0)) });
+  }
+  // no district rainfall rows: fall back to the humidity stations alone
+  if (!pts.length) for (const p of humPts) pts.push({ x: p.x, z: p.z, v: cloudFromObs(p.v, 0) });
+  WxField.set('cloud', pts, { fallback: 0.5 });
+});
 
 if (FLY_DEBUG) {
   window.__wxField = WxField;   // inspect fields / sample() from the console
