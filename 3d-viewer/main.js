@@ -1030,6 +1030,13 @@ function animateWeather() {
     // streak tails trail the velocity vector — longer with speed, sheet-like at T8+
     const stretch = (0.55 + w * 1.1) * (stormLevel >= 8 ? 1.5 : 1);
     const sx = -dx * stretch, sy = fall * stretch, sz = -dz * stretch;
+    // HKS-69: regional rain — with live sync on, the per-district rainfall
+    // field (WxField 'rain', rebuilt each 5-min sync) culls drops over dry
+    // districts: each drop runs a stable lottery against its LOCAL density,
+    // so a wet district pours while a dry one stays clear. Manual rain and
+    // T8+ signals keep today's uniform territory-wide sheets.
+    const rf = (liveMode && stormLevel < 8) ? WxField.get('rain') : null;
+    const spatial = !!(rf && !rf.empty && rf.max > 0);
     for (let i = 0; i < N; i++) {
       let x = rainHeads[i*3] + dx, y = rainHeads[i*3+1] - fall, z = rainHeads[i*3+2] + dz;
       if (y < 0) y = top;
@@ -1037,6 +1044,12 @@ function animateWeather() {
       if (z >  hz) z -= 2*hz; else if (z < -hz) z += 2*hz;
       rainHeads[i*3] = x; rainHeads[i*3+1] = y; rainHeads[i*3+2] = z;
       const o = i * 6;
+      if (spatial && (i * 0.618033988749895) % 1 >= rainMmToDensity(rf.sample(x, z))) {
+        // dry district: collapse the streak to a point (invisible) — the head
+        // keeps advecting, so the drop re-appears once it drifts somewhere wet
+        v[o] = v[o+3] = x; v[o+1] = v[o+4] = y; v[o+2] = v[o+5] = z;
+        continue;
+      }
       v[o]   = x;      v[o+1] = y;      v[o+2] = z;
       v[o+3] = x + sx; v[o+4] = y + sy; v[o+5] = z + sz;
     }
@@ -5857,7 +5870,29 @@ function cloudCoverAt(x, z) {
   const fx = gx - x0, fz = gz - z0;
   const a = d[z0 * N + x0] * (1 - fx) + d[z0 * N + x1] * fx;
   const c = d[z1 * N + x0] * (1 - fx) + d[z1 * N + x1] * fx;
-  return a * (1 - fz) + c * fz;
+  const cov = a * (1 - fz) + c * fz;
+  // HKS-69 coordination hook: rain falls FROM cloud — floor the local cover
+  // with the live rainfall field so an actively raining district never reads
+  // as clear sky. Sample-time only and capped at 0.8, so the cloud field
+  // itself (HKS-101, satellite/procedural) stays untouched.
+  const rd = rainDensityAt(x, z) * 0.8;
+  return rd > cov ? rd : cov;
+}
+
+// ---- HKS-69: regional rain density helpers ----------------------------------
+// mm (district past-hour rainfall) -> rain particle density 0..1. A 0.1 mm
+// deadband stops IDW bleed from wetting genuinely dry districts; above it,
+// light rain keeps a visible floor (0.25) and ramps to full sheets at ≥10 mm.
+function rainMmToDensity(mm) {
+  return mm <= 0.1 ? 0 : Math.min(1, 0.25 + 0.75 * (mm / 10));
+}
+// Local rain density at world-local (x, z): 0 unless live sync is on AND at
+// least one district actually reports rain — an all-zero field carries no
+// spatial signal (icon-only "rainy" keeps the uniform territory-wide rain).
+function rainDensityAt(x, z) {
+  if (!liveMode) return 0;
+  const f = WxField.get('rain');
+  return (f && !f.empty && f.max > 0) ? rainMmToDensity(f.sample(x, z)) : 0;
 }
 
 // territory cloudiness 0..1 from what syncLiveWeather already fetched: the HKO
@@ -6882,6 +6917,36 @@ const WxField = (() => {
 
   return { mapStationToWorld, hkoStationEN, makeField, set, get, sample, onRefresh, rebuildFields, debugShowField, fields };
 })();
+
+// ---- HKS-69: regional rain — per-district rainfall feeds the 'rain' field --
+// WxField consumer (the first real phenomenon on the HKS-67 foundation): every
+// live sync rebuilds a smooth 'rain' scalar field (mm, past hour) from
+// rhrread's 18 district totals. rhrread names DISTRICTS, not stations, so each
+// district is anchored at the centroid of its member stations — the same
+// STATION_DISTRICT mapping the station cards already use for the district-
+// rainfall tooltip (HKS-6), inverted. The render loop then samples the field
+// per rain drop (animateWeather) and per cloud-cover lookup (cloudCoverAt).
+WxField.onRefresh(async data => {
+  const rows = (((data.rhrread || {}).rainfall || {}).data) || [];
+  await ensureStations();                      // baked E/N for the station names
+  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+  // district -> world centroid of its stations. Rebuilt each sync on purpose:
+  // the terrain source (HK/Lantau) and bounds can change between refreshes,
+  // and 50 station lookups every 5 minutes cost nothing.
+  const cent = Object.create(null);
+  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
+    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
+    if (!w) continue;
+    const k = norm(dist), c = cent[k] || (cent[k] = { x: 0, z: 0, n: 0 });
+    c.x += w.x; c.z += w.z; c.n++;
+  }
+  const pts = [];
+  for (const r of rows) {
+    const c = r.place != null && cent[norm(r.place)];
+    if (c) pts.push({ x: c.x / c.n, z: c.z / c.n, v: Math.max(0, +r.max || 0) });
+  }
+  WxField.set('rain', pts, { fallback: 0 });
+});
 
 if (FLY_DEBUG) {
   window.__wxField = WxField;   // inspect fields / sample() from the console
