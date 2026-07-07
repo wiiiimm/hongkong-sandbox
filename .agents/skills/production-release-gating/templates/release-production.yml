@@ -1,0 +1,98 @@
+name: Production Release
+# [AUTOMATED] Deploys to production when a GitHub Release is PUBLISHED.
+#
+# The GitHub Release (created by semantic-release) is the trigger — nothing
+# deploys on a plain push to main. This is the "Release-Triggered Deploy" gate; use
+# it when YOU control the deploy workflow (GKE, self-hosted, any dispatchable target,
+# or a platform CLI). On Vercel/Netlify you must also disable native push-deploy on
+# main (see the SKILL.md note), or prefer the Promotion Branch / Build-Skip Gate.
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  # Stable releases share ONE global group (not per-tag) so deploys never run
+  # concurrently. Prereleases get a SEPARATE group on purpose: concurrency is joined
+  # BEFORE the job-level `if` below, so without this a skipped prerelease run could
+  # still evict a queued STABLE deploy from the single pending slot. (GitHub keeps
+  # only one pending run per group, so rapid stable-vs-stable releases can still drop
+  # an older queued one — add an external lock/queue if EVERY tag must deploy.)
+  group: ${{ github.event.release.prerelease && 'prod-release-prerelease' || 'prod-release' }}
+  cancel-in-progress: false # never cancel a production rollout
+
+permissions:
+  contents: write # to annotate the Release with deploy status
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Pre-releases (semantic-release `next`/`beta` channels publish a Release with
+    # prerelease: true) must NOT ship to production — only stable releases deploy.
+    if: ${{ !github.event.release.prerelease }}
+    timeout-minutes: 30 # don't hold the prod-release concurrency slot if a rollout hangs
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # need history to verify the tag descends from the default branch
+
+      - name: Deploy to production
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+          # The release must come from the repo's default branch — resolved from the
+          # event payload, so this works regardless of its name. Override only if you
+          # cut releases from a branch OTHER than the repo default.
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          # Require a real SemVer core (X.Y.Z, no leading zeros), anchored at BOTH
+          # ends so a stray/mis-shaped tag (`v1.2.3-nightly.x`, `1.2.3junk`,
+          # `v01.2.3`) can't roll out. Channel pre-releases are already blocked by
+          # the job-level `prerelease` guard. Widen the regex (e.g. to allow a
+          # `-rc.N`/`+build` suffix) for your tag scheme if you publish those stable.
+          if [[ ! "$VERSION" =~ ^v?(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "::error::$VERSION is not a SemVer release tag — refusing to deploy."
+            exit 1
+          fi
+          # Guard: only deploy commits that are on the default branch. Anyone with
+          # `contents: write` can tag an arbitrary commit `v9.9.9` and publish a
+          # Release; without this, that off-main code would roll out to prod. Fetch
+          # the default branch into the SAME ref we validate against, so the check
+          # can't pass against a stale/missing ref. (Parity with the Promotion Branch
+          # gate's ancestry guard.)
+          SHA="$(git rev-list -n1 "refs/tags/$VERSION")"
+          git fetch --no-tags origin "$DEFAULT_BRANCH:refs/remotes/origin/$DEFAULT_BRANCH"
+          if ! git merge-base --is-ancestor "$SHA" "refs/remotes/origin/$DEFAULT_BRANCH"; then
+            echo "::error::$VERSION ($SHA) is not an ancestor of origin/$DEFAULT_BRANCH — refusing to deploy."
+            exit 1
+          fi
+          echo "Deploying $VERSION to production…"
+          # e.g. authenticate to GKE and roll out the tagged image:
+          #   gcloud container clusters get-credentials "$CLUSTER" --region "$REGION"
+          #   kubectl set image deployment/app app="$REGISTRY/app:${VERSION#v}"
+          #   kubectl rollout status deployment/app --timeout=300s
+
+      - name: Annotate the Release with deploy status
+        if: always()
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const ok = '${{ job.status }}' === 'success';
+            const run = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const marker = '<!-- deploy-status -->';
+            const status = ok
+              ? `\n\n${marker}\n✅ **Deployed to production** · [run](${run})`
+              : `\n\n${marker}\n❌ **Production deploy failed** · [run](${run})`;
+            const { data: rel } = await github.rest.repos.getRelease({
+              owner: context.repo.owner, repo: context.repo.repo,
+              release_id: context.payload.release.id,
+            });
+            // Replace a prior status block (idempotent across re-runs) instead of stacking.
+            const cleaned = (rel.body || '').replace(
+              new RegExp(`\\n\\n${marker}[\\s\\S]*$`), ''
+            );
+            await github.rest.repos.updateRelease({
+              owner: context.repo.owner, repo: context.repo.repo,
+              release_id: context.payload.release.id,
+              body: cleaned + status,
+            });

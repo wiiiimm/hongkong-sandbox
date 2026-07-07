@@ -1,0 +1,59 @@
+name: Release (on demand)
+# [MANUAL / SCHEDULED] Pooled releases: batch every commit since the last tag into ONE
+# release, cut on demand (a button) or on a cadence — NOT on every push to main.
+#
+# This is the same semantic-release pipeline as the per-merge setup; only the TRIGGER
+# differs (no `on: push`). See the semantic-release-automation skill for the pipeline.
+
+on:
+  workflow_dispatch: {} # the "cut a release" button — Actions tab → Run workflow
+  # schedule: # optional cadence — uncomment for e.g. every Monday 09:00 UTC
+  #   - cron: '0 9 * * 1'
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+# Serialize releases so a manual run and a scheduled run can't collide. No ref
+# suffix (unlike a push-triggered workflow): the job guard below pins every run to
+# the default branch, so there's only ever one release line to serialize.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # Pin dispatched runs to the default branch. `workflow_dispatch` lets the runner
+    # pick ANY ref (Actions UI branch dropdown / `gh workflow run --ref <branch>`),
+    # and checkout defaults to that ref — so without this guard a manual run could
+    # analyze and release from a feature/prerelease branch instead of main. Skips
+    # (not fails) on other refs so the dispatch button simply no-ops there.
+    # The `schedule` clause is REQUIRED: on scheduled runs `github.event.repository`
+    # is not populated, so the ref check alone would be `main == ''` → false and the
+    # job would silently skip every cron run. `schedule` only ever fires on the
+    # default branch anyway, so short-circuiting it is safe.
+    if: github.event_name == 'schedule' || github.ref_name == github.event.repository.default_branch
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # REQUIRED: semantic-release needs full history + tags
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/* # current LTS; satisfies semantic-release's Node >= 22.14.0
+          cache: npm
+
+      - run: npm ci
+
+      - name: Release
+        env:
+          # PAT/bot token if the release must trigger downstream deploys; else github.token.
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # only if publishing to npm
+        # No `on: push`, so the chore(release) commit semantic-release pushes can't
+        # re-trigger this workflow — no no-loop guard needed (unlike the per-merge setup).
+        run: npx semantic-release --repository-url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"

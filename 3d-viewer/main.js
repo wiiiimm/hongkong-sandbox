@@ -101,7 +101,7 @@ const I18N = {
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
-    'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!', 'share.embed': 'Embed', 'share.embedcopied': 'Embed code copied!',
+    'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!', 'share.inbar': 'Link is in the address bar', 'share.embed': 'Embed', 'share.embedcopied': 'Embed code copied!',
     'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ gas · drag to look · C camera · Esc exit',
     'fly.touch': 'tilt to steer · hold for gas · drag to look',
     'fly.view': 'view', 'fly.exit': 'exit',
@@ -191,7 +191,7 @@ const I18N = {
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
-    'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！', 'share.embed': '嵌入', 'share.embedcopied': '已複製嵌入碼！',
+    'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！', 'share.inbar': '連結已在網址列', 'share.embed': '嵌入', 'share.embedcopied': '已複製嵌入碼！',
     'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · 拖曳環視 · C 鏡頭 · Esc 離開',
     'fly.touch': '傾斜轉向 · 按住加速 · 拖曳環視',
     'fly.view': '視角', 'fly.exit': '離開',
@@ -4808,7 +4808,7 @@ locateBtn.addEventListener('click', e => {
 addEventListener('mousemove', e => {
   if (!walk.on) return;
   const locked = document.pointerLockElement === renderer.domElement;
-  if (!locked && e.buttons !== 1) return;                 // unlocked → only while holding the left button
+  if (!locked && (e.buttons !== 1 || e.target !== renderer.domElement)) return;   // unlocked → only a left-drag on the canvas (dragging UI must not turn the view — codex)
   const k = locked ? 0.0022 : 0.0035;
   walk.yaw -= e.movementX * k;
   walk.pitch = Math.max(-1.25, Math.min(1.25, walk.pitch - e.movementY * k));
@@ -6790,19 +6790,36 @@ const shareSheet = document.getElementById('sharesheet');
 const ssStatus = document.getElementById('ss-status');
 let ssFlashT = null;
 function ssFlash(msg) { ssStatus.textContent = msg; clearTimeout(ssFlashT); ssFlashT = setTimeout(() => { ssStatus.textContent = ''; }, 1600); }
+let ssReturnFocus = null;                                        // element to restore focus to on close (a11y)
 function openShareSheet() {
   history.replaceState(null, '', '?' + serializeState());       // address bar == exactly what we share (incl. live GPS)
   document.getElementById('embedcode').hidden = true;
   ssStatus.textContent = '';
   document.getElementById('ss-native').hidden = !navigator.share;   // native button only where the OS sheet exists
+  ssReturnFocus = document.activeElement;
   shareSheet.hidden = false;
+  document.getElementById('ss-close').focus();                  // move focus into the dialog (CodeRabbit)
 }
-function closeShareSheet() { shareSheet.hidden = true; }
+function closeShareSheet() {
+  shareSheet.hidden = true;
+  if (ssReturnFocus && ssReturnFocus.focus) ssReturnFocus.focus();   // restore focus to the trigger
+  ssReturnFocus = null;
+}
 document.getElementById('share-hdr').addEventListener('click', e => { e.stopPropagation(); openShareSheet(); });
 document.getElementById('share-brand').addEventListener('click', e => { e.stopPropagation(); openShareSheet(); });
 document.getElementById('ss-close').addEventListener('click', closeShareSheet);
 shareSheet.querySelector('.ss-backdrop').addEventListener('click', closeShareSheet);
-addEventListener('keydown', e => { if (e.key === 'Escape' && !shareSheet.hidden) closeShareSheet(); });
+addEventListener('keydown', e => {                               // Esc closes; Tab is trapped inside the dialog (CodeRabbit)
+  if (shareSheet.hidden) return;
+  if (e.key === 'Escape') { closeShareSheet(); return; }
+  if (e.key === 'Tab') {
+    const f = [...shareSheet.querySelectorAll('button')].filter(b => !b.hidden && b.offsetParent !== null);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
 
 document.getElementById('ss-native').addEventListener('click', () => {
   if (!navigator.share) return;
@@ -6822,7 +6839,7 @@ document.getElementById('ss-x').addEventListener('click', () => shareLink('x'));
 document.getElementById('ss-th').addEventListener('click', () => shareLink('th'));
 document.getElementById('ss-copy').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(shareUrl()); ssFlash(t('share.copied')); }
-  catch (_) { history.replaceState(null, '', '?' + serializeState()); ssFlash(t('share.copied')); }
+  catch (_) { history.replaceState(null, '', '?' + serializeState()); ssFlash(t('share.inbar')); }   // honest: clipboard failed, URL is in the bar (CodeRabbit)
 });
 // ---- embed (HKS-27): copy-paste <iframe> snippet ---------------------------
 // The embed URL carries the current view plus embed=1, which boots map-forward.

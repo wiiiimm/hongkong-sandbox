@@ -1,0 +1,21 @@
+{
+  "branches": ["main"],
+  "tagFormat": "my-app-v${version}",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/changelog", { "changelogFile": "CHANGELOG.md" }],
+    [
+      "@semantic-release/exec",
+      { "prepareCmd": "node -e \"const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); pkg.version = '${nextRelease.version}'; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\\n');\"" }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["package.json", "CHANGELOG.md"],
+        "message": "chore(my-app): release ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    ["@semantic-release/github", { "successComment": false, "failComment": false }]
+  ]
+}
