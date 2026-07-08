@@ -6392,11 +6392,16 @@ function gpxDotTex() {
 // peak labels) anchored in HK1980 E/N so they re-project at any zoom/source. The
 // Start label doubles as the on-map ▶/⏸ playback control.
 function refreshGpxStartLabel(tr) {
-  if (tr.startLbl) tr.startLbl.innerHTML = svgIcon(tr.playing ? 'pause' : 'play') + `<span>${t('gpx.start')}</span>`;
+  const s = tr.startLbl; if (!s) return;
+  s.innerHTML = svgIcon(tr.playing ? 'pause' : 'play') + `<span>${t('gpx.start')}</span>`;
+  const lab = t(tr.playing ? 'gpx.pause' : 'gpx.play');
+  s.title = lab; s.setAttribute('aria-label', lab); s.setAttribute('aria-pressed', tr.playing ? 'true' : 'false');
 }
 function makeGpxLabels(tr) {
   const s = document.createElement('div'); s.className = 'gpxlbl start';
-  s.title = t('gpx.play'); s.setAttribute('role', 'button'); s.addEventListener('click', () => toggleTrailAnim(tr));
+  s.setAttribute('role', 'button'); s.tabIndex = 0;                    // keyboard-operable: focusable + Enter/Space
+  s.addEventListener('click', () => toggleTrailAnim(tr));
+  s.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleTrailAnim(tr); } });
   const e = document.createElement('div'); e.className = 'gpxlbl end'; e.textContent = t('gpx.end');
   s.style.display = e.style.display = 'none';
   document.body.append(s, e);
