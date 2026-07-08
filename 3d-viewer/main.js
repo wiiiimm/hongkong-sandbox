@@ -6467,9 +6467,10 @@ function applyTrailProgress(tr) {                         // place the dot at p,
 // visuals are "in playback" while playing OR paused partway (0<p<1); idle/finished = solid full trail
 function applyTrailVisual(tr) {
   const A = tr.anim;
-  const active = !!(A && tr.visible && (tr.playing || (A.p > 0 && A.p < 1)));
+  const hasObj = !!(A && A.bright && A.dot);   // disposeGpxAnimObj nulls bright/dot between a re-drape and the buildTrailAnim rebuild
+  const active = !!(hasObj && tr.visible && (tr.playing || (A.p > 0 && A.p < 1)));
   if (tr.line) { tr.line.material.transparent = true; tr.line.material.opacity = active ? GPX_GHOST_OP : 1; }
-  if (A) {
+  if (hasObj) {
     A.bright.visible = active; A.dot.visible = active;
     if (active) applyTrailProgress(tr); else A.bright.geometry.setDrawRange(0, 0);
   }
