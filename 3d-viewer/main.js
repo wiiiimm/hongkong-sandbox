@@ -334,8 +334,8 @@ function sampleE(col, row) {
   const a = elev[r0*W+c0], b = elev[r0*W+c0+1], c = elev[(r0+1)*W+c0], d = elev[(r0+1)*W+c0+1];
   return (a*(1-fc)+b*fc)*(1-fr) + (c*(1-fc)+d*fc)*fr;
 }
-let skinLift = 25;                  // overlay drape height (world m above the surface), user-tunable via the Overlays slider (0.5–50 m); URL-synced as 'oh'. polygonOffset on the terrain fill carries z-fighting; this only clears geometric poke-through on coarse ridges. Was cell*0.6 (≈42 m) — which floated overlays above your head in walk mode.
-const skinOffset = () => skinLift;
+let skinLift = 1.5;                 // overlay drape height in *real* metres above the ground, user-tunable via the Overlays slider (0.2–15 m); URL-synced as 'oh'. polygonOffset on the terrain fill carries z-fighting; this only clears geometric poke-through on coarse ridges. HKS-108: skinOffset scales by VE, so the bilinear-vs-triangle deviation D·VE and the lift skinLift·VE grow together — a small real value clears poke-through at every exaggeration, and the overlay sits a consistent real height above ground (was a fixed world 25 m, tuned for VE=2.8, which floated at low VE).
+const skinOffset = () => skinLift * VE;
 
 // ---- load a source ---------------------------------------------------------
 async function loadSource(id) {
@@ -6312,7 +6312,7 @@ document.getElementById('bg').addEventListener('change', e => { applyBg(e.target
 document.getElementById('ve').addEventListener('input', e => {
   VE = parseFloat(e.target.value); document.getElementById('vev').textContent = VE.toFixed(1); applyVE();
 });
-{ const sl = document.getElementById('skinlift'), slv = document.getElementById('skinliftv');   // HKS: overlay drape height (0.5–50 m)
+{ const sl = document.getElementById('skinlift'), slv = document.getElementById('skinliftv');   // HKS-108: overlay drape height in real metres (0.2–15 m); world lift = skinLift·VE
   const sync = () => { slv.textContent = skinLift.toFixed(skinLift < 10 ? 1 : 0) + ' m'; };
   sl.addEventListener('input', () => { skinLift = parseFloat(sl.value); sync(); applyVE(); });    // live re-drape
   sl.addEventListener('change', e => { if (e.isTrusted) track('overlay_height', { m: skinLift }); });   // once on commit
@@ -8130,7 +8130,7 @@ function serializeState() {
   p.set('surf', g('surf').value);
   p.set('bg', g('bg').value);
   p.set('ve', g('ve').value);
-  p.set('oh', g('skinlift').value);   // overlay drape height (m)
+  p.set('oh', g('skinlift').value);   // overlay drape height (real m; world lift = oh·VE)
   p.set('d', String(meshStep));
   p.set('ml', g('meshlines').checked ? '1' : '0');
   p.set('w', g('water').checked ? '1' : '0');
@@ -8456,7 +8456,7 @@ applyLocale(locale);
 // "State" is decided by the canonical key set below — NOT "any unknown key" — so a
 // marketing/tracking link (?utm_source=…, ?fbclid=…), a lang-only or embed-only URL
 // still lands on the curated default, with its own extra params carried through.
-const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&oh=25&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
+const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&oh=1.5&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
 const urlParams = new URLSearchParams(location.search);
 // Always start from the curated default and overlay whatever the URL carries. A full
 // shared link sets every core key so it overrides the default entirely; a partial link
