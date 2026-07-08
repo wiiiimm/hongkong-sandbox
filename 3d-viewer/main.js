@@ -2375,6 +2375,8 @@ function setPlaneSkin(id) {
   planeSkin = id;
   if (!planeGrp) return;                    // not built yet — first flight uses the new skin
   const vis = planeGrp.visible;
+  clearLookFilter(planeGrp);                // HKS-104: back to real materials first, so the
+                                            // dispose below frees THEM (not shared overrides)
   world.remove(planeGrp);
   planeGrp.traverse(o => {                  // free geometry, materials AND their canvas textures
     if (o.geometry) o.geometry.dispose();
@@ -2387,6 +2389,7 @@ function setPlaneSkin(id) {
   planeGrp.visible = vis;
   planeGrp.position.copy(flight.pos);
   world.add(planeGrp);
+  applyLookFilter(planeGrp);                // HKS-104: the fresh skin inherits the active reality
   // HKS-93: a skin without a flight deck can't hold cockpit view — fall back to
   // the clean eye; the 🧑‍✈️ segment shows/hides with the new skin either way
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
@@ -4200,6 +4203,7 @@ function enterFlight() {
   document.getElementById('spindir').value = '0';
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
   planeGrp.visible = true;
+  applyLookFilter(planeGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
   // HKS-93: a remembered cockpit view can't survive onto a skin with no flight deck
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   const b = bounds(), g = curG;
@@ -4575,6 +4579,7 @@ function enterWalk(startLocal) {
   walk.vy = 0; walk.land = 0; walk.spd = 0;
   walk.pos.y = (sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
   if (!hikerGrp) { hikerGrp = buildHiker(); world.add(hikerGrp); }
+  applyLookFilter(hikerGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
   setTopMode('walk');
   updateWalkViewBtn();
   camera.fov = 70; camera.updateProjectionMatrix();
@@ -5272,6 +5277,7 @@ function setMatrix(on) {
     if (wallGrp) for (const s of wallGrp.children) s.material.color.setHex(0x3a4048);
     matrixCtx.clearRect(0, 0, matrixCv.width, matrixCv.height);
   }
+  refreshModelLookFilters();   // HKS-104: the hiker/plane wear the reality too
   applyControlLocks();
   updateWindVisuals();       // re-grades clouds/rain for the new reality (calls renderSky + setFog)
   refreshDock();
@@ -5392,6 +5398,7 @@ function setNeon(on) {
     if (liveMode) syncLiveWeather();
     noirCtx.clearRect(0, 0, noirCv.width, noirCv.height);
   }
+  refreshModelLookFilters();   // HKS-104: the hiker/plane join the noir
   applyControlLocks();
   refreshDock();
   syncUrl();
@@ -5421,6 +5428,79 @@ addEventListener('keydown', e => {
   setNeon(!neonOn);
 });
 if (FLY_DEBUG) window.__setNeon = setNeon;
+
+// ---- HKS-104: Matrix / Neon look filter for the hiker + plane skins ----------
+// The reality restyles reach the models through the scene's own mechanisms, not
+// a parallel look. Matrix mirrors the terrain treatment exactly — a void-black
+// body (matMxBlack's palette) under a phosphor wireframe (wireOverlay's green) —
+// by swapping every mesh onto shared singleton materials and hanging a
+// same-geometry wireframe child off it; light/window dots (MeshBasicMaterial)
+// become bright phosphor points instead of near-invisible wire specks. Neon
+// leans on the film grade already covering the GL canvas (NN_FILTER): materials
+// are cloned with a hot neon emissive so the model reads as lit signage burning
+// through the murky grey; the position/strobe light dots (MeshBasicMaterial —
+// no emissive channel) are already the model's brightest points and stay as-is.
+// Originals are stashed per-mesh (userData.preLook — the preMatrix pattern) and
+// restored exactly; per-apply Neon clones are disposed on restore (their maps
+// belong to the originals — not ours to free), and the shared Matrix singletons
+// live for the session like matMxBlack/matMxSea. Applies only on mode / skin /
+// mode-entry changes — never per frame.
+const mxModelBody = new THREE.MeshBasicMaterial({ color: 0x02150b, polygonOffset: true,
+                                                  polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
+const mxModelWire = new THREE.MeshBasicMaterial({ color: 0x39ff6a, wireframe: true,
+                                                  transparent: true, opacity: 0.6 });
+const mxModelGlow = new THREE.MeshBasicMaterial({ color: 0x8dffb0 });
+function applyLookFilter(grp) {        // idempotent — cheap to re-assert on mode entry
+  if (!grp) return;
+  const mode = matrixOn ? 'matrix' : neonOn ? 'neon' : null;
+  if ((grp.userData.lookFilter || null) === mode) return;   // already dressed for this reality
+  clearLookFilter(grp);                // also covers the Matrix ⇄ Neon hand-off
+  if (!mode) return;
+  const meshes = [];                   // collect first — applying mutates the tree
+  grp.traverse(o => { if (o.isMesh && !o.userData.lookOverlay) meshes.push(o); });
+  for (const o of meshes) {
+    const src = o.material, mats = Array.isArray(src) ? src : [src];
+    if (mode === 'matrix') {
+      o.userData.preLook = src;
+      if (mats[0] && mats[0].isMeshBasicMaterial) { o.material = mxModelGlow; continue; }  // nav lights / windows
+      o.material = mxModelBody;
+      const wire = new THREE.Mesh(o.geometry, mxModelWire);   // geometry shared — overlay costs no memory
+      wire.userData.lookOverlay = true;
+      o.userData.lookWire = wire;
+      o.add(wire);
+    } else {
+      if (!mats.some(m => m && m.emissive)) continue;         // no emissive channel (light dots) — leave lit
+      const clones = mats.map(m => {
+        const c = m.clone();
+        if (c.emissive) { c.emissive.setHex(0xff3d67); c.emissiveIntensity = 1.6; }
+        return c;
+      });
+      o.userData.preLook = src;
+      o.userData.lookClones = clones;
+      o.material = Array.isArray(src) ? clones : clones[0];
+    }
+  }
+  grp.userData.lookFilter = mode;
+}
+function clearLookFilter(grp) {
+  if (!grp || !grp.userData.lookFilter) return;
+  const touched = [];
+  grp.traverse(o => { if ('preLook' in o.userData) touched.push(o); });
+  for (const o of touched) {
+    o.material = o.userData.preLook;   // the exact original object(s) — textures untouched
+    delete o.userData.preLook;
+    if (o.userData.lookWire) {         // shared geometry + singleton material — remove only
+      o.remove(o.userData.lookWire);
+      delete o.userData.lookWire;
+    }
+    if (o.userData.lookClones) {       // per-apply clones — dispose (maps are the originals')
+      for (const c of o.userData.lookClones) c.dispose();
+      delete o.userData.lookClones;
+    }
+  }
+  delete grp.userData.lookFilter;
+}
+function refreshModelLookFilters() { applyLookFilter(hikerGrp); applyLookFilter(planeGrp); }
 
 // ---- Stargaze mode (HKS-86 §4) -----------------------------------------------
 // A planetarium anchored at the current view centre: the camera plants eye-high
