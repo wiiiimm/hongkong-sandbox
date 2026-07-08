@@ -795,6 +795,10 @@ let thunderRate = 0.4;   // 0..1 lightning strike frequency (storm/live preset i
 let liveLtg = null;
 const flashfx = document.getElementById('flashfx');   // full-screen lightning flash
 let baseHemi = 1.4, baseSun = 2.0;   // light levels before the lightning flash is added
+// bounds().span cached per terrain source (set in buildWeather, which every
+// source swap runs) so per-frame readers (updateHaze) do a plain read instead
+// of allocating a fresh bounds() object each frame (HKS-103).
+let mapSpan = 0;
 const windVec = { x: 0, z: 1 };      // unit heading the wind blows TOWARD (screen space)
 const WIND_VEC = {   // 16-point compass the wind blows FROM -> push vector (toward the opposite)
   N:[0,1], NNE:[-0.383,0.924], NE:[-0.707,0.707], ENE:[-0.924,0.383],
@@ -862,6 +866,7 @@ const MIST_TEX = (() => {
 // (re)build rain + clouds sized to the current source; visibility follows toggles
 function buildWeather() {
   const b = bounds(), hx = b.halfX, hz = b.halfZ, top = b.span * 0.45;
+  mapSpan = b.span;                    // refresh the per-frame span cache on every terrain-source swap (HKS-103)
   if (rainPts) { world.remove(rainPts); rainPts.geometry.dispose(); rainPts.material.dispose(); }
   // rain as velocity-aligned streaks (HKS-11): drop heads live in rainHeads;
   // the geometry holds head+tail per drop, tails stretched along the fall vector
@@ -1182,7 +1187,16 @@ function animateWeather() {
     sh.uniforms.uSnowLine.value = 380 * VE;
     renderer.getClearColor(sh.uniforms.uFogCol.value);
   }
-  if (weather.lightning) {
+  if (weather.lightning && matrixOn) {
+    // HKS-103: the Matrix skin suppresses ALL lightning — live regional strikes
+    // and the manual/global fallback alike — matching how updateHaze and
+    // updateFloodCue bail out (the skin owns the phosphor palette; no white
+    // flashes or bolts over the void). Kill any in-flight strike instantly
+    // instead of letting it fade over the green.
+    if (flash > 0) { flash = 0; hemi.intensity = baseHemi; }
+    if (boltLife > 0) { boltLife = 0; disposeBolt(); if (boltLight) boltLight.intensity = 0; }
+  }
+  if (weather.lightning && !matrixOn) {
     // HKS-68: with live sync on (and no T8+ storm override, mirroring the rain
     // field gate) the LHL feed owns the strikes — the rate follows the
     // territory's real past-hour cloud-to-ground count (zero live strikes
@@ -7151,6 +7165,32 @@ const WxField = (() => {
     return { sample, grid, res, x0, z0, dx, dz, min, max, n: pts.length, empty: false };
   }
 
+  // District → world-centroid accumulators over STATION_DISTRICT — the shared
+  // anchor pattern of every regional consumer (rain, cloud, lightning via LHL
+  // regions, flood; HKS-103 DRY of the HKS-69 loop). Values are ACCUMULATORS
+  // ({ x, z, n } sums plus the raw district name), not finished means, so a
+  // consumer divides (c.x / c.n) itself and lightning can roll districts up
+  // into LHL regions without changing today's arithmetic. `keyOf` maps a raw
+  // district name to the grouping key (return null/undefined to skip the
+  // station — checked BEFORE the station lookup, as the lightning consumer
+  // always did); default: normalised district name. Callers must have awaited
+  // ensureStations() first. Rebuilt per call on purpose: the terrain source
+  // (HK/Lantau) and bounds can change between refreshes, and 50 station
+  // lookups every 5 minutes cost nothing.
+  const normDistrict = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+  function districtCentroids(keyOf) {
+    const key = keyOf || normDistrict;
+    const cent = Object.create(null);
+    for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
+      const k = key(dist); if (k == null) continue;
+      const en = hkoStationEN(stn), w = en && mapStationToWorld(en);
+      if (!w) continue;
+      const c = cent[k] || (cent[k] = { x: 0, z: 0, n: 0, district: dist });
+      c.x += w.x; c.z += w.z; c.n++;
+    }
+    return cent;
+  }
+
   function set(name, points, opts) { return (fields[name] = makeField(points, opts)); }
   function get(name) { return fields[name] || null; }
   function sample(name, x, z, fallback) {
@@ -7171,45 +7211,63 @@ const WxField = (() => {
     }
   }
 
-  // ?debug heatmap: paint a field as a low-opacity canopy plane floating above
-  // the terrain (added to `world`, so it spins with the map) to eyeball the
-  // interpolation smoothness. Never created without the FLY_DEBUG flag.
-  let dbgMesh = null, dbgCv = null, dbgTex = null;
-  function debugShowField(name) {
-    if (!FLY_DEBUG || !curG || !W) return;
-    const f = fields[name];
-    if (!f || f.empty) { if (dbgMesh) dbgMesh.visible = false; return; }
-    const res = f.res;
-    if (!dbgCv) dbgCv = document.createElement('canvas');
-    dbgCv.width = res; dbgCv.height = res;
-    const ctx = dbgCv.getContext('2d'), img = ctx.createImageData(res, res);
-    const span = Math.max(1e-9, f.max - f.min);
-    for (let i = 0; i < res * res; i++) {          // blue→cyan→yellow→red ramp
-      const t = (f.grid[i] - f.min) / span, q = i * 4;
-      img.data[q]     = Math.round(255 * Math.min(1, Math.max(0, 2 * t - 0.5)));
-      img.data[q + 1] = Math.round(255 * Math.min(1, Math.max(0, t < 0.5 ? 2.4 * t : 2.4 * (1 - t))));
-      img.data[q + 2] = Math.round(255 * Math.min(1, Math.max(0, 1.4 - 2.4 * t)));
-      img.data[q + 3] = 235;
+  // Field → ground-plane scaffolding shared by the ?debug canopy and the flood
+  // sheen (HKS-103 DRY): paint a res×res RGBA canvas via pixel(data, q, i, ix, iz)
+  // (write 4 bytes at q; i = iz * res + ix), upload it as a LinearFilter
+  // CanvasTexture (GPU bilinear ≈ sample()) on a unit plane laid flat over the
+  // map — rotation.x = -π/2 puts canvas row 0 at z = -halfZ (grid iz = 0) —
+  // and scale it to bounds(). `st` is a caller-owned { cv, tex, mesh } holder
+  // (canvas/texture/mesh are created once and repainted in place); the caller
+  // keeps its own colour ramp, opacity animation, height and visibility.
+  function fieldPlane(st, res, pixel, opts) {
+    const o = opts || {};
+    if (!st.cv) st.cv = document.createElement('canvas');
+    st.cv.width = res; st.cv.height = res;
+    const ctx = st.cv.getContext('2d'), img = ctx.createImageData(res, res);
+    for (let iz = 0; iz < res; iz++) for (let ix = 0; ix < res; ix++) {
+      const i = iz * res + ix;
+      pixel(img.data, i * 4, i, ix, iz);
     }
     ctx.putImageData(img, 0, 0);
     const b = bounds();
-    if (!dbgMesh) {
-      dbgTex = new THREE.CanvasTexture(dbgCv);
-      dbgTex.minFilter = dbgTex.magFilter = THREE.LinearFilter;   // GPU bilinear ≈ sample()
-      dbgMesh = new THREE.Mesh(
+    if (!st.mesh) {
+      st.tex = new THREE.CanvasTexture(st.cv);
+      st.tex.minFilter = st.tex.magFilter = THREE.LinearFilter;
+      st.mesh = new THREE.Mesh(
         new THREE.PlaneGeometry(1, 1),
-        new THREE.MeshBasicMaterial({ map: dbgTex, transparent: true, opacity: 0.35, depthWrite: false }));
-      dbgMesh.rotation.x = -Math.PI / 2;   // canvas row 0 lands at z = -halfZ (grid iz = 0)
-      dbgMesh.renderOrder = 3;
-      world.add(dbgMesh);
+        new THREE.MeshBasicMaterial({ map: st.tex, transparent: true, opacity: o.opacity ?? 1, depthWrite: false }));
+      st.mesh.rotation.x = -Math.PI / 2;
+      st.mesh.renderOrder = o.renderOrder ?? 0;
+      if (o.hidden) st.mesh.visible = false;
+      world.add(st.mesh);
     }
-    dbgTex.needsUpdate = true;
-    dbgMesh.scale.set(2 * b.halfX, 2 * b.halfZ, 1);
-    dbgMesh.position.y = zmax * VE + b.span * 0.02;   // canopy just above the peaks
-    dbgMesh.visible = true;
+    st.tex.needsUpdate = true;
+    st.mesh.scale.set(2 * b.halfX, 2 * b.halfZ, 1);
+    return st.mesh;
   }
 
-  return { mapStationToWorld, hkoStationEN, makeField, set, get, sample, onRefresh, rebuildFields, debugShowField, fields };
+  // ?debug heatmap: paint a field as a low-opacity canopy plane floating above
+  // the terrain (added to `world`, so it spins with the map) to eyeball the
+  // interpolation smoothness. Never created without the FLY_DEBUG flag.
+  const dbgPlane = { cv: null, tex: null, mesh: null };
+  function debugShowField(name) {
+    if (!FLY_DEBUG || !curG || !W) return;
+    const f = fields[name];
+    if (!f || f.empty) { if (dbgPlane.mesh) dbgPlane.mesh.visible = false; return; }
+    const span = Math.max(1e-9, f.max - f.min);
+    const mesh = fieldPlane(dbgPlane, f.res, (d, q, i) => {   // blue→cyan→yellow→red ramp
+      const t = (f.grid[i] - f.min) / span;
+      d[q]     = Math.round(255 * Math.min(1, Math.max(0, 2 * t - 0.5)));
+      d[q + 1] = Math.round(255 * Math.min(1, Math.max(0, t < 0.5 ? 2.4 * t : 2.4 * (1 - t))));
+      d[q + 2] = Math.round(255 * Math.min(1, Math.max(0, 1.4 - 2.4 * t)));
+      d[q + 3] = 235;
+    }, { opacity: 0.35, renderOrder: 3 });
+    mesh.position.y = zmax * VE + bounds().span * 0.02;   // canopy just above the peaks
+    mesh.visible = true;
+  }
+
+  return { mapStationToWorld, hkoStationEN, normDistrict, districtCentroids, makeField, set, get, sample,
+           onRefresh, rebuildFields, fieldPlane, debugShowField, fields };
 })();
 
 // ---- HKS-69: regional rain — per-district rainfall feeds the 'rain' field --
@@ -7223,20 +7281,12 @@ const WxField = (() => {
 WxField.onRefresh(async data => {
   const rows = (((data.rhrread || {}).rainfall || {}).data) || [];
   await ensureStations();                      // baked E/N for the station names
-  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
-  // district -> world centroid of its stations. Rebuilt each sync on purpose:
-  // the terrain source (HK/Lantau) and bounds can change between refreshes,
-  // and 50 station lookups every 5 minutes cost nothing.
-  const cent = Object.create(null);
-  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
-    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
-    if (!w) continue;
-    const k = norm(dist), c = cent[k] || (cent[k] = { x: 0, z: 0, n: 0 });
-    c.x += w.x; c.z += w.z; c.n++;
-  }
+  // district → world-centroid accumulators of its stations (HKS-103: the
+  // shared WxField.districtCentroids loop — see its notes on rebuild cadence)
+  const cent = WxField.districtCentroids();
   const pts = [];
   for (const r of rows) {
-    const c = r.place != null && cent[norm(r.place)];
+    const c = r.place != null && cent[WxField.normDistrict(r.place)];
     if (c) pts.push({ x: c.x / c.n, z: c.z / c.n, v: Math.max(0, +r.max || 0) });
   }
   WxField.set('rain', pts, { fallback: 0 });
@@ -7258,7 +7308,6 @@ WxField.onRefresh(async data => {
   const humRows = ((rr.humidity || {}).data) || [];
   const rainRows = ((rr.rainfall || {}).data) || [];
   await ensureStations();                      // baked E/N for the station names
-  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
   // per-station humidity → world points (rhrread often carries a single
   // station; the IDW field then degrades to a flat territory RH — the spatial
   // signal still comes from the district rainfall below)
@@ -7269,17 +7318,11 @@ WxField.onRefresh(async data => {
   }
   const rhAvg = humPts.length ? humPts.reduce((s, p) => s + p.v, 0) / humPts.length : NaN;
   const humF = humPts.length > 1 ? WxField.makeField(humPts, { fallback: rhAvg }) : null;
-  // district centroids — same STATION_DISTRICT pattern as the 'rain' consumer
-  const cent = Object.create(null);
-  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
-    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
-    if (!w) continue;
-    const k = norm(dist), c = cent[k] || (cent[k] = { x: 0, z: 0, n: 0 });
-    c.x += w.x; c.z += w.z; c.n++;
-  }
+  // district centroids — the shared loop, same anchors as the 'rain' consumer (HKS-103)
+  const cent = WxField.districtCentroids();
   const pts = [];
   for (const r of rainRows) {
-    const c = r.place != null && cent[norm(r.place)];
+    const c = r.place != null && cent[WxField.normDistrict(r.place)];
     if (!c) continue;
     const x = c.x / c.n, z = c.z / c.n;
     const rhHere = (humF && !humF.empty) ? humF.sample(x, z) : rhAvg;
@@ -7317,17 +7360,11 @@ WxField.onRefresh(async data => {
   const rows = (data.lhl || {}).data;
   if (!Array.isArray(rows)) { liveLtg = null; WxField.set('lightning', [], { fallback: 0 }); return; }
   await ensureStations();                      // baked E/N for the station names
-  // LHL region -> world centroid of the stations in its districts. Rebuilt each
-  // sync on purpose: the terrain source (HK/Lantau) and bounds can change
-  // between refreshes, and 50 station lookups every 5 minutes cost nothing.
-  const cent = Object.create(null);
-  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
-    const reg = LHL_DISTRICT_REGION[dist]; if (!reg) continue;
-    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
-    if (!w) continue;
-    const c = cent[reg] || (cent[reg] = { x: 0, z: 0, n: 0 });
-    c.x += w.x; c.z += w.z; c.n++;
-  }
+  // LHL region -> world centroid of the stations in its districts: the shared
+  // district-centroid loop keyed straight by LHL region (HKS-103) — stations
+  // accumulate into each region in the same order as ever, so the centroids
+  // stay bit-identical to the pre-refactor per-consumer loop.
+  const cent = WxField.districtCentroids(d => LHL_DISTRICT_REGION[d]);
   const counts = Object.create(null);
   let territory = NaN;
   for (const r of rows) {
@@ -7407,7 +7444,7 @@ function updateHaze() {
   renderer.getClearColor(_hazeC);                // sky base — same source as setFog / uFogCol
   if (!scene.fog) { scene.fog = new THREE.Fog(0xffffff, 1, 2); scene.fog.__haze = true; }
   if (scene.fog.__haze) {                        // haze-owned fog: subtle, AQHI-scaled visibility
-    const span = bounds().span;
+    const span = mapSpan || bounds().span;   // cached by buildWeather — no per-frame bounds() allocation (HKS-103)
     scene.fog.near = span * (0.55 - 0.20 * hazeAmt);
     scene.fog.far  = span * (3.2  - 1.50 * hazeAmt);   // even AQHI 10+ stays lighter than weather fog
     scene.fog.color.copy(_hazeC).lerp(HAZE_TINT, 0.22 + 0.38 * hazeAmt);
@@ -7441,7 +7478,8 @@ function updateHaze() {
 // sync off → the sheen fades away and manual behaviour is untouched.
 const FLOOD_NNT_DISTRICT = { 'North District': 1, 'Tai Po': 0.85, 'Yuen Long': 0.7 };
 let floodCue = null;                  // { lvl 0..1, slipMix 0..1 } while a cue is active, else null
-let floodCueMesh = null, floodCueTex = null, floodCueCv = null, floodCueOp = 0;
+const floodPlane = { cv: null, tex: null, mesh: null };   // WxField.fieldPlane state (HKS-103)
+let floodCueOp = 0;
 WxField.onRefresh(async data => {
   const ws = data.warnsum || {};
   const on = w => !!(w && w.code && w.actionCode !== 'CANCEL');
@@ -7454,22 +7492,16 @@ WxField.onRefresh(async data => {
     return;
   }
   await ensureStations();                      // baked E/N for the station names
-  // district → world centroid of its stations (HKS-69 rain pattern). Rebuilt
-  // each sync on purpose: the terrain source and bounds can change between
-  // refreshes, and 50 station lookups every 5 minutes cost nothing.
-  const cent = Object.create(null);
-  for (const [stn, dist] of Object.entries(STATION_DISTRICT)) {
-    const en = WxField.hkoStationEN(stn), w = en && WxField.mapStationToWorld(en);
-    if (!w) continue;
-    const c = cent[dist] || (cent[dist] = { x: 0, z: 0, n: 0 });
-    c.x += w.x; c.z += w.z; c.n++;
-  }
+  // district → world centroid of its stations — the shared HKS-69 loop
+  // (WxField.districtCentroids, HKS-103); each accumulator carries its raw
+  // district name for the FLOOD_NNT_DISTRICT lookup below.
+  const cent = WxField.districtCentroids();
   // every district carries the territory-wide floor; the WFNTSA districts add
   // the area-specific flooding on top, so IDW fades the cue out of the region
   const pts = [];
-  for (const [dist, c] of Object.entries(cent))
+  for (const c of Object.values(cent))
     pts.push({ x: c.x / c.n, z: c.z / c.n,
-               v: Math.min(1, Math.max(base, nnt * (FLOOD_NNT_DISTRICT[dist] || 0))) });
+               v: Math.min(1, Math.max(base, nnt * (FLOOD_NNT_DISTRICT[c.district] || 0))) });
   WxField.set('flood', pts, { fallback: base });
   // silt share: landslip alone reads muddy; alongside flood/rain it only warms
   floodCue = { lvl: Math.max(base, nnt), slipMix: slip > 0 ? ((nnt || rain) ? 0.4 : 0.8) : 0 };
@@ -7484,34 +7516,19 @@ function rebuildFloodCue() {
   if (!floodCue || !curG || !W) return;
   const f = WxField.get('flood');
   const res = (f && !f.empty) ? f.res : 32;    // no field (stations not loaded): uniform floor
-  if (!floodCueCv) floodCueCv = document.createElement('canvas');
-  floodCueCv.width = res; floodCueCv.height = res;
-  const ctx = floodCueCv.getContext('2d'), img = ctx.createImageData(res, res);
   const b = bounds(), x0 = -b.halfX, z0 = -b.halfZ, dx = 2 * b.halfX / (res - 1), dz = 2 * b.halfZ / (res - 1);
   const mix = 0.65 * floodCue.slipMix;         // water blue → silt
   const R = Math.round(96 + (168 - 96) * mix), G = Math.round(148 + (132 - 148) * mix), B = Math.round(196 + (84 - 196) * mix);
-  for (let iz = 0; iz < res; iz++) for (let ix = 0; ix < res; ix++) {
+  // plane/texture scaffolding is WxField.fieldPlane (HKS-103); only the flood
+  // colour ramp + land mask live here (renderOrder 2: over the translucent sea,
+  // starting at opacity 0 / hidden until updateFloodCue eases it in)
+  WxField.fieldPlane(floodPlane, res, (d, q, i, ix, iz) => {
     const x = x0 + ix * dx, z = z0 + iz * dz;
-    let a = (f && !f.empty) ? f.grid[iz * res + ix] : floodCue.lvl;
+    let a = (f && !f.empty) ? f.grid[i] : floodCue.lvl;
     if (sampleE(x / cell + W / 2, z / cell + H / 2) < 1) a = 0;   // open water / shoreline
-    const q = (iz * res + ix) * 4;
-    img.data[q] = R; img.data[q + 1] = G; img.data[q + 2] = B;
-    img.data[q + 3] = Math.round(255 * Math.max(0, Math.min(1, a)));
-  }
-  ctx.putImageData(img, 0, 0);
-  if (!floodCueMesh) {
-    floodCueTex = new THREE.CanvasTexture(floodCueCv);
-    floodCueTex.minFilter = floodCueTex.magFilter = THREE.LinearFilter;   // soft region edges
-    floodCueMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1),
-      new THREE.MeshBasicMaterial({ map: floodCueTex, transparent: true, opacity: 0, depthWrite: false }));
-    floodCueMesh.rotation.x = -Math.PI / 2;    // canvas row 0 at z = -halfZ, same as the debug canopy
-    floodCueMesh.renderOrder = 2;              // draws over the (also translucent) sea
-    floodCueMesh.visible = false;
-    world.add(floodCueMesh);
-  }
-  floodCueTex.needsUpdate = true;
-  floodCueMesh.scale.set(2 * b.halfX, 2 * b.halfZ, 1);
+    d[q] = R; d[q + 1] = G; d[q + 2] = B;
+    d[q + 3] = Math.round(255 * Math.max(0, Math.min(1, a)));
+  }, { opacity: 0, renderOrder: 2, hidden: true });
 }
 
 // Per-frame flood-cue fade (called from animate()). Eases the sheen in/out
@@ -7519,15 +7536,15 @@ function rebuildFloodCue() {
 // mirror the other regional fields: live mode only, no T8+ storm override
 // (the storm owns the drama), and never under the Matrix skin.
 function updateFloodCue() {
-  if (!floodCueMesh) return;
+  if (!floodPlane.mesh) return;
   const active = floodCue && liveMode && stormLevel < 8 && !matrixOn;
   const breath = 0.85 + 0.15 * Math.sin(performance.now() * 0.0005);
   const target = active ? (0.06 + 0.10 * Math.min(1, floodCue.lvl)) * breath : 0;
   floodCueOp += (target - floodCueOp) * 0.03;  // eased — warnings never pop
-  if (floodCueOp < 0.005) { floodCueMesh.visible = false; return; }
-  floodCueMesh.visible = true;
-  floodCueMesh.material.opacity = floodCueOp;
-  floodCueMesh.position.y = SEA_Y + 8 * VE;    // ~8 m of "risen water": pools in the flood plains
+  if (floodCueOp < 0.005) { floodPlane.mesh.visible = false; return; }
+  floodPlane.mesh.visible = true;
+  floodPlane.mesh.material.opacity = floodCueOp;
+  floodPlane.mesh.position.y = SEA_Y + 8 * VE;    // ~8 m of "risen water": pools in the flood plains
 }
 
 if (FLY_DEBUG) {
