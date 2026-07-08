@@ -302,6 +302,7 @@ let meshStep = 1, gridW = 0, gridH = 0, curG = null, curTexbb = null;   // mesh 
 let firstLoad = true;   // apply per-source default VE only on the very first load
 let terrain, terrainBase, wireOverlay, sea, skin;      // objects
 let skinBase = new Map();                               // layer -> Float32Array of base (unexaggerated) y
+let skinGrid = new Map();                               // layer -> Float32Array of [col,row] per vertex — re-drape source when mesh density changes (HKS-108)
 let loadGen = 0;                                        // bumped per loadSource; late overlay fetches check it before painting (HKS-49)
 let labels = [];
 let VE = 2.8, surfStyle = 'shaded', bgMode = 'dark';
@@ -334,7 +335,26 @@ function sampleE(col, row) {
   const a = elev[r0*W+c0], b = elev[r0*W+c0+1], c = elev[(r0+1)*W+c0], d = elev[(r0+1)*W+c0+1];
   return (a*(1-fc)+b*fc)*(1-fr) + (c*(1-fc)+d*fc)*fr;
 }
-let skinLift = 5;                 // overlay drape height in *real* metres above the ground, user-tunable via the Overlays slider (0.2–15 m); URL-synced as 'oh'. polygonOffset on the terrain fill carries z-fighting; this only clears geometric poke-through on coarse ridges. HKS-108: skinOffset scales by VE, so the bilinear-vs-triangle deviation D·VE and the lift skinLift·VE grow together — a small real value clears poke-through at every exaggeration, and the overlay sits a consistent real height above ground (was a fixed world 25 m, tuned for VE=2.8, which floated at low VE).
+// HKS-108: height on the RENDERED triangle surface (drape sampler). buildTerrain
+// splits each quad along the d–b diagonal (bottom-left ↔ top-right: idx a,d,b b,d,e),
+// so bilinear sampleE() deviates from the actual mesh by metres on steep coarse
+// cells — overlays draped with it float or dip. This sampler reproduces the exact
+// planar triangles the GPU rasterises, on the *decimated* grid when the density
+// slider sets meshStep>1 (quad corners at multiples of meshStep, ragged last
+// row/col snapped to W-1/H-1 like axisSamples does). Used ONLY for the overlay
+// drape (vector skin + GPX); walk height / labels / GPS keep bilinear sampleE.
+function sampleEtri(col, row) {
+  col = Math.max(0, Math.min(W - 1.001, col));
+  row = Math.max(0, Math.min(H - 1.001, row));
+  const s = meshStep;
+  const c0 = Math.floor(col / s) * s, r0 = Math.floor(row / s) * s;
+  const c1 = Math.min(c0 + s, W - 1), r1 = Math.min(r0 + s, H - 1);
+  const fc = (col - c0) / (c1 - c0), fr = (row - r0) / (r1 - r0);
+  const A = elev[r0*W+c0], B = elev[r0*W+c1], C = elev[r1*W+c0], D = elev[r1*W+c1];
+  return (fc + fr <= 1) ? A + fc*(B-A) + fr*(C-A)          // upper-left triangle (a,d,b)
+                        : D*(fc+fr-1) + B*(1-fr) + C*(1-fc); // lower-right triangle (b,d,e)
+}
+let skinLift = 1;                 // overlay drape height in *real* metres above the ground, user-tunable via the Overlays slider (0.2–15 m); URL-synced as 'oh'. polygonOffset on the terrain fill carries z-fighting. HKS-108: the drape samples the rendered triangle surface (sampleEtri), so vertices sit ON the mesh exactly — this small lift only covers line-chord sag between vertices across a convex ridge. skinOffset scales by VE, so residual sag and lift grow together and a ~1 m real value hugs the ground at every exaggeration.
 const skinOffset = () => skinLift * VE;
 
 // ---- load a source ---------------------------------------------------------
@@ -428,7 +448,7 @@ function preRenderLayers() {
   for (const inp of layersDiv.querySelectorAll('input')) prev[inp.id.replace('lyr_', '')] = inp.checked;
   // drop any stale vectors from the previous source at once — never paint them under new terrain
   if (skin) { world.remove(skin); skin.traverse(o => o.geometry?.dispose()); }
-  skin = new THREE.Group(); skinBase.clear(); world.add(skin);
+  skin = new THREE.Group(); skinBase.clear(); skinGrid.clear(); world.add(skin);
   layersDiv.innerHTML = '';
   for (const [name, style] of Object.entries(LAYER_STYLE)) {
     const on = (name in prev) ? prev[name] : style.on;
@@ -531,8 +551,20 @@ function rebuildTerrain() {
   buildTerrain();
   if (texTopo) matTopo.map = texTopo;   // re-attach texture to freshly-made material
   applyStyle(surfStyle);
+  redrapeSkin();   // HKS-108: drape heights are triangle-matched to the mesh, so a density change moves them
   applyVE();
   updateNote();
+}
+
+// HKS-108: recompute the vector skin's base drape heights against the CURRENT
+// mesh triangulation (sampleEtri depends on meshStep). applyVE() then writes
+// the world y from these. GPX re-drapes itself via redrapeGpx() in applyVE().
+function redrapeSkin() {
+  for (const seg of (skin?.children ?? [])) {
+    const gcr = skinGrid.get(seg.name), base = skinBase.get(seg.name);
+    if (!gcr || !base) continue;
+    for (let i = 0; i < base.length; i++) base[i] = sampleEtri(gcr[i*2], gcr[i*2+1]);
+  }
 }
 
 // Subsampled sample indices along an axis (always includes the last row/col).
@@ -729,7 +761,7 @@ function buildTerrain() {
 // build one merged LineSegments per vector layer, draped on the terrain
 function buildSkin(overlay, g, texbb) {
   if (skin) { world.remove(skin); skin.traverse(o => o.geometry?.dispose()); }
-  skin = new THREE.Group(); skinBase.clear();
+  skin = new THREE.Group(); skinBase.clear(); skinGrid.clear();
   const layersDiv = document.getElementById('layers');
   // preserve the user's per-layer toggle choices across a source switch
   const prev = {};
@@ -738,16 +770,16 @@ function buildSkin(overlay, g, texbb) {
 
   for (const [name, style] of Object.entries(LAYER_STYLE)) {
     const lines = overlay[name]; if (!lines || !lines.length) continue;
-    const pos = [], baseY = [];
+    const pos = [], baseY = [], gcr = [];
     for (const line of lines) {
       for (let k = 0; k < line.length - 1; k++) {         // emit segment pairs (connected polyline)
         for (const p of [line[k], line[k+1]]) {
           const E = texbb.E0 + p[0]*(texbb.E1 - texbb.E0);
           const N = texbb.N1 - p[1]*(texbb.N1 - texbb.N0);
           const cc = (E - g.bE)/g.aE, rr = (N - g.bN)/g.aN;
-          const y = sampleE(cc, rr);
+          const y = sampleEtri(cc, rr);                   // HKS-108: drape on the rendered triangles, not bilinear
           pos.push((cc-W/2)*cell, y, (rr-H/2)*cell);
-          baseY.push(y);
+          baseY.push(y); gcr.push(cc, rr);
         }
       }
     }
@@ -759,6 +791,7 @@ function buildSkin(overlay, g, texbb) {
     seg.visible = on;
     skin.add(seg);
     skinBase.set(name, new Float32Array(baseY));
+    skinGrid.set(name, new Float32Array(gcr));
 
     // toggle UI
     const id = 'lyr_' + name;
@@ -4407,6 +4440,11 @@ if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serializa
   window.__flight = flight;
   window.__stepFlight = () => stepFlight();
   window.__three = () => ({ renderer, scene, camera, sun, hemi, terrain, sea, tidalMats });
+  // HKS-108: drape-sampler handles — verify overlays sit on the rendered triangle surface
+  window.__drape = { sampleE: (c, r) => sampleE(c, r), sampleEtri: (c, r) => sampleEtri(c, r),
+    skinOffset: () => skinOffset(), get VE() { return VE; }, get skinLift() { return skinLift; },
+    get W() { return W; }, get H() { return H; }, get cell() { return cell; },
+    get meshStep() { return meshStep; }, get elev() { return elev; }, get skin() { return skin; } };
 }
 
 const _fq = new THREE.Quaternion(), _fe = new THREE.Euler(), _fv = new THREE.Vector3();
@@ -6354,7 +6392,7 @@ document.getElementById('landmarks').addEventListener('change', e => { if (e.isT
 // ---- GPX trail import (HKS-106) --------------------------------------------
 // Drop or pick one/more .gpx files; each <trk> (or <rte>) drapes on the terrain
 // as a coloured polyline. Projected via the same WGS84→HK1980→grid path as the
-// GPS marker (gpsToGrid) + sampleE for height, so trails sit on the surface and
+// GPS marker (gpsToGrid) + sampleEtri for height, so trails sit on the surface and
 // re-drape on source/VE change (applyVE calls redrapeGpx). Random distinct
 // colour per trail, user-reassignable. Entirely client-side, session-only —
 // nothing is uploaded or stored, and it's not URL-serialised (GPX is too big).
@@ -6371,7 +6409,7 @@ function drapeSegments(pts, breaks) {                    // [[lat,lon]] → flat
     const [lat, lon] = pts[i];
     const g = gpsToGrid(lat, lon), inB = !!(g && g.inBounds);
     if (!inB) off++;
-    const v = inB ? new THREE.Vector3((g.col - W / 2) * cell, sampleE(g.col, g.row) * VE + lift, (g.row - H / 2) * cell) : null;
+    const v = inB ? new THREE.Vector3((g.col - W / 2) * cell, sampleEtri(g.col, g.row) * VE + lift, (g.row - H / 2) * cell) : null;   // HKS-108: drape on the rendered triangles
     const brk = breaks && breaks.has(i);                 // don't chord across a segment discontinuity
     if (prevIn && inB && !brk) { verts.push(prev.x, prev.y, prev.z, v.x, v.y, v.z); segs.push([prevI, i]); }   // both on-map → emit segment + its pts indices
     prev = v; prevIn = inB; prevI = i;
@@ -8456,7 +8494,7 @@ applyLocale(locale);
 // "State" is decided by the canonical key set below — NOT "any unknown key" — so a
 // marketing/tracking link (?utm_source=…, ?fbclid=…), a lang-only or embed-only URL
 // still lands on the curated default, with its own extra params carried through.
-const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&oh=5&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
+const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&oh=1&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
 const urlParams = new URLSearchParams(location.search);
 // Always start from the curated default and overlay whatever the URL carries. A full
 // shared link sets every core key so it overrides the default entirely; a partial link
