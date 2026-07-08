@@ -31,6 +31,14 @@ file (via any static server) and deploys as plain files.
 </tr>
 <tr>
 <td width="33%"><img src="assets/screenshots/flight-mode.png" width="380"/><br/><sub>Flight mode — fly a plane over real terrain</sub></td>
+<td width="33%"><img src="assets/screenshots/plane-skins.png" width="380"/><br/><sub>Plane skins — fly a Cathay Pacific A350</sub></td>
+<td width="33%"><img src="assets/screenshots/gpx-trails.png" width="380"/><br/><sub>Import your GPX — draped trails with Start/End pins &amp; playback</sub></td>
+</tr>
+<tr>
+<td width="33%"><img src="assets/screenshots/stargaze-mode.png" width="380"/><br/><sub>Stargaze — trace the constellations (Cygnus)</sub></td>
+<td width="33%"><img src="assets/screenshots/night-stars.png" width="380"/><br/><sub>Night sky — the star catalogue over Hong Kong</sub></td>
+</tr>
+<tr>
 <td width="33%"><img src="assets/screenshots/matrix-mode.png" width="380"/><br/><sub>🕴 Matrix mode — the code behind the sandbox</sub></td>
 <td width="33%"><img src="assets/screenshots/neon-night-mode.png" width="380"/><br/><sub>❄️ 風林火山 — snowbound neon-noir</sub></td>
 </tr>
@@ -197,6 +205,14 @@ Infrastructure by [stealth.co](https://stealth-company.co).
 </tr>
 <tr>
 <td width="33%"><img src="assets/screenshots/flight-mode.png" width="380"/><br/><sub>飛行模式 —— 駕駛飛機飛越真實地形</sub></td>
+<td width="33%"><img src="assets/screenshots/plane-skins.png" width="380"/><br/><sub>機身塗裝 —— 駕駛國泰航空 A350</sub></td>
+<td width="33%"><img src="assets/screenshots/gpx-trails.png" width="380"/><br/><sub>匯入 GPX —— 貼地路徑、起訖標記與回放</sub></td>
+</tr>
+<tr>
+<td width="33%"><img src="assets/screenshots/stargaze-mode.png" width="380"/><br/><sub>觀星模式 —— 描繪星座（天鵝座）</sub></td>
+<td width="33%"><img src="assets/screenshots/night-stars.png" width="380"/><br/><sub>夜空 —— 香港上空的星空目錄</sub></td>
+</tr>
+<tr>
 <td width="33%"><img src="assets/screenshots/matrix-mode.png" width="380"/><br/><sub>🕴 Matrix 模式 —— 沙盤背後的程式碼</sub></td>
 <td width="33%"><img src="assets/screenshots/neon-night-mode.png" width="380"/><br/><sub>❄️ 風林火山 —— 雪夜霓虹</sub></td>
 </tr>
