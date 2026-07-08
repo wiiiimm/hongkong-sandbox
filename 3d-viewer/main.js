@@ -92,6 +92,7 @@ const I18N = {
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
+    'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file', 'gpx.trail': 'Custom Trail', 'gpx.name': 'Trail name', 'gpx.start': 'Start', 'gpx.end': 'End', 'gpx.play': 'Play trail', 'gpx.pause': 'Pause', 'gpx.pan': 'Pan to trail', 'gpx.show': 'Show trail', 'gpx.hide': 'Hide trail',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
@@ -131,7 +132,7 @@ const I18N = {
     'help.fly.t': 'Flying', 'help.fly.b': 'Take off — tap the plane, press Space, or the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water',
     'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump · Shift or a two‑finger hold to run\nDrag to look around — 🖱 locks the mouse for look (Esc releases)\nPress C for first‑person / chase',
     'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🤳 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
-    'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings',
+    'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings — Trails · GPX drops in your own tracks and plays them back (▶) start→end',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'loc.find': 'Find my location', 'loc.locating': 'Locating…', 'loc.you': 'You', 'loc.relocate': 'Re-locate',
     'loc.follow': 'Follow me', 'loc.following': 'Following', 'loc.stopfollow': 'Stop following',
@@ -182,6 +183,7 @@ const I18N = {
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
+    'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑', 'gpx.trail': '自訂路徑', 'gpx.name': '路徑名稱', 'gpx.start': '起點', 'gpx.end': '終點', 'gpx.play': '播放路徑', 'gpx.pause': '暫停', 'gpx.pan': '移至路徑', 'gpx.show': '顯示路徑', 'gpx.hide': '隱藏路徑',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
@@ -221,7 +223,7 @@ const I18N = {
     'help.fly.t': '飛行', 'help.fly.b': '起飛 — 點擊飛機、按空白鍵，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）',
     'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍 · Shift 或雙指按住奔跑\n拖曳環顧四周 — 🖱 鎖定滑鼠環視（Esc 解除）\n按 C 切換第一人稱 / 追尾',
     'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🤳 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
-    'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定',
+    'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定 —— 「路徑 · GPX」可載入自己的路徑並回放（▶）由起點掃至終點',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'loc.find': '定位', 'loc.locating': '定位中…', 'loc.you': '你', 'loc.relocate': '重新定位',
     'loc.follow': '跟隨我', 'loc.following': '跟隨中', 'loc.stopfollow': '停止跟隨',
@@ -1281,6 +1283,7 @@ function applyVE() {
     for (let i = 0; i < base.length; i++) arr[i*3+1] = base[i]*VE + off;
     seg.geometry.attributes.position.needsUpdate = true;
   }
+  redrapeGpx();   // HKS-106: re-drape imported GPX trails onto the new exaggeration / source
 }
 
 // ---- surface style + background -------------------------------------------
@@ -6334,6 +6337,310 @@ document.getElementById('toporot0').addEventListener('click', () => { texRot = 0
 document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; if (e.isTrusted) track('layer_toggle', { layer: 'water', on: e.target.checked }); });
 document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); if (e.isTrusted) track('layer_toggle', { layer: 'labels', on: e.target.checked }); });
 document.getElementById('landmarks').addEventListener('change', e => { if (e.isTrusted) track('layer_toggle', { layer: 'landmarks', on: e.target.checked }); });
+
+// ---- GPX trail import (HKS-106) --------------------------------------------
+// Drop or pick one/more .gpx files; each <trk> (or <rte>) drapes on the terrain
+// as a coloured polyline. Projected via the same WGS84→HK1980→grid path as the
+// GPS marker (gpsToGrid) + sampleE for height, so trails sit on the surface and
+// re-drape on source/VE change (applyVE calls redrapeGpx). Random distinct
+// colour per trail, user-reassignable. Entirely client-side, session-only —
+// nothing is uploaded or stored, and it's not URL-serialised (GPX is too big).
+let gpxGroup = null;
+const gpxTrails = [];                                    // { name, pts:[[lat,lon]], color, line, visible, off }
+const gpxColor = i => new THREE.Color().setHSL(((i * 137.508) % 360) / 360, 0.72, 0.56);   // golden-angle → distinct hues
+let gpxSeq = 0;                                          // monotonic — no number reuse after a removal
+const gpxName = () => `${t('gpx.trail')} #${++gpxSeq}`;  // locale-aware default; user-renamable (GPX <name> ignored, per spec)
+function ensureGpxGroup() { if (!gpxGroup) gpxGroup = new THREE.Group(); if (world && gpxGroup.parent !== world) world.add(gpxGroup); }
+function drapeSegments(pts) {                            // [[lat,lon]] → flat segment-pair verts; breaks at off-map gaps (codex)
+  const verts = [], segs = []; let off = 0; const lift = skinOffset() * 1.6;
+  let prev = null, prevIn = false, prevI = -1;
+  for (let i = 0; i < pts.length; i++) {
+    const [lat, lon] = pts[i];
+    const g = gpsToGrid(lat, lon), inB = !!(g && g.inBounds);
+    if (!inB) off++;
+    const v = inB ? new THREE.Vector3((g.col - W / 2) * cell, sampleE(g.col, g.row) * VE + lift, (g.row - H / 2) * cell) : null;
+    if (prevIn && inB) { verts.push(prev.x, prev.y, prev.z, v.x, v.y, v.z); segs.push([prevI, i]); }   // both on-map → emit segment + its pts indices
+    prev = v; prevIn = inB; prevI = i;
+  }
+  return { verts, off, segs };
+}
+// ---- inline SVG icons (line-style, Feather/Lucide MIT lineage) -------------
+const ICON_PATHS = {
+  eye: '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/>',
+  'eye-off': '<path d="M9.9 4.24A9.1 9.1 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M17.94 17.94A10 10 0 0 1 12 20C5 20 1 12 1 12a18.4 18.4 0 0 1 5.06-5.94"/><line x1="1" y1="1" x2="23" y2="23"/>',
+  play: '<path d="M7 4.5 20 12 7 19.5Z" fill="currentColor" stroke="none"/>',
+  pause: '<path d="M7 4.5h3.4v15H7zM13.6 4.5H17v15h-3.4z" fill="currentColor" stroke="none"/>',
+  target: '<circle cx="12" cy="12" r="8.5"/><line x1="12" y1="1.5" x2="12" y2="5.2"/><line x1="12" y1="18.8" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="5.2" y2="12"/><line x1="18.8" y1="12" x2="22.5" y2="12"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+  x: '<line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/>'
+};
+const svgIcon = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON_PATHS[n]}</svg>`;
+
+// ---- GPX start/end labels + trail playback (HKS-106) -----------------------
+const GPX_GHOST_OP = 0.28;                                // whole-trail opacity while a playback dot sweeps it
+const GPX_ANIM_DUR = 14000;                               // ms to replay a whole trail (real pacing when timestamps exist)
+const gpxPlaying = new Set();                             // trails currently animating (driven by stepGpxAnim in the RAF loop)
+let GPX_DOT_TEX = null;
+function gpxDotTex() {
+  if (GPX_DOT_TEX) return GPX_DOT_TEX;
+  const cv = document.createElement('canvas'); cv.width = cv.height = 64;
+  const c = cv.getContext('2d'), g = c.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.5, 'rgba(255,255,255,1)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  c.fillStyle = g; c.beginPath(); c.arc(32, 32, 32, 0, 7); c.fill();
+  GPX_DOT_TEX = new THREE.CanvasTexture(cv); return GPX_DOT_TEX;
+}
+// Start/End are DOM labels (constant screen size + terrain occlusion, like the
+// peak labels) anchored in HK1980 E/N so they re-project at any zoom/source. The
+// Start label doubles as the on-map ▶/⏸ playback control.
+function refreshGpxStartLabel(tr) {
+  const s = tr.startLbl; if (!s) return;
+  s.innerHTML = svgIcon(tr.playing ? 'pause' : 'play') + `<span>${t('gpx.start')}</span>`;
+  const lab = t(tr.playing ? 'gpx.pause' : 'gpx.play');
+  s.title = lab; s.setAttribute('aria-label', lab); s.setAttribute('aria-pressed', tr.playing ? 'true' : 'false');
+}
+function makeGpxLabels(tr) {
+  const s = document.createElement('div'); s.className = 'gpxlbl start';
+  s.setAttribute('role', 'button'); s.tabIndex = 0;                    // keyboard-operable: focusable + Enter/Space
+  s.addEventListener('click', () => toggleTrailAnim(tr));
+  s.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggleTrailAnim(tr); } });
+  const e = document.createElement('div'); e.className = 'gpxlbl end'; e.textContent = t('gpx.end');
+  s.style.display = e.style.display = 'none';
+  document.body.append(s, e);
+  tr.startLbl = s; tr.endLbl = e; refreshGpxStartLabel(tr);
+}
+function removeGpxLabels(tr) {
+  if (tr.startLbl) { tr.startLbl.remove(); tr.startLbl = null; }
+  if (tr.endLbl) { tr.endLbl.remove(); tr.endLbl = null; }
+}
+// project both labels each frame — reuses the peak-label occlusion + screen math
+function updateGpxLabels() {
+  if (!gpxTrails.length) return;
+  const g = curG; if (!g) return;
+  for (const tr of gpxTrails) {
+    const pairs = [[tr.startLbl, tr.startEN], [tr.endLbl, tr.endEN]];
+    for (const [lbl, en] of pairs) {
+      if (!lbl) continue;
+      if (!tr.visible || !en) { lbl.style.display = 'none'; continue; }
+      const col = (en.E - g.bE) / g.aE, row = (en.N - g.bN) / g.aN;
+      if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { lbl.style.display = 'none'; continue; }
+      const lx = (col - W / 2) * cell, ly = sampleE(col, row) * VE, lz = (row - H / 2) * cell;
+      v.set(lx, ly, lz); world.localToWorld(v); v.project(camera);
+      if (v.z > 1 || occludedLocal(lx, ly, lz)) { lbl.style.display = 'none'; continue; }
+      lbl.style.display = 'flex';
+      lbl.style.left = ((v.x * 0.5 + 0.5) * innerWidth) + 'px';
+      lbl.style.top = ((-v.y * 0.5 + 0.5) * innerHeight) + 'px';
+    }
+  }
+}
+function disposeGpxAnimObj(tr) {                          // drop the THREE objects, keep tr.anim.p so playback survives a re-drape
+  const A = tr.anim; if (!A) return;
+  if (A.bright) { gpxGroup.remove(A.bright); A.bright.geometry.dispose(); A.bright.material.dispose(); A.bright = null; }
+  if (A.dot) { gpxGroup.remove(A.dot); A.dot.material.dispose(); A.dot = null; }
+}
+function buildTrailAnim(tr, verts, segs) {                // keyed segments for the sweep: by real time if present, else by distance
+  const useTime = tr.hasTime, keyed = []; let cum = 0;
+  for (let k = 0; k < segs.length; k++) {
+    const o = k * 6;
+    const a = new THREE.Vector3(verts[o], verts[o + 1], verts[o + 2]);
+    const b = new THREE.Vector3(verts[o + 3], verts[o + 4], verts[o + 5]);
+    let w;
+    if (useTime) { const ta = tr.times[segs[k][0]], tb = tr.times[segs[k][1]]; w = (ta != null && tb != null) ? Math.max(0, tb - ta) : 0; }
+    else w = a.distanceTo(b);
+    keyed.push({ a, b, s: cum, e: cum + w }); cum += w;
+  }
+  if (cum <= 0) { for (let k = 0; k < keyed.length; k++) { keyed[k].s = k; keyed[k].e = k + 1; } cum = keyed.length || 1; }   // degenerate weights → uniform by index
+  const A = tr.anim = tr.anim || { p: 0 };
+  A.seg = keyed; A.total = cum;
+  const bgeo = new THREE.BufferGeometry();
+  bgeo.setAttribute('position', new THREE.Float32BufferAttribute(verts.slice(), 3));
+  bgeo.setDrawRange(0, 0);
+  A.bright = new THREE.LineSegments(bgeo, new THREE.LineBasicMaterial({ color: tr.color }));
+  A.bright.renderOrder = 7; A.bright.visible = false; gpxGroup.add(A.bright);
+  const dot = new THREE.Sprite(new THREE.SpriteMaterial({ map: gpxDotTex(), color: tr.color, transparent: true, depthTest: false, depthWrite: false }));
+  dot.renderOrder = 9; dot.visible = false;               // scale set per-frame in applyTrailProgress (constant on-screen size)
+  A.dot = dot; gpxGroup.add(dot);
+}
+function applyTrailProgress(tr) {                         // place the dot at p, reveal the bright line behind it, keep the dot a constant on-screen size
+  const A = tr.anim, seg = A.seg; if (!seg || !seg.length) return;
+  const target = A.p * A.total; let i = 0;
+  while (i < seg.length - 1 && seg[i].e < target) i++;
+  const s = seg[i], span = (s.e - s.s) || 1, local = Math.min(1, Math.max(0, (target - s.s) / span));
+  A.dot.position.copy(s.a).lerp(s.b, local);
+  A.bright.geometry.setDrawRange(0, i * 2);               // full segments strictly behind the dot (each = 2 verts)
+  const ds = Math.max(bounds().span * 0.004, camera.position.distanceTo(controls.target) * 0.018);
+  A.dot.scale.set(ds, ds, 1);
+}
+// visuals are "in playback" while playing OR paused partway (0<p<1); idle/finished = solid full trail
+function applyTrailVisual(tr) {
+  const A = tr.anim;
+  const hasObj = !!(A && A.bright && A.dot);   // disposeGpxAnimObj nulls bright/dot between a re-drape and the buildTrailAnim rebuild
+  const active = !!(hasObj && tr.visible && (tr.playing || (A.p > 0 && A.p < 1)));
+  if (tr.line) { tr.line.material.transparent = true; tr.line.material.opacity = active ? GPX_GHOST_OP : 1; }
+  if (hasObj) {
+    A.bright.visible = active; A.dot.visible = active;
+    if (active) applyTrailProgress(tr); else A.bright.geometry.setDrawRange(0, 0);
+  }
+}
+function setTrailPlaying(tr, on) {
+  tr.playing = on && !!tr.anim;
+  if (tr.playing) { if (tr.anim.p == null || tr.anim.p >= 1) tr.anim.p = 0; gpxPlaying.add(tr); }   // restart from the top once finished
+  else gpxPlaying.delete(tr);                             // pause → freeze the dot & partial line where they are
+  applyTrailVisual(tr);
+  refreshGpxStartLabel(tr); syncGpxPlayBtns();
+}
+function toggleTrailAnim(tr) { if (tr.anim) { setTrailPlaying(tr, !tr.playing); track('gpx_play', { on: tr.playing }); } }
+function syncGpxPlayBtns() {
+  for (const tr of gpxTrails) if (tr.playBtn) {
+    tr.playBtn.innerHTML = svgIcon(tr.playing ? 'pause' : 'play');
+    tr.playBtn.title = t(tr.playing ? 'gpx.pause' : 'gpx.play');
+    tr.playBtn.setAttribute('aria-pressed', tr.playing ? 'true' : 'false');
+  }
+}
+let _gpxAnimLast = 0;
+function stepGpxAnim() {
+  if (!gpxPlaying.size) { _gpxAnimLast = 0; return; }
+  const now = performance.now(), dt = _gpxAnimLast ? now - _gpxAnimLast : 16; _gpxAnimLast = now;
+  for (const tr of gpxPlaying) {
+    const A = tr.anim; if (!A) continue;
+    A.p = Math.min(1, (A.p || 0) + dt / GPX_ANIM_DUR);
+    applyTrailProgress(tr);
+    if (A.p >= 1) setTrailPlaying(tr, false);             // finished → solid full trail, dot gone
+  }
+}
+function panToTrail(tr) {                                 // ease the view to centre on the trail (keeps zoom & angle)
+  if (!tr.centerLocal || !curG) return;
+  if (typeof exitFlight === 'function' && flight.on) exitFlight();
+  if (typeof exitWalk === 'function' && walk.on) exitWalk();
+  if (typeof exitStargaze === 'function' && stargaze.on) exitStargaze();
+  const w = tr.centerLocal.clone(); world.localToWorld(w);
+  const camTo = camera.position.clone().add(w.clone().sub(controls.target));
+  easeCamera(camTo, w, 600);
+  track('gpx_pan');
+}
+function trailPtEN(tr, i) { const p = tr.pts[i], g = gpsToGrid(p[0], p[1]); return g ? { E: g.E, N: g.N } : null; }
+function buildTrailLine(tr) {
+  if (tr.line) { gpxGroup.remove(tr.line); tr.line.geometry.dispose(); tr.line.material.dispose(); tr.line = null; }
+  disposeGpxAnimObj(tr);
+  const { verts, off, segs } = drapeSegments(tr.pts); tr.off = off;
+  if (verts.length < 6) { tr.startEN = tr.endEN = null; tr.centerLocal = null; if (tr.playing) setTrailPlaying(tr, false); return; }   // fully off the loaded map
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+  tr.line = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ color: tr.color, transparent: true, opacity: 1 }));
+  tr.line.visible = tr.visible; tr.line.renderOrder = 6;
+  gpxGroup.add(tr.line);
+  tr.startEN = trailPtEN(tr, segs[0][0]);                 // HK1980 E/N of the first & last on-map points (label anchors)
+  tr.endEN = trailPtEN(tr, segs[segs.length - 1][1]);
+  let cx = 0, cy = 0, cz = 0; const nv = verts.length / 3;
+  for (let k = 0; k < verts.length; k += 3) { cx += verts[k]; cy += verts[k + 1]; cz += verts[k + 2]; }
+  tr.centerLocal = new THREE.Vector3(cx / nv, cy / nv, cz / nv);   // centroid → pan target
+  if (!tr.startLbl) makeGpxLabels(tr); else refreshGpxStartLabel(tr);
+  buildTrailAnim(tr, verts, segs);
+  if (tr.playing) gpxPlaying.add(tr);
+  applyTrailVisual(tr);                                   // restore solid/ghost + dot for the current play state (survives re-drape)
+}
+function redrapeGpx() {                                   // source/VE changed → re-project every trail
+  if (!gpxTrails.length) return;
+  ensureGpxGroup();
+  for (const tr of gpxTrails) buildTrailLine(tr);
+  syncGpxWarnings();     // update ⚠ in place — don't rebuild the list (would drop a name mid-edit)
+}
+function syncGpxWarnings() { for (const tr of gpxTrails) if (tr.warnEl) tr.warnEl.style.display = tr.off ? '' : 'none'; }
+function parseGpx(text) {                                 // → [{ name, pts:[[lat,lon]], times, eles, hasTime, hasEle }]
+  const doc = new DOMParser().parseFromString(text, 'application/xml');
+  if (doc.getElementsByTagName('parsererror').length) return [];
+  const grab = (parent, tag) => {
+    const pts = [], times = [], eles = [];   // times = ms epoch | null, eles = metres | null (aligned to pts)
+    let hasTime = false, hasEle = false;
+    for (const p of parent.getElementsByTagName(tag)) {
+      const lat = +p.getAttribute('lat'), lon = +p.getAttribute('lon');
+      if (!(isFinite(lat) && isFinite(lon))) continue;
+      pts.push([lat, lon]);
+      const te = p.getElementsByTagName('time')[0];       // <trkpt>'s own child; trkpts have no deeper nesting
+      const ms = te ? Date.parse(te.textContent.trim()) : NaN;
+      if (isFinite(ms)) { times.push(ms); hasTime = true; } else times.push(null);
+      const ee = p.getElementsByTagName('ele')[0];
+      const m = ee ? parseFloat(ee.textContent) : NaN;
+      if (isFinite(m)) { eles.push(m); hasEle = true; } else eles.push(null);
+    }
+    return { pts, times, eles, hasTime, hasEle };
+  };
+  const nameOf = (el, dflt) => { const n = el.getElementsByTagName('name')[0]; return (n && n.textContent.trim()) || dflt; };
+  const out = [];
+  for (const trk of doc.getElementsByTagName('trk')) { const g = grab(trk, 'trkpt'); if (g.pts.length >= 2) out.push({ name: nameOf(trk, 'Track'), ...g }); }
+  if (!out.length) for (const rte of doc.getElementsByTagName('rte')) { const g = grab(rte, 'rtept'); if (g.pts.length >= 2) out.push({ name: nameOf(rte, 'Route'), ...g }); }
+  return out;
+}
+function addGpxText(text) {
+  ensureGpxGroup();
+  const tracks = parseGpx(text);
+  if (!tracks.length) { flashGpxNote(t('gpx.bad')); track('gpx_import', { trails: 0 }); return; }   // failed/empty import — funnel signal
+  const added = [];
+  for (const trk of tracks) {
+    const tr = { name: gpxName(), pts: trk.pts, times: trk.times, eles: trk.eles, hasTime: trk.hasTime, hasEle: trk.hasEle,
+                 color: gpxColor(gpxTrails.length), visible: true, line: null, off: 0, warnEl: null,
+                 startLbl: null, endLbl: null, startEN: null, endEN: null, centerLocal: null,
+                 anim: null, playing: false, playBtn: null };
+    gpxTrails.push(tr); buildTrailLine(tr); added.push(tr);
+  }
+  track('gpx_import', { trails: added.length, timed: added.some(t => t.hasTime), drew: added.some(t => !!t.line) });   // drew=false → landed off the loaded map
+  renderGpxList();
+}
+function removeGpxTrail(tr) {
+  gpxPlaying.delete(tr);
+  if (tr.line) { gpxGroup.remove(tr.line); tr.line.geometry.dispose(); tr.line.material.dispose(); }
+  removeGpxLabels(tr); disposeGpxAnimObj(tr); tr.anim = null;
+  gpxTrails.splice(gpxTrails.indexOf(tr), 1);
+  renderGpxList();
+}
+function renderGpxList() {
+  const list = document.getElementById('gpxlist'); if (!list) return;
+  list.textContent = '';
+  for (const tr of gpxTrails) {
+    const row = document.createElement('div'); row.className = 'gpxrow';
+    const sw = document.createElement('input'); sw.type = 'color'; sw.className = 'gpxsw'; sw.value = '#' + tr.color.getHexString(); sw.title = t('gpx.colour');
+    sw.addEventListener('input', () => { tr.color.set(sw.value); if (tr.line) tr.line.material.color.copy(tr.color); if (tr.anim) { if (tr.anim.bright) tr.anim.bright.material.color.copy(tr.color); if (tr.anim.dot) tr.anim.dot.material.color.copy(tr.color); } });
+    sw.addEventListener('change', e => { if (e.isTrusted) track('gpx_recolour'); });   // once on commit, not per drag frame
+    const nm = document.createElement('input'); nm.type = 'text'; nm.className = 'gpxname'; nm.value = tr.name; nm.spellcheck = false; nm.maxLength = 60; nm.setAttribute('aria-label', t('gpx.name'));
+    nm.addEventListener('input', () => { tr.name = nm.value; });
+    nm.addEventListener('keydown', e => { if (e.key === 'Enter') nm.blur(); });
+    nm.addEventListener('change', e => { if (e.isTrusted) track('gpx_rename'); });      // commit only (blur/Enter), never the name text
+    const warn = document.createElement('span'); warn.className = 'gpxwarn'; warn.textContent = '⚠'; warn.title = t('gpx.offmap'); warn.style.display = tr.off ? '' : 'none';
+    tr.warnEl = warn;
+    const pan = document.createElement('button'); pan.type = 'button'; pan.className = 'gpxbtn'; pan.innerHTML = svgIcon('target'); pan.title = t('gpx.pan'); pan.setAttribute('aria-label', t('gpx.pan'));
+    pan.addEventListener('click', () => panToTrail(tr));
+    const vis = document.createElement('button'); vis.type = 'button'; vis.className = 'gpxbtn'; vis.innerHTML = svgIcon(tr.visible ? 'eye' : 'eye-off'); vis.title = t(tr.visible ? 'gpx.hide' : 'gpx.show'); vis.setAttribute('aria-pressed', tr.visible ? 'true' : 'false');
+    vis.addEventListener('click', () => {
+      tr.visible = !tr.visible;
+      if (tr.line) tr.line.visible = tr.visible;
+      applyTrailVisual(tr);                                // re-derive bright/dot visibility; labels follow tr.visible next frame
+      vis.innerHTML = svgIcon(tr.visible ? 'eye' : 'eye-off'); vis.title = t(tr.visible ? 'gpx.hide' : 'gpx.show'); vis.setAttribute('aria-pressed', tr.visible ? 'true' : 'false');
+      track('gpx_visibility', { on: tr.visible });
+    });
+    const play = document.createElement('button'); play.type = 'button'; play.className = 'gpxbtn'; play.innerHTML = svgIcon(tr.playing ? 'pause' : 'play'); play.title = t(tr.playing ? 'gpx.pause' : 'gpx.play'); play.setAttribute('aria-pressed', tr.playing ? 'true' : 'false');
+    play.addEventListener('click', () => toggleTrailAnim(tr));
+    tr.playBtn = play;
+    const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'gpxbtn'; rm.innerHTML = svgIcon('x'); rm.title = t('gpx.remove'); rm.setAttribute('aria-label', t('gpx.remove'));
+    rm.addEventListener('click', () => { track('gpx_remove'); removeGpxTrail(tr); });
+    row.append(sw, nm, warn, pan, vis, rm, play); list.appendChild(row);
+  }
+}
+let _gpxNoteT = null;
+function flashGpxNote(msg) {
+  const d = document.getElementById('gpxdrop'); if (!d) return;
+  d.textContent = msg; clearTimeout(_gpxNoteT);
+  _gpxNoteT = setTimeout(() => { d.textContent = t('gpx.drop'); }, 2600);
+}
+(() => {   // dropzone: drag-drop + click/tap → picker; keyboard (Enter/Space) too
+  const drop = document.getElementById('gpxdrop'), input = document.getElementById('gpxfile');
+  if (!drop || !input) return;
+  const readFiles = files => { for (const f of files) if (/\.gpx$/i.test(f.name) || /gpx|xml/i.test(f.type)) f.text().then(addGpxText).catch(() => flashGpxNote(t('gpx.bad'))); };
+  drop.addEventListener('click', () => input.click());
+  drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
+  input.addEventListener('change', () => { readFiles(input.files); input.value = ''; });
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('drag'); }));
+  ['dragleave', 'dragend', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('drag'); }));
+  drop.addEventListener('drop', e => { if (e.dataTransfer) readFiles(e.dataTransfer.files); });
+})();
+if (FLY_DEBUG) window.__gpx = { addGpxText, gpxTrails, redrapeGpx, toggleTrailAnim, setTrailPlaying, stepGpxAnim, applyTrailProgress, panToTrail, updateGpxLabels, getTarget: () => ({ x: controls.target.x, y: controls.target.y, z: controls.target.z }), get group() { return gpxGroup; } };
 document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); if (e.isTrusted) track('spin', { dir: spinDir > 0 ? 'cw' : spinDir < 0 ? 'ccw' : 'off' }); });
 document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = parseFloat(e.target.value); });
 const panelEl = document.getElementById('panel');
@@ -7677,6 +7984,7 @@ function animate() {
   stepStargaze();
   stepMatrix();
   stepNoir();
+  stepGpxAnim();                        // HKS-106: advance any playing GPX trail sweeps
   updateCompass();
   animateWeather();
   // storm screen shake — the terrain judders under the strongest signals
@@ -7695,6 +8003,7 @@ function animate() {
   updateFloodCue();             // HKS-70: regional flood/landslip warning sheen
   updateLabels();
   updateLandmarks();
+  updateGpxLabels();            // HKS-106: GPX Start/End labels — constant screen size, terrain-occluded
   updateStations();
   updateAqhi();
   updateGeoMarker();

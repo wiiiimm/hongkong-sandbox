@@ -233,6 +233,38 @@
   body.ui-light input[type=date]{color-scheme:light}
   .chk{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink);cursor:pointer}
   .chks{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
+  /* GPX trail import (HKS-106) */
+  .gpxdrop{margin-top:4px;padding:10px 12px;border:1px dashed var(--edge);border-radius:9px;
+    font-size:11.5px;color:var(--sub);text-align:center;cursor:pointer;user-select:none;
+    transition:border-color .15s,color .15s,background .15s}
+  .gpxdrop:hover,.gpxdrop:focus-visible{border-color:var(--accent);color:var(--ink);outline:none}
+  .gpxdrop.drag{border-color:var(--accent);color:var(--ink);background:rgba(127,127,127,.12)}
+  .gpxlist{display:flex;flex-direction:column;gap:5px;margin-top:7px}
+  .gpxlist:empty{display:none}
+  .gpxrow{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink)}
+  .gpxsw{width:20px;height:20px;padding:0;border:none;border-radius:5px;background:none;cursor:pointer;flex:0 0 auto}
+  .gpxsw::-webkit-color-swatch{border:1px solid var(--edge);border-radius:5px}
+  .gpxsw::-webkit-color-swatch-wrapper{padding:0}
+  .gpxname{flex:1 1 auto;min-width:0;background:none;border:none;border-bottom:1px solid transparent;color:var(--ink);font:inherit;font-size:12px;padding:1px 2px;border-radius:3px}
+  .gpxname:hover{border-bottom-color:var(--edge)}
+  .gpxname:focus{outline:none;border-bottom-color:var(--accent);background:rgba(127,127,127,.10)}
+  .gpxwarn{flex:0 0 auto;color:#e0a83a;font-size:12px;cursor:default}
+  .gpxbtn{flex:0 0 auto;display:grid;place-items:center;background:none;border:none;color:var(--sub);cursor:pointer;padding:3px;line-height:0;border-radius:6px}
+  .gpxbtn:hover{color:var(--ink)}
+  .gpxbtn svg{width:15px;height:15px;display:block}
+  .gpxbtn[aria-pressed="true"]{color:var(--accent)}
+  /* HKS-106: on-map GPX Start/End labels — DOM, constant screen size (like peak labels) */
+  .gpxlbl{position:fixed;z-index:6;transform:translate(-50%,-100%);display:flex;align-items:center;gap:3px;
+    padding:2px 7px 3px;border-radius:999px;font-size:11px;font-weight:600;line-height:1;white-space:nowrap;
+    color:#fff;letter-spacing:.02em;text-shadow:0 1px 2px rgba(0,0,0,.45);box-shadow:0 1px 5px rgba(0,0,0,.35);
+    pointer-events:none;user-select:none;-webkit-user-select:none}
+  .gpxlbl:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:8px;
+    background:linear-gradient(rgba(255,255,255,.6),transparent);transform:translateX(-50%)}
+  .gpxlbl svg{width:12px;height:12px;display:block}
+  .gpxlbl.start{background:#1f9d55;cursor:pointer;pointer-events:auto}
+  .gpxlbl.start:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .gpxlbl.end{background:#d64545}
+  @media (hover:hover){.gpxlbl.start:hover{background:#24b061}}
   button{background:var(--field);color:var(--ink);border:1px solid var(--field-edge);
     border-radius:8px;padding:6px 11px;cursor:pointer;font-size:11px;font-family:var(--sans);letter-spacing:.02em;
     transition:border-color .12s, background .12s}
@@ -910,6 +942,13 @@
       <label class="chk"><input type="checkbox" id="stationswind"/> <span data-i18n="ov.stationswind">+ wind/marine stns</span></label>
     </div>
     <div class="chks" id="layers" style="margin-top:4px"></div>
+  </div>
+
+  <div class="grp">
+    <div class="gt" data-i18n="grp.gpx">Trails · GPX</div>
+    <div id="gpxdrop" class="gpxdrop" tabindex="0" role="button" data-i18n="gpx.drop">Drop GPX files here, or tap to load</div>
+    <input id="gpxfile" type="file" accept=".gpx,application/gpx+xml,application/xml,text/xml" multiple hidden/>
+    <div id="gpxlist" class="gpxlist"></div>
   </div>
 
   <div class="grp">
