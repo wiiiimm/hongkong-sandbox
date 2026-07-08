@@ -96,7 +96,7 @@ const I18N = {
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
-    'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
+    'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.pause': 'Pause', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
     'grp.weather': 'Weather', 'lbl.sound': 'Sound', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves', 'wx.snow': 'Snow',
     'lbl.skyheight': 'Sky height ×',
@@ -187,7 +187,7 @@ const I18N = {
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
-    'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
+    'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.pause': '暫停', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
     'grp.weather': '天氣', 'lbl.sound': '音效', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪', 'wx.snow': '雪',
     'lbl.skyheight': '天空高度 ×',
@@ -4223,7 +4223,7 @@ function enterFlight() {
   if (stargaze.on) exitStargaze();
   flight.on = true;
   flight.prevSpin = spinDir; spinDir = 0;              // the world holds still while you fly
-  document.getElementById('spindir').value = '0';
+  syncSpinSeg();
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
   planeGrp.visible = true;
   applyLookFilter(planeGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
@@ -4277,7 +4277,7 @@ function exitFlight() {
   if (planeGrp) planeGrp.visible = false;
   document.getElementById('flybtn').classList.remove('on');
   spinDir = flight.prevSpin;
-  document.getElementById('spindir').value = String(spinDir);
+  syncSpinSeg();
   setEngine(0);
   setTopMode(null);
   updateSpeedGauge();                                 // park the gauge at —
@@ -4581,7 +4581,7 @@ function enterWalk(startLocal) {
   if (stargaze.on) exitStargaze();
   walk.on = true;
   walk.prevSpin = spinDir; spinDir = 0;
-  document.getElementById('spindir').value = '0';
+  syncSpinSeg();
   const b0 = bounds();
   // seed from a given world-local point (e.g. GPS "walk from here", HKS-83) or the view centre
   const t0 = startLocal ? new THREE.Vector3(startLocal.x, 0, startLocal.z) : world.worldToLocal(controls.target.clone());
@@ -4630,7 +4630,7 @@ function exitWalk() {
   document.getElementById('walkbtn').classList.remove('on');
   document.body.classList.remove('flying', 'walking');
   spinDir = walk.prevSpin;
-  document.getElementById('spindir').value = String(spinDir);
+  syncSpinSeg();
   camera.fov = 38; camera.updateProjectionMatrix();
   camera.up.set(0, 1, 0);
   controls.enabled = true;
@@ -4762,7 +4762,7 @@ function centreOnMarker(ease, panOnly) {
   let camTo;
   if (panOnly) camTo = camera.position.clone().add(tgt.clone().sub(controls.target));   // shift camera by the same delta
   else {
-    if (spinDir !== 0) { geo.prevSpin = spinDir; spinDir = 0; document.getElementById('spindir').value = '0'; }
+    if (spinDir !== 0) { geo.prevSpin = spinDir; spinDir = 0; syncSpinSeg(); }
     const dist = bounds().span * 0.14;
     let dir = camera.position.clone().sub(controls.target); dir.y = Math.max(dir.y, dist * 0.3);
     if (dir.lengthSq() < 1) dir.set(0, dist, dist);
@@ -4903,7 +4903,7 @@ function removeMarker() {
   if (geo.el) geo.el.style.display = 'none';
   if (geo.ring) geo.ring.visible = false;
   locateBtn.classList.remove('on');
-  if (geo.prevSpin != null) { spinDir = geo.prevSpin; document.getElementById('spindir').value = String(spinDir); geo.prevSpin = null; }
+  if (geo.prevSpin != null) { spinDir = geo.prevSpin; syncSpinSeg(); geo.prevSpin = null; }
 }
 function geoInBounds() {                                   // is the stored fix on the active source's grid?
   if (!geo.has || !curG) return false;
@@ -4917,7 +4917,7 @@ function setCompassView(on) {
   geo.compass = on;
   if (!on) controls.enabled = true;                        // restore orbit on exit (updateCompassView won't run)
   locateBtn.classList.toggle('compass', on);
-  if (on && spinDir !== 0) { geo.prevSpin = spinDir; spinDir = 0; document.getElementById('spindir').value = '0'; }
+  if (on && spinDir !== 0) { geo.prevSpin = spinDir; spinDir = 0; syncSpinSeg(); }
   if (on && typeof DeviceOrientationEvent === 'undefined') geoToast(t('loc.nocompass'));   // device has no compass at all
 }
 function updateCompassView() {                            // per-frame camera drive; called from animate()
@@ -5549,7 +5549,7 @@ function enterStargaze() {
   if (walk.on) exitWalk();
   stargaze.on = true;
   stargaze.prevSpin = spinDir; spinDir = 0;             // the world holds still under the sky
-  document.getElementById('spindir').value = '0';
+  syncSpinSeg();
   // anchor at the current view centre, eye 1.7 m over the DEM
   const b = bounds();
   const t0 = world.worldToLocal(controls.target.clone());
@@ -5617,7 +5617,7 @@ function exitStargaze() {
     stargaze.prevWx = null;
   }
   spinDir = stargaze.prevSpin;
-  document.getElementById('spindir').value = String(spinDir);
+  syncSpinSeg();
   camera.fov = 38; camera.updateProjectionMatrix();
   camera.up.set(0, 1, 0);
   controls.enabled = true;
@@ -6739,7 +6739,17 @@ function flashGpxNote(msg) {
   drop.addEventListener('drop', e => { if (e.dataTransfer) readFiles(e.dataTransfer.files); });
 })();
 if (FLY_DEBUG) window.__gpx = { addGpxText, gpxTrails, redrapeGpx, toggleTrailAnim, setTrailPlaying, stepGpxAnim, applyTrailProgress, panToTrail, updateGpxLabels, trailStats, elevChartSvg, trailStatChips, getTarget: () => ({ x: controls.target.x, y: controls.target.y, z: controls.target.z }), get group() { return gpxGroup; } };
-document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); if (e.isTrusted) track('spin', { dir: spinDir > 0 ? 'cw' : spinDir < 0 ? 'ccw' : 'off' }); });
+// auto-spin direction is a segmented control (⟲ left / ⏸ pause / ⟳ right); syncSpinSeg
+// reflects the current spinDir, and every mode transition that used to set the old
+// <select>'s .value now calls it instead.
+function syncSpinSeg() {
+  const seg = document.getElementById('spinseg'); if (!seg) return;
+  for (const b of seg.children) b.setAttribute('aria-pressed', parseInt(b.dataset.dir, 10) === spinDir ? 'true' : 'false');
+}
+for (const b of document.querySelectorAll('#spinseg button')) {
+  b.addEventListener('click', () => { spinDir = parseInt(b.dataset.dir, 10); syncSpinSeg(); syncUrl(); track('spin', { dir: spinDir > 0 ? 'cw' : spinDir < 0 ? 'ccw' : 'off' }); });
+}
+syncSpinSeg();
 document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = parseFloat(e.target.value); });
 const panelEl = document.getElementById('panel');
 document.getElementById('collapse-btn').addEventListener('click', () => { panelEl.classList.add('collapsed'); track('panel_collapse', { via: 'panel' }); });
@@ -8203,7 +8213,7 @@ function applyState(p) {
   if (p.has('mc')) setWireColor('#' + p.get('mc'));
   if (p.has('sc')) setSolidColor('#' + p.get('sc'));
   if (p.has('tx')) { texRot = parseFloat(p.get('tx')) || 0; applyTexRot(); }   // topo raster rotation
-  if (p.has('sp')) setVal('spindir', p.get('sp'));
+  if (p.has('sp')) { spinDir = parseInt(p.get('sp'), 10); syncSpinSeg(); }
   if (p.has('ss')) setVal('spinspd', p.get('ss'), 'input');
   if (p.has('fo')) setChk('fog', p.get('fo') === '1');
   if (p.has('ra')) setChk('rain', p.get('ra') === '1');

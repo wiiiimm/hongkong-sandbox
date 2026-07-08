@@ -18,7 +18,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v8';
+const VERSION = 'hks-sandbox-v9';
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official

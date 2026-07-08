@@ -277,6 +277,12 @@
     transition:border-color .12s, background .12s}
   button:hover{background:rgba(255,255,255,.08);border-color:var(--accent)}
   .btns{display:flex;gap:6px;flex-wrap:wrap}
+  /* segmented control (auto-spin direction: spin-left / pause / spin-right) */
+  .seg{display:flex;flex:1;min-width:0;border:1px solid var(--field-edge);border-radius:8px;overflow:hidden;background:var(--field)}
+  .seg button{flex:1;border:none;border-radius:0;background:none;color:var(--sub);padding:6px 0;font-size:15px;line-height:1;transition:background .12s,color .12s}
+  .seg button + button{border-left:1px solid var(--field-edge)}
+  .seg button:hover{background:rgba(255,255,255,.06);color:var(--ink);border-color:transparent}
+  .seg button[aria-pressed="true"]{background:var(--accent-dim);color:var(--accent)}
   /* HKS-92: share trigger icon (panel header + brand chip) */
   .shareico{flex:0 0 auto;width:26px;height:26px;padding:0;display:grid;place-items:center;border-radius:8px;
     background:none;border:1px solid transparent;color:var(--ink);cursor:pointer;pointer-events:auto;transition:color .12s,background .12s}
@@ -965,7 +971,11 @@
   <div class="grp">
     <div class="gt" data-i18n="grp.spin">Auto‑spin (horizontal)</div>
     <div class="row"><label class="k" data-i18n="lbl.direction">Direction</label>
-      <select id="spindir"><option value="0" data-i18n="spin.off">Off</option><option value="1" selected data-i18n="spin.cw">⟳ Clockwise</option><option value="-1" data-i18n="spin.ccw">⟲ Counter‑cw</option></select>
+      <div id="spinseg" class="seg" role="group" data-i18n-aria-label="lbl.direction">
+        <button type="button" data-dir="-1" data-i18n-title="spin.ccw" data-i18n-aria-label="spin.ccw" title="⟲ Counter‑cw" aria-label="⟲ Counter‑cw">⟲</button>
+        <button type="button" data-dir="0" data-i18n-title="spin.pause" data-i18n-aria-label="spin.pause" title="Pause" aria-label="Pause">⏸</button>
+        <button type="button" data-dir="1" data-i18n-title="spin.cw" data-i18n-aria-label="spin.cw" title="⟳ Clockwise" aria-label="⟳ Clockwise">⟳</button>
+      </div>
     </div>
     <div class="row"><label class="k" data-i18n="lbl.speed">Speed</label>
       <input id="spinspd" type="range" min="0.15" max="3" step="0.05" value="0.2"/>
