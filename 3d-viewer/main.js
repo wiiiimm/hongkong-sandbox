@@ -92,7 +92,7 @@ const I18N = {
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
-    'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file',
+    'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file', 'gpx.trail': 'Custom Trail', 'gpx.name': 'Trail name',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
@@ -183,7 +183,7 @@ const I18N = {
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
-    'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑',
+    'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑', 'gpx.trail': '自訂路徑', 'gpx.name': '路徑名稱',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
@@ -6348,6 +6348,8 @@ document.getElementById('landmarks').addEventListener('change', e => { if (e.isT
 let gpxGroup = null;
 const gpxTrails = [];                                    // { name, pts:[[lat,lon]], color, line, visible, off }
 const gpxColor = i => new THREE.Color().setHSL(((i * 137.508) % 360) / 360, 0.72, 0.56);   // golden-angle → distinct hues
+let gpxSeq = 0;                                          // monotonic — no number reuse after a removal
+const gpxName = () => `${t('gpx.trail')} #${++gpxSeq}`;  // locale-aware default; user-renamable (GPX <name> ignored, per spec)
 function ensureGpxGroup() { if (!gpxGroup) gpxGroup = new THREE.Group(); if (world && gpxGroup.parent !== world) world.add(gpxGroup); }
 function drapePts(pts) {                                  // [[lat,lon]] → in-bounds world Vector3[]
   const out = []; let off = 0; const lift = skinOffset() * 1.6;
@@ -6371,8 +6373,9 @@ function redrapeGpx() {                                   // source/VE changed �
   if (!gpxTrails.length) return;
   ensureGpxGroup();
   for (const tr of gpxTrails) buildTrailLine(tr);
-  renderGpxList();
+  syncGpxWarnings();     // update ⚠ in place — don't rebuild the list (would drop a name mid-edit)
 }
+function syncGpxWarnings() { for (const tr of gpxTrails) if (tr.warnEl) tr.warnEl.style.display = tr.off ? '' : 'none'; }
 function parseGpx(text) {                                 // → [{ name, pts:[[lat,lon]] }]
   const doc = new DOMParser().parseFromString(text, 'application/xml');
   if (doc.getElementsByTagName('parsererror').length) return [];
@@ -6395,7 +6398,7 @@ function addGpxText(text) {
   const tracks = parseGpx(text);
   if (!tracks.length) { flashGpxNote(t('gpx.bad')); return; }
   for (const trk of tracks) {
-    const tr = { name: trk.name, pts: trk.pts, color: gpxColor(gpxTrails.length), visible: true, line: null, off: 0 };
+    const tr = { name: gpxName(), pts: trk.pts, color: gpxColor(gpxTrails.length), visible: true, line: null, off: 0, warnEl: null };
     gpxTrails.push(tr); buildTrailLine(tr);
   }
   renderGpxList();
@@ -6412,12 +6415,16 @@ function renderGpxList() {
     const row = document.createElement('div'); row.className = 'gpxrow';
     const sw = document.createElement('input'); sw.type = 'color'; sw.className = 'gpxsw'; sw.value = '#' + tr.color.getHexString(); sw.title = t('gpx.colour');
     sw.addEventListener('input', () => { tr.color.set(sw.value); if (tr.line) tr.line.material.color.copy(tr.color); });
-    const nm = document.createElement('span'); nm.className = 'gpxname'; nm.textContent = tr.name + (tr.off ? ' ⚠' : ''); nm.title = tr.off ? t('gpx.offmap') : tr.name;
+    const nm = document.createElement('input'); nm.type = 'text'; nm.className = 'gpxname'; nm.value = tr.name; nm.spellcheck = false; nm.maxLength = 60; nm.setAttribute('aria-label', t('gpx.name'));
+    nm.addEventListener('input', () => { tr.name = nm.value; });
+    nm.addEventListener('keydown', e => { if (e.key === 'Enter') nm.blur(); });
+    const warn = document.createElement('span'); warn.className = 'gpxwarn'; warn.textContent = '⚠'; warn.title = t('gpx.offmap'); warn.style.display = tr.off ? '' : 'none';
+    tr.warnEl = warn;
     const vis = document.createElement('button'); vis.type = 'button'; vis.className = 'gpxbtn'; vis.textContent = tr.visible ? '👁' : '🙈'; vis.setAttribute('aria-pressed', tr.visible ? 'true' : 'false');
     vis.addEventListener('click', () => { tr.visible = !tr.visible; if (tr.line) tr.line.visible = tr.visible; vis.textContent = tr.visible ? '👁' : '🙈'; vis.setAttribute('aria-pressed', tr.visible ? 'true' : 'false'); });
     const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'gpxbtn'; rm.textContent = '✕'; rm.title = t('gpx.remove');
     rm.addEventListener('click', () => removeGpxTrail(tr));
-    row.append(sw, nm, vis, rm); list.appendChild(row);
+    row.append(sw, nm, warn, vis, rm); list.appendChild(row);
   }
 }
 let _gpxNoteT = null;

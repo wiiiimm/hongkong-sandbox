@@ -245,7 +245,10 @@
   .gpxsw{width:20px;height:20px;padding:0;border:none;border-radius:5px;background:none;cursor:pointer;flex:0 0 auto}
   .gpxsw::-webkit-color-swatch{border:1px solid var(--edge);border-radius:5px}
   .gpxsw::-webkit-color-swatch-wrapper{padding:0}
-  .gpxname{flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .gpxname{flex:1 1 auto;min-width:0;background:none;border:none;border-bottom:1px solid transparent;color:var(--ink);font:inherit;font-size:12px;padding:1px 2px;border-radius:3px}
+  .gpxname:hover{border-bottom-color:var(--edge)}
+  .gpxname:focus{outline:none;border-bottom-color:var(--accent);background:rgba(127,127,127,.10)}
+  .gpxwarn{flex:0 0 auto;color:#e0a83a;font-size:12px;cursor:default}
   .gpxbtn{flex:0 0 auto;background:none;border:none;color:var(--sub);cursor:pointer;font-size:13px;padding:2px 3px;line-height:1}
   .gpxbtn:hover{color:var(--ink)}
   button{background:var(--field);color:var(--ink);border:1px solid var(--field-edge);
