@@ -2151,12 +2151,14 @@ function eqAxis(now, ra, dec, out) {
   return out.set(Math.sin(az) * Math.cos(p.altitude), Math.sin(p.altitude), -Math.cos(az) * Math.cos(p.altitude));
 }
 function updateStars(now) {
-  // fade: 0 above -4° sun altitude → 1 below -10°; a bright high moon washes stars out
+  // Stargaze shows stars no matter what (its sky is dimmed for it). Normal mode fades
+  // them in from ~2 h before sunset (sun ≈ +20°) to full night by −10°; a bright high
+  // moon still washes them out a little (skipped in Stargaze so they always read).
   const sunAltD = cel.sunAlt / D2R;
-  let fade = Math.max(0, Math.min(1, (-4 - sunAltD) / 6));
-  if (skySim.on && fade > 0 && cel.moonAlt > 0) fade *= 1 - 0.25 * cel.frac * Math.sin(cel.moonAlt);
+  let fade = stargaze.on ? 1 : Math.max(0, Math.min(1, (20 - sunAltD) / 30));
+  if (!stargaze.on && skySim.on && fade > 0 && cel.moonAlt > 0) fade *= 1 - 0.25 * cel.frac * Math.sin(cel.moonAlt);
   starGroup.userData.fade0 = fade;   // HKS-101: pre-cloud fade — stepSky() applies the live cover per frame
-  starGroup.visible = skySim.on && fade > 0.01;
+  starGroup.visible = (skySim.on || stargaze.on) && fade > 0.01;
   if (!starGroup.visible) { conClearAll(); return; }   // daylight: drop any lit constellations
   // the whole celestial sphere turns as one rigid body: image the equatorial
   // basis through the same hour-angle math the sun/moon use, once a sim-minute
@@ -2212,7 +2214,7 @@ function stepSky() {   // per-frame sky life: twinkle clock, meteors, moon limb 
     // keeps its guaranteed-clear sky.
     const f0 = starGroup.userData.fade0 != null ? starGroup.userData.fade0 : starUniforms.uFade.value;
     let occ = 1;
-    if (cloudFieldActive()) {
+    if (!stargaze.on && cloudFieldActive()) {   // Stargaze keeps its guaranteed-clear sky — stars show no matter what
       _cfV.copy(camera.position); world.worldToLocal(_cfV);
       occ = 1 - 0.94 * Math.min(1, Math.max(0, (cloudCoverAt(_cfV.x, _cfV.z) - 0.12) / 0.55));
     }

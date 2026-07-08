@@ -707,6 +707,8 @@
   input[type=range]:disabled{opacity:.45;cursor:not-allowed}
   input[type=checkbox]:disabled{opacity:.45;cursor:not-allowed}
   select:disabled{opacity:.45;cursor:not-allowed}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  button:disabled:hover{background:var(--field);border-color:var(--field-edge)}
   .chk input:disabled + *, label.chk:has(input:disabled){opacity:.5;cursor:not-allowed}
 
   /* ---- touch ergonomics: bigger tap targets on coarse pointers (HKS-16) ---- */
