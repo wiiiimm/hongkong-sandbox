@@ -91,7 +91,7 @@ const I18N = {
     'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
-    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
+    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns', 'ov.lift': 'Overlay height',
     'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file', 'gpx.trail': 'Custom Trail', 'gpx.name': 'Trail name', 'gpx.start': 'Start', 'gpx.end': 'End', 'gpx.play': 'Play trail', 'gpx.pause': 'Pause', 'gpx.pan': 'Pan to trail', 'gpx.show': 'Show trail', 'gpx.hide': 'Hide trail',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
@@ -182,7 +182,7 @@ const I18N = {
     'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
-    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
+    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站', 'ov.lift': '疊層高度',
     'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑', 'gpx.trail': '自訂路徑', 'gpx.name': '路徑名稱', 'gpx.start': '起點', 'gpx.end': '終點', 'gpx.play': '播放路徑', 'gpx.pause': '暫停', 'gpx.pan': '移至路徑', 'gpx.show': '顯示路徑', 'gpx.hide': '隱藏路徑',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
@@ -334,7 +334,8 @@ function sampleE(col, row) {
   const a = elev[r0*W+c0], b = elev[r0*W+c0+1], c = elev[(r0+1)*W+c0], d = elev[(r0+1)*W+c0+1];
   return (a*(1-fc)+b*fc)*(1-fr) + (c*(1-fc)+d*fc)*fr;
 }
-const skinOffset = () => 0.3 * VE; // ground-hugging lift ≈ 0.3 m (× VE): polygonOffset on the terrain fill carries z-fighting, so this only needs to clear geometric poke-through on coarse ridges. Was cell*0.6 (≈42 m) — which floated overlays above your head in walk mode.
+let skinLift = 3;                   // overlay drape height (world m above the surface), user-tunable via the Overlays slider (0.5–50 m). polygonOffset on the terrain fill carries z-fighting; this only clears geometric poke-through on coarse ridges. Was cell*0.6 (≈42 m) — which floated overlays above your head in walk mode.
+const skinOffset = () => skinLift;
 
 // ---- load a source ---------------------------------------------------------
 async function loadSource(id) {
@@ -6309,6 +6310,11 @@ document.getElementById('bg').addEventListener('change', e => { applyBg(e.target
 document.getElementById('ve').addEventListener('input', e => {
   VE = parseFloat(e.target.value); document.getElementById('vev').textContent = VE.toFixed(1); applyVE();
 });
+{ const sl = document.getElementById('skinlift'), slv = document.getElementById('skinliftv');   // HKS: overlay drape height (0.5–50 m)
+  const sync = () => { slv.textContent = skinLift.toFixed(skinLift < 10 ? 1 : 0) + ' m'; };
+  sl.addEventListener('input', () => { skinLift = parseFloat(sl.value); sync(); applyVE(); });    // live re-drape
+  sl.addEventListener('change', e => { if (e.isTrusted) track('overlay_height', { m: skinLift }); });   // once on commit
+  sync(); }
 document.getElementById('meshlines').addEventListener('change', e => { wireOverlay.visible = e.target.checked; if (e.isTrusted) track('layer_toggle', { layer: 'meshlines', on: e.target.checked }); });
 const meshdens = document.getElementById('meshdens'), meshdensv = document.getElementById('meshdensv');
 const densStep = () => 13 - parseInt(meshdens.value, 10);   // slider right = finest (step 1)
