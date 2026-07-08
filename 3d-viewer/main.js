@@ -6487,7 +6487,7 @@ function setTrailPlaying(tr, on) {
   applyTrailVisual(tr);
   refreshGpxStartLabel(tr); syncGpxPlayBtns();
 }
-function toggleTrailAnim(tr) { if (tr.anim) setTrailPlaying(tr, !tr.playing); }
+function toggleTrailAnim(tr) { if (tr.anim) { setTrailPlaying(tr, !tr.playing); track('gpx_play', { on: tr.playing }); } }
 function syncGpxPlayBtns() {
   for (const tr of gpxTrails) if (tr.playBtn) {
     tr.playBtn.innerHTML = svgIcon(tr.playing ? 'pause' : 'play');
@@ -6572,14 +6572,16 @@ function parseGpx(text) {                                 // → [{ name, pts:[[
 function addGpxText(text) {
   ensureGpxGroup();
   const tracks = parseGpx(text);
-  if (!tracks.length) { flashGpxNote(t('gpx.bad')); return; }
+  if (!tracks.length) { flashGpxNote(t('gpx.bad')); track('gpx_import', { trails: 0 }); return; }   // failed/empty import — funnel signal
+  const added = [];
   for (const trk of tracks) {
     const tr = { name: gpxName(), pts: trk.pts, times: trk.times, eles: trk.eles, hasTime: trk.hasTime, hasEle: trk.hasEle,
                  color: gpxColor(gpxTrails.length), visible: true, line: null, off: 0, warnEl: null,
                  startLbl: null, endLbl: null, startEN: null, endEN: null, centerLocal: null,
                  anim: null, playing: false, playBtn: null };
-    gpxTrails.push(tr); buildTrailLine(tr);
+    gpxTrails.push(tr); buildTrailLine(tr); added.push(tr);
   }
+  track('gpx_import', { trails: added.length, timed: added.some(t => t.hasTime), drew: added.some(t => !!t.line) });   // drew=false → landed off the loaded map
   renderGpxList();
 }
 function removeGpxTrail(tr) {
@@ -6596,9 +6598,11 @@ function renderGpxList() {
     const row = document.createElement('div'); row.className = 'gpxrow';
     const sw = document.createElement('input'); sw.type = 'color'; sw.className = 'gpxsw'; sw.value = '#' + tr.color.getHexString(); sw.title = t('gpx.colour');
     sw.addEventListener('input', () => { tr.color.set(sw.value); if (tr.line) tr.line.material.color.copy(tr.color); if (tr.anim) { if (tr.anim.bright) tr.anim.bright.material.color.copy(tr.color); if (tr.anim.dot) tr.anim.dot.material.color.copy(tr.color); } });
+    sw.addEventListener('change', e => { if (e.isTrusted) track('gpx_recolour'); });   // once on commit, not per drag frame
     const nm = document.createElement('input'); nm.type = 'text'; nm.className = 'gpxname'; nm.value = tr.name; nm.spellcheck = false; nm.maxLength = 60; nm.setAttribute('aria-label', t('gpx.name'));
     nm.addEventListener('input', () => { tr.name = nm.value; });
     nm.addEventListener('keydown', e => { if (e.key === 'Enter') nm.blur(); });
+    nm.addEventListener('change', e => { if (e.isTrusted) track('gpx_rename'); });      // commit only (blur/Enter), never the name text
     const warn = document.createElement('span'); warn.className = 'gpxwarn'; warn.textContent = '⚠'; warn.title = t('gpx.offmap'); warn.style.display = tr.off ? '' : 'none';
     tr.warnEl = warn;
     const pan = document.createElement('button'); pan.type = 'button'; pan.className = 'gpxbtn'; pan.innerHTML = svgIcon('target'); pan.title = t('gpx.pan'); pan.setAttribute('aria-label', t('gpx.pan'));
@@ -6609,12 +6613,13 @@ function renderGpxList() {
       if (tr.line) tr.line.visible = tr.visible;
       applyTrailVisual(tr);                                // re-derive bright/dot visibility; labels follow tr.visible next frame
       vis.innerHTML = svgIcon(tr.visible ? 'eye' : 'eye-off'); vis.title = t(tr.visible ? 'gpx.hide' : 'gpx.show'); vis.setAttribute('aria-pressed', tr.visible ? 'true' : 'false');
+      track('gpx_visibility', { on: tr.visible });
     });
     const play = document.createElement('button'); play.type = 'button'; play.className = 'gpxbtn'; play.innerHTML = svgIcon(tr.playing ? 'pause' : 'play'); play.title = t(tr.playing ? 'gpx.pause' : 'gpx.play'); play.setAttribute('aria-pressed', tr.playing ? 'true' : 'false');
     play.addEventListener('click', () => toggleTrailAnim(tr));
     tr.playBtn = play;
     const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'gpxbtn'; rm.innerHTML = svgIcon('x'); rm.title = t('gpx.remove'); rm.setAttribute('aria-label', t('gpx.remove'));
-    rm.addEventListener('click', () => removeGpxTrail(tr));
+    rm.addEventListener('click', () => { track('gpx_remove'); removeGpxTrail(tr); });
     row.append(sw, nm, warn, pan, vis, rm, play); list.appendChild(row);
   }
 }
