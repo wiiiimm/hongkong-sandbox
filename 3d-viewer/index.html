@@ -249,8 +249,21 @@
   .gpxname:hover{border-bottom-color:var(--edge)}
   .gpxname:focus{outline:none;border-bottom-color:var(--accent);background:rgba(127,127,127,.10)}
   .gpxwarn{flex:0 0 auto;color:#e0a83a;font-size:12px;cursor:default}
-  .gpxbtn{flex:0 0 auto;background:none;border:none;color:var(--sub);cursor:pointer;font-size:13px;padding:2px 3px;line-height:1}
+  .gpxbtn{flex:0 0 auto;display:grid;place-items:center;background:none;border:none;color:var(--sub);cursor:pointer;padding:3px;line-height:0;border-radius:6px}
   .gpxbtn:hover{color:var(--ink)}
+  .gpxbtn svg{width:15px;height:15px;display:block}
+  .gpxbtn[aria-pressed="true"]{color:var(--accent)}
+  /* HKS-106: on-map GPX Start/End labels — DOM, constant screen size (like peak labels) */
+  .gpxlbl{position:fixed;z-index:6;transform:translate(-50%,-100%);display:flex;align-items:center;gap:3px;
+    padding:2px 7px 3px;border-radius:999px;font-size:11px;font-weight:600;line-height:1;white-space:nowrap;
+    color:#fff;letter-spacing:.02em;text-shadow:0 1px 2px rgba(0,0,0,.45);box-shadow:0 1px 5px rgba(0,0,0,.35);
+    pointer-events:none;user-select:none;-webkit-user-select:none}
+  .gpxlbl:before{content:'';position:absolute;left:50%;top:100%;width:1px;height:8px;
+    background:linear-gradient(rgba(255,255,255,.6),transparent);transform:translateX(-50%)}
+  .gpxlbl svg{width:12px;height:12px;display:block}
+  .gpxlbl.start{background:#1f9d55;cursor:pointer;pointer-events:auto}
+  .gpxlbl.end{background:#d64545}
+  @media (hover:hover){.gpxlbl.start:hover{background:#24b061}}
   button{background:var(--field);color:var(--ink);border:1px solid var(--field-edge);
     border-radius:8px;padding:6px 11px;cursor:pointer;font-size:11px;font-family:var(--sans);letter-spacing:.02em;
     transition:border-color .12s, background .12s}
