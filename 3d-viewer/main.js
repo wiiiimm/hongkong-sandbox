@@ -91,7 +91,7 @@ const I18N = {
     'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
-    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
+    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns', 'ov.lift': 'Overlay height',
     'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file', 'gpx.trail': 'Custom Trail', 'gpx.name': 'Trail name', 'gpx.start': 'Start', 'gpx.end': 'End', 'gpx.play': 'Play trail', 'gpx.pause': 'Pause', 'gpx.pan': 'Pan to trail', 'gpx.show': 'Show trail', 'gpx.hide': 'Hide trail',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
@@ -182,7 +182,7 @@ const I18N = {
     'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
-    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
+    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站', 'ov.lift': '疊層高度',
     'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑', 'gpx.trail': '自訂路徑', 'gpx.name': '路徑名稱', 'gpx.start': '起點', 'gpx.end': '終點', 'gpx.play': '播放路徑', 'gpx.pause': '暫停', 'gpx.pan': '移至路徑', 'gpx.show': '顯示路徑', 'gpx.hide': '隱藏路徑',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
@@ -334,7 +334,8 @@ function sampleE(col, row) {
   const a = elev[r0*W+c0], b = elev[r0*W+c0+1], c = elev[(r0+1)*W+c0], d = elev[(r0+1)*W+c0+1];
   return (a*(1-fc)+b*fc)*(1-fr) + (c*(1-fc)+d*fc)*fr;
 }
-const skinOffset = () => cell * 0.6; // lift lines just above the surface, scaled to grid
+let skinLift = 25;                  // overlay drape height (world m above the surface), user-tunable via the Overlays slider (0.5–50 m); URL-synced as 'oh'. polygonOffset on the terrain fill carries z-fighting; this only clears geometric poke-through on coarse ridges. Was cell*0.6 (≈42 m) — which floated overlays above your head in walk mode.
+const skinOffset = () => skinLift;
 
 // ---- load a source ---------------------------------------------------------
 async function loadSource(id) {
@@ -705,6 +706,11 @@ function buildTerrain() {
   matMatte  = new THREE.MeshStandardMaterial({ color: 0x8a8f86, roughness: 1, metalness: 0 });
   matSolid  = new THREE.MeshBasicMaterial({ color: solidColor });                  // flat solid fill
   matTopo   = new THREE.MeshBasicMaterial({});   // unlit: show the map flat, no hillshade darkening
+  // Push the terrain fill back a hair in the depth buffer so draped vector lines
+  // (roads / coastline / contours / GPX) render on the surface with only a tiny
+  // geometric lift — polygonOffset auto-scales with view distance, so there's no
+  // z-fighting from orbit AND no 42 m float that put overlays above your head afoot.
+  [matShaded, matTint, matMatte, matSolid, matTopo].forEach(m => { m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1; });
   tidalMats.length = 0;
   [matShaded, matTint, matMatte].forEach(m => attachTerrainFX(m, true));   // wet band + shadows + fog
   [matSolid, matTopo].forEach(m => attachTerrainFX(m, false));             // raster/solid: shadows + fog only
@@ -1438,7 +1444,7 @@ async function buildWebMap(kind) {
   webTex = new THREE.CanvasTexture(cv);
   webTex.colorSpace = THREE.SRGBColorSpace;
   webTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  if (!matWeb) { matWeb = new THREE.MeshBasicMaterial(); attachTerrainFX(matWeb, false); }
+  if (!matWeb) { matWeb = new THREE.MeshBasicMaterial(); matWeb.polygonOffset = true; matWeb.polygonOffsetFactor = 1; matWeb.polygonOffsetUnits = 1; attachTerrainFX(matWeb, false); }
   matWeb.map = webTex; matWeb.needsUpdate = true;
   webKind = kind;
 }
@@ -6304,6 +6310,11 @@ document.getElementById('bg').addEventListener('change', e => { applyBg(e.target
 document.getElementById('ve').addEventListener('input', e => {
   VE = parseFloat(e.target.value); document.getElementById('vev').textContent = VE.toFixed(1); applyVE();
 });
+{ const sl = document.getElementById('skinlift'), slv = document.getElementById('skinliftv');   // HKS: overlay drape height (0.5–50 m)
+  const sync = () => { slv.textContent = skinLift.toFixed(skinLift < 10 ? 1 : 0) + ' m'; };
+  sl.addEventListener('input', () => { skinLift = parseFloat(sl.value); sync(); applyVE(); });    // live re-drape
+  sl.addEventListener('change', e => { if (e.isTrusted) track('overlay_height', { m: skinLift }); });   // once on commit
+  sync(); }
 document.getElementById('meshlines').addEventListener('change', e => { wireOverlay.visible = e.target.checked; if (e.isTrusted) track('layer_toggle', { layer: 'meshlines', on: e.target.checked }); });
 const meshdens = document.getElementById('meshdens'), meshdensv = document.getElementById('meshdensv');
 const densStep = () => 13 - parseInt(meshdens.value, 10);   // slider right = finest (step 1)
@@ -8020,6 +8031,7 @@ function serializeState() {
   p.set('surf', g('surf').value);
   p.set('bg', g('bg').value);
   p.set('ve', g('ve').value);
+  p.set('oh', g('skinlift').value);   // overlay drape height (m)
   p.set('d', String(meshStep));
   p.set('ml', g('meshlines').checked ? '1' : '0');
   p.set('w', g('water').checked ? '1' : '0');
@@ -8091,6 +8103,7 @@ function applyState(p) {
   if (p.has('bg'))   setVal('bg', p.get('bg'));
   if (p.has('surf')) setVal('surf', p.get('surf'));
   if (p.has('ve'))   setVal('ve', p.get('ve'), 'input');
+  if (p.has('oh'))   setVal('skinlift', p.get('oh'), 'input');
   if (p.has('d'))    setVal('meshdens', String(13 - parseInt(p.get('d'), 10)), 'change');
   if (p.has('ml'))   setChk('meshlines', p.get('ml') === '1');
   if (p.has('w'))    setChk('water', p.get('w') === '1');
@@ -8344,7 +8357,7 @@ applyLocale(locale);
 // "State" is decided by the canonical key set below — NOT "any unknown key" — so a
 // marketing/tracking link (?utm_source=…, ?fbclid=…), a lang-only or embed-only URL
 // still lands on the curated default, with its own extra params carried through.
-const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
+const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&oh=25&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
 const urlParams = new URLSearchParams(location.search);
 // Always start from the curated default and overlay whatever the URL carries. A full
 // shared link sets every core key so it overrides the default entirely; a partial link
