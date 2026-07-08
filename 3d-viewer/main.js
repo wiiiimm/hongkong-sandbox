@@ -334,7 +334,7 @@ function sampleE(col, row) {
   const a = elev[r0*W+c0], b = elev[r0*W+c0+1], c = elev[(r0+1)*W+c0], d = elev[(r0+1)*W+c0+1];
   return (a*(1-fc)+b*fc)*(1-fr) + (c*(1-fc)+d*fc)*fr;
 }
-const skinOffset = () => 0.6 * VE; // small lift ≈ 0.6 m (× VE) — the terrain fill's polygonOffset carries z-fighting, so draped lines sit ON the ground instead of floating cell*0.6 (≈42 m) above it (HKS: overlays over your head in walk mode)
+const skinOffset = () => 0.3 * VE; // ground-hugging lift ≈ 0.3 m (× VE): polygonOffset on the terrain fill carries z-fighting, so this only needs to clear geometric poke-through on coarse ridges. Was cell*0.6 (≈42 m) — which floated overlays above your head in walk mode.
 
 // ---- load a source ---------------------------------------------------------
 async function loadSource(id) {
