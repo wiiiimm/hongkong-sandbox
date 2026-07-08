@@ -6362,7 +6362,7 @@ const gpxColor = i => new THREE.Color().setHSL(((i * 137.508) % 360) / 360, 0.72
 let gpxSeq = 0;                                          // monotonic — no number reuse after a removal
 const gpxName = () => `${t('gpx.trail')} #${++gpxSeq}`;  // locale-aware default; user-renamable (GPX <name> ignored, per spec)
 function ensureGpxGroup() { if (!gpxGroup) gpxGroup = new THREE.Group(); if (world && gpxGroup.parent !== world) world.add(gpxGroup); }
-function drapeSegments(pts) {                            // [[lat,lon]] → flat segment-pair verts; breaks at off-map gaps (codex)
+function drapeSegments(pts, breaks) {                    // [[lat,lon]] → flat segment-pair verts; breaks at off-map gaps AND <trkseg> discontinuities (codex)
   const verts = [], segs = []; let off = 0; const lift = skinOffset() * 1.6;
   let prev = null, prevIn = false, prevI = -1;
   for (let i = 0; i < pts.length; i++) {
@@ -6370,7 +6370,8 @@ function drapeSegments(pts) {                            // [[lat,lon]] → flat
     const g = gpsToGrid(lat, lon), inB = !!(g && g.inBounds);
     if (!inB) off++;
     const v = inB ? new THREE.Vector3((g.col - W / 2) * cell, sampleE(g.col, g.row) * VE + lift, (g.row - H / 2) * cell) : null;
-    if (prevIn && inB) { verts.push(prev.x, prev.y, prev.z, v.x, v.y, v.z); segs.push([prevI, i]); }   // both on-map → emit segment + its pts indices
+    const brk = breaks && breaks.has(i);                 // don't chord across a segment discontinuity
+    if (prevIn && inB && !brk) { verts.push(prev.x, prev.y, prev.z, v.x, v.y, v.z); segs.push([prevI, i]); }   // both on-map → emit segment + its pts indices
     prev = v; prevIn = inB; prevI = i;
   }
   return { verts, off, segs };
@@ -6399,14 +6400,15 @@ function haversine(aLat, aLon, bLat, bLon) {
 }
 function trailStats(tr) {
   if (tr.stats) return tr.stats;
-  const pts = tr.pts, eles = tr.eles, times = tr.times;
+  const pts = tr.pts, eles = tr.eles, times = tr.times, breaks = tr.breaks;
   let dist = 0, gain = 0, loss = 0, minE = Infinity, maxE = -Infinity;
   const samples = []; let lastE = null;
   for (let i = 0; i < pts.length; i++) {
-    if (i > 0) dist += haversine(pts[i - 1][0], pts[i - 1][1], pts[i][0], pts[i][1]);
+    const brk = breaks && breaks.has(i);                 // <trkseg> discontinuity — the leg into it isn't a real move (codex P2)
+    if (i > 0 && !brk) dist += haversine(pts[i - 1][0], pts[i - 1][1], pts[i][0], pts[i][1]);
     const e = eles[i];
     if (e != null) {
-      if (lastE != null) { const de = e - lastE; if (de > 0) gain += de; else loss -= de; }
+      if (lastE != null && !brk) { const de = e - lastE; if (de > 0) gain += de; else loss -= de; }   // no ascent/descent across a gap
       lastE = e; minE = Math.min(minE, e); maxE = Math.max(maxE, e);
       samples.push({ d: dist, e });
     }
@@ -6594,7 +6596,7 @@ function trailPtEN(tr, i) { const p = tr.pts[i], g = gpsToGrid(p[0], p[1]); retu
 function buildTrailLine(tr) {
   if (tr.line) { gpxGroup.remove(tr.line); tr.line.geometry.dispose(); tr.line.material.dispose(); tr.line = null; }
   disposeGpxAnimObj(tr);
-  const { verts, off, segs } = drapeSegments(tr.pts); tr.off = off;
+  const { verts, off, segs } = drapeSegments(tr.pts, tr.breaks); tr.off = off;
   if (verts.length < 6) { tr.startEN = tr.endEN = null; tr.centerLocal = null; if (tr.playing) setTrailPlaying(tr, false); return; }   // fully off the loaded map
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
@@ -6618,29 +6620,40 @@ function redrapeGpx() {                                   // source/VE changed �
   syncGpxWarnings();     // update ⚠ in place — don't rebuild the list (would drop a name mid-edit)
 }
 function syncGpxWarnings() { for (const tr of gpxTrails) if (tr.warnEl) tr.warnEl.style.display = tr.off ? '' : 'none'; }
-function parseGpx(text) {                                 // → [{ name, pts:[[lat,lon]], times, eles, hasTime, hasEle }]
+function parseGpx(text) {                                 // → [{ name, pts:[[lat,lon]], times, eles, hasTime, hasEle, breaks:Set }]
   const doc = new DOMParser().parseFromString(text, 'application/xml');
   if (doc.getElementsByTagName('parsererror').length) return [];
-  const grab = (parent, tag) => {
-    const pts = [], times = [], eles = [];   // times = ms epoch | null, eles = metres | null (aligned to pts)
+  // `segments` = continuous runs (each <trkseg>); the first point of a later run marks a
+  // discontinuity (pause / GPS loss) so consumers don't join across it (codex P2).
+  const grab = (segments, tag) => {
+    const pts = [], times = [], eles = [], breaks = new Set();   // times ms|null, eles m|null (aligned to pts); breaks = indices that start a new run
     let hasTime = false, hasEle = false;
-    for (const p of parent.getElementsByTagName(tag)) {
-      const lat = +p.getAttribute('lat'), lon = +p.getAttribute('lon');
-      if (!(isFinite(lat) && isFinite(lon))) continue;
-      pts.push([lat, lon]);
-      const te = p.getElementsByTagName('time')[0];       // <trkpt>'s own child; trkpts have no deeper nesting
-      const ms = te ? Date.parse(te.textContent.trim()) : NaN;
-      if (isFinite(ms)) { times.push(ms); hasTime = true; } else times.push(null);
-      const ee = p.getElementsByTagName('ele')[0];
-      const m = ee ? parseFloat(ee.textContent) : NaN;
-      if (isFinite(m)) { eles.push(m); hasEle = true; } else eles.push(null);
+    for (const seg of segments) {
+      let first = true;
+      for (const p of seg.getElementsByTagName(tag)) {
+        const lat = +p.getAttribute('lat'), lon = +p.getAttribute('lon');
+        if (!(isFinite(lat) && isFinite(lon))) continue;
+        if (first && pts.length) breaks.add(pts.length);  // leg (prev run's end → here) is a gap, not a real move
+        first = false;
+        pts.push([lat, lon]);
+        const te = p.getElementsByTagName('time')[0];     // <trkpt>'s own child; trkpts have no deeper nesting
+        const ms = te ? Date.parse(te.textContent.trim()) : NaN;
+        if (isFinite(ms)) { times.push(ms); hasTime = true; } else times.push(null);
+        const ee = p.getElementsByTagName('ele')[0];
+        const m = ee ? parseFloat(ee.textContent) : NaN;
+        if (isFinite(m)) { eles.push(m); hasEle = true; } else eles.push(null);
+      }
     }
-    return { pts, times, eles, hasTime, hasEle };
+    return { pts, times, eles, hasTime, hasEle, breaks };
   };
   const nameOf = (el, dflt) => { const n = el.getElementsByTagName('name')[0]; return (n && n.textContent.trim()) || dflt; };
   const out = [];
-  for (const trk of doc.getElementsByTagName('trk')) { const g = grab(trk, 'trkpt'); if (g.pts.length >= 2) out.push({ name: nameOf(trk, 'Track'), ...g }); }
-  if (!out.length) for (const rte of doc.getElementsByTagName('rte')) { const g = grab(rte, 'rtept'); if (g.pts.length >= 2) out.push({ name: nameOf(rte, 'Route'), ...g }); }
+  for (const trk of doc.getElementsByTagName('trk')) {
+    const segs = trk.getElementsByTagName('trkseg');
+    const g = grab(segs.length ? [...segs] : [trk], 'trkpt');   // fall back to the whole <trk> if it has no <trkseg>
+    if (g.pts.length >= 2) out.push({ name: nameOf(trk, 'Track'), ...g });
+  }
+  if (!out.length) for (const rte of doc.getElementsByTagName('rte')) { const g = grab([rte], 'rtept'); if (g.pts.length >= 2) out.push({ name: nameOf(rte, 'Route'), ...g }); }
   return out;
 }
 function addGpxText(text) {
@@ -6649,7 +6662,7 @@ function addGpxText(text) {
   if (!tracks.length) { flashGpxNote(t('gpx.bad')); track('gpx_import', { trails: 0 }); return; }   // failed/empty import — funnel signal
   const added = [];
   for (const trk of tracks) {
-    const tr = { name: gpxName(), pts: trk.pts, times: trk.times, eles: trk.eles, hasTime: trk.hasTime, hasEle: trk.hasEle,
+    const tr = { name: gpxName(), pts: trk.pts, times: trk.times, eles: trk.eles, hasTime: trk.hasTime, hasEle: trk.hasEle, breaks: trk.breaks,
                  color: gpxColor(gpxTrails.length), visible: true, line: null, off: 0, warnEl: null,
                  startLbl: null, endLbl: null, startEN: null, endEN: null, centerLocal: null,
                  anim: null, playing: false, playBtn: null, expanded: false, stats: null };
