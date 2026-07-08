@@ -92,7 +92,7 @@ const I18N = {
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns', 'ov.lift': 'Overlay height',
-    'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file', 'gpx.trail': 'Custom Trail', 'gpx.name': 'Trail name', 'gpx.start': 'Start', 'gpx.end': 'End', 'gpx.play': 'Play trail', 'gpx.pause': 'Pause', 'gpx.pan': 'Pan to trail', 'gpx.show': 'Show trail', 'gpx.hide': 'Hide trail',
+    'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file', 'gpx.trail': 'Custom Trail', 'gpx.name': 'Trail name', 'gpx.start': 'Start', 'gpx.end': 'End', 'gpx.play': 'Play trail', 'gpx.pause': 'Pause', 'gpx.pan': 'Pan to trail', 'gpx.show': 'Show trail', 'gpx.hide': 'Hide trail', 'gpx.details': 'Elevation & stats', 'gpx.dist': 'Distance', 'gpx.dur': 'Time', 'gpx.avg': 'Avg',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
@@ -132,7 +132,7 @@ const I18N = {
     'help.fly.t': 'Flying', 'help.fly.b': 'Take off — tap the plane, press Space, or the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water',
     'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump · Shift or a two‑finger hold to run\nDrag to look around — 🖱 locks the mouse for look (Esc releases)\nPress C for first‑person / chase',
     'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🤳 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
-    'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings — Trails · GPX drops in your own tracks and plays them back (▶) start→end',
+    'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings — Trails · GPX drops in your own tracks, plays them back (▶) start→end, and shows each trail\'s elevation profile',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
     'loc.find': 'Find my location', 'loc.locating': 'Locating…', 'loc.you': 'You', 'loc.relocate': 'Re-locate',
     'loc.follow': 'Follow me', 'loc.following': 'Following', 'loc.stopfollow': 'Stop following',
@@ -183,7 +183,7 @@ const I18N = {
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站', 'ov.lift': '疊層高度',
-    'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑', 'gpx.trail': '自訂路徑', 'gpx.name': '路徑名稱', 'gpx.start': '起點', 'gpx.end': '終點', 'gpx.play': '播放路徑', 'gpx.pause': '暫停', 'gpx.pan': '移至路徑', 'gpx.show': '顯示路徑', 'gpx.hide': '隱藏路徑',
+    'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑', 'gpx.trail': '自訂路徑', 'gpx.name': '路徑名稱', 'gpx.start': '起點', 'gpx.end': '終點', 'gpx.play': '播放路徑', 'gpx.pause': '暫停', 'gpx.pan': '移至路徑', 'gpx.show': '顯示路徑', 'gpx.hide': '隱藏路徑', 'gpx.details': '高度與統計', 'gpx.dist': '距離', 'gpx.dur': '時間', 'gpx.avg': '平均',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
@@ -223,7 +223,7 @@ const I18N = {
     'help.fly.t': '飛行', 'help.fly.b': '起飛 — 點擊飛機、按空白鍵，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）',
     'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍 · Shift 或雙指按住奔跑\n拖曳環顧四周 — 🖱 鎖定滑鼠環視（Esc 解除）\n按 C 切換第一人稱 / 追尾',
     'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🤳 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
-    'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定 —— 「路徑 · GPX」可載入自己的路徑並回放（▶）由起點掃至終點',
+    'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定 —— 「路徑 · GPX」可載入自己的路徑、回放（▶）由起點掃至終點，並顯示各路徑的高度剖面',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
     'loc.find': '定位', 'loc.locating': '定位中…', 'loc.you': '你', 'loc.relocate': '重新定位',
     'loc.follow': '跟隨我', 'loc.following': '跟隨中', 'loc.stopfollow': '停止跟隨',
@@ -6362,7 +6362,7 @@ const gpxColor = i => new THREE.Color().setHSL(((i * 137.508) % 360) / 360, 0.72
 let gpxSeq = 0;                                          // monotonic — no number reuse after a removal
 const gpxName = () => `${t('gpx.trail')} #${++gpxSeq}`;  // locale-aware default; user-renamable (GPX <name> ignored, per spec)
 function ensureGpxGroup() { if (!gpxGroup) gpxGroup = new THREE.Group(); if (world && gpxGroup.parent !== world) world.add(gpxGroup); }
-function drapeSegments(pts) {                            // [[lat,lon]] → flat segment-pair verts; breaks at off-map gaps (codex)
+function drapeSegments(pts, breaks) {                    // [[lat,lon]] → flat segment-pair verts; breaks at off-map gaps AND <trkseg> discontinuities (codex)
   const verts = [], segs = []; let off = 0; const lift = skinOffset() * 1.6;
   let prev = null, prevIn = false, prevI = -1;
   for (let i = 0; i < pts.length; i++) {
@@ -6370,7 +6370,8 @@ function drapeSegments(pts) {                            // [[lat,lon]] → flat
     const g = gpsToGrid(lat, lon), inB = !!(g && g.inBounds);
     if (!inB) off++;
     const v = inB ? new THREE.Vector3((g.col - W / 2) * cell, sampleE(g.col, g.row) * VE + lift, (g.row - H / 2) * cell) : null;
-    if (prevIn && inB) { verts.push(prev.x, prev.y, prev.z, v.x, v.y, v.z); segs.push([prevI, i]); }   // both on-map → emit segment + its pts indices
+    const brk = breaks && breaks.has(i);                 // don't chord across a segment discontinuity
+    if (prevIn && inB && !brk) { verts.push(prev.x, prev.y, prev.z, v.x, v.y, v.z); segs.push([prevI, i]); }   // both on-map → emit segment + its pts indices
     prev = v; prevIn = inB; prevI = i;
   }
   return { verts, off, segs };
@@ -6382,9 +6383,73 @@ const ICON_PATHS = {
   play: '<path d="M7 4.5 20 12 7 19.5Z" fill="currentColor" stroke="none"/>',
   pause: '<path d="M7 4.5h3.4v15H7zM13.6 4.5H17v15h-3.4z" fill="currentColor" stroke="none"/>',
   target: '<circle cx="12" cy="12" r="8.5"/><line x1="12" y1="1.5" x2="12" y2="5.2"/><line x1="12" y1="18.8" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="5.2" y2="12"/><line x1="18.8" y1="12" x2="22.5" y2="12"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
-  x: '<line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/>'
+  x: '<line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/><line x1="18.5" y1="5.5" x2="5.5" y2="18.5"/>',
+  'chevron-down': '<path d="M6 9l6 6 6-6"/>',
+  'chevron-up': '<path d="M6 15l6-6 6 6"/>'
 };
 const svgIcon = n => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON_PATHS[n]}</svg>`;
+
+// ---- GPX per-trail profile: real-world stats + elevation chart (HKS-106) ----
+// Map-independent — computed from the GPX lat/lon/ele/time, so it works even for
+// a trail that lands off the loaded HK map. Cached on tr.stats (pts never change).
+function haversine(aLat, aLon, bLat, bLon) {
+  const R = 6371000, r = Math.PI / 180;
+  const dLa = (bLat - aLat) * r, dLo = (bLon - aLon) * r, la1 = aLat * r, la2 = bLat * r;
+  const h = Math.sin(dLa / 2) ** 2 + Math.cos(la1) * Math.cos(la2) * Math.sin(dLo / 2) ** 2;
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+function trailStats(tr) {
+  if (tr.stats) return tr.stats;
+  const pts = tr.pts, eles = tr.eles, times = tr.times, breaks = tr.breaks;
+  let dist = 0, gain = 0, loss = 0, minE = Infinity, maxE = -Infinity;
+  const samples = []; let lastE = null;
+  for (let i = 0; i < pts.length; i++) {
+    const brk = breaks && breaks.has(i);                 // <trkseg> discontinuity — the leg into it isn't a real move (codex P2)
+    if (i > 0 && !brk) dist += haversine(pts[i - 1][0], pts[i - 1][1], pts[i][0], pts[i][1]);
+    const e = eles[i];
+    if (e != null) {
+      if (lastE != null && !brk) { const de = e - lastE; if (de > 0) gain += de; else loss -= de; }   // no ascent/descent across a gap
+      lastE = e; minE = Math.min(minE, e); maxE = Math.max(maxE, e);
+      samples.push({ d: dist, e });
+    }
+  }
+  const t0 = times[0], t1 = times[times.length - 1];
+  const durMs = (tr.hasTime && t0 != null && t1 != null && t1 > t0) ? (t1 - t0) : 0;
+  const avgKmh = durMs > 0 ? (dist / (durMs / 1000)) * 3.6 : 0;   // total distance ÷ total time — robust (no GPS-spike max)
+  return (tr.stats = { distM: dist, gain, loss, minE: isFinite(minE) ? minE : null, maxE: isFinite(maxE) ? maxE : null, hasEle: tr.hasEle, durMs, avgKmh, samples });
+}
+function elevChartSvg(tr) {                                // elevation-vs-distance area chart (uniform-scaled viewBox)
+  const s = trailStats(tr), sm = s.samples;
+  if (!s.hasEle || sm.length < 2 || s.maxE === s.minE) return '';   // nothing to chart (no ele / flat)
+  const W = 240, H = 60, pad = 3, dmax = s.distM || 1, er = (s.maxE - s.minE) || 1;
+  const X = d => pad + (d / dmax) * (W - 2 * pad), Y = e => (H - pad) - ((e - s.minE) / er) * (H - 2 * pad);
+  let d = `M${X(sm[0].d).toFixed(1)} ${Y(sm[0].e).toFixed(1)}`;
+  for (let i = 1; i < sm.length; i++) d += ` L${X(sm[i].d).toFixed(1)} ${Y(sm[i].e).toFixed(1)}`;
+  const area = `${d} L${X(sm[sm.length - 1].d).toFixed(1)} ${H - pad} L${X(sm[0].d).toFixed(1)} ${H - pad} Z`;
+  const col = '#' + tr.color.getHexString();
+  return `<svg class="gpxchart" viewBox="0 0 ${W} ${H}" width="100%" aria-hidden="true">`
+    + `<path d="${area}" fill="${col}" fill-opacity="0.16" stroke="none"/>`
+    + `<path d="${d}" fill="none" stroke="${col}" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+}
+function trailStatChips(tr) {                              // small text stats: distance, gain/loss, duration, avg pace
+  const s = trailStats(tr), out = [];
+  out.push(`${t('gpx.dist')} ${s.distM >= 1000 ? (s.distM / 1000).toFixed(1) + ' km' : Math.round(s.distM) + ' m'}`);
+  if (s.hasEle && s.minE != null) out.push(`↑${Math.round(s.gain)} ↓${Math.round(s.loss)} m`);
+  if (s.durMs > 0) {
+    const mins = Math.round(s.durMs / 60000);
+    out.push(`${t('gpx.dur')} ${mins >= 60 ? Math.floor(mins / 60) + 'h' + String(mins % 60).padStart(2, '0') : mins + ' min'}`);
+    out.push(`${t('gpx.avg')} ${s.avgKmh.toFixed(1)} km/h`);
+  }
+  return out;
+}
+function fillTrailDetail(tr, el) {
+  el.textContent = '';
+  const chart = elevChartSvg(tr);
+  if (chart) { const c = document.createElement('div'); c.className = 'gpxchartwrap'; c.innerHTML = chart; el.appendChild(c); }
+  const stats = document.createElement('div'); stats.className = 'gpxstats';
+  for (const p of trailStatChips(tr)) { const sp = document.createElement('span'); sp.className = 'gpxstat'; sp.textContent = p; stats.appendChild(sp); }
+  el.appendChild(stats);
+}
 
 // ---- GPX start/end labels + trail playback (HKS-106) -----------------------
 const GPX_GHOST_OP = 0.28;                                // whole-trail opacity while a playback dot sweeps it
@@ -6531,7 +6596,7 @@ function trailPtEN(tr, i) { const p = tr.pts[i], g = gpsToGrid(p[0], p[1]); retu
 function buildTrailLine(tr) {
   if (tr.line) { gpxGroup.remove(tr.line); tr.line.geometry.dispose(); tr.line.material.dispose(); tr.line = null; }
   disposeGpxAnimObj(tr);
-  const { verts, off, segs } = drapeSegments(tr.pts); tr.off = off;
+  const { verts, off, segs } = drapeSegments(tr.pts, tr.breaks); tr.off = off;
   if (verts.length < 6) { tr.startEN = tr.endEN = null; tr.centerLocal = null; if (tr.playing) setTrailPlaying(tr, false); return; }   // fully off the loaded map
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
@@ -6555,29 +6620,40 @@ function redrapeGpx() {                                   // source/VE changed �
   syncGpxWarnings();     // update ⚠ in place — don't rebuild the list (would drop a name mid-edit)
 }
 function syncGpxWarnings() { for (const tr of gpxTrails) if (tr.warnEl) tr.warnEl.style.display = tr.off ? '' : 'none'; }
-function parseGpx(text) {                                 // → [{ name, pts:[[lat,lon]], times, eles, hasTime, hasEle }]
+function parseGpx(text) {                                 // → [{ name, pts:[[lat,lon]], times, eles, hasTime, hasEle, breaks:Set }]
   const doc = new DOMParser().parseFromString(text, 'application/xml');
   if (doc.getElementsByTagName('parsererror').length) return [];
-  const grab = (parent, tag) => {
-    const pts = [], times = [], eles = [];   // times = ms epoch | null, eles = metres | null (aligned to pts)
+  // `segments` = continuous runs (each <trkseg>); the first point of a later run marks a
+  // discontinuity (pause / GPS loss) so consumers don't join across it (codex P2).
+  const grab = (segments, tag) => {
+    const pts = [], times = [], eles = [], breaks = new Set();   // times ms|null, eles m|null (aligned to pts); breaks = indices that start a new run
     let hasTime = false, hasEle = false;
-    for (const p of parent.getElementsByTagName(tag)) {
-      const lat = +p.getAttribute('lat'), lon = +p.getAttribute('lon');
-      if (!(isFinite(lat) && isFinite(lon))) continue;
-      pts.push([lat, lon]);
-      const te = p.getElementsByTagName('time')[0];       // <trkpt>'s own child; trkpts have no deeper nesting
-      const ms = te ? Date.parse(te.textContent.trim()) : NaN;
-      if (isFinite(ms)) { times.push(ms); hasTime = true; } else times.push(null);
-      const ee = p.getElementsByTagName('ele')[0];
-      const m = ee ? parseFloat(ee.textContent) : NaN;
-      if (isFinite(m)) { eles.push(m); hasEle = true; } else eles.push(null);
+    for (const seg of segments) {
+      let first = true;
+      for (const p of seg.getElementsByTagName(tag)) {
+        const lat = +p.getAttribute('lat'), lon = +p.getAttribute('lon');
+        if (!(isFinite(lat) && isFinite(lon))) continue;
+        if (first && pts.length) breaks.add(pts.length);  // leg (prev run's end → here) is a gap, not a real move
+        first = false;
+        pts.push([lat, lon]);
+        const te = p.getElementsByTagName('time')[0];     // <trkpt>'s own child; trkpts have no deeper nesting
+        const ms = te ? Date.parse(te.textContent.trim()) : NaN;
+        if (isFinite(ms)) { times.push(ms); hasTime = true; } else times.push(null);
+        const ee = p.getElementsByTagName('ele')[0];
+        const m = ee ? parseFloat(ee.textContent) : NaN;
+        if (isFinite(m)) { eles.push(m); hasEle = true; } else eles.push(null);
+      }
     }
-    return { pts, times, eles, hasTime, hasEle };
+    return { pts, times, eles, hasTime, hasEle, breaks };
   };
   const nameOf = (el, dflt) => { const n = el.getElementsByTagName('name')[0]; return (n && n.textContent.trim()) || dflt; };
   const out = [];
-  for (const trk of doc.getElementsByTagName('trk')) { const g = grab(trk, 'trkpt'); if (g.pts.length >= 2) out.push({ name: nameOf(trk, 'Track'), ...g }); }
-  if (!out.length) for (const rte of doc.getElementsByTagName('rte')) { const g = grab(rte, 'rtept'); if (g.pts.length >= 2) out.push({ name: nameOf(rte, 'Route'), ...g }); }
+  for (const trk of doc.getElementsByTagName('trk')) {
+    const segs = trk.getElementsByTagName('trkseg');
+    const g = grab(segs.length ? [...segs] : [trk], 'trkpt');   // fall back to the whole <trk> if it has no <trkseg>
+    if (g.pts.length >= 2) out.push({ name: nameOf(trk, 'Track'), ...g });
+  }
+  if (!out.length) for (const rte of doc.getElementsByTagName('rte')) { const g = grab([rte], 'rtept'); if (g.pts.length >= 2) out.push({ name: nameOf(rte, 'Route'), ...g }); }
   return out;
 }
 function addGpxText(text) {
@@ -6586,10 +6662,10 @@ function addGpxText(text) {
   if (!tracks.length) { flashGpxNote(t('gpx.bad')); track('gpx_import', { trails: 0 }); return; }   // failed/empty import — funnel signal
   const added = [];
   for (const trk of tracks) {
-    const tr = { name: gpxName(), pts: trk.pts, times: trk.times, eles: trk.eles, hasTime: trk.hasTime, hasEle: trk.hasEle,
+    const tr = { name: gpxName(), pts: trk.pts, times: trk.times, eles: trk.eles, hasTime: trk.hasTime, hasEle: trk.hasEle, breaks: trk.breaks,
                  color: gpxColor(gpxTrails.length), visible: true, line: null, off: 0, warnEl: null,
                  startLbl: null, endLbl: null, startEN: null, endEN: null, centerLocal: null,
-                 anim: null, playing: false, playBtn: null };
+                 anim: null, playing: false, playBtn: null, expanded: false, stats: null };
     gpxTrails.push(tr); buildTrailLine(tr); added.push(tr);
   }
   track('gpx_import', { trails: added.length, timed: added.some(t => t.hasTime), drew: added.some(t => !!t.line) });   // drew=false → landed off the loaded map
@@ -6631,7 +6707,18 @@ function renderGpxList() {
     tr.playBtn = play;
     const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'gpxbtn'; rm.innerHTML = svgIcon('x'); rm.title = t('gpx.remove'); rm.setAttribute('aria-label', t('gpx.remove'));
     rm.addEventListener('click', () => { track('gpx_remove'); removeGpxTrail(tr); });
-    row.append(sw, nm, warn, pan, vis, rm, play); list.appendChild(row);
+    // disclosure: elevation profile + distance/gain/pace stats (map-independent)
+    const chev = document.createElement('button'); chev.type = 'button'; chev.className = 'gpxbtn gpxchev'; chev.innerHTML = svgIcon(tr.expanded ? 'chevron-up' : 'chevron-down'); chev.title = t('gpx.details'); chev.setAttribute('aria-label', t('gpx.details')); chev.setAttribute('aria-expanded', tr.expanded ? 'true' : 'false');
+    const detail = document.createElement('div'); detail.className = 'gpxdetail'; detail.style.display = tr.expanded ? '' : 'none';
+    if (tr.expanded) { fillTrailDetail(tr, detail); detail.dataset.filled = '1'; }
+    chev.addEventListener('click', () => {
+      tr.expanded = !tr.expanded;
+      detail.style.display = tr.expanded ? '' : 'none';
+      chev.innerHTML = svgIcon(tr.expanded ? 'chevron-up' : 'chevron-down'); chev.setAttribute('aria-expanded', tr.expanded ? 'true' : 'false');
+      if (tr.expanded && !detail.dataset.filled) { fillTrailDetail(tr, detail); detail.dataset.filled = '1'; track('gpx_profile'); }
+    });
+    row.append(sw, nm, warn, chev, pan, vis, rm, play);
+    list.append(row, detail);
   }
 }
 let _gpxNoteT = null;
@@ -6651,7 +6738,7 @@ function flashGpxNote(msg) {
   ['dragleave', 'dragend', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('drag'); }));
   drop.addEventListener('drop', e => { if (e.dataTransfer) readFiles(e.dataTransfer.files); });
 })();
-if (FLY_DEBUG) window.__gpx = { addGpxText, gpxTrails, redrapeGpx, toggleTrailAnim, setTrailPlaying, stepGpxAnim, applyTrailProgress, panToTrail, updateGpxLabels, getTarget: () => ({ x: controls.target.x, y: controls.target.y, z: controls.target.z }), get group() { return gpxGroup; } };
+if (FLY_DEBUG) window.__gpx = { addGpxText, gpxTrails, redrapeGpx, toggleTrailAnim, setTrailPlaying, stepGpxAnim, applyTrailProgress, panToTrail, updateGpxLabels, trailStats, elevChartSvg, trailStatChips, getTarget: () => ({ x: controls.target.x, y: controls.target.y, z: controls.target.z }), get group() { return gpxGroup; } };
 document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); if (e.isTrusted) track('spin', { dir: spinDir > 0 ? 'cw' : spinDir < 0 ? 'ccw' : 'off' }); });
 document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = parseFloat(e.target.value); });
 const panelEl = document.getElementById('panel');

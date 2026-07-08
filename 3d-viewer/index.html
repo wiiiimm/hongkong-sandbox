@@ -253,6 +253,13 @@
   .gpxbtn:hover{color:var(--ink)}
   .gpxbtn svg{width:15px;height:15px;display:block}
   .gpxbtn[aria-pressed="true"]{color:var(--accent)}
+  .gpxchev[aria-expanded="true"]{color:var(--ink)}
+  /* HKS-106: per-trail elevation profile + stats (disclosure) */
+  .gpxdetail{padding:2px 2px 5px 6px;display:flex;flex-direction:column;gap:5px}
+  .gpxchartwrap{width:100%;line-height:0}
+  .gpxchart{display:block;width:100%;height:auto}
+  .gpxstats{display:flex;flex-wrap:wrap;gap:3px 12px;font-size:10.5px;font-family:var(--mono);color:var(--sub)}
+  .gpxstat{white-space:nowrap}
   /* HKS-106: on-map GPX Start/End labels — DOM, constant screen size (like peak labels) */
   .gpxlbl{position:fixed;z-index:6;transform:translate(-50%,-100%);display:flex;align-items:center;gap:3px;
     padding:2px 7px 3px;border-radius:999px;font-size:11px;font-weight:600;line-height:1;white-space:nowrap;
