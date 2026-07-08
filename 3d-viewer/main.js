@@ -92,6 +92,7 @@ const I18N = {
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
     'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns',
+    'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
@@ -182,6 +183,7 @@ const I18N = {
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
     'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站',
+    'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
@@ -1281,6 +1283,7 @@ function applyVE() {
     for (let i = 0; i < base.length; i++) arr[i*3+1] = base[i]*VE + off;
     seg.geometry.attributes.position.needsUpdate = true;
   }
+  redrapeGpx();   // HKS-106: re-drape imported GPX trails onto the new exaggeration / source
 }
 
 // ---- surface style + background -------------------------------------------
@@ -6334,6 +6337,107 @@ document.getElementById('toporot0').addEventListener('click', () => { texRot = 0
 document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; if (e.isTrusted) track('layer_toggle', { layer: 'water', on: e.target.checked }); });
 document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); if (e.isTrusted) track('layer_toggle', { layer: 'labels', on: e.target.checked }); });
 document.getElementById('landmarks').addEventListener('change', e => { if (e.isTrusted) track('layer_toggle', { layer: 'landmarks', on: e.target.checked }); });
+
+// ---- GPX trail import (HKS-106) --------------------------------------------
+// Drop or pick one/more .gpx files; each <trk> (or <rte>) drapes on the terrain
+// as a coloured polyline. Projected via the same WGS84→HK1980→grid path as the
+// GPS marker (gpsToGrid) + sampleE for height, so trails sit on the surface and
+// re-drape on source/VE change (applyVE calls redrapeGpx). Random distinct
+// colour per trail, user-reassignable. Entirely client-side, session-only —
+// nothing is uploaded or stored, and it's not URL-serialised (GPX is too big).
+let gpxGroup = null;
+const gpxTrails = [];                                    // { name, pts:[[lat,lon]], color, line, visible, off }
+const gpxColor = i => new THREE.Color().setHSL(((i * 137.508) % 360) / 360, 0.72, 0.56);   // golden-angle → distinct hues
+function ensureGpxGroup() { if (!gpxGroup) gpxGroup = new THREE.Group(); if (world && gpxGroup.parent !== world) world.add(gpxGroup); }
+function drapePts(pts) {                                  // [[lat,lon]] → in-bounds world Vector3[]
+  const out = []; let off = 0; const lift = skinOffset() * 1.6;
+  for (const [lat, lon] of pts) {
+    const g = gpsToGrid(lat, lon);
+    if (!g || !g.inBounds) { off++; continue; }          // skip off-map points (breaks the line at the edge)
+    out.push(new THREE.Vector3((g.col - W / 2) * cell, sampleE(g.col, g.row) * VE + lift, (g.row - H / 2) * cell));
+  }
+  return { v: out, off };
+}
+function buildTrailLine(tr) {
+  if (tr.line) { gpxGroup.remove(tr.line); tr.line.geometry.dispose(); tr.line.material.dispose(); tr.line = null; }
+  const { v, off } = drapePts(tr.pts); tr.off = off;
+  if (v.length < 2) return;                              // entirely off the loaded map
+  const geo = new THREE.BufferGeometry().setFromPoints(v);
+  tr.line = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: tr.color }));
+  tr.line.visible = tr.visible; tr.line.renderOrder = 6;
+  gpxGroup.add(tr.line);
+}
+function redrapeGpx() {                                   // source/VE changed → re-project every trail
+  if (!gpxTrails.length) return;
+  ensureGpxGroup();
+  for (const tr of gpxTrails) buildTrailLine(tr);
+  renderGpxList();
+}
+function parseGpx(text) {                                 // → [{ name, pts:[[lat,lon]] }]
+  const doc = new DOMParser().parseFromString(text, 'application/xml');
+  if (doc.getElementsByTagName('parsererror').length) return [];
+  const grab = (parent, tag) => {
+    const pts = [];
+    for (const p of parent.getElementsByTagName(tag)) {
+      const lat = +p.getAttribute('lat'), lon = +p.getAttribute('lon');
+      if (isFinite(lat) && isFinite(lon)) pts.push([lat, lon]);
+    }
+    return pts;
+  };
+  const nameOf = (el, dflt) => { const n = el.getElementsByTagName('name')[0]; return (n && n.textContent.trim()) || dflt; };
+  const out = [];
+  for (const trk of doc.getElementsByTagName('trk')) { const pts = grab(trk, 'trkpt'); if (pts.length >= 2) out.push({ name: nameOf(trk, 'Track'), pts }); }
+  if (!out.length) for (const rte of doc.getElementsByTagName('rte')) { const pts = grab(rte, 'rtept'); if (pts.length >= 2) out.push({ name: nameOf(rte, 'Route'), pts }); }
+  return out;
+}
+function addGpxText(text) {
+  ensureGpxGroup();
+  const tracks = parseGpx(text);
+  if (!tracks.length) { flashGpxNote(t('gpx.bad')); return; }
+  for (const trk of tracks) {
+    const tr = { name: trk.name, pts: trk.pts, color: gpxColor(gpxTrails.length), visible: true, line: null, off: 0 };
+    gpxTrails.push(tr); buildTrailLine(tr);
+  }
+  renderGpxList();
+}
+function removeGpxTrail(tr) {
+  if (tr.line) { gpxGroup.remove(tr.line); tr.line.geometry.dispose(); tr.line.material.dispose(); }
+  gpxTrails.splice(gpxTrails.indexOf(tr), 1);
+  renderGpxList();
+}
+function renderGpxList() {
+  const list = document.getElementById('gpxlist'); if (!list) return;
+  list.textContent = '';
+  for (const tr of gpxTrails) {
+    const row = document.createElement('div'); row.className = 'gpxrow';
+    const sw = document.createElement('input'); sw.type = 'color'; sw.className = 'gpxsw'; sw.value = '#' + tr.color.getHexString(); sw.title = t('gpx.colour');
+    sw.addEventListener('input', () => { tr.color.set(sw.value); if (tr.line) tr.line.material.color.copy(tr.color); });
+    const nm = document.createElement('span'); nm.className = 'gpxname'; nm.textContent = tr.name + (tr.off ? ' ⚠' : ''); nm.title = tr.off ? t('gpx.offmap') : tr.name;
+    const vis = document.createElement('button'); vis.type = 'button'; vis.className = 'gpxbtn'; vis.textContent = tr.visible ? '👁' : '🙈'; vis.setAttribute('aria-pressed', tr.visible ? 'true' : 'false');
+    vis.addEventListener('click', () => { tr.visible = !tr.visible; if (tr.line) tr.line.visible = tr.visible; vis.textContent = tr.visible ? '👁' : '🙈'; vis.setAttribute('aria-pressed', tr.visible ? 'true' : 'false'); });
+    const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'gpxbtn'; rm.textContent = '✕'; rm.title = t('gpx.remove');
+    rm.addEventListener('click', () => removeGpxTrail(tr));
+    row.append(sw, nm, vis, rm); list.appendChild(row);
+  }
+}
+let _gpxNoteT = null;
+function flashGpxNote(msg) {
+  const d = document.getElementById('gpxdrop'); if (!d) return;
+  d.textContent = msg; clearTimeout(_gpxNoteT);
+  _gpxNoteT = setTimeout(() => { d.textContent = t('gpx.drop'); }, 2600);
+}
+(() => {   // dropzone: drag-drop + click/tap → picker; keyboard (Enter/Space) too
+  const drop = document.getElementById('gpxdrop'), input = document.getElementById('gpxfile');
+  if (!drop || !input) return;
+  const readFiles = files => { for (const f of files) if (/\.gpx$/i.test(f.name) || /gpx|xml/i.test(f.type)) f.text().then(addGpxText).catch(() => flashGpxNote(t('gpx.bad'))); };
+  drop.addEventListener('click', () => input.click());
+  drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
+  input.addEventListener('change', () => { readFiles(input.files); input.value = ''; });
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('drag'); }));
+  ['dragleave', 'dragend', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('drag'); }));
+  drop.addEventListener('drop', e => { if (e.dataTransfer) readFiles(e.dataTransfer.files); });
+})();
+if (FLY_DEBUG) window.__gpx = { addGpxText, gpxTrails, redrapeGpx, get group() { return gpxGroup; } };
 document.getElementById('spindir').addEventListener('change', e => { spinDir = parseInt(e.target.value, 10); if (e.isTrusted) track('spin', { dir: spinDir > 0 ? 'cw' : spinDir < 0 ? 'ccw' : 'off' }); });
 document.getElementById('spinspd').addEventListener('input', e => { spinSpeed = parseFloat(e.target.value); });
 const panelEl = document.getElementById('panel');
