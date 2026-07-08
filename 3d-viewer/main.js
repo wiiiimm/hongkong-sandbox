@@ -6351,21 +6351,25 @@ const gpxColor = i => new THREE.Color().setHSL(((i * 137.508) % 360) / 360, 0.72
 let gpxSeq = 0;                                          // monotonic — no number reuse after a removal
 const gpxName = () => `${t('gpx.trail')} #${++gpxSeq}`;  // locale-aware default; user-renamable (GPX <name> ignored, per spec)
 function ensureGpxGroup() { if (!gpxGroup) gpxGroup = new THREE.Group(); if (world && gpxGroup.parent !== world) world.add(gpxGroup); }
-function drapePts(pts) {                                  // [[lat,lon]] → in-bounds world Vector3[]
-  const out = []; let off = 0; const lift = skinOffset() * 1.6;
+function drapeSegments(pts) {                            // [[lat,lon]] → flat segment-pair verts; breaks at off-map gaps (codex)
+  const verts = []; let off = 0; const lift = skinOffset() * 1.6;
+  let prev = null, prevIn = false;
   for (const [lat, lon] of pts) {
-    const g = gpsToGrid(lat, lon);
-    if (!g || !g.inBounds) { off++; continue; }          // skip off-map points (breaks the line at the edge)
-    out.push(new THREE.Vector3((g.col - W / 2) * cell, sampleE(g.col, g.row) * VE + lift, (g.row - H / 2) * cell));
+    const g = gpsToGrid(lat, lon), inB = !!(g && g.inBounds);
+    if (!inB) off++;
+    const v = inB ? new THREE.Vector3((g.col - W / 2) * cell, sampleE(g.col, g.row) * VE + lift, (g.row - H / 2) * cell) : null;
+    if (prevIn && inB) verts.push(prev.x, prev.y, prev.z, v.x, v.y, v.z);   // both endpoints on-map → emit this segment
+    prev = v; prevIn = inB;
   }
-  return { v: out, off };
+  return { verts, off };
 }
 function buildTrailLine(tr) {
   if (tr.line) { gpxGroup.remove(tr.line); tr.line.geometry.dispose(); tr.line.material.dispose(); tr.line = null; }
-  const { v, off } = drapePts(tr.pts); tr.off = off;
-  if (v.length < 2) return;                              // entirely off the loaded map
-  const geo = new THREE.BufferGeometry().setFromPoints(v);
-  tr.line = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: tr.color }));
+  const { verts, off } = drapeSegments(tr.pts); tr.off = off;
+  if (verts.length < 6) return;                          // no on-map segment (fully off the loaded map)
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+  tr.line = new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ color: tr.color }));
   tr.line.visible = tr.visible; tr.line.renderOrder = 6;
   gpxGroup.add(tr.line);
 }
