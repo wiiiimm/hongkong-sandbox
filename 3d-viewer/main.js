@@ -334,7 +334,7 @@ function sampleE(col, row) {
   const a = elev[r0*W+c0], b = elev[r0*W+c0+1], c = elev[(r0+1)*W+c0], d = elev[(r0+1)*W+c0+1];
   return (a*(1-fc)+b*fc)*(1-fr) + (c*(1-fc)+d*fc)*fr;
 }
-const skinOffset = () => cell * 0.6; // lift lines just above the surface, scaled to grid
+const skinOffset = () => 0.6 * VE; // small lift ≈ 0.6 m (× VE) — the terrain fill's polygonOffset carries z-fighting, so draped lines sit ON the ground instead of floating cell*0.6 (≈42 m) above it (HKS: overlays over your head in walk mode)
 
 // ---- load a source ---------------------------------------------------------
 async function loadSource(id) {
@@ -705,6 +705,11 @@ function buildTerrain() {
   matMatte  = new THREE.MeshStandardMaterial({ color: 0x8a8f86, roughness: 1, metalness: 0 });
   matSolid  = new THREE.MeshBasicMaterial({ color: solidColor });                  // flat solid fill
   matTopo   = new THREE.MeshBasicMaterial({});   // unlit: show the map flat, no hillshade darkening
+  // Push the terrain fill back a hair in the depth buffer so draped vector lines
+  // (roads / coastline / contours / GPX) render on the surface with only a tiny
+  // geometric lift — polygonOffset auto-scales with view distance, so there's no
+  // z-fighting from orbit AND no 42 m float that put overlays above your head afoot.
+  [matShaded, matTint, matMatte, matSolid, matTopo].forEach(m => { m.polygonOffset = true; m.polygonOffsetFactor = 1; m.polygonOffsetUnits = 1; });
   tidalMats.length = 0;
   [matShaded, matTint, matMatte].forEach(m => attachTerrainFX(m, true));   // wet band + shadows + fog
   [matSolid, matTopo].forEach(m => attachTerrainFX(m, false));             // raster/solid: shadows + fog only
@@ -1438,7 +1443,7 @@ async function buildWebMap(kind) {
   webTex = new THREE.CanvasTexture(cv);
   webTex.colorSpace = THREE.SRGBColorSpace;
   webTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  if (!matWeb) { matWeb = new THREE.MeshBasicMaterial(); attachTerrainFX(matWeb, false); }
+  if (!matWeb) { matWeb = new THREE.MeshBasicMaterial(); matWeb.polygonOffset = true; matWeb.polygonOffsetFactor = 1; matWeb.polygonOffsetUnits = 1; attachTerrainFX(matWeb, false); }
   matWeb.map = webTex; matWeb.needsUpdate = true;
   webKind = kind;
 }
