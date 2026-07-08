@@ -72,7 +72,7 @@ file (via any static server) and deploys as plain files.
 - **Bilingual** — English (HK) / 繁體中文（香港）, with `/en-hk/` `/zh-hk/` routing at
   the edge (Vercel / Cloudflare) and `?locale=` / browser-detection fallback everywhere else.
 - **Landmarks & peaks** — a curated landmarks layer (iconic hiking peaks + key towns) plus a full named-peaks layer from OSM, both terrain-occluded (labels hide behind mountains) and decluttered.
-- **Import your GPX** — drop (or tap to load) one or more GPX tracks; each drapes on the real terrain as a colour-pickable, renamable trail with **Start / End** pins. Hit **▶** (in the list or on the Start pin) to play the route back — a dot sweeps start→end filling the path in, at real recorded pace when the file has timestamps. Entirely client-side — nothing is uploaded or stored.
+- **Import your GPX** — drop (or tap to load) one or more GPX tracks; each drapes on the real terrain as a colour-pickable, renamable trail with **Start / End** pins. Hit **▶** (in the list or on the Start pin) to play the route back — a dot sweeps start→end filling the path in, at real recorded pace when the file has timestamps. Pan the view to any trail, or expand it for an **elevation profile** with distance, ascent/descent and average pace. Entirely client-side — nothing is uploaded or stored.
 - **Installable** — add it to your home screen (PWA); a service worker caches assets for offline use.
 - **Shareable** — every control, the camera, and the locale serialise to the URL; share via a one-tap icon sheet or grab an embed.
 
@@ -219,7 +219,7 @@ Infrastructure by [stealth.co](https://stealth-company.co).
 - **GPS「你在這裏」** —— 定位你的真實位置、跟隨定位，或朝向式指南針檢視 —— 更可從你實際所在之處步行遊香港。
 - **雙語** —— 英文（香港）／繁體中文（香港），在邊緣（Vercel／Cloudflare）以 `/en-hk/`、`/zh-hk/` 路由，其他環境則以 `?locale=`／瀏覽器偵測作後備。
 - **地標與山峰** —— 精選地標圖層（著名行山山峰＋主要市鎮），以及來自 OSM 的完整命名山峰圖層；兩者均有地形遮擋（標籤會被山體遮住）並自動避免重疊。
-- **匯入你的 GPX** —— 拖放（或點按載入）一個或多個 GPX 路徑；每條都會貼合真實地形，可自選顏色並重新命名，並標示**起點／終點**。按 **▶**（於清單或起點標記）可回放路線 —— 一個光點由起點掃向終點並逐段填滿路徑；若檔案含時間戳，更會按真實記錄速度播放。全程於瀏覽器端 —— 不會上載或儲存。
+- **匯入你的 GPX** —— 拖放（或點按載入）一個或多個 GPX 路徑；每條都會貼合真實地形，可自選顏色並重新命名，並標示**起點／終點**。按 **▶**（於清單或起點標記）可回放路線 —— 一個光點由起點掃向終點並逐段填滿路徑；若檔案含時間戳，更會按真實記錄速度播放。可將視角移至任一路徑，或展開查看**高度剖面**（距離、上升／下降及平均速度）。全程於瀏覽器端 —— 不會上載或儲存。
 - **可安裝** —— 可加到主畫面（PWA）；service worker 會快取資源以供離線使用。
 - **可分享** —— 所有控制項、鏡頭與語言都會寫入網址；可用一鍵圖示分享面板分享，或取得嵌入碼。
 
