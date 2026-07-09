@@ -1086,7 +1086,7 @@ function renderSky() {
     }
   } else sun.color.setHex(0xffffff);
   if (ecl > 0) { sunI *= 1 - 0.9 * ecl; hemiI *= 1 - 0.75 * ecl; }   // totality drops the daylight too, not just the dome
-  if (snowAcc > 0) {           // cooler, desaturated grade while snowing
+  if (snowAcc > 0 && !stargaze.on) {   // cooler, desaturated grade while snowing — but Stargaze's planetarium stays clear: lingering snowAcc must not tint its black or wash its stars
     sun.color.lerp(new THREE.Color(0xdce8f8), snowAcc * 0.45);
     base.lerp(new THREE.Color(0x9fb3c8), snowAcc * (onPaper ? 0.25 : 0.12));
   }
