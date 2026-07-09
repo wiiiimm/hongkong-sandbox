@@ -1023,13 +1023,33 @@ function applySkyScale() {
   if (wallGrp) for (const s of wallGrp.children) s.position.y = s.userData.baseY * skyScale;
 }
 
+// sun-altitude → sky colour: deep night, warm dawn/dusk, clear blue day.
+// Chained smoothstep lerps keep the transitions band-free; palette is tunable.
+function skyColour(altD, onPaper) {
+  const P = onPaper
+    ? { day: 0xcfe0f1, dusk: 0xe2a878, night: 0x121a26 }   // paper: pale blue / soft amber / slate night
+    : { day: 0x6ea3d8, dusk: 0xd9784a, night: 0x070a12 };  // dark: clear blue / warm dusk / deep night
+  const S = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+  const c = new THREE.Color(P.night);
+  c.lerp(new THREE.Color(P.dusk), 0.85 * S((altD + 12) / 10));   // −12° night → −2° dusk (kept 15% night-blue so the whole dome never goes flat orange)
+  c.lerp(new THREE.Color(P.day), S((altD + 2) / 8));             // −2° dusk → +6° full day
+  return c;
+}
+
 // clear colour + light levels: celestial sun/moon (when the sim is on) shape
 // the key light and sky brightness; a storm then darkens whatever they chose.
 function renderSky() {
   const onPaper = bgMode === 'paper';
   const k = stormLevel > 0 ? Math.min(0.6, 0.15 + windStrength * 0.55) : 0;
   const dim = 1 - (stormLevel > 0 ? windStrength * 0.4 : 0);
-  const base = new THREE.Color(BG[bgMode]);
+  // base sky: Stargaze is always a black planetarium (even at noon), Neon Night
+  // keeps its noir void, otherwise the sun's altitude drives a day↔night
+  // gradient; with the sky sim off the flat background stands.
+  let base;
+  if (stargaze.on)   base = new THREE.Color(0x05070d);
+  else if (neonOn)   base = new THREE.Color(BG.dark);
+  else if (cel)      base = skyColour(cel.sunAlt / D2R, onPaper);
+  else               base = new THREE.Color(BG[bgMode]);
   let sunI = onPaper ? 2.4 : 2.0, hemiI = onPaper ? 1.9 : 1.4;
   if (cel) {
     const altD = cel.sunAlt / D2R;
@@ -1049,8 +1069,6 @@ function renderSky() {
       sunI *= 0.18 * cel.frac * (moonUp > 0 ? 0.4 + 0.6 * moonUp : 0);
       hemiI *= 0.22;
     }
-    // paper dims to a deep night blue; dark keeps its void, just a touch deeper
-    base.lerp(new THREE.Color(onPaper ? 0x1b2430 : 0x04060a), (onPaper ? 0.82 : 0.6) * (1 - dayF));
   } else sun.color.setHex(0xffffff);
   if (snowAcc > 0) {           // cooler, desaturated grade while snowing
     sun.color.lerp(new THREE.Color(0xdce8f8), snowAcc * 0.45);
