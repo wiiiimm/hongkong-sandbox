@@ -61,6 +61,7 @@ file (via any static server) and deploys as plain files.
   between **chase / cockpit-eye / flight-deck** cameras, with tilt-to-steer on phones.
 - **Walk** — first-person at real pace: hold-drag to look (or 🖱 lock the mouse),
   auto-walk, jump, run.
+- **Living sky** — the sun and moon are placed by real astronomy for Hong Kong and track the **live HK clock** (or scrub any time and date). The whole sky follows them: **blue by day → warm gold at sunrise & sunset → deep night**, with fog and lighting shifting to match. The stars are always up there — a bright sky simply washes them out and a dark one reveals them, exactly like real life, so they fade in through dusk and fill the sky at night. Real **moon phases** and moonlight, too.
 - **Stargaze** — an accurate night sky from the **Bright Star Catalogue** with interactive
   constellations and real **moon phases**; 🤳 point your phone at the sky (GPS-aware) to
   find what's actually overhead.
@@ -227,6 +228,7 @@ Infrastructure by [stealth.co](https://stealth-company.co).
 - **四種探索方式** —— **環繞** 地圖、**駕駛飛機**、**第一人稱步行**，或 **觀星**；另有兩款風格 —— **Matrix** 與 **風林火山**（雪境霓虹黑色電影風）—— 可於任何模式切換。
 - **飛行** —— 由真實的 **香港國際機場跑道** 起飛，飛越地形；可選塗裝（**國泰航空 747／777／A350**、道格拉斯 DC-3 **「Betsy」**，或螺旋槳小飛機），並在 **追機／駕駛艙主視角／駕駛艙儀表** 鏡頭間切換，手機可傾斜操控。
 - **步行** —— 以真實步速第一人稱行走：拖曳環視（或用 🖱 鎖定滑鼠）、自動步行、跳躍、奔跑。
+- **活的天空** —— 太陽與月亮以真實天文計算定位於香港，並跟隨**實時香港時間**（亦可自由調整時間與日期）。天色隨之變化：**日間湛藍 → 日出日落時暖金 → 深夜漆黑**，霧氣與光線亦一併配合。星星一直都在——天空明亮時被沖淡、昏暗時方顯現，正如現實一樣，於黃昏漸現、入夜佈滿星空。還有真實的**月相**與月光。
 - **觀星** —— 以 **Bright Star Catalogue（亮星星表）** 呈現準確夜空，附互動星座與真實 **月相**；🤳 用手機對準天空（配合 GPS）即可找出頭頂實際的星體。
 - **天氣模擬** —— 雨、雲、霧、閃電、潮汐與波浪，以及香港 **熱帶氣旋警告信號 T1/T3/T8/T9/T10**，隨信號增強風力、風暴潮、天色與震動。在 **實時** 模式下更會 **按地區變化**，以實況數據驅動：雲量、各區降雨（一邊晴天、一邊下雨）、於實際有雷擊的地區出現的閃電、按各區 **AQHI** 的污染霾，以及水浸／山泥傾瀉提示。
 - **實時天氣** —— 一鍵同步香港天文台報告（氣溫／濕度／風／天氣狀況、香港時間、潮汐預報波形圖），並以實況驅動特效。
