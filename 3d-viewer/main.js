@@ -2417,9 +2417,10 @@ function eclipseCoverage(sunAlt, sunAz, moonAlt, moonAz, moonDistKm) {
   const sep = Math.acos(Math.max(-1, Math.min(1, cosSep)));   // angular separation
   if (sep >= rS + rM) return 0;                               // discs apart
   if (sep <= Math.abs(rS - rM)) return rM >= rS ? 1 : (rM / rS) ** 2;   // total vs annular cap
-  const A = rS * rS * Math.acos((sep * sep + rS * rS - rM * rM) / (2 * sep * rS)) +
-            rM * rM * Math.acos((sep * sep + rM * rM - rS * rS) / (2 * sep * rM)) -
-            0.5 * Math.sqrt((-sep + rS + rM) * (sep + rS - rM) * (sep - rS + rM) * (sep + rS + rM));
+  const ac = x => Math.acos(Math.max(-1, Math.min(1, x)));   // clamp: float error at disc contact must not NaN the area
+  const A = rS * rS * ac((sep * sep + rS * rS - rM * rM) / (2 * sep * rS)) +
+            rM * rM * ac((sep * sep + rM * rM - rS * rS) / (2 * sep * rM)) -
+            0.5 * Math.sqrt(Math.max(0, (-sep + rS + rM) * (sep + rS - rM) * (sep - rS + rM) * (sep + rS + rM)));
   return A / (Math.PI * rS * rS);                             // lens area ÷ sun-disc area
 }
 
