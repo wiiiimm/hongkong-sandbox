@@ -2371,7 +2371,7 @@ function updateCelestial() {
     return;
   }
   const now = simDate();
-  const key = skySim.live ? 'L' + Math.floor(now.getTime() / 60000) : 'F' + skySim.date + ':' + skySim.minutes;
+  const key = (skySim.live ? 'L' + Math.floor(now.getTime() / 60000) : 'F' + skySim.date + ':' + skySim.minutes) + (stargaze.on ? 'S' : '');   // include Stargaze in the throttle key — entering/exiting it must recompute the star fade even mid-minute (was: ~30 s black sky when entering live-sky Stargaze by day)
   if (key === celKey) return;
   celKey = key;
   const sp = sunPosition(now, HK_LAT, HK_LON), mp = moonPosition(now, HK_LAT, HK_LON), mi = moonIllumination(now);
