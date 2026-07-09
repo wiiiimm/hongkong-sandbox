@@ -1023,16 +1023,24 @@ function applySkyScale() {
   if (wallGrp) for (const s of wallGrp.children) s.position.y = s.userData.baseY * skyScale;
 }
 
+// shared clamped smoothstep — sky gradient, eclipse curve and star wash all use it
+const S01 = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+// perceptual luminance of the sky renderSky() last cleared to, in THREE's
+// linear working space (~0.003 = deep night, ~0.345 = noon blue, ~0.87 = paper).
+// stepSky() reads it every frame to decide how much the sky washes the stars
+// out. Starts washed so a daytime load never flashes stars before the first
+// renderSky().
+let skyLum = 1;
+
 // sun-altitude → sky colour: deep night, warm dawn/dusk, clear blue day.
 // Chained smoothstep lerps keep the transitions band-free; palette is tunable.
 function skyColour(altD, onPaper) {
   const P = onPaper
     ? { day: 0xcfe0f1, dusk: 0xf0a45f, night: 0x121a26 }   // paper: pale blue / soft amber / slate night
     : { day: 0x6ea3d8, dusk: 0xf4813c, night: 0x070a12 };  // dark: clear blue / warm dusk / deep night
-  const S = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
   const c = new THREE.Color(P.night);
-  c.lerp(new THREE.Color(P.dusk), 0.97 * S((altD + 14) / 10));   // −12° night → −2° dusk (kept 15% night-blue so the whole dome never goes flat orange)
-  c.lerp(new THREE.Color(P.day), S((altD - 4) / 8));             // −2° dusk → +6° full day
+  c.lerp(new THREE.Color(P.dusk), 0.97 * S01((altD + 14) / 10));   // −12° night → −2° dusk (kept 15% night-blue so the whole dome never goes flat orange)
+  c.lerp(new THREE.Color(P.day), S01((altD - 4) / 8));             // −2° dusk → +6° full day
   return c;
 }
 
@@ -1050,6 +1058,13 @@ function renderSky() {
   else if (neonOn)   base = new THREE.Color(BG.dark);
   else if (cel)      base = skyColour(cel.sunAlt / D2R, onPaper);
   else               base = new THREE.Color(BG[bgMode]);
+  // solar eclipse (normal sky only): the moon's coverage of the sun's disc pulls
+  // the day sky toward black. The curve is deliberately steep — partials barely
+  // dim, and only near-totality (>~86% coverage) plunges toward night. Annular
+  // eclipses cap below 1.0 (rMoon < rSun leaves a lit ring), so they bottom out
+  // as an eerie dusk rather than full black. Fog inherits it via the clear colour.
+  const ecl = (cel && !stargaze.on && !neonOn) ? S01((cel.eclipse - 0.86) / 0.14) : 0;
+  if (ecl > 0) base.lerp(new THREE.Color(0x01030a), ecl);
   let sunI = onPaper ? 2.4 : 2.0, hemiI = onPaper ? 1.9 : 1.4;
   if (cel) {
     const altD = cel.sunAlt / D2R;
@@ -1070,6 +1085,7 @@ function renderSky() {
       hemiI *= 0.22;
     }
   } else sun.color.setHex(0xffffff);
+  if (ecl > 0) { sunI *= 1 - 0.9 * ecl; hemiI *= 1 - 0.75 * ecl; }   // totality drops the daylight too, not just the dome
   if (snowAcc > 0) {           // cooler, desaturated grade while snowing
     sun.color.lerp(new THREE.Color(0xdce8f8), snowAcc * 0.45);
     base.lerp(new THREE.Color(0x9fb3c8), snowAcc * (onPaper ? 0.25 : 0.12));
@@ -1079,6 +1095,9 @@ function renderSky() {
     base.setHex(0x020a05);
     sun.color.setHex(0x9cffb0);
   }
+  // final sky luminance — whatever mode/weather composed the dome (eclipse, snow,
+  // storm, Matrix, Stargaze black), the stars only care how bright it ended up
+  skyLum = 0.2126 * base.r + 0.7152 * base.g + 0.0722 * base.b;
   renderer.setClearColor(base, 1);
   baseHemi = hemiI * dim;
   baseSun  = sunI * dim;
@@ -2202,21 +2221,16 @@ function eqAxis(now, ra, dec, out) {
   return out.set(Math.sin(az) * Math.cos(p.altitude), Math.sin(p.altitude), -Math.cos(az) * Math.cos(p.altitude));
 }
 function updateStars(now) {
-  // Stargaze shows stars no matter what (its sky is dimmed for it). Normal mode fades
-  // them in from ~2 h before sunset (sun ≈ +20°) to full night by −10°; a bright high
-  // moon still washes them out a little (skipped in Stargaze so they always read).
-  const sunAltD = cel.sunAlt / D2R;
-  let fade = stargaze.on ? 1 : Math.max(0, Math.min(1, (20 - sunAltD) / 30));
-  if (!stargaze.on && skySim.on && fade > 0 && cel.moonAlt > 0) fade *= 1 - 0.25 * cel.frac * Math.sin(cel.moonAlt);
-  starGroup.userData.fade0 = fade;   // HKS-101: pre-cloud fade — stepSky() applies the live cover per frame
-  starGroup.visible = (skySim.on || stargaze.on) && fade > 0.01;
-  if (!starGroup.visible) { conClearAll(); return; }   // daylight: drop any lit constellations
+  // The stars are always up there — how much they read is decided per frame by
+  // stepSky() from the rendered SKY LUMINANCE (bright sky washes them out, dark
+  // sky reveals them), so eclipse darkness, Stargaze's black planetarium and the
+  // day↔night gradient all reveal stars through one rule, no special cases.
+  // This per-sim-minute pass only aims the sphere and the local moon wash.
   // the whole celestial sphere turns as one rigid body: image the equatorial
   // basis through the same hour-angle math the sun/moon use, once a sim-minute
   eqAxis(now, 0, 0, _eqX); eqAxis(now, Math.PI / 2, 0, _eqY); eqAxis(now, 0, Math.PI / 2, _eqZ);
   starGroup.quaternion.setFromRotationMatrix(_eqM.makeBasis(_eqX, _eqY, _eqZ));
   starGroup.scale.setScalar(bounds().span * 1.5);
-  starUniforms.uFade.value = fade;
   starUniforms.uDpr.value = Math.min(devicePixelRatio || 1, 2);
   if (cel.moonAlt > 0) {   // the moon's halo drowns its neighbours first (shader-side)
     starUniforms.uMoonDir.value.set(Math.sin(cel.moonAz) * Math.cos(cel.moonAlt),
@@ -2254,22 +2268,34 @@ function spawnMeteor(tS) {
   meteor.visible = true;
 }
 let celDim = 0;   // HKS-69: eased "overcast over the viewer" 0..1 — dims sun/moon locally
-function stepSky() {   // per-frame sky life: twinkle clock, meteors, moon limb aim
+// star wash thresholds on skyLum (linear-space, what THREE actually renders):
+// at/below DARK the sky hides nothing (full stars), at/above BRIGHT it washes
+// them out completely. Tuned so noon blue (~0.345) and the sunset orange
+// (~0.35 — as luminous as noon in linear space) fully wash, stars emerge
+// through nautical twilight (sun ~−9° → ~0.08) and reach full by ~−12°
+// (~0.01); the deep-night sky (~0.003) / Stargaze black (~0.002) free them all.
+const STAR_LUM_DARK = 0.004, STAR_LUM_BRIGHT = 0.10;
+function stepSky() {   // per-frame sky life: star wash, twinkle clock, meteors, moon limb aim
   const tS = performance.now() * 0.001;
-  if (starGroup.visible) {
-    starUniforms.uTime.value = tS % 4096;
-    // HKS-101: live overcast blots out the stars — the cover over the viewer
-    // decides, per frame (cross a district boundary and the sky answers).
-    // Clear districts keep their full sky. Stargaze is unaffected: HKS-91
-    // locks weather off there, so the field is inactive and the planetarium
-    // keeps its guaranteed-clear sky.
-    const f0 = starGroup.userData.fade0 != null ? starGroup.userData.fade0 : starUniforms.uFade.value;
+  if (cel) {
+    // the stars are always there — the sky's own rendered brightness (skyLum,
+    // written by renderSky) decides how washed-out they are, every frame. One
+    // rule covers day/night, twilight, eclipse darkness and Stargaze's black
+    // planetarium. Local effects stack on top: live overcast blots them out
+    // (HKS-101 — the cover over the VIEWER decides; Stargaze locks weather off
+    // so its sky stays guaranteed-clear) and the moon washes its neighbourhood
+    // (uMoonWash, shader-side).
+    const f0 = 1 - S01((skyLum - STAR_LUM_DARK) / (STAR_LUM_BRIGHT - STAR_LUM_DARK));
+    starGroup.userData.fade0 = f0;
     let occ = 1;
-    if (!stargaze.on && cloudFieldActive()) {   // Stargaze keeps its guaranteed-clear sky — stars show no matter what
+    if (!stargaze.on && cloudFieldActive()) {
       _cfV.copy(camera.position); world.worldToLocal(_cfV);
       occ = 1 - 0.94 * Math.min(1, Math.max(0, (cloudCoverAt(_cfV.x, _cfV.z) - 0.12) / 0.55));
     }
     starUniforms.uFade.value = f0 * occ;
+    starGroup.visible = starUniforms.uFade.value > 0.005;   // fully washed: skip the draw
+    if (starGroup.visible) starUniforms.uTime.value = tS % 4096;
+    else conClearAll();                                     // daylight: drop any lit constellations
   }
   // HKS-69: local overcast mutes the sun and moon — the daytime analogue of
   // the star occlusion above, driven by the same probe (cloud cover over the
@@ -2377,6 +2403,26 @@ function updateSkyInfo() {
                  `☾ ↑${hktHHMM(mt.rise)} · ↓${hktHHMM(mt.set)} · ${Math.round(mi.fraction * 100)}%`;
 }
 
+// solar-eclipse coverage: what fraction of the SUN's disc area the moon hides,
+// as seen from HK. Classic circle–circle intersection on the two apparent radii;
+// rMoon varies with the live Earth–Moon distance, so total (rMoon ≥ rSun → 1)
+// vs annular (rMoon < rSun → caps at (rMoon/rSun)², a lit ring survives) falls
+// out of the geometry. Angles in radians; distance in km.
+const SUN_DIST_KM = 149598000, SUN_R_KM = 696000, MOON_R_KM = 1737.4;
+function eclipseCoverage(sunAlt, sunAz, moonAlt, moonAz, moonDistKm) {
+  const rS = Math.asin(SUN_R_KM / SUN_DIST_KM);          // ~0.00465 rad
+  const rM = Math.asin(MOON_R_KM / moonDistKm);
+  const cosSep = Math.sin(sunAlt) * Math.sin(moonAlt) +
+                 Math.cos(sunAlt) * Math.cos(moonAlt) * Math.cos(sunAz - moonAz);
+  const sep = Math.acos(Math.max(-1, Math.min(1, cosSep)));   // angular separation
+  if (sep >= rS + rM) return 0;                               // discs apart
+  if (sep <= Math.abs(rS - rM)) return rM >= rS ? 1 : (rM / rS) ** 2;   // total vs annular cap
+  const A = rS * rS * Math.acos((sep * sep + rS * rS - rM * rM) / (2 * sep * rS)) +
+            rM * rM * Math.acos((sep * sep + rM * rM - rS * rS) / (2 * sep * rM)) -
+            0.5 * Math.sqrt((-sep + rS + rM) * (sep + rS - rM) * (sep - rS + rM) * (sep + rS + rM));
+  return A / (Math.PI * rS * rS);                             // lens area ÷ sun-disc area
+}
+
 function updateCelestial() {
   if (!skySim.on) {
     if (cel) {
@@ -2395,7 +2441,10 @@ function updateCelestial() {
   const sp = sunPosition(now, HK_LAT, HK_LON), mp = moonPosition(now, HK_LAT, HK_LON), mi = moonIllumination(now);
   cel = { sunAlt: sp.altitude, sunAz: compassDeg(sp.azimuth) * D2R,
           moonAlt: mp.altitude, moonAz: compassDeg(mp.azimuth) * D2R,
-          frac: mi.fraction, phase: mi.phase };
+          frac: mi.fraction, phase: mi.phase, moonDist: mp.distance };
+  // only meaningful with the sun up — a below-horizon "eclipse" is just night
+  cel.eclipse = sp.altitude > 0
+    ? eclipseCoverage(cel.sunAlt, cel.sunAz, cel.moonAlt, cel.moonAz, cel.moonDist) : 0;
   placeCelestial();
   updateStars(now);
   if (skySim.live) {   // keep the scrub + date mirroring the live clock
@@ -4463,6 +4512,12 @@ if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serializa
     skinOffset: () => skinOffset(), get VE() { return VE; }, get skinLift() { return skinLift; },
     get W() { return W; }, get H() { return H; }, get cell() { return cell; },
     get meshStep() { return meshStep; }, get elev() { return elev; }, get skin() { return skin; } };
+  // sky handles: unit-test the eclipse coverage math, force a coverage value
+  // (holds until the next sim-minute cel refresh), read the live sky luminance
+  window.__sky = { eclipseCoverage, S01,
+    get cel() { return cel; }, get skyLum() { return skyLum; },
+    get starFade() { return starUniforms.uFade.value; },
+    setEclipse: v => { if (cel) { cel.eclipse = v; renderSky(); setFog(); } } };
 }
 
 const _fq = new THREE.Quaternion(), _fe = new THREE.Euler(), _fv = new THREE.Vector3();
