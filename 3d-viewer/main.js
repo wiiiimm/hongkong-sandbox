@@ -1039,8 +1039,8 @@ function skyColour(altD, onPaper) {
     ? { day: 0xcfe0f1, dusk: 0xf0a45f, night: 0x121a26 }   // paper: pale blue / soft amber / slate night
     : { day: 0x6ea3d8, dusk: 0xf4813c, night: 0x070a12 };  // dark: clear blue / warm dusk / deep night
   const c = new THREE.Color(P.night);
-  c.lerp(new THREE.Color(P.dusk), 0.97 * S01((altD + 14) / 10));   // −12° night → −2° dusk (kept 15% night-blue so the whole dome never goes flat orange)
-  c.lerp(new THREE.Color(P.day), S01((altD - 4) / 8));             // −2° dusk → +6° full day
+  c.lerp(new THREE.Color(P.dusk), 0.97 * S01((altD + 14) / 10));   // −14° night → −4° dusk (kept 15% night-blue so the whole dome never goes flat orange)
+  c.lerp(new THREE.Color(P.day), S01((altD - 4) / 8));             // −4° dusk → +12° full day (wide golden hour — intentional)
   return c;
 }
 
@@ -5536,6 +5536,7 @@ function setNeon(on) {
   }
   refreshModelLookFilters();   // HKS-104: the hiker/plane join the noir
   applyControlLocks();
+  renderSky(); setFog();   // clear colour + fog must follow the noir/day toggle even when snow is already saturated (codex)
   refreshDock();
   syncUrl();
   track('look_neon', { on });
