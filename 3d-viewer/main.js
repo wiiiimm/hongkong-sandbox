@@ -1027,12 +1027,12 @@ function applySkyScale() {
 // Chained smoothstep lerps keep the transitions band-free; palette is tunable.
 function skyColour(altD, onPaper) {
   const P = onPaper
-    ? { day: 0xcfe0f1, dusk: 0xe2a878, night: 0x121a26 }   // paper: pale blue / soft amber / slate night
-    : { day: 0x6ea3d8, dusk: 0xd9784a, night: 0x070a12 };  // dark: clear blue / warm dusk / deep night
+    ? { day: 0xcfe0f1, dusk: 0xf0a45f, night: 0x121a26 }   // paper: pale blue / soft amber / slate night
+    : { day: 0x6ea3d8, dusk: 0xf4813c, night: 0x070a12 };  // dark: clear blue / warm dusk / deep night
   const S = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
   const c = new THREE.Color(P.night);
-  c.lerp(new THREE.Color(P.dusk), 0.85 * S((altD + 12) / 10));   // −12° night → −2° dusk (kept 15% night-blue so the whole dome never goes flat orange)
-  c.lerp(new THREE.Color(P.day), S((altD + 2) / 8));             // −2° dusk → +6° full day
+  c.lerp(new THREE.Color(P.dusk), 0.97 * S((altD + 14) / 10));   // −12° night → −2° dusk (kept 15% night-blue so the whole dome never goes flat orange)
+  c.lerp(new THREE.Color(P.day), S((altD - 4) / 8));             // −2° dusk → +6° full day
   return c;
 }
 
