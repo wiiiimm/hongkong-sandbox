@@ -1095,9 +1095,17 @@ function renderSky() {
     base.setHex(0x020a05);
     sun.color.setHex(0x9cffb0);
   }
-  // final sky luminance — whatever mode/weather composed the dome (eclipse, snow,
-  // storm, Matrix, Stargaze black), the stars only care how bright it ended up
+  // final sky luminance — the stars are washed out by how bright the sky *reads*.
+  // Normally that's the composed dome (day gradient, eclipse, snow, storm), and
+  // Stargaze's black planetarium is the deliberate "always stars" case. But Neon
+  // Night and Matrix force an artistic dark base purely for the CLEAR COLOUR — the
+  // stars must still follow the REAL sky (daylight hides them, night reveals them),
+  // not the noir grade — so recompute their driving luminance from the natural sky.
   skyLum = 0.2126 * base.r + 0.7152 * base.g + 0.0722 * base.b;
+  if ((neonOn || matrixOn) && !stargaze.on) {
+    const realSky = cel ? skyColour(cel.sunAlt / D2R, onPaper) : new THREE.Color(BG[bgMode]);
+    skyLum = 0.2126 * realSky.r + 0.7152 * realSky.g + 0.0722 * realSky.b;
+  }
   renderer.setClearColor(base, 1);
   baseHemi = hemiI * dim;
   baseSun  = sunI * dim;
