@@ -341,8 +341,10 @@ function sampleE(col, row) {
 // cells — overlays draped with it float or dip. This sampler reproduces the exact
 // planar triangles the GPU rasterises, on the *decimated* grid when the density
 // slider sets meshStep>1 (quad corners at multiples of meshStep, ragged last
-// row/col snapped to W-1/H-1 like axisSamples does). Used ONLY for the overlay
-// drape (vector skin + GPX); walk height / labels / GPS keep bilinear sampleE.
+// row/col snapped to W-1/H-1 like axisSamples does). Used for the overlay drape
+// (vector skin + GPX) AND the walk-mode ground height (HKS: on steep/curved coarse
+// cells the bilinear surface dips metres below the rendered mesh — ×VE — so the
+// hiker sank into the mountain); labels / GPS keep bilinear sampleE.
 function sampleEtri(col, row) {
   col = Math.max(0, Math.min(W - 1.001, col));
   row = Math.max(0, Math.min(H - 1.001, row));
@@ -4743,7 +4745,7 @@ function enterWalk(startLocal) {
   // air-drop insertion: start 60 m over the ground and fall in — you always
   // arrive ON the surface (never wedged inside a slope), and it reads as a spawn
   walk.vy = 0; walk.land = 0; walk.spd = 0;
-  walk.pos.y = (sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
+  walk.pos.y = (sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
   if (!hikerGrp) { hikerGrp = buildHiker(); world.add(hikerGrp); }
   applyLookFilter(hikerGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
   setTopMode('walk');
@@ -4989,7 +4991,7 @@ function teleportToMarker() {       // jump the ACTIVE movement mode to the fix
     walk.pos.x = Math.max(-b.halfX, Math.min(b.halfX, p.x));
     walk.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, p.z));
     walk.vy = 0; walk.land = 0; walk.spd = 0;
-    walk.pos.y = (sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
+    walk.pos.y = (sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
   } else if (flight.on) {           // pop out airborne over the fix, at cruise
     flight.pos.set(p.x, (sampleE(p.col, p.row) + 300) * VE, p.z);
     flight.landed = false;
@@ -5285,12 +5287,12 @@ function stepWalk() {
   const dz = (-cy * fwdIn - sy * strIn) * mps;
   const b = bounds();
   if (dx || dz) {
-    const gCur = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
+    const gCur = sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
     const step = (mx, mz) => {                            // one gated move attempt
       if (!mx && !mz) return false;
       const nx = Math.max(-b.halfX, Math.min(b.halfX, walk.pos.x + mx));
       const nz = Math.max(-b.halfZ, Math.min(b.halfZ, walk.pos.z + mz));
-      const gNew = sampleE(nx / cell + W / 2, nz / cell + H / 2);
+      const gNew = sampleEtri(nx / cell + W / 2, nz / cell + H / 2);
       // ~50° climb gate with a 25 cm step-up allowance. (The old form added the
       // allowance to a 2 cm per-frame run, so it only blocked >85° — cliffs in
       // the 5 m DEM could pin you at spawn while everything else walked through.)
@@ -5305,7 +5307,7 @@ function stepWalk() {
     if (step(dx, dz) || step(dx, 0) || step(0, dz))
       walk.bob += Math.min(0.55, 0.07 + walk.spd * 0.035);   // cadence rises with speed
   }
-  const g = sampleE(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
+  const g = sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);   // HKS: rest on the RENDERED triangle surface, not bilinear (submerged the hiker, ×VE)
   const eyeY = (g + 1.7) * VE;
   const airborne = walk.pos.y > eyeY + 0.05 * VE || walk.vy > 0;
   if (airborne) {                                         // drop-in / jump: real gravity
