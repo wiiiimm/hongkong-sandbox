@@ -108,6 +108,21 @@
   #loader .bar i{display:block;height:100%;width:0%;background:var(--accent);border-radius:2px;
     transition:width .25s ease}
   #loader.err .bar{display:none}
+  /* HKS-109: offline alert bar — deliberately loud, fixed to the top edge, full
+     width; marquee-scrolls when the message overflows; hidden the moment we're back online. */
+  #offbar{position:fixed;top:0;left:0;right:0;z-index:300;background:#e00000;color:#fff;
+    font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+    line-height:1;padding:8px 0;white-space:nowrap;overflow:hidden;text-align:center;
+    border-bottom:3px solid #000;box-shadow:0 3px 14px rgba(0,0,0,.45)}
+  #offbar[hidden]{display:none}
+  #offbar .offbar-track{display:inline-block;white-space:nowrap}
+  #offbar .offbar-msg{padding:0 2.5rem}
+  #offbar.scroll{text-align:left}
+  #offbar.scroll .offbar-track{animation:offmarq var(--offdur,18s) linear infinite}
+  #offbar.wrap{white-space:normal}
+  #offbar.wrap .offbar-msg{padding:3px 1rem;display:inline-block}
+  @keyframes offmarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){#offbar.scroll .offbar-track{animation:none}}
   @keyframes lspin{to{transform:rotate(360deg)}}
   @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.5}}
   /* HKS-49: non-blocking mini-loader for the background vector-overlay stream.
@@ -832,6 +847,7 @@
   <div class="st" id="loaderstatus">loading terrain · 載入地形中</div>
   <div class="bar"><i id="loaderbar"></i></div>
 </div>
+<div id="offbar" role="status" aria-live="polite" hidden><div class="offbar-track"><span class="offbar-msg"></span></div></div>
 <div id="miniloader"><div class="mlabel"></div><div class="mbar"><i></i></div></div>
 <!-- HKS-64: mobile "add to home screen" nudge — shown by main.js on eligible devices -->
 <div id="installbar" role="dialog" aria-live="polite">
