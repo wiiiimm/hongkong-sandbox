@@ -1382,6 +1382,7 @@ function applyVE() {
     seg.geometry.attributes.position.needsUpdate = true;
   }
   redrapeGpx();   // HKS-106: re-drape imported GPX trails onto the new exaggeration / source
+  if (hikerGrp) hikerGrp.scale.setScalar(VE);   // review: keep the walk-mode figure sized to the live exaggeration (its scale was baked once at build)
 }
 
 // ---- surface style + background -------------------------------------------
@@ -5390,8 +5391,8 @@ function stepWalk() {
       if (u.mixer) {
         const next = (airborne || walk.spd < 0.2) ? u.aIdle : walk.spd < 3.2 ? u.aWalk : u.aRun;
         if (next && u.cur !== next) {
-          if (u.cur) u.cur.fadeOut(0.25);
-          next.reset().fadeIn(0.25).play();
+          if (u.cur) { u.cur.fadeOut(0.25); next.reset().fadeIn(0.25).play(); }
+          else next.reset().play();   // review: first clip after the swap plays at full weight — no bind-pose ease-in
           u.cur = next;
         }
         // feet track the ground speed (clips are authored near 1.4 / 4.8 m/s);
