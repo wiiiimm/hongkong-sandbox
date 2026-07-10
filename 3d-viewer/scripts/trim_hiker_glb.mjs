@@ -26,6 +26,11 @@ for (const anim of doc.getRoot().listAnimations()) {
   for (const s of anim.listSamplers()) s.dispose();
   anim.dispose();
 }
+// Fail loudly if a re-export renamed a clip we depend on — a GLB missing
+// Idle/Walk/Run would silently ship and freeze the hiker at runtime.
+const present = new Set(doc.getRoot().listAnimations().map(a => a.getName()));
+const missing = [...KEEP].filter(n => !present.has(n));
+if (missing.length) { console.error('missing expected clips:', missing.join(', ')); process.exit(1); }
 // POSITION stays float32: three r160's computeBoundingBox reads quantized
 // (normalized-int) attributes raw, which broke the viewer's height normalisation.
 await doc.transform(resample(), dedup(), prune(), quantize({ pattern: /^(?!POSITION).*$/ }));

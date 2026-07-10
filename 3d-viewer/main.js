@@ -5226,18 +5226,32 @@ function buildHiker() {
 // instant stand-in and the permanent fallback — a fork without the file or an
 // uncached offline first walk just keeps the box figure.
 const HIKER_GLB = 'data/models/hiker-adventurer.glb';
-let hikerModelReq = false;                 // fire the fetch at most once per session
+let hikerModelReq = false, hikerModelFails = 0;   // fire the fetch once per session; cap retries after a failure
 function loadHikerModel() {
   if (hikerModelReq) return;
   hikerModelReq = true;
   new GLTFLoader().load(asset(HIKER_GLB), gltf => {
-    if (!hikerGrp) return;
+    if (!hikerGrp) { hikerModelReq = false; return; }   // group gone before load resolved — allow a later retry
     const model = gltf.scene;
-    // normalise: 1.75 m tall, soles on y=0, facing -Z like the box hiker.
-    // updateMatrixWorld first — Box3.setFromObject measures SkinnedMeshes
-    // through the bones, and their world matrices (and bindMatrixInverse)
-    // are stale until a full update pass; without it the box is garbage.
+    // updateMatrixWorld first — Box3.setFromObject measures SkinnedMeshes through
+    // the bones, and their world matrices are stale until a full update pass.
     model.updateMatrixWorld(true);
+    // Build the clip actions BEFORE touching the box: if a re-export/trim renamed
+    // the clips so none resolve, we must NOT swap in a model that would freeze in
+    // its bind pose — keep the procedural box gait instead. (review: gait contract
+    // = mixer present ⇒ ≥1 clip; the stepWalk box branch stays reachable otherwise.)
+    const mixer = new THREE.AnimationMixer(model);
+    const act = n => {
+      const c = THREE.AnimationClip.findByName(gltf.animations, 'CharacterArmature|' + n);
+      return c ? mixer.clipAction(c) : null;
+    };
+    const aIdle = act('Idle'), aWalk = act('Walk'), aRun = act('Run');
+    if (!aIdle && !aWalk && !aRun) {
+      console.warn('[hiker] GLB carries no Idle/Walk/Run clips — keeping the box hiker');
+      model.traverse(o => { if (o.isMesh) { o.geometry?.dispose(); (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => m?.dispose()); } });
+      return;                              // hikerModelReq stays true → don't reload; box limb-swing remains
+    }
+    // normalise: 1.75 m tall, soles on y=0, facing -Z like the box hiker.
     const box = new THREE.Box3().setFromObject(model);
     const inner = new THREE.Group();
     inner.scale.setScalar(1.75 / Math.max(0.01, box.max.y - box.min.y));
@@ -5252,15 +5266,11 @@ function loadHikerModel() {
       if (c.isMesh) { c.geometry.dispose(); c.material.dispose(); }
     }
     hikerGrp.add(inner);
-    const mixer = new THREE.AnimationMixer(model);
-    const act = n => {
-      const c = THREE.AnimationClip.findByName(gltf.animations, 'CharacterArmature|' + n);
-      return c ? mixer.clipAction(c) : null;
-    };
-    // userData is the gait contract: mixer present → clip-driven, else limb-swing
-    hikerGrp.userData = { mixer, aIdle: act('Idle'), aWalk: act('Walk'), aRun: act('Run'), cur: null };
+    hikerGrp.userData = { mixer, aIdle, aWalk, aRun, cur: null };
     applyLookFilter(hikerGrp);             // re-dress the new meshes for Matrix/Neon
-  }, undefined, () => { hikerModelReq = false; });   // failed (offline/404) — keep the box hiker, retry next entry
+  }, undefined, err => {                    // offline / 404 (e.g. GLB not yet on R2): keep the box stand-in
+    console.warn('[hiker] model load failed — using the box stand-in:', asset(HIKER_GLB), (err && err.message) || err);
+    if (++hikerModelFails < 2) hikerModelReq = false;   // retry once (transient/offline→online), then stop hammering
 }
 // walk camera views — first person ↔ chase, mirroring the flight pattern
 function updateWalkViewBtn() { syncCamSeg(); }   // walk camera (chase ⇄ first-person) reflects in the segmented control
@@ -5389,7 +5399,7 @@ function stepWalk() {
       hikerGrp.position.set(walk.pos.x, walk.pos.y - 1.7 * VE + dip, walk.pos.z);
       hikerGrp.rotation.y = walk.yaw;
       if (u.mixer) {
-        const next = (airborne || walk.spd < 0.2) ? u.aIdle : walk.spd < 3.2 ? u.aWalk : u.aRun;
+        const next = ((airborne || walk.spd < 0.2) ? u.aIdle : walk.spd < 3.2 ? u.aWalk : u.aRun) || u.aIdle || u.aWalk || u.aRun;
         if (next && u.cur !== next) {
           if (u.cur) { u.cur.fadeOut(0.25); next.reset().fadeIn(0.25).play(); }
           else next.reset().play();   // review: first clip after the swap plays at full weight — no bind-pose ease-in
