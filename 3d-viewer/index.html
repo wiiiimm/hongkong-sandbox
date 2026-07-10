@@ -125,6 +125,14 @@
   @keyframes offmarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media (prefers-reduced-motion:reduce){#offbar.scroll .offbar-track{animation:none}}
   body.has-offbar #panel{top:calc(16px + var(--offbar-h,0px))}   /* keep the offline bar from covering the settings panel */
+  /* HKS-109 follow-up: the offline bar is full-width at the top edge, so shift the
+     top-anchored chrome below it — in every view mode. --offbar-h is measured and
+     already includes env(safe-area-inset-top), so the mobile rules below use it alone. */
+  body.has-offbar #brandchip{top:calc(16px + var(--offbar-h,0px))}
+  body.has-offbar #wxhud{top:calc(16px + var(--offbar-h,0px))}
+  body.has-offbar #flyhud{top:calc(62px + var(--offbar-h,0px))}
+  body.has-offbar #stormbadge{top:calc(16px + var(--offbar-h,0px))}
+  body.has-offbar #miniloader{top:calc(16px + var(--offbar-h,0px))}
   @keyframes lspin{to{transform:rotate(360deg)}}
   @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.5}}
   /* HKS-49: non-blocking mini-loader for the background vector-overlay stream.
@@ -809,6 +817,10 @@
     #stormbadge{left:54px;max-width:calc(100vw - 66px)}   /* start after the credits chip */
     /* fly/walk stats HUD — tighten inside the shared hudbox on phones */
     #flyhud{top:calc(52px + env(safe-area-inset-top));font-size:10px;padding:5px 11px}   /* under the shorter mobile brand chip */
+    /* offline-bar offset — mobile bases differ; --offbar-h already carries the safe-area inset */
+    body.has-offbar #brandchip{top:calc(12px + var(--offbar-h,0px))}
+    body.has-offbar #wxhud{top:calc(12px + var(--offbar-h,0px))}
+    body.has-offbar #flyhud{top:calc(52px + var(--offbar-h,0px))}
     #hudbox{width:min(264px,calc((100vw - 20px) * 0.8))}   /* HKS-91: -20% so the speed bar clears the radar / corner buttons */
     #compass{width:min(186px,52vw);height:26px}
     #camseg{height:26px}
