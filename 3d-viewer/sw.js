@@ -81,22 +81,33 @@ async function matchCache(cache, req, url) {
   return cache.match(req, opts);
 }
 
+// Cap each precache download. Without this a hung R2 fetch (stalled, never
+// erroring) keeps the worker `installing` forever via waitUntil, blocking
+// activation and the offline boot fallback (HKS-109 review). A genuinely
+// slow-but-progressing link may abort here and get topped up by SWR on the
+// next online use — the intended best-effort behaviour.
+const PRECACHE_TIMEOUT_MS = 60000;
+
 async function precacheTerrain(cache) {
-  // Per-file best-effort: a flaky link must never fail the whole install.
-  // Prefer Request with cors mode so R2 opaque failures surface as rejects we catch.
+  // Per-file best-effort: a flaky link must never fail the whole install, and each
+  // fetch is time-boxed so a hung download can't stall the worker's activation.
   await Promise.all(DEFAULT_TERRAIN.map(async (u) => {
+    if (await cache.match(u, { ignoreSearch: true })) return;
+    const ctrl = new AbortController();
+    const to = setTimeout(() => ctrl.abort(), PRECACHE_TIMEOUT_MS);
     try {
-      if (await cache.match(u, { ignoreSearch: true })) return;
-      const res = await fetch(u, { mode: 'cors', credentials: 'omit', cache: 'reload' });
+      const res = await fetch(u, { mode: 'cors', credentials: 'omit', cache: 'reload', signal: ctrl.signal });
       if (res && res.ok) await cache.put(u, res);
-    } catch (_) { /* leave gap; SWR tops up on next online use */ }
+    } catch (_) { /* aborted / offline / error → leave gap; SWR tops up on next online use */ }
+    finally { clearTimeout(to); }
   }));
 }
 
 self.addEventListener('install', (e) => {
-  // Shell is required and must finish before we claim the client.
-  // Terrain is a separate waitUntil: it extends install without blocking
-  // skipWaiting, and never rejects so a partial download still activates.
+  // Shell is required and gates activation. Terrain is a separate, best-effort
+  // waitUntil that keeps the worker alive to finish downloading — but each fetch is
+  // time-boxed (PRECACHE_TIMEOUT_MS), so a hung R2 request can no longer keep the
+  // worker `installing`: install always settles and activation proceeds.
   e.waitUntil((async () => {
     const c = await caches.open(CACHE);
     await c.addAll(SHELL);
