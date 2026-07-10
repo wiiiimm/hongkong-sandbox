@@ -385,7 +385,14 @@ async function loadSource(id) {
     }
   };
   const fj = async u => {   // revalidate (304 if unchanged) so stale DEMs never stick
-    const res = await fetch(asset(u) + q, { cache: 'no-cache' });   // HKS-46: honour ASSET_BASE
+    // HKS-109: bound the fetch so a stalled/offline network can't leave the boot
+    // loader spinning — a SW cache hit resolves far under this budget; a dead link aborts.
+    const ctrl = new AbortController();
+    const to = setTimeout(() => ctrl.abort(), navigator.onLine ? 90000 : 3500);
+    let res;
+    try { res = await fetch(asset(u) + q, { cache: 'no-cache', signal: ctrl.signal }); }   // HKS-46: honour ASSET_BASE
+    finally { clearTimeout(to); }
+    if (!res.ok) throw new Error(`HTTP ${res.status} ${u}`);
     if (!res.body || !res.body.getReader) return res.json();
     prog[u] = { got: 0, total: +res.headers.get('Content-Length') || 0 };
     const rd = res.body.getReader(), chunks = [];
@@ -8638,7 +8645,12 @@ loadSource(startSrc).then(() => {
   // HKS-109: terrain never loaded (usually offline + not-yet-cached). Don't leave
   // the spinner running behind a raw error — say what's wrong and offer a retry.
   console.error('boot: terrain load failed', err);
-  const offline = !navigator.onLine;
+  // HKS-109: navigator.onLine lies (can be true on a dead link / captive portal), so
+  // also treat a classic fetch network failure as offline. Our own AbortError (the fj
+  // timeout) is a hang while nominally online, not an offline state.
+  const netMsg = (err && (err.message || String(err))) || '';
+  const offline = !navigator.onLine
+    || (err?.name !== 'AbortError' && /failed to fetch|networkerror|load failed/i.test(netMsg));
   const msg = offline ? t('load.offline') : t('load.failed');
   document.getElementById('note').textContent = msg;
   const ld = document.getElementById('loader');
@@ -8654,7 +8666,11 @@ loadSource(startSrc).then(() => {
       btn.onclick = () => location.reload();
       ls.appendChild(btn);
     }
-    if (offline) addEventListener('online', () => location.reload(), { once: true });   // reconnected → retry boot
+    // reconnected while the error screen is up → retry the boot automatically.
+    // Registered unconditionally so the dead-network case (onLine already true at
+    // catch) still recovers when a real `online` event finally fires.
+    const onBack = () => { removeEventListener('online', onBack); location.reload(); };
+    addEventListener('online', onBack);
   }
 });
 
