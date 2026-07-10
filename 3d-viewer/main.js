@@ -165,7 +165,7 @@ const I18N = {
     'lock.neon': '◈ set by 風林火山 mode — ❄️ to leave the neon night',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.layers': 'Loading map layers', 'note.loadfail': 'Load failed',
     'install.ios': 'Add Hong Kong Sandbox to your home screen — tap Share, then "Add to Home Screen".', 'install.android': 'Install Hong Kong Sandbox — a full-screen, offline-ready app.', 'install.action': 'Install',
-    'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
+    'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'load.offline': 'You’re offline — connect once to load the map, then it works offline.', 'load.failed': 'Couldn’t load the map.', 'load.retry': 'Retry', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
     'sig.9': 'Increasing Gale or Storm Signal No.9', 'sig.10': 'Hurricane Signal No.10', 'badge.pre': '⚠ TYPHOON SIGNAL No.', 'badge.post': '',
     'tip.humidity': 'humidity', 'tip.wind': 'wind', 'tip.gust': 'gust', 'tip.rain': 'Rain (district, 1 h):', 'tide.word': 'tide', 'tide.rising': '↑ rising', 'tide.falling': '↓ falling', 'tide.slack': '→ slack',
@@ -256,7 +256,7 @@ const I18N = {
     'lock.neon': '◈ 由風林火山模式設定 — 按 ❄️ 離開霓虹夜',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.layers': '載入地圖圖層中', 'note.loadfail': '載入失敗',
     'install.ios': '將香港沙盒加到主畫面 —— 點擊分享，再選「加入主畫面」。', 'install.android': '安裝香港沙盒 —— 全螢幕、離線使用。', 'install.action': '安裝',
-    'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
+    'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'load.offline': '你目前離線 — 請先連線載入地圖一次，之後即可離線使用。', 'load.failed': '無法載入地圖。', 'load.retry': '重試', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
     'sig.9': '九號烈風或暴風增強信號', 'sig.10': '十號颶風信號', 'badge.pre': '⚠ 颱風信號 ', 'badge.post': ' 號',
     'tip.humidity': '濕度', 'tip.wind': '風', 'tip.gust': '陣風', 'tip.rain': '雨量（地區，1小時）：', 'tide.word': '潮汐', 'tide.rising': '↑ 上漲', 'tide.falling': '↓ 回落', 'tide.slack': '→ 平潮',
@@ -8611,8 +8611,12 @@ loadSource(startSrc).then(() => {
   if (startParams.get('embed') === '1') document.getElementById('panel').classList.add('collapsed');
   animate();
   // default to live weather on (unless a shared link explicitly opted out with lv=0,
-  // or we booted straight into Stargaze — which owns a clean, weather-free sky, HKS-91)
-  if (!stargaze.on && (startParams.has('lv') ? startParams.get('lv') === '1' : true)) setLiveMode(true);
+  // or we booted straight into Stargaze — which owns a clean, weather-free sky, HKS-91).
+  // Offline (HKS-109): skip the doomed HKO fetches and start manual, then arm live
+  // once the moment the connection returns.
+  const wantLive = !stargaze.on && (startParams.has('lv') ? startParams.get('lv') === '1' : true);
+  if (wantLive && navigator.onLine) setLiveMode(true);
+  else if (wantLive) addEventListener('online', () => { if (!liveMode && !stargaze.on) setLiveMode(true); }, { once: true });
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
   window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)
@@ -8631,10 +8635,27 @@ loadSource(startSrc).then(() => {
     source: startSrc,
   });
 }).catch(err => {
-  document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message;
+  // HKS-109: terrain never loaded (usually offline + not-yet-cached). Don't leave
+  // the spinner running behind a raw error — say what's wrong and offer a retry.
+  console.error('boot: terrain load failed', err);
+  const offline = !navigator.onLine;
+  const msg = offline ? t('load.offline') : t('load.failed');
+  document.getElementById('note').textContent = msg;
   const ld = document.getElementById('loader');
-  if (ld) { ld.classList.add('err'); document.getElementById('loaderstatus').textContent = t('note.loadfail') + ': ' + err.message; }
-  console.error(err);
+  if (ld) {
+    ld.classList.add('err');
+    const ring = ld.querySelector('.ring'); if (ring) ring.style.display = 'none';   // stop the spinner
+    const ls = document.getElementById('loaderstatus');
+    if (ls && !ls.querySelector('button')) {
+      ls.textContent = msg;
+      const btn = document.createElement('button');
+      btn.textContent = t('load.retry');
+      btn.style.cssText = 'display:block;margin:16px auto 0;padding:7px 18px;font:inherit;font-size:12px;letter-spacing:.04em;cursor:pointer;border-radius:9px;border:1px solid currentColor;background:transparent;color:inherit';
+      btn.onclick = () => location.reload();
+      ls.appendChild(btn);
+    }
+    if (offline) addEventListener('online', () => location.reload(), { once: true });   // reconnected → retry boot
+  }
 });
 
 // ---- PWA: register the offline service worker (HKS-29) ----------------------

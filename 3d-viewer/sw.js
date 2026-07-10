@@ -18,7 +18,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v20';
+const VERSION = 'hks-sandbox-v21';
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -48,10 +48,33 @@ const SHELL = [
   '/icons/icon-512.png',
 ];
 
+// Default source (hk-landsd-5m) terrain — precached so the default Hong Kong view
+// is fully usable offline right after install (HKS-109). Fetched from the SAME place
+// the app requests it (main.js `asset()`): the R2 assets origin on the official
+// deploy, else same-origin /data/ (forks/localhost/preview) — so the install and
+// the app share one cache entry rather than downloading twice.
+const DATA_BASE = ASSET_ORIGIN || self.location.origin;
+const TERRAIN = [
+  'data/hk-dtm5m.json',          // 5 m DTM mesh (critical)
+  'data/hk-georef.json',
+  'data/hk-texbb.json',
+  'data/hk-b50k-landcover.json', // B50K base-map fills
+  'data/hk-b50k-vectors.json',   // 12 MB roads/labels overlay (full-fidelity offline)
+  'data/hk-peaks.json',
+  'data/hk-landmarks.json',
+  'data/hk-sky.json',            // Bright Star Catalogue for Stargaze
+].map((f) => `${DATA_BASE}/${f}`);
+
 self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()),
-  );
+  e.waitUntil((async () => {
+    const c = await caches.open(CACHE);
+    await c.addAll(SHELL);            // critical app shell — must all succeed
+    self.skipWaiting();              // take control as soon as the shell is cached
+    // terrain fills in behind the shell: per-file best-effort so a slow/flaky
+    // connection (or going offline mid-install) never rejects the whole install —
+    // stale-while-revalidate tops up anything missing on the next online use.
+    await Promise.all(TERRAIN.map((u) => c.add(u).catch(() => {})));
+  })());
 });
 
 self.addEventListener('activate', (e) => {
