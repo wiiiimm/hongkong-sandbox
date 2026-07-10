@@ -102,12 +102,20 @@
   #loader .st{font-family:var(--mono);font-size:10px;color:var(--sub);margin-top:26px;
     letter-spacing:.08em;animation:lpulse 2.2s ease-in-out infinite}
   #loader.err .ring{display:none}
-  #loader.err .st{animation:none;color:#e6a23c}
+  #loader.err .st{animation:none;color:#e6a23c;max-width:min(320px,86vw);text-align:center;
+    line-height:1.55;letter-spacing:.04em;white-space:pre-line}
   #loader .bar{width:210px;height:3px;border-radius:2px;background:rgba(255,255,255,.09);
     margin-top:14px;overflow:hidden}
   #loader .bar i{display:block;height:100%;width:0%;background:var(--accent);border-radius:2px;
     transition:width .25s ease}
   #loader.err .bar{display:none}
+  /* HKS-109: retry after a cold-offline (or failed) boot — hidden until .err */
+  #loaderretry{display:none;margin-top:18px;padding:9px 18px;border-radius:999px;cursor:pointer;
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.04em;
+    color:#0b0e12;background:var(--accent);border:0;box-shadow:0 6px 18px rgba(53,203,160,.28)}
+  #loaderretry:hover{filter:brightness(1.08)}
+  #loaderretry:active{transform:translateY(1px)}
+  #loader.err #loaderretry{display:inline-flex;align-items:center;justify-content:center}
   @keyframes lspin{to{transform:rotate(360deg)}}
   @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.5}}
   /* HKS-49: non-blocking mini-loader for the background vector-overlay stream.
@@ -831,6 +839,7 @@
   <div class="wm-en">Hong Kong Sandbox</div>
   <div class="st" id="loaderstatus">loading terrain · 載入地形中</div>
   <div class="bar"><i id="loaderbar"></i></div>
+  <button type="button" id="loaderretry" data-i18n="load.retry">Retry</button>
 </div>
 <div id="miniloader"><div class="mlabel"></div><div class="mbar"><i></i></div></div>
 <!-- HKS-64: mobile "add to home screen" nudge — shown by main.js on eligible devices -->

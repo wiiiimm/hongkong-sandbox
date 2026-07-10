@@ -166,6 +166,10 @@ const I18N = {
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.layers': 'Loading map layers', 'note.loadfail': 'Load failed',
     'install.ios': 'Add Hong Kong Sandbox to your home screen — tap Share, then "Add to Home Screen".', 'install.android': 'Install Hong Kong Sandbox — a full-screen, offline-ready app.', 'install.action': 'Install',
     'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
+    // HKS-109: cold-offline boot copy (loader stays up with spinner stopped + Retry)
+    'load.offline': "You're offline — connect once to load the map,\nthen it works offline.",
+    'load.failed': "Couldn't load the map.",
+    'load.retry': 'Retry',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
     'sig.9': 'Increasing Gale or Storm Signal No.9', 'sig.10': 'Hurricane Signal No.10', 'badge.pre': '⚠ TYPHOON SIGNAL No.', 'badge.post': '',
     'tip.humidity': 'humidity', 'tip.wind': 'wind', 'tip.gust': 'gust', 'tip.rain': 'Rain (district, 1 h):', 'tide.word': 'tide', 'tide.rising': '↑ rising', 'tide.falling': '↓ falling', 'tide.slack': '→ slack',
@@ -257,6 +261,10 @@ const I18N = {
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.layers': '載入地圖圖層中', 'note.loadfail': '載入失敗',
     'install.ios': '將香港沙盒加到主畫面 —— 點擊分享，再選「加入主畫面」。', 'install.android': '安裝香港沙盒 —— 全螢幕、離線使用。', 'install.action': '安裝',
     'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
+    // HKS-109: 離線冷啟動文案（停止轉圈 + 重試）
+    'load.offline': '你現在離線 — 請先連線載入地圖一次，\n之後即可離線使用。',
+    'load.failed': '無法載入地圖。',
+    'load.retry': '重試',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
     'sig.9': '九號烈風或暴風增強信號', 'sig.10': '十號颶風信號', 'badge.pre': '⚠ 颱風信號 ', 'badge.post': ' 號',
     'tip.humidity': '濕度', 'tip.wind': '風', 'tip.gust': '陣風', 'tip.rain': '雨量（地區，1小時）：', 'tide.word': '潮汐', 'tide.rising': '↑ 上漲', 'tide.falling': '↓ 回落', 'tide.slack': '→ 平潮',
@@ -385,7 +393,18 @@ async function loadSource(id) {
     }
   };
   const fj = async u => {   // revalidate (304 if unchanged) so stale DEMs never stick
-    const res = await fetch(asset(u) + q, { cache: 'no-cache' });   // HKS-46: honour ASSET_BASE
+    // HKS-109: fail fast when offline (or a hung network) so the boot loader never
+    // spins forever — SW-served cache hits resolve well under this budget.
+    const ctrl = new AbortController();
+    const ms = navigator.onLine ? 90000 : 3500;
+    const to = setTimeout(() => ctrl.abort(), ms);
+    let res;
+    try {
+      res = await fetch(asset(u) + q, { cache: 'no-cache', signal: ctrl.signal });   // HKS-46: honour ASSET_BASE
+    } finally {
+      clearTimeout(to);
+    }
+    if (!res.ok) throw new Error(`HTTP ${res.status} ${u}`);
     if (!res.body || !res.body.getReader) return res.json();
     prog[u] = { got: 0, total: +res.headers.get('Content-Length') || 0 };
     const rd = res.body.getReader(), chunks = [];
@@ -8599,6 +8618,44 @@ const startParams = new URLSearchParams(DEFAULT_STATE);
 for (const [k, v] of urlParams) startParams.set(k, v);
 const startSrc = SOURCES[startParams.get('s')] ? startParams.get('s') : 'hk-landsd-5m';
 document.getElementById('src').value = startSrc;
+// HKS-109: stop the spinner-hang and surface a clear offline / retry state.
+function showBootError(err) {
+  const msg = (err && (err.message || String(err))) || '';
+  // Prefer navigator.onLine; also treat classic fetch network failures as offline
+  // (some browsers still report onLine=true on airplane mode). AbortError after
+  // our own timeout while online is a hang/timeout, not an offline state.
+  const offline = !navigator.onLine
+    || (err?.name !== 'AbortError' && /failed to fetch|networkerror|load failed/i.test(msg));
+  const text = offline ? t('load.offline') : (t('load.failed') + (msg ? `\n${msg}` : ''));
+  document.getElementById('note').textContent = text.replace(/\n/g, ' ');
+  const ld = document.getElementById('loader');
+  if (ld) {
+    ld.classList.add('err');
+    const st = document.getElementById('loaderstatus');
+    if (st) st.textContent = text;
+    const btn = document.getElementById('loaderretry');
+    if (btn) {
+      btn.textContent = t('load.retry');
+      btn.onclick = () => location.reload();
+    }
+  }
+  console.error(err);
+}
+
+// HKS-109: only auto-enable live weather when the network is up. If live was the
+// intended default (or URL lv=1) while offline, re-arm once we come back online.
+function armLiveWeatherOnBoot() {
+  if (stargaze.on) return;
+  const wantLive = startParams.has('lv') ? startParams.get('lv') === '1' : true;
+  if (!wantLive) return;
+  if (navigator.onLine) { setLiveMode(true); return; }
+  const resume = () => {
+    if (!liveMode && !stargaze.on && navigator.onLine) setLiveMode(true);
+    removeEventListener('online', resume);
+  };
+  addEventListener('online', resume);
+}
+
 loadSource(startSrc).then(() => {
   applyState(startParams);
   controls.addEventListener('change', syncUrl);     // camera orbit/zoom/pan
@@ -8612,7 +8669,8 @@ loadSource(startSrc).then(() => {
   animate();
   // default to live weather on (unless a shared link explicitly opted out with lv=0,
   // or we booted straight into Stargaze — which owns a clean, weather-free sky, HKS-91)
-  if (!stargaze.on && (startParams.has('lv') ? startParams.get('lv') === '1' : true)) setLiveMode(true);
+  // HKS-109: skip the HKO storm when offline; resume on `online`.
+  armLiveWeatherOnBoot();
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
   window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)
@@ -8630,12 +8688,7 @@ loadSource(startSrc).then(() => {
     surface: startParams.get('surf') || surfStyle,
     source: startSrc,
   });
-}).catch(err => {
-  document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message;
-  const ld = document.getElementById('loader');
-  if (ld) { ld.classList.add('err'); document.getElementById('loaderstatus').textContent = t('note.loadfail') + ': ' + err.message; }
-  console.error(err);
-});
+}).catch(showBootError);
 
 // ---- PWA: register the offline service worker (HKS-29) ----------------------
 // Static app, so this only adds offline resilience + installability; failure is

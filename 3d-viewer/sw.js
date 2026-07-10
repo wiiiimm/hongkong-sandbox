@@ -1,4 +1,4 @@
-/* Service worker — offline app shell for Hong Kong Sandbox (HKS-29).
+/* Service worker — offline app shell for Hong Kong Sandbox (HKS-29 / HKS-109).
  *
  * Same-origin only. Two strategies:
  *   • code / navigations (html, main.js, audio.js, vendor, manifest)
@@ -12,13 +12,17 @@
  * cross-origin — live data (HKO / data.gov.hk) and map tiles (OSM / Esri) —
  * always hits the network, so weather and tides are never stale.
  *
- * The terrain JSON (~21 MB total, same-origin /data/ or the R2 assets origin) is
- * NOT precached; it is cached on first use, so a source you have opened once
- * stays available offline.
+ * HKS-109: the default Hong Kong source (hk-landsd-5m) terrain is best-effort
+ * precached at install (from R2 on the live deploy, else same-origin /data/) so a
+ * cold offline launch after one online visit can render the full default view.
+ * Other sources stay cache-on-first-use.
+ *
+ * Cache matches for heavy assets ignore the query string so install-time URLs
+ * and app fetches with ?v= (dev cache-bust) share one entry.
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v20';
+const VERSION = 'hks-sandbox-v21';
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -48,10 +52,60 @@ const SHELL = [
   '/icons/icon-512.png',
 ];
 
+// Default source (hk-landsd-5m) — full-fidelity offline (~15 MB raw / ~4–5 MB gzip).
+// Same origin the app uses via main.js `asset()` so install + first online load
+// share one Cache Storage entry (no double-download once either wins).
+const DATA_BASE = ASSET_ORIGIN || self.location.origin;
+const DEFAULT_TERRAIN = [
+  'data/hk-dtm5m.json',
+  'data/hk-georef.json',
+  'data/hk-texbb.json',
+  'data/hk-b50k-landcover.json',
+  'data/hk-b50k-vectors.json',
+  'data/hk-peaks.json',
+  'data/hk-landmarks.json',
+  'data/hk-sky.json',
+].map((f) => `${DATA_BASE}/${f}`);
+
+const isHeavyPath = (p) =>
+  p.startsWith('/data/') || p.startsWith('/icons/') ||
+  /\.(png|jpe?g|webp|gif|svg|ico|woff2?)$/i.test(p);
+
+const isHeavyReq = (url) =>
+  (ASSET_ORIGIN && url.origin === ASSET_ORIGIN) ||
+  (url.origin === self.location.origin && isHeavyPath(url.pathname));
+
+// Match cache entries even when the page appends ?v= (dev) or other search params.
+async function matchCache(cache, req, url) {
+  const opts = isHeavyReq(url) ? { ignoreSearch: true } : undefined;
+  return cache.match(req, opts);
+}
+
+async function precacheTerrain(cache) {
+  // Per-file best-effort: a flaky link must never fail the whole install.
+  // Prefer Request with cors mode so R2 opaque failures surface as rejects we catch.
+  await Promise.all(DEFAULT_TERRAIN.map(async (u) => {
+    try {
+      if (await cache.match(u, { ignoreSearch: true })) return;
+      const res = await fetch(u, { mode: 'cors', credentials: 'omit', cache: 'reload' });
+      if (res && res.ok) await cache.put(u, res);
+    } catch (_) { /* leave gap; SWR tops up on next online use */ }
+  }));
+}
+
 self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()),
-  );
+  // Shell is required and must finish before we claim the client.
+  // Terrain is a separate waitUntil: it extends install without blocking
+  // skipWaiting, and never rejects so a partial download still activates.
+  e.waitUntil((async () => {
+    const c = await caches.open(CACHE);
+    await c.addAll(SHELL);
+    await self.skipWaiting();
+  })());
+  e.waitUntil((async () => {
+    const c = await caches.open(CACHE);
+    await precacheTerrain(c);
+  })());
 });
 
 self.addEventListener('activate', (e) => {
@@ -62,17 +116,14 @@ self.addEventListener('activate', (e) => {
   })());
 });
 
-const isHeavyAsset = (p) =>
-  p.startsWith('/data/') || p.startsWith('/icons/') ||
-  /\.(png|jpe?g|webp|gif|svg|ico|woff2?)$/i.test(p);
-
 async function networkFirst(req) {
+  const url = new URL(req.url);
   try {
     const res = await fetch(req);
     if (res && res.ok) (await caches.open(CACHE)).put(req, res.clone());
     return res;
   } catch (err) {
-    const cached = await caches.match(req);
+    const cached = await matchCache(await caches.open(CACHE), req, url);
     if (cached) return cached;
     if (req.mode === 'navigate') {
       const shell = await caches.match('/index.html');
@@ -83,10 +134,19 @@ async function networkFirst(req) {
 }
 
 async function staleWhileRevalidate(req) {
+  const url = new URL(req.url);
   const cache = await caches.open(CACHE);
-  const cached = await cache.match(req);
+  const cached = await matchCache(cache, req, url);
   const network = fetch(req)
-    .then((res) => { if (res && res.ok) cache.put(req, res.clone()); return res; })
+    .then((res) => {
+      if (res && res.ok) {
+        // Store under the bare URL for heavy assets so install precache + app
+        // fetch (with or without ?v=) hit the same key.
+        const key = isHeavyReq(url) ? url.origin + url.pathname : req;
+        cache.put(key, res.clone());
+      }
+      return res;
+    })
     .catch(() => cached);
   return cached || network;
 }
@@ -102,5 +162,5 @@ self.addEventListener('fetch', (e) => {
   if (ASSET_ORIGIN && url.origin === ASSET_ORIGIN) { e.respondWith(staleWhileRevalidate(req)); return; }
   if (url.origin !== self.location.origin) return;   // all other cross-origin (HKO / tiles) stay fresh
   if (req.mode === 'navigate') { e.respondWith(networkFirst(req)); return; }
-  e.respondWith(isHeavyAsset(url.pathname) ? staleWhileRevalidate(req) : networkFirst(req));
+  e.respondWith(isHeavyPath(url.pathname) ? staleWhileRevalidate(req) : networkFirst(req));
 });
