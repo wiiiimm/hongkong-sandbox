@@ -165,7 +165,7 @@ const I18N = {
     'lock.neon': '◈ set by 風林火山 mode — ❄️ to leave the neon night',
     'note.mesh': 'mesh', 'note.verts': 'verts', 'note.peak': 'peak', 'note.m': 'm', 'note.loading': 'Loading', 'note.layers': 'Loading map layers', 'note.loadfail': 'Load failed',
     'install.ios': 'Add Hong Kong Sandbox to your home screen — tap Share, then "Add to Home Screen".', 'install.android': 'Install Hong Kong Sandbox — a full-screen, offline-ready app.', 'install.action': 'Install',
-    'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'dens.full': 'full',
+    'load.osm': 'street map', 'load.sat': 'satellite imagery', 'load.mapfail': 'Map load failed', 'load.offline': 'You’re offline — connect once to load the map, then it works offline.', 'load.failed': 'Couldn’t load the map.', 'load.retry': 'Retry', 'off.banner': '⚠ Offline — live weather, tides, radar & satellite, map tiles and air quality are unavailable · the 3D map, sky and simulation still work', 'dens.full': 'full',
     'sig.1': 'Standby Signal No.1', 'sig.3': 'Strong Wind Signal No.3', 'sig.8': 'Gale or Storm Signal No.8',
     'sig.9': 'Increasing Gale or Storm Signal No.9', 'sig.10': 'Hurricane Signal No.10', 'badge.pre': '⚠ TYPHOON SIGNAL No.', 'badge.post': '',
     'tip.humidity': 'humidity', 'tip.wind': 'wind', 'tip.gust': 'gust', 'tip.rain': 'Rain (district, 1 h):', 'tide.word': 'tide', 'tide.rising': '↑ rising', 'tide.falling': '↓ falling', 'tide.slack': '→ slack',
@@ -256,7 +256,7 @@ const I18N = {
     'lock.neon': '◈ 由風林火山模式設定 — 按 ❄️ 離開霓虹夜',
     'note.mesh': '網格', 'note.verts': '頂點', 'note.peak': '最高', 'note.m': '米', 'note.loading': '載入中', 'note.layers': '載入地圖圖層中', 'note.loadfail': '載入失敗',
     'install.ios': '將香港沙盒加到主畫面 —— 點擊分享，再選「加入主畫面」。', 'install.android': '安裝香港沙盒 —— 全螢幕、離線使用。', 'install.action': '安裝',
-    'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'dens.full': '全部',
+    'load.osm': '街道圖', 'load.sat': '衛星影像', 'load.mapfail': '地圖載入失敗', 'load.offline': '你目前離線 — 請先連線載入地圖一次，之後即可離線使用。', 'load.failed': '無法載入地圖。', 'load.retry': '重試', 'off.banner': '⚠ 離線 — 實時天氣、潮汐、雷達與衛星、地圖圖層及空氣質素無法使用 · 3D 地圖、天空及模擬仍可運作', 'dens.full': '全部',
     'sig.1': '一號戒備信號', 'sig.3': '三號強風信號', 'sig.8': '八號烈風或暴風信號',
     'sig.9': '九號烈風或暴風增強信號', 'sig.10': '十號颶風信號', 'badge.pre': '⚠ 颱風信號 ', 'badge.post': ' 號',
     'tip.humidity': '濕度', 'tip.wind': '風', 'tip.gust': '陣風', 'tip.rain': '雨量（地區，1小時）：', 'tide.word': '潮汐', 'tide.rising': '↑ 上漲', 'tide.falling': '↓ 回落', 'tide.slack': '→ 平潮',
@@ -385,19 +385,28 @@ async function loadSource(id) {
     }
   };
   const fj = async u => {   // revalidate (304 if unchanged) so stale DEMs never stick
-    const res = await fetch(asset(u) + q, { cache: 'no-cache' });   // HKS-46: honour ASSET_BASE
-    if (!res.body || !res.body.getReader) return res.json();
-    prog[u] = { got: 0, total: +res.headers.get('Content-Length') || 0 };
-    const rd = res.body.getReader(), chunks = [];
-    for (;;) {
-      const { done, value } = await rd.read();
-      if (done) break;
-      chunks.push(value); prog[u].got += value.length; report();
-    }
-    let n = 0; for (const c of chunks) n += c.length;
-    const buf = new Uint8Array(n); let o = 0;
-    for (const c of chunks) { buf.set(c, o); o += c.length; }
-    return JSON.parse(new TextDecoder().decode(buf));
+    // HKS-109: bound the ENTIRE fetch + body read so a stall at any phase (headers OR
+    // a hung stream mid-download) can't leave the boot loader spinning. onLine can lie
+    // (dead Wi-Fi / captive portal), so keep the online budget tight too; a SW cache
+    // hit resolves far under it. The signal stays armed across the whole read.
+    const ctrl = new AbortController();
+    const to = setTimeout(() => ctrl.abort(), navigator.onLine ? 15000 : 3500);
+    try {
+      const res = await fetch(asset(u) + q, { cache: 'no-cache', signal: ctrl.signal });   // HKS-46: honour ASSET_BASE
+      if (!res.ok) throw new Error(`HTTP ${res.status} ${u}`);
+      if (!res.body || !res.body.getReader) return await res.json();
+      prog[u] = { got: 0, total: +res.headers.get('Content-Length') || 0 };
+      const rd = res.body.getReader(), chunks = [];
+      for (;;) {
+        const { done, value } = await rd.read();
+        if (done) break;
+        chunks.push(value); prog[u].got += value.length; report();
+      }
+      let n = 0; for (const c of chunks) n += c.length;
+      const buf = new Uint8Array(n); let o = 0;
+      for (const c of chunks) { buf.set(c, o); o += c.length; }
+      return JSON.parse(new TextDecoder().decode(buf));
+    } finally { clearTimeout(to); }
   };
   // HKS-49: the 12 MB vector overlay is *not* in the critical path — terrain goes
   // interactive on the lighter payload, then the overlay streams in behind a mini-loader.
@@ -8523,6 +8532,8 @@ function applyLocale(loc) {
   for (const el of document.querySelectorAll('[data-i18n-title]')) el.title = t(el.getAttribute('data-i18n-title'));
   for (const el of document.querySelectorAll('[data-i18n-aria-label]')) el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria-label')));
   for (const el of document.querySelectorAll('[data-i18n-html]'))  el.innerHTML = t(el.getAttribute('data-i18n-html'));
+  const ob = document.getElementById('offbar');   // HKS-109: keep the offline banner in-language on an in-place switch
+  if (ob && !ob.hidden) { ob.querySelector('.offbar-msg').textContent = t('off.banner'); requestAnimationFrame(layoutOffbar); }
   try { localStorage.setItem('locale', locale); } catch (_) {}
   const lb = document.getElementById('langbtn'); if (lb) lb.textContent = isZh() ? 'EN' : '中';
   renderWxviewControls();   // radar/satellite labels are set in JS, refresh them for the new locale
@@ -8611,11 +8622,17 @@ loadSource(startSrc).then(() => {
   if (startParams.get('embed') === '1') document.getElementById('panel').classList.add('collapsed');
   animate();
   // default to live weather on (unless a shared link explicitly opted out with lv=0,
-  // or we booted straight into Stargaze — which owns a clean, weather-free sky, HKS-91)
-  if (!stargaze.on && (startParams.has('lv') ? startParams.get('lv') === '1' : true)) setLiveMode(true);
+  // or we booted straight into Stargaze — which owns a clean, weather-free sky, HKS-91).
+  // Offline (HKS-109): skip the doomed HKO fetches and start manual, then arm live
+  // once the moment the connection returns.
+  const wantLive = !stargaze.on && (startParams.has('lv') ? startParams.get('lv') === '1' : true);
+  if (wantLive && navigator.onLine) setLiveMode(true);
+  else if (wantLive) addEventListener('online', () => { if (!liveMode && !stargaze.on) setLiveMode(true); }, { once: true });
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
   window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)
+  sessionStorage.removeItem('hks-boot-retry');   // HKS-109: clean boot → reset the auto-retry cap
+  if (!navigator.onLine) setOffbar(true);   // HKS-109: booted from cache while offline → flag the disabled live features
   // HKS-102: boot + URL-state restore are done — arm analytics and log the session.
   // "shared" = the visited URL carried a recognised viewer-state key (a deep/share
   // link), so we can tell organic visits from shared ones.
@@ -8631,11 +8648,88 @@ loadSource(startSrc).then(() => {
     source: startSrc,
   });
 }).catch(err => {
-  document.getElementById('note').textContent = t('note.loadfail') + ': ' + err.message;
+  // HKS-109: terrain never loaded (usually offline + not-yet-cached). Don't leave
+  // the spinner running behind a raw error — say what's wrong and offer a retry.
+  console.error('boot: terrain load failed', err);
+  // HKS-109: navigator.onLine lies (can be true on a dead link / captive portal), so
+  // also treat a classic fetch network failure as offline. Our own AbortError (the fj
+  // timeout) is a hang while nominally online, not an offline state.
+  const netMsg = (err && (err.message || String(err))) || '';
+  const offline = !navigator.onLine
+    || (err?.name !== 'AbortError' && /failed to fetch|networkerror|load failed/i.test(netMsg));
+  const msg = offline ? t('load.offline') : t('load.failed');
+  document.getElementById('note').textContent = msg;
   const ld = document.getElementById('loader');
-  if (ld) { ld.classList.add('err'); document.getElementById('loaderstatus').textContent = t('note.loadfail') + ': ' + err.message; }
-  console.error(err);
+  if (ld) {
+    ld.classList.add('err');   // CSS hides the spinner (#loader.err .ring) + bar
+    const ls = document.getElementById('loaderstatus');
+    if (ls && !ls.querySelector('button')) {
+      ls.textContent = msg;
+      const btn = document.createElement('button');
+      btn.textContent = t('load.retry');
+      btn.style.cssText = 'display:block;margin:16px auto 0;padding:7px 18px;font:inherit;font-size:12px;letter-spacing:.04em;cursor:pointer;border-radius:9px;border:1px solid currentColor;background:transparent;color:inherit';
+      btn.onclick = () => location.reload();
+      ls.appendChild(btn);
+    }
+    // reconnected while the error screen is up → retry the boot automatically, but
+    // cap it (sessionStorage, survives reloads) so an offline↔online flap can't
+    // thrash-reload; after the cap the Retry button still works. Debounced + re-checks
+    // navigator.onLine to ignore spurious events.
+    const onBack = () => {
+      removeEventListener('online', onBack);
+      if (!navigator.onLine) return;
+      const tries = +(sessionStorage.getItem('hks-boot-retry') || 0);
+      if (tries >= 2) return;
+      sessionStorage.setItem('hks-boot-retry', tries + 1);
+      setTimeout(() => location.reload(), 400);
+    };
+    addEventListener('online', onBack);
+  }
 });
+
+// ---- HKS-109: offline alert bar (fixed, full-width, top edge) ----------------
+// A deliberately loud red bar listing what's disabled while offline. It marquee-
+// scrolls if the message overflows the viewport, wraps (no motion) under reduced-
+// motion, and hides the instant the connection returns. A cold-offline boot is
+// handled by the loader screen; this covers going — or booting from cache — offline
+// with the app already usable.
+function layoutOffbar() {
+  const bar = document.getElementById('offbar');
+  if (!bar || bar.hidden) return;
+  const track = bar.querySelector('.offbar-track');
+  const msg = bar.querySelector('.offbar-msg');
+  bar.classList.remove('scroll', 'wrap');
+  while (track.children.length > 1) track.removeChild(track.lastChild);   // drop any marquee clone
+  const msgW = msg.getBoundingClientRect().width;                         // inline <span> scrollWidth is unreliable
+  if (msgW <= bar.clientWidth + 2) return;                                // fits → static, centred
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { bar.classList.add('wrap'); return; }
+  const clone = msg.cloneNode(true); clone.setAttribute('aria-hidden', 'true');   // 2nd copy → seamless loop; hide from SR
+  track.appendChild(clone);
+  bar.style.setProperty('--offdur', Math.max(8, Math.round(msgW / 55)) + 's');   // ~55 px/s
+  bar.classList.add('scroll');
+}
+function setOffbar(on) {
+  const bar = document.getElementById('offbar');
+  if (!bar) return;
+  if (on) {
+    bar.querySelector('.offbar-msg').textContent = t('off.banner');
+    bar.hidden = false;
+    requestAnimationFrame(() => {
+      layoutOffbar();                                   // measure after the browser lays it out
+      document.documentElement.style.setProperty('--offbar-h', bar.offsetHeight + 'px');
+      document.body.classList.add('has-offbar');        // engage the top-UI offset
+    });
+  } else {
+    bar.hidden = true;
+    bar.classList.remove('scroll', 'wrap');
+    bar.style.removeProperty('--offdur');
+    document.body.classList.remove('has-offbar');
+    document.documentElement.style.removeProperty('--offbar-h');
+  }
+}
+addEventListener('offline', () => setOffbar(true));
+addEventListener('online', () => setOffbar(false));
+addEventListener('resize', layoutOffbar);
 
 // ---- PWA: register the offline service worker (HKS-29) ----------------------
 // Static app, so this only adds offline resilience + installability; failure is
