@@ -385,26 +385,28 @@ async function loadSource(id) {
     }
   };
   const fj = async u => {   // revalidate (304 if unchanged) so stale DEMs never stick
-    // HKS-109: bound the fetch so a stalled/offline network can't leave the boot
-    // loader spinning — a SW cache hit resolves far under this budget; a dead link aborts.
+    // HKS-109: bound the ENTIRE fetch + body read so a stall at any phase (headers OR
+    // a hung stream mid-download) can't leave the boot loader spinning. onLine can lie
+    // (dead Wi-Fi / captive portal), so keep the online budget tight too; a SW cache
+    // hit resolves far under it. The signal stays armed across the whole read.
     const ctrl = new AbortController();
-    const to = setTimeout(() => ctrl.abort(), navigator.onLine ? 90000 : 3500);
-    let res;
-    try { res = await fetch(asset(u) + q, { cache: 'no-cache', signal: ctrl.signal }); }   // HKS-46: honour ASSET_BASE
-    finally { clearTimeout(to); }
-    if (!res.ok) throw new Error(`HTTP ${res.status} ${u}`);
-    if (!res.body || !res.body.getReader) return res.json();
-    prog[u] = { got: 0, total: +res.headers.get('Content-Length') || 0 };
-    const rd = res.body.getReader(), chunks = [];
-    for (;;) {
-      const { done, value } = await rd.read();
-      if (done) break;
-      chunks.push(value); prog[u].got += value.length; report();
-    }
-    let n = 0; for (const c of chunks) n += c.length;
-    const buf = new Uint8Array(n); let o = 0;
-    for (const c of chunks) { buf.set(c, o); o += c.length; }
-    return JSON.parse(new TextDecoder().decode(buf));
+    const to = setTimeout(() => ctrl.abort(), navigator.onLine ? 15000 : 3500);
+    try {
+      const res = await fetch(asset(u) + q, { cache: 'no-cache', signal: ctrl.signal });   // HKS-46: honour ASSET_BASE
+      if (!res.ok) throw new Error(`HTTP ${res.status} ${u}`);
+      if (!res.body || !res.body.getReader) return await res.json();
+      prog[u] = { got: 0, total: +res.headers.get('Content-Length') || 0 };
+      const rd = res.body.getReader(), chunks = [];
+      for (;;) {
+        const { done, value } = await rd.read();
+        if (done) break;
+        chunks.push(value); prog[u].got += value.length; report();
+      }
+      let n = 0; for (const c of chunks) n += c.length;
+      const buf = new Uint8Array(n); let o = 0;
+      for (const c of chunks) { buf.set(c, o); o += c.length; }
+      return JSON.parse(new TextDecoder().decode(buf));
+    } finally { clearTimeout(to); }
   };
   // HKS-49: the 12 MB vector overlay is *not* in the critical path — terrain goes
   // interactive on the lighter payload, then the overlay streams in behind a mini-loader.
@@ -8530,6 +8532,8 @@ function applyLocale(loc) {
   for (const el of document.querySelectorAll('[data-i18n-title]')) el.title = t(el.getAttribute('data-i18n-title'));
   for (const el of document.querySelectorAll('[data-i18n-aria-label]')) el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria-label')));
   for (const el of document.querySelectorAll('[data-i18n-html]'))  el.innerHTML = t(el.getAttribute('data-i18n-html'));
+  const ob = document.getElementById('offbar');   // HKS-109: keep the offline banner in-language on an in-place switch
+  if (ob && !ob.hidden) { ob.querySelector('.offbar-msg').textContent = t('off.banner'); requestAnimationFrame(layoutOffbar); }
   try { localStorage.setItem('locale', locale); } catch (_) {}
   const lb = document.getElementById('langbtn'); if (lb) lb.textContent = isZh() ? 'EN' : '中';
   renderWxviewControls();   // radar/satellite labels are set in JS, refresh them for the new locale
@@ -8627,6 +8631,7 @@ loadSource(startSrc).then(() => {
   const ld = document.getElementById('loader');           // terrain is in: fade the boot screen
   if (ld) { ld.classList.add('done'); setTimeout(() => ld.remove(), 700); }
   window.__hkLoaded = true; dispatchEvent(new Event('hk:loaded'));   // boot screen done → arm post-load UI (coach-mark)
+  sessionStorage.removeItem('hks-boot-retry');   // HKS-109: clean boot → reset the auto-retry cap
   if (!navigator.onLine) setOffbar(true);   // HKS-109: booted from cache while offline → flag the disabled live features
   // HKS-102: boot + URL-state restore are done — arm analytics and log the session.
   // "shared" = the visited URL carried a recognised viewer-state key (a deep/share
@@ -8656,8 +8661,7 @@ loadSource(startSrc).then(() => {
   document.getElementById('note').textContent = msg;
   const ld = document.getElementById('loader');
   if (ld) {
-    ld.classList.add('err');
-    const ring = ld.querySelector('.ring'); if (ring) ring.style.display = 'none';   // stop the spinner
+    ld.classList.add('err');   // CSS hides the spinner (#loader.err .ring) + bar
     const ls = document.getElementById('loaderstatus');
     if (ls && !ls.querySelector('button')) {
       ls.textContent = msg;
@@ -8667,10 +8671,18 @@ loadSource(startSrc).then(() => {
       btn.onclick = () => location.reload();
       ls.appendChild(btn);
     }
-    // reconnected while the error screen is up → retry the boot automatically.
-    // Registered unconditionally so the dead-network case (onLine already true at
-    // catch) still recovers when a real `online` event finally fires.
-    const onBack = () => { removeEventListener('online', onBack); location.reload(); };
+    // reconnected while the error screen is up → retry the boot automatically, but
+    // cap it (sessionStorage, survives reloads) so an offline↔online flap can't
+    // thrash-reload; after the cap the Retry button still works. Debounced + re-checks
+    // navigator.onLine to ignore spurious events.
+    const onBack = () => {
+      removeEventListener('online', onBack);
+      if (!navigator.onLine) return;
+      const tries = +(sessionStorage.getItem('hks-boot-retry') || 0);
+      if (tries >= 2) return;
+      sessionStorage.setItem('hks-boot-retry', tries + 1);
+      setTimeout(() => location.reload(), 400);
+    };
     addEventListener('online', onBack);
   }
 });
@@ -8691,7 +8703,8 @@ function layoutOffbar() {
   const msgW = msg.getBoundingClientRect().width;                         // inline <span> scrollWidth is unreliable
   if (msgW <= bar.clientWidth + 2) return;                                // fits → static, centred
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) { bar.classList.add('wrap'); return; }
-  track.appendChild(msg.cloneNode(true));                                 // 2nd copy → seamless loop
+  const clone = msg.cloneNode(true); clone.setAttribute('aria-hidden', 'true');   // 2nd copy → seamless loop; hide from SR
+  track.appendChild(clone);
   bar.style.setProperty('--offdur', Math.max(8, Math.round(msgW / 55)) + 's');   // ~55 px/s
   bar.classList.add('scroll');
 }
@@ -8701,11 +8714,17 @@ function setOffbar(on) {
   if (on) {
     bar.querySelector('.offbar-msg').textContent = t('off.banner');
     bar.hidden = false;
-    requestAnimationFrame(layoutOffbar);   // measure after the browser lays it out
+    requestAnimationFrame(() => {
+      layoutOffbar();                                   // measure after the browser lays it out
+      document.documentElement.style.setProperty('--offbar-h', bar.offsetHeight + 'px');
+      document.body.classList.add('has-offbar');        // engage the top-UI offset
+    });
   } else {
     bar.hidden = true;
     bar.classList.remove('scroll', 'wrap');
     bar.style.removeProperty('--offdur');
+    document.body.classList.remove('has-offbar');
+    document.documentElement.style.removeProperty('--offbar-h');
   }
 }
 addEventListener('offline', () => setOffbar(true));

@@ -112,7 +112,7 @@
      width; marquee-scrolls when the message overflows; hidden the moment we're back online. */
   #offbar{position:fixed;top:0;left:0;right:0;z-index:300;background:#e00000;color:#fff;
     font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-    line-height:1;padding:8px 0;white-space:nowrap;overflow:hidden;text-align:center;
+    line-height:1;padding:8px 0;padding-top:max(8px,env(safe-area-inset-top));white-space:nowrap;overflow:hidden;text-align:center;
     border-bottom:3px solid #000;box-shadow:0 3px 14px rgba(0,0,0,.45)}
   #offbar[hidden]{display:none}
   #offbar .offbar-track{display:inline-block;white-space:nowrap}
@@ -123,6 +123,7 @@
   #offbar.wrap .offbar-msg{padding:3px 1rem;display:inline-block}
   @keyframes offmarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media (prefers-reduced-motion:reduce){#offbar.scroll .offbar-track{animation:none}}
+  body.has-offbar #panel{top:calc(16px + var(--offbar-h,0px))}   /* keep the offline bar from covering the settings panel */
   @keyframes lspin{to{transform:rotate(360deg)}}
   @keyframes lpulse{0%,100%{opacity:1}50%{opacity:.5}}
   /* HKS-49: non-blocking mini-loader for the background vector-overlay stream.
