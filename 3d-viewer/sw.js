@@ -119,20 +119,33 @@ self.addEventListener('install', (e) => {
 self.addEventListener('activate', (e) => {
   e.waitUntil((async () => {
     const keys = await caches.keys();
+    const cache = await caches.open(CACHE);
+    // Migrate already-cached terrain from any prior cache into the new one BEFORE
+    // deleting it, so a VERSION bump never evicts the offline terrain — which would
+    // force a ~15 MB re-download, or break offline entirely if the upgrade lands on
+    // a dead link. Cache-to-cache copy, no network.
+    for (const k of keys) {
+      if (k === CACHE) continue;
+      const old = await caches.open(k);
+      for (const u of DEFAULT_TERRAIN) {
+        if (await cache.match(u)) continue;
+        const hit = await old.match(u);
+        if (hit) await cache.put(u, hit);
+      }
+    }
     await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
     await self.clients.claim();                 // take control immediately — before the terrain fill
-    // Best-effort terrain precache AFTER claiming control, so it never delays the
-    // worker taking over. Kept in waitUntil (each fetch time-boxed) so the SW stays
-    // alive to finish; any gap is topped up by SWR on the next online use.
-    await precacheTerrain(await caches.open(CACHE));
+    // Best-effort precache tops up anything the migration didn't cover. Runs after
+    // claim so it never delays control (each fetch time-boxed).
+    await precacheTerrain(cache);
   })());
 });
 
-async function networkFirst(req) {
+async function networkFirst(req, e) {
   const url = new URL(req.url);
   try {
     const res = await fetch(req);
-    if (res && res.ok) (await caches.open(CACHE)).put(req, res.clone());
+    if (res && res.ok) e.waitUntil(caches.open(CACHE).then((c) => c.put(req, res.clone())));
     return res;
   } catch (err) {
     const cached = await matchCache(await caches.open(CACHE), req, url);
@@ -145,7 +158,7 @@ async function networkFirst(req) {
   }
 }
 
-async function staleWhileRevalidate(req) {
+async function staleWhileRevalidate(req, e) {
   const url = new URL(req.url);
   const cache = await caches.open(CACHE);
   // Match the EXACT url first so the dev ?v= cache-bust still works: a ?v=123
@@ -158,12 +171,13 @@ async function staleWhileRevalidate(req) {
         // Store heavy assets under the bare URL so the install precache and app
         // fetches converge on one key in production.
         const key = isHeavyReq(url) ? url.origin + url.pathname : req;
-        cache.put(key, res.clone());
+        e.waitUntil(cache.put(key, res.clone()));   // keep the write alive past respondWith
       }
       return res;
     })
     // offline (network failed): fall back to any cached version, ignoring ?v=
     .catch(() => exact || matchCache(cache, req, url));
+  if (exact) e.waitUntil(network.catch(() => {}));   // revalidation continues after we return cached
   return exact || network;
 }
 
@@ -175,8 +189,8 @@ self.addEventListener('fetch', (e) => {
   // sources stay available offline even though they're now cross-origin (HKS-52).
   // These are cors-mode, non-opaque responses (correct R2 CORS from HKS-50), so
   // they're safe to cache and serve.
-  if (ASSET_ORIGIN && url.origin === ASSET_ORIGIN) { e.respondWith(staleWhileRevalidate(req)); return; }
+  if (ASSET_ORIGIN && url.origin === ASSET_ORIGIN) { e.respondWith(staleWhileRevalidate(req, e)); return; }
   if (url.origin !== self.location.origin) return;   // all other cross-origin (HKO / tiles) stay fresh
-  if (req.mode === 'navigate') { e.respondWith(networkFirst(req)); return; }
-  e.respondWith(isHeavyPath(url.pathname) ? staleWhileRevalidate(req) : networkFirst(req));
+  if (req.mode === 'navigate') { e.respondWith(networkFirst(req, e)); return; }
+  e.respondWith(isHeavyPath(url.pathname) ? staleWhileRevalidate(req, e) : networkFirst(req, e));
 });

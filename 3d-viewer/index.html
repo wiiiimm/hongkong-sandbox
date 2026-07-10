@@ -120,7 +120,8 @@
   #offbar.scroll{text-align:left}
   #offbar.scroll .offbar-track{animation:offmarq var(--offdur,18s) linear infinite}
   #offbar.wrap{white-space:normal}
-  #offbar.wrap .offbar-msg{padding:3px 1rem;display:inline-block}
+  #offbar.wrap .offbar-track{display:block;white-space:normal}
+  #offbar.wrap .offbar-msg{padding:3px 1rem;display:block;white-space:normal}
   @keyframes offmarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media (prefers-reduced-motion:reduce){#offbar.scroll .offbar-track{animation:none}}
   body.has-offbar #panel{top:calc(16px + var(--offbar-h,0px))}   /* keep the offline bar from covering the settings panel */
