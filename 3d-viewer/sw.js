@@ -75,7 +75,9 @@ const isHeavyReq = (url) =>
   (ASSET_ORIGIN && url.origin === ASSET_ORIGIN) ||
   (url.origin === self.location.origin && isHeavyPath(url.pathname));
 
-// Match cache entries even when the page appends ?v= (dev) or other search params.
+// OFFLINE fallback matcher only: when the network is unavailable, serve any cached
+// version of a heavy asset regardless of the page's ?v= (dev cache-bust) param.
+// The online path matches the EXACT url first so ?v= still busts (see SWR below).
 async function matchCache(cache, req, url) {
   const opts = isHeavyReq(url) ? { ignoreSearch: true } : undefined;
   return cache.match(req, opts);
@@ -92,7 +94,7 @@ async function precacheTerrain(cache) {
   // Per-file best-effort: a flaky link must never fail the whole install, and each
   // fetch is time-boxed so a hung download can't stall the worker's activation.
   await Promise.all(DEFAULT_TERRAIN.map(async (u) => {
-    if (await cache.match(u, { ignoreSearch: true })) return;
+    if (await cache.match(u)) return;   // u is the bare URL — exact match
     const ctrl = new AbortController();
     const to = setTimeout(() => ctrl.abort(), PRECACHE_TIMEOUT_MS);
     try {
@@ -147,19 +149,23 @@ async function networkFirst(req) {
 async function staleWhileRevalidate(req) {
   const url = new URL(req.url);
   const cache = await caches.open(CACHE);
-  const cached = await matchCache(cache, req, url);
+  // Match the EXACT url first so the dev ?v= cache-bust still works: a ?v=123
+  // request must not be served the bare cached entry (codex review). The bare
+  // precache entry IS the exact match in production (no ?v=), so offline still hits.
+  const exact = await cache.match(req);
   const network = fetch(req)
     .then((res) => {
       if (res && res.ok) {
-        // Store under the bare URL for heavy assets so install precache + app
-        // fetch (with or without ?v=) hit the same key.
+        // Store heavy assets under the bare URL so the install precache and app
+        // fetches converge on one key in production.
         const key = isHeavyReq(url) ? url.origin + url.pathname : req;
         cache.put(key, res.clone());
       }
       return res;
     })
-    .catch(() => cached);
-  return cached || network;
+    // offline (network failed): fall back to any cached version, ignoring ?v=
+    .catch(() => exact || matchCache(cache, req, url));
+  return exact || network;
 }
 
 self.addEventListener('fetch', (e) => {
