@@ -53,8 +53,12 @@ const SHELL = [
 ];
 
 // Default source (hk-landsd-5m) — full-fidelity offline (~15 MB raw / ~4–5 MB gzip).
-// Same origin the app uses via main.js `asset()` so install + first online load
-// share one Cache Storage entry (no double-download once either wins).
+// Fetched from the same origin the app uses via main.js `asset()`, so the install
+// precache and the app's own fetches share ONE Cache Storage key. On a cold first
+// visit the page and the SW may still each touch the network before the SW controls
+// the page; the precache omits `cache: 'reload'` so it can be served from the HTTP
+// cache the page's own fetch just populated — avoiding a second ~15 MB download in
+// the common case. Any remaining gap is topped up by SWR on the next visit.
 const DATA_BASE = ASSET_ORIGIN || self.location.origin;
 const DEFAULT_TERRAIN = [
   'data/hk-dtm5m.json',
@@ -98,7 +102,7 @@ async function precacheTerrain(cache) {
     const ctrl = new AbortController();
     const to = setTimeout(() => ctrl.abort(), PRECACHE_TIMEOUT_MS);
     try {
-      const res = await fetch(u, { mode: 'cors', credentials: 'omit', cache: 'reload', signal: ctrl.signal });
+      const res = await fetch(u, { mode: 'cors', credentials: 'omit', signal: ctrl.signal });
       if (res && res.ok) await cache.put(u, res);
     } catch (_) { /* aborted / offline / error → leave gap; SWR tops up on next online use */ }
     finally { clearTimeout(to); }
@@ -106,26 +110,21 @@ async function precacheTerrain(cache) {
 }
 
 self.addEventListener('install', (e) => {
-  // Shell is required and gates activation. Terrain is a separate, best-effort
-  // waitUntil that keeps the worker alive to finish downloading — but each fetch is
-  // time-boxed (PRECACHE_TIMEOUT_MS), so a hung R2 request can no longer keep the
-  // worker `installing`: install always settles and activation proceeds.
-  e.waitUntil((async () => {
-    const c = await caches.open(CACHE);
-    await c.addAll(SHELL);
-    await self.skipWaiting();
-  })());
-  e.waitUntil((async () => {
-    const c = await caches.open(CACHE);
-    await precacheTerrain(c);
-  })());
+  // Only the shell gates install; skipWaiting so the new worker takes over as soon
+  // as it's cached. Terrain is precached in `activate` (after claim) so a slow or
+  // hung download can never hold the worker in the `installing` state.
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
   e.waitUntil((async () => {
     const keys = await caches.keys();
     await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
-    await self.clients.claim();
+    await self.clients.claim();                 // take control immediately — before the terrain fill
+    // Best-effort terrain precache AFTER claiming control, so it never delays the
+    // worker taking over. Kept in waitUntil (each fetch time-boxed) so the SW stays
+    // alive to finish; any gap is topped up by SWR on the next online use.
+    await precacheTerrain(await caches.open(CACHE));
   })());
 });
 
