@@ -5,6 +5,7 @@
 // terrain and the draped skin so contours stay welded to the ridges.
 import * as THREE from './vendor/three.module.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
+import { GLTFLoader } from './vendor/GLTFLoader.js';
 import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
 import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, audioSupported } from './audio.js';
@@ -154,6 +155,7 @@ const I18N = {
       + 'licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>'
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
+      + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -245,6 +247,7 @@ const I18N = {
       + '授權<a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">條款</a>。</p>'
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
+      + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -1379,6 +1382,7 @@ function applyVE() {
     seg.geometry.attributes.position.needsUpdate = true;
   }
   redrapeGpx();   // HKS-106: re-drape imported GPX trails onto the new exaggeration / source
+  if (hikerGrp) hikerGrp.scale.setScalar(VE);   // review: keep the walk-mode figure sized to the live exaggeration (its scale was baked once at build)
 }
 
 // ---- surface style + background -------------------------------------------
@@ -4747,6 +4751,7 @@ function enterWalk(startLocal) {
   walk.vy = 0; walk.land = 0; walk.spd = 0;
   walk.pos.y = (sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
   if (!hikerGrp) { hikerGrp = buildHiker(); world.add(hikerGrp); }
+  loadHikerModel();            // swap in the real (CC0 Adventurer) hiker once it arrives
   applyLookFilter(hikerGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
   setTopMode('walk');
   updateWalkViewBtn();
@@ -5211,6 +5216,62 @@ function buildHiker() {
   grp.visible = false;
   return grp;
 }
+// ---- the real hiker (HKS): Quaternius' CC0 "Adventurer" ---------------------
+// A rigged, animated backpacker replaces the box-primitive stand-in above.
+// Source: "Adventurer" by Quaternius — https://poly.pizza/m/5EGWBMpuXq — CC0 /
+// public domain, trimmed to the Idle/Walk/Run/Wave clips and quantized (~740 KB;
+// provenance + rebuild recipe in data/models/README.md). Served from the same
+// data/ origin as the terrain (ASSET_BASE-aware) and precached by the service
+// worker, so it works offline like the DEM. The procedural hiker stays as the
+// instant stand-in and the permanent fallback — a fork without the file or an
+// uncached offline first walk just keeps the box figure.
+const HIKER_GLB = 'data/models/hiker-adventurer.glb';
+let hikerModelReq = false, hikerModelFails = 0;   // fire the fetch once per session; cap retries after a failure
+function loadHikerModel() {
+  if (hikerModelReq) return;
+  hikerModelReq = true;
+  new GLTFLoader().load(asset(HIKER_GLB), gltf => {
+    if (!hikerGrp) { hikerModelReq = false; return; }   // group gone before load resolved — allow a later retry
+    const model = gltf.scene;
+    // updateMatrixWorld first — Box3.setFromObject measures SkinnedMeshes through
+    // the bones, and their world matrices are stale until a full update pass.
+    model.updateMatrixWorld(true);
+    // Build the clip actions BEFORE touching the box: if a re-export/trim renamed
+    // the clips so none resolve, we must NOT swap in a model that would freeze in
+    // its bind pose — keep the procedural box gait instead. (review: gait contract
+    // = mixer present ⇒ ≥1 clip; the stepWalk box branch stays reachable otherwise.)
+    const mixer = new THREE.AnimationMixer(model);
+    const act = n => {
+      const c = THREE.AnimationClip.findByName(gltf.animations, 'CharacterArmature|' + n);
+      return c ? mixer.clipAction(c) : null;
+    };
+    const aIdle = act('Idle'), aWalk = act('Walk'), aRun = act('Run');
+    if (!aIdle && !aWalk && !aRun) {
+      console.warn('[hiker] GLB carries no Idle/Walk/Run clips — keeping the box hiker');
+      model.traverse(o => { if (o.isMesh) { o.geometry?.dispose(); (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => m?.dispose()); } });
+      return;                              // hikerModelReq stays true → don't reload; box limb-swing remains
+    }
+    // normalise: 1.75 m tall, soles on y=0, facing -Z like the box hiker.
+    const box = new THREE.Box3().setFromObject(model);
+    const inner = new THREE.Group();
+    inner.scale.setScalar(1.75 / Math.max(0.01, box.max.y - box.min.y));
+    inner.rotation.y = Math.PI;            // glTF forward is +Z; the walk yaw expects -Z
+    model.position.y = -box.min.y;
+    inner.add(model);
+    model.traverse(o => { if (o.isSkinnedMesh) o.frustumCulled = false; });   // animated limbs never clip out mid-swing
+    // swap: dress down, replace the primitives wholesale, dress back up
+    clearLookFilter(hikerGrp);
+    for (const c of [...hikerGrp.children]) {
+      hikerGrp.remove(c);
+      if (c.isMesh) { c.geometry.dispose(); c.material.dispose(); }
+    }
+    hikerGrp.add(inner);
+    hikerGrp.userData = { mixer, aIdle, aWalk, aRun, cur: null };
+    applyLookFilter(hikerGrp);             // re-dress the new meshes for Matrix/Neon
+  }, undefined, err => {                    // offline / 404 (e.g. GLB not yet on R2): keep the box stand-in
+    console.warn('[hiker] model load failed — using the box stand-in:', asset(HIKER_GLB), (err && err.message) || err);
+    if (++hikerModelFails < 2) hikerModelReq = false;   // retry once (transient/offline→online), then stop hammering
+}
 // walk camera views — first person ↔ chase, mirroring the flight pattern
 function updateWalkViewBtn() { syncCamSeg(); }   // walk camera (chase ⇄ first-person) reflects in the segmented control
 function toggleWalkView() {
@@ -5327,17 +5388,34 @@ function stepWalk() {
   _fe.set(walk.pitch, walk.yaw, 0, 'YXZ');
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
-  // the hiker's body: visible in chase view, gait swings limbs + stick
+  // the hiker's body: visible in chase view. GLB hiker plays its own clips
+  // (Idle/Walk/Run, cadence tied to ground speed); box fallback swings limbs.
   if (hikerGrp) {
     hikerGrp.visible = !walk.pov;
     if (!walk.pov) {
-      hikerGrp.position.set(walk.pos.x, walk.pos.y - 1.7 * VE + (airborne ? 0 : bobY), walk.pos.z);
-      hikerGrp.rotation.y = walk.yaw;
       const u = hikerGrp.userData;
-      const sw = walk.spd > 0.2 ? Math.sin(walk.bob) * Math.min(0.75, 0.25 + walk.spd * 0.05) : 0;
-      u.legL.rotation.x = sw;         u.legR.rotation.x = -sw;
-      u.armL.rotation.x = -sw * 0.7;  u.armR.rotation.x = sw * 0.7;
-      u.stick.rotation.x = 0.15 + sw * 0.55;            // the stick plants with the stride
+      // the clips already bob the body — keep only the landing dip for the GLB
+      const dip = airborne ? 0 : (u.mixer ? -walk.land * 1.1 * VE : bobY);
+      hikerGrp.position.set(walk.pos.x, walk.pos.y - 1.7 * VE + dip, walk.pos.z);
+      hikerGrp.rotation.y = walk.yaw;
+      if (u.mixer) {
+        const next = ((airborne || walk.spd < 0.2) ? u.aIdle : walk.spd < 3.2 ? u.aWalk : u.aRun) || u.aIdle || u.aWalk || u.aRun;
+        if (next && u.cur !== next) {
+          if (u.cur) { u.cur.fadeOut(0.25); next.reset().fadeIn(0.25).play(); }
+          else next.reset().play();   // review: first clip after the swap plays at full weight — no bind-pose ease-in
+          u.cur = next;
+        }
+        // feet track the ground speed (clips are authored near 1.4 / 4.8 m/s);
+        // capped so a superhuman top-speed slider can't spin the legs comically
+        if (u.aWalk) u.aWalk.timeScale = Math.min(1.8, Math.max(0.6, walk.spd / 1.4));
+        if (u.aRun)  u.aRun.timeScale  = Math.min(2.2, Math.max(0.7, walk.spd / 4.8));
+        u.mixer.update(1 / 60);                           // stepWalk runs on the 60 fps clock
+      } else {
+        const sw = walk.spd > 0.2 ? Math.sin(walk.bob) * Math.min(0.75, 0.25 + walk.spd * 0.05) : 0;
+        u.legL.rotation.x = sw;         u.legR.rotation.x = -sw;
+        u.armL.rotation.x = -sw * 0.7;  u.armR.rotation.x = sw * 0.7;
+        u.stick.rotation.x = 0.15 + sw * 0.55;            // the stick plants with the stride
+      }
     }
   }
   camera.up.set(0, 1, 0);
@@ -5633,7 +5711,12 @@ function applyLookFilter(grp) {        // idempotent — cheap to re-assert on m
       o.userData.preLook = src;
       if (mats[0] && mats[0].isMeshBasicMaterial) { o.material = mxModelGlow; continue; }  // nav lights / windows
       o.material = mxModelBody;
-      const wire = new THREE.Mesh(o.geometry, mxModelWire);   // geometry shared — overlay costs no memory
+      // geometry shared — overlay costs no memory. Skinned meshes (the GLB hiker)
+      // get a SkinnedMesh shell bound to the same skeleton so the wire animates
+      // with the body instead of freezing in bind pose.
+      const wire = o.isSkinnedMesh ? new THREE.SkinnedMesh(o.geometry, mxModelWire)
+                                   : new THREE.Mesh(o.geometry, mxModelWire);
+      if (o.isSkinnedMesh) { wire.bind(o.skeleton, o.bindMatrix); wire.frustumCulled = false; }
       wire.userData.lookOverlay = true;
       o.userData.lookWire = wire;
       o.add(wire);
