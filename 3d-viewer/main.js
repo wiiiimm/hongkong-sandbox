@@ -8370,7 +8370,7 @@ function serializeState() {
   p.set('s', g('src').value);
   p.set('surf', g('surf').value);
   p.set('bg', g('bg').value);
-  p.set('ve', g('ve').value);
+  p.set('ve', walk.on && walk.prevVE != null ? String(walk.prevVE) : g('ve').value);   // mid-walk the slider is pinned to 1 — share the REAL exaggeration so it survives the link
   p.set('oh', g('skinlift').value);   // overlay drape height (real m; world lift = oh·VE)
   p.set('d', String(meshStep));
   p.set('ml', g('meshlines').checked ? '1' : '0');
