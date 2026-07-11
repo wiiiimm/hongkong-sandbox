@@ -4722,7 +4722,7 @@ function stepFlight() {
 // with a ▶ auto-walk toggle in the HUD. Slopes steeper than ~45° block you.
 const walk = { on: false, pos: new THREE.Vector3(), yaw: 0, pitch: -0.04,
                keys: {}, prevSpin: 1, auto: false, helpT: 0, dist: 0, bob: 0,
-               vy: 0, land: 0, spd: 0, top: 24 / 3.6, pov: true, touchHold: 0 };
+               vy: 0, land: 0, spd: 0, top: 24 / 3.6, pov: true, touchHold: 0, prevVE: null };
 let hikerGrp = null;
 function enterWalk(startLocal) {
   if (walk.on || !curG) return;
@@ -4749,6 +4749,13 @@ function enterWalk(startLocal) {
   // air-drop insertion: start 60 m over the ground and fall in — you always
   // arrive ON the surface (never wedged inside a slope), and it reads as a spawn
   walk.vy = 0; walk.land = 0; walk.spd = 0;
+  // On foot the world reads true-to-life: pin vertical exaggeration to 1.0 for the
+  // whole walk (slopes, eye height and the hiker all match reality) and lock the
+  // slider; the previous value comes back on exit.
+  walk.prevVE = VE;
+  if (VE !== 1) { VE = 1; document.getElementById('ve').value = 1; document.getElementById('vev').textContent = '1.0'; applyVE(); }
+  document.getElementById('ve').disabled = true;
+  walk.pov = false;   // arrive in chase view — you see the hiker land, C for first-person
   walk.pos.y = (sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
   if (!hikerGrp) { hikerGrp = buildHiker(); world.add(hikerGrp); }
   loadHikerModel();            // swap in the real (CC0 Adventurer) hiker once it arrives
@@ -4781,6 +4788,12 @@ function exitWalk() {
   document.body.classList.remove('flying', 'walking');
   spinDir = walk.prevSpin;
   syncSpinSeg();
+  const ve = document.getElementById('ve');   // hand the exaggeration back
+  ve.disabled = false;
+  if (walk.prevVE != null && walk.prevVE !== VE) {
+    VE = walk.prevVE; ve.value = VE; document.getElementById('vev').textContent = VE.toFixed(1); applyVE();
+  }
+  walk.prevVE = null;
   camera.fov = 38; camera.updateProjectionMatrix();
   camera.up.set(0, 1, 0);
   controls.enabled = true;
