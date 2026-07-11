@@ -5271,6 +5271,7 @@ function loadHikerModel() {
   }, undefined, err => {                    // offline / 404 (e.g. GLB not yet on R2): keep the box stand-in
     console.warn('[hiker] model load failed — using the box stand-in:', asset(HIKER_GLB), (err && err.message) || err);
     if (++hikerModelFails < 2) hikerModelReq = false;   // retry once (transient/offline→online), then stop hammering
+  });
 }
 // walk camera views — first person ↔ chase, mirroring the flight pattern
 function updateWalkViewBtn() { syncCamSeg(); }   // walk camera (chase ⇄ first-person) reflects in the segmented control
