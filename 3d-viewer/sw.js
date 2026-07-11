@@ -22,7 +22,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v22';
+const VERSION = 'hks-sandbox-v23';
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -148,7 +148,7 @@ async function networkFirst(req, e) {
   const url = new URL(req.url);
   try {
     const res = await fetch(req);
-    if (res && res.ok) e.waitUntil(caches.open(CACHE).then((c) => c.put(req, res.clone())));
+    if (res && res.ok) { const copy = res.clone(); e.waitUntil(caches.open(CACHE).then((c) => c.put(req, copy))); }   // clone SYNCHRONOUSLY — a deferred clone runs after `return res` consumes the body
     return res;
   } catch (err) {
     const cached = await matchCache(await caches.open(CACHE), req, url);
