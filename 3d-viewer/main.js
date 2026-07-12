@@ -2588,7 +2588,7 @@ const PLANE_GLBS = {
   // gearProc: the source model has NO extended landing gear (lowest geometry is
   // the engine cowls), so the loader lifts it to a gear stance and adds simple
   // procedural gear — see the gearProc block in loadPlaneModel().
-  a330:  { url: 'data/models/nc/plane-a330.glb', rotY: Math.PI, fit: 63.69 / 73.86, gearProc: true },
+  a330:  { url: 'data/models/nc/plane-a330.glb', rotY: Math.PI, fit: 63.69 / 73.86, gearProc: true, anchorLights: true },
   // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — nc/-fenced like the a330. Bare-metal
   // 1946 VR-HDB livery baked in (Union Jack fin, era titles). fixedGear: a
   // taildragger's semi-fixed gear stays visible in flight (fleet-rule exception).
@@ -2681,6 +2681,7 @@ function loadPlaneModel(id) {
       gearAt(-0.084 * Lz, midZ + 0.045 * Lz);          // main bogies
       gearAt(0.084 * Lz, midZ + 0.045 * Lz);
     }
+    if (cfg.anchorLights) anchorLoadedPlaneLights(planeGrp, inner);
     // (liveries are baked into the GLBs by their trim scripts — no runtime tint)
     const spinners = [];                               // wire any authored propeller into the shared spin
     model.traverse(o => {                              // outermost matches only — spinning parent AND child would compound
@@ -2798,15 +2799,69 @@ function addNavLights(grp, spec) {
     grp.add(m);
     return m;
   };
-  const L = { strobes: [], beacons: [] };
-  mk(spec.wingL, 0xff2418, 0.045);          // port = red, starboard = green — never swapped
-  mk(spec.wingR, 0x1fe04c, 0.045);
-  mk(spec.tail, 0xffffff, 0.04);
+  const L = { positions: {}, strobes: [], beacons: [] };
+  L.positions.wingL = mk(spec.wingL, 0xff2418, 0.045);  // port = red, starboard = green — never swapped
+  L.positions.wingR = mk(spec.wingR, 0x1fe04c, 0.045);
+  L.positions.tail = mk(spec.tail, 0xffffff, 0.04);
   for (const p of [spec.wingL, spec.wingR, spec.tail])
     L.strobes.push(mk([p[0], p[1] + 0.06, p[2]], 0xffffff, 0.055, true));
   L.beacons.push(mk(spec.top, 0xff2222, 0.05, true));
   L.beacons.push(mk(spec.bot, 0xff2222, 0.05, true));
   grp.userData.lights = L;
+}
+
+// A real GLB can differ materially from the procedural loading stand-in that
+// created the light spheres. Re-anchor those surviving lights to the loaded,
+// normalised geometry: extreme span points for the wingtips, the centreline's
+// aft-most point for the tail, and fuselage crown/belly samples for beacons.
+// This is opt-in per model because the original authored positions remain the
+// right fallback when a GLB is absent (notably commercial builds without nc/).
+function anchorLoadedPlaneLights(grp, inner) {
+  const L = grp.userData.lights;
+  if (!L?.positions || !inner) return;
+  inner.updateMatrixWorld(true);
+  const pts = [], v = new THREE.Vector3();
+  inner.traverse(o => {
+    if (!o.isMesh) return;
+    const pos = o.geometry?.getAttribute('position');
+    if (!pos) return;
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld);
+      pts.push(v.clone());
+    }
+  });
+  if (!pts.length) return;
+  const box = new THREE.Box3().setFromPoints(pts);
+  const span = box.max.x - box.min.x, len = box.max.z - box.min.z;
+  const median = a => {
+    if (!a.length) return 0;
+    a.sort((x, y) => x - y);
+    const m = a.length >> 1;
+    return a.length & 1 ? a[m] : (a[m - 1] + a[m]) / 2;
+  };
+  const edge = (side) => {
+    const x0 = side < 0 ? box.min.x : box.max.x;
+    const near = pts.filter(p => side < 0 ? p.x <= x0 + span * 0.018 : p.x >= x0 - span * 0.018);
+    return new THREE.Vector3(x0, median(near.map(p => p.y)), median(near.map(p => p.z)));
+  };
+  const centreline = pts.filter(p => Math.abs(p.x - (box.min.x + box.max.x) / 2) < span * 0.06);
+  const tailPool = centreline.filter(p => p.z >= box.max.z - len * 0.018);
+  const tailPts = tailPool.length ? tailPool : centreline;
+  const tail = new THREE.Vector3(
+    median(tailPts.map(p => p.x)), median(tailPts.map(p => p.y)), box.max.z + 0.012);
+  const zMid = (box.min.z + box.max.z) / 2;
+  const midBody = centreline.filter(p => Math.abs(p.z - zMid) < len * 0.035);
+  const bodyPts = midBody.length ? midBody : centreline;
+  const top = new THREE.Vector3(0, Math.max(...bodyPts.map(p => p.y)) + 0.012, zMid);
+  const bot = new THREE.Vector3(0, Math.min(...bodyPts.map(p => p.y)) - 0.012, zMid);
+  const anchors = [edge(-1), edge(1), tail];
+  const keys = ['wingL', 'wingR', 'tail'];
+  for (let i = 0; i < keys.length; i++) {
+    L.positions[keys[i]].position.copy(anchors[i]);
+    L.strobes[i].position.copy(anchors[i]).y += 0.06;
+  }
+  L.beacons[0].position.copy(top);
+  L.beacons[1].position.copy(bot);
 }
 // ---- runtime canvas textures (HKS-93) ---------------------------------------
 // All livery and cockpit detail below is PAINTED at runtime onto canvases and
