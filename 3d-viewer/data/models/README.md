@@ -46,18 +46,41 @@
 
 ## plane-747.glb — fly-mode Boeing 747 (HKS-110)
 
-- **Model:** “Boeing 747” by **Miha Lunar**
-- **Source:** https://poly.pizza/m/49CLof4tP2V (Poly Pizza)
-- **Licence:** **CC BY 3.0** — “Creative Commons Attribution 3.0” on the model
-  page; credited in the app’s Credits drawer.
-- **Original file:** `https://static.poly.pizza/f9afa9f0-92a5-41c1-afa4-c0b7d3444f35.glb`
-  (117 KB, 1 904 tris, flat material colours — clean white/grey airframe, no
-  airline branding).
-- **Modifications (this repo):** dedup/prune/quantize (POSITION float32) →
-  **~99 KB raw / ~39 KB gzip**. Normalised at runtime (nose −Z as authored,
-  fitted to the procedural CX 747’s length/waterline).
-- **Rebuild:** `node ../../scripts/trim_plane_glb.mjs <original.glb> plane-747.glb`
+- **Model:** “Boeing 747-100” by **Marine** (rd.palaciosdeleon26)
+- **Source:** https://sketchfab.com/3d-models/boeing-747-100-6ef67f9995d345ddaee9ec845ac10b69
+  (Sketchfab) · author: https://sketchfab.com/rd.palaciosdeleon26
+- **Licence:** **CC BY 4.0** — the bundled `license.txt` states: “license type:
+  CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/) · requirements:
+  Author must be credited. Commercial use is allowed.” Credited in the app’s
+  Credits drawer (en + 繁中).
+- **Original file:** Sketchfab glTF export (`scene.gltf` + 1.7 MB `scene.bin` +
+  5 textures), 35 502 tris — a flight-sim-grade 747-100 airframe whose livery
+  texture carried full **ANA (All Nippon Airways) branding**.
+- **Modifications (this repo):** the livery atlas is **repainted into our own
+  Cathay-style treatment** by `trim_747_glb.mjs` (ANA blues remapped to
+  brushwing jade #00655B with shading preserved; titles/logos/registrations
+  painted out; fins flooded jade with our white brush stroke — no third-party
+  airline branding shipped), then dedup/prune/quantize (POSITION float32),
+  metallicFactor clamped, textures ≤1024 px JPEG →
+  **35 502 tris, ~1.55 MB raw / ~1.4 MB gzip**. Nose −Z as authored.
+- **Rebuild:** `node ../../scripts/trim_747_glb.mjs <scene.gltf> plane-747.glb`
+  (needs `@gltf-transform/*` v4 + `sharp`).
 - **Used by:** `main.js` `PLANE_GLBS.cx747` — the `cx747` fly-mode skin.
+- **Supersedes:** “Boeing 747” by **Miha Lunar** (Poly Pizza
+  https://poly.pizza/m/49CLof4tP2V, CC BY 3.0, 1 904 tris) — the low-poly hull
+  shipped first for HKS-110, removed when this higher-fidelity model landed.
+- **Evaluated, not used:**
+  - “boeing 747” by **hilos run** (Sketchfab
+    https://sketchfab.com/3d-models/boeing-747-a285b0f308e5473d919d94cf00358e9f,
+    CC BY 4.0, 1 371 771 tris) — a SketchUp-style scene export: dozens of
+    duplicated 4 k-tri detail objects, stray ground/scene geometry, flat
+    colours only. Needed 97 %+ decimation plus scene surgery for a worse
+    starting livery than the 747-100; not worth it.
+  - “Boeing 747-8i” by **outpiston** (Sketchfab
+    https://sketchfab.com/3d-models/boeing-747-8i-61b531546bb242f690f87028e333aa5c,
+    ⚠ CC BY-NC-SA 4.0, 9 527 tris) — lowest-poly of the three and NC-fenced;
+    since the shipped hull gets our repaint anyway, the NC cost bought
+    nothing over the CC BY candidates.
 
 ## plane-777.glb — fly-mode widebody twin-jet (HKS-110)
 
