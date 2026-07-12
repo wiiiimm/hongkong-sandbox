@@ -33,3 +33,11 @@ NC asset must be fenced so it can be cleanly removed:
 If this project ever monetises (paid features, embeds, prints, commercial
 licensing of a deployment), `data/models/nc/` must be emptied or every asset in
 it replaced/relicensed **before** launch.
+
+## Trade marks and liveries
+
+An aircraft model's Creative Commons licence does not grant rights to an
+airline's name, wordmark, livery or other trade marks. The A350 build inputs in
+`../../scripts/assets/` were supplied by the project owner and are documented
+there separately. Cathay Pacific names and marks remain the property of their
+respective owner; their use does not imply endorsement.

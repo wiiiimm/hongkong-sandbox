@@ -19,23 +19,20 @@
 //      The source's 20 baked animations (a gear-retract style timeline
 //      re-targeted per node by Sketchfab) are dropped — the fleet rule is a
 //      visibility toggle, and the GLB is reparented at load anyway.
-//   2. LIVERY REPAINT — the atlas's AIRBUS branding is replaced with our own
-//      Cathay-style treatment (colour/shape studied from Cathay's own A350
-//      press photos — painted from scratch, no pixels copied): white hull
-//      with procedural window rows, brushwing-jade #00655B tail fin carrying
-//      the FULL brushwing mark in white (feathered fan of tapered sub-strokes
-//      above a solid notched chevron), the same mark in white on each jade
-//      winglet, the mark again in jade on the forward fuselage just aft of the
-//      cockpit, jade "CATHAY PACIFIC" titles (stroke-built sans capitals) on
-//      the upper forward fuselage, light-grey nacelles + belly fairing. Each
+//   2. LIVERY REPAINT — the atlas's AIRBUS branding is replaced with the
+//      project-supplied Cathay artwork in scripts/assets/: white hull with a
+//      subtle pale-jade lower band and procedural window rows; jade #005D63
+//      fin with the complete brushwing SVG in white; the white mark on each
+//      winglet's inward face; the mark again in jade just aft of the cockpit;
+//      and the supplied serif CATHAY PACIFIC wordmark on the upper forward
+//      fuselage. Each
 //      region is masked by rasterising that component's actual UV triangles
 //      (the atlas islands interleave, so rectangle fills would bleed onto
 //      neighbours). Marks/titles are painted in WORLD space so they survive
-//      the diagonal UV islands. UV-sharing constraints: the two winglets (and
-//      each winglet's two faces) share one UV island, so the winglet mark
-//      shows on both faces of both winglets, keyed to the port winglet's
-//      world coords; the fuselage sides are SEPARATE islands, so titles are
-//      drawn reading nose→tail on each side independently.
+//      the diagonal UV islands. Because the winglet faces share a UV island,
+//      inward-facing triangles are split to a marked copy of the atlas while
+//      outward faces remain plain jade. The fuselage sides are separate UV
+//      islands, so the wordmark reads correctly from either side.
 //   3. BUDGET — weld + meshopt-simplify to ~60 k tris, with a second, harder
 //      pass on the two 102 k-tri engine-fan disks (Material.014/.015); then
 //      the shared recipe: dedup/prune/quantize (POSITION float32 — three r160
@@ -53,6 +50,7 @@ import { ALL_EXTENSIONS } from '@gltf-transform/extensions';
 import { dedup, prune, quantize, simplify, textureCompress, weld } from '@gltf-transform/functions';
 import { MeshoptSimplifier } from 'meshoptimizer';
 import sharp from 'sharp';
+import { fileURLToPath } from 'node:url';
 
 const [input, output, ratioArg] = process.argv.slice(2);
 if (!input || !output) { console.error('usage: node trim_a350_glb.mjs <scene.gltf> <output.glb> [ratio]'); process.exit(1); }
@@ -60,6 +58,7 @@ if (!input || !output) { console.error('usage: node trim_a350_glb.mjs <scene.glt
 const io = new NodeIO().registerExtensions(ALL_EXTENSIONS);
 const doc = await io.read(input);
 const root = doc.getRoot();
+const assetPath = name => fileURLToPath(new URL(`./assets/${name}`, import.meta.url));
 for (const anim of root.listAnimations()) {          // baked retract timeline — see header
   for (const c of anim.listChannels()) c.dispose();
   for (const s of anim.listSamplers()) s.dispose();
@@ -140,6 +139,36 @@ const TW = meta.width, TH = meta.height;
 const raw = await srcPng.raw().toBuffer({ resolveWithObject: true });
 const CH = raw.info.channels;
 const rgb = new Uint8ClampedArray(raw.data);
+
+// Source-backed Cathay artwork supplied for HKS-110. The SVG is the complete
+// brushwing mark. The JPEG contains the mark plus the official wordmark; crop
+// coordinates below deliberately retain only the lettering (the mark is
+// sourced from the clean SVG instead). Both are sampled as masks and coloured
+// here, so JPEG white/background pixels never enter the aircraft atlas.
+const MARK_W = 512;
+const markRaw = await sharp(assetPath('cathay-brushwing.svg'))
+  .resize({ width: MARK_W }).ensureAlpha().raw()
+  .toBuffer({ resolveWithObject: true });
+const wordRaw = await sharp(assetPath('cathay-wordmark.jpg'))
+  .extract({ left: 107, top: 80, width: 289, height: 27 })
+  .raw().toBuffer({ resolveWithObject: true });
+const clamp01 = n => Math.max(0, Math.min(1, n));
+const sampleMark = (u, v) => {
+  if (u < 0 || u > 1 || v < 0 || v > 1) return 0;
+  const x = Math.min(markRaw.info.width - 1, Math.round(u * (markRaw.info.width - 1)));
+  const y = Math.min(markRaw.info.height - 1, Math.round((1 - v) * (markRaw.info.height - 1)));
+  return markRaw.data[(y * markRaw.info.width + x) * markRaw.info.channels + 3] / 255;
+};
+const sampleWordmark = (u, v) => {
+  if (u < 0 || u > 1 || v < 0 || v > 1) return 0;
+  const x = Math.min(wordRaw.info.width - 1, Math.round(u * (wordRaw.info.width - 1)));
+  const y = Math.min(wordRaw.info.height - 1, Math.round((1 - v) * (wordRaw.info.height - 1)));
+  const i = (y * wordRaw.info.width + x) * wordRaw.info.channels;
+  const r = wordRaw.data[i], g = wordRaw.data[i + 1], b = wordRaw.data[i + 2];
+  // Teal chroma is a cleaner antialiased mask than a raw luminance threshold:
+  // it rejects the white JPEG field and its compression noise.
+  return clamp01((Math.min(g, b) - r - 3) / 48);
+};
 // region predicates on world-space component bboxes (measured on the source)
 const REGIONS = {
   fin:      b => b.minX < -23 && b.minY > 16.5 && b.minZ > -2 && b.maxZ < 2,   // vertical fin + rudder (z-narrow; hstab spans ±16)
@@ -155,6 +184,7 @@ const masks = {}; for (const k of Object.keys(REGIONS)) masks[k] = new Uint8Arra
 const finWX = new Float32Array(TW * TH), finWY = new Float32Array(TW * TH);
 const finWZ = new Float32Array(TW * TH);                 // side sign for per-side title flip
 const WORLD_REGIONS = new Set(['fin', 'fuselage', 'belly', 'winglet']);
+const insideWingletSplits = [];                          // marked inward faces vs plain-jade outward faces
 function rasterUV(mask, uv, ia, keep, find, world) {
   for (let i = 0; i < ia.length; i += 3) {
     if (!keep(find(ia[i]))) continue;
@@ -204,155 +234,79 @@ for (const node of root.listNodes()) {
         for (const [r, b] of box) if (roots.has(r)) (b.minZ < 0 ? port : stbd).add(r);
         if (port.size) rasterUV(masks[k], uv, ia, r => port.has(r), find, worldOf);
         if (stbd.size) rasterUV(masks[k], uv, ia, r => stbd.has(r), find, null);
+
+        // This model reuses the same UV island on every winglet face. Split
+        // inward-facing triangles into a second primitive/material so only the
+        // inside curve receives the white mark. A face points inward when its
+        // world normal points back towards z=0 (the fuselage centreline).
+        const inside = [], rest = [];
+        for (let i = 0; i < ia.length; i += 3) {
+          let isInside = false;
+          if (roots.has(find(ia[i]))) {
+            const [a, b, c] = worldOf(i);
+            const ab = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+            const ac = [c[0] - a[0], c[1] - a[1], c[2] - a[2]];
+            const nx = ab[1] * ac[2] - ab[2] * ac[1];
+            const ny = ab[2] * ac[0] - ab[0] * ac[2];
+            const nz = ab[0] * ac[1] - ab[1] * ac[0];
+            const nl = Math.hypot(nx, ny, nz) || 1;
+            const cz = (a[2] + b[2] + c[2]) / 3;
+            isInside = Math.abs(nz) / nl > 0.35 && cz * nz < 0;
+          }
+          (isInside ? inside : rest).push(ia[i], ia[i + 1], ia[i + 2]);
+        }
+        if (inside.length) insideWingletSplits.push({ mesh, prim, inside, rest });
       } else {
         rasterUV(masks[k], uv, ia, r => roots.has(r), find, WORLD_REGIONS.has(k) ? worldOf : null);
       }
     }
   }
 }
-const JADE = [0x00, 0x65, 0x5b], WHITE = [0xf4, 0xf6, 0xf7], GREY = [0xdd, 0xe0, 0xe3];
-const put = (i, c) => { rgb[i] = c[0]; rgb[i + 1] = c[1]; rgb[i + 2] = c[2]; };
+const JADE = [0x00, 0x5d, 0x63], WHITE = [0xf4, 0xf6, 0xf7],
+      GREY = [0xdd, 0xe0, 0xe3], PALE_JADE = [0xb8, 0xd4, 0xd2];
+const put = (buf, i, c) => { buf[i] = c[0]; buf[i + 1] = c[1]; buf[i + 2] = c[2]; };
+const blend = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * clamp01(t)));
 
-// ---- the full Cathay-style brushwing mark, drawn from scratch ---------------
-// Defined in a unit box: +mx = forward (reading direction), +my = up. Two
-// elements, per the tail reference photo: a SOLID CHEVRON (bold swept
-// triangle, sharp tip forward, a notch cut into its lower trailing edge) and,
-// above it, a FEATHERED fan of thin tapered sub-strokes sweeping up and aft
-// from just above the tip.
-const qbez = (P0, P1, P2, t) => [
-  (1 - t) * (1 - t) * P0[0] + 2 * (1 - t) * t * P1[0] + t * t * P2[0],
-  (1 - t) * (1 - t) * P0[1] + 2 * (1 - t) * t * P1[1] + t * t * P2[1]];
-const CHEV = [];                                           // polygon, sampled bezier edges
-{
-  const edge = (P0, P1, P2, n = 16) => { for (let i = 0; i < n; i++) CHEV.push(qbez(P0, P1, P2, i / n)); };
-  edge([0.97, 0.44], [0.55, 0.56], [0.20, 0.60]);          // upper edge, tip → aft, slightly concave
-  edge([0.20, 0.60], [0.13, 0.42], [0.10, 0.16]);          // aft edge down
-  edge([0.10, 0.16], [0.26, 0.22], [0.36, 0.30]);          // lower-aft up into the notch
-  edge([0.36, 0.30], [0.44, 0.20], [0.55, 0.12]);          // notch back down
-  edge([0.55, 0.12], [0.78, 0.26], [0.97, 0.44]);          // lower edge out to the tip
-}
-const inChevron = (x, y) => {
-  let inside = false;
-  for (let i = 0, j = CHEV.length - 1; i < CHEV.length; j = i++) {
-    const [xi, yi] = CHEV[i], [xj, yj] = CHEV[j];
-    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
-  }
-  return inside;
-};
-const FEATHERS = [];                                       // sampled [x, y, halfWidth]
-{
-  const N = 9;
-  for (let k = 0; k < N; k++) {
-    const f = k / (N - 1);
-    const O = [0.90 - 0.06 * f, 0.48 + 0.02 * f];          // origins near/above the tip
-    const E = [0.12 + 0.30 * f, 0.66 + 0.34 * f];          // fan of endpoints, aft-low → aft-high
-    const M = [(O[0] + E[0]) / 2, (O[1] + E[1]) / 2 + 0.05 + 0.04 * f];  // gentle upward bow
-    for (let t = 0.04; t <= 1; t += 0.02) {
-      const [x, y] = qbez(O, M, E, t);
-      FEATHERS.push([x, y, 0.013 * (1 - t) + 0.002, k]);   // taper root → tip; k = feather id
-    }
-  }
-}
-const onMark = (mx, my, fw = 1) => {                       // fw: feather-width boost for coarse UV islands
-  if (mx < -0.02 || mx > 1.02 || my < 0.06 || my > 1.05) return false;
-  if (my < 0.62 && inChevron(mx, my)) return true;
-  if (my > 0.4) for (const [fx, fy, w, k] of FEATHERS) {
-    if (fw > 1 && k % 2 === 0) continue;                   // coarse mode: every other feather, so they stay distinct
-    const dx = mx - fx, dy = my - fy, r = fw > 1 ? Math.max(w * fw, 0.045) : w;
-    if (dx * dx + dy * dy < r * r) return true;
-  }
-  return false;
-};
-
-// ---- "CATHAY PACIFIC" — stroke-built sans capitals ---------------------------
-// Segment skeletons in a unit glyph cell (x 0…1 = width, y 0…1 = cap height),
-// rendered by distance-to-segment. Kept to simple strokes so the letters stay
-// legible at the final 1024-px atlas (~11 px cap height at chase distance).
-const GLYPHS = (() => {
-  const arc = (cx, cy, rx, ry, a0, a1, n = 10) => {
-    const s = [];
-    for (let i = 0; i < n; i++) {
-      const t0 = a0 + (a1 - a0) * i / n, t1 = a0 + (a1 - a0) * (i + 1) / n;
-      s.push([cx + rx * Math.cos(t0), cy + ry * Math.sin(t0), cx + rx * Math.cos(t1), cy + ry * Math.sin(t1)]);
-    }
-    return s;
-  };
-  const D = Math.PI / 180;
-  return {
-    C: arc(0.52, 0.5, 0.48, 0.5, 50 * D, 310 * D),
-    A: [[0.02, 0, 0.5, 1], [0.5, 1, 0.98, 0], [0.22, 0.33, 0.78, 0.33]],
-    T: [[0, 1, 1, 1], [0.5, 1, 0.5, 0]],
-    H: [[0.04, 0, 0.04, 1], [0.96, 0, 0.96, 1], [0.04, 0.5, 0.96, 0.5]],
-    Y: [[0.02, 1, 0.5, 0.48], [0.98, 1, 0.5, 0.48], [0.5, 0.48, 0.5, 0]],
-    P: [[0.06, 0, 0.06, 1], [0.06, 1, 0.58, 1], ...arc(0.58, 0.76, 0.36, 0.24, -90 * D, 90 * D), [0.58, 0.52, 0.06, 0.52]],
-    I: [[0.5, 0, 0.5, 1]],
-    F: [[0.06, 0, 0.06, 1], [0.06, 1, 0.98, 1], [0.06, 0.5, 0.8, 0.5]],
-  };
-})();
-const TITLE = 'CATHAY PACIFIC';
-const CAP = 0.85, ADV = 0.74, GLYPH_W = 0.6 * CAP, STROKE = 0.115;  // metres / cell units
-const TITLE_LEN = (TITLE.length - 1) * ADV + GLYPH_W;
-const onTitle = (sx, sy) => {                              // sx along reading dir from block start, sy up from baseline (metres)
-  if (sy < -0.15 || sy > CAP + 0.15 || sx < -0.1 || sx > TITLE_LEN + 0.1) return false;
-  const k = Math.floor(sx / ADV);
-  for (const ki of [k - 1, k]) {                           // glyph cells can spill past ADV slightly
-    if (ki < 0 || ki >= TITLE.length) continue;
-    const segs = GLYPHS[TITLE[ki]];
-    if (!segs) continue;
-    const gx = (sx - ki * ADV) / GLYPH_W, gy = sy / CAP;
-    for (const [x1, y1, x2, y2] of segs) {
-      const dx = x2 - x1, dy = y2 - y1, L2 = dx * dx + dy * dy || 1;
-      let t = ((gx - x1) * dx + (gy - y1) * dy) / L2;
-      t = t < 0 ? 0 : t > 1 ? 1 : t;
-      const ex = gx - (x1 + t * dx), ey = gy - (y1 + t * dy);
-      if (ex * ex + ey * ey < STROKE * STROKE) return true;
-    }
-  }
-  return false;
-};
-
-// ---- placements (world metres; fin spans x −35.8…−23.9, y 17.6…27.2) --------
-// Fin: mark box ~middle 55 % of fin height, sheared aft with the sweep
-// (leading edge slope ≈ −0.7 dx/dy, measured on the source).
+// ---- source-art placements (world metres) ----------------------------------
+// Fin spans x −35.8…−23.9, y 17.6…27.2. Let the swept fin silhouette crop
+// the rectangular mark mapping naturally: the point faces +X (the nose),
+// while the fine strokes rise aft towards the top of the tail.
 const finMark = (x, y) => {
-  const my = (y - 20.1) / 5.1;
-  const mx = ((x + 35.2) + 0.7 * (y - 20.1)) / 6.8;
-  return onMark(mx, my);
+  return sampleMark((x + 35.3) / 9.2, (y - 18.9) / 7.2);
 };
-// Winglet: same mark, rotated to run up the sharklet with the sweep. Local
-// axis A points forward-up along the blade, B is the in-plane "up" of the
-// mark. Keyed to the PORT winglet's coords (shared UV island — see header).
+// Winglet: same SVG mark, rotated along the sharklet. Only inward-facing
+// triangles receive the marked atlas; outward faces remain solid jade.
 const WGA = [0.545, 0.838], WGB = [-0.838, 0.545];         // unit vectors in world x/y
 const wingletMark = (x, y) => {
   const dx = x - (-11.6), dy = y - 17.6;                   // port winglet centre-ish
   const mx = (dx * WGA[0] + dy * WGA[1]) / 1.55 + 0.5;
   const my = (dx * WGB[0] + dy * WGB[1]) / 1.35 + 0.38;
-  return onMark(mx, my, 6);                                // fat feathers: island is only ~55×110 texels at 1024
+  return sampleMark(mx, my);
 };
-// Nose: jade mark just aft of the cockpit, ahead of the first door. Keyed to
-// world x on both sides, so the tip points forward on each (livery-mirrored).
-const noseMark = (x, y) => onMark((x - 28.6) / 3.0, (y - 13.9) / 2.6);
-// Titles: upper forward fuselage, above the window line. The two fuselage
-// sides are separate UV islands, so each is drawn reading nose→tail: the
-// glyph x-axis flips with the recorded world-z sign.
-const TITLE_XA = 15.6, TITLE_XB = TITLE_XA + TITLE_LEN, TITLE_Y0 = 16.35;
+// Nose: green mark immediately aft of the black cockpit mask. Source axes use
+// +X as forward, so the SVG's pointed end naturally faces the nose.
+const noseMark = (x, y) => sampleMark((x - 28.25) / 3.5, (y - 13.75) / 2.75);
+// Official wordmark: the two fuselage sides use separate UV islands. Flip the
+// world-X sampling by side so the lettering reads correctly from either view.
+const TITLE_XA = 14.2, TITLE_XB = 28.7, TITLE_Y0 = 16.05, TITLE_Y1 = 17.40;
 const titleAt = (x, y, z) =>
-  onTitle(z < 0 ? TITLE_XB - x : x - TITLE_XA, y - TITLE_Y0);
+  sampleWordmark(
+    z < 0 ? (TITLE_XB - x) / (TITLE_XB - TITLE_XA) : (x - TITLE_XA) / (TITLE_XB - TITLE_XA),
+    (y - TITLE_Y0) / (TITLE_Y1 - TITLE_Y0));
 
 for (let p = 0; p < TW * TH; p++) {
   const i = p * CH, r = rgb[i], g = rgb[i + 1], b = rgb[i + 2];
   const lum = (r + g + b) / 765;
-  if (masks.fin[p]) put(i, finMark(finWX[p], finWY[p]) ? WHITE : JADE);
-  else if (masks.winglet[p]) put(i, wingletMark(finWX[p], finWY[p]) ? WHITE : JADE);
-  else if (masks.nacelle[p]) put(i, lum < 0.25 ? [0x3a, 0x3f, 0x44] : GREY);  // light-grey cowls, keep dark intake lips
+  if (masks.fin[p]) put(rgb, i, blend(JADE, WHITE, finMark(finWX[p], finWY[p])));
+  else if (masks.winglet[p]) put(rgb, i, JADE);            // marked copy is built below for inward faces only
+  else if (masks.nacelle[p]) put(rgb, i, lum < 0.25 ? [0x3a, 0x3f, 0x44] : GREY);  // light-grey cowls, keep dark intake lips
 }
 // hull de-branding: the source atlas carries AIRBUS house-livery titles,
 // giant "1000"s and pale watermark art scattered through the fuselage/belly
 // islands (its windows are grey like the titles — no colour signal to key
-// on), so the hull is painted CLEAN WHITE and the cabin window rows are
-// redrawn procedurally in world space: one dark rounded dot every 0.8 m at
-// the real window line (y ≈ 15.55, the cabin mid-line), stopping short of
-// the nose (the cockpit glass is separate geometry) and the tail taper.
+// on), so the hull is repainted and the cabin window rows are redrawn
+// procedurally in world space. The lower third fades into Cathay's subtle
+// pale-jade belly band instead of becoming a flat white/grey cylinder.
 {
   const WIN = [0x3c, 0x42, 0x4a];
   for (let p = 0; p < TW * TH; p++) {
@@ -360,14 +314,43 @@ for (let p = 0; p < TW * TH; p++) {
     const i = p * CH;
     if (masks.fuselage[p]) {
       const x = finWX[p], y = finWY[p], z = finWZ[p];
-      if (noseMark(x, y) || titleAt(x, y, z)) { put(i, JADE); continue; }
+      const mark = Math.max(noseMark(x, y), titleAt(x, y, z));
+      if (mark > 0) { put(rgb, i, blend(WHITE, JADE, mark)); continue; }
       const inRow = x > -26 && x < 27 && Math.abs(y - 15.55) < 0.17 && (((x % 0.8) + 0.8) % 0.8) < 0.42;
-      put(i, inRow ? WIN : WHITE);
-    } else put(i, WHITE);
+      const lower = clamp01((15.0 - y) / 2.4);
+      put(rgb, i, inRow ? WIN : blend(WHITE, PALE_JADE, 0.72 * lower));
+    } else put(rgb, i, blend(WHITE, PALE_JADE, 0.58));
   }
 }
-tex.setImage(await sharp(Buffer.from(rgb.buffer), { raw: { width: TW, height: TH, channels: CH } }).png().toBuffer())
+
+// A second atlas differs only on the winglet island. It is assigned solely to
+// the inward-facing split above; outward faces use the solid-jade base atlas.
+const wingRgb = new Uint8ClampedArray(rgb);
+for (let p = 0; p < TW * TH; p++) {
+  if (!masks.winglet[p]) continue;
+  const i = p * CH;
+  put(wingRgb, i, blend(JADE, WHITE, wingletMark(finWX[p], finWY[p])));
+}
+const basePng = await sharp(Buffer.from(rgb.buffer), { raw: { width: TW, height: TH, channels: CH } }).png().toBuffer();
+const wingPng = await sharp(Buffer.from(wingRgb.buffer), { raw: { width: TW, height: TH, channels: CH } }).png().toBuffer();
+tex.setImage(basePng)
    .setMimeType('image/png');
+const wingTex = doc.createTexture('CX A350 inward-winglet atlas').setImage(wingPng).setMimeType('image/png');
+const wingMats = new Map();
+for (const { mesh, prim, inside, rest } of insideWingletSplits) {
+  const sourceMat = prim.getMaterial();
+  let markedMat = wingMats.get(sourceMat);
+  if (!markedMat) {
+    markedMat = sourceMat.clone().setName(`${sourceMat.getName() || 'A350'} CX inward winglet`);
+    markedMat.setBaseColorTexture(wingTex);
+    wingMats.set(sourceMat, markedMat);
+  }
+  const marked = prim.clone();
+  marked.setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint32Array(inside)));
+  marked.setMaterial(markedMat);
+  mesh.addPrimitive(marked);
+  prim.setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint32Array(rest)));
+}
 if (process.env.A350_DEBUG_ATLAS)                         // full painted atlas, for livery inspection
   await sharp(Buffer.from(rgb.buffer), { raw: { width: TW, height: TH, channels: CH } }).png().toFile(process.env.A350_DEBUG_ATLAS);
 

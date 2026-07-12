@@ -140,20 +140,19 @@
     material, so `loadPlaneModel()` tags them and `stepFlight` hides them
     airborne (HKS-110 fleet rule). The baked animations are dropped — the
     fleet rule is a visibility toggle and the GLB is reparented at load.
-  - **Livery:** the AIRBUS branding is replaced with **our own Cathay-style
-    scheme, painted from scratch in-script** (colours/shapes studied from
-    Cathay’s own A350 press photo; no pixels copied): clean white hull with
-    procedurally redrawn cabin window rows (the atlas windows were grey like
-    the titles, so the hull islands are wiped white and windows redrawn in
-    world space), brushwing-jade **#00655B** tail fin with our white
-    tapered-bezier brush stroke, jade winglets, light-grey nacelles. Each
-    region is masked by rasterising that component’s actual UV triangles
-    (the atlas islands interleave — rectangle fills would bleed). No
-    wordmarks, no third-party airline branding shipped.
+  - **Livery:** the AIRBUS house branding is replaced with the project-supplied
+    Cathay artwork documented in `../../scripts/assets/README.md`: a clean
+    white hull, subtle pale-jade lower band, procedurally redrawn cabin windows,
+    the supplied serif **CATHAY PACIFIC** wordmark, a jade **#005D63**
+    brushwing beside the cockpit, and the complete supplied brushwing SVG in
+    white on the jade fin. The white winglet mark is limited to each winglet’s
+    inward face by splitting those triangles to a second marked atlas; outward
+    faces stay plain jade. Regions are masked by rasterising their actual UV
+    triangles because the atlas islands interleave.
   - **Budget:** weld + meshopt-simplify (harder second pass on the two
     102 k-tri fan disks and the CXGear wheels), dedup/prune/quantize
     (POSITION float32, 8-bit normals), metallic clamped, atlas ≤1024 px JPEG
-    → **47 590 tris (24 733 of them gear), ~1.98 MB raw / ~1.19 MB gzip**.
+    → **47 590 tris (24 733 of them gear), ~2.11 MB raw / ~1.31 MB gzip**.
 - **Rebuild:** `node ../../scripts/trim_a350_glb.mjs <scene.gltf> plane-a350.glb`
   (needs `@gltf-transform/*` v4 + `meshoptimizer` + `sharp` — see the script header).
 - **Used by:** `main.js` `PLANE_GLBS.a350` — the `a350` fly-mode skin
