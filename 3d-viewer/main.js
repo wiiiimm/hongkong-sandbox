@@ -2580,7 +2580,7 @@ document.getElementById('planeskin').addEventListener('change', e => { setPlaneS
 const PLANE_GLBS = {
   prop:  { url: 'data/models/plane-prop.glb' },                          // “Small Airplane”, Vojtěch Balák
   cx747: { url: 'data/models/plane-747.glb' },                           // “Boeing 747-100”, Marine (nose -Z; our CX repaint baked in)
-  cx777: { url: 'data/models/plane-777.glb', rotY: Math.PI },            // “Boeing 777-300er.”, 777_Boeing (tail at -Z; vertex-colour CX livery baked in)
+  cx777: { url: 'data/models/plane-777.glb?v=2', rotY: Math.PI },        // “Boeing 777-300er.”, 777_Boeing (tail at -Z; source-backed CX livery baked in; v2 busts the old jade-hull cache)
   a350:  { url: 'data/models/plane-a350.glb?v=2', rotY: Math.PI / 2 },   // “A350 V3 with animation”, Newbie99999993 (nose at +X; source-backed CX livery + CXGear split baked in; v2 busts the pre-HKS-110 livery cache)
   // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — fenced under nc/ per LICENSE-ASSETS.md;
   // commercial deploys delete nc/ and the 404 lands on the procedural fallback.

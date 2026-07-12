@@ -94,14 +94,18 @@
 - **Original file:** Sketchfab glTF export, 119 998 tris, two primitives, ONE
   flat grey material — no UVs, no textures, no branding.
 - **Modifications (this repo):** `trim_777_glb.mjs` — weld + meshopt-simplify
-  to budget, then **our own Cathay livery painted as vertex colours by
-  position** (jade #00655B fuselage + tail fin, light-grey wings/engines/
-  belly); landing gear split into `CXGear` primitives (hidden once airborne —
-  HKS-110 fleet rule); dedup/prune/quantize (POSITION float32, 8-bit normals)
-  → **48 025 tris (12 394 of them gear), ~1.35 MB raw**. Nose faces +Z as
-  authored → yawed 180° at load.
+  to budget, then rebuild the livery from the Cathay artwork documented in
+  `../../scripts/assets/README.md`: white fuselage, subtle pale-jade lower
+  band, generated cabin windows, the supplied serif **CATHAY PACIFIC**
+  wordmark, jade **#005D63** cockpit brushwings, and the supplied brushwing in
+  white on a jade fin. Because the source has no UVs, the base colours are
+  position-painted vertex colours and the marks are compact alpha-masked
+  tangent decals. Landing gear is split into `CXGear` primitives (hidden once
+  airborne — HKS-110 fleet rule); dedup/prune/quantize (POSITION float32,
+  8-bit normals) → **48 041 tris (12 394 of them gear), 1.40 MB raw**. Nose
+  faces +Z as authored → yawed 180° at load.
 - **Rebuild:** `node ../../scripts/trim_777_glb.mjs <scene.gltf> plane-777.glb`
-  (needs `@gltf-transform/*` v4 + `meshoptimizer`).
+  (needs `@gltf-transform/*` v4 + `meshoptimizer` + `sharp`).
 - **Used by:** `main.js` `PLANE_GLBS.cx777` — the `cx777` fly-mode skin.
 - **Supersedes:** “Airplane” by **Poly by Google** (Poly Pizza
   https://poly.pizza/m/fzIXe2paBN9, CC BY 3.0, 1 100 tris — a generic 787-8
