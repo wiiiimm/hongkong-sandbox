@@ -832,6 +832,22 @@ const _sunDirV = new THREE.Vector3(0, 1, 0);   // key-light direction in view sp
 let snowPts = null, snowMeta = null, snowAcc = 0;   // flakes + snow-cap build-up (0..1)
 let wallGrp = null, wallOp = 0;                     // T8+ rotating storm wall
 const SEA_Y = 0.5;
+// Floor for the water surface (world metres). Every DEM's open-sea bed sits at
+// exactly 0 m (63.2% of hk-dtm5m cells are 0; 47.7–64.2% across all four
+// sources, min elevation 0 in each), and the tide term is ±span·8e-5 around
+// SEA_Y=0.5 — ±5.1 m on the HK-wide sources (span 63.7 km), ±1.6–1.8 m on the
+// Lantau ones — so tides below ~40% (HK) / ~19% (Lantau) used to sink the sea
+// UNDER the seabed: the flat bed + draped vectors rendered where the harbour
+// should be, and the upward-only wave ripple (calm amplitude span·4e-5 ≈
+// 2.5 m HK / 0.8 m Lantau) oscillated the surface through y=0 every cycle —
+// the "constantly flickering ocean". Waves off just left it statically
+// underwater. Clamp the RESTING level (tide+surge, not the ripple) so the
+// water always clears the bed by ≥ SEA_MIN: ~8× the log-depth quantum at full
+// scene distance (z·ln(far)/2²⁴ ≈ 0.05 m at z≈64 km), so no z-fighting
+// either. VE never moves the bed (0·VE = 0), so a fixed floor holds at every
+// exaggeration. Only the physically-underground part of the tide range is
+// lost — it was never visible as water anyway.
+const SEA_MIN = 0.4;
 const weather = { fog: false, rain: false, clouds: false, lightning: false, waves: false, snow: false };
 let lastWxData = null;   // HKS-69: last live payload (English rhrread) — lets a source change re-map the WxField grids without a refetch (codex)
 let skyScale = 1;        // sky-layer height × — lifts/scales cloud altitude + rain ceiling (view control)
@@ -1247,7 +1263,9 @@ function animateWeather() {
     const surge  = stormLevel >= 8 ? (stormLevel >= 10 ? 1 : stormLevel >= 9 ? 0.65 : 0.4) * b.span * 0.00022 : 0;
     const amp    = b.span * (0.00004 + w * 0.0001);
     const ripple = weather.waves ? (Math.sin(wavePhase += 0.03 * (1 + w * 3)) * 0.5 + 0.5) * amp : 0;
-    sea.position.y = SEA_Y + tide + surge + ripple;
+    // never let the resting level reach the 0 m seabed (see SEA_MIN) — low tide
+    // bottoms out just above the bed instead of sinking beneath the terrain
+    sea.position.y = Math.max(SEA_MIN, SEA_Y + tide + surge) + ripple;
   }
   // drive the surface FX: wet band from the live water level, cloud shadows
   // scrolling with the sprite drift, height fog pooling below uFogY
