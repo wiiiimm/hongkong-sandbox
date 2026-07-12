@@ -156,7 +156,7 @@ const I18N = {
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
-      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/boeing-747-100-6ef67f9995d345ddaee9ec845ac10b69" target="_blank" rel="noopener">“Boeing 747-100” by Marine</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, repainted in our own Cathay-jade livery) ·<a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">“Airplane” by Poly by Google</a> · <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">“[FREE] Airbus A350-1000” by hakai315</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only).</p>'
+      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/boeing-747-100-6ef67f9995d345ddaee9ec845ac10b69" target="_blank" rel="noopener">“Boeing 747-100” by Marine</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/boeing-777-300er-2ee4847b20724a308ef73f33e3823ecb" target="_blank" rel="noopener">“Boeing 777-300er.” by The F-35’s Modeling Hub</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, repainted in our own Cathay-jade livery) ·<a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">“[FREE] Airbus A350-1000” by hakai315</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only) · <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">“McDonnell Douglas DC-3” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — repainted in Betsy’s 1946 bare-metal VR-HDB markings).</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -249,7 +249,7 @@ const I18N = {
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
-      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · Marine 的 <a href="https://sketchfab.com/3d-models/boeing-747-100-6ef67f9995d345ddaee9ec845ac10b69" target="_blank" rel="noopener">「Boeing 747-100」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，重繪本作自家國泰翡翠色塗裝） ·Poly by Google 的 <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">「Airplane」</a> · hakai315 的 <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">「[FREE] Airbus A350-1000」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化）。</p>'
+      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · Marine 的 <a href="https://sketchfab.com/3d-models/boeing-747-100-6ef67f9995d345ddaee9ec845ac10b69" target="_blank" rel="noopener">「Boeing 747-100」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，重繪本作自家國泰翡翠色塗裝） · The F-35’s Modeling Hub 的 <a href="https://sketchfab.com/3d-models/boeing-777-300er-2ee4847b20724a308ef73f33e3823ecb" target="_blank" rel="noopener">「Boeing 777-300er.」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，重繪本作自家國泰翡翠色塗裝） ·hakai315 的 <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">「[FREE] Airbus A350-1000」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">「McDonnell Douglas DC-3」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 重繪 1946 年「貝茜」VR-HDB 原色金屬塗裝）。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2566,8 +2566,10 @@ document.getElementById('planeskin').addEventListener('change', e => { setPlaneS
 // model, lazily fetched from the data/ origin (ASSET_BASE-aware) and precached
 // by the service worker — same pattern as the walk-mode hiker. The procedural
 // builder stays as the loading stand-in and the offline / load-failure fallback.
-// Provenance + licences: data/models/README.md (CC-BY 3.0 / 4.0, credited in
-// the Credits drawer). Only betsy (no clean open DC-3) stays procedural.
+// Provenance + licences: data/models/README.md (CC-BY 3.0/4.0 + two nc/-fenced
+// BY-NC-SA hulls — LICENSE-ASSETS.md; all credited in the Credits drawer).
+// Every skin has a real airframe; the procedural builders remain as the
+// loading stand-ins and the offline / missing-nc-file fallbacks.
 //
 // Each model is normalised to the procedural airframe it replaces: nose -Z
 // (rotY flips exporters that face +Z), fuselage length fitted to the builder's
@@ -2578,12 +2580,16 @@ document.getElementById('planeskin').addEventListener('change', e => { setPlaneS
 const PLANE_GLBS = {
   prop:  { url: 'data/models/plane-prop.glb' },                          // “Small Airplane”, Vojtěch Balák
   cx747: { url: 'data/models/plane-747.glb' },                           // “Boeing 747-100”, Marine (nose -Z; our CX repaint baked in)
-  cx777: { url: 'data/models/plane-777.glb', rotY: Math.PI, jade: true },// “Airplane”, Poly by Google (tail at -Z)
+  cx777: { url: 'data/models/plane-777.glb', rotY: Math.PI },            // “Boeing 777-300er.”, 777_Boeing (tail at -Z; vertex-colour CX livery baked in)
   a350:  { url: 'data/models/plane-a350.glb', rotY: -Math.PI / 2 },      // “[FREE] Airbus A350-1000”, hakai315 (nose at -X; jade livery baked in)
   // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — fenced under nc/ per LICENSE-ASSETS.md;
   // commercial deploys delete nc/ and the 404 lands on the procedural fallback.
   // fit: A330-300 (63.7 m) drawn against the 777-300 reference builder (73.9 m).
   a330:  { url: 'data/models/nc/plane-a330.glb', rotY: Math.PI, fit: 63.69 / 73.86 },
+  // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — nc/-fenced like the a330. Bare-metal
+  // 1946 VR-HDB livery baked in (Union Jack fin, era titles). fixedGear: a
+  // taildragger's semi-fixed gear stays visible in flight (fleet-rule exception).
+  betsy: { url: 'data/models/nc/plane-betsy.glb', rotY: Math.PI, fixedGear: true },
 };
 const planeModelSt = {};   // id → { inflight, fails, warned } — cap retries like the hiker loader
 function disposePlaneGltf(scene) {
@@ -2644,12 +2650,7 @@ function loadPlaneModel(id) {
       -k * (mbox.max.x + mbox.min.x) / 2,
       floorY - k * mbox.min.y,
       midZ - k * (mbox.max.z + mbox.min.z) / 2);
-    if (cfg.jade)                                      // CX brushwing jade over the author's hull colour
-      model.traverse(o => {
-        if (!o.isMesh) return;
-        for (const m of Array.isArray(o.material) ? o.material : [o.material])
-          if (m && m.name === 'Mat') m.color.set(0x00655b);
-      });
+    // (liveries are baked into the GLBs by their trim scripts — no runtime tint)
     const spinners = [];                               // wire any authored propeller into the shared spin
     model.traverse(o => {                              // outermost matches only — spinning parent AND child would compound
       if (/prop|rotor|spinner/i.test(o.name) && !spinners.some(s => {
@@ -2672,7 +2673,21 @@ function loadPlaneModel(id) {
     }
     delete planeGrp.userData.prop;                     // the procedural blades are gone
     delete planeGrp.userData.props;
+    delete planeGrp.userData.gear;                     // …and the procedural gear group
     if (spinners.length) planeGrp.userData.props = spinners;
+    // HKS-110 fleet rule: tag the airframe's landing gear so stepFlight can
+    // drop/retract it with the landed state — matched by node name or by the
+    // CXGear material the trim scripts split gear geometry into.
+    if (!cfg.fixedGear) {                              // taildraggers keep their gear out (betsy)
+      const gear = [];
+      model.traverse(o => {
+        if (!o.isMesh) return;
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        if (/gear|wheel|tyre|tire|bogie|undercarriage/i.test(o.name) ||
+            mats.some(m => m && /^CXGear/.test(m.name || ''))) gear.push(o);
+      });
+      if (gear.length) planeGrp.userData.gear = gear;
+    }
     planeGrp.add(inner);
     planeGrp.userData.glbSkin = id;
     applyLookFilter(planeGrp);                         // re-dress the new hull for Matrix/Neon
@@ -4758,8 +4773,14 @@ function stepFlight() {
   }
   planeGrp.position.copy(F.pos);
   planeGrp.quaternion.copy(_fq);
-  // HKS-93: the gear retracts — wheels render only while on the ground
-  if (planeGrp.userData.gear) planeGrp.userData.gear.visible = F.landed;
+  // HKS-93: the gear retracts — wheels render only while on the ground.
+  // Procedural builders park one Group here; GLB airframes (HKS-110) tag an
+  // ARRAY of scattered gear/wheel meshes — both obey the same landed rule.
+  const gr = planeGrp.userData.gear;
+  if (gr) {
+    if (Array.isArray(gr)) { for (const g of gr) g.visible = F.landed; }
+    else gr.visible = F.landed;
+  }
   // HKS-93: anti-collision flashers — position lights stay steady, the white
   // wingtip/tail strobes double-flash once a second while AIRBORNE (real ops:
   // strobes off on the ground), and the red beacons pulse slower, always on
@@ -4771,11 +4792,10 @@ function stepFlight() {
     const beaconOn = (tms % 1400) < 240;
     for (const m of Lg.beacons) m.visible = beaconOn;
   }
-  // HKS-87: the prop is tied to engine/airspeed — airborne it keeps a base
-  // spin plus a speed term; landed it's driven purely by ground speed, so it
-  // winds down to a dead stop as the plane brakes and stays still while parked.
-  // (userData.props is the twin-engine variant — every prop shares the one spin rate)
-  const spinD = F.landed ? F.speed * 0.01 : 0.25 + F.speed * 0.004;
+  // HKS-87/HKS-110 fleet rule: props & fans spin ONLY airborne — a base spin
+  // plus a speed term; on the ground they hold still (gear down, props stopped).
+  // (userData.props is the multi-engine variant — every prop shares the one spin rate)
+  const spinD = F.landed ? 0 : 0.25 + F.speed * 0.004;
   if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += spinD;
   if (planeGrp.userData.props) for (const pr of planeGrp.userData.props) pr.rotation.z += spinD;
   // HKS-87: engine audio follows the same landed rule as the prop — on the

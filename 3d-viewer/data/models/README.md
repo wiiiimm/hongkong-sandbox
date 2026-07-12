@@ -82,23 +82,41 @@
     since the shipped hull gets our repaint anyway, the NC cost bought
     nothing over the CC BY candidates.
 
-## plane-777.glb — fly-mode widebody twin-jet (HKS-110)
+## plane-777.glb — fly-mode Boeing 777-300ER (HKS-110)
 
-- **Model:** “Airplane” by **Poly by Google**
-- **Source:** https://poly.pizza/m/fzIXe2paBN9 (Poly Pizza, archived Google Poly)
-- **Licence:** **CC BY 3.0** — “Creative Commons Attribution” on the model page
-  (Google Poly assets were published CC BY 3.0); credited in the Credits drawer.
-- **Original file:** `https://static.poly.pizza/d2e42bad-4a68-40b8-abee-f8744cf8d2db.glb`
-  (15 KB, 1 100 tris, flat material colours — teal-blue hull, grey engines; the
-  internal node is named `Boeing_787_8.obj`, i.e. a generic Boeing widebody
-  twin-jet shape standing in for the 777).
-- **Modifications (this repo):** dedup/prune/quantize (POSITION float32) →
-  **~15 KB raw / ~11 KB gzip**. Normalised at runtime (authored tail at −Z →
-  yawed 180° so the nose faces −Z; fitted to the procedural CX 777’s
-  length/waterline). The hull material is re-tinted **Cathay brushwing jade
-  (#00655B)** at load — our own colour choice over the author’s geometry.
-- **Rebuild:** `node ../../scripts/trim_plane_glb.mjs <original.glb> plane-777.glb`
+- **Model:** “Boeing 777-300er.” by **The F-35’s Modeling Hub** (777_Boeing)
+- **Source:** https://sketchfab.com/3d-models/boeing-777-300er-2ee4847b20724a308ef73f33e3823ecb
+  (Sketchfab) · author: https://sketchfab.com/777_Boeing
+- **Licence:** **CC BY 4.0** — the bundled `license.txt` states: “license type:
+  CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/) · requirements:
+  Author must be credited. Commercial use is allowed.” Credited in the app’s
+  Credits drawer (en + 繁中).
+- **Original file:** Sketchfab glTF export, 119 998 tris, two primitives, ONE
+  flat grey material — no UVs, no textures, no branding.
+- **Modifications (this repo):** `trim_777_glb.mjs` — weld + meshopt-simplify
+  to budget, then **our own Cathay livery painted as vertex colours by
+  position** (jade #00655B fuselage + tail fin, light-grey wings/engines/
+  belly); landing gear split into `CXGear` primitives (hidden once airborne —
+  HKS-110 fleet rule); dedup/prune/quantize (POSITION float32, 8-bit normals)
+  → **48 025 tris (12 394 of them gear), ~1.35 MB raw**. Nose faces +Z as
+  authored → yawed 180° at load.
+- **Rebuild:** `node ../../scripts/trim_777_glb.mjs <scene.gltf> plane-777.glb`
+  (needs `@gltf-transform/*` v4 + `meshoptimizer`).
 - **Used by:** `main.js` `PLANE_GLBS.cx777` — the `cx777` fly-mode skin.
+- **Supersedes:** “Airplane” by **Poly by Google** (Poly Pizza
+  https://poly.pizza/m/fzIXe2paBN9, CC BY 3.0, 1 100 tris — a generic 787-8
+  shape standing in for the 777, jade-tinted at load). Removed with this
+  upgrade; that also retires the “787 stand-in” caveat.
+- **Evaluated, not used:**
+  - “Air New Zealand Boeing 777 219 ER” by **A Random Modeler**
+    (danielskom111, Sketchfab, CC BY 4.0, 30 051 tris) — clean and cheap, but
+    a shorter 777-200-series airframe; the -300ER shape won.
+  - “Boeing 777- 300ER” by **Adam.White** (Sketchfab, CC BY 4.0, 236 444
+    tris / 80 MB) — highest fidelity but needed the heavy decimation
+    pipeline for no visible gain at fly-mode distances over the chosen model.
+  - An **outpiston Air Canada 777-200LR** (⚠ CC BY-NC-SA 4.0) — REJECTED:
+    our repaint makes its livery worthless, so the NC restriction buys
+    nothing over the CC BY candidates.
 
 ## plane-a350.glb — fly-mode Airbus A350-1000 (HKS-110)
 
@@ -160,13 +178,42 @@
   (authored nose +Z → `rotY: Math.PI`; `fit` scales the 777-reference length
   down to the A330-300’s 63.7 m).
 
-## Not upgraded (HKS-110)
+## nc/plane-betsy.glb — fly-mode DC-3 “Betsy” ⚠ NC (HKS-110)
 
-- **betsy (Cathay DC-3 “Betsy” VR-HDB)** keeps its procedural canvas-livery
-  build: no clean, licence-verified open-source DC-3 model was found (Poly
-  Pizza has none; Sketchfab candidates were NC/ND, login-gated, or carried
-  unverifiable real-airline branding).
+- **Model:** “McDonnell Douglas DC-3” by **OUTPISTON**
+- **Source:** https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333
+  (Sketchfab) · author: https://sketchfab.com/outpiston
+- **Licence:** **⚠ CC BY-NC-SA 4.0** — the bundled `license.txt` states:
+  “license type: CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/) ·
+  requirements: Author must be credited. No commercial use. Modified versions
+  must have the same license.” Credited in the Credits drawer (en + 繁中,
+  marked non-commercial). **Our modified GLB remains CC BY-NC-SA 4.0.**
+  NC is justified here: no licence-clean open DC-3 exists (earlier sweep:
+  Poly Pizza has none; other Sketchfab candidates NC/ND or login-gated).
+- **NC fencing (see LICENSE-ASSETS.md):** lives under `data/models/nc/` —
+  commercial deployments delete `nc/`; the `betsy` skin falls back to its
+  procedural `buildBetsyDC3` canvas-livery build.
+- **Original file:** Sketchfab glTF export, 13 574 tris, bare-metal textures,
+  named prop (`prop0/1_still…`) and tire nodes.
+- **Modifications (this repo):** historically-correct **1946 VR-HDB markings**
+  painted onto the (already bare-metal) atlas — a Union Jack on the tail fin,
+  era-style “CATHAY PACIFIC AIRWAYS” titles above the windows and the VR-HDB
+  registration (studied from period photography: Swire archive, preserved
+  VR-HDB) — **no modern jade/green anywhere**; then dedup/prune/quantize
+  (POSITION float32), textures ≤1024 px JPEG → **13 494 tris, ~0.7 MB raw**.
+- **Runtime:** nose +Z → `rotY: Math.PI`; `fixedGear` — a taildragger’s
+  semi-fixed gear stays visible in flight (fleet-rule exception); its
+  `prop0_still`/`prop1_still` nodes join the shared airborne prop-spin.
+- **Rebuild:** `node ../../scripts/trim_betsy_glb.mjs <scene.gltf> nc/plane-betsy.glb`
+
+## Fleet rules (HKS-110)
+
+- Landed: **gear + wheels visible, props/fans stopped**. Airborne: **gear
+  hidden, props spinning** (throttle-tied). GLB gear is tagged via `CXGear-*`
+  materials (split out by the trim scripts) or gear/wheel/tire node names;
+  `stepFlight` drives visibility off the landed state. Exception: betsy
+  (taildragger, `fixedGear`).
 - **Deploy note:** on the official deploy `data/` is served from the R2 assets
-  origin — upload the four `plane-*.glb` files to the bucket under
-  `data/models/` at merge, like the hiker GLB. sw.js precaches them
-  (`DEFAULT_TERRAIN`, VERSION v26).
+  origin — upload all `plane-*.glb` files (including `nc/…` where licensing
+  permits that deployment) to the bucket under `data/models/` at merge, like
+  the hiker GLB. sw.js precaches them (`DEFAULT_TERRAIN`, VERSION v26).
