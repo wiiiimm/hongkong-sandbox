@@ -84,34 +84,61 @@
 
 ## plane-777.glb — fly-mode Boeing 777-300ER (HKS-110)
 
-- **Model:** “Boeing 777-300er.” by **The F-35’s Modeling Hub** (777_Boeing)
-- **Source:** https://sketchfab.com/3d-models/boeing-777-300er-2ee4847b20724a308ef73f33e3823ecb
-  (Sketchfab) · author: https://sketchfab.com/777_Boeing
+- **Model:** “boeing 777-300ER Saudi Arabian Airlines (Saudia)” by **Omatar**
+- **Source:** https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e
+  (Sketchfab) · author: https://sketchfab.com/Omatar
 - **Licence:** **CC BY 4.0** — the bundled `license.txt` states: “license type:
   CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/) · requirements:
   Author must be credited. Commercial use is allowed.” Credited in the app’s
-  Credits drawer (en + 繁中).
-- **Original file:** Sketchfab glTF export, 119 998 tris, two primitives, ONE
-  flat grey material — no UVs, no textures, no branding.
-- **Modifications (this repo):** `trim_777_glb.mjs` — weld + meshopt-simplify
-  to budget, then rebuild the livery from the Cathay artwork documented in
-  `../../scripts/assets/README.md`: white fuselage, subtle pale-jade lower
-  band, generated cabin windows, the supplied serif **CATHAY PACIFIC**
-  wordmark, jade **#005D63** cockpit brushwings, and the supplied brushwing in
-  white on a jade fin. Because the source has no UVs, the base colours are
-  position-painted vertex colours and the marks are compact alpha-masked
-  tangent decals. Landing gear is split into `CXGear` primitives (hidden once
-  airborne — HKS-110 fleet rule); dedup/prune/quantize (POSITION float32,
-  8-bit normals) → **48 041 tris (12 394 of them gear), 1.40 MB raw**. Nose
-  faces +Z as authored → yawed 180° at load.
+  Credits drawer (en + 繁中); attribution is load-bearing under CC BY.
+- **Original file:** Sketchfab glTF export (`scene.gltf` + 26 MB `scene.bin` +
+  one 2048² “Stickers” baseColor atlas), **507 667 tris**, 241 meshes, 69
+  materials, no animations. Livery as authored: the **Saudia 75-years scheme**
+  — “saudia” titles, green/blue cheatlines and the 75-years gold mark in the
+  atlas (two fuselage side strips + the green fin plate); everything else is
+  flat-coloured materials. Crucially it ships **real extended landing gear** —
+  two 6-wheel main bogies (struts, open bay doors) + a twin-wheel nose gear —
+  and real dark **window/cockpit-glass geometry**.
+- **Modifications (this repo):** via `trim_777_glb.mjs` (the A350 recipe
+  ported to this hull):
+  - **Gear split:** connected components inside the measured nose/main gear
+    boxes move to a `CXGear` material, so `loadPlaneModel()` tags them and
+    `stepFlight` hides them airborne (HKS-110 fleet rule). Wheels reach below
+    the belly line, so the parked stance survives the loader’s waterline fit.
+  - **Livery:** the Saudia branding is replaced with the project-supplied
+    Cathay artwork documented in `../../scripts/assets/README.md`, painted in
+    world space through per-texel world coords recorded while rasterising each
+    region’s actual UV triangles: clean white hull with the subtle pale-jade
+    lower band, jade **#00655B** fin with the complete white brushwing SVG,
+    the brushwing again in jade aft of the cockpit, and the supplied serif
+    **CATHAY PACIFIC** wordmark on both upper forward sides (flipped per side
+    so it reads nose-first from either view). Cabin windows are geometry, so
+    the wipe can’t eat them; uncovered atlas texels under the window holes are
+    dilated/flooded so mip filtering never fetches old Saudia paint. The
+    -300ER’s raked wingtips carry no winglet mark; the two full-length red
+    strips (`Material.103`) are recoloured hull-white.
+  - **Budget:** weld + meshopt-simplify (harder second pass on the CXGear
+    wheel stacks), dedup/prune/quantize (POSITION float32, 8-bit normals),
+    metallic/roughness clamps, atlas ≤1024 px JPEG →
+    **56 104 unique tris (9 326 of them gear), ~1.94 MB raw** (dedup shares
+    wheel meshes across the bogies, so the instantiated scene draws ~84 k).
 - **Rebuild:** `node ../../scripts/trim_777_glb.mjs <scene.gltf> plane-777.glb`
-  (needs `@gltf-transform/*` v4 + `meshoptimizer` + `sharp`).
-- **Used by:** `main.js` `PLANE_GLBS.cx777` — the `cx777` fly-mode skin.
-- **Supersedes:** “Airplane” by **Poly by Google** (Poly Pizza
-  https://poly.pizza/m/fzIXe2paBN9, CC BY 3.0, 1 100 tris — a generic 787-8
-  shape standing in for the 777, jade-tinted at load). Removed with this
-  upgrade; that also retires the “787 stand-in” caveat.
-- **Evaluated, not used:**
+  (needs `@gltf-transform/*` v4 + `meshoptimizer` + `sharp` — see the script
+  header; the build is byte-reproducible).
+- **Used by:** `main.js` `PLANE_GLBS.cx777` — the `cx777` fly-mode skin
+  (authored nose −X → `rotY: -Math.PI/2`; `anchorLights` snaps the nav lights
+  to this hull’s real wingtips/tail).
+- **Supersedes:** “Boeing 777-300er.” by **The F-35’s Modeling Hub**
+  (777_Boeing, Sketchfab
+  https://sketchfab.com/3d-models/boeing-777-300er-2ee4847b20724a308ef73f33e3823ecb,
+  CC BY 4.0, 119 998 tris — textureless, one flat grey material). Shipped
+  earlier for HKS-110 with a vertex-colour Cathay livery + tangent decals and
+  a heuristic below-the-engine-line gear split (48 041 tris shipped); replaced
+  by user preference for this higher-fidelity hull with authored gear and
+  UV-mapped skin. Which itself superseded “Airplane” by **Poly by Google**
+  (Poly Pizza https://poly.pizza/m/fzIXe2paBN9, CC BY 3.0, 1 100 tris — a
+  generic 787-8 shape standing in for the 777, jade-tinted at load).
+- **Evaluated, not used (original HKS-110 bake-off):**
   - “Air New Zealand Boeing 777 219 ER” by **A Random Modeler**
     (danielskom111, Sketchfab, CC BY 4.0, 30 051 tris) — clean and cheap, but
     a shorter 777-200-series airframe; the -300ER shape won.
