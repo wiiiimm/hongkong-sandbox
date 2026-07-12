@@ -76,6 +76,7 @@ const DEFAULT_TERRAIN = [
   'data/models/plane-747.glb',
   'data/models/plane-777.glb',
   'data/models/plane-a350.glb',         // CC-BY 4.0 (hakai315) — data/models/README.md
+  'data/models/nc/plane-a330.glb',      // ⚠ CC BY-NC-SA (OUTPISTON) — absent on commercial deploys; precache is per-file best-effort so the 404 just leaves a gap
 ].map((f) => `${DATA_BASE}/${f}`);
 
 const isHeavyPath = (p) =>

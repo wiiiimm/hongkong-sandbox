@@ -113,7 +113,7 @@ const I18N = {
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
     'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)',
     'lbl.topspeed': 'Top speed',
-    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a350': 'Cathay Pacific A350-1000',
+    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a330': 'Cathay Pacific A330-300', 'plane.a350': 'Cathay Pacific A350-1000',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
     // HKS-86: the bottom mode dock + contextual tray
@@ -156,7 +156,7 @@ const I18N = {
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
-      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">“Boeing 747” by Miha Lunar</a> · <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">“Airplane” by Poly by Google</a> · <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">“[FREE] Airbus A350-1000” by hakai315</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery).</p>'
+      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">“Boeing 747” by Miha Lunar</a> · <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">“Airplane” by Poly by Google</a> · <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">“[FREE] Airbus A350-1000” by hakai315</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only).</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -206,7 +206,7 @@ const I18N = {
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
     'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)',
     'lbl.topspeed': '極速',
-    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a350': '國泰航空 A350-1000',
+    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a330': '國泰航空 A330-300', 'plane.a350': '國泰航空 A350-1000',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
     // HKS-86: the bottom mode dock + contextual tray
@@ -249,7 +249,7 @@ const I18N = {
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
-      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · Miha Lunar 的 <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">「Boeing 747」</a> · Poly by Google 的 <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">「Airplane」</a> · hakai315 的 <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">「[FREE] Airbus A350-1000」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝）。</p>'
+      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · Miha Lunar 的 <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">「Boeing 747」</a> · Poly by Google 的 <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">「Airplane」</a> · hakai315 的 <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">「[FREE] Airbus A350-1000」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化）。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2524,6 +2524,7 @@ const PLANE_SKINS = [
   { id: 'betsy', build: buildBetsyDC3 },    // Cathay Pacific "Betsy" — the Douglas DC-3, VR-HDB
   { id: 'cx747', build: buildCX747 },       // Cathay Pacific Boeing 747
   { id: 'cx777', build: buildCX777 },       // Cathay Pacific Boeing 777-300
+  { id: 'a330',  build: buildCX777 },       // Cathay Pacific Airbus A330-300 — the 777 widebody twin stands in as loading/offline fallback (the ⚠ NC GLB may be absent on commercial deploys); PLANE_GLBS.a330.fit corrects the length
   { id: 'a350',  build: buildCXA350 },      // Cathay Pacific Airbus A350-1000
 ];
 let planeSkin = 'prop';
@@ -2579,6 +2580,10 @@ const PLANE_GLBS = {
   cx747: { url: 'data/models/plane-747.glb' },                           // “Boeing 747”, Miha Lunar
   cx777: { url: 'data/models/plane-777.glb', rotY: Math.PI, jade: true },// “Airplane”, Poly by Google (tail at -Z)
   a350:  { url: 'data/models/plane-a350.glb', rotY: -Math.PI / 2 },      // “[FREE] Airbus A350-1000”, hakai315 (nose at -X; jade livery baked in)
+  // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — fenced under nc/ per LICENSE-ASSETS.md;
+  // commercial deploys delete nc/ and the 404 lands on the procedural fallback.
+  // fit: A330-300 (63.7 m) drawn against the 777-300 reference builder (73.9 m).
+  a330:  { url: 'data/models/nc/plane-a330.glb', rotY: Math.PI, fit: 63.69 / 73.86 },
 };
 const planeModelSt = {};   // id → { inflight, fails, warned } — cap retries like the hiker loader
 function disposePlaneGltf(scene) {
@@ -2633,7 +2638,7 @@ function loadPlaneModel(id) {
     inner.add(model);
     inner.updateMatrixWorld(true);
     const mbox = new THREE.Box3().setFromObject(inner);
-    const k = len / Math.max(0.01, mbox.max.z - mbox.min.z);
+    const k = (cfg.fit || 1) * len / Math.max(0.01, mbox.max.z - mbox.min.z);   // cfg.fit: real-world length vs the reference builder's type (a330 borrows the 777 builder)
     inner.scale.setScalar(k);
     inner.position.set(
       -k * (mbox.max.x + mbox.min.x) / 2,

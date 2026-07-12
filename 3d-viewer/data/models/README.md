@@ -111,6 +111,32 @@
   (authored nose −X → `rotY: -Math.PI/2`). The procedural builder stays as
   loading stand-in / offline fallback.
 
+## nc/plane-a330.glb — fly-mode Airbus A330-300 ⚠ NC (HKS-110)
+
+- **Model:** “Cathay Pacific Airbus A330-300” by **OUTPISTON**
+- **Source:** https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277
+  (Sketchfab) · author: https://sketchfab.com/outpiston
+- **Licence:** **⚠ CC BY-NC-SA 4.0** — the bundled `license.txt` states:
+  “license type: CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/) ·
+  requirements: Author must be credited. No commercial use. Modified versions
+  must have the same license.” Credited in the app’s Credits drawer (en + 繁中,
+  marked non-commercial). **Our modified GLB remains CC BY-NC-SA 4.0.**
+- **NC fencing (see LICENSE-ASSETS.md):** lives under `data/models/nc/` —
+  commercial deployments must delete the `nc/` folder. The `a330` skin then
+  falls back to its procedural widebody-twin build (`buildCX777` stand-in);
+  the SW precache is per-file best-effort, so the missing file just leaves a gap.
+- **Original file:** Sketchfab glTF export (`scene.gltf` + 2.5 MB `scene.bin` +
+  7 textures), 42 770 tris / 24.3 k verts, **real Cathay Pacific livery textures
+  as authored — kept, not re-tinted** (that livery is the point of this asset).
+- **Modifications (this repo):** optimisation only — dedup/prune/quantize
+  (POSITION float32, same r160 lesson) and livery textures resized to ≤1024 px
+  JPEG q78 → **42 766 tris, ~2.6 MB raw / ~1.4 MB gzip**.
+- **Rebuild:** `node ../../scripts/trim_a330_glb.mjs <scene.gltf> nc/plane-a330.glb`
+  (needs `@gltf-transform/*` v4 + `sharp` — see the script header).
+- **Used by:** `main.js` `PLANE_GLBS.a330` — the `a330` fly-mode skin
+  (authored nose +Z → `rotY: Math.PI`; `fit` scales the 777-reference length
+  down to the A330-300’s 63.7 m).
+
 ## Not upgraded (HKS-110)
 
 - **betsy (Cathay DC-3 “Betsy” VR-HDB)** keeps its procedural canvas-livery
