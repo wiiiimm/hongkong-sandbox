@@ -77,13 +77,47 @@
 - **Rebuild:** `node ../../scripts/trim_plane_glb.mjs <original.glb> plane-777.glb`
 - **Used by:** `main.js` `PLANE_GLBS.cx777` — the `cx777` fly-mode skin.
 
+## plane-a350.glb — fly-mode Airbus A350-1000 (HKS-110)
+
+- **Model:** “[FREE] Airbus A350-1000” by **hakai315**
+- **Source:** https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721
+  (Sketchfab) · author: https://sketchfab.com/hakai315
+- **Licence:** **CC BY 4.0** — the bundled `license.txt` states: “license type:
+  CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/) · requirements:
+  Author must be credited. Commercial use is allowed.” Credited in the app’s
+  Credits drawer (en + 繁中); attribution is load-bearing under CC BY.
+- **Original file:** Sketchfab glTF export (`scene.gltf` + 70 MB `scene.bin` +
+  2 textures), **1 973 821 tris / 1 061 377 verts**, flat material colours with
+  a branding-clean “No_human_logo” engine texture set.
+- **Rejected candidate (do not re-litigate):** Sketchfab uid
+  `97577f60b81140e995d27dbb0ca36181` — an alternative A350 that is
+  **CC BY-NC-SA** (non-commercial, share-alike): incompatible with this
+  project’s commercial licensing. hakai315’s CC BY 4.0 model was chosen instead.
+- **Modifications (this repo):** heavy decimation + our own livery, via
+  `trim_a350_glb.mjs` (a350-specific — does far more than `trim_plane_glb.mjs`):
+  interior/outlier groups dropped (engine fan blades, cargo-bay interiors,
+  cabin floors, a stray mesh floating ~140 m off the nose that would have
+  broken the loader’s bounding-box fit), textures stripped to flat colours,
+  then flatten/join/weld + meshopt-simplify with a connected-component prune
+  (sub-2.6-unit hardware invisible at fly-mode distances), dedup/prune/quantize
+  (POSITION float32, 8-bit normals) → **52 144 tris, ~1.7 MB raw / ~630 KB gzip**.
+  The livery is **our own Cathay-style repaint baked in-file**: fuselage, nose,
+  doors and tail fin re-materialed to brushwing jade **#00655B** (`CXHull`),
+  wings/belly/engines left grey — original colour work, no third-party airline
+  branding shipped.
+- **Rebuild:** `node ../../scripts/trim_a350_glb.mjs <scene.gltf> plane-a350.glb`
+  (needs `@gltf-transform/*` v4 + `meshoptimizer` — see the script header).
+- **Used by:** `main.js` `PLANE_GLBS.a350` — the `a350` fly-mode skin
+  (authored nose −X → `rotY: -Math.PI/2`). The procedural builder stays as
+  loading stand-in / offline fallback.
+
 ## Not upgraded (HKS-110)
 
-- **betsy (Cathay DC-3 “Betsy” VR-HDB)** and **a350 (CX A350-1000)** keep their
-  procedural canvas-livery builds: no clean, licence-verified open-source DC-3
-  or A350 model was found (Poly Pizza has neither; Sketchfab candidates were
-  NC/ND, login-gated, or carried unverifiable real-airline branding).
+- **betsy (Cathay DC-3 “Betsy” VR-HDB)** keeps its procedural canvas-livery
+  build: no clean, licence-verified open-source DC-3 model was found (Poly
+  Pizza has none; Sketchfab candidates were NC/ND, login-gated, or carried
+  unverifiable real-airline branding).
 - **Deploy note:** on the official deploy `data/` is served from the R2 assets
-  origin — upload the three `plane-*.glb` files to the bucket under
+  origin — upload the four `plane-*.glb` files to the bucket under
   `data/models/` at merge, like the hiker GLB. sw.js precaches them
-  (`DEFAULT_TERRAIN`, VERSION v25).
+  (`DEFAULT_TERRAIN`, VERSION v26).

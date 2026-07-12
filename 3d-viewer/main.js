@@ -156,7 +156,7 @@ const I18N = {
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
-      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">“Boeing 747” by Miha Lunar</a> · <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">“Airplane” by Poly by Google</a>.</p>'
+      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">“Boeing 747” by Miha Lunar</a> · <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">“Airplane” by Poly by Google</a> · <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">“[FREE] Airbus A350-1000” by hakai315</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery).</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -249,7 +249,7 @@ const I18N = {
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
-      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · Miha Lunar 的 <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">「Boeing 747」</a> · Poly by Google 的 <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">「Airplane」</a>。</p>'
+      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · Miha Lunar 的 <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">「Boeing 747」</a> · Poly by Google 的 <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">「Airplane」</a> · hakai315 的 <a href="https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721" target="_blank" rel="noopener">「[FREE] Airbus A350-1000」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝）。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2565,8 +2565,8 @@ document.getElementById('planeskin').addEventListener('change', e => { setPlaneS
 // model, lazily fetched from the data/ origin (ASSET_BASE-aware) and precached
 // by the service worker — same pattern as the walk-mode hiker. The procedural
 // builder stays as the loading stand-in and the offline / load-failure fallback.
-// Provenance + licences: data/models/README.md (all CC-BY 3.0, credited in the
-// Credits drawer). Skins without a clean open model (betsy, a350) stay procedural.
+// Provenance + licences: data/models/README.md (CC-BY 3.0 / 4.0, credited in
+// the Credits drawer). Only betsy (no clean open DC-3) stays procedural.
 //
 // Each model is normalised to the procedural airframe it replaces: nose -Z
 // (rotY flips exporters that face +Z), fuselage length fitted to the builder's
@@ -2578,6 +2578,7 @@ const PLANE_GLBS = {
   prop:  { url: 'data/models/plane-prop.glb' },                          // “Small Airplane”, Vojtěch Balák
   cx747: { url: 'data/models/plane-747.glb' },                           // “Boeing 747”, Miha Lunar
   cx777: { url: 'data/models/plane-777.glb', rotY: Math.PI, jade: true },// “Airplane”, Poly by Google (tail at -Z)
+  a350:  { url: 'data/models/plane-a350.glb', rotY: -Math.PI / 2 },      // “[FREE] Airbus A350-1000”, hakai315 (nose at -X; jade livery baked in)
 };
 const planeModelSt = {};   // id → { inflight, fails, warned } — cap retries like the hiker loader
 function disposePlaneGltf(scene) {
