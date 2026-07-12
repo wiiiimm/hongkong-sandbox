@@ -156,6 +156,9 @@ const I18N = {
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
+      + '<p>Fly-mode airframes (CC-BY, Poly Pizza): light plane by Poly/Google; twin by Jake Blakeley; '
+      + '<a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">Boeing 747 by Miha Lunar</a>; '
+      + 'jet by Poly/Google; airliner jet by jeremy. Procedural Cathay-style liveries remain the stand-in/fallback. See <code>data/models/README.md</code>.</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -248,6 +251,9 @@ const I18N = {
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
+      + '<p>飛行模式機體（CC-BY，Poly Pizza）：Poly/Google 輕型機；Jake Blakeley 雙發；'
+      + '<a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">Miha Lunar 的 Boeing 747</a>；'
+      + 'Poly/Google 噴射機；jeremy 客機。程序化國泰風格塗裝仍作即時佔位／離線後備。詳見 <code>data/models/README.md</code>。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2524,9 +2530,125 @@ const PLANE_SKINS = [
   { id: 'cx777', build: buildCX777 },       // Cathay Pacific Boeing 777-300
   { id: 'a350',  build: buildCXA350 },      // Cathay Pacific Airbus A350-1000
 ];
+// HKS-110: real open-source airframes (CC-BY / permissive) load over the procedural
+// stand-ins. targetLen is in local units before the shared ×4 group scale; yaw turns
+// glTF +Z-forward into the flight frame's −Z. Partial upgrades are OK where a clean
+// DC-3 / A350 wasn't available — see data/models/README.md.
+const PLANE_GLB = {
+  prop:  { file: 'data/models/plane-prop.glb',     targetLen: 4.2, yaw: Math.PI },
+  betsy: { file: 'data/models/plane-twin.glb',     targetLen: 4.6, yaw: Math.PI },
+  cx747: { file: 'data/models/plane-747.glb',      targetLen: 5.6, yaw: Math.PI },
+  cx777: { file: 'data/models/plane-jet.glb',      targetLen: 5.4, yaw: Math.PI },
+  a350:  { file: 'data/models/plane-airliner.glb', targetLen: 5.5, yaw: Math.PI },
+};
+const planeGlbState = Object.create(null);   // id → 'loading' | 'ok' | 'fail'
+const planeGlbCache = Object.create(null);   // id → prepared Group (cloned on install)
+const planeGlbFails = Object.create(null);
 let planeSkin = 'prop';
 function buildPlane() {
   return (PLANE_SKINS.find(k => k.id === planeSkin) || PLANE_SKINS[0]).build();
+}
+// Normalise a loaded airframe into the flight frame: nose −Z, belly at y≈−0.55
+// (wheels/waterline — matches the procedural parked pose), length ≈ conf.targetLen.
+function prepareAirframe(src, conf) {
+  const root = new THREE.Group();
+  const model = src.clone(true);
+  model.updateMatrixWorld(true);
+  let box = new THREE.Box3().setFromObject(model);
+  let size = box.getSize(new THREE.Vector3());
+  // Prefer length along Z (fuselage). If the mesh is X-long, yaw 90° first.
+  if (size.x > size.z * 1.15) {
+    model.rotation.y += Math.PI / 2;
+    model.updateMatrixWorld(true);
+    box = new THREE.Box3().setFromObject(model);
+    size = box.getSize(new THREE.Vector3());
+  }
+  if (conf.yaw) model.rotation.y += conf.yaw;
+  model.updateMatrixWorld(true);
+  box = new THREE.Box3().setFromObject(model);
+  size = box.getSize(new THREE.Vector3());
+  const sc = conf.targetLen / Math.max(0.01, Math.max(size.x, size.z));
+  model.scale.multiplyScalar(sc);
+  model.updateMatrixWorld(true);
+  box = new THREE.Box3().setFromObject(model);
+  const c = box.getCenter(new THREE.Vector3());
+  model.position.x -= c.x;
+  model.position.z -= c.z;
+  model.position.y -= (box.min.y + 0.55);
+  model.updateMatrixWorld(true);
+  root.add(model);
+  root.updateMatrixWorld(true);
+  box = new THREE.Box3().setFromObject(root);
+  const cx = (box.min.x + box.max.x) / 2, cy = (box.min.y + box.max.y) / 2, cz = (box.min.z + box.max.z) / 2;
+  // Nav-light anchors from the final bbox (port/starboard/tail/top/belly)
+  root.userData.lightSpec = {
+    wingL: [box.min.x, cy, cz], wingR: [box.max.x, cy, cz],
+    tail: [cx, cy, box.max.z], top: [cx, box.max.y, cz], bot: [cx, box.min.y, cz],
+  };
+  return root;
+}
+function disposeObject3D(o) {
+  o.traverse(n => {
+    if (n.geometry) n.geometry.dispose();
+    for (const m of Array.isArray(n.material) ? n.material : n.material ? [n.material] : []) {
+      if (m.map) m.map.dispose();
+      m.dispose();
+    }
+  });
+}
+// Swap the exterior for a prepared GLB body; keep the painted cockpit (if any)
+// and re-attach nav lights so strobes/beacons still flash in stepFlight.
+function installPlaneGlb(grp, prepared, conf) {
+  if (!grp || planeSkin !== conf.id) return;
+  const cock = grp.userData.cockpit || null;
+  const povFwd = grp.userData.povFwd, povUp = grp.userData.povUp;
+  const eyeFwd = grp.userData.eyeFwd, eyeUp = grp.userData.eyeUp;
+  clearLookFilter(grp);
+  for (const c of [...grp.children]) {
+    if (c === cock) continue;
+    grp.remove(c);
+    disposeObject3D(c);
+  }
+  const body = prepared.clone(true);
+  body.name = 'glbBody';
+  grp.add(body);
+  if (cock && cock.parent !== grp) grp.add(cock);
+  addNavLights(grp, body.userData.lightSpec || prepared.userData.lightSpec);
+  // GLB airframes are static — no spinning prop; jets never had one.
+  grp.userData.prop = null;
+  grp.userData.props = null;
+  grp.userData.gear = null;
+  grp.userData.cockpit = cock;
+  if (povFwd != null) { grp.userData.povFwd = povFwd; grp.userData.povUp = povUp; }
+  if (eyeFwd != null) { grp.userData.eyeFwd = eyeFwd; grp.userData.eyeUp = eyeUp; }
+  grp.userData.glb = true;
+  applyLookFilter(grp);
+}
+function loadPlaneModel(id) {
+  const conf = PLANE_GLB[id];
+  if (!conf) return;
+  conf.id = id;
+  if (planeGlbState[id] === 'loading' || planeGlbState[id] === 'fail') return;
+  if (planeGlbCache[id]) {
+    if (planeSkin === id && planeGrp) installPlaneGlb(planeGrp, planeGlbCache[id], conf);
+    return;
+  }
+  planeGlbState[id] = 'loading';
+  new GLTFLoader().load(asset(conf.file), gltf => {
+    try {
+      planeGlbCache[id] = prepareAirframe(gltf.scene, conf);
+      planeGlbState[id] = 'ok';
+      if (planeSkin === id && planeGrp) installPlaneGlb(planeGrp, planeGlbCache[id], conf);
+    } catch (e) {
+      console.warn('[plane] prepare failed for', id, e);
+      planeGlbState[id] = 'fail';
+    }
+  }, undefined, err => {
+    console.warn('[plane] model load failed — keeping procedural stand-in:', id, asset(conf.file), (err && err.message) || err);
+    const n = (planeGlbFails[id] || 0) + 1;
+    planeGlbFails[id] = n;
+    planeGlbState[id] = n < 2 ? undefined : 'fail';   // one retry, then stop hammering
+  });
 }
 // swap the live model in place — mid-flight the new skin inherits the pose on
 // the next stepFlight tick (position/quaternion are re-copied every frame)
@@ -2551,11 +2673,13 @@ function setPlaneSkin(id) {
   planeGrp.position.copy(flight.pos);
   world.add(planeGrp);
   applyLookFilter(planeGrp);                // HKS-104: the fresh skin inherits the active reality
+  loadPlaneModel(planeSkin);                 // HKS-110: upgrade exterior once the GLB is ready
   // HKS-93: a skin without a flight deck can't hold cockpit view — fall back to
-  // the clean eye; the 🧑‍✈️ segment shows/hides with the new skin either way
+  // the clean eye; the cockpit segment shows/hides with the new skin either way
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   syncCamSeg();
 }
+
 document.getElementById('planeskin').addEventListener('change', e => { setPlaneSkin(e.target.value); if (e.isTrusted) track('plane_skin', { skin: e.target.value }); });
 // a swept, tapered wing as one symmetric extrusion laid flat: shape x = span
 // (± out to the tips), shape y = fore-aft (+aft); `sweep` is how far aft the
@@ -4365,6 +4489,7 @@ function enterFlight() {
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
   planeGrp.visible = true;
   applyLookFilter(planeGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
+  loadPlaneModel(planeSkin);    // HKS-110: swap in the real airframe once cached/fetched
   // HKS-93: a remembered cockpit view can't survive onto a skin with no flight deck
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   const b = bounds(), g = curG;
