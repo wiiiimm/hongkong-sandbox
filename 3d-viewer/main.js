@@ -156,6 +156,11 @@ const I18N = {
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
+      + '<p>Fly-mode airframes: <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a>, '
+      + '<a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">“Boeing 747” by Miha Lunar</a>, and two '
+      + '<a href="https://poly.pizza/m/a3XrQkLNna9" target="_blank" rel="noopener">airliner</a> '
+      + '<a href="https://poly.pizza/m/8ciDd9k8wha" target="_blank" rel="noopener">models</a> by Poly by Google '
+      + '(<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>), normalised, recoloured &amp; paired with original painted liveries. Betsy remains the original procedural model.</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -248,6 +253,11 @@ const I18N = {
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
+      + '<p>飛行模式機身：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a>、Miha Lunar 的 '
+      + '<a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">「Boeing 747」</a>，以及 Poly by Google 的兩款'
+      + '<a href="https://poly.pizza/m/a3XrQkLNna9" target="_blank" rel="noopener">客機</a>'
+      + '<a href="https://poly.pizza/m/8ciDd9k8wha" target="_blank" rel="noopener">模型</a>'
+      + '（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>），經方向及比例校正、重新配色，並配上原創繪製塗裝。「Betsy」維持原有程序化模型。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2524,6 +2534,175 @@ const PLANE_SKINS = [
   { id: 'cx777', build: buildCX777 },       // Cathay Pacific Boeing 777-300
   { id: 'a350',  build: buildCXA350 },      // Cathay Pacific Airbus A350-1000
 ];
+// HKS-110: licence-clean GLBs progressively replace the exterior shells while
+// the complete procedural aircraft stay underneath as instant loading/offline
+// fallbacks. Betsy deliberately remains procedural: no DC-3 candidate found had
+// both a sufficiently clear permissive licence and useful mobile fidelity.
+const PLANE_MODELS = {
+  prop: {
+    url: 'data/models/aircraft-prop-small-airplane.glb', length: 4.8, yaw: 0,
+    hideNodes: ['Propeller_Cone'], livery: 'prop',
+  },
+  cx747: {
+    url: 'data/models/aircraft-cx747-boeing-747.glb', length: 7.1, yaw: 0,
+    bodyRadius: 0.28, livery: 'classic',
+  },
+  cx777: {
+    url: 'data/models/aircraft-cx777-generic-airliner.glb', length: 8.1, yaw: Math.PI,
+    bodyRadius: 0.27, livery: 'modern', recolourTexture: true,
+  },
+  a350: {
+    url: 'data/models/aircraft-a350-generic-airliner.glb', length: 8.2, yaw: Math.PI,
+    bodyRadius: 0.28, livery: 'modern', recolourTexture: true,
+    hideNodePrefix: 'Wheel',
+  },
+};
+const failedPlaneModels = new Set(), warnedPlaneModels = new Set();
+
+function disposePlaneObject(root) {
+  const geometries = new Set(), materials = new Set(), textures = new Set();
+  root.traverse(o => {
+    if (o.geometry) geometries.add(o.geometry);
+    for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
+      materials.add(m);
+      for (const key of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'emissiveMap', 'alphaMap'])
+        if (m[key]) textures.add(m[key]);
+    }
+  });
+  for (const t of textures) t.dispose();
+  for (const m of materials) m.dispose();
+  for (const g of geometries) g.dispose();
+}
+
+// The Poly/Poly Pizza airliners carry blue generic texture art. Preserve its
+// shading and markings, but translate blue/cyan pixels into the sampled Cathay
+// jade palette used by the existing photo-referenced canvas liveries.
+function cathayTexture(source) {
+  const img = source && source.image;
+  if (!img || !img.width || !img.height) return source;
+  const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+  const ctx = c.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(img, 0, 0);
+  try {
+    const data = ctx.getImageData(0, 0, c.width, c.height), p = data.data;
+    for (let i = 0; i < p.length; i += 4) {
+      const r = p[i], g = p[i + 1], b = p[i + 2];
+      if (b > r * 1.08 && b > g * 1.04 && b - r > 18) {
+        const light = Math.max(0.38, Math.min(1, (r + g + b) / 540));
+        p[i] = Math.round(0 * light);
+        p[i + 1] = Math.round(101 * light);
+        p[i + 2] = Math.round(91 * light);
+      }
+    }
+    ctx.putImageData(data, 0, 0);
+  } catch (_) { return source; }
+  const out = source.clone();
+  out.image = c; out.colorSpace = THREE.SRGBColorSpace; out.needsUpdate = true;
+  return out;
+}
+
+function preparePlaneMaterials(model, spec) {
+  const maps = new Map(), oldMaterials = new Set(), oldMaps = new Set();
+  model.traverse(o => {
+    if (!o.isMesh) return;
+    const src = Array.isArray(o.material) ? o.material : [o.material];
+    const next = src.map(m => {
+      oldMaterials.add(m);
+      const copy = m.clone();
+      if (m.map && spec.recolourTexture) {
+        oldMaps.add(m.map);
+        if (!maps.has(m.map)) maps.set(m.map, cathayTexture(m.map));
+        copy.map = maps.get(m.map);
+      }
+      if (spec.livery === 'prop') {
+        if (m.name === 'White') copy.color.set(0xe8edf0);
+        if (m.name === 'Red') copy.color.set(0xa71812);
+      } else if (!m.map) {
+        if (/mat21|white|body/i.test(m.name)) copy.color.set(0xf2f5f7);
+        else if (!/glass|mat25/i.test(m.name)) copy.color.set(0xaeb8bf);
+      }
+      copy.roughness = Math.min(0.72, copy.roughness ?? 0.65);
+      return copy;
+    });
+    o.material = Array.isArray(o.material) ? next : next[0];
+    o.castShadow = true; o.receiveShadow = true;
+  });
+  for (const m of oldMaterials) m.dispose();
+  for (const t of oldMaps) if (maps.get(t) !== t) t.dispose();
+}
+
+function addPlaneModelLivery(root, size, spec) {
+  if (spec.livery !== 'classic' && spec.livery !== 'modern') return;
+  const jade = new THREE.MeshStandardMaterial({ color: 0x00655b, roughness: 0.5, metalness: 0.12 });
+  const tailFace = new THREE.MeshStandardMaterial({
+    map: canvasTex(256, 256, drawCxTail), roughness: 0.45, metalness: 0.12,
+  });
+  const finLen = size.z * 0.18, finH = Math.max(size.y * 0.50, size.z * 0.12);
+  const fin = new THREE.Mesh(finGeo([
+    [0, 0], [finLen, 0], [finLen * 0.80, finH], [finLen * 0.28, finH * 0.92], [0, finH * 0.16],
+  ], 0.035), [tailFace, jade]);
+  fin.position.set(0, -0.55 + size.y * 0.48, size.z * 0.28);
+  root.add(fin);
+
+  // Original painted titles, intentionally not a downloaded airline texture.
+  const titleTex = canvasTex(768, 128, (ctx, w, h) => {
+    ctx.clearRect(0, 0, w, h); ctx.fillStyle = '#00655b';
+    ctx.font = `600 ${Math.round(h * 0.34)}px Arial, sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('CATHAY PACIFIC  國泰航空', w / 2, h / 2);
+  });
+  const titleMat = new THREE.MeshBasicMaterial({ map: titleTex, transparent: true, depthWrite: false, side: THREE.DoubleSide });
+  const titleW = size.z * 0.32, titleH = Math.max(0.12, size.y * 0.09), z = -size.z * 0.16;
+  for (const side of [-1, 1]) {
+    const title = new THREE.Mesh(new THREE.PlaneGeometry(titleW, titleH), side < 0 ? titleMat : titleMat.clone());
+    title.material.map = titleTex;
+    title.rotation.y = side * Math.PI / 2;
+    title.position.set(side * spec.bodyRadius, -0.55 + size.y * 0.45, z);
+    root.add(title);
+  }
+}
+
+function keepPlaneFallbackContract(grp) {
+  const ud = grp.userData, keep = new Set([ud.gear, ud.cockpit, ud.prop, ...(ud.props || []), ...(ud.lights?.all || [])].filter(Boolean));
+  for (const child of grp.children) if (!keep.has(child) && child !== ud.realAirframe) child.visible = false;
+}
+
+function markPlaneModelFailed(id, spec, err) {
+  failedPlaneModels.add(id);
+  if (warnedPlaneModels.has(id)) return;
+  warnedPlaneModels.add(id);
+  console.warn(`[aircraft] ${id} model load failed — using procedural fallback:`, asset(spec.url), (err && err.message) || err);
+}
+
+function loadPlaneModel(id, grp) {
+  const spec = PLANE_MODELS[id];
+  if (!spec || failedPlaneModels.has(id) || grp.userData.modelRequested) return;
+  grp.userData.modelRequested = true;
+  new GLTFLoader().load(asset(spec.url), gltf => {
+    if (planeGrp !== grp || planeSkin !== id) { disposePlaneObject(gltf.scene); return; }
+    const model = gltf.scene;
+    try {
+      model.traverse(o => {
+        if (spec.hideNodes?.includes(o.name) || (spec.hideNodePrefix && o.name.startsWith(spec.hideNodePrefix))) o.visible = false;
+      });
+      preparePlaneMaterials(model, spec);
+      const oriented = new THREE.Group(); oriented.add(model); oriented.rotation.y = spec.yaw;
+      oriented.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(oriented), rawSize = box.getSize(new THREE.Vector3()), centre = box.getCenter(new THREE.Vector3());
+      if (!Number.isFinite(rawSize.z) || rawSize.z < 1e-5) throw new Error('airframe has invalid bounds');
+      oriented.position.set(-centre.x, -box.min.y, -centre.z);
+      const airframe = new THREE.Group(), scale = spec.length / rawSize.z;
+      airframe.scale.setScalar(scale); airframe.position.y = -0.55; airframe.add(oriented);
+      const size = rawSize.multiplyScalar(scale);
+      addPlaneModelLivery(airframe, size, spec);
+      clearLookFilter(grp);
+      grp.userData.realAirframe = airframe;
+      grp.add(airframe); keepPlaneFallbackContract(grp); applyLookFilter(grp);
+    } catch (err) {
+      disposePlaneObject(model); markPlaneModelFailed(id, spec, err);
+    }
+  }, undefined, err => markPlaneModelFailed(id, spec, err));
+}
 let planeSkin = 'prop';
 function buildPlane() {
   return (PLANE_SKINS.find(k => k.id === planeSkin) || PLANE_SKINS[0]).build();
@@ -2539,18 +2718,13 @@ function setPlaneSkin(id) {
   clearLookFilter(planeGrp);                // HKS-104: back to real materials first, so the
                                             // dispose below frees THEM (not shared overrides)
   world.remove(planeGrp);
-  planeGrp.traverse(o => {                  // free geometry, materials AND their canvas textures
-    if (o.geometry) o.geometry.dispose();
-    for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
-      if (m.map) m.map.dispose();
-      m.dispose();
-    }
-  });
+  disposePlaneObject(planeGrp);              // free geometry, materials AND canvas/GLB textures
   planeGrp = buildPlane();
   planeGrp.visible = vis;
   planeGrp.position.copy(flight.pos);
   world.add(planeGrp);
   applyLookFilter(planeGrp);                // HKS-104: the fresh skin inherits the active reality
+  loadPlaneModel(planeSkin, planeGrp);       // HKS-110: async real exterior; fallback is already visible
   // HKS-93: a skin without a flight deck can't hold cockpit view — fall back to
   // the clean eye; the 🧑‍✈️ segment shows/hides with the new skin either way
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
@@ -2597,14 +2771,15 @@ function addNavLights(grp, spec) {
     grp.add(m);
     return m;
   };
-  const L = { strobes: [], beacons: [] };
-  mk(spec.wingL, 0xff2418, 0.045);          // port = red, starboard = green — never swapped
-  mk(spec.wingR, 0x1fe04c, 0.045);
-  mk(spec.tail, 0xffffff, 0.04);
+  const L = { strobes: [], beacons: [], all: [] };
+  L.all.push(mk(spec.wingL, 0xff2418, 0.045));          // port = red, starboard = green — never swapped
+  L.all.push(mk(spec.wingR, 0x1fe04c, 0.045));
+  L.all.push(mk(spec.tail, 0xffffff, 0.04));
   for (const p of [spec.wingL, spec.wingR, spec.tail])
     L.strobes.push(mk([p[0], p[1] + 0.06, p[2]], 0xffffff, 0.055, true));
   L.beacons.push(mk(spec.top, 0xff2222, 0.05, true));
   L.beacons.push(mk(spec.bot, 0xff2222, 0.05, true));
+  L.all.push(...L.strobes, ...L.beacons);
   grp.userData.lights = L;
 }
 // ---- runtime canvas textures (HKS-93) ---------------------------------------
@@ -4365,6 +4540,7 @@ function enterFlight() {
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
   planeGrp.visible = true;
   applyLookFilter(planeGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
+  loadPlaneModel(planeSkin, planeGrp);       // HKS-110: lazy-load only when Fly is actually entered
   // HKS-93: a remembered cockpit view can't survive onto a skin with no flight deck
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   const b = bounds(), g = curG;

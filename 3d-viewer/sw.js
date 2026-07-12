@@ -22,7 +22,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v24';
+const VERSION = 'hks-sandbox-v25';
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -72,6 +72,10 @@ const DEFAULT_TERRAIN = [
   'data/hk-landmarks.json',
   'data/hk-sky.json',
   'data/models/hiker-adventurer.glb',   // walk-mode hiker (CC0 Quaternius Adventurer)
+  'data/models/aircraft-prop-small-airplane.glb',
+  'data/models/aircraft-cx747-boeing-747.glb',
+  'data/models/aircraft-cx777-generic-airliner.glb',
+  'data/models/aircraft-a350-generic-airliner.glb',
 ].map((f) => `${DATA_BASE}/${f}`);
 
 const isHeavyPath = (p) =>
