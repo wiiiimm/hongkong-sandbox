@@ -141,13 +141,20 @@
   broken the loader’s bounding-box fit), textures stripped to flat colours,
   then flatten/join/weld + meshopt-simplify with a connected-component prune
   (sub-2.6-unit hardware invisible at fly-mode distances), dedup/prune/quantize
-  (POSITION float32, 8-bit normals) → **52 144 tris, ~1.7 MB raw / ~630 KB gzip**.
-  The livery is **our own Cathay-style repaint baked in-file**: fuselage, nose,
-  doors and tail fin re-materialed to brushwing jade **#00655B** (`CXHull`),
-  wings/belly/engines left grey — original colour work, no third-party airline
-  branding shipped.
+  (POSITION float32, 8-bit normals) → **52 144 tris, ~1.9 MB raw / ~720 KB gzip**.
+  The livery is **our own Cathay-style scheme, painted from scratch in-script**
+  — expressly **not derived from any third-party livery texture** (in
+  particular not from the CC BY-NC-SA outpiston A330 textures; only the
+  general look of the real livery was imitated, as with the 747/777):
+  the hull (fuselage, nose, doors, tail fin — `CXHull`) gets a small
+  script-generated PNG applied via planar side-projection UVs — white upper
+  fuselage, light-grey belly below the waterline, brushwing-jade **#00655B**
+  tail fin with our own white brush-stroke swoosh (a tapered bezier drawn
+  in-script); engine nacelle cowls (found by connected component) split to a
+  jade `CXEngine` material, fans/exhaust and wings stay grey. No wordmarks,
+  no third-party airline branding shipped.
 - **Rebuild:** `node ../../scripts/trim_a350_glb.mjs <scene.gltf> plane-a350.glb`
-  (needs `@gltf-transform/*` v4 + `meshoptimizer` — see the script header).
+  (needs `@gltf-transform/*` v4 + `meshoptimizer` + `sharp` — see the script header).
 - **Used by:** `main.js` `PLANE_GLBS.a350` — the `a350` fly-mode skin
   (authored nose −X → `rotY: -Math.PI/2`). The procedural builder stays as
   loading stand-in / offline fallback.
