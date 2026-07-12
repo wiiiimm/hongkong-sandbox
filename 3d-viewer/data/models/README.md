@@ -44,32 +44,63 @@
 - **Used by:** `main.js` `PLANE_GLBS.prop` — the `prop` fly-mode skin. The
   procedural builder stays as loading stand-in / offline fallback.
 
-## plane-747.glb — fly-mode Boeing 747 (HKS-110)
+## plane-747.glb — fly-mode Boeing 747-400 (HKS-110)
 
-- **Model:** “Boeing 747-100” by **Marine** (rd.palaciosdeleon26)
-- **Source:** https://sketchfab.com/3d-models/boeing-747-100-6ef67f9995d345ddaee9ec845ac10b69
-  (Sketchfab) · author: https://sketchfab.com/rd.palaciosdeleon26
+- **Model:** “Air France Boeing 747-400” by **zairiqzairiq**
+- **Source:** https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4
+  (Sketchfab) · author: https://sketchfab.com/zairiqzairiq
 - **Licence:** **CC BY 4.0** — the bundled `license.txt` states: “license type:
   CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/) · requirements:
   Author must be credited. Commercial use is allowed.” Credited in the app’s
-  Credits drawer (en + 繁中).
-- **Original file:** Sketchfab glTF export (`scene.gltf` + 1.7 MB `scene.bin` +
-  5 textures), 35 502 tris — a flight-sim-grade 747-100 airframe whose livery
-  texture carried full **ANA (All Nippon Airways) branding**.
-- **Modifications (this repo):** the livery atlas is **repainted into our own
-  Cathay-style treatment** by `trim_747_glb.mjs` (ANA blues remapped to
-  brushwing jade #00655B with shading preserved; titles/logos/registrations
-  painted out; fins flooded jade with our white brush stroke — no third-party
-  airline branding shipped), then dedup/prune/quantize (POSITION float32),
-  metallicFactor clamped, textures ≤1024 px JPEG →
-  **35 502 tris, ~1.55 MB raw / ~1.4 MB gzip**. Nose −Z as authored.
+  Credits drawer (en + 繁中); attribution is load-bearing under CC BY.
+- **Original file:** Sketchfab glTF export (`scene.gltf` + 15.9 MB `scene.bin` +
+  7 textures), **80 039 tris**, 133 meshes, 22 materials — a SketchUp-style
+  export: untextured white hull + silver wings, **real extended landing gear**
+  (twin-wheel nose strut + the -400’s four main posts), real dark
+  window/cockpit-glass geometry, and the **Air France identity on floating
+  decal plates** (AIRFRANCE titles, striped tail plate, SkyTeam / AF-KLM /
+  engine-seahorse logos). No winglet blades despite the -400 title — the
+  wingtips top out at the tip-light housings.
+- **Modifications (this repo):** via `trim_747_glb.mjs` (the 777 recipe
+  adapted to decal-based livery):
+  - **Gear split:** connected components inside the measured nose/main gear
+    boxes move to a `CXGear` material, so `loadPlaneModel()` tags them and
+    `stepFlight` hides them airborne (HKS-110 fleet rule). Wheels reach below
+    the belly line, so the parked stance survives the loader’s waterline fit.
+  - **Livery:** all Air France branding removed and replaced with the
+    project-supplied Cathay artwork documented in
+    `../../scripts/assets/README.md`: the tail plate repainted jade
+    **#00655B** with the complete white brushwing SVG; the title decal band
+    painted hull-white with a jade brushwing beside the cockpit and the
+    supplied serif **CATHAY PACIFIC** wordmark (the band’s two sides map
+    opposite-signed u↔z, so starboard prims are split onto their own cloned
+    texture and each side is painted through its own least-squares
+    (u,v)→(z,y) fit, u-flipped so the lettering reads nose-first from either
+    view — verified in the CPU-raster previews,
+    `../../scripts/previews/cx747-zairiq-*`); SkyTeam / AF-KLM / engine-logo
+    decal plates deleted. Windows are geometry, so the repaint can’t eat them.
+  - **Budget (light — silhouette first):** flatten+join (the 348-node export
+    wastes ~0.9 MB on per-part accessor overhead), dead UVs dropped from
+    untextured prims, weld + meshopt-simplify at ratio 0.80,
+    dedup/prune/quantize (POSITION float32, 8-bit normals), metallic/roughness
+    clamps, textures ≤1024 px JPEG →
+    **63 863 tris (11 125 of them gear), ~1.33 MB raw**.
 - **Rebuild:** `node ../../scripts/trim_747_glb.mjs <scene.gltf> plane-747.glb`
-  (needs `@gltf-transform/*` v4 + `sharp`).
-- **Used by:** `main.js` `PLANE_GLBS.cx747` — the `cx747` fly-mode skin.
-- **Supersedes:** “Boeing 747” by **Miha Lunar** (Poly Pizza
-  https://poly.pizza/m/49CLof4tP2V, CC BY 3.0, 1 904 tris) — the low-poly hull
-  shipped first for HKS-110, removed when this higher-fidelity model landed.
-- **Evaluated, not used:**
+  (needs `@gltf-transform/*` v4 + `meshoptimizer` + `sharp` — see the script
+  header; the build is byte-reproducible).
+- **Used by:** `main.js` `PLANE_GLBS.cx747` — the `cx747` fly-mode skin
+  (authored nose +Z → `rotY: Math.PI`; `anchorLights` snaps the nav lights to
+  this hull’s real wingtips/tail).
+- **Supersedes:** “Boeing 747-100” by **Marine** (rd.palaciosdeleon26,
+  Sketchfab
+  https://sketchfab.com/3d-models/boeing-747-100-6ef67f9995d345ddaee9ec845ac10b69,
+  CC BY 4.0, 35 502 tris) — the flight-sim-grade 747-100 whose ANA livery
+  atlas we repainted jade in place (shipped ~1.55 MB, nose −Z). Replaced by
+  user preference: Cathay’s classic jumbo was the **-400**, and the hull read
+  too low-poly next to the rest of the HKS-110 fleet. Which itself superseded
+  “Boeing 747” by **Miha Lunar** (Poly Pizza https://poly.pizza/m/49CLof4tP2V,
+  CC BY 3.0, 1 904 tris) — the low-poly hull shipped first for HKS-110.
+- **Evaluated, not used (original HKS-110 bake-off):**
   - “boeing 747” by **hilos run** (Sketchfab
     https://sketchfab.com/3d-models/boeing-747-a285b0f308e5473d919d94cf00358e9f,
     CC BY 4.0, 1 371 771 tris) — a SketchUp-style scene export: dozens of
