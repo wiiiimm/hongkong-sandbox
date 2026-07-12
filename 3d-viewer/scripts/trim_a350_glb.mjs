@@ -21,13 +21,21 @@
 //      visibility toggle, and the GLB is reparented at load anyway.
 //   2. LIVERY REPAINT — the atlas's AIRBUS branding is replaced with our own
 //      Cathay-style treatment (colour/shape studied from Cathay's own A350
-//      press photo — painted from scratch, no pixels copied): white hull
-//      (titles/marks wiped, window rows kept), brushwing-jade #00655B tail fin
-//      with a white tapered-bezier brush stroke, jade winglets, light-grey
-//      nacelles + belly fairing. Each region is masked by rasterising that
-//      component's actual UV triangles (the atlas islands interleave, so
-//      rectangle fills would bleed onto neighbours). No wordmarks — skipped
-//      rather than garbled.
+//      press photos — painted from scratch, no pixels copied): white hull
+//      with procedural window rows, brushwing-jade #00655B tail fin carrying
+//      the FULL brushwing mark in white (feathered fan of tapered sub-strokes
+//      above a solid notched chevron), the same mark in white on each jade
+//      winglet, the mark again in jade on the forward fuselage just aft of the
+//      cockpit, jade "CATHAY PACIFIC" titles (stroke-built sans capitals) on
+//      the upper forward fuselage, light-grey nacelles + belly fairing. Each
+//      region is masked by rasterising that component's actual UV triangles
+//      (the atlas islands interleave, so rectangle fills would bleed onto
+//      neighbours). Marks/titles are painted in WORLD space so they survive
+//      the diagonal UV islands. UV-sharing constraints: the two winglets (and
+//      each winglet's two faces) share one UV island, so the winglet mark
+//      shows on both faces of both winglets, keyed to the port winglet's
+//      world coords; the fuselage sides are SEPARATE islands, so titles are
+//      drawn reading nose→tail on each side independently.
 //   3. BUDGET — weld + meshopt-simplify to ~60 k tris, with a second, harder
 //      pass on the two 102 k-tri engine-fan disks (Material.014/.015); then
 //      the shared recipe: dedup/prune/quantize (POSITION float32 — three r160
@@ -145,7 +153,8 @@ const masks = {}; for (const k of Object.keys(REGIONS)) masks[k] = new Uint8Arra
 // windows are painted in WORLD space: while rasterising the fin/fuselage/belly
 // masks, record each texel's world x/y
 const finWX = new Float32Array(TW * TH), finWY = new Float32Array(TW * TH);
-const WORLD_REGIONS = new Set(['fin', 'fuselage', 'belly']);
+const finWZ = new Float32Array(TW * TH);                 // side sign for per-side title flip
+const WORLD_REGIONS = new Set(['fin', 'fuselage', 'belly', 'winglet']);
 function rasterUV(mask, uv, ia, keep, find, world) {
   for (let i = 0; i < ia.length; i += 3) {
     if (!keep(find(ia[i]))) continue;
@@ -165,6 +174,7 @@ function rasterUV(mask, uv, ia, keep, find, world) {
       if (wpos) {
         finWX[p] = w1 * wpos[0][0] + w2 * wpos[1][0] + w3 * wpos[2][0];
         finWY[p] = w1 * wpos[0][1] + w2 * wpos[1][1] + w3 * wpos[2][1];
+        finWZ[p] = w1 * wpos[0][2] + w2 * wpos[1][2] + w3 * wpos[2][2];
       }
     }
   }
@@ -180,42 +190,160 @@ for (const node of root.listNodes()) {
     const pos = prim.getAttribute('POSITION');
     const worldOf = i => [0, 1, 2].map(j => {
       const e = []; pos.getElement(ia[i + j], e);
-      const [wx, wy] = xf(wm, e[0], e[1], e[2]);
-      return [wx, wy];
+      return xf(wm, e[0], e[1], e[2]);
     });
     for (const [k, test] of Object.entries(REGIONS)) {
       const roots = new Set();
       for (const [r, b] of box) if (test(b)) roots.add(r);
-      if (roots.size) rasterUV(masks[k], uv, ia, r => roots.has(r), find, WORLD_REGIONS.has(k) ? worldOf : null);
+      if (!roots.size) continue;
+      if (k === 'winglet') {
+        // both winglets share one UV island but sit at slightly different world
+        // heights — record paint coords from the PORT (z<0) winglet only so the
+        // mark isn't smeared by disagreeing coordinates.
+        const port = new Set(), stbd = new Set();
+        for (const [r, b] of box) if (roots.has(r)) (b.minZ < 0 ? port : stbd).add(r);
+        if (port.size) rasterUV(masks[k], uv, ia, r => port.has(r), find, worldOf);
+        if (stbd.size) rasterUV(masks[k], uv, ia, r => stbd.has(r), find, null);
+      } else {
+        rasterUV(masks[k], uv, ia, r => roots.has(r), find, WORLD_REGIONS.has(k) ? worldOf : null);
+      }
     }
   }
 }
 const JADE = [0x00, 0x65, 0x5b], WHITE = [0xf4, 0xf6, 0xf7], GREY = [0xdd, 0xe0, 0xe3];
 const put = (i, c) => { rgb[i] = c[0]; rgb[i + 1] = c[1]; rgb[i + 2] = c[2]; };
-// white brushwing on the jade fin, defined in fin world coords (fin spans
-// x −35.8…−23.9 aft, y 17.6…27.2 up): a tapered quadratic bezier sweeping
-// from the root leading edge up and aft toward the tip, like the real scheme.
-const BRUSH = [];                                          // sampled [x, y, halfWidth]
+
+// ---- the full Cathay-style brushwing mark, drawn from scratch ---------------
+// Defined in a unit box: +mx = forward (reading direction), +my = up. Two
+// elements, per the tail reference photo: a SOLID CHEVRON (bold swept
+// triangle, sharp tip forward, a notch cut into its lower trailing edge) and,
+// above it, a FEATHERED fan of thin tapered sub-strokes sweeping up and aft
+// from just above the tip.
+const qbez = (P0, P1, P2, t) => [
+  (1 - t) * (1 - t) * P0[0] + 2 * (1 - t) * t * P1[0] + t * t * P2[0],
+  (1 - t) * (1 - t) * P0[1] + 2 * (1 - t) * t * P1[1] + t * t * P2[1]];
+const CHEV = [];                                           // polygon, sampled bezier edges
 {
-  const P0 = [-27.5, 17.9], P1 = [-30.5, 22.5], P2 = [-34.0, 26.3];
-  for (let t = 0; t <= 1; t += 0.005) {
-    const x = (1 - t) * (1 - t) * P0[0] + 2 * (1 - t) * t * P1[0] + t * t * P2[0];
-    const y = (1 - t) * (1 - t) * P0[1] + 2 * (1 - t) * t * P1[1] + t * t * P2[1];
-    BRUSH.push([x, y, 0.85 * (1 - t) + 0.16 * t]);        // metres, tapering root → tip
+  const edge = (P0, P1, P2, n = 16) => { for (let i = 0; i < n; i++) CHEV.push(qbez(P0, P1, P2, i / n)); };
+  edge([0.97, 0.44], [0.55, 0.56], [0.20, 0.60]);          // upper edge, tip → aft, slightly concave
+  edge([0.20, 0.60], [0.13, 0.42], [0.10, 0.16]);          // aft edge down
+  edge([0.10, 0.16], [0.26, 0.22], [0.36, 0.30]);          // lower-aft up into the notch
+  edge([0.36, 0.30], [0.44, 0.20], [0.55, 0.12]);          // notch back down
+  edge([0.55, 0.12], [0.78, 0.26], [0.97, 0.44]);          // lower edge out to the tip
+}
+const inChevron = (x, y) => {
+  let inside = false;
+  for (let i = 0, j = CHEV.length - 1; i < CHEV.length; j = i++) {
+    const [xi, yi] = CHEV[i], [xj, yj] = CHEV[j];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+};
+const FEATHERS = [];                                       // sampled [x, y, halfWidth]
+{
+  const N = 9;
+  for (let k = 0; k < N; k++) {
+    const f = k / (N - 1);
+    const O = [0.90 - 0.06 * f, 0.48 + 0.02 * f];          // origins near/above the tip
+    const E = [0.12 + 0.30 * f, 0.66 + 0.34 * f];          // fan of endpoints, aft-low → aft-high
+    const M = [(O[0] + E[0]) / 2, (O[1] + E[1]) / 2 + 0.05 + 0.04 * f];  // gentle upward bow
+    for (let t = 0.04; t <= 1; t += 0.02) {
+      const [x, y] = qbez(O, M, E, t);
+      FEATHERS.push([x, y, 0.013 * (1 - t) + 0.002, k]);   // taper root → tip; k = feather id
+    }
   }
 }
-const onBrush = (x, y) => {
-  for (const [bx, by, w] of BRUSH) {
-    const dx = x - bx, dy = y - by;
-    if (dx * dx + dy * dy < w * w) return true;
+const onMark = (mx, my, fw = 1) => {                       // fw: feather-width boost for coarse UV islands
+  if (mx < -0.02 || mx > 1.02 || my < 0.06 || my > 1.05) return false;
+  if (my < 0.62 && inChevron(mx, my)) return true;
+  if (my > 0.4) for (const [fx, fy, w, k] of FEATHERS) {
+    if (fw > 1 && k % 2 === 0) continue;                   // coarse mode: every other feather, so they stay distinct
+    const dx = mx - fx, dy = my - fy, r = fw > 1 ? Math.max(w * fw, 0.045) : w;
+    if (dx * dx + dy * dy < r * r) return true;
   }
   return false;
 };
+
+// ---- "CATHAY PACIFIC" — stroke-built sans capitals ---------------------------
+// Segment skeletons in a unit glyph cell (x 0…1 = width, y 0…1 = cap height),
+// rendered by distance-to-segment. Kept to simple strokes so the letters stay
+// legible at the final 1024-px atlas (~11 px cap height at chase distance).
+const GLYPHS = (() => {
+  const arc = (cx, cy, rx, ry, a0, a1, n = 10) => {
+    const s = [];
+    for (let i = 0; i < n; i++) {
+      const t0 = a0 + (a1 - a0) * i / n, t1 = a0 + (a1 - a0) * (i + 1) / n;
+      s.push([cx + rx * Math.cos(t0), cy + ry * Math.sin(t0), cx + rx * Math.cos(t1), cy + ry * Math.sin(t1)]);
+    }
+    return s;
+  };
+  const D = Math.PI / 180;
+  return {
+    C: arc(0.52, 0.5, 0.48, 0.5, 50 * D, 310 * D),
+    A: [[0.02, 0, 0.5, 1], [0.5, 1, 0.98, 0], [0.22, 0.33, 0.78, 0.33]],
+    T: [[0, 1, 1, 1], [0.5, 1, 0.5, 0]],
+    H: [[0.04, 0, 0.04, 1], [0.96, 0, 0.96, 1], [0.04, 0.5, 0.96, 0.5]],
+    Y: [[0.02, 1, 0.5, 0.48], [0.98, 1, 0.5, 0.48], [0.5, 0.48, 0.5, 0]],
+    P: [[0.06, 0, 0.06, 1], [0.06, 1, 0.58, 1], ...arc(0.58, 0.76, 0.36, 0.24, -90 * D, 90 * D), [0.58, 0.52, 0.06, 0.52]],
+    I: [[0.5, 0, 0.5, 1]],
+    F: [[0.06, 0, 0.06, 1], [0.06, 1, 0.98, 1], [0.06, 0.5, 0.8, 0.5]],
+  };
+})();
+const TITLE = 'CATHAY PACIFIC';
+const CAP = 0.85, ADV = 0.74, GLYPH_W = 0.6 * CAP, STROKE = 0.115;  // metres / cell units
+const TITLE_LEN = (TITLE.length - 1) * ADV + GLYPH_W;
+const onTitle = (sx, sy) => {                              // sx along reading dir from block start, sy up from baseline (metres)
+  if (sy < -0.15 || sy > CAP + 0.15 || sx < -0.1 || sx > TITLE_LEN + 0.1) return false;
+  const k = Math.floor(sx / ADV);
+  for (const ki of [k - 1, k]) {                           // glyph cells can spill past ADV slightly
+    if (ki < 0 || ki >= TITLE.length) continue;
+    const segs = GLYPHS[TITLE[ki]];
+    if (!segs) continue;
+    const gx = (sx - ki * ADV) / GLYPH_W, gy = sy / CAP;
+    for (const [x1, y1, x2, y2] of segs) {
+      const dx = x2 - x1, dy = y2 - y1, L2 = dx * dx + dy * dy || 1;
+      let t = ((gx - x1) * dx + (gy - y1) * dy) / L2;
+      t = t < 0 ? 0 : t > 1 ? 1 : t;
+      const ex = gx - (x1 + t * dx), ey = gy - (y1 + t * dy);
+      if (ex * ex + ey * ey < STROKE * STROKE) return true;
+    }
+  }
+  return false;
+};
+
+// ---- placements (world metres; fin spans x −35.8…−23.9, y 17.6…27.2) --------
+// Fin: mark box ~middle 55 % of fin height, sheared aft with the sweep
+// (leading edge slope ≈ −0.7 dx/dy, measured on the source).
+const finMark = (x, y) => {
+  const my = (y - 20.1) / 5.1;
+  const mx = ((x + 35.2) + 0.7 * (y - 20.1)) / 6.8;
+  return onMark(mx, my);
+};
+// Winglet: same mark, rotated to run up the sharklet with the sweep. Local
+// axis A points forward-up along the blade, B is the in-plane "up" of the
+// mark. Keyed to the PORT winglet's coords (shared UV island — see header).
+const WGA = [0.545, 0.838], WGB = [-0.838, 0.545];         // unit vectors in world x/y
+const wingletMark = (x, y) => {
+  const dx = x - (-11.6), dy = y - 17.6;                   // port winglet centre-ish
+  const mx = (dx * WGA[0] + dy * WGA[1]) / 1.55 + 0.5;
+  const my = (dx * WGB[0] + dy * WGB[1]) / 1.35 + 0.38;
+  return onMark(mx, my, 6);                                // fat feathers: island is only ~55×110 texels at 1024
+};
+// Nose: jade mark just aft of the cockpit, ahead of the first door. Keyed to
+// world x on both sides, so the tip points forward on each (livery-mirrored).
+const noseMark = (x, y) => onMark((x - 28.6) / 3.0, (y - 13.9) / 2.6);
+// Titles: upper forward fuselage, above the window line. The two fuselage
+// sides are separate UV islands, so each is drawn reading nose→tail: the
+// glyph x-axis flips with the recorded world-z sign.
+const TITLE_XA = 15.6, TITLE_XB = TITLE_XA + TITLE_LEN, TITLE_Y0 = 16.35;
+const titleAt = (x, y, z) =>
+  onTitle(z < 0 ? TITLE_XB - x : x - TITLE_XA, y - TITLE_Y0);
+
 for (let p = 0; p < TW * TH; p++) {
   const i = p * CH, r = rgb[i], g = rgb[i + 1], b = rgb[i + 2];
   const lum = (r + g + b) / 765;
-  if (masks.fin[p]) put(i, onBrush(finWX[p], finWY[p]) ? WHITE : JADE);
-  else if (masks.winglet[p]) put(i, JADE);
+  if (masks.fin[p]) put(i, finMark(finWX[p], finWY[p]) ? WHITE : JADE);
+  else if (masks.winglet[p]) put(i, wingletMark(finWX[p], finWY[p]) ? WHITE : JADE);
   else if (masks.nacelle[p]) put(i, lum < 0.25 ? [0x3a, 0x3f, 0x44] : GREY);  // light-grey cowls, keep dark intake lips
 }
 // hull de-branding: the source atlas carries AIRBUS house-livery titles,
@@ -231,7 +359,8 @@ for (let p = 0; p < TW * TH; p++) {
     if (!masks.fuselage[p] && !masks.belly[p]) continue;
     const i = p * CH;
     if (masks.fuselage[p]) {
-      const x = finWX[p], y = finWY[p];
+      const x = finWX[p], y = finWY[p], z = finWZ[p];
+      if (noseMark(x, y) || titleAt(x, y, z)) { put(i, JADE); continue; }
       const inRow = x > -26 && x < 27 && Math.abs(y - 15.55) < 0.17 && (((x % 0.8) + 0.8) % 0.8) < 0.42;
       put(i, inRow ? WIN : WHITE);
     } else put(i, WHITE);
@@ -239,6 +368,8 @@ for (let p = 0; p < TW * TH; p++) {
 }
 tex.setImage(await sharp(Buffer.from(rgb.buffer), { raw: { width: TW, height: TH, channels: CH } }).png().toBuffer())
    .setMimeType('image/png');
+if (process.env.A350_DEBUG_ATLAS)                         // full painted atlas, for livery inspection
+  await sharp(Buffer.from(rgb.buffer), { raw: { width: TW, height: TH, channels: CH } }).png().toFile(process.env.A350_DEBUG_ATLAS);
 
 // ---- 3. budget --------------------------------------------------------------
 const ratio = Number(ratioArg) || 0.18;
