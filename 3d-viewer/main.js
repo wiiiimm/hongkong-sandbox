@@ -156,6 +156,7 @@ const I18N = {
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
+      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">“Boeing 747” by Miha Lunar</a> · <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">“Airplane” by Poly by Google</a>.</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -248,6 +249,7 @@ const I18N = {
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
+      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · Miha Lunar 的 <a href="https://poly.pizza/m/49CLof4tP2V" target="_blank" rel="noopener">「Boeing 747」</a> · Poly by Google 的 <a href="https://poly.pizza/m/fzIXe2paBN9" target="_blank" rel="noopener">「Airplane」</a>。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2555,8 +2557,128 @@ function setPlaneSkin(id) {
   // the clean eye; the 🧑‍✈️ segment shows/hides with the new skin either way
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   syncCamSeg();
+  loadPlaneModel(id);          // HKS-110: swap in the real airframe once it arrives
 }
 document.getElementById('planeskin').addEventListener('change', e => { setPlaneSkin(e.target.value); if (e.isTrusted) track('plane_skin', { skin: e.target.value }); });
+// ---- real GLB airframes (HKS-110) -------------------------------------------
+// Some skins upgrade from the procedural primitives to a real open-source 3D
+// model, lazily fetched from the data/ origin (ASSET_BASE-aware) and precached
+// by the service worker — same pattern as the walk-mode hiker. The procedural
+// builder stays as the loading stand-in and the offline / load-failure fallback.
+// Provenance + licences: data/models/README.md (all CC-BY 3.0, credited in the
+// Credits drawer). Skins without a clean open model (betsy, a350) stay procedural.
+//
+// Each model is normalised to the procedural airframe it replaces: nose -Z
+// (rotY flips exporters that face +Z), fuselage length fitted to the builder's
+// real-world size, belly/wheels dropped to the same waterline. The nav-light
+// spheres (tagged userData.navlight) and the painted flight-deck interior
+// (userData.cockpit) are kept in place, so stepFlight strobes/beacons and the
+// cockpit camera keep working unchanged.
+const PLANE_GLBS = {
+  prop:  { url: 'data/models/plane-prop.glb' },                          // “Small Airplane”, Vojtěch Balák
+  cx747: { url: 'data/models/plane-747.glb' },                           // “Boeing 747”, Miha Lunar
+  cx777: { url: 'data/models/plane-777.glb', rotY: Math.PI, jade: true },// “Airplane”, Poly by Google (tail at -Z)
+};
+const planeModelSt = {};   // id → { inflight, fails, warned } — cap retries like the hiker loader
+function disposePlaneGltf(scene) {
+  scene.traverse(o => {
+    if (!o.isMesh) return;
+    o.geometry?.dispose();
+    for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
+      if (m.map) m.map.dispose();
+      m.dispose();
+    }
+  });
+}
+function loadPlaneModel(id) {
+  const cfg = PLANE_GLBS[id];
+  if (!cfg) return;                                    // procedural-only skin
+  const st = planeModelSt[id] || (planeModelSt[id] = { inflight: false, fails: 0, warned: false });
+  if (st.inflight || st.fails >= 2) return;            // in flight, or gave up (offline / bad file)
+  if (planeGrp && planeGrp.userData.glbSkin === id) return;   // already wearing the real airframe
+  st.inflight = true;
+  new GLTFLoader().load(asset(cfg.url), gltf => {
+    st.inflight = false;
+    // group gone / skin swapped away mid-fetch / already swapped — try again when reselected
+    if (!planeGrp || planeSkin !== id || planeGrp.userData.glbSkin === id) { disposePlaneGltf(gltf.scene); return; }
+    const model = gltf.scene;
+    let meshCount = 0;
+    model.traverse(o => { if (o.isMesh) meshCount++; });
+    if (!meshCount) {                                  // a broken re-export must not replace a working plane
+      console.warn('[plane] GLB carries no meshes — keeping the procedural airframe:', cfg.url);
+      st.fails = 2;
+      disposePlaneGltf(model);
+      return;
+    }
+    // fit target: measure a throwaway procedural build (identity pose — the live
+    // group may be mid-flight with position/rotation applied), in pre-scale units
+    const ref = (PLANE_SKINS.find(k => k.id === id) || PLANE_SKINS[0]).build();
+    ref.updateMatrixWorld(true);
+    const rbox = new THREE.Box3().setFromObject(ref);
+    const rs = ref.scale.x || 1;
+    clearLookFilter(ref);
+    ref.traverse(o => {
+      if (o.geometry) o.geometry.dispose();
+      for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
+        if (m.map) m.map.dispose();
+        m.dispose();
+      }
+    });
+    const len = (rbox.max.z - rbox.min.z) / rs, floorY = rbox.min.y / rs,
+          midZ = (rbox.max.z + rbox.min.z) / 2 / rs;
+    // normalise: nose -Z, procedural length, belly on the same waterline
+    const inner = new THREE.Group();
+    inner.rotation.y = cfg.rotY || 0;
+    inner.add(model);
+    inner.updateMatrixWorld(true);
+    const mbox = new THREE.Box3().setFromObject(inner);
+    const k = len / Math.max(0.01, mbox.max.z - mbox.min.z);
+    inner.scale.setScalar(k);
+    inner.position.set(
+      -k * (mbox.max.x + mbox.min.x) / 2,
+      floorY - k * mbox.min.y,
+      midZ - k * (mbox.max.z + mbox.min.z) / 2);
+    if (cfg.jade)                                      // CX brushwing jade over the author's hull colour
+      model.traverse(o => {
+        if (!o.isMesh) return;
+        for (const m of Array.isArray(o.material) ? o.material : [o.material])
+          if (m && m.name === 'Mat') m.color.set(0x00655b);
+      });
+    const spinners = [];                               // wire any authored propeller into the shared spin
+    model.traverse(o => {                              // outermost matches only — spinning parent AND child would compound
+      if (/prop|rotor|spinner/i.test(o.name) && !spinners.some(s => {
+        for (let a = o.parent; a; a = a.parent) if (a === s) return true;
+        return false;
+      })) spinners.push(o);
+    });
+    // swap: dress down, replace the hull wholesale — keep nav lights + cockpit
+    clearLookFilter(planeGrp);
+    for (const c of [...planeGrp.children]) {
+      if (c.userData.navlight || c === planeGrp.userData.cockpit) continue;
+      planeGrp.remove(c);
+      c.traverse(o => {
+        if (o.geometry) o.geometry.dispose();
+        for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
+          if (m.map) m.map.dispose();
+          m.dispose();
+        }
+      });
+    }
+    delete planeGrp.userData.prop;                     // the procedural blades are gone
+    delete planeGrp.userData.props;
+    if (spinners.length) planeGrp.userData.props = spinners;
+    planeGrp.add(inner);
+    planeGrp.userData.glbSkin = id;
+    applyLookFilter(planeGrp);                         // re-dress the new hull for Matrix/Neon
+  }, undefined, err => {                               // offline / 404 (e.g. GLB not yet on R2): keep the procedural build
+    st.inflight = false;
+    st.fails++;
+    if (!st.warned) {
+      console.warn('[plane] model load failed — using the procedural airframe:', asset(cfg.url), (err && err.message) || err);
+      st.warned = true;
+    }
+  });
+}
 // a swept, tapered wing as one symmetric extrusion laid flat: shape x = span
 // (± out to the tips), shape y = fore-aft (+aft); `sweep` is how far aft the
 // tip leading edge sits. After rotateX the top skin lies at y = 0.
@@ -2592,6 +2714,7 @@ function addNavLights(grp, spec) {
   const mk = (p, color, r, hidden) => {
     const m = new THREE.Mesh(new THREE.SphereGeometry(r, 8, 6),
       new THREE.MeshBasicMaterial({ color }));
+    m.userData.navlight = true;              // HKS-110: survives the GLB airframe swap
     m.position.set(p[0], p[1], p[2]);
     if (hidden) m.visible = false;          // flashers start dark until stepFlight ticks
     grp.add(m);
@@ -4363,6 +4486,7 @@ function enterFlight() {
   flight.prevSpin = spinDir; spinDir = 0;              // the world holds still while you fly
   syncSpinSeg();
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
+  loadPlaneModel(planeSkin);   // HKS-110: swap in the real airframe once it arrives
   planeGrp.visible = true;
   applyLookFilter(planeGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
   // HKS-93: a remembered cockpit view can't survive onto a skin with no flight deck
