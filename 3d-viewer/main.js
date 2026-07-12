@@ -817,13 +817,24 @@ function buildSkin(overlay, g, texbb) {
   world.add(skin);
 }
 
+const SEA_COL = 0x2b5d78;      // the water's own deep teal — tintSea() blends it toward the sky
+let skyBaseCol = null;         // last composed sky colour from renderSky(), for re-tints after a sea rebuild
+// The water "reflects" the sky: pull the sea tint partway toward the composed
+// sky colour renderSky() cleared to — clear blue by day, amber at dusk,
+// near-black at night, slate under a storm. One colour lerp on sky updates:
+// no render targets, no per-frame cost. Matrix mode swaps the sea material
+// wholesale (matMxSea owns the phosphor palette), so leave it alone there.
+function tintSea() {
+  if (sea && !matrixOn && skyBaseCol) sea.material.color.setHex(SEA_COL).lerp(skyBaseCol, 0.4);
+}
 function buildSea() {
   if (sea) { world.remove(sea); sea.geometry.dispose(); sea.material.dispose(); }
   const geo = new THREE.PlaneGeometry(cell*W*1.8, cell*H*1.8);
-  sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x2b5d78, transparent: true, opacity: 0.55, roughness: 0.32, depthWrite: false }));
+  sea = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: SEA_COL, transparent: true, opacity: 0.55, roughness: 0.32, depthWrite: false }));
   sea.rotation.x = -Math.PI/2; sea.position.y = 0.5;
   attachTerrainFX(sea.material, false, true);   // living water: waves + glint; shadows + fog too
   world.add(sea);
+  tintSea();   // a rebuilt sea (source switch) picks up the current sky immediately
 }
 
 // ---- weather effects: rain / clouds / fog / lightning / waves --------------
@@ -1137,6 +1148,7 @@ function renderSky() {
     skyLum = 0.2126 * realSky.r + 0.7152 * realSky.g + 0.0722 * realSky.b;
   }
   renderer.setClearColor(base, 1);
+  (skyBaseCol ??= new THREE.Color()).copy(base); tintSea();   // the sea mirrors the sky it sits under
   baseHemi = hemiI * dim;
   baseSun  = sunI * dim;
   hemi.intensity = baseHemi + flash * 5;
