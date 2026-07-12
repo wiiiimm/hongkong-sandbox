@@ -2585,7 +2585,10 @@ const PLANE_GLBS = {
   // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — fenced under nc/ per LICENSE-ASSETS.md;
   // commercial deploys delete nc/ and the 404 lands on the procedural fallback.
   // fit: A330-300 (63.7 m) drawn against the 777-300 reference builder (73.9 m).
-  a330:  { url: 'data/models/nc/plane-a330.glb', rotY: Math.PI, fit: 63.69 / 73.86 },
+  // gearProc: the source model has NO extended landing gear (lowest geometry is
+  // the engine cowls), so the loader lifts it to a gear stance and adds simple
+  // procedural gear — see the gearProc block in loadPlaneModel().
+  a330:  { url: 'data/models/nc/plane-a330.glb', rotY: Math.PI, fit: 63.69 / 73.86, gearProc: true },
   // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — nc/-fenced like the a330. Bare-metal
   // 1946 VR-HDB livery baked in (Union Jack fin, era titles). fixedGear: a
   // taildragger's semi-fixed gear stays visible in flight (fleet-rule exception).
@@ -2650,6 +2653,34 @@ function loadPlaneModel(id) {
       -k * (mbox.max.x + mbox.min.x) / 2,
       floorY - k * mbox.min.y,
       midZ - k * (mbox.max.z + mbox.min.z) / 2);
+    // HKS-110: airframes with no authored landing gear (cfg.gearProc — the
+    // outpiston A330's lowest geometry is its engine cowls) would otherwise be
+    // parked on their engines by the waterline fit and read as floating.
+    // Lift the airframe to a real gear stance and add simple procedural gear
+    // — nose strut + two main bogies, dark grey — with the wheels reaching the
+    // procedural builder's wheel line (floorY), proportions from the real
+    // A330-300 (engine clearance ~1 m, main track 10.7 m vs 63.7 m length).
+    let procGear = null;
+    if (cfg.gearProc) {
+      const Lz = k * (mbox.max.z - mbox.min.z);        // final fuselage length
+      inner.position.y += 0.016 * Lz;                  // engine-bottom ground clearance
+      const dark = new THREE.MeshStandardMaterial({ color: 0x2b2e33, roughness: 0.8 });
+      procGear = new THREE.Group();
+      const wheelR = 0.013 * Lz;
+      const gearAt = (x, z) => {
+        const legH = 0.016 * Lz + 0.05 * Lz;           // wheel line up into the belly
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(wheelR * 0.6, legH, wheelR * 0.6), dark);
+        leg.position.set(x, floorY + wheelR * 0.7 + legH / 2, z);
+        procGear.add(leg);
+        const wheel = new THREE.Mesh(new THREE.CylinderGeometry(wheelR, wheelR, wheelR * 1.5, 12), dark);
+        wheel.rotation.z = Math.PI / 2;
+        wheel.position.set(x, floorY + wheelR, z);
+        procGear.add(wheel);
+      };
+      gearAt(0, midZ - 0.38 * Lz);                     // nose strut
+      gearAt(-0.084 * Lz, midZ + 0.045 * Lz);          // main bogies
+      gearAt(0.084 * Lz, midZ + 0.045 * Lz);
+    }
     // (liveries are baked into the GLBs by their trim scripts — no runtime tint)
     const spinners = [];                               // wire any authored propeller into the shared spin
     model.traverse(o => {                              // outermost matches only — spinning parent AND child would compound
@@ -2709,6 +2740,10 @@ function loadPlaneModel(id) {
             mats.some(m => m && /^CXGear/.test(m.name || ''))) gear.push(o);
       });
       if (gear.length) planeGrp.userData.gear = gear;
+    }
+    if (procGear) {                                    // gearProc airframes: the loader-built gear group
+      planeGrp.add(procGear);                          // (visible parked; stepFlight hides it airborne)
+      planeGrp.userData.gear = procGear;
     }
     planeGrp.add(inner);
     planeGrp.userData.glbSkin = id;

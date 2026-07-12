@@ -179,6 +179,12 @@
 - **Modifications (this repo):** optimisation only — dedup/prune/quantize
   (POSITION float32, same r160 lesson) and livery textures resized to ≤1024 px
   JPEG q78 → **42 766 tris, ~2.6 MB raw / ~1.4 MB gzip**.
+- **Landing gear:** the source model ships with **no extended landing gear**
+  (its lowest geometry is the engine cowls — verified by component analysis),
+  so there is no `CXGear` split for this airframe. `loadPlaneModel()` lifts it
+  to a gear stance and adds simple procedural gear instead
+  (`PLANE_GLBS.a330.gearProc`); an earlier heuristic split only captured
+  belly-fairing fragments and left the parked plane floating on its engines.
 - **Rebuild:** `node ../../scripts/trim_a330_glb.mjs <scene.gltf> nc/plane-a330.glb`
   (needs `@gltf-transform/*` v4 + `sharp` — see the script header).
 - **Used by:** `main.js` `PLANE_GLBS.a330` — the `a330` fly-mode skin
