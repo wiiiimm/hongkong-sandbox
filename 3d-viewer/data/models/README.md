@@ -120,44 +120,65 @@
 
 ## plane-a350.glb — fly-mode Airbus A350-1000 (HKS-110)
 
-- **Model:** “[FREE] Airbus A350-1000” by **hakai315**
-- **Source:** https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721
-  (Sketchfab) · author: https://sketchfab.com/hakai315
+- **Model:** “A350 V3 with animation” by **Newbie99999993**
+- **Source:** https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f
+  (Sketchfab) · author: https://sketchfab.com/Newbie99999993
 - **Licence:** **CC BY 4.0** — the bundled `license.txt` states: “license type:
   CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/) · requirements:
   Author must be credited. Commercial use is allowed.” Credited in the app’s
   Credits drawer (en + 繁中); attribution is load-bearing under CC BY.
-- **Original file:** Sketchfab glTF export (`scene.gltf` + 70 MB `scene.bin` +
-  2 textures), **1 973 821 tris / 1 061 377 verts**, flat material colours with
-  a branding-clean “No_human_logo” engine texture set.
-- **Rejected candidate (do not re-litigate):** Sketchfab uid
-  `97577f60b81140e995d27dbb0ca36181` — an alternative A350 that is
-  **CC BY-NC-SA** (non-commercial, share-alike): incompatible with this
-  project’s commercial licensing. hakai315’s CC BY 4.0 model was chosen instead.
-- **Modifications (this repo):** heavy decimation + our own livery, via
-  `trim_a350_glb.mjs` (a350-specific — does far more than `trim_plane_glb.mjs`):
-  interior/outlier groups dropped (engine fan blades, cargo-bay interiors,
-  cabin floors, a stray mesh floating ~140 m off the nose that would have
-  broken the loader’s bounding-box fit), textures stripped to flat colours,
-  then flatten/join/weld + meshopt-simplify with a connected-component prune
-  (sub-2.6-unit hardware invisible at fly-mode distances), dedup/prune/quantize
-  (POSITION float32, 8-bit normals) → **52 144 tris, ~1.9 MB raw / ~720 KB gzip**.
-  The livery is **our own Cathay-style scheme, painted from scratch in-script**
-  — expressly **not derived from any third-party livery texture** (in
-  particular not from the CC BY-NC-SA outpiston A330 textures; only the
-  general look of the real livery was imitated, as with the 747/777):
-  the hull (fuselage, nose, doors, tail fin — `CXHull`) gets a small
-  script-generated PNG applied via planar side-projection UVs — white upper
-  fuselage, light-grey belly below the waterline, brushwing-jade **#00655B**
-  tail fin with our own white brush-stroke swoosh (a tapered bezier drawn
-  in-script); engine nacelle cowls (found by connected component) split to a
-  jade `CXEngine` material, fans/exhaust and wings stay grey. No wordmarks,
-  no third-party airline branding shipped.
+- **Original file:** Sketchfab glTF export (`scene.gltf` + 20.6 MB `scene.bin` +
+  one 4096² baseColor atlas), **626 981 tris**, 9 objects, 20 baked animations
+  (a Sketchfab-retargeted gear-retract-style timeline). Livery as authored:
+  the **AIRBUS house scheme** — “AIRBUS A350-1000” titles, giant “1000”s and
+  carbon-pattern tail art in the atlas. Crucially it ships **real extended
+  landing gear** — 6-wheel main bogies + twin nose wheels — which is why it
+  was picked (“I prefer one with wheels and landing gear”).
+- **Modifications (this repo):** via `trim_a350_glb.mjs`:
+  - **Gear split:** connected components inside the measured main/nose gear
+    boxes (plus the bogie-wheel objects wholesale) move to a `CXGear`
+    material, so `loadPlaneModel()` tags them and `stepFlight` hides them
+    airborne (HKS-110 fleet rule). The baked animations are dropped — the
+    fleet rule is a visibility toggle and the GLB is reparented at load.
+  - **Livery:** the AIRBUS branding is replaced with **our own Cathay-style
+    scheme, painted from scratch in-script** (colours/shapes studied from
+    Cathay’s own A350 press photo; no pixels copied): clean white hull with
+    procedurally redrawn cabin window rows (the atlas windows were grey like
+    the titles, so the hull islands are wiped white and windows redrawn in
+    world space), brushwing-jade **#00655B** tail fin with our white
+    tapered-bezier brush stroke, jade winglets, light-grey nacelles. Each
+    region is masked by rasterising that component’s actual UV triangles
+    (the atlas islands interleave — rectangle fills would bleed). No
+    wordmarks, no third-party airline branding shipped.
+  - **Budget:** weld + meshopt-simplify (harder second pass on the two
+    102 k-tri fan disks and the CXGear wheels), dedup/prune/quantize
+    (POSITION float32, 8-bit normals), metallic clamped, atlas ≤1024 px JPEG
+    → **47 590 tris (24 733 of them gear), ~1.98 MB raw / ~1.19 MB gzip**.
 - **Rebuild:** `node ../../scripts/trim_a350_glb.mjs <scene.gltf> plane-a350.glb`
   (needs `@gltf-transform/*` v4 + `meshoptimizer` + `sharp` — see the script header).
 - **Used by:** `main.js` `PLANE_GLBS.a350` — the `a350` fly-mode skin
-  (authored nose −X → `rotY: -Math.PI/2`). The procedural builder stays as
+  (authored nose +X → `rotY: Math.PI/2`). The procedural builder stays as
   loading stand-in / offline fallback.
+- **Supersedes:** “[FREE] Airbus A350-1000” by **hakai315** (Sketchfab
+  https://sketchfab.com/3d-models/free-airbus-a350-1000-0729c1138a8f4186a549abffc1ff1721,
+  CC BY 4.0, 1 973 821 tris). Shipped first for HKS-110 with a scripted
+  planar-projection livery, but the ~97 % decimation it needed read visibly
+  broken at chase distance, and it had **no landing gear geometry at all**.
+  Its hakai315-specific trim script (livery projection included) was removed
+  with it — this file’s history has both if ever needed.
+- **Evaluated, not used (2026-07 bake-off, gear-first):**
+  - “Airbus A350-1000” by **outpiston** (Sketchfab uid
+    `97577f60b81140e995d27dbb0ca36181`, ⚠ CC BY-NC-SA 4.0, 12 568 tris) —
+    the A330/DC-3 author, so the fleet style would have matched, but it is
+    NC-fenced (nc/ + commercial-deploy deletion, per LICENSE-ASSETS.md) and,
+    like the same author’s A330, would still have needed procedural gear.
+    A CC BY model with real gear beats it on both counts.
+  - “Airbus +A350-900XWB” by **CloudHub** (Sketchfab
+    https://sketchfab.com/3d-models/airbus-a350-900xwb-6fa01964177646d4943143c07047b933,
+    CC BY 4.0, 194 243 tris) — licence-clean and has gear meshes, but it’s
+    the shorter −900 airframe (skin says A350-1000), a 246-mesh SketchUp-style
+    export with 36 flat materials and no UVs/textures, so it needed the full
+    scene-surgery + repaint pipeline for a worse starting point.
 
 ## nc/plane-a330.glb — fly-mode Airbus A330-300 ⚠ NC (HKS-110)
 
@@ -229,4 +250,4 @@
 - **Deploy note:** on the official deploy `data/` is served from the R2 assets
   origin — upload all `plane-*.glb` files (including `nc/…` where licensing
   permits that deployment) to the bucket under `data/models/` at merge, like
-  the hiker GLB. sw.js precaches them (`DEFAULT_TERRAIN`, VERSION v26).
+  the hiker GLB. sw.js precaches them (`DEFAULT_TERRAIN`, VERSION v27).

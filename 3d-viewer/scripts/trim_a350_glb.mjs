@@ -1,44 +1,50 @@
-// Optimise the fly-mode A350 GLB (3d-viewer/data/models/plane-a350.glb) — HKS-110.
+// Build the fly-mode A350-1000 GLB (3d-viewer/data/models/plane-a350.glb) — HKS-110.
 //
-// Source: "[FREE] Airbus A350-1000" by hakai315 (CC BY 4.0, Sketchfab) —
-// 1.97 M tris / 70 MB scene.bin as published. Way past the fly-mode budget, so
-// this script does much more than trim_plane_glb.mjs:
+// Source: "A350 V3 with animation" by Newbie99999993 (Sketchfab, CC BY 4.0 —
+// commercial OK; provenance ../data/models/README.md). 626 981 tris, 9 objects,
+// one 4096² baseColor atlas carrying the AIRBUS house livery (titles + carbon
+// tail art), and — the reason this model was picked — REAL landing gear:
+// 6-wheel main bogies + twin nose wheels, modelled extended.
 //
-//   1. drops interior / wasted-at-distance groups by name (engine fan blades,
-//      cargo-bay interiors, cabin floors) AND two stray outlier meshes
-//      ("Plane_3" floats ~140 m ahead of the nose — it would wreck the
-//      bounding-box fit loadPlaneModel() uses to scale the airframe);
-//   2. strips the two bundled textures (engine swirl detail — invisible at
-//      fly-mode distances) and flattens those materials to grey;
-//   3. paints OUR OWN Cathay-style livery in-file — designed from scratch,
-//      expressly NOT derived from any third-party livery texture (in
-//      particular not from the NC-fenced outpiston A330 textures — that
-//      would drag CC BY-NC-SA into this CC BY asset):
-//        - fuselage / nose / doors / tail-fin primitives move to a "CXHull"
-//          material that carries a GENERATED livery texture (drawn in-script
-//          with sharp, planar side-projection UVs): white upper fuselage,
-//          light-grey belly below the waterline, brushwing-jade (#00655B)
-//          tail fin with our own white brush-stroke swoosh;
-//        - engine nacelle cowls (found by connected component inside the
-//          two nacelle boxes) split to a jade "CXEngine" material — fans
-//          and exhaust cones stay grey; wings/belly fairing stay grey.
-//      No third-party airline branding, no wordmarks.
-//   4. flatten + join + weld + meshopt-simplify down to the tri budget, then
-//      the shared recipe: dedup / prune / quantize. POSITION stays float32 —
-//      three r160's computeBoundingBox reads quantized attributes raw (see
-//      trim_plane_glb.mjs / trim_hiker_glb.mjs).
+// This replaces the hakai315 A350 (CC BY, 1.97 M tris): its ~97 % decimation
+// read visibly broken at chase distance, and it had no landing gear at all.
 //
-// Model axes as authored: fuselage along X (nose −X), span along Z, Y up —
-// loadPlaneModel() yaws it −90° (cfg.rotY) so the nose faces −Z.
+// What this script does:
+//   1. GEAR SPLIT — connected components (union-find over indices) whose world
+//      bbox falls entirely inside the main-gear box (x −2.6…3.6, y ≤13.3,
+//      |z| ≤7 — wheels/struts/doors; the belly fairing spans x −8.9…11.7 so it
+//      can't fit) or the nose-gear box (x 30.8…33.8, |z| ≤1.7) move to a
+//      "CXGear" material, plus Object_14/17 wholesale (the outer bogie wheels).
+//      loadPlaneModel() tags CXGear meshes and stepFlight hides them airborne.
+//      The source's 20 baked animations (a gear-retract style timeline
+//      re-targeted per node by Sketchfab) are dropped — the fleet rule is a
+//      visibility toggle, and the GLB is reparented at load anyway.
+//   2. LIVERY REPAINT — the atlas's AIRBUS branding is replaced with our own
+//      Cathay-style treatment (colour/shape studied from Cathay's own A350
+//      press photo — painted from scratch, no pixels copied): white hull
+//      (titles/marks wiped, window rows kept), brushwing-jade #00655B tail fin
+//      with a white tapered-bezier brush stroke, jade winglets, light-grey
+//      nacelles + belly fairing. Each region is masked by rasterising that
+//      component's actual UV triangles (the atlas islands interleave, so
+//      rectangle fills would bleed onto neighbours). No wordmarks — skipped
+//      rather than garbled.
+//   3. BUDGET — weld + meshopt-simplify to ~60 k tris, with a second, harder
+//      pass on the two 102 k-tri engine-fan disks (Material.014/.015); then
+//      the shared recipe: dedup/prune/quantize (POSITION float32 — three r160
+//      reads quantized attributes raw), metallic clamped (Sketchfab metal=1
+//      renders near-black in our lighting), atlas ≤1024 px JPEG.
+//
+// Axes as authored: fuselage along X, nose +X, up +Y — loadPlaneModel() yaws
+// +90° (cfg.rotY: Math.PI/2) to put the nose at −Z.
 //
 // Usage:
 //   npm i @gltf-transform/core@4 @gltf-transform/extensions@4 @gltf-transform/functions@4 meshoptimizer sharp
 //   node trim_a350_glb.mjs <scene.gltf> <output.glb> [ratio]
-import sharp from 'sharp';
 import { NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS } from '@gltf-transform/extensions';
-import { compactPrimitive, dedup, flatten, join, prune, quantize, simplify, weld } from '@gltf-transform/functions';
+import { dedup, prune, quantize, simplify, textureCompress, weld } from '@gltf-transform/functions';
 import { MeshoptSimplifier } from 'meshoptimizer';
+import sharp from 'sharp';
 
 const [input, output, ratioArg] = process.argv.slice(2);
 if (!input || !output) { console.error('usage: node trim_a350_glb.mjs <scene.gltf> <output.glb> [ratio]'); process.exit(1); }
@@ -46,270 +52,230 @@ if (!input || !output) { console.error('usage: node trim_a350_glb.mjs <scene.glt
 const io = new NodeIO().registerExtensions(ALL_EXTENSIONS);
 const doc = await io.read(input);
 const root = doc.getRoot();
-
-// airframes are static — drop any stray animation data wholesale
-for (const anim of root.listAnimations()) {
-  for (const ch of anim.listChannels()) ch.dispose();
+for (const anim of root.listAnimations()) {          // baked retract timeline — see header
+  for (const c of anim.listChannels()) c.dispose();
   for (const s of anim.listSamplers()) s.dispose();
   anim.dispose();
 }
 
-// 1. drop interiors + outliers (names as authored in the Sketchfab export)
-const DROP = /^(Blaes in inside|Cargo \.|Cargo _|Plane_3$|Plane\.001|Cube\.005_142)/;
-let dropped = 0;
+// ---- helpers ---------------------------------------------------------------
+const xf = (wm, x, y, z) => [
+  wm[0] * x + wm[4] * y + wm[8] * z + wm[12],
+  wm[1] * x + wm[5] * y + wm[9] * z + wm[13],
+  wm[2] * x + wm[6] * y + wm[10] * z + wm[14]];
+// per-primitive connected components (union-find over the index array)
+function components(prim) {
+  const pos = prim.getAttribute('POSITION'), idx = prim.getIndices();
+  const n = pos.getCount(), ia = idx.getArray();
+  const parent = new Uint32Array(n).map((_, i) => i);
+  const find = v => { while (parent[v] !== v) v = parent[v] = parent[parent[v]]; return v; };
+  for (let i = 0; i < ia.length; i += 3) { const a = find(ia[i]); parent[find(ia[i + 1])] = a; parent[find(ia[i + 2])] = a; }
+  return { find, ia, n, pos };
+}
+function componentBoxes(prim, wm) {
+  const { find, ia, n, pos } = components(prim);
+  const box = new Map(); const el = [];
+  for (let v = 0; v < n; v++) {
+    pos.getElement(v, el);
+    const [wx, wy, wz] = xf(wm, el[0], el[1], el[2]);
+    const r = find(v);
+    let b = box.get(r);
+    if (!b) box.set(r, b = { minX: 1 / 0, maxX: -1 / 0, minY: 1 / 0, maxY: -1 / 0, minZ: 1 / 0, maxZ: -1 / 0 });
+    b.minX = Math.min(b.minX, wx); b.maxX = Math.max(b.maxX, wx);
+    b.minY = Math.min(b.minY, wy); b.maxY = Math.max(b.maxY, wy);
+    b.minZ = Math.min(b.minZ, wz); b.maxZ = Math.max(b.maxZ, wz);
+  }
+  return { find, ia, box };
+}
+
+// ---- 1. gear split (world coords, ground plane y ≈ 9.7) ---------------------
+const GEAR_BOXES = [
+  { x: [-2.6, 3.6], y: [9.5, 13.3], z: [-7.0, 7.0] },     // main bogies + struts + doors
+  { x: [30.8, 33.8], y: [9.5, 13.3], z: [-1.7, 1.7] },    // nose gear
+];
+const srgb = c => Math.pow((c / 255 + 0.055) / 1.055, 2.4);
+const gearMat = doc.createMaterial('CXGear')
+  .setBaseColorFactor([srgb(0x55), srgb(0x57), srgb(0x59), 1])
+  .setRoughnessFactor(0.7).setMetallicFactor(0.1);
+const WHEEL_NODES = new Set(['Object_14', 'Object_17']); // outer bogie wheels — gear wholesale
 for (const node of root.listNodes()) {
-  if (DROP.test(node.getName() || '')) { node.dispose(); dropped++; }
-}
-console.log('dropped groups:', dropped);
-
-// 2. strip textures, flatten the textured engine materials to grey
-for (const tex of root.listTextures()) tex.dispose();
-for (const m of root.listMaterials()) {
-  if (/^No_human_logo/.test(m.getName() || '')) m.setBaseColorFactor([0.55, 0.56, 0.57, 1]);
-}
-
-// 3. route the hull skin to its own "CXHull" material so it survives join()
-//    as a separate primitive — the livery texture is painted onto it in
-//    stage 5 (after simplification), where the final geometry is known.
-const hullMat = doc.createMaterial('CXHull')
-  .setBaseColorFactor([1, 1, 1, 1])
-  .setRoughnessFactor(0.45)
-  .setMetallicFactor(0.15);
-// hull / doors / nose / tail-fin groups whose light-grey skin takes the livery
-const HULL_GROUPS = /^(body|Nose|Door|Cargo door|Cylinder\.018_4$|Cylinder\.026_80$)/;
-let routed = 0;
-for (const node of root.listNodes()) {
-  if (!HULL_GROUPS.test(node.getName() || '')) continue;
-  node.traverse(n => {
-    const mesh = n.getMesh();
-    if (!mesh) return;
-    for (const p of mesh.listPrimitives()) {
-      const mat = p.getMaterial();
-      if (mat && mat.getName() === 'Material.027') { p.setMaterial(hullMat); routed++; }
-    }
-  });
-}
-console.log('hull primitives routed to CXHull:', routed);
-
-// 4. crush to budget: weld + meshopt-simplify, then drop connected components
-//    too small to read at fly-mode distances (nuts, brackets, hydraulic lines —
-//    each one floors the simplifier at a handful of tris, and there are
-//    thousands of them), then simplify again and finish with the shared recipe.
-const ratio = Number(ratioArg) || 0.004;
-await doc.transform(
-  dedup(),
-  flatten(),
-  join(),
-  weld(),
-  simplify({ simplifier: MeshoptSimplifier, ratio, error: 0.04 }),
-);
-// component prune: union-find over welded indices; keep components whose bbox
-// diagonal clears minDiag (model units — the airframe is ~120 units long)
-const minDiag = Number(process.env.MINDIAG) || 2.6;
-for (const mesh of root.listMeshes()) {
-  for (const prim of mesh.listPrimitives()) {
-    const idx = prim.getIndices(), pos = prim.getAttribute('POSITION');
-    if (!idx || !pos) continue;
-    const ia = idx.getArray(), nVerts = pos.getCount();
-    const parent = new Uint32Array(nVerts).map((_, i) => i);
-    const find = v => { while (parent[v] !== v) v = parent[v] = parent[parent[v]]; return v; };
-    for (let i = 0; i < ia.length; i += 3) {
-      const a = find(ia[i]), b = find(ia[i + 1]), c = find(ia[i + 2]);
-      parent[b] = a; parent[c] = a;
-    }
-    const box = new Map();   // component root vert → [minx,miny,minz,maxx,maxy,maxz]
-    const el = [];
-    for (let v = 0; v < nVerts; v++) {
-      const r = find(v); pos.getElement(v, el);
-      let b = box.get(r);
-      if (!b) box.set(r, [el[0], el[1], el[2], el[0], el[1], el[2]]);
-      else for (let k = 0; k < 3; k++) { if (el[k] < b[k]) b[k] = el[k]; if (el[k] > b[k + 3]) b[k + 3] = el[k]; }
-    }
-    const keep = new Set();
+  const mesh = node.getMesh();
+  if (!mesh) continue;
+  const wm = node.getWorldMatrix();
+  for (const prim of [...mesh.listPrimitives()]) {
+    if (!prim.getIndices() || !prim.getAttribute('POSITION')) continue;
+    if (WHEEL_NODES.has(node.getName())) { prim.setMaterial(gearMat); continue; }
+    const { find, ia, box } = componentBoxes(prim, wm);
+    const isGear = new Set();
     for (const [r, b] of box)
-      if (Math.hypot(b[3] - b[0], b[4] - b[1], b[5] - b[2]) >= minDiag) keep.add(r);
-    const out = [];
+      if (GEAR_BOXES.some(G =>
+        b.minX >= G.x[0] && b.maxX <= G.x[1] &&
+        b.minY >= G.y[0] && b.maxY <= G.y[1] &&
+        b.minZ >= G.z[0] && b.maxZ <= G.z[1])) isGear.add(r);
+    if (!isGear.size) continue;
+    const gearTris = [], bodyTris = [];
     for (let i = 0; i < ia.length; i += 3)
-      if (keep.has(find(ia[i]))) out.push(ia[i], ia[i + 1], ia[i + 2]);
-    if (out.length < ia.length) {
-      idx.setArray(new Uint32Array(out));
-      compactPrimitive(prim);
-    }
+      (isGear.has(find(ia[i])) ? gearTris : bodyTris).push(ia[i], ia[i + 1], ia[i + 2]);
+    const gp = prim.clone();
+    gp.setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint32Array(gearTris)));
+    gp.setMaterial(gearMat);
+    mesh.addPrimitive(gp);
+    prim.setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint32Array(bodyTris)));
   }
 }
-await doc.transform(
-  simplify({ simplifier: MeshoptSimplifier, ratio, error: 0.04 }),
-  prune(),
-);
 
-// ---- 5. Cathay-style livery (our own design — see header; HKS-110) ---------
-// World-space helpers: node transforms survive the pipeline, so every
-// position test goes through the owning node's world matrix.
-const worldFns = (node) => {
-  const M = node.getWorldMatrix();
-  return {
-    wx: (x, y, z) => M[0] * x + M[4] * y + M[8] * z + M[12],
-    wy: (x, y, z) => M[1] * x + M[5] * y + M[9] * z + M[13],
-    wz: (x, y, z) => M[2] * x + M[6] * y + M[10] * z + M[14],
-  };
+// ---- 2. livery repaint on the shared atlas ----------------------------------
+const tex = root.listTextures()[0];                       // single 4096² baseColor atlas
+const srcPng = sharp(Buffer.from(tex.getImage()));
+const meta = await srcPng.metadata();
+const TW = meta.width, TH = meta.height;
+const raw = await srcPng.raw().toBuffer({ resolveWithObject: true });
+const CH = raw.info.channels;
+const rgb = new Uint8ClampedArray(raw.data);
+// region predicates on world-space component bboxes (measured on the source)
+const REGIONS = {
+  fin:      b => b.minX < -23 && b.minY > 16.5 && b.minZ > -2 && b.maxZ < 2,   // vertical fin + rudder (z-narrow; hstab spans ±16)
+  winglet:  b => b.minY > 16 && b.maxY < 20.5 && Math.min(Math.abs(b.minZ), Math.abs(b.maxZ)) > 27,
+  fuselage: b => (b.maxX - b.minX) > 60 && b.maxY < 20,
+  nacelle:  b => b.minX > 7 && b.maxX < 12 && b.minY > 10.5 && Math.min(Math.abs(b.minZ), Math.abs(b.maxZ)) > 8,
+  belly:    b => b.minX > -9.5 && b.maxX < 12 && b.minY > 11.9 && b.maxY < 13 && b.minZ > -3 && b.maxZ < 3,
 };
-
-// 5a. hull livery texture — planar side projection (u ← world x, v ← world y,
-// flipped so image-top = fin-top). Both sides map to the same texels; the
-// livery is symmetric so that is exactly what we want. Planar UVs interpolate
-// affinely, so even the fin's giant post-simplify triangles sample correctly.
-// Geometry landmarks (world units, airframe ~121 long, nose at x≈−57):
-//   fuselage crown ≈ y 13.8 · belly ≈ y 4.6 · fin y 14→29, x 48→63.
-const HX0 = -58, HX1 = 64, HY0 = 4.0, HY1 = 29.5;      // texture coverage box
-const TW = 1024, TH = 512;
-const WHITE = [0xf2, 0xf4, 0xf5], BELLY = [0x9d, 0xa2, 0xa6], JADEC = [0x00, 0x65, 0x5b];
-const WATERLINE = 8.4;   // below → belly grey
-const FIN_Y = 14.0;      // above → jade fin
-// brushwing stroke: quadratic bezier up the fin, wide at the root, tapering
-const P0 = [52.4, 15.0], P1 = [56.6, 19.2], P2 = [60.4, 26.0];
-const strokeW = t => 1.5 - 1.0 * t;
-const bez = t => [
-  (1 - t) * (1 - t) * P0[0] + 2 * (1 - t) * t * P1[0] + t * t * P2[0],
-  (1 - t) * (1 - t) * P0[1] + 2 * (1 - t) * t * P1[1] + t * t * P2[1],
-];
-const px = new Uint8Array(TW * TH * 3);
-for (let j = 0; j < TH; j++) {
-  const y = HY1 - (j + 0.5) / TH * (HY1 - HY0);
-  for (let i = 0; i < TW; i++) {
-    const x = HX0 + (i + 0.5) / TW * (HX1 - HX0);
-    let c = y < WATERLINE ? BELLY : WHITE;
-    if (y > FIN_Y) {
-      c = JADEC;
-      // white brush stroke — min distance to the bezier vs tapered width
-      for (let s = 0; s <= 40; s++) {
-        const t = s / 40, b = bez(t);
-        const dx = x - b[0], dy = y - b[1];
-        if (dx * dx + dy * dy < strokeW(t) * strokeW(t)) { c = WHITE; break; }
+const masks = {}; for (const k of Object.keys(REGIONS)) masks[k] = new Uint8Array(TW * TH);
+// the atlas islands sit diagonally/interleaved, so the brushwing AND the hull
+// windows are painted in WORLD space: while rasterising the fin/fuselage/belly
+// masks, record each texel's world x/y
+const finWX = new Float32Array(TW * TH), finWY = new Float32Array(TW * TH);
+const WORLD_REGIONS = new Set(['fin', 'fuselage', 'belly']);
+function rasterUV(mask, uv, ia, keep, find, world) {
+  for (let i = 0; i < ia.length; i += 3) {
+    if (!keep(find(ia[i]))) continue;
+    const P = [];
+    for (let j = 0; j < 3; j++) { const e = []; uv.getElement(ia[i + j], e); P.push([e[0] * TW, e[1] * TH]); }
+    const minx = Math.max(0, Math.floor(Math.min(P[0][0], P[1][0], P[2][0]) - 1)), maxx = Math.min(TW - 1, Math.ceil(Math.max(P[0][0], P[1][0], P[2][0]) + 1));
+    const miny = Math.max(0, Math.floor(Math.min(P[0][1], P[1][1], P[2][1]) - 1)), maxy = Math.min(TH - 1, Math.ceil(Math.max(P[0][1], P[1][1], P[2][1]) + 1));
+    const [A, B, C] = P, den = (B[1] - C[1]) * (A[0] - C[0]) + (C[0] - B[0]) * (A[1] - C[1]);
+    if (!den) continue;
+    const wpos = world && world(i);                       // [[x,y]×3] world coords of the tri's corners
+    for (let y = miny; y <= maxy; y++) for (let x = minx; x <= maxx; x++) {
+      const w1 = ((B[1] - C[1]) * (x - C[0]) + (C[0] - B[0]) * (y - C[1])) / den,
+            w2 = ((C[1] - A[1]) * (x - C[0]) + (A[0] - C[0]) * (y - C[1])) / den, w3 = 1 - w1 - w2;
+      if (w1 < -0.05 || w2 < -0.05 || w3 < -0.05) continue;   // slight dilation so filtering doesn't fetch old paint
+      const p = y * TW + x;
+      mask[p] = 1;
+      if (wpos) {
+        finWX[p] = w1 * wpos[0][0] + w2 * wpos[1][0] + w3 * wpos[2][0];
+        finWY[p] = w1 * wpos[0][1] + w2 * wpos[1][1] + w3 * wpos[2][1];
       }
     }
-    const o = (j * TW + i) * 3;
-    px[o] = c[0]; px[o + 1] = c[1]; px[o + 2] = c[2];
   }
 }
-const liveryPng = await sharp(px, { raw: { width: TW, height: TH, channels: 3 } })
-  .png({ compressionLevel: 9, palette: true }).toBuffer();
-const liveryTex = doc.createTexture('CXLivery').setImage(liveryPng).setMimeType('image/png');
-hullMat.setBaseColorTexture(liveryTex);
-let uvVerts = 0;
 for (const node of root.listNodes()) {
   const mesh = node.getMesh();
   if (!mesh) continue;
-  const { wx, wy } = worldFns(node);
+  const wm = node.getWorldMatrix();
   for (const prim of mesh.listPrimitives()) {
-    if (prim.getMaterial() !== hullMat) continue;
+    const uv = prim.getAttribute('TEXCOORD_0');
+    if (!uv || !prim.getIndices() || prim.getMaterial() === gearMat) continue;
+    const { find, ia, box } = componentBoxes(prim, wm);
     const pos = prim.getAttribute('POSITION');
-    const uv = new Float32Array(pos.getCount() * 2), el = [];
-    for (let v = 0; v < pos.getCount(); v++) {
-      pos.getElement(v, el);
-      uv[v * 2] = (wx(el[0], el[1], el[2]) - HX0) / (HX1 - HX0);
-      uv[v * 2 + 1] = (HY1 - wy(el[0], el[1], el[2])) / (HY1 - HY0);
+    const worldOf = i => [0, 1, 2].map(j => {
+      const e = []; pos.getElement(ia[i + j], e);
+      const [wx, wy] = xf(wm, e[0], e[1], e[2]);
+      return [wx, wy];
+    });
+    for (const [k, test] of Object.entries(REGIONS)) {
+      const roots = new Set();
+      for (const [r, b] of box) if (test(b)) roots.add(r);
+      if (roots.size) rasterUV(masks[k], uv, ia, r => roots.has(r), find, WORLD_REGIONS.has(k) ? worldOf : null);
     }
-    prim.setAttribute('TEXCOORD_0', doc.createAccessor().setType('VEC2').setArray(uv));
-    uvVerts += pos.getCount();
   }
 }
-console.log('hull UV-mapped verts:', uvVerts, '— livery png', liveryPng.length, 'bytes');
-
-// 5b. engine nacelle cowls → jade "CXEngine". Connected components (union-find
-// over indices) whose world bbox sits entirely inside a nacelle box are cowl
-// surfaces — the wings never satisfy that (they run on past the box). Fans
-// (Material.038) and exhaust cones (Material.033) are excluded by name.
-const engineMat = doc.createMaterial('CXEngine')
-  .setBaseColorFactor([0.0, 0.130, 0.104, 1.0])   // sRGB #00655B in linear terms
-  .setRoughnessFactor(0.45).setMetallicFactor(0.15);
-const NAC = { x0: -16, x1: -1.5, y0: 1.0, y1: 8.0, z0: 14.0, z1: 23.0 };
-const inNac = (x, y, z) =>
-  x > NAC.x0 && x < NAC.x1 && y > NAC.y0 && y < NAC.y1 && Math.abs(z) > NAC.z0 && Math.abs(z) < NAC.z1;
-let engTris = 0;
-for (const node of root.listNodes()) {
-  const mesh = node.getMesh();
-  if (!mesh) continue;
-  const { wx, wy, wz } = worldFns(node);
-  for (const prim of [...mesh.listPrimitives()]) {
-    const mn = prim.getMaterial()?.getName() || '';
-    if (mn === 'CXHull' || mn === 'Material.038' || mn === 'Material.033') continue;
-    const pos = prim.getAttribute('POSITION'), idx = prim.getIndices();
-    if (!pos || !idx) continue;
-    const n = pos.getCount(), ia = idx.getArray(), el = [];
-    const parent = new Uint32Array(n).map((_, i) => i);
-    const find = v => { while (parent[v] !== v) v = parent[v] = parent[parent[v]]; return v; };
-    for (let i = 0; i < ia.length; i += 3) { const a = find(ia[i]); parent[find(ia[i + 1])] = a; parent[find(ia[i + 2])] = a; }
-    const inside = new Map();   // component root → still fully inside a nacelle box?
-    const used = new Set(ia);
-    for (const v of used) {
-      pos.getElement(v, el);
-      const ok = inNac(wx(el[0], el[1], el[2]), wy(el[0], el[1], el[2]), wz(el[0], el[1], el[2]));
-      const r = find(v);
-      inside.set(r, (inside.get(r) ?? true) && ok);
-    }
-    const eng = [], rest = [];
-    for (let i = 0; i < ia.length; i += 3)
-      (inside.get(find(ia[i])) ? eng : rest).push(ia[i], ia[i + 1], ia[i + 2]);
-    if (!eng.length) continue;
-    engTris += eng.length / 3;
-    const ep = prim.clone();
-    ep.setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint32Array(eng)));
-    ep.setMaterial(engineMat);
-    mesh.addPrimitive(ep);
-    prim.setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint32Array(rest)));
+const JADE = [0x00, 0x65, 0x5b], WHITE = [0xf4, 0xf6, 0xf7], GREY = [0xdd, 0xe0, 0xe3];
+const put = (i, c) => { rgb[i] = c[0]; rgb[i + 1] = c[1]; rgb[i + 2] = c[2]; };
+// white brushwing on the jade fin, defined in fin world coords (fin spans
+// x −35.8…−23.9 aft, y 17.6…27.2 up): a tapered quadratic bezier sweeping
+// from the root leading edge up and aft toward the tip, like the real scheme.
+const BRUSH = [];                                          // sampled [x, y, halfWidth]
+{
+  const P0 = [-27.5, 17.9], P1 = [-30.5, 22.5], P2 = [-34.0, 26.3];
+  for (let t = 0; t <= 1; t += 0.005) {
+    const x = (1 - t) * (1 - t) * P0[0] + 2 * (1 - t) * t * P1[0] + t * t * P2[0];
+    const y = (1 - t) * (1 - t) * P0[1] + 2 * (1 - t) * t * P1[1] + t * t * P2[1];
+    BRUSH.push([x, y, 0.85 * (1 - t) + 0.16 * t]);        // metres, tapering root → tip
   }
 }
-console.log('engine nacelle tris painted jade:', engTris);
-
-// ---- HKS-110 fleet rule: split the landing gear into "CXGear" primitives ----
-// Union-find over the welded indices; any connected component living entirely
-// below GEAR_TOP (WORLD Y-up units — vertices are tested through each node's
-// world matrix, since node transforms survive the transform pipeline) is
-// gear/wheels — moved to a cloned primitive whose material is renamed CXGear-*
-// so loadPlaneModel() tags it (userData.gear) and stepFlight retracts it.
-const GEAR_SPAN = 8;   // gear lives near the centreline; engines/wing bits sit further out
-const GEAR_TOP = 5.0;
-let gearTris = 0;
-const seenMesh = new Set();
-for (const node of root.listNodes()) {
-  const mesh = node.getMesh();
-  if (!mesh || seenMesh.has(mesh)) continue;
-  seenMesh.add(mesh);
-  const M = node.getWorldMatrix();
-  const wy = (x, y, z) => M[1] * x + M[5] * y + M[9] * z + M[13];
-  const ws = (x, y, z) => M[2] * x + M[6] * y + M[10] * z + M[14];   // world span coordinate
-  for (const prim of [...mesh.listPrimitives()]) {
-    const pos = prim.getAttribute('POSITION'), idx = prim.getIndices();
-    if (!pos || !idx) continue;
-    const n = pos.getCount(), ia = idx.getArray(), el = [];
-    const parent = new Uint32Array(n).map((_, i) => i);
-    const find = v => { while (parent[v] !== v) v = parent[v] = parent[parent[v]]; return v; };
-    for (let i = 0; i < ia.length; i += 3) { const a = find(ia[i]); parent[find(ia[i + 1])] = a; parent[find(ia[i + 2])] = a; }
-    const ymax = new Map(), smax = new Map();
-    for (let v = 0; v < n; v++) { pos.getElement(v, el); const r = find(v); const y = wy(el[0], el[1], el[2]); ymax.set(r, Math.max(ymax.get(r) ?? -1e9, y)); smax.set(r, Math.max(smax.get(r) ?? 0, Math.abs(ws(el[0], el[1], el[2])))); }
-    const g = [], b = [];
-    for (let i = 0; i < ia.length; i += 3)
-      ((ymax.get(find(ia[i])) < GEAR_TOP && smax.get(find(ia[i])) < GEAR_SPAN) ? g : b).push(ia[i], ia[i + 1], ia[i + 2]);
-    if (!g.length) continue;
-    gearTris += g.length / 3;
-    const gp = prim.clone();
-    gp.setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint32Array(g)));
-    const gm = (prim.getMaterial() || doc.createMaterial()).clone().setName('CXGear-' + (prim.getMaterial()?.getName() || 'mat'));
-    gp.setMaterial(gm);
-    mesh.addPrimitive(gp);
-    prim.setIndices(doc.createAccessor().setType('SCALAR').setArray(new Uint32Array(b)));
+const onBrush = (x, y) => {
+  for (const [bx, by, w] of BRUSH) {
+    const dx = x - bx, dy = y - by;
+    if (dx * dx + dy * dy < w * w) return true;
+  }
+  return false;
+};
+for (let p = 0; p < TW * TH; p++) {
+  const i = p * CH, r = rgb[i], g = rgb[i + 1], b = rgb[i + 2];
+  const lum = (r + g + b) / 765;
+  if (masks.fin[p]) put(i, onBrush(finWX[p], finWY[p]) ? WHITE : JADE);
+  else if (masks.winglet[p]) put(i, JADE);
+  else if (masks.nacelle[p]) put(i, lum < 0.25 ? [0x3a, 0x3f, 0x44] : GREY);  // light-grey cowls, keep dark intake lips
+}
+// hull de-branding: the source atlas carries AIRBUS house-livery titles,
+// giant "1000"s and pale watermark art scattered through the fuselage/belly
+// islands (its windows are grey like the titles — no colour signal to key
+// on), so the hull is painted CLEAN WHITE and the cabin window rows are
+// redrawn procedurally in world space: one dark rounded dot every 0.8 m at
+// the real window line (y ≈ 15.55, the cabin mid-line), stopping short of
+// the nose (the cockpit glass is separate geometry) and the tail taper.
+{
+  const WIN = [0x3c, 0x42, 0x4a];
+  for (let p = 0; p < TW * TH; p++) {
+    if (!masks.fuselage[p] && !masks.belly[p]) continue;
+    const i = p * CH;
+    if (masks.fuselage[p]) {
+      const x = finWX[p], y = finWY[p];
+      const inRow = x > -26 && x < 27 && Math.abs(y - 15.55) < 0.17 && (((x % 0.8) + 0.8) % 0.8) < 0.42;
+      put(i, inRow ? WIN : WHITE);
+    } else put(i, WHITE);
   }
 }
-console.log('gear tris split out:', gearTris);
+tex.setImage(await sharp(Buffer.from(rgb.buffer), { raw: { width: TW, height: TH, channels: CH } }).png().toBuffer())
+   .setMimeType('image/png');
 
-// final shared recipe step — POSITION stays float32 (see header)
-await doc.transform(quantize({ pattern: /^(?!POSITION).*$/, quantizeNormal: 8 }));
+// ---- 3. budget --------------------------------------------------------------
+const ratio = Number(ratioArg) || 0.18;
+await doc.transform(weld(), simplify({ simplifier: MeshoptSimplifier, ratio, error: 0.003 }));
+// second, harder pass on the dense round bits the global error bound protects:
+// the two 102 k-tri engine-fan disks (sub-metre blade detail invisible behind
+// the intake) and the 180 k+ tris of bogie wheels now under CXGear
+await MeshoptSimplifier.ready;
+const CRUSH = { 'Material.014': 0.1, 'Material.015': 0.1, CXGear: 0.22 };
+for (const mesh of root.listMeshes())
+  for (const prim of mesh.listPrimitives()) {
+    const target = CRUSH[prim.getMaterial()?.getName()];
+    if (!target) continue;
+    const idx = prim.getIndices(), pos = prim.getAttribute('POSITION');
+    if (!idx || !pos) continue;
+    const ia = idx.getArray() instanceof Uint32Array ? idx.getArray() : new Uint32Array(idx.getArray());
+    const [out] = MeshoptSimplifier.simplify(
+      ia, pos.getArray(), 3, Math.floor(ia.length * target / 3) * 3, 0.01, ['LockBorder']);
+    idx.setArray(out.slice());
+  }
+// material sanity: Sketchfab roughness-0 glass-smooth everything reads wrong
+for (const m of root.listMaterials()) {
+  if (m.getMetallicFactor() > 0.2) m.setMetallicFactor(0.15);
+  if (m.getRoughnessFactor() < 0.4) m.setRoughnessFactor(0.5);
+}
+await doc.transform(
+  dedup(), prune(),
+  quantize({ pattern: /^(?!POSITION).*$/, quantizeNormal: 8 }),
+  textureCompress({ encoder: sharp, resize: [1024, 1024], targetFormat: 'jpeg', quality: 80 }),
+);
 
-let tris = 0;
+let tris = 0, gear = 0;
 for (const mesh of root.listMeshes())
   for (const p of mesh.listPrimitives()) {
-    const idx = p.getIndices();
-    tris += (idx ? idx.getCount() : p.getAttribute('POSITION').getCount()) / 3;
+    const t = (p.getIndices() ? p.getIndices().getCount() : p.getAttribute('POSITION').getCount()) / 3;
+    tris += t;
+    if (p.getMaterial()?.getName() === 'CXGear') gear += t;
   }
 await io.write(output, doc);
-console.log('wrote', output, '—', Math.round(tris), 'tris');
+console.log('wrote', output, '—', Math.round(tris), 'tris (', Math.round(gear), 'gear )');

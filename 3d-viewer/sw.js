@@ -22,7 +22,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v26';
+const VERSION = 'hks-sandbox-v27';
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -75,7 +75,7 @@ const DEFAULT_TERRAIN = [
   'data/models/plane-prop.glb',         // fly-mode airframes (HKS-110, CC-BY 3.0 — data/models/README.md)
   'data/models/plane-747.glb',
   'data/models/plane-777.glb',
-  'data/models/plane-a350.glb',         // CC-BY 4.0 (hakai315) — data/models/README.md
+  'data/models/plane-a350.glb',         // CC-BY 4.0 (Newbie99999993) — data/models/README.md
   'data/models/nc/plane-a330.glb',      // ⚠ CC BY-NC-SA (OUTPISTON) — absent on commercial deploys; precache is per-file best-effort so the 404 just leaves a gap
   'data/models/nc/plane-betsy.glb',     // ⚠ CC BY-NC-SA (OUTPISTON) — same fencing as the a330
 ].map((f) => `${DATA_BASE}/${f}`);
