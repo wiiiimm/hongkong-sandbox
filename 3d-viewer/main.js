@@ -2653,11 +2653,33 @@ function loadPlaneModel(id) {
     // (liveries are baked into the GLBs by their trim scripts — no runtime tint)
     const spinners = [];                               // wire any authored propeller into the shared spin
     model.traverse(o => {                              // outermost matches only — spinning parent AND child would compound
+      if (/_(slow|blurred)/i.test(o.name)) { o.visible = false; return; }   // some exports ship still/slow/blurred variants — keep only the still blades
       if (/prop|rotor|spinner/i.test(o.name) && !spinners.some(s => {
         for (let a = o.parent; a; a = a.parent) if (a === s) return true;
         return false;
       })) spinners.push(o);
     });
+    // Re-pivot every spinner about ITS OWN hub: many exports bake prop geometry in
+    // model space with every node origin at the aircraft centre, so rotating the node
+    // spins the prop around the fuselage — on a twin like the DC-3 both props sweep
+    // as one. Wrap each in a pivot Group at its bbox centre, as a child of `inner`
+    // (inner-local Z is the fuselage/thrust axis, so the shared stepFlight
+    // `rotation.z += spin` turns each prop in place on its own nacelle). Done while
+    // the subtree is still detached — coordinates are mapped into inner-local space,
+    // never through planeGrp, which may be mid-flight.
+    if (spinners.length) {
+      inner.updateMatrixWorld(true);
+      const toInner = new THREE.Matrix4().copy(inner.matrixWorld).invert();
+      for (let i = 0; i < spinners.length; i++) {
+        const o = spinners[i];
+        const c = new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).applyMatrix4(toInner);
+        const pivot = new THREE.Group();
+        pivot.position.copy(c);
+        inner.add(pivot);
+        pivot.attach(o);                               // keeps the blade's placement, re-homes its origin to the hub
+        spinners[i] = pivot;
+      }
+    }
     // swap: dress down, replace the hull wholesale — keep nav lights + cockpit
     clearLookFilter(planeGrp);
     for (const c of [...planeGrp.children]) {
