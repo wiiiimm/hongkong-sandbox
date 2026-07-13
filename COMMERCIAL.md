@@ -17,7 +17,7 @@ touch to arrange terms:
 
 > **Note on bundled assets:** third-party 3D models and media under
 > `3d-viewer/data/models/` carry their own licences (see `LICENSE-ASSETS.md`
-> there). Assets under `data/models/nc/` are **NonCommercial-licensed and are
+> there). Assets under `3d-viewer/data/models/nc/` are **NonCommercial-licensed and are
 > excluded from any commercial licence** — commercial users must remove them;
 > the app falls back to its built-in procedural models automatically.
 
