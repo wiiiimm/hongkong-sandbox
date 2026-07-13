@@ -113,7 +113,7 @@ const I18N = {
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
     'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)',
     'lbl.topspeed': 'Top speed',
-    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a350': 'Cathay Pacific A350-1000',
+    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a330': 'Cathay Pacific A330-300', 'plane.a350': 'Cathay Pacific A350-1000',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
     // HKS-86: the bottom mode dock + contextual tray
@@ -156,6 +156,7 @@ const I18N = {
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
+      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">“Air France Boeing 747-400” by zairiqzairiq</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, optimised &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">“boeing 777-300ER Saudi Arabian Airlines (Saudia)” by Omatar</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">“A350 V3 with animation” by Newbie99999993</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only) · <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">“McDonnell Douglas DC-3” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — repainted in Betsy’s 1946 bare-metal VR-HDB markings).</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -205,7 +206,7 @@ const I18N = {
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
     'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)',
     'lbl.topspeed': '極速',
-    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a350': '國泰航空 A350-1000',
+    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a330': '國泰航空 A330-300', 'plane.a350': '國泰航空 A350-1000',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
     // HKS-86: the bottom mode dock + contextual tray
@@ -248,6 +249,7 @@ const I18N = {
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
+      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · zairiqzairiq 的 <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">「Air France Boeing 747-400」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經優化並塗上本作自家國泰翡翠色塗裝） · Omatar 的 <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">「boeing 777-300ER Saudi Arabian Airlines (Saudia)」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · Newbie99999993 的 <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">「A350 V3 with animation」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">「McDonnell Douglas DC-3」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 重繪 1946 年「貝茜」VR-HDB 原色金屬塗裝）。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2552,6 +2554,7 @@ const PLANE_SKINS = [
   { id: 'betsy', build: buildBetsyDC3 },    // Cathay Pacific "Betsy" — the Douglas DC-3, VR-HDB
   { id: 'cx747', build: buildCX747 },       // Cathay Pacific Boeing 747
   { id: 'cx777', build: buildCX777 },       // Cathay Pacific Boeing 777-300
+  { id: 'a330',  build: buildCX777 },       // Cathay Pacific Airbus A330-300 — the 777 widebody twin stands in as loading/offline fallback (the ⚠ NC GLB may be absent on commercial deploys); PLANE_GLBS.a330.fit corrects the length
   { id: 'a350',  build: buildCXA350 },      // Cathay Pacific Airbus A350-1000
 ];
 let planeSkin = 'prop';
@@ -2585,8 +2588,206 @@ function setPlaneSkin(id) {
   // the clean eye; the 🧑‍✈️ segment shows/hides with the new skin either way
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   syncCamSeg();
+  loadPlaneModel(id);          // HKS-110: swap in the real airframe once it arrives
 }
 document.getElementById('planeskin').addEventListener('change', e => { setPlaneSkin(e.target.value); if (e.isTrusted) track('plane_skin', { skin: e.target.value }); });
+// ---- real GLB airframes (HKS-110) -------------------------------------------
+// Some skins upgrade from the procedural primitives to a real open-source 3D
+// model, lazily fetched from the data/ origin (ASSET_BASE-aware) and precached
+// by the service worker — same pattern as the walk-mode hiker. The procedural
+// builder stays as the loading stand-in and the offline / load-failure fallback.
+// Provenance + licences: data/models/README.md (CC-BY 3.0/4.0 + two nc/-fenced
+// BY-NC-SA hulls — LICENSE-ASSETS.md; all credited in the Credits drawer).
+// Every skin has a real airframe; the procedural builders remain as the
+// loading stand-ins and the offline / missing-nc-file fallbacks.
+//
+// Each model is normalised to the procedural airframe it replaces: nose -Z
+// (rotY flips exporters that face +Z), fuselage length fitted to the builder's
+// real-world size, belly/wheels dropped to the same waterline. The nav-light
+// spheres (tagged userData.navlight) and the painted flight-deck interior
+// (userData.cockpit) are kept in place, so stepFlight strobes/beacons and the
+// cockpit camera keep working unchanged.
+const PLANE_GLBS = {
+  prop:  { url: 'data/models/plane-prop.glb' },                          // “Small Airplane”, Vojtěch Balák
+  cx747: { url: 'data/models/plane-747.glb?v=2', rotY: Math.PI, anchorLights: true },        // “Air France Boeing 747-400”, zairiqzairiq (nose at +Z; our CX repaint + real CXGear baked in; v2 busts the 747-100-hull cache)
+  cx777: { url: 'data/models/plane-777.glb?v=3', rotY: -Math.PI / 2, anchorLights: true },   // “boeing 777-300ER … (Saudia)”, Omatar (nose at -X; our CX repaint + real CXGear baked in; v3 busts the 777_Boeing-hull cache)
+  a350:  { url: 'data/models/plane-a350.glb?v=2', rotY: Math.PI / 2 },   // “A350 V3 with animation”, Newbie99999993 (nose at +X; source-backed CX livery + CXGear split baked in; v2 busts the pre-HKS-110 livery cache)
+  // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — fenced under nc/ per LICENSE-ASSETS.md;
+  // commercial deploys delete nc/ and the 404 lands on the procedural fallback.
+  // fit: A330-300 (63.7 m) drawn against the 777-300 reference builder (73.9 m).
+  // gearProc: the source model has NO extended landing gear (lowest geometry is
+  // the engine cowls), so the loader lifts it to a gear stance and adds simple
+  // procedural gear — see the gearProc block in loadPlaneModel().
+  a330:  { url: 'data/models/nc/plane-a330.glb', rotY: Math.PI, fit: 63.69 / 73.86, gearProc: true, anchorLights: true },
+  // ⚠ NC (CC BY-NC-SA 4.0, OUTPISTON) — nc/-fenced like the a330. Bare-metal
+  // 1946 VR-HDB livery baked in (Union Jack fin, era titles). fixedGear: a
+  // taildragger's semi-fixed gear stays visible in flight (fleet-rule exception).
+  betsy: { url: 'data/models/nc/plane-betsy.glb', rotY: Math.PI, fixedGear: true },
+};
+const planeModelSt = {};   // id → { inflight, fails, warned } — cap retries like the hiker loader
+function disposePlaneGltf(scene) {
+  scene.traverse(o => {
+    if (!o.isMesh) return;
+    o.geometry?.dispose();
+    for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
+      if (m.map) m.map.dispose();
+      m.dispose();
+    }
+  });
+}
+function loadPlaneModel(id) {
+  const cfg = PLANE_GLBS[id];
+  if (!cfg) return;                                    // procedural-only skin
+  const st = planeModelSt[id] || (planeModelSt[id] = { inflight: false, fails: 0, warned: false });
+  if (st.inflight || st.fails >= 2) return;            // in flight, or gave up (offline / bad file)
+  if (planeGrp && planeGrp.userData.glbSkin === id) return;   // already wearing the real airframe
+  st.inflight = true;
+  new GLTFLoader().load(asset(cfg.url), gltf => {
+    st.inflight = false;
+    // group gone / skin swapped away mid-fetch / already swapped — try again when reselected
+    if (!planeGrp || planeSkin !== id || planeGrp.userData.glbSkin === id) { disposePlaneGltf(gltf.scene); return; }
+    const model = gltf.scene;
+    let meshCount = 0;
+    model.traverse(o => { if (o.isMesh) meshCount++; });
+    if (!meshCount) {                                  // a broken re-export must not replace a working plane
+      console.warn('[plane] GLB carries no meshes — keeping the procedural airframe:', cfg.url);
+      st.fails = 2;
+      disposePlaneGltf(model);
+      return;
+    }
+    // fit target: measure a throwaway procedural build (identity pose — the live
+    // group may be mid-flight with position/rotation applied), in pre-scale units
+    const ref = (PLANE_SKINS.find(k => k.id === id) || PLANE_SKINS[0]).build();
+    ref.updateMatrixWorld(true);
+    const rbox = new THREE.Box3().setFromObject(ref);
+    const rs = ref.scale.x || 1;
+    clearLookFilter(ref);
+    ref.traverse(o => {
+      if (o.geometry) o.geometry.dispose();
+      for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
+        if (m.map) m.map.dispose();
+        m.dispose();
+      }
+    });
+    const len = (rbox.max.z - rbox.min.z) / rs, floorY = rbox.min.y / rs,
+          midZ = (rbox.max.z + rbox.min.z) / 2 / rs;
+    // normalise: nose -Z, procedural length, belly on the same waterline
+    const inner = new THREE.Group();
+    inner.rotation.y = cfg.rotY || 0;
+    inner.add(model);
+    inner.updateMatrixWorld(true);
+    const mbox = new THREE.Box3().setFromObject(inner);
+    const k = (cfg.fit || 1) * len / Math.max(0.01, mbox.max.z - mbox.min.z);   // cfg.fit: real-world length vs the reference builder's type (a330 borrows the 777 builder)
+    inner.scale.setScalar(k);
+    inner.position.set(
+      -k * (mbox.max.x + mbox.min.x) / 2,
+      floorY - k * mbox.min.y,
+      midZ - k * (mbox.max.z + mbox.min.z) / 2);
+    // HKS-110: airframes with no authored landing gear (cfg.gearProc — the
+    // outpiston A330's lowest geometry is its engine cowls) would otherwise be
+    // parked on their engines by the waterline fit and read as floating.
+    // Lift the airframe to a real gear stance and add simple procedural gear
+    // — nose strut + two main bogies, dark grey — with the wheels reaching the
+    // procedural builder's wheel line (floorY), proportions from the real
+    // A330-300 (engine clearance ~1 m, main track 10.7 m vs 63.7 m length).
+    let procGear = null;
+    if (cfg.gearProc) {
+      const Lz = k * (mbox.max.z - mbox.min.z);        // final fuselage length
+      inner.position.y += 0.016 * Lz;                  // engine-bottom ground clearance
+      const dark = new THREE.MeshStandardMaterial({ color: 0x2b2e33, roughness: 0.8 });
+      procGear = new THREE.Group();
+      const wheelR = 0.013 * Lz;
+      const gearAt = (x, z) => {
+        const legH = 0.016 * Lz + 0.05 * Lz;           // wheel line up into the belly
+        const leg = new THREE.Mesh(new THREE.BoxGeometry(wheelR * 0.6, legH, wheelR * 0.6), dark);
+        leg.position.set(x, floorY + wheelR * 0.7 + legH / 2, z);
+        procGear.add(leg);
+        const wheel = new THREE.Mesh(new THREE.CylinderGeometry(wheelR, wheelR, wheelR * 1.5, 12), dark);
+        wheel.rotation.z = Math.PI / 2;
+        wheel.position.set(x, floorY + wheelR, z);
+        procGear.add(wheel);
+      };
+      gearAt(0, midZ - 0.38 * Lz);                     // nose strut
+      gearAt(-0.084 * Lz, midZ + 0.045 * Lz);          // main bogies
+      gearAt(0.084 * Lz, midZ + 0.045 * Lz);
+    }
+    if (cfg.anchorLights) anchorLoadedPlaneLights(planeGrp, inner);
+    // (liveries are baked into the GLBs by their trim scripts — no runtime tint)
+    const spinners = [];                               // wire any authored propeller into the shared spin
+    model.traverse(o => {                              // outermost matches only — spinning parent AND child would compound
+      if (/_(slow|blurred)/i.test(o.name)) { o.visible = false; return; }   // some exports ship still/slow/blurred variants — keep only the still blades
+      if (/prop|rotor|spinner/i.test(o.name) && !spinners.some(s => {
+        for (let a = o.parent; a; a = a.parent) if (a === s) return true;
+        return false;
+      })) spinners.push(o);
+    });
+    // Re-pivot every spinner about ITS OWN hub: many exports bake prop geometry in
+    // model space with every node origin at the aircraft centre, so rotating the node
+    // spins the prop around the fuselage — on a twin like the DC-3 both props sweep
+    // as one. Wrap each in a pivot Group at its bbox centre, as a child of `inner`
+    // (inner-local Z is the fuselage/thrust axis, so the shared stepFlight
+    // `rotation.z += spin` turns each prop in place on its own nacelle). Done while
+    // the subtree is still detached — coordinates are mapped into inner-local space,
+    // never through planeGrp, which may be mid-flight.
+    if (spinners.length) {
+      inner.updateMatrixWorld(true);
+      const toInner = new THREE.Matrix4().copy(inner.matrixWorld).invert();
+      for (let i = 0; i < spinners.length; i++) {
+        const o = spinners[i];
+        const c = new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()).applyMatrix4(toInner);
+        const pivot = new THREE.Group();
+        pivot.position.copy(c);
+        inner.add(pivot);
+        pivot.attach(o);                               // keeps the blade's placement, re-homes its origin to the hub
+        spinners[i] = pivot;
+      }
+    }
+    // swap: dress down, replace the hull wholesale — keep nav lights + cockpit
+    clearLookFilter(planeGrp);
+    for (const c of [...planeGrp.children]) {
+      if (c.userData.navlight || c === planeGrp.userData.cockpit) continue;
+      planeGrp.remove(c);
+      c.traverse(o => {
+        if (o.geometry) o.geometry.dispose();
+        for (const m of Array.isArray(o.material) ? o.material : o.material ? [o.material] : []) {
+          if (m.map) m.map.dispose();
+          m.dispose();
+        }
+      });
+    }
+    delete planeGrp.userData.prop;                     // the procedural blades are gone
+    delete planeGrp.userData.props;
+    delete planeGrp.userData.gear;                     // …and the procedural gear group
+    if (spinners.length) planeGrp.userData.props = spinners;
+    // HKS-110 fleet rule: tag the airframe's landing gear so stepFlight can
+    // drop/retract it with the landed state — matched by node name or by the
+    // CXGear material the trim scripts split gear geometry into.
+    if (!cfg.fixedGear) {                              // taildraggers keep their gear out (betsy)
+      const gear = [];
+      model.traverse(o => {
+        if (!o.isMesh) return;
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        if (/gear|wheel|tyre|tire|bogie|undercarriage/i.test(o.name) ||
+            mats.some(m => m && /^CXGear/.test(m.name || ''))) gear.push(o);
+      });
+      if (gear.length) planeGrp.userData.gear = gear;
+    }
+    if (procGear) {                                    // gearProc airframes: the loader-built gear group
+      planeGrp.add(procGear);                          // (visible parked; stepFlight hides it airborne)
+      planeGrp.userData.gear = procGear;
+    }
+    planeGrp.add(inner);
+    planeGrp.userData.glbSkin = id;
+    applyLookFilter(planeGrp);                         // re-dress the new hull for Matrix/Neon
+  }, undefined, err => {                               // offline / 404 (e.g. GLB not yet on R2): keep the procedural build
+    st.inflight = false;
+    st.fails++;
+    if (!st.warned) {
+      console.warn('[plane] model load failed — using the procedural airframe:', asset(cfg.url), (err && err.message) || err);
+      st.warned = true;
+    }
+  });
+}
 // a swept, tapered wing as one symmetric extrusion laid flat: shape x = span
 // (± out to the tips), shape y = fore-aft (+aft); `sweep` is how far aft the
 // tip leading edge sits. After rotateX the top skin lies at y = 0.
@@ -2622,20 +2823,75 @@ function addNavLights(grp, spec) {
   const mk = (p, color, r, hidden) => {
     const m = new THREE.Mesh(new THREE.SphereGeometry(r, 8, 6),
       new THREE.MeshBasicMaterial({ color }));
+    m.userData.navlight = true;              // HKS-110: survives the GLB airframe swap
     m.position.set(p[0], p[1], p[2]);
     if (hidden) m.visible = false;          // flashers start dark until stepFlight ticks
     grp.add(m);
     return m;
   };
-  const L = { strobes: [], beacons: [] };
-  mk(spec.wingL, 0xff2418, 0.045);          // port = red, starboard = green — never swapped
-  mk(spec.wingR, 0x1fe04c, 0.045);
-  mk(spec.tail, 0xffffff, 0.04);
+  const L = { positions: {}, strobes: [], beacons: [] };
+  L.positions.wingL = mk(spec.wingL, 0xff2418, 0.045);  // port = red, starboard = green — never swapped
+  L.positions.wingR = mk(spec.wingR, 0x1fe04c, 0.045);
+  L.positions.tail = mk(spec.tail, 0xffffff, 0.04);
   for (const p of [spec.wingL, spec.wingR, spec.tail])
     L.strobes.push(mk([p[0], p[1] + 0.06, p[2]], 0xffffff, 0.055, true));
   L.beacons.push(mk(spec.top, 0xff2222, 0.05, true));
   L.beacons.push(mk(spec.bot, 0xff2222, 0.05, true));
   grp.userData.lights = L;
+}
+
+// A real GLB can differ materially from the procedural loading stand-in that
+// created the light spheres. Re-anchor those surviving lights to the loaded,
+// normalised geometry: extreme span points for the wingtips, the centreline's
+// aft-most point for the tail, and fuselage crown/belly samples for beacons.
+// This is opt-in per model because the original authored positions remain the
+// right fallback when a GLB is absent (notably commercial builds without nc/).
+function anchorLoadedPlaneLights(grp, inner) {
+  const L = grp.userData.lights;
+  if (!L?.positions || !inner) return;
+  inner.updateMatrixWorld(true);
+  const pts = [], v = new THREE.Vector3();
+  inner.traverse(o => {
+    if (!o.isMesh) return;
+    const pos = o.geometry?.getAttribute('position');
+    if (!pos) return;
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld);
+      pts.push(v.clone());
+    }
+  });
+  if (!pts.length) return;
+  const box = new THREE.Box3().setFromPoints(pts);
+  const span = box.max.x - box.min.x, len = box.max.z - box.min.z;
+  const median = a => {
+    if (!a.length) return 0;
+    a.sort((x, y) => x - y);
+    const m = a.length >> 1;
+    return a.length & 1 ? a[m] : (a[m - 1] + a[m]) / 2;
+  };
+  const edge = (side) => {
+    const x0 = side < 0 ? box.min.x : box.max.x;
+    const near = pts.filter(p => side < 0 ? p.x <= x0 + span * 0.018 : p.x >= x0 - span * 0.018);
+    return new THREE.Vector3(x0, median(near.map(p => p.y)), median(near.map(p => p.z)));
+  };
+  const centreline = pts.filter(p => Math.abs(p.x - (box.min.x + box.max.x) / 2) < span * 0.06);
+  const tailPool = centreline.filter(p => p.z >= box.max.z - len * 0.018);
+  const tailPts = tailPool.length ? tailPool : centreline;
+  const tail = new THREE.Vector3(
+    median(tailPts.map(p => p.x)), median(tailPts.map(p => p.y)), box.max.z + 0.012);
+  const zMid = (box.min.z + box.max.z) / 2;
+  const midBody = centreline.filter(p => Math.abs(p.z - zMid) < len * 0.035);
+  const bodyPts = midBody.length ? midBody : centreline;
+  const top = new THREE.Vector3(0, Math.max(...bodyPts.map(p => p.y)) + 0.012, zMid);
+  const bot = new THREE.Vector3(0, Math.min(...bodyPts.map(p => p.y)) - 0.012, zMid);
+  const anchors = [edge(-1), edge(1), tail];
+  const keys = ['wingL', 'wingR', 'tail'];
+  for (let i = 0; i < keys.length; i++) {
+    L.positions[keys[i]].position.copy(anchors[i]);
+    L.strobes[i].position.copy(anchors[i]).y += 0.06;
+  }
+  L.beacons[0].position.copy(top);
+  L.beacons[1].position.copy(bot);
 }
 // ---- runtime canvas textures (HKS-93) ---------------------------------------
 // All livery and cockpit detail below is PAINTED at runtime onto canvases and
@@ -4393,6 +4649,7 @@ function enterFlight() {
   flight.prevSpin = spinDir; spinDir = 0;              // the world holds still while you fly
   syncSpinSeg();
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
+  loadPlaneModel(planeSkin);   // HKS-110: swap in the real airframe once it arrives
   planeGrp.visible = true;
   applyLookFilter(planeGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
   // HKS-93: a remembered cockpit view can't survive onto a skin with no flight deck
@@ -4658,8 +4915,14 @@ function stepFlight() {
   }
   planeGrp.position.copy(F.pos);
   planeGrp.quaternion.copy(_fq);
-  // HKS-93: the gear retracts — wheels render only while on the ground
-  if (planeGrp.userData.gear) planeGrp.userData.gear.visible = F.landed;
+  // HKS-93: the gear retracts — wheels render only while on the ground.
+  // Procedural builders park one Group here; GLB airframes (HKS-110) tag an
+  // ARRAY of scattered gear/wheel meshes — both obey the same landed rule.
+  const gr = planeGrp.userData.gear;
+  if (gr) {
+    if (Array.isArray(gr)) { for (const g of gr) g.visible = F.landed; }
+    else gr.visible = F.landed;
+  }
   // HKS-93: anti-collision flashers — position lights stay steady, the white
   // wingtip/tail strobes double-flash once a second while AIRBORNE (real ops:
   // strobes off on the ground), and the red beacons pulse slower, always on
@@ -4671,11 +4934,10 @@ function stepFlight() {
     const beaconOn = (tms % 1400) < 240;
     for (const m of Lg.beacons) m.visible = beaconOn;
   }
-  // HKS-87: the prop is tied to engine/airspeed — airborne it keeps a base
-  // spin plus a speed term; landed it's driven purely by ground speed, so it
-  // winds down to a dead stop as the plane brakes and stays still while parked.
-  // (userData.props is the twin-engine variant — every prop shares the one spin rate)
-  const spinD = F.landed ? F.speed * 0.01 : 0.25 + F.speed * 0.004;
+  // HKS-87/HKS-110 fleet rule: props & fans spin ONLY airborne — a base spin
+  // plus a speed term; on the ground they hold still (gear down, props stopped).
+  // (userData.props is the multi-engine variant — every prop shares the one spin rate)
+  const spinD = F.landed ? 0 : 0.25 + F.speed * 0.004;
   if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += spinD;
   if (planeGrp.userData.props) for (const pr of planeGrp.userData.props) pr.rotation.z += spinD;
   // HKS-87: engine audio follows the same landed rule as the prop — on the

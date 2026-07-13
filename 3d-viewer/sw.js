@@ -22,7 +22,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v25';
+const VERSION = 'hks-sandbox-v33';   // v32 merged #201+#206; v33 evicts NC GLBs pulled out of the persistent list (HKS-110)
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -72,6 +72,17 @@ const DEFAULT_TERRAIN = [
   'data/hk-landmarks.json',
   'data/hk-sky.json',
   'data/models/hiker-adventurer.glb',   // walk-mode hiker (CC0 Quaternius Adventurer)
+  'data/models/plane-prop.glb',         // fly-mode airframes (HKS-110, CC-BY 3.0 — data/models/README.md)
+  'data/models/plane-747.glb',
+  'data/models/plane-777.glb',
+  'data/models/plane-a350.glb',         // CC-BY 4.0 (Newbie99999993) — data/models/README.md
+  // ⚠ NC models (data/models/nc/*) are deliberately absent from this list. A commercial
+  // build deletes nc/ from the origin (COMMERCIAL.md / LICENSE-ASSETS.md); precaching or
+  // migrating them here would persist the BY-NC-SA GLBs in Cache Storage — and the
+  // activate() migration would copy them forward across every VERSION bump, so they'd keep
+  // being served from cache even after deletion. Kept off the persistent list, they load
+  // on-demand via staleWhileRevalidate on non-commercial deploys only, and are dropped on
+  // the next VERSION bump once the origin stops serving them.
 ].map((f) => `${DATA_BASE}/${f}`);
 
 const isHeavyPath = (p) =>
