@@ -4706,8 +4706,9 @@ const UFO_BELLY = -0.55;                                // the fleet waterline �
 // leaves no rim to see. BEAM_TOP then buries that apex up inside the hull, where the
 // opaque saucer depth-tests it away at any attitude (HKS-113).
 const BEAM_TOP = -0.2;                                  // apex, inside the hull (belly is -0.55)
+const BEAM_FOOT = 3.0;                                  // cone-foot radius at unit length — a wide, cow-sized throw
 function buildAbductionBeam() {
-  const RINGS = 12, SEG = 32, rTop = 0.03, rBot = 1.0;
+  const RINGS = 12, SEG = 32, rTop = 0.03, rBot = BEAM_FOOT;
   const pos = [], col = [], idx = [];
   const c = new THREE.Color(0x9dff2e);                   // that unmistakable alien green
   for (let i = 0; i < RINGS; i++) {
@@ -5145,7 +5146,7 @@ function stepFlight() {
       const flare = 1 + len * 0.045;                   // a longer throw spreads wider
       cone.scale.set(flare, len, flare);
       pool.position.y = -dLocal + 0.05;                // sit ON the deck, a hair above z-fighting
-      pool.scale.setScalar(flare * 1.15);              // the cone's foot ⇒ the pool's rim
+      pool.scale.setScalar(flare * BEAM_FOOT * 1.15);  // the cone's foot ⇒ the pool's rim (keep them coupled)
       // strongest while hovering (that's when it's stealing something), and it
       // fades out with altitude — a beam from 900 m up would just be a haze
       const fade = Math.max(0, Math.min(1, 1 - (agl - 260) / 620));
