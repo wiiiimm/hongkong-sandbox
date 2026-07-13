@@ -155,7 +155,7 @@ const I18N = {
       + 'licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>'
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
-      + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
+      + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised. The UFO\u2019s cattle: <a href="https://poly.pizza/m/26zM1outCr" target="_blank" rel="noopener">“Cow”</a> &amp; <a href="https://poly.pizza/m/a8PIIYwF7r" target="_blank" rel="noopener">“Bull” by Quaternius</a> (CC0 / public domain), rig &amp; animations stripped.</p>'
       + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">“Air France Boeing 747-400” by zairiqzairiq</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, optimised &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">“boeing 777-300ER Saudi Arabian Airlines (Saudia)” by Omatar</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">“A350 V3 with animation” by Newbie99999993</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only) · <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">“McDonnell Douglas DC-3” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — repainted in Betsy’s 1946 bare-metal VR-HDB markings) · <a href="https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06" target="_blank" rel="noopener">“UFO” by Islide</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, textures optimised).</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
@@ -248,7 +248,7 @@ const I18N = {
       + '授權<a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">條款</a>。</p>'
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
-      + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
+      + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。幽浮的牛群：Quaternius 的 <a href="https://poly.pizza/m/26zM1outCr" target="_blank" rel="noopener">「Cow」</a> 及 <a href="https://poly.pizza/m/a8PIIYwF7r" target="_blank" rel="noopener">「Bull」</a>（CC0 公有領域），已移除骨架與動畫。</p>'
       + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · zairiqzairiq 的 <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">「Air France Boeing 747-400」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經優化並塗上本作自家國泰翡翠色塗裝） · Omatar 的 <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">「boeing 777-300ER Saudi Arabian Airlines (Saudia)」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · Newbie99999993 的 <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">「A350 V3 with animation」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">「McDonnell Douglas DC-3」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 重繪 1946 年「貝茜」VR-HDB 原色金屬塗裝） · Islide 的 <a href="https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06" target="_blank" rel="noopener">「UFO」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，貼圖經優化）。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
@@ -2593,6 +2593,8 @@ function setPlaneSkin(id) {
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
   syncCamSeg();
   loadPlaneModel(id);          // HKS-110: swap in the real airframe once it arrives
+  if (id === 'ufo') ensureHerd();          // HKS-113: switching TO the UFO mid-flight brings the herd out…
+  else if (herd.grp) herd.grp.visible = false;   // …and switching away puts it back in the barn
 }
 document.getElementById('planeskin').addEventListener('change', e => { setPlaneSkin(e.target.value); if (e.isTrusted) track('plane_skin', { skin: e.target.value }); });
 // ---- real GLB airframes (HKS-110) -------------------------------------------
@@ -4800,6 +4802,134 @@ function buildUFO() {
   grp.visible = false;
   return grp;
 }
+// ---- the herd (HKS-113) -----------------------------------------------------
+// Cattle scattered over the land for the UFO to beam up. They exist only in UFO
+// mode; every other craft never builds them. Models are CC0 (Quaternius — the same
+// author and licence as the walk-mode hiker), so no attribution is owed, and the
+// trim script strips their 25 animations + skeleton, leaving a 117 KB static mesh.
+const HERD_N = 36;                                      // head of cattle on the map
+// Deliberately NOT life-size. A real 2.6 m cow on a map this size is a sub-pixel
+// speck from any altitude you'd actually fly at, and the beam's foot is ~46 m across
+// at a 30 m hover — so the quarry is scaled to read against the beam, not against
+// the terrain. Gameplay beats realism here.
+const COW_LEN = 14;                                     // metres, nose→tail
+const CATCH_MS = 1700;                                  // how long a beam-up takes
+const CATCH_AGL = 260;                                  // above this the beam is too faint to grab anything
+const herd = { grp: null, cows: [], caught: 0, proto: null, loading: false, failed: false };
+
+// stand-in used if the GLBs are missing (offline / not yet on R2) — the same
+// procedural-fallback contract every model in this project has to honour
+function buildProcCow(bull) {
+  const g = new THREE.Group();
+  const hide = new THREE.MeshStandardMaterial({ color: bull ? 0x4a3527 : 0x6b4b32, roughness: 0.85 });
+  const pale = new THREE.MeshStandardMaterial({ color: 0xe8e2d6, roughness: 0.85 });
+  const body = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.0, 2.2), hide);
+  body.position.y = 1.25; g.add(body);
+  const head = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.7), hide);
+  head.position.set(0, 1.45, -1.4); g.add(head);
+  for (const [x, z] of [[-0.35, 0.8], [0.35, 0.8], [-0.35, -0.8], [0.35, -0.8]]) {
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.8, 0.22), pale);
+    leg.position.set(x, 0.4, z); g.add(leg);
+  }
+  return g;
+}
+// normalise a prototype to COW_LEN nose→tail, feet on y = 0
+function fitCow(o) {
+  o.updateMatrixWorld(true);
+  const b = new THREE.Box3().setFromObject(o);
+  const k = COW_LEN / Math.max(0.01, b.max.z - b.min.z);
+  const wrap = new THREE.Group();                       // wrapper carries the fit; the herd only scales the wrapper
+  o.scale.setScalar(k);
+  o.position.set(-k * (b.max.x + b.min.x) / 2, -k * b.min.y, -k * (b.max.z + b.min.z) / 2);
+  wrap.add(o);
+  return wrap;
+}
+// a random point on LAND — above the tide band, so nobody grazes in the harbour
+function landSpot() {
+  for (let i = 0; i < 80; i++) {
+    const col = 3 + Math.random() * (W - 6), row = 3 + Math.random() * (H - 6);
+    const e = sampleE(col, row);
+    if (e > 15) return { x: (col - W / 2) * cell, z: (row - H / 2) * cell, y: e * VE };
+  }
+  return null;
+}
+function placeCow(c) {
+  const s = landSpot();
+  if (!s) { c.obj.visible = false; return; }
+  c.obj.visible = true;
+  c.obj.position.set(s.x, s.y, s.z);
+  c.obj.rotation.set(0, Math.random() * Math.PI * 2, 0);
+  c.obj.scale.setScalar(1);
+  c.groundY = s.y;
+  c.t0 = 0;                                             // 0 = grazing, >0 = being taken
+}
+function scatterHerd() {
+  if (!herd.grp || !curG) return;
+  for (const c of herd.cows) placeCow(c);
+}
+function buildHerd() {
+  if (herd.grp) { scatterHerd(); return; }
+  const protos = herd.proto || { cow: buildProcCow(false), bull: buildProcCow(true) };
+  const cow = fitCow(protos.cow), bull = fitCow(protos.bull);
+  herd.grp = new THREE.Group();
+  herd.grp.visible = false;
+  for (let i = 0; i < HERD_N; i++) {
+    const obj = (i % 3 === 0 ? bull : cow).clone(true);  // clone shares geometry + materials
+    herd.grp.add(obj);
+    herd.cows.push({ obj, groundY: 0, t0: 0 });
+  }
+  world.add(herd.grp);
+  scatterHerd();
+}
+function ensureHerd() {
+  if (planeSkin !== 'ufo' || !curG) return;
+  if (herd.grp) { scatterHerd(); return; }
+  if (herd.loading) return;
+  if (herd.proto || herd.failed) { buildHerd(); return; }
+  herd.loading = true;
+  const ldr = new GLTFLoader();
+  const get = (u) => new Promise((res) => ldr.load(asset(u), (g) => res(g.scene), undefined, () => res(null)));
+  Promise.all([get('data/models/cow.glb'), get('data/models/bull.glb')]).then(([cow, bull]) => {
+    herd.loading = false;
+    if (!cow || !bull) {                                // offline / not on R2 yet → procedural herd
+      console.warn('[herd] cattle GLBs unavailable — using the procedural stand-ins');
+      herd.failed = true;
+    } else {
+      herd.proto = { cow, bull };
+    }
+    buildHerd();
+  });
+}
+// the abduction: a cow caught in the beam is hauled up, spinning, into the belly
+function stepHerd() {
+  if (!herd.grp) return;
+  const show = flight.on && planeSkin === 'ufo';
+  herd.grp.visible = show;
+  if (!show) return;
+  const F = flight, now = performance.now();
+  const bm = planeGrp && planeGrp.userData.beam;
+  const live = !!(bm && bm.visible) && F.agl < CATCH_AGL;   // beam on, and low enough to grab
+  const beamR = planeGrp ? (planeGrp.userData.beamR || 0) : 0;
+  const belly = planeGrp ? planeGrp.position.y + UFO_BELLY * (planeGrp.scale.x || 1) : 0;
+  for (const c of herd.cows) {
+    if (c.t0) {                                         // …already on its way up
+      const k = Math.min(1, (now - c.t0) / CATCH_MS);
+      const e = k * k * (3 - 2 * k);                    // smoothstep — a gentle snatch, not a yank
+      c.obj.position.y = c.groundY + (c.topY - c.groundY) * e;
+      c.obj.rotation.y += 0.10 + 0.32 * k;              // whirls faster the higher it gets
+      c.obj.rotation.z = Math.sin(now / 80) * 0.30 * k; // helpless wobble
+      c.obj.scale.setScalar(1 - 0.8 * e);               // shrinks away into the hull
+      if (k >= 1) { herd.caught++; track('ufo_abduct', { total: herd.caught }); placeCow(c); }
+      continue;
+    }
+    if (!live || !c.obj.visible) continue;
+    const dx = c.obj.position.x - F.pos.x, dz = c.obj.position.z - F.pos.z;
+    if (Math.hypot(dx, dz) < beamR) {                   // standing in the light → taken
+      c.t0 = now;
+      c.topY = belly;
+    }
+  }
+}
 function enterFlight() {
   if (flight.on || !curG) return;
   if (walk.on) exitWalk();
@@ -4809,6 +4939,7 @@ function enterFlight() {
   syncSpinSeg();
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
   loadPlaneModel(planeSkin);   // HKS-110: swap in the real airframe once it arrives
+  ensureHerd();                // HKS-113: UFO only — scatter the cattle for it to steal
   planeGrp.visible = true;
   applyLookFilter(planeGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
   // HKS-93: a remembered cockpit view can't survive onto a skin with no flight deck
@@ -4862,6 +4993,7 @@ function exitFlight() {
   flight.keys = {};
   flight.touchHold = 0; flight.mouseLook = false; flight.lookYaw = 0; flight.lookPitch = 0;   // HKS-53
   if (planeGrp) planeGrp.visible = false;
+  if (herd.grp) herd.grp.visible = false;   // HKS-113: the cattle only exist while a UFO is flying
   document.getElementById('flybtn').classList.remove('on');
   spinDir = flight.prevSpin;
   syncSpinSeg();
@@ -5086,6 +5218,7 @@ function stepFlight() {
   const gy = (col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1 ? sampleE(col, row) : 0) * VE;
   const surfY = Math.max(gy, sea && sea.visible ? sea.position.y : -Infinity);
   const agl = (F.pos.y - surfY) / VE;                  // real metres above ground/water
+  F.agl = agl;                                         // HKS-113: stepHerd reads it (beam too high ⇒ no catch)
   if (F.landed) {
     F.speed = Math.max(0, F.speed - 1.5);              // roll-out braking
     F.pitch *= 0.8; F.roll *= 0.75;                    // settle level on the gear
@@ -5149,6 +5282,9 @@ function stepFlight() {
       const cone = bm.userData.cone, pool = bm.userData.pool;
       const flare = 1 + len * 0.045;                   // a longer throw spreads wider
       cone.scale.set(flare, len, flare);
+      // the cone's footprint on the deck, in world metres — stepHerd uses exactly
+      // this as the catch radius, so a cow is taken iff it is standing IN the light
+      planeGrp.userData.beamR = BEAM_FOOT * flare * S;
       pool.position.y = -dLocal + 0.05;                // sit ON the deck, a hair above z-fighting
       pool.scale.setScalar(flare * BEAM_FOOT * 1.15);  // the cone's foot ⇒ the pool's rim (keep them coupled)
       // strongest while hovering (that's when it's stealing something), and it
@@ -5221,9 +5357,12 @@ function stepFlight() {
   // --- HUD: real numbers (metres, knots), how-to card for the first seconds
   const az = ((-F.yaw / D2R) % 360 + 360) % 360;
   const touch = F.tilt && F.tiltRef != null;
+  stepHerd();                                          // HKS-113: the cattle, and whatever the beam is taking
   const stats = `${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +   // no emoji — ✈/🛬 flickered as landed toggled (HKS-91)
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // speed now shows on the speed bar
-    (F.landed ? ` · ${t('fly.landed')}` : '');
+    (F.landed ? ` · ${t('fly.landed')}` : '') +
+    // HKS-113: the abduction tally rides in the same HUD line — UFO only
+    (planeSkin === 'ufo' ? ` · 🐄 ${herd.caught}` : '');
   // HKS-91: single-line live stats, top-left under the brand chip (how-to lives in
   // the Help drawer, camera toggle by the compass, exit via the dock/Esc)
   document.getElementById('flyhud').innerHTML = stats;

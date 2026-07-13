@@ -342,6 +342,46 @@ The one craft in the picker that isn’t an aircraft.
   also CC BY) — only 1 866 tris and, decisively, **no underside light**, so there
   was nothing to anchor the beam to.
 
+## cow.glb · bull.glb — the UFO's quarry (HKS-113)
+
+The cattle scattered over the land for the UFO to beam up. They exist only in UFO
+mode; no other craft ever builds them.
+
+- **Source:** “Cow” by **Quaternius** — https://poly.pizza/m/26zM1outCr
+  and “Bull” by **Quaternius** — https://poly.pizza/m/a8PIIYwF7r
+  (author: https://quaternius.com)
+- **Licence: CC0 / public domain** — Poly Pizza states *“Public Domain (CC0)”* for
+  both. **No attribution owed and no conditions at all** — the same author and the
+  same licence as the walk-mode hiker. Freely licensed, so they sit here in
+  `data/models/` proper and **are** in the service worker precache.
+- **Original files:** ~2 450 / 2 418 tris, **no textures** (Quaternius colours by
+  material), but each ships **25 skeletal animations plus a skin** — which is the
+  entire reason the downloads are ~1 MB apiece.
+- **Our modifications:** **no decimation and no texture work** — there is nothing to
+  decimate and there are no textures. The whole recipe is stripping the 25
+  animations and the skin/skeleton (57 bone nodes each), leaving the bind pose — a
+  standing animal — as a plain static mesh, then dedup/prune/quantize (POSITION
+  float32). The herd never animates on its own, so the rig was pure weight, and
+  dropping it means dozens of cattle render as cheap static meshes.
+  Result: **1 MB → 117 KB each**, 2 450 / 2 418 tris kept intact.
+- **Runtime:** normalised to `COW_LEN` nose→tail with feet on y = 0, then scattered
+  on random land above the tide band (elevation > 15 m — nobody grazes in the
+  harbour) with a random yaw. **Deliberately not life-size:** a real 2.6 m cow is a
+  sub-pixel speck from any altitude you'd actually fly at, and the beam's foot is
+  ~46 m across at a 30 m hover, so the quarry is scaled to read against *the beam*
+  rather than against the terrain. A cow standing inside the beam's ground
+  footprint is hauled up, spinning, into the belly; the tally shows in the fly HUD.
+- **Rebuild:** `node ../../scripts/trim_cattle_glb.mjs <input.glb> cow.glb`
+- **Rejected alternatives:** “Cow” by kenchoo
+  (https://sketchfab.com/3d-models/cow-3c1bbce7a64640cca28b49b3d181e347) — **Sketchfab
+  “Free Standard”** (`free-st`), which grants broad *use* rights but **not**
+  redistribution of the model as a standalone file. This repo is public and serves
+  its GLBs as loose, downloadable files from a public bucket, which is exactly that.
+  Not one of the licences `LICENSE-ASSETS.md` accepts. Also “Brown Cow 3d model” by
+  iRahulRajput (CC BY 4.0 — *licence was fine*), dropped in favour of the CC0 pair:
+  it was a 264 k-tri / 30 MB hero model that would have needed brutal decimation, and
+  CC0 carries no attribution burden.
+
 ## Fleet rules (HKS-110)
 
 - Landed: **gear + wheels visible, props/fans stopped**. Airborne: **gear
