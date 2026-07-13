@@ -22,7 +22,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v31';
+const VERSION = 'hks-sandbox-v32';   // merge of #201 (plane fleet) + #206 (sea) — supersedes both v31 and v25
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
