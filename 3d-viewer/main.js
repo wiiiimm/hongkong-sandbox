@@ -4700,8 +4700,14 @@ const UFO_BELLY = -0.55;                                // the fleet waterline �
 // and falling off toward the ground. Vertex colours (not a texture) so the
 // falloff direction is explicit rather than dependent on cone UV conventions,
 // and additive blending renders the dark end as invisible.
+// rTop is a near-point, not a mouth: the beam is counter-rotated to stay vertical
+// while the hull banks, so a wide open top ring shows its rim the moment you tilt —
+// you end up looking straight down the throat of the cone. Tapering to an apex
+// leaves no rim to see. BEAM_TOP then buries that apex up inside the hull, where the
+// opaque saucer depth-tests it away at any attitude (HKS-113).
+const BEAM_TOP = -0.2;                                  // apex, inside the hull (belly is -0.55)
 function buildAbductionBeam() {
-  const RINGS = 12, SEG = 32, rTop = 0.35, rBot = 1.0;
+  const RINGS = 12, SEG = 32, rTop = 0.03, rBot = 1.0;
   const pos = [], col = [], idx = [];
   const c = new THREE.Color(0x9dff2e);                   // that unmistakable alien green
   for (let i = 0; i < RINGS; i++) {
@@ -4726,7 +4732,7 @@ function buildAbductionBeam() {
   const mesh = new THREE.Mesh(g, new THREE.MeshBasicMaterial({
     vertexColors: true, transparent: true, opacity: 0.34, blending: THREE.AdditiveBlending,
     depthWrite: false, side: THREE.DoubleSide }));
-  mesh.position.y = -0.5;                               // start just under the belly lamp
+  mesh.position.y = BEAM_TOP;                           // apex tucked up inside the hull
   // the elliptical light pool where the beam lands — a flat disc that rides at
   // ground level inside the same counter-rotated group, so it stays horizontal
   const pool = new THREE.Mesh(new THREE.CircleGeometry(1, 40), new THREE.MeshBasicMaterial({
@@ -4816,7 +4822,10 @@ function enterFlight() {
   } else {
     col = W / 2; row = H / 2;
     flight.pos.set((col - W/2) * cell, sampleE(col, row) * VE + 400 * VE, (row - H/2) * cell);
-    flight.speed = 62;                                 // m/s — light-aircraft cruise (~120 kt)
+    // m/s — light-aircraft cruise (~120 kt). The UFO spawns at a dead stop instead:
+    // hovering IS its resting state, and shoving it to cruise would send it flying off
+    // the moment you pick it (HKS-113).
+    flight.speed = planeSkin === 'ufo' ? 0 : 62;
     flight.landed = false;
   }
   flight.yaw = -Math.PI / 2;                           // east — down the runway toward Kowloon
@@ -5055,8 +5064,13 @@ function stepFlight() {
     F.pos.y -= Math.max(0, 62 - F.speed) * 0.004 * VE; // below cruise the nose gets heavy
   }
   if (!F.landed) {                                     // parked on the runway you don't drift downwind
-    F.pos.x += windVec.x * (25 * windStrength) / 60;   // a full gale drifts you ~25 m/s
-    F.pos.z += windVec.z * (25 * windStrength) / 60;
+    // HKS-113: …and a hovering saucer holds station. It isn't a kite — station-keeping
+    // is the whole point of the hover, so the wind's grip fades out with `hover`.
+    // Without this the UFO still slides downwind (up to 25 m/s) at zero throttle,
+    // which reads as "it won't stop moving forward". Jets are unaffected (hover = 0).
+    const drift = (25 * windStrength) * (1 - hover) / 60;
+    F.pos.x += windVec.x * drift;
+    F.pos.z += windVec.z * drift;
   }
   F.pos.x = Math.max(-(b.halfX + BUF), Math.min(b.halfX + BUF, F.pos.x));
   F.pos.z = Math.max(-(b.halfZ + BUF), Math.min(b.halfZ + BUF, F.pos.z));
@@ -5125,8 +5139,8 @@ function stepFlight() {
       // cancel the hull's pitch/bank so the beam stays vertical however it flies
       bm.quaternion.copy(_fq).invert();
       const S = planeGrp.scale.x || 1;                 // group units → world metres
-      const dLocal = Math.max(0.6, (planeGrp.position.y - surfY) / S);   // belly → deck, in group units
-      const len = Math.min(80, dLocal - 0.5);          // stop the cone AT the ground
+      const dLocal = Math.max(0.6, (planeGrp.position.y - surfY) / S);   // origin → deck, in group units
+      const len = Math.min(80, dLocal + BEAM_TOP);     // stop the cone AT the ground (apex starts at BEAM_TOP)
       const cone = bm.userData.cone, pool = bm.userData.pool;
       const flare = 1 + len * 0.045;                   // a longer throw spreads wider
       cone.scale.set(flare, len, flare);
