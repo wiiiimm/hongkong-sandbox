@@ -2612,7 +2612,7 @@ document.getElementById('planeskin').addEventListener('change', e => { setPlaneS
 // (userData.cockpit) are kept in place, so stepFlight strobes/beacons and the
 // cockpit camera keep working unchanged.
 const PLANE_GLBS = {
-  prop:  { url: 'data/models/plane-prop.glb' },                          // “Small Airplane”, Vojtěch Balák
+  prop:  { url: 'data/models/plane-prop.glb', anchorLights: true },      // “Small Airplane”, Vojtěch Balák
   cx747: { url: 'data/models/plane-747.glb?v=2', rotY: Math.PI, anchorLights: true },        // “Air France Boeing 747-400”, zairiqzairiq (nose at +Z; our CX repaint + real CXGear baked in; v2 busts the 747-100-hull cache)
   cx777: { url: 'data/models/plane-777.glb?v=3', rotY: -Math.PI / 2, anchorLights: true },   // “boeing 777-300ER … (Saudia)”, Omatar (nose at -X; our CX repaint + real CXGear baked in; v3 busts the 777_Boeing-hull cache)
   a350:  { url: 'data/models/plane-a350.glb?v=2', rotY: Math.PI / 2 },   // “A350 V3 with animation”, Newbie99999993 (nose at +X; source-backed CX livery + CXGear split baked in; v2 busts the pre-HKS-110 livery cache)
