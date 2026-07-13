@@ -182,14 +182,20 @@ semantic-release's release rules, so lenient would silently under-release.
 ```bash
 # A standalone PR comment (rejections, status summaries, @-mention nudges).
 gh pr comment $PR --repo $REPO --body "$(cat <<'EOF'
-Rejecting <finding>: <one-line reason>. @coderabbitai — resolved on HEAD, please re-scan.
+Rejecting <finding>: <one-line reason>.
 EOF
 )"
+# Append "@coderabbitai — resolved on HEAD, please re-scan" to the body ONLY to teach a
+# learner with a genuine insight (two-axes rule below) — not on every reject.
 ```
 
-- `@coderabbitai` re-scans and records Learnings → tag it when rejecting.
-- Don't tag bots that have re-posted resolved findings repeatedly (see
-  [`known-bots.md`](./known-bots.md)) — it's noise.
+- Tag per the two-axes decision in `SKILL.md` (values in
+  [`known-bots.md`](./known-bots.md)): **teach** only learners (e.g. `@coderabbitai`
+  re-scans and records Learnings), and only with a real insight to give; **re-trigger**
+  only on-demand-cadence reviewers (`@handle review`) when you need their pass on a new
+  HEAD — per-push bots re-review themselves.
+- Don't tag bots that have re-posted resolved findings repeatedly — it's noise; and if
+  a bot you've engaged keeps treating replies as fresh work, stop tagging it entirely.
 - If a `gh` write 401s but `gh api` reads work, the token is read-restricted/expired
   (`gh pr create`/`gh pr comment` use GraphQL). REST fallbacks:
   - **open a PR:** `gh api repos/$REPO/pulls -X POST -f title=… -f head=… -f base=… -f body=…`
@@ -213,21 +219,31 @@ on wall-clock:
 
 1. **Every expected reviewer has weighed in on the current HEAD.** The **expected set
    is the per-push automated reviewers** — the bots that re-review every commit (those
-   posting a check on the PR, or that re-reviewed a prior push) — **not** every login
-   that ever commented. The reliable per-bot signal is its **check completing on HEAD**
-   (the settle-poll already waits for that) and/or a review, inline comment, **or**
-   issue comment on HEAD. **Do not block handoff on one-shot or human reviewers** who
-   won't re-post on each push — their input is captured as open findings in gate 2,
-   which you address regardless. A green check alone can precede the comments, so it's
-   never sufficient on its own — pair it with gate 2.
+   posting a check on the PR, or that re-reviewed a prior push) — **plus any on-demand
+   reviewer whose sign-off you still need**: on-demand bots don't re-review a new
+   commit on their own, so re-trigger them (`@handle review` — cadence per
+   [`known-bots.md`](./known-bots.md)) and wait for the fresh pass; don't silently
+   drop them from the set (if you decide a bot's sign-off isn't required, say so in
+   the summary). It is **not** every login that ever commented. The reliable per-bot
+   signal is its **check completing on HEAD** (the settle-poll already waits for that)
+   and/or a review or inline comment attached to HEAD. A top-level **issue comment counts only when it explicitly names the current HEAD SHA** (issue comments aren't commit-attached — a stale one must not satisfy this gate); otherwise treat it as a finding input, not reviewer-completion evidence. **Do not block
+   handoff on one-shot or human reviewers** who won't re-post on each push — their
+   input is captured as open findings in gate 2, which you address regardless. A green
+   check alone can precede the comments, so it's never sufficient on its own — pair it
+   with gate 2.
 2. **No open finding remains untriaged on HEAD** — covering **both** sources: every
    **unresolved review thread** (query b) *and* every finding posted as a **top-level
    issue comment** (query c — these have no thread/resolve state, so track them by
-   stable id). Enumerate in full (no time/commit slice); each must be fixed,
-   rejected-with-reason, or confirmed stale by checking the file.
+   stable id **when available, else by rule+file identity** — see `known-bots.md`).
+   Enumerate in full (no time/commit slice); each must reach a **terminal
+   verdict** — fixed, rejected-with-reason, confirmed stale by checking the file, or
+   kept-with-reason. A **`Deferred`** finding is *not* terminal: it blocks hand-off
+   unless it's tracked in a follow-up issue/PR *and* the human has accepted the
+   deferral (see the status-table verdicts in `SKILL.md`).
 3. **All required checks green.**
 
 Non-deterministic LLM reviewers keep emitting marginal/duplicate comments, so "zero
 open findings" isn't always reachable — but every finding (thread **or** issue comment)
-must be *accounted for* (fixed/rejected/stale), never skipped because of when or which
-commit it sits on. Document rejected/stale items, then hand off.
+must be *accounted for* (fixed / rejected / stale / kept-with-reason, or an
+accepted-and-tracked `Deferred`), never skipped because of when or which commit it sits
+on. Document rejected/stale/kept items and any accepted deferral, then hand off.
