@@ -253,8 +253,10 @@
   marked non-commercial). **Our modified GLB remains CC BY-NC-SA 4.0.**
 - **NC fencing (see LICENSE-ASSETS.md):** lives under `data/models/nc/` —
   commercial deployments must delete the `nc/` folder. The `a330` skin then
-  falls back to its procedural widebody-twin build (`buildCX777` stand-in);
-  the SW precache is per-file best-effort, so the missing file just leaves a gap.
+  falls back to its procedural widebody-twin build (`buildCX777` stand-in).
+  NC models are deliberately **not** in the SW `DEFAULT_TERRAIN` precache/migration
+  list, so they never persist in Cache Storage and cannot be served after `nc/` is
+  removed — they load on-demand (online only) on non-commercial deploys.
 - **Original file:** Sketchfab glTF export (`scene.gltf` + 2.5 MB `scene.bin` +
   7 textures), 42 770 tris / 24.3 k verts, **real Cathay Pacific livery textures
   as authored — kept, not re-tinted** (that livery is the point of this asset).
@@ -311,4 +313,7 @@
 - **Deploy note:** on the official deploy `data/` is served from the R2 assets
   origin — upload all `plane-*.glb` files (including `nc/…` where licensing
   permits that deployment) to the bucket under `data/models/` at merge, like
-  the hiker GLB. sw.js precaches them (`DEFAULT_TERRAIN`, VERSION v27).
+  the hiker GLB. sw.js precaches the CC0/CC-BY models via `DEFAULT_TERRAIN`
+  (VERSION `hks-sandbox-v33`). The `nc/…` GLBs are **excluded** from that list:
+  they load on-demand (online only) and are not expected to work offline, so
+  commercial deploys that delete `nc/` never serve them from Cache Storage.
