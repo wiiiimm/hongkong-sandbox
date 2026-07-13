@@ -113,7 +113,7 @@ const I18N = {
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
     'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)',
     'lbl.topspeed': 'Top speed',
-    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a330': 'Cathay Pacific A330-300', 'plane.a350': 'Cathay Pacific A350-1000',
+    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a330': 'Cathay Pacific A330-300', 'plane.a350': 'Cathay Pacific A350-1000', 'plane.ufo': 'UFO 🛸',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
     // HKS-86: the bottom mode dock + contextual tray
@@ -156,7 +156,7 @@ const I18N = {
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
-      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">“Air France Boeing 747-400” by zairiqzairiq</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, optimised &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">“boeing 777-300ER Saudi Arabian Airlines (Saudia)” by Omatar</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">“A350 V3 with animation” by Newbie99999993</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only) · <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">“McDonnell Douglas DC-3” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — repainted in Betsy’s 1946 bare-metal VR-HDB markings).</p>'
+      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">“Air France Boeing 747-400” by zairiqzairiq</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, optimised &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">“boeing 777-300ER Saudi Arabian Airlines (Saudia)” by Omatar</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">“A350 V3 with animation” by Newbie99999993</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only) · <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">“McDonnell Douglas DC-3” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — repainted in Betsy’s 1946 bare-metal VR-HDB markings) · <a href="https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06" target="_blank" rel="noopener">“UFO” by Islide</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, textures optimised).</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -206,7 +206,7 @@ const I18N = {
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
     'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)',
     'lbl.topspeed': '極速',
-    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a330': '國泰航空 A330-300', 'plane.a350': '國泰航空 A350-1000',
+    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a330': '國泰航空 A330-300', 'plane.a350': '國泰航空 A350-1000', 'plane.ufo': '幽浮 🛸',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
     // HKS-86: the bottom mode dock + contextual tray
@@ -249,7 +249,7 @@ const I18N = {
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
-      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · zairiqzairiq 的 <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">「Air France Boeing 747-400」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經優化並塗上本作自家國泰翡翠色塗裝） · Omatar 的 <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">「boeing 777-300ER Saudi Arabian Airlines (Saudia)」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · Newbie99999993 的 <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">「A350 V3 with animation」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">「McDonnell Douglas DC-3」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 重繪 1946 年「貝茜」VR-HDB 原色金屬塗裝）。</p>'
+      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · zairiqzairiq 的 <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">「Air France Boeing 747-400」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經優化並塗上本作自家國泰翡翠色塗裝） · Omatar 的 <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">「boeing 777-300ER Saudi Arabian Airlines (Saudia)」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · Newbie99999993 的 <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">「A350 V3 with animation」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">「McDonnell Douglas DC-3」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 重繪 1946 年「貝茜」VR-HDB 原色金屬塗裝） · Islide 的 <a href="https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06" target="_blank" rel="noopener">「UFO」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，貼圖經優化）。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2539,7 +2539,10 @@ const flight = { on: false, view: 'chase', pos: new THREE.Vector3(), yaw: 0, pit
 function takeOff() {
   if (!flight.on || !flight.landed) return;
   flight.landed = false;
-  flight.speed = 55;
+  // HKS-113: a saucer has no take-off roll — it goes straight up. Leaving the
+  // speed at 0 keeps `hover` at 1, so the pitch below reads as pure vertical
+  // thrust (see stepFlight) and it rises off the deck on the spot.
+  flight.speed = planeSkin === 'ufo' ? 0 : 55;
   flight.pitch = 0.28;
   track('takeoff');
 }
@@ -2556,6 +2559,7 @@ const PLANE_SKINS = [
   { id: 'cx777', build: buildCX777 },       // Cathay Pacific Boeing 777-300
   { id: 'a330',  build: buildCX777 },       // Cathay Pacific Airbus A330-300 — the 777 widebody twin stands in as loading/offline fallback (the ⚠ NC GLB may be absent on commercial deploys); PLANE_GLBS.a330.fit corrects the length
   { id: 'a350',  build: buildCXA350 },      // Cathay Pacific Airbus A350-1000
+  { id: 'ufo',   build: buildUFO },         // HKS-113: the odd one out — hovers, spins, and shines a beam. Kept LAST in the list on purpose.
 ];
 let planeSkin = 'prop';
 function buildPlane() {
@@ -2623,6 +2627,12 @@ const PLANE_GLBS = {
   // 1946 VR-HDB livery baked in (Union Jack fin, era titles). fixedGear: a
   // taildragger's semi-fixed gear stays visible in flight (fleet-rule exception).
   betsy: { url: 'data/models/nc/plane-betsy.glb', rotY: Math.PI, fixedGear: true },
+  // HKS-113. “UFO”, Islide (CC BY 4.0 — commercial use allowed, so it sits in
+  // data/models/ proper, NOT behind the nc/ fence, and IS precached by the SW).
+  // The saucer is rotationally symmetric (X/Z bbox ratio 1.000), so rotY is
+  // meaningless here. spinY: wrap the hull in a pivot on its own vertical centre
+  // axis and hand it to stepFlight as userData.spin — see the spinY block below.
+  ufo:   { url: 'data/models/plane-ufo.glb', spinY: true },
 };
 const planeModelSt = {};   // id → { inflight, fails, warned } — cap retries like the hiker loader
 function disposePlaneGltf(scene) {
@@ -2658,9 +2668,17 @@ function loadPlaneModel(id) {
     // fit target: measure a throwaway procedural build (identity pose — the live
     // group may be mid-flight with position/rotation applied), in pre-scale units
     const ref = (PLANE_SKINS.find(k => k.id === id) || PLANE_SKINS[0]).build();
+    // HKS-113: measure the AIRFRAME, not its light show. The UFO's stand-in carries
+    // an abduction beam that hangs a full unit below the hull, and Box3 counts it —
+    // which would drop the reference floor from the -0.55 waterline to -1.5 and bury
+    // the real saucer in the terrain. Detach it for the measurement, then put it back
+    // so the dispose sweep below still frees its geometry and pool texture.
+    const refBeam = ref.userData.beam;
+    if (refBeam) ref.remove(refBeam);
     ref.updateMatrixWorld(true);
     const rbox = new THREE.Box3().setFromObject(ref);
     const rs = ref.scale.x || 1;
+    if (refBeam) ref.add(refBeam);
     clearLookFilter(ref);
     ref.traverse(o => {
       if (o.geometry) o.geometry.dispose();
@@ -2742,10 +2760,28 @@ function loadPlaneModel(id) {
         spinners[i] = pivot;
       }
     }
-    // swap: dress down, replace the hull wholesale — keep nav lights + cockpit
+    // HKS-113 (cfg.spinY): hand stepFlight a group that turns about the hull's OWN
+    // vertical centre axis. Same re-pivot trick as the props above — an exporter's
+    // node origin need not sit on the saucer's axis, and `inner`'s origin is offset
+    // by the centring fit, so spinning either would make the hull orbit instead of
+    // rotate. Wrap the model in a pivot placed at its bbox centre in x/z (y is left
+    // alone — the axis is vertical), while the subtree is still detached.
+    let spinPivot = null;
+    if (cfg.spinY) {
+      inner.updateMatrixWorld(true);
+      const toInner = new THREE.Matrix4().copy(inner.matrixWorld).invert();
+      const c = new THREE.Box3().setFromObject(model).getCenter(new THREE.Vector3()).applyMatrix4(toInner);
+      spinPivot = new THREE.Group();
+      spinPivot.position.set(c.x, 0, c.z);
+      inner.add(spinPivot);
+      spinPivot.attach(model);                         // keeps placement, re-homes the origin to the axis
+    }
+    // swap: dress down, replace the hull wholesale — keep nav lights + cockpit,
+    // and the UFO's abduction beam (HKS-113: procedurally built, reused as-is
+    // under the real hull — it must survive the swap that eats the stand-in)
     clearLookFilter(planeGrp);
     for (const c of [...planeGrp.children]) {
-      if (c.userData.navlight || c === planeGrp.userData.cockpit) continue;
+      if (c.userData.navlight || c === planeGrp.userData.cockpit || c === planeGrp.userData.beam) continue;
       planeGrp.remove(c);
       c.traverse(o => {
         if (o.geometry) o.geometry.dispose();
@@ -2758,7 +2794,9 @@ function loadPlaneModel(id) {
     delete planeGrp.userData.prop;                     // the procedural blades are gone
     delete planeGrp.userData.props;
     delete planeGrp.userData.gear;                     // …and the procedural gear group
+    delete planeGrp.userData.spin;                     // …and the stand-in saucer (HKS-113)
     if (spinners.length) planeGrp.userData.props = spinners;
+    if (spinPivot) planeGrp.userData.spin = spinPivot;   // HKS-113: the real hull now carries the spin
     // HKS-110 fleet rule: tag the airframe's landing gear so stepFlight can
     // drop/retract it with the landed state — matched by node name or by the
     // CXGear material the trim scripts split gear geometry into.
@@ -4641,6 +4679,116 @@ function buildCXA350() {
   grp.visible = false;
   return grp;
 }
+// ---- the UFO (HKS-113) ------------------------------------------------------
+// The one craft that isn't an aircraft. Same flight frame as the fleet (origin
+// at mid-hull, belly on the -0.55 waterline, group scale 4), but it breaks three
+// fleet rules on purpose, each handled in stepFlight:
+//   · it HOVERS — zero throttle holds altitude instead of stalling, and pitch
+//     becomes vertical thrust at low speed, so it can park over a landmark;
+//   · it SPINS about its own vertical centre axis (userData.spin) rather than
+//     turning props;
+//   · it shines an ABDUCTION BEAM straight down (userData.beam) — the cone and
+//     its ground pool are counter-rotated every frame so they hang world-down
+//     no matter how the saucer banks, and they live OUTSIDE the spin group so
+//     the beam holds still while the hull rotates over it.
+// No gear, no props: userData.gear/props stay unset, so the fleet's gear-drop
+// and prop-spin rules simply don't apply. The real GLB (PLANE_GLBS.ufo) swaps in
+// over this; this build stays as the loading stand-in and offline fallback.
+const UFO_R = 2.6;                                      // saucer radius, local units (×4 ⇒ ~21 m across)
+const UFO_BELLY = -0.55;                                // the fleet waterline — it rests on its hull
+// The beam is a unit cone (y 0 → -1) coloured per-vertex, bright at the emitter
+// and falling off toward the ground. Vertex colours (not a texture) so the
+// falloff direction is explicit rather than dependent on cone UV conventions,
+// and additive blending renders the dark end as invisible.
+function buildAbductionBeam() {
+  const RINGS = 12, SEG = 32, rTop = 0.35, rBot = 1.0;
+  const pos = [], col = [], idx = [];
+  const c = new THREE.Color(0x9dff2e);                   // that unmistakable alien green
+  for (let i = 0; i < RINGS; i++) {
+    const t = i / (RINGS - 1);                           // 0 at the emitter, 1 at the ground
+    const r = rTop + (rBot - rTop) * t, y = -t;
+    const f = Math.pow(1 - t, 1.6) * 0.9 + 0.06;         // falloff: hot at the belly, faint on the deck
+    for (let j = 0; j <= SEG; j++) {
+      const a = (j / SEG) * Math.PI * 2;
+      pos.push(Math.cos(a) * r, y, Math.sin(a) * r);
+      col.push(c.r * f, c.g * f, c.b * f);
+    }
+  }
+  for (let i = 0; i < RINGS - 1; i++)
+    for (let j = 0; j < SEG; j++) {
+      const a = i * (SEG + 1) + j, b = a + SEG + 1;
+      idx.push(a, b, a + 1, a + 1, b, b + 1);
+    }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  g.setIndex(idx);
+  const mesh = new THREE.Mesh(g, new THREE.MeshBasicMaterial({
+    vertexColors: true, transparent: true, opacity: 0.34, blending: THREE.AdditiveBlending,
+    depthWrite: false, side: THREE.DoubleSide }));
+  mesh.position.y = -0.5;                               // start just under the belly lamp
+  // the elliptical light pool where the beam lands — a flat disc that rides at
+  // ground level inside the same counter-rotated group, so it stays horizontal
+  const pool = new THREE.Mesh(new THREE.CircleGeometry(1, 40), new THREE.MeshBasicMaterial({
+    map: canvasTex(128, 128, (cx, w2, h2) => {
+      const gr = cx.createRadialGradient(w2 / 2, h2 / 2, 0, w2 / 2, h2 / 2, w2 / 2);
+      gr.addColorStop(0, '#9dff2e'); gr.addColorStop(0.45, '#3d7a12'); gr.addColorStop(1, '#000');
+      cx.fillStyle = gr; cx.fillRect(0, 0, w2, h2);
+    }),
+    transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false }));
+  pool.rotation.x = -Math.PI / 2;                       // lie flat, facing up
+  const beam = new THREE.Group();                       // counter-rotated in stepFlight ⇒ world-down
+  beam.add(mesh);
+  beam.add(pool);
+  beam.userData.cone = mesh;
+  beam.userData.pool = pool;
+  return beam;
+}
+function buildUFO() {
+  const s = 4;
+  const grp = new THREE.Group();
+  const hull = new THREE.MeshStandardMaterial({ color: 0x9aa5b1, roughness: 0.35, metalness: 0.75 });
+  const trim = new THREE.MeshStandardMaterial({ color: 0x3a444f, roughness: 0.5, metalness: 0.6 });
+  const glass = new THREE.MeshStandardMaterial({ color: 0x1b2430, roughness: 0.15, metalness: 0.3,
+                                                 emissive: 0x0d3a2a, emissiveIntensity: 0.6 });
+  const lamp = new THREE.MeshBasicMaterial({ color: 0xc9ff7a });
+  // everything that spins lives under here — the beam does NOT
+  const spin = new THREE.Group();
+  const midY = UFO_BELLY + 0.42;                         // hull half-height 0.42 ⇒ belly on the waterline
+  const disc = new THREE.Mesh(new THREE.SphereGeometry(UFO_R, 36, 18), hull);
+  disc.scale.set(1, 0.42 / UFO_R, 1);                    // squash the sphere into a lens
+  disc.position.y = midY;
+  spin.add(disc);
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(UFO_R * 0.97, 0.1, 10, 40), trim);
+  rim.rotation.x = -Math.PI / 2; rim.position.y = midY;
+  spin.add(rim);
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(0.95, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2), glass);
+  dome.position.y = midY + 0.30;
+  spin.add(dome);
+  for (let i = 0; i < 10; i++) {                         // the ring of running lights
+    const a = (i / 10) * Math.PI * 2;
+    const b = new THREE.Mesh(new THREE.SphereGeometry(0.13, 8, 6), lamp);
+    b.position.set(Math.cos(a) * UFO_R * 0.82, midY - 0.26, Math.sin(a) * UFO_R * 0.82);
+    spin.add(b);
+  }
+  grp.add(spin);
+  grp.userData.spin = spin;
+  // the belly lamp the beam grows out of (the GLB carries this as an emissive map)
+  const lampM = new THREE.Mesh(new THREE.SphereGeometry(0.55, 18, 10), lamp);
+  lampM.scale.set(1, 0.35, 1);
+  // recessed INTO the underside, not slung below it: the lamp must not become the
+  // build's lowest point or it would drag the loader's waterline reference (and so
+  // the real hull) below UFO_BELLY. Half-height is 0.55×0.35 = 0.1925.
+  lampM.position.y = UFO_BELLY + 0.20;
+  grp.add(lampM);                                        // outside `spin`: a steady emitter
+  const beam = buildAbductionBeam();
+  grp.add(beam);
+  grp.userData.beam = beam;
+  grp.userData.eyeFwd = 2.2; grp.userData.eyeUp = 1.0;   // 👁 eye just under the dome
+  grp.scale.setScalar(s);
+  grp.visible = false;
+  return grp;
+}
 function enterFlight() {
   if (flight.on || !curG) return;
   if (walk.on) exitWalk();
@@ -4877,10 +5025,18 @@ function stepFlight() {
     F.pitch += (Math.random() - 0.5) * 0.006 * windStrength;
     F.roll  += (Math.random() - 0.5) * 0.010 * windStrength;
   }
+  // HKS-113: the UFO has no stall speed and no cruise to fall back to. Its
+  // throttle is direct and quick (4× the fleet's authority, no pull toward 62)
+  // so it can stand on a dead stop and hold there — that's the hover.
+  const ufo = planeSkin === 'ufo';
   if (!F.landed) {
-    F.speed = Math.max(28, Math.min(F.top, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
+    if (ufo) F.speed = Math.max(0, Math.min(F.top, F.speed + tIn * 1.2));
+    else     F.speed = Math.max(28, Math.min(F.top, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
     if (K[' '] || F.touchHold > 0) F.speed = Math.min(F.top, F.speed + 0.8); // ␣ or a held finger steps on the gas (HKS-53)
   }
+  // how completely the UFO is hovering: 1 at a standstill, 0 once it's really
+  // moving. Gates the vertical thrust, the idle bob and the beam's intensity.
+  const hover = ufo ? 1 - Math.min(1, F.speed / 40) : 0;
   _fe.set(F.pitch, F.yaw, -F.roll * 0.9, 'YXZ');       // right bank = right wing down
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
@@ -4888,7 +5044,16 @@ function stepFlight() {
   F.pos.x += _fv.x * mpf;
   F.pos.z += _fv.z * mpf;
   F.pos.y += _fv.y * mpf * VE;                         // climb in exaggerated y: slopes fly true
-  F.pos.y -= Math.max(0, 62 - F.speed) * 0.004 * VE;   // below cruise the nose gets heavy
+  // HKS-113: a saucer doesn't stall — it holds altitude at any speed, so it skips
+  // the nose-heavy sink entirely. Instead pitch becomes direct vertical thrust as
+  // it slows, which is what lets it rise straight up off the deck and then park.
+  let ufoVy = 0;
+  if (ufo) {
+    ufoVy = F.pitch * 0.55 * hover;
+    F.pos.y += ufoVy * VE;
+  } else {
+    F.pos.y -= Math.max(0, 62 - F.speed) * 0.004 * VE; // below cruise the nose gets heavy
+  }
   if (!F.landed) {                                     // parked on the runway you don't drift downwind
     F.pos.x += windVec.x * (25 * windStrength) / 60;   // a full gale drifts you ~25 m/s
     F.pos.z += windVec.z * (25 * windStrength) / 60;
@@ -4907,8 +5072,10 @@ function stepFlight() {
     F.pitch *= 0.8; F.roll *= 0.75;                    // settle level on the gear
     F.pos.y = surfY + 2.2;
     if (K[' ']) takeOff();   // ␣ launches; a tap/🛫 launches too. Holding no longer auto-launches so you can drag to look at the parked plane; touchHold still feeds the gas once airborne (HKS-53)
-  } else if (agl < 4 && _fv.y <= 0.02) {               // only while descending — a fresh
+  } else if (agl < 4 && _fv.y <= 0.02 && ufoVy <= 0.001) {   // only while descending — a fresh
     F.landed = true;                                   // climb-out stays airborne
+    // (ufoVy: a hovering saucer's _fv.y is ~0 at zero speed, so without this its
+    //  vertical thrust wouldn't count as a climb and lift-off would re-land instantly)
     F.pitch = Math.max(0, F.pitch * 0.3); F.roll *= 0.5;
     F.pos.y = surfY + 2.2;
     flash = Math.max(flash, 0.15);                     // a soft touchdown bump
@@ -4940,11 +5107,47 @@ function stepFlight() {
   const spinD = F.landed ? 0 : 0.25 + F.speed * 0.004;
   if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += spinD;
   if (planeGrp.userData.props) for (const pr of planeGrp.userData.props) pr.rotation.z += spinD;
+  // ---- HKS-113: the UFO's three exceptions ----------------------------------
+  // Spin: about the hull's own vertical axis, not a prop's thrust axis. Unlike
+  // the fleet rule it never fully stops — parked, it idles, because a powered-down
+  // saucer just looks broken.
+  if (planeGrp.userData.spin)
+    planeGrp.userData.spin.rotation.y += F.landed ? 0.004 : 0.045 + F.speed * 0.0006;
+  // Bob: a hovering saucer breathes. Applied to the RENDER position only, never
+  // to F.pos — integrating it would let the craft drift upward over time.
+  if (ufo && !F.landed && hover > 0.01)
+    planeGrp.position.y += Math.sin(performance.now() / 620) * 0.35 * hover * VE;
+  // Beam: hangs world-down from the belly, widening onto a light pool on the deck.
+  const bm = planeGrp.userData.beam;
+  if (bm) {
+    bm.visible = ufo && !F.landed;
+    if (bm.visible) {
+      // cancel the hull's pitch/bank so the beam stays vertical however it flies
+      bm.quaternion.copy(_fq).invert();
+      const S = planeGrp.scale.x || 1;                 // group units → world metres
+      const dLocal = Math.max(0.6, (planeGrp.position.y - surfY) / S);   // belly → deck, in group units
+      const len = Math.min(80, dLocal - 0.5);          // stop the cone AT the ground
+      const cone = bm.userData.cone, pool = bm.userData.pool;
+      const flare = 1 + len * 0.045;                   // a longer throw spreads wider
+      cone.scale.set(flare, len, flare);
+      pool.position.y = -dLocal + 0.05;                // sit ON the deck, a hair above z-fighting
+      pool.scale.setScalar(flare * 1.15);              // the cone's foot ⇒ the pool's rim
+      // strongest while hovering (that's when it's stealing something), and it
+      // fades out with altitude — a beam from 900 m up would just be a haze
+      const fade = Math.max(0, Math.min(1, 1 - (agl - 260) / 620));
+      const k = (0.45 + 0.55 * hover) * fade;
+      cone.material.opacity = 0.34 * k;
+      pool.material.opacity = 0.50 * k;
+      bm.visible = k > 0.01;
+    }
+  }
   // HKS-87: engine audio follows the same landed rule as the prop — on the
   // ground it's driven purely by ground speed, so it fades out through the
   // roll-out and falls silent (setEngine(0) spins the oscillators down) once
   // the plane is stationary/parked. Airborne throttle mapping is unchanged.
-  setEngine(sndOn ? (F.landed ? F.speed * 0.004 : 0.25 + 0.75 * (F.speed - 28) / Math.max(20, F.top - 28)) : 0);
+  // (clamped ≥ 0: the airborne mapping is written around the fleet's 28 m/s stall
+  //  floor, and only the hovering UFO — which can sit at 0 — drives it negative)
+  setEngine(sndOn ? Math.max(0, F.landed ? F.speed * 0.004 : 0.25 + 0.75 * (F.speed - 28) / Math.max(20, F.top - 28)) : 0);
   // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
   // — chase 55°, eye/cockpit 68° — and stretches a few degrees more near full
   // throttle. Eased so view switches breathe instead of snapping.

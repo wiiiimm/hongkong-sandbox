@@ -303,6 +303,45 @@
   `prop0_still`/`prop1_still` nodes join the shared airborne prop-spin.
 - **Rebuild:** `node ../../scripts/trim_betsy_glb.mjs <scene.gltf> nc/plane-betsy.glb`
 
+## plane-ufo.glb — fly-mode UFO (HKS-113)
+
+The one craft in the picker that isn’t an aircraft.
+
+- **Source:** “UFO” by **Islide** —
+  https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06
+- **Licence: CC BY 4.0** — *“Author must be credited. Commercial use is allowed.”*
+  Verified against the Sketchfab API (`license.slug = by`) **and** the bundled
+  `license.txt` before use. **Freely licensed**, so unlike the two OUTPISTON
+  hulls this one is **not** NC-fenced: it lives here in `data/models/` proper and
+  **is** in the service worker’s `DEFAULT_TERRAIN` precache. Islide is credited in
+  the app’s Credits drawer (en + 繁中) — CC BY attribution is load-bearing.
+- **Original file:** Sketchfab glTF export — a single 7 264-tri / 3 826-vert mesh
+  (`UFO_geo_SHD_UFO_0`, one material `SHD_UFO`) wrapped in **~29 MB of 4K
+  textures**. The geometry was already lighter than every jet in the fleet; the
+  textures were the entire problem.
+- **Our modifications:** **no decimation at all** — the recipe is pure texture
+  reduction. The `metallicRoughness` *slot* is unwired in favour of scalar
+  factors (metal 0.35 / rough 0.42 — Sketchfab leaves `metallicFactor` at 1.0,
+  which renders near-black in a viewer with no environment map). Note the export
+  points `occlusionTexture` at the **same image**, so that texture survives as the
+  AO map rather than being pruned — deliberate: resized it costs ~85 KB and buys
+  free ambient occlusion. All four maps → ≤1024 px JPEG; dedup/prune/quantize
+  (POSITION float32). Result: **7 264 tris, 680 KB** (from 30 MB — smaller than
+  any jet in the fleet).
+- **The underside light is authored in:** `SHD_UFO` carries an `emissiveFactor`
+  of `[1,1,1]` plus a dedicated emissive map. That lamp is what the **abduction
+  beam** grows out of, so the emissive texture is kept and must never be dropped.
+- **Runtime:** the saucer is rotationally symmetric (bbox X/Z ratio **1.000**),
+  so `rotY` is meaningless and is omitted. `spinY: true` — `loadPlaneModel()`
+  wraps the hull in a pivot on its own vertical centre axis and hands it to
+  `stepFlight` as `userData.spin`. No gear, no props (see fleet-rule exceptions
+  below).
+- **Rebuild:** `node ../../scripts/trim_ufo_glb.mjs <scene.gltf> plane-ufo.glb`
+- **Rejected alternative:** “Bob Lazar Ufo” by Batuhan13
+  (https://sketchfab.com/3d-models/bob-lazar-ufo-75f488cec00e4dc88b7d6bc5867cdaef,
+  also CC BY) — only 1 866 tris and, decisively, **no underside light**, so there
+  was nothing to anchor the beam to.
+
 ## Fleet rules (HKS-110)
 
 - Landed: **gear + wheels visible, props/fans stopped**. Airborne: **gear
@@ -310,6 +349,16 @@
   materials (split out by the trim scripts) or gear/wheel/tire node names;
   `stepFlight` drives visibility off the landed state. Exception: betsy
   (taildragger, `fixedGear`).
+- **Exception — the UFO (HKS-113)** opts out of the gear/prop rules entirely: it
+  has neither, so `userData.gear`/`props` simply stay unset and both rules
+  no-op. In their place it gets three behaviours of its own, all in `stepFlight`:
+  **hover** (no stall floor and no nose-heavy sink — pitch becomes vertical
+  thrust as it slows, so it rises straight off the deck and can park over a
+  landmark), **spin** (`userData.spin`, about its own vertical axis; idles rather
+  than stopping when parked), and the **abduction beam** (`userData.beam` — a
+  cone + ground pool, counter-rotated each frame so they hang world-down however
+  the hull banks, and kept *outside* the spin group so the beam holds still while
+  the saucer turns over it).
 - **Deploy note:** on the official deploy `data/` is served from the R2 assets
   origin — upload all `plane-*.glb` files (including `nc/…` where licensing
   permits that deployment) to the bucket under `data/models/` at merge, like
