@@ -4700,15 +4700,19 @@ const UFO_BELLY = -0.55;                                // the fleet waterline �
 // and falling off toward the ground. Vertex colours (not a texture) so the
 // falloff direction is explicit rather than dependent on cone UV conventions,
 // and additive blending renders the dark end as invisible.
-// rTop is a near-point, not a mouth: the beam is counter-rotated to stay vertical
-// while the hull banks, so a wide open top ring shows its rim the moment you tilt —
-// you end up looking straight down the throat of the cone. Tapering to an apex
-// leaves no rim to see. BEAM_TOP then buries that apex up inside the hull, where the
-// opaque saucer depth-tests it away at any attitude (HKS-113).
-const BEAM_TOP = -0.2;                                  // apex, inside the hull (belly is -0.55)
+// The beam is counter-rotated to stay vertical while the hull banks, so its top ring
+// must never come into view — at BEAM_TOP = -0.5 with a 0.35 head it used to show its
+// rim on a hard tilt and you could see straight down the throat of the cone. Two
+// things keep it hidden now: the head sits well up INSIDE the hull (the lens spans
+// -0.55…+0.29 on the axis, so -0.2 leaves ~0.35 of opaque saucer beneath it, which the
+// depth buffer resolves at any attitude), and the head stays small next to the 2.6
+// hull radius. Within that budget the head is free — BEAM_HEAD is what governs how
+// wide the beam reads where it actually leaves the belly (HKS-113).
+const BEAM_TOP = -0.2;                                  // head ring, buried inside the hull (belly is -0.55)
+const BEAM_HEAD = 0.22;                                 // head radius ⇒ ~3× the old emergence width at the belly
 const BEAM_FOOT = 3.0;                                  // cone-foot radius at unit length — a wide, cow-sized throw
 function buildAbductionBeam() {
-  const RINGS = 12, SEG = 32, rTop = 0.03, rBot = BEAM_FOOT;
+  const RINGS = 12, SEG = 32, rTop = BEAM_HEAD, rBot = BEAM_FOOT;
   const pos = [], col = [], idx = [];
   const c = new THREE.Color(0x9dff2e);                   // that unmistakable alien green
   for (let i = 0; i < RINGS; i++) {
