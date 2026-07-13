@@ -1,10 +1,10 @@
 ---
 name: safari26-liquid-glass
-description: How iOS 26 / iPadOS 26 Safari's "Liquid Glass" translucent status & address bars interact with web content, the viewport/keyboard facts behind them, and what to watch for when a design gets creative (immersive/edge-to-edge layouts, custom drawers/modals, gesture panning, themeable backgrounds, canvas). Use when an iPhone/iPad web page shows black/grey bars, content "cut off" at the bar edge, cropped shadows, a drawer/modal that breaks the layout, an inner scroll that won't scroll, the page jumping after the soft keyboard closes, or a canvas blur that won't render on iOS — or before building any full-screen/immersive iOS web UI.
+description: How iOS 26 / iPadOS 26 Safari's "Liquid Glass" translucent status & address bars interact with web content, the viewport/keyboard facts behind them, and what to watch for when a design gets creative (immersive/edge-to-edge layouts, custom drawers/modals, gesture panning, themeable backgrounds, canvas). Use when an iPhone/iPad web page shows black/grey bars, content "cut off" at the bar edge, cropped shadows, the top status bar turning opaque/tinted under a sticky or fixed header, a drawer/modal that breaks the layout, an inner scroll that won't scroll, the page jumping after the soft keyboard closes, or a canvas blur that won't render on iOS — or before building any full-screen/immersive iOS web UI.
 metadata:
   author: stealth-engine
   co-author: wiiiimm
-  version: "2.1.0"
+  version: "2.3.0"
 ---
 
 # Safari 26 "Liquid Glass" — facts, gotchas, and what to do
@@ -39,6 +39,58 @@ area" math must be driven off `visualViewport`, never off `innerHeight`/`vh`.
 
 The bars sit over the **edges of the layout viewport** and composite whatever DOM
 pixels are painted there.
+
+### The bar *tint* — Safari derives it from your CSS (`theme-color` is dead)
+
+Beyond the live bleed, Safari 26 tints the glass with a **solid colour derived from
+your CSS**. `theme-color` is **ignored** (it still parses; the value does nothing).
+The derivation, in order:
+
+1. the `background-color` of a **`fixed`/`sticky` element at that edge** — it borders
+   the "obscured content inset" (where the bar overlaps content), so Safari extends its
+   colour into the bar for continuity;
+2. else the **`body`** `background-color` — `html`'s is **ignored**, and this same
+   `body` colour is what the overscroll "rubber-band" shows, so **match `body` to your
+   design** or you get flashes (a white `body` on a dark site flashes white on overscroll);
+3. else the system default.
+
+- **Derived from the CSS, not live from JS** — mutating a background via JS after paint
+  does **not** re-tint the bar (Safari re-derives on scroll/layout, not on a bare style
+  change).
+- **Solid vs translucent flips control:** a solid colour tints the bar to exactly that
+  colour (yours); an **`rgba()`/semi-transparent** background makes Safari sample the
+  *computed* colour showing through → unpredictable. Use opaque for control.
+- **Users can disable tinting** (iOS: Settings ▸ Apps ▸ Safari ▸ Tabs ▸ "Allow Website
+  Tinting") → the bar reverts to system default, so your design must still read then.
+- **The blur is softer on iPhone than macOS** — more of the page shows through the bar,
+  so a colour mismatch between your sampled edge element and the content behind it is
+  more visible/jarring here. Getting the sampled colour right matters most on iPhone.
+
+**The tint is a feature — decide your intent:**
+
+- **Want the bar tinted to match a header/brand (i.e. you do NOT want a transparent
+  status bar):** give a top element a solid `background-color` and let Safari sample it.
+  **`sticky` is the reliable trigger** — a bare `fixed` header's colour is sampled
+  inconsistently (see §2 and WebKit #301756); setting `body`'s background also works.
+
+  ```css
+  header { position: sticky; top: 0; background: #1a1a1a; } /* → status bar #1a1a1a */
+  ```
+
+- **Want an immersive / transparent bar:** control this on the **edge (fixed/sticky)
+  element**, not by stripping `body`. Keep an opaque `background` *off the edge element*
+  and use §2's field-note knobs (a `fixed; top:0` header keeps the top bar glassy).
+  **Leave `body` painted** — §5/§2 need it for the overscroll rubber-band and the
+  load-flash guard, so don't remove it here; a painted `body` is only the *fallback*
+  tint, and the finicky edge-element behaviour (§2, WebKit #301756) is what actually
+  decides whether the bar goes transparent.
+
+Same-mechanism gotchas: a **fixed full-screen modal backdrop** (`inset: 0; background:
+rgba(0,0,0,.5)`) *can* get sampled and darken the whole bar — but fixed-element sampling
+is **unreliable** (see the §2 "fixed backdrop is a trap" note for the flip side, where
+the fixed layer is ignored instead); **two fixed elements** (header + footer) → Safari
+picks one, not reliably; and there is **no `theme-color` override — the CSS *is* the
+API** (WebKit #301756 tracks fixed-element tinting issues).
 
 ## 2. Facts we established (iOS/iPadOS 26, verified on-device)
 
@@ -83,9 +135,39 @@ A `position:fixed` element is clipped to the **visual** viewport, so:
 So the damage is **sometimes just the element (cropped shadow), sometimes the
 entire page (collapsed bleed) — depending on the element and where it sits.**
 Treat **any** `position:fixed` as a bleed-breaker on this model and verify.
-(A "fixed full-screen backdrop" that *appears* to tint the bars is a trap — an
-in-flow background behind it is doing the tinting; the fixed layer adds nothing
-and crops its children.)
+(A "fixed full-screen backdrop" is an **unreliable** tint source: in our build the
+in-flow background *behind* it did the tinting and the fixed layer added nothing — the
+flip side of the same finicky fixed-element sampling that *elsewhere* lets a fixed
+`rgba` backdrop darken the bar (§1). Either way it crops its children, so **don't use a
+fixed layer to control the bar tint** — use a `sticky` element or `body`.)
+
+**Field note — a top-pinned header and the *top-bar tint* is a separate axis.**
+The bleed/shadow rule above is about content clipping; whether the **top status bar
+stays transparent** under a header pinned to the very top behaves differently — and
+here `fixed` is actually the *safe* choice:
+
+Offsets below are written as Tailwind classes (what was tested): `top-0` = `top: 0`,
+`top-1` = `top: 0.25rem`, `top-2` = `top: 0.5rem`. (Nonzero CSS lengths need a unit —
+`top: 1`/`top: 2` are invalid; use `0.25rem`/`0.5rem`.)
+
+- `position: fixed` at `top-0` — top status bar **stays transparent**. `fixed` does
+  **not** kill it here.
+- `position: sticky` at `top-0` — **kills** it (bar goes opaque). `top-1` still kills
+  it; **`top-2` restores** the transparent bar — a sticky top header needs a small
+  offset off the bar edge to keep it.
+
+So "never `position:fixed`" is a *bleed/shadow* rule, not a top-tint one: for a
+top header specifically, `position: fixed` at the top — or a `sticky` header with a
+≥ `top-2` (`0.5rem`) offset — keeps the bar transparent. Single-setup observation on
+iOS 26.x; re-verify on your build.
+
+*Why (ties to §1's tint derivation):* a `sticky` header with a **solid
+`background-color`** sitting at the very edge is exactly what Safari **samples** into
+the bar — so it *tints*, it doesn't "break"; the `top-2` offset stops it bordering the
+bar edge, so it isn't sampled. In this test a `fixed; top:0` header left the bar
+transparent even so — **fixed-element sampling is less reliable** (WebKit #301756).
+Practical rule: for a **deliberate tint**, `sticky` + a solid bg is the reliable
+trigger; for **transparent**, `fixed; top:0` or `sticky` with a ≥ `top-2` offset.
 
 ### The keyboard bug (WebKit #297779)
 
@@ -202,11 +284,20 @@ problem in §4 was reproduced and fixed on a real iPhone/iPad.
 
 §1's model claims are corroborated beyond that build: the `theme-color` drop and
 "bars reflect the page / sample a fixed-or-sticky edge element's `background-color`
-then fall back to `body`" behavior match multiple independent Safari 26 write-ups
-(Apple published no official web-dev docs for it). The **`innerWidth <= 760`**
+then fall back to `body`" behavior match independent Safari 26 reporting (Apple
+published no official web-dev docs for it; the specific derivation order below is the
+one write-up cited in References). §1's **bar-tint derivation order**
+(fixed/sticky edge → `body` → default; `html` ignored; sampled at render; overscroll
+rubber-band = `body`) follows Ben Nasedkin's write-up; the less-reliable fixed-element
+case is WebKit #301756. The **`innerWidth <= 760`**
 gate is a **rule of thumb, not an Apple constant** — the split is by window width,
 but the exact breakpoint isn't documented; **measure/treat it as approximate** and
 tune per layout rather than copying 760 verbatim.
+
+The §2 top-bar-tint thresholds (`fixed; top:0` keeps the top bar transparent; a
+`sticky` top header needs a ≥ `top-2` offset) are a **single-setup on-device
+observation** — confirmed once, not yet corroborated by outside write-ups. Treat the
+exact `top` threshold as approximate and re-verify.
 
 Everything here is as-of **iOS/iPadOS 26.x**; behavior is evolving across point
 releases (see the keyboard-bug status note in §2). **Re-verify on your target OS
@@ -214,4 +305,6 @@ build** before relying on any specific fact.
 
 References: WebKit #297779 (keyboard/visualViewport offset; acknowledged, partly
 improved in 26.1), WebKit #198416 (canvas `ctx.filter`; RESOLVED FIXED but
-disabled by default in shipping Safari 18–26.x).
+disabled by default in shipping Safari 18–26.x), WebKit #301756 (fixed-element
+toolbar tinting), and Ben Nasedkin, "Why iOS 26 Safari Toolbar Colors Work
+Differently" (nasedk.in) — the source for §1's tint-derivation order.

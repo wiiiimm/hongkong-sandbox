@@ -4,7 +4,7 @@ description: "Autonomously drive a pull request to merge-ready — opening or at
 metadata:
   author: stealth-engine
   co-author: wiiiimm
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # Autonomous PR driver
@@ -17,7 +17,7 @@ This skill is the playbook for that.
 Deep detail lives in siblings (load on demand):
 [`reference/triage-playbook.md`](./reference/triage-playbook.md) (decision rules +
 `gh` recipes) and [`reference/known-bots.md`](./reference/known-bots.md) (per-bot
-behaviour snapshot).
+cadence + @-tag behaviour snapshot).
 
 ## The loop
 
@@ -47,7 +47,11 @@ behaviour snapshot).
 4. **Converge?** Done — keyed on the **current HEAD SHA, never on the clock** — when
    **all three** hold:
    - **All required checks pass.**
-   - **Every expected reviewer has reported on the current HEAD.**
+   - **Every expected reviewer has reported on the current HEAD** — "expected" = the
+     **re-report-capable automated reviewers** (per-push, plus on-demand once
+     re-triggered), *not* one-shot or human reviewers (see the checklist). Mind the
+     cadence: **on-demand** reviewers don't re-review a new commit until you
+     re-trigger them.
    - **No open finding (thread or issue comment) remains valid on HEAD.** Stale
      re-posts and rejected/"wontfix" items don't block; **don't chase
      non-deterministic bots to zero comments** — they re-post regardless.
@@ -88,28 +92,66 @@ For each finding, decide one of three (full rules:
 
 When a fix you'd make is *worse* than the status quo, that's a reject, not a fix.
 
-## Rejecting + the @-mention learning policy
+## Rejecting + the @-mention policy (two axes)
 
 Reject in a PR comment that states **what** you're rejecting and **why** (one or two
 sentences), so the human reviewer has the reasoning on record.
 
-- **@-mention the responsible bot** when you reject — *some* genuinely learn: they
-  re-scan on mention, confirm resolution, and record persistent learnings so they stop
-  re-raising that class of finding.
-- **Stop @-mentioning bots that refuse to learn.** If a bot re-posts the *same*
-  resolved finding across multiple rounds, tagging it is noise — drop the mention and
-  just note it's resolved/stale.
-- Which bots learn, their @-handles, and how each IDs findings live in the dated
-  overlay: [`reference/known-bots.md`](./reference/known-bots.md).
+Whether to @-mention a bot is decided by where it sits on **two independent axes**
+(per-bot values live in the dated overlay,
+[`reference/known-bots.md`](./reference/known-bots.md) — along with each bot's
+@-handle and finding-ID format):
+
+- **Re-review cadence** — when it looks at a new commit: (a) **auto every push**,
+  (b) **auto on PR-open only**, or (c) **on-demand** — it only re-reviews when you
+  comment-trigger it (`@bot review`).
+- **Response to being @-tagged** — what a tag actually does: **learns** (re-scans,
+  confirms resolution, records durable learnings), **inert/noisy** (re-posts resolved
+  findings or treats your reply as fresh work — tagging is pure noise), or
+  **re-triggers** (a tag kicks off a fresh review pass).
+
+The tag decision falls out of the axes:
+
+- **Tag to teach** → only *learners*, and only when you have a **genuine codebase
+  insight or correction** to hand over (a verified disproof, a documented house rule
+  it missed) — not on every reject. This is how a learner stops re-raising that class
+  of finding.
+- **Tag to re-trigger** → only *on-demand* reviewers, and only when **HEAD changed
+  and you still need their sign-off** to converge. Don't tag per-push bots for this —
+  they re-review themselves, and the tag just spawns a redundant pass.
+- **Don't tag / stop tagging** → non-learners that re-post resolved findings, and any
+  tag that would only spawn a redundant or no-op review. **Escalation guard:** if a
+  bot you've engaged keeps treating your replies as new work — more noise each
+  round — stop tagging it entirely; engaging it is net-negative. Just record its
+  findings as resolved/stale and move on.
 
 ## Fixing & pushing
 
 - One focused fix per finding (or per cluster); commit with a Conventional Commit
   message; push to the PR branch to trigger re-review.
 - After pushing, **return to step 2** (watch the *new* commit's checks) — don't
-  triage the old round's comments against the new code.
-- Keep a short running tally in your replies: fixed N, rejected M (reasons), skipped
-  K stale. It makes the loop auditable and shows convergence.
+  triage the old round's comments against the new code. Per-push reviewers re-review
+  on their own; **re-trigger any on-demand reviewer** whose sign-off you still need
+  (`@bot review` — see the @-mention policy above).
+- **Post a status table** as your triage/summary comment on the PR — one row per
+  finding, so the human can audit the loop at a glance. **Verdict** is one of
+  `Fixed` / `Rejected` / `Deferred` / `Verified-stale` / `Kept (with reason)` —
+  `Fixed`/`Rejected`/`Verified-stale`/`Kept (with reason)` are **terminal and
+  non-blocking** (record the reason for `Kept`), while **`Deferred` blocks hand-off**
+  unless you note where it's tracked (a follow-up issue/PR) *and* flag it for the human
+  to accept in the summary:
+
+  | Finding | Reviewer | Severity | Verdict | Note / commit |
+  | --- | --- | --- | --- | --- |
+  | Unquoted `$PR` in poll script | bot A | High | Fixed | `a1b2c3d` |
+  | "`checkout@v7` is unpublished" | bot B | Medium | Rejected | tag exists — verified via `gh api` |
+  | Threads query missing `--paginate` | bot A | Medium | Fixed | `d4e5f6a` |
+  | Re-post of the regex finding | bot C | Low | Verified-stale | fixed in `a1b2c3d`; confirmed in file |
+  | Rename `NOISE` variable | bot B | Low | Kept (with reason) | matches repo convention (`AGENTS.md`) |
+
+  Update it (or post a fresh one) each round; the final hand-off comment carries the
+  complete table. It replaces any terse "fixed N / rejected M" tally — same purpose,
+  auditable per finding.
 
 ## Safety (non-negotiable)
 
@@ -125,11 +167,12 @@ sentences), so the human reviewer has the reasoning on record.
 ## Convergence checklist
 
 - [ ] All **required** checks green (ignore neutral/skipped + human-gated approvers).
-- [ ] **Every per-push automated reviewer has weighed in on the current HEAD SHA** — its check completed on HEAD and/or a review/inline/issue comment on HEAD; don't block on one-shot or human reviewers who won't re-post each push (their findings are covered by the next item).
-- [ ] **Every open finding triaged** — both unresolved review threads *and* top-level issue-comment findings, enumerated in full (not time/`commit_id`-filtered), each fixed / rejected / verified-stale-in-file.
+- [ ] **Every expected automated reviewer has weighed in on the current HEAD SHA** — cadence-aware: **per-push** reviewers re-review automatically (their check completed on HEAD and/or a review/inline/issue comment on HEAD); **on-demand** reviewers must be **explicitly re-triggered** (`@bot review`) if you need their pass on the new HEAD — don't silently exclude them, and don't hand off until a needed on-demand reviewer has actually re-reported on HEAD (or you've decided its sign-off isn't required and said so in the summary). Don't block on one-shot or human reviewers who won't re-post each push (their findings are covered by the next item).
+- [ ] **Every open finding triaged** — both unresolved review threads *and* top-level issue-comment findings, enumerated in full (not time/`commit_id`-filtered), each reaching a **terminal verdict** (fixed / rejected / verified-stale-in-file / kept-with-reason). A **`Deferred`** finding blocks hand-off unless it's tracked in a follow-up *and* the human has accepted the deferral.
 - [ ] Rejections each have a one-line reason comment.
-- [ ] Posted a final status summary and **pinged the human to merge** (or auto-merged
-      only if explicitly authorised).
+- [ ] Posted the final **status table** (one row per finding — verdict + note, per
+      "Fixing & pushing") and **pinged the human to merge** (or auto-merged only if
+      explicitly authorised).
 
 ## See also
 
