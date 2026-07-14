@@ -56,9 +56,19 @@ file (via any static server) and deploys as plain files.
 - **Four ways to explore** — **Orbit** the map, **Fly** a plane, **Walk** it in first person,
   or **Stargaze**; plus two looks — **Matrix** and **風林火山** (snowbound neon-noir) —
   toggleable in any mode.
-- **Flight** — take off from the real **HKIA runway** and fly the terrain; choose a livery
-  (**Cathay Pacific 747 / 777 / A350**, the DC-3 **"Betsy"**, or a prop plane), switch
-  between **chase / cockpit-eye / flight-deck** cameras, with tilt-to-steer on phones.
+- **Flight** — take off from the real **HKIA runway** and fly the terrain; choose an
+  aircraft (**Cathay Pacific 747 / 777 / A330 / A350**, the DC-3 **"Betsy"**, or a prop
+  plane), switch between **chase / cockpit-eye / flight-deck** cameras, with
+  tilt-to-steer on phones. Real gear drops on landing and the props stop; airborne, the
+  gear comes up and they spin.
+- **🛸 …and a UFO.** It isn't a plane, so it doesn't fly like one. Cut the throttle and
+  it **hovers** in place instead of stalling — pitch then simply raises and lowers it.
+  Keep braking past the hover and it **reverses** (no wings, so it can back up). The
+  saucer **spins on its own axis**, and an **abduction beam** hangs straight down from
+  its belly, staying vertical however hard you bank. Hover over the **cattle** grazing
+  on the land and the beam hauls them up, spinning, into the hull — the HUD keeps your
+  tally and points at the nearest one. Some graze around the airport, so you'll meet
+  them on your first flight.
 - **Walk** — first-person at real pace: hold-drag to look (or 🖱 lock the mouse),
   auto-walk, jump, run.
 - **Living sky** — the sun and moon are placed by real astronomy for Hong Kong and track the **live HK clock** (or scrub any time and date). The whole sky follows them: **blue by day → warm gold at sunrise & sunset → deep night**, with fog and lighting shifting to match. The stars are always up there — a bright sky simply washes them out and a dark one reveals them, exactly like real life, so they fade in through dusk and fill the sky at night. Real **moon phases** and moonlight, too.
