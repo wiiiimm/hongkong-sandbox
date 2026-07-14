@@ -129,6 +129,65 @@ export function setEngine(level) {
   engine.g.gain.setTargetAtTime(0.05 + level * 0.10, t, 0.15);
 }
 
+// ---- the UFO (HKS-113) -----------------------------------------------------
+// A saucer must not growl like a turbofan, so it gets its own voice — still fully
+// synthesized, no samples. It's the classic sci-fi theremin, built from three parts:
+//
+//   · TWO SINES a few Hz apart. The beat between them is the eerie, wavering wobble
+//     that makes a theremin sound alive; a shared vibrato LFO bends both.
+//   · A SUB sine under it all — the hull hum you feel more than hear.
+//   · A WHIRR: a square through a tight resonant bandpass, amplitude-modulated, which
+//     reads as the disc spinning. Its pitch tracks the throttle.
+//
+// `hover` deepens the vibrato: parked over a field the saucer wavers and moans;
+// at speed the wobble tightens into a purposeful hum.
+let ufoEng = null;
+export function setUfoEngine(level, hover = 0) {
+  if (!ctx || !enabled) level = 0;
+  if (level > 0 && !ufoEng) {
+    if (!ctx) return;
+    const a = ctx.createOscillator(); a.type = 'sine';
+    const b = ctx.createOscillator(); b.type = 'sine';
+    const sub = ctx.createOscillator(); sub.type = 'sine'; sub.frequency.value = 46;
+    // vibrato: one LFO bending BOTH sines together, so they stay in their beat
+    const vib = ctx.createOscillator(); vib.type = 'sine'; vib.frequency.value = 5.2;
+    const vibG = ctx.createGain(); vibG.gain.value = 6;              // ± Hz
+    vib.connect(vibG); vibG.connect(a.frequency); vibG.connect(b.frequency);
+    // the spinning disc
+    const whirr = ctx.createOscillator(); whirr.type = 'square'; whirr.frequency.value = 120;
+    const wf = ctx.createBiquadFilter(); wf.type = 'bandpass'; wf.frequency.value = 1500; wf.Q.value = 7;
+    const wg = ctx.createGain(); wg.gain.value = 0;
+    const trem = ctx.createOscillator(); trem.type = 'sine'; trem.frequency.value = 11;
+    const tremG = ctx.createGain(); tremG.gain.value = 0.022;        // shallower than the base gain, so it never inverts phase
+    trem.connect(tremG); tremG.connect(wg.gain);
+    whirr.connect(wf); wf.connect(wg);
+    const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 1900; f.Q.value = 3;
+    const g = ctx.createGain(); g.gain.value = 0;
+    a.connect(f); b.connect(f); sub.connect(f); wg.connect(f);
+    f.connect(g); g.connect(muffle);
+    for (const o of [a, b, sub, vib, whirr, trem]) o.start();
+    ufoEng = { a, b, sub, vib, vibG, whirr, wg, trem, f, g };
+  }
+  if (!ufoEng) return;
+  const t = ctx.currentTime;
+  if (level <= 0) {
+    ufoEng.g.gain.setTargetAtTime(0, t, 0.3);
+    const e = ufoEng; ufoEng = null;                                 // null it NOW so a re-entry builds a fresh voice
+    setTimeout(() => {
+      try { for (const o of [e.a, e.b, e.sub, e.vib, e.whirr, e.trem]) o.stop(); } catch (_) {}
+    }, 1400);
+    return;
+  }
+  const base = 188 + level * 200;
+  ufoEng.a.frequency.setTargetAtTime(base, t, 0.28);                 // slow glide: a theremin never snaps
+  ufoEng.b.frequency.setTargetAtTime(base + 5.5, t, 0.28);           // …the 5.5 Hz beat against it
+  ufoEng.vibG.gain.setTargetAtTime(3.5 + hover * 9, t, 0.35);        // hovering ⇒ a deeper, sicklier wobble
+  ufoEng.whirr.frequency.setTargetAtTime(104 + level * 96, t, 0.22);
+  ufoEng.wg.gain.setTargetAtTime(0.030 + level * 0.045, t, 0.22);
+  ufoEng.f.frequency.setTargetAtTime(1200 + level * 1500, t, 0.25);
+  ufoEng.g.gain.setTargetAtTime(0.05 + level * 0.11, t, 0.18);
+}
+
 // one-shot rumble per strike. close: short delay, louder, with an initial
 // crack; distant sheet lightning: long delay, soft low roll. vol (optional,
 // 0..1, default 1) scales the rumble+crack peaks — HKS-68 passes the live

@@ -8,7 +8,7 @@ import { OrbitControls } from './vendor/OrbitControls.js';
 import { GLTFLoader } from './vendor/GLTFLoader.js';
 import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
-import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, audioSupported } from './audio.js';
+import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, setUfoEngine, audioSupported } from './audio.js';
 import { initAnalytics, track, armAnalytics, VercelSink, GA4Sink } from './analytics.js';
 
 // ---- configurable asset base (HKS-46) --------------------------------------
@@ -5097,6 +5097,7 @@ function exitFlight() {
   spinDir = flight.prevSpin;
   syncSpinSeg();
   setEngine(0);
+  setUfoEngine(0);                                    // HKS-113: …and the saucer stops humming when you leave
   setTopMode(null);
   updateSpeedGauge();                                 // park the gauge at —
   camera.up.set(0, 1, 0);
@@ -5454,7 +5455,17 @@ function stepFlight() {
   //  fleet's 28 m/s stall floor, and only the UFO — which can hover at 0 and now run
   //  in reverse — reaches at or below it. A jet never does, so abs is a no-op there.)
   const spd = Math.abs(F.speed);
-  setEngine(sndOn ? Math.max(0, F.landed ? spd * 0.004 : 0.25 + 0.75 * (spd - 28) / Math.max(20, F.top - 28)) : 0);
+  // HKS-113: the saucer has its own voice — a synthesized theremin, not a turbofan.
+  // Exactly one engine ever runs: switching craft silences the other. And unlike a
+  // plane, a parked UFO does NOT fall silent — it idles, humming, the way its spin
+  // idles rather than stopping.
+  if (ufo) {
+    setEngine(0);
+    setUfoEngine(sndOn ? (F.landed ? 0.12 : 0.30 + 0.70 * Math.min(1, spd / F.top)) : 0, hover);
+  } else {
+    setUfoEngine(0);
+    setEngine(sndOn ? Math.max(0, F.landed ? spd * 0.004 : 0.25 + 0.75 * (spd - 28) / Math.max(20, F.top - 28)) : 0);
+  }
   // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
   // — chase 55°, eye/cockpit 68° — and stretches a few degrees more near full
   // throttle. Eased so view switches breathe instead of snapping.
