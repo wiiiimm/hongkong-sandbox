@@ -8,7 +8,7 @@ import { OrbitControls } from './vendor/OrbitControls.js';
 import { GLTFLoader } from './vendor/GLTFLoader.js';
 import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
-import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, setUfoEngine, abductionSfx, audioSupported } from './audio.js';
+import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, setUfoEngine, abductionSfx, scoreDing, audioSupported } from './audio.js';
 import { initAnalytics, track, armAnalytics, VercelSink, GA4Sink } from './analytics.js';
 
 // ---- configurable asset base (HKS-46) --------------------------------------
@@ -4831,7 +4831,9 @@ const HERD_AIRPORT_R = 2600;                            // metres around the run
 // at a 30 m hover — so the quarry is scaled to read against the beam, not against
 // the terrain. Gameplay beats realism here.
 const COW_LEN = 14;                                     // metres, nose→tail
-const CATCH_MS = 1700;                                  // how long a beam-up takes
+// The beam HAULS at a constant speed — it doesn't fling. So this is a rate, not a
+// duration: a cow taken from 100 m up simply takes longer than one taken from 20 m.
+const CATCH_SPEED = 14;                                 // m/s, real metres — a steady, inexorable lift
 const CATCH_AGL = 260;                                  // above this the beam is too faint to grab anything
 const herd = { grp: null, cows: [], caught: 0, proto: null, loading: false, failed: false, near: null };
 const _hm = new THREE.Matrix4(), _hm2 = new THREE.Matrix4(), _hq = new THREE.Quaternion();
@@ -5006,14 +5008,25 @@ function stepHerd() {
   let nearD = Infinity, nearX = 0, nearZ = 0;           // …and where the closest one is
   for (const c of herd.cows) {
     if (c.t0) {                                         // …already on its way up
-      const k = Math.min(1, (now - c.t0) / CATCH_MS);
-      const e = k * k * (3 - 2 * k);                    // smoothstep — a gentle snatch, not a yank
-      c.y = c.groundY + (c.topY - c.groundY) * e;
-      c.yaw += 0.10 + 0.32 * k;                         // whirls faster the higher it gets
-      c.tilt = Math.sin(now / 80) * 0.30 * k;           // helpless wobble
-      c.s = 1 - 0.8 * e;                                // shrinks away into the hull
+      // A tractor beam HAULS; it doesn't throw. So the rise is integrated at a constant
+      // speed rather than eased — an ease-in/out reads as a fling (fast through the
+      // middle, stalling at both ends). Straight up at a steady CATCH_SPEED, x/z frozen,
+      // so it tracks the beam vertically even if the saucer drifts.
+      c.y += CATCH_SPEED * VE / 60;                     // world y is VE-exaggerated
+      c.yaw += 0.14;                                    // a steady turn on the spot…
+      c.tilt = Math.sin(now / 240) * 0.10;              // …and a slow, helpless sway, not a shake
+      // it only shrinks as the hull actually swallows it — not the whole way up
+      const rem = belly - c.y;
+      c.s = rem < 10 ? Math.max(0.10, rem / 10) : 1;
       writeCow(c);
-      if (k >= 1) { herd.caught++; track('ufo_abduct', { total: herd.caught }); placeCow(c); }
+      // taken once it reaches the belly. The timeout is the safety net: if the saucer
+      // climbs away faster than the beam hauls, the cow would otherwise chase it forever.
+      if (c.y >= belly || now - c.t0 > 12000) {
+        herd.caught++;
+        if (sndOn) scoreDing(herd.caught);            // the coin-grab chime, on the tick the tally moves
+        track('ufo_abduct', { total: herd.caught });
+        placeCow(c);
+      }
       continue;
     }
     if (!c.s) continue;                                 // parked instance (its field was water)
@@ -5022,10 +5035,11 @@ function stepHerd() {
     if (d < nearD) { nearD = d; nearX = dx; nearZ = dz; }
     if (live && d < beamR) {                            // standing in the light → taken
       c.t0 = now;
-      c.topY = belly;
-      // the tractor-beam whoosh + a startled moo, fired on the same tick the rise
-      // starts and running for exactly CATCH_MS, so the sound lands as it vanishes
-      if (sndOn) abductionSfx(CATCH_MS);
+      // the tractor-beam whoosh + a startled moo, fired on the same tick the rise starts.
+      // The haul is a constant speed, so the trip takes as long as the drop is tall —
+      // the sfx is stretched to match, and still lands as the cow vanishes into the hull.
+      const climb = Math.max(1, (belly - c.groundY) / VE);          // real metres to travel
+      if (sndOn) abductionSfx(Math.min(8000, Math.max(500, climb / CATCH_SPEED * 1000)));
     }
   }
   // the pointer that makes the herd findable at all: bearing + range to the closest
@@ -5118,9 +5132,11 @@ function exitFlight() {
 // cockpit on any skin without a built flight deck (HKS-93)
 function updateViewBtn() { syncCamSeg(); }   // fly camera state reflects in the segmented control
 function flyViews() {
-  const v = (planeGrp && planeGrp.userData.cockpit) ? ['chase', 'eye', 'cockpit'] : ['chase', 'eye'];
-  if (planeSkin === 'ufo') v.push('down');   // HKS-113: the bombsight — only the saucer has a beam to aim
-  return v;
+  // HKS-113: the saucer gets chase + the beam camera, and nothing else. There is no
+  // "inside" of a UFO worth sitting in — no nose, no deck, no windscreen — so the
+  // first-person eye is dropped for it rather than shipping an empty view.
+  if (planeSkin === 'ufo') return ['chase', 'down'];
+  return (planeGrp && planeGrp.userData.cockpit) ? ['chase', 'eye', 'cockpit'] : ['chase', 'eye'];
 }
 function toggleView() {
   if (!flight.on) return;
@@ -5130,7 +5146,8 @@ function toggleView() {
 function setFlightView(v) {
   if (!flight.on) return;
   if (v === 'cockpit' && !(planeGrp && planeGrp.userData.cockpit)) v = 'eye';   // no flight deck → clean eye
-  if (v === 'down' && planeSkin !== 'ufo') v = 'chase';                         // HKS-113: no beam, no bombsight
+  if (v === 'down' && planeSkin !== 'ufo') v = 'chase';                         // HKS-113: no beam, no beam camera
+  if ((v === 'eye' || v === 'cockpit') && planeSkin === 'ufo') v = 'chase';     // …and a saucer has no inside
   flight.view = v;
   camera.up.set(0, 1, 0);
   updateViewBtn();
@@ -5485,22 +5502,24 @@ function stepFlight() {
   // ease back to centre once nothing is held (no finger down, no mouse drag)
   if (!F.touchHold && !F.mouseLook) { F.lookYaw *= 0.9; F.lookPitch *= 0.9; }
   // --- cameras (world space: survives any leftover world spin)
-  if (F.view === 'down') {                             // 🎯 the bombsight (HKS-113) — UFO only
-    // Straight overhead, looking down, with the nose pointing UP the screen so you can
-    // walk the beam onto a cow. The look point sits a little AHEAD of the craft rather
-    // than on it — otherwise the hull parks dead centre and hides the very animal you're
-    // aiming at. That offset drops the saucer low in frame and opens up the ground ahead.
-    if (planeGrp.userData.cockpit) planeGrp.userData.cockpit.visible = false;
+  if (F.view === 'down') {                             // 🎯 the beam camera (HKS-113) — UFO only
+    // Slung UNDER the belly, looking straight down — the beam's own point of view. From
+    // beneath, the hull is behind the camera and can never occlude the animal you're
+    // aiming at (from above it parked dead centre over it), and you look down THROUGH the
+    // beam itself: the cone is additive and depthWrite:false, so the ground reads through
+    // its green wash and the catch footprint is literally what you see.
     const ay = F.yaw + F.lookYaw;
     const nx = -Math.sin(ay), nz = -Math.cos(ay);      // the nose, flattened onto the deck
-    const h = 95 + F.speed * 0.35;                     // rise a little with speed, to see where you're going
-    _fc.copy(F.pos); _fc.y += h;
+    const drop = UFO_BELLY * (planeGrp.scale.x || 1) - 0.8;   // just below the belly lamp
+    // …but never below the deck: parked, the hull sits only 2.2 m up, which would bury
+    // the camera in the terrain
+    _fc.copy(F.pos);
+    _fc.y = Math.max(surfY + 1.5, F.pos.y + drop);
     world.localToWorld(_fc);
-    camera.up.set(nx, 0, nz);                          // screen-up = heading (never parallel to a straight-down view)
-    camera.position.lerp(_fc, 0.18);
-    _fl.copy(F.pos);
-    _fl.x += nx * 16; _fl.z += nz * 16;                // …look just ahead of the hull
-    world.localToWorld(_fl);
+    camera.up.set(nx, 0, nz);                          // screen-up = heading (horizontal ⇒ never parallel to a straight-down view)
+    camera.position.lerp(_fc, 0.25);
+    _fl.copy(_fc);                                     // straight down from wherever the camera ended up
+    _fl.y -= 1000;
     camera.lookAt(_fl);
   } else if (F.view !== 'chase') {                     // first person: 👁 eye or 🧑‍✈️ cockpit —
     const ud = planeGrp.userData, ck = ud.cockpit;     // interiors exist per skin (HKS-93)
@@ -6151,6 +6170,7 @@ function syncCamSeg() {
   if (!ext || !fp || !ckb) return;
   ckb.hidden = !flight.on || !(planeGrp && planeGrp.userData.cockpit);   // Fly-only, needs a flight deck
   if (dn) dn.hidden = !flight.on || planeSkin !== 'ufo';                 // HKS-113: only the saucer has a beam to aim
+  fp.hidden = flight.on && planeSkin === 'ufo';                          // …and a saucer has no inside to sit in
   const mark = (btn, on) => { btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false'); };
   mark(ext, mode === 'chase'); mark(fp, mode === 'eye'); mark(ckb, mode === 'cockpit');
   if (dn) mark(dn, mode === 'down');

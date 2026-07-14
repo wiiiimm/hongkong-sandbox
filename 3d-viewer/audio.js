@@ -256,6 +256,29 @@ export function abductionSfx(ms = 1700) {
   lar.start(m0); lar.stop(m0 + mdur + 0.05);
 }
 
+// The score. A coin-grab chime: two short notes, the second a fourth above the first,
+// on a square wave through a gentle lowpass — the arcade shape everyone's ear already
+// knows. `n` (the running tally) transposes it up in semitones, capped, so a streak
+// climbs a little each time and landing your tenth cow feels different from your first.
+export function scoreDing(n = 0) {
+  if (!ctx || !enabled) return;
+  const t0 = ctx.currentTime + 0.01;
+  const step = Math.min(12, n) * 0.6;                   // semitones, capped — it climbs, then plateaus
+  const semis = s => 987.77 * Math.pow(2, s / 12);      // from B5
+  const note = (freq, at, dur, peak) => {
+    const o = ctx.createOscillator(); o.type = 'square'; o.frequency.setValueAtTime(freq, at);
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3800;   // take the edge off the square
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, at);
+    g.gain.exponentialRampToValueAtTime(peak, at + 0.012);   // instant attack — it's a chime
+    g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+    o.connect(lp); lp.connect(g); g.connect(muffle);
+    o.start(at); o.stop(at + dur + 0.02);
+  };
+  note(semis(step), t0, 0.09, 0.16);                    // B5  — the grab…
+  note(semis(step + 5), t0 + 0.075, 0.42, 0.14);        // E6  — …and the payoff, ringing out
+}
+
 // one-shot rumble per strike. close: short delay, louder, with an initial
 // crack; distant sheet lightning: long delay, soft low roll. vol (optional,
 // 0..1, default 1) scales the rumble+crack peaks — HKS-68 passes the live
