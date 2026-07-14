@@ -364,13 +364,27 @@ mode; no other craft ever builds them.
   float32). The herd never animates on its own, so the rig was pure weight, and
   dropping it means dozens of cattle render as cheap static meshes.
   Result: **1 MB → 117 KB each**, 2 450 / 2 418 tris kept intact.
-- **Runtime:** normalised to `COW_LEN` nose→tail with feet on y = 0, then scattered
-  on random land above the tide band (elevation > 15 m — nobody grazes in the
-  harbour) with a random yaw. **Deliberately not life-size:** a real 2.6 m cow is a
-  sub-pixel speck from any altitude you'd actually fly at, and the beam's foot is
-  ~46 m across at a 30 m hover, so the quarry is scaled to read against *the beam*
-  rather than against the terrain. A cow standing inside the beam's ground
-  footprint is hauled up, spinning, into the belly; the tally shows in the fly HUD.
+- **Runtime:** normalised to `COW_LEN` (14 m) nose→tail with feet on y = 0.
+  **Deliberately not life-size:** a real 2.6 m cow is a sub-pixel speck from any
+  altitude you'd actually fly at, and the beam's foot is ~46 m across at a 30 m hover,
+  so the quarry is scaled to read against *the beam* rather than against the terrain.
+  A cow standing inside the beam's ground footprint is hauled up, spinning, into the
+  belly; the tally shows in the fly HUD.
+- **Findability is the design problem.** The map is 910 × 685 cells at 70 m —
+  **64 km × 48 km**. Cattle sprinkled uniformly over that are a needle in a haystack
+  (an early 36-head herd worked out at ~1 cow per 30 km²). Three things fix it:
+  - **360 head in 60 fields of 6** — find one cow and you've found its whole field.
+  - **6 fields are seeded around HKIA**, within 2.6 km of the runway you spawn on, so
+    the game announces itself instead of waiting to be discovered. Note the apron is
+    reclaimed land only **7 m** above the sea, so the usual >15 m land test rejects it
+    outright — the airport fields use `minE = 4`. Cattle on the apron is the point.
+  - **The HUD points at the nearest one** (bearing + range), which is the only reason
+    the herd is findable at all.
+- **Rendering:** 360 head × 7 mesh parts would be **~2 500 draw calls**, so the herd is
+  drawn with `InstancedMesh` — one draw call per (geometry, material) pair per type,
+  which collapses it to **14**. Only the animals actually mid-abduction rewrite their
+  instance matrices each frame; a cow whose field turned out to be water is parked at
+  scale 0, so it costs zero area.
 - **Rebuild:** `node ../../scripts/trim_cattle_glb.mjs <input.glb> cow.glb`
 - **Rejected alternatives:** “Cow” by kenchoo
   (https://sketchfab.com/3d-models/cow-3c1bbce7a64640cca28b49b3d181e347) — **Sketchfab

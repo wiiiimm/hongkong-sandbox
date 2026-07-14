@@ -4807,7 +4807,23 @@ function buildUFO() {
 // mode; every other craft never builds them. Models are CC0 (Quaternius — the same
 // author and licence as the walk-mode hiker), so no attribution is owed, and the
 // trim script strips their 25 animations + skeleton, leaving a 117 KB static mesh.
-const HERD_N = 36;                                      // head of cattle on the map
+//
+// FINDABILITY is the whole design problem. The map is 910 x 685 cells at 70 m —
+// 64 km x 48 km — so cattle sprinkled uniformly over it are a needle in a haystack
+// (an early 36-head herd worked out at ~1 cow per 30 km²). Three things fix that:
+// they graze in FIELDS (find one, find six); some fields are seeded around the
+// AIRPORT, where every flight begins, so you meet cattle without going looking; and
+// the HUD points at the nearest one.
+//
+// RENDERING: 360 head x 7 parts would be ~2 500 draw calls, so the herd is drawn
+// with InstancedMesh — one draw call per (geometry, material) pair, 360 instances.
+// Only the animals actually being abducted rewrite their matrices each frame.
+const HERD_FIELDS = 60;                                 // grazing fields, scattered on land
+const HERD_PER = 6;                                     // head per field
+const HERD_SPREAD = 130;                                // metres a cow wanders from its field's centre
+const HERD_N = HERD_FIELDS * HERD_PER;                  // 360 head of cattle
+const HERD_AIRPORT_FIELDS = 6;                          // …of which this many graze around HKIA, so the game announces itself
+const HERD_AIRPORT_R = 2600;                            // metres around the runway to seed them in
 // Deliberately NOT life-size. A real 2.6 m cow on a map this size is a sub-pixel
 // speck from any altitude you'd actually fly at, and the beam's foot is ~46 m across
 // at a 30 m hover — so the quarry is scaled to read against the beam, not against
@@ -4815,7 +4831,9 @@ const HERD_N = 36;                                      // head of cattle on the
 const COW_LEN = 14;                                     // metres, nose→tail
 const CATCH_MS = 1700;                                  // how long a beam-up takes
 const CATCH_AGL = 260;                                  // above this the beam is too faint to grab anything
-const herd = { grp: null, cows: [], caught: 0, proto: null, loading: false, failed: false };
+const herd = { grp: null, cows: [], caught: 0, proto: null, loading: false, failed: false, near: null };
+const _hm = new THREE.Matrix4(), _hm2 = new THREE.Matrix4(), _hq = new THREE.Quaternion();
+const _he = new THREE.Euler(), _hp = new THREE.Vector3(), _hs = new THREE.Vector3();
 
 // stand-in used if the GLBs are missing (offline / not yet on R2) — the same
 // procedural-fallback contract every model in this project has to honour
@@ -4833,50 +4851,122 @@ function buildProcCow(bull) {
   }
   return g;
 }
-// normalise a prototype to COW_LEN nose→tail, feet on y = 0
+// normalise a prototype to COW_LEN nose→tail, feet on y = 0, centred on its own axis
 function fitCow(o) {
   o.updateMatrixWorld(true);
   const b = new THREE.Box3().setFromObject(o);
   const k = COW_LEN / Math.max(0.01, b.max.z - b.min.z);
-  const wrap = new THREE.Group();                       // wrapper carries the fit; the herd only scales the wrapper
+  const wrap = new THREE.Group();
   o.scale.setScalar(k);
   o.position.set(-k * (b.max.x + b.min.x) / 2, -k * b.min.y, -k * (b.max.z + b.min.z) / 2);
   wrap.add(o);
+  wrap.updateMatrixWorld(true);
   return wrap;
 }
+// flatten a fitted prototype into (geometry, material, baked-local-matrix) parts, so
+// each can become one InstancedMesh
+function cowParts(wrap) {
+  const parts = [];
+  wrap.traverse(o => {
+    if (!o.isMesh) return;
+    const mat = Array.isArray(o.material) ? o.material[0] : o.material;
+    parts.push({ geo: o.geometry, mat, local: o.matrixWorld.clone() });   // wrap is at identity ⇒ matrixWorld is cow-local
+  });
+  return parts;
+}
+function makeHerdSet(proto, count) {
+  return cowParts(fitCow(proto)).map(p => {
+    const im = new THREE.InstancedMesh(p.geo, p.mat, count);
+    im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    im.frustumCulled = false;                           // instances are spread across the whole map
+    im.castShadow = false;
+    herd.grp.add(im);
+    return { im, local: p.local };
+  });
+}
+// push a cow's pose into every InstancedMesh of its set
+function writeCow(c) {
+  _he.set(0, c.yaw, c.tilt || 0, 'YXZ');
+  _hm.compose(_hp.set(c.x, c.y, c.z), _hq.setFromEuler(_he), _hs.setScalar(c.s));
+  for (const part of c.set) {
+    _hm2.multiplyMatrices(_hm, part.local);
+    part.im.setMatrixAt(c.i, _hm2);
+    part.im.instanceMatrix.needsUpdate = true;
+  }
+}
 // a random point on LAND — above the tide band, so nobody grazes in the harbour
-function landSpot() {
-  for (let i = 0; i < 80; i++) {
-    const col = 3 + Math.random() * (W - 6), row = 3 + Math.random() * (H - 6);
+function landSpot(cx, cz, radius, minE) {
+  for (let i = 0; i < 120; i++) {
+    let col, row, x, z;
+    if (radius) {
+      const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * radius;
+      x = cx + Math.cos(a) * r; z = cz + Math.sin(a) * r;
+      col = x / cell + W / 2; row = z / cell + H / 2;
+      if (col < 1 || col > W - 2 || row < 1 || row > H - 2) continue;
+    } else {
+      col = 3 + Math.random() * (W - 6); row = 3 + Math.random() * (H - 6);
+      x = (col - W / 2) * cell; z = (row - H / 2) * cell;
+    }
     const e = sampleE(col, row);
-    if (e > 15) return { x: (col - W / 2) * cell, z: (row - H / 2) * cell, y: e * VE };
+    if (e > (minE == null ? 15 : minE)) return { x, z, y: e * VE };
   }
   return null;
 }
+// the fields around HKIA. The airport platform is reclaimed land only ~6 m above the
+// sea, so the usual >15 m land test would reject it outright — hence the lower bar.
+// Cattle on the apron is exactly the point: you spawn on the runway, so you see them.
+function airportFields(n) {
+  const out = [];
+  if (!curG) return out;
+  const g = curG;
+  const col = (809897 - g.bE) / g.aE, row = (818635 - g.bN) / g.aN;
+  const x = (col - W / 2) * cell, z = (row - H / 2) * cell;
+  for (let i = 0; i < n; i++) {
+    const s = landSpot(x, z, HERD_AIRPORT_R, 4);
+    if (s) out.push(s);
+  }
+  return out;
+}
+// drop a cow near its home field — it wanders, but stays in its own pasture, and it
+// must still land on dry ground (a field can sit on a coastline)
 function placeCow(c) {
-  const s = landSpot();
-  if (!s) { c.obj.visible = false; return; }
-  c.obj.visible = true;
-  c.obj.position.set(s.x, s.y, s.z);
-  c.obj.rotation.set(0, Math.random() * Math.PI * 2, 0);
-  c.obj.scale.setScalar(1);
-  c.groundY = s.y;
-  c.t0 = 0;                                             // 0 = grazing, >0 = being taken
+  if (!c.home) { c.s = 0; writeCow(c); return; }         // scale 0 ⇒ invisible instance
+  const minE = c.home.minE == null ? 15 : c.home.minE;
+  for (let i = 0; i < 12; i++) {
+    const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * HERD_SPREAD;
+    const x = c.home.x + Math.cos(a) * r, z = c.home.z + Math.sin(a) * r;
+    const col = x / cell + W / 2, row = z / cell + H / 2;
+    if (col < 1 || col > W - 2 || row < 1 || row > H - 2) continue;
+    const e = sampleE(col, row);
+    if (e <= minE) continue;                             // wandered into the sea — try again
+    c.x = x; c.z = z; c.y = e * VE; c.groundY = e * VE;
+    c.yaw = Math.random() * Math.PI * 2;
+    c.tilt = 0; c.s = 1; c.t0 = 0;                       // t0: 0 = grazing, >0 = being taken
+    writeCow(c);
+    return;
+  }
+  c.s = 0; writeCow(c);                                  // its whole field is water — sit this one out
 }
 function scatterHerd() {
   if (!herd.grp || !curG) return;
-  for (const c of herd.cows) placeCow(c);
+  const fields = airportFields(HERD_AIRPORT_FIELDS);     // …so the game announces itself where you spawn
+  for (const f of fields) f.minE = 4;                    // the apron is only ~6 m up
+  while (fields.length < HERD_FIELDS) { const s = landSpot(); if (s) fields.push(s); else break; }
+  herd.cows.forEach((c, i) => { c.home = fields.length ? fields[i % fields.length] : null; placeCow(c); });
 }
 function buildHerd() {
   if (herd.grp) { scatterHerd(); return; }
   const protos = herd.proto || { cow: buildProcCow(false), bull: buildProcCow(true) };
-  const cow = fitCow(protos.cow), bull = fitCow(protos.bull);
   herd.grp = new THREE.Group();
   herd.grp.visible = false;
+  // one in four is a bull, and each type gets its own InstancedMesh set
+  const nBull = Math.floor(HERD_N / 4), nCow = HERD_N - nBull;
+  const cowSet = makeHerdSet(protos.cow, nCow), bullSet = makeHerdSet(protos.bull, nBull);
+  let ci = 0, bi = 0;
   for (let i = 0; i < HERD_N; i++) {
-    const obj = (i % 3 === 0 ? bull : cow).clone(true);  // clone shares geometry + materials
-    herd.grp.add(obj);
-    herd.cows.push({ obj, groundY: 0, t0: 0 });
+    const bull = i % 4 === 3;
+    herd.cows.push({ set: bull ? bullSet : cowSet, i: bull ? bi++ : ci++,
+                     x: 0, y: 0, z: 0, yaw: 0, tilt: 0, s: 0, groundY: 0, t0: 0, home: null });
   }
   world.add(herd.grp);
   scatterHerd();
@@ -4911,24 +5001,32 @@ function stepHerd() {
   const live = !!(bm && bm.visible) && F.agl < CATCH_AGL;   // beam on, and low enough to grab
   const beamR = planeGrp ? (planeGrp.userData.beamR || 0) : 0;
   const belly = planeGrp ? planeGrp.position.y + UFO_BELLY * (planeGrp.scale.x || 1) : 0;
+  let nearD = Infinity, nearX = 0, nearZ = 0;           // …and where the closest one is
   for (const c of herd.cows) {
     if (c.t0) {                                         // …already on its way up
       const k = Math.min(1, (now - c.t0) / CATCH_MS);
       const e = k * k * (3 - 2 * k);                    // smoothstep — a gentle snatch, not a yank
-      c.obj.position.y = c.groundY + (c.topY - c.groundY) * e;
-      c.obj.rotation.y += 0.10 + 0.32 * k;              // whirls faster the higher it gets
-      c.obj.rotation.z = Math.sin(now / 80) * 0.30 * k; // helpless wobble
-      c.obj.scale.setScalar(1 - 0.8 * e);               // shrinks away into the hull
+      c.y = c.groundY + (c.topY - c.groundY) * e;
+      c.yaw += 0.10 + 0.32 * k;                         // whirls faster the higher it gets
+      c.tilt = Math.sin(now / 80) * 0.30 * k;           // helpless wobble
+      c.s = 1 - 0.8 * e;                                // shrinks away into the hull
+      writeCow(c);
       if (k >= 1) { herd.caught++; track('ufo_abduct', { total: herd.caught }); placeCow(c); }
       continue;
     }
-    if (!live || !c.obj.visible) continue;
-    const dx = c.obj.position.x - F.pos.x, dz = c.obj.position.z - F.pos.z;
-    if (Math.hypot(dx, dz) < beamR) {                   // standing in the light → taken
+    if (!c.s) continue;                                 // parked instance (its field was water)
+    const dx = c.x - F.pos.x, dz = c.z - F.pos.z;
+    const d = Math.hypot(dx, dz);
+    if (d < nearD) { nearD = d; nearX = dx; nearZ = dz; }
+    if (live && d < beamR) {                            // standing in the light → taken
       c.t0 = now;
       c.topY = belly;
     }
   }
+  // the pointer that makes the herd findable at all: bearing + range to the closest
+  // cow. Without it you are hunting a 14 m animal across 64 x 48 km of Hong Kong.
+  herd.near = nearD === Infinity ? null
+    : { d: nearD, az: ((Math.atan2(nearX, -nearZ) / D2R) % 360 + 360) % 360 };
 }
 function enterFlight() {
   if (flight.on || !curG) return;
@@ -5361,8 +5459,15 @@ function stepFlight() {
   const stats = `${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +   // no emoji — ✈/🛬 flickered as landed toggled (HKS-91)
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // speed now shows on the speed bar
     (F.landed ? ` · ${t('fly.landed')}` : '') +
-    // HKS-113: the abduction tally rides in the same HUD line — UFO only
-    (planeSkin === 'ufo' ? ` · 🐄 ${herd.caught}` : '');
+    // HKS-113: the abduction tally rides in the same HUD line — UFO only — followed by
+    // a bearing + range to the nearest cow, which is the only reason the herd is
+    // findable at all across 64 x 48 km of Hong Kong
+    (planeSkin === 'ufo'
+      ? ` · 🐄 ${herd.caught}` + (herd.near
+          ? ` · ${herd.near.d < 1000 ? Math.round(herd.near.d) + ' m' : (herd.near.d / 1000).toFixed(1) + ' km'}` +
+            ` ${String(Math.round(herd.near.az)).padStart(3, '0')}° ${CARD[Math.round(herd.near.az / 45) % 8]}`
+          : '')
+      : '');
   // HKS-91: single-line live stats, top-left under the brand chip (how-to lives in
   // the Help drawer, camera toggle by the compass, exit via the dock/Esc)
   document.getElementById('flyhud').innerHTML = stats;
