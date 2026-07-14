@@ -8,7 +8,7 @@ import { OrbitControls } from './vendor/OrbitControls.js';
 import { GLTFLoader } from './vendor/GLTFLoader.js';
 import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
-import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, setUfoEngine, audioSupported } from './audio.js';
+import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, setUfoEngine, abductionSfx, audioSupported } from './audio.js';
 import { initAnalytics, track, armAnalytics, VercelSink, GA4Sink } from './analytics.js';
 
 // ---- configurable asset base (HKS-46) --------------------------------------
@@ -5022,6 +5022,9 @@ function stepHerd() {
     if (live && d < beamR) {                            // standing in the light → taken
       c.t0 = now;
       c.topY = belly;
+      // the tractor-beam whoosh + a startled moo, fired on the same tick the rise
+      // starts and running for exactly CATCH_MS, so the sound lands as it vanishes
+      if (sndOn) abductionSfx(CATCH_MS);
     }
   }
   // the pointer that makes the herd findable at all: bearing + range to the closest

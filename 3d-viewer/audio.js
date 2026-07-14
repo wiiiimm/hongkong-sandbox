@@ -188,6 +188,74 @@ export function setUfoEngine(level, hover = 0) {
   ufoEng.g.gain.setTargetAtTime(0.05 + level * 0.11, t, 0.18);
 }
 
+// ---- the abduction (HKS-113) ------------------------------------------------
+// Fired the instant a cow is caught in the beam. Two synthesized voices, no samples:
+//
+//   · The TRACTOR BEAM — noise through a bandpass sweeping UP, plus a sine glissando
+//     rising underneath. Everything ascends, because the cow visibly rises and shrinks
+//     over exactly this window: the sfx runs CATCH_MS (1.7 s), so the sound lands as
+//     the animal disappears into the hull.
+//   · The MOO — a startled one. A cow is a formant instrument: a sawtooth larynx driven
+//     through two bandpass formants, with the first sweeping up and back down as the
+//     mouth opens and closes ("mmMOOoo"). The pitch bends up in alarm, then sags.
+//
+// Each call is detuned a little, so a field of cattle doesn't moo in unison.
+let abducting = 0;                                      // cap the chorus when a whole herd is taken
+export function abductionSfx(ms = 1700) {
+  if (!ctx || !enabled || abducting >= 4) return;       // 4 at once is a stampede; more is mush
+  abducting++;
+  setTimeout(() => { abducting--; }, ms);
+  const t0 = ctx.currentTime, dur = ms / 1000;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  // --- the beam: everything rises
+  const src = ctx.createBufferSource();
+  src.buffer = noiseBuffer(2); src.loop = true;
+  const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 3.5;
+  bp.frequency.setValueAtTime(280, t0);
+  bp.frequency.exponentialRampToValueAtTime(2600, t0 + dur);          // the sweep UP = the pull
+  const bg = ctx.createGain();
+  bg.gain.setValueAtTime(0.0001, t0);
+  bg.gain.exponentialRampToValueAtTime(0.075, t0 + dur * 0.55);       // swells as it takes hold…
+  bg.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);             // …then it's gone
+  src.connect(bp); bp.connect(bg); bg.connect(muffle);
+  src.start(t0); src.stop(t0 + dur + 0.05);
+
+  // the glissando under it — the "suck"
+  const gl = ctx.createOscillator(); gl.type = 'sine';
+  gl.frequency.setValueAtTime(rnd(80, 100), t0);
+  gl.frequency.exponentialRampToValueAtTime(rnd(620, 780), t0 + dur);
+  const gg = ctx.createGain();
+  gg.gain.setValueAtTime(0.0001, t0);
+  gg.gain.exponentialRampToValueAtTime(0.055, t0 + dur * 0.7);
+  gg.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  gl.connect(gg); gg.connect(muffle);
+  gl.start(t0); gl.stop(t0 + dur + 0.05);
+
+  // --- the moo: a startled cow, right as the beam grabs it
+  const m0 = t0 + rnd(0.04, 0.16), mdur = rnd(0.75, 1.0);
+  const f0 = rnd(112, 140);                                            // larynx
+  const lar = ctx.createOscillator(); lar.type = 'sawtooth';
+  lar.frequency.setValueAtTime(f0, m0);
+  lar.frequency.linearRampToValueAtTime(f0 * 1.35, m0 + mdur * 0.28);  // …bends UP in alarm
+  lar.frequency.linearRampToValueAtTime(f0 * 0.82, m0 + mdur);         // …then sags away
+  // two formants make it a cow rather than a buzz; F1 opens and closes the mouth
+  const f1 = ctx.createBiquadFilter(); f1.type = 'bandpass'; f1.Q.value = 4.5;
+  f1.frequency.setValueAtTime(340, m0);
+  f1.frequency.linearRampToValueAtTime(760, m0 + mdur * 0.3);          // "mm" → "OO"
+  f1.frequency.linearRampToValueAtTime(300, m0 + mdur);                // → closed again
+  const f2 = ctx.createBiquadFilter(); f2.type = 'bandpass'; f2.Q.value = 6;
+  f2.frequency.value = rnd(1000, 1250);
+  const mg = ctx.createGain();
+  mg.gain.setValueAtTime(0.0001, m0);
+  mg.gain.exponentialRampToValueAtTime(0.16, m0 + 0.09);               // sharp intake
+  mg.gain.setTargetAtTime(0.10, m0 + 0.12, 0.25);
+  mg.gain.exponentialRampToValueAtTime(0.0001, m0 + mdur);
+  lar.connect(f1); lar.connect(f2);
+  f1.connect(mg); f2.connect(mg); mg.connect(muffle);
+  lar.start(m0); lar.stop(m0 + mdur + 0.05);
+}
+
 // one-shot rumble per strike. close: short delay, louder, with an initial
 // crack; distant sheet lightning: long delay, soft low roll. vol (optional,
 // 0..1, default 1) scales the rumble+crack peaks — HKS-68 passes the live
