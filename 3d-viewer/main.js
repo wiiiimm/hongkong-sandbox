@@ -8,7 +8,7 @@ import { OrbitControls } from './vendor/OrbitControls.js';
 import { GLTFLoader } from './vendor/GLTFLoader.js';
 import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
-import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, audioSupported } from './audio.js';
+import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, setUfoEngine, abductionSfx, scoreDing, audioSupported } from './audio.js';
 import { initAnalytics, track, armAnalytics, VercelSink, GA4Sink } from './analytics.js';
 
 // ---- configurable asset base (HKS-46) --------------------------------------
@@ -105,15 +105,15 @@ const I18N = {
     'storm.8': 'T8 · Gale / Storm', 'storm.9': 'T9 · Incr. gale', 'storm.10': 'T10 · Hurricane', 'lbl.wind': 'Wind', 'lbl.windfrom': 'Wind from',
     'btn.reset': 'Reset', 'btn.south': 'South', 'btn.top': 'Top‑down', 'btn.copylink': 'Copy link', 'btn.fly': '✈ Fly',
     'btn.share': 'Share', 'share.title': 'Share this view', 'share.text': 'Hong Kong Sandbox — an interactive 3D Hong Kong, live weather & typhoon sim', 'share.copied': 'Copied!', 'share.inbar': 'Link is in the address bar', 'share.embed': 'Embed', 'share.embedcopied': 'Embed code copied!',
-    'fly.help': '↑↓ pitch · ←→ bank · ⇧/⌃ throttle · ␣ gas · drag to look · C camera · Esc exit',
+    'fly.help': '↑↓/WS pitch · ←→/AD bank · ⇧E/⌃Q throttle · ␣ gas · drag to look · C camera · Esc exit',
     'fly.touch': 'tap to take off · tilt to steer · hold for gas · drag to look',
     'fly.view': 'view', 'fly.exit': 'exit',
     'fly.landed': 'landed', 'fly.takeoff': '🛫 take off — ␣ or tap',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
-    'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)',
+    'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)', 'cam.down': 'Overhead beam camera — aim at the cattle (C)',
     'lbl.topspeed': 'Top speed',
-    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a330': 'Cathay Pacific A330-300', 'plane.a350': 'Cathay Pacific A350-1000',
+    'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a330': 'Cathay Pacific A330-300', 'plane.a350': 'Cathay Pacific A350-1000', 'plane.ufo': 'UFO 🛸',
     'btn.walk': '🪂 Walk',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ Neon Night',
     // HKS-86: the bottom mode dock + contextual tray
@@ -130,7 +130,7 @@ const I18N = {
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
     'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
-    'help.fly.t': 'Flying', 'help.fly.b': 'Take off — tap the plane, press Space, or the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water',
+    'help.fly.t': 'Flying', 'help.fly.b': 'Take off — pull back (↑ / W), press Space, tap the plane, or hit the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nKeys — ↑↓ or W/S pitch · ←→ or A/D bank · ⇧ or E throttle up · ⌃ or Q throttle down\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water\n🛸 UFO — throttle down (⌃/Q, or a two-finger hold) to a standstill and it hovers in place; pitch then raises and lowers it\n🛸 Keep braking past the hover and it reverses — no wings, so it can back up (a third of forward speed)\n🐄 Its beam is on whenever it flies. Hover over cattle to beam them up — the HUD keeps your tally and points at the nearest one. Some graze around the airport.\n🎯 Press C (or the 🎯 button) for the overhead beam camera — look straight down to line the beam up on a cow',
     'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump · Shift or a two‑finger hold to run\nDrag to look around — 🖱 locks the mouse for look (Esc releases)\nPress C for first‑person / chase',
     'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🤳 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
     'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings — Trails · GPX drops in your own tracks, plays them back (▶) start→end, and shows each trail\'s elevation profile',
@@ -155,8 +155,8 @@ const I18N = {
       + 'licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>'
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
-      + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised.</p>'
-      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">“Air France Boeing 747-400” by zairiqzairiq</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, optimised &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">“boeing 777-300ER Saudi Arabian Airlines (Saudia)” by Omatar</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">“A350 V3 with animation” by Newbie99999993</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only) · <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">“McDonnell Douglas DC-3” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — repainted in Betsy’s 1946 bare-metal VR-HDB markings).</p>'
+      + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised. The UFO\u2019s cattle: <a href="https://poly.pizza/m/26zM1outCr" target="_blank" rel="noopener">“Cow”</a> &amp; <a href="https://poly.pizza/m/a8PIIYwF7r" target="_blank" rel="noopener">“Bull” by Quaternius</a> (CC0 / public domain), rig &amp; animations stripped.</p>'
+      + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">“Air France Boeing 747-400” by zairiqzairiq</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, optimised &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">“boeing 777-300ER Saudi Arabian Airlines (Saudia)” by Omatar</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">“A350 V3 with animation” by Newbie99999993</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only) · <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">“McDonnell Douglas DC-3” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — repainted in Betsy’s 1946 bare-metal VR-HDB markings) · <a href="https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06" target="_blank" rel="noopener">“UFO” by Islide</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, textures optimised).</p>'
       + '<p>Infrastructure by <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a>.</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ Sync live weather', 'live.on': '⛅ Live weather · ON',
@@ -198,15 +198,15 @@ const I18N = {
     'storm.8': '八號 · 烈風/暴風', 'storm.9': '九號 · 烈風增強', 'storm.10': '十號 · 颶風', 'lbl.wind': '風力', 'lbl.windfrom': '風向來自',
     'btn.reset': '重設', 'btn.south': '南面', 'btn.top': '俯視', 'btn.copylink': '複製連結', 'btn.fly': '✈ 飛行',
     'btn.share': '分享', 'share.title': '分享此畫面', 'share.text': '香港沙盒 — 互動 3D 香港，實時天氣與颱風模擬', 'share.copied': '已複製！', 'share.inbar': '連結已在網址列', 'share.embed': '嵌入', 'share.embedcopied': '已複製嵌入碼！',
-    'fly.help': '↑↓ 俯仰 · ←→ 轉向 · ⇧/⌃ 油門 · ␣ 加速 · 拖曳環視 · C 鏡頭 · Esc 離開',
+    'fly.help': '↑↓/WS 俯仰 · ←→/AD 轉向 · ⇧E/⌃Q 油門 · ␣ 加速 · 拖曳環視 · C 鏡頭 · Esc 離開',
     'fly.touch': '點擊起飛 · 傾斜轉向 · 按住加速 · 拖曳環視',
     'fly.view': '視角', 'fly.exit': '離開',
     'fly.landed': '已降落', 'fly.takeoff': '🛫 起飛 — ␣ 或點擊',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
-    'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)',
+    'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)', 'cam.down': '俯視光束鏡頭 — 瞄準牛群 (C)',
     'lbl.topspeed': '極速',
-    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a330': '國泰航空 A330-300', 'plane.a350': '國泰航空 A350-1000',
+    'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a330': '國泰航空 A330-300', 'plane.a350': '國泰航空 A350-1000', 'plane.ufo': '幽浮 🛸',
     'btn.walk': '🪂 步行',
     'btn.matrix': '🕴 Matrix', 'btn.neon': '❄️ 風林火山',
     // HKS-86: the bottom mode dock + contextual tray
@@ -223,7 +223,7 @@ const I18N = {
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
     'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
-    'help.fly.t': '飛行', 'help.fly.b': '起飛 — 點擊飛機、按空白鍵，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）',
+    'help.fly.t': '飛行', 'help.fly.b': '起飛 — 拉桿（↑／W）、按空白鍵、點擊飛機，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按鍵 — ↑↓ 或 W/S 俯仰 · ←→ 或 A/D 轉向 · ⇧ 或 E 加油門 · ⌃ 或 Q 收油門\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）\n🛸 幽浮 — 把油門收到零（⌃/Q，或雙指按住）即原地懸停；此時俯仰控制升降\n🛸 繼續收油門越過懸停便會倒退 — 沒有機翼，可以向後飛（速度為前進的三分一）\n🐄 飛行時光束一直開著。懸停在牛群上方即可吸走牠們 — HUD 會記下數目並指向最近一頭。機場一帶也有牛。\n🎯 按 C（或 🎯 鍵）切換俯視光束鏡頭 — 由上而下俯視，方便對準牛隻',
     'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍 · Shift 或雙指按住奔跑\n拖曳環顧四周 — 🖱 鎖定滑鼠環視（Esc 解除）\n按 C 切換第一人稱 / 追尾',
     'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🤳 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
     'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定 —— 「路徑 · GPX」可載入自己的路徑、回放（▶）由起點掃至終點，並顯示各路徑的高度剖面',
@@ -248,8 +248,8 @@ const I18N = {
       + '授權<a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">條款</a>。</p>'
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
-      + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。</p>'
-      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · zairiqzairiq 的 <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">「Air France Boeing 747-400」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經優化並塗上本作自家國泰翡翠色塗裝） · Omatar 的 <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">「boeing 777-300ER Saudi Arabian Airlines (Saudia)」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · Newbie99999993 的 <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">「A350 V3 with animation」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">「McDonnell Douglas DC-3」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 重繪 1946 年「貝茜」VR-HDB 原色金屬塗裝）。</p>'
+      + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。幽浮的牛群：Quaternius 的 <a href="https://poly.pizza/m/26zM1outCr" target="_blank" rel="noopener">「Cow」</a> 及 <a href="https://poly.pizza/m/a8PIIYwF7r" target="_blank" rel="noopener">「Bull」</a>（CC0 公有領域），已移除骨架與動畫。</p>'
+      + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · zairiqzairiq 的 <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">「Air France Boeing 747-400」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經優化並塗上本作自家國泰翡翠色塗裝） · Omatar 的 <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">「boeing 777-300ER Saudi Arabian Airlines (Saudia)」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · Newbie99999993 的 <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">「A350 V3 with animation」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">「McDonnell Douglas DC-3」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 重繪 1946 年「貝茜」VR-HDB 原色金屬塗裝） · Islide 的 <a href="https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06" target="_blank" rel="noopener">「UFO」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，貼圖經優化）。</p>'
       + '<p>基礎設施由 <a href="https://stealth-company.co" target="_blank" rel="noopener">stealth.co</a> 提供。</p>'
       + '© 2026 wiiiimm',
     'live.sync': '⛅ 同步即時天氣', 'live.on': '⛅ 即時天氣 · 開啟',
@@ -2539,7 +2539,10 @@ const flight = { on: false, view: 'chase', pos: new THREE.Vector3(), yaw: 0, pit
 function takeOff() {
   if (!flight.on || !flight.landed) return;
   flight.landed = false;
-  flight.speed = 55;
+  // HKS-113: a saucer has no take-off roll — it goes straight up. Leaving the
+  // speed at 0 keeps `hover` at 1, so the pitch below reads as pure vertical
+  // thrust (see stepFlight) and it rises off the deck on the spot.
+  flight.speed = planeSkin === 'ufo' ? 0 : 55;
   flight.pitch = 0.28;
   track('takeoff');
 }
@@ -2556,6 +2559,7 @@ const PLANE_SKINS = [
   { id: 'cx777', build: buildCX777 },       // Cathay Pacific Boeing 777-300
   { id: 'a330',  build: buildCX777 },       // Cathay Pacific Airbus A330-300 — the 777 widebody twin stands in as loading/offline fallback (the ⚠ NC GLB may be absent on commercial deploys); PLANE_GLBS.a330.fit corrects the length
   { id: 'a350',  build: buildCXA350 },      // Cathay Pacific Airbus A350-1000
+  { id: 'ufo',   build: buildUFO },         // HKS-113: the odd one out — hovers, spins, and shines a beam. Kept LAST in the list on purpose.
 ];
 let planeSkin = 'prop';
 function buildPlane() {
@@ -2587,8 +2591,11 @@ function setPlaneSkin(id) {
   // HKS-93: a skin without a flight deck can't hold cockpit view — fall back to
   // the clean eye; the 🧑‍✈️ segment shows/hides with the new skin either way
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
+  if (flight.view === 'down' && id !== 'ufo') flight.view = 'chase';   // HKS-113: no beam, no bombsight
   syncCamSeg();
   loadPlaneModel(id);          // HKS-110: swap in the real airframe once it arrives
+  if (id === 'ufo') ensureHerd();          // HKS-113: switching TO the UFO mid-flight brings the herd out…
+  else if (herd.grp) herd.grp.visible = false;   // …and switching away puts it back in the barn
 }
 document.getElementById('planeskin').addEventListener('change', e => { setPlaneSkin(e.target.value); if (e.isTrusted) track('plane_skin', { skin: e.target.value }); });
 // ---- real GLB airframes (HKS-110) -------------------------------------------
@@ -2623,6 +2630,12 @@ const PLANE_GLBS = {
   // 1946 VR-HDB livery baked in (Union Jack fin, era titles). fixedGear: a
   // taildragger's semi-fixed gear stays visible in flight (fleet-rule exception).
   betsy: { url: 'data/models/nc/plane-betsy.glb', rotY: Math.PI, fixedGear: true },
+  // HKS-113. “UFO”, Islide (CC BY 4.0 — commercial use allowed, so it sits in
+  // data/models/ proper, NOT behind the nc/ fence, and IS precached by the SW).
+  // The saucer is rotationally symmetric (X/Z bbox ratio 1.000), so rotY is
+  // meaningless here. spinY: wrap the hull in a pivot on its own vertical centre
+  // axis and hand it to stepFlight as userData.spin — see the spinY block below.
+  ufo:   { url: 'data/models/plane-ufo.glb', spinY: true },
 };
 const planeModelSt = {};   // id → { inflight, fails, warned } — cap retries like the hiker loader
 function disposePlaneGltf(scene) {
@@ -2658,9 +2671,17 @@ function loadPlaneModel(id) {
     // fit target: measure a throwaway procedural build (identity pose — the live
     // group may be mid-flight with position/rotation applied), in pre-scale units
     const ref = (PLANE_SKINS.find(k => k.id === id) || PLANE_SKINS[0]).build();
+    // HKS-113: measure the AIRFRAME, not its light show. The UFO's stand-in carries
+    // an abduction beam that hangs a full unit below the hull, and Box3 counts it —
+    // which would drop the reference floor from the -0.55 waterline to -1.5 and bury
+    // the real saucer in the terrain. Detach it for the measurement, then put it back
+    // so the dispose sweep below still frees its geometry and pool texture.
+    const refBeam = ref.userData.beam;
+    if (refBeam) ref.remove(refBeam);
     ref.updateMatrixWorld(true);
     const rbox = new THREE.Box3().setFromObject(ref);
     const rs = ref.scale.x || 1;
+    if (refBeam) ref.add(refBeam);
     clearLookFilter(ref);
     ref.traverse(o => {
       if (o.geometry) o.geometry.dispose();
@@ -2742,10 +2763,28 @@ function loadPlaneModel(id) {
         spinners[i] = pivot;
       }
     }
-    // swap: dress down, replace the hull wholesale — keep nav lights + cockpit
+    // HKS-113 (cfg.spinY): hand stepFlight a group that turns about the hull's OWN
+    // vertical centre axis. Same re-pivot trick as the props above — an exporter's
+    // node origin need not sit on the saucer's axis, and `inner`'s origin is offset
+    // by the centring fit, so spinning either would make the hull orbit instead of
+    // rotate. Wrap the model in a pivot placed at its bbox centre in x/z (y is left
+    // alone — the axis is vertical), while the subtree is still detached.
+    let spinPivot = null;
+    if (cfg.spinY) {
+      inner.updateMatrixWorld(true);
+      const toInner = new THREE.Matrix4().copy(inner.matrixWorld).invert();
+      const c = new THREE.Box3().setFromObject(model).getCenter(new THREE.Vector3()).applyMatrix4(toInner);
+      spinPivot = new THREE.Group();
+      spinPivot.position.set(c.x, 0, c.z);
+      inner.add(spinPivot);
+      spinPivot.attach(model);                         // keeps placement, re-homes the origin to the axis
+    }
+    // swap: dress down, replace the hull wholesale — keep nav lights + cockpit,
+    // and the UFO's abduction beam (HKS-113: procedurally built, reused as-is
+    // under the real hull — it must survive the swap that eats the stand-in)
     clearLookFilter(planeGrp);
     for (const c of [...planeGrp.children]) {
-      if (c.userData.navlight || c === planeGrp.userData.cockpit) continue;
+      if (c.userData.navlight || c === planeGrp.userData.cockpit || c === planeGrp.userData.beam) continue;
       planeGrp.remove(c);
       c.traverse(o => {
         if (o.geometry) o.geometry.dispose();
@@ -2758,7 +2797,9 @@ function loadPlaneModel(id) {
     delete planeGrp.userData.prop;                     // the procedural blades are gone
     delete planeGrp.userData.props;
     delete planeGrp.userData.gear;                     // …and the procedural gear group
+    delete planeGrp.userData.spin;                     // …and the stand-in saucer (HKS-113)
     if (spinners.length) planeGrp.userData.props = spinners;
+    if (spinPivot) planeGrp.userData.spin = spinPivot;   // HKS-113: the real hull now carries the spin
     // HKS-110 fleet rule: tag the airframe's landing gear so stepFlight can
     // drop/retract it with the landed state — matched by node name or by the
     // CXGear material the trim scripts split gear geometry into.
@@ -4641,6 +4682,377 @@ function buildCXA350() {
   grp.visible = false;
   return grp;
 }
+// ---- the UFO (HKS-113) ------------------------------------------------------
+// The one craft that isn't an aircraft. Same flight frame as the fleet (origin
+// at mid-hull, belly on the -0.55 waterline, group scale 4), but it breaks three
+// fleet rules on purpose, each handled in stepFlight:
+//   · it HOVERS — zero throttle holds altitude instead of stalling, and pitch
+//     becomes vertical thrust at low speed, so it can park over a landmark;
+//   · it SPINS about its own vertical centre axis (userData.spin) rather than
+//     turning props;
+//   · it shines an ABDUCTION BEAM straight down (userData.beam) — the cone and
+//     its ground pool are counter-rotated every frame so they hang world-down
+//     no matter how the saucer banks, and they live OUTSIDE the spin group so
+//     the beam holds still while the hull rotates over it.
+// No gear, no props: userData.gear/props stay unset, so the fleet's gear-drop
+// and prop-spin rules simply don't apply. The real GLB (PLANE_GLBS.ufo) swaps in
+// over this; this build stays as the loading stand-in and offline fallback.
+const UFO_R = 2.6;                                      // saucer radius, local units (×4 ⇒ ~21 m across)
+const UFO_BELLY = -0.55;                                // the fleet waterline — it rests on its hull
+// The beam is a unit cone (y 0 → -1) coloured per-vertex, bright at the emitter
+// and falling off toward the ground. Vertex colours (not a texture) so the
+// falloff direction is explicit rather than dependent on cone UV conventions,
+// and additive blending renders the dark end as invisible.
+// The beam is counter-rotated to stay vertical while the hull banks, so its top ring
+// must never come into view — at BEAM_TOP = -0.5 with a 0.35 head it used to show its
+// rim on a hard tilt and you could see straight down the throat of the cone. Two
+// things keep it hidden now: the head sits well up INSIDE the hull (the lens spans
+// -0.55…+0.29 on the axis, so -0.2 leaves ~0.35 of opaque saucer beneath it, which the
+// depth buffer resolves at any attitude), and the head stays small next to the 2.6
+// hull radius. Within that budget the head is free — BEAM_HEAD is what governs how
+// wide the beam reads where it actually leaves the belly (HKS-113).
+const UFO_REV = 1 / 3;                                  // reverse authority: a third of the forward scale (⅔ forward, ⅓ reverse)
+const BEAM_TOP = -0.2;                                  // head ring, buried inside the hull (belly is -0.55)
+const BEAM_HEAD = 0.22;                                 // head radius ⇒ ~3× the old emergence width at the belly
+const BEAM_FOOT = 3.0;                                  // cone-foot radius at unit length — a wide, cow-sized throw
+function buildAbductionBeam() {
+  const RINGS = 12, SEG = 32, rTop = BEAM_HEAD, rBot = BEAM_FOOT;
+  const pos = [], col = [], idx = [];
+  const c = new THREE.Color(0x9dff2e);                   // that unmistakable alien green
+  for (let i = 0; i < RINGS; i++) {
+    const t = i / (RINGS - 1);                           // 0 at the emitter, 1 at the ground
+    const r = rTop + (rBot - rTop) * t, y = -t;
+    const f = Math.pow(1 - t, 1.6) * 0.9 + 0.06;         // falloff: hot at the belly, faint on the deck
+    for (let j = 0; j <= SEG; j++) {
+      const a = (j / SEG) * Math.PI * 2;
+      pos.push(Math.cos(a) * r, y, Math.sin(a) * r);
+      col.push(c.r * f, c.g * f, c.b * f);
+    }
+  }
+  for (let i = 0; i < RINGS - 1; i++)
+    for (let j = 0; j < SEG; j++) {
+      const a = i * (SEG + 1) + j, b = a + SEG + 1;
+      idx.push(a, b, a + 1, a + 1, b, b + 1);
+    }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  g.setIndex(idx);
+  const mesh = new THREE.Mesh(g, new THREE.MeshBasicMaterial({
+    vertexColors: true, transparent: true, opacity: 0.34, blending: THREE.AdditiveBlending,
+    depthWrite: false, side: THREE.DoubleSide }));
+  mesh.position.y = BEAM_TOP;                           // apex tucked up inside the hull
+  // the elliptical light pool where the beam lands — a flat disc that rides at
+  // ground level inside the same counter-rotated group, so it stays horizontal
+  const pool = new THREE.Mesh(new THREE.CircleGeometry(1, 40), new THREE.MeshBasicMaterial({
+    map: canvasTex(128, 128, (cx, w2, h2) => {
+      const gr = cx.createRadialGradient(w2 / 2, h2 / 2, 0, w2 / 2, h2 / 2, w2 / 2);
+      gr.addColorStop(0, '#9dff2e'); gr.addColorStop(0.45, '#3d7a12'); gr.addColorStop(1, '#000');
+      cx.fillStyle = gr; cx.fillRect(0, 0, w2, h2);
+    }),
+    transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false }));
+  pool.rotation.x = -Math.PI / 2;                       // lie flat, facing up
+  const beam = new THREE.Group();                       // counter-rotated in stepFlight ⇒ world-down
+  beam.add(mesh);
+  beam.add(pool);
+  beam.userData.cone = mesh;
+  beam.userData.pool = pool;
+  return beam;
+}
+function buildUFO() {
+  const s = 4;
+  const grp = new THREE.Group();
+  const hull = new THREE.MeshStandardMaterial({ color: 0x9aa5b1, roughness: 0.35, metalness: 0.75 });
+  const trim = new THREE.MeshStandardMaterial({ color: 0x3a444f, roughness: 0.5, metalness: 0.6 });
+  const glass = new THREE.MeshStandardMaterial({ color: 0x1b2430, roughness: 0.15, metalness: 0.3,
+                                                 emissive: 0x0d3a2a, emissiveIntensity: 0.6 });
+  const lamp = new THREE.MeshBasicMaterial({ color: 0xc9ff7a });
+  // everything that spins lives under here — the beam does NOT
+  const spin = new THREE.Group();
+  const midY = UFO_BELLY + 0.42;                         // hull half-height 0.42 ⇒ belly on the waterline
+  const disc = new THREE.Mesh(new THREE.SphereGeometry(UFO_R, 36, 18), hull);
+  disc.scale.set(1, 0.42 / UFO_R, 1);                    // squash the sphere into a lens
+  disc.position.y = midY;
+  spin.add(disc);
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(UFO_R * 0.97, 0.1, 10, 40), trim);
+  rim.rotation.x = -Math.PI / 2; rim.position.y = midY;
+  spin.add(rim);
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(0.95, 28, 14, 0, Math.PI * 2, 0, Math.PI / 2), glass);
+  dome.position.y = midY + 0.30;
+  spin.add(dome);
+  for (let i = 0; i < 10; i++) {                         // the ring of running lights
+    const a = (i / 10) * Math.PI * 2;
+    const b = new THREE.Mesh(new THREE.SphereGeometry(0.13, 8, 6), lamp);
+    b.position.set(Math.cos(a) * UFO_R * 0.82, midY - 0.26, Math.sin(a) * UFO_R * 0.82);
+    spin.add(b);
+  }
+  grp.add(spin);
+  grp.userData.spin = spin;
+  // the belly lamp the beam grows out of (the GLB carries this as an emissive map)
+  const lampM = new THREE.Mesh(new THREE.SphereGeometry(0.55, 18, 10), lamp);
+  lampM.scale.set(1, 0.35, 1);
+  // recessed INTO the underside, not slung below it: the lamp must not become the
+  // build's lowest point or it would drag the loader's waterline reference (and so
+  // the real hull) below UFO_BELLY. Half-height is 0.55×0.35 = 0.1925.
+  lampM.position.y = UFO_BELLY + 0.20;
+  grp.add(lampM);                                        // outside `spin`: a steady emitter
+  const beam = buildAbductionBeam();
+  grp.add(beam);
+  grp.userData.beam = beam;
+  grp.userData.eyeFwd = 2.2; grp.userData.eyeUp = 1.0;   // 👁 eye just under the dome
+  grp.scale.setScalar(s);
+  grp.visible = false;
+  return grp;
+}
+// ---- the herd (HKS-113) -----------------------------------------------------
+// Cattle scattered over the land for the UFO to beam up. They exist only in UFO
+// mode; every other craft never builds them. Models are CC0 (Quaternius — the same
+// author and licence as the walk-mode hiker), so no attribution is owed, and the
+// trim script strips their 25 animations + skeleton, leaving a 117 KB static mesh.
+//
+// FINDABILITY is the whole design problem. The map is 910 x 685 cells at 70 m —
+// 64 km x 48 km — so cattle sprinkled uniformly over it are a needle in a haystack
+// (an early 36-head herd worked out at ~1 cow per 30 km²). Three things fix that:
+// they graze in FIELDS (find one, find six); some fields are seeded around the
+// AIRPORT, where every flight begins, so you meet cattle without going looking; and
+// the HUD points at the nearest one.
+//
+// RENDERING: 360 head x 7 parts would be ~2 500 draw calls, so the herd is drawn
+// with InstancedMesh — one draw call per (geometry, material) pair, 360 instances.
+// Only the animals actually being abducted rewrite their matrices each frame.
+const HERD_FIELDS = 60;                                 // grazing fields, scattered on land
+const HERD_PER = 6;                                     // head per field
+const HERD_SPREAD = 130;                                // metres a cow wanders from its field's centre
+const HERD_N = HERD_FIELDS * HERD_PER;                  // 360 head of cattle
+const HERD_AIRPORT_FIELDS = 6;                          // …of which this many graze around HKIA, so the game announces itself
+const HERD_AIRPORT_R = 2600;                            // metres around the runway to seed them in
+// Deliberately NOT life-size. A real 2.6 m cow on a map this size is a sub-pixel
+// speck from any altitude you'd actually fly at, and the beam's foot is ~46 m across
+// at a 30 m hover — so the quarry is scaled to read against the beam, not against
+// the terrain. Gameplay beats realism here.
+const COW_LEN = 14;                                     // metres, nose→tail
+// The beam HAULS at a constant speed — it doesn't fling. So this is a rate, not a
+// duration: a cow taken from 100 m up simply takes longer than one taken from 20 m.
+const CATCH_SPEED = 14;                                 // m/s, real metres — a steady, inexorable lift
+const CATCH_AGL = 260;                                  // above this the beam is too faint to grab anything
+const herd = { grp: null, cows: [], caught: 0, proto: null, loading: false, failed: false, near: null };
+const _hm = new THREE.Matrix4(), _hm2 = new THREE.Matrix4(), _hq = new THREE.Quaternion();
+const _he = new THREE.Euler(), _hp = new THREE.Vector3(), _hs = new THREE.Vector3();
+
+// stand-in used if the GLBs are missing (offline / not yet on R2) — the same
+// procedural-fallback contract every model in this project has to honour
+function buildProcCow(bull) {
+  const g = new THREE.Group();
+  const hide = new THREE.MeshStandardMaterial({ color: bull ? 0x4a3527 : 0x6b4b32, roughness: 0.85 });
+  const pale = new THREE.MeshStandardMaterial({ color: 0xe8e2d6, roughness: 0.85 });
+  const body = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.0, 2.2), hide);
+  body.position.y = 1.25; g.add(body);
+  const head = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.7), hide);
+  head.position.set(0, 1.45, -1.4); g.add(head);
+  for (const [x, z] of [[-0.35, 0.8], [0.35, 0.8], [-0.35, -0.8], [0.35, -0.8]]) {
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.8, 0.22), pale);
+    leg.position.set(x, 0.4, z); g.add(leg);
+  }
+  return g;
+}
+// normalise a prototype to COW_LEN nose→tail, feet on y = 0, centred on its own axis
+function fitCow(o) {
+  o.updateMatrixWorld(true);
+  const b = new THREE.Box3().setFromObject(o);
+  const k = COW_LEN / Math.max(0.01, b.max.z - b.min.z);
+  const wrap = new THREE.Group();
+  o.scale.setScalar(k);
+  o.position.set(-k * (b.max.x + b.min.x) / 2, -k * b.min.y, -k * (b.max.z + b.min.z) / 2);
+  wrap.add(o);
+  wrap.updateMatrixWorld(true);
+  return wrap;
+}
+// flatten a fitted prototype into (geometry, material, baked-local-matrix) parts, so
+// each can become one InstancedMesh
+function cowParts(wrap) {
+  const parts = [];
+  wrap.traverse(o => {
+    if (!o.isMesh) return;
+    const mat = Array.isArray(o.material) ? o.material[0] : o.material;
+    parts.push({ geo: o.geometry, mat, local: o.matrixWorld.clone() });   // wrap is at identity ⇒ matrixWorld is cow-local
+  });
+  return parts;
+}
+function makeHerdSet(proto, count) {
+  return cowParts(fitCow(proto)).map(p => {
+    const im = new THREE.InstancedMesh(p.geo, p.mat, count);
+    im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    im.frustumCulled = false;                           // instances are spread across the whole map
+    im.castShadow = false;
+    herd.grp.add(im);
+    return { im, local: p.local };
+  });
+}
+// push a cow's pose into every InstancedMesh of its set
+function writeCow(c) {
+  _he.set(0, c.yaw, c.tilt || 0, 'YXZ');
+  _hm.compose(_hp.set(c.x, c.y, c.z), _hq.setFromEuler(_he), _hs.setScalar(c.s));
+  for (const part of c.set) {
+    _hm2.multiplyMatrices(_hm, part.local);
+    part.im.setMatrixAt(c.i, _hm2);
+    part.im.instanceMatrix.needsUpdate = true;
+  }
+}
+// a random point on LAND — above the tide band, so nobody grazes in the harbour
+function landSpot(cx, cz, radius, minE) {
+  for (let i = 0; i < 120; i++) {
+    let col, row, x, z;
+    if (radius) {
+      const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * radius;
+      x = cx + Math.cos(a) * r; z = cz + Math.sin(a) * r;
+      col = x / cell + W / 2; row = z / cell + H / 2;
+      if (col < 1 || col > W - 2 || row < 1 || row > H - 2) continue;
+    } else {
+      col = 3 + Math.random() * (W - 6); row = 3 + Math.random() * (H - 6);
+      x = (col - W / 2) * cell; z = (row - H / 2) * cell;
+    }
+    const e = sampleE(col, row);
+    if (e > (minE == null ? 15 : minE)) return { x, z, y: e * VE };
+  }
+  return null;
+}
+// the fields around HKIA. The airport platform is reclaimed land only ~6 m above the
+// sea, so the usual >15 m land test would reject it outright — hence the lower bar.
+// Cattle on the apron is exactly the point: you spawn on the runway, so you see them.
+function airportFields(n) {
+  const out = [];
+  if (!curG) return out;
+  const g = curG;
+  const col = (809897 - g.bE) / g.aE, row = (818635 - g.bN) / g.aN;
+  const x = (col - W / 2) * cell, z = (row - H / 2) * cell;
+  for (let i = 0; i < n; i++) {
+    const s = landSpot(x, z, HERD_AIRPORT_R, 4);
+    if (s) out.push(s);
+  }
+  return out;
+}
+// drop a cow near its home field — it wanders, but stays in its own pasture, and it
+// must still land on dry ground (a field can sit on a coastline)
+// Park a cow: invisible, and — critically — NOT mid-abduction. Both bail-outs below
+// leave the animal hidden, and if they didn't also clear t0 the cow would still be "in
+// flight" with c.y already up at the belly, so stepHerd would re-enter the abduction
+// branch, see it has arrived, score, and try to respawn it again… every single frame.
+// One un-respawnable cow would print ~60 points and 60 analytics events per second.
+function parkCow(c) { c.t0 = 0; c.tilt = 0; c.s = 0; writeCow(c); }
+function placeCow(c) {
+  if (!c.home) { parkCow(c); return; }                   // scale 0 ⇒ invisible instance
+  const minE = c.home.minE == null ? 15 : c.home.minE;
+  for (let i = 0; i < 12; i++) {
+    const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * HERD_SPREAD;
+    const x = c.home.x + Math.cos(a) * r, z = c.home.z + Math.sin(a) * r;
+    const col = x / cell + W / 2, row = z / cell + H / 2;
+    if (col < 1 || col > W - 2 || row < 1 || row > H - 2) continue;
+    const e = sampleE(col, row);
+    if (e <= minE) continue;                             // wandered into the sea — try again
+    c.x = x; c.z = z; c.y = e * VE; c.groundY = e * VE;
+    c.yaw = Math.random() * Math.PI * 2;
+    c.tilt = 0; c.s = 1; c.t0 = 0;                       // t0: 0 = grazing, >0 = being taken
+    writeCow(c);
+    return;
+  }
+  parkCow(c);                                            // its whole field is water — sit this one out
+}
+function scatterHerd() {
+  if (!herd.grp || !curG) return;
+  const fields = airportFields(HERD_AIRPORT_FIELDS);     // …so the game announces itself where you spawn
+  for (const f of fields) f.minE = 4;                    // the apron is only ~6 m up
+  while (fields.length < HERD_FIELDS) { const s = landSpot(); if (s) fields.push(s); else break; }
+  herd.cows.forEach((c, i) => { c.home = fields.length ? fields[i % fields.length] : null; placeCow(c); });
+}
+function buildHerd() {
+  if (herd.grp) { scatterHerd(); return; }
+  const protos = herd.proto || { cow: buildProcCow(false), bull: buildProcCow(true) };
+  herd.grp = new THREE.Group();
+  herd.grp.visible = false;
+  // one in four is a bull, and each type gets its own InstancedMesh set
+  const nBull = Math.floor(HERD_N / 4), nCow = HERD_N - nBull;
+  const cowSet = makeHerdSet(protos.cow, nCow), bullSet = makeHerdSet(protos.bull, nBull);
+  let ci = 0, bi = 0;
+  for (let i = 0; i < HERD_N; i++) {
+    const bull = i % 4 === 3;
+    herd.cows.push({ set: bull ? bullSet : cowSet, i: bull ? bi++ : ci++,
+                     x: 0, y: 0, z: 0, yaw: 0, tilt: 0, s: 0, groundY: 0, t0: 0, home: null });
+  }
+  world.add(herd.grp);
+  scatterHerd();
+}
+function ensureHerd() {
+  if (planeSkin !== 'ufo' || !curG) return;
+  if (herd.grp) { scatterHerd(); return; }
+  if (herd.loading) return;
+  if (herd.proto || herd.failed) { buildHerd(); return; }
+  herd.loading = true;
+  const ldr = new GLTFLoader();
+  const get = (u) => new Promise((res) => ldr.load(asset(u), (g) => res(g.scene), undefined, () => res(null)));
+  Promise.all([get('data/models/cow.glb'), get('data/models/bull.glb')]).then(([cow, bull]) => {
+    herd.loading = false;
+    if (!cow || !bull) {                                // offline / not on R2 yet → procedural herd
+      console.warn('[herd] cattle GLBs unavailable — using the procedural stand-ins');
+      herd.failed = true;
+    } else {
+      herd.proto = { cow, bull };
+    }
+    buildHerd();
+  });
+}
+// the abduction: a cow caught in the beam is hauled up, spinning, into the belly
+function stepHerd() {
+  if (!herd.grp) return;
+  const show = flight.on && planeSkin === 'ufo';
+  herd.grp.visible = show;
+  if (!show) return;
+  const F = flight, now = performance.now();
+  const bm = planeGrp && planeGrp.userData.beam;
+  const live = !!(bm && bm.visible) && F.agl < CATCH_AGL;   // beam on, and low enough to grab
+  const beamR = planeGrp ? (planeGrp.userData.beamR || 0) : 0;
+  const belly = planeGrp ? planeGrp.position.y + UFO_BELLY * (planeGrp.scale.x || 1) : 0;
+  let nearD = Infinity, nearX = 0, nearZ = 0;           // …and where the closest one is
+  for (const c of herd.cows) {
+    if (c.t0) {                                         // …already on its way up
+      // A tractor beam HAULS; it doesn't throw. So the rise is integrated at a constant
+      // speed rather than eased — an ease-in/out reads as a fling (fast through the
+      // middle, stalling at both ends). Straight up at a steady CATCH_SPEED, x/z frozen,
+      // so it tracks the beam vertically even if the saucer drifts.
+      c.y += CATCH_SPEED * VE / 60;                     // world y is VE-exaggerated
+      c.yaw += 0.14;                                    // a steady turn on the spot…
+      c.tilt = Math.sin(now / 240) * 0.10;              // …and a slow, helpless sway, not a shake
+      // it only shrinks as the hull actually swallows it — not the whole way up
+      const rem = belly - c.y;
+      c.s = rem < 10 ? Math.max(0.10, rem / 10) : 1;
+      writeCow(c);
+      // taken once it reaches the belly. The timeout is the safety net: if the saucer
+      // climbs away faster than the beam hauls, the cow would otherwise chase it forever.
+      if (c.y >= belly || now - c.t0 > 12000) {
+        herd.caught++;
+        if (sndOn) scoreDing(herd.caught);            // the coin-grab chime, on the tick the tally moves
+        track('ufo_abduct', { total: herd.caught });
+        placeCow(c);
+      }
+      continue;
+    }
+    if (!c.s) continue;                                 // parked instance (its field was water)
+    const dx = c.x - F.pos.x, dz = c.z - F.pos.z;
+    const d = Math.hypot(dx, dz);
+    if (d < nearD) { nearD = d; nearX = dx; nearZ = dz; }
+    if (live && d < beamR) {                            // standing in the light → taken
+      c.t0 = now;
+      // the tractor-beam whoosh + a startled moo, fired on the same tick the rise starts.
+      // The haul is a constant speed, so the trip takes as long as the drop is tall —
+      // the sfx is stretched to match, and still lands as the cow vanishes into the hull.
+      const climb = Math.max(1, (belly - c.groundY) / VE);          // real metres to travel
+      if (sndOn) abductionSfx(Math.min(8000, Math.max(500, climb / CATCH_SPEED * 1000)));
+    }
+  }
+  // the pointer that makes the herd findable at all: bearing + range to the closest
+  // cow. Without it you are hunting a 14 m animal across 64 x 48 km of Hong Kong.
+  herd.near = nearD === Infinity ? null
+    : { d: nearD, az: ((Math.atan2(nearX, -nearZ) / D2R) % 360 + 360) % 360 };
+}
 function enterFlight() {
   if (flight.on || !curG) return;
   if (walk.on) exitWalk();
@@ -4650,6 +5062,7 @@ function enterFlight() {
   syncSpinSeg();
   if (!planeGrp) { planeGrp = buildPlane(); world.add(planeGrp); }
   loadPlaneModel(planeSkin);   // HKS-110: swap in the real airframe once it arrives
+  ensureHerd();                // HKS-113: UFO only — scatter the cattle for it to steal
   planeGrp.visible = true;
   applyLookFilter(planeGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
   // HKS-93: a remembered cockpit view can't survive onto a skin with no flight deck
@@ -4668,7 +5081,10 @@ function enterFlight() {
   } else {
     col = W / 2; row = H / 2;
     flight.pos.set((col - W/2) * cell, sampleE(col, row) * VE + 400 * VE, (row - H/2) * cell);
-    flight.speed = 62;                                 // m/s — light-aircraft cruise (~120 kt)
+    // m/s — light-aircraft cruise (~120 kt). The UFO spawns at a dead stop instead:
+    // hovering IS its resting state, and shoving it to cruise would send it flying off
+    // the moment you pick it (HKS-113).
+    flight.speed = planeSkin === 'ufo' ? 0 : 62;
     flight.landed = false;
   }
   flight.yaw = -Math.PI / 2;                           // east — down the runway toward Kowloon
@@ -4700,10 +5116,12 @@ function exitFlight() {
   flight.keys = {};
   flight.touchHold = 0; flight.mouseLook = false; flight.lookYaw = 0; flight.lookPitch = 0;   // HKS-53
   if (planeGrp) planeGrp.visible = false;
+  if (herd.grp) herd.grp.visible = false;   // HKS-113: the cattle only exist while a UFO is flying
   document.getElementById('flybtn').classList.remove('on');
   spinDir = flight.prevSpin;
   syncSpinSeg();
   setEngine(0);
+  setUfoEngine(0);                                    // HKS-113: …and the saucer stops humming when you leave
   setTopMode(null);
   updateSpeedGauge();                                 // park the gauge at —
   camera.up.set(0, 1, 0);
@@ -4720,6 +5138,10 @@ function exitFlight() {
 // cockpit on any skin without a built flight deck (HKS-93)
 function updateViewBtn() { syncCamSeg(); }   // fly camera state reflects in the segmented control
 function flyViews() {
+  // HKS-113: the saucer gets chase + the beam camera, and nothing else. There is no
+  // "inside" of a UFO worth sitting in — no nose, no deck, no windscreen — so the
+  // first-person eye is dropped for it rather than shipping an empty view.
+  if (planeSkin === 'ufo') return ['chase', 'down'];
   return (planeGrp && planeGrp.userData.cockpit) ? ['chase', 'eye', 'cockpit'] : ['chase', 'eye'];
 }
 function toggleView() {
@@ -4730,6 +5152,8 @@ function toggleView() {
 function setFlightView(v) {
   if (!flight.on) return;
   if (v === 'cockpit' && !(planeGrp && planeGrp.userData.cockpit)) v = 'eye';   // no flight deck → clean eye
+  if (v === 'down' && planeSkin !== 'ufo') v = 'chase';                         // HKS-113: no beam, no beam camera
+  if ((v === 'eye' || v === 'cockpit') && planeSkin === 'ufo') v = 'chase';     // …and a saucer has no inside
   flight.view = v;
   camera.up.set(0, 1, 0);
   updateViewBtn();
@@ -4763,25 +5187,58 @@ function applyTopSpeed(v) {
 }
 document.getElementById('topspd').addEventListener('input',
   e => applyTopSpeed(+e.target.value));
+// HKS-113: where the zero mark sits, as a % of the bar. The UFO's throttle is signed,
+// so its bar reads |--- reverse ---|--------- forward ---------| with zero a third of
+// the way in; the fill then grows LEFT (orange) or RIGHT (accent) from there. Every
+// other craft has no reverse, so zero stays at the far left and the bar is unchanged.
+const SPD_ZERO = 100 / 3;
 function updateSpeedGauge() {
   const fill = document.getElementById('spdfill'), pct = document.getElementById('spdpct');
-  let p = null, hot = false, label = '—';
+  const zeroEl = document.getElementById('spdzero');
+  let p = null, hot = false, label = '—', rev = false;
+  let zero = 0, left = 0, width = 0;
   if (flight.on) {
-    p = 100 * flight.speed / flight.top;
-    hot = p >= 97;
-    label = `${Math.round(flight.speed * 1.944)} kt`;          // real airspeed, not %
+    const signed = planeSkin === 'ufo';
+    zero = signed ? SPD_ZERO : 0;
+    rev = flight.speed < -0.5;
+    if (rev) {                                                 // back up: fill leftward from zero
+      const mag = Math.min(1, Math.abs(flight.speed) / (flight.top * UFO_REV));
+      width = mag * zero;
+      left = zero - width;
+    } else {                                                   // forward: fill rightward from zero
+      const mag = Math.max(0, Math.min(1, flight.speed / flight.top));
+      width = mag * (100 - zero);
+      left = zero;
+    }
+    p = width;                                                 // p is now the drawn width, not a raw %
+    hot = flight.speed / flight.top >= 0.97;                   // redline only at full FORWARD
+    const kt = Math.round(Math.abs(flight.speed) * 1.944);
+    label = rev ? `◀ ${kt} kt` : `${kt} kt`;                   // real airspeed, not %
   } else if (walk.on) {
     p = 100 * walk.spd / walk.top;
     if (walk.spd > 0.2)                               // a human gait is never a steady needle
       p *= 1 + Math.sin(walk.bob * 2.1) * 0.05 + (Math.random() - 0.5) * 0.05;
     hot = p >= 90;
     label = `${Math.round(walk.spd * 3.6)} km/h`;              // real pace, not %
+    width = Math.max(0, Math.min(100, p));                     // walking has no reverse — plain left-anchored bar
+    left = 0;
   }
-  if (p == null) { fill.style.width = '0%'; pct.textContent = '—'; fill.classList.remove('hot'); return; }
-  p = Math.max(0, Math.min(100, p));
-  fill.style.width = p.toFixed(1) + '%';                       // the bar still fills by % of top speed
-  pct.textContent = label;                                    // the readout shows the actual speed + unit
-  fill.classList.toggle('hot', hot);                  // redline glow at full gas
+  if (p == null) {
+    fill.style.width = '0%'; fill.style.left = '0%';
+    pct.textContent = '—';
+    fill.classList.remove('hot', 'rev');
+    zeroEl.classList.remove('on');
+    return;
+  }
+  width = Math.max(0, Math.min(100, width));
+  left = Math.max(0, Math.min(100 - width, left));
+  fill.style.left = left.toFixed(1) + '%';
+  fill.style.width = width.toFixed(1) + '%';                   // the bar fills from the zero mark, by % of top speed
+  pct.textContent = label;                                     // the readout shows the actual speed + unit
+  fill.classList.toggle('hot', hot);                           // redline glow at full gas
+  fill.classList.toggle('rev', rev);                           // orange while backing up
+  zeroEl.classList.toggle('on', zero > 0);                     // the zero tick only exists on a signed scale
+  if (zero > 0) zeroEl.style.left = zero.toFixed(1) + '%';
 }
 // Resolve the LOGICAL key from the physical e.code first: with a CJK/IME input
 // source active, letter keydowns arrive as e.key === 'Process' and WASD would
@@ -4856,7 +5313,13 @@ function stepFlight() {
   // --- stick: keyboard, or phone tilt when armed (speeds are real m/s at 60 fps)
   let pIn = (K['arrowup'] || K['w'] ? 1 : 0) - (K['arrowdown'] || K['s'] ? 1 : 0);
   let rIn = (K['arrowright'] || K['d'] ? 1 : 0) - (K['arrowleft'] || K['a'] ? 1 : 0);
-  const tIn = (K['shift'] || K['e'] ? 1 : 0) - (K['control'] || K['q'] ? 1 : 0);
+  let tIn = (K['shift'] || K['e'] ? 1 : 0) - (K['control'] || K['q'] ? 1 : 0);
+  // HKS-113: TWO FINGERS = ⌃/Q on a touchscreen — brake, then reverse. In fly mode
+  // `touchHold` was only ever tested as `> 0` (one finger and two both just meant
+  // "gas"), so the second finger was carrying no meaning and is free to take this.
+  // UFO only: on every other craft two fingers still mean gas, exactly as before.
+  const brakeTouch = planeSkin === 'ufo' && F.touchHold >= 2;
+  if (brakeTouch) tIn = -1;
   if (F.tilt && F.tiltRef != null) {
     pIn = Math.max(-1, Math.min(1, (F.tiltBeta - F.tiltRef) / 22));   // tilt forward = dive
     rIn = Math.max(-1, Math.min(1, F.tiltGamma / 25));                // tilt sideways = bank
@@ -4877,10 +5340,26 @@ function stepFlight() {
     F.pitch += (Math.random() - 0.5) * 0.006 * windStrength;
     F.roll  += (Math.random() - 0.5) * 0.010 * windStrength;
   }
+  // HKS-113: the UFO has no stall speed and no cruise to fall back to. Its
+  // throttle is direct and quick (4× the fleet's authority, no pull toward 62)
+  // so it can stand on a dead stop and hold there — that's the hover.
+  const ufo = planeSkin === 'ufo';
   if (!F.landed) {
-    F.speed = Math.max(28, Math.min(F.top, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
-    if (K[' '] || F.touchHold > 0) F.speed = Math.min(F.top, F.speed + 0.8); // ␣ or a held finger steps on the gas (HKS-53)
+    // HKS-113: a saucer has no wings, so nothing about it says "forward only". Its
+    // throttle is a SIGNED axis — ⌃/Q brakes down through the hover and straight on
+    // into reverse, ⇧/E brings it back up through zero into forward. Reverse gets a
+    // third of the authority of forward (it's a retreat, not a second cruise).
+    if (ufo) F.speed = Math.max(-F.top * UFO_REV, Math.min(F.top, F.speed + tIn * 1.2));
+    else     F.speed = Math.max(28, Math.min(F.top, F.speed + tIn * 0.3 - (F.speed - 62) * 0.001));
+    // ␣ or a held finger steps on the gas (HKS-53) — but NOT the two-finger brake,
+    // which would otherwise fight the throttle it is supposed to be cutting (HKS-113)
+    if ((K[' '] || F.touchHold > 0) && !brakeTouch) F.speed = Math.min(F.top, F.speed + 0.8);
   }
+  // how completely the UFO is hovering: 1 at a standstill, 0 once it's really
+  // moving — in EITHER direction, hence the abs. (Without it a reversing saucer
+  // reads as hover > 1, which would over-drive the vertical thrust and flip the
+  // sign of the wind's grip, blowing it upwind.)
+  const hover = ufo ? 1 - Math.min(1, Math.abs(F.speed) / 40) : 0;
   _fe.set(F.pitch, F.yaw, -F.roll * 0.9, 'YXZ');       // right bank = right wing down
   _fq.setFromEuler(_fe);
   _fv.set(0, 0, -1).applyQuaternion(_fq);
@@ -4888,10 +5367,24 @@ function stepFlight() {
   F.pos.x += _fv.x * mpf;
   F.pos.z += _fv.z * mpf;
   F.pos.y += _fv.y * mpf * VE;                         // climb in exaggerated y: slopes fly true
-  F.pos.y -= Math.max(0, 62 - F.speed) * 0.004 * VE;   // below cruise the nose gets heavy
+  // HKS-113: a saucer doesn't stall — it holds altitude at any speed, so it skips
+  // the nose-heavy sink entirely. Instead pitch becomes direct vertical thrust as
+  // it slows, which is what lets it rise straight up off the deck and then park.
+  let ufoVy = 0;
+  if (ufo) {
+    ufoVy = F.pitch * 0.55 * hover;
+    F.pos.y += ufoVy * VE;
+  } else {
+    F.pos.y -= Math.max(0, 62 - F.speed) * 0.004 * VE; // below cruise the nose gets heavy
+  }
   if (!F.landed) {                                     // parked on the runway you don't drift downwind
-    F.pos.x += windVec.x * (25 * windStrength) / 60;   // a full gale drifts you ~25 m/s
-    F.pos.z += windVec.z * (25 * windStrength) / 60;
+    // HKS-113: …and a hovering saucer holds station. It isn't a kite — station-keeping
+    // is the whole point of the hover, so the wind's grip fades out with `hover`.
+    // Without this the UFO still slides downwind (up to 25 m/s) at zero throttle,
+    // which reads as "it won't stop moving forward". Jets are unaffected (hover = 0).
+    const drift = (25 * windStrength) * (1 - hover) / 60;
+    F.pos.x += windVec.x * drift;
+    F.pos.z += windVec.z * drift;
   }
   F.pos.x = Math.max(-(b.halfX + BUF), Math.min(b.halfX + BUF, F.pos.x));
   F.pos.z = Math.max(-(b.halfZ + BUF), Math.min(b.halfZ + BUF, F.pos.z));
@@ -4902,13 +5395,20 @@ function stepFlight() {
   const gy = (col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1 ? sampleE(col, row) : 0) * VE;
   const surfY = Math.max(gy, sea && sea.visible ? sea.position.y : -Infinity);
   const agl = (F.pos.y - surfY) / VE;                  // real metres above ground/water
+  F.agl = agl;                                         // HKS-113: stepHerd reads it (beam too high ⇒ no catch)
   if (F.landed) {
     F.speed = Math.max(0, F.speed - 1.5);              // roll-out braking
     F.pitch *= 0.8; F.roll *= 0.75;                    // settle level on the gear
     F.pos.y = surfY + 2.2;
-    if (K[' ']) takeOff();   // ␣ launches; a tap/🛫 launches too. Holding no longer auto-launches so you can drag to look at the parked plane; touchHold still feeds the gas once airborne (HKS-53)
-  } else if (agl < 4 && _fv.y <= 0.02) {               // only while descending — a fresh
+    // ␣ launches; a tap/🛫 launches too. Holding no longer auto-launches so you can drag
+    // to look at the parked plane; touchHold still feeds the gas once airborne (HKS-53).
+    // Pulling BACK on the stick (↑ / W) also rotates you off the deck — the instinctive
+    // thing to do in an aircraft, and for the UFO it's simply "up" (HKS-113).
+    if (K[' '] || K['arrowup'] || K['w']) takeOff();
+  } else if (agl < 4 && _fv.y <= 0.02 && ufoVy <= 0.001) {   // only while descending — a fresh
     F.landed = true;                                   // climb-out stays airborne
+    // (ufoVy: a hovering saucer's _fv.y is ~0 at zero speed, so without this its
+    //  vertical thrust wouldn't count as a climb and lift-off would re-land instantly)
     F.pitch = Math.max(0, F.pitch * 0.3); F.roll *= 0.5;
     F.pos.y = surfY + 2.2;
     flash = Math.max(flash, 0.15);                     // a soft touchdown bump
@@ -4940,11 +5440,62 @@ function stepFlight() {
   const spinD = F.landed ? 0 : 0.25 + F.speed * 0.004;
   if (planeGrp.userData.prop) planeGrp.userData.prop.rotation.z += spinD;
   if (planeGrp.userData.props) for (const pr of planeGrp.userData.props) pr.rotation.z += spinD;
+  // ---- HKS-113: the UFO's three exceptions ----------------------------------
+  // Spin: about the hull's own vertical axis, not a prop's thrust axis. Unlike
+  // the fleet rule it never fully stops — parked, it idles, because a powered-down
+  // saucer just looks broken.
+  if (planeGrp.userData.spin)
+    planeGrp.userData.spin.rotation.y += F.landed ? 0.004 : 0.045 + F.speed * 0.0006;
+  // Bob: a hovering saucer breathes. Applied to the RENDER position only, never
+  // to F.pos — integrating it would let the craft drift upward over time.
+  if (ufo && !F.landed && hover > 0.01)
+    planeGrp.position.y += Math.sin(performance.now() / 620) * 0.35 * hover * VE;
+  // Beam: hangs world-down from the belly, widening onto a light pool on the deck.
+  const bm = planeGrp.userData.beam;
+  if (bm) {
+    bm.visible = ufo && !F.landed;
+    if (bm.visible) {
+      // cancel the hull's pitch/bank so the beam stays vertical however it flies
+      bm.quaternion.copy(_fq).invert();
+      const S = planeGrp.scale.x || 1;                 // group units → world metres
+      const dLocal = Math.max(0.6, (planeGrp.position.y - surfY) / S);   // origin → deck, in group units
+      const len = Math.min(80, dLocal + BEAM_TOP);     // stop the cone AT the ground (apex starts at BEAM_TOP)
+      const cone = bm.userData.cone, pool = bm.userData.pool;
+      const flare = 1 + len * 0.045;                   // a longer throw spreads wider
+      cone.scale.set(flare, len, flare);
+      // the cone's footprint on the deck, in world metres — stepHerd uses exactly
+      // this as the catch radius, so a cow is taken iff it is standing IN the light
+      planeGrp.userData.beamR = BEAM_FOOT * flare * S;
+      pool.position.y = -dLocal + 0.05;                // sit ON the deck, a hair above z-fighting
+      pool.scale.setScalar(flare * BEAM_FOOT * 1.15);  // the cone's foot ⇒ the pool's rim (keep them coupled)
+      // strongest while hovering (that's when it's stealing something), and it
+      // fades out with altitude — a beam from 900 m up would just be a haze
+      const fade = Math.max(0, Math.min(1, 1 - (agl - 260) / 620));
+      const k = (0.45 + 0.55 * hover) * fade;
+      cone.material.opacity = 0.34 * k;
+      pool.material.opacity = 0.50 * k;
+      bm.visible = k > 0.01;
+    }
+  }
   // HKS-87: engine audio follows the same landed rule as the prop — on the
   // ground it's driven purely by ground speed, so it fades out through the
   // roll-out and falls silent (setEngine(0) spins the oscillators down) once
   // the plane is stationary/parked. Airborne throttle mapping is unchanged.
-  setEngine(sndOn ? (F.landed ? F.speed * 0.004 : 0.25 + 0.75 * (F.speed - 28) / Math.max(20, F.top - 28)) : 0);
+  // (clamped ≥ 0, and driven by |speed|: the airborne mapping is written around the
+  //  fleet's 28 m/s stall floor, and only the UFO — which can hover at 0 and now run
+  //  in reverse — reaches at or below it. A jet never does, so abs is a no-op there.)
+  const spd = Math.abs(F.speed);
+  // HKS-113: the saucer has its own voice — a synthesized theremin, not a turbofan.
+  // Exactly one engine ever runs: switching craft silences the other. And unlike a
+  // plane, a parked UFO does NOT fall silent — it idles, humming, the way its spin
+  // idles rather than stopping.
+  if (ufo) {
+    setEngine(0);
+    setUfoEngine(sndOn ? (F.landed ? 0.12 : 0.30 + 0.70 * Math.min(1, spd / F.top)) : 0, hover);
+  } else {
+    setUfoEngine(0);
+    setEngine(sndOn ? Math.max(0, F.landed ? spd * 0.004 : 0.25 + 0.75 * (spd - 28) / Math.max(20, F.top - 28)) : 0);
+  }
   // --- FOV: the orbit view is telephoto (38°); flight goes wide for speed feel
   // — chase 55°, eye/cockpit 68° — and stretches a few degrees more near full
   // throttle. Eased so view switches breathe instead of snapping.
@@ -4957,7 +5508,26 @@ function stepFlight() {
   // ease back to centre once nothing is held (no finger down, no mouse drag)
   if (!F.touchHold && !F.mouseLook) { F.lookYaw *= 0.9; F.lookPitch *= 0.9; }
   // --- cameras (world space: survives any leftover world spin)
-  if (F.view !== 'chase') {                            // first person: 👁 eye or 🧑‍✈️ cockpit —
+  if (F.view === 'down') {                             // 🎯 the beam camera (HKS-113) — UFO only
+    // Slung UNDER the belly, looking straight down — the beam's own point of view. From
+    // beneath, the hull is behind the camera and can never occlude the animal you're
+    // aiming at (from above it parked dead centre over it), and you look down THROUGH the
+    // beam itself: the cone is additive and depthWrite:false, so the ground reads through
+    // its green wash and the catch footprint is literally what you see.
+    const ay = F.yaw + F.lookYaw;
+    const nx = -Math.sin(ay), nz = -Math.cos(ay);      // the nose, flattened onto the deck
+    const drop = UFO_BELLY * (planeGrp.scale.x || 1) - 0.8;   // just below the belly lamp
+    // …but never below the deck: parked, the hull sits only 2.2 m up, which would bury
+    // the camera in the terrain
+    _fc.copy(F.pos);
+    _fc.y = Math.max(surfY + 1.5, F.pos.y + drop);
+    world.localToWorld(_fc);
+    camera.up.set(nx, 0, nz);                          // screen-up = heading (horizontal ⇒ never parallel to a straight-down view)
+    camera.position.lerp(_fc, 0.25);
+    _fl.copy(_fc);                                     // straight down from wherever the camera ended up
+    _fl.y -= 1000;
+    camera.lookAt(_fl);
+  } else if (F.view !== 'chase') {                     // first person: 👁 eye or 🧑‍✈️ cockpit —
     const ud = planeGrp.userData, ck = ud.cockpit;     // interiors exist per skin (HKS-93)
     const inCk = F.view === 'cockpit' && !!ck;         // no deck built → render the clean eye
     if (ck) {
@@ -4999,9 +5569,19 @@ function stepFlight() {
   // --- HUD: real numbers (metres, knots), how-to card for the first seconds
   const az = ((-F.yaw / D2R) % 360 + 360) % 360;
   const touch = F.tilt && F.tiltRef != null;
+  stepHerd();                                          // HKS-113: the cattle, and whatever the beam is taking
   const stats = `${Math.round(F.pos.y / VE)} m · AGL ${Math.max(0, Math.round(agl))} m` +   // no emoji — ✈/🛬 flickered as landed toggled (HKS-91)
     ` · ${String(Math.round(az)).padStart(3, '0')}° ${CARD[Math.round(az / 45) % 8]}` +   // speed now shows on the speed bar
-    (F.landed ? ` · ${t('fly.landed')}` : '');
+    (F.landed ? ` · ${t('fly.landed')}` : '') +
+    // HKS-113: the abduction tally rides in the same HUD line — UFO only — followed by
+    // a bearing + range to the nearest cow, which is the only reason the herd is
+    // findable at all across 64 x 48 km of Hong Kong
+    (planeSkin === 'ufo'
+      ? ` · 🐄 ${herd.caught}` + (herd.near
+          ? ` · ${herd.near.d < 1000 ? Math.round(herd.near.d) + ' m' : (herd.near.d / 1000).toFixed(1) + ' km'}` +
+            ` ${String(Math.round(herd.near.az)).padStart(3, '0')}° ${CARD[Math.round(herd.near.az / 45) % 8]}`
+          : '')
+      : '');
   // HKS-91: single-line live stats, top-left under the brand chip (how-to lives in
   // the Help drawer, camera toggle by the compass, exit via the dock/Esc)
   document.getElementById('flyhud').innerHTML = stats;
@@ -5592,19 +6172,23 @@ function toggleWalkView() {
 function syncCamSeg() {
   const mode = flight.on ? flight.view : walk.on ? (walk.pov ? 'eye' : 'chase') : null;
   const ext = document.getElementById('cam-ext'), fp = document.getElementById('cam-pov'),
-        ckb = document.getElementById('cam-ck');
+        ckb = document.getElementById('cam-ck'), dn = document.getElementById('cam-dn');
   if (!ext || !fp || !ckb) return;
   ckb.hidden = !flight.on || !(planeGrp && planeGrp.userData.cockpit);   // Fly-only, needs a flight deck
+  if (dn) dn.hidden = !flight.on || planeSkin !== 'ufo';                 // HKS-113: only the saucer has a beam to aim
+  fp.hidden = flight.on && planeSkin === 'ufo';                          // …and a saucer has no inside to sit in
   const mark = (btn, on) => { btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false'); };
   mark(ext, mode === 'chase'); mark(fp, mode === 'eye'); mark(ckb, mode === 'cockpit');
+  if (dn) mark(dn, mode === 'down');
 }
-function setCamView(mode) {   // 'chase' | 'eye' | 'cockpit'
+function setCamView(mode) {   // 'chase' | 'eye' | 'cockpit' | 'down' (HKS-113, UFO)
   if (flight.on) setFlightView(mode);
   else if (walk.on) { const fp = mode !== 'chase'; if (walk.pov !== fp) toggleWalkView(); }
 }
 document.getElementById('cam-ext').addEventListener('click', () => setCamView('chase'));
 document.getElementById('cam-pov').addEventListener('click', () => setCamView('eye'));
 document.getElementById('cam-ck').addEventListener('click', () => setCamView('cockpit'));
+document.getElementById('cam-dn').addEventListener('click', () => setCamView('down'));   // HKS-113
 // HKS-91: auto-walk play/pause, beside the compass (was a ▶/⏸ link in the walk HUD)
 function syncWalkAuto() {
   const b = document.getElementById('walk-auto');

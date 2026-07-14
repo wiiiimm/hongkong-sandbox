@@ -129,6 +129,156 @@ export function setEngine(level) {
   engine.g.gain.setTargetAtTime(0.05 + level * 0.10, t, 0.15);
 }
 
+// ---- the UFO (HKS-113) -----------------------------------------------------
+// A saucer must not growl like a turbofan, so it gets its own voice — still fully
+// synthesized, no samples. It's the classic sci-fi theremin, built from three parts:
+//
+//   · TWO SINES a few Hz apart. The beat between them is the eerie, wavering wobble
+//     that makes a theremin sound alive; a shared vibrato LFO bends both.
+//   · A SUB sine under it all — the hull hum you feel more than hear.
+//   · A WHIRR: a square through a tight resonant bandpass, amplitude-modulated, which
+//     reads as the disc spinning. Its pitch tracks the throttle.
+//
+// `hover` deepens the vibrato: parked over a field the saucer wavers and moans;
+// at speed the wobble tightens into a purposeful hum.
+let ufoEng = null;
+export function setUfoEngine(level, hover = 0) {
+  if (!ctx || !enabled) level = 0;
+  if (level > 0 && !ufoEng) {
+    if (!ctx) return;
+    const a = ctx.createOscillator(); a.type = 'sine';
+    const b = ctx.createOscillator(); b.type = 'sine';
+    const sub = ctx.createOscillator(); sub.type = 'sine'; sub.frequency.value = 46;
+    // vibrato: one LFO bending BOTH sines together, so they stay in their beat
+    const vib = ctx.createOscillator(); vib.type = 'sine'; vib.frequency.value = 5.2;
+    const vibG = ctx.createGain(); vibG.gain.value = 6;              // ± Hz
+    vib.connect(vibG); vibG.connect(a.frequency); vibG.connect(b.frequency);
+    // the spinning disc
+    const whirr = ctx.createOscillator(); whirr.type = 'square'; whirr.frequency.value = 120;
+    const wf = ctx.createBiquadFilter(); wf.type = 'bandpass'; wf.frequency.value = 1500; wf.Q.value = 7;
+    const wg = ctx.createGain(); wg.gain.value = 0;
+    const trem = ctx.createOscillator(); trem.type = 'sine'; trem.frequency.value = 11;
+    const tremG = ctx.createGain(); tremG.gain.value = 0.022;        // shallower than the base gain, so it never inverts phase
+    trem.connect(tremG); tremG.connect(wg.gain);
+    whirr.connect(wf); wf.connect(wg);
+    const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 1900; f.Q.value = 3;
+    const g = ctx.createGain(); g.gain.value = 0;
+    a.connect(f); b.connect(f); sub.connect(f); wg.connect(f);
+    f.connect(g); g.connect(muffle);
+    for (const o of [a, b, sub, vib, whirr, trem]) o.start();
+    ufoEng = { a, b, sub, vib, vibG, whirr, wg, trem, f, g };
+  }
+  if (!ufoEng) return;
+  const t = ctx.currentTime;
+  if (level <= 0) {
+    ufoEng.g.gain.setTargetAtTime(0, t, 0.3);
+    const e = ufoEng; ufoEng = null;                                 // null it NOW so a re-entry builds a fresh voice
+    setTimeout(() => {
+      try { for (const o of [e.a, e.b, e.sub, e.vib, e.whirr, e.trem]) o.stop(); } catch (_) {}
+    }, 1400);
+    return;
+  }
+  const base = 188 + level * 200;
+  ufoEng.a.frequency.setTargetAtTime(base, t, 0.28);                 // slow glide: a theremin never snaps
+  ufoEng.b.frequency.setTargetAtTime(base + 5.5, t, 0.28);           // …the 5.5 Hz beat against it
+  ufoEng.vibG.gain.setTargetAtTime(3.5 + hover * 9, t, 0.35);        // hovering ⇒ a deeper, sicklier wobble
+  ufoEng.whirr.frequency.setTargetAtTime(104 + level * 96, t, 0.22);
+  ufoEng.wg.gain.setTargetAtTime(0.030 + level * 0.045, t, 0.22);
+  ufoEng.f.frequency.setTargetAtTime(1200 + level * 1500, t, 0.25);
+  ufoEng.g.gain.setTargetAtTime(0.05 + level * 0.11, t, 0.18);
+}
+
+// ---- the abduction (HKS-113) ------------------------------------------------
+// Fired the instant a cow is caught in the beam. Two synthesized voices, no samples:
+//
+//   · The TRACTOR BEAM — noise through a bandpass sweeping UP, plus a sine glissando
+//     rising underneath. Everything ascends, because the cow visibly rises and shrinks
+//     over exactly this window: the sfx runs CATCH_MS (1.7 s), so the sound lands as
+//     the animal disappears into the hull.
+//   · The MOO — a startled one. A cow is a formant instrument: a sawtooth larynx driven
+//     through two bandpass formants, with the first sweeping up and back down as the
+//     mouth opens and closes ("mmMOOoo"). The pitch bends up in alarm, then sags.
+//
+// Each call is detuned a little, so a field of cattle doesn't moo in unison.
+let abducting = 0;                                      // cap the chorus when a whole herd is taken
+export function abductionSfx(ms = 1700) {
+  if (!ctx || !enabled || abducting >= 4) return;       // 4 at once is a stampede; more is mush
+  abducting++;
+  setTimeout(() => { abducting--; }, ms);
+  const t0 = ctx.currentTime, dur = ms / 1000;
+  const rnd = (a, b) => a + Math.random() * (b - a);
+
+  // --- the beam: everything rises
+  const src = ctx.createBufferSource();
+  src.buffer = noiseBuffer(2); src.loop = true;
+  const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 3.5;
+  bp.frequency.setValueAtTime(280, t0);
+  bp.frequency.exponentialRampToValueAtTime(2600, t0 + dur);          // the sweep UP = the pull
+  const bg = ctx.createGain();
+  bg.gain.setValueAtTime(0.0001, t0);
+  bg.gain.exponentialRampToValueAtTime(0.075, t0 + dur * 0.55);       // swells as it takes hold…
+  bg.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);             // …then it's gone
+  src.connect(bp); bp.connect(bg); bg.connect(muffle);
+  src.start(t0); src.stop(t0 + dur + 0.05);
+
+  // the glissando under it — the "suck"
+  const gl = ctx.createOscillator(); gl.type = 'sine';
+  gl.frequency.setValueAtTime(rnd(80, 100), t0);
+  gl.frequency.exponentialRampToValueAtTime(rnd(620, 780), t0 + dur);
+  const gg = ctx.createGain();
+  gg.gain.setValueAtTime(0.0001, t0);
+  gg.gain.exponentialRampToValueAtTime(0.055, t0 + dur * 0.7);
+  gg.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  gl.connect(gg); gg.connect(muffle);
+  gl.start(t0); gl.stop(t0 + dur + 0.05);
+
+  // --- the moo: a startled cow, right as the beam grabs it
+  const m0 = t0 + rnd(0.04, 0.16), mdur = rnd(0.75, 1.0);
+  const f0 = rnd(112, 140);                                            // larynx
+  const lar = ctx.createOscillator(); lar.type = 'sawtooth';
+  lar.frequency.setValueAtTime(f0, m0);
+  lar.frequency.linearRampToValueAtTime(f0 * 1.35, m0 + mdur * 0.28);  // …bends UP in alarm
+  lar.frequency.linearRampToValueAtTime(f0 * 0.82, m0 + mdur);         // …then sags away
+  // two formants make it a cow rather than a buzz; F1 opens and closes the mouth
+  const f1 = ctx.createBiquadFilter(); f1.type = 'bandpass'; f1.Q.value = 4.5;
+  f1.frequency.setValueAtTime(340, m0);
+  f1.frequency.linearRampToValueAtTime(760, m0 + mdur * 0.3);          // "mm" → "OO"
+  f1.frequency.linearRampToValueAtTime(300, m0 + mdur);                // → closed again
+  const f2 = ctx.createBiquadFilter(); f2.type = 'bandpass'; f2.Q.value = 6;
+  f2.frequency.value = rnd(1000, 1250);
+  const mg = ctx.createGain();
+  mg.gain.setValueAtTime(0.0001, m0);
+  mg.gain.exponentialRampToValueAtTime(0.16, m0 + 0.09);               // sharp intake
+  mg.gain.setTargetAtTime(0.10, m0 + 0.12, 0.25);
+  mg.gain.exponentialRampToValueAtTime(0.0001, m0 + mdur);
+  lar.connect(f1); lar.connect(f2);
+  f1.connect(mg); f2.connect(mg); mg.connect(muffle);
+  lar.start(m0); lar.stop(m0 + mdur + 0.05);
+}
+
+// The score. A coin-grab chime: two short notes, the second a fourth above the first,
+// on a square wave through a gentle lowpass — the arcade shape everyone's ear already
+// knows. `n` (the running tally) transposes it up in semitones, capped, so a streak
+// climbs a little each time and landing your tenth cow feels different from your first.
+export function scoreDing(n = 0) {
+  if (!ctx || !enabled) return;
+  const t0 = ctx.currentTime + 0.01;
+  const step = Math.min(12, n) * 0.6;                   // semitones, capped — it climbs, then plateaus
+  const semis = s => 987.77 * Math.pow(2, s / 12);      // from B5
+  const note = (freq, at, dur, peak) => {
+    const o = ctx.createOscillator(); o.type = 'square'; o.frequency.setValueAtTime(freq, at);
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 3800;   // take the edge off the square
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, at);
+    g.gain.exponentialRampToValueAtTime(peak, at + 0.012);   // instant attack — it's a chime
+    g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+    o.connect(lp); lp.connect(g); g.connect(muffle);
+    o.start(at); o.stop(at + dur + 0.02);
+  };
+  note(semis(step), t0, 0.09, 0.16);                    // B5  — the grab…
+  note(semis(step + 5), t0 + 0.075, 0.42, 0.14);        // E6  — …and the payoff, ringing out
+}
+
 // one-shot rumble per strike. close: short delay, louder, with an initial
 // crack; distant sheet lightning: long delay, soft low roll. vol (optional,
 // 0..1, default 1) scales the rumble+crack peaks — HKS-68 passes the live

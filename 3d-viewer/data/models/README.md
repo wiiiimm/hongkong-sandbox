@@ -303,6 +303,99 @@
   `prop0_still`/`prop1_still` nodes join the shared airborne prop-spin.
 - **Rebuild:** `node ../../scripts/trim_betsy_glb.mjs <scene.gltf> nc/plane-betsy.glb`
 
+## plane-ufo.glb — fly-mode UFO (HKS-113)
+
+The one craft in the picker that isn’t an aircraft.
+
+- **Source:** “UFO” by **Islide** —
+  https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06
+- **Licence: CC BY 4.0** — *“Author must be credited. Commercial use is allowed.”*
+  Verified against the Sketchfab API (`license.slug = by`) **and** the bundled
+  `license.txt` before use. **Freely licensed**, so unlike the two OUTPISTON
+  hulls this one is **not** NC-fenced: it lives here in `data/models/` proper and
+  **is** in the service worker’s `DEFAULT_TERRAIN` precache. Islide is credited in
+  the app’s Credits drawer (en + 繁中) — CC BY attribution is load-bearing.
+- **Original file:** Sketchfab glTF export — a single 7 264-tri / 3 826-vert mesh
+  (`UFO_geo_SHD_UFO_0`, one material `SHD_UFO`) wrapped in **~29 MB of 4K
+  textures**. The geometry was already lighter than every jet in the fleet; the
+  textures were the entire problem.
+- **Our modifications:** **no decimation at all** — the recipe is pure texture
+  reduction. The `metallicRoughness` *slot* is unwired in favour of scalar
+  factors (metal 0.35 / rough 0.42 — Sketchfab leaves `metallicFactor` at 1.0,
+  which renders near-black in a viewer with no environment map). Note the export
+  points `occlusionTexture` at the **same image**, so that texture survives as the
+  AO map rather than being pruned — deliberate: resized it costs ~85 KB and buys
+  free ambient occlusion. All four maps → ≤1024 px JPEG; dedup/prune/quantize
+  (POSITION float32). Result: **7 264 tris, 680 KB** (from 30 MB — smaller than
+  any jet in the fleet).
+- **The underside light is authored in:** `SHD_UFO` carries an `emissiveFactor`
+  of `[1,1,1]` plus a dedicated emissive map. That lamp is what the **abduction
+  beam** grows out of, so the emissive texture is kept and must never be dropped.
+- **Runtime:** the saucer is rotationally symmetric (bbox X/Z ratio **1.000**),
+  so `rotY` is meaningless and is omitted. `spinY: true` — `loadPlaneModel()`
+  wraps the hull in a pivot on its own vertical centre axis and hands it to
+  `stepFlight` as `userData.spin`. No gear, no props (see fleet-rule exceptions
+  below).
+- **Rebuild:** `node ../../scripts/trim_ufo_glb.mjs <scene.gltf> plane-ufo.glb`
+- **Rejected alternative:** “Bob Lazar Ufo” by Batuhan13
+  (https://sketchfab.com/3d-models/bob-lazar-ufo-75f488cec00e4dc88b7d6bc5867cdaef,
+  also CC BY) — only 1 866 tris and, decisively, **no underside light**, so there
+  was nothing to anchor the beam to.
+
+## cow.glb · bull.glb — the UFO's quarry (HKS-113)
+
+The cattle scattered over the land for the UFO to beam up. They exist only in UFO
+mode; no other craft ever builds them.
+
+- **Source:** “Cow” by **Quaternius** — https://poly.pizza/m/26zM1outCr
+  and “Bull” by **Quaternius** — https://poly.pizza/m/a8PIIYwF7r
+  (author: https://quaternius.com)
+- **Licence: CC0 / public domain** — Poly Pizza states *“Public Domain (CC0)”* for
+  both. **No attribution owed and no conditions at all** — the same author and the
+  same licence as the walk-mode hiker. Freely licensed, so they sit here in
+  `data/models/` proper and **are** in the service worker precache.
+- **Original files:** ~2 450 / 2 418 tris, **no textures** (Quaternius colours by
+  material), but each ships **25 skeletal animations plus a skin** — which is the
+  entire reason the downloads are ~1 MB apiece.
+- **Our modifications:** **no decimation and no texture work** — there is nothing to
+  decimate and there are no textures. The whole recipe is stripping the 25
+  animations and the skin/skeleton (57 bone nodes each), leaving the bind pose — a
+  standing animal — as a plain static mesh, then dedup/prune/quantize (POSITION
+  float32). The herd never animates on its own, so the rig was pure weight, and
+  dropping it means dozens of cattle render as cheap static meshes.
+  Result: **1 MB → 117 KB each**, 2 450 / 2 418 tris kept intact.
+- **Runtime:** normalised to `COW_LEN` (14 m) nose→tail with feet on y = 0.
+  **Deliberately not life-size:** a real 2.6 m cow is a sub-pixel speck from any
+  altitude you'd actually fly at, and the beam's foot is ~46 m across at a 30 m hover,
+  so the quarry is scaled to read against *the beam* rather than against the terrain.
+  A cow standing inside the beam's ground footprint is hauled up, spinning, into the
+  belly; the tally shows in the fly HUD.
+- **Findability is the design problem.** The map is 910 × 685 cells at 70 m —
+  **64 km × 48 km**. Cattle sprinkled uniformly over that are a needle in a haystack
+  (an early 36-head herd worked out at ~1 cow per 30 km²). Three things fix it:
+  - **360 head in 60 fields of 6** — find one cow and you've found its whole field.
+  - **6 fields are seeded around HKIA**, within 2.6 km of the runway you spawn on, so
+    the game announces itself instead of waiting to be discovered. Note the apron is
+    reclaimed land only **7 m** above the sea, so the usual >15 m land test rejects it
+    outright — the airport fields use `minE = 4`. Cattle on the apron is the point.
+  - **The HUD points at the nearest one** (bearing + range), which is the only reason
+    the herd is findable at all.
+- **Rendering:** 360 head × 7 mesh parts would be **~2 500 draw calls**, so the herd is
+  drawn with `InstancedMesh` — one draw call per (geometry, material) pair per type,
+  which collapses it to **14**. Only the animals actually mid-abduction rewrite their
+  instance matrices each frame; a cow whose field turned out to be water is parked at
+  scale 0, so it costs zero area.
+- **Rebuild:** `node ../../scripts/trim_cattle_glb.mjs <input.glb> cow.glb`
+- **Rejected alternatives:** “Cow” by kenchoo
+  (https://sketchfab.com/3d-models/cow-3c1bbce7a64640cca28b49b3d181e347) — **Sketchfab
+  “Free Standard”** (`free-st`), which grants broad *use* rights but **not**
+  redistribution of the model as a standalone file. This repo is public and serves
+  its GLBs as loose, downloadable files from a public bucket, which is exactly that.
+  Not one of the licences `LICENSE-ASSETS.md` accepts. Also “Brown Cow 3d model” by
+  iRahulRajput (CC BY 4.0 — *licence was fine*), dropped in favour of the CC0 pair:
+  it was a 264 k-tri / 30 MB hero model that would have needed brutal decimation, and
+  CC0 carries no attribution burden.
+
 ## Fleet rules (HKS-110)
 
 - Landed: **gear + wheels visible, props/fans stopped**. Airborne: **gear
@@ -310,6 +403,16 @@
   materials (split out by the trim scripts) or gear/wheel/tire node names;
   `stepFlight` drives visibility off the landed state. Exception: betsy
   (taildragger, `fixedGear`).
+- **Exception — the UFO (HKS-113)** opts out of the gear/prop rules entirely: it
+  has neither, so `userData.gear`/`props` simply stay unset and both rules
+  no-op. In their place it gets three behaviours of its own, all in `stepFlight`:
+  **hover** (no stall floor and no nose-heavy sink — pitch becomes vertical
+  thrust as it slows, so it rises straight off the deck and can park over a
+  landmark), **spin** (`userData.spin`, about its own vertical axis; idles rather
+  than stopping when parked), and the **abduction beam** (`userData.beam` — a
+  cone + ground pool, counter-rotated each frame so they hang world-down however
+  the hull banks, and kept *outside* the spin group so the beam holds still while
+  the saucer turns over it).
 - **Deploy note:** on the official deploy `data/` is served from the R2 assets
   origin — upload all `plane-*.glb` files (including `nc/…` where licensing
   permits that deployment) to the bucket under `data/models/` at merge, like
