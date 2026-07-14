@@ -111,7 +111,7 @@ const I18N = {
     'fly.landed': 'landed', 'fly.takeoff': '🛫 take off — ␣ or tap',
     'fly.chase': '🎥 Chase', 'fly.cockpit': '🧑‍✈️ Cockpit',
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
-    'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)',
+    'cam.ext': 'Chase / external camera (C)', 'cam.eye': 'First-person eye camera (C)', 'cam.ck': 'Cockpit camera (C)', 'cam.down': 'Overhead beam camera — aim at the cattle (C)',
     'lbl.topspeed': 'Top speed',
     'lbl.plane': 'Aircraft', 'plane.prop': 'Prop plane', 'plane.betsy': 'Cathay Pacific Betsy (DC-3)', 'plane.cx747': 'Cathay Pacific 747', 'plane.cx777': 'Cathay Pacific 777', 'plane.a330': 'Cathay Pacific A330-300', 'plane.a350': 'Cathay Pacific A350-1000', 'plane.ufo': 'UFO 🛸',
     'btn.walk': '🪂 Walk',
@@ -130,7 +130,7 @@ const I18N = {
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
     'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
-    'help.fly.t': 'Flying', 'help.fly.b': 'Take off — pull back (↑ / W), press Space, tap the plane, or hit the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nKeys — ↑↓ or W/S pitch · ←→ or A/D bank · ⇧ or E throttle up · ⌃ or Q throttle down\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water\n🛸 UFO — throttle down (⌃/Q, or a two-finger hold) to a standstill and it hovers in place; pitch then raises and lowers it\n🛸 Keep braking past the hover and it reverses — no wings, so it can back up (a third of forward speed)\n🐄 Its beam is on whenever it flies. Hover over cattle to beam them up — the HUD keeps your tally and points at the nearest one. Some graze around the airport.',
+    'help.fly.t': 'Flying', 'help.fly.b': 'Take off — pull back (↑ / W), press Space, tap the plane, or hit the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nKeys — ↑↓ or W/S pitch · ←→ or A/D bank · ⇧ or E throttle up · ⌃ or Q throttle down\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water\n🛸 UFO — throttle down (⌃/Q, or a two-finger hold) to a standstill and it hovers in place; pitch then raises and lowers it\n🛸 Keep braking past the hover and it reverses — no wings, so it can back up (a third of forward speed)\n🐄 Its beam is on whenever it flies. Hover over cattle to beam them up — the HUD keeps your tally and points at the nearest one. Some graze around the airport.\n🎯 Press C (or the 🎯 button) for the overhead beam camera — look straight down to line the beam up on a cow',
     'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump · Shift or a two‑finger hold to run\nDrag to look around — 🖱 locks the mouse for look (Esc releases)\nPress C for first‑person / chase',
     'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🤳 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
     'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings — Trails · GPX drops in your own tracks, plays them back (▶) start→end, and shows each trail\'s elevation profile',
@@ -204,7 +204,7 @@ const I18N = {
     'fly.landed': '已降落', 'fly.takeoff': '🛫 起飛 — ␣ 或點擊',
     'fly.chase': '🎥 追機', 'fly.cockpit': '🧑‍✈️ 駕駛艙',
     // HKS-93: three-way fly camera — chase, clean pilot's eye, cockpit interior
-    'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)',
+    'cam.ext': '追機／外部鏡頭 (C)', 'cam.eye': '第一人稱主視角 (C)', 'cam.ck': '駕駛艙鏡頭 (C)', 'cam.down': '俯視光束鏡頭 — 瞄準牛群 (C)',
     'lbl.topspeed': '極速',
     'lbl.plane': '機型', 'plane.prop': '螺旋槳小飛機', 'plane.betsy': '國泰航空「貝茜」DC-3', 'plane.cx747': '國泰航空 747', 'plane.cx777': '國泰航空 777', 'plane.a330': '國泰航空 A330-300', 'plane.a350': '國泰航空 A350-1000', 'plane.ufo': '幽浮 🛸',
     'btn.walk': '🪂 步行',
@@ -223,7 +223,7 @@ const I18N = {
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
     'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
-    'help.fly.t': '飛行', 'help.fly.b': '起飛 — 拉桿（↑／W）、按空白鍵、點擊飛機，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按鍵 — ↑↓ 或 W/S 俯仰 · ←→ 或 A/D 轉向 · ⇧ 或 E 加油門 · ⌃ 或 Q 收油門\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）\n🛸 幽浮 — 把油門收到零（⌃/Q，或雙指按住）即原地懸停；此時俯仰控制升降\n🛸 繼續收油門越過懸停便會倒退 — 沒有機翼，可以向後飛（速度為前進的三分一）\n🐄 飛行時光束一直開著。懸停在牛群上方即可吸走牠們 — HUD 會記下數目並指向最近一頭。機場一帶也有牛。',
+    'help.fly.t': '飛行', 'help.fly.b': '起飛 — 拉桿（↑／W）、按空白鍵、點擊飛機，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按鍵 — ↑↓ 或 W/S 俯仰 · ←→ 或 A/D 轉向 · ⇧ 或 E 加油門 · ⌃ 或 Q 收油門\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）\n🛸 幽浮 — 把油門收到零（⌃/Q，或雙指按住）即原地懸停；此時俯仰控制升降\n🛸 繼續收油門越過懸停便會倒退 — 沒有機翼，可以向後飛（速度為前進的三分一）\n🐄 飛行時光束一直開著。懸停在牛群上方即可吸走牠們 — HUD 會記下數目並指向最近一頭。機場一帶也有牛。\n🎯 按 C（或 🎯 鍵）切換俯視光束鏡頭 — 由上而下俯視，方便對準牛隻',
     'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍 · Shift 或雙指按住奔跑\n拖曳環顧四周 — 🖱 鎖定滑鼠環視（Esc 解除）\n按 C 切換第一人稱 / 追尾',
     'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🤳 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
     'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定 —— 「路徑 · GPX」可載入自己的路徑、回放（▶）由起點掃至終點，並顯示各路徑的高度剖面',
@@ -2591,6 +2591,7 @@ function setPlaneSkin(id) {
   // HKS-93: a skin without a flight deck can't hold cockpit view — fall back to
   // the clean eye; the 🧑‍✈️ segment shows/hides with the new skin either way
   if (flight.view === 'cockpit' && !planeGrp.userData.cockpit) flight.view = 'eye';
+  if (flight.view === 'down' && id !== 'ufo') flight.view = 'chase';   // HKS-113: no beam, no bombsight
   syncCamSeg();
   loadPlaneModel(id);          // HKS-110: swap in the real airframe once it arrives
   if (id === 'ufo') ensureHerd();          // HKS-113: switching TO the UFO mid-flight brings the herd out…
@@ -5117,7 +5118,9 @@ function exitFlight() {
 // cockpit on any skin without a built flight deck (HKS-93)
 function updateViewBtn() { syncCamSeg(); }   // fly camera state reflects in the segmented control
 function flyViews() {
-  return (planeGrp && planeGrp.userData.cockpit) ? ['chase', 'eye', 'cockpit'] : ['chase', 'eye'];
+  const v = (planeGrp && planeGrp.userData.cockpit) ? ['chase', 'eye', 'cockpit'] : ['chase', 'eye'];
+  if (planeSkin === 'ufo') v.push('down');   // HKS-113: the bombsight — only the saucer has a beam to aim
+  return v;
 }
 function toggleView() {
   if (!flight.on) return;
@@ -5127,6 +5130,7 @@ function toggleView() {
 function setFlightView(v) {
   if (!flight.on) return;
   if (v === 'cockpit' && !(planeGrp && planeGrp.userData.cockpit)) v = 'eye';   // no flight deck → clean eye
+  if (v === 'down' && planeSkin !== 'ufo') v = 'chase';                         // HKS-113: no beam, no bombsight
   flight.view = v;
   camera.up.set(0, 1, 0);
   updateViewBtn();
@@ -5481,7 +5485,24 @@ function stepFlight() {
   // ease back to centre once nothing is held (no finger down, no mouse drag)
   if (!F.touchHold && !F.mouseLook) { F.lookYaw *= 0.9; F.lookPitch *= 0.9; }
   // --- cameras (world space: survives any leftover world spin)
-  if (F.view !== 'chase') {                            // first person: 👁 eye or 🧑‍✈️ cockpit —
+  if (F.view === 'down') {                             // 🎯 the bombsight (HKS-113) — UFO only
+    // Straight overhead, looking down, with the nose pointing UP the screen so you can
+    // walk the beam onto a cow. The look point sits a little AHEAD of the craft rather
+    // than on it — otherwise the hull parks dead centre and hides the very animal you're
+    // aiming at. That offset drops the saucer low in frame and opens up the ground ahead.
+    if (planeGrp.userData.cockpit) planeGrp.userData.cockpit.visible = false;
+    const ay = F.yaw + F.lookYaw;
+    const nx = -Math.sin(ay), nz = -Math.cos(ay);      // the nose, flattened onto the deck
+    const h = 95 + F.speed * 0.35;                     // rise a little with speed, to see where you're going
+    _fc.copy(F.pos); _fc.y += h;
+    world.localToWorld(_fc);
+    camera.up.set(nx, 0, nz);                          // screen-up = heading (never parallel to a straight-down view)
+    camera.position.lerp(_fc, 0.18);
+    _fl.copy(F.pos);
+    _fl.x += nx * 16; _fl.z += nz * 16;                // …look just ahead of the hull
+    world.localToWorld(_fl);
+    camera.lookAt(_fl);
+  } else if (F.view !== 'chase') {                     // first person: 👁 eye or 🧑‍✈️ cockpit —
     const ud = planeGrp.userData, ck = ud.cockpit;     // interiors exist per skin (HKS-93)
     const inCk = F.view === 'cockpit' && !!ck;         // no deck built → render the clean eye
     if (ck) {
@@ -6126,19 +6147,22 @@ function toggleWalkView() {
 function syncCamSeg() {
   const mode = flight.on ? flight.view : walk.on ? (walk.pov ? 'eye' : 'chase') : null;
   const ext = document.getElementById('cam-ext'), fp = document.getElementById('cam-pov'),
-        ckb = document.getElementById('cam-ck');
+        ckb = document.getElementById('cam-ck'), dn = document.getElementById('cam-dn');
   if (!ext || !fp || !ckb) return;
   ckb.hidden = !flight.on || !(planeGrp && planeGrp.userData.cockpit);   // Fly-only, needs a flight deck
+  if (dn) dn.hidden = !flight.on || planeSkin !== 'ufo';                 // HKS-113: only the saucer has a beam to aim
   const mark = (btn, on) => { btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false'); };
   mark(ext, mode === 'chase'); mark(fp, mode === 'eye'); mark(ckb, mode === 'cockpit');
+  if (dn) mark(dn, mode === 'down');
 }
-function setCamView(mode) {   // 'chase' | 'eye' | 'cockpit'
+function setCamView(mode) {   // 'chase' | 'eye' | 'cockpit' | 'down' (HKS-113, UFO)
   if (flight.on) setFlightView(mode);
   else if (walk.on) { const fp = mode !== 'chase'; if (walk.pov !== fp) toggleWalkView(); }
 }
 document.getElementById('cam-ext').addEventListener('click', () => setCamView('chase'));
 document.getElementById('cam-pov').addEventListener('click', () => setCamView('eye'));
 document.getElementById('cam-ck').addEventListener('click', () => setCamView('cockpit'));
+document.getElementById('cam-dn').addEventListener('click', () => setCamView('down'));   // HKS-113
 // HKS-91: auto-walk play/pause, beside the compass (was a ▶/⏸ link in the walk HUD)
 function syncWalkAuto() {
   const b = document.getElementById('walk-auto');
