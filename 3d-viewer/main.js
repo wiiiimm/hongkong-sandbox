@@ -4933,8 +4933,14 @@ function airportFields(n) {
 }
 // drop a cow near its home field — it wanders, but stays in its own pasture, and it
 // must still land on dry ground (a field can sit on a coastline)
+// Park a cow: invisible, and — critically — NOT mid-abduction. Both bail-outs below
+// leave the animal hidden, and if they didn't also clear t0 the cow would still be "in
+// flight" with c.y already up at the belly, so stepHerd would re-enter the abduction
+// branch, see it has arrived, score, and try to respawn it again… every single frame.
+// One un-respawnable cow would print ~60 points and 60 analytics events per second.
+function parkCow(c) { c.t0 = 0; c.tilt = 0; c.s = 0; writeCow(c); }
 function placeCow(c) {
-  if (!c.home) { c.s = 0; writeCow(c); return; }         // scale 0 ⇒ invisible instance
+  if (!c.home) { parkCow(c); return; }                   // scale 0 ⇒ invisible instance
   const minE = c.home.minE == null ? 15 : c.home.minE;
   for (let i = 0; i < 12; i++) {
     const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * HERD_SPREAD;
@@ -4949,7 +4955,7 @@ function placeCow(c) {
     writeCow(c);
     return;
   }
-  c.s = 0; writeCow(c);                                  // its whole field is water — sit this one out
+  parkCow(c);                                            // its whole field is water — sit this one out
 }
 function scatterHerd() {
   if (!herd.grp || !curG) return;
