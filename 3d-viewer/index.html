@@ -249,9 +249,15 @@
   select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
   option{background:#12161c;color:var(--ink)}
   input[type=checkbox]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer}
-  #spdgauge{flex:1;height:8px;border-radius:4px;background:var(--field-edge);overflow:hidden}
-  #spdfill{height:100%;width:0%;border-radius:4px;background:var(--accent)}
+  /* HKS-113: the UFO's throttle is signed, so the bar is anchored at a zero mark —
+     |--- reverse ---|--------- forward ---------| — and the fill grows left or right
+     from it. Aircraft keep the zero at the far left, so their bar is unchanged. */
+  #spdgauge{flex:1;height:8px;border-radius:4px;background:var(--field-edge);overflow:hidden;position:relative}
+  #spdfill{position:absolute;top:0;left:0;height:100%;width:0%;border-radius:4px;background:var(--accent)}
   #spdfill.hot{background:#e0774a}
+  #spdfill.rev{background:#ff9a3c}        /* backing up reads orange, not accent */
+  #spdzero{position:absolute;top:0;bottom:0;width:1px;background:var(--ink);opacity:.4;display:none}
+  #spdzero.on{display:block}
   input[type=date]{flex:1;min-width:0;background:var(--field);color:var(--ink);border:1px solid var(--field-edge);
     border-radius:8px;padding:5px 8px;font-size:12px;font-family:var(--mono);color-scheme:dark}
   input[type=date]:disabled{opacity:.45;cursor:not-allowed}
@@ -1144,7 +1150,7 @@
        top-left under the brand chip (#flyhud) -->
   <div id="hudbox">
     <div id="spdwrap" title="Speed — the readout shows your actual speed (kt / km·h); the bar fills toward top speed and redlines at full boost">
-      <div id="spdgauge"><div id="spdfill"></div></div>
+      <div id="spdgauge"><div id="spdfill"></div><div id="spdzero"></div></div>
       <span id="spdpct">—</span>
     </div>
   </div>

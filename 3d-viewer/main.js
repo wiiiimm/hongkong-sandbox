@@ -5156,29 +5156,58 @@ function applyTopSpeed(v) {
 }
 document.getElementById('topspd').addEventListener('input',
   e => applyTopSpeed(+e.target.value));
+// HKS-113: where the zero mark sits, as a % of the bar. The UFO's throttle is signed,
+// so its bar reads |--- reverse ---|--------- forward ---------| with zero a third of
+// the way in; the fill then grows LEFT (orange) or RIGHT (accent) from there. Every
+// other craft has no reverse, so zero stays at the far left and the bar is unchanged.
+const SPD_ZERO = 100 / 3;
 function updateSpeedGauge() {
   const fill = document.getElementById('spdfill'), pct = document.getElementById('spdpct');
-  let p = null, hot = false, label = '—';
+  const zeroEl = document.getElementById('spdzero');
+  let p = null, hot = false, label = '—', rev = false;
+  let zero = 0, left = 0, width = 0;
   if (flight.on) {
-    // HKS-113: the UFO's throttle is signed, so the bar fills on the MAGNITUDE and
-    // the readout marks reverse. Without the abs a reversing saucer clamps the bar to
-    // empty and the gauge goes dead exactly when you're using it.
-    p = 100 * Math.abs(flight.speed) / flight.top;
-    hot = p >= 97 && flight.speed > 0;                         // no redline glow for backing up
+    const signed = planeSkin === 'ufo';
+    zero = signed ? SPD_ZERO : 0;
+    rev = flight.speed < -0.5;
+    if (rev) {                                                 // back up: fill leftward from zero
+      const mag = Math.min(1, Math.abs(flight.speed) / (flight.top * UFO_REV));
+      width = mag * zero;
+      left = zero - width;
+    } else {                                                   // forward: fill rightward from zero
+      const mag = Math.max(0, Math.min(1, flight.speed / flight.top));
+      width = mag * (100 - zero);
+      left = zero;
+    }
+    p = width;                                                 // p is now the drawn width, not a raw %
+    hot = flight.speed / flight.top >= 0.97;                   // redline only at full FORWARD
     const kt = Math.round(Math.abs(flight.speed) * 1.944);
-    label = flight.speed < -0.5 ? `◀ ${kt} kt` : `${kt} kt`;   // real airspeed, not %
+    label = rev ? `◀ ${kt} kt` : `${kt} kt`;                   // real airspeed, not %
   } else if (walk.on) {
     p = 100 * walk.spd / walk.top;
     if (walk.spd > 0.2)                               // a human gait is never a steady needle
       p *= 1 + Math.sin(walk.bob * 2.1) * 0.05 + (Math.random() - 0.5) * 0.05;
     hot = p >= 90;
     label = `${Math.round(walk.spd * 3.6)} km/h`;              // real pace, not %
+    width = Math.max(0, Math.min(100, p));                     // walking has no reverse — plain left-anchored bar
+    left = 0;
   }
-  if (p == null) { fill.style.width = '0%'; pct.textContent = '—'; fill.classList.remove('hot'); return; }
-  p = Math.max(0, Math.min(100, p));
-  fill.style.width = p.toFixed(1) + '%';                       // the bar still fills by % of top speed
-  pct.textContent = label;                                    // the readout shows the actual speed + unit
-  fill.classList.toggle('hot', hot);                  // redline glow at full gas
+  if (p == null) {
+    fill.style.width = '0%'; fill.style.left = '0%';
+    pct.textContent = '—';
+    fill.classList.remove('hot', 'rev');
+    zeroEl.classList.remove('on');
+    return;
+  }
+  width = Math.max(0, Math.min(100, width));
+  left = Math.max(0, Math.min(100 - width, left));
+  fill.style.left = left.toFixed(1) + '%';
+  fill.style.width = width.toFixed(1) + '%';                   // the bar fills from the zero mark, by % of top speed
+  pct.textContent = label;                                     // the readout shows the actual speed + unit
+  fill.classList.toggle('hot', hot);                           // redline glow at full gas
+  fill.classList.toggle('rev', rev);                           // orange while backing up
+  zeroEl.classList.toggle('on', zero > 0);                     // the zero tick only exists on a signed scale
+  if (zero > 0) zeroEl.style.left = zero.toFixed(1) + '%';
 }
 // Resolve the LOGICAL key from the physical e.code first: with a CJK/IME input
 // source active, letter keydowns arrive as e.key === 'Process' and WASD would
