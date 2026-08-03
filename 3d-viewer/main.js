@@ -99,6 +99,8 @@ const I18N = {
     'lyr.contour': 'Contours', 'lyr.road': 'Roads', 'lyr.trail': 'Trails', 'lyr.hydro': 'Hydro', 'lyr.coast': 'Coast', 'lyr.boundary': 'Boundaries', 'lyr.cliff': 'Cliffs',
     'grp.spin': 'Auto‑spin (horizontal)', 'lbl.direction': 'Direction', 'spin.off': 'Off', 'spin.pause': 'Pause', 'spin.cw': '⟳ Clockwise', 'spin.ccw': '⟲ Counter‑cw', 'lbl.speed': 'Speed',
     'grp.sky': 'Sun & moon', 'lbl.skymode': 'Sky', 'sky.live': 'Live (HKT)', 'sky.fixed': 'Custom time', 'sky.off': 'Off · studio light', 'lbl.date': 'Date', 'lbl.time': 'Time',
+    'wx.shootingstars': 'Shooting stars', 'lbl.meteorrate': 'Rate',
+    'meteor.off': 'off', 'meteor.calm': 'calm', 'meteor.romantic': 'romantic', 'meteor.apoc': 'apocalypse',
     'grp.weather': 'Weather', 'lbl.sound': 'Sound', 'wx.rain': 'Rain', 'wx.clouds': 'Clouds', 'wx.fog': 'Fog', 'wx.thunder': 'Thunder', 'wx.waves': 'Waves', 'wx.snow': 'Snow',
     'lbl.skyheight': 'Sky height ×',
     'lbl.thunderrate': 'Thunder rate', 'lbl.tide': 'Tide', 'lbl.storm': 'Storm signal', 'storm.0': 'None', 'storm.1': 'T1 · Standby', 'storm.3': 'T3 · Strong wind',
@@ -192,6 +194,8 @@ const I18N = {
     'lyr.contour': '等高線', 'lyr.road': '道路', 'lyr.trail': '山徑', 'lyr.hydro': '水系', 'lyr.coast': '海岸線', 'lyr.boundary': '界線', 'lyr.cliff': '懸崖',
     'grp.spin': '自動旋轉（水平）', 'lbl.direction': '方向', 'spin.off': '關閉', 'spin.pause': '暫停', 'spin.cw': '⟳ 順時針', 'spin.ccw': '⟲ 逆時針', 'lbl.speed': '速度',
     'grp.sky': '日與月', 'lbl.skymode': '天空', 'sky.live': '即時（香港時間）', 'sky.fixed': '自訂時間', 'sky.off': '關閉 · 固定光', 'lbl.date': '日期', 'lbl.time': '時間',
+    'wx.shootingstars': '流星', 'lbl.meteorrate': '頻率',
+    'meteor.off': '關閉', 'meteor.calm': '寧靜', 'meteor.romantic': '浪漫', 'meteor.apoc': '末日',
     'grp.weather': '天氣', 'lbl.sound': '音效', 'wx.rain': '雨', 'wx.clouds': '雲', 'wx.fog': '霧', 'wx.thunder': '雷暴', 'wx.waves': '波浪', 'wx.snow': '雪',
     'lbl.skyheight': '天空高度 ×',
     'lbl.thunderrate': '雷暴頻率', 'lbl.tide': '潮汐', 'lbl.storm': '風暴信號', 'storm.0': '無', 'storm.1': '一號 · 戒備', 'storm.3': '三號 · 強風',
@@ -2293,9 +2297,14 @@ function updateStars(now) {
     starUniforms.uMoonWash.value = 0.5 * cel.frac * Math.sin(cel.moonAlt);
   } else starUniforms.uMoonWash.value = 0;
 }
-// shooting stars: one reused trail, rare and quick — blink and you miss it
-const METEOR_N = 20;
-const meteor = (() => {
+// shooting stars: a pool of reusable trails (HKS-85). A toggle arms them and a
+// rate slider scales both spawn frequency and how many streak at once — from a
+// calm sky (one every ~half-minute) through a "romantic" sprinkle to an
+// "apocalypse" meteor storm (a dozen at a time, several a second). They only
+// fall under a properly dark sky, so daylight and the reset paths hide them.
+const METEOR_N = 20, METEOR_POOL = 14;
+let meteorOn = true, meteorRate = 0.18;   // rate 0..1, URL-synced (0.18 = sensible default)
+function makeMeteor() {
   const pos = new Float32Array(METEOR_N * 3), col = new Float32Array(METEOR_N * 3);
   for (let j = 0; j < METEOR_N; j++) {   // white-hot head cooling down the tail
     const w = Math.pow(1 - j / (METEOR_N - 1), 1.6);
@@ -2307,21 +2316,26 @@ const meteor = (() => {
   const m = new THREE.Line(g, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true,
     opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
   m.visible = false; m.frustumCulled = false; scene.add(m);
-  return m;
-})();
-const met = { t0: 0, dur: 1, next: 0, A: new THREE.Vector3(), B: new THREE.Vector3() };
-const _mp = new THREE.Vector3(), _mt = new THREE.Vector3();
-function spawnMeteor(tS) {
-  const az = Math.random() * Math.PI * 2, alt = (20 + 45 * Math.random()) * D2R;
-  met.A.set(Math.sin(az) * Math.cos(alt), Math.sin(alt), -Math.cos(az) * Math.cos(alt));
-  _mt.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
-  _mt.addScaledVector(met.A, -_mt.dot(met.A)).normalize();   // tangent to the sky sphere
-  if (_mt.y > 0.15) _mt.multiplyScalar(-1);                  // meteors prefer to fall
-  met.B.copy(met.A).addScaledVector(_mt, 0.18 + 0.22 * Math.random()).normalize();
-  met.t0 = tS; met.dur = 0.7 + 0.6 * Math.random();
-  met.next = tS + 20 + Math.random() * 50;
-  meteor.visible = true;
+  return { line: m, t0: 0, dur: 1, active: false, A: new THREE.Vector3(), B: new THREE.Vector3() };
 }
+const meteors = Array.from({ length: METEOR_POOL }, makeMeteor);
+let meteorNext = 0;
+const _mp = new THREE.Vector3(), _mt = new THREE.Vector3();
+function spawnMeteor(mo, tS) {
+  const az = Math.random() * Math.PI * 2, alt = (20 + 45 * Math.random()) * D2R;
+  mo.A.set(Math.sin(az) * Math.cos(alt), Math.sin(alt), -Math.cos(az) * Math.cos(alt));
+  _mt.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
+  _mt.addScaledVector(mo.A, -_mt.dot(mo.A)).normalize();     // tangent to the sky sphere
+  if (_mt.y > 0.15) _mt.multiplyScalar(-1);                  // meteors prefer to fall
+  mo.B.copy(mo.A).addScaledVector(_mt, 0.18 + 0.22 * Math.random()).normalize();
+  mo.t0 = tS; mo.dur = 0.7 + 0.6 * Math.random();
+  mo.active = true; mo.line.visible = true;
+}
+// rate → mean gap between spawns (log-scaled: 30 s calm → ~0.12 s apocalypse)
+// and how many streaks may run concurrently (1 → the whole pool)
+const meteorGap = () => 30 * Math.pow(0.004, meteorRate);
+const meteorCap = () => Math.max(1, Math.round(METEOR_POOL * Math.pow(meteorRate, 1.3)));
+function hideMeteors() { for (const mo of meteors) { mo.active = false; mo.line.visible = false; } meteorNext = 0; }
 let celDim = 0;   // HKS-69: eased "overcast over the viewer" 0..1 — dims sun/moon locally
 // star wash thresholds on skyLum (linear-space, what THREE actually renders):
 // at/below DARK the sky hides nothing (full stars), at/above BRIGHT it washes
@@ -2407,22 +2421,34 @@ function stepSky() {   // per-frame sky life: star wash, twinkle clock, meteors,
       _mp.x * e[4] + _mp.y * e[5] + _mp.z * e[6],
       _mp.x * e[0] + _mp.y * e[1] + _mp.z * e[2]);
   }
-  if (!starGroup.visible || starUniforms.uFade.value < 0.55) { meteor.visible = false; return; }
-  if (!meteor.visible) {
-    if (!met.next) met.next = tS + 8 + Math.random() * 20;   // first dark sky: a short wait
-    if (tS >= met.next) spawnMeteor(tS);
-    return;
+  // shooting stars only under a properly dark sky, and only when armed
+  if (!starGroup.visible || starUniforms.uFade.value < 0.55 || !meteorOn || meteorRate <= 0) { hideMeteors(); return; }
+  const R = bounds().span * 1.47;
+  // advance every live streak; retire the ones that have finished their arc
+  let liveN = 0;
+  for (const mo of meteors) {
+    if (!mo.active) continue;
+    const p = (tS - mo.t0) / mo.dur;
+    if (p > 1.4) { mo.active = false; mo.line.visible = false; continue; }
+    liveN++;
+    const arr = mo.line.geometry.attributes.position.array;
+    for (let j = 0; j < METEOR_N; j++) {   // trail vertices chase the head down the arc
+      const pj = Math.max(0, Math.min(1, p - 0.35 * j / (METEOR_N - 1)));
+      _mp.copy(mo.A).lerp(mo.B, pj).normalize().multiplyScalar(R);
+      arr[j*3] = _mp.x; arr[j*3+1] = _mp.y; arr[j*3+2] = _mp.z;
+    }
+    mo.line.geometry.attributes.position.needsUpdate = true;
+    mo.line.material.opacity = 0.85 * Math.min(1, p * 5) * Math.max(0, 1 - Math.max(0, p - 1) / 0.4);
   }
-  const p = (tS - met.t0) / met.dur, R = bounds().span * 1.47;
-  if (p > 1.4) { meteor.visible = false; return; }
-  const arr = meteor.geometry.attributes.position.array;
-  for (let j = 0; j < METEOR_N; j++) {   // trail vertices chase the head down the arc
-    const pj = Math.max(0, Math.min(1, p - 0.35 * j / (METEOR_N - 1)));
-    _mp.copy(met.A).lerp(met.B, pj).normalize().multiplyScalar(R);
-    arr[j*3] = _mp.x; arr[j*3+1] = _mp.y; arr[j*3+2] = _mp.z;
+  // spawn on schedule; when the gap shrinks to a fraction of a second the loop
+  // naturally bursts several at once, up to the rate-scaled concurrency cap
+  if (!meteorNext) meteorNext = tS + Math.random() * meteorGap();
+  const cap = meteorCap();
+  let guard = 0;
+  while (tS >= meteorNext && guard++ < METEOR_POOL) {
+    if (liveN < cap) { const free = meteors.find(m => !m.active); if (free) { spawnMeteor(free, tS); liveN++; } }
+    meteorNext += meteorGap() * (0.4 + 1.2 * Math.random());
   }
-  meteor.geometry.attributes.position.needsUpdate = true;
-  meteor.material.opacity = 0.85 * Math.min(1, p * 5) * Math.max(0, 1 - Math.max(0, p - 1) / 0.4);
 }
 
 function placeCelestial() {
@@ -2496,7 +2522,7 @@ function updateCelestial() {
     if (cel) {
       cel = null; celKey = '';
       sunSpr.visible = sunRays.visible = moonSpr.visible = moonGlow.visible = false;
-      starGroup.visible = false; meteor.visible = false; conClearAll();
+      starGroup.visible = false; hideMeteors(); conClearAll();
       sun.position.set(-1, 2, 1.4); sun.color.setHex(0xffffff);   // legacy fixed light
       renderSky(); setFog(); updateSkyInfo();
     }
@@ -5298,6 +5324,7 @@ if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serializa
     get cel() { return cel; }, get skyLum() { return skyLum; },
     get starFade() { return starUniforms.uFade.value; },
     setEclipse: v => { if (cel) { cel.eclipse = v; renderSky(); setFog(); } } };
+  window.__meteors = () => meteors;   // HKS-85: shooting-star pool, for the automated test
 }
 
 const _fq = new THREE.Quaternion(), _fe = new THREE.Euler(), _fv = new THREE.Vector3();
@@ -8031,6 +8058,7 @@ function syncSkyControls() {
     g('skytime').value = skySim.minutes;
     g('skytimev').textContent = mmToHHMM(skySim.minutes);
   }
+  syncMeteorUI();   // shooting-star controls grey out when the sky is off
 }
 document.getElementById('skymode').addEventListener('change', e => {
   const v = e.target.value;                    // live | fixed | off
@@ -8085,6 +8113,31 @@ document.getElementById('thunderrate').addEventListener('input', e => {
   thunderRate = parseInt(e.target.value, 10) / 100;
   document.getElementById('thunderratev').textContent = Math.round(thunderRate * 100) + '%';
 });
+// shooting stars (HKS-85): a night-sky cosmetic, independent of the HKO-driven
+// weather locks — it stays adjustable in live mode and under a storm signal.
+function meteorRateLabel(v) {                                // the marking the slider sits at
+  return v <= 0 ? t('meteor.off') : v < 0.42 ? t('meteor.calm')
+       : v < 0.82 ? t('meteor.romantic') : t('meteor.apoc');
+}
+function syncMeteorUI() {
+  const box = document.getElementById('shootstars'), sl = document.getElementById('meteorrate'),
+        vv = document.getElementById('meteorratev');
+  // grey the pair when the sky is off entirely (nothing to streak across); a
+  // fixed-daytime instant stays enabled since the time scrub crosses night
+  const live = skySim.on;
+  if (box) { box.checked = meteorOn; box.disabled = !live; }
+  if (sl) { sl.value = Math.round(meteorRate * 100); sl.disabled = !meteorOn || !live; }
+  if (vv) vv.textContent = meteorRateLabel(meteorRate);
+}
+document.getElementById('shootstars').addEventListener('change', e => {
+  meteorOn = e.target.checked; if (!meteorOn) hideMeteors(); syncMeteorUI();
+});
+document.getElementById('meteorrate').addEventListener('input', e => {
+  meteorRate = parseInt(e.target.value, 10) / 100;
+  meteorNext = 0;   // reschedule against the new gap so a crank-up feels immediate
+  document.getElementById('meteorratev').textContent = meteorRateLabel(meteorRate);
+});
+syncMeteorUI();
 document.getElementById('winddir').addEventListener('change', e => { setWindDir(e.target.value); updateStormBadge(); if (e.isTrusted) track('wind', { dir: e.target.value, strength_bucket: windBucket() }); });
 
 // ---- live weather from HKO / data.gov.hk -----------------------------------
@@ -9283,6 +9336,8 @@ function serializeState() {
   p.set('sl', skySim.live ? '1' : '0');
   if (!skySim.live) { p.set('sd', skySim.date); p.set('sm', String(skySim.minutes)); }
   p.set('sk', g('skyh').value);
+  p.set('sh', meteorOn ? '1' : '0');                 // shooting-stars toggle (HKS-85)
+  p.set('shr', String(Math.round(meteorRate * 100)));   // …and their rate
   p.set('ti', String(Math.round(tideManual * 100)));
   p.set('tr', String(Math.round(thunderRate * 100)));
   p.set('st', String(stormLevel));
@@ -9352,6 +9407,8 @@ function applyState(p) {
     setVal('skymode', on ? (live ? 'live' : 'fixed') : 'off');
   }
   if (p.has('sk')) setVal('skyh', p.get('sk'), 'input');
+  if (p.has('shr')) setVal('meteorrate', p.get('shr'), 'input');   // rate before toggle so the sync is coherent
+  if (p.has('sh')) setChk('shootstars', p.get('sh') === '1');
   if (p.has('ti')) setVal('tide', p.get('ti'), 'input');
   if (p.has('tr')) setVal('thunderrate', p.get('tr'), 'input');
   if (p.has('wd')) setVal('winddir', p.get('wd'));       // direction before signal (badge quadrant)
@@ -9522,6 +9579,7 @@ function applyLocale(loc) {
   if (typeof renderSide === 'function') renderSide();     // drawer title + tab state follow the locale
   refreshGpsBtn();   // GPS button label/icon follows the locale + state (HKS-86)
   if (stargaze.on) syncSgTray();   // stargaze tray hint/pills follow too
+  syncMeteorUI();    // the shooting-star rate word (calm/romantic/apocalypse) is localized
   if (liveMode) { syncLiveWeather(); syncLiveTide(); }
   if (stationsOn) refreshStations();
 }
@@ -9611,7 +9669,7 @@ loadSource(startSrc).then(() => {
   // HKS-102: boot + URL-state restore are done — arm analytics and log the session.
   // "shared" = the visited URL carried a recognised viewer-state key (a deep/share
   // link), so we can tell organic visits from shared ones.
-  const SHARE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'md', 'pl', 'gps', 'sg', 'mx', 'nn']);
+  const SHARE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'md', 'pl', 'gps', 'sg', 'mx', 'nn', 'sh', 'shr']);
   const shared = [...urlParams.keys()].some(k => SHARE_KEYS.has(k));
   armAnalytics();
   track('app_load', {
