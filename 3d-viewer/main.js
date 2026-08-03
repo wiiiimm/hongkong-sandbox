@@ -9669,7 +9669,7 @@ loadSource(startSrc).then(() => {
   // HKS-102: boot + URL-state restore are done — arm analytics and log the session.
   // "shared" = the visited URL carried a recognised viewer-state key (a deep/share
   // link), so we can tell organic visits from shared ones.
-  const SHARE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'md', 'pl', 'gps', 'sg', 'mx', 'nn']);
+  const SHARE_KEYS = new Set([...new URLSearchParams(DEFAULT_STATE).keys(), 'md', 'pl', 'gps', 'sg', 'mx', 'nn', 'sh', 'shr']);
   const shared = [...urlParams.keys()].some(k => SHARE_KEYS.has(k));
   armAnalytics();
   track('app_load', {
