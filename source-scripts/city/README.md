@@ -21,6 +21,7 @@ python3 -m venv /tmp/hk-city-import
 /tmp/hk-city-import/bin/pip install -r source-scripts/city/requirements.txt
 # Rebuild entirely from the committed snapshots, without network requests.
 /tmp/hk-city-import/bin/python source-scripts/city/build_tiles.py
+/tmp/hk-city-import/bin/python source-scripts/city/build_activity.py
 /tmp/hk-city-import/bin/python source-scripts/city/test_import.py
 
 # Optional source refresh: bounded queries, performed sequentially.
@@ -91,3 +92,18 @@ References:
 - [OSM height semantics and units](https://wiki.openstreetmap.org/wiki/Key:height)
 - [OSM building floor counts](https://wiki.openstreetmap.org/wiki/Key:building:levels)
 - [OSM copyright and ODbL attribution](https://www.openstreetmap.org/copyright)
+
+## Building activity layer
+
+After rebuilding tiles, run `build_activity.py` to regenerate the 5.0 MB
+`3d-viewer/city/data/activity.json` sidecar for their exact form UIDs. This reads
+committed source snapshots and requires no network. Runtime joins the sidecar
+before constructing each tile; no footprint or height changes are introduced.
+
+`fetch_activity.py` captures a bounded, sequential Overpass land-use query and
+reuses its committed cache. `snapshots/activity-landuse.json.gz` and its query
+record 8,194 source records at OSM base time 2026-09-06 05:30:09 UTC. The output
+stores source hashes, tags/references and counts by classification basis.
+`activity-overrides.json` documents the sourced Hysan Place and IFC mixed-use
+corrections. See `docs/astra-city/night-cycle/AREA-RESEARCH.md` for area evidence,
+classification rules, approximate podium boundaries and simulation limits.
