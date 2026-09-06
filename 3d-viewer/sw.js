@@ -22,7 +22,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v35';   // v33 evicted the NC GLBs from the persistent list (HKS-110); v34 the UFO, v35 its cattle (HKS-113)
+const VERSION = 'hks-sandbox-v36';   // v33 evicted the NC GLBs from the persistent list (HKS-110); v34 the UFO, v35 its cattle (HKS-113); v36 the city's buildings (HKS-114)
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -37,6 +37,7 @@ const ASSET_ORIGIN = self.location.hostname === 'hongkong-sandbox.wiiiimm.codes'
 const SHELL = [
   '/index.html',
   '/main.js',
+  '/buildings.js',                      // HKS-114: static import of main.js — without it the offline shell can't boot
   '/audio.js',
   '/analytics.js',
   '/vendor/three.module.js',
@@ -71,6 +72,8 @@ const DEFAULT_TERRAIN = [
   'data/hk-peaks.json',
   'data/hk-landmarks.json',
   'data/hk-sky.json',
+  'data/hk-buildings.bin',              // HKS-114 the 3D city — 342k LandsD building blocks (5 MB gzip binary, inflated client-side)
+  'data/hk-buildings-names.json',       //   …and the named towers for its labels
   'data/models/hiker-adventurer.glb',   // walk-mode hiker (CC0 Quaternius Adventurer)
   'data/models/plane-prop.glb',         // fly-mode airframes (HKS-110, CC-BY 3.0 — data/models/README.md)
   'data/models/plane-747.glb',
@@ -202,6 +205,11 @@ self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
+  // Dev-server endpoints (tools/dev-server.mjs's /__livereload event stream) must never
+  // go through the cache path: networkFirst would clone the never-ending stream into
+  // cache.put, pinning a network connection per page load until the browser's per-host
+  // limit starves every other request (HKS-114 review — hung "loading terrain" on reload).
+  if (url.pathname.startsWith('/__')) return;
   // Offloaded terrain data on the R2 assets origin — cache like /data/ so opened
   // sources stay available offline even though they're now cross-origin (HKS-52).
   // These are cors-mode, non-opaque responses (correct R2 CORS from HKS-50), so

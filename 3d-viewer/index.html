@@ -358,6 +358,7 @@
     background:linear-gradient(rgba(255,255,255,.75),transparent);transform:translateX(-50%)}
   .lbl.lmk{font-size:12.5px}
   .lbl.lmk small{color:rgba(255,255,255,.7)}
+  .lbl.twr{font-size:11.5px;opacity:.94}   /* HKS-114: tower cards (named skyscrapers) */
   /* constellation name cards (HKS-84) — big name in the UI locale, the other
      language small underneath; opacity is driven per-frame with the starlight */
   .lbl.con{font-size:15px;letter-spacing:.08em;color:#dbe6ff;
@@ -932,6 +933,7 @@
     <div class="row"><label class="k" data-i18n="lbl.source">Source</label>
       <select id="src">
         <option value="hk-landsd-5m" selected data-i18n="src.hk5m">Hong Kong · LandsD 5 m</option>
+        <option value="hk-harbour-20m" data-i18n="src.hkharbour">Victoria Harbour · LandsD 5 m @ 20 m</option>
         <option value="hk-srtm" data-i18n="src.hksrtm">Hong Kong · AWS Terrarium ~30 m</option>
         <option value="lantau-hk5m" data-i18n="src.lan5m">Lantau · LandsD 5 m</option>
         <option value="lantau-srtm30" data-i18n="src.lansrtm">Lantau · AWS Terrarium ~30 m</option>
@@ -991,6 +993,7 @@
     <div class="gt" data-i18n="grp.overlays">Overlays · stack on top</div>
     <div class="chks">
       <label class="chk"><input type="checkbox" id="water" checked/> <span data-i18n="ov.water">Water</span></label>
+      <label class="chk"><input type="checkbox" id="bldg" checked/> <span data-i18n="ov.buildings">Buildings</span></label>
       <label class="chk"><input type="checkbox" id="landmarks" checked/> <span data-i18n="ov.landmarks">Landmarks</span></label>
       <label class="chk"><input type="checkbox" id="labels"/> <span data-i18n="ov.labels">Peaks</span></label>
       <label class="chk"><input type="checkbox" id="stations"/> <span data-i18n="ov.stations">Stations (live)</span></label>

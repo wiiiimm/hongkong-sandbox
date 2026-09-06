@@ -10,6 +10,7 @@ import { createGlass } from './vendor/glass-gl.js';
 import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starPosition, compassDeg } from './vendor/astro.js';
 import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, setUfoEngine, abductionSfx, scoreDing, audioSupported } from './audio.js';
 import { initAnalytics, track, armAnalytics, VercelSink, GA4Sink } from './analytics.js';
+import { createBuildings } from './buildings.js';   // HKS-114: the 3D city — LandsD building blocks on the terrain
 
 // ---- configurable asset base (HKS-46) --------------------------------------
 // The heavy bundled data (the /data/ JSON — DEM meshes, vector overlays, POIs)
@@ -52,6 +53,20 @@ const SOURCES = {
     landcover: 'data/hk-b50k-landcover.json',
     ve: 2.8,
   },
+  // HKS-114 follow-up: the urban core around Victoria Harbour at 20 m cells (3.5× finer
+  // than the territory mesh) — HK Island, Kowloon, Kwai Tsing/Tsuen Wan, Sha Tin's
+  // south, Tseung Kwan O. Same HK1980 grid + B50K texbb, so every overlay drapes as-is;
+  // buildSkin clips the territory-wide vectors to the mesh. Built by
+  // source-scripts/hk-5m/build_urban_mesh.mjs from the LandsD 5 m DTM.
+  'hk-harbour-20m': {
+    label: 'Victoria Harbour · LandsD 5 m DTM @ 20 m',
+    mesh:    'data/hk-harbour-dtm20m.json',
+    georef:  { file: 'data/hk-harbour-georef.json' },
+    texbb:   'data/hk-texbb.json',
+    overlay: 'data/hk-b50k-vectors.json',
+    landcover: 'data/hk-b50k-landcover.json',
+    ve: 1.6,   // the city reads best close to true scale
+  },
   'hk-srtm': {
     label: 'Hong Kong · AWS Terrarium ~30 m',
     mesh:    'data/hk-srtm.json',
@@ -86,13 +101,13 @@ const I18N = {
     'app.title': 'Hong Kong Sandbox',
     'doc.title': 'Hong Kong Sandbox — 3D terrain, live weather & typhoon sim',
     'meta.desc': 'An interactive 3D Hong Kong — real LiDAR terrain, live Hong Kong Observatory weather, tides and typhoon signals (No.1–10). Fly it yourself. Bilingual (EN / 繁中).',
-    'lbl.source': 'Source', 'src.hk5m': 'Hong Kong · LandsD 5 m', 'src.hksrtm': 'Hong Kong · AWS Terrarium ~30 m',
+    'lbl.source': 'Source', 'src.hk5m': 'Hong Kong · LandsD 5 m', 'src.hkharbour': 'Victoria Harbour · LandsD 5 m @ 20 m', 'src.hksrtm': 'Hong Kong · AWS Terrarium ~30 m',
     'src.lan5m': 'Lantau · LandsD 5 m', 'src.lansrtm': 'Lantau · AWS Terrarium ~30 m',
     'lbl.surface': 'Surface', 'surf.none': 'None (no fill)', 'surf.shaded': 'Shaded relief', 'surf.tint': 'Elevation tint (flat)',
     'surf.matte': 'Matte', 'surf.solid': 'Solid colour', 'surf.topo': 'Topographic (B50K)', 'surf.osm': 'Street map (OSM)', 'surf.sat': 'Satellite (Esri)',
     'lbl.fill': 'Fill colour', 'lbl.maprotate': 'Map rotate', 'lbl.background': 'Background', 'bg.dark': 'Dark', 'bg.paper': 'Paper', 'lbl.vertical': 'Vertical ×',
     'grp.mesh': 'Mesh', 'lbl.showmesh': 'Show mesh lines', 'lbl.density': 'Density', 'lbl.colour': 'Colour', 'btn.auto': 'auto',
-    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns', 'ov.lift': 'Overlay height',
+    'grp.overlays': 'Overlays · stack on top', 'ov.water': 'Water', 'ov.buildings': 'Buildings', 'ov.landmarks': 'Landmarks', 'ov.labels': 'Peaks', 'ov.stations': 'Stations (live)', 'ov.aqhi': 'Air · AQHI (live)', 'ov.stationswind': '+ wind/marine stns', 'ov.lift': 'Overlay height',
     'grp.gpx': 'Trails · GPX', 'gpx.drop': 'Drop GPX files here, or tap to load', 'gpx.offmap': 'partly outside the loaded map', 'gpx.remove': 'Remove trail', 'gpx.colour': 'Trail colour', 'gpx.bad': 'No tracks found in that file', 'gpx.trail': 'Custom Trail', 'gpx.name': 'Trail name', 'gpx.start': 'Start', 'gpx.end': 'End', 'gpx.play': 'Play trail', 'gpx.pause': 'Pause', 'gpx.pan': 'Pan to trail', 'gpx.show': 'Show trail', 'gpx.hide': 'Hide trail', 'gpx.details': 'Elevation & stats', 'gpx.dist': 'Distance', 'gpx.dur': 'Time', 'gpx.avg': 'Avg',
     'radar.title': 'Rain radar', 'radar.credit': '© Hong Kong Observatory',
     'sat.title': 'Satellite', 'sat.wide': 'Wide', 'sat.local': 'Local', 'rf.bigger': 'Enlarge radar', 'rf.smaller': 'Restore radar size',
@@ -132,8 +147,8 @@ const I18N = {
     'help.tab': 'Help', 'help.title': 'Help & controls',
     'help.src': 'Modes live in the bottom bar · themes toggle in any mode',
     'help.orbit.t': 'Map view', 'help.orbit.b': 'Drag to rotate\nScroll or pinch to zoom\nRight‑drag or two‑finger to pan\nReset recenters the view',
-    'help.fly.t': 'Flying', 'help.fly.b': 'Take off — pull back (↑ / W), press Space, tap the plane, or hit the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nKeys — ↑↓ or W/S pitch · ←→ or A/D bank · ⇧ or E throttle up · ⌃ or Q throttle down\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water\n🛸 UFO — throttle down (⌃/Q, or a two-finger hold) to a standstill and it hovers in place; pitch then raises and lowers it\n🛸 Keep braking past the hover and it reverses — no wings, so it can back up (a third of forward speed)\n🐄 Its beam is on whenever it flies. Hover over cattle to beam them up — the HUD keeps your tally and points at the nearest one. Some graze around the airport.\n🎯 Press C (or the 🎯 button) for the overhead beam camera — look straight down to line the beam up on a cow',
-    'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump · Shift or a two‑finger hold to run\nDrag to look around — 🖱 locks the mouse for look (Esc releases)\nPress C for first‑person / chase',
+    'help.fly.t': 'Flying', 'help.fly.b': 'Take off — pull back (↑ / W), press Space, tap the plane, or hit the 🛫 button\nDrag or hold on a parked plane to look at it — it won’t take off\nKeys — ↑↓ or W/S pitch · ←→ or A/D bank · ⇧ or E throttle up · ⌃ or Q throttle down\nHold Space (or a finger) to accelerate\nDrag to look around · press C to cycle chase / eye / cockpit\nLand anywhere — even water, or a rooftop (fly into a tower and you\u2019ll end up parked on top)\n🛸 UFO — throttle down (⌃/Q, or a two-finger hold) to a standstill and it hovers in place; pitch then raises and lowers it\n🛸 Keep braking past the hover and it reverses — no wings, so it can back up (a third of forward speed)\n🐄 Its beam is on whenever it flies. Hover over cattle to beam them up — the HUD keeps your tally and points at the nearest one. Some graze around the airport.\n🎯 Press C (or the 🎯 button) for the overhead beam camera — look straight down to line the beam up on a cow',
+    'help.walk.t': 'On foot', 'help.walk.b': 'Move with the keys, or the on‑screen ▶\nSpace to jump · Shift or a two‑finger hold to run\nDrag to look around — 🖱 locks the mouse for look (Esc releases)\nPress C for first‑person / chase\n🏢 Buildings are solid — walk the streets around them; drop onto a roof and you can walk on it (mind the edge)',
     'help.star.t': 'Stargazing', 'help.star.b': 'Drag to look around the sky\nTwo-finger / right-drag to move across the map\nTap a star to trace its constellation\n🤳 Point at the sky — aim with your phone (auto-tracks your GPS)\nGPS button tracks your real position (off → follow → compass)\nDrag the time slider to move the sky',
     'help.gen.t': 'Getting around', 'help.gen.b': 'Pick a mode in the bottom bar — Orbit, Fly, Walk, Stargaze\nMatrix & 風林火山 are looks you can turn on in any mode\nKeys — M / N looks · C camera · Esc leaves a mode\n⚙ opens settings — Trails · GPX drops in your own tracks, plays them back (▶) start→end, and shows each trail\'s elevation profile',
     'title.about': 'About · licence · contact', 'lbl.credits': 'Credits',
@@ -156,6 +171,7 @@ const I18N = {
       + '<p>Contact & commercial licensing: <a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> · '
       + 'licensing <a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">terms</a>.</p>'
       + '<p>Data: HKO / DATA.GOV.HK · LandsD 5 m DEM & B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors (ODbL) · Esri.</p>'
+      + '<p>Buildings: Lands Department “Building” layer — 342 000 blocks with surveyed base &amp; roof heights — via the <a href="https://portal.csdi.gov.hk/csdi-webpage/dataset/landsd_rcd_1637211194312_35158" target="_blank" rel="noopener">CSDI portal</a> (DATA.GOV.HK Terms of Use).</p>'
       + '<p>747 cockpit photo: <a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">“G-BNLP” by Jeroen Stroes Aviation Photography</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>), cropped with instrument displays re-lit.</p>'
       + '<p>Walk-mode hiker: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">“Adventurer” by Quaternius</a> (CC0 / public domain), trimmed &amp; optimised. The UFO\u2019s cattle: <a href="https://poly.pizza/m/26zM1outCr" target="_blank" rel="noopener">“Cow”</a> &amp; <a href="https://poly.pizza/m/a8PIIYwF7r" target="_blank" rel="noopener">“Bull” by Quaternius</a> (CC0 / public domain), rig &amp; animations stripped.</p>'
       + '<p>Fly-mode aircraft (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>, optimised &amp; re-tinted): <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">“Small Airplane” by Vojtěch Balák</a> · <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">“Air France Boeing 747-400” by zairiqzairiq</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, optimised &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">“boeing 777-300ER Saudi Arabian Airlines (Saudia)” by Omatar</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">“A350 V3 with animation” by Newbie99999993</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, decimated &amp; repainted in our own Cathay-jade livery) · <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">“Cathay Pacific Airbus A330-300” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — optimised only) · <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">“McDonnell Douglas DC-3” by OUTPISTON</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>, non-commercial — repainted in Betsy’s 1946 bare-metal VR-HDB markings) · <a href="https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06" target="_blank" rel="noopener">“UFO” by Islide</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, textures optimised).</p>'
@@ -181,13 +197,13 @@ const I18N = {
     'app.title': '香港沙盒',
     'doc.title': '香港沙盒 — 3D 地形、實時天氣與颱風模擬',
     'meta.desc': '互動 3D 香港 — 真實 LiDAR 地形、香港天文台實時天氣、潮汐及颱風信號（一號至十號）。親自駕駛飛越香港。中英雙語。',
-    'lbl.source': '資料來源', 'src.hk5m': '香港 · 地政總署 5 米', 'src.hksrtm': '香港 · AWS Terrarium ~30 米',
+    'lbl.source': '資料來源', 'src.hk5m': '香港 · 地政總署 5 米', 'src.hkharbour': '維港都會區 · 地政總署 5 米 @ 20 米', 'src.hksrtm': '香港 · AWS Terrarium ~30 米',
     'src.lan5m': '大嶼山 · 地政總署 5 米', 'src.lansrtm': '大嶼山 · AWS Terrarium ~30 米',
     'lbl.surface': '表面', 'surf.none': '無填色', 'surf.shaded': '陰影地貌', 'surf.tint': '高程著色（平面）',
     'surf.matte': '霧面', 'surf.solid': '純色', 'surf.topo': '地形圖 (B50K)', 'surf.osm': '街道圖 (OSM)', 'surf.sat': '衛星影像 (Esri)',
     'lbl.fill': '填色', 'lbl.maprotate': '地圖旋轉', 'lbl.background': '背景', 'bg.dark': '深色', 'bg.paper': '紙本', 'lbl.vertical': '垂直誇張 ×',
     'grp.mesh': '網格', 'lbl.showmesh': '顯示網格線', 'lbl.density': '密度', 'lbl.colour': '顏色', 'btn.auto': '自動',
-    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站', 'ov.lift': '疊層高度',
+    'grp.overlays': '疊加圖層', 'ov.water': '海水', 'ov.buildings': '建築物', 'ov.landmarks': '地標', 'ov.labels': '山峰', 'ov.stations': '氣象站（即時）', 'ov.aqhi': '空氣質素（即時）', 'ov.stationswind': '＋風／海事站', 'ov.lift': '疊層高度',
     'grp.gpx': '路徑 · GPX', 'gpx.drop': '拖放 GPX 檔案，或點按載入', 'gpx.offmap': '部分超出已載入地圖範圍', 'gpx.remove': '移除路徑', 'gpx.colour': '路徑顏色', 'gpx.bad': '檔案中找不到路徑', 'gpx.trail': '自訂路徑', 'gpx.name': '路徑名稱', 'gpx.start': '起點', 'gpx.end': '終點', 'gpx.play': '播放路徑', 'gpx.pause': '暫停', 'gpx.pan': '移至路徑', 'gpx.show': '顯示路徑', 'gpx.hide': '隱藏路徑', 'gpx.details': '高度與統計', 'gpx.dist': '距離', 'gpx.dur': '時間', 'gpx.avg': '平均',
     'radar.title': '雨區雷達', 'radar.credit': '© 香港天文台',
     'sat.title': '衛星', 'sat.wide': '廣域', 'sat.local': '本地', 'rf.bigger': '放大雷達', 'rf.smaller': '還原雷達大小',
@@ -227,8 +243,8 @@ const I18N = {
     'help.tab': '說明', 'help.title': '操作說明',
     'help.src': '模式在底部工具列 · 風格可於任何模式切換',
     'help.orbit.t': '地圖檢視', 'help.orbit.b': '拖曳旋轉\n滾輪或雙指縮放\n右鍵拖曳或雙指平移\n重設可重新置中',
-    'help.fly.t': '飛行', 'help.fly.b': '起飛 — 拉桿（↑／W）、按空白鍵、點擊飛機，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按鍵 — ↑↓ 或 W/S 俯仰 · ←→ 或 A/D 轉向 · ⇧ 或 E 加油門 · ⌃ 或 Q 收油門\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面）\n🛸 幽浮 — 把油門收到零（⌃/Q，或雙指按住）即原地懸停；此時俯仰控制升降\n🛸 繼續收油門越過懸停便會倒退 — 沒有機翼，可以向後飛（速度為前進的三分一）\n🐄 飛行時光束一直開著。懸停在牛群上方即可吸走牠們 — HUD 會記下數目並指向最近一頭。機場一帶也有牛。\n🎯 按 C（或 🎯 鍵）切換俯視光束鏡頭 — 由上而下俯視，方便對準牛隻',
-    'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍 · Shift 或雙指按住奔跑\n拖曳環顧四周 — 🖱 鎖定滑鼠環視（Esc 解除）\n按 C 切換第一人稱 / 追尾',
+    'help.fly.t': '飛行', 'help.fly.b': '起飛 — 拉桿（↑／W）、按空白鍵、點擊飛機，或按 🛫 鍵\n在停泊的飛機上拖曳或按住可環顧它 — 不會起飛\n按鍵 — ↑↓ 或 W/S 俯仰 · ←→ 或 A/D 轉向 · ⇧ 或 E 加油門 · ⌃ 或 Q 收油門\n按住空白鍵（或手指）加速\n拖曳環顧四周 · 按 C 循環切換追機 / 主視角 / 駕駛艙\n可降落任何地方（連水面，甚至天台 — 撞向大樓的話會停在樓頂）\n🛸 幽浮 — 把油門收到零（⌃/Q，或雙指按住）即原地懸停；此時俯仰控制升降\n🛸 繼續收油門越過懸停便會倒退 — 沒有機翼，可以向後飛（速度為前進的三分一）\n🐄 飛行時光束一直開著。懸停在牛群上方即可吸走牠們 — HUD 會記下數目並指向最近一頭。機場一帶也有牛。\n🎯 按 C（或 🎯 鍵）切換俯視光束鏡頭 — 由上而下俯視，方便對準牛隻',
+    'help.walk.t': '步行', 'help.walk.b': '用按鍵或畫面上的 ▶ 移動\n空白鍵跳躍 · Shift 或雙指按住奔跑\n拖曳環顧四周 — 🖱 鎖定滑鼠環視（Esc 解除）\n按 C 切換第一人稱 / 追尾\n🏢 建築物是實體 — 可在街道間穿行；空降到天台上便可在上面行走（小心邊緣）',
     'help.star.t': '觀星', 'help.star.b': '拖曳環顧夜空\n雙指／右鍵拖曳在地圖上移動\n點選星星顯示所屬星座\n🤳 對準天空 — 用手機方向瞄準（自動追蹤 GPS）\nGPS 按鈕追蹤你的實際位置（關 → 跟隨 → 指南針）\n拖動時間軸移動星空',
     'help.gen.t': '基本操作', 'help.gen.b': '在底部工具列選擇模式 — 環繞、飛行、步行、觀星\nMatrix 與 風林火山 是可於任何模式開啟的風格\n按鍵 — M / N 風格 · C 鏡頭 · Esc 離開模式\n⚙ 開啟設定 —— 「路徑 · GPX」可載入自己的路徑、回放（▶）由起點掃至終點，並顯示各路徑的高度剖面',
     'title.about': '關於 · 授權 · 聯絡', 'lbl.credits': '關於',
@@ -251,6 +267,7 @@ const I18N = {
       + '<p>聯絡及商業授權：<a href="mailto:email@wiiiimm.codes">email@wiiiimm.codes</a> · '
       + '授權<a href="https://github.com/wiiiimm/hongkong-sandbox/blob/main/COMMERCIAL.md" target="_blank" rel="noopener">條款</a>。</p>'
       + '<p>數據：香港天文台 / DATA.GOV.HK · 地政總署 5 米 DEM 及 B50K · NASA SRTM · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 貢獻者 (ODbL) · Esri。</p>'
+      + '<p>建築物：地政總署「建築物」圖層 — 342 000 幢樓宇座體，附實測基座及天台高程 — 經 <a href="https://portal.csdi.gov.hk/csdi-webpage/dataset/landsd_rcd_1637211194312_35158" target="_blank" rel="noopener">空間數據共享平台（CSDI）</a> 取得（DATA.GOV.HK 使用條款）。</p>'
       + '<p>747 駕駛艙照片：<a href="https://commons.wikimedia.org/wiki/File:G-bnlp_(45518246055).jpg" target="_blank" rel="noopener">「G-BNLP」Jeroen Stroes Aviation Photography</a>（<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>），裁切並重新點亮儀表顯示。</p>'
       + '<p>步行模式行山者：Quaternius 的 <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">「Adventurer」</a>（CC0 公有領域），經裁剪及優化。幽浮的牛群：Quaternius 的 <a href="https://poly.pizza/m/26zM1outCr" target="_blank" rel="noopener">「Cow」</a> 及 <a href="https://poly.pizza/m/a8PIIYwF7r" target="_blank" rel="noopener">「Bull」</a>（CC0 公有領域），已移除骨架與動畫。</p>'
       + '<p>飛行模式飛機（<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>，經優化及重新調色）：Vojtěch Balák 的 <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">「Small Airplane」</a> · zairiqzairiq 的 <a href="https://sketchfab.com/3d-models/air-france-boeing-747-400-58113c1d27984d90bd1f49cb1ff90db4" target="_blank" rel="noopener">「Air France Boeing 747-400」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經優化並塗上本作自家國泰翡翠色塗裝） · Omatar 的 <a href="https://sketchfab.com/3d-models/boeing-777-300er-saudi-arabian-airlines-saudia-410ec4a0d4b646918ac2e5f83b48c27e" target="_blank" rel="noopener">「boeing 777-300ER Saudi Arabian Airlines (Saudia)」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · Newbie99999993 的 <a href="https://sketchfab.com/3d-models/a350-v3-with-animation-965439a6041847a0b8decba253ffdf6f" target="_blank" rel="noopener">「A350 V3 with animation」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，經大幅簡化並塗上本作自家國泰翡翠色塗裝） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/cathay-pacific-airbus-a330-300-45a62d88607145c4afb1f46b281aa277" target="_blank" rel="noopener">「Cathay Pacific Airbus A330-300」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 僅作優化） · OUTPISTON 的 <a href="https://sketchfab.com/3d-models/mcdonnell-douglas-dc-3-7673f61636554c02bf86015f1b6a8333" target="_blank" rel="noopener">「McDonnell Douglas DC-3」</a>（<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>，非商業用途 — 重繪 1946 年「貝茜」VR-HDB 原色金屬塗裝） · Islide 的 <a href="https://sketchfab.com/3d-models/ufo-1f9f59a76c4b44f2b2c356ed07b9db06" target="_blank" rel="noopener">「UFO」</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>，貼圖經優化）。</p>'
@@ -443,6 +460,7 @@ async function loadSource(id) {
   if (!landmarksData) landmarksData = await fj('data/hk-landmarks.json').catch(() => ({ landmarks: [] }));
   buildLabels();
   buildLandmarks();
+  bld.onSource(); bld.load();   // HKS-114: place the city on this grid (the first call also starts its 5 MB download)
   if (texTopo) texTopo.dispose();
   texTopo = buildBaseTexture(landcover);   // clean B50K base map (fills only), aligned by construction
   matTopo.map = texTopo; matTopo.needsUpdate = true;
@@ -572,6 +590,7 @@ function rebuildTerrain() {
   if (texTopo) matTopo.map = texTopo;   // re-attach texture to freshly-made material
   applyStyle(surfStyle);
   redrapeSkin();   // HKS-108: drape heights are triangle-matched to the mesh, so a density change moves them
+  bld.onSource();  // HKS-114: the blocks' skirts are placed against the rendered triangles too
   applyVE();
   updateNote();
 }
@@ -713,6 +732,21 @@ function attachTerrainFX(mat, wet, water) {
   tidalMats.push(mat);
 }
 
+// ---- the 3D city (HKS-114) -------------------------------------------------
+// Every building block in Hong Kong — the Lands Department "Building" layer, 342k
+// footprints with surveyed base + roof heights — extruded onto the terrain; see
+// buildings.js. Created here, once the terrain FX hook and its cloud-shadow
+// texture exist. The 5 MB dataset loads lazily after the first terrain is up
+// (loadSource), and the city re-places itself on every source / density change.
+const bld = createBuildings({
+  world, renderer, asset, attachTerrainFX, sampleEtri,
+  grid: () => (curG ? { W, H, cell, g: curG, meshStep } : null),
+  coarse: matchMedia('(pointer: coarse)').matches,
+  onReady: () => { buildTowerLabels(); bld.setVE(VE); },
+});
+let towerLabels = [];
+const _bf = new THREE.Vector3();   // the city's streaming focus, world-local
+
 function buildTerrain() {
   if (terrain) { world.remove(terrain); terrain.geometry.dispose(); }
   const rows = axisSamples(H, meshStep), cols = axisSamples(W, meshStep);
@@ -767,6 +801,7 @@ function buildTerrain() {
   [matShaded, matTint, matMatte].forEach(m => attachTerrainFX(m, true));   // wet band + shadows + fog
   [matSolid, matTopo].forEach(m => attachTerrainFX(m, false));             // raster/solid: shadows + fog only
   if (matWeb) tidalMats.push(matWeb);   // keep the web drape driven across source switches
+  tidalMats.push(...bld.fxMats());      // HKS-114: the city's walls + roofs take cloud shadows and height fog too
 
   terrain = new THREE.Mesh(geo, matShaded);
   world.add(terrain);
@@ -793,6 +828,12 @@ function buildSkin(overlay, g, texbb) {
     const pos = [], baseY = [], gcr = [];
     for (const line of lines) {
       for (let k = 0; k < line.length - 1; k++) {         // emit segment pairs (connected polyline)
+        // HKS-114: a sub-territory mesh (Victoria Harbour) shares the HK-wide vectors —
+        // skip any segment with an endpoint off this grid instead of clamping it to the edge
+        const q0 = line[k], q1 = line[k+1];
+        const c0 = (texbb.E0 + q0[0]*(texbb.E1 - texbb.E0) - g.bE)/g.aE, r0 = (texbb.N1 - q0[1]*(texbb.N1 - texbb.N0) - g.bN)/g.aN;
+        const c1 = (texbb.E0 + q1[0]*(texbb.E1 - texbb.E0) - g.bE)/g.aE, r1 = (texbb.N1 - q1[1]*(texbb.N1 - texbb.N0) - g.bN)/g.aN;
+        if (c0 < 0 || c0 > W - 1 || r0 < 0 || r0 > H - 1 || c1 < 0 || c1 > W - 1 || r1 < 0 || r1 > H - 1) continue;
         for (const p of [line[k], line[k+1]]) {
           const E = texbb.E0 + p[0]*(texbb.E1 - texbb.E0);
           const N = texbb.N1 - p[1]*(texbb.N1 - texbb.N0);
@@ -1153,6 +1194,10 @@ function renderSky() {
     const realSky = cel ? skyColour(cel.sunAlt / D2R, onPaper) : new THREE.Color(BG[bgMode]);
     skyLum = 0.2126 * realSky.r + 0.7152 * realSky.g + 0.0722 * realSky.b;
   }
+  // HKS-114: the city's windows light up as the real sky darkens (twilight → night), and
+  // how many stay lit follows the sky sim's Hong Kong clock — most in the evening, a
+  // scattered few by 4 am (never none), the early risers before dawn.
+  { const d = simDate(); bld.setNight(1 - S01((skyLum - 0.004) / 0.086), d ? ((d.getTime() / 3.6e6 + 8) % 24) : null); }
   renderer.setClearColor(base, 1);
   (skyBaseCol ??= new THREE.Color()).copy(base); tintSea();   // the sea mirrors the sky it sits under
   baseHemi = hemiI * dim;
@@ -1402,6 +1447,22 @@ function buildLandmarks() {
   landmarkPeakPts = landmarks.filter(l => l.ele > 0).map(l => ({ E: l.E, N: l.N }));
 }
 
+// HKS-114: the tallest named towers (ICC, Two IFC, Central Plaza, Bank of China …) as
+// landmark-style cards anchored at their ROOF height — shown with the Buildings layer,
+// only within ~12 km so the orbit overview isn't papered with them.
+function buildTowerLabels() {
+  towerLabels.forEach(l => l.div.remove()); towerLabels = [];
+  for (const tw of bld.towers()) {
+    const div = document.createElement('div'); div.className = 'lbl lmk twr';
+    const top = `🏢 ${tw.tc || tw.en}`;
+    const sub = (tw.tc ? tw.en + ' · ' : '') + Math.round(tw.h) + ' m';
+    div.innerHTML = `${top}<small>${sub}</small>`;
+    document.body.appendChild(div);
+    towerLabels.push({ div, E: tw.E, N: tw.N, ele: tw.h, y: tw.top, maxD: 12000 });
+  }
+}
+function updateTowers() { projectLabelSet(towerLabels, document.getElementById('bldg').checked && bld.ready && bld.group.visible); }
+
 // ---- vertical exaggeration drives terrain AND skin -------------------------
 function applyVE() {
   const p = terrain.geometry.attributes.position.array;
@@ -1419,6 +1480,7 @@ function applyVE() {
   }
   redrapeGpx();   // HKS-106: re-drape imported GPX trails onto the new exaggeration / source
   if (hikerGrp) hikerGrp.scale.setScalar(VE);   // review: keep the walk-mode figure sized to the live exaggeration (its scale was baked once at build)
+  bld.setVE(VE);   // HKS-114: the city is authored in real metres and stretched with the terrain
 }
 
 // ---- surface style + background -------------------------------------------
@@ -5313,6 +5375,7 @@ if (FLY_DEBUG) {   // automated-test handles; the flag survives URL re-serializa
   window.__flight = flight;
   window.__stepFlight = () => stepFlight();
   window.__three = () => ({ renderer, scene, camera, sun, hemi, terrain, sea, tidalMats });
+  window.__bld = bld;   // HKS-114: the city module, for console poking (roofAt / standAt / solidAt)
   // HKS-108: drape-sampler handles — verify overlays sit on the rendered triangle surface
   window.__drape = { sampleE: (c, r) => sampleE(c, r), sampleEtri: (c, r) => sampleEtri(c, r),
     skinOffset: () => skinOffset(), get VE() { return VE; }, get skinLift() { return skinLift; },
@@ -5419,7 +5482,8 @@ function stepFlight() {
   // --- touch the ground or the water and you LAND: wheels down, roll out to a
   // stop, then ␣ / a tap / the HUD button lifts you off again
   const col = F.pos.x / cell + W / 2, row = F.pos.z / cell + H / 2;
-  const gy = (col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1 ? sampleE(col, row) : 0) * VE;
+  const onMap = col >= 0 && col <= W - 1 && row >= 0 && row <= H - 1;
+  const gy = (onMap ? Math.max(sampleE(col, row), bld.roofAt(F.pos.x, F.pos.z)) : 0) * VE;   // HKS-114: rooftops count as ground — set down on one, or fly into a facade and end up parked on top
   const surfY = Math.max(gy, sea && sea.visible ? sea.position.y : -Infinity);
   const agl = (F.pos.y - surfY) / VE;                  // real metres above ground/water
   F.agl = agl;                                         // HKS-113: stepHerd reads it (beam too high ⇒ no catch)
@@ -5432,7 +5496,8 @@ function stepFlight() {
     // Pulling BACK on the stick (↑ / W) also rotates you off the deck — the instinctive
     // thing to do in an aircraft, and for the UFO it's simply "up" (HKS-113).
     if (K[' '] || K['arrowup'] || K['w']) takeOff();
-  } else if (agl < 4 && _fv.y <= 0.02 && ufoVy <= 0.001) {   // only while descending — a fresh
+  } else if ((agl < 4 && _fv.y <= 0.02 && ufoVy <= 0.001) || agl < -0.5) {   // only while descending — a fresh
+    // (HKS-114: …or already INSIDE a building — you flew into its side; arcade rules, you're on the roof)
     F.landed = true;                                   // climb-out stays airborne
     // (ufoVy: a hovering saucer's _fv.y is ~0 at zero speed, so without this its
     //  vertical thrust wouldn't count as a climb and lift-off would re-land instantly)
@@ -5655,7 +5720,7 @@ function enterWalk(startLocal) {
   if (VE !== 1) { VE = 1; document.getElementById('ve').value = 1; document.getElementById('vev').textContent = '1.0'; applyVE(); }
   document.getElementById('ve').disabled = true;
   walk.pov = false;   // arrive in chase view — you see the hiker land, C for first-person
-  walk.pos.y = (sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
+  walk.pos.y = (Math.max(sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2), bld.roofAt(walk.pos.x, walk.pos.z)) + 1.7 + 60) * VE;   // HKS-114: 60 m over the ground OR the roof below you — never inside a tower
   if (!hikerGrp) { hikerGrp = buildHiker(); world.add(hikerGrp); }
   loadHikerModel();            // swap in the real (CC0 Adventurer) hiker once it arrives
   applyLookFilter(hikerGrp);   // HKS-104: spawn already dressed for Matrix/Neon (no-op otherwise)
@@ -5908,7 +5973,7 @@ function teleportToMarker() {       // jump the ACTIVE movement mode to the fix
     walk.pos.x = Math.max(-b.halfX, Math.min(b.halfX, p.x));
     walk.pos.z = Math.max(-b.halfZ, Math.min(b.halfZ, p.z));
     walk.vy = 0; walk.land = 0; walk.spd = 0;
-    walk.pos.y = (sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2) + 1.7 + 60) * VE;
+    walk.pos.y = (Math.max(sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2), bld.roofAt(walk.pos.x, walk.pos.z)) + 1.7 + 60) * VE;   // HKS-114: over the roof, if the fix is on one
   } else if (flight.on) {           // pop out airborne over the fix, at cruise
     flight.pos.set(p.x, (sampleE(p.col, p.row) + 300) * VE, p.z);
     flight.landed = false;
@@ -6242,6 +6307,15 @@ document.getElementById('walk-lock').addEventListener('click', e => {
 });
 document.addEventListener('pointerlockchange', syncWalkLock);
 
+// HKS-114: what's underfoot at (x, z) — the rendered DEM, or the top of a building
+// block at/below the walker's feet (+0.6 m step allowance). You stand on a roof you
+// dropped onto and step off it into a fall; a tower beside you is an obstacle
+// (bld.solidAt, checked in the move gate), never a floor.
+function walkGround(x, z, feet) {
+  const t = sampleEtri(x / cell + W / 2, z / cell + H / 2);
+  const r = bld.standAt(x, z, feet + 0.6);
+  return r > t ? r : t;
+}
 function stepWalk() {
   if (!walk.on) return;
   const K = walk.keys;
@@ -6265,12 +6339,14 @@ function stepWalk() {
   const dz = (-cy * fwdIn - sy * strIn) * mps;
   const b = bounds();
   if (dx || dz) {
-    const gCur = sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);
+    const feet = walk.pos.y / VE - 1.7;                      // HKS-114: sole height in real metres, for the city queries
+    const gCur = walkGround(walk.pos.x, walk.pos.z, feet);
     const step = (mx, mz) => {                            // one gated move attempt
       if (!mx && !mz) return false;
       const nx = Math.max(-b.halfX, Math.min(b.halfX, walk.pos.x + mx));
       const nz = Math.max(-b.halfZ, Math.min(b.halfZ, walk.pos.z + mz));
-      const gNew = sampleEtri(nx / cell + W / 2, nz / cell + H / 2);
+      if (bld.solidAt(nx, nz, feet)) return false;               // HKS-114: a building stands there — walk around it
+      const gNew = walkGround(nx, nz, feet);
       // ~50° climb gate with a 25 cm step-up allowance. (The old form added the
       // allowance to a 2 cm per-frame run, so it only blocked >85° — cliffs in
       // the 5 m DEM could pin you at spawn while everything else walked through.)
@@ -6285,7 +6361,7 @@ function stepWalk() {
     if (step(dx, dz) || step(dx, 0) || step(0, dz))
       walk.bob += Math.min(0.55, 0.07 + walk.spd * 0.035);   // cadence rises with speed
   }
-  const g = sampleEtri(walk.pos.x / cell + W / 2, walk.pos.z / cell + H / 2);   // HKS: rest on the RENDERED triangle surface, not bilinear (submerged the hiker, ×VE)
+  const g = walkGround(walk.pos.x, walk.pos.z, walk.pos.y / VE - 1.7);   // HKS: rest on the RENDERED triangle surface, not bilinear (submerged the hiker, ×VE); HKS-114: or on the roof you dropped onto
   const eyeY = (g + 1.7) * VE;
   const airborne = walk.pos.y > eyeY + 0.05 * VE || walk.vy > 0;
   if (airborne) {                                         // drop-in / jump: real gravity
@@ -6368,6 +6444,7 @@ function stepWalk() {
   updateSpeedGauge();
 }
 if (FLY_DEBUG) { window.__walk = walk; window.__stepWalk = () => stepWalk(); }
+if (FLY_DEBUG) window.__stepFlight = () => stepFlight();   // HKS-114: drive the sim by hand when rAF is paused (hidden pane)
 
 // ---- Matrix mode (HKS-31): see the simulation for what it is ----------------
 // 🕴 (or M) reskins the whole scene into green-phosphor wireframe over a void,
@@ -6409,6 +6486,7 @@ function applyMatrixLook() {          // idempotent — re-asserted after source
   if (cloudGrp) for (const s of cloudGrp.children) s.material.color.setHex(0x2f8f4f);
   if (mistGrp) for (const mp of mistGrp.children) mp.material.color.setHex(0x35995c);
   if (wallGrp) for (const s of wallGrp.children) s.material.color.setHex(0x1a5c30);
+  bld.setLook(true);   // HKS-114: the city is code too — phosphor wireframe blocks
 }
 function setMatrix(on) {
   if (on === matrixOn || !terrain) return;
@@ -6438,6 +6516,7 @@ function setMatrix(on) {
     if (cloudGrp) for (const s of cloudGrp.children) s.material.color.setHex(0xe2e8ef);
     if (mistGrp) for (const mp of mistGrp.children) mp.material.color.setHex(0xdde6ee);
     if (wallGrp) for (const s of wallGrp.children) s.material.color.setHex(0x3a4048);
+    bld.setLook(false);
     matrixCtx.clearRect(0, 0, matrixCv.width, matrixCv.height);
   }
   refreshModelLookFilters();   // HKS-104: the hiker/plane wear the reality too
@@ -7492,6 +7571,7 @@ document.getElementById('toporotRf').addEventListener('click', rot(0.2));
 document.getElementById('toporotR').addEventListener('click', rot(1));
 document.getElementById('toporot0').addEventListener('click', () => { texRot = 0; applyTexRot(); syncUrl(); track('topo_rotate', { delta: 0 }); });
 document.getElementById('water').addEventListener('change', e => { sea.visible = e.target.checked; if (e.isTrusted) track('layer_toggle', { layer: 'water', on: e.target.checked }); });
+document.getElementById('bldg').addEventListener('change', e => { bld.setVisible(e.target.checked); if (e.isTrusted) track('layer_toggle', { layer: 'buildings', on: e.target.checked }); });   // HKS-114
 document.getElementById('labels').addEventListener('change', e => { labels.forEach(l => l.div.style.display = e.target.checked ? '' : 'none'); if (e.isTrusted) track('layer_toggle', { layer: 'labels', on: e.target.checked }); });
 document.getElementById('landmarks').addEventListener('change', e => { if (e.isTrusted) track('layer_toggle', { layer: 'landmarks', on: e.target.checked }); });
 
@@ -9194,7 +9274,8 @@ function projectLabelSet(set, show, dedupe) {
     const col = (l.E - g.bE) / g.aE, row = (l.N - g.bN) / g.aN;
     if (col < 0 || col > W - 1 || row < 0 || row > H - 1) { l.div.style.display = 'none'; continue; }
     if (dedupe) { let dup = false; for (const p of dedupe) { const dE = p.E - l.E, dN = p.N - l.N; if (dE*dE + dN*dN < 160000) { dup = true; break; } } if (dup) { l.div.style.display = 'none'; continue; } }
-    const lx = (col - W/2)*cell, ly = sampleE(col, row)*VE, lz = (row - H/2)*cell;
+    const lx = (col - W/2)*cell, ly = (l.y != null ? l.y : sampleE(col, row))*VE, lz = (row - H/2)*cell;   // HKS-114: tower cards anchor at roof height
+    if (l.maxD && Math.hypot(lx - _camLocal.x, lz - _camLocal.z) > l.maxD) { l.div.style.display = 'none'; continue; }   // HKS-114: near-field-only cards
     v.set(lx, ly, lz); world.localToWorld(v); v.project(camera);
     if (v.z > 1 || occludedLocal(lx, ly, lz)) { l.div.style.display = 'none'; continue; }
     l._sx = (v.x*0.5 + 0.5) * innerWidth; l._sy = (-v.y*0.5 + 0.5) * innerHeight;
@@ -9276,6 +9357,12 @@ function animate() {
   // walk-mode "rotating from a weird point" bug) — so skip it in all three
   if (!flight.on && !walk.on && !stargaze.on) controls.update();
   updateClip();                 // keep near/far tuned to the current zoom distance
+  // HKS-114: stream the city's small blocks in around the focus — the walker, the
+  // plane, or the orbit target — and keep building the big tier until it's all up
+  { const tNow = performance.now();
+    if (walk.on) bld.update(walk.pos.x, walk.pos.z, tNow);
+    else if (flight.on) bld.update(flight.pos.x, flight.pos.z, tNow);
+    else { _bf.copy(controls.target); world.worldToLocal(_bf); bld.update(_bf.x, _bf.z, tNow); } }
   renderer.render(scene, camera);
   world.updateMatrixWorld();    // camera position in the terrain's local frame, for occlusion tests
   _camLocal.copy(camera.position); world.worldToLocal(_camLocal);
@@ -9283,6 +9370,7 @@ function animate() {
   updateFloodCue();             // HKS-70: regional flood/landslip warning sheen
   updateLabels();
   updateLandmarks();
+  updateTowers();               // HKS-114: named-skyscraper cards, anchored at roof height
   updateGpxLabels();            // HKS-106: GPX Start/End labels — constant screen size, terrain-occluded
   updateStations();
   updateAqhi();
@@ -9304,6 +9392,7 @@ function serializeState() {
   p.set('d', String(meshStep));
   p.set('ml', g('meshlines').checked ? '1' : '0');
   p.set('w', g('water').checked ? '1' : '0');
+  p.set('bd', g('bldg').checked ? '1' : '0');   // HKS-114: the city
   p.set('lb', g('labels').checked ? '1' : '0');
   p.set('lm', g('landmarks').checked ? '1' : '0');
   p.set('L', [...document.querySelectorAll('#layers input:checked')].map(i => i.id.slice(4)).join('.'));
@@ -9378,6 +9467,7 @@ function applyState(p) {
   if (p.has('d'))    setVal('meshdens', String(13 - parseInt(p.get('d'), 10)), 'change');
   if (p.has('ml'))   setChk('meshlines', p.get('ml') === '1');
   if (p.has('w'))    setChk('water', p.get('w') === '1');
+  if (p.has('bd'))   setChk('bldg', p.get('bd') === '1');
   if (p.has('lb'))   setChk('labels', p.get('lb') === '1');
   if (p.has('lm'))   setChk('landmarks', p.get('lm') === '1');
   if (p.has('L')) {
@@ -9633,7 +9723,7 @@ applyLocale(locale);
 // "State" is decided by the canonical key set below — NOT "any unknown key" — so a
 // marketing/tracking link (?utm_source=…, ?fbclid=…), a lang-only or embed-only URL
 // still lands on the curated default, with its own extra params carried through.
-const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&oh=1&d=1&ml=0&w=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
+const DEFAULT_STATE = 's=hk-landsd-5m&surf=shaded&bg=dark&ve=2.8&oh=1&d=1&ml=0&w=1&bd=1&lb=0&lm=1&L=road&mc=2a4c33&sc=262626&sp=1&ss=0.2&fo=0&ra=0&cl=1&li=0&wv=1&sn=0&mx=0&nn=0&au=0&av=60&su=1&sl=1&sk=1&ti=50&tr=0&st=0&wi=0&wd=N&lv=1&ws=0&wm=0&aq=0&rdr=0&cam=-35853,34284,-26934,0,933,0,1.715';
 const urlParams = new URLSearchParams(location.search);
 // Always start from the curated default and overlay whatever the URL carries. A full
 // shared link sets every core key so it overrides the default entirely; a partial link
