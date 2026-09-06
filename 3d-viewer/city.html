@@ -96,14 +96,19 @@
 <section id="building-card" class="panel building-card" hidden aria-label="Selected building">
  <button id="selection-close" class="close-button" aria-label="Close building details">×</button><div class="eyebrow">A CLOSER LOOK</div><h2 id="building-name"></h2><p id="building-zh"></p><div class="building-stats"><div><strong id="building-height"></strong><small id="building-height-label">HEIGHT</small></div><div><strong id="building-levels"></strong><small id="building-levels-label">FLOORS</small></div></div><p id="building-source" class="source-note"></p><p id="building-activity" class="source-note"></p><a id="building-osm" target="_blank" rel="noopener">View source record ↗</a>
 </section>
-<section id="flight-controls" class="panel flight-controls" hidden aria-label="Aircraft selection"><label for="aircraft-model">Your aircraft</label><select id="aircraft-model"></select><p id="aircraft-status" role="status"></p><button id="aircraft-retry" hidden>Retry detailed model</button></section>
+
 <div id="location-title"><div class="eyebrow" id="place-subtitle">22.282° N · 114.160° E</div><h2 id="place-title">Central <span>中環</span></h2><p id="place-description">Where the mountains meet the metropolis.</p></div>
 <div id="stream-status" class="panel" role="status" aria-live="polite" hidden><span class="live-dot"></span><span id="stream-message"></span><button id="stream-retry" hidden>Retry</button></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="journey" class="panel" hidden><span id="journey-mode">ON FOOT</span><b id="journey-value">0 m</b><span id="journey-detail">Wander a little.</span></div>
 <div class="navigation-bottom">
+ <section id="flight-controls" class="panel aircraft-picker" hidden aria-label="Choose an aircraft">
+  <header class="aircraft-picker-head"><div><div class="eyebrow">TAKE TO THE SKY</div><h2 id="aircraft-picker-title">Choose your aircraft</h2></div><button id="aircraft-close" aria-label="Close aircraft menu">×</button></header>
+  <div id="aircraft-model" class="aircraft-options" role="menu" aria-labelledby="aircraft-picker-title"></div>
+  <div class="aircraft-picker-foot"><b id="aircraft-current"></b><p id="aircraft-status" role="status"></p><button id="aircraft-retry" hidden>Retry detailed model</button><small>Choose an aircraft to fly · Press 3 to fly your current choice</small></div>
+ </section>
  <div id="control-hint">Drag to orbit <i>·</i> Scroll to get closer <i>·</i> Click a building to discover</div>
- <nav class="mode-dock panel" aria-label="Exploration mode"><button class="active" data-mode="orbit"><span>◎</span> Explore <kbd>1</kbd></button><button data-mode="walk"><span>♙</span> Walk <kbd>2</kbd></button><button data-mode="fly"><span>✈</span> Fly <kbd>3</kbd></button><button data-mode="star"><span>✧</span> Stargaze <kbd>4</kbd></button></nav>
+ <nav class="mode-dock panel" aria-label="Exploration mode"><button class="active" data-mode="orbit"><span>◎</span> Explore <kbd>1</kbd></button><button data-mode="walk"><span>♙</span> Walk <kbd>2</kbd></button><button id="fly-toggle" data-mode="fly" aria-haspopup="menu" aria-controls="flight-controls" aria-expanded="false"><span aria-hidden="true">✈</span> Fly <kbd>3</kbd><span class="fly-chevron" aria-hidden="true">⌃</span></button><button data-mode="star"><span>✧</span> Stargaze <kbd>4</kbd></button></nav>
 </div>
 <div id="touch-controls" hidden><div><button data-key="ArrowUp" aria-label="Move forward or climb">↑</button><span><button data-key="ArrowLeft" aria-label="Turn left">←</button><button data-key="ArrowDown" aria-label="Move back or descend">↓</button><button data-key="ArrowRight" aria-label="Turn right">→</button></span></div><button data-key="ShiftLeft" aria-label="Run or accelerate">＋</button></div>
 <aside class="minimap panel"><div class="minimap-head"><span>YOUR LITTLE CORNER</span><button id="north-view" aria-label="Face north">N ↑</button></div><canvas id="minimap" width="440" height="280" aria-label="City overview map"></canvas><div class="minimap-foot"><span id="map-location">VICTORIA HARBOUR</span><span id="map-scale">1 km ━</span></div></aside>

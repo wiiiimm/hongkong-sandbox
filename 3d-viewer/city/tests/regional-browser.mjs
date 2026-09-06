@@ -37,7 +37,7 @@ try{
  await page.keyboard.press('Escape');await page.locator('[data-panel="places"]').click();
  await page.locator('#layer-surfaces').uncheck();assert.equal((await state()).layers.surfaces,false);await page.locator('#layer-surfaces').check();assert.equal((await state()).layers.surfaces,true);
  const aerial=Object.entries(PLACES).find(([,p])=>p.aerialOnly);assert.ok(aerial);await choose(aerial[0]);assert.equal(await page.locator('[data-mode="walk"]').isDisabled(),true);
- await page.keyboard.press('2');assert.equal((await state()).mode,'orbit');await page.locator('[data-mode="fly"]').click();await page.waitForFunction(()=>window.__city.state.mode==='fly',null,{timeout:60000});
+ await page.keyboard.press('2');assert.equal((await state()).mode,'orbit');await page.locator('[data-mode="fly"]').click();await page.locator('[role=menuitemradio][aria-checked=true]').click();await page.waitForFunction(()=>window.__city.state.mode==='fly',null,{timeout:60000});
  const village=Object.entries(PLACES).find(([,p])=>p.sectionId==='10.6'&&!p.aerialOnly)[0];await choose(village);
  await page.locator('[data-panel="time"]').click();await page.locator('#time').fill('22:00');await page.waitForFunction(()=>window.__city.state.time===22);await page.screenshot({path:evidence+'mui-wo-22-1440x1000.png'});
  await page.locator('#time').fill('04:00');await page.waitForFunction(()=>window.__city.state.time===4);await page.screenshot({path:evidence+'mui-wo-04-1440x1000.png'});
