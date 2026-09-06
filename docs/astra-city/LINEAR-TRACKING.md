@@ -6,9 +6,11 @@ GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained
 
 The user explicitly authorised updates to the Astra milestone and its issues. The pending coverage report has been posted: HKS-164 is now **In Review**, and HKS-116/HKS-117 reflect the verified ff68cf1 coverage and active feature restoration. The prior automatic approval rejection is resolved.
 
-[24 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168, HKS-169, HKS-189 and HKS-190 are **In Review**; HKS-180 is In Progress; the other 18 subissues in HKS-170–188 remain queued. The first three-agent batch and subsequent timelapse/control passes are complete; no agent is claimed to be working on a queued issue. The seven existing geography parents retain the 132-section review scope.
+[24 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168, HKS-169, HKS-189 and HKS-190 are **In Review**; HKS-170 and HKS-180 are In Progress; the other 17 subissues remain queued. The first three-agent batch and subsequent timelapse/control passes are complete. Heisenberg has resumed the bounded central Tai O government-model pass under HKS-170. The seven existing geography parents retain the 132-section review scope.
 
 ## Current local checkpoint
+
+`46b67ed` gives the global clock its own Time tab: Places · Time · Sky · Weather. Twelve control-sheet and ten timelapse browser groups pass. The four-tab mobile layout, first-open speed controls, keyboard navigation and state retention are verified. HKS-190 is back In Review.
 
 The HKS-189 follow-up `c9f1a79` makes the speed slider visible beside the dial on first open and displays 1×–7,200× normal speed. Six clock tests and ten browser groups pass, including scroll-zero checks at 320/390/760/1024/1440 px. The source label reads 346,115 building forms · Lands Department + OSM. HKS-189 returned to In Review; geometry counts are unchanged.
 

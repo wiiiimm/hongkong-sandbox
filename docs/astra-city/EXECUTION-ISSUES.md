@@ -2,7 +2,7 @@
 
 Created and read back from Linear on 6 September 2026. The user explicitly authorised issue, subissue, status and progress updates in **Astra - Living Hong Kong — buildings, regional detail & feature parity**. Project: Hong Kong Sandbox; team HKS. William remains the assignee; agent names identify execution ownership.
 
-There are **24 execution subissues**: five In Review, HKS-180 In Progress, and 18 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. Cycle discovery returned no entries, but read-back confirmed workspace-assigned cycle IDs for active issues; these are preserved. No deadline was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
+There are **24 execution subissues**: five In Review, HKS-170/HKS-180 In Progress, and 17 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. Cycle discovery returned no entries, but read-back confirmed workspace-assigned cycle IDs for active issues; these are preserved. No deadline was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
 
 ## First parallel batch — implemented and verified
 
@@ -17,7 +17,7 @@ Primary agent owns city `environment.js`, `app.js`, `city.html` and CSS for the 
 ## HKS-122
 
 - [HKS-167 — Extend Mui Wo detailed government models beyond Pak Ngan Heung](https://linear.app/stealth-company/issue/HKS-167/extend-mui-wo-detailed-government-models-beyond-pak-ngan-heung) — In Review; 8 points.
-- [HKS-170 — Complete Tai O channels, stilt-building placement and village routes](https://linear.app/stealth-company/issue/HKS-170/complete-tai-o-channels-stilt-building-placement-and-village-routes) — Backlog; 8 points.
+- [HKS-170 — Complete Tai O channels, stilt-building placement and village routes](https://linear.app/stealth-company/issue/HKS-170/complete-tai-o-channels-stilt-building-placement-and-village-routes) — In Progress; 8 points.
 - [HKS-171 — Complete south Lantau village terrain, shores and local routes](https://linear.app/stealth-company/issue/HKS-171/complete-south-lantau-village-terrain-shores-and-local-routes) — Backlog; 8 points.
 - [HKS-172 — Complete Tung Chung, Discovery Bay and northern Lantau village detail](https://linear.app/stealth-company/issue/HKS-172/complete-tung-chung-discovery-bay-and-northern-lantau-village-detail) — Backlog; 8 points.
 - [HKS-173 — Complete airport buildings, reclamation and runway geography](https://linear.app/stealth-company/issue/HKS-173/complete-airport-buildings-reclamation-and-runway-geography) — Backlog; 8 points.
@@ -78,3 +78,7 @@ Both are High priority, assigned to William in the authorised Astra milestone, w
 Committed as `e2c50f9`; both issues were updated and read back as In Review. **133/133 city tests pass**, alongside the control-sheet browser suite/follow-up and nine timelapse browser groups. Screenshots at 320/390/1024/1440 px were inspected. Timelapse at 30 min/s measured 16.7 ms median/p95 over 180 desktop frames. [Control evidence](control-sheet/README.md) · [Timelapse evidence](time-cycle/README.md). Both agents have finished this pass. Physical phone keyboard testing is still unverified; the wider regional and feature-parity parents remain open.
 
 The HKS-189 follow-up `c9f1a79` makes the speed slider visible beside the dial on first open and displays 1×–7,200× normal speed. Six clock tests and ten browser groups pass, including scroll-zero checks at 320/390/760/1024/1440 px. The source label reads 346,115 building forms · Lands Department + OSM. HKS-189 returned to In Review; geometry counts are unchanged.
+
+## 7 September follow-up
+
+Root completed the separate Time tab in `46b67ed` (HKS-190, In Review): 12 control-sheet and 10 timelapse browser groups pass. Heisenberg is executing HKS-170: two official central Tai O sheets, using the existing Mui Wo model pipeline. The bounded model pass does not close full Tai O channel, stilt or walking-route acceptance.
