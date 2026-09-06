@@ -28,6 +28,7 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
   *Reconstruct Old Hong Kong in 3D* — were merged into HK Sandbox Community
   (12 Jul 2026); both are Canceled in Linear with pointer notes.
 - Reference the relevant Linear issue (e.g. `HKS-123`) in commits/PRs when a change maps to one.
+- **Completion includes Linear updates.** After every completed implementation or subagent hand-off, update the relevant existing issues in the authorised milestone, their parent progress and the milestone overview before reporting completion. Include the commit, delivered behaviour, verification/evidence, executor and remaining gaps; synchronise local tracking notes. Use In Review for implemented work awaiting review and close broader issues only when all acceptance criteria pass. Report any failed Linear write as pending rather than claiming it succeeded. For Astra city work, the authorised milestone is **Astra - Living Hong Kong — buildings, regional detail & feature parity** in the main Hong Kong Sandbox project. Standing authorisation is already given; routine updates do not need another permission request.
 
 ## Project Context
 

@@ -4,6 +4,10 @@ GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained
 
 ## Current execution and authorisation
 
+**Standing completion rule, confirmed by the user on 7 September 2026:** every completed implementation or subagent hand-off must update the relevant issues, parent progress and milestone overview before the completion response. Record commit, verification, executor and remaining acceptance; synchronise local trackers. If a write fails, record it as pending. This is also recorded in `AGENTS.md`.
+
+The milestone overview has been reconciled with `72df3cf` and `46b67ed`, replacing its stale first-batch summary. Current summaries on HKS-164, HKS-170, HKS-180, HKS-189, HKS-190 and parity parents HKS-117/HKS-129/HKS-132 now reflect the delivered slices and remaining work. The 24 execution subissues remain five In Review, two In Progress and 17 queued. Existing statuses are preserved; the three satisfied identity/documentation criteria in HKS-170 are checked, while full channels and continuous routes remain unchecked.
+
 The user explicitly authorised updates to the Astra milestone and its issues. The pending coverage report has been posted: HKS-164 is now **In Review**, and HKS-116/HKS-117 reflect the verified ff68cf1 coverage and active feature restoration. The prior automatic approval rejection is resolved.
 
 [24 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168, HKS-169, HKS-189 and HKS-190 are **In Review**; HKS-170 and HKS-180 are In Progress; the other 17 subissues remain queued. The first three-agent batch and subsequent timelapse/control passes are complete. Heisenberg completed the bounded central Tai O government-model pass under HKS-170, with independent review by Kant and root. No agent is still running on that completed slice. The seven existing geography parents retain the 132-section review scope.
