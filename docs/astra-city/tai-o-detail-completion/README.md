@@ -56,3 +56,37 @@ node source-scripts/city/tai-o-detail-completion/runtime-test.mjs
 ```
 
 Audit refresh resets intermediate candidate classifications; run staging afterwards to restore the final reason ledger. Cached original entries are reused on reruns. Six coverage/provenance/identity tests and both actual-loader verification scripts pass. Terrain-conflict assertions deliberately keep the two outstanding cases visible; revise only with a documented terrain fix.
+
+## Integration candidate: source terrain corrections
+
+A subsequent source-derived candidate resolves both roof-occlusion screens without moving either model. It is **still staged pending root publication and browser review**.
+
+Attach the two children in `source-scripts/city/tai-o-detail-completion/terrain-refinements.json` to the existing `city/data/terrain-tai-o.json` parent. The bundle guards parent SHA-256 `e19dfb6b9d2d90c5ab305a697827148da596b6ed1a444cb5cc8c3cb9ee95a166`; its `coarseCells` refer to that parent's **5 m** grid. Parent values remain untouched. The root renderer must remove the covered parent cells and render each child exactly once.
+
+| Child | Dimensions | Parent cells | Purpose |
+|---|---|---|---|
+| tai-o-source-refinement-1 | 51 × 51, 1 m spacing | `[198,32,208,42]` | landsd/14899 and immediate ground |
+| tai-o-source-refinement-2 | 76 × 56, 1 m spacing | `[32,121,47,132]` | Tai O Heritage Hotel |
+
+The two children contain **6,857 vertices / 82,165 JSON bytes** and retain native source TIN samples separately in `source-grids/`. A 10 m outer transition meets the unchanged parent rendered triangles. Both extents lie wholly within the existing parent and have **zero intersection with mapped water**; no coastline/hydro geometry is changed. Sampling interval is not a survey-accuracy claim.
+
+Whole-footprint terrain extrema change from **16.000–16.719 m to 11.466–11.925 m** for `landsd/14899:0`, and **23.189–36.187 m to 17.353–20.910 m** for Tai O Heritage Hotel. All seven staged model footprints now clear highest-roof and wholly-floating-base checks. The audit screens **14 forms** total (seven additions and seven neighbours). It resolves two additional pre-existing neighbour roof screens; **zero new roof/floating-base flags remain** after the required three derived-base corrections below.
+
+The dependent `building-estimate-updates.json` changes **only null-source, terrain-estimated fallback bases**, guarded by UID/CSUID/object ID, previous base, absence of detailed geometry and unchanged estimated height:
+
+- `landsd/14546:0`: 15.575 → 11.310 m.
+- `landsd/183353:0`: 15.160 → 11.713 m.
+- `landsd/309121:0`: 14.960 → 10.968 m.
+
+All three remain explicitly estimated and keep their 3.5 m fallback height and null official vertical fields. Apply these with the terrain, not independently. `diagnostic-updates.json` contains dependent derived terrain-audit flags; it does not modify source attributes.
+
+Two existing neighbouring conditions remain explicit: `landsd/67478:0` retains its previous partial highest-roof flag, and `landsd/239278:0` retains its previous wholly/partly-below flag. Neither worsens. They must not be counted as resolved or silently corrected by lifting source buildings.
+
+Validation: **928 half-metre perimeter checks** match the old parent within **1.2 × 10⁻¹³ m**. Actual `makeTerrain` child meshes match all 6,857 grid values within **0.000002 m**, and the actual nested sampler agrees within **1.2 × 10⁻¹³ m**. No tested patch vertex intersects mapped hydro; outside-child probes are unchanged. [Full source/footprint/neighbour evidence](terrain-integration-candidate.json), [actual renderer/sampler evidence](terrain-runtime-verification.json).
+
+```sh
+/tmp/astra-city-venv/bin/python source-scripts/city/tai-o-detail-completion/refine_terrain.py
+node source-scripts/city/tai-o-detail-completion/terrain-test.mjs
+```
+
+The highest-roof screen is a conservative whole-footprint terrain diagnostic, not proof that every original roof face, entrance or foundation is visually perfect. Root retains final nested-parent rendering, source-model publication, browser/mobile/picking and route acceptance.
