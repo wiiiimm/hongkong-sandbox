@@ -1,5 +1,10 @@
 # Hong Kong section-by-section review checklist
 
+## Tai O review checkpoint — 7 September 2026
+
+HKS-170's bounded village implementation is complete in `5494ad6` and In Review: source-backed channels, five government infrastructure models and a continuous ~607 m public walk pass actual navigation/browser checks. All 162 city tests and 190 saved arrivals pass. [Evidence and source limits](tai-o-completion/README.md). Section **10.10** stays open for the wider north-west Lantau villages and unverified individual house-pile/private-deck architecture; this does not claim regional sign-off from an import or a single route.
+
+
 Created by GPT-6 Astra on 6 September 2026 for the isolated comparison branch.
 
 ## How to use this list
