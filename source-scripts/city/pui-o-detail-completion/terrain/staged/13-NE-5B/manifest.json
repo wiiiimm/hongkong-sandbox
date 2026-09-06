@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "kind": "official-building-model-tile",
+  "datasetId": "landsd_rcd_1742809441342_98380",
+  "datasetTitle": "Lands Department 3D Visualisation Map (Non-textured models)",
+  "datasetMetadataRevision": "2026-08-28",
+  "tile": "13-NE-5B",
+  "tileRevision": "2026-05-10T16:00:00+00:00",
+  "sourceDownload": "https://download.map.gov.hk/api/3d-zip/GLTF0/13-NE-5B.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
+  "sourceArchiveSha256": null,
+  "sourceCacheSha256": "7c3a8a48323f3e306c2706a6bf5f859b9b92c14866fe1486c819b128809ac0e0",
+  "sourceCacheKind": "Derived compact ZIP containing only selected original unmodified glTF/bin entries",
+  "crs": "EPSG:2326",
+  "verticalDatum": "Hong Kong Principal Datum",
+  "axes": "Source glTF node matrices output [E,HKPD height,-N]. Add root translation [-834500,0,816500] for the city; no rotation, scale or height adjustment is added.",
+  "rootTranslation": [
+    -834500,
+    0,
+    816500
+  ],
+  "officialFootprintDatasetVersion": "Building_Outline_Public_v20260819",
+  "officialFootprintSnapshotSha256": "40c2a239a3a453899c9263a400345ee44c6a850a77ea251b840595a4937bcc77",
+  "matchPolicy": "Exact GeoRefNo match plus source-model projected convex hull overlap >=50% of the smaller footprint and centroid difference <=10m. BuildingCSUIDs come directly from those matched official records. No name-only matching. This is a conservative replacement screen, not detailed architectural acceptance.",
+  "models": [],
+  "terrain": {
+    "id": "T14250114000106E11",
+    "url": "TERRAIN(TB)/T14250114000106E11/T14250114000106E11-geometry.gltf",
+    "worldBounds": [
+      [
+        -20250.0,
+        37.282989501953125,
+        4500.0
+      ],
+      [
+        -19500.0,
+        239.85906982421875,
+        5100.0
+      ]
+    ],
+    "vertices": 243591,
+    "triangles": 81197,
+    "sourceEntry": "TERRAIN(TB)/T14250114000106E11/T14250114000106E11.gltf",
+    "sourceHashes": {
+      "TERRAIN(TB)/T14250114000106E11/T14250114000106E11.gltf": "089377f612ccf94e801acb07c258acdb7955c60764ac310a33d9453f0c7a2130",
+      "TERRAIN(TB)/T14250114000106E11/T14250114000106E11.bin": "10ef342d8a1a55a674c2ce7bc017e49243eeecfbe852994bb2d81b7543c2119f"
+    },
+    "rootTranslation": [
+      -834500,
+      0,
+      816500
+    ],
+    "photoOmitted": true,
+    "omittedPhotoEntries": [
+      "TERRAIN(TB)/T14250114000106E11/T14250114000106E11_001.jpg"
+    ],
+    "originalMaterials": [
+      {
+        "name": "T14250114000106E11",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "roughnessFactor": 0.984375,
+          "metallicFactor": 0.5
+        }
+      }
+    ],
+    "derivedSha256": "b52acb7a9aedfc5dde28440cbd9033aece4bb7a0e3bf5e751cea0e04c5687488"
+  },
+  "excludedModels": [],
+  "counts": {
+    "buildingModels": 0,
+    "buildingModelsWithVerifiedOfficialMatch": 0,
+    "matchedOfficialBuildingCSUIDs": 0,
+    "modelVertices": 0,
+    "modelTriangles": 0,
+    "terrainVertices": 243591,
+    "terrainTriangles": 81197,
+    "assetBytes": 8770747
+  },
+  "limits": [
+    "The source model tile and Building footprint dataset have different revision dates.",
+    "Only explicitly matched BuildingCSUIDs may suppress corresponding extrusions after a successful model load. Unmatched models need source review before production replacement.",
+    "Absolute HKPD source placement is unchanged. Existing70m/5m terrain may intersect source geometry.",
+    "The source terrain photograph is omitted from the derived glTF; building glTF, vertex colours, material facts and binary geometry are unchanged.",
+    "This is one source sheet, not complete territory-wide detailed architecture."
+  ]
+}

@@ -1,6 +1,6 @@
 # Pui O detailed-model completion audit · HKS-171
 
-**Staged source package; live coverage remains 681/919 (74.10%).** This pass audits the existing four-sheet, 35 m buffer selection; it does not enlarge the denominator or imply that all Pui O, wetlands, village routes or south Lantau are ready.
+**Staged source package; live coverage remains 681/919 (74.10%) until root publication.** The later terrain-correction pass below now makes all four recovered models candidates for integration together with two nested terrain patches and one guarded estimated-base update. The original availability/terrain findings are retained as before-state evidence. This pass audits the existing four-sheet, 35 m buffer selection; it does not enlarge the denominator or imply that all Pui O, wetlands, village routes or south Lantau are ready.
 
 The 238 fallback forms are 136 temporary structures, 91 open-sided structures and 11 towers. Both current official source families were checked: [non-textured models](https://portal.csdi.gov.hk/geoportal/?datasetId=landsd_rcd_1742809441342_98380) and [individualised models](https://portal.csdi.gov.hk/geoportal/?datasetId=landsd_rcd_1671676915450_88604). Object-ID queries verify that every one of the 15 sheets intersecting the original selection plus buffer was retrieved. Their complete original ZIP directories were inspected, including all glTF categories, rather than assuming that unrequested adjacent sheets are empty. The four already-imported sheets remain at 11 May 2026 HKT revisions. Neighbours include September 2025 non-textured and June 2024 individualised revisions, recorded per sheet.
 
@@ -53,3 +53,35 @@ node source-scripts/city/pui-o-detail-completion/runtime_verify.mjs
 The audit reuses retained directories on ordinary rebuilds. A source refresh must invalidate a directory cache when the index revision/download URL changes; source updates should be reviewed rather than overwriting the previous provenance silently. Root integration should first inspect the two terrain-safe candidates in the browser, then use the existing progressive catalogue loader without duplicate footprint geometry. The two conflicted models require adjacent-sheet source terrain work before promotion. Shared runtime, live tiles, manifest, source elevations, existing 681 models and region-readiness trackers have not been modified by this subtask. Root owns the HKS-171/parent/milestone update and live integration.
 
 Produced by the Astra Pui O detail-completion subagent. No archived Lantau map imagery was used as precise current geography.
+
+
+## Source-backed terrain correction for all-four integration
+
+The two source-model roof conflicts are now resolved in the **staged** corrections. Three exact adjoining terrain sheets (`14-NW-6B`, `13-NE-5D` and `13-NE-5B`) were needed: the northern end of `landsd/182169:0` crosses the 5B/5D source-sheet boundary. The existing range downloader retained only the original TERRAIN glTF and buffer members, transferring **5,089,160 bytes**. Their original archives, source hashes and the derived photograph-free terrain descriptors are retained. Existing government building heights are unchanged.
+
+`terrain-refinements.json` contains two disjoint child grids, **4,002 vertices and 85,380 bytes**, attached to the existing `city/data/terrain-pui-o.json` parent. Its guarded SHA-256 is `9080c264dfa64eaaf9c1164a6806a98b05960c6247fb86840948eef2b1ad027e`. Child `coarseCells` address that parent's **5 m** lattice. Native TIN heights are sampled barycentrically at 1 m intervals; this is sampling spacing, not claimed survey accuracy. A 7.5 m outer transition exactly matches existing rendered parent triangles. Raw water classifications and rendered water heights are preserved, with zero water-node changes.
+
+| Target UID | Highest original roof | Previous footprint terrain | Corrected footprint terrain |
+|---|---:|---:|---:|
+| landsd/11179:0 | 9.692 m | 11.441–15.374 m | 4.664–8.363 m |
+| landsd/182169:0 | 79.754 m | 78.000–81.365 m | 75.547–78.069 m |
+
+Heights use HKPD. All four new models pass exact full-footprint terrain/roof screening after these corrections. The neighbour check also covers every live building intersecting the two child grids: **six forms including the four models**, with no new roof or floating-base flags after the dependent update below. The maximum error across **708 half-metre boundary samples** is below 0.000001 m.
+
+One existing derived estimate must move with the corrected terrain: open-sided structure `landsd/182182:0` has both official vertical fields null and an existing terrain-estimated base of 78 m. `building-estimate-updates.json` guards its UID, CSUID, previous base, null source elevations, absence of a detailed model and unchanged **3 m estimated height**, then changes only its derived base to **75.849 m**. Without that paired correction the old estimate would float above the corrected source ground. `diagnostic-updates.json` records only derived flags after models, patches and the dependent estimate are applied together.
+
+Root should now use the **full four-model `compact/catalogue.json`**, together with `terrain-refinements.json`, `building-estimate-updates.json` and `diagnostic-updates.json`. The earlier two-model `catalogue-integration-candidate.json` remains a before-terrain staging option, not the final atomic package. The shared nested renderer must exclude the corresponding parent cells and draw each child exactly once. No live file has been changed by this subtask.
+
+The actual shared renderer/sampler checks passed for all 4,002 child vertices, 350 boundary nodes and 18 interior rays: maximum ray/height error was 0.0000034 m, no duplicate parent ground remained and water classification stayed unchanged. All four actual source models were loaded into collision records. The retained **555.066 m public beach route** passed forward and reverse with 8,546 real Navigation update frames each and zero waypoint resets. These are CPU/runtime checks, not new browser screenshots or device performance measurements. Browser day/night/mobile acceptance and publication remain with root.
+
+Reproduce the additional pass:
+
+```sh
+/tmp/astra-city-venv/bin/python source-scripts/city/pui-o-detail-completion/terrain.py fetch
+/tmp/astra-city-venv/bin/python source-scripts/city/pui-o-detail-completion/terrain.py
+/tmp/astra-city-venv/bin/python source-scripts/city/pui-o-detail-completion/terrain_verify.py
+node source-scripts/city/pui-o-detail-completion/terrain_runtime.mjs
+/tmp/astra-city-venv/bin/python source-scripts/city/pui-o-detail-completion/test_terrain.py
+```
+
+Six additional terrain checks pass alongside the six original source-audit checks. Evidence: [native preparation](terrain-preparation.json), [full-footprint/neighbour/seam review](terrain-verification.json) and [actual nested renderer/route checks](terrain-runtime.json). Original 232 unavailable forms and two strict source-match failures remain unchanged; the package raises attainable checked-slice detail to 685/919 only after root integration, not 100%.
