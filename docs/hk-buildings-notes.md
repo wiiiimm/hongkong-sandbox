@@ -171,6 +171,18 @@ LandsD 5 m @ 20 m** (default exaggeration 1.6×). 3.5× finer than the territory
 reclamation edges, the Mid-Levels terraces and street-scale slopes carry the buildings
 properly. The territory-wide B50K vectors are clipped to the mesh in `buildSkin`.
 
+## Lantau · Terrarium source: georef corrected
+
+The **Lantau · AWS Terrarium ~30 m** mesh (360 × 270, drawn at 62.46 m cells) shipped with a
+georef of 60.84 × 30.91 m cells anchored at N 818 469 — it described an area half as tall as the
+mesh, so anything placed by easting/northing (buildings, roads, coast, landmarks, GPS) landed up
+to 800 m off and Tung Chung's towers stood in the sea. Fitting the mesh's elevations against the
+territory mesh (3 000 land samples, isotropic-cell constraint) gives **63.0 m square cells, origin
+E 801 390 / N 823 260** with a 9 m mean absolute residual (139 m before). The Web Mercator z14
+tiles it was cut from are conformal, so square cells are what the mesh actually has; the 0.9 %
+difference from the drawn 62.46 m is below the terrain's own resolution. The LandsD 5 m Lantau
+mesh was checked the same way and is right to within one cell (best shift −20 m, no rotation).
+
 ## Known limits / follow-ups
 
 - Only the harbour core has the 20 m mesh; elsewhere the 70 m-averaged DEM can still
