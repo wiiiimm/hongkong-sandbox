@@ -42,6 +42,10 @@ python3 -m http.server 4176 --bind 127.0.0.1 --directory 3d-viewer
   staggered overnight sleep patterns, a 4 am minimum with some lights remaining,
   early risers and dawn. Street lighting persists through the night. Evening,
   midnight and 4 am shortcuts plus optional time lapse (one hour / eight seconds).
+  A circular full-day clock supports drag/touch, keyboard and exact minute entry.
+  Mapped building/land uses and researched mixed-use corrections distinguish
+  home, office, retail and overnight schedules. Distant lights shimmer subtly;
+  nearby windows stay steady, with an off switch and reduced-motion support.
 - Harbour ripples, illustrative ferries, a position-tracking minimap and
   native-resolution PNG postcards.
 - Responsive mobile layout, touch movement controls, keyboard controls, visible
@@ -78,6 +82,7 @@ and 145 renderer calls after this expansion, with about 16,000 active building
 forms. These are scene observations, not frame-rate benchmarks, and vary by camera
 and loaded sections. Buildings are merged by material per tile; trees are instanced.
 All geometry tiles together are about 34.4 MB; clients fetch nearby tiles only.
+The shared activity metadata adds 5.0 MB before HTTP compression.
 The search catalogue and minimap overview are separate background downloads.
 
 ## Section reviews and original-game parity

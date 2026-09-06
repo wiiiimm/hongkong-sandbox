@@ -18,7 +18,7 @@ starting point, not permission to drop an unlisted feature.
 | Terrain controls | True-scale city | Mesh density/colour, vertical exaggeration, map rotation/background, auto-spin; keep city layers aligned |
 | Map overlays | Buildings, streets, trees and labels | Contours, trails, hydro, coast, boundaries, cliffs, peak/landmark labels and overlay height |
 | Stargazing | Pending | Star catalogue, constellation selection/figures, true sky position, orientation tracking, GPS and sky clock |
-| Sun/moon and time | Illustrative 24-hour lighting / building sleep cycle and time lapse | Live HKT, custom date/time, actual sun/moon positions and rise/set/illumination |
+| Sun/moon and time | Circular 24-hour clock, exact time, use-based sleep cycle and time lapse | Live HKT, custom date/time, actual sun/moon positions and rise/set/illumination |
 | Shooting stars | Pending | Existing toggle and calm-to-apocalypse rate control |
 | Live weather | Pending | Existing HKO station/wind/marine observations, rain radar, satellite view and AQHI; preserve live/manual distinction |
 | Manual weather | Pending | Rain, cloud, fog, lightning/thunder rates, wind speed/direction, waves, snow, sky height, tide and typhoon T1–T10 |
@@ -41,7 +41,7 @@ City data and streaming are kept in their own modules, with one metre-based worl
 coordinate system, per-layer visibility, shared light uniforms and a collision
 adapter. The original sky/weather/gameplay systems should be ported or extracted
 behind these boundaries, retaining source provenance and existing user settings.
-Do not replace the original astronomy with the city lighting slider, or live HKO
+Do not replace the original astronomy with the illustrative city clock, or live HKO
 weather with illustrative effects. Live and manual controls must remain explicit.
 
 ## Completion gate for parity
