@@ -8,7 +8,7 @@ Linear read-back confirms **28 execution subissues: 7 In Review, 4 In Progress a
 | --- | --- | --- |
 | HKS-194 · Numbered review grid | In Review | `13e3574`: root runtime/readiness/browser; Curie geography and independent review complete. 132 areas; 167 unit, 9 geography and 9 browser groups pass. |
 | HKS-170 · Tai O | In Review | Implemented in `5494ad6`; channels, source bridges and ~607 m public walk verified by root. All three source/route hand-offs complete. |
-| HKS-191 · Tsing Ma Bridge | In Progress | Curie source hand-off complete; six source bridge/tower models and terrain/cable data are staged. Root live integration and browser acceptance remain. |
+| HKS-191 · Tsing Ma Bridge | In Progress | Six Tsing Ma source components remain staged. User requests a second cluster bridge; identity pending between Kap Shui Mun and Ting Kau. Curie audits existing assets; root integration/browser acceptance remain. |
 | HKS-192 · Mui Wo | In Progress | Heisenberg: existing models retained; source terrain improvements, shores and public village routes are being validated. |
 | HKS-193 · Central | In Progress | Kant: 16 compact models, terrain and three routes staged; continuing contact/access investigation. Root shared integration/browser acceptance remain. |
 | HKS-180 · Remaining weather controls | In Progress | Tide/wave slice verified; remaining controls have no active executor. |
