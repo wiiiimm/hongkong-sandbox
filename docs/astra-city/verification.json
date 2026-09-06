@@ -5,34 +5,121 @@
     "four independent layer toggles",
     "named building-part search and height provenance",
     "empty search",
-    "walk movement and building clearance",
-    "actor size",
+    "walk movement and clearance",
+    "actor dimensions",
     "first-person camera",
     "flight climb and boost",
-    "pause while help is open",
+    "paused help",
+    "original stargazing and weather notice",
     "night lighting",
     "native-size PNG export",
-    "Lantau and neighbourhood navigation",
-    "mobile layout and panel"
+    "global search loads an unvisited region",
+    "walking in Tung Chung",
+    "expanded destination visits",
+    "bounded 30-section cache",
+    "tile failure blocks entry and explicit retry recovers",
+    "rapid destination changes",
+    "mobile regional navigation"
+  ],
+  "visits": [
+    {
+      "place": "central",
+      "loadedForms": 16380,
+      "cached": 16,
+      "triangles": 1546598
+    },
+    {
+      "place": "central",
+      "loadedForms": 13878,
+      "cached": 16,
+      "triangles": 1519614
+    },
+    {
+      "place": "lantau",
+      "loadedForms": 1109,
+      "cached": 30,
+      "triangles": 814344
+    },
+    {
+      "place": "mongkok",
+      "loadedForms": 14704,
+      "cached": 30,
+      "triangles": 1460527
+    },
+    {
+      "place": "northpoint",
+      "loadedForms": 11092,
+      "cached": 30,
+      "triangles": 1123990
+    },
+    {
+      "place": "chaiwan",
+      "loadedForms": 2685,
+      "cached": 30,
+      "triangles": 1076307
+    },
+    {
+      "place": "aberdeen",
+      "loadedForms": 8066,
+      "cached": 30,
+      "triangles": 1018536
+    },
+    {
+      "place": "stanley",
+      "loadedForms": 2337,
+      "cached": 30,
+      "triangles": 788264
+    },
+    {
+      "place": "discoverybay",
+      "loadedForms": 719,
+      "cached": 30,
+      "triangles": 482818
+    },
+    {
+      "place": "muiwo",
+      "loadedForms": 1834,
+      "cached": 30,
+      "triangles": 1296549
+    },
+    {
+      "place": "central",
+      "loadedForms": 14733,
+      "cached": 30,
+      "triangles": 1287031
+    }
   ],
   "state": {
     "mode": "orbit",
     "position": [
-      582.484169448633,
-      513.2530023010231,
-      -309.1049043604711
+      -22436,
+      7.600000000000023,
+      -197
     ],
     "camera": [
-      1900.0000000000016,
-      1669.9999999999998,
-      -1630.0000000000005
+      -15462.000000000002,
+      940,
+      3569
     ],
-    "distance": 1.5599999999996044,
-    "speed": 64.59958564699579,
+    "distance": 0,
+    "speed": 64.55627741587246,
     "firstPerson": false,
     "time": 15,
-    "place": "wanchai",
+    "place": "muiwo",
+    "region": "lantau",
+    "selectedId": null,
     "selectedIndex": -1,
+    "loadingTravel": false,
+    "travelling": false,
+    "stream": {
+      "wanted": 14,
+      "cached": 30,
+      "loaded": 14,
+      "pending": 0,
+      "errors": [],
+      "forms": 1853,
+      "trees": 9421
+    },
     "layers": {
       "buildings": true,
       "roads": true,
@@ -40,23 +127,56 @@
       "labels": true
     },
     "render": {
-      "calls": 30,
-      "triangles": 2407871
+      "calls": 43,
+      "triangles": 1051697
     },
     "counts": {
-      "buildings": 9743,
-      "roads": 20443,
-      "parks": 135,
+      "buildings": 42892,
+      "roads": 90912,
+      "parks": 668,
       "heights": {
-        "tagged": 688,
-        "estimated": 3904,
-        "levels": 5151
+        "estimated": 22314,
+        "levels": 18742,
+        "tagged": 1836
       }
     },
-    "trees": 6181,
+    "trees": 9421,
     "actorHeight": 1.7999999999999998,
-    "collision": false
+    "collision": false,
+    "movementReady": false,
+    "tiles": [
+      "-1_-1",
+      "0_1",
+      "-1_1",
+      "-2_0",
+      "1_-1",
+      "-2_-1",
+      "-2_-2",
+      "1_0",
+      "1_1",
+      "-2_1",
+      "-8_1",
+      "-9_0",
+      "-9_1",
+      "-10_1",
+      "-8_0",
+      "-9_2",
+      "-8_2",
+      "-10_0",
+      "-7_1",
+      "-9_-1",
+      "-10_2",
+      "-7_0",
+      "-8_-1",
+      "-7_2",
+      "-10_-1",
+      "-1_-2",
+      "0_-2",
+      "-6_1",
+      "-6_0",
+      "-6_-1"
+    ]
   },
   "pageErrors": [],
-  "failedRequests": []
+  "unexpectedFailedRequests": []
 }
