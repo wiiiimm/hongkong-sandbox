@@ -1,5 +1,11 @@
 # Living Hong Kong delivery tracking
 
+## Integrated island detail — 7 September 2026
+
+Commit `78464134` integrates **302 additional government models**: Mui Wo +291 to **1,618/2,408 (67.2%)**, Tai O +7 to **539/1,030 (52.3%)**, Pui O +4 to **685/919 (74.5%)**. Seven source-derived terrain children and six guarded null-source base estimates are published together. All 346,115 forms and recorded government elevations remain intact. All 228 city tests, publisher rollback tests, 35 complete-terrain rays and 18 actual-browser model visits pass, including day/night/mobile, picking, walking arrivals, Fly-menu flight and failure/Retry. Source packages and root integration are committed for draft PR #298. [Evidence](island-detail-integration/README.md).
+
+Mui Wo holds 21 acquired models for genuine native roof/foundation conflicts; remaining absent and mismatched source IDs stay explicit. Regular/temporary/open-sided structures are not interchangeable denominators. No whole section is signed off. Three source/terrain agents completed their bounded work; root completed shared publication and browser review. HKS-192/171 remain In Progress for remaining regional scope; user-set HKS-170 Ready to Merge is preserved.
+
 ## Detailed-model source hand-off — 7 September 2026
 
 Three agents finished locally committed source packages; none is integrated or pushed. Live coverage remains Mui Wo 1,327/2,408 (55.1%), Tai O 532/1,030 (51.7%), Pui O 681/919 (74.1%). After acceptance, staged additions would yield Mui Wo 1,639 (68.1%; 287b81b1), Tai O 539 (52.3%; 4070e46b), Pui O 685 (74.5%; c43f948c). Mui Wo regular Tower-category coverage would reach 98.8%; remaining gaps largely concern temporary/open-sided structures lacking exact source models. Two Tai O and two Pui O additions need terrain correction; Mui Wo needs placement/browser screening. Agents report 17 focused tests plus actual shared-loader/picking/collision checks passing. Root verified hand-off files and commits and synchronised HKS-192/170/171, HKS-122/116 and milestone; independent browser review and publication remain pending. See each area's detail-completion README.
