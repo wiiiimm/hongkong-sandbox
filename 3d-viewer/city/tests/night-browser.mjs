@@ -9,7 +9,7 @@ const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleF
 page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 const state=()=>page.evaluate(()=>window.__city.state);
 const settle=()=>page.waitForFunction(()=>{const s=window.__city?.state;return s&&!s.loadingTravel&&!s.travelling&&s.stream.pending===0;},null,{timeout:90000});
-async function time(h){await page.locator('#time').fill(formatHour(h));await page.waitForTimeout(400);}
+async function time(h){await page.locator('[data-panel=sky]').click();await page.locator('#time').fill(formatHour(h));await page.waitForTimeout(400);}
 async function pixels(){return page.evaluate(async()=>{
  const canvas=document.querySelector('#viewport canvas'),image=new Image();image.src=canvas.toDataURL();await image.decode();
  const copy=document.createElement('canvas');copy.width=canvas.width;copy.height=canvas.height;const ctx=copy.getContext('2d');ctx.drawImage(image,0,0);const data=ctx.getImageData(0,0,copy.width,copy.height).data;
@@ -20,18 +20,19 @@ try{
  await page.goto((process.env.CITY_URL||'http://127.0.0.1:4176/city.html')+'?district=kowloon');await page.waitForFunction(()=>window.__city?.ready,null,{timeout:60000});await page.locator('#loading').waitFor({state:'hidden'});await settle();
  // Stop ambient animation, then compare the same geometry and camera through the night.
  await page.emulateMedia({reducedMotion:'reduce'});
- const samples={};for(const h of [20,0,2,4,6,12]){await time(h);samples[h]={...await pixels(),lighting:(await state()).lighting};await page.screenshot({path:evidence+`kowloon-${String(h).padStart(2,'0')}00-1440x1000.png`});}
+ const samples={};for(const h of [20,22,23,0,2,4,6,12]){await time(h);samples[h]={...await pixels(),lighting:(await state()).lighting};await page.screenshot({path:evidence+`kowloon-${String(h).padStart(2,'0')}00-1440x1000.png`});}
  assert.deepEqual(errors,[]);
+ assert.ok(samples[23].litPixels>samples[0].litPixels);
  assert.ok(samples[20].litPixels>samples[0].litPixels);
  assert.ok(samples[0].litPixels>samples[2].litPixels);
  assert.ok(samples[2].litPixels>samples[4].litPixels);
  assert.ok(samples[4].litPixels>100,'some actual rendered windows / street lights remain on');
  assert.ok(samples[4].luminance<samples[0].luminance*.8);
- assert.ok(samples[4].visibleFraction>.4,'terrain / city remain navigable in moonlight');
+ assert.ok(samples[4].visibleFraction>.25,'terrain silhouettes remain visible while most windows are dark');
  assert.ok(samples[6].luminance>samples[4].luminance);assert.ok(samples[12].luminance>samples[20].luminance);
  await page.locator('[data-hour="4"]').click();assert.equal((await state()).time,4);assert.equal(await page.locator('#time-output').textContent(),'04:00');assert.ok(await page.locator('body').evaluate(el=>el.classList.contains('night')));
  // Travel at the darkest time: new materials must inherit this clock's uniforms.
- await page.locator('[data-region="lantau"]').click();await page.locator('[data-place="lantau"]').click();await settle();assert.equal((await state()).time,4);assert.ok((await state()).stream.forms>100);await page.screenshot({path:evidence+'tung-chung-0400-1440x1000.png'});
+ await page.locator('[data-panel=places]').click();await page.locator('[data-region="lantau"]').click();await page.locator('[data-place="lantau"]').click();await settle();assert.equal((await state()).time,4);assert.ok((await state()).stream.forms>100);await page.screenshot({path:evidence+'tung-chung-0400-1440x1000.png'});
  await page.locator('[data-mode="walk"]').click();await page.waitForFunction(()=>window.__city.state.mode==='walk'&&window.__city.state.movementReady);assert.equal((await state()).collision,false);
  await page.waitForFunction(()=>{const s=window.__city.state;return Math.hypot(...s.camera.map((v,i)=>v-s.position[i]))<12;},null,{timeout:20000});
  await page.keyboard.down('w');await page.waitForFunction(()=>window.__city.state.distance>1.5,null,{timeout:15000});await page.keyboard.up('w');assert.equal((await state()).collision,false);

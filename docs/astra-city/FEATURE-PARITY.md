@@ -17,16 +17,16 @@ starting point, not permission to drop an unlisted feature.
 | Terrain surfaces | One styled surface | Shaded, elevation, matte, solid, wireframe, B50K, OSM and satellite |
 | Terrain controls | True-scale city | Mesh density/colour, vertical exaggeration, map rotation/background, auto-spin; keep city layers aligned |
 | Map overlays | Buildings, streets, trees and labels | Contours, trails, hydro, coast, boundaries, cliffs, peak/landmark labels and overlay height |
-| Stargazing | Pending | Star catalogue, constellation selection/figures, true sky position, orientation tracking, GPS and sky clock |
-| Sun/moon and time | Circular 24-hour clock, exact time, use-based sleep cycle and time lapse | Live HKT, custom date/time, actual sun/moon positions and rise/set/illumination |
+| Stargazing | Catalogue stars, 24 constellation figures, picking, dated positions, compass/drag/keyboard sky camera | Phone orientation, GPS follow, wider original selection/presentation behaviours |
+| Sun/moon and time | Live HKT, custom date/time, circular clock, seasonal dawn/dusk, sun/moon positions, phase and rise/set | Remaining original studio-light and sky presentation options; preserve ephemeris precision limits |
 | Shooting stars | Pending | Existing toggle and calm-to-apocalypse rate control |
-| Live weather | Pending | Existing HKO station/wind/marine observations, rain radar, satellite view and AQHI; preserve live/manual distinction |
-| Manual weather | Pending | Rain, cloud, fog, lightning/thunder rates, wind speed/direction, waves, snow, sky height, tide and typhoon T1–T10 |
+| Live weather | HKO condition, temperature/humidity and district rain; timestamped station wind; live/manual separation and stale/error state | Marine observations, radar, satellite, AQHI and remaining regional fields |
+| Manual weather | Rain, cloud cover, fog, wind strength/direction, waves and snow | Lightning/thunder, sky height, tides, typhoon T1–T10, snow accumulation and remaining original controls |
 | Weather and vehicle sound | Pending | Master volume, environmental sound, thunder, aircraft/UFO engines and game effects |
-| Flight | Assisted prop-plane sightseeing | Full aircraft selection, original flight physics, throttle/reverse where applicable, take-off, landing, speed settings and input support |
+| Flight | All seven original models, corrected proportions/materials, propellers and navigation lights; assisted sightseeing | Original flight physics, throttle/reverse where applicable, take-off, landing, speed settings and input support |
 | Aircraft cameras | Chase and pilot eye | Original exterior, eye and cockpit camera options, cockpit interiors and controls |
 | Walking | Walking/running with collision | Original jump, auto-walk, pointer lock and complete keyboard/touch/camera behaviours |
-| UFO/cattle game | Pending | UFO, hover/reverse, beam, cattle, score and targeting camera |
+| UFO/cattle game | UFO model selectable for sightseeing | Hover/reverse, beam, cattle, score and targeting camera |
 | Matrix and neon themes | Pending | Both themes available across their supported modes |
 | GPX trails | Pending | Import/drop, styling, visibility/removal, playback, start/end, elevation profiles and statistics |
 | Geolocation | Pending | Locate, follow, compass, position marker, relocate and walk-from-location |
@@ -41,8 +41,9 @@ City data and streaming are kept in their own modules, with one metre-based worl
 coordinate system, per-layer visibility, shared light uniforms and a collision
 adapter. The original sky/weather/gameplay systems should be ported or extracted
 behind these boundaries, retaining source provenance and existing user settings.
-Do not replace the original astronomy with the illustrative city clock, or live HKO
-weather with illustrative effects. Live and manual controls must remain explicit.
+The circular clock now drives the original compact ephemeris. Building occupancy
+and weather appearance remain visual simulations, with separate sources and
+confidence. Live and manual controls remain explicit.
 
 ## Completion gate for parity
 

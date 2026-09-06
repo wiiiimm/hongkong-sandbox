@@ -12,8 +12,10 @@ page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.url()
 const state=()=>page.evaluate(()=>window.__city.state);
 const settled=()=>page.waitForFunction(()=>{const s=window.__city?.state;return s&&!s.loadingTravel&&!s.travelling&&s.stream.pending===0;},null,{timeout:90000});
 async function visit(id){
+ await page.locator('[data-panel=places]').click();
  await page.locator(`[data-region="${PLACES[id].region}"]`).click();await page.locator(`[data-place="${id}"]`).click();await settled();
  const s=await state();assert.equal(s.place,id);assert.deepEqual(s.stream.errors,[]);assert.ok(s.stream.cached<=30);assert.ok(s.stream.wanted<=24);assert.ok(s.stream.forms>20);
+ if(id==='mongkok')assert.ok(s.stream.forms>5000,'cross-harbour arrival keeps the destination blocks loaded');
  visits.push({place:id,loadedForms:s.stream.forms,cached:s.stream.cached,triangles:s.render.triangles});
 }
 try{
@@ -30,12 +32,12 @@ try{
  await page.keyboard.press('Escape');await page.locator('[data-mode="fly"]').click();await page.waitForFunction(()=>window.__city.state.mode==='fly'&&window.__city.state.movementReady);const flight=await state();
  await page.keyboard.down('w');await page.waitForFunction(y=>window.__city.state.position[1]>y+5,flight.position[1],{timeout:15000});await page.keyboard.up('w');assert.equal((await state()).collision,false);
  await page.keyboard.down('Shift');await page.waitForFunction(()=>window.__city.state.speed>70);await page.keyboard.up('Shift');await page.waitForTimeout(1000);await page.screenshot({path:evidence+'central-flight-1440x1000.png'});
- await page.locator('#about-open').click();const paused=await state();await page.waitForTimeout(400);assert.deepEqual((await state()).position,paused.position);assert.match(await page.locator('#about').textContent(),/Stargazing.*live weather.*manual weather/);await page.locator('#about-close').click();await page.keyboard.press('Escape');
- await visit('central');await page.locator('#time').fill('20:00');assert.equal((await state()).time,20);await page.screenshot({path:evidence+'central-night-1440x1000.png'});
+ await page.locator('#about-open').click();const paused=await state();await page.waitForTimeout(400);assert.deepEqual((await state()).position,paused.position);assert.match(await page.locator('#about').textContent(),/stargazing.*live Hong Kong time.*live HKO observations.*manual weather/);await page.locator('#about-close').click();await page.keyboard.press('Escape');
+ await visit('central');await page.locator('[data-panel=sky]').click();await page.locator('#time').fill('20:00');assert.equal((await state()).time,20);await page.screenshot({path:evidence+'central-night-1440x1000.png'});
  const downloadPromise=page.waitForEvent('download');await page.locator('#postcard').click();const download=await downloadPromise;const path=evidence+'central-postcard-1440x1000.png';await download.saveAs(path);const png=await readFile(path);assert.equal(png.readUInt32BE(16),1440);assert.equal(png.readUInt32BE(20),1000);
  // Search must find and load a building in a region never visited this session.
  await page.locator('#search').fill('One Citygate');await page.locator('#search-results button').first().click();await page.waitForFunction(()=>window.__city.state.selectedId!==null);assert.equal(await page.locator('#building-name').textContent(),'One Citygate');assert.equal((await state()).time,20);assert.ok((await state()).tiles.includes('-12_-1'));await page.locator('#selection-close').click();await page.locator('#search').fill('');
- await page.locator('#time').fill('15:00');await visit('lantau');await page.screenshot({path:evidence+'tung-chung-desktop-1440x1000.png'});
+ await page.locator('[data-panel=sky]').click();await page.locator('#time').fill('15:00');await visit('lantau');await page.screenshot({path:evidence+'tung-chung-desktop-1440x1000.png'});
  await page.locator('[data-mode="walk"]').click();await page.waitForFunction(()=>window.__city.state.mode==='walk'&&window.__city.state.movementReady);assert.equal((await state()).collision,false);await page.keyboard.press('Escape');
  for(const id of ['mongkok','northpoint','chaiwan','aberdeen','stanley','discoverybay','muiwo']){await visit(id);if(['mongkok','muiwo'].includes(id))await page.screenshot({path:evidence+id+'-desktop-1440x1000.png'});}
  // Simulate a failed collision tile: the original game remains available and a retry recovers it.

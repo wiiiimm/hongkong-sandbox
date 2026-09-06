@@ -79,7 +79,7 @@ lighting. Nearby frames are identical; distant frames vary subtly; switching off
 shimmer or switching to daytime restores identical frames. Actual rendered homes
 brighten, offices dim first and shops stay active later.
 
-`verification.json` compares the same Kowloon scene at six times, confirming fewer
+`verification.json` compares the same Kowloon scene at eight times, confirming fewer
 bright pixels towards 04:00, surviving lights, visible surroundings and returning
 daylight. It also covers streamed Tung Chung, walking at night, midnight playback,
 mobile controls and PNG export. The wider browser suite exercises walking, flying,

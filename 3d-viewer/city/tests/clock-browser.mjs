@@ -7,7 +7,7 @@ page.on('pageerror',e=>errors.push(e.message));
 const state=()=>page.evaluate(()=>window.__city.state);
 async function point(hour){await page.locator('#time-dial').scrollIntoViewIfNeeded();const b=await page.locator('#time-dial').boundingBox(),a=hour*Math.PI/12;return [b.x+b.width/2+Math.sin(a)*b.width*.38,b.y+b.height/2-Math.cos(a)*b.height*.38];}
 try{
- await page.goto((process.env.CITY_URL||'http://127.0.0.1:4176/city.html')+'?district=kowloon');await page.waitForFunction(()=>window.__city?.ready,null,{timeout:60000});await page.locator('#loading').waitFor({state:'hidden'});
+ await page.goto((process.env.CITY_URL||'http://127.0.0.1:4176/city.html')+'?district=kowloon');await page.waitForFunction(()=>window.__city?.ready,null,{timeout:60000});await page.locator('#loading').waitFor({state:'hidden'});await page.locator('[data-panel=sky]').click();
  for(let h=0;h<24;h++){await page.mouse.click(...await point(h));assert.equal((await state()).time,h);}
  await page.mouse.move(...await point(23));await page.mouse.down();for(const h of [23.5,0,.5,1]){await page.mouse.move(...await point(h));assert.equal((await state()).time,h);}await page.mouse.up();
  await page.locator('#time-play').click();await page.locator('#time-dial').press('Home');assert.equal((await state()).time,0);assert.equal((await state()).timeLapse,false);

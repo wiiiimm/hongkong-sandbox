@@ -1,0 +1,43 @@
+{
+  "sourceCRS": "EPSG:2326",
+  "targetCRS": "EPSG:4326",
+  "axisInput": "easting,northing",
+  "worldCoordinates": "x=easting-834500; z=816500-northing",
+  "operation": "Inverse of Hong Kong 1980 Grid + Hong Kong 1980 to WGS 84 (1) (with axis order normalized for visualization)",
+  "operationReportedAccuracyMetres": 1.0,
+  "pyprojVersion": "3.8.0",
+  "projVersion": "9.8.1",
+  "terrainGeoref": {
+    "aE": 70.0,
+    "bE": 800032.5,
+    "aN": -70.0,
+    "bN": 847967.5,
+    "W": 910,
+    "H": 685
+  },
+  "origin": [
+    834500,
+    816500
+  ],
+  "bounds": [
+    -34467.5,
+    -31467.5,
+    29162.5,
+    16412.5
+  ],
+  "gridShape": [
+    14,
+    11
+  ],
+  "stepMetres": [
+    4894.615384615385,
+    4788.0
+  ],
+  "validationPoints": 23250,
+  "validationDescription": "5x5 points per grid cell including boundaries, plus 20000 uniform points with seed 20260906",
+  "maxInterpolationErrorMetres": 0.19808077010690808,
+  "meanInterpolationErrorMetres": 0.12624212865042297,
+  "runtimeBytes": 5620,
+  "runtimeSha256": "8e3fb715208a9fb099df0310d4d3922bdb8dbb75d081a20a97a51605fe1c72d7",
+  "limit": "Interpolation error is measured against PROJ, not independent survey accuracy. The CRS operation itself reports 1 metre accuracy."
+}
