@@ -1,8 +1,8 @@
 # Adjustable city timelapse · HKS-189
 
-The existing 24-hour dial's playback button now has a speed slider beside it in the Sky controls. This extends `CityEnvironment.timeLapse`; it does not introduce another city clock or timer. Markup and responsive control-sheet styles are coordinated with HKS-190.
+The 24-hour dial, playback button and speed slider form one visible group at the top of Sky, before date and live-clock settings. This extends `CityEnvironment.timeLapse`; it does not introduce another city clock or timer. Markup and responsive control-sheet styles are coordinated with HKS-190.
 
-The slider uses simulated minutes per real second, from 1 to 120 in half-minute steps. Its default is 7.5 min/s, preserving the previous one-hour-in-eight-seconds pace. The adjacent note translates that into a complete day: 24 minutes at the slowest setting, 3m 12s by default, 48s at 30 min/s, and 12s at the fastest setting. The range is keyboard accessible and reports its unit through `aria-valuetext`.
+The slider now displays **1×–7,200× normal speed**, in whole multipliers. At 1×, one simulated second equals one real second. The default is **450×**, preserving the previous one-hour-in-eight-seconds pace. The adjacent note translates the speed into a full day: 24h at 1×, 24m at 60×, 3m 12s at 450×, 48s at 1,800× and 12s at 7,200×. The range is keyboard accessible and reports the normal-speed multiplier through `aria-valuetext`. Internally, the existing clock still uses simulated minutes per second; the UI converts the multiplier by dividing by 60.
 
 The existing calendar date advances through midnight, month/year boundaries and leap days. Each step still runs the existing `applyClock()` path: solar/lunar position, directional light and shadows, sky colour, day/night exposure and the original building occupancy schedules. Business/residential/retail activity retains its existing researched curves and overnight minimum.
 
@@ -23,12 +23,16 @@ node 3d-viewer/city/tests/time-cycle-browser.mjs
 
 Reserve the shared GPU slot before running the browser script. It uses the running city at port 4176 and accepts `CITY_URL`/`CHROME_PATH` overrides.
 
-Five focused tests cover speed units/bounds, midnight/year/leap-day/multiple-day progression, suspension/resume, the existing sun and lighting schedules, and the monotonic 10 fps/no-catch-up policy. The browser script measures actual playback speed, keyboard/touch operability, midnight wrapping, light/shadow-matrix changes, occupancy, 180 rendering frames at 30 min/s, pause/Reduced Motion/Stargaze, manual/Live semantics, source-clock independence and 390/320 px layouts. Its final result and screenshots are saved alongside this note.
+Six focused tests cover speed units/bounds, midnight/year/leap-day/multiple-day progression, suspension/resume, the existing sun and lighting schedules, and the monotonic 10 fps/no-catch-up policy. The browser script measures actual playback speed, keyboard/touch operability, midnight wrapping, light/shadow-matrix changes, occupancy, 180 rendering frames at 30 min/s, pause/Reduced Motion/Stargaze, manual/Live semantics, source-clock independence and 390/320 px layouts. Its final result and screenshots are saved alongside this note.
 
 The displayed speed is a time conversion, not a promise that every simulated minute will receive a rendered frame. At high speeds, intermediate times are skipped visually between frames while elapsed simulation time remains correct. Live celestial time remains available separately; timelapse is an explicit user-controlled simulation.
 
 ## Recorded browser result
 
-The final browser run passed all nine groups with no page or console errors. At 30 simulated min/s, 180 frames measured **16.7 ms median and p95** (212 draw calls, 2,719,063 triangles). Short 0.8-second sampling windows measured 7.31 and 29.23 min/s for requested speeds 7.5 and 30; frame-boundary sampling accounts for the small difference.
+The latest browser run passed all **10 groups** with no page or console errors. At 1,800× (30 simulated min/s), 180 desktop frames measured **16.7 ms median / 16.8 ms p95**. Short sampling windows measured 7.32 and 29.29 simulated min/s for requested 450× and 1,800×; the helper retains internal minute units and frame-boundary sampling affects short measurements.
 
-Both desktop images were inspected at 1440×1000: the clock advances from 08:00 to 12:01 while building faces, directional shadows and sea glint change. The 390×844 mobile image deliberately shows the scrolled speed-control area; the upper part of the dial is above that scroll position. The slider and play button are readable and operable. At 390 px the range is 350 px wide; at 320 px it remains 288 px wide, with no horizontal document/content overflow. The separate HKS-190 control-sheet evidence includes the complete mobile dial view.
+The new first-open screenshots at 390×844 and 1024×768 were inspected: the full dial, toggle, multiplier readout, slider and day-duration note appear together without scrolling. Assertions also pass at 320×667, 760×800 and 1440×1000. The current government/OSM source summary matches the served manifest. Native keyboard Home selects 1× with a 24h day; ArrowRight advances by 1×. Actual touch input and playback continue to work. The five original clock regression cases plus the new multiplier-to-elapsed-time case pass.
+
+## Visibility and units follow-up
+
+The user reported that the speed slider appeared missing. The served page contained it, but earlier tests scrolled it into view and missed the initial visibility problem. The controls have been regrouped at the top of Sky; the speed track and thumb are also more distinct. The browser regression now checks the whole dial/play/speed/duration group at scroll position zero across 320, 390, 760, 1024 and 1440 px. Source summary verification also checks the current **346,115 building forms · Lands Department + OSM** label; 42,892 was the earlier OSM dataset. This label change adds no buildings or geometry.

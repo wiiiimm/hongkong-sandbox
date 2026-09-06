@@ -36,10 +36,10 @@ class CityEnvironment {
   if(key===this.cycleUIKey)return;this.cycleUIKey=key;
   $('time-play').setAttribute('aria-pressed',String(state.enabled));$('time-play').textContent=state.enabled?'Ⅱ Pause':'▶ Timelapse';
   $('time-play').title=state.enabled?'Stop timelapse':'Play the city clock at the selected speed';
-  const speed=state.speedMinutesPerSecond,text=`${speed} min/s`;
-  $('time-lapse-speed').value=String(speed);$('time-lapse-speed').setAttribute('aria-valuetext',`${speed} simulated minutes per real second`);$('time-lapse-speed-value').textContent=text;
+  const speed=state.speedMultiplier,text=`${speed.toLocaleString('en-HK')}×`;
+  $('time-lapse-speed').value=String(speed);$('time-lapse-speed').setAttribute('aria-valuetext',`${speed} times normal speed`);$('time-lapse-speed-value').textContent=text;
   const reason={'paused':'Paused while the city is paused.','stargazing':'Paused in Stargaze; return to resume.','reduced-motion':'Paused for Reduced Motion.','live':'Paused while the sky follows live time.'}[state.suspendedBy];
-  $('time-lapse-speed-note').textContent=reason||`A full day in ${timelapseDuration(speed)}.`;
+  $('time-lapse-speed-note').textContent=reason||`A full day in ${timelapseDuration(state.speedMinutesPerSecond)}.`;
  }
 
  bindUI(){
@@ -47,7 +47,7 @@ class CityEnvironment {
   $('time').addEventListener('input',e=>{const h=hourFromInput(e.target.value);if(h!==null)this.setHour(h);});
   document.querySelectorAll('[data-hour]').forEach(b=>b.addEventListener('click',()=>this.setHour(Number(b.dataset.hour))));
   $('time-play').addEventListener('click',()=>this.play(!this.timeLapse));
-  $('time-lapse-speed').addEventListener('input',e=>{this.timeLapseSpeed=normaliseTimelapseSpeed(e.target.value,this.timeLapseSpeed);this.cycleTick=null;this.syncTimeCycleUI();});
+  $('time-lapse-speed').addEventListener('input',e=>{this.timeLapseSpeed=normaliseTimelapseSpeed(Number(e.target.value)/60,this.timeLapseSpeed);this.cycleTick=null;this.syncTimeCycleUI();});
   this.syncTimeCycleUI();
   $('sky-mode').addEventListener('change',e=>{const mode=e.target.value;this.play(false);this.mode=mode;if(this.mode==='live')this.date=new Date();this.applyClock();});
   $('sky-date').addEventListener('change',e=>{const date=dateFromHKT(e.target.value,this.hour);if(!date)return;this.play(false);this.mode='manual';this.date=date;this.applyClock();});

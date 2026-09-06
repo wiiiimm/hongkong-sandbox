@@ -1,6 +1,6 @@
 // Playback policy for the existing CityEnvironment clock; this is not another clock.
 export const TIMELAPSE_DEFAULT_SPEED=7.5;
-export const TIMELAPSE_MIN_SPEED=1;
+export const TIMELAPSE_MIN_SPEED=1/60;
 export const TIMELAPSE_MAX_SPEED=120;
 export function normaliseTimelapseSpeed(value,fallback=TIMELAPSE_DEFAULT_SPEED){
  if((typeof value!=='number'&&typeof value!=='string')||String(value).trim()===''||!Number.isFinite(Number(value)))return fallback;
@@ -9,7 +9,7 @@ export function normaliseTimelapseSpeed(value,fallback=TIMELAPSE_DEFAULT_SPEED){
 export function timeCycleState({enabled=false,speed=TIMELAPSE_DEFAULT_SPEED,mode='manual',paused=false,reducedMotion=false,stargazing=false}={}){
  const speedMinutesPerSecond=normaliseTimelapseSpeed(speed);
  const suspendedBy=!enabled?null:mode==='live'?'live':paused?'paused':stargazing?'stargazing':reducedMotion?'reduced-motion':null;
- return {enabled:!!enabled,running:!!enabled&&!suspendedBy,speedMinutesPerSecond,dayDurationSeconds:1440/speedMinutesPerSecond,suspendedBy};
+ return {enabled:!!enabled,running:!!enabled&&!suspendedBy,speedMinutesPerSecond,speedMultiplier:Math.round(speedMinutesPerSecond*60),dayDurationSeconds:1440/speedMinutesPerSecond,suspendedBy};
 }
 export function advanceTimelapse(instant,dt,options){
  const state=timeCycleState(options);
@@ -19,7 +19,8 @@ export function advanceTimelapse(instant,dt,options){
  return Number.isFinite(next)&&Math.abs(next)<=8640000000000000?next:instant;
 }
 export function timelapseDuration(speed){
- const total=Math.round(1440/normaliseTimelapseSpeed(speed)),minutes=Math.floor(total/60),seconds=total%60;
+ const total=Math.round(1440/normaliseTimelapseSpeed(speed)),hours=Math.floor(total/3600),minutes=Math.floor(total%3600/60),seconds=total%60;
+ if(hours)return `${hours}h${minutes?' '+minutes+'m':''}`;
  return minutes?`${minutes}m${seconds?' '+seconds+'s':''}`:`${seconds}s`;
 }
 

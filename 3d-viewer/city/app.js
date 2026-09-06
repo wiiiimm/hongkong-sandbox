@@ -144,7 +144,7 @@ function drawMinimap(){
 function updateStreamStatus(){
  if(!stream)return;const s=stream.stats,d=regionalDetail?.stats,b=bridgeLayer?.stats,bar=$('stream-status');bar.hidden=!s.pending&&!s.errors.length&&!loadingTravel&&!d?.pending&&!d?.errors.length&&!b?.pending&&!b?.errors.length;
  $('stream-message').textContent=s.errors.length?'Some city sections could not load':loadingTravel?`Arriving in ${PLACES[place].title}…`:s.pending?`Unfolding the neighbourhood · ${s.loaded}/${s.wanted}`:d?.errors.length||b?.errors.length?'Some local details could not load':b?.pending?'Adding mapped footbridges…':'Adding mapped local detail…';
- $('stream-retry').hidden=!s.errors.length&&!d?.errors.length&&!b?.errors.length;$('data-summary').textContent=`${manifest.counts.buildings.toLocaleString('en-HK')} building forms · ${manifest.supplementalSources?.length?'LandsD + OSM':'OSM'}`;
+ $('stream-retry').hidden=!s.errors.length&&!d?.errors.length&&!b?.errors.length;$('data-summary').textContent=`${manifest.counts.buildings.toLocaleString('en-HK')} building forms · ${manifest.officialCoverage?.renderedComponents?(manifest.officialCoverage.retainedOSMForms?'Lands Department + OSM':'Lands Department'):manifest.supplementalSources?.length?'Lands Department + OSM':'OSM'}`;
 }
 async function getCatalogue(){
  if(!cataloguePromise)cataloguePromise=loadJSON(manifest.catalogue).then(data=>{catalogue=data;makeLabels();return data;}).catch(error=>{cataloguePromise=null;throw error;});return cataloguePromise;

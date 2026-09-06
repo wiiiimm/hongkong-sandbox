@@ -1,8 +1,9 @@
 {
   "result": "passed",
-  "testedAt": "2026-09-06T09:15:28.837Z",
+  "testedAt": "2026-09-06T14:51:04.360Z",
   "checks": [
-    "keyboard ArrowRight adjusts the real speed range by 0.5 min/s",
+    "keyboard ArrowRight adjusts the real speed range by 1×",
+    "dial, toggle, multiplier slider and duration visible together without scrolling at320–1440px; current government/OSM count displayed",
     "default pace retained; measured simulation speed follows 7.5 and 30 min/s controls",
     "24-hour dial and calendar wrap through year-end midnight while playing",
     "playing moves the actual directional light and rendered shadow matrix; 180-frame performance measured at 30 min/s",
@@ -13,29 +14,182 @@
     "speed and playback controls work in expanded mobile sheet at 390 and 320 px with no overflow"
   ],
   "snapshots": {
+    "firstOpen": [
+      {
+        "viewport": [
+          320,
+          667
+        ],
+        "scrollTop": 0,
+        "overflow": false,
+        "controls": [
+          {
+            "id": "time-dial",
+            "width": 148,
+            "inside": true
+          },
+          {
+            "id": "time-play",
+            "width": 130,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed",
+            "width": 130,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed-note",
+            "width": 130,
+            "inside": true
+          }
+        ]
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "scrollTop": 0,
+        "overflow": false,
+        "controls": [
+          {
+            "id": "time-dial",
+            "width": 166,
+            "inside": true
+          },
+          {
+            "id": "time-play",
+            "width": 174,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed",
+            "width": 174,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed-note",
+            "width": 174,
+            "inside": true
+          }
+        ]
+      },
+      {
+        "viewport": [
+          760,
+          800
+        ],
+        "scrollTop": 0,
+        "overflow": false,
+        "controls": [
+          {
+            "id": "time-dial",
+            "width": 166,
+            "inside": true
+          },
+          {
+            "id": "time-play",
+            "width": 544,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed",
+            "width": 544,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed-note",
+            "width": 544,
+            "inside": true
+          }
+        ]
+      },
+      {
+        "viewport": [
+          1024,
+          768
+        ],
+        "scrollTop": 0,
+        "overflow": false,
+        "controls": [
+          {
+            "id": "time-dial",
+            "width": 154,
+            "inside": true
+          },
+          {
+            "id": "time-play",
+            "width": 112,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed",
+            "width": 112,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed-note",
+            "width": 112,
+            "inside": true
+          }
+        ]
+      },
+      {
+        "viewport": [
+          1440,
+          1000
+        ],
+        "scrollTop": 0,
+        "overflow": false,
+        "controls": [
+          {
+            "id": "time-dial",
+            "width": 154,
+            "inside": true
+          },
+          {
+            "id": "time-play",
+            "width": 112,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed",
+            "width": 112,
+            "inside": true
+          },
+          {
+            "id": "time-lapse-speed-note",
+            "width": 112,
+            "inside": true
+          }
+        ]
+      }
+    ],
+    "sourceSummary": "346,115 building forms · Lands Department + OSM",
     "speed": [
       {
         "requested": 7.5,
-        "measuredMinutesPerSecond": 7.313270260610885,
-        "realSeconds": 0.8032999999523163
+        "measuredMinutesPerSecond": 7.324211445827816,
+        "realSeconds": 0.8020999999046325
       },
       {
         "requested": 30,
-        "measuredMinutesPerSecond": 29.231152029601702,
-        "realSeconds": 0.8037999999523163
+        "measuredMinutesPerSecond": 29.289453999754883,
+        "realSeconds": 0.8022000000476838
       }
     ],
     "midnight": {
-      "date": "2026-12-31T16:01:29.880Z",
+      "date": "2026-12-31T16:01:30.060Z",
       "hkt": {
         "date": "2027-01-01",
         "time": "00:01",
-        "hour": 0.024966666666666665,
+        "hour": 0.02501666666666667,
         "hours": 0,
         "minutes": 1,
-        "seconds": 29
+        "seconds": 30
       },
-      "dial": "00:01 · Winding down"
+      "dial": "00:02 · Winding down"
     },
     "sunMorning": {
       "position": [
@@ -51,16 +205,16 @@
       "castShadow": true,
       "shadowMatrix": [
         -0.0002088965977313767,
-        -0.00005241552184004825,
-        -0.000026634510195780605,
+        -5.241552184004825e-05,
+        -2.6634510195780605e-05,
         0,
         -6.308085367188385e-21,
         0.00018424850101350312,
-        -0.00004882993535893113,
+        -4.882993535893113e-05,
         0,
-        -0.00008952711331344714,
+        -8.952711331344714e-05,
         0.000122302884293446,
-        0.00006214719045682146,
+        6.214719045682146e-05,
         0,
         0.537601387591648,
         0.4283654534852673,
@@ -70,8 +224,8 @@
     },
     "performance": {
       "frames": 180,
-      "medianFrameMs": 16.699999999999818,
-      "p95FrameMs": 16.700000000000728,
+      "medianFrameMs": 16.69999999999891,
+      "p95FrameMs": 16.799999999999272,
       "render": {
         "calls": 212,
         "triangles": 2719063
@@ -80,15 +234,16 @@
         "enabled": true,
         "running": true,
         "speedMinutesPerSecond": 30,
+        "speedMultiplier": 1800,
         "dayDurationSeconds": 48,
         "suspendedBy": null
       }
     },
     "sunAfternoon": {
       "position": [
-        539.8227035139142,
-        5864.638734869661,
-        2030.193926180525
+        539.90041680478,
+        5864.632216144137,
+        2030.1911677965636
       ],
       "target": [
         0,
@@ -97,22 +252,22 @@
       ],
       "castShadow": true,
       "shadowMatrix": [
-        0.00021548540650453025,
-        -0.00006928793839477072,
-        -0.000007503790707727468,
+        0.0002154822346794268,
+        -6.929693332583832e-05,
+        -7.504870959199059e-06,
         0,
-        6.308085367188391e-21,
-        0.00006432854334322978,
-        -0.00007999219814942536,
+        1.5770213417970976e-20,
+        6.432938003619675e-05,
+        -7.999210753605972e-05,
         0,
-        -0.00007224217705441078,
-        -0.00020667344451168407,
-        -0.00002238245657743292,
+        -7.225163734853286e-05,
+        -0.0002066701682821601,
+        -2.238241823459224e-05,
         0,
-        0.5303417143628525,
-        0.5797267069271523,
-        0.5177827593804767,
-        1
+        0.5303456876863837,
+        0.5797252388745251,
+        0.5177827333090135,
+        0.9999999999999999
       ]
     },
     "evening": {
@@ -137,7 +292,7 @@
           0.93
         ],
         "shimmer": 1,
-        "elapsed": 13.665999999999958,
+        "elapsed": 15.782699999999926,
         "ambient": 2.44
       },
       "astronomy": {
@@ -211,7 +366,7 @@
           0.0027809786884479748
         ],
         "shimmer": 1,
-        "elapsed": 17.76579999999991,
+        "elapsed": 19.88259999999983,
         "ambient": 0.3605843489067734
       },
       "hkt": {
@@ -231,9 +386,9 @@
       "contentWidth": 390,
       "contentScrollWidth": 390,
       "slider": {
-        "left": 20,
+        "left": 196,
         "right": 370,
-        "width": 350
+        "width": 174
       },
       "expanded": true
     },
@@ -243,9 +398,9 @@
       "contentWidth": 320,
       "contentScrollWidth": 320,
       "slider": {
-        "left": 16,
+        "left": 174,
         "right": 304,
-        "width": 288
+        "width": 130
       },
       "expanded": true
     }

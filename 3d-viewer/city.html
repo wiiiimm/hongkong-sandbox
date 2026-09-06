@@ -39,8 +39,6 @@
  </div>
  </section>
  <section id="panel-sky" role="tabpanel" aria-labelledby="tab-sky" hidden>
- <div class="environment-fields"><label>Sky clock <select id="sky-mode"><option value="manual">Choose a time</option><option value="live">Live Hong Kong time</option></select></label><label>Date <input id="sky-date" type="date" aria-label="Sky date in Hong Kong"></label></div>
- <p id="sky-location" class="environment-note"></p>
  <div class="time-head"><span class="section-label">LIGHT & ATMOSPHERE</span><span class="clock-cycle-label">24 HOURS</span></div>
  <div class="clock-row">
   <div id="time-dial" class="clock-face" role="slider" tabindex="0" aria-label="24-hour city clock" aria-valuemin="0" aria-valuemax="1439" aria-valuenow="900" aria-valuetext="15:00" aria-describedby="clock-help">
@@ -48,12 +46,16 @@
    <svg viewBox="0 0 160 160" aria-hidden="true"><g class="clock-ticks"></g><text x="80" y="12">00</text><text x="151" y="83">06</text><text x="80" y="157">12</text><text x="9" y="83">18</text><line class="clock-hand"/><circle class="clock-thumb" r="4"/></svg>
    <div class="clock-centre"><output id="time-output" for="time">15:00</output><span>DAY & NIGHT</span></div>
   </div>
-  <div class="night-presets" aria-label="Night lighting presets"><button data-hour="20" aria-pressed="false">20:00 <span>Evening</span></button><button data-hour="0" aria-pressed="false">00:00 <span>Midnight</span></button><button data-hour="4" aria-pressed="false">04:00 <span>City asleep</span></button></div>
+  <div class="clock-transport">
+ <div class="night-playback"><span id="night-phase">Daylight</span><button id="time-play" aria-pressed="false" title="Play the city clock at the selected speed">▶ Timelapse</button></div>
+ <label class="weather-control timelapse-speed" for="time-lapse-speed"><span>Timelapse speed</span><output id="time-lapse-speed-value">450×</output><input id="time-lapse-speed" type="range" min="1" max="7200" step="1" value="450" aria-describedby="time-lapse-speed-note"></label><p id="time-lapse-speed-note" class="environment-note" aria-live="polite">A full day in 3m 12s.</p>
+  </div>
  </div>
+  <div class="night-presets" aria-label="Night lighting presets"><button data-hour="20" aria-pressed="false">20:00 <span>Evening</span></button><button data-hour="0" aria-pressed="false">00:00 <span>Midnight</span></button><button data-hour="4" aria-pressed="false">04:00 <span>City asleep</span></button></div>
  <span id="clock-help" class="visually-hidden">Drag around the clock. Midnight at the top, noon at the bottom. Arrow keys change fifteen minutes, Shift and arrows five minutes, Page Up or Down one hour. Home sets midnight.</span>
  <label class="clock-exact">Set time <input id="time" aria-label="Exact city time" type="time" step="60" value="15:00"></label>
- <div class="night-playback"><span id="night-phase">Daylight</span><button id="time-play" aria-pressed="false" title="Watch the day and night pass: one hour every eight seconds">▶ Time lapse</button></div>
- <label class="weather-control timelapse-speed" for="time-lapse-speed"><span>Timelapse speed</span><output id="time-lapse-speed-value">7.5 min/s</output><input id="time-lapse-speed" type="range" min="1" max="120" step="0.5" value="7.5" aria-describedby="time-lapse-speed-note"></label><p id="time-lapse-speed-note" class="environment-note" aria-live="polite">A full day in 3m 12s.</p>
+ <div class="environment-fields"><label>Sky clock <select id="sky-mode"><option value="manual">Choose a time</option><option value="live">Live Hong Kong time</option></select></label><label>Date <input id="sky-date" type="date" aria-label="Sky date in Hong Kong"></label></div>
+ <p id="sky-location" class="environment-note"></p>
  <p class="night-note">Offices thin out from 6 pm. Homes peak at 10 pm, then settle from 11 pm. Shops close from 9–11 pm; a few lights stay on all night.</p>
  <label class="shimmer-control"><input id="light-shimmer" type="checkbox" checked> Distant light shimmer</label>
  <p id="sky-readout" class="environment-note"></p><label class="shimmer-control"><input id="sky-constellations" type="checkbox" checked> Constellation lines</label><p class="environment-note">Choose Stargaze below to look around the sky. Tap a star to identify it.</p>

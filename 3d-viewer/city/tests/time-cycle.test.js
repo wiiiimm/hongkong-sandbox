@@ -6,8 +6,8 @@ import {cityLighting} from '../lighting.js';
 const active={enabled:true,mode:'manual'};
 test('Existing default remains one hour per eight real seconds, with useful bounded speeds',()=>{
  const start=dateFromHKT('2026-09-06',15).valueOf();assert.equal(advanceTimelapse(start,8,active)-start,3600000);
- assert.equal(normaliseTimelapseSpeed(-5),1);assert.equal(normaliseTimelapseSpeed(500),120);assert.equal(normaliseTimelapseSpeed(null),7.5);assert.equal(normaliseTimelapseSpeed(''),7.5);assert.equal(normaliseTimelapseSpeed('30.5'),30.5);
- assert.equal(timelapseDuration(1),'24m');assert.equal(timelapseDuration(7.5),'3m 12s');assert.equal(timelapseDuration(30),'48s');assert.equal(timelapseDuration(120),'12s');
+ assert.equal(normaliseTimelapseSpeed(-5),1/60);assert.equal(normaliseTimelapseSpeed(500),120);assert.equal(normaliseTimelapseSpeed(null),7.5);assert.equal(normaliseTimelapseSpeed(''),7.5);assert.equal(normaliseTimelapseSpeed('30.5'),30.5);
+ assert.equal(timelapseDuration(1/60),'24h');assert.equal(timelapseDuration(1),'24m');assert.equal(timelapseDuration(7.5),'3m 12s');assert.equal(timelapseDuration(30),'48s');assert.equal(timelapseDuration(120),'12s');
 });
 test('Playback advances through HKT midnight, leap day, year end and multiple complete cycles',()=>{
  for(const [day,next]of [['2026-09-06','2026-09-07'],['2026-12-31','2027-01-01'],['2028-02-28','2028-02-29'],['2028-02-29','2028-03-01']]){
@@ -38,4 +38,13 @@ test('Monotonic playback keeps the advertised speed at 10 fps and never catches 
  assert.equal(timeCycleElapsed(100000,{at:1000,running:false},state),0,'first frame after any suspension does not catch up');
  assert.equal(timeCycleElapsed(100000,{at:1000,running:true},timeCycleState({...options,paused:true})),0);
  assert.equal(timeCycleElapsed(0,{at:1000,running:true},state),0);assert.equal(timeCycleElapsed(NaN,tick,state),0);
+});
+
+test('Displayed multipliers represent normal elapsed time, including true 1x playback',()=>{
+ const start=dateFromHKT('2026-09-06',12).valueOf();
+ for(const multiplier of [1,60,450,1800,7200]){
+  const speed=multiplier/60,state=timeCycleState({...active,speed});
+  assert.equal(state.speedMultiplier,multiplier);
+  assert.equal(advanceTimelapse(start,10,{...active,speed})-start,10*1000*multiplier);
+ }
 });

@@ -10,7 +10,7 @@ const followup=process.argv.includes('--followup');
 const report={scope:followup?'dock keyboard and intermediate desktop follow-up':'full control-sheet verification',startedAt:new Date().toISOString(),browser:await browser.version(),checks:[],layouts:[],errors:[]};
 page.on('pageerror',error=>report.errors.push(error.message));page.on('console',message=>{if(message.type()==='error'&&/WebGL|shader|GL_INVALID/i.test(message.text()))report.errors.push(message.text());});
 const state=()=>page.evaluate(()=>window.__city.state),tab=async name=>{if(!await page.locator('#explorer').isVisible())await page.locator('#panel-toggle').click();await page.locator('#tab-'+name).click();};
-const input=(id,value)=>page.locator('#'+id).evaluate((element,value)=>{element.value=String(value);element.dispatchEvent(new Event('input',{bubbles:true}));},value);
+const input=(id,value)=>page.locator('#'+id).evaluate((element,value)=>{element.value=String(value);element.dispatchEvent(new Event('input',{bubbles:true}));},id==='time-lapse-speed'?value*60:value);
 const shot=name=>page.screenshot({path:new URL(name+'.png',output).pathname});
 async function layout(name){
  await page.waitForTimeout(260);

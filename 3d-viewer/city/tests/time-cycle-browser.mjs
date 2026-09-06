@@ -7,7 +7,7 @@ const browser=await chromium.launch({headless:true,executablePath:process.env.CH
 const page=await browser.newPage({viewport:{width:1440,height:1000},hasTouch:true}),errors=[],checks=[],snapshots={},layouts=[];
 page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 const state=()=>page.evaluate(()=>window.__city.state);
-const input=(id,value,event='input')=>page.locator('#'+id).evaluate((el,{value,event})=>{el.value=String(value);el.dispatchEvent(new Event(event,{bubbles:true}));},{value,event});
+const input=(id,value,event='input')=>page.locator('#'+id).evaluate((el,{value,event})=>{el.value=String(value);el.dispatchEvent(new Event(event,{bubbles:true}));},{value:id==='time-lapse-speed'?value*60:value,event});
 const tab=async name=>{if(!(await state()).controls.expanded)await page.locator('#panel-toggle').click();await page.locator('#tab-'+name).click();};
 const snapshot=name=>page.screenshot({path:new URL(name,evidence).pathname});
 const setTime=async value=>{await tab('sky');await input('time',value);};
@@ -24,8 +24,20 @@ try{
  await page.route('**/historical-archive/get-file?**',route=>route.fulfill({contentType:'text/csv',body:`Date,Station,Direction,Speed,Gust\n${stamp},HK Observatory,East,12,20\n`}));
  await page.route('**/opendata.php?**',route=>{const q=new URL(route.request().url()).searchParams;return route.fulfill({json:{fields:['MM','DD',...Array.from({length:24},(_,i)=>String(i+1).padStart(2,'0'))],data:[[q.get('month').padStart(2,'0'),q.get('day').padStart(2,'0'),...Array.from({length:24},(_,i)=>(1.7+.5*Math.sin(i*Math.PI/6)).toFixed(2))]]}});});
  await page.goto(process.env.CITY_URL||'http://127.0.0.1:4176/city.html?district=central');await page.waitForFunction(()=>window.__city?.ready&&!window.__city.state.loadingTravel&&!window.__city.state.travelling&&window.__city.state.stream.pending===0,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden'});await tab('sky');
- assert.equal((await state()).environment.timeCycle.speedMinutesPerSecond,7.5);assert.equal((await state()).timeLapse,false);assert.equal(await page.locator('#time-lapse-speed-value').textContent(),'7.5 min/s');assert.match(await page.locator('#time-lapse-speed-note').textContent(),/3m 12s/);
- await page.locator('#time-lapse-speed').press('ArrowRight');assert.equal((await state()).environment.timeCycle.speedMinutesPerSecond,8);checks.push('keyboard ArrowRight adjusts the real speed range by 0.5 min/s');
+ assert.equal((await state()).environment.timeCycle.speedMinutesPerSecond,7.5);assert.equal((await state()).timeLapse,false);assert.equal(await page.locator('#time-lapse-speed-value').textContent(),'450×');assert.match(await page.locator('#time-lapse-speed-note').textContent(),/3m 12s/);
+ await page.locator('#time-lapse-speed').press('ArrowRight');assert.equal((await state()).environment.timeCycle.speedMultiplier,451);checks.push('keyboard ArrowRight adjusts the real speed range by 1×');
+ // Regression: playback and speed must be visible with the dial on first open,
+ // without scrollIntoView hiding a below-fold control placement problem.
+ snapshots.firstOpen=[];
+ for(const [width,height] of [[320,667],[390,844],[760,800],[1024,768],[1440,1000]]){
+  await page.setViewportSize({width,height});await tab('sky');await page.locator('#control-content').evaluate(el=>el.scrollTop=0);await page.waitForTimeout(260);
+  const visible=await page.evaluate(()=>{const c=document.getElementById('control-content').getBoundingClientRect(),ids=['time-dial','time-play','time-lapse-speed','time-lapse-speed-note'];return {viewport:[innerWidth,innerHeight],scrollTop:document.getElementById('control-content').scrollTop,overflow:document.documentElement.scrollWidth>innerWidth,controls:ids.map(id=>{const r=document.getElementById(id).getBoundingClientRect();return {id,width:r.width,inside:r.width>0&&r.top>=c.top&&r.bottom<=c.bottom&&r.left>=c.left&&r.right<=c.right};})};});
+  assert.equal(visible.overflow,false);assert.equal(visible.scrollTop,0);assert.ok(visible.controls.every(c=>c.inside),JSON.stringify(visible));snapshots.firstOpen.push(visible);
+  if(width===390||width===1024)await snapshot(`speed-first-open-${width}x${height}.png`);
+ }
+ const summary=await page.locator('#data-summary').textContent();assert.match(summary,/346,115.*Lands Department \+ OSM/);snapshots.sourceSummary=summary;
+ checks.push('dial, toggle, multiplier slider and duration visible together without scrolling at320–1440px; current government/OSM count displayed');
+ await page.locator('#time-lapse-speed').press('Home');assert.equal((await state()).environment.timeCycle.speedMultiplier,1);assert.equal(await page.locator('#time-lapse-speed-value').textContent(),'1×');assert.match(await page.locator('#time-lapse-speed-note').textContent(),/24h/);await input('time-lapse-speed',7.5);
  await setTime('08:00');snapshots.speed=[await measure(7.5),await measure(30)];checks.push('default pace retained; measured simulation speed follows 7.5 and 30 min/s controls');
  await input('sky-date','2026-12-31','change');await setTime('23:55');await input('time-lapse-speed',30);await page.locator('#time-play').click();await page.waitForFunction(()=>window.__city.state.environment.hkt.date==='2027-01-01');await stop();let s=await state();assert.ok(s.time>=0&&s.time<2);assert.equal(await page.locator('#sky-date').inputValue(),'2027-01-01');snapshots.midnight={date:s.environment.date,hkt:s.environment.hkt,dial:await page.locator('#time-dial').getAttribute('aria-valuetext')};checks.push('24-hour dial and calendar wrap through year-end midnight while playing');
  await input('sky-date','2026-09-06','change');await setTime('08:00');snapshots.sunMorning=(await state()).environment.sunLight;await snapshot('morning-shadows-1440x1000.png');await input('time-lapse-speed',30);await page.locator('#time-play').click();
