@@ -12,12 +12,13 @@ import {PLACES,REGIONS,closestPlace} from './places.js';
 import {cityLighting,activityDescription} from './lighting.js';
 import {createEnvironment} from './environment.js';
 import {StargazeControls} from './stargaze-controls.js';
+import {createControlSheet} from './control-sheet.js';
 import {worldToWgs84} from './observer.js';
 const $=id=>document.getElementById(id),motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
 let reduced=motionPreference.matches;
 let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween,regionalDetail,bridgeLayer;
 let catalogue=[],overview={},cataloguePromise,travel=0,modeRequest=0,selectedId=null,selectedIndex=-1,loadingTravel=false,lastHud=0,lastStream=0,startTime=0;
-let environment,stargazer,observerCache,toastTimer,lightState=cityLighting(15),mapBackdrop,mapStamp,mapBounds=[-3600,-2600,3600,2900];
+let controlSheet,environment,stargazer,observerCache,toastTimer,lightState=cityLighting(15),mapBackdrop,mapStamp,mapBounds=[-3600,-2600,3600,2900];
 const labelEntries=[],temp=new THREE.Vector3(),raycaster=new THREE.Raycaster();
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),4400);}
 function transition(position,target,duration=1.6){tween={from:camera.position.clone(),to:new THREE.Vector3(...position),targetFrom:controls.target.clone(),targetTo:new THREE.Vector3(...target),elapsed:0,duration:reduced?.001:duration};}
@@ -32,7 +33,7 @@ function updatePlace(key){
  $('place-subtitle').textContent=REGIONS[p.region].title.toUpperCase()+' · '+REGIONS[p.region].zh;$('place-description').textContent=p.description+(p.aerialOnly?' Aerial view; a walking arrival has not been verified here.':'');
  const walkButton=document.querySelector('[data-mode="walk"]');walkButton.disabled=!!p.aerialOnly;walkButton.title=p.aerialOnly?'Choose a nearby place with a verified walking arrival':'Walk from this place';
  document.querySelectorAll('[data-place]').forEach(b=>{b.classList.toggle('active',b.dataset.place===key);b.setAttribute('aria-pressed',b.dataset.place===key);});
- history.replaceState(null,'',`${location.pathname}?district=${key}`);if(innerWidth<=760)$('explorer').classList.remove('open');
+ history.replaceState(null,'',`${location.pathname}?district=${key}`);if(innerWidth<=760)controlSheet?.close({restoreFocus:false});
 }
 async function goPlace(key,animate=true){
  if(stargazer.active)setStargazing(false);
@@ -53,7 +54,7 @@ async function chooseMode(mode){
  catch(error){if(error.name!=='AbortError')toast('Movement is waiting for this area. Retry the city download.');}
 }
 function onMode(mode){
- tween=null;if(mode!=='orbit')$('explorer').classList.remove('open');camera.fov=mode==='orbit'?44:mode==='walk'?60:52;camera.updateProjectionMatrix();document.body.classList.toggle('exploring-person',mode!=='orbit');
+ tween=null;if(mode!=='orbit')controlSheet?.close({restoreFocus:false});camera.fov=mode==='orbit'?44:mode==='walk'?60:52;camera.updateProjectionMatrix();document.body.classList.toggle('exploring-person',mode!=='orbit');
  document.querySelectorAll('[data-mode]').forEach(b=>{b.classList.toggle('active',b.dataset.mode===mode);b.setAttribute('aria-pressed',b.dataset.mode===mode);});
  $('flight-controls').hidden=mode!=='fly';syncAircraftUI();
  $('journey').hidden=mode==='orbit';$('journey-mode').textContent=mode==='walk'?'ON FOOT':'IN THE AIR';
@@ -61,16 +62,14 @@ function onMode(mode){
  $('touch-controls').hidden=mode==='orbit'||!matchMedia('(pointer: coarse)').matches;if(mode!=='orbit')closeSelection();
  const extent=mode==='walk'?80:mode==='fly'?900:2200;Object.assign(sun.shadow.camera,{left:-extent,right:extent,top:extent,bottom:-extent});sun.shadow.camera.updateProjectionMatrix();sun.shadow.normalBias=mode==='walk'?.06:1.2;
 }
-function showPanel(name){
- for(const button of document.querySelectorAll('[data-panel]')){const active=button.dataset.panel===name;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;$('panel-'+button.dataset.panel).hidden=!active;}
-}
+function showPanel(name){controlSheet.selectPanel(name,{expand:false});}
 function setStargazing(enabled){
  ++modeRequest;if(enabled===stargazer.active)return;
  if(enabled){
   if(nav.mode!=='orbit')nav.setMode('orbit',PLACES[place].spawn);tween=null;closeSelection();
   const p=controls.target,altitude=Math.max(sampler.height(p.x,p.z)+30,stream.maximumRoof(p.x,p.z,30)+8);
   stargazer.enter(new THREE.Vector3(p.x,altitude,p.z));showPanel('sky');
-  if(innerWidth<=760)$('explorer').classList.remove('open');renderer.domElement.focus({preventScroll:true});
+  if(innerWidth<=760)controlSheet?.close({restoreFocus:false});renderer.domElement.focus({preventScroll:true});
  }else{stargazer.exit();onMode('orbit');}
  document.body.classList.toggle('stargazing',enabled);
  for(const b of document.querySelectorAll('[data-mode]')){const active=b.dataset.mode===(enabled?'star':nav.mode);b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));}
@@ -179,7 +178,6 @@ function bindUI(){
  }
  $('aircraft-model').addEventListener('change',e=>selectAircraft(e.target.value));$('aircraft-retry').addEventListener('click',()=>selectAircraft(nav.aircraftState.id));syncAircraftUI();
  const regionList=$('region-list');for(const [key,value] of Object.entries(REGIONS)){const b=document.createElement('button');b.dataset.region=key;b.textContent=({island:'HK Island',ntwest:'NT West',nteast:'NT East',ntnorth:'NT North',islands:'Islands'})[key]||value.short||value.title;b.setAttribute('aria-pressed',String(key===region));regionList.append(b);}
- const tabs=[...document.querySelectorAll('[data-panel]')];for(const b of tabs){b.addEventListener('click',()=>showPanel(b.dataset.panel));b.addEventListener('keydown',e=>{let i=tabs.indexOf(b);if(e.key==='ArrowRight')i=(i+1)%tabs.length;else if(e.key==='ArrowLeft')i=(i+tabs.length-1)%tabs.length;else if(e.key==='Home')i=0;else if(e.key==='End')i=tabs.length-1;else return;e.preventDefault();showPanel(tabs[i].dataset.panel);tabs[i].focus();});}
  document.querySelectorAll('[data-bearing]').forEach(b=>b.addEventListener('click',()=>{if(!stargazer.active)setStargazing(true);stargazer.face(Number(b.dataset.bearing));}));
  const districts=$('district-list');for(const [key,p] of Object.entries(PLACES)){
   const b=document.createElement('button');b.className='district';b.dataset.place=key;const symbol=document.createElement('span');symbol.className='district-symbol';symbol.textContent=p.zh[0];const names=document.createElement('span');const title=document.createElement('b');title.textContent=p.title;const subtitle=document.createElement('small');subtitle.textContent=p.zh;names.append(title,subtitle);const arrow=document.createElement('span');arrow.className='arrow';arrow.textContent='↗';b.append(symbol,names,arrow);b.addEventListener('click',()=>goPlace(key));districts.append(b);
@@ -195,7 +193,7 @@ function bindUI(){
  $('north-view').addEventListener('click',()=>{if(stargazer.active){stargazer.face(0);return;}if(nav.mode!=='orbit')return;const p=controls.target,d=camera.position.distanceTo(p);transition([p.x,p.y+d*.72,p.z+d*.7],[p.x,p.y,p.z]);});
  $('postcard').addEventListener('click',()=>{renderer.render(scene,camera);const a=document.createElement('a');a.download=`hong-kong-astra-${place}-${renderer.domElement.width}x${renderer.domElement.height}.png`;a.href=renderer.domElement.toDataURL('image/png');a.click();toast(`Postcard saved · ${renderer.domElement.width} × ${renderer.domElement.height} pixels`);});
  $('about-open').addEventListener('click',()=>{$('about').showModal();nav.clearInput();});$('about-close').addEventListener('click',()=>$('about').close());$('about').addEventListener('click',e=>{if(e.target===$('about')){const r=$('about').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('about').close();}});
- $('selection-close').addEventListener('click',closeSelection);$('panel-toggle').addEventListener('click',()=>{$('explorer').classList.toggle('open');nav.clearInput();});$('search').addEventListener('input',search);
+ $('selection-close').addEventListener('click',closeSelection);$('search').addEventListener('input',search);
  let pointerStart;renderer.domElement.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY};});
  renderer.domElement.addEventListener('pointerup',e=>{if(stargazer.active||nav.mode!=='orbit'||!pointerStart||Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)>5)return;
   raycaster.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2),camera);const buildings=stream.pickMeshes(raycaster.ray),bridges=bridgeLayer.pickMeshes(),hit=raycaster.intersectObjects([...buildings,...bridges],false)[0];if(hit){if(bridges.includes(hit.object))selectBridge(bridgeLayer.featureAt(hit));else selectBuilding(stream.featureAt(hit));}else closeSelection();
@@ -204,7 +202,7 @@ function bindUI(){
  addEventListener('keydown',e=>{
   if(e.code==='Escape'){if($('about').open)return;if(stargazer.active){setStargazing(false);return;}if(document.activeElement===$('search')){$('search-results').hidden=true;$('search').blur();return;}if(nav.mode!=='orbit')chooseMode('orbit');else closeSelection();return;}
   if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.isContentEditable||$('about').open||e.repeat)return;
-  if(e.code==='Slash'){e.preventDefault();$('explorer').classList.add('open');$('search').focus();}const m={Digit1:'orbit',Digit2:'walk',Digit3:'fly',Digit4:'star'}[e.code];if(m)chooseMode(m);
+  if(e.code==='Slash'){e.preventDefault();controlSheet.open('places',{focusSearch:true});}const m={Digit1:'orbit',Digit2:'walk',Digit3:'fly',Digit4:'star'}[e.code];if(m)chooseMode(m);
  });
  addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<760?1.5:1.75));renderer.setSize(innerWidth,innerHeight);});
 }
@@ -221,6 +219,7 @@ async function init(){
  let maskedSurfaces=0;regionalDetail=new RegionalDetail({scene,sampler,onChange:()=>{if(regionalDetail&&regionalDetail.surfaceCount!==maskedSurfaces){maskedSurfaces=regionalDetail.surfaceCount;stream.setSurfaceExclusions(regionalDetail.mappedSurfaces);}updateStreamStatus();}});
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus});
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
+ controlSheet=createControlSheet({onExpand:()=>nav.clearInput(),focusMap:()=>renderer.domElement.focus({preventScroll:true})});
  stargazer=new StargazeControls({camera,controls,canvas:renderer.domElement,onPick:point=>{const star=environment.sky.pick(point);$('sky-selection').textContent=star?`Star HR ${star.hr} · ${star.constellations.map(c=>c.en+' '+c.zh).join(', ')||'No figure in this catalogue'} · ${star.altitudeDeg.toFixed(0)}° above the horizon`:'No bright star selected. Try another part of the sky.';}});
  bindUI();environment=await createEnvironment({scene,camera,renderer,sun,ambient,stream,water,terrainHeight:(x,z)=>sampler.height(x,z),getObserver:()=>{
   const focus=nav.mode==='orbit'?controls.target:nav.position;
@@ -229,7 +228,7 @@ async function init(){
   }return observerCache;
  },onClock:s=>{lightState=s;}});makeLabels();
  $('snapshot-date').textContent=manifest.snapshot.slice(0,10);$('loading').style.opacity='0';setTimeout(()=>$('loading').hidden=true,750);
- window.__city={get ready(){return true;},get state(){return {mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,placeCount:Object.keys(PLACES).length,layers:{bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!stream.collision(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
+ window.__city={get ready(){return true;},get state(){return {controls:controlSheet.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,placeCount:Object.keys(PLACES).length,layers:{bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!stream.collision(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
  startTime=performance.now();requestAnimationFrame(animate);const initial=new URLSearchParams(location.search).get('district');goPlace(Object.hasOwn(PLACES,initial)?initial:'central',false);
  // Regional surfaces and search are independent of building/terrain readiness.
  for(const name of ['islands','urban','nt'])regionalDetail.load(`city/data/regional/${name}.json`);

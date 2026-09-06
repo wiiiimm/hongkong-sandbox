@@ -1,0 +1,255 @@
+{
+  "result": "passed",
+  "testedAt": "2026-09-06T09:15:28.837Z",
+  "checks": [
+    "keyboard ArrowRight adjusts the real speed range by 0.5 min/s",
+    "default pace retained; measured simulation speed follows 7.5 and 30 min/s controls",
+    "24-hour dial and calendar wrap through year-end midnight while playing",
+    "playing moves the actual directional light and rendered shadow matrix; 180-frame performance measured at 30 min/s",
+    "existing residential/business schedules continue to dim towards 4 am without turning every building off",
+    "About pause, Reduced Motion and Stargaze hold playback and preserve enabled/speed for resuming",
+    "manual dial/exact-time entry stops playback; Sky Live stops it and follows actual time",
+    "accelerated sky date leaves actual HKO observation and tide-prediction clocks independent",
+    "speed and playback controls work in expanded mobile sheet at 390 and 320 px with no overflow"
+  ],
+  "snapshots": {
+    "speed": [
+      {
+        "requested": 7.5,
+        "measuredMinutesPerSecond": 7.313270260610885,
+        "realSeconds": 0.8032999999523163
+      },
+      {
+        "requested": 30,
+        "measuredMinutesPerSecond": 29.231152029601702,
+        "realSeconds": 0.8037999999523163
+      }
+    ],
+    "midnight": {
+      "date": "2026-12-31T16:01:29.880Z",
+      "hkt": {
+        "date": "2027-01-01",
+        "time": "00:01",
+        "hour": 0.024966666666666665,
+        "hours": 0,
+        "minutes": 1,
+        "seconds": 29
+      },
+      "dial": "00:01 · Winding down"
+    },
+    "sunMorning": {
+      "position": [
+        1916.0866634844579,
+        3622.825549721507,
+        -4050.8688814637353
+      ],
+      "target": [
+        0,
+        110,
+        420.0000000000001
+      ],
+      "castShadow": true,
+      "shadowMatrix": [
+        -0.0002088965977313767,
+        -0.00005241552184004825,
+        -0.000026634510195780605,
+        0,
+        -6.308085367188385e-21,
+        0.00018424850101350312,
+        -0.00004882993535893113,
+        0,
+        -0.00008952711331344714,
+        0.000122302884293446,
+        0.00006214719045682146,
+        0,
+        0.537601387591648,
+        0.4283654534852673,
+        0.47885245871913523,
+        1.0000000000000002
+      ]
+    },
+    "performance": {
+      "frames": 180,
+      "medianFrameMs": 16.699999999999818,
+      "p95FrameMs": 16.700000000000728,
+      "render": {
+        "calls": 212,
+        "triangles": 2719063
+      },
+      "cycle": {
+        "enabled": true,
+        "running": true,
+        "speedMinutesPerSecond": 30,
+        "dayDurationSeconds": 48,
+        "suspendedBy": null
+      }
+    },
+    "sunAfternoon": {
+      "position": [
+        539.8227035139142,
+        5864.638734869661,
+        2030.193926180525
+      ],
+      "target": [
+        0,
+        110,
+        420.0000000000001
+      ],
+      "castShadow": true,
+      "shadowMatrix": [
+        0.00021548540650453025,
+        -0.00006928793839477072,
+        -0.000007503790707727468,
+        0,
+        6.308085367188391e-21,
+        0.00006432854334322978,
+        -0.00007999219814942536,
+        0,
+        -0.00007224217705441078,
+        -0.00020667344451168407,
+        -0.00002238245657743292,
+        0,
+        0.5303417143628525,
+        0.5797267069271523,
+        0.5177827593804767,
+        1
+      ]
+    },
+    "evening": {
+      "lighting": {
+        "hour": 20,
+        "night": 1,
+        "golden": 0,
+        "quiet": 0,
+        "activity": [
+          0.74,
+          0.46,
+          0.92,
+          0.77,
+          0.93
+        ],
+        "phase": "Evening buzz",
+        "uniformActivity": [
+          0.7400000095367432,
+          0.46000000834465027,
+          0.9200000166893005,
+          0.7699999809265137,
+          0.93
+        ],
+        "shimmer": 1,
+        "elapsed": 13.665999999999958,
+        "ambient": 2.44
+      },
+      "astronomy": {
+        "date": "2026-09-06T12:00:00.000Z",
+        "hkt": {
+          "date": "2026-09-06",
+          "time": "20:00",
+          "hour": 20,
+          "hours": 20,
+          "minutes": 0,
+          "seconds": 0
+        },
+        "lat": 22.28360153618346,
+        "lon": 114.1597185667131,
+        "sun": {
+          "azimuth": 1.8514956632415838,
+          "altitude": -0.3444918857116254,
+          "altitudeDeg": -19.737931127779245,
+          "bearing": 286.0828872905179,
+          "direction": {
+            "x": -0.9044085831911327,
+            "y": -0.33771845972662906,
+            "z": -0.26075152273779967
+          }
+        },
+        "moon": {
+          "azimuth": 3.0146655260152646,
+          "altitude": -0.7056200907336312,
+          "distance": 364658.35755513166,
+          "altitudeDeg": -40.42905313867528,
+          "bearing": 352.72761128426095,
+          "direction": {
+            "x": -0.0963589248397707,
+            "y": -0.64850597318266,
+            "z": -0.7550860615520157
+          },
+          "fraction": 0.2493320878596023,
+          "phase": 0.8335789356818348,
+          "angle": 1.714537217475639
+        },
+        "sunrise": "2026-09-05T22:08:54.241Z",
+        "sunset": "2026-09-06T10:37:58.093Z",
+        "solarNoon": "2026-09-06T04:23:26.167Z",
+        "moonrise": "2026-09-05T16:44:48.872Z",
+        "moonset": "2026-09-06T07:01:44.605Z",
+        "night": 1,
+        "golden": 0,
+        "starVisibility": 1,
+        "phase": "Night"
+      }
+    },
+    "sleep": {
+      "lighting": {
+        "hour": 4.099799999999998,
+        "night": 1,
+        "golden": 0,
+        "quiet": 0.9967536171845927,
+        "activity": [
+          0.008621857025503915,
+          0.0031993601286879614,
+          0.05155464256375979,
+          0.006119799297215931,
+          0.0027809786884479748
+        ],
+        "phase": "City at rest",
+        "uniformActivity": [
+          0.008621856570243835,
+          0.0031993601005524397,
+          0.051554642617702484,
+          0.006119799334555864,
+          0.0027809786884479748
+        ],
+        "shimmer": 1,
+        "elapsed": 17.76579999999991,
+        "ambient": 0.3605843489067734
+      },
+      "hkt": {
+        "date": "2026-09-07",
+        "time": "04:05",
+        "hour": 4.099799999999999,
+        "hours": 4,
+        "minutes": 5,
+        "seconds": 59
+      }
+    }
+  },
+  "layouts": [
+    {
+      "width": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "slider": {
+        "left": 20,
+        "right": 370,
+        "width": 350
+      },
+      "expanded": true
+    },
+    {
+      "width": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "slider": {
+        "left": 16,
+        "right": 304,
+        "width": 288
+      },
+      "expanded": true
+    }
+  ],
+  "errors": [],
+  "browser": "152.0.7977.76"
+}

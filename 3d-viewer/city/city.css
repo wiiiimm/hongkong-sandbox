@@ -36,3 +36,55 @@ body.exploring-person .explorer.open{opacity:1;pointer-events:auto;display:block
 .environment-extra{border-top:1px solid var(--line);padding-top:8px;margin-top:14px}.environment-extra .weather-control{margin-top:14px}.environment-button{border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:10px;color:var(--ink);background:var(--glass)}.environment-button[aria-pressed="true"]{background:var(--sage);color:var(--ink)}.environment-button:disabled{opacity:.6}
 
 .tide-readout{font-size:18px;line-height:1.5;margin:8px 0;font-variant-numeric:tabular-nums}.tide-panel .environment-fields{margin-top:8px}.tide-panel .environment-fields select{min-width:0;width:100%}#tide-graph{width:100%;height:auto;color:var(--ink);overflow:hidden;margin:4px 0}#tide-graph[hidden]{display:none}.tide-manual-note{margin-top:-10px;margin-bottom:20px}
+
+/* One control surface: a floating desktop inspector and a mobile bottom sheet.
+   Existing controls stay mounted; only the scrollable body is collapsed. */
+.control-sheet{width:318px;top:92px;left:22px;padding:0;display:flex;flex-direction:column;overflow:hidden;max-height:calc(100dvh - 136px);border-radius:16px;transition:height .22s ease,box-shadow .22s ease}
+.sheet-header{flex:none;background:var(--glass);border-bottom:1px solid var(--line);padding:0 12px 11px;position:relative;z-index:2}
+.sheet-handle{width:100%;height:43px;display:flex;align-items:center;justify-content:space-between;text-align:left;font-size:11px;font-weight:600;letter-spacing:.015em;touch-action:none;padding:0 5px}
+.sheet-grip{display:none}.sheet-action{font-size:21px;font-weight:400;line-height:1;color:var(--muted)}
+.sheet-header .panel-tabs{position:static;margin:0;gap:4px;padding:4px;border-radius:9px}
+.sheet-header .panel-tabs button{min-height:40px;font-size:11px;border-radius:6px}
+.control-content{padding:17px 20px 0;overflow-y:auto;overscroll-behavior:contain;min-height:0;scrollbar-width:thin;scrollbar-color:#afbea2 transparent}
+.control-content>.eyebrow{display:flex;justify-content:space-between;color:var(--muted);font-size:8px}.control-content h1{font-size:24px;margin:12px 0 7px}.control-content>.intro{font-size:11px;margin-bottom:18px}
+.control-sheet:not([data-panel="places"]) .control-content>.eyebrow,.control-sheet:not([data-panel="places"]) .control-content>h1,.control-sheet:not([data-panel="places"]) .control-content>.intro,.control-sheet:not([data-panel="places"]) .control-content>.search-wrap,.control-sheet:not([data-panel="places"]) #search-results{display:none}
+.control-sheet .panel-foot{margin:20px -20px 0;padding:13px 20px;line-height:1.4}.control-sheet .districts{max-height:250px}.control-sheet .environment-fields{padding-top:2px}
+.control-sheet .search-wrap{min-height:44px}.control-sheet .search-wrap input{font-size:12px}
+.control-sheet .layers label{min-height:32px}.control-sheet .shimmer-control{min-height:32px}.control-sheet .shimmer-control input{width:16px;height:16px}
+.control-sheet .weather-control input{min-height:28px}.control-sheet .weather-control{margin-bottom:16px;gap:7px}.control-sheet .environment-button{min-height:40px}
+body.exploring-person .control-sheet.open{display:flex;opacity:1;pointer-events:auto}
+body:not(.controls-mobile):not(.controls-expanded) #location-title{left:32px}
+@media(min-width:761px){.controls-expanded #location-title{left:365px}.control-sheet .region-tabs button{min-height:32px}.control-sheet .environment-note{font-size:10px}.control-sheet .weather-control,.control-sheet .environment-fields label,.control-sheet .shimmer-control{font-size:11px}}
+@media(max-width:760px){
+ :root{--control-footer:88px}
+ .topbar{padding:0 13px;height:62px}.topbar nav{gap:8px}.topbar .icon-button{width:36px;height:36px}.terrain-link{font-size:9px}.terrain-link span{margin-left:1px}
+ .control-sheet{display:flex;opacity:1;pointer-events:auto;position:fixed;left:0;right:0;top:auto;bottom:var(--control-keyboard-inset,0px);width:100%;max-height:calc(var(--control-viewport-height,100dvh) - 70px);height:calc(87px + var(--control-footer) + env(safe-area-inset-bottom));padding:0 0 calc(var(--control-footer) + env(safe-area-inset-bottom));border-radius:22px 22px 0 0;border-width:1px 0 0;z-index:9;box-shadow:0 -6px 32px #16362320}
+ body.exploring-person .control-sheet{display:flex;opacity:1;pointer-events:auto}
+ .control-sheet.open{display:flex;height:min(72dvh,680px);height:min(calc(var(--control-viewport-height,100dvh) * .72),680px)}
+ .sheet-header{padding:0 16px 8px;border-bottom:0}.control-sheet.open .sheet-header{border-bottom:1px solid var(--line)}
+ .sheet-handle{height:35px;font-size:10px;padding:0 1px}.sheet-grip{display:block;position:absolute;top:9px;left:50%;transform:translateX(-50%);width:34px;height:4px;border-radius:4px;background:var(--line)}.sheet-handle>span:nth-child(2){align-self:flex-end;padding-bottom:5px}.sheet-action{align-self:flex-end;padding-bottom:3px;font-size:21px}
+ .sheet-header .panel-tabs{padding:3px;gap:3px}.sheet-header .panel-tabs button{font-size:12px;min-height:41px;padding:8px 5px}
+ .control-content{padding:15px 20px 0;flex:1}.control-content h1{font-size:24px}.control-content>.intro{margin-bottom:17px}.control-content>.eyebrow{font-size:9px}
+ .control-sheet .search-wrap{min-height:46px;padding:10px 12px}.control-sheet .search-wrap input{font-size:16px}.control-sheet .search-wrap kbd{display:none}
+ .control-sheet #search-results{max-height:260px}.control-sheet #search-results button{min-height:49px;font-size:12px}.control-sheet #search-results small{font-size:10px}
+ .control-sheet .districts{max-height:280px}.control-sheet .district{min-height:60px;padding:10px 8px}.control-sheet .district b{font-size:12px}.control-sheet .district small{font-size:10px}.control-sheet .district-symbol{flex-shrink:0;width:34px;height:34px}
+ .control-sheet .region-tabs button{font-size:10px;min-height:40px;padding:7px 3px}.control-sheet .section-label{font-size:9px}.control-sheet .section-label>span{font-size:8px}
+ .control-sheet .layers{gap:6px}.control-sheet .layers label{min-height:44px;font-size:12px}.control-sheet .layers input{height:44px;width:44px;top:0}.control-sheet .switch{width:32px;height:19px}.control-sheet .switch:after{width:13px;height:13px}.control-sheet .layers input:checked+.switch:after{transform:translateX(13px)}
+ .control-sheet .environment-fields{gap:14px}.control-sheet .environment-fields label,.control-sheet .weather-control{font-size:12px}.control-sheet .environment-fields input,.control-sheet .environment-fields select{font-size:16px;padding:8px;min-height:44px;width:180px;max-width:68%}.control-sheet .tide-panel .environment-fields label{flex-wrap:wrap}.control-sheet .tide-panel .environment-fields select{max-width:100%;width:100%}
+ .control-sheet .environment-note{font-size:11px;line-height:1.65}.control-sheet .weather-control{gap:6px;margin-bottom:17px}.control-sheet .weather-control input{min-height:38px}.control-sheet .weather-control output{font-size:11px}
+ .control-sheet .shimmer-control{font-size:12px;min-height:44px;gap:9px}.control-sheet .shimmer-control input{width:19px;height:19px}.control-sheet .environment-button{font-size:12px;min-height:44px}
+ .control-sheet .clock-face{flex-basis:166px;width:166px;height:166px}.control-sheet .night-presets button{min-height:45px;font-size:11px}.control-sheet .night-presets button span{font-size:9px}.control-sheet .clock-exact{font-size:12px}.control-sheet .clock-exact input{font-size:16px;min-height:44px}.control-sheet .night-playback{font-size:11px}.control-sheet #time-play{min-height:44px;font-size:11px}.control-sheet .night-note{font-size:10px}.control-sheet .sky-bearings button{font-size:11px;min-height:44px}.control-sheet .panel-foot{font-size:9px}
+ .navigation-bottom,.stargazing .navigation-bottom{position:fixed;left:0;right:0;bottom:calc(22px + env(safe-area-inset-bottom) + var(--control-keyboard-inset,0px));transform:none;padding:0 12px;z-index:11;width:100%;pointer-events:none}
+ .mode-dock{pointer-events:auto;width:100%;max-width:460px;padding:5px;gap:3px;border-radius:12px;box-shadow:none}.mode-dock button{min-height:45px;padding:8px 4px;gap:5px;font-size:11px}.mode-dock button>span{font-size:16px}
+ #control-hint{position:fixed;left:12px;right:12px;bottom:calc(193px + env(safe-area-inset-bottom));margin:0;padding:0;font-size:9px;pointer-events:none}.controls-expanded #control-hint{display:none}
+ .attribution{position:fixed;bottom:calc(6px + env(safe-area-inset-bottom) + var(--control-keyboard-inset,0px));left:15px;right:15px;color:var(--muted);text-shadow:none;z-index:12;font-size:6px;gap:5px;justify-content:center}.attribution a{white-space:nowrap}
+ .minimap{bottom:220px;right:13px;width:115px}.controls-expanded .minimap,.controls-expanded #location-title,.controls-expanded .building-card{display:none}#location-title{bottom:235px;left:19px;right:144px}#location-title h2{font-size:25px}#location-title h2 span{font-size:18px}#location-title p{display:none}
+ #touch-controls{bottom:205px;left:16px;right:16px}#touch-controls button{width:48px;height:48px}.flight-controls{top:174px;right:13px;width:215px;max-height:calc(100dvh - 430px);overflow:auto}.flight-controls select{font-size:16px;min-height:44px}.flight-controls p{font-size:10px}
+ .building-card{max-height:calc(100dvh - 330px);overflow:auto}.view-tools button{width:35px;height:35px}.control-keyboard .control-sheet.open{height:calc(var(--control-viewport-height,100dvh) - 72px)}.control-keyboard #control-hint,.control-keyboard .minimap,.control-keyboard #location-title{display:none}
+}
+@media(max-width:350px){.topbar{padding:0 10px}.topbar nav{gap:5px}.brand{font-size:9px;gap:5px}.brand svg{width:25px}.brand-sub{font-size:5px}.terrain-link{font-size:8px}.topbar .icon-button{width:32px;height:32px}.control-content{padding-left:16px;padding-right:16px}.control-sheet .panel-foot{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}.control-sheet .clock-face{flex-basis:148px;width:148px;height:148px}.control-sheet .environment-fields input,.control-sheet .environment-fields select{width:169px}.mode-dock button{font-size:10px;gap:3px}.mode-dock button>span{font-size:14px}.attribution{font-size:5.4px;gap:4px}#location-title{right:135px}#location-title h2{font-size:22px}}
+
+.timelapse-speed{margin-top:15px!important;margin-bottom:0!important}#time-lapse-speed-note{margin-top:3px;margin-bottom:11px}
+
+/* At intermediate desktop widths the centred mode dock reaches the inspector. */
+@media(min-width:761px) and (max-width:1160px){.control-sheet{max-height:calc(100dvh - 210px)}}

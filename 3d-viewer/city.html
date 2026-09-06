@@ -12,14 +12,18 @@
 <header class="topbar">
  <a class="brand" href="city.html" aria-label="Hong Kong Sandbox city home"><svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M3 26 12 9l7 12 5-8 9 13M3 30h30M12 9v17m12-13v13" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>HONG KONG<span class="brand-sub">S A N D B O X</span></span></a>
  <div class="edition"><span class="live-dot"></span> CITY EXPLORER <span class="edition-divider">/</span> ASTRA EDITION</div>
- <nav><a class="terrain-link" href="index.html">Original game <span>↗</span></a><button id="about-open" class="icon-button" aria-label="About this city">i</button><button id="panel-toggle" class="icon-button" aria-label="Show or hide explorer panel">☰</button></nav>
+ <nav><a class="terrain-link" href="index.html">Original game <span>↗</span></a><button id="about-open" class="icon-button" aria-label="About this city">i</button><button id="panel-toggle" class="icon-button" aria-label="Open city controls" aria-controls="explorer" aria-expanded="false">☰</button></nav>
 </header>
-<aside id="explorer" class="panel explorer">
+<aside id="explorer" class="panel explorer control-sheet" aria-label="City controls">
+ <header class="sheet-header">
+  <button id="sheet-handle" class="sheet-handle" aria-expanded="false" aria-controls="control-content"><span class="sheet-grip" aria-hidden="true"></span><span>City controls</span><span class="sheet-action" aria-hidden="true">⌃</span></button>
+  <div class="panel-tabs" role="tablist" aria-label="City controls"><button role="tab" id="tab-places" data-panel="places" aria-controls="panel-places" aria-selected="true">Places</button><button role="tab" id="tab-sky" data-panel="sky" aria-controls="panel-sky" aria-selected="false" tabindex="-1">Sky</button><button role="tab" id="tab-weather" data-panel="weather" aria-controls="panel-weather" aria-selected="false" tabindex="-1">Weather</button></div>
+ </header>
+ <div id="control-content" class="control-content">
  <div class="eyebrow"><span id="chapter-label">01 — HONG KONG ISLAND</span><span class="chapter-dot"></span></div>
  <h1>Meet Hong Kong.</h1><p class="intro">A little closer. A different perspective.</p>
  <div class="search-wrap"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="m12 12 5 5"/></svg><input id="search" type="search" placeholder="Find a place or building…" aria-label="Find a place or building" autocomplete="off"><kbd>/</kbd></div>
  <div id="search-results" role="list" aria-label="Place and building search results" hidden></div>
- <div class="panel-tabs" role="tablist" aria-label="City controls"><button role="tab" id="tab-places" data-panel="places" aria-controls="panel-places" aria-selected="true">Places</button><button role="tab" id="tab-sky" data-panel="sky" aria-controls="panel-sky" aria-selected="false" tabindex="-1">Sky</button><button role="tab" id="tab-weather" data-panel="weather" aria-controls="panel-weather" aria-selected="false" tabindex="-1">Weather</button></div>
  <section id="panel-places" role="tabpanel" aria-labelledby="tab-places">
  <div class="section-label">NEIGHBOURHOODS <span id="neighbourhood-count">GO SOMEWHERE</span></div>
  <div class="region-tabs" id="region-list" aria-label="Region"></div>
@@ -49,6 +53,7 @@
  <span id="clock-help" class="visually-hidden">Drag around the clock. Midnight at the top, noon at the bottom. Arrow keys change fifteen minutes, Shift and arrows five minutes, Page Up or Down one hour. Home sets midnight.</span>
  <label class="clock-exact">Set time <input id="time" aria-label="Exact city time" type="time" step="60" value="15:00"></label>
  <div class="night-playback"><span id="night-phase">Daylight</span><button id="time-play" aria-pressed="false" title="Watch the day and night pass: one hour every eight seconds">▶ Time lapse</button></div>
+ <label class="weather-control timelapse-speed" for="time-lapse-speed"><span>Timelapse speed</span><output id="time-lapse-speed-value">7.5 min/s</output><input id="time-lapse-speed" type="range" min="1" max="120" step="0.5" value="7.5" aria-describedby="time-lapse-speed-note"></label><p id="time-lapse-speed-note" class="environment-note" aria-live="polite">A full day in 3m 12s.</p>
  <p class="night-note">Offices thin out from 6 pm. Homes peak at 10 pm, then settle from 11 pm. Shops close from 9–11 pm; a few lights stay on all night.</p>
  <label class="shimmer-control"><input id="light-shimmer" type="checkbox" checked> Distant light shimmer</label>
  <p id="sky-readout" class="environment-note"></p><label class="shimmer-control"><input id="sky-constellations" type="checkbox" checked> Constellation lines</label><p class="environment-note">Choose Stargaze below to look around the sky. Tap a star to identify it.</p>
@@ -68,6 +73,7 @@
  </fieldset><div class="environment-extra"><button id="weather-sound" class="environment-button" aria-pressed="false">Enable weather sound</button><label class="weather-control" for="weather-volume"><span>Volume</span><output id="weather-volume-value">60%</output><input id="weather-volume" type="range" min="0" max="100" step="1" value="60"></label><p id="weather-sound-status" class="environment-note" role="status">Sound is off.</p></div><p class="environment-note">Live observations keep their own timestamps. Rain, clouds and visibility are visual estimates; manual weather lets you choose the conditions.</p>
  </section>
  <div class="panel-foot"><span class="live-dot"></span><span id="data-summary">Building your city…</span><span class="scale-tag">1:1</span></div>
+ </div>
 </aside>
 <div class="view-tools panel"><button id="reset-view" title="Reset neighbourhood view" aria-label="Reset neighbourhood view">↺</button><button id="top-view" title="View from above" aria-label="View from above">⊞</button><button id="postcard" title="Save a postcard" aria-label="Save a postcard">▣</button></div>
 <section id="building-card" class="panel building-card" hidden aria-label="Selected building">

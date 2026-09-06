@@ -8,6 +8,7 @@ import {createCityMeteors,meteorRateLabel,METEOR_DEFAULTS} from './meteors.js';
 import {createWeatherEffects} from './weather-effects.js';
 import {createTideData,chooseTideStation} from './tide-data.js';
 import {drawTideGraph} from './tide-graph.js';
+import {TIMELAPSE_DEFAULT_SPEED,normaliseTimelapseSpeed,timeCycleState,advanceTimelapse,timelapseDuration,timeCycleElapsed} from './time-cycle.js';
 const $=id=>document.getElementById(id);
 const WEATHER_KEYS=['rain','clouds','fog','wind','waves','snow','windFrom'];
 export async function createEnvironment(options){
@@ -20,19 +21,34 @@ export async function createEnvironment(options){
 }
 class CityEnvironment {
  constructor(options){
-  Object.assign(this,options);this.date=dateFromHKT(hktParts(new Date()).date,15);this.mode='manual';this.timeLapse=false;this.stargazing=false;this.astroKey='';this.lastLive=0;this.lastWeatherUI=0;this.baseSun=3;this.baseAmbient=1.9;this.tideStation='auto';
+  Object.assign(this,options);this.date=dateFromHKT(hktParts(new Date()).date,15);this.mode='manual';this.timeLapse=false;this.timeLapseSpeed=TIMELAPSE_DEFAULT_SPEED;this.cycleFlags={};this.cycleTick=null;this.stargazing=false;this.astroKey='';this.lastLive=0;this.lastWeatherUI=0;this.baseSun=3;this.baseAmbient=1.9;this.tideStation='auto';
   this.bindUI();this.applyClock();
+  document.addEventListener('visibilitychange',()=>{this.cycleTick=null;});
   addEventListener('pagehide',event=>{if(!event.persisted){this.meteors.dispose();this.tides.dispose();this.water.dispose();void this.weatherEffects.dispose();}});
  }
  get hour(){return hktParts(this.date).hour;}
  get observer(){return this.getObserver();}
  setHour(hour){const date=dateFromHKT(hktParts(this.date).date,hour);if(!date)return;this.mode='manual';this.play(false);this.date=date;this.applyClock();}
- play(enabled){this.timeLapse=enabled;if(enabled)this.mode='manual';$('time-play').setAttribute('aria-pressed',String(enabled));$('time-play').textContent=enabled?'Ⅱ Pause':'▶ Time lapse';$('sky-mode').value=this.mode;}
+ get timeCycle(){return timeCycleState({enabled:this.timeLapse,speed:this.timeLapseSpeed,mode:this.mode,...this.cycleFlags});}
+ play(enabled){this.cycleTick=null;this.timeLapse=!!enabled;if(enabled)this.mode='manual';this.syncTimeCycleUI();$('sky-mode').value=this.mode;}
+ syncTimeCycleUI(){
+  const state=this.timeCycle,key=`${state.enabled}|${state.speedMinutesPerSecond}|${state.suspendedBy}`;
+  if(key===this.cycleUIKey)return;this.cycleUIKey=key;
+  $('time-play').setAttribute('aria-pressed',String(state.enabled));$('time-play').textContent=state.enabled?'Ⅱ Pause':'▶ Timelapse';
+  $('time-play').title=state.enabled?'Stop timelapse':'Play the city clock at the selected speed';
+  const speed=state.speedMinutesPerSecond,text=`${speed} min/s`;
+  $('time-lapse-speed').value=String(speed);$('time-lapse-speed').setAttribute('aria-valuetext',`${speed} simulated minutes per real second`);$('time-lapse-speed-value').textContent=text;
+  const reason={'paused':'Paused while the city is paused.','stargazing':'Paused in Stargaze; return to resume.','reduced-motion':'Paused for Reduced Motion.','live':'Paused while the sky follows live time.'}[state.suspendedBy];
+  $('time-lapse-speed-note').textContent=reason||`A full day in ${timelapseDuration(speed)}.`;
+ }
+
  bindUI(){
   bindClockDial($('time-dial'),{getHour:()=>this.hour,onChange:h=>this.setHour(h)});
   $('time').addEventListener('input',e=>{const h=hourFromInput(e.target.value);if(h!==null)this.setHour(h);});
   document.querySelectorAll('[data-hour]').forEach(b=>b.addEventListener('click',()=>this.setHour(Number(b.dataset.hour))));
   $('time-play').addEventListener('click',()=>this.play(!this.timeLapse));
+  $('time-lapse-speed').addEventListener('input',e=>{this.timeLapseSpeed=normaliseTimelapseSpeed(e.target.value,this.timeLapseSpeed);this.cycleTick=null;this.syncTimeCycleUI();});
+  this.syncTimeCycleUI();
   $('sky-mode').addEventListener('change',e=>{const mode=e.target.value;this.play(false);this.mode=mode;if(this.mode==='live')this.date=new Date();this.applyClock();});
   $('sky-date').addEventListener('change',e=>{const date=dateFromHKT(e.target.value,this.hour);if(!date)return;this.play(false);this.mode='manual';this.date=date;this.applyClock();});
   $('sky-constellations').addEventListener('change',e=>this.sky.setConstellations(e.target.checked));this.sky.setConstellations($('sky-constellations').checked);
@@ -122,8 +138,10 @@ class CityEnvironment {
  }
  update(dt,{now,paused,reducedMotion,stargazing,position}){
   if(this.stargazing!==stargazing){this.stargazing=stargazing;this.syncWeatherUI();}
+  this.cycleFlags={paused,reducedMotion,stargazing};this.syncTimeCycleUI();
+  const cycle=this.timeCycle,clockDelta=timeCycleElapsed(now,this.cycleTick,cycle);this.cycleTick={at:now,running:cycle.running};
   if(!paused&&this.mode==='live'&&now-this.lastLive>1000){this.date=new Date();this.lastLive=now;this.applyClock();}
-  else if(!paused&&this.timeLapse){this.date=new Date(this.date.valueOf()+dt*3600000/8);this.applyClock();}
+  else if(this.timeCycle.running){this.date=new Date(advanceTimelapse(this.date.valueOf(),clockDelta,{enabled:this.timeLapse,speed:this.timeLapseSpeed,mode:this.mode,...this.cycleFlags}));this.applyClock();}
   else {const observer=this.observer;if(!this.astroKey.endsWith(`|${observer.lat}|${observer.lon}`))this.applyClock();}
   this.syncTideStation();this.tides.update({paused,suspended:stargazing});this.water.setLevel(this.tides.state.restingLevelHKPD);
   const fx=this.weather.update(dt,{position,reducedMotion,paused,night:this.lightState.night,suspended:stargazing});this.effects=fx;
@@ -142,5 +160,5 @@ class CityEnvironment {
   document.body.classList.toggle('night',stargazing||this.lightState.night>.5);
   if(now-this.lastWeatherUI>500){this.syncWeatherUI();this.lastWeatherUI=now;}
  }
- get state(){return {mode:this.mode,date:this.date.toISOString(),hkt:hktParts(this.date),timeLapse:this.timeLapse,astronomy:this.astronomy,sky:this.sky.state,weather:this.weather.state,effects:this.effects,meteors:this.meteors.state,storm:this.weatherEffects.state,tides:this.tides.state,water:this.water.state};}
+ get state(){return {mode:this.mode,date:this.date.toISOString(),hkt:hktParts(this.date),timeLapse:this.timeLapse,timeCycle:this.timeCycle,sunLight:{position:this.sun.position.toArray(),target:this.sun.target.position.toArray(),castShadow:this.sun.castShadow,shadowMatrix:this.sun.shadow.matrix.toArray()},astronomy:this.astronomy,sky:this.sky.state,weather:this.weather.state,effects:this.effects,meteors:this.meteors.state,storm:this.weatherEffects.state,tides:this.tides.state,water:this.water.state};}
 }

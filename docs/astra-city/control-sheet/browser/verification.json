@@ -1,0 +1,614 @@
+{
+  "startedAt": "2026-09-06T09:14:18.182Z",
+  "browser": "152.0.7977.76",
+  "checks": [
+    "Mobile starts collapsed with visible tabs, map and all four mode buttons",
+    "Tab arrow keys, selected state, Escape collapse, retained focus and keyboard handle work",
+    "Dial/time, speed, meteors, tide, storms and sound remain reachable and retain their original handlers",
+    "Search selection returns to the visible city and dismisses input focus",
+    "Tab arrows and native Space buttons do not leak into Walk movement or camera controls",
+    "Walk, Fly and Stargaze collapse controls; reopening works in every mode; dock remains usable; first Escape closes only controls",
+    "Handle drag-up expands without a duplicate click toggle",
+    "Reported visual-viewport keyboard inset lifts sheet and dock together (synthetic viewport event, not a physical keyboard)",
+    "320 px controls and a short 390×480 viewport fit without horizontal overflow or dock overlap",
+    "Desktop inspector closes/reopens and slash opens Places search with focus",
+    "Disposal is idempotent and removes control listeners"
+  ],
+  "layouts": [
+    {
+      "name": "mobile390-collapsed",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "sheet": {
+        "x": 0,
+        "y": 669,
+        "width": 390,
+        "height": 175,
+        "right": 390,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "header": {
+        "x": 0,
+        "y": 670,
+        "width": 390,
+        "height": 90,
+        "right": 390,
+        "bottom": 760
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 366,
+        "height": 57,
+        "right": 378,
+        "bottom": 822
+      },
+      "scrollWidth": 0,
+      "clientWidth": 0,
+      "expanded": false
+    },
+    {
+      "name": "mobile390-places",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "sheet": {
+        "x": 0,
+        "y": 236.328125,
+        "width": 390,
+        "height": 607.671875,
+        "right": 390,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 328.328125,
+        "width": 390,
+        "height": 427.671875,
+        "right": 390,
+        "bottom": 756
+      },
+      "header": {
+        "x": 0,
+        "y": 237.328125,
+        "width": 390,
+        "height": 91,
+        "right": 390,
+        "bottom": 328.328125
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 366,
+        "height": 57,
+        "right": 378,
+        "bottom": 822
+      },
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "expanded": true
+    },
+    {
+      "name": "mobile390-sky",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "sheet": {
+        "x": 0,
+        "y": 236.328125,
+        "width": 390,
+        "height": 607.671875,
+        "right": 390,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 328.328125,
+        "width": 390,
+        "height": 427.671875,
+        "right": 390,
+        "bottom": 756
+      },
+      "header": {
+        "x": 0,
+        "y": 237.328125,
+        "width": 390,
+        "height": 91,
+        "right": 390,
+        "bottom": 328.328125
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 366,
+        "height": 57,
+        "right": 378,
+        "bottom": 822
+      },
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "expanded": true
+    },
+    {
+      "name": "mobile390-weather",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "sheet": {
+        "x": 0,
+        "y": 236.328125,
+        "width": 390,
+        "height": 607.671875,
+        "right": 390,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 328.328125,
+        "width": 390,
+        "height": 427.671875,
+        "right": 390,
+        "bottom": 756
+      },
+      "header": {
+        "x": 0,
+        "y": 237.328125,
+        "width": 390,
+        "height": 91,
+        "right": 390,
+        "bottom": 328.328125
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 366,
+        "height": 57,
+        "right": 378,
+        "bottom": 822
+      },
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "expanded": true
+    },
+    {
+      "name": "mobile390-walk-controls",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "sheet": {
+        "x": 0,
+        "y": 236.328125,
+        "width": 390,
+        "height": 607.671875,
+        "right": 390,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 328.328125,
+        "width": 390,
+        "height": 427.671875,
+        "right": 390,
+        "bottom": 756
+      },
+      "header": {
+        "x": 0,
+        "y": 237.328125,
+        "width": 390,
+        "height": 91,
+        "right": 390,
+        "bottom": 328.328125
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 366,
+        "height": 57,
+        "right": 378,
+        "bottom": 822
+      },
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "expanded": true
+    },
+    {
+      "name": "mobile390-fly-controls",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "sheet": {
+        "x": 0,
+        "y": 236.328125,
+        "width": 390,
+        "height": 607.671875,
+        "right": 390,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 328.328125,
+        "width": 390,
+        "height": 427.671875,
+        "right": 390,
+        "bottom": 756
+      },
+      "header": {
+        "x": 0,
+        "y": 237.328125,
+        "width": 390,
+        "height": 91,
+        "right": 390,
+        "bottom": 328.328125
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 366,
+        "height": 57,
+        "right": 378,
+        "bottom": 822
+      },
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "expanded": true
+    },
+    {
+      "name": "mobile390-star-controls",
+      "viewport": [
+        390,
+        844
+      ],
+      "documentWidth": 390,
+      "sheet": {
+        "x": 0,
+        "y": 236.328125,
+        "width": 390,
+        "height": 607.671875,
+        "right": 390,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 328.328125,
+        "width": 390,
+        "height": 427.671875,
+        "right": 390,
+        "bottom": 756
+      },
+      "header": {
+        "x": 0,
+        "y": 237.328125,
+        "width": 390,
+        "height": 91,
+        "right": 390,
+        "bottom": 328.328125
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 366,
+        "height": 57,
+        "right": 378,
+        "bottom": 822
+      },
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "expanded": true
+    },
+    {
+      "name": "mobile320-sky",
+      "viewport": [
+        320,
+        844
+      ],
+      "documentWidth": 320,
+      "sheet": {
+        "x": 0,
+        "y": 236.328125,
+        "width": 320,
+        "height": 607.671875,
+        "right": 320,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 328.328125,
+        "width": 320,
+        "height": 427.671875,
+        "right": 320,
+        "bottom": 756
+      },
+      "header": {
+        "x": 0,
+        "y": 237.328125,
+        "width": 320,
+        "height": 91,
+        "right": 320,
+        "bottom": 328.328125
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 296,
+        "height": 57,
+        "right": 308,
+        "bottom": 822
+      },
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "expanded": true
+    },
+    {
+      "name": "mobile320-weather-bottom",
+      "viewport": [
+        320,
+        844
+      ],
+      "documentWidth": 320,
+      "sheet": {
+        "x": 0,
+        "y": 236.328125,
+        "width": 320,
+        "height": 607.671875,
+        "right": 320,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 328.328125,
+        "width": 320,
+        "height": 427.671875,
+        "right": 320,
+        "bottom": 756
+      },
+      "header": {
+        "x": 0,
+        "y": 237.328125,
+        "width": 320,
+        "height": 91,
+        "right": 320,
+        "bottom": 328.328125
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 296,
+        "height": 57,
+        "right": 308,
+        "bottom": 822
+      },
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "expanded": true
+    },
+    {
+      "name": "mobile320-collapsed",
+      "viewport": [
+        320,
+        844
+      ],
+      "documentWidth": 320,
+      "sheet": {
+        "x": 0,
+        "y": 669,
+        "width": 320,
+        "height": 175,
+        "right": 320,
+        "bottom": 844
+      },
+      "content": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "header": {
+        "x": 0,
+        "y": 670,
+        "width": 320,
+        "height": 90,
+        "right": 320,
+        "bottom": 760
+      },
+      "dock": {
+        "x": 12,
+        "y": 765,
+        "width": 296,
+        "height": 57,
+        "right": 308,
+        "bottom": 822
+      },
+      "scrollWidth": 0,
+      "clientWidth": 0,
+      "expanded": false
+    },
+    {
+      "name": "short390-search",
+      "viewport": [
+        390,
+        480
+      ],
+      "documentWidth": 390,
+      "sheet": {
+        "x": 0,
+        "y": 134.40625,
+        "width": 390,
+        "height": 345.59375,
+        "right": 390,
+        "bottom": 480
+      },
+      "content": {
+        "x": 0,
+        "y": 226.40625,
+        "width": 390,
+        "height": 165.59375,
+        "right": 390,
+        "bottom": 392
+      },
+      "header": {
+        "x": 0,
+        "y": 135.40625,
+        "width": 390,
+        "height": 91,
+        "right": 390,
+        "bottom": 226.40625
+      },
+      "dock": {
+        "x": 12,
+        "y": 401,
+        "width": 366,
+        "height": 57,
+        "right": 378,
+        "bottom": 458
+      },
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "expanded": true
+    },
+    {
+      "name": "desktop1440-sky",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "documentWidth": 1440,
+      "sheet": {
+        "x": 22,
+        "y": 92,
+        "width": 318,
+        "height": 864,
+        "right": 340,
+        "bottom": 956
+      },
+      "content": {
+        "x": 23,
+        "y": 196,
+        "width": 316,
+        "height": 759,
+        "right": 339,
+        "bottom": 955
+      },
+      "header": {
+        "x": 23,
+        "y": 93,
+        "width": 316,
+        "height": 103,
+        "right": 339,
+        "bottom": 196
+      },
+      "dock": {
+        "x": 491,
+        "y": 899,
+        "width": 458,
+        "height": 54,
+        "right": 949,
+        "bottom": 953
+      },
+      "scrollWidth": 316,
+      "clientWidth": 316,
+      "expanded": true
+    },
+    {
+      "name": "desktop1440-search",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "documentWidth": 1440,
+      "sheet": {
+        "x": 22,
+        "y": 92,
+        "width": 318,
+        "height": 864,
+        "right": 340,
+        "bottom": 956
+      },
+      "content": {
+        "x": 23,
+        "y": 196,
+        "width": 316,
+        "height": 759,
+        "right": 339,
+        "bottom": 955
+      },
+      "header": {
+        "x": 23,
+        "y": 93,
+        "width": 316,
+        "height": 103,
+        "right": 339,
+        "bottom": 196
+      },
+      "dock": {
+        "x": 491,
+        "y": 899,
+        "width": 458,
+        "height": 54,
+        "right": 949,
+        "bottom": 953
+      },
+      "scrollWidth": 316,
+      "clientWidth": 316,
+      "expanded": true
+    }
+  ],
+  "errors": [],
+  "walkKeyboard": {
+    "positionBefore": [
+      0,
+      5,
+      575
+    ],
+    "positionAfter": [
+      0,
+      5,
+      575
+    ],
+    "cameraBefore": [
+      -0.0004585611040288625,
+      8.200814316649844,
+      582.0001955472057
+    ],
+    "cameraAfter": [
+      -0.00003520519131383272,
+      8.200062517673645,
+      582.0000150127795
+    ]
+  },
+  "keyboardInset": {
+    "inset": "364px",
+    "keyboard": true
+  },
+  "lifecycle": {
+    "expanded": false,
+    "panel": "sky",
+    "mobile": true,
+    "disposed": true,
+    "opens": 1
+  },
+  "result": "passed",
+  "finishedAt": "2026-09-06T09:14:29.134Z"
+}

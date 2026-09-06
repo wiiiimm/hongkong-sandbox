@@ -20,7 +20,7 @@ starting point, not permission to drop an unlisted feature.
 | Terrain controls | True-scale city | Mesh density/colour, vertical exaggeration, map rotation/background, auto-spin; keep city layers aligned |
 | Map overlays | Buildings, streets, trees and labels | Contours, trails, hydro, coast, boundaries, cliffs, peak/landmark labels and overlay height |
 | Stargazing | Catalogue stars, 24 constellation figures, picking, dated positions, compass/drag/keyboard sky camera | Phone orientation, GPS follow, wider original selection/presentation behaviours |
-| Sun/moon and time | Live HKT, custom date/time, circular clock, seasonal dawn/dusk, sun/moon positions, phase and rise/set | Remaining original studio-light and sky presentation options; preserve ephemeris precision limits |
+| Sun/moon and time | Live HKT, custom date/time, circular clock, adjustable 1–120 min/s timelapse (HKS-189), seasonal dawn/dusk, sun/moon positions, phase and rise/set | Remaining original studio-light and sky presentation options; preserve ephemeris precision limits |
 | Shooting stars | Shared original toggle and Calm/Romantic/Apocalypse rate control; daytime, pause and reduced-motion gates verified (HKS-168) | Saved city settings/URL parity tracked with HKS-187 |
 | Live weather | HKO condition, temperature/humidity and district rain; timestamped station wind; live/manual separation and stale/error state | Marine observations, radar, satellite, AQHI and remaining regional fields |
 | Manual weather | Rain, cloud cover, fog, wind strength/direction, waves, snow, simulated lightning/thunder (HKS-169), manual sea level and HKO astronomical tide predictions with 24-hour graph (HKS-180 tidal slice) | Sky height, typhoon T1–T10, snow accumulation and remaining original controls (HKS-180) |
@@ -34,7 +34,7 @@ starting point, not permission to drop an unlisted feature.
 | Geolocation | Pending | Locate, follow, compass, position marker, relocate and walk-from-location |
 | English/Traditional Chinese | Place names only | Full EN-HK/ZH-HK strings, locale routing and metadata |
 | View sharing | District URL only | Original state URL, share/copy, embed and restoration of settings |
-| Mobile/PWA | Responsive city and touch | Fullscreen, install/standalone, service-worker/offline behaviour, gestures and orientation |
+| Mobile/PWA | Modern bottom sheet, persistent mode dock, desktop inspector, touch and keyboard controls (HKS-190) | Fullscreen, install/standalone, service-worker/offline behaviour, gestures and orientation |
 | Accessibility/help/credits | City-specific subset | Complete help, all original controls, credits, source/licence notices and preferences |
 
 ## Integration boundary
@@ -64,3 +64,9 @@ HKS-168 and HKS-169 reuse the original meteor renderer and audio synthesiser. Th
 The city now shares the original tide interpolation, water-normal/rain/glitter shader, wet shoreline/foam shader and noise texture. Manual sea level uses metres HKPD (−1 to 4); Live weather selects current-time astronomical predictions for Cheung Chau or Quarry Bay, converting Chart Datum to HKPD by subtracting 0.146 m. Automatic station selection chooses the nearer of those two sources and is explicitly approximate. The 24-hour graph preserves missing-data gaps. Manual settings restore after Live; unavailable current predictions fall back explicitly to the saved manual level.
 
 Ferries follow the water surface. Walking arrivals and new steps permit at most 20 cm shallow wading; if a tide rises around an existing walker, level/uphill retreat stays available. Camera clearance uses the rendered surface, while walking admission uses the resting tide to avoid wave-by-wave collision flicker. The shared wet band/foam follows the current waterline; small wave heave remains illustrative. Stargaze/pause and reduced-motion behaviour are retained. See [tide methods and sources](tides/README.md) and [actual City browser evidence](tides/browser/README.md). Other HKS-180 controls, including typhoon presets and snow accumulation, remain open.
+
+## Modern controls and adjustable timelapse — HKS-189 / HKS-190
+
+The existing controls now share a mobile-first bottom sheet and a compact desktop inspector. All 118 existing HTML IDs are retained once; controls and their settings stay mounted when collapsed. Tabs, search, mode switching, focus, Escape, handle gestures and keyboard isolation are covered by actual-browser checks. Viewport-inset handling is tested with synthetic browser dimensions; physical iOS/Android keyboard behaviour remains to be checked. See [control presentation and evidence](control-sheet/README.md).
+
+Timelapse extends the existing city clock, with play/pause and a 1–120 simulated-minutes-per-second slider beside the dial. The default remains one hour in eight seconds. Monotonic render timestamps preserve the pace independently of capped movement physics. Sun, shadows and building lighting advance together; manual time selection stops playback, while pause, Stargaze and Reduced Motion suspend it without catching up skipped time. Live weather/tide source timestamps remain independent. Five focused tests, actual keyboard/touch input, year-end rollover and rendered-shadow checks pass. See [timelapse methods and browser evidence](time-cycle/README.md). The complete city suite passes 133 tests.

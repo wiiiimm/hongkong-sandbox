@@ -26,7 +26,7 @@ export class Navigation {
   this.walker=new THREE.Group();this.plane=new THREE.Group();scene.add(this.walker,this.plane);this.walker.visible=this.plane.visible=false;
   this.aircraft=new AircraftModel({target:this.plane});
   this.makeActors();
-  addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.isContentEditable||document.querySelector('dialog[open]'))return;if(MOVE_KEYS.has(e.code)&&this.mode!=='orbit'){e.preventDefault();this.keys.add(e.code);}if(e.code==='KeyC'&&this.mode!=='orbit'&&!e.repeat)this.firstPerson=!this.firstPerson;});
+  addEventListener('keydown',e=>{if(e.defaultPrevented||(e.code==='Space'&&e.target.closest?.('button,a'))||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.isContentEditable||document.querySelector('dialog[open]'))return;if(MOVE_KEYS.has(e.code)&&this.mode!=='orbit'){e.preventDefault();this.keys.add(e.code);}if(e.code==='KeyC'&&this.mode!=='orbit'&&!e.repeat)this.firstPerson=!this.firstPerson;});
   addEventListener('keyup',e=>this.keys.delete(e.code));addEventListener('blur',()=>this.clearInput());
   document.addEventListener('visibilitychange',()=>{if(document.hidden)this.clearInput();});
   canvas.addEventListener('pointerdown',e=>{if(this.mode==='orbit'||e.button!==0)return;this.drag={id:e.pointerId,x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);});
