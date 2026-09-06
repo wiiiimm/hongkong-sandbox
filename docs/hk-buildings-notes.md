@@ -67,15 +67,28 @@ count × {
 ```
 
 Rings are Douglas–Peucker simplified at 0.3 m (3.97 M → 2.47 M vertices), outer
-rings counter-clockwise in E/N, holes clockwise. Output: 6.95 MB raw → **5.15 MB
-gzip**. Parses in ~180 ms in the browser.
+rings counter-clockwise in E/N, holes clockwise. Output: 6.95 MB raw → **5.21 MB
+gzip** (with the land-use bits). Parses in ~180 ms in the browser.
 
 ## Land use — who is awake when
 
-The night lighting needs to know what each block *is*: offices empty from about 20:00,
-retail stays bright until 22:00 and dims towards midnight, homes light up as people come
-back and thin out through the small hours (never fully dark, ~12% at 04:00), villages
-turn in early, and stations, utilities and hospitals keep a skeleton of lights.
+The night lighting needs to know what each block *is*. The schedule (share of window
+bays lit, Hong Kong clock; `AWAKE` in `buildings.js`, piecewise-linear between keyframes):
+
+| HKT | homes | offices | shops |
+|---|---|---|---|
+| 18:00 | 55 % | 78 % — people start leaving | 92 % |
+| 20:00 | 76 % | 38 % — the late shift | 92 % |
+| 21:00 | 86 % — the big wave home | 24 % | 88 % — first shutters down |
+| 22:00 | **93 % — peak** | 16 % | 68 % |
+| 23:00 | 80 % — turning in | 11 % | 38 % — mostly closed |
+| 00:00 | 52 % | 7 % — all-nighters, cleaners | 18 % — the late traders |
+| 02:00 | 22 % | 5 % | 8 % |
+| 04:00 | 11 % — the city sleeps | 4 % | 6 % |
+
+Villages turn in earlier still; industrial and institutional blocks (stations, utilities,
+hospitals) keep a skeleton of lights. Switch-on is staggered by a `uDusk` ramp: shopfronts
+glow as soon as the light fades, offices shortly after, homes only once it is properly dark.
 
 Source: Planning Department **"2023 Raster Grids on Land Utilization"** (LUHK, 10 m grid),
 CSDI dataset `pland_rcd_1696577406166_85973`, DATA.GOV.HK Terms of Use. The GeoTIFF

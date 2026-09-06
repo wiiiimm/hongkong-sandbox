@@ -53,9 +53,11 @@ file (via any static server) and deploys as plain files.
   the terrain. Orbit the Central skyline, walk the streets between towers, air-drop onto
   a roof and stand on it, land a plane on a rooftop (or fly into one and get parked on
   top). Windows light up as the sky darkens and follow the city's real rhythm by land
-  use (Planning Department land-utilisation grid): offices empty after 8 pm, shops stay
-  bright until 10–12, homes light up as people come back and thin out towards 4 am;
-  the tallest named towers get labels. A **Victoria Harbour** source cuts the urban core
+  use (Planning Department land-utilisation grid): shops light up first at dusk and
+  start shutting from 9 pm (mostly closed by 11, a few trade past midnight); offices
+  empty from 6 pm and are mostly dark by midnight bar a few all-nighters; homes fill up
+  as people get back, peak at 10 pm and turn in from 11 — by 4 am the city is mostly,
+  never entirely, asleep. The tallest named towers get labels. A **Victoria Harbour** source cuts the urban core
   from the 5 m LiDAR at 20 m cells — 3.5× finer than the territory mesh.
 - **Surfaces** — shaded relief, elevation tint, matte, solid, the **B50K topographic
   skin**, and draped **web maps**: OpenStreetMap and Esri satellite (UVs reprojected

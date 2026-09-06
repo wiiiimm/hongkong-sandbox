@@ -82,24 +82,30 @@ export function createBuildings(env) {
   // small hours: a scattered few (never none); dawn: the early risers come on.
   // Who is awake depends on what the block IS. Each block carries a land-use class
   // (flags bits 4–6, from the Planning Department's land-utilisation grid — see the
-  // build script): homes light up as people come back and thin out through the night;
-  // offices empty from ~20:00; retail floors stay bright until 22:00 and dim towards
-  // midnight; industrial and institutional blocks keep a skeleton of lights; villages
-  // turn in early. The two lowest floors of any urban block are shopfronts, so they
-  // follow retail hours whatever the block above them does.
+  // build script): offices start emptying at 18:00, some work on to 20:00, and by
+  // midnight they are mostly dark bar a few all-nighters and cleaners; shops are the
+  // first to switch on at dusk, start shutting around 21:00, are mostly closed by 23:00
+  // and a few trade past midnight; homes fill up as people get back — the big wave
+  // around 21:00, peak at 22:00 — and turn in from 23:00, so by 04:00 the city is
+  // mostly (never entirely) asleep; industrial and institutional blocks keep a skeleton
+  // of lights; villages turn in early. The two lowest floors of any urban block are
+  // shopfronts, so they follow retail hours whatever the block above them does.
+  // uDusk (0 day → 1 deep night) staggers the switch-on: shopfronts and offices glow
+  // as soon as the light fades, homes only once it is properly dark.
   const USE = { RES: 0, OFFICE: 1, RETAIL: 2, INDUSTRIAL: 3, INSTITUTION: 4, VILLAGE: 5, OTHER: 6 };
   const awakeA = { value: new THREE.Vector4(0.6, 0.6, 0.6, 0.6) };   // RES, OFFICE, RETAIL, INDUSTRIAL
   const awakeB = { value: new THREE.Vector4(0.6, 0.6, 0.6, 0.0) };   // INSTITUTION, VILLAGE, OTHER, –
+  const dusk = { value: 0 };
   const fxHook = matWall.onBeforeCompile;
   matWall.onBeforeCompile = (sh) => {
     fxHook(sh);
-    sh.uniforms.uAwakeA = awakeA; sh.uniforms.uAwakeB = awakeB;
+    sh.uniforms.uAwakeA = awakeA; sh.uniforms.uAwakeB = awakeB; sh.uniforms.uDusk = dusk;
     sh.vertexShader = sh.vertexShader
       .replace('#include <common>', '#include <common>\nattribute float aUse;\nvarying float vUse;')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvUse = aUse;');
     sh.fragmentShader = sh.fragmentShader
       .replace('#include <common>', `#include <common>
-        uniform vec4 uAwakeA; uniform vec4 uAwakeB; varying float vUse;
+        uniform vec4 uAwakeA; uniform vec4 uAwakeB; uniform float uDusk; varying float vUse;
         float hkbHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }`)
       .replace('#include <emissivemap_fragment>', `
         #ifdef USE_EMISSIVEMAP
@@ -108,22 +114,27 @@ export function createBuildings(env) {
           float u = vUse;
           float awake = u < 0.5 ? uAwakeA.x : u < 1.5 ? uAwakeA.y : u < 2.5 ? uAwakeA.z : u < 3.5 ? uAwakeA.w
                       : u < 4.5 ? uAwakeB.x : u < 5.5 ? uAwakeB.y : uAwakeB.z;
-          if (floor(vMapUv.y) < 2.0 && u < 4.5) awake = uAwakeA.z;   // shopfronts: ground + first floor keep retail hours
+          if (floor(vMapUv.y) < 2.0 && u < 4.5) { awake = uAwakeA.z; u = 2.0; }   // shopfronts: ground + first floor keep retail hours
           float bed = hkbHash(bay);                                    // this household's bedtime rank
           float on = step(bed, awake) * (0.55 + 0.45 * hkbHash(bay + 9.1));
+          // dusk stagger: shops light up as soon as the light fades, offices soon after, homes once it is dark
+          float ramp = (u > 1.5 && u < 2.5) ? smoothstep(0.0, 0.42, uDusk) : (u > 0.5 && u < 1.5) ? smoothstep(0.08, 0.60, uDusk) : smoothstep(0.22, 0.85, uDusk);
           vec3 tone = mix(vec3(1.0, 0.90, 0.70), vec3(0.84, 0.91, 1.0), step(u < 1.5 && u > 0.5 ? 0.35 : 0.82, hkbHash(bay + 3.7)));   // warm bulbs at home, cool fluorescents in the offices
-          totalEmissiveRadiance *= glass.rgb * tone * on; }
+          totalEmissiveRadiance *= glass.rgb * tone * on * ramp; }
         #endif`);
   };
   // share of windows lit by Hong Kong clock hour, per use class (piecewise-linear keyframes)
+  //   homes:   people drift back from 18:00, the big wave ~21:00, peak 22:00, turning in from 23:00; ~11% still up at 04:00
+  //   offices: full to 17:00, emptying from 18:00, a share works to 20:00, mostly dark by 24:00 — a few all-nighters / cleaners
+  //   shops:   bright 10:00–21:00, start shutting ~21:00, mostly closed by 23:00, a few trade past midnight
   const AWAKE = {
-    [USE.RES]:         [[0, .40], [1, .28], [2, .19], [3, .14], [4, .12], [5, .18], [6, .36], [7, .45], [9, .30], [16, .36], [17, .50], [18, .70], [19, .85], [20, .88], [21, .86], [22, .78], [23, .60], [24, .40]],
-    [USE.OFFICE]:      [[0, .05], [5, .04], [7, .12], [8, .55], [9, .85], [18, .85], [19, .62], [20, .40], [21, .24], [22, .14], [23, .08], [24, .05]],
-    [USE.RETAIL]:      [[0, .20], [1, .08], [2, .05], [8, .05], [9, .35], [10, .85], [21, .90], [22, .85], [23, .55], [24, .20]],
-    [USE.INDUSTRIAL]:  [[0, .08], [6, .08], [8, .55], [18, .55], [20, .30], [22, .14], [24, .08]],
+    [USE.RES]:         [[0, .52], [1, .34], [2, .22], [3, .15], [4, .11], [5, .14], [6, .30], [7, .42], [9, .28], [16, .32], [17, .42], [18, .55], [19, .66], [20, .76], [21, .86], [22, .93], [23, .80], [24, .52]],
+    [USE.OFFICE]:      [[0, .07], [1, .05], [5, .04], [6, .06], [7, .15], [8, .55], [9, .85], [17, .85], [18, .78], [19, .58], [20, .38], [21, .24], [22, .16], [23, .11], [24, .07]],
+    [USE.RETAIL]:      [[0, .18], [1, .11], [2, .08], [3, .07], [4, .06], [6, .06], [7, .15], [8, .30], [9, .55], [10, .88], [20, .92], [21, .88], [22, .68], [23, .38], [24, .18]],
+    [USE.INDUSTRIAL]:  [[0, .08], [4, .06], [6, .08], [8, .55], [18, .55], [20, .30], [22, .14], [24, .08]],
     [USE.INSTITUTION]: [[0, .07], [6, .07], [8, .60], [17, .60], [18, .35], [20, .18], [22, .10], [24, .07]],
     [USE.VILLAGE]:     [[0, .25], [1, .15], [2, .10], [3, .08], [4, .07], [5, .15], [6, .30], [7, .35], [9, .25], [17, .40], [18, .65], [19, .75], [20, .72], [21, .62], [22, .45], [23, .35], [24, .25]],
-    [USE.OTHER]:       [[0, .25], [4, .20], [6, .35], [8, .50], [18, .55], [20, .45], [22, .35], [24, .25]],
+    [USE.OTHER]:       [[0, .22], [4, .14], [6, .30], [8, .50], [18, .55], [20, .45], [22, .32], [24, .22]],
   };
   function awakeAt(h, use = USE.RES) {
     h = ((h % 24) + 24) % 24;
@@ -556,7 +567,9 @@ export function createBuildings(env) {
     // night: dark 0 (day) → 1 (deep night) scales the window glow; hkHour (0–24, Hong Kong
     // clock of the sky sim) decides how much of the city is still up — the bedtime curve
     setNight(dark, hkHour) {
-      matWall.emissiveIntensity = 1.45 * Math.max(0, Math.min(1, dark));
+      const d = Math.max(0, Math.min(1, dark));
+      dusk.value = d;                                        // the shader ramps each use class in at its own dusk point
+      matWall.emissiveIntensity = d > 0.001 ? 1.45 : 0;
       if (hkHour != null && isFinite(hkHour)) {
         awakeA.value.set(awakeAt(hkHour, USE.RES), awakeAt(hkHour, USE.OFFICE), awakeAt(hkHour, USE.RETAIL), awakeAt(hkHour, USE.INDUSTRIAL));
         awakeB.value.set(awakeAt(hkHour, USE.INSTITUTION), awakeAt(hkHour, USE.VILLAGE), awakeAt(hkHour, USE.OTHER), 0);
