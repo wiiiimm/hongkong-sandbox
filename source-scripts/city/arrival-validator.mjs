@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {PLACES} from '../../3d-viewer/city/places.js';
-import {BuildingIndex,makeTerrainSampler} from '../../3d-viewer/city/geo.js';
+import {BuildingIndex,makeTerrainSampler,segmentDistanceSq} from '../../3d-viewer/city/geo.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const read=p=>JSON.parse(readFileSync(path.join(root,p)));
 const rawManifest=readFileSync(path.join(root,'3d-viewer/city/data/manifest.json')),manifest=JSON.parse(rawManifest);
@@ -17,7 +17,9 @@ function sample(x,z){
  if(!s.contains(x,z))return {ground:null,raw:null,dry:false,resolution:Math.abs(data.meta.georef.aE)};
  const [c,r]=s.grid(x,z),i=Math.floor(c),j=Math.floor(r),u=c-i,v=r-j,w=data.w;
  const cells=u+v<=1?[j*w+i,j*w+i+1,(j+1)*w+i]:[j*w+i+1,(j+1)*w+i,(j+1)*w+i+1];
- return {ground:sampler.height(x,z),raw:sampler.raw(x,z),dry:cells.every(k=>data.elev[k]>0),resolution:Math.abs(data.meta.georef.aE)};
+ const mappedWater=sampler.mappedWater(x,z);
+ const mappedWaterEdge=Boolean(terrain.hydro?.water.some(p=>p.rings.some(ring=>ring.some((a,i)=>i>0&&segmentDistanceSq(x,z,ring[i-1],a)<1.2**2))));
+ return {ground:sampler.height(x,z),raw:sampler.raw(x,z),mappedWater,mappedWaterEdge,dry:!mappedWater&&cells.every(k=>data.elev[k]>0),resolution:Math.abs(data.meta.georef.aE)};
 }
 function setup(){
  if(index)return;
@@ -31,7 +33,7 @@ function setup(){
  index=new BuildingIndex(buildings);
 }
 function audit([x,z]){
- const s=sample(x,z);if(s.raw===null||s.raw<=.8||!s.dry)return {...s,valid:false,reason:'outside-dry-terrain'};
+ const s=sample(x,z);if(s.mappedWater)return {...s,valid:false,reason:'mapped-tidal-water'};if(s.mappedWaterEdge)return {...s,valid:false,reason:'mapped-water-clearance'};if(s.raw===null||s.raw<=.8||!s.dry)return {...s,valid:false,reason:'outside-dry-terrain'};
  const hit=index.collision(x,z,s.ground,s.ground+1.8,1.2)||index.collision(x,z,s.raw,s.raw+1.8,1.2);
  if(hit)return {...s,valid:false,reason:'building-clearance',collisionUid:hit.uid};
  for(const [dx,dz] of [[2,0],[-2,0],[0,2],[0,-2]]){

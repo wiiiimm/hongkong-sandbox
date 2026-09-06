@@ -9,9 +9,9 @@ test('resting tide prevents entering submerged ground but permits retreat if wat
 });
 test('walk arrivals choose dry ground without modifying the terrain',()=>{
  const sampler={contains:()=>true,raw:()=>1.2,height:(x,z)=>x>5?3:1.2};
- const nav={sampler,index:{collision:()=>false},waterLevel:()=>2};
+ const nav=Object.assign(Object.create(Navigation.prototype),{sampler,index:{collision:()=>false},waterLevel:()=>2});
  const safe=Navigation.prototype.safeGround.call(nav,0,0);assert.ok(safe.x>5);assert.equal(safe.y,3);assert.equal(sampler.height(0,0),1.2);
- assert.equal(Navigation.prototype.safeGround.call({...nav,waterLevel:()=>4},0,0),null);
+ assert.equal(Navigation.prototype.safeGround.call(Object.assign(Object.create(Navigation.prototype),nav,{waterLevel:()=>4}),0,0),null);
 });
 test('tide plot uses a 24-hour time window and leaves missing prediction hours disconnected',()=>{
  const time=Date.parse('2026-09-06T04:00:00Z'),series=Array.from({length:27},(_,i)=>({time:time+(i-13)*3600000,heightHKPD:i===13?null:1+Math.sin(i/4)}));

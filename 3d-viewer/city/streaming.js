@@ -80,7 +80,7 @@ export class CityStreaming {
   for(const t of this.manifest.tiles){if(distanceToBounds(x,z,t.bounds)>radius)continue;const hit=this.cache.entries.get(t.id)?.index.collision(x,z,bottom,top,radius);if(hit)return hit;}return null;
  }
  maximumRoof(x,z,radius=20){
-  let maximum=0;for(const id of this.required(x,z,radius)){const index=this.cache.entries.get(id)?.index;if(!index)continue;for(const i of index.candidates(x,z,radius)){const b=index.buildings[i];maximum=Math.max(maximum,b.base+b.height);}}return maximum;
+  let maximum=0;for(const id of this.required(x,z,radius)){const index=this.cache.entries.get(id)?.index;if(index)maximum=Math.max(maximum,index.maximumRoof(x,z,radius));}return maximum;
  }
  get stats(){
   let loaded=0,trees=0;for(const id of this.cache.wanted){const e=this.cache.entries.get(id);if(e){loaded+=e.data.buildings.length;trees+=e.nature.count;}}

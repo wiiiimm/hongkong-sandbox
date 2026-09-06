@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {TileCache,nearbyTiles} from '../tile-cache.js';
 import {PLACES,REGIONS} from '../places.js';
 import {BuildingIndex,makeTerrainSampler} from '../geo.js';
+import {CityStreaming} from '../streaming.js';
 const next=()=>new Promise(resolve=>setTimeout(resolve,0));
 function harness(options={}){
  const deferred=new Map(),disposed=[],loads=[];
@@ -67,4 +68,11 @@ test('all walking arrivals lie on dry terrain triangles and clear nearby buildin
   if(id!=='lantaupeaks'&&!p.sectionId)assert.ok(buildings.length>0,`No geometry at ${id}`);const index=new BuildingIndex(buildings),y=sampler.height(x,z);
   assert.equal(index.collision(x,z,y,y+1.8,.55),null,`Arrival overlaps a building at ${id}`);
  }
+});
+
+// The app passes CityStreaming to Navigation; source height must survive that adapter.
+test('streamed aircraft clearance includes a source roof taller than its outline height',()=>{
+ const b={uid:'tall-source-roof',base:2,height:4,minimum:0,structureType:'Tower',rings:[[[0,-2],[2,0],[0,2],[-2,0],[0,-2]]],modelGeometry:{position:[0,2,-2,2,2,0,0,18,-2,-2,2,0,0,2,2,0,18,2]}};
+ const stream=Object.create(CityStreaming.prototype);stream.manifest={tiles:[{id:'local',bounds:[-5,-5,5,5]}]};stream.cache={entries:new Map([['local',{index:new BuildingIndex([b])}]])};
+ assert.equal(stream.maximumRoof(0,0,2),18);assert.equal(stream.maximumRoof(100,100,2),0);assert.equal(b.base+b.height,6,'source record is unchanged');
 });

@@ -344,7 +344,7 @@ export const REGIONAL_PLACES={
     "title": "Tai O promenade",
     "zh": "大澳海濱長廊",
     "sectionId": "10.10",
-    "description": "A checked shore approach near the mapped promenade landing. The source notes imagery distortion, so the footprint needs local review.",
+    "description": "Walk the waterfront towards Wing On Street and Tai Chung Bridge.",
     "source": "https://www.openstreetmap.org/way/115584709",
     "lat": 22.252478,
     "lon": 113.860967,
@@ -354,8 +354,8 @@ export const REGIONAL_PLACES={
       3832.6
     ],
     "spawn": [
-      -30787.2,
-      3819.5
+      -30779.0,
+      3820.8
     ],
     "offset": [
       1150,
@@ -363,8 +363,8 @@ export const REGIONAL_PLACES={
       1250
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/1187601801",
-    "terrainY": 2.68
+    "arrivalSource": "https://www.openstreetmap.org/way/1187601819",
+    "terrainY": 3.607
   },
   "shalowan": {
     "region": "lantau",

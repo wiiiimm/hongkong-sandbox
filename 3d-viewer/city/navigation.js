@@ -20,8 +20,8 @@ export function waterAllowsStep(ground,waterLevel,previousGround=Infinity){
 }
 const MOVE_KEYS=new Set(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight','Space']);
 export class Navigation {
- constructor({camera,controls,scene,canvas,sampler,index,toast,onMode,waterLevel=()=>.3,waterSurface=waterLevel}){
-  Object.assign(this,{camera,controls,scene,canvas,sampler,index,toast,onMode,waterLevel,waterSurface});
+ constructor({camera,controls,scene,canvas,sampler,index,surfaces=null,toast,onMode,waterLevel=()=>.3,waterSurface=waterLevel}){
+  Object.assign(this,{camera,controls,scene,canvas,sampler,index,surfaces,toast,onMode,waterLevel,waterSurface});
   this.mode='orbit';this.keys=new Set();this.position=new THREE.Vector3();this.heading=0;this.pitch=0;this.lookPitch=.12;this.lookYaw=0;this.speed=62;this.distance=0;this.firstPerson=false;this.drag=null;this.lastContact=-10;this.time=0;
   this.walker=new THREE.Group();this.plane=new THREE.Group();scene.add(this.walker,this.plane);this.walker.visible=this.plane.visible=false;
   this.aircraft=new AircraftModel({target:this.plane});
@@ -62,13 +62,26 @@ export class Navigation {
  async setAircraft(id){
   const pending=this.aircraft.setAircraft(id);
   // A larger replacement must not start with its wings inside an adjacent tower.
-  const clear=()=>{if(this.mode!=='fly')return;const e=this.aircraftEnvelope;this.position.y=Math.max(this.position.y,this.index.maximumRoof(this.position.x,this.position.z,e.radius)+e.bottom+25);};
+  const clear=()=>{if(this.mode!=='fly')return;const e=this.aircraftEnvelope;this.position.y=Math.max(this.position.y,Math.max(this.index.maximumRoof(this.position.x,this.position.z,e.radius),this.surfaces?.maximumRoof(this.position.x,this.position.z,e.radius)||0)+e.bottom+25);};
   clear();const loaded=await pending;clear();return loaded;
  }
+ groundHeights(x,z){
+  if(!this.sampler.contains(x,z))return [];
+  const ground=this.sampler.raw(x,z)>.5&&!this.sampler.mappedWater?.(x,z)?[this.sampler.height(x,z)]:[];
+  return [...ground,...(this.surfaces?.heights(x,z)||[])];
+ }
+ collides(x,z,bottom,top,radius=.55,walking=false){
+  // Allow feet to meet sloping deck faces/curbs; the torso still meets real rails.
+  return this.index.collision(x,z,bottom,top,radius)||this.surfaces?.collision(x,z,bottom+(walking ? .32 : 0),top,radius)||null;
+ }
+ walkHeight(x,z,previous=this.position.y,distance=0){
+  const tolerance=Math.max(.32,distance*.95);
+  return this.groundHeights(x,z).sort((a,b)=>Math.abs(a-previous)-Math.abs(b-previous)).find(y=>Math.abs(y-previous)<=tolerance&&waterAllowsStep(y,this.waterLevel(),previous)&&!this.collides(x,z,y,y+1.8,.55,true));
+ }
  safeGround(x,z){
-  const valid=(px,pz)=>this.sampler.contains(px,pz)&&this.sampler.raw(px,pz)>.5&&waterAllowsStep(this.sampler.height(px,pz),this.waterLevel())&&!this.index.collision(px,pz,this.sampler.height(px,pz),this.sampler.height(px,pz)+1.8,.65);
-  if(valid(x,z))return new THREE.Vector3(x,this.sampler.height(x,z),z);
-  for(let r=3;r<300;r+=3)for(let i=0;i<24;i++){const px=x+Math.cos(i*Math.PI/12)*r,pz=z+Math.sin(i*Math.PI/12)*r;if(valid(px,pz))return new THREE.Vector3(px,this.sampler.height(px,pz),pz);}
+  const height=(px,pz)=>this.groundHeights(px,pz).find(y=>waterAllowsStep(y,this.waterLevel())&&!this.collides(px,pz,y,y+1.8,.65,true));
+  let y=height(x,z);if(y!==undefined)return new THREE.Vector3(x,y,z);
+  for(let r=3;r<300;r+=3)for(let i=0;i<24;i++){const px=x+Math.cos(i*Math.PI/12)*r,pz=z+Math.sin(i*Math.PI/12)*r;y=height(px,pz);if(y!==undefined)return new THREE.Vector3(px,y,pz);}
   return null;
  }
  setMode(mode,spawn){
@@ -79,7 +92,7 @@ export class Navigation {
   }else if(mode==='fly'){
     this.position.set(spawn[0]+600,Math.max(500,this.sampler.height(...spawn)+300),spawn[1]-1000);this.heading=Math.PI+.15;this.lookPitch=.65;this.pitch=0;this.speed=62;
     // Clear any tall structures near the starting point.
-    this.position.y=Math.max(this.position.y,this.index.maximumRoof(this.position.x,this.position.z,this.aircraftEnvelope.radius)+100);
+    this.position.y=Math.max(this.position.y,Math.max(this.index.maximumRoof(this.position.x,this.position.z,this.aircraftEnvelope.radius),this.surfaces?.maximumRoof(this.position.x,this.position.z,this.aircraftEnvelope.radius)||0)+100);
   }else if(this.mode!=='orbit'){
     this.controls.target.copy(this.position);this.camera.position.copy(this.position).add(new THREE.Vector3(260,230,320));this.controls.update();
   }
@@ -93,12 +106,12 @@ export class Navigation {
    this.heading+=(Number(pressed('ArrowRight'))-Number(pressed('ArrowLeft')))*dt*1.5;
    const speed=pressed('ShiftLeft','ShiftRight')?8:3.9,n=Math.hypot(f,s)||1;
    const dx=(Math.sin(this.heading)*f+Math.cos(this.heading)*s)/n*speed*dt,dz=(-Math.cos(this.heading)*f+Math.sin(this.heading)*s)/n*speed*dt;
-   const step=(x,z)=>{if(!this.sampler.contains(x,z)||this.sampler.raw(x,z)<=.5)return false;const y=this.sampler.height(x,z),d=Math.hypot(x-this.position.x,z-this.position.z);return waterAllowsStep(y,this.waterLevel(),this.position.y)&&Math.abs(y-this.position.y)<Math.max(.1,d*.95)&&!this.index.collision(x,z,y,y+1.8,.55);};
+   const step=(x,z)=>{const y=this.walkHeight(x,z,this.position.y,Math.hypot(x-this.position.x,z-this.position.z));if(y===undefined)return;this.position.set(x,y,z);};
    // Small swept steps stop thin walls being skipped, even after a slow frame.
    const steps=Math.max(1,Math.ceil(Math.hypot(dx,dz)/.35));
    for(let i=0;i<steps;i++){
-    const before=this.position.clone();if(step(this.position.x+dx/steps,this.position.z))this.position.x+=dx/steps;if(step(this.position.x,this.position.z+dz/steps))this.position.z+=dz/steps;
-    this.position.y=this.sampler.height(this.position.x,this.position.z);this.distance+=Math.hypot(this.position.x-before.x,this.position.z-before.z);
+    const before=this.position.clone();step(this.position.x+dx/steps,this.position.z);step(this.position.x,this.position.z+dz/steps);
+    this.distance+=Math.hypot(this.position.x-before.x,this.position.z-before.z);
    }
    if(this.mixer){
     const name=(f||s)?(speed>4?'Run':'Walk'):'Idle',action=this.actions[name]||this.actions.Idle;
@@ -119,8 +132,8 @@ export class Navigation {
     const next=this.position.clone().addScaledVector(FORWARD,this.speed*dt/steps);
     if(!this.sampler.contains(next.x,next.z)){this.heading+=Math.PI;this.toast('Turning back towards Hong Kong.');break;}
     next.y=clamp(next.y,Math.max(this.sampler.height(next.x,next.z),this.waterLevel())+Math.max(18,envelope.bottom+8),2400);
-    const hit=this.index.collision(next.x,next.z,next.y-envelope.bottom,next.y+envelope.top,envelope.radius);
-    if(hit){this.position.y=Math.max(this.position.y,hit.base+hit.height+envelope.bottom+25);this.pitch=.35;if(this.time-this.lastContact>3){this.toast('Building ahead — climbing to clear the roof.');this.lastContact=this.time;}break;}
+    const hit=this.collides(next.x,next.z,next.y-envelope.bottom,next.y+envelope.top,envelope.radius);
+    if(hit){this.position.y=Math.max(this.position.y,Math.max(this.index.maximumRoof(next.x,next.z,envelope.radius),this.surfaces?.maximumRoof(next.x,next.z,envelope.radius)||0,hit.base+hit.height)+envelope.bottom+25);this.pitch=.35;if(this.time-this.lastContact>3){this.toast('Building ahead — climbing to clear the roof.');this.lastContact=this.time;}break;}
     this.position.copy(next);
    }
    this.plane.position.copy(this.position);this.plane.rotation.set(this.pitch,-this.heading,-turn*.35,'YXZ');this.plane.visible=!this.firstPerson;
@@ -132,7 +145,7 @@ export class Navigation {
   }
   if(this.mode==='walk'&&!this.firstPerson){
    const head=this.position.clone().add(new THREE.Vector3(0,1.65,0)),boom=EYE.clone().sub(head),length=boom.length();
-   for(let d=.5;d<=length;d+=.3){const p=head.clone().addScaledVector(boom,d/length);if(this.index.collision(p.x,p.z,p.y-.2,p.y+.2,.2)||p.y<this.sampler.height(p.x,p.z)+.25){EYE.copy(head).addScaledVector(boom,Math.max(0,d-.4)/length);break;}}
+   for(let d=.5;d<=length;d+=.3){const p=head.clone().addScaledVector(boom,d/length);if(this.collides(p.x,p.z,p.y-.2,p.y+.2,.2)||p.y<this.sampler.height(p.x,p.z)+.25){EYE.copy(head).addScaledVector(boom,Math.max(0,d-.4)/length);break;}}
   }
   EYE.y=Math.max(EYE.y,this.waterSurface()+.25);
   this.camera.position.lerp(EYE,1-Math.exp(-dt*(this.firstPerson?25:7)));this.camera.position.y=Math.max(this.camera.position.y,this.waterSurface()+.25);this.camera.lookAt(TARGET);

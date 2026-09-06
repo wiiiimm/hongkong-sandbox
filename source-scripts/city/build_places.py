@@ -43,6 +43,7 @@ def apply_arrival_overrides(places):
   if id not in places:continue
   places[id].update(spawn=entry['spawn'],arrivalSource=entry['arrivalSource'])
   if 'terrainY' in entry:places[id]['terrainY']=entry['terrainY']
+  if 'description' in entry:places[id]['description']=entry['description']
   if 'arrivalVerified' in places[id]:places[id]['arrivalVerified']=True
 
 def main():

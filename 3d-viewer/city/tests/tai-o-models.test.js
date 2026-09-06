@@ -41,12 +41,14 @@ test('Tai O terrain joins the coarse terrain continuously and retains the indepe
 test('terrain chunks and sampler use the same optional display heights, including zero',()=>{
  const patch=read('../data/terrain-tai-o.json'),base=read('../data/terrain.json'),g=patch.meta.georef;
  const sampler=makeTerrainSampler({...base,patches:[patch]}),group=makeTerrain({...base,patches:[patch]});let checked=0,seamNodes=0;
- for(const mesh of group.children.slice(1)){
+ const fineMeshes=[];group.traverse(mesh=>{if(mesh.isMesh&&mesh.name==='Lands Department · 5 m terrain')fineMeshes.push(mesh);});
+ for(const mesh of fineMeshes){
   const pos=mesh.geometry.attributes.position;
   for(let i=0;i<pos.count;i++){
    const x=pos.getX(i),z=pos.getZ(i),y=pos.getY(i),c=Math.round((x+834500-g.bE)/g.aE),r=Math.round((816500-z-g.bN)/g.aN);
    assert.ok(Math.abs(y-terrainVertexHeight(patch,r*patch.w+c))<.001);
-   assert.ok(Math.abs(Math.max(1.2,y)-sampler.height(x,z))<.011);
+   const expected=sampler.mappedWater(x,z)?base.hydro.illustrativeBed:Math.max(1.2,y);
+   assert.ok(Math.abs(expected-sampler.height(x,z))<.011);
    checked++;if(c===196)seamNodes++;
   }
  }

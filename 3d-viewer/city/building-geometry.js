@@ -1,5 +1,6 @@
 import * as THREE from '../vendor/three.module.js';
 import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
+import {taiOCanopyEstimate} from './tai-o-estimates.js';
 
 const cache=new WeakMap(),modelCache=new WeakMap();
 const finite=Number.isFinite;
@@ -63,9 +64,9 @@ function supportRings(rings){
 
 /** Shared visual/collision volumes. Recorded elevations remain immutable. */
 export function describeBuilding(building){
- const signature=[building.base,building.height,building.minimum,building.foundationBase,isOpenSidedBuilding(building)].join('|'),previous=cache.get(building);
+ const estimate=taiOCanopyEstimate(building),signature=[building.base,building.height,building.minimum,building.foundationBase,isOpenSidedBuilding(building),estimate?.base,estimate?.height].join('|'),previous=cache.get(building);
  if(previous?.signature===signature&&previous.rings===building.rings&&previous.model===building.modelGeometry)return previous.description;
- const model=validModel(building),base=building.base,minimum=building.minimum||0,bottom=model?model.bounds[1]:base+minimum,top=model?model.bounds[4]:base+building.height,parts=[];
+ const model=validModel(building),base=estimate?.base??building.base,minimum=building.minimum||0,bottom=model?model.bounds[1]:base+minimum,top=model?model.bounds[4]:base+(estimate?.height??building.height),parts=[];
  if(!finite(bottom)||!finite(top)||top<=bottom||!building.rings?.length)return {parts,openSided:false,illustrativeSupports:0};
  const foundationTop=model?Math.min(base,bottom):base,foundation=finite(building.foundationBase)&&building.foundationBase<foundationTop-.02?building.foundationBase:null,openSided=isOpenSidedBuilding(building);
  if(openSided){
@@ -74,15 +75,14 @@ export function describeBuilding(building){
   const postBottom=foundation??bottom;
   if(roofBottom>postBottom+.02)for(const ring of supportRings(building.rings))parts.push({kind:'post',rings:[ring],bottom:postBottom,top:roofBottom,windows:false,illustrative:true});
  }else{
-  let collisionRings=building.rings;
-  if(model){const xs=building.rings[0].map(p=>p[0]),zs=building.rings[0].map(p=>p[1]),x0=Math.min(...xs),x1=Math.max(...xs),z0=Math.min(...zs),z1=Math.max(...zs),a=model.bounds;
-   if(a[0]<x0-.1||a[3]>x1+.1||a[2]<z0-.1||a[5]>z1+.1){const minX=Math.min(x0,a[0]),maxX=Math.max(x1,a[3]),minZ=Math.min(z0,a[2]),maxZ=Math.max(z1,a[5]);collisionRings=[[[minX,minZ],[maxX,minZ],[maxX,maxZ],[minX,maxZ],[minX,minZ]]];}
-  }
-  parts.push({kind:'building',rings:collisionRings,bottom,top,windows:true});
+  // The source outline encloses the interior. Model overhangs and walls outside
+  // it keep their real surface heights instead of closing surrounding streets.
+  parts.push({kind:'building',rings:building.rings,bottom,top,windows:true});
+  if(model){const a=model.bounds;parts.push({kind:'model-surface',model,rings:[[[a[0],a[2]],[a[3],a[2]],[a[3],a[5]],[a[0],a[5]],[a[0],a[2]]]],bottom:a[1],top:a[4],windows:false});}
   if(foundation!==null)parts.push({kind:'foundation',rings:building.rings,bottom:foundation,top:foundationTop,windows:false,illustrative:true});
  }
  for(const part of parts){const xs=part.rings[0].map(p=>p[0]),zs=part.rings[0].map(p=>p[1]);part.bounds=[Math.min(...xs),Math.min(...zs),Math.max(...xs),Math.max(...zs)];}
- const description={parts,openSided,model:model||null,modelStatus:model?'usable':building.modelGeometry?'invalid-fallback':'absent',illustrativeSupports:parts.filter(p=>p.kind==='post').length,roofThickness:openSided?top-parts[0].bottom:0,foundationApplied:foundation!==null};
+ const description={parts,estimate:estimate||null,placementNote:estimate?.note||null,openSided,model:model||null,modelStatus:model?'usable':building.modelGeometry?'invalid-fallback':'absent',illustrativeSupports:parts.filter(p=>p.kind==='post').length,roofThickness:openSided?top-parts[0].bottom:0,foundationApplied:foundation!==null};
  cache.set(building,{signature,rings:building.rings,model:building.modelGeometry,description});return description;
 }
 

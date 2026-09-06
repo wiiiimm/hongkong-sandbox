@@ -7,6 +7,7 @@ import {AIRCRAFT} from './aircraft.js';
 import {CityStreaming} from './streaming.js';
 import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';
+import {describeBuilding} from './building-geometry.js';
 import {regionalPlaceMatches} from './regional-data.js';
 import {PLACES,REGIONS,closestPlace} from './places.js';
 import {cityLighting,activityDescription} from './lighting.js';
@@ -82,6 +83,7 @@ function selectBuilding(b){
  $('building-name').textContent=b.name||'A Hong Kong building';$('building-zh').textContent=b.zh||`${b.structureType||b.kind.replaceAll('_',' ')} · ${b.id.startsWith('landsd/')?'Lands Department':'OpenStreetMap'} footprint`;$('building-height').textContent=`${b.height} m`;$('building-levels').textContent=b.levels??'—';
  const heightBasis={'house-type':'Estimated low-rise house height from its mapped building type.','bungalow-type':'Estimated single-storey height from its mapped bungalow type.','tai-o-small-village':'Estimated low-rise height for a compact footprint along traditional Tai O village streets.'}[b.heightRule];
  $('building-source').textContent=b.id.startsWith('landsd/')?`${b.modelGeometry?'Official Lands Department non-textured 3D roof geometry. ':''}${b.heightSource==='landsd'?'Height from recorded TopHeight − BaseHeight, approximate metres above Hong Kong Principal Datum.':(manifest.heightRules?.[b.heightRule]||b.heightRule)} ${b.baseSource==='landsd'?`Recorded base ${b.baseHeightHKPD} m HKPD; terrain elevation is not added again.`:'Foundation elevation is estimated.'} ${b.modelGeometry?'Roof geometry is sourced; window patterns, materials and any foundation support are illustrative.':'Roof and façade details are illustrative.'}`:heightBasis?`${heightBasis} Not a surveyed measurement.`:b.heightSource==='tagged'?'Height tagged in OpenStreetMap. Simplified massing; façade details are illustrative.':b.heightSource==='levels'?'Estimated height from mapped floor count × 3.2 m. Not a surveyed measurement.':'Height is an illustrative fallback. This footprint has no mapped height or floor count.';
+ const placementNote=describeBuilding(b).placementNote;if(placementNote)$('building-source').textContent+=' '+placementNote;
  $('building-activity').textContent=activityDescription(b.activity);
  $('building-osm').href=b.sourceUrl||(b.id.startsWith('landsd/')?`https://portal.csdi.gov.hk/server/rest/services/common/landsd_rcd_1637211194312_35158/MapServer/0/query?f=pjson&objectIds=${b.objectId}&outFields=*&returnGeometry=true&outSR=2326`:`https://www.openstreetmap.org/${b.id}`);$('building-card').hidden=false;
 }
@@ -89,13 +91,22 @@ function selectBridge(bridge){
  if(!bridge)return;closeSelection();selectedId=bridge.id;selectedIndex=0;
  const geometry=bridgeLayer.geometryFor(bridge);selection=new THREE.LineSegments(new THREE.EdgesGeometry(geometry,25),new THREE.LineBasicMaterial({color:'#e8ae4f',transparent:true,opacity:.95,depthTest:false}));geometry.dispose();selection.renderOrder=10;scene.add(selection);
  $('building-name').textContent=bridge.name||'Mapped footbridge';$('building-zh').textContent=bridge.zh||(bridge.covered?'Covered elevated connection':'Elevated pedestrian connection');
+ if(bridge.modelGeometry){
+  const bounds=bridge.walkSurface?.worldBounds||bridge.worldBounds;
+  $('building-height').textContent=`${bounds[0][1].toFixed(1)}–${bounds[1][1].toFixed(1)} m`;$('building-levels').textContent=bridge.modelGeometry.triangles.toLocaleString('en-HK');$('building-height-label').textContent=bridge.walkSurface?'DECK · HKPD':'MODEL · HKPD';$('building-levels-label').textContent='SOURCE TRIANGLES';
+  $('building-source').textContent=`Lands Department · ${bridge.sheet} · ${bridge.sourceRevision.slice(0,10)} UTC. Original infrastructure geometry and elevation, including source supports. ${bridge.walkSurface?.elevationBasis||''}`;
+  $('building-activity').textContent=bridge.walkable?'Public deck surfaces enabled for walking. '+bridge.publicAccess:bridge.publicAccess||'Source geometry retained; public walking access has not been verified.';$('building-osm').href=bridge.publicAccessSource||bridge.source;$('building-card').hidden=false;return;
+ }
+ if(bridge.estimatedPublicApproach){
+  const heights=bridge.deckPath.map(p=>p[1]);$('building-height').textContent=`~${Math.min(...heights).toFixed(1)}–${Math.max(...heights).toFixed(1)} m`;$('building-levels').textContent=`~${bridge.width.toFixed(1)} m`;$('building-height-label').textContent='ESTIMATED · HKPD';$('building-levels-label').textContent='PATH WIDTH';$('building-source').textContent='Estimated steps and landing connect the mapped public street to the government bridge model. Path width and intermediate heights are approximate.';$('building-activity').textContent='Public pedestrian approach. Its shape is an interpretation of the available map and model sources.';$('building-osm').href=bridge.source;$('building-card').hidden=false;return;
+ }
  $('building-height').textContent=`~${bridge.aboveGround.toFixed(1)} m`;$('building-levels').textContent=`${bridge.width.toFixed(1)} m`;$('building-height-label').textContent='ABOVE TERRAIN';$('building-levels-label').textContent='DECK WIDTH';
  $('building-source').textContent=bridge.elevationBasis+' '+bridge.widthBasis+'. Deck, railing and canopy construction details are illustrative.';
  $('building-activity').textContent='Mapped route geometry. Elevated walking and building entrances still require access/collision integration.';$('building-osm').href=bridge.source;$('building-card').hidden=false;
 }
 async function visitBridge(bridge){
  if(stargazer.active)setStargazing(false);
- const p=bridge.deckPath[Math.floor(bridge.deckPath.length/2)],token=++travel;++modeRequest;loadingTravel=true;
+ const p=bridge.focus||bridge.deckPath[Math.floor(bridge.deckPath.length/2)],token=++travel;++modeRequest;loadingTravel=true;
  if(nav.mode!=='orbit')nav.setMode('orbit',[p[0],p[2]]);updatePlace(closestPlace(p[0],p[2]));closeSelection();
  const distance=Math.max(90,Math.min(350,bridge.length*1.5));transition([p[0]+distance,p[1]+distance*.75,p[2]-distance],[p[0],p[1]+1,p[2]],1.2);
  bridgeLayer.plan(p[0],p[2],3000,camera.position);regionalDetail.plan(p[0],p[2]);
@@ -135,6 +146,10 @@ function drawMinimap(){
   ctx.fillStyle=lightState.night>.5?'#1d4645':'#9fbeb2';ctx.fillRect(0,0,440,280);const data=terrain.userData.data,g=data.meta.georef;ctx.fillStyle=lightState.night>.5?'#66816c':'#dce3c9';
   const step=span>10000?3:1,a=mapCoords(0,0),b=mapCoords(g.aE*step,Math.abs(g.aN)*step),sx=b[0]-a[0]+.5,sy=b[1]-a[1]+.5;
   for(let r=0;r<data.h;r+=step)for(let c=0;c<data.w;c+=step){if(data.elev[r*data.w+c]<=.1)continue;const [x,y]=mapCoords(g.bE+c*g.aE-834500,816500-(g.bN+r*g.aN));if(x<-sx||y<-sy||x>440||y>280)continue;ctx.fillRect(x,y,sx,sy);}
+  if(data.hydro){
+   const [left,top]=mapCoords(data.hydro.bounds[0],data.hydro.bounds[1]),[right,bottom]=mapCoords(data.hydro.bounds[2],data.hydro.bounds[3]);ctx.fillRect(left,top,right-left,bottom-top);
+   ctx.beginPath();for(const polygon of data.hydro.water)for(const ring of polygon.rings){ring.forEach(([x,z],i)=>{const p=mapCoords(x,z);if(i)ctx.lineTo(...p);else ctx.moveTo(...p);});ctx.closePath();}ctx.fillStyle=lightState.night>.5?'#1d4645':'#9fbeb2';ctx.fill('evenodd');
+  }
   ctx.fillStyle=lightState.night>.5?'#b1b88d':'#829b7a';for(const points of Object.values(overview))for(const [px,pz] of points){const [x,y]=mapCoords(px,pz);if(x>=0&&x<=440&&y>=0&&y<=280)ctx.fillRect(x,y,1.4,1.4);}
   mapBackdrop=ctx.getImageData(0,0,440,280);mapStamp=stamp;
  }else ctx.putImageData(mapBackdrop,0,0);
@@ -154,7 +169,7 @@ async function search(){
  const placeMatches=regionalPlaceMatches(PLACES,q).slice(0,7);
  const addPlaces=()=>{for(const [id,p] of placeMatches){const button=document.createElement('button'),small=document.createElement('small');button.textContent=p.title+' · '+p.zh;small.textContent=REGIONS[p.region].title+(p.aerialOnly?' · Aerial view':'');button.append(small);button.addEventListener('click',()=>{goPlace(id);results.hidden=true;$('search').blur();});results.append(button);}};
  addPlaces();
- const bridgeMatches=[],bridgeNames=new Set();for(const bridge of bridgeLayer.records.values())if(bridge.name&&[bridge.name,bridge.zh].some(name=>String(name||'').toLocaleLowerCase().includes(q))&&!bridgeNames.has(bridge.name)){bridgeNames.add(bridge.name);bridgeMatches.push(bridge);if(bridgeMatches.length===4)break;}
+ const bridgeMatches=[],bridgeNames=new Set();for(const bridge of bridgeLayer.records.values())if(!bridgeLayer.suppressedIds.has(bridge.id)&&bridge.name&&[bridge.name,bridge.zh].some(name=>String(name||'').toLocaleLowerCase().includes(q))&&!bridgeNames.has(bridge.name)){bridgeNames.add(bridge.name);bridgeMatches.push(bridge);if(bridgeMatches.length===4)break;}
  for(const bridge of bridgeMatches){const button=document.createElement('button'),small=document.createElement('small');button.textContent=bridge.name;small.textContent='Footbridge · '+(bridge.zh||'Mapped elevated connection');button.append(small);button.addEventListener('click',()=>{visitBridge(bridge);results.hidden=true;$('search').blur();});results.append(button);}
  try{await getCatalogue();}catch{if(!placeMatches.length&&!bridgeMatches.length){const note=document.createElement('p');note.className='source-note';note.textContent='Building search could not load. Type again to retry.';results.append(note);}return;}
  if($('search').value.trim().toLocaleLowerCase()!==q)return;
@@ -218,7 +233,7 @@ async function init(){
  stream=new CityStreaming({manifest,terrain:data,sampler,scene,activity,onChange:updateStreamStatus});ferries=makeFerries();ferries.update(0);scene.add(ferries.group);
  let maskedSurfaces=0;regionalDetail=new RegionalDetail({scene,sampler,onChange:()=>{if(regionalDetail&&regionalDetail.surfaceCount!==maskedSurfaces){maskedSurfaces=regionalDetail.surfaceCount;stream.setSurfaceExclusions(regionalDetail.mappedSurfaces);}updateStreamStatus();}});
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus});
- nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
+ nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,surfaces:bridgeLayer.surfaces,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
  controlSheet=createControlSheet({onExpand:()=>nav.clearInput(),focusMap:()=>renderer.domElement.focus({preventScroll:true})});
  stargazer=new StargazeControls({camera,controls,canvas:renderer.domElement,onPick:point=>{const star=environment.sky.pick(point);$('sky-selection').textContent=star?`Star HR ${star.hr} · ${star.constellations.map(c=>c.en+' '+c.zh).join(', ')||'No figure in this catalogue'} · ${star.altitudeDeg.toFixed(0)}° above the horizon`:'No bright star selected. Try another part of the sky.';}});
  bindUI();environment=await createEnvironment({scene,camera,renderer,sun,ambient,stream,water,terrainHeight:(x,z)=>sampler.height(x,z),getObserver:()=>{
@@ -228,11 +243,11 @@ async function init(){
   }return observerCache;
  },onClock:s=>{lightState=s;}});makeLabels();
  $('snapshot-date').textContent=manifest.snapshot.slice(0,10);$('loading').style.opacity='0';setTimeout(()=>$('loading').hidden=true,750);
- window.__city={get ready(){return true;},get state(){return {controls:controlSheet.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,placeCount:Object.keys(PLACES).length,layers:{bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!stream.collision(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
+ window.__city={get ready(){return true;},get state(){return {controls:controlSheet.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,placeCount:Object.keys(PLACES).length,layers:{bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
  startTime=performance.now();requestAnimationFrame(animate);const initial=new URLSearchParams(location.search).get('district');goPlace(Object.hasOwn(PLACES,initial)?initial:'central',false);
  // Regional surfaces and search are independent of building/terrain readiness.
  for(const name of ['islands','urban','nt'])regionalDetail.load(`city/data/regional/${name}.json`);
- bridgeLayer.load('city/data/bridges.json').then(ok=>{if(ok)stream.suppressBridgeRoads(bridgeLayer.loadedIds);});
+ for(const url of ['city/data/bridges.json',...(manifest.bridgeModels||[])])bridgeLayer.load(url).then(ok=>{if(ok)stream.suppressBridgeRoads(bridgeLayer.loadedIds);});
  // Search and overview data arrive independently; neither blocks movement or terrain.
  getCatalogue().catch(()=>{});loadJSON(manifest.overview).then(data=>{overview=data;}).catch(()=>{});
 }

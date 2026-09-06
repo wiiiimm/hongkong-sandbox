@@ -1,4 +1,5 @@
 import {collisionVolumes} from './building-geometry.js';
+import {modelSurfaceCollision} from './model-collision.js';
 
 // All coordinates are metres in EPSG:2326, translated to a local origin.
 export const ORIGIN = [834500, 816500];
@@ -11,6 +12,8 @@ export function makeTerrainSampler(data) {
   const { w, h, elev } = data, g = data.meta.georef;
   const patches=(data.patches||[]).map(makeTerrainSampler);
   const patchAt=(x,z)=>patches.find(p=>p.contains(x,z));
+  const water=data.hydro?.water||[],bounds=data.hydro?.bounds;
+  const mappedWater=(x,z)=>Boolean(bounds&&x>=bounds[0]&&x<=bounds[2]&&z>=bounds[1]&&z<=bounds[3]&&water.some(p=>inPolygon(x,z,p.rings)));
   const grid = (x, z) => [(x + ORIGIN[0] - g.bE) / g.aE, (ORIGIN[1] - z - g.bN) / g.aN];
   const contains = (x, z) => { const [c,r]=grid(x,z);return c>=0&&r>=0&&c<w-1&&r<h-1; };
   function sample(x,z,rendered=false) {
@@ -21,7 +24,7 @@ export function makeTerrainSampler(data) {
     // Matches mesh triangle diagonal exactly: no feet floating on steep slopes.
     return u+v<=1 ? a+(b-a)*u+(d-a)*v : e+(d-e)*(1-u)+(b-e)*(1-v);
   }
-  return {raw:(x,z)=>patchAt(x,z)?.raw(x,z)??sample(x,z),contains,grid,height:(x,z)=>patchAt(x,z)?.height(x,z)??Math.max(1.2,sample(x,z,true)),resolutionAt:(x,z)=>patchAt(x,z)?.resolutionAt(x,z)??Math.abs(g.aE)};
+  return {raw:(x,z)=>patchAt(x,z)?.raw(x,z)??sample(x,z),contains,grid,mappedWater,height:(x,z)=>mappedWater(x,z)?data.hydro.illustrativeBed:(patchAt(x,z)?.height(x,z)??Math.max(1.2,sample(x,z,true))),resolutionAt:(x,z)=>patchAt(x,z)?.resolutionAt(x,z)??Math.abs(g.aE)};
 }
 export function inRing(x,z,ring) {
   let inside=false;
@@ -49,13 +52,14 @@ export class BuildingIndex {
     });
   }
   candidates(x,z,r=0){const out=new Set();for(let i=Math.floor((x-r)/this.cell);i<=Math.floor((x+r)/this.cell);i++)for(let j=Math.floor((z-r)/this.cell);j<=Math.floor((z+r)/this.cell);j++)for(const k of this.cells.get(`${i},${j}`)||[])out.add(k);return out;}
-  maximumRoof(x,z,radius=20){let h=0;for(const i of this.candidates(x,z,radius)){const b=this.buildings[i];h=Math.max(h,b.base+b.height);}return h;}
+  maximumRoof(x,z,radius=20){let h=0;for(const i of this.candidates(x,z,radius)){const b=this.buildings[i],outline=b.base+b.height;if(Number.isFinite(outline))h=Math.max(h,outline);for(const volume of this.volumes[i])if(Number.isFinite(volume.top))h=Math.max(h,volume.top);}return h;}
   collision(x,z,bottom,top,radius=.5){
     for(const i of this.candidates(x,z,radius)){
       const b=this.buildings[i];
       for(const volume of this.volumes[i]){
         if(top<=volume.bottom||bottom>=volume.top)continue;
         const [x0,z0,x1,z1]=volume.bounds;if(x+radius<x0||x-radius>x1||z+radius<z0||z-radius>z1)continue;
+        if(volume.kind==='model-surface'){if(modelSurfaceCollision(volume.model,x,z,bottom,top,radius))return b;continue;}
         if(inPolygon(x,z,volume.rings))return b;
         if(radius>0)for(const ring of volume.rings)for(let j=1;j<ring.length;j++)if(segmentDistanceSq(x,z,ring[j-1],ring[j])<radius*radius)return b;
       }
