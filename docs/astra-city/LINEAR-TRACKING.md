@@ -1,12 +1,14 @@
 # Living Hong Kong delivery tracking
 
-HKS-191 is queued under HKS-126: [replace Tsing Ma Bridge terrain artefact with a verified bridge model](https://linear.app/stealth-company/issue/HKS-191/replace-tsing-ma-bridge-terrain-artefact-with-a-verified-bridge-model). High priority, 8 points, Bug/Rendering, William assigned. Audit/reuse existing assets first; preserve real shores and water below the span. Linear parent and milestone updated. There are now **25 execution subissues: five In Review, two In Progress, 18 queued**. HKS-170 remains active.
+## Current execution — 7 September 2026
 
-## Current pass — 7 September 2026
+Three subagents are active: Curie on **HKS-191 Tsing Ma Bridge**, Heisenberg on **HKS-192 Mui Wo**, and Kant on **HKS-170 Tai O's final route acceptance**. Root integrates and verifies. **HKS-193 Central** is queued for the next available agent. Linear leaves, regional parents HKS-122/124/126 and the Astra milestone are synchronised: **27 execution subissues, 5 In Review, 4 In Progress and 18 queued**. HKS-180's remaining weather controls are In Progress without an active executor.
+
+HKS-170's source-backed channel hand-off is verified in the working tree. Source/model preservation and all 190 saved arrivals pass; five original government infrastructure models render once. Curie's infrastructure hand-off is complete. Kant and root are resolving source-supported bridge access and replaying a continuous public walk before the combined completion commit. The current JavaScript suite passes 157/157 checks. [Hydro evidence](tai-o-completion/hydro-README.md) · [Infrastructure evidence](tai-o-completion/infrastructure-README.md).
 
 HKS-190 Clock follow-up is implemented in `783cb62` and In Review: Live/Manual button, date disabled in Live, shimmer moved to Weather. Four toggle, ten timelapse and eleven circular-clock browser groups pass; night/mobile screenshots inspected. [Evidence](clock-toggle/README.md). Linear HKS-190, HKS-132 and milestone updated after verification.
 
-HKS-170 completion continues: Heisenberg owns authoritative channels and terrain; Curie owns source infrastructure and verified public deck faces; Kant owns continuous routes and accurate model collision; root integrates runtime and reviews. Previous model counts and arrival-only checks do not close the remaining channels/route acceptance.
+[Current execution issue index](EXECUTION-ISSUES.md). The historical checkpoints below retain their original counts and scope.
 
 GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained as history. The current milestone is **Astra - Living Hong Kong — buildings, regional detail & feature parity** (same milestone ID).
 
