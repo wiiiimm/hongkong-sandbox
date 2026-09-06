@@ -7,6 +7,8 @@ import {AIRCRAFT} from './aircraft.js';
 import {CityStreaming} from './streaming.js';
 import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';
+import {BridgeCables} from './bridge-cables.js';
+import {OfficialModelLayer} from './official-models.js';
 import {ReviewSections} from './review-sections.js';
 import {describeBuilding} from './building-geometry.js';
 import {regionalPlaceMatches} from './regional-data.js';
@@ -18,8 +20,8 @@ import {createControlSheet} from './control-sheet.js';
 import {worldToWgs84} from './observer.js';
 const $=id=>document.getElementById(id),motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
 let reduced=motionPreference.matches;
-let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween,regionalDetail,bridgeLayer;
-let catalogue=[],overview={},cataloguePromise,travel=0,modeRequest=0,selectedId=null,selectedIndex=-1,loadingTravel=false,lastHud=0,lastStream=0,startTime=0;
+let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween,regionalDetail,bridgeLayer,cableLayer,officialModels;
+let catalogue=[],overview={},cataloguePromise,travel=0,modeRequest=0,pendingModeRequest=0,selectedId=null,selectedIndex=-1,loadingTravel=false,lastHud=0,lastStream=0,startTime=0;
 let sectionReview,controlSheet,environment,stargazer,observerCache,toastTimer,lightState=cityLighting(15),mapBackdrop,mapStamp,mapBounds=[-3600,-2600,3600,2900];
 const labelEntries=[],temp=new THREE.Vector3(),raycaster=new THREE.Raycaster();
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),4400);}
@@ -65,8 +67,10 @@ async function chooseMode(mode){
  if(mode==='star'){setStargazing(true);return;}if(stargazer.active)setStargazing(false);
  if(mode==='orbit'){++modeRequest;nav.setMode(mode,PLACES[place].spawn);return;}
  const token=++modeRequest,p=PLACES[place],origin=mode==='fly'?[p.spawn[0]+600,p.spawn[1]-1000]:p.spawn;
+ pendingModeRequest=token;updateStreamStatus();
  try{await stream.arrive(...origin,3200);if(token===modeRequest)nav.setMode(mode,p.spawn);}
  catch(error){if(error.name!=='AbortError')toast('Movement is waiting for this area. Retry the city download.');}
+ finally{if(pendingModeRequest===token)pendingModeRequest=0;updateStreamStatus();}
 }
 function onMode(mode){
  tween=null;if(mode!=='orbit')controlSheet?.close({restoreFocus:false});camera.fov=mode==='orbit'?44:mode==='walk'?60:52;camera.updateProjectionMatrix();document.body.classList.toggle('exploring-person',mode!=='orbit');
@@ -93,7 +97,7 @@ function setStargazing(enabled){
 function closeSelection(){selectedId=null;selectedIndex=-1;$('building-card').hidden=true;if(selection){scene.remove(selection);selection.geometry.dispose();selection.material.dispose();selection=null;}}
 function selectBuilding(b){
  if(!b)return;closeSelection();$('building-height-label').textContent=b.modelGeometry?'OUTLINE HEIGHT':'HEIGHT';$('building-levels-label').textContent='FLOORS';selectedId=b.uid;selectedIndex=0;
- const geo=extrudeBuilding(b);selection=new THREE.LineSegments(new THREE.EdgesGeometry(geo,25),new THREE.LineBasicMaterial({color:'#e8ae4f',transparent:true,opacity:.95,depthTest:false}));geo.dispose();selection.renderOrder=10;scene.add(selection);
+ const geo=extrudeBuilding(b);selection=new THREE.LineSegments(new THREE.EdgesGeometry(geo,25),new THREE.LineBasicMaterial({color:'#e8ae4f',transparent:true,opacity:.95,depthTest:false}));geo.dispose();selection.renderOrder=10;selection.userData.buildingModel=b.modelGeometry||null;scene.add(selection);
  $('building-name').textContent=b.name||'A Hong Kong building';$('building-zh').textContent=b.zh||`${b.structureType||b.kind.replaceAll('_',' ')} · ${b.id.startsWith('landsd/')?'Lands Department':'OpenStreetMap'} footprint`;$('building-height').textContent=`${b.height} m`;$('building-levels').textContent=b.levels??'—';
  const heightBasis={'house-type':'Estimated low-rise house height from its mapped building type.','bungalow-type':'Estimated single-storey height from its mapped bungalow type.','tai-o-small-village':'Estimated low-rise height for a compact footprint along traditional Tai O village streets.'}[b.heightRule];
  $('building-source').textContent=b.id.startsWith('landsd/')?`${b.modelGeometry?'Official Lands Department non-textured 3D roof geometry. ':''}${b.heightSource==='landsd'?'Height from recorded TopHeight − BaseHeight, approximate metres above Hong Kong Principal Datum.':(manifest.heightRules?.[b.heightRule]||b.heightRule)} ${b.baseSource==='landsd'?`Recorded base ${b.baseHeightHKPD} m HKPD; terrain elevation is not added again.`:'Foundation elevation is estimated.'} ${b.modelGeometry?'Roof geometry is sourced; window patterns, materials and any foundation support are illustrative.':'Roof and façade details are illustrative.'}`:heightBasis?`${heightBasis} Not a surveyed measurement.`:b.heightSource==='tagged'?'Height tagged in OpenStreetMap. Simplified massing; façade details are illustrative.':b.heightSource==='levels'?'Estimated height from mapped floor count × 3.2 m. Not a surveyed measurement.':'Height is an illustrative fallback. This footprint has no mapped height or floor count.';
@@ -103,8 +107,12 @@ function selectBuilding(b){
 }
 function selectBridge(bridge){
  if(!bridge)return;closeSelection();selectedId=bridge.id;selectedIndex=0;
- const geometry=bridgeLayer.geometryFor(bridge);selection=new THREE.LineSegments(new THREE.EdgesGeometry(geometry,25),new THREE.LineBasicMaterial({color:'#e8ae4f',transparent:true,opacity:.95,depthTest:false}));geometry.dispose();selection.renderOrder=10;scene.add(selection);
+ const estimated=bridge.kind==='illustrative-bridge-cables',geometry=(estimated?cableLayer:bridgeLayer).geometryFor(bridge);selection=new THREE.LineSegments(new THREE.EdgesGeometry(geometry,25),new THREE.LineBasicMaterial({color:'#e8ae4f',transparent:true,opacity:.95,depthTest:false}));geometry.dispose();selection.renderOrder=10;scene.add(selection);
  $('building-name').textContent=bridge.name||'Mapped footbridge';$('building-zh').textContent=bridge.zh||(bridge.covered?'Covered elevated connection':'Elevated pedestrian connection');
+ if(estimated){
+  $('building-height').textContent='Estimated';$('building-levels').textContent=bridge.illustrativeTriangles.toLocaleString('en-HK');$('building-height-label').textContent='CABLE GEOMETRY';$('building-levels-label').textContent='ILLUSTRATIVE TRIANGLES';
+  $('building-source').textContent='Illustrative cable detail over the original government bridge model. '+bridge.limits.join(' ');$('building-activity').textContent=bridge.accessNote;$('building-osm').href=bridge.sourceUrl;$('building-card').hidden=false;return;
+ }
  if(bridge.modelGeometry){
   const bounds=bridge.walkSurface?.worldBounds||bridge.worldBounds,deck=bridge.walkable&&bridge.walkTriangleIndices?.length;
   const floorHeights=deck?bridge.walkTriangleIndices.flatMap(t=>[1,4,7].map(i=>bridge.modelGeometry.position[t*9+i])):null;
@@ -178,10 +186,19 @@ function syncSourceReplacements(){
  // The stream reports replacement failures and retains original geometry.
  void stream.suppressInfrastructureBuildings(bridgeLayer.suppressedBuildingUids).catch(()=>updateStreamStatus());
 }
+function updateOfficialModels(){
+ // A source model may finish after search selected its footprint, or retire
+ // while selected. Keep attribution and highlight on the visible geometry.
+ const building=selectedId?.startsWith('landsd/')?stream.getLoadedBuilding(selectedId):null;
+ if(building&&selection&&selection.userData.buildingModel!==(building.modelGeometry||null))selectBuilding(building);
+ updateStreamStatus();
+}
 function updateStreamStatus(){
- if(!stream)return;const s=stream.stats,d=regionalDetail?.stats,b=bridgeLayer?.stats,bar=$('stream-status');bar.hidden=!s.pending&&!s.errors.length&&!loadingTravel&&!d?.pending&&!d?.errors.length&&!b?.pending&&!b?.errors.length;
- $('stream-message').textContent=s.errors.length?'Some city sections could not load':loadingTravel?`Arriving in ${PLACES[place].title}…`:s.pending?`Unfolding the neighbourhood · ${s.loaded}/${s.wanted}`:d?.errors.length||b?.errors.length?'Some local details could not load':b?.pending?'Adding mapped footbridges…':'Adding mapped local detail…';
- $('stream-retry').hidden=!s.errors.length&&!d?.errors.length&&!b?.errors.length;$('data-summary').textContent=`${manifest.counts.buildings.toLocaleString('en-HK')} building forms · ${manifest.officialCoverage?.renderedComponents?(manifest.officialCoverage.retainedOSMForms?'Lands Department + OSM':'Lands Department'):manifest.supplementalSources?.length?'Lands Department + OSM':'OSM'}`;
+ if(!stream)return;const s=stream.stats,details=[regionalDetail?.stats,bridgeLayer?.stats,cableLayer?.stats,officialModels?.stats].filter(Boolean),bar=$('stream-status');
+ const errors=s.errors.length+s.infrastructureErrors.length+details.reduce((n,d)=>n+d.errors.length,0),pending=details.some(d=>d.pending);
+ bar.hidden=!s.pending&&!errors&&!loadingTravel&&!pendingModeRequest&&!pending;
+ $('stream-message').textContent=s.errors.length?'Some city sections could not load':pendingModeRequest?'Preparing movement…':loadingTravel?`Arriving in ${PLACES[place].title}…`:s.pending?`Unfolding the neighbourhood · ${s.loaded}/${s.wanted}`:errors?'Some local details could not load':'Adding mapped local detail…';
+ $('stream-retry').hidden=!errors;$('data-summary').textContent=`${manifest.counts.buildings.toLocaleString('en-HK')} building forms · ${manifest.officialCoverage?.renderedComponents?(manifest.officialCoverage.retainedOSMForms?'Lands Department + OSM':'Lands Department'):manifest.supplementalSources?.length?'Lands Department + OSM':'OSM'}`;
 }
 async function getCatalogue(){
  if(!cataloguePromise)cataloguePromise=loadJSON(manifest.catalogue).then(data=>{catalogue=data;makeLabels();return data;}).catch(error=>{cataloguePromise=null;throw error;});return cataloguePromise;
@@ -222,10 +239,10 @@ function bindUI(){
  document.querySelectorAll('[data-region]').forEach(b=>b.addEventListener('click',()=>regionUI(b.dataset.region)));
  document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>chooseMode(b.dataset.mode)));
  const layers={buildings:stream.buildings,roads:stream.roads,trees:stream.trees,surfaces:regionalDetail.group,bridges:bridgeLayer.group};
- for(const key of ['buildings','roads','trees','labels','surfaces','bridges'])$(`layer-${key}`).addEventListener('change',e=>{if(key==='labels')$('labels').hidden=!e.target.checked;else layers[key].visible=e.target.checked;if((key==='buildings'||key==='bridges')&&!e.target.checked)closeSelection();$('layer-count').textContent=`${document.querySelectorAll('.layers input:checked').length} LAYERS`;});
+ for(const key of ['buildings','roads','trees','labels','surfaces','bridges'])$(`layer-${key}`).addEventListener('change',e=>{if(key==='labels')$('labels').hidden=!e.target.checked;else layers[key].visible=e.target.checked;if(key==='bridges')cableLayer.group.visible=e.target.checked;if((key==='buildings'||key==='bridges')&&!e.target.checked)closeSelection();$('layer-count').textContent=`${document.querySelectorAll('.layers input:checked').length} LAYERS`;});
  const syncShimmer=()=>{stream.lighting.shimmer.value=!reduced&&$('light-shimmer').checked?1:0;$('light-shimmer').disabled=reduced;};
  $('light-shimmer').checked=!reduced;$('light-shimmer').addEventListener('change',syncShimmer);syncShimmer();
- motionPreference.addEventListener('change',e=>{reduced=e.matches;syncShimmer();});$('stream-retry').addEventListener('click',()=>{stream.cache.retry();regionalDetail.retry();bridgeLayer.retry().then(ok=>{if(ok)syncSourceReplacements();});});
+ motionPreference.addEventListener('change',e=>{reduced=e.matches;syncShimmer();});$('stream-retry').addEventListener('click',()=>{stream.cache.retry();regionalDetail.retry();bridgeLayer.retry().then(ok=>{if(ok)syncSourceReplacements();});cableLayer.retry();officialModels.retry();syncSourceReplacements();});
  $('reset-view').addEventListener('click',()=>goPlace(place));$('top-view').addEventListener('click',()=>{if(stargazer.active)setStargazing(false);if(nav.mode!=='orbit')nav.setMode('orbit',PLACES[place].spawn);const p=controls.target;transition([p.x,p.y+(place==='lantaupeaks'?18000:3300),p.z+.1],[p.x,p.y,p.z],1.3);});
  $('north-view').addEventListener('click',()=>{if(stargazer.active){stargazer.face(0);return;}if(nav.mode!=='orbit')return;const p=controls.target,d=camera.position.distanceTo(p);transition([p.x,p.y+d*.72,p.z+d*.7],[p.x,p.y,p.z]);});
  $('postcard').addEventListener('click',()=>{renderer.render(scene,camera);const a=document.createElement('a');a.download=`hong-kong-astra-${place}-${renderer.domElement.width}x${renderer.domElement.height}.png`;a.href=renderer.domElement.toDataURL('image/png');a.click();toast(`Postcard saved · ${renderer.domElement.width} × ${renderer.domElement.height} pixels`);});
@@ -233,7 +250,7 @@ function bindUI(){
  $('selection-close').addEventListener('click',closeSelection);$('search').addEventListener('input',search);
  let pointerStart;renderer.domElement.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY};});
  renderer.domElement.addEventListener('pointerup',e=>{if(stargazer.active||nav.mode!=='orbit'||!pointerStart||Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)>5)return;
-  raycaster.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2),camera);const buildings=stream.pickMeshes(raycaster.ray),bridges=bridgeLayer.pickMeshes(),hit=raycaster.intersectObjects([...buildings,...bridges],false)[0];if(hit){if(bridges.includes(hit.object))selectBridge(bridgeLayer.featureAt(hit));else selectBuilding(stream.featureAt(hit));}else closeSelection();
+  raycaster.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2),camera);const buildings=stream.pickMeshes(raycaster.ray),bridges=bridgeLayer.pickMeshes(),cables=cableLayer.pickMeshes(),hit=raycaster.intersectObjects([...buildings,...bridges,...cables],false)[0];if(hit){if(cables.includes(hit.object))selectBridge(cableLayer.featureAt(hit));else if(bridges.includes(hit.object))selectBridge(bridgeLayer.featureAt(hit));else selectBuilding(stream.featureAt(hit));}else closeSelection();
  });
  controls.addEventListener('start',()=>{tween=null;++travel;loadingTravel=false;});
  addEventListener('keydown',e=>{
@@ -255,6 +272,8 @@ async function init(){
  stream=new CityStreaming({manifest,terrain:data,sampler,scene,activity,onChange:updateStreamStatus});ferries=makeFerries();ferries.update(0);scene.add(ferries.group);
  let maskedSurfaces=0;regionalDetail=new RegionalDetail({scene,sampler,onChange:()=>{if(regionalDetail&&regionalDetail.surfaceCount!==maskedSurfaces){maskedSurfaces=regionalDetail.surfaceCount;stream.setSurfaceExclusions(regionalDetail.mappedSurfaces);}updateStreamStatus();}});
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus});
+ cableLayer=new BridgeCables({scene,onChange:updateStreamStatus});
+ officialModels=new OfficialModelLayer({stream,profile:innerWidth<=760?'mobile':'desktop',onChange:updateOfficialModels});
  sectionReview=new ReviewSections({scene,sampler,onVisit:visitReviewSection,onSelect:()=>{closeSelection();controlSheet.open('places');$('section-review').scrollIntoView({block:'start'});}});
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,surfaces:bridgeLayer.surfaces,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
  controlSheet=createControlSheet({onExpand:()=>nav.clearInput(),focusMap:()=>renderer.domElement.focus({preventScroll:true})});
@@ -266,11 +285,13 @@ async function init(){
   }return observerCache;
  },onClock:s=>{lightState=s;}});makeLabels();
  $('snapshot-date').textContent=manifest.snapshot.slice(0,10);$('loading').style.opacity='0';setTimeout(()=>$('loading').hidden=true,750);
- window.__city={get ready(){return true;},get state(){return {controls:controlSheet.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,placeCount:Object.keys(PLACES).length,sections:sectionReview.state,layers:{sections:sectionReview.enabled,bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
+ window.__city={get ready(){return true;},get state(){return {controls:controlSheet.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,pendingModeRequest,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,cables:cableLayer.stats,models:officialModels.stats,placeCount:Object.keys(PLACES).length,sections:sectionReview.state,layers:{sections:sectionReview.enabled,bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
  startTime=performance.now();requestAnimationFrame(animate);const initial=new URLSearchParams(location.search).get('district');goPlace(Object.hasOwn(PLACES,initial)?initial:'central',false);
  // Regional surfaces and search are independent of building/terrain readiness.
  for(const name of ['islands','urban','nt'])regionalDetail.load(`city/data/regional/${name}.json`);
  for(const url of ['city/data/bridges.json',...(manifest.bridgeModels||[])])bridgeLayer.load(url).then(ok=>{if(ok)syncSourceReplacements();});
+ for(const url of manifest.bridgeCables||[])cableLayer.load(url);
+ for(const url of manifest.officialModelCatalogues||[])officialModels.loadCatalogue(url);
  // Search and overview data arrive independently; neither blocks movement or terrain.
  getCatalogue().catch(()=>{});loadJSON(manifest.overview).then(data=>{overview=data;}).catch(()=>{});
 }
@@ -282,8 +303,9 @@ function animate(now){
  const focus=nav.mode==='orbit'?controls.target:nav.position;
  // A preset arrival already requests its destination. Do not replace that request
  // with intermediate camera positions while the transition crosses the harbour.
- if(now-lastStream>600&&!loadingTravel&&!tween){stream.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(6000,Math.max(2600,camera.position.distanceTo(focus))):3200);regionalDetail.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(5000,Math.max(2600,camera.position.distanceTo(focus))):3200);bridgeLayer.plan(focus.x,focus.z,3000,camera.position);lastStream=now;}
+ if(now-lastStream>600&&!loadingTravel&&!pendingModeRequest&&!tween){stream.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(6000,Math.max(2600,camera.position.distanceTo(focus))):3200);regionalDetail.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(5000,Math.max(2600,camera.position.distanceTo(focus))):3200);bridgeLayer.plan(focus.x,focus.z,3000,camera.position);cableLayer.plan(focus.x,focus.z,3000,bridgeLayer.surfaces.models.keys());lastStream=now;}
  if(stargazer.active)stargazer.update();else if(nav.mode==='orbit'){controls.update();const ground=Math.max(sampler.height(camera.position.x,camera.position.z),water.state.renderedLevelHKPD);if(camera.position.y<ground+2)camera.position.y=ground+2;}else if(!paused&&stream.readyAt(nav.position.x,nav.position.z,350))nav.update(dt);
+ if(!paused&&!loadingTravel&&!pendingModeRequest&&!tween)officialModels.plan(camera,{viewportHeight:innerHeight,selectedUid:selectedId});
  environment.update(dt,{now,paused,reducedMotion:reduced,stargazing:stargazer.active,position:focus});
  nav.setAircraftLighting({night:lightState.night,reducedMotion:reduced});
  if(!reduced&&!paused)ferries.update(water.time.value);

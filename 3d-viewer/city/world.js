@@ -50,7 +50,7 @@ export function makeTerrain(data) {
 }
 export function makeWater(){return createTidalWater();}
 export function extrudeBuilding(b){return createBuildingGeometry(b);}
-function facadeMaterial(hex,lighting){
+export function facadeMaterial(hex,lighting){
  const material=new THREE.MeshStandardMaterial({color:hex,roughness:.69,metalness:.13});
  material.onBeforeCompile=shader=>{
   shader.uniforms.uCityNight=lighting.night;shader.uniforms.uCityActivity=lighting.activity;shader.uniforms.uCityRetail=lighting.retail;shader.uniforms.uCitySeconds=lighting.elapsed;shader.uniforms.uCityShimmer=lighting.shimmer;
