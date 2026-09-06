@@ -40,19 +40,22 @@ test('Tai O terrain joins the coarse terrain continuously and retains the indepe
 
 test('terrain chunks and sampler use the same optional display heights, including zero',()=>{
  const patch=read('../data/terrain-tai-o.json'),base=read('../data/terrain.json'),g=patch.meta.georef;
- const sampler=makeTerrainSampler({...base,patches:[patch]}),group=makeTerrain({...base,patches:[patch]});let checked=0,seamNodes=0;
+ const sampler=makeTerrainSampler({...base,patches:[patch]}),group=makeTerrain({...base,patches:[patch]});let checked=0,seamNodes=0,drawnNodes=0;
  const fineMeshes=[];group.traverse(mesh=>{if(mesh.isMesh&&mesh.name==='Lands Department · 5 m terrain')fineMeshes.push(mesh);});
  for(const mesh of fineMeshes){
-  const pos=mesh.geometry.attributes.position;
+  const pos=mesh.geometry.attributes.position,drawn=new Set(mesh.geometry.index.array);
   for(let i=0;i<pos.count;i++){
    const x=pos.getX(i),z=pos.getZ(i),y=pos.getY(i),c=Math.round((x+834500-g.bE)/g.aE),r=Math.round((816500-z-g.bN)/g.aN);
    assert.ok(Math.abs(y-terrainVertexHeight(patch,r*patch.w+c))<.001);
+   checked++;if(c===196)seamNodes++;
+   // Covered parent vertices remain in the buffer but have no drawn triangles.
+   // Their child surface is verified separately by the nested-terrain tests.
+   if(!drawn.has(i))continue;drawnNodes++;
    const expected=sampler.mappedWater(x,z)?base.hydro.illustrativeBed:Math.max(1.2,y);
    assert.ok(Math.abs(expected-sampler.height(x,z))<.011);
-   checked++;if(c===196)seamNodes++;
   }
  }
- assert.ok(checked>=patch.w*patch.h);assert.equal(seamNodes,patch.h*2);
+ assert.ok(drawnNodes>0);assert.ok(checked>=patch.w*patch.h);assert.equal(seamNodes,patch.h*2);
  group.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});
  const simple={w:2,h:2,elev:[5,0,-2,9],renderedElev:[0,null,null,null],vegetation:[0,0,0,0],meta:{georef:{bE:834500,bN:816500,aE:5,aN:-5}}};
  assert.equal(terrainVertexHeight(simple,0),0);assert.equal(terrainVertexHeight(simple,1),-4);assert.equal(terrainVertexHeight(simple,3),9);
