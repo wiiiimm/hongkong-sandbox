@@ -42,7 +42,7 @@ export function extrudeBuilding(b){
 function facadeMaterial(hex,lighting){
  const material=new THREE.MeshStandardMaterial({color:hex,roughness:.69,metalness:.13});
  material.onBeforeCompile=shader=>{
-  shader.uniforms.uCityNight=lighting.night;shader.uniforms.uCityActivity=lighting.activity;
+  shader.uniforms.uCityNight=lighting.night;shader.uniforms.uCityActivity=lighting.activity;shader.uniforms.uCityRetail=lighting.retail;shader.uniforms.uCitySeconds=lighting.elapsed;shader.uniforms.uCityShimmer=lighting.shimmer;
   shader.vertexShader=shader.vertexShader.replace('#include <common>',`#include <common>
    attribute vec4 cityLight; varying vec4 vCityLight;
    varying vec3 vCityPosition; varying vec3 vCityNormal;`).replace('#include <begin_vertex>',`#include <begin_vertex>
@@ -50,37 +50,45 @@ function facadeMaterial(hex,lighting){
    vCityNormal = normalize(mat3(modelMatrix) * objectNormal);`);
   shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>
    varying vec4 vCityLight; varying vec3 vCityPosition; varying vec3 vCityNormal;
-   uniform float uCityNight; uniform vec4 uCityActivity;
+   uniform float uCityNight; uniform vec4 uCityActivity; uniform float uCityRetail; uniform float uCitySeconds; uniform float uCityShimmer;
    float cityHash(vec2 p) { return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
   `).replace('#include <color_fragment>',`#include <color_fragment>
    float wall = 1.0 - step(.6, abs(vCityNormal.y));
    float horizontal = abs(vCityNormal.x) > abs(vCityNormal.z) ? vCityPosition.z : vCityPosition.x;
-   vec2 cell = vec2(horizontal / 3.6, (vCityPosition.y-vCityLight.z) / vCityLight.w);
+   vec2 cell = vec2(horizontal / 3.6, (vCityPosition.y-vCityLight.z) / 3.5);
    vec2 grid = fract(cell);
    float windowMask = smoothstep(.12,.20,grid.x) * (1.0-smoothstep(.76,.84,grid.x)) * smoothstep(.20,.28,grid.y) * (1.0-smoothstep(.70,.78,grid.y));
    float glowMask = smoothstep(.0,.16,grid.x) * (1.0-smoothstep(.82,1.0,grid.x)) * smoothstep(.02,.24,grid.y) * (1.0-smoothstep(.74,.98,grid.y));
    float detailAA = 1.0-smoothstep(.25,1.3,max(fwidth(cell.x),fwidth(cell.y)));
-   float activity = vCityLight.y < .5 ? uCityActivity.x : vCityLight.y < 1.5 ? uCityActivity.y : vCityLight.y < 2.5 ? uCityActivity.z : uCityActivity.w;
+   float activity = vCityLight.y < .5 ? uCityActivity.x : vCityLight.y < 1.5 ? uCityActivity.y : vCityLight.y < 2.5 ? uCityActivity.z : vCityLight.y < 3.5 ? uCityActivity.w : uCityRetail;
+   if(vCityLight.w>0.0 && vCityPosition.y-vCityLight.z<vCityLight.w) activity=uCityRetail;
    // Each building and window has a stable bedtime; no frame-dependent flicker.
    activity = clamp(activity * (.80 + .40*vCityLight.x), .012, .985);
    vec2 room = floor(cell) + vCityLight.x * vec2(773.0,419.0) + vCityNormal.xz*31.0;
    float bedtime = cityHash(room);
    float lit = smoothstep(bedtime-.016,bedtime+.016,activity);
    vec3 warm = vec3(1.0,.63,.27), cool = vec3(.71,.85,1.0);
-   float coolRooms = vCityLight.y > .5 && vCityLight.y < 1.5 ? .64 : .17;
+   float coolRooms = vCityLight.y > .5 && vCityLight.y < 1.5 ? .64 : vCityLight.y>3.5 ? .36 : .17;
    vec3 lightColour = mix(mix(warm,cool,coolRooms),mix(warm,cool,step(1.0-coolRooms,cityHash(room+97.0))),detailAA);
    diffuseColor.rgb *= 1.0-wall*windowMask*.28*detailAA;
   `).replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
    // At a distance integrate coverage instead of aliasing sub-pixel windows.
    float windowLight = mix(.12*activity,windowMask*lit,detailAA);
    float softSpill = mix(.025*activity,glowMask*lit*.12,detailAA);
-   totalEmissiveRadiance += lightColour * (windowLight+softSpill) * wall * uCityNight * 1.8;
+   // Small, independent low-frequency scintillation. Nearby windows stay steady.
+   float distanceM = length(vViewPosition);
+   float distant = smoothstep(650.0,3500.0,distanceM);
+   float phase = mix(vCityLight.x,cityHash(room+57.0),detailAA)*6.2831853;
+   float turbulence = sin(uCitySeconds*.83+phase)*.65 + sin(uCitySeconds*1.71+phase*2.37)*.35;
+   float transmission = exp(-max(distanceM-400.0,0.0)/24000.0);
+   float shimmer = 1.0 + .045*distant*uCityShimmer*turbulence;
+   totalEmissiveRadiance += lightColour * (windowLight+softSpill) * wall * uCityNight * 1.8 * transmission * shimmer;
   `);
  };
  return material;
 }
 export async function makeBuildings(features,onProgress,options={}){
- const group=new THREE.Group();group.name='OSM building footprints';const lighting=options.lighting||{night:{value:0},activity:{value:new Float32Array([.8,.6,.9,.7])}},night=lighting.night;
+ const group=new THREE.Group();group.name='OSM building footprints';const lighting=options.lighting||{night:{value:0},activity:{value:new Float32Array([.8,.6,.9,.7])},retail:{value:.9},elapsed:{value:0},shimmer:{value:0}},night=lighting.night;
  const palette=['#d9d8c5','#ebe7d5','#b6c9c1','#a5bcb8','#c1c3b6','#e0d7bc','#8aafac','#bdc6bf'];
  const materials=palette.map(c=>facadeMaterial(c,lighting)),bins=palette.map(()=>[]);let totalVertices=0;
  for(let i=0;i<features.length;i++){
@@ -89,7 +97,7 @@ export async function makeBuildings(features,onProgress,options={}){
    const geo=extrudeBuilding(b),n=geo.attributes.position.count;
    geo.setAttribute('feature',new THREE.Float32BufferAttribute(new Float32Array(n).fill(i),1));
    const style=buildingLighting(b),light=new Float32Array(n*4);
-   for(let v=0;v<n;v++)light.set([style.seed,style.profile,style.base,style.floorHeight],v*4);
+   for(let v=0;v<n;v++)light.set([style.seed,style.profile,style.base,style.retailTop],v*4);
    geo.setAttribute('cityLight',new THREE.BufferAttribute(light,4));
    const id=Number(b.id.split('/')[1]);const bucket=b.height>150?6:b.material==='glass'?2:b.height>65?3:id%6;
    geo.clearGroups();bins[bucket].push(geo);totalVertices+=n;

@@ -1,12 +1,15 @@
 // Illustrative occupancy schedules, not measured activity or astronomical times.
 // One shared clock drives every material, including sections loaded after dark.
 import {smoothStep} from './geo.js';
-export const LIGHT_PROFILES=['home','office','overnight','mixed'];
+export const LIGHT_PROFILES=['home','office','overnight','mixed','retail'];
 const SCHEDULE=[
- [0, .44,.18,.72,.32], [2, .16,.075,.48,.13], [4, .06,.035,.26,.065],
- [5, .10,.06,.30,.10], [6, .30,.18,.45,.23], [8, .36,.80,.70,.60],
- [12,.22,.80,.65,.55], [17,.45,.75,.72,.65], [19,.88,.64,.95,.82],
- [21,.80,.50,.92,.72], [22,.69,.36,.87,.60], [24,.44,.18,.72,.32]
+ // hour, homes, offices, overnight, unknown/mixed, retail
+ [0,.48,.08,.65,.34,.14], [2,.16,.04,.42,.12,.04], [4,.055,.025,.24,.045,.02],
+ [5,.10,.045,.28,.08,.03], [6,.30,.14,.42,.20,.075], [8,.40,.82,.68,.59,.30],
+ [10,.25,.90,.74,.58,.88], [12,.22,.90,.75,.58,.90], [16,.28,.90,.80,.62,.92],
+ [18,.60,.86,.84,.74,.94], [19,.76,.84,.89,.77,.94],
+ [20,.87,.68,.92,.78,.93], [21,.90,.34,.92,.78,.93],
+ [22,.83,.16,.88,.70,.88], [23,.68,.11,.78,.53,.48], [24,.48,.08,.65,.34,.14]
 ];
 export function normaliseHour(hour){return Number.isFinite(hour)?((hour%24)+24)%24:15;}
 export function formatHour(hour){const minutes=Math.round(normaliseHour(hour)*60)%1440;return `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`;}
@@ -24,7 +27,15 @@ export function buildingLighting(b){
  let hash=2166136261;for(const c of b.parent||b.id||b.uid||'building')hash=Math.imul(hash^c.charCodeAt(0),16777619)>>>0;
  const kind=b.kind||'';
  const profile=/hotel|hospital|clinic|fire_station|police/.test(kind)?2:
-  /office|commercial|retail|school|university|industrial|warehouse/.test(kind)?1:
+  /retail|shop|mall/.test(kind)?4:
+  /office|commercial|school|university|industrial|warehouse/.test(kind)?1:
   /residential|apartment|house|dormitory|bungalow/.test(kind)?0:3;
- return {seed:(hash%65521)/65521,profile,base:b.base,floorHeight:3.5};
+ return {seed:(hash%65521)/65521,profile:b.activity?.profile??profile,base:b.base,retailTop:b.activity?.retailTop||0};
+}
+
+export function activityDescription(activity){
+ if(!activity)return 'Night use: mixed / unknown · estimated pattern.';
+ const names=['Residential','Office / daytime use','Hotel / overnight use','Mixed / unknown','Retail'];
+ const evidence={'building-tag':'mapped building use','parent-tag':'mapped parent-building use',landuse:'estimated from mapped land use',research:'researched mixed-use building',fallback:'estimated use'};
+ return `Night use: ${names[activity.profile]} · ${evidence[activity.source]||'estimated use'}.${activity.retailTop?' Lower floors follow retail hours; the vertical split is approximate.':''}`;
 }
