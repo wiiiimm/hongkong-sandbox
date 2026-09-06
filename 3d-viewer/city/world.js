@@ -15,8 +15,8 @@ export function makeTerrain(data) {
   if(e>240)co.lerp(rock,smoothStep(240,900,e)*.38);
   co.multiplyScalar(.94+randomAt()*.10);colours.set([co.r,co.g,co.b],i*3);
  }
- let k=0;for(let r=0;r<h-1;r++)for(let c=0;c<w-1;c++){const a=r*w+c;indices.set([a,a+w,a+1,a+1,a+w,a+w+1],k);k+=6;}
- const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colours,3));geo.setIndex(new THREE.BufferAttribute(indices,1));geo.computeVertexNormals();
+ let k=0;for(let r=0;r<h-1;r++)for(let c=0;c<w-1;c++){const a=r*w+c;if(!elev[a]&&!elev[a+1]&&!elev[a+w]&&!elev[a+w+1])continue;indices.set([a,a+w,a+1,a+1,a+w,a+w+1],k);k+=6;}
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colours,3));geo.setIndex(new THREE.BufferAttribute(indices.slice(0,k),1));geo.computeVertexNormals();
  const material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
  const mesh=new THREE.Mesh(geo,material);mesh.receiveShadow=true;mesh.name='Lands Department · 70 m terrain';return mesh;
 }
@@ -59,16 +59,18 @@ function facadeMaterial(hex,night){
  };
  return material;
 }
-export async function makeBuildings(features,onProgress){
- const group=new THREE.Group();group.name='OSM building footprints';const night={value:0};
+export async function makeBuildings(features,onProgress,options={}){
+ const group=new THREE.Group();group.name='OSM building footprints';const night=options.night||{value:0};
  const palette=['#d9d8c5','#ebe7d5','#b6c9c1','#a5bcb8','#c1c3b6','#e0d7bc','#8aafac','#bdc6bf'];
  const materials=palette.map(c=>facadeMaterial(c,night)),bins=palette.map(()=>[]);let totalVertices=0;
- features.forEach((b,i)=>{
+ for(let i=0;i<features.length;i++){
+   const b=features[i];
+   if(i%128===0)await new Promise(resolve=>setTimeout(resolve,0));
    const geo=extrudeBuilding(b),n=geo.attributes.position.count;
    geo.setAttribute('feature',new THREE.Float32BufferAttribute(new Float32Array(n).fill(i),1));
    const id=Number(b.id.split('/')[1]);const bucket=b.height>150?6:b.material==='glass'?2:b.height>65?3:id%6;
    geo.clearGroups();bins[bucket].push(geo);totalVertices+=n;
- });
+ }
  for(let i=0;i<bins.length;i++){
    if(!bins[i].length)continue;
    const geo=mergeGeometries(bins[i],false);for(const g of bins[i])g.dispose();
@@ -79,7 +81,7 @@ export async function makeBuildings(features,onProgress){
 }
 export function makeRoads(roads,sampler){
  const group=new THREE.Group();group.name='Streets and paths';const surfaces={road:[],path:[],bridge:[]};
- const widthFor={motorway:15,trunk:13,primary:11,secondary:9,tertiary:8,residential:6,unclassified:6,service:4,living_street:5,pedestrian:5,footway:2.1,path:1.7,steps:2,cycleway:2.5};
+ const widthFor={motorway:15,trunk:13,primary:11,secondary:9,tertiary:8,residential:6,unclassified:6,service:4,living_street:5,pedestrian:5,footway:2.1,path:1.7,steps:2,cycleway:2.5,runway:45,taxiway:20};
  for(const r of roads){
   const width=widthFor[r.kind]||5,isPath=['footway','path','steps','pedestrian'].includes(r.kind),target=surfaces[r.bridge?'bridge':isPath?'path':'road'];
   const lift=r.bridge?Math.max(5,r.layer*5):.18;
@@ -100,13 +102,14 @@ export function makeRoads(roads,sampler){
  }
  return group;
 }
-export function makeNature(parks,terrain,sampler,index){
- const group=new THREE.Group(),points=[],rng=random(163);const {w,h,elev,vegetation}=terrain,g=terrain.meta.georef;
+export function makeNature(parks,terrain,sampler,index,options={}){
+ const group=new THREE.Group(),points=[],rng=random(options.seed??163);const {w,h,elev,vegetation}=terrain,g=terrain.meta.georef;
  // Landcover-backed trees only. Avoid buildings and keep a compact urban draw budget.
  for(let r=0;r<h;r++)for(let c=0;c<w;c++){
   const i=r*w+c;if(!vegetation[i]||elev[i]<5)continue;
   const x=g.bE+c*g.aE-ORIGIN[0],z=ORIGIN[1]-(g.bN+r*g.aN);
-  if(x<-4200||x>4200||z<-2300||z>4000)continue;
+  const bounds=options.bounds||[-4200,-2300,4200,4000];
+  if(x<bounds[0]||x>=bounds[2]||z<bounds[1]||z>=bounds[3])continue;
   for(let j=0;j<3;j++){const px=x+(rng()-.5)*55,pz=z+(rng()-.5)*55;if(!index.collision(px,pz,0,1000,5))points.push([px,pz,4+rng()*6]);}
  }
  const parkGeos=[];

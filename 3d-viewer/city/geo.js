@@ -40,6 +40,7 @@ export class BuildingIndex {
     });
   }
   candidates(x,z,r=0){const out=new Set();for(let i=Math.floor((x-r)/this.cell);i<=Math.floor((x+r)/this.cell);i++)for(let j=Math.floor((z-r)/this.cell);j<=Math.floor((z+r)/this.cell);j++)for(const k of this.cells.get(`${i},${j}`)||[])out.add(k);return out;}
+  maximumRoof(x,z,radius=20){let h=0;for(const i of this.candidates(x,z,radius)){const b=this.buildings[i];h=Math.max(h,b.base+b.height);}return h;}
   collision(x,z,bottom,top,radius=.5){
     for(const i of this.candidates(x,z,radius)){
       const b=this.buildings[i];if(top<=b.base+b.minimum||bottom>=b.base+b.height)continue;

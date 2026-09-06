@@ -56,7 +56,7 @@ export class Navigation {
   }else if(mode==='fly'){
     this.position.set(spawn[0]+600,Math.max(500,this.sampler.height(...spawn)+300),spawn[1]-1000);this.heading=Math.PI+.15;this.lookPitch=.65;this.pitch=0;this.speed=62;
     // Clear any tall structures near the starting point.
-    for(const i of this.index.candidates(this.position.x,this.position.z,20)){const b=this.index.buildings[i];this.position.y=Math.max(this.position.y,b.base+b.height+100);}
+    this.position.y=Math.max(this.position.y,this.index.maximumRoof(this.position.x,this.position.z,20)+100);
   }else if(this.mode!=='orbit'){
     this.controls.target.copy(this.position);this.camera.position.copy(this.position).add(new THREE.Vector3(260,230,320));this.controls.update();
   }
