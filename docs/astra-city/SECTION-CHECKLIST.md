@@ -8,7 +8,7 @@ The 18 administrative districts provide the coverage spine. The smaller sections
 
 Use a stable reference such as **01.1 Central core** when choosing the next section. An empty checkbox means its detailed geography and gameplay review remains outstanding; importing geometry alone does not complete it. Split a section further if it is too large for one review.
 
-**Current baseline:** 117,062 OSM building forms, 449 streaming tiles, 43 destination shortcuts. The import deliberately covers all 18 districts, including the New Territories and outlying islands. Query rectangles are not district boundaries and do not establish complete coverage. Terrain is the existing 70 m sampled mesh. Every section below remains unchecked.
+**Current coverage baseline (ff68cf1):** 346,115 building forms across 452 tiles, including all 342,223 verified government source records and retained OSM supplements; 196 destination shortcuts. Mui Wo includes 275 detailed government models and a 5 m terrain patch, with adjoining model tiles under active HKS-167 development. Most remaining terrain uses the 70 m mesh. Full source coverage and clear arrival points do not complete the detailed section reviews below. See [execution subissues](EXECUTION-ISSUES.md).
 
 **Status key:** Imported base = regional source geometry is available, with completeness and accuracy still unreviewed. Partial base = the current rectangles cut across the area. Mostly pending = only incidental overlap may exist. Pending = no deliberate regional building import yet.
 

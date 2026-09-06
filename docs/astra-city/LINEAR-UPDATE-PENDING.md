@@ -1,6 +1,6 @@
-# Prepared Linear update — awaiting approval
+# Linear update — posted after authorisation
 
-The Linear save tool rejected the implementation report on 6 September 2026, stating that posting internal implementation details, counts, performance, commit references and limitations required approval for that payload and destination. These notes are local only. HKS-164 remains In Progress; HKS-116 remains In Progress. The following is the proposed text for the existing Astra milestone and its issues, not for the separate comparison milestone.
+The initial Linear write was rejected by automatic approval review. The user subsequently explicitly authorised updates to this project and the Astra milestone. The coverage report and milestone/parent progress have now been posted successfully: HKS-164 is In Review, HKS-116 and HKS-117 are In Progress. This file retains the prepared text as historical evidence; it is no longer awaiting approval. Current subissue tracking is in EXECUTION-ISSUES.md.
 
 ## HKS-164 — append report; move to In Review
 

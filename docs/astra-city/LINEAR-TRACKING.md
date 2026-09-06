@@ -2,15 +2,21 @@
 
 GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained as history. The current milestone is **Astra - Living Hong Kong — buildings, regional detail & feature parity** (same milestone ID).
 
+## Current execution and authorisation
+
+The user explicitly authorised updates to the Astra milestone and its issues. The pending coverage report has been posted: HKS-164 is now **In Review**, and HKS-116/HKS-117 reflect the verified ff68cf1 coverage and active feature restoration. The prior automatic approval rejection is resolved.
+
+[22 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168 and HKS-169 are running in parallel; HKS-170–188 are queued. The seven existing geography parents retain the 132-section review scope.
+
 ## Current local checkpoint
 
 - `5ae3900`: 153 added destinations covering all 132 sections (196 total), 2,923 mapped local surfaces and the separate mapped-footbridge renderer. HKS-153 is confirmed **In Review** in Linear.
-- `c85ac0b`: all 2,408 official Mui Wo records, native height evidence, a reused 5 m terrain patch, 227 open-sided structures and 275 matched official 3D models. HKS-164 is still **In Progress** in Linear: automatic approval review rejected the prepared implementation report/status update. No successful remote write is claimed.
+- `c85ac0b`: all 2,408 official Mui Wo records, native height evidence, a reused 5 m terrain patch, 227 open-sided structures and 275 matched official 3D models. HKS-164 is now **In Review** in Linear; the approved implementation report has been posted.
 - The final local territory checkpoint publishes 346,115 forms, including all 342,223 government records as 342,225 polygon components, plus 3,890 OSM forms. It reuses the existing official download, renderer and tile pipeline. See [territory provenance and verification](landsd-territory/README.md).
 - HKS-116 and the seven region tasks remain **In Progress**. Full terrain/shoreline/architectural and route acceptance still needs section-by-section review. HKS-117 remains the original-game parity roll-up; no parity task is closed by this coverage pass.
 - Completed verification ownership: Heisenberg — government 3D sample, references and all saved arrivals; Curie — independent full-territory source/geometry/overlap audit; Kant — per-tile lighting and independent browser/performance review; primary agent — shared publication, classification preservation and integration.
 
-The complete city suite passes 102 checks; all 190 walking arrivals and eight representative desktop/mobile browser visits pass. Detailed implementation and validation reports remain in this worktree. Pending Linear text is kept in [LINEAR-UPDATE-PENDING.md](LINEAR-UPDATE-PENDING.md) for review. The comparison branches remain separate; no push, merge or deployment has occurred.
+The complete city suite passes 102 checks; all 190 walking arrivals and eight representative desktop/mobile browser visits pass. Detailed implementation and validation reports remain in this worktree. The formerly pending text is retained in [LINEAR-UPDATE-PENDING.md](LINEAR-UPDATE-PENDING.md) as a historical record; the write has now succeeded. The comparison branches remain separate; no push, merge or deployment has occurred.
 
 ## Initial planning snapshot
 
