@@ -2,7 +2,7 @@
 
 Created and read back from Linear on 6 September 2026. The user explicitly authorised issue, subissue, status and progress updates in **Astra - Living Hong Kong — buildings, regional detail & feature parity**. Project: Hong Kong Sandbox; team HKS. William remains the assignee; agent names identify execution ownership.
 
-There are **22 new subissues**: three implemented in parallel and now In Review, HKS-180 in progress, and 18 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. No current cycle was returned; no date was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
+There are **24 execution subissues**: five In Review, HKS-180 In Progress, and 18 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. Cycle discovery returned no entries, but read-back confirmed workspace-assigned cycle IDs for active issues; these are preserved. No deadline was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
 
 ## First parallel batch — implemented and verified
 
@@ -54,7 +54,7 @@ Primary agent owns city `environment.js`, `app.js`, `city.html` and CSS for the 
 - [HKS-187 — Restore saved-view URLs, sharing, embeds and settings](https://linear.app/stealth-company/issue/HKS-187/restore-saved-view-urls-sharing-embeds-and-settings) — Backlog; 4 points.
 - [HKS-188 — Restore original fullscreen, PWA, offline and help behaviours](https://linear.app/stealth-company/issue/HKS-188/restore-original-fullscreen-pwa-offline-and-help-behaviours) — Backlog; 8 points.
 
-The machine-readable read-back is `EXECUTION-ISSUES.json`. Statuses were read back after verification: HKS-167–169 are In Review; HKS-180 is In Progress, with the other 18 subissues still queued. Released original-game issues remain Released and are reused as compatibility references.
+The machine-readable read-back is `EXECUTION-ISSUES.json`. Statuses were read back after verification: HKS-167–169 are In Review; HKS-167–169 and HKS-189–190 are In Review; HKS-180 is In Progress, with the other 18 subissues still queued. Released original-game issues remain Released and are reused as compatibility references.
 
 ## Verified local delivery
 
@@ -67,3 +67,12 @@ The milestone and HKS-116/117/122/129 carry the current implementation reports. 
 ## Requested tide/wave pass — HKS-180
 
 Curie restored the shared original tide interpolation, water normals/rain/glitter, wet shore and foam. The primary agent integrated manual sea level, HKO predictions/24-hour graph, station choice, ferry level and water-aware navigation. The tidal slice passes **128/128 city tests** and six actual-city browser groups. [Methods and evidence](tides/README.md). HKS-180 remains In Progress for typhoon, sky-height, snow-accumulation and other manual controls; the tide slice does not close that parent scope.
+
+## Mobile controls and timelapse — verified parallel pass
+
+- [HKS-189 — Add adjustable city timelapse beside the 24-hour dial](https://linear.app/stealth-company/issue/HKS-189/add-adjustable-city-timelapse-beside-the-24-hour-dial) — In Review; 4 points. Parent HKS-129; Curie reused the existing clock/lighting path.
+- [HKS-190 — Redesign city controls for mobile bottom sheets and desktop panels](https://linear.app/stealth-company/issue/HKS-190/redesign-city-controls-for-mobile-bottom-sheets-and-desktop-panels) — In Review; 4 points. Parent HKS-132; Kant implemented presentation and layout checks; the primary agent integrated app and keyboard behaviour.
+
+Both are High priority, assigned to William in the authorised Astra milestone, with existing Type/Area labels and the workspace-assigned cycle. The timelapse issue was created before Curie was dispatched, as requested. GPU verification remains serialised.
+
+Committed as `e2c50f9`; both issues were updated and read back as In Review. **133/133 city tests pass**, alongside the control-sheet browser suite/follow-up and nine timelapse browser groups. Screenshots at 320/390/1024/1440 px were inspected. Timelapse at 30 min/s measured 16.7 ms median/p95 over 180 desktop frames. [Control evidence](control-sheet/README.md) · [Timelapse evidence](time-cycle/README.md). Both agents have finished this pass. Physical phone keyboard testing is still unverified; the wider regional and feature-parity parents remain open.

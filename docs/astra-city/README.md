@@ -76,9 +76,12 @@ building's inspector identifies its height source. Roof shapes, building interio
 façade details, road widths, bridge clearances and ferry motion are simplified.
 A few named structures share several separately mapped parts.
 
-The terrain is the project's existing **70 m sampled mesh**, derived from the
-Lands Department source. It is not a newly downloaded 5 m street surface.
-Shorelines, slopes and very small pedestrian routes inherit this resolution.
+Most terrain reuses the project's existing **70 m sampled grid**, derived from the
+Lands Department source. **Mui Wo additionally uses a 5 m patch** converted from
+the archived official DTM, aligned to the same metre-based coordinates and HKPD
+vertical datum. The Three.js city renderer builds terrain from these existing data;
+it does not replace the geographic source. Outside that patch, shorelines, slopes
+and small pedestrian routes still inherit the coarser resolution.
 Trees and façade windows are an illustrative presentation layer. Lantau now has
 building imports, including Tung Chung, Discovery Bay, Mui Wo and Tai O. Recent
 reclamation, fine tidal creeks and small paths may disagree with the older/coarser

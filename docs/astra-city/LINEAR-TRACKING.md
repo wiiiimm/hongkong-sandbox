@@ -6,9 +6,11 @@ GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained
 
 The user explicitly authorised updates to the Astra milestone and its issues. The pending coverage report has been posted: HKS-164 is now **In Review**, and HKS-116/HKS-117 reflect the verified ff68cf1 coverage and active feature restoration. The prior automatic approval rejection is resolved.
 
-[22 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168 and HKS-169 were implemented in parallel and are now **In Review**; HKS-180 is In Progress; the other 18 subissues in HKS-170–188 remain queued. Their three agents have completed this batch. The seven existing geography parents retain the 132-section review scope.
+[24 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168, HKS-169, HKS-189 and HKS-190 are **In Review**; HKS-180 is In Progress; the other 18 subissues in HKS-170–188 remain queued. The first three-agent batch and subsequent timelapse/control passes are complete; no agent is claimed to be working on a queued issue. The seven existing geography parents retain the 132-section review scope.
 
 ## Current local checkpoint
+
+`e2c50f9` implements HKS-189 adjustable timelapse and HKS-190 mobile-first bottom sheet/desktop inspector. Both are In Review (High, 4 points each), after Curie/Kant implementation and primary-agent integration/review. All 133 city tests, nine timelapse browser groups and responsive control checks pass; exports at 320/390/1024/1440 px were inspected. [Controls](control-sheet/README.md) · [Timelapse](time-cycle/README.md). Existing services and all 118 prior control IDs are preserved. Physical handset keyboard behaviour remains unverified.
 
 The subsequent user-requested **HKS-180 tide/wave slice** restores manual sea level, HKO predictions/24-hour graph and shared original water/shore effects. Curie owns the water/source restoration; the primary agent owns the city controls and navigation/ferry integration. **128/128 city tests** and six actual-city browser groups pass. [Tide implementation and evidence](tides/README.md). The broader HKS-180 issue stays In Progress for its remaining original controls.
 
