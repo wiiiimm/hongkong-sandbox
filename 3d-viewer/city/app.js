@@ -41,7 +41,7 @@ function updatePlace(key){
 }
 async function goPlace(key,animate=true){
  if(stargazer.active)setStargazing(false);
- const token=++travel;++modeRequest;loadingTravel=true;const p=PLACES[key];if(nav.mode!=='orbit')nav.setMode('orbit',p.spawn);
+ const token=++travel;++modeRequest;pendingModeRequest=0;loadingTravel=true;const p=PLACES[key];if(nav.mode!=='orbit')nav.setMode('orbit',p.spawn);
  updatePlace(key);regionalDetail.plan(p.target[0],p.target[2]);bridgeLayer.plan(p.target[0],p.target[2],3000,camera.position);closeSelection();const pos=p.target.map((x,i)=>x+p.offset[i]);
  if(animate)transition(pos,p.target);else{camera.position.set(...pos);controls.target.set(...p.target);controls.update();}
  updateStreamStatus();
@@ -51,7 +51,7 @@ async function goPlace(key,animate=true){
 }
 async function visitReviewSection(section){
  const key=section.placeIds?.find(id=>PLACES[id]),token=key?travel+1:++travel;
- if(key)await goPlace(key,false);else{++modeRequest;loadingTravel=false;updateStreamStatus();}
+ if(key)await goPlace(key,false);else{++modeRequest;pendingModeRequest=0;loadingTravel=false;updateStreamStatus();}
  if(token!==travel||!sectionReview.enabled)return;
  if(stargazer.active)setStargazing(false);if(nav.mode!=='orbit')nav.setMode('orbit',PLACES[place].spawn);closeSelection();
  const [a,b,c,d]=section.bounds,x=(a+c)/2,z=(b+d)/2,y=Math.max(1.5,sampler.height(x,z));
@@ -65,7 +65,7 @@ async function visitReviewSection(section){
 async function chooseMode(mode){
  if(mode==='walk'&&PLACES[place].aerialOnly){toast('This place is available from the air. Choose a nearby village or town to walk.');return;}
  if(mode==='star'){setStargazing(true);return;}if(stargazer.active)setStargazing(false);
- if(mode==='orbit'){++modeRequest;nav.setMode(mode,PLACES[place].spawn);return;}
+ if(mode==='orbit'){++modeRequest;pendingModeRequest=0;nav.setMode(mode,PLACES[place].spawn);return;}
  const token=++modeRequest,p=PLACES[place],origin=mode==='fly'?[p.spawn[0]+600,p.spawn[1]-1000]:p.spawn;
  pendingModeRequest=token;updateStreamStatus();
  try{await stream.arrive(...origin,3200);if(token===modeRequest)nav.setMode(mode,p.spawn);}
@@ -83,7 +83,7 @@ function onMode(mode){
 }
 function showPanel(name){controlSheet.selectPanel(name,{expand:false});}
 function setStargazing(enabled){
- ++modeRequest;if(enabled===stargazer.active)return;
+ ++modeRequest;pendingModeRequest=0;if(enabled===stargazer.active)return;
  if(enabled){
   if(nav.mode!=='orbit')nav.setMode('orbit',PLACES[place].spawn);tween=null;closeSelection();
   const p=controls.target,altitude=Math.max(sampler.height(p.x,p.z)+30,stream.maximumRoof(p.x,p.z,30)+8);
@@ -130,7 +130,7 @@ function selectBridge(bridge){
 }
 async function visitBridge(bridge){
  if(stargazer.active)setStargazing(false);
- const p=bridge.focus||bridge.deckPath[Math.floor(bridge.deckPath.length/2)],token=++travel;++modeRequest;loadingTravel=true;
+ const p=bridge.focus||bridge.deckPath[Math.floor(bridge.deckPath.length/2)],token=++travel;++modeRequest;pendingModeRequest=0;loadingTravel=true;
  if(nav.mode!=='orbit')nav.setMode('orbit',[p[0],p[2]]);updatePlace(closestPlace(p[0],p[2]));closeSelection();
  const distance=Math.max(90,Math.min(350,bridge.length*1.5));transition([p[0]+distance,p[1]+distance*.75,p[2]-distance],[p[0],p[1]+1,p[2]],1.2);
  bridgeLayer.plan(p[0],p[2],3000,camera.position);regionalDetail.plan(p[0],p[2]);
@@ -138,7 +138,7 @@ async function visitBridge(bridge){
 }
 async function visitBuilding(b){
  if(stargazer.active)setStargazing(false);
- const token=++travel;++modeRequest;loadingTravel=true;if(nav.mode!=='orbit')nav.setMode('orbit',b.centre);updatePlace(closestPlace(...b.centre));closeSelection();
+ const token=++travel;++modeRequest;pendingModeRequest=0;loadingTravel=true;if(nav.mode!=='orbit')nav.setMode('orbit',b.centre);updatePlace(closestPlace(...b.centre));closeSelection();
  regionalDetail.plan(...b.centre);const radius=Math.max(100,b.height*2.1);transition([b.centre[0]+radius*.75,b.base+b.height+radius*.5,b.centre[1]-radius],[b.centre[0],b.base+b.height*.45,b.centre[1]],1.2);
  try{const full=await stream.getBuilding(b.tile,b.uid);if(token===travel){selectBuilding(full);stream.plan(...b.centre,3200);}}
  catch(error){if(error.name!=='AbortError')toast('This building could not load. Retry the city download.');}
@@ -172,7 +172,7 @@ function drawMinimap(){
   for(let r=0;r<data.h;r+=step)for(let c=0;c<data.w;c+=step){if(data.elev[r*data.w+c]<=.1)continue;const [x,y]=mapCoords(g.bE+c*g.aE-834500,816500-(g.bN+r*g.aN));if(x<-sx||y<-sy||x>440||y>280)continue;ctx.fillRect(x,y,sx,sy);}
   if(data.hydro){
    // Composite bounds index distant regions; they never imply land between them.
-   for(const region of data.hydro.regions||[data.hydro]){const [left,top]=mapCoords(region.bounds[0],region.bounds[1]),[right,bottom]=mapCoords(region.bounds[2],region.bounds[3]);ctx.fillRect(left,top,right-left,bottom-top);}
+   const regions=[data.hydro];while(regions.length){const region=regions.pop();if(region.regions){regions.push(...[...region.regions].reverse());continue;}const [left,top]=mapCoords(region.bounds[0],region.bounds[1]),[right,bottom]=mapCoords(region.bounds[2],region.bounds[3]);ctx.fillRect(left,top,right-left,bottom-top);}
    ctx.beginPath();for(const polygon of data.hydro.water)for(const ring of polygon.rings){ring.forEach(([x,z],i)=>{const p=mapCoords(x,z);if(i)ctx.lineTo(...p);else ctx.moveTo(...p);});ctx.closePath();}ctx.fillStyle=lightState.night>.5?'#1d4645':'#9fbeb2';ctx.fill('evenodd');
   }
   ctx.fillStyle=lightState.night>.5?'#b1b88d':'#829b7a';for(const points of Object.values(overview))for(const [px,pz] of points){const [x,y]=mapCoords(px,pz);if(x>=0&&x<=440&&y>=0&&y<=280)ctx.fillRect(x,y,1.4,1.4);}

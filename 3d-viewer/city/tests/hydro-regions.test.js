@@ -33,4 +33,6 @@ function minimapLandRectangles(hydro){
 }
 test('actual minimap paints separate regional land bounds, never their union sea rectangle',()=>{
  assert.deepEqual(minimapLandRectangles(composite),[[0,0,10,10],[70,0,10,10]]);assert.deepEqual(minimapLandRectangles(a),[[0,0,10,10]]);
+ const nested={...composite,regions:[{region:'bridge-cluster',bounds:composite.bounds,regions:composite.regions}]};
+ assert.deepEqual(minimapLandRectangles(nested),[[0,0,10,10],[70,0,10,10]],'Nested bridge packages retain their separate source extents and drawing order');
 });
