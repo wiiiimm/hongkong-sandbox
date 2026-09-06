@@ -82,5 +82,3 @@ CITY_NODE=/Users/williamli/.nvm/versions/node/v24.17.0/bin/node /tmp/astra-city-
 ```
 
 [Validation accounting](validation.json) records the unchanged raw arrays and all 346 estimated-only base changes. Focused Python checks pass **5 Tai O + 3 existing Mui Wo tests**, including exact source transforms, cache provenance, mosaic/water behaviour and numeric-zero render overrides. The three focused Node tests exercise all 532 models, actual perimeter mesh vertices, raw-height continuity, the walking sampler and terrain chunk boundaries. Root's final full city suite passes **137/137**. Independent source/pipeline review checked preservation of Mui Wo defaults and identified no remaining blocker, including the generated-arrival repair and rendered transition. [Root’s final independent review](independent-review.json) records the full-suite and visual checks.
-
-[Primary-agent test and visual review](independent-review.json).

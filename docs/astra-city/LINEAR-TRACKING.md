@@ -6,9 +6,11 @@ GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained
 
 The user explicitly authorised updates to the Astra milestone and its issues. The pending coverage report has been posted: HKS-164 is now **In Review**, and HKS-116/HKS-117 reflect the verified ff68cf1 coverage and active feature restoration. The prior automatic approval rejection is resolved.
 
-[24 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168, HKS-169, HKS-189 and HKS-190 are **In Review**; HKS-170 and HKS-180 are In Progress; the other 17 subissues remain queued. The first three-agent batch and subsequent timelapse/control passes are complete. Heisenberg has resumed the bounded central Tai O government-model pass under HKS-170. The seven existing geography parents retain the 132-section review scope.
+[24 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168, HKS-169, HKS-189 and HKS-190 are **In Review**; HKS-170 and HKS-180 are In Progress; the other 17 subissues remain queued. The first three-agent batch and subsequent timelapse/control passes are complete. Heisenberg completed the bounded central Tai O government-model pass under HKS-170, with independent review by Kant and root. No agent is still running on that completed slice. The seven existing geography parents retain the 132-section review scope.
 
 ## Current local checkpoint
+
+`72df3cf` adds 532 verified government models on two Tai O sheets and a local 5 m terrain patch. Detailed city models total 1,859, with all 346,115 forms, 342,223 government IDs and 1,327 Mui Wo models retained. The coastal terrain join and generated promenade arrival are fixed. All 137 city tests, eight focused Python checks, 190 saved walking arrivals and final day/night plus mobile browser checks pass. Whole-roof terrain conflicts in the slice fall from 96 to 1, partial conflicts from 170 to 13. [Source and before/after evidence](tai-o-models/README.md). HKS-170 remains In Progress for full channels, stilt decks/supports and continuous routes; parent HKS-122/HKS-116 and the leaf are updated in Linear.
 
 `46b67ed` gives the global clock its own Time tab: Places · Time · Sky · Weather. Twelve control-sheet and ten timelapse browser groups pass. The four-tab mobile layout, first-open speed controls, keyboard navigation and state retention are verified. HKS-190 is back In Review.
 

@@ -81,4 +81,6 @@ The HKS-189 follow-up `c9f1a79` makes the speed slider visible beside the dial o
 
 ## 7 September follow-up
 
-Root completed the separate Time tab in `46b67ed` (HKS-190, In Review): 12 control-sheet and 10 timelapse browser groups pass. Heisenberg is executing HKS-170: two official central Tai O sheets, using the existing Mui Wo model pipeline. The bounded model pass does not close full Tai O channel, stilt or walking-route acceptance.
+Root completed the separate Time tab in `46b67ed` (HKS-190, In Review): 12 control-sheet and 10 timelapse browser groups pass. Heisenberg completed the two-sheet HKS-170 model pass in `72df3cf`, using the existing Mui Wo pipeline; Kant and root independently reviewed it. The bounded model pass does not close full Tai O channel, stilt or walking-route acceptance.
+
+Tai O delivers 532 detailed models (1,859 across the city), retaining all 346,115 forms and 1,327 Mui Wo models. The local terrain and published promenade arrival are repaired. All 137 city tests, eight Python checks, 190 walking arrivals and final desktop/mobile browser checks pass. [Source accounting and before/after evidence](tai-o-models/README.md). HKS-170 remains In Progress for its wider channel, stilt and continuous-route acceptance; the bounded agent pass has finished. Linear HKS-170, HKS-122 and HKS-116 have the verified checkpoint.
