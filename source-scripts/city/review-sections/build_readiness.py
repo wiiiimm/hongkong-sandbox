@@ -8,6 +8,7 @@ def build():
  ids=re.findall(r'^- \[[ xX]\] \*\*(\d{2}\.\d+)\*\*',checklist,re.M)
  assert len(ids)==len(set(ids))==132
  active={**{id:['HKS-193'] for id in ['01.1','01.2','01.3','01.4','02.1','02.2']},'10.6':['HKS-192','HKS-167'],'10.7':['HKS-171'],'10.10':['HKS-170'],**{id:['HKS-191'] for id in ['11.3','11.5','12.6']}}
+ active['12.6'].append('HKS-196')
  parent={**{f'{i:02}':'HKS-124' for i in range(1,5)},**{f'{i:02}':'HKS-125' for i in range(5,10)},'10':'HKS-122','11':'HKS-126','12':'HKS-126','13':'HKS-127','14':'HKS-127','15':'HKS-127','16':'HKS-126','17':'HKS-126','18':'HKS-128'}
  overrides={**{f'10.{i}':'HKS-123' for i in range(12,17)},'14.8':'HKS-123','11.6':'HKS-122','11.7':'HKS-122'}
  sections=[]
@@ -27,6 +28,7 @@ def build():
    row['note']='Tsing Ma and Ting Kau original bridge models, corrected source foundation terrain, source/cable picking and under-span flight pass browser review. Cable detail remains illustrative; wider coastal and bridge-approach work remains open.'
    row['blockers']=['Wider coastlines, settlements and bridge approaches still require review.']
   elif id in active:row['note']='37 Central–Wan Chai–Sheung Wan source models are integrated with progressive mobile budgets. Model picking/night/collision browser checks pass; continuous public routes, stairs and wider architectural detail remain open.'
+  if id=='12.6':row['note']+=' Stonecutters Bridge is being audited separately under HKS-196; its reconstruction is not yet delivered.'
   sections.append(row)
  data={'schemaVersion':1,'updatedAt':'2026-09-07','basis':'Section-level review evidence; live committed work only. A completed local route or an import alone does not complete a section.','policy':{'ready':'All six gates verified across the whole section, with evidence and no open blockers.','close':'At least four gates verified across the whole section, including ground and buildings, with evidence and no open blockers.'},'sections':sections}
  (ROOT/'3d-viewer/city/data/section-readiness.json').write_text(json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n')
