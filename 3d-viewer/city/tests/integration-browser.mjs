@@ -10,7 +10,7 @@ const tab=async name=>{if(!await page.locator('#explorer').isVisible())await pag
 const input=async(id,value)=>page.locator('#'+id).evaluate((el,value)=>{el.value=String(value);el.dispatchEvent(new Event('input',{bubbles:true}));},value);
 try{
  await page.goto((process.env.CITY_URL||'http://127.0.0.1:4176/city.html')+'?district=kowloon');await page.waitForFunction(()=>window.__city?.ready,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden'});await settle();
- assert.ok((await state()).counts.buildings>100000);await tab('sky');
+ assert.ok((await state()).counts.buildings>100000);await tab('time');
  await page.locator('#sky-date').fill('2026-06-21');await page.locator('#sky-date').press('Tab');await page.locator('#time').fill('12:00');const summer=(await state()).environment.astronomy;
  await page.locator('#sky-date').fill('2026-12-21');await page.locator('#sky-date').press('Tab');const winter=(await state()).environment.astronomy;
  assert.ok(Date.parse(summer.sunset)-Date.parse(summer.sunrise)>Date.parse(winter.sunset)-Date.parse(winter.sunrise)+2*3600000);
@@ -33,7 +33,7 @@ try{
  assert.equal(await page.locator('#weather-rain').isDisabled(),true);assert.equal((await state()).environment.weather.observation.temperature.value,28);await page.waitForFunction(()=>document.getElementById('weather-observation').textContent.includes('28°C'));assert.match(await page.locator('#weather-observation').textContent(),/28°C/);assert.match(await page.locator('#weather-observation').textContent(),/22 km\/h/);
  await page.locator('#weather-mode').selectOption('manual');await page.waitForFunction(()=>window.__city.state.environment.weather.mode==='manual');assert.equal((await state()).environment.weather.settings.rain,.75);
  for(const key of ['rain','clouds','fog','snow'])await input('weather-'+key,0);
- await page.setViewportSize({width:390,height:844});await tab('sky');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ await page.setViewportSize({width:390,height:844});await tab('time');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  await page.locator('#time-dial').scrollIntoViewIfNeeded();await page.screenshot({path:new URL('sky-mobile-390x844.png',evidence).pathname});await tab('weather');await page.screenshot({path:new URL('weather-mobile-390x844.png',evidence).pathname});
  assert.deepEqual(errors,[]);
  const result={result:'passed',checks:['whole-territory dataset loaded','seasonal daylight length','live HKT clock','manual clock exits live mode','date rollover through New Year','stargazing camera and real catalogue','constellation toggle and compass','manual rain/cloud/fog/wind/waves','stargazing suspends and restores weather','mock HKO integration and source values','manual settings restored after live weather','mobile tabs and no horizontal overflow'],summer,winter,weather:(await state()).environment.weather,errors};

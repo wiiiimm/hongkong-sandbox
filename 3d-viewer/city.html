@@ -17,7 +17,7 @@
 <aside id="explorer" class="panel explorer control-sheet" aria-label="City controls">
  <header class="sheet-header">
   <button id="sheet-handle" class="sheet-handle" aria-expanded="false" aria-controls="control-content"><span class="sheet-grip" aria-hidden="true"></span><span>City controls</span><span class="sheet-action" aria-hidden="true">⌃</span></button>
-  <div class="panel-tabs" role="tablist" aria-label="City controls"><button role="tab" id="tab-places" data-panel="places" aria-controls="panel-places" aria-selected="true">Places</button><button role="tab" id="tab-sky" data-panel="sky" aria-controls="panel-sky" aria-selected="false" tabindex="-1">Sky</button><button role="tab" id="tab-weather" data-panel="weather" aria-controls="panel-weather" aria-selected="false" tabindex="-1">Weather</button></div>
+  <div class="panel-tabs" role="tablist" aria-label="City controls"><button role="tab" id="tab-places" data-panel="places" aria-controls="panel-places" aria-selected="true">Places</button><button role="tab" id="tab-time" data-panel="time" aria-controls="panel-time" aria-selected="false" tabindex="-1">Time</button><button role="tab" id="tab-sky" data-panel="sky" aria-controls="panel-sky" aria-selected="false" tabindex="-1">Sky</button><button role="tab" id="tab-weather" data-panel="weather" aria-controls="panel-weather" aria-selected="false" tabindex="-1">Weather</button></div>
  </header>
  <div id="control-content" class="control-content">
  <div class="eyebrow"><span id="chapter-label">01 — HONG KONG ISLAND</span><span class="chapter-dot"></span></div>
@@ -38,8 +38,8 @@
   <label><span><span class="layer-icon">⌖</span> Place names</span><input type="checkbox" id="layer-labels" checked><span class="switch"></span></label>
  </div>
  </section>
- <section id="panel-sky" role="tabpanel" aria-labelledby="tab-sky" hidden>
- <div class="time-head"><span class="section-label">LIGHT & ATMOSPHERE</span><span class="clock-cycle-label">24 HOURS</span></div>
+ <section id="panel-time" role="tabpanel" aria-labelledby="tab-time" hidden>
+ <div class="time-head"><span class="section-label">CITY TIME</span><span class="clock-cycle-label">24 HOURS</span></div>
  <div class="clock-row">
   <div id="time-dial" class="clock-face" role="slider" tabindex="0" aria-label="24-hour city clock" aria-valuemin="0" aria-valuemax="1439" aria-valuenow="900" aria-valuetext="15:00" aria-describedby="clock-help">
    <div class="solar-ring" aria-hidden="true"></div>
@@ -54,10 +54,13 @@
   <div class="night-presets" aria-label="Night lighting presets"><button data-hour="20" aria-pressed="false">20:00 <span>Evening</span></button><button data-hour="0" aria-pressed="false">00:00 <span>Midnight</span></button><button data-hour="4" aria-pressed="false">04:00 <span>City asleep</span></button></div>
  <span id="clock-help" class="visually-hidden">Drag around the clock. Midnight at the top, noon at the bottom. Arrow keys change fifteen minutes, Shift and arrows five minutes, Page Up or Down one hour. Home sets midnight.</span>
  <label class="clock-exact">Set time <input id="time" aria-label="Exact city time" type="time" step="60" value="15:00"></label>
- <div class="environment-fields"><label>Sky clock <select id="sky-mode"><option value="manual">Choose a time</option><option value="live">Live Hong Kong time</option></select></label><label>Date <input id="sky-date" type="date" aria-label="Sky date in Hong Kong"></label></div>
- <p id="sky-location" class="environment-note"></p>
+ <div class="environment-fields"><label>Clock <select id="sky-mode"><option value="manual">Choose a time</option><option value="live">Live Hong Kong time</option></select></label><label>Date <input id="sky-date" type="date" aria-label="City date in Hong Kong"></label></div>
  <p class="night-note">Offices thin out from 6 pm. Homes peak at 10 pm, then settle from 11 pm. Shops close from 9–11 pm; a few lights stay on all night.</p>
  <label class="shimmer-control"><input id="light-shimmer" type="checkbox" checked> Distant light shimmer</label>
+ </section>
+ <section id="panel-sky" role="tabpanel" aria-labelledby="tab-sky" hidden>
+ <div class="section-label">THE NIGHT SKY</div>
+ <p id="sky-location" class="environment-note"></p>
  <p id="sky-readout" class="environment-note"></p><label class="shimmer-control"><input id="sky-constellations" type="checkbox" checked> Constellation lines</label><p class="environment-note">Choose Stargaze below to look around the sky. Tap a star to identify it.</p>
  <div class="environment-extra"><label class="shimmer-control"><input id="sky-meteors" type="checkbox" checked> Shooting stars</label><label class="weather-control" for="sky-meteor-rate"><span>Shooting-star rate</span><output id="sky-meteor-rate-value">Calm</output><input id="sky-meteor-rate" type="range" min="0" max="100" step="1" value="18"></label><p class="environment-note">From a quiet sky to a meteor shower. Shooting stars pause with Reduced Motion.</p></div>
  <div class="sky-bearings" aria-label="Look towards"><button data-bearing="0">North</button><button data-bearing="90">East</button><button data-bearing="180">South</button><button data-bearing="270">West</button></div><p id="sky-selection" class="environment-note" role="status"></p>

@@ -12,7 +12,7 @@ const capture=async(name)=>{await page.waitForTimeout(180);await page.screenshot
 const choose=async section=>{const [id,p]=Object.entries(PLACES).find(([,p])=>p.sectionId===section&&!p.aerialOnly);await page.locator('#tab-places').click();await page.locator(`[data-region="${p.region}"]`).click();await page.locator(`[data-place="${id}"]`).click();await settle();return id;};
 try{
  const url=new URL(process.env.CITY_URL||'http://127.0.0.1:4176/city.html');url.searchParams.set('district','section-02-4');await page.goto(url.href);await page.waitForFunction(()=>window.__city?.ready,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden'});await settle();
- await page.locator('#tab-sky').click();await page.locator('#time').fill('15:00');await page.waitForFunction(()=>window.__city.state.time===15);
+ await page.locator('#tab-time').click();await page.locator('#time').fill('15:00');await page.waitForFunction(()=>window.__city.state.time===15);
  for(const section of ['02.4','04.5','06.4','07.5','08.3','09.6']){
   const id=await choose(section),state=await current();assert.equal(state.place,id);assert.deepEqual(state.regional.errors,[]);assert.deepEqual(state.stream.errors,[]);assert.ok(state.regional.tiles<=24);assert.equal(state.regional.packages,3);
   await capture('urban-'+section+'-1440x1000');observations.push({section,id,regional:state.regional,render:state.render,camera:state.camera});

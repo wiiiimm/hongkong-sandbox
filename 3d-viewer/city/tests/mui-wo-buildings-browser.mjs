@@ -10,7 +10,7 @@ const settle=()=>page.waitForFunction(()=>{const s=window.__city?.state;return s
 try{
  await page.route('**/city/app.js',async route=>{const response=await route.fetch();await route.fulfill({response,body:(await response.text())+'\nObject.defineProperty(window,"__buildingReview",{get:()=>({stream,camera,controls,sampler,scene,renderer,THREE})});\n'});});
  await page.goto('http://127.0.0.1:4176/city.html?district=muiwo');await page.waitForFunction(()=>window.__city?.ready,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden'});await settle();
- await page.locator('#tab-sky').click();await page.locator('#time').fill('15:00');await page.locator('#tab-places').click();await page.waitForTimeout(600);
+ await page.locator('#tab-time').click();await page.locator('#time').fill('15:00');await page.locator('#tab-places').click();await page.waitForTimeout(600);
  report.overview=await page.evaluate(()=>window.__city.state);await page.screenshot({path:output+phase+'-mui-wo-overview-1440x1000.png'});
  report.market=await page.evaluate(()=>{
   const {stream,camera,controls,sampler,THREE}=window.__buildingReview,b=[...stream.cache.entries.values()].flatMap(e=>e.data.buildings).find(b=>b.uid==='landsd/174478:0');if(!b)throw Error('Cooked food market missing');
@@ -23,7 +23,7 @@ try{
  report.perf=await page.evaluate(async()=>{const frames=[];let previous=performance.now();for(let i=0;i<90;i++){await new Promise(requestAnimationFrame);const now=performance.now();frames.push(now-previous);previous=now;}frames.sort((a,b)=>a-b);return {medianFrameMs:frames[45],p95FrameMs:frames[85],render:window.__city.state.render,stream:window.__city.state.stream};});
  assert.ok(report.market.click,'source roof can be selected through actual ray');await page.mouse.click(report.market.click.x,report.market.click.y);await page.waitForFunction(()=>window.__city.state.selectedId==='landsd/174478:0');
  report.card=await page.locator('#building-card').innerText();await page.screenshot({path:output+phase+'-market-source-card-1440x1000.png'});await page.locator('#selection-close').click();
- await page.locator('#tab-sky').click();await page.locator('#time').fill('21:00');await page.locator('#tab-places').click();await page.waitForTimeout(600);await page.screenshot({path:output+phase+'-market-night-1440x1000.png'});
+ await page.locator('#tab-time').click();await page.locator('#time').fill('21:00');await page.locator('#tab-places').click();await page.waitForTimeout(600);await page.screenshot({path:output+phase+'-market-night-1440x1000.png'});
  if(phase==='after'){
   report.geometry=await page.evaluate(async()=>{
    const {describeBuilding,collisionVolumes}=await import('/city/building-geometry.js'),{BuildingIndex,inPolygon}=await import('/city/geo.js'),{stream,THREE}=window.__buildingReview;
@@ -36,14 +36,14 @@ try{
    return {roofs:roofs.length,posts:roofs.reduce((n,b)=>n+describeBuilding(b).illustrativeSupports,0),marketPosts:description.illustrativeSupports,air,postBlocked:!!index.collision(px,pz,b.base+.15,b.base+1.95,.2),roofBlocked:!!index.collision(...[air[0],air[1],b.base+b.height-.1,b.base+b.height+.1,.1])};
   });
   assert.ok(report.geometry.roofs>=200);assert.ok(report.geometry.air);assert.equal(report.geometry.postBlocked,true);assert.equal(report.geometry.roofBlocked,true);
-  await page.locator('#tab-sky').click();await page.locator('#time').fill('15:00');await page.locator('#tab-places').click();
+  await page.locator('#tab-time').click();await page.locator('#time').fill('15:00');await page.locator('#tab-places').click();
   report.isolatedRoof=await page.evaluate(async()=>{
    const {stream,camera,controls,sampler}=window.__buildingReview,{describeBuilding}=await import('/city/building-geometry.js');
    const b=[...stream.cache.entries.values()].flatMap(e=>e.data.buildings).find(b=>b.uid==='landsd/316300:0'),d=describeBuilding(b),[x,z]=b.centre,top=d.parts.find(p=>p.kind==='roof')?.top||b.base+b.height;
    camera.position.set(x+38,top+5,z+43);controls.target.set(x,top-4,z);controls.update();camera.updateMatrixWorld();return {uid:b.uid,base:b.base,height:b.height,modelStatus:d.modelStatus,roofTop:top,posts:d.illustrativeSupports,ground:sampler.height(x,z)};
   });
   await page.waitForTimeout(1000);await settle();await page.screenshot({path:output+'after-open-sided-316300-day-1440x1000.png'});
-  await page.locator('#tab-sky').click();await page.locator('#time').fill('21:00');await page.locator('#tab-places').click();await page.waitForTimeout(500);await page.screenshot({path:output+'after-open-sided-316300-night-1440x1000.png'});
+  await page.locator('#tab-time').click();await page.locator('#time').fill('21:00');await page.locator('#tab-places').click();await page.waitForTimeout(500);await page.screenshot({path:output+'after-open-sided-316300-night-1440x1000.png'});
   await page.setViewportSize({width:390,height:844});await page.waitForTimeout(500);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:output+'after-market-mobile-390x844.png'});
  }
  assert.deepEqual(errors,[]);assert.deepEqual(report.overview.stream.errors,[]);report.result='passed';

@@ -17,7 +17,7 @@ const priority=['muiwo','taio','cheungchau','pengchau','puio','cheungsha','tongf
 try{
  await page.goto(base+'?district=muiwo');
  await page.waitForFunction(()=>window.__city?.ready,null,{timeout:90000});await page.locator('#loading').waitFor({state:'hidden'});await settled();
- await page.locator('[data-panel="sky"]').click();await page.locator('#time').fill('15:00');
+ await page.locator('[data-panel="time"]').click();await page.locator('#time').fill('15:00');
  for(const id of priority){
   if((await state()).mode!=='orbit')await page.keyboard.press('Escape');
   await page.locator('[data-panel="places"]').click();

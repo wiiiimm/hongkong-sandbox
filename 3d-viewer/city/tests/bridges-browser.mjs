@@ -18,7 +18,7 @@ async function createPage(failBridge=false){
  if(failBridge){let requests=0;await page.route('**/city/data/bridges.json',async route=>{requests++;if(requests===1)await route.abort('failed');else await route.continue();});}
  const url=new URL(report.url);url.searchParams.set('district','central');await page.goto(url.href);
  await page.waitForFunction(()=>window.__city?.ready,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden'});await settle(page);
- await page.locator('#tab-sky').click();await page.locator('#time').fill('15:00');await page.locator('#tab-places').click();
+ await page.locator('#tab-time').click();await page.locator('#time').fill('15:00');await page.locator('#tab-places').click();
  return page;
 }
 const current=page=>page.evaluate(()=>window.__city.state);

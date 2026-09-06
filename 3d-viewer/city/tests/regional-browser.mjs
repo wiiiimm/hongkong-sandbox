@@ -20,7 +20,7 @@ const capture=new Set(['01.1','05.1','07.4','10.6','10.10','10.12','10.13','13.2
 try{
  await page.goto(base+'?district=central');await page.waitForFunction(()=>window.__city?.ready,null,{timeout:90000});await page.locator('#loading').waitFor({state:'hidden'});await settled();
  assert.equal((await state()).regional.packages,3);assert.deepEqual((await state()).regional.errors,[]);assert.ok((await state()).regional.surfaces>1000);
- await page.locator('[data-panel="sky"]').click();await page.locator('#time').fill('15:00');
+ await page.locator('[data-panel="time"]').click();await page.locator('#time').fill('15:00');
  for(const section of sections){
   const found=Object.entries(PLACES).find(([,p])=>p.sectionId===section&&!p.aerialOnly);assert.ok(found,'Walking visit for section '+section);const [id,p]=found;
   await choose(id);const orbit=await state();assert.equal(orbit.place,id);assert.ok(orbit.regional.tiles<=24);assert.ok(orbit.regional.visibleSurfaces>=0);assert.deepEqual(orbit.stream.errors,[]);
@@ -39,7 +39,7 @@ try{
  const aerial=Object.entries(PLACES).find(([,p])=>p.aerialOnly);assert.ok(aerial);await choose(aerial[0]);assert.equal(await page.locator('[data-mode="walk"]').isDisabled(),true);
  await page.keyboard.press('2');assert.equal((await state()).mode,'orbit');await page.locator('[data-mode="fly"]').click();await page.waitForFunction(()=>window.__city.state.mode==='fly',null,{timeout:60000});
  const village=Object.entries(PLACES).find(([,p])=>p.sectionId==='10.6'&&!p.aerialOnly)[0];await choose(village);
- await page.locator('[data-panel="sky"]').click();await page.locator('#time').fill('22:00');await page.waitForFunction(()=>window.__city.state.time===22);await page.screenshot({path:evidence+'mui-wo-22-1440x1000.png'});
+ await page.locator('[data-panel="time"]').click();await page.locator('#time').fill('22:00');await page.waitForFunction(()=>window.__city.state.time===22);await page.screenshot({path:evidence+'mui-wo-22-1440x1000.png'});
  await page.locator('#time').fill('04:00');await page.waitForFunction(()=>window.__city.state.time===4);await page.screenshot({path:evidence+'mui-wo-04-1440x1000.png'});
  await page.locator('[data-panel="places"]').click();await page.locator('#search').fill('梅窩');await page.waitForFunction(()=>document.querySelector('#search-results button')?.textContent.includes('梅窩'));
  assert.ok(await page.locator('#search-results button').count()>0);await page.keyboard.press('Escape');

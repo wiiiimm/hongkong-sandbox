@@ -1,6 +1,6 @@
 # Adjustable city timelapse · HKS-189
 
-The 24-hour dial, playback button and speed slider form one visible group at the top of Sky, before date and live-clock settings. This extends `CityEnvironment.timeLapse`; it does not introduce another city clock or timer. Markup and responsive control-sheet styles are coordinated with HKS-190.
+The 24-hour dial, playback button and speed slider form one visible group at the top of Time, before date and live-clock settings. This extends `CityEnvironment.timeLapse`; it does not introduce another city clock or timer. Markup and responsive control-sheet styles are coordinated with HKS-190.
 
 The slider now displays **1×–7,200× normal speed**, in whole multipliers. At 1×, one simulated second equals one real second. The default is **450×**, preserving the previous one-hour-in-eight-seconds pace. The adjacent note translates the speed into a full day: 24h at 1×, 24m at 60×, 3m 12s at 450×, 48s at 1,800× and 12s at 7,200×. The range is keyboard accessible and reports the normal-speed multiplier through `aria-valuetext`. Internally, the existing clock still uses simulated minutes per second; the UI converts the multiplier by dividing by 60.
 
@@ -35,4 +35,4 @@ The new first-open screenshots at 390×844 and 1024×768 were inspected: the ful
 
 ## Visibility and units follow-up
 
-The user reported that the speed slider appeared missing. The served page contained it, but earlier tests scrolled it into view and missed the initial visibility problem. The controls have been regrouped at the top of Sky; the speed track and thumb are also more distinct. The browser regression now checks the whole dial/play/speed/duration group at scroll position zero across 320, 390, 760, 1024 and 1440 px. Source summary verification also checks the current **346,115 building forms · Lands Department + OSM** label; 42,892 was the earlier OSM dataset. This label change adds no buildings or geometry.
+The user reported that the speed slider appeared missing. The served page contained it, but earlier tests scrolled it into view and missed the initial visibility problem. The controls have been regrouped at the top of Time; the speed track and thumb are also more distinct. The browser regression now checks the whole dial/play/speed/duration group at scroll position zero across 320, 390, 760, 1024 and 1440 px. Source summary verification also checks the current **346,115 building forms · Lands Department + OSM** label; 42,892 was the earlier OSM dataset. This label change adds no buildings or geometry.

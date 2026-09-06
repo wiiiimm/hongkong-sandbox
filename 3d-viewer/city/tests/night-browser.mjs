@@ -9,7 +9,7 @@ const page=await browser.newPage({viewport:{width:1440,height:1000},deviceScaleF
 page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 const state=()=>page.evaluate(()=>window.__city.state);
 const settle=()=>page.waitForFunction(()=>{const s=window.__city?.state;return s&&!s.loadingTravel&&!s.travelling&&s.stream.pending===0;},null,{timeout:90000});
-async function time(h){await page.locator('[data-panel=sky]').click();await page.locator('#time').fill(formatHour(h));await page.waitForTimeout(400);}
+async function time(h){await page.locator('[data-panel=time]').click();await page.locator('#time').fill(formatHour(h));await page.waitForTimeout(400);}
 async function pixels(){return page.evaluate(async()=>{
  const canvas=document.querySelector('#viewport canvas'),image=new Image();image.src=canvas.toDataURL();await image.decode();
  const copy=document.createElement('canvas');copy.width=canvas.width;copy.height=canvas.height;const ctx=copy.getContext('2d');ctx.drawImage(image,0,0);const data=ctx.getImageData(0,0,copy.width,copy.height).data;

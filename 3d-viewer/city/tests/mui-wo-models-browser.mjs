@@ -14,7 +14,7 @@ const measure=()=>page.evaluate(async()=>{const samples=[];let prior=performance
 try{
  await page.route('**/city/app.js',async route=>{const response=await route.fetch();await route.fulfill({response,body:(await response.text())+'\nObject.defineProperty(window,"__modelReview",{get:()=>({stream,camera,controls,sampler,renderer,bridgeLayer,THREE})});\n'});});
  const started=performance.now();await page.goto('http://127.0.0.1:4176/city.html?district=muiwo');await page.waitForFunction(()=>window.__city?.ready,null,{timeout:180000});await page.locator('#loading').waitFor({state:'hidden'});await settle();report.settledMs=performance.now()-started;
- await page.locator('[data-panel="sky"]').click();await page.locator('#time').fill('15:00');await page.locator('[data-panel="places"]').click();
+ await page.locator('[data-panel="time"]').click();await page.locator('#time').fill('15:00');await page.locator('[data-panel="places"]').click();
  report.waterMask=await page.evaluate(()=>({bayRaw:window.__modelReview.sampler.raw(-16000,2350)}));assert.ok(report.waterMask.bayRaw<=0,'Silvermine Bay remains water after source TIN blending');
  report.overview=await state();assert.deepEqual(report.overview.camera,baseline.overview.camera,'Same camera as the verified ff68cf1 Mui Wo baseline');assert.deepEqual(report.overview.counts.buildings,346115);
  await page.screenshot({path:output+'muiwo-overview-1440x1000.png'});report.performance=await measure();
