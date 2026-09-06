@@ -2,9 +2,9 @@
 
 Created and read back from Linear on 6 September 2026. The user explicitly authorised issue, subissue, status and progress updates in **Astra - Living Hong Kong — buildings, regional detail & feature parity**. Project: Hong Kong Sandbox; team HKS. William remains the assignee; agent names identify execution ownership.
 
-There are **22 new subissues**: three started in parallel and 19 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. No current cycle was returned; no date was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
+There are **22 new subissues**: three implemented in parallel and now In Review, with 19 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. No current cycle was returned; no date was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
 
-## Active parallel batch
+## First parallel batch — implemented and verified
 
 | Issue | Executor | Shared integration |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ Primary agent owns city `environment.js`, `app.js`, `city.html` and CSS for the 
 
 ## HKS-122
 
-- [HKS-167 — Extend Mui Wo detailed government models beyond Pak Ngan Heung](https://linear.app/stealth-company/issue/HKS-167/extend-mui-wo-detailed-government-models-beyond-pak-ngan-heung) — In Progress; 8 points.
+- [HKS-167 — Extend Mui Wo detailed government models beyond Pak Ngan Heung](https://linear.app/stealth-company/issue/HKS-167/extend-mui-wo-detailed-government-models-beyond-pak-ngan-heung) — In Review; 8 points.
 - [HKS-170 — Complete Tai O channels, stilt-building placement and village routes](https://linear.app/stealth-company/issue/HKS-170/complete-tai-o-channels-stilt-building-placement-and-village-routes) — Backlog; 8 points.
 - [HKS-171 — Complete south Lantau village terrain, shores and local routes](https://linear.app/stealth-company/issue/HKS-171/complete-south-lantau-village-terrain-shores-and-local-routes) — Backlog; 8 points.
 - [HKS-172 — Complete Tung Chung, Discovery Bay and northern Lantau village detail](https://linear.app/stealth-company/issue/HKS-172/complete-tung-chung-discovery-bay-and-northern-lantau-village-detail) — Backlog; 8 points.
@@ -25,8 +25,8 @@ Primary agent owns city `environment.js`, `app.js`, `city.html` and CSS for the 
 
 ## HKS-129
 
-- [HKS-168 — Restore original shooting-star controls in the city sky](https://linear.app/stealth-company/issue/HKS-168/restore-original-shooting-star-controls-in-the-city-sky) — In Progress; 8 points.
-- [HKS-169 — Restore lightning, thunder and weather sound in the city](https://linear.app/stealth-company/issue/HKS-169/restore-lightning-thunder-and-weather-sound-in-the-city) — In Progress; 8 points.
+- [HKS-168 — Restore original shooting-star controls in the city sky](https://linear.app/stealth-company/issue/HKS-168/restore-original-shooting-star-controls-in-the-city-sky) — In Review; 8 points.
+- [HKS-169 — Restore lightning, thunder and weather sound in the city](https://linear.app/stealth-company/issue/HKS-169/restore-lightning-thunder-and-weather-sound-in-the-city) — In Review; 8 points.
 - [HKS-180 — Restore tides, typhoon and remaining manual weather controls](https://linear.app/stealth-company/issue/HKS-180/restore-tides-typhoon-and-remaining-manual-weather-controls) — Backlog; 8 points.
 - [HKS-181 — Restore marine, radar, satellite and air-quality observations](https://linear.app/stealth-company/issue/HKS-181/restore-marine-radar-satellite-and-air-quality-observations) — Backlog; 8 points.
 
@@ -54,4 +54,12 @@ Primary agent owns city `environment.js`, `app.js`, `city.html` and CSS for the 
 - [HKS-187 — Restore saved-view URLs, sharing, embeds and settings](https://linear.app/stealth-company/issue/HKS-187/restore-saved-view-urls-sharing-embeds-and-settings) — Backlog; 4 points.
 - [HKS-188 — Restore original fullscreen, PWA, offline and help behaviours](https://linear.app/stealth-company/issue/HKS-188/restore-original-fullscreen-pwa-offline-and-help-behaviours) — Backlog; 8 points.
 
-The machine-readable read-back is `EXECUTION-ISSUES.json`. Statuses here are this batch's creation snapshot; later verification notes and Linear provide progress. Released original-game issues remain Released and are reused as compatibility references.
+The machine-readable read-back is `EXECUTION-ISSUES.json`. Statuses were read back after verification: HKS-167–169 are In Review, with all other subissues still queued. Released original-game issues remain Released and are reused as compatibility references.
+
+## Verified local delivery
+
+- `fd64435` / HKS-167: 1,327 detailed government models, preserving all 346,115 forms and 342,223 official source IDs. All 190 walking arrivals pass. [Before/after, provenance and remaining terrain conflicts](mui-wo-buildings/extension/README.md).
+- `8aa4996` / HKS-168 and HKS-169: shared original shooting stars, manual lightning/thunder and original weather sound/volume. [Combined City and mobile verification](environment-parity/README.md).
+- Full combined city suite: **116/116 passing**. Original meteor compatibility, source/terrain audits and focused browser checks pass. The three agents have finished this batch; none is claimed to be running a queued issue.
+
+The milestone and HKS-116/117/122/129 carry the current implementation reports. Full geography and original-game parity remain open. Everything remains local on `codex/astra-hong-kong-city`.

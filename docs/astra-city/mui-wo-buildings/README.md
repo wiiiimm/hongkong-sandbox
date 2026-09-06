@@ -1,5 +1,7 @@
 # Mui Wo official building coverage — HKS-164
 
+Current detailed-model extension: [HKS-167 methods, source accounting and final views](extension/README.md) covers 1,327 verified models across seven adjoining sheets. The original 2,408 official footprints and all recorded elevations remain intact; notes below document the earlier footprint integration.
+
 Produced by the Astra data agent for HKS-164 / Lantau HKS-122, 6 September 2026. This stages actual Lands Department footprints and recorded elevations for the root agent's official-primary city integration. Original OSM data, existing tiles, renderer and archival references were not changed by this pipeline.
 
 ## Result

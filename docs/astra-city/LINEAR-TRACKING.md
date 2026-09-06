@@ -6,9 +6,15 @@ GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained
 
 The user explicitly authorised updates to the Astra milestone and its issues. The pending coverage report has been posted: HKS-164 is now **In Review**, and HKS-116/HKS-117 reflect the verified ff68cf1 coverage and active feature restoration. The prior automatic approval rejection is resolved.
 
-[22 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168 and HKS-169 are running in parallel; HKS-170–188 are queued. The seven existing geography parents retain the 132-section review scope.
+[22 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168 and HKS-169 were implemented in parallel and are now **In Review**; HKS-170–188 are queued. Their three agents have completed this batch. The seven existing geography parents retain the 132-section review scope.
 
 ## Current local checkpoint
+
+- `fd64435` / HKS-167: Mui Wo detailed government models **275 → 1,327**, with every territory form/source ID and recorded elevation retained. All 190 walking arrivals pass. See [source and before/after evidence](mui-wo-buildings/extension/README.md); 114 wholly-below-terrain forms and 214 partial conflicts remain documented.
+- `8aa4996` / HKS-168 and HKS-169: shared original meteors, manual lightning/thunder and environmental audio/volume restored. [Actual city controls and mobile evidence](environment-parity/README.md) and original-viewer compatibility pass.
+- Full combined city suite: **116/116 checks pass**. Mui Wo browser: 16.6 ms median / 17.5 ms p95, 91 draw calls at 1440×1000 locally. Linear milestone and parent progress reports are updated; full regional/parity acceptance remains open.
+
+### Earlier verified checkpoints
 
 - `5ae3900`: 153 added destinations covering all 132 sections (196 total), 2,923 mapped local surfaces and the separate mapped-footbridge renderer. HKS-153 is confirmed **In Review** in Linear.
 - `c85ac0b`: all 2,408 official Mui Wo records, native height evidence, a reused 5 m terrain patch, 227 open-sided structures and 275 matched official 3D models. HKS-164 is now **In Review** in Linear; the approved implementation report has been posted.
@@ -16,7 +22,7 @@ The user explicitly authorised updates to the Astra milestone and its issues. Th
 - HKS-116 and the seven region tasks remain **In Progress**. Full terrain/shoreline/architectural and route acceptance still needs section-by-section review. HKS-117 remains the original-game parity roll-up; no parity task is closed by this coverage pass.
 - Completed verification ownership: Heisenberg — government 3D sample, references and all saved arrivals; Curie — independent full-territory source/geometry/overlap audit; Kant — per-tile lighting and independent browser/performance review; primary agent — shared publication, classification preservation and integration.
 
-The complete city suite passes 102 checks; all 190 walking arrivals and eight representative desktop/mobile browser visits pass. Detailed implementation and validation reports remain in this worktree. The formerly pending text is retained in [LINEAR-UPDATE-PENDING.md](LINEAR-UPDATE-PENDING.md) as a historical record; the write has now succeeded. The comparison branches remain separate; no push, merge or deployment has occurred.
+The preceding `ff68cf1` checkpoint passed 102 city checks; all 190 walking arrivals and eight representative desktop/mobile browser visits pass. Detailed implementation and validation reports remain in this worktree. The formerly pending text is retained in [LINEAR-UPDATE-PENDING.md](LINEAR-UPDATE-PENDING.md) as a historical record; the write has now succeeded. The comparison branches remain separate; no push, merge or deployment has occurred.
 
 ## Initial planning snapshot
 
