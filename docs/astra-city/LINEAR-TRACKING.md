@@ -2,11 +2,13 @@
 
 ## Current execution — 7 September 2026
 
-**HKS-170 is implemented in `5494ad6` and In Review.** Tai O has source-backed tidal channels, five original infrastructure models, two public bridge decks, two explicitly estimated approaches and a verified ~607 m public village walk. All **162 city tests**, **190 arrivals**, source/model preservation and final actual-browser route/picking/day/night/mobile checks pass. Individual house-pile/private-deck geometry remains a documented limit; wider section 10.10 is not signed off. [Completion evidence](tai-o-completion/README.md).
+**HKS-194 is implemented in `13e3574` and In Review.** The optional #132 map layer draws all 132 approximate project review sections, with selection, readiness/checks, Linear links and section/whole-territory views. 167 city tests, nine geography tests and nine browser groups pass. Whole-section readiness is **0 Ready, 0 Close to ready, 6 Under review, 126 Base mapped**. [Evidence and update policy](review-sections/README.md).
 
-Three subagents are active: Curie on **HKS-191 Tsing Ma Bridge**, Heisenberg on **HKS-192 Mui Wo**, and Kant on **HKS-193 Central**. Root integrates and verifies. The Linear leaves, regional parents HKS-116/122/124/126 and Astra milestone reflect the hand-off and current assignments: **27 execution subissues, 6 In Review, 4 In Progress and 17 queued**. HKS-180's remaining weather controls are In Progress without an active executor. New regional data remains staged pending integration.
+Linear read-back confirms **28 execution leaves: 7 In Review, 4 In Progress, 17 queued**. The HKS-194 leaf, HKS-116 parent and Astra milestone are updated. Curie's geography/independent-review hand-off is complete. His HKS-191 Tsing Ma source package remains staged for root integration; the leaf and HKS-126 reflect that limit. Kant's HKS-193/124 hand-off records 16 compact original Central models, 5 m terrain and three route candidates; he continues route/contact work. Heisenberg continues HKS-192 Mui Wo. Shared live integration and browser acceptance remain before those regions can be promoted. HKS-180's remaining weather controls have no active executor.
 
-HKS-190 Clock follow-up remains implemented in `783cb62` and In Review: Live/Manual button, date disabled in Live, shimmer in Weather. Four toggle, ten timelapse and eleven circular-clock browser groups pass. [Evidence](clock-toggle/README.md).
+**HKS-170 remains In Review at `5494ad6`.** Tai O source channels, five original infrastructure models, two public decks, two estimated approaches and a continuous ~607 m public walk are verified. Source-specific house piles/private decks and wider section 10.10 remain open. [Evidence](tai-o-completion/README.md).
+
+HKS-190 Clock follow-up remains In Review at `783cb62`: Live/Manual button, date disabled in Live and shimmer in Weather. [Evidence](clock-toggle/README.md).
 
 [Current execution index](EXECUTION-ISSUES.md). Historical checkpoints below retain their original counts and scope.
 

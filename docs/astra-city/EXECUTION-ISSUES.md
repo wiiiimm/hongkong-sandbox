@@ -2,23 +2,30 @@
 
 ## Current execution — 7 September 2026
 
-Linear read-back confirms **27 execution subissues: 6 In Review, 4 In Progress and 17 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised **Astra - Living Hong Kong — buildings, regional detail & feature parity** milestone in the HKS team's Hong Kong Sandbox project.
+Linear read-back confirms **28 execution subissues: 7 In Review, 4 In Progress and 17 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised **Astra - Living Hong Kong — buildings, regional detail & feature parity** milestone in the HKS team's Hong Kong Sandbox project.
 
 | Issue | State | Current executor and scope |
 | --- | --- | --- |
+| HKS-194 · Numbered review grid | In Review | `13e3574`: root runtime/readiness/browser; Curie geography and independent review complete. 132 areas; 167 unit, 9 geography and 9 browser groups pass. |
 | HKS-170 · Tai O | In Review | Implemented in `5494ad6`; channels, source bridges and ~607 m public walk verified by root. All three source/route hand-offs complete. |
-| HKS-191 · Tsing Ma Bridge | In Progress | Curie: traced false land to elevation samples of the bridge; source models, bounded terrain and cable estimates are staged for integration. |
+| HKS-191 · Tsing Ma Bridge | In Progress | Curie source hand-off complete; six source bridge/tower models and terrain/cable data are staged. Root live integration and browser acceptance remain. |
 | HKS-192 · Mui Wo | In Progress | Heisenberg: existing models retained; source terrain improvements, shores and public village routes are being validated. |
-| HKS-193 · Central | In Progress | Kant: Central core, waterfront and SoHo (01.1–01.3); source/model inventory and supported regional improvements. |
+| HKS-193 · Central | In Progress | Kant: 16 compact models, terrain and three routes staged; continuing contact/access investigation. Root shared integration/browser acceptance remain. |
 | HKS-180 · Remaining weather controls | In Progress | Tide/wave slice verified; remaining controls have no active executor. |
 
 Root owns integration, independent checks and Linear updates. Sources and recorded elevations remain intact; estimates are labelled. New regional data remains staged until shared integration and browser acceptance. GPU measurements are serialised. No push, merge or deployment.
 
-**Latest verified delivery:** `5494ad6` completes HKS-170's bounded implementation. All **162 city tests**, **190 saved arrivals**, original source/model preservation, forward/reverse Navigation and actual browser walking/picking/day/night/mobile checks pass. Median frame time is 16.7 ms, p95 <=16.8 ms on desktop Chrome including a mobile-sized viewport. Source-specific house stilts/private decks remain unverified; wider north-west Lantau review stays open. [Full evidence and limits](tai-o-completion/README.md).
+**Latest verified delivery:** `13e3574` implements HKS-194: optional numbered review borders, section/territory framing, correct Linear links and evidence-based readiness. **0 Ready, 0 Close, 6 Under review, 126 Base mapped**. 167 city tests, nine geography tests and nine browser groups pass; Central adds three draw calls and stays near 16.7 ms median. [Evidence and policy](review-sections/README.md).
+
+**Previous delivery:** `5494ad6` completes HKS-170's bounded implementation. All **162 city tests**, **190 saved arrivals**, original source/model preservation, forward/reverse Navigation and actual browser walking/picking/day/night/mobile checks pass. Median frame time is 16.7 ms, p95 <=16.8 ms on desktop Chrome including a mobile-sized viewport. Source-specific house stilts/private decks remain unverified; wider north-west Lantau review stays open. [Full evidence and limits](tai-o-completion/README.md).
 
 The completed control follow-up remains `783cb62` (HKS-190, In Review): Live/Manual Clock button, Live date lock and distant shimmer in Weather. [Evidence](clock-toggle/README.md).
 
 ## Execution issue index
+
+### HKS-116
+
+- [HKS-194 — Show numbered review-section borders and evidence-based readiness on the city map](https://linear.app/stealth-company/issue/HKS-194/show-numbered-review-section-borders-and-evidence-based-readiness-on) — In Review; 4 points.
 
 ### HKS-122
 

@@ -1,7 +1,7 @@
 {
   "milestone": "Astra - Living Hong Kong — buildings, regional detail & feature parity",
   "milestoneId": "3a730c97-7148-4d83-bedd-c5b47b85f721",
-  "verifiedAt": "2026-09-06T19:13:46.673319+00:00",
+  "verifiedAt": "2026-09-06T19:34:29.172962+00:00",
   "issues": [
     {
       "key": "muiwo_detail",
@@ -624,10 +624,10 @@
         "id": "3a730c97-7148-4d83-bedd-c5b47b85f721",
         "name": "Astra - Living Hong Kong — buildings, regional detail & feature parity"
       },
-      "executor": "Curie (weather); root integrates",
+      "executor": "Root (live integration pending); Curie source hand-off complete",
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
       "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72",
-      "currentScope": "Audit existing Tsing Ma assets and false-land source; stage a bounded supported bridge/terrain correction.",
+      "currentScope": "Six source deck/tower models, source terrain correction, marine cuts and illustrative cables staged; direct geometry/source checks pass. The live Tsing Ma rendering is unchanged pending integration and browser acceptance.",
       "executionStatus": "Agent is actively investigating; implementation not yet accepted."
     },
     {
@@ -681,10 +681,39 @@
       "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
       "key": "central_completion",
-      "executor": "Kant (sky_stargazing); root integrates",
-      "currentScope": "Central core, waterfront and SoHo (01.1–01.3); reuse current data and source adapters.",
+      "executor": "Kant (public-route/contact investigation), root (shared integration/browser pending)",
+      "currentScope": "Staged source hand-off complete: 16 compact original models, 5 m terrain and three official public-route candidates. Seven building contacts, Harcourt Road bridge floor/stairs and continuous navigation remain. No live publication.",
       "executionStatus": "Active source/model/placement audit and regional implementation.",
       "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72"
+    },
+    {
+      "key": "review_sections",
+      "id": "HKS-194",
+      "uuid": "2045e601-1067-4cba-8e09-f982231a8a48",
+      "title": "Show numbered review-section borders and evidence-based readiness on the city map",
+      "url": "https://linear.app/stealth-company/issue/HKS-194/show-numbered-review-section-borders-and-evidence-based-readiness-on",
+      "status": "In Review",
+      "parentId": "HKS-116",
+      "estimate": {
+        "value": 4,
+        "name": "4 Points"
+      },
+      "projectMilestone": {
+        "id": "3a730c97-7148-4d83-bedd-c5b47b85f721",
+        "name": "Astra - Living Hong Kong — buildings, regional detail & feature parity"
+      },
+      "assigneeId": "479c2f97-dbf1-4e97-8820-e87125b3e6a5",
+      "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
+      "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
+      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72",
+      "labels": [
+        "Rendering",
+        "Feature"
+      ],
+      "verifiedCommit": "13e3574",
+      "executor": "Root (runtime/readiness/browser/Linear), Curie (geography and independent code review); hand-offs complete",
+      "currentScope": "All 132 numbered review borders, selector/Linear links, readiness checks and territory/section views; 167 city tests, 9 geography tests and 9 browser groups pass. Approximate internal borders and source exceptions are explicit; zero whole sections are yet ready or close.",
+      "executionStatus": "Implementation complete and independently reviewed; In Review."
     }
   ]
 }
