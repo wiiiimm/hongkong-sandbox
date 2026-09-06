@@ -48,6 +48,15 @@ file (via any static server) and deploys as plain files.
 
 - **Real terrain** — official **HK 5 m LiDAR** (Lands Dept) and **SRTM ~30 m**, for
   both **Lantau** and **all of Hong Kong** (4-way source dropdown).
+- **The city itself** — every building block in Hong Kong (**342 000** of them, from the
+  Lands Department's Building layer with surveyed base and roof heights) extruded onto
+  the terrain. Orbit the Central skyline, walk the streets between towers, air-drop onto
+  a roof and stand on it, land a plane on a rooftop (or fly into one and get parked on
+  top). Windows light up as the sky darkens and follow the city's real rhythm by land
+  use (Planning Department land-utilisation grid): offices empty after 8 pm, shops stay
+  bright until 10–12, homes light up as people come back and thin out towards 4 am;
+  the tallest named towers get labels. A **Victoria Harbour** source cuts the urban core
+  from the 5 m LiDAR at 20 m cells — 3.5× finer than the territory mesh.
 - **Surfaces** — shaded relief, elevation tint, matte, solid, the **B50K topographic
   skin**, and draped **web maps**: OpenStreetMap and Esri satellite (UVs reprojected
   from the HK1980 grid to Web Mercator so imagery lands exactly on the coast).
@@ -150,7 +159,7 @@ The repo also keeps a **Cloudflare Pages** path as an alternative/rollback:
 | Folder | What's inside |
 |--------|---------------|
 | **`3d-viewer/`** | The deployable app: `index.html`, `main.js`, vendored Three.js, `data/` (meshes, georefs, B50K vectors, station coords), plus the locale middleware — `middleware.js` (Vercel) and `functions/_middleware.js` (Cloudflare). |
-| **`source-scripts/`** | Reproducible pipelines — DEM slicing/projection (`srtm-30m/`, `hk-5m/`), B50K vector/land-cover extraction, DEM despiking, and HKO station coordinates. |
+| **`source-scripts/`** | Reproducible pipelines — DEM slicing/projection (`srtm-30m/`, `hk-5m/`), B50K vector/land-cover extraction, the buildings layer (`hk-buildings/`), DEM despiking, and HKO station coordinates. |
 | **`docs/`** | Method & provenance notes. |
 | **`references/`** | Read-only source references and prior work (not required to run). |
 
@@ -165,6 +174,8 @@ Everything is built on open data. Each source keeps its own licence/terms; attri
 | **HKO rain-radar & satellite imagery** (hko.gov.hk) | animated radar / Himawari satellite loop in the HUD | © Hong Kong Observatory — hotlinked at runtime, not redistributed |
 | **Lands Department 5 m DTM** (2020 LiDAR) via DATA.GOV.HK / CSDI | HK & Lantau terrain meshes — HK1980 grid (EPSG:2326), ±5 m | DATA.GOV.HK Terms of Use |
 | **Lands Department B50K** (1:50 000) | topographic skin + vector layers (contours, roads, trails, hydro, coastline, boundaries, cliffs) | DATA.GOV.HK Terms of Use |
+| **Lands Department "Building" layer** via [CSDI](https://portal.csdi.gov.hk/csdi-webpage/dataset/landsd_rcd_1637211194312_35158) | the 3D city — 342k building blocks with base/roof heights (mPD), baked into `data/hk-buildings.bin` (see `docs/hk-buildings-notes.md`) | DATA.GOV.HK Terms of Use |
+| **Planning Department "Raster Grids on Land Utilization" (2023)** via [CSDI](https://portal.csdi.gov.hk/csdi-webpage/dataset/pland_rcd_1696577406166_85973) | land-use class per building block (residential / office / retail / industrial / institutional) driving the night-lights rhythm | DATA.GOV.HK Terms of Use |
 | **NASA SRTM / Mapzen "Terrarium"** via AWS Open Data | ~30 m fallback terrain | public domain / [AWS Open Data](https://registry.opendata.aws/terrain-tiles/) |
 | **OpenStreetMap** | street-map skin (live tiles); named peaks & landmarks baked into `data/hk-peaks.json` + `data/hk-landmarks.json` | © OpenStreetMap contributors, **[ODbL](https://opendatacommons.org/licenses/odbl/)** |
 | **Esri World Imagery** | satellite skin (live tiles) | © Esri, Maxar, Earthstar Geographics — [Esri Terms of Use](https://www.esri.com/en-us/legal/terms/full-master-agreement) |
@@ -232,6 +243,7 @@ Infrastructure by [stealth.co](https://stealth-company.co).
 ### 功能
 
 - **真實地形** —— 官方 **香港 5 米 LiDAR**（地政總署）及 **SRTM ~30 米**，涵蓋 **大嶼山** 與 **全香港**（四款資料來源）。
+- **整個城市** —— 全港 **342 000** 幢樓宇座體（來自地政總署「建築物」圖層，附實測基座及天台高程）矗立於地形之上。環繞中環天際線、在高樓之間的街道步行、空降到天台上行走、把飛機降落在樓頂（或撞向大樓，停在頂上）。天色轉暗時窗戶會亮起，並按土地用途（規劃署土地用途網格）呈現城市的真實節奏：辦公室晚上八時後漸暗、商舖亮至十時至十二時、住宅在人們下班回家後亮起並在凌晨四時前後漸稀；最高的著名大樓附有名稱標籤。另設 **維港都會區** 資料來源，以 20 米格網從 5 米 LiDAR 切出市區核心 —— 比全港網格精細 3.5 倍。
 - **表面樣式** —— 陰影地貌、高程著色、霧面、純色、**B50K 地形圖皮膚**，以及可披覆的 **網上地圖**：OpenStreetMap 與 Esri 衛星圖（UV 由 HK1980 格網重新投影至 Web Mercator，令影像準確貼合海岸線）。
 - **向量圖層** —— 等高線、道路、山徑、水系、海岸線、界線、懸崖。
 - **垂直誇張**、可調 **網格密度**、自動旋轉、深色／紙本主題。
