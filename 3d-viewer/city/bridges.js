@@ -1,6 +1,7 @@
 import * as THREE from '../vendor/three.module.js';
 import {prepareBridges} from './bridge-data.js';
-import {prepareInfrastructure,InfrastructureSurfaces} from './infrastructure-data.js';
+import {prepareInfrastructure,InfrastructureSurfaces,isOfficialInfrastructure} from './infrastructure-data.js';
+import {clippedProxyParts} from './infrastructure-replacements.js';
 import {distanceToBounds} from './tile-cache.js';
 
 // Construction details are illustrative. The route's top elevations and width
@@ -116,7 +117,7 @@ export class BridgeLayer {
   Object.assign(this,{sampler,onChange,prepare});
   this.group=new THREE.Group();this.group.name='Mapped footbridges and elevated walking links';scene.add(this.group);
   this.records=new Map();this.loadedIds=new Set();this.tiles=new Map();this.cache=new Map();this.errors=new Map();this.requests=new Map();this.loadedPackages=new Set();
-  this.surfaces=new InfrastructureSurfaces();this.suppressedIds=new Set();
+  this.surfaces=new InfrastructureSurfaces();this.suppressedIds=new Set();this.suppressedBuildingUids=new Set();this.sourcePaths=new Map();this.pendingProxyClips=new Map();this.proxyClips=new Map();this.proxyParts=new Map();
   this.features=[];this.featureIndices=new Map();this.focus=[0,420];this.radius=3000;this.cameraPosition=null;this.railVertical=0;this.closed=false;this.coveredCount=0;this.estimatedCount=0;
   this.materials={
    source:new THREE.MeshStandardMaterial({vertexColors:true,roughness:.86}),
@@ -140,7 +141,7 @@ export class BridgeLayer {
     if(!response.ok)throw new Error(`HTTP ${response.status}`);
     const data=await response.json();
     if(this.closed||controller.signal.aborted)return false;
-    const prepared=data.kind==='tai-o-official-infrastructure'?prepareInfrastructure(data):await this.prepare(data,this.sampler);
+    const official=isOfficialInfrastructure(data),prepared=official?prepareInfrastructure(data):await this.prepare(data,this.sampler);
     if(this.closed||controller.signal.aborted)return false;
     if(!Array.isArray(prepared))throw new Error('Invalid prepared bridge inventory');
     // Validate the entire incoming batch before changing the visible inventory.
@@ -148,15 +149,43 @@ export class BridgeLayer {
      if(!record?.id||!record.source||!Array.isArray(record.bounds)||record.bounds.length!==4||!record.bounds.every(Number.isFinite))throw new Error('Invalid prepared bridge bounds');
      if(!record.modelGeometry)sectionsFor(record);
     }
+    // Validate replacements and their retained source paths before activating any
+    // suppression. Road-only paths stay available even when prepareBridges omits
+    // them from the pedestrian renderer. Pending clips cannot hide road fallbacks.
+    const paths=new Map(this.sourcePaths),pending=new Map(this.pendingProxyClips),clips=new Map(this.proxyClips),parts=new Map(this.proxyParts);
+    for(const r of data.bridges||[])paths.set(r.id,{id:r.id,deckPath:r.path.map(([x,z])=>[x,0,z])});
+    for(const r of prepared)if(!r.modelGeometry&&!r.estimatedPublicApproach)for(const key of sourceKeys(r))paths.set(key,r);
+    for(const c of official?data.proxyClips||[]:[]){
+     const existing=pending.get(c.id);
+     if(existing&&JSON.stringify(existing.keepPaths)!==JSON.stringify(c.keepPaths))throw new Error('Conflicting infrastructure proxy clip '+c.id);
+     pending.set(c.id,c);
+    }
+    for(const [id,c] of pending)if(paths.has(id)){clippedProxyParts(paths.get(id),c);clips.set(id,c);}
+    const replacements=new Set(this.suppressedIds);
+    for(const r of prepared)if(r.modelGeometry)for(const id of r.suppresses)replacements.add(id);
+    for(const id of clips.keys())if(replacements.has(id))throw new Error('Conflicting full and partial infrastructure replacement '+id);
+    for(const r of [...this.records.values(),...prepared])if(!r.modelGeometry&&!r.estimatedPublicApproach){
+     const c=sourceKeys(r).map(id=>clips.get(id)).find(Boolean);if(c)parts.set(r.id,clippedProxyParts(r,c));
+    }
+    // A repeated source ID is acceptable only for the same source mesh. Otherwise
+    // a conflicting package could suppress a tower using a different older mesh.
+    for(const r of prepared){
+     const old=this.records.get(r.id);
+     if(old&&(!!old.modelGeometry!==!!r.modelGeometry||r.modelGeometry&&(['position','normal','colour'].some(key=>old.modelGeometry[key].length!==r.modelGeometry[key].length||old.modelGeometry[key].some((v,i)=>v!==r.modelGeometry[key][i])))))throw new Error('Conflicting infrastructure source '+r.id);
+    }
     const changed=new Set();
+    for(const [key,tile] of this.tiles)if(tile.records.some(r=>sourceKeys(r).some(id=>replacements.has(id)||clips.has(id))))changed.add(key);
+    this.sourcePaths=paths;this.pendingProxyClips=pending;this.proxyClips=clips;this.proxyParts=parts;this.suppressedIds=replacements;
+    for(const r of prepared)if(r.modelGeometry){
+     for(const uid of r.suppressesBuildingUids||[])this.suppressedBuildingUids.add(uid);
+     for(const id of r.suppresses)this.loadedIds.add(id);
+    }
     for(const record of prepared){
      if(this.records.has(record.id))continue;
      this.records.set(record.id,record);this.featureIndices.set(record.id,this.features.length);this.features.push(record);
      for(const key of sourceKeys(record))this.loadedIds.add(key);
      if(record.modelGeometry){
-      this.surfaces.add(record);for(const id of record.suppresses){this.suppressedIds.add(id);this.loadedIds.add(id);}
-      // A source mesh can arrive after its proxy was already rendered.
-      for(const [key,tile]of this.tiles)if(tile.records.some(r=>this.suppressedIds.has(r.id)))changed.add(key);
+      this.surfaces.add(record);
      }
      if(record.estimatedPublicApproach){
       this.surfaces.add(walkingSurfaceFor(record));
@@ -182,9 +211,8 @@ export class BridgeLayer {
  buildTile(key){
   if(this.closed||this.cache.has(key)||!this.tiles.has(key))return;
   const tile=this.tiles.get(key),group=new THREE.Group(),bins=new Map(),canopies=[],beams=[];
-  group.name='Footbridge tile '+key;group.userData.bridgeCount=tile.records.filter(r=>!this.suppressedIds.has(r.id)).length;group.userData.deckMeshes=[];
-  for(const record of tile.records){
-   if(this.suppressedIds.has(record.id))continue;
+  group.name='Footbridge tile '+key;group.userData.bridgeCount=tile.records.filter(r=>this.renderParts(r).length).length;group.userData.deckMeshes=[];
+  for(const original of tile.records)for(const record of this.renderParts(original)){
    const featureIndex=this.featureIndices.get(record.id),style=record.modelGeometry?'source':record.kind==='steps'?'steps':'deck';
    if(!bins.has(style))bins.set(style,[]);bins.get(style).push(geometryFor(record,featureIndex));
    if(record.modelGeometry)continue;
@@ -222,7 +250,11 @@ export class BridgeLayer {
   }
   return wanted;
  }
- geometryFor(record){return geometryFor(record,this.featureIndices.get(record.id)??0);}
+ renderParts(record){if(record.modelGeometry||record.estimatedPublicApproach)return [record];return sourceKeys(record).some(id=>this.suppressedIds.has(id))?[]:this.proxyParts.get(record.id)||[record];}
+ geometryFor(record){
+  const parts=this.renderParts(record),index=this.featureIndices.get(record.id)??0;
+  return parts.length===1?geometryFor(parts[0],index):parts.length?mergeGeometries(parts.map(part=>geometryFor(part,index))):new THREE.BufferGeometry();
+ }
  featureAt(hit){
   if(this.closed||!this.group.visible||hit?.object?.userData?.bridgeLayer!==this||!hit.object.visible||!hit.object.parent?.visible||hit.object.parent.parent!==this.group)return undefined;
   const attribute=hit.object.geometry?.getAttribute('bridgeFeature');
@@ -238,12 +270,12 @@ export class BridgeLayer {
   const group=this.cache.get(key);if(!group)return;
   group.traverse(object=>{if(object.isInstancedMesh)object.dispose();else object.geometry?.dispose();});group.removeFromParent();this.cache.delete(key);
  }
- get stats(){const active=[...this.records.values()].filter(record=>!this.suppressedIds.has(record.id));return {spans:active.length,sourceModels:[...this.surfaces.models.values()].filter(m=>!m.estimatedPublicApproach).length,publicApproaches:[...this.surfaces.models.values()].filter(m=>m.estimatedPublicApproach).length,publicDecks:[...this.surfaces.models.values()].filter(m=>m.walkable&&!m.estimatedPublicApproach).length,suppressedProxies:this.suppressedIds.size,visibleSpans:this.group.visible?[...this.cache.values()].filter(group=>group.visible).reduce((count,group)=>count+group.userData.bridgeCount,0):0,tiles:this.cache.size,pending:this.requests.size,errors:[...this.errors.keys()],covered:active.filter(covered).length,estimatedElevation:active.filter(record=>record.estimatedElevation).length};}
+ get stats(){const active=[...this.records.values()].filter(record=>this.renderParts(record).length);return {spans:active.length,sourceModels:[...this.surfaces.models.values()].filter(m=>!m.estimatedPublicApproach).length,publicApproaches:[...this.surfaces.models.values()].filter(m=>m.estimatedPublicApproach).length,publicDecks:[...this.surfaces.models.values()].filter(m=>m.walkable&&!m.estimatedPublicApproach).length,suppressedProxies:this.suppressedIds.size,suppressedBuildings:this.suppressedBuildingUids.size,clippedProxies:this.proxyClips.size,pendingProxyClips:this.pendingProxyClips.size-this.proxyClips.size,visibleSpans:this.group.visible?[...this.cache.values()].filter(group=>group.visible).reduce((count,group)=>count+group.userData.bridgeCount,0):0,tiles:this.cache.size,pending:this.requests.size,errors:[...this.errors.keys()],covered:active.filter(covered).length,estimatedElevation:active.filter(record=>record.estimatedElevation).length};}
  dispose(){
   if(this.closed)return;this.closed=true;
   for(const {controller} of this.requests.values())controller.abort();
   for(const key of this.cache.keys())this.disposeTile(key);
   this.boxGeometry.dispose();for(const material of Object.values(this.materials))material.dispose();
-  this.group.removeFromParent();this.records.clear();this.loadedIds.clear();this.surfaces.clear();this.suppressedIds.clear();this.tiles.clear();this.features.length=0;this.featureIndices.clear();this.loadedPackages.clear();this.errors.clear();this.coveredCount=this.estimatedCount=0;
+  this.group.removeFromParent();this.records.clear();this.loadedIds.clear();this.surfaces.clear();this.suppressedIds.clear();this.suppressedBuildingUids.clear();this.sourcePaths.clear();this.pendingProxyClips.clear();this.proxyClips.clear();this.proxyParts.clear();this.tiles.clear();this.features.length=0;this.featureIndices.clear();this.loadedPackages.clear();this.errors.clear();this.coveredCount=this.estimatedCount=0;
  }
 }

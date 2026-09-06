@@ -12,8 +12,11 @@ export function makeTerrainSampler(data) {
   const { w, h, elev } = data, g = data.meta.georef;
   const patches=(data.patches||[]).map(makeTerrainSampler);
   const patchAt=(x,z)=>patches.find(p=>p.contains(x,z));
-  const water=data.hydro?.water||[],bounds=data.hydro?.bounds;
-  const mappedWater=(x,z)=>Boolean(bounds&&x>=bounds[0]&&x<=bounds[2]&&z>=bounds[1]&&z<=bounds[3]&&water.some(p=>inPolygon(x,z,p.rings)));
+  const hydro=data.hydro,regions=hydro?.region==='composite'?hydro.regions.map(region=>{
+    const [start,length]=region.geometryRanges.water;return {...region,water:hydro.water.slice(start,start+length)};
+  }):hydro?[hydro]:[];
+  const waterAt=(x,z)=>regions.find(({bounds,water})=>x>=bounds[0]&&x<=bounds[2]&&z>=bounds[1]&&z<=bounds[3]&&water.some(p=>inPolygon(x,z,p.rings)));
+  const mappedWater=(x,z)=>Boolean(waterAt(x,z));
   const grid = (x, z) => [(x + ORIGIN[0] - g.bE) / g.aE, (ORIGIN[1] - z - g.bN) / g.aN];
   const contains = (x, z) => { const [c,r]=grid(x,z);return c>=0&&r>=0&&c<w-1&&r<h-1; };
   function sample(x,z,rendered=false) {
@@ -24,7 +27,7 @@ export function makeTerrainSampler(data) {
     // Matches mesh triangle diagonal exactly: no feet floating on steep slopes.
     return u+v<=1 ? a+(b-a)*u+(d-a)*v : e+(d-e)*(1-u)+(b-e)*(1-v);
   }
-  return {raw:(x,z)=>patchAt(x,z)?.raw(x,z)??sample(x,z),contains,grid,mappedWater,height:(x,z)=>mappedWater(x,z)?data.hydro.illustrativeBed:(patchAt(x,z)?.height(x,z)??Math.max(1.2,sample(x,z,true))),resolutionAt:(x,z)=>patchAt(x,z)?.resolutionAt(x,z)??Math.abs(g.aE)};
+  return {raw:(x,z)=>patchAt(x,z)?.raw(x,z)??sample(x,z),contains,grid,mappedWater,height:(x,z)=>waterAt(x,z)?.illustrativeBed??(patchAt(x,z)?.height(x,z)??Math.max(1.2,sample(x,z,true))),resolutionAt:(x,z)=>patchAt(x,z)?.resolutionAt(x,z)??Math.abs(g.aE)};
 }
 export function inRing(x,z,ring) {
   let inside=false;

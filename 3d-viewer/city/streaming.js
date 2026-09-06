@@ -2,9 +2,10 @@ import * as THREE from '../vendor/three.module.js';
 import {BuildingIndex} from './geo.js';
 import {makeBuildings,makeRoads,makeNature} from './world.js';
 import {TileCache,distanceToBounds,nearbyTiles} from './tile-cache.js';
+import {retainedRoads,validateProxyClips} from './infrastructure-replacements.js';
 import {cityLighting} from './lighting.js';
 export function disposeGroup(group){
- group.removeFromParent();const geometries=new Set(),materials=new Set();
+ group.removeFromParent();const geometries=new Set(),materials=new Set(group.userData.disposableMaterials||[]);
  group.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const m of o.material?[].concat(o.material):[])materials.add(m);if(o.isInstancedMesh)o.dispose();});
  for(const g of geometries)g.dispose();for(const m of materials)m.dispose();
 }
@@ -12,8 +13,8 @@ export class CityStreaming {
  constructor({manifest,terrain,sampler,scene,onChange,activity}){
   Object.assign(this,{manifest,terrain,sampler,scene,onChange,activity});this.meta=new Map(manifest.tiles.map(t=>[t.id,t]));
   this.buildings=new THREE.Group();this.roads=new THREE.Group();this.trees=new THREE.Group();scene.add(this.buildings,this.roads,this.trees);
-  this.lighting={night:{value:0},activity:{value:new Float32Array(cityLighting(15).activity.slice(0,4))},retail:{value:cityLighting(15).activity[4]},elapsed:{value:0},shimmer:{value:1}};this.surfaceMask=null;this.bridgeRoadIds=new Set();this.night=this.lighting.night;this.focus=[0,420];this.detailRadius=2200;this.revision=0;
-  this.cache=new TileCache({limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.onChange?.();}});
+  this.lighting={night:{value:0},activity:{value:new Float32Array(cityLighting(15).activity.slice(0,4))},retail:{value:cityLighting(15).activity[4]},elapsed:{value:0},shimmer:{value:1}};this.surfaceMask=null;this.bridgeRoadIds=new Set();this.infrastructureBuildingUids=new Set();this.infrastructureRoadClips=new Map();this.infrastructureErrors=new Map();this.night=this.lighting.night;this.focus=[0,420];this.detailRadius=2200;this.revision=0;
+  this.cache=new TileCache({limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.suppressInfrastructureBuildings(this.infrastructureBuildingUids).catch(()=>{});this.onChange?.();}});
  }
  async load(id,signal){
   const read=async(url,label)=>{const response=await fetch(url,{signal});if(!response.ok)throw new Error(`${label} ${id}: HTTP ${response.status}`);return response.json();};
@@ -28,22 +29,67 @@ export class CityStreaming {
    if(this.manifest.activityTiles&&(!entry||!Number.isInteger(entry.profile)||entry.profile<0||entry.profile>4||!Number.isFinite(entry.retailTop)||entry.retailTop<0))throw new Error(`Invalid city activity ${id} for ${b.uid}`);
    b.activity=entry;
   }
-  const index=new BuildingIndex(data.buildings);const buildings=await makeBuildings(data.buildings,null,{lighting:this.lighting});
-  for(const mesh of buildings.group.children)mesh.userData.tile=id;
+  const baked=await this.prepareBuildings(data,signal),{index,buildings}=baked;
   let roads,nature;
   try{
    if(signal.aborted)throw new DOMException('Aborted','AbortError');
-   roads=makeRoads(data.roads,this.sampler,this.lighting,{excludeIds:this.bridgeRoadIds});
+   roads=this.makeTileRoads(data);
    const [x,z]=id.split('_').map(Number),s=this.manifest.tileSize;
-   nature=makeNature(data.parks,this.terrain,this.sampler,index,{bounds:[x*s,z*s,(x+1)*s,(z+1)*s],seed:(x*73856093^z*19349663)>>>0});
+   nature=makeNature(data.parks,this.terrain,this.sampler,baked.suppressedBuildings?new BuildingIndex(data.buildings):index,{bounds:[x*s,z*s,(x+1)*s,(z+1)*s],seed:(x*73856093^z*19349663)>>>0});
    if(this.surfaceMask)nature.applyMask((x,z,r)=>!!this.surfaceMask.collision(x,z,0,1000,r));
-   return {id,data,index,buildings,roads,nature,pickBounds:new THREE.Box3().setFromObject(buildings.group)};
+   return {id,data,...baked,roads,nature};
   }catch(error){disposeGroup(buildings.group);if(roads)disposeGroup(roads);if(nature)disposeGroup(nature.group);throw error;}
  }
- suppressBridgeRoads(ids){
-  this.bridgeRoadIds=new Set(ids);
+ async prepareBuildings(data,signal){
+  // Each bake uses a stable replacement set. If a package completes while this
+  // asynchronous tile is baking, discard that bake and use the latest set.
+  for(;;){
+   const exclusions=this.infrastructureBuildingUids,indices=[];
+   const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid))return false;indices.push(i);return true;});
+   const buildings=await makeBuildings(features,null,{lighting:this.lighting});buildings.group.userData.disposableMaterials=buildings.materials;
+   if(signal?.aborted||this.cache.closed){disposeGroup(buildings.group);throw new DOMException('Aborted','AbortError');}
+   if(exclusions!==this.infrastructureBuildingUids){disposeGroup(buildings.group);continue;}
+   for(const mesh of buildings.group.children){
+    mesh.userData.tile=data.id;
+    const attribute=mesh.geometry.attributes.feature;
+    for(let i=0;i<attribute.count;i++)attribute.setX(i,indices[attribute.getX(i)]);
+   }
+   return {buildings,index:new BuildingIndex(features),exclusions,suppressedBuildings:data.buildings.length-features.length,pickBounds:new THREE.Box3().setFromObject(buildings.group)};
+  }
+ }
+ async suppressInfrastructureBuildings(ids){
+  const next=new Set(ids);
+  if([...next].some(uid=>typeof uid!=='string'||!uid))throw new Error('Invalid infrastructure building UID');
+  const previous=this.infrastructureBuildingUids;
+  if(next.size!==previous.size||[...next].some(uid=>!previous.has(uid)))this.infrastructureBuildingUids=next;
+  if(this.cache.closed)return;
+  const jobs=[];
   for(const entry of this.cache.entries.values()){
-   const roads=makeRoads(entry.data.roads,this.sampler,this.lighting,{excludeIds:this.bridgeRoadIds});
+   if(!entry.infrastructureUpdate&&entry.data.buildings.some(b=>entry.exclusions.has(b.uid)!==this.infrastructureBuildingUids.has(b.uid))){
+    entry.infrastructureUpdate=(async()=>{
+     const baked=await this.prepareBuildings(entry.data);
+     if(this.cache.closed||this.cache.entries.get(entry.id)!==entry){disposeGroup(baked.buildings.group);return;}
+     // Commit rendering and collision together; the previous outline stays until
+     // the replacement bake succeeds. Raw source records and picking IDs remain.
+     disposeGroup(entry.buildings.group);Object.assign(entry,baked);
+     this.buildings.add(entry.buildings.group);this.infrastructureErrors.delete(entry.id);this.revision++;this.sync();this.onChange?.();
+    })().catch(error=>{if(!this.cache.closed){this.infrastructureErrors.set(entry.id,error.message);this.onChange?.();}throw error;}).finally(()=>{delete entry.infrastructureUpdate;});
+   }
+   if(entry.infrastructureUpdate)jobs.push(entry.infrastructureUpdate);
+  }
+  await Promise.all(jobs);
+ }
+ makeTileRoads(data){
+  const [x,z]=data.id.split('_').map(Number),s=this.manifest.tileSize;
+  return makeRoads(retainedRoads(data.roads,this.infrastructureRoadClips,[x*s,z*s,(x+1)*s,(z+1)*s]),this.sampler,this.lighting,{excludeIds:this.bridgeRoadIds});
+ }
+ suppressBridgeRoads(ids,proxyClips=[]){
+  const clips=validateProxyClips([...proxyClips]);
+  const nextIds=new Set(ids),nextClips=new Map(clips.map(c=>[c.id,c]));
+  if(nextIds.size===this.bridgeRoadIds.size&&[...nextIds].every(id=>this.bridgeRoadIds.has(id))&&nextClips.size===this.infrastructureRoadClips.size&&[...nextClips].every(([id,c])=>this.infrastructureRoadClips.get(id)===c))return;
+  this.bridgeRoadIds=nextIds;this.infrastructureRoadClips=nextClips;
+  for(const entry of this.cache.entries.values()){
+   const roads=this.makeTileRoads(entry.data);
    disposeGroup(entry.roads);entry.roads=roads;this.roads.add(roads);
   }this.sync();
  }
@@ -83,7 +129,7 @@ export class CityStreaming {
   let maximum=0;for(const id of this.required(x,z,radius)){const index=this.cache.entries.get(id)?.index;if(index)maximum=Math.max(maximum,index.maximumRoof(x,z,radius));}return maximum;
  }
  get stats(){
-  let loaded=0,trees=0;for(const id of this.cache.wanted){const e=this.cache.entries.get(id);if(e){loaded+=e.data.buildings.length;trees+=e.nature.count;}}
-  return {wanted:this.cache.wanted.length,cached:this.cache.entries.size,loaded:this.cache.wanted.filter(id=>this.cache.entries.has(id)).length,pending:this.cache.wanted.filter(id=>!this.cache.entries.has(id)&&!this.cache.errors.has(id)).length,errors:this.cache.wanted.filter(id=>this.cache.errors.has(id)),forms:loaded,trees};
+  let loaded=0,trees=0,suppressedBuildings=0;for(const id of this.cache.wanted){const e=this.cache.entries.get(id);if(e){loaded+=e.data.buildings.length;trees+=e.nature.count;suppressedBuildings+=e.suppressedBuildings||0;}}
+  return {wanted:this.cache.wanted.length,cached:this.cache.entries.size,loaded:this.cache.wanted.filter(id=>this.cache.entries.has(id)).length,pending:this.cache.wanted.filter(id=>!this.cache.entries.has(id)&&!this.cache.errors.has(id)).length,errors:this.cache.wanted.filter(id=>this.cache.errors.has(id)),forms:loaded,trees,suppressedBuildings,infrastructureErrors:[...this.infrastructureErrors.keys()]};
  }
 }

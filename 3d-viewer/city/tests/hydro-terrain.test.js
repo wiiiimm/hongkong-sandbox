@@ -7,6 +7,8 @@ import {makeTerrain} from '../world.js';
 const data=JSON.parse(fs.readFileSync(new URL('../data/terrain.json',import.meta.url)));
 const manifest=JSON.parse(fs.readFileSync(new URL('../data/manifest.json',import.meta.url)));
 data.patches=manifest.terrainPatches.map(p=>JSON.parse(fs.readFileSync(new URL('../../'+p.url,import.meta.url))));
+const taiRegion=data.hydro.regions?.find(r=>r.region==='tai-o'),taiRange=taiRegion?.geometryRanges.terrainCuts;
+const taiCuts=taiRange?data.hydro.terrainCuts.slice(taiRange[0],taiRange[0]+taiRange[1]):data.hydro.terrainCuts;
 const sampler=makeTerrainSampler(data),terrain=makeTerrain(data);terrain.updateMatrixWorld(true);
 const before=makeTerrainSampler({...data,hydro:undefined});
 const ray=new THREE.Raycaster();
@@ -22,9 +24,9 @@ test('source land and out-of-Tai-O terrain retain previous heights and optional-
  const unmodified=makeTerrainSampler({w:2,h:2,elev:[5,5,5,5],meta:{georef:{aE:5,aN:-5,bE:834500,bN:816500}}});assert.equal(unmodified.mappedWater(2,2),false);assert.equal(unmodified.height(2,2),5);
 });
 test('precomputed shoreline cuts reach both fine chunks and surrounding coarse terrain',()=>{
- assert.equal(data.hydro.terrainCuts.length,2);assert.ok(data.hydro.terrainCuts.every(g=>g.cells.length));
- const fine=data.hydro.terrainCuts.find(g=>g.georef.aE===5);assert.ok(fine.cells.some(c=>c.c<196));assert.ok(fine.cells.some(c=>c.c>=196));
- const cuts=[];terrain.traverse(o=>{if(o.name==='Terrain clipped to mapped Tai O water')cuts.push(o);});assert.ok(cuts.length>=3);
+ assert.equal(taiCuts.length,2);assert.ok(taiCuts.every(g=>g.cells.length));
+ const fine=taiCuts.find(g=>g.georef.aE===5);assert.ok(fine.cells.some(c=>c.c<196));assert.ok(fine.cells.some(c=>c.c>=196));
+ const cuts=[];terrain.traverse(o=>{if(o.name.startsWith('Terrain clipped to mapped'))cuts.push(o);});assert.ok(cuts.length>=3);
  for(const m of cuts){const p=m.geometry.attributes.position;for(let i=0;i<p.count;i+=3){const x=(p.getX(i)+p.getX(i+1)+p.getX(i+2))/3,z=(p.getZ(i)+p.getZ(i+1)+p.getZ(i+2))/3;
    if(sampler.mappedWater(x,z)){const edge=data.hydro.water.some(p=>p.rings.some(r=>r.some((a,j)=>j>0&&segmentDistanceSq(x,z,r[j-1],a)<.035**2)));assert.ok(edge,'No rendered land triangles inside mapped channel, allowing3.5cm Float32 boundary tolerance');}
   }}

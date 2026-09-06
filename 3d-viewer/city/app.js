@@ -161,7 +161,8 @@ function drawMinimap(){
   const step=span>10000?3:1,a=mapCoords(0,0),b=mapCoords(g.aE*step,Math.abs(g.aN)*step),sx=b[0]-a[0]+.5,sy=b[1]-a[1]+.5;
   for(let r=0;r<data.h;r+=step)for(let c=0;c<data.w;c+=step){if(data.elev[r*data.w+c]<=.1)continue;const [x,y]=mapCoords(g.bE+c*g.aE-834500,816500-(g.bN+r*g.aN));if(x<-sx||y<-sy||x>440||y>280)continue;ctx.fillRect(x,y,sx,sy);}
   if(data.hydro){
-   const [left,top]=mapCoords(data.hydro.bounds[0],data.hydro.bounds[1]),[right,bottom]=mapCoords(data.hydro.bounds[2],data.hydro.bounds[3]);ctx.fillRect(left,top,right-left,bottom-top);
+   // Composite bounds index distant regions; they never imply land between them.
+   for(const region of data.hydro.regions||[data.hydro]){const [left,top]=mapCoords(region.bounds[0],region.bounds[1]),[right,bottom]=mapCoords(region.bounds[2],region.bounds[3]);ctx.fillRect(left,top,right-left,bottom-top);}
    ctx.beginPath();for(const polygon of data.hydro.water)for(const ring of polygon.rings){ring.forEach(([x,z],i)=>{const p=mapCoords(x,z);if(i)ctx.lineTo(...p);else ctx.moveTo(...p);});ctx.closePath();}ctx.fillStyle=lightState.night>.5?'#1d4645':'#9fbeb2';ctx.fill('evenodd');
   }
   ctx.fillStyle=lightState.night>.5?'#b1b88d':'#829b7a';for(const points of Object.values(overview))for(const [px,pz] of points){const [x,y]=mapCoords(px,pz);if(x>=0&&x<=440&&y>=0&&y<=280)ctx.fillRect(x,y,1.4,1.4);}
@@ -169,6 +170,11 @@ function drawMinimap(){
  }else ctx.putImageData(mapBackdrop,0,0);
  const [x,y]=mapCoords(focus.x,focus.z);ctx.save();ctx.translate(x,y);ctx.fillStyle='#385b45';ctx.strokeStyle='#f7fae8';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(0,0,7,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.rotate(nav.mode==='orbit'?Math.atan2(camera.position.x-focus.x,-(camera.position.z-focus.z)):nav.heading);ctx.beginPath();ctx.moveTo(0,-18);ctx.lineTo(-5,-9);ctx.lineTo(5,-9);ctx.closePath();ctx.fill();ctx.restore();
  $('map-location').textContent=PLACES[closestPlace(focus.x,focus.z)].title.toUpperCase();$('map-scale').textContent=span>10000?'5 km ━':'1 km ━';
+}
+function syncSourceReplacements(){
+ stream.suppressBridgeRoads(bridgeLayer.loadedIds,bridgeLayer.proxyClips.values());
+ // The stream reports replacement failures and retains original geometry.
+ void stream.suppressInfrastructureBuildings(bridgeLayer.suppressedBuildingUids).catch(()=>updateStreamStatus());
 }
 function updateStreamStatus(){
  if(!stream)return;const s=stream.stats,d=regionalDetail?.stats,b=bridgeLayer?.stats,bar=$('stream-status');bar.hidden=!s.pending&&!s.errors.length&&!loadingTravel&&!d?.pending&&!d?.errors.length&&!b?.pending&&!b?.errors.length;
@@ -217,7 +223,7 @@ function bindUI(){
  for(const key of ['buildings','roads','trees','labels','surfaces','bridges'])$(`layer-${key}`).addEventListener('change',e=>{if(key==='labels')$('labels').hidden=!e.target.checked;else layers[key].visible=e.target.checked;if((key==='buildings'||key==='bridges')&&!e.target.checked)closeSelection();$('layer-count').textContent=`${document.querySelectorAll('.layers input:checked').length} LAYERS`;});
  const syncShimmer=()=>{stream.lighting.shimmer.value=!reduced&&$('light-shimmer').checked?1:0;$('light-shimmer').disabled=reduced;};
  $('light-shimmer').checked=!reduced;$('light-shimmer').addEventListener('change',syncShimmer);syncShimmer();
- motionPreference.addEventListener('change',e=>{reduced=e.matches;syncShimmer();});$('stream-retry').addEventListener('click',()=>{stream.cache.retry();regionalDetail.retry();bridgeLayer.retry().then(ok=>{if(ok)stream.suppressBridgeRoads(bridgeLayer.loadedIds);});});
+ motionPreference.addEventListener('change',e=>{reduced=e.matches;syncShimmer();});$('stream-retry').addEventListener('click',()=>{stream.cache.retry();regionalDetail.retry();bridgeLayer.retry().then(ok=>{if(ok)syncSourceReplacements();});});
  $('reset-view').addEventListener('click',()=>goPlace(place));$('top-view').addEventListener('click',()=>{if(stargazer.active)setStargazing(false);if(nav.mode!=='orbit')nav.setMode('orbit',PLACES[place].spawn);const p=controls.target;transition([p.x,p.y+(place==='lantaupeaks'?18000:3300),p.z+.1],[p.x,p.y,p.z],1.3);});
  $('north-view').addEventListener('click',()=>{if(stargazer.active){stargazer.face(0);return;}if(nav.mode!=='orbit')return;const p=controls.target,d=camera.position.distanceTo(p);transition([p.x,p.y+d*.72,p.z+d*.7],[p.x,p.y,p.z]);});
  $('postcard').addEventListener('click',()=>{renderer.render(scene,camera);const a=document.createElement('a');a.download=`hong-kong-astra-${place}-${renderer.domElement.width}x${renderer.domElement.height}.png`;a.href=renderer.domElement.toDataURL('image/png');a.click();toast(`Postcard saved · ${renderer.domElement.width} × ${renderer.domElement.height} pixels`);});
@@ -262,7 +268,7 @@ async function init(){
  startTime=performance.now();requestAnimationFrame(animate);const initial=new URLSearchParams(location.search).get('district');goPlace(Object.hasOwn(PLACES,initial)?initial:'central',false);
  // Regional surfaces and search are independent of building/terrain readiness.
  for(const name of ['islands','urban','nt'])regionalDetail.load(`city/data/regional/${name}.json`);
- for(const url of ['city/data/bridges.json',...(manifest.bridgeModels||[])])bridgeLayer.load(url).then(ok=>{if(ok)stream.suppressBridgeRoads(bridgeLayer.loadedIds);});
+ for(const url of ['city/data/bridges.json',...(manifest.bridgeModels||[])])bridgeLayer.load(url).then(ok=>{if(ok)syncSourceReplacements();});
  // Search and overview data arrive independently; neither blocks movement or terrain.
  getCatalogue().catch(()=>{});loadJSON(manifest.overview).then(data=>{overview=data;}).catch(()=>{});
 }

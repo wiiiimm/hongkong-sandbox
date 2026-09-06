@@ -38,7 +38,7 @@ export function makeTerrain(data) {
    if(!hex){const colours=[];for(let i=0;i<values.length;i+=3){const c=Math.max(0,Math.min(w-1,Math.round((values[i]+ORIGIN[0]-g.bE)/g.aE))),r=Math.max(0,Math.min(h-1,Math.round((ORIGIN[1]-values[i+2]-g.bN)/g.aN))),j=(r*w+c)*3;colours.push(...geo.attributes.color.array.slice(j,j+3));}geometry.setAttribute('color',new THREE.Float32BufferAttribute(colours,3));}
    geometry.computeVertexNormals();const m=new THREE.Mesh(geometry,hex?new THREE.MeshStandardMaterial({color:hex,roughness:1,side:THREE.DoubleSide}):material);m.receiveShadow=true;m.name=name;group.add(m);
   };
-  extra(flat,null,'Terrain clipped to mapped Tai O water');
+  extra(flat,null,data.hydro?.region==='tai-o'?'Terrain clipped to mapped Tai O water':'Terrain clipped to mapped water');
   if(data.hydro&&!data.hydroChunk){extra(data.hydro.bedTriangles||[],'#655f4c','Illustrative submerged bed · not surveyed bathymetry');extra(data.hydro.bankTriangles||[],'#918d73','Mapped bank faces · existing terrain heights');}
   // Reuse the same terrain builder for fine patches; small meshes allow normal frustum culling.
   for(const patch of data.patches||[])for(let r=0;r<patch.h-1;r+=196)for(let c=0;c<patch.w-1;c+=196){
