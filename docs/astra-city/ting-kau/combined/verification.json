@@ -1,0 +1,113 @@
+{
+  "status": "pass",
+  "terrainDimensions": [
+    603,
+    575
+  ],
+  "sourceTerrainSheets": 13,
+  "oldOverlap": {
+    "samples": 1862,
+    "maxDifferenceMetres": 16.525713999999994,
+    "locationHK1980": [
+      826745,
+      824140
+    ],
+    "combinedHeightHKPD": 69.015
+  },
+  "formerBoundaryContinuity": [
+    {
+      "northing": 824027.5,
+      "samples": 266,
+      "distanceAcrossFormerBoundaryMetres": 0.002,
+      "maximumHeightDifferenceMetres": 0.0018780000892064663
+    },
+    {
+      "northing": 824167.5,
+      "samples": 266,
+      "distanceAcrossFormerBoundaryMetres": 0.002,
+      "maximumHeightDifferenceMetres": 0.0024300001153960693
+    }
+  ],
+  "sourceCoreInvariance": [
+    {
+      "region": "tsing-ma",
+      "nativeBounds": [
+        824200,
+        823000,
+        826900,
+        823975
+      ],
+      "spacingMetres": 25,
+      "samples": 4360,
+      "maximumDifferenceMetres": 0.0
+    },
+    {
+      "region": "ting-kau",
+      "nativeBounds": [
+        825850,
+        824200,
+        826800,
+        825550
+      ],
+      "spacingMetres": 25,
+      "samples": 2145,
+      "maximumDifferenceMetres": 0.0
+    }
+  ],
+  "oldSourceUnionBlendReplaced": {
+    "northing": 824000,
+    "samples": 109,
+    "changedSamples": 24,
+    "maximumChangeMetres": 14.165,
+    "note": "The old source-union exterior was blended into archival DTM. It is now interior to the combined source mosaic; the same source TINs provide the heights. No source mesh was translated."
+  },
+  "outerCoarseBoundary": {
+    "samples": 2356,
+    "maximumDifferenceMetres": 4.285723491648241e-07
+  },
+  "hydroRegions": [
+    {
+      "region": "tsing-ma",
+      "waterPolygonsUnchanged": true,
+      "bedTrianglesUnchanged": true,
+      "foundationLandPreservedInPlan": true
+    },
+    {
+      "region": "ting-kau",
+      "waterPolygonsUnchanged": true,
+      "bedTrianglesUnchanged": true,
+      "foundationLandPreservedInPlan": true
+    }
+  ],
+  "uniqueCutCells": 12187,
+  "replacementLandTriangles": 5670,
+  "waterAreaM2": 2893687.8241784703,
+  "bedTriangles": 1073,
+  "bankTriangles": 6380,
+  "originalTsingMaDefaultPayloads": {
+    "terrain-tsing-ma.json": "0c835c0a2559e5c08b6ffc7cd1f849962801862748d23b3d10d1e22262b84463",
+    "hydro-tsing-ma.json": "4cc45eb99287111f64ffbb5064114915b4714e0d8bdce2ebcb86a5856ec3a333"
+  },
+  "immutableBridgePayloads": [
+    {
+      "path": "source-scripts/city/tsing-ma/bridges-tsing-ma.json",
+      "sha256": "3410265446a2190944ddf45359f8c88c158b40a10cad21f72238059d0ce3cd9b"
+    },
+    {
+      "path": "source-scripts/city/tsing-ma/cables-tsing-ma.json",
+      "sha256": "fbf4280b3082d51c92ce019539f510d91c1191341ae90f9b33cc76d6c45c7a22"
+    },
+    {
+      "path": "source-scripts/city/ting-kau/bridges-ting-kau.json",
+      "sha256": "d6368791408c8bd624265aedd51951f922629f78f227e8930df64cc0894e6511"
+    },
+    {
+      "path": "source-scripts/city/ting-kau/cables-ting-kau.json",
+      "sha256": "c7fbae7c688683d3cc1191545684197b8c45ec1766c7d027c47fd3ea8902ffa6"
+    }
+  ],
+  "terrainSha256": "cca3ebf9676b06e9bbcac02161d99fb98bade65ce709cf5ffdf3b4805c23fc37",
+  "hydroSha256": "661fa9333af9edc90b3b70bbee9d2c9a4c73aa4940463c2a348532a5905d4b26",
+  "livePublished": false,
+  "gpuUsed": false
+}
