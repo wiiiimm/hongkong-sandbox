@@ -1,5 +1,9 @@
 # Living Hong Kong delivery tracking
 
+## Aircraft picker published — 7 September 2026
+
+[6e8242e4](https://github.com/wiiiimm/hongkong-sandbox/commit/6e8242e4698308c98f0d99d0059352e1be632497) is published in draft PR #298. Fly now opens a pull-up chooser for all seven aircraft. All 226 city tests and fresh desktop/mobile browser checks pass, including keyboard/input isolation, in-flight continuity, races and failure/Retry. HKS-177 stays In Progress for remaining flight physics, landing, cameras and audio parity. [Evidence](aircraft-picker/README.md). Linear leaf, parent, parity roll-up and milestone updated.
+
 ## Draft checkpoint — 7 September 2026
 
 [PR #298](https://github.com/wiiiimm/hongkong-sandbox/pull/298) is open as a draft. All 51 milestone issues have the PR attachment, with direct commit links on the relevant issues. Original commit hashes are retained. Source checkpoints b90c15f5 (HKS-192) and 7d3e3ff5 (HKS-196) are staged only; see their source notes for remaining acceptance. The 226 city tests and 13 focused source tests pass. No whole section is newly signed off.
@@ -15,7 +19,7 @@ HKS-196 is In Progress under HKS-126, related to HKS-191/HKS-125. Curie owns sou
 
 ## Current execution — 7 September 2026
 
-Linear read-back confirms **30 execution leaves: 3 Ready to Merge, 6 In Review, 5 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
+Linear read-back confirms **30 execution leaves: 3 Ready to Merge, 6 In Review, 6 In Progress and 15 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
 
 | Issue | State | Current executor and scope |
 | --- | --- | --- |
