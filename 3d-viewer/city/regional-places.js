@@ -154,8 +154,7 @@ export const REGIONAL_PLACES={
       1250
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/204797330",
-    "terrainY": 4.642
+    "arrivalSource": "https://www.openstreetmap.org/way/204797330"
   },
   "chimawanpier": {
     "region": "lantau",
@@ -363,8 +362,7 @@ export const REGIONAL_PLACES={
       1250
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/1187601819",
-    "terrainY": 3.607
+    "arrivalSource": "https://www.openstreetmap.org/way/1187601819"
   },
   "shalowan": {
     "region": "lantau",
@@ -806,6 +804,136 @@ export const REGIONAL_PLACES={
     "aerialOnly": false,
     "arrivalSource": "https://www.openstreetmap.org/way/386427053"
   },
+  "wangtong": {
+    "region": "lantau",
+    "title": "Wang Tong",
+    "zh": "橫塘",
+    "sectionId": "10.6",
+    "description": "Public paths beside the village and Wang Tong River.",
+    "source": "https://www.openstreetmap.org/node/2295473896",
+    "lat": 22.2720008,
+    "lon": 113.9969194,
+    "target": [
+      -16778.9,
+      35,
+      1693.7
+    ],
+    "spawn": [
+      -16796.4,
+      1697.7
+    ],
+    "offset": [
+      650,
+      480,
+      700
+    ],
+    "aerialOnly": false,
+    "arrivalSource": "https://www.openstreetmap.org/way/462883837"
+  },
+  "paknganheung": {
+    "region": "lantau",
+    "title": "Pak Ngan Heung",
+    "zh": "白銀鄉",
+    "sectionId": "10.6",
+    "description": "Village paths below Silvermine Waterfall and the surrounding hills.",
+    "source": "https://www.openstreetmap.org/node/993408542",
+    "lat": 22.2712245,
+    "lon": 113.9900245,
+    "target": [
+      -17489.6,
+      49.9,
+      1778.8
+    ],
+    "spawn": [
+      -17482.7,
+      1755.8
+    ],
+    "offset": [
+      650,
+      480,
+      700
+    ],
+    "aerialOnly": false,
+    "arrivalSource": "https://www.openstreetmap.org/way/700985410"
+  },
+  "taiteitong": {
+    "region": "lantau",
+    "title": "Tai Tei Tong",
+    "zh": "大地塘",
+    "sectionId": "10.6",
+    "description": "Public village approaches beside the River Silver valley.",
+    "source": "https://www.openstreetmap.org/node/1004444168",
+    "lat": 22.2675564,
+    "lon": 113.9905141,
+    "target": [
+      -17439.7,
+      41.4,
+      2185.0
+    ],
+    "spawn": [
+      -17462.8,
+      2227.9
+    ],
+    "offset": [
+      650,
+      480,
+      700
+    ],
+    "aerialOnly": false,
+    "arrivalSource": "https://www.openstreetmap.org/way/84793093"
+  },
+  "lukteitong": {
+    "region": "lantau",
+    "title": "Luk Tei Tong",
+    "zh": "鹿地塘",
+    "sectionId": "10.6",
+    "description": "Village lanes and the southern Mui Wo valley.",
+    "source": "https://www.openstreetmap.org/node/13287206330",
+    "lat": 22.2628142,
+    "lon": 113.9913277,
+    "target": [
+      -17356.5,
+      35.8,
+      2710.3
+    ],
+    "spawn": [
+      -17357.3,
+      2699.0
+    ],
+    "offset": [
+      650,
+      480,
+      700
+    ],
+    "aerialOnly": false,
+    "arrivalSource": "https://www.openstreetmap.org/way/92830164"
+  },
+  "muiwoferrypier": {
+    "region": "lantau",
+    "title": "Mui Wo ferry waterfront",
+    "zh": "梅窩碼頭海旁",
+    "sectionId": "10.6",
+    "description": "The public waterfront approach beside Mui Wo ferry pier.",
+    "source": "https://www.openstreetmap.org/node/8839096240",
+    "lat": 22.263230898386876,
+    "lon": 114.00050220424787,
+    "target": [
+      -16410.8,
+      35.5,
+      2665.3
+    ],
+    "spawn": [
+      -16410.8,
+      2665.3
+    ],
+    "offset": [
+      650,
+      480,
+      700
+    ],
+    "aerialOnly": false,
+    "arrivalSource": "https://www.openstreetmap.org/way/954976457"
+  },
   "section-01-1": {
     "region": "island",
     "title": "Statue Square",
@@ -856,8 +984,7 @@ export const REGIONAL_PLACES={
       -1300
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/142227306",
-    "terrainY": 6.716
+    "arrivalSource": "https://www.openstreetmap.org/way/142227306"
   },
   "section-01-3": {
     "region": "island",
@@ -1507,8 +1634,7 @@ export const REGIONAL_PLACES={
       -1300
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/699026408",
-    "terrainY": 4.557
+    "arrivalSource": "https://www.openstreetmap.org/way/699026408"
   },
   "section-05-2": {
     "region": "kowloon",
@@ -1534,8 +1660,7 @@ export const REGIONAL_PLACES={
       -1300
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/557643422",
-    "terrainY": 6.533
+    "arrivalSource": "https://www.openstreetmap.org/way/557643422"
   },
   "section-05-3": {
     "region": "kowloon",

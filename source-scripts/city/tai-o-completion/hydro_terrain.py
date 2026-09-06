@@ -40,8 +40,10 @@ def clip_grid(data,water,patches=()):
      for x,z in t:flat.extend([round(x,5),round(height(data,x,z),5),round(z,5)])
    out.append({'c':c,'r':r,'x':va[0],'z':va[2],'land':flat})
  return {'georef':g,'w':data['w'],'h':data['h'],'cells':out,'removedAreaM2':cut_area}
-def main(publish=False):
- hydro=json.loads((HERE/'hydro-tai-o.json').read_text());water=unary_union([Polygon(p['rings'][0],p['rings'][1:]) for p in hydro['water']]);manifest=json.loads((OUT/'manifest.json').read_text());base=json.loads((OUT/'terrain.json').read_text());patches=[json.loads((ROOT/'3d-viewer'/p['url']).read_text()) for p in manifest.get('terrainPatches',[])];base.pop('hydro',None)
+def prepare_terrain(hydro,base,patches):
+ """Derive one region's cut triangles from supplied grids without publishing."""
+ hydro=dict(hydro)
+ water=unary_union([Polygon(p['rings'][0],p['rings'][1:]) for p in hydro['water']])
  cuts=[clip_grid(base,water,patches)]+[clip_grid(p,water) for p in patches if Polygon([(vertex(p,c,r)[0],vertex(p,c,r)[2]) for c,r in [(0,0),(p['w']-1,0),(p['w']-1,p['h']-1),(0,p['h']-1)]]).intersects(water)]
  hydro['terrainCuts']=cuts;bed=[]
  for t in triangles(water):
@@ -61,7 +63,12 @@ def main(publish=False):
      ha,hb=bank(*aa),bank(*bb)
      if max(ha,hb)<=hydro['illustrativeBed']+.001:continue
      for v in [(aa[0],ha,aa[1]),(aa[0],-4,aa[1]),(bb[0],hb,bb[1]),(bb[0],hb,bb[1]),(aa[0],-4,aa[1]),(bb[0],-4,bb[1])]:walls.extend(round(k,5) for k in v)
- hydro['bankTriangles']=walls;base['hydro']=hydro
+ hydro['bankTriangles']=walls
+ return hydro
+
+def main(publish=False):
+ hydro=json.loads((HERE/'hydro-tai-o.json').read_text());water=unary_union([Polygon(p['rings'][0],p['rings'][1:]) for p in hydro['water']]);manifest=json.loads((OUT/'manifest.json').read_text());base=json.loads((OUT/'terrain.json').read_text());patches=[json.loads((ROOT/'3d-viewer'/p['url']).read_text()) for p in manifest.get('terrainPatches',[])];base.pop('hydro',None)
+ hydro=prepare_terrain(hydro,base,patches);base['hydro']=hydro;cuts=hydro['terrainCuts'];bed=hydro['bedTriangles'];walls=hydro['bankTriangles']
  staged=HERE/'hydro-terrain.json';staged.write_text(json.dumps(base,separators=(',',':'))+'\n')
  report={'originalElevationSha256':hashlib.sha256(json.dumps(base['elev']).encode()).hexdigest(),'terrainGrids':[{k:v for k,v in c.items() if k!='cells'}|{'removedCells':len(c['cells']),'replacementLandTriangles':sum(len(x['land'])//9 for x in c['cells'])} for c in cuts],'bedTriangles':len(bed)//9,'bankTriangles':len(walls)//9,'outputBytes':staged.stat().st_size,'hydroBytes':len(json.dumps(hydro,separators=(',',':'))),'rawSourceElevationsChanged':False,'sourceModelsChanged':False,'illustrativeBed':-4,'terrainSha256':hashlib.sha256(staged.read_bytes()).hexdigest()}
  (DOC/'hydro-terrain-audit.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))

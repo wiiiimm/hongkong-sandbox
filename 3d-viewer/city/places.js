@@ -290,12 +290,14 @@ const BASE_PLACES={
       2297.2
     ],
     "spawn": [
-      -16551.2,
-      2282.0
+      -16547.8,
+      2323.6
     ],
     "lat": 22.266553,
     "lon": 113.999241,
-    "source": "https://www.openstreetmap.org/way/552532081"
+    "source": "https://www.openstreetmap.org/way/552532081",
+    "arrivalSource": "https://www.openstreetmap.org/way/243658484",
+    "terrainY": 6.11
   },
   "taio": {
     "region": "lantau",

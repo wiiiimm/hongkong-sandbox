@@ -3,7 +3,7 @@ import datetime,gzip,hashlib,json,pathlib,subprocess,xml.etree.ElementTree as ET
 from shapely.geometry import Polygon,box,mapping
 from shapely.ops import unary_union
 from shapely import make_valid
-from hydro_prepare import HERE,ROOT,DOC,G,BOUNDS,positions,local,load
+from hydro_prepare import HERE,ROOT,DOC,G,BOUNDS,positions,polygon_ring,local,load
 INDEX='https://portal.csdi.gov.hk/server/rest/services/common/landsd_rcd_1637224243141_96556/MapServer/0/query'
 LAYERS=['Relief/ContourPoly','Hydrography/HydrographyPoly','Hydrography/HydrographyLine','Transportation/RoadPoly','Transportation/PedNBikePoly']
 def fetch():
@@ -33,7 +33,7 @@ def ib5000():
    f=list(m)[0];a={local(t.tag):t.text for t in f if not list(t)};parts=[]
    if a.get('DATASTATUS')!='E':continue
    for p in f.findall('.//'+G+'PolygonPatch'):
-    parts.append(make_valid(Polygon(positions(p.find(G+'exterior/.//'+G+'posList')),[positions(n) for n in p.findall(G+'interior/.//'+G+'posList')])))
+    parts.append(make_valid(Polygon(polygon_ring(p.find(G+'exterior'),positions),[polygon_ring(n,positions) for n in p.findall(G+'interior')])))
    if not parts:continue
    g=unary_union(parts);rows.append(({'id':local(f.tag)+'/'+a['FEATURE_ID'],'layer':local(f.tag),'attributes':a,'sourceFile':str(path.relative_to(ROOT)),'sourceSha256':hashlib.sha256(raw).hexdigest()},g))
  return rows

@@ -17,7 +17,7 @@ export function makeRouteNavigation({sampler,index,surfaces,waterLevel=.3}){
  Object.assign(nav,{sampler,index,surfaces,waterLevel:()=>waterLevel,waterSurface:()=>waterLevel,mode:'orbit',keys:new Set(),position:new THREE.Vector3(),heading:0,pitch:0,lookPitch:.12,lookYaw:0,time:0,distance:0,firstPerson:true,walker:new THREE.Group(),plane:new THREE.Group(),camera:new THREE.PerspectiveCamera(50,1.6,.1,100000),controls:{enabled:true,target:new THREE.Vector3(),update(){}},onMode(){},toast(){},mixer:null});
  return nav;
 }
-export function replayRoute(nav,line,{reverse=false,waterLevelChange=null}={}){
+export function replayRoute(nav,line,{reverse=false,waterLevelChange=null,maxFrames=60000}={}){
  const points=reverse?[...line].reverse():line;
  if(!nav.setMode('walk',points[0]))return {passed:false,reason:'unsafe-initial-arrival',frames:0};
  if(Math.hypot(nav.position.x-points[0][0],nav.position.z-points[0][1])>.001)return {passed:false,reason:'initial-arrival-would-relocate',frames:0};
@@ -26,7 +26,7 @@ export function replayRoute(nav,line,{reverse=false,waterLevelChange=null}={}){
  for(let i=1;i<points.length;i++){
   let error=Math.hypot(points[i][0]-nav.position.x,points[i][1]-nav.position.z);const initialError=error;
   while(error>.002){
-   if(frames>60000)return {passed:false,reason:'frame-limit',frames,atIndex:i,position:nav.position.toArray()};
+   if(frames>maxFrames)return {passed:false,reason:'frame-limit',frames,atIndex:i,position:nav.position.toArray()};
    const before=nav.position.clone(),dt=Math.min(1/60,error/3.9);
    nav.heading=Math.atan2(points[i][0]-nav.position.x,-(points[i][1]-nav.position.z));
    if(waterLevelChange)waterLevelChange(nav,frames);

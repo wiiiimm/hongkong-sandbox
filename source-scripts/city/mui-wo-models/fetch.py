@@ -5,11 +5,18 @@ The compact cache is derived: its hash is never called a complete archive hash.
 import datetime,hashlib,io,json,pathlib,struct,time,urllib.request,zipfile
 HERE=pathlib.Path(__file__).resolve().parent
 TILES=['10-SW-12D','10-SW-17A','10-SW-17B','10-SW-17C','10-SW-17D','10-SW-18A']
-def fetch_tiles(here=HERE, tiles=TILES):
+def fetch_tiles(here=HERE, tiles=TILES, member_prefixes=None):
+ # Case-sensitive ZIP member prefixes (e.g. TERRAIN for TERRAIN(TB)/, or INFRASTRUCTURE/).
+ # None retains the original all-glTF/bin behaviour. Source member paths stay intact.
+ prefixes=tuple(member_prefixes) if member_prefixes else None
  features={f['attributes']['SHEETNO']:f['attributes'] for f in json.loads((here/'index.json').read_text())['features']}
  for tile in tiles:
   folder=here/'sources'/tile;folder.mkdir(parents=True,exist_ok=True);dest=folder/(tile+'.zip');attrs=features[tile]
-  if dest.exists() and (folder/'download.json').exists():print('Retained',tile,dest.stat().st_size,flush=True);continue
+  if dest.exists() and (folder/'download.json').exists():
+   cached=json.loads((folder/'download.json').read_text()).get('memberPrefixes')
+   if cached and (not prefixes or not all(any(p.startswith(c) for c in cached) for p in prefixes)):
+    raise ValueError('Existing filtered cache cannot satisfy requested members: '+str(folder))
+   print('Retained',tile,dest.stat().st_size,flush=True);continue
   url=attrs['Format_glTF'];requests=[];etag=None
   def request(span):
    headers={'Range':'bytes='+span}
@@ -37,6 +44,7 @@ def fetch_tiles(here=HERE, tiles=TILES):
   selected=[];spans=[]
   for i,entry in enumerate(infos):
    if not entry.filename.endswith(('.gltf','.bin')):continue
+   if prefixes and not entry.filename.startswith(prefixes):continue
    assert '..' not in pathlib.PurePosixPath(entry.filename).parts and not entry.filename.startswith('/')
    selected.append(entry);stop=(infos[i+1].header_offset if i+1<len(infos) else cd_offset)-1
    if spans and entry.header_offset-spans[-1][1]<=65536:spans[-1][1]=stop
@@ -51,6 +59,7 @@ def fetch_tiles(here=HERE, tiles=TILES):
     entries.append({'name':entry.filename,'bytes':len(raw),'sourceCompressedBytes':entry.compress_size,'sourceCRC32':entry.CRC,'sha256':hashlib.sha256(raw).hexdigest()})
   temporary.replace(dest);raw=dest.read_bytes()
   record={'source':url,'sheet':tile,'revisionDate':datetime.datetime.fromtimestamp(attrs['REVISIONDATE']/1000,datetime.timezone.utc).isoformat(),'retrievedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'archiveSha256':None,'cacheKind':'Derived compact ZIP containing original unmodified glTF/bin entries only','sourceArchiveBytes':size,'sourceETag':etag,'sourceLastModified':headers.get('Last-Modified'),'transferredBytes':sum(r['bytes'] for r in requests),'rangeRequests':requests,'entries':entries,'indexAttributes':attrs}
+  if prefixes:record['memberPrefixes']=list(prefixes);record['cacheKind']='Derived compact ZIP containing only selected original unmodified glTF/bin entries'
   (folder/'download.json').write_text(json.dumps(record,indent=2)+'\n');print('Geometry retained',tile,len(entries),'entries',len(raw),'cache bytes',record['transferredBytes'],'transferred',flush=True)
 def main():fetch_tiles()
 if __name__=='__main__':main()
