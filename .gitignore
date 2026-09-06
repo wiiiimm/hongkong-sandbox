@@ -31,3 +31,10 @@ dist/
 # demand by source-scripts/hk-sky/build_hk_sky.mjs — too big to commit;
 # the smaller cached sources (BSC5, constellationship.fab) ARE committed.
 source-scripts/hk-sky/cache/hip_main.dat
+
+# HKS buildings layer: the 397 MB LandsD "Building" GeoJSON (CSDI) is fetched on
+# demand by source-scripts/hk-buildings/build_hk_buildings.mjs — far too big to
+# commit; the compact binary it produces (3d-viewer/data/hk-buildings.bin) IS committed.
+source-scripts/hk-buildings/cache/*.geojson
+# LandsD 5 m DTM (28.7 MB zip / 302 MB ASC) — fetched on demand by source-scripts/hk-5m/build_urban_mesh.mjs
+source-scripts/hk-5m/cache/
