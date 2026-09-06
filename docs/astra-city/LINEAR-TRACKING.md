@@ -10,6 +10,8 @@ The user explicitly authorised updates to the Astra milestone and its issues. Th
 
 ## Current local checkpoint
 
+The HKS-189 follow-up `c9f1a79` makes the speed slider visible beside the dial on first open and displays 1×–7,200× normal speed. Six clock tests and ten browser groups pass, including scroll-zero checks at 320/390/760/1024/1440 px. The source label reads 346,115 building forms · Lands Department + OSM. HKS-189 returned to In Review; geometry counts are unchanged.
+
 `e2c50f9` implements HKS-189 adjustable timelapse and HKS-190 mobile-first bottom sheet/desktop inspector. Both are In Review (High, 4 points each), after Curie/Kant implementation and primary-agent integration/review. All 133 city tests, nine timelapse browser groups and responsive control checks pass; exports at 320/390/1024/1440 px were inspected. [Controls](control-sheet/README.md) · [Timelapse](time-cycle/README.md). Existing services and all 118 prior control IDs are preserved. Physical handset keyboard behaviour remains unverified.
 
 The subsequent user-requested **HKS-180 tide/wave slice** restores manual sea level, HKO predictions/24-hour graph and shared original water/shore effects. Curie owns the water/source restoration; the primary agent owns the city controls and navigation/ferry integration. **128/128 city tests** and six actual-city browser groups pass. [Tide implementation and evidence](tides/README.md). The broader HKS-180 issue stays In Progress for its remaining original controls.
