@@ -47,6 +47,9 @@ and [integrated browser evidence](integration/verification.json).
 
 ## Still required
 
+The continuing Linear milestone, regional issues and subagent hand-offs are indexed
+in [LINEAR-TRACKING.md](LINEAR-TRACKING.md).
+
 This completes the imported-base integration milestone, not every city section's
 architectural or gameplay review. The terrain is still sampled at 70 m; fine
 shorelines, Tai O tidal channels/stilt details, raised walking decks and interiors
