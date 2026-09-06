@@ -8,12 +8,14 @@ import {createTidalWater} from './tidal-water.js';
 const colour = x=>new THREE.Color(x);
 export function makeTerrain(data) {
  const {w,h,elev,vegetation}=data,g=data.meta.georef;
+ const coveredCells=[...(data.patches||[]).map(p=>p.coarseCells),...(data.patchExclusions||[])];
+ const covered=(c,r)=>coveredCells.some(([x0,z0,x1,z1])=>c>=x0&&c<x1&&r>=z0&&r<z1);
  const cutCells=new Map();
  for(const cut of data.hydro?.terrainCuts||[]){
   if(Math.abs(cut.georef.aE-g.aE)>1e-6||Math.abs(cut.georef.aN-g.aN)>1e-6)continue;
   for(const cell of cut.cells){
    const c=Math.round((cell.x+ORIGIN[0]-g.bE)/g.aE),r=Math.round((ORIGIN[1]-cell.z-g.bN)/g.aN);
-   if(c>=0&&c<w-1&&r>=0&&r<h-1)cutCells.set(r*w+c,cell);
+   if(c>=0&&c<w-1&&r>=0&&r<h-1&&!covered(c,r))cutCells.set(r*w+c,cell);
   }
  }
  const positions=new Float32Array(w*h*3),colours=new Float32Array(w*h*3),indices=new Uint32Array((w-1)*(h-1)*6);
@@ -26,7 +28,7 @@ export function makeTerrain(data) {
   if(e>240)co.lerp(rock,smoothStep(240,900,e)*.38);
   co.multiplyScalar(.94+randomAt()*.10);colours.set([co.r,co.g,co.b],i*3);
  }
- let k=0;for(let r=0;r<h-1;r++)for(let c=0;c<w-1;c++){const a=r*w+c;if(cutCells.has(a))continue;if(data.patches?.some(p=>{const [x0,z0,x1,z1]=p.coarseCells;return c>=x0&&c<x1&&r>=z0&&r<z1;}))continue;if(!elev[a]&&!elev[a+1]&&!elev[a+w]&&!elev[a+w+1])continue;indices.set([a,a+w,a+1,a+1,a+w,a+w+1],k);k+=6;}
+ let k=0;for(let r=0;r<h-1;r++)for(let c=0;c<w-1;c++){const a=r*w+c;if(cutCells.has(a))continue;if(covered(c,r))continue;if(!elev[a]&&!elev[a+1]&&!elev[a+w]&&!elev[a+w+1])continue;indices.set([a,a+w,a+1,a+1,a+w,a+w+1],k);k+=6;}
  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colours,3));geo.setIndex(new THREE.BufferAttribute(indices.slice(0,k),1));geo.computeVertexNormals();
  const material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
  const mesh=new THREE.Mesh(geo,material);mesh.receiveShadow=true;mesh.name=`Lands Department · ${g.aE} m terrain`;
@@ -40,12 +42,19 @@ export function makeTerrain(data) {
   };
   extra(flat,null,data.hydro?.region==='tai-o'?'Terrain clipped to mapped Tai O water':'Terrain clipped to mapped water');
   if(data.hydro&&!data.hydroChunk){extra(data.hydro.bedTriangles||[],'#655f4c','Illustrative submerged bed · not surveyed bathymetry');extra(data.hydro.bankTriangles||[],'#918d73','Mapped bank faces · existing terrain heights');}
-  // Reuse the same terrain builder for fine patches; small meshes allow normal frustum culling.
-  for(const patch of data.patches||[])for(let r=0;r<patch.h-1;r+=196)for(let c=0;c<patch.w-1;c+=196){
-   const w=Math.min(197,patch.w-c),h=Math.min(197,patch.h-r),elev=[],vegetation=[],renderedElev=patch.renderedElev?[]:undefined,g=patch.meta.georef;
-   for(let y=0;y<h;y++){if(renderedElev)renderedElev.push(...patch.renderedElev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));elev.push(...patch.elev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));vegetation.push(...patch.vegetation.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));}
-   group.add(makeTerrain({w,h,elev,vegetation,renderedElev,hydro:data.hydro,hydroChunk:true,meta:{georef:{...g,bE:g.bE+c*g.aE,bN:g.bN+r*g.aN}}}));
-  }return group;
+  // Chunk each level independently. Parent cells covered by children must be
+  // omitted in every intersecting chunk; render each child once, not per chunk.
+  function addPatch(patch){
+   for(let r=0;r<patch.h-1;r+=196)for(let c=0;c<patch.w-1;c+=196){
+    const w=Math.min(197,patch.w-c),h=Math.min(197,patch.h-r),elev=[],vegetation=[],renderedElev=patch.renderedElev?[]:undefined,g=patch.meta.georef;
+    for(let y=0;y<h;y++){if(renderedElev)renderedElev.push(...patch.renderedElev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));elev.push(...patch.elev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));vegetation.push(...patch.vegetation.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));}
+    const patchExclusions=(patch.patches||[]).map(p=>{const [x0,z0,x1,z1]=p.coarseCells;return [x0-c,z0-r,x1-c,z1-r];});
+    group.add(makeTerrain({w,h,elev,vegetation,renderedElev,patchExclusions,hydro:data.hydro,hydroChunk:true,meta:{georef:{...g,bE:g.bE+c*g.aE,bN:g.bN+r*g.aN}}}));
+   }
+   for(const child of patch.patches||[])addPatch(child);
+  }
+  for(const patch of data.patches||[])addPatch(patch);
+  return group;
  }return mesh;
 }
 export function makeWater(){return createTidalWater();}
