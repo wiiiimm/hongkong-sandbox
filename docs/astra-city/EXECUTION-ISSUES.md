@@ -2,11 +2,11 @@
 
 ## Current execution — 7 September 2026
 
-Linear read-back confirms **30 execution leaves: 10 In Review, 4 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
+Linear read-back confirms **30 execution leaves: 9 In Review, 5 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
 
 | Issue | State | Current executor and scope |
 | --- | --- | --- |
-| HKS-192 · Mui Wo | In Review | `9a33045`: 5 m terrain, ten original infrastructure meshes, mapped hydro, 4.137 km public walk verified in both directions, actual desktop/mobile/picking/flight checks. Thirteen partial terrain conflicts remain; wider section still under review. |
+| HKS-192 · Mui Wo | In Progress | Heisenberg resumed the 13 partial conflict checks and whole-section acceptance audit. Earlier verified baseline: `9a33045`: 5 m terrain, ten original infrastructure meshes, mapped hydro, 4.137 km public walk verified in both directions, actual desktop/mobile/picking/flight checks. Thirteen partial terrain conflicts remain; wider section still under review. |
 | HKS-195 · Haze and sky clarity | In Review | `8e8a181`: live HKO visibility, separate EPD AQHI, manual haze/sky-glow override; 37 tests and five browser groups pass. |
 | HKS-119 · Golden sky and celestial shadows | In Review | `367cc1b`: original golden-hour palette reused, date/time/location-driven sun/moon and exact shadow direction; 11 focused tests and five browser groups pass. This older issue is outside the 30 execution-leaf count. |
 | HKS-171 · South Lantau | In Progress | `7281071`: Pui O 681 compact models, 5 m terrain, 555 m continuous route and desktop/mobile/night/picking/flight/Retry checks pass. Heisenberg complete; shoreline, wetlands, inland connections and broader south Lantau remain open. |
@@ -17,7 +17,7 @@ Linear read-back confirms **30 execution leaves: 10 In Review, 4 In Progress and
 | HKS-194 · Numbered review grid | In Review | `13e3574`: optional 132-section layer and evidence-based readiness. |
 | HKS-170 · Tai O | In Review | `5494ad6`: source channels, bridges and 607 m public walk. Private stilts/decks and wider north-west Lantau remain open. |
 
-Root completed shared integration in `ea9e96b0`, browser review and Linear synchronisation. Heisenberg, Kant and Curie have finished the previous bounded batch. Curie has now started HKS-196, a separate Stonecutters Bridge source/model/terrain pass; root owns integration and tracking. Latest combined city suite: **226 tests pass** after compact model integration. GPU measurements use desktop Chrome, including mobile-sized viewports, and are serialised; physical-phone performance is unverified. New staged models and local route acceptance do not complete whole sections. No push, merge or deployment.
+Root completed shared integration in `ea9e96b0`, browser review and Linear synchronisation. Heisenberg, Kant and Curie finished the previous bounded batch. Heisenberg has now resumed HKS-192 to examine the 13 partial conflicts using retained source geometry and terrain. Curie has now started HKS-196, a separate Stonecutters Bridge source/model/terrain pass; root owns integration and tracking. Latest combined city suite: **226 tests pass** after compact model integration. GPU measurements use desktop Chrome, including mobile-sized viewports, and are serialised; physical-phone performance is unverified. New staged models and local route acceptance do not complete whole sections. No push, merge or deployment.
 
 Whole-section readiness remains **0 Ready, 0 Close, 12 Under review, 120 Base mapped**. [Review evidence and policy](review-sections/README.md). Latest evidence: [Mui Wo](mui-wo-completion/README.md), [haze](atmosphere/README.md), [golden sky and shadows](golden-hour/README.md).
 
@@ -35,7 +35,7 @@ Whole-section readiness remains **0 Ready, 0 Close, 12 Under review, 120 Base ma
 - [HKS-172 — Complete Tung Chung, Discovery Bay and northern Lantau village detail](https://linear.app/stealth-company/issue/HKS-172/complete-tung-chung-discovery-bay-and-northern-lantau-village-detail) — Backlog; 8 points.
 - [HKS-173 — Complete airport buildings, reclamation and runway geography](https://linear.app/stealth-company/issue/HKS-173/complete-airport-buildings-reclamation-and-runway-geography) — Backlog; 8 points.
 - [HKS-174 — Complete Ngong Ping and the Lantau mountain approach routes](https://linear.app/stealth-company/issue/HKS-174/complete-ngong-ping-and-the-lantau-mountain-approach-routes) — Backlog; 8 points.
-- [HKS-192 — Complete Mui Wo terrain, village models and public walking review](https://linear.app/stealth-company/issue/HKS-192/complete-mui-wo-terrain-village-models-and-public-walking-review) — In Review; 8 points.
+- [HKS-192 — Complete Mui Wo terrain, village models and public walking review](https://linear.app/stealth-company/issue/HKS-192/complete-mui-wo-terrain-village-models-and-public-walking-review) — In Progress; 8 points.
 
 ### HKS-123
 
