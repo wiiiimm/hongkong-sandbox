@@ -1,0 +1,601 @@
+
+
+
+
+
+
+     
+     
+     
+		
+     
+
+
+<!-- Include Header --> 
+
+
+
+
+
+
+
+
+
+	
+
+
+<!DOCTYPE html>
+<html class="dj_webkit dj_chrome dj_contentbox" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+
+<title id="idPageTitle">Terms and Conditions of Use</title>
+
+<meta name="keywords" content="Common Spatial Data Infrastructure,CSDI,SDO,Spatial Data Office,Spatial Data,Annual Spatial Data Plans,空間數據共享平台,空間數據辦事處,香港空間數據,空間數據,年度空間數據計劃,空间数据共享平台,空间数据办事处,香港空间数据,空间数据,年度空间数据计划,Geospatial data,地理空间数据,地理空間數據,Open data,开放数据,開放數據,Government data,政府数据,政府數據,Information sharing,信息共享,信息共享,Smart city,智慧城市,智慧城市,Map-based digital infrastructure,基于地图的数字基础设施,基於地圖的數字基礎設施">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/csdi-webpage/resources/icons/fontawesome-free-6.2.1-web/css/all.min.css">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://static.csdi.gov.hk/csdi-webpage/resources/icons/favicon.ico">
+<link rel="stylesheet" href="https://static.csdi.gov.hk/csdi-webpage/resources/css/bootstrap.css">
+<link rel="stylesheet" href="https://static.csdi.gov.hk/csdi-webpage/resources/2024-revamp/css/style.css">
+
+<!-- Date Picker -->
+<link rel="stylesheet" type="text/css" href="/csdi-webpage/resources/plugins/datepicker/css/bootstrap-datepicker.min.css" >
+
+<!-- DataTables -->
+<link rel="stylesheet" href="https://static.csdi.gov.hk/csdi-webpage/resources/plugins/DataTables/datatables.min.css" >
+
+<!-- jQuery -->
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/HKCSDI_files/jquery-4.0.0.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/HKCSDI_files/bootstrap-5.3.3.min.js"></script>
+
+<!-- Date Picker -->
+<script type="text/javascript" src="/csdi-webpage/resources/plugins/datepicker/js/bootstrap-datepicker.min.js" ></script>
+<script type="text/javascript" src="/csdi-webpage/resources/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.min.js" ></script>
+<script type="text/javascript" src="/csdi-webpage/resources/plugins/datepicker/locales/bootstrap-datepicker.zh-TW.min.js" ></script>
+
+<!-- DataTables -->
+<script type="text/javascript" src="https://static.csdi.gov.hk/csdi-webpage/resources/plugins/DataTables/datatables.min.js"></script>
+
+<!-- SheetJs -->
+<script type="text/javascript" src="https://static.csdi.gov.hk/csdi-webpage/resources/plugins/SheetJS/xlsx.full.min.js"></script>
+
+
+<!-- Apple -->
+<script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+
+
+<!-- Support multilingual-->
+<script src="https://static.csdi.gov.hk/3.38/dojo/dojo.js"
+		data-dojo-config="'packages':[{'name': 'csdi-webpage', 'location':'/csdi-webpage'}], locale: 'en', extraLocale: ['en', 'zh-hk', 'zh-cn']">
+</script>
+
+
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="/matomo/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    
+    
+	  
+	  
+	    _paq.push(['setSiteId', '3']);
+        
+	  
+     
+    
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+
+</head>
+
+<body class="">
+<div id="custom-banner" class="custom-banner"></div>
+<div class="g-app" data-dojo-attach-point="contentNode" id="csdiapp" widgetid="app">
+  <a class="visually-hidden-focusable skip-to-content" href="#app">
+  		
+  			
+  			
+  				Skip to main content
+  			
+  		
+	</a>
+  
+<!-- Notification -->
+<div id="site-notification"></div>
+  
+<!-- Header Nav Start -->
+<header class="site-header" id="csdi-nav-header"></header>
+
+<main class="site-main" id="app" tabindex="-1">
+ <div class="d-none" id="idUserLang">en</div>
+ <!--  div style="border-top:2px solid #09825D;"></div -->
+
+<!-- Header Nav End -->  
+
+ <script src="https://static.csdi.gov.hk/csdi-webpage/resources/js/_header.js"></script>
+ 
+ <script>
+	function changeLang(curLang) {
+	  var curURL = location.href.toLowerCase();
+	  var jsessionid = "/csdi-webpage/";
+	  var sInx = jsessionid.indexOf(';jsessionid=');
+		 
+      $.ajax({
+                url: "/csdi-webpage/ToLang",
+                type: "GET",
+                data: { lang: curLang, meta: ''},
+                success: function (sessionID) {
+             	   window.localStorage.setItem('csdi-lang',curLang);
+             	   window.localStorage.setItem('csdi-maplang',curLang);
+             	   if (location.protocol == 'http:' && sInx>=0 && curURL.indexOf(';jsessionid=')<0) {
+             		   var newURL = location.href + jsessionid.substr(sInx);
+             		   window.location.replace(newURL);
+             	   }
+             	   else                  	     
+              	      location.reload(false);
+                  }
+              });
+		 
+	}
+	
+	function loadHeader() {
+	   var navName = $('#idNavName').html();
+	   if (navName == null) navName='Null';
+	   
+	   // Load CSDI Header
+	   $.ajax({
+	            url: "/csdi-webpage/info/getHeader",
+	            type: "GET",
+	            data: { site: 'csdi', nav: navName},
+	            async: false,
+	            success: function (result) {
+	                  $('#csdi-nav-header').html(result);   	   
+	        }
+	   });
+	   
+		// Load CSDI Notification
+		$.ajax({
+			url: "/csdi-webpage/getNotification",
+			type: "GET",
+			async: false,
+			success: function (result) {
+				$('#site-notification').html(result);   	   
+			}
+		});
+	}
+</script>
+ 
+ 
+<!-- End TextSize Modal by Lang-->
+
+ 
+
+<!-- Body Start-->
+<div class="page-text page">
+
+	<header class="page__header page__header--text-only">
+
+		<div class="page__header-text">
+
+			<h1 class="page__header-title">
+				Terms and Conditions of Use
+			</h1><!-- .page__header-title -->
+
+		</div><!-- .page__header-text -->
+
+	</header><!-- .page__header -->
+
+	<section class="page__content">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="page-text__content-body">
+
+						<div class="text-card card">
+
+							<div class="card-body">
+
+								<h2>
+									General
+								</h2>
+
+								<ol class="card-text block-list">
+
+									<li>
+										The CSDI Portal is an online one-stop geospatial information service provided by
+										the Development Bureau of the Government of the Hong Kong Special Administrative
+										Region (the “Government”) to the public for obtaining geo-referenced
+										information.
+									</li>
+
+									<li>
+
+										In these Terms and Conditions of Use of the CSDI Portal (“Terms of Use”):
+
+										<ol type="a">
+
+											<li>
+												“Data” include the “Spatial Data<sup><a class="underline-highlight"
+														href="#Note_1">#</a></sup>” and all other contents provided by
+												the Government and/or other organisations (such organisations are
+												referred to as “the relevant organisations”) to the public on the CSDI
+												Portal;
+											</li>
+
+											<li>
+												“Spatial Data” include all data in the form of digital maps, text,
+												graphics, drawings, diagrams, photographs, compilation of data, data
+												specifications, metadata and Application Programming Interface (“API”).
+											</li>
+
+										</ol>
+
+									</li>
+
+								</ol><!-- .card-text -->
+
+								<h2>
+									Use of Data on CSDI Portal
+								</h2>
+
+								<ol class="card-text block-list" start="3">
+
+									<li>
+
+										You are allowed to browse, download, distribute, reproduce, hyperlink to and
+										print the Data for both commercial and non-commercial purposes on a
+										free-of-charge basis on the condition that:-
+
+										<ul>
+
+											<li>
+												you shall comply with the Terms of Use;
+											</li>
+
+											<li>
+												you shall identify clearly the Government and the CSDI Portal as the
+												source of the Data and acknowledge the Government and the relevant
+												organisations’ ownership of the intellectual property rights in the Data
+												and in all copies thereof including but not limited to paper copies,
+												digital copies and copies placed on other websites;
+											</li>
+
+											<li>
+												you shall indemnify the Government and the relevant organisations
+												against any allegations or claims of infringement of the rights of any
+												person and all costs, losses, damages and liabilities incurred by the
+												Government and the relevant organisations, which in any case arise
+												directly or indirectly in relation to your use, reproduction and/or
+												distribution of the Data
+											</li>
+
+										</ul>
+
+									</li>
+
+								</ol><!-- .card-text -->
+
+								<h2>
+									Disclaimer and Limitation of Liability
+								</h2>
+
+								<ol class="card-text block-list" start="4">
+
+									<li>
+										The Data are provided by the Government and the relevant organisations to you on
+										an “as is” and “as available” basis. No statement, representation or warranty of
+										any kind (whether express or implied) is given by the Government or the relevant
+										organisations in relation to the Data (including its accuracy, correctness,
+										completeness, non-infringement, reliability, security, timeliness and
+										appropriateness of the use of the Data in any particular circumstances). The
+										Government or the relevant organisations shall not be liable for any errors,
+										omissions, deficiencies, inconsistencies, misstatements or misrepresentations
+										(express or implied), concerning any Data, and shall not have or accept any
+										liability, obligation or responsibility whatsoever for any loss, destruction or
+										damage (including without limitation consequential loss, destruction or damage
+										or other costs or expenses) howsoever arising from or in respect of any use or
+										misuse of or reliance on the Data, or any inability to use the Data (including
+										any breakdown, suspension, non-function, mal-function or interruption of
+										operation of the CSDI Portal).
+									</li>
+
+									<li>
+										In consideration of the Government and the relevant organisations providing the
+										Data on the CSDI Portal, by using the CSDI Portal, including the tools, you hereby unconditionally
+										accept the Terms of Use. <strong>IF YOU DO NOT AGREE TO THE TERMS OF USE, PLEASE
+											DO NOT USE THE CSDI PORTAL, INCLUDING THE TOOLS, OR THE DATA PROVIDED THEREON.</strong> The Terms
+										of Use may be revised and/or amended from time to time by the Government or the
+										relevant organisations without prior notice to any person. Accessing or using or
+										linking to the CSDI Portal or using any Data after such amendments constitutes
+										acceptance of such amendments. Please check the Terms of Use regularly for any
+										revisions and/or amendments which may be made.
+									</li>
+
+									<li>
+										The Government and the relevant organisations shall not be responsible for any
+										loss or damage whatsoever arising out of or in connection with the Data. The
+										Government reserves the right to revise, omit or edit the Data or to suspend or
+										terminate the provision of the Data, the CSDI Portal or any part thereof at any
+										time in its absolute discretion without giving any reason or prior notice to any
+										person (including you).
+									</li>
+
+								</ol><!-- .card-text -->
+
+								<h2>
+									Linked Information and other Third-Party Websites
+								</h2>
+
+								<ol class="card-text block-list" start="7">
+
+									<li>
+										The CSDI Portal may provide or assist in providing links to third-party websites
+										through the CSDI Portal. The links are produced solely as a convenience to users
+										of the CSDI Portal. Provision of, or assistance in providing, any links at the
+										CSDI Portal to any third-party website does not give rise to any statement,
+										representation or warranty, express or implied, that the Government agrees with,
+										approves, recommends or endorses the contents of any such third-party websites.
+										The provision of any links to third-party websites shall not constitute any form
+										of co-operation or affiliation with the Government of any such third parties or
+										external websites. The Government shall not have or accept any liability,
+										obligation or responsibility whatsoever for any loss, destruction or damage
+										(including without limitation consequential loss, destruction or damage or other
+										costs or expenses) howsoever arising from or in respect of your use or misuse of
+										or reliance on, or inability to use such links to any third-party website or
+										your use or reliance on the contents of any such third-party websites. You
+										should refer to the terms and conditions of each such third-party website when
+										using such website.
+									</li>
+
+								</ol><!-- .card-text -->
+
+								<h2>
+									Privacy Policy
+								</h2>
+
+								<ol class="card-text block-list" start="8">
+
+									<li>
+										The Government may record visits to the CSDI Portal without collecting your
+										personal data. Information relating to visits to the CSDI Portal are collected
+										by the Government for the compilation of statistical reports and the
+										investigation and diagnosis of problems with or concerning computer systems.
+									</li>
+
+								</ol><!-- .card-text -->
+
+								<h2>
+									Intellectual Property Rights
+								</h2>
+
+								<ol class="card-text block-list" start="9">
+
+									<li>
+										Unless otherwise indicated, the Government is the owner of the intellectual
+										property rights of all contents available on the CSDI Portal, including but not
+										limited to all Data.
+									</li>
+
+								</ol><!-- .card-text -->
+
+								<h2>
+									Governing Law
+								</h2>
+
+								<ol class="card-text block-list" start="10">
+
+									<li>
+										The Terms of Use shall be governed and construed in accordance with the laws of
+										the Hong Kong Special Administrative Region of the People’s Republic of China
+										(“Hong Kong”). You also agree to submit to the exclusive jurisdiction of the
+										Hong Kong Courts.
+									</li>
+
+								</ol><!-- .card-text -->
+
+								<h2>
+									Chinese text
+								</h2>
+
+								<ol class="card-text block-list" start="11">
+
+									<li>
+										In the event of any conflict or inconsistency between the English text and the
+										Chinese translation of these Terms of Use, the English text shall prevail.
+									</li>
+
+								</ol><!-- .card-text -->
+
+								<h2>
+									Note
+								</h2>
+
+								<ul class="card-text block-list custom-list-item-markers">
+
+									<li id="Note_1" style="--marker: '#  ';">
+										“Spatial data” is defined with reference to the definition of “Geospatial Data”
+										published by the Open Geospatial Consortium as “location properties related to
+										any terrestrial feature or phenomena”. “Location properties” may include any
+										information about the location or area of, and relationships among, and
+										descriptive information about geographic features and phenomena. This includes
+										remotely sensed data, vector map data, addresses, coordinates, etc. Note that
+										“geospatial data” is more precise in many contexts than “geographic data”
+										because geospatial data is often used in ways that do not involve a graphic
+										representation, or map, created from the data.”
+									</li><!-- #Note_1 -->
+
+								</ul><!-- .card-text -->
+
+							</div><!-- .card-body -->
+
+						</div><!-- .text-card -->
+
+					</div><!-- .page-text__content-body -->
+				</div><!-- .col -->
+			</div><!-- .row -->
+		</div><!-- .container -->
+	</section><!-- .page__content -->
+	
+	
+
+
+
+    
+    
+    
+        <a class="back-to-top" href="#" title="Back to Top">
+		    <span aria-hidden="true" class="icon sprite-icons sprite-icons--caret-up">
+		        <svg>
+		            <use xlink:href="/csdi-webpage/resources/2024-revamp/images/sprite-icons.svg#caret-up"></use>
+		        </svg>
+		    </span><!-- .sprite-icons--caret-up -->
+		</a><!-- .back-to-top -->
+    
+
+
+</div><!-- .page-text -->
+
+<div class="site-overlay" id="overlay"></div>
+<!-- Body End-->
+
+<!-- Include Footer -->  
+
+
+
+<!-- off #app div -->
+</main>
+
+<footer class="site-footer">
+	<div class="container">
+		<div class="row align-items-end">
+
+			<div class="col-12 col-md-7 col-lg-8">
+				<nav aria-label="Footer Links" class="site-footer__nav">
+					<ul>
+
+						<li>
+							<a href="/csdi-webpage/ContactUs" id="ftContactUs">Contact Us</a>
+						</li>
+
+						<li>
+							<a href="/csdi-webpage/info/SiteMap" id="ftSiteMap">Site Map</a>
+						</li>
+
+						<li>
+							<a href="/csdi-webpage/Provider" id="ftProvider">Data Providers</a>
+						</li>
+
+						<li>
+							
+								
+								
+									<a href="/csdi-webpage/doc/TNC" id="ftTNC">Terms and Conditions</a>			         
+								
+				            
+			            </li>
+
+						<li>
+							<a href="/csdi-webpage/info/FAQ" id="ftFAQ">FAQ</a>
+						</li>
+
+					</ul>
+				</nav><!-- .site-footer__nav -->
+			</div><!-- .col -->
+
+			<div class="col-12 col-md-5 col-lg-4">
+				<div class="site-footer__info">
+
+					<div class="site-footer__copyright" id="ftCopyright">
+						Copyright © 2024 All rights reserved
+					</div><!-- .site-footer__copyright -->
+
+					<a class="site-footer__wcag" href="https://www.w3.org/WAI/WCAG2AA-Conformance" target="_blank"
+						title="Explanation of WCAG 2 Level AA conformance">
+						<img alt="Level AA conformance, W3C WAI Web Content Accessibility Guidelines 2.0"
+							src="https://static.csdi.gov.hk/csdi-webpage/resources/2024-revamp/images/wcag2AA-v.svg">
+					</a><!-- .site-footer__wcag -->
+
+					<span class="ftVersion" id="ftVersion" onload="getVersion('OPEN','VERSION')"></span>
+
+				</div><!-- .site-footer__info -->
+			</div><!-- .col -->
+
+		</div><!-- .row -->
+	</div><!-- .container -->
+</footer><!-- .site-footer -->
+
+</div><!-- #csdiapp -->
+
+<!-- Footer Start-->
+
+<!-- Success modal start -->
+<div class="modal fade" id="successAlert" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title fs-5" id="successAlertTitle">Success</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div id="successAlertContent" class="modal-body">
+				Success
+			</div>
+			<div class="modal-footer">
+				<button id="successAlertClose" type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Success modal end -->
+
+<!-- Error modal start -->
+<div class="modal fade" id="errorAlert" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title fs-5" id="errorAlertTitle">Error occur</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div id="errorAlertContent" class="modal-body">
+				Error message listed below:
+			</div>
+			<div class="modal-footer">
+				<button id="errorAlertClose" type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Error modal end -->
+
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/HKCSDI_files/custom.js"></script>
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/js/common.js"></script>
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/2024-revamp/js/script.js"></script>
+<script src="https://static.csdi.gov.hk/csdi-webpage/resources/js/_footer.js"></script>
+
+
+
+
+
+</body>
+</html>
+ 

@@ -30,8 +30,13 @@ def main():
             shape=Polygon(rings[0],rings[1:])
             if not shape.is_valid or shape.area<=0: raise ValueError('Invalid surface '+feature['id'])
     if set(assigned)!=expected or len(assigned)!=len(set(assigned)): raise ValueError('Section ownership mismatch')
-    dem=json.loads((OUT/'terrain.json').read_text());g=dem['meta']['georef'];w,h=dem['w'],dem['h']
+    dem=json.loads((OUT/'terrain.json').read_text());manifest=json.loads((OUT/'manifest.json').read_text());dems=[dem]+[json.loads((ROOT/'3d-viewer'/p['url']).read_text()) for p in manifest.get('terrainPatches',[])]
     def ground(x,z):
+        dem=dems[0]
+        for candidate in dems[1:]:
+            g=candidate['meta']['georef'];c=(x+834500-g['bE'])/g['aE'];r=(816500-z-g['bN'])/g['aN']
+            if 0<=c<candidate['w']-1 and 0<=r<candidate['h']-1:dem=candidate
+        g=dem['meta']['georef'];w,h=dem['w'],dem['h']
         c=(x+834500-g['bE'])/g['aE'];r=(816500-z-g['bN'])/g['aN']
         if not (0<=c<w-1 and 0<=r<h-1): return None,False
         i,j=int(c),int(r);u,v=c-i,r-j

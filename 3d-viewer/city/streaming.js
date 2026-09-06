@@ -28,7 +28,7 @@ export class CityStreaming {
    const [x,z]=id.split('_').map(Number),s=this.manifest.tileSize;
    nature=makeNature(data.parks,this.terrain,this.sampler,index,{bounds:[x*s,z*s,(x+1)*s,(z+1)*s],seed:(x*73856093^z*19349663)>>>0});
    if(this.surfaceMask)nature.applyMask((x,z,r)=>!!this.surfaceMask.collision(x,z,0,1000,r));
-   return {id,data,index,buildings,roads,nature};
+   return {id,data,index,buildings,roads,nature,pickBounds:new THREE.Box3().setFromObject(buildings.group)};
   }catch(error){disposeGroup(buildings.group);if(roads)disposeGroup(roads);if(nature)disposeGroup(nature.group);throw error;}
  }
  suppressBridgeRoads(ids){
@@ -61,6 +61,10 @@ export class CityStreaming {
  async getBuilding(tile,uid){
   const meta=this.meta.get(tile);if(!meta)throw new Error('Unknown city section');
   this.plan(...meta.centre,3200);await this.cache.waitFor([tile]);return this.cache.entries.get(tile)?.data.buildings.find(b=>b.uid===uid);
+ }
+ pickMeshes(ray){
+  if(!this.buildings.visible)return [];
+  return [...this.cache.entries.values()].filter(e=>e.buildings.group.visible&&ray.intersectsBox(e.pickBounds)).flatMap(e=>e.buildings.group.children);
  }
  featureAt(hit){return this.cache.entries.get(hit.object.userData.tile)?.data.buildings[Math.round(hit.object.geometry.attributes.feature.getX(hit.face.a))];}
  collision(x,z,bottom,top,radius=.5){

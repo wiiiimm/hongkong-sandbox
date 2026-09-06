@@ -57,8 +57,8 @@ test('all 18 districts have direct settlement destinations and valid WGS84 sky o
  for(const [id,p] of Object.entries(PLACES)){assert.ok(p.lat>22.1&&p.lat<22.6,id);assert.ok(p.lon>113.8&&p.lon<114.5,id);}
 });
 test('all walking arrivals lie on dry terrain triangles and clear nearby building collision volumes',()=>{
- const terrain=JSON.parse(readFileSync(new URL('../data/terrain.json',import.meta.url))),sampler=makeTerrainSampler(terrain);
- const landTriangle=(x,z)=>{const [c,r]=sampler.grid(x,z),i=Math.floor(c),j=Math.floor(r),u=c-i,v=r-j,w=terrain.w;const cells=u+v<=1?[j*w+i,j*w+i+1,(j+1)*w+i]:[j*w+i+1,(j+1)*w+i,(j+1)*w+i+1];return cells.every(index=>terrain.elev[index]>0);};
+ const terrain=JSON.parse(readFileSync(new URL('../data/terrain.json',import.meta.url)));terrain.patches=(manifest.terrainPatches||[]).map(p=>JSON.parse(readFileSync(new URL('../../'+p.url,import.meta.url))));const sampler=makeTerrainSampler(terrain);
+ const landTriangle=(x,z)=>{const data=terrain.patches.find(p=>makeTerrainSampler(p).contains(x,z))||terrain;const [c,r]=makeTerrainSampler(data).grid(x,z),i=Math.floor(c),j=Math.floor(r),u=c-i,v=r-j,w=data.w;const cells=u+v<=1?[j*w+i,j*w+i+1,(j+1)*w+i]:[j*w+i+1,(j+1)*w+i,(j+1)*w+i+1];return cells.every(index=>data.elev[index]>0);};
  for(const [id,p] of Object.entries(PLACES)){
   if(p.aerialOnly)continue;
   const [x,z]=p.spawn;assert.ok(sampler.contains(x,z),id);assert.ok(sampler.raw(x,z)>.5,id);assert.ok(landTriangle(x,z),`${id} starts on a fully dry terrain triangle`);

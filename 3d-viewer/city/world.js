@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.js';
 import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
 import {ORIGIN,inPolygon,random,smoothStep} from './geo.js';
 import {buildingLighting} from './lighting.js';
+import {createBuildingGeometry} from './building-geometry.js';
 
 const colour = x=>new THREE.Color(x);
 export function makeTerrain(data) {
@@ -16,10 +17,19 @@ export function makeTerrain(data) {
   if(e>240)co.lerp(rock,smoothStep(240,900,e)*.38);
   co.multiplyScalar(.94+randomAt()*.10);colours.set([co.r,co.g,co.b],i*3);
  }
- let k=0;for(let r=0;r<h-1;r++)for(let c=0;c<w-1;c++){const a=r*w+c;if(!elev[a]&&!elev[a+1]&&!elev[a+w]&&!elev[a+w+1])continue;indices.set([a,a+w,a+1,a+1,a+w,a+w+1],k);k+=6;}
+ let k=0;for(let r=0;r<h-1;r++)for(let c=0;c<w-1;c++){const a=r*w+c;if(data.patches?.some(p=>{const [x0,z0,x1,z1]=p.coarseCells;return c>=x0&&c<x1&&r>=z0&&r<z1;}))continue;if(!elev[a]&&!elev[a+1]&&!elev[a+w]&&!elev[a+w+1])continue;indices.set([a,a+w,a+1,a+1,a+w,a+w+1],k);k+=6;}
  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colours,3));geo.setIndex(new THREE.BufferAttribute(indices.slice(0,k),1));geo.computeVertexNormals();
  const material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
- const mesh=new THREE.Mesh(geo,material);mesh.receiveShadow=true;mesh.name='Lands Department · 70 m terrain';return mesh;
+ const mesh=new THREE.Mesh(geo,material);mesh.receiveShadow=true;mesh.name=`Lands Department · ${g.aE} m terrain`;
+ if(data.patches?.length){
+  const group=new THREE.Group();group.name='Lands Department terrain';group.add(mesh);
+  // Reuse the same terrain builder for fine patches; small meshes allow normal frustum culling.
+  for(const patch of data.patches)for(let r=0;r<patch.h-1;r+=196)for(let c=0;c<patch.w-1;c+=196){
+   const w=Math.min(197,patch.w-c),h=Math.min(197,patch.h-r),elev=[],vegetation=[],g=patch.meta.georef;
+   for(let y=0;y<h;y++){elev.push(...patch.elev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));vegetation.push(...patch.vegetation.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));}
+   group.add(makeTerrain({w,h,elev,vegetation,meta:{georef:{...g,bE:g.bE+c*g.aE,bN:g.bN+r*g.aN}}}));
+  }return group;
+ }return mesh;
 }
 export function makeWater(){
  const material=new THREE.MeshStandardMaterial({color:'#6caba4',roughness:.36,metalness:.25});
@@ -34,26 +44,23 @@ export function makeWater(){
  };
  const mesh=new THREE.Mesh(new THREE.PlaneGeometry(180000,180000),material);mesh.rotation.x=-Math.PI/2;mesh.position.y=.3;mesh.name='Victoria Harbour';return {mesh,time,material,strength};
 }
-export function extrudeBuilding(b){
- const path=ring=>ring.slice(0,-1).map(p=>new THREE.Vector2(p[0],-p[1]));
- const shape=new THREE.Shape(path(b.rings[0]));for(const hole of b.rings.slice(1))shape.holes.push(new THREE.Path(path(hole)));
- const geometry=new THREE.ExtrudeGeometry(shape,{depth:b.height-b.minimum,bevelEnabled:false,steps:1,curveSegments:1});geometry.rotateX(-Math.PI/2);geometry.translate(0,b.base+b.minimum,0);return geometry;
-}
+export function extrudeBuilding(b){return createBuildingGeometry(b);}
 function facadeMaterial(hex,lighting){
  const material=new THREE.MeshStandardMaterial({color:hex,roughness:.69,metalness:.13});
  material.onBeforeCompile=shader=>{
   shader.uniforms.uCityNight=lighting.night;shader.uniforms.uCityActivity=lighting.activity;shader.uniforms.uCityRetail=lighting.retail;shader.uniforms.uCitySeconds=lighting.elapsed;shader.uniforms.uCityShimmer=lighting.shimmer;
   shader.vertexShader=shader.vertexShader.replace('#include <common>',`#include <common>
    attribute vec4 cityLight; varying vec4 vCityLight;
+   attribute float cityWindows; varying float vCityWindows;
    varying vec3 vCityPosition; varying vec3 vCityNormal;`).replace('#include <begin_vertex>',`#include <begin_vertex>
-   vCityLight = cityLight; vCityPosition = (modelMatrix * vec4(transformed, 1.0)).xyz;
+   vCityLight = cityLight; vCityWindows = cityWindows; vCityPosition = (modelMatrix * vec4(transformed, 1.0)).xyz;
    vCityNormal = normalize(mat3(modelMatrix) * objectNormal);`);
   shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>
-   varying vec4 vCityLight; varying vec3 vCityPosition; varying vec3 vCityNormal;
+   varying vec4 vCityLight; varying float vCityWindows; varying vec3 vCityPosition; varying vec3 vCityNormal;
    uniform float uCityNight; uniform vec4 uCityActivity; uniform float uCityRetail; uniform float uCitySeconds; uniform float uCityShimmer;
    float cityHash(vec2 p) { return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
   `).replace('#include <color_fragment>',`#include <color_fragment>
-   float wall = 1.0 - step(.6, abs(vCityNormal.y));
+   float wall = (1.0 - step(.6, abs(vCityNormal.y))) * vCityWindows;
    float horizontal = abs(vCityNormal.x) > abs(vCityNormal.z) ? vCityPosition.z : vCityPosition.x;
    vec2 cell = vec2(horizontal / 3.6, (vCityPosition.y-vCityLight.z) / 3.5);
    vec2 grid = fract(cell);
@@ -90,7 +97,7 @@ function facadeMaterial(hex,lighting){
  return material;
 }
 export async function makeBuildings(features,onProgress,options={}){
- const group=new THREE.Group();group.name='OSM building footprints';const lighting=options.lighting||{night:{value:0},activity:{value:new Float32Array([.8,.6,.9,.7])},retail:{value:.9},elapsed:{value:0},shimmer:{value:0}},night=lighting.night;
+ const group=new THREE.Group();group.name='Source building footprints';const lighting=options.lighting||{night:{value:0},activity:{value:new Float32Array([.8,.6,.9,.7])},retail:{value:.9},elapsed:{value:0},shimmer:{value:0}},night=lighting.night;
  const palette=['#d9d8c5','#ebe7d5','#b6c9c1','#a5bcb8','#c1c3b6','#e0d7bc','#8aafac','#bdc6bf'];
  const materials=palette.map(c=>facadeMaterial(c,lighting)),bins=palette.map(()=>[]);let totalVertices=0;
  for(let i=0;i<features.length;i++){

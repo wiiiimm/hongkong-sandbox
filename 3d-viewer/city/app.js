@@ -78,13 +78,13 @@ function setStargazing(enabled){
 }
 function closeSelection(){selectedId=null;selectedIndex=-1;$('building-card').hidden=true;if(selection){scene.remove(selection);selection.geometry.dispose();selection.material.dispose();selection=null;}}
 function selectBuilding(b){
- if(!b)return;closeSelection();$('building-height-label').textContent='HEIGHT';$('building-levels-label').textContent='FLOORS';selectedId=b.uid;selectedIndex=0;
+ if(!b)return;closeSelection();$('building-height-label').textContent=b.modelGeometry?'OUTLINE HEIGHT':'HEIGHT';$('building-levels-label').textContent='FLOORS';selectedId=b.uid;selectedIndex=0;
  const geo=extrudeBuilding(b);selection=new THREE.LineSegments(new THREE.EdgesGeometry(geo,25),new THREE.LineBasicMaterial({color:'#e8ae4f',transparent:true,opacity:.95,depthTest:false}));geo.dispose();selection.renderOrder=10;scene.add(selection);
- $('building-name').textContent=b.name||'A Hong Kong building';$('building-zh').textContent=b.zh||`${b.kind.replaceAll('_',' ')} · OpenStreetMap footprint`;$('building-height').textContent=`${b.height} m`;$('building-levels').textContent=b.levels??'—';
+ $('building-name').textContent=b.name||'A Hong Kong building';$('building-zh').textContent=b.zh||`${b.structureType||b.kind.replaceAll('_',' ')} · ${b.id.startsWith('landsd/')?'Lands Department':'OpenStreetMap'} footprint`;$('building-height').textContent=`${b.height} m`;$('building-levels').textContent=b.levels??'—';
  const heightBasis={'house-type':'Estimated low-rise house height from its mapped building type.','bungalow-type':'Estimated single-storey height from its mapped bungalow type.','tai-o-small-village':'Estimated low-rise height for a compact footprint along traditional Tai O village streets.'}[b.heightRule];
- $('building-source').textContent=heightBasis?`${heightBasis} Not a surveyed measurement.`:b.heightSource==='tagged'?'Height tagged in OpenStreetMap. Simplified massing; façade details are illustrative.':b.heightSource==='levels'?'Estimated height from mapped floor count × 3.2 m. Not a surveyed measurement.':'Height is an illustrative fallback. This footprint has no mapped height or floor count.';
+ $('building-source').textContent=b.id.startsWith('landsd/')?`${b.modelGeometry?'Official Lands Department non-textured 3D roof geometry. ':''}${b.heightSource==='landsd'?'Height from recorded TopHeight − BaseHeight, approximate metres above Hong Kong Principal Datum.':(manifest.heightRules?.[b.heightRule]||b.heightRule)} ${b.baseSource==='landsd'?`Recorded base ${b.baseHeightHKPD} m HKPD; terrain elevation is not added again.`:'Foundation elevation is estimated.'} ${b.modelGeometry?'Roof geometry is sourced; window patterns, materials and any foundation support are illustrative.':'Roof and façade details are illustrative.'}`:heightBasis?`${heightBasis} Not a surveyed measurement.`:b.heightSource==='tagged'?'Height tagged in OpenStreetMap. Simplified massing; façade details are illustrative.':b.heightSource==='levels'?'Estimated height from mapped floor count × 3.2 m. Not a surveyed measurement.':'Height is an illustrative fallback. This footprint has no mapped height or floor count.';
  $('building-activity').textContent=activityDescription(b.activity);
- $('building-osm').href=`https://www.openstreetmap.org/${b.id}`;$('building-card').hidden=false;
+ $('building-osm').href=b.sourceUrl||(b.id.startsWith('landsd/')?`https://portal.csdi.gov.hk/server/rest/services/common/landsd_rcd_1637211194312_35158/MapServer/0/query?f=pjson&objectIds=${b.objectId}&outFields=*&returnGeometry=true&outSR=2326`:`https://www.openstreetmap.org/${b.id}`);$('building-card').hidden=false;
 }
 function selectBridge(bridge){
  if(!bridge)return;closeSelection();selectedId=bridge.id;selectedIndex=0;
@@ -145,7 +145,7 @@ function drawMinimap(){
 function updateStreamStatus(){
  if(!stream)return;const s=stream.stats,d=regionalDetail?.stats,b=bridgeLayer?.stats,bar=$('stream-status');bar.hidden=!s.pending&&!s.errors.length&&!loadingTravel&&!d?.pending&&!d?.errors.length&&!b?.pending&&!b?.errors.length;
  $('stream-message').textContent=s.errors.length?'Some city sections could not load':loadingTravel?`Arriving in ${PLACES[place].title}…`:s.pending?`Unfolding the neighbourhood · ${s.loaded}/${s.wanted}`:d?.errors.length||b?.errors.length?'Some local details could not load':b?.pending?'Adding mapped footbridges…':'Adding mapped local detail…';
- $('stream-retry').hidden=!s.errors.length&&!d?.errors.length&&!b?.errors.length;$('data-summary').textContent=`${manifest.counts.buildings.toLocaleString('en-HK')} building forms · OSM`;
+ $('stream-retry').hidden=!s.errors.length&&!d?.errors.length&&!b?.errors.length;$('data-summary').textContent=`${manifest.counts.buildings.toLocaleString('en-HK')} building forms · ${manifest.supplementalSources?.length?'LandsD + OSM':'OSM'}`;
 }
 async function getCatalogue(){
  if(!cataloguePromise)cataloguePromise=loadJSON(manifest.catalogue).then(data=>{catalogue=data;makeLabels();return data;}).catch(error=>{cataloguePromise=null;throw error;});return cataloguePromise;
@@ -198,7 +198,7 @@ function bindUI(){
  $('selection-close').addEventListener('click',closeSelection);$('panel-toggle').addEventListener('click',()=>{$('explorer').classList.toggle('open');nav.clearInput();});$('search').addEventListener('input',search);
  let pointerStart;renderer.domElement.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY};});
  renderer.domElement.addEventListener('pointerup',e=>{if(stargazer.active||nav.mode!=='orbit'||!pointerStart||Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)>5)return;
-  raycaster.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2),camera);const buildings=stream.buildings.visible?stream.buildings.children.filter(g=>g.visible).flatMap(g=>g.children):[],bridges=bridgeLayer.pickMeshes(),hit=raycaster.intersectObjects([...buildings,...bridges],false)[0];if(hit){if(bridges.includes(hit.object))selectBridge(bridgeLayer.featureAt(hit));else selectBuilding(stream.featureAt(hit));}else closeSelection();
+  raycaster.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2),camera);const buildings=stream.pickMeshes(raycaster.ray),bridges=bridgeLayer.pickMeshes(),hit=raycaster.intersectObjects([...buildings,...bridges],false)[0];if(hit){if(bridges.includes(hit.object))selectBridge(bridgeLayer.featureAt(hit));else selectBuilding(stream.featureAt(hit));}else closeSelection();
  });
  controls.addEventListener('start',()=>{tween=null;++travel;loadingTravel=false;});
  addEventListener('keydown',e=>{
@@ -215,7 +215,7 @@ async function init(){
  scene=new THREE.Scene();scene.background=new THREE.Color('#d9e3d5');scene.fog=new THREE.Fog('#d9e3d5',8000,36000);camera=new THREE.PerspectiveCamera(44,innerWidth/innerHeight,.5,100000);
  controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.07;controls.minDistance=12;controls.maxDistance=65000;controls.maxPolarAngle=Math.PI*.475;controls.screenSpacePanning=false;
  ambient=new THREE.HemisphereLight('#e8f0e6','#6c806a',1.9);scene.add(ambient);sun=new THREE.DirectionalLight('#fff7df',3);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-2200,right:2200,top:2200,bottom:-2200,near:10,far:12000});sun.shadow.bias=-.00007;sun.shadow.normalBias=1.2;sun.shadow.radius=2;scene.add(sun,sun.target);
- const [m,data,activity]=await Promise.all([loadJSON('city/data/manifest.json'),loadJSON('city/data/terrain.json'),loadJSON('city/data/activity.json')]);manifest=m;sampler=makeTerrainSampler(data);terrain=makeTerrain(data);terrain.userData.data=data;scene.add(terrain);water=makeWater();scene.add(water.mesh);
+ const [m,data,activity]=await Promise.all([loadJSON('city/data/manifest.json'),loadJSON('city/data/terrain.json'),loadJSON('city/data/activity.json')]);manifest=m;data.patches=await Promise.all((manifest.terrainPatches||[]).map(p=>loadJSON(p.url)));sampler=makeTerrainSampler(data);terrain=makeTerrain(data);terrain.userData.data=data;scene.add(terrain);water=makeWater();scene.add(water.mesh);
  stream=new CityStreaming({manifest,terrain:data,sampler,scene,activity,onChange:updateStreamStatus});ferries=makeFerries();scene.add(ferries.group);
  let maskedSurfaces=0;regionalDetail=new RegionalDetail({scene,sampler,onChange:()=>{if(regionalDetail&&regionalDetail.surfaceCount!==maskedSurfaces){maskedSurfaces=regionalDetail.surfaceCount;stream.setSurfaceExclusions(regionalDetail.mappedSurfaces);}updateStreamStatus();}});
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus});
