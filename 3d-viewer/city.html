@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-HK">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#e9eee5"><meta name="description" content="Explore a geographically grounded, three-dimensional Hong Kong. Discover Central, walk the streets and fly above Victoria Harbour.">
+<title>Hong Kong, at your own pace · Astra City</title>
+<link rel="icon" href="favicon.ico"><link rel="stylesheet" href="city/city.css">
+</head>
+<body>
+<main id="viewport" aria-label="Interactive 3D Hong Kong city"></main>
+<div id="labels" aria-hidden="true"></div>
+<header class="topbar">
+ <a class="brand" href="city.html" aria-label="Hong Kong Sandbox city home"><svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M3 26 12 9l7 12 5-8 9 13M3 30h30M12 9v17m12-13v13" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>HONG KONG<span class="brand-sub">S A N D B O X</span></span></a>
+ <div class="edition"><span class="live-dot"></span> CITY EXPLORER <span class="edition-divider">/</span> ASTRA EDITION</div>
+ <nav><a class="terrain-link" href="index.html">Terrain viewer <span>↗</span></a><button id="about-open" class="icon-button" aria-label="About this city">i</button><button id="panel-toggle" class="icon-button mobile-only" aria-label="Show or hide explorer panel">☰</button></nav>
+</header>
+<aside id="explorer" class="panel explorer">
+ <div class="eyebrow"><span>01 — VICTORIA HARBOUR</span><span class="chapter-dot"></span></div>
+ <h1>Meet Hong Kong.</h1><p class="intro">A little closer. A different perspective.</p>
+ <div class="search-wrap"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="m12 12 5 5"/></svg><input id="search" type="search" placeholder="Find a building…" aria-label="Find a building" autocomplete="off"><kbd>/</kbd></div>
+ <div id="search-results" role="list" aria-label="Building search results" hidden></div>
+ <div class="section-label">NEIGHBOURHOODS <span>GO SOMEWHERE</span></div>
+ <div class="districts">
+  <button class="district active" data-place="central"><span class="district-symbol">中</span><span><b>Central</b><small>中環 · The city’s beating heart</small></span><span class="arrow">↗</span></button>
+  <button class="district" data-place="wanchai"><span class="district-symbol">灣</span><span><b>Wan Chai</b><small>灣仔 · Between hills & harbour</small></span><span class="arrow">↗</span></button>
+  <button class="district" data-place="kowloon"><span class="district-symbol">九</span><span><b>Kowloon waterfront</b><small>九龍 · A view from the other side</small></span><span class="arrow">↗</span></button>
+  <button class="district" data-place="lantau"><span class="district-symbol">嶼</span><span><b>Lantau Island</b><small>大嶼山 · Terrain, further afield</small></span><span class="arrow">↗</span></button>
+ </div>
+ <div class="section-label">MAKE IT YOURS <span id="layer-count">4 LAYERS</span></div>
+ <div class="layers">
+  <label><span><span class="layer-icon">▥</span> Buildings</span><input type="checkbox" id="layer-buildings" checked><span class="switch"></span></label>
+  <label><span><span class="layer-icon">⌁</span> Streets & paths</span><input type="checkbox" id="layer-roads" checked><span class="switch"></span></label>
+  <label><span><span class="layer-icon">♧</span> Trees & parks</span><input type="checkbox" id="layer-trees" checked><span class="switch"></span></label>
+  <label><span><span class="layer-icon">⌖</span> Place names</span><input type="checkbox" id="layer-labels" checked><span class="switch"></span></label>
+ </div>
+ <div class="time-head"><span class="section-label">LIGHT & ATMOSPHERE</span><output id="time-output" for="time">15:00</output></div>
+ <input id="time" class="time-slider" aria-label="Time of day" type="range" min="6" max="22" step=".25" value="15">
+ <div class="time-labels"><span>☀ Morning</span><span>Golden hour</span><span>Night ☾</span></div>
+ <div class="panel-foot"><span class="live-dot"></span><span id="data-summary">Building your city…</span><span class="scale-tag">1:1</span></div>
+</aside>
+<div class="view-tools panel"><button id="reset-view" title="Reset neighbourhood view" aria-label="Reset neighbourhood view">↺</button><button id="top-view" title="View from above" aria-label="View from above">⊞</button><button id="postcard" title="Save a postcard" aria-label="Save a postcard">▣</button></div>
+<section id="building-card" class="panel building-card" hidden aria-label="Selected building">
+ <button id="selection-close" class="close-button" aria-label="Close building details">×</button><div class="eyebrow">A CLOSER LOOK</div><h2 id="building-name"></h2><p id="building-zh"></p><div class="building-stats"><div><strong id="building-height"></strong><small>HEIGHT</small></div><div><strong id="building-levels"></strong><small>FLOORS</small></div></div><p id="building-source" class="source-note"></p><a id="building-osm" target="_blank" rel="noopener">View source on OpenStreetMap ↗</a>
+</section>
+<div id="location-title"><div class="eyebrow" id="place-subtitle">22.282° N · 114.160° E</div><h2 id="place-title">Central <span>中環</span></h2><p id="place-description">Where the mountains meet the metropolis.</p></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="journey" class="panel" hidden><span id="journey-mode">ON FOOT</span><b id="journey-value">0 m</b><span id="journey-detail">Wander a little.</span></div>
+<div class="navigation-bottom">
+ <div id="control-hint">Drag to orbit <i>·</i> Scroll to get closer <i>·</i> Click a building to discover</div>
+ <nav class="mode-dock panel" aria-label="Exploration mode"><button class="active" data-mode="orbit"><span>◎</span> Explore <kbd>1</kbd></button><button data-mode="walk"><span>♙</span> Walk <kbd>2</kbd></button><button data-mode="fly"><span>✈</span> Fly <kbd>3</kbd></button></nav>
+</div>
+<div id="touch-controls" hidden><div><button data-key="ArrowUp" aria-label="Move forward or climb">↑</button><span><button data-key="ArrowLeft" aria-label="Turn left">←</button><button data-key="ArrowDown" aria-label="Move back or descend">↓</button><button data-key="ArrowRight" aria-label="Turn right">→</button></span></div><button data-key="ShiftLeft" aria-label="Run or accelerate">＋</button></div>
+<aside class="minimap panel"><div class="minimap-head"><span>YOUR LITTLE CORNER</span><button id="north-view" aria-label="Face north">N ↑</button></div><canvas id="minimap" width="440" height="280" aria-label="City overview map"></canvas><div class="minimap-foot"><span id="map-location">VICTORIA HARBOUR</span><span id="map-scale">1 km ━</span></div></aside>
+<footer class="attribution"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a><span>·</span><span>Lands Department terrain</span><span>·</span><span id="performance">True-scale city · estimated heights identified</span></footer>
+<div id="loading"><div class="loading-mark">香港</div><div class="eyebrow">A CITY OF POSSIBILITIES</div><h2>Come a little closer.</h2><p id="loading-detail">Unfolding the hills and the harbour…</p><div class="loading-line"><i></i></div><a href="index.html">Open the original terrain viewer ↗</a></div>
+<dialog id="about"><button id="about-close" class="close-button" aria-label="Close about">×</button><div class="eyebrow">HONG KONG SANDBOX / ASTRA</div><h2>A city you can step into.</h2><p>This first district brings Central, Sheung Wan, Admiralty, Wan Chai and the Kowloon waterfront into the existing Hong Kong terrain.</p><p>Buildings use real OpenStreetMap footprints. Tagged heights are used where available; otherwise floor counts × 3.2 metres or clearly labelled fallback heights are used. Building forms are simplified and façades are illustrative.</p><p>The terrain comes from the project’s Lands Department DTM, sampled at <b>70 metres</b>. Everything uses metres with <b>no vertical exaggeration</b>. Ground detail, footbridges and building interiors are not yet a street-level survey. Lantau is available as terrain, outside the first building district.</p><p>Walk with <b>WASD</b>, drag to look, <b>Shift</b> to run and <b>C</b> to switch camera. In flight, <b>W/S</b> climb and descend, <b>A/D</b> turn, <b>Shift</b> accelerates and <b>C</b> switches camera. <b>Esc</b> returns to Explore. Touch controls are also available.</p><p class="source-note">Data snapshot: <span id="snapshot-date"></span>. City data: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors, ODbL</a>. <a href="city/data/provenance.json" target="_blank">Dataset provenance ↗</a><br>Created by GPT-6 Astra. Ferries and façade details are illustrative. Character: <a href="https://poly.pizza/m/5EGWBMpuXq" target="_blank" rel="noopener">Adventurer, Quaternius (CC0)</a>. Aircraft: <a href="https://poly.pizza/m/7cvx6ex-xfL" target="_blank" rel="noopener">Small Airplane, Vojtěch Balák</a> (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>), scaled and oriented. Original terrain and map sources remain unchanged.</p></dialog>
+<script type="module" src="city/app.js"></script>
+</body></html>
