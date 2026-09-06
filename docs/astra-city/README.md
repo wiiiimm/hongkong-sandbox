@@ -38,8 +38,12 @@ python3 -m http.server 4176 --bind 127.0.0.1 --directory 3d-viewer
   courtyard access, chase-camera wall avoidance and first-person view.
 - A controllable propeller aircraft with climb/descent, banked turns, boost,
   chase and pilot-eye cameras, terrain clearance and assisted building avoidance.
-- Day/golden-hour/night lighting, lit façades, harbour ripples, illustrative
-  ferries, a position-tracking minimap and native-resolution PNG postcards.
+- A full 24-hour lighting cycle: individual warm/cool windows on every building,
+  staggered overnight sleep patterns, a 4 am minimum with some lights remaining,
+  early risers and dawn. Street lighting persists through the night. Evening,
+  midnight and 4 am shortcuts plus optional time lapse (one hour / eight seconds).
+- Harbour ripples, illustrative ferries, a position-tracking minimap and
+  native-resolution PNG postcards.
 - Responsive mobile layout, touch movement controls, keyboard controls, visible
   focus states, reduced-motion handling and a recoverable loading error screen.
 
@@ -108,17 +112,20 @@ npm --prefix 3d-viewer/city ci
 npm --prefix 3d-viewer/city test
 # Start the static server above before the browser test.
 npm --prefix 3d-viewer/city run test:browser
+npm --prefix 3d-viewer/city run test:night
 ```
 
 The browser suite uses Chrome at its standard macOS path. Set `CHROME_PATH` for
 another executable, or run `npx playwright install chromium` inside `3d-viewer/city`
 on another platform. `CITY_URL` can point the suite at another local/preview URL.
 
-- Thirteen JavaScript tests: courtyard holes and wall radius; vertical clearance;
+- Seventeen JavaScript tests: courtyard holes and wall radius; vertical clearance;
   spatial hash boundaries; triangle-matched terrain sampling; full-dataset
   geometry/height validation; IFC height and retained Bank of China identity;
   stale-load disposal, cancellation, cache/concurrency bounds, retry recovery,
-  boundary-spanning buildings, complete tile ownership/counts and destination coverage.
+  boundary-spanning buildings, complete tile ownership/counts, destination coverage;
+  continuous midnight / 4 am schedules, retained overnight activity, stable profiles
+  and clock formatting.
 - Three Python tests: height units; coordinate conversion control; multipolygon
   courtyard import.
 - Browser suite: city load, all layer switches, search and empty results, actor
@@ -128,7 +135,12 @@ on another platform. `CITY_URL` can point the suite at another local/preview URL
   forced HTTP 503 failure with explicit retry, mobile regional navigation, and
   real PNG export dimensions. It fails on page errors or unexpected local asset
   HTTP errors. Nineteen check groups passed in `verification.json`.
-- `verification.json` records the result. PNGs alongside this file are rendered
+- The focused night browser suite checks actual scene brightness and bright pixels
+  through 20:00 → midnight → 02:00 → 04:00 → dawn, new tile lighting, walking,
+  time-lapse pause/rollover, mobile controls and a native-size night postcard.
+  See [night-cycle/README.md](night-cycle/README.md) for the simulation policy and
+  [night-cycle/verification.json](night-cycle/verification.json) for results.
+- `verification.json` records the general browser result. PNGs alongside this file are rendered
   browser evidence at the dimensions in their filenames. The postcard is verified
   from its PNG header at 1440 × 1000, not by looking only at a preview canvas.
 
