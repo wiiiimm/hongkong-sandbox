@@ -1,5 +1,9 @@
 # Astra execution subissues
 
+## Detailed-model source hand-off — 7 September 2026
+
+Three agents finished locally committed source packages; none is integrated or pushed. Live coverage remains Mui Wo 1,327/2,408 (55.1%), Tai O 532/1,030 (51.7%), Pui O 681/919 (74.1%). After acceptance, staged additions would yield Mui Wo 1,639 (68.1%; 287b81b1), Tai O 539 (52.3%; 4070e46b), Pui O 685 (74.5%; c43f948c). Mui Wo regular Tower-category coverage would reach 98.8%; remaining gaps largely concern temporary/open-sided structures lacking exact source models. Two Tai O and two Pui O additions need terrain correction; Mui Wo needs placement/browser screening. Agents report 17 focused tests plus actual shared-loader/picking/collision checks passing. Root verified hand-off files and commits and synchronised HKS-192/170/171, HKS-122/116 and milestone; independent browser review and publication remain pending. See each area's detail-completion README.
+
 ## Aircraft picker published — 7 September 2026
 
 [6e8242e4](https://github.com/wiiiimm/hongkong-sandbox/commit/6e8242e4698308c98f0d99d0059352e1be632497) is published in draft PR #298. Fly now opens a pull-up chooser for all seven aircraft. All 226 city tests and fresh desktop/mobile browser checks pass, including keyboard/input isolation, in-flight continuity, races and failure/Retry. HKS-177 stays In Progress for remaining flight physics, landing, cameras and audio parity. [Evidence](aircraft-picker/README.md). Linear leaf, parent, parity roll-up and milestone updated.
