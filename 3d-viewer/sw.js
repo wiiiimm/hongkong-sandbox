@@ -22,7 +22,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v36';   // v33 evicted the NC GLBs from the persistent list (HKS-110); v34 the UFO, v35 its cattle (HKS-113); v36 the city's buildings (HKS-114)
+const VERSION = 'hks-sandbox-v37';   // v33 evicted the NC GLBs from the persistent list (HKS-110); v34 the UFO, v35 its cattle (HKS-113); v36 the city's buildings (HKS-114); v37 the 24-hour dial (HKS-115)
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -38,6 +38,7 @@ const SHELL = [
   '/index.html',
   '/main.js',
   '/buildings.js',                      // HKS-114: static import of main.js — without it the offline shell can't boot
+  '/timedial.js',                       // HKS-115: same — the 24-hour sky dial
   '/audio.js',
   '/analytics.js',
   '/vendor/three.module.js',

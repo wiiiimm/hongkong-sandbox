@@ -11,6 +11,7 @@ import { sunPosition, sunTimes, moonPosition, moonTimes, moonIllumination, starP
 import { setEnabled as setAudioEnabled, setMasterVolume, setWeatherMix, thunder, setEngine, setUfoEngine, abductionSfx, scoreDing, audioSupported } from './audio.js';
 import { initAnalytics, track, armAnalytics, VercelSink, GA4Sink } from './analytics.js';
 import { createBuildings } from './buildings.js';   // HKS-114: the 3D city — LandsD building blocks on the terrain
+import { createTimeDial } from './timedial.js';     // HKS-115: the 24-hour dial behind the Sun & moon → Time control
 
 // ---- configurable asset base (HKS-46) --------------------------------------
 // The heavy bundled data (the /data/ JSON — DEM meshes, vector overlays, POIs)
@@ -1839,6 +1840,7 @@ function stormFromWarn(ws) {
 const HK_LAT = 22.302, HK_LON = 114.174, D2R = Math.PI / 180;
 const skySim = { on: true, live: true, date: '', minutes: 720 };
 let cel = null, celKey = '', moonTexPhase = -1;
+let timeDial = null;   // HKS-115: created with the panel controls; synced whenever the celestial key changes
 
 const hktDateStr = d => new Date(d.getTime() + 8 * 3.6e6).toISOString().slice(0, 10);
 const hktMinutes = d => { const t = new Date(d.getTime() + 8 * 3.6e6); return t.getUTCHours() * 60 + t.getUTCMinutes(); };
@@ -2599,6 +2601,7 @@ function updateCelestial() {
   const key = (skySim.live ? 'L' + Math.floor(now.getTime() / 60000) : 'F' + skySim.date + ':' + skySim.minutes) + (stargaze.on ? 'S' : '');   // include Stargaze in the throttle key — entering/exiting it must recompute the star fade even mid-minute (was: ~30 s black sky when entering live-sky Stargaze by day)
   if (key === celKey) return;
   celKey = key;
+  timeDial?.sync();                          // HKS-115: the dial's handle follows every new instant (live: once a minute)
   const sp = sunPosition(now, HK_LAT, HK_LON), mp = moonPosition(now, HK_LAT, HK_LON), mi = moonIllumination(now);
   cel = { sunAlt: sp.altitude, sunAz: compassDeg(sp.azimuth) * D2R,
           moonAlt: mp.altitude, moonAz: compassDeg(mp.azimuth) * D2R,
@@ -8034,6 +8037,7 @@ const GLASS_PRESETS = {
 };
 function applyGlassPreset(mode) {
   document.body.classList.toggle('ui-light', mode === 'paper');
+  timeDial?.sync();                          // HKS-115: repaint the dial's sky band for the light / dark palette
   if (glassFx) glassFx.setParams(GLASS_PRESETS[mode] || GLASS_PRESETS.dark);
   drawTideGraph();   // tide-graph ink follows the theme
 }
@@ -8144,6 +8148,7 @@ function syncSkyControls() {
     g('skytimev').textContent = mmToHHMM(skySim.minutes);
   }
   syncMeteorUI();   // shooting-star controls grey out when the sky is off
+  timeDial?.sync(); // HKS-115: the dial greys with the range and shows live HKT / the fixed instant
 }
 document.getElementById('skymode').addEventListener('change', e => {
   const v = e.target.value;                    // live | fixed | off
@@ -8164,6 +8169,23 @@ document.getElementById('skytime').addEventListener('change', e => { if (e.isTru
 document.getElementById('skydate').value = skySim.date;
 document.getElementById('skytime').value = skySim.minutes;
 document.getElementById('skytimev').textContent = mmToHHMM(skySim.minutes);
+// HKS-115: the 24-hour dial over the (now hidden) time range — noon up, midnight down, the
+// band painted with the sky the sim renders at each quarter-hour of the selected date
+timeDial = createTimeDial({
+  input: document.getElementById('skytime'), readout: document.getElementById('skytimev'), mount: document.getElementById('tdial'),
+  minutesNow: () => (skySim.on && skySim.live) ? hktMinutes(new Date()) : skySim.minutes,
+  dateStr: () => skySim.live ? hktDateStr(new Date()) : skySim.date,
+  isPaper: () => document.body.classList.contains('ui-light'),
+  sunAltDeg: (d, m) => sunPosition(new Date(`${d}T${mmToHHMM(m)}:00+08:00`), HK_LAT, HK_LON).altitude / D2R,
+  riseSet: d => { const st = sunTimes(new Date(d + 'T12:00:00+08:00'), HK_LAT, HK_LON); return { rise: st.sunrise ? hktMinutes(st.sunrise) : null, set: st.sunset ? hktMinutes(st.sunset) : null }; },
+  skyHex: (alt, paper) => {                  // the sim's own sky colour — deep night lifted toward navy so the band stays readable on the dark glass
+    const c = skyColour(alt, paper);
+    if (!paper) c.lerp(new THREE.Color(0x1e2a40), 0.55 * (1 - S01((alt + 14) / 10)));
+    return '#' + c.getHexString();
+  },
+  fmt: mmToHHMM,
+  onScrub: () => track('sky_time_scrub', { via: 'dial' }),   // the range's own 'change' tracker is isTrusted-gated, so log here
+});
 syncSkyControls();
 document.getElementById('skyh').addEventListener('input', e => {
   skyScale = parseFloat(e.target.value);
