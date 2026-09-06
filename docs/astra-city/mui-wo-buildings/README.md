@@ -24,6 +24,12 @@ Our official-versus-OSM classification is 1,968 forms without an intersection ab
 
 The circles above are 250 m diagnostic catchments, not recognised-village or administrative boundaries. Main examples are Wang Tong, Pak Ngan Heung, Tai Tei Tong and Luk Tei Tong. The full user envelope remains the actual import scope, including its outer settlement areas.
 
+## Before and after in the browser
+
+The retained [original OSM coverage view](review/mui-wo-current-1600x1000.png) and [integrated government coverage view](review/mui-wo-live-official-overview-1600x1000.png) show Mui Wo from the matching 1600×1000 overview camera at 15:00. The original city had 117,062 forms territory-wide and 318 in the exact validation envelope. The local government integration checkpoint had 119,167 forms territory-wide, retaining all 2,408 official envelope records. Wider Hong Kong publication subsequently increases the territory total without changing this local source inventory.
+
+The later `browser/before-*` and `browser/after-*` captures compare shelter rendering and detailed-model integration after the official footprint coverage had already been added; their corresponding JSON explicitly records 119,167 forms in both. The coverage before/after pair above documents the earlier source change.
+
 ## Sources, terms and precision
 
 - [Lands Department official ArcGIS layer](https://portal.csdi.gov.hk/server/rest/services/common/landsd_rcd_1637211194312_35158/MapServer/0), dataset `landsd_rcd_1637211194312_35158`, `Building_Outline_Public_v20260819`.

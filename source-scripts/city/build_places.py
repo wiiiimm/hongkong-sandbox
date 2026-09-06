@@ -11,6 +11,40 @@ from build_city import ROOT,OUT,ORIGIN,xy,geometry,coords
 HERE=pathlib.Path(__file__).resolve().parent
 INVERSE=Transformer.from_crs(2326,4326,always_xy=True)
 
+
+# Shared with repair_arrivals.py so source-path selection has one implementation.
+PUBLIC_HIGHWAYS=('footway','pedestrian','path','living_street')
+RESTRICTED_ACCESS={'private','no','customers','permit','destination','military','restricted'}
+def public_paths(records):
+ paths=[];pathids=[]
+ for oid,e in sorted(records.items()):
+  t=e.get('tags',{})
+  if t.get('highway') not in PUBLIC_HIGHWAYS or t.get('access') in RESTRICTED_ACCESS or t.get('foot') in RESTRICTED_ACCESS or t.get('area')=='yes' or t.get('location')=='underground' or t.get('tunnel') in ('yes','building_passage') or t.get('bridge')=='yes' or str(t.get('layer','0'))!='0' or t.get('indoor')=='yes':continue
+  if e.get('geometry') and len(e['geometry'])>1:
+   paths.append(LineString(coords(e['geometry'])));pathids.append(oid)
+ return paths,pathids
+
+def arrival_candidates(centre,paths,pathids,pathtree):
+ candidates=[];seen=set()
+ for i in pathtree.query(centre.buffer(1000)):
+  path=paths[i];near=path.project(centre)
+  for shift in (0,-5,5,-15,15,-40,40,-90,90,-180,180):
+   source=path.interpolate(max(0,min(path.length,near+shift)))
+   point=Point(round(source.x,1),round(source.y,1));distance=point.distance(centre)
+   key=(pathids[i],point.x,point.y)
+   if distance<=1000 and key not in seen:
+    seen.add(key);candidates.append((distance,pathids[i],point))
+ return sorted(candidates,key=lambda c:(c[0],c[1]))
+
+def apply_arrival_overrides(places):
+ path=HERE/'arrival-overrides.json'
+ if not path.exists():return
+ for id,entry in json.loads(path.read_text()).get('places',{}).items():
+  if id not in places:continue
+  places[id].update(spawn=entry['spawn'],arrivalSource=entry['arrivalSource'])
+  if 'terrainY' in entry:places[id]['terrainY']=entry['terrainY']
+  if 'arrivalVerified' in places[id]:places[id]['arrivalVerified']=True
+
 def main():
  config=json.loads((HERE/'destinations.json').read_text());manifest=json.loads((OUT/'manifest.json').read_text());records={}
  for source in sorted(manifest['sources'],key=lambda s:s['snapshot']):
@@ -33,13 +67,7 @@ def main():
   for b in json.loads((ROOT/'3d-viewer'/meta['url']).read_text())['buildings']:
    p=Polygon(b['rings'][0],b['rings'][1:]).buffer(0)
    if not p.is_empty:blocks.append(p);heights.append((b['base']+b['minimum'],b['base']+b['height']))
- blocktree=STRtree(blocks);paths=[];pathids=[]
- for oid,e in records.items():
-  t=e.get('tags',{})
-  if t.get('highway') not in ('footway','pedestrian','path','living_street') or t.get('access') in ('private','no') or t.get('foot')=='no' or t.get('area')=='yes' or t.get('location')=='underground' or t.get('tunnel') in ('yes','building_passage') or t.get('bridge')=='yes' or t.get('layer','0') not in ('0',0):continue
-  if e.get('geometry') and len(e['geometry'])>1:
-   paths.append(LineString(coords(e['geometry'])));pathids.append(oid)
- pathtree=STRtree(paths)
+ blocktree=STRtree(blocks);paths,pathids=public_paths(records);pathtree=STRtree(paths)
  def valid(point):
   y=ground(point.x,point.y)
   if y<=.8 or not land_triangle(point.x,point.y):return False
@@ -50,14 +78,9 @@ def main():
   # Reject tiny terrain spikes and steep paths at the coarse grid's shoreline.
   return all(land_triangle(point.x+dx,point.y+dz) and abs(ground(point.x+dx,point.y+dz)-y)<1.5 for dx,dz in [(2,0),(-2,0),(0,2),(0,-2)])
  def arrival_near(centre,id):
-  candidates=[]
-  for i in pathtree.query(centre.buffer(1000)):
-   path=paths[i];near=path.project(centre)
-   for shift in [0,-5,5,-15,15,-40,40,-90,90,-180,180]:
-    point=path.interpolate(max(0,min(path.length,near+shift)))
-    if point.distance(centre)<=1000 and valid(point):candidates.append((point.distance(centre),pathids[i],point))
-  if not candidates:raise ValueError('No walkable mapped public path within 1 km of '+id)
-  return min(candidates,key=lambda c:(c[0],c[1]))
+  for distance,source,point in arrival_candidates(centre,paths,pathids,pathtree):
+   if valid(point):return distance,source,point
+  raise ValueError('No walkable mapped public path within 1 km of '+id)
  output={};provenance={}
  for id,entry in config['places'].items():
   if 'target' in entry:
@@ -76,6 +99,10 @@ def main():
   if source:p['source']='https://www.openstreetmap.org/'+source
   output[id]=p
   provenance[id]={'cameraWGS84':[p['lon'],p['lat']],'cameraWorld':p['target'],'arrivalWorld':p['spawn'],'cameraSource':source or 'Retained initial approximate camera preset','arrivalSource':arrival or 'Retained initial approximate arrival','precision':'Approximate camera/arrival position for exploration; not surveyed or an administrative centre.'}
+ apply_arrival_overrides(output)
+ for id,p in output.items():
+  if p.get('arrivalSource'):
+   provenance[id]['arrivalWorld']=p['spawn'];provenance[id]['arrivalSource']=p['arrivalSource']
  text='// Generated by source-scripts/city/build_places.py. Coordinates are approximate public-place camera positions.\n'
  text+="import {REGIONAL_PLACES} from './regional-places.js';\n"
  text+='export const REGIONS='+json.dumps(config['regions'],ensure_ascii=False,separators=(',',':'))+';\n'

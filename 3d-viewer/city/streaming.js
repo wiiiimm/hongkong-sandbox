@@ -16,9 +16,18 @@ export class CityStreaming {
   this.cache=new TileCache({limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.onChange?.();}});
  }
  async load(id,signal){
-  const response=await fetch(this.meta.get(id).url,{signal});if(!response.ok)throw new Error(`City section ${id}: HTTP ${response.status}`);
-  const data=await response.json();if(data.id!==id||!Array.isArray(data.buildings))throw new Error('Invalid city section '+id);
-  for(const b of data.buildings)b.activity=this.activity.buildings[b.uid];
+  const read=async(url,label)=>{const response=await fetch(url,{signal});if(!response.ok)throw new Error(`${label} ${id}: HTTP ${response.status}`);return response.json();};
+  // Profiles must arrive before facade attributes are baked. Both requests share
+  // the tile cancellation signal and the existing readiness/retry lifecycle.
+  const [data,activity]=await Promise.all([read(this.meta.get(id).url,'City section'),this.manifest.activityTiles?read(`city/data/activity/${id}.json`,'City activity'):this.activity]);
+  if(signal.aborted)throw new DOMException('Aborted','AbortError');
+  if(data.id!==id||!Array.isArray(data.buildings))throw new Error('Invalid city section '+id);
+  if(!activity?.buildings||typeof activity.buildings!=='object'||Array.isArray(activity.buildings))throw new Error('Invalid city activity '+id);
+  for(const b of data.buildings){
+   const entry=activity.buildings[b.uid];
+   if(this.manifest.activityTiles&&(!entry||!Number.isInteger(entry.profile)||entry.profile<0||entry.profile>4||!Number.isFinite(entry.retailTop)||entry.retailTop<0))throw new Error(`Invalid city activity ${id} for ${b.uid}`);
+   b.activity=entry;
+  }
   const index=new BuildingIndex(data.buildings);const buildings=await makeBuildings(data.buildings,null,{lighting:this.lighting});
   for(const mesh of buildings.group.children)mesh.userData.tile=id;
   let roads,nature;

@@ -17,10 +17,14 @@ test('every imported form has an evidenced activity profile and reproducible sou
  assert.equal(Object.keys(activity.buildings).length,ids.size);assert.deepEqual(counts,activity.counts);assert.deepEqual(basis,activity.basisCounts);
  for(const s of activity.sources){const raw=gunzipSync(readFileSync(new URL('../../../'+s.file,import.meta.url)));assert.equal(createHash('sha256').update(raw).digest('hex'),s.sha256);}
 });
-test('mapped malls, office towers and researched podiums retain their different uses',()=>{
- const b=activity.buildings;
- for(const id of ['171780359','1049552289','710522579'])assert.equal(b[`way/${id}:0`].profile,1);
- for(const id of ['102411832','374802636','664250326'])assert.equal(b[`way/${id}:0`].profile,4);
- assert.equal(b['way/171224612:0'].retailTop,80);assert.equal(b['way/171224612:0'].source,'research');
- assert.equal(b['way/1323739469:0'].profile,1);assert.equal(b['way/1323739469:0'].retailTop,30);
+test('mapped malls, office towers and researched podiums retain uses across official replacement',()=>{
+ const wanted=['171780359','1049552289','710522579','102411832','374802636','664250326','171224612','1323739469'],matches=new Map(wanted.map(id=>['way/'+id,[]]));
+ for(const tile of manifest.tiles)for(const b of read(`../data/tiles/${tile.id}.json`).buildings){
+  for(const source of new Set([b.id,b.parent,b.osmRef,...(b.osmRefs||[])]))if(matches.has(source))matches.get(source).push(activity.buildings[b.uid]);
+ }
+ for(const id of ['171780359','1049552289','710522579'])assert.ok(matches.get('way/'+id).some(a=>a.profile===1),id+' retains office use');
+ for(const id of ['102411832','374802636','664250326'])assert.ok(matches.get('way/'+id).some(a=>a.profile===4),id+' retains retail use');
+ assert.ok(matches.get('way/171224612').some(a=>a.retailTop===80&&a.source==='research'));
+ assert.ok(matches.get('way/1323739469').some(a=>a.profile===1&&a.retailTop===30));
+ assert.equal(activity.buildings['landsd/174478:0'].profile,4,'the exactly mapped Mui Wo Cooked Food Market remains retail');
 });

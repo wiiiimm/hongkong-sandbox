@@ -1,6 +1,18 @@
 # Living Hong Kong delivery tracking
 
-GPT-6 Astra · 6 September 2026. Snapshot verified against Linear after issue creation; consult the linked issues for current status.
+GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained as history. The current milestone is **Astra - Living Hong Kong — buildings, regional detail & feature parity** (same milestone ID).
+
+## Current local checkpoint
+
+- `5ae3900`: 153 added destinations covering all 132 sections (196 total), 2,923 mapped local surfaces and the separate mapped-footbridge renderer. HKS-153 is confirmed **In Review** in Linear.
+- `c85ac0b`: all 2,408 official Mui Wo records, native height evidence, a reused 5 m terrain patch, 227 open-sided structures and 275 matched official 3D models. HKS-164 is still **In Progress** in Linear: automatic approval review rejected the prepared implementation report/status update. No successful remote write is claimed.
+- The final local territory checkpoint publishes 346,115 forms, including all 342,223 government records as 342,225 polygon components, plus 3,890 OSM forms. It reuses the existing official download, renderer and tile pipeline. See [territory provenance and verification](landsd-territory/README.md).
+- HKS-116 and the seven region tasks remain **In Progress**. Full terrain/shoreline/architectural and route acceptance still needs section-by-section review. HKS-117 remains the original-game parity roll-up; no parity task is closed by this coverage pass.
+- Completed verification ownership: Heisenberg — government 3D sample, references and all saved arrivals; Curie — independent full-territory source/geometry/overlap audit; Kant — per-tile lighting and independent browser/performance review; primary agent — shared publication, classification preservation and integration.
+
+The complete city suite passes 102 checks; all 190 walking arrivals and eight representative desktop/mobile browser visits pass. Detailed implementation and validation reports remain in this worktree. Pending Linear text is kept in [LINEAR-UPDATE-PENDING.md](LINEAR-UPDATE-PENDING.md) for review. The comparison branches remain separate; no push, merge or deployment has occurred.
+
+## Initial planning snapshot
 
 ## Milestone and scope
 

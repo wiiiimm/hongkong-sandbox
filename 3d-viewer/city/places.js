@@ -168,8 +168,8 @@ const BASE_PLACES={
       -3511
     ],
     "spawn": [
-      957,
-      -3511
+      937.0,
+      -3511.8
     ],
     "offset": [
       1700,
@@ -178,7 +178,9 @@ const BASE_PLACES={
     ],
     "description": "Street upon street, story upon story.",
     "lat": 22.319102,
-    "lon": 114.169003
+    "lon": 114.169003,
+    "arrivalSource": "https://www.openstreetmap.org/way/970658225",
+    "terrainY": 5.146
   },
   "shamshuipo": {
     "region": "kowloon",
@@ -356,12 +358,14 @@ const BASE_PLACES={
       -4967.3
     ],
     "spawn": [
-      3168.0,
-      -4962.7
+      3169.3,
+      -4957.9
     ],
     "lat": 22.332253,
     "lon": 114.190452,
-    "source": "https://www.openstreetmap.org/relation/18506822"
+    "source": "https://www.openstreetmap.org/relation/18506822",
+    "arrivalSource": "https://www.openstreetmap.org/way/1348776549",
+    "terrainY": 13.491
   },
   "wongtaisin": {
     "region": "kowloon",
@@ -747,12 +751,14 @@ const BASE_PLACES={
       6701.3
     ],
     "spawn": [
-      -5013.1,
-      6680.5
+      -5017.9,
+      6679.2
     ],
     "lat": 22.226865,
     "lon": 114.111114,
-    "source": "https://www.openstreetmap.org/way/763007436"
+    "source": "https://www.openstreetmap.org/way/763007436",
+    "arrivalSource": "https://www.openstreetmap.org/way/530132789",
+    "terrainY": 10.974
   },
   "sokkwuwan": {
     "region": "islands",

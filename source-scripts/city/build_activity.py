@@ -34,6 +34,18 @@ def tagged(t):
  if p is not None:return p,'building',0
  return None
 
+def related_refs(building, records):
+ # A large mall footprint can overlap both its podium and a named office tower.
+ # Prefer the identity matching the official building name before the area winner.
+ def names(values):
+  return {re.sub(r'[^\w]', '', str(value)).casefold() for value in values if value}
+ identities=names([building.get('name'),building.get('zh')])
+ refs=list(dict.fromkeys(oid for oid in [building.get('osmRef'),building.get('parent'),*building.get('osmRefs',[])] if oid))
+ def same_name(oid):
+  tags=records.get(oid,{}).get('tags',{})
+  return bool(identities & names([tags.get(key) for key in ['name','name:en','name:zh','name:zh-Hant']]))
+ return sorted(refs,key=lambda oid:not same_name(oid))
+
 def main():
  manifest=json.loads((OUT/'manifest.json').read_text());records={};sources=[]
  for source in sorted(manifest['sources'],key=lambda x:x['snapshot']):
@@ -61,12 +73,14 @@ def main():
   for polygon in polys(g):
    if polygon.area>8:geos.append(polygon);uses.append((p,f'{e["type"]}/{e["id"]}',e['tags']['landuse']))
  tree=STRtree(geos);overrides=json.loads((HERE/'activity-overrides.json').read_text());entries={};counts=collections.Counter();basis=collections.Counter();podiums=0
+ activity_dir=OUT/'activity';activity_dir.mkdir(exist_ok=True)
  for tile in manifest['tiles']:
+  tile_entries={}
   for b in json.loads((ROOT/'3d-viewer'/tile['url']).read_text())['buildings']:
-   rule=next((r for r in overrides if r['id'] in [b['id'],b.get('parent')] and b['height']>=r.get('minBuildingHeight',0)),None)
+   rule=next((r for r in overrides if r['id'] in [b['id'],b.get('parent'),*b.get('osmRefs',[])] and b['height']>=r.get('minBuildingHeight',0)),None)
    entry=None
    if rule:entry={'profile':rule['profile'],'source':'research','ref':rule['source'],'retailTop':rule['retailTop']}
-   for oid,source in [(b['id'],'building-tag'),(b.get('parent'),'parent-tag')]:
+   for oid,source in [(b['id'],'building-tag')]+[(oid,'parent-tag') for oid in related_refs(b,records)]:
     if entry:break
     t=records.get(oid,{}).get('tags',{});result=tagged(t)
     if result:
@@ -80,8 +94,10 @@ def main():
    if not entry:
     p=profile(b['kind']);p=1 if p is None and b['kind']=='commercial' else 3 if p is None else p
     entry={'profile':p,'source':'fallback','ref':b['id'],'tag':'building='+b['kind'],'retailTop':0}
-   entries[b['uid']]=entry;counts[entry['profile']]+=1;basis[entry['source']]+=1;podiums+=entry['retailTop']>0
- result={'version':1,'profiles':['home','office','overnight','mixed','retail'],'licence':'ODbL-1.0','sources':sources,'overrideFile':'source-scripts/city/activity-overrides.json','landusePolygons':len(geos),'counts':dict(counts),'basisCounts':dict(basis),'splitUseForms':podiums,'policy':'Building current-use tags, building-part tags and parent tags before smallest land-use polygon covering at least half the footprint; documented research overrides for mixed-use landmarks. Land use is an inference, not verified tenancy. Unknown uses remain labelled estimates.','buildings':entries}
+   entries[b['uid']]=entry;tile_entries[b['uid']]=entry;counts[entry['profile']]+=1;basis[entry['source']]+=1;podiums+=entry['retailTop']>0
+  sidecar=activity_dir/(tile['id']+'.json');temporary=sidecar.with_suffix('.json.tmp');temporary.write_text(json.dumps({'buildings':tile_entries},ensure_ascii=False,separators=(',',':')));temporary.replace(sidecar)
+ manifest['activityTiles']=True;temporary=OUT/'manifest.json.tmp';temporary.write_text(json.dumps(manifest,ensure_ascii=False,separators=(',',':')));temporary.replace(OUT/'manifest.json')
+ result={'version':1,'profiles':['home','office','overnight','mixed','retail'],'licence':'ODbL-1.0','sources':sources,'overrideFile':'source-scripts/city/activity-overrides.json','landusePolygons':len(geos),'counts':dict(counts),'basisCounts':dict(basis),'splitUseForms':podiums,'policy':'Building current-use tags, building-part tags and related OSM tags before smallest land-use polygon covering at least half the footprint; for government forms, strongly overlapping OSM identities matching the official name precede the largest overlap; documented research overrides for mixed-use landmarks. Land use is an inference, not verified tenancy. Unknown uses remain labelled estimates.','buildings':entries}
  (OUT/'activity.json').write_text(json.dumps(result,ensure_ascii=False,separators=(',',':')))
  print(json.dumps({k:v for k,v in result.items() if k not in ['buildings','sources']},indent=2))
 if __name__=='__main__':main()

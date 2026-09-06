@@ -845,8 +845,8 @@ export const REGIONAL_PLACES={
       691.9
     ],
     "spawn": [
-      613.1,
-      695.0
+      652.6,
+      631.9
     ],
     "offset": [
       1050,
@@ -854,7 +854,7 @@ export const REGIONAL_PLACES={
       -1300
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/271668517"
+    "arrivalSource": "https://www.openstreetmap.org/way/142227306"
   },
   "section-01-3": {
     "region": "island",
@@ -1495,8 +1495,8 @@ export const REGIONAL_PLACES={
       -682.8
     ],
     "spawn": [
-      997.1,
-      -682.8
+      995.5,
+      -687.5
     ],
     "offset": [
       1050,
@@ -1521,8 +1521,8 @@ export const REGIONAL_PLACES={
       -997.4
     ],
     "spawn": [
-      1640.1,
-      -1001.0
+      1628.8,
+      -1002.8
     ],
     "offset": [
       1050,
@@ -1530,7 +1530,7 @@ export const REGIONAL_PLACES={
       -1300
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/1451039780"
+    "arrivalSource": "https://www.openstreetmap.org/way/557643422"
   },
   "section-05-3": {
     "region": "kowloon",
