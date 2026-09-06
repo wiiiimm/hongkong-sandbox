@@ -4,17 +4,22 @@ import {bindClockDial,updateClockDial,hourFromInput} from './clock-dial.js';
 import {createSky,getSkyState} from './sky.js';
 import {dateFromHKT,hktParts} from './sky-time.js';
 import {createWeather} from './weather.js';
+import {createCityMeteors,meteorRateLabel,METEOR_DEFAULTS} from './meteors.js';
+import {createWeatherEffects} from './weather-effects.js';
 const $=id=>document.getElementById(id);
 const WEATHER_KEYS=['rain','clouds','fog','wind','waves','snow','windFrom'];
 export async function createEnvironment(options){
  const sky=await createSky({scene:options.scene,camera:options.camera});
  const weather=createWeather({scene:options.scene,camera:options.camera});
- return new CityEnvironment({...options,sky,weather});
+ const meteors=createCityMeteors({scene:options.scene,camera:options.camera});
+ const weatherEffects=createWeatherEffects({scene:options.scene,camera:options.camera,terrainHeight:options.terrainHeight});
+ return new CityEnvironment({...options,sky,weather,meteors,weatherEffects});
 }
 class CityEnvironment {
  constructor(options){
   Object.assign(this,options);this.date=dateFromHKT(hktParts(new Date()).date,15);this.mode='manual';this.timeLapse=false;this.stargazing=false;this.astroKey='';this.lastLive=0;this.lastWeatherUI=0;this.baseSun=3;this.baseAmbient=1.9;
   this.bindUI();this.applyClock();
+  addEventListener('pagehide',event=>{if(!event.persisted){this.meteors.dispose();void this.weatherEffects.dispose();}});
  }
  get hour(){return hktParts(this.date).hour;}
  get observer(){return this.getObserver();}
@@ -31,7 +36,23 @@ class CityEnvironment {
   $('weather-mode').addEventListener('change',e=>{this.weather.setLive(e.target.value==='live').then(()=>this.syncWeatherUI());this.syncWeatherUI();});
   $('weather-refresh').addEventListener('click',()=>{this.weather.refresh().then(()=>this.syncWeatherUI());this.syncWeatherUI();});
   for(const key of WEATHER_KEYS)$('weather-'+key).addEventListener('input',e=>{this.weather.setManual({[key]:Number(e.target.value)/(key==='windFrom'?1:100)});this.syncWeatherUI();});
+  $('sky-meteors').checked=METEOR_DEFAULTS.enabled;$('sky-meteor-rate').value=String(METEOR_DEFAULTS.rate*100);
+  const syncMeteors=()=>{const enabled=$('sky-meteors').checked,rate=Number($('sky-meteor-rate').value)/100;this.meteors.setOptions({enabled,rate});$('sky-meteor-rate').disabled=!enabled;$('sky-meteor-rate-value').textContent=enabled?meteorRateLabel(rate):'Off';};
+  $('sky-meteors').addEventListener('change',syncMeteors);$('sky-meteor-rate').addEventListener('input',syncMeteors);syncMeteors();
+  $('storm-lightning').addEventListener('change',e=>{this.weatherEffects.setManual({lightning:e.target.checked});this.syncEffectsUI();});
+  $('storm-rate').addEventListener('input',e=>{this.weatherEffects.setManual({thunderRate:Number(e.target.value)/100});this.syncEffectsUI();});
+  $('weather-volume').addEventListener('input',e=>{this.weatherEffects.setMasterVolume(Number(e.target.value)/100);this.syncEffectsUI();});
+  $('weather-sound').addEventListener('click',async event=>{const pending=this.weatherEffects.setSound((!this.weatherEffects.state.sound.enabled||['error','gesture-required'].includes(this.weatherEffects.state.sound.status)),event);this.syncEffectsUI();try{await pending;}finally{this.syncEffectsUI();}});
   this.syncWeatherUI();
+ }
+ syncEffectsUI(){
+  const state=this.weatherEffects.state,sound=state.sound;
+  $('storm-lightning').checked=state.manual.lightning;$('storm-rate').value=String(Math.round(state.manual.thunderRate*100));$('storm-rate-value').textContent=Math.round(state.manual.thunderRate*100)+'%';$('storm-rate').disabled=!state.manual.lightning;
+  $('storm-note').textContent=this.stargazing?'Storms pause in Stargaze; your settings are kept.':this.weather.state.mode==='live'?'Manual storms resume when you return to Manual weather.':state.visualSuppressed?'Lightning flashes are paused; your storm settings are kept.':'Simulated storms follow your manual settings.';
+  $('weather-sound').setAttribute('aria-pressed',String(sound.enabled));$('weather-sound').disabled=!sound.supported||sound.status==='starting';$('weather-sound').textContent=!sound.supported?'Weather sound unavailable':sound.status==='starting'?'Starting sound…':sound.status==='error'?'Retry weather sound':sound.status==='gesture-required'?'Enable weather sound':sound.enabled?'Mute weather sound':'Enable weather sound';
+  $('weather-volume').value=String(Math.round(sound.masterVolume*100));$('weather-volume-value').textContent=Math.round(sound.masterVolume*100)+'%';
+  const label=sound.error||({muted:'Sound is off.','gesture-required':'Choose Enable weather sound to start.',starting:'Starting weather sound…',playing:sound.masterVolume===0?'Volume is zero.':'Weather sound follows the current conditions.',suspended:'Weather sound is paused.',unsupported:'This browser does not support weather sound.',disposed:'Weather sound has stopped.'}[sound.status]||'Sound is off.');
+  if($('weather-sound-status').textContent!==label)$('weather-sound-status').textContent=label;
  }
  applyClock(){
   const {scene,sun,ambient,stream,water,renderer}=this,parts=hktParts(this.date),observer=this.observer;
@@ -63,6 +84,7 @@ class CityEnvironment {
  syncWeatherUI(){
   const state=this.weather.state,live=state.mode==='live';$('weather-mode').value=live?'live':'manual';$('weather-manual').disabled=live||this.stargazing;$('weather-mode').disabled=this.stargazing;$('weather-refresh').disabled=this.stargazing;$('weather-refresh').hidden=!live;
   for(const key of WEATHER_KEYS){const value=state.settings?.[key]??0;$('weather-'+key).value=String(Math.round(value*(key==='windFrom'?1:100)));$('weather-'+key+'-value').textContent=key==='windFrom'?(state.settings?.windFrom==null?'Variable / unavailable':`${Math.round(value)}°`):`${Math.round(value*100)}%`;}
+  this.syncEffectsUI();
   const observation=state.observation;
   $('weather-status').textContent=this.stargazing?'Weather paused in Stargaze · settings preserved':live?state.status==='loading'?'Reading Hong Kong Observatory…':state.status==='live'?'Live HKO observations':state.status==='stale'?'Last HKO observation · refresh delayed':state.error||'Live observations unavailable':'Manual weather · your settings';
   $('weather-observation').textContent=this.stargazing?'Return to Explore, Walk or Fly to see and change the weather.':live&&observation?this.describeObservation(observation):live?'Weather visuals remain separate from the city clock.':'Adjust the weather to explore different conditions.';
@@ -83,17 +105,19 @@ class CityEnvironment {
   else if(!paused&&this.timeLapse){this.date=new Date(this.date.valueOf()+dt*3600000/8);this.applyClock();}
   else {const observer=this.observer;if(!this.astroKey.endsWith(`|${observer.lat}|${observer.lon}`))this.applyClock();}
   const fx=this.weather.update(dt,{position,reducedMotion,paused,night:this.lightState.night,suspended:stargazing});this.effects=fx;
+  const storm=this.weatherEffects.update(dt,{settings:this.weather.state.settings,mode:this.weather.state.mode,paused,reducedMotion,suspended:stargazing,position});
   const bg=this.background.clone();if(stargazing)bg.set('#060a15');else bg.lerp(new THREE.Color('#66777c'),(fx.cloudCover||0)*.16);
   this.scene.background=bg;
   if(!this.scene.fog?.isFogExp2)this.scene.fog=new THREE.FogExp2(bg,0);
   this.scene.fog.color.copy(bg);this.scene.fog.density=stargazing?.000012:Math.max(.000018,fx.fogDensity||0);
-  this.sun.intensity=this.baseSun*(stargazing?.3:fx.sunMultiplier??1);this.ambient.intensity=this.baseAmbient*(stargazing?.45:fx.ambientMultiplier??1);
+  this.sun.intensity=this.baseSun*(stargazing?.3:fx.sunMultiplier??1);this.ambient.intensity=this.baseAmbient*(stargazing?.45:fx.ambientMultiplier??1)+storm.ambientBoost;
   const source=this.astronomy.sun.altitude>0?this.astronomy.sun.direction:this.astronomy.moon.altitude>0?this.astronomy.moon.direction:{x:.3,y:.55,z:-.7};
   this.sun.target.position.copy(position);this.sun.position.copy(position).addScaledVector(new THREE.Vector3(source.x,Math.max(.08,source.y),source.z).normalize(),6000);
   this.water.material.roughness=Math.max(.15,.38+this.lightState.night*.4-(fx.waveStrength||0)*.18);if(this.water.strength)this.water.strength.value=fx.waveStrength||0;
   this.sky.update({date:this.date,lat:this.observer.lat,lon:this.observer.lon,stargazing,cloudCover:stargazing?0:fx.cloudCover||0});
+  this.meteors.update(dt,{starFade:this.sky.state.starFade,paused,reducedMotion});
   document.body.classList.toggle('night',stargazing||this.lightState.night>.5);
   if(now-this.lastWeatherUI>500){this.syncWeatherUI();this.lastWeatherUI=now;}
  }
- get state(){return {mode:this.mode,date:this.date.toISOString(),hkt:hktParts(this.date),timeLapse:this.timeLapse,astronomy:this.astronomy,sky:this.sky.state,weather:this.weather.state,effects:this.effects};}
+ get state(){return {mode:this.mode,date:this.date.toISOString(),hkt:hktParts(this.date),timeLapse:this.timeLapse,astronomy:this.astronomy,sky:this.sky.state,weather:this.weather.state,effects:this.effects,meteors:this.meteors.state,storm:this.weatherEffects.state};}
 }

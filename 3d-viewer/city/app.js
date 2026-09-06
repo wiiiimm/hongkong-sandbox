@@ -222,7 +222,7 @@ async function init(){
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus});
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,toast,onMode});
  stargazer=new StargazeControls({camera,controls,canvas:renderer.domElement,onPick:point=>{const star=environment.sky.pick(point);$('sky-selection').textContent=star?`Star HR ${star.hr} · ${star.constellations.map(c=>c.en+' '+c.zh).join(', ')||'No figure in this catalogue'} · ${star.altitudeDeg.toFixed(0)}° above the horizon`:'No bright star selected. Try another part of the sky.';}});
- bindUI();environment=await createEnvironment({scene,camera,renderer,sun,ambient,stream,water,getObserver:()=>{
+ bindUI();environment=await createEnvironment({scene,camera,renderer,sun,ambient,stream,water,terrainHeight:(x,z)=>sampler.height(x,z),getObserver:()=>{
   const focus=nav.mode==='orbit'?controls.target:nav.position;
   if(!observerCache||Math.hypot(focus.x-observerCache.x,focus.z-observerCache.z)>100){
    const nearest=PLACES[closestPlace(focus.x,focus.z)],coordinates=worldToWgs84(focus.x,focus.z)||{lat:nearest.lat,lon:nearest.lon};observerCache={...coordinates,title:nearest.title,x:focus.x,z:focus.z};

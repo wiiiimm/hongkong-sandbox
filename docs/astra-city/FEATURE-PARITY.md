@@ -19,10 +19,10 @@ starting point, not permission to drop an unlisted feature.
 | Map overlays | Buildings, streets, trees and labels | Contours, trails, hydro, coast, boundaries, cliffs, peak/landmark labels and overlay height |
 | Stargazing | Catalogue stars, 24 constellation figures, picking, dated positions, compass/drag/keyboard sky camera | Phone orientation, GPS follow, wider original selection/presentation behaviours |
 | Sun/moon and time | Live HKT, custom date/time, circular clock, seasonal dawn/dusk, sun/moon positions, phase and rise/set | Remaining original studio-light and sky presentation options; preserve ephemeris precision limits |
-| Shooting stars | Pending | Existing toggle and calm-to-apocalypse rate control |
+| Shooting stars | Shared original toggle and Calm/Romantic/Apocalypse rate control; daytime, pause and reduced-motion gates verified (HKS-168) | Saved city settings/URL parity tracked with HKS-187 |
 | Live weather | HKO condition, temperature/humidity and district rain; timestamped station wind; live/manual separation and stale/error state | Marine observations, radar, satellite, AQHI and remaining regional fields |
-| Manual weather | Rain, cloud cover, fog, wind strength/direction, waves and snow | Lightning/thunder, sky height, tides, typhoon T1–T10, snow accumulation and remaining original controls |
-| Weather and vehicle sound | Pending | Master volume, environmental sound, thunder, aircraft/UFO engines and game effects |
+| Manual weather | Rain, cloud cover, fog, wind strength/direction, waves, snow and simulated lightning/thunder (HKS-169) | Sky height, tides, typhoon T1–T10, snow accumulation and remaining original controls (HKS-180) |
+| Weather and vehicle sound | Original environmental sound and thunder with master volume, gesture unlock, mute and pause lifecycle (HKS-169) | Aircraft/UFO engines and movement/game effects (HKS-177–179) |
 | Flight | All seven original models, corrected proportions/materials, propellers and navigation lights; assisted sightseeing | Original flight physics, throttle/reverse where applicable, take-off, landing, speed settings and input support |
 | Aircraft cameras | Chase and pilot eye | Original exterior, eye and cockpit camera options, cockpit interiors and controls |
 | Walking | Walking/running with collision | Original jump, auto-walk, pointer lock and complete keyboard/touch/camera behaviours |
@@ -52,3 +52,7 @@ covers every baseline control, saved URL/state, keyboard/touch interaction and
 mode combination. Add focused regression checks for imported systems; check
 live integrations and offline/error handling separately. Reuse the existing
 catalogues, datasets, models and licences rather than silently substituting them.
+
+## Verified environment restoration — 6 September 2026
+
+HKS-168 and HKS-169 reuse the original meteor renderer and audio synthesiser. The original viewer meteor controls, translated labels and URL state pass their compatibility checks. The combined City browser checks cover Sky/Weather controls, live/manual restoration, Stargaze, About pause, reduced motion, trusted sound activation, volume/mute and 390 px/320 px layouts with no browser or shader errors. See [environment evidence](environment-parity/README.md), [meteor provenance](meteors/README.md) and [storm/audio evidence](weather-effects/README.md). The live HKO transition uses explicit deterministic fixtures; it does not prove an observed lightning feed. Other inventory rows remain open.

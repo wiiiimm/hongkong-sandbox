@@ -4,6 +4,7 @@
 // per-layer vector toggles, and a vertical-exaggeration slider that drives BOTH the
 // terrain and the draped skin so contours stay welded to the ridges.
 import * as THREE from './vendor/three.module.js';
+import { createMeteorTrails, meteorRateLabel as sharedMeteorRateLabel } from './meteor-trails.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
 import { GLTFLoader } from './vendor/GLTFLoader.js';
 import { createGlass } from './vendor/glass-gl.js';
@@ -2297,45 +2298,13 @@ function updateStars(now) {
     starUniforms.uMoonWash.value = 0.5 * cel.frac * Math.sin(cel.moonAlt);
   } else starUniforms.uMoonWash.value = 0;
 }
-// shooting stars: a pool of reusable trails (HKS-85). A toggle arms them and a
-// rate slider scales both spawn frequency and how many streak at once — from a
-// calm sky (one every ~half-minute) through a "romantic" sprinkle to an
-// "apocalypse" meteor storm (a dozen at a time, several a second). They only
-// fall under a properly dark sky, so daylight and the reset paths hide them.
-const METEOR_N = 20, METEOR_POOL = 14;
-let meteorOn = true, meteorRate = 0.18;   // rate 0..1, URL-synced (0.18 = sensible default)
-function makeMeteor() {
-  const pos = new Float32Array(METEOR_N * 3), col = new Float32Array(METEOR_N * 3);
-  for (let j = 0; j < METEOR_N; j++) {   // white-hot head cooling down the tail
-    const w = Math.pow(1 - j / (METEOR_N - 1), 1.6);
-    col[j*3] = (0.75 + 0.25 * w) * w; col[j*3+1] = (0.85 + 0.15 * w) * w; col[j*3+2] = w;
-  }
-  const g = new THREE.BufferGeometry();
-  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  g.setAttribute('color', new THREE.BufferAttribute(col, 3));
-  const m = new THREE.Line(g, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true,
-    opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
-  m.visible = false; m.frustumCulled = false; scene.add(m);
-  return { line: m, t0: 0, dur: 1, active: false, A: new THREE.Vector3(), B: new THREE.Vector3() };
-}
-const meteors = Array.from({ length: METEOR_POOL }, makeMeteor);
-let meteorNext = 0;
-const _mp = new THREE.Vector3(), _mt = new THREE.Vector3();
-function spawnMeteor(mo, tS) {
-  const az = Math.random() * Math.PI * 2, alt = (20 + 45 * Math.random()) * D2R;
-  mo.A.set(Math.sin(az) * Math.cos(alt), Math.sin(alt), -Math.cos(az) * Math.cos(alt));
-  _mt.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
-  _mt.addScaledVector(mo.A, -_mt.dot(mo.A)).normalize();     // tangent to the sky sphere
-  if (_mt.y > 0.15) _mt.multiplyScalar(-1);                  // meteors prefer to fall
-  mo.B.copy(mo.A).addScaledVector(_mt, 0.18 + 0.22 * Math.random()).normalize();
-  mo.t0 = tS; mo.dur = 0.7 + 0.6 * Math.random();
-  mo.active = true; mo.line.visible = true;
-}
-// rate → mean gap between spawns (log-scaled: 30 s calm → ~0.12 s apocalypse)
-// and how many streaks may run concurrently (1 → the whole pool)
-const meteorGap = () => 30 * Math.pow(0.004, meteorRate);
-const meteorCap = () => Math.max(1, Math.round(METEOR_POOL * Math.pow(meteorRate, 1.3)));
-function hideMeteors() { for (const mo of meteors) { mo.active = false; mo.line.visible = false; } meteorNext = 0; }
+// HKS-85 shooting-star pool is shared with the City adapter (HKS-168).
+// Original controls, sky-luminance gate, radius, URL state and test hook remain.
+let meteorOn = true, meteorRate = 0.18;
+const meteorTrails = createMeteorTrails({ parent: scene });
+const meteors = meteorTrails.pool;
+const _mp = new THREE.Vector3();
+function hideMeteors() { meteorTrails.hide(); }
 let celDim = 0;   // HKS-69: eased "overcast over the viewer" 0..1 — dims sun/moon locally
 // star wash thresholds on skyLum (linear-space, what THREE actually renders):
 // at/below DARK the sky hides nothing (full stars), at/above BRIGHT it washes
@@ -2421,34 +2390,9 @@ function stepSky() {   // per-frame sky life: star wash, twinkle clock, meteors,
       _mp.x * e[4] + _mp.y * e[5] + _mp.z * e[6],
       _mp.x * e[0] + _mp.y * e[1] + _mp.z * e[2]);
   }
-  // shooting stars only under a properly dark sky, and only when armed
-  if (!starGroup.visible || starUniforms.uFade.value < 0.55 || !meteorOn || meteorRate <= 0) { hideMeteors(); return; }
-  const R = bounds().span * 1.47;
-  // advance every live streak; retire the ones that have finished their arc
-  let liveN = 0;
-  for (const mo of meteors) {
-    if (!mo.active) continue;
-    const p = (tS - mo.t0) / mo.dur;
-    if (p > 1.4) { mo.active = false; mo.line.visible = false; continue; }
-    liveN++;
-    const arr = mo.line.geometry.attributes.position.array;
-    for (let j = 0; j < METEOR_N; j++) {   // trail vertices chase the head down the arc
-      const pj = Math.max(0, Math.min(1, p - 0.35 * j / (METEOR_N - 1)));
-      _mp.copy(mo.A).lerp(mo.B, pj).normalize().multiplyScalar(R);
-      arr[j*3] = _mp.x; arr[j*3+1] = _mp.y; arr[j*3+2] = _mp.z;
-    }
-    mo.line.geometry.attributes.position.needsUpdate = true;
-    mo.line.material.opacity = 0.85 * Math.min(1, p * 5) * Math.max(0, 1 - Math.max(0, p - 1) / 0.4);
-  }
-  // spawn on schedule; when the gap shrinks to a fraction of a second the loop
-  // naturally bursts several at once, up to the rate-scaled concurrency cap
-  if (!meteorNext) meteorNext = tS + Math.random() * meteorGap();
-  const cap = meteorCap();
-  let guard = 0;
-  while (tS >= meteorNext && guard++ < METEOR_POOL) {
-    if (liveN < cap) { const free = meteors.find(m => !m.active); if (free) { spawnMeteor(free, tS); liveN++; } }
-    meteorNext += meteorGap() * (0.4 + 1.2 * Math.random());
-  }
+  meteorTrails.setOptions({ enabled: meteorOn, rate: meteorRate });
+  meteorTrails.step(tS, { starFade: starGroup.visible ? starUniforms.uFade.value : 0,
+    radius: bounds().span * 1.47 });
 }
 
 function placeCelestial() {
@@ -8116,8 +8060,7 @@ document.getElementById('thunderrate').addEventListener('input', e => {
 // shooting stars (HKS-85): a night-sky cosmetic, independent of the HKO-driven
 // weather locks — it stays adjustable in live mode and under a storm signal.
 function meteorRateLabel(v) {                                // the marking the slider sits at
-  return v <= 0 ? t('meteor.off') : v < 0.42 ? t('meteor.calm')
-       : v < 0.82 ? t('meteor.romantic') : t('meteor.apoc');
+  return t({ Off: 'meteor.off', Calm: 'meteor.calm', Romantic: 'meteor.romantic', Apocalypse: 'meteor.apoc' }[sharedMeteorRateLabel(v)]);
 }
 function syncMeteorUI() {
   const box = document.getElementById('shootstars'), sl = document.getElementById('meteorrate'),
@@ -8134,7 +8077,7 @@ document.getElementById('shootstars').addEventListener('change', e => {
 });
 document.getElementById('meteorrate').addEventListener('input', e => {
   meteorRate = parseInt(e.target.value, 10) / 100;
-  meteorNext = 0;   // reschedule against the new gap so a crank-up feels immediate
+  meteorTrails.reschedule();   // reschedule against the new gap so a crank-up feels immediate
   document.getElementById('meteorratev').textContent = meteorRateLabel(meteorRate);
 });
 syncMeteorUI();
