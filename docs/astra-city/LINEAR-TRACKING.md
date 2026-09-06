@@ -1,5 +1,7 @@
 # Living Hong Kong delivery tracking
 
+HKS-191 is queued under HKS-126: [replace Tsing Ma Bridge terrain artefact with a verified bridge model](https://linear.app/stealth-company/issue/HKS-191/replace-tsing-ma-bridge-terrain-artefact-with-a-verified-bridge-model). High priority, 8 points, Bug/Rendering, William assigned. Audit/reuse existing assets first; preserve real shores and water below the span. Linear parent and milestone updated. There are now **25 execution subissues: five In Review, two In Progress, 18 queued**. HKS-170 remains active.
+
 ## Current pass — 7 September 2026
 
 HKS-190 Clock follow-up is implemented in `783cb62` and In Review: Live/Manual button, date disabled in Live, shimmer moved to Weather. Four toggle, ten timelapse and eleven circular-clock browser groups pass; night/mobile screenshots inspected. [Evidence](clock-toggle/README.md). Linear HKS-190, HKS-132 and milestone updated after verification.
