@@ -1,9 +1,11 @@
 import * as THREE from '../vendor/three.module.js';
 import {cityLighting} from './lighting.js';
+import {DEFAULT_HAZE,normaliseHaze,readHaze,saveHaze,hazePresentation,hazeFromVisibility} from './atmosphere.js';
 import {bindClockDial,updateClockDial,hourFromInput} from './clock-dial.js';
 import {createSky,getSkyState} from './sky.js';
 import {dateFromHKT,hktParts} from './sky-time.js';
 import {createWeather} from './weather.js';
+import {createAirVisibilityData} from './air-visibility-data.js';
 import {createCityMeteors,meteorRateLabel,METEOR_DEFAULTS} from './meteors.js';
 import {createWeatherEffects} from './weather-effects.js';
 import {createTideData,chooseTideStation} from './tide-data.js';
@@ -14,17 +16,18 @@ const WEATHER_KEYS=['rain','clouds','fog','wind','waves','snow','windFrom'];
 export async function createEnvironment(options){
  const sky=await createSky({scene:options.scene,camera:options.camera});
  const weather=createWeather({scene:options.scene,camera:options.camera});
- const tides=createTideData();
+ const tides=createTideData(),airVisibility=createAirVisibilityData();
  const meteors=createCityMeteors({scene:options.scene,camera:options.camera});
  const weatherEffects=createWeatherEffects({scene:options.scene,camera:options.camera,terrainHeight:options.terrainHeight});
- return new CityEnvironment({...options,sky,weather,meteors,weatherEffects,tides});
+ return new CityEnvironment({...options,sky,weather,meteors,weatherEffects,tides,airVisibility});
 }
 class CityEnvironment {
  constructor(options){
   Object.assign(this,options);this.date=dateFromHKT(hktParts(new Date()).date,15);this.mode='manual';this.timeLapse=false;this.timeLapseSpeed=TIMELAPSE_DEFAULT_SPEED;this.cycleFlags={};this.cycleTick=null;this.stargazing=false;this.astroKey='';this.lastLive=0;this.lastWeatherUI=0;this.baseSun=3;this.baseAmbient=1.9;this.tideStation='auto';
+  this.hazeOverride=false;this.haze=DEFAULT_HAZE;try{this.haze=readHaze(localStorage);}catch{}
   this.bindUI();this.applyClock();
   document.addEventListener('visibilitychange',()=>{this.cycleTick=null;});
-  addEventListener('pagehide',event=>{if(!event.persisted){this.meteors.dispose();this.tides.dispose();this.water.dispose();void this.weatherEffects.dispose();}});
+  addEventListener('pagehide',event=>{if(!event.persisted){this.meteors.dispose();this.airVisibility.dispose();this.tides.dispose();this.water.dispose();void this.weatherEffects.dispose();}});
  }
  get hour(){return hktParts(this.date).hour;}
  get observer(){return this.getObserver();}
@@ -58,8 +61,10 @@ class CityEnvironment {
   $('sky-mode').addEventListener('click',()=>{const mode=this.mode==='live'?'manual':'live';this.play(false);this.mode=mode;if(mode==='live')this.date=new Date();this.applyClock();});
   $('sky-date').addEventListener('change',e=>{if(this.mode==='live')return;const date=dateFromHKT(e.target.value,this.hour);if(!date)return;this.play(false);this.mode='manual';this.date=date;this.applyClock();});
   $('sky-constellations').addEventListener('change',e=>this.sky.setConstellations(e.target.checked));this.sky.setConstellations($('sky-constellations').checked);
-  $('weather-mode').addEventListener('change',e=>{const live=e.target.value==='live';Promise.allSettled([this.weather.setLive(live),this.tides.setLive(live)]).then(()=>this.syncWeatherUI());this.syncWeatherUI();});
-  $('weather-refresh').addEventListener('click',()=>{Promise.allSettled([this.weather.refresh(),this.tides.refresh()]).then(()=>this.syncWeatherUI());this.syncWeatherUI();});
+  $('atmospheric-haze').addEventListener('input',e=>{this.haze=normaliseHaze(Number(e.target.value)/100,this.haze);try{saveHaze(localStorage,this.haze);}catch{}this.syncHazeUI();});
+  $('haze-override').addEventListener('change',e=>{this.hazeOverride=e.target.checked;this.syncHazeUI();});this.syncHazeUI();
+  $('weather-mode').addEventListener('change',e=>{const live=e.target.value==='live';Promise.allSettled([this.weather.setLive(live),this.tides.setLive(live),this.airVisibility.setLive(live)]).then(()=>this.syncWeatherUI());this.syncWeatherUI();});
+  $('weather-refresh').addEventListener('click',()=>{Promise.allSettled([this.weather.refresh(),this.tides.refresh(),this.airVisibility.refresh()]).then(()=>this.syncWeatherUI());this.syncWeatherUI();});
   $('tide-level').addEventListener('input',e=>{this.tides.setManual(Number(e.target.value));this.syncTideUI();});
   $('tide-station').addEventListener('change',e=>{this.tideStation=e.target.value;this.syncTideStation();this.syncTideUI();});
   for(const key of WEATHER_KEYS)$('weather-'+key).addEventListener('input',e=>{this.weather.setManual({[key]:Number(e.target.value)/(key==='windFrom'?1:100)});this.syncWeatherUI();});
@@ -124,10 +129,26 @@ class CityEnvironment {
   document.body.classList.toggle('night',this.stargazing||night>.5);
   this.onClock?.(this.lightState);
  }
+ get liveHazeVisibility(){return this.weather.state.mode==='live'&&!this.hazeOverride?this.airVisibility.state.visibilityMetres:null;}
+ syncHazeUI(){
+  const live=this.weather.state.mode==='live',automatic=live&&!this.hazeOverride,air=this.airVisibility.state;
+  const observed=automatic?air.visibilityMetres:null,value=Math.round((hazeFromVisibility(observed)??this.haze)*100);
+  const label=value===0?'Clear':value<30?'Light haze':value<65?'Hazy':'Heavy haze';
+  const text=observed===null?`${value}% · ${label}${automatic?' · fallback':''}`:`${(observed/1000).toLocaleString('en-HK',{maximumFractionDigits:1})} km · Live`;
+  $('atmospheric-haze').disabled=automatic;$('atmospheric-haze').value=String(value);$('atmospheric-haze').setAttribute('aria-valuetext',text);$('atmospheric-haze-value').textContent=text;
+  $('haze-override-label').hidden=!live;$('haze-override').checked=this.hazeOverride;
+  const time=t=>t?new Date(t).toLocaleString('en-HK',{timeZone:'Asia/Hong_Kong',hour12:false}):'time unavailable';
+  const vis=air.visibility,aq=air.aqhi;
+  const freshness=row=>(row.status==='loading'?'updating':row.fresh?'current':row.status||'unavailable')+(row.error?' · refresh delayed':'');
+  const visibilityValue=vis?.observedVisibilityMetres??vis?.visibilityMetres,limit={'at-most':'≤ ','at-least':'≥ '}[vis?.limit]||'';
+  $('air-visibility-status').textContent=!live?'Manual appearance · your setting is saved.':vis?.station&&Number.isFinite(visibilityValue)?`HKO visibility · ${vis.station}: ${limit}${(visibilityValue/1000).toLocaleString('en-HK',{maximumFractionDigits:1})} km · ${time(vis.updatedAt)} HKT · ${freshness(vis)}. ${automatic?(observed===null?'Using your saved haze and estimated weather fog.':'Haze follows this station; conditions elsewhere may differ.'):'Using your manual haze override.'}`:`HKO visibility ${vis?.status||'unavailable'}. ${automatic?'Using your saved haze and estimated weather fog.':'Using your manual haze override.'}`;
+  $('air-quality-status').hidden=!live;$('air-quality-status').textContent=aq?.station&&aq.aqhiLabel?`EPD air quality · ${aq.station}${aq.stationKind?' ('+aq.stationKind+')':''}: AQHI ${aq.aqhiLabel} · ${aq.healthRisk} · ${time(aq.updatedAt)} HKT · ${freshness(aq)}. AQHI is a health-risk index, not visibility or sky brightness.`:`EPD air quality ${aq?.status||'unavailable'}. AQHI does not set visibility.`;
+ }
+
  syncWeatherUI(){
   const state=this.weather.state,live=state.mode==='live';$('weather-mode').value=live?'live':'manual';$('weather-manual').disabled=live||this.stargazing;$('weather-mode').disabled=this.stargazing;$('weather-refresh').disabled=this.stargazing;$('weather-refresh').hidden=!live;
   for(const key of WEATHER_KEYS){const value=state.settings?.[key]??0;$('weather-'+key).value=String(Math.round(value*(key==='windFrom'?1:100)));$('weather-'+key+'-value').textContent=key==='windFrom'?(state.settings?.windFrom==null?'Variable / unavailable':`${Math.round(value)}°`):`${Math.round(value*100)}%`;}
-  this.syncEffectsUI();this.syncTideUI();
+  this.syncEffectsUI();this.syncTideUI();this.syncHazeUI();
   const observation=state.observation;
   $('weather-status').textContent=this.stargazing?'Weather paused in Stargaze · settings preserved':live?state.status==='loading'?'Reading Hong Kong Observatory…':state.status==='live'?'Live HKO observations':state.status==='stale'?'Last HKO observation · refresh delayed':state.error||'Live observations unavailable':'Manual weather · your settings';
   $('weather-observation').textContent=this.stargazing?'Return to Explore, Walk or Fly to see and change the weather.':live&&observation?this.describeObservation(observation):live?'Weather visuals remain separate from the city clock.':'Adjust the weather to explore different conditions.';
@@ -140,7 +161,7 @@ class CityEnvironment {
   if(observation.wind){const w=observation.wind;parts.push(`${w.station} wind ${w.speedKmh} km/h, ${w.from==null?'variable direction':`from ${w.from}°`} (${hkt(w.updatedAt)} HKT).`);}
   else parts.push(this.weather.state.windError||'Observed wind unavailable.');
   if(observation.rainfall)parts.push(`${observation.rainfall.district}: ${observation.rainfall.millimetres} mm, ${hkt(observation.rainfall.startTime)}–${hkt(observation.rainfall.endTime)} HKT.`);
-  parts.push('Clouds and visibility are visual estimates.');return parts.join(' ');
+  parts.push('Cloud cover is a visual estimate. Visibility observations are shown above.');return parts.join(' ');
  }
  update(dt,{now,paused,reducedMotion,stargazing,position}){
   if(this.stargazing!==stargazing){this.stargazing=stargazing;this.syncWeatherUI();}
@@ -152,19 +173,22 @@ class CityEnvironment {
   this.syncTideStation();this.tides.update({paused,suspended:stargazing});this.water.setLevel(this.tides.state.restingLevelHKPD);
   const fx=this.weather.update(dt,{position,reducedMotion,paused,night:this.lightState.night,suspended:stargazing});this.effects=fx;
   const storm=this.weatherEffects.update(dt,{settings:this.weather.state.settings,mode:this.weather.state.mode,paused,reducedMotion,suspended:stargazing,position});
+  if(now-(this.lastAirPosition??-Infinity)>1000){this.airVisibility.setPosition(position);this.lastAirPosition=now;}if(!paused)this.airVisibility.poll();
+  this.atmosphere=hazePresentation({amount:this.haze,weatherDensity:fx.fogDensity,stargazing,visibilityMetres:this.liveHazeVisibility});
   const bg=this.background.clone();if(stargazing)bg.set('#060a15');else bg.lerp(new THREE.Color('#66777c'),(fx.cloudCover||0)*.16);
+  const skyNight=stargazing?1:this.lightState.night;bg.lerp(new THREE.Color('#02050c'),skyNight*this.atmosphere.nightClearWeight).lerp(new THREE.Color('#626673'),skyNight*this.atmosphere.nightGlowWeight);
   this.scene.background=bg;
   if(!this.scene.fog?.isFogExp2)this.scene.fog=new THREE.FogExp2(bg,0);
-  this.scene.fog.color.copy(bg);this.scene.fog.density=stargazing?.000012:Math.max(.000018,fx.fogDensity||0);
+  this.scene.fog.color.copy(bg);this.scene.fog.density=this.atmosphere.fogDensity;
   this.sun.intensity=this.baseSun*(stargazing?.3:fx.sunMultiplier??1);this.ambient.intensity=this.baseAmbient*(stargazing?.45:fx.ambientMultiplier??1)+storm.ambientBoost;
   const source=this.astronomy.sun.altitude>0?this.astronomy.sun.direction:this.astronomy.moon.altitude>0?this.astronomy.moon.direction:{x:.3,y:.55,z:-.7};
   this.sun.target.position.copy(position);this.sun.position.copy(position).addScaledVector(new THREE.Vector3(source.x,Math.max(.08,source.y),source.z).normalize(),6000);
   this.water.material.roughness=Math.max(.15,.38+this.lightState.night*.4-(fx.waveStrength||0)*.18);
   this.water.update(dt,{settings:this.weather.state.settings,camera:this.camera,sunDirection:source,night:this.lightState.night,paused,reducedMotion,suspended:stargazing});
-  this.sky.update({date:this.date,lat:this.observer.lat,lon:this.observer.lon,stargazing,cloudCover:stargazing?0:fx.cloudCover||0});
+  this.sky.update({date:this.date,lat:this.observer.lat,lon:this.observer.lon,stargazing,cloudCover:stargazing?0:fx.cloudCover||0,limitingMagnitude:this.atmosphere.limitingMagnitude});
   this.meteors.update(dt,{starFade:this.sky.state.starFade,paused,reducedMotion});
   document.body.classList.toggle('night',stargazing||this.lightState.night>.5);
   if(now-this.lastWeatherUI>500){this.syncWeatherUI();this.lastWeatherUI=now;}
  }
- get state(){return {mode:this.mode,date:this.date.toISOString(),hkt:hktParts(this.date),timeLapse:this.timeLapse,timeCycle:this.timeCycle,sunLight:{position:this.sun.position.toArray(),target:this.sun.target.position.toArray(),castShadow:this.sun.castShadow,shadowMatrix:this.sun.shadow.matrix.toArray()},astronomy:this.astronomy,sky:this.sky.state,weather:this.weather.state,effects:this.effects,meteors:this.meteors.state,storm:this.weatherEffects.state,tides:this.tides.state,water:this.water.state};}
+ get state(){return {mode:this.mode,date:this.date.toISOString(),hkt:hktParts(this.date),timeLapse:this.timeLapse,timeCycle:this.timeCycle,sunLight:{position:this.sun.position.toArray(),target:this.sun.target.position.toArray(),castShadow:this.sun.castShadow,shadowMatrix:this.sun.shadow.matrix.toArray()},astronomy:this.astronomy,sky:this.sky.state,weather:this.weather.state,effects:this.effects,atmosphere:{...this.atmosphere,manualHaze:this.haze,override:this.hazeOverride,air:this.airVisibility.state},meteors:this.meteors.state,storm:this.weatherEffects.state,tides:this.tides.state,water:this.water.state};}
 }
