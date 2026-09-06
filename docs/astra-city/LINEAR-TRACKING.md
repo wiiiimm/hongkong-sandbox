@@ -2,13 +2,23 @@
 
 ## Current execution — 7 September 2026
 
-**HKS-194 is implemented in `13e3574` and In Review.** The optional #132 map layer draws all 132 approximate project review sections, with selection, readiness/checks, Linear links and section/whole-territory views. 167 city tests, nine geography tests and nine browser groups pass. Whole-section readiness is **0 Ready, 0 Close to ready, 6 Under review, 126 Base mapped**. [Evidence and update policy](review-sections/README.md).
+Linear read-back confirms **29 execution leaves: 9 In Review, 4 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
 
-Linear read-back confirms **28 execution leaves: 7 In Review, 4 In Progress, 17 queued**. The HKS-194 leaf, HKS-116 parent and Astra milestone are updated. Curie's geography/independent-review hand-off is complete. His HKS-191 Tsing Ma source package remains staged for root integration; the leaf and HKS-126 reflect that limit. Kant's HKS-193/124 hand-off records 16 compact original Central models, 5 m terrain and three route candidates; he continues route/contact work. Heisenberg continues HKS-192 Mui Wo. Shared live integration and browser acceptance remain before those regions can be promoted. HKS-180's remaining weather controls have no active executor.
+| Issue | State | Current executor and scope |
+| --- | --- | --- |
+| HKS-192 · Mui Wo | In Review | `9a33045`: 5 m terrain, ten original infrastructure meshes, mapped hydro, 4.137 km public walk verified in both directions, actual desktop/mobile/picking/flight checks. Thirteen partial terrain conflicts remain; wider section still under review. |
+| HKS-195 · Haze and sky clarity | In Review | `8e8a181`: live HKO visibility, separate EPD AQHI, manual haze/sky-glow override; 37 tests and five browser groups pass. |
+| HKS-119 · Golden sky and celestial shadows | In Review | `367cc1b`: original golden-hour palette reused, date/time/location-driven sun/moon and exact shadow direction; 11 focused tests and five browser groups pass. This older issue is outside the 29 execution-leaf count. |
+| HKS-171 · South Lantau | In Progress | Heisenberg: Pui O 681 compact models, 5 m terrain and 555 m continuous route staged. Curie: bounded Cheung Sha/Tong Fuk/Shui Hau source availability audit. Publication and browser acceptance remain. |
+| HKS-191 · Tsing Ma + Ting Kau | In Progress | Seven source components and combined terrain/hydro integrated locally; Curie runs matched before/after browser review. Illustrative cables are labelled separately. |
+| HKS-193 · Wan Chai–Central–Sheung Wan | In Progress | Kant: 17 Central and 20 corridor models, progressive compact loader; root integrates. GPU acceptance and continuous public routes remain. Six sections: 01.1–01.4 and 02.1–02.2. |
+| HKS-180 · Remaining weather controls | In Progress | Tide/wave slice verified; remaining controls have no active executor. |
+| HKS-194 · Numbered review grid | In Review | `13e3574`: optional 132-section layer and evidence-based readiness. |
+| HKS-170 · Tai O | In Review | `5494ad6`: source channels, bridges and 607 m public walk. Private stilts/decks and wider north-west Lantau remain open. |
 
-**HKS-170 remains In Review at `5494ad6`.** Tai O source channels, five original infrastructure models, two public decks, two estimated approaches and a continuous ~607 m public walk are verified. Source-specific house piles/private decks and wider section 10.10 remain open. [Evidence](tai-o-completion/README.md).
+Root owns shared integration, browser review and Linear synchronisation. Latest combined city suite: **223 tests pass** at the post-Mui Wo checkpoint. GPU measurements use desktop Chrome, including mobile-sized viewports, and are serialised; physical-phone performance is unverified. New staged models and local route acceptance do not complete whole sections. No push, merge or deployment.
 
-HKS-190 Clock follow-up remains In Review at `783cb62`: Live/Manual button, date disabled in Live and shimmer in Weather. [Evidence](clock-toggle/README.md).
+Whole-section readiness remains **0 Ready, 0 Close, 6 Under review, 126 Base mapped**. [Review evidence and policy](review-sections/README.md). Latest evidence: [Mui Wo](mui-wo-completion/README.md), [haze](atmosphere/README.md), [golden sky and shadows](golden-hour/README.md).
 
 [Current execution index](EXECUTION-ISSUES.md). Historical checkpoints below retain their original counts and scope.
 

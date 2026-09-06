@@ -1,7 +1,7 @@
 {
   "milestone": "Astra - Living Hong Kong — buildings, regional detail & feature parity",
   "milestoneId": "3a730c97-7148-4d83-bedd-c5b47b85f721",
-  "verifiedAt": "2026-09-06T19:34:29.172962+00:00",
+  "verifiedAt": "2026-09-06T20:15:08.831958+00:00",
   "issues": [
     {
       "key": "muiwo_detail",
@@ -115,7 +115,7 @@
       "id": "HKS-171",
       "title": "Complete south Lantau village terrain, shores and local routes",
       "parentId": "HKS-122",
-      "status": "Backlog",
+      "status": "In Progress",
       "estimate": {
         "value": 8,
         "name": "8 Points"
@@ -132,7 +132,8 @@
       "assigneeId": "479c2f97-dbf1-4e97-8820-e87125b3e6a5",
       "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
-      "uuid": "533b621a-88f4-40d5-8119-1bdfaf53dde6"
+      "uuid": "533b621a-88f4-40d5-8119-1bdfaf53dde6",
+      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72"
     },
     {
       "key": "north_lantau",
@@ -605,8 +606,8 @@
       "key": "tsingma",
       "id": "HKS-191",
       "uuid": "92ad660b-b9b8-4e43-9f05-b77c09f56ba7",
-      "title": "Replace Tsing Ma Bridge terrain artefact with a verified bridge model",
-      "url": "https://linear.app/stealth-company/issue/HKS-191/replace-tsing-ma-bridge-terrain-artefact-with-a-verified-bridge-model",
+      "title": "Repair Tsing Ma and Ting Kau bridge models and terrain artefacts",
+      "url": "https://linear.app/stealth-company/issue/HKS-191/repair-tsing-ma-and-ting-kau-bridge-models-and-terrain-artefacts",
       "parentId": "HKS-126",
       "status": "In Progress",
       "priority": 2,
@@ -627,7 +628,7 @@
       "executor": "Curie (neighbouring bridge reuse audit), root (live integration pending)",
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
       "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72",
-      "currentScope": "Tsing Ma six-component source package remains staged, not live. User requires a second bridge in the cluster; awaiting identification as Kap Shui Mun or Ting Kau. Curie audits existing retained assets for both, while root retains shared infrastructure/proxy/hydro integration and browser acceptance.",
+      "currentScope": "Tsing Ma and confirmed Ting Kau; both source bridges staged, combined terrain seam correction in progress; live publication/browser pending.",
       "executionStatus": "Agent is actively investigating; implementation not yet accepted."
     },
     {
@@ -635,7 +636,7 @@
       "uuid": "e0a6653e-4c63-4ade-bfae-fbc9d13908bf",
       "title": "Complete Mui Wo terrain, village models and public walking review",
       "url": "https://linear.app/stealth-company/issue/HKS-192/complete-mui-wo-terrain-village-models-and-public-walking-review",
-      "status": "In Progress",
+      "status": "In Review",
       "parentId": "HKS-122",
       "projectMilestone": {
         "id": "3a730c97-7148-4d83-bedd-c5b47b85f721",
@@ -655,14 +656,15 @@
       "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72",
       "key": "muiwo_completion",
       "executor": "Heisenberg (complete_geography); root integrates",
-      "currentScope": "Reuse Mui Wo coverage and 1,327 models; resolve supported terrain conflicts and validate connected public routes.",
-      "executionStatus": "Agent is actively investigating; implementation not yet accepted."
+      "currentScope": "Mui Wo staged terrain/infrastructure and 4.137 km continuous public route verified; composite hydro prepared; publication/browser pending.",
+      "executionStatus": "Agent is actively investigating; implementation not yet accepted.",
+      "verifiedCommit": "9a33045"
     },
     {
       "id": "HKS-193",
       "uuid": "c97dfd8f-6c1d-489e-9ea1-8e550f1ed673",
-      "title": "Complete Central core, waterfront and SoHo city review",
-      "url": "https://linear.app/stealth-company/issue/HKS-193/complete-central-core-waterfront-and-soho-city-review",
+      "title": "Complete Wan Chai to Sheung Wan city detail, including Central",
+      "url": "https://linear.app/stealth-company/issue/HKS-193/complete-wan-chai-to-sheung-wan-city-detail-including-central",
       "status": "In Progress",
       "parentId": "HKS-124",
       "projectMilestone": {
@@ -682,7 +684,7 @@
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
       "key": "central_completion",
       "executor": "Kant (public-route/contact investigation), root (shared integration/browser pending)",
-      "currentScope": "Staged source hand-off complete: 16 compact original models, 5 m terrain and three official public-route candidates. Seven building contacts, Harcourt Road bridge floor/stairs and continuous navigation remain. No live publication.",
+      "currentScope": "Expanded corridor sections01.1–01.4/02.1–02.2; Central compact models/source route alternatives staged; generic infrastructure and compact loader integration in progress.",
       "executionStatus": "Active source/model/placement audit and regional implementation.",
       "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72"
     },
@@ -714,6 +716,34 @@
       "executor": "Root (runtime/readiness/browser/Linear), Curie (geography and independent code review); hand-offs complete",
       "currentScope": "All 132 numbered review borders, selector/Linear links, readiness checks and territory/section views; 167 city tests, 9 geography tests and 9 browser groups pass. Approximate internal borders and source exceptions are explicit; zero whole sections are yet ready or close.",
       "executionStatus": "Implementation complete and independently reviewed; In Review."
+    },
+    {
+      "key": "atmospheric_haze",
+      "id": "HKS-195",
+      "uuid": "d5689cd7-0814-433f-965c-8d9e8f38d219",
+      "title": "Add adjustable atmospheric haze and night-sky clarity in Weather",
+      "url": "https://linear.app/stealth-company/issue/HKS-195/add-adjustable-atmospheric-haze-and-night-sky-clarity-in-weather",
+      "status": "In Review",
+      "parentId": "HKS-129",
+      "projectMilestone": {
+        "id": "3a730c97-7148-4d83-bedd-c5b47b85f721",
+        "name": "Astra - Living Hong Kong — buildings, regional detail & feature parity"
+      },
+      "estimate": {
+        "value": 4,
+        "name": "4 Points"
+      },
+      "labels": [
+        "Rendering",
+        "Improvement"
+      ],
+      "assigneeId": "479c2f97-dbf1-4e97-8820-e87125b3e6a5",
+      "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
+      "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
+      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72",
+      "executor": "Root + Heisenberg",
+      "currentScope": "Manual slider verified; integrating Live HKO visibility and separate EPD AQHI context with manual override.",
+      "verifiedCommit": "8e8a181"
     }
   ]
 }

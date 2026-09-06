@@ -2,24 +2,23 @@
 
 ## Current execution — 7 September 2026
 
-Linear read-back confirms **28 execution subissues: 7 In Review, 4 In Progress and 17 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised **Astra - Living Hong Kong — buildings, regional detail & feature parity** milestone in the HKS team's Hong Kong Sandbox project.
+Linear read-back confirms **29 execution leaves: 9 In Review, 4 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
 
 | Issue | State | Current executor and scope |
 | --- | --- | --- |
-| HKS-194 · Numbered review grid | In Review | `13e3574`: root runtime/readiness/browser; Curie geography and independent review complete. 132 areas; 167 unit, 9 geography and 9 browser groups pass. |
-| HKS-170 · Tai O | In Review | Implemented in `5494ad6`; channels, source bridges and ~607 m public walk verified by root. All three source/route hand-offs complete. |
-| HKS-191 · Tsing Ma Bridge | In Progress | Six Tsing Ma source components remain staged. User requests a second cluster bridge; identity pending between Kap Shui Mun and Ting Kau. Curie audits existing assets; root integration/browser acceptance remain. |
-| HKS-192 · Mui Wo | In Progress | Heisenberg: existing models retained; source terrain improvements, shores and public village routes are being validated. |
-| HKS-193 · Central | In Progress | Kant: 16 compact models, terrain and three routes staged; continuing contact/access investigation. Root shared integration/browser acceptance remain. |
+| HKS-192 · Mui Wo | In Review | `9a33045`: 5 m terrain, ten original infrastructure meshes, mapped hydro, 4.137 km public walk verified in both directions, actual desktop/mobile/picking/flight checks. Thirteen partial terrain conflicts remain; wider section still under review. |
+| HKS-195 · Haze and sky clarity | In Review | `8e8a181`: live HKO visibility, separate EPD AQHI, manual haze/sky-glow override; 37 tests and five browser groups pass. |
+| HKS-119 · Golden sky and celestial shadows | In Review | `367cc1b`: original golden-hour palette reused, date/time/location-driven sun/moon and exact shadow direction; 11 focused tests and five browser groups pass. This older issue is outside the 29 execution-leaf count. |
+| HKS-171 · South Lantau | In Progress | Heisenberg: Pui O 681 compact models, 5 m terrain and 555 m continuous route staged. Curie: bounded Cheung Sha/Tong Fuk/Shui Hau source availability audit. Publication and browser acceptance remain. |
+| HKS-191 · Tsing Ma + Ting Kau | In Progress | Seven source components and combined terrain/hydro integrated locally; Curie runs matched before/after browser review. Illustrative cables are labelled separately. |
+| HKS-193 · Wan Chai–Central–Sheung Wan | In Progress | Kant: 17 Central and 20 corridor models, progressive compact loader; root integrates. GPU acceptance and continuous public routes remain. Six sections: 01.1–01.4 and 02.1–02.2. |
 | HKS-180 · Remaining weather controls | In Progress | Tide/wave slice verified; remaining controls have no active executor. |
+| HKS-194 · Numbered review grid | In Review | `13e3574`: optional 132-section layer and evidence-based readiness. |
+| HKS-170 · Tai O | In Review | `5494ad6`: source channels, bridges and 607 m public walk. Private stilts/decks and wider north-west Lantau remain open. |
 
-Root owns integration, independent checks and Linear updates. Sources and recorded elevations remain intact; estimates are labelled. New regional data remains staged until shared integration and browser acceptance. GPU measurements are serialised. No push, merge or deployment.
+Root owns shared integration, browser review and Linear synchronisation. Latest combined city suite: **223 tests pass** at the post-Mui Wo checkpoint. GPU measurements use desktop Chrome, including mobile-sized viewports, and are serialised; physical-phone performance is unverified. New staged models and local route acceptance do not complete whole sections. No push, merge or deployment.
 
-**Latest verified delivery:** `13e3574` implements HKS-194: optional numbered review borders, section/territory framing, correct Linear links and evidence-based readiness. **0 Ready, 0 Close, 6 Under review, 126 Base mapped**. 167 city tests, nine geography tests and nine browser groups pass; Central adds three draw calls and stays near 16.7 ms median. [Evidence and policy](review-sections/README.md).
-
-**Previous delivery:** `5494ad6` completes HKS-170's bounded implementation. All **162 city tests**, **190 saved arrivals**, original source/model preservation, forward/reverse Navigation and actual browser walking/picking/day/night/mobile checks pass. Median frame time is 16.7 ms, p95 <=16.8 ms on desktop Chrome including a mobile-sized viewport. Source-specific house stilts/private decks remain unverified; wider north-west Lantau review stays open. [Full evidence and limits](tai-o-completion/README.md).
-
-The completed control follow-up remains `783cb62` (HKS-190, In Review): Live/Manual Clock button, Live date lock and distant shimmer in Weather. [Evidence](clock-toggle/README.md).
+Whole-section readiness remains **0 Ready, 0 Close, 6 Under review, 126 Base mapped**. [Review evidence and policy](review-sections/README.md). Latest evidence: [Mui Wo](mui-wo-completion/README.md), [haze](atmosphere/README.md), [golden sky and shadows](golden-hour/README.md).
 
 ## Execution issue index
 
@@ -31,11 +30,11 @@ The completed control follow-up remains `783cb62` (HKS-190, In Review): Live/Man
 
 - [HKS-167 — Extend Mui Wo detailed government models beyond Pak Ngan Heung](https://linear.app/stealth-company/issue/HKS-167/extend-mui-wo-detailed-government-models-beyond-pak-ngan-heung) — In Review; 8 points.
 - [HKS-170 — Complete Tai O channels, stilt-building placement and village routes](https://linear.app/stealth-company/issue/HKS-170/complete-tai-o-channels-stilt-building-placement-and-village-routes) — In Review; 8 points.
-- [HKS-171 — Complete south Lantau village terrain, shores and local routes](https://linear.app/stealth-company/issue/HKS-171/complete-south-lantau-village-terrain-shores-and-local-routes) — Backlog; 8 points.
+- [HKS-171 — Complete south Lantau village terrain, shores and local routes](https://linear.app/stealth-company/issue/HKS-171/complete-south-lantau-village-terrain-shores-and-local-routes) — In Progress; 8 points.
 - [HKS-172 — Complete Tung Chung, Discovery Bay and northern Lantau village detail](https://linear.app/stealth-company/issue/HKS-172/complete-tung-chung-discovery-bay-and-northern-lantau-village-detail) — Backlog; 8 points.
 - [HKS-173 — Complete airport buildings, reclamation and runway geography](https://linear.app/stealth-company/issue/HKS-173/complete-airport-buildings-reclamation-and-runway-geography) — Backlog; 8 points.
 - [HKS-174 — Complete Ngong Ping and the Lantau mountain approach routes](https://linear.app/stealth-company/issue/HKS-174/complete-ngong-ping-and-the-lantau-mountain-approach-routes) — Backlog; 8 points.
-- [HKS-192 — Complete Mui Wo terrain, village models and public walking review](https://linear.app/stealth-company/issue/HKS-192/complete-mui-wo-terrain-village-models-and-public-walking-review) — In Progress; 8 points.
+- [HKS-192 — Complete Mui Wo terrain, village models and public walking review](https://linear.app/stealth-company/issue/HKS-192/complete-mui-wo-terrain-village-models-and-public-walking-review) — In Review; 8 points.
 
 ### HKS-123
 
@@ -44,11 +43,11 @@ The completed control follow-up remains `783cb62` (HKS-190, In Review): Live/Man
 
 ### HKS-124
 
-- [HKS-193 — Complete Central core, waterfront and SoHo city review](https://linear.app/stealth-company/issue/HKS-193/complete-central-core-waterfront-and-soho-city-review) — In Progress; 8 points.
+- [HKS-193 — Complete Wan Chai to Sheung Wan city detail, including Central](https://linear.app/stealth-company/issue/HKS-193/complete-wan-chai-to-sheung-wan-city-detail-including-central) — In Progress; 8 points.
 
 ### HKS-126
 
-- [HKS-191 — Replace Tsing Ma Bridge terrain artefact with a verified bridge model](https://linear.app/stealth-company/issue/HKS-191/replace-tsing-ma-bridge-terrain-artefact-with-a-verified-bridge-model) — In Progress; 8 points.
+- [HKS-191 — Repair Tsing Ma and Ting Kau bridge models and terrain artefacts](https://linear.app/stealth-company/issue/HKS-191/repair-tsing-ma-and-ting-kau-bridge-models-and-terrain-artefacts) — In Progress; 8 points.
 
 ### HKS-129
 
@@ -57,6 +56,7 @@ The completed control follow-up remains `783cb62` (HKS-190, In Review): Live/Man
 - [HKS-180 — Restore tides, typhoon and remaining manual weather controls](https://linear.app/stealth-company/issue/HKS-180/restore-tides-typhoon-and-remaining-manual-weather-controls) — In Progress; 8 points.
 - [HKS-181 — Restore marine, radar, satellite and air-quality observations](https://linear.app/stealth-company/issue/HKS-181/restore-marine-radar-satellite-and-air-quality-observations) — Backlog; 8 points.
 - [HKS-189 — Add adjustable city timelapse beside the 24-hour dial](https://linear.app/stealth-company/issue/HKS-189/add-adjustable-city-timelapse-beside-the-24-hour-dial) — In Review; 4 points.
+- [HKS-195 — Add adjustable atmospheric haze and night-sky clarity in Weather](https://linear.app/stealth-company/issue/HKS-195/add-adjustable-atmospheric-haze-and-night-sky-clarity-in-weather) — In Review; 4 points.
 
 ### HKS-130
 
@@ -78,12 +78,3 @@ The completed control follow-up remains `783cb62` (HKS-190, In Review): Live/Man
 - [HKS-188 — Restore original fullscreen, PWA, offline and help behaviours](https://linear.app/stealth-company/issue/HKS-188/restore-original-fullscreen-pwa-offline-and-help-behaviours) — Backlog; 8 points.
 - [HKS-190 — Redesign city controls for mobile bottom sheets and desktop panels](https://linear.app/stealth-company/issue/HKS-190/redesign-city-controls-for-mobile-bottom-sheets-and-desktop-panels) — In Review; 4 points.
 
-## Prior verified delivery
-
-- `fd64435` / HKS-167: 1,327 detailed government models, preserving all 346,115 forms and 342,223 official source IDs. [Mui Wo evidence](mui-wo-buildings/extension/README.md).
-- `8aa4996` / HKS-168–169: original shooting stars, lightning/thunder and weather audio. [Evidence](environment-parity/README.md).
-- `a6f43bc` / HKS-180: original tides/waves, HKO predictions and manual sea-level integration. [Evidence](tides/README.md). Remaining weather controls stay open.
-- `e2c50f9`, `c9f1a79`, `46b67ed`, `783cb62` / HKS-189–190: modern mobile/desktop controls, 1×–7,200× timelapse, Time tab, Clock toggle and Weather shimmer. [Controls](control-sheet/README.md) · [Timelapse](time-cycle/README.md).
-- `72df3cf` / HKS-170: 532 detailed Tai O models, local terrain and arrival repair. [Evidence](tai-o-models/README.md). Model import alone does not satisfy full channel/stilt/route acceptance.
-
-The machine-readable status snapshot is [EXECUTION-ISSUES.json](EXECUTION-ISSUES.json). The existing regional parents retain all 132 sections; whole-region and original-game parity acceptance remain open. After each completed implementation or hand-off, update the relevant leaf, parents, milestone and local trackers with commit, evidence and remaining limits.
