@@ -7,6 +7,7 @@ import {AIRCRAFT} from './aircraft.js';
 import {CityStreaming} from './streaming.js';
 import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';
+import {ReviewSections} from './review-sections.js';
 import {describeBuilding} from './building-geometry.js';
 import {regionalPlaceMatches} from './regional-data.js';
 import {PLACES,REGIONS,closestPlace} from './places.js';
@@ -19,7 +20,7 @@ const $=id=>document.getElementById(id),motionPreference=matchMedia('(prefers-re
 let reduced=motionPreference.matches;
 let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween,regionalDetail,bridgeLayer;
 let catalogue=[],overview={},cataloguePromise,travel=0,modeRequest=0,selectedId=null,selectedIndex=-1,loadingTravel=false,lastHud=0,lastStream=0,startTime=0;
-let controlSheet,environment,stargazer,observerCache,toastTimer,lightState=cityLighting(15),mapBackdrop,mapStamp,mapBounds=[-3600,-2600,3600,2900];
+let sectionReview,controlSheet,environment,stargazer,observerCache,toastTimer,lightState=cityLighting(15),mapBackdrop,mapStamp,mapBounds=[-3600,-2600,3600,2900];
 const labelEntries=[],temp=new THREE.Vector3(),raycaster=new THREE.Raycaster();
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),4400);}
 function transition(position,target,duration=1.6){tween={from:camera.position.clone(),to:new THREE.Vector3(...position),targetFrom:controls.target.clone(),targetTo:new THREE.Vector3(...target),elapsed:0,duration:reduced?.001:duration};}
@@ -45,6 +46,19 @@ async function goPlace(key,animate=true){
  try{await stream.arrive(p.target[0],p.target[2],key==='lantaupeaks'?6000:3200);if(token!==travel)return;}
  catch(error){if(token===travel&&error.name!=='AbortError')toast('This area could not finish loading. Use Retry to try again.');}
  finally{if(token===travel){loadingTravel=false;updateStreamStatus();}}
+}
+async function visitReviewSection(section){
+ const key=section.placeIds?.find(id=>PLACES[id]),token=key?travel+1:++travel;
+ if(key)await goPlace(key,false);else{++modeRequest;loadingTravel=false;updateStreamStatus();}
+ if(token!==travel||!sectionReview.enabled)return;
+ if(stargazer.active)setStargazing(false);if(nav.mode!=='orbit')nav.setMode('orbit',PLACES[place].spawn);closeSelection();
+ const [a,b,c,d]=section.bounds,x=(a+c)/2,z=(b+d)/2,y=Math.max(1.5,sampler.height(x,z));
+ // Fit both axes, including the narrow mobile viewport. Leave room for the collapsed controls.
+ const halfFov=Math.tan(camera.fov*Math.PI/360),top=90,bottom=innerWidth<=760?250:125,usableY=Math.max(.3,(innerHeight-top-bottom)/innerHeight);
+ const distance=Math.max(900,Math.max((c-a)/(camera.aspect*.9),(d-b)/usableY)/(2*halfFov)*1.05),centreZ=z+(bottom-top)*distance*halfFov/innerHeight;
+ controls.maxDistance=Math.max(65000,distance*1.1);camera.far=Math.max(100000,distance*1.5);camera.updateProjectionMatrix();
+ transition([x,y+distance,centreZ+.1],[x,y,centreZ],1.2);controlSheet.close({restoreFocus:false});
+ if(section.overview){$('place-title').textContent='Hong Kong';$('place-subtitle').textContent='132 REVIEW SECTIONS';$('place-description').textContent='Approximate project borders · choose a section number to review.';}
 }
 async function chooseMode(mode){
  if(mode==='walk'&&PLACES[place].aerialOnly){toast('This place is available from the air. Choose a nearby village or town to walk.');return;}
@@ -233,6 +247,7 @@ async function init(){
  stream=new CityStreaming({manifest,terrain:data,sampler,scene,activity,onChange:updateStreamStatus});ferries=makeFerries();ferries.update(0);scene.add(ferries.group);
  let maskedSurfaces=0;regionalDetail=new RegionalDetail({scene,sampler,onChange:()=>{if(regionalDetail&&regionalDetail.surfaceCount!==maskedSurfaces){maskedSurfaces=regionalDetail.surfaceCount;stream.setSurfaceExclusions(regionalDetail.mappedSurfaces);}updateStreamStatus();}});
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus});
+ sectionReview=new ReviewSections({scene,sampler,onVisit:visitReviewSection,onSelect:()=>{closeSelection();controlSheet.open('places');$('section-review').scrollIntoView({block:'start'});}});
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,surfaces:bridgeLayer.surfaces,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
  controlSheet=createControlSheet({onExpand:()=>nav.clearInput(),focusMap:()=>renderer.domElement.focus({preventScroll:true})});
  stargazer=new StargazeControls({camera,controls,canvas:renderer.domElement,onPick:point=>{const star=environment.sky.pick(point);$('sky-selection').textContent=star?`Star HR ${star.hr} · ${star.constellations.map(c=>c.en+' '+c.zh).join(', ')||'No figure in this catalogue'} · ${star.altitudeDeg.toFixed(0)}° above the horizon`:'No bright star selected. Try another part of the sky.';}});
@@ -243,7 +258,7 @@ async function init(){
   }return observerCache;
  },onClock:s=>{lightState=s;}});makeLabels();
  $('snapshot-date').textContent=manifest.snapshot.slice(0,10);$('loading').style.opacity='0';setTimeout(()=>$('loading').hidden=true,750);
- window.__city={get ready(){return true;},get state(){return {controls:controlSheet.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,placeCount:Object.keys(PLACES).length,layers:{bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
+ window.__city={get ready(){return true;},get state(){return {controls:controlSheet.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,placeCount:Object.keys(PLACES).length,sections:sectionReview.state,layers:{sections:sectionReview.enabled,bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
  startTime=performance.now();requestAnimationFrame(animate);const initial=new URLSearchParams(location.search).get('district');goPlace(Object.hasOwn(PLACES,initial)?initial:'central',false);
  // Regional surfaces and search are independent of building/terrain readiness.
  for(const name of ['islands','urban','nt'])regionalDetail.load(`city/data/regional/${name}.json`);
@@ -268,6 +283,11 @@ function animate(now){
  if(now-lastHud>300){updateLabels();drawMinimap();updateStreamStatus();if(nav.mode==='fly')syncAircraftUI();
   if(nav.mode==='walk'){$('journey-value').textContent=`${Math.round(nav.distance)} m`;$('journey-detail').textContent=stream.readyAt(nav.position.x,nav.position.z,350)?nav.firstPerson?'First person':'Taking the scenic route':'Waiting for the neighbourhood…';}
   if(nav.mode==='fly'){$('journey-value').textContent=`${Math.round(nav.position.y)} m`;$('journey-detail').textContent=stream.readyAt(nav.position.x,nav.position.z,350)?`${Math.round(nav.speed*3.6)} km/h · ${nav.firstPerson?'Pilot’s eye':'Chase camera'}`:'Waiting for the neighbourhood…';}lastHud=now;
- }renderer.render(scene,camera);
+ }sectionReview.update(camera,focus,now,{suppressed:stargazer.active});
+ // In the optional review layer, keep a high overhead map legible through the atmosphere.
+ // Restore the exact environment fog afterwards; manual/live weather state is unchanged.
+ const fogDensity=scene.fog.density;
+ if(sectionReview.enabled&&nav.mode==='orbit'&&!stargazer.active&&scene.fog.isFogExp2)scene.fog.density*=Math.min(1,12000/Math.max(12000,camera.position.y));
+ renderer.render(scene,camera);scene.fog.density=fogDensity;
 }
 init().catch(error=>{console.error('City failed to load',error);$('loading-detail').textContent=`The city could not load. ${error.message}. Reload to try again.`;$('loading').querySelector('.loading-line').hidden=true;});

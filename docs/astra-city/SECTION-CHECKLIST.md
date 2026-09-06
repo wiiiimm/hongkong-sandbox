@@ -9,7 +9,9 @@ Created by GPT-6 Astra on 6 September 2026 for the isolated comparison branch.
 
 ## How to use this list
 
-The 18 administrative districts provide the coverage spine. The smaller sections below are proposed modelling and review areas, not official neighbourhood boundaries. Each includes its surrounding streets, estates, villages, hills, coastline and small islets. Shared edges must be checked against the official boundary dataset and assigned once when section polygons are drawn. No district polygons have been added to the renderer yet.
+The 18 administrative districts provide the coverage spine. The smaller sections below are proposed modelling and review areas, not official neighbourhood boundaries. Each includes its surrounding streets, estates, villages, hills, coastline and small islets. The optional **#132** review layer now draws every numbered section. Version `had-2016-project-2026-09-07-v1` partitions the retained official HAD district dataset, including district waters, using existing place anchors and explicit island ownership. Internal borders are approximate review divisions. The source records expose a 2016 lifespan; the retrieval date is not a claimed survey revision. Four saved-place/district conflicts and the airport reclamation split are documented in [the geography audit](review-sections/geography.md).
+
+The readiness ledger currently records **0 Ready, 0 Close to ready, 6 Under review and 126 Base mapped**. Close to ready requires four of the six section-wide checks, including ground and buildings, with evidence and no blockers; Ready requires all six. Local route acceptance or a source import alone cannot promote the wider section. [Overlay use, verification and update workflow](review-sections/README.md).
 
 Use a stable reference such as **01.1 Central core** when choosing the next section. An empty checkbox means its detailed geography and gameplay review remains outstanding; importing geometry alone does not complete it. Split a section further if it is too large for one review.
 

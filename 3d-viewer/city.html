@@ -9,6 +9,7 @@
 <body>
 <main id="viewport" aria-label="Interactive 3D Hong Kong city"></main>
 <div id="labels" aria-hidden="true"></div>
+<div id="section-labels" aria-label="Numbered review sections" hidden></div>
 <header class="topbar">
  <a class="brand" href="city.html" aria-label="Hong Kong Sandbox city home"><svg viewBox="0 0 36 36" fill="none" aria-hidden="true"><path d="M3 26 12 9l7 12 5-8 9 13M3 30h30M12 9v17m12-13v13" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>HONG KONG<span class="brand-sub">S A N D B O X</span></span></a>
  <div class="edition"><span class="live-dot"></span> CITY EXPLORER <span class="edition-divider">/</span> ASTRA EDITION</div>
@@ -25,6 +26,17 @@
  <div class="search-wrap"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><path d="m12 12 5 5"/></svg><input id="search" type="search" placeholder="Find a place or building…" aria-label="Find a place or building" autocomplete="off"><kbd>/</kbd></div>
  <div id="search-results" role="list" aria-label="Place and building search results" hidden></div>
  <section id="panel-places" role="tabpanel" aria-labelledby="tab-places">
+ <section id="section-review" class="section-review" hidden aria-label="Section review tracker">
+  <div class="section-label">REVIEW SECTIONS <span>132 AREAS</span></div>
+  <p id="section-summary" class="review-summary" role="status">Readiness is based on whole-section checks.</p>
+  <p id="section-loading" class="source-note" role="status"></p><button id="section-retry" class="review-action" hidden>Retry section layer</button>
+  <label class="review-picker" for="section-select">Review an area<select id="section-select" disabled><option>Loading sections…</option></select></label>
+  <p id="section-state" class="review-state"></p><h3 id="section-name"></h3><p id="section-note" class="source-note"></p>
+  <div class="review-actions"><button id="section-visit" class="review-action" disabled>Show this section ↗</button><button id="section-overview" class="review-action" disabled>All Hong Kong</button></div>
+  <details><summary>Checks & readiness</summary><ul id="section-checks"></ul><p class="source-note">Close to ready requires four of six checks across the whole section, including ground and buildings, with no known blockers. Ready requires all six.</p></details>
+  <div id="section-issues" class="section-issues"></div><p id="section-boundary-note" class="source-note"></p><p id="section-version" class="source-note"></p>
+ </section>
+
  <div class="section-label">NEIGHBOURHOODS <span id="neighbourhood-count">GO SOMEWHERE</span></div>
  <div class="region-tabs" id="region-list" aria-label="Region"></div>
  <div class="districts" id="district-list"></div>
@@ -36,6 +48,7 @@
   <label><span><span class="layer-icon">╤</span> Footbridges</span><input type="checkbox" id="layer-bridges" checked><span class="switch"></span></label>
   <label><span><span class="layer-icon">▱</span> Local detail</span><input type="checkbox" id="layer-surfaces" checked><span class="switch"></span></label>
   <label><span><span class="layer-icon">⌖</span> Place names</span><input type="checkbox" id="layer-labels" checked><span class="switch"></span></label>
+  <label><span><span class="layer-icon">#</span> Review sections · 132</span><input type="checkbox" id="layer-sections"><span class="switch"></span></label>
  </div>
  </section>
  <section id="panel-time" role="tabpanel" aria-labelledby="tab-time" hidden>
@@ -79,7 +92,7 @@
  <div class="panel-foot"><span class="live-dot"></span><span id="data-summary">Building your city…</span><span class="scale-tag">1:1</span></div>
  </div>
 </aside>
-<div class="view-tools panel"><button id="reset-view" title="Reset neighbourhood view" aria-label="Reset neighbourhood view">↺</button><button id="top-view" title="View from above" aria-label="View from above">⊞</button><button id="postcard" title="Save a postcard" aria-label="Save a postcard">▣</button></div>
+<div class="view-tools panel"><button id="section-grid-toggle" title="Show numbered review sections" aria-label="Show numbered review sections" aria-pressed="false">#132</button><button id="reset-view" title="Reset neighbourhood view" aria-label="Reset neighbourhood view">↺</button><button id="top-view" title="View from above" aria-label="View from above">⊞</button><button id="postcard" title="Save a postcard" aria-label="Save a postcard">▣</button></div>
 <section id="building-card" class="panel building-card" hidden aria-label="Selected building">
  <button id="selection-close" class="close-button" aria-label="Close building details">×</button><div class="eyebrow">A CLOSER LOOK</div><h2 id="building-name"></h2><p id="building-zh"></p><div class="building-stats"><div><strong id="building-height"></strong><small id="building-height-label">HEIGHT</small></div><div><strong id="building-levels"></strong><small id="building-levels-label">FLOORS</small></div></div><p id="building-source" class="source-note"></p><p id="building-activity" class="source-note"></p><a id="building-osm" target="_blank" rel="noopener">View source record ↗</a>
 </section>
