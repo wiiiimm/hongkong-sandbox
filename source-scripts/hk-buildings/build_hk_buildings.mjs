@@ -34,12 +34,24 @@
  *   count × record:
  *     u8 flags   bits0-1 type (0 Tower, 1 Podium, 2 Open-sided, 3 Temporary)
  *                bit2 height estimated (source had none)   bit3 base unknown (drape on ground)
+ *                bits4-6 land use at the footprint centroid (see USE below): 0 residential /
+ *                unclassified, 1 office & commercial, 2 retail (a podium in a commercial or
+ *                mixed zone), 3 industrial, 4 institutional (G/IC), 5 rural village, 6 other
  *     varint nRings; per ring: varint nVerts, then nVerts × (zigzag dE, zigzag dN) in quanta,
  *       delta-coded from the previous vertex; ring 0's first vertex is a delta from the
  *       previous record's first vertex (records are tile-sorted so this stays small);
  *       ring k>0 starts as a delta from ring 0's first vertex
  *     zigzag base (dm)   varint height (dm)
  *   Rings are simplified (Douglas–Peucker, 0.3 m) and the GeoJSON closing vertex dropped.
+ *
+ * Land use (for the night-lights bedtime curves — HKS-114 follow-up): each block's
+ * centroid is classified against the Planning Department's "2023 Raster Grids on Land
+ * Utilization" (LUHK, 10 m, CSDI dataset pland_rcd_1696577406166_85973, DATA.GOV.HK
+ * Terms of Use). The GeoTIFF download is CDN-gated, so the script pulls the raster
+ * through the dataset's public ArcGIS MapServer as four native-resolution BMP exports
+ * (uncompressed, exact grey per class value); the grey→class table below was
+ * established by `identify` queries against the same service, cross-checked against
+ * the raster attribute table's per-value pixel counts (an exact match for every code).
  *
  * Run:  node source-scripts/hk-buildings/build_hk_buildings.mjs
  * Requires only Node ≥ 18 (fetch, zlib). ~2 GB free RAM.
@@ -66,6 +78,75 @@ const ORIGIN_E = 800000, ORIGIN_N = 800000;
 const DEFAULT_H = { 2: 3.5, 3: 3.0 };   // metres for height-less open-sided / temporary structures
 const NAME_MIN_H = 100;          // metres — named towers this tall go to the names sidecar
 const TYPE = { 'Tower': 0, 'Podium': 1, 'Open-sided Structure': 2, 'Temporary Structure': 3 };
+
+// ---- PlanD LUHK 2023 land-utilisation raster (via the CSDI MapServer) ----------------------
+const LUHK_SVC = 'https://portal.csdi.gov.hk/server/rest/services/common/pland_rcd_1696577406166_85973/MapServer/export';
+// four tiles at the raster's native 10 m: 3188 × 2400 px each (the service caps exports at 4096)
+const LUHK_TILES = [
+  { name: 'luhk_nw', bbox: [800000, 824000, 831880, 848000] }, { name: 'luhk_ne', bbox: [831880, 824000, 863760, 848000] },
+  { name: 'luhk_sw', bbox: [800000, 800000, 831880, 824000] }, { name: 'luhk_se', bbox: [831880, 800000, 863760, 824000] },
+];
+// exported grey level → LUHK class value (from identify; counts matched the raster attribute table).
+// The service's stretch renders values 1–3 — Private Residential, Public Residential and Rural
+// Settlement — as black (0), the same as no-data. Confirmed by sampling 43k named towers: 96% of
+// public housing estates and 95% of the big private estates fall on 0, while 68% of Central's
+// office towers hit 11, 92% of "… Industrial Building" 21, and 90% of hospitals / schools /
+// police stations 31. So 0 in a built-up area means residential — which is the default class.
+const LUHK_GREY = { 32: 11, 61: 21, 64: 22, 67: 23, 91: 31, 94: 32, 120: 41, 123: 42, 126: 43, 129: 44, 150: 51, 153: 52, 155: 53, 158: 54,
+                    179: 61, 182: 62, 208: 71, 211: 72, 214: 73, 217: 74, 238: 81, 244: 83, 253: 91, 255: 92 };
+// LUHK class value → the viewer's use class (bits 4-6 of the record flags)
+const USE = { RES: 0, OFFICE: 1, RETAIL: 2, INDUSTRIAL: 3, INSTITUTION: 4, VILLAGE: 5, OTHER: 6 };
+const LUHK_USE = {
+  0: USE.RES,                                        // 1 Private Residential · 2 Public Residential · 3 Rural Settlement (all render black — see above)
+  11: USE.OFFICE,                                    // Commercial
+  21: USE.INDUSTRIAL, 22: USE.INDUSTRIAL, 23: USE.INDUSTRIAL,   // Industrial land · Industrial estates / science parks · Warehouse & open storage
+  31: USE.INSTITUTION,                               // Government, Institution & Community facilities
+  32: USE.OTHER,                                     // Open space & recreation (park buildings, clubhouses, stadia)
+  41: USE.OTHER, 42: USE.OTHER, 43: USE.OTHER, 44: USE.OTHER,   // Transportation: roads · railways · airport · port
+  51: USE.OTHER, 52: USE.OTHER, 53: USE.OTHER, 54: USE.OTHER,   // Other urban or built-up land: cemeteries · utilities · vacant/construction · other
+  61: USE.VILLAGE, 62: USE.VILLAGE,                  // Agricultural land · Fish ponds / gei wais (blocks here are village houses and farm sheds)
+  71: USE.VILLAGE, 72: USE.VILLAGE, 73: USE.VILLAGE, 74: USE.VILLAGE,   // Woodland · Shrubland · Grassland · Mangrove / swamp (squatter huts, hillside villages)
+  81: USE.OTHER, 83: USE.OTHER, 91: USE.OTHER, 92: USE.OTHER,   // Badland / quarry / rocky shore · other · reservoirs · streams
+};
+let luhk = null;   // { tiles: [{ x0, y0, x1, y1, w, h, data(Uint8Array grey), off, row }] }
+async function ensureLuhk() {
+  mkdirSync(CACHE, { recursive: true });
+  const tiles = [];
+  for (const t of LUHK_TILES) {
+    const file = join(CACHE, t.name + '.bmp');
+    if (!existsSync(file) || statSync(file).size < 1e6) {
+      const u = `${LUHK_SVC}?bbox=${t.bbox.join(',')}&bboxSR=2326&imageSR=2326&size=3188,2400&format=bmp&transparent=false&f=image`;
+      console.log('fetching LUHK tile', t.name);
+      const res = await fetch(u); if (!res.ok) throw new Error(`HTTP ${res.status} LUHK ${t.name}`);
+      await pipeline(Readable.fromWeb(res.body), createWriteStream(file));
+    }
+    const b = readFileSync(file);
+    if (b[0] !== 0x42 || b[1] !== 0x4d) throw new Error(`${t.name}: not a BMP`);
+    const off = b.readUInt32LE(10), w = b.readInt32LE(18), h = b.readInt32LE(22), bpp = b.readUInt16LE(28);
+    const row = Math.floor((w * bpp / 8 + 3) / 4) * 4, step = bpp / 8, topDown = h < 0, H = Math.abs(h);
+    tiles.push({ x0: t.bbox[0], y0: t.bbox[1], x1: t.bbox[2], y1: t.bbox[3], w, H, topDown, off, row, step, b });
+  }
+  luhk = { tiles };
+}
+function luhkAt(E, N) {                 // LUHK class value at a HK1980 point, or 0
+  if (!luhk) return 0;
+  for (const t of luhk.tiles) {
+    if (E < t.x0 || E >= t.x1 || N < t.y0 || N >= t.y1) continue;
+    const x = Math.min(t.w - 1, Math.floor((E - t.x0) / (t.x1 - t.x0) * t.w));
+    let y = Math.min(t.H - 1, Math.floor((t.y1 - N) / (t.y1 - t.y0) * t.H));
+    if (!t.topDown) y = t.H - 1 - y;
+    return LUHK_GREY[t.b[t.off + y * t.row + x * t.step]] || 0;
+  }
+  return 0;
+}
+// use class for a block: the raster cell under the footprint centroid (0 = residential)
+function useOf(E, N, type) {
+  const v = luhkAt(E, N);
+  let use = LUHK_USE[v] ?? USE.RES;
+  // podiums in commercial and residential zones are shopping floors — retail hours
+  if (type === 1 && (use === USE.OFFICE || use === USE.RES)) use = USE.RETAIL;
+  return use;
+}
 
 // ---- HK1980 grid: WGS84 → HK80 (Helmert, inverse EPSG:1825) → Transverse Mercator --------
 const D2R = Math.PI / 180, AS2R = D2R / 3600;
@@ -179,9 +260,10 @@ async function ensureSource() {
 
 // ---- main ----------------------------------------------------------------------------------
 await ensureSource();
+await ensureLuhk();
 const t0 = Date.now();
 const recs = [];                          // { E0, N0, tile, flags, rings:[[ [qE,qN],… ]], baseDm, hDm, name }
-const stats = { read: 0, kept: 0, droppedGeom: 0, vertsIn: 0, vertsOut: 0, holes: 0, estimatedH: 0, byType: {} };
+const stats = { read: 0, kept: 0, droppedGeom: 0, vertsIn: 0, vertsOut: 0, holes: 0, estimatedH: 0, byType: {}, byUse: {}, byLuhk: {} };
 const names = new Map();                  // en → { en, tc, E, N, top, h }
 for await (const f of features(SRC_FILE)) {
   stats.read++;
@@ -214,6 +296,12 @@ for await (const f of features(SRC_FILE)) {
     if (base == null || top == null || top - base <= 0) {
       h = DEFAULT_H[type] ?? 3.5; flags |= 4 | 8; base = 0; stats.estimatedH++;   // estimated height, unknown base → drape
     } else h = top - base;
+    // land use at the footprint centroid (quanta → metres)
+    let cx = 0, cy = 0; for (const v of rings[0]) { cx += v[0]; cy += v[1]; }
+    const cE = ORIGIN_E + cx / rings[0].length * QUANT, cN = ORIGIN_N + cy / rings[0].length * QUANT;
+    const lu = luhkAt(cE, cN), use = useOf(cE, cN, type);
+    flags |= use << 4;
+    stats.byLuhk[lu] = (stats.byLuhk[lu] || 0) + 1; stats.byUse[use] = (stats.byUse[use] || 0) + 1;
     const rec = { E0: rings[0][0][0], N0: rings[0][0][1], flags, rings, baseDm: Math.round(base * 10), hDm: Math.round(h * 10) };
     // 2 km tile key for the sort (row-major, north→south then west→east) keeps first-vertex deltas small
     const tE = Math.floor(rec.E0 * QUANT / 2000), tN = Math.floor(rec.N0 * QUANT / 2000);
@@ -226,8 +314,7 @@ for await (const f of features(SRC_FILE)) {
       const en = p.BuildingNameEN.trim(), prev = names.get(en);
       if (!prev || h > prev.h) {
         // label at the footprint centroid (quanta → metres)
-        let cx = 0, cy = 0; for (const v of rings[0]) { cx += v[0]; cy += v[1]; }
-        names.set(en, { en, tc: (p.BuildingNameTC || '').trim(), E: Math.round(ORIGIN_E + cx / rings[0].length * QUANT), N: Math.round(ORIGIN_N + cy / rings[0].length * QUANT), top: Math.round(top * 10) / 10, h: Math.round(h * 10) / 10 });
+        names.set(en, { en, tc: (p.BuildingNameTC || '').trim(), E: Math.round(cE), N: Math.round(cN), top: Math.round(top * 10) / 10, h: Math.round(h * 10) / 10, use });
       }
     }
   }
@@ -272,6 +359,7 @@ const meta = {
   crs: 'HK1980 grid (EPSG:2326); heights in metres above HK Principal Datum',
   generated: new Date().toISOString().slice(0, 10), format: 'HKBL v1, gzip', quant: QUANT, origin: [ORIGIN_E, ORIGIN_N],
   count: recs.length, verts: stats.vertsOut, holes: stats.holes, estimatedHeights: stats.estimatedH, byType: stats.byType,
+  landUse: { source: 'PlanD 2023 Raster Grids on Land Utilization (LUHK, 10 m) via CSDI MapServer', useClasses: USE, blocksByUse: stats.byUse, blocksByLuhkCode: stats.byLuhk },
   bytes: { raw: raw.length, gzip: gz.length }, names: nameList.length,
 };
 writeFileSync(join(OUT_DIR, 'hk-buildings.json'), JSON.stringify(meta, null, 1));

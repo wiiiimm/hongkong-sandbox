@@ -36,5 +36,6 @@ source-scripts/hk-sky/cache/hip_main.dat
 # demand by source-scripts/hk-buildings/build_hk_buildings.mjs — far too big to
 # commit; the compact binary it produces (3d-viewer/data/hk-buildings.bin) IS committed.
 source-scripts/hk-buildings/cache/*.geojson
+source-scripts/hk-buildings/cache/*.bmp        # PlanD land-utilisation raster tiles (4 × 30 MB), re-exported on demand
 # LandsD 5 m DTM (28.7 MB zip / 302 MB ASC) — fetched on demand by source-scripts/hk-5m/build_urban_mesh.mjs
 source-scripts/hk-5m/cache/
