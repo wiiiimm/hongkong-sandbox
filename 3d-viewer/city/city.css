@@ -27,3 +27,8 @@ body.exploring-person .explorer.open{opacity:1;pointer-events:auto;display:block
 
 .night #touch-controls button{background:#243b34ed;color:#f1f5df;border-color:#93a48a}
 @media(max-width:760px){body:has(#explorer.open) #flight-controls,body:has(#explorer.open) #touch-controls,body:has(#explorer.open) #control-hint{display:none}}
+
+.mode-dock button:disabled{cursor:not-allowed}.district small{overflow-wrap:anywhere}#search-results{max-height:min(55vh,440px);overflow:auto}
+
+@media(min-width:761px){#location-title{right:295px}#location-title h2{font-size:clamp(28px,3.2vw,46px);overflow-wrap:anywhere}#location-title h2 span{display:block;font-size:22px;margin:7px 0 0;letter-spacing:2px}#location-title p{max-width:620px;line-height:1.5}}
+@media(max-width:760px){#location-title{right:20px}#location-title h2{font-size:clamp(24px,7vw,35px)}#location-title h2 span{display:block;margin:5px 0 0;font-size:20px}}

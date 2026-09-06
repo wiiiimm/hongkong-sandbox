@@ -12,7 +12,7 @@ export class CityStreaming {
  constructor({manifest,terrain,sampler,scene,onChange,activity}){
   Object.assign(this,{manifest,terrain,sampler,scene,onChange,activity});this.meta=new Map(manifest.tiles.map(t=>[t.id,t]));
   this.buildings=new THREE.Group();this.roads=new THREE.Group();this.trees=new THREE.Group();scene.add(this.buildings,this.roads,this.trees);
-  this.lighting={night:{value:0},activity:{value:new Float32Array(cityLighting(15).activity.slice(0,4))},retail:{value:cityLighting(15).activity[4]},elapsed:{value:0},shimmer:{value:1}};this.night=this.lighting.night;this.focus=[0,420];this.detailRadius=2200;this.revision=0;
+  this.lighting={night:{value:0},activity:{value:new Float32Array(cityLighting(15).activity.slice(0,4))},retail:{value:cityLighting(15).activity[4]},elapsed:{value:0},shimmer:{value:1}};this.surfaceMask=null;this.bridgeRoadIds=new Set();this.night=this.lighting.night;this.focus=[0,420];this.detailRadius=2200;this.revision=0;
   this.cache=new TileCache({limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.onChange?.();}});
  }
  async load(id,signal){
@@ -24,11 +24,23 @@ export class CityStreaming {
   let roads,nature;
   try{
    if(signal.aborted)throw new DOMException('Aborted','AbortError');
-   roads=makeRoads(data.roads,this.sampler,this.lighting);
+   roads=makeRoads(data.roads,this.sampler,this.lighting,{excludeIds:this.bridgeRoadIds});
    const [x,z]=id.split('_').map(Number),s=this.manifest.tileSize;
    nature=makeNature(data.parks,this.terrain,this.sampler,index,{bounds:[x*s,z*s,(x+1)*s,(z+1)*s],seed:(x*73856093^z*19349663)>>>0});
+   if(this.surfaceMask)nature.applyMask((x,z,r)=>!!this.surfaceMask.collision(x,z,0,1000,r));
    return {id,data,index,buildings,roads,nature};
   }catch(error){disposeGroup(buildings.group);if(roads)disposeGroup(roads);if(nature)disposeGroup(nature.group);throw error;}
+ }
+ suppressBridgeRoads(ids){
+  this.bridgeRoadIds=new Set(ids);
+  for(const entry of this.cache.entries.values()){
+   const roads=makeRoads(entry.data.roads,this.sampler,this.lighting,{excludeIds:this.bridgeRoadIds});
+   disposeGroup(entry.roads);entry.roads=roads;this.roads.add(roads);
+  }this.sync();
+ }
+ setSurfaceExclusions(surfaces){
+  this.surfaceMask=new BuildingIndex(surfaces.map(s=>({...s,base:-1000,minimum:0,height:10000})));
+  for(const e of this.cache.entries.values())e.nature.applyMask((x,z,r)=>!!this.surfaceMask.collision(x,z,0,1000,r));
  }
  sync(){
   const wanted=new Set(this.cache.wanted);

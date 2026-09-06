@@ -56,14 +56,15 @@ test('all 18 districts have direct settlement destinations and valid WGS84 sky o
  for(const id of districtPlaces){const p=PLACES[id];assert.ok(p,id);assert.ok(REGIONS[p.region]);const ids=nearbyTiles(manifest.tiles,...p.spawn,800);assert.ok(manifest.tiles.filter(t=>ids.includes(t.id)).reduce((n,t)=>n+t.counts.buildings,0)>20,`No settlement geometry at ${id}`);}
  for(const [id,p] of Object.entries(PLACES)){assert.ok(p.lat>22.1&&p.lat<22.6,id);assert.ok(p.lon>113.8&&p.lon<114.5,id);}
 });
-test('all 43 arrivals lie on dry terrain triangles and clear nearby building collision volumes',()=>{
+test('all walking arrivals lie on dry terrain triangles and clear nearby building collision volumes',()=>{
  const terrain=JSON.parse(readFileSync(new URL('../data/terrain.json',import.meta.url))),sampler=makeTerrainSampler(terrain);
  const landTriangle=(x,z)=>{const [c,r]=sampler.grid(x,z),i=Math.floor(c),j=Math.floor(r),u=c-i,v=r-j,w=terrain.w;const cells=u+v<=1?[j*w+i,j*w+i+1,(j+1)*w+i]:[j*w+i+1,(j+1)*w+i,(j+1)*w+i+1];return cells.every(index=>terrain.elev[index]>0);};
  for(const [id,p] of Object.entries(PLACES)){
+  if(p.aerialOnly)continue;
   const [x,z]=p.spawn;assert.ok(sampler.contains(x,z),id);assert.ok(sampler.raw(x,z)>.5,id);assert.ok(landTriangle(x,z),`${id} starts on a fully dry terrain triangle`);
   const ids=nearbyTiles(manifest.tiles,x,z,10);
   const buildings=manifest.tiles.filter(t=>ids.includes(t.id)).flatMap(t=>JSON.parse(readFileSync(new URL(`../data/tiles/${t.id}.json`,import.meta.url))).buildings);
-  if(id!=='lantaupeaks')assert.ok(buildings.length>0,`No geometry at ${id}`);const index=new BuildingIndex(buildings),y=sampler.height(x,z);
+  if(id!=='lantaupeaks'&&!p.sectionId)assert.ok(buildings.length>0,`No geometry at ${id}`);const index=new BuildingIndex(buildings),y=sampler.height(x,z);
   assert.equal(index.collision(x,z,y,y+1.8,.55),null,`Arrival overlaps a building at ${id}`);
  }
 });

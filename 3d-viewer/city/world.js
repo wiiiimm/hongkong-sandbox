@@ -112,10 +112,11 @@ export async function makeBuildings(features,onProgress,options={}){
  }
  return {group,night,materials,totalVertices};
 }
-export function makeRoads(roads,sampler,lighting){
+export function makeRoads(roads,sampler,lighting,options={}){
  const group=new THREE.Group();group.name='Streets and paths';const surfaces={road:[],path:[],bridge:[]},uvs={road:[],path:[],bridge:[]};
  const widthFor={motorway:15,trunk:13,primary:11,secondary:9,tertiary:8,residential:6,unclassified:6,service:4,living_street:5,pedestrian:5,footway:2.1,path:1.7,steps:2,cycleway:2.5,runway:45,taxiway:20};
  for(const r of roads){
+  if(options.excludeIds?.has(r.id))continue;
   const width=widthFor[r.kind]||5,isPath=['footway','path','steps','pedestrian'].includes(r.kind),target=surfaces[r.bridge?'bridge':isPath?'path':'road'];
   const lift=r.bridge?Math.max(5,r.layer*5):.18;let along=0;const uv=uvs[r.bridge?'bridge':isPath?'path':'road'];
   for(let j=1;j<r.path.length;j++){
@@ -169,7 +170,20 @@ export function makeNature(parks,terrain,sampler,index,options={}){
  const trunks=new THREE.InstancedMesh(new THREE.CylinderGeometry(.35,.5,1,5),new THREE.MeshStandardMaterial({color:'#827f5e',roughness:1}),points.length);
  const dummy=new THREE.Object3D(),greens=['#587b55','#759165','#65845c','#8a9d71'].map(colour);
  points.forEach(([x,z,h],i)=>{const ground=sampler.height(x,z);dummy.position.set(x,ground+h*.65,z);dummy.scale.set(h*.48,h*.58,h*.43);dummy.rotation.y=rng()*Math.PI;dummy.updateMatrix();canopy.setMatrixAt(i,dummy.matrix);canopy.setColorAt(i,greens[i%greens.length]);dummy.position.y=ground+h*.25;dummy.scale.set(1,h*.5,1);dummy.updateMatrix();trunks.setMatrixAt(i,dummy.matrix);});
- canopy.castShadow=true;canopy.receiveShadow=true;group.add(canopy,trunks);return {group,count:points.length};
+ canopy.castShadow=true;canopy.receiveShadow=true;group.add(canopy,trunks);
+ // Keep original transforms so later-arriving surface packages can remove trees
+ // from courts, beaches and plazas without regenerating their random placement.
+ const canopyMatrices=canopy.instanceMatrix.array.slice(),trunkMatrices=trunks.instanceMatrix.array.slice(),colours=canopy.instanceColor?.array.slice();
+ const nature={group,count:points.length,applyMask(exclude){
+  let count=0;
+  for(let i=0;i<points.length;i++){
+   const [x,z,h]=points[i];if(exclude(x,z,h*.48))continue;
+   canopy.instanceMatrix.array.set(canopyMatrices.subarray(i*16,i*16+16),count*16);trunks.instanceMatrix.array.set(trunkMatrices.subarray(i*16,i*16+16),count*16);
+   if(colours)canopy.instanceColor.array.set(colours.subarray(i*3,i*3+3),count*3);count++;
+  }
+  canopy.count=trunks.count=nature.count=count;canopy.instanceMatrix.needsUpdate=trunks.instanceMatrix.needsUpdate=true;if(colours)canopy.instanceColor.needsUpdate=true;
+  canopy.computeBoundingSphere();trunks.computeBoundingSphere();
+ }};return nature;
 }
 export function makeFerries(){
  const group=new THREE.Group();const ferries=[];const mat=c=>new THREE.MeshStandardMaterial({color:c,roughness:.6});
