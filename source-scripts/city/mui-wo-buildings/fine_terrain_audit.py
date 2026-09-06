@@ -7,8 +7,17 @@ from shapely.geometry import Polygon
 HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('muiwo',HERE/'build.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class DemSampler(m.Terrain):
- def __init__(self,data,path=None):
-  self.path=path;self.dem=data;self.g=data['meta']['georef'];self.w=data['w']
+ def __init__(self,data,path=None,rendered=False):
+  self.rendered=rendered;self.path=path;self.dem=data;self.g=data['meta']['georef'];self.w=data['w']
+ def ground(self,x,z):
+  if not self.rendered:return super().ground(x,z)
+  g=self.g;c=(x+m.ORIGIN[0]-g['bE'])/g['aE'];r=(m.ORIGIN[1]-z-g['bN'])/g['aN'];i=min(self.w-2,max(0,int(c)));j=min(self.dem['h']-2,max(0,int(r)));u=c-i;v=r-j
+  display=self.dem.get('renderedElev');values=[]
+  for idx in (j*self.w+i,j*self.w+i+1,(j+1)*self.w+i,(j+1)*self.w+i+1):
+   override=display[idx] if display else None;e=self.dem['elev'][idx]
+   values.append(override if isinstance(override,(int,float)) and math.isfinite(override) else max(1.2,e) if e>0 else -4)
+  a,b,d,e=values
+  return a+(b-a)*u+(d-a)*v if u+v<=1 else e+(d-e)*(1-u)+(b-e)*(1-v)
  def extrema(self,p):
   g=self.g;x0,z0,x1,z1=p.bounds
   c0,c1=sorted([(x0+m.ORIGIN[0]-g['bE'])/g['aE'],(x1+m.ORIGIN[0]-g['bE'])/g['aE']]);r0,r1=sorted([(m.ORIGIN[1]-z0-g['bN'])/g['aN'],(m.ORIGIN[1]-z1-g['bN'])/g['aN']])
@@ -22,7 +31,7 @@ class DemSampler(m.Terrain):
   if not values:raise ValueError('Footprint lies outside finer DTM patch')
   return dict(min=round(min(values),3),max=round(max(values),3),centre=round(self.ground(p.centroid.x,p.centroid.y),3),method=f'Exact extrema at footprint/{abs(g["aE"]):g} m terrain triangle intersections')
 class FineTerrain(DemSampler):
- def __init__(self,path):super().__init__(m.read(path),path)
+ def __init__(self,path,rendered=False):super().__init__(m.read(path),path,rendered)
 
 def main():
  terrain=FineTerrain(m.ROOT/'3d-viewer/city/data/terrain-mui-wo.json');staged=m.read(m.OUT)['buildings'];rows=[];counts=collections.Counter();clusters=collections.defaultdict(collections.Counter)

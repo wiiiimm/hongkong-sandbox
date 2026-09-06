@@ -154,7 +154,8 @@ export const REGIONAL_PLACES={
       1250
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/204797330"
+    "arrivalSource": "https://www.openstreetmap.org/way/204797330",
+    "terrainY": 4.642
   },
   "chimawanpier": {
     "region": "lantau",
@@ -353,8 +354,8 @@ export const REGIONAL_PLACES={
       3832.6
     ],
     "spawn": [
-      -30796.6,
-      3830.3
+      -30787.2,
+      3819.5
     ],
     "offset": [
       1150,
@@ -362,7 +363,8 @@ export const REGIONAL_PLACES={
       1250
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/1187601818"
+    "arrivalSource": "https://www.openstreetmap.org/way/1187601801",
+    "terrainY": 2.68
   },
   "shalowan": {
     "region": "lantau",
@@ -854,7 +856,8 @@ export const REGIONAL_PLACES={
       -1300
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/142227306"
+    "arrivalSource": "https://www.openstreetmap.org/way/142227306",
+    "terrainY": 6.716
   },
   "section-01-3": {
     "region": "island",
@@ -1504,7 +1507,8 @@ export const REGIONAL_PLACES={
       -1300
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/699026408"
+    "arrivalSource": "https://www.openstreetmap.org/way/699026408",
+    "terrainY": 4.557
   },
   "section-05-2": {
     "region": "kowloon",
@@ -1530,7 +1534,8 @@ export const REGIONAL_PLACES={
       -1300
     ],
     "aerialOnly": false,
-    "arrivalSource": "https://www.openstreetmap.org/way/557643422"
+    "arrivalSource": "https://www.openstreetmap.org/way/557643422",
+    "terrainY": 6.533
   },
   "section-05-3": {
     "region": "kowloon",

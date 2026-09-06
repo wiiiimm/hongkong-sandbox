@@ -2,6 +2,11 @@ import {collisionVolumes} from './building-geometry.js';
 
 // All coordinates are metres in EPSG:2326, translated to a local origin.
 export const ORIGIN = [834500, 816500];
+// Optional transition vertices join the already rendered coarse mesh; raw source heights stay intact.
+export function terrainVertexHeight(data,index) {
+  const height=data.renderedElev?.[index];
+  return Number.isFinite(height)?height:(data.elev[index]>0?Math.max(1.2,data.elev[index]):-4);
+}
 export function makeTerrainSampler(data) {
   const { w, h, elev } = data, g = data.meta.georef;
   const patches=(data.patches||[]).map(makeTerrainSampler);
@@ -11,7 +16,7 @@ export function makeTerrainSampler(data) {
   function sample(x,z,rendered=false) {
     let [c,r]=grid(x,z); c=Math.max(0,Math.min(w-1,c));r=Math.max(0,Math.min(h-1,r));
     const i=Math.min(w-2,Math.floor(c)),j=Math.min(h-2,Math.floor(r)),u=c-i,v=r-j;
-    const at=i=>rendered?(elev[i]>0?Math.max(1.2,elev[i]):-4):elev[i];
+    const at=i=>rendered?terrainVertexHeight(data,i):elev[i];
     const a=at(j*w+i),b=at(j*w+i+1),d=at((j+1)*w+i),e=at((j+1)*w+i+1);
     // Matches mesh triangle diagonal exactly: no feet floating on steep slopes.
     return u+v<=1 ? a+(b-a)*u+(d-a)*v : e+(d-e)*(1-u)+(b-e)*(1-v);

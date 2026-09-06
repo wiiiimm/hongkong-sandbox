@@ -120,6 +120,19 @@ def main():
                 package_path=OUT/'regional'/f'{group}.json';package=json.loads(package_path.read_text())
                 selected={p['id']:p for p in package['places']};apply_arrival_overrides(selected)
                 package_path.write_text(json.dumps(package,ensure_ascii=False,separators=(',',':'))+'\n')
+            module=ROOT/'3d-viewer/city/regional-places.js';text=module.read_text()
+            match=re.search(r'export const REGIONAL_PLACES=(\{.*\});\s*$',text,re.S)
+            if not match:raise ValueError('Cannot locate generated regional destinations')
+            regional=json.loads(match.group(1));apply_arrival_overrides(regional)
+            text=text[:match.start(1)]+json.dumps(regional,ensure_ascii=False,indent=2)+text[match.end(1):];module.write_text(text)
+            # Re-import the published modules in a fresh process, not just the
+            # candidate dictionary that already contains the repaired positions.
+            with CityArrivalValidator() as published:
+                live=published.request('places')['places']
+                if set(live)!=set(updated):raise ValueError('Published destination IDs changed during repair')
+                if any(live[id]['spawn']!=place['spawn'] for id,place in updated.items()):raise ValueError('Published destination spawn differs from validated repair')
+                after=published.audit([live[id]['spawn'] for id,_ in walking])
+                if not all(check['valid'] for check in after):raise ValueError('Published arrivals failed fresh-process validation')
         report={'schemaVersion':1,'result':'passed','manifestSha256':state['manifestSha256'],'counts':state['counts'],'destinations':len(places),'walkingArrivals':len(walking),'unchangedAerialOnly':len(places)-len(walking),'repaired':len(repairs),'unchangedWalkingArrivals':len(walking)-len(repairs),'repairs':repairs,'sources':sources,'validator':'Existing city geo.js terrain sampler and BuildingIndex/collisionVolumes, via arrival-validator.mjs; no GPU.',
             'policy':'Actual terrain patches and open-sided/model/foundation collision volumes; fully dry triangle; 1.2 m clearance disc; 1.8 m actor; raw/rendered neighbour rises below 1.5 m at four 2 m offsets. Replacements are within 1 km of the previous arrival and pass a sampled 2 m walk along the retained public path. Existing aerial-only flags are unchanged.',
             'checks':[{'id':id,'spawn':updated[id]['spawn'],**check} for (id,_),check in zip(walking,after)],'limits':['A two-metre source-path check is not a complete route accessibility review.','Unmoved legacy camera presets can retain approximate original arrival provenance; this repair does not claim they are newly surveyed public-path points.']}

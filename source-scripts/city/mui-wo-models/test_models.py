@@ -6,8 +6,9 @@ sys.path.insert(0,str(REVIEW));from prepare_model_sample import model_geometry
 from terrain_mosaic import blend_sources
 import tempfile
 class ModelExtensionTests(unittest.TestCase):
+ minimum_new_models=900
  def test_verified_models_preserve_actual_source_transform_bounds(self):
-  data=json.loads(gzip.decompress((HERE/'model-geometries.json.gz').read_bytes()));self.assertGreater(data['counts']['newDetailedModels'],900)
+  data=json.loads(gzip.decompress((HERE/'model-geometries.json.gz').read_bytes()));self.assertGreater(data['counts']['newDetailedModels'],self.minimum_new_models);self.assertEqual(len(data['byBuildingUid']),data['counts']['matchedBuildingGeometries'])
   for uid,record in data['byBuildingUid'].items():
    folder=REVIEW/'model-sample' if record['sourceTile']=='10-SW-12C' else HERE/'staged'/record['sourceTile'];path=folder/record['source'];gltf=json.loads(path.read_text())
    source,triangles=model_geometry(gltf,lambda uri:(path.parent/uri).read_bytes());position=np.array(record['position']).reshape(-1,3);normal=np.array(record['normal']).reshape(-1,3)

@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three.module.js';
 import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
-import {ORIGIN,inPolygon,random,smoothStep} from './geo.js';
+import {ORIGIN,inPolygon,random,smoothStep,terrainVertexHeight} from './geo.js';
 import {buildingLighting} from './lighting.js';
 import {createBuildingGeometry} from './building-geometry.js';
 import {createTidalWater} from './tidal-water.js';
@@ -13,7 +13,7 @@ export function makeTerrain(data) {
  const randomAt=random(8);
  for(let r=0;r<h;r++)for(let c=0;c<w;c++){
   const i=r*w+c,e=elev[i],x=g.bE+c*g.aE-ORIGIN[0],z=ORIGIN[1]-(g.bN+r*g.aN);
-  positions.set([x,e>0?Math.max(1.2,e):-4,z],i*3);
+  positions.set([x,terrainVertexHeight(data,i),z],i*3);
   const co=(vegetation[i]?green:urban).clone();
   if(e>240)co.lerp(rock,smoothStep(240,900,e)*.38);
   co.multiplyScalar(.94+randomAt()*.10);colours.set([co.r,co.g,co.b],i*3);
@@ -26,9 +26,9 @@ export function makeTerrain(data) {
   const group=new THREE.Group();group.name='Lands Department terrain';group.add(mesh);
   // Reuse the same terrain builder for fine patches; small meshes allow normal frustum culling.
   for(const patch of data.patches)for(let r=0;r<patch.h-1;r+=196)for(let c=0;c<patch.w-1;c+=196){
-   const w=Math.min(197,patch.w-c),h=Math.min(197,patch.h-r),elev=[],vegetation=[],g=patch.meta.georef;
-   for(let y=0;y<h;y++){elev.push(...patch.elev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));vegetation.push(...patch.vegetation.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));}
-   group.add(makeTerrain({w,h,elev,vegetation,meta:{georef:{...g,bE:g.bE+c*g.aE,bN:g.bN+r*g.aN}}}));
+   const w=Math.min(197,patch.w-c),h=Math.min(197,patch.h-r),elev=[],vegetation=[],renderedElev=patch.renderedElev?[]:undefined,g=patch.meta.georef;
+   for(let y=0;y<h;y++){if(renderedElev)renderedElev.push(...patch.renderedElev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));elev.push(...patch.elev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));vegetation.push(...patch.vegetation.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));}
+   group.add(makeTerrain({w,h,elev,vegetation,renderedElev,meta:{georef:{...g,bE:g.bE+c*g.aE,bN:g.bN+r*g.aN}}}));
   }return group;
  }return mesh;
 }
