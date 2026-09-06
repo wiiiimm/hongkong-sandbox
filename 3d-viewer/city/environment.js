@@ -30,7 +30,13 @@ class CityEnvironment {
  get observer(){return this.getObserver();}
  setHour(hour){const date=dateFromHKT(hktParts(this.date).date,hour);if(!date)return;this.mode='manual';this.play(false);this.date=date;this.applyClock();}
  get timeCycle(){return timeCycleState({enabled:this.timeLapse,speed:this.timeLapseSpeed,mode:this.mode,...this.cycleFlags});}
- play(enabled){this.cycleTick=null;this.timeLapse=!!enabled;if(enabled)this.mode='manual';this.syncTimeCycleUI();$('sky-mode').value=this.mode;}
+ play(enabled){this.cycleTick=null;this.timeLapse=!!enabled;if(enabled)this.mode='manual';this.syncTimeCycleUI();this.syncClockModeUI();}
+ syncClockModeUI(){
+  const live=this.mode==='live',toggle=$('sky-mode');
+  toggle.value=this.mode;toggle.setAttribute('aria-checked',String(live));
+  $('clock-mode-label').textContent=live?'Live · Hong Kong':'Manual';
+  $('sky-date').disabled=live;$('sky-date').title=live?'Follows the current Hong Kong date. Turn off Live time to choose a date.':'';
+ }
  syncTimeCycleUI(){
   const state=this.timeCycle,key=`${state.enabled}|${state.speedMinutesPerSecond}|${state.suspendedBy}`;
   if(key===this.cycleUIKey)return;this.cycleUIKey=key;
@@ -49,8 +55,8 @@ class CityEnvironment {
   $('time-play').addEventListener('click',()=>this.play(!this.timeLapse));
   $('time-lapse-speed').addEventListener('input',e=>{this.timeLapseSpeed=normaliseTimelapseSpeed(Number(e.target.value)/60,this.timeLapseSpeed);this.cycleTick=null;this.syncTimeCycleUI();});
   this.syncTimeCycleUI();
-  $('sky-mode').addEventListener('change',e=>{const mode=e.target.value;this.play(false);this.mode=mode;if(this.mode==='live')this.date=new Date();this.applyClock();});
-  $('sky-date').addEventListener('change',e=>{const date=dateFromHKT(e.target.value,this.hour);if(!date)return;this.play(false);this.mode='manual';this.date=date;this.applyClock();});
+  $('sky-mode').addEventListener('click',()=>{const mode=this.mode==='live'?'manual':'live';this.play(false);this.mode=mode;if(mode==='live')this.date=new Date();this.applyClock();});
+  $('sky-date').addEventListener('change',e=>{if(this.mode==='live')return;const date=dateFromHKT(e.target.value,this.hour);if(!date)return;this.play(false);this.mode='manual';this.date=date;this.applyClock();});
   $('sky-constellations').addEventListener('change',e=>this.sky.setConstellations(e.target.checked));this.sky.setConstellations($('sky-constellations').checked);
   $('weather-mode').addEventListener('change',e=>{const live=e.target.value==='live';Promise.allSettled([this.weather.setLive(live),this.tides.setLive(live)]).then(()=>this.syncWeatherUI());this.syncWeatherUI();});
   $('weather-refresh').addEventListener('click',()=>{Promise.allSettled([this.weather.refresh(),this.tides.refresh()]).then(()=>this.syncWeatherUI());this.syncWeatherUI();});
@@ -108,7 +114,7 @@ class CityEnvironment {
   const phase=night<.05?'Daylight':night<.95?(this.astronomy.sun.bearing<180?'Dawn':'Dusk'):activityState.phase;
   this.lightState.phase=phase;
   $('time').value=parts.time;updateClockDial($('time-dial'),parts.hour,phase);$('time-output').textContent=parts.time;$('night-phase').textContent=phase;
-  $('sky-mode').value=this.mode;$('sky-date').value=parts.date;
+  this.syncClockModeUI();$('sky-date').value=parts.date;
   const hh=date=>date?hktParts(date).time:'—';
   $('sky-readout').textContent=`Sunrise ${hh(this.astronomy.sunrise)} · Sunset ${hh(this.astronomy.sunset)} · Moon ${Math.round(this.astronomy.moon.fraction*100)}%`;
   $('sky-location').textContent=`${observer.title} · Hong Kong time (UTC+8)`;

@@ -1,6 +1,6 @@
 {
   "result": "passed",
-  "testedAt": "2026-09-06T17:17:03.902Z",
+  "testedAt": "2026-09-06T18:34:56.752Z",
   "checks": [
     "keyboard ArrowRight adjusts the real speed range by 1×",
     "dial, toggle, multiplier slider and duration visible together without scrolling at320–1440px; current government/OSM count displayed",
@@ -9,7 +9,7 @@
     "playing moves the actual directional light and rendered shadow matrix; 180-frame performance measured at 30 min/s",
     "existing residential/business schedules continue to dim towards 4 am without turning every building off",
     "About pause, Reduced Motion and Stargaze hold playback and preserve enabled/speed for resuming",
-    "manual dial/exact-time entry stops playback; Sky Live stops it and follows actual time",
+    "manual dial/exact-time entry stops playback; Live clock stops it and follows actual time",
     "accelerated sky date leaves actual HKO observation and tide-prediction clocks independent",
     "speed and playback controls work in expanded mobile sheet at 390 and 320 px with no overflow"
   ],
@@ -170,24 +170,24 @@
     "speed": [
       {
         "requested": 7.5,
-        "measuredMinutesPerSecond": 7.31691368918507,
-        "realSeconds": 0.8028999998569488
+        "measuredMinutesPerSecond": 7.319626168224299,
+        "realSeconds": 0.8025
       },
       {
         "requested": 30,
-        "measuredMinutesPerSecond": 29.278594571134093,
-        "realSeconds": 0.8025999999046326
+        "measuredMinutesPerSecond": 29.25308104244354,
+        "realSeconds": 0.8032999999523163
       }
     ],
     "midnight": {
-      "date": "2026-12-31T16:01:00.000Z",
+      "date": "2026-12-31T16:01:29.880Z",
       "hkt": {
         "date": "2027-01-01",
         "time": "00:01",
-        "hour": 0.016666666666666666,
+        "hour": 0.024966666666666665,
         "hours": 0,
         "minutes": 1,
-        "seconds": 0
+        "seconds": 29
       },
       "dial": "00:01 · Winding down"
     },
@@ -228,7 +228,7 @@
       "p95FrameMs": 16.799999999999272,
       "render": {
         "calls": 212,
-        "triangles": 2719063
+        "triangles": 2718389
       },
       "cycle": {
         "enabled": true,
@@ -241,9 +241,9 @@
     },
     "sunAfternoon": {
       "position": [
-        539.90041680478,
-        5864.632216144137,
-        2030.1911677965636
+        526.8435139425196,
+        5865.714135414178,
+        2030.6491558406274
       ],
       "target": [
         0,
@@ -252,22 +252,22 @@
       ],
       "castShadow": true,
       "shadowMatrix": [
-        0.0002154822346794268,
-        -0.00006929693332583832,
-        -0.000007504870959199059,
+        0.00021601036743696653,
+        -0.00006778026301469622,
+        -0.000007323373838511529,
         0,
-        1.5770213417970976e-20,
-        0.00006432938003619675,
-        -0.00007999210753605972,
+        3.1540426835941955e-21,
+        0.0000641903509762189,
+        -0.00008000714672524574,
         0,
-        -0.00007225163734853286,
-        -0.0002066701682821601,
-        -0.00002238241823459224,
+        -0.00007065701466754879,
+        -0.00020721565420882642,
+        -0.0000223887844848572,
         0,
-        0.5303456876863837,
-        0.5797252388745251,
-        0.5177827333090135,
-        0.9999999999999999
+        0.5296759461603705,
+        0.579969636160323,
+        0.5177870614449351,
+        1
       ]
     },
     "evening": {
@@ -292,7 +292,7 @@
           0.93
         ],
         "shimmer": 1,
-        "elapsed": 16.13259999999992,
+        "elapsed": 16.865999999999904,
         "ambient": 2.44
       },
       "astronomy": {
@@ -366,7 +366,7 @@
           0.002777962755583982
         ],
         "shimmer": 1,
-        "elapsed": 20.24909999999985,
+        "elapsed": 20.982499999999813,
         "ambient": 0.36058203562752
       },
       "hkt": {

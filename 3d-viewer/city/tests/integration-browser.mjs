@@ -14,7 +14,7 @@ try{
  await page.locator('#sky-date').fill('2026-06-21');await page.locator('#sky-date').press('Tab');await page.locator('#time').fill('12:00');const summer=(await state()).environment.astronomy;
  await page.locator('#sky-date').fill('2026-12-21');await page.locator('#sky-date').press('Tab');const winter=(await state()).environment.astronomy;
  assert.ok(Date.parse(summer.sunset)-Date.parse(summer.sunrise)>Date.parse(winter.sunset)-Date.parse(winter.sunrise)+2*3600000);
- await page.locator('#sky-mode').selectOption('live');await page.waitForFunction(()=>window.__city.state.environment.mode==='live');assert.ok(Math.abs(Date.parse((await state()).environment.date)-Date.now())<3000);
+ await page.locator('#sky-mode').click();await page.waitForFunction(()=>window.__city.state.environment.mode==='live');assert.ok(Math.abs(Date.parse((await state()).environment.date)-Date.now())<3000);
  await page.locator('#time').fill('20:00');assert.equal((await state()).environment.mode,'manual');assert.equal((await state()).time,20);
  await page.locator('#sky-date').fill('2026-12-31');await page.locator('#sky-date').press('Tab');await page.locator('#time').fill('23:59');await page.locator('#time-play').click();await page.waitForFunction(()=>window.__city.state.environment.hkt.date==='2027-01-01');await page.locator('#time-play').click();
  await page.locator('#sky-date').fill('2026-09-06');await page.locator('#sky-date').press('Tab');await page.locator('#time').fill('20:00');
