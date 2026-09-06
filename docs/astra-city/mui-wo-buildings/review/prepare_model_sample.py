@@ -36,15 +36,17 @@ def model_geometry(data,read_buffer):
     return positions,triangles
 
 
-def main():
-    archive=HERE/'official-10-SW-12C.zip';download=json.loads((HERE/'model-download.json').read_text())
-    official_path=ROOT/'source-scripts/city/mui-wo-buildings/landsd-mui-wo.json.gz';official_raw=gzip.decompress(official_path.read_bytes());official=json.loads(official_raw)
+def stage(archive, download, official_path, out):
+    official_raw=gzip.decompress(official_path.read_bytes());official=json.loads(official_raw)
     by_ref={}
     for f in official['features']:by_ref.setdefault(str(f['attributes'].get('GeoRefNo','')),[]).append((f['attributes'],official_shape(f)))
-    out=HERE/'model-sample';out.mkdir(exist_ok=True)
-    models=[];terrain=None;asset_bytes=0
+    out.mkdir(parents=True,exist_ok=True)
+    models=[];terrain=None;asset_bytes=0;excluded_models=[]
     with zipfile.ZipFile(archive) as z:
         for name in sorted(n for n in z.namelist() if n.endswith('.gltf')):
+            if not name.startswith(('BUILDING/','TERRAIN')):
+                excluded_models.append({'sourceEntry':name,'sha256':hashlib.sha256(z.read(name)).hexdigest(),'reason':'Non-building infrastructure is outside this building/terrain extension; retained in source archive/cache'})
+                continue
             folder=pathlib.PurePosixPath(name).parent;original=z.read(name);data=json.loads(original)
             paths=[str(folder / buffer['uri']) for buffer in data.get('buffers',[])]
             positions,triangles=model_geometry(data,lambda uri:z.read(str(folder/uri)))
@@ -75,7 +77,11 @@ def main():
                     for key in ('normalTexture','occlusionTexture','emissiveTexture'):material.pop(key,None)
                 derived=str(folder/(entry['id']+'-geometry.gltf'));raw=json.dumps(data,separators=(',',':')).encode();(out/derived).write_bytes(raw);asset_bytes+=len(raw)
                 terrain={**entry,'url':derived,'photoOmitted':True,'omittedPhotoEntries':[str(folder/image['uri']) for image in json.loads(original).get('images',[])],'originalMaterials':json.loads(original).get('materials',[]),'derivedSha256':hashlib.sha256(raw).hexdigest()}
-    manifest={'schemaVersion':1,'kind':'official-mui-wo-model-sample','datasetId':'landsd_rcd_1742809441342_98380','datasetTitle':'Lands Department 3D Visualisation Map (Non-textured models)','datasetMetadataRevision':'2026-08-28','tile':download['sheet'],'tileRevision':download['revisionDate'],'sourceDownload':download['source'],'sourceArchiveSha256':download['sha256'],'crs':'EPSG:2326','verticalDatum':'Hong Kong Principal Datum','axes':'Source glTF node matrices output [E,HKPD height,-N]. Add root translation [-834500,0,816500] for the city; no rotation, scale or height adjustment is added.','rootTranslation':[-834500,0,816500],'officialFootprintDatasetVersion':official['datasetVersion'],'officialFootprintSnapshotSha256':hashlib.sha256(official_raw).hexdigest(),'matchPolicy':'Exact GeoRefNo match plus source-model projected convex hull overlap >=50% of the smaller footprint and centroid difference <=10m. BuildingCSUIDs come directly from those matched official records. No name-only matching. This is a conservative replacement screen, not detailed architectural acceptance.','models':models,'terrain':terrain,'counts':{'buildingModels':len(models),'buildingModelsWithVerifiedOfficialMatch':sum(m['replacementVerified'] for m in models),'matchedOfficialBuildingCSUIDs':len(set(csuid for m in models for csuid in m['officialBuildingCSUIDs'])),'modelVertices':sum(m['vertices'] for m in models),'modelTriangles':sum(m['triangles'] for m in models),'terrainVertices':terrain['vertices'],'terrainTriangles':terrain['triangles'],'assetBytes':asset_bytes},'limits':['The source model tile and Building footprint dataset have different revision dates.','Only explicitly matched BuildingCSUIDs may suppress corresponding extrusions after a successful model load. Unmatched models need source review before production replacement.','Absolute HKPD source placement is unchanged. Existing70m/5m terrain may intersect source geometry.','The source terrain photograph is omitted from the derived glTF; building glTF, vertex colours, material facts and binary geometry are unchanged.','This is one750m×600m tile, not complete Mui Wo 3D coverage.']}
+    manifest={'schemaVersion':1,'kind':'official-mui-wo-model-sample','datasetId':'landsd_rcd_1742809441342_98380','datasetTitle':'Lands Department 3D Visualisation Map (Non-textured models)','datasetMetadataRevision':'2026-08-28','tile':download['sheet'],'tileRevision':download['revisionDate'],'sourceDownload':download['source'],'sourceArchiveSha256':download.get('archiveSha256',download['sha256']),'sourceCacheSha256':download['sha256'],'sourceCacheKind':download.get('cacheKind','Complete original archive'),'crs':'EPSG:2326','verticalDatum':'Hong Kong Principal Datum','axes':'Source glTF node matrices output [E,HKPD height,-N]. Add root translation [-834500,0,816500] for the city; no rotation, scale or height adjustment is added.','rootTranslation':[-834500,0,816500],'officialFootprintDatasetVersion':official['datasetVersion'],'officialFootprintSnapshotSha256':hashlib.sha256(official_raw).hexdigest(),'matchPolicy':'Exact GeoRefNo match plus source-model projected convex hull overlap >=50% of the smaller footprint and centroid difference <=10m. BuildingCSUIDs come directly from those matched official records. No name-only matching. This is a conservative replacement screen, not detailed architectural acceptance.','models':models,'terrain':terrain,'excludedModels':excluded_models,'counts':{'buildingModels':len(models),'buildingModelsWithVerifiedOfficialMatch':sum(m['replacementVerified'] for m in models),'matchedOfficialBuildingCSUIDs':len(set(csuid for m in models for csuid in m['officialBuildingCSUIDs'])),'modelVertices':sum(m['vertices'] for m in models),'modelTriangles':sum(m['triangles'] for m in models),'terrainVertices':terrain['vertices'],'terrainTriangles':terrain['triangles'],'assetBytes':asset_bytes},'limits':['The source model tile and Building footprint dataset have different revision dates.','Only explicitly matched BuildingCSUIDs may suppress corresponding extrusions after a successful model load. Unmatched models need source review before production replacement.','Absolute HKPD source placement is unchanged. Existing70m/5m terrain may intersect source geometry.','The source terrain photograph is omitted from the derived glTF; building glTF, vertex colours, material facts and binary geometry are unchanged.','This is one750m×600m tile, not complete Mui Wo 3D coverage.']}
     (out/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    print(json.dumps(manifest['counts'],indent=2));print('Terrain bounds',terrain['worldBounds'])
+    return manifest
+
+def main():
+    manifest=stage(HERE/'official-10-SW-12C.zip',json.loads((HERE/'model-download.json').read_text()),ROOT/'source-scripts/city/mui-wo-buildings/landsd-mui-wo.json.gz',HERE/'model-sample')
+    print(json.dumps(manifest['counts'],indent=2));print('Terrain bounds',manifest['terrain']['worldBounds'])
 if __name__=='__main__':main()

@@ -10,8 +10,8 @@ from prepare_model_sample import model_geometry
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[3];ASSETS=HERE/'model-sample'
 
 
-def main():
-    manifest=json.loads((ASSETS/'manifest.json').read_text());spec=manifest['terrain'];path=ASSETS/spec['url'];data=json.loads(path.read_text())
+def terrain_index(assets=ASSETS):
+    manifest=json.loads((assets/'manifest.json').read_text());spec=manifest['terrain'];path=assets/spec['url'];data=json.loads(path.read_text())
     # This retained terrain contains one triangle primitive; fail on a new source layout.
     assert len(data['meshes'])==1 and len(data['meshes'][0]['primitives'])==1
     primitive=data['meshes'][0]['primitives'][0]
@@ -21,6 +21,11 @@ def main():
     footprints=shapely.polygons(triangles[:,:,[0,2]])
     areas=shapely.area(footprints);valid_triangles=areas>1e-12
     usable=triangles[valid_triangles];tree=STRtree(footprints[valid_triangles])
+    return manifest,spec,triangles,valid_triangles,usable,tree
+
+
+def resample(assets=ASSETS, evidence=HERE, proof_path=None):
+    manifest,spec,triangles,valid_triangles,usable,tree=terrain_index(assets)
     base_georef={'aE':5,'bE':815712.5,'aN':-5,'bN':816467.5}
     bounds=spec['worldBounds'];g=base_georef
     c0=int(np.ceil((bounds[0][0]+834500-g['bE'])/g['aE']));c1=int(np.floor((bounds[1][0]+834500-g['bE'])/g['aE']))
@@ -44,8 +49,8 @@ def main():
       'cityGrid':{'georef':g,'cropIndicesInclusive':[c0,r0,c1,r1]},
       'method':'Exact glTF node transforms followed by source TIN barycentric interpolation at existing 5 m city grid nodes. Only triangles whose projected footprint covers the sample contribute. Maximum height is retained when multiple source triangles overlap; missing coverage remains null. No fill, height offset, simplification, or artificial shoreline. A subsequently rendered grid is a resampling and does not reproduce every source TIN edge.',
       'counts':{'sourceTriangles':len(triangles),'nonDegenerateProjectedTriangles':int(valid_triangles.sum()),'gridNodes':len(points),'coveredGridNodes':int(valid.sum()),'missingGridNodes':int((~valid).sum()),'multipleTriangleNodes':int((np.bincount(pi,minlength=len(points))>1).sum())}}
-    raw=json.dumps(payload,separators=(',',':'),allow_nan=False).encode();out=ASSETS/'terrain-source-5m.json';out.write_bytes(raw)
-    proof_path=HERE/'model-browser-proof.json';proof=json.loads(proof_path.read_text()) if proof_path.exists() else None
+    raw=json.dumps(payload,separators=(',',':'),allow_nan=False).encode();out=assets/'terrain-source-5m.json';out.write_bytes(raw)
+    proof=json.loads(proof_path.read_text()) if proof_path and proof_path.exists() else None
     comparison=[]
     if proof:
         # Direct source TIN consistency at independent browser raycast points.
@@ -60,5 +65,9 @@ def main():
     summary={'file':out.name,'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw),'w':w,'h':h,'bounds':grid_bounds,'georef':payload['meta']['georef'],'cityGridCrop':payload['cityGrid']['cropIndicesInclusive'],**payload['counts'],
       'minimumHKPD':float(elev[valid].min()),'maximumHKPD':float(elev[valid].max()),'browserTINCrossChecks':len(comparison),'maximumBrowserTINHeightDifference':max(comparison) if comparison else None}
     assert not comparison or max(comparison)<1e-6
-    (HERE/'model-terrain-resample.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary,indent=2))
+    (evidence/'model-terrain-resample.json').write_text(json.dumps(summary,indent=2)+'\n')
+    return payload,summary
+
+def main():
+    _,summary=resample(proof_path=HERE/'model-browser-proof.json');print(json.dumps(summary,indent=2))
 if __name__=='__main__':main()

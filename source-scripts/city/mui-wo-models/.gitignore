@@ -1,0 +1,10 @@
+# Reproducible immutable download cache; URLs, dates and hashes are retained.
+sources/*/*.zip
+sources/*/*.part
+# Extracted source assets are reproducible from the archives; compact payloads are retained.
+staged/*/BUILDING/
+staged/*/TERRAIN*/
+
+# Retain the compact gzip payload; this older development copy is regeneratable.
+model-geometries.json
+staged/*/INFRASTRUCTURE/

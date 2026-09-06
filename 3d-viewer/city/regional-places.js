@@ -145,8 +145,8 @@ export const REGIONAL_PLACES={
       1947.9
     ],
     "spawn": [
-      -16593.1,
-      1933.3
+      -16577.2,
+      1896.6
     ],
     "offset": [
       1150,

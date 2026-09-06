@@ -22,8 +22,8 @@ def decode(data,index,folder):
         strides=(v.get('byteStride',dtype.itemsize*size),dtype.itemsize)).copy()
 
 
-def bake(spec):
-    path=ASSETS/spec['url'];data=json.loads(path.read_text());parts=[]
+def bake(spec, assets=ASSETS):
+    path=assets/spec['url'];data=json.loads(path.read_text());parts=[]
     def visit(index,parent):
         node=data['nodes'][index];transform=parent@matrix(node)
         if 'mesh' in node:
@@ -33,7 +33,10 @@ def bake(spec):
                 positions=(np.c_[positions,np.ones(len(positions))]@transform.T)[:,:3]
                 positions[:,0]-=834500;positions[:,2]+=816500
                 normals=decode(data,attributes['NORMAL'],path.parent).astype(float)
-                normals=normals@np.linalg.inv(transform[:3,:3]);normals/=np.linalg.norm(normals,axis=1)[:,None]
+                normals=normals@np.linalg.inv(transform[:3,:3]);lengths=np.linalg.norm(normals,axis=1)[:,None]
+                # Some adjacent official models contain zero source normals. Preserve
+                # them as finite zero vectors instead of turning them into NaN.
+                normals=np.divide(normals,lengths,out=np.zeros_like(normals),where=lengths>1e-12)
                 indices=decode(data,primitive['indices'],path.parent).reshape(-1) if 'indices' in primitive else np.arange(len(positions))
                 assert len(indices)%3==0 and indices.max()<len(positions)
                 part={'position':positions[indices],'normal':normals[indices],'material':primitive.get('material',0)}
@@ -48,7 +51,7 @@ def bake(spec):
     assert np.max(np.abs(np.array(bounds)-spec['worldBounds']))<1e-8
     assert np.isfinite(position).all() and np.isfinite(normal).all()
     record={'modelId':spec['id'],'position':position.reshape(-1).tolist(),'normal':normal.reshape(-1).tolist(),
-        'worldBounds':bounds,'vertices':len(position),'triangles':len(position)//3,'source':spec['sourceEntry'],
+        'zeroSourceNormalVertices':int((np.linalg.norm(normal,axis=1)<=1e-12).sum()),'worldBounds':bounds,'vertices':len(position),'triangles':len(position)//3,'source':spec['sourceEntry'],
         'sourceHashes':spec['sourceHashes'],'sourceMaterials':data.get('materials',[]),
         'sourceMaterialIndex':parts[0]['material'],'officialMatches':spec['officialMatches']}
     if all('colour' in p for p in parts):

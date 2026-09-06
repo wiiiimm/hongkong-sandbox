@@ -2,7 +2,7 @@
 No buildings are moved and no elevations are inferred from their roofs.
 The patch boundary follows existing 70 m cells; a 70 m border joins the old mesh.
 """
-import argparse,hashlib,json,math,pathlib,zipfile
+import argparse,hashlib,json,math,pathlib,zipfile,sys
 import numpy as np
 from pyproj import Transformer
 ROOT=pathlib.Path(__file__).resolve().parents[3]
@@ -40,18 +40,15 @@ def main():
    fine[r,c]=fine[r,c]*blend+old*(1-blend)
    vegetation.append(coarse['vegetation'][j*cw+i])
  source={'provider':'Lands Department / Hong Kong SAR Government','url':'https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip','file':'references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip','sha256':hashlib.sha256(args.source.read_bytes()).hexdigest(),'nativeCellSize':5,'crs':'EPSG:2326','verticalDatum':'HKPD','note':'Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ.'}
- detail_sources=[]
+ detail_paths=[]
  detail_path=ROOT/'docs/astra-city/mui-wo-buildings/review/model-sample/terrain-source-5m.json'
- if detail_path.exists():
-  detail=json.loads(detail_path.read_text());dg=detail['meta']['georef'];dc=round((dg['bE']-E)/5);dr=round((N-dg['bN'])/5)
-  assert dg['aE']==5 and dg['aN']==-5 and abs(E+dc*5-dg['bE'])<.001 and abs(N-dr*5-dg['bN'])<.001
-  for r in range(detail['h']):
-   for c in range(detail['w']):
-    value=detail['elev'][r*detail['w']+c]
-    if value is None:continue
-    blend=min(1,min(c,r,detail['w']-1-c,detail['h']-1-r)/3)
-    fine[dr+r,dc+c]=fine[dr+r,dc+c]*(1-blend)+value*blend
-  detail_sources.append({'file':str(detail_path.relative_to(ROOT)),'sha256':hashlib.sha256(detail_path.read_bytes()).hexdigest(),'source':detail['source'],'policy':'Actual official 3D tile terrain sampled onto the existing 5 m grid. A 15 m edge blend joins the archival DTM; source model heights stay unchanged.'})
+ if detail_path.exists():detail_paths.append(detail_path)
+ detail_paths.extend(sorted((ROOT/'source-scripts/city/mui-wo-models/staged').glob('*/terrain-source-5m.json')))
+ sys.path.insert(0,str(ROOT/'source-scripts/city/mui-wo-models'))
+ from terrain_mosaic import blend_sources
+ detail_sources,mosaic=blend_sources(fine,E,N,detail_paths,ROOT)
+ if len(detail_paths)>1:
+  (ROOT/'docs/astra-city/mui-wo-buildings/extension/terrain-mosaic.json').write_text(json.dumps(mosaic,indent=2)+'\n')
  patch={'w':w,'h':h,'cell':5,'elev':np.round(fine.astype(np.float64),2).flatten().tolist(),'vegetation':vegetation,'coarseCells':[c0,r0,c1,r1],'meta':{'georef':{'aE':5,'bE':E,'aN':-5,'bN':N,'W':w,'H':h},'source':source,'title':'Mui Wo · Lands Department 5 m DTM','detailSources':detail_sources}}
  (OUT/'terrain-mui-wo.json').write_text(json.dumps(patch,separators=(',',':')))
  print(json.dumps({'w':w,'h':h,'bounds':[E,N-(h-1)*5,E+(w-1)*5,N],'coarseCells':patch['coarseCells'],'source':source}))
