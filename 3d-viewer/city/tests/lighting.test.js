@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {cityLighting,buildingLighting,formatHour,normaliseHour,LIGHT_PROFILES} from '../lighting.js';
 
 test('the night crosses midnight continuously and reaches its quietest point at 4 am',()=>{
- for(let h=21;h<28;h+=.125){
+ for(let h=22;h<28;h+=.125){
   const before=cityLighting(h),after=cityLighting(h+.125);
   for(let p=0;p<LIGHT_PROFILES.length;p++)assert.ok(after.activity[p]<=before.activity[p]+1e-9,`${LIGHT_PROFILES[p]} at ${h}`);
  }
@@ -50,10 +50,20 @@ test('clock formatting wraps midnight without invalid minutes',()=>{
  assert.equal(normaliseHour(52),4);assert.equal(normaliseHour(NaN),15);
 });
 
-test('homes welcome evening arrivals while offices dim first and retail closes later',()=>{
- const day=cityLighting(16).activity,evening=cityLighting(20).activity,late=cityLighting(22).activity,close=cityLighting(0).activity;
- assert.ok(evening[0]>day[0]*2);assert.ok(cityLighting(21).activity[0]>evening[0]);
- assert.ok(late[1]<evening[1]*.3);assert.ok(late[4]>evening[4]*.9);
- assert.ok(close[4]<late[4]*.2);assert.ok(close[0]>close[1]*4);
+test('homes peak at 10 pm, offices leave from 6 pm and shops close from 9 to 11 pm',()=>{
+ const at=h=>cityLighting(h).activity;
+ for(const h of [18,19,20,21])assert.ok(at(h+1)[0]>at(h)[0],`homes return at ${h+1}`);
+ assert.ok(at(21)[0]-at(20)[0]>.1,'more people return around 9 pm');
+ for(let h=0;h<24;h+=.125)assert.ok(at(h)[0]<=at(22)[0],'10 pm is the residential peak');
+ assert.ok(at(23)[0]<at(22)[0]&&at(23)[0]>.6,'sleep begins around 11 pm');
+ assert.ok(at(0)[0]<at(23)[0]&&at(4)[0]<at(0)[0]);
+ for(const h of [18,19,20,21,22,23,24])assert.ok(at(h)[1]<at(h-1)[1],`offices wind down at ${h}`);
+ assert.ok(at(20)[1]>.3,'some offices work until 8 pm');
+ assert.ok(at(0)[1]<.1&&at(4)[1]>0,'midnight mostly dark with all-night exceptions');
+ assert.ok(at(21)[4]<at(20)[4]&&at(21)[4]>.8,'shops begin closing around 9 pm');
+ assert.ok(at(22)[4]<at(21)[4]&&at(23)[4]<.3,'most retail closes by 11 pm');
+ assert.ok(at(0)[4]>at(4)[4]&&at(4)[4]>0,'late retail and a small overnight reserve');
+ assert.ok(at(0)[0]<.06&&at(4)[0]<.01,'midnight is quiet and fewer than 1% of home windows remain by 4 am');
+ for(let p=0;p<LIGHT_PROFILES.length;p++)assert.ok(at(4)[p]<at(0)[p]*.25,'4 am is substantially quieter than midnight');
  assert.equal(buildingLighting({id:'way/3',kind:'retail',base:0}).profile,4);
 });

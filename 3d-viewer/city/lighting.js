@@ -3,13 +3,15 @@
 import {smoothStep} from './geo.js';
 export const LIGHT_PROFILES=['home','office','overnight','mixed','retail'];
 const SCHEDULE=[
+ // User-directed, illustrative window activation; never population measurements.
  // hour, homes, offices, overnight, unknown/mixed, retail
- [0,.48,.08,.65,.34,.14], [2,.16,.04,.42,.12,.04], [4,.055,.025,.24,.045,.02],
+ [0,.055,.025,.24,.045,.02], [2,.018,.008,.09,.013,.006], [4,.006,.002,.045,.004,.002],
  [5,.10,.045,.28,.08,.03], [6,.30,.14,.42,.20,.075], [8,.40,.82,.68,.59,.30],
  [10,.25,.90,.74,.58,.88], [12,.22,.90,.75,.58,.90], [16,.28,.90,.80,.62,.92],
- [18,.60,.86,.84,.74,.94], [19,.76,.84,.89,.77,.94],
- [20,.87,.68,.92,.78,.93], [21,.90,.34,.92,.78,.93],
- [22,.83,.16,.88,.70,.88], [23,.68,.11,.78,.53,.48], [24,.48,.08,.65,.34,.14]
+ [17,.36,.90,.82,.68,.94], [18,.48,.84,.84,.72,.94], [19,.60,.66,.89,.75,.94],
+ [20,.74,.46,.92,.77,.93], [21,.90,.28,.92,.78,.90],
+ [22,.96,.16,.88,.76,.62], [23,.72,.05,.50,.44,.10],
+ [23.5,.30,.035,.34,.18,.05], [24,.055,.025,.24,.045,.02]
 ];
 export function normaliseHour(hour){return Number.isFinite(hour)?((hour%24)+24)%24:15;}
 export function formatHour(hour){const minutes=Math.round(normaliseHour(hour)*60)%1440;return `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`;}

@@ -21,13 +21,19 @@ try{
   setTime(20);distance(300);uniforms.elapsed.value=0;const nearA=read();uniforms.elapsed.value=4;const nearB=read();
   distance(4000);uniforms.elapsed.value=0;const farA=read();uniforms.elapsed.value=4;const farB=read();
   uniforms.shimmer.value=0;uniforms.elapsed.value=0;const offA=read();uniforms.elapsed.value=4;const offB=read();
-  distance(300);const samples={};for(const h of [18,20,21,22,0,4]){setTime(h);samples[h]=regions(read());}
+  distance(300);const samples={};for(const h of [18,20,21,22,23,0,4]){setTime(h);samples[h]=regions(read());}
   uniforms.night.value=0;uniforms.shimmer.value=1;distance(4000);uniforms.elapsed.value=0;const dayA=read();uniforms.elapsed.value=4;const dayB=read();
   const result={near:difference(nearA,nearB),far:difference(farA,farB),disabled:difference(offA,offB),day:difference(dayA,dayB),samples};
   target.dispose();renderer.dispose();return result;
  });
  assert.equal(result.near.changed,0,'nearby windows are steady');assert.ok(result.far.changed>100,'distant windows subtly vary');assert.ok(result.far.mean<2,'shimmer is restrained');assert.equal(result.disabled.changed,0);assert.equal(result.day.changed,0);
- assert.ok(result.samples[21][0]>result.samples[18][0]*1.15,'home windows brighten');assert.ok(result.samples[22][1]<result.samples[20][1]*.5,'offices wind down early');assert.ok(result.samples[22][2]>result.samples[20][2]*.85,'retail remains active later');assert.ok(result.samples[0][2]<result.samples[22][2]*.4,'retail dims by midnight');
+ assert.ok(result.samples[22][0]>result.samples[18][0]*1.15,'home windows brighten towards 10 pm');
+ assert.ok(result.samples[22][0]>=result.samples[21][0]&&result.samples[23][0]<=result.samples[22][0],'homes peak at 10 pm then begin sleeping');
+ assert.ok(result.samples[20][1]<result.samples[18][1],'offices leave from 6 pm');
+ assert.ok(result.samples[22][1]<result.samples[20][1]*.5,'offices wind down through 8 pm');
+ assert.ok(result.samples[22][2]<result.samples[21][2],'shops close progressively after 9 pm');
+ assert.ok(result.samples[23][2]<result.samples[20][2]*.5,'most retail is dark by 11 pm');
+ assert.ok(result.samples[0][2]<result.samples[23][2]&&result.samples[4][2]>0,'late shops and overnight lights survive');
  assert.deepEqual(errors,[]);result.result='passed';result.errors=errors;
  await writeFile(new URL('../../../docs/astra-city/night-cycle/render-verification.json',import.meta.url),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));
 }finally{await browser.close();}

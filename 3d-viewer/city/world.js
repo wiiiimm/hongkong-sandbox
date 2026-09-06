@@ -63,10 +63,12 @@ function facadeMaterial(hex,lighting){
    float activity = vCityLight.y < .5 ? uCityActivity.x : vCityLight.y < 1.5 ? uCityActivity.y : vCityLight.y < 2.5 ? uCityActivity.z : vCityLight.y < 3.5 ? uCityActivity.w : uCityRetail;
    if(vCityLight.w>0.0 && vCityPosition.y-vCityLight.z<vCityLight.w) activity=uCityRetail;
    // Each building and window has a stable bedtime; no frame-dependent flicker.
-   activity = clamp(activity * (.80 + .40*vCityLight.x), .012, .985);
+   activity = clamp(activity * (.80 + .40*vCityLight.x), 0.0, .985);
    vec2 room = floor(cell) + vCityLight.x * vec2(773.0,419.0) + vCityNormal.xz*31.0;
    float bedtime = cityHash(room);
-   float lit = smoothstep(bedtime-.016,bedtime+.016,activity);
+   // Narrow the fade at very low occupancy so dark buildings stay dark at 4 am.
+   float fade = min(.016,max(.0001,activity*.4));
+   float lit = activity > 0.0 ? smoothstep(bedtime-fade,bedtime+fade,activity) : 0.0;
    vec3 warm = vec3(1.0,.63,.27), cool = vec3(.71,.85,1.0);
    float coolRooms = vCityLight.y > .5 && vCityLight.y < 1.5 ? .64 : vCityLight.y>3.5 ? .36 : .17;
    vec3 lightColour = mix(mix(warm,cool,coolRooms),mix(warm,cool,step(1.0-coolRooms,cityHash(room+97.0))),detailAA);

@@ -24,7 +24,11 @@ explicitly mapped as a 24/7 shop follows the overnight profile. Hotels, hospital
 and similar mapped uses keep a larger overnight light reserve. This is not a
 complete survey of night businesses or a store-by-store opening-hours importer.
 
-## Reproducible classification
+## Initial reproducible classification
+
+The counts below describe the initial 42,892-form lighting study. The current
+whole-territory build extends the same method to 117,062 forms; updated counts
+and coverage are in [GEOGRAPHY-COVERAGE.md](../GEOGRAPHY-COVERAGE.md).
 
 `city/data/activity.json` is a separate layer joined by the immutable building
 form UID. It covers all 42,892 current forms without changing any footprint,
@@ -67,10 +71,15 @@ Other untagged mixed-use towers are not assumed to have a retail podium.
 ## Schedule and atmosphere assumptions
 
 The user's requested evening pattern drives the simulation: offices wind down
-from about 20:00; retail fades mainly 22:00–00:00; homes brighten until around
-21:00, then gradually sleep. The cited retail hours support later retail activity,
+from 18:00, with some working through 20:00 and a small midnight reserve;
+retail begins closing at 21:00, mostly closes by 23:00 and retains a few late shops;
+homes fill up around 21:00, peak at 22:00 and begin sleeping around 23:00. The cited retail hours support later retail activity,
 but neither they nor the planning sources establish the exact window probabilities.
 The 04:00 minimum, sleep/wake curves and remaining lights are design choices.
+The subsequent visual direction makes midnight as quiet as the earlier 04:00
+setting, and reduces the 04:00 reserve further: 0.6% nominal home activation,
+0.2% offices/retail, 0.4% mixed and 4.5% overnight services. These percentages
+are art direction, not claims about real Hong Kong occupancy.
 A single generic weekday/weekend curve currently serves each use category.
 
 Distant light variation is a restrained visual approximation of atmospheric
@@ -82,4 +91,5 @@ low-frequency modulation over 650–3,500 m, and applies gradual distance attenu
 Windows use different phases; unresolved distant windows blend into a building
 average to reduce aliasing. This is not a model of current humidity, aerosols or
 weather. The effect can be switched off and follows reduced-motion preferences.
-Live/manual weather and accurate astronomy remain separate feature-parity work.
+The integrated build now connects live/manual weather and dated astronomy;
+remaining original-game parity is tracked separately.

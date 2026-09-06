@@ -11,9 +11,9 @@ uniforms drive the effect without a point light for each window.
 
 ## Circular 24-hour clock
 
-Drag or tap the clock under **Light & Atmosphere**: midnight is at the top,
+Choose the **Sky** tab and drag or tap the clock under **Light & Atmosphere**: midnight is at the top,
 06:00 on the right, noon at the bottom and 18:00 on the left. The blue/gold ring
-represents the illustrative night/day cycle. Pointer movement selects five-minute
+follows sunrise/sunset for the selected date. Pointer movement selects five-minute
 steps and wraps continuously across midnight. **Set time** accepts any minute.
 
 Keyboard: arrows change 15 minutes, Shift+arrows five minutes, Page Up/Down one
@@ -28,25 +28,29 @@ advancement. New city sections immediately inherit the current clock.
 ## Simulated activity
 
 [Area research and classification provenance](AREA-RESEARCH.md) distinguish sourced
-building/land uses from artistic occupancy assumptions. All current 42,892 forms
+building/land uses from artistic occupancy assumptions. All current 117,062 forms
 have an activity entry; uncertain classifications are identified in the inspector.
 
 | Time | Homes | Offices / daytime | Overnight uses | Mixed / unknown | Retail |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| 18:00 | 60% | 86% | 84% | 74% | 94% |
-| 20:00 | 87% | 68% | 92% | 78% | 93% |
-| 21:00 | 90% | 34% | 92% | 78% | 93% |
-| 22:00 | 83% | 16% | 88% | 70% | 88% |
-| 00:00 | 48% | 8% | 65% | 34% | 14% |
-| 02:00 | 16% | 4% | 42% | 12% | 4% |
-| 04:00 | 5.5% | 2.5% | 24% | 4.5% | 2% |
+| 18:00 | 48% | 84% | 84% | 72% | 94% |
+| 20:00 | 74% | 46% | 92% | 77% | 93% |
+| 21:00 | 90% | 28% | 92% | 78% | 90% |
+| 22:00 | 96% | 16% | 88% | 76% | 62% |
+| 23:00 | 72% | 5% | 50% | 44% | 10% |
+| 00:00 | 5.5% | 2.5% | 24% | 4.5% | 2% |
+| 02:00 | 1.8% | 0.8% | 9% | 1.3% | 0.6% |
+| 04:00 | 0.6% | 0.2% | 4.5% | 0.4% | 0.2% |
 | 06:00 | 30% | 14% | 42% | 20% | 7.5% |
 
 These are nominal activation thresholds with up to 20% building variation and
 smooth window fades, not measured occupancy or population statistics. All profiles
-reach their minimum at 04:00. Ambient light remains sufficient for exploration.
-Illustrative dawn runs 05:30–07:12. Exact astronomy and live weather are still
-required by the [original-game parity plan](../FEATURE-PARITY.md).
+reach their minimum at 04:00. Following the visual feedback, midnight now has
+the earlier build’s 04:00 occupancy, with a much sparser 04:00 reserve. The shader
+no longer forces every building to keep at least 1.2% of its windows active. Ambient light remains sufficient for exploration.
+The integrated city now uses the selected HKT date and the original compact
+ephemeris for dawn/dusk, with real sun/moon and live/manual weather. The occupancy
+thresholds remain simulated; see the [remaining parity work](../FEATURE-PARITY.md).
 
 Nearby windows stay steady. Distant lights receive subtle independent atmospheric
 shimmer and gradual attenuation, with a switch and reduced-motion support. The
@@ -65,7 +69,7 @@ npm --prefix 3d-viewer/city run test:night
 npm --prefix 3d-viewer/city run test:browser
 ```
 
-The 23 unit/data checks include all 1,440 valid input minutes, midnight wrapping,
+The focused unit/data checks include all 1,440 valid input minutes, midnight wrapping,
 profile continuity, source hashes and complete activity coverage. Clock browser
 checks select all 24 hours, drag across midnight, use keyboard/exact entry/touch,
 pause playback and change reduced-motion preferences while the page is open.
