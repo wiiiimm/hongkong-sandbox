@@ -1,0 +1,231 @@
+{
+  "result": "passed",
+  "testedAt": "2026-09-06T09:03:48.333Z",
+  "browser": "152.0.7977.76",
+  "fixtureTime": "2026-09-06T12:30:00+08:00",
+  "checks": [
+    "Original 0–100 tide slider, existing SEA_MIN low-water clamp and terrain shoreline uniforms are unchanged",
+    "Terrain-only density remesh retains the current sea in tidalMats and animated wave uniforms continue",
+    "Original animated water normals, vertical bob, rain pocks and sun glitter compile and respond to Waves/Wind/Rain",
+    "Original Live fetches three retained HHOT daily responses, interpolates current 12:30 HKT, shows CCH and draws the 24-hour graph",
+    "Returning to original Manual retains its legacy adopted live level; waves off restores calm normals without shader errors"
+  ],
+  "requests": [
+    {
+      "station": "CCH",
+      "day": 5
+    },
+    {
+      "station": "CCH",
+      "day": 6
+    },
+    {
+      "station": "CCH",
+      "day": 7
+    }
+  ],
+  "snapshots": {
+    "initial": {
+      "seaY": 0.5,
+      "visible": true,
+      "shaderTime": 0.048,
+      "waveAmplitude": 0.05,
+      "rainSpark": 0,
+      "glint": 0.55,
+      "seaRegistered": true,
+      "tidalMaterials": 6,
+      "shoreUniforms": [
+        0.5,
+        0.5
+      ],
+      "programs": [
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        }
+      ]
+    },
+    "low": {
+      "seaY": 0.4,
+      "visible": true,
+      "shaderTime": 0.064,
+      "waveAmplitude": 0.05,
+      "rainSpark": 0,
+      "glint": 0.55,
+      "seaRegistered": true,
+      "tidalMaterials": 6,
+      "shoreUniforms": [
+        0.4,
+        0.4
+      ],
+      "programs": [
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        }
+      ]
+    },
+    "high": {
+      "seaY": 2.1266880000000006,
+      "visible": true,
+      "shaderTime": 0.08,
+      "waveAmplitude": 0.05,
+      "rainSpark": 0,
+      "glint": 0.55,
+      "seaRegistered": true,
+      "tidalMaterials": 6,
+      "shoreUniforms": [
+        2.1266880000000006,
+        2.1266880000000006
+      ],
+      "programs": [
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        }
+      ]
+    },
+    "waves": {
+      "seaY": 3.720432609669099,
+      "visible": true,
+      "shaderTime": 0.2,
+      "waveAmplitude": 0.36,
+      "rainSpark": 0,
+      "glint": 1,
+      "seaRegistered": true,
+      "tidalMaterials": 6,
+      "shoreUniforms": [
+        3.720432609669099,
+        3.720432609669099
+      ],
+      "programs": [
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        }
+      ]
+    },
+    "remesh": {
+      "seaY": 4.630194373750732,
+      "visible": true,
+      "shaderTime": 0.9200000000000003,
+      "waveAmplitude": 0.36,
+      "rainSpark": 0,
+      "glint": 1,
+      "seaRegistered": true,
+      "tidalMaterials": 6,
+      "shoreUniforms": [
+        4.630194373750732,
+        4.630194373750732
+      ],
+      "programs": [
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        }
+      ]
+    },
+    "live": {
+      "label": "tide 0.69 m  → slack",
+      "caption": "24 h tide · Cheung Chau",
+      "width": 224,
+      "height": 56,
+      "graphPixels": 4433
+    },
+    "final": {
+      "seaY": 0.4,
+      "visible": true,
+      "shaderTime": 1.832000000000001,
+      "waveAmplitude": 0.05,
+      "rainSpark": 0,
+      "glint": 0.55,
+      "seaRegistered": true,
+      "tidalMaterials": 6,
+      "shoreUniforms": [
+        0.4,
+        0.4
+      ],
+      "programs": [
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        },
+        {
+          "runnable": true
+        }
+      ]
+    },
+    "realBrowserHHOT": {
+      "status": "live",
+      "basis": "prediction",
+      "station": "CCH",
+      "error": null,
+      "prediction": {
+        "time": 1788685427582,
+        "heightCD": 1.2188504111111111,
+        "heightHKPD": 1.0728504111111112,
+        "sourceUrls": [
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=5",
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=6",
+          "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=HHOT&lang=en&rformat=json&station=CCH&year=2026&month=9&day=7"
+        ],
+        "fetchedAt": "2026-09-06T09:03:47.582Z"
+      }
+    }
+  },
+  "errors": [],
+  "diagnostics": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ]
+}

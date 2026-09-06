@@ -3,6 +3,7 @@ import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
 import {ORIGIN,inPolygon,random,smoothStep} from './geo.js';
 import {buildingLighting} from './lighting.js';
 import {createBuildingGeometry} from './building-geometry.js';
+import {createTidalWater} from './tidal-water.js';
 
 const colour = x=>new THREE.Color(x);
 export function makeTerrain(data) {
@@ -31,19 +32,7 @@ export function makeTerrain(data) {
   }return group;
  }return mesh;
 }
-export function makeWater(){
- const material=new THREE.MeshStandardMaterial({color:'#6caba4',roughness:.36,metalness:.25});
- const time={value:0},strength={value:.18};
- material.onBeforeCompile=shader=>{
-  shader.uniforms.uWaterTime=time;shader.uniforms.uWaterStrength=strength;
-  shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vWaterPosition;').replace('#include <begin_vertex>','#include <begin_vertex>\nvWaterPosition = (modelMatrix * vec4(transformed, 1.0)).xyz;');
-  shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 vWaterPosition; uniform float uWaterTime; uniform float uWaterStrength;').replace('#include <color_fragment>',`#include <color_fragment>
-   float ripple = sin(vWaterPosition.x * .065 + vWaterPosition.z * .038 + uWaterTime * .6) * sin(vWaterPosition.z * .071 - uWaterTime * .4);
-   float swell = sin(vWaterPosition.x * .009 - vWaterPosition.z * .015 + uWaterTime * .2);
-   diffuseColor.rgb *= .96 + ripple * (.015+uWaterStrength*.12) + swell * (.015+uWaterStrength*.07);`);
- };
- const mesh=new THREE.Mesh(new THREE.PlaneGeometry(180000,180000),material);mesh.rotation.x=-Math.PI/2;mesh.position.y=.3;mesh.name='Victoria Harbour';return {mesh,time,material,strength};
-}
+export function makeWater(){return createTidalWater();}
 export function extrudeBuilding(b){return createBuildingGeometry(b);}
 function facadeMaterial(hex,lighting){
  const material=new THREE.MeshStandardMaterial({color:hex,roughness:.69,metalness:.13});

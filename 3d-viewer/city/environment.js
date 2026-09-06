@@ -6,20 +6,23 @@ import {dateFromHKT,hktParts} from './sky-time.js';
 import {createWeather} from './weather.js';
 import {createCityMeteors,meteorRateLabel,METEOR_DEFAULTS} from './meteors.js';
 import {createWeatherEffects} from './weather-effects.js';
+import {createTideData,chooseTideStation} from './tide-data.js';
+import {drawTideGraph} from './tide-graph.js';
 const $=id=>document.getElementById(id);
 const WEATHER_KEYS=['rain','clouds','fog','wind','waves','snow','windFrom'];
 export async function createEnvironment(options){
  const sky=await createSky({scene:options.scene,camera:options.camera});
  const weather=createWeather({scene:options.scene,camera:options.camera});
+ const tides=createTideData();
  const meteors=createCityMeteors({scene:options.scene,camera:options.camera});
  const weatherEffects=createWeatherEffects({scene:options.scene,camera:options.camera,terrainHeight:options.terrainHeight});
- return new CityEnvironment({...options,sky,weather,meteors,weatherEffects});
+ return new CityEnvironment({...options,sky,weather,meteors,weatherEffects,tides});
 }
 class CityEnvironment {
  constructor(options){
-  Object.assign(this,options);this.date=dateFromHKT(hktParts(new Date()).date,15);this.mode='manual';this.timeLapse=false;this.stargazing=false;this.astroKey='';this.lastLive=0;this.lastWeatherUI=0;this.baseSun=3;this.baseAmbient=1.9;
+  Object.assign(this,options);this.date=dateFromHKT(hktParts(new Date()).date,15);this.mode='manual';this.timeLapse=false;this.stargazing=false;this.astroKey='';this.lastLive=0;this.lastWeatherUI=0;this.baseSun=3;this.baseAmbient=1.9;this.tideStation='auto';
   this.bindUI();this.applyClock();
-  addEventListener('pagehide',event=>{if(!event.persisted){this.meteors.dispose();void this.weatherEffects.dispose();}});
+  addEventListener('pagehide',event=>{if(!event.persisted){this.meteors.dispose();this.tides.dispose();this.water.dispose();void this.weatherEffects.dispose();}});
  }
  get hour(){return hktParts(this.date).hour;}
  get observer(){return this.getObserver();}
@@ -33,8 +36,10 @@ class CityEnvironment {
   $('sky-mode').addEventListener('change',e=>{const mode=e.target.value;this.play(false);this.mode=mode;if(this.mode==='live')this.date=new Date();this.applyClock();});
   $('sky-date').addEventListener('change',e=>{const date=dateFromHKT(e.target.value,this.hour);if(!date)return;this.play(false);this.mode='manual';this.date=date;this.applyClock();});
   $('sky-constellations').addEventListener('change',e=>this.sky.setConstellations(e.target.checked));this.sky.setConstellations($('sky-constellations').checked);
-  $('weather-mode').addEventListener('change',e=>{this.weather.setLive(e.target.value==='live').then(()=>this.syncWeatherUI());this.syncWeatherUI();});
-  $('weather-refresh').addEventListener('click',()=>{this.weather.refresh().then(()=>this.syncWeatherUI());this.syncWeatherUI();});
+  $('weather-mode').addEventListener('change',e=>{const live=e.target.value==='live';Promise.allSettled([this.weather.setLive(live),this.tides.setLive(live)]).then(()=>this.syncWeatherUI());this.syncWeatherUI();});
+  $('weather-refresh').addEventListener('click',()=>{Promise.allSettled([this.weather.refresh(),this.tides.refresh()]).then(()=>this.syncWeatherUI());this.syncWeatherUI();});
+  $('tide-level').addEventListener('input',e=>{this.tides.setManual(Number(e.target.value));this.syncTideUI();});
+  $('tide-station').addEventListener('change',e=>{this.tideStation=e.target.value;this.syncTideStation();this.syncTideUI();});
   for(const key of WEATHER_KEYS)$('weather-'+key).addEventListener('input',e=>{this.weather.setManual({[key]:Number(e.target.value)/(key==='windFrom'?1:100)});this.syncWeatherUI();});
   $('sky-meteors').checked=METEOR_DEFAULTS.enabled;$('sky-meteor-rate').value=String(METEOR_DEFAULTS.rate*100);
   const syncMeteors=()=>{const enabled=$('sky-meteors').checked,rate=Number($('sky-meteor-rate').value)/100;this.meteors.setOptions({enabled,rate});$('sky-meteor-rate').disabled=!enabled;$('sky-meteor-rate-value').textContent=enabled?meteorRateLabel(rate):'Off';};
@@ -44,6 +49,22 @@ class CityEnvironment {
   $('weather-volume').addEventListener('input',e=>{this.weatherEffects.setMasterVolume(Number(e.target.value)/100);this.syncEffectsUI();});
   $('weather-sound').addEventListener('click',async event=>{const pending=this.weatherEffects.setSound((!this.weatherEffects.state.sound.enabled||['error','gesture-required'].includes(this.weatherEffects.state.sound.status)),event);this.syncEffectsUI();try{await pending;}finally{this.syncEffectsUI();}});
   this.syncWeatherUI();
+ }
+ syncTideStation(){
+  const code=this.tideStation==='auto'?chooseTideStation(this.observer).code:this.tideStation;
+  if(this.tides.state.station.code!==code)this.tides.setStation(code);
+ }
+ syncTideUI(){
+  const state=this.tides.state,live=state.mode==='live',prediction=state.prediction,usable=Number.isFinite(prediction?.heightHKPD);
+  $('tide-station').value=this.tideStation;$('tide-station').disabled=this.stargazing;
+  $('tide-level').value=String(live?state.restingLevelHKPD:state.manualLevelHKPD);$('tide-level-value').textContent=(live?state.restingLevelHKPD:state.manualLevelHKPD).toFixed(2)+' m';
+  const status=this.stargazing?'Tide and waves paused in Stargaze':!live?'Manual sea level · simulation':state.status==='loading'?'Reading HKO tide predictions…':state.status==='live'?'HKO astronomical tide prediction':state.status==='partial'?'Partial HKO tide prediction':state.status==='stale'?'Previous prediction · refresh delayed':state.error||'Tide prediction unavailable';
+  if($('tide-status').textContent!==status)$('tide-status').textContent=status;
+  const station=state.station.name;
+  $('tide-readout').textContent=state.restingLevelHKPD.toFixed(2)+' m HKPD'+(live&&usable?' · '+prediction.trend:'');
+  const source=live&&usable?`${station} · predicted ${new Date(prediction.time).toLocaleString('en-HK',{timeZone:'Asia/Hong_Kong',hour12:false})} HKT. ${prediction.heightCD.toFixed(2)} m Chart Datum. Prediction, not a measured water level; surge is not included.`:live?'Using your saved manual sea level until a usable prediction arrives.':'Sea levels use Hong Kong Principal Datum, matching the terrain.';
+  $('tide-source').textContent=source+(live&&this.tideStation==='auto'?' Automatic chooses the nearer of Cheung Chau and Quarry Bay; local tide differences remain approximate.':'');
+  drawTideGraph($('tide-graph'),live?prediction:null);
  }
  syncEffectsUI(){
   const state=this.weatherEffects.state,sound=state.sound;
@@ -84,7 +105,7 @@ class CityEnvironment {
  syncWeatherUI(){
   const state=this.weather.state,live=state.mode==='live';$('weather-mode').value=live?'live':'manual';$('weather-manual').disabled=live||this.stargazing;$('weather-mode').disabled=this.stargazing;$('weather-refresh').disabled=this.stargazing;$('weather-refresh').hidden=!live;
   for(const key of WEATHER_KEYS){const value=state.settings?.[key]??0;$('weather-'+key).value=String(Math.round(value*(key==='windFrom'?1:100)));$('weather-'+key+'-value').textContent=key==='windFrom'?(state.settings?.windFrom==null?'Variable / unavailable':`${Math.round(value)}°`):`${Math.round(value*100)}%`;}
-  this.syncEffectsUI();
+  this.syncEffectsUI();this.syncTideUI();
   const observation=state.observation;
   $('weather-status').textContent=this.stargazing?'Weather paused in Stargaze · settings preserved':live?state.status==='loading'?'Reading Hong Kong Observatory…':state.status==='live'?'Live HKO observations':state.status==='stale'?'Last HKO observation · refresh delayed':state.error||'Live observations unavailable':'Manual weather · your settings';
   $('weather-observation').textContent=this.stargazing?'Return to Explore, Walk or Fly to see and change the weather.':live&&observation?this.describeObservation(observation):live?'Weather visuals remain separate from the city clock.':'Adjust the weather to explore different conditions.';
@@ -104,6 +125,7 @@ class CityEnvironment {
   if(!paused&&this.mode==='live'&&now-this.lastLive>1000){this.date=new Date();this.lastLive=now;this.applyClock();}
   else if(!paused&&this.timeLapse){this.date=new Date(this.date.valueOf()+dt*3600000/8);this.applyClock();}
   else {const observer=this.observer;if(!this.astroKey.endsWith(`|${observer.lat}|${observer.lon}`))this.applyClock();}
+  this.syncTideStation();this.tides.update({paused,suspended:stargazing});this.water.setLevel(this.tides.state.restingLevelHKPD);
   const fx=this.weather.update(dt,{position,reducedMotion,paused,night:this.lightState.night,suspended:stargazing});this.effects=fx;
   const storm=this.weatherEffects.update(dt,{settings:this.weather.state.settings,mode:this.weather.state.mode,paused,reducedMotion,suspended:stargazing,position});
   const bg=this.background.clone();if(stargazing)bg.set('#060a15');else bg.lerp(new THREE.Color('#66777c'),(fx.cloudCover||0)*.16);
@@ -113,11 +135,12 @@ class CityEnvironment {
   this.sun.intensity=this.baseSun*(stargazing?.3:fx.sunMultiplier??1);this.ambient.intensity=this.baseAmbient*(stargazing?.45:fx.ambientMultiplier??1)+storm.ambientBoost;
   const source=this.astronomy.sun.altitude>0?this.astronomy.sun.direction:this.astronomy.moon.altitude>0?this.astronomy.moon.direction:{x:.3,y:.55,z:-.7};
   this.sun.target.position.copy(position);this.sun.position.copy(position).addScaledVector(new THREE.Vector3(source.x,Math.max(.08,source.y),source.z).normalize(),6000);
-  this.water.material.roughness=Math.max(.15,.38+this.lightState.night*.4-(fx.waveStrength||0)*.18);if(this.water.strength)this.water.strength.value=fx.waveStrength||0;
+  this.water.material.roughness=Math.max(.15,.38+this.lightState.night*.4-(fx.waveStrength||0)*.18);
+  this.water.update(dt,{settings:this.weather.state.settings,camera:this.camera,sunDirection:source,night:this.lightState.night,paused,reducedMotion,suspended:stargazing});
   this.sky.update({date:this.date,lat:this.observer.lat,lon:this.observer.lon,stargazing,cloudCover:stargazing?0:fx.cloudCover||0});
   this.meteors.update(dt,{starFade:this.sky.state.starFade,paused,reducedMotion});
   document.body.classList.toggle('night',stargazing||this.lightState.night>.5);
   if(now-this.lastWeatherUI>500){this.syncWeatherUI();this.lastWeatherUI=now;}
  }
- get state(){return {mode:this.mode,date:this.date.toISOString(),hkt:hktParts(this.date),timeLapse:this.timeLapse,astronomy:this.astronomy,sky:this.sky.state,weather:this.weather.state,effects:this.effects,meteors:this.meteors.state,storm:this.weatherEffects.state};}
+ get state(){return {mode:this.mode,date:this.date.toISOString(),hkt:hktParts(this.date),timeLapse:this.timeLapse,astronomy:this.astronomy,sky:this.sky.state,weather:this.weather.state,effects:this.effects,meteors:this.meteors.state,storm:this.weatherEffects.state,tides:this.tides.state,water:this.water.state};}
 }

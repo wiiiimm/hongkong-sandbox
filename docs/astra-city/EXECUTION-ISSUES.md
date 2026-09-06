@@ -2,7 +2,7 @@
 
 Created and read back from Linear on 6 September 2026. The user explicitly authorised issue, subissue, status and progress updates in **Astra - Living Hong Kong — buildings, regional detail & feature parity**. Project: Hong Kong Sandbox; team HKS. William remains the assignee; agent names identify execution ownership.
 
-There are **22 new subissues**: three implemented in parallel and now In Review, with 19 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. No current cycle was returned; no date was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
+There are **22 new subissues**: three implemented in parallel and now In Review, HKS-180 in progress, and 18 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. No current cycle was returned; no date was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
 
 ## First parallel batch — implemented and verified
 
@@ -27,7 +27,7 @@ Primary agent owns city `environment.js`, `app.js`, `city.html` and CSS for the 
 
 - [HKS-168 — Restore original shooting-star controls in the city sky](https://linear.app/stealth-company/issue/HKS-168/restore-original-shooting-star-controls-in-the-city-sky) — In Review; 8 points.
 - [HKS-169 — Restore lightning, thunder and weather sound in the city](https://linear.app/stealth-company/issue/HKS-169/restore-lightning-thunder-and-weather-sound-in-the-city) — In Review; 8 points.
-- [HKS-180 — Restore tides, typhoon and remaining manual weather controls](https://linear.app/stealth-company/issue/HKS-180/restore-tides-typhoon-and-remaining-manual-weather-controls) — Backlog; 8 points.
+- [HKS-180 — Restore tides, typhoon and remaining manual weather controls](https://linear.app/stealth-company/issue/HKS-180/restore-tides-typhoon-and-remaining-manual-weather-controls) — In Progress; 8 points.
 - [HKS-181 — Restore marine, radar, satellite and air-quality observations](https://linear.app/stealth-company/issue/HKS-181/restore-marine-radar-satellite-and-air-quality-observations) — Backlog; 8 points.
 
 ## HKS-123
@@ -54,7 +54,7 @@ Primary agent owns city `environment.js`, `app.js`, `city.html` and CSS for the 
 - [HKS-187 — Restore saved-view URLs, sharing, embeds and settings](https://linear.app/stealth-company/issue/HKS-187/restore-saved-view-urls-sharing-embeds-and-settings) — Backlog; 4 points.
 - [HKS-188 — Restore original fullscreen, PWA, offline and help behaviours](https://linear.app/stealth-company/issue/HKS-188/restore-original-fullscreen-pwa-offline-and-help-behaviours) — Backlog; 8 points.
 
-The machine-readable read-back is `EXECUTION-ISSUES.json`. Statuses were read back after verification: HKS-167–169 are In Review, with all other subissues still queued. Released original-game issues remain Released and are reused as compatibility references.
+The machine-readable read-back is `EXECUTION-ISSUES.json`. Statuses were read back after verification: HKS-167–169 are In Review; HKS-180 is In Progress, with the other 18 subissues still queued. Released original-game issues remain Released and are reused as compatibility references.
 
 ## Verified local delivery
 
@@ -63,3 +63,7 @@ The machine-readable read-back is `EXECUTION-ISSUES.json`. Statuses were read ba
 - Full combined city suite: **116/116 passing**. Original meteor compatibility, source/terrain audits and focused browser checks pass. The three agents have finished this batch; none is claimed to be running a queued issue.
 
 The milestone and HKS-116/117/122/129 carry the current implementation reports. Full geography and original-game parity remain open. Everything remains local on `codex/astra-hong-kong-city`.
+
+## Requested tide/wave pass — HKS-180
+
+Curie restored the shared original tide interpolation, water normals/rain/glitter, wet shore and foam. The primary agent integrated manual sea level, HKO predictions/24-hour graph, station choice, ferry level and water-aware navigation. The tidal slice passes **128/128 city tests** and six actual-city browser groups. [Methods and evidence](tides/README.md). HKS-180 remains In Progress for typhoon, sky-height, snow-accumulation and other manual controls; the tide slice does not close that parent scope.

@@ -4,6 +4,9 @@
 // per-layer vector toggles, and a vertical-exaggeration slider that drives BOTH the
 // terrain and the draped skin so contours stay welded to the ridges.
 import * as THREE from './vendor/three.module.js';
+import { tideAt } from './tide-series.js';
+import { applyWaterSurfaceShader } from './water-surface.js';
+import { createWaterNoiseTexture, applyShorelineShader } from './shoreline-surface.js';
 import { createMeteorTrails, meteorRateLabel as sharedMeteorRateLabel } from './meteor-trails.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
 import { GLTFLoader } from './vendor/GLTFLoader.js';
@@ -570,6 +573,8 @@ function updateNote() {
 // rebuild terrain at the current density, preserving style/VE/camera
 function rebuildTerrain() {
   buildTerrain();
+  // A density change replaces only terrain materials; keep driving the live sea shader.
+  if (sea) tidalMats.push(sea.material);
   if (texTopo) matTopo.map = texTopo;   // re-attach texture to freshly-made material
   applyStyle(surfStyle);
   redrapeSkin();   // HKS-108: drape heights are triangle-matched to the mesh, so a density change moves them
@@ -597,22 +602,7 @@ function axisSamples(n, step) {
 
 // Tileable blotch texture driving the cloud-shadow pass (blobs re-drawn at ±size
 // offsets so the wrap is seamless when it scrolls with the wind)
-const CLOUD_SHADOW_TEX = (() => {
-  const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
-  const x = c.getContext('2d');
-  x.fillStyle = '#000'; x.fillRect(0, 0, S, S);
-  for (let i = 0; i < 26; i++) {
-    const px = Math.random() * S, py = Math.random() * S, r = 26 + Math.random() * 58;
-    for (const ox of [-S, 0, S]) for (const oy of [-S, 0, S]) {
-      const g = x.createRadialGradient(px + ox, py + oy, 0, px + ox, py + oy, r);
-      g.addColorStop(0, 'rgba(255,255,255,.5)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-      x.fillStyle = g; x.fillRect(0, 0, S, S);
-    }
-  }
-  const t = new THREE.CanvasTexture(c);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  return t;
-})();
+const CLOUD_SHADOW_TEX = createWaterNoiseTexture();
 
 // Surface FX injected into every terrain/sea material (HKS-21/22, composing the
 // original intertidal band):
@@ -658,12 +648,6 @@ function attachTerrainFX(mat, wet, water) {
         uniform float uGlintAmt; uniform vec3 uSunDirV;
         uniform float uSnowAmt; uniform float uSnowLine;`)
       .replace('#include <dithering_fragment>', `#include <dithering_fragment>
-        { float d = vWpos.y - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d));
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet * 0.5 * uWetAmt);
-          float foam = step(0.0, d) * (1.0 - smoothstep(0.0, uBand * 0.22, d));
-          float fn = texture2D(uCloudTex, vWpos.xz * uCloudScale * 60.0 + vec2(uTime * 0.02, uTime * 0.013)).r;
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.93,0.96,0.97),
-            foam * smoothstep(0.32, 0.78, fn) * uFoamAmt * uWetAmt); }
         { // snow-caps: higher, colder ground whitens first, mottled by the noise tex
           float sl = smoothstep(uSnowLine, uSnowLine * 1.7, vWpos.y);
           float sn = texture2D(uCloudTex, vWpos.xz * uCloudScale * 24.0).r;
@@ -673,40 +657,8 @@ function attachTerrainFX(mat, wet, water) {
           gl_FragColor.rgb *= 1.0 - smoothstep(0.35, 0.85, s) * uCloudAmt * 0.34; }
         { float hf = (1.0 - smoothstep(0.0, uFogY, vWpos.y)) * uFogAmt;
           gl_FragColor.rgb = mix(gl_FragColor.rgb, uFogCol, hf * 0.8); }`);
-    if (water) {
-      // animated wave normals: three sine octaves' analytic slopes, rotated into
-      // view space — the PBR sun/moon specular then glints off the moving water
-      sh.fragmentShader = sh.fragmentShader.replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
-        { vec2 p = vWpos.xz * uWaveK; float t = uTime;
-          float sx = cos(p.x * 1.00 + t * 1.1) * 1.0
-                   + cos((p.x + p.y) * 1.7 + t * 1.7) * 0.6
-                   + cos(p.x * 3.1 - p.y * 2.2 + t * 2.3) * 0.35;
-          float sz = cos(p.y * 1.13 - t * 0.9) * 1.0
-                   + cos((p.y - p.x) * 1.9 + t * 1.4) * 0.6
-                   + cos(p.y * 2.7 + p.x * 2.4 + t * 2.1) * 0.35;
-          vec3 wn = (viewMatrix * vec4(sx, 0.0, sz, 0.0)).xyz;
-          normal = normalize(normal + wn * uWaveAmp);
-          // rain pocks the surface: fine time-jittered normal noise scatters the
-          // glint while it rains, reading as a roughened, drizzled sea
-          if (uSparkAmt > 0.0) {
-            vec2 rc = floor(vWpos.xz * uWaveK * 60.0) + floor(uTime * 8.0);
-            float rj = fract(sin(dot(rc, vec2(12.9898, 78.233))) * 43758.5453) - 0.5;
-            float rk = fract(sin(dot(rc, vec2(39.3468, 11.135))) * 24634.6345) - 0.5;
-            normal = normalize(normal + (viewMatrix * vec4(rj, 0.0, rk, 0.0)).xyz * uSparkAmt * 0.9);
-          } }`);
-      // sun-glitter: per-cell micro-facets whose normals slowly rotate — each
-      // flashes as it sweeps through alignment between the sun (or moon) and
-      // the eye. Injected before the shared passes so height fog dims it.
-      sh.fragmentShader = sh.fragmentShader.replace('#include <dithering_fragment>', `#include <dithering_fragment>
-        if (uGlintAmt > 0.0) {
-          vec2 gc = floor(vWpos.xz * uWaveK * 80.0);
-          float gr = fract(sin(dot(gc, vec2(127.1, 311.7))) * 43758.5453);
-          float ph = gr * 6.2831 + uTime * (1.0 + gr * 2.5);
-          vec3 mj = normalize(normal + (viewMatrix * vec4(cos(ph) * 0.22, 0.0, sin(ph) * 0.22, 0.0)).xyz);
-          vec3 Hh = normalize(uSunDirV + normalize(vViewPosition));
-          gl_FragColor.rgb += vec3(1.0, 0.97, 0.88) * pow(max(dot(mj, Hh), 0.0), 420.0) * uGlintAmt;
-        }`);
-    }
+    applyShorelineShader(sh);
+    if (water) applyWaterSurfaceShader(sh);
     mat.userData.sh = sh;
   };
   mat.userData.isWater = !!water;
@@ -8121,12 +8073,7 @@ function hkHourFloat() {
 }
 // vals[i] is the predicted height at clock hour (i+1) measured from yesterday 00:00;
 // sample (with linear interpolation) at an absolute window-hour
-function tideAt(vals, absHour) {
-  const idx = absHour - 1, i0 = Math.floor(idx);
-  const cl = i => vals[Math.max(0, Math.min(vals.length - 1, i))];
-  const a = cl(i0), b = cl(i0 + 1);
-  return (isFinite(a) && isFinite(b)) ? a + (b - a) * (idx - i0) : NaN;
-}
+
 
 async function syncLiveTide() {
   const [st, stName] = TIDE_STATION[document.getElementById('src').value] || ['QUB', 'Quarry Bay'];

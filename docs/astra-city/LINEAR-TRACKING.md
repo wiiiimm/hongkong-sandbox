@@ -6,9 +6,13 @@ GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained
 
 The user explicitly authorised updates to the Astra milestone and its issues. The pending coverage report has been posted: HKS-164 is now **In Review**, and HKS-116/HKS-117 reflect the verified ff68cf1 coverage and active feature restoration. The prior automatic approval rejection is resolved.
 
-[22 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168 and HKS-169 were implemented in parallel and are now **In Review**; HKS-170–188 are queued. Their three agents have completed this batch. The seven existing geography parents retain the 132-section review scope.
+[22 executable subissues](EXECUTION-ISSUES.md) were created and read back with correct parent, project, milestone, owner, labels and estimates. HKS-167, HKS-168 and HKS-169 were implemented in parallel and are now **In Review**; HKS-180 is In Progress; the other 18 subissues in HKS-170–188 remain queued. Their three agents have completed this batch. The seven existing geography parents retain the 132-section review scope.
 
 ## Current local checkpoint
+
+The subsequent user-requested **HKS-180 tide/wave slice** restores manual sea level, HKO predictions/24-hour graph and shared original water/shore effects. Curie owns the water/source restoration; the primary agent owns the city controls and navigation/ferry integration. **128/128 city tests** and six actual-city browser groups pass. [Tide implementation and evidence](tides/README.md). The broader HKS-180 issue stays In Progress for its remaining original controls.
+
+### Previous three-agent batch
 
 - `fd64435` / HKS-167: Mui Wo detailed government models **275 → 1,327**, with every territory form/source ID and recorded elevation retained. All 190 walking arrivals pass. See [source and before/after evidence](mui-wo-buildings/extension/README.md); 114 wholly-below-terrain forms and 214 partial conflicts remain documented.
 - `8aa4996` / HKS-168 and HKS-169: shared original meteors, manual lightning/thunder and environmental audio/volume restored. [Actual city controls and mobile evidence](environment-parity/README.md) and original-viewer compatibility pass.

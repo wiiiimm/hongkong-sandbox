@@ -6,6 +6,8 @@ existing functions of the original game**, explicitly including **stargazing** a
 not a replacement with a permanently reduced feature set. Expansion of geography
 does not satisfy this separate requirement.
 
+User design direction, 6 September 2026: restore original capabilities within **Astra City's modern design system**. Use its current panels, typography, controls and responsive layouts as features return. The original game supplies behaviour, data and reusable implementation; its visual layout is not the required design target.
+
 Baseline: original `3d-viewer/main.js` and `index.html` at `5777bc9`.
 They remain available at `/index.html`. Before final replacement, re-audit the
 original source and UI, including later upstream changes; this inventory is a
@@ -21,7 +23,7 @@ starting point, not permission to drop an unlisted feature.
 | Sun/moon and time | Live HKT, custom date/time, circular clock, seasonal dawn/dusk, sun/moon positions, phase and rise/set | Remaining original studio-light and sky presentation options; preserve ephemeris precision limits |
 | Shooting stars | Shared original toggle and Calm/Romantic/Apocalypse rate control; daytime, pause and reduced-motion gates verified (HKS-168) | Saved city settings/URL parity tracked with HKS-187 |
 | Live weather | HKO condition, temperature/humidity and district rain; timestamped station wind; live/manual separation and stale/error state | Marine observations, radar, satellite, AQHI and remaining regional fields |
-| Manual weather | Rain, cloud cover, fog, wind strength/direction, waves, snow and simulated lightning/thunder (HKS-169) | Sky height, tides, typhoon T1–T10, snow accumulation and remaining original controls (HKS-180) |
+| Manual weather | Rain, cloud cover, fog, wind strength/direction, waves, snow, simulated lightning/thunder (HKS-169), manual sea level and HKO astronomical tide predictions with 24-hour graph (HKS-180 tidal slice) | Sky height, typhoon T1–T10, snow accumulation and remaining original controls (HKS-180) |
 | Weather and vehicle sound | Original environmental sound and thunder with master volume, gesture unlock, mute and pause lifecycle (HKS-169) | Aircraft/UFO engines and movement/game effects (HKS-177–179) |
 | Flight | All seven original models, corrected proportions/materials, propellers and navigation lights; assisted sightseeing | Original flight physics, throttle/reverse where applicable, take-off, landing, speed settings and input support |
 | Aircraft cameras | Chase and pilot eye | Original exterior, eye and cockpit camera options, cockpit interiors and controls |
@@ -56,3 +58,9 @@ catalogues, datasets, models and licences rather than silently substituting them
 ## Verified environment restoration — 6 September 2026
 
 HKS-168 and HKS-169 reuse the original meteor renderer and audio synthesiser. The original viewer meteor controls, translated labels and URL state pass their compatibility checks. The combined City browser checks cover Sky/Weather controls, live/manual restoration, Stargaze, About pause, reduced motion, trusted sound activation, volume/mute and 390 px/320 px layouts with no browser or shader errors. See [environment evidence](environment-parity/README.md), [meteor provenance](meteors/README.md) and [storm/audio evidence](weather-effects/README.md). The live HKO transition uses explicit deterministic fixtures; it does not prove an observed lightning feed. Other inventory rows remain open.
+
+## Tidal and wave restoration — HKS-180
+
+The city now shares the original tide interpolation, water-normal/rain/glitter shader, wet shoreline/foam shader and noise texture. Manual sea level uses metres HKPD (−1 to 4); Live weather selects current-time astronomical predictions for Cheung Chau or Quarry Bay, converting Chart Datum to HKPD by subtracting 0.146 m. Automatic station selection chooses the nearer of those two sources and is explicitly approximate. The 24-hour graph preserves missing-data gaps. Manual settings restore after Live; unavailable current predictions fall back explicitly to the saved manual level.
+
+Ferries follow the water surface. Walking arrivals and new steps permit at most 20 cm shallow wading; if a tide rises around an existing walker, level/uphill retreat stays available. Camera clearance uses the rendered surface, while walking admission uses the resting tide to avoid wave-by-wave collision flicker. The shared wet band/foam follows the current waterline; small wave heave remains illustrative. Stargaze/pause and reduced-motion behaviour are retained. See [tide methods and sources](tides/README.md) and [actual City browser evidence](tides/browser/README.md). Other HKS-180 controls, including typhoon presets and snow accumulation, remain open.
