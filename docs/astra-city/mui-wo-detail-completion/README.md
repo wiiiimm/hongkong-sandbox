@@ -1,5 +1,7 @@
 # Mui Wo detailed-source completion · HKS-192
 
+**Integration follow-up:** use the [terrain-screened publication subset](INTEGRATION.md): **291 accepted models**,21held. The original312-model compact catalogue below is the acquisition inventory and must not be published wholesale.
+
 Astra's bounded source audit found **312 additional exact government building models** beyond the existing 1,327. The compact additions total **495,196 bytes**, 24,871 triangles and 1,708,206 decoded geometry bytes. They are staged and validated with the existing runtime loader, **not yet published or accepted against final rendered terrain**.
 
 | Coverage inside the unchanged Mui Wo envelope | Before | Potential after integration |
