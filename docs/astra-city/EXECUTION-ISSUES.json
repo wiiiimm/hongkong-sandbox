@@ -1,7 +1,7 @@
 {
   "milestone": "Astra - Living Hong Kong — buildings, regional detail & feature parity",
   "milestoneId": "3a730c97-7148-4d83-bedd-c5b47b85f721",
-  "verifiedAt": "2026-09-06T20:15:08.831958+00:00",
+  "verifiedAt": "2026-09-06T20:40:34.511180+00:00",
   "issues": [
     {
       "key": "muiwo_detail",
@@ -133,7 +133,10 @@
       "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
       "uuid": "533b621a-88f4-40d5-8119-1bdfaf53dde6",
-      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72"
+      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72",
+      "verifiedCommit": "7281071",
+      "verificationScope": "Pui O model/terrain and bounded public beach route; broader south Lantau remains open",
+      "executor": "Root integration; Heisenberg bounded delivery complete"
     },
     {
       "key": "north_lantau",
@@ -609,7 +612,7 @@
       "title": "Repair Tsing Ma and Ting Kau bridge models and terrain artefacts",
       "url": "https://linear.app/stealth-company/issue/HKS-191/repair-tsing-ma-and-ting-kau-bridge-models-and-terrain-artefacts",
       "parentId": "HKS-126",
-      "status": "In Progress",
+      "status": "In Review",
       "priority": 2,
       "estimate": {
         "value": 8,
@@ -625,11 +628,14 @@
         "id": "3a730c97-7148-4d83-bedd-c5b47b85f721",
         "name": "Astra - Living Hong Kong — buildings, regional detail & feature parity"
       },
-      "executor": "Curie (neighbouring bridge reuse audit), root (live integration pending)",
+      "executor": "Curie complete; root integration complete",
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
       "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72",
       "currentScope": "Tsing Ma and confirmed Ting Kau; both source bridges staged, combined terrain seam correction in progress; live publication/browser pending.",
-      "executionStatus": "Agent is actively investigating; implementation not yet accepted."
+      "executionStatus": "Agent is actively investigating; implementation not yet accepted.",
+      "verifiedCommit": "059f3b4d",
+      "integrationCommit": "ea9e96b0",
+      "verificationScope": "Both source bridge models, source foundation terrain and actual browser/flight review"
     },
     {
       "id": "HKS-192",
@@ -683,10 +689,12 @@
       "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
       "key": "central_completion",
-      "executor": "Kant (public-route/contact investigation), root (shared integration/browser pending)",
+      "executor": "Root integration; Kant bounded delivery complete",
       "currentScope": "Expanded corridor sections01.1–01.4/02.1–02.2; Central compact models/source route alternatives staged; generic infrastructure and compact loader integration in progress.",
       "executionStatus": "Active source/model/placement audit and regional implementation.",
-      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72"
+      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72",
+      "verifiedCommit": "80c42db",
+      "verificationScope": "37 source models and progressive runtime; placement and public routes remain open"
     },
     {
       "key": "review_sections",
@@ -745,5 +753,6 @@
       "currentScope": "Manual slider verified; integrating Live HKO visibility and separate EPD AQHI context with manual override.",
       "verifiedCommit": "8e8a181"
     }
-  ]
+  ],
+  "integrationCommit": "ea9e96b0"
 }

@@ -2,23 +2,23 @@
 
 ## Current execution — 7 September 2026
 
-Linear read-back confirms **29 execution leaves: 9 In Review, 4 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
+Linear read-back confirms **29 execution leaves: 10 In Review, 3 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
 
 | Issue | State | Current executor and scope |
 | --- | --- | --- |
 | HKS-192 · Mui Wo | In Review | `9a33045`: 5 m terrain, ten original infrastructure meshes, mapped hydro, 4.137 km public walk verified in both directions, actual desktop/mobile/picking/flight checks. Thirteen partial terrain conflicts remain; wider section still under review. |
 | HKS-195 · Haze and sky clarity | In Review | `8e8a181`: live HKO visibility, separate EPD AQHI, manual haze/sky-glow override; 37 tests and five browser groups pass. |
 | HKS-119 · Golden sky and celestial shadows | In Review | `367cc1b`: original golden-hour palette reused, date/time/location-driven sun/moon and exact shadow direction; 11 focused tests and five browser groups pass. This older issue is outside the 29 execution-leaf count. |
-| HKS-171 · South Lantau | In Progress | Heisenberg: Pui O 681 compact models, 5 m terrain and 555 m continuous route staged. Curie: bounded Cheung Sha/Tong Fuk/Shui Hau source availability audit. Publication and browser acceptance remain. |
-| HKS-191 · Tsing Ma + Ting Kau | In Progress | Seven source components and combined terrain/hydro integrated locally; Curie runs matched before/after browser review. Illustrative cables are labelled separately. |
-| HKS-193 · Wan Chai–Central–Sheung Wan | In Progress | Kant: 17 Central and 20 corridor models, progressive compact loader; root integrates. GPU acceptance and continuous public routes remain. Six sections: 01.1–01.4 and 02.1–02.2. |
+| HKS-171 · South Lantau | In Progress | `7281071`: Pui O 681 compact models, 5 m terrain, 555 m continuous route and desktop/mobile/night/picking/flight/Retry checks pass. Heisenberg complete; shoreline, wetlands, inland connections and broader south Lantau remain open. |
+| HKS-191 · Tsing Ma + Ting Kau | In Review | `059f3b4d` source/assets + `ea9e96b0` integration: source models, corrected island foundations, actual picking, underwater rays, under-span flight, day/night and mobile checks pass. Curie complete; cables remain illustrative. |
+| HKS-193 · Wan Chai–Central–Sheung Wan | In Progress | `80c42db` assets/evidence and `455761f` runtime: all 37 models passed desktop/mobile, picking/collision, night, Retry and card upgrade. Kant complete; placement and continuous public routes remain open. Six sections: 01.1–01.4 and 02.1–02.2. |
 | HKS-180 · Remaining weather controls | In Progress | Tide/wave slice verified; remaining controls have no active executor. |
 | HKS-194 · Numbered review grid | In Review | `13e3574`: optional 132-section layer and evidence-based readiness. |
 | HKS-170 · Tai O | In Review | `5494ad6`: source channels, bridges and 607 m public walk. Private stilts/decks and wider north-west Lantau remain open. |
 
-Root owns shared integration, browser review and Linear synchronisation. Latest combined city suite: **223 tests pass** at the post-Mui Wo checkpoint. GPU measurements use desktop Chrome, including mobile-sized viewports, and are serialised; physical-phone performance is unverified. New staged models and local route acceptance do not complete whole sections. No push, merge or deployment.
+Root completed shared integration in `ea9e96b0`, browser review and Linear synchronisation. Heisenberg, Kant and Curie have finished this bounded batch; none is still running on these deliveries. Latest combined city suite: **226 tests pass** after compact model integration. GPU measurements use desktop Chrome, including mobile-sized viewports, and are serialised; physical-phone performance is unverified. New staged models and local route acceptance do not complete whole sections. No push, merge or deployment.
 
-Whole-section readiness remains **0 Ready, 0 Close, 6 Under review, 126 Base mapped**. [Review evidence and policy](review-sections/README.md). Latest evidence: [Mui Wo](mui-wo-completion/README.md), [haze](atmosphere/README.md), [golden sky and shadows](golden-hour/README.md).
+Whole-section readiness remains **0 Ready, 0 Close, 12 Under review, 120 Base mapped**. [Review evidence and policy](review-sections/README.md). Latest evidence: [Mui Wo](mui-wo-completion/README.md), [haze](atmosphere/README.md), [golden sky and shadows](golden-hour/README.md).
 
 [Current execution index](EXECUTION-ISSUES.md). Historical checkpoints below retain their original counts and scope.
 
