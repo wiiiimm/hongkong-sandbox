@@ -1,0 +1,25 @@
+{
+  "house-type": {
+    "height": 8,
+    "types": ["house", "detached", "semidetached_house", "terrace"],
+    "basis": "Approximate low-rise massing for explicitly house-like OSM building types with no usable height or level tag; not a surveyed height or a claim that a particular house falls under the Small House Policy.",
+    "source": "https://www.landsd.gov.hk/en/resources/publicity-materials/purchas.html"
+  },
+  "bungalow-type": {
+    "height": 4,
+    "types": ["bungalow"],
+    "basis": "Approximate single-storey massing for the explicit bungalow building type; no mapped height or level count is replaced.",
+    "source": "https://wiki.openstreetmap.org/wiki/Tag:building%3Dbungalow"
+  },
+  "tai-o-small-village": {
+    "height": 8,
+    "bbox": [22.248, 113.852, 22.262, 113.866],
+    "maximumFootprint": 130,
+    "streetBuffer": 40,
+    "minimumOverlap": 0.5,
+    "streets": ["Tai O Wing On Street", "Tai O Tai Ping Street", "Tai O Market Street", "Kat Hing Street", "Kat Hing Back Street", "Shek Tsai Po Street"],
+    "basis": "Approximate low-rise envelope for compact untyped footprints along the named traditional Tai O village streets identified in the official planning statement. These street buffers are a conservative modelling selector, not official zoning boundaries or a measured stilt-house inventory. Explicit height/levels, raised building parts, larger footprints and non-residential tags are retained.",
+    "source": "https://www.info.gov.hk/gia/general/201508/21/P201508210487.htm",
+    "heightContext": "https://www.districtcouncils.gov.hk/island/doc/2012_2015/common/dc_meetings_doc/452/IS_2014_007_A3_EN.pdf"
+  }
+}

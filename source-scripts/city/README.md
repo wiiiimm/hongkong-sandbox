@@ -1,13 +1,13 @@
-# Hong Kong Island, Kowloon and Lantau city import
+# Hong Kong city import: all 18 districts
 
 Produced by GPT-6 Astra for the isolated `codex/astra-hong-kong-city` comparison.
 
 ## Current streaming dataset (v2)
 
-`regions.json` defines four bounded regional queries. `snapshots/` contains their
+`regions.json` defines twelve bounded regional queries. `snapshots/` contains their
 unmodified Overpass responses in deterministic gzip files, alongside the exact
-queries. The existing `central-osm.json.gz` is a fifth source. The OSM base
-snapshots range from **2026-09-06 04:30:21 to 04:58:51 UTC**. Source timestamps,
+queries. The existing `central-osm.json.gz` is a thirteenth source. The OSM base
+snapshots range from **2026-09-06 04:30:21 to 05:52:30 UTC**. Source timestamps,
 query bounds and SHA-256 hashes of the uncompressed responses are recorded in
 `3d-viewer/city/data/manifest.json`.
 
@@ -22,11 +22,13 @@ python3 -m venv /tmp/hk-city-import
 # Rebuild entirely from the committed snapshots, without network requests.
 /tmp/hk-city-import/bin/python source-scripts/city/build_tiles.py
 /tmp/hk-city-import/bin/python source-scripts/city/build_activity.py
+/tmp/hk-city-import/bin/python source-scripts/city/build_places.py
 /tmp/hk-city-import/bin/python source-scripts/city/test_import.py
+/tmp/hk-city-import/bin/python source-scripts/city/test_height_estimates.py
 
 # Optional source refresh: bounded queries, performed sequentially.
 /tmp/hk-city-import/bin/python source-scripts/city/fetch_regions.py --region lantau --refresh
-# Omit --region to process all four. Without --refresh, cached snapshots are reused.
+# Omit --region to process all twelve. Without --refresh, cached snapshots are reused.
 ```
 
 V2 merges overlapping sources by OSM type/id, with newer snapshot records winning.
@@ -37,15 +39,19 @@ queries also find geometry crossing a cell edge. Roads and parks are clipped to
 cells. The global catalogue keeps named forms and their owning tile IDs; the
 minimap overview stores compact building centres. Runtime never calls Overpass.
 
-The current output contains **42,892 building forms**, **90,912 road/path
-fragments**, and **668 park fragments** in **167 tiles** (34,383,986 bytes of tile
-JSON). There are **1,836 tagged heights**, **18,742 level-derived heights**, and
-**22,314 fallback estimates**. The importer suppressed 773 outlines covered by
+The current output contains **117,062 building forms**, **190,222 road/path
+fragments**, and **1,294 park fragments** in **449 tiles** (84,019,192 bytes of tile
+JSON). There are **2,243 tagged heights**, **56,049 level-derived heights**, and
+**58,770 fallback estimates**. The importer suppressed 955 outlines covered by
 building parts. Form counts include constituent parts, not unique addresses.
 
-Query rectangles cover Hong Kong Island, urban Kowloon and Lantau approximately;
-they do not follow administrative boundaries. Neither the source nor this import
-is assumed complete. The mainland New Territories still needs deliberate import.
+Query rectangles now deliberately cover Hong Kong Island, Kowloon, the New
+Territories and outlying islands. They are not administrative district polygons.
+New queries also filter by OSM Hong Kong administrative area; the separately
+cached `hong-kong-boundary.json.gz` clips roads/parks locally and filters full
+buildings by representative point. Its hash is recorded in the manifest. Neither
+the source nor this import is assumed complete. See
+`docs/astra-city/GEOGRAPHY-COVERAGE.md` for the 18-district coverage table and limits.
 
 ## Original Central fixture (v1)
 
@@ -70,6 +76,12 @@ The importer:
   their widths and bridge clearances are illustrative class-based estimates.
 - Uses `height` where present. Otherwise uses `building:levels × 3.2 m`.
   Untagged fallback: 24 m; footprints over 8,000 m²: 9 m; service/shed/garage: 6 m.
+  Explicit house-like tags use a documented 8 m estimate; bungalows use 4 m.
+  A narrow sourced Tai O street-corridor rule gives 252 compact untyped village
+  forms an 8 m estimate. Raised/partial forms, mapped heights/levels, larger
+  footprints and explicit non-residential Tai O uses retain their prior treatment.
+  `height-rules.json` and manifest `heightEstimates` describe all selectors; each
+  corrected form carries `heightRule` while remaining `heightSource=estimated`.
   `heightSource` distinguishes `tagged`, `levels` and `estimated` on every feature.
   A mapped height is not a claim that the source was surveyed or independently verified.
 - Keeps the existing Lands Department 70 m terrain grid and B50K landcover in the
@@ -95,7 +107,7 @@ References:
 
 ## Building activity layer
 
-After rebuilding tiles, run `build_activity.py` to regenerate the 5.0 MB
+After rebuilding tiles, run `build_activity.py` to regenerate the 13.65 MB
 `3d-viewer/city/data/activity.json` sidecar for their exact form UIDs. This reads
 committed source snapshots and requires no network. Runtime joins the sidecar
 before constructing each tile; no footprint or height changes are introduced.
@@ -107,3 +119,16 @@ stores source hashes, tags/references and counts by classification basis.
 `activity-overrides.json` documents the sourced Hysan Place and IFC mixed-use
 corrections. See `docs/astra-city/night-cycle/AREA-RESEARCH.md` for area evidence,
 classification rules, approximate podium boundaries and simulation limits.
+
+The eight new regional snapshots also retain land-use polygons. `build_activity.py`
+merges these with the earlier activity cache using source chronology; overlaps are
+deduplicated by OSM type/id. The expanded output uses 14,979 land-use polygons.
+
+## Sourced neighbourhood destinations
+
+`destinations.json` configures 43 camera presets. `build_places.py` uses retained
+OSM features and nearby public paths to regenerate `city/places.js` and
+`city/data/destinations-provenance.json`. New arrivals must clear the committed
+building collision volumes and lie on the existing terrain. All presets expose
+latitude/longitude for the sky observer. Camera locations are approximate; their
+precision does not imply an administrative centre or surveyed arrival point.

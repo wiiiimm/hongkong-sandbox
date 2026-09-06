@@ -43,8 +43,17 @@ def main():
  raw=gzip.decompress((HERE/'snapshots/activity-landuse.json.gz').read_bytes());land=json.loads(raw)
  if land.get('remark'):raise ValueError('Partial land-use data')
  sources.append({'file':str((HERE/'snapshots/activity-landuse.json.gz').relative_to(ROOT)),'sha256':hashlib.sha256(raw).hexdigest(),'snapshot':land['osm3s']['timestamp_osm_base']})
+ land_records={f'{e["type"]}/{e["id"]}':e for e in land['elements']}
+ # Regional snapshots contain later retained land-use tags across the expanded territory.
+ # Replace overlaps only when the regional snapshot is at least as recent.
+ for source in sorted(manifest['sources'],key=lambda x:x['snapshot']):
+  region=json.loads(gzip.decompress((ROOT/source['file']).read_bytes()))
+  for e in region['elements']:
+   if e.get('tags',{}).get('landuse') in {'residential','commercial','industrial','retail'}:
+    oid=f'{e["type"]}/{e["id"]}'
+    if oid not in land_records or source['snapshot']>=land['osm3s']['timestamp_osm_base']:land_records[oid]=e
  geos=[];uses=[]
- for e in land['elements']:
+ for e in land_records.values():
   p={'residential':0,'commercial':1,'industrial':1,'retail':4}.get(e.get('tags',{}).get('landuse'))
   if p is None:continue
   g=geometry(e)

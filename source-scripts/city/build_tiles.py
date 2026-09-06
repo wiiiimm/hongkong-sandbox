@@ -7,6 +7,7 @@ from shapely.geometry import Polygon,Point,LineString,box
 from shapely.ops import unary_union
 from shapely.strtree import STRtree
 from build_city import ROOT,OUT,ORIGIN,xy,coords,geometry,polys,packed,rounded,number
+from height_estimates import make_height_estimator
 HERE=pathlib.Path(__file__).resolve().parent
 SIZE=2000
 
@@ -33,7 +34,15 @@ def main():
  elements={}
  for _,es in sorted(records,key=lambda r:r[0]):
   for e in es:elements[f'{e["type"]}/{e["id"]}']=e
- clip=unary_union(coverage);dem=json.loads((OUT/'terrain.json').read_text());g=dem['meta']['georef']
+ estimate_height,height_estimates=make_height_estimator(elements)
+ boundary_path=HERE/'snapshots/hong-kong-boundary.json.gz'
+ boundary_raw=gzip.decompress(boundary_path.read_bytes());boundary_data=json.loads(boundary_raw)
+ if boundary_data.get('remark'):raise ValueError('Partial Hong Kong boundary source')
+ boundary_record=next(e for e in boundary_data['elements'] if e['type']=='relation' and e['id']==913110)
+ boundary=geometry(boundary_record)
+ if boundary is None or boundary.is_empty:raise ValueError('Missing Hong Kong boundary geometry')
+ boundary_source={'id':'relation/913110','file':str(boundary_path.relative_to(ROOT)),'sha256':hashlib.sha256(boundary_raw).hexdigest(),'snapshot':boundary_data['osm3s']['timestamp_osm_base'],'url':'https://www.openstreetmap.org/relation/913110'}
+ clip=unary_union(coverage).intersection(boundary);dem=json.loads((OUT/'terrain.json').read_text());g=dem['meta']['georef']
  def ground(x,z):
   c=max(0,min(dem['w']-1.001,(x+ORIGIN[0]-g['bE'])/g['aE']));r=max(0,min(dem['h']-1.001,(ORIGIN[1]-z-g['bN'])/g['aN']));i,j=int(c),int(r);u,v=c-i,r-j;w=dem['w']
   a,b,d,e=[dem['elev'][idx] for idx in (j*w+i,j*w+i+1,(j+1)*w+i,(j+1)*w+i+1)]
@@ -67,13 +76,16 @@ def main():
       if park.area>8:tile(key)['parks'].append({'id':oid,'name':name,'rings':packed(park)})
    continue
   for component,p in enumerate(polys(geom.simplify(.25,preserve_topology=True))):
-   if p.area<8 or not clip.intersects(p):continue
+   if p.area<8 or not clip.intersects(p) or not boundary.covers(p.representative_point()):continue
    height=number(t.get('height'));levels=number(t.get('building:levels',t.get('building:part:levels')));kind=t.get('building:use',t.get('building','yes'));method='tagged' if height else 'levels' if levels else 'estimated'
-   height=height or (levels*3.2 if levels else 9 if p.area>8000 else 6 if kind in ('service','shed','garage','garages') else 24)
    minimum=number(t.get('min_height')) or (number(t.get('building:min_level')) or 0)*3.2
+   estimate_rule=None
+   if not height and not levels:height,estimate_rule=estimate_height(t,p,kind,minimum)
+   else:height=height or levels*3.2
    if not 0<height<600 or minimum>=height:continue
    centre=rounded([(p.centroid.x,p.centroid.y)])[0];key=cell_id(*cell(*centre))
    f={'id':oid,'uid':f'{oid}:{component}','tile':key,'name':name,'zh':t.get('name:zh-Hant',t.get('name:zh','')),'kind':kind,'height':round(height,1),'heightSource':method,'levels':levels,'minimum':round(minimum,1),'base':round(min(ground(x,z) for x,z in p.exterior.coords),2),'part':bool(t.get('building:part')),'material':t.get('building:material',''),'rings':packed(p),'centre':centre}
+   if estimate_rule:f['heightRule']=estimate_rule
    if f['part']:parts.append(p);part_indices.append(len(features))
    features.append(f)
  print('Processed',len(features),'building forms',flush=True)
@@ -106,7 +118,7 @@ def main():
  (OUT/'catalogue.json').write_text(json.dumps(catalog,separators=(',',':'),ensure_ascii=False))
  overview={key:[b['centre'] for b in data['buildings']] for key,data in tiles.items() if data['buildings']}
  (OUT/'overview.json').write_text(json.dumps(overview,separators=(',',':')))
- manifest={'version':2,'title':'Hong Kong Island · Kowloon · Lantau','origin':ORIGIN,'crs':'EPSG:2326','tileSize':SIZE,'source':'OpenStreetMap contributors','licence':'ODbL-1.0','sourceURL':'https://www.openstreetmap.org/copyright','sources':sources,'snapshot':max(s['snapshot'] for s in sources),'heightPolicy':'OSM tagged height; otherwise levels × 3.2 m; otherwise explicitly labelled fallback.','terrain':'Existing Lands Department 70 m sampled grid; no vertical exaggeration. Historical terrain may not include recent reclamation.','counts':counts(features,[r for t in tiles.values() for r in t['roads']],[p for t in tiles.values() for p in t['parks']]),'omittedOutlinesWithParts':replaced,'catalogue':'city/data/catalogue.json','overview':'city/data/overview.json','tiles':metadata}
+ manifest={'version':2,'title':'Hong Kong · all 18 districts','origin':ORIGIN,'crs':'EPSG:2326','tileSize':SIZE,'source':'OpenStreetMap contributors','licence':'ODbL-1.0','sourceURL':'https://www.openstreetmap.org/copyright','sources':sources,'boundarySource':boundary_source,'coveragePolicy':'All 18 administrative districts have deliberate regional query coverage. Hong Kong area filtering and local boundary clipping exclude neighbouring cities. This is mapped OSM coverage, not a claim of complete or surveyed buildings.','snapshot':max(s['snapshot'] for s in sources),'heightPolicy':'OSM tagged height; otherwise levels × 3.2 m; otherwise explicitly labelled class/area fallback; see heightEstimates for conservative low-rise rules.','heightEstimates':height_estimates,'terrain':'Existing Lands Department 70 m sampled grid; no vertical exaggeration. Historical terrain may not include recent reclamation.','counts':counts(features,[r for t in tiles.values() for r in t['roads']],[p for t in tiles.values() for p in t['parks']]),'heightEstimateCounts':dict(collections.Counter(b.get('heightRule','generic') for b in features if b['heightSource']=='estimated')),'omittedOutlinesWithParts':replaced,'catalogue':'city/data/catalogue.json','overview':'city/data/overview.json','tiles':metadata}
  (OUT/'manifest.json').write_text(json.dumps(manifest,separators=(',',':'),ensure_ascii=False))
  print(json.dumps({k:manifest[k] for k in ('title','counts','omittedOutlinesWithParts')},indent=2),flush=True);print(len(tiles),'tiles,',len(catalog),'searchable forms',flush=True)
 if __name__=='__main__':main()

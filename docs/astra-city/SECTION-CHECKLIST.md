@@ -8,11 +8,13 @@ The 18 administrative districts provide the coverage spine. The smaller sections
 
 Use a stable reference such as **01.1 Central core** when choosing the next section. An empty checkbox means its detailed geography and gameplay review remains outstanding; importing geometry alone does not complete it. Split a section further if it is too large for one review.
 
-**Current baseline:** 42,892 OSM building forms, 167 streaming tiles, 15 destination shortcuts. The import covers broad areas of Hong Kong Island, urban Kowloon and Lantau, with partial adjacent coverage. Query rectangles are not district boundaries and do not establish complete coverage. Terrain is the existing 70 m sampled mesh. Every section below remains unchecked.
+**Current baseline:** 117,062 OSM building forms, 449 streaming tiles, 43 destination shortcuts. The import deliberately covers all 18 districts, including the New Territories and outlying islands. Query rectangles are not district boundaries and do not establish complete coverage. Terrain is the existing 70 m sampled mesh. Every section below remains unchecked.
 
 **Status key:** Imported base = regional source geometry is available, with completeness and accuracy still unreviewed. Partial base = the current rectangles cut across the area. Mostly pending = only incidental overlap may exist. Pending = no deliberate regional building import yet.
 
-**Suggested review order:** 01.1 Central core → 01.2 waterfront / Admiralty → 01.3 SoHo → 01.4 Sheung Wan → 02.1–02.2 Wan Chai → 05.1–05.2 Tsim Sha Tsui. Then extend across the island and Kowloon, review Lantau / airport, and connect through the New Territories. The numbered districts are coverage references, not a requirement to finish an entire district before visiting another.
+**User priority update:** Lantau, Mui Wo, Tai O, Cheung Chau, Peng Chau and other Lantau villages are the immediate local-review priority. The current build adds village shortcuts and checks their public-path arrivals; detailed modelling, coastline and full walking-route review remains unfinished.
+
+**Earlier suggested review order:** 01.1 Central core → 01.2 waterfront / Admiralty → 01.3 SoHo → 01.4 Sheung Wan → 02.1–02.2 Wan Chai → 05.1–05.2 Tsim Sha Tsui. Then extend across the island and Kowloon, review Lantau / airport, and connect through the New Territories. The numbered districts are coverage references, not a requirement to finish an entire district before visiting another.
 
 ## 01. Central and Western · 中西區
 
@@ -106,7 +108,7 @@ Kowloon · **Imported base**
 
 ## 09. Kwun Tong · 觀塘區
 
-Kowloon · **Partial base**
+Kowloon · **Imported base**
 
 - [ ] **09.1** Kowloon Bay and former industrial blocks
 - [ ] **09.2** Ngau Tau Kok and Ngau Tau Kok Road corridor
@@ -117,7 +119,7 @@ Kowloon · **Partial base**
 
 ## 10. Islands · 離島區
 
-Lantau and outlying islands · **Partial base**
+Lantau and outlying islands · **Imported base**
 
 - [ ] **10.1** Tung Chung town centre and waterfront
 - [ ] **10.2** Tung Chung valley, rural west and North Lantau coast
@@ -138,7 +140,7 @@ Lantau and outlying islands · **Partial base**
 
 ## 11. Tsuen Wan · 荃灣區
 
-New Territories · **Mostly pending**
+New Territories · **Imported base**
 
 - [ ] **11.1** Tsuen Wan town centre and Tsuen Wan West
 - [ ] **11.2** Tsuen King Circuit, Tsuen Wan hinterland and Shing Mun approaches
@@ -150,7 +152,7 @@ New Territories · **Mostly pending**
 
 ## 12. Kwai Tsing · 葵青區
 
-New Territories · **Mostly pending**
+New Territories · **Imported base**
 
 - [ ] **12.1** Kwai Chung north, Kwai Hing and Kwai Fong
 - [ ] **12.2** Lai King, Cho Yiu and hillside estates
@@ -161,7 +163,7 @@ New Territories · **Mostly pending**
 
 ## 13. Sha Tin · 沙田區
 
-New Territories · **Pending**
+New Territories · **Imported base**
 
 - [ ] **13.1** Tai Wai and Che Kung Temple corridor
 - [ ] **13.2** Sha Tin town centre and Shing Mun River
@@ -173,7 +175,7 @@ New Territories · **Pending**
 
 ## 14. Tai Po · 大埔區
 
-New Territories · **Pending**
+New Territories · **Imported base**
 
 - [ ] **14.1** Tai Po Market and Tai Wo
 - [ ] **14.2** Tai Po new town, waterfront and InnoPark
@@ -186,7 +188,7 @@ New Territories · **Pending**
 
 ## 15. Sai Kung · 西貢區
 
-New Territories · **Pending**
+New Territories · **Imported base**
 
 - [ ] **15.1** Tseung Kwan O town centre, Tiu Keng Leng and waterfront
 - [ ] **15.2** Po Lam, Hang Hau and Tseng Lan Shue
@@ -200,7 +202,7 @@ New Territories · **Pending**
 
 ## 16. Tuen Mun · 屯門區
 
-New Territories · **Pending**
+New Territories · **Imported base**
 
 - [ ] **16.1** Tuen Mun town centre and river corridor
 - [ ] **16.2** Siu Hong, Fu Tei and northern estates
@@ -212,7 +214,7 @@ New Territories · **Pending**
 
 ## 17. Yuen Long · 元朗區
 
-New Territories · **Pending**
+New Territories · **Imported base**
 
 - [ ] **17.1** Yuen Long town centre and Shap Pat Heung
 - [ ] **17.2** Tin Shui Wai and Ping Shan
@@ -225,7 +227,7 @@ New Territories · **Pending**
 
 ## 18. North · 北區
 
-New Territories · **Pending**
+New Territories · **Imported base**
 
 - [ ] **18.1** Fanling and Luen Wo Hui
 - [ ] **18.2** Sheung Shui, Kwu Tung and Ho Sheung Heung
