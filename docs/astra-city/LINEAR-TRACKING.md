@@ -1,5 +1,11 @@
 # Living Hong Kong delivery tracking
 
+## Current pass — 7 September 2026
+
+HKS-190 Clock follow-up is implemented in `783cb62` and In Review: Live/Manual button, date disabled in Live, shimmer moved to Weather. Four toggle, ten timelapse and eleven circular-clock browser groups pass; night/mobile screenshots inspected. [Evidence](clock-toggle/README.md). Linear HKS-190, HKS-132 and milestone updated after verification.
+
+HKS-170 completion continues: Heisenberg owns authoritative channels and terrain; Curie owns source infrastructure and verified public deck faces; Kant owns continuous routes and accurate model collision; root integrates runtime and reviews. Previous model counts and arrival-only checks do not close the remaining channels/route acceptance.
+
 GPT-6 Astra · 6 September 2026. The initial planning snapshot below is retained as history. The current milestone is **Astra - Living Hong Kong — buildings, regional detail & feature parity** (same milestone ID).
 
 ## Current execution and authorisation

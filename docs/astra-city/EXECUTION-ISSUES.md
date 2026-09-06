@@ -1,5 +1,11 @@
 # Astra execution subissues
 
+## Current pass — 7 September 2026
+
+HKS-190 Clock follow-up is implemented in `783cb62` and In Review: Live/Manual button, date disabled in Live, shimmer moved to Weather. Four toggle, ten timelapse and eleven circular-clock browser groups pass; night/mobile screenshots inspected. [Evidence](clock-toggle/README.md). Linear HKS-190, HKS-132 and milestone updated after verification.
+
+HKS-170 completion continues: Heisenberg owns authoritative channels and terrain; Curie owns source infrastructure and verified public deck faces; Kant owns continuous routes and accurate model collision; root integrates runtime and reviews. Previous model counts and arrival-only checks do not close the remaining channels/route acceptance.
+
 Created and read back from Linear on 6 September 2026. The user explicitly authorised issue, subissue, status and progress updates in **Astra - Living Hong Kong — buildings, regional detail & feature parity**. Project: Hong Kong Sandbox; team HKS. William remains the assignee; agent names identify execution ownership.
 
 There are **24 execution subissues**: five In Review, HKS-170/HKS-180 In Progress, and 17 queued. All use existing Type/Area labels, High priority and provisional 4- or 8-point estimates. Cycle discovery returned no entries, but read-back confirmed workspace-assigned cycle IDs for active issues; these are preserved. No deadline was invented. Existing regional parents still cover all 132 sections, including Hong Kong Island, Kowloon, New Territories and the other islands. These new leaves refine the priority work without replacing those parents.
