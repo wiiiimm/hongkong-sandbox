@@ -5,10 +5,11 @@ import {makeTerrain,makeWater,makeFerries,extrudeBuilding} from './world.js';
 import {Navigation} from './navigation.js';
 import {CityStreaming} from './streaming.js';
 import {PLACES,REGIONS,closestPlace} from './places.js';
+import {cityLighting,formatHour} from './lighting.js';
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween;
 let catalogue=[],overview={},cataloguePromise,travel=0,modeRequest=0,selectedId=null,selectedIndex=-1,loadingTravel=false,lastHud=0,lastStream=0,startTime=0;
-let toastTimer,worldTime=15,mapBackdrop,mapStamp,mapBounds=[-3600,-2600,3600,2900];
+let toastTimer,worldTime=15,timeLapse=false,lightState=cityLighting(15),mapBackdrop,mapStamp,mapBounds=[-3600,-2600,3600,2900];
 const labelEntries=[],temp=new THREE.Vector3(),raycaster=new THREE.Raycaster();
 function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),4400);}
 function transition(position,target,duration=1.6){tween={from:camera.position.clone(),to:new THREE.Vector3(...position),targetFrom:controls.target.clone(),targetTo:new THREE.Vector3(...target),elapsed:0,duration:reduced?.001:duration};}
@@ -46,13 +47,20 @@ function onMode(mode){
  $('touch-controls').hidden=mode==='orbit'||!matchMedia('(pointer: coarse)').matches;if(mode!=='orbit')closeSelection();
  const extent=mode==='walk'?80:mode==='fly'?900:2200;Object.assign(sun.shadow.camera,{left:-extent,right:extent,top:extent,bottom:-extent});sun.shadow.camera.updateProjectionMatrix();sun.shadow.normalBias=mode==='walk'?.06:1.2;
 }
+function setTimeLapse(enabled){
+ timeLapse=enabled;$('time-play').setAttribute('aria-pressed',String(enabled));$('time-play').textContent=enabled?'Ⅱ Pause':'▶ Time lapse';
+}
 function setTime(value){
- worldTime=value;const night=smoothStep(17.6,20,value),gold=Math.sin(smoothStep(15,20,value)*Math.PI);
- const bg=new THREE.Color('#d9e3d5').lerp(new THREE.Color('#d6c4a2'),gold*.48).lerp(new THREE.Color('#142b35'),night);scene.background=bg;scene.fog.color.copy(bg);
- sun.color.set('#fff7df').lerp(new THREE.Color('#ffc080'),gold*.72);sun.intensity=3*(1-night)+.24;
- ambient.intensity=1.9*(1-night)+.62;ambient.color.set('#e8f0e6').lerp(new THREE.Color('#95b9d8'),night);ambient.groundColor.set('#6c806a').lerp(new THREE.Color('#20392f'),night);
- stream.night.value=night;water.material.color.set('#71a8a0').lerp(new THREE.Color('#173e4a'),night);water.material.roughness=.38+night*.4;water.material.metalness=.25-night*.15;water.material.emissive.set('#25434c');water.material.emissiveIntensity=night*.4;
- renderer.toneMappingExposure=1.05*(1-night)+.95*night;document.body.classList.toggle('night',night>.5);$('time-output').textContent=`${Math.floor(value).toString().padStart(2,'0')}:${Math.round(value%1*60).toString().padStart(2,'0')}`;
+ lightState=cityLighting(value);const {hour,night,golden:gold,quiet,activity,phase}=lightState;worldTime=hour;
+ const nightSky=new THREE.Color('#142338').lerp(new THREE.Color('#090f1d'),quiet*.8);
+ const bg=new THREE.Color('#d9e3d5').lerp(new THREE.Color('#d6c4a2'),gold*.48).lerp(nightSky,night);scene.background=bg;scene.fog.color.copy(bg);
+ sun.color.set('#fff7df').lerp(new THREE.Color('#ffc080'),gold*.72).lerp(new THREE.Color('#a8bddd'),night);sun.intensity=3*(1-night)+(.20-.07*quiet);
+ ambient.intensity=1.9*(1-night)+(.54-.18*quiet);ambient.color.set('#e8f0e6').lerp(new THREE.Color('#95b9d8'),night);ambient.groundColor.set('#6c806a').lerp(new THREE.Color('#203047'),night);
+ stream.lighting.night.value=night;stream.lighting.activity.value.set(activity);
+ water.material.color.set('#71a8a0').lerp(new THREE.Color('#102b3d'),night);water.material.roughness=.38+night*.4;water.material.metalness=.25-night*.15;water.material.emissive.set('#1c354b');water.material.emissiveIntensity=night*(.25-.10*quiet);
+ renderer.toneMappingExposure=1.05-.1*night;document.body.classList.toggle('night',night>.5);
+ const clock=formatHour(hour);$('time').value=hour;$('time').setAttribute('aria-valuetext',`${clock} · ${phase}`);$('time-output').textContent=clock;$('night-phase').textContent=phase;
+ document.querySelectorAll('[data-hour]').forEach(b=>b.setAttribute('aria-pressed',String(Math.abs(Number(b.dataset.hour)-hour)<.125)));
 }
 function closeSelection(){selectedId=null;selectedIndex=-1;$('building-card').hidden=true;if(selection){scene.remove(selection);selection.geometry.dispose();selection.material.dispose();selection=null;}}
 function selectBuilding(b){
@@ -90,12 +98,12 @@ function mapCoords(x,z){return[(x-mapBounds[0])/(mapBounds[2]-mapBounds[0])*440,
 function drawMinimap(){
  const canvas=$('minimap'),ctx=canvas.getContext('2d'),focus=nav.mode==='orbit'?controls.target:nav.position;
  const span=place==='lantaupeaks'&&nav.mode==='orbit'?22000:6400,cx=Math.round(focus.x/1000)*1000,cz=Math.round(focus.z/1000)*1000;mapBounds=[cx-span/2,cz-span*.32,cx+span/2,cz+span*.32];
- const stamp=[cx,cz,span,worldTime>19,Object.keys(overview).length].join('|');
+ const stamp=[cx,cz,span,lightState.night>.5,Object.keys(overview).length].join('|');
  if(stamp!==mapStamp){
-  ctx.fillStyle=worldTime>19?'#1d4645':'#9fbeb2';ctx.fillRect(0,0,440,280);const data=terrain.userData.data,g=data.meta.georef;ctx.fillStyle=worldTime>19?'#66816c':'#dce3c9';
+  ctx.fillStyle=lightState.night>.5?'#1d4645':'#9fbeb2';ctx.fillRect(0,0,440,280);const data=terrain.userData.data,g=data.meta.georef;ctx.fillStyle=lightState.night>.5?'#66816c':'#dce3c9';
   const step=span>10000?3:1,a=mapCoords(0,0),b=mapCoords(g.aE*step,Math.abs(g.aN)*step),sx=b[0]-a[0]+.5,sy=b[1]-a[1]+.5;
   for(let r=0;r<data.h;r+=step)for(let c=0;c<data.w;c+=step){if(data.elev[r*data.w+c]<=.1)continue;const [x,y]=mapCoords(g.bE+c*g.aE-834500,816500-(g.bN+r*g.aN));if(x<-sx||y<-sy||x>440||y>280)continue;ctx.fillRect(x,y,sx,sy);}
-  ctx.fillStyle=worldTime>19?'#b1b88d':'#829b7a';for(const points of Object.values(overview))for(const [px,pz] of points){const [x,y]=mapCoords(px,pz);if(x>=0&&x<=440&&y>=0&&y<=280)ctx.fillRect(x,y,1.4,1.4);}
+  ctx.fillStyle=lightState.night>.5?'#b1b88d':'#829b7a';for(const points of Object.values(overview))for(const [px,pz] of points){const [x,y]=mapCoords(px,pz);if(x>=0&&x<=440&&y>=0&&y<=280)ctx.fillRect(x,y,1.4,1.4);}
   mapBackdrop=ctx.getImageData(0,0,440,280);mapStamp=stamp;
  }else ctx.putImageData(mapBackdrop,0,0);
  const [x,y]=mapCoords(focus.x,focus.z);ctx.save();ctx.translate(x,y);ctx.fillStyle='#385b45';ctx.strokeStyle='#f7fae8';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(0,0,7,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.rotate(nav.mode==='orbit'?Math.atan2(camera.position.x-focus.x,-(camera.position.z-focus.z)):nav.heading);ctx.beginPath();ctx.moveTo(0,-18);ctx.lineTo(-5,-9);ctx.lineTo(5,-9);ctx.closePath();ctx.fill();ctx.restore();
@@ -127,7 +135,9 @@ function bindUI(){
  document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>chooseMode(b.dataset.mode)));
  const layers={buildings:stream.buildings,roads:stream.roads,trees:stream.trees};
  for(const key of ['buildings','roads','trees','labels'])$(`layer-${key}`).addEventListener('change',e=>{if(key==='labels')$('labels').hidden=!e.target.checked;else layers[key].visible=e.target.checked;if(key==='buildings'&&!e.target.checked)closeSelection();$('layer-count').textContent=`${document.querySelectorAll('.layers input:checked').length} LAYERS`;});
- $('time').addEventListener('input',e=>setTime(Number(e.target.value)));$('stream-retry').addEventListener('click',()=>stream.cache.retry());
+ $('time').addEventListener('input',e=>{setTimeLapse(false);setTime(Number(e.target.value));});
+ document.querySelectorAll('[data-hour]').forEach(b=>b.addEventListener('click',()=>{setTimeLapse(false);setTime(Number(b.dataset.hour));}));
+ $('time-play').addEventListener('click',()=>setTimeLapse(!timeLapse));$('stream-retry').addEventListener('click',()=>stream.cache.retry());
  $('reset-view').addEventListener('click',()=>goPlace(place));$('top-view').addEventListener('click',()=>{if(nav.mode!=='orbit')nav.setMode('orbit',PLACES[place].spawn);const p=controls.target;transition([p.x,p.y+(place==='lantaupeaks'?18000:3300),p.z+.1],[p.x,p.y,p.z],1.3);});
  $('north-view').addEventListener('click',()=>{if(nav.mode!=='orbit')return;const p=controls.target,d=camera.position.distanceTo(p);transition([p.x,p.y+d*.72,p.z+d*.7],[p.x,p.y,p.z]);});
  $('postcard').addEventListener('click',()=>{renderer.render(scene,camera);const a=document.createElement('a');a.download=`hong-kong-astra-${place}-${renderer.domElement.width}x${renderer.domElement.height}.png`;a.href=renderer.domElement.toDataURL('image/png');a.click();toast(`Postcard saved · ${renderer.domElement.width} × ${renderer.domElement.height} pixels`);});
@@ -156,7 +166,7 @@ async function init(){
  stream=new CityStreaming({manifest,terrain:data,sampler,scene,onChange:updateStreamStatus});ferries=makeFerries();scene.add(ferries.group);
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,toast,onMode});bindUI();setTime(15);makeLabels();
  $('snapshot-date').textContent=manifest.snapshot.slice(0,10);$('loading').style.opacity='0';setTimeout(()=>$('loading').hidden=true,750);
- window.__city={get ready(){return true;},get state(){return {mode:nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,time:worldTime,place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,layers:{buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!stream.collision(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
+ window.__city={get ready(){return true;},get state(){return {mode:nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,time:worldTime,timeLapse,lighting:{...lightState,uniformActivity:Array.from(stream.lighting.activity.value),ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,travelling:!!tween,stream:stream.stats,layers:{buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!stream.collision(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
  startTime=performance.now();requestAnimationFrame(animate);const initial=new URLSearchParams(location.search).get('district');goPlace(Object.hasOwn(PLACES,initial)?initial:'central',false);
  // Search and overview data arrive independently; neither blocks movement or terrain.
  getCatalogue().catch(()=>{});loadJSON(manifest.overview).then(data=>{overview=data;}).catch(()=>{});
@@ -164,6 +174,7 @@ async function init(){
 let lastTime=0;
 function animate(now){
  requestAnimationFrame(animate);const dt=Math.min((now-(lastTime||now))/1000,.05);lastTime=now;const paused=document.hidden||$('about').open;
+ if(timeLapse&&!paused)setTime(worldTime+dt/8);
  if(tween&&!paused){tween.elapsed+=dt;const u=Math.min(1,tween.elapsed/tween.duration),v=u*u*(3-2*u);camera.position.lerpVectors(tween.from,tween.to,v);controls.target.lerpVectors(tween.targetFrom,tween.targetTo,v);if(u===1)tween=null;}
  const focus=nav.mode==='orbit'?controls.target:nav.position;
  if(now-lastStream>600&&!loadingTravel){stream.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(6000,Math.max(2600,camera.position.distanceTo(focus))):3200);lastStream=now;}

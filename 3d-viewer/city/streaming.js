@@ -2,6 +2,7 @@ import * as THREE from '../vendor/three.module.js';
 import {BuildingIndex} from './geo.js';
 import {makeBuildings,makeRoads,makeNature} from './world.js';
 import {TileCache,distanceToBounds,nearbyTiles} from './tile-cache.js';
+import {cityLighting} from './lighting.js';
 export function disposeGroup(group){
  group.removeFromParent();const geometries=new Set(),materials=new Set();
  group.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const m of o.material?[].concat(o.material):[])materials.add(m);if(o.isInstancedMesh)o.dispose();});
@@ -11,18 +12,18 @@ export class CityStreaming {
  constructor({manifest,terrain,sampler,scene,onChange}){
   Object.assign(this,{manifest,terrain,sampler,scene,onChange});this.meta=new Map(manifest.tiles.map(t=>[t.id,t]));
   this.buildings=new THREE.Group();this.roads=new THREE.Group();this.trees=new THREE.Group();scene.add(this.buildings,this.roads,this.trees);
-  this.night={value:0};this.focus=[0,420];this.detailRadius=2200;this.revision=0;
+  this.lighting={night:{value:0},activity:{value:new Float32Array(cityLighting(15).activity)}};this.night=this.lighting.night;this.focus=[0,420];this.detailRadius=2200;this.revision=0;
   this.cache=new TileCache({limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.onChange?.();}});
  }
  async load(id,signal){
   const response=await fetch(this.meta.get(id).url,{signal});if(!response.ok)throw new Error(`City section ${id}: HTTP ${response.status}`);
   const data=await response.json();if(data.id!==id||!Array.isArray(data.buildings))throw new Error('Invalid city section '+id);
-  const index=new BuildingIndex(data.buildings);const buildings=await makeBuildings(data.buildings,null,{night:this.night});
+  const index=new BuildingIndex(data.buildings);const buildings=await makeBuildings(data.buildings,null,{lighting:this.lighting});
   for(const mesh of buildings.group.children)mesh.userData.tile=id;
   let roads,nature;
   try{
    if(signal.aborted)throw new DOMException('Aborted','AbortError');
-   roads=makeRoads(data.roads,this.sampler);
+   roads=makeRoads(data.roads,this.sampler,this.lighting);
    const [x,z]=id.split('_').map(Number),s=this.manifest.tileSize;
    nature=makeNature(data.parks,this.terrain,this.sampler,index,{bounds:[x*s,z*s,(x+1)*s,(z+1)*s],seed:(x*73856093^z*19349663)>>>0});
    return {id,data,index,buildings,roads,nature};
