@@ -1,4 +1,5 @@
 import * as THREE from '../vendor/three.module.js';
+import {skyColour,skyNightBlend} from '../sky-colour.js';
 import {cityLighting} from './lighting.js';
 import {DEFAULT_HAZE,normaliseHaze,readHaze,saveHaze,hazePresentation,hazeFromVisibility} from './atmosphere.js';
 import {bindClockDial,updateClockDial,hourFromInput} from './clock-dial.js';
@@ -108,15 +109,14 @@ class CityEnvironment {
   if(key!==this.astroKey){this.astronomy=getSkyState(this.date,observer.lat,observer.lon);this.astroKey=key;}
   const {night,golden:gold}=this.astronomy,activityState=cityLighting(parts.hour),{quiet,activity}=activityState;
   this.lightState={...activityState,night,golden:gold};
-  const nightSky=new THREE.Color('#142338').lerp(new THREE.Color('#090f1d'),quiet*.8);
-  this.background=new THREE.Color('#d9e3d5').lerp(new THREE.Color('#d6c4a2'),gold*.48).lerp(nightSky,night);
+  this.background=skyColour(this.astronomy.sun.altitudeDeg,true);
   this.baseSun=3*(1-night)+(.20-.07*quiet);this.baseAmbient=1.9*(1-night)+(.54-.18*quiet);
   sun.color.set('#fff7df').lerp(new THREE.Color('#ffc080'),gold*.72).lerp(new THREE.Color('#a8bddd'),night);
   ambient.color.set('#e8f0e6').lerp(new THREE.Color('#95b9d8'),night);ambient.groundColor.set('#6c806a').lerp(new THREE.Color('#203047'),night);
   stream.lighting.night.value=night;stream.lighting.activity.value.set(activity.slice(0,4));stream.lighting.retail.value=activity[4];
   water.material.color.set('#71a8a0').lerp(new THREE.Color('#102b3d'),night);water.material.metalness=.25-night*.15;water.material.emissive.set('#1c354b');water.material.emissiveIntensity=night*(.25-.10*quiet);
   renderer.toneMappingExposure=1.05-.1*night;
-  const phase=night<.05?'Daylight':night<.95?(this.astronomy.sun.bearing<180?'Dawn':'Dusk'):activityState.phase;
+  const phase=night<.05?(gold>.1?'Golden hour':'Daylight'):night<.95?(this.astronomy.sun.bearing<180?'Dawn':'Dusk'):activityState.phase;
   this.lightState.phase=phase;
   $('time').value=parts.time;updateClockDial($('time-dial'),parts.hour,phase);$('time-output').textContent=parts.time;$('night-phase').textContent=phase;
   this.syncClockModeUI();$('sky-date').value=parts.date;
@@ -176,15 +176,16 @@ class CityEnvironment {
   if(now-(this.lastAirPosition??-Infinity)>1000){this.airVisibility.setPosition(position);this.lastAirPosition=now;}if(!paused)this.airVisibility.poll();
   this.atmosphere=hazePresentation({amount:this.haze,weatherDensity:fx.fogDensity,stargazing,visibilityMetres:this.liveHazeVisibility});
   const bg=this.background.clone();if(stargazing)bg.set('#060a15');else bg.lerp(new THREE.Color('#66777c'),(fx.cloudCover||0)*.16);
-  const skyNight=stargazing?1:this.lightState.night;bg.lerp(new THREE.Color('#02050c'),skyNight*this.atmosphere.nightClearWeight).lerp(new THREE.Color('#626673'),skyNight*this.atmosphere.nightGlowWeight);
+  const skyNight=stargazing?1:skyNightBlend(this.astronomy.sun.altitudeDeg);bg.lerp(new THREE.Color('#02050c'),skyNight*this.atmosphere.nightClearWeight).lerp(new THREE.Color('#626673'),skyNight*this.atmosphere.nightGlowWeight);
   this.scene.background=bg;
   if(!this.scene.fog?.isFogExp2)this.scene.fog=new THREE.FogExp2(bg,0);
   this.scene.fog.color.copy(bg);this.scene.fog.density=this.atmosphere.fogDensity;
-  this.sun.intensity=this.baseSun*(stargazing?.3:fx.sunMultiplier??1);this.ambient.intensity=this.baseAmbient*(stargazing?.45:fx.ambientMultiplier??1)+storm.ambientBoost;
-  const source=this.astronomy.sun.altitude>0?this.astronomy.sun.direction:this.astronomy.moon.altitude>0?this.astronomy.moon.direction:{x:.3,y:.55,z:-.7};
-  this.sun.target.position.copy(position);this.sun.position.copy(position).addScaledVector(new THREE.Vector3(source.x,Math.max(.08,source.y),source.z).normalize(),6000);
+  this.ambient.intensity=this.baseAmbient*(stargazing?.45:fx.ambientMultiplier??1)+storm.ambientBoost;
+  const source=this.astronomy.sun.altitude>0?this.astronomy.sun.direction:this.astronomy.moon.altitude>0?this.astronomy.moon.direction:null;
+  this.sun.castShadow=Boolean(source);this.sun.intensity=source?this.baseSun*(stargazing?.3:fx.sunMultiplier??1):0;
+  this.sun.target.position.copy(position);if(source)this.sun.position.copy(position).addScaledVector(new THREE.Vector3(source.x,source.y,source.z),6000);
   this.water.material.roughness=Math.max(.15,.38+this.lightState.night*.4-(fx.waveStrength||0)*.18);
-  this.water.update(dt,{settings:this.weather.state.settings,camera:this.camera,sunDirection:source,night:this.lightState.night,paused,reducedMotion,suspended:stargazing});
+  this.water.update(dt,{settings:this.weather.state.settings,camera:this.camera,sunDirection:source||{x:0,y:-1,z:0},night:this.lightState.night,paused,reducedMotion,suspended:stargazing});
   this.sky.update({date:this.date,lat:this.observer.lat,lon:this.observer.lon,stargazing,cloudCover:stargazing?0:fx.cloudCover||0,limitingMagnitude:this.atmosphere.limitingMagnitude});
   this.meteors.update(dt,{starFade:this.sky.state.starFade,paused,reducedMotion});
   document.body.classList.toggle('night',stargazing||this.lightState.night>.5);

@@ -4,6 +4,7 @@
 // per-layer vector toggles, and a vertical-exaggeration slider that drives BOTH the
 // terrain and the draped skin so contours stay welded to the ridges.
 import * as THREE from './vendor/three.module.js';
+import { skyColour } from './sky-colour.js';
 import { tideAt } from './tide-series.js';
 import { applyWaterSurfaceShader } from './water-surface.js';
 import { createWaterNoiseTexture, applyShorelineShader } from './shoreline-surface.js';
@@ -1031,18 +1032,6 @@ const S01 = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); 
 // out. Starts washed so a daytime load never flashes stars before the first
 // renderSky().
 let skyLum = 1;
-
-// sun-altitude → sky colour: deep night, warm dawn/dusk, clear blue day.
-// Chained smoothstep lerps keep the transitions band-free; palette is tunable.
-function skyColour(altD, onPaper) {
-  const P = onPaper
-    ? { day: 0xcfe0f1, dusk: 0xf0a45f, night: 0x121a26 }   // paper: pale blue / soft amber / slate night
-    : { day: 0x6ea3d8, dusk: 0xf4813c, night: 0x070a12 };  // dark: clear blue / warm dusk / deep night
-  const c = new THREE.Color(P.night);
-  c.lerp(new THREE.Color(P.dusk), 0.97 * S01((altD + 14) / 10));   // −14° night → −4° dusk (kept 15% night-blue so the whole dome never goes flat orange)
-  c.lerp(new THREE.Color(P.day), S01((altD - 4) / 8));             // −4° dusk → +12° full day (wide golden hour — intentional)
-  return c;
-}
 
 // clear colour + light levels: celestial sun/moon (when the sim is on) shape
 // the key light and sky brightness; a storm then darkens whatever they chose.
