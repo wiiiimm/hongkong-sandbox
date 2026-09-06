@@ -1,23 +1,32 @@
 # Astra execution subissues
 
+## Draft checkpoint — 7 September 2026
+
+[PR #298](https://github.com/wiiiimm/hongkong-sandbox/pull/298) is open as a draft. All 51 milestone issues have the PR attachment, with direct commit links on the relevant issues. Original commit hashes are retained. Source checkpoints b90c15f5 (HKS-192) and 7d3e3ff5 (HKS-196) are staged only; see their source notes for remaining acceptance. The 226 city tests and 13 focused source tests pass. No whole section is newly signed off.
+
+
+## Milestone draft PR
+
+[Draft PR #298](https://github.com/wiiiimm/hongkong-sandbox/pull/298) collects this milestone on the existing Astra branch. [Commit-to-issue index](MILESTONE-COMMITS.md). Older Git hashes remain unchanged; references do not imply issue completion. Tai O, Tsing Ma/Ting Kau and timelapse retain their user-set Ready to Merge statuses; the overall milestone remains unfinished.
+
 ## Current execution — 7 September 2026
 
-Linear read-back confirms **30 execution leaves: 9 In Review, 5 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
+Linear read-back confirms **30 execution leaves: 3 Ready to Merge, 6 In Review, 5 In Progress and 16 queued**. William owns the issues; named agents identify execution ownership. All belong to the authorised Astra milestone in the HKS team's Hong Kong Sandbox project.
 
 | Issue | State | Current executor and scope |
 | --- | --- | --- |
-| HKS-192 · Mui Wo | In Progress | Heisenberg resumed the 13 partial conflict checks and whole-section acceptance audit. Earlier verified baseline: `9a33045`: 5 m terrain, ten original infrastructure meshes, mapped hydro, 4.137 km public walk verified in both directions, actual desktop/mobile/picking/flight checks. Thirteen partial terrain conflicts remain; wider section still under review. |
+| HKS-192 · Mui Wo | In Progress | Heisenberg completed staged checkpoint b90c15f5: six terrain corrections and two dependent estimated bases; six tests pass. Nested rendering, live integration and seven source cases remain pending. Earlier verified baseline: `9a33045`: 5 m terrain, ten original infrastructure meshes, mapped hydro, 4.137 km public walk verified in both directions, actual desktop/mobile/picking/flight checks. Thirteen partial terrain conflicts remain; wider section still under review. |
 | HKS-195 · Haze and sky clarity | In Review | `8e8a181`: live HKO visibility, separate EPD AQHI, manual haze/sky-glow override; 37 tests and five browser groups pass. |
 | HKS-119 · Golden sky and celestial shadows | In Review | `367cc1b`: original golden-hour palette reused, date/time/location-driven sun/moon and exact shadow direction; 11 focused tests and five browser groups pass. This older issue is outside the 30 execution-leaf count. |
 | HKS-171 · South Lantau | In Progress | `7281071`: Pui O 681 compact models, 5 m terrain, 555 m continuous route and desktop/mobile/night/picking/flight/Retry checks pass. Heisenberg complete; shoreline, wetlands, inland connections and broader south Lantau remain open. |
-| HKS-196 · Stonecutters Bridge | In Progress | Curie: audit existing assets and stage source geometry/terrain using HKS-191 pipeline. Root: integration, browser acceptance and tracking. No reconstruction delivered yet. |
-| HKS-191 · Tsing Ma + Ting Kau | In Review | `059f3b4d` source/assets + `ea9e96b0` integration: source models, corrected island foundations, actual picking, underwater rays, under-span flight, day/night and mobile checks pass. Curie complete; cables remain illustrative. |
+| HKS-196 · Stonecutters Bridge | In Progress | Curie completed staged source checkpoint7d3e3ff5: three original components,23,634triangles; seven source tests and shared adapters pass. Port terrain repair, cables, live integration and browser acceptance remain pending. |
+| HKS-191 · Tsing Ma + Ting Kau | Ready to Merge | `059f3b4d` source/assets + `ea9e96b0` integration: source models, corrected island foundations, actual picking, underwater rays, under-span flight, day/night and mobile checks pass. Curie complete; cables remain illustrative. |
 | HKS-193 · Wan Chai–Central–Sheung Wan | In Progress | `80c42db` assets/evidence and `455761f` runtime: all 37 models passed desktop/mobile, picking/collision, night, Retry and card upgrade. Kant complete; placement and continuous public routes remain open. Six sections: 01.1–01.4 and 02.1–02.2. |
 | HKS-180 · Remaining weather controls | In Progress | Tide/wave slice verified; remaining controls have no active executor. |
 | HKS-194 · Numbered review grid | In Review | `13e3574`: optional 132-section layer and evidence-based readiness. |
-| HKS-170 · Tai O | In Review | `5494ad6`: source channels, bridges and 607 m public walk. Private stilts/decks and wider north-west Lantau remain open. |
+| HKS-170 · Tai O | Ready to Merge | `5494ad6`: source channels, bridges and 607 m public walk. Private stilts/decks and wider north-west Lantau remain open. |
 
-Root completed shared integration in `ea9e96b0`, browser review and Linear synchronisation. Heisenberg, Kant and Curie finished the previous bounded batch. Heisenberg has now resumed HKS-192 to examine the 13 partial conflicts using retained source geometry and terrain. Curie has now started HKS-196, a separate Stonecutters Bridge source/model/terrain pass; root owns integration and tracking. Latest combined city suite: **226 tests pass** after compact model integration. GPU measurements use desktop Chrome, including mobile-sized viewports, and are serialised; physical-phone performance is unverified. New staged models and local route acceptance do not complete whole sections. No push, merge or deployment.
+Root completed shared integration in `ea9e96b0`, browser review and Linear synchronisation. Heisenberg, Kant and Curie finished the previous bounded batch. Heisenberg completed staged Mui Wo checkpoint b90c15f5 and Curie completed staged Stonecutters checkpoint 7d3e3ff5. Both are committed in draft PR #298; live integration and final browser acceptance remain pending. Neither agent is still running on that checkpoint. Latest combined city suite: **226 tests pass** after compact model integration. GPU measurements use desktop Chrome, including mobile-sized viewports, and are serialised; physical-phone performance is unverified. New staged models and local route acceptance do not complete whole sections. Feature branch published for draft PR #298; no merge or production deployment.
 
 Whole-section readiness remains **0 Ready, 0 Close, 12 Under review, 120 Base mapped**. [Review evidence and policy](review-sections/README.md). Latest evidence: [Mui Wo](mui-wo-completion/README.md), [haze](atmosphere/README.md), [golden sky and shadows](golden-hour/README.md).
 
@@ -30,7 +39,7 @@ Whole-section readiness remains **0 Ready, 0 Close, 12 Under review, 120 Base ma
 ### HKS-122
 
 - [HKS-167 — Extend Mui Wo detailed government models beyond Pak Ngan Heung](https://linear.app/stealth-company/issue/HKS-167/extend-mui-wo-detailed-government-models-beyond-pak-ngan-heung) — In Review; 8 points.
-- [HKS-170 — Complete Tai O channels, stilt-building placement and village routes](https://linear.app/stealth-company/issue/HKS-170/complete-tai-o-channels-stilt-building-placement-and-village-routes) — In Review; 8 points.
+- [HKS-170 — Complete Tai O channels, stilt-building placement and village routes](https://linear.app/stealth-company/issue/HKS-170/complete-tai-o-channels-stilt-building-placement-and-village-routes) — Ready to Merge; 8 points.
 - [HKS-171 — Complete south Lantau village terrain, shores and local routes](https://linear.app/stealth-company/issue/HKS-171/complete-south-lantau-village-terrain-shores-and-local-routes) — In Progress; 8 points.
 - [HKS-172 — Complete Tung Chung, Discovery Bay and northern Lantau village detail](https://linear.app/stealth-company/issue/HKS-172/complete-tung-chung-discovery-bay-and-northern-lantau-village-detail) — Backlog; 8 points.
 - [HKS-173 — Complete airport buildings, reclamation and runway geography](https://linear.app/stealth-company/issue/HKS-173/complete-airport-buildings-reclamation-and-runway-geography) — Backlog; 8 points.
@@ -50,7 +59,7 @@ Whole-section readiness remains **0 Ready, 0 Close, 12 Under review, 120 Base ma
 
 - [HKS-196 — Reconstruct Stonecutters Bridge and correct underlying terrain artefacts](https://linear.app/stealth-company/issue/HKS-196/reconstruct-stonecutters-bridge-and-correct-underlying-terrain) — In Progress; 8 points.
 
-- [HKS-191 — Repair Tsing Ma and Ting Kau bridge models and terrain artefacts](https://linear.app/stealth-company/issue/HKS-191/repair-tsing-ma-and-ting-kau-bridge-models-and-terrain-artefacts) — In Review; 8 points.
+- [HKS-191 — Repair Tsing Ma and Ting Kau bridge models and terrain artefacts](https://linear.app/stealth-company/issue/HKS-191/repair-tsing-ma-and-ting-kau-bridge-models-and-terrain-artefacts) — Ready to Merge; 8 points.
 
 ### HKS-129
 
@@ -58,7 +67,7 @@ Whole-section readiness remains **0 Ready, 0 Close, 12 Under review, 120 Base ma
 - [HKS-169 — Restore lightning, thunder and weather sound in the city](https://linear.app/stealth-company/issue/HKS-169/restore-lightning-thunder-and-weather-sound-in-the-city) — In Review; 8 points.
 - [HKS-180 — Restore tides, typhoon and remaining manual weather controls](https://linear.app/stealth-company/issue/HKS-180/restore-tides-typhoon-and-remaining-manual-weather-controls) — In Progress; 8 points.
 - [HKS-181 — Restore marine, radar, satellite and air-quality observations](https://linear.app/stealth-company/issue/HKS-181/restore-marine-radar-satellite-and-air-quality-observations) — Backlog; 8 points.
-- [HKS-189 — Add adjustable city timelapse beside the 24-hour dial](https://linear.app/stealth-company/issue/HKS-189/add-adjustable-city-timelapse-beside-the-24-hour-dial) — In Review; 4 points.
+- [HKS-189 — Add adjustable city timelapse beside the 24-hour dial](https://linear.app/stealth-company/issue/HKS-189/add-adjustable-city-timelapse-beside-the-24-hour-dial) — Ready to Merge; 4 points.
 - [HKS-195 — Add adjustable atmospheric haze and night-sky clarity in Weather](https://linear.app/stealth-company/issue/HKS-195/add-adjustable-atmospheric-haze-and-night-sky-clarity-in-weather) — In Review; 4 points.
 
 ### HKS-130

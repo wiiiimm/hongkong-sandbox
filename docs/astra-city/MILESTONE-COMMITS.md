@@ -2,7 +2,7 @@
 
 This index links the milestone commits to their existing Linear issues without rewriting history. References indicate scope, not completion. Older commits without an issue in their message use the explicitly recorded scope mapping. Later commits carry HKS references in their messages.
 
-Branch: `codex/astra-hong-kong-city`. Snapshot: `33f83a1a`. Base: `5777bc98`. The documentation commit publishing this index is necessarily after its snapshot; its message references HKS-116 and HKS-117.
+Branch: `codex/astra-hong-kong-city`. Snapshot: `b90c15f5`. Base: `5777bc98`. The documentation commit publishing this index is necessarily after its snapshot; its message references HKS-116 and HKS-117.
 
 | Commit | Change | Linear issues |
 | --- | --- | --- |
@@ -65,6 +65,9 @@ Branch: `codex/astra-hong-kong-city`. Snapshot: `33f83a1a`. Base: `5777bc98`. Th
 | [fc36a645](https://github.com/wiiiimm/hongkong-sandbox/commit/fc36a64518659611de0095a15f9ccc1d0e22f3af) | docs: track Stonecutters reconstruction and section status (HKS-196) | [HKS-196](https://linear.app/stealth-company/issue/HKS-196/reconstruct-stonecutters-bridge-and-correct-underlying-terrain) |
 | [e4e5367a](https://github.com/wiiiimm/hongkong-sandbox/commit/e4e5367ae028878d97be81efe108422219d0b247) | docs: resume remaining Mui Wo conflict review (HKS-192) | [HKS-192](https://linear.app/stealth-company/issue/HKS-192/complete-mui-wo-terrain-village-models-and-public-walking-review) |
 | [33f83a1a](https://github.com/wiiiimm/hongkong-sandbox/commit/33f83a1ac867bd48a99ee511eafefe951d68a3b6) | test: record Stonecutters terrain baseline (HKS-196) | [HKS-196](https://linear.app/stealth-company/issue/HKS-196/reconstruct-stonecutters-bridge-and-correct-underlying-terrain) |
+| [33baf810](https://github.com/wiiiimm/hongkong-sandbox/commit/33baf810c97634e1fcc5e3c93a98b15dcda31368) | docs: index Astra milestone commits and Linear issues (HKS-116, HKS-117) | [HKS-116](https://linear.app/stealth-company/issue/HKS-116/complete-the-hong-kong-map-region-by-region), [HKS-117](https://linear.app/stealth-company/issue/HKS-117/restore-every-original-game-feature-in-the-city-viewer) |
+| [7d3e3ff5](https://github.com/wiiiimm/hongkong-sandbox/commit/7d3e3ff50b93f16c90eefe22e010a03afacf885c) | feat(city): stage Stonecutters bridge sources (HKS-196) | [HKS-196](https://linear.app/stealth-company/issue/HKS-196/reconstruct-stonecutters-bridge-and-correct-underlying-terrain) |
+| [b90c15f5](https://github.com/wiiiimm/hongkong-sandbox/commit/b90c15f5ee59d77ba9a134aea761bc3c93d7506f) | fix(city): stage source-backed Mui Wo terrain refinements | [HKS-192](https://linear.app/stealth-company/issue/HKS-192/complete-mui-wo-terrain-village-models-and-public-walking-review) |
 
 ## Milestone issue status at preparation
 
