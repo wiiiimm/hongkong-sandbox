@@ -1,3 +1,11 @@
+## Cached-source conversion and validation — 7 September 2026
+
+Root committed and pushed `a308b86131e756bdc25c2ae839c962e0b3bbac33` to draft PR #298. Reused 77 retained staged manifests and the original decoder/packer: 5,404 jobs, 2,875 candidates (2,861 Central and 14 Mui Wo), 34.8 MB compressed, 66.60 s wall time, no AI/network calls. Repeat reuses all completed jobs in 2.24 s including source/output hashes. Seventeen focused tests pass.
+
+All 2,875 assets pass the actual current-tile/shared loader; 2,874 pass combined source-roof picking/collision and drawn-terrain checks. One missing terrain surface remains at the Central–Wan Chai Bypass Middle Ventilation Building. Fresh overlapping terrain diagnostics include 4 sampled highest roofs buried, 1,008 terrain-above-bottom and 687 ground-gap cases; contextual placement/browser review is still required. No source elevations or live models changed. 2,440 records lack a match in retained staged manifests, 16 are ambiguous, 73 lack government identities; these are not government-unavailability claims.
+
+HKS-202 remains In Progress for bounded source acquisition; HKS-203 is In Progress for placement review, browser acceptance and guarded publication. HKS-204/205 remain gated. HKS-200/201 stay In Review. Linear leaves HKS-202/203, parent HKS-199, coverage roll-up HKS-116 and the Astra milestone successfully synchronised with commit, evidence, executor and remaining gaps. No region status changed. Evidence: `docs/astra-city/building-batch/cached-models/README.md`.
+
 ## Tourist selection review and runner checkpoint — 7 September 2026
 
 HKS-201 is In Review at `962b54a8482b951fcef97698b222eaad19fcfbc1`, pushed to draft PR #298. HKS-202 is In Progress; HKS-199 remains open. Root selected 7,542 forms across Central (3,265), Mui Wo section 10.6 (2,371), Tai O crop (1,430) and Ngong Ping crop (476), with 86 verified source identities in eight landmark groups. Bounds/UID lists and hashes are in `tourist-trial.json` and `docs/astra-city/building-batch/trial/selection.json`. The HTML map and exported PNG are reviewable; Chrome rendered four panels/7,542 footprints without page errors.
