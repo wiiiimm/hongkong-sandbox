@@ -1,3 +1,19 @@
+## Cultural landmarks and expanded selection — 7 September 2026
+
+HKS-207 is In Review at `aa34ac1e`, pushed to draft PR #298: ten installed detailed government parts for Space Museum (3) and Cultural Centre/podium (7), 825,208 compressed bytes. Native geometry, surveyed fields and existing5m terrain remain unchanged at fixed1× scale. The two main opaque shells opt out of invented procedural windows. All229 city tests and all10 installed-model loader/terrain/picking/collision checks pass; browser day/night/mobile/walk/Fly/fallback/Retry checks pass. Gallery:20 images/10 comparisons. Six canopy identities and the small Studio Theatre edge depression remain explicit. Territory totals:346,115 forms,1,859 embedded+2,167 progressive=4,026 detailed model references. No whole-Kowloon completion or new R2 delivery.
+
+HKS-201 remains In Review at `52b965d0`: expanded landmark registry from the user-supplied architecture guides and skyscraper table.213 deduplicated entries (210 building/complex entries,3 interior venues), plus2 infrastructure/landscape targets. The180-row skyscraper source has179 names; explicit aliases merge existing landmarks and163 entries are added from the table. Duplicate/conflicting measurements, historical Kai Tak and excluded proposed/demolished/vision tables are retained as warnings. The original trial list remains unchanged. Single-pass audit4.658s, zero AI/network calls;94 entries have name/UID hints and119 need spatial/identity resolution. This is discovery, not new model publication. Two parser tests and byte-identical registry rebuild pass.
+
+Linear leaves HKS-207/201, parents HKS-125/199/116 and milestone overview successfully synced with commits, evidence, executor and remaining gaps. Cultural sources: kowloon_cultural_models; integration/registry: Root. Reports: `cultural-landmarks/README.md` and `landmark-registry/README.md`. Current preview-deployment SHA has not been reverified for these commits; branch push is confirmed.
+
+## Named landmark pass and fixed vertical scale — 7 September 2026
+
+`c8a5fddb` adds59 reviewed source parts:2 IFC podiums,4 Tai O Heritage Hotel parts,36 Po Lin parts (including Grand Hall) and17 Ngong Ping village parts. Corrected87-part selection:67 detailed,19 without standalone source geometry,1 unsupported pagoda held. New5m Ngong Ping terrain and guarded Tai O hotel refinement; one explicitly estimated null-source canopy base corrected. All59 installed assets,17 browser viewpoints,228 city tests,20 batch tests and14 publisher tests passed. Evidence: `landmark-pass/README.md`.
+
+HKS-203/204 remain In Review; HKS-174 is In Progress with routes and remaining source detail open. HKS-202/199/116/122/193 and milestone were updated with this evidence. No whole-region readiness promotion.
+
+`62ff8233` records the user's explicit ban on vertical exaggeration. HKS-131/182 conflicting requirements were removed; HKS-117/187 and the milestone exclude the old multiplier. Terrain, buildings, water, bridges, collision and navigation use fixed1× metres/HKPD. Legacy original-game route remains outside this removal request. AGENTS.md and FEATURE-PARITY.md carry the rule.
+
 ## Visible tourist trial — In Review, 7 September 2026
 
 Root committed and pushed `63a707c672f22677674c0b4dbe50bb598be41ae3` to draft PR #298. Its Vercel preview is confirmed: three trial catalogues/1,078 models and six sampled remote compressed asset hashes match. The deployable viewer now contains 1,078 additional exact-source government models: 1,075 Central and three Mui Wo, 6.5 MB compressed. Central trial detail is 1,102/3,265 (33.8%); Mui Wo section 10.6 is 1,575/2,371 (66.4%). In the older full Mui Wo boundary, the three additions raise detail to 1,621/2,408 (67.3%) and reduce its earlier 21-model hold to 18. Territory-wide 346,115 forms and 3,957 detailed models; no source elevations, footprints or terrain changed.
