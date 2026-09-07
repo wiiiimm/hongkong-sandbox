@@ -389,7 +389,29 @@
       ],
       "note": "Compound identity review must include heritage blocks, JC Contemporary and JC Cube. Tai Kwun Mansion is unrelated; name-only search misses the compound.",
       "status": "queued-identity-and-component-review",
-      "modelAcquisition": "not-run"
+      "modelAcquisition": "not-run",
+      "sourceUidHints": [
+        "landsd/235860:0",
+        "landsd/267623:0",
+        "landsd/263001:0",
+        "landsd/242698:0",
+        "landsd/261799:0",
+        "landsd/230105:0",
+        "landsd/16901:0",
+        "landsd/251755:0",
+        "landsd/267516:0",
+        "landsd/273024:0",
+        "landsd/231915:0",
+        "landsd/263599:0",
+        "landsd/105155:0",
+        "landsd/114964:0",
+        "landsd/118450:0",
+        "landsd/262589:0",
+        "landsd/244346:0",
+        "landsd/330467:0",
+        "landsd/262026:0"
+      ],
+      "componentAudit": "source-scripts/city/architecture-batch/taikwun-audit.json"
     },
     {
       "id": "cheung-kong-centre",
@@ -505,9 +527,12 @@
         "peak tower"
       ],
       "excludedNames": [],
-      "note": "Exclude Providence Peak, Bel-Air on the Peak and other similarly named towers.",
+      "note": "Exclude Providence Peak, Bel-Air on the Peak and other similarly named towers. Field check: landsd/329094:0 is a New Territories namesake at x11976,z-10845, excluded from Victoria Peak.",
       "status": "queued-identity-and-component-review",
-      "modelAcquisition": "not-run"
+      "modelAcquisition": "not-run",
+      "excludedSourceUids": [
+        "landsd/329094:0"
+      ]
     },
     {
       "id": "victoria-towers",
@@ -773,11 +798,16 @@
         "https://www.nationalgeographic.com/travel/article/paid-content-explore-5-architectural-icons-in-1-hong-kong-neighborhood"
       ],
       "inventoryNamePatterns": [
-        "court of final appeal%"
+        "court of final appeal%",
+        "the court of final appeal%"
       ],
       "status": "queued-identity-and-component-review",
       "modelAcquisition": "not-run",
-      "note": "Named in the2023 sponsored article; old future-tense completion statements are not current status."
+      "note": "Named in the2023 sponsored article; old future-tense completion statements are not current status.",
+      "sourceUidHints": [
+        "landsd/184076:0"
+      ],
+      "componentAudit": "source-scripts/city/architecture-batch/taikwun-audit.json"
     },
     {
       "id": "pedder-building",

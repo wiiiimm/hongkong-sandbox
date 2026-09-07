@@ -17,12 +17,12 @@
 | Hong Kong Space Museum | user-request-HKS-207 | 3 | 3 |
 | Hong Kong Cultural Centre | user-request-HKS-207 | 7 | 7 |
 | Hong Kong Convention and Exhibition Centre | artchitectours-2026-09-07 | 1 | 1 |
-| Tai Kwun — Centre for Heritage and Arts | artchitectours-2026-09-07 | 4 | 0 |
+| Tai Kwun — Centre for Heritage and Arts | artchitectours-2026-09-07 | 20 | 16 |
 | Cheung Kong Centre | artchitectours-2026-09-07 | 3 | 3 |
-| Lippo Centre — Tower 2 and connected complex | artchitectours-2026-09-07 | 3 | 0 |
-| Asia Society Hong Kong Centre | artchitectours-2026-09-07 | 15 | 3 |
+| Lippo Centre — Tower 2 and connected complex | artchitectours-2026-09-07 | 3 | 3 |
+| Asia Society Hong Kong Centre | artchitectours-2026-09-07 | 15 | 9 |
 | Opus Hong Kong | artchitectours-2026-09-07 | 1 | 0 |
-| The Peak Tower | artchitectours-2026-09-07 | 4 | 0 |
+| The Peak Tower | artchitectours-2026-09-07 | 3 | 0 |
 | The Victoria Towers | artchitectours-2026-09-07 | 3 | 0 |
 | Xiqu Centre | artchitectours-2026-09-07 | 1 | 0 |
 | Hong Kong West Kowloon Station | artchitectours-2026-09-07 | 1 | 0 |
@@ -33,12 +33,12 @@
 | The Henderson | additional-user-guides-2026-09-07 | 1 | 0 |
 | Hong Kong Palace Museum | additional-user-guides-2026-09-07 | 1 | 0 |
 | Flagstaff House Museum of Tea Ware | additional-user-guides-2026-09-07 | 6 | 4 |
-| Court of Final Appeal Building | additional-user-guides-2026-09-07 | 0 | 0 |
+| Court of Final Appeal Building | additional-user-guides-2026-09-07 | 1 | 1 |
 | Pedder Building | additional-user-guides-2026-09-07 | 1 | 0 |
 | Central Government Offices | additional-user-guides-2026-09-07 | 1 | 1 |
 | Legislative Council Complex | additional-user-guides-2026-09-07 | 1 | 1 |
 | Chief Executive’s Office | additional-user-guides-2026-09-07 | 1 | 1 |
-| Hysan Place | additional-user-guides-2026-09-07 | 2 | 0 |
+| Hysan Place | additional-user-guides-2026-09-07 | 2 | 2 |
 | Four Seasons Hotel Hong Kong | additional-user-guides-2026-09-07 | 2 | 0 |
 | Four Seasons serviced apartments | additional-user-guides-2026-09-07 | 1 | 0 |
 | Potato Head Hong Kong | additional-user-guides-2026-09-07 | 0 | 0 |
@@ -220,7 +220,7 @@
 | Metro Harbour View | wikipedia-tallest-2026-09-07 | 1 | 0 |
 | 15 Homantin Hill | wikipedia-tallest-2026-09-07 | 1 | 0 |
 
-Name/UID hints are discovery evidence only. A zero name match is not a missing building or missing government model. Tai Kwun needs a spatial component pass; unrelated Tai Kwun Mansion is deliberately excluded. Some newly listed sites already have detailed parts from area batches. No model conversion/download occurs in this audit.
+Name/UID hints are discovery evidence only. A zero name match is not a missing building or missing government model. Tai Kwun has an HKS-208 principal-component audit; unrelated Tai Kwun Mansion is deliberately excluded. Some newly listed sites already have detailed parts from area batches. No model conversion/download occurs in this audit.
 
 ## Sources and processing
 
