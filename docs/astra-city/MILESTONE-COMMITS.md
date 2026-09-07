@@ -1,3 +1,7 @@
+## 8 September — identity, source acquisition and installed models
+
+User follows progress in chat; root maintains Linear. HKS-212/213 stay In Progress for remaining identities/sources; first passes are committed and verified.71identity proposals (67prior unresolved entries),88native models acquired across45tiles/14.3MB. Combined401UID pass skips132installed and prepares109candidates (84additional),109CPU checks,8.88MB. Three Asia components installed at94d6f563 and verified through actual catalogue;4,054detailed parts total. HKS-214 holds the next higher-effort model/terrain review. User notified to raise effort before that pass. All geometry remains1×; no production/R2 upload. Commitsd5012884,d4dd5d91,94d6f563,9151a562,8dd38a3f. Evidence in landmark-progress/, landmark-identity/, landmark-acquisition/ and landmark-visual-review/. Linear leaves/parents/milestone synced; no wholelandmark or region completion inferred.
+
 ## Latest review checkpoints
 
 - `5724bd1c` — HKS-210 bounded mesh inspection, In Review.
