@@ -113,9 +113,9 @@ function sourceKeys(record){
 }
 
 export class BridgeLayer {
- constructor({scene,sampler,onChange=()=>{},prepare=prepareBridges}){
+ constructor({scene,sampler,onChange=()=>{},prepare=prepareBridges,inspection}){
   Object.assign(this,{sampler,onChange,prepare});
-  this.group=new THREE.Group();this.group.name='Mapped footbridges and elevated walking links';scene.add(this.group);
+  this.inspection=inspection;this.group=new THREE.Group();this.group.name='Mapped footbridges and elevated walking links';scene.add(this.group);
   this.records=new Map();this.loadedIds=new Set();this.tiles=new Map();this.cache=new Map();this.errors=new Map();this.requests=new Map();this.loadedPackages=new Set();
   this.surfaces=new InfrastructureSurfaces();this.suppressedIds=new Set();this.suppressedBuildingUids=new Set();this.sourcePaths=new Map();this.pendingProxyClips=new Map();this.proxyClips=new Map();this.proxyParts=new Map();
   this.features=[];this.featureIndices=new Map();this.focus=[0,420];this.radius=3000;this.cameraPosition=null;this.railVertical=0;this.closed=false;this.coveredCount=0;this.estimatedCount=0;
@@ -236,7 +236,7 @@ export class BridgeLayer {
    }
    mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingBox();mesh.computeBoundingSphere();mesh.name='Illustrative bridge guardrails and canopy posts';mesh.userData.bridgePart='rails';mesh.castShadow=false;mesh.receiveShadow=true;mesh.visible=Math.hypot(distanceToBounds(...this.focus,tile.bounds),this.railVertical)<=RAIL_DETAIL_RADIUS;group.userData.railMesh=mesh;group.add(mesh);
   }
-  this.cache.set(key,group);this.group.add(group);
+  this.cache.set(key,group);this.group.add(group);this.inspection?.register(group,'structures');
  }
  plan(x,z,radius=3000,cameraPosition=this.cameraPosition){
   if(this.closed||!Number.isFinite(x)||!Number.isFinite(z))return [];
@@ -268,6 +268,7 @@ export class BridgeLayer {
  }
  disposeTile(key){
   const group=this.cache.get(key);if(!group)return;
+  this.inspection?.unregister(group);
   group.traverse(object=>{if(object.isInstancedMesh)object.dispose();else object.geometry?.dispose();});group.removeFromParent();this.cache.delete(key);
  }
  get stats(){const active=[...this.records.values()].filter(record=>this.renderParts(record).length);return {spans:active.length,sourceModels:[...this.surfaces.models.values()].filter(m=>!m.estimatedPublicApproach).length,publicApproaches:[...this.surfaces.models.values()].filter(m=>m.estimatedPublicApproach).length,publicDecks:[...this.surfaces.models.values()].filter(m=>m.walkable&&!m.estimatedPublicApproach).length,suppressedProxies:this.suppressedIds.size,suppressedBuildings:this.suppressedBuildingUids.size,clippedProxies:this.proxyClips.size,pendingProxyClips:this.pendingProxyClips.size-this.proxyClips.size,visibleSpans:this.group.visible?[...this.cache.values()].filter(group=>group.visible).reduce((count,group)=>count+group.userData.bridgeCount,0):0,tiles:this.cache.size,pending:this.requests.size,errors:[...this.errors.keys()],covered:active.filter(covered).length,estimatedElevation:active.filter(record=>record.estimatedElevation).length};}

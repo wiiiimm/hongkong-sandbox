@@ -115,3 +115,17 @@ body:not(.controls-mobile):not(.controls-expanded) #location-title{left:32px}
 .aircraft-picker-open #touch-controls,.aircraft-picker-open #control-hint{visibility:hidden}.night .aircraft-options button[aria-checked=true],.night .mode-dock #fly-toggle[aria-expanded=true]{background:#405e42;color:#f6f8e9;border-color:#6b885c}.night .aircraft-symbol,.night .aircraft-check{color:#bdd2ac}.night .aircraft-picker-foot button:hover{background:#405e42}
 @media(max-width:760px){.aircraft-picker{bottom:calc(100% + 12px);width:min(390px,calc(100vw - 24px));max-height:calc(var(--control-viewport-height,100dvh) - 160px);border-radius:17px}.aircraft-picker-open #explorer{visibility:hidden;pointer-events:none}.aircraft-picker-open .minimap,.aircraft-picker-open #location-title{visibility:hidden}.aircraft-picker-head{padding:12px 13px 9px}.aircraft-picker h2{font-size:19px}.aircraft-options button{min-height:54px;gap:9px;padding:8px}.aircraft-options b{font-size:12px}.aircraft-picker-foot{padding:10px 15px}.mode-dock #fly-toggle{gap:4px}.mode-dock #fly-toggle .fly-chevron{font-size:10px}.aircraft-picker-open .navigation-bottom{z-index:13}}
 @media(max-width:350px){.aircraft-options b{font-size:11px}.aircraft-picker-foot>small{font-size:8px}.mode-dock #fly-toggle{gap:2px}}
+
+/* HKS-210: native mesh controls work inside the existing mobile control sheet. */
+.mesh-inspection{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.mesh-inspection summary{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;cursor:pointer;font-weight:600;font-size:13px}
+.mesh-inspection summary::before{content:'＋';font-weight:400}.mesh-inspection[open] summary::before{content:'−'}
+.mesh-inspection summary>span:first-child{flex:1}.mesh-badge{font-size:8px;letter-spacing:1px;color:var(--muted)}
+.mesh-inspection fieldset{border:0;margin:12px 0;padding:0;min-width:0}.mesh-inspection legend{font-size:10px;color:var(--muted);margin-bottom:6px}
+.mesh-mode-options{display:flex;gap:4px;padding:4px;background:rgba(25,62,56,.06);border-radius:10px}
+.mesh-mode-options label{position:relative;flex:1;min-width:0;cursor:pointer}
+.mesh-mode-options input{position:absolute;opacity:0;width:100%;height:100%;margin:0}
+.mesh-mode-options span{display:flex;min-height:44px;align-items:center;justify-content:center;border-radius:7px;font-size:12px}
+.mesh-mode-options input:checked+span{background:#286456;color:#fff}.mesh-mode-options input:focus-visible+span{outline:2px solid #17756c;outline-offset:2px}
+.mesh-targets label{display:flex;align-items:center;gap:10px;min-height:48px;cursor:pointer;font-size:12px}.mesh-targets input{width:18px;height:18px;accent-color:#286a5f;margin:0}.mesh-targets small{display:block;font-size:10px;color:var(--muted);line-height:1.5}
+.mesh-inspection .weather-control input:disabled{opacity:.4;cursor:default}.mesh-scope{border-top:1px solid var(--line);padding-top:10px}

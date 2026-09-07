@@ -10,8 +10,8 @@ export function disposeGroup(group){
  for(const g of geometries)g.dispose();for(const m of materials)m.dispose();
 }
 export class CityStreaming {
- constructor({manifest,terrain,sampler,scene,onChange,activity}){
-  Object.assign(this,{manifest,terrain,sampler,scene,onChange,activity});this.meta=new Map(manifest.tiles.map(t=>[t.id,t]));
+ constructor({manifest,terrain,sampler,scene,onChange,activity,inspection}){
+  Object.assign(this,{manifest,terrain,sampler,scene,onChange,activity,inspection});this.meta=new Map(manifest.tiles.map(t=>[t.id,t]));
   this.buildings=new THREE.Group();this.roads=new THREE.Group();this.trees=new THREE.Group();scene.add(this.buildings,this.roads,this.trees);
   this.lighting={night:{value:0},activity:{value:new Float32Array(cityLighting(15).activity.slice(0,4))},retail:{value:cityLighting(15).activity[4]},elapsed:{value:0},shimmer:{value:1}};this.surfaceMask=null;this.bridgeRoadIds=new Set();this.infrastructureBuildingUids=new Set();this.infrastructureRoadClips=new Map();this.infrastructureErrors=new Map();this.detailedModels=new Map();this.night=this.lighting.night;this.focus=[0,420];this.detailRadius=2200;this.revision=0;
   this.cache=new TileCache({limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.suppressInfrastructureBuildings(this.infrastructureBuildingUids).catch(()=>{});this.onChange?.();}});
@@ -75,7 +75,7 @@ export class CityStreaming {
      // Commit rendering and collision together; the previous outline stays until
      // the replacement bake succeeds. Raw source records and picking IDs remain.
      disposeGroup(entry.buildings.group);Object.assign(entry,baked);
-     this.buildings.add(entry.buildings.group);this.infrastructureErrors.delete(entry.id);this.revision++;this.sync();this.onChange?.();
+     this.buildings.add(entry.buildings.group);this.inspection?.register(entry.buildings.group,'structures');this.infrastructureErrors.delete(entry.id);this.revision++;this.sync();this.onChange?.();
     })().catch(error=>{if(!this.cache.closed){this.infrastructureErrors.set(entry.id,error.message);this.onChange?.();}throw error;}).finally(()=>{delete entry.infrastructureUpdate;});
    }
    if(entry.infrastructureUpdate)jobs.push(entry.infrastructureUpdate);
@@ -100,7 +100,7 @@ export class CityStreaming {
   }finally{signal?.removeEventListener('abort',cancel);}
   if((this.detailedModels.get(uid)||null)!==(detail||null))return false;
   if(old){old.active=false;old.group.removeFromParent();}
-  if(detail&&!this.cache.closed){detail.active=true;this.buildings.add(detail.group);}
+  if(detail&&!this.cache.closed){detail.active=true;this.buildings.add(detail.group);this.inspection?.register(detail.group,'structures');}
   this.revision++;this.sync();this.onChange?.();return !this.cache.closed;
  }
  makeTileRoads(data){
@@ -124,7 +124,7 @@ export class CityStreaming {
  sync(){
   const wanted=new Set(this.cache.wanted);
   for(const [id,e] of this.cache.entries){
-   if(!e.buildings.group.parent){this.buildings.add(e.buildings.group);this.roads.add(e.roads);this.trees.add(e.nature.group);}
+   if(!e.buildings.group.parent){this.buildings.add(e.buildings.group);this.inspection?.register(e.buildings.group,'structures');this.roads.add(e.roads);this.trees.add(e.nature.group);}
    const visible=wanted.has(id),near=distanceToBounds(...this.focus,this.meta.get(id).bounds)<=this.detailRadius;
    e.buildings.group.visible=visible;e.roads.visible=e.nature.group.visible=visible&&near;
    for(const mesh of e.buildings.group.children)mesh.castShadow=visible&&near;

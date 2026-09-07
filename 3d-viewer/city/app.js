@@ -6,6 +6,7 @@ import {Navigation} from './navigation.js';
 import {AIRCRAFT} from './aircraft.js';
 import {createAircraftPicker} from './aircraft-picker.js';
 import {CityStreaming} from './streaming.js';
+import {MeshInspection,bindMeshInspection} from './mesh-inspection.js';
 import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';
 import {BridgeCables} from './bridge-cables.js';
@@ -19,6 +20,7 @@ import {createEnvironment} from './environment.js';
 import {StargazeControls} from './stargaze-controls.js';
 import {createControlSheet} from './control-sheet.js';
 import {worldToWgs84} from './observer.js';
+const meshInspection=new MeshInspection({bounded:true,profile:innerWidth<=760?'mobile':'desktop'});let lastInspection=0;
 const $=id=>document.getElementById(id),motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
 let reduced=motionPreference.matches,aircraftUIStamp;
 let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween,regionalDetail,bridgeLayer,cableLayer,officialModels;
@@ -270,25 +272,25 @@ async function init(){
  controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.07;controls.minDistance=12;controls.maxDistance=65000;controls.maxPolarAngle=Math.PI*.475;controls.screenSpacePanning=false;
  ambient=new THREE.HemisphereLight('#e8f0e6','#6c806a',1.9);scene.add(ambient);sun=new THREE.DirectionalLight('#fff7df',3);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-2200,right:2200,top:2200,bottom:-2200,near:10,far:12000});sun.shadow.bias=-.00007;sun.shadow.normalBias=1.2;sun.shadow.radius=2;scene.add(sun,sun.target);
  const [m,data]=await Promise.all([loadJSON('city/data/manifest.json'),loadJSON('city/data/terrain.json')]);manifest=m;
- const [activity,patches]=await Promise.all([manifest.activityTiles?{buildings:{}}:loadJSON('city/data/activity.json'),Promise.all((manifest.terrainPatches||[]).map(p=>loadJSON(p.url)))]);data.patches=patches;sampler=makeTerrainSampler(data);terrain=makeTerrain(data);terrain.userData.data=data;scene.add(terrain);water=makeWater();water.attachShoreline(terrain);scene.add(water.mesh);
- stream=new CityStreaming({manifest,terrain:data,sampler,scene,activity,onChange:updateStreamStatus});ferries=makeFerries();ferries.update(0);scene.add(ferries.group);
+ const [activity,patches]=await Promise.all([manifest.activityTiles?{buildings:{}}:loadJSON('city/data/activity.json'),Promise.all((manifest.terrainPatches||[]).map(p=>loadJSON(p.url)))]);data.patches=patches;sampler=makeTerrainSampler(data);terrain=makeTerrain(data);terrain.userData.data=data;scene.add(terrain);meshInspection.register(terrain,'terrain');water=makeWater();water.attachShoreline(terrain);scene.add(water.mesh);
+ stream=new CityStreaming({manifest,terrain:data,sampler,scene,activity,onChange:updateStreamStatus,inspection:meshInspection});ferries=makeFerries();ferries.update(0);scene.add(ferries.group);
  let maskedSurfaces=0;regionalDetail=new RegionalDetail({scene,sampler,onChange:()=>{if(regionalDetail&&regionalDetail.surfaceCount!==maskedSurfaces){maskedSurfaces=regionalDetail.surfaceCount;stream.setSurfaceExclusions(regionalDetail.mappedSurfaces);}updateStreamStatus();}});
- bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus});
- cableLayer=new BridgeCables({scene,onChange:updateStreamStatus});
+ bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus,inspection:meshInspection});
+ cableLayer=new BridgeCables({scene,onChange:updateStreamStatus,inspection:meshInspection});
  officialModels=new OfficialModelLayer({stream,profile:innerWidth<=760?'mobile':'desktop',onChange:updateOfficialModels});
  sectionReview=new ReviewSections({scene,sampler,onVisit:visitReviewSection,onSelect:()=>{closeSelection();controlSheet.open('places');$('section-review').scrollIntoView({block:'start'});}});
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,surfaces:bridgeLayer.surfaces,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
  controlSheet=createControlSheet({onExpand:()=>{nav.clearInput();aircraftPicker?.close({restoreFocus:false});},focusMap:()=>renderer.domElement.focus({preventScroll:true})});
  aircraftPicker=createAircraftPicker({aircraft:AIRCRAFT,onOpen:()=>{controlSheet.close({restoreFocus:false});nav.clearInput();syncAircraftUI();},onQuickFly:()=>{if(nav.mode!=='fly'||stargazer.active)void chooseMode('fly');renderer.domElement.focus({preventScroll:true});},onSelect:id=>{void selectAircraft(id);if(nav.mode!=='fly'||stargazer.active)void chooseMode('fly');renderer.domElement.focus({preventScroll:true});}});
  stargazer=new StargazeControls({camera,controls,canvas:renderer.domElement,onPick:point=>{const star=environment.sky.pick(point);$('sky-selection').textContent=star?`Star HR ${star.hr} · ${star.constellations.map(c=>c.en+' '+c.zh).join(', ')||'No figure in this catalogue'} · ${star.altitudeDeg.toFixed(0)}° above the horizon`:'No bright star selected. Try another part of the sky.';}});
- bindUI();environment=await createEnvironment({scene,camera,renderer,sun,ambient,stream,water,terrainHeight:(x,z)=>sampler.height(x,z),getObserver:()=>{
+ bindUI();bindMeshInspection(meshInspection);environment=await createEnvironment({scene,camera,renderer,sun,ambient,stream,water,terrainHeight:(x,z)=>sampler.height(x,z),getObserver:()=>{
   const focus=nav.mode==='orbit'?controls.target:nav.position;
   if(!observerCache||Math.hypot(focus.x-observerCache.x,focus.z-observerCache.z)>100){
    const nearest=PLACES[closestPlace(focus.x,focus.z)],coordinates=worldToWgs84(focus.x,focus.z)||{lat:nearest.lat,lon:nearest.lon};observerCache={...coordinates,title:nearest.title,x:focus.x,z:focus.z};
   }return observerCache;
- },onClock:s=>{lightState=s;}});makeLabels();
+ },onClock:s=>{lightState=s;meshInspection.setNight(s.night>.5);}});makeLabels();
  $('snapshot-date').textContent=manifest.snapshot.slice(0,10);$('loading').style.opacity='0';setTimeout(()=>$('loading').hidden=true,750);
- window.__city={get ready(){return true;},get state(){return {controls:controlSheet.state,aircraftPicker:aircraftPicker.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,pendingModeRequest,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,cables:cableLayer.stats,models:officialModels.stats,placeCount:Object.keys(PLACES).length,sections:sectionReview.state,layers:{sections:sectionReview.enabled,bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
+ window.__city={get ready(){return true;},get state(){return {inspection:meshInspection.state,controls:controlSheet.state,aircraftPicker:aircraftPicker.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,pendingModeRequest,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,cables:cableLayer.stats,models:officialModels.stats,placeCount:Object.keys(PLACES).length,sections:sectionReview.state,layers:{sections:sectionReview.enabled,bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
  startTime=performance.now();requestAnimationFrame(animate);const initial=new URLSearchParams(location.search).get('district');goPlace(Object.hasOwn(PLACES,initial)?initial:'central',false);
  // Regional surfaces and search are independent of building/terrain readiness.
  for(const name of ['islands','urban','nt'])regionalDetail.load(`city/data/regional/${name}.json`);
@@ -304,6 +306,7 @@ function animate(now){
  if(!paused&&!reduced)stream.lighting.elapsed.value+=dt;
  if(tween&&!paused){tween.elapsed+=dt;const u=Math.min(1,tween.elapsed/tween.duration),v=u*u*(3-2*u);camera.position.lerpVectors(tween.from,tween.to,v);controls.target.lerpVectors(tween.targetFrom,tween.targetTo,v);if(u===1)tween=null;}
  const focus=nav.mode==='orbit'?controls.target:nav.position;
+ if(now-lastInspection>600){meshInspection.plan(focus);lastInspection=now;}
  // A preset arrival already requests its destination. Do not replace that request
  // with intermediate camera positions while the transition crosses the harbour.
  if(now-lastStream>600&&!loadingTravel&&!pendingModeRequest&&!tween){stream.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(6000,Math.max(2600,camera.position.distanceTo(focus))):3200);regionalDetail.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(5000,Math.max(2600,camera.position.distanceTo(focus))):3200);bridgeLayer.plan(focus.x,focus.z,3000,camera.position);cableLayer.plan(focus.x,focus.z,3000,bridgeLayer.surfaces.models.keys());lastStream=now;}

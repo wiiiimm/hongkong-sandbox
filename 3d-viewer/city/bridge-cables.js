@@ -23,8 +23,8 @@ function geometry(record){
  g.computeBoundingBox();g.computeBoundingSphere();return g;
 }
 export class BridgeCables {
- constructor({scene,onChange,parentsByRegion=CABLE_SOURCE_PARENTS,fetchImpl=globalThis.fetch}={}){
-  this.group=new THREE.Group();this.group.name='Illustrative bridge cables · not surveyed geometry';scene?.add(this.group);
+ constructor({scene,onChange,parentsByRegion=CABLE_SOURCE_PARENTS,fetchImpl=globalThis.fetch,inspection}={}){
+  this.inspection=inspection;this.group=new THREE.Group();this.group.name='Illustrative bridge cables · not surveyed geometry';scene?.add(this.group);
   this.onChange=onChange;this.parentsByRegion=parentsByRegion;this.fetch=fetchImpl.bind(globalThis);this.records=new Map();this.meshes=new Map();this.requests=new Map();this.errors=new Map();this.loadedPackages=new Set();this.focus=[0,0];this.radius=3000;this.parentSourceIds=new Set();this.closed=false;
  }
  load(url){
@@ -39,7 +39,7 @@ export class BridgeCables {
     if([...this.records.values()].some(r=>r.region===record.region&&r.id!==record.id))throw Error('Duplicate illustrative cable region '+record.region);
     if(!old){
      const mesh=new THREE.Mesh(geometry(record),new THREE.MeshStandardMaterial({vertexColors:true,roughness:.58,metalness:.32}));mesh.name=record.name;mesh.castShadow=mesh.receiveShadow=true;mesh.userData.cableId=record.id;mesh.visible=false;
-     this.records.set(record.id,record);this.meshes.set(record.id,mesh);this.group.add(mesh);
+     this.records.set(record.id,record);this.meshes.set(record.id,mesh);this.group.add(mesh);this.inspection?.register(mesh,'structures');
     }
     this.loadedPackages.add(url);this.plan(...this.focus,this.radius,this.parentSourceIds);return true;
    }catch(error){if(!this.closed&&!controller.signal.aborted)this.errors.set(url,error.message||String(error));return false;}
@@ -57,6 +57,6 @@ export class BridgeCables {
  featureAt(hit){const mesh=hit?.object;return mesh?.parent===this.group&&this.pickMeshes().includes(mesh)?this.records.get(mesh.userData.cableId):undefined;}
  geometryFor(record){if(this.records.get(record.id)!==record)throw Error('Unknown illustrative cable selection');return geometry(record);}
  get stats(){const enabled=this.pickMeshes();return {packets:this.records.size,visiblePackets:enabled.length,illustrativeTriangles:[...this.records.values()].reduce((n,r)=>n+r.illustrativeTriangles,0),visibleTriangles:enabled.reduce((n,m)=>n+m.geometry.attributes.position.count/3,0),sourceTriangles:0,waitingForParents:[...this.records.values()].filter(r=>!r.requiredParents.every(id=>this.parentSourceIds.has(id))).map(r=>r.id),pending:this.requests.size,errors:[...this.errors.keys()]};}
- dispose(){if(this.closed)return;this.closed=true;for(const r of this.requests.values())r.controller.abort();this.requests.clear();for(const mesh of this.meshes.values()){mesh.geometry.dispose();mesh.material.dispose();}this.group.clear();this.group.removeFromParent();this.records.clear();this.meshes.clear();this.loadedPackages.clear();this.errors.clear();}
+ dispose(){if(this.closed)return;this.closed=true;for(const r of this.requests.values())r.controller.abort();this.requests.clear();for(const mesh of this.meshes.values()){this.inspection?.unregister(mesh);mesh.geometry.dispose();mesh.material.dispose();}this.group.clear();this.group.removeFromParent();this.records.clear();this.meshes.clear();this.loadedPackages.clear();this.errors.clear();}
 }
 export const createBridgeCables=options=>new BridgeCables(options);

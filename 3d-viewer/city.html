@@ -50,6 +50,24 @@
   <label><span><span class="layer-icon">⌖</span> Place names</span><input type="checkbox" id="layer-labels" checked><span class="switch"></span></label>
   <label><span><span class="layer-icon">#</span> Review sections · 132</span><input type="checkbox" id="layer-sections"><span class="switch"></span></label>
  </div>
+ <details class="mesh-inspection" id="mesh-inspection">
+  <summary><span>Inspect the mesh</span><span class="mesh-badge">TRIANGLES</span></summary>
+  <p class="environment-note">Reveal the triangles underneath the map’s skin.</p>
+  <fieldset class="mesh-modes"><legend>Render mode</legend><div class="mesh-mode-options">
+   <label><input type="radio" name="mesh-mode" value="solid" checked><span>Solid</span></label>
+   <label><input type="radio" name="mesh-mode" value="overlay"><span>Overlay</span></label>
+   <label><input type="radio" name="mesh-mode" value="wireframe"><span>Wireframe</span></label>
+  </div></fieldset>
+  <fieldset class="mesh-targets"><legend>Inspect layers</legend>
+   <label><input id="mesh-terrain" type="checkbox" checked><span>Terrain<small>Ground &amp; detailed terrain patches</small></span></label>
+   <label><input id="mesh-structures" type="checkbox" checked><span>Structures<small>Buildings, government models &amp; bridges</small></span></label>
+  </fieldset>
+  <label class="weather-control" for="mesh-opacity"><span>Skin opacity</span><output id="mesh-opacity-value" for="mesh-opacity">65%</output><input id="mesh-opacity" type="range" min="0" max="100" step="5" value="65" disabled aria-describedby="mesh-opacity-help"></label>
+  <p id="mesh-opacity-help" class="environment-note">In Overlay, lower the skin opacity to reveal surface triangles. Hidden faces stay occluded.</p>
+  <p id="mesh-scope-status" class="environment-note" role="status">Inspection focuses on the view centre, with a bounded triangle budget.</p>
+  <p id="mesh-status" class="environment-note" role="status">Inspection off · original materials.</p>
+  <p class="environment-note mesh-scope">Water, streets, trees, local-detail surfaces, vehicles and labels keep their normal appearance. Use the layer switches to hide them. Geometry stays at 1× scale.</p>
+ </details>
  </section>
  <section id="panel-time" role="tabpanel" aria-labelledby="tab-time" hidden>
  <div class="time-head"><span class="section-label">CITY TIME</span><span class="clock-cycle-label">24 HOURS</span></div>
