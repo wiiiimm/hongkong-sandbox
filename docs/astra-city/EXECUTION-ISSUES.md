@@ -1,3 +1,9 @@
+## 7 September latest execution checkpoint
+
+- HKS-210 — In Review at5724bd1c; bounded mesh inspection,244 tests and independent browser checks.
+- HKS-211 — In Review atbaad46c9;213 entries bulk-accounted,25 candidates staged, no publication.
+- HKS-209 — In Progress;16 flagged exceptions processed, three candidate recoveries,13 still held/missing.
+
 ## Architecture batch 1 — 7 September 2026
 
 HKS-208 is **In Review** at `d288106a`, pushed to draft PR #298. Installed **25** new government components: Tai Kwun13, Lippo3, Asia Society6, Court of Final Appeal1, Hysan Place2. Payload: **1,269,800 bytes /58,108 triangles**. Native coordinates, surveyed heights, terrain and fixed1× scale are unchanged.

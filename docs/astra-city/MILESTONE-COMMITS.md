@@ -1,3 +1,10 @@
+## Latest review checkpoints
+
+- `5724bd1c` — HKS-210 bounded mesh inspection, In Review.
+- `baad46c9` — HKS-211 bulk preparation, In Review;25 candidates, no publication.
+- `e76e79aa` — HKS-209 sixteen exceptions audited; three staged candidates,13 held/missing, In Progress.
+- `323bbe1a` — HKS-199/202 read-only current-job status; excludes superseded pending rows.
+
 # Astra milestone commit and Linear issue index
 
 Commit links indicate scope, not completion. Older mappings remain intact; new entries use explicit HKS references.

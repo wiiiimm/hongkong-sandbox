@@ -41,7 +41,7 @@ Debug state: `window.__city.state.inspection` exposes mode, opacity, targets, me
 
 ## Independent acceptance
 
-Root actual-browser run passed all 15 recorded views: Central Solid/Overlay/Wireframe and per-layer targets; detailed Court of Final Appeal source picking/collision, day/night and restoration; live travel to Mui Wo; eight repeated release cycles; bridge loading; and 390 px controls with keyboard opacity adjustment and no horizontal overflow. Every sampled subset vertex and triangle maps exactly to its source, every selected instance preserves its matrix, and every budget is respected. Solid restores original material references and zero inspection overlays/material pairs. No application or shader errors.
+Root actual-browser run passed 14 recorded scene views plus the mobile controls capture: Central Solid/Overlay/Wireframe and per-layer targets; detailed Court of Final Appeal source picking/collision, day/night and restoration; live travel to Mui Wo; eight repeated release cycles; bridge loading; and 390 px controls with keyboard opacity adjustment and no horizontal overflow. Every sampled subset vertex and triangle maps exactly to its source, every selected instance preserves its matrix, and every budget is respected. Solid restores original material references and zero inspection overlays/material pairs. No application or shader errors.
 
 | View | Median frame time | p95 |
 |---|---:|---:|

@@ -1,3 +1,7 @@
+## 7 September — verified wireframe and bulk preparation
+
+HKS-210 is In Review at5724bd1c: Places → Inspect the mesh, actual source triangles, bounded view-centre radius, skin reveal and full restoration.244 tests and independent14-scene browser pass; current desktop Chrome frames16.7–33.3ms; physical phones unverified. HKS-211 is In Review atbaad46c9 for preparation:213 entries accounted,304 identified parts,158 completed jobs,25 staged candidates/CPU checks, zero downloads or publication.115 unresolved identities,59 entries with cache gaps,3 ambiguous groups and explicit placement holds remain. HKS-209 stays In Progress: three staged Asia Society recoveries from16 exceptions; remaining11 held/two absent. Installed models remain4,051. Parent HKS-182/202/199 and milestone synced; PR298 is still draft. Evidence in wireframe/, landmark-bulk/ and architecture-followup/.
+
 ## Wireframe inspection feature — 7 September 2026
 
 [HKS-210](https://linear.app/stealth-company/issue/HKS-210/add-skin-reveal-wireframe-inspection-mode) added under HKS-182 in the Astra milestone. Backlog, Medium priority,4 points, assigned to William; Feature/Rendering. Solid, overlay and wireframe-only modes with a skin-reveal control expose actual terrain, building and bridge triangles. Preserve native1× coordinates; reuse legacy wireframe support and existing streaming. Mobile controls, material restoration, resource budgets and browser acceptance are included. Parent and milestone overview synced. Implementation has not started.

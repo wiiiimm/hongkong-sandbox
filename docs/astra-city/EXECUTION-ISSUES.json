@@ -1,7 +1,7 @@
 {
   "milestone": "Astra - Living Hong Kong — buildings, regional detail & feature parity",
   "milestoneId": "3a730c97-7148-4d83-bedd-c5b47b85f721",
-  "verifiedAt": "2026-09-07T11:26:59.776117+00:00",
+  "verifiedAt": "2026-09-07T15:44:34.166038+00:00",
   "issues": [
     {
       "key": "muiwo_detail",
@@ -1028,7 +1028,7 @@
       "title": "Resolve terrain and source-match exceptions from architecture batch 1",
       "url": "https://linear.app/stealth-company/issue/HKS-209",
       "parentId": "HKS-208",
-      "status": "Backlog",
+      "status": "In Progress",
       "estimate": {
         "value": 5,
         "name": "5 Points"
@@ -1044,7 +1044,11 @@
       "assigneeId": "479c2f97-dbf1-4e97-8820-e87125b3e6a5",
       "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
       "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
-      "verifiedCommit": "d288106a5c2670d88eec51bcc3410202b89c199a"
+      "verifiedCommit": "e76e79aa",
+      "executor": "terrain_publication_guard; root review",
+      "evidence": "docs/astra-city/architecture-followup/README.md",
+      "currentScope": "All16 flags processed; three Asia Society candidates recovered and CPU-validated,11 held,2 absent from retained cache. No publication.",
+      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72"
     },
     {
       "key": "wireframe_inspection",
@@ -1053,7 +1057,7 @@
       "title": "Add skin-reveal wireframe inspection mode",
       "url": "https://linear.app/stealth-company/issue/HKS-210/add-skin-reveal-wireframe-inspection-mode",
       "parentId": "HKS-182",
-      "status": "Backlog",
+      "status": "In Review",
       "estimate": {
         "value": 4,
         "name": "4 Points"
@@ -1068,7 +1072,40 @@
       ],
       "assigneeId": "479c2f97-dbf1-4e97-8820-e87125b3e6a5",
       "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
-      "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501"
+      "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
+      "verifiedCommit": "5724bd1c",
+      "executor": "wireframe_210; root independent browser verification",
+      "evidence": "docs/astra-city/wireframe/IMPLEMENTATION.md",
+      "currentScope": "Bounded exact-triangle inspection; 244 unit tests and 14-scene browser pass; physical-phone performance unverified.",
+      "cycleId": "20807fa4-d261-4645-944b-9c78ff09ef72"
+    },
+    {
+      "key": "landmark_bulk",
+      "id": "HKS-211",
+      "uuid": "89194fd2-10f2-4e66-9b53-3a7a226f995e",
+      "title": "Bulk-process the expanded landmark registry using retained government data",
+      "url": "https://linear.app/stealth-company/issue/HKS-211/bulk-process-the-expanded-landmark-registry-using-retained-government",
+      "parentId": "HKS-202",
+      "status": "In Review",
+      "estimate": {
+        "value": 4,
+        "name": "4 Points"
+      },
+      "projectMilestone": {
+        "id": "3a730c97-7148-4d83-bedd-c5b47b85f721",
+        "name": "Astra - Living Hong Kong — buildings, regional detail & feature parity"
+      },
+      "labels": [
+        "Data",
+        "Improvement"
+      ],
+      "assigneeId": "479c2f97-dbf1-4e97-8820-e87125b3e6a5",
+      "projectId": "d7066397-4e83-4697-a4a3-7bd7a31887b8",
+      "teamId": "f1b9d5f3-e53e-41b3-8e66-4b6e3a4cb501",
+      "verifiedCommit": "baad46c9",
+      "executor": "landmark_gap_audit; root accounting review",
+      "evidence": "docs/astra-city/landmark-bulk/README.md",
+      "currentScope": "Preparation In Review:213 entries,304 identified parts,25 staged candidates and25 CPU checks. Placement/identity/source gaps remain; zero publication."
     }
   ],
   "integrationCommit": "52b965d019e1f9c806bf9ce6da9bd5de9152d745",
@@ -1131,5 +1168,16 @@
     "territoryDetailed": 4051,
     "evidence": "docs/astra-city/architecture-batch/README.md",
     "linearSynced": true
+  },
+  "wireframeCheckpoint": {
+    "commit": "5724bd1c",
+    "status": "In Review"
+  },
+  "landmarkBulkCheckpoint": {
+    "commit": "baad46c9",
+    "status": "In Review",
+    "entries": 213,
+    "candidates": 25,
+    "published": 0
   }
 }
