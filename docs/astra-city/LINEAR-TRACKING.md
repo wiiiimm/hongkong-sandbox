@@ -1,3 +1,7 @@
+## Wireframe inspection feature — 7 September 2026
+
+[HKS-210](https://linear.app/stealth-company/issue/HKS-210/add-skin-reveal-wireframe-inspection-mode) added under HKS-182 in the Astra milestone. Backlog, Medium priority,4 points, assigned to William; Feature/Rendering. Solid, overlay and wireframe-only modes with a skin-reveal control expose actual terrain, building and bridge triangles. Preserve native1× coordinates; reuse legacy wireframe support and existing streaming. Mobile controls, material restoration, resource budgets and browser acceptance are included. Parent and milestone overview synced. Implementation has not started.
+
 ## Architecture batch 1 — 7 September 2026
 
 HKS-208 is **In Review** at `d288106a`, pushed to draft PR #298. Installed **25** new government components: Tai Kwun13, Lippo3, Asia Society6, Court of Final Appeal1, Hysan Place2. Payload: **1,269,800 bytes /58,108 triangles**. Native coordinates, surveyed heights, terrain and fixed1× scale are unchanged.
