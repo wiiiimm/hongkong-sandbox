@@ -81,7 +81,7 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
      // Per-building constants avoid expanding compact source geometry with
      // repeated facade attributes. The exact shared city window shader is reused.
      shader.uniforms.cityLight={value:new THREE.Vector4(style.seed,style.profile,style.base,style.retailTop)};
-     shader.uniforms.cityWindows={value:record.structureType==='Open-sided Structure'?0:1};
+     shader.uniforms.cityWindows={value:record.structureType==='Open-sided Structure'||entry.proceduralWindows===false?0:1};
      shader.vertexShader=shader.vertexShader.replace('attribute vec4 cityLight;','uniform vec4 cityLight;').replace('attribute float cityWindows;','uniform float cityWindows;');
     };
     material.customProgramCacheKey=()=> 'official-city-facade-v1';materialMap.set(original,material);return material;

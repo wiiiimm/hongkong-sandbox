@@ -94,3 +94,19 @@ test('cancellation during fallback rebake never attaches a late source model',as
  const meta=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0],entry=await loadOfficialModel(meta,f.building,f.stream.lighting,{fetcher:async()=>new Response(f.compressed)}),controller=new AbortController();t.after(()=>{disposeOfficialModel(entry);f.stream.cache.close();});
  const pending=f.stream.setDetailedModel(f.meta.uid,entry,{signal:controller.signal});controller.abort();assert.equal(await pending,false);assert.equal(entry.active,false);assert.equal(entry.group.parent,null);assert.equal(f.stream.detailedModels.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);
 });
+
+// Opaque landmark shells must retain source materials without invented windows.
+test('catalogue window opt-out preserves geometry and default building lighting',async t=>{
+ const f=fixture();t.after(()=>f.stream.cache.close());
+ for(const setting of [undefined,false]){
+  const catalogue={...f.catalogue,models:[{...f.meta,proceduralWindows:setting}]};
+  const meta=prepareModelCatalogue(catalogue,'http://localhost/catalogue.json')[0];
+  const result=await loadOfficialModel(meta,f.building,f.stream.lighting,{fetcher:async()=>new Response(f.compressed)});
+  const shader={uniforms:{},vertexShader:'#include <common>\n#include <begin_vertex>',fragmentShader:'#include <common>\n#include <color_fragment>\n#include <emissivemap_fragment>'};
+  result.meshes[0].material.onBeforeCompile(shader);
+  assert.equal(shader.uniforms.cityWindows.value,setting===false?0:1);
+  assert.equal(result.bounds.max.y,12);
+  assert.deepEqual(result.record.modelSource.originalMaterials,f.materials);
+  disposeOfficialModel(result);
+ }
+});
