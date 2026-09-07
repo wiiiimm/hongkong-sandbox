@@ -1,3 +1,11 @@
+## Local batch automation — HKS-199, 7 September 2026
+
+Created six linked subissues in the Astra milestone: HKS-200 inventory (In Review, 4 points), HKS-201 tourist selection (Backlog, 4), HKS-202 resumable processing (Backlog, 8), HKS-203 validation/publication (Backlog, 8), HKS-204 measured trial (Backlog, 4), HKS-205 section rollout (Backlog, 4). Dependencies gate rollout on the trial. HKS-199 and active inventory were added to Cycle 5; future children remain backlog.
+
+Root implemented and pushed `1cc2cf0ff849388135174f44e4f40a69fe2fd0e3` to draft PR #298: local SQLite inventory of 346,115 forms, 342,223 government IDs, 1,859 embedded plus 1,020 progressive detailed references and all 132 section definitions. Initial14.56s; unchanged repeat1.17s,452tiles skipped,zero building updates. Six focused tests pass. Commands use no AI/network calls. SQLite stays ignored/local; no viewer geometry changed. Source and evidence: `source-scripts/city/building-batch/README.md`, `docs/astra-city/building-batch/`. Trial membership and processing adapters remain open.
+
+Linear HKS-200, HKS-199, HKS-116 and milestone overview successfully synchronised with commit/evidence. These are six additional automation leaves, separate from the earlier 30 regional/parity execution leaves. No existing region status was promoted.
+
 # Living Hong Kong delivery tracking
 
 ## Integrated island detail — 7 September 2026
