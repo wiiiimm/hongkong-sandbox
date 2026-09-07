@@ -1,3 +1,7 @@
+## Production asset offload — 7 September 2026
+
+Created HKS-206 in the Astra milestone: offload all heavy runtime assets to R2 in production deployments. Backlog, High priority, 8 points, assigned to William; Performance/DevOps. Covers both viewers, asset inventory, reproducible approved-output uploads, versioned release manifests and rollback, browser-origin verification, CORS/compression and offline checks. Reuses HKS-50/46/52 infrastructure and relates to HKS-199/203. Milestone overview synced. Implementation has not started; no assets uploaded or deployed.
+
 ## Cached-source conversion and validation — 7 September 2026
 
 Root committed and pushed `a308b86131e756bdc25c2ae839c962e0b3bbac33` to draft PR #298. Reused 77 retained staged manifests and the original decoder/packer: 5,404 jobs, 2,875 candidates (2,861 Central and 14 Mui Wo), 34.8 MB compressed, 66.60 s wall time, no AI/network calls. Repeat reuses all completed jobs in 2.24 s including source/output hashes. Seventeen focused tests pass.
