@@ -85,3 +85,7 @@ No GPU/browser performance, complete architectural inspection, exhaustive founda
 ## Visible trial — HKS-203 / HKS-204
 
 The conservative publisher has installed 1,078 models (1,075 Central and three Mui Wo) in the feature viewer; 1,797 candidates remain basic fallbacks. Approved GLBs/catalogues are tracked under `3d-viewer/city/data/official-models/tourist-trial-*`. The original coordinates, source building records and terrain are unchanged. Actual desktop/mobile browser checks cover thirteen locations, including failed-load fallback and Retry. See [trial report and comparison gallery](../../../docs/astra-city/building-batch/visual-trial/README.md) for exact boundaries, counts, commands, tests and remaining limitations. This supersedes the earlier staged-only checkpoint; R2 production offload remains HKS-206.
+
+## Current refinement status
+
+`python3 source-scripts/city/building-batch/status.py` provides a read-only, no-network snapshot. It verifies the inventory's recorded input hashes, reconciles candidate source IDs against current installed details, and separates current job-set membership from superseded ledger history. `--output docs/astra-city/building-batch/current-status.json` saves a reviewable snapshot. Run `inventory.py` first if viewer data has changed. A completed conversion job is not an approved placement or a completed region.
