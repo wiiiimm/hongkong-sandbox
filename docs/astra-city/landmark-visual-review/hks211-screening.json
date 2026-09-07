@@ -1,0 +1,1192 @@
+{
+  "issue": "HKS-211",
+  "staged": true,
+  "published": false,
+  "verticalScale": 1,
+  "models": 25,
+  "counts": {
+    "ready-for-browser-review": 2,
+    "held-existing-placement-exception": 7,
+    "needs-assembly-or-foundation-context": 16
+  },
+  "rows": [
+    {
+      "uid": "landsd/101313:0",
+      "label": "THE CENTER",
+      "modelId": "B339871612901063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/ade3fb9efd6c2da80f809200098eac42177114cc7eee928f27015116ab933b8c.glb.gz",
+      "sha256": "ade3fb9efd6c2da80f809200098eac42177114cc7eee928f27015116ab933b8c",
+      "bytes": 2887,
+      "worldBounds": [
+        [
+          -521.466796875,
+          6.51200008392334,
+          363.923828125
+        ],
+        [
+          -503.787109375,
+          25.863001823425293,
+          380.025390625
+        ]
+      ],
+      "outcome": "ready-for-browser-review",
+      "reason": "No sampled terrain flags; runtime/source-surface checks pass.",
+      "nextAction": "Run normal-scene and foundation browser acceptance before publication.",
+      "cpuConcerns": [],
+      "terrain": {
+        "sampleCount": 880,
+        "minGround": 7.273128000003767,
+        "maxGround": 8.086410000004804,
+        "roofGround": 7.707166666666269,
+        "roof": [
+          -513.9127604166666,
+          25.863001823425293,
+          366.04296875
+        ],
+        "sourceYBounds": [
+          6.51200008392334,
+          25.863001823425293
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/114964:0",
+      "label": "E Hall",
+      "modelId": "B339331574301063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/3e932375f23b81c2b0f986b04e8cc48b2871555eee3fdf17f89cb56eef35f5c0.glb.gz",
+      "sha256": "3e932375f23b81c2b0f986b04e8cc48b2871555eee3fdf17f89cb56eef35f5c0",
+      "bytes": 5330,
+      "worldBounds": [
+        [
+          -581.189453125,
+          50.18899917602539,
+          744.619140625
+        ],
+        [
+          -554.185546875,
+          69.52100372314453,
+          766.255859375
+        ]
+      ],
+      "outcome": "held-existing-placement-exception",
+      "reason": "E Hall: current terrain buries the lower facade by up to3.63m.",
+      "nextAction": "Retain fallback; higher-effort source/retaining-edge review. Do not publish automatically.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 21,
+        "minGround": 50.05922600000212,
+        "maxGround": 54.022419999981125,
+        "roofGround": 50.19,
+        "roof": [
+          -570.2373046875,
+          69.34967041015625,
+          754.2766927083334
+        ],
+        "sourceYBounds": [
+          50.18899917602539,
+          69.52100372314453
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/152961:0",
+      "label": "Alassio",
+      "modelId": "B335511594401063C0",
+      "sourceTile": "11-SW-8C",
+      "sourceTileRevision": "2026-04-23T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/5519cbe1c4a99e77d0da7ec28922d1c99d2c0ef1633ef5dd4a3ddda8a85f81e2.glb.gz",
+      "sha256": "5519cbe1c4a99e77d0da7ec28922d1c99d2c0ef1633ef5dd4a3ddda8a85f81e2",
+      "bytes": 28201,
+      "worldBounds": [
+        [
+          -967.490234375,
+          101.7020034790039,
+          545.83203125
+        ],
+        [
+          -930.134765625,
+          250.98200225830078,
+          569.41796875
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 130,
+        "minGround": 75.15561400000053,
+        "maxGround": 85.27166800002193,
+        "roofGround": 79.08750651041717,
+        "roof": [
+          -941.5094401041666,
+          250.98200225830078,
+          559.6946614583334
+        ],
+        "sourceYBounds": [
+          101.7020034790039,
+          250.98200225830078
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/161005:0",
+      "label": "Cosco Tower",
+      "modelId": "B338001630801063C0",
+      "sourceTile": "11-SW-8B",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/e6b38ce5245ee879f83f10e409babdd1df78953c236d212049d91ea26230f22c.glb.gz",
+      "sha256": "e6b38ce5245ee879f83f10e409babdd1df78953c236d212049d91ea26230f22c",
+      "bytes": 84767,
+      "worldBounds": [
+        [
+          -730.7255859375,
+          31.438007354736328,
+          169.6845703125
+        ],
+        [
+          -673.150390625,
+          233.44296646118164,
+          217.439453125
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 56,
+        "minGround": 2.8783859999999395,
+        "maxGround": 5.135392000004886,
+        "roofGround": 3.704975911457789,
+        "roof": [
+          -702.0546875,
+          233.44000625610352,
+          192.72819010416674
+        ],
+        "sourceYBounds": [
+          31.438007354736328,
+          233.44296646118164
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/181141:0",
+      "label": "Queensway Government Offices",
+      "modelId": "B349581546901063C0",
+      "sourceTile": "11-SW-14A",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/77e777a294ca9b17617f21a90eb94b3807dd2cdfa1373ef8ae262c7be118997c.glb.gz",
+      "sha256": "77e777a294ca9b17617f21a90eb94b3807dd2cdfa1373ef8ae262c7be118997c",
+      "bytes": 82529,
+      "worldBounds": [
+        [
+          395.28125,
+          6.533999919891357,
+          1040.0625
+        ],
+        [
+          473.3427734375,
+          227.81500577926636,
+          1102.6884765625
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 94,
+        "minGround": 6.101244000000387,
+        "maxGround": 26.375424000039693,
+        "roofGround": 9.532884765628014,
+        "roof": [
+          431.7360026041667,
+          227.81500577926636,
+          1071.4384765625
+        ],
+        "sourceYBounds": [
+          6.533999919891357,
+          227.81500577926636
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/211847:0",
+      "label": "Po Lin Monastery Hua Yan Pagoda",
+      "modelId": "B085091281101063C0",
+      "sourceTile": "9-SE-21B",
+      "sourceTileRevision": "2025-09-28T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/1869eb48e46dbd87257d00767e20443ca5cc59b840518fba5c77068c20d9b00e.glb.gz",
+      "sha256": "1869eb48e46dbd87257d00767e20443ca5cc59b840518fba5c77068c20d9b00e",
+      "bytes": 1619,
+      "worldBounds": [
+        [
+          -25993.75,
+          462.41571044921875,
+          3686.0
+        ],
+        [
+          -25988.25,
+          469.0740966796875,
+          3692.1875
+        ]
+      ],
+      "outcome": "held-existing-placement-exception",
+      "reason": "Po Lin Hua Yan Pagoda: native geometry is at least 3.23 m above source terrain; no supporting neighbour identified in the prior landmark pass.",
+      "nextAction": "Retain fallback; higher-effort source/retaining-edge review. Do not publish automatically.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 31,
+        "minGround": 459.04674799999526,
+        "maxGround": 459.20613099999866,
+        "roofGround": 459.15791666666604,
+        "roof": [
+          -25989.395833333332,
+          468.0724283854167,
+          3689.0208333333335
+        ],
+        "sourceYBounds": [
+          462.41571044921875,
+          469.0740966796875
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/213822:0",
+      "label": "THE CENTRIUM",
+      "modelId": "B339781574802063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/083557e601486377e80993c41f7cf310f0191b588dd19b955e3d2c87ad227828.glb.gz",
+      "sha256": "083557e601486377e80993c41f7cf310f0191b588dd19b955e3d2c87ad227828",
+      "bytes": 29236,
+      "worldBounds": [
+        [
+          -537.4296875,
+          36.25899887084961,
+          721.8115234375
+        ],
+        [
+          -502.3212890625,
+          61.11399841308594,
+          776.3134765625
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 144,
+        "minGround": 36.21270299999975,
+        "maxGround": 49.49847600000259,
+        "roofGround": 42.93024999997019,
+        "roof": [
+          -525.6959635416666,
+          61.11399841308594,
+          732.9202473958334
+        ],
+        "sourceYBounds": [
+          36.25899887084961,
+          61.11399841308594
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/223348:0",
+      "label": "ASIA SOCIETY HONG KONG CENTER",
+      "modelId": "B351171518501063C0",
+      "sourceTile": "11-SW-14A",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/1f3cc227bdf66aaf03ab041ca4697b60fb3206dbcec5194decd2c752343857f8.glb.gz",
+      "sha256": "1f3cc227bdf66aaf03ab041ca4697b60fb3206dbcec5194decd2c752343857f8",
+      "bytes": 797,
+      "worldBounds": [
+        [
+          615.552734375,
+          56.027000427246094,
+          1312.259765625
+        ],
+        [
+          619.447265625,
+          59.060001373291016,
+          1316.1162109375
+        ]
+      ],
+      "outcome": "held-existing-placement-exception",
+      "reason": "Asia Society: unexplained7m bottom gap to both current/native terrain; no supporting structure identified.",
+      "nextAction": "Retain fallback; higher-effort source/retaining-edge review. Do not publish automatically.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 27,
+        "minGround": 48.55729599998749,
+        "maxGround": 48.904147999997015,
+        "roofGround": 48.85523697916768,
+        "roof": [
+          617.0944010416666,
+          59.060001373291016,
+          1314.8304036458333
+        ],
+        "sourceYBounds": [
+          56.027000427246094,
+          59.060001373291016
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/223783:0",
+      "label": "ASIA SOCIETY HONG KONG CENTER",
+      "modelId": "B350511521801063C0",
+      "sourceTile": "11-SW-14A",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/d039ef1db81c9cad775d6a307bd9428600fd331b2d4b4deaa8fc3c5a8d91b7fc.glb.gz",
+      "sha256": "d039ef1db81c9cad775d6a307bd9428600fd331b2d4b4deaa8fc3c5a8d91b7fc",
+      "bytes": 1060,
+      "worldBounds": [
+        [
+          549.8515625,
+          43.57899856567383,
+          1277.9423828125
+        ],
+        [
+          553.7724609375,
+          46.68199920654297,
+          1283.3076171875
+        ]
+      ],
+      "outcome": "held-existing-placement-exception",
+      "reason": "Asia Society U-shaped component: support unclear at exposed downhill edge;0.56\u20132.95m current ground gap.",
+      "nextAction": "Retain fallback; higher-effort source/retaining-edge review. Do not publish automatically.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 32,
+        "minGround": 40.993935999980614,
+        "maxGround": 43.10098599998606,
+        "roofGround": 40.980682291692354,
+        "roof": [
+          551.1969401041666,
+          46.68199920654297,
+          1278.5302734375
+        ],
+        "sourceYBounds": [
+          43.57899856567383,
+          46.68199920654297
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/233189:0",
+      "label": "STANDARD CHARTERED BANK BUILDING",
+      "modelId": "B344281572002063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/4589315dd0a4ef0087d17509aa1d73f37158bf7c86b0172eee7118a35ee082cc.glb.gz",
+      "sha256": "4589315dd0a4ef0087d17509aa1d73f37158bf7c86b0172eee7118a35ee082cc",
+      "bytes": 195634,
+      "worldBounds": [
+        [
+          -92.251953125,
+          3.828001022338867,
+          742.21875
+        ],
+        [
+          -48.08203125,
+          24.95400047302246,
+          814.375
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 67,
+        "minGround": 3.8599820000040412,
+        "maxGround": 7.274299599999565,
+        "roofGround": 7.174412109375015,
+        "roof": [
+          -56.8134765625,
+          24.88566780090332,
+          775.6806640625
+        ],
+        "sourceYBounds": [
+          3.828001022338867,
+          24.95400047302246
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/236189:0",
+      "label": "ISLAND SHANGRI-LA",
+      "modelId": "B350321534202063C0",
+      "sourceTile": "11-SW-14A",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/27e9bc77a1b1fd7ac93e651750b969e60a5addb084b836d747765eb88a363c79.glb.gz",
+      "sha256": "27e9bc77a1b1fd7ac93e651750b969e60a5addb084b836d747765eb88a363c79",
+      "bytes": 50180,
+      "worldBounds": [
+        [
+          483.2001953125,
+          20.46299934387207,
+          1104.2919921875
+        ],
+        [
+          621.548828125,
+          40.18299865722656,
+          1189.4580078125
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 812,
+        "minGround": 18.643123999997496,
+        "maxGround": 31.90857800000045,
+        "roofGround": 20.732902343749767,
+        "roof": [
+          494.2932942708333,
+          40.182998657226555,
+          1175.9270833333333
+        ],
+        "sourceYBounds": [
+          20.46299934387207,
+          40.18299865722656
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/245958:0",
+      "label": "Four Seasons Hotel",
+      "modelId": "B341841641401063C0",
+      "sourceTile": "11-SW-8B",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/03fe5ff3fee5e6f11003a94c9dd72c14baa63a493cbd88c1ed3ecfe1ef7ce059.glb.gz",
+      "sha256": "03fe5ff3fee5e6f11003a94c9dd72c14baa63a493cbd88c1ed3ecfe1ef7ce059",
+      "bytes": 74735,
+      "worldBounds": [
+        [
+          -348.7509765625,
+          46.34700012207031,
+          69.4326171875
+        ],
+        [
+          -287.623046875,
+          173.38699340820312,
+          100.9423828125
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 428,
+        "minGround": 7.19770000000205,
+        "maxGround": 11.497966000006087,
+        "roofGround": 8.795951822923021,
+        "roof": [
+          -309.7171223958333,
+          173.3343302408854,
+          86.73177083333337
+        ],
+        "sourceYBounds": [
+          46.34700012207031,
+          173.38699340820312
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/248218:0",
+      "label": "The Peak Tower",
+      "modelId": "B334861471201063C0",
+      "sourceTile": "11-SW-13C",
+      "sourceTileRevision": "2025-09-28T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/eefbcb7f2729b9621c97faea0413f4749f87b5101a610be47e23adfb935d76ad.glb.gz",
+      "sha256": "eefbcb7f2729b9621c97faea0413f4749f87b5101a610be47e23adfb935d76ad",
+      "bytes": 607352,
+      "worldBounds": [
+        [
+          -1055.9931640625,
+          378.50799560546875,
+          1771.23046875
+        ],
+        [
+          -964.8564453125,
+          430.29998779296875,
+          1806.96484375
+        ]
+      ],
+      "outcome": "held-existing-placement-exception",
+      "reason": "Peak Tower: source geometry verified, but lower floors intersect coarse70m terrain.",
+      "nextAction": "Retain fallback; higher-effort source/retaining-edge review. Do not publish automatically.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 149,
+        "minGround": 386.8828428571214,
+        "maxGround": 398.2453999999963,
+        "roofGround": 394.15052548362377,
+        "roof": [
+          -1027.4371744791667,
+          430.1863301595052,
+          1792.376953125
+        ],
+        "sourceYBounds": [
+          378.50799560546875,
+          430.29998779296875
+        ],
+        "resolutions": [
+          70
+        ]
+      }
+    },
+    {
+      "uid": "landsd/255018:0",
+      "label": "The Centrium",
+      "modelId": "B339771574301063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/7eecea4e03e54962a1de2b2db4be62da4a2ecf90c29f94b27e65ef20e5213de2.glb.gz",
+      "sha256": "7eecea4e03e54962a1de2b2db4be62da4a2ecf90c29f94b27e65ef20e5213de2",
+      "bytes": 66129,
+      "worldBounds": [
+        [
+          -537.4658203125,
+          52.52299880981445,
+          733.7568359375
+        ],
+        [
+          -502.2841796875,
+          224.22099685668945,
+          776.2431640625
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 84,
+        "minGround": 36.21269800000009,
+        "maxGround": 49.49847600000259,
+        "roofGround": 40.56223632809872,
+        "roof": [
+          -517.9088541666666,
+          224.22099685668945,
+          755.3297526041666
+        ],
+        "sourceYBounds": [
+          52.52299880981445,
+          224.22099685668945
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/273340:0",
+      "label": "FOUR SEASONS HOTEL HONG KONG",
+      "modelId": "B341791635402063C0",
+      "sourceTile": "11-SW-8B",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/94549218bbcb243cef55e05d5225b026ee1b31224d78ec3d692ea9172ca6c2ec.glb.gz",
+      "sha256": "94549218bbcb243cef55e05d5225b026ee1b31224d78ec3d692ea9172ca6c2ec",
+      "bytes": 127258,
+      "worldBounds": [
+        [
+          -359.556640625,
+          3.734990119934082,
+          90.447265625
+        ],
+        [
+          -256.818359375,
+          18.91900062561035,
+          177.302734375
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 398,
+        "minGround": 5.753872000003237,
+        "maxGround": 12.997606000000145,
+        "roofGround": 6.121244791666977,
+        "roof": [
+          -332.6555989583333,
+          18.91466649373373,
+          116.87434895833333
+        ],
+        "sourceYBounds": [
+          3.734990119934082,
+          18.91900062561035
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/322573:0",
+      "label": "Opus Hong Kong",
+      "modelId": "B359951448601063C0",
+      "sourceTile": "11-SW-14D",
+      "sourceTileRevision": "2026-04-23T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/e3c4ad4fff2acda8844233c83b6885dbbd73c1da9acb0a0efc7ec9778f57d764.glb.gz",
+      "sha256": "e3c4ad4fff2acda8844233c83b6885dbbd73c1da9acb0a0efc7ec9778f57d764",
+      "bytes": 307369,
+      "worldBounds": [
+        [
+          1476.119140625,
+          236.843994140625,
+          1986.685546875
+        ],
+        [
+          1513.1728515625,
+          293.25299072265625,
+          2017.076171875
+        ]
+      ],
+      "outcome": "held-existing-placement-exception",
+      "reason": "Opus: source geometry verified, but coarse70m terrain foundations need further review.",
+      "nextAction": "Retain fallback; higher-effort source/retaining-edge review. Do not publish automatically.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom",
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 286,
+        "minGround": 230.93599999999356,
+        "maxGround": 242.4446857142782,
+        "roofGround": 236.72142857141637,
+        "roof": [
+          1500.5797526041667,
+          293.25299072265625,
+          2001.6774088541667
+        ],
+        "sourceYBounds": [
+          236.843994140625,
+          293.25299072265625
+        ],
+        "resolutions": [
+          70
+        ]
+      }
+    },
+    {
+      "uid": "landsd/330467:0",
+      "label": "JC Cube",
+      "modelId": "B339381575801063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/1d119306a9c49a9e591d516efa8d27b4f1f59c2ed8d9e91262723018c45a2388.glb.gz",
+      "sha256": "1d119306a9c49a9e591d516efa8d27b4f1f59c2ed8d9e91262723018c45a2388",
+      "bytes": 1146,
+      "worldBounds": [
+        [
+          -578.365234375,
+          53.63999938964844,
+          728.439453125
+        ],
+        [
+          -544.3837890625,
+          80.91200256347656,
+          758.185546875
+        ]
+      ],
+      "outcome": "held-existing-placement-exception",
+      "reason": "JC Cube: current terrain leaves an unsupported3.30\u20134.24m corner; costly trial patch remains unpublished.",
+      "nextAction": "Retain fallback; higher-effort source/retaining-edge review. Do not publish automatically.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom",
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 24,
+        "minGround": 49.03388400003062,
+        "maxGround": 55.76289200000116,
+        "roofGround": 54.89066731771361,
+        "roof": [
+          -565.4176432291666,
+          80.91200256347656,
+          736.4055989583334
+        ],
+        "sourceYBounds": [
+          53.63999938964844,
+          80.91200256347656
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/4449:0",
+      "label": "Standard Chartered Bank Building",
+      "modelId": "B344201571001063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/b13096de532a55cc075a9f0042a82417ed5ba98da84321a53210c1159c5104ff.glb.gz",
+      "sha256": "b13096de532a55cc075a9f0042a82417ed5ba98da84321a53210c1159c5104ff",
+      "bytes": 40908,
+      "worldBounds": [
+        [
+          -88.3876953125,
+          18.786762237548828,
+          742.2216796875
+        ],
+        [
+          -55.76171875,
+          190.97999954223633,
+          798.4677734375
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 92,
+        "minGround": 3.843399999996865,
+        "maxGround": 6.812919999993425,
+        "roofGround": 6.402550781252794,
+        "roof": [
+          -63.9111328125,
+          190.97999954223633,
+          775.2434895833334
+        ],
+        "sourceYBounds": [
+          18.786762237548828,
+          190.97999954223633
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/62471:0",
+      "label": "Entertainment Building",
+      "modelId": "B341641584701063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/059b1c6decf1d65baf29695552858734a21dbba533636f14b90d6efc34af44e8.glb.gz",
+      "sha256": "059b1c6decf1d65baf29695552858734a21dbba533636f14b90d6efc34af44e8",
+      "bytes": 78449,
+      "worldBounds": [
+        [
+          -360.919921875,
+          6.414000034332275,
+          638.18359375
+        ],
+        [
+          -321.099609375,
+          184.7749924659729,
+          681.75390625
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 171,
+        "minGround": 6.7341020000008855,
+        "maxGround": 11.523200000000648,
+        "roofGround": 7.952890625004643,
+        "roof": [
+          -336.23046875,
+          184.71499490737915,
+          653.4153645833334
+        ],
+        "sourceYBounds": [
+          6.414000034332275,
+          184.7749924659729
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/69002:0",
+      "label": "Pedder Building",
+      "modelId": "B342021590701063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/42c56033c98c0e5a2f78491b38cc75cb0bb07cecd9cd4ed80db499c0da1cd56a.glb.gz",
+      "sha256": "42c56033c98c0e5a2f78491b38cc75cb0bb07cecd9cd4ed80db499c0da1cd56a",
+      "bytes": 34237,
+      "worldBounds": [
+        [
+          -303.1484375,
+          4.5370001792907715,
+          585.271484375
+        ],
+        [
+          -258.78125,
+          54.08000326156616,
+          637.9892578125
+        ]
+      ],
+      "outcome": "ready-for-browser-review",
+      "reason": "No sampled terrain flags; runtime/source-surface checks pass.",
+      "nextAction": "Run normal-scene and foundation browser acceptance before publication.",
+      "cpuConcerns": [],
+      "terrain": {
+        "sampleCount": 27,
+        "minGround": 4.669912000001871,
+        "maxGround": 5.513264000001144,
+        "roofGround": 5.271566406249767,
+        "roof": [
+          -289.8736979166667,
+          54.08000326156616,
+          608.2952473958334
+        ],
+        "sourceYBounds": [
+          4.5370001792907715,
+          54.08000326156616
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/70443:0",
+      "label": "Queensway Government Offices",
+      "modelId": "B349541541301063C0",
+      "sourceTile": "11-SW-14A",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/d2c28ddc3cb97947856f92946981119a0ce4631c76a74cdc2e470c1a269bd891.glb.gz",
+      "sha256": "d2c28ddc3cb97947856f92946981119a0ce4631c76a74cdc2e470c1a269bd891",
+      "bytes": 824,
+      "worldBounds": [
+        [
+          451.091796875,
+          21.340999603271484,
+          1083.767578125
+        ],
+        [
+          458.2822265625,
+          28.44499969482422,
+          1090.482421875
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 27,
+        "minGround": 11.41,
+        "maxGround": 11.41,
+        "roofGround": 11.41,
+        "roof": [
+          453.4840494791667,
+          28.44499969482422,
+          1086.9069010416667
+        ],
+        "sourceYBounds": [
+          21.340999603271484,
+          28.44499969482422
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/75769:0",
+      "label": "THE CENTER",
+      "modelId": "B339511622001063C0",
+      "sourceTile": "11-SW-8B",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/77a5c7bbe50789ee9f7ef5efab964595cfb138bffeb4a535c08edd04aa713b0c.glb.gz",
+      "sha256": "77a5c7bbe50789ee9f7ef5efab964595cfb138bffeb4a535c08edd04aa713b0c",
+      "bytes": 24954,
+      "worldBounds": [
+        [
+          -568.4140625,
+          2.9649999141693115,
+          255.771484375
+        ],
+        [
+          -462.748046875,
+          26.711000204086304,
+          347.224609375
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 182,
+        "minGround": 2.3082400000230257,
+        "maxGround": 8.92758799999766,
+        "roofGround": 4.068647135410911,
+        "roof": [
+          -474.2210286458333,
+          26.711000204086293,
+          332.8518880208333
+        ],
+        "sourceYBounds": [
+          2.9649999141693115,
+          26.711000204086304
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/80539:0",
+      "label": "Two Exchange Square",
+      "modelId": "B343391610801063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/c2b24f89539be986a24a2ed7ccfc3855bf1bd60785efc1062dbb6141a689adcd.glb.gz",
+      "sha256": "c2b24f89539be986a24a2ed7ccfc3855bf1bd60785efc1062dbb6141a689adcd",
+      "bytes": 41186,
+      "worldBounds": [
+        [
+          -176.4853515625,
+          10.817000389099121,
+          360.025390625
+        ],
+        [
+          -123.7646484375,
+          190.4230031967163,
+          413.974609375
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 462,
+        "minGround": 3.714035999999848,
+        "maxGround": 3.880438000000082,
+        "roofGround": 3.8507955729172103,
+        "roof": [
+          -157.64388020833334,
+          190.3826691309611,
+          393.75846354166674
+        ],
+        "sourceYBounds": [
+          10.817000389099121,
+          190.4230031967163
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/96901:0",
+      "label": "One Exchange Square",
+      "modelId": "B343491606401063C0",
+      "sourceTile": "11-SW-8D",
+      "sourceTileRevision": "2026-08-27T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/f5e8311d25fbe5777924d0a22498055c7013326d5bb5c7e1c3f952825fe84400.glb.gz",
+      "sha256": "f5e8311d25fbe5777924d0a22498055c7013326d5bb5c7e1c3f952825fe84400",
+      "bytes": 39144,
+      "worldBounds": [
+        [
+          -168.3798828125,
+          10.626999855041504,
+          413.75390625
+        ],
+        [
+          -108.9951171875,
+          191.56300449371338,
+          465.4970703125
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 467,
+        "minGround": 3.8141839999998917,
+        "maxGround": 3.924459999999969,
+        "roofGround": 3.88,
+        "roof": [
+          -131.51595052083334,
+          191.56300449371338,
+          437.90917968750006
+        ],
+        "sourceYBounds": [
+          10.626999855041504,
+          191.56300449371338
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    },
+    {
+      "uid": "landsd/99254:0",
+      "label": "Four Seasons Place",
+      "modelId": "B342351638501063C0",
+      "sourceTile": "11-SW-8B",
+      "sourceTileRevision": "2025-12-21T16:00:00+00:00",
+      "asset": "source-scripts/city/landmark-bulk/compact/d5d1fe2df387fe9fa9c3c4a89270fef65355f8dcd79b9edcb41b4bdf06a6a325.glb.gz",
+      "sha256": "d5d1fe2df387fe9fa9c3c4a89270fef65355f8dcd79b9edcb41b4bdf06a6a325",
+      "bytes": 91693,
+      "worldBounds": [
+        [
+          -293.494140625,
+          37.31700134277344,
+          83.24609375
+        ],
+        [
+          -249.5048828125,
+          211.67300415039062,
+          154.1279296875
+        ]
+      ],
+      "outcome": "needs-assembly-or-foundation-context",
+      "reason": "CPU flags alone cannot distinguish supported tower/podium components from genuine terrain problems.",
+      "nextAction": "Review source supporting parts and normal-scene foundations together; preserve source elevations.",
+      "cpuConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "terrain": {
+        "sampleCount": 1002,
+        "minGround": 7.28,
+        "maxGround": 12.984064000000942,
+        "roofGround": 11.13179687500421,
+        "roof": [
+          -282.9993489583333,
+          211.5443369547526,
+          102.48828125000004
+        ],
+        "sourceYBounds": [
+          37.31700134277344,
+          211.67300415039062
+        ],
+        "resolutions": [
+          5
+        ]
+      }
+    }
+  ],
+  "inputHashes": {
+    "source-scripts/city/landmark-bulk/compact/catalogue-index.json": "b2db99d3da90bc20209c09bf33f86ce13a91d91af6767e0f5c7be1e48d530853",
+    "source-scripts/city/landmark-bulk/compact/catalogue-000.json": "a2cdb2badda63b314708af3443b3f7346592d38244d8110395f0159a5205ad98",
+    "3d-viewer/city/data/manifest.json": "565311da952f899e472e5e6866604e98ce9c1baca3b256b03510e59f0f06be50",
+    "3d-viewer/city/data/terrain.json": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+    "3d-viewer/city/data/terrain-mui-wo.json": "adb88f05e5dacce2a901b13a6e8d52efc859bc915f22a3ad0a1a4f836e12c81c",
+    "3d-viewer/city/data/terrain-tai-o.json": "b6246e0adab984a9acf22d77fdd0139b142b1b82d68b82451f25678437ac04fb",
+    "3d-viewer/city/data/terrain-tsing-ma-ting-kau.json": "b2cb47df47252b2c1f15cd10e33cb5b6c58e65c40b2f94ddb96d3a70f3162d8f",
+    "3d-viewer/city/data/terrain-central.json": "4a10d22846c0764bf532e81734811fa9f6f34f197d444f27db4f588aacebbab2",
+    "3d-viewer/city/data/terrain-pui-o.json": "e5efbcb86ae24bdc8a913556667d8f6f1e7a19db936bd71f0caa568735b0cb10",
+    "3d-viewer/city/data/terrain-ngong-ping.json": "a3e51405b2a2aec526c22da29c72e395f7d943c4f4f360ffb54d874d3962a620",
+    "3d-viewer/city/data/tiles/-1_0.json": "8a4440cd1f5a9bf927a9fd2db38ae4af7bb63901d03c6c6f045b62c0c46f5c94",
+    "3d-viewer/city/data/tiles/0_0.json": "6a3b9c6b18dfab5a94b46127bdfa5f9cdefe8e86179737c8f0e4d5586c0458e8",
+    "3d-viewer/city/data/tiles/-13_1.json": "c5702641557e88491161052feee1b0fc6bc1e5238ab007bee194caf8c348050e",
+    "3d-viewer/city/data/tiles/0_1.json": "94ca3074190d3cea46d7d376c761506fc3837b978e50d83f05b1b19e3d9abf45",
+    "docs/astra-city/landmark-visual-review/hks211-validation.json": "55130f70513e2a7c7d0bee344e7e2144e5e1eee1c8794e39af3c139fc797fdcc",
+    "source-scripts/city/landmark-bulk/compact/catalogue.json": "a2cdb2badda63b314708af3443b3f7346592d38244d8110395f0159a5205ad98",
+    "source-scripts/city/architecture-batch/acceptance.json": "a956ec34c43adec17dcdec9041eb8c56af0dee57655a8a4c860753d4b41b07d6"
+  },
+  "cpuSeconds": 0.9804010000000001,
+  "classificationSeconds": 0.026253707939758897,
+  "networkRequests": 0,
+  "downloadedBytes": 0,
+  "aiCallsInScripts": 0,
+  "compressedBytes": 2017624,
+  "limits": [
+    "CPU flags are not architecture acceptance or rejection.",
+    "No source geometry, terrain, live catalogue or shared inventory was changed.",
+    "Building parts are not whole-landmark completion. Existing holds are retained."
+  ]
+}
