@@ -1,3 +1,11 @@
+## Tourist selection review and runner checkpoint — 7 September 2026
+
+HKS-201 is In Review at `962b54a8482b951fcef97698b222eaad19fcfbc1`, pushed to draft PR #298. HKS-202 is In Progress; HKS-199 remains open. Root selected 7,542 forms across Central (3,265), Mui Wo section 10.6 (2,371), Tai O crop (1,430) and Ngong Ping crop (476), with 86 verified source identities in eight landmark groups. Bounds/UID lists and hashes are in `tourist-trial.json` and `docs/astra-city/building-batch/trial/selection.json`. The HTML map and exported PNG are reviewable; Chrome rendered four panels/7,542 footprints without page errors.
+
+Initial metadata preflight: 7,542 completed diagnostic jobs in 34.77 s, 2,138 existing detailed references, 5,404 basic forms, zero AI/network calls and zero geometry changes. Repeat skips all completed checks (0.06 s). Twelve focused tests pass for inventory/selection/jobs including concurrency, interruption, stale input and identity safeguards. Existing terrain flags are not fresh validation. Acquisition/conversion/packing adapters remain open under HKS-202; fresh validation/publication HKS-203 and actual model-improvement trial HKS-204 remain pending. Trial counts use different boundaries from earlier region detail percentages.
+
+Linear HKS-201, HKS-202, HKS-199, HKS-116 and the Astra milestone successfully synced with commit, evidence and remaining work. No whole-region status changed. Review map: `docs/astra-city/building-batch/trial/selection-review.png`; commands: `source-scripts/city/building-batch/README.md`.
+
 ## Local batch automation — HKS-199, 7 September 2026
 
 Created six linked subissues in the Astra milestone: HKS-200 inventory (In Review, 4 points), HKS-201 tourist selection (Backlog, 4), HKS-202 resumable processing (Backlog, 8), HKS-203 validation/publication (Backlog, 8), HKS-204 measured trial (Backlog, 4), HKS-205 section rollout (Backlog, 4). Dependencies gate rollout on the trial. HKS-199 and active inventory were added to Cycle 5; future children remain backlog.
