@@ -1,19 +1,86 @@
 """Guarded publication of reviewed source assets; no whole-territory rebuild.
 Run with a reviewed plan JSON and --apply. Retains rollback byte hashes and source fields.
 """
-import argparse,copy,hashlib,json,pathlib,os,subprocess,tempfile
+import argparse,copy,hashlib,json,pathlib,os,subprocess,tempfile,math
 ROOT=pathlib.Path(__file__).resolve().parents[3]
 DOC=ROOT/'docs/astra-city/island-detail-integration'
 def load(p):return json.loads(p.read_bytes())
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def encoded(d):return (json.dumps(d,ensure_ascii=False,separators=(',',':'))+'\n').encode()
+def validate_grid(data):
+ # The renderer indexes arrays by w/h and uses georef for sampling; both must agree.
+ assert all(type(data[k]) is int and data[k]>1 for k in ('w','h')),'Invalid terrain grid dimensions'
+ g=data['meta']['georef']
+ assert g['W']==data['w'] and g['H']==data['h'],'Terrain georef dimensions mismatch'
+ assert all(isinstance(g[k],(int,float)) and math.isfinite(g[k]) for k in ('aE','aN','bE','bN')),'Invalid terrain georef'
+ assert g['aE']>0 and g['aN']<0 and abs(g['aE']+g['aN'])<1e-8,'Unsupported terrain grid orientation'
+ assert math.isfinite(data['cell']) and abs(data['cell']-g['aE'])<1e-8,'Terrain cell size mismatch'
+ assert len(data['elev'])==len(data['vegetation'])==data['w']*data['h'],'Terrain array lengths mismatch'
+ assert all(isinstance(v,(int,float)) and math.isfinite(v) for k in ('elev','vegetation') for v in data[k]),'Non-finite terrain values'
+ if 'renderedElev' in data:
+  assert len(data['renderedElev'])==data['w']*data['h'],'Rendered terrain array length mismatch'
+  assert all(v is None or isinstance(v,(int,float)) and math.isfinite(v) for v in data['renderedElev']),'Invalid rendered terrain values'
+def validate_patch(p,parent):
+ validate_grid(p)
+ cells=p['coarseCells'];assert len(cells)==4 and all(type(v) is int for v in cells),'Invalid terrain coarseCells'
+ x0,z0,x1,z1=cells
+ assert 0<=x0<x1<parent['w'] and 0<=z0<z1<parent['h'],'Terrain patch outside parent grid'
+ g=parent['meta']['georef'];f=p['meta']['georef']
+ assert abs(g['bE']+x0*g['aE']-f['bE'])<1e-5 and abs(g['bN']+z0*g['aN']-f['bN'])<1e-5,'Terrain patch origin misaligned'
+ assert abs((x1-x0)*g['aE']-(p['w']-1)*f['aE'])<1e-5 and abs((z1-z0)*g['aN']-(p['h']-1)*f['aN'])<1e-5,'Terrain patch extent misaligned'
+ assert f['aE']<g['aE'],'Terrain patch must refine the parent grid'
+ children=[]
+ for child in p.get('patches',[]):
+  validate_patch(child,p);check_patch_overlap(child,children);children.append(child)
+def check_patch_overlap(p,others):
+ x0,z0,x1,z1=p['coarseCells']
+ for q in others:
+  a,b,c,d=q['coarseCells']
+  assert x1<=a or x0>=c or z1<=b or z0>=d,'Overlapping terrain patches require review'
+def stage_top_level_terrain(plan,original,manifest,edits,report):
+ entries=plan.get('topLevelTerrainPatches',[])
+ if not entries:return
+ parent=load(ROOT/'3d-viewer/city/data/terrain.json');validate_grid(parent)
+ existing=list(parent.get('patches',[]))+[load(ROOT/'3d-viewer'/entry['url']) for entry in original.get('terrainPatches',[])]
+ for entry in entries:
+  destrel=pathlib.Path(entry['destination'])
+  assert not destrel.is_absolute() and '..' not in destrel.parts,'Terrain destination must be a viewer-relative path'
+  dest=ROOT/'3d-viewer'/destrel
+  assert dest.resolve().is_relative_to((ROOT/'3d-viewer').resolve()),'Terrain destination escapes viewer'
+  assert not dest.exists() and not dest.is_symlink() and dest not in edits,'Do not overwrite an existing terrain asset'
+  raw=(ROOT/entry['source']).read_bytes();digest=hashlib.sha256(raw).hexdigest()
+  assert digest==entry['sha256'],'Terrain source hash changed since review'
+  data=json.loads(raw);validate_patch(data,parent);check_patch_overlap(data,existing)
+  assert entry['resolution']==data['cell'],'Terrain manifest resolution mismatch'
+  assert isinstance(entry['area'],str) and entry['area'].strip(),'Terrain area is required'
+  edits[dest]=raw;existing.append(data)
+  metadata={'url':entry['destination'],'resolution':entry['resolution'],'area':entry['area'],'source':data['meta'].get('source'),'sha256':digest,'bytes':len(raw)}
+  manifest.setdefault('terrainPatches',[]).append(metadata)
+  report.setdefault('topLevelTerrainPatches',[]).append(metadata)
+def stage_terrain_replacement(entry,edits):
+ bundlePath=ROOT/entry['bundle'];bundle=load(bundlePath);parent=ROOT/'3d-viewer'/bundle['parentTerrainURL']
+ assert sha(parent)==bundle['parentSha256'],'Parent terrain changed since replacement review'
+ data=json.loads(edits[parent]) if parent in edits else load(parent);validate_grid(data);children=data.get('patches',[])
+ matches=[i for i,p in enumerate(children) if p.get('id')==entry['oldChildId']]
+ assert len(matches)==1,'Replacement child ID must identify exactly one existing child'
+ i=matches[0];old=children[i]
+ assert hashlib.sha256(encoded(old)).hexdigest()==entry['oldChildSha256'],'Terrain child hash changed since replacement review'
+ assert len(bundle['patches'])==1,'Terrain replacement must contain exactly one child'
+ replacement=bundle['patches'][0];assert replacement['id']==old['id'],'Terrain replacement must retain the child ID'
+ validate_patch(replacement,data);check_patch_overlap(replacement,children[:i]+children[i+1:])
+ x0,z0,x1,z1=old['coarseCells'];a,b,c,d=replacement['coarseCells']
+ assert a<=x0 and b<=z0 and c>=x1 and d>=z1,'Replacement must retain the old child extent'
+ assert set(old['meta'].get('targetUids',[]))<=set(replacement['meta'].get('targetUids',[])),'Replacement must retain original target UIDs'
+ children[i]=replacement;edits[parent]=encoded(data)
+ return bundle['parentSha256'],sha(bundlePath)
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('plan');ap.add_argument('--apply',action='store_true');args=ap.parse_args();plan=load(ROOT/args.plan)
  manifestPath=ROOT/'3d-viewer/city/data/manifest.json';original=load(manifestPath);manifest=copy.deepcopy(original);edits={};assets=[];allUids=set();report={'published':False,'plan':args.plan,'areas':[],'before':{},'after':{},'counts':original['counts'],'beforeCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()}
  for url in original.get('officialModelCatalogues',[]):allUids.update(m['uid'] for m in load(ROOT/'3d-viewer'/url)['models'])
+ stage_top_level_terrain(plan,original,manifest,edits,report)
  estimateByUid={};diagnostics={};estimatesFound=set()
  for area in plan['areas']:
-  cataloguePath=ROOT/area['catalogue'];c=load(cataloguePath);dest=ROOT/'3d-viewer'/area['destination'];assert not dest.exists(),'Do not overwrite a prior published catalogue'
+  cataloguePath=ROOT/area['catalogue'];c=load(cataloguePath);dest=ROOT/'3d-viewer'/area['destination'];assert not dest.exists() and dest not in edits,'Do not overwrite a prior published catalogue or planned asset'
   assert c['counts']['packedModels']==len(c['models']);assert len({m['uid'] for m in c['models']})==len(c['models'])
   for m in c['models']:
    assert m['uid'] not in allUids,'Duplicate progressive source UID';allUids.add(m['uid']);p=cataloguePath.parent/m['asset'];assert sha(p)==m['sha256'] and p.stat().st_size==m['bytes'];assert '..' not in pathlib.Path(m['asset']).parts;assets.append((p,dest.parent/m['asset']))
@@ -29,6 +96,8 @@ def main():
      a,b,cx,d=q['coarseCells'];assert x1<=a or x0>=cx or z1<=b or z0>=d,'Overlapping nested patches require review'
     children.append(p)
    edits[parent]=encoded(data)
+  for replacement in area.get('terrainReplacements',[]):
+   includedBundles.append(stage_terrain_replacement(replacement,edits))
   for estimateName in area.get('estimates',[]):
    estimate=load(ROOT/estimateName);assert (estimate['parentSha256'],estimate['refinementSha256']) in includedBundles,'Estimated base requires its exact terrain bundle'
    for u in estimate['buildings']:
@@ -36,7 +105,7 @@ def main():
   for diagnosticName in area.get('diagnostics',[]):
    for uid,flags in load(ROOT/diagnosticName)['byBuildingUid'].items():
     assert uid not in diagnostics;diagnostics[uid]=flags
-  report['areas'].append({'area':area['area'],'models':len(c['models']),'catalogue':area['destination'],'terrainBundles':area.get('terrain',[])})
+  report['areas'].append({'area':area['area'],'models':len(c['models']),'catalogue':area['destination'],'terrainBundles':area.get('terrain',[]),'terrainReplacements':area.get('terrainReplacements',[])})
  # Validate all new IDs and preserve every footprint, source field, existing model
  # and unrelated record. Only explicitly guarded null-source base estimates change.
  newModels={m['uid']:m for area in plan['areas'] for m in load(ROOT/area['catalogue'])['models']};newIds=set(newModels);found=set()

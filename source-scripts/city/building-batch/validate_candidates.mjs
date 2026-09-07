@@ -30,6 +30,10 @@ for(const name of index.catalogues){
 assert.equal(entries.length,index.models);
 const manifest=read(root,'3d-viewer/city/data/manifest.json'),terrainData=read(root,'3d-viewer/city/data/terrain.json');
 terrainData.patches=manifest.terrainPatches.map(p=>read(root,'3d-viewer/'+p.url));
+const replacements=option('--terrain-replacements',null);
+if(replacements)for(const r of read(root,replacements)){const i=manifest.terrainPatches.findIndex(p=>p.url===r.url);assert(i>=0,'Missing terrain replacement parent');terrainData.patches[i]=read(root,r.path);}
+const candidateTerrain=option('--terrain-candidate',null);
+if(candidateTerrain)terrainData.patches.push(read(root,candidateTerrain));
 const sampler=makeTerrainSampler(terrainData),terrain=makeTerrain(terrainData);terrain.updateMatrixWorld(true);
 const lighting={night:{value:1},activity:{value:new THREE.Vector4(1,1,1,1)},retail:{value:1},elapsed:{value:0},shimmer:{value:0}};
 const results=[],started=performance.now();let terrainRays=0,loaderAccepted=0;
@@ -65,7 +69,7 @@ try{
    const roofGround=sampler.height(roof[0],roof[2]),minGround=Math.min(...ground),maxGround=Math.max(...ground);
    // Verify the sampler against the drawn mesh at one real roof position per candidate.
    ray.set(new THREE.Vector3(roof[0],3000,roof[2]),new THREE.Vector3(0,-1,0));
-   const terrainHits=ray.intersectObject(terrain,true);assert.equal(terrainHits.length,1,'Expected one rendered terrain surface');assert(Math.abs(terrainHits[0].point.y-roofGround)<.004,'Sampler differs from rendered terrain');terrainRays++;
+   const terrainHits=ray.intersectObject(terrain,true);assert(terrainHits.length>0,'Expected a rendered terrain surface');assert(terrainHits.every(hit=>Math.abs(hit.point.y-roofGround)<.004),'Sampler differs from rendered terrain or overlapping surfaces disagree');terrainRays++;
    const concerns=[];
    if(roofGround>roof[1]+.25)concerns.push('sampled-highest-roof-below-terrain');
    if(maxGround>entry.worldBounds[0][1]+2)concerns.push('sampled-terrain-above-model-bottom');

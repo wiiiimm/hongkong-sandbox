@@ -5,28 +5,39 @@ import assert from 'node:assert/strict';
 const require=createRequire(new URL('../../../3d-viewer/city/package.json',import.meta.url)),{chromium}=require('playwright');
 const root=new URL('../../../',import.meta.url),read=async p=>JSON.parse(await readFile(new URL(p,root),'utf8'));
 const phase=process.argv[2]||'before',after=phase==='after';assert.ok(['before','after'].includes(phase));
-const out=new URL(`docs/astra-city/building-batch/visual-trial/browser/${phase}${process.env.AREA?'-'+process.env.AREA:''}/`,root);await mkdir(out,{recursive:true});
-const samples=await read('source-scripts/city/building-batch/local/publication/samples.json');
-const plan=await read('source-scripts/city/building-batch/local/publication/plan.json');
-const islandSamples=(await Promise.all(plan.areas.map(a=>read(a.catalogue)))).flatMap(c=>c.models).filter(m=>m.worldBounds[1][0]<-15000);
-const groups=[{area:'central',place:'central',models:samples,selected:samples},{area:'mui-wo',place:'muiwo',models:islandSamples,selected:islandSamples}].filter(g=>!process.env.AREA||process.env.AREA===g.area);
+const config=process.env.REVIEW_CONFIG?await read(process.env.REVIEW_CONFIG):null;
+const out=new URL(config?`${config.out}/${phase}/`:`docs/astra-city/building-batch/visual-trial/browser/${phase}${process.env.AREA?'-'+process.env.AREA:''}/`,root);await mkdir(out,{recursive:true});
+const samples=config?[]:await read('source-scripts/city/building-batch/local/publication/samples.json');
+const plan=await read(config?.plan||'source-scripts/city/building-batch/local/publication/plan.json');
+const allModels=(await Promise.all(plan.areas.map(a=>read(a.catalogue)))).flatMap(c=>c.models);
+const islandSamples=allModels.filter(m=>m.worldBounds[1][0]<-15000);
+const groups=(config?config.groups.map(g=>({...g,selected:g.uids.map(uid=>{const m=allModels.find(m=>m.uid===uid);assert(m,uid);return m;})})):[{area:'central',place:'central',models:samples,selected:samples},{area:'mui-wo',place:'muiwo',models:islandSamples,selected:islandSamples}]).filter(g=>!process.env.AREA||process.env.AREA===g.area);
 const needed=new Set(groups.flatMap(g=>g.selected.map(m=>m.uid))),buildings=new Map(),manifest=await read('3d-viewer/city/data/manifest.json');
 for(const tile of manifest.tiles){const d=await read('3d-viewer/'+tile.url);for(const b of d.buildings)if(needed.has(b.uid))buildings.set(b.uid,b);}
 assert.equal(buildings.size,needed.size);
-const report={phase,result:'running',started:new Date().toISOString(),areas:[],errors:[],limits:['Ten representative Central models tested in browser; all 1,078 additions separately passed CPU screening. No region completeness claim.','Mobile viewport emulation on desktop Chrome; physical-phone performance unverified.']};
+const report={phase,result:'running',started:new Date().toISOString(),areas:[],errors:[],limits:[config?'Configured landmark samples; CPU validation covers all candidates. No region completeness claim.':'Ten representative Central models tested in browser; all 1,078 additions separately passed CPU screening. No region completeness claim.','Mobile viewport emulation on desktop Chrome; physical-phone performance unverified.']};
 const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--enable-webgl','--ignore-gpu-blocklist']});let page;
 async function open(place,width=1440,failedModel){
  const p=await browser.newPage({viewport:{width,height:width===1440?1000:844},deviceScaleFactor:1,reducedMotion:'reduce',hasTouch:width<760});
  p.on('pageerror',e=>report.errors.push(e.message));p.on('response',r=>{if(r.status()>=400)report.errors.push(r.status()+' '+r.url());});p.on('console',m=>{if(/THREE.WebGLProgram|GL_INVALID|shader error/i.test(m.text()))report.errors.push(m.text());});
  await p.route('**/city/app.js',async r=>{const response=await r.fetch();await r.fulfill({response,body:(await response.text())+'\nObject.defineProperty(window,"__detailReview",{get:()=>({officialModels,stream,camera,controls,renderer,sampler,THREE,nav,terrain,water,environment,visitBuilding,closeSelection,controlSheet,goPlace})});\n'});});
- if(!after)await p.route('**/city/data/manifest.json',async r=>{const response=await r.fetch(),manifest=await response.json();manifest.officialModelCatalogues=manifest.officialModelCatalogues.filter(url=>!url.includes('/tourist-trial-'));await r.fulfill({response,json:manifest});});
- let fail=!!failedModel;if(failedModel)await p.route('**/'+failedModel.asset,r=>fail?r.abort('failed'):r.continue());
+ if(config&&!config.live){
+  const replacements=[];
+  for(const area of plan.areas){const cat=await read(area.catalogue),base=new URL(area.catalogue,root);replacements.push({area,cat,base});
+   await p.route('**/'+area.destination,r=>r.fulfill({json:cat}));
+   for(const m of cat.models)await p.route('**/'+area.destination.slice(0,area.destination.lastIndexOf('/')+1)+m.asset,async r=>r.fulfill({body:await readFile(new URL(m.asset,base)),contentType:'application/gzip'}));
+  }
+  if(after)for(const r of config.terrainReplacements||[])await p.route('**/'+r.url,async route=>route.fulfill({body:await readFile(new URL(r.path,root)),contentType:'application/json'}));
+  if(config.terrain)await p.route('**/'+config.terrain.url,async r=>r.fulfill({body:await readFile(new URL(config.terrain.path,root)),contentType:'application/json'}));
+  await p.route('**/city/data/manifest.json',async r=>{const response=await r.fetch(),manifest=await response.json();const added=new Set(plan.areas.map(a=>a.destination));manifest.officialModelCatalogues=manifest.officialModelCatalogues.filter(url=>!added.has(url));if(after)manifest.officialModelCatalogues.push(...added);if(config.terrain){manifest.terrainPatches=manifest.terrainPatches.filter(t=>t.url!==config.terrain.url);if(after)manifest.terrainPatches.push({url:config.terrain.url,resolution:5,area:'Ngong Ping landmarks'});}await r.fulfill({response,json:manifest});});
+ }else if(!after)await p.route('**/city/data/manifest.json',async r=>{const response=await r.fetch(),manifest=await response.json();manifest.officialModelCatalogues=manifest.officialModelCatalogues.filter(url=>!url.includes('/tourist-trial-'));await r.fulfill({response,json:manifest});});
+ let fail=!!failedModel;if(failedModel)await p.route('**/'+failedModel.asset,r=>fail?r.abort('failed'):r.fallback());
  await p.goto('http://127.0.0.1:4176/city.html?district='+place);await p.waitForFunction(()=>window.__city?.ready,null,{timeout:180000});await p.locator('#loading').waitFor({state:'hidden',timeout:180000});await p.waitForFunction(()=>!window.__city.state.loadingTravel&&!window.__city.state.travelling,null,{timeout:120000});return {page:p,recover:()=>{fail=false;}};
 }
 async function focus(p,m,failed=false){
  const b=buildings.get(m.uid);await p.evaluate(b=>window.__detailReview.visitBuilding(b),b);await p.waitForFunction(()=>!window.__city.state.loadingTravel&&!window.__city.state.travelling,null,{timeout:120000});
- const [a,bounds]=m.worldBounds,centre=a.map((v,i)=>(v+bounds[i])/2),distance=Math.max(30,(bounds[0]-a[0])*1.8,(bounds[2]-a[2])*1.8,(bounds[1]-a[1])*.9);
- await p.evaluate(({centre,top,distance})=>{const r=window.__detailReview;r.closeSelection();r.controlSheet.close({restoreFocus:false});r.camera.position.set(centre[0]+distance*.7,top+distance*.75,centre[2]+distance);r.controls.target.fromArray(centre);r.controls.update();r.camera.updateMatrixWorld(true);},{centre,top:bounds[1],distance});
+ const [a,bounds]=m.worldBounds,centre=a.map((v,i)=>(v+bounds[i])/2),distance=Math.max(config?.views?.[m.uid]?.distance||30,(bounds[0]-a[0])*1.8,(bounds[2]-a[2])*1.8,(bounds[1]-a[1])*.9);
+ await p.evaluate(({centre,top,distance,camera})=>{const r=window.__detailReview;r.closeSelection();r.controlSheet.close({restoreFocus:false});if(camera)r.camera.position.fromArray(camera);else r.camera.position.set(centre[0]+distance*.7,top+distance*.75,centre[2]+distance);r.controls.target.fromArray(centre);r.controls.update();r.camera.updateMatrixWorld(true);},{centre,top:bounds[1],distance,camera:config?.views?.[m.uid]?.camera});
  if(after)await p.waitForFunction(({uid,failed})=>failed?window.__detailReview.officialModels.cache.errors.has(uid):window.__detailReview.stream.detailedModels.get(uid)?.active,{uid:m.uid,failed},{timeout:120000});
  await p.waitForTimeout(500);
  await p.waitForFunction(()=>window.__city.state.stream.pending===0&&window.__detailReview.officialModels.stats.pending===0,null,{timeout:120000});
