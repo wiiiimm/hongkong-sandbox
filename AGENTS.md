@@ -56,6 +56,8 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
 
 ## Map And Geography Quality
 
+- **Astra City uses fixed 1× vertical scale.** User decision, 7 September 2026: do not port vertical exaggeration, a vertical multiplier or an “epic mountains” height setting. Terrain, buildings, bridges, water/tides, navigation, collisions and camera altitude share real-world metres/HKPD. Ignore legacy VE settings/URL parameters in City. Preserve surveyed elevations; source-backed terrain corrections and explicitly labelled estimates remain allowed. This is an explicit exception to original-game feature parity.
+
 - Cross-check generated maps against the reference set rather than trusting plausible-looking output.
 - Pay attention to historical naming variants such as Lantau, Lantao, Lan Tao, Lanto, Tai Yue Shan, Tai-ü-shan, Nam-tao/Nam Tau, Tyho, 大嶼山, 爛頭島, 爛頭山, 大庾山, 大虞, and 大奚山.
 - For contour, terrain, coastline, and place-name placement work, verify the shape and relative geography against multiple references when possible.

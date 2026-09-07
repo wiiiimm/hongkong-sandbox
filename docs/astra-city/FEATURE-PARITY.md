@@ -8,6 +8,8 @@ does not satisfy this separate requirement.
 
 User design direction, 6 September 2026: restore original capabilities within **Astra City's modern design system**. Use its current panels, typography, controls and responsive layouts as features return. The original game supplies behaviour, data and reusable implementation; its visual layout is not the required design target.
 
+**Explicit exclusion, 7 September 2026:** Do not restore vertical exaggeration or a vertical multiplier in Astra City. Keep terrain, buildings, water/tides, bridges, collision, walking/flight/landing and camera altitude in the same real-world metres/HKPD at 1×. Ignore legacy VE settings/URL values when porting saved state. Source-backed terrain corrections remain allowed; surveyed elevations must stay intact. This user decision overrides the otherwise full feature-parity requirement.
+
 Baseline: original `3d-viewer/main.js` and `index.html` at `5777bc9`.
 They remain available at `/index.html`. Before final replacement, re-audit the
 original source and UI, including later upstream changes; this inventory is a
@@ -17,7 +19,7 @@ starting point, not permission to drop an unlisted feature.
 | --- | --- | --- |
 | Hong Kong/Lantau and DTM/SRTM source choice | One original DTM grid | All four source choices and their georeferences |
 | Terrain surfaces | One styled surface | Shaded, elevation, matte, solid, wireframe, B50K, OSM and satellite |
-| Terrain controls | True-scale city | Mesh density/colour, vertical exaggeration, map rotation/background, auto-spin; keep city layers aligned |
+| Terrain controls | True-scale city | Mesh density/colour, map rotation/background, auto-spin; fixed 1× vertical scale and aligned city layers |
 | Map overlays | Buildings, streets, trees and labels | Contours, trails, hydro, coast, boundaries, cliffs, peak/landmark labels and overlay height |
 | Stargazing | Catalogue stars, 24 constellation figures, picking, dated positions, compass/drag/keyboard sky camera | Phone orientation, GPS follow, wider original selection/presentation behaviours |
 | Sun/moon and time | Live HKT, custom date/time, circular clock, adjustable 1×–7,200× timelapse (HKS-189), seasonal dawn/dusk, sun/moon positions, phase and rise/set | Remaining original studio-light and sky presentation options; preserve ephemeris precision limits |
