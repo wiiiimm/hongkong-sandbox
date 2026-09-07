@@ -3,6 +3,9 @@ import json
 import pathlib
 import sqlite3
 import tempfile
+import subprocess
+import sys
+import time
 import unittest
 import inventory
 import selection
@@ -58,6 +61,19 @@ class TrialTest(unittest.TestCase):
         self.config['name'] = 'adjacent'
         self.selected()
         self.assertEqual(runner.plan(self.db, 'adjacent')['alreadyComplete'], 2)
+
+    def test_process_crash_recovered_after_lease_expiry(self):
+        self.selected()
+        runner.plan(self.db, 'trial')
+        code = "import runner,sys,os; runner.claim(sys.argv[1], 'trial', 'crashed-process'); os._exit(23)"
+        child = subprocess.run([sys.executable, '-c', code, str(self.db)], cwd=pathlib.Path(runner.__file__).parent)
+        self.assertEqual(child.returncode, 23)
+        # Advance claim time rather than making the test sleep through a real lease.
+        recovered = runner.claim(self.db, 'trial', 'recovery', now=time.time()+31)
+        self.assertEqual(recovered['owner'], 'crashed-process')
+        self.assertTrue(runner.finish(self.db, recovered, 'recovery', result=runner.audit_input(json.loads(recovered['payload']))))
+        self.assertEqual(runner.run(self.db, 'trial')['status'], {'complete': 2})
+        self.assertEqual(runner.plan(self.db, 'trial')['alreadyComplete'], 2)
 
     def test_concurrent_claims_and_expired_owner(self):
         self.selected()
