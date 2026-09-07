@@ -41,3 +41,19 @@ The report contains input hashes, exact government records, accepted/rejected/we
 Processing used no AI or network requests; separate bounded source research is described above. Runs took approximately 3–7 seconds locally. A repeated run produced byte-identical overlay output and identical report data excluding elapsed time; see [determinism.json](../../../source-scripts/city/landmark-identity/determinism.json).
 
 The overlay uses the existing selection `landmarks[].records` identity shape. A caller must consciously merge the proposed records, honour `replacePriorIdentity` for the three corrected groups, and preserve component/placement holds. Merely reading this overlay must not refresh or inflate the previous bulk-model staging claims.
+
+## Controlled staging adapter
+
+`stage_proposals.py check` verifies overlay evidence hashes, exact database identity and retained tile bytes without database writes. `stage_proposals.py run --sources-stable` may be used only after the coordinating acquisition agent confirms its staged manifests are stable. It merges into a separate uniquely named selection, replacing membership only for the three flagged corrected groups. It preserves all 17 holds and leaves the original registry and bulk reports untouched.
+
+The run reuses the existing cached-model pipeline with two workers, a 120 MiB model budget inside a 128 MiB total output ceiling, then performs the shared CPU checks. Local staged geometry goes in ignored `prepared/`; tracked `stage-summary.json` and `prepared-validation.json` report the actual run separately from identity discovery. Identity proposals and held models stay unapproved. No publication occurs.
+
+### Completed preparation snapshot
+
+The first controlled run completed on 8 September 2026 after both acquisition and inventory stability acknowledgements. The combined selection contains **401 unique UIDs**: 132 already detailed, 109 staged candidates, 152 without a usable retained staged match, and 8 without government identities. All 269 processing jobs completed. The 109 candidates comprise 25 prior bulk assets and 84 additional candidates; they are not added to existing model counts until separately accepted and published.
+
+All 109 passed CPU loading, source-triangle picking/collision and terrain-sampler checks. Geometry is 8,880,859 compressed bytes; the complete ignored prepared directory is 9,825,710 bytes. Packing took 2.02 seconds, CPU validation 2.51 seconds, and the end-to-end adapter 11.03 seconds. The adapter made no network requests.
+
+The 17 previous hold records remain in the ledger. The six newly acquired models that fail conservative identity/footprint matching are separately recorded and none was staged. Terrain diagnostics remain unapproved: 65 sampled ground gaps, 31 terrain-above-bottom flags and two highest-roof-below-terrain cases, with overlap between categories. The latter concern `landsd/186982:0` (Lai Tak Tsuen Block 8 Substation) and `landsd/226248:0` (Run Run Shaw Creative Media Centre); they need contextual terrain/source review before publication.
+
+These results are in [stage-summary.json](stage-summary.json) and [prepared-validation.json](prepared-validation.json). The original bulk reports are preserved as historical evidence. Identity proposals still do not establish complete component coverage or architectural acceptance.

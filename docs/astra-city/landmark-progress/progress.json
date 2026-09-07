@@ -5,21 +5,24 @@
   "reviewStates": {
     "not-reviewed": 213
   },
-  "installedTerritoryDetailed": 4051,
+  "installedTerritoryDetailed": 4054,
   "preparationStates": {
     "already-detailed": 17,
-    "cache-absent": 59,
+    "cache-absent": 14,
     "known-placement-holds": 7,
-    "ambiguous": 3,
-    "candidates-staged": 9,
+    "candidates-staged": 54,
+    "proposed-identity": 71,
     "nonbuilding-scope": 3,
-    "no-identity": 115
+    "no-identity": 44,
+    "ambiguous": 3
   },
   "qualification": "Readiness requires explicit whole-landmark evidence. Existing model references and staged parts are not completion. This report does not publish models or change review decisions.",
+  "stagedUninstalledUnique": 109,
   "inputHashes": {
     "source-scripts/city/landmark-registry/landmarks.json": "b3c9e530eb06567101ec894e7c421a3f48574ec55ba7a411479cd77fa55b678c",
     "docs/astra-city/landmark-bulk/bulk-report.json": "f87feab18fc6c1b318e8399d09df1651707468a7eca40321962d49034d2f04b3",
-    "source-scripts/city/landmark-progress/reviews.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    "source-scripts/city/landmark-progress/reviews.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "docs/astra-city/landmark-identity/stage-summary.json": "1c1f69e9c8700926b27a861421322c7bbc62695b261df92f7e182f0b270cf6be"
   },
   "rows": [
     {
@@ -363,7 +366,7 @@
       "name": "Asia Society Hong Kong Centre",
       "preparationState": "known-placement-holds",
       "identifiedParts": 15,
-      "installedIdentifiedParts": 9,
+      "installedIdentifiedParts": 12,
       "stagedUninstalledParts": 2,
       "heldParts": {
         "landsd/223348:0": {
@@ -502,10 +505,10 @@
     {
       "id": "victoria-towers",
       "name": "The Victoria Towers",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/251609:0",
@@ -513,21 +516,21 @@
         "landsd/251615:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "xiqu-centre",
       "name": "Xiqu Centre",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/205817:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "west-kowloon-station",
@@ -546,17 +549,15 @@
     {
       "id": "harbourside",
       "name": "The Harbourside",
-      "preparationState": "ambiguous",
-      "identifiedParts": 5,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [
         "landsd/204153:0",
         "landsd/204154:0",
-        "landsd/204155:0",
-        "landsd/235236:0",
-        "landsd/7190:0"
+        "landsd/204155:0"
       ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -564,46 +565,46 @@
     {
       "id": "icc",
       "name": "International Commerce Centre",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/201351:0",
         "landsd/269745:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "mplus-pavilion",
       "name": "M+ Pavilion / Arts Pavilion",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/168596:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "mplus",
       "name": "M+ museum",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/279530:0",
         "landsd/310908:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "henderson",
@@ -631,16 +632,16 @@
     {
       "id": "palace-museum",
       "name": "Hong Kong Palace Museum",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/283788:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "flagstaff-house",
@@ -845,30 +846,30 @@
     {
       "id": "innovation-tower",
       "name": "Jockey Club Innovation Tower",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/72322:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "hk-design-institute",
       "name": "Hong Kong Design Institute",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/22089:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "133-wai-yip",
@@ -909,53 +910,53 @@
     {
       "id": "creative-media-centre",
       "name": "Run Run Shaw Creative Media Centre",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/226248:0",
         "landsd/244779:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "montane-mansion",
       "name": "Montane Mansion / Monster Building complex",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/337475:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "lai-tak-tsuen",
       "name": "Lai Tak Tsuen",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/186982:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "chungking-mansions",
       "name": "Chungking Mansions",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 5,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 5,
       "heldParts": {},
       "sourceUids": [
         "landsd/239664:0",
@@ -965,22 +966,17 @@
         "landsd/319009:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "central-plaza",
       "name": "Central Plaza",
-      "preparationState": "ambiguous",
-      "identifiedParts": 6,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 1,
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [
-        "landsd/107725:0",
-        "landsd/107775:0",
-        "landsd/108160:0",
-        "landsd/200755:0",
-        "landsd/271640:0",
         "landsd/98449:0"
       ],
       "reviewStatus": "not-reviewed",
@@ -989,21 +985,21 @@
     {
       "id": "one-island-east",
       "name": "One Island East",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/21661:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-center",
       "name": "The Center",
-      "preparationState": "no-identity",
+      "preparationState": "cache-absent",
       "identifiedParts": 14,
       "installedIdentifiedParts": 4,
       "stagedUninstalledParts": 2,
@@ -1025,7 +1021,7 @@
         "way/1323732363:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Resolve identity/component membership"
+      "nextAction": "Acquire missing cached components"
     },
     {
       "id": "tall-nina-tower",
@@ -1081,7 +1077,7 @@
       "preparationState": "cache-absent",
       "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/205478:0",
@@ -1095,12 +1091,14 @@
     {
       "id": "tall-sorrento-1",
       "name": "Sorrento 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/270607:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1119,10 +1117,10 @@
     {
       "id": "tall-highcliff",
       "name": "Highcliff",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/103538:0",
@@ -1130,7 +1128,7 @@
         "landsd/177195:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-manulife-plaza",
@@ -1147,36 +1145,46 @@
     {
       "id": "tall-sorrento-2",
       "name": "Sorrento 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/80649:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-the-hermitage-1-3",
       "name": "The Hermitage 1–3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/59930:0",
+        "landsd/59982:0",
+        "landsd/59984:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-the-harbourfront-landmark",
       "name": "The Harbourfront Landmark",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/196009:0",
+        "landsd/30788:0",
+        "landsd/55666:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1195,28 +1203,31 @@
     {
       "id": "tall-lohas-park-phase-5a-malibu-tower-1",
       "name": "LOHAS Park Phase 5A Malibu Tower 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/231977:0",
+        "landsd/262679:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-one-taikoo-place",
       "name": "One Taikoo Place",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/272670:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-cosco-tower",
@@ -1235,42 +1246,45 @@
     {
       "id": "tall-lohas-park-phase-5a-malibu-tower-2",
       "name": "LOHAS Park Phase 5A Malibu Tower 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/139939:0",
+        "landsd/85199:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-the-belcher-s-tower-5",
       "name": "The Belcher's Tower 5",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/255237:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-belcher-s-tower-6",
       "name": "The Belcher's Tower 6",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/256386:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-hopewell-centre",
@@ -1278,7 +1292,7 @@
       "preparationState": "cache-absent",
       "identifiedParts": 5,
       "installedIdentifiedParts": 1,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/224852:0",
@@ -1293,40 +1307,43 @@
     {
       "id": "tall-the-belcher-s-tower-1",
       "name": "The Belcher's Tower 1",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/255423:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-belcher-s-tower-2",
       "name": "The Belcher's Tower 2",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/255427:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-tregunter-3",
       "name": "Tregunter 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/173294:0",
+        "landsd/93849:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1336,7 +1353,7 @@
       "preparationState": "cache-absent",
       "identifiedParts": 6,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 4,
       "heldParts": {},
       "sourceUids": [
         "landsd/103209:0",
@@ -1352,36 +1369,45 @@
     {
       "id": "tall-grand-promenade-2-5",
       "name": "Grand Promenade 2–5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/93772:0",
+        "landsd/95937:0",
+        "landsd/96089:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-sorrento-3",
       "name": "Sorrento 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/203725:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-5a-malibu-tower-3",
       "name": "LOHAS Park Phase 5A Malibu Tower 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/267021:0",
+        "landsd/27286:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1424,148 +1450,164 @@
     {
       "id": "tall-sun-hung-kai-centre",
       "name": "Sun Hung Kai Centre",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/102532:0",
         "landsd/173440:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-belcher-s-tower-3",
       "name": "The Belcher's Tower 3",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/255426:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-belcher-s-tower-8",
       "name": "The Belcher's Tower 8",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/256187:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-hermitage-6-8",
       "name": "The Hermitage 6–8",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/59870:0",
+        "landsd/59871:0",
+        "landsd/59928:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-island-shangri-la",
       "name": "Island Shangri-La",
-      "preparationState": "cache-absent",
-      "identifiedParts": 3,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 1,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/235988:0",
         "landsd/236189:0",
+        "landsd/265556:0",
         "landsd/70055:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-shining-heights",
       "name": "Shining Heights",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/247502:0",
         "landsd/263404:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-sorrento-5",
       "name": "Sorrento 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/203726:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-indi-home",
       "name": "Indi Home",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/219092:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-lohas-park-phase-6-lp6-towers-1-3-5",
       "name": "LOHAS Park Phase 6 LP6 Towers 1–3, 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 4,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/122547:0",
+        "landsd/133473:0",
+        "landsd/156618:0",
+        "landsd/262524:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-1-the-capitol-tower-1",
       "name": "LOHAS Park Phase 1 The Capitol Tower 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/90984:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-1-the-capitol-tower-2",
       "name": "LOHAS Park Phase 1 The Capitol Tower 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/109603:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1596,40 +1638,44 @@
     {
       "id": "tall-grand-promenade-1",
       "name": "Grand Promenade 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/96788:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-grand-promenade-6",
       "name": "Grand Promenade 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/14699:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-metroplaza-tower-2",
       "name": "MetroPlaza Tower 2",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/216258:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-lohas-park-phase-2c-le-splendeur-towers-9-11",
@@ -1670,10 +1716,10 @@
     {
       "id": "tall-airside",
       "name": "Airside",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/335194:0",
@@ -1681,53 +1727,64 @@
         "landsd/335196:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-sorrento-6",
       "name": "Sorrento 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/203727:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-bellagio-tower-1-5",
       "name": "Bellagio Tower 1–5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 4,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/210378:0",
+        "landsd/218353:0",
+        "landsd/218676:0",
+        "landsd/219139:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-1-the-capitol-tower-3",
       "name": "LOHAS Park Phase 1 The Capitol Tower 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/109587:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-1-the-capitol-tower-5",
       "name": "LOHAS Park Phase 1 The Capitol Tower 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/109600:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1758,164 +1815,189 @@
     {
       "id": "tall-primrose-hill-tower-3",
       "name": "Primrose Hill Tower 3",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/74570:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-metro-town-tower-1",
       "name": "Metro Town Tower 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/243523:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-metro-town-tower-2",
       "name": "Metro Town Tower 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/88876:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-island-resort-tower-1-2",
       "name": "Island Resort Tower 1–2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/101906:0",
+        "landsd/106992:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-island-resort-tower-3-5",
       "name": "Island Resort Tower 3–5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/55976:0",
+        "landsd/55978:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-island-resort-tower-6-7",
       "name": "Island Resort Tower 6–7",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/225895:0",
+        "landsd/225917:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-island-resort-tower-8-9",
       "name": "Island Resort Tower 8–9",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/101343:0",
+        "landsd/101899:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-the-dynasty-tower-1",
       "name": "The Dynasty Tower 1",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/219163:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-dynasty-tower-2",
       "name": "The Dynasty Tower 2",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/218759:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-china-online-centre",
       "name": "China Online Centre",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/232519:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-lohas-park-phase-1-the-capitol-tower-6",
       "name": "LOHAS Park Phase 1 The Capitol Tower 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/109595:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-2a-le-prestige-towers-1-3-5",
       "name": "LOHAS Park Phase 2A Le Prestige Towers 1–3, 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 4,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/243336:0",
+        "landsd/243337:0",
+        "landsd/243508:0",
+        "landsd/243509:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-conrad-hong-kong-hotel",
       "name": "Conrad Hong Kong Hotel",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/255042:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1962,24 +2044,31 @@
     {
       "id": "tall-bellagio-tower-6-9",
       "name": "Bellagio Tower 6–9",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 4,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/210388:0",
+        "landsd/219049:0",
+        "landsd/219126:0",
+        "landsd/219821:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-the-merton-1",
       "name": "The Merton 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/136678:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2012,36 +2101,42 @@
     {
       "id": "tall-vision-city-2",
       "name": "Vision City 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/216991:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-vision-city-3",
       "name": "Vision City 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/218095:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-vision-city-5",
       "name": "Vision City 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/218019:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2096,12 +2191,15 @@
     {
       "id": "tall-manhattan-hill-1-2",
       "name": "Manhattan Hill 1–2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/259967:0",
+        "landsd/274028:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2120,22 +2218,24 @@
     {
       "id": "tall-vision-city-1",
       "name": "Vision City 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/218258:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-39-conduit-road",
       "name": "39 Conduit Road",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 4,
       "heldParts": {},
       "sourceUids": [
         "landsd/257313:0",
@@ -2144,65 +2244,75 @@
         "landsd/97552:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-banyan-garden-2",
       "name": "Banyan Garden 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/78018:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-banyan-garden-6",
       "name": "Banyan Garden 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/77293:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-banyan-garden-7",
       "name": "Banyan Garden 7",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/337872:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-the-pacifica-6",
       "name": "The Pacifica 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/78824:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-the-pacifica-7",
       "name": "The Pacifica 7",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/75655:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2233,52 +2343,58 @@
     {
       "id": "tall-cullinan-west-phase-5-tower-6",
       "name": "Cullinan West Phase 5 Tower 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/268497:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-cullinan-west-phase-5-tower-7",
       "name": "Cullinan West Phase 5 Tower 7",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/178816:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-cullinan-west-phase-5-tower-8",
       "name": "Cullinan West Phase 5 Tower 8",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/95379:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-primrose-hill-tower-2",
       "name": "Primrose Hill Tower 2",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/74569:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-centrium",
@@ -2299,12 +2415,14 @@
     {
       "id": "tall-the-merton-2",
       "name": "The Merton 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/136682:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2351,24 +2469,28 @@
     {
       "id": "tall-metro-town-tower-3",
       "name": "Metro Town Tower 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/91393:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-metro-town-tower-5",
       "name": "Metro Town Tower 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/109242:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2437,62 +2559,70 @@
     {
       "id": "tall-manhattan-hill-3",
       "name": "Manhattan Hill 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/267948:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-manhattan-hill-5",
       "name": "Manhattan Hill 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/33424:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-manhattan-hill-6",
       "name": "Manhattan Hill 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/266799:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-festival-city-iii-tower-5",
       "name": "Festival City III Tower 5",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/251917:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-8-clearwater-bay-road",
       "name": "8 Clearwater Bay Road",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/269995:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2526,23 +2656,23 @@
     {
       "id": "tall-sino-plaza",
       "name": "Sino Plaza",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/232804:0",
         "landsd/324716:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-manhattan-heights",
       "name": "Manhattan Heights",
-      "preparationState": "ambiguous",
-      "identifiedParts": 7,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 5,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
@@ -2550,9 +2680,7 @@
         "landsd/101093:0",
         "landsd/114461:0",
         "landsd/136500:0",
-        "landsd/220220:0",
         "landsd/237200:0",
-        "landsd/72071:0",
         "landsd/99033:0"
       ],
       "reviewStatus": "not-reviewed",
@@ -2575,44 +2703,44 @@
     {
       "id": "tall-festival-city-iii-tower-1",
       "name": "Festival City III Tower 1",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/251925:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-festival-city-iii-tower-2",
       "name": "Festival City III Tower 2",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/251919:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-festival-city-iii-tower-3",
       "name": "Festival City III Tower 3",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/251920:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-manhattan-place",
@@ -2629,22 +2757,26 @@
     {
       "id": "tall-ocean-pointe",
       "name": "Ocean Pointe",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/218650:0",
+        "landsd/218705:0",
+        "landsd/218982:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-cadogan",
       "name": "Cadogan",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/104716:0",
@@ -2652,17 +2784,19 @@
         "landsd/322191:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-vision-city-6",
       "name": "Vision City 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/215992:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2681,12 +2815,14 @@
     {
       "id": "tall-banyan-garden-5",
       "name": "Banyan Garden 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/78915:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2721,10 +2857,10 @@
     {
       "id": "tall-branksome-crest",
       "name": "Branksome Crest",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 4,
       "heldParts": {},
       "sourceUids": [
         "landsd/222976:0",
@@ -2733,47 +2869,55 @@
         "landsd/265180:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-one-silversea-1-8",
       "name": "One Silversea 1–8",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 7,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/253887:0",
+        "landsd/253888:0",
+        "landsd/253889:0",
+        "landsd/256926:0",
+        "landsd/256929:0",
+        "landsd/256930:0",
+        "landsd/256931:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-convention-plaza-office-tower",
       "name": "Convention Plaza Office Tower",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/255386:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-the-pavilia-bay-tower-1",
       "name": "The Pavilia Bay Tower 1",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/52726:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-immigration-tower",
@@ -2806,135 +2950,156 @@
     {
       "id": "tall-liberte-1",
       "name": "Liberté 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/79881:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-liberte-2",
       "name": "Liberté 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/79366:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-liberte-3",
       "name": "Liberté 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/78237:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-4a-wings-at-sea-tower-2",
       "name": "LOHAS Park Phase 4A Wings At Sea Tower 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/262438:0",
+        "landsd/269787:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-aia-tower",
       "name": "AIA Tower",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/234593:0",
         "landsd/85738:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-liberte-5",
       "name": "Liberté 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/76318:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-liberte-6",
       "name": "Liberté 6",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/77421:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-sham-wan-towers-1",
       "name": "Sham Wan Towers 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/6946:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-sham-wan-towers-2",
       "name": "Sham Wan Towers 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/7056:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-sham-wan-towers-3",
       "name": "Sham Wan Towers 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/9050:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-the-merton-3",
       "name": "The Merton 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/108682:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2965,12 +3130,14 @@
     {
       "id": "tall-banyan-garden-3",
       "name": "Banyan Garden 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
       "heldParts": {},
-      "sourceUids": [],
+      "sourceUids": [
+        "landsd/78828:0"
+      ],
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3029,10 +3196,10 @@
     {
       "id": "tall-one-kowloon",
       "name": "One Kowloon",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 4,
       "heldParts": {},
       "sourceUids": [
         "landsd/107711:0",
@@ -3041,7 +3208,7 @@
         "landsd/228434:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-one-mid-town",
@@ -3058,7 +3225,7 @@
     {
       "id": "tall-ocean-shores",
       "name": "Ocean Shores",
-      "preparationState": "no-identity",
+      "preparationState": "ambiguous",
       "identifiedParts": 0,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
@@ -3070,7 +3237,7 @@
     {
       "id": "tall-one-silversea",
       "name": "One SilverSea",
-      "preparationState": "no-identity",
+      "preparationState": "ambiguous",
       "identifiedParts": 0,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
@@ -3082,7 +3249,7 @@
     {
       "id": "tall-harbour-green",
       "name": "Harbour Green",
-      "preparationState": "no-identity",
+      "preparationState": "ambiguous",
       "identifiedParts": 0,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
@@ -3094,30 +3261,30 @@
     {
       "id": "tall-metro-harbour-view",
       "name": "Metro Harbour View",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/242294:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-15-homantin-hill",
       "name": "15 Homantin Hill",
-      "preparationState": "cache-absent",
+      "preparationState": "candidates-staged",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/84135:0"
       ],
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     }
   ]
 }
