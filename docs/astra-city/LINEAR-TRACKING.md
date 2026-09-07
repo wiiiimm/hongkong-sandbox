@@ -1,3 +1,13 @@
+## Architecture batch 1 — 7 September 2026
+
+HKS-208 is **In Review** at `d288106a`, pushed to draft PR #298. Installed **25** new government components: Tai Kwun13, Lippo3, Asia Society6, Court of Final Appeal1, Hysan Place2. Payload: **1,269,800 bytes /58,108 triangles**. Native coordinates, surveyed heights, terrain and fixed1× scale are unchanged.
+
+The14 selected groups account for58 source parts:17 already detailed,25 new,6 placement holds,10 source/match follow-ups. HKS-209 is Backlog for E Hall, JC Cube, two Asia Society components, Opus and Peak Tower plus source exceptions and local terrain refinements. No region is closed. Territory inventory:346,115 forms;1,859 embedded+2,192 progressive=4,051 detailed references.
+
+All31 staged candidates passed normal browser checks; all25 installed assets pass shared loader, terrain-sampler, source picking/collision checks. Five installed representative visits pass day/night/mobile/walk/Fly/fallback/Retry;229 city tests pass. Desktop frame samples are16.7ms median/≤16.8ms p95; physical-phone performance remains unverified. An optional wide Hysan mobile capture timed out and was rejected, explicitly recorded alongside passing normal views.18 labelled isolated foundation diagnostics informed the holds.
+
+Reuse: existing cached matcher/decoder/packer,15,356,700 bounded source-transfer bytes, zero AI calls inside the scripts. Executors: root, landmark_gap_audit, terrain_publication_guard, kowloon_cultural_models. HKS-208/209, parent199, regional193, coverage116, registry201, acquisition202 and milestone overview synchronised successfully. No R2 upload or production merge; latest Vercel preview SHA not reverified. [Review evidence](architecture-batch/README.md).
+
 ## Cultural landmarks and expanded selection — 7 September 2026
 
 HKS-207 is In Review at `aa34ac1e`, pushed to draft PR #298: ten installed detailed government parts for Space Museum (3) and Cultural Centre/podium (7), 825,208 compressed bytes. Native geometry, surveyed fields and existing5m terrain remain unchanged at fixed1× scale. The two main opaque shells opt out of invented procedural windows. All229 city tests and all10 installed-model loader/terrain/picking/collision checks pass; browser day/night/mobile/walk/Fly/fallback/Retry checks pass. Gallery:20 images/10 comparisons. Six canopy identities and the small Studio Theatre edge depression remain explicit. Territory totals:346,115 forms,1,859 embedded+2,167 progressive=4,026 detailed model references. No whole-Kowloon completion or new R2 delivery.

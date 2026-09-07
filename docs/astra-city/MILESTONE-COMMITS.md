@@ -2,7 +2,7 @@
 
 Commit links indicate scope, not completion. Older mappings remain intact; new entries use explicit HKS references.
 
-Branch: `codex/astra-hong-kong-city`. Snapshot: `52b965d0`. Base: `5777bc98`. The tracking documentation commit follows this snapshot.
+Branch: `codex/astra-hong-kong-city`. Snapshot: `d288106a`. Base: `5777bc98`. The tracking documentation commit follows this snapshot.
 
 | Commit | Change | Linear issues |
 | --- | --- | --- |
@@ -94,3 +94,5 @@ Branch: `codex/astra-hong-kong-city`. Snapshot: `52b965d0`. Base: `5777bc98`. Th
 | [c8a5fddb](https://github.com/wiiiimm/hongkong-sandbox/commit/c8a5fddb24892dd09de6163edcbb52847ca7786a) | feat(city): complete source-accounted landmark pass (HKS-202, HKS-203, HKS-204, HKS-174) | HKS-202, HKS-203, HKS-204, HKS-174 |
 | [aa34ac1e](https://github.com/wiiiimm/hongkong-sandbox/commit/aa34ac1ec7ce951890d532f26317c311d1bf762f) | feat(city): upgrade Space Museum and Cultural Centre (HKS-207) | HKS-207 |
 | [52b965d0](https://github.com/wiiiimm/hongkong-sandbox/commit/52b965d019e1f9c806bf9ce6da9bd5de9152d745) | feat(data): expand sourced landmark discovery registry (HKS-201) | HKS-201 |
+| [94f78403](https://github.com/wiiiimm/hongkong-sandbox/commit/94f78403b929b9618c069e5661514ad306f3ef8d) | docs: sync landmark deliveries and discovery review (HKS-201, HKS-207, HKS-116) | HKS-201, HKS-207, HKS-116 |
+| [d288106a](https://github.com/wiiiimm/hongkong-sandbox/commit/d288106a5c2670d88eec51bcc3410202b89c199a) | feat(city): add reviewed architecture landmark batch | HKS-208, HKS-209, HKS-201 |
