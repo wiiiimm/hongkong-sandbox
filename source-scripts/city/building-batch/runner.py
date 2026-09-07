@@ -136,9 +136,9 @@ def report(db, selection):
             status[row['status']] += 1
             if row['result']:
                 result = json.loads(row['result'])
-                actions[result['nextAction']] += 1
-                details[result['detail']] += 1
-                concerns.update(result['concerns'])
+                actions[result.get('nextAction', 'review-stage-result')] += 1
+                details[result.get('detail', 'stage-output')] += 1
+                concerns.update(result.get('concerns', []))
             elif row['error'] and len(exceptions) < 20:
                 exceptions.append(dict(uid=row['uid'], error=row['error']))
         return dict(selection=selection, status=dict(status), detail=dict(details), nextActions=dict(actions),
@@ -162,6 +162,13 @@ def run(db, selection, workers=2, limit=10000):
             raise ValueError('Plan is stale; refresh selection and plan before running')
     finally:
         c.close()
+    return execute_jobs(db, selection, audit_input, workers, limit)
+
+
+def execute_jobs(db, selection, adapter, workers=2, limit=10000):
+    """Shared worker/lease machinery; adapters receive only their frozen payload."""
+    if not 1 <= workers <= 4 or limit < 1:
+        raise ValueError('Workers must be 1–4 and limit positive')
     start = time.monotonic()
     stop = threading.Event()
     lock = threading.Lock()
@@ -177,13 +184,26 @@ def run(db, selection, workers=2, limit=10000):
             job = claim(db, selection, owner)
             if job is None:
                 return
+            heartbeat_stop = threading.Event()
+            def heartbeat():
+                while not heartbeat_stop.wait(5):
+                    c = connect(db)
+                    try:
+                        with c:
+                            c.execute("UPDATE batch_jobs SET lease_until=? WHERE id=? AND owner=? AND status='running'",
+                                      (time.time()+30, job['id'], owner))
+                    finally:
+                        c.close()
+            pulse = threading.Thread(target=heartbeat, daemon=True)
+            pulse.start()
             try:
-                if job['stage'] != 'audit-input-v1':
-                    raise ValueError('Unsupported stage')
-                result = audit_input(json.loads(job['payload']))
+                result = adapter(json.loads(job['payload']))
                 finish(db, job, owner, result=result)
             except Exception as exc:
                 finish(db, job, owner, error=exc, transient=isinstance(exc, TimeoutError))
+            finally:
+                heartbeat_stop.set()
+                pulse.join()
     executor = concurrent.futures.ThreadPoolExecutor(max_workers=workers)
     try:
         futures = [executor.submit(worker) for _ in range(workers)]

@@ -58,3 +58,26 @@ Jobs are fingerprinted by UID, input content and adapter code. Section/selection
 Actual preflight:7542complete, no failed jobs,34.77s with2workers. Existing detail:1859embedded+279progressive=2138;5404basic. Next actions:4105source-lookups,1384recorded-placement reviews,2053existing-detail reuse. Concerns overlap:1381heights not from a government base/top pair,406recorded wholly buried roofs,671partly buried,713elevated bases. These are diagnostic metadata counts, not new confirmed source defects. All7542jobs were reused on the repeat plan and repeat execution took0.06s. No new models, AI calls or network requests.
 
 Six further tests cover exact area intersections/holes, stable membership, landmark identity mismatch, overlapping selections sharing jobs, concurrent claims/expired-owner rejection, changed-input invalidation, stale-plan rejection and bounded lease retries. Combined inventory+trial suite:12tests. Chrome review map renders4panels/7542footprints with zero page errors; exported screenshot inspected. This is a selection map, not a rendered-city before/after comparison. HKS-204 stays Backlog until processing and fresh validation are ready.
+
+## Cached government model stage — HKS-202
+
+`cached_models.py` reuses the existing `prepare_model_sample.model_geometry` decoder and `central-completion/pack_models.py` exact-attribute GLB packer. It scans retained staged manifests, matches government CSUID/OBJECTID against current selected footprints, verifies source hashes and checks footprint overlap/centroid distance. It skips already embedded/progressive detail. There are no AI or network calls. Missing cached models, missing government identities and ambiguous source identities remain separate dispositions, not claims that government models do not exist.
+
+```sh
+python source-scripts/city/building-batch/cached_models.py plan --dry-run
+python source-scripts/city/building-batch/cached_models.py plan
+python source-scripts/city/building-batch/cached_models.py run --workers 2 --limit 6000
+node source-scripts/city/building-batch/validate_candidates.mjs
+```
+
+The defaults keep the SQLite database and candidate assets under ignored `local/`. For another snapshot use `--root`, `--db` and `--out` on the Python adapter; the validator takes `--root`, `--db`, `--candidates` and `--out`. Use Node 24+ for its built-in read-only SQLite API. Do not run plan, inventory refresh or publication concurrently with an executing stage. Completed unchanged jobs are reused, with candidate source/output hashes checked again. Missing or corrupt generated assets are recreated from verified sources. Fix a failed job's source and use `run --retry-failed` to request another attempt. Frozen source metadata changes require a new plan. Resource-limit dispositions are terminal review exceptions; raising a budget alone does not retry those jobs.
+
+Workers renew their 30-second leases every five seconds. Each model is bounded to 32 MiB of retained input and 500,000 declared source vertices; default cumulative compressed output budget is 1 GiB (`--max-output-mib`). Jobs also have a per-invocation limit and one to four workers. Existing compact files are reused only when identity, revision, geometry metadata and hashes agree; reuse does not approve placement. Native source coordinates, node transforms, attributes and materials stay intact. No basic building is removed and no viewer file is written by this stage.
+
+`catalogue.json` is the full review inventory, not a directly loadable runtime catalogue. `catalogue-index.json` points to runtime-compatible catalogues of at most 1,024 entries. Assets are content-addressed gzip GLBs. `proofs.json` records source manifests/archive and file hashes plus geometric match evidence. `exceptions.json` lists unmatched and failed jobs; `report.json` provides counts. These outputs are candidates until HKS-203 placement/browser acceptance and guarded publication.
+
+## Candidate validation checkpoint — HKS-203
+
+`validate_candidates.mjs` reads the current viewer tiles and rejects changed inventory hashes. It uses the actual `loadOfficialModel`, source triangle picking, `BuildingIndex` collision, terrain sampler and rendered terrain mesh. Every candidate gets a roof ray and footprint-vertex/midpoint/interior terrain samples. It validates source identity, compressed bytes, attributes, bounds, collisions and sampler/mesh agreement without altering live records. A model can pass the loader and still have a placement exception. Missing terrain surfaces, buried roofs and bottom/ground gaps remain explicit. Piers, slopes and overhangs need contextual interpretation: these checks are not an automatic placement approval.
+
+No GPU/browser performance, complete architectural inspection, exhaustive foundation test or publication is implied by this CPU validation. Fresh evidence is under `docs/astra-city/building-batch/cached-models/`. HKS-202 remains In Progress for the explicitly bounded acquisition adapter; HKS-203 remains In Progress for exception review and guarded publication. HKS-204/205 stay gated. Live detailed-model counts and regional readiness have not changed.
