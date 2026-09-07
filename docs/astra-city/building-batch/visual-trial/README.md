@@ -23,6 +23,7 @@ No additional unambiguous cached candidate was found for Tai O/Ngong Ping. Cache
 
 ## Verification
 
+- Vercel preview for implementation `63a707c6` serves all three trial catalogues/1,078 models. Six sampled remote GLBs match expected compressed sizes and SHA-256, with correct gzip content handling. See `deployment-verification.json`; browser/GPU acceptance below was performed locally.
 - 228 city tests, 20 inventory/batch/policy tests and three existing guarded-publisher tests pass. An actual terminated worker is recovered after simulated lease expiry; unchanged work is reused. The existing publisher's injected failure test verifies rollback.
 - Every added file passes its SHA-256/size checks. Every new source UID, CSUID, surveyed base/top and retained fallback is verified; no duplicate progressive models. Original terrain, source tiles, tile counts and prior catalogue entries remain unchanged. See `publication-verification.json`.
 - Actual Chrome checks passed at ten Central and three Mui Wo buildings: source picking/collision, retained surveyed heights, current terrain agreement and bounded model streaming. Day/night and 390 px mobile views pass with no page/shader/HTTP errors or horizontal overflow.

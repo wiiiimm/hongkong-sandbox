@@ -2,7 +2,7 @@
 
 This index links the milestone commits to their existing Linear issues without rewriting history. References indicate scope, not completion. Older commits without an issue in their message use the explicitly recorded scope mapping. Later commits carry HKS references in their messages.
 
-Branch: `codex/astra-hong-kong-city`. Snapshot: `78464134`. Base: `5777bc98`. The documentation commit publishing this index is necessarily after its snapshot; its message references HKS-116 and HKS-117.
+Branch: `codex/astra-hong-kong-city`. Snapshot: `63a707c6`. Base: `5777bc98`. The documentation commit publishing this index is necessarily after its snapshot; its message references HKS-116 and HKS-117.
 
 | Commit | Change | Linear issues |
 | --- | --- | --- |
@@ -138,3 +138,17 @@ Statuses are read from Linear, including user changes to Ready to Merge. This dr
 | [HKS-194](https://linear.app/stealth-company/issue/HKS-194/show-numbered-review-section-borders-and-evidence-based-readiness-on) | In Review | Show numbered review-section borders and evidence-based readiness on the city map |
 | [HKS-195](https://linear.app/stealth-company/issue/HKS-195/add-adjustable-atmospheric-haze-and-night-sky-clarity-in-weather) | In Review | Add adjustable atmospheric haze and night-sky clarity in Weather |
 | [HKS-196](https://linear.app/stealth-company/issue/HKS-196/reconstruct-stonecutters-bridge-and-correct-underlying-terrain) | In Progress | Reconstruct Stonecutters Bridge and correct underlying terrain artefacts |
+
+## Later inventory and visual-trial checkpoints
+
+| Commit | Change | Linear issues |
+| --- | --- | --- |
+| [9c7ab987](https://github.com/wiiiimm/hongkong-sandbox/commit/9c7ab987a9c2ffe8522ac312d9e6467bc09c670c) | docs: sync island detail delivery and Linear references (HKS-116, HKS-192, HKS-170, HKS-171) | HKS-116, HKS-170, HKS-171, HKS-192 |
+| [1cc2cf0f](https://github.com/wiiiimm/hongkong-sandbox/commit/1cc2cf0ff849388135174f44e4f40a69fe2fd0e3) | feat(data): index existing city buildings in local SQLite (HKS-200) | HKS-200 |
+| [306b4d9b](https://github.com/wiiiimm/hongkong-sandbox/commit/306b4d9bc9f9eeeb08413f1208119a9a0197fedf) | docs: track local building automation and inventory delivery (HKS-199) | HKS-199 |
+| [962b54a8](https://github.com/wiiiimm/hongkong-sandbox/commit/962b54a8482b951fcef97698b222eaad19fcfbc1) | feat(data): select tourist trial and run resumable preflight (HKS-201, HKS-202) | HKS-201, HKS-202 |
+| [21a77377](https://github.com/wiiiimm/hongkong-sandbox/commit/21a77377dcad257df81f89572894ba6b91ee6904) | docs: sync tourist trial review and runner progress (HKS-199) | HKS-199 |
+| [a308b861](https://github.com/wiiiimm/hongkong-sandbox/commit/a308b86131e756bdc25c2ae839c962e0b3bbac33) | feat: batch cached government models with placement diagnostics (HKS-202, HKS-203) | HKS-202, HKS-203 |
+| [a3ca9c1a](https://github.com/wiiiimm/hongkong-sandbox/commit/a3ca9c1a7069110a033ef75c1752fceadb7aaf8c) | docs: sync cached-model batch progress to Linear (HKS-199) | HKS-199 |
+| [d69c97fb](https://github.com/wiiiimm/hongkong-sandbox/commit/d69c97fb0b5a234d830ae80e2d11bc546a983d51) | docs: track production R2 asset offload (HKS-206) | HKS-206 |
+| [63a707c6](https://github.com/wiiiimm/hongkong-sandbox/commit/63a707c672f22677674c0b4dbe50bb598be41ae3) | feat: publish reviewed tourist model trial (HKS-203, HKS-204) | HKS-203, HKS-204 |

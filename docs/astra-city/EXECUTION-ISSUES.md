@@ -1,3 +1,11 @@
+## Visible tourist trial — In Review, 7 September 2026
+
+Root committed and pushed `63a707c672f22677674c0b4dbe50bb598be41ae3` to draft PR #298. Its Vercel preview is confirmed: three trial catalogues/1,078 models and six sampled remote compressed asset hashes match. The deployable viewer now contains 1,078 additional exact-source government models: 1,075 Central and three Mui Wo, 6.5 MB compressed. Central trial detail is 1,102/3,265 (33.8%); Mui Wo section 10.6 is 1,575/2,371 (66.4%). In the older full Mui Wo boundary, the three additions raise detail to 1,621/2,408 (67.3%) and reduce its earlier 21-model hold to 18. Territory-wide 346,115 forms and 3,957 detailed models; no source elevations, footprints or terrain changed.
+
+All 228 city tests, 20 batch tests and three publisher tests pass. Thirteen browser locations pass day/night, desktop/mobile, source picking/collision, walk/Fly and failed-load fallback/Retry. The 13-comparison gallery loads all 26 images and supports mobile sliders. Frame samples are approximately 16.7 ms on desktop Chrome; physical-phone performance is not certified. No whole region is complete.
+
+HKS-203/204 are In Review. All 1,797 held candidates remain basic fallbacks; 1,786 are in Central and 11 in Mui Wo. HKS-202 acquisition and HKS-205 rollout remain open/gated; HKS-206 production R2 delivery remains separate. Linear leaves, HKS-199/116/122 parents, HKS-192/193 regional issues and milestone overview successfully synced with commit, evidence, executor and limitations. Review: `docs/astra-city/building-batch/visual-trial/README.md` and `comparison.html`.
+
 ## Production asset offload — 7 September 2026
 
 Created HKS-206 in the Astra milestone: offload all heavy runtime assets to R2 in production deployments. Backlog, High priority, 8 points, assigned to William; Performance/DevOps. Covers both viewers, asset inventory, reproducible approved-output uploads, versioned release manifests and rollback, browser-origin verification, CORS/compression and offline checks. Reuses HKS-50/46/52 infrastructure and relates to HKS-199/203. Milestone overview synced. Implementation has not started; no assets uploaded or deployed.
