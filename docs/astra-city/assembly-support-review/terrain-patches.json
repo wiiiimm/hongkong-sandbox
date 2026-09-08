@@ -50,7 +50,7 @@
         },
         {
           "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-244779-0.json",
-          "sha256": "58f6fb8b511604800e1ac1564b49a0cd050a0981ad62dfad6eaa49985fa3a57f",
+          "sha256": "c884b5c2029c909a4c251499562c91fd7d550ba6e5faa47a0dc7ed0cb605d69d",
           "uids": [
             "landsd/244779:0"
           ],
@@ -59,7 +59,11 @@
             365,
             507,
             367
-          ]
+          ],
+          "replacesExistingManifestPatches": [
+            "city/data/roof-review-226248-0.json"
+          ],
+          "preservedExistingSha256": "4a81afe8e57675044d34befeecc6badc3920f2fa864855613bd43a5167396646"
         },
         {
           "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-322191-0.json",
@@ -251,7 +255,13 @@
       "nativeCoveredNodes": 29751,
       "boundaryError": 0,
       "waterMaskChanges": 0,
-      "eligibleForBrowserValidation": true
+      "eligibleForBrowserValidation": true,
+      "preservedExistingPatch": {
+        "url": "city/data/roof-review-226248-0.json",
+        "sha256": "4a81afe8e57675044d34befeecc6badc3920f2fa864855613bd43a5167396646",
+        "nodesCopiedExactly": 19881,
+        "transition": "10m western strip blends to exact installed child boundary; installed rectangle unchanged."
+      }
     },
     {
       "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-322191-0.json",
