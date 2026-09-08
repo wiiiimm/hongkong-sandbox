@@ -93,3 +93,20 @@ To repeat the small remote fixture against the pinned modelling branch, set
 `ASTRA_TEST_LIVE_INVENTORY=1` for the same test command. This imports one immutable
 six-row fixture snapshot (subsequent runs reuse it), never modifies runnable jobs,
 and exercises lookup, export and verification. It is deliberately opt-in.
+
+## Verified checkpoint, 8 September 2026
+
+The full source snapshot `f26ca1cad7e19b984c78d12877a8b35cca7af8f434ab1c7ec8756983ccdc0008`
+contains 749,546 logical rows across 13 tables, including 346,115 buildings,
+346,115 rowid-linked bounds and 29,760 historical jobs. Remote import and stored
+hash verification took 227.63 seconds. A clean SQLite reconstruction took 167.90
+seconds, produced a 605,478,912-byte compact database, and matched the original
+schema and complete logical fingerprint. Independent source verification and an
+identical import replay both passed; the latter reused the snapshot without
+adding rows. The source database was never written.
+
+See `inventory-verification.json` for measured evidence. Inventory rows and their
+indexes occupy about 1.03 GB remotely. Reuse this fixed source snapshot for workers;
+queue results do not require importing a new full source snapshot after every job.
+This checkpoint verifies inventory portability, not model-file restoration from
+R2, architectural appearance, or publication of models.
