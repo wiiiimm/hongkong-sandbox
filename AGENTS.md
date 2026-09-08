@@ -76,3 +76,5 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
 - Codex and Claude should use this file as the shared project instruction source.
 - `CLAUDE.md` should remain a symlink to `AGENTS.md`.
 - Keep task-specific notes close to the generated artefacts so another agent can resume the work without reconstructing decisions from chat history.
+
+- For source-backed building/landmark refinement and cross-device resumption, use the repository skill at `.agents/skills/hong-kong-model-improvement/SKILL.md`; its supporting references route to the existing scripts and portable hand-off.

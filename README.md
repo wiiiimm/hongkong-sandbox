@@ -331,3 +331,9 @@ repo 亦保留一條 **Cloudflare Pages** 路徑作替代／回退：`.github/wo
 - **資料：** 屬第三方，依上表授權（尤其 OSM 資料為 ODbL）。程式授權僅涵蓋本專案的*程式碼*，不會重新授權該等資料。
 
 © 2026 wiiiimm。為香港人而做，隨便 fork 隨便玩。🇭🇰
+
+## Reusable agent workflows
+
+| Skill | Use |
+| --- | --- |
+| [Hong Kong model improvement](.agents/skills/hong-kong-model-improvement/SKILL.md) | Resume source-backed landmark/building improvements, reuse the batch pipeline and recover working material on another device. |
