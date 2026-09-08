@@ -1,0 +1,43 @@
+# HKS-214 — source component support and native terrain review
+
+This pass stages **59 unchanged government model parts** for the root's combined guarded integration. All 59 have exact loader-verified UID/CSUID/model/hash correspondence, every audited native lower-rim vertex has source-supported contact, and **59/59 normal-scene plus 59/59 isolated exported views** have clear, complete framing. The two contact sheets were visually inspected: tower silhouettes, stepped roofs, rooftop components and low podium pieces are retained. Small Manhattan Heights pieces are source components, not claims that those pieces alone represent the tower.
+
+[Decisions](decisions.json) list approved and held UIDs and the exact support dependencies. [Contact sheet 1](contact-1.png) and [contact sheet 2](contact-2.png) show all 59 isolated source components. Full-resolution JPEGs and raw detailed reports are reproducible local evidence; compressed reports are retained alongside this note.
+
+## What changed
+
+The initial 208 ground-gap flags sampled a building's source footprint, not necessarily a physical lower wall. Native government meshes often have **open undersides**: an interior downward ray hits the roof, not a foundation. Treating that height as the bottom would falsely reject otherwise coherent buildings.
+
+The script now loads unchanged compact geometry through the **actual runtime loader**, tests real indexed triangle surfaces and checks every unique vertex within 0.35 m of the native minimum Y against other triangles at a 0.5 m contact tolerance. The terrain band is ±2 m. Actual runtime fallback roof triangles are also included, with holes preserved, only where LandsD source base/top values remain unchanged. Estimated heights, self-UID and same-CSUID contacts cannot qualify.
+
+Across the assigned 242 source parts, the final baseline audit includes 286 native model contexts and 519 surveyed fallback contexts. It finds 70 complete lower-rim triangle contacts, four terrain-contact rims, 33 foundation-context rims, 61 partial contacts and 74 no-contact cases. Bounds only narrow searches; they never count as supporting evidence.
+
+The stable dependency closure yields 59 accepted **component placements**, accounting for the root's 24 grounded parts and seven separately assigned cultural/roof parts. Some supports remain basic government forms. The required `supportDependencies` must be preserved, or the support check repeated when replacing them. Proposed tourist/landmark membership remains separate and is not silently approved.
+
+## Native terrain follow-up
+
+The source TIN audit covers 54 retained source entries and explains 570 lower-rim discrepancy samples. It generated 14 source-only 5 m grids, followed by ten parent-aligned 1 m child proposals. These preserve original HKPD metres, existing water masks and exact outer parent heights.
+
+**Only five patches are eligible for browser validation.** They cover six ground components and additionally support the Sino Plaza tower, giving a separate seven-part terrain-dependent catalogue. The other five patches are held: resampling across sharp retaining edges introduces local burial even when exact source point samples agree. Do not publish them or shift building heights to conceal this.
+
+[Terrain patch evidence](terrain-patches.json) records parent hashes, zero boundary mismatch and zero changed water-mask nodes. `eligibleForBrowserValidation` is mandatory. Coarse-root child patches must be added through the manifest because the app assigns `terrainData.patches` from that manifest. Existing parent children must be appended once, with their `coarseCells` removed from the parent draw.
+
+## Review limits and validation
+
+- Four triangle-contact tests pass, including bbox false positives, vertical seams and open-bottom roof rays; two native-TIN interpolation tests pass.
+- Exact source meshes, nodes and elevations remain unchanged. No runtime manifest, terrain, SQLite or source geometry was edited by this agent.
+- Every accepted part has a scene and isolated image. Isolated views remove unrelated buildings for diagnosis; normal-scene framing is separately recorded. Additional close foundation views were inspected for Four Seasons and Standard Chartered; the occluded Four Seasons Place view was explicitly replaced by a labelled isolated source/podium view.
+- Finite contact checks are not structural engineering, exhaustive disconnected-mesh stability proof, or architectural completion of a named landmark. Root still runs the combined publication, picking, collision, streaming and browser gates.
+- Publication is not performed here. The prepared plans are `source-scripts/city/assembly-support-review/plan.json` and `plan-terrain.json`.
+
+## Reproduce
+
+Use Node 24+ and the existing Python environment with NumPy/Shapely. Acquire complete canonical UID reservations before running these scripts; receipts are local `/tmp/astra-support-*-lease.json`, with audited Neon batch names beginning `HKS-214-`. Long runs used `reservations.py run`, which renewed leases and released them on completion.
+
+1. `review.mjs --selection <reserved UID JSON>` regenerates raw `report.json`.
+2. `native_terrain.py` reuses verified native TIN caches; `terrain_patches.py` stages parent-aligned variants.
+3. `decisions.py` then `prepare.py` stages the dependency-aware base catalogue.
+4. `framing.mjs`, `framing-extra.mjs` and `contact.mjs` produce inspectable model evidence.
+5. The terrain variant uses `review.mjs --terrain-bundle docs/astra-city/assembly-support-review/terrain-patches.json --output docs/astra-city/assembly-support-review/report-terrain-variant.json`, followed by `decisions.py --report ... --base-approved ... --output ...`, `prepare.py --terrain` and `framing-terrain.mjs`.
+
+Raw large reports can be restored from their adjacent `.json.gz` files with `gzip -dk` before analysis. Model payloads come from the pinned `3887f2f23fbad306` cache and retain their original hashes; no further source download is needed on this device.
