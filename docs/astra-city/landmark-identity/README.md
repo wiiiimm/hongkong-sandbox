@@ -1,59 +1,62 @@
-# Landmark identity proposals — HKS-212
+# Landmark identity and source preparation — HKS-212
 
-The scripted pass accounts for all **213 registry entries** and proposes an unapplied overlay for **71 entries / 118 source records**, including **106 newly identified UIDs**. It proposes matches for **67 of the previous 115 no-identity entries**, geographically separates all three ambiguous same-name groups, and adds one separately named Island Shangri-La hotel component. The other entries retain their previous identity evidence or explicit exceptions.
+The final scripted pass accounts for all **213 registry entries**: **92 retain prior identities**, **102 have unapproved identity proposals**, and **19 remain explicit identity exceptions**. The overlay contains 183 source records, including 164 newly proposed unique UIDs relative to the original bulk selection. It resolves 98 of the original 115 unidentified entries and geographically separates the three ambiguous same-name groups.
 
-These are **reviewed identity proposals**, not verified complete landmarks, geometry acquisitions, placement approvals or live replacements. No master registry, database, runtime or published asset was changed. The SQLite connection is read-only.
+This is source preparation for review. Component completeness, architecture, foundations and publication remain separate decisions. No master registry, source geometry, terrain or live viewer assets were changed.
 
-| Current identity state | Entries |
+| Identity state | Entries |
 | --- | ---: |
 | Prior identities retained | 92 |
-| Proposed overlay | 71 |
-| No supported identity | 44 |
-| Candidate needs independent location evidence | 3 |
-| Historical interior / unverified host | 3 |
+| Proposed overlay | 102 |
+| No supported identity | 13 |
+| Independent location still needed | 2 |
+| Historical interior host unresolved | 3 |
+| Historical building conflict | 1 |
 
-[Full report](report.json) · [Invariant checks](validation.json) · [Proposed overlay](../../../source-scripts/city/landmark-identity/proposed-overlay.json)
+[Identity report](report.json) · [Validation](validation.json) · [Staging summary](stage-summary.json) · [CPU checks](prepared-validation.json)
 
-## Evidence and boundaries
+## Evidence
 
-The script joins retained government names, stable UID/CSUID/object IDs and unmodified footprint positions to the registry's previously sourced geographic hints. It uses the existing EPSG:4326 → EPSG:2326 projection and world origin of 834500/816500. The geographic hints are discovery evidence, chiefly from the retained tallest-buildings table; they are not substituted for government coordinates. Every new proposed record has an explicit name relationship and lies within 250 m of a sourced hint. There is no nearest-building acceptance, invented coordinate, fuzzy edit-distance match or model-height change.
+The read-only resolver joins exact canonical government names, stable UID/CSUID/object IDs and unchanged footprint positions to sourced geographic hints. EPSG:4326 hints use the existing EPSG:2326 projection and origin 834500/816500. The majority of hints come from the retained discovery table; The Beacon uses its operator’s own map hyperlink. One explicit exception joins 133 Wai Yip Street to the unique government name The Grid using government and architect address evidence. No coordinates are invented or substituted into the building data.
 
-Rules handle punctuation, accents, optional Tower/Block/Hotel words, spacing such as Metro Town/Metrotown, recorded phase prefixes, and government A/B subtowers. They preserve source tower numbers. Literal ranges stay explicit: a missing Tower 4 is recorded as a membership question, not fabricated or silently assumed to be omitted.
+The second pass adds documented aliases from Lands Department inventory, Rating and Valuation Department building-name/address lists, MTR, property owners, architects and first-party occupier addresses. Exact references, findings, provisional numbering relationships and unresolved reasons are retained in [aliases-v2.json](../../../source-scripts/city/landmark-identity/aliases-v2.json). Historical RVD lists are used as name/address evidence, not current geometry or completion dates. Cached reference hashes are in [reference-cache-manifest.json](../../../source-scripts/city/landmark-identity/reference-cache-manifest.json).
 
-Previous source-component identities are retained. The three held same-name groups use their own sourced location to exclude distant names: Harbourside, Central Plaza and Manhattan Heights. Related unnamed podiums and annexes are never assigned solely because they are nearby. All proposals retain `componentMembershipComplete: false` and `publicationApproved: false`; held architectural work remains held.
+All geographic proposals require a name relationship and a distance of at most 250 m from a sourced hint. This is identity discovery, not a footprint matching tolerance for geometry. Named A/B parts remain separate; unnamed podiums and annexes are not assigned by proximity. Literal source ranges retain missing-number questions. Bel-Air’s discovery “8–9” remains unresolved because the official index names 8A/8B, not Tower 9. May House stays held because Police historical evidence records demolition in 1999; the replacement is not silently substituted.
 
-The report contains input hashes, exact government records, accepted/rejected/weak candidates, distances, source URLs, prior holds and unresolved nearby names. A few bounded official-source checks are recorded in [reference-notes.json](../../../source-scripts/city/landmark-identity/reference-notes.json): MALIBU subtower naming, the built Chu Hai campus, Wings at Sea II phase naming and the existing 133 Wai Yip Street renovation. These checks did not create unsupported aliases or coordinates.
+Other remaining exceptions include Chu Hai campus component identities, the Nina and Cullinan tower/compound relationships, historical NatWest and Westpoint naming, source locations absent or conflicting, and three interior venues with unverified host buildings. Each has an explicit reason in the report. All groups retain `componentMembershipComplete: false` and all proposed identities remain unapproved for publication.
 
-## Remaining work and effort
+## Completed combined preparation
 
-- **Higher-effort geometry/terrain work:** the 16 HKS-209 records and previous unsupported Ngong Ping pagoda remain explicitly unapproved in `higherEffortPlacementQueue`. This identity pass does not resolve those physical problems.
-- **Identity research:** renamed commercial buildings, phase aliases such as Le Point and Hemera, and sources with no reliable geographic hint need further documentary joins. Existing nearby names are leads only.
-- **Component membership:** grouped towers, A/B subtowers, connected podiums and annexes need complete source accounting before a whole landmark can be approved.
-- **Historical/interior records:** Potato Head and other old venue names need verified host identities. Chu Hai must refer to the existing campus, not an unbuilt architectural proposal. No model should be generated from an unresolved label.
+The separate SQLite selection `landmark-identity-hks212-preparation-v2` contains **459 unique source parts across 194 identified groups**:
+
+| Source preparation state | Unique parts |
+| --- | ---: |
+| Already detailed in inventory | 133 |
+| Candidate geometry staged | 273 |
+| No usable retained model match | 45 |
+| No government source identity | 8 |
+
+The 45 unmatched source parts comprise **36 complete-sheet checked absences and nine acquired matching holds**. There are no unattempted exact-ID acquisitions in this selected set. All 326 processing jobs completed. The adapter consumed the original acquisition checkpoint plus all three verified incremental batches; 25 prior compact assets were reused. New staged assets contain **26,744,210 compressed bytes**; the complete prepared directory is **28,494,834 bytes**, under the 128 MiB ceiling. It used two workers, no AI calls and no network calls. The final cached rerun took 8.4 seconds, including 6.29 seconds of CPU validation.
+
+All 273 candidates passed CPU loading, source-triangle picking/collision and sampled terrain checks. These checks do not establish browser quality or acceptable placement. Diagnostics include 208 sampled ground gaps, 43 terrain-above-bottom flags and two highest-roof-below-terrain cases, with overlap between categories. The last two concern `landsd/186982:0` and `landsd/226248:0`.
+
+All **17 historical placement holds** remain in the ledger; seven held parts were packed for review without approval. The merged acquisition ledger retains **nine source-matching holds**, and none of those nine was staged. HKS-214 handles contextual preflight and HKS-209 retains physical reconstruction decisions. Native geometry remains at 1× scale and its original HKPD elevations. No candidates were published.
 
 ## Reproduce
 
 ```sh
 /tmp/astra-city-venv/bin/python source-scripts/city/landmark-identity/resolve.py
 /tmp/astra-city-venv/bin/python source-scripts/city/landmark-identity/validate.py
+/tmp/astra-city-venv/bin/python source-scripts/city/landmark-identity/verify_determinism.py
+/tmp/astra-city-venv/bin/python source-scripts/city/landmark-identity/stage_proposals.py check
 ```
 
-Processing used no AI or network requests; separate bounded source research is described above. Runs took approximately 3–7 seconds locally. A repeated run produced byte-identical overlay output and identical report data excluding elapsed time; see [determinism.json](../../../source-scripts/city/landmark-identity/determinism.json).
+After acquisition stability and exclusive SQLite-writer coordination:
 
-The overlay uses the existing selection `landmarks[].records` identity shape. A caller must consciously merge the proposed records, honour `replacePriorIdentity` for the three corrected groups, and preserve component/placement holds. Merely reading this overlay must not refresh or inflate the previous bulk-model staging claims.
+```sh
+/tmp/astra-city-venv/bin/python source-scripts/city/landmark-identity/stage_proposals.py run --sources-stable
+```
 
-## Controlled staging adapter
+The adapter verifies overlay input hashes, exact active database metadata, retained tile bytes, completed acquisition reports and verifier results. Reproducible ignored relative symlinks expose nested acquisition manifests to the unchanged existing cache scanner. Staged model provenance resolves to actual pinned source paths, and native source hashes remain unchanged. Generated geometry stays in ignored `prepared/` and is not a deployment asset.
 
-`stage_proposals.py check` verifies overlay evidence hashes, exact database identity and retained tile bytes without database writes. `stage_proposals.py run --sources-stable` may be used only after the coordinating acquisition agent confirms its staged manifests are stable. It merges into a separate uniquely named selection, replacing membership only for the three flagged corrected groups. It preserves all 17 holds and leaves the original registry and bulk reports untouched.
-
-The run reuses the existing cached-model pipeline with two workers, a 120 MiB model budget inside a 128 MiB total output ceiling, then performs the shared CPU checks. Local staged geometry goes in ignored `prepared/`; tracked `stage-summary.json` and `prepared-validation.json` report the actual run separately from identity discovery. Identity proposals and held models stay unapproved. No publication occurs.
-
-### Completed preparation snapshot
-
-The first controlled run completed on 8 September 2026 after both acquisition and inventory stability acknowledgements. The combined selection contains **401 unique UIDs**: 132 already detailed, 109 staged candidates, 152 without a usable retained staged match, and 8 without government identities. All 269 processing jobs completed. The 109 candidates comprise 25 prior bulk assets and 84 additional candidates; they are not added to existing model counts until separately accepted and published.
-
-All 109 passed CPU loading, source-triangle picking/collision and terrain-sampler checks. Geometry is 8,880,859 compressed bytes; the complete ignored prepared directory is 9,825,710 bytes. Packing took 2.02 seconds, CPU validation 2.51 seconds, and the end-to-end adapter 11.03 seconds. The adapter made no network requests.
-
-The 17 previous hold records remain in the ledger. The six newly acquired models that fail conservative identity/footprint matching are separately recorded and none was staged. Terrain diagnostics remain unapproved: 65 sampled ground gaps, 31 terrain-above-bottom flags and two highest-roof-below-terrain cases, with overlap between categories. The latter concern `landsd/186982:0` (Lai Tak Tsuen Block 8 Substation) and `landsd/226248:0` (Run Run Shaw Creative Media Centre); they need contextual terrain/source review before publication.
-
-These results are in [stage-summary.json](stage-summary.json) and [prepared-validation.json](prepared-validation.json). The original bulk reports are preserved as historical evidence. Identity proposals still do not establish complete component coverage or architectural acceptance.
+[Determinism evidence](../../../source-scripts/city/landmark-identity/determinism.json) recomputes in memory, proving byte-identical overlay output without disturbing pinned staging reports. The prior identity and 109-candidate preparation evidence is preserved in [snapshots/pass-1](../../../source-scripts/city/landmark-identity/snapshots/pass-1/). The original bulk reports also remain untouched.

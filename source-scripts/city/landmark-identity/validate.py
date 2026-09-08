@@ -18,7 +18,8 @@ for row in r['rows']:
  for p in row['proposedParts']:
   b=c.execute('SELECT x,z FROM buildings WHERE uid=?',(p['uid'],)).fetchone();assert (b['x'],b['z'])==(p['x'],p['z'])
   if p['decision']=='proposed-name-plus-geography':assert p['distanceMetres']<=250 and p['csuid'] and p['governmentEvidence']['inputSHA256']
- if row['state']=='historical-interior-host-unresolved':assert not row['proposedParts']
+  if p['decision']=='proposed-official-address-and-unique-government-name':assert row['aliasEvidence']['allowUniqueOfficialAddress'] and row['aliasEvidence']['sources'] and len(row['proposedParts'])==1 and p['distanceMetres'] is None
+ if row['state']in('historical-interior-host-unresolved','historical-source-conflict'):assert not row['proposedParts']
 assert tokens('Sorrento 1')==tokens('Sorrento Tower 1')
 assert tokens('Sorrento 1')!=tokens('Villas Sorrento Tower 1')
 assert tokens('Metro Town Tower 01')==tokens('Metrotown Tower 1')
@@ -30,5 +31,5 @@ assert variants('LP6 Towers 1–3, 5')[1]==[1,2,3,5]
 byid={x['id']:x for x in r['rows']}
 assert all(p['distanceMetres']>250 for name in ['harbourside','central-plaza','tall-manhattan-heights'] for p in byid[name]['rejectedCandidates'])
 assert 4 in byid['tall-grand-promenade-2-5']['missingDiscoveryNumbers']
-c.close();result=dict(passed=True,registryEntries=213,overlayEntries=len(o['landmarks']),overlayRecords=count,checks=['all input hashes','exact active government UID/CSUID/objectId/name','coordinates unchanged','new proposals geographically corroborated','no historical host fabrication','no automatic component/publication approval','same-name distant aliases excluded','Tower/Block/phase/token regressions','literal range gaps retained'],dbAccess='read-only')
+c.close();result=dict(passed=True,registryEntries=213,overlayEntries=len(o['landmarks']),overlayRecords=count,checks=['all input hashes','exact active government UID/CSUID/objectId/name','coordinates unchanged','new proposals geographically corroborated or explicit unique official-address join','no historical host fabrication','no automatic component/publication approval','same-name distant aliases excluded','Tower/Block/phase/token regressions','literal range gaps retained'],dbAccess='read-only')
 write(HERE/'validation.json',result);write(ROOT/'docs/astra-city/landmark-identity/validation.json',result);print(json.dumps(result))

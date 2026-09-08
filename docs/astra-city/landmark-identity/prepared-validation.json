@@ -1,10 +1,10 @@
 {
-  "checksPassed": 109,
-  "compressedBytes": 8880859,
+  "checksPassed": 273,
+  "compressedBytes": 26744210,
   "concerns": {
-    "sampled-ground-gap-below-model-bottom": 65,
+    "sampled-ground-gap-below-model-bottom": 208,
     "sampled-highest-roof-below-terrain": 2,
-    "sampled-terrain-above-model-bottom": 31
+    "sampled-terrain-above-model-bottom": 43
   },
   "exceptions": 0,
   "hashes": {
@@ -18,11 +18,17 @@
     "3d-viewer/city/data/terrain.json": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
     "3d-viewer/city/data/tiles/-13_1.json": "c5702641557e88491161052feee1b0fc6bc1e5238ab007bee194caf8c348050e",
     "3d-viewer/city/data/tiles/-1_-1.json": "787cdd9e1260dc92de61116cfb027b28d84d430a537ede6284f685fa8f714b13",
+    "3d-viewer/city/data/tiles/-1_-2.json": "5a2341abdd74705868aba83ac8ddabba09cd627439a8af13c9f4206bba87aa5e",
+    "3d-viewer/city/data/tiles/-1_-3.json": "5d8a0083214c55cc0965387d55f91135bebb2fd6c1bc8d37f4d88ddf2915edea",
     "3d-viewer/city/data/tiles/-1_0.json": "8a4440cd1f5a9bf927a9fd2db38ae4af7bb63901d03c6c6f045b62c0c46f5c94",
+    "3d-viewer/city/data/tiles/-1_2.json": "c59d41cb0ae24a9ac17f5182d05b897dec050d2ae259aa71cb89c8f1db34da70",
     "3d-viewer/city/data/tiles/-2_-4.json": "df76810f0b690347611308f1abdc9c4188885468dd765b5b21f7753b0a554964",
     "3d-viewer/city/data/tiles/-2_-5.json": "e2f3b7496468ea0a0ac52962cbbceeab9332279eeb665b03969c236734915f7d",
     "3d-viewer/city/data/tiles/-2_0.json": "c95c64b9e7cc45cf3677c778bca9913b8284bce9dbb8b443477283ba47e8bbaa",
+    "3d-viewer/city/data/tiles/-2_1.json": "8bc2eec4fb27c547a2ac45f26c2b26b597bb2ed43dbaf42de2a235332b122abf",
     "3d-viewer/city/data/tiles/-3_-5.json": "843de54c44ee00859e11b68d0d8ac537c119279e866f6c6ddcb522f8de94a3ed",
+    "3d-viewer/city/data/tiles/-5_-5.json": "f87553e76c7cf4fc7c79ffd599d4bc957ba89c97ee239d60b12845388a766819",
+    "3d-viewer/city/data/tiles/-6_-5.json": "4c1a2ad9dafef9b8226086f61d25849b0971a8139f9d1c074657cc9c917566bb",
     "3d-viewer/city/data/tiles/0_-1.json": "23c74c620c23567ea039f48286fbcff03144022f461c9b4da896cd0263f61341",
     "3d-viewer/city/data/tiles/0_-2.json": "0a341205ebc35d39574fce70e669652548942b53c63292896c62d206a6f59795",
     "3d-viewer/city/data/tiles/0_-3.json": "8b8e524666e2d88d317745a843b6e6f4004e0f52cc41485cba5f8a5697f2de9a",
@@ -35,28 +41,94 @@
     "3d-viewer/city/data/tiles/1_1.json": "779dbe1fe9992a17b3e31378b962ee9dfa725e8592fd83f3831c552bfb68406b",
     "3d-viewer/city/data/tiles/2_-1.json": "b17b18f48eec57527cc2a5c73c96e473443fdb8f2d313f792fe3b00526ed70a2",
     "3d-viewer/city/data/tiles/2_-2.json": "1bfa2d225a2ce719a45f6ab3e86ba493989ecd88568f8ce5c0ead134173b0594",
+    "3d-viewer/city/data/tiles/2_-3.json": "452d8b3f3c1f25ef19bddc24f103f18fb1567e045f15f5317ce40166e2ca035b",
     "3d-viewer/city/data/tiles/2_0.json": "93e543a7e61cceb8fe465c178183dca23ce8954a9ae12269f49ade94a191e058",
+    "3d-viewer/city/data/tiles/3_-2.json": "adf6eb03c9d5199be5f153428284952c64278a7122f352fa299cea1b5bb363c5",
+    "3d-viewer/city/data/tiles/3_0.json": "4918374fde3f20e3dc1472ed0fa3ad832da27aa97103a2650a4c043c27da2a25",
+    "3d-viewer/city/data/tiles/4_-1.json": "6b163062a29d00d84ee9fbe05f07babc72c880af37b8721b84ca91f326aa2cf2",
     "3d-viewer/city/data/tiles/4_-2.json": "f1f7045bb480687711ba07c2da6ed722409325b78095b222dea3a2b7db6ce031",
-    "source-scripts/city/landmark-identity/prepared/catalogue-000.json": "2d8fffb6c6861e61bf37111950aaa9fea2d4b46141cda4cfca81d6ee0a61c904",
-    "source-scripts/city/landmark-identity/prepared/catalogue-index.json": "0481463ef4d9156bdbe63c5b5070cd4e37a45b82835441f186646e016b2ea9df"
+    "3d-viewer/city/data/tiles/4_1.json": "0243a6888f88902d288329043a51a932f07a78ee783c8823a78ad3acace3806b",
+    "3d-viewer/city/data/tiles/5_-1.json": "fd66b24b19cd40960cdace8cbf48bd330e040649e77ef6a3b4e3ada0f7f3ead7",
+    "source-scripts/city/landmark-identity/prepared/catalogue-000.json": "9a0ff025bb8d794bdf0395c3ea3529055c504ff8fd7d5c5c8984b65313093cf5",
+    "source-scripts/city/landmark-identity/prepared/catalogue-index.json": "74c58097a612e928bed740c7df372d6fffe95a9179185616424afdbd6a8c20c6"
   },
   "limits": [
     "CPU loader, source-surface picking/collision and sampled terrain screening; no GPU/browser performance or architecture acceptance.",
     "Terrain flags are diagnostics, not automatic rejection: piers, overhangs, slopes and elevated infrastructure need contextual review.",
     "Sampling is not an exhaustive foundation or roof test. Native source geometry stays unchanged. No viewer publication."
   ],
-  "loaderAccepted": 109,
-  "models": 109,
-  "peakRSSBytes": 671268864,
+  "loaderAccepted": 273,
+  "models": 273,
+  "peakRSSBytes": 653508608,
   "published": false,
   "results": [
+    {
+      "compressedBytes": 42257,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B461781728701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 821584,
+      "seconds": 0.07514737500000002,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11677.55859375,
+          196.38670857747397,
+          -799.9654947916666
+        ],
+        "roofGround": 7,
+        "sampleCount": 195,
+        "sourceYBounds": [
+          30.560028076171875,
+          196.81002807617188
+        ]
+      },
+      "triangles": 2046,
+      "uid": "landsd/100073:0"
+    },
+    {
+      "compressedBytes": 1463,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B311321603601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 81832,
+      "seconds": 0.026060666999999968,
+      "terrain": {
+        "maxGround": 4.522085714285367,
+        "minGround": 4.375599999998542,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -3364.2117513020835,
+          24.44099998474121,
+          464.9108072916667
+        ],
+        "roofGround": 4.5099865141357895,
+        "sampleCount": 29,
+        "sourceYBounds": [
+          18.826000213623047,
+          24.44099998474121
+        ]
+      },
+      "triangles": 45,
+      "uid": "landsd/101093:0"
+    },
     {
       "compressedBytes": 2887,
       "concerns": [],
       "modelId": "B339871612901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 112056,
-      "seconds": 0.08837,
+      "seconds": 0.0412227079999999,
       "terrain": {
         "maxGround": 8.086410000004804,
         "minGround": 7.273128000003767,
@@ -79,12 +151,132 @@
       "uid": "landsd/101313:0"
     },
     {
+      "compressedBytes": 66020,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B438741422801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1420960,
+      "seconds": 0.023795292000000016,
+      "terrain": {
+        "maxGround": 6.891942857142681,
+        "minGround": 3.407357142849264,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9381.363932291666,
+          207.57098770141602,
+          2269.10546875
+        ],
+        "roofGround": 6.102725074405271,
+        "sampleCount": 141,
+        "sourceYBounds": [
+          35.17099380493164,
+          207.57098770141602
+        ]
+      },
+      "triangles": 3768,
+      "uid": "landsd/101343:0"
+    },
+    {
+      "compressedBytes": 41682,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B400461647101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 823160,
+      "seconds": 0.021075458000000026,
+      "terrain": {
+        "maxGround": 6.468742857141706,
+        "minGround": 5.602728571428429,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          5554.651692708333,
+          181.01233545939127,
+          6.7675781250000355
+        ],
+        "roofGround": 5.632393973214278,
+        "sampleCount": 49,
+        "sourceYBounds": [
+          18.354000091552734,
+          181.8890037536621
+        ]
+      },
+      "triangles": 1963,
+      "uid": "landsd/101502:0"
+    },
+    {
+      "compressedBytes": 63833,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439021420101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1376064,
+      "seconds": 0.01914762500000006,
+      "terrain": {
+        "maxGround": 6.548985714285777,
+        "minGround": 6.093399999999178,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9407.490885416666,
+          207.6079978942871,
+          2292.6787109375
+        ],
+        "roofGround": 6.288267299107133,
+        "sampleCount": 139,
+        "sourceYBounds": [
+          35.17100143432617,
+          207.6079978942871
+        ]
+      },
+      "triangles": 3632,
+      "uid": "landsd/101899:0"
+    },
+    {
+      "compressedBytes": 55556,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B438311420001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1195984,
+      "seconds": 0.02208187500000008,
+      "terrain": {
+        "maxGround": 8.008285714286785,
+        "minGround": 6.693085714284848,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9326.4140625,
+          209.0396588643392,
+          2295.4544270833335
+        ],
+        "roofGround": 7.611104910715937,
+        "sampleCount": 170,
+        "sourceYBounds": [
+          35.17100143432617,
+          209.0769920349121
+        ]
+      },
+      "triangles": 3054,
+      "uid": "landsd/101906:0"
+    },
+    {
       "compressedBytes": 34337,
       "concerns": [],
       "modelId": "B362731572402063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 708520,
-      "seconds": 0.03538829199999998,
+      "seconds": 0.027722541999999975,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -114,7 +306,7 @@
       "modelId": "B369431408201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 119056,
-      "seconds": 0.024562999999999988,
+      "seconds": 0.02331345900000008,
       "terrain": {
         "maxGround": 154.31699999999285,
         "minGround": 153.58620000000758,
@@ -144,7 +336,7 @@
       "modelId": "B369531407301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 98704,
-      "seconds": 0.01695170799999994,
+      "seconds": 0.016378874999999994,
       "terrain": {
         "maxGround": 155.26489999999785,
         "minGround": 153.96949999999504,
@@ -174,7 +366,7 @@
       "modelId": "B369851404901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 104552,
-      "seconds": 0.016435542000000056,
+      "seconds": 0.016194458000000054,
       "terrain": {
         "maxGround": 158.26674285715455,
         "minGround": 156.36312857143616,
@@ -202,7 +394,7 @@
       "modelId": "B310661592002063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 519424,
-      "seconds": 0.025176458999999908,
+      "seconds": 0.017094333000000007,
       "terrain": {
         "maxGround": 6.861699999998564,
         "minGround": 6.119499999999846,
@@ -225,6 +417,36 @@
       "uid": "landsd/104716:0"
     },
     {
+      "compressedBytes": 54774,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B438041417401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1163392,
+      "seconds": 0.0188207910000001,
+      "terrain": {
+        "maxGround": 8.665757142855455,
+        "minGround": 7.447085714287027,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9300.876953125,
+          209.0396588643392,
+          2319.9622395833335
+        ],
+        "roofGround": 8.296623883930238,
+        "sampleCount": 172,
+        "sourceYBounds": [
+          35.17100143432617,
+          209.0769920349121
+        ]
+      },
+      "triangles": 3000,
+      "uid": "landsd/106992:0"
+    },
+    {
       "compressedBytes": 5232,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -232,7 +454,7 @@
       "modelId": "B396942018101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 184336,
-      "seconds": 0.022602999999999953,
+      "seconds": 0.021360957999999982,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -262,7 +484,7 @@
       "modelId": "B397122018401063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 97408,
-      "seconds": 0.01652466700000002,
+      "seconds": 0.016961000000000014,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -285,6 +507,304 @@
       "uid": "landsd/107975:0"
     },
     {
+      "compressedBytes": 132133,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B310771599601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3552192,
+      "seconds": 0.0210637499999998,
+      "terrain": {
+        "maxGround": 4.937014285714497,
+        "minGround": 4.541699999999935,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -3413.8426106770835,
+          164.4230079650879,
+          501.74707031250006
+        ],
+        "roofGround": 4.703529575892844,
+        "sampleCount": 130,
+        "sourceYBounds": [
+          28.382999420166016,
+          164.4230079650879
+        ]
+      },
+      "triangles": 10028,
+      "uid": "landsd/108682:0"
+    },
+    {
+      "compressedBytes": 185382,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439801833401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 5318416,
+      "seconds": 0.03567691600000012,
+      "terrain": {
+        "maxGround": 24.3626142857147,
+        "minGround": 23.50661428571243,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9475.53515625,
+          200.0600128173828,
+          -1837.421875
+        ],
+        "roofGround": 24.19787946428579,
+        "sampleCount": 92,
+        "sourceYBounds": [
+          36.389984130859375,
+          200.0600128173828
+        ]
+      },
+      "triangles": 14202,
+      "uid": "landsd/109242:0"
+    },
+    {
+      "compressedBytes": 116102,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439511837701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3706168,
+      "seconds": 0.021457625000000008,
+      "terrain": {
+        "maxGround": 24.812228571428932,
+        "minGround": 23.98050000000194,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9442.755208333334,
+          208.8699951171875,
+          -1872.06640625
+        ],
+        "roofGround": 24.710639880951817,
+        "sampleCount": 115,
+        "sourceYBounds": [
+          36.72900390625,
+          208.8699951171875
+        ]
+      },
+      "triangles": 9699,
+      "uid": "landsd/109352:0"
+    },
+    {
+      "compressedBytes": 28760,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460481747401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 635264,
+      "seconds": 0.016780582999999977,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11553.375,
+          211.77500915527344,
+          -987.4309895833334
+        ],
+        "roofGround": 7,
+        "sampleCount": 245,
+        "sourceYBounds": [
+          36.33001708984375,
+          211.77500915527344
+        ]
+      },
+      "triangles": 1576,
+      "uid": "landsd/109587:0"
+    },
+    {
+      "compressedBytes": 32775,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460831756101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 663424,
+      "seconds": 0.017318207999999915,
+      "terrain": {
+        "maxGround": 8.858714285715791,
+        "minGround": 7.785628571427878,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11588.70703125,
+          205.55499267578125,
+          -1073.2317708333333
+        ],
+        "roofGround": 8.592336309524967,
+        "sampleCount": 245,
+        "sourceYBounds": [
+          31.05999755859375,
+          205.55499267578125
+        ]
+      },
+      "triangles": 1632,
+      "uid": "landsd/109595:0"
+    },
+    {
+      "compressedBytes": 35273,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460651751901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 703672,
+      "seconds": 0.01741241600000012,
+      "terrain": {
+        "maxGround": 7.557599999998388,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11571.092447916666,
+          212.10499572753906,
+          -1029.5813802083333
+        ],
+        "roofGround": 7.345182291667811,
+        "sampleCount": 245,
+        "sourceYBounds": [
+          36.32000732421875,
+          212.10499572753906
+        ]
+      },
+      "triangles": 1743,
+      "uid": "landsd/109600:0"
+    },
+    {
+      "compressedBytes": 30166,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460341742501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 636944,
+      "seconds": 0.017311542000000145,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11539.440104166666,
+          217.4949951171875,
+          -936.3359375
+        ],
+        "roofGround": 7,
+        "sampleCount": 240,
+        "sourceYBounds": [
+          36.1199951171875,
+          217.4949951171875
+        ]
+      },
+      "triangles": 1546,
+      "uid": "landsd/109603:0"
+    },
+    {
+      "compressedBytes": 186808,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B440031846701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 6454160,
+      "seconds": 0.024860832999999957,
+      "terrain": {
+        "maxGround": 22.610057142857613,
+        "minGround": 19.7797142857155,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9502.119791666666,
+          206.0700225830078,
+          -1961.7102864583333
+        ],
+        "roofGround": 21.495424107142753,
+        "sampleCount": 135,
+        "sourceYBounds": [
+          36.850006103515625,
+          206.0700225830078
+        ]
+      },
+      "triangles": 17482,
+      "uid": "landsd/114140:0"
+    },
+    {
+      "compressedBytes": 194174,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B440321849401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 6783472,
+      "seconds": 0.025783833999999842,
+      "terrain": {
+        "maxGround": 19.594228571427266,
+        "minGround": 15.838500000007343,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9526.572916666666,
+          205.96002197265625,
+          -2000.0540364583333
+        ],
+        "roofGround": 17.797572544641525,
+        "sampleCount": 151,
+        "sourceYBounds": [
+          36.850006103515625,
+          205.96002197265625
+        ]
+      },
+      "triangles": 18870,
+      "uid": "landsd/114166:0"
+    },
+    {
+      "compressedBytes": 87134,
+      "concerns": [],
+      "modelId": "B311521606202063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1835160,
+      "seconds": 0.019556291999999986,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 2.79612857142763,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -3337.4386393229165,
+          24.44599986076356,
+          402.2405598958333
+        ],
+        "roofGround": 3.279178292412439,
+        "sampleCount": 84,
+        "sourceYBounds": [
+          3.4769999980926514,
+          24.44599986076355
+        ]
+      },
+      "triangles": 5147,
+      "uid": "landsd/114461:0"
+    },
+    {
       "compressedBytes": 5330,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -292,7 +812,7 @@
       "modelId": "B339331574301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 138768,
-      "seconds": 0.021447625000000015,
+      "seconds": 0.02085725000000002,
       "terrain": {
         "maxGround": 54.022419999981125,
         "minGround": 50.05922600000212,
@@ -315,6 +835,336 @@
       "uid": "landsd/114964:0"
     },
     {
+      "compressedBytes": 10688,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B458861705301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 308360,
+      "seconds": 0.01737112500000012,
+      "terrain": {
+        "maxGround": 6.555799999999408,
+        "minGround": 5.9922285714286545,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11395.369791666666,
+          208.12002563476562,
+          -552.4986979166666
+        ],
+        "roofGround": 6.285751488096366,
+        "sampleCount": 126,
+        "sourceYBounds": [
+          18.59002685546875,
+          208.12002563476562
+        ]
+      },
+      "triangles": 697,
+      "uid": "landsd/122547:0"
+    },
+    {
+      "compressedBytes": 31273,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460901728001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 679400,
+      "seconds": 0.017245499999999993,
+      "terrain": {
+        "maxGround": 7.278671428571215,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11592.805989583334,
+          223.00003051757812,
+          -779.9895833333334
+        ],
+        "roofGround": 7,
+        "sampleCount": 267,
+        "sourceYBounds": [
+          30.758026123046875,
+          223.00003051757812
+        ]
+      },
+      "triangles": 1693,
+      "uid": "landsd/12661:0"
+    },
+    {
+      "compressedBytes": 10728,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B459471711801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 279232,
+      "seconds": 0.01663779199999999,
+      "terrain": {
+        "maxGround": 6.491985714284169,
+        "minGround": 5.2647285714296,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11445.674479166666,
+          193.73001098632812,
+          -612.98046875
+        ],
+        "roofGround": 5.663448660714266,
+        "sampleCount": 85,
+        "sourceYBounds": [
+          21.281005859375,
+          193.73001098632812
+        ]
+      },
+      "triangles": 588,
+      "uid": "landsd/129627:0"
+    },
+    {
+      "compressedBytes": 14274,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B459271705901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 365960,
+      "seconds": 0.016388834000000088,
+      "terrain": {
+        "maxGround": 6.255200000000855,
+        "minGround": 5.567842857142182,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11421.25,
+          208.21002197265625,
+          -558.703125
+        ],
+        "roofGround": 6.000669642857133,
+        "sampleCount": 89,
+        "sourceYBounds": [
+          18.59002685546875,
+          208.21002197265625
+        ]
+      },
+      "triangles": 853,
+      "uid": "landsd/133473:0"
+    },
+    {
+      "compressedBytes": 22536,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B311401608201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 494936,
+      "seconds": 0.016967540999999982,
+      "terrain": {
+        "maxGround": 3.901028571429208,
+        "minGround": 2.964442857143638,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -3354.56298828125,
+          193.8430118560791,
+          416.34863281250006
+        ],
+        "roofGround": 3.4376325334821445,
+        "sampleCount": 165,
+        "sourceYBounds": [
+          24.2549991607666,
+          193.8430118560791
+        ]
+      },
+      "triangles": 1171,
+      "uid": "landsd/136500:0"
+    },
+    {
+      "compressedBytes": 105209,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B310411606001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1753632,
+      "seconds": 0.019612957999999934,
+      "terrain": {
+        "maxGround": 5.013057142857008,
+        "minGround": 1.2,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -3461.8094075520835,
+          183.8559913635254,
+          439.58268229166674
+        ],
+        "roofGround": 3.3392020089234506,
+        "sampleCount": 130,
+        "sourceYBounds": [
+          34.369998931884766,
+          183.8559913635254
+        ]
+      },
+      "triangles": 4232,
+      "uid": "landsd/136678:0"
+    },
+    {
+      "compressedBytes": 82556,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B310461603001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1400696,
+      "seconds": 0.018880583000000114,
+      "terrain": {
+        "maxGround": 5.155728571427915,
+        "minGround": 4.724428571428064,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -3453.5992838541665,
+          172.74899673461914,
+          466.7298177083334
+        ],
+        "roofGround": 4.944275483630406,
+        "sampleCount": 143,
+        "sourceYBounds": [
+          34.369998931884766,
+          172.74899673461914
+        ]
+      },
+      "triangles": 3367,
+      "uid": "landsd/136682:0"
+    },
+    {
+      "compressedBytes": 10532,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B457051749501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 253384,
+      "seconds": 0.017044958999999835,
+      "terrain": {
+        "maxGround": 5.928828571429165,
+        "minGround": 5.514042857142954,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11206.575520833334,
+          226.5500030517578,
+          -991.9244791666666
+        ],
+        "roofGround": 5.6346354166661285,
+        "sampleCount": 83,
+        "sourceYBounds": [
+          32.23100280761719,
+          226.5500030517578
+        ]
+      },
+      "triangles": 501,
+      "uid": "landsd/139939:0"
+    },
+    {
+      "compressedBytes": 325358,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B412401623201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 10673292,
+      "seconds": 0.040531417000000146,
+      "terrain": {
+        "maxGround": 4.557028571428077,
+        "minGround": 3.288028571430573,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6738.355143229167,
+          217.32999229431152,
+          261.55273437500006
+        ],
+        "roofGround": 4.344926525298206,
+        "sampleCount": 76,
+        "sourceYBounds": [
+          29.3439998626709,
+          217.32999229431152
+        ]
+      },
+      "triangles": 28703,
+      "uid": "landsd/14699:0"
+    },
+    {
+      "compressedBytes": 41492,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B461731735501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 831360,
+      "seconds": 0.01904887499999995,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11676.770833333334,
+          214.78668212890625,
+          -844.4674479166666
+        ],
+        "roofGround": 7,
+        "sampleCount": 276,
+        "sourceYBounds": [
+          30.55902099609375,
+          214.94003295898438
+        ]
+      },
+      "triangles": 2072,
+      "uid": "landsd/149982:0"
+    },
+    {
+      "compressedBytes": 41990,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B461711731701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 841840,
+      "seconds": 0.017939166000000114,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11662.96484375,
+          206.34534708658853,
+          -832.1822916666666
+        ],
+        "roofGround": 7,
+        "sampleCount": 197,
+        "sourceYBounds": [
+          31.010009765625,
+          206.86199951171875
+        ]
+      },
+      "triangles": 2118,
+      "uid": "landsd/150499:0"
+    },
+    {
       "compressedBytes": 28201,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -322,7 +1172,7 @@
       "modelId": "B335511594401063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 629040,
-      "seconds": 0.020242374999999924,
+      "seconds": 0.01931862500000011,
       "terrain": {
         "maxGround": 85.27166800002193,
         "minGround": 75.15561400000053,
@@ -345,6 +1195,66 @@
       "uid": "landsd/152961:0"
     },
     {
+      "compressedBytes": 11732,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B458501706801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 304152,
+      "seconds": 0.016593374999999924,
+      "terrain": {
+        "maxGround": 6.526599999999462,
+        "minGround": 5.684199999999578,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11348.662760416666,
+          214.67001342773438,
+          -563.728515625
+        ],
+        "roofGround": 5.965838913691016,
+        "sampleCount": 105,
+        "sourceYBounds": [
+          18.59002685546875,
+          214.67001342773438
+        ]
+      },
+      "triangles": 659,
+      "uid": "landsd/156618:0"
+    },
+    {
+      "compressedBytes": 663794,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B360521726202063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 11321460,
+      "seconds": 0.043457083000000014,
+      "terrain": {
+        "maxGround": 8.082735999995853,
+        "minGround": 4.708422875198913,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          1596.3922526041667,
+          55.56299924850464,
+          -777.0309244791666
+        ],
+        "roofGround": 6.034577526760672,
+        "sampleCount": 851,
+        "sourceYBounds": [
+          5.013000011444092,
+          55.56299924850464
+        ]
+      },
+      "triangles": 32225,
+      "uid": "landsd/159863:0"
+    },
+    {
       "compressedBytes": 84767,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -352,7 +1262,7 @@
       "modelId": "B338001630801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1412784,
-      "seconds": 0.024953583000000095,
+      "seconds": 0.02519125000000008,
       "terrain": {
         "maxGround": 5.135392000004886,
         "minGround": 2.8783859999999395,
@@ -380,7 +1290,7 @@
       "modelId": "B342351793101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 497608,
-      "seconds": 0.023106291999999938,
+      "seconds": 0.02003562499999998,
       "terrain": {
         "maxGround": 5.470528571429043,
         "minGround": 5.063999999999737,
@@ -403,6 +1313,36 @@
       "uid": "landsd/168596:0"
     },
     {
+      "compressedBytes": 36121,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B337621507602063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 757976,
+      "seconds": 0.02179083300000002,
+      "terrain": {
+        "maxGround": 189.13671999999926,
+        "minGround": 164.16913600000458,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -769.1809895833334,
+          199.37899780273438,
+          1424.16796875
+        ],
+        "roofGround": 178.59907031249674,
+        "sampleCount": 269,
+        "sourceYBounds": [
+          164.50900268554688,
+          199.37899780273438
+        ]
+      },
+      "triangles": 1915,
+      "uid": "landsd/173294:0"
+    },
+    {
       "compressedBytes": 37087,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -410,7 +1350,7 @@
       "modelId": "B362721572601063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 627904,
-      "seconds": 0.018064750000000004,
+      "seconds": 0.017735916999999973,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -440,7 +1380,7 @@
       "modelId": "B370051402202063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 899216,
-      "seconds": 0.01894704200000001,
+      "seconds": 0.01865249999999992,
       "terrain": {
         "maxGround": 164.71428571428578,
         "minGround": 140.63932857143925,
@@ -470,7 +1410,7 @@
       "modelId": "B369771407802063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 879056,
-      "seconds": 0.018287500000000137,
+      "seconds": 0.018061166000000184,
       "terrain": {
         "maxGround": 158.58458571428662,
         "minGround": 142.7089428571506,
@@ -500,7 +1440,7 @@
       "modelId": "B369671409101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 2393672,
-      "seconds": 0.021000583000000007,
+      "seconds": 0.0195006249999999,
       "terrain": {
         "maxGround": 152.3433999999894,
         "minGround": 145.1306285714515,
@@ -530,7 +1470,7 @@
       "modelId": "B370201402901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 2636864,
-      "seconds": 0.041917666000000055,
+      "seconds": 0.02065408400000001,
       "terrain": {
         "maxGround": 153.22335714288795,
         "minGround": 141.6669000000079,
@@ -553,6 +1493,36 @@
       "uid": "landsd/177195:0"
     },
     {
+      "compressedBytes": 176154,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B337892100301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2743904,
+      "seconds": 0.03195216600000003,
+      "terrain": {
+        "maxGround": 16.298728571425954,
+        "minGround": 8.651871428570473,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -714.6246744791666,
+          181.37741470336914,
+          -4500.872721354167
+        ],
+        "roofGround": 12.670186941972872,
+        "sampleCount": 86,
+        "sourceYBounds": [
+          28.200000762939453,
+          181.37741470336914
+        ]
+      },
+      "triangles": 7612,
+      "uid": "landsd/178816:0"
+    },
+    {
       "compressedBytes": 82529,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -560,7 +1530,7 @@
       "modelId": "B349581546901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1828072,
-      "seconds": 0.024935375000000023,
+      "seconds": 0.022902291999999987,
       "terrain": {
         "maxGround": 26.375424000039693,
         "minGround": 6.101244000000387,
@@ -591,7 +1561,7 @@
       "modelId": "B381711537201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 74832,
-      "seconds": 0.02989670799999999,
+      "seconds": 0.027727082999999993,
       "terrain": {
         "maxGround": 73.54617142857614,
         "minGround": 64.64777142857179,
@@ -614,6 +1584,36 @@
       "uid": "landsd/186982:0"
     },
     {
+      "compressedBytes": 17614,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B378851830501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 363440,
+      "seconds": 0.022897333000000117,
+      "terrain": {
+        "maxGround": 4.372471428571089,
+        "minGround": 4.068928571427932,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          3386.65625,
+          224.48699951171875,
+          -1803.6770833333333
+        ],
+        "roofGround": 4.226339285714289,
+        "sampleCount": 74,
+        "sourceYBounds": [
+          41.00474548339844,
+          224.48699951171875
+        ]
+      },
+      "triangles": 766,
+      "uid": "landsd/196009:0"
+    },
+    {
       "compressedBytes": 260075,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -621,7 +1621,7 @@
       "modelId": "B345521825901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 3772504,
-      "seconds": 0.041322000000000116,
+      "seconds": 0.024282459000000017,
       "terrain": {
         "maxGround": 8.595857142859927,
         "minGround": 6,
@@ -651,7 +1651,7 @@
       "modelId": "B397232018501063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 80632,
-      "seconds": 0.016011040999999976,
+      "seconds": 0.016231458000000202,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -674,12 +1674,312 @@
       "uid": "landsd/20300:0"
     },
     {
+      "compressedBytes": 119541,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B347981859501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1798288,
+      "seconds": 0.04326691700000015,
+      "terrain": {
+        "maxGround": 6.673714285714766,
+        "minGround": 6.16035714285681,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          292.4462890625,
+          224.04531478881836,
+          -2097.3304036458335
+        ],
+        "roofGround": 6.426148623512461,
+        "sampleCount": 137,
+        "sourceYBounds": [
+          28.913799285888672,
+          224.04633712768555
+        ]
+      },
+      "triangles": 4746,
+      "uid": "landsd/203725:0"
+    },
+    {
+      "compressedBytes": 142872,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B348381857901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2101664,
+      "seconds": 0.020202541999999993,
+      "terrain": {
+        "maxGround": 6.451428571428266,
+        "minGround": 6,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          330.7887369791667,
+          218.12336349487305,
+          -2078.0436197916665
+        ],
+        "roofGround": 6.150623139880395,
+        "sampleCount": 129,
+        "sourceYBounds": [
+          28.91378402709961,
+          218.1274070739746
+        ]
+      },
+      "triangles": 5452,
+      "uid": "landsd/203726:0"
+    },
+    {
+      "compressedBytes": 145169,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B348771856301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2114856,
+      "seconds": 0.019536417000000028,
+      "terrain": {
+        "maxGround": 6.2190142857143655,
+        "minGround": 5.398771428571536,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          372.2955729166667,
+          212.0790901184082,
+          -2065.4615885416665
+        ],
+        "roofGround": 6,
+        "sampleCount": 134,
+        "sourceYBounds": [
+          28.913532257080078,
+          212.0790901184082
+        ]
+      },
+      "triangles": 5513,
+      "uid": "landsd/203727:0"
+    },
+    {
+      "compressedBytes": 288231,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B348671830601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 4584704,
+      "seconds": 0.022719916999999895,
+      "terrain": {
+        "maxGround": 6,
+        "minGround": 5.456457142857857,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          359.634765625,
+          222.7282943725586,
+          -1813.6809895833333
+        ],
+        "roofGround": 5.625985863094684,
+        "sampleCount": 122,
+        "sourceYBounds": [
+          24.59661102294922,
+          222.7282943725586
+        ]
+      },
+      "triangles": 11680,
+      "uid": "landsd/204143:0"
+    },
+    {
+      "compressedBytes": 275194,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B348681827101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 4338544,
+      "seconds": 0.022835875000000214,
+      "terrain": {
+        "maxGround": 6,
+        "minGround": 6,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          352.1982421875,
+          233.39992713928223,
+          -1767.34765625
+        ],
+        "roofGround": 6,
+        "sampleCount": 106,
+        "sourceYBounds": [
+          24.943185806274414,
+          233.39992713928223
+        ]
+      },
+      "triangles": 11166,
+      "uid": "landsd/204144:0"
+    },
+    {
+      "compressedBytes": 262107,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B348351824101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 4610440,
+      "seconds": 0.029935124999999972,
+      "terrain": {
+        "maxGround": 6,
+        "minGround": 6,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          352.1295572916667,
+          232.22487258911133,
+          -1749.3069661458333
+        ],
+        "roofGround": 6,
+        "sampleCount": 111,
+        "sourceYBounds": [
+          24.868061065673828,
+          232.22487258911133
+        ]
+      },
+      "triangles": 12129,
+      "uid": "landsd/204145:0"
+    },
+    {
+      "compressedBytes": 247655,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B348041823801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 4211992,
+      "seconds": 0.03148358300000018,
+      "terrain": {
+        "maxGround": 6,
+        "minGround": 6,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          310.85546875,
+          226.50830078125,
+          -1745.4765625
+        ],
+        "roofGround": 6,
+        "sampleCount": 100,
+        "sourceYBounds": [
+          24.924118041992188,
+          226.50830078125
+        ]
+      },
+      "triangles": 10887,
+      "uid": "landsd/204146:0"
+    },
+    {
+      "compressedBytes": 439923,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B347441822901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 8113208,
+      "seconds": 0.03939100000000008,
+      "terrain": {
+        "maxGround": 6.429114285713467,
+        "minGround": 6,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          263.4557291666667,
+          255.0325527191162,
+          -1719.5963541666667
+        ],
+        "roofGround": 6,
+        "sampleCount": 117,
+        "sourceYBounds": [
+          23.790517807006836,
+          255.0836696624756
+        ]
+      },
+      "triangles": 20767,
+      "uid": "landsd/204153:0"
+    },
+    {
+      "compressedBytes": 488987,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B347021823101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 8622200,
+      "seconds": 0.05967812499999991,
+      "terrain": {
+        "maxGround": 6.918764285714985,
+        "minGround": 6.415700000000641,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          218.12923177083334,
+          255.00485865275064,
+          -1717.5686848958333
+        ],
+        "roofGround": 6.491010974701851,
+        "sampleCount": 120,
+        "sourceYBounds": [
+          23.876094818115234,
+          255.08367538452148
+        ]
+      },
+      "triangles": 21967,
+      "uid": "landsd/204154:0"
+    },
+    {
+      "compressedBytes": 492968,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B346591824001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 8959648,
+      "seconds": 0.037678249999999934,
+      "terrain": {
+        "maxGround": 6.893057142856662,
+        "minGround": 6.394057142857605,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          149.51432291666666,
+          255.02365112304688,
+          -1758.7311197916667
+        ],
+        "roofGround": 6.410984002976761,
+        "sampleCount": 124,
+        "sourceYBounds": [
+          23.874313354492188,
+          255.08367919921875
+        ]
+      },
+      "triangles": 22752,
+      "uid": "landsd/204155:0"
+    },
+    {
       "compressedBytes": 287901,
       "concerns": [],
       "modelId": "B352731813501063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 4425176,
-      "seconds": 0.023645250000000034,
+      "seconds": 0.023120458999999757,
       "terrain": {
         "maxGround": 6.276428571426493,
         "minGround": 5.194671428571098,
@@ -702,6 +2002,96 @@
       "uid": "landsd/205817:0"
     },
     {
+      "compressedBytes": 20671,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B301342527701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 388952,
+      "seconds": 0.026941333000000213,
+      "terrain": {
+        "maxGround": 5.64965714285745,
+        "minGround": 4.809428571427361,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -4359.405598958333,
+          219.5936533610026,
+          -8767.166015625
+        ],
+        "roofGround": 5.4061197916661285,
+        "sampleCount": 112,
+        "sourceYBounds": [
+          23.922985076904297,
+          219.6079864501953
+        ]
+      },
+      "triangles": 823,
+      "uid": "landsd/210377:0"
+    },
+    {
+      "compressedBytes": 19125,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B244182527401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 458408,
+      "seconds": 0.028457124999999906,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 6,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10084.622395833334,
+          199.83700561523438,
+          -8773.12109375
+        ],
+        "roofGround": 7,
+        "sampleCount": 90,
+        "sourceYBounds": [
+          29.57699966430664,
+          199.83700561523438
+        ]
+      },
+      "triangles": 1045,
+      "uid": "landsd/210378:0"
+    },
+    {
+      "compressedBytes": 24537,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B242722528101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 503184,
+      "seconds": 0.024780499999999848,
+      "terrain": {
+        "maxGround": 7.1299999999988355,
+        "minGround": 7,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10227.225260456438,
+          205.30701446533203,
+          -8780.14062499164
+        ],
+        "roofGround": 7,
+        "sampleCount": 131,
+        "sourceYBounds": [
+          29.538000106811523,
+          205.30701446533203
+        ]
+      },
+      "triangles": 1166,
+      "uid": "landsd/210388:0"
+    },
+    {
       "compressedBytes": 56771,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -709,7 +2099,7 @@
       "modelId": "B358941764601063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 905264,
-      "seconds": 0.01710066599999982,
+      "seconds": 0.01891883400000006,
       "terrain": {
         "maxGround": 6.791442857143863,
         "minGround": 6.259371428572479,
@@ -739,7 +2129,7 @@
       "modelId": "B085091281101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 90512,
-      "seconds": 0.022120415999999976,
+      "seconds": 0.020541999999999918,
       "terrain": {
         "maxGround": 459.20613099999866,
         "minGround": 459.04674799999526,
@@ -769,7 +2159,7 @@
       "modelId": "B359921759701063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 180160,
-      "seconds": 0.017374833999999964,
+      "seconds": 0.01834175000000005,
       "terrain": {
         "maxGround": 5.379071428571933,
         "minGround": 5.238357142857922,
@@ -799,7 +2189,7 @@
       "modelId": "B339781574802063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 676912,
-      "seconds": 0.023142250000000104,
+      "seconds": 0.02451241600000003,
       "terrain": {
         "maxGround": 49.49847600000259,
         "minGround": 36.21270299999975,
@@ -829,7 +2219,7 @@
       "modelId": "B358831761101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 939384,
-      "seconds": 0.019657916999999997,
+      "seconds": 0.019312791999999718,
       "terrain": {
         "maxGround": 6.490528571429422,
         "minGround": 6,
@@ -852,6 +2242,36 @@
       "uid": "landsd/215119:0"
     },
     {
+      "compressedBytes": 78854,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B298442572001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2308624,
+      "seconds": 0.019011709000000338,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -4649.875,
+          194.3280029296875,
+          -9215.951171875
+        ],
+        "roofGround": 5,
+        "sampleCount": 131,
+        "sourceYBounds": [
+          38.3280029296875,
+          194.3280029296875
+        ]
+      },
+      "triangles": 5838,
+      "uid": "landsd/215992:0"
+    },
+    {
       "compressedBytes": 26152,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -859,7 +2279,7 @@
       "modelId": "B310692425401063C1",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 765624,
-      "seconds": 0.025807125000000042,
+      "seconds": 0.02485600000000022,
       "terrain": {
         "maxGround": 8,
         "minGround": 7.497885714285076,
@@ -887,7 +2307,7 @@
       "modelId": "B400301635601063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 7405672,
-      "seconds": 0.03213124999999991,
+      "seconds": 0.03317833400000018,
       "terrain": {
         "maxGround": 10.10757142857176,
         "minGround": 8.273942857142515,
@@ -910,6 +2330,246 @@
       "uid": "landsd/21661:0"
     },
     {
+      "compressedBytes": 91124,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B297422565901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2648248,
+      "seconds": 0.021240832999999838,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -4755.229166428248,
+          193.10098266601562,
+          -9154.708333810171
+        ],
+        "roofGround": 5,
+        "sampleCount": 125,
+        "sourceYBounds": [
+          38.321990966796875,
+          193.10098266601562
+        ]
+      },
+      "triangles": 6699,
+      "uid": "landsd/216991:0"
+    },
+    {
+      "compressedBytes": 81856,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B298022571301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2436640,
+      "seconds": 0.021949749999999768,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -4703.333333333333,
+          193.7480010986328,
+          -9210.827473958334
+        ],
+        "roofGround": 5,
+        "sampleCount": 134,
+        "sourceYBounds": [
+          38.32600402832031,
+          193.7480010986328
+        ]
+      },
+      "triangles": 6048,
+      "uid": "landsd/218019:0"
+    },
+    {
+      "compressedBytes": 130679,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B297712569101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2314304,
+      "seconds": 0.020134457999999994,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -4728.924479484558,
+          194.1840057373047,
+          -9195.423176765442
+        ],
+        "roofGround": 5,
+        "sampleCount": 127,
+        "sourceYBounds": [
+          38.32899475097656,
+          194.1840057373047
+        ]
+      },
+      "triangles": 5632,
+      "uid": "landsd/218095:0"
+    },
+    {
+      "compressedBytes": 122413,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B297252561301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2959096,
+      "seconds": 0.0211332910000001,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -4773.576778570811,
+          187.64700317382812,
+          -9103.303743680319
+        ],
+        "roofGround": 5,
+        "sampleCount": 128,
+        "sourceYBounds": [
+          38.321990966796875,
+          187.64700317382812
+        ]
+      },
+      "triangles": 7287,
+      "uid": "landsd/218258:0"
+    },
+    {
+      "compressedBytes": 18532,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B244272523501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 449232,
+      "seconds": 0.023031416999999693,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 6,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10077.659505208334,
+          202.53500366210938,
+          -8736.298828125
+        ],
+        "roofGround": 6,
+        "sampleCount": 90,
+        "sourceYBounds": [
+          29.57699966430664,
+          202.53500366210938
+        ]
+      },
+      "triangles": 1034,
+      "uid": "landsd/218353:0"
+    },
+    {
+      "compressedBytes": 9245,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B245282517001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 210416,
+      "seconds": 0.024497416999999588,
+      "terrain": {
+        "maxGround": 5.872750000003727,
+        "minGround": 5,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -9967.856119791666,
+          184.0679931640625,
+          -8673.240234375
+        ],
+        "roofGround": 5,
+        "sampleCount": 129,
+        "sourceYBounds": [
+          19.577999114990234,
+          184.0679931640625
+        ]
+      },
+      "triangles": 370,
+      "uid": "landsd/218650:0"
+    },
+    {
+      "compressedBytes": 14175,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B244292516201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 331576,
+      "seconds": 0.021036417000000255,
+      "terrain": {
+        "maxGround": 7.000199999997861,
+        "minGround": 6.903000000002795,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10068.322265625,
+          205.55399322509766,
+          -8660.501953125
+        ],
+        "roofGround": 7,
+        "sampleCount": 73,
+        "sourceYBounds": [
+          25.29599952697754,
+          205.55399322509766
+        ]
+      },
+      "triangles": 699,
+      "uid": "landsd/218676:0"
+    },
+    {
+      "compressedBytes": 7488,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B244822517701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 192744,
+      "seconds": 0.022552791999999953,
+      "terrain": {
+        "maxGround": 6,
+        "minGround": 5.617399999999904,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10018.604166666666,
+          183.77300008138022,
+          -8668.1875
+        ],
+        "roofGround": 6,
+        "sampleCount": 143,
+        "sourceYBounds": [
+          19.5780029296875,
+          183.77301025390625
+        ]
+      },
+      "triangles": 329,
+      "uid": "landsd/218705:0"
+    },
+    {
       "compressedBytes": 49056,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -917,7 +2577,7 @@
       "modelId": "B298102543801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1468936,
-      "seconds": 0.02786745800000017,
+      "seconds": 0.019370750000000044,
       "terrain": {
         "maxGround": 4.78849999999926,
         "minGround": 4.408185714285366,
@@ -940,12 +2600,102 @@
       "uid": "landsd/218759:0"
     },
     {
+      "compressedBytes": 7100,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B245092515401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 171360,
+      "seconds": 0.022650125000000118,
+      "terrain": {
+        "maxGround": 6,
+        "minGround": 4.954950000002292,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -9984.755208333334,
+          184.97368367513022,
+          -8656.207682291666
+        ],
+        "roofGround": 5.137239583331393,
+        "sampleCount": 92,
+        "sourceYBounds": [
+          19.577999114990234,
+          187.69601440429688
+        ]
+      },
+      "triangles": 272,
+      "uid": "landsd/218982:0"
+    },
+    {
+      "compressedBytes": 24698,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B243442530101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 546624,
+      "seconds": 0.023233749999999873,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10155.353515625,
+          202.52298736572266,
+          -8800.250651041666
+        ],
+        "roofGround": 7,
+        "sampleCount": 130,
+        "sourceYBounds": [
+          29.538000106811523,
+          202.52298736572266
+        ]
+      },
+      "triangles": 1280,
+      "uid": "landsd/219049:0"
+    },
+    {
+      "compressedBytes": 16046,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B300562530201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 309072,
+      "seconds": 0.017444041000000198,
+      "terrain": {
+        "maxGround": 4,
+        "minGround": 4,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -4431.282552083333,
+          186.62431844075522,
+          -8809.708984375
+        ],
+        "roofGround": 4,
+        "sampleCount": 77,
+        "sourceYBounds": [
+          23.921985626220703,
+          186.7329864501953
+        ]
+      },
+      "triangles": 626,
+      "uid": "landsd/219077:0"
+    },
+    {
       "compressedBytes": 23624,
       "concerns": [],
       "modelId": "B302292523101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 534160,
-      "seconds": 0.01757208300000002,
+      "seconds": 0.018010333000000173,
       "terrain": {
         "maxGround": 6.783885714285361,
         "minGround": 6.281399999999621,
@@ -968,6 +2718,96 @@
       "uid": "landsd/219092:0"
     },
     {
+      "compressedBytes": 20924,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B301082530001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 399248,
+      "seconds": 0.017398457999999666,
+      "terrain": {
+        "maxGround": 4.80941428571407,
+        "minGround": 4,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -4406.8828125,
+          219.94200134277344,
+          -8800.416666666666
+        ],
+        "roofGround": 4.252864583333917,
+        "sampleCount": 129,
+        "sourceYBounds": [
+          23.922992706298828,
+          220.0500030517578
+        ]
+      },
+      "triangles": 850,
+      "uid": "landsd/219114:0"
+    },
+    {
+      "compressedBytes": 25861,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B243072529301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 550840,
+      "seconds": 0.02300545800000009,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10192.111979166666,
+          205.18201446533203,
+          -8792.125000158945
+        ],
+        "roofGround": 7,
+        "sampleCount": 134,
+        "sourceYBounds": [
+          29.538000106811523,
+          205.18201446533203
+        ]
+      },
+      "triangles": 1299,
+      "uid": "landsd/219126:0"
+    },
+    {
+      "compressedBytes": 17898,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B244302520301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 439600,
+      "seconds": 0.022366540999999872,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 6,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10074.414713541666,
+          205.42098999023438,
+          -8699.677734375
+        ],
+        "roofGround": 6.377962239581393,
+        "sampleCount": 105,
+        "sourceYBounds": [
+          29.57699966430664,
+          205.42098999023438
+        ]
+      },
+      "triangles": 1014,
+      "uid": "landsd/219139:0"
+    },
+    {
       "compressedBytes": 53160,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -975,7 +2815,7 @@
       "modelId": "B298262539801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1530496,
-      "seconds": 0.019544624999999996,
+      "seconds": 0.01976708299999973,
       "terrain": {
         "maxGround": 4.916428571427218,
         "minGround": 4.319000000001097,
@@ -998,6 +2838,36 @@
       "uid": "landsd/219163:0"
     },
     {
+      "compressedBytes": 23154,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B243822530101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 534104,
+      "seconds": 0.023444290999999794,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -10117.544921875,
+          199.66900634765625,
+          -8799.785807291666
+        ],
+        "roofGround": 7,
+        "sampleCount": 130,
+        "sourceYBounds": [
+          29.57699966430664,
+          199.66900634765625
+        ]
+      },
+      "triangles": 1255,
+      "uid": "landsd/219821:0"
+    },
+    {
       "compressedBytes": 72879,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -1005,7 +2875,7 @@
       "modelId": "B441831851001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1584552,
-      "seconds": 0.025834625000000187,
+      "seconds": 0.024199625000000197,
       "terrain": {
         "maxGround": 10.916148571434235,
         "minGround": 8,
@@ -1035,7 +2905,7 @@
       "modelId": "B340231490701063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 549144,
-      "seconds": 0.019469542000000048,
+      "seconds": 0.020306833000000097,
       "terrain": {
         "maxGround": 228.57035487000786,
         "minGround": 220.59570387032974,
@@ -1065,7 +2935,7 @@
       "modelId": "B351171518501063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 69392,
-      "seconds": 0.018114124999999832,
+      "seconds": 0.020175042000000303,
       "terrain": {
         "maxGround": 48.904147999997015,
         "minGround": 48.55729599998749,
@@ -1095,7 +2965,7 @@
       "modelId": "B350511521801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 74696,
-      "seconds": 0.01830975000000012,
+      "seconds": 0.01954325000000017,
       "terrain": {
         "maxGround": 43.10098599998606,
         "minGround": 40.993935999980614,
@@ -1118,6 +2988,66 @@
       "uid": "landsd/223783:0"
     },
     {
+      "compressedBytes": 65296,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439361416801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1364112,
+      "seconds": 0.020243999999999686,
+      "terrain": {
+        "maxGround": 6.857620000001657,
+        "minGround": 4.579040000003317,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9442.943359375,
+          206.8319969177246,
+          2330.0543619791665
+        ],
+        "roofGround": 5.85453683035455,
+        "sampleCount": 152,
+        "sourceYBounds": [
+          35.17100143432617,
+          206.8319969177246
+        ]
+      },
+      "triangles": 3578,
+      "uid": "landsd/225895:0"
+    },
+    {
+      "compressedBytes": 64454,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439661414001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1432648,
+      "seconds": 0.02062033399999973,
+      "terrain": {
+        "maxGround": 6.535128571429027,
+        "minGround": 5.912857142856955,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9466.781901041666,
+          206.85699081420898,
+          2353.9388020833335
+        ],
+        "roofGround": 6.367401413691027,
+        "sampleCount": 162,
+        "sourceYBounds": [
+          35.17100143432617,
+          206.85699081420898
+        ]
+      },
+      "triangles": 3837,
+      "uid": "landsd/225917:0"
+    },
+    {
       "compressedBytes": 738,
       "concerns": [
         "sampled-highest-roof-below-terrain",
@@ -1126,7 +3056,7 @@
       "modelId": "B354712235601063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 68816,
-      "seconds": 0.04266287499999998,
+      "seconds": 0.042972541999999975,
       "terrain": {
         "maxGround": 86.80331428570906,
         "minGround": 85.83078571428439,
@@ -1154,7 +3084,7 @@
       "modelId": "B396952015602063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 199696,
-      "seconds": 0.016943917000000055,
+      "seconds": 0.017368249999999988,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -1177,12 +3107,102 @@
       "uid": "landsd/228434:0"
     },
     {
+      "compressedBytes": 18610,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B412501926402063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 471352,
+      "seconds": 0.02772583399999985,
+      "terrain": {
+        "maxGround": 13.105428571427069,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6715.44921875,
+          82.02000045776369,
+          -2789.1276041666665
+        ],
+        "roofGround": 6.891555059521579,
+        "sampleCount": 71,
+        "sourceYBounds": [
+          4.800000190734863,
+          82.02000045776367
+        ]
+      },
+      "triangles": 1383,
+      "uid": "landsd/230744:0"
+    },
+    {
+      "compressedBytes": 10155,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B456621748601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 260368,
+      "seconds": 0.018029500000000098,
+      "terrain": {
+        "maxGround": 6.026785714285666,
+        "minGround": 5.456071428572102,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11154.725260416666,
+          229.7899932861328,
+          -991.3515625
+        ],
+        "roofGround": 5.8803757440481945,
+        "sampleCount": 79,
+        "sourceYBounds": [
+          32.0989990234375,
+          229.7899932861328
+        ]
+      },
+      "triangles": 522,
+      "uid": "landsd/231977:0"
+    },
+    {
+      "compressedBytes": 74677,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B317781292301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1656104,
+      "seconds": 0.0368308750000001,
+      "terrain": {
+        "maxGround": 46.330799999997964,
+        "minGround": 43.96707142857389,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -2720.0263671875,
+          192.1399917602539,
+          3585.5947265625
+        ],
+        "roofGround": 45.23037109374991,
+        "sampleCount": 3954,
+        "sourceYBounds": [
+          34.861000061035156,
+          192.1399917602539
+        ]
+      },
+      "triangles": 4465,
+      "uid": "landsd/23236:0"
+    },
+    {
       "compressedBytes": 4878,
       "concerns": [],
       "modelId": "B364211560002063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 153440,
-      "seconds": 0.01709225000000015,
+      "seconds": 0.020838374999999815,
       "terrain": {
         "maxGround": 5.5668571428578275,
         "minGround": 5,
@@ -1212,7 +3232,7 @@
       "modelId": "B368531583702063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 504728,
-      "seconds": 0.019043333000000075,
+      "seconds": 0.019265459000000193,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -1242,7 +3262,7 @@
       "modelId": "B340221491202063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 452440,
-      "seconds": 0.01947799999999984,
+      "seconds": 0.020056124999999612,
       "terrain": {
         "maxGround": 230.98241041399322,
         "minGround": 215.19699016841471,
@@ -1265,6 +3285,36 @@
       "uid": "landsd/232907:0"
     },
     {
+      "compressedBytes": 76978,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B317731289101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1650880,
+      "seconds": 0.019934749999999894,
+      "terrain": {
+        "maxGround": 45.06530000000504,
+        "minGround": 42.9386999999989,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -2725.0774739583335,
+          192.1399917602539,
+          3605.25732421875
+        ],
+        "roofGround": 44.24225260416296,
+        "sampleCount": 210,
+        "sourceYBounds": [
+          34.861000061035156,
+          192.1399917602539
+        ]
+      },
+      "triangles": 4476,
+      "uid": "landsd/23301:0"
+    },
+    {
       "compressedBytes": 195634,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -1272,7 +3322,7 @@
       "modelId": "B344281572002063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 2826280,
-      "seconds": 0.025152624999999942,
+      "seconds": 0.02627212499999996,
       "terrain": {
         "maxGround": 7.274299599999565,
         "minGround": 3.8599820000040412,
@@ -1300,7 +3350,7 @@
       "modelId": "B378501657702063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 345464,
-      "seconds": 0.023956666999999925,
+      "seconds": 0.018709541000000173,
       "terrain": {
         "maxGround": 5.753857142857385,
         "minGround": 5.059285714286034,
@@ -1323,6 +3373,64 @@
       "uid": "landsd/234593:0"
     },
     {
+      "compressedBytes": 19560,
+      "concerns": [],
+      "modelId": "B353641984501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 338504,
+      "seconds": 0.01844841699999961,
+      "terrain": {
+        "maxGround": 5.325185714286192,
+        "minGround": 5.18858571428575,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          859.7255859375,
+          11.683199882507324,
+          -3348.8434244791665
+        ],
+        "roofGround": 5.325348772321433,
+        "sampleCount": 33,
+        "sourceYBounds": [
+          4.777100086212158,
+          11.683199882507324
+        ]
+      },
+      "triangles": 745,
+      "uid": "landsd/235506:0"
+    },
+    {
+      "compressedBytes": 82356,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B348521825401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1327496,
+      "seconds": 0.02172195899999997,
+      "terrain": {
+        "maxGround": 6,
+        "minGround": 6,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          344.0478515625,
+          172.42819213867188,
+          -1764.6617838541667
+        ],
+        "roofGround": 6,
+        "sampleCount": 202,
+        "sourceYBounds": [
+          137.1112823486328,
+          172.42819213867188
+        ]
+      },
+      "triangles": 3541,
+      "uid": "landsd/236111:0"
+    },
+    {
       "compressedBytes": 50180,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -1330,7 +3438,7 @@
       "modelId": "B350321534202063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1089072,
-      "seconds": 0.020354291999999986,
+      "seconds": 0.02172287499999993,
       "terrain": {
         "maxGround": 31.90857800000045,
         "minGround": 18.643123999997496,
@@ -1353,6 +3461,64 @@
       "uid": "landsd/236189:0"
     },
     {
+      "compressedBytes": 1488,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B311741604601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 82256,
+      "seconds": 0.017393374999999652,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 4.72428571428668,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -3323.1193033854165,
+          24.444000244140625,
+          458.5048828125
+        ],
+        "roofGround": 5,
+        "sampleCount": 34,
+        "sourceYBounds": [
+          18.826000213623047,
+          24.444000244140625
+        ]
+      },
+      "triangles": 46,
+      "uid": "landsd/237200:0"
+    },
+    {
+      "compressedBytes": 2105,
+      "concerns": [],
+      "modelId": "B410381924901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 95136,
+      "seconds": 0.019577084000000012,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6519.122395833333,
+          196.22798919677734,
+          -2761.8509114583335
+        ],
+        "roofGround": 5,
+        "sampleCount": 36,
+        "sourceYBounds": [
+          4.664682388305664,
+          196.22798919677734
+        ]
+      },
+      "triangles": 104,
+      "uid": "landsd/239382:0"
+    },
+    {
       "compressedBytes": 41461,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -1360,7 +3526,7 @@
       "modelId": "B358171750401063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 726232,
-      "seconds": 0.01777366699999993,
+      "seconds": 0.019049833000000037,
       "terrain": {
         "maxGround": 5.012756400799888,
         "minGround": 5,
@@ -1383,6 +3549,36 @@
       "uid": "landsd/239664:0"
     },
     {
+      "compressedBytes": 529536,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B360561723301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 9582520,
+      "seconds": 0.03181679099999974,
+      "terrain": {
+        "maxGround": 7.234488000000375,
+        "minGround": 1.3778600000019408,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          1627.5921223958333,
+          109.3380012512207,
+          -758.5016276041666
+        ],
+        "roofGround": 5.461954307158939,
+        "sampleCount": 460,
+        "sourceYBounds": [
+          42.26919937133789,
+          109.3380012512207
+        ]
+      },
+      "triangles": 27699,
+      "uid": "landsd/239721:0"
+    },
+    {
       "compressedBytes": 68994,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -1390,7 +3586,7 @@
       "modelId": "B346742063901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1222536,
-      "seconds": 0.018091457999999876,
+      "seconds": 0.018970291999999972,
       "terrain": {
         "maxGround": 8.131199999998444,
         "minGround": 6.744914285712184,
@@ -1413,6 +3609,244 @@
       "uid": "landsd/242294:0"
     },
     {
+      "compressedBytes": 44651,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B461011718101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 910976,
+      "seconds": 0.020159834000000047,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 6.954385714286161,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11586.33203125,
+          208.74735514322916,
+          -692.2513020833334
+        ],
+        "roofGround": 7,
+        "sampleCount": 265,
+        "sourceYBounds": [
+          30.67901611328125,
+          209.030029296875
+        ]
+      },
+      "triangles": 2344,
+      "uid": "landsd/243336:0"
+    },
+    {
+      "compressedBytes": 37378,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B461221715301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 728024,
+      "seconds": 0.018751333000000158,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 6.53197142857158,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11627.9453125,
+          208.57003784179688,
+          -647.5234375
+        ],
+        "roofGround": 6.714620535714289,
+        "sampleCount": 278,
+        "sourceYBounds": [
+          30.680023193359375,
+          208.80001831054688
+        ]
+      },
+      "triangles": 1807,
+      "uid": "landsd/243337:0"
+    },
+    {
+      "compressedBytes": 46843,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B461491711001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 969552,
+      "seconds": 0.019192333999999846,
+      "terrain": {
+        "maxGround": 7.09521428571486,
+        "minGround": 6.530657142856398,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11635.744791666666,
+          209.04334513346353,
+          -629.513671875
+        ],
+        "roofGround": 6.617782738094661,
+        "sampleCount": 298,
+        "sourceYBounds": [
+          30.680023193359375,
+          209.32003784179688
+        ]
+      },
+      "triangles": 2510,
+      "uid": "landsd/243508:0"
+    },
+    {
+      "compressedBytes": 43061,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B461841710901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 880840,
+      "seconds": 0.019300917000000025,
+      "terrain": {
+        "maxGround": 7.608171428572064,
+        "minGround": 7.018871428571401,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11678.967447916666,
+          193.37002563476562,
+          -612.0598958333334
+        ],
+        "roofGround": 7.235249255951771,
+        "sampleCount": 267,
+        "sourceYBounds": [
+          30.680023193359375,
+          193.59002685546875
+        ]
+      },
+      "triangles": 2217,
+      "uid": "landsd/243509:0"
+    },
+    {
+      "compressedBytes": 37957,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460851724001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 836784,
+      "seconds": 0.01989420899999959,
+      "terrain": {
+        "maxGround": 7.3482285714292175,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11591.169270833334,
+          222.96002197265625,
+          -736.1009114583334
+        ],
+        "roofGround": 7,
+        "sampleCount": 237,
+        "sourceYBounds": [
+          30.756011962890625,
+          222.97000122070312
+        ]
+      },
+      "triangles": 2174,
+      "uid": "landsd/243510:0"
+    },
+    {
+      "compressedBytes": 34047,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B461011731801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 717504,
+      "seconds": 0.020567792000000282,
+      "terrain": {
+        "maxGround": 7.099971428571735,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11607.369791666666,
+          223.10000610351562,
+          -816.0305989583334
+        ],
+        "roofGround": 7,
+        "sampleCount": 161,
+        "sourceYBounds": [
+          30.7550048828125,
+          223.10000610351562
+        ]
+      },
+      "triangles": 1808,
+      "uid": "landsd/243511:0"
+    },
+    {
+      "compressedBytes": 134404,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B440861843301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 4260648,
+      "seconds": 0.02423550000000023,
+      "terrain": {
+        "maxGround": 22.468757142864376,
+        "minGround": 16.74689999999208,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9582.0703125,
+          214.5,
+          -1936.1171875
+        ],
+        "roofGround": 20.275781250000307,
+        "sampleCount": 92,
+        "sourceYBounds": [
+          36.240997314453125,
+          214.5
+        ]
+      },
+      "triangles": 11957,
+      "uid": "landsd/243523:0"
+    },
+    {
+      "compressedBytes": 47977,
+      "concerns": [],
+      "modelId": "B357612003402063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 772848,
+      "seconds": 0.024264208000000054,
+      "terrain": {
+        "maxGround": 7.188457142857715,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          1256.7275390625,
+          29.13620042800903,
+          -3518.4365234375
+        ],
+        "roofGround": 7,
+        "sampleCount": 53,
+        "sourceYBounds": [
+          5.7519001960754395,
+          29.136200428009033
+        ]
+      },
+      "triangles": 1934,
+      "uid": "landsd/244632:0"
+    },
+    {
       "compressedBytes": 100414,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -1420,7 +3854,7 @@
       "modelId": "B354052233801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1558600,
-      "seconds": 0.021234791000000086,
+      "seconds": 0.02774262499999986,
       "terrain": {
         "maxGround": 91.7300285714108,
         "minGround": 82.01419999999939,
@@ -1450,7 +3884,7 @@
       "modelId": "B341841641401063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1429024,
-      "seconds": 0.02553449999999998,
+      "seconds": 0.023491874999999707,
       "terrain": {
         "maxGround": 11.497966000006087,
         "minGround": 7.19770000000205,
@@ -1480,7 +3914,7 @@
       "modelId": "B347772070301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 3109072,
-      "seconds": 0.02321804199999997,
+      "seconds": 0.022700667000000067,
       "terrain": {
         "maxGround": 7.693314285716042,
         "minGround": 6.018571428568748,
@@ -1510,7 +3944,7 @@
       "modelId": "B334861471201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 10905916,
-      "seconds": 0.046656084000000195,
+      "seconds": 0.034495833000000406,
       "terrain": {
         "maxGround": 398.2453999999963,
         "minGround": 386.8828428571214,
@@ -1533,6 +3967,36 @@
       "uid": "landsd/248218:0"
     },
     {
+      "compressedBytes": 12244,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B459321710801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 304392,
+      "seconds": 0.019123916000000008,
+      "terrain": {
+        "maxGround": 6.099114285712062,
+        "minGround": 5.020485714285883,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11436.442708333334,
+          193.73001098632812,
+          -614.9622395833334
+        ],
+        "roofGround": 5.748381696430215,
+        "sampleCount": 83,
+        "sourceYBounds": [
+          21.281005859375,
+          193.73001098632812
+        ]
+      },
+      "triangles": 653,
+      "uid": "landsd/250822:0"
+    },
+    {
       "compressedBytes": 112249,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -1540,7 +4004,7 @@
       "modelId": "B354371818201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1714016,
-      "seconds": 0.01987129200000004,
+      "seconds": 0.01988991699999997,
       "terrain": {
         "maxGround": 13.7655142857177,
         "minGround": 12.344914285712207,
@@ -1570,7 +4034,7 @@
       "modelId": "B354021816101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1580824,
-      "seconds": 0.018765709000000016,
+      "seconds": 0.019932124999999815,
       "terrain": {
         "maxGround": 13.481614285712453,
         "minGround": 12.049300000003313,
@@ -1600,7 +4064,7 @@
       "modelId": "B353851812301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1279488,
-      "seconds": 0.018181749999999965,
+      "seconds": 0.01983100000000013,
       "terrain": {
         "maxGround": 12.343057142860062,
         "minGround": 9.056800000003818,
@@ -1630,7 +4094,7 @@
       "modelId": "B363612585301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 637656,
-      "seconds": 0.02676299999999992,
+      "seconds": 0.02701983399999972,
       "terrain": {
         "maxGround": 27.28516428571396,
         "minGround": 22.941828571446194,
@@ -1658,7 +4122,7 @@
       "modelId": "B362772578901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 650152,
-      "seconds": 0.01768275000000017,
+      "seconds": 0.018339082999999846,
       "terrain": {
         "maxGround": 27.93088571428592,
         "minGround": 27.248342857142347,
@@ -1686,7 +4150,7 @@
       "modelId": "B363172581801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 680064,
-      "seconds": 0.018413583000000018,
+      "seconds": 0.018569291000000248,
       "terrain": {
         "maxGround": 27.775357142857445,
         "minGround": 27.09281428571387,
@@ -1714,7 +4178,7 @@
       "modelId": "B362372577101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 534056,
-      "seconds": 0.018300500000000056,
+      "seconds": 0.01915812499999993,
       "terrain": {
         "maxGround": 27.9993071428583,
         "minGround": 26.8159142857117,
@@ -1737,6 +4201,156 @@
       "uid": "landsd/251925:0"
     },
     {
+      "compressedBytes": 2251,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B409481928101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 102824,
+      "seconds": 0.017432416999999988,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6457.341145833333,
+          196.32332611083984,
+          -2787.412109375
+        ],
+        "roofGround": 5,
+        "sampleCount": 47,
+        "sourceYBounds": [
+          28.993000030517578,
+          196.3239974975586
+        ]
+      },
+      "triangles": 121,
+      "uid": "landsd/253420:0"
+    },
+    {
+      "compressedBytes": 126071,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B341291983601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2021024,
+      "seconds": 0.022097792000000026,
+      "terrain": {
+        "maxGround": 6.274714285714026,
+        "minGround": 5.9204571428558666,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -366.9176432291667,
+          187.07146453857422,
+          -3326.365234375
+        ],
+        "roofGround": 5.951367187500068,
+        "sampleCount": 98,
+        "sourceYBounds": [
+          46.231163024902344,
+          187.07146453857422
+        ]
+      },
+      "triangles": 5332,
+      "uid": "landsd/253887:0"
+    },
+    {
+      "compressedBytes": 138081,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B340511983501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2154104,
+      "seconds": 0.020195458000000145,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 4.530185714294078,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -447.2255859375,
+          186.94908905029297,
+          -3326.5247395833335
+        ],
+        "roofGround": 6.940350632442744,
+        "sampleCount": 112,
+        "sourceYBounds": [
+          46.231163024902344,
+          186.94908905029297
+        ]
+      },
+      "triangles": 5599,
+      "uid": "landsd/253888:0"
+    },
+    {
+      "compressedBytes": 113274,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B340901983601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1766512,
+      "seconds": 0.01989470799999981,
+      "terrain": {
+        "maxGround": 6.81075714285754,
+        "minGround": 6.1996714285740495,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -414.6901041666667,
+          187.1229476928711,
+          -3327.0087890625
+        ],
+        "roofGround": 6.503218005951851,
+        "sampleCount": 98,
+        "sourceYBounds": [
+          46.231163024902344,
+          187.1229476928711
+        ]
+      },
+      "triangles": 4518,
+      "uid": "landsd/253889:0"
+    },
+    {
+      "compressedBytes": 87342,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B370641550901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1898928,
+      "seconds": 0.025601332999999612,
+      "terrain": {
+        "maxGround": 9,
+        "minGround": 8.352828571429882,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          2542.3489583333335,
+          246.30198669433594,
+          1008.7415364583334
+        ],
+        "roofGround": 8.424255952382055,
+        "sampleCount": 37,
+        "sourceYBounds": [
+          31.456985473632812,
+          246.30198669433594
+        ]
+      },
+      "triangles": 5006,
+      "uid": "landsd/254823:0"
+    },
+    {
       "compressedBytes": 66129,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -1744,7 +4358,7 @@
       "modelId": "B339771574301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1494464,
-      "seconds": 0.02321895799999993,
+      "seconds": 0.02784195899999986,
       "terrain": {
         "maxGround": 49.49847600000259,
         "minGround": 36.21269800000009,
@@ -1774,7 +4388,7 @@
       "modelId": "B350731533301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 2169224,
-      "seconds": 0.023117499999999836,
+      "seconds": 0.023168041999999788,
       "terrain": {
         "maxGround": 32.65557999999658,
         "minGround": 20.78072000000044,
@@ -1804,7 +4418,7 @@
       "modelId": "B318101623201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1790832,
-      "seconds": 0.019140124999999897,
+      "seconds": 0.019785167000000457,
       "terrain": {
         "maxGround": 56.38097142857242,
         "minGround": 42.47734285714398,
@@ -1834,7 +4448,7 @@
       "modelId": "B359481578101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 959960,
-      "seconds": 0.018510417000000418,
+      "seconds": 0.019436499999999798,
       "terrain": {
         "maxGround": 3.9422799999965354,
         "minGround": 3.865996000000508,
@@ -1865,7 +4479,7 @@
       "modelId": "B317131620701063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1814536,
-      "seconds": 0.019017499999999927,
+      "seconds": 0.019766999999999826,
       "terrain": {
         "maxGround": 58.85071428572786,
         "minGround": 45.86259999998134,
@@ -1896,7 +4510,7 @@
       "modelId": "B318421620401063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1682280,
-      "seconds": 0.01951287500000035,
+      "seconds": 0.021248042000000168,
       "terrain": {
         "maxGround": 59.78837142856821,
         "minGround": 44.732271428546824,
@@ -1926,7 +4540,7 @@
       "modelId": "B317561619501063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1843784,
-      "seconds": 0.02046208400000023,
+      "seconds": 0.021558916999999383,
       "terrain": {
         "maxGround": 62.69565714285551,
         "minGround": 58.21524285713821,
@@ -1956,7 +4570,7 @@
       "modelId": "B317671631701063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1561616,
-      "seconds": 0.018873458999999912,
+      "seconds": 0.020256624999999986,
       "terrain": {
         "maxGround": 36.60594285714569,
         "minGround": 21.56738571427104,
@@ -1986,7 +4600,7 @@
       "modelId": "B317891628001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1780344,
-      "seconds": 0.018980791999999837,
+      "seconds": 0.020980332999999518,
       "terrain": {
         "maxGround": 49.82102857142945,
         "minGround": 34.430514285726076,
@@ -2009,6 +4623,126 @@
       "uid": "landsd/256386:0"
     },
     {
+      "compressedBytes": 131490,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B341481984001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1937048,
+      "seconds": 0.022277374999999666,
+      "terrain": {
+        "maxGround": 6.3681571428564325,
+        "minGround": 5.985471428569838,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -351.0979817708333,
+          187.06807708740234,
+          -3330.8160807291665
+        ],
+        "roofGround": 6.047372581844684,
+        "sampleCount": 94,
+        "sourceYBounds": [
+          46.231163024902344,
+          187.06807708740234
+        ]
+      },
+      "triangles": 4999,
+      "uid": "landsd/256926:0"
+    },
+    {
+      "compressedBytes": 145944,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B341651984901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2163472,
+      "seconds": 0.02045904100000007,
+      "terrain": {
+        "maxGround": 6.487271428572228,
+        "minGround": 6.131399999999644,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -328.90625,
+          187.04857635498047,
+          -3343.66796875
+        ],
+        "roofGround": 6.230970982142878,
+        "sampleCount": 115,
+        "sourceYBounds": [
+          46.231163024902344,
+          187.04857635498047
+        ]
+      },
+      "triangles": 5490,
+      "uid": "landsd/256929:0"
+    },
+    {
+      "compressedBytes": 119782,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B340691983501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1883768,
+      "seconds": 0.02020770900000025,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 6.4796142857172185,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -426.0130208333333,
+          187.04976654052734,
+          -3326.3444010416665
+        ],
+        "roofGround": 6.627008928569808,
+        "sampleCount": 102,
+        "sourceYBounds": [
+          46.231163024902344,
+          187.04976654052734
+        ]
+      },
+      "triangles": 4903,
+      "uid": "landsd/256930:0"
+    },
+    {
+      "compressedBytes": 121806,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B341091983601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1910168,
+      "seconds": 0.020929665999999996,
+      "terrain": {
+        "maxGround": 6.515471428571175,
+        "minGround": 5.936942857141332,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -385.8916015625,
+          187.1233139038086,
+          -3326.4309895833335
+        ],
+        "roofGround": 6.058793712799741,
+        "sampleCount": 96,
+        "sourceYBounds": [
+          46.231163024902344,
+          187.1233139038086
+        ]
+      },
+      "triangles": 4975,
+      "uid": "landsd/256931:0"
+    },
+    {
       "compressedBytes": 77105,
       "concerns": [
         "sampled-terrain-above-model-bottom",
@@ -2017,7 +4751,7 @@
       "modelId": "B331581583702063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1772920,
-      "seconds": 0.024454791999999996,
+      "seconds": 0.02623712499999965,
       "terrain": {
         "maxGround": 178.9409499999077,
         "minGround": 140.11896199999725,
@@ -2040,6 +4774,156 @@
       "uid": "landsd/257313:0"
     },
     {
+      "compressedBytes": 74279,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B327012167101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1196720,
+      "seconds": 0.019058457999999518,
+      "terrain": {
+        "maxGround": 9.077042857143454,
+        "minGround": 8.529285714284697,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1794.080078125,
+          196.1600284576416,
+          -5168.971354166667
+        ],
+        "roofGround": 9.069875372023262,
+        "sampleCount": 293,
+        "sourceYBounds": [
+          3.967294692993164,
+          196.1600284576416
+        ]
+      },
+      "triangles": 3142,
+      "uid": "landsd/259967:0"
+    },
+    {
+      "compressedBytes": 11495,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B459881711901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 292208,
+      "seconds": 0.017909292000000278,
+      "terrain": {
+        "maxGround": 6.137328571428668,
+        "minGround": 5.5231571428577695,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11484.692708333334,
+          184.43002319335938,
+          -614.1666666666666
+        ],
+        "roofGround": 5.697991071428589,
+        "sampleCount": 95,
+        "sourceYBounds": [
+          21.27801513671875,
+          184.43002319335938
+        ]
+      },
+      "triangles": 622,
+      "uid": "landsd/260457:0"
+    },
+    {
+      "compressedBytes": 10552,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460211709401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 274624,
+      "seconds": 0.018070292000000335,
+      "terrain": {
+        "maxGround": 6.118471428570672,
+        "minGround": 5.857342857142328,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11516.817708333334,
+          181.93002319335938,
+          -592.61328125
+        ],
+        "roofGround": 5.988634672619526,
+        "sampleCount": 85,
+        "sourceYBounds": [
+          21.279022216796875,
+          181.93002319335938
+        ]
+      },
+      "triangles": 576,
+      "uid": "landsd/262438:0"
+    },
+    {
+      "compressedBytes": 12721,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B458201710401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 308152,
+      "seconds": 0.01758220799999981,
+      "terrain": {
+        "maxGround": 6.092442857143112,
+        "minGround": 5.656399999999678,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11317.565104166666,
+          214.6500244140625,
+          -608.0729166666666
+        ],
+        "roofGround": 5.92764136904816,
+        "sampleCount": 105,
+        "sourceYBounds": [
+          18.59002685546875,
+          214.6500244140625
+        ]
+      },
+      "triangles": 651,
+      "uid": "landsd/262524:0"
+    },
+    {
+      "compressedBytes": 8867,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B456451747801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 242144,
+      "seconds": 0.018169584000000214,
+      "terrain": {
+        "maxGround": 6.006171428570212,
+        "minGround": 5.57128571428558,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11157.044270833334,
+          229.7899932861328,
+          -983.7252604166666
+        ],
+        "roofGround": 5.7382998511893675,
+        "sampleCount": 80,
+        "sourceYBounds": [
+          32.23699951171875,
+          229.7899932861328
+        ]
+      },
+      "triangles": 484,
+      "uid": "landsd/262679:0"
+    },
+    {
       "compressedBytes": 262330,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -2047,7 +4931,7 @@
       "modelId": "B347532069102063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 3857112,
-      "seconds": 0.02659804099999974,
+      "seconds": 0.023479959000000234,
       "terrain": {
         "maxGround": 8.663428571427858,
         "minGround": 5.756199999998444,
@@ -2077,7 +4961,7 @@
       "modelId": "B340301489302063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 244648,
-      "seconds": 0.01903666599999997,
+      "seconds": 0.020789208999999573,
       "terrain": {
         "maxGround": 236.1182879659731,
         "minGround": 220.59570387032974,
@@ -2107,7 +4991,7 @@
       "modelId": "B340061490801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 77896,
-      "seconds": 0.01906783299999961,
+      "seconds": 0.01982683300000008,
       "terrain": {
         "maxGround": 222.24252628337544,
         "minGround": 217.9537009547777,
@@ -2137,7 +5021,7 @@
       "modelId": "B356831508801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 70472,
-      "seconds": 0.019868041000000176,
+      "seconds": 0.02048841699999957,
       "terrain": {
         "maxGround": 9.186479999995791,
         "minGround": 8.4,
@@ -2168,7 +5052,7 @@
       "modelId": "B349751534801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 2027424,
-      "seconds": 0.021456625000000257,
+      "seconds": 0.02796216699999968,
       "terrain": {
         "maxGround": 31.685717999999873,
         "minGround": 11.45729299998786,
@@ -2191,6 +5075,126 @@
       "uid": "landsd/265556:0"
     },
     {
+      "compressedBytes": 211621,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B327292183501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3277976,
+      "seconds": 0.024654083999999785,
+      "terrain": {
+        "maxGround": 10,
+        "minGround": 9.123228571427603,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1755.3536783854167,
+          185.5365915298462,
+          -5338.9453125
+        ],
+        "roofGround": 9.367247953867945,
+        "sampleCount": 363,
+        "sourceYBounds": [
+          14.600495338439941,
+          185.5365915298462
+        ]
+      },
+      "triangles": 9223,
+      "uid": "landsd/266799:0"
+    },
+    {
+      "compressedBytes": 10569,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B457501750701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 273616,
+      "seconds": 0.017819666999999755,
+      "terrain": {
+        "maxGround": 6.286000000000286,
+        "minGround": 5.951342857143459,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11251.825520833334,
+          217.30999755859375,
+          -1009.5149739583334
+        ],
+        "roofGround": 6.133221726190982,
+        "sampleCount": 79,
+        "sourceYBounds": [
+          32.2860107421875,
+          217.30999755859375
+        ]
+      },
+      "triangles": 570,
+      "uid": "landsd/267021:0"
+    },
+    {
+      "compressedBytes": 187554,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B327112172801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2890384,
+      "seconds": 0.02111912500000017,
+      "terrain": {
+        "maxGround": 10,
+        "minGround": 9.52762857142875,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1774.8194986979167,
+          185.58946561813354,
+          -5231.361979166667
+        ],
+        "roofGround": 9.88512137276615,
+        "sampleCount": 353,
+        "sourceYBounds": [
+          3.8714327812194824,
+          185.58946561813354
+        ]
+      },
+      "triangles": 8070,
+      "uid": "landsd/267948:0"
+    },
+    {
+      "compressedBytes": 192623,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B338172097801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2961328,
+      "seconds": 0.02150641600000017,
+      "terrain": {
+        "maxGround": 18.6216714285747,
+        "minGround": 10.957814285723089,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -685.6331380208334,
+          197.08241653442383,
+          -4477.94140625
+        ],
+        "roofGround": 15.28902064733012,
+        "sampleCount": 104,
+        "sourceYBounds": [
+          28.200000762939453,
+          197.08241653442383
+        ]
+      },
+      "triangles": 8118,
+      "uid": "landsd/268497:0"
+    },
+    {
       "compressedBytes": 62521,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -2198,7 +5202,7 @@
       "modelId": "B345831830201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 905016,
-      "seconds": 0.01903733300000022,
+      "seconds": 0.01976262499999939,
       "terrain": {
         "maxGround": 6.113442857142786,
         "minGround": 6,
@@ -2221,12 +5225,163 @@
       "uid": "landsd/269745:0"
     },
     {
+      "compressedBytes": 10706,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460081710001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 284984,
+      "seconds": 0.017573583999999757,
+      "terrain": {
+        "maxGround": 6.271657142856384,
+        "minGround": 5.721442857141881,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11513.127604166666,
+          181.92999267578125,
+          -598.8216145833334
+        ],
+        "roofGround": 5.884988839285654,
+        "sampleCount": 85,
+        "sourceYBounds": [
+          21.277008056640625,
+          181.92999267578125
+        ]
+      },
+      "triangles": 619,
+      "uid": "landsd/269787:0"
+    },
+    {
+      "compressedBytes": 16614,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B396612165801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 516832,
+      "seconds": 0.027670250000000125,
+      "terrain": {
+        "maxGround": 12.143028571430023,
+        "minGround": 10.688557142857462,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          5162.3671875,
+          192.55899810791016,
+          -5155.985026041667
+        ],
+        "roofGround": 11.504603794641241,
+        "sampleCount": 251,
+        "sourceYBounds": [
+          64.31397247314453,
+          192.55899810791016
+        ]
+      },
+      "triangles": 1548,
+      "uid": "landsd/269995:0"
+    },
+    {
+      "compressedBytes": 18151,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B357582003401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 325880,
+      "seconds": 0.0179579590000003,
+      "terrain": {
+        "maxGround": 7.10548571428518,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          1264.8180338541667,
+          111.37370681762695,
+          -3533.5192057291665
+        ],
+        "roofGround": 7,
+        "sampleCount": 74,
+        "sourceYBounds": [
+          27.814945220947266,
+          111.37370681762695
+        ]
+      },
+      "triangles": 739,
+      "uid": "landsd/270525:0"
+    },
+    {
+      "compressedBytes": 138124,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B346811864401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2113432,
+      "seconds": 0.02067058300000008,
+      "terrain": {
+        "maxGround": 8.650457142853895,
+        "minGround": 6.61195714285634,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          169.130859375,
+          262.2408816019694,
+          -2143.8271484375
+        ],
+        "roofGround": 8.024902343750114,
+        "sampleCount": 151,
+        "sourceYBounds": [
+          28.913799285888672,
+          262.2712059020996
+        ]
+      },
+      "triangles": 5739,
+      "uid": "landsd/270607:0"
+    },
+    {
+      "compressedBytes": 181737,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B361521733001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2797680,
+      "seconds": 0.0240887500000008,
+      "terrain": {
+        "maxGround": 6.1152865116001855,
+        "minGround": 4.596200000002227,
+        "resolutions": [
+          5,
+          70
+        ],
+        "roof": [
+          1666.6263020833333,
+          277.8067626953125,
+          -822.1516927083334
+        ],
+        "roofGround": 5.596391369046614,
+        "sampleCount": 69,
+        "sourceYBounds": [
+          37.506561279296875,
+          277.8067626953125
+        ]
+      },
+      "triangles": 7658,
+      "uid": "landsd/271779:0"
+    },
+    {
       "compressedBytes": 43482,
       "concerns": [],
       "modelId": "B399651651901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 959032,
-      "seconds": 0.021771999999999934,
+      "seconds": 0.02202374999999938,
       "terrain": {
         "maxGround": 5.7231285714278215,
         "minGround": 4.817457142856426,
@@ -2249,6 +5404,36 @@
       "uid": "landsd/272670:0"
     },
     {
+      "compressedBytes": 12079,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B457331749901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 308632,
+      "seconds": 0.01740258300000005,
+      "terrain": {
+        "maxGround": 6.027571428572173,
+        "minGround": 5.701742857142506,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11240.3046875,
+          217.30999755859375,
+          -1001.1373697916666
+        ],
+        "roofGround": 5.968638392857088,
+        "sampleCount": 78,
+        "sourceYBounds": [
+          32.285003662109375,
+          217.30999755859375
+        ]
+      },
+      "triangles": 675,
+      "uid": "landsd/27286:0"
+    },
+    {
       "compressedBytes": 127258,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -2256,7 +5441,7 @@
       "modelId": "B341791635402063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 2242664,
-      "seconds": 0.02208620800000017,
+      "seconds": 0.022749917000000095,
       "terrain": {
         "maxGround": 12.997606000000145,
         "minGround": 5.753872000003237,
@@ -2279,12 +5464,42 @@
       "uid": "landsd/273340:0"
     },
     {
+      "compressedBytes": 172860,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B327072168101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3222536,
+      "seconds": 0.022130167000000256,
+      "terrain": {
+        "maxGround": 9.599228571428512,
+        "minGround": 9.073728571428092,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1785.8610026041667,
+          196.16003108024597,
+          -5175.847005208333
+        ],
+        "roofGround": 9.285514322917777,
+        "sampleCount": 307,
+        "sourceYBounds": [
+          3.718121290206909,
+          196.16003108024597
+        ]
+      },
+      "triangles": 8065,
+      "uid": "landsd/274028:0"
+    },
+    {
       "compressedBytes": 1198521,
       "concerns": [],
       "modelId": "B344391801602063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 21860084,
-      "seconds": 0.05151816700000018,
+      "seconds": 0.05985516699999971,
       "terrain": {
         "maxGround": 7.067157142857127,
         "minGround": 5.397071428572019,
@@ -2312,7 +5527,7 @@
       "modelId": "B340181807001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 3907240,
-      "seconds": 0.02385529200000019,
+      "seconds": 0.02672295899999972,
       "terrain": {
         "maxGround": 5.9917857142863795,
         "minGround": 3.7955571428604458,
@@ -2335,6 +5550,96 @@
       "uid": "landsd/283788:0"
     },
     {
+      "compressedBytes": 11492,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B459701712401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 290992,
+      "seconds": 0.01772083300000031,
+      "terrain": {
+        "maxGround": 6.453714285712692,
+        "minGround": 5.406600000000822,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11467.971354166666,
+          184.42999267578125,
+          -621.4615885416666
+        ],
+        "roofGround": 5.805905877975135,
+        "sampleCount": 90,
+        "sourceYBounds": [
+          21.277008056640625,
+          184.42999267578125
+        ]
+      },
+      "triangles": 618,
+      "uid": "landsd/28848:0"
+    },
+    {
+      "compressedBytes": 6517,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B412461926601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 208936,
+      "seconds": 0.018117625000000772,
+      "terrain": {
+        "maxGround": 9.2788999999961,
+        "minGround": 5.594771428572585,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6721.05859375,
+          198.16966756184897,
+          -2767.8828125
+        ],
+        "roofGround": 5.837834821428487,
+        "sampleCount": 59,
+        "sourceYBounds": [
+          28.166000366210938,
+          198.1699981689453
+        ]
+      },
+      "triangles": 489,
+      "uid": "landsd/306907:0"
+    },
+    {
+      "compressedBytes": 21505,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B378921827101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 437128,
+      "seconds": 0.018536833000000114,
+      "terrain": {
+        "maxGround": 4.47401428571402,
+        "minGround": 4.065671428570681,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          3389.4791666666665,
+          230.73467000325522,
+          -1767.3125
+        ],
+        "roofGround": 4.288392857142867,
+        "sampleCount": 63,
+        "sourceYBounds": [
+          41.0047492980957,
+          230.73699951171875
+        ]
+      },
+      "triangles": 933,
+      "uid": "landsd/30788:0"
+    },
+    {
       "compressedBytes": 48964,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -2342,7 +5647,7 @@
       "modelId": "B344411799101063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 950448,
-      "seconds": 0.018204917000000022,
+      "seconds": 0.019012416999999913,
       "terrain": {
         "maxGround": 7.008085714285585,
         "minGround": 5.756071428572113,
@@ -2365,6 +5670,34 @@
       "uid": "landsd/310908:0"
     },
     {
+      "compressedBytes": 2155,
+      "concerns": [],
+      "modelId": "B409221928102063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 97776,
+      "seconds": 0.017647208999999747,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6416.114583333333,
+          29.559998512268077,
+          -2812.8470052083335
+        ],
+        "roofGround": 5,
+        "sampleCount": 51,
+        "sourceYBounds": [
+          5.758999824523926,
+          29.559998512268066
+        ]
+      },
+      "triangles": 110,
+      "uid": "landsd/311415:0"
+    },
+    {
       "compressedBytes": 36633,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -2372,7 +5705,7 @@
       "modelId": "B358521751001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 621552,
-      "seconds": 0.018645000000000436,
+      "seconds": 0.019202957999999853,
       "terrain": {
         "maxGround": 5.017612289599983,
         "minGround": 5,
@@ -2402,7 +5735,7 @@
       "modelId": "B358541748001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 590984,
-      "seconds": 0.018169167000000017,
+      "seconds": 0.018731415999999626,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -2432,7 +5765,7 @@
       "modelId": "B358781751201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 448472,
-      "seconds": 0.017919416000000184,
+      "seconds": 0.018703125,
       "terrain": {
         "maxGround": 5.036658819400097,
         "minGround": 5,
@@ -2462,7 +5795,7 @@
       "modelId": "B358801748201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 524856,
-      "seconds": 0.017773916999999983,
+      "seconds": 0.018585541999999806,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -2492,7 +5825,7 @@
       "modelId": "B310671591901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1010496,
-      "seconds": 0.01809612500000003,
+      "seconds": 0.018878250000000662,
       "terrain": {
         "maxGround": 6.754371428571176,
         "minGround": 6.236428571429258,
@@ -2522,7 +5855,7 @@
       "modelId": "B310791589001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 291232,
-      "seconds": 0.016785334000000148,
+      "seconds": 0.018164625000000344,
       "terrain": {
         "maxGround": 12.547599999998965,
         "minGround": 6.3270714285700365,
@@ -2553,7 +5886,7 @@
       "modelId": "B359951448601063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 4824176,
-      "seconds": 0.026344666999999846,
+      "seconds": 0.02814716700000008,
       "terrain": {
         "maxGround": 242.4446857142782,
         "minGround": 230.93599999999356,
@@ -2583,7 +5916,7 @@
       "modelId": "B368411584001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 542776,
-      "seconds": 0.01762837499999978,
+      "seconds": 0.01848304200000075,
       "terrain": {
         "maxGround": 5,
         "minGround": 5,
@@ -2614,7 +5947,7 @@
       "modelId": "B339381575801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 75432,
-      "seconds": 0.021267875000000002,
+      "seconds": 0.022862250000000132,
       "terrain": {
         "maxGround": 55.76289200000116,
         "minGround": 49.03388400003062,
@@ -2637,6 +5970,36 @@
       "uid": "landsd/330467:0"
     },
     {
+      "compressedBytes": 210404,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B327182177801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3113112,
+      "seconds": 0.03046624999999949,
+      "terrain": {
+        "maxGround": 10,
+        "minGround": 9.140314285713202,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1766.3074544270833,
+          185.5894637107849,
+          -5283.192708333333
+        ],
+        "roofGround": 9.520319475448048,
+        "sampleCount": 361,
+        "sourceYBounds": [
+          4.031373500823975,
+          185.5894637107849
+        ]
+      },
+      "triangles": 8411,
+      "uid": "landsd/33424:0"
+    },
+    {
       "compressedBytes": 358028,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -2644,7 +6007,7 @@
       "modelId": "B356831507602063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 5984384,
-      "seconds": 0.02798675000000003,
+      "seconds": 0.03234595900000022,
       "terrain": {
         "maxGround": 38.904479999964686,
         "minGround": 5.63778399999999,
@@ -2674,7 +6037,7 @@
       "modelId": "B384492130602063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 580448,
-      "seconds": 0.03169420799999989,
+      "seconds": 0.0323290420000003,
       "terrain": {
         "maxGround": 8.257201428571648,
         "minGround": 3.374399999998161,
@@ -2704,7 +6067,7 @@
       "modelId": "B384742135701063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 164488,
-      "seconds": 0.016492083999999976,
+      "seconds": 0.018178915999999844,
       "terrain": {
         "maxGround": 7.885814285714048,
         "minGround": 5.47575000000154,
@@ -2734,7 +6097,7 @@
       "modelId": "B384812130701063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 184440,
-      "seconds": 0.017211874999999963,
+      "seconds": 0.017725666999999702,
       "terrain": {
         "maxGround": 8.738292857143165,
         "minGround": 4.571828571430558,
@@ -2757,6 +6120,90 @@
       "uid": "landsd/335196:0"
     },
     {
+      "compressedBytes": 11092,
+      "concerns": [],
+      "modelId": "B290862597001063C1",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 345920,
+      "seconds": 0.01813420799999949,
+      "terrain": {
+        "maxGround": 5.159978571429406,
+        "minGround": 4.2678428571421705,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -5386.104166666667,
+          196.29100036621094,
+          -9491.4375
+        ],
+        "roofGround": 5.056249999999977,
+        "sampleCount": 57,
+        "sourceYBounds": [
+          4.322998046875,
+          196.29100036621094
+        ]
+      },
+      "triangles": 928,
+      "uid": "landsd/335557:0"
+    },
+    {
+      "compressedBytes": 11657,
+      "concerns": [],
+      "modelId": "B291052600402063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 289064,
+      "seconds": 0.01814325000000008,
+      "terrain": {
+        "maxGround": 5.510314285713605,
+        "minGround": 4.175314285714251,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -5437.53515625,
+          32.85900115966796,
+          -9440.830078125
+        ],
+        "roofGround": 4.619503348214323,
+        "sampleCount": 43,
+        "sourceYBounds": [
+          4.322999954223633,
+          32.85900115966797
+        ]
+      },
+      "triangles": 577,
+      "uid": "landsd/335558:0"
+    },
+    {
+      "compressedBytes": 3512,
+      "concerns": [],
+      "modelId": "B404861943501063C1",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 143088,
+      "seconds": 0.01817212500000005,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          5977.264322916667,
+          51.779998779296875,
+          -2961.6888020833335
+        ],
+        "roofGround": 5,
+        "sampleCount": 44,
+        "sourceYBounds": [
+          4.099998474121094,
+          51.779998779296875
+        ]
+      },
+      "triangles": 266,
+      "uid": "landsd/335943:0"
+    },
+    {
       "compressedBytes": 19225,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -2764,7 +6211,7 @@
       "modelId": "B398831614501063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 458712,
-      "seconds": 0.01812520799999993,
+      "seconds": 0.018191834000000198,
       "terrain": {
         "maxGround": 19.29867142858535,
         "minGround": 16,
@@ -2787,6 +6234,246 @@
       "uid": "landsd/337475:0"
     },
     {
+      "compressedBytes": 213538,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B332932174701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3191552,
+      "seconds": 0.02173450000000048,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1197.7975260416667,
+          191.62409782409668,
+          -5247.192708333333
+        ],
+        "roofGround": 5,
+        "sampleCount": 56,
+        "sourceYBounds": [
+          22.852201461791992,
+          191.62409782409668
+        ]
+      },
+      "triangles": 8692,
+      "uid": "landsd/337872:0"
+    },
+    {
+      "compressedBytes": 157234,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B345781551101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3752104,
+      "seconds": 0.02766583300000002,
+      "terrain": {
+        "maxGround": 18.816636000000173,
+        "minGround": 13.447488000001758,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          89.87141927083333,
+          222.40832042694092,
+          972.865234375
+        ],
+        "roofGround": 14.223181640620547,
+        "sampleCount": 124,
+        "sourceYBounds": [
+          15.407999992370605,
+          222.58397960662842
+        ]
+      },
+      "triangles": 10101,
+      "uid": "landsd/337943:0"
+    },
+    {
+      "compressedBytes": 87944,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B346361551001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2377936,
+      "seconds": 0.0226684580000001,
+      "terrain": {
+        "maxGround": 17.788667999999607,
+        "minGround": 11.61511999999311,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          133.28190104166666,
+          182.79666964213052,
+          1005.4440104166666
+        ],
+        "roofGround": 13.53625000000186,
+        "sampleCount": 337,
+        "sourceYBounds": [
+          19.74799919128418,
+          182.80900382995605
+        ]
+      },
+      "triangles": 6138,
+      "uid": "landsd/337945:0"
+    },
+    {
+      "compressedBytes": 47896,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B458081752401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1010344,
+      "seconds": 0.020771416999999927,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 6.645428571429306,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11315.3203125,
+          217.70333353678384,
+          -1018.5533854166666
+        ],
+        "roofGround": 7,
+        "sampleCount": 371,
+        "sourceYBounds": [
+          37.285003662109375,
+          217.9600067138672
+        ]
+      },
+      "triangles": 2625,
+      "uid": "landsd/41803:0"
+    },
+    {
+      "compressedBytes": 48018,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B458871756801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1012256,
+      "seconds": 0.019628249999999754,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11392.463541666666,
+          200.08666483561197,
+          -1062.3333333333333
+        ],
+        "roofGround": 7,
+        "sampleCount": 366,
+        "sourceYBounds": [
+          37.8280029296875,
+          200.14999389648438
+        ]
+      },
+      "triangles": 2644,
+      "uid": "landsd/42044:0"
+    },
+    {
+      "compressedBytes": 50218,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B459251759201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1054648,
+      "seconds": 0.01956312499999967,
+      "terrain": {
+        "maxGround": 8.343485714289045,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11423.345052083334,
+          200.11666870117188,
+          -1098.5885416666667
+        ],
+        "roofGround": 7.63363095237878,
+        "sampleCount": 392,
+        "sourceYBounds": [
+          38.36199951171875,
+          200.1699981689453
+        ]
+      },
+      "triangles": 2751,
+      "uid": "landsd/42045:0"
+    },
+    {
+      "compressedBytes": 50529,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B458471754701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1060440,
+      "seconds": 0.01952587500000027,
+      "terrain": {
+        "maxGround": 7,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11344.653645833334,
+          217.85001627604166,
+          -1039.46875
+        ],
+        "roofGround": 7,
+        "sampleCount": 365,
+        "sourceYBounds": [
+          37.9320068359375,
+          218.05001831054688
+        ]
+      },
+      "triangles": 2747,
+      "uid": "landsd/42403:0"
+    },
+    {
+      "compressedBytes": 86522,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B343511571001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1658456,
+      "seconds": 0.02581079099999988,
+      "terrain": {
+        "maxGround": 5.627217999999416,
+        "minGround": 4.434296000002416,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -139.62890625,
+          182.15934721628824,
+          775.0836588541666
+        ],
+        "roofGround": 5.35191341145779,
+        "sampleCount": 279,
+        "sourceYBounds": [
+          2.5920000076293945,
+          182.60400867462158
+        ]
+      },
+      "triangles": 4195,
+      "uid": "landsd/4448:0"
+    },
+    {
       "compressedBytes": 40908,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -2794,7 +6481,7 @@
       "modelId": "B344201571001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 730224,
-      "seconds": 0.02276108400000021,
+      "seconds": 0.023296666000000188,
       "terrain": {
         "maxGround": 6.812919999993425,
         "minGround": 3.843399999996865,
@@ -2824,7 +6511,7 @@
       "modelId": "B296232518801063C1",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 255744,
-      "seconds": 0.016725209000000178,
+      "seconds": 0.017533833000000415,
       "terrain": {
         "maxGround": 4.867142857143904,
         "minGround": 3.447371428571387,
@@ -2847,6 +6534,276 @@
       "uid": "landsd/52726:0"
     },
     {
+      "compressedBytes": 15638,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B378841825201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 458280,
+      "seconds": 0.018832124999999904,
+      "terrain": {
+        "maxGround": 4.706528571429317,
+        "minGround": 4.36328571428669,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          3389.15625,
+          235.31700134277344,
+          -1742.8046875
+        ],
+        "roofGround": 4.638504464285688,
+        "sampleCount": 99,
+        "sourceYBounds": [
+          41.005001068115234,
+          235.31700134277344
+        ]
+      },
+      "triangles": 1373,
+      "uid": "landsd/55666:0"
+    },
+    {
+      "compressedBytes": 50684,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439531411501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1190888,
+      "seconds": 0.020482500000000074,
+      "terrain": {
+        "maxGround": 6.950142857142964,
+        "minGround": 6.513242857143268,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9460.970052083334,
+          206.8579978942871,
+          2391.5872395833335
+        ],
+        "roofGround": 6.701246279762472,
+        "sampleCount": 171,
+        "sourceYBounds": [
+          35.17100143432617,
+          206.8579978942871
+        ]
+      },
+      "triangles": 3133,
+      "uid": "landsd/55976:0"
+    },
+    {
+      "compressedBytes": 52653,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439281408801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1156488,
+      "seconds": 0.02079424999999992,
+      "terrain": {
+        "maxGround": 7.086285714286191,
+        "minGround": 6.820800000000077,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9433.72265625,
+          206.8599967956543,
+          2416.1832682291665
+        ],
+        "roofGround": 7,
+        "sampleCount": 175,
+        "sourceYBounds": [
+          35.17100143432617,
+          206.8599967956543
+        ]
+      },
+      "triangles": 2981,
+      "uid": "landsd/55978:0"
+    },
+    {
+      "compressedBytes": 118371,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B349231985501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1809376,
+      "seconds": 0.021666167000000316,
+      "terrain": {
+        "maxGround": 6.791600000000187,
+        "minGround": 6.519271428572097,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          418.7581380208333,
+          205.55205535888672,
+          -3357.083984375
+        ],
+        "roofGround": 6.62488374255895,
+        "sampleCount": 84,
+        "sourceYBounds": [
+          41.44518280029297,
+          205.55205535888672
+        ]
+      },
+      "triangles": 4788,
+      "uid": "landsd/59870:0"
+    },
+    {
+      "compressedBytes": 121142,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B349471985401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1865272,
+      "seconds": 0.020777500000000147,
+      "terrain": {
+        "maxGround": 6.781499999999426,
+        "minGround": 6.473471428571997,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          451.6595052083333,
+          212.40704727172852,
+          -3355.4554036458335
+        ],
+        "roofGround": 6.600637090773262,
+        "sampleCount": 72,
+        "sourceYBounds": [
+          41.221317291259766,
+          212.40704727172852
+        ]
+      },
+      "triangles": 4863,
+      "uid": "landsd/59871:0"
+    },
+    {
+      "compressedBytes": 132868,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B349711985301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2044176,
+      "seconds": 0.02261387500000001,
+      "terrain": {
+        "maxGround": 6.786971428571292,
+        "minGround": 6.479199999999935,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          466.1966145833333,
+          219.37263870239258,
+          -3356.44921875
+        ],
+        "roofGround": 6.586439732142878,
+        "sampleCount": 68,
+        "sourceYBounds": [
+          41.221317291259766,
+          219.37263870239258
+        ]
+      },
+      "triangles": 5366,
+      "uid": "landsd/59928:0"
+    },
+    {
+      "compressedBytes": 124685,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B350261985201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1914696,
+      "seconds": 0.02053337499999998,
+      "terrain": {
+        "maxGround": 6.966100000001461,
+        "minGround": 6.4388714285717015,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          528.15625,
+          226.16893768310547,
+          -3356.3785807291665
+        ],
+        "roofGround": 6.5874488467267724,
+        "sampleCount": 87,
+        "sourceYBounds": [
+          41.44518280029297,
+          226.16893768310547
+        ]
+      },
+      "triangles": 5165,
+      "uid": "landsd/59930:0"
+    },
+    {
+      "compressedBytes": 118104,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B350501985501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1806360,
+      "seconds": 0.02005341700000008,
+      "terrain": {
+        "maxGround": 7.810499999999706,
+        "minGround": 6.6670857142856335,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          545.4208984375,
+          233.0539779663086,
+          -3362.052734375
+        ],
+        "roofGround": 7.060142299107213,
+        "sampleCount": 86,
+        "sourceYBounds": [
+          41.44518280029297,
+          233.0539779663086
+        ]
+      },
+      "triangles": 4775,
+      "uid": "landsd/59982:0"
+    },
+    {
+      "compressedBytes": 111968,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B350761986101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1726032,
+      "seconds": 0.020048415999999635,
+      "terrain": {
+        "maxGround": 8.2811714285736,
+        "minGround": 7.235542857143059,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          573.9817708333334,
+          239.99034881591797,
+          -3362.4518229166665
+        ],
+        "roofGround": 7.905338541664548,
+        "sampleCount": 88,
+        "sourceYBounds": [
+          41.44518280029297,
+          239.99034881591797
+        ]
+      },
+      "triangles": 4610,
+      "uid": "landsd/59984:0"
+    },
+    {
       "compressedBytes": 78449,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -2854,7 +6811,7 @@
       "modelId": "B341641584701063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1359272,
-      "seconds": 0.022528499999999896,
+      "seconds": 0.02447637500000019,
       "terrain": {
         "maxGround": 11.523200000000648,
         "minGround": 6.7341020000008855,
@@ -2882,7 +6839,7 @@
       "modelId": "B342021590701063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 633376,
-      "seconds": 0.020361041000000114,
+      "seconds": 0.021729459000000135,
       "terrain": {
         "maxGround": 5.513264000001144,
         "minGround": 4.669912000001871,
@@ -2905,6 +6862,36 @@
       "uid": "landsd/69002:0"
     },
     {
+      "compressedBytes": 116857,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B343741166301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3547720,
+      "seconds": 0.028748709000000417,
+      "terrain": {
+        "maxGround": 21.191400000000613,
+        "minGround": 15.887314285716911,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -123.3115234375,
+          178.65200169881186,
+          4837.5703125
+        ],
+        "roofGround": 18.511272321428578,
+        "sampleCount": 197,
+        "sourceYBounds": [
+          40.88100051879883,
+          178.68800735473633
+        ]
+      },
+      "triangles": 9069,
+      "uid": "landsd/6946:0"
+    },
+    {
       "compressedBytes": 824,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -2912,7 +6899,7 @@
       "modelId": "B349541541301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 69680,
-      "seconds": 0.018535624999999983,
+      "seconds": 0.020380041999999775,
       "terrain": {
         "maxGround": 11.41,
         "minGround": 11.41,
@@ -2935,6 +6922,36 @@
       "uid": "landsd/70443:0"
     },
     {
+      "compressedBytes": 99967,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B344051167901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3031896,
+      "seconds": 0.0237178329999997,
+      "terrain": {
+        "maxGround": 20.480114285714535,
+        "minGround": 14.786428571432907,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -89.9775390625,
+          176.5096664428711,
+          4821.39306640625
+        ],
+        "roofGround": 17.012709263392935,
+        "sampleCount": 195,
+        "sourceYBounds": [
+          41.066001892089844,
+          176.8189926147461
+        ]
+      },
+      "triangles": 7751,
+      "uid": "landsd/7056:0"
+    },
+    {
       "compressedBytes": 231236,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -2942,7 +6959,7 @@
       "modelId": "B365321848401063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 3139320,
-      "seconds": 0.02112350000000015,
+      "seconds": 0.02318070799999987,
       "terrain": {
         "maxGround": 8.804271428573031,
         "minGround": 6,
@@ -2972,7 +6989,7 @@
       "modelId": "B314362588501063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 4659312,
-      "seconds": 0.03413175000000001,
+      "seconds": 0.04624241699999948,
       "terrain": {
         "maxGround": 46.10364285714286,
         "minGround": 40.69007142857703,
@@ -3002,7 +7019,7 @@
       "modelId": "B314482591301063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 5589896,
-      "seconds": 0.024437332999999853,
+      "seconds": 0.024302541999999448,
       "terrain": {
         "maxGround": 52.62354285713201,
         "minGround": 45.741142857146315,
@@ -3025,6 +7042,36 @@
       "uid": "landsd/74570:0"
     },
     {
+      "compressedBytes": 182747,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B334572166401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2713784,
+      "seconds": 0.021305292000000007,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1041.91796875,
+          196.47294998168945,
+          -5162.986979166667
+        ],
+        "roofGround": 5,
+        "sampleCount": 137,
+        "sourceYBounds": [
+          23.251590728759766,
+          196.4775276184082
+        ]
+      },
+      "triangles": 7171,
+      "uid": "landsd/75655:0"
+    },
+    {
       "compressedBytes": 24954,
       "concerns": [
         "sampled-terrain-above-model-bottom"
@@ -3032,7 +7079,7 @@
       "modelId": "B339511622001063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 608768,
-      "seconds": 0.02349566700000014,
+      "seconds": 0.021289834000000157,
       "terrain": {
         "maxGround": 8.92758799999766,
         "minGround": 2.3082400000230257,
@@ -3055,6 +7102,364 @@
       "uid": "landsd/75769:0"
     },
     {
+      "compressedBytes": 163697,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B334142173301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2379632,
+      "seconds": 0.021171540999999707,
+      "terrain": {
+        "maxGround": 5.329571428569068,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1085.9658203125,
+          186.25911966959634,
+          -5234.901692708333
+        ],
+        "roofGround": 5,
+        "sampleCount": 223,
+        "sourceYBounds": [
+          22.533248901367188,
+          186.27005004882812
+        ]
+      },
+      "triangles": 6142,
+      "uid": "landsd/76318:0"
+    },
+    {
+      "compressedBytes": 175254,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B333002170301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2632648,
+      "seconds": 0.021142749999999978,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1194.3102213541667,
+          191.59812927246094,
+          -5195.832682291667
+        ],
+        "roofGround": 5,
+        "sampleCount": 54,
+        "sourceYBounds": [
+          22.863128662109375,
+          191.59812927246094
+        ]
+      },
+      "triangles": 7005,
+      "uid": "landsd/77293:0"
+    },
+    {
+      "compressedBytes": 253970,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B334092179901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3772904,
+      "seconds": 0.05579412500000035,
+      "terrain": {
+        "maxGround": 6.152214285714763,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1096.390625,
+          183.8641586303711,
+          -5298.138671875
+        ],
+        "roofGround": 5.455943080357201,
+        "sampleCount": 288,
+        "sourceYBounds": [
+          23.25548553466797,
+          183.8641586303711
+        ]
+      },
+      "triangles": 9913,
+      "uid": "landsd/77421:0"
+    },
+    {
+      "compressedBytes": 223613,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B332032169701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3278456,
+      "seconds": 0.024164832999999816,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1292.9944661458333,
+          191.5038242340088,
+          -5209.503255208333
+        ],
+        "roofGround": 5,
+        "sampleCount": 56,
+        "sourceYBounds": [
+          22.850000381469727,
+          191.50509071350098
+        ]
+      },
+      "triangles": 8827,
+      "uid": "landsd/78018:0"
+    },
+    {
+      "compressedBytes": 177809,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B334172166801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2682584,
+      "seconds": 0.02406933400000071,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1081.9508463541667,
+          183.67971801757812,
+          -5163.378255208333
+        ],
+        "roofGround": 5,
+        "sampleCount": 260,
+        "sourceYBounds": [
+          23,
+          183.67971801757812
+        ]
+      },
+      "triangles": 7195,
+      "uid": "landsd/78237:0"
+    },
+    {
+      "compressedBytes": 1253,
+      "concerns": [],
+      "modelId": "B410351922001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 76920,
+      "seconds": 0.018505000000000108,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6533.424479166667,
+          16.54599952697754,
+          -2720.6901041666665
+        ],
+        "roofGround": 5,
+        "sampleCount": 23,
+        "sourceYBounds": [
+          5.043000221252441,
+          16.54599952697754
+        ]
+      },
+      "triangles": 35,
+      "uid": "landsd/78268:0"
+    },
+    {
+      "compressedBytes": 168271,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B335102166701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2500880,
+      "seconds": 0.02337504099999933,
+      "terrain": {
+        "maxGround": 6.574400000001447,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -988.0810546875,
+          196.60599899291992,
+          -5166.551432291667
+        ],
+        "roofGround": 5.832240513392833,
+        "sampleCount": 143,
+        "sourceYBounds": [
+          33.807735443115234,
+          196.60599899291992
+        ]
+      },
+      "triangles": 6430,
+      "uid": "landsd/78824:0"
+    },
+    {
+      "compressedBytes": 253662,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B332142165801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3793408,
+      "seconds": 0.03910462499999994,
+      "terrain": {
+        "maxGround": 5.054328571427959,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1288.4889322916667,
+          180.01360003153482,
+          -5168.423828125
+        ],
+        "roofGround": 5,
+        "sampleCount": 36,
+        "sourceYBounds": [
+          22.850000381469727,
+          180.0139102935791
+        ]
+      },
+      "triangles": 10356,
+      "uid": "landsd/78828:0"
+    },
+    {
+      "compressedBytes": 267719,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B332942166001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3967336,
+      "seconds": 0.022918290999999955,
+      "terrain": {
+        "maxGround": 5.024471428571246,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1207.1708984375,
+          182.94236183166504,
+          -5157.249348958333
+        ],
+        "roofGround": 5,
+        "sampleCount": 35,
+        "sourceYBounds": [
+          22.850000381469727,
+          182.94236183166504
+        ]
+      },
+      "triangles": 10893,
+      "uid": "landsd/78915:0"
+    },
+    {
+      "compressedBytes": 373458,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B354251987901063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 6797808,
+      "seconds": 0.026499665999999707,
+      "terrain": {
+        "maxGround": 5.970714285713598,
+        "minGround": 5.141642857143381,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          943.056640625,
+          99.28700065612792,
+          -3350.3020833333335
+        ],
+        "roofGround": 5.865094866071445,
+        "sampleCount": 330,
+        "sourceYBounds": [
+          20.76569938659668,
+          99.28700065612793
+        ]
+      },
+      "triangles": 18086,
+      "uid": "landsd/79318:0"
+    },
+    {
+      "compressedBytes": 177450,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B333822166501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2688824,
+      "seconds": 0.021465790999999627,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1116.0732421875,
+          183.6913299560547,
+          -5171.100260416667
+        ],
+        "roofGround": 5,
+        "sampleCount": 272,
+        "sourceYBounds": [
+          23,
+          183.69900512695312
+        ]
+      },
+      "triangles": 7171,
+      "uid": "landsd/79366:0"
+    },
+    {
+      "compressedBytes": 177483,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B333482166301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 2654472,
+      "seconds": 0.026105416999999763,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -1150.6044921875,
+          183.67804336547852,
+          -5158.799479166667
+        ],
+        "roofGround": 5,
+        "sampleCount": 266,
+        "sourceYBounds": [
+          22.867496490478516,
+          183.6784553527832
+        ]
+      },
+      "triangles": 7025,
+      "uid": "landsd/79881:0"
+    },
+    {
       "compressedBytes": 41186,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -3062,7 +7467,7 @@
       "modelId": "B343391610801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 914400,
-      "seconds": 0.020799167000000125,
+      "seconds": 0.03442341699999997,
       "terrain": {
         "maxGround": 3.880438000000082,
         "minGround": 3.714035999999848,
@@ -3085,6 +7490,66 @@
       "uid": "landsd/80539:0"
     },
     {
+      "compressedBytes": 107465,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B347281862501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1616536,
+      "seconds": 0.02355608299999949,
+      "terrain": {
+        "maxGround": 6.742457142858086,
+        "minGround": 6,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          223.62141927083334,
+          241.73079935709634,
+          -2131.3040364583335
+        ],
+        "roofGround": 6.32403738839281,
+        "sampleCount": 126,
+        "sourceYBounds": [
+          28.913665771484375,
+          241.73460388183594
+        ]
+      },
+      "triangles": 4251,
+      "uid": "landsd/80649:0"
+    },
+    {
+      "compressedBytes": 860058,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B354031998101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 12960684,
+      "seconds": 0.03659758300000067,
+      "terrain": {
+        "maxGround": 5.638899999999978,
+        "minGround": 5.000514285713791,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          919.0598958333334,
+          259.6010030110677,
+          -3473.7408854166665
+        ],
+        "roofGround": 5.433128720239154,
+        "sampleCount": 1077,
+        "sourceYBounds": [
+          24.823699951171875,
+          259.6050109863281
+        ]
+      },
+      "triangles": 32135,
+      "uid": "landsd/83670:0"
+    },
+    {
       "compressedBytes": 17471,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -3092,7 +7557,7 @@
       "modelId": "B362451965901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 514760,
-      "seconds": 0.0375099580000001,
+      "seconds": 0.018653207999999723,
       "terrain": {
         "maxGround": 43.054971428568024,
         "minGround": 39.558057142860434,
@@ -3115,12 +7580,42 @@
       "uid": "landsd/84135:0"
     },
     {
+      "compressedBytes": 10647,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B456881747601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 247872,
+      "seconds": 0.01837370800000008,
+      "terrain": {
+        "maxGround": 5.773400000000493,
+        "minGround": 5.38038571428541,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11192.928385416666,
+          226.5500030517578,
+          -986.76953125
+        ],
+        "roofGround": 5.560993303571422,
+        "sampleCount": 80,
+        "sourceYBounds": [
+          32.23100280761719,
+          226.5500030517578
+        ]
+      },
+      "triangles": 488,
+      "uid": "landsd/85199:0"
+    },
+    {
       "compressedBytes": 21705,
       "concerns": [],
       "modelId": "B378741660901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 489576,
-      "seconds": 0.017096791999999823,
+      "seconds": 0.018752457999999934,
       "terrain": {
         "maxGround": 5.3667857142863795,
         "minGround": 5.009664285713484,
@@ -3143,6 +7638,306 @@
       "uid": "landsd/85738:0"
     },
     {
+      "compressedBytes": 110371,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B440571840501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3310624,
+      "seconds": 0.02196125000000029,
+      "terrain": {
+        "maxGround": 24,
+        "minGround": 21.7719142857037,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9562.119791666666,
+          214.50001525878906,
+          -1904.4876302083333
+        ],
+        "roofGround": 23.353366815478466,
+        "sampleCount": 92,
+        "sourceYBounds": [
+          36.480010986328125,
+          214.50001525878906
+        ]
+      },
+      "triangles": 9648,
+      "uid": "landsd/88876:0"
+    },
+    {
+      "compressedBytes": 100663,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B344361169501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3085840,
+      "seconds": 0.022854209000000084,
+      "terrain": {
+        "maxGround": 19.418599999995195,
+        "minGround": 13.7084285714227,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -59.771809895833336,
+          179.3296635945638,
+          4804.779459635417
+        ],
+        "roofGround": 15.933998325902849,
+        "sampleCount": 184,
+        "sourceYBounds": [
+          41.066001892089844,
+          179.63899993896484
+        ]
+      },
+      "triangles": 7854,
+      "uid": "landsd/9050:0"
+    },
+    {
+      "compressedBytes": 39249,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B460171737701063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 767072,
+      "seconds": 0.018848167000000103,
+      "terrain": {
+        "maxGround": 7.192714285714146,
+        "minGround": 7,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          11526.328125,
+          216.64633178710938,
+          -885.3567708333334
+        ],
+        "roofGround": 7,
+        "sampleCount": 233,
+        "sourceYBounds": [
+          30.760009765625,
+          217.23001098632812
+        ]
+      },
+      "triangles": 1876,
+      "uid": "landsd/90984:0"
+    },
+    {
+      "compressedBytes": 48626,
+      "concerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "modelId": "B371051552402063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1068504,
+      "seconds": 0.020026791999999658,
+      "terrain": {
+        "maxGround": 9,
+        "minGround": 7.862999999998749,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          2569.2431640625,
+          42.04900312423707,
+          964.8834635416666
+        ],
+        "roofGround": 9,
+        "sampleCount": 65,
+        "sourceYBounds": [
+          5.874003887176514,
+          42.53132963180542
+        ]
+      },
+      "triangles": 2771,
+      "uid": "landsd/91186:0"
+    },
+    {
+      "compressedBytes": 121270,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B440271837601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3726048,
+      "seconds": 0.022675792,
+      "terrain": {
+        "maxGround": 24,
+        "minGround": 22.7535142857148,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9526.27734375,
+          200.1900177001953,
+          -1883.0045572916667
+        ],
+        "roofGround": 23.763634672617854,
+        "sampleCount": 92,
+        "sourceYBounds": [
+          36.3900146484375,
+          200.1900177001953
+        ]
+      },
+      "triangles": 10580,
+      "uid": "landsd/91393:0"
+    },
+    {
+      "compressedBytes": 191919,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439731844101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 6608008,
+      "seconds": 0.025016625000000205,
+      "terrain": {
+        "maxGround": 23.373700000001463,
+        "minGround": 21.45611428571351,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9474.748697916666,
+          205.99000549316406,
+          -1940.3580729166667
+        ],
+        "roofGround": 22.504482886905294,
+        "sampleCount": 143,
+        "sourceYBounds": [
+          36.850006103515625,
+          205.99000549316406
+        ]
+      },
+      "triangles": 18261,
+      "uid": "landsd/91472:0"
+    },
+    {
+      "compressedBytes": 110463,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B439251840401063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 3487552,
+      "seconds": 0.021668416000000433,
+      "terrain": {
+        "maxGround": 23.459099999999694,
+        "minGround": 21.475771428568123,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          9421.15625,
+          208.8600311279297,
+          -1907.89453125
+        ],
+        "roofGround": 22.120312499999955,
+        "sampleCount": 111,
+        "sourceYBounds": [
+          37.02001953125,
+          208.8600311279297
+        ]
+      },
+      "triangles": 9204,
+      "uid": "landsd/91571:0"
+    },
+    {
+      "compressedBytes": 242507,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B411861628601063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 7240672,
+      "seconds": 0.039922625000000156,
+      "terrain": {
+        "maxGround": 4.8378571428575015,
+        "minGround": 3.340185714288623,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6682.190104166667,
+          222.91799354553223,
+          219.18945312500009
+        ],
+        "roofGround": 4.6669921875,
+        "sampleCount": 48,
+        "sourceYBounds": [
+          24.5049991607666,
+          222.91799354553223
+        ]
+      },
+      "triangles": 19536,
+      "uid": "landsd/93772:0"
+    },
+    {
+      "compressedBytes": 62995,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B337711507501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1295408,
+      "seconds": 0.0260326670000004,
+      "terrain": {
+        "maxGround": 173.88333999995714,
+        "minGround": 165.94905799996442,
+        "resolutions": [
+          5
+        ],
+        "roof": [
+          -719.8518880208334,
+          390.14898681640625,
+          1425.763671875
+        ],
+        "roofGround": 168.79462304689378,
+        "sampleCount": 97,
+        "sourceYBounds": [
+          190.11099243164062,
+          390.14898681640625
+        ]
+      },
+      "triangles": 3274,
+      "uid": "landsd/93849:0"
+    },
+    {
+      "compressedBytes": 107151,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B337572102101063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 1664576,
+      "seconds": 0.020150125000000116,
+      "terrain": {
+        "maxGround": 11.44394285714111,
+        "minGround": 8.876028571432641,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -737.4485677083334,
+          181.43742752075195,
+          -4527.992838541667
+        ],
+        "roofGround": 9.418591889883771,
+        "sampleCount": 78,
+        "sourceYBounds": [
+          28.200000762939453,
+          181.43742752075195
+        ]
+      },
+      "triangles": 4504,
+      "uid": "landsd/95379:0"
+    },
+    {
       "compressedBytes": 63414,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -3150,7 +7945,7 @@
       "modelId": "B331791585801063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1292264,
-      "seconds": 0.022770332999999938,
+      "seconds": 0.02436645799999951,
       "terrain": {
         "maxGround": 169.83914599991152,
         "minGround": 142.5115919999728,
@@ -3178,7 +7973,7 @@
       "modelId": "B332021585901063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 318944,
-      "seconds": 0.022140540999999757,
+      "seconds": 0.02201458399999956,
       "terrain": {
         "maxGround": 140.09203199999897,
         "minGround": 138.9608102000018,
@@ -3201,6 +7996,96 @@
       "uid": "landsd/95610:0"
     },
     {
+      "compressedBytes": 296048,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B412091626301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 8412368,
+      "seconds": 0.029022540999999364,
+      "terrain": {
+        "maxGround": 4.96802714285775,
+        "minGround": 2.134285714289149,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6707.163411458333,
+          222.95198822021484,
+          230.51562500000009
+        ],
+        "roofGround": 3.4208798363089272,
+        "sampleCount": 67,
+        "sourceYBounds": [
+          25.47100067138672,
+          222.95198822021484
+        ]
+      },
+      "triangles": 22798,
+      "uid": "landsd/95937:0"
+    },
+    {
+      "compressedBytes": 236247,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B411631626501063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 6813440,
+      "seconds": 0.025656208000000333,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 4.646471428571829,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6665.4287109375,
+          222.90500450134277,
+          229.1106770833334
+        ],
+        "roofGround": 4.8087239583338715,
+        "sampleCount": 63,
+        "sourceYBounds": [
+          29.34499168395996,
+          222.90500450134277
+        ]
+      },
+      "triangles": 18388,
+      "uid": "landsd/96089:0"
+    },
+    {
+      "compressedBytes": 283303,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B411351624001063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 8287472,
+      "seconds": 0.028620708000000376,
+      "terrain": {
+        "maxGround": 5,
+        "minGround": 5,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          6638.363932291667,
+          217.35898399353027,
+          254.8141276041667
+        ],
+        "roofGround": 5,
+        "sampleCount": 68,
+        "sourceYBounds": [
+          29.34499168395996,
+          217.35898399353027
+        ]
+      },
+      "triangles": 22570,
+      "uid": "landsd/96788:0"
+    },
+    {
       "compressedBytes": 39144,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -3208,7 +8093,7 @@
       "modelId": "B343491606401063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 855848,
-      "seconds": 0.02010624999999982,
+      "seconds": 0.02387041599999975,
       "terrain": {
         "maxGround": 3.924459999999969,
         "minGround": 3.8141839999998917,
@@ -3238,7 +8123,7 @@
       "modelId": "B331381585201063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 91760,
-      "seconds": 0.021466667000000144,
+      "seconds": 0.023909749999999803,
       "terrain": {
         "maxGround": 159.74378999996907,
         "minGround": 149.54571500002197,
@@ -3261,6 +8146,36 @@
       "uid": "landsd/97552:0"
     },
     {
+      "compressedBytes": 1073,
+      "concerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "modelId": "B311651606201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "residentBudgetBytes": 75312,
+      "seconds": 0.017656458000000385,
+      "terrain": {
+        "maxGround": 4.4091285714280275,
+        "minGround": 4.212642857142953,
+        "resolutions": [
+          70
+        ],
+        "roof": [
+          -3339.2488606770835,
+          21.405000686645508,
+          438.0813802083333
+        ],
+        "roofGround": 4.277341424851784,
+        "sampleCount": 25,
+        "sourceYBounds": [
+          18.826000213623047,
+          21.405000686645508
+        ]
+      },
+      "triangles": 26,
+      "uid": "landsd/99033:0"
+    },
+    {
       "compressedBytes": 91693,
       "concerns": [
         "sampled-ground-gap-below-model-bottom"
@@ -3268,7 +8183,7 @@
       "modelId": "B342351638501063C0",
       "outcome": "runtime-accepted-placement-unreviewed",
       "residentBudgetBytes": 1976504,
-      "seconds": 0.022404875000000175,
+      "seconds": 0.0233902079999998,
       "terrain": {
         "maxGround": 12.984064000000942,
         "minGround": 7.28,
@@ -3292,7 +8207,7 @@
     }
   ],
   "schemaVersion": 1,
-  "seconds": 2.511452,
+  "seconds": 6.29016925,
   "staged": true,
-  "terrainRays": 109
+  "terrainRays": 273
 }

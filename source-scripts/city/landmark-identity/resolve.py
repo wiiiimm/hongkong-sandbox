@@ -24,7 +24,7 @@ def variants(name):
  return [(prefix+str(n),n) for n in numbers],numbers
 
 def main():
- started=time.monotonic();regpath=ROOT/'source-scripts/city/landmark-registry/landmarks.json';reg=read(regpath);priorpath=ROOT/'source-scripts/city/landmark-bulk/bulk-report.json';prior={r['id']:r for r in read(priorpath)['rows']}
+ started=time.monotonic();regpath=ROOT/'source-scripts/city/landmark-registry/landmarks.json';reg=read(regpath);priorpath=ROOT/'source-scripts/city/landmark-bulk/bulk-report.json';prior={r['id']:r for r in read(priorpath)['rows']};aliases=read(HERE/'aliases-v2.json')['entries'];registryById={x['id']:x for x in reg['landmarks']}
  c=sqlite3.connect(f'file:{DB}?mode=ro',uri=True);c.row_factory=sqlite3.Row;c.execute('PRAGMA query_only=ON')
  buildings={b['uid']:dict(b) for b in c.execute('SELECT uid,name,csuid,object_id,x,z,source_dataset,structure_type,source_base,source_top,embedded,input_path FROM buildings WHERE active=1 ORDER BY uid')}
  detailed={r[0] for r in c.execute('SELECT uid FROM models')};names=collections.defaultdict(list)
@@ -38,11 +38,13 @@ def main():
  project=Transformer.from_crs(4326,2326,always_xy=True);inverse=Transformer.from_crs(2326,4326,always_xy=True)
  c.close();rows=[];overlay=[]
  for item in reg['landmarks']:
-  old=prior[item['id']];hints=[dict(point=d['locationHintWGS84'],source=d['source'],sourceRow=d.get('sourceRow')) for d in item.get('discoveryMeasurements',[]) if d.get('locationHintWGS84')]
+  old=prior[item['id']];alias=aliases.get(item['id'],{});hintItem=registryById[alias['sourceHintFromRegistry']] if alias.get('sourceHintFromRegistry') else item
+  hints=[dict(point=d['locationHintWGS84'],source=d['source'],sourceRow=d.get('sourceRow')) for d in hintItem.get('discoveryMeasurements',[]) if d.get('locationHintWGS84')]
+  hints+=alias.get('sourceHints',[])
   for h in hints:e,n=project.transform(*h['point']);h['localGrid']=[e-834500,816500-n]
   def distance(b):return min((math.hypot(b['x']-h['localGrid'][0],b['z']-h['localGrid'][1]) for h in hints),default=None)
   candidates={};expected=[];matched_numbers=set()
-  for label in [item['name']]+[p for p in item.get('inventoryNamePatterns',[]) if '%' not in p and '_' not in p]:
+  for label in [item['name']]+alias.get('aliases',[])+[p for p in item.get('inventoryNamePatterns',[]) if '%' not in p and '_' not in p]:
    vs,nums=variants(label);expected+=nums
    for variant,num in vs:
     options=names.get(tokens(variant),[])+subtowers.get(tokens(variant),[])
@@ -66,6 +68,8 @@ def main():
     b['decision']='proposed-name-plus-geography';accepted.append(b)
    elif d is not None and d>250:
     b['decision']='rejected-outside-sourced-location';rejected.append(b)
+   elif d is None and alias.get('allowUniqueOfficialAddress') and len(candidates)==1 and b['source_dataset']=='landsd-territory' and b['csuid']:
+    b['decision']='proposed-official-address-and-unique-government-name';accepted.append(b)
    else:b['decision']='needs-independent-location-or-government-identity';weak.append(b)
   for b in accepted:
    if b['discoveryNumber'] is not None:matched_numbers.add(b['discoveryNumber'])
@@ -73,15 +77,16 @@ def main():
   old_uids={p['uid'] for p in old['parts']};new_uids={p['uid'] for p in accepted};changed=new_uids!=old_uids
   status='proposed-identity-overlay' if accepted and changed else 'retained-prior-identity' if accepted else 'identity-needs-review' if weak or rejected else 'no-supported-identity'
   if item.get('kind')=='interior-venue':status='historical-interior-host-unresolved';accepted=[]
+  if alias.get('hold'):status='historical-source-conflict';accepted=[]
   # Nearby names are evidence for follow-up, never proximity-only acceptance.
   nearby=[]
   if hints and not accepted:
    nearby=sorted((dict(uid=b['uid'],name=b['name'],csuid=b['csuid'],distanceMetres=round(distance(b),3)) for b in buildings.values() if b['name'] and abs(b['x']-hints[0]['localGrid'][0])<350 and abs(b['z']-hints[0]['localGrid'][1])<350),key=lambda b:(b['distanceMetres'],b['uid']))[:12]
-  row=dict(id=item['id'],name=item['name'],priorState=old['state'],state=status,sourceHints=hints,proposedParts=accepted,rejectedCandidates=rejected,weakCandidates=weak,nearbyUnassignedNames=nearby,expectedDiscoveryNumbers=expected,missingDiscoveryNumbers=missing,componentMembershipComplete=False,componentScope='Preserves all previously assigned source parts; new named towers only. Unnamed podium/annexe membership requires source support, not proximity.',identityOnly=True,placementApproved=False,knownHolds=[p['knownHold'] for p in old['parts'] if p.get('knownHold')])
+  row=dict(aliasEvidence=alias,id=item['id'],name=item['name'],priorState=old['state'],state=status,sourceHints=hints,proposedParts=accepted,rejectedCandidates=rejected,weakCandidates=weak,nearbyUnassignedNames=nearby,expectedDiscoveryNumbers=expected,missingDiscoveryNumbers=missing,componentMembershipComplete=False,componentScope='Preserves all previously assigned source parts; new named towers only. Unnamed podium/annexe membership requires source support, not proximity.',identityOnly=True,placementApproved=False,knownHolds=[p['knownHold'] for p in old['parts'] if p.get('knownHold')])
   rows.append(row)
-  if accepted and changed and item.get('kind')!='interior-venue':overlay.append(dict(id=item['id'],title=item['name'],replacePriorIdentity=old['state']=='ambiguous',records=[dict(uid=b['uid'],objectId=b['object_id'],csuid=b['csuid'],name=b['name']) for b in accepted],evidence= dict(sourceHints=hints,canonicalRule='Punctuation/accent/case; optional Tower/Block/Hotel word; Metro Town/Silver Sea/Clear Water spacing; explicit phase-prefix removal; native numeric A/B subparts; no fuzzy edit distance.',componentMembershipComplete=False,missingDiscoveryNumbers=missing,governmentRecords=[b['governmentEvidence'] for b in accepted]),publicationApproved=False))
- report=dict(schemaVersion=1,issue='HKS-212',registryEntries=len(rows),seconds=round(time.monotonic()-started,3),networkRequestsDuringScript=0,aiCallsDuringScript=0,dbAccess='read-only',states=dict(collections.Counter(r['state'] for r in rows)),priorNoIdentityEntries=sum(r['priorState']=='no-identity' for r in rows),newlyProposedFromNoIdentity=sum(r['priorState']=='no-identity' and r['state']=='proposed-identity-overlay' for r in rows),ambiguitiesWithProposedGeographicResolution=sum(r['priorState']=='ambiguous' and r['state']=='proposed-identity-overlay' for r in rows),overlayEntries=len(overlay),newUniqueUidProposals=len({p['uid'] for r in rows for p in r['proposedParts']}-{p['uid'] for r in prior.values() for p in r['parts']}),inventorySourceGeneration=sourceGeneration,normalisationVersion=2,inputHashes={str(p.relative_to(ROOT)):sha(p) for p in [regpath,priorpath,HERE/'resolve.py']},rows=rows)
- proposal=dict(schemaVersion=1,name='landmark-identity-proposed-v1',issue=report['issue'],status='identity-proposal-for-review-not-applied',areas=[],landmarks=overlay,provenance=report['inputHashes'],coordinatePolicy='EPSG:4326 source hints projected through existing EPSG:2326 convention, origin834500/816500. No coordinates or model heights changed.')
+  if accepted and changed and item.get('kind')!='interior-venue':overlay.append(dict(id=item['id'],title=item['name'],replacePriorIdentity=old['state']=='ambiguous',records=[dict(uid=b['uid'],objectId=b['object_id'],csuid=b['csuid'],name=b['name']) for b in accepted],evidence= dict(aliasEvidence=alias,sourceHints=hints,canonicalRule='Punctuation/accent/case; optional Tower/Block/Hotel word; Metro Town/Silver Sea/Clear Water spacing; explicit phase-prefix removal; native numeric A/B subparts; no fuzzy edit distance.',componentMembershipComplete=False,missingDiscoveryNumbers=missing,governmentRecords=[b['governmentEvidence'] for b in accepted]),publicationApproved=False))
+ report=dict(schemaVersion=1,issue='HKS-212',registryEntries=len(rows),seconds=round(time.monotonic()-started,3),networkRequestsDuringScript=0,aiCallsDuringScript=0,dbAccess='read-only',states=dict(collections.Counter(r['state'] for r in rows)),priorNoIdentityEntries=sum(r['priorState']=='no-identity' for r in rows),newlyProposedFromNoIdentity=sum(r['priorState']=='no-identity' and r['state']=='proposed-identity-overlay' for r in rows),ambiguitiesWithProposedGeographicResolution=sum(r['priorState']=='ambiguous' and r['state']=='proposed-identity-overlay' for r in rows),overlayEntries=len(overlay),newUniqueUidProposals=len({p['uid'] for r in rows for p in r['proposedParts']}-{p['uid'] for r in prior.values() for p in r['parts']}),inventorySourceGeneration=sourceGeneration,normalisationVersion=3,inputHashes={str(p.relative_to(ROOT)):sha(p) for p in [regpath,priorpath,HERE/'resolve.py',HERE/'aliases-v2.json']},rows=rows)
+ proposal=dict(schemaVersion=1,name='landmark-identity-proposed-v2',issue=report['issue'],status='identity-proposal-for-review-not-applied',areas=[],landmarks=overlay,provenance=report['inputHashes'],coordinatePolicy='EPSG:4326 source hints projected through existing EPSG:2326 convention, origin834500/816500. No coordinates or model heights changed.')
  report['higherEffortPlacementQueue']=list({h['uid']:h for r in rows for h in r['knownHolds']}.values())
  report['referenceNotes']=read(HERE/'reference-notes.json')
  report['inputHashes'][str((HERE/'reference-notes.json').relative_to(ROOT))]=sha(HERE/'reference-notes.json')

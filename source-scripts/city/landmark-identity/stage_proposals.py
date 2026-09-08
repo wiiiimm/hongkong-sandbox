@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """HKS-212 overlay-to-staging adapter. No source acquisition or publication."""
-import argparse,collections,hashlib,json,pathlib,sqlite3,subprocess,sys,time
+import argparse,collections,hashlib,json,os,pathlib,sqlite3,subprocess,sys,time
 HERE=pathlib.Path(__file__).resolve().parent;ROOT=HERE.parents[2];DOC=ROOT/'docs/astra-city/landmark-identity';OUT=HERE/'prepared';DB=ROOT/'source-scripts/city/building-batch/local/buildings.sqlite'
 sys.path.insert(0,str(ROOT/'source-scripts/city/building-batch'))
 import cached_models,selection
-NAME='landmark-identity-hks212-preparation-v1'
+NAME='landmark-identity-hks212-preparation-v2'
 def read(p):return json.loads(p.read_text())
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def write(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(d,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
@@ -60,8 +60,13 @@ def summaries(config,identity,proposed,holds,verification,plan,run,validation,el
  rows=[]
  for r in identity['rows']:
   members=[p['uid'] for p in bygroup.get(r['id'],{}).get('records',[])];rows.append(dict(id=r['id'],name=r['name'],identityState=r['state'],members=members,componentMembershipComplete=False,states=dict(collections.Counter(parts[u]['state'] for u in members)),heldUIDs=[u for u in members if u in holds],noSelectionReason=r['state'] if not members else None))
- acquisition=read(ROOT/'docs/astra-city/landmark-acquisition/report.json')
- acquisitionHolds={r['uid']:dict(issue='HKS-213',reason='Exact reference acquired but conservative footprint/CSUID match failed; identity and placement remain held',models=r['models']) for r in acquisition['rows'] if r['models'] and not r['standardMatch']}
+ acquisitionHolds={}
+ for path in acquisition_reports():
+  for r in read(path)['rows']:
+   if r['models'] and not r['standardMatch']:
+    acquisitionHolds.setdefault(r['uid'],dict(issue='HKS-213',reason='Exact reference acquired but conservative footprint/CSUID match failed; identity and placement remain held',reports=[],models=[]))
+    acquisitionHolds[r['uid']]['reports'].append(str(path.relative_to(ROOT)))
+    acquisitionHolds[r['uid']]['models'].extend(r['models'])
  for uid,part in parts.items():
   if uid in acquisitionHolds:part['acquisitionHold']=acquisitionHolds[uid]
  report=dict(schemaVersion=1,issue='HKS-212',selection=NAME,scope='Mechanical identity overlay preparation only; no publication, architectural acceptance or completed-region claim.',verification=verification,allRegistryEntries=len(rows),uniqueSelectedUIDs=len(parts),partStates=dict(collections.Counter(p['state'] for p in parts.values())),stagedModels=len(models),stagedInPriorBulk=len(set(models)&oldmodels),additionalStagedSincePriorBulk=len(set(models)-oldmodels),proposedIdentityStaged=len({u for us in proposed.values() for u in us}&set(models)),knownHolds=holds,acquisitionHolds=acquisitionHolds,knownHeldModelsStaged=sorted(set(holds)&set(models)),compressedModelBytes=sum(m['bytes'] for m in models.values()),workers=2,outputLimitBytes=128*1024**2,networkRequests=0,newPublishedModels=0,plan=plan,run=run,validation={k:v for k,v in validation.items() if k not in ['results','hashes']},seconds=round(elapsed,3),parts=[parts[u] for u in sorted(parts)],rows=rows)
@@ -71,14 +76,35 @@ def summaries(config,identity,proposed,holds,verification,plan,run,validation,el
  total=sum(p.stat().st_size for p in OUT.rglob('*') if p.is_file());assert total<=128*1024**2,'Combined output budget exceeded'
  print(json.dumps({k:v for k,v in report.items() if k not in ['parts','rows','knownHolds','plan','run']},indent=2))
 
+def acquisition_reports():
+ base=ROOT/'docs/astra-city/landmark-acquisition'
+ return [path for path in [base/'report.json']+sorted(base.glob('batches/*/report.json')) if 'completedTiles' in read(path) and 'rows' in read(path)]
+
+def stable_acquisition():
+ evidence=[]
+ for report in acquisition_reports():
+  verification=report.with_name('verification.json');v=read(verification)
+  assert v['result']=='passed' and not v['errors'], 'Acquisition not verified: '+str(report)
+  r=read(report);assert r['completedTiles']==r['sourceTiles'], 'Incomplete acquisition: '+str(report)
+  evidence.append(dict(report=str(report.relative_to(ROOT)),reportSHA256=sha(report),verificationSHA256=sha(verification)))
+ # Adapter links expose nested source batches to the unchanged cache scanner.
+ # Links are local ignored intermediates. Published/source manifests stay untouched.
+ staged=HERE/'staged';staged.mkdir(exist_ok=True)
+ for path in staged.iterdir():
+  assert path.is_symlink(), 'Unexpected non-symlink adapter member: '+str(path)
+  path.unlink()
+ for manifest in sorted((ROOT/'source-scripts/city/landmark-acquisition/batches').glob('*/staged/*/manifest.json')):
+  target=manifest.parent;assert target.resolve().is_relative_to(ROOT)
+  link=staged/(manifest.parents[2].name+'--'+target.name)
+  link.symlink_to(os.path.relpath(target,staged),target_is_directory=True)
+ return evidence
+
 def main():
  p=argparse.ArgumentParser();p.add_argument('command',choices=['check','run']);p.add_argument('--sources-stable',action='store_true',help='Required acknowledgement from coordinating acquisition agent/root before scanning staged manifests');p.add_argument('--node',default='/Users/williamli/.nvm/versions/node/v24.17.0/bin/node');a=p.parse_args();started=time.monotonic()
  config,identity,proposed,holds,verification=validate_overlay()
  if a.command=='check':print(json.dumps(verification,indent=2));return
  if not a.sources_stable:p.error('Wait for acquisition/root confirmation, then supply --sources-stable')
- acquisition_check=read(ROOT/'docs/astra-city/landmark-acquisition/verification.json');assert acquisition_check['result']=='passed' and not acquisition_check['errors']
- verification['stableAcquisitionSHA256']=sha(ROOT/'docs/astra-city/landmark-acquisition/report.json')
- verification['stableAcquisitionVerificationSHA256']=sha(ROOT/'docs/astra-city/landmark-acquisition/verification.json')
+ verification['stableAcquisition']=stable_acquisition()
  write(OUT/'selection-config.json',config);s,_=selection.select(DB,config);assert not s['exceptions'];write(OUT/'selection.json',s)
  plan=cached_models.prepare(DB,ROOT,NAME);write(OUT/'plan.json',plan)
  run=cached_models.run_stage(DB,ROOT,OUT,NAME,workers=2,limit=10000,max_output_bytes=120*1024**2);write(OUT/'run.json',run)
@@ -87,6 +113,7 @@ def main():
   catalogue=read(OUT/name)
   for m in catalogue['models']:
    assert m.get('placementReviewed') is False
+   if m.get('sourceManifest'):m['sourceManifest']=str((ROOT/m['sourceManifest']).resolve().relative_to(ROOT))
    m.update(identityReviewApproved=False,proposedIdentity=m['uid'] in allproposed,knownPlacementHold=holds.get(m['uid']),publicationApproved=False)
   write(OUT/name,catalogue)
  used={m['asset'] for m in read(OUT/'catalogue.json')['models']}
