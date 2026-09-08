@@ -5,11 +5,11 @@ ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'source-scripts/city/landmark-resume'))
 from r2_snapshot import safe_path,digest
 BASE=Path(__file__).parent
-ROOTS=['assembly-support-review','identity-hold-review','residential-support-review','residual-support-review','grounded-model-review','grounded-framing-review','roof-occlusion-review','model-support-review','cultural-model-review','landmark-preflight/snapshots','landmark-identity/prepared','landmark-identity/staged','landmark-acquisition','central-completion']
+ROOTS=['assembly-support-review','identity-hold-review','residential-support-review','residual-support-review','grounded-model-review','grounded-framing-review','roof-occlusion-review','model-support-review','cultural-model-review','landmark-preflight/snapshots','landmark-identity/prepared','landmark-identity/staged','landmark-acquisition','central-completion','whampoa-special','identity-four-native']
 SKIP={'__pycache__','node_modules','.git','.vercel'}
 def main():
- p=argparse.ArgumentParser();p.add_argument('--prior-manifest',type=Path,required=True);a=p.parse_args()
- checkpoint=json.loads((BASE/'R2-CLOUD-CHECKPOINT.json').read_text())
+ p=argparse.ArgumentParser();p.add_argument('--prior-manifest',type=Path,required=True);p.add_argument('--prior-checkpoint',type=Path,default=BASE/'R2-CLOUD-CHECKPOINT.json');a=p.parse_args()
+ checkpoint=json.loads(a.prior_checkpoint.read_text())
  assert digest(a.prior_manifest)==checkpoint['manifestSHA256'],'Prior checkpoint hash mismatch'
  prior=json.loads(a.prior_manifest.read_text()); prior_hashes={r['sha256'] for r in prior['files'] if r['kind']=='file'}
  tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode().split('\0'))
