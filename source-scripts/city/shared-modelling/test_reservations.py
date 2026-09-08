@@ -4,6 +4,7 @@ import os
 import time
 import unittest
 import uuid
+from unittest.mock import patch
 
 import reservations as r
 from db import connect
@@ -11,9 +12,14 @@ from db import connect
 
 class ValidationTests(unittest.TestCase):
     def test_sorted_stable_keys(self):
-        self.assertEqual(r.normalise(['building:b','building:a','building:b']), ['building:a','building:b'])
+        self.assertEqual(r.normalise(['fixture:b','fixture:a','fixture:b']), ['fixture:a','fixture:b'])
         for resources in ([], [''], [' building:a'], ['a'] * 0):
             with self.assertRaises(ValueError): r.normalise(resources)
+
+    def test_canonical_building_key_requires_complete_uid(self):
+        self.assertEqual(r.normalise(['building:landsd/123456:0']), ['building:landsd/123456:0'])
+        for key in ('building:landsd/123456', 'building:landsd/123456:', 'building:123456:0', 'building:landsd/abc:0', 'building:landsd/001:0', 'building:landsd/1:00', 'building:landsd/0:0'):
+            with self.assertRaises(ValueError): r.normalise([key])
 
     def test_ttl_and_owner_required(self):
         for owner, ttl in (('', 900), ('owner', 0), ('owner', 3601), ('owner', 1.5), ('owner', True)):
@@ -57,6 +63,24 @@ class NeonReservationTests(unittest.TestCase):
         self.assertTrue(r.owns(winners[0]))
         forged = {**winners[0], 'owner': 'other-session'}
         self.assertFalse(r.release(forged)['ok'])
+
+    def test_claim_lease_starts_after_slow_resource_writes(self):
+        original = r._event
+        def delayed(*args, **kwargs):
+            original(*args, **kwargs)
+            time.sleep(1.2)
+        with patch.object(r, '_event', side_effect=delayed):
+            receipt = self.claim('delayed-fixture', [self.prefix + ':delayed'], ttl=1)['reservation']
+        self.assertGreater((receipt['lease_until'] - receipt['heartbeat_at']).total_seconds(), 0.9)
+        self.assertGreater((receipt['heartbeat_at'] - receipt['created_at']).total_seconds(), 1.0)
+        # Server timestamps prove a complete one-second lease starts after the injected
+        # delay; a remote round-trip can itself exceed this deliberately tiny test TTL.
+        self.assertGreater((receipt['lease_until'] - receipt['created_at']).total_seconds(), 2.0)
+
+    def test_canonical_uid_conflicts_across_batches(self):
+        key = 'building:landsd/999' + str(uuid.uuid4().int) + ':0'
+        self.claim('uid-fixture-one', [key], batch='first')
+        self.assertFalse(self.claim('uid-fixture-two', [key], batch='second')['ok'])
 
     def test_expiry_reclaim_fences_old_token(self):
         key = self.prefix + ':expire'

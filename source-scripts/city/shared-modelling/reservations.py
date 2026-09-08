@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 import uuid
 
@@ -10,7 +11,7 @@ from psycopg.types.json import Jsonb
 from db import connect, HERE
 
 LOCK_ID = 217002
-DEFAULT_TTL = 900
+DEFAULT_TTL = 1800
 
 
 def normalise(resources):
@@ -20,6 +21,9 @@ def normalise(resources):
         for key in result
     ):
         raise ValueError('Provide 1–1000 stable resource keys of 1–300 characters')
+    for key in result:
+        if key.startswith('building:') and not re.fullmatch(r'building:landsd/[1-9][0-9]*:(?:0|[1-9][0-9]*)', key):
+            raise ValueError('Building keys require the complete canonical building:landsd/OBJECTID:PART UID')
     return result
 
 
@@ -88,7 +92,13 @@ def claim(owner, resources, ttl=DEFAULT_TTL, batch=None, *, expected_tokens=None
                 generation=nextval('astra_modelling.reservation_generation')''', (resource, token))
         _event(con, 'takeover' if override else ('reclaim' if previous else 'claim'),
                owner, token, resources, previous, reason)
-        group['generations'] = {row['resource']: row['generation'] for row in _rows(con, resources)}
+        generations = {row['resource']: row['generation'] for row in _rows(con, resources)}
+        # Start the usable lease after all group writes/audit work, not before up to
+        # 1000 resource writes. The server remains the only source of lease time.
+        group = con.execute('''UPDATE astra_modelling.reservation_groups SET
+            heartbeat_at=clock_timestamp(),lease_until=clock_timestamp()+make_interval(secs=>%s)
+            WHERE token=%s RETURNING *''', (ttl, token)).fetchone()
+        group['generations'] = generations
         return {'ok': True, 'reservation': group}
 
 
@@ -197,7 +207,20 @@ def main():
         p.add_argument('--lease-file', type=Path, required=True)
         if command == 'heartbeat':
             p.add_argument('--ttl', type=int, default=DEFAULT_TTL)
+    p = sub.add_parser('run', help='Supervise one command, automatically renewing while it runs')
+    p.add_argument('--lease-file', type=Path, required=True)
+    p.add_argument('--ttl', type=int, default=DEFAULT_TTL)
+    p.add_argument('child_command', nargs=argparse.REMAINDER)
     args = parser.parse_args()
+    if args.command == 'run':
+        from reservation_runner import run_reserved
+        command = args.child_command
+        if command and command[0] == '--':
+            command = command[1:]
+        result = run_reserved(args.lease_file, command, ttl=args.ttl)
+        print(json.dumps(result, default=str, indent=2))
+        return result.get('exitCode', 2)
+
     if args.command == 'migrate':
         result = migrate()
     elif args.command == 'status':
