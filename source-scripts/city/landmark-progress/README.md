@@ -9,3 +9,5 @@ A review record needs `identityReviewed`, `componentMembershipComplete`, exact `
 The 213-entry membership is preserved. Historical interior venues retain their host/scope work. Cached candidates, components and complete landmarks remain separate counters. Proposed identity overlays stay separate until integrated into an updated, source-accounted bulk report.
 
 Tests: `python -m unittest discover -s source-scripts/city/landmark-progress -p 'test_*.py'`.
+
+Source preparation also reads the original acquisition report and subsequent pinned batch reports. It reports checked source absences and acquired matching holds separately from pending downloads. Installed and prepared source parts override older acquisition outcomes. These statuses do not certify whole landmarks or prove territory-wide source absence.

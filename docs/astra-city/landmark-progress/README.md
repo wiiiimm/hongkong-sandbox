@@ -4,16 +4,27 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 
 0 / 213 have explicit whole-landmark readiness records. This is not a count of visible or detailed buildings.
 
+## Source preparation
+
+Counts below are unique identified model parts, not complete landmarks.
+
+- acquired-match-review: 6
+- acquisition-pending: 119
+- exact-source-absent-in-checked-sheets: 27
+- identity-required: 8
+- installed: 132
+- prepared-for-review: 109
+
 | Landmark | Identified / installed parts | Prepared, uninstalled | Review | Next action |
 |---|---:|---:|---|---|
 | IFC towers | 4 / 4 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Bank of China Tower | 2 / 1 | 0 | not-reviewed | Acquire missing cached components |
+| Bank of China Tower | 2 / 1 | 0 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | HSBC Main Building | 1 / 1 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Mui Wo ferry pier | 2 / 1 | 0 | not-reviewed | Acquire missing cached components |
+| Mui Wo ferry pier | 2 / 1 | 0 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | Silvermine Beach Resort | 2 / 2 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Tai O Heritage Hotel | 6 / 5 | 0 | not-reviewed | Acquire missing cached components |
+| Tai O Heritage Hotel | 6 / 5 | 0 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | Po Lin Monastery buildings | 49 / 35 | 1 | not-reviewed | Review source support or terrain; higher modelling effort may be needed |
-| Ngong Ping visitor village | 20 / 17 | 0 | not-reviewed | Acquire missing cached components |
+| Ngong Ping visitor village | 20 / 17 | 0 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | Hong Kong Space Museum | 3 / 3 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Hong Kong Cultural Centre | 7 / 7 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Hong Kong Convention and Exhibition Centre | 1 / 1 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
@@ -25,7 +36,7 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 | The Peak Tower | 3 / 0 | 1 | not-reviewed | Review source support or terrain; higher modelling effort may be needed |
 | The Victoria Towers | 3 / 0 | 3 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Xiqu Centre | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Hong Kong West Kowloon Station | 1 / 0 | 0 | not-reviewed | Acquire missing cached components |
+| Hong Kong West Kowloon Station | 1 / 0 | 0 | not-reviewed | Review acquired source correspondence |
 | The Harbourside | 3 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | International Commerce Centre | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | M+ Pavilion / Arts Pavilion | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
@@ -44,7 +55,7 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 | Potato Head Hong Kong | 0 / 0 | 0 | not-reviewed | Resolve host and historical scope |
 | Edouard Malingue Gallery | 0 / 0 | 0 | not-reviewed | Resolve host and historical scope |
 | Lehmann Maupin Gallery | 0 / 0 | 0 | not-reviewed | Resolve host and historical scope |
-| Hong Kong International Airport Terminal1 | 1 / 0 | 0 | not-reviewed | Acquire missing cached components |
+| Hong Kong International Airport Terminal1 | 1 / 0 | 0 | not-reviewed | Review acquired source correspondence |
 | Jockey Club Innovation Tower | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Hong Kong Design Institute | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | 133 Wai Yip Street | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
@@ -56,12 +67,12 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 | Chungking Mansions | 5 / 0 | 5 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Central Plaza | 1 / 1 | 0 | not-reviewed | Resolve identity/component membership |
 | One Island East | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| The Center | 14 / 4 | 2 | not-reviewed | Acquire missing cached components |
+| The Center | 14 / 4 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Nina Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Victoria Dockside | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | The Cullinan North Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | The Cullinan South Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Masterpiece | 4 / 0 | 3 | not-reviewed | Acquire missing cached components |
+| The Masterpiece | 4 / 0 | 3 | not-reviewed | Review acquired source correspondence |
 | Sorrento 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Langham Place Office Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Highcliff | 3 / 0 | 3 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
@@ -76,11 +87,11 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 | LOHAS Park Phase 5A Malibu Tower 2 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | The Belcher's Tower 5 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Belcher's Tower 6 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Hopewell Centre | 5 / 1 | 2 | not-reviewed | Acquire missing cached components |
+| Hopewell Centre | 5 / 1 | 2 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | The Belcher's Tower 1 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Belcher's Tower 2 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Tregunter 3 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Summit | 6 / 0 | 4 | not-reviewed | Acquire missing cached components |
+| The Summit | 6 / 0 | 4 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | Grand Promenade 2–5 | 3 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Sorrento 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | LOHAS Park Phase 5A Malibu Tower 3 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
@@ -126,13 +137,13 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 | LOHAS Park Phase 1 The Capitol Tower 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | LOHAS Park Phase 2A Le Prestige Towers 1–3, 5 | 4 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Conrad Hong Kong Hotel | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
-| Queensway Government Offices | 3 / 0 | 2 | not-reviewed | Acquire missing cached components |
+| Queensway Government Offices | 3 / 0 | 2 | not-reviewed | Review acquired source correspondence |
 | Le Point Tower 06 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Le Point Tower 07 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Bellagio Tower 6–9 | 4 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | The Merton 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Wharf Cable Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Aigburth | 1 / 0 | 0 | not-reviewed | Acquire missing cached components |
+| Aigburth | 1 / 0 | 0 | not-reviewed | Review acquired source correspondence |
 | Vision City 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Vision City 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Vision City 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
@@ -155,7 +166,7 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 | Cullinan West Phase 5 Tower 7 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Cullinan West Phase 5 Tower 8 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Primrose Hill Tower 2 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| The Centrium | 3 / 0 | 2 | not-reviewed | Acquire missing cached components |
+| The Centrium | 3 / 0 | 2 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | The Merton 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | One Exchange Square | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Two Exchange Square | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
@@ -187,7 +198,7 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 | LOHAS Park Phase 4B Wings At Sea Tower 3 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Banyan Garden 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Chelsea Court Tower South | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Three Pacific Place | 3 / 1 | 0 | not-reviewed | Acquire missing cached components |
+| Three Pacific Place | 3 / 1 | 0 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | Branksome Crest | 4 / 0 | 4 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | One Silversea 1–8 | 7 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Convention Plaza Office Tower | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |

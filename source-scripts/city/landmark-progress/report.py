@@ -29,6 +29,32 @@ def review_status(review, uids, installed, root):
             return 'evidence-changed'
     return 'ready-for-review'
 
+def acquisition_records(root):
+    """Latest explicit batch result per UID; an absent reference is not missing work."""
+    base = root / 'docs/astra-city/landmark-acquisition'
+    paths = ([base / 'report.json'] if (base / 'report.json').exists() else [])
+    paths += sorted((base / 'batches').glob('*/report.json'))
+    records = {}
+    for path in sorted(paths, key=lambda p: (read(p).get('generatedAt', ''), str(p))):
+        for row in read(path).get('rows', []):
+            records[row['uid']] = dict(row, report=str(path.relative_to(root)))
+    return records, paths
+
+def source_status(part, installed, acquired):
+    uid = part['uid']
+    if uid in installed:
+        return 'installed'
+    if part.get('stagedAsset') or part.get('state') == 'candidate-staged':
+        return 'prepared-for-review'
+    if part.get('state') == 'no-government-identity':
+        return 'identity-required'
+    record = acquired.get(uid, {})
+    if record.get('outcome') == 'no-exact-model-in-complete-checked-sheets':
+        return 'exact-source-absent-in-checked-sheets'
+    if record.get('outcome') == 'acquired-and-staged':
+        return 'acquired-match-review' if record.get('standardMatch') is not True else 'acquired-preparation-pending'
+    return 'acquisition-pending'
+
 def build(root=ROOT):
     registry_path = root / 'source-scripts/city/landmark-registry/landmarks.json'
     batch_path = root / 'docs/astra-city/landmark-bulk/bulk-report.json'
@@ -65,26 +91,33 @@ def build(root=ROOT):
                 raise ValueError('Inventory stale: ' + path + '; regenerate inventory first')
         installed = {u for u, in c.execute('SELECT uid FROM buildings WHERE active=1 AND embedded=1')}
         installed |= {u for u, in c.execute('SELECT DISTINCT uid FROM models')}
+    acquired, acquisition_paths = acquisition_records(root)
+    input_paths.extend(acquisition_paths)
     result = []
     for landmark in landmarks:
         row = rows[landmark['id']]
         parts = {p['uid']: p for p in row['parts']}; uids = set(parts)
         staged = {u for u,p in parts.items() if p.get('stagedAsset') or p.get('state')=='candidate-staged'}
         held = {u:p['knownHold'] for u,p in parts.items() if p.get('knownHold')}
+        sources = {u:source_status(p, installed, acquired) for u,p in parts.items()}
         review = review_status(reviews.get(landmark['id']), uids, installed, root)
         result.append(dict(id=landmark['id'], name=landmark['name'], preparationState=row['state'],
                            identifiedParts=len(uids), installedIdentifiedParts=len(uids & installed),
                            stagedUninstalledParts=len(staged - installed), heldParts=held,
-                           sourceUids=sorted(uids), reviewStatus=review,
+                           sourceUids=sorted(uids), sourceStates=sources, reviewStatus=review,
                            nextAction='User review' if review=='ready-for-review' else
                            'Resolve host and historical scope' if row['state']=='nonbuilding-scope' else
                            'Resolve identity/component membership' if row['state'] in ('no-identity','ambiguous','proposed-identity') else
                            'Review source support or terrain; higher modelling effort may be needed' if held else
-                           'Acquire missing cached components' if row['state']=='cache-absent' else
+                           'Acquire remaining source components' if 'acquisition-pending' in sources.values() else
+                           'Prepare acquired exact sources' if 'acquired-preparation-pending' in sources.values() else
+                           'Review acquired source correspondence' if 'acquired-match-review' in sources.values() else
+                           'Review alternatives for exact sources absent in checked sheets' if 'exact-source-absent-in-checked-sheets' in sources.values() else
                            'Verify full landmark appearance, placement and interaction in viewer'))
     counts = dict(collections.Counter(r['reviewStatus'] for r in result))
     return dict(schemaVersion=1, landmarks=len(result), readyForReview=counts.get('ready-for-review',0),
                 reviewStates=counts, installedTerritoryDetailed=len(installed),
+                uniqueSourceStates=dict(collections.Counter({u:state for r in result for u,state in r['sourceStates'].items()}.values())),
                 preparationStates=dict(collections.Counter(r['preparationState'] for r in result)),
                 qualification='Readiness requires explicit whole-landmark evidence. Existing model references and staged parts are not completion. This report does not publish models or change review decisions.',
                 stagedUninstalledUnique=len({p['uid'] for r in rows.values() for p in r['parts'] if (p.get('stagedAsset') or p.get('state')=='candidate-staged') and p['uid'] not in installed}),
@@ -96,6 +129,9 @@ def main():
     result=build(a.root);out=a.root/'docs/astra-city/landmark-progress';out.mkdir(parents=True,exist_ok=True)
     (out/'progress.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     lines=['# Landmark readiness','',result['qualification'],'',f"{result['readyForReview']} / {result['landmarks']} have explicit whole-landmark readiness records. This is not a count of visible or detailed buildings.",'','| Landmark | Identified / installed parts | Prepared, uninstalled | Review | Next action |','|---|---:|---:|---|---|']
+    summary=['## Source preparation', '', 'Counts below are unique identified model parts, not complete landmarks.', '']
+    summary += [f'- {state}: {count}' for state,count in sorted(result['uniqueSourceStates'].items())]
+    lines[6:6] = summary + ['']
     for r in result['rows']:
         name=r['name'].replace('|','/');lines.append(f"| {name} | {r['identifiedParts']} / {r['installedIdentifiedParts']} | {r['stagedUninstalledParts']} | {r['reviewStatus']} | {r['nextAction']} |")
     (out/'README.md').write_text('\n'.join(lines)+'\n')

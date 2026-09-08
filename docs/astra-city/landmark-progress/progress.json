@@ -6,6 +6,14 @@
     "not-reviewed": 213
   },
   "installedTerritoryDetailed": 4054,
+  "uniqueSourceStates": {
+    "installed": 132,
+    "exact-source-absent-in-checked-sheets": 27,
+    "prepared-for-review": 109,
+    "acquisition-pending": 119,
+    "acquired-match-review": 6,
+    "identity-required": 8
+  },
   "preparationStates": {
     "already-detailed": 17,
     "cache-absent": 14,
@@ -22,7 +30,8 @@
     "source-scripts/city/landmark-registry/landmarks.json": "b3c9e530eb06567101ec894e7c421a3f48574ec55ba7a411479cd77fa55b678c",
     "docs/astra-city/landmark-bulk/bulk-report.json": "f87feab18fc6c1b318e8399d09df1651707468a7eca40321962d49034d2f04b3",
     "source-scripts/city/landmark-progress/reviews.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
-    "docs/astra-city/landmark-identity/stage-summary.json": "1c1f69e9c8700926b27a861421322c7bbc62695b261df92f7e182f0b270cf6be"
+    "docs/astra-city/landmark-identity/stage-summary.json": "1c1f69e9c8700926b27a861421322c7bbc62695b261df92f7e182f0b270cf6be",
+    "docs/astra-city/landmark-acquisition/report.json": "0bade381fb7ba27d9d99088523cbc3e82be5d369f0f5484a16628ddf6c719d28"
   },
   "rows": [
     {
@@ -39,6 +48,12 @@
         "landsd/244915:0",
         "landsd/257115:0"
       ],
+      "sourceStates": {
+        "landsd/161250:0": "installed",
+        "landsd/232441:0": "installed",
+        "landsd/244915:0": "installed",
+        "landsd/257115:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -54,8 +69,12 @@
         "landsd/123884:0",
         "landsd/93196:0"
       ],
+      "sourceStates": {
+        "landsd/123884:0": "installed",
+        "landsd/93196:0": "exact-source-absent-in-checked-sheets"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review alternatives for exact sources absent in checked sheets"
     },
     {
       "id": "hsbc",
@@ -68,6 +87,9 @@
       "sourceUids": [
         "landsd/89275:0"
       ],
+      "sourceStates": {
+        "landsd/89275:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -83,8 +105,12 @@
         "landsd/185493:0",
         "landsd/291920:0"
       ],
+      "sourceStates": {
+        "landsd/185493:0": "exact-source-absent-in-checked-sheets",
+        "landsd/291920:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review alternatives for exact sources absent in checked sheets"
     },
     {
       "id": "silvermine-resort",
@@ -98,6 +124,10 @@
         "landsd/197795:0",
         "landsd/201560:0"
       ],
+      "sourceStates": {
+        "landsd/197795:0": "installed",
+        "landsd/201560:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -117,8 +147,16 @@
         "landsd/240278:0",
         "landsd/67478:0"
       ],
+      "sourceStates": {
+        "landsd/170271:0": "installed",
+        "landsd/170357:0": "installed",
+        "landsd/211618:0": "installed",
+        "landsd/239278:0": "installed",
+        "landsd/240278:0": "exact-source-absent-in-checked-sheets",
+        "landsd/67478:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review alternatives for exact sources absent in checked sheets"
     },
     {
       "id": "po-lin",
@@ -186,6 +224,57 @@
         "landsd/95902:0",
         "landsd/96180:0"
       ],
+      "sourceStates": {
+        "landsd/109661:0": "installed",
+        "landsd/109662:0": "installed",
+        "landsd/118757:0": "installed",
+        "landsd/121818:0": "installed",
+        "landsd/163393:0": "installed",
+        "landsd/166937:0": "installed",
+        "landsd/171228:0": "exact-source-absent-in-checked-sheets",
+        "landsd/171236:0": "exact-source-absent-in-checked-sheets",
+        "landsd/189728:0": "installed",
+        "landsd/189822:0": "exact-source-absent-in-checked-sheets",
+        "landsd/209962:0": "installed",
+        "landsd/211841:0": "installed",
+        "landsd/211847:0": "prepared-for-review",
+        "landsd/211894:0": "installed",
+        "landsd/213220:0": "installed",
+        "landsd/221159:0": "exact-source-absent-in-checked-sheets",
+        "landsd/228046:0": "exact-source-absent-in-checked-sheets",
+        "landsd/228719:0": "exact-source-absent-in-checked-sheets",
+        "landsd/229992:0": "exact-source-absent-in-checked-sheets",
+        "landsd/230367:0": "exact-source-absent-in-checked-sheets",
+        "landsd/230576:0": "exact-source-absent-in-checked-sheets",
+        "landsd/2379:0": "exact-source-absent-in-checked-sheets",
+        "landsd/238276:0": "installed",
+        "landsd/238481:0": "exact-source-absent-in-checked-sheets",
+        "landsd/238483:0": "installed",
+        "landsd/286954:0": "exact-source-absent-in-checked-sheets",
+        "landsd/286955:0": "exact-source-absent-in-checked-sheets",
+        "landsd/58870:0": "installed",
+        "landsd/58889:0": "installed",
+        "landsd/58933:0": "installed",
+        "landsd/62292:0": "installed",
+        "landsd/62508:0": "installed",
+        "landsd/63309:0": "installed",
+        "landsd/64515:0": "installed",
+        "landsd/67732:0": "installed",
+        "landsd/67874:0": "installed",
+        "landsd/68108:0": "installed",
+        "landsd/68124:0": "installed",
+        "landsd/68126:0": "installed",
+        "landsd/68173:0": "installed",
+        "landsd/84455:0": "installed",
+        "landsd/94475:0": "installed",
+        "landsd/94481:0": "installed",
+        "landsd/94482:0": "installed",
+        "landsd/95177:0": "installed",
+        "landsd/95373:0": "installed",
+        "landsd/95899:0": "installed",
+        "landsd/95902:0": "installed",
+        "landsd/96180:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
     },
@@ -219,8 +308,30 @@
         "landsd/6435:0",
         "landsd/6436:0"
       ],
+      "sourceStates": {
+        "landsd/169498:0": "installed",
+        "landsd/171165:0": "installed",
+        "landsd/171689:0": "installed",
+        "landsd/180298:0": "exact-source-absent-in-checked-sheets",
+        "landsd/183630:0": "installed",
+        "landsd/183737:0": "installed",
+        "landsd/184160:0": "installed",
+        "landsd/184341:0": "installed",
+        "landsd/184466:0": "exact-source-absent-in-checked-sheets",
+        "landsd/184767:0": "installed",
+        "landsd/185143:0": "installed",
+        "landsd/185292:0": "installed",
+        "landsd/185672:0": "exact-source-absent-in-checked-sheets",
+        "landsd/186841:0": "installed",
+        "landsd/188473:0": "installed",
+        "landsd/189718:0": "installed",
+        "landsd/192422:0": "installed",
+        "landsd/233455:0": "installed",
+        "landsd/6435:0": "installed",
+        "landsd/6436:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review alternatives for exact sources absent in checked sheets"
     },
     {
       "id": "space-museum",
@@ -235,6 +346,11 @@
         "landsd/252061:0",
         "landsd/252854:0"
       ],
+      "sourceStates": {
+        "landsd/211468:0": "installed",
+        "landsd/252061:0": "installed",
+        "landsd/252854:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -255,6 +371,15 @@
         "landsd/72491:0",
         "landsd/77406:0"
       ],
+      "sourceStates": {
+        "landsd/123119:0": "installed",
+        "landsd/209787:0": "installed",
+        "landsd/211702:0": "installed",
+        "landsd/245604:0": "installed",
+        "landsd/251819:0": "installed",
+        "landsd/72491:0": "installed",
+        "landsd/77406:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -269,6 +394,9 @@
       "sourceUids": [
         "landsd/124803:0"
       ],
+      "sourceStates": {
+        "landsd/124803:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -326,6 +454,27 @@
         "landsd/273024:0",
         "landsd/330467:0"
       ],
+      "sourceStates": {
+        "landsd/105155:0": "installed",
+        "landsd/114964:0": "prepared-for-review",
+        "landsd/118450:0": "installed",
+        "landsd/16901:0": "installed",
+        "landsd/230105:0": "installed",
+        "landsd/231915:0": "installed",
+        "landsd/235860:0": "installed",
+        "landsd/242698:0": "acquisition-pending",
+        "landsd/244346:0": "installed",
+        "landsd/251755:0": "installed",
+        "landsd/261799:0": "installed",
+        "landsd/262026:0": "installed",
+        "landsd/262589:0": "installed",
+        "landsd/263001:0": "installed",
+        "landsd/263599:0": "installed",
+        "landsd/267516:0": "installed",
+        "landsd/267623:0": "installed",
+        "landsd/273024:0": "installed",
+        "landsd/330467:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
     },
@@ -342,6 +491,11 @@
         "landsd/179440:0",
         "landsd/257876:0"
       ],
+      "sourceStates": {
+        "landsd/125345:0": "installed",
+        "landsd/179440:0": "installed",
+        "landsd/257876:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -358,6 +512,11 @@
         "landsd/170207:0",
         "landsd/234787:0"
       ],
+      "sourceStates": {
+        "landsd/170204:0": "installed",
+        "landsd/170207:0": "installed",
+        "landsd/234787:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -435,6 +594,23 @@
         "landsd/61477:0",
         "landsd/70574:0"
       ],
+      "sourceStates": {
+        "landsd/181520:0": "installed",
+        "landsd/223346:0": "installed",
+        "landsd/223348:0": "prepared-for-review",
+        "landsd/223349:0": "installed",
+        "landsd/223350:0": "installed",
+        "landsd/223360:0": "installed",
+        "landsd/223783:0": "prepared-for-review",
+        "landsd/223794:0": "installed",
+        "landsd/3089:0": "installed",
+        "landsd/3090:0": "installed",
+        "landsd/3091:0": "installed",
+        "landsd/321812:0": "installed",
+        "landsd/4314:0": "installed",
+        "landsd/61477:0": "installed",
+        "landsd/70574:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
     },
@@ -458,6 +634,9 @@
       "sourceUids": [
         "landsd/322573:0"
       ],
+      "sourceStates": {
+        "landsd/322573:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
     },
@@ -499,6 +678,11 @@
         "landsd/246272:0",
         "landsd/248218:0"
       ],
+      "sourceStates": {
+        "landsd/246271:0": "acquisition-pending",
+        "landsd/246272:0": "acquisition-pending",
+        "landsd/248218:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
     },
@@ -515,6 +699,11 @@
         "landsd/251614:0",
         "landsd/251615:0"
       ],
+      "sourceStates": {
+        "landsd/251609:0": "prepared-for-review",
+        "landsd/251614:0": "prepared-for-review",
+        "landsd/251615:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -529,6 +718,9 @@
       "sourceUids": [
         "landsd/205817:0"
       ],
+      "sourceStates": {
+        "landsd/205817:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -543,8 +735,11 @@
       "sourceUids": [
         "landsd/297401:0"
       ],
+      "sourceStates": {
+        "landsd/297401:0": "acquired-match-review"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review acquired source correspondence"
     },
     {
       "id": "harbourside",
@@ -559,6 +754,11 @@
         "landsd/204154:0",
         "landsd/204155:0"
       ],
+      "sourceStates": {
+        "landsd/204153:0": "acquisition-pending",
+        "landsd/204154:0": "acquisition-pending",
+        "landsd/204155:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -574,6 +774,10 @@
         "landsd/201351:0",
         "landsd/269745:0"
       ],
+      "sourceStates": {
+        "landsd/201351:0": "prepared-for-review",
+        "landsd/269745:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -588,6 +792,9 @@
       "sourceUids": [
         "landsd/168596:0"
       ],
+      "sourceStates": {
+        "landsd/168596:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -603,6 +810,10 @@
         "landsd/279530:0",
         "landsd/310908:0"
       ],
+      "sourceStates": {
+        "landsd/279530:0": "prepared-for-review",
+        "landsd/310908:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -626,6 +837,9 @@
       "sourceUids": [
         "landsd/324948:0"
       ],
+      "sourceStates": {
+        "landsd/324948:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
     },
@@ -640,6 +854,9 @@
       "sourceUids": [
         "landsd/283788:0"
       ],
+      "sourceStates": {
+        "landsd/283788:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -676,6 +893,14 @@
         "landsd/235801:0",
         "landsd/91009:0"
       ],
+      "sourceStates": {
+        "landsd/143421:0": "acquisition-pending",
+        "landsd/178994:0": "installed",
+        "landsd/179272:0": "installed",
+        "landsd/180315:0": "installed",
+        "landsd/235801:0": "installed",
+        "landsd/91009:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
     },
@@ -690,6 +915,9 @@
       "sourceUids": [
         "landsd/184076:0"
       ],
+      "sourceStates": {
+        "landsd/184076:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -704,6 +932,9 @@
       "sourceUids": [
         "landsd/69002:0"
       ],
+      "sourceStates": {
+        "landsd/69002:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -718,6 +949,9 @@
       "sourceUids": [
         "landsd/322270:0"
       ],
+      "sourceStates": {
+        "landsd/322270:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -732,6 +966,9 @@
       "sourceUids": [
         "landsd/315069:0"
       ],
+      "sourceStates": {
+        "landsd/315069:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -746,6 +983,9 @@
       "sourceUids": [
         "landsd/320038:0"
       ],
+      "sourceStates": {
+        "landsd/320038:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -761,6 +1001,10 @@
         "landsd/252035:0",
         "landsd/319803:0"
       ],
+      "sourceStates": {
+        "landsd/252035:0": "installed",
+        "landsd/319803:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -776,6 +1020,10 @@
         "landsd/245958:0",
         "landsd/273340:0"
       ],
+      "sourceStates": {
+        "landsd/245958:0": "prepared-for-review",
+        "landsd/273340:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -790,6 +1038,9 @@
       "sourceUids": [
         "landsd/99254:0"
       ],
+      "sourceStates": {
+        "landsd/99254:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -802,6 +1053,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve host and historical scope"
     },
@@ -814,6 +1066,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve host and historical scope"
     },
@@ -826,6 +1079,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve host and historical scope"
     },
@@ -840,8 +1094,11 @@
       "sourceUids": [
         "landsd/314191:0"
       ],
+      "sourceStates": {
+        "landsd/314191:0": "acquired-match-review"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review acquired source correspondence"
     },
     {
       "id": "innovation-tower",
@@ -854,6 +1111,9 @@
       "sourceUids": [
         "landsd/72322:0"
       ],
+      "sourceStates": {
+        "landsd/72322:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -868,6 +1128,9 @@
       "sourceUids": [
         "landsd/22089:0"
       ],
+      "sourceStates": {
+        "landsd/22089:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -880,6 +1143,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -892,6 +1156,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -904,6 +1169,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -919,6 +1185,10 @@
         "landsd/226248:0",
         "landsd/244779:0"
       ],
+      "sourceStates": {
+        "landsd/226248:0": "prepared-for-review",
+        "landsd/244779:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -933,6 +1203,9 @@
       "sourceUids": [
         "landsd/337475:0"
       ],
+      "sourceStates": {
+        "landsd/337475:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -947,6 +1220,9 @@
       "sourceUids": [
         "landsd/186982:0"
       ],
+      "sourceStates": {
+        "landsd/186982:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -965,6 +1241,13 @@
         "landsd/319008:0",
         "landsd/319009:0"
       ],
+      "sourceStates": {
+        "landsd/239664:0": "prepared-for-review",
+        "landsd/319006:0": "prepared-for-review",
+        "landsd/319007:0": "prepared-for-review",
+        "landsd/319008:0": "prepared-for-review",
+        "landsd/319009:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -979,6 +1262,9 @@
       "sourceUids": [
         "landsd/98449:0"
       ],
+      "sourceStates": {
+        "landsd/98449:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -993,6 +1279,9 @@
       "sourceUids": [
         "landsd/21661:0"
       ],
+      "sourceStates": {
+        "landsd/21661:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1020,8 +1309,24 @@
         "way/1323732362:0",
         "way/1323732363:0"
       ],
+      "sourceStates": {
+        "landsd/101313:0": "prepared-for-review",
+        "landsd/67579:0": "installed",
+        "landsd/75769:0": "prepared-for-review",
+        "landsd/96281:0": "installed",
+        "landsd/96918:0": "installed",
+        "landsd/98921:0": "installed",
+        "way/1323732349:0": "identity-required",
+        "way/1323732350:0": "identity-required",
+        "way/1323732351:0": "identity-required",
+        "way/1323732352:0": "identity-required",
+        "way/1323732360:0": "identity-required",
+        "way/1323732361:0": "identity-required",
+        "way/1323732362:0": "identity-required",
+        "way/1323732363:0": "identity-required"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
     {
       "id": "tall-nina-tower",
@@ -1032,6 +1337,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1044,6 +1350,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1056,6 +1363,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1068,6 +1376,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1085,8 +1394,14 @@
         "landsd/211850:0",
         "landsd/215119:0"
       ],
+      "sourceStates": {
+        "landsd/205478:0": "acquired-match-review",
+        "landsd/211787:0": "prepared-for-review",
+        "landsd/211850:0": "prepared-for-review",
+        "landsd/215119:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review acquired source correspondence"
     },
     {
       "id": "tall-sorrento-1",
@@ -1099,6 +1414,9 @@
       "sourceUids": [
         "landsd/270607:0"
       ],
+      "sourceStates": {
+        "landsd/270607:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1111,6 +1429,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1127,6 +1446,11 @@
         "landsd/176291:0",
         "landsd/177195:0"
       ],
+      "sourceStates": {
+        "landsd/103538:0": "prepared-for-review",
+        "landsd/176291:0": "prepared-for-review",
+        "landsd/177195:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1139,6 +1463,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1153,6 +1478,9 @@
       "sourceUids": [
         "landsd/80649:0"
       ],
+      "sourceStates": {
+        "landsd/80649:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1169,6 +1497,11 @@
         "landsd/59982:0",
         "landsd/59984:0"
       ],
+      "sourceStates": {
+        "landsd/59930:0": "acquisition-pending",
+        "landsd/59982:0": "acquisition-pending",
+        "landsd/59984:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1185,6 +1518,11 @@
         "landsd/30788:0",
         "landsd/55666:0"
       ],
+      "sourceStates": {
+        "landsd/196009:0": "acquisition-pending",
+        "landsd/30788:0": "acquisition-pending",
+        "landsd/55666:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1197,6 +1535,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1212,6 +1551,10 @@
         "landsd/231977:0",
         "landsd/262679:0"
       ],
+      "sourceStates": {
+        "landsd/231977:0": "acquisition-pending",
+        "landsd/262679:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1226,6 +1569,9 @@
       "sourceUids": [
         "landsd/272670:0"
       ],
+      "sourceStates": {
+        "landsd/272670:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1240,6 +1586,9 @@
       "sourceUids": [
         "landsd/161005:0"
       ],
+      "sourceStates": {
+        "landsd/161005:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1255,6 +1604,10 @@
         "landsd/139939:0",
         "landsd/85199:0"
       ],
+      "sourceStates": {
+        "landsd/139939:0": "acquisition-pending",
+        "landsd/85199:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1269,6 +1622,9 @@
       "sourceUids": [
         "landsd/255237:0"
       ],
+      "sourceStates": {
+        "landsd/255237:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1283,6 +1639,9 @@
       "sourceUids": [
         "landsd/256386:0"
       ],
+      "sourceStates": {
+        "landsd/256386:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1301,8 +1660,15 @@
         "landsd/265532:0",
         "landsd/334311:0"
       ],
+      "sourceStates": {
+        "landsd/224852:0": "exact-source-absent-in-checked-sheets",
+        "landsd/225724:0": "exact-source-absent-in-checked-sheets",
+        "landsd/265525:0": "installed",
+        "landsd/265532:0": "prepared-for-review",
+        "landsd/334311:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review alternatives for exact sources absent in checked sheets"
     },
     {
       "id": "tall-the-belcher-s-tower-1",
@@ -1315,6 +1681,9 @@
       "sourceUids": [
         "landsd/255423:0"
       ],
+      "sourceStates": {
+        "landsd/255423:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1329,6 +1698,9 @@
       "sourceUids": [
         "landsd/255427:0"
       ],
+      "sourceStates": {
+        "landsd/255427:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1344,6 +1716,10 @@
         "landsd/173294:0",
         "landsd/93849:0"
       ],
+      "sourceStates": {
+        "landsd/173294:0": "acquisition-pending",
+        "landsd/93849:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1363,8 +1739,16 @@
         "landsd/225579:0",
         "landsd/235826:0"
       ],
+      "sourceStates": {
+        "landsd/103209:0": "prepared-for-review",
+        "landsd/103618:0": "prepared-for-review",
+        "landsd/176748:0": "prepared-for-review",
+        "landsd/177190:0": "prepared-for-review",
+        "landsd/225579:0": "exact-source-absent-in-checked-sheets",
+        "landsd/235826:0": "exact-source-absent-in-checked-sheets"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review alternatives for exact sources absent in checked sheets"
     },
     {
       "id": "tall-grand-promenade-2-5",
@@ -1379,6 +1763,11 @@
         "landsd/95937:0",
         "landsd/96089:0"
       ],
+      "sourceStates": {
+        "landsd/93772:0": "acquisition-pending",
+        "landsd/95937:0": "acquisition-pending",
+        "landsd/96089:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1393,6 +1782,9 @@
       "sourceUids": [
         "landsd/203725:0"
       ],
+      "sourceStates": {
+        "landsd/203725:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1408,6 +1800,10 @@
         "landsd/267021:0",
         "landsd/27286:0"
       ],
+      "sourceStates": {
+        "landsd/267021:0": "acquisition-pending",
+        "landsd/27286:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1420,6 +1816,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1432,6 +1829,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1444,6 +1842,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1459,6 +1858,10 @@
         "landsd/102532:0",
         "landsd/173440:0"
       ],
+      "sourceStates": {
+        "landsd/102532:0": "prepared-for-review",
+        "landsd/173440:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1473,6 +1876,9 @@
       "sourceUids": [
         "landsd/255426:0"
       ],
+      "sourceStates": {
+        "landsd/255426:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1487,6 +1893,9 @@
       "sourceUids": [
         "landsd/256187:0"
       ],
+      "sourceStates": {
+        "landsd/256187:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1503,6 +1912,11 @@
         "landsd/59871:0",
         "landsd/59928:0"
       ],
+      "sourceStates": {
+        "landsd/59870:0": "acquisition-pending",
+        "landsd/59871:0": "acquisition-pending",
+        "landsd/59928:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1520,6 +1934,12 @@
         "landsd/265556:0",
         "landsd/70055:0"
       ],
+      "sourceStates": {
+        "landsd/235988:0": "acquired-match-review",
+        "landsd/236189:0": "prepared-for-review",
+        "landsd/265556:0": "prepared-for-review",
+        "landsd/70055:0": "exact-source-absent-in-checked-sheets"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1535,6 +1955,10 @@
         "landsd/247502:0",
         "landsd/263404:0"
       ],
+      "sourceStates": {
+        "landsd/247502:0": "prepared-for-review",
+        "landsd/263404:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1549,6 +1973,9 @@
       "sourceUids": [
         "landsd/203726:0"
       ],
+      "sourceStates": {
+        "landsd/203726:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1563,6 +1990,9 @@
       "sourceUids": [
         "landsd/219092:0"
       ],
+      "sourceStates": {
+        "landsd/219092:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1580,6 +2010,12 @@
         "landsd/156618:0",
         "landsd/262524:0"
       ],
+      "sourceStates": {
+        "landsd/122547:0": "acquisition-pending",
+        "landsd/133473:0": "acquisition-pending",
+        "landsd/156618:0": "acquisition-pending",
+        "landsd/262524:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1594,6 +2030,9 @@
       "sourceUids": [
         "landsd/90984:0"
       ],
+      "sourceStates": {
+        "landsd/90984:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1608,6 +2047,9 @@
       "sourceUids": [
         "landsd/109603:0"
       ],
+      "sourceStates": {
+        "landsd/109603:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1620,6 +2062,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1632,6 +2075,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1646,6 +2090,9 @@
       "sourceUids": [
         "landsd/96788:0"
       ],
+      "sourceStates": {
+        "landsd/96788:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1660,6 +2107,9 @@
       "sourceUids": [
         "landsd/14699:0"
       ],
+      "sourceStates": {
+        "landsd/14699:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1674,6 +2124,9 @@
       "sourceUids": [
         "landsd/216258:0"
       ],
+      "sourceStates": {
+        "landsd/216258:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1686,6 +2139,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1698,6 +2152,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1710,6 +2165,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1726,6 +2182,11 @@
         "landsd/335195:0",
         "landsd/335196:0"
       ],
+      "sourceStates": {
+        "landsd/335194:0": "prepared-for-review",
+        "landsd/335195:0": "prepared-for-review",
+        "landsd/335196:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1740,6 +2201,9 @@
       "sourceUids": [
         "landsd/203727:0"
       ],
+      "sourceStates": {
+        "landsd/203727:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1757,6 +2221,12 @@
         "landsd/218676:0",
         "landsd/219139:0"
       ],
+      "sourceStates": {
+        "landsd/210378:0": "acquisition-pending",
+        "landsd/218353:0": "acquisition-pending",
+        "landsd/218676:0": "acquisition-pending",
+        "landsd/219139:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1771,6 +2241,9 @@
       "sourceUids": [
         "landsd/109587:0"
       ],
+      "sourceStates": {
+        "landsd/109587:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1785,6 +2258,9 @@
       "sourceUids": [
         "landsd/109600:0"
       ],
+      "sourceStates": {
+        "landsd/109600:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1797,6 +2273,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1809,6 +2286,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1823,6 +2301,9 @@
       "sourceUids": [
         "landsd/74570:0"
       ],
+      "sourceStates": {
+        "landsd/74570:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1837,6 +2318,9 @@
       "sourceUids": [
         "landsd/243523:0"
       ],
+      "sourceStates": {
+        "landsd/243523:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1851,6 +2335,9 @@
       "sourceUids": [
         "landsd/88876:0"
       ],
+      "sourceStates": {
+        "landsd/88876:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1866,6 +2353,10 @@
         "landsd/101906:0",
         "landsd/106992:0"
       ],
+      "sourceStates": {
+        "landsd/101906:0": "acquisition-pending",
+        "landsd/106992:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1881,6 +2372,10 @@
         "landsd/55976:0",
         "landsd/55978:0"
       ],
+      "sourceStates": {
+        "landsd/55976:0": "acquisition-pending",
+        "landsd/55978:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1896,6 +2391,10 @@
         "landsd/225895:0",
         "landsd/225917:0"
       ],
+      "sourceStates": {
+        "landsd/225895:0": "acquisition-pending",
+        "landsd/225917:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1911,6 +2410,10 @@
         "landsd/101343:0",
         "landsd/101899:0"
       ],
+      "sourceStates": {
+        "landsd/101343:0": "acquisition-pending",
+        "landsd/101899:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1925,6 +2428,9 @@
       "sourceUids": [
         "landsd/219163:0"
       ],
+      "sourceStates": {
+        "landsd/219163:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1939,6 +2445,9 @@
       "sourceUids": [
         "landsd/218759:0"
       ],
+      "sourceStates": {
+        "landsd/218759:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1953,6 +2462,9 @@
       "sourceUids": [
         "landsd/232519:0"
       ],
+      "sourceStates": {
+        "landsd/232519:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -1967,6 +2479,9 @@
       "sourceUids": [
         "landsd/109595:0"
       ],
+      "sourceStates": {
+        "landsd/109595:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1984,6 +2499,12 @@
         "landsd/243508:0",
         "landsd/243509:0"
       ],
+      "sourceStates": {
+        "landsd/243336:0": "acquisition-pending",
+        "landsd/243337:0": "acquisition-pending",
+        "landsd/243508:0": "acquisition-pending",
+        "landsd/243509:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1998,6 +2519,9 @@
       "sourceUids": [
         "landsd/255042:0"
       ],
+      "sourceStates": {
+        "landsd/255042:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2014,8 +2538,13 @@
         "landsd/181141:0",
         "landsd/70443:0"
       ],
+      "sourceStates": {
+        "landsd/142159:0": "acquired-match-review",
+        "landsd/181141:0": "prepared-for-review",
+        "landsd/70443:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review acquired source correspondence"
     },
     {
       "id": "tall-le-point-tower-06",
@@ -2026,6 +2555,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2038,6 +2568,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2055,6 +2586,12 @@
         "landsd/219126:0",
         "landsd/219821:0"
       ],
+      "sourceStates": {
+        "landsd/210388:0": "acquisition-pending",
+        "landsd/219049:0": "acquisition-pending",
+        "landsd/219126:0": "acquisition-pending",
+        "landsd/219821:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2069,6 +2606,9 @@
       "sourceUids": [
         "landsd/136678:0"
       ],
+      "sourceStates": {
+        "landsd/136678:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2081,6 +2621,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2095,8 +2636,11 @@
       "sourceUids": [
         "landsd/93890:0"
       ],
+      "sourceStates": {
+        "landsd/93890:0": "acquired-match-review"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review acquired source correspondence"
     },
     {
       "id": "tall-vision-city-2",
@@ -2109,6 +2653,9 @@
       "sourceUids": [
         "landsd/216991:0"
       ],
+      "sourceStates": {
+        "landsd/216991:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2123,6 +2670,9 @@
       "sourceUids": [
         "landsd/218095:0"
       ],
+      "sourceStates": {
+        "landsd/218095:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2137,6 +2687,9 @@
       "sourceUids": [
         "landsd/218019:0"
       ],
+      "sourceStates": {
+        "landsd/218019:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2149,6 +2702,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2161,6 +2715,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2173,6 +2728,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2185,6 +2741,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2200,6 +2757,10 @@
         "landsd/259967:0",
         "landsd/274028:0"
       ],
+      "sourceStates": {
+        "landsd/259967:0": "acquisition-pending",
+        "landsd/274028:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2212,6 +2773,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2226,6 +2788,9 @@
       "sourceUids": [
         "landsd/218258:0"
       ],
+      "sourceStates": {
+        "landsd/218258:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2243,6 +2808,12 @@
         "landsd/95610:0",
         "landsd/97552:0"
       ],
+      "sourceStates": {
+        "landsd/257313:0": "prepared-for-review",
+        "landsd/95525:0": "prepared-for-review",
+        "landsd/95610:0": "prepared-for-review",
+        "landsd/97552:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2257,6 +2828,9 @@
       "sourceUids": [
         "landsd/78018:0"
       ],
+      "sourceStates": {
+        "landsd/78018:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2271,6 +2845,9 @@
       "sourceUids": [
         "landsd/77293:0"
       ],
+      "sourceStates": {
+        "landsd/77293:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2285,6 +2862,9 @@
       "sourceUids": [
         "landsd/337872:0"
       ],
+      "sourceStates": {
+        "landsd/337872:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2299,6 +2879,9 @@
       "sourceUids": [
         "landsd/78824:0"
       ],
+      "sourceStates": {
+        "landsd/78824:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2313,6 +2896,9 @@
       "sourceUids": [
         "landsd/75655:0"
       ],
+      "sourceStates": {
+        "landsd/75655:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2325,6 +2911,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2337,6 +2924,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2351,6 +2939,9 @@
       "sourceUids": [
         "landsd/268497:0"
       ],
+      "sourceStates": {
+        "landsd/268497:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2365,6 +2956,9 @@
       "sourceUids": [
         "landsd/178816:0"
       ],
+      "sourceStates": {
+        "landsd/178816:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2379,6 +2973,9 @@
       "sourceUids": [
         "landsd/95379:0"
       ],
+      "sourceStates": {
+        "landsd/95379:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2393,6 +2990,9 @@
       "sourceUids": [
         "landsd/74569:0"
       ],
+      "sourceStates": {
+        "landsd/74569:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2409,8 +3009,13 @@
         "landsd/255018:0",
         "landsd/92386:0"
       ],
+      "sourceStates": {
+        "landsd/213822:0": "prepared-for-review",
+        "landsd/255018:0": "prepared-for-review",
+        "landsd/92386:0": "exact-source-absent-in-checked-sheets"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review alternatives for exact sources absent in checked sheets"
     },
     {
       "id": "tall-the-merton-2",
@@ -2423,6 +3028,9 @@
       "sourceUids": [
         "landsd/136682:0"
       ],
+      "sourceStates": {
+        "landsd/136682:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2437,6 +3045,9 @@
       "sourceUids": [
         "landsd/96901:0"
       ],
+      "sourceStates": {
+        "landsd/96901:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2451,6 +3062,9 @@
       "sourceUids": [
         "landsd/80539:0"
       ],
+      "sourceStates": {
+        "landsd/80539:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2463,6 +3077,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2477,6 +3092,9 @@
       "sourceUids": [
         "landsd/91393:0"
       ],
+      "sourceStates": {
+        "landsd/91393:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2491,6 +3109,9 @@
       "sourceUids": [
         "landsd/109242:0"
       ],
+      "sourceStates": {
+        "landsd/109242:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2503,6 +3124,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2515,6 +3137,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2527,6 +3150,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2539,6 +3163,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2553,6 +3178,9 @@
       "sourceUids": [
         "landsd/62471:0"
       ],
+      "sourceStates": {
+        "landsd/62471:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2567,6 +3195,9 @@
       "sourceUids": [
         "landsd/267948:0"
       ],
+      "sourceStates": {
+        "landsd/267948:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2581,6 +3212,9 @@
       "sourceUids": [
         "landsd/33424:0"
       ],
+      "sourceStates": {
+        "landsd/33424:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2595,6 +3229,9 @@
       "sourceUids": [
         "landsd/266799:0"
       ],
+      "sourceStates": {
+        "landsd/266799:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2609,6 +3246,9 @@
       "sourceUids": [
         "landsd/251917:0"
       ],
+      "sourceStates": {
+        "landsd/251917:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2623,6 +3263,9 @@
       "sourceUids": [
         "landsd/269995:0"
       ],
+      "sourceStates": {
+        "landsd/269995:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2635,6 +3278,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2650,6 +3294,10 @@
         "landsd/233189:0",
         "landsd/4449:0"
       ],
+      "sourceStates": {
+        "landsd/233189:0": "prepared-for-review",
+        "landsd/4449:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2665,6 +3313,10 @@
         "landsd/232804:0",
         "landsd/324716:0"
       ],
+      "sourceStates": {
+        "landsd/232804:0": "prepared-for-review",
+        "landsd/324716:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2683,6 +3335,13 @@
         "landsd/237200:0",
         "landsd/99033:0"
       ],
+      "sourceStates": {
+        "landsd/101093:0": "acquisition-pending",
+        "landsd/114461:0": "acquisition-pending",
+        "landsd/136500:0": "acquisition-pending",
+        "landsd/237200:0": "acquisition-pending",
+        "landsd/99033:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2697,6 +3356,9 @@
       "sourceUids": [
         "landsd/4447:0"
       ],
+      "sourceStates": {
+        "landsd/4447:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2711,6 +3373,9 @@
       "sourceUids": [
         "landsd/251925:0"
       ],
+      "sourceStates": {
+        "landsd/251925:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2725,6 +3390,9 @@
       "sourceUids": [
         "landsd/251919:0"
       ],
+      "sourceStates": {
+        "landsd/251919:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2739,6 +3407,9 @@
       "sourceUids": [
         "landsd/251920:0"
       ],
+      "sourceStates": {
+        "landsd/251920:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2751,6 +3422,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2767,6 +3439,11 @@
         "landsd/218705:0",
         "landsd/218982:0"
       ],
+      "sourceStates": {
+        "landsd/218650:0": "acquisition-pending",
+        "landsd/218705:0": "acquisition-pending",
+        "landsd/218982:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2783,6 +3460,11 @@
         "landsd/321682:0",
         "landsd/322191:0"
       ],
+      "sourceStates": {
+        "landsd/104716:0": "prepared-for-review",
+        "landsd/321682:0": "prepared-for-review",
+        "landsd/322191:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2797,6 +3479,9 @@
       "sourceUids": [
         "landsd/215992:0"
       ],
+      "sourceStates": {
+        "landsd/215992:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2809,6 +3494,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2823,6 +3509,9 @@
       "sourceUids": [
         "landsd/78915:0"
       ],
+      "sourceStates": {
+        "landsd/78915:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2835,6 +3524,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2851,8 +3541,13 @@
         "landsd/7163:0",
         "landsd/98864:0"
       ],
+      "sourceStates": {
+        "landsd/229729:0": "exact-source-absent-in-checked-sheets",
+        "landsd/7163:0": "installed",
+        "landsd/98864:0": "exact-source-absent-in-checked-sheets"
+      },
       "reviewStatus": "not-reviewed",
-      "nextAction": "Acquire missing cached components"
+      "nextAction": "Review alternatives for exact sources absent in checked sheets"
     },
     {
       "id": "tall-branksome-crest",
@@ -2868,6 +3563,12 @@
         "landsd/263590:0",
         "landsd/265180:0"
       ],
+      "sourceStates": {
+        "landsd/222976:0": "prepared-for-review",
+        "landsd/232907:0": "prepared-for-review",
+        "landsd/263590:0": "prepared-for-review",
+        "landsd/265180:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2888,6 +3589,15 @@
         "landsd/256930:0",
         "landsd/256931:0"
       ],
+      "sourceStates": {
+        "landsd/253887:0": "acquisition-pending",
+        "landsd/253888:0": "acquisition-pending",
+        "landsd/253889:0": "acquisition-pending",
+        "landsd/256926:0": "acquisition-pending",
+        "landsd/256929:0": "acquisition-pending",
+        "landsd/256930:0": "acquisition-pending",
+        "landsd/256931:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2902,6 +3612,9 @@
       "sourceUids": [
         "landsd/255386:0"
       ],
+      "sourceStates": {
+        "landsd/255386:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2916,6 +3629,9 @@
       "sourceUids": [
         "landsd/52726:0"
       ],
+      "sourceStates": {
+        "landsd/52726:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2930,6 +3646,9 @@
       "sourceUids": [
         "landsd/125801:0"
       ],
+      "sourceStates": {
+        "landsd/125801:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2944,6 +3663,9 @@
       "sourceUids": [
         "landsd/125577:0"
       ],
+      "sourceStates": {
+        "landsd/125577:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -2958,6 +3680,9 @@
       "sourceUids": [
         "landsd/79881:0"
       ],
+      "sourceStates": {
+        "landsd/79881:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2972,6 +3697,9 @@
       "sourceUids": [
         "landsd/79366:0"
       ],
+      "sourceStates": {
+        "landsd/79366:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2986,6 +3714,9 @@
       "sourceUids": [
         "landsd/78237:0"
       ],
+      "sourceStates": {
+        "landsd/78237:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3001,6 +3732,10 @@
         "landsd/262438:0",
         "landsd/269787:0"
       ],
+      "sourceStates": {
+        "landsd/262438:0": "acquisition-pending",
+        "landsd/269787:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3016,6 +3751,10 @@
         "landsd/234593:0",
         "landsd/85738:0"
       ],
+      "sourceStates": {
+        "landsd/234593:0": "prepared-for-review",
+        "landsd/85738:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -3030,6 +3769,9 @@
       "sourceUids": [
         "landsd/76318:0"
       ],
+      "sourceStates": {
+        "landsd/76318:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3044,6 +3786,9 @@
       "sourceUids": [
         "landsd/77421:0"
       ],
+      "sourceStates": {
+        "landsd/77421:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3058,6 +3803,9 @@
       "sourceUids": [
         "landsd/6946:0"
       ],
+      "sourceStates": {
+        "landsd/6946:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3072,6 +3820,9 @@
       "sourceUids": [
         "landsd/7056:0"
       ],
+      "sourceStates": {
+        "landsd/7056:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3086,6 +3837,9 @@
       "sourceUids": [
         "landsd/9050:0"
       ],
+      "sourceStates": {
+        "landsd/9050:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3100,6 +3854,9 @@
       "sourceUids": [
         "landsd/108682:0"
       ],
+      "sourceStates": {
+        "landsd/108682:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3112,6 +3869,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3124,6 +3882,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3138,6 +3897,9 @@
       "sourceUids": [
         "landsd/78828:0"
       ],
+      "sourceStates": {
+        "landsd/78828:0": "acquisition-pending"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3152,6 +3914,9 @@
       "sourceUids": [
         "landsd/2941:0"
       ],
+      "sourceStates": {
+        "landsd/2941:0": "installed"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -3164,6 +3929,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3176,6 +3942,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3190,6 +3957,9 @@
       "sourceUids": [
         "landsd/152961:0"
       ],
+      "sourceStates": {
+        "landsd/152961:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -3207,6 +3977,12 @@
         "landsd/20300:0",
         "landsd/228434:0"
       ],
+      "sourceStates": {
+        "landsd/107711:0": "prepared-for-review",
+        "landsd/107975:0": "prepared-for-review",
+        "landsd/20300:0": "prepared-for-review",
+        "landsd/228434:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -3219,6 +3995,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3231,6 +4008,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3243,6 +4021,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3255,6 +4034,7 @@
       "stagedUninstalledParts": 0,
       "heldParts": {},
       "sourceUids": [],
+      "sourceStates": {},
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3269,6 +4049,9 @@
       "sourceUids": [
         "landsd/242294:0"
       ],
+      "sourceStates": {
+        "landsd/242294:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     },
@@ -3283,6 +4066,9 @@
       "sourceUids": [
         "landsd/84135:0"
       ],
+      "sourceStates": {
+        "landsd/84135:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Verify full landmark appearance, placement and interaction in viewer"
     }

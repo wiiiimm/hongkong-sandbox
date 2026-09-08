@@ -1,7 +1,17 @@
 import hashlib, pathlib, tempfile, unittest
-from report import review_status
+from report import review_status, source_status
 
 class ReadinessTests(unittest.TestCase):
+    def test_checked_absence_is_not_outstanding_download(self):
+        part={'uid':'x','state':'not-in-retained-staged-models'}
+        self.assertEqual(source_status(part,set(),{'x':{'outcome':'no-exact-model-in-complete-checked-sheets'}}),'exact-source-absent-in-checked-sheets')
+        self.assertEqual(source_status(part,set(),{}),'acquisition-pending')
+        self.assertEqual(source_status(part,set(),{'x':{'outcome':'acquired-and-staged','standardMatch':False}}),'acquired-match-review')
+        self.assertEqual(source_status(part,set(),{'x':{'outcome':'acquired-and-staged','standardMatch':True}}),'acquired-preparation-pending')
+    def test_current_prepared_and_installed_override_old_source_gap(self):
+        old={'x':{'outcome':'no-exact-model-in-complete-checked-sheets'}}
+        self.assertEqual(source_status({'uid':'x','state':'candidate-staged'},set(),old),'prepared-for-review')
+        self.assertEqual(source_status({'uid':'x'}, {'x'},old),'installed')
     def test_parts_or_cache_alone_never_certify_landmark(self):
         self.assertEqual(review_status(None,{'x'},{'x'},pathlib.Path('.')),'not-reviewed')
     def test_whole_landmark_needs_matching_membership_and_current_evidence(self):
