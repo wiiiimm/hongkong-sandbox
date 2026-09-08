@@ -12,4 +12,16 @@ The grounded batch installs23 parts after48 candidate framing captures and23 suc
 
 The support batch installs59 parts after118 normal/isolated captures and59 successful installed-route checks. Tower bases contact actual native or surveyed fallback podium triangles, with explicit dependency records. `support/publication.json` and `support-live/after/verification.json` record the installed result. Both installed batches passed source picking/collision, native terrain agreement, mobile-budget/layout, Walk/Fly and failed-asset recovery checks. Measured desktop median/p95 were16.7ms in both; emulated-mobile p95 was16.8ms, not a physical-device result.
 
-Total this pass:89 newly installed source parts (5+2+23+59), recorded in Neon. This is not89 complete landmarks. Missing support acquisition and remaining terrain/identity work continue.
+Current checkpoint: **187 new native source components installed and verified**, plus **12 previously installed components reviewed**. Neon records199 installed-verified source components in snapshot `11a25ce297101f9e`; its529 source components include recovered supports and133 existing assets with exact hashes. This does not mean187 complete landmarks.
+
+Additional batches:7 terrain-supported parts;9 exact-TIN/recovered identities;18 foundations/Peak;53 tower/podium components;9 coherent Chungking/LP6/Branksome additions;2 HKDI/Belcher components. Publication reports and actual viewer evidence are in the corresponding subdirectories. The53-part evidence deliberately retains the initially failed report:51 completed source checks plus the final two-camera-picking rerun form `assemblies-verification.json`.
+
+West Kowloon Station required an explicit source-confirmed water-mask correction:10,782 masked nodes repaired within its official footprint/collar, including the west wing. All other old grid nodes are protected by a hash-pinned allowlist.104 staged terrain rays and final installed station route passed. Native model coordinates are unchanged.
+
+Native TIN rendering and walking now share exact Float32 source faces. The Branksome overlap allowance is restricted to original source facets, with exact source hashes and highest-surface ray agreement. Native interior collision uses the local roof, eliminating95 false depot contacts while preserving100 target contacts and5 real overlaps. Conservative aircraft spawn/avoidance envelopes remain intentionally broad.
+
+Source-proven metadata migrations keep towers and native podiums loaded together; Hermitage's990 rim vertices all contact its podium, so incidental tower-to-tower references were removed to prevent cycles. One IFC's existing tower now retains its native podium. A stable per-window seed removes fragment-level night-light speckle on curved/smoothed native faces.
+
+Validation:264 viewer unit tests and22 publisher tests pass. Neon source-version inheritance preserves decisions only for unchanged source identities. Desktop/emulated-mobile viewer samples, source identity, picking, local collision, terrain agreement, Walk/Fly and failed-load recovery are recorded per batch; emulation is not physical-phone validation.
+
+Remaining candidate/identity/terrain reviews are agent-owned and continue in parallel. Pedder's source-height conflict and exact source absences are held explicitly. None of this checkpoint claims production deployment, photorealistic façades, or whole-landmark/component closure.

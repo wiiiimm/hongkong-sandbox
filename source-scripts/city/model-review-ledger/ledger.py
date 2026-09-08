@@ -93,7 +93,7 @@ def record(snapshot, receipt_path, uid, state, evidence_path, observation, commi
  return record_many(snapshot,receipt_path,[(uid,state,evidence_path,observation,commit)])[0]
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['seed','status','record']);p.add_argument('--snapshot',default='3887f2f23fbad306');p.add_argument('--inherit',help='Explicit prior review snapshot; inherit decisions only for unchanged UID, source state and SHA');p.add_argument('--report',default=str(ROOT/'docs/astra-city/landmark-preflight/report.json'));p.add_argument('--receipt');p.add_argument('--uid');p.add_argument('--state',choices=sorted(STATES));p.add_argument('--evidence');p.add_argument('--observation');p.add_argument('--commit');a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['seed','status','record']);p.add_argument('--snapshot',default=json.loads((ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json').read_text())['snapshotId']);p.add_argument('--inherit',help='Explicit prior review snapshot; inherit decisions only for unchanged UID, source state and SHA');p.add_argument('--report',default=str(ROOT/'docs/astra-city/landmark-preflight/report.json'));p.add_argument('--receipt');p.add_argument('--uid');p.add_argument('--state',choices=sorted(STATES));p.add_argument('--evidence');p.add_argument('--observation');p.add_argument('--commit');a=p.parse_args()
  if a.command=='seed':result=seed(a.report,a.inherit)
  elif a.command=='status':result=summary(a.snapshot)
  else:
