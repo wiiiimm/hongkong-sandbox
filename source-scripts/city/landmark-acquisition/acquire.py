@@ -201,7 +201,7 @@ def retained_caches():
  return caches
 
 
-def acquire_tile(network,sheet,tile,targets,caches,head_refresh=False):
+def acquire_tile(network,sheet,tile,targets,caches,head_refresh=False,exact_members=None):
  attrs=tile['attributes'];url=attrs['Format_glTF'];folder=HERE/'sources'/sheet;folder.mkdir(parents=True,exist_ok=True)
  state_path=folder/'state.json';state=read(state_path)if state_path.exists()else {'sheet':sheet,'status':'planned','members':{},'prefixes':[]}
  # Stable official URL + revision + ETag prove cache provenance; HEAD reads no body.
@@ -228,7 +228,12 @@ def acquire_tile(network,sheet,tile,targets,caches,head_refresh=False):
    else:raw=tail[cd_offset-tail_start:]
    parse_directory(raw);directory_path.write_bytes(raw)
  infos,check=parse_directory(directory_path.read_bytes());state['directoryCheck']=check;by_name={entry.filename:entry for entry in infos}
- prefixes=sorted({'BUILDING/B'+targets[uid]['csuid'][:10]for uid in tile['uids']});selected=[entry for entry in infos if entry.filename.startswith(tuple(prefixes))and entry.filename.endswith(('.gltf','.bin'))]
+ prefixes=sorted({'BUILDING/B'+targets[uid]['csuid'][:10]for uid in tile['uids']})if exact_members is None else sorted(exact_members)
+ selected=[entry for entry in infos if (entry.filename.startswith(tuple(prefixes))if exact_members is None else entry.filename in exact_members)and entry.filename.endswith(('.gltf','.bin'))]
+ if exact_members is not None:
+  assert {entry.filename for entry in selected}==set(exact_members),'Pinned native member absent from current source'
+  for entry in selected:
+   expected=exact_members[entry.filename];assert (entry.header_offset,entry.CRC,entry.compress_size,entry.file_size)==(expected['headerOffset'],expected['crc32'],expected['compressedBytes'],expected['decodedBytes']),'Pinned native member metadata changed'
  assert all(not pathlib.PurePosixPath(entry.filename).is_absolute()and'..'not in pathlib.PurePosixPath(entry.filename).parts for entry in selected),'Unsafe source member path'
  state['prefixes']=prefixes;state['exactGLTFEntries']=[entry.filename for entry in selected if entry.filename.endswith('.gltf')];state['status']='directory-verified';write(state_path,state)
  # Reuse native retained members only after compact-cache SHA and member CRC/SHA.

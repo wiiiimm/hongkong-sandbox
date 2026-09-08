@@ -46,3 +46,14 @@ Original glTF and binary members remain byte-identical. The existing `prepare_mo
 Named batch files live under `batches/<batch>/` in both the script and documentation trees. Native caches and staged files remain local and ignored by Git; metadata, ledgers, plans, reports and verification are tracked. Original paths remain unchanged.
 
 “No exact model” is limited to the current official sheets checked for that retained footprint. It is not proof that no government model exists elsewhere. A staged model is not placement acceptance or a complete landmark. Exact CSUID matches remain separate from source availability. Ambiguous identity, native models intersecting terrain, unsupported geometry or reconstructive modelling require a separate, higher-effort review; this mechanical batch does not attempt those fixes.
+
+## Native terrain prerequisites
+
+`terrain.py` accepts the preflight `downloadPrerequisites` inventory, pins its complete-directory/member metadata, and reuses the same reservation ledger, cache checks and selective ranges. Exact member name, native offset, CRC and sizes must agree. It stages through the existing decoder, preserving native geometry while omitting terrain photo references. It never applies terrain to the viewer.
+
+```sh
+/private/tmp/astra-city-venv/bin/python source-scripts/city/landmark-acquisition/terrain.py --batch terrain-prerequisites --workers 4
+/private/tmp/astra-city-venv/bin/python source-scripts/city/landmark-acquisition/terrain.py --batch terrain-prerequisites --verify-only --workers 4
+```
+
+For a new terrain inventory, pass a new `--batch`, `--targets-source <inventory.json>` and recorded `--budget-mb 500`. Terrain evidence is deliberately named `terrain-report.json` / `terrain-verification.json`, distinct from building-source reports. Standard staged terrain manifests and compact source ZIPs are discoverable by preflight. Native glTF hashes refer to the original cache members; the texture-free derived glTF has a separate checksum.
