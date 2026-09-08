@@ -1,0 +1,51 @@
+{
+  "issue": "HKS-214",
+  "staged": true,
+  "bundles": [
+    {
+      "parentTerrainURL": "city/data/terrain.json",
+      "parentSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+      "patches": [
+        {
+          "path": "source-scripts/city/residual-support-review/grand/terrain-patches/support-native-229653-0.json",
+          "sha256": "7bd532be7ea9322cff1046e87212fb11441d663884f4d3c6638671d173035794",
+          "uids": [
+            "landsd/229653:0"
+          ],
+          "coarseCells": [
+            586,
+            451,
+            590,
+            455
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "patch": "source-scripts/city/residual-support-review/grand/terrain-patches/support-native-229653-0.json",
+      "rows": [
+        {
+          "uid": "landsd/229653:0",
+          "samples": 105,
+          "within2m": 105,
+          "gapRange": [
+            -0.8481050419921718,
+            0.15399697439576032
+          ]
+        }
+      ],
+      "gridNodes": 78961,
+      "nativeCoveredNodes": 78961,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true
+    }
+  ],
+  "held": [],
+  "inputReportSha256": "9699c5a964d1b12de8e680ba32104c1915cd3384846db0cc56a5698d4ad2db6f",
+  "nativeEvidenceSha256": "9c5ebfe174d63e53fc6ed8dbaf4bd2c7e03708684b1be486fac5c39ae2be5f17",
+  "integration": "Append children only to hash-matched existing parent. Root coarse children must be manifest terrain patches, not overwritten by app terrainPatches assignment. Parent renderer omits coarseCells exactly once. Run combined roof/foundation and browser checks before publication.",
+  "publicationApproved": false
+}
