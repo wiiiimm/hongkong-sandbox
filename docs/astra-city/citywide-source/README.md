@@ -14,3 +14,9 @@ Source: the Lands Department non-textured 3D Visualisation Map geographic downlo
 - `reuse-verification.json`: two-run proof with actual new HTTP request/byte deltas.
 
 The full `directories.json.gz` and raw ZIP-directory caches are ignored by Git and included in the HKS-221 R2 checkpoint. Per-sheet records are queryable in pinned Neon `astra_modelling.city_source_directories`; the run pointer is in `city_source_discovery_runs`. Native acquisition, exact CSUID/footprint matching, conversion, terrain checks and visual acceptance remain separate stages. Existing installed models and the paused manual-review ledger are unchanged.
+
+## Verified working checkpoint
+
+`R2-CHECKPOINT.json` records the immutable R2 manifest and source Git commit. The archive is **109,697,065 bytes**, containing **10,387 files** (304,801,063 bytes unpacked). Upload and fresh-cache remote readback passed. Every extracted file matched its recorded hash; the restored checkout then reused **all 346,115** audit results with **zero new checks**, in **28.92 seconds**. This was tested on the same Mac using the existing runtime/private configuration, not another operating system.
+
+The same receipt is queryable in pinned Neon `astra_modelling.city_working_checkpoints`, keyed by the manifest SHA. The current source directory run and full audit count were rechecked from Neon before registering it. This working checkpoint is separate from runtime asset publication and does not change the viewer.

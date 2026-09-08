@@ -288,3 +288,9 @@ HKS-114’s LandsD implementation is separate from Astra’s OSM comparison; thi
 - No deadline or cycle was manually selected. Linear returned cycle assignments on Todo/In Review issues; preserve those workspace-managed assignments.
 
 No map-reference images were used or modified for this planning document. Geographic provenance remains with the implementation and section review notes.
+
+## 9 September 2026 — HKS-221 scripted whole-territory pass
+
+HKS-221 is ready for **user review** after its technical verification; manual modelling remains paused under HKS-214. The authoritative audit covers 346,115 forms / 452 tiles, with full Neon persistence and unchanged replay (27.102 seconds, zero new checks). The government directory scan covers all 3,456 pinned sheets, listing 216,976 model identifiers; its replay makes zero new source requests. Seven engine tests, five real-Neon fencing/invalidation tests and four directory/archive tests passed.
+
+Commits: 27876933 (directory scripts), c9aed33f (audit), 5b6f9cdb (coverage/reuse evidence). `docs/astra-city/citywide-source/R2-CHECKPOINT.json` records the verified R2 archive and fresh-restored-checkout proof (10,387 file hashes; 346,115 shared results reused). The checkpoint reference is also registered in Neon. Detailed source counts and limits are in the two citywide README files. These are technical checks and source catalogue results, not new model acquisition, architectural acceptance, regional completion or production publication.
