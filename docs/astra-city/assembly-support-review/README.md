@@ -41,3 +41,13 @@ Use Node 24+ and the existing Python environment with NumPy/Shapely. Acquire com
 5. The terrain variant uses `review.mjs --terrain-bundle docs/astra-city/assembly-support-review/terrain-patches.json --output docs/astra-city/assembly-support-review/report-terrain-variant.json`, followed by `decisions.py --report ... --base-approved ... --output ...`, `prepare.py --terrain` and `framing-terrain.mjs`.
 
 Raw large reports can be restored from their adjacent `.json.gz` files with `gzip -dk` before analysis. Model payloads come from the pinned `3887f2f23fbad306` cache and retain their original hashes; no further source download is needed on this device.
+
+## Exact native TIN follow-up
+
+The seven grid-dependent source parts passed replacement-aware browser review in `visual-acceptance-terrain.json`. Creative Media Centre preserves all 19,881 nodes from the installed roof patch; the combined patch must replace that descriptor rather than overlap it.
+
+`exact_tin.py` stages two bounded patches retaining native triangles and retaining faces in their cores. Only the outer 10 m transitions to the parent; transition facets are split against parent triangle boundaries. Existing grid metadata remains for extents and parent-cell omission; `nativeMesh` supplies shared render/collision geometry. Source manifests and buffers are hash checked. Projected coverage and boundary errors are recorded in `exact-tin.json`. `test_exact_tin.py` verifies vertical-wall retention and source-plane-preserving clipping.
+
+`prepare_exact.py`, `exact_surface_review.mjs` and `framing-exact.mjs` check four exact source components with the new shared Float32 sampler and actual browser renderer. Eight normal/isolated exports passed. `visual-acceptance-exact.json` records the exposed facade/roof and retained underground geometry judgement. Highcliff and Summit components have no wholly buried triangles. The 39 Conduit podium has five buried downward faces and two lower retaining/basement wall triangles, but no buried upward roof. These are source-part approvals, not acceptance of the whole named landmark.
+
+`plan-exact.json` stages the unchanged source models for parent publication alongside both exact TIN patches. Parent must recheck combined manifest coverage/seams and source hashes; this review never modifies the runtime manifest. The local payload copies can be reproduced from the pinned preflight cache; they are not duplicated in this evidence commit.
