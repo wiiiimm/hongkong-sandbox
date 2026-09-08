@@ -1,6 +1,6 @@
 # Landmark routing index
 
-Audit `54c02c72982f79c8`; frozen Neon capture `2026-09-08T19:44:44.939707+00:00`. Counts are known native components, not whole-landmark approval.
+Audit `9572a9df7caa983c`; frozen Neon capture `2026-09-08T19:46:44.827610+00:00`. Counts are known native components, not whole-landmark approval.
 
 | Landmark | Native installed / known | Installed and verified | Next state |
 |---|---:|---:|---|
@@ -23,7 +23,7 @@ Audit `54c02c72982f79c8`; frozen Neon capture `2026-09-08T19:44:44.939707+00:00`
 | The Harbourside | 1/3 | 1 | partial-known-native-coverage |
 | The Henderson | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
 | Hong Kong Design Institute | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
-| Hong Kong Convention and Exhibition Centre | 1/1 | 0 | known-native-parts-installed-review-outstanding |
+| Hong Kong Convention and Exhibition Centre | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | Hong Kong International Airport Terminal1 | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | HSBC Main Building | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | Hysan Place | 2/2 | 0 | known-native-parts-installed-review-outstanding |
@@ -31,7 +31,7 @@ Audit `54c02c72982f79c8`; frozen Neon capture `2026-09-08T19:44:44.939707+00:00`
 | IFC towers | 4/4 | 4 | known-native-parts-installed-awaiting-assembly-signoff |
 | Jockey Club Innovation Tower | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
 | Lai Tak Tsuen | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
-| Legislative Council Complex | 1/1 | 0 | known-native-parts-installed-review-outstanding |
+| Legislative Council Complex | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | Lehmann Maupin Gallery | 0/0 | 0 | named-identity-unresolved |
 | Lippo Centre — Tower 2 and connected complex | 3/3 | 0 | known-native-parts-installed-review-outstanding |
 | Mongkok Residences / Composite Building | 1/2 | 1 | partial-known-native-coverage |
@@ -74,7 +74,7 @@ Audit `54c02c72982f79c8`; frozen Neon capture `2026-09-08T19:44:44.939707+00:00`
 | Chelsea Court Tower West | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | China Online Centre | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | China Resources Center | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
-| Citibank Plaza | 3/6 | 2 | partial-known-native-coverage |
+| Citibank Plaza | 3/6 | 3 | partial-known-native-coverage |
 | Conrad Hong Kong Hotel | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
 | Convention Plaza Office Tower | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
 | Cosco Tower | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
@@ -92,14 +92,14 @@ Audit `54c02c72982f79c8`; frozen Neon capture `2026-09-08T19:44:44.939707+00:00`
 | Harbour Green | 0/0 | 0 | named-identity-unresolved |
 | Highcliff | 2/3 | 2 | partial-known-native-coverage |
 | Hopewell Centre | 2/5 | 1 | partial-known-native-coverage |
-| Immigration Tower | 1/1 | 0 | known-native-parts-installed-review-outstanding |
+| Immigration Tower | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | Indi Home | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | Island Resort Tower 1–2 | 1/2 | 1 | partial-known-native-coverage |
 | Island Resort Tower 3–5 | 2/2 | 2 | known-native-parts-installed-awaiting-assembly-signoff |
 | Island Resort Tower 6–7 | 2/2 | 2 | known-native-parts-installed-awaiting-assembly-signoff |
 | Island Resort Tower 8–9 | 2/3 | 2 | partial-known-native-coverage |
 | Island Shangri-La | 1/4 | 1 | partial-known-native-coverage |
-| Jardine House | 1/1 | 0 | known-native-parts-installed-review-outstanding |
+| Jardine House | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | Landmark East Tower 1 | 2/3 | 2 | partial-known-native-coverage |
 | Landmark East Tower 2 | 2/2 | 2 | known-native-parts-installed-awaiting-assembly-signoff |
 | Langham Place Office Tower | 2/4 | 2 | partial-known-native-coverage |
@@ -163,7 +163,7 @@ Audit `54c02c72982f79c8`; frozen Neon capture `2026-09-08T19:44:44.939707+00:00`
 | Queensway Government Offices | 1/3 | 1 | partial-known-native-coverage |
 | Residences Bel-Air Phase 6 6–7 | 2/2 | 2 | known-native-parts-installed-awaiting-assembly-signoff |
 | Residences Bel-Air Phase 6 8–9 | 0/0 | 0 | named-identity-unresolved |
-| Revenue Tower | 1/1 | 0 | known-native-parts-installed-review-outstanding |
+| Revenue Tower | 1/1 | 1 | known-native-parts-installed-awaiting-assembly-signoff |
 | Sham Wan Towers 1 | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
 | Sham Wan Towers 2 | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
 | Sham Wan Towers 3 | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
@@ -203,7 +203,7 @@ Audit `54c02c72982f79c8`; frozen Neon capture `2026-09-08T19:44:44.939707+00:00`
 | The Pavilia Farm III Tower 8 | 0/0 | 0 | named-identity-unresolved |
 | The Summit | 1/6 | 1 | partial-known-native-coverage |
 | The Westpoint | 0/0 | 0 | named-identity-unresolved |
-| Three Pacific Place | 1/3 | 0 | partial-known-native-coverage |
+| Three Pacific Place | 1/3 | 1 | partial-known-native-coverage |
 | Times Square Natwest Tower | 0/0 | 0 | named-identity-unresolved |
 | Tregunter 3 | 1/2 | 1 | partial-known-native-coverage |
 | Two Exchange Square | 0/1 | 0 | prepared-or-source-held-no-known-native-parts |
