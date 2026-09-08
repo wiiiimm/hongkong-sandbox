@@ -128,4 +128,27 @@ class Publication(unittest.TestCase):
   self.replacement_estimate_fixture();estimate=pub.load(self.root/'staged/estimates.json');estimate['refinementSha256']='0'*64;self.write('staged/estimates.json',estimate);before=self.live_snapshot()
   with self.assertRaisesRegex(AssertionError,'exact terrain bundle'):self.run_publish()
   self.assertEqual(self.live_snapshot(),before)
+ def top_level_estimate_fixture(self):
+  self.replacement_estimate_fixture()
+  plan=pub.load(self.root/'plan.json');plan['areas'][0].pop('terrainReplacements');self.write('plan.json',plan)
+  parentpath=self.root/'3d-viewer/city/data/terrain.json';parent=pub.load(parentpath);parent.pop('patches');self.write(str(parentpath.relative_to(self.root)),parent)
+  source,_=self.terrain_fixture()
+  estimate=pub.load(self.root/'staged/estimates.json');estimate.update(parentSha256=pub.sha(parentpath),refinementSha256=pub.sha(source));self.write('staged/estimates.json',estimate)
+ def test_top_level_estimate_preserves_source_nulls_height_and_search_base(self):
+  self.top_level_estimate_fixture()
+  self.write('3d-viewer/city/data/catalogue.json',[{'uid':'landsd/2:0','base':8,'height':3}])
+  self.run_publish();records=pub.load(self.root/'3d-viewer/city/data/tiles/0_0.json')['buildings']
+  self.assertEqual(records[0],self.building);self.assertEqual(records[1]['base'],3);self.assertEqual(records[1]['height'],3)
+  self.assertIsNone(records[1]['baseHeightHKPD']);self.assertIsNone(records[1]['topHeightHKPD'])
+  self.assertEqual(pub.load(self.root/'3d-viewer/city/data/catalogue.json')[0]['base'],3)
+ def test_top_level_estimate_stale_parent_or_unrelated_patch_rejected(self):
+  for key in ('parentSha256','refinementSha256'):
+   with self.subTest(key=key):
+    self.top_level_estimate_fixture();estimate=pub.load(self.root/'staged/estimates.json');estimate[key]='0'*64;self.write('staged/estimates.json',estimate);before=self.live_snapshot()
+    with self.assertRaisesRegex(AssertionError,'exact terrain bundle'):self.run_publish()
+    self.assertEqual(self.live_snapshot(),before)
+ def test_top_level_estimate_cannot_shift_surveyed_base(self):
+  self.top_level_estimate_fixture();tile=pub.load(self.root/'3d-viewer/city/data/tiles/0_0.json');tile['buildings'][1]['baseHeightHKPD']=8;self.write('3d-viewer/city/data/tiles/0_0.json',tile);before=self.live_snapshot()
+  with self.assertRaises(AssertionError):self.run_publish()
+  self.assertEqual(self.live_snapshot(),before)
 if __name__=='__main__':unittest.main()

@@ -109,6 +109,9 @@ def main():
  manifestPath=ROOT/'3d-viewer/city/data/manifest.json';original=load(manifestPath);manifest=copy.deepcopy(original);edits={};assets=[];allUids=set();report={'published':False,'plan':args.plan,'areas':[],'before':{},'after':{},'counts':original['counts'],'beforeCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()}
  for url in original.get('officialModelCatalogues',[]):allUids.update(m['uid'] for m in load(ROOT/'3d-viewer'/url)['models'])
  stage_top_level_terrain(plan,original,manifest,edits,report)
+ # Top-level refinements were hash-checked and staged above. Estimated bases
+ # may reference only one of these exact parent/refinement pairs.
+ topLevelBundles=[(sha(ROOT/'3d-viewer/city/data/terrain.json'),entry['sha256']) for entry in plan.get('topLevelTerrainPatches',[])]
  estimateByUid={};diagnostics={};estimatesFound=set()
  for area in plan['areas']:
   cataloguePath=ROOT/area['catalogue'];c=load(cataloguePath);dest=ROOT/'3d-viewer'/area['destination'];assert not dest.exists() and dest not in edits,'Do not overwrite a prior published catalogue or planned asset'
@@ -131,7 +134,7 @@ def main():
   for replacement in area.get('terrainReplacements',[]):
    includedBundles.append(stage_terrain_replacement(replacement,edits))
   for estimateName in area.get('estimates',[]):
-   estimate=load(ROOT/estimateName);assert (estimate['parentSha256'],estimate['refinementSha256']) in includedBundles,'Estimated base requires its exact terrain bundle'
+   estimate=load(ROOT/estimateName);assert (estimate['parentSha256'],estimate['refinementSha256']) in includedBundles+topLevelBundles,'Estimated base requires its exact terrain bundle'
    for u in estimate['buildings']:
     assert u['uid'] not in estimateByUid;estimateByUid[u['uid']]=u
   for diagnosticName in area.get('diagnostics',[]):
@@ -151,7 +154,7 @@ def main():
     assert b.get('baseHeightHKPD')==m['recordedBaseHeight'] and b.get('topHeightHKPD')==m['recordedTopHeight'],'Recorded source elevation mismatch'
    if b['uid'] in estimateByUid:
     u=estimateByUid[b['uid']];estimatesFound.add(b['uid']);assert b['objectId']==u['objectId'] and b['buildingCSUID']==u['buildingCSUID'];assert b.get('baseHeightHKPD') is None and b.get('topHeightHKPD') is None
-    assert b['heightSource']=='estimated' and b.get('baseSource')==u['baseSource'];assert b['base']==u['previousBase'] and b['height']==u['height'];assert not b.get('modelGeometry');b['base']=u['base'];changed=True
+    assert b['heightSource']=='estimated' and b.get('baseSource')==u['baseSource']=='terrain-estimated';assert math.isfinite(u['base']);assert b['base']==u['previousBase'] and b['height']==u['height'];assert not b.get('modelGeometry');b['base']=u['base'];changed=True
    if b['uid'] in diagnostics:b.setdefault('terrainAudit',{}).update(diagnostics[b['uid']]);changed=True
   if changed:edits[p]=encoded(d);t['bytes']=len(edits[p])
  assert estimatesFound==set(estimateByUid),'Missing estimate update UID'
