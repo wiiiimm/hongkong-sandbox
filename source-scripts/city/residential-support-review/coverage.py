@@ -6,6 +6,19 @@ sys.path.insert(0,str(ROOT/'docs/astra-city/mui-wo-buildings/review'));from bake
 read=lambda p:json.loads(p.read_bytes())
 def main():
  accepted=set(read(DOC/'decisions.json')['approvedUids']);packing=read(DOC/'omitted-support/packing.json')['results']+read(DOC/'packing.json')['results'];rows=[];c=sqlite3.connect('file:'+str(ROOT/'source-scripts/city/building-batch/local/buildings.sqlite')+'?mode=ro',uri=True);c.row_factory=sqlite3.Row
+ # Include remaining supported legacy candidates through exact retained source manifests.
+ existing={p['uid']for p in packing if p.get('record')};parts={p['uid']:p for p in read(HERE/'review-input.json')['parts']};manifests=[]
+ for mp in (ROOT/'source-scripts/city').glob('*/staged/*/manifest.json'):
+  try:manifests.append((mp,read(mp)))
+  except (OSError,ValueError):continue
+ for uid in sorted(accepted-existing):
+  record=parts[uid]['candidate'];found=[]
+  for mp,m in manifests:
+   if m.get('tile')!=record['sourceTile'] or m.get('tileRevision')!=record['sourceTileRevision']:continue
+   for model in m['models']:
+    if model['id']==record['modelId'] and model['worldBounds']==record['worldBounds']:found.append(mp)
+  assert found,('No exact native source manifest',uid)
+  packing.append({'uid':uid,'record':record,'proof':{'sourceManifest':str(sorted(found)[0].relative_to(ROOT))}})
  for item in packing:
   uid=item['uid']
   if uid not in accepted or not item.get('record'):continue
