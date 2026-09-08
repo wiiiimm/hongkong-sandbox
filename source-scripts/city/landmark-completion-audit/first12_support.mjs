@@ -8,7 +8,7 @@ import {createHash} from 'node:crypto';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../../..');
 const hashes={},read=p=>{const raw=readFileSync(resolve(root,p));hashes[p]=createHash('sha256').update(raw).digest('hex');return JSON.parse(raw);};
 const report=read('docs/astra-city/landmark-preflight/report.json');
-const batch=read(process.env.EXISTING_BATCH||'docs/astra-city/landmark-completion-audit/existing-review-batch.json'),selected=batch.parts.map(p=>({...report.parts.find(r=>r.uid===p.uid),candidate:{...p.asset,worldBounds:null},identityProposalGroups:[],knownHold:null,sourceState:'existing-native-review'}));
+const batch=read(process.env.EXISTING_BATCH||'docs/astra-city/landmark-completion-audit/existing-review-batch.json'),selected=batch.parts.map(p=>({...report.parts.find(r=>r.uid===p.uid),uid:p.uid,name:p.name,landmarkIds:p.landmarkIds,candidate:{...p.asset,worldBounds:null},identityProposalGroups:[],knownHold:null,sourceState:'existing-native-review'}));
 const [THREE,{prepareModelCatalogue,loadOfficialModel,disposeOfficialModel},{makeTerrainSampler},{extrudeBuilding}]=await Promise.all(['3d-viewer/vendor/three.module.js','3d-viewer/city/official-model-assets.js','3d-viewer/city/geo.js','3d-viewer/city/world.js'].map(p=>import(pathToFileURL(resolve(root,p)))));
 const manifest=read('3d-viewer/city/data/manifest.json'),terrain=read('3d-viewer/city/data/terrain.json');
 terrain.patches=manifest.terrainPatches.map(p=>read('3d-viewer/'+p.url));const terrainBundleArg=process.argv.indexOf('--terrain-bundle');
@@ -17,7 +17,7 @@ const sampler=makeTerrainSampler(terrain);
 const entries=new Map();
 for(const url of manifest.officialModelCatalogues){const path='3d-viewer/'+url,cat=read(path);for(const e of prepareModelCatalogue(cat,'http://review.local/'+url))entries.set(e.uid,{...e,path:resolve(root,dirname(path),e.asset),state:'installed'});}
 const candidatePath='source-scripts/city/landmark-preflight/snapshots/'+report.snapshotId+'/catalogue.json';
-for(const e of prepareModelCatalogue(read(candidatePath),'http://review.local/candidates/catalogue.json'))entries.set(e.uid,{...e,path:resolve(root,dirname(candidatePath),'assets',e.asset),state:'candidate'});
+for(const e of prepareModelCatalogue(read(candidatePath),'http://review.local/candidates/catalogue.json'))if(!entries.has(e.uid))entries.set(e.uid,{...e,path:resolve(root,dirname(candidatePath),'assets',e.asset),state:'candidate'});
 for(const p of selected){const e=entries.get(p.uid);assert(e,'Existing native asset missing');p.candidate={...e};}
 const overlap=(a,b,pad=1)=>a[0][0]-pad<=b[1][0]&&b[0][0]-pad<=a[1][0]&&a[0][2]-pad<=b[1][2]&&b[0][2]-pad<=a[1][2];
 const contexts=[...entries.values()].filter(e=>selected.some(p=>overlap(p.candidate.worldBounds,e.worldBounds,2)));
