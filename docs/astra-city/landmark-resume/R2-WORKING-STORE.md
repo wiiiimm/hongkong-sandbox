@@ -37,7 +37,7 @@ python3 -m unittest discover -s source-scripts/city/landmark-resume -p 'test_*.p
 
 A successful byte restore does not prove an old processing command works against PostgreSQL, restore Neon branch state, or approve building architecture/terrain placement. Install the documented Python/Node/browser dependencies and run the existing read-only validation against restored inputs separately. The tool deliberately requires an exact Git commit and a recorded manifest digest. It does not provide automatic manifest discovery, credentials distribution, retention/garbage collection or a mutable shared cache.
 
-The current cloud checkpoint passed actual R2 upload/readback and a fresh-cache clean-clone restore. See R2-VERIFICATION.md and R2-CLOUD-CHECKPOINT.json for its exact commit, manifest and remaining platform limitations.
+The current cloud checkpoint passed actual R2 upload/readback and a fresh-cache clean-clone restore. See R2-VERIFICATION-20260909.md and R2-CLOUD-CHECKPOINT-20260909.json for its exact commit, manifest and remaining platform limitations.
 
 ## Bounded parallel transfer and direct cloud restoration
 
@@ -50,7 +50,7 @@ python source-scripts/city/landmark-resume/remote_checkpoint.py upload \
   --env-file .env.local --report /tmp/astra-upload-report.json
 ```
 
-For recovery, check out the exact sourceGitCommit in R2-CLOUD-CHECKPOINT.json first. Supply credentials from this device's private env file (the checkpoint never includes them), then download using the recorded manifestSHA256:
+For recovery, check out the exact sourceGitCommit in R2-CLOUD-CHECKPOINT-20260909.json first. Supply credentials from this device's private env file (the checkpoint never includes them), then download using the recorded manifestSHA256:
 
 ```sh
 python source-scripts/city/landmark-resume/remote_checkpoint.py restore \

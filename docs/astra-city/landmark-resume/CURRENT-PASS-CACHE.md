@@ -1,3 +1,5 @@
+The committed cut is now uploaded and clean-restored: see [R2-VERIFICATION-20260909.md](R2-VERIFICATION-20260909.md). The inventory below describes its preparation; later active work is excluded.
+
 # HKS-216 / HKS-217 · Current model-pass working cache
 
 This is a **local inventory awaiting the final integration commit**, not an uploaded checkpoint. Run `collect_incremental.py --prior-manifest /path/to/verified-prior-manifest.json` from the source checkout. It validates the manifest SHA against `R2-CLOUD-CHECKPOINT.json`, hashes the explicit current-pass roots, and checks local glTF buffer and content-addressed catalogue dependencies. The compressed inventory retains the exact paths and hashes; regenerate after active writers finish.
