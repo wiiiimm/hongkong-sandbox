@@ -16,9 +16,10 @@ def capture(snapshot):
  assert rows,'No review snapshot';rows=json.loads(json.dumps(rows,default=str))
  save(DOC/'neon-snapshot.json',{'snapshotId':snapshot,'capturedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'databaseAccess':'read-only transaction','rows':rows})
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--refresh-neon',action='store_true');parser.add_argument('--snapshot',default='54650d6b59088d6d');a=parser.parse_args()
+ pointer=read(ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json')
+ parser=argparse.ArgumentParser();parser.add_argument('--refresh-neon',action='store_true');parser.add_argument('--snapshot',default=pointer['snapshotId']);parser.add_argument('--inventory',default=pointer['inventory']);a=parser.parse_args()
  if a.refresh_neon:capture(a.snapshot)
- paths={k:ROOT/p for k,p in {'registry':'source-scripts/city/landmark-registry/landmarks.json','preflight':'docs/astra-city/landmark-preflight/report.json','inventory':'docs/astra-city/model-integration-20260909/source-review-inventory.json','identity':'source-scripts/city/landmark-identity/report.json','overlay':'source-scripts/city/landmark-identity/proposed-overlay.json','centre':'docs/astra-city/identity-hold-review/center.json','manifest':'3d-viewer/city/data/manifest.json','neon':'docs/astra-city/landmark-completion-audit/neon-snapshot.json'}.items()}
+ paths={k:ROOT/p for k,p in {'registry':'source-scripts/city/landmark-registry/landmarks.json','preflight':'docs/astra-city/landmark-preflight/report.json','inventory':a.inventory,'identity':'source-scripts/city/landmark-identity/report.json','overlay':'source-scripts/city/landmark-identity/proposed-overlay.json','centre':'docs/astra-city/identity-hold-review/center.json','manifest':'3d-viewer/city/data/manifest.json','neon':'docs/astra-city/landmark-completion-audit/neon-snapshot.json'}.items()}
  inputs={str(p.relative_to(ROOT)):sha(p)for p in paths.values()};d={k:read(p)for k,p in paths.items()};assert d['inventory']['snapshotId']==d['neon']['snapshotId']==a.snapshot
  parts={p['uid']:p for p in d['inventory']['parts']};reviews={p['uid']:p for p in d['neon']['rows']};assert set(parts)==set(reviews),'Inventory and frozen Neon membership differ'
  registry={p['id']:p for p in d['registry']['landmarks']};pre={p['id']:p for p in d['preflight']['landmarks']};assert len(registry)==213 and set(registry)==set(pre)
@@ -52,6 +53,7 @@ def main():
   if asset and not asset['hashValid']:routes.append('repair-runtime-asset-hash-or-file')
   if r['review_state']=='installed-verified' and not verified:routes.append('reconcile-ledger-runtime-source')
   if installed and not verified:
+   if r['review_state']=='held':routes.append('resolve-documented-source-or-placement-hold')
    if not r['source_sha256']:routes.append('seed-existing-source-hash-in-new-ledger-snapshot')
    routes.append('verify-and-record-new-installation' if r['source_sha256']==asset['sha256'] and r['review_state']=='approved-for-integration' else 'reconcile-prior-placement-evidence' if asset['placementReviewed']else'existing-native-source-and-visual-review')
   if not installed and uid not in centre:
@@ -102,9 +104,9 @@ def main():
  (DOC/'landmarks.md').write_text('\n'.join(lines)+'\n')
  # Repeatable routing priority, deliberately no blind physical approval.
  anchors=['ifc','bank-of-china','hsbc','central-plaza','icc','tall-the-center','cheung-kong-centre','space-museum','cultural-centre']
- order={lid:i for i,lid in enumerate(anchors)};eligible=[r for r in old if r['asset']and r['asset']['kind']=='native-catalogue'and not r['asset']['placementReviewed']]
+ order={lid:i for i,lid in enumerate(anchors)};eligible=[r for r in old if r['asset']and r['asset']['kind']=='native-catalogue'and not r['installedVerified'] and r['reviewState'] not in ['held','approved-for-integration']]
  eligible.sort(key=lambda r:(min((order.get(lid,999)for lid in r['landmarkIds']),default=999),r['uid']))
- batch=eligible[:12];save(DOC/'existing-review-batch.json',{'issue':'HKS-214','scope':'First12 existing native source parts lacking placement flag; prioritise known central landmarks, then deterministic UID. Claim a source lease before new source/visual review. No approval inferred.','assetSnapshot':oldSnapshot,'parts':[{'uid':r['uid'],'name':r['name'],'landmarkIds':r['landmarkIds'],'asset':r['asset']}for r in batch]})
+ batch=eligible[:12];save(DOC/'next-existing-review-batch.json',{'issue':'HKS-214','scope':'Next12 existing native source parts lacking current ledger verification (excluding held/pending integration); prioritise known central landmarks, then deterministic UID. Claim a source lease before new source/visual review. No approval inferred.','assetSnapshot':oldSnapshot,'parts':[{'uid':r['uid'],'name':r['name'],'landmarkIds':r['landmarkIds'],'asset':r['asset']}for r in batch]})
  # Catch files changing during parallel integration; frozen Neon is refreshed explicitly.
  for p,h in inputs.items():assert sha(ROOT/p)==h,'Input changed during audit; rerun: '+p
  print(json.dumps(summary,indent=2))
