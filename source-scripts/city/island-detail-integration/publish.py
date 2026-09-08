@@ -1,7 +1,11 @@
 """Guarded publication of reviewed source assets; no whole-territory rebuild.
 Run with a reviewed plan JSON and --apply. Retains rollback byte hashes and source fields.
 """
-import argparse,copy,hashlib,json,pathlib,os,subprocess,tempfile,math
+import argparse,copy,hashlib,json,pathlib,os,subprocess,tempfile,math,sys
+sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent))
+from native_terrain_validation import validate_native_mesh
+from reviewed_terrain_changes import reviewed_changes
+from model_dependencies import stage_dependencies
 ROOT=pathlib.Path(__file__).resolve().parents[3]
 DOC=ROOT/'docs/astra-city/island-detail-integration'
 def load(p):return json.loads(p.read_bytes())
@@ -22,6 +26,7 @@ def validate_grid(data):
   assert all(v is None or isinstance(v,(int,float)) and math.isfinite(v) for v in data['renderedElev']),'Invalid rendered terrain values'
 def validate_patch(p,parent):
  validate_grid(p)
+ validate_native_mesh(p,parent)
  cells=p['coarseCells'];assert len(cells)==4 and all(type(v) is int for v in cells),'Invalid terrain coarseCells'
  x0,z0,x1,z1=cells
  assert 0<=x0<x1<parent['w'] and 0<=z0<z1<parent['h'],'Terrain patch outside parent grid'
@@ -41,7 +46,33 @@ def stage_top_level_terrain(plan,original,manifest,edits,report):
  entries=plan.get('topLevelTerrainPatches',[])
  if not entries:return
  parent=load(ROOT/'3d-viewer/city/data/terrain.json');validate_grid(parent)
- existing=list(parent.get('patches',[]))+[load(ROOT/'3d-viewer'/entry['url']) for entry in original.get('terrainPatches',[])]
+ replacements={}
+ for entry in entries:
+  replacement=entry.get('replaces')
+  if not replacement:continue
+  url=replacement['url'];assert url not in replacements,'Duplicate terrain replacement'
+  matches=[m for m in original.get('terrainPatches',[]) if m['url']==url];assert len(matches)==1,'Terrain replacement must identify one installed patch'
+  path=ROOT/'3d-viewer'/url;assert sha(path)==replacement['sha256'],'Installed terrain patch changed since review'
+  old=load(path);new=load(ROOT/entry['source']);validate_patch(new,parent)
+  assert not old.get('nativeMesh') and not new.get('nativeMesh'),'Native surface replacement needs a separate source review'
+  a,b,c,d=old['coarseCells'];x0,z0,x1,z1=new['coarseCells'];assert x0<=a and z0<=b and x1>=c and z1>=d,'Replacement must contain installed extent'
+  og=old['meta']['georef'];ng=new['meta']['georef'];assert og['aE']==ng['aE'] and og['aN']==ng['aN'],'Replacement must retain installed grid resolution'
+  dx=(og['bE']-ng['bE'])/ng['aE'];dz=(og['bN']-ng['bN'])/ng['aN'];assert dx==int(dx) and dz==int(dz),'Replacement grids must align'
+  assert old.get('hydro')==new.get('hydro'),'Replacement cannot alter water metadata'
+  allowed=reviewed_changes(ROOT,entry,old,new)
+  for row in range(old['h']):
+   for col in range(old['w']):
+    i=row*old['w']+col;j=(row+int(dz))*new['w']+col+int(dx)
+    assert old['vegetation'][i]==new['vegetation'][j],'Replacement changed installed vegetation'
+    if i in allowed:assert allowed[i]==j,'Correction changed grid identity'
+    else:
+     assert old['elev'][i]==new['elev'][j],'Replacement changed installed terrain nodes'
+     assert old.get('renderedElev',old['elev'])[i]==new.get('renderedElev',new['elev'])[j],'Replacement changed rendered terrain nodes'
+  replacements[url]=replacement['sha256']
+ existing=list(parent.get('patches',[]))+[load(ROOT/'3d-viewer'/entry['url']) for entry in original.get('terrainPatches',[]) if entry['url'] not in replacements]
+ if replacements:
+  manifest['terrainPatches']=[m for m in manifest.get('terrainPatches',[]) if m['url'] not in replacements]
+  report['replacedTerrainPatches']=[{'url':url,'sha256':digest,'oldAssetRetained':True} for url,digest in replacements.items()]
  for entry in entries:
   destrel=pathlib.Path(entry['destination'])
   assert not destrel.is_absolute() and '..' not in destrel.parts,'Terrain destination must be a viewer-relative path'
@@ -89,6 +120,7 @@ def main():
   for bundleName in area.get('terrain',[]):
    bundlePath=ROOT/bundleName;bundle=load(bundlePath);includedBundles.append((bundle['parentSha256'],sha(bundlePath)));parent=ROOT/'3d-viewer'/bundle['parentTerrainURL'];assert sha(parent)==bundle['parentSha256'],'Parent terrain changed since source review';data=json.loads(edits[parent]) if parent in edits else load(parent);children=data.setdefault('patches',[])
    for p in bundle['patches']:
+    validate_patch(p,data)
     x0,z0,x1,z1=p['coarseCells'];assert 0<=x0<x1<data['w'] and 0<=z0<z1<data['h'];g=data['meta']['georef'];f=p['meta']['georef'];assert abs(g['bE']+x0*g['aE']-f['bE'])<1e-5 and abs(g['bN']+z0*g['aN']-f['bN'])<1e-5
     assert abs((x1-x0)*g['aE']-(p['w']-1)*f['aE'])<1e-5 and abs((z1-z0)*g['aN']-(p['h']-1)*f['aN'])<1e-5
     assert len(p['elev'])==len(p['vegetation'])==p['w']*p['h']
@@ -106,6 +138,7 @@ def main():
    for uid,flags in load(ROOT/diagnosticName)['byBuildingUid'].items():
     assert uid not in diagnostics;diagnostics[uid]=flags
   report['areas'].append({'area':area['area'],'models':len(c['models']),'catalogue':area['destination'],'terrainBundles':area.get('terrain',[]),'terrainReplacements':area.get('terrainReplacements',[])})
+ stage_dependencies(ROOT,plan,manifest,edits,{m['uid']:m for area in plan['areas'] for m in load(ROOT/area['catalogue'])['models']},report)
  # Validate all new IDs and preserve every footprint, source field, existing model
  # and unrelated record. Only explicitly guarded null-source base estimates change.
  newModels={m['uid']:m for area in plan['areas'] for m in load(ROOT/area['catalogue'])['models']};newIds=set(newModels);found=set()

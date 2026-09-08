@@ -9,6 +9,8 @@ import reservations
 p=argparse.ArgumentParser();p.add_argument('plan');p.add_argument('--receipt',action='append',required=True);p.add_argument('--phase',required=True);p.add_argument('--apply',action='store_true');a=p.parse_args()
 assert a.phase.replace('-','').isalnum()
 plan=json.loads((ROOT/a.plan).read_text());uids={m['uid'] for area in plan['areas'] for m in json.loads((ROOT/area['catalogue']).read_text())['models']}
+for review in plan.get('dependencyReviews',[]):
+ uids.update(c['uid'] for c in json.loads((ROOT/review['path']).read_text())['changes'])
 with connect() as con:
  con.row_factory=dict_row
  con.execute('SELECT pg_advisory_xact_lock(%s)',(reservations.LOCK_ID,))

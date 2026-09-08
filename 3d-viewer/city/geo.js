@@ -1,3 +1,4 @@
+import {nativeTerrainSurface} from './native-terrain.js';
 import {collisionVolumes} from './building-geometry.js';
 import {modelSurfaceCollision} from './model-collision.js';
 
@@ -10,6 +11,7 @@ export function terrainVertexHeight(data,index) {
 }
 export function makeTerrainSampler(data) {
   const { w, h, elev } = data, g = data.meta.georef;
+  const native=data.nativeMesh?nativeTerrainSurface(data.nativeMesh):null;
   const patches=(data.patches||[]).map(makeTerrainSampler);
   const patchAt=(x,z)=>patches.find(p=>p.contains(x,z));
   const hydro=data.hydro,regions=hydro?.region==='composite'?hydro.regions.map(region=>{
@@ -20,6 +22,7 @@ export function makeTerrainSampler(data) {
   const grid = (x, z) => [(x + ORIGIN[0] - g.bE) / g.aE, (ORIGIN[1] - z - g.bN) / g.aN];
   const contains = (x, z) => { const [c,r]=grid(x,z);return c>=0&&r>=0&&c<w-1&&r<h-1; };
   function sample(x,z,rendered=false) {
+    if(native){const value=native.height(x,z);if(value!==null)return value;if(contains(x,z))throw new Error('Native terrain contains an uncovered point');}
     let [c,r]=grid(x,z); c=Math.max(0,Math.min(w-1,c));r=Math.max(0,Math.min(h-1,r));
     const i=Math.min(w-2,Math.floor(c)),j=Math.min(h-2,Math.floor(r)),u=c-i,v=r-j;
     const at=i=>rendered?terrainVertexHeight(data,i):elev[i];

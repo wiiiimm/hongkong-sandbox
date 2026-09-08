@@ -4,10 +4,21 @@ import {ORIGIN,inPolygon,random,smoothStep,terrainVertexHeight} from './geo.js';
 import {buildingLighting} from './lighting.js';
 import {createBuildingGeometry} from './building-geometry.js';
 import {createTidalWater} from './tidal-water.js';
+import {nativeTerrainSurface} from './native-terrain.js';
 import {drapeRoadTriangle} from './road-surface.js';
 
 const colour = x=>new THREE.Color(x);
+function makeNativeTerrain(data) {
+ if(data.patches?.length||data.hydro)throw new Error('Native terrain patches require a complete source surface without nested or water overrides');
+ const surface=nativeTerrainSurface(data.nativeMesh),positions=surface.position,indices=new Uint32Array(surface.index),colours=new Float32Array(positions.length),g=data.meta.georef;
+ const green=colour('#718764'),urban=colour('#cfccb3');
+ for(let i=0;i<positions.length;i+=3){const c=Math.max(0,Math.min(data.w-1,Math.round((positions[i]+ORIGIN[0]-g.bE)/g.aE))),r=Math.max(0,Math.min(data.h-1,Math.round((ORIGIN[1]-positions[i+2]-g.bN)/g.aN))),co=data.vegetation[r*data.w+c]?green:urban;colours.set([co.r,co.g,co.b],i);}
+ for(let i=0;i<indices.length;i+=3){const a=indices[i]*3,b=indices[i+1]*3,c=indices[i+2]*3,y=(positions[b+2]-positions[a+2])*(positions[c]-positions[a])-(positions[b]-positions[a])*(positions[c+2]-positions[a+2]);if(y<0)[indices[i+1],indices[i+2]]=[indices[i+2],indices[i+1]];}
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colours,3));geo.setIndex(new THREE.BufferAttribute(indices,1));geo.computeVertexNormals();
+ const mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1}));mesh.receiveShadow=true;mesh.name='Lands Department · native source terrain triangles';return mesh;
+}
 export function makeTerrain(data) {
+ if(data.nativeMesh)return makeNativeTerrain(data);
  const {w,h,elev,vegetation}=data,g=data.meta.georef;
  const coveredCells=[...(data.patches||[]).map(p=>p.coarseCells),...(data.patchExclusions||[])];
  const covered=(c,r)=>coveredCells.some(([x0,z0,x1,z1])=>c>=x0&&c<x1&&r>=z0&&r<z1);
@@ -46,6 +57,7 @@ export function makeTerrain(data) {
   // Chunk each level independently. Parent cells covered by children must be
   // omitted in every intersecting chunk; render each child once, not per chunk.
   function addPatch(patch){
+   if(patch.nativeMesh){group.add(makeNativeTerrain(patch));return;}
    for(let r=0;r<patch.h-1;r+=196)for(let c=0;c<patch.w-1;c+=196){
     const w=Math.min(197,patch.w-c),h=Math.min(197,patch.h-r),elev=[],vegetation=[],renderedElev=patch.renderedElev?[]:undefined,g=patch.meta.georef;
     for(let y=0;y<h;y++){if(renderedElev)renderedElev.push(...patch.renderedElev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));elev.push(...patch.elev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));vegetation.push(...patch.vegetation.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));}

@@ -31,7 +31,7 @@ CREATE OR REPLACE VIEW astra_modelling.model_review_status AS
 '''
 STATES={'held','approved-for-integration','installed-verified','source-unavailable','identity-unresolved'}
 
-def seed(report_path):
+def seed(report_path, inherit=None):
  report=json.loads(Path(report_path).read_text()); snapshot=report['snapshotId']
  rows=[]
  for p in report['parts']:
@@ -45,6 +45,11 @@ def seed(report_path):
    cur.executemany('''INSERT INTO astra_modelling.model_reviews
     (snapshot_id,uid,name,landmark_ids,source_state,source_sha256,initial_evidence,review_state)
     VALUES(%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(snapshot_id,uid) DO NOTHING''',rows)
+  if inherit:
+   con.execute('''UPDATE astra_modelling.model_reviews n SET review_state=o.review_state,result=o.result
+    FROM astra_modelling.model_reviews o WHERE n.snapshot_id=%s AND o.snapshot_id=%s
+    AND n.uid=o.uid AND n.source_sha256 IS NOT DISTINCT FROM o.source_sha256
+    AND n.source_state=o.source_state AND n.result IS NULL AND o.result IS NOT NULL''',(snapshot,inherit))
   retained=con.execute('SELECT uid,source_sha256 FROM astra_modelling.model_reviews WHERE snapshot_id=%s',(snapshot,)).fetchall()
   assert dict(retained)=={r[1]:r[5] for r in rows},'Snapshot sources changed; use a new source snapshot'
  return summary(snapshot)
@@ -88,8 +93,8 @@ def record(snapshot, receipt_path, uid, state, evidence_path, observation, commi
  return record_many(snapshot,receipt_path,[(uid,state,evidence_path,observation,commit)])[0]
 
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['seed','status','record']);p.add_argument('--snapshot',default='3887f2f23fbad306');p.add_argument('--report',default=str(ROOT/'docs/astra-city/landmark-preflight/report.json'));p.add_argument('--receipt');p.add_argument('--uid');p.add_argument('--state',choices=sorted(STATES));p.add_argument('--evidence');p.add_argument('--observation');p.add_argument('--commit');a=p.parse_args()
- if a.command=='seed':result=seed(a.report)
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['seed','status','record']);p.add_argument('--snapshot',default='3887f2f23fbad306');p.add_argument('--inherit',help='Explicit prior review snapshot; inherit decisions only for unchanged UID, source state and SHA');p.add_argument('--report',default=str(ROOT/'docs/astra-city/landmark-preflight/report.json'));p.add_argument('--receipt');p.add_argument('--uid');p.add_argument('--state',choices=sorted(STATES));p.add_argument('--evidence');p.add_argument('--observation');p.add_argument('--commit');a=p.parse_args()
+ if a.command=='seed':result=seed(a.report,a.inherit)
  elif a.command=='status':result=summary(a.snapshot)
  else:
   if not all((a.receipt,a.uid,a.state,a.evidence,a.observation)):p.error('record requires receipt, uid, state, evidence and observation')
