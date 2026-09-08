@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Hong Kong model improvement
@@ -24,6 +24,12 @@ For a different device or missing local caches, read [references/resume.md](refe
 - **Acceptance and integration:** use the existing review and guarded publisher mechanisms with fresh evidence for the selected components. A previously approved sample is not approval for another batch.
 
 The user may park modelling after a mechanical pass. Finish the agreed pass, record the hand-off, and leave the later modelling phase pending; do not silently continue it.
+
+## Reserve concurrent work
+
+Before parallel sessions process or edit overlapping model parts, follow `source-scripts/city/shared-modelling/RESERVATIONS.md` on the shared, pinned Neon branch. Reserve all canonical source keys for the intended group atomically, including the complete building UID and polygon suffix (for example `building:landsd/123456:0`); batch names do not isolate ownership. Use a unique session owner and receipt per group. Wrap long-running commands with `reservations.py run` so the script renews a 30-minute lease every five minutes while work is alive. For interactive modelling, heartbeat at work checkpoints; never leave an unattended keepalive daemon.
+
+If ownership is lost, stop and reacquire before continuing. Expired work can be reclaimed normally; an explicit takeover requires the observed token snapshot and a reason. Keep separate worktrees/outputs, check ownership before shared edits, and retain the publisher's own guards: reservations do not atomically lock arbitrary files or R2 publication. Session/audit history remains after lease expiry. Do not discard expired work's evidence or imply that its models were accepted.
 
 ## Preserve these invariants
 

@@ -10,6 +10,12 @@ Use the persistent `astra-modelling` Neon branch, with the explicit configuratio
 
 R2 implementation and cloud verification are tracked separately in HKS-216. Read `docs/astra-city/landmark-resume/R2-VERIFICATION.md` for actual remote status before assuming a working snapshot is available.
 
+## Session ownership and recovery (HKS-218)
+
+Read `source-scripts/city/shared-modelling/RESERVATIONS.md` before starting overlapping batches. The job queue protects individual job IDs; resource reservations add cross-batch ownership of canonical building source keys. Use atomic group claims, the supervised `run` command for automatic five-minute heartbeats, explicit manual checkpoints for interactive work, and release when finished. The 30-minute work lease is independent of retained session/audit history. After a disconnect, check ownership rather than trusting a local receipt. Expired claims can be reclaimed; live takeover needs a fresh ownership snapshot and a recorded reason.
+
+Keep using isolated outputs and existing publication guards. The wrapper supervises the selected command, not every process or arbitrary future AI action. Migration, commands and recovery examples live in the reservation runbook rather than being duplicated here.
+
 ## What travels where
 
 | Material | Portable home | Recovery |

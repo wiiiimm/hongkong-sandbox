@@ -44,6 +44,10 @@ Repeat `--job-id` to select multiple explicit source jobs. Historical pending jo
 
 Terrain reconstruction, browser capture and publication are not automatically made concurrency-safe by a shared database. Those older local scripts require explicit isolated-job wrappers before simultaneous devices can execute them. Do not run legacy local queues as a second shared authority. Candidate preparation still requires terrain/browser/architectural acceptance before publication.
 
+## Cross-session reservations and missing-agent recovery — HKS-218
+
+See [RESERVATIONS.md](RESERVATIONS.md) for atomic source-resource group claims across batches/devices, 30-minute expiry, supervised five-minute heartbeats, release and audited takeover. A job's lease and a session's source reservation serve different scopes; the shared queue's batch-specific job IDs alone do not prevent duplicate source work in another batch. Adopt the reservation workflow for overlapping sessions and use isolated outputs. The supervised wrapper is opt-in and does not automatically intercept existing direct worker or publication commands.
+
 ## Working files
 
 R2 bucket `hk-sandbox-assets`, dedicated prefix `astra-modelling/`, is reserved for verified source/cache and prepared outputs. See `docs/astra-city/landmark-resume/R2-WORKING-STORE.md`. Neon stores records and job results; it does not replace these files. A successful local restore is not proof of a cloud upload.
