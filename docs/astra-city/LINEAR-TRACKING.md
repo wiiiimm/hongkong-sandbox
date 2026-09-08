@@ -1,3 +1,7 @@
+## 9 September2026 — user-directed pause
+
+269 source components verified (209new+60existing), seven reviewed native components approved for later integration, snapshot7d47a5f3c7362e9b. All source reservations released. Grand integration2802a451; foundation package681ac72f/7f9c9bfd; Cullinan/Elements/CR/Oakhill packagef56f3cf1/5851fb06. HKS-220 implementedc31b72d7 and In Review; UI shows269 of346,108 source forms (0.08%), not physical buildings or whole-landmark completion. No next model batch has started. Read landmark-resume/PAUSED-HANDOFF-20260909.md and final R2 checkpoint before cross-device resume. This is a user-requested pause, not an approval blocker.
+
 ## Current checkpoint — Whampoa and further residential components
 
 This pass now has **205 new native source components installed and verified**, plus **31 existing native components reviewed** in Neon snapshot `f61930a5e4dfa572` (538 tracked source components). The Whampoa is a separate user request outside the frozen213-landmark baseline; both ship/hull sources are installed. These counts do not claim whole-landmark or regional completion.
