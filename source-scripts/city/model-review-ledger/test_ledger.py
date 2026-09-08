@@ -21,6 +21,8 @@ class NeonTests(unittest.TestCase):
     self.assertEqual(ledger.summary(snapshot)['states'],{'in-progress':1})
     ledger.record(snapshot,p/'receipt',uid,'held',__file__,'Test fixture; not a real model review')
     self.assertEqual(ledger.summary(snapshot)['states'],{'held':1})
+    with self.assertRaises(ValueError):ledger.record_many(snapshot,p/'receipt',[(uid,'installed-verified',__file__,'Atomic fixture',None),('landsd/0:0','held',__file__,'Unowned fixture',None)])
+    self.assertEqual(ledger.summary(snapshot)['states'],{'held':1})
     ledger.reservations.release(receipt)
     with self.assertRaises(ValueError):ledger.record(snapshot,p/'receipt',uid,'held',__file__,'Stale fixture owner')
    finally:ledger.reservations.release(receipt)

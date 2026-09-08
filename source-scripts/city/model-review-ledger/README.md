@@ -7,3 +7,5 @@
 The ledger records review decisions; it does not establish their architectural correctness. Only record approval after inspecting source/terrain/browser evidence and checking the guarded publication plan. Installed-verified means the feature-branch viewer, not production. No row implies a complete landmark or region. Normal source/workflow reports remain in Git; working files remain in R2. Live reservation ownership can expire independently of retained results.
 
 Tests: `python -m unittest discover -s source-scripts/city/model-review-ledger -v`; set MODELLING_INTEGRATION_TEST=1 for an isolated, uniquely named Neon fixture. Fixture evidence is retained under its own review-test snapshot.
+
+`record_many(snapshot, receipt_path, entries)` synchronises a verified batch in one fenced database transaction. Every member must have live source ownership and valid source evidence; an invalid member rejects the entire batch. Existing per-part `record` uses the same path. Live-Neon tests verify atomic rejection and stale-owner fencing.

@@ -55,23 +55,37 @@ def summary(snapshot):
   owners=con.execute('SELECT active_owner,count(*) FROM astra_modelling.model_review_status WHERE snapshot_id=%s AND active_owner IS NOT NULL GROUP BY active_owner',(snapshot,)).fetchall()
  return {'snapshot':snapshot,'states':states,'activeOwners':dict(owners),'qualification':'Source parts, not whole landmark readiness. Installed means feature-branch viewer only; not production.'}
 
-def record(snapshot, receipt_path, uid, state, evidence_path, observation, commit=None):
- if state not in STATES:raise ValueError('Unsupported review state')
- receipt=json.loads(Path(receipt_path).read_text()); evidence=Path(evidence_path).resolve()
- if not evidence.is_relative_to(ROOT) or not evidence.is_file():raise ValueError('Evidence must be a repository file')
- if not observation.strip():raise ValueError('A source-aware review observation is required')
- result={'evidence':str(evidence.relative_to(ROOT)),'sha256':hashlib.sha256(evidence.read_bytes()).hexdigest(),
-  'observation':observation,'commit':commit,'productionPublished':False,'wholeLandmarkComplete':False}
+def record_many(snapshot, receipt_path, entries):
+ if not entries:raise ValueError('At least one review entry is required')
+ prepared=[]
+ for entry in entries:
+  uid,state,evidence_path,observation,commit=entry
+  if state not in STATES:raise ValueError('Unsupported review state')
+  evidence=Path(evidence_path).resolve()
+  if not evidence.is_relative_to(ROOT) or not evidence.is_file():raise ValueError('Evidence must be a repository file')
+  if not observation.strip():raise ValueError('A source-aware review observation is required')
+  result={'evidence':str(evidence.relative_to(ROOT)),'sha256':hashlib.sha256(evidence.read_bytes()).hexdigest(),
+   'observation':observation,'commit':commit,'productionPublished':False,'wholeLandmarkComplete':False}
+  prepared.append((uid,state,result))
+ uids=[p[0] for p in prepared]
+ if len(set(uids))!=len(uids):raise ValueError('Duplicate source review entry')
+ receipt=json.loads(Path(receipt_path).read_text())
  with connect() as con:
   con.row_factory=dict_row;con.execute('SELECT pg_advisory_xact_lock(%s)',(reservations.LOCK_ID,))
   group=reservations._current(con,receipt)
-  if not group or 'building:'+uid not in group['resources']:raise ValueError('Live matching source reservation required')
-  row=con.execute('SELECT * FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=%s FOR UPDATE',(snapshot,uid)).fetchone()
-  if row is None:raise ValueError('Unplanned model source')
-  if state in ('approved-for-integration','installed-verified') and not row['source_sha256']:raise ValueError('No prepared source asset for integration')
-  con.execute('UPDATE astra_modelling.model_reviews SET review_state=%s,result=%s,updated_at=clock_timestamp() WHERE snapshot_id=%s AND uid=%s',(state,Jsonb(result),snapshot,uid))
-  con.execute('INSERT INTO astra_modelling.model_review_events(snapshot_id,uid,owner,token,review_state,result) VALUES(%s,%s,%s,%s,%s,%s)',(snapshot,uid,group['owner'],group['token'],state,Jsonb(result)))
- return {'uid':uid,'state':state,'recorded':True}
+  if not group or not {'building:'+uid for uid in uids}<=set(group['resources']):raise ValueError('Live matching source reservation required')
+  rows=con.execute('SELECT uid,source_sha256 FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=ANY(%s) FOR UPDATE',(snapshot,uids)).fetchall()
+  sources={r['uid']:r['source_sha256'] for r in rows}
+  if set(sources)!=set(uids):raise ValueError('Unplanned model source')
+  for uid,state,_ in prepared:
+   if state in ('approved-for-integration','installed-verified') and not sources[uid]:raise ValueError('No prepared source asset for integration')
+  with con.cursor() as cur:
+   cur.executemany('UPDATE astra_modelling.model_reviews SET review_state=%s,result=%s,updated_at=clock_timestamp() WHERE snapshot_id=%s AND uid=%s',[(state,Jsonb(result),snapshot,uid) for uid,state,result in prepared])
+   cur.executemany('INSERT INTO astra_modelling.model_review_events(snapshot_id,uid,owner,token,review_state,result) VALUES(%s,%s,%s,%s,%s,%s)',[(snapshot,uid,group['owner'],group['token'],state,Jsonb(result)) for uid,state,result in prepared])
+ return [{'uid':uid,'state':state,'recorded':True} for uid,state,_ in prepared]
+
+def record(snapshot, receipt_path, uid, state, evidence_path, observation, commit=None):
+ return record_many(snapshot,receipt_path,[(uid,state,evidence_path,observation,commit)])[0]
 
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['seed','status','record']);p.add_argument('--snapshot',default='3887f2f23fbad306');p.add_argument('--report',default=str(ROOT/'docs/astra-city/landmark-preflight/report.json'));p.add_argument('--receipt');p.add_argument('--uid');p.add_argument('--state',choices=sorted(STATES));p.add_argument('--evidence');p.add_argument('--observation');p.add_argument('--commit');a=p.parse_args()
