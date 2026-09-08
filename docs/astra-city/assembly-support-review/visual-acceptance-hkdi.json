@@ -1,0 +1,36 @@
+{
+  "issue": "HKS-214",
+  "approvedSourceUids": [
+    "landsd/22089:0"
+  ],
+  "parts": 1,
+  "notes": {
+    "landsd/22089:0": "Exact HKDI source geometry accepted with the source-sampled1m grid after normal/isolated image inspection. No buried upward faces remain;0.335m\u00b2 buried lower faces retained. All59,291 grid nodes sourced from native triangles across four sheets. No building shifts; whole-landmark completeness is separate."
+  },
+  "browserReportSha256": "0f1e75cc7aab72696461e9b5253ebbc2c30c4f0e4efeba042220fb231664fe2e",
+  "triangleAssessmentSha256": "6a629684e4a4e1f672b2692af44698024b81795f898cbeeb55841d6e390b58c0",
+  "requiredTerrainPatches": [
+    {
+      "path": "source-scripts/city/assembly-support-review/grid-hkdi/support-grid-hkdi-22089-0.json",
+      "sha256": "a310299404fb52e738b2728766fab4bbba83ea153366b1a360630d082a2a4b5a",
+      "parentTerrainURL": "city/data/terrain.json",
+      "parentSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+      "coarseCells": [
+        628,
+        419,
+        632,
+        422
+      ],
+      "gridNodes": 59291,
+      "nativeCoveredNodes": 59291,
+      "boundaryMaxError": 0.0,
+      "estimatedNodeHeights": 0,
+      "interpolation": "1m native sampled grid, not exact source mesh",
+      "publicationApproved": false
+    }
+  ],
+  "sourceGeometryUnchanged": true,
+  "wholeLandmarkAccepted": false,
+  "verticalScale": 1,
+  "runtimePublished": false
+}

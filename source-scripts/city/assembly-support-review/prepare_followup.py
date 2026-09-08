@@ -14,6 +14,6 @@ else:
 s=(h/'exact_surface_review.mjs').read_text().replace('exact-candidates/',a.name+'-candidates/').replace('exact-surface-review.json',a.name+'-surface-review.json')
 if a.terrain:s=s.replace('docs/astra-city/assembly-support-review/exact-tin.json',a.terrain)
 else:
- s=s.replace("import {nativeTerrainSurface}","import {makeTerrainSampler} from '../../../3d-viewer/city/geo.js';\nimport {nativeTerrainSurface}");start=s.index('const surfaces=');end=s.index(',lighting=',start);s=s[:start]+"const terrain=read('3d-viewer/city/data/terrain.json');terrain.patches=mf.terrainPatches.map(p=>read('3d-viewer/'+p.url));const terrainSampler=makeTerrainSampler(terrain);const surfaces=[{data:{meta:{targetUids:cat.models.map(m=>m.uid)}},surface:terrainSampler}]"+s[end:]
+ start=s.index('const surfaces=');end=s.index(',lighting=',start);s=s[:start]+"const terrain=read('3d-viewer/city/data/terrain.json');terrain.patches=mf.terrainPatches.map(p=>read('3d-viewer/'+p.url));const terrainSampler=makeTerrainSampler(terrain);const surfaces=[{data:{meta:{targetUids:cat.models.map(m=>m.uid)}},surface:terrainSampler}]"+s[end:]
 (h/(a.name+'_surface_review.mjs')).write_text(s)
 print('Prepared',a.name,len(uids))

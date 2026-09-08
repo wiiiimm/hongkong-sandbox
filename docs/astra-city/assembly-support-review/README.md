@@ -63,3 +63,13 @@ The Peak Tower source component is separately accepted with its exact native TIN
 Publication plans: `plan-foundation.json` (17), `plan-exact-next.json` (4), `plan-peak.json` (1). The scripts stage only exact existing source models. Parent must validate the combined patch arrangement and refresh deployment/manifest checks. `followup-ledger-sync.json` records22 approvals-for-integration and2 continued holds; none of these artefacts independently publishes runtime content.
 
 Reproduction uses tracked files: `prepare_followup.py --name foundation --uids source-scripts/city/assembly-support-review/selection-foundation.json`; analogous named passes accept `--terrain docs/astra-city/assembly-support-review/exact-tin-next.json` or `exact-tin-peak.json`. `accept_followup.py` can read the tracked `visual-acceptance-<name>.json` as its `--notes` input. Restore source assets through the existing immutable cache workflow before running on another device.
+
+## Border-sheet and below-grade completion
+
+HKDI (22089) and Belcher's Tower 2 (255427) were previously held. Their native terrain was partially present but omitted from the whole-bounds coverage index. The acquisition helper reused both original terrain pairs from verified caches with zero network bytes; HKDI's three neighbouring sheets required 7,055,543 bytes, without photographs/textures.
+
+An exact HKDI TIN rectangle retained a 3 cm quantised source-sheet seam. The approved `grid-hkdi.json` proposal therefore uses a 1 m source-sampled grid: all 59,291 nodes are covered by native triangles, with zero parent-boundary error. This is interpolation between surveyed-source samples, not an exact TIN or 1 m accuracy claim. It removes all buried upward native faces; normal/isolated exports were inspected. `plan-hkdi.json` references only this approved grid. The experimental `exact-tin-extra` and `exact-tin-hkdi` outputs are not approved for publication.
+
+Belcher's below-grade review verifies every fully buried face is below the same-CSUID LandsD surveyed base of 69.9 m; the highest is 58.483 m. The visible native tower/facade/roof remains clear. `plan-belowgrade.json` accepts this source component with unchanged terrain and preserved basement geometry. No inferred building shift or podium was added.
+
+The new cache payloads under `native-terrain-extra/sources` and `staged/*/TERRAIN*` are deliberately ignored; manifests, source hashes, transfer ledgers and scripts are tracked for R2 checkpoint/resume. `two-context-ledger-sync.json` records both approvals in the instructed combined Neon snapshot.
