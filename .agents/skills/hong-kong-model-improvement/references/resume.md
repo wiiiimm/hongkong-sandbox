@@ -1,5 +1,7 @@
 # Resume on another device
 
+Read `docs/astra-city/landmark-resume/PAUSED-HANDOFF-20260909.md` first. Its final `R2-PAUSE-CHECKPOINT-20260909.json` records the newest verified checkpoint when present; earlier checkpoint files below are historical. The current model-review pointer is `docs/astra-city/model-integration-20260909/current-source-review.json`.
+
 The skill is versioned with the project under `.agents/skills/`. Fetch the relevant branch/commit on the new device before invoking it. A copied standalone skill still requires the project and its working material.
 
 The 8 September 2026 checkpoint uses `codex/astra-hong-kong-city` and draft PR #298. Treat that as a historical routing hint: verify current tracking and remote state. Further modelling was intentionally parked after mechanical preparation. HKS-215 tracks this hand-off; HKS-212 retains identity/component questions, HKS-213 source acquisition, and HKS-214 architectural review/integration.
@@ -29,7 +31,7 @@ Keep using isolated outputs and existing publication guards. The wrapper supervi
 
 See `docs/astra-city/landmark-resume/CACHE-PLAN.md` and its inventory for the measured working-state closure and current recovery gaps. Do not assume those assets are in R2 until an upload manifest and remote checks prove it.
 
-PostgreSQL is **not required** for sequential work on different devices. SQLite is an inventory/job ledger, not the model-file store. PostgreSQL can later coordinate concurrent machines and shared job ownership, but that requires adapting the current local pipeline; merely creating a database does not make its caches portable.
+The chosen persistent Neon branch is now authoritative for current shared reviews, reservations and job results. The restored SQLite is historical compatibility/source inventory only. Do not overwrite Neon state from that historical database, and do not infer current acceptance from its old jobs. Files remain in the separately verified Git/R2 checkpoint.
 
 ## Cold-clone gate
 
@@ -41,7 +43,7 @@ The cache inventory describes the originating machine. Its recorded existence va
 
 1. Read current Linear/local hand-off and identify the exact code revision and working snapshot. Ensure no other machine is actively publishing or writing the shared logical job state.
 2. Restore tracked inputs and ignored working files to repository-relative paths. Verify the snapshot manifest, file sizes and hashes. Keep the original source revision/provenance; an unavailable historical download is not interchangeable with today's source.
-3. Restore a **consistent** SQLite backup. Use SQLite's backup API while quiescent, or a properly checkpointed closed database when creating the snapshot; do not copy only the main file from an active WAL database. Never overwrite a newer job ledger blindly.
+3. Restore the recorded **historical, consistent** SQLite backup only for compatible source tools; current shared review/job status comes from Neon. Use SQLite's backup API while quiescent, or a properly checkpointed closed database when creating the snapshot; do not copy only the main file from an active WAL database. Never overwrite a newer job ledger blindly.
 4. If rebuilding instead, run the inventory script against the complete intended viewer inputs. It reconstructs the source inventory, not every historical selection/job lease or uncommitted review decision. Recreate the selected preparation from its tracked config and restored sources; use the explicit Node path flag documented in `pipeline.md`.
 5. Set up local Python/Node/browser dependencies and regenerate convenience symlinks. Some older example commands contain personal paths; resolve executables on this device rather than copying those paths.
 6. Run read-only current-status checks and source/native verification before scheduling work. Refresh inventory when viewer hashes changed. Existing pinned plans with absent ignored payloads need restoration or a deliberate rebuild, not a claim that their work is complete.
