@@ -12,6 +12,11 @@ def main():
  for row in rows.values():
   for image in row['images']:assert sha(ROOT/image['path'])==image['sha256'],'Reviewed image changed'
  framing=read(DOC/'bulk-framing/report.json');assert not framing['errors'];byuid={r['uid']:r for r in framing['rows']};support={r['uid']:r for r in read(DOC/'decisions.json')['rows']};catalogue=read(HERE/'review-candidates/catalogue.json');models={m['uid']:m for m in catalogue['models']};manifest=read(ROOT/'3d-viewer/city/data/manifest.json');installed={m['uid']for url in manifest['officialModelCatalogues']for m in read(ROOT/'3d-viewer'/url)['models']};assert not uids&installed
+ for url in manifest['officialModelCatalogues']:
+  for model in read(ROOT/'3d-viewer'/url)['models']:
+   for dependency in model.get('supportDependencies',[]):
+    d={'uid':dependency,'state':'fallback'}if isinstance(dependency,str)else dependency
+    assert not(d['state']in ('fallback','surveyed-footprint-fallback')and d['uid']in uids),'Existing native dependent needs reviewed metadata migration: '+model['uid']+' -> '+d['uid']
  for uid in uids:
   assert support[uid]['placementApproved'];views=byuid[uid]['views'];assert len(views)==2
   for v in views:assert v['active'] and v['nativeGeometryUnchanged'] and v['final']['fullyFramed'] and v['final']['clear']
