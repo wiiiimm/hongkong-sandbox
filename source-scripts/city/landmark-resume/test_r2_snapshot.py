@@ -4,7 +4,7 @@ import sqlite3
 import subprocess
 import tempfile
 import unittest
-from r2_snapshot import LocalStore, digest, key_for, restore, safe_path, snapshot
+from r2_snapshot import LocalStore, digest, key_for, restore, safe_path, snapshot, r2_endpoint
 
 class SnapshotTests(unittest.TestCase):
     def setUp(self):
@@ -32,6 +32,15 @@ class SnapshotTests(unittest.TestCase):
         target = self.base / 'clone'
         subprocess.run(['git', 'clone', '-q', str(self.root), str(target)], check=True)
         return target
+    def test_endpoint_validation(self):
+        account = 'a' * 32
+        endpoint = 'https://' + account + '.r2.cloudflarestorage.com'
+        self.assertEqual(r2_endpoint({'R2_ACCOUNT_ID': account}), endpoint)
+        self.assertEqual(r2_endpoint({'R2_ENDPOINT_URL': endpoint + '/'}), endpoint)
+        self.assertEqual(r2_endpoint({'R2_ENDPOINT_URL': endpoint.replace('.r2.', '.eu.r2.')}), endpoint.replace('.r2.', '.eu.r2.'))
+        for bad in [endpoint.replace('https:', 'http:'), endpoint + '.evil.example', endpoint + '/bucket', endpoint + '?token=secret', endpoint.replace('https://', 'https://user:secret@'), 'https://localhost', 'https://evilr2.cloudflarestorage.com']:
+            with self.assertRaises(ValueError): r2_endpoint({'R2_ENDPOINT_URL': bad})
+        with self.assertRaises(ValueError): r2_endpoint({'R2_ACCOUNT_ID': '../bad'})
     def test_roundtrip_and_zero_upload_resume(self):
         result = self.prepare()
         self.assertEqual(result['uploadedObjects'], 2)

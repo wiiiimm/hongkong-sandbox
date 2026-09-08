@@ -6,7 +6,7 @@ The existing GitHub `R2_BUCKET` variable identifies **hk-sandbox-assets**. This 
 
 ## Commands
 
-Use Python 3.10+ and install `boto3>=1.36` for R2 transport. The local transport and tests use the standard library. Export bucket-scoped `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` securely in the process. The script does not load `.env` files or log credentials. Vercel database credentials and its OIDC token do not provide R2 S3 access. GitHub Actions secret values cannot be retrieved through the GitHub API.
+Use Python 3.10+ and install `python3 -m pip install -r source-scripts/city/landmark-resume/requirements.txt` for R2 transport. The local transport and tests use the standard library. Export bucket-scoped `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` and either `R2_ENDPOINT_URL` or `R2_ACCOUNT_ID` securely in the process. Endpoint URLs must be HTTPS Cloudflare R2 account endpoints; credentials, non-443 ports, query strings and bucket paths are rejected. The default bucket remains `hk-sandbox-assets`. The script does not load `.env` files or log credentials. Vercel database credentials and its OIDC token do not provide R2 S3 access. GitHub Actions secret values cannot be retrieved through the GitHub API.
 
 ```sh
 python3 source-scripts/city/landmark-resume/r2_snapshot.py snapshot \

@@ -9,6 +9,7 @@ import re
 import sqlite3
 import subprocess
 import tempfile
+from urllib.parse import urlsplit
 
 PREFIX = 'astra-modelling/'
 
@@ -57,14 +58,30 @@ class LocalStore:
         finally: temporary.unlink(missing_ok=True)
         return True
 
+def r2_endpoint(environ):
+    endpoint = environ.get('R2_ENDPOINT_URL')
+    if not endpoint:
+        account = environ.get('R2_ACCOUNT_ID', '')
+        if not re.fullmatch('[0-9a-fA-F]{32}', account):
+            raise ValueError('Set R2_ENDPOINT_URL or a valid R2_ACCOUNT_ID')
+        endpoint = 'https://' + account + '.r2.cloudflarestorage.com'
+    parsed = urlsplit(endpoint)
+    if (parsed.scheme != 'https' or not parsed.hostname
+            or not re.fullmatch(r'[0-9a-fA-F]{32}(?:\.(?:eu|fedramp))?\.r2\.cloudflarestorage\.com', parsed.hostname)
+            or parsed.username or parsed.password or parsed.port not in (None, 443)
+            or parsed.path not in ('', '/') or parsed.query or parsed.fragment):
+        raise ValueError('R2 endpoint must be an HTTPS Cloudflare R2 account endpoint without credentials or path')
+    return endpoint.rstrip('/')
+
 class R2Store:
     def __init__(self, bucket):
         import boto3
-        required = ('R2_ACCOUNT_ID', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY')
+        endpoint = r2_endpoint(os.environ)
+        required = ('R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY')
         if any(not os.environ.get(k) for k in required):
-            raise ValueError('Set R2_ACCOUNT_ID, R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY')
+            raise ValueError('Set R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY')
         self.bucket = bucket
-        self.client = boto3.client('s3', endpoint_url='https://' + os.environ['R2_ACCOUNT_ID'] + '.r2.cloudflarestorage.com', region_name='auto', aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'])
+        self.client = boto3.client('s3', endpoint_url=endpoint, region_name='auto', aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'])
     def get(self, key, dest): self.client.download_file(self.bucket, key, str(dest))
     def put(self, key, source):
         from botocore.exceptions import ClientError
