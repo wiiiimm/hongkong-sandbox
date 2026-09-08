@@ -1,6 +1,6 @@
 # Astra modelling pause and cross-device hand-off — 9 September 2026
 
-The user requested a pause after the current model work. Do not start another modelling batch without a resume request. This is a user-directed pause, not a user-review blocker or a finished-landmarks claim.
+The user requested a pause after the current model work. Manual modelling remains paused. The user subsequently resumed deterministic scripting under HKS-221; that does not authorise starting another manual modelling batch. This is a user-directed pause, not a user-review blocker or a finished-landmarks claim.
 
 ## Delivered
 

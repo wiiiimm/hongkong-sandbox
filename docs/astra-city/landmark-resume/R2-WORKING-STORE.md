@@ -1,3 +1,5 @@
+Latest verified model checkpoint: [R2-PAUSE-CHECKPOINT-20260909.json](R2-PAUSE-CHECKPOINT-20260909.json), source commit83cb844b; [resume hand-off](PAUSED-HANDOFF-20260909.md). Entire4,150-entry restore verified from a fresh R2 cache; source/asset reference checks passed. Earlier checkpoints below are historical.
+
 # HKS-216 — portable working material
 
 The shared PostgreSQL ledger coordinates workers; R2 retains immutable working inputs and prepared outputs. The legacy SQLite file is backed up consistently for migration/history, not used as a remotely shared live database. The production viewer's `data/` objects and delivery configuration are untouched.
