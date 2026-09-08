@@ -11,3 +11,7 @@ Target: `soft-snow-34493321` / `br-icy-firefly-b3zn5ogh` (`astra-modelling`), Po
 Snapshot import preserves historical jobs without scheduling them. New shared jobs are explicit batches. Current shared worker supports the existing pure metadata-audit adapter; older geometry/download/browser scripts retain their local execution contracts and require per-job wrappers before simultaneous devices can safely run them. No new model is accepted or published by this infrastructure pass.
 
 R2 remote access and actual cloud round-trip remain a separate gate under HKS-216. The verified local cache clone does not prove a remote backup exists.
+
+## Independent-process real-source worker smoke
+
+Two separate worker processes (two threads each), launched outside the checkout, audited eight real imported building records directly from Neon with no SQLite/cache arguments. All eight completed exactly once; repeated planning retained completion. Elapsed 53.288 seconds including planning and repeat verification. Evidence: `worker-verification.json`. Two additional private-environment setup tests pass (branch pinning, restrictive file permissions, no overwrite, missing-credential refusal).
