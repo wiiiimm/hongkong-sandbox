@@ -1,3 +1,13 @@
+## Current checkpoint — Whampoa and further residential components
+
+This pass now has **205 new native source components installed and verified**, plus **31 existing native components reviewed** in Neon snapshot `f61930a5e4dfa572` (538 tracked source components). The Whampoa is a separate user request outside the frozen213-landmark baseline; both ship/hull sources are installed. These counts do not claim whole-landmark or regional completion.
+
+The latest root integration adds18 components: ten Island Resort/Pacifica/Wplace models, six Capitol models and two Whampoa ship/hull models. Po Lin Hall of Great Hero now retains its native podium during streaming. Actual browser checks passed with unchanged1× source geometry: source IDs, terrain agreement, collision/picking, desktop/mobile night, walk/fly, failure fallback/Retry.264 viewer tests and28 guarded-publisher tests pass.
+
+Capitol's narrower terrain extension preserves all29,751 existing Club Galaxy grid nodes and excludes the conflicting LOHAS ancillary structure. Two null-survey canopy base estimates follow the new terrain; surveyed elevations remain unchanged. Festival City and the LOHAS ancillary conflict remain held explicitly. The Whampoa native hull/decks/masts are recognisable; exact paint, glazing, lettering and decorative night lighting are a separately recorded appearance refinement, not delivered textures.
+
+Current evidence: `current-checkpoint.json`, `residual-ten-live/after/verification.json`, `whampoa-capitol-live/after/verification.json`, `polin-live/after/verification.json`, and `../whampoa-special/close-view/report.json`. Four new exact-name tower sources were acquired; two passed the conservative packer and two Cullinan sources retain geometric identity review. Civic, Grand Promenade and further source review continue without waiting for user approval.
+
 # HKS-214 modelling integration — 9 September
 
 Five West Kowloon cultural source parts are installed in the feature viewer. Native source bytes are unchanged; generic procedural windows are disabled on the opaque cultural envelopes. The exact M+ source podium supports the raised tower. `cultural/publication.json` records the manifest/asset change; `cultural-live/report.json` contains20 successful real-route views, native picking and desktop/mobile layout checks. Source approval: `../cultural-model-review/visual-acceptance.json`.

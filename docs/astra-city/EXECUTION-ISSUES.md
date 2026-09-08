@@ -1,3 +1,11 @@
+## 9 September — modelling continues with shared source review state
+
+HKS-214 remains **In Progress, agent-owned**. Commit `c3211c9f` brings this pass to **187 new installed/verified native components**, plus **12 reviews of existing components**. Neon snapshot `11a25ce297101f9e` tracks 529 source components, with199 installed-verified at this checkpoint. These are component counts, not whole-landmark or regional completion. Source geometry retains1× HKPD.
+
+Viewer tests264 and guarded-publisher tests25 pass. Commit `4eef297a` permits only hash-bound, null-survey estimated-base corrections against an installed top-level refinement; native source bases and heights cannot be moved. Residential neighbour checks, Lantau reviews and unresolved identities continue. No user action or effort switch is required; older parked-work notes below are historical.
+
+R2 working checkpoint `c3aa0026ce8c8ec2e43490362edefa1beafa65f603308e595364c8382a1d6f55` pins `d6f25b3b`. All2,321 objects restored from a clean cache;5,552 buffer references and5,105 catalogue assets resolve. Current review state is in Neon; the restored SQLite is explicitly historical. This working archive does not publish production runtime assets. Evidence commit `e3440e58`; HKS-216/217 synced.
+
 ## 9 September — abandoned-agent recovery ready for review
 
 [HKS-218](https://linear.app/stealth-company/issue/HKS-218) is **In Review**: atomic cross-batch source reservations, 30-minute expiry, five-minute automatic heartbeat for supervised commands, retained session/audit history, and deliberate audited takeover. Base commit 4b49976d; supervisor/recovery 9f0b2164; reusable skill 21c23b66. Twelve focused local tests and six unique live Neon cases passed; actual API/CLI supervised runs released their fixtures. Root independently verified a real-Neon run and broader shared suite (33 passed, 11 live-only skipped). Skill validation and diff checks pass. Evidence: `source-scripts/city/shared-modelling/reservation-verification.json` and `RESERVATIONS.md`. Executors: modelling_reservations implementation, landmark_visibility_fix independent review, root integration/tracking. Leaf, HKS-217/199 and milestone synced.
