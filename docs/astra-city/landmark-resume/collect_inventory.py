@@ -73,6 +73,17 @@ for name in ['source-scripts/city/landmark-identity/staged','source-scripts/city
 # Legacy comparison used explicitly by stage_proposals.summaries().
 add('source-scripts/city/landmark-bulk/compact/catalogue.json','prior-comparison-catalogue','Ignored dependency of stage summaries; retain original comparison catalogue.')
 for path,digest in pin['cpuValidationInputHashes'].items():add(ROOT/path,'validation-hash-input','Must match pinned validation; do not refresh runtime independently.',expected=digest)
+# Completed review evidence is useful for later modelling, but is not a core resume dependency.
+gallery_summary=ROOT/'docs/astra-city/landmark-preflight/gallery-summary.json'
+gallery=read(gallery_summary)
+assert gallery['snapshotId']==pin['id'] and gallery.get('finished'),'Gallery is not complete for the pinned snapshot'
+gallery_folder=ROOT/'docs/astra-city/landmark-preflight/gallery'/pin['id']
+tree(gallery_folder,'completed-gallery-evidence','Optional retained visual evidence; regeneration needs pinned assets/runtime and another browser capture.','optional-review-evidence')
+for name in ['gallery-summary.json','gallery-images.json','contact.html']:
+ add(ROOT/'docs/astra-city/landmark-preflight'/name,'gallery-review-metadata','Retain from matching Git commit; merged summary is authoritative and contact sheet is only a compact preview.','optional-review-evidence')
+for assembly in gallery['landmarks']:
+ for view in assembly['views']:
+  add(gallery_folder/view['file'],'full-resolution-gallery-image','Optional full-resolution source view; current JPEG is retained evidence, not an approval.','optional-review-evidence',view.get('sha256'))
 # Administrative/runtime paths are instructions, not portable payloads.
 for path in [ROOT/'.git',ROOT/'CLAUDE.md',ROOT/'3d-viewer/city/node_modules',pathlib.Path('/private/tmp/astra-city-venv'),pathlib.Path('/Users/williamli/.nvm/versions/node/v24.17.0/bin/node'),pathlib.Path('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')]:
  add(path,'device-runtime-or-link','Recreate Git checkout, Python/Node dependencies and browser locally; do not archive host administrative/runtime directories.','exclude')
@@ -80,11 +91,11 @@ paths=[row['path']for row in rows.values()if not pathlib.Path(row['path']).is_ab
 tracked=set(subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode().split('\0'))
 for row in rows.values():
  row['gitTracked']=row['path']in tracked
- if 'exclude'not in row['profiles']:row['profiles'].append('unmodified-cli-restore')
+ if 'exclude'not in row['profiles'] and 'optional-review-evidence'not in row['profiles']:row['profiles'].append('unmodified-cli-restore')
 # Unique bytes by canonical file content path; profile totals are alternative views, not additive.
 summary={}
-for profile in ['portable-working-closure','rebuildable-cache','unmodified-cli-restore','exclude']:
+for profile in ['portable-working-closure','rebuildable-cache','unmodified-cli-restore','optional-review-evidence','exclude']:
  subset=[r for r in rows.values()if profile in r['profiles']and r['kind']=='file']
  summary[profile]={'files':len(subset),'bytes':sum(r['bytes']for r in subset),'untrackedBytes':sum(r['bytes']for r in subset if not r['gitTracked']),'missing':sum(not r['exists']for r in rows.values()if profile in r['profiles'])}
-out={'issue':'HKS-215','createdAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'gitCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'snapshotId':pin['id'],'candidateModels':len(uids),'terrainFlaggedModels':terrain['flaggedModels'],'terrainMissingSheets':terrain['missingNativeSheets'],'sqliteReadOnly':True,'sqliteTables':counts,'summary':summary,'rows':sorted(rows.values(),key=lambda r:r['path']),'limits':['Inventory only; no data copied, SQLite backup created, network requests, upload or secret inspection.','expectedSHA256 is existing evidence when available; creation of an upload manifest must hash all actual packaged bytes.','Profiles overlap and totals must not be added; duplicate extracted bytes can be rebuilt from native ZIPs.','Portable working closure needs offline extraction/restaging before existing full acquisition verifiers; unmodified-cli-restore also includes duplicate member/stage caches.','Current gallery output is actively produced and intentionally excluded from this stable closure.']}
+out={'issue':'HKS-215','createdAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'gitCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'snapshotId':pin['id'],'candidateModels':len(uids),'terrainFlaggedModels':terrain['flaggedModels'],'terrainMissingSheets':terrain['missingNativeSheets'],'gallery':{'snapshotId':gallery['snapshotId'],'finished':gallery['finished'],'counts':gallery['counts'],'profile':'optional-review-evidence','qualification':'Completed automated capture; camera/active-model limitations remain explicit, no architectural acceptance.'},'sqliteReadOnly':True,'sqliteTables':counts,'summary':summary,'rows':sorted(rows.values(),key=lambda r:r['path']),'limits':['Inventory only; no data copied, SQLite backup created, network requests, upload or secret inspection.','expectedSHA256 is existing evidence when available; creation of an upload manifest must hash all actual packaged bytes.','Profiles overlap and totals must not be added; duplicate extracted bytes can be rebuilt from native ZIPs.','Portable working closure needs offline extraction/restaging before existing full acquisition verifiers; unmodified-cli-restore also includes duplicate member/stage caches.','Completed full-resolution gallery and report metadata are a separate optional review-evidence profile; they do not enlarge core resume profiles.']}
 (OUT/'cache-inventory.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:out[k]for k in ['snapshotId','candidateModels','sqliteTables','summary']},indent=2))
