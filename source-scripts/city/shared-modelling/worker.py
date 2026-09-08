@@ -1,4 +1,4 @@
-"""Run supported read-only adapters through the shared queue, without local SQLite."""
+"""Run supported audit/candidate adapters through the shared queue, without local SQLite."""
 import argparse
 import concurrent.futures
 import json
@@ -38,6 +38,22 @@ def plan_audit(snapshot, batch, uids):
     return {'batch':batch,'jobs':len(set(ids)),'snapshot':snapshot}
 
 
+
+def plan_models(snapshot, batch, selection, job_ids):
+    from model_adapter import code_hashes
+    payloads=[]
+    with connect() as con:
+        for job_id in job_ids:
+            membership=source_record(con,snapshot,'batch_job_sets',{'primary_key':[['name',selection],['id',job_id]]})
+            job=source_record(con,snapshot,'batch_jobs',{'primary_key':[['id',job_id]]})
+            if not membership or not job or job['stage']!='cached-model-v1':
+                raise ValueError('Requested source job is not a model job in the selected current set')
+            payloads.append({'snapshot':snapshot,'sourceJobId':job_id,'sourceSelection':selection,
+                             'adapterPayload':json.loads(job['payload']),'adapterCode':code_hashes(HERE.parents[2])})
+    ids=[enqueue(batch,'cached-model-r2-v1',payload) for payload in payloads]
+    return {'batch':batch,'jobs':len(set(ids)),'snapshot':snapshot,'sourceSelection':selection}
+
+
 def audit_input(payload):
     # Reuse the existing pure adapter, not its local SQLite queue or planner.
     import sys
@@ -47,9 +63,10 @@ def audit_input(payload):
     return adapter(payload)
 
 
-def run(batch, workers=2, limit=10000):
+def run(batch, workers=2, limit=10000, model_store=None):
     if not 1<=workers<=8 or limit<1:
         raise ValueError('Workers must be 1–8 and limit positive')
+    stages=['audit-input-v1']+(['cached-model-r2-v1'] if model_store is not None else [])
     remaining=limit
     lock=threading.Lock()
     errors=[]
@@ -60,7 +77,7 @@ def run(batch, workers=2, limit=10000):
             with lock:
                 if remaining<=0:return
                 remaining-=1
-            job=claim(batch,owner,['audit-input-v1'])
+            job=claim(batch,owner,stages)
             if not job:return
             stop=threading.Event()
             lost=threading.Event()
@@ -74,7 +91,11 @@ def run(batch, workers=2, limit=10000):
             thread=threading.Thread(target=pulse,daemon=True)
             thread.start()
             try:
-                result=audit_input(job['payload'])
+                if job['stage']=='cached-model-r2-v1':
+                    from model_adapter import process
+                    result=process(job['payload'],HERE.parents[2],model_store)
+                else:
+                    result=audit_input(job['payload'])
                 if lost.is_set() or not finish(job,result=result):
                     with lock:errors.append('Lease lost before result acceptance: '+job['id'])
             except Exception as exc:
@@ -88,24 +109,42 @@ def run(batch, workers=2, limit=10000):
         list(pool.map(lambda _:worker(),range(workers)))
     result=report(batch)
     result.update(branch=CONFIG['branch_name'],workerErrors=errors,
-                  scope='Existing metadata audit only. No modelling or publication.')
+                  scope='Metadata audit or source-preserving candidate preparation only. No architectural acceptance or publication.')
     if errors:raise RuntimeError('Worker failed or lost lease; inspect shared queue')
     return result
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('command',choices=['plan-audit','run','report'])
+    p.add_argument('command',choices=['plan-audit','plan-model','run','report'])
     p.add_argument('--batch',required=True)
     p.add_argument('--snapshot')
     p.add_argument('--uid',action='append',default=[])
+    p.add_argument('--job-id',action='append',default=[])
+    p.add_argument('--selection')
+    p.add_argument('--enable-models',action='store_true')
+    p.add_argument('--r2-env',type=Path)
     p.add_argument('--workers',type=int,default=2)
     p.add_argument('--limit',type=int,default=10000)
     a=p.parse_args()
     if a.command=='plan-audit':
         if not a.snapshot or not a.uid:p.error('plan-audit requires --snapshot and --uid')
         result=plan_audit(a.snapshot,a.batch,a.uid)
-    else:result=run(a.batch,a.workers,a.limit) if a.command=='run' else report(a.batch)
+    elif a.command=='plan-model':
+        if not a.snapshot or not a.selection or not a.job_id:p.error('plan-model requires --snapshot, --selection and --job-id')
+        result=plan_models(a.snapshot,a.batch,a.selection,a.job_id)
+    else:
+        store=None
+        if a.enable_models:
+            import os,sys
+            from dotenv import dotenv_values
+            if a.r2_env:
+                for key,value in dotenv_values(a.r2_env).items():
+                    if key.startswith('R2_') and value:os.environ.setdefault(key,value)
+            sys.path.insert(0,str(HERE.parent/'landmark-resume'))
+            from r2_snapshot import R2Store
+            store=R2Store('hk-sandbox-assets')
+        result=run(a.batch,a.workers,a.limit,model_store=store) if a.command=='run' else report(a.batch)
     print(json.dumps(result,sort_keys=True))
 
 

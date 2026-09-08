@@ -15,7 +15,7 @@ class WorkerTests(unittest.TestCase):
             self.assertIsNone(worker.source_record(MagicMock(),'snapshot','buildings',{}))
 
     def test_adapter_failure_is_not_success(self):
-        job={'payload':{},'id':'fixture'}
+        job={'payload':{},'id':'fixture','stage':'audit-input-v1'}
         with patch('worker.claim',side_effect=[job,None]), patch('worker.finish',return_value=True), patch('worker.report',return_value={}), patch('worker.audit_input',side_effect=ValueError('private details')):
             with self.assertRaisesRegex(RuntimeError,'Worker failed'):
                 worker.run('test',workers=1,limit=2)

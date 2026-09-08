@@ -6,7 +6,7 @@ The 8 September 2026 checkpoint uses `codex/astra-hong-kong-city` and draft PR #
 
 ## Concurrent workers (HKS-217)
 
-Use the persistent `astra-modelling` Neon branch, with the explicit configuration and commands in `source-scripts/city/shared-modelling/README.md`. Every device must use that same branch. The shared queue supports atomic claims, expiring leases and stale-worker fencing. Immutable inventory snapshots preserve SQLite history and can recreate a compatibility SQLite on a clean device. Only supported shared-worker adapters are concurrent; older geometry scripts are not automatically migrated. Do not run their local queue as a second authority.
+Use the persistent `astra-modelling` Neon branch, with the explicit configuration and commands in `source-scripts/city/shared-modelling/README.md`. Every device must use that same branch. The shared queue supports atomic claims, expiring leases and stale-worker fencing. Immutable inventory snapshots preserve SQLite history and can recreate a compatibility SQLite on a clean device. The metadata audit and source-preserving cached-model adapter support shared workers; terrain/browser/publication scripts are not automatically migrated. Do not run their local queue as a second authority.
 
 R2 implementation and cloud verification are tracked separately in HKS-216. Read `docs/astra-city/landmark-resume/R2-VERIFICATION.md` for actual remote status before assuming a working snapshot is available.
 

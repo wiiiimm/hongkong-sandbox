@@ -30,7 +30,19 @@ python source-scripts/city/shared-modelling/worker.py report --batch EXPLICIT_BA
 
 Run the same batch on multiple devices. Each claim uses a row lock with `SKIP LOCKED`; each attempt has a new UUID token and a server-clock lease. Workers heartbeat while running. Expired claims are reclaimable; stale workers cannot renew or record a result, including when the same worker name is reused. Attempts are bounded. Stable payload-derived job IDs make repeat planning idempotent. Unsupported stages remain untouched. Adapters failing or losing their lease cause a non-zero worker exit.
 
-**Current worker adapter:** the existing pure building metadata audit, using frozen building/model records read directly from Neon. This adapter needs no local SQLite or model cache. Geometry conversion, terrain changes, browser checks and publication are not automatically made concurrency-safe by a shared database. They remain the existing local scripts until explicitly wrapped with isolated per-job outputs and verified R2 inputs. Never run those legacy scripts concurrently in one shared checkout or import their local queue as active work. Future adapters must produce immutable object keys and publish the result only after successful token-fenced completion; arbitrary commands are not accepted from job payloads.
+**Supported adapters:** the existing pure metadata audit and the existing source-preserving cached-model processor. The model adapter requires an explicit source job ID belonging to a named current job set in the immutable snapshot. It verifies code/source hashes, uses a private temporary directory for each attempt, and returns an immutable object reference only after storage readback succeeds. A reclaimed worker may leave an unreferenced immutable object, but cannot replace the accepted job result.
+
+```sh
+python source-scripts/city/shared-modelling/worker.py plan-model \
+  --snapshot SNAPSHOT_SHA256 --batch EXPLICIT_BATCH \
+  --selection CURRENT_SOURCE_JOB_SET --job-id SOURCE_JOB_ID
+python source-scripts/city/shared-modelling/worker.py run --batch EXPLICIT_BATCH \
+  --workers 4 --enable-models --r2-env .env.local
+```
+
+Repeat `--job-id` to select multiple explicit source jobs. Historical pending jobs are never automatically scheduled. Without `--enable-models`, workers claim only metadata audits. With it, R2 configuration is required before any claim. See [MODEL-ADAPTER.md](MODEL-ADAPTER.md) and the R2 requirements for dependencies. The source caches must be restored and verified on each device first. No whole shared catalogue or SQLite is written by either worker adapter.
+
+Terrain reconstruction, browser capture and publication are not automatically made concurrency-safe by a shared database. Those older local scripts require explicit isolated-job wrappers before simultaneous devices can execute them. Do not run legacy local queues as a second shared authority. Candidate preparation still requires terrain/browser/architectural acceptance before publication.
 
 ## Working files
 
