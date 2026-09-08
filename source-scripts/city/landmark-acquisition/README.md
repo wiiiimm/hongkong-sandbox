@@ -57,3 +57,7 @@ Named batch files live under `batches/<batch>/` in both the script and documenta
 ```
 
 For a new terrain inventory, pass a new `--batch`, `--targets-source <inventory.json>` and recorded `--budget-mb 500`. Terrain evidence is deliberately named `terrain-report.json` / `terrain-verification.json`, distinct from building-source reports. Standard staged terrain manifests and compact source ZIPs are discoverable by preflight. Native glTF hashes refer to the original cache members; the texture-free derived glTF has a separate checksum.
+
+Completion requires every planned source sheet and consistent target membership. A model found in one sheet stays attached as evidence while its acquisition outcome remains `deferred` until all intersecting sheets finish; `sourceCoverageComplete` makes that distinction explicit. Missing/incomplete planned sheets cause verification failure. Terrain states become verified only after source and derived-file checks pass; failed checks are retryable from retained native members.
+
+A changed official archive revision must use a new pinned source snapshot. The `terrain-source-refresh` checkpoint demonstrates this for a repacked ZIP whose native geometry remained identical but whose byte offsets changed.

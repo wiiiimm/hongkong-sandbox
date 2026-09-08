@@ -3,6 +3,8 @@ from unittest.mock import patch
 HERE=pathlib.Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('landmark_acquire',HERE/'acquire.py');a=importlib.util.module_from_spec(spec);spec.loader.exec_module(a)
 
+spec=importlib.util.spec_from_file_location('landmark_verify',HERE/'verify.py');v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
+
 def fixture():
  data=io.BytesIO()
  with zipfile.ZipFile(data,'w',zipfile.ZIP_DEFLATED)as archive:
@@ -70,6 +72,23 @@ class AcquisitionTests(unittest.TestCase):
    network=a.Network(pathlib.Path(folder)/'ledger.json',cap=100)
    with self.assertRaisesRegex(ValueError,'refused bounded'):network.get('https://example.test/model.zip',50,'0-49')
    self.assertEqual(network.data['receivedBytes'],0)
+ def test_verification_rejects_missing_or_incomplete_planned_sheets(self):
+  with tempfile.TemporaryDirectory()as folder:
+   work=pathlib.Path(folder)
+   with self.assertRaisesRegex(ValueError,'Missing'):v.complete_state(work,'tile')
+   a.write(work/'sources/tile/state.json',{'status':'directory-verified'})
+   with self.assertRaisesRegex(ValueError,'Incomplete'):v.complete_state(work,'tile')
+  plan={'targetParts':1,'targets':[{'uid':'landsd/1:0','sheets':['tile']}],'tiles':{'tile':{'uids':[]}}}
+  with self.assertRaisesRegex(AssertionError,'membership'):v.validate_memberships(plan)
+ def test_partial_multi_sheet_target_stays_deferred_even_with_a_model(self):
+  with tempfile.TemporaryDirectory()as folder:
+   work=pathlib.Path(folder);manifest={'models':[{'geoRefNo':'1234567890','id':'model','officialBuildingCSUIDs':['1234567890T1'],'sourceHashes':{},'worldBounds':[],'triangles':1}]}
+   a.write(work/'manifest.json',manifest);a.write(work/'sources/one/state.json',{'status':'staged','manifest':'manifest.json','exactGLTFEntries':['BUILDING/B1234567890.gltf']})
+   plan={'targets':[{'uid':'landsd/1:0','csuid':'1234567890T1','sheets':['one','two']}],'tiles':{'one':{},'two':{}}};a.write(work/'plan.json',plan)
+   network=type('Network',(),{'data':{'receivedBytes':0,'chargedBytes':0,'requests':[]},'initial':0,'cap':100,'path':work/'ledger.json'})()
+   with patch.object(a,'ROOT',work),patch.object(a,'HERE',work),patch.object(a,'DOCS',work/'docs'):
+    result=a.report(plan,network)
+   self.assertEqual(result['rows'][0]['outcome'],'deferred');self.assertFalse(result['rows'][0]['sourceCoverageComplete']);self.assertTrue(result['rows'][0]['standardMatch'])
  def test_only_provenance_response_headers_are_retained(self):
   headers=a.provenance_headers({'ETag':'"source"','content-range':'bytes 1-3/40','Set-Cookie':'transient','X-Request-Id':'temporary','Last-Modified':'source date'})
   self.assertEqual(headers,{'ETag':'"source"','Content-Range':'bytes 1-3/40','Last-Modified':'source date'})

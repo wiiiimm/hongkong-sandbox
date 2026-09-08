@@ -38,9 +38,14 @@ def main():
    completed=state.exists()and a.read(state).get('status')=='native-terrain-verified'
    if not completed and not args.verify_only:
     result=a.acquire_tile(network,sheet,tile,{},caches,exact_members={entry['name']:entry for entry in item['directory']['members']})
-    result['status']='native-terrain-verified';a.write(state,result)
-   result=verify_sheet(sheet);result['uids']=item['uids'];return result
-  except Exception as error:return {'sheet':sheet,'uids':item['uids'],'outcome':'deferred','error':f'{type(error).__name__}: {error}'}
+   result=verify_sheet(sheet)
+   state_data=a.read(state);state_data['status']='native-terrain-verified';a.write(state,state_data)
+   result['uids']=item['uids'];return result
+  except Exception as error:
+   state_path=a.HERE/'sources'/sheet/'state.json'
+   if state_path.exists():
+    failed=a.read(state_path);failed.update(status='terrain-verification-retryable',error=f'{type(error).__name__}: {error}');a.write(state_path,failed)
+   return {'sheet':sheet,'uids':item['uids'],'outcome':'deferred','error':f'{type(error).__name__}: {error}'}
  with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers)as pool:
   for result in pool.map(work,inputs):rows.append(result);print(result['sheet'],result['outcome'],result.get('error',''),flush=True)
  report={'issue':'HKS-213','relatedIssue':'HKS-214','batchId':args.batch,'snapshotSHA256':config['targetSnapshotSHA256'],'generatedAt':a.now(),'summary':{'sheets':len(rows),'verified':sum(row['outcome']=='native-terrain-acquired-verified'for row in rows),'deferred':sum(row['outcome']=='deferred'for row in rows)},'rows':rows,'transfer':{'receivedBytes':network.data['receivedBytes'],'newThisInvocationBytes':network.data['receivedBytes']-network.initial,'requests':len(network.data['requests']),'chargedBytes':network.data['chargedBytes'],'capBytes':network.cap},'qualification':'Native source geometry unchanged,1x HKPD. Geometry-only staged glTF omits photograph/material references; no terrain application, reconstruction, placement approval or publication. Existing whole-HK5mDTM not downloaded.'}
