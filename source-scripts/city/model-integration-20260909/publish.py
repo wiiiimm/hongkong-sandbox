@@ -12,7 +12,7 @@ plan=json.loads((ROOT/a.plan).read_text());uids={m['uid'] for area in plan['area
 for area in plan['areas']:
  for estimate in area.get('estimates',[]):
   uids.update(b['uid'] for b in json.loads((ROOT/estimate).read_text())['buildings'])
-for review in plan.get('dependencyReviews',[]):
+for review in plan.get('dependencyReviews',[])+plan.get('priorityReviews',[]):
  uids.update(c['uid'] for c in json.loads((ROOT/review['path']).read_text())['changes'])
 with connect() as con:
  con.row_factory=dict_row

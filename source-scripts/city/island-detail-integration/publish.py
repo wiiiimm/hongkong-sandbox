@@ -6,6 +6,7 @@ sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent))
 from native_terrain_validation import validate_native_mesh
 from reviewed_terrain_changes import reviewed_changes
 from model_dependencies import stage_dependencies
+from model_priorities import stage_priorities
 ROOT=pathlib.Path(__file__).resolve().parents[3]
 DOC=ROOT/'docs/astra-city/island-detail-integration'
 def load(p):return json.loads(p.read_bytes())
@@ -141,6 +142,7 @@ def main():
    for uid,flags in load(ROOT/diagnosticName)['byBuildingUid'].items():
     assert uid not in diagnostics;diagnostics[uid]=flags
   report['areas'].append({'area':area['area'],'models':len(c['models']),'catalogue':area['destination'],'terrainBundles':area.get('terrain',[]),'terrainReplacements':area.get('terrainReplacements',[])})
+ stage_priorities(ROOT,plan,manifest,edits,report)
  stage_dependencies(ROOT,plan,manifest,edits,{m['uid']:m for area in plan['areas'] for m in load(ROOT/area['catalogue'])['models']},report)
  # Validate all new IDs and preserve every footprint, source field, existing model
  # and unrelated record. Only explicitly guarded null-source base estimates change.
