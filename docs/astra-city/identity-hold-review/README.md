@@ -77,3 +77,7 @@ The scripts read SQLite in query-only mode. They do not alter source caches, sha
 - [New World Development — The Masterpiece](https://propertysales.nwd.com.hk/property/masterpiece): residential component of K11, 18 Hanoi Road.
 - [Cordis experiences](https://www.cordishotels.com/en/hong-kong/experience/cordis-experience/): separate office tower and hotel identities.
 - [Langham Hospitality — Cordis Hong Kong](https://www.langhamhospitality.com/en-US/Investments/Cordis-Hong-Kong/): hotel/mall/MTR connection; not proof of this individual ancillary object's route.
+
+## Pedder follow-up
+
+[Pedder source audit](pedder-source.json) and [decision](pedder-decision.json) retain a specific height/architecture hold for landsd/69002:0. Fresh government data still reports5.5–43.8mHKPD; native roof surfaces cover almost the entire footprint above43.8m, with a broad47.885m roof and54.080m rooftop maximum. Native projection matches99.9966% of Pedder's footprint, while only1.82m² overlaps ChinaBuilding, so the evidence does not support reassignment to AnsonHouse. AMO/HKTB confirm nine storeys but provide no roof elevation resolving the source discrepancy. No scaling, clipping, source reassignment or new publication was performed. Reproduce with `python source-scripts/city/identity-hold-review/pedder_source.py`; add `--refresh` for a bounded new government response, then review changed evidence.
