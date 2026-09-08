@@ -1,3 +1,5 @@
+Latest checkpoint: **269 verified source components =209 new native parts +60 existing components reviewed**, snapshot `7d47a5f3c7362e9b` (539 components). Grand Promenade and Marine Police integration: `2802a451`; Lantau24 existing reviews: `d76b9d89`; civic corrections: `4ebbc93f`. Actual Grand waterfront browser evidence is in `grand-waterfront-live/after/verification.json`. No whole-landmark or regional completion inferred. Earlier checkpoints below are historical.
+
 ## Current checkpoint — Whampoa and further residential components
 
 This pass now has **205 new native source components installed and verified**, plus **31 existing native components reviewed** in Neon snapshot `f61930a5e4dfa572` (538 tracked source components). The Whampoa is a separate user request outside the frozen213-landmark baseline; both ship/hull sources are installed. These counts do not claim whole-landmark or regional completion.
