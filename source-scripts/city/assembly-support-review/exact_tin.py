@@ -1,5 +1,5 @@
 """Bounded native triangle patches: keep core facets, join parent outside the core."""
-import json,math
+import json,math,argparse
 from pathlib import Path
 import numpy as np
 import shapely
@@ -38,9 +38,10 @@ def parent_clip(poly,tri):
  return poly
 
 def main():
- report=n.read(OUT/'report.json');models={x['uid']:x for x in report['rows']};bundle=n.read(OUT/'terrain-patches.json');rows=[];folder=HERE/'exact-tin';folder.mkdir(exist_ok=True)
- for baseid in ['103538-0','257313-0']:
-  patch=n.read(HERE/'terrain-patches'/('support-native-'+baseid+'.json'));parent=n.read(ROOT/'3d-viewer'/patch['meta']['parentTerrain']);sampler=t.fine.DemSampler(parent,rendered=True);bb=t.bounds(patch);core=[bb[0]+10,bb[1]+10,bb[2]-10,bb[3]-10];regions=[(core,False),([bb[0],bb[1],bb[2],core[1]],True),([bb[0],core[3],bb[2],bb[3]],True),([bb[0],core[1],core[0],core[3]],True),([core[2],core[1],bb[2],core[3]],True)]
+ parser=argparse.ArgumentParser();parser.add_argument('--ids',nargs='+',default=['103538-0','257313-0']);parser.add_argument('--suffix',default='');args=parser.parse_args();
+ report=n.read(OUT/'report.json');models={x['uid']:x for x in report['rows']};bundle=n.read(OUT/'terrain-patches.json');rows=[];folder=HERE/('exact-tin'+args.suffix);folder.mkdir(exist_ok=True)
+ for baseid in args.ids:
+  patch=n.read(HERE/'terrain-patches'/('support-native-'+baseid+'.json'));parent=n.read(ROOT/'3d-viewer'/patch['meta']['parentTerrain']);patch['meta']['parentSha256']=n.sha(ROOT/'3d-viewer'/patch['meta']['parentTerrain']);sampler=t.fine.DemSampler(parent,rendered=True);bb=t.bounds(patch);core=[bb[0]+10,bb[1]+10,bb[2]-10,bb[3]-10];regions=[(core,False),([bb[0],bb[1],bb[2],core[1]],True),([bb[0],core[3],bb[2],bb[3]],True),([bb[0],core[1],core[0],core[3]],True),([core[2],core[1],bb[2],core[3]],True)]
   pg=parent['meta']['georef'];cell=abs(pg['aE']);pcells=[]
   c0,r0,c1,r1=patch['coarseCells']
   for r in range(r0,r1):
@@ -80,5 +81,5 @@ def main():
    pts=np.array([s['position'] for s in models[uid]['rim']]);ys=n.samples(pts[:,[0,2]],usable,tree);gaps=pts[:,1]-ys;checks.append({'uid':uid,'rimSamples':len(gaps),'covered':int(np.isfinite(ys).sum()),'within2m':int((abs(gaps)<=2).sum()),'gapRange':[float(gaps.min()),float(gaps.max())]})
   patch['id']='support-exact-tin-'+baseid;patch['nativeMesh']={'position':triangles.reshape(-1).tolist(),'index':list(range(len(triangles)*3)),'source':{'nativeSources':patch['meta']['source']['nativeSources'],'policy':'Native source facets retained in core, including vertical retaining faces. Outer 10m transition split on exact parent triangle edges; parent boundary heights unchanged. Highest projected triangle is the collision surface.','verticalDatum':'HKPD','verticalScale':1}}
   path=folder/(patch['id']+'.json');path.write_text(json.dumps(patch,separators=(',',':'))+'\n');result={'path':str(path.relative_to(ROOT)),'sha256':n.sha(path),'parentTerrainURL':patch['meta']['parentTerrain'],'parentSha256':n.sha(ROOT/'3d-viewer'/patch['meta']['parentTerrain']),'coarseCells':patch['coarseCells'],'triangles':len(triangles),'verticalFacets':vertical,'coreFacets':coreunchanged,'missingProjectedAreaM2':float(missing),'boundaryMaxError':max(boundary),'rows':checks,'publicationApproved':False};rows.append(result);print(json.dumps(result),flush=True)
- (OUT/'exact-tin.json').write_text(json.dumps({'issue':'HKS-214','patches':rows,'runtimeBrowserChecksPending':True},indent=2)+'\n')
+ (OUT/('exact-tin'+args.suffix+'.json')).write_text(json.dumps({'issue':'HKS-214','patches':rows,'runtimeBrowserChecksPending':True},indent=2)+'\n')
 if __name__=='__main__':main()

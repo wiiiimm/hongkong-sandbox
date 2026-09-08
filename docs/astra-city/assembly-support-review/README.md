@@ -51,3 +51,15 @@ The seven grid-dependent source parts passed replacement-aware browser review in
 `prepare_exact.py`, `exact_surface_review.mjs` and `framing-exact.mjs` check four exact source components with the new shared Float32 sampler and actual browser renderer. Eight normal/isolated exports passed. `visual-acceptance-exact.json` records the exposed facade/roof and retained underground geometry judgement. Highcliff and Summit components have no wholly buried triangles. The 39 Conduit podium has five buried downward faces and two lower retaining/basement wall triangles, but no buried upward roof. These are source-part approvals, not acceptance of the whole named landmark.
 
 `plan-exact.json` stages the unchanged source models for parent publication alongside both exact TIN patches. Parent must recheck combined manifest coverage/seams and source hashes; this review never modifies the runtime manifest. The local payload copies can be reproduced from the pinned preflight cache; they are not duplicated in this evidence commit.
+
+## Further foundation and exact-terrain pass
+
+A second pass reviews the remaining foundation flags against actual native facade and roof triangles rather than requiring every lowest vertex to touch terrain. `foundation-surface-review.json` and 40 exported normal/isolated views cover 20 parts. Seventeen are accepted on unchanged rendered terrain in `visual-acceptance-foundation.json`; HKDI and Belcher's Tower 2 retain explicit lower upward-surface terrain holds.
+
+The Peak Tower source component is separately accepted with its exact native TIN patch: previously buried upward-face area falls from approximately 86 m² to zero. `visual-acceptance-peak.json` preserves the distinction between this source UID and complete named-landmark architecture.
+
+`visual-acceptance-exact-next.json` accepts Queensway Government Offices, Centrium and two Branksome Crest components with three source-preserving TIN patches. No whole native triangles remain buried in these four. Branksome263590 has an explicit native dependency on232907; integrate and stream both together.
+
+Publication plans: `plan-foundation.json` (17), `plan-exact-next.json` (4), `plan-peak.json` (1). The scripts stage only exact existing source models. Parent must validate the combined patch arrangement and refresh deployment/manifest checks. `followup-ledger-sync.json` records22 approvals-for-integration and2 continued holds; none of these artefacts independently publishes runtime content.
+
+Reproduction uses tracked files: `prepare_followup.py --name foundation --uids source-scripts/city/assembly-support-review/selection-foundation.json`; analogous named passes accept `--terrain docs/astra-city/assembly-support-review/exact-tin-next.json` or `exact-tin-peak.json`. `accept_followup.py` can read the tracked `visual-acceptance-<name>.json` as its `--notes` input. Restore source assets through the existing immutable cache workflow before running on another device.
