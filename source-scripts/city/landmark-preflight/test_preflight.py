@@ -23,4 +23,10 @@ class PreflightTests(unittest.TestCase):
  def test_terrain_diagnostics_do_not_invent_unsupported_result(self):
   tags,actions=p.classify({'state':'candidate-staged'},{'outcome':'runtime-accepted-placement-unreviewed','concerns':['sampled-ground-gap-below-model-bottom']})
   self.assertEqual(tags,['elevated-component-support-context']);self.assertIn('does not prove unsupported',actions[0])
+class GalleryAccountingTests(unittest.TestCase):
+ def test_missing_or_duplicate_worker_group_rejected(self):
+  spec=importlib.util.spec_from_file_location('merge_gallery',pathlib.Path(__file__).with_name('merge_gallery.py'));m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+  with self.assertRaisesRegex(AssertionError,'omits'):m.combine(['a','b'],[{'landmarks':[{'id':'a'}]}])
+  with self.assertRaisesRegex(AssertionError,'Duplicate'):m.combine(['a'],[{'landmarks':[{'id':'a'}]},{'landmarks':[{'id':'a'}]}])
+  self.assertEqual(len(m.combine(['a','b'],[{'landmarks':[{'id':'b'}]},{'landmarks':[{'id':'a'}]}])),2)
 if __name__=='__main__':unittest.main()
