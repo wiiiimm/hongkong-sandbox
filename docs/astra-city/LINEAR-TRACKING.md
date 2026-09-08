@@ -1,3 +1,9 @@
+## 9 September — native cultural models installed; modelling continues
+
+HKS-214 remains **In Progress**, executor `gpt-6-astra`, workflow `ai-software-factory`; no user action blocks the remaining work. Five exact West Kowloon cultural source parts are installed on the feature branch and recorded as `installed-verified` in Neon: M+ Pavilion, Xiqu Centre, M+ podium/tower and Hong Kong Palace Museum. Twenty real-route desktop/mobile day/night checks passed with no browser errors; native geometry, source picking and facade metadata are retained. Source review commit `08a14ce4`; evidence `model-integration-20260909/cultural-live/report.json`. This is exterior source-part integration, not photoreal materials, whole-campus/region completion, or production publication.
+
+The new source-accounted Neon review ledger retains all459 selected parts, checks live source ownership on every result, and distinguishes prepared/held/approved/installed states. Three tests pass including a real-Neon stale-owner rejection. The remaining modelling and source/terrain reviews continue in parallel; earlier notes that this work is parked are superseded.
+
 ## 9 September — explicit model and workflow labels
 
 Eleven modelling/pipeline issues now carry `gpt-6-astra`. HKS-199/202/203/209/212/214 use `ai-software-factory`: outstanding implementation and model review belong to the agent. Completed deliverables HKS-213/215/216/217/218 use `human-review-required`, with William named and concrete review scope/link recorded in each issue. Human sign-off closes those deliverables; it does not block continuing HKS-214. Other labels and issue statuses are preserved. Future checkpoints follow the same ownership distinction in the portable skill.
