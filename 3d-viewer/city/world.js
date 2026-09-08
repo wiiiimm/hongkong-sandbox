@@ -4,6 +4,7 @@ import {ORIGIN,inPolygon,random,smoothStep,terrainVertexHeight} from './geo.js';
 import {buildingLighting} from './lighting.js';
 import {createBuildingGeometry} from './building-geometry.js';
 import {createTidalWater} from './tidal-water.js';
+import {drapeRoadTriangle} from './road-surface.js';
 
 const colour = x=>new THREE.Color(x);
 export function makeTerrain(data) {
@@ -146,7 +147,9 @@ export function makeRoads(roads,sampler,lighting,options={}){
    for(let s=0;s<steps;s++){
     const ax=a[0]+dx*s/steps,az=a[1]+dz*s/steps,bx=a[0]+dx*(s+1)/steps,bz=a[1]+dz*(s+1)/steps;
     const corners=[[ax+nx,az+nz],[ax-nx,az-nz],[bx+nx,bz+nz],[bx-nx,bz-nz]].map(([x,z])=>[x,sampler.height(x,z)+lift,z]);
-    for(const k of [0,2,1,1,2,3]){target.push(...corners[k]);uv.push(along+length*(s+(k>1?1:0))/steps,k%2);}
+    const points=corners.map((p,k)=>[...p,along+length*(s+(k>1?1:0))/steps,k%2]);
+    const emit=triangle=>{for(const p of triangle){target.push(...p.slice(0,3));uv.push(...p.slice(3));}};
+    for(const indices of[[0,2,1],[1,2,3]]){const triangle=indices.map(k=>points[k]);if(r.bridge)emit(triangle);else drapeRoadTriangle(triangle,sampler,emit);}
    }
    along+=length;
   }
