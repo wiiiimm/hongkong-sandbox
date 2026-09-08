@@ -1,0 +1,694 @@
+{
+  "cpuValidationInputHashes": {
+    "3d-viewer/city/data/manifest.json": "da0b99df6a1b35d19dec9fecc4f1ddfcdfc4e436c5da1409ef2417e9407d7102",
+    "3d-viewer/city/data/terrain-central.json": "4a10d22846c0764bf532e81734811fa9f6f34f197d444f27db4f588aacebbab2",
+    "3d-viewer/city/data/terrain-mui-wo.json": "adb88f05e5dacce2a901b13a6e8d52efc859bc915f22a3ad0a1a4f836e12c81c",
+    "3d-viewer/city/data/terrain-ngong-ping.json": "a3e51405b2a2aec526c22da29c72e395f7d943c4f4f360ffb54d874d3962a620",
+    "3d-viewer/city/data/terrain-pui-o.json": "e5efbcb86ae24bdc8a913556667d8f6f1e7a19db936bd71f0caa568735b0cb10",
+    "3d-viewer/city/data/terrain-tai-o.json": "b6246e0adab984a9acf22d77fdd0139b142b1b82d68b82451f25678437ac04fb",
+    "3d-viewer/city/data/terrain-tsing-ma-ting-kau.json": "b2cb47df47252b2c1f15cd10e33cb5b6c58e65c40b2f94ddb96d3a70f3162d8f",
+    "3d-viewer/city/data/terrain.json": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+    "3d-viewer/city/data/tiles/-13_1.json": "c5702641557e88491161052feee1b0fc6bc1e5238ab007bee194caf8c348050e",
+    "3d-viewer/city/data/tiles/-1_-1.json": "787cdd9e1260dc92de61116cfb027b28d84d430a537ede6284f685fa8f714b13",
+    "3d-viewer/city/data/tiles/-1_0.json": "8a4440cd1f5a9bf927a9fd2db38ae4af7bb63901d03c6c6f045b62c0c46f5c94",
+    "3d-viewer/city/data/tiles/-2_-4.json": "df76810f0b690347611308f1abdc9c4188885468dd765b5b21f7753b0a554964",
+    "3d-viewer/city/data/tiles/-2_-5.json": "e2f3b7496468ea0a0ac52962cbbceeab9332279eeb665b03969c236734915f7d",
+    "3d-viewer/city/data/tiles/-2_0.json": "c95c64b9e7cc45cf3677c778bca9913b8284bce9dbb8b443477283ba47e8bbaa",
+    "3d-viewer/city/data/tiles/-3_-5.json": "843de54c44ee00859e11b68d0d8ac537c119279e866f6c6ddcb522f8de94a3ed",
+    "3d-viewer/city/data/tiles/0_-1.json": "23c74c620c23567ea039f48286fbcff03144022f461c9b4da896cd0263f61341",
+    "3d-viewer/city/data/tiles/0_-2.json": "0a341205ebc35d39574fce70e669652548942b53c63292896c62d206a6f59795",
+    "3d-viewer/city/data/tiles/0_-3.json": "8b8e524666e2d88d317745a843b6e6f4004e0f52cc41485cba5f8a5697f2de9a",
+    "3d-viewer/city/data/tiles/0_-5.json": "7614191295a96a24b8711c879357c71bd8e9bbfff3817334f6f0e5bfb00bdf8f",
+    "3d-viewer/city/data/tiles/0_0.json": "6a3b9c6b18dfab5a94b46127bdfa5f9cdefe8e86179737c8f0e4d5586c0458e8",
+    "3d-viewer/city/data/tiles/0_1.json": "94ca3074190d3cea46d7d376c761506fc3837b978e50d83f05b1b19e3d9abf45",
+    "3d-viewer/city/data/tiles/1_-1.json": "90cf321eca8e4da666a8d8ff0be71913a10e9cdeeeae8483384cb8f9895c712a",
+    "3d-viewer/city/data/tiles/1_-3.json": "87df0c56be00f6c0be217eff4fa3c9fd599ced00a04fa5df0611642df5d9b1da",
+    "3d-viewer/city/data/tiles/1_0.json": "8f50f42ba432c90a669c628fbdf34d2e7775f02d4c8f760c00b99dee980e4f90",
+    "3d-viewer/city/data/tiles/1_1.json": "779dbe1fe9992a17b3e31378b962ee9dfa725e8592fd83f3831c552bfb68406b",
+    "3d-viewer/city/data/tiles/2_-1.json": "b17b18f48eec57527cc2a5c73c96e473443fdb8f2d313f792fe3b00526ed70a2",
+    "3d-viewer/city/data/tiles/2_-2.json": "1bfa2d225a2ce719a45f6ab3e86ba493989ecd88568f8ce5c0ead134173b0594",
+    "3d-viewer/city/data/tiles/2_0.json": "93e543a7e61cceb8fe465c178183dca23ce8954a9ae12269f49ade94a191e058",
+    "3d-viewer/city/data/tiles/4_-2.json": "f1f7045bb480687711ba07c2da6ed722409325b78095b222dea3a2b7db6ce031",
+    "source-scripts/city/landmark-identity/prepared/catalogue-000.json": "2d8fffb6c6861e61bf37111950aaa9fea2d4b46141cda4cfca81d6ee0a61c904",
+    "source-scripts/city/landmark-identity/prepared/catalogue-index.json": "0481463ef4d9156bdbe63c5b5070cd4e37a45b82835441f186646e016b2ea9df"
+  },
+  "files": {
+    "acquisition.json": {
+      "bytes": 190752,
+      "sha256": "0bade381fb7ba27d9d99088523cbc3e82be5d369f0f5484a16628ddf6c719d28",
+      "source": "docs/astra-city/landmark-acquisition/report.json"
+    },
+    "assets/03fe5ff3fee5e6f11003a94c9dd72c14baa63a493cbd88c1ed3ecfe1ef7ce059.glb.gz": {
+      "bytes": 74735,
+      "sha256": "03fe5ff3fee5e6f11003a94c9dd72c14baa63a493cbd88c1ed3ecfe1ef7ce059",
+      "source": "source-scripts/city/landmark-identity/prepared/03fe5ff3fee5e6f11003a94c9dd72c14baa63a493cbd88c1ed3ecfe1ef7ce059.glb.gz"
+    },
+    "assets/059b1c6decf1d65baf29695552858734a21dbba533636f14b90d6efc34af44e8.glb.gz": {
+      "bytes": 78449,
+      "sha256": "059b1c6decf1d65baf29695552858734a21dbba533636f14b90d6efc34af44e8",
+      "source": "source-scripts/city/landmark-identity/prepared/059b1c6decf1d65baf29695552858734a21dbba533636f14b90d6efc34af44e8.glb.gz"
+    },
+    "assets/083557e601486377e80993c41f7cf310f0191b588dd19b955e3d2c87ad227828.glb.gz": {
+      "bytes": 29236,
+      "sha256": "083557e601486377e80993c41f7cf310f0191b588dd19b955e3d2c87ad227828",
+      "source": "source-scripts/city/landmark-identity/prepared/083557e601486377e80993c41f7cf310f0191b588dd19b955e3d2c87ad227828.glb.gz"
+    },
+    "assets/09cc681ee6cd957148e51b5364ba6dd2ce8211a3d9f9686143f1fdc99dad5fed.glb.gz": {
+      "bytes": 43987,
+      "sha256": "09cc681ee6cd957148e51b5364ba6dd2ce8211a3d9f9686143f1fdc99dad5fed",
+      "source": "source-scripts/city/landmark-identity/prepared/09cc681ee6cd957148e51b5364ba6dd2ce8211a3d9f9686143f1fdc99dad5fed.glb.gz"
+    },
+    "assets/0eb4959e1a5d9044907ef86e8ed3f70063ed1d6f6a6725066e275ece1b6b0228.glb.gz": {
+      "bytes": 248656,
+      "sha256": "0eb4959e1a5d9044907ef86e8ed3f70063ed1d6f6a6725066e275ece1b6b0228",
+      "source": "source-scripts/city/landmark-identity/prepared/0eb4959e1a5d9044907ef86e8ed3f70063ed1d6f6a6725066e275ece1b6b0228.glb.gz"
+    },
+    "assets/121f891eaf88514b199c5c1412eaa19fa22e4bb16c9bbd319afa48a3ffdf4b0c.glb.gz": {
+      "bytes": 2182,
+      "sha256": "121f891eaf88514b199c5c1412eaa19fa22e4bb16c9bbd319afa48a3ffdf4b0c",
+      "source": "source-scripts/city/landmark-identity/prepared/121f891eaf88514b199c5c1412eaa19fa22e4bb16c9bbd319afa48a3ffdf4b0c.glb.gz"
+    },
+    "assets/125991231dd5806bdc2595b638f0216d781165541e056d72205a5cb8feff6eb6.glb.gz": {
+      "bytes": 262330,
+      "sha256": "125991231dd5806bdc2595b638f0216d781165541e056d72205a5cb8feff6eb6",
+      "source": "source-scripts/city/landmark-identity/prepared/125991231dd5806bdc2595b638f0216d781165541e056d72205a5cb8feff6eb6.glb.gz"
+    },
+    "assets/1309ff9747a9bc548aef83ec2c1ee9dbac8217cb946f4d3f9bec198211c8b925.glb.gz": {
+      "bytes": 10670,
+      "sha256": "1309ff9747a9bc548aef83ec2c1ee9dbac8217cb946f4d3f9bec198211c8b925",
+      "source": "source-scripts/city/landmark-identity/prepared/1309ff9747a9bc548aef83ec2c1ee9dbac8217cb946f4d3f9bec198211c8b925.glb.gz"
+    },
+    "assets/1356a071ec4938837a12571339a11e413102d09392763266fa0c1246d71affd1.glb.gz": {
+      "bytes": 29107,
+      "sha256": "1356a071ec4938837a12571339a11e413102d09392763266fa0c1246d71affd1",
+      "source": "source-scripts/city/landmark-identity/prepared/1356a071ec4938837a12571339a11e413102d09392763266fa0c1246d71affd1.glb.gz"
+    },
+    "assets/1869eb48e46dbd87257d00767e20443ca5cc59b840518fba5c77068c20d9b00e.glb.gz": {
+      "bytes": 1619,
+      "sha256": "1869eb48e46dbd87257d00767e20443ca5cc59b840518fba5c77068c20d9b00e",
+      "source": "source-scripts/city/landmark-identity/prepared/1869eb48e46dbd87257d00767e20443ca5cc59b840518fba5c77068c20d9b00e.glb.gz"
+    },
+    "assets/1d119306a9c49a9e591d516efa8d27b4f1f59c2ed8d9e91262723018c45a2388.glb.gz": {
+      "bytes": 1146,
+      "sha256": "1d119306a9c49a9e591d516efa8d27b4f1f59c2ed8d9e91262723018c45a2388",
+      "source": "source-scripts/city/landmark-identity/prepared/1d119306a9c49a9e591d516efa8d27b4f1f59c2ed8d9e91262723018c45a2388.glb.gz"
+    },
+    "assets/1e01bf9e5c6b32436168e5fd4dd103e2721a5f2a93f29834ff433adc1f2db194.glb.gz": {
+      "bytes": 492410,
+      "sha256": "1e01bf9e5c6b32436168e5fd4dd103e2721a5f2a93f29834ff433adc1f2db194",
+      "source": "source-scripts/city/landmark-identity/prepared/1e01bf9e5c6b32436168e5fd4dd103e2721a5f2a93f29834ff433adc1f2db194.glb.gz"
+    },
+    "assets/1f3cc227bdf66aaf03ab041ca4697b60fb3206dbcec5194decd2c752343857f8.glb.gz": {
+      "bytes": 797,
+      "sha256": "1f3cc227bdf66aaf03ab041ca4697b60fb3206dbcec5194decd2c752343857f8",
+      "source": "source-scripts/city/landmark-identity/prepared/1f3cc227bdf66aaf03ab041ca4697b60fb3206dbcec5194decd2c752343857f8.glb.gz"
+    },
+    "assets/1fafc53280f10d28ae0771f129e223f996756980c55e5d537bace0553ecf59a0.glb.gz": {
+      "bytes": 30668,
+      "sha256": "1fafc53280f10d28ae0771f129e223f996756980c55e5d537bace0553ecf59a0",
+      "source": "source-scripts/city/landmark-identity/prepared/1fafc53280f10d28ae0771f129e223f996756980c55e5d537bace0553ecf59a0.glb.gz"
+    },
+    "assets/252347c4d57409d5b59d93cfcfa68d71189b4e40f1d6af9fec99353175dd166b.glb.gz": {
+      "bytes": 1944,
+      "sha256": "252347c4d57409d5b59d93cfcfa68d71189b4e40f1d6af9fec99353175dd166b",
+      "source": "source-scripts/city/landmark-identity/prepared/252347c4d57409d5b59d93cfcfa68d71189b4e40f1d6af9fec99353175dd166b.glb.gz"
+    },
+    "assets/27e9bc77a1b1fd7ac93e651750b969e60a5addb084b836d747765eb88a363c79.glb.gz": {
+      "bytes": 50180,
+      "sha256": "27e9bc77a1b1fd7ac93e651750b969e60a5addb084b836d747765eb88a363c79",
+      "source": "source-scripts/city/landmark-identity/prepared/27e9bc77a1b1fd7ac93e651750b969e60a5addb084b836d747765eb88a363c79.glb.gz"
+    },
+    "assets/2a0eedd1b9016492a04f7db0dd7da3f78758c6462f358462546ea7419add4428.glb.gz": {
+      "bytes": 12016,
+      "sha256": "2a0eedd1b9016492a04f7db0dd7da3f78758c6462f358462546ea7419add4428",
+      "source": "source-scripts/city/landmark-identity/prepared/2a0eedd1b9016492a04f7db0dd7da3f78758c6462f358462546ea7419add4428.glb.gz"
+    },
+    "assets/2ba44714237f404e13761b0033c4b8fe6277d190621ab49e046a400336d39e85.glb.gz": {
+      "bytes": 358028,
+      "sha256": "2ba44714237f404e13761b0033c4b8fe6277d190621ab49e046a400336d39e85",
+      "source": "source-scripts/city/landmark-identity/prepared/2ba44714237f404e13761b0033c4b8fe6277d190621ab49e046a400336d39e85.glb.gz"
+    },
+    "assets/2c06373ae3444eb8ae0f48d4778662b3006c9adc5c5cba8048281bf901a3c13c.glb.gz": {
+      "bytes": 26152,
+      "sha256": "2c06373ae3444eb8ae0f48d4778662b3006c9adc5c5cba8048281bf901a3c13c",
+      "source": "source-scripts/city/landmark-identity/prepared/2c06373ae3444eb8ae0f48d4778662b3006c9adc5c5cba8048281bf901a3c13c.glb.gz"
+    },
+    "assets/2db1df47e6c0fd1420b18c5bc36fbd748d42c10dc4681c830c8fb6187abfea32.glb.gz": {
+      "bytes": 231236,
+      "sha256": "2db1df47e6c0fd1420b18c5bc36fbd748d42c10dc4681c830c8fb6187abfea32",
+      "source": "source-scripts/city/landmark-identity/prepared/2db1df47e6c0fd1420b18c5bc36fbd748d42c10dc4681c830c8fb6187abfea32.glb.gz"
+    },
+    "assets/2fecc560d078c479599cabbb110d9c829799f0739939ef624b6797c114ec1e4c.glb.gz": {
+      "bytes": 94839,
+      "sha256": "2fecc560d078c479599cabbb110d9c829799f0739939ef624b6797c114ec1e4c",
+      "source": "source-scripts/city/landmark-identity/prepared/2fecc560d078c479599cabbb110d9c829799f0739939ef624b6797c114ec1e4c.glb.gz"
+    },
+    "assets/312cbb0b4c99ef281dda3b79500f8b6e1bcfeb31260b44ac4ea7ea3f6117e808.glb.gz": {
+      "bytes": 182138,
+      "sha256": "312cbb0b4c99ef281dda3b79500f8b6e1bcfeb31260b44ac4ea7ea3f6117e808",
+      "source": "source-scripts/city/landmark-identity/prepared/312cbb0b4c99ef281dda3b79500f8b6e1bcfeb31260b44ac4ea7ea3f6117e808.glb.gz"
+    },
+    "assets/314e3fa407dac2fb2b12d673818598f6ca42ed58cda7cb379d33ed8062ded487.glb.gz": {
+      "bytes": 1198521,
+      "sha256": "314e3fa407dac2fb2b12d673818598f6ca42ed58cda7cb379d33ed8062ded487",
+      "source": "source-scripts/city/landmark-identity/prepared/314e3fa407dac2fb2b12d673818598f6ca42ed58cda7cb379d33ed8062ded487.glb.gz"
+    },
+    "assets/339bc56e111caa4c934faaf4b2870fb905285496b64f4615f8caab4426eba6c8.glb.gz": {
+      "bytes": 81818,
+      "sha256": "339bc56e111caa4c934faaf4b2870fb905285496b64f4615f8caab4426eba6c8",
+      "source": "source-scripts/city/landmark-identity/prepared/339bc56e111caa4c934faaf4b2870fb905285496b64f4615f8caab4426eba6c8.glb.gz"
+    },
+    "assets/3b15d7754f4b67598c352102b9edd067a3bedd676c9294bb06c19b4f056d0bd6.glb.gz": {
+      "bytes": 1249,
+      "sha256": "3b15d7754f4b67598c352102b9edd067a3bedd676c9294bb06c19b4f056d0bd6",
+      "source": "source-scripts/city/landmark-identity/prepared/3b15d7754f4b67598c352102b9edd067a3bedd676c9294bb06c19b4f056d0bd6.glb.gz"
+    },
+    "assets/3e932375f23b81c2b0f986b04e8cc48b2871555eee3fdf17f89cb56eef35f5c0.glb.gz": {
+      "bytes": 5330,
+      "sha256": "3e932375f23b81c2b0f986b04e8cc48b2871555eee3fdf17f89cb56eef35f5c0",
+      "source": "source-scripts/city/landmark-identity/prepared/3e932375f23b81c2b0f986b04e8cc48b2871555eee3fdf17f89cb56eef35f5c0.glb.gz"
+    },
+    "assets/42c56033c98c0e5a2f78491b38cc75cb0bb07cecd9cd4ed80db499c0da1cd56a.glb.gz": {
+      "bytes": 34237,
+      "sha256": "42c56033c98c0e5a2f78491b38cc75cb0bb07cecd9cd4ed80db499c0da1cd56a",
+      "source": "source-scripts/city/landmark-identity/prepared/42c56033c98c0e5a2f78491b38cc75cb0bb07cecd9cd4ed80db499c0da1cd56a.glb.gz"
+    },
+    "assets/44f4ac0f50f6497a58a38cd9a217f8c219d763dbe98a0987a3b52549bf1ef2fb.glb.gz": {
+      "bytes": 21705,
+      "sha256": "44f4ac0f50f6497a58a38cd9a217f8c219d763dbe98a0987a3b52549bf1ef2fb",
+      "source": "source-scripts/city/landmark-identity/prepared/44f4ac0f50f6497a58a38cd9a217f8c219d763dbe98a0987a3b52549bf1ef2fb.glb.gz"
+    },
+    "assets/4589315dd0a4ef0087d17509aa1d73f37158bf7c86b0172eee7118a35ee082cc.glb.gz": {
+      "bytes": 195634,
+      "sha256": "4589315dd0a4ef0087d17509aa1d73f37158bf7c86b0172eee7118a35ee082cc",
+      "source": "source-scripts/city/landmark-identity/prepared/4589315dd0a4ef0087d17509aa1d73f37158bf7c86b0172eee7118a35ee082cc.glb.gz"
+    },
+    "assets/459a1e8da1a4d90222dc95fa58b5a02a3a4d8aa32c6bc139ef14068dc5a8930a.glb.gz": {
+      "bytes": 2614,
+      "sha256": "459a1e8da1a4d90222dc95fa58b5a02a3a4d8aa32c6bc139ef14068dc5a8930a",
+      "source": "source-scripts/city/landmark-identity/prepared/459a1e8da1a4d90222dc95fa58b5a02a3a4d8aa32c6bc139ef14068dc5a8930a.glb.gz"
+    },
+    "assets/47822749ff8012eae8fb1ae88acc6935d5f8161857efd85303a42ccad12a44c6.glb.gz": {
+      "bytes": 3008,
+      "sha256": "47822749ff8012eae8fb1ae88acc6935d5f8161857efd85303a42ccad12a44c6",
+      "source": "source-scripts/city/landmark-identity/prepared/47822749ff8012eae8fb1ae88acc6935d5f8161857efd85303a42ccad12a44c6.glb.gz"
+    },
+    "assets/4936ce92b901d903c384de21baedf9c85e3355442de460d18ffb5e53504ef2e8.glb.gz": {
+      "bytes": 68994,
+      "sha256": "4936ce92b901d903c384de21baedf9c85e3355442de460d18ffb5e53504ef2e8",
+      "source": "source-scripts/city/landmark-identity/prepared/4936ce92b901d903c384de21baedf9c85e3355442de460d18ffb5e53504ef2e8.glb.gz"
+    },
+    "assets/4b9cc26b06614bb6e7d8f6deca165b370e6e9da0467059a27a091886bb270aea.glb.gz": {
+      "bytes": 5232,
+      "sha256": "4b9cc26b06614bb6e7d8f6deca165b370e6e9da0467059a27a091886bb270aea",
+      "source": "source-scripts/city/landmark-identity/prepared/4b9cc26b06614bb6e7d8f6deca165b370e6e9da0467059a27a091886bb270aea.glb.gz"
+    },
+    "assets/4e0e4e2126323f813be409ea964fadab639b36eabc7e059e9198418a8abb63c3.glb.gz": {
+      "bytes": 24490,
+      "sha256": "4e0e4e2126323f813be409ea964fadab639b36eabc7e059e9198418a8abb63c3",
+      "source": "source-scripts/city/landmark-identity/prepared/4e0e4e2126323f813be409ea964fadab639b36eabc7e059e9198418a8abb63c3.glb.gz"
+    },
+    "assets/52441e60cc047d8bc5d4a5e14bf45b73279aa736b8036d54f3cfe87773e2b476.glb.gz": {
+      "bytes": 82483,
+      "sha256": "52441e60cc047d8bc5d4a5e14bf45b73279aa736b8036d54f3cfe87773e2b476",
+      "source": "source-scripts/city/landmark-identity/prepared/52441e60cc047d8bc5d4a5e14bf45b73279aa736b8036d54f3cfe87773e2b476.glb.gz"
+    },
+    "assets/550a2a14e2111e5b0bd1ce6d1a8f14c93b2df46ded9eb37ef789024c3f9a5132.glb.gz": {
+      "bytes": 79035,
+      "sha256": "550a2a14e2111e5b0bd1ce6d1a8f14c93b2df46ded9eb37ef789024c3f9a5132",
+      "source": "source-scripts/city/landmark-identity/prepared/550a2a14e2111e5b0bd1ce6d1a8f14c93b2df46ded9eb37ef789024c3f9a5132.glb.gz"
+    },
+    "assets/5519cbe1c4a99e77d0da7ec28922d1c99d2c0ef1633ef5dd4a3ddda8a85f81e2.glb.gz": {
+      "bytes": 28201,
+      "sha256": "5519cbe1c4a99e77d0da7ec28922d1c99d2c0ef1633ef5dd4a3ddda8a85f81e2",
+      "source": "source-scripts/city/landmark-identity/prepared/5519cbe1c4a99e77d0da7ec28922d1c99d2c0ef1633ef5dd4a3ddda8a85f81e2.glb.gz"
+    },
+    "assets/5cd70cb3bdb879ca96528fd1ff6ce29cc3b61c054b70456ec169fc9cf4831c40.glb.gz": {
+      "bytes": 72879,
+      "sha256": "5cd70cb3bdb879ca96528fd1ff6ce29cc3b61c054b70456ec169fc9cf4831c40",
+      "source": "source-scripts/city/landmark-identity/prepared/5cd70cb3bdb879ca96528fd1ff6ce29cc3b61c054b70456ec169fc9cf4831c40.glb.gz"
+    },
+    "assets/5ed39ed9a5f9c3a5850cab260ab079e8f4b852cf8bc4d2e75cb88e3c560926e7.glb.gz": {
+      "bytes": 56771,
+      "sha256": "5ed39ed9a5f9c3a5850cab260ab079e8f4b852cf8bc4d2e75cb88e3c560926e7",
+      "source": "source-scripts/city/landmark-identity/prepared/5ed39ed9a5f9c3a5850cab260ab079e8f4b852cf8bc4d2e75cb88e3c560926e7.glb.gz"
+    },
+    "assets/5ef12cc0a2494e1dbb13748d3b34094d1a319deb16a23e24360f90d1fa50ac30.glb.gz": {
+      "bytes": 27872,
+      "sha256": "5ef12cc0a2494e1dbb13748d3b34094d1a319deb16a23e24360f90d1fa50ac30",
+      "source": "source-scripts/city/landmark-identity/prepared/5ef12cc0a2494e1dbb13748d3b34094d1a319deb16a23e24360f90d1fa50ac30.glb.gz"
+    },
+    "assets/5fbc7f428a8c89ce82f43ab5384722bf73189cc2ab14be5a83b99a985c482826.glb.gz": {
+      "bytes": 975,
+      "sha256": "5fbc7f428a8c89ce82f43ab5384722bf73189cc2ab14be5a83b99a985c482826",
+      "source": "source-scripts/city/landmark-identity/prepared/5fbc7f428a8c89ce82f43ab5384722bf73189cc2ab14be5a83b99a985c482826.glb.gz"
+    },
+    "assets/63a617558aa68dd033ef06a40a4bfa540cb1733be98185402601e7352b294028.glb.gz": {
+      "bytes": 205127,
+      "sha256": "63a617558aa68dd033ef06a40a4bfa540cb1733be98185402601e7352b294028",
+      "source": "source-scripts/city/landmark-identity/prepared/63a617558aa68dd033ef06a40a4bfa540cb1733be98185402601e7352b294028.glb.gz"
+    },
+    "assets/65eed903c90f5c90d9be87f60eb8d5273592f12f1b144713bdbdee62ba896925.glb.gz": {
+      "bytes": 112249,
+      "sha256": "65eed903c90f5c90d9be87f60eb8d5273592f12f1b144713bdbdee62ba896925",
+      "source": "source-scripts/city/landmark-identity/prepared/65eed903c90f5c90d9be87f60eb8d5273592f12f1b144713bdbdee62ba896925.glb.gz"
+    },
+    "assets/67f97c75c63c4f300a18338e4d6b1f8f19442f5ef2b89e6b8230c2c23dbfada6.glb.gz": {
+      "bytes": 80548,
+      "sha256": "67f97c75c63c4f300a18338e4d6b1f8f19442f5ef2b89e6b8230c2c23dbfada6",
+      "source": "source-scripts/city/landmark-identity/prepared/67f97c75c63c4f300a18338e4d6b1f8f19442f5ef2b89e6b8230c2c23dbfada6.glb.gz"
+    },
+    "assets/6896589c2a5c3ef54adc48bffada9e9221a05224a0b36be95694b9c9ba32d142.glb.gz": {
+      "bytes": 49056,
+      "sha256": "6896589c2a5c3ef54adc48bffada9e9221a05224a0b36be95694b9c9ba32d142",
+      "source": "source-scripts/city/landmark-identity/prepared/6896589c2a5c3ef54adc48bffada9e9221a05224a0b36be95694b9c9ba32d142.glb.gz"
+    },
+    "assets/6a73b8a59b6deac7ae644baaac05dabb94dfa82074c3e55a31548ce447910d07.glb.gz": {
+      "bytes": 6822,
+      "sha256": "6a73b8a59b6deac7ae644baaac05dabb94dfa82074c3e55a31548ce447910d07",
+      "source": "source-scripts/city/landmark-identity/prepared/6a73b8a59b6deac7ae644baaac05dabb94dfa82074c3e55a31548ce447910d07.glb.gz"
+    },
+    "assets/6c656fdd5436e3b7e051088e901ecdbe150763bed8e03b5e98b7220eb38c9150.glb.gz": {
+      "bytes": 58575,
+      "sha256": "6c656fdd5436e3b7e051088e901ecdbe150763bed8e03b5e98b7220eb38c9150",
+      "source": "source-scripts/city/landmark-identity/prepared/6c656fdd5436e3b7e051088e901ecdbe150763bed8e03b5e98b7220eb38c9150.glb.gz"
+    },
+    "assets/6f2b0062384a538530da383da5049c7f7822879bae24fb2c5560e4afa9ea2df2.glb.gz": {
+      "bytes": 260075,
+      "sha256": "6f2b0062384a538530da383da5049c7f7822879bae24fb2c5560e4afa9ea2df2",
+      "source": "source-scripts/city/landmark-identity/prepared/6f2b0062384a538530da383da5049c7f7822879bae24fb2c5560e4afa9ea2df2.glb.gz"
+    },
+    "assets/7141811d4b73cbbf47e4851324e8d401acb1e22958ceaba2800127ab1b427039.glb.gz": {
+      "bytes": 34337,
+      "sha256": "7141811d4b73cbbf47e4851324e8d401acb1e22958ceaba2800127ab1b427039",
+      "source": "source-scripts/city/landmark-identity/prepared/7141811d4b73cbbf47e4851324e8d401acb1e22958ceaba2800127ab1b427039.glb.gz"
+    },
+    "assets/77a5c7bbe50789ee9f7ef5efab964595cfb138bffeb4a535c08edd04aa713b0c.glb.gz": {
+      "bytes": 24954,
+      "sha256": "77a5c7bbe50789ee9f7ef5efab964595cfb138bffeb4a535c08edd04aa713b0c",
+      "source": "source-scripts/city/landmark-identity/prepared/77a5c7bbe50789ee9f7ef5efab964595cfb138bffeb4a535c08edd04aa713b0c.glb.gz"
+    },
+    "assets/77e777a294ca9b17617f21a90eb94b3807dd2cdfa1373ef8ae262c7be118997c.glb.gz": {
+      "bytes": 82529,
+      "sha256": "77e777a294ca9b17617f21a90eb94b3807dd2cdfa1373ef8ae262c7be118997c",
+      "source": "source-scripts/city/landmark-identity/prepared/77e777a294ca9b17617f21a90eb94b3807dd2cdfa1373ef8ae262c7be118997c.glb.gz"
+    },
+    "assets/7b1e99e0a459b2fda3033a5903533cb58733c97bbc2e403cb16b48ab832c1254.glb.gz": {
+      "bytes": 9632,
+      "sha256": "7b1e99e0a459b2fda3033a5903533cb58733c97bbc2e403cb16b48ab832c1254",
+      "source": "source-scripts/city/landmark-identity/prepared/7b1e99e0a459b2fda3033a5903533cb58733c97bbc2e403cb16b48ab832c1254.glb.gz"
+    },
+    "assets/7b232113b8f1fe819b78775ddad9c0d2c7b4a4d126c8da4882ccfd431b38b7e3.glb.gz": {
+      "bytes": 19225,
+      "sha256": "7b232113b8f1fe819b78775ddad9c0d2c7b4a4d126c8da4882ccfd431b38b7e3",
+      "source": "source-scripts/city/landmark-identity/prepared/7b232113b8f1fe819b78775ddad9c0d2c7b4a4d126c8da4882ccfd431b38b7e3.glb.gz"
+    },
+    "assets/7ba864e8962ae3664d8e0a640964ee8ce7bb620d1aae4cee03fc9ce4427ded45.glb.gz": {
+      "bytes": 34172,
+      "sha256": "7ba864e8962ae3664d8e0a640964ee8ce7bb620d1aae4cee03fc9ce4427ded45",
+      "source": "source-scripts/city/landmark-identity/prepared/7ba864e8962ae3664d8e0a640964ee8ce7bb620d1aae4cee03fc9ce4427ded45.glb.gz"
+    },
+    "assets/7c3d44f8e99a5c9bb538d70213a4bd89bf4e4fa8be6806eb21b9715771ac9729.glb.gz": {
+      "bytes": 17471,
+      "sha256": "7c3d44f8e99a5c9bb538d70213a4bd89bf4e4fa8be6806eb21b9715771ac9729",
+      "source": "source-scripts/city/landmark-identity/prepared/7c3d44f8e99a5c9bb538d70213a4bd89bf4e4fa8be6806eb21b9715771ac9729.glb.gz"
+    },
+    "assets/7ce09f98f556fe6714979ba58cc0c6b7f8f15e5bf6fade711bd1252742778d3d.glb.gz": {
+      "bytes": 37087,
+      "sha256": "7ce09f98f556fe6714979ba58cc0c6b7f8f15e5bf6fade711bd1252742778d3d",
+      "source": "source-scripts/city/landmark-identity/prepared/7ce09f98f556fe6714979ba58cc0c6b7f8f15e5bf6fade711bd1252742778d3d.glb.gz"
+    },
+    "assets/7eecea4e03e54962a1de2b2db4be62da4a2ecf90c29f94b27e65ef20e5213de2.glb.gz": {
+      "bytes": 66129,
+      "sha256": "7eecea4e03e54962a1de2b2db4be62da4a2ecf90c29f94b27e65ef20e5213de2",
+      "source": "source-scripts/city/landmark-identity/prepared/7eecea4e03e54962a1de2b2db4be62da4a2ecf90c29f94b27e65ef20e5213de2.glb.gz"
+    },
+    "assets/81b42e7f47829a94c2047ee8fefb7ba0f48223a0aae2c7526b7db3a7cfc25ad7.glb.gz": {
+      "bytes": 62521,
+      "sha256": "81b42e7f47829a94c2047ee8fefb7ba0f48223a0aae2c7526b7db3a7cfc25ad7",
+      "source": "source-scripts/city/landmark-identity/prepared/81b42e7f47829a94c2047ee8fefb7ba0f48223a0aae2c7526b7db3a7cfc25ad7.glb.gz"
+    },
+    "assets/82bfd71cbae4483010a091c230e1f301c26917d78ce88f6eeb824a9100886cf8.glb.gz": {
+      "bytes": 29140,
+      "sha256": "82bfd71cbae4483010a091c230e1f301c26917d78ce88f6eeb824a9100886cf8",
+      "source": "source-scripts/city/landmark-identity/prepared/82bfd71cbae4483010a091c230e1f301c26917d78ce88f6eeb824a9100886cf8.glb.gz"
+    },
+    "assets/89442961fdd2e53ee43d5f6235dada42081e57c277cd82d9a2297e672d41852d.glb.gz": {
+      "bytes": 13692,
+      "sha256": "89442961fdd2e53ee43d5f6235dada42081e57c277cd82d9a2297e672d41852d",
+      "source": "source-scripts/city/landmark-identity/prepared/89442961fdd2e53ee43d5f6235dada42081e57c277cd82d9a2297e672d41852d.glb.gz"
+    },
+    "assets/9151d9fdcf73a6c54abd89e9bd843db373ae6ce9aec15688163712a397874073.glb.gz": {
+      "bytes": 100408,
+      "sha256": "9151d9fdcf73a6c54abd89e9bd843db373ae6ce9aec15688163712a397874073",
+      "source": "source-scripts/city/landmark-identity/prepared/9151d9fdcf73a6c54abd89e9bd843db373ae6ce9aec15688163712a397874073.glb.gz"
+    },
+    "assets/940c843da40d2fc8c3dc5cb1e47b29f1830f1664db3f8699a8ea49607387176e.glb.gz": {
+      "bytes": 738,
+      "sha256": "940c843da40d2fc8c3dc5cb1e47b29f1830f1664db3f8699a8ea49607387176e",
+      "source": "source-scripts/city/landmark-identity/prepared/940c843da40d2fc8c3dc5cb1e47b29f1830f1664db3f8699a8ea49607387176e.glb.gz"
+    },
+    "assets/94549218bbcb243cef55e05d5225b026ee1b31224d78ec3d692ea9172ca6c2ec.glb.gz": {
+      "bytes": 127258,
+      "sha256": "94549218bbcb243cef55e05d5225b026ee1b31224d78ec3d692ea9172ca6c2ec",
+      "source": "source-scripts/city/landmark-identity/prepared/94549218bbcb243cef55e05d5225b026ee1b31224d78ec3d692ea9172ca6c2ec.glb.gz"
+    },
+    "assets/9510aafdde7bf920ff8d343a3eab8be4e537668053b6fda70992a67dc2993827.glb.gz": {
+      "bytes": 112751,
+      "sha256": "9510aafdde7bf920ff8d343a3eab8be4e537668053b6fda70992a67dc2993827",
+      "source": "source-scripts/city/landmark-identity/prepared/9510aafdde7bf920ff8d343a3eab8be4e537668053b6fda70992a67dc2993827.glb.gz"
+    },
+    "assets/99bb5219f4fda710546e7a37efa1cb46596cd75a473e63a4b80369cdc84721e7.glb.gz": {
+      "bytes": 53160,
+      "sha256": "99bb5219f4fda710546e7a37efa1cb46596cd75a473e63a4b80369cdc84721e7",
+      "source": "source-scripts/city/landmark-identity/prepared/99bb5219f4fda710546e7a37efa1cb46596cd75a473e63a4b80369cdc84721e7.glb.gz"
+    },
+    "assets/9cd881469ffa78e8d0aa5a573b0d407a9337658f624c0983e39379becb2c8088.glb.gz": {
+      "bytes": 43482,
+      "sha256": "9cd881469ffa78e8d0aa5a573b0d407a9337658f624c0983e39379becb2c8088",
+      "source": "source-scripts/city/landmark-identity/prepared/9cd881469ffa78e8d0aa5a573b0d407a9337658f624c0983e39379becb2c8088.glb.gz"
+    },
+    "assets/9db2ebd3c9732118bc2e89ef418cfa581b27a9cb949055630ee229966d4e4de9.glb.gz": {
+      "bytes": 28401,
+      "sha256": "9db2ebd3c9732118bc2e89ef418cfa581b27a9cb949055630ee229966d4e4de9",
+      "source": "source-scripts/city/landmark-identity/prepared/9db2ebd3c9732118bc2e89ef418cfa581b27a9cb949055630ee229966d4e4de9.glb.gz"
+    },
+    "assets/9fab14d756c15bc5cb14162c436e6f1536d4bea24f2a4cbdd4bd524640fe42bc.glb.gz": {
+      "bytes": 51786,
+      "sha256": "9fab14d756c15bc5cb14162c436e6f1536d4bea24f2a4cbdd4bd524640fe42bc",
+      "source": "source-scripts/city/landmark-identity/prepared/9fab14d756c15bc5cb14162c436e6f1536d4bea24f2a4cbdd4bd524640fe42bc.glb.gz"
+    },
+    "assets/a157a64aae79efea4d4af4006deeb1d535baf96baaeb747e93426e5cd06e5675.glb.gz": {
+      "bytes": 4878,
+      "sha256": "a157a64aae79efea4d4af4006deeb1d535baf96baaeb747e93426e5cd06e5675",
+      "source": "source-scripts/city/landmark-identity/prepared/a157a64aae79efea4d4af4006deeb1d535baf96baaeb747e93426e5cd06e5675.glb.gz"
+    },
+    "assets/a23f32d7b253ff071abceae50cb9951c9aea84990b9a1e1b2bbaf42b18f3583b.glb.gz": {
+      "bytes": 41461,
+      "sha256": "a23f32d7b253ff071abceae50cb9951c9aea84990b9a1e1b2bbaf42b18f3583b",
+      "source": "source-scripts/city/landmark-identity/prepared/a23f32d7b253ff071abceae50cb9951c9aea84990b9a1e1b2bbaf42b18f3583b.glb.gz"
+    },
+    "assets/a2de5951075faf210a2710e1c4451e27ea735b70fefe9d2117576826a05bf454.glb.gz": {
+      "bytes": 1243,
+      "sha256": "a2de5951075faf210a2710e1c4451e27ea735b70fefe9d2117576826a05bf454",
+      "source": "source-scripts/city/landmark-identity/prepared/a2de5951075faf210a2710e1c4451e27ea735b70fefe9d2117576826a05bf454.glb.gz"
+    },
+    "assets/a2e543f94129da9e9c238e7c3d818865a1c01f04db63dfa728de52e7713981cd.glb.gz": {
+      "bytes": 147880,
+      "sha256": "a2e543f94129da9e9c238e7c3d818865a1c01f04db63dfa728de52e7713981cd",
+      "source": "source-scripts/city/landmark-identity/prepared/a2e543f94129da9e9c238e7c3d818865a1c01f04db63dfa728de52e7713981cd.glb.gz"
+    },
+    "assets/a799e2f85e513ea2dc706da4a763d89d0c8265588e7bfac015589135b2fde1d0.glb.gz": {
+      "bytes": 1877,
+      "sha256": "a799e2f85e513ea2dc706da4a763d89d0c8265588e7bfac015589135b2fde1d0",
+      "source": "source-scripts/city/landmark-identity/prepared/a799e2f85e513ea2dc706da4a763d89d0c8265588e7bfac015589135b2fde1d0.glb.gz"
+    },
+    "assets/aaabf75a5aae6b0f8962c39771b4ca77c8b2e79bddc7554c1f7476178c986958.glb.gz": {
+      "bytes": 80092,
+      "sha256": "aaabf75a5aae6b0f8962c39771b4ca77c8b2e79bddc7554c1f7476178c986958",
+      "source": "source-scripts/city/landmark-identity/prepared/aaabf75a5aae6b0f8962c39771b4ca77c8b2e79bddc7554c1f7476178c986958.glb.gz"
+    },
+    "assets/ab559a9fb48d584a82147fcc0f5d7018db7ed201ffb8f73e28458e37ac928ad2.glb.gz": {
+      "bytes": 100414,
+      "sha256": "ab559a9fb48d584a82147fcc0f5d7018db7ed201ffb8f73e28458e37ac928ad2",
+      "source": "source-scripts/city/landmark-identity/prepared/ab559a9fb48d584a82147fcc0f5d7018db7ed201ffb8f73e28458e37ac928ad2.glb.gz"
+    },
+    "assets/ad649fbf11865626fe679866ea2b5607a3e0454fe5ab9b540fcee734bb66941b.glb.gz": {
+      "bytes": 77105,
+      "sha256": "ad649fbf11865626fe679866ea2b5607a3e0454fe5ab9b540fcee734bb66941b",
+      "source": "source-scripts/city/landmark-identity/prepared/ad649fbf11865626fe679866ea2b5607a3e0454fe5ab9b540fcee734bb66941b.glb.gz"
+    },
+    "assets/ade3fb9efd6c2da80f809200098eac42177114cc7eee928f27015116ab933b8c.glb.gz": {
+      "bytes": 2887,
+      "sha256": "ade3fb9efd6c2da80f809200098eac42177114cc7eee928f27015116ab933b8c",
+      "source": "source-scripts/city/landmark-identity/prepared/ade3fb9efd6c2da80f809200098eac42177114cc7eee928f27015116ab933b8c.glb.gz"
+    },
+    "assets/b13096de532a55cc075a9f0042a82417ed5ba98da84321a53210c1159c5104ff.glb.gz": {
+      "bytes": 40908,
+      "sha256": "b13096de532a55cc075a9f0042a82417ed5ba98da84321a53210c1159c5104ff",
+      "source": "source-scripts/city/landmark-identity/prepared/b13096de532a55cc075a9f0042a82417ed5ba98da84321a53210c1159c5104ff.glb.gz"
+    },
+    "assets/b4514368732e883ebf16ae02ff08bb881b658990c62cd6b9a6d8bcaeda3f8994.glb.gz": {
+      "bytes": 5978,
+      "sha256": "b4514368732e883ebf16ae02ff08bb881b658990c62cd6b9a6d8bcaeda3f8994",
+      "source": "source-scripts/city/landmark-identity/prepared/b4514368732e883ebf16ae02ff08bb881b658990c62cd6b9a6d8bcaeda3f8994.glb.gz"
+    },
+    "assets/bbf9bbe9d208adf6b07a4e62e046cb849e87f7f11554979c8a029defc0d3616d.glb.gz": {
+      "bytes": 20248,
+      "sha256": "bbf9bbe9d208adf6b07a4e62e046cb849e87f7f11554979c8a029defc0d3616d",
+      "source": "source-scripts/city/landmark-identity/prepared/bbf9bbe9d208adf6b07a4e62e046cb849e87f7f11554979c8a029defc0d3616d.glb.gz"
+    },
+    "assets/bdbfb1946cfee2912df3e0ae4e79c30adc7c8c467d221ee90e0707a638eba981.glb.gz": {
+      "bytes": 20486,
+      "sha256": "bdbfb1946cfee2912df3e0ae4e79c30adc7c8c467d221ee90e0707a638eba981",
+      "source": "source-scripts/city/landmark-identity/prepared/bdbfb1946cfee2912df3e0ae4e79c30adc7c8c467d221ee90e0707a638eba981.glb.gz"
+    },
+    "assets/bf10d4f260576404deb1cbd5273d37c6296f0f6ddebbf2ca45ea610d9a8d9260.glb.gz": {
+      "bytes": 126463,
+      "sha256": "bf10d4f260576404deb1cbd5273d37c6296f0f6ddebbf2ca45ea610d9a8d9260",
+      "source": "source-scripts/city/landmark-identity/prepared/bf10d4f260576404deb1cbd5273d37c6296f0f6ddebbf2ca45ea610d9a8d9260.glb.gz"
+    },
+    "assets/c05199493ad4c3b57d8efb104fa13825a01f17c525c839f8b6f61d36b1120191.glb.gz": {
+      "bytes": 8360,
+      "sha256": "c05199493ad4c3b57d8efb104fa13825a01f17c525c839f8b6f61d36b1120191",
+      "source": "source-scripts/city/landmark-identity/prepared/c05199493ad4c3b57d8efb104fa13825a01f17c525c839f8b6f61d36b1120191.glb.gz"
+    },
+    "assets/c1f45b68b350964035597487cf6398c8926b46da985c1e83aee8dd61edcc0eaa.glb.gz": {
+      "bytes": 7692,
+      "sha256": "c1f45b68b350964035597487cf6398c8926b46da985c1e83aee8dd61edcc0eaa",
+      "source": "source-scripts/city/landmark-identity/prepared/c1f45b68b350964035597487cf6398c8926b46da985c1e83aee8dd61edcc0eaa.glb.gz"
+    },
+    "assets/c2b24f89539be986a24a2ed7ccfc3855bf1bd60785efc1062dbb6141a689adcd.glb.gz": {
+      "bytes": 41186,
+      "sha256": "c2b24f89539be986a24a2ed7ccfc3855bf1bd60785efc1062dbb6141a689adcd",
+      "source": "source-scripts/city/landmark-identity/prepared/c2b24f89539be986a24a2ed7ccfc3855bf1bd60785efc1062dbb6141a689adcd.glb.gz"
+    },
+    "assets/c383da15d41c9f15ce0ba2276033a3bdfbe81429da6f8f22de5ec13d9fd0b1f7.glb.gz": {
+      "bytes": 8324,
+      "sha256": "c383da15d41c9f15ce0ba2276033a3bdfbe81429da6f8f22de5ec13d9fd0b1f7",
+      "source": "source-scripts/city/landmark-identity/prepared/c383da15d41c9f15ce0ba2276033a3bdfbe81429da6f8f22de5ec13d9fd0b1f7.glb.gz"
+    },
+    "assets/c3e070bb7de1b26008d9c7146e0124608d9661049e76a937c72f109a20c7c131.glb.gz": {
+      "bytes": 45143,
+      "sha256": "c3e070bb7de1b26008d9c7146e0124608d9661049e76a937c72f109a20c7c131",
+      "source": "source-scripts/city/landmark-identity/prepared/c3e070bb7de1b26008d9c7146e0124608d9661049e76a937c72f109a20c7c131.glb.gz"
+    },
+    "assets/c8bf5d281e237c8d4a92d59c5fa9d97c0081ae77c3da7118cec43227fd370999.glb.gz": {
+      "bytes": 99858,
+      "sha256": "c8bf5d281e237c8d4a92d59c5fa9d97c0081ae77c3da7118cec43227fd370999",
+      "source": "source-scripts/city/landmark-identity/prepared/c8bf5d281e237c8d4a92d59c5fa9d97c0081ae77c3da7118cec43227fd370999.glb.gz"
+    },
+    "assets/cbd8bf0c7cb08653dfd6bbf9e43181d19cf30df0f26f3d121ba3f10bc02e38bf.glb.gz": {
+      "bytes": 27520,
+      "sha256": "cbd8bf0c7cb08653dfd6bbf9e43181d19cf30df0f26f3d121ba3f10bc02e38bf",
+      "source": "source-scripts/city/landmark-identity/prepared/cbd8bf0c7cb08653dfd6bbf9e43181d19cf30df0f26f3d121ba3f10bc02e38bf.glb.gz"
+    },
+    "assets/cd1e721aa40e94088c5476248169c1cbcbecc12ca34c5820c8e79eb608440572.glb.gz": {
+      "bytes": 23143,
+      "sha256": "cd1e721aa40e94088c5476248169c1cbcbecc12ca34c5820c8e79eb608440572",
+      "source": "source-scripts/city/landmark-identity/prepared/cd1e721aa40e94088c5476248169c1cbcbecc12ca34c5820c8e79eb608440572.glb.gz"
+    },
+    "assets/cd880b68be6208203506f5de508f732e56a4a25764e3d7d07d8052ca5b5db59f.glb.gz": {
+      "bytes": 69670,
+      "sha256": "cd880b68be6208203506f5de508f732e56a4a25764e3d7d07d8052ca5b5db59f",
+      "source": "source-scripts/city/landmark-identity/prepared/cd880b68be6208203506f5de508f732e56a4a25764e3d7d07d8052ca5b5db59f.glb.gz"
+    },
+    "assets/d039ef1db81c9cad775d6a307bd9428600fd331b2d4b4deaa8fc3c5a8d91b7fc.glb.gz": {
+      "bytes": 1060,
+      "sha256": "d039ef1db81c9cad775d6a307bd9428600fd331b2d4b4deaa8fc3c5a8d91b7fc",
+      "source": "source-scripts/city/landmark-identity/prepared/d039ef1db81c9cad775d6a307bd9428600fd331b2d4b4deaa8fc3c5a8d91b7fc.glb.gz"
+    },
+    "assets/d0e232d9f63ddb013c5aa7b355e4b4fa7d3d123cb421d75dae432ffdb40553eb.glb.gz": {
+      "bytes": 23624,
+      "sha256": "d0e232d9f63ddb013c5aa7b355e4b4fa7d3d123cb421d75dae432ffdb40553eb",
+      "source": "source-scripts/city/landmark-identity/prepared/d0e232d9f63ddb013c5aa7b355e4b4fa7d3d123cb421d75dae432ffdb40553eb.glb.gz"
+    },
+    "assets/d2c28ddc3cb97947856f92946981119a0ce4631c76a74cdc2e470c1a269bd891.glb.gz": {
+      "bytes": 824,
+      "sha256": "d2c28ddc3cb97947856f92946981119a0ce4631c76a74cdc2e470c1a269bd891",
+      "source": "source-scripts/city/landmark-identity/prepared/d2c28ddc3cb97947856f92946981119a0ce4631c76a74cdc2e470c1a269bd891.glb.gz"
+    },
+    "assets/d5d1fe2df387fe9fa9c3c4a89270fef65355f8dcd79b9edcb41b4bdf06a6a325.glb.gz": {
+      "bytes": 91693,
+      "sha256": "d5d1fe2df387fe9fa9c3c4a89270fef65355f8dcd79b9edcb41b4bdf06a6a325",
+      "source": "source-scripts/city/landmark-identity/prepared/d5d1fe2df387fe9fa9c3c4a89270fef65355f8dcd79b9edcb41b4bdf06a6a325.glb.gz"
+    },
+    "assets/dab88e1287ae6681009edc1b230518359d8a9acf961a0d0480c9f49f11d9e06d.glb.gz": {
+      "bytes": 1069,
+      "sha256": "dab88e1287ae6681009edc1b230518359d8a9acf961a0d0480c9f49f11d9e06d",
+      "source": "source-scripts/city/landmark-identity/prepared/dab88e1287ae6681009edc1b230518359d8a9acf961a0d0480c9f49f11d9e06d.glb.gz"
+    },
+    "assets/dc25801b1b900cf3ce1d362aca17b9987b874f7745a5116c67cc3882b16a9d58.glb.gz": {
+      "bytes": 287901,
+      "sha256": "dc25801b1b900cf3ce1d362aca17b9987b874f7745a5116c67cc3882b16a9d58",
+      "source": "source-scripts/city/landmark-identity/prepared/dc25801b1b900cf3ce1d362aca17b9987b874f7745a5116c67cc3882b16a9d58.glb.gz"
+    },
+    "assets/df23f5570c609fc142a1e8d6c133c71c8bab7597de8d23d02fb893e630bf79e0.glb.gz": {
+      "bytes": 26016,
+      "sha256": "df23f5570c609fc142a1e8d6c133c71c8bab7597de8d23d02fb893e630bf79e0",
+      "source": "source-scripts/city/landmark-identity/prepared/df23f5570c609fc142a1e8d6c133c71c8bab7597de8d23d02fb893e630bf79e0.glb.gz"
+    },
+    "assets/e3c4ad4fff2acda8844233c83b6885dbbd73c1da9acb0a0efc7ec9778f57d764.glb.gz": {
+      "bytes": 307369,
+      "sha256": "e3c4ad4fff2acda8844233c83b6885dbbd73c1da9acb0a0efc7ec9778f57d764",
+      "source": "source-scripts/city/landmark-identity/prepared/e3c4ad4fff2acda8844233c83b6885dbbd73c1da9acb0a0efc7ec9778f57d764.glb.gz"
+    },
+    "assets/e4a27679d33b6ee4ad1c358fcf697e328bd208b2581343ab5cca3c876ee8a379.glb.gz": {
+      "bytes": 191665,
+      "sha256": "e4a27679d33b6ee4ad1c358fcf697e328bd208b2581343ab5cca3c876ee8a379",
+      "source": "source-scripts/city/landmark-identity/prepared/e4a27679d33b6ee4ad1c358fcf697e328bd208b2581343ab5cca3c876ee8a379.glb.gz"
+    },
+    "assets/e6b38ce5245ee879f83f10e409babdd1df78953c236d212049d91ea26230f22c.glb.gz": {
+      "bytes": 84767,
+      "sha256": "e6b38ce5245ee879f83f10e409babdd1df78953c236d212049d91ea26230f22c",
+      "source": "source-scripts/city/landmark-identity/prepared/e6b38ce5245ee879f83f10e409babdd1df78953c236d212049d91ea26230f22c.glb.gz"
+    },
+    "assets/e8116c7c9f332996a76def6d15bcca50c61c3d08245b942967530e8bc66becce.glb.gz": {
+      "bytes": 26176,
+      "sha256": "e8116c7c9f332996a76def6d15bcca50c61c3d08245b942967530e8bc66becce",
+      "source": "source-scripts/city/landmark-identity/prepared/e8116c7c9f332996a76def6d15bcca50c61c3d08245b942967530e8bc66becce.glb.gz"
+    },
+    "assets/ee8baef9ebdb4b8898b470fe2d429b2f6766a8e0bfdef4d43466924b7b3f3e97.glb.gz": {
+      "bytes": 36633,
+      "sha256": "ee8baef9ebdb4b8898b470fe2d429b2f6766a8e0bfdef4d43466924b7b3f3e97",
+      "source": "source-scripts/city/landmark-identity/prepared/ee8baef9ebdb4b8898b470fe2d429b2f6766a8e0bfdef4d43466924b7b3f3e97.glb.gz"
+    },
+    "assets/eefbcb7f2729b9621c97faea0413f4749f87b5101a610be47e23adfb935d76ad.glb.gz": {
+      "bytes": 607352,
+      "sha256": "eefbcb7f2729b9621c97faea0413f4749f87b5101a610be47e23adfb935d76ad",
+      "source": "source-scripts/city/landmark-identity/prepared/eefbcb7f2729b9621c97faea0413f4749f87b5101a610be47e23adfb935d76ad.glb.gz"
+    },
+    "assets/efc20739b871ae8055367c54f748f7af412370939bf9f18219396137394e66a4.glb.gz": {
+      "bytes": 24159,
+      "sha256": "efc20739b871ae8055367c54f748f7af412370939bf9f18219396137394e66a4",
+      "source": "source-scripts/city/landmark-identity/prepared/efc20739b871ae8055367c54f748f7af412370939bf9f18219396137394e66a4.glb.gz"
+    },
+    "assets/f27037644d72f619aa52736d65bdb57d7d3cfd98aaa8d5d7ea60743353ee7f88.glb.gz": {
+      "bytes": 63414,
+      "sha256": "f27037644d72f619aa52736d65bdb57d7d3cfd98aaa8d5d7ea60743353ee7f88",
+      "source": "source-scripts/city/landmark-identity/prepared/f27037644d72f619aa52736d65bdb57d7d3cfd98aaa8d5d7ea60743353ee7f88.glb.gz"
+    },
+    "assets/f5e8311d25fbe5777924d0a22498055c7013326d5bb5c7e1c3f952825fe84400.glb.gz": {
+      "bytes": 39144,
+      "sha256": "f5e8311d25fbe5777924d0a22498055c7013326d5bb5c7e1c3f952825fe84400",
+      "source": "source-scripts/city/landmark-identity/prepared/f5e8311d25fbe5777924d0a22498055c7013326d5bb5c7e1c3f952825fe84400.glb.gz"
+    },
+    "assets/f69790cf3a798d968061b846a025bb4ecb190d00c0fd7ec7a4ab90e9b7f0972c.glb.gz": {
+      "bytes": 48964,
+      "sha256": "f69790cf3a798d968061b846a025bb4ecb190d00c0fd7ec7a4ab90e9b7f0972c",
+      "source": "source-scripts/city/landmark-identity/prepared/f69790cf3a798d968061b846a025bb4ecb190d00c0fd7ec7a4ab90e9b7f0972c.glb.gz"
+    },
+    "assets/fffc0b42e78959c5ce116da9cb091d7466a97e210836a329ff5319eccc13fc86.glb.gz": {
+      "bytes": 41315,
+      "sha256": "fffc0b42e78959c5ce116da9cb091d7466a97e210836a329ff5319eccc13fc86",
+      "source": "source-scripts/city/landmark-identity/prepared/fffc0b42e78959c5ce116da9cb091d7466a97e210836a329ff5319eccc13fc86.glb.gz"
+    },
+    "catalogue.json": {
+      "bytes": 129261,
+      "sha256": "2d8fffb6c6861e61bf37111950aaa9fea2d4b46141cda4cfca81d6ee0a61c904",
+      "source": "source-scripts/city/landmark-identity/prepared/catalogue.json"
+    },
+    "identity.json": {
+      "bytes": 886694,
+      "sha256": "ab68aeb6ba9d8cdd600dd265dff96cffe3ffa881fbce28f4b7fcf5dfa771a832",
+      "source": "source-scripts/city/landmark-identity/report.json"
+    },
+    "manifest.json": {
+      "bytes": 116883,
+      "sha256": "da0b99df6a1b35d19dec9fecc4f1ddfcdfc4e436c5da1409ef2417e9407d7102",
+      "source": "3d-viewer/city/data/manifest.json"
+    },
+    "progress.json": {
+      "bytes": 128703,
+      "sha256": "baf5c58fdd9cf7354484219405f26ef18324bc77a5b98c52333f5331164d0553",
+      "source": "docs/astra-city/landmark-progress/progress.json"
+    },
+    "published-models.json": {
+      "bytes": 2263462,
+      "sha256": "9e878d47455ed094ba1736a87bc11bf9f056855371dfd505625e1fbc11e04b90",
+      "source": "derived from pinned manifest catalogues"
+    },
+    "published/architecture-batch-1-catalogue.json": {
+      "bytes": 25745,
+      "sha256": "f9727181d5e72f9dd85f7cf248af3e0dfdeb93a454e6348eb4f96fac78f55ba6",
+      "source": "3d-viewer/city/data/official-models/architecture-batch-1/catalogue.json"
+    },
+    "published/asia-society-followup-catalogue.json": {
+      "bytes": 4269,
+      "sha256": "9cc356340aeaa721858cb6d6fa8d2e09c0404a1f7c74f757921b984aa47a4110",
+      "source": "3d-viewer/city/data/official-models/asia-society-followup/catalogue.json"
+    },
+    "published/central-catalogue.json": {
+      "bytes": 11898,
+      "sha256": "0f3b7f6e75fb795716dc7cbe63309bc8beb2537cce1595e97c93328e2e850bd2",
+      "source": "3d-viewer/city/data/official-models/central/catalogue.json"
+    },
+    "published/central-west-wing-catalogue.json": {
+      "bytes": 1535,
+      "sha256": "449f96f7395cd506bad7e056a20bd0801fbd61e070800bce539265fcce217b8f",
+      "source": "3d-viewer/city/data/official-models/central-west-wing/catalogue.json"
+    },
+    "published/cultural-landmarks-catalogue.json": {
+      "bytes": 10150,
+      "sha256": "4522719a9c96a67d17d59b96f1175619dc19bd8848752f56076131cb475dc2f0",
+      "source": "3d-viewer/city/data/official-models/cultural-landmarks/catalogue.json"
+    },
+    "published/island-corridor-catalogue.json": {
+      "bytes": 14911,
+      "sha256": "28623e8ca259ae40cdba62b64833a092ca6a6b5d7b276521eeeec9b7003b3c63",
+      "source": "3d-viewer/city/data/official-models/island-corridor/catalogue.json"
+    },
+    "published/landmark-pass-catalogue.json": {
+      "bytes": 53555,
+      "sha256": "8e0fa82d6079295dd29a7d619207b96dec3f92c3d5984c4a911cfa870392a6bb",
+      "source": "3d-viewer/city/data/official-models/landmark-pass/catalogue.json"
+    },
+    "published/mui-wo-completion-catalogue.json": {
+      "bytes": 204992,
+      "sha256": "c8828b53902dcbebf03e04c99bed41570663ee38c49e4e540efed2f6163471b5",
+      "source": "3d-viewer/city/data/official-models/mui-wo-completion/catalogue.json"
+    },
+    "published/pui-o-catalogue.json": {
+      "bytes": 455211,
+      "sha256": "335602802d21c32c1e193052316147fe8f5b191412950f06ec848ab72fb1860b",
+      "source": "3d-viewer/city/data/official-models/pui-o/catalogue.json"
+    },
+    "published/pui-o-completion-catalogue.json": {
+      "bytes": 3340,
+      "sha256": "efb63b8c55c71d37b15a03b41d7bd1682b7e1e00e3d63cafbfc334490ff23b8a",
+      "source": "3d-viewer/city/data/official-models/pui-o-completion/catalogue.json"
+    },
+    "published/tai-o-completion-catalogue.json": {
+      "bytes": 5397,
+      "sha256": "e4e7928de98f8519f7e17499c1472fab479cfdc200045694ea180f07da810a19",
+      "source": "3d-viewer/city/data/official-models/tai-o-completion/catalogue.json"
+    },
+    "published/tourist-trial-000-catalogue.json": {
+      "bytes": 398188,
+      "sha256": "1986f743865534158a3e6104d3948aaa122f27e5ef19dc30cb65f33ccbe3843e",
+      "source": "3d-viewer/city/data/official-models/tourist-trial-000/catalogue.json"
+    },
+    "published/tourist-trial-001-catalogue.json": {
+      "bytes": 397531,
+      "sha256": "d64aa73ee7fc1fc2b427dae1e29339a77c3db2458dbfafa16e55b07af19aa5a9",
+      "source": "3d-viewer/city/data/official-models/tourist-trial-001/catalogue.json"
+    },
+    "published/tourist-trial-002-catalogue.json": {
+      "bytes": 42263,
+      "sha256": "85fe7525682ae5d86e6e3fda8b4490e2e19a5cd70b2dc4fa9d4cd99e1d012d6e",
+      "source": "3d-viewer/city/data/official-models/tourist-trial-002/catalogue.json"
+    },
+    "stage-summary.json": {
+      "bytes": 390869,
+      "sha256": "1c1f69e9c8700926b27a861421322c7bbc62695b261df92f7e182f0b270cf6be",
+      "source": "docs/astra-city/landmark-identity/stage-summary.json"
+    },
+    "validation.json": {
+      "bytes": 88352,
+      "sha256": "97a56504b315324026358be58c22163d98c58b16f28b6f8903efb8fa4a135ffd",
+      "source": "docs/astra-city/landmark-identity/prepared-validation.json"
+    }
+  },
+  "id": "6f9f1a5c2a88ade4",
+  "models": 109
+}
