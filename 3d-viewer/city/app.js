@@ -1,3 +1,4 @@
+import {bindBuildingProgress} from './building-progress.js';
 import * as THREE from '../vendor/three.module.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {makeTerrainSampler} from './geo.js';
@@ -271,7 +272,7 @@ async function init(){
  scene=new THREE.Scene();scene.background=new THREE.Color('#d9e3d5');scene.fog=new THREE.Fog('#d9e3d5',8000,36000);camera=new THREE.PerspectiveCamera(44,innerWidth/innerHeight,.5,100000);
  controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.07;controls.minDistance=12;controls.maxDistance=65000;controls.maxPolarAngle=Math.PI*.475;controls.screenSpacePanning=false;
  ambient=new THREE.HemisphereLight('#e8f0e6','#6c806a',1.9);scene.add(ambient);sun=new THREE.DirectionalLight('#fff7df',3);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-2200,right:2200,top:2200,bottom:-2200,near:10,far:12000});sun.shadow.bias=-.00007;sun.shadow.normalBias=1.2;sun.shadow.radius=2;scene.add(sun,sun.target);
- const [m,data]=await Promise.all([loadJSON('city/data/manifest.json'),loadJSON('city/data/terrain.json')]);manifest=m;
+ const [m,data]=await Promise.all([loadJSON('city/data/manifest.json'),loadJSON('city/data/terrain.json')]);manifest=m;void bindBuildingProgress(manifest);
  const [activity,patches]=await Promise.all([manifest.activityTiles?{buildings:{}}:loadJSON('city/data/activity.json'),Promise.all((manifest.terrainPatches||[]).map(p=>loadJSON(p.url)))]);data.patches=patches;sampler=makeTerrainSampler(data);terrain=makeTerrain(data);terrain.userData.data=data;scene.add(terrain);meshInspection.register(terrain,'terrain');water=makeWater();water.attachShoreline(terrain);scene.add(water.mesh);
  stream=new CityStreaming({manifest,terrain:data,sampler,scene,activity,onChange:updateStreamStatus,inspection:meshInspection});ferries=makeFerries();ferries.update(0);scene.add(ferries.group);
  let maskedSurfaces=0;regionalDetail=new RegionalDetail({scene,sampler,onChange:()=>{if(regionalDetail&&regionalDetail.surfaceCount!==maskedSurfaces){maskedSurfaces=regionalDetail.surfaceCount;stream.setSurfaceExclusions(regionalDetail.mappedSurfaces);}updateStreamStatus();}});
