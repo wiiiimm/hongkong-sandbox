@@ -98,7 +98,11 @@ export function facadeMaterial(hex,lighting){
    if(vCityLight.w>0.0 && vCityPosition.y-vCityLight.z<vCityLight.w) activity=uCityRetail;
    // Each building and window has a stable bedtime; no frame-dependent flicker.
    activity = clamp(activity * (.80 + .40*vCityLight.x), 0.0, .985);
-   vec2 room = floor(cell) + vCityLight.x * vec2(773.0,419.0) + vCityNormal.xz*31.0;
+   // Smooth source normals vary within a window. Hash only the discrete UV face,
+   // otherwise tiny normal interpolation changes turn one room into pixel noise.
+   vec2 wallSeed = abs(vCityNormal.x) > abs(vCityNormal.z)
+    ? vec2(sign(vCityNormal.x)*31.0,0.0) : vec2(0.0,sign(vCityNormal.z)*31.0);
+   vec2 room = floor(cell) + vCityLight.x * vec2(773.0,419.0) + wallSeed;
    float bedtime = cityHash(room);
    // Narrow the fade at very low occupancy so dark buildings stay dark at 4 am.
    float fade = min(.016,max(.0001,activity*.4));
