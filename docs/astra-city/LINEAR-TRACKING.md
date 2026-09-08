@@ -1,3 +1,7 @@
+## 9 September — explicit model and workflow labels
+
+Eleven modelling/pipeline issues now carry `gpt-6-astra`. HKS-199/202/203/209/212/214 use `ai-software-factory`: outstanding implementation and model review belong to the agent. Completed deliverables HKS-213/215/216/217/218 use `human-review-required`, with William named and concrete review scope/link recorded in each issue. Human sign-off closes those deliverables; it does not block continuing HKS-214. Other labels and issue statuses are preserved. Future checkpoints follow the same ownership distinction in the portable skill.
+
 ## 9 September — abandoned-agent recovery ready for review
 
 [HKS-218](https://linear.app/stealth-company/issue/HKS-218) is **In Review**: atomic cross-batch source reservations, 30-minute expiry, five-minute automatic heartbeat for supervised commands, retained session/audit history, and deliberate audited takeover. Base commit 4b49976d; supervisor/recovery 9f0b2164; reusable skill 21c23b66. Twelve focused local tests and six unique live Neon cases passed; actual API/CLI supervised runs released their fixtures. Root independently verified a real-Neon run and broader shared suite (33 passed, 11 live-only skipped). Skill validation and diff checks pass. Evidence: `source-scripts/city/shared-modelling/reservation-verification.json` and `RESERVATIONS.md`. Executors: modelling_reservations implementation, landmark_visibility_fix independent review, root integration/tracking. Leaf, HKS-217/199 and milestone synced.

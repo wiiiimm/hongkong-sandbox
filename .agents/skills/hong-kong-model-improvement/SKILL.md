@@ -46,6 +46,8 @@ If ownership is lost, stop and reacquire before continuing. Expired work can be 
 
 Use the existing HKS issue/milestone mapping in local tracking and Linear. Record the executor, commit, source and rendered counts, evidence and remaining gaps in relevant leaf issues and parents. Move implemented, reviewable scope to **In Review**; leave broader identity, architecture or regional scope open when incomplete.
 
+Use the existing Linear `model` and `Workflow` label groups. For this Astra workflow, tag agent work `gpt-6-astra` and `ai-software-factory`; switch the workflow label to `human-review-required` only for a concrete deliverable awaiting named human sign-off, with the reviewer, review link and exact checks recorded. Preserve unrelated labels and other models' attribution. Agent architectural/terrain review remains software-factory work. Human review of a completed slice does not automatically block other work. Explain required user action directly in chat; never rely on an ambiguous In Review status. Recommend Low effort for tracking, Medium for routine scripting and High for architectural/terrain decisions without treating an effort switch as a blocker.
+
 Run checks appropriate to the change. For model integration, inspect real browser output as well as source/CPU checks; measure performance only when making performance claims. Commit logical units with HKS references and use the requested branch/PR workflow.
 
 A skill invocation does not grant deployment, R2-upload or release permission. Honour the user's actual authorisation. Keep working-state snapshots separate from production runtime assets and do not describe local staging as deployed content.
