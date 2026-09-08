@@ -75,9 +75,9 @@ export function describeBuilding(building){
   const postBottom=foundation??bottom;
   if(roofBottom>postBottom+.02)for(const ring of supportRings(building.rings))parts.push({kind:'post',rings:[ring],bottom:postBottom,top:roofBottom,windows:false,illustrative:true});
  }else{
-  // The source outline encloses the interior. Model overhangs and walls outside
-  // it keep their real surface heights instead of closing surrounding streets.
-  parts.push({kind:'building',rings:building.rings,bottom,top,windows:true});
+  // Native interiors stop at their local source roof, never the model-wide top.
+  // The bounds remain conservative for indexing; collision resolves the ceiling.
+  parts.push({kind:model?'model-interior':'building',...(model?{model}:{}),rings:building.rings,bottom,top,windows:true});
   if(model){const a=model.bounds;parts.push({kind:'model-surface',model,rings:[[[a[0],a[2]],[a[3],a[2]],[a[3],a[5]],[a[0],a[5]],[a[0],a[2]]]],bottom:a[1],top:a[4],windows:false});}
   if(foundation!==null)parts.push({kind:'foundation',rings:building.rings,bottom:foundation,top:foundationTop,windows:false,illustrative:true});
  }

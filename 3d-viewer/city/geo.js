@@ -1,6 +1,6 @@
 import {nativeTerrainSurface} from './native-terrain.js';
 import {collisionVolumes} from './building-geometry.js';
-import {modelSurfaceCollision} from './model-collision.js';
+import {modelRoofHeight,modelSurfaceCollision} from './model-collision.js';
 
 // All coordinates are metres in EPSG:2326, translated to a local origin.
 export const ORIGIN = [834500, 816500];
@@ -66,6 +66,13 @@ export class BuildingIndex {
         if(top<=volume.bottom||bottom>=volume.top)continue;
         const [x0,z0,x1,z1]=volume.bounds;if(x+radius<x0||x-radius>x1||z+radius<z0||z-radius>z1)continue;
         if(volume.kind==='model-surface'){if(modelSurfaceCollision(volume.model,x,z,bottom,top,radius))return b;continue;}
+        if(volume.kind==='model-interior'){
+          // Radius contact at a wall/roof is handled by the true model surfaces.
+          // Filling the whole footprint to its global maximum creates phantom
+          // towers over low wings and closes uncovered native courtyards.
+          if(inPolygon(x,z,volume.rings)){const roof=modelRoofHeight(volume.model,x,z);if(roof!==null&&bottom<roof)return b;}
+          continue;
+        }
         if(inPolygon(x,z,volume.rings))return b;
         if(radius>0)for(const ring of volume.rings)for(let j=1;j<ring.length;j++)if(segmentDistanceSq(x,z,ring[j-1],ring[j])<radius*radius)return b;
       }
