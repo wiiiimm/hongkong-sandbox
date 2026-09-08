@@ -1,6 +1,7 @@
 import * as THREE from '../vendor/three.module.js';
 import {TileCache} from './tile-cache.js';
 import {prepareModelCatalogue,modelBudget,loadOfficialModel,disposeOfficialModel} from './official-model-assets.js';
+import {modelSupportDependencies,supportedModelPlan} from './model-support.js';
 const MiB=1024*1024;
 export const MODEL_PROFILES=Object.freeze({
  mobile:Object.freeze({count:24,concurrency:1,geometryBytes:48*MiB,residentBytes:128*MiB,triangles:450000,landmarkDistance:1800,detailDistance:300,minPixels:24}),
@@ -10,7 +11,7 @@ export const MODEL_PROFILES=Object.freeze({
 export class OfficialModelLayer{
  constructor({stream,profile='mobile',onChange=()=>{},loadAsset=loadOfficialModel}){
   if(!MODEL_PROFILES[profile])throw new Error('Unknown official model profile');
-  Object.assign(this,{stream,profile,onChange,loadAsset});this.limits=MODEL_PROFILES[profile];this.models=new Map();this.catalogues=new Map();this.catalogueErrors=new Map();this.requests=new Map();this.retiring=new Map();this.releaseFailures=new Map();this.closed=false;this.lastPlan=-Infinity;this.lastCamera=null;this.lastOptions=null;
+  Object.assign(this,{stream,profile,onChange,loadAsset});this.limits=MODEL_PROFILES[profile];this.models=new Map();this.catalogues=new Map();this.catalogueErrors=new Map();this.requests=new Map();this.retiring=new Map();this.releaseFailures=new Map();this.supportHolds=new Map();this.closed=false;this.lastPlan=-Infinity;this.lastCamera=null;this.lastOptions=null;
   this.cache=new TileCache({limit:this.limits.count,concurrency:this.limits.concurrency,load:(uid,signal)=>this.load(uid,signal),dispose:entry=>{this.release(entry).catch(()=>{});},onChange:()=>{if(!this.closed)this.onChange();}});
  }
  async loadCatalogue(input){
@@ -23,12 +24,43 @@ export class OfficialModelLayer{
     const text=await response.text();if(text.length>1024*1024)throw new Error('Model catalogue exceeds compact inventory budget');
     const entries=prepareModelCatalogue(JSON.parse(text),url);
     if(this.closed||controller.signal.aborted)return false;
-    for(const entry of entries){const old=this.models.get(entry.uid);if(old&&(old.sha256!==entry.sha256||old.modelId!==entry.modelId))throw new Error('Conflicting model UID '+entry.uid);}
+    for(const entry of entries){modelSupportDependencies(entry);const old=this.models.get(entry.uid);if(old&&(old.sha256!==entry.sha256||old.modelId!==entry.modelId))throw new Error('Conflicting model UID '+entry.uid);}
     for(const entry of entries)if(!this.models.has(entry.uid))this.models.set(entry.uid,entry);
     this.catalogues.set(url,{models:entries.length,bytes:new TextEncoder().encode(text).length});this.lastPlan=-Infinity;return true;
    }catch(error){if(!this.closed&&!controller.signal.aborted)this.catalogueErrors.set(url,error.message);return false;}
    finally{this.requests.delete(url);if(!this.closed)this.onChange();}
   });this.requests.set(url,{controller,promise});return promise;
+ }
+ supportAvailable(uid,kind,dependency={}){
+  if(this.stream.infrastructureBuildingUids?.has(uid))return false;
+  const building=this.stream.getLoadedBuilding(uid);if(!building)return false;
+  if(dependency.csuid&&building.buildingCSUID!==dependency.csuid)return false;
+  if(kind==='fallback'){
+   // A managed native model may retire before loading this tower. Baked source
+   // geometry has no surveyed fallback swap in this layer and cannot stand in.
+   if(building.modelGeometry&&!this.cache.entries.has(uid))return false;
+   return !this.stream.cache||this.stream.cache.wanted.includes(building.tile);
+  }
+  return !building.modelGeometry||this.stream.detailedModels.has(uid);
+ }
+ async waitForSupports(meta,signal){
+  const dependencies=modelSupportDependencies(meta),native=dependencies.filter(d=>d.kind==='native').map(d=>d.uid);
+  if(native.length){
+   if(signal.aborted)throw new DOMException('Aborted','AbortError');
+   await new Promise((resolve,reject)=>{
+    const finish=(error)=>{this.cache.listeners.delete(check);signal.removeEventListener('abort',cancel);error?reject(error):resolve();};
+    const cancel=()=>finish(new DOMException('Aborted','AbortError'));
+    const check=()=>{
+     if(signal.aborted||this.closed||native.some(uid=>!this.cache.wanted.includes(uid)))return cancel();
+     const error=native.map(uid=>this.cache.errors.get(uid)).find(Boolean);if(error)return finish(error);
+     if(native.every(uid=>this.cache.entries.has(uid)&&this.stream.detailedModels.get(uid)?.active))finish();
+    };
+    this.cache.listeners.add(check);signal.addEventListener('abort',cancel,{once:true});check();
+   });
+  }
+  for(const d of dependencies){
+   if(!this.supportAvailable(d.uid,d.kind,d)||d.kind==='fallback'&&this.stream.detailedModels.has(d.uid))throw new Error('Required model support not ready: '+d.uid);
+  }
  }
  async load(uid,signal){
   // Retired source geometry remains visible only until its fallback bake swaps.
@@ -39,9 +71,11 @@ export class OfficialModelLayer{
   if(this.releaseFailures.size)throw new Error('Previous model fallback restoration needs Retry');
   const meta=this.models.get(uid),building=this.stream.getLoadedBuilding(uid);
   if(!building)throw new Error('Official model source tile is not loaded');
+  await this.waitForSupports(meta,signal);
   const entry=await this.loadAsset(meta,building,this.stream.lighting,{signal});
   try{
    if(signal.aborted||this.closed)throw new DOMException('Aborted','AbortError');
+   await this.waitForSupports(meta,signal);
    if(this.stream.infrastructureBuildingUids?.has(uid))throw new Error('Official infrastructure already replaces this building');
    if(!await this.stream.setDetailedModel(uid,entry,{signal}))throw new DOMException('Aborted','AbortError');
    return entry;
@@ -50,8 +84,16 @@ export class OfficialModelLayer{
  release(entry){
   if(this.retiring.has(entry))return this.retiring.get(entry);
   const promise=(async()=>{
+   const supports=modelSupportDependencies(entry.entry||this.models.get(entry.record.uid)).filter(d=>d.kind==='native').map(d=>this.stream.detailedModels.get(d.uid)).filter(Boolean);
+   // setDetailedModel removes its map entry before the asynchronous fallback
+   // bake finishes. Keep supports visible until the old tower actually leaves.
+   for(const support of supports)(support.supportVisibilityDependents??=new Set()).add(entry);
+   // Restore every dependent's original form before removing its support. This
+   // also preserves supports when a dependent fallback rebake fails.
+   const dependents=[...this.stream.detailedModels.values()].filter(value=>value!==entry&&modelSupportDependencies(value.entry||this.models.get(value.record.uid)).some(d=>d.kind==='native'&&d.uid===entry.record.uid));
+   for(const dependent of dependents){this.cache.entries.delete(dependent.record.uid);await this.release(dependent);}
    if(this.stream.detailedModels.get(entry.record.uid)===entry)await this.stream.setDetailedModel(entry.record.uid,null);
-   disposeOfficialModel(entry);this.releaseFailures.delete(entry);
+   disposeOfficialModel(entry);for(const support of supports)support.supportVisibilityDependents.delete(entry);this.releaseFailures.delete(entry);
   })().catch(error=>{this.releaseFailures.set(entry,error.message);throw error;}).finally(()=>{this.retiring.delete(entry);if(!this.closed)this.onChange();});
   this.retiring.set(entry,promise);return promise;
  }
@@ -70,8 +112,7 @@ export class OfficialModelLayer{
    candidates.push({entry,distance,selected,projected,visible});
   }
   candidates.sort((a,b)=>Number(b.selected)-Number(a.selected)||Number(b.visible)-Number(a.visible)||a.distance-b.distance||b.projected-a.projected||a.entry.uid.localeCompare(b.entry.uid));
-  const wanted=[];let geometry=0,resident=0,triangles=0;
-  for(const {entry} of candidates){const cost=modelBudget(entry);if(wanted.length>=limits.count||geometry+cost.geometryBytes>limits.geometryBytes||resident+cost.residentBytes>limits.residentBytes||triangles+cost.triangles>limits.triangles)continue;wanted.push(entry.uid);geometry+=cost.geometryBytes;resident+=cost.residentBytes;triangles+=cost.triangles;}
+  const {wanted,blocked}=supportedModelPlan(candidates.map(c=>c.entry.uid),this.models,limits,modelBudget,(uid,kind,d)=>this.supportAvailable(uid,kind,d));this.supportHolds=blocked;
   // Release models outside the selected distance/budget set. Fallback restoration
   // completes before each buffer is disposed; no model is silently dropped.
   const keep=new Set(wanted);for(const [uid,entry] of this.cache.entries)if(!keep.has(uid)){this.cache.entries.delete(uid);this.release(entry).catch(()=>{});}
@@ -85,7 +126,7 @@ export class OfficialModelLayer{
  }
  get stats(){
   const entries=[...this.cache.entries.values()],held=[...new Set([...entries,...this.retiring.keys(),...this.releaseFailures.keys()])],cost=held.reduce((sum,e)=>({geometryBytes:sum.geometryBytes+e.budget.geometryBytes,residentBytes:sum.residentBytes+e.budget.residentBytes,triangles:sum.triangles+e.budget.triangles}),{geometryBytes:0,residentBytes:0,triangles:0});
-  return {profile:this.profile,catalogues:this.catalogues.size,available:this.models.size,cached:entries.length,visible:entries.filter(e=>e.group.visible).length,pending:this.cache.running.size+this.requests.size,retiring:this.retiring.size,wanted:this.cache.wanted.length,errors:[...this.catalogueErrors.keys(),...this.cache.errors.keys(),...this.releaseFailures.keys()].map(value=>typeof value==='string'?value:'restore:'+value.record.uid),...cost,limits:this.limits};
+  return {profile:this.profile,catalogues:this.catalogues.size,available:this.models.size,cached:entries.length,visible:entries.filter(e=>e.group.visible).length,pending:this.cache.running.size+this.requests.size,retiring:this.retiring.size,wanted:this.cache.wanted.length,supportHolds:[...this.supportHolds].map(([uid,reason])=>({uid,reason})),errors:[...this.catalogueErrors.keys(),...this.cache.errors.keys(),...this.releaseFailures.keys()].map(value=>typeof value==='string'?value:'restore:'+value.record.uid),...cost,limits:this.limits};
  }
  async dispose(){
   if(this.closed)return;this.closed=true;for(const {controller} of this.requests.values())controller.abort();this.cache.close();await Promise.allSettled([...this.retiring.values()]);this.models.clear();this.catalogues.clear();this.catalogueErrors.clear();

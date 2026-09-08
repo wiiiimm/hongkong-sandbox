@@ -4,6 +4,7 @@ import {makeBuildings,makeRoads,makeNature} from './world.js';
 import {TileCache,distanceToBounds,nearbyTiles} from './tile-cache.js';
 import {retainedRoads,validateProxyClips} from './infrastructure-replacements.js';
 import {cityLighting} from './lighting.js';
+import {retainVisibleNativeSupports} from './model-support.js';
 export function disposeGroup(group){
  group.removeFromParent();const geometries=new Set(),materials=new Set(group.userData.disposableMaterials||[]);
  group.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const m of o.material?[].concat(o.material):[])materials.add(m);if(o.isInstancedMesh)o.dispose();});
@@ -130,6 +131,7 @@ export class CityStreaming {
    for(const mesh of e.buildings.group.children)mesh.castShadow=visible&&near;
   }
   for(const detail of this.detailedModels.values()){detail.group.visible=detail.active&&wanted.has(detail.record.tile)&&this.cache.entries.has(detail.record.tile);for(const mesh of detail.meshes||[])mesh.castShadow=detail.group.visible&&distanceToBounds(...this.focus,[detail.bounds.min.x,detail.bounds.min.z,detail.bounds.max.x,detail.bounds.max.z])<=this.detailRadius;}
+  retainVisibleNativeSupports(this.detailedModels);
  }
  plan(x,z,radius=3200){
   this.focus=[x,z];const ids=nearbyTiles(this.manifest.tiles,x,z,radius,24);

@@ -110,3 +110,19 @@ test('catalogue window opt-out preserves geometry and default building lighting'
   disposeOfficialModel(result);
  }
 });
+
+test('real source-tile replacement activates a tower only after its native support and retires tower first',async t=>{
+ const f=fixture(),supportUid='landsd/2:0';f.meta.supportDependencies=[{uid:supportUid,state:'candidate'}];
+ f.catalogue.models.push({...f.meta,uid:supportUid,objectId:2,buildingCSUID:'two',modelId:'B0002',supportDependencies:[]});f.catalogue.counts.packedModels=2;
+ f.data.buildings.push({...f.building,uid:supportUid,id:'landsd/2',objectId:2,buildingCSUID:'two'});
+ t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const events=[],replace=f.stream.setDetailedModel.bind(f.stream);t.mock.method(f.stream,'setDetailedModel',async(uid,value,options)=>{
+  if(uid===f.meta.uid&&value)assert.equal(f.stream.detailedModels.get(supportUid)?.active,true);
+  if(uid===supportUid&&!value)assert.equal(f.stream.detailedModels.has(f.meta.uid),false);
+  const result=await replace(uid,value,options);events.push((value?'add:':'remove:')+uid);return result;
+ });
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
+ const c=camera();assert.deepEqual(layer.plan(c,{force:true,selectedUid:f.meta.uid}),[supportUid,f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.detailedModels.size,2);
+ c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.equal(f.stream.detailedModels.size,0);
+ assert.deepEqual(events,['add:'+supportUid,'add:'+f.meta.uid,'remove:'+f.meta.uid,'remove:'+supportUid]);
+});
