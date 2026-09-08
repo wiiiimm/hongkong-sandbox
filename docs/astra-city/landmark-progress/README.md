@@ -8,12 +8,11 @@ Readiness requires explicit whole-landmark evidence. Existing model references a
 
 Counts below are unique identified model parts, not complete landmarks.
 
-- acquired-match-review: 6
-- acquisition-pending: 119
-- exact-source-absent-in-checked-sheets: 27
+- acquired-match-review: 9
+- exact-source-absent-in-checked-sheets: 36
 - identity-required: 8
-- installed: 132
-- prepared-for-review: 109
+- installed: 133
+- prepared-for-review: 273
 
 | Landmark | Identified / installed parts | Prepared, uninstalled | Review | Next action |
 |---|---:|---:|---|---|
@@ -37,7 +36,7 @@ Counts below are unique identified model parts, not complete landmarks.
 | The Victoria Towers | 3 / 0 | 3 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Xiqu Centre | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Hong Kong West Kowloon Station | 1 / 0 | 0 | not-reviewed | Review acquired source correspondence |
-| The Harbourside | 3 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| The Harbourside | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
 | International Commerce Centre | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | M+ Pavilion / Arts Pavilion | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | M+ museum | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
@@ -58,8 +57,8 @@ Counts below are unique identified model parts, not complete landmarks.
 | Hong Kong International Airport Terminal1 | 1 / 0 | 0 | not-reviewed | Review acquired source correspondence |
 | Jockey Club Innovation Tower | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Hong Kong Design Institute | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| 133 Wai Yip Street | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Mongkok Residences / Composite Building | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| 133 Wai Yip Street | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Mongkok Residences / Composite Building | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | Chu Hai College campus | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Run Run Shaw Creative Media Centre | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Montane Mansion / Monster Building complex | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
@@ -69,156 +68,156 @@ Counts below are unique identified model parts, not complete landmarks.
 | One Island East | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Center | 14 / 4 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Nina Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Victoria Dockside | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Victoria Dockside | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
 | The Cullinan North Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | The Cullinan South Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | The Masterpiece | 4 / 0 | 3 | not-reviewed | Review acquired source correspondence |
-| Sorrento 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Langham Place Office Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Sorrento 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Langham Place Office Tower | 4 / 0 | 3 | not-reviewed | Resolve identity/component membership |
 | Highcliff | 3 / 0 | 3 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Manulife Plaza | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Sorrento 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Hermitage 1–3 | 3 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Harbourfront Landmark | 3 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Arch | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 5A Malibu Tower 1 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Manulife Plaza | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Sorrento 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| The Hermitage 1–3 | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
+| The Harbourfront Landmark | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
+| The Arch | 5 / 0 | 5 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 5A Malibu Tower 1 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | One Taikoo Place | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Cosco Tower | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| LOHAS Park Phase 5A Malibu Tower 2 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 5A Malibu Tower 2 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | The Belcher's Tower 5 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Belcher's Tower 6 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Hopewell Centre | 5 / 1 | 2 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | The Belcher's Tower 1 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Belcher's Tower 2 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Tregunter 3 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Tregunter 3 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | The Summit | 6 / 0 | 4 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
-| Grand Promenade 2–5 | 3 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Sorrento 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 5A Malibu Tower 3 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Chelsea Court Tower North | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Chelsea Court Tower West | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 2B Le Prime Towers 6−8 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Grand Promenade 2–5 | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
+| Sorrento 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 5A Malibu Tower 3 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Chelsea Court Tower North | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Chelsea Court Tower West | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 2B Le Prime Towers 6−8 | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
 | Sun Hung Kai Centre | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Belcher's Tower 3 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Belcher's Tower 8 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| The Hermitage 6–8 | 3 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| The Hermitage 6–8 | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
 | Island Shangri-La | 4 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | Shining Heights | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Sorrento 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Sorrento 5 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | Indi Home | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| LOHAS Park Phase 6 LP6 Towers 1–3, 5 | 4 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 1 The Capitol Tower 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 1 The Capitol Tower 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 3A Hemera Tower 1 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 3A Hemera Tower 2 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Grand Promenade 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Grand Promenade 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 6 LP6 Towers 1–3, 5 | 4 / 0 | 4 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 1 The Capitol Tower 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 1 The Capitol Tower 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 3A Hemera Tower 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 3A Hemera Tower 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Grand Promenade 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Grand Promenade 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | MetroPlaza Tower 2 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| LOHAS Park Phase 2C Le Splendeur Towers 9–11 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 2C Le Splendeur Towers 9–11 | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
 | The Pavilia Farm III Tower 1 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | The Pavilia Farm III Tower 8 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Airside | 3 / 0 | 3 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Sorrento 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Bellagio Tower 1–5 | 4 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 1 The Capitol Tower 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 1 The Capitol Tower 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Citibank Plaza | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| May House | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Sorrento 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Bellagio Tower 1–5 | 4 / 0 | 4 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 1 The Capitol Tower 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 1 The Capitol Tower 5 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Citibank Plaza | 6 / 1 | 2 | not-reviewed | Resolve identity/component membership |
+| May House | 0 / 0 | 0 | not-reviewed | Resolve historical date/source conflict before assigning a current building |
 | Primrose Hill Tower 3 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Metro Town Tower 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Metro Town Tower 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Island Resort Tower 1–2 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Island Resort Tower 3–5 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Island Resort Tower 6–7 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Island Resort Tower 8–9 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Metro Town Tower 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Metro Town Tower 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Island Resort Tower 1–2 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Island Resort Tower 3–5 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Island Resort Tower 6–7 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Island Resort Tower 8–9 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | The Dynasty Tower 1 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Dynasty Tower 2 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | China Online Centre | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| LOHAS Park Phase 1 The Capitol Tower 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 2A Le Prestige Towers 1–3, 5 | 4 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 1 The Capitol Tower 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 2A Le Prestige Towers 1–3, 5 | 4 / 0 | 4 | not-reviewed | Resolve identity/component membership |
 | Conrad Hong Kong Hotel | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | Queensway Government Offices | 3 / 0 | 2 | not-reviewed | Review acquired source correspondence |
-| Le Point Tower 06 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Le Point Tower 07 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Bellagio Tower 6–9 | 4 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Merton 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Wharf Cable Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Le Point Tower 06 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Le Point Tower 07 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Bellagio Tower 6–9 | 4 / 0 | 4 | not-reviewed | Resolve identity/component membership |
+| The Merton 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Wharf Cable Tower | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | Aigburth | 1 / 0 | 0 | not-reviewed | Review acquired source correspondence |
-| Vision City 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Vision City 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Vision City 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Le Point Tower 08 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Le Point Tower 09 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Le Point Tower 10 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Vision City 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Vision City 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Vision City 5 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Le Point Tower 08 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Le Point Tower 09 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Le Point Tower 10 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | Times Square Natwest Tower | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Manhattan Hill 1–2 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 4B Wings At Sea Tower 5 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Vision City 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Manhattan Hill 1–2 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 4B Wings At Sea Tower 5 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Vision City 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | 39 Conduit Road | 4 / 0 | 4 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Banyan Garden 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Banyan Garden 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Banyan Garden 7 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Pacifica 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Pacifica 7 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 3A Hemera Tower 3 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 3A Hemera Tower 5 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Cullinan West Phase 5 Tower 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Cullinan West Phase 5 Tower 7 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Cullinan West Phase 5 Tower 8 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Banyan Garden 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Banyan Garden 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Banyan Garden 7 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| The Pacifica 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| The Pacifica 7 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 3A Hemera Tower 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 3A Hemera Tower 5 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Cullinan West Phase 5 Tower 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Cullinan West Phase 5 Tower 7 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Cullinan West Phase 5 Tower 8 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | Primrose Hill Tower 2 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Centrium | 3 / 0 | 2 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
-| The Merton 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| The Merton 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | One Exchange Square | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Two Exchange Square | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Oxford House Time Warner | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Metro Town Tower 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Metro Town Tower 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| 9 Queen's Road Central | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Millennium City 5 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Landmark East Tower 1 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Landmark East Tower 2 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Oxford House Time Warner | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Metro Town Tower 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Metro Town Tower 5 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| 9 Queen's Road Central | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Millennium City 5 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Landmark East Tower 1 | 3 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Landmark East Tower 2 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | Entertainment Building | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Manhattan Hill 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Manhattan Hill 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Manhattan Hill 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Manhattan Hill 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Manhattan Hill 5 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Manhattan Hill 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | Festival City III Tower 5 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| 8 Clearwater Bay Road | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| 8 Clearwater Bay Road | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | The Westpoint | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Standard Chartered Bank Building | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Sino Plaza | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Manhattan Heights | 5 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Manhattan Heights | 5 / 0 | 5 | not-reviewed | Resolve identity/component membership |
 | AIA Central | 1 / 1 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Festival City III Tower 1 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Festival City III Tower 2 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Festival City III Tower 3 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Manhattan Place | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Ocean Pointe | 3 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Ocean Pointe | 3 / 0 | 3 | not-reviewed | Resolve identity/component membership |
 | Cadogan | 3 / 0 | 3 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Vision City 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 4B Wings At Sea Tower 3 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Banyan Garden 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Chelsea Court Tower South | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Vision City 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 4B Wings At Sea Tower 3 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Banyan Garden 5 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Chelsea Court Tower South | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | Three Pacific Place | 3 / 1 | 0 | not-reviewed | Review alternatives for exact sources absent in checked sheets |
 | Branksome Crest | 4 / 0 | 4 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| One Silversea 1–8 | 7 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| One Silversea 1–8 | 7 / 0 | 7 | not-reviewed | Resolve identity/component membership |
 | Convention Plaza Office Tower | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | The Pavilia Bay Tower 1 | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Immigration Tower | 1 / 1 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | Revenue Tower | 1 / 1 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Liberté 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Liberté 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Liberté 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| LOHAS Park Phase 4A Wings At Sea Tower 2 | 2 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Liberté 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Liberté 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Liberté 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| LOHAS Park Phase 4A Wings At Sea Tower 2 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
 | AIA Tower | 2 / 0 | 2 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
-| Liberté 5 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Liberté 6 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Sham Wan Towers 1 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Sham Wan Towers 2 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Sham Wan Towers 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| The Merton 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Liberté 5 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Liberté 6 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Sham Wan Towers 1 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Sham Wan Towers 2 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| Sham Wan Towers 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
+| The Merton 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | Residences Bel-Air Phase 6 8–9 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Residences Bel-Air Phase 6 6–7 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| Banyan Garden 3 | 1 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| Residences Bel-Air Phase 6 6–7 | 2 / 0 | 2 | not-reviewed | Resolve identity/component membership |
+| Banyan Garden 3 | 1 / 0 | 1 | not-reviewed | Resolve identity/component membership |
 | Jardine House | 1 / 1 | 0 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | China Resources Center | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | OAK 28 | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
@@ -226,7 +225,7 @@ Counts below are unique identified model parts, not complete landmarks.
 | One Kowloon | 4 / 0 | 4 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | One Mid Town | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Ocean Shores | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
-| One SilverSea | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
+| One SilverSea | 7 / 0 | 7 | not-reviewed | Resolve identity/component membership |
 | Harbour Green | 0 / 0 | 0 | not-reviewed | Resolve identity/component membership |
 | Metro Harbour View | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |
 | 15 Homantin Hill | 1 / 0 | 1 | not-reviewed | Verify full landmark appearance, placement and interaction in viewer |

@@ -7,11 +7,10 @@
   },
   "installedTerritoryDetailed": 4054,
   "uniqueSourceStates": {
-    "installed": 132,
-    "exact-source-absent-in-checked-sheets": 27,
-    "prepared-for-review": 109,
-    "acquisition-pending": 119,
-    "acquired-match-review": 6,
+    "installed": 133,
+    "exact-source-absent-in-checked-sheets": 36,
+    "prepared-for-review": 273,
+    "acquired-match-review": 9,
     "identity-required": 8
   },
   "preparationStates": {
@@ -19,19 +18,23 @@
     "cache-absent": 14,
     "known-placement-holds": 7,
     "candidates-staged": 54,
-    "proposed-identity": 71,
+    "proposed-identity": 102,
     "nonbuilding-scope": 3,
-    "no-identity": 44,
-    "ambiguous": 3
+    "no-identity": 13,
+    "historical-source-conflict": 1,
+    "ambiguous": 2
   },
   "qualification": "Readiness requires explicit whole-landmark evidence. Existing model references and staged parts are not completion. This report does not publish models or change review decisions.",
-  "stagedUninstalledUnique": 109,
+  "stagedUninstalledUnique": 273,
   "inputHashes": {
     "source-scripts/city/landmark-registry/landmarks.json": "b3c9e530eb06567101ec894e7c421a3f48574ec55ba7a411479cd77fa55b678c",
     "docs/astra-city/landmark-bulk/bulk-report.json": "f87feab18fc6c1b318e8399d09df1651707468a7eca40321962d49034d2f04b3",
     "source-scripts/city/landmark-progress/reviews.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
-    "docs/astra-city/landmark-identity/stage-summary.json": "1c1f69e9c8700926b27a861421322c7bbc62695b261df92f7e182f0b270cf6be",
-    "docs/astra-city/landmark-acquisition/report.json": "0bade381fb7ba27d9d99088523cbc3e82be5d369f0f5484a16628ddf6c719d28"
+    "docs/astra-city/landmark-identity/stage-summary.json": "e8baa8f80f9476a9d6a13c67bf3252cf3177284fcdcd26dfdf2adc8681498980",
+    "docs/astra-city/landmark-acquisition/report.json": "0bade381fb7ba27d9d99088523cbc3e82be5d369f0f5484a16628ddf6c719d28",
+    "docs/astra-city/landmark-acquisition/batches/identity-v1-remaining/report.json": "d34c23ce61c9babad3c49e7146e49b2f41c6bed876526123359ce4d3bc307aed",
+    "docs/astra-city/landmark-acquisition/batches/identity-v2-extra/report.json": "86450c0e01a8000dda6aeeb2e123d4e6e970a871b04a890b4315e1b50dc39c4e",
+    "docs/astra-city/landmark-acquisition/batches/identity-v3-extra/report.json": "484825433d5ade6226ee0618f314d8c0f0e3bf9e7e7e51135dfae86b96cc65d9"
   },
   "rows": [
     {
@@ -462,7 +465,7 @@
         "landsd/230105:0": "installed",
         "landsd/231915:0": "installed",
         "landsd/235860:0": "installed",
-        "landsd/242698:0": "acquisition-pending",
+        "landsd/242698:0": "exact-source-absent-in-checked-sheets",
         "landsd/244346:0": "installed",
         "landsd/251755:0": "installed",
         "landsd/261799:0": "installed",
@@ -609,7 +612,7 @@
         "landsd/321812:0": "installed",
         "landsd/4314:0": "installed",
         "landsd/61477:0": "installed",
-        "landsd/70574:0": "acquisition-pending"
+        "landsd/70574:0": "exact-source-absent-in-checked-sheets"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
@@ -679,8 +682,8 @@
         "landsd/248218:0"
       ],
       "sourceStates": {
-        "landsd/246271:0": "acquisition-pending",
-        "landsd/246272:0": "acquisition-pending",
+        "landsd/246271:0": "exact-source-absent-in-checked-sheets",
+        "landsd/246272:0": "exact-source-absent-in-checked-sheets",
         "landsd/248218:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
@@ -747,7 +750,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/204153:0",
@@ -755,9 +758,9 @@
         "landsd/204155:0"
       ],
       "sourceStates": {
-        "landsd/204153:0": "acquisition-pending",
-        "landsd/204154:0": "acquisition-pending",
-        "landsd/204155:0": "acquisition-pending"
+        "landsd/204153:0": "prepared-for-review",
+        "landsd/204154:0": "prepared-for-review",
+        "landsd/204155:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -838,7 +841,7 @@
         "landsd/324948:0"
       ],
       "sourceStates": {
-        "landsd/324948:0": "acquisition-pending"
+        "landsd/324948:0": "exact-source-absent-in-checked-sheets"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
@@ -894,12 +897,12 @@
         "landsd/91009:0"
       ],
       "sourceStates": {
-        "landsd/143421:0": "acquisition-pending",
+        "landsd/143421:0": "acquired-match-review",
         "landsd/178994:0": "installed",
         "landsd/179272:0": "installed",
         "landsd/180315:0": "installed",
         "landsd/235801:0": "installed",
-        "landsd/91009:0": "acquisition-pending"
+        "landsd/91009:0": "exact-source-absent-in-checked-sheets"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Review source support or terrain; higher modelling effort may be needed"
@@ -1137,26 +1140,36 @@
     {
       "id": "133-wai-yip",
       "name": "133 Wai Yip Street",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/335943:0"
+      ],
+      "sourceStates": {
+        "landsd/335943:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "mongkok-residences",
       "name": "Mongkok Residences / Composite Building",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/244632:0",
+        "landsd/270525:0"
+      ],
+      "sourceStates": {
+        "landsd/244632:0": "prepared-for-review",
+        "landsd/270525:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1344,13 +1357,21 @@
     {
       "id": "tall-victoria-dockside",
       "name": "Victoria Dockside",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/159863:0",
+        "landsd/239721:0",
+        "landsd/271779:0"
+      ],
+      "sourceStates": {
+        "landsd/159863:0": "prepared-for-review",
+        "landsd/239721:0": "prepared-for-review",
+        "landsd/271779:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1409,13 +1430,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/270607:0"
       ],
       "sourceStates": {
-        "landsd/270607:0": "acquisition-pending"
+        "landsd/270607:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1423,13 +1444,23 @@
     {
       "id": "tall-langham-place-office-tower",
       "name": "Langham Place Office Tower",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/235506:0",
+        "landsd/79318:0",
+        "landsd/81387:0",
+        "landsd/83670:0"
+      ],
+      "sourceStates": {
+        "landsd/235506:0": "prepared-for-review",
+        "landsd/79318:0": "prepared-for-review",
+        "landsd/81387:0": "acquired-match-review",
+        "landsd/83670:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1457,13 +1488,19 @@
     {
       "id": "tall-manulife-plaza",
       "name": "Manulife Plaza",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/254823:0",
+        "landsd/91186:0"
+      ],
+      "sourceStates": {
+        "landsd/254823:0": "prepared-for-review",
+        "landsd/91186:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1473,13 +1510,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/80649:0"
       ],
       "sourceStates": {
-        "landsd/80649:0": "acquisition-pending"
+        "landsd/80649:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1490,7 +1527,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/59930:0",
@@ -1498,9 +1535,9 @@
         "landsd/59984:0"
       ],
       "sourceStates": {
-        "landsd/59930:0": "acquisition-pending",
-        "landsd/59982:0": "acquisition-pending",
-        "landsd/59984:0": "acquisition-pending"
+        "landsd/59930:0": "prepared-for-review",
+        "landsd/59982:0": "prepared-for-review",
+        "landsd/59984:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1511,7 +1548,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/196009:0",
@@ -1519,9 +1556,9 @@
         "landsd/55666:0"
       ],
       "sourceStates": {
-        "landsd/196009:0": "acquisition-pending",
-        "landsd/30788:0": "acquisition-pending",
-        "landsd/55666:0": "acquisition-pending"
+        "landsd/196009:0": "prepared-for-review",
+        "landsd/30788:0": "prepared-for-review",
+        "landsd/55666:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1529,13 +1566,25 @@
     {
       "id": "tall-the-arch",
       "name": "The Arch",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 5,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 5,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/204143:0",
+        "landsd/204144:0",
+        "landsd/204145:0",
+        "landsd/204146:0",
+        "landsd/236111:0"
+      ],
+      "sourceStates": {
+        "landsd/204143:0": "prepared-for-review",
+        "landsd/204144:0": "prepared-for-review",
+        "landsd/204145:0": "prepared-for-review",
+        "landsd/204146:0": "prepared-for-review",
+        "landsd/236111:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1545,15 +1594,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/231977:0",
         "landsd/262679:0"
       ],
       "sourceStates": {
-        "landsd/231977:0": "acquisition-pending",
-        "landsd/262679:0": "acquisition-pending"
+        "landsd/231977:0": "prepared-for-review",
+        "landsd/262679:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1598,15 +1647,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/139939:0",
         "landsd/85199:0"
       ],
       "sourceStates": {
-        "landsd/139939:0": "acquisition-pending",
-        "landsd/85199:0": "acquisition-pending"
+        "landsd/139939:0": "prepared-for-review",
+        "landsd/85199:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1710,15 +1759,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/173294:0",
         "landsd/93849:0"
       ],
       "sourceStates": {
-        "landsd/173294:0": "acquisition-pending",
-        "landsd/93849:0": "acquisition-pending"
+        "landsd/173294:0": "prepared-for-review",
+        "landsd/93849:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1756,7 +1805,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/93772:0",
@@ -1764,9 +1813,9 @@
         "landsd/96089:0"
       ],
       "sourceStates": {
-        "landsd/93772:0": "acquisition-pending",
-        "landsd/95937:0": "acquisition-pending",
-        "landsd/96089:0": "acquisition-pending"
+        "landsd/93772:0": "prepared-for-review",
+        "landsd/95937:0": "prepared-for-review",
+        "landsd/96089:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1777,13 +1826,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/203725:0"
       ],
       "sourceStates": {
-        "landsd/203725:0": "acquisition-pending"
+        "landsd/203725:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1794,15 +1843,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/267021:0",
         "landsd/27286:0"
       ],
       "sourceStates": {
-        "landsd/267021:0": "acquisition-pending",
-        "landsd/27286:0": "acquisition-pending"
+        "landsd/267021:0": "prepared-for-review",
+        "landsd/27286:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1810,39 +1859,55 @@
     {
       "id": "tall-chelsea-court-tower-north",
       "name": "Chelsea Court Tower North",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/210377:0"
+      ],
+      "sourceStates": {
+        "landsd/210377:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-chelsea-court-tower-west",
       "name": "Chelsea Court Tower West",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/219114:0"
+      ],
+      "sourceStates": {
+        "landsd/219114:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-2b-le-prime-towers-6-8",
       "name": "LOHAS Park Phase 2B Le Prime Towers 6−8",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/12661:0",
+        "landsd/243510:0",
+        "landsd/243511:0"
+      ],
+      "sourceStates": {
+        "landsd/12661:0": "prepared-for-review",
+        "landsd/243510:0": "prepared-for-review",
+        "landsd/243511:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -1905,7 +1970,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/59870:0",
@@ -1913,9 +1978,9 @@
         "landsd/59928:0"
       ],
       "sourceStates": {
-        "landsd/59870:0": "acquisition-pending",
-        "landsd/59871:0": "acquisition-pending",
-        "landsd/59928:0": "acquisition-pending"
+        "landsd/59870:0": "prepared-for-review",
+        "landsd/59871:0": "prepared-for-review",
+        "landsd/59928:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -1968,13 +2033,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/203726:0"
       ],
       "sourceStates": {
-        "landsd/203726:0": "acquisition-pending"
+        "landsd/203726:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2002,7 +2067,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 4,
       "heldParts": {},
       "sourceUids": [
         "landsd/122547:0",
@@ -2011,10 +2076,10 @@
         "landsd/262524:0"
       ],
       "sourceStates": {
-        "landsd/122547:0": "acquisition-pending",
-        "landsd/133473:0": "acquisition-pending",
-        "landsd/156618:0": "acquisition-pending",
-        "landsd/262524:0": "acquisition-pending"
+        "landsd/122547:0": "prepared-for-review",
+        "landsd/133473:0": "prepared-for-review",
+        "landsd/156618:0": "prepared-for-review",
+        "landsd/262524:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2025,13 +2090,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/90984:0"
       ],
       "sourceStates": {
-        "landsd/90984:0": "acquisition-pending"
+        "landsd/90984:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2042,13 +2107,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/109603:0"
       ],
       "sourceStates": {
-        "landsd/109603:0": "acquisition-pending"
+        "landsd/109603:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2056,26 +2121,34 @@
     {
       "id": "tall-lohas-park-phase-3a-hemera-tower-1",
       "name": "LOHAS Park Phase 3A Hemera Tower 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/41803:0"
+      ],
+      "sourceStates": {
+        "landsd/41803:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-3a-hemera-tower-2",
       "name": "LOHAS Park Phase 3A Hemera Tower 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/42403:0"
+      ],
+      "sourceStates": {
+        "landsd/42403:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2085,13 +2158,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/96788:0"
       ],
       "sourceStates": {
-        "landsd/96788:0": "acquisition-pending"
+        "landsd/96788:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2102,13 +2175,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/14699:0"
       ],
       "sourceStates": {
-        "landsd/14699:0": "acquisition-pending"
+        "landsd/14699:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2133,13 +2206,21 @@
     {
       "id": "tall-lohas-park-phase-2c-le-splendeur-towers-9-11",
       "name": "LOHAS Park Phase 2C Le Splendeur Towers 9–11",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/100073:0",
+        "landsd/149982:0",
+        "landsd/150499:0"
+      ],
+      "sourceStates": {
+        "landsd/100073:0": "prepared-for-review",
+        "landsd/149982:0": "prepared-for-review",
+        "landsd/150499:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2196,13 +2277,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/203727:0"
       ],
       "sourceStates": {
-        "landsd/203727:0": "acquisition-pending"
+        "landsd/203727:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2213,7 +2294,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 4,
       "heldParts": {},
       "sourceUids": [
         "landsd/210378:0",
@@ -2222,10 +2303,10 @@
         "landsd/219139:0"
       ],
       "sourceStates": {
-        "landsd/210378:0": "acquisition-pending",
-        "landsd/218353:0": "acquisition-pending",
-        "landsd/218676:0": "acquisition-pending",
-        "landsd/219139:0": "acquisition-pending"
+        "landsd/210378:0": "prepared-for-review",
+        "landsd/218353:0": "prepared-for-review",
+        "landsd/218676:0": "prepared-for-review",
+        "landsd/219139:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2236,13 +2317,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/109587:0"
       ],
       "sourceStates": {
-        "landsd/109587:0": "acquisition-pending"
+        "landsd/109587:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2253,13 +2334,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/109600:0"
       ],
       "sourceStates": {
-        "landsd/109600:0": "acquisition-pending"
+        "landsd/109600:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2267,20 +2348,34 @@
     {
       "id": "tall-citibank-plaza",
       "name": "Citibank Plaza",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
-      "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 6,
+      "installedIdentifiedParts": 1,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/180905:0",
+        "landsd/233905:0",
+        "landsd/337943:0",
+        "landsd/337945:0",
+        "landsd/92046:0",
+        "landsd/94039:0"
+      ],
+      "sourceStates": {
+        "landsd/180905:0": "installed",
+        "landsd/233905:0": "acquired-match-review",
+        "landsd/337943:0": "prepared-for-review",
+        "landsd/337945:0": "prepared-for-review",
+        "landsd/92046:0": "exact-source-absent-in-checked-sheets",
+        "landsd/94039:0": "exact-source-absent-in-checked-sheets"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-may-house",
       "name": "May House",
-      "preparationState": "no-identity",
+      "preparationState": "historical-source-conflict",
       "identifiedParts": 0,
       "installedIdentifiedParts": 0,
       "stagedUninstalledParts": 0,
@@ -2288,7 +2383,7 @@
       "sourceUids": [],
       "sourceStates": {},
       "reviewStatus": "not-reviewed",
-      "nextAction": "Resolve identity/component membership"
+      "nextAction": "Resolve historical date/source conflict before assigning a current building"
     },
     {
       "id": "tall-primrose-hill-tower-3",
@@ -2313,13 +2408,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/243523:0"
       ],
       "sourceStates": {
-        "landsd/243523:0": "acquisition-pending"
+        "landsd/243523:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2330,13 +2425,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/88876:0"
       ],
       "sourceStates": {
-        "landsd/88876:0": "acquisition-pending"
+        "landsd/88876:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2347,15 +2442,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/101906:0",
         "landsd/106992:0"
       ],
       "sourceStates": {
-        "landsd/101906:0": "acquisition-pending",
-        "landsd/106992:0": "acquisition-pending"
+        "landsd/101906:0": "prepared-for-review",
+        "landsd/106992:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2366,15 +2461,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/55976:0",
         "landsd/55978:0"
       ],
       "sourceStates": {
-        "landsd/55976:0": "acquisition-pending",
-        "landsd/55978:0": "acquisition-pending"
+        "landsd/55976:0": "prepared-for-review",
+        "landsd/55978:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2385,15 +2480,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/225895:0",
         "landsd/225917:0"
       ],
       "sourceStates": {
-        "landsd/225895:0": "acquisition-pending",
-        "landsd/225917:0": "acquisition-pending"
+        "landsd/225895:0": "prepared-for-review",
+        "landsd/225917:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2404,15 +2499,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/101343:0",
         "landsd/101899:0"
       ],
       "sourceStates": {
-        "landsd/101343:0": "acquisition-pending",
-        "landsd/101899:0": "acquisition-pending"
+        "landsd/101343:0": "prepared-for-review",
+        "landsd/101899:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2474,13 +2569,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/109595:0"
       ],
       "sourceStates": {
-        "landsd/109595:0": "acquisition-pending"
+        "landsd/109595:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2491,7 +2586,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 4,
       "heldParts": {},
       "sourceUids": [
         "landsd/243336:0",
@@ -2500,10 +2595,10 @@
         "landsd/243509:0"
       ],
       "sourceStates": {
-        "landsd/243336:0": "acquisition-pending",
-        "landsd/243337:0": "acquisition-pending",
-        "landsd/243508:0": "acquisition-pending",
-        "landsd/243509:0": "acquisition-pending"
+        "landsd/243336:0": "prepared-for-review",
+        "landsd/243337:0": "prepared-for-review",
+        "landsd/243508:0": "prepared-for-review",
+        "landsd/243509:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2549,26 +2644,34 @@
     {
       "id": "tall-le-point-tower-06",
       "name": "Le Point Tower 06",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/109352:0"
+      ],
+      "sourceStates": {
+        "landsd/109352:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-le-point-tower-07",
       "name": "Le Point Tower 07",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/91571:0"
+      ],
+      "sourceStates": {
+        "landsd/91571:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2578,7 +2681,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 4,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 4,
       "heldParts": {},
       "sourceUids": [
         "landsd/210388:0",
@@ -2587,10 +2690,10 @@
         "landsd/219821:0"
       ],
       "sourceStates": {
-        "landsd/210388:0": "acquisition-pending",
-        "landsd/219049:0": "acquisition-pending",
-        "landsd/219126:0": "acquisition-pending",
-        "landsd/219821:0": "acquisition-pending"
+        "landsd/210388:0": "prepared-for-review",
+        "landsd/219049:0": "prepared-for-review",
+        "landsd/219126:0": "prepared-for-review",
+        "landsd/219821:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2601,13 +2704,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/136678:0"
       ],
       "sourceStates": {
-        "landsd/136678:0": "acquisition-pending"
+        "landsd/136678:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2615,13 +2718,19 @@
     {
       "id": "tall-wharf-cable-tower",
       "name": "Wharf Cable Tower",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/335557:0",
+        "landsd/335558:0"
+      ],
+      "sourceStates": {
+        "landsd/335557:0": "prepared-for-review",
+        "landsd/335558:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2648,13 +2757,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/216991:0"
       ],
       "sourceStates": {
-        "landsd/216991:0": "acquisition-pending"
+        "landsd/216991:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2665,13 +2774,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/218095:0"
       ],
       "sourceStates": {
-        "landsd/218095:0": "acquisition-pending"
+        "landsd/218095:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2682,13 +2791,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/218019:0"
       ],
       "sourceStates": {
-        "landsd/218019:0": "acquisition-pending"
+        "landsd/218019:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2696,39 +2805,51 @@
     {
       "id": "tall-le-point-tower-08",
       "name": "Le Point Tower 08",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/91472:0"
+      ],
+      "sourceStates": {
+        "landsd/91472:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-le-point-tower-09",
       "name": "Le Point Tower 09",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/114140:0"
+      ],
+      "sourceStates": {
+        "landsd/114140:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-le-point-tower-10",
       "name": "Le Point Tower 10",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/114166:0"
+      ],
+      "sourceStates": {
+        "landsd/114166:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2751,15 +2872,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/259967:0",
         "landsd/274028:0"
       ],
       "sourceStates": {
-        "landsd/259967:0": "acquisition-pending",
-        "landsd/274028:0": "acquisition-pending"
+        "landsd/259967:0": "prepared-for-review",
+        "landsd/274028:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2767,13 +2888,19 @@
     {
       "id": "tall-lohas-park-phase-4b-wings-at-sea-tower-5",
       "name": "LOHAS Park Phase 4B Wings At Sea Tower 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/129627:0",
+        "landsd/250822:0"
+      ],
+      "sourceStates": {
+        "landsd/129627:0": "prepared-for-review",
+        "landsd/250822:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2783,13 +2910,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/218258:0"
       ],
       "sourceStates": {
-        "landsd/218258:0": "acquisition-pending"
+        "landsd/218258:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2823,13 +2950,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/78018:0"
       ],
       "sourceStates": {
-        "landsd/78018:0": "acquisition-pending"
+        "landsd/78018:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2840,13 +2967,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/77293:0"
       ],
       "sourceStates": {
-        "landsd/77293:0": "acquisition-pending"
+        "landsd/77293:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2857,13 +2984,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/337872:0"
       ],
       "sourceStates": {
-        "landsd/337872:0": "acquisition-pending"
+        "landsd/337872:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2874,13 +3001,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/78824:0"
       ],
       "sourceStates": {
-        "landsd/78824:0": "acquisition-pending"
+        "landsd/78824:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2891,13 +3018,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/75655:0"
       ],
       "sourceStates": {
-        "landsd/75655:0": "acquisition-pending"
+        "landsd/75655:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2905,26 +3032,34 @@
     {
       "id": "tall-lohas-park-phase-3a-hemera-tower-3",
       "name": "LOHAS Park Phase 3A Hemera Tower 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/42044:0"
+      ],
+      "sourceStates": {
+        "landsd/42044:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-lohas-park-phase-3a-hemera-tower-5",
       "name": "LOHAS Park Phase 3A Hemera Tower 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/42045:0"
+      ],
+      "sourceStates": {
+        "landsd/42045:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -2934,13 +3069,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/268497:0"
       ],
       "sourceStates": {
-        "landsd/268497:0": "acquisition-pending"
+        "landsd/268497:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2951,13 +3086,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/178816:0"
       ],
       "sourceStates": {
-        "landsd/178816:0": "acquisition-pending"
+        "landsd/178816:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -2968,13 +3103,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/95379:0"
       ],
       "sourceStates": {
-        "landsd/95379:0": "acquisition-pending"
+        "landsd/95379:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3023,13 +3158,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/136682:0"
       ],
       "sourceStates": {
-        "landsd/136682:0": "acquisition-pending"
+        "landsd/136682:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3071,13 +3206,17 @@
     {
       "id": "tall-oxford-house-time-warner",
       "name": "Oxford House Time Warner",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/101502:0"
+      ],
+      "sourceStates": {
+        "landsd/101502:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3087,13 +3226,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/91393:0"
       ],
       "sourceStates": {
-        "landsd/91393:0": "acquisition-pending"
+        "landsd/91393:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3104,13 +3243,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/109242:0"
       ],
       "sourceStates": {
-        "landsd/109242:0": "acquisition-pending"
+        "landsd/109242:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3118,52 +3257,76 @@
     {
       "id": "tall-9-queen-s-road-central",
       "name": "9 Queen's Road Central",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/4448:0"
+      ],
+      "sourceStates": {
+        "landsd/4448:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-millennium-city-5",
       "name": "Millennium City 5",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/230744:0",
+        "landsd/306907:0"
+      ],
+      "sourceStates": {
+        "landsd/230744:0": "prepared-for-review",
+        "landsd/306907:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-landmark-east-tower-1",
       "name": "Landmark East Tower 1",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/239382:0",
+        "landsd/78268:0",
+        "landsd/94399:0"
+      ],
+      "sourceStates": {
+        "landsd/239382:0": "prepared-for-review",
+        "landsd/78268:0": "prepared-for-review",
+        "landsd/94399:0": "exact-source-absent-in-checked-sheets"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
     {
       "id": "tall-landmark-east-tower-2",
       "name": "Landmark East Tower 2",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/253420:0",
+        "landsd/311415:0"
+      ],
+      "sourceStates": {
+        "landsd/253420:0": "prepared-for-review",
+        "landsd/311415:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3190,13 +3353,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/267948:0"
       ],
       "sourceStates": {
-        "landsd/267948:0": "acquisition-pending"
+        "landsd/267948:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3207,13 +3370,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/33424:0"
       ],
       "sourceStates": {
-        "landsd/33424:0": "acquisition-pending"
+        "landsd/33424:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3224,13 +3387,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/266799:0"
       ],
       "sourceStates": {
-        "landsd/266799:0": "acquisition-pending"
+        "landsd/266799:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3258,13 +3421,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/269995:0"
       ],
       "sourceStates": {
-        "landsd/269995:0": "acquisition-pending"
+        "landsd/269995:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3326,7 +3489,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 5,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 5,
       "heldParts": {},
       "sourceUids": [
         "landsd/101093:0",
@@ -3336,11 +3499,11 @@
         "landsd/99033:0"
       ],
       "sourceStates": {
-        "landsd/101093:0": "acquisition-pending",
-        "landsd/114461:0": "acquisition-pending",
-        "landsd/136500:0": "acquisition-pending",
-        "landsd/237200:0": "acquisition-pending",
-        "landsd/99033:0": "acquisition-pending"
+        "landsd/101093:0": "prepared-for-review",
+        "landsd/114461:0": "prepared-for-review",
+        "landsd/136500:0": "prepared-for-review",
+        "landsd/237200:0": "prepared-for-review",
+        "landsd/99033:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3432,7 +3595,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 3,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 3,
       "heldParts": {},
       "sourceUids": [
         "landsd/218650:0",
@@ -3440,9 +3603,9 @@
         "landsd/218982:0"
       ],
       "sourceStates": {
-        "landsd/218650:0": "acquisition-pending",
-        "landsd/218705:0": "acquisition-pending",
-        "landsd/218982:0": "acquisition-pending"
+        "landsd/218650:0": "prepared-for-review",
+        "landsd/218705:0": "prepared-for-review",
+        "landsd/218982:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3474,13 +3637,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/215992:0"
       ],
       "sourceStates": {
-        "landsd/215992:0": "acquisition-pending"
+        "landsd/215992:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3488,13 +3651,19 @@
     {
       "id": "tall-lohas-park-phase-4b-wings-at-sea-tower-3",
       "name": "LOHAS Park Phase 4B Wings At Sea Tower 3",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/260457:0",
+        "landsd/28848:0"
+      ],
+      "sourceStates": {
+        "landsd/260457:0": "prepared-for-review",
+        "landsd/28848:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3504,13 +3673,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/78915:0"
       ],
       "sourceStates": {
-        "landsd/78915:0": "acquisition-pending"
+        "landsd/78915:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3518,13 +3687,17 @@
     {
       "id": "tall-chelsea-court-tower-south",
       "name": "Chelsea Court Tower South",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/219077:0"
+      ],
+      "sourceStates": {
+        "landsd/219077:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3578,7 +3751,7 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 7,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 7,
       "heldParts": {},
       "sourceUids": [
         "landsd/253887:0",
@@ -3590,13 +3763,13 @@
         "landsd/256931:0"
       ],
       "sourceStates": {
-        "landsd/253887:0": "acquisition-pending",
-        "landsd/253888:0": "acquisition-pending",
-        "landsd/253889:0": "acquisition-pending",
-        "landsd/256926:0": "acquisition-pending",
-        "landsd/256929:0": "acquisition-pending",
-        "landsd/256930:0": "acquisition-pending",
-        "landsd/256931:0": "acquisition-pending"
+        "landsd/253887:0": "prepared-for-review",
+        "landsd/253888:0": "prepared-for-review",
+        "landsd/253889:0": "prepared-for-review",
+        "landsd/256926:0": "prepared-for-review",
+        "landsd/256929:0": "prepared-for-review",
+        "landsd/256930:0": "prepared-for-review",
+        "landsd/256931:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3675,13 +3848,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/79881:0"
       ],
       "sourceStates": {
-        "landsd/79881:0": "acquisition-pending"
+        "landsd/79881:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3692,13 +3865,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/79366:0"
       ],
       "sourceStates": {
-        "landsd/79366:0": "acquisition-pending"
+        "landsd/79366:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3709,13 +3882,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/78237:0"
       ],
       "sourceStates": {
-        "landsd/78237:0": "acquisition-pending"
+        "landsd/78237:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3726,15 +3899,15 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
       "sourceUids": [
         "landsd/262438:0",
         "landsd/269787:0"
       ],
       "sourceStates": {
-        "landsd/262438:0": "acquisition-pending",
-        "landsd/269787:0": "acquisition-pending"
+        "landsd/262438:0": "prepared-for-review",
+        "landsd/269787:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3764,13 +3937,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/76318:0"
       ],
       "sourceStates": {
-        "landsd/76318:0": "acquisition-pending"
+        "landsd/76318:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3781,13 +3954,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/77421:0"
       ],
       "sourceStates": {
-        "landsd/77421:0": "acquisition-pending"
+        "landsd/77421:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3798,13 +3971,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/6946:0"
       ],
       "sourceStates": {
-        "landsd/6946:0": "acquisition-pending"
+        "landsd/6946:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3815,13 +3988,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/7056:0"
       ],
       "sourceStates": {
-        "landsd/7056:0": "acquisition-pending"
+        "landsd/7056:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3832,13 +4005,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/9050:0"
       ],
       "sourceStates": {
-        "landsd/9050:0": "acquisition-pending"
+        "landsd/9050:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3849,13 +4022,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/108682:0"
       ],
       "sourceStates": {
-        "landsd/108682:0": "acquisition-pending"
+        "landsd/108682:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -3876,13 +4049,19 @@
     {
       "id": "tall-residences-bel-air-phase-6-6-7",
       "name": "Residences Bel-Air Phase 6 6–7",
-      "preparationState": "no-identity",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 2,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 2,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/23236:0",
+        "landsd/23301:0"
+      ],
+      "sourceStates": {
+        "landsd/23236:0": "prepared-for-review",
+        "landsd/23301:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },
@@ -3892,13 +4071,13 @@
       "preparationState": "proposed-identity",
       "identifiedParts": 1,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 1,
       "heldParts": {},
       "sourceUids": [
         "landsd/78828:0"
       ],
       "sourceStates": {
-        "landsd/78828:0": "acquisition-pending"
+        "landsd/78828:0": "prepared-for-review"
       },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
@@ -4015,13 +4194,29 @@
     {
       "id": "tall-one-silversea",
       "name": "One SilverSea",
-      "preparationState": "ambiguous",
-      "identifiedParts": 0,
+      "preparationState": "proposed-identity",
+      "identifiedParts": 7,
       "installedIdentifiedParts": 0,
-      "stagedUninstalledParts": 0,
+      "stagedUninstalledParts": 7,
       "heldParts": {},
-      "sourceUids": [],
-      "sourceStates": {},
+      "sourceUids": [
+        "landsd/253887:0",
+        "landsd/253888:0",
+        "landsd/253889:0",
+        "landsd/256926:0",
+        "landsd/256929:0",
+        "landsd/256930:0",
+        "landsd/256931:0"
+      ],
+      "sourceStates": {
+        "landsd/253887:0": "prepared-for-review",
+        "landsd/253888:0": "prepared-for-review",
+        "landsd/253889:0": "prepared-for-review",
+        "landsd/256926:0": "prepared-for-review",
+        "landsd/256929:0": "prepared-for-review",
+        "landsd/256930:0": "prepared-for-review",
+        "landsd/256931:0": "prepared-for-review"
+      },
       "reviewStatus": "not-reviewed",
       "nextAction": "Resolve identity/component membership"
     },

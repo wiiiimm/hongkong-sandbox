@@ -1,7 +1,16 @@
-import hashlib, pathlib, tempfile, unittest
-from report import review_status, source_status
+import hashlib, json, pathlib, tempfile, unittest
+from report import review_status, source_status, acquisition_records
 
 class ReadinessTests(unittest.TestCase):
+    def test_newer_batch_supersedes_source_outcome_but_terrain_does_not(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=pathlib.Path(folder);base=root/'docs/astra-city/landmark-acquisition'
+            for path,date,outcome in [('report.json','2026-09-07','no-exact-model-in-complete-checked-sheets'),('batches/a/report.json','2026-09-08','acquired-and-staged'),('batches/terrain/report.json','2026-09-09','terrain-cached')]:
+                target=base/path;target.parent.mkdir(parents=True,exist_ok=True)
+                target.write_text(json.dumps({'generatedAt':date,'rows':[{'uid':'x','outcome':outcome}]}))
+            records,paths=acquisition_records(root)
+            self.assertEqual(records['x']['outcome'],'acquired-and-staged')
+            self.assertEqual(len(paths),3)
     def test_checked_absence_is_not_outstanding_download(self):
         part={'uid':'x','state':'not-in-retained-staged-models'}
         self.assertEqual(source_status(part,set(),{'x':{'outcome':'no-exact-model-in-complete-checked-sheets'}}),'exact-source-absent-in-checked-sheets')

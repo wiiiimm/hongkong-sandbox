@@ -37,6 +37,8 @@ def acquisition_records(root):
     records = {}
     for path in sorted(paths, key=lambda p: (read(p).get('generatedAt', ''), str(p))):
         for row in read(path).get('rows', []):
+            if 'uid' not in row or row.get('outcome') not in ('acquired-and-staged', 'no-exact-model-in-complete-checked-sheets', 'deferred'):
+                continue
             records[row['uid']] = dict(row, report=str(path.relative_to(root)))
     return records, paths
 
@@ -69,7 +71,8 @@ def build(root=ROOT):
             raise ValueError('Combined stage does not account for the registry')
         for r in stage['rows']:
             parts = [source_parts[u] for u in r['members']]
-            state = ('nonbuilding-scope' if r['identityState']=='historical-interior-host-unresolved' else
+            state = ('historical-source-conflict' if r['identityState']=='historical-source-conflict' else
+                     'nonbuilding-scope' if r['identityState']=='historical-interior-host-unresolved' else
                      'no-identity' if r['identityState']=='no-supported-identity' else
                      'ambiguous' if r['identityState']=='identity-needs-review' else
                      'proposed-identity' if r['identityState']=='proposed-identity-overlay' else
@@ -106,6 +109,7 @@ def build(root=ROOT):
                            stagedUninstalledParts=len(staged - installed), heldParts=held,
                            sourceUids=sorted(uids), sourceStates=sources, reviewStatus=review,
                            nextAction='User review' if review=='ready-for-review' else
+                           'Resolve historical date/source conflict before assigning a current building' if row['state']=='historical-source-conflict' else
                            'Resolve host and historical scope' if row['state']=='nonbuilding-scope' else
                            'Resolve identity/component membership' if row['state'] in ('no-identity','ambiguous','proposed-identity') else
                            'Review source support or terrain; higher modelling effort may be needed' if held else
