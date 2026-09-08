@@ -1,0 +1,135 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/residual-support-review/capitol/publication-plan.json",
+  "areas": [
+    {
+      "area": "Capitol source assembly with bounded native terrain",
+      "models": 6,
+      "catalogue": "city/data/official-models/capitol-native-20260909/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-capitol-native-20260909.json": null,
+    "3d-viewer/city/data/official-models/capitol-native-20260909/catalogue.json": null,
+    "3d-viewer/city/data/tiles/5_-1.json": "fd66b24b19cd40960cdace8cbf48bd330e040649e77ef6a3b4e3ada0f7f3ead7",
+    "3d-viewer/city/data/manifest.json": "02e5c4f513efd0164c3b5f5a9e1256c0e9dcdebaf5790b7ac3b8193e1b50ad97"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-capitol-native-20260909.json": "8713afcc11298e4125254ab255fd43243dc9b00dc44b3cbcf3eb9e033ebbcb17",
+    "3d-viewer/city/data/official-models/capitol-native-20260909/catalogue.json": "384353b7d77087717596b5cffd984f9351349b7e7306e330fe79c16cc1e7b541",
+    "3d-viewer/city/data/tiles/5_-1.json": "d4a787e341989fb7ef1b412607a636910e78a5c8397799210cf2a03a1fde9d47",
+    "3d-viewer/city/data/manifest.json": "7e49f7cc0587cbb4f9a2dacd9139600da1431a02632f163fb9bc85e9ba59356d"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "0c3a59deaba9100f6ed9fef50d89037534cfb74e",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/terrain-lohas-club-galaxy.json",
+      "sha256": "9af2a457034363f3aa66d449aa1eb901882112b8ab9385a2d1bf289acd087bd2",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-capitol-native-20260909.json",
+      "resolution": 1,
+      "area": "Capitol native terrain retaining every Club Galaxy node",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "12-SW-1B",
+            "revision": "2026-05-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/12-SW-1B/manifest.json",
+            "manifestSha256": "52f75d53633b257c4eb65915abe46b8a6b8f05dacd4d09fe2bffe38d6097f35f",
+            "worldBounds": [
+              [
+                11250.0,
+                1.30999755859375,
+                -1500.00390625
+              ],
+              [
+                12000.0,
+                63.59999465942383,
+                -899.99609375
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/12-SW-1B/TERRAIN(TB)/T45750174000106E10/T45750174000106E10.bin",
+                "sha256": "71e27bf414e3addec7daa6e3ffcd92d7b6fddc172e25dec7c4b138f030d33b25",
+                "bytes": 9625523
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/12-SW-1B/TERRAIN(TB)/T45750174000106E10/T45750174000106E10-geometry.gltf",
+                "sha256": "dc0105430b24abd4405a6301e6e1953c0b1841ba0a8b6e88bc40953628cd4128",
+                "bytes": 3649
+              }
+            ],
+            "sourceFilesVerified": true
+          },
+          {
+            "sheet": "12-SW-1D",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/12-SW-1D/manifest.json",
+            "manifestSha256": "f632aa4659f72057a453cf49946b622d3975ff1231f146b19b4a46298c265a94",
+            "worldBounds": [
+              [
+                11250.0,
+                -0.5899810791015625,
+                -900.0
+              ],
+              [
+                12000.0,
+                49.7266845703125,
+                -300.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/12-SW-1D/TERRAIN(TB)/T45750168000106E10/T45750168000106E10.bin",
+                "sha256": "dddc8522efeb7ae93588ecae912b9065d7b9a3a89d4e47fde9fcabb60a3f1e21",
+                "bytes": 7057374
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/12-SW-1D/TERRAIN(TB)/T45750168000106E10/T45750168000106E10-geometry.gltf",
+                "sha256": "d7085b71e6c0608098bf276da03a1b03bd8f3429836a0fcd9eb57f6f738c92b1",
+                "bytes": 2505
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy. Existing Club Galaxy grid nodes remain bit-for-bit equal in all three fields; only the new outside collar blends to that retained edge. Decoupled on whole parent cells before the unresolved ancillary building; new edge transitions to the current parent except protected prior Club Galaxy nodes."
+      },
+      "sha256": "8713afcc11298e4125254ab255fd43243dc9b00dc44b3cbcf3eb9e033ebbcb17",
+      "bytes": 2343437
+    }
+  ],
+  "estimatedBases": [
+    {
+      "uid": "landsd/109723:0",
+      "before": 7.0,
+      "after": 5.01
+    },
+    {
+      "uid": "landsd/311673:0",
+      "before": 7.95,
+      "after": 5.003
+    }
+  ]
+}
