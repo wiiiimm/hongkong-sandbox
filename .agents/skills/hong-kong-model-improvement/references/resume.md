@@ -58,3 +58,13 @@ Creating this skill does not upload material. The current hand-off must state wh
 ## Verified cloud checkpoint
 
 The 8 September R2 upload and fresh-cache clean-checkout restore passed. Resolve the exact sourceGitCommit and manifestSHA256 from docs/astra-city/landmark-resume/R2-CLOUD-CHECKPOINT.json, then use remote_checkpoint.py restore as documented in R2-WORKING-STORE.md. Do not restore against a different Git revision. This checkpoint restores working files/history; live shared jobs remain on the pinned astra-modelling Neon branch. Full source and selection checks passed after restoration. Different-OS runtime setup is still untested.
+
+## Whole-territory script results (HKS-221)
+
+Before repeating mechanical checks or government catalogue discovery, read `docs/astra-city/citywide-audit/README.md` and `docs/astra-city/citywide-source/README.md`. The two scripts use the pinned Neon branch to reuse immutable results across labels and machines. The audit keys source forms, native catalogue availability and relevant terrain hashes; the directory scanner keys government source revisions, ETags, directory content and parser version. Neither calls an AI model or grants architectural approval.
+
+Resolve the latest HKS-221 R2 manifest from `docs/astra-city/citywide-source/R2-CHECKPOINT.json` when present. Restore its exact Git revision using the existing checkpoint CLI, then use `citywide-source/checkpoint.py unpack` with the recorded archive SHA into a new temporary directory. This checkpoint adds script caches/results; native model inputs remain in the earlier model-pause checkpoint (`docs/astra-city/landmark-resume/R2-PAUSE-CHECKPOINT-20260909.json`). Reconcile files before copying and keep current Neon state authoritative. The script archive does not contain or restore a database backup.
+
+Directory entries, exact source matches, acquired native geometry, converted candidates, installed models and manually verified landmarks are different states. Do not mark a region complete because its scripted audit or directory scan succeeded. Manual modelling remains paused until the user resumes that phase.
+
+Fresh-device order: restore the model-pause checkpoint at its recorded commit; advance to the script checkpoint commit while retaining ignored inputs; restore/unpack the script cache. Do not bypass either exact-revision check.

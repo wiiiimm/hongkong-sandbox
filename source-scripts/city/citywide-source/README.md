@@ -61,3 +61,5 @@ The unpacker verifies the archive checksum before writing, rejects links/path tr
 The full compressed directory catalogue is intentionally ignored by Git and retained in R2; the small summary and verification records are versioned.
 
 The actual two-run network reuse proof is reproducible with `python source-scripts/city/citywide-source/verify_reuse.py --index source-scripts/city/landmark-acquisition/batches/identity-four-native-20260909/index.json`. It records request and transferred-byte deltas and fails if the unchanged replay contacts the source again.
+
+For a completely fresh device, restore the earlier **model-pause** snapshot at its recorded commit first. Then advance to this script checkpoint's recorded commit while retaining those ignored working files, restore this smaller snapshot, and unpack/reconcile its caches. This order satisfies each checkpoint's exact-revision guard and supplies the native inputs needed to reproduce the audit hashes.

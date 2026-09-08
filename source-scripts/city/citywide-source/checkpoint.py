@@ -16,6 +16,10 @@ def permitted(name):
             and any(name.startswith(prefix) for prefix in PREFIXES))
 def pack(output,audit_run):
     if not re.fullmatch(r"[0-9a-f]{64}",audit_run): raise ValueError("Select the final authoritative audit run ID")
+    audit_root=ROOT/'source-scripts/city/citywide-audit/local'/audit_run
+    reports=[json.loads(p.read_text()) for p in audit_root.glob('run-*.json')]
+    if not (audit_root/'plan.json').is_file() or not list(audit_root.glob('results-*.jsonl.gz')) or not any(r.get('runId')==audit_run and r.get('expected',0)>0 and r.get('cached')==r['expected'] and r.get('missing')==0 for r in reports):
+        raise ValueError('Selected audit run is absent or incomplete')
     summary=json.loads((ROOT/'docs/astra-city/citywide-source/summary.json').read_text())
     if summary['status']!='complete': raise ValueError('Finish the source directory run before making its final checkpoint')
     files=[]
