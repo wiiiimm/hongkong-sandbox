@@ -46,3 +46,7 @@ The cache inventory describes the originating machine. Its recorded existence va
 A useful snapshot records Git revision, schema/runtime notes, source revisions, file paths/sizes/hashes, a consistent SQLite backup and the relationship to earlier snapshots. Keep engineering caches in a working-state namespace separate from runtime release assets. Transfer verified bytes without moving models or modifying source geometry.
 
 Creating this skill does not upload material. The current hand-off must state whether a snapshot is merely planned, prepared locally, uploaded, or verified remotely. Credentials, `.env` files and unrelated personal files do not belong in the snapshot. Stop source and database writers at the snapshot boundary so the manifest and files describe one consistent state.
+
+## Verified cloud checkpoint
+
+The 8 September R2 upload and fresh-cache clean-checkout restore passed. Resolve the exact sourceGitCommit and manifestSHA256 from docs/astra-city/landmark-resume/R2-CLOUD-CHECKPOINT.json, then use remote_checkpoint.py restore as documented in R2-WORKING-STORE.md. Do not restore against a different Git revision. This checkpoint restores working files/history; live shared jobs remain on the pinned astra-modelling Neon branch. Full source and selection checks passed after restoration. Different-OS runtime setup is still untested.

@@ -6,7 +6,7 @@ The existing GitHub `R2_BUCKET` variable identifies **hk-sandbox-assets**. This 
 
 ## Commands
 
-Use Python 3.10+ and install `python3 -m pip install -r source-scripts/city/landmark-resume/requirements.txt` for R2 transport. The local transport and tests use the standard library. Export bucket-scoped `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` and either `R2_ENDPOINT_URL` or `R2_ACCOUNT_ID` securely in the process. Endpoint URLs must be HTTPS Cloudflare R2 account endpoints; credentials, non-443 ports, query strings and bucket paths are rejected. The default bucket remains `hk-sandbox-assets`. The script does not load `.env` files or log credentials. Vercel database credentials and its OIDC token do not provide R2 S3 access. GitHub Actions secret values cannot be retrieved through the GitHub API.
+Use Python 3.10+ and install `python3 -m pip install -r source-scripts/city/landmark-resume/requirements.txt` for R2 transport. The base local transport uses the standard library; the parallel CLI/test suite also needs python-dotenv from the requirements. Export bucket-scoped `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` and either `R2_ENDPOINT_URL` or `R2_ACCOUNT_ID` securely in the process. Endpoint URLs must be HTTPS Cloudflare R2 account endpoints; credentials, non-443 ports, query strings and bucket paths are rejected. The default bucket remains `hk-sandbox-assets`. The script does not load `.env` files or log credentials. Vercel database credentials and its OIDC token do not provide R2 S3 access. GitHub Actions secret values cannot be retrieved through the GitHub API.
 
 ```sh
 python3 source-scripts/city/landmark-resume/r2_snapshot.py snapshot \
@@ -37,4 +37,26 @@ python3 -m unittest discover -s source-scripts/city/landmark-resume -p 'test_*.p
 
 A successful byte restore does not prove an old processing command works against PostgreSQL, restore Neon branch state, or approve building architecture/terrain placement. Install the documented Python/Node/browser dependencies and run the existing read-only validation against restored inputs separately. The tool deliberately requires an exact Git commit and a recorded manifest digest. It does not provide automatic manifest discovery, credentials distribution, retention/garbage collection or a mutable shared cache.
 
-No live R2 upload has been verified yet: this machine currently has no S3 credentials. Local transport results are recorded separately in R2-VERIFICATION.md and must not be described as a successful cloud round trip.
+The current cloud checkpoint passed actual R2 upload/readback and a fresh-cache clean-clone restore. See R2-VERIFICATION.md and R2-CLOUD-CHECKPOINT.json for its exact commit, manifest and remaining platform limitations.
+
+## Bounded parallel transfer and direct cloud restoration
+
+The parallel wrapper uses the same snapshot format. It loads only R2 variables from a private env file, caps concurrency at 16 (default 8), and publishes the remote manifest only after all unique objects pass readback. Keep its local staging cache outside Git.
+
+```sh
+python source-scripts/city/landmark-resume/remote_checkpoint.py upload \
+  --root "$PWD" --inventory docs/astra-city/landmark-resume/cache-inventory.json \
+  --cache /tmp/astra-upload-cache --manifest /tmp/astra-manifest.json \
+  --env-file .env.local --report /tmp/astra-upload-report.json
+```
+
+For recovery, check out the exact sourceGitCommit in R2-CLOUD-CHECKPOINT.json first. Supply credentials from this device's private env file (the checkpoint never includes them), then download using the recorded manifestSHA256:
+
+```sh
+python source-scripts/city/landmark-resume/remote_checkpoint.py restore \
+  --root "$PWD" --cache /tmp/astra-fresh-download-cache \
+  --manifest /tmp/astra-downloaded-manifest.json --manifest-sha256 RECORDED_SHA256 \
+  --env-file .env.local --report /tmp/astra-restore-report.json
+```
+
+The restore wrapper downloads the manifest and every unique object from R2 even if another local cache has them, verifies them, then invokes the existing safe restore. Report remoteTransfer fields are actual cloud payload counts; upload's outer uploadedObjects/uploadedBytes describe local staging-cache additions only.

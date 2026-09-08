@@ -1,3 +1,9 @@
+## 8 September — R2 cloud hand-off verified
+
+HKS-216 is ready for In Review: full R2 upload and fresh-cache clean-checkout restore passed. hk-sandbox-assets/astra-modelling/ holds the immutable checkpoint at source commit 8d361811; manifest SHA 14dfae786d71b0a1f647284720c19507103791ad2b1c5d8348a4547ec12a2601. All 1,829 objects /1,761,277,880 bytes verified; 2,800 files +86 links restored. SQLite integrity, all inventory source hashes, and stage checks pass (346,115 forms; 29,760 historical jobs; 459 selected UIDs; 17 unchanged holds). Two real-R2 model workers also passed, exactly once per candidate. Detailed evidence: landmark-resume/R2-CLOUD-CHECKPOINT.json and shared-modelling/cloud-model-worker-verification.json. Eight transfer tests pass.
+
+Neon HKS-217 remains In Review. Infrastructure verification gate is complete; user may raise effort for HKS-212/214 architectural work. No new model acceptance or viewer publication. Different-OS runtime installation remains untested; the clean checkout used this Mac's Python environment. Executors: Root bulk transfer/restore and pipeline checks; r2_cloud_model_check real worker transport. Earlier pending-credential notes below are superseded.
+
 ## 8 September — scripted preparation complete; portable processing infrastructure
 
 The mechanical 213-landmark pass is complete: 459 selected source parts account for 133 already detailed, 273 prepared candidates, 36 checked source absences, nine matching holds and eight missing identities. All 326 jobs and 273 candidate CPU checks complete; all 245 terrain-flagged candidates have native terrain prerequisites. Gallery contains 166 assemblies/332 views, with four unresolved views and ten never-active candidate parts still explicit. No new whole-landmark acceptance or publication is implied. HKS-213 and HKS-215 are In Review; further identity/model review in HKS-212/214 is parked in Backlog pending infrastructure completion and higher-effort modelling.
