@@ -2,10 +2,11 @@
 Selective ZIP range mechanics follow mui-wo-models/fetch.py. Only selected native
 members are retained; no monolithic source archive or source transforms change.
 """
-import argparse,datetime,gzip,hashlib,importlib.util,io,json,pathlib,struct,sys,time,urllib.parse,urllib.request,zipfile,zlib
+import argparse,concurrent.futures,datetime,gzip,hashlib,importlib.util,io,json,pathlib,re,sqlite3,struct,sys,tempfile,threading,time,urllib.parse,urllib.request,zipfile,zlib
 
-HERE=pathlib.Path(__file__).resolve().parent
-ROOT=HERE.parents[2]
+BASE=pathlib.Path(__file__).resolve().parent
+HERE=BASE
+ROOT=BASE.parents[2]
 DOCS=ROOT/'docs/astra-city/landmark-acquisition'
 SERVICE='https://portal.csdi.gov.hk/server/rest/services/common/landsd_rcd_1742809441342_98380/FeatureServer/0'
 CAP=100_000_000
@@ -18,7 +19,11 @@ def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def read(path):return json.loads(path.read_bytes())
 def write(path,data):
- path.parent.mkdir(parents=True,exist_ok=True);temporary=path.with_suffix(path.suffix+'.part');temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n');temporary.replace(path)
+ path.parent.mkdir(parents=True,exist_ok=True)
+ with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=path.parent,prefix=path.name+'.',suffix='.part',delete=False)as stream:
+  temporary=pathlib.Path(stream.name);stream.write(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+ try:temporary.replace(path)
+ finally:temporary.unlink(missing_ok=True)
 def relative(path):return str(path.relative_to(ROOT))
 def module(name,path):
  spec=importlib.util.spec_from_file_location(name,path);value=importlib.util.module_from_spec(spec);spec.loader.exec_module(value);return value
@@ -26,18 +31,19 @@ def module(name,path):
 class BudgetExceeded(RuntimeError):pass
 class Network:
  """Reserve before dispatch; an interrupted/uncertain request keeps its full charge.
- A restart uses the same cumulative 100 MB envelope, not a fresh allowance.
+ A restart uses the same pinned batch envelope, not a fresh allowance.
  """
  def __init__(self,path,cap=CAP):
-  self.path=path;self.data=read(path)if path.exists()else {'schemaVersion':1,'issue':'HKS-213','startedAt':now(),'chargedBytes':0,'receivedBytes':0,'requests':[]}
+  self.lock=threading.RLock();self.path=path;self.data=read(path)if path.exists()else {'schemaVersion':1,'issue':'HKS-213','startedAt':now(),'chargedBytes':0,'receivedBytes':0,'requests':[]}
   self.cap=cap;self.initial=self.data['receivedBytes'];self.data['capBytes']=cap;write(path,self.data)
  def get(self,url,maximum,span=None,etag=None,method='GET'):
-  if self.data['chargedBytes']+maximum>self.cap:raise BudgetExceeded(f'Cumulative byte cap: {self.data["chargedBytes"]} charged; next reservation {maximum}; cap {self.cap}')
   headers={}
   if span:headers['Range']='bytes='+span
   if etag:headers['If-Match']=etag
   row={'url':url,'method':method,'range':span,'reservedBytes':maximum,'startedAt':now(),'status':'reserved'}
-  self.data['requests'].append(row);self.data['chargedBytes']+=maximum;write(self.path,self.data)
+  with self.lock:
+   if self.data['chargedBytes']+maximum>self.cap:raise BudgetExceeded(f'Cumulative byte cap: {self.data["chargedBytes"]} charged; next reservation {maximum}; cap {self.cap}')
+   self.data['requests'].append(row);self.data['chargedBytes']+=maximum;write(self.path,self.data)
   try:
    with urllib.request.urlopen(urllib.request.Request(url,headers=headers,method=method),timeout=60)as response:
     received=provenance_headers(response.headers);status=response.status
@@ -49,11 +55,14 @@ class Network:
      actual_start,actual_end=map(int,content_range.split()[1].split('/')[0].split('-'));assert actual_end-actual_start+1==len(raw)
      if not span.startswith('-'):assert [actual_start,actual_end]==list(map(int,span.split('-')))
      if etag:assert received.get('ETag')==etag,'Source revision changed during ranges'
-    row.update(status='complete',finishedAt=now(),httpStatus=status,receivedBytes=len(raw),sha256=sha(raw),headers=received)
-    self.data['receivedBytes']+=len(raw);self.data['chargedBytes']-=maximum-len(raw);write(self.path,self.data)
+    with self.lock:
+     row.update(status='complete',finishedAt=now(),httpStatus=status,receivedBytes=len(raw),sha256=sha(raw),headers=received)
+     self.data['receivedBytes']+=len(raw);self.data['chargedBytes']-=maximum-len(raw);write(self.path,self.data)
     return raw,received
   except Exception as error:
-   row.update(status='failed-reservation-retained',finishedAt=now(),error=f'{type(error).__name__}: {error}');write(self.path,self.data);raise
+   with self.lock:
+    row.update(status='failed-reservation-retained',finishedAt=now(),error=f'{type(error).__name__}: {error}');write(self.path,self.data)
+   raise
  def json(self,url,maximum=3_000_000):
   raw,headers=self.get(url,maximum);data=json.loads(raw);assert not data.get('error'),data;return data
 
@@ -85,16 +94,66 @@ def unpack_member(raw,entry):
  return value
 
 
+def configure_batch(batch=None,targets_source=None,budget_mb=None):
+ global HERE,DOCS
+ if not batch:
+  if targets_source or budget_mb is not None:raise ValueError('New targets/budget require a named batch; original checkpoint is immutable')
+  HERE=BASE;DOCS=ROOT/'docs/astra-city/landmark-acquisition';return None
+ if not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}',batch):raise ValueError('Invalid batch name')
+ HERE=BASE/'batches'/batch;DOCS=ROOT/'docs/astra-city/landmark-acquisition/batches'/batch
+ config_path=HERE/'batch.json'
+ if config_path.exists():
+  config=read(config_path)
+  if targets_source and sha(pathlib.Path(targets_source).resolve().read_bytes())!=config['targetSnapshotSHA256']:raise ValueError('Target snapshot changed; use a new pinned batch')
+  if budget_mb is not None and budget_mb*1_000_000!=config['capBytes']:raise ValueError('Pinned batch budget differs; preserve its ledger and use a recorded follow-up batch')
+  assert sha((HERE/'target-input.json').read_bytes())==config['targetSnapshotSHA256'];return config
+ if not targets_source:raise ValueError('New batch requires --targets-source')
+ source=pathlib.Path(targets_source).resolve();raw=source.read_bytes();json.loads(raw)
+ cap=(budget_mb if budget_mb is not None else 500)*1_000_000
+ if cap<=0:raise ValueError('Budget must be positive')
+ HERE.mkdir(parents=True,exist_ok=True);(HERE/'target-input.json').write_bytes(raw)
+ config={'schemaVersion':1,'issue':'HKS-213','batchId':batch,'createdAt':now(),'targetsSource':relative(source),'targetSnapshotSHA256':sha(raw),'targetSnapshot':relative(HERE/'target-input.json'),'capBytes':cap,'budgetBasis':'User authorised all remaining mechanical landmark acquisition; bounded parallel selective ranges, independent pinned ledger, no original100MB restriction.','originalCheckpointPreserved':True}
+ write(config_path,config);return config
+
+
+def target_entries(data):
+ # Identity stage summaries have BOTH top-level parts and per-landmark rows.
+ # Their rows contain members rather than the original bulk report's row.parts.
+ if 'targets'not in data and'parts'not in data and'rows'in data:
+  return [(part,[row['id']])for row in data['rows']for part in row.get('parts',[])if part.get('state')=='cache-absent'and part.get('csuid')]
+ entries=[]
+ for part in data.get('targets',data.get('parts',[])):
+  if isinstance(part,str):part={'uid':part}
+  if 'targets'not in data and part.get('state')!='not-in-retained-staged-models':continue
+  entries.append((part,part.get('landmarks',part.get('identityProposalGroups',[]))))
+ return entries
+
+
+def target_records(source_path):
+ data=read(source_path);targets={};entries=target_entries(data)
+ connection=sqlite3.connect('file:'+str(ROOT/'source-scripts/city/building-batch/local/buildings.sqlite')+'?mode=ro',uri=True);connection.row_factory=sqlite3.Row
+ try:
+  for part,landmarks in entries:
+   uid=part['uid'];assert re.fullmatch(r'landsd/\d+:\d+',uid),'No source identity: '+str(uid)
+   record=connection.execute('select uid,object_id,csuid,name,x,z from buildings where uid=? and active=1',(uid,)).fetchone();assert record,'No retained active footprint for '+uid
+   assert not part.get('csuid')or part['csuid']==record['csuid'],'CSUID changed: '+uid
+   assert part.get('objectId')in(None,record['object_id']),'Object identity changed: '+uid
+   target=targets.setdefault(uid,{'uid':uid,'objectId':record['object_id'],'csuid':record['csuid'],'name':part.get('name')or record['name'],'x':record['x'],'z':record['z'],'landmarks':[],'identityApproved':part.get('identityApproved',False)})
+   for landmark in landmarks:
+    if landmark not in target['landmarks']:target['landmarks'].append(landmark)
+ finally:connection.close()
+ return data,targets
+
+
 def prepare(network):
  from shapely.geometry import Polygon
  from shapely.ops import unary_union
+ from shapely.strtree import STRtree
  from pyproj import Transformer
- report=ROOT/'docs/astra-city/landmark-bulk/bulk-report.json';bulk=read(report);targets={}
- for row in bulk['rows']:
-  for part in row.get('parts',[]):
-   if part.get('state')!='cache-absent'or not part.get('csuid'):continue
-   target=targets.setdefault(part['uid'],{k:part[k]for k in ('uid','objectId','csuid','name','x','z')});target.setdefault('landmarks',[])
-   if row['id']not in target['landmarks']:target['landmarks'].append(row['id'])
+ config=read(HERE/'batch.json')if(HERE/'batch.json').exists()else None
+ source_report=HERE/'target-input.json'if config else ROOT/'docs/astra-city/landmark-bulk/bulk-report.json'
+ bulk,targets=target_records(source_report)
+ if not targets:raise ValueError('No exact-ID acquisition targets in pinned input; refusing an empty success report')
  metadata_path=HERE/'service.json';index_path=HERE/'index.json'
  if not metadata_path.exists():write(metadata_path,{'checkedAt':now(),'url':SERVICE+'?f=json','service':network.json(SERVICE+'?f=json')})
  service=read(metadata_path)['service'];assert service['type']=='Feature Layer'and'Query'in service['capabilities']
@@ -122,14 +181,12 @@ def prepare(network):
  official=json.loads(gzip.decompress(official_path.read_bytes()));shapes={}
  for feature in official['features']:
   key=feature['attributes']['OBJECTID'];shapes[key]=unary_union([Polygon(ring).buffer(0)for ring in feature['geometry']['rings']])
- tiles={}
- for feature in index['features']:
-  attrs=feature['attributes'];polygon=Polygon(feature['geometry']['rings'][0]).buffer(0)
-  for target in targets.values():
-   if target['objectId']not in shapes:continue
-   if polygon.intersects(shapes[target['objectId']].buffer(1)):
-    target.setdefault('sheets',[]).append(attrs['SHEETNO']);tile=tiles.setdefault(attrs['SHEETNO'],{'attributes':attrs,'uids':[]});tile['uids'].append(target['uid'])
- plan={'issue':'HKS-213','createdAt':now(),'sourceReport':relative(report),'sourceReportSHA256':sha(report.read_bytes()),'sourceIndexSHA256':sha(index_path.read_bytes()),'registryEntries':bulk['registryEntries'],'targetParts':len(targets),'officialTiles':len(tiles),'targets':list(targets.values()),'tiles':tiles,'policy':'Exact ten-digit GeoRefNo only; all current official sheets intersecting retained footprint +1m. No identity invention, coordinate change or publication.'}
+ tiles={};tile_shapes=[Polygon(feature['geometry']['rings'][0]).buffer(0)for feature in index['features']];tree=STRtree(tile_shapes)
+ for target in targets.values():
+  if target['objectId']not in shapes:continue
+  for i in sorted(tree.query(shapes[target['objectId']].buffer(1),predicate='intersects')):
+   attrs=index['features'][int(i)]['attributes'];target.setdefault('sheets',[]).append(attrs['SHEETNO']);tile=tiles.setdefault(attrs['SHEETNO'],{'attributes':attrs,'uids':[]});tile['uids'].append(target['uid'])
+ plan={'issue':'HKS-213','batchId':config['batchId']if config else'original-115','createdAt':now(),'sourceReport':relative(source_report),'sourceReportSHA256':sha(source_report.read_bytes()),'sourceIndexSHA256':sha(index_path.read_bytes()),'registryEntries':bulk.get('registryEntries',bulk.get('allRegistryEntries',213)),'targetParts':len(targets),'officialTiles':len(tiles),'targets':list(targets.values()),'tiles':tiles,'policy':'Exact ten-digit GeoRefNo only; all current official sheets intersecting retained footprint +1m. No identity invention, coordinate change or publication.'}
  write(HERE/'plan.json',plan);return plan
 
 
@@ -229,30 +286,42 @@ def report(plan,network):
   outcome='acquired-and-staged'if models else'no-exact-model-in-complete-checked-sheets'if complete and parts else'deferred'
   rows.append({**target,'outcome':outcome,'standardMatch':any(model['exactCSUIDMatch']for model in models),'models':models,'sheetsChecked':parts})
  summary={key:sum(row['outcome']==key for row in rows)for key in ('acquired-and-staged','no-exact-model-in-complete-checked-sheets','deferred')}
- result={'issue':'HKS-213','generatedAt':now(),'plan':relative(HERE/'plan.json'),'planSHA256':sha((HERE/'plan.json').read_bytes()),'serviceMetadata':relative(HERE/'service.json'),'sourceIndex':relative(HERE/'index.json'),'summary':summary,'nativeModelParts':sum(len(row['models'])for row in rows),'exactCSUIDMatchedTargets':sum(row['standardMatch']for row in rows),'sourceTiles':len(plan['tiles']),'completedTiles':sum(state.get('status')in('staged','complete-directory-no-exact-model')for state in states.values()),'reusedDirectories':sum(bool(state.get('directoryReusedFrom'))for state in states.values()),'reusedNativeMembers':sum(bool(member.get('reusedFrom'))for state in states.values()for member in state.get('members',{}).values()),'newNativeMembers':sum(bool(member.get('range'))for state in states.values()for member in state.get('members',{}).values()),'transfer':{'receivedBytes':network.data['receivedBytes'],'newThisInvocationBytes':network.data['receivedBytes']-network.initial,'chargedBytes':network.data['chargedBytes'],'capBytes':network.cap,'requests':len(network.data['requests']),'ledger':relative(network.path)},'rows':rows,'qualification':'No-exact-model is only for complete current checked official sheet directories, not a territory-wide absence claim. Source acquisition/staging is not placement acceptance or publication. Native source geometry remains 1x HKPD; no modelling or terrain fixes.','aiCalls':0}
+ result={'issue':'HKS-213','batchId':plan.get('batchId','original-115'),'generatedAt':now(),'plan':relative(HERE/'plan.json'),'planSHA256':sha((HERE/'plan.json').read_bytes()),'serviceMetadata':relative(HERE/'service.json'),'sourceIndex':relative(HERE/'index.json'),'summary':summary,'nativeModelParts':sum(len(row['models'])for row in rows),'exactCSUIDMatchedTargets':sum(row['standardMatch']for row in rows),'sourceTiles':len(plan['tiles']),'completedTiles':sum(state.get('status')in('staged','complete-directory-no-exact-model')for state in states.values()),'reusedDirectories':sum(bool(state.get('directoryReusedFrom'))for state in states.values()),'reusedNativeMembers':sum(bool(member.get('reusedFrom'))for state in states.values()for member in state.get('members',{}).values()),'newNativeMembers':sum(bool(member.get('range'))for state in states.values()for member in state.get('members',{}).values()),'transfer':{'receivedBytes':network.data['receivedBytes'],'newThisInvocationBytes':network.data['receivedBytes']-network.initial,'chargedBytes':network.data['chargedBytes'],'capBytes':network.cap,'requests':len(network.data['requests']),'ledger':relative(network.path)},'rows':rows,'qualification':'No-exact-model is only for complete current checked official sheet directories, not a territory-wide absence claim. Source acquisition/staging is not placement acceptance or publication. Native source geometry remains 1x HKPD; no modelling or terrain fixes.','aiCalls':0}
  write(DOCS/'report.json',result);return result
 
 
 def main():
- parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--plan-only',action='store_true');parser.add_argument('--limit-tiles',type=int);parser.add_argument('--refresh-head',action='store_true');args=parser.parse_args()
- HERE.mkdir(parents=True,exist_ok=True);network=Network(HERE/'transfer-ledger.json')
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--plan-only',action='store_true');parser.add_argument('--limit-tiles',type=int);parser.add_argument('--refresh-head',action='store_true');parser.add_argument('--batch');parser.add_argument('--targets-source');parser.add_argument('--budget-mb',type=int);parser.add_argument('--workers',type=int);args=parser.parse_args()
+ config=configure_batch(args.batch,args.targets_source,args.budget_mb)
+ HERE.mkdir(parents=True,exist_ok=True);network=Network(HERE/'transfer-ledger.json',cap=config['capBytes']if config else CAP)
  plan=read(HERE/'plan.json')if (HERE/'plan.json').exists()else prepare(network)
  print(f'Plan: {plan["targetParts"]} exact-ID parts across {plan["officialTiles"]} official sheets',flush=True)
  if args.plan_only:print(json.dumps(report(plan,network)['summary']));return
- targets={target['uid']:target for target in plan['targets']};caches=retained_caches();count=0
+ targets={target['uid']:target for target in plan['targets']};caches=retained_caches()
+ workers=args.workers if args.workers is not None else(4 if config else 1)
+ if not 1<=workers<=8:raise ValueError('Workers must be between1 and8')
+ network.data['maxConcurrentSheetWorkers']=workers;write(network.path,network.data)
  priority={target['uid']:i for i,target in enumerate(plan['targets'])}
  ordered=sorted(plan['tiles'].items(),key=lambda item:(item[0]not in caches,min(priority[uid]for uid in item[1]['uids'])))
+ pending=[]
  for sheet,tile in ordered:
   previous=HERE/'sources'/sheet/'state.json'
   if previous.exists()and read(previous).get('status')in('staged','complete-directory-no-exact-model')and not args.refresh_head:continue
-  if args.limit_tiles is not None and count>=args.limit_tiles:break
-  count+=1
+  pending.append((sheet,tile))
+ if args.limit_tiles is not None:pending=pending[:args.limit_tiles]
+ def work(item):
+  sheet,tile=item;previous=HERE/'sources'/sheet/'state.json'
   try:
-   state=acquire_tile(network,sheet,tile,targets,caches,args.refresh_head);print(sheet,state['status'],len(state['exactGLTFEntries']),'models;',network.data['receivedBytes'],'bytes cumulative',flush=True)
+   state=acquire_tile(network,sheet,tile,targets,caches,args.refresh_head)
+   return sheet,state,None
   except Exception as error:
-   state=read(previous)if previous.exists()else{'sheet':sheet,'members':{}};state.update(status='deferred-byte-cap'if isinstance(error,BudgetExceeded)else'deferred-error',error=f'{type(error).__name__}: {error}');write(previous,state);print(sheet,state['status'],state['error'],flush=True)
+   state=read(previous)if previous.exists()else{'sheet':sheet,'members':{}};state.update(status='deferred-byte-cap'if isinstance(error,BudgetExceeded)else'deferred-error',error=f'{type(error).__name__}: {error}');write(previous,state)
+   return sheet,state,error
+ with concurrent.futures.ThreadPoolExecutor(max_workers=workers)as pool:
+  futures={pool.submit(work,item):item[0]for item in pending}
+  for future in concurrent.futures.as_completed(futures):
+   sheet,state,error=future.result()
+   print(sheet,state['status'],state.get('error')if error else str(len(state.get('exactGLTFEntries',[])))+' model entries',network.data['receivedBytes'],'bytes cumulative',flush=True)
    report(plan,network)
-   if isinstance(error,BudgetExceeded):break
-  report(plan,network)
  result=report(plan,network);print(json.dumps({'summary':result['summary'],'transfer':result['transfer'],'nativeModelParts':result['nativeModelParts']},indent=2))
 if __name__=='__main__':main()

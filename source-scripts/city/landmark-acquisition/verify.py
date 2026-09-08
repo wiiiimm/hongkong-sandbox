@@ -1,14 +1,15 @@
 """Read-only acquisition payload verification; writes evidence only in its docs folder."""
-import gzip,hashlib,importlib.util,json,math,pathlib,sys,zipfile
+import argparse,gzip,hashlib,importlib.util,json,math,pathlib,sys,zipfile
 sys.dont_write_bytecode=True
 HERE=pathlib.Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('landmark_acquisition',HERE/'acquire.py');a=importlib.util.module_from_spec(spec);spec.loader.exec_module(a)
 
 def main():
- checks=[];errors=[];plan=a.read(HERE/'plan.json');ledger=a.read(HERE/'transfer-ledger.json')
- assert ledger['receivedBytes']<=ledger['chargedBytes']<=ledger['capBytes']<=a.CAP
+ parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--batch');args=parser.parse_args();config=a.configure_batch(args.batch);work=a.HERE
+ checks=[];errors=[];plan=a.read(work/'plan.json');ledger=a.read(work/'transfer-ledger.json')
+ assert ledger['receivedBytes']<=ledger['chargedBytes']<=ledger['capBytes']==(config['capBytes']if config else a.CAP)
  for sheet in plan['tiles']:
-  folder=HERE/'sources'/sheet;state_path=folder/'state.json'
+  folder=work/'sources'/sheet;state_path=folder/'state.json'
   if not state_path.exists():continue
   state=a.read(state_path)
   if state.get('status')not in ('staged','complete-directory-no-exact-model'):continue
@@ -33,6 +34,6 @@ def main():
     for name,digest in model['sourceHashes'].items():assert a.sha((staged/name).read_bytes())==digest
    checks.append({'sheet':sheet,'directoryEntries':len(infos),'directorySHA256':directory['directorySHA256'],'nativeMembers':len(download['entries']),'sourceCacheSHA256':download['sha256'],'stagedModels':len(manifest['models']),'native1xHKPD':True})
   except Exception as error:errors.append({'sheet':sheet,'error':str(error)})
- result={'issue':'HKS-213','checkedAt':a.now(),'result':'passed'if not errors else'failed','completedTilesVerified':len(checks),'nativeMembers':sum(check['nativeMembers']for check in checks),'uniqueStagedModels':sum(check['stagedModels']for check in checks),'receivedBytes':ledger['receivedBytes'],'chargedBytes':ledger['chargedBytes'],'capBytes':ledger['capBytes'],'checks':checks,'errors':errors}
+ result={'issue':'HKS-213','batchId':plan.get('batchId','original-115'),'checkedAt':a.now(),'result':'passed'if not errors else'failed','completedTilesVerified':len(checks),'nativeMembers':sum(check['nativeMembers']for check in checks),'uniqueStagedModels':sum(check['stagedModels']for check in checks),'receivedBytes':ledger['receivedBytes'],'chargedBytes':ledger['chargedBytes'],'capBytes':ledger['capBytes'],'checks':checks,'errors':errors}
  a.write(a.DOCS/'verification.json',result);print(json.dumps({key:result[key]for key in ('result','completedTilesVerified','nativeMembers','uniqueStagedModels','receivedBytes','errors')},indent=2));return bool(errors)
 if __name__=='__main__':raise SystemExit(main())

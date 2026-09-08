@@ -25,6 +25,30 @@ class AcquisitionTests(unittest.TestCase):
     self.assertEqual(a.unpack_member(raw[entry.header_offset:end],entry),archive.read(entry.filename))
    entry=infos[0];original_crc=entry.CRC;entry.CRC=original_crc^1
    with self.assertRaises(AssertionError):a.unpack_member(raw[entry.header_offset:infos[1].header_offset],entry)
+ def test_identity_summary_top_level_parts_override_rows_without_parts(self):
+  target={'uid':'landsd/123:0','csuid':'1234567890T20050101','state':'not-in-retained-staged-models','identityProposalGroups':['tower']}
+  data={'rows':[{'id':'tower','members':[target]}],'parts':[target,{'uid':'landsd/456:0','state':'candidate-staged'}]}
+  self.assertEqual(a.target_entries(data),[(target,['tower'])])
+  self.assertEqual(a.target_entries({'targets':['landsd/789:0']}),[({'uid':'landsd/789:0'},[])])
+ def test_parallel_reservations_cannot_exceed_one_durable_cap(self):
+  with tempfile.TemporaryDirectory()as folder:
+   path=pathlib.Path(folder)/'ledger.json';network=a.Network(path,cap=100)
+   def request(_):
+    try:network.get('https://example.test/model.zip',30,'0-29')
+    except (TimeoutError,a.BudgetExceeded):pass
+   with patch.object(a.urllib.request,'urlopen',side_effect=TimeoutError('interrupted')):
+    with a.concurrent.futures.ThreadPoolExecutor(max_workers=8)as pool:list(pool.map(request,range(20)))
+   retained=json.loads(path.read_text());self.assertEqual(retained['chargedBytes'],90);self.assertEqual(len(retained['requests']),3)
+ def test_atomic_json_reports_remain_complete_during_parallel_writes(self):
+  with tempfile.TemporaryDirectory()as folder:
+   path=pathlib.Path(folder)/'state.json';a.write(path,{'value':'initial'})
+   def writer(number):
+    for _ in range(20):a.write(path,{'value':str(number)*10000})
+   with a.concurrent.futures.ThreadPoolExecutor(max_workers=4)as pool:
+    futures=[pool.submit(writer,number)for number in range(4)]
+    while not all(future.done()for future in futures):self.assertIsInstance(a.read(path)['value'],str)
+    for future in futures:future.result()
+   self.assertEqual(list(path.parent.glob('*.part')),[])
  def test_cap_is_reserved_before_io_and_survives_an_interrupted_request(self):
   with tempfile.TemporaryDirectory()as folder:
    path=pathlib.Path(folder)/'ledger.json';network=a.Network(path,cap=100)
