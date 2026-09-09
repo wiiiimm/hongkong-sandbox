@@ -1,6 +1,8 @@
 # Shared modelling work — HKS-217
 
-All workers use the persistent **astra-modelling** Neon branch, not the application's production branch or individual device branches. `branch.json` pins project `soft-snow-34493321`, branch `br-icy-firefly-b3zn5ogh` and its endpoint. Changing Vercel preview branches does not change this worker configuration. Do not delete/reset this branch: it holds shared work state.
+All workers use the shared endpoint pinned in `branch.json`: project `billowing-surf-67227217`, branch `br-icy-silence-b3wjwz0q`, database `neondb`, schema `astra_modelling`. The branch ID is used as its display label because the management API did not provide a verified branch name. Do not delete/reset it: it holds shared work state. Vercel preview branches do not automatically change this pin.
+
+HKS-223 migrated all 21 tables and 2,161,348 rows from the previous project on 9 September 2026. Every table's sorted row hashes and every sequence matched before cutover. Existing destination Neon Auth tables were excluded from the restore. See `docs/astra-city/shared-database-migration.json`. The old endpoint and a private custom-format dump remain available for rollback; R2 objects and keys did not change. Other devices must update this checkout and replace their private worker connection with the new Vercel Development direct URL before resuming. Never run workers against the retired endpoint.
 
 The original source SQLite remains untouched. `inventory_sync.py` stores immutable, indexed source snapshots in PostgreSQL, preserving all source tables and history. `jobs.py` is the live shared queue. Importing a snapshot does **not** enqueue historical pending jobs. Use explicit plans to create new work. Local SQLite exports are compatibility inputs for older source/geometry scripts, not the authority for new shared job status.
 
@@ -13,9 +15,9 @@ python source-scripts/city/shared-modelling/configure.py --vercel-env .env.local
 python source-scripts/city/shared-modelling/db.py check
 ```
 
-`configure.py` creates mode-0600 `.env.modelling`, refuses to overwrite it, and selects only the pinned modelling endpoint. It does not edit Vercel's application environment. The new branch inherits its parent's role credentials; if they are later rotated independently, obtain the modelling branch URL from Neon and store it as `MODELLING_DATABASE_URL`. Never commit it. Existing environment variable `MODELLING_DATABASE_URL` takes precedence; application `DATABASE_URL` is never a fallback. `MODELLING_ENV_FILE` can select another private worker env file.
+`configure.py` creates mode-0600 `.env.modelling`, refuses to overwrite it, and selects only the pinned modelling endpoint. It does not edit Vercel's application environment. Use credentials belonging to the pinned replacement project; old-project credentials no longer apply. If credentials rotate, obtain the pinned branch URL from Neon and store it as `MODELLING_DATABASE_URL`. Never commit it. Existing environment variable `MODELLING_DATABASE_URL` takes precedence; application `DATABASE_URL` is never a fallback. `MODELLING_ENV_FILE` can select another private worker env file.
 
-The connection guard rejects other hosts/databases, alternate host-address/service routing and session overrides. TLS verifies the server certificate using the portable certifi CA bundle. No production schema is modified.
+The connection guard rejects other hosts/databases, alternate host-address/service routing and session overrides. TLS verifies the server certificate using the portable certifi CA bundle. Worker operations are scoped to `astra_modelling`; unrelated application and authentication schemas are excluded.
 
 Run `db.py migrate` once when schema changes are reviewed; it uses a transaction lock for schema setup. Normal worker sessions do not rerun migrations. See [INVENTORY.md](INVENTORY.md) for immutable import, indexed lookup and clean-device SQLite export/verification.
 
@@ -61,3 +63,7 @@ MODELLING_INTEGRATION_TEST=1 python -m unittest discover \
 ```
 
 The live tests create uniquely named verification batches only on the pinned branch. They leave small test records for evidence. See `VERIFICATION.md` and `inventory-verification.json` for actual run results. Job completion always remains separate from architectural acceptance and runtime publication.
+
+## Database relocation
+
+`migrate_database.py --private-dir PRIVATE_DIRECTORY` restores a checksummed custom-format dump into an absent destination modelling schema. It requires verified source/destination identity records and private connection files; it refuses an existing target schema. It locks source tables during restore/reconciliation, compares all row fingerprints and sequences, and retains private diagnostics. It does not switch worker credentials automatically. Quiesce all workers before taking the dump and keep them stopped through cutover. After successful verification, update the pin and private worker environment together, run `db.py check`, and confirm saved run/checkpoint records. Never rerun a successful restore against an existing schema or drop destination data to bypass the guard.
