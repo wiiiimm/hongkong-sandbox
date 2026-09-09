@@ -22,3 +22,5 @@ Runtime checks the statistics’ manifest digest and labels mismatches as updati
 ## Validation
 
 `node --test 3d-viewer/city/tests/building-progress.test.js` covers multipart/partial upgrades, duplicate replacements, held/pending/downloaded-only and changed sources, proxy removal, empty totals and conflicting installed IDs. `node 3d-viewer/city/tests/building-progress-browser.mjs` passed real city desktop1280×900, mobile390×844 and narrow320×740, accessible native dialog/meter labels, camera-stable totals, no page/dialog horizontal overflow, and stale/unavailable/empty fixtures. The screenshots were visually inspected. Emulated Chrome is not a real-device Safari performance certification.
+
+9 September label refinement: header and dialog now say “Model Enhancement Progress”. The header includes percentage and enhanced/total form counts, including narrow screens. Existing counting rules are unchanged. Four counting tests and desktop/mobile/narrow browser checks passed, including unavailable, stale and empty statistics.
