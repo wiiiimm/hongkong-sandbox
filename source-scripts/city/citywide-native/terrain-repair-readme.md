@@ -16,12 +16,12 @@ Supported mechanical actions:
 
 - Preserve native POSITION and index accessor bytes exactly, verified before and after derivation. Keep original buffers and source glTF in the artefact.
 - Omit UVs and texture references because photographs are omitted. Regenerate missing/non-finite shading normals from unchanged triangles. Degenerate triangles remain; zero-length normals use a documented finite up-vector for shading only.
-- Convert translation-only TRS into an equivalent source matrix. Existing source matrices and the city translation `[-834500, 0, 816500]` remain unchanged, at vertical scale 1.
-- Remove only known material-only `KHR_materials_specular` and `KHR_materials_ior` extensions for geometry-only output. Other extensions, rotation/scale TRS, invalid positions or invalid triangles remain explicit failures.
+- Convert finite standard TRS into an equivalent source matrix in T × R × S order; validate unit quaternions and preserve declared source scale exactly (including inch-to-metre conversion). Existing source matrices and the city translation `[-834500, 0, 816500]` remain unchanged, at vertical scale 1.
+- Remove only known material-only `KHR_materials_specular` and `KHR_materials_ior` extensions for geometry-only output. Other extensions, invalid TRS, invalid positions or invalid triangles remain explicit failures.
 - Classify sources with zero mesh primitives as `source-empty`; never invent terrain for them.
 
 Results contain an empty building `models` array and one `terrain` outcome per selected source entry: `prepared-geometry-only`, `source-empty`, or `failed`. Successful outcomes include original source hashes, repair actions and geometry proof. Proof records position/index SHA, world bounds, transforms and the absence of elevation scaling. This is preparation evidence, not a terrain publication decision.
 
 Use `audit_run.py --terrain-repair-run REPAIR_RUN_ID` with the matching original run to inspect effective counts. The audit preserves original failures and overlays only matching original cache/source/entry identities. Local complete summaries and compressed result ledgers are under `local/terrain-repair/runs/REPAIR_RUN_ID/`; root checkpointing retains these in R2.
 
-Tests: `python -m unittest discover -s source-scripts/city/citywide-native -p test_terrain_repair.py -v`. Seven tests cover source-byte preservation, translation equivalence, invalid-geometry refusal, unsupported extensions, genuine empty sources, degenerate triangles and complete verified-bundle processing.
+Tests: `python -m unittest discover -s source-scripts/city/citywide-native -p test_terrain_repair.py -v`. Nine tests cover source-byte preservation, translation equivalence, invalid-geometry refusal, unsupported extensions, genuine empty sources, degenerate triangles and complete verified-bundle processing.

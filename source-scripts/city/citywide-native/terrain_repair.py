@@ -49,12 +49,19 @@ def repair_model(original,read_buffer):
         if any(v.get('extensions')for v in source.get(collection,[])):raise ValueError('Non-material extended geometry object')
     matrices=[]
     for index,node in enumerate(data.get('nodes',[])):
-        if any(k in node for k in ('rotation','scale','skin','weights')):raise ValueError('Only translation-only TRS is supported')
-        if 'translation'in node:
-            if 'matrix'in node:raise ValueError('Node declares both matrix and translation')
-            t=np.asarray(node.pop('translation'),dtype=np.float64)
-            if t.shape!=(3,)or not np.isfinite(t).all():raise ValueError('Invalid source translation')
-            m=np.eye(4);m[:3,3]=t;node['matrix']=m.T.reshape(-1).tolist();actions.append({'action':'translation-to-equivalent-matrix','node':index,'translation':t.tolist()})
+        if any(k in node for k in ('skin','weights')):raise ValueError('Skinned/morph nodes unsupported')
+        if any(k in node for k in ('translation','rotation','scale')):
+            if 'matrix'in node:raise ValueError('Node declares both matrix and TRS')
+            t=np.asarray(node.pop('translation',[0,0,0]),dtype=np.float64)
+            q=np.asarray(node.pop('rotation',[0,0,0,1]),dtype=np.float64)
+            scale=np.asarray(node.pop('scale',[1,1,1]),dtype=np.float64)
+            if t.shape!=(3,)or q.shape!=(4,)or scale.shape!=(3,)or not all(np.isfinite(v).all()for v in(t,q,scale))or np.any(scale==0):raise ValueError('Invalid finite source TRS')
+            if abs(float(q@q)-1)>1e-6:raise ValueError('Source quaternion must be unit length')
+            x,y,z,w=q;xx=2*x*x;yy=2*y*y;zz=2*z*z;xy=2*x*y;xz=2*x*z;yz=2*y*z;wx=2*w*x;wy=2*w*y;wz=2*w*z
+            rotation=np.array([[1-yy-zz,xy-wz,xz+wy],[xy+wz,1-xx-zz,yz-wx],[xz-wy,yz+wx,1-xx-yy]])
+            m=np.eye(4);m[:3,:3]=rotation*scale[None,:];m[:3,3]=t
+            node['matrix']=m.T.reshape(-1).tolist()
+            actions.append({'action':'source-trs-to-equivalent-matrix','node':index,'translation':t.tolist(),'quaternion':q.tolist(),'sourceScale':scale.tolist(),'order':'T * R * S','addedScale':1})
         m=np.asarray(node.get('matrix',np.eye(4).T.reshape(-1)),dtype=np.float64).reshape(4,4).T
         if not np.isfinite(m).all()or not np.array_equal(m[3],[0,0,0,1])or abs(np.linalg.det(m[:3,:3]))<1e-15:raise ValueError('Invalid source affine transform')
         matrices.append(m)

@@ -30,12 +30,28 @@ class TerrainRepairTests(unittest.TestCase):
         data,buffers=fixture();buffers['3.bin']=np.array([0,1,99],dtype='<u2').tobytes()
         with self.assertRaisesRegex(ValueError,'triangle indices'):repair_model(json.dumps(data).encode(),buffers.__getitem__)
 
-    def test_unknown_extensions_and_rotations_remain_held(self):
+    def test_unknown_extensions_and_invalid_trs_remain_held(self):
         for change in ('extension','rotation','scale'):
             data,buffers=fixture()
             if change=='extension':data['extensionsUsed'].append('KHR_draco_mesh_compression')
-            else:data['nodes'][0][change]=[0,0,0,1]if change=='rotation'else[1,1,1]
+            else:data['nodes'][0][change]=[0,0,0,0]if change=='rotation'else[1,0,1]
             with self.assertRaises(ValueError):repair_model(json.dumps(data).encode(),buffers.__getitem__)
+
+    def test_source_unit_scale_is_preserved_not_replaced(self):
+        data,buffers=fixture();scale=0.02539999969303608;data['nodes'][0]['scale']=[scale]*3
+        result=repair_model(json.dumps(data).encode(),buffers.__getitem__)
+        derived=json.loads(result['files']['geometry.gltf']);matrix=np.array(derived['nodes'][0]['matrix']).reshape(4,4).T
+        self.assertTrue(np.array_equal(matrix[:3,:3],np.eye(3)*scale))
+        self.assertTrue(np.allclose(result['geometryProof']['worldBounds'],[[1,4,-2],[1+scale,4,-2+scale]],rtol=0,atol=1e-10))
+        self.assertEqual(result['geometryProof']['verticalScale'],1)
+
+    def test_rotation_and_nonuniform_scale_use_exact_trs_order(self):
+        data,buffers=fixture();data['nodes'][0]['rotation']=[0,0,2**-.5,2**-.5];data['nodes'][0]['scale']=[2,3,4]
+        result=repair_model(json.dumps(data).encode(),buffers.__getitem__);derived=json.loads(result['files']['geometry.gltf'])
+        m=np.array(derived['nodes'][0]['matrix']).reshape(4,4).T
+        self.assertTrue(np.allclose(m[:3,:3]@np.array([1,0,0]),[0,2,0],rtol=0,atol=1e-14))
+        self.assertTrue(np.allclose(m[:3,:3]@np.array([0,1,0]),[-3,0,0],rtol=0,atol=1e-14))
+        self.assertEqual(result['files']['0.bin'],buffers['0.bin'])
 
     def test_zero_mesh_is_explicit_source_empty(self):
         data={'asset':{'version':'2.0'},'meshes':[],'nodes':[{}],'scenes':[{'nodes':[0]}]}
