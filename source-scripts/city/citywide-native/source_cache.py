@@ -73,7 +73,7 @@ def restore_original(r2, artifact, sheet, out):
                     continue
                 if member.name in found or not member.isfile():
                     raise ValueError('Duplicate or non-regular original member')
-                maximum = 1_048_576 if member.name.endswith('/download.json') else 8 * 1024**3
+                maximum = 16_777_216 if member.name.endswith('/download.json') else 8 * 1024**3
                 if not 0 <= member.size <= maximum:
                     raise ValueError('Original member exceeds restore bound')
                 source = tar.extractfile(member)
