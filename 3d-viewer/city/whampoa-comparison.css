@@ -3,3 +3,11 @@
 button[aria-pressed=true]{background:#315b42;color:#fff}button{min-height:44px;cursor:pointer}.model-label{position:absolute;transform:translate(-50%,-100%);font-size:10px;font-weight:600;text-align:center;max-width:155px;padding:3px 5px;background:#f3f4ede8;border-radius:4px;pointer-events:none}.overview .viewport{height:560px}.presentation header,.presentation .notes,.presentation .stats{display:none}.presentation nav{padding:12px 3vw}.presentation .card-title{min-height:95px;padding:14px 18px 8px}.presentation .card-title h2{font-size:20px;margin:5px 0}.presentation .viewport{height:calc(100vh - 180px);min-height:360px}select:disabled{opacity:.5}@media(max-width:850px){.overview .viewport{height:520px}.presentation .viewport{height:480px}.model-label{font-size:9px;max-width:125px}}
 
 #location-legend{display:flex;flex-wrap:wrap;gap:12px 34px;margin:18px 5vw;padding-left:18px;font-size:12px}#location-legend li{padding-left:2px}.model-label{min-width:20px;border:1px solid #aebfa6;border-radius:50%;font-size:11px}.presentation #location-legend{margin:8px 5vw;font-size:11px}.presentation .viewport{height:calc(100vh - 215px)}
+
+/* Full-width cinematic lanes retain a common camera and physical scale. */
+.overview main{grid-template-columns:1fr}.overview .viewport{height:clamp(220px,28vh,380px)}
+.overview .card-title{min-height:0;padding:10px 18px;display:flex;align-items:center;gap:16px}.overview .card-title h2{font-size:20px;margin:0}.overview .card-title p{margin-left:auto}.overview .stats{min-height:0;margin:4px 0;padding:4px 18px}
+.overview.presentation .viewport{height:max(180px,calc((100vh - 220px)/3))}.overview.presentation main{gap:8px}.overview.presentation .card-title{padding:6px 16px;min-height:0}.overview.presentation .card-title h2{font-size:17px}
+#flight-status{font-size:12px;color:#617063;min-width:120px}@media(max-width:600px){.overview .card-title p{display:none}.overview .viewport{height:240px}.overview.presentation .viewport{height:220px}}
+
+.overview.presentation .viewport{min-height:0}
