@@ -48,6 +48,10 @@ If ownership is lost, stop and reacquire before continuing. Expired work can be 
 - Gallery capture is not visual acceptance. Check actual loaded candidate IDs, camera occupancy/occlusion, framing and the rendered artefact. Saved screenshots, CPU loading tests and a clear camera do not establish complete architecture, walking routes, rooftop landing or mobile performance.
 - Approved detailed geometry replaces its corresponding fallback without duplicates; held or unavailable geometry keeps a usable fallback. Validate streaming, picking, collision and existing lighting behaviour after integration.
 
+## Record modelling effort
+
+For every new model review/refinement, follow `source-scripts/city/model-review-ledger/README.md` (HKS-224). Pass explicit effort metadata with the existing fenced `record` / `record_many` operation: geometry method, AI model and actual reasoning setting, run/job and output references where available. Use a stable request ID for retries and a new ID for a revision. Record measured token/time values only when attributable; omit unknown values. Never infer historic effort from appearance, agent name or the current session setting. Inspect `ledger.py history --uid CANONICAL_UID` before revising a model. Lightweight/detailed method does not itself imply acceptance.
+
 ## Deliver and track
 
 Use the existing HKS issue/milestone mapping in local tracking and Linear. Record the executor, commit, source and rendered counts, evidence and remaining gaps in relevant leaf issues and parents. Move implemented, reviewable scope to **In Review**; leave broader identity, architecture or regional scope open when incomplete.
