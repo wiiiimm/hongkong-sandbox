@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # Hong Kong model improvement
@@ -24,6 +24,12 @@ For a different device or missing local caches, read [references/resume.md](refe
 - **Acceptance and integration:** use the existing review and guarded publisher mechanisms with fresh evidence for the selected components. A previously approved sample is not approval for another batch.
 
 The user may park modelling after a mechanical pass. Finish the agreed pass, record the hand-off, and leave the later modelling phase pending; do not silently continue it.
+
+## Territory-wide native preparation
+
+For HKS-222, read `source-scripts/city/citywide-native/README.md` and the latest evidence under `docs/astra-city/citywide-native/`. Use its existing shared Neon stage results before downloading or converting anything. A complete source catalogue (HKS-221) alone is not complete native acquisition. The native runner records each indexed model outcome and checksum-verified original/prepared R2 bundles. It has its own fenced stage leases and per-attempt folders; do not run a competing SQLite writer for these jobs. Medium effort is sufficient for running and diagnosing mechanical failures.
+
+If inputs and code match, reuse the exact completed stage. If conversion code changes, reuse original source bundles through `source_cache.py`, then rerun the changed stage with new fingerprints. Do not re-fetch government files just because the local cache is absent. Never interpret candidate or diagnostic states as installed, architecturally accepted or region-complete. Investigate failed/unsupported-source outcomes before declaring that only AI-heavy modelling remains.
 
 ## Reserve concurrent work
 
