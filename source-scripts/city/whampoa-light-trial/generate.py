@@ -56,8 +56,21 @@ def main():
   for m in high:
    name=m['uid'].replace('/','-').replace(':','-')+'.glb.gz';result=simplify(ROOT/'3d-viewer/city/data/official-models/cultural-landmarks'/m['asset'],OUT/name);low.append({**result,'uid':m['uid']})
   references[group['id']]={'high':high,'light':low,'prefix':'city/data/official-models/cultural-landmarks/','rootTranslation':culture['rootTranslation']}
+ estates_path=ROOT/'3d-viewer/city/data/official-models/whampoa-estates-high/catalogue.json'
+ if estates_path.exists():
+  estates=read(estates_path)
+  for group in groups[1:3]:
+   uids=set(group['uids']) | ({'landsd/105379:0'} if group['id']=='site12' else set())
+   high=[m for m in estates['models'] if m['uid'] in uids]
+   assert len(high)==len(uids) and all(m['publicationApproved'] for m in high)
+   references[group['id']]={'high':high,'prefix':'city/data/official-models/whampoa-estates-high/','rootTranslation':estates['rootTranslation'],'lightMethod':'original-procedural-facade','reviewIssue':'HKS-226'}
  basic={'groups':groups,'buildings':rows};write(OUT/'basic.json',basic)
  manifest={'generatorSHA256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'shaderSHA256':hashlib.sha256((ROOT/'3d-viewer/city/whampoa-comparison.js').read_bytes()).hexdigest(),'aiCalls':0,'issue':'HKS-225','references':references,'groups':groups,'lightShip':light,'highShip':catalogue,'basicBytes':(OUT/'basic.json').stat().st_size,'basicGzipBytes':len(gzip.compress((OUT/'basic.json').read_bytes(),mtime=0)),'method':'1m vertex clustering with preserved upper silhouette for ship; footprint-preserving procedural facades for sites','newHighPass':'pending user effort switch','sources':['https://www.rvd.gov.hk/doc/en/urban.pdf','https://www.rvd.gov.hk/doc/en/urban_201504.pdf'],'limits':['Native high is existing government geometry, not a new high-effort generation.','Site 8 membership currently includes named Gourmet Place component; ancillary structures require high-pass review.','Site 12 includes nine named towers; shared podium/landscaping membership remains for high-pass review.','Procedural facade spacing/materials are illustrative, not surveyed.','Cultural Centre study includes seven detailed source components; six separately unmatched canopies remain outside this bounded comparison.','Ship simplification may remove small details and is not approved for the city.']}
- write(OUT/'manifest.json',manifest);write(HERE/'targets.json',{'issue':'HKS-225','groups':groups,'sources':manifest['sources'],'status':'light-trial; high-next'})
+ if estates_path.exists():
+  manifest['newHighPass']='HKS-226: verified native Site 8 and Site 12 assembly; original basic/light trial preserved'
+  manifest['limits'][0]='High geometry is reused native government data; Sites 8/12 reviewed in the High pass.'
+  manifest['limits'][1]='Site 8: verified Gourmet Place / Whampoa Plaza component.'
+  manifest['limits'][2]='Site 12 high: nine towers plus verified podium; original basic/light trial retains nine towers.'
+ write(OUT/'manifest.json',manifest);write(HERE/'targets.json',{'issue':'HKS-225','groups':groups,'sources':manifest['sources'],'status':'light-trial; high-integrated-HKS-226' if estates_path.exists() else 'light-trial; high-next'})
  print(json.dumps({'shipHighBytes':sum(m['bytes']for m in catalogue['models']),'shipLightBytes':sum(m['bytes']for m in light),'shipHighTriangles':sum(m['triangles']for m in catalogue['models']),'shipLightTriangles':sum(m['triangles']for m in light),'selectedForms':len(rows)}))
 if __name__=='__main__':main()

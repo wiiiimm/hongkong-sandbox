@@ -10,7 +10,57 @@ function render(){for(const v of views)v.renderer.render(v.scene,v.camera);}
 function basicModel(rows,light=false){const group=new T.Group();for(const b of rows){const shape=new T.Shape(b.rings[0].map(([x,z])=>new T.Vector2(x,-z)));for(const ring of b.rings.slice(1))shape.holes.push(new T.Path(ring.map(([x,z])=>new T.Vector2(x,-z))));const g=new T.ExtrudeGeometry(shape,{depth:b.height,bevelEnabled:false,steps:1,curveSegments:1});g.rotateX(-Math.PI/2);g.translate(0,b.base,0);const mesh=new T.Mesh(g,light?facade:neutral);mesh.castShadow=mesh.receiveShadow=true;mesh.userData.uid=b.uid;group.add(mesh);}return group;}
 async function nativeModel(models,prefix,translation){const group=new T.Group();for(const m of models){const response=await fetch(prefix+m.asset);if(!response.ok)throw Error('Model unavailable: '+m.uid);const raw=await response.arrayBuffer(),buffer=await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();const gltf=await loader.parseAsync(buffer,'');gltf.scene.position.add(new T.Vector3(...translation));gltf.scene.traverse(o=>{if(o.isMesh){o.material=neutral;o.castShadow=o.receiveShadow=true;o.userData.uid=m.uid;}});group.add(gltf.scene);}group.userData.cachedNative=true;return group;}
 function count(group){let n=0;group?.traverse(o=>{if(o.isMesh)n+=(o.geometry.index?.count??o.geometry.attributes.position.count)/3;});return n;}
-const referenceModels={};for(const [id,r]of Object.entries(manifest.references))referenceModels[id]={light:await nativeModel(r.light,base,r.rootTranslation),high:await nativeModel(r.high,r.prefix,r.rootTranslation)};
+const referenceModels={};for(const [id,r]of Object.entries(manifest.references))referenceModels[id]={light:r.light?await nativeModel(r.light,base,r.rootTranslation):null,high:await nativeModel(r.high,r.prefix,r.rootTranslation)};
 function reset(){const b=views[0].bounds,size=b.getSize(new T.Vector3()),span=Math.max(size.x,size.z,size.y*2);syncing=true;for(const v of views){v.controls.target.set(0,size.y*.32,0);v.camera.position.set(span*.95,span*.85,span*1.25);v.controls.update();}syncing=false;render();}
-function show(id){if(!manifest.groups.some(g=>g.id===id))id='ship';selected=id;const reference=manifest.references[id],native=referenceModels[id];const group=manifest.groups.find(g=>g.id===id),rows=data.buildings.filter(b=>group.uids.includes(b.uid)),models=[basicModel(rows),native?native.light:basicModel(rows,true),native?native.high:null];const bounds=new T.Box3().setFromObject(models[0]);if(native){native.high.position.set(0,0,0);native.light.position.set(0,0,0);bounds.union(new T.Box3().setFromObject(native.high));}const center=bounds.getCenter(new T.Vector3());center.y=bounds.min.y;for(let i=0;i<3;i++){const v=views[i];v.host.querySelector('.placeholder')?.remove();if(v.model){v.scene.remove(v.model);if(!v.model.userData.cachedNative)v.model.traverse(o=>o.geometry?.dispose());}v.model=models[i];if(v.model){v.model.position.copy(center).multiplyScalar(-1);v.scene.add(v.model);}else{const p=document.createElement('div');p.className='placeholder';p.textContent='High-detail pass pending\nYour effort switch comes next.';v.host.append(p);}v.bounds=bounds;}const hi=reference?.high.reduce((s,m)=>s+m.bytes,0)||0,lo=reference?.light.reduce((s,m)=>s+m.bytes,0)||0;document.getElementById('basic-stats').textContent=`${nf(rows.length)} source forms · ${nf(count(models[0]))} triangles`;document.getElementById('light-stats').textContent=native?`${nf(count(models[1]))} triangles · ${kb(lo)} compressed`:`${nf(rows.length)} styled forms · ${nf(count(models[1]))} triangles · shared façade shader`;document.getElementById('high-stats').textContent=native?`${nf(count(models[2]))} triangles · ${kb(hi)} compressed`:'Not generated yet';document.getElementById('light-description').textContent=native?'Reduced mesh · same source assembly':'Same footprint & height · procedural façade';document.getElementById('high-description').textContent=native?'Existing government geometry · reused':'Reserved for the next modelling pass';document.getElementById('summary').textContent=native?`Light model: ${Math.round((1-lo/hi)*100)}% smaller payload and ${Math.round((1-count(models[1])/count(models[2]))*100)}% fewer triangles.`:`${group.name}: basic and lightweight versions prepared for comparison.`;document.getElementById('qualification').textContent=native?`${rows.length} source components. Small-detail loss is expected; this is a trial, not a replacement approved for the city.${id==='cultural'?' Six unmatched canopy forms are outside this study.':''}`:manifest.limits[id==='site8'?1:2]+' Façade styling is illustrative; geometry is unchanged.';window.__trial={ready:true,id,counts:models.map(count),uids:group.uids,highPending:!native};reset();}
+function show(id) {
+  if (!manifest.groups.some(g => g.id === id)) id = 'ship';
+  selected = id;
+  const reference = manifest.references[id], native = referenceModels[id];
+  const group = manifest.groups.find(g => g.id === id);
+  const rows = data.buildings.filter(b => group.uids.includes(b.uid));
+  const reduced = !!native?.light;
+  const models = [basicModel(rows), native?.light || basicModel(rows, true), native?.high || null];
+  const bounds = new T.Box3().setFromObject(models[0]);
+  if (native) {
+    native.high.position.set(0, 0, 0);
+    native.light?.position.set(0, 0, 0);
+    bounds.union(new T.Box3().setFromObject(native.high));
+  }
+  const center = bounds.getCenter(new T.Vector3()); center.y = bounds.min.y;
+  for (let i = 0; i < 3; i++) {
+    const v = views[i]; v.host.querySelector('.placeholder')?.remove();
+    if (v.model) {
+      v.scene.remove(v.model);
+      if (!v.model.userData.cachedNative) v.model.traverse(o => o.geometry?.dispose());
+    }
+    v.model = models[i];
+    if (v.model) { v.model.position.copy(center).multiplyScalar(-1); v.scene.add(v.model); }
+    else {
+      const placeholder = document.createElement('div'); placeholder.className = 'placeholder';
+      placeholder.textContent = 'High-detail pass pending'; v.host.append(placeholder);
+    }
+    v.bounds = bounds;
+  }
+  const hi = reference?.high.reduce((sum, m) => sum + m.bytes, 0) || 0;
+  const lo = reference?.light?.reduce((sum, m) => sum + m.bytes, 0) || 0;
+  document.getElementById('basic-stats').textContent = `${nf(rows.length)} source forms · ${nf(count(models[0]))} triangles`;
+  document.getElementById('light-stats').textContent = reduced
+    ? `${nf(count(models[1]))} triangles · ${kb(lo)} compressed`
+    : `${nf(rows.length)} styled forms · ${nf(count(models[1]))} triangles · shared façade shader`;
+  document.getElementById('high-stats').textContent = native
+    ? `${nf(reference.high.length)} source forms · ${nf(count(models[2]))} triangles · ${kb(hi)} compressed`
+    : 'Not generated yet';
+  document.getElementById('light-description').textContent = reduced ? 'Reduced mesh · same source assembly' : 'Same footprint & height · procedural façade';
+  document.getElementById('high-description').textContent = native ? 'Reviewed government geometry · reused in city' : 'Reserved for the next modelling pass';
+  document.getElementById('summary').textContent = reduced
+    ? `Light model: ${Math.round((1 - lo / hi) * 100)}% smaller payload and ${Math.round((1 - count(models[1]) / count(models[2])) * 100)}% fewer triangles.`
+    : `${group.name}: preserved basic/light trial compared with native roof and façade geometry.`;
+  document.getElementById('qualification').textContent = reduced
+    ? `${rows.length} source components. Light-detail loss is expected; the light trial is not approved as a city replacement.${id === 'cultural' ? ' Six unmatched canopy forms are outside this study.' : ''}`
+    : (id === 'site12'
+      ? 'Basic/light preserve the original nine-tower trial. High adds the verified shared podium: ten components. This is an assembly upgrade, not an equal-component payload comparison.'
+      : 'One verified Gourmet Place / Whampoa Plaza component. Basic/light façade styling is illustrative; high preserves native geometry.');
+  window.__trial = {ready: true, id, counts: models.map(count), uids: group.uids, highUids: reference?.high.map(m => m.uid) || [], highPending: !native};
+  reset();
+}
 document.getElementById('location').addEventListener('change',e=>show(e.target.value));document.getElementById('reset').onclick=reset;document.getElementById('wire').onchange=e=>{neutral.wireframe=facade.wireframe=e.target.checked;render();};show(new URLSearchParams(location.search).get('site')||'ship');document.getElementById('location').value=selected;
