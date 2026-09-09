@@ -13,9 +13,14 @@ def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--run-id',required=True);p.add_argument('--audit-dir',required=True,type=pathlib.Path);p.add_argument('--env-file',required=True,type=pathlib.Path);p.add_argument('--out',required=True,type=pathlib.Path);a=p.parse_args()
  audit=ac.read(a.audit_dir/'summary.json')
  if (audit['runId']!=a.run_id or audit['status']!='complete-mechanical-audit' or audit['acceptedSheets']!=audit['expectedSheets'] or audit['modelOutcomeRows']!=audit['indexedModels'] or audit['indexedModelsWithoutAcceptedOutcomes']!=0 or not audit['allAcceptedIndexedModelsAccounted'] or audit['countMismatches']!=0 or not audit['rawFootprintAudit']['matchesExpectedSourceSHA256'] or audit['unknownMechanicalFailures']!=0):raise ValueError('Audit is incomplete or still has unexplained mechanical failures')
+ repair=audit.get('terrainRepair')
+ if repair and (repair['pendingSheets'] or repair['acceptedSheets']!=repair['expectedSheets'] or repair['unusedPreparedEntries'] or repair['validationErrors']):raise ValueError('Terrain repair overlay incomplete or inconsistent')
  state=store.report(a.run_id)
  if state['pending'] or state['cached']!=state['expected']:raise ValueError('Cannot checkpoint an incomplete native run')
  root=HERE.parents[2];run=HERE/'local/runs'/a.run_id
+ if digest(a.audit_dir/'exceptions.jsonl')!=audit['exceptionLedgerSHA256']:raise ValueError('Exception ledger differs from audited evidence')
+ source_proof=root/'docs/astra-city/citywide-native/source-defect-audit.json'
+ if audit.get('sourceDefectEvidenceSHA256') and (not source_proof.is_file() or digest(source_proof)!=audit['sourceDefectEvidenceSHA256']):raise ValueError('Source-defect proofs changed since audit')
  # All source/prepared bundles already have independent readback evidence and immutable Neon results.
  from runner import write_report
  summary=write_report(a.run_id,run)
@@ -23,7 +28,16 @@ def main():
   if k.startswith('R2_') and v:os.environ[k]=v
  remote=R2Store('hk-sandbox-assets');commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
  files=[(run/name,'run/'+name) for name in ('summary.json','shared-results.json.gz','registration.json','inputs.json')]
+ if repair:
+  repaired=store.report(repair['runId'])
+  if repaired['pending'] or repaired['cached']!=repaired['expected']:raise ValueError('Shared terrain repair is not complete')
+  repair_path=run/'terrain-repair-results.json.gz';repair_path.write_bytes(gzip.compress(json.dumps(store.cached_results(repair['runId']),separators=(',',':')).encode(),mtime=0));files.append((repair_path,'run/terrain-repair-results.json.gz'))
  files.append((HERE/'local/plan.json','plan.json'))
+ evidence=root/'docs/astra-city/citywide-native/source-defect-audit.json'
+ if evidence.exists():files.append((evidence,'source-defect-audit.json'))
+ for name in ('source-restore-pilot.json','shared-cache-reuse.json','terrain-repair-verification.json','converter-pilot.json'):
+  evidence=root/'docs/astra-city/citywide-native'/name
+  if evidence.is_file():files.append((evidence,'verification/'+name))
  files.extend((f,'audit/'+f.relative_to(a.audit_dir).as_posix()) for f in sorted(a.audit_dir.rglob('*')) if f.is_file())
  if not any(name.startswith('audit/') for _,name in files):raise ValueError('A completed audit is required')
  with tempfile.TemporaryDirectory(prefix='native-checkpoint-') as directory:
@@ -44,7 +58,7 @@ def main():
     with tar.extractfile(member) as stream:
      h=hashlib.file_digest(stream,'sha256').hexdigest()
     if h!=row['sha256']:raise ValueError('Remote ledger member hash differs')
-  manifest={'schemaVersion':1,'issue':'HKS-222','runId':a.run_id,'gitCommit':commit,'summary':summary,'artifact':{'key':key,'sha256':sha,'bytes':archive.stat().st_size},'files':manifest_files,'verifiedRemoteReadback':True,'qualification':store.QUALIFICATION,'published':False}
+  manifest={'schemaVersion':1,'issue':'HKS-222','runId':a.run_id,'gitCommit':commit,'summary':summary,'auditSummary':audit,'artifact':{'key':key,'sha256':sha,'bytes':archive.stat().st_size},'files':manifest_files,'verifiedRemoteReadback':True,'qualification':store.QUALIFICATION,'published':False}
   payload=(json.dumps(manifest,sort_keys=True,separators=(',',':'))+'\n').encode();manifest_sha=hashlib.sha256(payload).hexdigest();mf=temp/'manifest.json';mf.write_bytes(payload);mk=key_for(manifest_sha);remote.put(mk,mf);verify_object(remote,mk,manifest_sha,len(payload),temp/'manifest-readback.json')
   proof={'manifestSHA256':manifest_sha,'manifestKey':mk,**manifest}
   with store.connect() as con:

@@ -191,7 +191,7 @@ def read_repair_overlay(con, run_id):
     if not counts['sheets']:raise ValueError('Unknown or empty terrain repair run')
     metadata={'runId':run_id,'expectedSheets':counts['sheets'],'acceptedSheets':counts['accepted'],'pendingSheets':counts['sheets']-counts['accepted'],'expectedEntries':counts['entries']}
     with con.cursor(name='native_audit_terrain_repairs')as cursor:
-        cursor.itersize=8
+        cursor.itersize=64
         cursor.execute("""SELECT i.input_json AS item,r.cache_key AS "cacheKey",r.result_sha AS "resultSHA256",r.result FROM astra_modelling.native_stage_members m JOIN astra_modelling.native_stage_inputs i USING(cache_key) JOIN astra_modelling.native_stage_results r USING(cache_key) WHERE m.run_id=%s ORDER BY i.sheet""",(run_id,))
         return repair_overlay(cursor,metadata)
 
@@ -217,7 +217,7 @@ def audit_database(run_id, output, source, terrain_repair_run=None):
             expected_source_sha=json.loads(gzip.decompress(selected.read_bytes())).get('sourceSHA256')
         terrain_repair=read_repair_overlay(con,terrain_repair_run) if terrain_repair_run else None
         with con.cursor(name='native_audit_sheets') as cursor:
-            cursor.itersize=8
+            cursor.itersize=64
             cursor.execute('''SELECT i.sheet,r.cache_key AS "cacheKey",i.source_sha AS "sourceSHA256",(i.input_json->'inputs'->'plan'->>'models')::int AS "expectedModels",r.result FROM astra_modelling.native_stage_members m JOIN astra_modelling.native_stage_inputs i USING(cache_key) JOIN astra_modelling.native_stage_results r USING(cache_key) WHERE m.run_id=%s ORDER BY i.sheet''',(run_id,))
             with ledger_path.open('w',encoding='utf-8') as ledger:
                 summary=audit_records(cursor,expected,source,ledger,expected_source_sha,source_defects,terrain_repair)

@@ -260,41 +260,18 @@
       "modelId": "B317934058501062G0",
       "nativeStageSourceSHA256": "93f35b35b0d6bf16f104b3b6ad0a6252ca81e0d5909cdc059c690918710623b0",
       "originalError": "UnicodeDecodeError: 'utf-32-be' codec can't decode bytes in position 2044-2045: truncated data",
-      "sourceEntry": "BUILDING/B317934058501062G0/B317934058501062G0.gltf",
-      "memberSHA256": "018419df18f06c57299aa1581664043c50947d5a24d33ddd5adedb1df7f3e127",
-      "sourceCRC32": 1805710616,
-      "bytes": 2046,
-      "nulBytes": 2044,
-      "sourceETag": "\"22922ef-63dcfba2cc61a\"",
-      "sourceURL": "https://download.map.gov.hk/api/3d-zip/GLTF0/3-SW-7A.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
-      "sourceHeaderOffset": 1005400,
-      "sourceCompressedBytes": 19,
-      "verifiedHTTPRange": [
-        1005400,
-        1005527
-      ],
-      "verification": {
-        "httpPartialContent206": true,
-        "responseETagMatchedFrozenSource": true,
-        "boundedMemberRangeLengthVerified": true,
-        "contentRangeVerified": true,
-        "originalZipCRCAndDecodedLengthVerified": true,
-        "jsonOpenBracePresent": false,
-        "utf8OrNulRemovalRecoversJSON": false
-      },
       "classification": "confirmed-source-corrupt",
-      "remainingBytesHex": "0d0a",
-      "observation": "Original government glTF consists solely of NUL bytes followed by CRLF; no recoverable JSON/accessor/node metadata."
+      "reusedFrozenProof": true
     }
   ],
   "currentCases": 7,
-  "reusedFrozenProofs": 6,
-  "newConfirmed": 1,
+  "reusedFrozenProofs": 7,
+  "newConfirmed": 0,
   "unclassifiedCurrentCases": 0,
   "issue": "HKS-222",
   "runId": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
-  "snapshotAt": "2026-09-09 04:47:53.402292+00",
-  "checkedAt": "2026-09-09T04:47:55.423985+00:00",
+  "snapshotAt": "2026-09-09 04:58:18.954979+00",
+  "checkedAt": "2026-09-09T04:58:20.931907+00:00",
   "method": "Read-only failed-JSON query; exact conditional member range, ETag, original ZIP CRC/length. Only NUL-only bytes plus CRLF are classified. Existing proofs require matching frozen source/member identity.",
   "converterChanged": false
 }

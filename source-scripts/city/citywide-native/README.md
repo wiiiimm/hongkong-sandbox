@@ -22,3 +22,18 @@ Every indexed source model must have an accounted outcome, and all retryable mec
 Neon holds compact searchable outcomes and content-addressed R2 references. Large original and derived geometry stays in R2. Local run receipts are disposable copies; retain a small final summary and the immutable run ID in the repository and Linear. Original sources absent from the government index cannot be created by this pipeline.
 
 See `store-readme.md` and `converter-readme.md` for contracts, caveats and validation. Do not confuse building model parts with individual landmarks or completed regions.
+
+## Finish exceptions and save the hand-off
+
+After the main run is fully cached, use the existing exception passes rather than rebuilding every building:
+
+```sh
+python source-scripts/city/citywide-native/verify_source_defects.py --run-id ORIGINAL_RUN_ID
+python source-scripts/city/citywide-native/repair_terrain_run.py --original-run ORIGINAL_RUN_ID --batch terrain-repair --workers 6 --env-file /absolute/path/to/private.env
+python source-scripts/city/citywide-native/audit_run.py --run-id ORIGINAL_RUN_ID --terrain-repair-run REPAIR_RUN_ID --output source-scripts/city/citywide-native/local/audits/final
+python source-scripts/city/citywide-native/checkpoint.py --run-id ORIGINAL_RUN_ID --audit-dir source-scripts/city/citywide-native/local/audits/final --env-file /absolute/path/to/private.env --out docs/astra-city/citywide-native/R2-CHECKPOINT.json
+```
+
+Terrain repairs have separate source-bound results: they preserve positions/indices, repair normals, remove unused UV/material data, represent translation nodes equivalently, and identify genuinely empty scenes. They do not alter the original frozen results. The audit applies only matching repair outcomes with geometry/source proof, while retaining raw failure counts. Reviewable source defects remain explicit.
+
+The checkpoint refuses incomplete runs, unexplained failures, inconsistent repair overlays or evidence that changed after its audit. It saves the complete outcome/reference ledger, frozen inputs, exception ledger, source-defect proofs and repair results to R2; verifies a fresh remote copy; and registers the manifest in Neon's existing `city_working_checkpoints`. Individual sheet geometry bundles remain separate content-addressed objects referenced by that ledger.
