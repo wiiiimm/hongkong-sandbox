@@ -11,3 +11,13 @@ button[aria-pressed=true]{background:#315b42;color:#fff}button{min-height:44px;c
 #flight-status{font-size:12px;color:#617063;min-width:120px}@media(max-width:600px){.overview .card-title p{display:none}.overview .viewport{height:240px}.overview.presentation .viewport{height:220px}}
 
 .overview.presentation .viewport{min-height:0}
+
+/* The gallery uses one fixed shared canvas behind independently framed cells. */
+.gallery-active #views,.gallery-active #location-legend,.gallery-active .notes,.gallery-active #overview,.gallery-active #flythrough,.gallery-active #spin,.gallery-active #reset,.gallery-active #flight-status,.gallery-active nav>label:first-child{display:none}
+.gallery-active header{display:none}.gallery-active nav{position:relative;z-index:2;background:#f3f4ed;padding:10px 3vw;margin:0}
+.gallery-canvas{position:fixed;inset:0;pointer-events:none;z-index:1}.gallery-canvas[hidden],#comparison-gallery[hidden]{display:none}
+#comparison-gallery{margin:0 3vw 18px;position:relative}.gallery-toolbar,.gallery-head,.gallery-row h3{position:relative;z-index:2;background:#f3f4ed}.gallery-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:8px 0;font-size:12px}.gallery-toolbar span{margin-left:auto;color:#617063}.gallery-toolbar input{max-width:130px}
+.gallery-head,.gallery-row{display:grid;grid-template-columns:150px repeat(3,minmax(0,1fr));gap:8px}.gallery-head{font-size:12px;font-weight:600;padding:8px 0;text-align:center}.gallery-row{border:0;border-radius:0;background:transparent;margin:0 0 6px}.gallery-row h3{margin:0;font-size:12px;display:flex;align-items:center;padding:10px}.gallery-cell{position:relative;z-index:2;height:clamp(76px,calc((100dvh - 200px)/7),150px);touch-action:none;border:1px solid #ccd5c8;cursor:grab}.roomy .gallery-cell{height:240px}
+@media(max-width:700px){.gallery-head{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-head span:first-child{display:none}.gallery-row{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-row h3{grid-column:1/-1;padding:5px}.gallery-cell{height:150px}.gallery-toolbar span{margin-left:0}.roomy .gallery-cell{height:230px}}
+
+@media(max-width:700px){.gallery-cell{touch-action:pan-y!important}}

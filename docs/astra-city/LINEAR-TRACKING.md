@@ -334,3 +334,7 @@ Parallel subagent completed all-locations overview, shared horizontal Start/Paus
 ## 9 September 2026 — HKS-228 panoramic fly-through follow-up
 
 All-locations mode now uses full-width stacked lanes with models arranged horizontally. Added a shared automatic tour: eight-second orbit and four-second travel per location, pause/resume, manual-input pause and reset. Same camera and target across all variants; no model or Neon state changes. Desktop/mobile checks cover all seven stops and synchronisation. Screenshots inspected under `comparison-flight/`. Ready for William to review using Show all locations → Start fly-through, optionally Video view. Light effort remains suitable.
+
+## 10 September 2026 — HKS-228 independent gallery
+
+Added Gallery view with seven independently framed rows and synchronised Basic/Light/High cells per location. One shared scissor renderer draws visible gallery cells; the previous three tour canvases are retained but inactive. Global Play/Pause, Orbit/Fly around,0.25–3×speed and compact/roomy rows. Desktop/mobile checks and inspected screenshots under `comparison-gallery/`; return to travelling tour verified. No model/Neon state changes. Ready for William's visual review. Light effort remains suitable.
