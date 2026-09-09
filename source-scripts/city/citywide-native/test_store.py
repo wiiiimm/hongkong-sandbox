@@ -44,6 +44,11 @@ class ValidationTests(unittest.TestCase):
         for change in ({'pipelineSha256':'short'},{'batch':'label'},{'terrainSha256':9**64}):
             with self.assertRaises(ValueError): store.cache_key({**item(),**change})
 
+    def test_batch_claim_limits_are_validated_before_connection(self):
+        with patch.object(store, 'connect', side_effect=AssertionError('Unexpected connection')):
+            for limit in (0, 9, True, 1.5):
+                with self.assertRaises(ValueError):store.claim_many('run', 'owner', limit)
+
     def test_artifact_bindings_and_preparation_scope_are_required(self):
         for key in ('../escape','https://signed.example/token','astra-modelling/../escape'):
             r=result();r['artifacts'][0]['key']=key
@@ -86,6 +91,22 @@ class LiveStoreTests(unittest.TestCase):
         self.assertEqual(len({j['id']for j in jobs}),2)
         store.finish_group([{'job':j,'result':result()}for j in jobs])
         self.assertEqual(store.report(run['runId'])['pending'],0)
+
+    def test_batch_claims_are_atomic_distinct_and_use_one_connection(self):
+        run=store.register('fixture-batch-claims',self.inputs(8))
+        real_connect=store.connect
+        with patch.object(store,'connect', wraps=real_connect) as connection:
+            first=store.claim_many(run['runId'],'first-batch',2)
+            self.assertEqual(connection.call_count,1)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3)as pool:
+            groups=list(pool.map(lambda i:store.claim_many(run['runId'],'batch-'+str(i),2),range(3)))
+        jobs=first+[j for group in groups for j in group]
+        self.assertEqual(len(jobs),8);self.assertEqual(len({j['id']for j in jobs}),8)
+        self.assertEqual(len({j['token']for j in jobs}),8)
+        self.assertEqual(store.claim_many(run['runId'],'none-left',8),[])
+        self.assertTrue(store.heartbeat_many(jobs))
+        store.finish_group([{'job':j,'result':result()}for j in jobs])
+        self.assertEqual(store.report(run['runId'])['cached'],8)
 
     def test_expired_worker_cannot_write_and_can_resume(self):
         run=store.register('fixture-expiry',self.inputs(1));old=store.claim(run['runId'],'same-owner',lease_seconds=1)

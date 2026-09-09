@@ -1,7 +1,8 @@
 """Shared immutable per-sheet preparation stages, using existing fenced job leases.
 
 register(label, items) -> runId/cached/pending; cache_key(item) freezes every input.
-claim(runId, owner, lease_seconds=300) -> existing jobs-shaped row or None.
+claim_many(runId, owner, limit=1..8, lease_seconds=300) -> owned rows.
+claim(runId, owner, lease_seconds=300) -> one owned row or None.
 heartbeat_many(jobs); finish_group([{'job': job, 'result': result}, ...]).
 fail(job, error_code, retry=True); report(runId); cached_results(runId).
 
@@ -14,7 +15,6 @@ import json
 from pathlib import Path, PurePosixPath
 import re
 import sys
-import uuid
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / 'shared-modelling'))
@@ -100,8 +100,16 @@ def register(label, items):
 
 
 def claim(run_id, owner, lease_seconds=300):
-    if not owner or not 1 <= lease_seconds <= 3600:
+    rows = claim_many(run_id, owner, 1, lease_seconds)
+    return rows[0] if rows else None
+
+
+def claim_many(run_id, owner, limit, lease_seconds=300):
+    """Claim up to eight sheets in one transaction; overlapping runs share jobs."""
+    if not isinstance(owner, str) or not owner.strip() or not 1 <= lease_seconds <= 3600:
         raise ValueError('Owner and bounded lease required')
+    if type(limit) is not int or not 1 <= limit <= 8:
+        raise ValueError('Claim limit must be an integer from 1 to 8')
     with connect() as con:
         con.row_factory = dict_row
         con.execute('''UPDATE astra_modelling.jobs j SET status='failed',error='lease-expired-retry-limit',
@@ -109,23 +117,33 @@ def claim(run_id, owner, lease_seconds=300):
             FROM astra_modelling.native_stage_members m WHERE m.run_id=%s AND m.job_id=j.id
             AND j.stage=%s AND j.status='running' AND j.lease_until<=clock_timestamp()
             AND j.attempts>=j.max_attempts''', (run_id, STAGE))
-        row = con.execute('''WITH picked AS (
+        rows = con.execute('''WITH picked AS (
             SELECT j.id FROM astra_modelling.jobs j
             JOIN astra_modelling.native_stage_members m ON m.job_id=j.id
             LEFT JOIN astra_modelling.native_stage_results r ON r.cache_key=m.cache_key
             WHERE m.run_id=%s AND j.stage=%s AND r.cache_key IS NULL
             AND j.attempts<j.max_attempts AND j.ready_at<=clock_timestamp()
             AND (j.status='pending' OR (j.status='running' AND j.lease_until<=clock_timestamp()))
-            ORDER BY j.ready_at,j.id FOR UPDATE OF j SKIP LOCKED LIMIT 1)
-            UPDATE astra_modelling.jobs j SET status='running',owner=%s,token=%s,
+            ORDER BY j.ready_at,j.id FOR UPDATE OF j SKIP LOCKED LIMIT %s),
+            claimed AS (UPDATE astra_modelling.jobs j SET status='running',owner=%s,token=gen_random_uuid(),
             lease_until=clock_timestamp()+make_interval(secs=>%s),attempts=j.attempts+1,
-            updated_at=clock_timestamp() FROM picked WHERE j.id=picked.id RETURNING j.*''',
-            (run_id, STAGE, owner, uuid.uuid4(), lease_seconds)).fetchone()
-        if row:
-            row['item'] = con.execute('SELECT input_json FROM astra_modelling.native_stage_inputs WHERE cache_key=%s', (row['payload']['cacheKey'],)).fetchone()['input_json']
+            updated_at=clock_timestamp() FROM picked WHERE j.id=picked.id RETURNING j.*)
+            SELECT j.*,i.input_json AS item FROM claimed j
+            JOIN astra_modelling.native_stage_inputs i ON i.cache_key=j.payload->>'cacheKey' ''',
+            (run_id, STAGE, limit, owner, lease_seconds)).fetchall()
+        for row in rows:
             if cache_key(row['item']) != row['payload']['cacheKey']:
                 raise ValueError('Frozen stage input checksum mismatch')
-    return row
+        if rows:
+            # Start the full deadline after input validation; all rows remain locked.
+            deadlines = con.execute('''UPDATE astra_modelling.jobs SET
+                lease_until=clock_timestamp()+make_interval(secs=>%s),updated_at=clock_timestamp()
+                WHERE id=ANY(%s) RETURNING id,lease_until''',
+                (lease_seconds, [row['id'] for row in rows])).fetchall()
+            by_id = {r['id']: r['lease_until'] for r in deadlines}
+            for row in rows:
+                row['lease_until'] = by_id[row['id']]
+    return rows
 
 
 def _owners(jobs):
