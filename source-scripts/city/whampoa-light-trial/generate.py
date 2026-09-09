@@ -64,6 +64,27 @@ def main():
    high=[m for m in estates['models'] if m['uid'] in uids]
    assert len(high)==len(uids) and all(m['publicationApproved'] for m in high)
    references[group['id']]={'high':high,'prefix':'city/data/official-models/whampoa-estates-high/','rootTranslation':estates['rootTranslation'],'lightMethod':'original-procedural-facade','reviewIssue':'HKS-226'}
+ # Optional bounded follow-on trials reuse the same deterministic simplifier.
+ extra_targets=ROOT/'source-scripts/city/ifc-hsbc-light/targets.json'
+ if extra_targets.exists():
+  targets=read(extra_targets);sources={}
+  for folder in targets['catalogues']:
+   source_cat=read(ROOT/'3d-viewer/city/data/official-models'/folder/'catalogue.json')
+   for model in source_cat['models']:
+    sources[model['uid']]=(folder,model,source_cat['rootTranslation'])
+  for group in targets['groups']:
+   high=[];low=[]
+   for uid in group['uids']:
+    folder,model,translation=sources[uid];model=dict(model)
+    source=ROOT/'3d-viewer/city/data/official-models'/folder/model['asset']
+    assert hashlib.sha256(source.read_bytes()).hexdigest()==model['sha256']
+    b=dict(c.execute('select uid,name,zh,base,height,x,z,rings_json,csuid from buildings where active=1 and uid=?',(uid,)).fetchone())
+    assert b['csuid']==model['buildingCSUID'];b['rings']=json.loads(b.pop('rings_json'));rows.append(b)
+    name=uid.replace('/','-').replace(':','-')+'.glb.gz'
+    low.append({**simplify(source,OUT/name),'uid':uid})
+    model['asset']=folder+'/'+model['asset'];high.append(model)
+   references[group['id']]={'high':high,'light':low,'prefix':'city/data/official-models/','rootTranslation':translation,'reviewIssue':'HKS-227','qualification':targets['qualification']}
+   groups.append(group)
  basic={'groups':groups,'buildings':rows};write(OUT/'basic.json',basic)
  manifest={'generatorSHA256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'shaderSHA256':hashlib.sha256((ROOT/'3d-viewer/city/whampoa-comparison.js').read_bytes()).hexdigest(),'aiCalls':0,'issue':'HKS-225','references':references,'groups':groups,'lightShip':light,'highShip':catalogue,'basicBytes':(OUT/'basic.json').stat().st_size,'basicGzipBytes':len(gzip.compress((OUT/'basic.json').read_bytes(),mtime=0)),'method':'1m vertex clustering with preserved upper silhouette for ship; footprint-preserving procedural facades for sites','newHighPass':'pending user effort switch','sources':['https://www.rvd.gov.hk/doc/en/urban.pdf','https://www.rvd.gov.hk/doc/en/urban_201504.pdf'],'limits':['Native high is existing government geometry, not a new high-effort generation.','Site 8 membership currently includes named Gourmet Place component; ancillary structures require high-pass review.','Site 12 includes nine named towers; shared podium/landscaping membership remains for high-pass review.','Procedural facade spacing/materials are illustrative, not surveyed.','Cultural Centre study includes seven detailed source components; six separately unmatched canopies remain outside this bounded comparison.','Ship simplification may remove small details and is not approved for the city.']}
  if estates_path.exists():
