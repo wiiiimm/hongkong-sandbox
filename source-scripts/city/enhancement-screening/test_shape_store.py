@@ -48,6 +48,13 @@ class ShapeStoreTests(unittest.TestCase):
         self.assertEqual(sha(encode({'v': [-0.0, 1.0, 1e20, 1e-20]})),
                          sha(encode({'v': [0, 1, 100000000000000000000, .00000000000000000001]})))
 
+    def test_live_tuple_policy_and_json_report_have_identical_manifest(self):
+        self.summary['policy'] = {'views': [(0, 15), (45, 40)]}
+        live = self.packed()
+        self.summary = json.loads(json.dumps(self.summary))
+        self.assertEqual(live, self.packed())
+        self.assertEqual(live[1], json.loads(json.dumps(live[1])))
+
     def test_retry_ignores_execution_time_and_cache_hits_and_row_order(self):
         first = self.packed()
         self.summary.update(seconds=99, cache={'shared': 3})

@@ -21,7 +21,7 @@ def normalise(value):
     # JSONB normalises -0 and integer-valued floats; hash the numeric value.
     if isinstance(value, float) and value.is_integer():
         return int(value)
-    if isinstance(value, list):
+    if isinstance(value, (list, tuple)):
         return [normalise(v) for v in value]
     if isinstance(value, dict):
         return {k: normalise(v) for k, v in value.items()}
@@ -43,6 +43,7 @@ def routing_hash(path):
 
 
 def package(evidence, summary, results, routing_sha=None):
+    results = normalise(results)
     raw = Path(evidence).read_bytes()
     e = json.loads(gzip.decompress(raw))
     sample, controls = set(e['sampleUids']), set(e['controlUids'])
@@ -85,6 +86,7 @@ def package(evidence, summary, results, routing_sha=None):
         automaticAcceptanceEnabled=False, nativeRun=e['nativeRun'], contextHash=e['contextHash'],
         seed=e['seed'], population=e['population'], excludedUids=e.get('excludedUids', []),
         outcomesSHA256=sha(encode([{k: r[k] for k in ('uid', 'role', 'sha256')} for r in rows])))
+    manifest = normalise(manifest)
     return sha(encode(manifest)), manifest, rows
 
 
