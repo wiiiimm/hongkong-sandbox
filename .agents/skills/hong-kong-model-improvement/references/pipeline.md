@@ -12,6 +12,7 @@ All per-model work runs in local scripts with zero AI calls. Data transfers to g
 
 | Work | Existing entry points and evidence |
 | --- | --- |
+| Validate the next cached government batch | `source-scripts/city/government-import/run.py --batch NAME --count 200`; read its README. Reuses exact sources and current acceptance; saves all outcomes to Neon. Mechanical validation only, no automatic acceptance/publication or AI review. |
 | Read current job state | `python3 source-scripts/city/building-batch/status.py`; excludes superseded historical job rows |
 | Rebuild/refresh inventory | `python3 source-scripts/city/building-batch/inventory.py`; read `source-scripts/city/building-batch/README.md` first |
 | Resolve supported landmark identities | `source-scripts/city/landmark-identity/resolve.py`, `validate.py`, `verify_determinism.py`; documentation in `docs/astra-city/landmark-identity/README.md` |

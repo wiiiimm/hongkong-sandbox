@@ -15,10 +15,17 @@ const hashes={},hash=raw=>createHash('sha256').update(raw).digest('hex');
 const read=(base,p)=>{const path=safe(base,p),bytes=readFileSync(path);hashes[path.startsWith(root+'/')?relative(root,path):relative(folder,path)]=hash(bytes);return JSON.parse(bytes);};
 const imports=await Promise.all(['3d-viewer/vendor/three.module.js','3d-viewer/city/official-model-assets.js','3d-viewer/city/geo.js','3d-viewer/city/world.js'].map(p=>import(pathToFileURL(resolve(root,p)))));
 const [THREE,{prepareModelCatalogue,loadOfficialModel,disposeOfficialModel},{BuildingIndex,makeTerrainSampler,inPolygon},{makeTerrain}]=imports;
-const db=new DatabaseSync(dbPath,{readOnly:true});db.exec('PRAGMA busy_timeout=30000');
-const lookup=db.prepare('SELECT * FROM buildings WHERE uid=? AND active=1');
-const tiles=new Map(),inputHash=db.prepare('SELECT sha256 FROM inputs WHERE path=?');
+const sourceFile=option('--source-forms',null);
+const sourceForms=sourceFile?read(root,sourceFile):null;
+const db=sourceFile?null:new DatabaseSync(dbPath,{readOnly:true});db?.exec('PRAGMA busy_timeout=30000');
+const lookup=db?.prepare('SELECT * FROM buildings WHERE uid=? AND active=1');
+const tiles=new Map(),inputHash=db?.prepare('SELECT sha256 FROM inputs WHERE path=?');
 const getBuilding=uid=>{
+ if(sourceForms){
+  const row=sourceForms[uid];assert(row,'Selected current source missing');
+  if(!tiles.has(row.tile)){const path=safe(root+'/3d-viewer',row.tile),raw=readFileSync(path);assert.equal(hash(raw),row.tileSHA256,'Live tile changed since batch selection');hashes['3d-viewer/'+row.tile]=hash(raw);tiles.set(row.tile,new Map(JSON.parse(raw).buildings.map(b=>[b.uid,b])));}
+  const building=tiles.get(row.tile).get(uid);assert(building,'Building missing from current tile');assert.deepEqual(building,row.building,'Selected source changed');return building;
+ }
  const row=lookup.get(uid);assert(row,'Active building missing');
  if(!tiles.has(row.input_path)){const path=safe(root+'/3d-viewer',row.input_path),raw=readFileSync(path);assert.equal(hash(raw),inputHash.get(row.input_path)?.sha256,'Live tile changed since inventory');hashes['3d-viewer/'+row.input_path]=hash(raw);tiles.set(row.input_path,new Map(JSON.parse(raw).buildings.map(b=>[b.uid,b])));}
  const building=tiles.get(row.input_path).get(uid);assert(building,'Building missing from current tile');assert.deepEqual(building.rings,JSON.parse(row.rings_json));return building;
@@ -80,7 +87,7 @@ try{
   finally{disposeOfficialModel(model);}
   if(results.length%500===0)console.error('Validated '+results.length+'/'+entries.length);
  }
-}finally{db.close();terrain.traverse(o=>{o.geometry?.dispose();for(const m of [].concat(o.material||[]))m.dispose();});}
+}finally{db?.close();terrain.traverse(o=>{o.geometry?.dispose();for(const m of [].concat(o.material||[]))m.dispose();});}
 const exceptions=results.filter(r=>r.outcome==='validation-exception'),concerns={};for(const r of results)for(const c of r.concerns||[])concerns[c]=(concerns[c]||0)+1;
 const report={schemaVersion:1,staged:true,published:false,models:entries.length,loaderAccepted,checksPassed:results.length-exceptions.length,exceptions:exceptions.length,terrainRays,seconds:(performance.now()-started)/1000,
  peakRSSBytes:process.resourceUsage().maxRSS*1024,compressedBytes:entries.reduce((n,e)=>n+e.bytes,0),concerns,hashes,results,
