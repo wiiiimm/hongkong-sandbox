@@ -1,5 +1,9 @@
 # Scripted screening: another 5,000 forms (HKS-203)
 
+> Historical experiment: full skip-screening was retired from the import pipeline
+> on 11 September 2026. Results remain diagnostics, not acceptance or a work queue.
+> See `source-scripts/city/enhancement-screening/README.md` for the active route.
+
 Codex root, 10 September 2026. This deterministic sample excludes every form in
 the earlier 1,000-form pilot. Kai Tak remains a separate control, outside both
 sample denominators. The displayed population is 346,108 source forms; these are
@@ -69,7 +73,7 @@ mkdir -p source-scripts/city/enhancement-screening/local/replay-5000/geometry
 tar -xzf docs/astra-city/enhancement-screening/shape-pilot-5000/geometry.tar.gz \
   -C source-scripts/city/enhancement-screening/local/replay-5000/geometry
 source-scripts/city/enhancement-screening/.venv/bin/python \
-  source-scripts/city/enhancement-screening/screen.py compare \
+  source-scripts/city/enhancement-screening/shape_screen.py \
   --evidence docs/astra-city/enhancement-screening/shape-pilot-5000/inputs.json.gz \
   --geometry source-scripts/city/enhancement-screening/local/replay-5000/geometry \
   --out source-scripts/city/enhancement-screening/local/replay-5000/report

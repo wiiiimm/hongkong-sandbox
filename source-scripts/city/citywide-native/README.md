@@ -2,6 +2,17 @@
 
 This pipeline exhausts the indexed government building glTF/bin source without an AI call per model. It does not publish models, approve architecture, or change terrain elevations. Native HKPD geometry stays at 1× scale.
 
+## Import workflow policy — 11 September 2026
+
+Government-model handling is local scripted processing with zero per-model AI
+calls. Reuse current verified decisions and exact cached assets; for other forms,
+proceed to source identity/component, placement/support and runtime validation.
+The full metadata/shape skip-screening pass is retired and is not a preparation or
+import prerequisite. Data transfers to government sources, Neon and R2 remain
+supported. Use the existing fenced acceptance/publisher flow for validated subsets;
+keep current fallbacks and explicit reasons for unresolved cases. Do not start an
+AI modelling/review fallback. See the model-improvement skill for current routing.
+
 ## Resume on another machine
 
 1. Check out the Astra feature branch at the recorded pipeline commit. Restore the HKS-221 source-directory checkpoint and retained government footprint input using the existing Hong Kong model-improvement skill. Pull private environment configuration; never commit it.

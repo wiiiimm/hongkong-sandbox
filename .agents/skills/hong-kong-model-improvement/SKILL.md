@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.5.0"
+  version: "1.6.0"
 ---
 
 # Hong Kong model improvement
@@ -17,28 +17,30 @@ Read `docs/astra-city/landmark-progress/progress.json`, `docs/astra-city/landmar
 
 For a different device or missing local caches, read [references/resume.md](references/resume.md) first. A cloned repository is not proof that ignored source payloads or the SQLite job ledger are present.
 
-## Screen before enhancement
+## Reuse verified work and original government detail
 
-User direction, 10 September 2026: reduce unnecessary work. Existing buildings that are good enough should be skipped, not remodelled to inflate enhancement counts. Follow `source-scripts/city/enhancement-screening/README.md` before scheduling enhancement work.
+User direction, 11 September 2026: remove full skip-screening from the import pipeline. Reuse current accepted decisions and source/model hashes to avoid repeat work. Do not run metadata or shape-comparison sampling as an enhancement prerequisite. The 6,000-form experiment found only 24 potential new skips, all already containing detailed geometry; its results remain historical diagnostics, not an import queue or acceptance proof.
 
-Run the shared screening planner against the current rendered inputs. Its three outputs are `skip`, `enhance`, and `assess`. Skip current `good-to-go` and existing verified `enhanced` forms. Only an explicit current `enhancement-required` decision enters enhancement work. `unassessed` means assess cheaply first; it does not justify launching a modelling run. Offline plans are previews, never the shared authority. Recheck after obtaining the source reservation and before expensive work; a changed model, evidence or context must not reuse stale acceptance.
+Use the shared acceptance planner in `source-scripts/city/enhancement-screening/README.md` for existing ledger/hash checks. Skip unchanged `enhanced` and `good-to-go` forms; preserve explicit rework decisions and required dependency models. Recheck current inputs after obtaining source ownership. Offline plans are previews, never shared authority.
 
-Assess the actual city representation, not the deliberately unstyled comparison baseline. Name the missing recognisable feature and normal-view benefit before upgrading. User preference updated later on 10 September 2026: the original High detail comparison looks better than Light. Prefer direct reuse of suitable detailed government geometry; preserve its architectural detail by default. Simplify only for a demonstrated runtime need, with visual comparison of what is lost. High/Light in the comparison describe mesh detail, not AI reasoning effort. AI reconstruction is unnecessary where suitable government geometry exists; use reasoning for identity, placement, source gaps and acceptance. Do not equate polygon count, a source download, a clean diagnostic audit, or an ordinary-building label with visual adequacy. Uncertain cases remain unassessed. Record accepted good-to-go/rework decisions with current input hashes, evidence and live source ownership; do not replace the model acceptance ledger.
+For other forms, proceed directly to cached government source lookup and scripted identity, component, placement/support and runtime validation. `unassessed` does not require a new good-enough assessment or an `enhancement-required` event before mechanical preparation. It also does not authorise AI modelling or imply that enhancement is needed. Reuse original government detail by default; integrate only subsets that pass the existing acceptance and guarded publication requirements. Source downloads or clean diagnostics alone are not publication approval.
 
-The public chart counts enhanced, good to go, enhancement required and not screened as mutually exclusive source-form categories. Good-to-go decisions earn progress without geometry changes. Skip applies to optional enhancement only: still retain dependency models and perform required source, terrain, identity and safety checks. No source form automatically completes a whole landmark or region.
+Keep the current model when the source is missing, ambiguous or fails validation. Record the reason for scripted investigation and continue independent work. The agent owns batch routing; do not ask the user to decide individual buildings. Simplify original detail only when measured runtime costs justify local scripted reductions. High/Light describe mesh detail, not AI reasoning effort.
 
-## Token constraint and shape screening
+Keep the public progress categories and existing evidenced acceptance ledger. New good-to-go/rework records still require current input/evidence hashes and live source ownership. Historical pilot candidates grant no progress credit. No source form automatically completes a whole landmark or region.
 
-User direction, 10 September 2026: processing power is acceptable, but AI tokens are only for code and other non-modelling work. Do not invoke AI for geometry generation, per-building visual/architectural judgement or reconstruction. If a case requires AI modelling, leave it pending and notify the user before proceeding. Continue independent scripted work. The user does not want a building-by-building skip/enhance approval workflow.
+## Local processing and AI-token constraint
 
-Extend/reuse `source-scripts/city/enhancement-screening/screen.py compare` for deterministic current-versus-government shape comparisons. Preserve original detail; use fixed multi-view silhouettes, roof/depth evidence and current fingerprints. The old triangle-ceiling pilot is a historical baseline, not the decision rule. Cache mechanical results by source, geometry, context, policy and engine hashes. Separate shape benefit from identity, support/terrain and runtime gates. Position-only changes are not extra architectural detail. No automatic per-model AI fallback.
+User direction, 11 September 2026: government-model enhancement must run as ordinary local processes with **zero per-model AI calls**. Source lookup/restoration, decoding, conversion, validation, optional measured LOD generation and import orchestration use deterministic scripts. Government downloads and Neon/R2 cache/result syncing are ordinary data transfers, not AI processing. Reuse exact cached assets/results before repeating work; do not run an agent or visual-review loop for every building.
 
-Current shape comparison is a bounded validation/dry-run stage. Synthetic geometry tests and landmark regressions validate the implementation, not citywide perceptual acceptance. Do not grant new good-to-go credit or publish import candidates until an evidenced acceptance rule is validated and the existing fenced recording/publication checks pass. Missing/ambiguous sources and unresolved context remain pending. AI-assisted code development is not a zero-token claim for the overall session; runtime script AI calls must be zero.
+AI is permitted only for developing/fixing code and other non-modelling work. Do not invoke AI for geometry generation, model refinement, simplification, per-building architectural judgement or reconstruction. No automatic AI retry or fallback is allowed. If a case cannot be resolved mechanically and would require AI modelling or architectural judgement, retain its current model, leave that case pending and notify the user before that work starts. Continue independent scripted work without waiting on that case.
+
+Use the existing source, placement, runtime, ownership and publication guards. Keeping the process local does not waive these checks or turn unresolved cases into accepted models. Runtime scripts make zero AI calls; AI-assisted code development is not a zero-token claim for the overall session.
 
 ## Choose the phase
 
 - **Mechanical preparation:** follow [references/pipeline.md](references/pipeline.md). Reuse exact IDs, caches, pinned source batches and existing packers. Medium effort is generally sufficient. Parallelise independent sheet requests and processing, but coordinate a single SQLite writer and one process per acquisition batch.
-- **Architectural improvement:** only begin when the user explicitly re-enables that work; it is currently paused under the token constraint below. Prefer original detailed government geometry and use AI only where identity, placement or missing architecture requires judgement. Keep geometry detail separate from reasoning effort; choose reasoning effort for the actual unresolved problem. Read the per-landmark preflight rows, native geometry and source evidence; do not reconstruct every building individually when a supported batch correction applies.
+- **Architectural improvement:** only begin when the user explicitly re-enables that work; it is currently paused under the token constraint above. Prefer original detailed government geometry and use AI only where identity, placement or missing architecture requires judgement. Keep geometry detail separate from reasoning effort; choose reasoning effort for the actual unresolved problem. Read the per-landmark preflight rows, native geometry and source evidence; do not reconstruct every building individually when a supported batch correction applies.
 - **Acceptance and integration:** use the existing review and guarded publisher mechanisms with fresh evidence for the selected components. A previously approved sample is not approval for another batch.
 
 The user may park modelling after a mechanical pass. Finish the agreed pass, record the hand-off, and leave the later modelling phase pending; do not silently continue it.

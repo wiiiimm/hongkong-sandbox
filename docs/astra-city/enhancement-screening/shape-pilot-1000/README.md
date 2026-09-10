@@ -1,5 +1,9 @@
 # Scripted shape-screening pilot — 10 September 2026
 
+> Historical experiment: full skip-screening was retired from the import pipeline
+> on 11 September 2026. Results remain diagnostics, not acceptance or a work queue.
+> See `source-scripts/city/enhancement-screening/README.md` for the active route.
+
 Codex root implemented this diagnostic pass for HKS-203, following the user's
 instruction to use AI only for code and non-modelling work. No AI geometry,
 architectural assessment or reconstruction was performed. No viewer models,
@@ -110,7 +114,7 @@ From the worktree root with the existing modelling environment and dependencies 
 
 ```sh
 python -m tarfile -e docs/astra-city/enhancement-screening/shape-pilot-1000/geometry.tar.gz /tmp/hks-shape-replay
-python source-scripts/city/enhancement-screening/screen.py compare \
+python source-scripts/city/enhancement-screening/shape_screen.py \
   --evidence docs/astra-city/enhancement-screening/shape-pilot-1000/inputs.json.gz \
   --geometry /tmp/hks-shape-replay --out /tmp/hks-shape-report
 ```

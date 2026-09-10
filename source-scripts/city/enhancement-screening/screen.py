@@ -1,5 +1,6 @@
-"""Source-bound good-enough decisions; only current accepted forms skip enhancement.
+"""Acceptance ledger and input-hash reuse; only current accepted forms skip enhancement.
 
+No geometry-comparison pass is part of this entry point.
 Planning and hash checks make zero AI calls. Recording adequacy requires evidence
 from a human/agent review or an explicitly validated mechanical acceptance rule.
 """
@@ -172,9 +173,4 @@ def main():
 
 
 if __name__ == '__main__':
-    if len(sys.argv)>1 and sys.argv[1]=='compare':
-        sys.argv.pop(1)
-        from shape_screen import main as compare_main
-        compare_main()
-    else:
-        main()
+    main()

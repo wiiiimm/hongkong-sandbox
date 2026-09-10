@@ -1,5 +1,9 @@
 # 1,000-form screening pilot — 10 September 2026
 
+> Historical experiment: full skip-screening was retired from the import pipeline
+> on 11 September 2026. Results remain diagnostics, not acceptance or a work queue.
+> See `source-scripts/city/enhancement-screening/README.md` for the active route.
+
 Codex root ran `pilot.py --capture` on `codex/astra-hong-kong-city`. This is a
 script-only triage experiment, not a completed visual acceptance pass.
 

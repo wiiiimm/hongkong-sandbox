@@ -1,5 +1,7 @@
 # Resume on another device
 
+Current policy (11 September 2026): use the latest skill/import order after restoring historical checkpoints. Full skip-screening is retired; government-model handling uses local scripts with zero per-model AI calls. Do not revive old comparison prerequisites or per-building AI review instructions from a restored checkpoint. Existing source/placement/publication guards still apply.
+
 Read `docs/astra-city/landmark-resume/PAUSED-HANDOFF-20260909.md` first. Its final `R2-PAUSE-CHECKPOINT-20260909.json` records the newest verified checkpoint when present; earlier checkpoint files below are historical. The current model-review pointer is `docs/astra-city/model-integration-20260909/current-source-review.json`.
 
 The skill is versioned with the project under `.agents/skills/`. Fetch the relevant branch/commit on the new device before invoking it. A copied standalone skill still requires the project and its working material.

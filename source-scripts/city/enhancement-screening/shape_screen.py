@@ -1,6 +1,6 @@
-"""Multi-view source comparison and conservative routing; never AI or automatic acceptance.
+"""Optional diagnostic/replay tool; retired from the enhancement pipeline.
 
-Run through screen.py compare. Exact results are cached by geometry, current inputs,
+Run shape_screen.py directly only for targeted debugging or frozen replay. Exact results are cached by geometry, current inputs,
 policy and engine hashes. A dry-run plan is not a model publication or review decision.
 """
 import argparse

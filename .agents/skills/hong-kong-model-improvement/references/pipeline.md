@@ -2,6 +2,14 @@
 
 Run from the selected repository root with an available Python environment and Node 24+ on PATH. The inventory uses Python's standard library; geometry tools also use NumPy, Shapely and pyproj. Inspect the relevant existing script/dependency files instead of recreating a runtime or relying on a previous `/tmp` environment. Browser tools use the project's Playwright dependency and an available browser.
 
+## Current import order — 11 September 2026
+
+1. Reuse current acceptance records and input hashes to skip unchanged verified forms; preserve rework and dependency requirements.
+2. For remaining forms, look up exact cached government assets, then run local identity/component, placement/support and runtime checks. No preliminary good-enough or shape-comparison pass is required.
+3. Integrate validated original detail through the existing fenced acceptance/publisher flow. Leave unresolved or unavailable sources on their current fallback and queue scripted investigation.
+
+All per-model work runs in local scripts with zero AI calls. Data transfers to government sources, Neon and R2 remain supported. Do not launch AI geometry generation, simplification or architectural review for failures; report any need for that work before proceeding with it. Historical screening reports are retained for diagnostics and do not schedule imports or grant acceptance.
+
 | Work | Existing entry points and evidence |
 | --- | --- |
 | Read current job state | `python3 source-scripts/city/building-batch/status.py`; excludes superseded historical job rows |
@@ -11,7 +19,7 @@ Run from the selected repository root with an available Python environment and N
 | Acquire terrain prerequisites | `source-scripts/city/landmark-acquisition/terrain.py`; native geometry only, not a terrain edit |
 | Prepare combined candidates | `source-scripts/city/landmark-identity/stage_proposals.py`; reuse `building-batch/cached_models.py` and the established decoder/packer |
 | Update source/landmark accounting | `source-scripts/city/landmark-progress/report.py`; explicit `reviews.json` controls whole-landmark readiness |
-| Make the modelling queue | `source-scripts/city/landmark-preflight/preflight.py`, `terrain_inputs.py`; read `docs/astra-city/landmark-preflight/README.md` |
+| Prepare the validation queue (no AI jobs) | `source-scripts/city/landmark-preflight/preflight.py`, `terrain_inputs.py`; read `docs/astra-city/landmark-preflight/README.md` |
 | Capture review evidence | `landmark-preflight/gallery.mjs`, `merge_gallery.py`, `contact.mjs`; bounded automatic reframing and explicit inactive/unresolved outcomes |
 | Integrate a reviewed subset | Existing `source-scripts/city/island-detail-integration/publish.py` and the `landmark-visual-review/` review/guard pattern; use a fresh plan/evidence set |
 
