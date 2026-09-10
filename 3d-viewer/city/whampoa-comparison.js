@@ -1,4 +1,4 @@
-import {createComparisonGallery} from './comparison-gallery.js?v=20260910-hover1';
+import {createComparisonGallery} from './comparison-gallery.js?v=20260910-approach1';
 import * as T from '../vendor/three.module.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {GLTFLoader} from '../vendor/GLTFLoader.js';

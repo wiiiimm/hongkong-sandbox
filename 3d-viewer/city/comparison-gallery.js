@@ -34,10 +34,11 @@ export function createComparisonGallery(groups, assemble) {
   if(motion==='fly'){
    // A continuous 32-second drone approach, close facade rise, roof pass and reveal.
    // Close shots deliberately crop the model; only the reveal fits the full assembly.
-   // Phase offsets give each location its own flight; all variants share the camera.
-   const keys=[[-1.15,.18,.78,.2],[-.3,.08,.32,.32],[.65,.32,.36,.78],[2.1,1.3,.45,.84],[4.25,.5,1.35,.45],[Math.PI*2-1.15,.18,.78,.2]];
-   const phase=((elapsed/32+row.phase/7)%1)*5,index=Math.floor(phase),u=phase-index,t=u*u*(3-2*u),a=keys[index],b=keys[index+1],mix=k=>a[k]+(b[k]-a[k])*t;
-   theta=mix(0);tilt=mix(1);zoom=mix(2);target.y=row.bounds.min.y+size.y*mix(3);shot=['Approach','Facade rise','Rooftop pass','Wide reveal','Return'][index];
+   // Every location starts wide together; angular offsets vary the approach direction.
+   // All three variants share the same camera throughout the tour.
+   const keys=[[-1.15,.5,1.6,.5],[-.3,.08,.32,.32],[.65,.32,.36,.78],[2.1,1.3,.45,.84],[4.25,.5,1.35,.45],[Math.PI*2-1.15,.5,1.6,.5]];
+   const phase=((elapsed/32)%1)*5,index=Math.floor(phase),u=phase-index,t=u*u*(3-2*u),a=keys[index],b=keys[index+1],mix=k=>a[k]+(b[k]-a[k])*t;
+   theta=mix(0)+row.phase;tilt=mix(1);zoom=mix(2);target.y=row.bounds.min.y+size.y*mix(3);shot=['Approach','Facade rise','Rooftop pass','Wide reveal','Return'][index];
   }
   const direction=new T.Vector3(Math.sin(theta),tilt,Math.cos(theta)).normalize(),right=new T.Vector3().crossVectors(new T.Vector3(0,1,0),direction).normalize(),up=new T.Vector3().crossVectors(direction,right),tanV=Math.tan(Math.PI/10),tanH=tanV*camera.aspect;let distance=10;
   for(const x of [row.bounds.min.x,row.bounds.max.x])for(const y of [row.bounds.min.y,row.bounds.max.y])for(const z of [row.bounds.min.z,row.bounds.max.z]){const p=new T.Vector3(x,y,z).sub(target),depth=p.dot(direction);distance=Math.max(distance,depth+Math.abs(p.dot(right))*1.15/tanH,depth+Math.abs(p.dot(up))*1.15/tanV);}
@@ -61,7 +62,7 @@ export function createComparisonGallery(groups, assemble) {
   window.__gallery={active,playing,speed,motion,drawn,locations:rows.map(r=>({id:r.id,camera:r.camera.position.toArray(),target:r.cells[0].controls.target.toArray(),variants:3,shot:r.shot})),rendererCount:1};
  }
  function frame(now){if(active){if(playing&&last){const dt=Math.min((now-last)/1000,.1)*speed;elapsed+=dt;for(const row of rows){row.angle+=dt*.18;fit(row);}dirty=true;}if(dirty||now<hoverUntil){render();dirty=false;}}last=now;requestAnimationFrame(frame);}requestAnimationFrame(frame);
- play.onclick=()=>{setPlaying(!playing);dirty=true;};host.querySelector('#gallery-motion').onchange=e=>{motion=e.target.value;for(const row of rows)fit(row);dirty=true;};
+ play.onclick=()=>{setPlaying(!playing);dirty=true;};host.querySelector('#gallery-motion').onchange=e=>{motion=e.target.value;elapsed=0;for(const row of rows)fit(row);dirty=true;};
  host.querySelector('#gallery-speed').oninput=e=>{speed=Number(e.target.value);host.querySelector('#gallery-speed-value').textContent=speed+'×';dirty=true;};
  const sizeInput=host.querySelector('#gallery-size');
  const initialSize=innerWidth<=700?150:Math.max(90,Math.min(150,Math.floor((innerHeight-220)/7/10)*10));
