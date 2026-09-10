@@ -1,4 +1,4 @@
-import {bindBuildingProgress} from './building-progress.js';
+import {bindBuildingProgress} from './building-progress.js?v=20260910-screening1';
 import * as THREE from '../vendor/three.module.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {makeTerrainSampler} from './geo.js';

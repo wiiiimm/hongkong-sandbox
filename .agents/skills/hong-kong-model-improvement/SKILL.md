@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # Hong Kong model improvement
@@ -17,10 +17,20 @@ Read `docs/astra-city/landmark-progress/progress.json`, `docs/astra-city/landmar
 
 For a different device or missing local caches, read [references/resume.md](references/resume.md) first. A cloned repository is not proof that ignored source payloads or the SQLite job ledger are present.
 
+## Screen before enhancement
+
+User direction, 10 September 2026: reduce unnecessary work. Existing buildings that are good enough should be skipped, not remodelled to inflate enhancement counts. Follow `source-scripts/city/enhancement-screening/README.md` before scheduling enhancement work.
+
+Run the shared screening planner against the current rendered inputs. Its three outputs are `skip`, `enhance`, and `assess`. Skip current `good-to-go` and existing verified `enhanced` forms. Only an explicit current `enhancement-required` decision enters enhancement work. `unassessed` means assess cheaply first; it does not justify launching a modelling run. Offline plans are previews, never the shared authority. Recheck after obtaining the source reservation and before expensive work; a changed model, evidence or context must not reuse stale acceptance.
+
+Assess the actual city representation, not the deliberately unstyled comparison baseline. Name the missing recognisable feature and normal-view benefit before upgrading. Prefer deterministic reuse/simplification of available government geometry. Light modelling effort is the default; justify any heavier exception with a specific unresolved problem. Do not equate polygon count, a source download, a clean diagnostic audit, or an ordinary-building label with visual adequacy. Uncertain cases remain unassessed. Record accepted good-to-go/rework decisions with current input hashes, evidence and live source ownership; do not replace the model acceptance ledger.
+
+The public chart counts enhanced, good to go, enhancement required and not screened as mutually exclusive source-form categories. Good-to-go decisions earn progress without geometry changes. Skip applies to optional enhancement only: still retain dependency models and perform required source, terrain, identity and safety checks. No source form automatically completes a whole landmark or region.
+
 ## Choose the phase
 
 - **Mechanical preparation:** follow [references/pipeline.md](references/pipeline.md). Reuse exact IDs, caches, pinned source batches and existing packers. Medium effort is generally sufficient. Parallelise independent sheet requests and processing, but coordinate a single SQLite writer and one process per acquisition batch.
-- **Architectural improvement:** only begin when requested. Prefer High effort for tower/podium membership, foundations, terrain or source conflicts. Read the per-landmark preflight rows, native geometry and source evidence; do not reconstruct every building individually when a supported batch correction applies.
+- **Architectural improvement:** only begin when requested. Default to light effort and existing source geometry; escalate only for a specific unresolved tower/podium, foundation, terrain or source conflict. Read the per-landmark preflight rows, native geometry and source evidence; do not reconstruct every building individually when a supported batch correction applies.
 - **Acceptance and integration:** use the existing review and guarded publisher mechanisms with fresh evidence for the selected components. A previously approved sample is not approval for another batch.
 
 The user may park modelling after a mechanical pass. Finish the agreed pass, record the hand-off, and leave the later modelling phase pending; do not silently continue it.
@@ -56,7 +66,7 @@ For every new model review/refinement, follow `source-scripts/city/model-review-
 
 Use the existing HKS issue/milestone mapping in local tracking and Linear. Record the executor, commit, source and rendered counts, evidence and remaining gaps in relevant leaf issues and parents. Move implemented, reviewable scope to **In Review**; leave broader identity, architecture or regional scope open when incomplete.
 
-Use the existing Linear `model` and `Workflow` label groups. For this Astra workflow, tag agent work `gpt-6-astra` and `ai-software-factory`; switch the workflow label to `human-review-required` only for a concrete deliverable awaiting named human sign-off, with the reviewer, review link and exact checks recorded. Preserve unrelated labels and other models' attribution. Agent architectural/terrain review remains software-factory work. Human review of a completed slice does not automatically block other work. Explain required user action directly in chat; never rely on an ambiguous In Review status. Recommend Low effort for tracking, Medium for routine scripting and High for architectural/terrain decisions without treating an effort switch as a blocker.
+Use the existing Linear `model` and `Workflow` label groups. For this Astra workflow, tag agent work `gpt-6-astra` and `ai-software-factory`; switch the workflow label to `human-review-required` only for a concrete deliverable awaiting named human sign-off, with the reviewer, review link and exact checks recorded. Preserve unrelated labels and other models' attribution. Agent architectural/terrain review remains software-factory work. Human review of a completed slice does not automatically block other work. Explain required user action directly in chat; never rely on an ambiguous In Review status. Recommend Low effort for tracking and ordinary enhancement, Medium for routine scripting, and heavier reasoning only for a specific unresolved architectural/terrain exception; do not treat an effort switch as a blocker.
 
 Run checks appropriate to the change. For model integration, inspect real browser output as well as source/CPU checks; measure performance only when making performance claims. Commit logical units with HKS references and use the requested branch/PR workflow.
 

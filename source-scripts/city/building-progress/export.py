@@ -2,6 +2,7 @@
 import argparse,json,pathlib,hashlib,subprocess,sys,datetime
 R=pathlib.Path(__file__).resolve().parents[3];S=pathlib.Path(__file__).parent;p=argparse.ArgumentParser();p.add_argument('--refresh',action='store_true');args=p.parse_args();read=lambda p:json.loads(p.read_bytes())
 if args.refresh:
+ subprocess.run([sys.executable,str(R/'source-scripts/city/enhancement-screening/screen.py'),'export'],check=True)
  sys.path.insert(0,str(R/'source-scripts/city/landmark-completion-audit'));from audit import capture
  capture(read(R/'docs/astra-city/model-integration-20260909/current-source-review.json')['snapshotId'])
 frozen=read(R/'docs/astra-city/landmark-completion-audit/neon-snapshot.json');rows=[{k:r[k] for k in ['uid','source_sha256','review_state']}for r in frozen['rows'] if r['review_state']=='installed-verified'];lookup={r['uid']:r for r in rows};embedded=[]

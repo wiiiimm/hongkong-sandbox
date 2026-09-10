@@ -1,18 +1,27 @@
 {
-  "version": 1,
+  "version": 2,
   "status": "available",
   "unit": "source-building-form",
   "totalForms": 346108,
   "reviewedEnhancedForms": 280,
   "percent": 0.0808996035919424,
   "unreviewedOrBasicForms": 345828,
+  "breakdown": {
+    "enhanced": 280,
+    "goodToGo": 0,
+    "enhancementRequired": 0,
+    "unassessed": 345828
+  },
+  "readyForms": 280,
+  "readyPercent": 0.0808996035919424,
   "uniquePhysicalBuildings": null,
   "wholeBuildingCompletion": null,
   "updatedAt": "2026-09-09T07:36:12.308905+00:00",
   "reviewSnapshot": "9a6b78309ec8f540",
+  "screeningPolicy": "good-enough-v1",
   "manifestDigest": "602e7f6099f88839b54bbdeb5cab9a1e8363ba177acd8247f7b84356b49085c9",
-  "inputDigest": "d58624981f7292394458fdcf2e64c01df1cf91350fa3a6d475986f2eee0e91f2",
+  "inputDigest": "e5289c877534e6875192441c9445786d7e677926127a36c6fb718eb333213ddb",
   "source": "Hong Kong Lands Department and retained OpenStreetMap forms",
-  "countingNote": "Distinct deployed source-form IDs. A physical building may contain several forms. Reviewed detail means installed native geometry with a matching verified source hash; it does not mean surveyed textures or complete regional validation.",
-  "reviewPolicy": "Held, pending, candidate and changed-source models are excluded. Camera visibility and level of detail do not affect these citywide figures."
+  "countingNote": "Distinct deployed source-form IDs, not whole buildings. Enhanced and good-to-go forms need no further enhancement under the recorded assessment. Unassessed forms are not assumed to need work.",
+  "reviewPolicy": "Good-to-go and enhancement-required decisions must match current geometry, terrain, renderer and screening policy. Changed or missing decisions remain unassessed. Existing verified source-hash reviews supply enhanced status unless a current screening requests rework."
 }
