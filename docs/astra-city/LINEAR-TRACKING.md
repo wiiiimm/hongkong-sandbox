@@ -360,3 +360,10 @@ Every location now begins its drone cycle with a full-assembly wide view, then a
 ## 10 September 2026 — HKS-228 comparison page rename
 
 Renamed the comparison page to `/modelling-effort-comparison.html` and updated the comparison verification scripts and usage README. Historical evidence URLs remain as originally recorded. Model assets and runtime behaviour are unchanged.
+
+
+## 10 September 2026 — Vercel deployment repaired (HKS-220 / HKS-216)
+
+Codex root committed and pushed `165a0e0b`: explicitly set `3d-viewer/vercel.json` outputDirectory to `.` for the in-place statistics build, and corrected English/Chinese deployment notes. The first failure at `83cb844` followed HKS-220 commit `c31b72d7`, which added the build command without its output directory; HKS-216 archival changes were not the cause.
+
+Four coverage tests and the local Vercel CLI 59.10.0 preview build pass; both viewer pages, statistics and middleware bundle are present. Hosted Vercel CLI 59.11.7 build completed in 9 seconds; deployment `dpl_32Jf7xUjxvuMqDjvDFwAVQQjw32G` is READY. Statistics return HTTP 200 with 346,108 forms and 280 reviewed enhanced forms. Preview: https://hongkong-sandbox-60bo8q0yk-stealth-factory.vercel.app/city.html . Linear HKS-220, HKS-216, parent HKS-199 and milestone discussion updated. Issues remain In Review; broader modelling acceptance and production rollout are unchanged.
