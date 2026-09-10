@@ -155,3 +155,67 @@ Sampled terrain flags can describe legitimate elevated/support components.
 Evidence, all 1,000 decisions with reasons, the separate stadium result and measured
 times live under `docs/astra-city/enhancement-screening/pilot-1000/`. New public
 `good-to-go` decisions still require the normal evidenced, reserved recording flow.
+
+## Shape comparison pilot (HKS-203; current workflow)
+
+Use `screen.py compare` for the new geometry-based diagnostic pass. The earlier
+triangle-ceiling pilot remains reproducible historical evidence, not a quality gate.
+AI is permitted for code and other non-modelling work only. All routine capture,
+recovery, comparison, routing and caching make zero AI calls. A case that would
+require AI modelling/architectural judgement stays pending and must be reported to
+the user before that work begins; there is no automatic per-building AI fallback.
+
+Install `shape-requirements.txt` into the existing modelling virtual environment.
+The complete, bounded workflow is:
+
+```sh
+python pilot.py --capture --evidence local/shape-inputs.json.gz --out local/shape-metadata
+python shape_prepare.py --allow-source-download --env-file /path/to/private.env
+node shape_geometry.mjs local/shapes/geometry-inputs.json local/shapes/geometry
+python screen.py compare --shared-cache
+python shape_controls.py
+python shape_evidence.py
+```
+
+Run these commands from this directory, or use their repository-relative paths.
+Source recovery first reuses checksum-verified local assets, then exact prepared
+R2 bundles when configured. Original government recovery is explicitly opt-in;
+it reuses the existing bounded ZIP downloader and packer and must reproduce the
+pinned native-stage asset SHA. Changed sources cannot silently substitute new
+geometry. No data is published. Up to eight per-sheet processing threads are
+supported; they are ordinary CPU/network workers, not AI agents.
+
+The City geometry builder and official model loader export both representations.
+Comparisons use one common world frame, 17 orthographic views (including the roof),
+and two object screen scales, 96 and 192 pixels. They measure silhouette mismatch,
+visible depth changes, roof depth and bounds. Triangle count is only a runtime
+budget input, never the quality classifier. A separate rigid-offset diagnostic
+identifies equivalent shapes at different positions without moving the sources.
+The current City terrain sampler checks every low-rim triangle vertex.
+
+Routes are `skip` (current existing acceptance), `keep-current-candidate`,
+`import-candidate`, and `retain-pending`. Candidate routes additionally check
+source identity/heights, matching, terrain diagnostics and individual mobile
+resource limits. Passing an individual budget is not a dense-scene FPS guarantee.
+A support/terrain diagnostic is not a certificate of placement or a reason to
+lower surveyed geometry. Known landmarks cannot earn new adequacy credit solely
+from negligible geometry differences.
+
+**Automatic acceptance remains disabled.** Fixed-view similarity cannot establish
+current real-world accuracy, material/facade quality, assembly completeness or
+human-perceived importance. The fixture tests and prior Kai Tak positive control
+validate code behaviour; they do not establish a citywide false-skip rate. These
+outputs never enqueue modelling, write screening/model-review acceptance or invoke
+the publisher. Existing `screen.py record` and the guarded publisher remain the
+only acceptance/publication paths, with fresh evidence and source ownership.
+No user building-by-building decision is requested by this diagnostic pass.
+
+Metrics reuse the existing immutable Neon `city_audit_cache` under a distinct
+`shape-comparison-v1` hash namespace; existing territory audit membership/results
+are unchanged. Cache keys include the current source/context input hash, exact
+exported geometry hash, comparison policy and engine code. Result hashes detect
+corruption; conflicting immutable writes fail. Local-only runs and frozen replay
+are explicitly non-authoritative. No schema migration is needed.
+
+Evidence and offline replay instructions:
+`docs/astra-city/enhancement-screening/shape-pilot-1000/README.md`.

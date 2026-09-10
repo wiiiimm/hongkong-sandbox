@@ -2,12 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.4.0"
+  version: "1.5.0"
 ---
 
 # Hong Kong model improvement
 
-Use the existing Astra pipeline. Spend model reasoning on architectural decisions and exceptions; use scripts for identity joins, downloads, conversion, validation and reporting.
+Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work only. Use scripts for identity joins, downloads, conversion, validation and reporting; leave AI modelling and architectural judgement pending until explicitly authorised.
 
 ## Resume cheaply
 
@@ -27,10 +27,18 @@ Assess the actual city representation, not the deliberately unstyled comparison 
 
 The public chart counts enhanced, good to go, enhancement required and not screened as mutually exclusive source-form categories. Good-to-go decisions earn progress without geometry changes. Skip applies to optional enhancement only: still retain dependency models and perform required source, terrain, identity and safety checks. No source form automatically completes a whole landmark or region.
 
+## Token constraint and shape screening
+
+User direction, 10 September 2026: processing power is acceptable, but AI tokens are only for code and other non-modelling work. Do not invoke AI for geometry generation, per-building visual/architectural judgement or reconstruction. If a case requires AI modelling, leave it pending and notify the user before proceeding. Continue independent scripted work. The user does not want a building-by-building skip/enhance approval workflow.
+
+Extend/reuse `source-scripts/city/enhancement-screening/screen.py compare` for deterministic current-versus-government shape comparisons. Preserve original detail; use fixed multi-view silhouettes, roof/depth evidence and current fingerprints. The old triangle-ceiling pilot is a historical baseline, not the decision rule. Cache mechanical results by source, geometry, context, policy and engine hashes. Separate shape benefit from identity, support/terrain and runtime gates. Position-only changes are not extra architectural detail. No automatic per-model AI fallback.
+
+Current shape comparison is a bounded validation/dry-run stage. Synthetic geometry tests and landmark regressions validate the implementation, not citywide perceptual acceptance. Do not grant new good-to-go credit or publish import candidates until an evidenced acceptance rule is validated and the existing fenced recording/publication checks pass. Missing/ambiguous sources and unresolved context remain pending. AI-assisted code development is not a zero-token claim for the overall session; runtime script AI calls must be zero.
+
 ## Choose the phase
 
 - **Mechanical preparation:** follow [references/pipeline.md](references/pipeline.md). Reuse exact IDs, caches, pinned source batches and existing packers. Medium effort is generally sufficient. Parallelise independent sheet requests and processing, but coordinate a single SQLite writer and one process per acquisition batch.
-- **Architectural improvement:** only begin when requested. Prefer original detailed government geometry and use AI only where identity, placement or missing architecture requires judgement. Keep geometry detail separate from reasoning effort; choose reasoning effort for the actual unresolved problem. Read the per-landmark preflight rows, native geometry and source evidence; do not reconstruct every building individually when a supported batch correction applies.
+- **Architectural improvement:** only begin when the user explicitly re-enables that work; it is currently paused under the token constraint below. Prefer original detailed government geometry and use AI only where identity, placement or missing architecture requires judgement. Keep geometry detail separate from reasoning effort; choose reasoning effort for the actual unresolved problem. Read the per-landmark preflight rows, native geometry and source evidence; do not reconstruct every building individually when a supported batch correction applies.
 - **Acceptance and integration:** use the existing review and guarded publisher mechanisms with fresh evidence for the selected components. A previously approved sample is not approval for another batch.
 
 The user may park modelling after a mechanical pass. Finish the agreed pass, record the hand-off, and leave the later modelling phase pending; do not silently continue it.

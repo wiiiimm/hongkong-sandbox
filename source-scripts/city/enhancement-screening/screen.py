@@ -172,4 +172,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv)>1 and sys.argv[1]=='compare':
+        sys.argv.pop(1)
+        from shape_screen import main as compare_main
+        compare_main()
+    else:
+        main()
