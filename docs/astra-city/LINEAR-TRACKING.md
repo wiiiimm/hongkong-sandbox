@@ -356,3 +356,7 @@ Gallery cells enlarge16%on mouse hover, restore smoothly on leave and redraw whi
 ## 10 September 2026 — HKS-228 wide drone opening
 
 Every location now begins its drone cycle with a full-assembly wide view, then approaches the close facade pass over the first6.4seconds at1×speed. Removed timing offsets that previously started later rows midway through the flight; angular offsets still vary approach directions. The32-second loop returns to the same wide pose. Selecting Drone restarts from afar; pause/resume retains position. Desktop/mobile checks confirm every opening camera is over1.5times farther from its target than the first close shot, identical loop endpoints, and existing gallery controls/exit tests pass. No model/Neon changes. Ready for William's review.
+
+## 10 September 2026 — HKS-228 comparison page rename
+
+Renamed the comparison page to `/modelling-effort-comparison.html` and updated the comparison verification scripts and usage README. Historical evidence URLs remain as originally recorded. Model assets and runtime behaviour are unchanged.

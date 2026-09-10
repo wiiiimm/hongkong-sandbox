@@ -1,6 +1,6 @@
 # Five-place lightweight trial — HKS-225
 
-Open `/whampoa-comparison.html` on the city preview. Select The Whampoa ship, Site 8, Site 12, Hong Kong Cultural Centre or Hong Kong Space Museum. Orbit/zoom synchronises all three cameras; mesh mode and reset are available. Narrow screens stack the cards.
+Open `/modelling-effort-comparison.html` on the city preview. Select The Whampoa ship, Site 8, Site 12, Hong Kong Cultural Centre or Hong Kong Space Museum. Orbit/zoom synchronises all three cameras; mesh mode and reset are available. Narrow screens stack the cards.
 
 The **high** column reuses existing native government geometry for the ship and two cultural landmarks. It does not claim a new high-effort AI pass. Site 8/12 high slots remain explicitly pending HKS-226, including the requested eventual main-map integration. No live city assets or source-review pointer were replaced.
 
