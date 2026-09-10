@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.6.0"
+  version: "1.6.1"
 ---
 
 # Hong Kong model improvement
@@ -27,7 +27,7 @@ For other forms, proceed directly to cached government source lookup and scripte
 
 Keep the current model when the source is missing, ambiguous or fails validation. Record the reason for scripted investigation and continue independent work. The agent owns batch routing; do not ask the user to decide individual buildings. Simplify original detail only when measured runtime costs justify local scripted reductions. High/Light describe mesh detail, not AI reasoning effort.
 
-Keep the public progress categories and existing evidenced acceptance ledger. New good-to-go/rework records still require current input/evidence hashes and live source ownership. Historical pilot candidates grant no progress credit. No source form automatically completes a whole landmark or region.
+Keep source-form counting and the existing evidenced acceptance ledger. Public progress separates total map models, exact government-source matches and completed work within that source group; see `source-scripts/city/building-progress/README.md`. New good-to-go/rework records still require current input/evidence hashes and live source ownership. Historical pilot candidates grant no progress credit. No source form automatically completes a whole landmark or region.
 
 ## Local processing and AI-token constraint
 

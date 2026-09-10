@@ -16,20 +16,22 @@ Downloads and Neon/R2 syncing remain ordinary data transfers. Do not add an AI
 fallback, generation, simplification or architectural-review loop. Cases requiring
 AI judgement remain pending and must be reported before that work begins.
 
-## Four public categories; three work actions
+## Acceptance categories and planner actions
 
 | Category | Meaning | Planner action |
 | --- | --- | --- |
 | Enhanced | Installed geometry has a matching verified source review, with no current rework decision | skip |
 | Good to go | Current city representation was assessed as sufficient | skip |
 | Enhancement required | Current assessment names a worthwhile visible improvement | enhance |
-| Not screened | No current accepted assessment, including invalidated prior decisions | assess |
+| Unassessed | No current accepted assessment, including invalidated prior decisions | assess |
 
 These are source forms (tower/podium/wing), not inferred physical buildings. A
 current rework decision overrides historical enhanced credit. Enhanced takes
 precedence over good to go so a form cannot count twice. Removed bridge proxy
 forms are excluded. The old reviewedEnhancedForms field is retained as historical
-review coverage; use breakdown/readyForms for the current public categories.
+review coverage. The public UI now shows map inventory, government-source availability
+and completion within that source group; see [progress refresh](../building-progress/README.md).
+The acceptance categories remain in the ledger and generated statistics.
 
 ## Script-only planning
 
@@ -108,9 +110,9 @@ SCREENING_LIVE_TEST=1 python -m unittest discover -s source-scripts/city/enhance
 The live test uses rollback-only fixture events; it retains no fake acceptance.
 The existing browser check is `3d-viewer/city/tests/building-progress-browser.mjs`,
 with a static viewer server on port 4176. It tests the actual dialog HTML/CSS/module
-without starting the unrelated 3D renderer; full-page smoke evidence is captured
-separately. Evidence lives in
-`docs/astra-city/enhancement-screening/`.
+for its scenario matrix, followed by a real City startup smoke check. Current UI
+evidence lives in `docs/astra-city/building-progress-government/`; historical
+acceptance evidence remains in `docs/astra-city/enhancement-screening/`.
 
 ## Retained optional diagnostics
 

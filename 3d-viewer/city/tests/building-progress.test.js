@@ -26,9 +26,24 @@ test('screened and enhanced categories never double count; removed forms stay re
  const r=countCoverage({forms:[{uid:'a',inputHash:'current'},{uid:'hidden',inputHash:'current'}],models:[{uid:'a',sha256:'a'}],reviews:[review('a')],screenings:[screening('a'),screening('hidden')],suppressed:['hidden']});
  assert.equal(r.totalForms,1);assert.equal(r.breakdown.enhanced,1);assert.equal(r.breakdown.goodToGo,0);
 });
-test('presentation rejects inconsistent totals and handles empty inventory',()=>{
- const d={version:2,status:'available',unit:'source-building-form',totalForms:10,updatedAt:'2026-09-10',breakdown:{enhanced:2,goodToGo:3,enhancementRequired:1,unassessed:4}};
- assert.equal(coveragePresentation(d).ready,5);assert.equal(coveragePresentation(d).percent,50);
- assert.equal(coveragePresentation({...d,totalForms:9}),null);
- assert.equal(coveragePresentation({...d,totalForms:0,breakdown:{enhanced:0,goodToGo:0,enhancementRequired:0,unassessed:0}}).percent,null);
+const sourceForm=uid=>({uid,buildingCSUID:'source-'+uid,inputHash:'current'});
+test('government scope intersects current identities, suppression and accepted reviews',()=>{
+ const r=countCoverage({forms:['a','b','c','stale','hidden'].map(sourceForm),models:[{uid:'a',sha256:'a'},{uid:'c',sha256:'a'}],reviews:[review('a'),review('c')],suppressed:['hidden'],governmentSources:[['a','source-a'],['b','source-b'],['stale','old-source'],['hidden','source-hidden'],['removed','source-removed']]});
+ assert.equal(r.totalForms,4);assert.equal(r.breakdown.enhanced,2);
+ assert.deepEqual(r.government,{available:2,enhanced:1,goodToGo:0,ready:1,remaining:1,percent:50,noMatchedSource:2,enhancedOutside:1,goodToGoOutside:0});
+ assert.throws(()=>countCoverage({forms:[],models:[],reviews:[],governmentSources:[['a','source-a'],['a','source-a']]}));
+});
+test('government completion uses matched source scope; good-to-go and rework stay source-bound',()=>{
+ const args={forms:['a','b','c','d'].map(sourceForm),models:[{uid:'a',sha256:'a'}],reviews:[review('a')],screenings:[screening('a','enhancement-required'),screening('b'),screening('c')],governmentSources:[['a','source-a'],['b','source-b']]};
+ const r=countCoverage(args);assert.equal(r.government.ready,1);assert.equal(r.government.remaining,1);assert.equal(r.government.percent,50);assert.equal(r.government.goodToGoOutside,1);assert.equal(r.breakdown.enhanced,0);
+ args.screenings=[screening('b','good-to-go','old')];args.models=[{uid:'a',sha256:'changed'}];const stale=countCoverage(args);assert.equal(stale.government.ready,0);assert.equal(stale.government.remaining,2);
+});
+test('presentation validates source scope and reports unknown completion with no matched sources',()=>{
+ const r=countCoverage({forms:['a','b','c','d'].map(sourceForm),models:[{uid:'a',sha256:'a'},{uid:'c',sha256:'a'}],reviews:[review('a'),review('c')],governmentSources:[['a','source-a'],['b','source-b']]});
+ const d={version:3,status:'available',updatedAt:'2026-09-11',...r};
+ assert.equal(coveragePresentation(d).enhanced,2);assert.equal(coveragePresentation(d).ready,1);assert.equal(coveragePresentation(d).percent,50);assert.equal(coveragePresentation(d).sourcePending,1);
+ assert.equal(coveragePresentation({...d,totalForms:9}),null);assert.equal(coveragePresentation({...d,version:2}),null);
+ assert.equal(coveragePresentation({...d,government:{...d.government,remaining:0}}),null);
+ assert.equal(coveragePresentation({...d,government:{...d.government,enhancedOutside:0}}),null);
+ const empty=countCoverage({forms:[],models:[],reviews:[],governmentSources:[]});assert.equal(coveragePresentation({...d,...empty}).percent,null);
 });

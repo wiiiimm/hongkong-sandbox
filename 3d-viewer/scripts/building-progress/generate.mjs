@@ -1,7 +1,7 @@
 /** Credential-free static statistics and screening input builder. */
 import {readFileSync, writeFileSync, existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {gzipSync} from 'node:zlib';
+import {gzipSync, gunzipSync} from 'node:zlib';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {countCoverage} from './counts.mjs';
@@ -13,6 +13,10 @@ const read = p => { const b = readFileSync(resolve(root, p)); inputs[p] = hash(b
 const manifest = read('city/data/manifest.json');
 const snapshot = read('scripts/building-progress/review-proof.json');
 const screening = read('scripts/building-progress/screening-proof.json');
+const governmentPath='scripts/building-progress/government-source-proof.json.gz';
+const governmentBytes=readFileSync(resolve(root,governmentPath));inputs[governmentPath]=hash(governmentBytes);
+const governmentProof=JSON.parse(gunzipSync(governmentBytes));
+if(governmentProof.version!==1||!Array.isArray(governmentProof.rows)||!governmentProof.rows.length||!Number.isFinite(Date.parse(governmentProof.capturedAt))||!/^[a-f0-9]{64}$/.test(governmentProof.runId))throw Error('Unsupported government source proof');
 if (screening.version !== 1 || screening.policy !== SCREENING_POLICY || !Array.isArray(screening.rows)) throw Error('Unsupported screening proof');
 const native = new Map(), models = [], forms = [], suppressed = [];
 for (const url of manifest.officialModelCatalogues || []) {
@@ -48,7 +52,7 @@ for (const tile of manifest.tiles) {
     if (seen.has(b.uid)) throw Error('Duplicate source form: ' + b.uid);
     seen.add(b.uid);
     const n = native.get(b.uid);
-    forms.push({uid: b.uid, inputHash: screeningFingerprint({...b, activity: activity[b.uid] || null}, n, contextHash),
+    forms.push({uid: b.uid, buildingCSUID:b.buildingCSUID||null, inputHash: screeningFingerprint({...b, activity: activity[b.uid] || null}, n, contextHash),
       geometry: n ? 'native' : b.modelGeometry ? 'embedded' : 'footprint'});
     if (b.modelGeometry) {
       const proof = embeddedProof.get(b.uid);
@@ -56,15 +60,16 @@ for (const tile of manifest.tiles) {
     }
   }
 }
-const counts = countCoverage({forms, models, reviews: snapshot.rows, suppressed, screenings: screening.rows});
+const counts = countCoverage({forms, models, reviews: snapshot.rows, suppressed, screenings: screening.rows, governmentSources:governmentProof.rows});
 const manifestDigest = hash(JSON.stringify(manifest));
 const dates = [snapshot.capturedAt, ...screening.rows.map(r => r.reviewedAt)].filter(d => Number.isFinite(Date.parse(d)));
-const output = {version: 2, status: 'available', ...counts,
+const output = {version: 3, status: 'available', ...counts,
   updatedAt: dates.sort((a,b) => Date.parse(b)-Date.parse(a))[0],
   reviewSnapshot: snapshot.snapshotId, screeningPolicy: SCREENING_POLICY,
+  governmentSourceRun:governmentProof.runId, governmentSourceUpdatedAt:governmentProof.capturedAt,
   manifestDigest, inputDigest: digest([inputs, context]),
   source: 'Hong Kong Lands Department and retained OpenStreetMap forms',
-  countingNote: 'Distinct deployed source-form IDs, not whole buildings. Enhanced and good-to-go forms need no further enhancement under the recorded assessment. Unassessed forms are not assumed to need work.',
+  countingNote: 'Distinct deployed source-form IDs, not whole buildings. Government availability requires an exact current UID/CSUID match to a prepared source. Upgrade progress counts enhanced/good-to-go forms within that subset. Source availability is not placement approval or proof an upgrade is needed.',
   reviewPolicy: 'Good-to-go and enhancement-required decisions must match current geometry, terrain, renderer and screening policy. Changed or missing decisions remain unassessed. Existing verified source-hash reviews supply enhanced status unless a current screening requests rework.'};
 writeFileSync(resolve(root, 'city/data/building-progress.json'), JSON.stringify(output, null, 2) + '\n');
 if (process.argv[2] === '--plan') {

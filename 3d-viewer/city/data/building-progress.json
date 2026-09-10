@@ -1,6 +1,17 @@
 {
-  "version": 2,
+  "version": 3,
   "status": "available",
+  "government": {
+    "available": 212669,
+    "enhanced": 274,
+    "goodToGo": 0,
+    "ready": 274,
+    "remaining": 212395,
+    "percent": 0.1288387118009677,
+    "noMatchedSource": 133439,
+    "enhancedOutside": 7,
+    "goodToGoOutside": 0
+  },
   "unit": "source-building-form",
   "totalForms": 346108,
   "reviewedEnhancedForms": 281,
@@ -19,9 +30,11 @@
   "updatedAt": "2026-09-10T11:28:27.980449+00:00",
   "reviewSnapshot": "87377e4c7a0f2fe9",
   "screeningPolicy": "good-enough-v1",
+  "governmentSourceRun": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+  "governmentSourceUpdatedAt": "2026-09-10 16:48:36.884198+00",
   "manifestDigest": "ef663b79fdbf15d44b4b6fbb2992653e46c3e94c239916c81b4c4fe2c4107cce",
-  "inputDigest": "2b5afd7500644657446f31548241518f30be591df3b677673d3bd6a30a23c87b",
+  "inputDigest": "d15e4073c234fda9a1967db34e00241d1ad67e10281d3b53155d4a9bba4663af",
   "source": "Hong Kong Lands Department and retained OpenStreetMap forms",
-  "countingNote": "Distinct deployed source-form IDs, not whole buildings. Enhanced and good-to-go forms need no further enhancement under the recorded assessment. Unassessed forms are not assumed to need work.",
+  "countingNote": "Distinct deployed source-form IDs, not whole buildings. Government availability requires an exact current UID/CSUID match to a prepared source. Upgrade progress counts enhanced/good-to-go forms within that subset. Source availability is not placement approval or proof an upgrade is needed.",
   "reviewPolicy": "Good-to-go and enhancement-required decisions must match current geometry, terrain, renderer and screening policy. Changed or missing decisions remain unassessed. Existing verified source-hash reviews supply enhanced status unless a current screening requests rework."
 }

@@ -1,5 +1,8 @@
 # HKS-220 — public building-form progress
 
+Historical implementation notes. The current source-scoped counter and refresh
+commands are documented in [government progress](../building-progress-government/README.md).
+
 The header opens a compact native dialog with346,108 mapped source forms and269 verified enhanced forms (0.0777214%, displayed0.08%) in this review snapshot. Seven building proxies replaced by bridge models are excluded. These are source-component UIDs, not physical buildings: a tower, wing and podium may count separately. No whole-building/landmark completion metric is inferred. Models still awaiting review, held models, downloaded candidates and hash-mismatched replacements are excluded from the numerator.
 
 `countCoverage` deduplicates deployed UIDs across tiles and replacement catalogues. Reviewed native geometry must match the frozen installed-verified source SHA. Catalogue asset bytes are hashed during generation. Embedded geometry uses a separately verified canonical ledger SHA and an exact runtime JSON digest, avoiding Python/JavaScript number-serialisation differences. Bridge-suppressed building UIDs leave both numerator and denominator. Counts do not read camera, LOD, streaming or zoom state.
