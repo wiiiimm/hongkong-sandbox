@@ -1,5 +1,7 @@
 # Next 200 government models — 11 September 2026
 
+This records the initial mechanical batch. See [scripted acceptance follow-up](acceptance/README.md) for subsequent import outcomes; the original batch evidence remains unchanged.
+
 Executor: Codex root; HKS-203 / HKS-199 / HKS-222. Batch
 `government-200-20260911`, shared job
 `afc082d1dcf6b7f991450a5f80e9391a205c31ea45afcea0dcb1f4d6fdefdfe3`.

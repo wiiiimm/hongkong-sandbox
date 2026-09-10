@@ -22,6 +22,7 @@ All per-model work runs in local scripts with zero AI calls. Data transfers to g
 | Update source/landmark accounting | `source-scripts/city/landmark-progress/report.py`; explicit `reviews.json` controls whole-landmark readiness |
 | Prepare the validation queue (no AI jobs) | `source-scripts/city/landmark-preflight/preflight.py`, `terrain_inputs.py`; read `docs/astra-city/landmark-preflight/README.md` |
 | Capture review evidence | `landmark-preflight/gallery.mjs`, `merge_gallery.py`, `contact.mjs`; bounded automatic reframing and explicit inactive/unresolved outcomes |
+| Accept a direct original-government subset | `source-scripts/city/government-import/DIRECT-IMPORT-POLICY.md`; strict current source/contact/runtime/browser contract, fenced ledger and guarded publisher. No AI architectural review for passing original-source ports; failed cases stay pending. |
 | Integrate a reviewed subset | Existing `source-scripts/city/island-detail-integration/publish.py` and the `landmark-visual-review/` review/guard pattern; use a fresh plan/evidence set |
 
 Useful invocations after verifying local prerequisites:

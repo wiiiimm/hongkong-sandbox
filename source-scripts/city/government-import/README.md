@@ -1,5 +1,11 @@
 # Local government-model validation batches — HKS-203
 
+The first stage below prepares and validates candidates. The follow-up
+[direct-import contract](DIRECT-IMPORT-POLICY.md) adds conservative scripted
+acceptance and guarded publication for unchanged original sources, without
+per-building AI architectural review. The first follow-up evaluates the 61 clear
+forms from the initial 200-model batch; all failures stay pending.
+
 Run bounded batches of original government meshes without per-model AI work or
 full skip-screening. Reuse the existing current acceptance/hash plan, exact local
 prepared assets and frozen Neon native-stage proof. The existing City loader checks
