@@ -28,13 +28,11 @@ body:not(.gallery-active)>.gallery-canvas{display:none!important}
 
 #load-status{margin:0 3vw 18px;padding:12px 16px;border:1px solid #becbbe;border-radius:8px;line-height:1.6}#load-status[hidden]{display:none}#load-status[role=alert]{background:#fff3df}#load-retry{margin-left:12px}
 
-/* Uniform hover enlargement preserves framing and does not move other rows. */
-@media (hover:hover) and (pointer:fine){
- .gallery-cell{transition:transform 180ms ease,box-shadow 180ms ease;transform-origin:center;}
- .gallery-cell:nth-child(2){transform-origin:left center;}
- .gallery-cell:last-child{transform-origin:right center;}
- .gallery-cell.is-hovered{transform:scale(1.16);z-index:5;box-shadow:0 0 0 2px #617c56,0 10px 28px #263d2933;}
-}
-@media (prefers-reduced-motion:reduce){.gallery-cell{transition:none;}}
-
-@media (hover:hover) and (pointer:fine){#comparison-gallery:has(.is-hovered) .gallery-cell:not(.is-hovered){border-color:transparent;}}
+/* Tall location canvases keep the chosen height across locations and video view. */
+#views{max-width:1600px;margin-inline:auto;width:94%}
+#views .viewport{height:var(--location-view-height,640px);min-height:0}
+#location-size-control{font-size:12px;gap:8px;flex-wrap:wrap}
+#location-size{width:130px;min-height:32px;accent-color:#315b42}
+#location-size-value{min-width:48px;font-variant-numeric:tabular-nums}
+#location-size:focus-visible{outline:2px solid #315b42;outline-offset:4px}
+.gallery-active #location-size-control{display:none}

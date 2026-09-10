@@ -1,4 +1,4 @@
-import {createComparisonGallery} from './comparison-gallery.js?v=20260910-approach1';
+import {createComparisonGallery} from './comparison-gallery.js?v=20260910-portrait1';
 import * as T from '../vendor/three.module.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {GLTFLoader} from '../vendor/GLTFLoader.js';
@@ -66,6 +66,11 @@ function show(id){
 }
 const select=document.getElementById('location');for(const group of manifest.groups){const option=document.createElement('option');option.value=group.id;option.textContent=group.name;select.append(option);}
 select.addEventListener('change',e=>show(e.target.value));
+const locationSize=document.getElementById('location-size');
+locationSize.addEventListener('input',()=>{
+ document.documentElement.style.setProperty('--location-view-height',locationSize.value+'px');
+ document.getElementById('location-size-value').textContent=locationSize.value+' px';
+});
 function setSpin(value){spinning=value;window.__trial.spinning=value;const button=document.getElementById('spin');button.setAttribute('aria-pressed',String(value));button.textContent=value?'Pause spin':'Start spin';lastFrame=0;}
 document.getElementById('spin').onclick=()=>setSpin(!spinning);
 for(const v of views)v.controls.addEventListener('start',()=>setSpin(false));
