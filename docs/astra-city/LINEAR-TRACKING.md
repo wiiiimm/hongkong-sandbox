@@ -342,3 +342,9 @@ Added Gallery view with seven independently framed rows and synchronised Basic/L
 ## 10 September 2026 — HKS-228 gallery review fixes
 
 Gallery exit now clears and detaches its shared canvas; repeated exit/re-entry and inactive resize leave no overlay. Removed all-locations panorama/tour controls and unused tour logic, retaining gallery and individual comparisons. Added90–420px View size slider and32-second cinematic approach/facade-rise/rooftop/reveal sequence with shared per-row camera. Desktop/mobile regression checks and screenshots under `comparison-gallery/fixes/` pass. No model or Neon changes. Ready for William's visual review; Light remains sufficient.
+
+## 10 September 2026 — HKS-228 startup regression follow-up
+
+Fresh browser checks initially passed; the user's exact browser failure was not directly observed. Reproduced an old-entry-script/new-HTML mismatch throwing “Cannot set properties of null (setting onclick)”. Versioned comparison JS, gallery import and CSS now avoid that stale unversioned entry. Startup errors are visible with Retry; individual failed native variants preserve the baseline, procedural fallback and other locations instead of aborting the whole page. Source counts/payload stats exclude failed high variants. No model/Neon changes.
+
+`verify-startup.mjs` covers mismatched script, normal versioned startup, simulated503model failures, gallery fallback, retry recovery and visible manifest failure. `verify.mjs` desktop/mobile exit/size/cinematic checks also pass. Evidence: `comparison-gallery/fixes/startup-verification.json`. Ready for William to refresh and review in his browser; its original error remains unconfirmed.

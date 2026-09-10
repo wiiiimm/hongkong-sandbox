@@ -25,3 +25,5 @@ button[aria-pressed=true]{background:#315b42;color:#fff}button{min-height:44px;c
 /* Gallery size is explicit and consistent across the three versions. */
 #comparison-gallery .gallery-cell{height:var(--gallery-cell-height,150px)}
 body:not(.gallery-active)>.gallery-canvas{display:none!important}
+
+#load-status{margin:0 3vw 18px;padding:12px 16px;border:1px solid #becbbe;border-radius:8px;line-height:1.6}#load-status[hidden]{display:none}#load-status[role=alert]{background:#fff3df}#load-retry{margin-left:12px}
