@@ -31,10 +31,12 @@ def acquire(row,directory,out,retained=(),include_terrain=False):
   record=ac.read(record_path)
   if record.get('dependencyScanVersion')==1 and record.get('terrainGeometryIncluded',False)==include_terrain and record['sourceETag']==row['etag'] and record['directorySHA256']==row['directorySHA256'] and ac.sha(archive.read_bytes())==record['sha256']:
    with zipfile.ZipFile(archive) as z:
-    assert names.issubset(z.namelist())
-    for e in selected:
-     value=z.read(e.filename);assert len(value)==e.file_size and zlib.crc32(value)&0xffffffff==e.CRC
-   return record
+    # A valid compact ZIP may cover an earlier, smaller selection on this sheet.
+    # Reuse its verified members below and fetch only the newly requested ones.
+    if names.issubset(z.namelist()):
+     for e in selected:
+      value=z.read(e.filename);assert len(value)==e.file_size and zlib.crc32(value)&0xffffffff==e.CRC
+     return record
  if record_path.exists() and archive.exists():retained=list(retained)+[(record_path,ac.read(record_path))]
  values={};origin={}
  for path,record in retained:

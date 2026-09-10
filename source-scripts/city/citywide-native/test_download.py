@@ -50,6 +50,22 @@ class DownloadTests(unittest.TestCase):
    self.assertEqual(record['dependencyScanVersion'],1);self.assertEqual(len(calls),1)
    self.assertEqual(next(e['origin']for e in record['entries']if e['name']==name),'retained-verified-cache')
    with zipfile.ZipFile(archive)as z:self.assertEqual(z.read(name.rsplit('/',1)[0]+'/geometry.bin'),b'geometry')
+ def test_expanded_selection_reuses_partial_compact_cache(self):
+  raw,directory,row=self.fixture();calls=[]
+  first=json.loads(json.dumps(row));first['models'][0]['members']=[m for m in first['models'][0]['members'] if m['name'].endswith('.bin')]
+  class Net:
+   def __init__(self,*a,**k):self.initial=0;self.data={'receivedBytes':0};self.cap=k.get('cap',0)
+   def get(self,url,n,span,etag):
+    calls.append(span);self.data['receivedBytes']+=n;start,end=map(int,span.split('-'));return raw[start:end+1],{}
+  with tempfile.TemporaryDirectory() as temp,patch.object(d.ac,'Network',Net):
+   p=pathlib.Path(temp);(p/'directory').write_bytes(directory)
+   initial=d.acquire(first,p/'directory',p/'out');self.assertEqual(len(initial['entries']),1)
+   expanded=d.acquire(row,p/'directory',p/'out');self.assertEqual(len(expanded['entries']),2)
+   self.assertEqual(len(calls),2)
+   self.assertEqual(next(e['origin'] for e in expanded['entries'] if e['name'].endswith('.bin')),'retained-verified-cache')
+   again=d.acquire(row,p/'directory',p/'out');self.assertEqual(expanded['sha256'],again['sha256']);self.assertEqual(len(calls),2)
+   with zipfile.ZipFile(p/'out/test.zip') as cached,zipfile.ZipFile(io.BytesIO(raw)) as source:
+    for name in cached.namelist():self.assertEqual(cached.read(name),source.read(name))
  def test_crc_corruption_and_unsafe_paths_rejected(self):
   raw,directory,row=self.fixture();infos,_=d.ac.parse_directory(directory);entry=infos[0];bad=bytearray(raw[entry.header_offset:]);bad[35]^=1
   with self.assertRaises(Exception):d.ac.unpack_member(bytes(bad),entry)
