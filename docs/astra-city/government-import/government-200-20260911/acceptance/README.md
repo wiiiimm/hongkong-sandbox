@@ -18,7 +18,7 @@ that denominator. Total map forms remain 346,108. Source parts are not whole bui
 
 ## Contract and results
 
-[Direct-import policy](../../../../source-scripts/city/government-import/DIRECT-IMPORT-POLICY.md)
+[Direct-import policy](../../../../../source-scripts/city/government-import/DIRECT-IMPORT-POLICY.md)
 requires exact source/identity/current hashes, original mesh bytes, no existing
 holds or registry landmark scope, tighter footprint fit, mobile runtime budgets
 and conservative contact against **actual rendered terrain triangles**. It checks
