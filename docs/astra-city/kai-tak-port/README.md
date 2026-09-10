@@ -55,3 +55,5 @@ The mobile 503 test retained the fallback and the existing retry control restore
 the native model. Saved images were inspected. The shared Neon review is
 `installed-verified` under snapshot `87377e4c7a0f2fe9`, method `scripted`,
 AI geometry model `null`; no attributable token count is claimed.
+
+Implementation `1a8315d5` is pushed. Vercel deployment `dpl_8iKLVVshb5b3NJyqjFeDNdYRCjSt` is READY; hosted HTML/statistics return HTTP 200, and the stadium asset matches its exact SHA. Public statistics show 281 enhanced of 346,108 forms. Preview: https://hongkong-sandbox-2o2lgw6xn-stealth-factory.vercel.app/city.html — search Kai Tak Stadium. HKS-214 is In Review; HKS-203/199 parent progress and the milestone overview are synchronised.
