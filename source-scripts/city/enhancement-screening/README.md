@@ -103,3 +103,55 @@ with a static viewer server on port 4176. It tests the actual dialog HTML/CSS/mo
 without starting the unrelated 3D renderer; full-page smoke evidence is captured
 separately. Evidence lives in
 `docs/astra-city/enhancement-screening/`.
+
+## 1,000-form pilot and Kai Tak Stadium control
+
+`pilot.py` runs a deterministic, read-only triage experiment. It samples displayed
+source forms uniformly using SHA-256 of a fixed seed plus UID, then adds every
+exactly named Kai Tak Stadium form as a separate control. Controls do not increase
+the random-sample denominator. This samples source forms, including small sheds
+and roof structures; it is not weighted by visibility, population or landmark value.
+
+```sh
+python source-scripts/city/enhancement-screening/pilot.py --capture
+python source-scripts/city/enhancement-screening/pilot.py
+python -m unittest discover -s source-scripts/city/enhancement-screening -v
+```
+
+Use the shared-modelling Python dependencies and existing pinned `.env.modelling`.
+Capture rebuilds current screening and audit fingerprints, checks shared decisions
+against the local proof, reuses exact audit-cache hits, and computes only missing
+sample audits. Cached native outcomes are read from the explicit completed HKS-222
+run. No database writes, model downloads, conversion, AI API calls or new acceptance
+occur. The existing statistics generator also rewrites the derived statistics file;
+with unchanged inputs its contents remain identical. Without `--capture`, the script
+replays committed compressed evidence entirely offline. `--count`, `--seed`,
+`--evidence` and `--out` support other explicitly bounded experiments.
+
+The initial **pilot-triage-v1** rule separates:
+
+- **Confirmed skip:** existing current acceptance; explicit rework takes precedence.
+- **Likely skip:** unassessed ordinary footprint form, one ring, surveyed height,
+  Tower structure, at most 60 m high and 1,500 m², and no source/terrain audit flags.
+  Exactly one prepared native match must have the same CSUID and recorded heights,
+  cached footprint overlap at least 90%, cached centroid distance at most 2 m,
+  current bounding-box edges within 2 m, base/top differences within 1.5 m, and at
+  most 64 triangles. All gates must pass. This is a conservative *candidate for
+  visual calibration*, not proof that the model looks sufficient.
+- **Enhancement candidate:** a registry landmark or distinctive-use form (including
+  grandstands/stadiums) rendered only as a footprint, or an existing rework decision.
+  This is a review priority, not an automatic modelling job.
+- **Review:** all other forms. Missing native coverage, estimated heights and
+  terrain flags are unknowns, not evidence that enhancement is required.
+
+The report also shows sensitivity at 128/256 triangles without changing the default
+64-triangle rule. These thresholds are exploratory, not validated perceptual
+standards. Native hull overlap/centroid metrics belong to the frozen source stage;
+current identity, heights and bounds are checked, but polygon equivalence and native
+terrain diagnostics are not reaccepted. Mesh complexity, a matched bounding box and
+clean metadata cannot establish roof/facade similarity or current real-world fidelity.
+Sampled terrain flags can describe legitimate elevated/support components.
+
+Evidence, all 1,000 decisions with reasons, the separate stadium result and measured
+times live under `docs/astra-city/enhancement-screening/pilot-1000/`. New public
+`good-to-go` decisions still require the normal evidenced, reserved recording flow.
