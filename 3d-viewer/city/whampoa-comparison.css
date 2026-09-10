@@ -21,3 +21,7 @@ button[aria-pressed=true]{background:#315b42;color:#fff}button{min-height:44px;c
 @media(max-width:700px){.gallery-head{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-head span:first-child{display:none}.gallery-row{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-row h3{grid-column:1/-1;padding:5px}.gallery-cell{height:150px}.gallery-toolbar span{margin-left:0}.roomy .gallery-cell{height:230px}}
 
 @media(max-width:700px){.gallery-cell{touch-action:pan-y!important}}
+
+/* Gallery size is explicit and consistent across the three versions. */
+#comparison-gallery .gallery-cell{height:var(--gallery-cell-height,150px)}
+body:not(.gallery-active)>.gallery-canvas{display:none!important}

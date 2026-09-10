@@ -338,3 +338,7 @@ All-locations mode now uses full-width stacked lanes with models arranged horizo
 ## 10 September 2026 — HKS-228 independent gallery
 
 Added Gallery view with seven independently framed rows and synchronised Basic/Light/High cells per location. One shared scissor renderer draws visible gallery cells; the previous three tour canvases are retained but inactive. Global Play/Pause, Orbit/Fly around,0.25–3×speed and compact/roomy rows. Desktop/mobile checks and inspected screenshots under `comparison-gallery/`; return to travelling tour verified. No model/Neon state changes. Ready for William's visual review. Light effort remains suitable.
+
+## 10 September 2026 — HKS-228 gallery review fixes
+
+Gallery exit now clears and detaches its shared canvas; repeated exit/re-entry and inactive resize leave no overlay. Removed all-locations panorama/tour controls and unused tour logic, retaining gallery and individual comparisons. Added90–420px View size slider and32-second cinematic approach/facade-rise/rooftop/reveal sequence with shared per-row camera. Desktop/mobile regression checks and screenshots under `comparison-gallery/fixes/` pass. No model or Neon changes. Ready for William's visual review; Light remains sufficient.
