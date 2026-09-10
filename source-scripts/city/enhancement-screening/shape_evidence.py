@@ -34,13 +34,14 @@ def panels(data,size=192):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,default=ROOT/'docs/astra-city/enhancement-screening/shape-pilot-1000');p.add_argument('--geometry',type=Path,default=HERE/'local/shapes/geometry');p.add_argument('--evidence',type=Path,default=HERE/'local/shape-inputs.json.gz');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,default=ROOT/'docs/astra-city/enhancement-screening/shape-pilot-1000');p.add_argument('--geometry',type=Path,default=HERE/'local/shapes/geometry');p.add_argument('--evidence',type=Path,default=HERE/'local/shape-inputs.json.gz');p.add_argument('--no-contact-sheets',action='store_true');a=p.parse_args()
     rows=json.loads(gzip.decompress((a.out/'results.json.gz').read_bytes()));idx=read(a.geometry/'index.json');by_uid={r['uid']:r for r in idx['rows']};groups=defaultdict(list)
     for r in rows:
         if r['metrics']:groups[r['comparison']].append(r)
     selected=[]
     for kind,items in sorted(groups.items()):
         selected.extend(sorted(items,key=lambda r:hashlib.sha256(r['uid'].encode()).hexdigest())[:4])
+    if a.no_contact_sheets:selected=[]
     files=[]
     for start in range(0,len(selected),4):
         group=selected[start:start+4];canvas=Image.new('RGB',(1240,90+235*len(group)),(250,250,250));draw=ImageDraw.Draw(canvas)

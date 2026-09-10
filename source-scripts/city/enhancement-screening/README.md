@@ -215,7 +215,43 @@ Metrics reuse the existing immutable Neon `city_audit_cache` under a distinct
 are unchanged. Cache keys include the current source/context input hash, exact
 exported geometry hash, comparison policy and engine code. Result hashes detect
 corruption; conflicting immutable writes fail. Local-only runs and frozen replay
-are explicitly non-authoritative. No schema migration is needed.
+are explicitly non-authoritative.
+
+`--shared-cache` also saves **every sample and control outcome**, including missing
+geometry and other pending cases, into `astra_modelling.shape_screening_runs` and
+`shape_screening_outcomes`. The additive `shape-schema.sql` migration is applied
+transactionally on the pinned modelling branch. Run fingerprints include inputs,
+comparison/routing code, policy, sample/control membership and complete outcome
+hashes. Retries are idempotent; a separate post-commit connection verifies every
+stored result and membership before `neon-sync.json` reports success. JSONB numeric
+normalisation is accounted for in hashes. These tables grant no acceptance credit
+and never update the enhancement progress ledger.
+
+For another nonoverlapping sample, use frozen earlier evidence as an exclusion:
+
+```sh
+python pilot.py --capture --capture-only --count 5000 \
+  --seed hks-screening-shape-5000-v1 \
+  --exclude-evidence ../../../docs/astra-city/enhancement-screening/shape-pilot-1000/inputs.json.gz \
+  --evidence local/shape-5000/inputs.json.gz --local local/shape-5000/capture
+python shape_batch.py --evidence local/shape-5000/inputs.json.gz \
+  --out local/shape-5000 --cache local/shapes --allow-source-download --workers 8
+python screen.py compare --evidence local/shape-5000/inputs.json.gz \
+  --geometry local/shape-5000/geometry \
+  --out ../../../docs/astra-city/enhancement-screening/shape-pilot-5000 --shared-cache
+```
+
+`--exclude-evidence` can be repeated. Kai Tak is always a separate control, outside
+the sample denominator. `shape_batch.py` shares the existing exact-asset cache and
+uses sequential source leases of at most 1,000 forms; complete recovery and export
+failures are retained in the geometry index. A partial compact ZIP is expanded by
+reusing its verified members and downloading only newly requested members.
+
+Historical complete reports can be synced without repeating comparison:
+`python shape_store.py --evidence REPORT/inputs.json.gz --report REPORT`.
+For a historical summary without `routingSHA256`, pass `--routing-source` pointing
+to the exact version of `shape_screen.py` that produced it. Do not substitute a
+newer routing implementation. Failure leaves no partial run committed.
 
 Evidence and offline replay instructions:
 `docs/astra-city/enhancement-screening/shape-pilot-1000/README.md`.

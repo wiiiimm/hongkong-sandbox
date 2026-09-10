@@ -58,6 +58,14 @@ class PilotTests(unittest.TestCase):
         self.assertEqual(select(rows,10),select(list(reversed(rows)),10))
         self.assertEqual(len({r['uid'] for r in select(rows,10)}),10)
 
+    def test_disjoint_sample_and_exhausted_population(self):
+        rows=[{'uid':str(i)} for i in range(50)]
+        prior={r['uid'] for r in select(rows,10)}
+        following=select(rows,40,exclude=prior)
+        self.assertFalse(prior & {r['uid'] for r in following})
+        self.assertEqual(following,select(rows[::-1],40,exclude=prior))
+        with self.assertRaises(ValueError):select(rows,41,exclude=prior)
+
     def test_duplicate_population_rejected(self):
         with self.assertRaises(ValueError):select([{'uid':'1'},{'uid':'1'}],1)
 

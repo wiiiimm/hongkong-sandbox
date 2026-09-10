@@ -15,6 +15,7 @@ import time
 import numpy as np
 from shape_metrics import compare, POLICY, VERSION
 from pilot import native_metrics
+from shape_store import routing_hash, sync
 
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[2]
 
@@ -87,7 +88,7 @@ def run(evidence,geometry,out,shared=False):
     store=SharedCache() if shared else None;remote=store.get_many(list(keys.values())) if store else {};writes=[]
     cache=geometry.parent/'comparison-cache';cache.mkdir(exist_ok=True);results=[];hits=Counter();errors=[]
     for uid,row in sorted(e['rows'].items()):
-        b=e['sources'][uid]['building'];a=e['audits'][e['auditKeys'][uid]['cacheKey']];n=native_metrics(b,native[uid]);pair=pairs.get(uid,{});metric=None;key=keys.get(uid)
+        b=e['sources'][uid]['building'];a=e['audits'][e['auditKeys'][uid]['cacheKey']];n=native_metrics(b,native[uid]);pair=pairs.get(uid,{});metric=None;key=keys.get(uid);metric_error=None
         if key:
             try:
                 raw=(geometry/pair['file']).read_bytes()
@@ -104,12 +105,12 @@ def run(evidence,geometry,out,shared=False):
                     metric=compare(data['current'],data['candidate']);cached={'kind':VERSION,'cacheKey':key,'result':metric,'resultSHA256':digest(encode(metric))};hits['computed']+=1
                 save(path,cached)
                 if store and key not in remote:writes.append((key,uid,row['inputHash'],n['assetSha256'],engine,e['contextHash'],cached))
-            except (ValueError,KeyError,OSError) as ex:errors.append({'uid':uid,'error':str(ex)});metric=None
+            except (ValueError,KeyError,OSError) as ex:errors.append({'uid':uid,'error':str(ex)});metric=None;metric_error=str(ex)
         if pair.get('terrain'):n['nativeTerrainDiagnostic']=pair['terrain']
         action,reasons=route(row['state'],n,a,metric,pair.get('budget'),idx['profiles'],uid in set(e['landmarkUids']))
         results.append({'uid':uid,'name':b.get('name',''),'tile':e['sources'][uid]['tile'],'inputHash':row['inputHash'],'state':row['state'],
           'action':action,'comparison':metric['comparison'] if metric else None,'reasons':reasons,'cacheKey':key,'geometryFile':pair.get('file'),
-          'metrics':metric,'native':n,'geometryError':pair.get('error')})
+          'metrics':metric,'native':n,'geometryError':metric_error or pair.get('error')})
     if store:store.put_many(writes)
     sample_set=set(e['sampleUids']);sample=[r for r in results if r['uid'] in sample_set]
     summary={'version':VERSION,'mode':'bounded-validation-dry-run','sampleSize':len(sample),'controlCount':len(e['controlUids']),
@@ -118,11 +119,13 @@ def run(evidence,geometry,out,shared=False):
       'geometryErrors':errors,'aiCalls':0,'modelReviewWrites':0,'screeningAcceptanceWrites':0,'publishedModels':0,
       'seconds':round(time.perf_counter()-started,3),'sourceCommit':e['sourceCommit'],'manifestDigest':e['manifestDigest'],'engineSHA256':engine,
       'evidenceSHA256':digest(Path(evidence).read_bytes()),'policy':POLICY,
+      'routingSHA256':routing_hash(HERE/'shape_screen.py'),
       'qualification':'Geometry differences measure change, not architectural improvement or present-day accuracy. Candidates require validated acceptance and existing ownership/publication guards. Pending cases make no AI calls.'}
     out.mkdir(parents=True,exist_ok=True);save(out/'summary.json',summary)
     (out/'results.json.gz').write_bytes(gzip.compress(encode(results),mtime=0))
     save(out/'controls.json',[r for r in results if r['uid'] in e['controlUids']])
     save(out/'actions.json',{'authoritative':False,'automaticAcceptanceEnabled':False,'counts':summary['counts'],'rows':[{k:r[k] for k in ('uid','inputHash','action','comparison','reasons','cacheKey')} for r in results]})
+    if shared:save(out/'neon-sync.json',sync(evidence,summary,results))
     print(json.dumps({k:v for k,v in summary.items() if k not in ('policy','reasonCounts','geometryErrors')},indent=2))
     return summary,results
 

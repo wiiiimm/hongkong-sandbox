@@ -119,3 +119,12 @@ Verify the archive SHA against `replay-manifest.json` before extraction. The rep
 is offline and makes no database writes unless `--shared-cache` is explicitly used.
 Its results remain historical, non-authoritative evidence. Fresh processing commands
 are in the screening script README. No production deployment accompanies this pass.
+
+## Complete Neon outcome sync — 10 September 2026
+
+The subsequent 5,000-form work added complete diagnostic run persistence. All
+1,000 sample outcomes plus the separate Kai Tak control have been backfilled,
+including all 957 pending cases. Every stored JSON result and sample/control
+membership passed a separate post-commit read-back. See `neon-sync.json`.
+Run: `4c5c464837e01d3201d73987c910b9ea46ca8008d645e5646cce275dba399278`.
+This extends the earlier metric-only cache; it grants no new skip/acceptance credit.

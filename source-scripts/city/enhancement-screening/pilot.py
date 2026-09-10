@@ -36,8 +36,12 @@ def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def select(rows, count=1000, seed=SEED):
-    if count < 1 or count > len(rows) or len({r['uid'] for r in rows}) != len(rows):
+def select(rows, count=1000, seed=SEED, exclude=()):
+    if len({r['uid'] for r in rows}) != len(rows):
+        raise ValueError('Duplicate population UID')
+    excluded = set(exclude)
+    rows = [r for r in rows if r['uid'] not in excluded]
+    if count < 1 or count > len(rows):
         raise ValueError('Invalid sample size or duplicate UID')
     return heapq.nsmallest(count, rows, key=lambda r: (hashlib.sha256(
         (seed + ':' + r['uid']).encode()).hexdigest(), r['uid']))
@@ -117,24 +121,27 @@ def classify(row, building, audit, native, landmark=False, triangle_limit=64):
     return 'likely-skip', ['ordinary-surveyed-form-small-native-envelope-difference-low-complexity']
 
 
-def capture(local, count, seed):
+def capture(local, count, seed, exclude=()):
     sys.path.insert(0, str(HERE.parent / 'shared-modelling'))
     from db import connect
     from screen import build_plan
     start = time.perf_counter()
+    local = Path(local).resolve()
     local.mkdir(parents=True, exist_ok=True)
     plan = build_plan(local / 'pilot-inputs.json.gz')
-    sample = select(plan['rows'], count, seed)
-    selected = {r['uid'] for r in sample}
-    source, control = {}, []
     manifest = read(ROOT / '3d-viewer/city/data/manifest.json')
+    control = [b['uid'] for tile in manifest['tiles']
+        for b in read(ROOT / '3d-viewer' / tile['url'])['buildings']
+        if b.get('name', '').casefold() == 'kai tak stadium']
+    excluded = set(exclude) | set(control)
+    sample = select(plan['rows'], count, seed, excluded)
+    selected = {r['uid'] for r in sample}
+    source = {}
     for tile in manifest['tiles']:
         for building in read(ROOT / '3d-viewer' / tile['url'])['buildings']:
             is_control = building.get('name', '').casefold() == 'kai tak stadium'
             if building['uid'] in selected or is_control:
                 source[building['uid']] = {'tile': tile['id'], 'building': building}
-            if is_control:
-                control.append(building['uid'])
     if not control:
         raise ValueError('Kai Tak Stadium source identity not found')
     ids = set(source)
@@ -183,7 +190,8 @@ def capture(local, count, seed):
     if set(plan_rows) != ids or set(keys) != ids:
         raise ValueError('Control or sample is not a currently displayed source form')
     return {'version':1, 'seed':seed, 'policy':POLICY, 'capturedAt':datetime.now(timezone.utc).isoformat(),
-        'population':len(plan['rows']), 'sampleUids':[r['uid'] for r in sample], 'controlUids':control,
+        'population':len(plan['rows']), 'excludedUids':sorted(excluded),
+        'eligiblePopulation':sum(r['uid'] not in excluded for r in plan['rows']), 'sampleUids':[r['uid'] for r in sample], 'controlUids':control,
         'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'manifestDigest':plan['manifestDigest'], 'contextHash':plan['contextHash'],
         'nativeRun':NATIVE_RUN, 'landmarkInventorySha':digest(landmarks_path), 'landmarkUids':landmarks,
@@ -249,13 +257,23 @@ def main():
     parser.add_argument('--out',type=Path,default=ROOT/'docs/astra-city/enhancement-screening/pilot-1000')
     parser.add_argument('--count',type=int,default=1000)
     parser.add_argument('--seed',default=SEED)
+    parser.add_argument('--exclude-evidence',type=Path,action='append',default=[])
+    parser.add_argument('--capture-only',action='store_true')
+    parser.add_argument('--local',type=Path,default=HERE/'local/pilot')
     args=parser.parse_args()
     if args.capture:
-        data=capture(HERE/'local/pilot',args.count,args.seed)
+        excluded=set()
+        for path in args.exclude_evidence:
+            prior=json.loads(gzip.decompress(path.read_bytes()))
+            excluded.update(prior['sampleUids']);excluded.update(prior['controlUids'])
+        data=capture(args.local,args.count,args.seed,excluded)
         args.evidence.parent.mkdir(parents=True,exist_ok=True)
         args.evidence.write_bytes(gzip.compress(json.dumps(data,separators=(',',':')).encode(),mtime=0))
     else:
         data=json.loads(gzip.decompress(args.evidence.read_bytes()))
+    if args.capture_only:
+        print(json.dumps({'sampleSize':len(data['sampleUids']),'controls':data['controlUids'],'excludedCount':len(data.get('excludedUids',[])),'captureSeconds':data['captureSeconds']}))
+        return
     result=report(data,args.out)
     print(json.dumps({k:v for k,v in result.items() if k not in ['controlCases','reasonCounts']},indent=2))
 
