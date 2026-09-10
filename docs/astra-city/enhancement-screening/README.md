@@ -47,3 +47,8 @@ Commands, input invalidation limits and recovery are in
 currently invalidate good-to-go decisions conservatively, even outside a
 building's neighbourhood. The existing audit has local dependency keys that can
 be adopted in a later policy version.
+
+Hosted verification: implementation `a0f0e5c4`, Vercel deployment
+`dpl_BL3LYrG9DMukWjTxcwGJpFz8iE1Z` READY. Build completed in24s;
+chart HTML and version-2 statistics both return HTTP200 with the expected totals.
+[Preview](https://hongkong-sandbox-10j0yivj6-stealth-factory.vercel.app/city.html).
