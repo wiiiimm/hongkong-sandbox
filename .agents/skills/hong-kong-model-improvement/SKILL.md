@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.6.1"
+  version: "1.7.0"
 ---
 
 # Hong Kong model improvement
@@ -36,6 +36,19 @@ User direction, 11 September 2026: government-model enhancement must run as ordi
 AI is permitted only for developing/fixing code and other non-modelling work. Do not invoke AI for geometry generation, model refinement, simplification, per-building architectural judgement or reconstruction. No automatic AI retry or fallback is allowed. If a case cannot be resolved mechanically and would require AI modelling or architectural judgement, retain its current model, leave that case pending and notify the user before that work starts. Continue independent scripted work without waiting on that case.
 
 Use the existing source, placement, runtime, ownership and publication guards. Keeping the process local does not waive these checks or turn unresolved cases into accepted models. Runtime scripts make zero AI calls; AI-assisted code development is not a zero-token claim for the overall session.
+
+## Scripted acceptance of original government imports
+
+User direction, 11 September 2026: advance the clear subset through automated
+acceptance; per-building AI architectural review is not a required import step.
+Use the documented `source-scripts/city/government-import/DIRECT-IMPORT-POLICY.md`
+contract for unchanged original meshes. Exact source/identity, current input hashes,
+conservative drawn-terrain/contact checks, existing holds, runtime budgets and real
+browser loading/picking/collision/fallback evidence remain required. Record the
+scripted method and bounded scope through the existing fenced review/publisher.
+This accepts a faithful source port, not architectural reconstruction or whole-landmark
+completion. Models outside this contract keep their current fallback and explicit
+pending reason; do not waive a failed check to reach a target batch count.
 
 ## Choose the phase
 
