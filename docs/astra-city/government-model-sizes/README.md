@@ -44,3 +44,7 @@ remains 11 installed and 189 held; earlier evidence and reasons remain in Neon.
 [Commands, SQL and resumption details](../../../source-scripts/city/government-import/size-groups/README.md).
 Future work can select any bracket or sort by raw cost. Queue construction is
 explicitly deferred at the user’s request.
+
+Implementation: `a1d1e34c`. HKS-222, HKS-203, HKS-215, parent HKS-199 and
+the Astra milestone overview were successfully updated; broader import work
+remains open.
