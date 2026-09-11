@@ -11,7 +11,7 @@ import {makeTerrain} from '../../../3d-viewer/city/world.js';
 import {makeTerrainSampler} from '../../../3d-viewer/city/geo.js';
 import {nativeTerrainSurface} from '../../../3d-viewer/city/native-terrain.js';
 const root=new URL('../../../',import.meta.url),read=p=>JSON.parse(readFileSync(new URL(p,root))),hash=b=>createHash('sha256').update(b).digest('hex');
-const {values:args}=parseArgs({options:{selection:{type:'string'},out:{type:'string'},'geometry-out':{type:'string'},'terrain-candidates':{type:'string'}}});
+const {values:args}=parseArgs({options:{selection:{type:'string'},out:{type:'string'},'geometry-out':{type:'string'},'terrain-candidates':{type:'string'},candidates:{type:'string'}}});
 assert(!args.selection||args.out,'A new frozen selection requires a separate output');
 const batch='government-200-20260911',doc=`docs/astra-city/government-import/${batch}/`;
 const selectionPath=args.selection||doc+'selection.json.gz',selectionRaw=readFileSync(new URL(selectionPath,root));
@@ -37,7 +37,7 @@ terrain.traverse(mesh=>{if(!mesh.isMesh)return;assert(mesh.matrixWorld.equals(id
 });
 const lighting={night:{value:0},activity:{value:new THREE.Vector4()},retail:{value:0},elapsed:{value:0},shimmer:{value:0}},results=[],geometry=[];
 for(const r of rows){let model;
- try{const e=r.candidate.entry,raw=readFileSync(new URL(`source-scripts/city/government-import/local/${batch}/candidates/${e.asset}`,root));assert.equal(hash(raw),e.sha256);const source=load('3d-viewer/'+r.source.tile).buildings.find(b=>b.uid===r.uid);assert.deepEqual(source,r.source.building);
+ try{const e=r.candidate.entry,raw=readFileSync(new URL(`${args.candidates||`source-scripts/city/government-import/local/${batch}/candidates`}/${e.asset}`,root));assert.equal(hash(raw),e.sha256);const source=load('3d-viewer/'+r.source.tile).buildings.find(b=>b.uid===r.uid);assert.deepEqual(source,r.source.building);
   model=await loadOfficialModel({...e,assetURL:'https://validation.invalid/model.glb.gz'},source,lighting,{fetcher:async()=>new Response(raw)});
   const g=grounds.get(r.uid),surface=nativeTerrainSurface({position:g,index:Array.from({length:g.length/3},(_,i)=>i)}),position=model.record.modelGeometry.position,index=model.record.modelGeometry.index;
   if(args['geometry-out'])geometry.push({uid:r.uid,sourceSHA256:e.sha256,position:Array.from(position),index:Array.from(index),drawnGround:Array.from({length:position.length/3},(_,i)=>surface.height(position[i*3],position[i*3+2]))});
