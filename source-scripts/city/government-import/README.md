@@ -81,3 +81,11 @@ technical hold. A zero-In-process report requires those checks to finish; it doe
 not come from renaming an unexecuted queue. AI and human holds still require a
 confirmed decision requirement. See the batch's `resolution/README.md` and current
 `HUMAN-STATUS.md` before any resume. Completed source jobs must not be overwritten.
+
+## Indexed size groups (classification only)
+
+See [size-groups/README.md](size-groups/README.md) for six triangle-count brackets,
+raw file/memory/dimension measurements and fast Neon queries across every frozen
+government source model. Current user direction is to save classification first;
+**do not build queues yet**. Classification starts no model work and changes no
+held/installed decisions.

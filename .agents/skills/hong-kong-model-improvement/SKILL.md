@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.1"
+  version: "1.8.2"
 ---
 
 # Hong Kong model improvement
@@ -28,6 +28,24 @@ For other forms, proceed directly to cached government source lookup and scripte
 Keep the current model when the source is missing, ambiguous or fails validation. Record the reason for scripted investigation and continue independent work. The agent owns batch routing; do not ask the user to decide individual buildings. Simplify original detail only when measured runtime costs justify local scripted reductions. High/Light describe mesh detail, not AI reasoning effort.
 
 Keep source-form counting and the existing evidenced acceptance ledger. Public progress separates total map models, exact government-source matches and completed work within that source group; see `source-scripts/city/building-progress/README.md`. New good-to-go/rework records still require current input/evidence hashes and live source ownership. Historical pilot candidates grant no progress credit. No source form automatically completes a whole landmark or region.
+
+## Inventory size groups and future passes
+
+User direction, 11 September 2026: store several size brackets in Neon before
+building queues. See `source-scripts/city/government-import/size-groups/README.md`.
+Use the indexed, source-bound XS/Small/Medium/Large/XL/XXL groups and separate
+Unmeasured group. Raw triangle counts, download/decoded geometry bytes and native
+physical dimensions remain separate. Complexity does not establish visual quality,
+AI effort, acceptance or whether enhancement is worthwhile. Classification must
+not create a queue or change a model's work/review status.
+
+For later authorised import batches, prefer a broad scripted first pass: install
+passing original meshes, persist exact held reasons/checks/input and source hashes
+in Neon, then investigate shared blocker categories during a second pass. Reuse
+unchanged completed evidence. Preserve repository/R2 evidence references and
+identify local-only caches honestly. Do not spend per-building AI effort chasing
+exceptions during the broad pass. Current scope is classification/storage only;
+queue construction is explicitly deferred.
 
 ## Local processing and AI-token constraint
 
