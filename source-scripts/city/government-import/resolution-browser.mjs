@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import {browserExecutable} from '../landmark-preflight/browser-runtime.mjs';
 const root=new URL('../../../',import.meta.url),read=async p=>JSON.parse(await readFile(new URL(p,root))),require=createRequire(new URL('3d-viewer/city/package.json',root)),{chromium}=require('playwright');
 const mode=process.argv[2]||'staged';assert(['staged','live'].includes(mode));
-const config=await read('source-scripts/city/government-import/accepted/government-198-resolution-20260911/browser-config.json'),catalogue=await read(config.stage+'catalogue.json'),forms=await read(config.stage+'source-forms.json'),url=config.catalogueURL,assetBase=url.slice(0,url.lastIndexOf('/')+1),out=new URL(config.doc,root);await mkdir(out,{recursive:true});
+const config=await read(process.argv[3]||'source-scripts/city/government-import/accepted/government-198-resolution-20260911/browser-config.json'),catalogue=await read(config.stage+'catalogue.json'),forms=await read(config.stage+'source-forms.json'),url=config.catalogueURL,assetBase=url.slice(0,url.lastIndexOf('/')+1),out=new URL(config.doc,root);await mkdir(out,{recursive:true});
 const report={mode,views:[],errors:[],aiCalls:0,architectureReview:false},browser=await chromium.launch({headless:true,executablePath:browserExecutable(chromium),args:['--no-sandbox','--enable-webgl','--ignore-gpu-blocklist']});
 try{for(const width of [1280,390]){
  const page=await browser.newPage({viewport:{width,height:900},hasTouch:width<700}),allowed=new Set();page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(/THREE.WebGLProgram|GL_INVALID|shader error/i.test(m.text()))report.errors.push(m.text());});
@@ -21,7 +21,10 @@ try{for(const width of [1280,390]){
  for(const model of catalogue.models){
   const building=forms.find(b=>b.uid===model.uid);
   await page.evaluate(b=>window.__port.visitBuilding(b),building);await page.waitForFunction(()=>!window.__city.state.loadingTravel&&!window.__city.state.travelling,null,{timeout:90000});
-  await page.evaluate(bounds=>{const r=window.__port,[a,b]=bounds,c=a.map((v,i)=>(v+b[i])/2),radius=new r.THREE.Vector3(...a).distanceTo(new r.THREE.Vector3(...b))/2,half=Math.min(r.THREE.MathUtils.degToRad(r.camera.fov/2),Math.atan(Math.tan(r.THREE.MathUtils.degToRad(r.camera.fov/2))*r.camera.aspect)),d=radius/Math.sin(half)*1.3;r.closeSelection();r.controlSheet?.close({restoreFocus:false});r.camera.position.set(c[0]+d*.5,c[1]+d*.5,c[2]+d*.707);r.controls.target.fromArray(c);r.controls.update();},model.worldBounds);
+  await page.evaluate(({bounds,fitBox})=>{const r=window.__port,[a,b]=bounds,c=a.map((v,i)=>(v+b[i])/2),radius=new r.THREE.Vector3(...a).distanceTo(new r.THREE.Vector3(...b))/2,half=Math.min(r.THREE.MathUtils.degToRad(r.camera.fov/2),Math.atan(Math.tan(r.THREE.MathUtils.degToRad(r.camera.fov/2))*r.camera.aspect));let d=radius/Math.sin(half)*1.3;const direction=new r.THREE.Vector3(.5,.5,.707).normalize();
+   if(fitBox){const right=new r.THREE.Vector3().crossVectors(new r.THREE.Vector3(0,1,0),direction).normalize(),up=new r.THREE.Vector3().crossVectors(direction,right),tanV=Math.tan(r.THREE.MathUtils.degToRad(r.camera.fov/2)),tanH=tanV*r.camera.aspect;d=0;for(const x of [a[0],b[0]])for(const y of [a[1],b[1]])for(const z of [a[2],b[2]]){const o=new r.THREE.Vector3(x-c[0],y-c[1],z-c[2]);d=Math.max(d,o.dot(direction)+Math.abs(o.dot(right))/tanH,o.dot(direction)+Math.abs(o.dot(up))/tanV);}d*=1.1;}
+   r.closeSelection();r.controlSheet?.close({restoreFocus:false});r.camera.position.fromArray(c).addScaledVector(direction,d);r.controls.target.fromArray(c);r.controls.update();r.camera.updateMatrixWorld(true);
+  },{bounds:model.worldBounds,fitBox:!!config.fitBox});
   if(width===390){await page.waitForFunction(uid=>window.__port.officialModels.cache.errors.has(uid),model.uid,{timeout:60000});assert.equal(await page.evaluate(uid=>!!window.__port.stream.detailedModels.get(uid)?.active,model.uid),false);report.views.push({uid:model.uid,width,phase:'failed-download',fallbackRetained:true});allowed.add(model.uid);await page.locator('#stream-retry').click();}
   await page.waitForFunction(uid=>window.__port.stream.detailedModels.get(uid)?.active,model.uid,{timeout:60000});
   for(const time of ['15:00','22:00']){
@@ -31,9 +34,10 @@ try{for(const width of [1280,390]){
     const ray=new r.THREE.Raycaster(new r.THREE.Vector3(roof.x,roof.y+50,roof.z),new r.THREE.Vector3(0,-1,0));
     r.terrain.updateMatrixWorld(true);const ground=ray.intersectObject(r.terrain,true)[0]?.point.y;
     const frustum=new r.THREE.Frustum().setFromProjectionMatrix(new r.THREE.Matrix4().multiplyMatrices(r.camera.projectionMatrix,r.camera.matrixWorldInverse));
-    return{active:!!d.active,pick:ray.intersectObjects(d.meshes)[0]?.object.userData.officialBuildingUid,collision:r.stream.collision(roof.x,roof.z,roof.y-.05,roof.y+.05,.05)?.uid,visible:frustum.intersectsBox(new r.THREE.Box3().setFromObject(d.group)),drawnTriangles:r.renderer.info.render.triangles,overflow:document.documentElement.scrollWidth>innerWidth,ground,groundSampler:r.sampler.height(roof.x,roof.z)};
+    const box=new r.THREE.Box3().setFromObject(d.group);let fullyFramed=true;for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z]){const q=new r.THREE.Vector3(x,y,z).project(r.camera);if(Math.abs(q.x)>1||Math.abs(q.y)>1||Math.abs(q.z)>1)fullyFramed=false;}
+    return{fullyFramed,active:!!d.active,pick:ray.intersectObjects(d.meshes)[0]?.object.userData.officialBuildingUid,collision:r.stream.collision(roof.x,roof.z,roof.y-.05,roof.y+.05,.05)?.uid,visible:frustum.intersectsBox(new r.THREE.Box3().setFromObject(d.group)),drawnTriangles:r.renderer.info.render.triangles,overflow:document.documentElement.scrollWidth>innerWidth,ground,groundSampler:r.sampler.height(roof.x,roof.z)};
    },model.uid);
-   assert(state.active&&state.visible&&state.drawnTriangles>0&&!state.overflow);assert.equal(state.pick,model.uid);assert.equal(state.collision,model.uid);assert(Number.isFinite(state.ground)&&Math.abs(state.ground-state.groundSampler)<=.004);
+   assert(state.active&&state.visible&&state.drawnTriangles>0&&!state.overflow);if(config.fitBox)assert(state.fullyFramed,'Whole source bounds must fit the viewport');assert.equal(state.pick,model.uid);assert.equal(state.collision,model.uid);assert(Number.isFinite(state.ground)&&Math.abs(state.ground-state.groundSampler)<=.004);
    const file=`${mode}-${model.uid.replaceAll('/','-').replaceAll(':','-')}-${width}-${time.replace(':','')}.png`;await page.screenshot({path:new URL(file,out).pathname});report.views.push({uid:model.uid,width,time,file,...state});console.log(file);
   }
  }
