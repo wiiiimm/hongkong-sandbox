@@ -27,7 +27,7 @@ The site now has **295 enhanced forms**, including **288 / 212,669** matched gov
 
 All configured scripts have finished and all source reservations are released. The 15 technical holds have recorded blockers, but a safe resolution is unproven; a failed check alone does not establish a need for AI or a user decision. Unmatched native IDs retain proposed exact current CSUID/ObjectID candidates as diagnostic evidence only. [All outcomes](human-status.csv) and [held reasons/actions](technical-holds.csv) preserve this distinction.
 
-The [Sol proposal](sol-review-proposal/README.md) supplies a source-bound packet and a script-generated projection. Scope: identity/component interpretation only, no geometry edits. Planning estimate: **5,000–15,000 tokens** for one review, excluding new research, retries or code changes; this is not measured usage or an enforceable tool cap. Explicit architectural-review authorization is pending. **Zero per-model AI calls** have run; AI-assisted code development did use tokens.
+The [Sol review](sol-review-proposal/README.md) was completed after explicit user approval with GPT-5.6 Sol at Medium reasoning. It supports Lui Seng Chun as a one-source architectural assembly: exact identifiers agree, 99.57% of the footprint is covered, exterior projection overlaps only 0.27 square metres of another mapped building, and all native terrain checks pass. This resolves the AI identity hold without editing geometry. Installation remains unapproved pending the normal recorded-height, runtime and browser gates. Attributable token counters were unavailable, so no measured total is claimed.
 
 ## Original-source installation and checks
 
