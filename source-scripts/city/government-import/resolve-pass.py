@@ -50,8 +50,10 @@ def extent(cells,parent):
     return [g['bE']+c0*g['aE']-834500,816500-g['bN']-r0*g['aN'],g['bE']+c1*g['aE']-834500,816500-g['bN']-r1*g['aN']]
 
 
-def make_patch(group,parent,native,sources):
-    bb=extent(group['cells'],parent);core=[bb[0]+10,bb[1]+10,bb[2]-10,bb[3]-10]
+def make_patch(group,parent,native,sources,native_core=None):
+    bb=extent(group['cells'],parent);core=native_core or [bb[0]+10,bb[1]+10,bb[2]-10,bb[3]-10]
+    assert bb[0]<core[0]<core[2]<bb[2] and bb[1]<core[1]<core[3]<bb[3]
+    blend=[core[0]-10,core[1]-10,core[2]+10,core[3]+10]
     sampler=terrain.fine.DemSampler(parent,rendered=True);raw_sampler=terrain.fine.DemSampler(parent)
     step=5;w=round((bb[2]-bb[0])/step)+1;h=round((bb[3]-bb[1])/step)+1
     grid=np.array([[bb[0]+c*step,bb[1]+r*step] for r in range(h) for c in range(w)])
@@ -74,7 +76,7 @@ def make_patch(group,parent,native,sources):
                 for v in points:
                     v=v.copy()
                     if transition:
-                        alpha=max(0,min(1,min(v[0]-bb[0],bb[2]-v[0],v[2]-bb[1],bb[3]-v[2])/10))
+                        alpha=max(0,min(1,min(v[0]-blend[0],blend[2]-v[0],v[2]-blend[1],blend[3]-v[2])/10))
                         v[1]=v[1]*alpha+sampler.ground(v[0],v[2])*(1-alpha)
                     vertices.append(v)
                 for i in range(1,len(vertices)-1):

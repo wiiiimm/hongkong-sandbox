@@ -44,3 +44,28 @@ proof/holds and stages the subset, and `integrate.py` verifies fresh evidence,
 publishes under ownership and records installed results. Current tools are explicitly
 bound to the first 200-form batch. Do not retarget them by editing IDs without a new
 frozen batch/evidence set. Broad skip-screening remains retired.
+
+## Supported original pairs — bounded Saxon second pass
+
+The `original-government-supported-pair-v1` path keeps every direct-import gate
+for the original podium, including source identity, current terrain, mobile budget
+and prior holds. The original tower keeps the same source, identity, budget and
+all-surface terrain gates. Its terrain-only lower-rim gap is resolved only when
+**every** sampled lower-rim point is covered by the exact original podium triangles,
+with a minimum gap between -0.1 and +0.1 m and a maximum gap <=1 m. Both current
+source hashes are checked. No building is shifted or reconstructed. Install both
+parts atomically, record the support dependency and verify both in staged/installed
+browser scenes, including asset-failure fallback/retry.
+
+A source-backed terrain patch may restrict native detail to the source bounds,
+with a 10 m transition on parent triangle boundaries and unchanged parent heights
+outside that band. It still must pass exact coverage, overlap, seam, water-mask,
+source contact and neighbour checks. The default native-terrain builder is unchanged.
+
+`unchanged_support.py` can explain a **ground-gap-only** warning for an elevated,
+unchanged form using one unchanged solid fallback podium: top/base gap <=0.1 m,
+footprint coverage >=99.99%, containment within 0.002 m, no native/changed/open-sided
+support, and no terrain-regression warning on that support. Ambiguous or incomplete
+matches stay blocked. This proves unchanged source-form support; it does not grant
+whole-building architecture or structural-engineering certification. The ordinary
+neighbour report is retained, with a separate hashed support proof.
