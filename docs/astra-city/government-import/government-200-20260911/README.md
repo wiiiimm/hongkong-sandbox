@@ -57,3 +57,5 @@ work remain separate. The user is not asked to approve individual buildings.
 Three deterministic selection tests pass; the actual 200-model execution exercises
 the current-tile validator path and complete fenced Neon result sync. Existing
 SQLite-based validation remains available. No Lantau map-reference images were used.
+
+Follow-up: [full 200-form funnel and scripted context for all 198 pending forms](pending-context/README.md). The batch remains two installed and 198 pending; 61 was an intermediate subset.
