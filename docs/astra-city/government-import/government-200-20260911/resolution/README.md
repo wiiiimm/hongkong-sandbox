@@ -1,6 +1,6 @@
 # Government model resolution — 11 September 2026
 
-Executor: Codex root. Source/processing implementation: `e0a21f53`. The user asked
+Executor: Codex root. Source/processing implementation: `e0a21f53`; installed runtime and outcomes: `f2c4bc53`. The user asked
 for all 198 remaining forms to reach an actionable endpoint with zero In process.
 No per-model AI calls, modelling, simplification or architectural image judgement.
 
@@ -112,3 +112,13 @@ The acquired source/cache files remain in ignored local folders. No new R2 backu
 is claimed. Frozen evidence is reproducible with the matching source caches and
 script revision; do not rerun this completed pass over its published destinations.
 Use a new versioned pass and fresh source ownership for future resolution work.
+## Verified preview and tracking
+
+[Open the verified City preview](https://hongkong-sandbox-cgmkqgxng-stealth-factory.vercel.app/city.html).
+Vercel deployment `dpl_Gze4inhV7U4mCExmbRMr7BbM2qYf` for `f2c4bc53` is READY.
+All 20 hosted files match local SHA-256 exactly: City HTML, public progress,
+the nine-model catalogue/assets and eight native terrain patches. See `preview.json`.
+
+HKS-203, HKS-215, HKS-220, parent HKS-199 and the Astra milestone overview were
+successfully updated with the complete outcomes and evidence. Leaves remain
+In Review; HKS-199 remains In Progress for its broader scope.
