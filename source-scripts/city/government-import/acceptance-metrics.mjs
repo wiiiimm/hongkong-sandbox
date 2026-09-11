@@ -11,7 +11,7 @@ import {makeTerrain} from '../../../3d-viewer/city/world.js';
 import {makeTerrainSampler} from '../../../3d-viewer/city/geo.js';
 import {nativeTerrainSurface} from '../../../3d-viewer/city/native-terrain.js';
 const root=new URL('../../../',import.meta.url),read=p=>JSON.parse(readFileSync(new URL(p,root))),hash=b=>createHash('sha256').update(b).digest('hex');
-const {values:args}=parseArgs({options:{selection:{type:'string'},out:{type:'string'},'geometry-out':{type:'string'}}});
+const {values:args}=parseArgs({options:{selection:{type:'string'},out:{type:'string'},'geometry-out':{type:'string'},'terrain-candidates':{type:'string'}}});
 assert(!args.selection||args.out,'A new frozen selection requires a separate output');
 const batch='government-200-20260911',doc=`docs/astra-city/government-import/${batch}/`;
 const selectionPath=args.selection||doc+'selection.json.gz',selectionRaw=readFileSync(new URL(selectionPath,root));
@@ -26,6 +26,7 @@ if(args.selection)assert.equal(inputs['3d-viewer/city/data/manifest.json'],selec
 inputs[selectionPath]=hash(selectionRaw);
 for(const p of ['source-scripts/city/government-import/acceptance-metrics.mjs','3d-viewer/city/world.js','3d-viewer/city/geo.js','3d-viewer/city/native-terrain.js','3d-viewer/city/official-model-assets.js','3d-viewer/city/official-models.js'])inputs[p]=hash(readFileSync(new URL(p,root)));
 data.patches=(manifest.terrainPatches||[]).map(p=>load('3d-viewer/'+p.url));
+if(args['terrain-candidates'])for(const p of load(args['terrain-candidates'])){const patch=load(p.path);assert.equal(inputs[p.path],p.sha256,'Staged terrain changed');data.patches.push(patch);}
 const terrain=makeTerrain(data);terrain.updateMatrixWorld(true);const sampler=makeTerrainSampler(data);
 const grounds=new Map(rows.map(r=>[r.uid,[]])),identity=new THREE.Matrix4();
 // Keep only actual drawn terrain triangles intersecting this bounded model group.
