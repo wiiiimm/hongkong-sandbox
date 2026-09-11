@@ -61,3 +61,5 @@ SQLite-based validation remains available. No Lantau map-reference images were u
 Follow-up: [full 200-form funnel and scripted context for all 198 pending forms](pending-context/README.md). The batch remains two installed and 198 pending; 61 was an intermediate subset.
 
 For user-facing progress use the [six-stage human report](HUMAN-STATUS.md): two Installed and 198 In process — queued scripted investigation. Historical held/pending labels below remain technical acceptance guards, not proof that AI or a user decision is required.
+
+Current completed endpoint: [11 Installed, 189 Held for unknown state, 0 In process](HUMAN-STATUS.md). The [resolution report](resolution/README.md) supersedes the earlier queued checkpoint; all diagnostic history remains intact.

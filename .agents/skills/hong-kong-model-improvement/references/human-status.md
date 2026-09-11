@@ -53,9 +53,20 @@ step. Keep detailed terrain/identity/runtime flags available underneath; do not
 make the user interpret internal pipeline terminology. Indicate the data checkpoint
 and original scope. Mention an active worker only when its job/lease is verified.
 
-For the first 200 government forms after the recorded pending-context pass:
-**2 Installed; 198 In process — queued scripted investigation; 0 in the other four
-stages**. Evidence identifies further terrain/source/support/identity checks; no
-per-model AI requirement or user decision has been established. This is not a
-claim that all 198 can already be resolved by existing scripts or will be installed.
-Use fresh evidence for later batches rather than copying these example counts.
+For the first 200 government forms after the completed scripted resolution pass:
+**11 Installed; 189 Held for unknown state; 0 in the other four stages**. Every hold
+has recorded technical blockers, but the safe resolution method remains unproven;
+no AI or human decision requirement was established. The earlier 2 Installed /198
+In process checkpoint is superseded. Read the current batch `HUMAN-STATUS.md` and
+use fresh evidence for later batches instead of copying these example counts.
+
+## Requested terminal batch report
+
+When the user requests zero In process, finish the configured scripted resolution
+steps and installation checks for the entire requested scope. Give each unresolved
+form a concrete blocker and the evidence needed to resolve it. A technical hold
+whose safe resolution method is still unproven belongs in Held for unknown state;
+do not infer that AI or the user is required. Keep known executable work In process
+until it has actually run; do not meet the requested count by relabelling an
+unexecuted queue. Release finished batch reservations and verify the final Neon
+outcomes before reporting zero In process.

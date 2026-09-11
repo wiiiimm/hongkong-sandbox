@@ -61,4 +61,23 @@ SQLite path remains supported. Missing/stale source records become explicit fail
 
 ## Report stages for the user
 
-Keep detailed Neon states unchanged; present the six-stage mapping in [.agents/skills/hong-kong-model-improvement/references/human-status.md](../../../.agents/skills/hong-kong-model-improvement/references/human-status.md). A failed placement/source check with known scripted follow-up is **In process — queued/running**. AI and human holds require a specific documented dependency. The first 200-form batch is two Installed and 198 In process (queued), with no established AI or human decision requirement; see [the human status report](../../../docs/astra-city/government-import/government-200-20260911/HUMAN-STATUS.md). This mapping changes no acceptance or installed counts.
+Keep detailed Neon states unchanged; present the six-stage mapping in [.agents/skills/hong-kong-model-improvement/references/human-status.md](../../../.agents/skills/hong-kong-model-improvement/references/human-status.md). A failed placement/source check with known scripted follow-up is **In process — queued/running**. AI and human holds require a specific documented dependency. The completed 200-form batch is 11 Installed, 189 Held for unknown state and zero In process, with no established AI or human decision requirement; see [the human status report](../../../docs/astra-city/government-import/government-200-20260911/HUMAN-STATUS.md). This mapping changes no acceptance or installed counts.
+
+## Completing the 198-form follow-up
+
+The frozen resolution pass is in `resolve-pass.py`, `prepare-resolution.py`,
+`check-support-sources.py`, `check-support-triangles.mjs`, `check-neighbours.mjs`,
+`finalize-stage.py`, `resolution-browser.mjs` and `integrate-resolution.py`. These
+are bounded to the recorded 200-form batch; they are not generic repeat commands.
+Native-source checks cover every source vertex, triangle centre and low-rim edge.
+Terrain corrections reuse original facets, split transitions on parent triangles,
+retain the water mask and pass the existing publisher's coverage/overlap/seam
+guards. Neighbour regressions retain the entire affected patch.
+
+The final installation command runs under the shared reservation supervisor,
+verifies staged and installed desktop/mobile day/night output and records terminal
+results for all 198 forms. Unresolved cases keep their fallback and an explicit
+technical hold. A zero-In-process report requires those checks to finish; it does
+not come from renaming an unexecuted queue. AI and human holds still require a
+confirmed decision requirement. See the batch's `resolution/README.md` and current
+`HUMAN-STATUS.md` before any resume. Completed source jobs must not be overwritten.
