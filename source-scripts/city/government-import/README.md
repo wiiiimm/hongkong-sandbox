@@ -116,3 +116,12 @@ No AI model review, reconstruction, simplification, terrain changes or threshold
 relaxation is part of this first pass. Investigate held categories in a later pass.
 
 Commit each verified installed group as it becomes available, including its assets, acceptance receipts and progress update. Preserve held cases for resumption without delaying that commit. The completed XXL pass is [documented here](../../../docs/astra-city/government-import/government-xxl-20260911/README.md): four installed (one new Central Library, three existing), 18 held for second pass and zero in process.
+
+
+## Completed XXL second pass — 11 September 2026
+
+Read [the second-pass handoff](../../../docs/astra-city/government-import/government-xxl-20260911/second-pass/README.md) before resuming. The original 22 XXL parts now have six installed, 16 held and zero in process; Saxon Tower and its additional original podium are installed in `cb666244`. Exact source asset reuse also corrected the already-installed West Kowloon Station status. Final Neon job `874a9e7eccac63f3adaaad6f868caf0259603961e1ee63d85600df5fca1d80c2` preserves all outcomes, evidence and remaining actions.
+
+The `xxl-second-pass.py`, `xxl-complete-context.py`, Elements restoration/staging, terrain/support and Saxon helpers are frozen evidence-producing operations for this batch, not generic repeat commands. `xxl-finish-second.py` wrote the terminal checkpoint. Do not overwrite completed jobs or republish models on resume. Use fresh source reservations and new jobs for changed inputs. The Elements portable stage is unpublished and still held; its directory name does not grant acceptance.
+
+The supported-pair contract is in `DIRECT-IMPORT-POLICY.md`; `unchanged_support.py` explains only conservatively proven fallback support and leaves original terrain warnings intact. All 29 import tests pass. Scripted source conversion and geometry checks make zero AI calls. A proposed Sol identity/component review has not started and remains distinct from source geometry generation.

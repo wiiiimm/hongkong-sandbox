@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.4"
+  version: "1.8.5"
 ---
 
 # Hong Kong model improvement
@@ -48,7 +48,7 @@ exceptions during the broad pass. The later explicit request authorises a bounde
 see `source-scripts/city/government-import/xxl-pass.py` and the batch handoff.
 Generic territory-wide queue construction remains deferred. Reuse exact installed
 source hashes; leave failed identity/terrain cases for the grouped second pass.
-Run browser/publication checks only for the subset passing the scripted contract.
+Run browser/publication checks only for the subset passing the scripted contract. The user has now authorised a grouped scripted second pass of the 18 XXL holds. Exact source lookup, geometry diagnostics and source-backed terrain processing remain code/compute work. The completed checkpoint is `docs/astra-city/government-import/government-xxl-20260911/second-pass/README.md`: six of 22 XXL parts installed, 16 held, zero in process, plus one supporting podium outside XXL. Resume from its Neon receipt and preserved evidence rather than rerunning completed imports.
 
 Commit each newly verified installed model or coherent group promptly, with its runtime assets, acceptance evidence and refreshed progress. Do not wait for held models or the rest of a batch before committing available models (user direction, 11 September 2026).
 
@@ -57,6 +57,8 @@ Commit each newly verified installed model or coherent group promptly, with its 
 User direction, 11 September 2026: government-model enhancement must run as ordinary local processes with **zero per-model AI calls**. Source lookup/restoration, decoding, conversion, validation, optional measured LOD generation and import orchestration use deterministic scripts. Government downloads and Neon/R2 cache/result syncing are ordinary data transfers, not AI processing. Reuse exact cached assets/results before repeating work; do not run an agent or visual-review loop for every building.
 
 AI is permitted only for developing/fixing code and other non-modelling work. Do not invoke AI for geometry generation, model refinement, simplification, per-building architectural judgement or reconstruction. No automatic AI retry or fallback is allowed. If a case cannot be resolved mechanically and would require AI modelling or architectural judgement, retain its current model, leave that case pending and notify the user before that work starts. Continue independent scripted work without waiting on that case.
+
+If a bounded per-model AI review is needed, consider GPT-5.6 Sol first (user preference, 11 September 2026). Explain the unresolved evidence, distinguish review from geometry remodelling, and provide an estimated input/reasoning/output token range and proposed cap when possible before starting. Model preference is not approval to run AI modelling or architectural review. Do not invent precise token costs or treat failed scripts as proof AI is necessary.
 
 Use the existing source, placement, runtime, ownership and publication guards. Keeping the process local does not waive these checks or turn unresolved cases into accepted models. Runtime scripts make zero AI calls; AI-assisted code development is not a zero-token claim for the overall session.
 

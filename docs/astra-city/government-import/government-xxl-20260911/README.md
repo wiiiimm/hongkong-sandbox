@@ -1,5 +1,7 @@
 # Government XXL first pass — 11 September 2026
 
+**Historical first-pass report.** The [completed second pass](second-pass/README.md) supersedes the counts below: six XXL source parts installed, 16 held, zero in process, plus one installed supporting podium outside XXL. Saxon Tower/podium are pushed in `cb666244`.
+
 Codex/Astra processed the frozen 22 XXL government source parts after the user authorised this bounded batch. Original government detail, coordinates and elevations are preserved. No AI modelling, architectural scoring, simplification or geometry/terrain changes were used.
 
 | Final user status | Source parts |
@@ -33,4 +35,4 @@ Reproduction commands and input/version guards are in [the import runbook](../..
 
 ## Commit and deployment status
 
-The new model, runtime statistics and all 22 outcomes are committed locally as `887b6f4c` on `codex/astra-hong-kong-city`. Automatic approval review rejected the push to `git@github.com:wiiiimm/hongkong-sandbox.git` because destination/push authorisation was not established. No push or new hosted preview is claimed. Resume by pushing the existing branch only after approval, then verify the READY preview, progress JSON, catalogue and original asset hash. Do not rerun the completed import or rewrite its Neon outcomes.
+The new model, runtime statistics and all 22 outcomes were committed as `887b6f4c` on `codex/astra-hong-kong-city`. The user explicitly authorised pushing; all five commits through `0329c80d` are now pushed. Vercel deployment `dpl_GWGnQdEiNCQMbWJWTUxZx88FrXW2` is READY. Hosted City HTML, progress JSON, catalogue and the original asset exactly match local bytes/hashes; see `preview.json`. [Verified preview](https://hongkong-sandbox-29ux5w1b6-stealth-factory.vercel.app/city.html). The earlier automatic approval rejection is resolved. Do not repeat the completed import or rewrite its Neon outcomes.
