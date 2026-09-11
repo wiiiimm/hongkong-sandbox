@@ -4,7 +4,7 @@ import {gunzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {makeTerrainSampler,inPolygon} from '../../../3d-viewer/city/geo.js';
-const root=new URL('../../../',import.meta.url),doc='docs/astra-city/government-import/government-200-20260911/resolution/',hash=b=>createHash('sha256').update(b).digest('hex'),inputs={};
+const root=new URL('../../../',import.meta.url),doc=process.argv[2]||'docs/astra-city/government-import/government-200-20260911/resolution/',hash=b=>createHash('sha256').update(b).digest('hex'),inputs={};
 const read=p=>{const raw=readFileSync(new URL(p,root));inputs[p]=hash(raw);return JSON.parse(p.endsWith('.gz')?gunzipSync(raw):raw);};
 const manifest=read('3d-viewer/city/data/manifest.json'),data=read('3d-viewer/city/data/terrain.json'),selection=read(doc+'neighbour-inputs.json.gz');
 for(const [p,h] of Object.entries(selection.inputHashes))assert.equal(hash(readFileSync(new URL(p,root))),h);
