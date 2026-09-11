@@ -30,3 +30,7 @@ An initial staged mobile test camera fell outside the 300 m detail-load range. `
 The viewer now counts 293 enhanced forms overall and 286 ready government forms out of 212,669 matched sources (0.13%); total mapped forms remain 346,108. The earlier 200-form batch remains 11 installed / 189 held.
 
 Reproduction commands and input/version guards are in [the import runbook](../../../../source-scripts/city/government-import/README.md). Commit every newly verified installed group promptly; preserve each batch's source provenance, review receipts and held reasons for resumption.
+
+## Commit and deployment status
+
+The new model, runtime statistics and all 22 outcomes are committed locally as `887b6f4c` on `codex/astra-hong-kong-city`. Automatic approval review rejected the push to `git@github.com:wiiiimm/hongkong-sandbox.git` because destination/push authorisation was not established. No push or new hosted preview is claimed. Resume by pushing the existing branch only after approval, then verify the READY preview, progress JSON, catalogue and original asset hash. Do not rerun the completed import or rewrite its Neon outcomes.

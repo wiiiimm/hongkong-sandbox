@@ -89,3 +89,30 @@ raw file/memory/dimension measurements and fast Neon queries across every frozen
 government source model. Current user direction is to save classification first;
 **do not build queues yet**. Classification starts no model work and changes no
 held/installed decisions.
+
+## Bounded XXL first pass — 11 September 2026
+
+The user subsequently authorised work on the 22 XXL source models. `xxl-pass.py`
+freezes that full population from Neon's size table, reuses exact verified installed
+sources and applies the existing source/identity gates before recovering eligible
+meshes. `shape_prepare.prepare` is reused only as a cache/source restoration utility;
+it does not execute retired skip-screening. Actual loading/picking/collision and
+all-vertex/triangle-centre/low-rim terrain metrics run under source reservations.
+Results for every source, including the five without a unique viewer UID, are saved
+with source cache/model IDs and full check evidence in fenced Neon jobs.
+
+`xxl-integrate.py` stages only the passing subset, verifies actual desktop/mobile
+browser output and publishes through the existing guarded path. It preserves prior
+reviews and counts an import only after installed checks pass. The new optional
+`--candidates` path in `acceptance-metrics.mjs` permits the frozen XXL assets;
+legacy 200-form invocations keep their existing default. The browser runner accepts
+an explicit config path and optional exact bounding-box framing for large models;
+this changes test cameras only, with full projected-bounds checks.
+
+Read `docs/astra-city/government-import/government-xxl-20260911/README.md` before
+resuming. These are frozen batch commands, not an automatic territory-wide queue.
+Do not rerun the completed selection/publication over its existing destinations.
+No AI model review, reconstruction, simplification, terrain changes or threshold
+relaxation is part of this first pass. Investigate held categories in a later pass.
+
+Commit each verified installed group as it becomes available, including its assets, acceptance receipts and progress update. Preserve held cases for resumption without delaying that commit. The completed XXL pass is [documented here](../../../docs/astra-city/government-import/government-xxl-20260911/README.md): four installed (one new Central Library, three existing), 18 held for second pass and zero in process.

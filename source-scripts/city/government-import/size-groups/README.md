@@ -1,7 +1,9 @@
 # Government model size groups — HKS-222 / HKS-203
 
-Current user scope: classify the inventory and store quickly queryable groups in
-Neon. **Do not create import queues or start new batches from this classification.**
+The size-classification command only stores quickly queryable groups in Neon.
+**It must not create import queues or start new batches.** The later explicit user
+request separately authorises the bounded 22-model XXL first pass; general queue
+construction remains deferred.
 No per-model AI, downloads, geometry edits, review-state updates or installations.
 
 `native_model_sizes` is an indexed projection of immutable government preparation

@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.2"
+  version: "1.8.4"
 ---
 
 # Hong Kong model improvement
@@ -44,8 +44,13 @@ passing original meshes, persist exact held reasons/checks/input and source hash
 in Neon, then investigate shared blocker categories during a second pass. Reuse
 unchanged completed evidence. Preserve repository/R2 evidence references and
 identify local-only caches honestly. Do not spend per-building AI effort chasing
-exceptions during the broad pass. Current scope is classification/storage only;
-queue construction is explicitly deferred.
+exceptions during the broad pass. The later explicit request authorises a bounded first pass of all 22 XXL sources;
+see `source-scripts/city/government-import/xxl-pass.py` and the batch handoff.
+Generic territory-wide queue construction remains deferred. Reuse exact installed
+source hashes; leave failed identity/terrain cases for the grouped second pass.
+Run browser/publication checks only for the subset passing the scripted contract.
+
+Commit each newly verified installed model or coherent group promptly, with its runtime assets, acceptance evidence and refreshed progress. Do not wait for held models or the rest of a batch before committing available models (user direction, 11 September 2026).
 
 ## Local processing and AI-token constraint
 
