@@ -58,3 +58,7 @@ Tests: `python -m unittest discover -s source-scripts/city/government-import -v`
 The existing candidate validator also supports `--source-forms FILE`: exact current
 tile bytes and selected records replace the legacy SQLite lookup. Its default
 SQLite path remains supported. Missing/stale source records become explicit failures.
+
+## Report stages for the user
+
+Keep detailed Neon states unchanged; present the six-stage mapping in [.agents/skills/hong-kong-model-improvement/references/human-status.md](../../../.agents/skills/hong-kong-model-improvement/references/human-status.md). A failed placement/source check with known scripted follow-up is **In process — queued/running**. AI and human holds require a specific documented dependency. The first 200-form batch is two Installed and 198 In process (queued), with no established AI or human decision requirement; see [the human status report](../../../docs/astra-city/government-import/government-200-20260911/HUMAN-STATUS.md). This mapping changes no acceptance or installed counts.

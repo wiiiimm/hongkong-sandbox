@@ -59,3 +59,5 @@ the current-tile validator path and complete fenced Neon result sync. Existing
 SQLite-based validation remains available. No Lantau map-reference images were used.
 
 Follow-up: [full 200-form funnel and scripted context for all 198 pending forms](pending-context/README.md). The batch remains two installed and 198 pending; 61 was an intermediate subset.
+
+For user-facing progress use the [six-stage human report](HUMAN-STATUS.md): two Installed and 198 In process — queued scripted investigation. Historical held/pending labels below remain technical acceptance guards, not proof that AI or a user decision is required.

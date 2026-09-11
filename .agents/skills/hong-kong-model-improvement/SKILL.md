@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.7.0"
+  version: "1.8.0"
 ---
 
 # Hong Kong model improvement
@@ -49,6 +49,36 @@ scripted method and bounded scope through the existing fenced review/publisher.
 This accepts a faithful source port, not architectural reconstruction or whole-landmark
 completion. Models outside this contract keep their current fallback and explicit
 pending reason; do not waive a failed check to reach a target batch count.
+
+## Report status in the user’s six stages
+
+User direction, 11 September 2026: retain detailed Neon/job/review statuses and
+map them to a separate human report. Do not change the shared schema, acceptance
+states or progress credit merely to rename a status. Follow
+[references/human-status.md](references/human-status.md) for the mapping and report
+contract. This applies to chat updates, final reports and cross-device handoffs.
+
+Lead with **Installed**, **To do**, **Held for human decision**, **Held for AI
+processing**, **Held for unknown state**, and **In process**. Technical terms such
+as advanced, runtime-validated, awaiting acceptance, pending or held are supporting
+check details, never unexplained top-level statuses. Every selected source form
+has exactly one human status; report the original batch denominator.
+
+The key distinction is who or what is needed next. More local CPU work, downloads,
+script repairs, terrain/source investigation or automatic checks mean **In process**
+(queued or running), not an AI/human hold. AI-assisted code development is not
+per-model AI processing. A human hold requires an exact unanswered user decision;
+an AI hold requires a documented need for AI modelling/architectural judgement.
+A failed script or missing source does not establish either. **Held for unknown
+state** is for an unclassified blocker or unreliable state, with a concrete next
+investigation step. Keep those cases visible; do not silently equate unknown with AI.
+
+**In process** means started and unfinished, including queued scripted follow-up;
+state queued/running separately and never imply a live worker without evidence.
+**Installed** requires current verified integration, not downloaded/prepared data.
+**To do** means not started. Reclassifying reports grants no acceptance or deployment
+credit and does not authorise AI work. Continue autonomous scripted work within the
+user’s scope; notify before any AI modelling or necessary human decision.
 
 ## Choose the phase
 

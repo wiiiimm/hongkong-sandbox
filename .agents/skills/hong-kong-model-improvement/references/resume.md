@@ -70,3 +70,7 @@ Resolve the latest HKS-221 R2 manifest from `docs/astra-city/citywide-source/R2-
 Directory entries, exact source matches, acquired native geometry, converted candidates, installed models and manually verified landmarks are different states. Do not mark a region complete because its scripted audit or directory scan succeeded. Manual modelling remains paused until the user resumes that phase.
 
 Fresh-device order: restore the model-pause checkpoint at its recorded commit; advance to the script checkpoint commit while retaining ignored inputs; restore/unpack the script cache. Do not bypass either exact-revision check.
+
+## Status vocabulary after restoring a checkpoint
+
+Apply [human-status.md](human-status.md) before reporting old Neon or file states. Historical pending/held/advanced labels remain technical evidence, not human-facing decision requirements. Reconcile current installed proof, next scripted action and any explicit AI/user requirement; distinguish queued work from a verified running worker.

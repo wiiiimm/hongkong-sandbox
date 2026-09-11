@@ -51,3 +51,7 @@ CPU validation uses the actual loader, source picking/collision and rendered ter
 The current gallery can use disjoint workers, but merge only results from the same stable snapshot; reject duplicate/missing groups. Inspect representative exports and keep camera clarity, candidate activity and architectural acceptance separate. A target hidden in both views needs an explicit follow-up even when screenshots were successfully written.
 
 Do not rerun the old three-model Asia Society publication script as a general publisher: those IDs are already installed. Adapt the existing guarded publisher to a newly reviewed selection, checking asset/source hashes, duplicate UIDs, fresh before/after evidence and fallback behaviour. Refresh inventory/readiness only after publishing the approved subset, then update Linear. Never infer a complete region from its component count.
+
+## User-facing status reporting
+
+Keep native/job/review states in Neon. Map them through [human-status.md](human-status.md) in reports: Installed, To do, Held for human decision, Held for AI processing, Held for unknown state, In process. More compute or known scripted follow-up is In process (queued/running). An internal hold never establishes an AI or human requirement by itself. Report the original batch denominator and preserve all acceptance guards.
