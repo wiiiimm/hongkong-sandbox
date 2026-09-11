@@ -55,6 +55,7 @@ def owned():
     decision={'policy':'original-government-import-v1','checkedResultSHA256':h(DOC/'results.json.gz'),'metricsSHA256':h(DOC/'metrics.json'),'policySHA256':h(HERE/'acceptance-policy.py'),'browserRunnerSHA256':h(HERE/'resolution-browser.mjs'),'catalogueSHA256':h(STAGE/'catalogue.json'),'planSHA256':h(STAGE/'plan.json'),'selectedUids':sorted(passing),'aiCalls':0}
     save(DOC/'decision.json',decision)
     command(['node',str(HERE/'resolution-browser.mjs'),'staged',rel(STAGE/'browser-config.json')]);images('staged',passing)
+    for p,sha in report['inputHashes'].items():assert h(ROOT/p)==sha,'Inputs changed during staged verification: '+p
     pointer=ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json';previous=read(pointer);inventory=read(ROOT/previous['inventory']);parts={p['uid']:p for p in inventory['parts']}
     for e in catalogue['models']:
         old=parts.get(e['uid'],{});parts[e['uid']]={'uid':e['uid'],'name':e['label'],'landmarkIds':old.get('landmarkIds',[]),'objectId':e['objectId'],'csuid':e['buildingCSUID'],'candidate':{'sha256':e['sha256']},'sourceProgress':'prepared-for-review','classification':'script-verified-original-government-import','knownHold':False}
