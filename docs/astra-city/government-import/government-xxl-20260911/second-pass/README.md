@@ -11,6 +11,8 @@ Codex/Astra completed the authorised scripted follow-up. Original government bui
 | Held for unknown state / technical resolution | 15 |
 | In process | 0 |
 
+The table records the completed scripted second-pass job before the later approved Sol review. Current routing after that review is six Installed, 15 Held-unknown/technical, zero Held-AI and one In process (queued for ordinary scripted acceptance; no live worker). The append-only review job preserves this transition without rewriting the frozen second-pass result.
+
 The installed XXL parts are HSBC Main Building, Two IFC, M+, Hong Kong Central Library, Hong Kong West Kowloon Station and Saxon Tower. This second pass newly installs **Saxon Tower plus its original supporting podium**, committed and pushed as `cb666244`. The podium is an additional installed source part outside the 22-part XXL denominator. West Kowloon Station is a classification correction: the exact source hash was already installed under its resolved identity, although the native matcher had no UID. It does not increase city progress.
 
 The site now has **295 enhanced forms**, including **288 / 212,669** matched government-source forms ready (0.1354%), with 212,381 remaining. Total mapped source forms: 346,108. These are source-part counts, not whole-building completion. The earlier 200-form batch remains 11 installed / 189 held.

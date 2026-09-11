@@ -15,3 +15,5 @@ This resolves the AI identity/component question only. It does **not** approve i
 Proposed model: GPT-5.6 Sol. Planning estimate: **5,000–15,000 total tokens** for this one compact packet, overlay and bounded assessment, including reasoning when usage reports it. This is not measured use or a guaranteed cap. Additional research/retries and code implementation are outside this estimate. Report actual usage only if available.
 
 Actual attributable token counters were unavailable, so no token total is claimed or inferred. No additional research, retry, model escalation or geometry work was performed.
+
+Append-only Neon job `9f81678b6473dbfc5877bcef485552536b0fa6bf3827c7a2a9e2d1ee5492d62b` stores the exact identity result with one AI review and zero geometry edits. Exact readback passed and the source reservation was released; see `neon-sync.json`. The frozen XXL second-pass job and installation approval remain unchanged.
