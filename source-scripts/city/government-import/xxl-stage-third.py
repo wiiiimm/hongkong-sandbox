@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 spec = importlib.util.spec_from_file_location('xxl_second', Path(__file__).with_name('xxl-second-pass.py'))
 s = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(s)
+import native_patch_resolution as patch_resolution
 ROOT, HERE = s.ROOT, s.HERE
 DOC = s.DOC / 'third-pass/landsd-136832'
 LOCAL = s.LOCAL / 'third-pass-landsd-136832'
@@ -82,9 +83,24 @@ def owned():
                 source_proof = source['source']
                 used.append({'sheet': source['sheet'], 'revision': source_proof['revisionDate'], 'sourceETag': source_proof['sourceETag'], 'directorySHA256': source_proof['directorySHA256'], 'sourceFiles': [{'path': rel(folder / e['name']), 'sha256': e['sha256']} for e in source_proof['entries'] if e['name'].startswith('TERRAIN') and e['name'].endswith(('.gltf', '.bin'))]})
         lo, hi = row['candidate']['entry']['worldBounds']
-        patch = s.resolution.make_patch(group, parent, np.concatenate(fragments), used, native_core=[lo[0] - 1, lo[2] - 1, hi[0] + 1, hi[2] + 1])
+        validator = s.resolution.validate_patch
+        s.resolution.validate_patch = lambda candidate, parent_terrain: None
+        try:
+            patch = s.resolution.make_patch(group, parent, np.concatenate(fragments), used, native_core=[lo[0] - 1, lo[2] - 1, hi[0] + 1, hi[2] + 1])
+        finally:
+            s.resolution.validate_patch = validator
         patch_path = LOCAL / (patch['id'] + '.json')
         save(patch_path, patch)
+        model = s.glb_triangles(next(item for item in read(s.DOC / 'selection.json.gz')['rows'] if item['modelId'] == row['candidate']['entry']['modelId']))
+        projected = __import__('shapely').union_all(__import__('shapely').polygons(model[:, :, [0, 2]]))
+        fill = patch_resolution.fill_parent_only_holes(patch, parent, bounds, projected, s.resolution.terrain.fine.DemSampler(parent, rendered=True))
+        save(patch_path, patch)
+        source_files = [item for source in used for item in source['sourceFiles']]
+        patch = read(patch_path)
+        overlap = patch_resolution.approve_original_overlap(patch, patch_path, Path(rel(DOC / 'native-overlap-evidence.json')), source_files)
+        save(patch_path, patch)
+        validator(patch, parent)
+        save(DOC / 'terrain-resolution.json', {'parentHoleFill': fill, 'overlapProof': overlap, 'aiCalls': 0, 'geometryChanges': 0})
     except (AssertionError, ValueError) as error:
         save(DOC / 'result.json', {'uid': UID, 'passed': False, 'stage': 'source-terrain-patch', 'reason': str(error), 'aiCalls': 0})
         print(json.dumps(read(DOC / 'result.json')), flush=True)

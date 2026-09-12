@@ -3,6 +3,7 @@ import importlib.util,json,sys,uuid,subprocess
 from pathlib import Path
 import numpy as np
 from shapely.geometry import Polygon,box
+import native_patch_resolution as patch_resolution
 spec=importlib.util.spec_from_file_location('xxl_second',Path(__file__).with_name('xxl-second-pass.py'));s=importlib.util.module_from_spec(spec);spec.loader.exec_module(s)
 ROOT,HERE,DOC,LOCAL=s.ROOT,s.HERE,s.DOC/'terrain',s.LOCAL/'terrain-stage'
 read,save,h,rel=s.read,s.save,s.h,s.rel
@@ -17,7 +18,7 @@ def start():
             poly=Polygon(b['rings'][0],b['rings'][1:])
             if poly.intersects(region):neighbours.append({'building':b,'patchIndexes':[0],'existingNative':b['uid'] in live or bool(b.get('modelGeometry'))});touched=True
         if touched:hashes[rel(p)]=s.digest(raw)
-    save(DOC/'selection.json.gz',{**selected,'rows':[r]});save(DOC/'neighbour-inputs.json.gz',{'rows':neighbours,'inputHashes':hashes,'candidateIds':[UID],'patches':[]});save(DOC/'patch-plan.json',{'cells':cells,'bounds':bb,'manifestSHA256':selected['manifestSHA256'],'uid':UID})
+    current=h(ROOT/'3d-viewer/city/data/manifest.json');save(DOC/'selection.json.gz',{**selected,'manifestSHA256':current,'rows':[r]});save(DOC/'neighbour-inputs.json.gz',{'rows':neighbours,'inputHashes':hashes,'candidateIds':[UID],'patches':[]});save(DOC/'patch-plan.json',{'cells':cells,'bounds':bb,'manifestSHA256':current,'uid':UID})
     resources=set(read(s.LOCAL/'reservation.json')['resources'])|{('building:' if n['building']['uid'].startswith('landsd/') else 'source-form:')+n['building']['uid'] for n in neighbours}
     owned=s.reservations.claim('codex-xxl-terrain-'+str(uuid.uuid4()),sorted(resources),batch=s.BATCH+'-terrain');assert owned['ok'];save(LOCAL/'reservation.json',json.loads(json.dumps(owned['reservation'],default=str)))
     s.call([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--',sys.executable,__file__,'owned'])
@@ -38,7 +39,14 @@ def owned():
                 if len(near):found.append(near)
             if found:
                 fragments.extend(found);proof=source['source'];used.append({'sheet':source['sheet'],'revision':proof['revisionDate'],'sourceETag':proof['sourceETag'],'directorySHA256':proof['directorySHA256'],'sourceFiles':[{'path':rel(folder/e['name']),'sha256':e['sha256']} for e in proof['entries'] if e['name'].startswith('TERRAIN') and e['name'].endswith(('.gltf','.bin'))]})
-        patch=s.resolution.make_patch(group,parent,np.concatenate(fragments),used);path=LOCAL/(patch['id']+'.json');save(path,patch)
+        validator=s.resolution.validate_patch;s.resolution.validate_patch=lambda candidate,parent_terrain:None
+        try:patch=s.resolution.make_patch(group,parent,np.concatenate(fragments),used)
+        finally:s.resolution.validate_patch=validator
+        path=LOCAL/(patch['id']+'.json');save(path,patch);patch=read(path)
+        source_files=[item for source in used for item in source['sourceFiles']]
+        overlap=patch_resolution.approve_original_overlap(patch,path,Path(rel(DOC/'native-overlap-evidence.json')),source_files)
+        save(path,patch);validator(patch,parent)
+        save(DOC/'terrain-resolution.json',{'overlapProof':overlap,'aiCalls':0,'geometryChanges':0})
     except (AssertionError,ValueError) as error:
         save(DOC/'result.json',{'uid':UID,'passed':False,'stage':'source-terrain-patch','reason':str(error),'aiCalls':0});print(json.dumps(read(DOC/'result.json')),flush=True);return
     patch_entry={'path':rel(path),'sha256':h(path),'uids':[UID],'bounds':bb,'triangles':len(patch['nativeMesh']['index'])//3};save(DOC/'terrain-candidates.json',[patch_entry]);neighbours=read(DOC/'neighbour-inputs.json.gz');neighbours['patches']=[patch_entry];save(DOC/'neighbour-inputs.json.gz',neighbours)
