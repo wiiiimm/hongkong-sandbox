@@ -15,7 +15,7 @@ export function modelSupportDependencies(entry){
  return [...result.values()];
 }
 /** Dependency-first closure. Cycles and unavailable sources keep the original forms. */
-export function supportedModelPlan(candidates,models,limits,budget,available){
+export function supportedModelPlan(candidates,models,limits,budget,available,selectedUid=null){
  const wanted=[],chosen=new Set(),reservedFallbacks=new Set(),blocked=new Map();
  const used={geometryBytes:0,residentBytes:0,triangles:0};
  for(const root of candidates){
@@ -37,7 +37,7 @@ export function supportedModelPlan(candidates,models,limits,budget,available){
    if(ordered.some(uid=>fallbacks.has(uid)||reservedFallbacks.has(uid))||[...fallbacks].some(uid=>chosen.has(uid)))throw new Error('Native upgrade conflicts with required surveyed support');
    const extra=ordered.filter(uid=>!chosen.has(uid)),cost={geometryBytes:0,residentBytes:0,triangles:0};
    for(const uid of extra){const c=budget(models.get(uid));for(const k of Object.keys(cost))cost[k]+=c[k];}
-   if(wanted.length+extra.length>limits.count||Object.keys(cost).some(k=>used[k]+cost[k]>limits[k]))throw new Error('Model support group exceeds memory or triangle budget');
+   if(wanted.length+extra.length>limits.count||Object.keys(cost).some(k=>used[k]+cost[k]>(k==='residentBytes'&&root===selectedUid?limits.selectedResidentBytes??limits[k]:limits[k])))throw new Error('Model support group exceeds memory or triangle budget');
    for(const uid of extra){chosen.add(uid);wanted.push(uid);}for(const uid of fallbacks)reservedFallbacks.add(uid);for(const k of Object.keys(cost))used[k]+=cost[k];
   }catch(error){blocked.set(root,error.message);}
  }

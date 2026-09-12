@@ -4,7 +4,7 @@ import {prepareModelCatalogue,modelBudget,loadOfficialModel,disposeOfficialModel
 import {modelSupportDependencies,supportedModelPlan} from './model-support.js';
 const MiB=1024*1024;
 export const MODEL_PROFILES=Object.freeze({
- mobile:Object.freeze({count:24,concurrency:1,geometryBytes:48*MiB,residentBytes:128*MiB,triangles:450000,landmarkDistance:1800,detailDistance:300,minPixels:24}),
+ mobile:Object.freeze({count:24,concurrency:1,geometryBytes:48*MiB,residentBytes:128*MiB,selectedResidentBytes:160*MiB,triangles:450000,landmarkDistance:1800,detailDistance:300,minPixels:24}),
  desktop:Object.freeze({count:48,concurrency:2,geometryBytes:96*MiB,residentBytes:256*MiB,triangles:900000,landmarkDistance:2500,detailDistance:500,minPixels:18}),
 });
 /** Progressive exact-source detail; ordinary source outlines remain the fallback. */
@@ -112,7 +112,7 @@ export class OfficialModelLayer{
    candidates.push({entry,distance,selected,projected,visible});
   }
   candidates.sort((a,b)=>Number(b.selected)-Number(a.selected)||Number(b.visible)-Number(a.visible)||a.distance-b.distance||b.projected-a.projected||a.entry.uid.localeCompare(b.entry.uid));
-  const {wanted,blocked}=supportedModelPlan(candidates.map(c=>c.entry.uid),this.models,limits,modelBudget,(uid,kind,d)=>this.supportAvailable(uid,kind,d));this.supportHolds=blocked;
+  const {wanted,blocked}=supportedModelPlan(candidates.map(c=>c.entry.uid),this.models,limits,modelBudget,(uid,kind,d)=>this.supportAvailable(uid,kind,d),selectedUid);this.supportHolds=blocked;
   // Release models outside the selected distance/budget set. Fallback restoration
   // completes before each buffer is disposed; no model is silently dropped.
   const keep=new Set(wanted);for(const [uid,entry] of this.cache.entries)if(!keep.has(uid)){this.cache.entries.delete(uid);this.release(entry).catch(()=>{});}

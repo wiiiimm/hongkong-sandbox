@@ -50,6 +50,14 @@ test('a small off-camera native support bypasses its own LOD filter while a visi
  assert.deepEqual(f.layer.plan(camera(),{selectedUid:uid(1),force:true}),[uid(2),uid(1)]);await f.layer.cache.waitFor([uid(1)]);
  assert.ok(f.log.indexOf('attach:'+uid(2))<f.log.indexOf('download:'+uid(1)));assert.equal(f.layer.cache.entries.size,2);
 });
+test('selected mobile model may use the isolated resident allowance without raising background limits',()=>{
+ const large={...meta(1),decodedGeometryBytes:38679000,indexedVertices:963272,triangles:333434};
+ const models=new Map([[large.uid,large]]),cost=modelBudget(large);
+ assert.ok(cost.residentBytes>MODEL_PROFILES.mobile.residentBytes);
+ assert.ok(cost.residentBytes<MODEL_PROFILES.mobile.selectedResidentBytes);
+ assert.deepEqual(supportedModelPlan([large.uid],models,MODEL_PROFILES.mobile,modelBudget,()=>true).wanted,[]);
+ assert.deepEqual(supportedModelPlan([large.uid],models,MODEL_PROFILES.mobile,modelBudget,()=>true,large.uid).wanted,[large.uid]);
+});
 test('slow native support cannot expose a floating tower, and support failure leaves tower fallback until Retry',async t=>{
  let finish,failed=true;const f=fixture([meta(1,[support(2)]),meta(2)],{download:async key=>{if(key===uid(2)){await new Promise(r=>finish=r);if(failed)throw new Error('support HTTP503');}}});t.after(()=>f.layer.dispose());
  f.layer.plan(camera(),{selectedUid:uid(1),force:true});while(!finish)await tick();assert.equal(f.stream.detailedModels.has(uid(1)),false);assert.equal(f.log.includes('download:'+uid(1)),false);
