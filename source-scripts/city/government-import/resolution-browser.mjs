@@ -14,6 +14,7 @@ try{for(const width of [1280,390]){
  if(mode==='staged'){
   await page.route('**/'+url,r=>r.fulfill({json:catalogue}));
   for(const t of config.terrain)await page.route('**/'+t.destination,async r=>r.fulfill({body:await readFile(new URL(t.source,root))}));
+  for(const replacement of config.catalogueReplacements||[])await page.route('**/'+replacement.url,async r=>r.fulfill({body:await readFile(new URL(replacement.source,root))}));
   await page.route('**/city/data/manifest.json',async r=>{const response=await r.fetch(),m=await response.json();m.officialModelCatalogues.push(url);m.terrainPatches.push(...config.terrain.map(t=>({url:t.destination,resolution:t.resolution,area:t.area})));await r.fulfill({response,json:m});});
  }
  for(const model of browserModels)await page.route('**/'+assetBase+model.asset,async r=>width===390&&(!config.failureTestUids||config.failureTestUids.includes(model.uid))&&!allowed.has(model.uid)?r.fulfill({status:503,body:'Intentional fallback test'}):mode==='staged'?r.fulfill({body:await readFile(new URL(config.stage+model.asset,root))}):r.continue());
