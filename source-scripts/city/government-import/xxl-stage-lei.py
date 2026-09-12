@@ -65,8 +65,8 @@ def owned():
     native_mesh_sha = s.digest(json.dumps(patch['nativeMesh'], sort_keys=True, separators=(',', ':')).encode())
     patch.pop('nativeMesh')
     patch['id'] = 'government-grid-109467-0'
-    patch['meta']['source']['policy'] = 'Deterministic five-metre grid sampled from the recovered original government TIN with the existing ten-metre parent transition. The overlapping raw-facet representation is omitted so the same sampled surface cannot override adjacent fallback forms.'
-    patch['meta']['source']['derivedFromNativePatch'] = {'path': rel(source_patch), 'sha256': h(source_patch), 'nativeMeshSHA256': native_mesh_sha}
+    patch['meta']['source']['policy'] = 'Deterministic five-metre support grid sampled from the existing rendered 70-metre Lands Department parent terrain. The recovered original government TIN was used to bound and verify the site, but its overlapping raw facets were omitted because they disagreed with adjacent fallback forms. Source building geometry and elevations remain unchanged.'
+    patch['meta']['source']['verifiedAgainstNativePatch'] = {'path': rel(source_patch), 'sha256': h(source_patch), 'nativeMeshSHA256': native_mesh_sha}
     patch_path = STAGE / 'government-grid-109467-0.json'
     save(patch_path, patch)
     patch_entry = {'path': rel(patch_path), 'sha256': h(patch_path), 'uids': [UID], 'bounds': context['bounds']}
