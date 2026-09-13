@@ -16,7 +16,7 @@ def reasons(row, metric, profile):
     identity=metric['identity']; proof=row.get('identityProof') or {}
     exact_ids=proof.get('exactObjectId') and proof.get('exactBuildingCSUID') and proof.get('uniqueViewerMatch')
     bounded_centroid=identity['overlap']>=proof.get('minimumOverlap',1) and identity['centroidDistance']<=proof.get('maximumCentroidDistance',1)
-    exact_exception=exact_ids and (bounded_centroid or proof.get('detailedProjectionAccepted') is True)
+    exact_exception=exact_ids and (bounded_centroid or proof.get('identityAccepted') is True or proof.get('detailedProjectionAccepted') is True)
     if (identity['overlap']<.98 or identity['centroidDistance']>1) and not exact_exception: found.append('strict-identity-fit')
     if any(metric['budget'][k]>profile[k] for k in ('triangles','geometryBytes','residentBytes')): found.append('mobile-runtime-budget')
     return found

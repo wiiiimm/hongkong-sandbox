@@ -28,4 +28,9 @@ class AcceptanceTests(unittest.TestCase):
   self.assertEqual(policy.reasons(self.row,self.m,self.profile),[])
   self.row['identityProof']['exactObjectId']=False
   self.assertIn('strict-identity-fit',policy.reasons(self.row,self.m,self.profile))
+ def test_exact_ids_allow_named_scripted_identity_proof(self):
+  self.m['identity']={'overlap':.95,'centroidDistance':9};self.row['identityProof']={'exactObjectId':True,'exactBuildingCSUID':True,'uniqueViewerMatch':True,'identityAccepted':True,'boundaryTouchAccepted':True}
+  self.assertEqual(policy.reasons(self.row,self.m,self.profile),[])
+  self.row['identityProof']['identityAccepted']=False
+  self.assertIn('strict-identity-fit',policy.reasons(self.row,self.m,self.profile))
 if __name__=='__main__':unittest.main()
