@@ -17,7 +17,8 @@ try{for(const width of [1280,390]){
   for(const replacement of config.catalogueReplacements||[])await page.route('**/'+replacement.url,async r=>r.fulfill({body:await readFile(new URL(replacement.source,root))}));
   await page.route('**/city/data/manifest.json',async r=>{const response=await r.fetch(),m=await response.json();m.officialModelCatalogues.push(url);m.terrainPatches.push(...config.terrain.map(t=>({url:t.destination,resolution:t.resolution,area:t.area})));await r.fulfill({response,json:m});});
  }
- for(const model of browserModels)await page.route('**/'+assetBase+model.asset+'*',async r=>width===390&&(!config.failureTestUids||config.failureTestUids.includes(model.uid))&&!allowed.has(model.uid)?r.fulfill({status:503,body:'Intentional fallback test'}):mode==='staged'?r.fulfill({body:await readFile(new URL(config.stage+model.asset,root))}):r.continue());
+ const routedModels=mode==='staged'?catalogue.models:browserModels;
+ for(const model of routedModels)await page.route('**/'+assetBase+model.asset+'*',async r=>width===390&&(!config.failureTestUids||config.failureTestUids.includes(model.uid))&&!allowed.has(model.uid)?r.fulfill({status:503,body:'Intentional fallback test'}):mode==='staged'?r.fulfill({body:await readFile(new URL(config.stage+model.asset,root))}):r.continue());
  await page.goto('http://127.0.0.1:4176/city.html');await page.waitForFunction(()=>window.__city?.ready&&window.__port?.stream,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden',timeout:120000});
  await page.evaluate(url=>window.__port.officialModels.loadCatalogue(url),url);
  await page.evaluate(()=>{const r=window.__port.renderer;window.__portDraw=r.render.bind(r);r.render=()=>{};});

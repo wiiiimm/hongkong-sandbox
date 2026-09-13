@@ -21,6 +21,11 @@ test('a failed section blocks readiness until an explicit retry succeeds',async(
  const {cache,deferred}=harness();cache.plan(['a']);await next();const wait=assert.rejects(cache.waitFor(['a']),/offline/);
  deferred.get('a').reject(new Error('offline'));await wait;assert.equal(cache.ready(['a']),false);cache.retry();await next();deferred.get('a').resolve('a');await cache.waitFor(['a']);assert.equal(cache.ready(['a']),true);cache.close();
 });
+test('retry clears stale failures outside the current plan so later travel can reload them',async()=>{
+ const {cache,deferred}=harness();cache.plan(['old']);await next();const failed=assert.rejects(cache.waitFor(['old']),/offline/);
+ deferred.get('old').reject(new Error('offline'));await failed;await next();cache.plan(['nearby']);await next();deferred.get('nearby').resolve('nearby');await cache.waitFor(['nearby']);
+ cache.retry();assert.equal(cache.errors.size,0);cache.plan(['old']);await next();deferred.get('old').resolve('old');await cache.waitFor(['old']);assert.equal(cache.entries.get('old'),'old');cache.close();
+});
 test('district changes cancel the old arrival request',async()=>{
  const {cache}=harness();cache.plan(['a']);const wait=assert.rejects(cache.waitFor(['a']),{name:'AbortError'});cache.plan(['b']);await wait;cache.close();
 });

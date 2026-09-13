@@ -51,7 +51,7 @@ export class TileCache {
       this.listeners.add(check);check();
     });
   }
-  retry(){for(const id of this.wanted)this.errors.delete(id);this.notify();this.pump();}
+  retry(){this.errors.clear();this.notify();this.pump();}
   close(){this.closed=true;for(const c of this.running.values())c.abort();for(const value of this.entries.values())this.dispose(value);this.entries.clear();this.notify();}
 }
 export function distanceToBounds(x,z,b){return Math.hypot(Math.max(b[0]-x,0,x-b[2]),Math.max(b[1]-z,0,z-b[3]));}
