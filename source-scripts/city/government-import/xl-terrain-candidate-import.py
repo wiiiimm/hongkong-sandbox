@@ -38,6 +38,20 @@ CONFIG = {
             "pass contact, neighbour and runtime checks."
         ),
     },
+    "tower-147505": {
+        "uid": "landsd/147505:0",
+        "batch": "government-xl-tower-147505-20260914",
+        "policy": "original-government-xl-compact-overhang-native-terrain-v1",
+        "classification": "script-verified-original-government-compact-overhang-native-terrain",
+        "retainedBuildingUids": ["landsd/147996:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.9986% target "
+            "coverage and a 0.43 m centroid offset. The source extends at most 3.30 m beyond the "
+            "small mapped footprint, intersects no unrelated form, and touches one same-parent form "
+            "over only 4.81 m2 / 6.56%. The unchanged model and neighbour-preserving native terrain "
+            "pass contact, neighbour and runtime checks."
+        ),
+    },
     "harbourfront": {
         "uid": "landsd/31275:0",
         "batch": "government-xl-harbourfront-20260914",
@@ -180,6 +194,7 @@ def owned(key):
         'fitBox': True,
         'browserUids': [uid],
         'failureTestUids': [uid],
+        'retainedBuildingUids': config.get('retainedBuildingUids', []),
     }
     save(accepted / 'browser-config.json', browser_config)
 
