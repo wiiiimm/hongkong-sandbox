@@ -4,11 +4,11 @@ This bounded batch selected the 50 largest uninstalled XL government source mode
 
 | Final user status | Source models |
 | --- | ---: |
-| Installed | 14 |
+| Installed | 15 |
 | To do | 0 |
 | Held for human decision | 0 |
 | Held for AI processing | 0 |
-| Held for unknown state / later local scripted processing | 36 |
+| Held for unknown state / later local scripted processing | 35 |
 | In process | 0 |
 
 WEST9ZONE (`landsd/229310:0`) is installed from the byte-identical 30,359-triangle government mesh. A bounded source-terrain patch resolves the coastal terrain seam. The adjacent Florient Rise Tower 2 fallback remains visible and is supported by the unchanged source podium across 99.998% of its footprint.
@@ -29,9 +29,11 @@ V City (`landsd/230643:0`) is installed as an atomic 11-model government assembl
 
 Government tower `landsd/147505:0` (`B350402046901063C0`) is installed from its unchanged 41,344-triangle mesh. Exact object ID and Building CSUID checks, 99.9986% target coverage, a bounded same-parent overhang, and a deterministic native-terrain repair passed. The terrain repair preserves the current ground under Cheung Fung Mansion with a 1 cm numerical boundary fringe; staged/live desktop and mobile checks prove the adjacent basic form remains loaded and visible.
 
-The other 36 models retain their current viewer fallbacks. Their blockers overlap:
+The Goldmark (`landsd/177244:0`) is installed from its unchanged 26,122-triangle government mesh. Exact object ID and Building CSUID checks prove 99.5089% footprint coverage; its only unrelated intersection is a 6.25 m2 boundary sliver against the adjacent Hysan Place assembly. Full runtime-mesh checks prove that the native terrain adds no buried Hysan triangles and that the Hysan tower remains supported by its installed podium. Staged/live desktop and mobile gates passed with zero AI calls.
 
-- 22 still need a deterministic source-assembly suppression or support map.
+The other 35 models retain their current viewer fallbacks. Their blockers overlap:
+
+- 21 still need a deterministic source-assembly suppression or support map.
 - 9 include below-grade source surfaces that need a source-preserving exception or terrain resolution.
 - 4 need the stricter viewer identity/component policy resolved.
 - 10 retain native terrain coverage, ground-contact, or below-grade diagnostics.
@@ -39,6 +41,6 @@ The other 36 models retain their current viewer fallbacks. Their blockers overla
 
 These are local pipeline/processing holds. None is classified as requiring AI modelling or a user decision. The exact per-model reason combinations and next steps are in `second-pass/final-script-pass/final-results.json.gz`.
 
-The original 50-result checkpoint remains in pinned Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`. Third-pass snapshot `04d8813ba3dacd9e` records the earlier 5-installed/45-held checkpoint. Current review snapshot `5b304c1e91bcc086` records 14 installed and 36 held rows. Third-pass job `8a8785c85c67137ff82059ea857f957cfa3546393a463b4c48aabf8be0fe324c` preserves the earlier four-blocker checkpoint; Spectra's overlap-evidence blocker, Chung Kin's numerical terrain/identity blockers, and Harbourfront's shoreline/component blockers were subsequently resolved by deterministic rules. The resulting public count is 423 ready government-source forms and 437 enhanced source forms overall.
+The original 50-result checkpoint remains in pinned Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`. Third-pass snapshot `04d8813ba3dacd9e` records the earlier 5-installed/45-held checkpoint. Current review snapshot `890735f611db54a7` records 15 installed and 35 held rows. Third-pass job `8a8785c85c67137ff82059ea857f957cfa3546393a463b4c48aabf8be0fe324c` preserves the earlier four-blocker checkpoint; Spectra's overlap-evidence blocker, Chung Kin's numerical terrain/identity blockers, Harbourfront's shoreline/component blockers, and Goldmark's boundary-touch/native-neighbour blocker were subsequently resolved by deterministic rules. The resulting public count is 424 ready government-source forms and 438 enhanced source forms overall.
 
 Use `xl-final-sync.py` for the original checkpoint and `xl-third-pass-sync.py` for the refined terrain/support checkpoint. Resume held models by blocker group from the frozen final results and third-pass evidence; do not repeat source acquisition or completed diagnostics when their hashes still match.
