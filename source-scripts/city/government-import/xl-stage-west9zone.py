@@ -62,7 +62,10 @@ def owned():
                  if projected_excess>1e-8 else {'nativeProjectedExcessM2':projected_excess,'policy':'No overlapping source facets were present.'})
         sampler=s.resolution.terrain.fine.DemSampler(parent,rendered=True)
         fill=patch_resolution.fill_parent_only_holes(patch,parent,bb,model_projection,sampler)
-        save(path,patch);validator(patch,parent)
+        save(path,patch);patch=read(path)
+        if patch['nativeMesh'].get('sourceOverlap'):
+            patch_resolution.finalize_overlap_evidence(patch,DOC/'native-overlap-evidence.json');save(path,patch);patch=read(path)
+        validator(patch,parent)
         save(DOC/'terrain-resolution.json',{'overlapProof':overlap,'waterClamp':{'droppedTriangles':int(low.sum()),'protectedIntersectionAreaM2':float(low_projection.intersection(model_projection).area),'parentHoleFill':fill},'aiCalls':0,'geometryChanges':0})
     except (AssertionError,ValueError) as error:
         save(DOC/'result.json',{'uid':UID,'passed':False,'stage':'source-terrain-patch','reason':type(error).__name__+': '+str(error),'aiCalls':0});print(json.dumps(read(DOC/'result.json')),flush=True);return

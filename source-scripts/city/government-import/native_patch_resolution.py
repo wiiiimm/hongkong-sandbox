@@ -193,6 +193,22 @@ def approve_original_overlap(patch, path, evidence_path, source_files):
     return audit
 
 
+
+def finalize_overlap_evidence(patch, evidence_path):
+    """Bind an overlap review to the final terrain payload after deterministic fills."""
+    approval = patch['nativeMesh'].get('sourceOverlap')
+    assert approval and approval.get('policy') == 'highest-native-surface'
+    evidence_path = Path(evidence_path)
+    audit = json.loads(evidence_path.read_bytes())
+    original = copy.deepcopy(patch)
+    original['nativeMesh'].pop('sourceOverlap')
+    audit['stagedGeometrySha256'] = hashlib.sha256(
+        (json.dumps(original, separators=(',', ':')) + '\n').encode()
+    ).hexdigest()
+    evidence_path.write_text(json.dumps(audit, sort_keys=True, separators=(',', ':')) + '\n')
+    approval['evidenceSHA256'] = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
+    return {'stagedGeometrySha256': audit['stagedGeometrySha256'], 'evidenceSHA256': approval['evidenceSHA256']}
+
 def _patch_bounds(patch):
     g = patch['meta']['georef']
     x0, z0 = g['bE'] - 834500, 816500 - g['bN']

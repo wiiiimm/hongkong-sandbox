@@ -1,5 +1,9 @@
+import copy
+import hashlib
 import importlib.util
+import json
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
 import numpy as np
@@ -45,6 +49,21 @@ class NativePatchResolutionTests(unittest.TestCase):
         inside = np.array([protected.contains(shapely.Point(x, z)) for x, _, z in centres])
         self.assertTrue(inside.any())
         self.assertTrue((centres[inside, 1] == 2).all())
+
+    def test_finalizes_overlap_proof_after_deterministic_patch_changes(self):
+        patch = self.patch(0)
+        patch['nativeMesh']['sourceOverlap'] = {'policy': 'highest-native-surface', 'evidenceSHA256': 'stale'}
+        patch['nativeMesh']['source']['parentHoleFill'] = {'triangles': 2}
+        with TemporaryDirectory() as folder:
+            evidence = Path(folder) / 'overlap.json'
+            evidence.write_text(json.dumps({'stagedGeometrySha256': 'stale'}) + '\n')
+            proof = m.finalize_overlap_evidence(patch, evidence)
+            original = copy.deepcopy(patch)
+            original['nativeMesh'].pop('sourceOverlap')
+            expected = hashlib.sha256((json.dumps(original, separators=(',', ':')) + '\n').encode()).hexdigest()
+            self.assertEqual(proof['stagedGeometrySha256'], expected)
+            self.assertEqual(json.loads(evidence.read_text())['stagedGeometrySha256'], expected)
+            self.assertEqual(proof['evidenceSHA256'], hashlib.sha256(evidence.read_bytes()).hexdigest())
 
     def test_rejects_gap_wider_than_tolerance(self):
         with self.assertRaisesRegex(AssertionError, 'protected-gap-exceeds'):
