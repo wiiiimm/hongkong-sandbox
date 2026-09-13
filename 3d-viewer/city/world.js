@@ -130,11 +130,24 @@ export function facadeMaterial(hex,lighting){
 export async function makeBuildings(features,onProgress,options={}){
  const group=new THREE.Group();group.name='Source building footprints';const lighting=options.lighting||{night:{value:0},activity:{value:new Float32Array([.8,.6,.9,.7])},retail:{value:.9},elapsed:{value:0},shimmer:{value:0}},night=lighting.night;
  const palette=['#d9d8c5','#ebe7d5','#b6c9c1','#a5bcb8','#c1c3b6','#e0d7bc','#8aafac','#bdc6bf'];
- const materials=palette.map(c=>facadeMaterial(c,lighting)),bins=palette.map(()=>[]);let totalVertices=0;
- for(let i=0;i<features.length;i++){
+ const materials=palette.map(c=>facadeMaterial(c,lighting)),bins=palette.map(()=>[]);let totalVertices=0,sliceStart=performance.now();
+ // Geometry generation runs on the renderer thread. Yield by elapsed time so a
+ // tile containing a few complex footprints cannot monopolise several frames.
+ const yieldForFrame=async(force=false)=>{
+  if(!force&&performance.now()-sliceStart<4)return;
+  if(options.signal?.aborted)throw new DOMException('Aborted','AbortError');
+  await new Promise(resolve=>{
+   let settled=false,frame;
+   const finish=()=>{if(settled)return;settled=true;clearTimeout(timer);if(frame!==undefined&&globalThis.cancelAnimationFrame)cancelAnimationFrame(frame);resolve();};
+   const timer=setTimeout(finish,16);if(globalThis.requestAnimationFrame)frame=requestAnimationFrame(finish);
+  });
+  if(options.signal?.aborted)throw new DOMException('Aborted','AbortError');sliceStart=performance.now();
+ };
+ const pendingGeometries=new Set();
+ try{for(let i=0;i<features.length;i++){
    const b=features[i];
-   if(i%128===0)await new Promise(resolve=>setTimeout(resolve,0));
-   const geo=extrudeBuilding(b),n=geo.attributes.position.count;
+   await yieldForFrame();
+   const geo=extrudeBuilding(b),n=geo.attributes.position.count;pendingGeometries.add(geo);
    geo.setAttribute('feature',new THREE.Float32BufferAttribute(new Float32Array(n).fill(i),1));
    const style=buildingLighting(b),light=new Float32Array(n*4);
    for(let v=0;v<n;v++)light.set([style.seed,style.profile,style.base,style.retailTop],v*4);
@@ -144,11 +157,20 @@ export async function makeBuildings(features,onProgress,options={}){
  }
  for(let i=0;i<bins.length;i++){
    if(!bins[i].length)continue;
-   const geo=mergeGeometries(bins[i],false);for(const g of bins[i])g.dispose();
-   const mesh=new THREE.Mesh(geo,materials[i]);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);
-   onProgress?.(i);await new Promise(resolve=>setTimeout(resolve,0));
+   for(let at=0;at<bins[i].length;at+=128){
+    await yieldForFrame(true);const batch=bins[i].slice(at,at+128),geo=mergeGeometries(batch,false);
+    for(const g of batch){g.dispose();pendingGeometries.delete(g);}
+    const mesh=new THREE.Mesh(geo,materials[i]);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);
+   }
+   onProgress?.(i);
  }
- return {group,night,materials,totalVertices};
+  return {group,night,materials,totalVertices};
+ }catch(error){
+  for(const geometry of pendingGeometries)geometry.dispose();
+  for(const mesh of group.children)mesh.geometry?.dispose();
+  for(const material of materials)material.dispose();
+  throw error;
+ }
 }
 export function makeRoads(roads,sampler,lighting,options={}){
  const group=new THREE.Group();group.name='Streets and paths';const surfaces={road:[],path:[],bridge:[]},uvs={road:[],path:[],bridge:[]};

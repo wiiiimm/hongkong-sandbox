@@ -2,7 +2,7 @@
 export class TileCache {
   constructor({load,dispose,limit=30,concurrency=2,onChange=()=>{}}){
     Object.assign(this,{load,dispose,limit,concurrency,onChange});
-    this.entries=new Map();this.running=new Map();this.errors=new Map();this.wanted=[];this.listeners=new Set();this.closed=false;
+    this.entries=new Map();this.running=new Map();this.errors=new Map();this.wanted=[];this.listeners=new Set();this.closed=false;this.paused=false;
   }
   notify(){this.onChange();for(const fn of [...this.listeners])fn();}
   plan(ids){
@@ -17,8 +17,14 @@ export class TileCache {
       if(!this.wanted.includes(id)){this.entries.delete(id);this.dispose(value);}
     }
   }
+  setPaused(paused){
+    if(this.closed||this.paused===paused)return;
+    this.paused=paused;
+    if(paused)for(const controller of this.running.values())controller.abort();
+    this.notify();if(!paused)this.pump();
+  }
   pump(){
-    if(this.closed)return;
+    if(this.closed||this.paused)return;
     for(const id of this.wanted){
       if(this.running.size>=this.concurrency)break;
       if(this.entries.has(id)||this.running.has(id)||this.errors.has(id))continue;

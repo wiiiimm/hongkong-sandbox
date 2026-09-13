@@ -5,7 +5,7 @@ import {modelSupportDependencies,supportedModelPlan} from './model-support.js';
 const MiB=1024*1024;
 export const MODEL_PROFILES=Object.freeze({
  mobile:Object.freeze({count:24,concurrency:1,geometryBytes:48*MiB,residentBytes:128*MiB,selectedResidentBytes:160*MiB,triangles:450000,landmarkDistance:1800,detailDistance:300,minPixels:24}),
- desktop:Object.freeze({count:48,concurrency:2,geometryBytes:96*MiB,residentBytes:256*MiB,triangles:900000,landmarkDistance:2500,detailDistance:500,minPixels:18}),
+ desktop:Object.freeze({count:48,concurrency:1,geometryBytes:96*MiB,residentBytes:256*MiB,triangles:900000,landmarkDistance:2500,detailDistance:500,minPixels:18}),
 });
 /** Progressive exact-source detail; ordinary source outlines remain the fallback. */
 export class OfficialModelLayer{
@@ -97,8 +97,8 @@ export class OfficialModelLayer{
   })().catch(error=>{this.releaseFailures.set(entry,error.message);throw error;}).finally(()=>{this.retiring.delete(entry);if(!this.closed)this.onChange();});
   this.retiring.set(entry,promise);return promise;
  }
- plan(camera,{viewportHeight=800,selectedUid=null,now=performance.now(),force=false}={}){
-  if(this.closed)return [];this.lastCamera=camera;this.lastOptions={viewportHeight,selectedUid};
+ plan(camera,{viewportHeight=800,selectedUid=null,allowNewLoads=true,now=performance.now(),force=false}={}){
+  if(this.closed)return [];this.lastCamera=camera;this.lastOptions={viewportHeight,selectedUid,allowNewLoads};
   if(!force&&now-this.lastPlan<180)return this.cache.wanted;this.lastPlan=now;
   camera.updateMatrixWorld(true);const matrix=new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse),frustum=new THREE.Frustum().setFromProjectionMatrix(matrix),eye=new THREE.Vector3().setFromMatrixPosition(camera.matrixWorld);
   const candidates=[],limits=this.limits,pixels=Math.max(1,Math.min(8192,viewportHeight)),fov=THREE.MathUtils.degToRad(camera.getEffectiveFOV());
@@ -107,7 +107,7 @@ export class OfficialModelLayer{
    const range=(entry.priority==='landmark'?limits.landmarkDistance:limits.detailDistance)*(resident?1.2:1);
    const extent=box.getSize(new THREE.Vector3()),projected=Math.max(extent.x,extent.y,extent.z)*pixels/(2*Math.tan(fov/2)*Math.max(1,box.getCenter(new THREE.Vector3()).distanceTo(eye)));
    const visible=frustum.intersectsBox(box);
-   if(distance>range||!visible&&!resident||!selected&&projected<limits.minPixels*(resident?.75:1)||this.stream.infrastructureBuildingUids?.has(entry.uid))continue;
+   if(!allowNewLoads&&!resident&&!selected||distance>range||!visible&&!resident||!selected&&projected<limits.minPixels*(resident?.75:1)||this.stream.infrastructureBuildingUids?.has(entry.uid))continue;
    const building=this.stream.getLoadedBuilding(entry.uid);if(!building||building.modelGeometry&&!this.stream.detailedModels.has(entry.uid))continue;
    candidates.push({entry,distance,selected,projected,visible});
   }
@@ -124,9 +124,10 @@ export class OfficialModelLayer{
   await Promise.all([...this.catalogueErrors.keys()].map(url=>this.loadCatalogue(url)));this.cache.retry();
   if(this.lastCamera)this.plan(this.lastCamera,{...this.lastOptions,force:true});
  }
+ setLoadingPaused(paused){this.cache.setPaused(paused);}
  get stats(){
   const entries=[...this.cache.entries.values()],held=[...new Set([...entries,...this.retiring.keys(),...this.releaseFailures.keys()])],cost=held.reduce((sum,e)=>({geometryBytes:sum.geometryBytes+e.budget.geometryBytes,residentBytes:sum.residentBytes+e.budget.residentBytes,triangles:sum.triangles+e.budget.triangles}),{geometryBytes:0,residentBytes:0,triangles:0});
-  return {profile:this.profile,catalogues:this.catalogues.size,available:this.models.size,cached:entries.length,visible:entries.filter(e=>e.group.visible).length,pending:this.cache.running.size+this.requests.size,retiring:this.retiring.size,wanted:this.cache.wanted.length,supportHolds:[...this.supportHolds].map(([uid,reason])=>({uid,reason})),errors:[...this.catalogueErrors.keys(),...this.cache.errors.keys(),...this.releaseFailures.keys()].map(value=>typeof value==='string'?value:'restore:'+value.record.uid),...cost,limits:this.limits};
+  return {profile:this.profile,catalogues:this.catalogues.size,available:this.models.size,cached:entries.length,visible:entries.filter(e=>e.group.visible).length,pending:this.cache.running.size+this.requests.size,loadingPaused:this.cache.paused,retiring:this.retiring.size,wanted:this.cache.wanted.length,supportHolds:[...this.supportHolds].map(([uid,reason])=>({uid,reason})),errors:[...this.catalogueErrors.keys(),...this.cache.errors.keys(),...this.releaseFailures.keys()].map(value=>typeof value==='string'?value:'restore:'+value.record.uid),...cost,limits:this.limits};
  }
  async dispose(){
   if(this.closed)return;this.closed=true;for(const {controller} of this.requests.values())controller.abort();this.cache.close();await Promise.allSettled([...this.retiring.values()]);this.models.clear();this.catalogues.clear();this.catalogueErrors.clear();

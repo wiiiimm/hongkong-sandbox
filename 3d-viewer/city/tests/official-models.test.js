@@ -57,6 +57,19 @@ test('camera travel cancels a pending source request; late completion cannot rep
  const f=fixture();let release;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Promise(resolve=>{release=resolve;}):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});while(!release)await tick();c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});release(new Response(f.compressed));while(layer.cache.running.size)await tick();assert.equal(f.stream.detailedModels.size,0);assert.equal(layer.cache.entries.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
 });
+test('background gate defers new detail while keeping selected and resident models available',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();
+ assert.deepEqual(layer.plan(c,{allowNewLoads:false,force:true}),[]);assert.equal(layer.cache.running.size,0);
+ assert.deepEqual(layer.plan(c,{allowNewLoads:false,selectedUid:f.meta.uid,force:true}),[f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);
+ assert.deepEqual(layer.plan(c,{allowNewLoads:false,force:true}),[f.meta.uid]);assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);
+});
+test('interaction pause aborts background detail and resumes the current plan',async t=>{
+ const f=fixture();let release,first=true;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')&&first?(first=false,new Promise(resolve=>{release=resolve;})):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});while(!release)await tick();
+ layer.setLoadingPaused(true);assert.equal(layer.cache.paused,true);release(new Response(f.compressed));while(layer.cache.running.size)await tick();assert.equal(layer.cache.entries.size,0);
+ layer.setLoadingPaused(false);await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);
+});
 test('catalogues reject ambiguous duplicate IDs, wrong datum, invalid assembly suppressions and external decoder assets',()=>{
  const f=fixture();try{
   assert.throws(()=>prepareModelCatalogue({...f.catalogue,verticalDatum:'sea level'},'http://localhost/c.json'),/catalogue/);

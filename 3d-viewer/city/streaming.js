@@ -47,7 +47,7 @@ export class CityStreaming {
   for(;;){
    const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,suppressions=this.detailSuppressions(models),indices=[];
    const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid)||suppressions.has(b.uid))return false;indices.push(i);return true;});
-   const buildings=await makeBuildings(features,null,{lighting:this.lighting});buildings.group.userData.disposableMaterials=buildings.materials;
+   const buildings=await makeBuildings(features,null,{lighting:this.lighting,signal});buildings.group.userData.disposableMaterials=buildings.materials;
    if(signal?.aborted||this.cache.closed){disposeGroup(buildings.group);throw new DOMException('Aborted','AbortError');}
    if(exclusions!==this.infrastructureBuildingUids||models!==this.detailedModels){disposeGroup(buildings.group);continue;}
    for(const mesh of buildings.group.children){
@@ -143,6 +143,7 @@ export class CityStreaming {
   this.focus=[x,z];const ids=nearbyTiles(this.manifest.tiles,x,z,radius,24);
   if(ids.join('|')!==this.cache.wanted.join('|'))this.cache.plan(ids);else this.sync();return ids;
  }
+ setLoadingPaused(paused){this.cache.setPaused(paused);}
  required(x,z,r=35){return this.manifest.tiles.filter(t=>distanceToBounds(x,z,t.bounds)<=r).map(t=>t.id);}
  readyAt(x,z,r=35){return this.cache.ready(this.required(x,z,r));}
  async arrive(x,z,radius=3200){this.plan(x,z,radius);return this.cache.waitFor(this.required(x,z,500));}
@@ -164,6 +165,6 @@ export class CityStreaming {
  }
  get stats(){
   let loaded=0,trees=0,suppressedBuildings=0;for(const id of this.cache.wanted){const e=this.cache.entries.get(id);if(e){loaded+=e.data.buildings.length;trees+=e.nature.count;suppressedBuildings+=e.suppressedBuildings||0;}}
-  return {wanted:this.cache.wanted.length,cached:this.cache.entries.size,loaded:this.cache.wanted.filter(id=>this.cache.entries.has(id)).length,pending:this.cache.wanted.filter(id=>!this.cache.entries.has(id)&&!this.cache.errors.has(id)).length,errors:this.cache.wanted.filter(id=>this.cache.errors.has(id)),forms:loaded,trees,suppressedBuildings,detailedModels:[...this.detailedModels.values()].filter(d=>d.active).length,infrastructureErrors:[...this.infrastructureErrors.keys()]};
+  return {wanted:this.cache.wanted.length,cached:this.cache.entries.size,loaded:this.cache.wanted.filter(id=>this.cache.entries.has(id)).length,pending:this.cache.wanted.filter(id=>!this.cache.entries.has(id)&&!this.cache.errors.has(id)).length,loadingPaused:this.cache.paused,errors:this.cache.wanted.filter(id=>this.cache.errors.has(id)),forms:loaded,trees,suppressedBuildings,detailedModels:[...this.detailedModels.values()].filter(d=>d.active).length,infrastructureErrors:[...this.infrastructureErrors.keys()]};
  }
 }
