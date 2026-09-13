@@ -142,10 +142,33 @@ def preserve_parent_under_projection(patch, bounds, projection, sampler):
                     points.append([x, float(y), z])
                 output.append(points)
     parent_faces = []
-    for candidate in triangulate(protected):
-        if candidate.area <= 1e-10 or not protected.buffer(1e-8).covers(candidate):
-            continue
-        parent_faces.append([[x, sampler.ground(x, z), z] for x, z in list(candidate.exterior.coords)[:3]])
+    # Preserve the parent's piecewise-linear surface exactly. A footprint can
+    # cross a grid-cell edge or diagonal; triangulating only its outer ring
+    # would span that break and change the rendered height inside the form.
+    if all(hasattr(sampler, name) for name in ('dem', 'g', 'w')):
+        g = sampler.g
+        x0, z0, x1, z1 = protected.bounds
+        columns = sorted(((x0 + 834500 - g['bE']) / g['aE'], (x1 + 834500 - g['bE']) / g['aE']))
+        rows = sorted(((816500 - z0 - g['bN']) / g['aN'], (816500 - z1 - g['bN']) / g['aN']))
+        for row in range(max(0, int(np.floor(rows[0]))), min(sampler.dem['h'] - 1, int(np.ceil(rows[1])))):
+            for column in range(max(0, int(np.floor(columns[0]))), min(sampler.w - 1, int(np.ceil(columns[1])))):
+                points = [(g['bE'] + c * g['aE'] - 834500, 816500 - (g['bN'] + r * g['aN']))
+                          for c, r in ((column, row), (column + 1, row), (column, row + 1), (column + 1, row + 1))]
+                for cell_face in (shapely.Polygon((points[0], points[1], points[2])),
+                                  shapely.Polygon((points[1], points[3], points[2]))):
+                    clipped = protected.intersection(cell_face)
+                    for part in shapely.get_parts(clipped):
+                        if part.geom_type != 'Polygon':
+                            continue
+                        for candidate in triangulate(part):
+                            if candidate.area <= 1e-10 or not part.buffer(1e-8).covers(candidate):
+                                continue
+                            parent_faces.append([[x, sampler.ground(x, z), z] for x, z in list(candidate.exterior.coords)[:3]])
+    else:
+        for candidate in triangulate(protected):
+            if candidate.area <= 1e-10 or not protected.buffer(1e-8).covers(candidate):
+                continue
+            parent_faces.append([[x, sampler.ground(x, z), z] for x, z in list(candidate.exterior.coords)[:3]])
     assert removed > 0 and parent_faces, 'no-protected-parent-preservation'
     output.extend(parent_faces)
     flat = np.asarray(output).reshape(-1, 3)

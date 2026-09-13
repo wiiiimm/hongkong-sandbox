@@ -11,6 +11,8 @@ read,save,h,rel=s.read,s.save,s.h,s.rel
 UID='landsd/229310:0'
 IDENTITY_CENTROID_EXCEPTIONS={'landsd/147024:0':2}
 IDENTITY_DETAILED_EXCEPTIONS={'landsd/31275:0'}
+IDENTITY_COMPACT_OVERHANG_EXCEPTIONS={'landsd/147505:0'}
+PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0'}
 
 def start():
     selected=read(s.DOC/'runtime-selection.json.gz');r=next(r for r in selected['rows'] if r['uid']==UID);parent=read(ROOT/'3d-viewer/city/data/terrain.json');cells=s.resolution.rectangle_for(r['candidate']['entry']['worldBounds'],parent);bb=s.resolution.extent(cells,parent);region=box(*bb)
@@ -91,6 +93,22 @@ def owned():
             if passed:support_resolved.append(uid)
         save(DOC/'source-support.json',{'rows':support_rows,'resolved':sorted(support_resolved),'sourceSHA256':r['candidate']['entry']['sha256'],'policy':'Highest unchanged government source surface at or below >=90% of <=2m interior samples (boundary gaps permitted), >=99.99% footprint coverage, and <=0.1m support gap at every covered sample.','aiCalls':0})
         resolution=read(DOC/'terrain-resolution.json');resolution['sourceSupportSHA256']=h(DOC/'source-support.json');save(DOC/'terrain-resolution.json',resolution)
+    remaining=set(blocked)-set(support_resolved)
+    if remaining and UID in PARENT_PRESERVATION_EXCEPTIONS:
+        by_uid={n['building']['uid']:n['building'] for n in read(DOC/'neighbour-inputs.json.gz')['rows']}
+        protected=shapely.union_all([Polygon(by_uid[uid]['rings'][0],by_uid[uid]['rings'][1:]) for uid in sorted(remaining)])
+        # A centimetre fringe keeps Float32 boundary samples on the retained
+        # parent surface. The measured source-model clearance must remain larger.
+        protected_with_fringe=protected.buffer(.01,join_style='mitre')
+        assert protected_with_fringe.intersection(model_projection).area<1e-8,'neighbour-preservation-intersects-source-model'
+        proof=patch_resolution.preserve_parent_under_projection(patch,bb,protected_with_fringe,sampler);proof['boundaryFringeM']=.01;s.resolution.validate_patch(patch,parent);save(path,patch);patch=read(path)
+        if patch['nativeMesh'].get('sourceOverlap'):
+            patch_resolution.finalize_overlap_evidence(patch,DOC/'native-overlap-evidence.json');save(path,patch);patch=read(path)
+        resolution=read(DOC/'terrain-resolution.json');resolution['protectedNeighbourTerrain']={'uids':sorted(remaining),**proof};save(DOC/'terrain-resolution.json',resolution)
+        patch_entry.update(sha256=h(path),triangles=len(patch['nativeMesh']['index'])//3);save(DOC/'terrain-candidates.json',[patch_entry]);neighbours=read(DOC/'neighbour-inputs.json.gz');neighbours['patches']=[patch_entry];save(DOC/'neighbour-inputs.json.gz',neighbours)
+        s.call(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(DOC/'selection.json.gz'),'--candidates',rel(LOCAL/'candidates'),'--terrain-candidates',rel(DOC/'terrain-candidates.json'),'--out',rel(DOC/'metrics.json')])
+        v=subprocess.run(['node',str(HERE.parent/'building-batch/validate_candidates.mjs'),'--candidates',rel(LOCAL/'candidates'),'--source-forms',rel(LOCAL/'source-forms.json'),'--terrain-candidates',rel(DOC/'terrain-candidates.json'),'--out',rel(DOC/'validation.json')],cwd=ROOT);assert v.returncode in (0,1)
+        s.call(['node',str(HERE/'check-neighbours.mjs'),rel(DOC)+'/'])
     spec=importlib.util.spec_from_file_location('acceptance',HERE/'acceptance-policy.py');policy=importlib.util.module_from_spec(spec);spec.loader.exec_module(policy)
     metrics=read(DOC/'metrics.json');validation=read(DOC/'validation.json')['results'][0];acceptance_row={'state':'runtime-validated-awaiting-acceptance','sourceSHA256':r['candidate']['entry']['sha256']}
     if UID in IDENTITY_CENTROID_EXCEPTIONS:
@@ -101,6 +119,12 @@ def owned():
         accepted=(final['identityScriptAccepted'] and identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.97 and identity['sourceProjectionInsideTarget']>.95 and identity['sourceExcessFraction']<.05 and identity['sourceExcessMaximumDistanceFromTargetM']<4 and identity['unrelatedIntersectingForms']==0 and projection['centroidDistance']<1)
         acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'detailedProjectionAccepted':bool(accepted)}
         save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'coarseHull':metrics['rows'][0]['identity'],'detailedProjection':identity,'projectionMetrics':projection,'evidenceHashes':{rel(final_path):h(final_path),rel(diagnostic_path):h(diagnostic_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
+    if UID in IDENTITY_COMPACT_OVERHANG_EXCEPTIONS:
+        entry=r['candidate']['entry'];building=r['source']['building'];matches=r['native']['model']['matching']['viewerMatches'];final_path=s.DOC/'final-script-pass/results.json.gz';diagnostic_path=s.DOC/'diagnostics.json';final=next(row for row in read(final_path)['rows'] if row['uid']==UID);diagnostic=next(row for row in read(diagnostic_path)['rows'] if row['uid']==UID);identity=final['identity'];projection=next(row for row in diagnostic['projectionCandidates'] if row['uid']==UID)['metrics'];adjacent=[form for form in identity['intersectingForms'] if form['uid']!=UID]
+        boundary_only=all(form['sameParent'] and form['fractionOfForm']<.1 and form['intersectionAreaM2']<5 for form in adjacent)
+        accepted=(identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.9999 and identity['sourceExcessMaximumDistanceFromTargetM']<3.5 and identity['unrelatedIntersectingForms']==0 and projection['centroidDistance']<.5 and boundary_only)
+        acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'compactOverhangAccepted':bool(accepted)}
+        save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'policy':'For an exact unique small-footprint source, accept a detailed projection that covers >99.99% of the target, extends <=3.5m, has <0.5m centroid offset, intersects no unrelated form, and only touches same-parent adjacent forms over <5m2 and <10% of their area.','adjacentBoundaryTouches':adjacent,'coarseHull':metrics['rows'][0]['identity'],'detailedProjection':identity,'projectionMetrics':projection,'evidenceHashes':{rel(final_path):h(final_path),rel(diagnostic_path):h(diagnostic_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
     reasons=policy.reasons(acceptance_row,metrics['rows'][0],metrics['profiles']['mobile'])
     reasons+=validation.get('concerns',[])
     if validation['outcome']=='validation-exception':reasons.append('runtime-validation-exception')

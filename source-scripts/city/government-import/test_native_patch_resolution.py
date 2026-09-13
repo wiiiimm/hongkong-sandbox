@@ -57,6 +57,24 @@ class NativePatchResolutionTests(unittest.TestCase):
         self.assertTrue(inside.any())
         self.assertTrue((centres[inside, 1] == 2).all())
 
+    def test_preserves_piecewise_linear_parent_across_grid_diagonal(self):
+        class GridSampler:
+            def __init__(self):
+                self.g = {'aE': 1, 'aN': -1, 'bE': 834500, 'bN': 816500}
+                self.w = 2
+                self.dem = {'w': 2, 'h': 2, 'elev': [0, 0, 0, 10]}
+            def ground(self, x, z):
+                return 0 if x + z <= 1 else 10 * (x + z - 1)
+        patch = self.patch(0)
+        sampler = GridSampler()
+        m.preserve_parent_under_projection(patch, [0, 0, 2, 1], shapely.box(.25, .25, .75, .75), sampler)
+        faces = m._faces(patch)
+        protected = shapely.box(.25, .25, .75, .75)
+        for face in faces:
+            centre = face.mean(axis=0)
+            if protected.contains(shapely.Point(centre[0], centre[2])):
+                self.assertAlmostEqual(centre[1], sampler.ground(centre[0], centre[2]), places=10)
+
     def test_finalizes_overlap_proof_after_deterministic_patch_changes(self):
         patch = self.patch(0)
         patch['nativeMesh']['sourceOverlap'] = {'policy': 'highest-native-surface', 'evidenceSHA256': 'stale'}
