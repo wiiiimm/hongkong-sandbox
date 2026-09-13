@@ -29,6 +29,13 @@ class NativePatchResolutionTests(unittest.TestCase):
         ])
         return {'nativeMesh': {'position': faces.reshape(-1).tolist(), 'index': list(range(12)), 'source': {}}}
 
+    def test_accepts_numerically_complete_parent_coverage_without_new_triangles(self):
+        patch = self.patch(0)
+        proof = m.fill_parent_only_holes(patch, {}, [0, 0, 2, 1], shapely.box(.25, .25, .75, .75), Sampler())
+        self.assertEqual(proof["triangles"], 0)
+        self.assertLessEqual(proof["missingAreaM2"], 1e-8)
+        self.assertEqual(len(patch["nativeMesh"]["index"]), 12)
+
     def test_fills_bounded_protected_seam_from_source_edges(self):
         patch = self.patch()
         proof = m.fill_narrow_source_seam(patch, [0, 0, 2, 1], shapely.box(.5, 0, 1.5, 1), Sampler(), tolerance=.011)

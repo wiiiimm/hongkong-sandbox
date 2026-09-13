@@ -27,6 +27,10 @@ def projected_context(patch, bounds):
 def fill_parent_only_holes(patch, parent, bounds, protected_projection, sampler):
     _, _, missing, _ = projected_context(patch, bounds)
     assert missing.intersection(protected_projection).area < 1e-6, 'missing-native-terrain-intersects-source-model'
+    if missing.area <= 1e-8:
+        proof = {"missingAreaM2": float(missing.area), "triangles": 0, "policy": "No material parent hole; sub-square-millimetre projected slivers are numerical overlay residue."}
+        patch["nativeMesh"]["source"]["parentHoleFill"] = proof
+        return proof
     additions = []
     for candidate in triangulate(missing):
         if candidate.area <= 1e-10 or not missing.buffer(1e-8).covers(candidate):

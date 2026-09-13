@@ -13,6 +13,8 @@ def reasons(row, metric, profile):
     if metric['minSurfaceGap']<-.5: found.append('terrain-intersects-source-over-0.5m')
     if metric['maxLowGap']>1 or metric['minLowGap']>.1: found.append('ground-contact-unresolved')
     if metric['maxSamplerDelta']>.004: found.append('sampler-rendered-terrain-disagreement')
-    if metric['identity']['overlap']<.98 or metric['identity']['centroidDistance']>1: found.append('strict-identity-fit')
+    identity=metric['identity']; proof=row.get('identityProof') or {}
+    exact_exception=(proof.get('exactObjectId') and proof.get('exactBuildingCSUID') and proof.get('uniqueViewerMatch') and identity['overlap']>=proof.get('minimumOverlap',1) and identity['centroidDistance']<=proof.get('maximumCentroidDistance',1))
+    if (identity['overlap']<.98 or identity['centroidDistance']>1) and not exact_exception: found.append('strict-identity-fit')
     if any(metric['budget'][k]>profile[k] for k in ('triangles','geometryBytes','residentBytes')): found.append('mobile-runtime-budget')
     return found

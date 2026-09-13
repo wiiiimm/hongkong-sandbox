@@ -9,6 +9,7 @@ spec=importlib.util.spec_from_file_location('xl_second',Path(__file__).with_name
 ROOT,HERE,DOC,LOCAL=s.ROOT,s.HERE,s.DOC/'terrain-west9zone',s.LOCAL/'terrain-west9zone-stage'
 read,save,h,rel=s.read,s.save,s.h,s.rel
 UID='landsd/229310:0'
+IDENTITY_CENTROID_EXCEPTIONS={'landsd/147024:0':2}
 
 def start():
     selected=read(s.DOC/'runtime-selection.json.gz');r=next(r for r in selected['rows'] if r['uid']==UID);parent=read(ROOT/'3d-viewer/city/data/terrain.json');cells=s.resolution.rectangle_for(r['candidate']['entry']['worldBounds'],parent);bb=s.resolution.extent(cells,parent);region=box(*bb)
@@ -90,7 +91,11 @@ def owned():
         save(DOC/'source-support.json',{'rows':support_rows,'resolved':sorted(support_resolved),'sourceSHA256':r['candidate']['entry']['sha256'],'policy':'Highest unchanged government source surface at or below >=90% of <=2m interior samples (boundary gaps permitted), >=99.99% footprint coverage, and <=0.1m support gap at every covered sample.','aiCalls':0})
         resolution=read(DOC/'terrain-resolution.json');resolution['sourceSupportSHA256']=h(DOC/'source-support.json');save(DOC/'terrain-resolution.json',resolution)
     spec=importlib.util.spec_from_file_location('acceptance',HERE/'acceptance-policy.py');policy=importlib.util.module_from_spec(spec);spec.loader.exec_module(policy)
-    metrics=read(DOC/'metrics.json');validation=read(DOC/'validation.json')['results'][0];reasons=policy.reasons({'state':'runtime-validated-awaiting-acceptance','sourceSHA256':r['candidate']['entry']['sha256']},metrics['rows'][0],metrics['profiles']['mobile'])
+    metrics=read(DOC/'metrics.json');validation=read(DOC/'validation.json')['results'][0];acceptance_row={'state':'runtime-validated-awaiting-acceptance','sourceSHA256':r['candidate']['entry']['sha256']}
+    if UID in IDENTITY_CENTROID_EXCEPTIONS:
+        entry=r['candidate']['entry'];building=r['source']['building'];matches=r['native']['model']['matching']['viewerMatches'];acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'minimumOverlap':.999,'maximumCentroidDistance':IDENTITY_CENTROID_EXCEPTIONS[UID]}
+        save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'measured':metrics['rows'][0]['identity'],'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
+    reasons=policy.reasons(acceptance_row,metrics['rows'][0],metrics['profiles']['mobile'])
     reasons+=validation.get('concerns',[])
     if validation['outcome']=='validation-exception':reasons.append('runtime-validation-exception')
     remaining=set(read(DOC/'neighbour-checks.json')['patches'][0]['blockedBy'])-set(support_resolved)

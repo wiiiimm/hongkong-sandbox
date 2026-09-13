@@ -18,4 +18,9 @@ class AcceptanceTests(unittest.TestCase):
  def test_identity_and_runtime_limits(self):
   self.m['identity']['overlap']=.97;self.m['budget']['triangles']=21
   self.assertEqual(set(policy.reasons(self.row,self.m,self.profile)),{'strict-identity-fit','mobile-runtime-budget'})
+ def test_exact_source_ids_allow_bounded_centroid_exception(self):
+  self.m['identity']={'overlap':.9999,'centroidDistance':1.6};self.row['identityProof']={'exactObjectId':True,'exactBuildingCSUID':True,'uniqueViewerMatch':True,'minimumOverlap':.999,'maximumCentroidDistance':2}
+  self.assertEqual(policy.reasons(self.row,self.m,self.profile),[])
+  self.row['identityProof']['uniqueViewerMatch']=False
+  self.assertIn('strict-identity-fit',policy.reasons(self.row,self.m,self.profile))
 if __name__=='__main__':unittest.main()
