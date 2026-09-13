@@ -4,11 +4,11 @@ This bounded batch selected the 50 largest uninstalled XL government source mode
 
 | Final user status | Source models |
 | --- | ---: |
-| Installed | 11 |
+| Installed | 12 |
 | To do | 0 |
 | Held for human decision | 0 |
 | Held for AI processing | 0 |
-| Held for unknown state / later local scripted processing | 39 |
+| Held for unknown state / later local scripted processing | 38 |
 | In process | 0 |
 
 WEST9ZONE (`landsd/229310:0`) is installed from the byte-identical 30,359-triangle government mesh. A bounded source-terrain patch resolves the coastal terrain seam. The adjacent Florient Rise Tower 2 fallback remains visible and is supported by the unchanged source podium across 99.998% of its footprint.
@@ -23,17 +23,19 @@ The Spectra Tower 3 (`landsd/265311:0`) is installed from its unchanged 26,440-t
 
 Chung Kin Building (`landsd/147024:0`) is installed from its unchanged 46,310-triangle government mesh. Its government object ID and Building CSUID match exactly, it is the sole viewer match, and it covers 99.999995% of the footprint. A complete native terrain patch passes contact, neighbour, runtime, and staged/live browser gates with zero AI calls.
 
-The other 39 models retain their current viewer fallbacks. Their blockers overlap:
+HARBOURFRONT HORIZON ALL-SUITE HOTEL (`landsd/31275:0`) is installed from its unchanged 44,871-triangle government mesh. A hashed detailed projection proves the exact source component, and its native terrain patch preserves every parent shoreline water/land classification. The wide complex uses the existing long-range model priority and passes staged/live desktop and mobile gates with zero AI calls.
+
+The other 38 models retain their current viewer fallbacks. Their blockers overlap:
 
 - 23 still need a deterministic source-assembly suppression or support map.
 - 9 include below-grade source surfaces that need a source-preserving exception or terrain resolution.
-- 6 need the stricter viewer identity/component policy resolved.
+- 5 need the stricter viewer identity/component policy resolved.
 - 10 retain native terrain coverage, ground-contact, or below-grade diagnostics.
 - 1 has an existing review that must be resolved before a new publication decision.
-- 2 now have narrower third-pass blockers: a parent water-mask boundary or incomplete tower support with neighbour regression.
+- 1 now has a narrower third-pass blocker: incomplete tower support with neighbour regression.
 
 These are local pipeline/processing holds. None is classified as requiring AI modelling or a user decision. The exact per-model reason combinations and next steps are in `second-pass/final-script-pass/final-results.json.gz`.
 
-The original 50-result checkpoint remains in pinned Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`. Third-pass snapshot `04d8813ba3dacd9e` records the earlier 5-installed/45-held checkpoint. Current review snapshot `1b1276789840fb9c` records 11 installed and 39 held rows. Third-pass job `8a8785c85c67137ff82059ea857f957cfa3546393a463b4c48aabf8be0fe324c` preserves the earlier four-blocker checkpoint; Spectra's overlap-evidence blocker and Chung Kin's numerical terrain/identity blockers were subsequently resolved by deterministic rules. The resulting public count is 410 ready government-source forms and 424 enhanced source forms overall.
+The original 50-result checkpoint remains in pinned Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`. Third-pass snapshot `04d8813ba3dacd9e` records the earlier 5-installed/45-held checkpoint. Current review snapshot `0497d511a6acbeb0` records 12 installed and 38 held rows. Third-pass job `8a8785c85c67137ff82059ea857f957cfa3546393a463b4c48aabf8be0fe324c` preserves the earlier four-blocker checkpoint; Spectra's overlap-evidence blocker, Chung Kin's numerical terrain/identity blockers, and Harbourfront's shoreline/component blockers were subsequently resolved by deterministic rules. The resulting public count is 411 ready government-source forms and 425 enhanced source forms overall.
 
 Use `xl-final-sync.py` for the original checkpoint and `xl-third-pass-sync.py` for the refined terrain/support checkpoint. Resume held models by blocker group from the frozen final results and third-pass evidence; do not repeat source acquisition or completed diagnostics when their hashes still match.

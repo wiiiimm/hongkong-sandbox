@@ -38,6 +38,19 @@ CONFIG = {
             "pass contact, neighbour and runtime checks."
         ),
     },
+    "harbourfront": {
+        "uid": "landsd/31275:0",
+        "batch": "government-xl-harbourfront-20260914",
+        "policy": "original-government-xl-detailed-identity-shoreline-terrain-v1",
+        "classification": "script-verified-original-government-detailed-identity-shoreline-terrain",
+        "priority": "landmark",
+        "review": (
+            "Exact government object ID and Building CSUID with a hashed detailed projection proof: "
+            "97.79% target coverage, 4.27% same-complex excess, 0.74 m centroid offset and no unrelated "
+            "intersections. The unchanged model and water-mask-preserving native terrain pass contact, "
+            "neighbour and runtime checks."
+        ),
+    },
 }
 
 sys.path.insert(0, str(HERE.parent / 'model-review-ledger'))
@@ -114,7 +127,7 @@ def owned(key):
     assert [model['uid'] for model in source_catalogue['models']] == [uid]
     entry = source_catalogue['models'][0]
     entry.update(
-        priority='detail',
+        priority=config.get('priority', 'detail'),
         placementReviewed=True,
         sourceIdentityReviewed=True,
         identityReviewApproved=True,
