@@ -10,6 +10,7 @@ ROOT,HERE,DOC,LOCAL=s.ROOT,s.HERE,s.DOC/'terrain-west9zone',s.LOCAL/'terrain-wes
 read,save,h,rel=s.read,s.save,s.h,s.rel
 UID='landsd/229310:0'
 IDENTITY_CENTROID_EXCEPTIONS={'landsd/147024:0':2}
+IDENTITY_DETAILED_EXCEPTIONS={'landsd/31275:0'}
 
 def start():
     selected=read(s.DOC/'runtime-selection.json.gz');r=next(r for r in selected['rows'] if r['uid']==UID);parent=read(ROOT/'3d-viewer/city/data/terrain.json');cells=s.resolution.rectangle_for(r['candidate']['entry']['worldBounds'],parent);bb=s.resolution.extent(cells,parent);region=box(*bb)
@@ -95,6 +96,11 @@ def owned():
     if UID in IDENTITY_CENTROID_EXCEPTIONS:
         entry=r['candidate']['entry'];building=r['source']['building'];matches=r['native']['model']['matching']['viewerMatches'];acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'minimumOverlap':.999,'maximumCentroidDistance':IDENTITY_CENTROID_EXCEPTIONS[UID]}
         save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'measured':metrics['rows'][0]['identity'],'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
+    if UID in IDENTITY_DETAILED_EXCEPTIONS:
+        entry=r['candidate']['entry'];building=r['source']['building'];matches=r['native']['model']['matching']['viewerMatches'];final_path=s.DOC/'final-script-pass/results.json.gz';diagnostic_path=s.DOC/'diagnostics.json';final=next(row for row in read(final_path)['rows'] if row['uid']==UID);diagnostic=next(row for row in read(diagnostic_path)['rows'] if row['uid']==UID);identity=final['identity'];projection=next(row for row in diagnostic['projectionCandidates'] if row['uid']==UID)['metrics']
+        accepted=(final['identityScriptAccepted'] and identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.97 and identity['sourceProjectionInsideTarget']>.95 and identity['sourceExcessFraction']<.05 and identity['sourceExcessMaximumDistanceFromTargetM']<4 and identity['unrelatedIntersectingForms']==0 and projection['centroidDistance']<1)
+        acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'detailedProjectionAccepted':bool(accepted)}
+        save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'coarseHull':metrics['rows'][0]['identity'],'detailedProjection':identity,'projectionMetrics':projection,'evidenceHashes':{rel(final_path):h(final_path),rel(diagnostic_path):h(diagnostic_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
     reasons=policy.reasons(acceptance_row,metrics['rows'][0],metrics['profiles']['mobile'])
     reasons+=validation.get('concerns',[])
     if validation['outcome']=='validation-exception':reasons.append('runtime-validation-exception')

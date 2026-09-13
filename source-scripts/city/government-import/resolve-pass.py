@@ -57,7 +57,7 @@ def make_patch(group,parent,native,sources,native_core=None):
     sampler=terrain.fine.DemSampler(parent,rendered=True);raw_sampler=terrain.fine.DemSampler(parent)
     step=5;w=round((bb[2]-bb[0])/step)+1;h=round((bb[3]-bb[1])/step)+1
     grid=np.array([[bb[0]+c*step,bb[1]+r*step] for r in range(h) for c in range(w)])
-    raw=np.array([raw_sampler.ground(x,z) for x,z in grid]);assert (raw>0).all(),'parent-water-mask'
+    raw=np.array([raw_sampler.ground(x,z) for x,z in grid]);water=raw<=0
     assert native[:,:,1].min()>=1.2,'native-terrain-near-water-clamp'
     pg=parent['meta']['georef'];cell=pg['aE'];pcells=[]
     c0,r0,c1,r1=group['cells']
@@ -84,11 +84,13 @@ def make_patch(group,parent,native,sources,native_core=None):
                     if np.linalg.norm(np.cross(face[1]-face[0],face[2]-face[0]))>=1e-8:output.append(face)
     tri=np.asarray(output);assert len(tri)>0,'no-native-facets'
     heights=[sampler.ground(x,z) for x,z in grid]
+    elev=[float(before) if masked or after<=0 else float(after) for before,after,masked in zip(raw,heights,water)]
+    assert np.array_equal(np.asarray(elev)<=0,water),'parent-water-mask-changed'
     vegetation=[]
     for x,z in grid:
         c=min(parent['w']-1,max(0,round((x+834500-pg['bE'])/cell)));r=min(parent['h']-1,max(0,round((z-816500+pg['bN'])/cell)));vegetation.append(parent['vegetation'][r*parent['w']+c])
     uid=group['uids'][0];patch_id='government-native-'+uid.replace('landsd/','').replace(':','-')
-    patch={'id':patch_id,'w':w,'h':h,'cell':step,'elev':heights,'renderedElev':heights,'vegetation':vegetation,'coarseCells':group['cells'],'meta':{'georef':{'aE':step,'aN':-step,'bE':bb[0]+834500,'bN':816500-bb[1],'W':w,'H':h},'parentTerrain':'city/data/terrain.json','parentSha256':digest((ROOT/'3d-viewer/city/data/terrain.json').read_bytes()),'targetUids':group['uids'],'source':{'provider':'Lands Department/HKSAR','crs':'EPSG:2326','verticalDatum':'HKPD','nativeSources':sources,'policy':'Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.'}},'nativeMesh':{'position':tri.reshape(-1).tolist(),'index':list(range(len(tri)*3)),'source':{'verticalDatum':'HKPD','verticalScale':1,'policy':'Original source facets with bounded parent-edge transition; no AI geometry.'}}}
+    patch={'id':patch_id,'w':w,'h':h,'cell':step,'elev':elev,'renderedElev':heights,'vegetation':vegetation,'coarseCells':group['cells'],'meta':{'georef':{'aE':step,'aN':-step,'bE':bb[0]+834500,'bN':816500-bb[1],'W':w,'H':h},'parentTerrain':'city/data/terrain.json','parentSha256':digest((ROOT/'3d-viewer/city/data/terrain.json').read_bytes()),'targetUids':group['uids'],'source':{'provider':'Lands Department/HKSAR','crs':'EPSG:2326','verticalDatum':'HKPD','nativeSources':sources,'parentWaterMask':{'waterNodes':int(water.sum()),'landNodes':int((~water).sum()),'policy':'Raw parent water/land classification preserved at every refinement node.'},'policy':'Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.'}},'nativeMesh':{'position':tri.reshape(-1).tolist(),'index':list(range(len(tri)*3)),'source':{'verticalDatum':'HKPD','verticalScale':1,'policy':'Original source facets with bounded parent-edge transition; no AI geometry.'}}}
     validate_patch(patch,parent)
     assert len(tri)<=25000,'terrain-runtime-budget'
     return patch

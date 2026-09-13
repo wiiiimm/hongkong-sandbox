@@ -23,4 +23,9 @@ class AcceptanceTests(unittest.TestCase):
   self.assertEqual(policy.reasons(self.row,self.m,self.profile),[])
   self.row['identityProof']['uniqueViewerMatch']=False
   self.assertIn('strict-identity-fit',policy.reasons(self.row,self.m,self.profile))
+ def test_exact_ids_allow_prevalidated_detailed_projection(self):
+  self.m['identity']={'overlap':.95,'centroidDistance':9};self.row['identityProof']={'exactObjectId':True,'exactBuildingCSUID':True,'uniqueViewerMatch':True,'detailedProjectionAccepted':True}
+  self.assertEqual(policy.reasons(self.row,self.m,self.profile),[])
+  self.row['identityProof']['exactObjectId']=False
+  self.assertIn('strict-identity-fit',policy.reasons(self.row,self.m,self.profile))
 if __name__=='__main__':unittest.main()
