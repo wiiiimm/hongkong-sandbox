@@ -27,10 +27,11 @@ try{
  for(const [name,width,height] of [['desktop',1280,900],['mobile',390,844],['narrow',320,740]]){
   const page=await pageFor({width,height});await page.locator('#progress-values').waitFor({state:'visible'});
   assert.equal(await page.locator('.progress-tier:visible').count(),3);
-  const state=await page.evaluate(()=>({total:document.querySelector('#progress-total').textContent,enhanced:document.querySelector('#progress-enhanced').textContent,available:document.querySelector('#progress-available').textContent,remaining:document.querySelector('#progress-remaining').textContent,percent:document.querySelector('#progress-percent').textContent,chip:document.querySelector('#progress-chip').textContent,chipTotal:document.querySelector('#progress-chip-total').textContent,meter:{value:document.querySelector('#progress-meter').value,max:document.querySelector('#progress-meter').max},overflow:document.documentElement.scrollWidth>innerWidth,dialogOverflow:document.querySelector('#building-progress').scrollWidth>document.querySelector('#building-progress').clientWidth,bars:[...document.querySelectorAll('.progress-tier meter')].map(m=>({value:m.value,max:m.max,label:m.getAttribute('aria-valuetext')}))}));
+  const state=await page.evaluate(()=>({total:document.querySelector('#progress-total').textContent,enhanced:document.querySelector('#progress-enhanced').textContent,available:document.querySelector('#progress-available').textContent,remaining:document.querySelector('#progress-remaining').textContent,percent:document.querySelector('#progress-percent').textContent,chip:document.querySelector('#progress-chip').textContent,chipTotal:document.querySelector('#progress-chip-total').textContent,chipSource:document.querySelector('#progress-chip-source').textContent,chipPercent:document.querySelector('#progress-chip-percent').textContent,meter:{value:document.querySelector('#progress-meter').value,max:document.querySelector('#progress-meter').max},overflow:document.documentElement.scrollWidth>innerWidth,dialogOverflow:document.querySelector('#building-progress').scrollWidth>document.querySelector('#building-progress').clientWidth,bars:[...document.querySelectorAll('.progress-tier meter')].map(m=>({value:m.value,max:m.max,label:m.getAttribute('aria-valuetext')}))}));
   assert(!state.overflow&&!state.dialogOverflow);assert.equal(state.bars.reduce((n,b)=>n+b.value,0),stats.totalForms);
   assert(state.bars.every(b=>b.label&&b.max===stats.totalForms));
-  assert.equal(state.meter.value,stats.government.ready);assert.equal(state.meter.max,stats.government.available);assert.equal(state.enhanced,stats.breakdown.enhanced.toLocaleString('en-HK'));
+  assert.equal(state.meter.value,stats.government.ready);assert.equal(state.meter.max,stats.government.available);assert.equal(state.enhanced,stats.government.ready.toLocaleString('en-HK'));
+  assert.equal(state.chipTotal,stats.totalForms.toLocaleString('en-HK'));assert.equal(state.chip,stats.breakdown.enhanced.toLocaleString('en-HK'));assert.match(state.chipPercent,/source matched.*upgraded/);
   assert.equal(state.available,stats.government.available.toLocaleString('en-HK'));assert.equal(state.remaining,stats.government.remaining.toLocaleString('en-HK'));
   assert.equal(await page.locator('#progress-outside').isVisible(),stats.government.enhancedOutside>0);
   await page.screenshot({path:new URL(name+'.png',out).pathname});
@@ -53,12 +54,9 @@ try{
  const live=await browser.newPage({viewport:{width:1280,height:900}}),liveErrors=[];
  live.on('pageerror',e=>liveErrors.push(e.message));
  await live.goto('http://127.0.0.1:4176/city.html',{waitUntil:'domcontentloaded'});
- await live.waitForFunction(()=>document.querySelector('#progress-chip')?.textContent.includes('enhanced'),{},{timeout:60000});
- await live.locator('#loading').waitFor({state:'hidden',timeout:60000});
- await live.locator('#progress-open').click();
- assert.equal(await live.locator('#progress-total').textContent(),stats.totalForms.toLocaleString('en-HK'));
- await live.screenshot({path:new URL('live-dialog.png',out).pathname});
- report.live={scope:'Unmodified City startup, renderer and progress dialog',errors:liveErrors,chip:await live.locator('#progress-chip').textContent()};
+ await live.waitForFunction(()=>document.querySelector('#progress-chip-total')?.textContent.includes(','),{},{timeout:60000});
+ assert.equal(await live.locator('#progress-chip-total').textContent(),stats.totalForms.toLocaleString('en-HK'));
+ report.live={scope:'Unmodified City entry point binds progress while the renderer streams',errors:liveErrors,chip:await live.locator('#progress-chip').textContent(),chipTotal:await live.locator('#progress-chip-total').textContent()};
  assert.deepEqual(liveErrors,[]);await live.close();
  assert.deepEqual(report.errors,[]);console.log(JSON.stringify(report));
 }finally{await writeFile(new URL('browser.json',out),JSON.stringify(report,null,2)+'\n');await browser.close();}

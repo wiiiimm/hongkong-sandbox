@@ -41,9 +41,9 @@ test('government completion uses matched source scope; good-to-go and rework sta
 test('presentation validates source scope and reports unknown completion with no matched sources',()=>{
  const r=countCoverage({forms:['a','b','c','d'].map(sourceForm),models:[{uid:'a',sha256:'a'},{uid:'c',sha256:'a'}],reviews:[review('a'),review('c')],governmentSources:[['a','source-a'],['b','source-b']]});
  const d={version:3,status:'available',updatedAt:'2026-09-11',...r};
- assert.equal(coveragePresentation(d).enhanced,2);assert.equal(coveragePresentation(d).ready,1);assert.equal(coveragePresentation(d).percent,50);assert.equal(coveragePresentation(d).sourcePending,1);
+ assert.equal(coveragePresentation(d).enhanced,2);assert.equal(coveragePresentation(d).ready,1);assert.equal(coveragePresentation(d).percent,50);assert.equal(coveragePresentation(d).sourceCoveragePercent,50);assert.equal(coveragePresentation(d).sourcePending,1);
  assert.equal(coveragePresentation({...d,totalForms:9}),null);assert.equal(coveragePresentation({...d,version:2}),null);
  assert.equal(coveragePresentation({...d,government:{...d.government,remaining:0}}),null);
  assert.equal(coveragePresentation({...d,government:{...d.government,enhancedOutside:0}}),null);
- const empty=countCoverage({forms:[],models:[],reviews:[],governmentSources:[]});assert.equal(coveragePresentation({...d,...empty}).percent,null);
+ const empty=countCoverage({forms:[],models:[],reviews:[],governmentSources:[]});assert.equal(coveragePresentation({...d,...empty}).percent,null);assert.equal(coveragePresentation({...d,...empty}).sourceCoveragePercent,null);
 });
