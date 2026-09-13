@@ -26,7 +26,7 @@ export async function bindBuildingProgress(manifest,{doc=document,fetcher=fetch}
   const number=n=>n.toLocaleString('en-HK'),compact=n=>n.toLocaleString('en-HK',{notation:'compact',maximumFractionDigits:1}).toLowerCase(),g=p.government;
   doc.getElementById('progress-total').textContent=number(p.total);
   doc.getElementById('progress-available').textContent=number(g.available);
-  doc.getElementById('progress-enhanced').textContent=number(p.enhanced);
+  doc.getElementById('progress-enhanced').textContent=number(g.ready);
   doc.getElementById('progress-remaining').textContent=number(g.remaining);
   doc.getElementById('progress-percent').textContent=p.percent===null?p.percentage:`${p.percentage} done`;
   doc.getElementById('progress-ratio').textContent=`${number(g.ready)} of ${number(g.available)} models with a matched government source are complete.${g.goodToGo?` Includes ${number(g.goodToGo)} already recorded as good to go.`:''}`;
@@ -42,10 +42,10 @@ export async function bindBuildingProgress(manifest,{doc=document,fetcher=fetch}
    bar.closest('.progress-tier').hidden=key==='goodToGo'&&value===0;
   }
   doc.getElementById('progress-date').textContent=p.date;
-  doc.getElementById('progress-chip').textContent=`${number(p.enhanced)} enhanced · ${p.percent===null?'—':p.percentage} done`;
-  doc.getElementById('progress-chip-total').textContent=`${compact(p.total)} on map · ${compact(g.available)} sources`;
-  open.setAttribute('aria-label',`Model progress: ${number(p.total)} models on map, ${number(g.available)} with matched government sources, ${number(p.enhanced)} enhanced; ${p.percentage} of government-source upgrades complete`);
-  doc.getElementById('progress-status').textContent='Original government detail, added and verified.';
+  doc.getElementById('progress-chip').textContent=`${number(g.ready)} of ${number(g.available)} · ${p.percent===null?'—':p.percentage}`;
+  doc.getElementById('progress-chip-total').textContent=`${compact(p.total)} total · ${compact(g.available)} enhanceable`;
+  open.setAttribute('aria-label',`Model progress: ${number(p.total)} total models, ${number(g.available)} can use government detail, ${number(g.ready)} completed; ${p.percentage} done`);
+  doc.getElementById('progress-status').textContent=`${number(g.ready)} verified government upgrades are available on this map.`;
   doc.getElementById('progress-values').hidden=false;
  }catch{unavailable('Building statistics are temporarily unavailable. You can still explore the city.');}
 }
