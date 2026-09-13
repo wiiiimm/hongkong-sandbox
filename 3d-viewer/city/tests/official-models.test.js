@@ -20,12 +20,13 @@ function fixture(){
  const stream=new CityStreaming({manifest,terrain,sampler:{height:()=>2},scene:new THREE.Scene(),activity:{buildings:{[building.uid]:building.activity}}});
  return {catalogue,meta,building,data,stream,compressed,nodes,materials};
 }
+const modelRequest=url=>{try{return new URL(url).pathname.endsWith('.gz');}catch{return false;}};
 const response=(data)=>new Response(JSON.stringify(data),{headers:{'Content-Type':'application/json'}});
 const camera=()=>{const c=new THREE.PerspectiveCamera(50,1,1,100000);c.position.set(5,10,100);c.lookAt(5,7,5);c.updateProjectionMatrix();return c;};
 async function sourceReady(f){f.stream.cache.plan(['0_0']);await f.stream.cache.waitFor(['0_0']);}
 
 test('verified native GLB keeps indexed buffers, source transforms/material provenance and shared city night uniforms',async t=>{
- const f=fixture();t.after(()=>f.stream.cache.close());const meta=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0],r=await loadOfficialModel(meta,f.building,f.stream.lighting,{fetcher:async()=>new Response(f.compressed)});t.after(()=>disposeOfficialModel(r));
+ const f=fixture();t.after(()=>f.stream.cache.close());const meta=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];assert.equal(new URL(meta.assetURL).searchParams.get('v'),f.meta.sha256);const r=await loadOfficialModel(meta,f.building,f.stream.lighting,{fetcher:async()=>new Response(f.compressed)});t.after(()=>disposeOfficialModel(r));
  assert.equal(r.record.baseHeightHKPD,2);assert.equal(r.record.topHeightHKPD,10);assert.equal(r.bounds.max.y,12);assert.equal(r.record.modelGeometry.position.constructor,Float64Array);assert.equal(r.meshes[0].geometry.index.count,36);
  assert.deepEqual(r.record.modelSource.originalNodes,f.nodes);assert.deepEqual(r.record.modelSource.originalMaterials,f.materials);assert.deepEqual(r.group.position.toArray(),[-834500,0,816500]);
  assert.deepEqual(Object.keys(r.meshes[0].geometry.attributes).sort(),['color','normal','position']);
@@ -39,7 +40,7 @@ test('wrong hash, truncated body, altered source UID/heights and incorrect place
  assert.equal(f.stream.detailedModels.size,0);assert.equal(f.building.height,8);
 });
 test('progressive detail swaps exact UID rendering/picking/collision and eviction restores its original outline',async t=>{
- const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});assert.equal(await layer.loadCatalogue('http://localhost/catalogue.json'),true);
  const c=camera();assert.deepEqual(layer.plan(c,{viewportHeight:800,force:true}),[f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);
  assert.equal(f.stream.cache.entries.get('0_0').buildings.group.children.length,0);assert.equal(f.stream.maximumRoof(5,5,1),12);assert.equal(f.stream.getLoadedBuilding(f.meta.uid).modelId,f.meta.modelId);
@@ -49,23 +50,23 @@ test('progressive detail swaps exact UID rendering/picking/collision and evictio
  assert.equal(f.stream.detailedModels.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);assert.equal(disposed,1);assert.equal(layer.stats.cached,0);
 });
 test('failed model download uses Retry and only activates detail after successful verification',async t=>{
- const f=fixture();let failed=true;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?(failed?new Response('',{status:503}):new Response(f.compressed)):response(f.catalogue));await sourceReady(f);
+ const f=fixture();let failed=true;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?(failed?new Response('',{status:503}):new Response(f.compressed)):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await assert.rejects(layer.cache.waitFor([f.meta.uid]),/503/);assert.equal(f.stream.detailedModels.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
  while(layer.cache.running.size)await tick();failed=false;await layer.retry();await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.maximumRoof(5,5,1),12);assert.equal(layer.stats.errors.length,0);
 });
 test('camera travel cancels a pending source request; late completion cannot replace the fallback',async t=>{
- const f=fixture();let release;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Promise(resolve=>{release=resolve;}):response(f.catalogue));await sourceReady(f);
+ const f=fixture();let release;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Promise(resolve=>{release=resolve;}):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});while(!release)await tick();c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});release(new Response(f.compressed));while(layer.cache.running.size)await tick();assert.equal(f.stream.detailedModels.size,0);assert.equal(layer.cache.entries.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
 });
 test('background gate defers new detail while keeping selected and resident models available',async t=>{
- const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();
  assert.deepEqual(layer.plan(c,{allowNewLoads:false,force:true}),[]);assert.equal(layer.cache.running.size,0);
  assert.deepEqual(layer.plan(c,{allowNewLoads:false,selectedUid:f.meta.uid,force:true}),[f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);
  assert.deepEqual(layer.plan(c,{allowNewLoads:false,force:true}),[f.meta.uid]);assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);
 });
 test('interaction pause aborts background detail and resumes the current plan',async t=>{
- const f=fixture();let release,first=true;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')&&first?(first=false,new Promise(resolve=>{release=resolve;})):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const f=fixture();let release,first=true;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)&&first?(first=false,new Promise(resolve=>{release=resolve;})):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});while(!release)await tick();
  layer.setLoadingPaused(true);assert.equal(layer.cache.paused,true);release(new Response(f.compressed));while(layer.cache.running.size)await tick();assert.equal(layer.cache.entries.size,0);
  layer.setLoadingPaused(false);await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);
@@ -93,7 +94,7 @@ test('abort during asynchronous GLTF parsing disposes the late source geometry',
  const rejected=assert.rejects(pending,{name:'AbortError'});while(!finish)await tick();let disposed=0;parsed.scene.traverse(o=>{if(o.isMesh)o.geometry.addEventListener('dispose',()=>disposed++);});controller.abort();finish();await rejected;assert.equal(disposed,1);assert.equal(f.stream.detailedModels.size,0);
 });
 test('failed fallback restoration retains source geometry and its memory reservation until Retry succeeds',async t=>{
- const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);let disposed=0;entry.meshes[0].geometry.addEventListener('dispose',()=>disposed++);
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);let disposed=0;entry.meshes[0].geometry.addEventListener('dispose',()=>disposed++);
  const restore=f.stream.refreshBuildings.bind(f.stream);let fail=true;t.mock.method(f.stream,'refreshBuildings',async()=>{if(fail)throw new Error('fixture bake failure');return restore();});c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});await Promise.allSettled([...layer.retiring.values()]);
  assert.equal(disposed,0);assert.equal(f.stream.detailedModels.get(f.meta.uid),entry);assert.ok(layer.stats.residentBytes>0);assert.deepEqual(layer.stats.errors,['restore:'+f.meta.uid]);
  fail=false;await layer.retry();assert.equal(disposed,1);assert.equal(f.stream.detailedModels.size,0);assert.equal(layer.stats.residentBytes,0);assert.equal(layer.stats.errors.length,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
@@ -103,7 +104,7 @@ test('pre-existing baked government models and source infrastructure take preced
  await f.stream.suppressInfrastructureBuildings([]);f.stream.cache.entries.get('0_0').data.buildings[0].modelGeometry={position:[0,0,0]};assert.deepEqual(layer.plan(camera(),{force:true}),[]);
 });
 test('turning away briefly retains nearby decoded detail without another model or material bake',async t=>{
- const f=fixture();let downloads=0;t.mock.method(globalThis,'fetch',async url=>{if(url==='tile')return response(f.data);if(String(url).endsWith('.gz')){downloads++;return new Response(f.compressed);}return response(f.catalogue);});await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid),mesh=entry.meshes[0],fallback=f.stream.cache.entries.get('0_0').buildings.group;
+ const f=fixture();let downloads=0;t.mock.method(globalThis,'fetch',async url=>{if(url==='tile')return response(f.data);if(modelRequest(url)){downloads++;return new Response(f.compressed);}return response(f.catalogue);});await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid),mesh=entry.meshes[0],fallback=f.stream.cache.entries.get('0_0').buildings.group;
  c.lookAt(5,10,1000);layer.plan(c,{force:true});c.lookAt(5,7,5);layer.plan(c,{force:true});assert.equal(layer.cache.entries.get(f.meta.uid).meshes[0],mesh);assert.equal(f.stream.cache.entries.get('0_0').buildings.group,fallback);assert.equal(downloads,1);
 });
 
@@ -133,7 +134,7 @@ test('real source-tile replacement activates a tower only after its native suppo
  const f=fixture(),supportUid='landsd/2:0';f.meta.supportDependencies=[{uid:supportUid,state:'candidate'}];
  f.catalogue.models.push({...f.meta,uid:supportUid,objectId:2,buildingCSUID:'two',modelId:'B0002',supportDependencies:[]});f.catalogue.counts.packedModels=2;
  f.data.buildings.push({...f.building,uid:supportUid,id:'landsd/2',objectId:2,buildingCSUID:'two'});
- t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
  const events=[],replace=f.stream.setDetailedModel.bind(f.stream);t.mock.method(f.stream,'setDetailedModel',async(uid,value,options)=>{
   if(uid===f.meta.uid&&value)assert.equal(f.stream.detailedModels.get(supportUid)?.active,true);
   if(uid===supportUid&&!value)assert.equal(f.stream.detailedModels.has(f.meta.uid),false);
@@ -149,7 +150,7 @@ test('real source-tile replacement activates a tower only after its native suppo
 test('an active government assembly hides its bundled fallback forms and restores them on eviction',async t=>{
  const f=fixture(),bundledUid='landsd/2:0';f.catalogue.models[0].suppressesBuildingUids=[bundledUid];
  f.data.buildings.push({...f.building,uid:bundledUid,id:'landsd/2',objectId:2,buildingCSUID:'two',rings:[[[20,0],[30,0],[30,10],[20,10],[20,0]]],centre:[25,5]});
- t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
  assert.ok(f.stream.collision(25,5,2,11,1));const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);
  assert.equal(f.stream.collision(25,5,2,11,1),null);assert.equal(f.stream.cache.entries.get('0_0').detailSuppressions.has(bundledUid),true);
