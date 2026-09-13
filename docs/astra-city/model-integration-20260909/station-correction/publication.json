@@ -1,0 +1,90 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/model-integration-20260909/station-correction-plan.json",
+  "areas": [],
+  "before": {
+    "3d-viewer/city/data/support-native-297401-0-station-land-v2.json": null,
+    "3d-viewer/city/data/manifest.json": "ac0ca295d0041cac128f0a6143235bea11ff86c7578bdffef5b05fc7b9f7419c"
+  },
+  "after": {
+    "3d-viewer/city/data/support-native-297401-0-station-land-v2.json": "7e5422186d5fdd48879d3f9489a3662172186a4ca70d08cc3a5305362c28d559",
+    "3d-viewer/city/data/manifest.json": "28ff7779db56e94bff2ef38c2d6b420a19a9f55b1e73782fe9c74c4c058fbbff"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "42f6195b55c0355e5893af880df440997a49d38d",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/support-native-297401-0.json",
+      "sha256": "53be9056f1c4710aaf9d55c87a3c83dbbc19fc680a25672546f0828f906f5ffc",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/support-native-297401-0-station-land-v2.json",
+      "resolution": 1,
+      "area": "West Kowloon Station surveyed land-mask correction",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-NW-24C",
+            "revision": "2025-10-27T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/manifest.json",
+            "manifestSha256": "297974937fba5a24f30866e9b53acaa9842df9d3ec8357935df92510cd76e0c1",
+            "worldBounds": [
+              [
+                0.0,
+                -14.173528671264648,
+                -2100.0
+              ],
+              [
+                750.0,
+                12.377494812011719,
+                -1500.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/TERRAIN(TB)/T34500180000106E11/T34500180000106E11.bin",
+                "sha256": "0a89380e17ecd14dc2d5edce3ea9ef0247b1233b7d823a17299d27050dfaa20f",
+                "bytes": 15830640
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-24C/TERRAIN(TB)/T34500180000106E11/T34500180000106E11-geometry.gltf",
+                "sha256": "69ee3f47e057ee1bd0f689c585a529036096cbb4dc060fe0e0f206a852f6b400",
+                "bytes": 1414
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Native TIN at 1x HKPD. Supersedes the earlier child only at source-positive masked grid nodes inside LandsD station footprint and one diagonal 1m-cell interpolation collar. Replacement child outer boundary and all other mask nodes unchanged. No building geometry or height edits.",
+        "maskRepair": {
+          "uid": "landsd/297401:0",
+          "footprintFile": "3d-viewer/city/data/tiles/0_-1.json",
+          "footprintFileSHA256": "23c74c620c23567ea039f48286fbcff03144022f461c9b4da896cd0263f61341",
+          "previousPatch": "3d-viewer/city/data/support-native-297401-0.json",
+          "previousPatchSHA256": "53be9056f1c4710aaf9d55c87a3c83dbbc19fc680a25672546f0828f906f5ffc",
+          "collarMetres": 1.4142135623730951,
+          "changedNodes": 10782
+        }
+      },
+      "sha256": "7e5422186d5fdd48879d3f9489a3662172186a4ca70d08cc3a5305362c28d559",
+      "bytes": 2805823
+    }
+  ],
+  "estimatedBases": []
+}

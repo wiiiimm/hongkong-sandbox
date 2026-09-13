@@ -5,8 +5,13 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Content-Security-Policy", "value": "frame-ancestors *" }
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors *"
+        }
       ]
     }
-  ]
+  ],
+  "buildCommand": "node scripts/build_progress.mjs",
+  "outputDirectory": "."
 }

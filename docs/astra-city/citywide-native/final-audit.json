@@ -1,0 +1,128 @@
+{
+  "issue": "HKS-222",
+  "runId": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+  "snapshotAt": "2026-09-09 05:13:39.764691+00",
+  "status": "complete-mechanical-audit",
+  "expectedSheets": 3456,
+  "acceptedSheets": 3456,
+  "unacceptedSheets": 0,
+  "indexedModels": 216976,
+  "indexedModelsInAcceptedSheets": 216976,
+  "modelOutcomeRows": 216976,
+  "indexedModelsWithoutAcceptedOutcomes": 0,
+  "allAcceptedIndexedModelsAccounted": true,
+  "countMismatches": 0,
+  "unknownMechanicalFailures": 0,
+  "confirmedSourceCorruptModels": 7,
+  "modelStates": {
+    "packed-needs-placement-review": 212675,
+    "source-match-held": 4294,
+    "failed": 7
+  },
+  "modelErrorPatterns": [
+    {
+      "state": "failed",
+      "error": "UnicodeDecodeError: 'utf-32-be' codec can't decode byte 0x0a in position 2092: truncated data",
+      "count": 2
+    },
+    {
+      "state": "failed",
+      "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+      "count": 2
+    },
+    {
+      "state": "failed",
+      "error": "UnicodeDecodeError: 'utf-32-be' codec can't decode bytes in position 2124-2125: truncated data",
+      "count": 1
+    },
+    {
+      "state": "failed",
+      "error": "UnicodeDecodeError: 'utf-32-be' codec can't decode byte 0x0a in position 2132: truncated data",
+      "count": 1
+    },
+    {
+      "state": "failed",
+      "error": "UnicodeDecodeError: 'utf-32-be' codec can't decode bytes in position 2044-2045: truncated data",
+      "count": 1
+    }
+  ],
+  "terrainOutcomeRows": 3458,
+  "terrainStates": {
+    "prepared-geometry-only": 3174,
+    "failed": 284
+  },
+  "terrainErrorPatterns": [
+    {
+      "state": "failed",
+      "error": "ValueError: Non-finite or inconsistent primitive attributes",
+      "count": 136
+    },
+    {
+      "state": "failed",
+      "error": "ValueError: need at least one array to concatenate",
+      "count": 101
+    },
+    {
+      "state": "failed",
+      "error": "UnsupportedSource: Textured, skinned, animated or extended source requires its own validated packer",
+      "count": 47
+    }
+  ],
+  "effectiveTerrainStates": {
+    "prepared-geometry-only": 3357,
+    "source-empty": 101
+  },
+  "effectiveTerrainErrorPatterns": [],
+  "terrainRepair": {
+    "runId": "0a8235777721aadedb888af5bebf62403f0b6bcd71cbbea3879d4bb42b541054",
+    "expectedSheets": 284,
+    "acceptedSheets": 284,
+    "pendingSheets": 0,
+    "expectedEntries": 284,
+    "matchedOriginalFailures": 284,
+    "unusedPreparedEntries": 0,
+    "validationErrors": []
+  },
+  "terrainDiagnosticStates": {
+    "diagnostic-complete": 216969,
+    "not-checked": 7
+  },
+  "sampledTerrainIntersectionModels": 174806,
+  "elevatedLowRimModels": 13652,
+  "candidateModels": 212675,
+  "uniqueCandidateUIDs": 212675,
+  "crossSheetUIDCollisions": {
+    "uids": 0,
+    "members": 0,
+    "identicalSourceGroups": 0,
+    "distinctSourceGroups": 0
+  },
+  "absentSelectedFootprintCases": 1650,
+  "absentSelectedFootprintClassifications": {
+    "retained-footprint-identity-absent": 1650
+  },
+  "rawFootprintAudit": {
+    "sourceSHA256": "4f25701140e090c0a58abb180b5b38a5c57f0a0f0897757032f35af4fa98d4e1",
+    "sourceRecordsScanned": 342223,
+    "geoRefValueTypes": {
+      "str": 342223
+    },
+    "queriedGeoRefs": 1650,
+    "matchesExpectedSourceSHA256": true
+  },
+  "exceptionCategories": {
+    "sampled-terrain-intersection-review": 174806,
+    "source-identity-or-geometry-review": 2644,
+    "elevated-support-or-placement-review": 13652,
+    "original-terrain-failure-repaired": 284,
+    "confirmed-source-corrupt": 7,
+    "terrain-diagnostic-blocked-by-source": 7,
+    "retained-footprint-identity-absent": 1650
+  },
+  "published": false,
+  "candidatesAltered": false,
+  "qualification": "Mechanical preparation audit only. Source identity, sampled terrain, supported towers and architectural review remain separate; no placement approval or whole-region completion.",
+  "sourceDefectEvidenceSHA256": "2cfe9ccdee1961a67bb1c7eb2b7154b8a35359fd9fc0247dbb6d8e42b54bb89c",
+  "exceptionLedgerSHA256": "85e867177b380e393a97115563bd7e46c143bb2de184c27b9489945eca713673",
+  "exceptionLedger": "exceptions.jsonl"
+}

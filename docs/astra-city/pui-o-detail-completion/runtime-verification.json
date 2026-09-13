@@ -1,0 +1,105 @@
+{
+  "staged": true,
+  "models": 4,
+  "triangles": 688,
+  "checks": [
+    "Actual shared catalogue and glTF loader: identity, hashes, native source bounds and source elevation guards",
+    "Source UID ray picking, actual model-triangle collision and above-roof clearance for all candidates",
+    "Current Pui O terrain sampled across source mesh vertices; conflicts reported without changing source heights"
+  ],
+  "results": [
+    {
+      "uid": "landsd/11179:0",
+      "triangles": 48,
+      "sourceBounds": [
+        [
+          -18291,
+          4.2855000495910645,
+          5719.1875
+        ],
+        [
+          -18281.8125,
+          9.691900253295898,
+          5729.5625
+        ]
+      ],
+      "currentTerrainMin": 9.94062499999987,
+      "currentTerrainMax": 15.165625000000034,
+      "roofBelowSomeCurrentTerrain": true,
+      "roofBelowAllCurrentTerrain": true,
+      "sourcePicking": true,
+      "sourceCollision": true
+    },
+    {
+      "uid": "landsd/75329:0",
+      "triangles": 32,
+      "sourceBounds": [
+        [
+          -19534.875,
+          65.43900299072266,
+          4920
+        ],
+        [
+          -19523.0625,
+          68.06430053710938,
+          4929.6875
+        ]
+      ],
+      "currentTerrainMin": 65.8875,
+      "currentTerrainMax": 67.1375,
+      "roofBelowSomeCurrentTerrain": false,
+      "roofBelowAllCurrentTerrain": false,
+      "sourcePicking": true,
+      "sourceCollision": true
+    },
+    {
+      "uid": "landsd/77662:0",
+      "triangles": 539,
+      "sourceBounds": [
+        [
+          -19517.0625,
+          75.01740264892578,
+          5096.875
+        ],
+        [
+          -19493.375,
+          84.29460144042969,
+          5114.625
+        ]
+      ],
+      "currentTerrainMin": 76.59375,
+      "currentTerrainMax": 78.240625,
+      "roofBelowSomeCurrentTerrain": false,
+      "roofBelowAllCurrentTerrain": false,
+      "sourcePicking": true,
+      "sourceCollision": true
+    },
+    {
+      "uid": "landsd/182169:0",
+      "triangles": 69,
+      "sourceBounds": [
+        [
+          -19524.375,
+          76.02230072021484,
+          5098.75
+        ],
+        [
+          -19517.3125,
+          79.75370025634766,
+          5106
+        ]
+      ],
+      "currentTerrainMin": 78,
+      "currentTerrainMax": 82.15625,
+      "roofBelowSomeCurrentTerrain": true,
+      "roofBelowAllCurrentTerrain": false,
+      "sourcePicking": true,
+      "sourceCollision": true
+    }
+  ],
+  "limits": [
+    "CPU-only. No GPU appearance or frame-rate claim.",
+    "Terrain diagnostics use current published patch; original adjacent terrain has not been integrated.",
+    "A successful source identity match does not alone establish safe visible placement."
+  ]
+}

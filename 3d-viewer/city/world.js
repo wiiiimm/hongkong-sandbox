@@ -1,0 +1,237 @@
+import * as THREE from '../vendor/three.module.js';
+import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
+import {ORIGIN,inPolygon,random,smoothStep,terrainVertexHeight} from './geo.js';
+import {buildingLighting} from './lighting.js';
+import {createBuildingGeometry} from './building-geometry.js';
+import {createTidalWater} from './tidal-water.js';
+import {nativeTerrainSurface} from './native-terrain.js';
+import {drapeRoadTriangle} from './road-surface.js';
+
+const colour = x=>new THREE.Color(x);
+function makeNativeTerrain(data) {
+ if(data.patches?.length||data.hydro)throw new Error('Native terrain patches require a complete source surface without nested or water overrides');
+ const surface=nativeTerrainSurface(data.nativeMesh),positions=surface.position,indices=new Uint32Array(surface.index),colours=new Float32Array(positions.length),g=data.meta.georef;
+ const green=colour('#718764'),urban=colour('#cfccb3');
+ for(let i=0;i<positions.length;i+=3){const c=Math.max(0,Math.min(data.w-1,Math.round((positions[i]+ORIGIN[0]-g.bE)/g.aE))),r=Math.max(0,Math.min(data.h-1,Math.round((ORIGIN[1]-positions[i+2]-g.bN)/g.aN))),co=data.vegetation[r*data.w+c]?green:urban;colours.set([co.r,co.g,co.b],i);}
+ for(let i=0;i<indices.length;i+=3){const a=indices[i]*3,b=indices[i+1]*3,c=indices[i+2]*3,y=(positions[b+2]-positions[a+2])*(positions[c]-positions[a])-(positions[b]-positions[a])*(positions[c+2]-positions[a+2]);if(y<0)[indices[i+1],indices[i+2]]=[indices[i+2],indices[i+1]];}
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colours,3));geo.setIndex(new THREE.BufferAttribute(indices,1));geo.computeVertexNormals();
+ const mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1}));mesh.receiveShadow=true;mesh.name='Lands Department · native source terrain triangles';return mesh;
+}
+export function makeTerrain(data) {
+ if(data.nativeMesh)return makeNativeTerrain(data);
+ const {w,h,elev,vegetation}=data,g=data.meta.georef;
+ const coveredCells=[...(data.patches||[]).map(p=>p.coarseCells),...(data.patchExclusions||[])];
+ const covered=(c,r)=>coveredCells.some(([x0,z0,x1,z1])=>c>=x0&&c<x1&&r>=z0&&r<z1);
+ const cutCells=new Map();
+ for(const cut of data.hydro?.terrainCuts||[]){
+  if(Math.abs(cut.georef.aE-g.aE)>1e-6||Math.abs(cut.georef.aN-g.aN)>1e-6)continue;
+  for(const cell of cut.cells){
+   const c=Math.round((cell.x+ORIGIN[0]-g.bE)/g.aE),r=Math.round((ORIGIN[1]-cell.z-g.bN)/g.aN);
+   if(c>=0&&c<w-1&&r>=0&&r<h-1&&!covered(c,r))cutCells.set(r*w+c,cell);
+  }
+ }
+ const positions=new Float32Array(w*h*3),colours=new Float32Array(w*h*3),indices=new Uint32Array((w-1)*(h-1)*6);
+ const green=colour('#718764'),urban=colour('#cfccb3'),rock=colour('#999c83');
+ const randomAt=random(8);
+ for(let r=0;r<h;r++)for(let c=0;c<w;c++){
+  const i=r*w+c,e=elev[i],x=g.bE+c*g.aE-ORIGIN[0],z=ORIGIN[1]-(g.bN+r*g.aN);
+  positions.set([x,terrainVertexHeight(data,i),z],i*3);
+  const co=(vegetation[i]?green:urban).clone();
+  if(e>240)co.lerp(rock,smoothStep(240,900,e)*.38);
+  co.multiplyScalar(.94+randomAt()*.10);colours.set([co.r,co.g,co.b],i*3);
+ }
+ let k=0;for(let r=0;r<h-1;r++)for(let c=0;c<w-1;c++){const a=r*w+c;if(cutCells.has(a))continue;if(covered(c,r))continue;if(!elev[a]&&!elev[a+1]&&!elev[a+w]&&!elev[a+w+1])continue;indices.set([a,a+w,a+1,a+1,a+w,a+w+1],k);k+=6;}
+ const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colours,3));geo.setIndex(new THREE.BufferAttribute(indices.slice(0,k),1));geo.computeVertexNormals();
+ const material=new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
+ const mesh=new THREE.Mesh(geo,material);mesh.receiveShadow=true;mesh.name=`Lands Department · ${g.aE} m terrain`;
+ if(data.patches?.length||cutCells.size||data.hydro&&!data.hydroChunk){
+  const group=new THREE.Group();group.name='Lands Department terrain';group.add(mesh);
+  const flat=[...cutCells.values()].flatMap(c=>c.land);
+  const extra=(values,hex,name)=>{
+   if(!values.length)return;const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(values,3));
+   if(!hex){const colours=[];for(let i=0;i<values.length;i+=3){const c=Math.max(0,Math.min(w-1,Math.round((values[i]+ORIGIN[0]-g.bE)/g.aE))),r=Math.max(0,Math.min(h-1,Math.round((ORIGIN[1]-values[i+2]-g.bN)/g.aN))),j=(r*w+c)*3;colours.push(...geo.attributes.color.array.slice(j,j+3));}geometry.setAttribute('color',new THREE.Float32BufferAttribute(colours,3));}
+   geometry.computeVertexNormals();const m=new THREE.Mesh(geometry,hex?new THREE.MeshStandardMaterial({color:hex,roughness:1,side:THREE.DoubleSide}):material);m.receiveShadow=true;m.name=name;group.add(m);
+  };
+  extra(flat,null,data.hydro?.region==='tai-o'?'Terrain clipped to mapped Tai O water':'Terrain clipped to mapped water');
+  if(data.hydro&&!data.hydroChunk){extra(data.hydro.bedTriangles||[],'#655f4c','Illustrative submerged bed · not surveyed bathymetry');extra(data.hydro.bankTriangles||[],'#918d73','Mapped bank faces · existing terrain heights');}
+  // Chunk each level independently. Parent cells covered by children must be
+  // omitted in every intersecting chunk; render each child once, not per chunk.
+  function addPatch(patch){
+   if(patch.nativeMesh){group.add(makeNativeTerrain(patch));return;}
+   for(let r=0;r<patch.h-1;r+=196)for(let c=0;c<patch.w-1;c+=196){
+    const w=Math.min(197,patch.w-c),h=Math.min(197,patch.h-r),elev=[],vegetation=[],renderedElev=patch.renderedElev?[]:undefined,g=patch.meta.georef;
+    for(let y=0;y<h;y++){if(renderedElev)renderedElev.push(...patch.renderedElev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));elev.push(...patch.elev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));vegetation.push(...patch.vegetation.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));}
+    const patchExclusions=(patch.patches||[]).map(p=>{const [x0,z0,x1,z1]=p.coarseCells;return [x0-c,z0-r,x1-c,z1-r];});
+    group.add(makeTerrain({w,h,elev,vegetation,renderedElev,patchExclusions,hydro:data.hydro,hydroChunk:true,meta:{georef:{...g,bE:g.bE+c*g.aE,bN:g.bN+r*g.aN}}}));
+   }
+   for(const child of patch.patches||[])addPatch(child);
+  }
+  for(const patch of data.patches||[])addPatch(patch);
+  return group;
+ }return mesh;
+}
+export function makeWater(){return createTidalWater();}
+export function extrudeBuilding(b){return createBuildingGeometry(b);}
+export function facadeMaterial(hex,lighting){
+ const material=new THREE.MeshStandardMaterial({color:hex,roughness:.69,metalness:.13});
+ material.onBeforeCompile=shader=>{
+  shader.uniforms.uCityNight=lighting.night;shader.uniforms.uCityActivity=lighting.activity;shader.uniforms.uCityRetail=lighting.retail;shader.uniforms.uCitySeconds=lighting.elapsed;shader.uniforms.uCityShimmer=lighting.shimmer;
+  shader.vertexShader=shader.vertexShader.replace('#include <common>',`#include <common>
+   attribute vec4 cityLight; varying vec4 vCityLight;
+   attribute float cityWindows; varying float vCityWindows;
+   varying vec3 vCityPosition; varying vec3 vCityNormal;`).replace('#include <begin_vertex>',`#include <begin_vertex>
+   vCityLight = cityLight; vCityWindows = cityWindows; vCityPosition = (modelMatrix * vec4(transformed, 1.0)).xyz;
+   vCityNormal = normalize(mat3(modelMatrix) * objectNormal);`);
+  shader.fragmentShader=shader.fragmentShader.replace('#include <common>',`#include <common>
+   varying vec4 vCityLight; varying float vCityWindows; varying vec3 vCityPosition; varying vec3 vCityNormal;
+   uniform float uCityNight; uniform vec4 uCityActivity; uniform float uCityRetail; uniform float uCitySeconds; uniform float uCityShimmer;
+   float cityHash(vec2 p) { return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453); }
+  `).replace('#include <color_fragment>',`#include <color_fragment>
+   float wall = (1.0 - step(.6, abs(vCityNormal.y))) * vCityWindows;
+   float horizontal = abs(vCityNormal.x) > abs(vCityNormal.z) ? vCityPosition.z : vCityPosition.x;
+   vec2 cell = vec2(horizontal / 3.6, (vCityPosition.y-vCityLight.z) / 3.5);
+   vec2 grid = fract(cell);
+   float windowMask = smoothstep(.12,.20,grid.x) * (1.0-smoothstep(.76,.84,grid.x)) * smoothstep(.20,.28,grid.y) * (1.0-smoothstep(.70,.78,grid.y));
+   float glowMask = smoothstep(.0,.16,grid.x) * (1.0-smoothstep(.82,1.0,grid.x)) * smoothstep(.02,.24,grid.y) * (1.0-smoothstep(.74,.98,grid.y));
+   float detailAA = 1.0-smoothstep(.25,1.3,max(fwidth(cell.x),fwidth(cell.y)));
+   float activity = vCityLight.y < .5 ? uCityActivity.x : vCityLight.y < 1.5 ? uCityActivity.y : vCityLight.y < 2.5 ? uCityActivity.z : vCityLight.y < 3.5 ? uCityActivity.w : uCityRetail;
+   if(vCityLight.w>0.0 && vCityPosition.y-vCityLight.z<vCityLight.w) activity=uCityRetail;
+   // Each building and window has a stable bedtime; no frame-dependent flicker.
+   activity = clamp(activity * (.80 + .40*vCityLight.x), 0.0, .985);
+   // Smooth source normals vary within a window. Hash only the discrete UV face,
+   // otherwise tiny normal interpolation changes turn one room into pixel noise.
+   vec2 wallSeed = abs(vCityNormal.x) > abs(vCityNormal.z)
+    ? vec2(sign(vCityNormal.x)*31.0,0.0) : vec2(0.0,sign(vCityNormal.z)*31.0);
+   vec2 room = floor(cell) + vCityLight.x * vec2(773.0,419.0) + wallSeed;
+   float bedtime = cityHash(room);
+   // Narrow the fade at very low occupancy so dark buildings stay dark at 4 am.
+   float fade = min(.016,max(.0001,activity*.4));
+   float lit = activity > 0.0 ? smoothstep(bedtime-fade,bedtime+fade,activity) : 0.0;
+   vec3 warm = vec3(1.0,.63,.27), cool = vec3(.71,.85,1.0);
+   float coolRooms = vCityLight.y > .5 && vCityLight.y < 1.5 ? .64 : vCityLight.y>3.5 ? .36 : .17;
+   vec3 lightColour = mix(mix(warm,cool,coolRooms),mix(warm,cool,step(1.0-coolRooms,cityHash(room+97.0))),detailAA);
+   diffuseColor.rgb *= 1.0-wall*windowMask*.28*detailAA;
+  `).replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
+   // At a distance integrate coverage instead of aliasing sub-pixel windows.
+   float windowLight = mix(.12*activity,windowMask*lit,detailAA);
+   float softSpill = mix(.025*activity,glowMask*lit*.12,detailAA);
+   // Small, independent low-frequency scintillation. Nearby windows stay steady.
+   float distanceM = length(vViewPosition);
+   float distant = smoothstep(650.0,3500.0,distanceM);
+   float phase = mix(vCityLight.x,cityHash(room+57.0),detailAA)*6.2831853;
+   float turbulence = sin(uCitySeconds*.83+phase)*.65 + sin(uCitySeconds*1.71+phase*2.37)*.35;
+   float transmission = exp(-max(distanceM-400.0,0.0)/24000.0);
+   float shimmer = 1.0 + .045*distant*uCityShimmer*turbulence;
+   totalEmissiveRadiance += lightColour * (windowLight+softSpill) * wall * uCityNight * 1.8 * transmission * shimmer;
+  `);
+ };
+ return material;
+}
+export async function makeBuildings(features,onProgress,options={}){
+ const group=new THREE.Group();group.name='Source building footprints';const lighting=options.lighting||{night:{value:0},activity:{value:new Float32Array([.8,.6,.9,.7])},retail:{value:.9},elapsed:{value:0},shimmer:{value:0}},night=lighting.night;
+ const palette=['#d9d8c5','#ebe7d5','#b6c9c1','#a5bcb8','#c1c3b6','#e0d7bc','#8aafac','#bdc6bf'];
+ const materials=palette.map(c=>facadeMaterial(c,lighting)),bins=palette.map(()=>[]);let totalVertices=0;
+ for(let i=0;i<features.length;i++){
+   const b=features[i];
+   if(i%128===0)await new Promise(resolve=>setTimeout(resolve,0));
+   const geo=extrudeBuilding(b),n=geo.attributes.position.count;
+   geo.setAttribute('feature',new THREE.Float32BufferAttribute(new Float32Array(n).fill(i),1));
+   const style=buildingLighting(b),light=new Float32Array(n*4);
+   for(let v=0;v<n;v++)light.set([style.seed,style.profile,style.base,style.retailTop],v*4);
+   geo.setAttribute('cityLight',new THREE.BufferAttribute(light,4));
+   const id=Number(b.id.split('/')[1]);const bucket=b.height>150?6:b.material==='glass'?2:b.height>65?3:id%6;
+   geo.clearGroups();bins[bucket].push(geo);totalVertices+=n;
+ }
+ for(let i=0;i<bins.length;i++){
+   if(!bins[i].length)continue;
+   const geo=mergeGeometries(bins[i],false);for(const g of bins[i])g.dispose();
+   const mesh=new THREE.Mesh(geo,materials[i]);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);
+   onProgress?.(i);await new Promise(resolve=>setTimeout(resolve,0));
+ }
+ return {group,night,materials,totalVertices};
+}
+export function makeRoads(roads,sampler,lighting,options={}){
+ const group=new THREE.Group();group.name='Streets and paths';const surfaces={road:[],path:[],bridge:[]},uvs={road:[],path:[],bridge:[]};
+ const widthFor={motorway:15,trunk:13,primary:11,secondary:9,tertiary:8,residential:6,unclassified:6,service:4,living_street:5,pedestrian:5,footway:2.1,path:1.7,steps:2,cycleway:2.5,runway:45,taxiway:20};
+ for(const r of roads){
+  if(options.excludeIds?.has(r.id))continue;
+  const width=widthFor[r.kind]||5,isPath=['footway','path','steps','pedestrian'].includes(r.kind),target=surfaces[r.bridge?'bridge':isPath?'path':'road'];
+  const lift=r.bridge?Math.max(5,r.layer*5):.18;let along=0;const uv=uvs[r.bridge?'bridge':isPath?'path':'road'];
+  for(let j=1;j<r.path.length;j++){
+   const a=r.path[j-1],b=r.path[j],dx=b[0]-a[0],dz=b[1]-a[1],length=Math.hypot(dx,dz);if(length<.1)continue;
+   const steps=Math.ceil(length/15),nx=-dz/length*width/2,nz=dx/length*width/2;
+   for(let s=0;s<steps;s++){
+    const ax=a[0]+dx*s/steps,az=a[1]+dz*s/steps,bx=a[0]+dx*(s+1)/steps,bz=a[1]+dz*(s+1)/steps;
+    const corners=[[ax+nx,az+nz],[ax-nx,az-nz],[bx+nx,bz+nz],[bx-nx,bz-nz]].map(([x,z])=>[x,sampler.height(x,z)+lift,z]);
+    const points=corners.map((p,k)=>[...p,along+length*(s+(k>1?1:0))/steps,k%2]);
+    const emit=triangle=>{for(const p of triangle){target.push(...p.slice(0,3));uv.push(...p.slice(3));}};
+    for(const indices of[[0,2,1],[1,2,3]]){const triangle=indices.map(k=>points[k]);if(r.bridge)emit(triangle);else drapeRoadTriangle(triangle,sampler,emit);}
+   }
+   along+=length;
+  }
+ }
+ for(const [name,p] of Object.entries(surfaces)){
+  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(p,3));geo.setAttribute('uv',new THREE.Float32BufferAttribute(uvs[name],2));geo.computeVertexNormals();
+  const mat=new THREE.MeshStandardMaterial({color:name==='path'?'#e0d9bd':name==='bridge'?'#bcc3b7':'#939f95',roughness:1,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2});
+  if(lighting&&name!=='path')mat.onBeforeCompile=shader=>{
+   shader.uniforms.uCityNight=lighting.night;
+   shader.vertexShader=shader.vertexShader.replace('#include <common>','#include <common>\nvarying vec2 vStreetUV;').replace('#include <begin_vertex>','#include <begin_vertex>\nvStreetUV = uv;');
+   shader.fragmentShader=shader.fragmentShader.replace('#include <common>','#include <common>\nvarying vec2 vStreetUV; uniform float uCityNight;').replace('#include <emissivemap_fragment>',`#include <emissivemap_fragment>
+    float pool = pow(.5+.5*cos(vStreetUV.x*.1496),8.0) * pow(abs(vStreetUV.y-.5)*2.0,2.0);
+    float resolved = 1.0-smoothstep(10.0,45.0,fwidth(vStreetUV.x));
+    totalEmissiveRadiance += vec3(1.0,.67,.32) * mix(.06,pool*.45+.015,resolved) * uCityNight;
+   `);
+  };
+  const mesh=new THREE.Mesh(geo,mat);mesh.receiveShadow=true;group.add(mesh);
+ }
+ return group;
+}
+export function makeNature(parks,terrain,sampler,index,options={}){
+ const group=new THREE.Group(),points=[],rng=random(options.seed??163);const {w,h,elev,vegetation}=terrain,g=terrain.meta.georef;
+ // Landcover-backed trees only. Avoid buildings and keep a compact urban draw budget.
+ for(let r=0;r<h;r++)for(let c=0;c<w;c++){
+  const i=r*w+c;if(!vegetation[i]||elev[i]<5)continue;
+  const x=g.bE+c*g.aE-ORIGIN[0],z=ORIGIN[1]-(g.bN+r*g.aN);
+  const bounds=options.bounds||[-4200,-2300,4200,4000];
+  if(x<bounds[0]||x>=bounds[2]||z<bounds[1]||z>=bounds[3])continue;
+  for(let j=0;j<3;j++){const px=x+(rng()-.5)*55,pz=z+(rng()-.5)*55;if(!index.collision(px,pz,0,1000,5))points.push([px,pz,4+rng()*6]);}
+ }
+ const parkGeos=[];
+ for(const park of parks){
+  const ring=park.rings[0],xs=ring.map(p=>p[0]),zs=ring.map(p=>p[1]);
+  const shape=new THREE.Shape(ring.slice(0,-1).map(p=>new THREE.Vector2(p[0],-p[1])));for(const hole of park.rings.slice(1))shape.holes.push(new THREE.Path(hole.slice(0,-1).map(p=>new THREE.Vector2(p[0],-p[1]))));
+  const geo=new THREE.ShapeGeometry(shape);geo.rotateX(-Math.PI/2);const p=geo.attributes.position;
+  for(let i=0;i<p.count;i++)p.setY(i,sampler.height(p.getX(i),p.getZ(i))+.12);geo.computeVertexNormals();parkGeos.push(geo);
+  const minX=Math.min(...xs),maxX=Math.max(...xs),minZ=Math.min(...zs),maxZ=Math.max(...zs);
+  for(let x=minX;x<maxX;x+=21)for(let z=minZ;z<maxZ;z+=21){const px=x+rng()*15,pz=z+rng()*15;if(inPolygon(px,pz,park.rings)&&!index.collision(px,pz,0,1000,5))points.push([px,pz,4+rng()*4]);}
+ }
+ if(parkGeos.length){const geo=mergeGeometries(parkGeos);for(const g of parkGeos)g.dispose();const mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color:'#8da277',roughness:1,side:THREE.DoubleSide}));mesh.receiveShadow=true;group.add(mesh);}
+ const canopy=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1,1),new THREE.MeshStandardMaterial({color:'#ffffff',roughness:1}),points.length);
+ const trunks=new THREE.InstancedMesh(new THREE.CylinderGeometry(.35,.5,1,5),new THREE.MeshStandardMaterial({color:'#827f5e',roughness:1}),points.length);
+ const dummy=new THREE.Object3D(),greens=['#587b55','#759165','#65845c','#8a9d71'].map(colour);
+ points.forEach(([x,z,h],i)=>{const ground=sampler.height(x,z);dummy.position.set(x,ground+h*.65,z);dummy.scale.set(h*.48,h*.58,h*.43);dummy.rotation.y=rng()*Math.PI;dummy.updateMatrix();canopy.setMatrixAt(i,dummy.matrix);canopy.setColorAt(i,greens[i%greens.length]);dummy.position.y=ground+h*.25;dummy.scale.set(1,h*.5,1);dummy.updateMatrix();trunks.setMatrixAt(i,dummy.matrix);});
+ canopy.castShadow=true;canopy.receiveShadow=true;group.add(canopy,trunks);
+ // Keep original transforms so later-arriving surface packages can remove trees
+ // from courts, beaches and plazas without regenerating their random placement.
+ const canopyMatrices=canopy.instanceMatrix.array.slice(),trunkMatrices=trunks.instanceMatrix.array.slice(),colours=canopy.instanceColor?.array.slice();
+ const nature={group,count:points.length,applyMask(exclude){
+  let count=0;
+  for(let i=0;i<points.length;i++){
+   const [x,z,h]=points[i];if(exclude(x,z,h*.48))continue;
+   canopy.instanceMatrix.array.set(canopyMatrices.subarray(i*16,i*16+16),count*16);trunks.instanceMatrix.array.set(trunkMatrices.subarray(i*16,i*16+16),count*16);
+   if(colours)canopy.instanceColor.array.set(colours.subarray(i*3,i*3+3),count*3);count++;
+  }
+  canopy.count=trunks.count=nature.count=count;canopy.instanceMatrix.needsUpdate=trunks.instanceMatrix.needsUpdate=true;if(colours)canopy.instanceColor.needsUpdate=true;
+  canopy.computeBoundingSphere();trunks.computeBoundingSphere();
+ }};return nature;
+}
+export function makeFerries(){
+ const group=new THREE.Group();const ferries=[];const mat=c=>new THREE.MeshStandardMaterial({color:c,roughness:.6});
+ for(let i=0;i<3;i++){
+  const boat=new THREE.Group();
+  for(const [size,pos,c] of [[[9,3,24],[0,2,0],'#e5e6ce'],[[8,4,20],[0,5,0],'#397862'],[[8.7,.5,21],[0,7.2,0],'#f4f0d7'],[[6,2,7],[0,8,4],'#e2e4ce']]){const m=new THREE.Mesh(new THREE.BoxGeometry(...size),mat(c));m.position.set(...pos);boat.add(m);}
+  const wake=new THREE.Mesh(new THREE.PlaneGeometry(11,48),new THREE.MeshBasicMaterial({color:'#d3e7d9',transparent:true,opacity:.16,depthWrite:false}));wake.rotation.x=-Math.PI/2;wake.position.set(0,.4,-28);boat.add(wake);group.add(boat);ferries.push(boat);
+ }
+ const update=t=>ferries.forEach((b,i)=>{const phase=t/190+i/3,u=(Math.sin(phase*Math.PI*2)+1)/2; b.position.set(80+790*u,.3,-85-570*u);b.rotation.y=Math.atan2(790,-570)+(Math.cos(phase*Math.PI*2)<0?Math.PI:0);});
+ return {group,update};
+}

@@ -1,0 +1,132 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/residual-support-review/publication-plan.json",
+  "areas": [
+    {
+      "area": "Reviewed Island Resort, Pacifica and Wplace source components",
+      "models": 10,
+      "catalogue": "city/data/official-models/residual-native-20260909/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-residual-234162-0.json": null,
+    "3d-viewer/city/data/terrain-residual-265478-0.json": null,
+    "3d-viewer/city/data/official-models/residual-native-20260909/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "79c443046d60030070956bbb197872f968a4f655cfc4114d557040d0a462040f"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-residual-234162-0.json": "eadf90431c5ecc1fc1fbd2c169ba48a5024266bcba054552fe2a0b0e83729e75",
+    "3d-viewer/city/data/terrain-residual-265478-0.json": "0dfe925b36058e76d1c8571c630d3a5ff29f6e7b33c578c7c015a6337d7970db",
+    "3d-viewer/city/data/official-models/residual-native-20260909/catalogue.json": "818a5b52760a45694e40736542dc98dddefea763e32ecf61e3ca0f43ef5ed3be",
+    "3d-viewer/city/data/manifest.json": "02e5c4f513efd0164c3b5f5a9e1256c0e9dcdebaf5790b7ac3b8193e1b50ad97"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "1bd135840292fd2f36605ded71926ed018456acc",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-residual-234162-0.json",
+      "resolution": 1,
+      "area": "Native LandsD terrain supporting landsd/234162:0",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-SE-20A",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-SE-20A/manifest.json",
+            "manifestSha256": "e30dac75d00e1426f188cd0ab1291630035ace149a8e24757e83b784612ff8f3",
+            "worldBounds": [
+              [
+                8999.5,
+                0.6414985656738281,
+                2099.5
+              ],
+              [
+                9750.5,
+                78.22369766235352,
+                2700.5
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-SE-20A/TERRAIN(TB)/T43500138000106E11/T43500138000106E11.bin",
+                "sha256": "b3afc76cdefcc937cb3a16fe10053cce4c306ffea615a45c7231102088917942",
+                "bytes": 14944500
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-SE-20A/TERRAIN(TB)/T43500138000106E11/T43500138000106E11-geometry.gltf",
+                "sha256": "5fa3a674952a086bd92b6a16bf33a4844ea26d0fd8c4b7a790df619ef01551c6",
+                "bytes": 1452
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "eadf90431c5ecc1fc1fbd2c169ba48a5024266bcba054552fe2a0b0e83729e75",
+      "bytes": 4487820
+    },
+    {
+      "url": "city/data/terrain-residual-265478-0.json",
+      "resolution": 1,
+      "area": "Native LandsD terrain supporting landsd/265478:0",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-NW-8C",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NW-8C/manifest.json",
+            "manifestSha256": "01213d700f6bf39e9fd6a14bdc5055fe23d92293c33359547ad68c53e4926a5d",
+            "worldBounds": [
+              [
+                -1500.00341796875,
+                3.2759933471679688,
+                -5700.0
+              ],
+              [
+                -750.0,
+                6.74656343460083,
+                -5100.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NW-8C/TERRAIN(TB)/T33000216000106E13/T33000216000106E13.bin",
+                "sha256": "1e15b64f23348ba5d2a4e339d7161fb5dc45d4ed35ca821fa34eecc5e619889a",
+                "bytes": 3130272
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/staged/11-NW-8C/TERRAIN(TB)/T33000216000106E13/T33000216000106E13-geometry.gltf",
+                "sha256": "e158218016c60d1002e0a95ed0b945e60568bea1a21170ca3fb8b1a48346a337",
+                "bytes": 1465
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "0dfe925b36058e76d1c8571c630d3a5ff29f6e7b33c578c7c015a6337d7970db",
+      "bytes": 558271
+    }
+  ],
+  "estimatedBases": []
+}

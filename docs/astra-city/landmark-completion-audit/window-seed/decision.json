@@ -1,0 +1,26 @@
+{
+  "issue": "HKS-214",
+  "uid": "landsd/98921:0",
+  "sourceSHA256": "38b5816d9bdc50cc1a737073921553aa0238698f383a4081dbd3b123dcbb73de",
+  "status": "installed-verified",
+  "supersedes": "The night-speckle hold in first12-decisions.json",
+  "sourceGeometryChanged": false,
+  "newModelsAdded": 0,
+  "fix": "Use a discrete dominant UV-axis/sign wall seed instead of interpolated normal magnitude in the shared per-window hash. This avoids per-fragment lit/dark changes within a single room and preserves axis-aligned wall seeds. No normal quantisation bands.",
+  "observation": "Actual shared shader regression reduced within-room pixel variance from125681.43 to0 across1936 samples. Actual98921 day/night mobile scene was inspected; the speckled wall is now coherent and native geometry/placement/picking evidence remains unchanged.",
+  "evidenceHashes": {
+    "3d-viewer/city/world.js": "ef5d29aadb91ec7ce157ccb99e74f6219a4220416142a2ae8533a34966a8d18d",
+    "docs/astra-city/landmark-completion-audit/window-seed/webgl-regression.json": "99e5a619e17f26d9dba204a98fc1b35e81529eef4a626acc87ef654925ef6f9e",
+    "docs/astra-city/landmark-completion-audit/window-seed/stable-runtime-report.json": "0918dd19f4a4807569bbd2b5fe06a63eccc0084e0585709742725de9c3cd65b6"
+  },
+  "wholeLandmarkComplete": false,
+  "tests": [
+    "Actual shared facade shader WebGL regression",
+    "15 mesh/inspection integration tests",
+    "98921 actual-runtime mobile day/night capture"
+  ],
+  "inspectedImages": [
+    "stable-seed-night.jpg",
+    "stable-seed-day.jpg"
+  ]
+}

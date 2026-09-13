@@ -1,0 +1,45 @@
+{
+  "areas": [
+    {
+      "area": "Coherent Chungking and LP6 native support assemblies",
+      "catalogue": "source-scripts/city/residential-support-review/migration-approved/catalogue.json",
+      "destination": "city/data/official-models/native-support-migration-20260909/catalogue.json"
+    },
+    {
+      "area": "exact-next reviewed native components",
+      "catalogue": "source-scripts/city/model-integration-20260909/exact-next-approved/catalogue.json",
+      "destination": "city/data/official-models/model-pass-20260909-exact-next/catalogue.json",
+      "terrain": [
+        "source-scripts/city/model-integration-20260909/support-exact-tin-181141-0-bundle.json",
+        "source-scripts/city/model-integration-20260909/support-exact-tin-213822-0-bundle.json",
+        "source-scripts/city/model-integration-20260909/support-exact-tin-232907-0-bundle.json"
+      ]
+    }
+  ],
+  "dependencyReviews": [
+    {
+      "path": "source-scripts/city/residential-support-review/dependency-replacements.json",
+      "sha256": "e84f522b9ea7a3bf70564cbe47281080f6c021cacde59f6fe1d847f8326c8c73",
+      "visualApproval": {
+        "path": "source-scripts/city/residential-support-review/migration-approval.json",
+        "sha256": "9e2e9cbb1dfb813cc9d4fa2ebf6c1cefaafe0676bfe814b6db54d0d33a5f8991"
+      }
+    },
+    {
+      "path": "source-scripts/city/assembly-support-review/dependency-replacements-airside.json",
+      "sha256": "bedf996fa0c30e5e75c779c8f0a960de2d6d214f9ec8a41c8b41fde77bcb3ff3",
+      "visualApproval": {
+        "path": "source-scripts/city/model-integration-20260909/airside-migration-approval.json",
+        "sha256": "64e1cc6778e45ee2bd75001350255f3450263e8b221bcda92d64632429a65f0d"
+      }
+    },
+    {
+      "path": "source-scripts/city/assembly-support-review/dependency-replacements-branksome.json",
+      "sha256": "8a9a9f028818ce4ae3e141932823185fcb3015e533a959d50fb182ad35668f69",
+      "visualApproval": {
+        "path": "source-scripts/city/model-integration-20260909/branksome-migration-approval.json",
+        "sha256": "77927adcf4cdb2652bb9a1132848acda11ed65968d7e9d739f1d96e6aab1b6a8"
+      }
+    }
+  ]
+}

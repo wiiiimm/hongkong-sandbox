@@ -1,0 +1,178 @@
+{
+  "counts": {
+    "records": 26004,
+    "uniqueSourceWays": 25993,
+    "roles": {
+      "access": 8532,
+      "bridge": 15608,
+      "elevated-link": 1864
+    },
+    "kinds": {
+      "pedestrian": 245,
+      "footway": 16456,
+      "steps": 3078,
+      "motorway": 797,
+      "primary_link": 164,
+      "path": 693,
+      "track": 53,
+      "secondary": 410,
+      "motorway_link": 634,
+      "trunk": 474,
+      "primary": 419,
+      "service": 1158,
+      "trunk_link": 362,
+      "tertiary": 260,
+      "secondary_link": 40,
+      "residential": 145,
+      "unclassified": 189,
+      "corridor": 87,
+      "tertiary_link": 9,
+      "cycleway": 331
+    },
+    "districts": {
+      "Boundary waters / unassigned": 19,
+      "Central and Western District": 1504,
+      "Eastern District": 1149,
+      "Islands District": 1807,
+      "Kowloon City District": 788,
+      "Kwai Tsing District": 1783,
+      "Kwun Tong District": 1757,
+      "Lok Ma Chau Loop": 1,
+      "North District": 1468,
+      "Sai Kung District": 1321,
+      "Sha Tin District": 2238,
+      "Sham Shui Po District": 904,
+      "Southern District": 1132,
+      "Tai Po District": 1906,
+      "Tsuen Wan District": 1631,
+      "Tuen Mun District": 1532,
+      "Wan Chai District": 864,
+      "Wong Tai Sin District": 738,
+      "Yau Tsim Mong District": 1714,
+      "Yuen Long District": 1748
+    },
+    "interior": 1587,
+    "vertices": 159655,
+    "taggedWidth": 115,
+    "taggedHeight": 162,
+    "taggedMinHeight": 0,
+    "taggedAbsoluteElevation": 3,
+    "deckOutlines": 527
+  },
+  "coordinateNormalisation": {
+    "updatedWays": 4,
+    "updatedNodeIds": 4,
+    "rule": "Use the newest retained source coordinate for each original OSM node ID; raw snapshots remain unchanged."
+  },
+  "duplicateInputRecordsCollapsed": 65104,
+  "rejections": {
+    "unusableOrUnknownBridgeTag": 458,
+    "outsideBoundaryOrDegenerate": 10,
+    "clippedAccessLostConnection": 7
+  },
+  "boundarySource": "https://www.openstreetmap.org/relation/913110",
+  "supplementRetained": true,
+  "supplementOnlyWays": 0,
+  "byDistrictAndRole": {
+    "Boundary waters / unassigned": {
+      "bridge": 15,
+      "access": 4
+    },
+    "Central and Western District": {
+      "access": 420,
+      "bridge": 803,
+      "elevated-link": 281
+    },
+    "Eastern District": {
+      "access": 364,
+      "bridge": 659,
+      "elevated-link": 126
+    },
+    "Islands District": {
+      "bridge": 1133,
+      "access": 505,
+      "elevated-link": 169
+    },
+    "Kowloon City District": {
+      "bridge": 496,
+      "access": 254,
+      "elevated-link": 38
+    },
+    "Kwai Tsing District": {
+      "bridge": 1218,
+      "elevated-link": 89,
+      "access": 476
+    },
+    "Kwun Tong District": {
+      "bridge": 1149,
+      "access": 477,
+      "elevated-link": 131
+    },
+    "Lok Ma Chau Loop": {
+      "bridge": 1
+    },
+    "North District": {
+      "bridge": 800,
+      "access": 634,
+      "elevated-link": 34
+    },
+    "Sai Kung District": {
+      "access": 459,
+      "bridge": 680,
+      "elevated-link": 182
+    },
+    "Sha Tin District": {
+      "bridge": 1332,
+      "access": 727,
+      "elevated-link": 179
+    },
+    "Sham Shui Po District": {
+      "bridge": 595,
+      "access": 256,
+      "elevated-link": 53
+    },
+    "Southern District": {
+      "access": 471,
+      "bridge": 596,
+      "elevated-link": 65
+    },
+    "Tai Po District": {
+      "access": 905,
+      "bridge": 908,
+      "elevated-link": 93
+    },
+    "Tsuen Wan District": {
+      "bridge": 1022,
+      "access": 517,
+      "elevated-link": 92
+    },
+    "Tuen Mun District": {
+      "access": 514,
+      "bridge": 992,
+      "elevated-link": 26
+    },
+    "Wan Chai District": {
+      "bridge": 533,
+      "access": 271,
+      "elevated-link": 60
+    },
+    "Wong Tai Sin District": {
+      "bridge": 423,
+      "access": 289,
+      "elevated-link": 26
+    },
+    "Yau Tsim Mong District": {
+      "bridge": 1224,
+      "access": 285,
+      "elevated-link": 205
+    },
+    "Yuen Long District": {
+      "bridge": 1029,
+      "access": 704,
+      "elevated-link": 15
+    }
+  },
+  "precision": "Coordinates projected from OSM and rounded to 0.01 m; no claim of centimetre source accuracy. No bridge line simplification.",
+  "districtDefinition": "Midpoint containment in the 18 retained OSM district boundaries, clipped to Hong Kong. Lok Ma Chau Loop is a separate source boundary. Boundary ties use a deterministic alphabetical choice; these are OSM geometry statistics, not an official bridge census.",
+  "completeness": "All usable tagged highway bridge/elevated walking segments in the retained snapshots, plus directly endpoint-connected access ways. OSM gaps and untagged inter-building links remain unknown."
+}

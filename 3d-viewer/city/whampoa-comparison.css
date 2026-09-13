@@ -1,0 +1,38 @@
+*{box-sizing:border-box}body{margin:0;background:#f3f4ed;color:#243a33;font:14px system-ui,-apple-system,sans-serif}header{padding:38px 4vw 25px;display:flex;justify-content:space-between;gap:22px;align-items:center}h1{font-size:clamp(25px,3vw,42px);letter-spacing:-1.4px;margin:12px 0}header p{color:#5f7065;line-height:1.6;margin:5px 0}.eyebrow{font-size:10px;letter-spacing:.18em}a{color:inherit;text-underline-offset:5px}nav{display:flex;align-items:center;gap:20px;padding:16px 4vw 26px;flex-wrap:wrap}select,button{font:inherit;background:#fafbf5;border:1px solid #becbbe;border-radius:8px;padding:10px;color:inherit}label{display:flex;align-items:center;gap:10px}main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:0 3vw}article{border:1px solid #ccd5c8;border-radius:16px;overflow:hidden;background:#f9faf4}.featured{border-color:#788f6d;box-shadow:0 0 0 1px #788f6d}.card-title{padding:23px 22px 12px;min-height:135px}.card-title span{font-size:9px;letter-spacing:.15em;color:#61765e}.card-title h2{font-size:25px;letter-spacing:-.6px;margin:10px 0}.card-title p{font-size:12px;color:#607064;line-height:1.5;margin:0}.viewport{height:360px;position:relative;background:#e8eee1;touch-action:none}.viewport canvas{display:block;width:100%;height:100%}.placeholder{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:25px;color:#66795f;line-height:1.7;pointer-events:none}.stats{min-height:50px;padding:4px 22px;font-size:12px;font-variant-numeric:tabular-nums;line-height:1.6}.notes{max-width:960px;margin:25px 4vw 50px;line-height:1.7}.notes>p:first-child{font-size:17px;font-weight:600}#qualification,details{color:#617063;font-size:12px}summary{cursor:pointer;padding:10px 0}button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid #315b42;outline-offset:4px}@media(max-width:850px){header{align-items:flex-start;flex-direction:column;padding-top:24px}main{grid-template-columns:1fr}.viewport{height:330px}.card-title{min-height:0;padding-top:18px}.stats{min-height:35px}nav{gap:12px}select{max-width:230px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+
+button[aria-pressed=true]{background:#315b42;color:#fff}button{min-height:44px;cursor:pointer}.model-label{position:absolute;transform:translate(-50%,-100%);font-size:10px;font-weight:600;text-align:center;max-width:155px;padding:3px 5px;background:#f3f4ede8;border-radius:4px;pointer-events:none}.overview .viewport{height:560px}.presentation header,.presentation .notes,.presentation .stats{display:none}.presentation nav{padding:12px 3vw}.presentation .card-title{min-height:95px;padding:14px 18px 8px}.presentation .card-title h2{font-size:20px;margin:5px 0}.presentation .viewport{height:calc(100vh - 180px);min-height:360px}select:disabled{opacity:.5}@media(max-width:850px){.overview .viewport{height:520px}.presentation .viewport{height:480px}.model-label{font-size:9px;max-width:125px}}
+
+#location-legend{display:flex;flex-wrap:wrap;gap:12px 34px;margin:18px 5vw;padding-left:18px;font-size:12px}#location-legend li{padding-left:2px}.model-label{min-width:20px;border:1px solid #aebfa6;border-radius:50%;font-size:11px}.presentation #location-legend{margin:8px 5vw;font-size:11px}.presentation .viewport{height:calc(100vh - 215px)}
+
+/* Full-width cinematic lanes retain a common camera and physical scale. */
+.overview main{grid-template-columns:1fr}.overview .viewport{height:clamp(220px,28vh,380px)}
+.overview .card-title{min-height:0;padding:10px 18px;display:flex;align-items:center;gap:16px}.overview .card-title h2{font-size:20px;margin:0}.overview .card-title p{margin-left:auto}.overview .stats{min-height:0;margin:4px 0;padding:4px 18px}
+.overview.presentation .viewport{height:max(180px,calc((100vh - 220px)/3))}.overview.presentation main{gap:8px}.overview.presentation .card-title{padding:6px 16px;min-height:0}.overview.presentation .card-title h2{font-size:17px}
+#flight-status{font-size:12px;color:#617063;min-width:120px}@media(max-width:600px){.overview .card-title p{display:none}.overview .viewport{height:240px}.overview.presentation .viewport{height:220px}}
+
+.overview.presentation .viewport{min-height:0}
+
+/* The gallery uses one fixed shared canvas behind independently framed cells. */
+.gallery-active #views,.gallery-active #location-legend,.gallery-active .notes,.gallery-active #overview,.gallery-active #flythrough,.gallery-active #spin,.gallery-active #reset,.gallery-active #flight-status,.gallery-active nav>label:first-child{display:none}
+.gallery-active header{display:none}.gallery-active nav{position:relative;z-index:2;background:#f3f4ed;padding:10px 3vw;margin:0}
+.gallery-canvas{position:fixed;inset:0;pointer-events:none;z-index:1}.gallery-canvas[hidden],#comparison-gallery[hidden]{display:none}
+#comparison-gallery{margin:0 3vw 18px;position:relative}.gallery-toolbar,.gallery-head,.gallery-row h3{position:relative;z-index:2;background:#f3f4ed}.gallery-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:8px 0;font-size:12px}.gallery-toolbar span{margin-left:auto;color:#617063}.gallery-toolbar input{max-width:130px}
+.gallery-head,.gallery-row{display:grid;grid-template-columns:150px repeat(3,minmax(0,1fr));gap:8px}.gallery-head{font-size:12px;font-weight:600;padding:8px 0;text-align:center}.gallery-row{border:0;border-radius:0;background:transparent;margin:0 0 6px}.gallery-row h3{margin:0;font-size:12px;display:flex;align-items:center;padding:10px}.gallery-cell{position:relative;z-index:2;height:clamp(76px,calc((100dvh - 200px)/7),150px);touch-action:none;border:1px solid #ccd5c8;cursor:grab}.roomy .gallery-cell{height:240px}
+@media(max-width:700px){.gallery-head{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-head span:first-child{display:none}.gallery-row{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-row h3{grid-column:1/-1;padding:5px}.gallery-cell{height:150px}.gallery-toolbar span{margin-left:0}.roomy .gallery-cell{height:230px}}
+
+@media(max-width:700px){.gallery-cell{touch-action:pan-y!important}}
+
+/* Gallery size is explicit and consistent across the three versions. */
+#comparison-gallery .gallery-cell{height:var(--gallery-cell-height,150px)}
+body:not(.gallery-active)>.gallery-canvas{display:none!important}
+
+#load-status{margin:0 3vw 18px;padding:12px 16px;border:1px solid #becbbe;border-radius:8px;line-height:1.6}#load-status[hidden]{display:none}#load-status[role=alert]{background:#fff3df}#load-retry{margin-left:12px}
+
+/* Tall location canvases keep the chosen height across locations and video view. */
+#views{max-width:1600px;margin-inline:auto;width:94%}
+#views .viewport{height:var(--location-view-height,640px);min-height:0}
+#location-size-control{font-size:12px;gap:8px;flex-wrap:wrap}
+#location-size{width:130px;min-height:32px;accent-color:#315b42}
+#location-size-value{min-width:48px;font-variant-numeric:tabular-nums}
+#location-size:focus-visible{outline:2px solid #315b42;outline-offset:4px}
+.gallery-active #location-size-control{display:none}

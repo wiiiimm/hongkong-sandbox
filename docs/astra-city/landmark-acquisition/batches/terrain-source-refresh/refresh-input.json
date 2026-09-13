@@ -1,0 +1,57 @@
+{
+  "issue": "HKS-214",
+  "basis": "Official archive repacked under new ETag; same native member CRC and byte sizes, new native offsets. Previous immutable snapshot held rather than using stale ranges.",
+  "previousETag": "\"30b4b2f-6598a4674b837\"",
+  "currentETag": "\"30b4b9c-65a904a99c060\"",
+  "sourceHEAD": {
+    "checkedAt": "2026-09-08T07:37:08.013875+00:00",
+    "url": "https://download.map.gov.hk/api/3d-zip/GLTF0/15-NW-3B.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
+    "headers": {
+      "Date": "Tue, 08 Sep 2026 07:37:07 GMT",
+      "Last-Modified": "Thu, 03 Sep 2026 08:53:53 GMT",
+      "ETag": "\"30b4b9c-65a904a99c060\"",
+      "Accept-Ranges": "bytes",
+      "Content-Length": "51071900",
+      "Content-Type": "application/zip"
+    }
+  },
+  "downloadPrerequisites": [
+    {
+      "sheet": "15-NW-3B",
+      "uids": [
+        "landsd/6946:0",
+        "landsd/7056:0",
+        "landsd/9050:0"
+      ],
+      "directory": {
+        "path": "source-scripts/city/landmark-acquisition/batches/terrain-final-increment/sources/15-NW-3B/zip-directory.bin",
+        "sha256": "cfb483a01a9a9d805cc7e9b67df9689dcfbeb6af947462db0e5b90e22b37d373",
+        "directoryProof": {
+          "completeEntries": 526,
+          "centralDirectoryBytes": 59602,
+          "centralDirectoryOffset": 51012276,
+          "directorySHA256": "cfb483a01a9a9d805cc7e9b67df9689dcfbeb6af947462db0e5b90e22b37d373"
+        },
+        "members": [
+          {
+            "name": "TERRAIN(TB)/T33750114000106E12/T33750114000106E12.bin",
+            "headerOffset": 4976463,
+            "crc32": 1531618836,
+            "compressedBytes": 8095203,
+            "decodedBytes": 23306400
+          },
+          {
+            "name": "TERRAIN(TB)/T33750114000106E12/T33750114000106E12.gltf",
+            "headerOffset": 13071777,
+            "crc32": 897121736,
+            "compressedBytes": 783,
+            "decodedBytes": 2507
+          }
+        ],
+        "compressedGeometryBytes": 8095986
+      },
+      "status": "bounded-native-geometry-members-listed",
+      "publicationOrTerrainCorrectionApproved": false
+    }
+  ]
+}

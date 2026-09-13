@@ -1,0 +1,6 @@
+"""Adapt the existing parent-aligned native terrain pipeline to the reserved residual batch."""
+import json,sys,pathlib,importlib.util
+ROOT=pathlib.Path(__file__).resolve().parents[3];HERE=pathlib.Path(__file__).resolve().parent;DOC=ROOT/'docs/astra-city/residual-support-review';sys.path.insert(0,str(ROOT/'source-scripts/city/assembly-support-review'));import terrain_patches as t
+read=lambda p:json.loads(p.read_bytes());audit=read(DOC/'native-audit.json');selected=read(DOC/'selection.json');support=read(DOC/'support.json');byuid={r['uid']:r for r in support['rows']}
+targets=[r for r in audit['rows'] if r['uid']in selected['podiumUids'] and r['nativeRim']['covered']==r['nativeRim']['samples'] and r['nativeRim']['within2m']==r['nativeRim']['samples'] and byuid[r['uid']]['rimCounts']['belowTerrain']>0];sources={s['manifest']:s for r in audit['rows'] for s in r['sources']}
+(DOC/'native-terrain.json').write_text(json.dumps({'sources':list(sources.values()),'sourceGridProposals':[{'uid':r['uid']}for r in targets],'basis':'Full native-rim coverage and prior current-terrain burial, confirmed from exact native source facets.'},indent=2)+'\n');(DOC/'report.json').write_text(json.dumps(support,indent=2)+'\n');t.HERE=HERE;t.OUT=DOC;t.main()

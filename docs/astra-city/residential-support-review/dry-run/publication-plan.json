@@ -1,0 +1,57 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/residential-support-review/publication-plan.json",
+  "areas": [
+    {
+      "area": "Reviewed native support assemblies",
+      "models": 55,
+      "catalogue": "city/data/official-models/native-support-review-20260909/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-lohas-club-galaxy.json": null,
+    "3d-viewer/city/data/official-models/native-support-review-20260909/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "6dae90ad9cfe48d89fee657960e313b28cf464c9bde8e6e9d7168dc752293b81"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-lohas-club-galaxy.json": "9af2a457034363f3aa66d449aa1eb901882112b8ab9385a2d1bf289acd087bd2",
+    "3d-viewer/city/data/official-models/native-support-review-20260909/catalogue.json": "cab87c614ef1c3bb0362c97639ab18a3126ee32d8b475818a2ee6bcee20972f8",
+    "3d-viewer/city/data/manifest.json": "fce254757a0502f3f7ef119507c40ca70ebebc3398624081eb7360f1a05fa3a7"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "2e518b8f522b571118ec5b3405b3c8078dae1ae9",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-lohas-club-galaxy.json",
+      "resolution": 1,
+      "area": "LOHAS Club Galaxy source terrain",
+      "source": {
+        "provider": "Lands Department / HKSAR Government",
+        "crs": "EPSG:2326",
+        "verticalDatum": "HKPD",
+        "manifest": "source-scripts/city/residential-support-review/native-terrain/staged/12-SW-1D/manifest.json",
+        "manifestSha256": "79c005766c88d58a7359a095bc3a87bb8d827151c0f6a1e070562fe694d2a6a6",
+        "sourceHashes": {
+          "TERRAIN(TB)/T45750168000106E10/T45750168000106E10.gltf": "158bb576008c540c755b004ab24415c3e067898d9f10c64f357b60b27607c5a7",
+          "TERRAIN(TB)/T45750168000106E10/T45750168000106E10.bin": "dddc8522efeb7ae93588ecae912b9065d7b9a3a89d4e47fde9fcabb60a3f1e21"
+        },
+        "policy": "Exact retained native TIN barycentric samples at 1m intervals; interval is not surveyed accuracy. 10m outer display transition to existing parent triangles; absent source and existing water retain prior terrain. Model elevations unchanged."
+      },
+      "sha256": "9af2a457034363f3aa66d449aa1eb901882112b8ab9385a2d1bf289acd087bd2",
+      "bytes": 569241
+    }
+  ],
+  "estimatedBases": []
+}

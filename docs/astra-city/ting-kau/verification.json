@@ -1,0 +1,63 @@
+{
+  "status": "staged-source-checks-pass",
+  "verifiedAt": "2026-09-06T20:01:54.111497+00:00",
+  "sourceModels": 1,
+  "sourceTriangles": 16995,
+  "illustrativeTriangles": 4104,
+  "matchedBuildingUids": 3,
+  "suppressedOsmProxies": 13,
+  "tingKauPartialProxyClips": 0,
+  "tests": {
+    "tingKau": 8,
+    "tsingMaCompatibility": 8,
+    "sourceEntryHashes": "pass",
+    "combinedSeamHydroAudit": "pass",
+    "combinedSharedRuntimeHelpers": "pass"
+  },
+  "payloads": [
+    {
+      "path": "source-scripts/city/ting-kau/bridges-ting-kau.json",
+      "bytes": 7263487,
+      "gzipBytes": 524882,
+      "sha256": "d6368791408c8bd624265aedd51951f922629f78f227e8930df64cc0894e6511"
+    },
+    {
+      "path": "source-scripts/city/ting-kau/cables-ting-kau.json",
+      "bytes": 1678399,
+      "gzipBytes": 169740,
+      "sha256": "c7fbae7c688683d3cc1191545684197b8c45ec1766c7d027c47fd3ea8902ffa6"
+    },
+    {
+      "path": "source-scripts/city/ting-kau/terrain-ting-kau.json",
+      "bytes": 1110751,
+      "gzipBytes": 127010,
+      "sha256": "8ae601dacf08e6735fd5789c393ad828f4b52f9055ef0eb2d1f261f0839c7dd0"
+    },
+    {
+      "path": "source-scripts/city/ting-kau/hydro-ting-kau.json",
+      "bytes": 597390,
+      "gzipBytes": 90448,
+      "sha256": "bc53f8073882300c80e5d7443d95e54ed29f3f3b20f84de3a011bd761a26dc77"
+    },
+    {
+      "path": "source-scripts/city/ting-kau/combined/terrain-tsing-ma-ting-kau.json",
+      "bytes": 4155839,
+      "gzipBytes": 363496,
+      "sha256": "cca3ebf9676b06e9bbcac02161d99fb98bade65ce709cf5ffdf3b4805c23fc37"
+    },
+    {
+      "path": "source-scripts/city/ting-kau/combined/hydro-tsing-ma-ting-kau.json",
+      "bytes": 1733001,
+      "gzipBytes": 254810,
+      "sha256": "661fa9333af9edc90b3b70bbee9d2c9a4c73aa4940463c2a348532a5905d4b26"
+    }
+  ],
+  "gpuUsed": false,
+  "livePublished": false,
+  "imagesInspected": [
+    "source-infrastructure-inspection.png",
+    "source-with-illustrative-stays.png",
+    "combined/source-plan-2400x1920.png"
+  ],
+  "integrationNote": "Use common terrain/hydro instead of loading isolated overlapping patches. Root owns generic adapter and browser acceptance."
+}

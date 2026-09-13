@@ -1,0 +1,395 @@
+{
+  "issue": "HKS-214",
+  "staged": true,
+  "bundles": [
+    {
+      "parentTerrainURL": "city/data/terrain.json",
+      "parentSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+      "patches": [
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-103538-0.json",
+          "sha256": "e6b199c86cb6cb8af1753d4acff9063136f7725d54e0ba31a1cd5c8be3c50ca3",
+          "uids": [
+            "landsd/103538:0",
+            "landsd/176291:0",
+            "landsd/176748:0"
+          ],
+          "coarseCells": [
+            526,
+            483,
+            529,
+            486
+          ]
+        },
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-232804-0.json",
+          "sha256": "0a96eaecf0f0a973e34e11b506c77679eeedeff549d2f328ee1f4e65c7f15fc8",
+          "uids": [
+            "landsd/232804:0"
+          ],
+          "coarseCells": [
+            525,
+            458,
+            527,
+            460
+          ]
+        },
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-242294-0.json",
+          "sha256": "f554dc3561908cfcde8373d1e08956f84b702ceb162488a777c1c7d9dbf5f4cf",
+          "uids": [
+            "landsd/242294:0",
+            "landsd/263404:0"
+          ],
+          "coarseCells": [
+            494,
+            388,
+            498,
+            391
+          ]
+        },
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-244779-0.json",
+          "sha256": "c884b5c2029c909a4c251499562c91fd7d550ba6e5faa47a0dc7ed0cb605d69d",
+          "uids": [
+            "landsd/244779:0"
+          ],
+          "coarseCells": [
+            504,
+            365,
+            507,
+            367
+          ],
+          "replacesExistingManifestPatches": [
+            "city/data/roof-review-226248-0.json"
+          ],
+          "preservedExistingSha256": "4a81afe8e57675044d34befeecc6badc3920f2fa864855613bd43a5167396646"
+        },
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-322191-0.json",
+          "sha256": "7d31cdebaf661801d77da3d5607fdb90951b0db6b982a3305d3cbd045a96ef7e",
+          "uids": [
+            "landsd/322191:0"
+          ],
+          "coarseCells": [
+            443,
+            457,
+            444,
+            459
+          ]
+        },
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-337475-0.json",
+          "sha256": "61c0ffd3e8f1bd4cb88552588c4d5be50e40de017f09dd0e6332f5b621b73936",
+          "uids": [
+            "landsd/337475:0"
+          ],
+          "coarseCells": [
+            568,
+            454,
+            570,
+            456
+          ]
+        }
+      ]
+    },
+    {
+      "parentTerrainURL": "city/data/terrain-central.json",
+      "parentSha256": "4a10d22846c0764bf532e81734811fa9f6f34f197d444f27db4f588aacebbab2",
+      "patches": [
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-181141-0.json",
+          "sha256": "4fd59d21b0f4870baaa933878639c5464075e3c0f232f8d75c5af24d14fdbfdc",
+          "uids": [
+            "landsd/181141:0"
+          ],
+          "coarseCells": [
+            422,
+            422,
+            441,
+            437
+          ]
+        },
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-213822-0.json",
+          "sha256": "589f6a8ace89bfe50f642c1e5cb72fdb558f344d1e27848b793b4038994be608",
+          "uids": [
+            "landsd/213822:0"
+          ],
+          "coarseCells": [
+            232,
+            357,
+            245,
+            375
+          ]
+        },
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-232907-0.json",
+          "sha256": "ea1e473e7a378df6f75350f9d10d225d9b2ad1cc79d1412c12c9eba1f2bc845d",
+          "uids": [
+            "landsd/232907:0",
+            "landsd/263590:0"
+          ],
+          "coarseCells": [
+            238,
+            527,
+            258,
+            546
+          ]
+        },
+        {
+          "path": "source-scripts/city/assembly-support-review/terrain-patches/support-native-257313-0.json",
+          "sha256": "d3b724cfeb76199ca5266d8759154bfab8a88862c174af71bd21ae1e9bb602ec",
+          "uids": [
+            "landsd/257313:0"
+          ],
+          "coarseCells": [
+            62,
+            349,
+            78,
+            362
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-103538-0.json",
+      "rows": [
+        {
+          "uid": "landsd/103538:0",
+          "samples": 20,
+          "within2m": 20,
+          "gapRange": [
+            -0.5342916982421855,
+            -0.04735102343747144
+          ]
+        },
+        {
+          "uid": "landsd/176291:0",
+          "samples": 57,
+          "within2m": 47,
+          "gapRange": [
+            -29.30366891015626,
+            -2.2070312866162567e-07
+          ]
+        },
+        {
+          "uid": "landsd/176748:0",
+          "samples": 79,
+          "within2m": 59,
+          "gapRange": [
+            -23.436587455078126,
+            0.06377951953123784
+          ]
+        }
+      ],
+      "gridNodes": 44521,
+      "nativeCoveredNodes": 44521,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": false
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-232804-0.json",
+      "rows": [
+        {
+          "uid": "landsd/232804:0",
+          "samples": 11,
+          "within2m": 11,
+          "gapRange": [
+            -0.11102555615234655,
+            -0.0013184731445310405
+          ]
+        }
+      ],
+      "gridNodes": 19881,
+      "nativeCoveredNodes": 19881,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-242294-0.json",
+      "rows": [
+        {
+          "uid": "landsd/242294:0",
+          "samples": 32,
+          "within2m": 32,
+          "gapRange": [
+            -0.06327691268920876,
+            0.1336744983825655
+          ]
+        },
+        {
+          "uid": "landsd/263404:0",
+          "samples": 94,
+          "within2m": 94,
+          "gapRange": [
+            -0.14242609365844583,
+            0.008729175628663377
+          ]
+        }
+      ],
+      "gridNodes": 59291,
+      "nativeCoveredNodes": 59291,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-244779-0.json",
+      "rows": [
+        {
+          "uid": "landsd/244779:0",
+          "samples": 73,
+          "within2m": 73,
+          "gapRange": [
+            -0.993557517944339,
+            0.13606056875705974
+          ]
+        }
+      ],
+      "gridNodes": 29751,
+      "nativeCoveredNodes": 29751,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true,
+      "preservedExistingPatch": {
+        "url": "city/data/roof-review-226248-0.json",
+        "sha256": "4a81afe8e57675044d34befeecc6badc3920f2fa864855613bd43a5167396646",
+        "nodesCopiedExactly": 19881,
+        "transition": "10m western strip blends to exact installed child boundary; installed rectangle unchanged."
+      }
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-322191-0.json",
+      "rows": [
+        {
+          "uid": "landsd/322191:0",
+          "samples": 22,
+          "within2m": 22,
+          "gapRange": [
+            -0.033432394927984,
+            0.05703096200562019
+          ]
+        }
+      ],
+      "gridNodes": 10011,
+      "nativeCoveredNodes": 10011,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-337475-0.json",
+      "rows": [
+        {
+          "uid": "landsd/337475:0",
+          "samples": 17,
+          "within2m": 17,
+          "gapRange": [
+            -0.27359877886963346,
+            0.004537439758292905
+          ]
+        }
+      ],
+      "gridNodes": 19881,
+      "nativeCoveredNodes": 19881,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-181141-0.json",
+      "rows": [
+        {
+          "uid": "landsd/181141:0",
+          "samples": 8,
+          "within2m": 7,
+          "gapRange": [
+            -3.731617724639893,
+            0.028205585906984965
+          ]
+        }
+      ],
+      "gridNodes": 7296,
+      "nativeCoveredNodes": 7296,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": false
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-213822-0.json",
+      "rows": [
+        {
+          "uid": "landsd/213822:0",
+          "samples": 16,
+          "within2m": 15,
+          "gapRange": [
+            -3.6198443417968633,
+            0.03282115161131571
+          ]
+        }
+      ],
+      "gridNodes": 6006,
+      "nativeCoveredNodes": 6006,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": false
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-232907-0.json",
+      "rows": [
+        {
+          "uid": "landsd/232907:0",
+          "samples": 37,
+          "within2m": 30,
+          "gapRange": [
+            -9.733007948242175,
+            0.4914852333984072
+          ]
+        },
+        {
+          "uid": "landsd/263590:0",
+          "samples": 16,
+          "within2m": 7,
+          "gapRange": [
+            -4.095358417968754,
+            19.194026358398446
+          ]
+        }
+      ],
+      "gridNodes": 9696,
+      "nativeCoveredNodes": 9696,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": false
+    },
+    {
+      "patch": "source-scripts/city/assembly-support-review/terrain-patches/support-native-257313-0.json",
+      "rows": [
+        {
+          "uid": "landsd/257313:0",
+          "samples": 2,
+          "within2m": 0,
+          "gapRange": [
+            -20.512864878906242,
+            -12.22419067919921
+          ]
+        }
+      ],
+      "gridNodes": 5346,
+      "nativeCoveredNodes": 5346,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": false
+    }
+  ],
+  "held": [],
+  "inputReportSha256": "71e815e524081112b97a1d430028569637a0b37fb76735c3f6173077c8063321",
+  "nativeEvidenceSha256": "762ab39b736cbf47cbabf4055a6df3d1963a76824fdb694f4176b1676f50fb29",
+  "integration": "Append children only to hash-matched existing parent. Root coarse children must be manifest terrain patches, not overwritten by app terrainPatches assignment. Parent renderer omits coarseCells exactly once. Run combined roof/foundation and browser checks before publication.",
+  "publicationApproved": false
+}

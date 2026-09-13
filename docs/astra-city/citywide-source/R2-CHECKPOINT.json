@@ -1,0 +1,70 @@
+{
+  "issue": "HKS-221",
+  "sourceGitCommit": "5b6f9cdb8583519a8e41c327476d33a2525e5dba",
+  "manifestSHA256": "584544ffe89c161b9900d5787f4c7dfec0db8c5d1cf9baa1fd3dce038870c0ea",
+  "manifestKey": "astra-modelling/snapshots/584544ffe89c161b9900d5787f4c7dfec0db8c5d1cf9baa1fd3dce038870c0ea.json",
+  "archive": {
+    "archive": "source-scripts/city/citywide-source/local/citywide-d9b936a9baca1847cb91f812cec3e08c9a3af7568f32e4539fb25fb1d50448e7.tar.gz",
+    "sha256": "d9b936a9baca1847cb91f812cec3e08c9a3af7568f32e4539fb25fb1d50448e7",
+    "compressedBytes": 109697065,
+    "files": 10387,
+    "decodedBytes": 304801063
+  },
+  "upload": {
+    "verifiedObjects": 1,
+    "verifiedBytes": 109697065,
+    "uploadedObjects": 1,
+    "uploadedBytes": 109697065,
+    "seconds": 14.412
+  },
+  "restore": {
+    "remoteTransfer": {
+      "verifiedObjects": 1,
+      "verifiedBytes": 109697065,
+      "uploadedObjects": 0,
+      "uploadedBytes": 0,
+      "seconds": 0.861
+    },
+    "restoredEntries": 1,
+    "gitCommit": "5b6f9cdb8583519a8e41c327476d33a2525e5dba",
+    "manifestSHA256": "584544ffe89c161b9900d5787f4c7dfec0db8c5d1cf9baa1fd3dce038870c0ea",
+    "bucket": "hk-sandbox-assets",
+    "prefix": "astra-modelling/",
+    "operation": "restore"
+  },
+  "verifiedExtractedFiles": 10387,
+  "restoredAudit": {
+    "runId": "e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8",
+    "expected": 346115,
+    "cached": 346115,
+    "missing": 0,
+    "flags": {
+      "sampled-base-above-terrain": 25302,
+      "sampled-roof-partly-below-terrain": 35179,
+      "sampled-roof-wholly-below-terrain": 19892
+    },
+    "detail": {
+      "basic": 341852,
+      "embedded": 1859,
+      "native-catalogue": 2404
+    },
+    "terrain": {
+      "sampled-source-footprint-envelope": 346115
+    },
+    "issue": "HKS-221",
+    "batch": "HKS-221-restored-checkout-proof",
+    "reusedAtStart": 346115,
+    "newlyAudited": 0,
+    "seconds": 28.92,
+    "tiles": 452,
+    "pipelineSha": "d3d92c2ab3f45d36acd8ffbd27bf8eee9c695dfb9d55512384a1c971c6de310b",
+    "scope": "Deterministic source-form metadata and finite footprint-envelope terrain sampling only; no native triangle, collision or visual approval.",
+    "limits": [
+      "Finite footprint boundary/midpoint/interior-centre samples; not exhaustive terrain intersection.",
+      "Native asset identity and local SHA availability only; native triangles, collision, architecture and visual acceptance not checked.",
+      "No source acquisition, model publication, model-review ledger updates or AI calls.",
+      "Terrain dependency hashes include root terrain plus intersecting ordered patches; unrelated sibling patches are excluded."
+    ]
+  },
+  "qualification": "Fresh R2 cache and restored checkout on the same Mac; prior native-model pause checkpoint retained, existing Python/Node/private Neon configuration reused. Not a different-OS validation."
+}

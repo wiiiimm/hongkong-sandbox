@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "staged": true,
+  "published": false,
+  "models": 3,
+  "loaderAccepted": 3,
+  "checksPassed": 3,
+  "exceptions": 0,
+  "terrainRays": 3,
+  "seconds": 0.124498917,
+  "peakRSSBytes": 467795968,
+  "compressedBytes": 5507,
+  "concerns": {},
+  "hashes": {
+    "source-scripts/city/architecture-followup/compact/catalogue-index.json": "685301f7394940d477698095875d4e0f28b8dcf1d9e4c31fa27028128b9df6d2",
+    "source-scripts/city/architecture-followup/compact/catalogue.json": "1d921f6f65a303ad5401c9651158ca76ecf5eea363ae2e15a314edbe8a22dbf4",
+    "3d-viewer/city/data/manifest.json": "565311da952f899e472e5e6866604e98ce9c1baca3b256b03510e59f0f06be50",
+    "3d-viewer/city/data/terrain.json": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+    "3d-viewer/city/data/terrain-mui-wo.json": "adb88f05e5dacce2a901b13a6e8d52efc859bc915f22a3ad0a1a4f836e12c81c",
+    "3d-viewer/city/data/terrain-tai-o.json": "b6246e0adab984a9acf22d77fdd0139b142b1b82d68b82451f25678437ac04fb",
+    "3d-viewer/city/data/terrain-tsing-ma-ting-kau.json": "b2cb47df47252b2c1f15cd10e33cb5b6c58e65c40b2f94ddb96d3a70f3162d8f",
+    "3d-viewer/city/data/terrain-central.json": "4a10d22846c0764bf532e81734811fa9f6f34f197d444f27db4f588aacebbab2",
+    "3d-viewer/city/data/terrain-pui-o.json": "e5efbcb86ae24bdc8a913556667d8f6f1e7a19db936bd71f0caa568735b0cb10",
+    "3d-viewer/city/data/terrain-ngong-ping.json": "a3e51405b2a2aec526c22da29c72e395f7d943c4f4f360ffb54d874d3962a620",
+    "3d-viewer/city/data/tiles/0_0.json": "6a3b9c6b18dfab5a94b46127bdfa5f9cdefe8e86179737c8f0e4d5586c0458e8"
+  },
+  "results": [
+    {
+      "uid": "landsd/3089:0",
+      "modelId": "B350891508801063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "triangles": 12,
+      "compressedBytes": 837,
+      "residentBudgetBytes": 70336,
+      "terrain": {
+        "sampleCount": 27,
+        "minGround": 52.21494000000134,
+        "maxGround": 53.48490400000823,
+        "roofGround": 52.53463997395522,
+        "roof": [
+          589.3977864583334,
+          56.32699966430664,
+          1415.1858723958333
+        ],
+        "sourceYBounds": [
+          53.5260009765625,
+          56.32699966430664
+        ],
+        "resolutions": [
+          5
+        ]
+      },
+      "concerns": [],
+      "seconds": 0.08234333300000003
+    },
+    {
+      "uid": "landsd/3090:0",
+      "modelId": "B350871509201063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "triangles": 10,
+      "compressedBytes": 798,
+      "residentBudgetBytes": 69584,
+      "terrain": {
+        "sampleCount": 31,
+        "minGround": 52.26040400000218,
+        "maxGround": 53.506071999997616,
+        "roofGround": 53.07732031249861,
+        "roof": [
+          588.7076822916666,
+          56.731998443603516,
+          1406.169921875
+        ],
+        "sourceYBounds": [
+          53.5260009765625,
+          56.731998443603516
+        ],
+        "resolutions": [
+          5
+        ]
+      },
+      "concerns": [],
+      "seconds": 0.021123459000000025
+    },
+    {
+      "uid": "landsd/4314:0",
+      "modelId": "B351061509301063C0",
+      "outcome": "runtime-accepted-placement-unreviewed",
+      "triangles": 120,
+      "compressedBytes": 3872,
+      "residentBudgetBytes": 114688,
+      "terrain": {
+        "sampleCount": 41,
+        "minGround": 53.18641000000201,
+        "maxGround": 54.38972600000257,
+        "roofGround": 53.8,
+        "roof": [
+          603.822265625,
+          59.101000467936196,
+          1406.7884114583333
+        ],
+        "sourceYBounds": [
+          53.79800033569336,
+          59.7130012512207
+        ],
+        "resolutions": [
+          5
+        ]
+      },
+      "concerns": [],
+      "seconds": 0.020531207999999992
+    }
+  ],
+  "limits": [
+    "CPU loader, source-surface picking/collision and sampled terrain screening; no GPU/browser performance or architecture acceptance.",
+    "Terrain flags are diagnostics, not automatic rejection: piers, overhangs, slopes and elevated infrastructure need contextual review.",
+    "Sampling is not an exhaustive foundation or roof test. Native source geometry stays unchanged. No viewer publication."
+  ]
+}

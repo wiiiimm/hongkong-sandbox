@@ -1,0 +1,3121 @@
+{
+  "issue": "HKS-208",
+  "stagedOnly": true,
+  "verticalScale": 1,
+  "nativeElevationDatum": "HKPD",
+  "catalogueSha256": "decc48a6c6c41f35342ef716f112f1205da284dfef16a2e100d03a64580ce896",
+  "validationSha256": "61fdc5af2c4fbe1ce3bee10a592fd7d3483b1853cb0155d1a5d741d3024dc0c0",
+  "currentTerrainSha256": "4a10d22846c0764bf532e81734811fa9f6f34f197d444f27db4f588aacebbab2",
+  "models": 27,
+  "catalogueModels": 31,
+  "skipped": [
+    {
+      "uid": "landsd/322573:0",
+      "label": "Opus Hong Kong",
+      "reason": "Outside bounded Central terrain/source-context scope; separate placement review required."
+    },
+    {
+      "uid": "landsd/248218:0",
+      "label": "The Peak Tower",
+      "reason": "Outside bounded Central terrain/source-context scope; separate placement review required."
+    },
+    {
+      "uid": "landsd/252035:0",
+      "label": "HYSAN PLACE",
+      "reason": "Outside bounded Central terrain/source-context scope; separate placement review required."
+    },
+    {
+      "uid": "landsd/319803:0",
+      "label": "Hysan Place",
+      "reason": "Outside bounded Central terrain/source-context scope; separate placement review required."
+    }
+  ],
+  "holds": [
+    "landsd/114964:0",
+    "landsd/330467:0",
+    "landsd/223348:0"
+  ],
+  "browserFoundationChecks": [
+    "landsd/16901:0",
+    "landsd/263599:0",
+    "landsd/105155:0",
+    "landsd/262589:0",
+    "landsd/61477:0",
+    "landsd/181520:0",
+    "landsd/223783:0"
+  ],
+  "sourceTerrain": [
+    {
+      "tile": "11-SW-8D",
+      "revision": "2026-08-27T16:00:00+00:00",
+      "sourceHashes": {
+        "TERRAIN(TB)/T33750156000106E12/T33750156000106E12.gltf": "a1b30527719c4e397138c473104b3601716b35a0eb7cdcc06bace0c3ad3608aa",
+        "TERRAIN(TB)/T33750156000106E12/T33750156000106E12.bin": "8fdba2d721f7832a98be30e82756ceb5ba4403bf4df650bbed33197438ba4c0d"
+      }
+    },
+    {
+      "tile": "11-SW-9C",
+      "revision": "2026-04-23T16:00:00+00:00",
+      "sourceHashes": {
+        "TERRAIN(TB)/T34500156000106E11/T34500156000106E11.gltf": "bc49aa47e4238047727a274777ae7c02f08e436858bb2f750494b148fba003e6",
+        "TERRAIN(TB)/T34500156000106E11/T34500156000106E11.bin": "0b0db415070d38b6b1efbd22e5fb167da268b4150dcd334c62d584a294dc01fb"
+      }
+    },
+    {
+      "tile": "11-SW-14A",
+      "revision": "2025-12-21T16:00:00+00:00",
+      "sourceHashes": {
+        "TERRAIN(TB)/T34500150000106E10/T34500150000106E10.gltf": "9be5727f7f1b581c915c45380954b2774c695b92fe70008298b487007c935914",
+        "TERRAIN(TB)/T34500150000106E10/T34500150000106E10.bin": "6e1e84e9d3889cc39dbef070c2159f28c9b319ad79481bc560bcf0b9d6fd9023"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "uid": "landsd/235860:0",
+      "label": "Police Headquarters Block",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        35.9,
+        57.1
+      ],
+      "nativeBaseTop": [
+        35.612998962402344,
+        58.810001373291016
+      ],
+      "sourceFootprintArea": 1107.8900425000004,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          35.612998962402344,
+          53.595001220703125,
+          56.56999969482422,
+          57.097999572753906,
+          58.760698318481445,
+          58.810001373291016
+        ],
+        "verticesWithin05mOfTop": 24,
+        "topVertexBoundsXZ": [
+          [
+            -603.0322265625,
+            612.64453125
+          ],
+          [
+            -553.162109375,
+            634.453125
+          ]
+        ],
+        "verticesAboveRecordedTop": 28
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 746,
+        "belowCurrentTerrainBy05m": 4,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 3,
+        "nearBottomCurrentGroundRange": [
+          35.80734570312505,
+          36.095335937499996
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.19434674072270752,
+          -0.1528407592773675,
+          -0.1113347778320275,
+          -0.09362969970703006,
+          -0.07592462158203261
+        ],
+        "nativeTerrainCoveredVertices": 746,
+        "currentMinusNativeTerrainQuantiles": [
+          -2.234691217008212,
+          -0.14793893179150253,
+          0.0013576029992989902,
+          0.2227866516113366,
+          4.0376501864757515
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.0038178405275175464,
+          -0.0026009216944800073,
+          -0.0013840028614424682,
+          -0.000545395852743269,
+          0.0002932111559559303
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 419,
+        "coverageArea": 1107.8900425000002,
+        "minimum": 35.612998962402344,
+        "maximum": 45.52299880981447,
+        "maximumPoint": [
+          -585.6624648860709,
+          625.1788304798746
+        ],
+        "centre": 41.93043426316135,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 1.0000000000000002,
+        "centroidDistanceMetres": 1.147455958584926,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339231587901063C0/B339231587901063C0.gltf": "e34f53a49a31646304a28bb2a831dd5fb9f8ce4e7b817993cdcd07a7d197908e",
+          "BUILDING/B339231587901063C0/B339231587901063C0.bin": "c4dc11ff1d6be29bb35f2d8e6815808706bcde533e42df5fb2ea0f9d67aedc2b"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/267623:0",
+      "label": "Armoury",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        45.8,
+        56.1
+      ],
+      "nativeBaseTop": [
+        40.04286575317383,
+        56.13199996948242
+      ],
+      "sourceFootprintArea": 241.61588400000088,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          40.04286575317383,
+          49.8619499206543,
+          54.97700119018555,
+          55.9379997253418,
+          56.13199996948242,
+          56.13199996948242
+        ],
+        "verticesWithin05mOfTop": 6,
+        "topVertexBoundsXZ": [
+          [
+            -615.16796875,
+            629.23828125
+          ],
+          [
+            -607.484375,
+            641.0703125
+          ]
+        ],
+        "verticesAboveRecordedTop": 0
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 83,
+        "belowCurrentTerrainBy05m": 1,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 1,
+        "nearBottomCurrentGroundRange": [
+          40.112414062499944,
+          40.112414062499944
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.069548309326116,
+          -0.069548309326116,
+          -0.069548309326116,
+          -0.069548309326116,
+          -0.069548309326116
+        ],
+        "nativeTerrainCoveredVertices": 83,
+        "currentMinusNativeTerrainQuantiles": [
+          -1.187615949498678,
+          -0.2890802634602281,
+          0.004000854492190342,
+          0.3852676167336462,
+          3.735005529230264
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          0.0017315684446259638,
+          0.0017315684446259638,
+          0.0017315684446259638,
+          0.0017315684446259638,
+          0.0017315684446259638
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 132,
+        "coverageArea": 241.61588400000167,
+        "minimum": 39.91615961792292,
+        "maximum": 45.858001708984375,
+        "maximumPoint": [
+          -617.9931640625,
+          640.583984375
+        ],
+        "centre": 43.395906604193655,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9856158174068232,
+        "centroidDistanceMetres": 0.805821891643368,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B338891586301063C0/B338891586301063C0.gltf": "d8ef1af3b410861b38cc6e91a6c4c2dae39a6e60bbe6a31c2c0045f4335c4d18",
+          "BUILDING/B338891586301063C0/B338891586301063C0.bin": "cab683dcc0f9d24589dbe1a024b63256d72f4a66c7fcdec6e45731222ce60c61"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/261799:0",
+      "label": "Married Sergeants' Quarters",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        43.1,
+        54.2
+      ],
+      "nativeBaseTop": [
+        40.42101287841797,
+        55.02301025390625
+      ],
+      "sourceFootprintArea": 156.33629499999995,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          40.42101287841797,
+          49.406009674072266,
+          54.2758113861084,
+          55.02301025390625,
+          55.02301025390625,
+          55.02301025390625
+        ],
+        "verticesWithin05mOfTop": 8,
+        "topVertexBoundsXZ": [
+          [
+            -542.396484375,
+            641.537109375
+          ],
+          [
+            -531.2900390625,
+            646.740234375
+          ]
+        ],
+        "verticesAboveRecordedTop": 8
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 94,
+        "belowCurrentTerrainBy05m": 2,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          41.07710351562496,
+          41.169921875
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.737875793457043,
+          -0.5180544967651386,
+          -0.4144360046386524,
+          -0.36404578399655385,
+          -0.3039093017578125
+        ],
+        "nativeTerrainCoveredVertices": 94,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.4423558990197094,
+          -0.11924919913086995,
+          -0.0009043178842347288,
+          0.3085909694806688,
+          1.0267507982006947
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.010485312958088855,
+          -0.0068977088176467305,
+          -0.005220535877271004,
+          -0.0030849494949745093,
+          0.0018778949712299209
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 78,
+        "coverageArea": 156.33629500000018,
+        "minimum": 40.53779235627058,
+        "maximum": 42.42900085449219,
+        "maximumPoint": [
+          -530.23046875,
+          642.16015625
+        ],
+        "centre": 41.80428291433627,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 1.0,
+        "centroidDistanceMetres": 0.23405788608329572,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339641585401063C0/B339641585401063C0.gltf": "9df5a8b2b330f3ee04d9fdbb7e9982400575be86908b25c98411fceb86726800",
+          "BUILDING/B339641585401063C0/B339641585401063C0.bin": "bb4f98aced8c2b62b18ca54aa3c93686dd793743dc6c2ec31cf4d43fcd92082d"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/230105:0",
+      "label": "Single Inspectors' Quarters",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        41.9,
+        54.2
+      ],
+      "nativeBaseTop": [
+        38.277000427246094,
+        54.95399856567383
+      ],
+      "sourceFootprintArea": 82.62699699999996,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          38.277000427246094,
+          48.297000885009766,
+          53.474999618530276,
+          54.2859992980957,
+          54.95399856567383,
+          54.95399856567383
+        ],
+        "verticesWithin05mOfTop": 4,
+        "topVertexBoundsXZ": [
+          [
+            -534.3125,
+            626.5390625
+          ],
+          [
+            -532.6279296875,
+            629.2724609375
+          ]
+        ],
+        "verticesAboveRecordedTop": 4
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 98,
+        "belowCurrentTerrainBy05m": 4,
+        "belowNativeTerrainBy05m": 2,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 2,
+        "nearBottomCurrentGroundRange": [
+          38.512082031249996,
+          38.574486328125
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.2350816040039021,
+          -0.1689327621459924,
+          -0.1027839202880827,
+          -0.036635078430172996,
+          0.029513763427736706
+        ],
+        "nativeTerrainCoveredVertices": 98,
+        "currentMinusNativeTerrainQuantiles": [
+          -1.3484539575283492,
+          -0.052025886966072576,
+          0.16225287893562879,
+          0.28649453448874596,
+          0.866614980977559
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.0021765397878610315,
+          -0.00150594124168002,
+          -0.0008353426954990084,
+          -0.00016474414931799686,
+          0.0005058543968630147
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 44,
+        "coverageArea": 82.62699699999992,
+        "minimum": 38.277000427246094,
+        "maximum": 41.96099853515626,
+        "maximumPoint": [
+          -532.48470553807,
+          631.7249722296314
+        ],
+        "centre": 40.55431043700415,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/94622:0",
+          "name": "",
+          "structureType": "Open-sided Structure",
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "renderBaseTop": [
+            36.205,
+            39.205
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": false
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9997738629987812,
+        "centroidDistanceMetres": 1.268424846852591,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339671587201063C0/B339671587201063C0.gltf": "c7c908d43cefcb44c222ae480272ede8cfa1319bc5df9f5f6b007f45fc4c4762",
+          "BUILDING/B339671587201063C0/B339671587201063C0.bin": "81b61d8cf24aaf9eb21bf7a97076bfc4e4599279228e2b64c581258f0299f646"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/16901:0",
+      "label": "Ablutions Block",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        49.3,
+        62.8
+      ],
+      "nativeBaseTop": [
+        45.560001373291016,
+        63.12300109863281
+      ],
+      "sourceFootprintArea": 234.28222249999922,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          45.560001373291016,
+          54.0989990234375,
+          61.24800109863281,
+          61.6150016784668,
+          63.06268112182616,
+          63.12300109863281
+        ],
+        "verticesWithin05mOfTop": 2,
+        "topVertexBoundsXZ": [
+          [
+            -633.7470703125,
+            669.146484375
+          ],
+          [
+            -610.63671875,
+            679.28515625
+          ]
+        ],
+        "verticesAboveRecordedTop": 2
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 105,
+        "belowCurrentTerrainBy05m": 6,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 8,
+        "nearBottomCurrentGroundRange": [
+          46.08002539062501,
+          46.74378515624999
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -1.028785003662101,
+          -0.8923580780029621,
+          -0.669677108764656,
+          -0.3803521118164195,
+          -0.36502523803711995
+        ],
+        "nativeTerrainCoveredVertices": 105,
+        "currentMinusNativeTerrainQuantiles": [
+          -1.8934766421317661,
+          -0.17544685932273296,
+          0.350163909912105,
+          0.464679534912122,
+          1.0958064133455068
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.3135976120829582,
+          -0.13210455980151892,
+          -0.03546667458788377,
+          -0.01811238700856954,
+          -0.00030786373465474526
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 135,
+        "coverageArea": 234.2822224999992,
+        "minimum": 45.61760327845135,
+        "maximum": 48.680999755859375,
+        "maximumPoint": [
+          -635.0634765625,
+          669.6435546875
+        ],
+        "centre": 46.89431040483152,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/273024:0",
+          "name": "A Hall",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            50.9,
+            58.0
+          ],
+          "renderBaseTop": [
+            50.9,
+            58.0
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 1.0,
+        "centroidDistanceMetres": 0.8811429720991145,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B338771582701063C0/B338771582701063C0.gltf": "18096233cf622dd809edcda3c29b0c7e4c52fb95e80e055aa1f17500b0ec5f6d",
+          "BUILDING/B338771582701063C0/B338771582701063C0.bin": "9adde3b1377b9418f42512d4c1b905df67358c33fc98af7649b57e55decc030a"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "browser-foundation-check-required",
+      "interpretation": "Lowest source vertices closely follow the original TIN; coarser 5 m display samples bury some foundation vertices on the slope. Highest roof remains clear. Inspect ground-floor exposure and neighbouring retaining steps before acceptance; preserve native elevations."
+    },
+    {
+      "uid": "landsd/251755:0",
+      "label": "Central Magistracy",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        43.8,
+        63.8
+      ],
+      "nativeBaseTop": [
+        41.50999450683594,
+        65.44400024414062
+      ],
+      "sourceFootprintArea": 677.0096050000001,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          41.50999450683594,
+          60.6099967956543,
+          63.80369606018067,
+          64.63299560546875,
+          64.7935725402832,
+          65.44400024414062
+        ],
+        "verticesWithin05mOfTop": 4,
+        "topVertexBoundsXZ": [
+          [
+            -550.4921875,
+            700.470703125
+          ],
+          [
+            -549.0419921875,
+            702.9833984375
+          ]
+        ],
+        "verticesAboveRecordedTop": 40
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 400,
+        "belowCurrentTerrainBy05m": 5,
+        "belowNativeTerrainBy05m": 6,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 1,
+        "nearBottomCurrentGroundRange": [
+          45.100128906249985,
+          45.100128906249985
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -3.5901343994140476,
+          -3.5901343994140476,
+          -3.5901343994140476,
+          -3.5901343994140476,
+          -3.5901343994140476
+        ],
+        "nativeTerrainCoveredVertices": 400,
+        "currentMinusNativeTerrainQuantiles": [
+          -3.4073749767128447,
+          -0.39100391866371176,
+          -0.046930449356359816,
+          0.00235066792788885,
+          2.6201895099878314
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -6.997509376126892,
+          -6.997509376126892,
+          -6.997509376126892,
+          -6.997509376126892,
+          -6.997509376126892
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 294,
+        "coverageArea": 677.0096050000003,
+        "minimum": 42.91901977424606,
+        "maximum": 49.35035222853037,
+        "maximumPoint": [
+          -549.6864592064405,
+          707.8203219060234
+        ],
+        "centre": 49.288613521150914,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9996303900592921,
+        "centroidDistanceMetres": 0.8649774393998598,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339571580901063C0/B339571580901063C0.gltf": "7e42f55e5f75c6a91e43904d43846e92d678aacd40a7097598990d4d0f5b2662",
+          "BUILDING/B339571580901063C0/B339571580901063C0.bin": "5701149144e185feeef53b6ea879ce261521736df3300bde89063b22f40a855c"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Several lowest vertices are already below the original native terrain (JC Contemporary 1.04\u20132.57 m; Central Magistracy one extreme vertex about 7 m). Such source substructure is not evidence of a placement offset. Highest roof and main shell clear native/current terrain; review visible walls rather than reject by global minimum bounds."
+    },
+    {
+      "uid": "landsd/267516:0",
+      "label": "Superintendent's House",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        49.3,
+        65.6
+      ],
+      "nativeBaseTop": [
+        45.768001556396484,
+        67.1760025024414
+      ],
+      "sourceFootprintArea": 168.50648599999985,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          45.768001556396484,
+          64.5,
+          66.51499938964844,
+          66.71700286865234,
+          67.1760025024414,
+          67.1760025024414
+        ],
+        "verticesWithin05mOfTop": 12,
+        "topVertexBoundsXZ": [
+          [
+            -564.2138671875,
+            701.0576171875
+          ],
+          [
+            -561.875,
+            702.83203125
+          ]
+        ],
+        "verticesAboveRecordedTop": 24
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 175,
+        "belowCurrentTerrainBy05m": 3,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 2,
+        "nearBottomCurrentGroundRange": [
+          46.062671874999964,
+          46.29484375
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.5268421936035139,
+          -0.46879922485350534,
+          -0.41075625610349675,
+          -0.35271328735348817,
+          -0.2946703186034796
+        ],
+        "nativeTerrainCoveredVertices": 175,
+        "currentMinusNativeTerrainQuantiles": [
+          -3.024210918318971,
+          -1.0946134338379032,
+          -0.07293897077630618,
+          0.5192395768687916,
+          1.9510229471071767
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 86,
+        "coverageArea": 168.5064859999999,
+        "minimum": 45.74662020219332,
+        "maximum": 55.68899917602539,
+        "maximumPoint": [
+          -565.080078125,
+          707.0322265625
+        ],
+        "centre": 49.33585184657774,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/263599:0",
+          "name": "C Hall",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            49.3,
+            62.1
+          ],
+          "renderBaseTop": [
+            49.3,
+            62.099999999999994
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        },
+        {
+          "uid": "landsd/262026:0",
+          "name": "Superintendent's House & C Hall",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            49.3,
+            60.6
+          ],
+          "renderBaseTop": [
+            49.3,
+            60.599999999999994
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 1.0000000000000002,
+        "centroidDistanceMetres": 1.129440104687301,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339351579901063C0/B339351579901063C0.gltf": "9b491ab52c26b4085c38517d59005900f72735c3fcecf9ae3c33b402d568c49a",
+          "BUILDING/B339351579901063C0/B339351579901063C0.bin": "b89d3863e480540ad086445742ad9c49dd7342f7b51e1d78ca68ec33997d0a3e"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/273024:0",
+      "label": "A Hall",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        50.9,
+        58.0
+      ],
+      "nativeBaseTop": [
+        45.768001556396484,
+        60.983001708984375
+      ],
+      "sourceFootprintArea": 159.97355600000105,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          45.768001556396484,
+          58.143001556396484,
+          58.90599822998047,
+          60.983001708984375,
+          60.983001708984375,
+          60.983001708984375
+        ],
+        "verticesWithin05mOfTop": 5,
+        "topVertexBoundsXZ": [
+          [
+            -608.8876953125,
+            675.9072265625
+          ],
+          [
+            -601.8759765625,
+            684.18359375
+          ]
+        ],
+        "verticesAboveRecordedTop": 37
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 58,
+        "belowCurrentTerrainBy05m": 1,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          45.762173828125,
+          47.12945117187501
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -1.3614496154785272,
+          -0.575850982666017,
+          -0.3134095764160101,
+          -0.23316885375975893,
+          0.005827728271484034
+        ],
+        "nativeTerrainCoveredVertices": 58,
+        "currentMinusNativeTerrainQuantiles": [
+          -1.488745697021372,
+          -0.404526932892626,
+          0.2361749267577551,
+          0.4558053322812725,
+          1.9769801772839273
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          0.00010987134529472087,
+          0.0002724695273226274,
+          0.02412597872670119,
+          0.049021154362902664,
+          0.052308751855399294
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 145,
+        "coverageArea": 159.97355600000142,
+        "minimum": 45.71500015258788,
+        "maximum": 50.643001556396534,
+        "maximumPoint": [
+          -583.8831663236691,
+          692.6857312470927
+        ],
+        "centre": 48.65778927558991,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/16901:0",
+          "name": "Ablutions Block",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            49.3,
+            62.8
+          ],
+          "renderBaseTop": [
+            49.3,
+            62.8
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        },
+        {
+          "uid": "landsd/263599:0",
+          "name": "C Hall",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            49.3,
+            62.1
+          ],
+          "renderBaseTop": [
+            49.3,
+            62.099999999999994
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9720213024209331,
+        "centroidDistanceMetres": 0.7543666950162198,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339081581601063C0/B339081581601063C0.gltf": "f544b5bfe737e701a198663155c9a324d120ac579feae28caf7e64f3dd2be68e",
+          "BUILDING/B339081581601063C0/B339081581601063C0.bin": "e7b5337cc41bec8bf674b8acf01c5d6c21527df5cc0962952bf0df376855b585"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/263599:0",
+      "label": "C Hall",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        49.3,
+        62.1
+      ],
+      "nativeBaseTop": [
+        45.768001556396484,
+        64.87799835205078
+      ],
+      "sourceFootprintArea": 233.16078800000017,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          45.768001556396484,
+          62.44499969482422,
+          63.84199905395508,
+          64.13600158691406,
+          64.87799835205078,
+          64.87799835205078
+        ],
+        "verticesWithin05mOfTop": 4,
+        "topVertexBoundsXZ": [
+          [
+            -587.0712890625,
+            690.306640625
+          ],
+          [
+            -576.642578125,
+            708.2568359375
+          ]
+        ],
+        "verticesAboveRecordedTop": 166
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 248,
+        "belowCurrentTerrainBy05m": 5,
+        "belowNativeTerrainBy05m": 1,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          45.76214453125,
+          47.739677734374986
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -1.9716761779785017,
+          -1.0253168029784927,
+          -0.49763320922848564,
+          -0.21258779907224046,
+          0.005857025146482897
+        ],
+        "nativeTerrainCoveredVertices": 248,
+        "currentMinusNativeTerrainQuantiles": [
+          -1.9731983947753875,
+          -0.4460950793744516,
+          0.08959263662396566,
+          0.6374739610697482,
+          2.8463519897459975
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.04770982390438405,
+          -0.011927455976096013,
+          0.0,
+          3.791678567921508e-05,
+          0.00015166714271686033
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 127,
+        "coverageArea": 233.1607880000001,
+        "minimum": 45.74939902422505,
+        "maximum": 55.68899917602539,
+        "maximumPoint": [
+          -575.0546875,
+          708.7841796875
+        ],
+        "centre": 47.72490356311467,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/273024:0",
+          "name": "A Hall",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            50.9,
+            58.0
+          ],
+          "renderBaseTop": [
+            50.9,
+            58.0
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        },
+        {
+          "uid": "landsd/267516:0",
+          "name": "Superintendent's House",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            49.3,
+            65.6
+          ],
+          "renderBaseTop": [
+            49.3,
+            65.6
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9887615304556775,
+        "centroidDistanceMetres": 0.6795828079893971,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339231579401063C0/B339231579401063C0.gltf": "819c9b66d7deda16b66040b401d2000ab06d774fcd210bad836470011469c83c",
+          "BUILDING/B339231579401063C0/B339231579401063C0.bin": "b343ff037354dfbc10598ba387fab6bfeca304693c56c50bdb03af0e4d3a7bfc"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "browser-foundation-check-required",
+      "interpretation": "Lowest source vertices closely follow the original TIN; coarser 5 m display samples bury some foundation vertices on the slope. Highest roof remains clear. Inspect ground-floor exposure and neighbouring retaining steps before acceptance; preserve native elevations."
+    },
+    {
+      "uid": "landsd/105155:0",
+      "label": "D Hall",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        49.3,
+        70.3
+      ],
+      "nativeBaseTop": [
+        49.7869987487793,
+        70.44400024414062
+      ],
+      "sourceFootprintArea": 636.0359075000019,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          49.7869987487793,
+          58.262001037597656,
+          67.76100158691406,
+          68.12899780273438,
+          70.41799926757812,
+          70.44400024414062
+        ],
+        "verticesWithin05mOfTop": 22,
+        "topVertexBoundsXZ": [
+          [
+            -603.9853515625,
+            706.23046875
+          ],
+          [
+            -549.130859375,
+            731.748046875
+          ]
+        ],
+        "verticesAboveRecordedTop": 10
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 705,
+        "belowCurrentTerrainBy05m": 6,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 10,
+        "nearBottomCurrentGroundRange": [
+          49.28702539062499,
+          52.16544921874993
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -2.3784504699706304,
+          -1.3048562316894738,
+          -0.553477813720729,
+          0.022863006591814283,
+          0.4999733581543069
+        ],
+        "nativeTerrainCoveredVertices": 705,
+        "currentMinusNativeTerrainQuantiles": [
+          -5.379470423791595,
+          -0.18254888527900448,
+          -0.05729019958992154,
+          -0.0028972998563787655,
+          3.2740568964113095
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.01304589310394988,
+          0.0,
+          0.0006893914199999074,
+          0.0028333441704493367,
+          0.010084360837936401
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 453,
+        "coverageArea": 636.035907500002,
+        "minimum": 49.11999893188476,
+        "maximum": 55.760448541624804,
+        "maximumPoint": [
+          -578.4860614403416,
+          713.1203014541941
+        ],
+        "centre": 54.097264570822034,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9960999082170964,
+        "centroidDistanceMetres": 1.1292532742028434,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339251578001063C0/B339251578001063C0.gltf": "02e12d24059744b609cc0623b234df5d22542510ca6a3b03d103f4c224cb7452",
+          "BUILDING/B339251578001063C0/B339251578001063C0.bin": "cb8075ecd328b64e5d730d6dd089f876cf5f2062f228cd657761ee525fc5295a"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "browser-foundation-check-required",
+      "interpretation": "Lowest source vertices closely follow the original TIN; coarser 5 m display samples bury some foundation vertices on the slope. Highest roof remains clear. Inspect ground-floor exposure and neighbouring retaining steps before acceptance; preserve native elevations."
+    },
+    {
+      "uid": "landsd/114964:0",
+      "label": "E Hall",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        55.4,
+        69.0
+      ],
+      "nativeBaseTop": [
+        50.18899917602539,
+        69.52100372314453
+      ],
+      "sourceFootprintArea": 225.38920050000215,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          50.18899917602539,
+          62.555999755859375,
+          68.71499633789062,
+          68.94860229492187,
+          69.50044372558594,
+          69.52100372314453
+        ],
+        "verticesWithin05mOfTop": 2,
+        "topVertexBoundsXZ": [
+          [
+            -574.2060546875,
+            751.5712890625
+          ],
+          [
+            -561.302734375,
+            759.3173828125
+          ]
+        ],
+        "verticesAboveRecordedTop": 2
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 105,
+        "belowCurrentTerrainBy05m": 3,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          50.0634921875,
+          53.82334960937503
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -3.6343504333496384,
+          -2.8835022888183595,
+          -1.7266726989746282,
+          -0.5837176208496455,
+          0.12550698852538744
+        ],
+        "nativeTerrainCoveredVertices": 105,
+        "currentMinusNativeTerrainQuantiles": [
+          -1.3877694706321364,
+          0.0010008239746071013,
+          0.7400185468057003,
+          1.3456310228076163,
+          3.5672996917367215
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.06705074161291691,
+          -0.04627782505430744,
+          -0.019676759767385477,
+          0.0,
+          0.0
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 187,
+        "coverageArea": 225.38920050000215,
+        "minimum": 50.017878496620085,
+        "maximum": 51.88059108052755,
+        "maximumPoint": [
+          -572.4924406948039,
+          757.8944545550785
+        ],
+        "centre": 50.18899917602539,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9999999999999999,
+        "centroidDistanceMetres": 0.8313487329981353,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339331574301063C0/B339331574301063C0.gltf": "df46f37ab19647646a593b714e92f46f25a5488a041555314ed3e220edfbf82b",
+          "BUILDING/B339331574301063C0/B339331574301063C0.bin": "3af7f54c715671c8764ed7284d692486fefe44155da458a4d47a4996a29836ae"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "hold-rendered-terrain-refinement-required",
+      "interpretation": "Lowest source vertices closely follow the original TIN; coarser 5 m display samples bury some foundation vertices on the slope. Highest roof remains clear. Inspect ground-floor exposure and neighbouring retaining steps before acceptance; preserve native elevations.",
+      "terrainFollowUp": {
+        "candidate": "source-scripts/city/architecture-batch/taikwun-terrain-refinements.json",
+        "review": "source-scripts/city/architecture-batch/taikwun-terrain-review.json",
+        "disposition": "Staged experiment only; excluded from this bounded publication batch.",
+        "reason": "The 0.25 m source grid adds 58,081 vertices/about 116,000 triangles for two foundation corrections while JC Cube retains about 1 m clearance and E Hall retains a 0.61 m worst corner burial. Investigate a smaller retaining-edge representation; preserve 1x native building elevations and existing live terrain."
+      }
+    },
+    {
+      "uid": "landsd/262589:0",
+      "label": "Bauhinia House",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        49.7,
+        58.3
+      ],
+      "nativeBaseTop": [
+        48.54600143432617,
+        58.724998474121094
+      ],
+      "sourceFootprintArea": 31.63312549999988,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          48.54600143432617,
+          56.801998138427734,
+          57.57470016479492,
+          58.38180084228516,
+          58.724998474121094,
+          58.724998474121094
+        ],
+        "verticesWithin05mOfTop": 7,
+        "topVertexBoundsXZ": [
+          [
+            -555.5546875,
+            768.154296875
+          ],
+          [
+            -552.0576171875,
+            771.82421875
+          ]
+        ],
+        "verticesAboveRecordedTop": 4
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 77,
+        "belowCurrentTerrainBy05m": 4,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 9,
+        "nearBottomCurrentGroundRange": [
+          49.04895703124999,
+          50.68246289062502
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -1.7274610595703308,
+          -0.5073677062988295,
+          -0.4925418395996104,
+          -0.23211535644530557,
+          -0.13656848144531608
+        ],
+        "nativeTerrainCoveredVertices": 77,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.24634815921864828,
+          0.15952191868444032,
+          0.27009760603394994,
+          0.4306203024059272,
+          1.723075135887271
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.012396534053522146,
+          -0.0048921768387515385,
+          -0.003920914841650358,
+          0.0,
+          0.018147767375651824
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 34,
+        "coverageArea": 31.633125499999995,
+        "minimum": 48.929166503369444,
+        "maximum": 49.19636683589449,
+        "maximumPoint": [
+          -551.397,
+          773.519
+        ],
+        "centre": 48.95500183105469,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9999999999999999,
+        "centroidDistanceMetres": 0.869872434642815,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339481573101063C0/B339481573101063C0.gltf": "1c1c90cee3f8e28b519fd27908690eeb28cc9530683878f89231be795c00a495",
+          "BUILDING/B339481573101063C0/B339481573101063C0.bin": "160c1b11760048cb0650fdf2420253068bb61883e45b09a0b9eac63f9761cd1e"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "browser-foundation-check-required",
+      "interpretation": "Lowest source vertices closely follow the original TIN; coarser 5 m display samples bury some foundation vertices on the slope. Highest roof remains clear. Inspect ground-floor exposure and neighbouring retaining steps before acceptance; preserve native elevations."
+    },
+    {
+      "uid": "landsd/244346:0",
+      "label": "JC Contemporary",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        56.0,
+        81.2
+      ],
+      "nativeBaseTop": [
+        50.33000183105469,
+        81.10299682617188
+      ],
+      "sourceFootprintArea": 744.9074650000001,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          50.33000183105469,
+          59.73899841308594,
+          81.10299682617188,
+          81.10299682617188,
+          81.10299682617188,
+          81.10299682617188
+        ],
+        "verticesWithin05mOfTop": 4,
+        "topVertexBoundsXZ": [
+          [
+            -649.8876953125,
+            672.091796875
+          ],
+          [
+            -610.2841796875,
+            706.908203125
+          ]
+        ],
+        "verticesAboveRecordedTop": 0
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 27,
+        "belowCurrentTerrainBy05m": 5,
+        "belowNativeTerrainBy05m": 5,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 2,
+        "nearBottomCurrentGroundRange": [
+          52.42039453125013,
+          52.61857421874987
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -2.288572387695183,
+          -2.2390274658202483,
+          -2.1894825439453136,
+          -2.139937622070379,
+          -2.0903927001954443
+        ],
+        "nativeTerrainCoveredVertices": 27,
+        "currentMinusNativeTerrainQuantiles": [
+          -1.2302339304237222,
+          -0.4895574652254524,
+          -0.08405411212496716,
+          0.12401936307570338,
+          1.0529734108449347
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -2.566394068300724,
+          -2.1841503735631704,
+          -1.8019066788256168,
+          -1.4196629840880632,
+          -1.0374192893505096
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 412,
+        "coverageArea": 744.907465,
+        "minimum": 48.91257220758616,
+        "maximum": 55.917160167061716,
+        "maximumPoint": [
+          -620.1602837127601,
+          706.7193838862223
+        ],
+        "centre": 55.875,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 1.0,
+        "centroidDistanceMetres": 0.30090603939866983,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B338701581101063C0/B338701581101063C0.gltf": "3d3f3cf3478ebf2a53a378cedf3fab1c361a2f562d655c29515621db4c3abcee",
+          "BUILDING/B338701581101063C0/B338701581101063C0.bin": "2a956df7138a2f8b314511ff3e3f52792f6c3f0379685beda9b76c1d549a41e4"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Several lowest vertices are already below the original native terrain (JC Contemporary 1.04\u20132.57 m; Central Magistracy one extreme vertex about 7 m). Such source substructure is not evidence of a placement offset. Highest roof and main shell clear native/current terrain; review visible walls rather than reject by global minimum bounds."
+    },
+    {
+      "uid": "landsd/330467:0",
+      "label": "JC Cube",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        58.1,
+        81.0
+      ],
+      "nativeBaseTop": [
+        53.63999938964844,
+        80.91200256347656
+      ],
+      "sourceFootprintArea": 532.4197320000007,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          53.63999938964844,
+          58.18199920654297,
+          80.91200256347656,
+          80.91200256347656,
+          80.91200256347656,
+          80.91200256347656
+        ],
+        "verticesWithin05mOfTop": 4,
+        "topVertexBoundsXZ": [
+          [
+            -578.365234375,
+            728.439453125
+          ],
+          [
+            -544.3837890625,
+            758.185546875
+          ]
+        ],
+        "verticesAboveRecordedTop": 0
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom",
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 18,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 2,
+        "nearBottomCurrentGroundRange": [
+          49.40459960937498,
+          50.34132812499998
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          3.298671264648455,
+          3.5328533935547046,
+          3.7670355224609544,
+          4.001217651367204,
+          4.235399780273454
+        ],
+        "nativeTerrainCoveredVertices": 18,
+        "currentMinusNativeTerrainQuantiles": [
+          -3.7305357823521064,
+          -2.9908403962500145,
+          -0.6883559951638176,
+          -0.08309915161132508,
+          1.7663622081450754
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          0.3078308683984403,
+          0.35708915077916714,
+          0.40634743315989397,
+          0.4556057155406208,
+          0.5048639979213476
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 330,
+        "coverageArea": 532.4197320000002,
+        "minimum": 47.05588519498081,
+        "maximum": 55.84199905395508,
+        "maximumPoint": [
+          -573.3125,
+          729.0625
+        ],
+        "centre": 54.64393499115042,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.994955437779809,
+        "centroidDistanceMetres": 0.1871914495040961,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339381575801063C0/B339381575801063C0.gltf": "a4a9d201235d0431ebd8696368a7ebd539e30d763a4283dfc5435d651b6b68e4",
+          "BUILDING/B339381575801063C0/B339381575801063C0.bin": "444b9684bcb2e0141aa2cc5922f4d09058f7c359369362e24091d3081ae25495"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "hold-rendered-terrain-refinement-required",
+      "interpretation": "Two lowest JC Cube vertices sit 3.30\u20134.24 m above current 5 m ground but only 0.31\u20130.50 m above original TIN. This is a local terrain sampling/support concern, not a reason to translate the model. Check the lowest corner for an exposed foundation gap.",
+      "terrainFollowUp": {
+        "candidate": "source-scripts/city/architecture-batch/taikwun-terrain-refinements.json",
+        "review": "source-scripts/city/architecture-batch/taikwun-terrain-review.json",
+        "disposition": "Staged experiment only; excluded from this bounded publication batch.",
+        "reason": "The 0.25 m source grid adds 58,081 vertices/about 116,000 triangles for two foundation corrections while JC Cube retains about 1 m clearance and E Hall retains a 0.61 m worst corner burial. Investigate a smaller retaining-edge representation; preserve 1x native building elevations and existing live terrain."
+      }
+    },
+    {
+      "uid": "landsd/262026:0",
+      "label": "Superintendent's House & C Hall",
+      "sourceTile": "11-SW-8D",
+      "sourceBaseTop": [
+        49.3,
+        60.6
+      ],
+      "nativeBaseTop": [
+        49.387001037597656,
+        62.89699935913086
+      ],
+      "sourceFootprintArea": 45.52145850000001,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          49.387001037597656,
+          60.41299819946289,
+          62.67399978637695,
+          62.89699935913086,
+          62.89699935913086,
+          62.89699935913086
+        ],
+        "verticesWithin05mOfTop": 12,
+        "topVertexBoundsXZ": [
+          [
+            -558.89453125,
+            713.431640625
+          ],
+          [
+            -557.4462890625,
+            714.8642578125
+          ]
+        ],
+        "verticesAboveRecordedTop": 23
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 54,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 6,
+        "nearBottomCurrentGroundRange": [
+          49.466318359375,
+          49.66367382812501
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.27667279052735694,
+          -0.1720878295898416,
+          -0.12580657958984176,
+          -0.10617523193359624,
+          -0.07931732177734574
+        ],
+        "nativeTerrainCoveredVertices": 54,
+        "currentMinusNativeTerrainQuantiles": [
+          -2.770351426246606,
+          -0.20835464477539034,
+          0.14634041440938717,
+          0.32982122802734715,
+          1.905357882719116
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          0.00020920827428483335,
+          0.001349538427010799,
+          0.0018008651537790854,
+          0.02176900718338537,
+          0.029589713934733197
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 50,
+        "coverageArea": 45.5214585,
+        "minimum": 49.387001037597614,
+        "maximum": 55.68899917602539,
+        "maximumPoint": [
+          -564.3515625,
+          711.5009765625
+        ],
+        "centre": 52.946445826437945,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/267516:0",
+          "name": "Superintendent's House",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            49.3,
+            65.6
+          ],
+          "renderBaseTop": [
+            49.3,
+            65.6
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9700592781258747,
+        "centroidDistanceMetres": 0.37773536076681197,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B339371578801063C0/B339371578801063C0.gltf": "dcc74f09451839e0facc1812b26434a476d94b6677057fbd1d9d967e154403a1",
+          "BUILDING/B339371578801063C0/B339371578801063C0.bin": "d87757779039cfb2b7c666dbad9dcfd34f45bb58151b58946ce9c1ef3498fda6"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/170204:0",
+      "label": "Lippo Centre Tower 2",
+      "sourceTile": "11-SW-9C",
+      "sourceBaseTop": [
+        16.5,
+        173.4
+      ],
+      "nativeBaseTop": [
+        30.729000091552734,
+        181.64699935913086
+      ],
+      "sourceFootprintArea": 1462.385407500001,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          30.729000091552734,
+          173.5819969177246,
+          177.56798934936523,
+          179.57299423217773,
+          180.0870018005371,
+          181.64699935913086
+        ],
+        "verticesWithin05mOfTop": 4,
+        "topVertexBoundsXZ": [
+          [
+            372.86328125,
+            881.9677734375
+          ],
+          [
+            377.6826171875,
+            885.1318359375
+          ]
+        ],
+        "verticesAboveRecordedTop": 1395
+      },
+      "screeningConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 2126,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 11,
+        "nearBottomCurrentGroundRange": [
+          6.10584375,
+          6.12
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          24.609000091552733,
+          24.609000091552733,
+          24.609000091552733,
+          24.612195404052734,
+          24.623156341552736
+        ],
+        "nativeTerrainCoveredVertices": 2126,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.018152845382690685,
+          -0.003996595382690593,
+          -0.003996595382690593,
+          -0.003996595382690593,
+          0.027305925567898903
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          24.605003496170042,
+          24.605003496170042,
+          24.605003496170042,
+          24.605003496170042,
+          24.605003496170042
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 52,
+        "coverageArea": 1462.3854075000017,
+        "minimum": 6.11455937197079,
+        "maximum": 6.123996595382691,
+        "maximumPoint": [
+          379.4211937194923,
+          856.385093554738
+        ],
+        "centre": 6.123996595382691,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/234787:0",
+          "name": "Lippo Centre",
+          "structureType": "Podium",
+          "sourceBaseTop": [
+            5.8,
+            16.5
+          ],
+          "renderBaseTop": [
+            5.8,
+            16.5
+          ],
+          "intersectionArea": 1462.3854,
+          "targetCoverageFraction": 1.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [
+        {
+          "uid": "landsd/234787:0",
+          "label": "Lippo Centre",
+          "sourceBaseTop": [
+            5.8,
+            16.5
+          ],
+          "samples": 1462,
+          "samplesWithActualTriangle": 1462,
+          "samplesWithin05mOfModelBottom": 1059,
+          "samplesWithin1mOfModelBottom": 1062,
+          "minimumSurfaceDifference": 9.155273517080786e-08,
+          "maximumSurfaceDifference": 24.084000091552735,
+          "actualTriangleProjectedCoverage": 0.999997,
+          "surfaceHeightsRange": [
+            6.645,
+            37.022
+          ],
+          "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy."
+        }
+      ],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.918784339771841,
+        "centroidDistanceMetres": 3.295235779836175,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-9C/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B348641561601063C0/B348641561601063C0.gltf": "8e746c07ec4190bb56ac2db2032ea8147076e1943f906e29371332e028812eaa",
+          "BUILDING/B348641561601063C0/B348641561601063C0.bin": "2e3aaacdb76e98a1a2e860b76de7f6470ea6c1b9f5fd6666fb5f55c4591a6340"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Elevated tower is supported by separate Lippo podium 234787, whose original indexed triangles cover essentially the entire tower footprint and include surfaces at tower-bottom elevation. Approve only as the three-part assembly; do not lower either tower to terrain.",
+      "requiredCompanionUids": [
+        "landsd/234787:0"
+      ]
+    },
+    {
+      "uid": "landsd/170207:0",
+      "label": "Lippo Centre Tower 1",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        16.5,
+        187.3
+      ],
+      "nativeBaseTop": [
+        30.066999435424805,
+        195.62699699401855
+      ],
+      "sourceFootprintArea": 1470.2463869999985,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          30.066999435424805,
+          187.55200004577637,
+          190.50500297546387,
+          192.8760051727295,
+          194.0980052947998,
+          195.62699699401855
+        ],
+        "verticesWithin05mOfTop": 4,
+        "topVertexBoundsXZ": [
+          [
+            401.8076171875,
+            902.416015625
+          ],
+          [
+            404.3564453125,
+            907.333984375
+          ]
+        ],
+        "verticesAboveRecordedTop": 1650
+      },
+      "screeningConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 2630,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 7,
+        "nearBottomCurrentGroundRange": [
+          6.1027499999999995,
+          6.12
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          23.946999435424804,
+          23.946999435424804,
+          23.946999435424804,
+          23.946999435424804,
+          23.964249435424804
+        ],
+        "nativeTerrainCoveredVertices": 1829,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.007663317409293491,
+          -0.004000549316406143,
+          -7.44939155934432e-05,
+          0.001005019081762093,
+          0.04606195068359753
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          23.9429988861084,
+          23.9429988861084,
+          23.9429988861084,
+          23.943485013373394,
+          23.964856936438586
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 21,
+        "coverageArea": 1053.8869583817186,
+        "minimum": 6.08820471415717,
+        "maximum": 6.124000549316406,
+        "maximumPoint": [
+          430.18939187256865,
+          911.5665200959254
+        ],
+        "centre": 6.110875797804967,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/234787:0",
+          "name": "Lippo Centre",
+          "structureType": "Podium",
+          "sourceBaseTop": [
+            5.8,
+            16.5
+          ],
+          "renderBaseTop": [
+            5.8,
+            16.5
+          ],
+          "intersectionArea": 1470.2464,
+          "targetCoverageFraction": 1.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [
+        {
+          "uid": "landsd/234787:0",
+          "label": "Lippo Centre",
+          "sourceBaseTop": [
+            5.8,
+            16.5
+          ],
+          "samples": 1469,
+          "samplesWithActualTriangle": 1469,
+          "samplesWithin05mOfModelBottom": 8,
+          "samplesWithin1mOfModelBottom": 850,
+          "minimumSurfaceDifference": 5.645751954830303e-07,
+          "maximumSurfaceDifference": 23.421999435424805,
+          "actualTriangleProjectedCoverage": 1.0,
+          "surfaceHeightsRange": [
+            6.645,
+            50.04
+          ],
+          "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy."
+        }
+      ],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9769543329610947,
+        "centroidDistanceMetres": 1.304506199606504,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B349111558201063C0/B349111558201063C0.gltf": "5b84124a30ca4d37b23519efb31c533d73e3b080faa360250d33582c96237e79",
+          "BUILDING/B349111558201063C0/B349111558201063C0.bin": "5cf819e6e42ceff63fbae96abd94083eb161db1bfa4ff284b2d2ed139f214884"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Elevated tower is supported by separate Lippo podium 234787, whose original indexed triangles cover essentially the entire tower footprint and include surfaces at tower-bottom elevation. Approve only as the three-part assembly; do not lower either tower to terrain.",
+      "requiredCompanionUids": [
+        "landsd/234787:0"
+      ]
+    },
+    {
+      "uid": "landsd/234787:0",
+      "label": "Lippo Centre",
+      "sourceTile": "11-SW-9C",
+      "sourceBaseTop": [
+        5.8,
+        16.5
+      ],
+      "nativeBaseTop": [
+        6.0789947509765625,
+        50.03999328613281
+      ],
+      "sourceFootprintArea": 4448.731797499998,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          6.0789947509765625,
+          16.734994888305664,
+          35.98799133300781,
+          48.357994079589844,
+          48.92399597167969,
+          50.03999328613281
+        ],
+        "verticesWithin05mOfTop": 32,
+        "topVertexBoundsXZ": [
+          [
+            391.828125,
+            901.181640625
+          ],
+          [
+            395.05078125,
+            912.595703125
+          ]
+        ],
+        "verticesAboveRecordedTop": 1776
+      },
+      "screeningConcerns": [],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 3449,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 129,
+        "nearBottomCurrentGroundRange": [
+          6.0091015625,
+          6.486705078125001
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.3627102508544935,
+          -0.162565795898435,
+          -0.07214579772949037,
+          0.02324092102050468,
+          0.44118622970580823
+        ],
+        "nativeTerrainCoveredVertices": 2148,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.0373415066413445,
+          -0.003996595382690593,
+          -0.003996595382690593,
+          0.002171476613122003,
+          0.29222801399233056
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.3614053728321629,
+          -0.16219835210607947,
+          -0.08965163419138378,
+          -1.7681121828871937e-06,
+          0.45399822807311985
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 393,
+        "coverageArea": 3136.1495300265797,
+        "minimum": 6.0270493956483,
+        "maximum": 6.502024741307434,
+        "maximumPoint": [
+          409.97580698918904,
+          873.1349752393389
+        ],
+        "centre": 6.123996595382691,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/170204:0",
+          "name": "Lippo Centre Tower 2",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            16.5,
+            173.4
+          ],
+          "renderBaseTop": [
+            16.5,
+            173.4
+          ],
+          "intersectionArea": 1462.3854,
+          "targetCoverageFraction": 0.32872,
+          "inCandidateBatch": true
+        },
+        {
+          "uid": "landsd/170207:0",
+          "name": "Lippo Centre Tower 1",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            16.5,
+            187.3
+          ],
+          "renderBaseTop": [
+            16.5,
+            187.3
+          ],
+          "intersectionArea": 1470.2464,
+          "targetCoverageFraction": 0.330487,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9982921931191395,
+        "centroidDistanceMetres": 0.7762390862122154,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-9C/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B348961562202063C0/B348961562202063C0.gltf": "c459269106e61226c4bf2174de4c6451e9f6a12b8c9f8c7338790f96adf1f75d",
+          "BUILDING/B348961562202063C0/B348961562202063C0.bin": "14f40242f9276ff65c9807c7853752bf89638b9868d8fef4447f8b07296322cf"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Original podium includes structure from 6.079 m to 50.040 m, substantially more than its 5.8\u201316.5 m tabular range. Preserve this geometry to support the two native tower components."
+    },
+    {
+      "uid": "landsd/3091:0",
+      "label": "The Asia Society Hong Kong Center Asia Society Gallery",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        53.2,
+        60.4
+      ],
+      "nativeBaseTop": [
+        53.23400115966797,
+        60.362998962402344
+      ],
+      "sourceFootprintArea": 485.54598550000117,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          53.23400115966797,
+          60.27899932861328,
+          60.362998962402344,
+          60.362998962402344,
+          60.362998962402344,
+          60.362998962402344
+        ],
+        "verticesWithin05mOfTop": 12,
+        "topVertexBoundsXZ": [
+          [
+            588.19921875,
+            1359.0283203125
+          ],
+          [
+            622.5517578125,
+            1381.5966796875
+          ]
+        ],
+        "verticesAboveRecordedTop": 0
+      },
+      "screeningConcerns": [],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 16,
+        "belowCurrentTerrainBy05m": 1,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          53.21266796875,
+          53.89740429687498
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.6634031372070126,
+          -0.1711614379882782,
+          -8.966064453375111e-05,
+          0.0105094604492173,
+          0.02133319091797148
+        ],
+        "nativeTerrainCoveredVertices": 16,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.021331283569338666,
+          -0.00899583435058382,
+          0.002528091430665569,
+          0.11671070861815558,
+          0.6634050445556454
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          1.9073486328125e-06,
+          1.9073486328125e-06,
+          1.9073486328125e-06,
+          1.9073486328125e-06,
+          1.9073486328125e-06
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 119,
+        "coverageArea": 485.545985500001,
+        "minimum": 53.233999252319336,
+        "maximum": 53.233999252319336,
+        "maximumPoint": [
+          619.2404515040233,
+          1360.4363861364743
+        ],
+        "centre": 53.233999252319336,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/223794:0",
+          "name": "ASIA SOCIETY HONG KONG CENTER",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            53.2,
+            57.9
+          ],
+          "renderBaseTop": [
+            53.2,
+            57.900000000000006
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        },
+        {
+          "uid": "landsd/223360:0",
+          "name": "ASIA SOCIETY HONG KONG CENTER",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            53.2,
+            57.9
+          ],
+          "renderBaseTop": [
+            53.2,
+            57.900000000000006
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9986134778701841,
+        "centroidDistanceMetres": 0.11002902574025442,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B351031512901063C0/B351031512901063C0.gltf": "a486605bb7566f4c75195d52794ddc6437c98c091b0647c26026adb7b61b09a0",
+          "BUILDING/B351031512901063C0/B351031512901063C0.bin": "a53e96851fb66711ce86717b4e519eb444aefddd6051648c0b4a113525be2eb7"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/61477:0",
+      "label": "ASIA SOCIETY HONG KONG CENTER",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        39.2,
+        53.1
+      ],
+      "nativeBaseTop": [
+        33.569000244140625,
+        59.935001373291016
+      ],
+      "sourceFootprintArea": 1400.4342249999984,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          33.569000244140625,
+          49.34299850463867,
+          55.75199890136719,
+          57.34299850463867,
+          59.935001373291016,
+          59.935001373291016
+        ],
+        "verticesWithin05mOfTop": 15,
+        "topVertexBoundsXZ": [
+          [
+            558.1025390625,
+            1282.3154296875
+          ],
+          [
+            565.3466796875,
+            1294.771484375
+          ]
+        ],
+        "verticesAboveRecordedTop": 253
+      },
+      "screeningConcerns": [
+        "sampled-terrain-above-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 629,
+        "belowCurrentTerrainBy05m": 5,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 32,
+        "nearBottomCurrentGroundRange": [
+          32.521132812499985,
+          35.22671874999998
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -1.657718505859357,
+          -0.10401342773438316,
+          0.19440454101563276,
+          0.5436267089843554,
+          1.0478674316406398
+        ],
+        "nativeTerrainCoveredVertices": 629,
+        "currentMinusNativeTerrainQuantiles": [
+          -2.630449476437157,
+          -0.12658078751383783,
+          0.01185762632637477,
+          0.18790209960938142,
+          1.6331596309074214
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.031691899075781294,
+          0.0,
+          0.21057515035125363,
+          0.5000553453237799,
+          1.3626899321874006
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 647,
+        "coverageArea": 1400.434225,
+        "minimum": 29.606546370435115,
+        "maximum": 47.191175104605705,
+        "maximumPoint": [
+          555.0,
+          1314.8278366719849
+        ],
+        "centre": 34.12125686115332,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/321812:0",
+          "name": "The Asia Society Hong Kong Center GG Block Administrative Wing",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            39.0,
+            43.7
+          ],
+          "renderBaseTop": [
+            39.0,
+            43.7
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": false
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9982068930728986,
+        "centroidDistanceMetres": 2.075437232963549,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B350721521901063C0/B350721521901063C0.gltf": "0e63ad01ba04a2d87da8971fffbcfb903d34f18b5da29db8683500ce7cb859e7",
+          "BUILDING/B350721521901063C0/B350721521901063C0.bin": "9eb2632117a1401e8980947f2be3da46b786c740187b4d9fedc989519c7af9dc"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "browser-foundation-check-required",
+      "interpretation": "Ground elevation changes across the hillside; lowest-vertex native terrain clearances show source contact at some corners and elevated/stepped edges elsewhere. Global bbox ground gaps are not uniform floating. Review entry terraces and downhill corners in browser without moving native elevations."
+    },
+    {
+      "uid": "landsd/181520:0",
+      "label": "The Asia Society Hong Kong Center Starr-Greenberg Building",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        48.0,
+        59.5
+      ],
+      "nativeBaseTop": [
+        53.2599983215332,
+        59.9379997253418
+      ],
+      "sourceFootprintArea": 350.17787050000067,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          53.2599983215332,
+          57.45899963378906,
+          59.73099899291992,
+          59.79585018157959,
+          59.865201530456545,
+          59.9379997253418
+        ],
+        "verticesWithin05mOfTop": 17,
+        "topVertexBoundsXZ": [
+          [
+            571.1123046875,
+            1324.955078125
+          ],
+          [
+            608.3232421875,
+            1342.91796875
+          ]
+        ],
+        "verticesAboveRecordedTop": 17
+      },
+      "screeningConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 92,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 18,
+        "nearBottomCurrentGroundRange": [
+          50.560789062500014,
+          53.26
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -1.6784667948854803e-06,
+          0.0008186340332052566,
+          0.039355743408197696,
+          0.19125857543944846,
+          2.6992092590331893
+        ],
+        "nativeTerrainCoveredVertices": 92,
+        "currentMinusNativeTerrainQuantiles": [
+          -2.6874265867300338,
+          -0.14072655986907812,
+          -0.03778960865302139,
+          -2.2888183792701966e-07,
+          0.1771926933765826
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -1.9073486328125e-06,
+          -1.9073486328125e-06,
+          -1.9073486328125e-06,
+          0.0021365926744447705,
+          2.1558510788767364
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 136,
+        "coverageArea": 350.17787050000067,
+        "minimum": 51.11297035184808,
+        "maximum": 53.26000022888198,
+        "maximumPoint": [
+          608.081103645321,
+          1328.3681204663133
+        ],
+        "centre": 53.260000228881836,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/70574:0",
+          "name": "ASIA SOCIETY HONG KONG CENTER",
+          "structureType": "Open-sided Structure",
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "renderBaseTop": [
+            59.855,
+            62.855
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": false
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 1.0,
+        "centroidDistanceMetres": 3.1462914137419644,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B350771516801063C0/B350771516801063C0.gltf": "9e808074e305b98d6780c74ce548a7bd2cb08cc6a62e296103b687292b539221",
+          "BUILDING/B350771516801063C0/B350771516801063C0.bin": "4ff96ada879836e22041acc9d1c55f7d639f7d5860ce482e74221bbfe86ac840"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "browser-foundation-check-required",
+      "interpretation": "Ground elevation changes across the hillside; lowest-vertex native terrain clearances show source contact at some corners and elevated/stepped edges elsewhere. Global bbox ground gaps are not uniform floating. Review entry terraces and downhill corners in browser without moving native elevations."
+    },
+    {
+      "uid": "landsd/223348:0",
+      "label": "ASIA SOCIETY HONG KONG CENTER",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        49.2,
+        58.5
+      ],
+      "nativeBaseTop": [
+        56.027000427246094,
+        59.060001373291016
+      ],
+      "sourceFootprintArea": 10.399953999999918,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          56.027000427246094,
+          57.543500900268555,
+          59.060001373291016,
+          59.060001373291016,
+          59.060001373291016,
+          59.060001373291016
+        ],
+        "verticesWithin05mOfTop": 4,
+        "topVertexBoundsXZ": [
+          [
+            615.552734375,
+            1312.259765625
+          ],
+          [
+            619.447265625,
+            1316.1162109375
+          ]
+        ],
+        "verticesAboveRecordedTop": 4
+      },
+      "screeningConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 8,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          48.56510156249998,
+          48.90325390624999
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          7.123746520996107,
+          7.128278747558603,
+          7.244191833496096,
+          7.384420349121095,
+          7.461898864746111
+        ],
+        "nativeTerrainCoveredVertices": 8,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.11860263507207236,
+          -0.11169430733144736,
+          -0.034753805163607154,
+          0.06272961724362958,
+          0.13126670570244414
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          7.169673410836793,
+          7.2293203370803365,
+          7.252107936263368,
+          7.277083977442423,
+          7.3432962296740385
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 5,
+        "coverageArea": 10.399953999999665,
+        "minimum": 48.63125463784679,
+        "maximum": 48.854332298321694,
+        "maximumPoint": [
+          616.292,
+          1316.089
+        ],
+        "centre": 48.67677074019055,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9878031363248098,
+        "centroidDistanceMetres": 0.028749866275387323,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B351171518501063C0/B351171518501063C0.gltf": "430be6d670a62216d2a273386f531e5cb0f0d63acb69b6c30246b03eed312dd0",
+          "BUILDING/B351171518501063C0/B351171518501063C0.bin": "3346416fdd96c2b987034057e887d4e2238db9fff43b002142f885ac6487a311"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "hold-unexplained-elevated-component",
+      "interpretation": "All lowest vertices are 7.12\u20137.46 m above current ground and 7.17\u20137.34 m above original TIN. No neighbouring building footprint intersects it. Native ten-triangle mesh starts at 56.027 m versus surveyed base 49.2 m and could be an upper component with missing support. Keep current full-height fallback until actual supporting geometry or visual/source evidence explains the gap. Do not lower this native roof piece."
+    },
+    {
+      "uid": "landsd/223349:0",
+      "label": "ASIA SOCIETY HONG KONG CENTER",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        53.2,
+        56.0
+      ],
+      "nativeBaseTop": [
+        53.257999420166016,
+        56.36399841308594
+      ],
+      "sourceFootprintArea": 9.525698500000157,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          53.257999420166016,
+          56.26149940490723,
+          56.36399841308594,
+          56.36399841308594,
+          56.36399841308594,
+          56.36399841308594
+        ],
+        "verticesWithin05mOfTop": 12,
+        "topVertexBoundsXZ": [
+          [
+            578.357421875,
+            1361.365234375
+          ],
+          [
+            581.517578125,
+            1366.259765625
+          ]
+        ],
+        "verticesAboveRecordedTop": 12
+      },
+      "screeningConcerns": [],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 16,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          51.80692968749997,
+          53.11835546874999
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          0.13964395141602637,
+          0.35143984985351473,
+          0.5594173889159926,
+          0.885364654540993,
+          1.451069732666049
+        ],
+        "nativeTerrainCoveredVertices": 16,
+        "currentMinusNativeTerrainQuantiles": [
+          -1.4132809839248992,
+          -0.9131907806396526,
+          -0.5544200124785128,
+          -0.3432303314209051,
+          -0.13958160269501008
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.0003209085666497913,
+          -3.3465600900228765e-05,
+          0.005189005081312814,
+          0.017183933266494478,
+          0.0377887487411499
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 17,
+        "coverageArea": 9.525698500000063,
+        "minimum": 53.2504348131776,
+        "maximum": 53.259350027180304,
+        "maximumPoint": [
+          580.468,
+          1361.338
+        ],
+        "centre": 53.25800132751465,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.990360746168054,
+        "centroidDistanceMetres": 0.04484660419345515,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B350801513601063C0/B350801513601063C0.gltf": "34ad1606a9cb9a5c9e6d8d92bddc7a017f2343c3bdffa7495752c59f5fe8fe3e",
+          "BUILDING/B350801513601063C0/B350801513601063C0.bin": "2a84ea829ca4f845c5b4452259d8cbbcdc92504919cfcfd8b703c889e6b9d543"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/223360:0",
+      "label": "ASIA SOCIETY HONG KONG CENTER",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        53.2,
+        57.9
+      ],
+      "nativeBaseTop": [
+        53.23400115966797,
+        58.33300018310547
+      ],
+      "sourceFootprintArea": 83.12766100000111,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          53.23400115966797,
+          58.203500747680664,
+          58.33300018310547,
+          58.33300018310547,
+          58.33300018310547,
+          58.33300018310547
+        ],
+        "verticesWithin05mOfTop": 12,
+        "topVertexBoundsXZ": [
+          [
+            619.0986328125,
+            1358.25
+          ],
+          [
+            628.0263671875,
+            1374.125
+          ]
+        ],
+        "verticesAboveRecordedTop": 12
+      },
+      "screeningConcerns": [],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 16,
+        "belowCurrentTerrainBy05m": 2,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          53.21081640625,
+          53.954771484375044
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.7207703247070754,
+          -0.6135042114257736,
+          -0.4764890747070005,
+          -0.275625793457003,
+          0.023184753417972104
+        ],
+        "nativeTerrainCoveredVertices": 16,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.02376878356933787,
+          -0.0025197601318343033,
+          0.22869996643068546,
+          0.4285931403732839,
+          0.7207722320557082
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          1.9073486328125e-06,
+          1.9073486328125e-06,
+          1.9073486328125e-06,
+          0.0009125877253506331,
+          0.003644628855504095
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 52,
+        "coverageArea": 83.12766100000047,
+        "minimum": 53.22066581092736,
+        "maximum": 53.24008135567938,
+        "maximumPoint": [
+          624.9546007948338,
+          1373.630660872108
+        ],
+        "centre": 53.233999252319336,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/3091:0",
+          "name": "The Asia Society Hong Kong Center Asia Society Gallery",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            53.2,
+            60.4
+          ],
+          "renderBaseTop": [
+            53.2,
+            60.400000000000006
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9920389925041647,
+        "centroidDistanceMetres": 0.055103318805226426,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B351231513401063C0/B351231513401063C0.gltf": "a3d407db671262d0202c89dc3a92461343c74c22160c729126592b6e398a4b99",
+          "BUILDING/B351231513401063C0/B351231513401063C0.bin": "25616969cbbc56b29fe0a618db9f6435a8c48e12da5398358497cfc9ccb5406e"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/223783:0",
+      "label": "ASIA SOCIETY HONG KONG CENTER",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        43.1,
+        49.2
+      ],
+      "nativeBaseTop": [
+        43.57899856567383,
+        46.68199920654297
+      ],
+      "sourceFootprintArea": 9.964170500000028,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          43.57899856567383,
+          45.1304988861084,
+          46.68199920654297,
+          46.68199920654297,
+          46.68199920654297,
+          46.68199920654297
+        ],
+        "verticesWithin05mOfTop": 9,
+        "topVertexBoundsXZ": [
+          [
+            549.8515625,
+            1277.9423828125
+          ],
+          [
+            553.7724609375,
+            1283.3076171875
+          ]
+        ],
+        "verticesAboveRecordedTop": 0
+      },
+      "screeningConcerns": [
+        "sampled-ground-gap-below-model-bottom"
+      ],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 18,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 9,
+        "nearBottomCurrentGroundRange": [
+          40.629496093750014,
+          43.0159609375
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          0.5630376281738307,
+          2.0034184875488776,
+          2.4665552062988496,
+          2.8950532531738986,
+          2.9495024719238145
+        ],
+        "nativeTerrainCoveredVertices": 18,
+        "currentMinusNativeTerrainQuantiles": [
+          -2.8354345218341237,
+          -2.255886076536896,
+          -0.5794816563871521,
+          0.26717788116192054,
+          0.80917984235235
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.01644402821332136,
+          0.0002980279922510931,
+          0.05961873133977491,
+          2.869656915585715,
+          3.7586823142761645
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 23,
+        "coverageArea": 9.964170500000073,
+        "minimum": 40.34974759676866,
+        "maximum": 43.64885310394766,
+        "maximumPoint": [
+          550.2979361517584,
+          1280.0089623681486
+        ],
+        "centre": 42.44633408428325,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9197738154701725,
+        "centroidDistanceMetres": 0.7594105369637937,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B350511521801063C0/B350511521801063C0.gltf": "c4d19871ff7922f91d9ce288aea385d4202ed64ef866c9be3333ce79968de6d4",
+          "BUILDING/B350511521801063C0/B350511521801063C0.bin": "f69b0cbe84700844398f3408cc739294330768386bb4ebec013e8312aeb5fe9a"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "browser-foundation-check-required",
+      "interpretation": "Ground elevation changes across the hillside; lowest-vertex native terrain clearances show source contact at some corners and elevated/stepped edges elsewhere. Global bbox ground gaps are not uniform floating. Review entry terraces and downhill corners in browser without moving native elevations."
+    },
+    {
+      "uid": "landsd/223794:0",
+      "label": "ASIA SOCIETY HONG KONG CENTER",
+      "sourceTile": "11-SW-14A",
+      "sourceBaseTop": [
+        53.2,
+        57.9
+      ],
+      "nativeBaseTop": [
+        53.23400115966797,
+        58.48699951171875
+      ],
+      "sourceFootprintArea": 54.50678399999892,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          53.23400115966797,
+          58.280500411987305,
+          58.48699951171875,
+          58.48699951171875,
+          58.48699951171875,
+          58.48699951171875
+        ],
+        "verticesWithin05mOfTop": 12,
+        "topVertexBoundsXZ": [
+          [
+            597.5,
+            1356.9873046875
+          ],
+          [
+            615.8740234375,
+            1363.888671875
+          ]
+        ],
+        "verticesAboveRecordedTop": 12
+      },
+      "screeningConcerns": [],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 16,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 4,
+        "nearBottomCurrentGroundRange": [
+          53.146072265624994,
+          53.23268359375
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          0.0013175659179722743,
+          0.003330261230471976,
+          0.004001159667971876,
+          0.024983093261722544,
+          0.08792889404297455
+        ],
+        "nativeTerrainCoveredVertices": 16,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.08508351851214968,
+          -0.009318588256835625,
+          -0.003999252319339064,
+          -0.0034626312255880975,
+          -0.0013595283272422876
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -4.196240927001327e-05,
+          -9.060090842893942e-06,
+          1.9073486328125e-06,
+          0.0007127743941808262,
+          0.0028453755308248674
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 70,
+        "coverageArea": 54.50678399999893,
+        "minimum": 53.22649080817603,
+        "maximum": 53.23443721817887,
+        "maximumPoint": [
+          597.4533538177591,
+          1361.1782022812424
+        ],
+        "centre": 53.233999252319336,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [
+        {
+          "uid": "landsd/3091:0",
+          "name": "The Asia Society Hong Kong Center Asia Society Gallery",
+          "structureType": "Tower",
+          "sourceBaseTop": [
+            53.2,
+            60.4
+          ],
+          "renderBaseTop": [
+            53.2,
+            60.400000000000006
+          ],
+          "intersectionArea": 0.0,
+          "targetCoverageFraction": 0.0,
+          "inCandidateBatch": true
+        }
+      ],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9999786827946708,
+        "centroidDistanceMetres": 0.06432843568389397,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B351051513801063C0/B351051513801063C0.gltf": "eb670292110c36adf8a20ddbca23adb9761e2396ebd9c336cb73b06bb5e0d103",
+          "BUILDING/B351051513801063C0/B351051513801063C0.bin": "d8d4f3370735ddd7523b82d3d006b9592193199b79cf106612acf7c7be58fc51"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "Native source geometry has no highest-roof burial; assess local base contact in browser before approval. Source base/top attributes and detailed mesh bounds describe different parts of the structure and are preserved separately."
+    },
+    {
+      "uid": "landsd/184076:0",
+      "label": "The Court of Final Appeal",
+      "sourceTile": "11-SW-9C",
+      "sourceBaseTop": [
+        4.4,
+        23.0
+      ],
+      "nativeBaseTop": [
+        4.423999786376953,
+        44.5890007019043
+      ],
+      "sourceFootprintArea": 2701.492450499998,
+      "nativeRoofShape": {
+        "heightQuantiles": [
+          4.423999786376953,
+          10.157999992370605,
+          27.84000015258789,
+          29.961000442504883,
+          38.79999923706055,
+          44.5890007019043
+        ],
+        "verticesWithin05mOfTop": 24,
+        "topVertexBoundsXZ": [
+          [
+            65.8212890625,
+            717.669921875
+          ],
+          [
+            66.1279296875,
+            717.9814453125
+          ]
+        ],
+        "verticesAboveRecordedTop": 2592
+      },
+      "screeningConcerns": [],
+      "nativeVertexTerrain": {
+        "uniqueVertices": 15584,
+        "belowCurrentTerrainBy05m": 0,
+        "belowNativeTerrainBy05m": 0,
+        "highestRoofVerticesBelowCurrentTerrain": 0,
+        "highestRoofVerticesBelowNativeTerrain": 0,
+        "nearBottomVertices": 978,
+        "nearBottomCurrentGroundRange": [
+          4.501769531250004,
+          5.309855468749998
+        ],
+        "nearBottomCurrentClearanceQuantiles": [
+          -0.40985537338256606,
+          0.10569623565673791,
+          0.21681259536743047,
+          0.24153818130493176,
+          0.37135556411742954
+        ],
+        "nativeTerrainCoveredVertices": 15584,
+        "currentMinusNativeTerrainQuantiles": [
+          -0.22665954011055423,
+          -0.0046735521969045735,
+          0.0010029651641838555,
+          0.006940932636670283,
+          0.22222875727378089
+        ],
+        "nearBottomNativeClearanceQuantiles": [
+          -0.4109850881496042,
+          0.11534975146792714,
+          0.22089486117611168,
+          0.2312738539820598,
+          0.3779994386490708
+        ]
+      },
+      "nativeFootprintTerrain": {
+        "intersectingTriangles": 1225,
+        "coverageArea": 2701.492450500001,
+        "minimum": 4.488388245307878,
+        "maximum": 5.308783590514211,
+        "maximumPoint": [
+          74.732,
+          756.905
+        ],
+        "centre": 4.668997034835816,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "nearbyParts": [],
+      "structuralSupport": [],
+      "sourceModelProof": {
+        "overlapOfSmallerFootprint": 0.9999999999999998,
+        "centroidDistanceMetres": 0.027282075617410344,
+        "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-9C/manifest.json",
+        "sourceHashes": {
+          "BUILDING/B345831577701063C0/B345831577701063C0.gltf": "9e5a3469de5b503f0585ea949d0d8acad8657b52e83777c6f7309bde49e9fc50",
+          "BUILDING/B345831577701063C0/B345831577701063C0.bin": "fe032b39d499bbd5ae1150bb5c612185bd1918dbb11062e9e7cdd88f5a34fd01"
+        },
+        "sourceArchiveSHA256": null
+      },
+      "recommendation": "candidate-for-browser-approval",
+      "interpretation": "CFA ground-contact vertices agree with source/current ground. 2,592 native vertices lie above tabular top 23 m; the 99th percentile height is 38.8 m; the 44.589 m maximum comprises 24 vertices over a narrow 0.307 \u00d7 0.312 m central feature. This is consistent with detailed dome and finial geometry rather than an isolated outlier, pending browser silhouette confirmation. Keep the native dome/finial height; no vertical scaling."
+    }
+  ],
+  "limits": [
+    "Contextual source audit does not replace browser architecture acceptance.",
+    "Bottom geometry may be below grade or supported on separately modelled podiums; bare terrain gap alone does not justify rejecting or translating it.",
+    "Roof checks concern highest roof and sampled vertices; not every small roof face.",
+    "No source geometry, live terrain, database or model elevations changed."
+  ]
+}

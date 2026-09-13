@@ -1,0 +1,74 @@
+# Original-game feature parity is a required destination
+
+User requirement, 6 September 2026: the expanded city must eventually restore **all
+existing functions of the original game**, explicitly including **stargazing** and
+**live and manually controlled weather**. The new city route is an interim view,
+not a replacement with a permanently reduced feature set. Expansion of geography
+does not satisfy this separate requirement.
+
+User design direction, 6 September 2026: restore original capabilities within **Astra City's modern design system**. Use its current panels, typography, controls and responsive layouts as features return. The original game supplies behaviour, data and reusable implementation; its visual layout is not the required design target.
+
+**Explicit exclusion, 7 September 2026:** Do not restore vertical exaggeration or a vertical multiplier in Astra City. Keep terrain, buildings, water/tides, bridges, collision, walking/flight/landing and camera altitude in the same real-world metres/HKPD at 1×. Ignore legacy VE settings/URL values when porting saved state. Source-backed terrain corrections remain allowed; surveyed elevations must stay intact. This user decision overrides the otherwise full feature-parity requirement.
+
+Baseline: original `3d-viewer/main.js` and `index.html` at `5777bc9`.
+They remain available at `/index.html`. Before final replacement, re-audit the
+original source and UI, including later upstream changes; this inventory is a
+starting point, not permission to drop an unlisted feature.
+
+| Original capability | City status | Required integration |
+| --- | --- | --- |
+| Hong Kong/Lantau and DTM/SRTM source choice | One original DTM grid | All four source choices and their georeferences |
+| Terrain surfaces | One styled surface | Shaded, elevation, matte, solid, wireframe, B50K, OSM and satellite |
+| Terrain controls | True-scale city | Mesh density/colour, map rotation/background, auto-spin; fixed 1× vertical scale and aligned city layers |
+| Map overlays | Buildings, streets, trees and labels | Contours, trails, hydro, coast, boundaries, cliffs, peak/landmark labels and overlay height |
+| Stargazing | Catalogue stars, 24 constellation figures, picking, dated positions, compass/drag/keyboard sky camera | Phone orientation, GPS follow, wider original selection/presentation behaviours |
+| Sun/moon and time | Live HKT, custom date/time, circular clock, adjustable 1×–7,200× timelapse (HKS-189), seasonal dawn/dusk, sun/moon positions, phase and rise/set | Remaining original studio-light and sky presentation options; preserve ephemeris precision limits |
+| Shooting stars | Shared original toggle and Calm/Romantic/Apocalypse rate control; daytime, pause and reduced-motion gates verified (HKS-168) | Saved city settings/URL parity tracked with HKS-187 |
+| Live weather | HKO condition, temperature/humidity and district rain; timestamped station wind; live/manual separation and stale/error state | Marine observations, radar, satellite, AQHI and remaining regional fields |
+| Manual weather | Rain, cloud cover, fog, wind strength/direction, waves, snow, simulated lightning/thunder (HKS-169), manual sea level and HKO astronomical tide predictions with 24-hour graph (HKS-180 tidal slice) | Sky height, typhoon T1–T10, snow accumulation and remaining original controls (HKS-180) |
+| Weather and vehicle sound | Original environmental sound and thunder with master volume, gesture unlock, mute and pause lifecycle (HKS-169) | Aircraft/UFO engines and movement/game effects (HKS-177–179) |
+| Flight | All seven original models, corrected proportions/materials, propellers and navigation lights; assisted sightseeing | Original flight physics, throttle/reverse where applicable, take-off, landing, speed settings and input support |
+| Aircraft cameras | Chase and pilot eye | Original exterior, eye and cockpit camera options, cockpit interiors and controls |
+| Walking | Walking/running with collision | Original jump, auto-walk, pointer lock and complete keyboard/touch/camera behaviours |
+| UFO/cattle game | UFO model selectable for sightseeing | Hover/reverse, beam, cattle, score and targeting camera |
+| Matrix and neon themes | Pending | Both themes available across their supported modes |
+| GPX trails | Pending | Import/drop, styling, visibility/removal, playback, start/end, elevation profiles and statistics |
+| Geolocation | Pending | Locate, follow, compass, position marker, relocate and walk-from-location |
+| English/Traditional Chinese | Place names only | Full EN-HK/ZH-HK strings, locale routing and metadata |
+| View sharing | District URL only | Original state URL, share/copy, embed and restoration of settings |
+| Mobile/PWA | Modern bottom sheet, persistent mode dock, desktop inspector, touch and keyboard controls (HKS-190) | Fullscreen, install/standalone, service-worker/offline behaviour, gestures and orientation |
+| Accessibility/help/credits | City-specific subset | Complete help, all original controls, credits, source/licence notices and preferences |
+
+## Integration boundary
+
+City data and streaming are kept in their own modules, with one metre-based world
+coordinate system, per-layer visibility, shared light uniforms and a collision
+adapter. The original sky/weather/gameplay systems should be ported or extracted
+behind these boundaries, retaining source provenance and existing user settings.
+The circular clock now drives the original compact ephemeris. Building occupancy
+and weather appearance remain visual simulations, with separate sources and
+confidence. Live and manual controls remain explicit.
+
+## Completion gate for parity
+
+The original route can only be retired after an original-versus-city walkthrough
+covers every baseline control, saved URL/state, keyboard/touch interaction and
+mode combination. Add focused regression checks for imported systems; check
+live integrations and offline/error handling separately. Reuse the existing
+catalogues, datasets, models and licences rather than silently substituting them.
+
+## Verified environment restoration — 6 September 2026
+
+HKS-168 and HKS-169 reuse the original meteor renderer and audio synthesiser. The original viewer meteor controls, translated labels and URL state pass their compatibility checks. The combined City browser checks cover Sky/Weather controls, live/manual restoration, Stargaze, About pause, reduced motion, trusted sound activation, volume/mute and 390 px/320 px layouts with no browser or shader errors. See [environment evidence](environment-parity/README.md), [meteor provenance](meteors/README.md) and [storm/audio evidence](weather-effects/README.md). The live HKO transition uses explicit deterministic fixtures; it does not prove an observed lightning feed. Other inventory rows remain open.
+
+## Tidal and wave restoration — HKS-180
+
+The city now shares the original tide interpolation, water-normal/rain/glitter shader, wet shoreline/foam shader and noise texture. Manual sea level uses metres HKPD (−1 to 4); Live weather selects current-time astronomical predictions for Cheung Chau or Quarry Bay, converting Chart Datum to HKPD by subtracting 0.146 m. Automatic station selection chooses the nearer of those two sources and is explicitly approximate. The 24-hour graph preserves missing-data gaps. Manual settings restore after Live; unavailable current predictions fall back explicitly to the saved manual level.
+
+Ferries follow the water surface. Walking arrivals and new steps permit at most 20 cm shallow wading; if a tide rises around an existing walker, level/uphill retreat stays available. Camera clearance uses the rendered surface, while walking admission uses the resting tide to avoid wave-by-wave collision flicker. The shared wet band/foam follows the current waterline; small wave heave remains illustrative. Stargaze/pause and reduced-motion behaviour are retained. See [tide methods and sources](tides/README.md) and [actual City browser evidence](tides/browser/README.md). Other HKS-180 controls, including typhoon presets and snow accumulation, remain open.
+
+## Modern controls and adjustable timelapse — HKS-189 / HKS-190
+
+The existing controls now share a mobile-first bottom sheet and a compact desktop inspector. All 118 existing HTML IDs are retained once; controls and their settings stay mounted when collapsed. Tabs, search, mode switching, focus, Escape, handle gestures and keyboard isolation are covered by actual-browser checks. Viewport-inset handling is tested with synthetic browser dimensions; physical iOS/Android keyboard behaviour remains to be checked. See [control presentation and evidence](control-sheet/README.md).
+
+Timelapse extends the existing city clock, with play/pause and a 1×–7,200× normal-speed slider beside the dial. The default remains one hour in eight seconds. Monotonic render timestamps preserve the pace independently of capped movement physics. Sun, shadows and building lighting advance together; manual time selection stops playback, while pause, Stargaze and Reduced Motion suspend it without catching up skipped time. Live weather/tide source timestamps remain independent. Six focused tests, actual keyboard/touch input, year-end rollover and rendered-shadow checks pass. See [timelapse methods and browser evidence](time-cycle/README.md). The complete city suite passes 133 tests.

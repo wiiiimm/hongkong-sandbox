@@ -1,0 +1,233 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/model-integration-20260909/coherent-migration-plan.json",
+  "areas": [
+    {
+      "area": "Coherent Chungking and LP6 native support assemblies",
+      "models": 5,
+      "catalogue": "city/data/official-models/native-support-migration-20260909/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    },
+    {
+      "area": "exact-next reviewed native components",
+      "models": 4,
+      "catalogue": "city/data/official-models/model-pass-20260909-exact-next/catalogue.json",
+      "terrainBundles": [
+        "source-scripts/city/model-integration-20260909/support-exact-tin-181141-0-bundle.json",
+        "source-scripts/city/model-integration-20260909/support-exact-tin-213822-0-bundle.json",
+        "source-scripts/city/model-integration-20260909/support-exact-tin-232907-0-bundle.json"
+      ],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/official-models/native-support-migration-20260909/catalogue.json": null,
+    "3d-viewer/city/data/official-models/model-pass-20260909-exact-next/catalogue.json": null,
+    "3d-viewer/city/data/terrain-central.json": "9d2d8a55d9d29cfb313ff35d19e57d2ad785ea12d487595af5312334ec40da96",
+    "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json": "5627d81043e782260a81c9f99155b6e2764fd63b0b75087186b34a289b6db10e",
+    "3d-viewer/city/data/manifest.json": "28ff7779db56e94bff2ef38c2d6b420a19a9f55b1e73782fe9c74c4c058fbbff"
+  },
+  "after": {
+    "3d-viewer/city/data/official-models/native-support-migration-20260909/catalogue.json": "e182233e019dcb8fb587421078d4db770b0c49ab611d3fc2dcaac60f10035e46",
+    "3d-viewer/city/data/official-models/model-pass-20260909-exact-next/catalogue.json": "b6492de11e7cd6b64d172a6357f255261a728bde76ccc1c959691c39e1e37dfa",
+    "3d-viewer/city/data/terrain-central.json": "2207e6d0e933daf100ea5240b974d7346da96ec169d5c199346fdee1a3a276d7",
+    "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json": "c8d4e83d4162e60b3b99cafe836c06e4ce8abf913cc1b0b4f5a225e9f9bd135c",
+    "3d-viewer/city/data/manifest.json": "9ca76cbe162f9e8b84192b68b72776167b67cdfa1b7e552759118898fefadbbc"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "6adf573c27addf627caec4017dcbabf0e900db29",
+  "dependencyUpdates": [
+    {
+      "uid": "landsd/319007:0",
+      "assetUnchanged": "7ba864e8962ae3664d8e0a640964ee8ce7bb620d1aae4cee03fc9ce4427ded45",
+      "before": [
+        {
+          "uid": "landsd/60395:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3583617492P20060821",
+          "distance": 3.552713678800501e-15
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/60395:0",
+          "state": "installed",
+          "csuid": "3583617492P20060821",
+          "distance": 0.26999148139768
+        }
+      ]
+    },
+    {
+      "uid": "landsd/319008:0",
+      "assetUnchanged": "df23f5570c609fc142a1e8d6c133c71c8bab7597de8d23d02fb893e630bf79e0",
+      "before": [
+        {
+          "uid": "landsd/60395:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3583617492P20060821",
+          "distance": 3.552713678800501e-15
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/60395:0",
+          "state": "installed",
+          "csuid": "3583617492P20060821",
+          "distance": 0.2557644844055176
+        }
+      ]
+    },
+    {
+      "uid": "landsd/319009:0",
+      "assetUnchanged": "1fafc53280f10d28ae0771f129e223f996756980c55e5d537bace0553ecf59a0",
+      "before": [
+        {
+          "uid": "landsd/60395:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3583617492P20060821",
+          "distance": 3.552713678800501e-15
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/60395:0",
+          "state": "installed",
+          "csuid": "3583617492P20060821",
+          "distance": 0.29256868362427113
+        }
+      ]
+    },
+    {
+      "uid": "landsd/122547:0",
+      "assetUnchanged": "b41a9c525f7b6abfe4d15dfc409212b3e99de404c24b2afc938b79887524a441",
+      "before": [
+        {
+          "uid": "landsd/272917:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "4587417054P20201229",
+          "distance": 0.309972763061527
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/272917:0",
+          "state": "installed",
+          "csuid": "4587417054P20201229",
+          "distance": 0.0009727478027272696
+        }
+      ]
+    },
+    {
+      "uid": "landsd/133473:0",
+      "assetUnchanged": "1e44e19909e0e2ed07145beeb69a9f8f8b905090be9c7348f9f2466de336efcb",
+      "before": [
+        {
+          "uid": "landsd/272917:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "4587417054P20201229",
+          "distance": 0.309972763061527
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/272917:0",
+          "state": "installed",
+          "csuid": "4587417054P20201229",
+          "distance": 0.0009727478027308223
+        }
+      ]
+    },
+    {
+      "uid": "landsd/156618:0",
+      "assetUnchanged": "3ed09f6811b496bd38a12df0fc327488c26bb48ca05ac009e56d5b9525b2f8ac",
+      "before": [
+        {
+          "uid": "landsd/272917:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "4587417054P20201229",
+          "distance": 0.30997276306152344
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/272917:0",
+          "state": "installed",
+          "csuid": "4587417054P20201229",
+          "distance": 2.6702880866480427e-05
+        }
+      ]
+    },
+    {
+      "uid": "landsd/335196:0",
+      "assetUnchanged": "c383da15d41c9f15ce0ba2276033a3bdfbe81429da6f8f22de5ec13d9fd0b1f7",
+      "before": [
+        {
+          "uid": "landsd/335194:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3844921306P20230601",
+          "distance": 0.20771408081055398
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/335194:0",
+          "state": "installed",
+          "csuid": "3844921306P20230601",
+          "distance": 0.04200487222881095
+        }
+      ]
+    },
+    {
+      "uid": "landsd/222976:0",
+      "assetUnchanged": "e8116c7c9f332996a76def6d15bcca50c61c3d08245b942967530e8bc66becce",
+      "before": [
+        {
+          "uid": "landsd/232907:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3402214912P20060312",
+          "distance": 0.149993896484375
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/232907:0",
+          "state": "installed",
+          "csuid": "3402214912P20060312",
+          "distance": 0.02157297073669387
+        }
+      ]
+    },
+    {
+      "uid": "landsd/265180:0",
+      "assetUnchanged": "a2de5951075faf210a2710e1c4451e27ea735b70fefe9d2117576826a05bf454",
+      "before": [
+        {
+          "uid": "landsd/232907:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3402214912P20060312",
+          "distance": 0.1517513150928103
+        }
+      ],
+      "after": [
+        {
+          "uid": "landsd/232907:0",
+          "state": "installed",
+          "csuid": "3402214912P20060312",
+          "distance": 0.02333147735460353
+        }
+      ]
+    }
+  ],
+  "estimatedBases": []
+}

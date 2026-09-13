@@ -1,0 +1,166 @@
+{
+  "runId": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+  "policy": "government-size-v1",
+  "sourceDigest": "b6dfa30efff63119a4a7d44a97923ffe313a2868c35d19e9380f476710d151d3",
+  "sourceSheets": 3456,
+  "models": 216976,
+  "groups": [
+    {
+      "size_group": "xs",
+      "models": 97946,
+      "prepared_viewer_matches": 95468,
+      "min_triangles": 5,
+      "max_triangles": 99,
+      "total_triangles": 4594021,
+      "compressed_bytes": 155958122,
+      "geometry_bytes": 443208318
+    },
+    {
+      "size_group": "small",
+      "models": 92361,
+      "prepared_viewer_matches": 91419,
+      "min_triangles": 100,
+      "max_triangles": 499,
+      "total_triangles": 19021949,
+      "compressed_bytes": 409194878,
+      "geometry_bytes": 1745658138
+    },
+    {
+      "size_group": "medium",
+      "models": 20552,
+      "prepared_viewer_matches": 19999,
+      "min_triangles": 500,
+      "max_triangles": 1999,
+      "total_triangles": 19532095,
+      "compressed_bytes": 375529703,
+      "geometry_bytes": 1726901466
+    },
+    {
+      "size_group": "large",
+      "models": 5567,
+      "prepared_viewer_matches": 5345,
+      "min_triangles": 2000,
+      "max_triangles": 9988,
+      "total_triangles": 20723981,
+      "compressed_bytes": 359635651,
+      "geometry_bytes": 1830223722
+    },
+    {
+      "size_group": "xl",
+      "models": 521,
+      "prepared_viewer_matches": 453,
+      "min_triangles": 10004,
+      "max_triangles": 48248,
+      "total_triangles": 9210381,
+      "compressed_bytes": 168019456,
+      "geometry_bytes": 831915540
+    },
+    {
+      "size_group": "xxl",
+      "models": 22,
+      "prepared_viewer_matches": 17,
+      "min_triangles": 52537,
+      "max_triangles": 333434,
+      "total_triangles": 2787455,
+      "compressed_bytes": 55130912,
+      "geometry_bytes": 270022380
+    },
+    {
+      "size_group": "unmeasured",
+      "models": 7,
+      "prepared_viewer_matches": 0,
+      "min_triangles": null,
+      "max_triangles": null,
+      "total_triangles": null,
+      "compressed_bytes": null,
+      "geometry_bytes": null
+    }
+  ],
+  "sourceStates": [
+    {
+      "source_state": "failed",
+      "models": 7
+    },
+    {
+      "source_state": "packed-needs-placement-review",
+      "models": 212675
+    },
+    {
+      "source_state": "source-match-held",
+      "models": 4294
+    }
+  ],
+  "boundariesInclusiveExclusive": {
+    "xs": [
+      0,
+      100
+    ],
+    "small": [
+      100,
+      500
+    ],
+    "medium": [
+      500,
+      2000
+    ],
+    "large": [
+      2000,
+      10000
+    ],
+    "xl": [
+      10000,
+      50000
+    ],
+    "xxl": [
+      50000,
+      null
+    ],
+    "unmeasured": [
+      null,
+      null
+    ]
+  },
+  "exactSourceProjectionVerified": true,
+  "boundaryCasesVerified": 13,
+  "aiCalls": 0,
+  "modelDownloads": 0,
+  "modelChanges": 0,
+  "queuesCreated": 0,
+  "qualification": "Triangle complexity groups from frozen government source metadata. Not quality, importance, FPS, AI effort or installation readiness. Physical dimensions and byte costs remain separate.",
+  "insertedRows": 0,
+  "dryRun": false,
+  "queryChecks": {
+    "xxl": {
+      "executionMs": 0.178,
+      "indexes": [
+        "native_model_sizes_group"
+      ]
+    },
+    "small": {
+      "executionMs": 0.175,
+      "indexes": [
+        "native_model_sizes_group"
+      ]
+    },
+    "largest": {
+      "executionMs": 0.149,
+      "indexes": [
+        "native_model_sizes_complexity"
+      ]
+    },
+    "download": {
+      "executionMs": 0.132,
+      "indexes": [
+        "native_model_sizes_download"
+      ]
+    },
+    "memory": {
+      "executionMs": 0.13,
+      "indexes": [
+        "native_model_sizes_memory"
+      ]
+    }
+  },
+  "seconds": 9.751,
+  "freshReadbackVerified": true
+}

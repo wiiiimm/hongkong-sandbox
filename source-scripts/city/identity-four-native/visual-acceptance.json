@@ -1,0 +1,19 @@
+{
+  "issue": "HKS-214",
+  "status": "approved-for-integration",
+  "verticalScale": 1,
+  "models": {
+    "landsd/203728:0": "Exact named Cullinan I native GeoRefNo; whole-model lower podium extension shifts centroid12.33m and caused the original conservative match hold. Above57.5m, source projection covers99.972% tower footprint and centroid1.91m. Keep complete native lower extension and node transform. All499native low-rim vertices meet actual Elements triangles within0.134m; no source faces buried.",
+    "landsd/203724:0": "Exact named Cullinan II native GeoRefNo; retain the lower extension rather than clipping to the tower footprint or forcing surveyedbase57m. Its source tower projection corresponds to the named footprint; all566native low-rim vertices meet actual Elements triangles within0.146m. No source faces buried.",
+    "landsd/37369:0": "Named China Resources Building tower; native envelope14.976\u2013186.319m retained independently of the footprint3.8\u2013175.2m metadata. All42lower-rim vertices meet unchanged surveyed podium151601 within0.401m; no source burial. Preserve that source fallback dependency.",
+    "landsd/323059:0": "Named Oakhill tower;55/57native low-rim points meet surveyedpodium161320 within0.5m. The2projectingcorners (0.572/1.790m) belong to the same338-vertex native connected component as all55supported lower-rim points; retain source overhangs, not an inferred unsupported separate object. Native geometry/bounds unchanged; no buriedfaces.",
+    "landsd/273061:0": "Exact named Elements podium model matches99.996% smallerfootprint, centroid1.785m. Fullnative mesh retained, including the varied podium roof/garden structures above the23.5m footprint envelope (native max45.294m). Currentterrain buried2923faces/576upward; nativeTIN patch leaves0whollyburiedfaces. Every322lowrimpoint hasnativecoverage and contact within0.881m on the1mgrid. Outeruncoveredpatchnodes retainparentheight; no blanketclaim of complete236181node nativecoverage."
+  },
+  "existingDependencyMigration": "Existing HarboursideTower1 landsd/204153:0 has41/41lowrimcontacts to nativeElements within0.024m. Migrate only its support dependency from surveyedfallback to nativeElements atomically; unchanged nativeasset/modelID/base/top.",
+  "terrain": "Elements1mgrid alignsparentcoarseCells and endsx392.5 exactly adjacent to existing stationpatch. Stationpatch bytes remainunchanged.220473/236181gridnodes coveredbyretainednativeTIN; remainingouterpoints keep existingparent. Zeroseam/waterchanges, allbuildingrim/burialtestpoints nativecovered.",
+  "limits": [
+    "Source/native shape acceptance is separate from photographic facade textures, interiors and complete-region readiness.",
+    "Whole-mall mobile bounding-sphere framing exceeded the existing1800mdetailrange; preservedfailure is a camera diagnostic, not permission to raise appbudgets. Use targeted nearby mobiletower views with nativeElementsdependency."
+  ],
+  "mobileQualification": "Eight targeted day/night views passed activation, picking and camera clearance under unchanged mobile limits. North-east Cullinan captures show the source roof/upper tower; neighbouring Sorrento geometry partially obscures lower levels. Desktop provides broader assembly context. Staged routes are not installed verification."
+}
