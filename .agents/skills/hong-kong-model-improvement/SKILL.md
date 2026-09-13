@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.5"
+  version: "1.8.6"
 ---
 
 # Hong Kong model improvement
@@ -49,6 +49,8 @@ see `source-scripts/city/government-import/xxl-pass.py` and the batch handoff.
 Generic territory-wide queue construction remains deferred. Reuse exact installed
 source hashes; leave failed identity/terrain cases for the grouped second pass.
 Run browser/publication checks only for the subset passing the scripted contract. The user has now authorised a grouped scripted second pass of the 18 XXL holds. Exact source lookup, geometry diagnostics and source-backed terrain processing remain code/compute work. The completed checkpoint is `docs/astra-city/government-import/government-xxl-20260911/second-pass/README.md`: six of 22 XXL parts installed, 16 held, zero in process, plus one supporting podium outside XXL. Resume from its Neon receipt and preserved evidence rather than rerunning completed imports.
+
+The bounded 50-model XL pass is complete at `docs/astra-city/government-import/government-xl-50-20260913/README.md`: one unchanged source model (WEST9ZONE) is installed, 49 are held for later local scripted processing, and zero are in process or held for AI/human decisions. Reuse completed Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`, review snapshot `7e5ad5d98b43c2a4` and the frozen per-model reasons. Group future work by blocker rather than reacquiring or rerunning all 50 sources.
 
 Commit each newly verified installed model or coherent group promptly, with its runtime assets, acceptance evidence and refreshed progress. Do not wait for held models or the rest of a batch before committing available models (user direction, 11 September 2026).
 
