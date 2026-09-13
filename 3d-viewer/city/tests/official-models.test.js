@@ -57,8 +57,13 @@ test('camera travel cancels a pending source request; late completion cannot rep
  const f=fixture();let release;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Promise(resolve=>{release=resolve;}):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});while(!release)await tick();c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});release(new Response(f.compressed));while(layer.cache.running.size)await tick();assert.equal(f.stream.detailedModels.size,0);assert.equal(layer.cache.entries.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
 });
-test('catalogues reject ambiguous duplicate IDs, wrong datum and external decoder assets',()=>{
- const f=fixture();try{assert.throws(()=>prepareModelCatalogue({...f.catalogue,verticalDatum:'sea level'},'http://localhost/c.json'),/catalogue/);assert.throws(()=>prepareModelCatalogue({...f.catalogue,counts:{packedModels:2},models:[f.meta,f.meta]},'http://localhost/c.json'),/entry/);assert.throws(()=>prepareModelCatalogue({...f.catalogue,models:[{...f.meta,asset:'https://other.test/a.glb.gz'}]},'http://localhost/c.json'),/origin/);}finally{f.stream.cache.close();}
+test('catalogues reject ambiguous duplicate IDs, wrong datum, invalid assembly suppressions and external decoder assets',()=>{
+ const f=fixture();try{
+  assert.throws(()=>prepareModelCatalogue({...f.catalogue,verticalDatum:'sea level'},'http://localhost/c.json'),/catalogue/);
+  assert.throws(()=>prepareModelCatalogue({...f.catalogue,counts:{packedModels:2},models:[f.meta,f.meta]},'http://localhost/c.json'),/entry/);
+  for(const suppressesBuildingUids of [[f.meta.uid],['landsd/2:0','landsd/2:0'],['bad']])assert.throws(()=>prepareModelCatalogue({...f.catalogue,models:[{...f.meta,suppressesBuildingUids}]},'http://localhost/c.json'),/assembly suppression/);
+  assert.throws(()=>prepareModelCatalogue({...f.catalogue,models:[{...f.meta,asset:'https://other.test/a.glb.gz'}]},'http://localhost/c.json'),/origin/);
+ }finally{f.stream.cache.close();}
 });
 test('planner respects geometry, collision-memory, count and triangle budgets without rebaking on each camera frame',async t=>{
  const f=fixture();t.mock.method(globalThis,'fetch',async()=>response(f.catalogue));let loads=0;
@@ -125,4 +130,15 @@ test('real source-tile replacement activates a tower only after its native suppo
  const c=camera();assert.deepEqual(layer.plan(c,{force:true,selectedUid:f.meta.uid}),[supportUid,f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.detailedModels.size,2);
  c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.equal(f.stream.detailedModels.size,0);
  assert.deepEqual(events,['add:'+supportUid,'add:'+f.meta.uid,'remove:'+f.meta.uid,'remove:'+supportUid]);
+});
+
+
+test('an active government assembly hides its bundled fallback forms and restores them on eviction',async t=>{
+ const f=fixture(),bundledUid='landsd/2:0';f.catalogue.models[0].suppressesBuildingUids=[bundledUid];
+ f.data.buildings.push({...f.building,uid:bundledUid,id:'landsd/2',objectId:2,buildingCSUID:'two',rings:[[[20,0],[30,0],[30,10],[20,10],[20,0]]],centre:[25,5]});
+ t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).endsWith('.gz')?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
+ assert.ok(f.stream.collision(25,5,2,11,1));const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);
+ assert.equal(f.stream.collision(25,5,2,11,1),null);assert.equal(f.stream.cache.entries.get('0_0').detailSuppressions.has(bundledUid),true);
+ c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.ok(f.stream.collision(25,5,2,11,1));
 });

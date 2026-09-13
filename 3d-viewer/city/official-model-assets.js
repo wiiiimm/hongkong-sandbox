@@ -26,6 +26,8 @@ export function prepareModelCatalogue(data,url){
  const seen=new Set();return data.models.map(r=>{
   const b=r.worldBounds;
   if(typeof r.uid!=='string'||!/^landsd\/\d+:\d+$/.test(r.uid)||seen.has(r.uid)||String(r.objectId)!==r.uid.split('/')[1].split(':')[0]||typeof r.buildingCSUID!=='string'||!r.buildingCSUID||typeof r.modelId!=='string'||!r.modelId||typeof r.sourceTile!=='string'||typeof r.asset!=='string'||!r.asset.endsWith('.glb.gz')||r.encoding!=='gzip'||!HASH.test(r.sha256)||![r.bytes,r.glbBytes,r.decodedGeometryBytes,r.triangles,r.indexedVertices].every(positive)||r.bytes>32*1024*1024||r.glbBytes>128*1024*1024||!Array.isArray(b)||b.length!==2||!b.every(p=>Array.isArray(p)&&p.length===3&&p.every(Number.isFinite))||b[0].some((v,i)=>v>=b[1][i]))throw new Error('Invalid compact model entry '+r?.uid);
+  const suppressions=r.suppressesBuildingUids??[];
+  if(!Array.isArray(suppressions)||suppressions.length>64||new Set(suppressions).size!==suppressions.length||suppressions.some(uid=>!/^landsd\/\d+:\d+$/.test(uid)||uid===r.uid))throw new Error('Invalid model assembly suppression '+r?.uid);
   seen.add(r.uid);const assetURL=new URL(r.asset,url).href;
   if(new URL(assetURL).origin!==new URL(url).origin)throw new Error('Model assets must share catalogue origin');
   return {...r,assetURL,catalogueURL:url,rootTranslation:data.rootTranslation,coordinatePolicy:data.coordinatePolicy,datasetId:data.datasetId};

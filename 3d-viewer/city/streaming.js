@@ -45,8 +45,8 @@ export class CityStreaming {
   // Each bake uses a stable replacement set. If a package completes while this
   // asynchronous tile is baking, discard that bake and use the latest set.
   for(;;){
-   const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,indices=[];
-   const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid))return false;indices.push(i);return true;});
+   const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,suppressions=this.detailSuppressions(models),indices=[];
+   const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid)||suppressions.has(b.uid))return false;indices.push(i);return true;});
    const buildings=await makeBuildings(features,null,{lighting:this.lighting});buildings.group.userData.disposableMaterials=buildings.materials;
    if(signal?.aborted||this.cache.closed){disposeGroup(buildings.group);throw new DOMException('Aborted','AbortError');}
    if(exclusions!==this.infrastructureBuildingUids||models!==this.detailedModels){disposeGroup(buildings.group);continue;}
@@ -55,7 +55,7 @@ export class CityStreaming {
     const attribute=mesh.geometry.attributes.feature;
     for(let i=0;i<attribute.count;i++)attribute.setX(i,indices[attribute.getX(i)]);
    }
-   return {buildings,index:new BuildingIndex(data.buildings.filter(b=>!exclusions.has(b.uid)).map(b=>models.get(b.uid)?.record||b)),exclusions,models,suppressedBuildings:data.buildings.filter(b=>exclusions.has(b.uid)).length,pickBounds:new THREE.Box3().setFromObject(buildings.group)};
+   return {buildings,index:new BuildingIndex(data.buildings.filter(b=>!exclusions.has(b.uid)&&!suppressions.has(b.uid)).map(b=>models.get(b.uid)?.record||b)),exclusions,models,detailSuppressions:suppressions,suppressedBuildings:data.buildings.filter(b=>exclusions.has(b.uid)||suppressions.has(b.uid)).length,pickBounds:new THREE.Box3().setFromObject(buildings.group)};
   }
  }
  async suppressInfrastructureBuildings(ids){
@@ -69,7 +69,8 @@ export class CityStreaming {
   if(this.cache.closed)return;
   const jobs=[];
   for(const entry of this.cache.entries.values()){
-   if(!entry.infrastructureUpdate&&entry.data.buildings.some(b=>entry.exclusions.has(b.uid)!==this.infrastructureBuildingUids.has(b.uid)||entry.models?.get(b.uid)!==this.detailedModels.get(b.uid))){
+   const suppressions=this.detailSuppressions();
+   if(!entry.infrastructureUpdate&&entry.data.buildings.some(b=>entry.exclusions.has(b.uid)!==this.infrastructureBuildingUids.has(b.uid)||entry.detailSuppressions?.has(b.uid)!==suppressions.has(b.uid)||entry.models?.get(b.uid)!==this.detailedModels.get(b.uid))){
     entry.infrastructureUpdate=(async()=>{
      const baked=await this.prepareBuildings(entry.data);
      if(this.cache.closed||this.cache.entries.get(entry.id)!==entry){disposeGroup(baked.buildings.group);return;}
@@ -82,6 +83,11 @@ export class CityStreaming {
    if(entry.infrastructureUpdate)jobs.push(entry.infrastructureUpdate);
   }
   await Promise.all(jobs);
+ }
+ detailSuppressions(models=this.detailedModels){
+  const result=new Set();
+  for(const detail of models.values())for(const uid of detail.entry?.suppressesBuildingUids||[])result.add(uid);
+  return result;
  }
  getLoadedBuilding(uid){
   const detail=this.detailedModels.get(uid);if(detail?.active)return detail.record;
