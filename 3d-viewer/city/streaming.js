@@ -1,7 +1,7 @@
 import * as THREE from '../vendor/three.module.js';
 import {BuildingIndex} from './geo.js';
-import {makeBuildings,makeRoads,makeNature} from './world.js';
-import {TileCache,distanceToBounds,nearbyTiles} from './tile-cache.js';
+import {makeBuildings,makeRoads,makeNature} from './world.js?v=20260913-load2';
+import {TileCache,distanceToBounds,nearbyTiles} from './tile-cache.js?v=20260913-load2';
 import {retainedRoads,validateProxyClips} from './infrastructure-replacements.js';
 import {cityLighting} from './lighting.js';
 import {retainVisibleNativeSupports} from './model-support.js';

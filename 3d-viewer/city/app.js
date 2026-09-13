@@ -2,16 +2,16 @@ import {bindBuildingProgress} from './building-progress.js?v=20260913-progress4'
 import * as THREE from '../vendor/three.module.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {makeTerrainSampler} from './geo.js';
-import {makeTerrain,makeWater,makeFerries,extrudeBuilding} from './world.js';
+import {makeTerrain,makeWater,makeFerries,extrudeBuilding} from './world.js?v=20260913-load2';
 import {Navigation} from './navigation.js';
 import {AIRCRAFT} from './aircraft.js';
 import {createAircraftPicker} from './aircraft-picker.js';
-import {CityStreaming} from './streaming.js';
+import {CityStreaming} from './streaming.js?v=20260913-load2';
 import {MeshInspection,bindMeshInspection} from './mesh-inspection.js';
 import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';
 import {BridgeCables} from './bridge-cables.js';
-import {OfficialModelLayer} from './official-models.js';
+import {OfficialModelLayer} from './official-models.js?v=20260913-load2';
 import {ReviewSections} from './review-sections.js';
 import {describeBuilding} from './building-geometry.js';
 import {regionalPlaceMatches} from './regional-data.js';
@@ -258,8 +258,8 @@ function bindUI(){
  renderer.domElement.addEventListener('pointerup',e=>{if(stargazer.active||nav.mode!=='orbit'||!pointerStart||Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)>5)return;
   raycaster.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2),camera);const buildings=stream.pickMeshes(raycaster.ray),bridges=bridgeLayer.pickMeshes(),cables=cableLayer.pickMeshes(),hit=raycaster.intersectObjects([...buildings,...bridges,...cables],false)[0];if(hit){if(cables.includes(hit.object))selectBridge(cableLayer.featureAt(hit));else if(bridges.includes(hit.object))selectBridge(bridgeLayer.featureAt(hit));else selectBuilding(stream.featureAt(hit));}else closeSelection();
  });
- controls.addEventListener('start',()=>{tween=null;++travel;loadingTravel=false;interacting=true;modelResumeAt=Infinity;stream.setLoadingPaused(true);officialModels.setLoadingPaused(true);});
- controls.addEventListener('end',()=>{interacting=false;modelResumeAt=performance.now()+350;stream.setLoadingPaused(false);});
+ controls.addEventListener('start',()=>{tween=null;++travel;loadingTravel=false;interacting=true;modelResumeAt=Infinity;stream.setLoadingPaused?.(true);officialModels.setLoadingPaused?.(true);});
+ controls.addEventListener('end',()=>{interacting=false;modelResumeAt=performance.now()+350;stream.setLoadingPaused?.(false);});
  addEventListener('keydown',e=>{
   if(e.code==='Escape'){if($('about').open)return;if(stargazer.active){setStargazing(false);return;}if(document.activeElement===$('search')){$('search-results').hidden=true;$('search').blur();return;}if(nav.mode!=='orbit')chooseMode('orbit');else closeSelection();return;}
   if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.isContentEditable||$('about').open||e.repeat)return;
@@ -324,7 +324,7 @@ function animate(now){
  // with intermediate camera positions while the transition crosses the harbour.
  if(now-lastStream>600&&!loadingTravel&&!pendingModeRequest&&!tween){stream.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(6000,Math.max(2600,camera.position.distanceTo(focus))):3200);regionalDetail.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(5000,Math.max(2600,camera.position.distanceTo(focus))):3200);bridgeLayer.plan(focus.x,focus.z,3000,camera.position);cableLayer.plan(focus.x,focus.z,3000,bridgeLayer.surfaces.models.keys());lastStream=now;}
  if(stargazer.active)stargazer.update();else if(nav.mode==='orbit'){controls.update();const ground=Math.max(sampler.height(camera.position.x,camera.position.z),water.state.renderedLevelHKPD);if(camera.position.y<ground+2)camera.position.y=ground+2;}else if(!paused&&!aircraftPicker.state.open&&stream.readyAt(nav.position.x,nav.position.z,350))nav.update(dt);
- if(!paused){const baseReady=!stream.stats.pending&&!loadingTravel&&!pendingModeRequest&&!tween,allowNewLoads=baseReady&&!interacting&&now>=modelResumeAt;officialModels.setLoadingPaused(!allowNewLoads);officialModels.plan(camera,{viewportHeight:innerHeight,selectedUid:selectedId,allowNewLoads});}
+ if(!paused){const baseReady=!stream.stats.pending&&!loadingTravel&&!pendingModeRequest&&!tween,allowNewLoads=baseReady&&!interacting&&now>=modelResumeAt;officialModels.setLoadingPaused?.(!allowNewLoads);officialModels.plan(camera,{viewportHeight:innerHeight,selectedUid:selectedId,allowNewLoads});}
  environment.update(dt,{now,paused,reducedMotion:reduced,stargazing:stargazer.active,position:focus});
  nav.setAircraftLighting({night:lightState.night,reducedMotion:reduced});
  if(!reduced&&!paused)ferries.update(water.time.value);

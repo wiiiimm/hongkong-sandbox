@@ -1,5 +1,5 @@
 import * as THREE from '../vendor/three.module.js';
-import {TileCache} from './tile-cache.js';
+import {TileCache} from './tile-cache.js?v=20260913-load2';
 import {prepareModelCatalogue,modelBudget,loadOfficialModel,disposeOfficialModel} from './official-model-assets.js';
 import {modelSupportDependencies,supportedModelPlan} from './model-support.js';
 const MiB=1024*1024;
