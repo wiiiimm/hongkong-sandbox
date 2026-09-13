@@ -1,0 +1,31 @@
+"""Stage unchanged XXL government sources that contain mapped city subforms; never AI."""
+import importlib.util,json,shutil,subprocess,sys,uuid
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent));spec=importlib.util.spec_from_file_location('second',Path(__file__).with_name('xxl-second-pass.py'));s=importlib.util.module_from_spec(spec);spec.loader.exec_module(s)
+ROOT,HERE=s.ROOT,s.HERE;read,save,h,rel=s.read,s.save,s.h,s.rel
+CONFIG={
+ 'fortune':{'uid':'landsd/240841:0','area':'Fortune Metropolis original government complex','policy':'original-government-contained-fortune-assembly-v1','foundation':{'triangles':7,'area':10.6,'fraction':.00005,'upward':10.6,'gap':-1.6}},
+ 'maritime':{'uid':'landsd/228574:0','area':'Maritime Square original government complex','policy':'original-government-contained-maritime-assembly-v1','foundation':{'triangles':8,'area':65.2,'fraction':.000405,'upward':63.8,'gap':-1.2}},
+}
+def call(args,allowed=(0,)):r=subprocess.run(args,cwd=ROOT);assert r.returncode in allowed,(args,r.returncode)
+def paths(key):return s.DOC/'fourth-pass'/key,s.LOCAL/('fourth-pass-'+key),HERE/'accepted'/('government-xxl-'+key+'-20260913')
+def start(key):
+ cfg=CONFIG[key];uid=cfg['uid'];doc,local,stage=paths(key);batch='government-xxl-'+key+'-20260913';claim=s.reservations.claim('codex-'+key+'-'+str(uuid.uuid4()),['building:'+uid],batch=batch);assert claim['ok'];save(local/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)));save(doc/'selection.json.gz',{**read(s.DOC/'runtime-selection.json.gz'),'manifestSHA256':h(ROOT/'3d-viewer/city/data/manifest.json'),'rows':[next(r for r in read(s.DOC/'runtime-selection.json.gz')['rows'] if r['uid']==uid)]});call([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(local/'reservation.json'),'--',sys.executable,__file__,key,'owned'])
+def owned(key):
+ cfg=CONFIG[key];uid=cfg['uid'];doc,local,stage=paths(key);assert s.reservations.owns(read(local/'reservation.json'));selection=read(doc/'selection.json.gz');assert h(ROOT/'3d-viewer/city/data/manifest.json')==selection['manifestSHA256'];row=selection['rows'][0];proof=next(r for r in read(s.DOC/'final-script-pass/results.json.gz')['rows'] if r['uid']==uid);identity,foundation=proof['identity'],proof['foundation'];limits=cfg['foundation'];assert proof['scriptedWorkComplete'] and identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.96 and identity['sourceExcessFraction']<.12;assert foundation['fullyBuriedTriangles']==limits['triangles'] and foundation['fullyBuriedAreaM2']<limits['area'] and foundation['fullyBuriedAreaFraction']<limits['fraction'] and foundation['fullyBuriedUpwardAreaM2']<limits['upward'] and foundation['minimumGapM']>limits['gap']
+ suppressions=sorted(f['uid'] for f in identity['intersectingForms'] if f['uid']!=uid and f.get('fractionOfForm',0)>=.95);assert suppressions and len(suppressions)<=64;entry=dict(row['candidate']['entry']);entry.update(priority='landmark',placementReviewed=True,sourceIdentityReviewed=True,identityReviewApproved=True,suppressesBuildingUids=suppressions,placementReview='Exact unchanged government complex source matched by object ID and Building CSUID. Basic city subforms covered by at least 95% are reversibly suppressed while detail is active; bounded foundation and runtime checks are scripted; no AI or geometry edits.');asset=stage/entry['asset'];asset.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(row['candidate']['path'],asset);assert h(asset)==entry['sha256'];form=dict(row['source']['building']);form['tile']=Path(row['source']['tile']).stem
+ cat=read(HERE/'accepted/government-xxl-20260911/catalogue.json');cat.update(area=cfg['area'],counts={'packedModels':1},models=[entry]);save(stage/'catalogue.json',cat);save(stage/'catalogue-index.json',{'models':1,'catalogues':['catalogue.json']});save(stage/'source-forms.json',[form]);save(doc/'terrain-candidates.json',[]);save(doc/'suppression-map.json',{'uid':uid,'minimumCoveredFraction':.95,'suppressedUids':suppressions,'count':len(suppressions),'source':'final-script-pass intersecting forms','aiCalls':0})
+ call(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(doc/'selection.json.gz'),'--candidates',rel(stage),'--terrain-candidates',rel(doc/'terrain-candidates.json'),'--out',rel(doc/'metrics.json')]);save(local/'source-forms.json',{uid:row['source']});call(['node',str(HERE.parent/'building-batch/validate_candidates.mjs'),'--candidates',rel(stage),'--source-forms',rel(local/'source-forms.json'),'--out',rel(doc/'validation.json')],allowed=(0,1));metrics=read(doc/'metrics.json');validation=read(doc/'validation.json');reasons=[]
+ for metric in metrics['rows']:
+  if metric.get('error') or not metric.get('sourcePreserved') or metric.get('missingTerrain') or metric.get('maxSamplerDelta',0)>.004:reasons.append('source-integrity-or-terrain')
+  if metric.get('budget') and any(metric['budget'][k]>metrics['profiles']['mobile'][k] for k in ('triangles','geometryBytes','residentBytes')):reasons.append('mobile-runtime-budget')
+ allowed={'sampled-ground-gap-below-model-bottom','sampled-terrain-above-model-bottom'}
+ for result in validation['results']:
+  if result['outcome']=='validation-exception':reasons.append('runtime-validation-exception')
+  reasons.extend(c for c in result.get('concerns',[]) if c not in allowed)
+ decision={'uid':uid,'policy':cfg['policy'],'passed':not reasons,'reasons':sorted(set(reasons)),'suppressionCount':len(suppressions),'suppressionMapSHA256':h(doc/'suppression-map.json'),'aiCalls':0,'modelGeometryChanges':0,'publication':False};save(doc/'result.json',decision)
+ if decision['passed']:
+  destination='city/data/official-models/government-xxl-'+key+'-20260913/catalogue.json';save(stage/'plan.json',{'areas':[{'area':cfg['area'],'catalogue':rel(stage/'catalogue.json'),'destination':destination}]});save(stage/'browser-config.json',{'stage':rel(stage)+'/','doc':rel(doc)+'/','catalogueURL':destination,'terrain':[],'fitBox':True,'browserUids':[uid],'failureTestUids':[uid]})
+ print(json.dumps(decision))
+if __name__=='__main__':
+ key=sys.argv[1];assert key in CONFIG;owned(key) if len(sys.argv)>2 else start(key)
