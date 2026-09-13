@@ -3,7 +3,7 @@ import importlib.util,json,subprocess,sys,uuid
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent));spec=importlib.util.spec_from_file_location('second',Path(__file__).with_name('xxl-second-pass.py'));s=importlib.util.module_from_spec(spec);spec.loader.exec_module(s)
 ROOT,HERE=s.ROOT,s.HERE;read,save,h,rel=s.read,s.save,s.h,s.rel
-CONFIG={'fortune':{'uid':'landsd/240841:0','policy':'original-government-contained-fortune-assembly-v1'},'maritime':{'uid':'landsd/228574:0','policy':'original-government-contained-maritime-assembly-v1'}}
+CONFIG={'fortune':{'uid':'landsd/240841:0','policy':'original-government-contained-fortune-assembly-v1'},'maritime':{'uid':'landsd/228574:0','policy':'original-government-contained-maritime-assembly-v1'},'pao':{'uid':'landsd/305793:0','policy':'original-government-contained-pao-assembly-v1'}}
 sys.path.insert(0,str(HERE.parent/'model-review-ledger'));import ledger
 spec=importlib.util.spec_from_file_location('direct',HERE/'integrate.py');direct=importlib.util.module_from_spec(spec);spec.loader.exec_module(direct)
 def call(args):subprocess.run(args,cwd=ROOT,check=True)
