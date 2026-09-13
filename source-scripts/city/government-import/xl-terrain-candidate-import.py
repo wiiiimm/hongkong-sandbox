@@ -27,6 +27,17 @@ CONFIG = {
             'terrain pass contact, neighbour and runtime checks.'
         ),
     },
+    "chung-kin": {
+        "uid": "landsd/147024:0",
+        "batch": "government-xl-chung-kin-20260914",
+        "policy": "original-government-xl-exact-id-bounded-native-terrain-v1",
+        "classification": "script-verified-original-government-exact-id-bounded-native-terrain",
+        "review": (
+            "Exact government object ID and Building CSUID, one viewer match, 99.999995% footprint "
+            "overlap and a 1.52 m centroid offset. The unchanged model and complete native terrain "
+            "pass contact, neighbour and runtime checks."
+        ),
+    },
 }
 
 sys.path.insert(0, str(HERE.parent / 'model-review-ledger'))
@@ -166,6 +177,7 @@ def owned(key):
         check / 'neighbour-checks.json',
         check / 'terrain-resolution.json',
         check / 'native-overlap-evidence.json',
+        check / 'identity-resolution.json',
         HERE / 'xl-stage-terrain-candidate.py',
         HERE / 'xl-stage-west9zone.py',
         HERE / 'native_patch_resolution.py',
