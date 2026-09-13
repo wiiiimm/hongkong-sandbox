@@ -9,9 +9,9 @@ export const MODEL_PROFILES=Object.freeze({
 });
 /** Progressive exact-source detail; ordinary source outlines remain the fallback. */
 export class OfficialModelLayer{
- constructor({stream,profile='mobile',onChange=()=>{},loadAsset=loadOfficialModel}){
+ constructor({stream,profile='mobile',onChange=()=>{},onReveal=()=>{},loadAsset=loadOfficialModel}){
   if(!MODEL_PROFILES[profile])throw new Error('Unknown official model profile');
-  Object.assign(this,{stream,profile,onChange,loadAsset});this.limits=MODEL_PROFILES[profile];this.models=new Map();this.catalogues=new Map();this.catalogueErrors=new Map();this.requests=new Map();this.retiring=new Map();this.releaseFailures=new Map();this.supportHolds=new Map();this.closed=false;this.lastPlan=-Infinity;this.lastCamera=null;this.lastOptions=null;
+  Object.assign(this,{stream,profile,onChange,onReveal,loadAsset});this.limits=MODEL_PROFILES[profile];this.models=new Map();this.catalogues=new Map();this.catalogueErrors=new Map();this.requests=new Map();this.retiring=new Map();this.releaseFailures=new Map();this.supportHolds=new Map();this.closed=false;this.lastPlan=-Infinity;this.lastCamera=null;this.lastOptions=null;
   this.cache=new TileCache({limit:this.limits.count,concurrency:this.limits.concurrency,load:(uid,signal)=>this.load(uid,signal),dispose:entry=>{this.release(entry).catch(()=>{});},onChange:()=>{if(!this.closed)this.onChange();}});
  }
  async loadCatalogue(input){
@@ -78,6 +78,7 @@ export class OfficialModelLayer{
    await this.waitForSupports(meta,signal);
    if(this.stream.infrastructureBuildingUids?.has(uid))throw new Error('Official infrastructure already replaces this building');
    if(!await this.stream.setDetailedModel(uid,entry,{signal}))throw new DOMException('Aborted','AbortError');
+   this.onReveal(entry);
    return entry;
   }catch(error){await this.release(entry);throw error;}
  }

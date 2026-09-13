@@ -11,7 +11,8 @@ import {MeshInspection,bindMeshInspection} from './mesh-inspection.js';
 import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';
 import {BridgeCables} from './bridge-cables.js';
-import {OfficialModelLayer} from './official-models.js?v=20260913-load2';
+import {ModelReveal} from './model-reveal.js?v=20260913-reveal1';
+import {OfficialModelLayer} from './official-models.js?v=20260913-reveal1';
 import {ReviewSections} from './review-sections.js';
 import {describeBuilding} from './building-geometry.js';
 import {regionalPlaceMatches} from './regional-data.js';
@@ -24,7 +25,7 @@ import {worldToWgs84} from './observer.js';
 const meshInspection=new MeshInspection({bounded:true,profile:innerWidth<=760?'mobile':'desktop'});let lastInspection=0;
 const $=id=>document.getElementById(id),motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
 let reduced=motionPreference.matches,aircraftUIStamp;
-let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween,regionalDetail,bridgeLayer,cableLayer,officialModels;
+let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween,regionalDetail,bridgeLayer,cableLayer,officialModels,modelReveal;
 let catalogue=[],overview={},cataloguePromise,travel=0,modeRequest=0,pendingModeRequest=0,selectedId=null,selectedIndex=-1,loadingTravel=false,lastHud=0,lastStream=0,startTime=0,interacting=false,modelResumeAt=0;
 let backgroundCataloguesRemaining=0;
 let sectionReview,controlSheet,aircraftPicker,environment,stargazer,observerCache,toastTimer,lightState=cityLighting(15),mapBackdrop,mapStamp,mapBounds=[-3600,-2600,3600,2900];
@@ -289,7 +290,8 @@ async function init(){
  let maskedSurfaces=0;regionalDetail=new RegionalDetail({scene,sampler,onChange:()=>{if(regionalDetail&&regionalDetail.surfaceCount!==maskedSurfaces){maskedSurfaces=regionalDetail.surfaceCount;stream.setSurfaceExclusions(regionalDetail.mappedSurfaces);}updateStreamStatus();}});
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus,inspection:meshInspection});
  cableLayer=new BridgeCables({scene,onChange:updateStreamStatus,inspection:meshInspection});
- officialModels=new OfficialModelLayer({stream,profile:innerWidth<=760?'mobile':'desktop',onChange:updateOfficialModels});
+ modelReveal=new ModelReveal(renderer.domElement);
+ officialModels=new OfficialModelLayer({stream,onReveal:entry=>{if(!reduced&&!interacting)modelReveal.start(entry);},profile:innerWidth<=760?'mobile':'desktop',onChange:updateOfficialModels});
  sectionReview=new ReviewSections({scene,sampler,onVisit:visitReviewSection,onSelect:()=>{closeSelection();controlSheet.open('places');$('section-review').scrollIntoView({block:'start'});}});
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,surfaces:bridgeLayer.surfaces,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
  controlSheet=createControlSheet({onExpand:()=>{nav.clearInput();aircraftPicker?.close({restoreFocus:false});},focusMap:()=>renderer.domElement.focus({preventScroll:true})});
@@ -337,6 +339,6 @@ function animate(now){
  // Restore the exact environment fog afterwards; manual/live weather state is unchanged.
  const fogDensity=scene.fog.density;
  if(sectionReview.enabled&&nav.mode==='orbit'&&!stargazer.active&&scene.fog.isFogExp2)scene.fog.density*=Math.min(1,12000/Math.max(12000,camera.position.y));
- renderer.render(scene,camera);scene.fog.density=fogDensity;
+ renderer.render(scene,camera);modelReveal.update(camera,now,{reduced,interacting});scene.fog.density=fogDensity;
 }
 init().catch(error=>{console.error('City failed to load',error);$('loading-detail').textContent=`The city could not load. ${error.message}. Reload to try again.`;$('loading').querySelector('.loading-line').hidden=true;});
