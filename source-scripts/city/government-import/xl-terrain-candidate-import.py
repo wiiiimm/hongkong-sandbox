@@ -65,6 +65,21 @@ CONFIG = {
             "neighbour and runtime checks."
         ),
     },
+    "goldmark": {
+        "uid": "landsd/177244:0",
+        "batch": "government-xl-goldmark-20260914",
+        "policy": "original-government-xl-boundary-touch-native-terrain-v1",
+        "classification": "script-verified-original-government-boundary-touch-native-terrain",
+        "retainedBuildingUids": ["landsd/252035:0", "landsd/319803:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.5089% target "
+            "coverage and a 1.05 m centroid offset. The source extends at most 5.45 m beyond the "
+            "mapped footprint and touches the adjacent Hysan assembly over only 6.25 m2 / less than "
+            "0.5% of each form. Full native-mesh checks find no newly buried Hysan triangles, while "
+            "53.8% of its tower low rim remains supported by its installed podium. The unchanged model "
+            "and neighbour-preserving native terrain pass contact, identity and runtime checks."
+        ),
+    },
 }
 
 sys.path.insert(0, str(HERE.parent / 'model-review-ledger'))
@@ -135,7 +150,16 @@ def owned(key):
     assert validation['loaderAccepted'] == validation['checksPassed'] == 1
     assert validation['exceptions'] == 0 and not validation['results'][0]['concerns']
     neighbours = read(check / 'neighbour-checks.json')
-    assert neighbours['aiCalls'] == 0 and neighbours['patches'][0]['blockedBy'] == []
+    assert neighbours['aiCalls'] == 0
+    blocked = set(neighbours['patches'][0]['blockedBy'])
+    native_path = check / 'native-neighbour-checks.json'
+    native_neighbours = read(native_path) if native_path.exists() else None
+    resolved = set(native_neighbours['resolved']) if native_neighbours else set()
+    if native_neighbours:
+        assert native_neighbours.get('aiCalls', 0) == 0
+        assert native_neighbours.get('modelGeometryChanges', 0) == 0
+        assert not native_neighbours.get('failed', [])
+    assert blocked - resolved == set()
 
     source_catalogue = read(stage_local / 'candidates/catalogue.json')
     assert [model['uid'] for model in source_catalogue['models']] == [uid]
@@ -212,8 +236,16 @@ def owned(key):
         HERE / 'xl-terrain-candidate-import.py',
         HERE / 'resolution-browser.mjs',
     ]
+    if native_neighbours:
+        evidence_paths.extend([
+            native_path,
+            HERE / 'check-native-neighbours.mjs',
+            HERE / 'native-neighbour-policy.mjs',
+        ])
     evidence = {rel(path): h(path) for path in evidence_paths if path.exists()}
     inputs = {**metrics['inputHashes'], **neighbours['sourceInputHashes']}
+    if native_neighbours:
+        inputs.update(native_neighbours['inputHashes'])
     for path, sha in inputs.items():
         assert h(ROOT / path) == sha
     decision = {
