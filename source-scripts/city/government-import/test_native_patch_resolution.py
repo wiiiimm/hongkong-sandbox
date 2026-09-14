@@ -93,7 +93,7 @@ class NativePatchResolutionTests(unittest.TestCase):
             proof = m.finalize_overlap_evidence(patch, evidence)
             original = copy.deepcopy(patch)
             original['nativeMesh'].pop('sourceOverlap')
-            expected = hashlib.sha256((json.dumps(original, separators=(',', ':')) + '\n').encode()).hexdigest()
+            expected = hashlib.sha256((json.dumps(original, sort_keys=True, ensure_ascii=False, separators=(',', ':'), allow_nan=False) + '\n').encode()).hexdigest()
             self.assertEqual(proof['stagedGeometrySha256'], expected)
             self.assertEqual(json.loads(evidence.read_text())['stagedGeometrySha256'], expected)
             self.assertEqual(proof['evidenceSHA256'], hashlib.sha256(evidence.read_bytes()).hexdigest())

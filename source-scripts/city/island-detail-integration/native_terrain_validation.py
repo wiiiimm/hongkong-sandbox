@@ -28,7 +28,7 @@ def validate_native_mesh(patch,parent):
   root=Path(__file__).resolve().parents[3];evidence=(root/approval['evidencePath']).resolve();assert evidence.is_relative_to(root)
   raw=evidence.read_bytes();assert hashlib.sha256(raw).hexdigest()==approval['evidenceSHA256'],'Native overlap evidence changed'
   audit=json.loads(raw);original=copy.deepcopy(patch);original['nativeMesh'].pop('sourceOverlap')
-  assert hashlib.sha256((json.dumps(original,separators=(',',':'))+'\n').encode()).hexdigest()==audit['stagedGeometrySha256'],'Native overlap geometry changed after source review'
+  assert hashlib.sha256((json.dumps(original,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)+'\n').encode()).hexdigest()==audit['stagedGeometrySha256'],'Native overlap geometry changed after source review'
   assert abs(excess-approval['measuredProjectedExcessM2'])<1e-6 and abs(excess-audit['nativeProjectedExcessM2'])<1e-6,'Overlap exceeds verified original source facets'
   proof=audit['float32HighestRayAgreement'];assert proof['samples']>=1 and proof['maxError']<.01,'Native highest-surface ray agreement unverified'
   for source in audit['source']['files']:

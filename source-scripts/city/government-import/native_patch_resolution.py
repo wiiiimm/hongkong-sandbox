@@ -234,7 +234,7 @@ def finalize_overlap_evidence(patch, evidence_path):
     original = copy.deepcopy(patch)
     original['nativeMesh'].pop('sourceOverlap')
     audit['stagedGeometrySha256'] = hashlib.sha256(
-        (json.dumps(original, separators=(',', ':')) + '\n').encode()
+        (json.dumps(original, sort_keys=True, ensure_ascii=False, separators=(',', ':'), allow_nan=False) + '\n').encode()
     ).hexdigest()
     evidence_path.write_text(json.dumps(audit, sort_keys=True, separators=(',', ':')) + '\n')
     approval['evidenceSHA256'] = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
