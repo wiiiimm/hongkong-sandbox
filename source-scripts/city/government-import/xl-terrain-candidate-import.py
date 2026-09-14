@@ -79,6 +79,21 @@ CONFIG = {
             "triangles. The unchanged model passes contact, identity, neighbour and runtime checks."
         ),
     },
+    "mongkok-stadium": {
+        "uid": "landsd/240527:0",
+        "batch": "government-xl-mongkok-stadium-20260914",
+        "policy": "original-government-xl-complex-boundary-native-terrain-v1",
+        "classification": "script-verified-original-government-complex-boundary-native-terrain",
+        "priority": "landmark",
+        "retainedBuildingUids": ["landsd/270154:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.46% target "
+            "coverage and a 0.95 m detailed-projection centroid offset. Every adjacent intersection "
+            "is below 15 m2 and 10% of that form. Complete triangle-surface contact resolves the "
+            "coarse bounds warning, and one non-overlapping neighbour retains its current parent "
+            "terrain. The unchanged model passes contact, identity, neighbour and runtime checks."
+        ),
+    },
     "mei-choi": {
         "uid": "landsd/264691:0",
         "batch": "government-xl-mei-choi-20260914",
@@ -174,9 +189,18 @@ def owned(key):
     metric = metrics['rows'][0]
     assert metric['uid'] == uid and metric['sourcePreserved'] and not metric['missingTerrain']
     assert metrics['aiCalls'] == metrics['geometryChanges'] == 0
-    validation = read(check / 'validation.json')
+    validation_path = check / 'validation.json'
+    validation = read(validation_path)
     assert validation['loaderAccepted'] == validation['checksPassed'] == 1
-    assert validation['exceptions'] == 0 and not validation['results'][0]['concerns']
+    concerns = set(validation['results'][0]['concerns'])
+    contact_resolution_path = check / 'contact-resolution.json'
+    if contact_resolution_path.exists():
+        contact_resolution = read(contact_resolution_path)
+        assert contact_resolution['accepted'] and contact_resolution['uid'] == uid
+        assert contact_resolution['metricsSHA256'] == h(check / 'metrics.json')
+        assert contact_resolution['validationSHA256'] == h(validation_path)
+        concerns.discard(contact_resolution['coarseConcern'])
+    assert validation['exceptions'] == 0 and not concerns
     neighbours = read(check / 'neighbour-checks.json')
     assert neighbours['aiCalls'] == 0
     blocked = set(neighbours['patches'][0]['blockedBy'])
@@ -268,6 +292,9 @@ def owned(key):
         HERE / 'xl-terrain-candidate-import.py',
         HERE / 'resolution-browser.mjs',
     ]
+    contact_resolution = check / 'contact-resolution.json'
+    if contact_resolution.exists():
+        evidence_paths.append(contact_resolution)
     if native_neighbours:
         evidence_paths.extend([
             native_path,
