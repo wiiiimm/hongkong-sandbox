@@ -15,6 +15,7 @@ CONFIG={
  'goldmark': 'landsd/177244:0',
  'mei-choi': 'landsd/264691:0',
  'mongkok-stadium': 'landsd/240527:0',
+ 'fireboat': 'landsd/57826:0',
 }
 def configure(key):
  uid=CONFIG[key];w.UID=uid;w.DOC=s.DOC/'third-pass'/('terrain-'+key);w.LOCAL=s.LOCAL/('third-pass-terrain-'+key);return uid,w.DOC,w.LOCAL

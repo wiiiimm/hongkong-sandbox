@@ -16,6 +16,7 @@ IDENTITY_ISOLATED_OVERHANG_EXCEPTIONS={'landsd/160193:0'}
 IDENTITY_BOUNDARY_TOUCH_EXCEPTIONS={'landsd/177244:0'}
 IDENTITY_SHARED_COMPLEX_OVERHANG_EXCEPTIONS={'landsd/264691:0'}
 IDENTITY_COMPLEX_BOUNDARY_EXCEPTIONS={'landsd/240527:0'}
+IDENTITY_DETACHED_COMPONENT_EXCEPTIONS={'landsd/57826:0'}
 VALIDATION_CONTACT_EXCEPTIONS={'landsd/240527:0'}
 PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0':None,'landsd/177244:0':{'landsd/2670:0'},'landsd/264691:0':None,'landsd/240527:0':None}
 FULL_MESH_NEIGHBOUR_EXCEPTIONS={'landsd/177244:0','landsd/160193:0','landsd/264691:0'}
@@ -171,6 +172,12 @@ def owned():
         accepted=(identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.99 and identity['sourceExcessMaximumDistanceFromTargetM']<9 and projection['centroidDistance']<1 and bounded)
         acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'identityAccepted':bool(accepted),'complexBoundaryAccepted':bool(accepted)}
         save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'policy':'For an exact unique complex source, accept >99% target coverage, <9m extension and <1m centroid offset when every adjacent-form intersection is <15m2 and <10% of that form. Adjacent fallbacks remain present.','adjacentBoundaryTouches':adjacent,'coarseHull':metrics['rows'][0]['identity'],'detailedProjection':identity,'projectionMetrics':projection,'evidenceHashes':{rel(final_path):h(final_path),rel(diagnostic_path):h(diagnostic_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
+    if UID in IDENTITY_DETACHED_COMPONENT_EXCEPTIONS:
+        entry=r['candidate']['entry'];building=r['source']['building'];matches=r['native']['model']['matching']['viewerMatches'];final_path=s.DOC/'final-script-pass/results.json.gz';diagnostic_path=s.DOC/'diagnostics.json';final=next(row for row in read(final_path)['rows'] if row['uid']==UID);diagnostic=next(row for row in read(diagnostic_path)['rows'] if row['uid']==UID);identity=final['identity'];projection=next(row for row in diagnostic['projectionCandidates'] if row['uid']==UID)['metrics'];adjacent=[form for form in identity['intersectingForms'] if form['uid']!=UID]
+        detached=bool(adjacent) and all(form['intersectionAreaM2']<6 and form['fractionOfForm']>.99 for form in adjacent) and identity['sourceExcessCoveredByUnrelatedFormsM2']<1e-6
+        accepted=(identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.99 and identity['sourceExcessMaximumDistanceFromTargetM']<11 and projection['centroidDistance']<.25 and detached)
+        acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'identityAccepted':bool(accepted),'detachedComponentAccepted':bool(accepted)}
+        save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'policy':'For an exact unique source, accept >99% target coverage, <11m extension and <0.25m centroid offset when every other projected form is a detached <6m2 component, is >99% covered, and has no vertical source-excess intersection. The detached fallback remains present.','detachedForms':adjacent,'coarseHull':metrics['rows'][0]['identity'],'detailedProjection':identity,'projectionMetrics':projection,'evidenceHashes':{rel(final_path):h(final_path),rel(diagnostic_path):h(diagnostic_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
     reasons=policy.reasons(acceptance_row,metrics['rows'][0],metrics['profiles']['mobile'])
     validation_concerns=list(validation.get('concerns',[]))
     if UID in VALIDATION_CONTACT_EXCEPTIONS and validation_concerns==['sampled-terrain-above-model-bottom']:
