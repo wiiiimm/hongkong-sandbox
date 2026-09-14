@@ -50,15 +50,18 @@ def extent(cells,parent):
     return [g['bE']+c0*g['aE']-834500,816500-g['bN']-r0*g['aN'],g['bE']+c1*g['aE']-834500,816500-g['bN']-r1*g['aN']]
 
 
-def make_patch(group,parent,native,sources,native_core=None):
+def make_patch(group,parent,native,sources,native_core=None,parent_url='city/data/terrain.json',parent_sha256=None,allow_native_below_clamp=False):
     bb=extent(group['cells'],parent);core=native_core or [bb[0]+10,bb[1]+10,bb[2]-10,bb[3]-10]
     assert bb[0]<core[0]<core[2]<bb[2] and bb[1]<core[1]<core[3]<bb[3]
     blend=[core[0]-10,core[1]-10,core[2]+10,core[3]+10]
     sampler=terrain.fine.DemSampler(parent,rendered=True);raw_sampler=terrain.fine.DemSampler(parent)
-    step=5;w=round((bb[2]-bb[0])/step)+1;h=round((bb[3]-bb[1])/step)+1
+    # Keep the established 5 m refinement for the territory DEM. A patch
+    # nested inside an existing 5 m regional surface needs a finer grid, so
+    # divide each parent cell into five deterministic child cells.
+    parent_cell=abs(parent['meta']['georef']['aE']);step=min(5,parent_cell/5);w=round((bb[2]-bb[0])/step)+1;h=round((bb[3]-bb[1])/step)+1
     grid=np.array([[bb[0]+c*step,bb[1]+r*step] for r in range(h) for c in range(w)])
     raw=np.array([raw_sampler.ground(x,z) for x,z in grid]);water=raw<=0
-    assert native[:,:,1].min()>=1.2,'native-terrain-near-water-clamp'
+    if not allow_native_below_clamp:assert native[:,:,1].min()>=1.2,'native-terrain-near-water-clamp'
     pg=parent['meta']['georef'];cell=pg['aE'];pcells=[]
     c0,r0,c1,r1=group['cells']
     for r in range(r0,r1):
@@ -90,7 +93,8 @@ def make_patch(group,parent,native,sources,native_core=None):
     for x,z in grid:
         c=min(parent['w']-1,max(0,round((x+834500-pg['bE'])/cell)));r=min(parent['h']-1,max(0,round((z-816500+pg['bN'])/cell)));vegetation.append(parent['vegetation'][r*parent['w']+c])
     uid=group['uids'][0];patch_id='government-native-'+uid.replace('landsd/','').replace(':','-')
-    patch={'id':patch_id,'w':w,'h':h,'cell':step,'elev':elev,'renderedElev':heights,'vegetation':vegetation,'coarseCells':group['cells'],'meta':{'georef':{'aE':step,'aN':-step,'bE':bb[0]+834500,'bN':816500-bb[1],'W':w,'H':h},'parentTerrain':'city/data/terrain.json','parentSha256':digest((ROOT/'3d-viewer/city/data/terrain.json').read_bytes()),'targetUids':group['uids'],'source':{'provider':'Lands Department/HKSAR','crs':'EPSG:2326','verticalDatum':'HKPD','nativeSources':sources,'parentWaterMask':{'waterNodes':int(water.sum()),'landNodes':int((~water).sum()),'policy':'Raw parent water/land classification preserved at every refinement node.'},'policy':'Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.'}},'nativeMesh':{'position':tri.reshape(-1).tolist(),'index':list(range(len(tri)*3)),'source':{'verticalDatum':'HKPD','verticalScale':1,'policy':'Original source facets with bounded parent-edge transition; no AI geometry.'}}}
+    if parent_sha256 is None:parent_sha256=digest((ROOT/'3d-viewer'/parent_url).read_bytes())
+    patch={'id':patch_id,'w':w,'h':h,'cell':step,'elev':elev,'renderedElev':heights,'vegetation':vegetation,'coarseCells':group['cells'],'meta':{'georef':{'aE':step,'aN':-step,'bE':bb[0]+834500,'bN':816500-bb[1],'W':w,'H':h},'parentTerrain':parent_url,'parentSha256':parent_sha256,'targetUids':group['uids'],'source':{'provider':'Lands Department/HKSAR','crs':'EPSG:2326','verticalDatum':'HKPD','nativeSources':sources,'parentWaterMask':{'waterNodes':int(water.sum()),'landNodes':int((~water).sum()),'policy':'Raw parent water/land classification preserved at every refinement node.'},'policy':'Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.'}},'nativeMesh':{'position':tri.reshape(-1).tolist(),'index':list(range(len(tri)*3)),'source':{'verticalDatum':'HKPD','verticalScale':1,'policy':'Original source facets with bounded parent-edge transition; no AI geometry.'}}}
     validate_patch(patch,parent)
     assert len(tri)<=25000,'terrain-runtime-budget'
     return patch

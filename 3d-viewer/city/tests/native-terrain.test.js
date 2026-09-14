@@ -18,6 +18,10 @@ test('native height index uses renderer Float32 positions and rejects invalid in
  assert.throws(()=>nativeTerrainSurface({position:[0,NaN,0],index:[]}),/Invalid native/);
  assert.throws(()=>nativeTerrainSurface({position:[0,0,0],index:[0,1,0]}),/Invalid native/);
 });
+test('native sampler retains an exact submerged source height used by the rendered mesh',()=>{
+ const p=patch();p.nativeMesh.position=p.nativeMesh.position.map((value,index)=>index%3===1?-.75:value);
+ const s=makeTerrainSampler(p);assert.equal(s.height(2,2),-.75);
+});
 test('uncovered native interior fails explicitly instead of silently using a grid ramp',()=>{
  const p=patch();p.nativeMesh.index=[0,2,1];const s=makeTerrainSampler(p);assert.throws(()=>s.height(8,5),/uncovered/);
 });

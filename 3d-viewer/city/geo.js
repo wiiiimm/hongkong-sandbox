@@ -30,7 +30,7 @@ export function makeTerrainSampler(data) {
     // Matches mesh triangle diagonal exactly: no feet floating on steep slopes.
     return u+v<=1 ? a+(b-a)*u+(d-a)*v : e+(d-e)*(1-u)+(b-e)*(1-v);
   }
-  return {raw:(x,z)=>patchAt(x,z)?.raw(x,z)??sample(x,z),contains,grid,mappedWater,height:(x,z)=>waterAt(x,z)?.illustrativeBed??(patchAt(x,z)?.height(x,z)??Math.max(1.2,sample(x,z,true))),resolutionAt:(x,z)=>patchAt(x,z)?.resolutionAt(x,z)??Math.abs(g.aE)};
+  return {raw:(x,z)=>patchAt(x,z)?.raw(x,z)??sample(x,z),contains,grid,mappedWater,height:(x,z)=>waterAt(x,z)?.illustrativeBed??(patchAt(x,z)?.height(x,z)??(native?sample(x,z,true):Math.max(1.2,sample(x,z,true)))),resolutionAt:(x,z)=>patchAt(x,z)?.resolutionAt(x,z)??Math.abs(g.aE)};
 }
 export function inRing(x,z,ring) {
   let inside=false;
