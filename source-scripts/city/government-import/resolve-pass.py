@@ -50,7 +50,7 @@ def extent(cells,parent):
     return [g['bE']+c0*g['aE']-834500,816500-g['bN']-r0*g['aN'],g['bE']+c1*g['aE']-834500,816500-g['bN']-r1*g['aN']]
 
 
-def make_patch(group,parent,native,sources,native_core=None,parent_url='city/data/terrain.json',parent_sha256=None,allow_native_below_clamp=False):
+def make_patch(group,parent,native,sources,native_core=None,parent_url='city/data/terrain.json',parent_sha256=None,allow_native_below_clamp=False,terrain_triangle_budget=25000):
     bb=extent(group['cells'],parent);core=native_core or [bb[0]+10,bb[1]+10,bb[2]-10,bb[3]-10]
     assert bb[0]<core[0]<core[2]<bb[2] and bb[1]<core[1]<core[3]<bb[3]
     blend=[core[0]-10,core[1]-10,core[2]+10,core[3]+10]
@@ -96,7 +96,7 @@ def make_patch(group,parent,native,sources,native_core=None,parent_url='city/dat
     if parent_sha256 is None:parent_sha256=digest((ROOT/'3d-viewer'/parent_url).read_bytes())
     patch={'id':patch_id,'w':w,'h':h,'cell':step,'elev':elev,'renderedElev':heights,'vegetation':vegetation,'coarseCells':group['cells'],'meta':{'georef':{'aE':step,'aN':-step,'bE':bb[0]+834500,'bN':816500-bb[1],'W':w,'H':h},'parentTerrain':parent_url,'parentSha256':parent_sha256,'targetUids':group['uids'],'source':{'provider':'Lands Department/HKSAR','crs':'EPSG:2326','verticalDatum':'HKPD','nativeSources':sources,'parentWaterMask':{'waterNodes':int(water.sum()),'landNodes':int((~water).sum()),'policy':'Raw parent water/land classification preserved at every refinement node.'},'policy':'Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.'}},'nativeMesh':{'position':tri.reshape(-1).tolist(),'index':list(range(len(tri)*3)),'source':{'verticalDatum':'HKPD','verticalScale':1,'policy':'Original source facets with bounded parent-edge transition; no AI geometry.'}}}
     validate_patch(patch,parent)
-    assert len(tri)<=25000,'terrain-runtime-budget'
+    assert len(tri)<=terrain_triangle_budget,'terrain-runtime-budget'
     return patch
 
 

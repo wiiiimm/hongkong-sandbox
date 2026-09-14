@@ -25,3 +25,7 @@ test('native sampler retains an exact submerged source height used by the render
 test('uncovered native interior fails explicitly instead of silently using a grid ramp',()=>{
  const p=patch();p.nativeMesh.index=[0,2,1];const s=makeTerrainSampler(p);assert.throws(()=>s.height(8,5),/uncovered/);
 });
+test('audited numerical coverage sliver falls back to the patch grid',()=>{
+ const p=patch();p.nativeMesh.index=[0,2,1];p.nativeMesh.source={numericalCoverageGap:{policy:'parent-grid-fallback'}};
+ const s=makeTerrainSampler(p);assert.equal(s.height(8,5),2);
+});

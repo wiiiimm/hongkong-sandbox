@@ -89,6 +89,12 @@ class Publication(unittest.TestCase):
  def test_native_top_level_replacement_rejects_tampered_review(self):
   entry,old,new=self.native_review_fixture();(self.root/entry['nativeReview']['path']).write_text('{}')
   with self.assertRaisesRegex(AssertionError,'review changed'):pub.review_native_top_level_replacement(entry,old,new)
+ def test_reviewed_grid_patch_can_upgrade_to_native_surface(self):
+  entry,old,new=self.native_review_fixture();new['nativeMesh']={'positions':[],'indices':[]}
+  self.assertEqual(pub.review_top_level_surface_change(entry,old,new)['retainedUids'],['landsd/1:0'])
+ def test_native_surface_cannot_downgrade_to_grid_patch(self):
+  entry,old,new=self.native_review_fixture();old['nativeMesh']={'positions':[],'indices':[]}
+  with self.assertRaisesRegex(AssertionError,'retain a native surface'):pub.review_top_level_surface_change(entry,old,new)
  def test_top_level_patch_rejects_malformed_grid_or_reused_destination(self):
   mutations=[('origin',lambda d:d['meta']['georef'].update(bE=121)),('dimensions',lambda d:d['meta']['georef'].update(W=4)),('arrays',lambda d:d['elev'].pop()),('bounds',lambda d:d.update(coarseCells=[2,2,12,4]))]
   for name,mutate in mutations:

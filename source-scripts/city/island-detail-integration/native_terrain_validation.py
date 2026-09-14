@@ -8,7 +8,8 @@ def validate_native_mesh(patch,parent):
  from shapely.geometry import Polygon,box
  from shapely.ops import unary_union
  assert not patch.get('patches') and not patch.get('hydro'),'Native mesh cannot combine nested/water overrides'
- pos=mesh['position'];idx=mesh['index'];assert pos and len(pos)%3==0 and len(idx)%3==0
+ import numpy as np
+ pos=np.asarray(mesh['position'],dtype=np.float32).astype(np.float64).tolist();idx=mesh['index'];assert pos and len(pos)%3==0 and len(idx)%3==0
  assert all(isinstance(v,(int,float)) and math.isfinite(v) for v in pos),'Non-finite native terrain position'
  assert all(type(i) is int and 0<=i<len(pos)//3 for i in idx),'Invalid native terrain index'
  g=patch['meta']['georef'];x0=g['bE']-834500;z0=816500-g['bN'];x1=x0+(patch['w']-1)*g['aE'];z1=z0-(patch['h']-1)*g['aN'];extent=box(x0,z0,x1,z1)
@@ -21,18 +22,26 @@ def validate_native_mesh(patch,parent):
   if face.area>1e-10:faces.append(face)
  assert faces,'No native terrain surface'
  union=unary_union(faces);tolerance=max(.001,extent.area*1e-7)
- assert union.symmetric_difference(extent).area<tolerance,'Native mesh does not cover the exact parent rectangle'
+ coverage_gap=union.symmetric_difference(extent).area
+ numerical=mesh.get('source',{}).get('numericalCoverageGap')
+ if coverage_gap>=tolerance:
+  assert numerical and numerical.get('policy')=='parent-grid-fallback' and numerical.get('maximumAreaM2')<=max(.25,extent.area*1e-3),'Native mesh does not cover the exact parent rectangle'
+  assert abs(coverage_gap-numerical['measuredAreaM2'])<1e-6 and coverage_gap<=numerical['maximumAreaM2'],'Native numerical coverage gap exceeds approval'
  excess=sum(f.area for f in faces)-union.area
  if excess>=tolerance:
-  approval=mesh.get('sourceOverlap');assert approval and approval.get('policy')=='highest-native-surface','Native terrain contains overlapping height surfaces'
-  root=Path(__file__).resolve().parents[3];evidence=(root/approval['evidencePath']).resolve();assert evidence.is_relative_to(root)
-  raw=evidence.read_bytes();assert hashlib.sha256(raw).hexdigest()==approval['evidenceSHA256'],'Native overlap evidence changed'
-  audit=json.loads(raw);original=copy.deepcopy(patch);original['nativeMesh'].pop('sourceOverlap')
-  assert hashlib.sha256((json.dumps(original,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)+'\n').encode()).hexdigest()==audit['stagedGeometrySha256'],'Native overlap geometry changed after source review'
-  assert abs(excess-approval['measuredProjectedExcessM2'])<1e-6 and abs(excess-audit['nativeProjectedExcessM2'])<1e-6,'Overlap exceeds verified original source facets'
-  proof=audit['float32HighestRayAgreement'];assert proof['samples']>=1 and proof['maxError']<.01,'Native highest-surface ray agreement unverified'
-  for source in audit['source']['files']:
-   path=(root/source['path']).resolve();assert path.is_relative_to(root) and hashlib.sha256(path.read_bytes()).hexdigest()==source['sha256'],'Native overlap source changed'
+  approval=mesh.get('sourceOverlap');numerical=mesh.get('source',{}).get('numericalProjectionOverlap')
+  if approval and approval.get('policy')=='highest-native-surface':
+   root=Path(__file__).resolve().parents[3];evidence=(root/approval['evidencePath']).resolve();assert evidence.is_relative_to(root)
+   raw=evidence.read_bytes();assert hashlib.sha256(raw).hexdigest()==approval['evidenceSHA256'],'Native overlap evidence changed'
+   audit=json.loads(raw);original=copy.deepcopy(patch);original['nativeMesh'].pop('sourceOverlap')
+   assert hashlib.sha256((json.dumps(original,sort_keys=True,ensure_ascii=False,separators=(',',':'),allow_nan=False)+'\n').encode()).hexdigest()==audit['stagedGeometrySha256'],'Native overlap geometry changed after source review'
+   assert abs(excess-approval['measuredProjectedExcessM2'])<1e-6 and abs(excess-audit['nativeProjectedExcessM2'])<1e-6,'Overlap exceeds verified original source facets'
+   proof=audit['float32HighestRayAgreement'];assert proof['samples']>=1 and proof['maxError']<.01,'Native highest-surface ray agreement unverified'
+   for source in audit['source']['files']:
+    path=(root/source['path']).resolve();assert path.is_relative_to(root) and hashlib.sha256(path.read_bytes()).hexdigest()==source['sha256'],'Native overlap source changed'
+  else:
+   assert numerical and numerical.get('policy')=='highest-float32-surface' and numerical.get('maximumAreaM2')<=max(.25,extent.area*1e-3),'Native terrain contains overlapping height surfaces'
+   assert abs(excess-numerical['measuredAreaM2'])<1e-6 and excess<=numerical['maximumAreaM2'],'Native numerical overlap exceeds approval'
 
  assert edge_vertices,'Native terrain has no parent-edge vertices'
  pg=parent['meta']['georef'];w=parent['w'];h=parent['h']

@@ -62,6 +62,10 @@ def review_native_top_level_replacement(entry,old,new):
   row=rows.get(uid);assert row and row['passed'],'Retained native model failed full-mesh terrain check'
   terrain=row['terrain'];assert terrain['newlyWhollyBuried']==terrain['newlyUpwardWhollyBuried']==0
  return decision
+def review_top_level_surface_change(entry,old,new):
+ old_native=bool(old.get('nativeMesh'));new_native=bool(new.get('nativeMesh'))
+ assert not old_native or new_native,'Native replacement must retain a native surface'
+ return review_native_top_level_replacement(entry,old,new) if old_native or new_native else None
 def stage_top_level_terrain(plan,original,manifest,edits,report):
  entries=plan.get('topLevelTerrainPatches',[])
  if not entries:return
@@ -75,23 +79,21 @@ def stage_top_level_terrain(plan,original,manifest,edits,report):
   path=ROOT/'3d-viewer'/url;assert sha(path)==replacement['sha256'],'Installed terrain patch changed since review'
   old=load(path);new=load(ROOT/entry['source']);validate_patch(new,parent)
   native_reviewed=bool(old.get('nativeMesh') or new.get('nativeMesh'))
-  if native_reviewed:
-   assert old.get('nativeMesh') and new.get('nativeMesh'),'Native replacement must retain a native surface'
-   review_native_top_level_replacement(entry,old,new)
+  review_top_level_surface_change(entry,old,new)
   a,b,c,d=old['coarseCells'];x0,z0,x1,z1=new['coarseCells'];assert x0<=a and z0<=b and x1>=c and z1>=d,'Replacement must contain installed extent'
-  og=old['meta']['georef'];ng=new['meta']['georef'];assert og['aE']==ng['aE'] and og['aN']==ng['aN'],'Replacement must retain installed grid resolution'
-  dx=(og['bE']-ng['bE'])/ng['aE'];dz=(og['bN']-ng['bN'])/ng['aN'];assert dx==int(dx) and dz==int(dz),'Replacement grids must align'
   assert old.get('hydro')==new.get('hydro'),'Replacement cannot alter water metadata'
-  allowed={} if native_reviewed else reviewed_changes(ROOT,entry,old,new)
-  for row in range(old['h']):
-   for col in range(old['w']):
-    i=row*old['w']+col;j=(row+int(dz))*new['w']+col+int(dx)
-    assert old['vegetation'][i]==new['vegetation'][j],'Replacement changed installed vegetation'
-    if native_reviewed:continue
-    if i in allowed:assert allowed[i]==j,'Correction changed grid identity'
-    else:
-     assert old['elev'][i]==new['elev'][j],'Replacement changed installed terrain nodes'
-     assert old.get('renderedElev',old['elev'])[i]==new.get('renderedElev',new['elev'])[j],'Replacement changed rendered terrain nodes'
+  if not native_reviewed:
+   og=old['meta']['georef'];ng=new['meta']['georef'];assert og['aE']==ng['aE'] and og['aN']==ng['aN'],'Replacement must retain installed grid resolution'
+   dx=(og['bE']-ng['bE'])/ng['aE'];dz=(og['bN']-ng['bN'])/ng['aN'];assert dx==int(dx) and dz==int(dz),'Replacement grids must align'
+   allowed=reviewed_changes(ROOT,entry,old,new)
+   for row in range(old['h']):
+    for col in range(old['w']):
+     i=row*old['w']+col;j=(row+int(dz))*new['w']+col+int(dx)
+     assert old['vegetation'][i]==new['vegetation'][j],'Replacement changed installed vegetation'
+     if i in allowed:assert allowed[i]==j,'Correction changed grid identity'
+     else:
+      assert old['elev'][i]==new['elev'][j],'Replacement changed installed terrain nodes'
+      assert old.get('renderedElev',old['elev'])[i]==new.get('renderedElev',new['elev'])[j],'Replacement changed rendered terrain nodes'
   replacements[url]=replacement['sha256']
  existing=list(parent.get('patches',[]))+[load(ROOT/'3d-viewer'/entry['url']) for entry in original.get('terrainPatches',[]) if entry['url'] not in replacements]
  if replacements:

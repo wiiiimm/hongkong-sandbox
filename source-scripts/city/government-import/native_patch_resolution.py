@@ -10,7 +10,7 @@ from shapely.ops import nearest_points, triangulate
 
 
 def _faces(patch):
-    position = np.asarray(patch['nativeMesh']['position']).reshape(-1, 3)
+    position = np.asarray(patch['nativeMesh']['position'],dtype=np.float32).astype(np.float64).reshape(-1, 3)
     return position[np.asarray(patch['nativeMesh']['index']).reshape(-1, 3)]
 
 
@@ -24,6 +24,14 @@ def projected_context(patch, bounds):
     return faces[valid], polygons, extent.difference(union), float(shapely.area(polygons).sum() - union.area)
 
 
+def _triangles(region):
+    """Return a complete, edge-constrained triangulation of polygonal input."""
+    if region.is_empty:
+        return []
+    triangles = shapely.constrained_delaunay_triangles(region)
+    return [part for part in shapely.get_parts(triangles)
+            if part.geom_type == 'Polygon' and part.area > 1e-10]
+
 def fill_parent_only_holes(patch, parent, bounds, protected_projection, sampler):
     _, _, missing, _ = projected_context(patch, bounds)
     assert missing.intersection(protected_projection).area < 1e-6, 'missing-native-terrain-intersects-source-model'
@@ -32,9 +40,7 @@ def fill_parent_only_holes(patch, parent, bounds, protected_projection, sampler)
         patch["nativeMesh"]["source"]["parentHoleFill"] = proof
         return proof
     additions = []
-    for candidate in triangulate(missing):
-        if candidate.area <= 1e-10 or not missing.buffer(1e-8).covers(candidate):
-            continue
+    for candidate in _triangles(missing):
         coords = list(candidate.exterior.coords)[:3]
         additions.append([[x, sampler.ground(x, z), z] for x, z in coords])
     assert additions, 'no-parent-hole-fill'
@@ -83,9 +89,7 @@ def fill_narrow_source_seam(patch, bounds, protected_projection, sampler, tolera
     counts = {'source-edge': 0, 'parent': 0}
     parts = [(seam, 'source-edge'), (missing.difference(protected_projection), 'parent')]
     for region, policy in parts:
-        for candidate in triangulate(region):
-            if candidate.area <= 1e-10 or not region.buffer(1e-8).covers(candidate):
-                continue
+        for candidate in _triangles(region):
             points = []
             for x, z in list(candidate.exterior.coords)[:3]:
                 height = (_height_on_source_edge(shapely.Point(x, z), faces, polygons, tree)
@@ -113,7 +117,31 @@ def fill_narrow_source_seam(patch, bounds, protected_projection, sampler, tolera
 
 
 
-def preserve_parent_under_projection(patch, bounds, projection, sampler):
+def grid_surface_faces(sampler, protected):
+    """Clip a rendered DEM to a polygon without crossing grid diagonals."""
+    output = []
+    if protected.is_empty:
+        return output
+    g = sampler.g
+    x0, z0, x1, z1 = protected.bounds
+    columns = sorted(((x0 + 834500 - g['bE']) / g['aE'], (x1 + 834500 - g['bE']) / g['aE']))
+    rows = sorted(((816500 - z0 - g['bN']) / g['aN'], (816500 - z1 - g['bN']) / g['aN']))
+    for row in range(max(0, int(np.floor(rows[0]))), min(sampler.dem['h'] - 1, int(np.ceil(rows[1])))):
+        for column in range(max(0, int(np.floor(columns[0]))), min(sampler.w - 1, int(np.ceil(columns[1])))):
+            points = [(g['bE'] + c * g['aE'] - 834500, 816500 - (g['bN'] + r * g['aN']))
+                      for c, r in ((column, row), (column + 1, row), (column, row + 1), (column + 1, row + 1))]
+            for cell_face in (shapely.Polygon((points[0], points[1], points[2])),
+                              shapely.Polygon((points[1], points[3], points[2]))):
+                clipped = protected.intersection(cell_face)
+                for part in shapely.get_parts(clipped):
+                    if part.geom_type != 'Polygon':
+                        continue
+                    for candidate in _triangles(part):
+                        output.append([[x, sampler.ground(x, z), z] for x, z in list(candidate.exterior.coords)[:3]])
+    return output
+
+
+def preserve_parent_under_projection(patch, bounds, projection, sampler, edge_sampler=None):
     """Keep current rendered terrain under one unresolved neighbouring form."""
     faces = _faces(patch)
     extent = shapely.box(*bounds)
@@ -133,37 +161,22 @@ def preserve_parent_under_projection(patch, bounds, projection, sampler):
         assert abs(normal[1]) > 1e-10, 'vertical-source-terrain-face'
         parts = [part for part in shapely.get_parts(remainder) if part.geom_type == 'Polygon']
         for part in parts:
-            for candidate in triangulate(part):
-                if candidate.area <= 1e-10 or not part.buffer(1e-8).covers(candidate):
-                    continue
+            for candidate in _triangles(part):
                 points = []
                 for x, z in list(candidate.exterior.coords)[:3]:
                     y = face[0, 1] - (normal[0] * (x - face[0, 0]) + normal[2] * (z - face[0, 2])) / normal[1]
                     points.append([x, float(y), z])
                 output.append(points)
     parent_faces = []
-    # Preserve the parent's piecewise-linear surface exactly. A footprint can
+    # A replaced native patch can expose arbitrary TIN edges. Let its sampler
+    # return exact clipped facets so the before-state remains bit-for-bit planar.
+    if hasattr(sampler, 'surface_faces'):
+        parent_faces.extend(sampler.surface_faces(protected))
+    # Preserve the parent's piecewise-linear grid exactly. A footprint can
     # cross a grid-cell edge or diagonal; triangulating only its outer ring
     # would span that break and change the rendered height inside the form.
-    if all(hasattr(sampler, name) for name in ('dem', 'g', 'w')):
-        g = sampler.g
-        x0, z0, x1, z1 = protected.bounds
-        columns = sorted(((x0 + 834500 - g['bE']) / g['aE'], (x1 + 834500 - g['bE']) / g['aE']))
-        rows = sorted(((816500 - z0 - g['bN']) / g['aN'], (816500 - z1 - g['bN']) / g['aN']))
-        for row in range(max(0, int(np.floor(rows[0]))), min(sampler.dem['h'] - 1, int(np.ceil(rows[1])))):
-            for column in range(max(0, int(np.floor(columns[0]))), min(sampler.w - 1, int(np.ceil(columns[1])))):
-                points = [(g['bE'] + c * g['aE'] - 834500, 816500 - (g['bN'] + r * g['aN']))
-                          for c, r in ((column, row), (column + 1, row), (column, row + 1), (column + 1, row + 1))]
-                for cell_face in (shapely.Polygon((points[0], points[1], points[2])),
-                                  shapely.Polygon((points[1], points[3], points[2]))):
-                    clipped = protected.intersection(cell_face)
-                    for part in shapely.get_parts(clipped):
-                        if part.geom_type != 'Polygon':
-                            continue
-                        for candidate in triangulate(part):
-                            if candidate.area <= 1e-10 or not part.buffer(1e-8).covers(candidate):
-                                continue
-                            parent_faces.append([[x, sampler.ground(x, z), z] for x, z in list(candidate.exterior.coords)[:3]])
+    elif all(hasattr(sampler, name) for name in ('dem', 'g', 'w')):
+        parent_faces.extend(grid_surface_faces(sampler, protected))
     else:
         for candidate in triangulate(protected):
             if candidate.area <= 1e-10 or not protected.buffer(1e-8).covers(candidate):
@@ -175,7 +188,8 @@ def preserve_parent_under_projection(patch, bounds, projection, sampler):
     x0, z0, x1, z1 = bounds
     edge = ((np.abs(flat[:, 0] - x0) < .002) | (np.abs(flat[:, 0] - x1) < .002) |
             (np.abs(flat[:, 2] - z0) < .002) | (np.abs(flat[:, 2] - z1) < .002))
-    flat[edge, 1] = [sampler.ground(x, z) for x, z in flat[edge][:, [0, 2]]]
+    boundary = edge_sampler or sampler
+    flat[edge, 1] = [boundary.ground(x, z) for x, z in flat[edge][:, [0, 2]]]
     patch['nativeMesh']['position'] = flat.reshape(-1).tolist()
     patch['nativeMesh']['index'] = list(range(len(flat)))
     proof = {
@@ -186,6 +200,21 @@ def preserve_parent_under_projection(patch, bounds, projection, sampler):
     }
     patch['nativeMesh']['source']['protectedParentProjection'] = proof
     return proof
+
+def snap_boundary_to_parent(patch, bounds, sampler, tolerance=.002):
+    """Snap every final native edge vertex after clipping and hole filling."""
+    position = np.asarray(patch['nativeMesh']['position']).reshape(-1, 3)
+    x0, z0, x1, z1 = bounds
+    edge = ((np.abs(position[:, 0] - x0) < tolerance) |
+            (np.abs(position[:, 0] - x1) < tolerance) |
+            (np.abs(position[:, 2] - z0) < tolerance) |
+            (np.abs(position[:, 2] - z1) < tolerance))
+    assert edge.any(), 'native-terrain-boundary-empty'
+    position[edge, 1] = [sampler.ground(x, z) for x, z in position[edge][:, [0, 2]]]
+    patch['nativeMesh']['position'] = position.reshape(-1).tolist()
+    return {'vertices': int(edge.sum()), 'toleranceM': tolerance,
+            'policy': 'All final native boundary vertices join the rendered root parent after clipping and hole filling.'}
+
 
 def approve_original_overlap(patch, path, evidence_path, source_files):
     bounds = _patch_bounds(patch)

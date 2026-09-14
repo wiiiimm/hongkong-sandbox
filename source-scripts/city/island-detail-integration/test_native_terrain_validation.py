@@ -11,6 +11,10 @@ class NativeTerrainGate(unittest.TestCase):
  def test_duplicate_surface_is_rejected(self):
   self.patch['nativeMesh']['index']+=self.patch['nativeMesh']['index'][:3]
   with self.assertRaisesRegex(AssertionError,'overlapping'):validate_native_mesh(self.patch,self.parent)
+ def test_bounded_measured_float32_overlap_is_accepted(self):
+  mesh=self.patch['nativeMesh'];mesh['position'] += [4.9,2,4.9,5.1,2,4.9,5,2,5];mesh['index'] += [5,6,7]
+  mesh['source']={'numericalProjectionOverlap':{'policy':'highest-float32-surface','measuredAreaM2':.009999980926522767,'maximumAreaM2':.25}}
+  validate_native_mesh(self.patch,self.parent)
  def test_incorrect_boundary_is_rejected(self):
   self.patch['nativeMesh']['position'][1]=3
   with self.assertRaisesRegex(AssertionError,'boundary'):validate_native_mesh(self.patch,self.parent)

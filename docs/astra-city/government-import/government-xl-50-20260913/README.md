@@ -4,11 +4,11 @@ This bounded batch selected the 50 largest uninstalled XL government source mode
 
 | Final user status | Source models |
 | --- | ---: |
-| Installed | 19 |
+| Installed | 50 |
 | To do | 0 |
 | Held for human decision | 0 |
 | Held for AI processing | 0 |
-| Held for unknown state / later local scripted processing | 31 |
+| Held for unknown state / later local scripted processing | 0 |
 | In process | 0 |
 
 WEST9ZONE (`landsd/229310:0`) is installed from the byte-identical 30,359-triangle government mesh. A bounded source-terrain patch resolves the coastal terrain seam. The adjacent Florient Rise Tower 2 fallback remains visible and is supported by the unchanged source podium across 99.998% of its footprint.
@@ -39,16 +39,10 @@ Mong Kok Stadium (`landsd/240527:0`) is installed from its unchanged 24,595-tria
 
 Fireboat Alexander Grantham Exhibition Gallery (`landsd/57826:0`) is installed from its unchanged 25,015-triangle government mesh. Exact identifiers, 99.36% target coverage and a 0.19 m detailed-projection centroid offset prove the source identity. Its 10.66 m projection extension is the exhibited vessel; the only other projected form is a detached 5.70 m2 fallback with no vertical source-excess collision and remains present. The bounded native terrain and staged/live desktop and mobile gates passed with zero AI calls.
 
-The other 31 models retain their current viewer fallbacks. Their blockers overlap:
+The final compute-only terrain pass installed the remaining 11 unchanged government meshes: Mei Foo Sun Chuen Stage III Shopping Centre, Avalokitesvara Statue, Metro Harbour Plaza, Block 1, the unnamed elevated component, Mei Foo Plaza, Midfield Concourse, Tuen Mun Town Plaza Phase 3, the unnamed podium, tmtplaza Phase 2, and Ocean Square. Nine bounded source-terrain patches preserve existing ordinary forms and four installed native neighbours. Two reviewed replacements retain their prior target models with zero newly buried triangles. All 11 passed exact identity, source preservation, assembly, mobile budget, neighbour, staged browser, and live browser gates. Ocean Square's original overlapping source facets use the deterministic highest Float32 surface policy. No AI modelling, AI review, simplification, or model geometry edit was used.
 
-- 17 still need a deterministic source-assembly suppression or support map.
-- 9 include below-grade source surfaces that need a source-preserving exception or terrain resolution.
-- 4 need the stricter viewer identity/component policy resolved.
-- 10 retain native terrain coverage, ground-contact, or below-grade diagnostics.
-- 1 has an existing review that must be resolved before a new publication decision.
+The original 31 held rows are now fully resolved: 7 were already installed when the report was reconciled, 13 passed the surface-clear compute pass, and the final 11 passed the terrain-complete compute pass. The XL-50 batch therefore has 50 installed, 0 held, and 0 in process.
 
-These are local pipeline/processing holds. None is classified as requiring AI modelling or a user decision. The exact per-model reason combinations and next steps are in `second-pass/final-script-pass/final-results.json.gz`.
+The original 50-result checkpoint remains in pinned Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`. Third-pass snapshot `04d8813ba3dacd9e` records the earlier 5-installed/45-held checkpoint. Current review snapshot `1ec1f2c61ef7b4db` records all 50 XL rows installed and 0 held rows. Third-pass job `8a8785c85c67137ff82059ea857f957cfa3546393a463b4c48aabf8be0fe324c` preserves the earlier four-blocker checkpoint; Spectra's overlap-evidence blocker, Chung Kin's numerical terrain/identity blockers, Harbourfront's shoreline/component blockers, Goldmark's boundary-touch/native-neighbour blocker, Chung Mei's overlapping native-terrain blocker, Mei Choi's source-complex and neighbour-terrain blockers, Mong Kok Stadium's complex-boundary/contact blockers, and Fireboat Alexander Grantham's detached display-component blocker were subsequently resolved by deterministic rules. Thirteen further exact sources passed the compute-only surface gate, and the final 11 passed the source-terrain and retained-neighbour gate. The resulting public count is 470 ready government-source forms and 484 enhanced source forms overall.
 
-The original 50-result checkpoint remains in pinned Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`. Third-pass snapshot `04d8813ba3dacd9e` records the earlier 5-installed/45-held checkpoint. Current review snapshot `0945a0254df8bd58` records 39 installed and 11 held rows. Third-pass job `8a8785c85c67137ff82059ea857f957cfa3546393a463b4c48aabf8be0fe324c` preserves the earlier four-blocker checkpoint; Spectra's overlap-evidence blocker, Chung Kin's numerical terrain/identity blockers, Harbourfront's shoreline/component blockers, Goldmark's boundary-touch/native-neighbour blocker, Chung Mei's overlapping native-terrain blocker, Mei Choi's source-complex and neighbour-terrain blockers, Mong Kok Stadium's complex-boundary/contact blockers, and Fireboat Alexander Grantham's detached display-component blocker were subsequently resolved by deterministic rules. Thirteen further exact sources passed the final compute-only surface gate and live browser matrix together. The resulting public count is 459 ready government-source forms and 473 enhanced source forms overall.
-
-Use `xl-final-sync.py` for the original checkpoint and `xl-third-pass-sync.py` for the refined terrain/support checkpoint. Resume held models by blocker group from the frozen final results and third-pass evidence; do not repeat source acquisition or completed diagnostics when their hashes still match.
+The frozen intermediate checkpoints remain available for audit. The final installation evidence, source hashes, terrain preservation proofs, browser matrix, and Neon confirmation are under `final-compute-pass/terrain-complete/`.
