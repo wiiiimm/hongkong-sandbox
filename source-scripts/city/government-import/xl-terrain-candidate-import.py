@@ -79,6 +79,20 @@ CONFIG = {
             "triangles. The unchanged model passes contact, identity, neighbour and runtime checks."
         ),
     },
+    "mei-choi": {
+        "uid": "landsd/264691:0",
+        "batch": "government-xl-mei-choi-20260914",
+        "policy": "original-government-xl-shared-complex-overhang-native-terrain-v1",
+        "classification": "script-verified-original-government-shared-complex-overhang-native-terrain",
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, complete target "
+            "coverage and a 0.58 m detailed-projection centroid offset. The source extends at most "
+            "3.47 m beyond the simplified tower footprint and only overlaps the mapped commercial "
+            "complex sharing its OSM reference. Four non-overlapping neighbour footprints retain "
+            "their current parent terrain. The unchanged model passes contact, identity, neighbour "
+            "and runtime checks."
+        ),
+    },
     "goldmark": {
         "uid": "landsd/177244:0",
         "batch": "government-xl-goldmark-20260914",
