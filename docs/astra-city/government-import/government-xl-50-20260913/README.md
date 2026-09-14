@@ -4,11 +4,11 @@ This bounded batch selected the 50 largest uninstalled XL government source mode
 
 | Final user status | Source models |
 | --- | ---: |
-| Installed | 17 |
+| Installed | 18 |
 | To do | 0 |
 | Held for human decision | 0 |
 | Held for AI processing | 0 |
-| Held for unknown state / later local scripted processing | 33 |
+| Held for unknown state / later local scripted processing | 32 |
 | In process | 0 |
 
 WEST9ZONE (`landsd/229310:0`) is installed from the byte-identical 30,359-triangle government mesh. A bounded source-terrain patch resolves the coastal terrain seam. The adjacent Florient Rise Tower 2 fallback remains visible and is supported by the unchanged source podium across 99.998% of its footprint.
@@ -35,9 +35,11 @@ Chung Mei Building (`landsd/160193:0`) is installed from its unchanged 29,576-tr
 
 Mei Choi House (`landsd/264691:0`) is installed from its unchanged 33,397-triangle government mesh. Its exact identifiers, complete target coverage, 0.58 m projection-centroid offset and bounded 3.47 m overhang pass a source-complex identity rule. Four non-overlapping neighbouring fallbacks retain their current parent terrain, including boundary-stitched vertices and numerical hole fill. Staged/live desktop and mobile checks passed with zero AI calls.
 
-The other 33 models retain their current viewer fallbacks. Their blockers overlap:
+Mong Kok Stadium (`landsd/240527:0`) is installed from its unchanged 24,595-triangle government mesh. Exact identifiers, 99.46% target coverage, a 0.95 m detailed-projection centroid offset, and bounded adjacent-form intersections pass the complex identity rule. Complete triangle-surface contact resolves the coarse bounds warning, one non-overlapping neighbour retains its current parent terrain, and original overlapping source-terrain facets remain hash-bound. Staged/live desktop and mobile checks passed with zero AI calls.
 
-- 19 still need a deterministic source-assembly suppression or support map.
+The other 32 models retain their current viewer fallbacks. Their blockers overlap:
+
+- 18 still need a deterministic source-assembly suppression or support map.
 - 9 include below-grade source surfaces that need a source-preserving exception or terrain resolution.
 - 4 need the stricter viewer identity/component policy resolved.
 - 10 retain native terrain coverage, ground-contact, or below-grade diagnostics.
@@ -45,6 +47,6 @@ The other 33 models retain their current viewer fallbacks. Their blockers overla
 
 These are local pipeline/processing holds. None is classified as requiring AI modelling or a user decision. The exact per-model reason combinations and next steps are in `second-pass/final-script-pass/final-results.json.gz`.
 
-The original 50-result checkpoint remains in pinned Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`. Third-pass snapshot `04d8813ba3dacd9e` records the earlier 5-installed/45-held checkpoint. Current review snapshot `459ac8523dde9377` records 17 installed and 33 held rows. Third-pass job `8a8785c85c67137ff82059ea857f957cfa3546393a463b4c48aabf8be0fe324c` preserves the earlier four-blocker checkpoint; Spectra's overlap-evidence blocker, Chung Kin's numerical terrain/identity blockers, Harbourfront's shoreline/component blockers, Goldmark's boundary-touch/native-neighbour blocker, Chung Mei's overlapping native-terrain blocker, and Mei Choi's source-complex and neighbour-terrain blockers were subsequently resolved by deterministic rules. The resulting public count is 426 ready government-source forms and 440 enhanced source forms overall.
+The original 50-result checkpoint remains in pinned Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`. Third-pass snapshot `04d8813ba3dacd9e` records the earlier 5-installed/45-held checkpoint. Current review snapshot `0f6948ee7ca03b60` records 18 installed and 32 held rows. Third-pass job `8a8785c85c67137ff82059ea857f957cfa3546393a463b4c48aabf8be0fe324c` preserves the earlier four-blocker checkpoint; Spectra's overlap-evidence blocker, Chung Kin's numerical terrain/identity blockers, Harbourfront's shoreline/component blockers, Goldmark's boundary-touch/native-neighbour blocker, Chung Mei's overlapping native-terrain blocker, Mei Choi's source-complex and neighbour-terrain blockers, and Mong Kok Stadium's complex-boundary/contact blockers were subsequently resolved by deterministic rules. The resulting public count is 427 ready government-source forms and 441 enhanced source forms overall.
 
 Use `xl-final-sync.py` for the original checkpoint and `xl-third-pass-sync.py` for the refined terrain/support checkpoint. Resume held models by blocker group from the frozen final results and third-pass evidence; do not repeat source acquisition or completed diagnostics when their hashes still match.
