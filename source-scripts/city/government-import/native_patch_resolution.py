@@ -172,6 +172,10 @@ def preserve_parent_under_projection(patch, bounds, projection, sampler):
     assert removed > 0 and parent_faces, 'no-protected-parent-preservation'
     output.extend(parent_faces)
     flat = np.asarray(output).reshape(-1, 3)
+    x0, z0, x1, z1 = bounds
+    edge = ((np.abs(flat[:, 0] - x0) < .002) | (np.abs(flat[:, 0] - x1) < .002) |
+            (np.abs(flat[:, 2] - z0) < .002) | (np.abs(flat[:, 2] - z1) < .002))
+    flat[edge, 1] = [sampler.ground(x, z) for x, z in flat[edge][:, [0, 2]]]
     patch['nativeMesh']['position'] = flat.reshape(-1).tolist()
     patch['nativeMesh']['index'] = list(range(len(flat)))
     proof = {

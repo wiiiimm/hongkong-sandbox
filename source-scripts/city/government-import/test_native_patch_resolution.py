@@ -57,6 +57,14 @@ class NativePatchResolutionTests(unittest.TestCase):
         self.assertTrue(inside.any())
         self.assertTrue((centres[inside, 1] == 2).all())
 
+    def test_snaps_new_patch_edge_vertices_to_parent_height(self):
+        patch = self.patch(0)
+        m.preserve_parent_under_projection(patch, [0, 0, 2, 1], shapely.box(.5, 0, 1.5, .5), Sampler())
+        points = np.asarray(patch['nativeMesh']['position']).reshape(-1, 3)
+        edge = points[np.isclose(points[:, 2], 0)]
+        self.assertGreater(len(edge), 0)
+        self.assertTrue((edge[:, 1] == 2).all())
+
     def test_preserves_piecewise_linear_parent_across_grid_diagonal(self):
         class GridSampler:
             def __init__(self):
