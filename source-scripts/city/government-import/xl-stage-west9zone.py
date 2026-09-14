@@ -19,6 +19,7 @@ IDENTITY_COMPLEX_BOUNDARY_EXCEPTIONS={'landsd/240527:0'}
 IDENTITY_DETACHED_COMPONENT_EXCEPTIONS={'landsd/57826:0'}
 VALIDATION_CONTACT_EXCEPTIONS={'landsd/240527:0'}
 PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0':None,'landsd/177244:0':{'landsd/2670:0'},'landsd/264691:0':None,'landsd/240527:0':None}
+NATIVE_TERRAIN_REPAIR_EXCEPTIONS={'landsd/50009:0'}
 FULL_MESH_NEIGHBOUR_EXCEPTIONS={'landsd/177244:0','landsd/160193:0','landsd/264691:0'}
 
 def start():
@@ -40,7 +41,11 @@ def owned():
     adjacent=read(s.DOC/'adjacent-terrain-results.json');assert adjacent['complete'];r=read(DOC/'selection.json.gz')['rows'][0]
     native_by_model={a['modelId']:a['native'] for a in read(s.DOC/'diagnostics.json')['rows']}
     native_by_model.update({a['modelId']:a['native'] for a in adjacent['rows']})
-    assert native_by_model[r['native']['model']['modelId']]['passed']
+    native_check=native_by_model[r['native']['model']['modelId']]
+    if UID in NATIVE_TERRAIN_REPAIR_EXCEPTIONS:
+        assert not native_check['passed'] and native_check['reasons']==['native-source-below-grade']
+        assert native_check['covered']==native_check['checks'] and native_check['gapRange'][0]<-.25
+    else:assert native_check['passed']
     sources=read(s.DOC/'recovery.json')['sheets']+adjacent['sources'];bb=plan['bounds'];fragments=[];used=[];parent=read(ROOT/'3d-viewer/city/data/terrain.json');manifest=read(ROOT/'3d-viewer/city/data/manifest.json');replacement=plan.get('replaces');group={'uids':[UID,*(replacement or {}).get('retainedUids',[])],'cells':plan['cells']}
     try:
         overlapping=[entry for entry in manifest['terrainPatches'] if s.resolution.terrain.overlap(group['cells'],read(ROOT/'3d-viewer'/entry['url'])['coarseCells'])]
