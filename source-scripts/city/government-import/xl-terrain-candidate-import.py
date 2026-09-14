@@ -94,6 +94,22 @@ CONFIG = {
             "terrain. The unchanged model passes contact, identity, neighbour and runtime checks."
         ),
     },
+    "fireboat": {
+        "uid": "landsd/57826:0",
+        "batch": "government-xl-fireboat-20260914",
+        "policy": "original-government-xl-detached-display-component-native-terrain-v1",
+        "classification": "script-verified-original-government-detached-display-component-native-terrain",
+        "priority": "landmark",
+        "retainedBuildingUids": ["landsd/97987:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.36% target "
+            "coverage and a 0.19 m detailed-projection centroid offset. The source extends at most "
+            "10.66 m beyond the simplified gallery footprint for the displayed fireboat. Its only "
+            "other projected form is a detached 5.70 m2 component with no vertical source-excess "
+            "intersection, and that fallback remains present. The unchanged model and bounded native "
+            "terrain pass contact, identity, neighbour and runtime checks."
+        ),
+    },
     "mei-choi": {
         "uid": "landsd/264691:0",
         "batch": "government-xl-mei-choi-20260914",
