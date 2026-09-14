@@ -15,7 +15,7 @@ IDENTITY_COMPACT_OVERHANG_EXCEPTIONS={'landsd/147505:0'}
 IDENTITY_ISOLATED_OVERHANG_EXCEPTIONS={'landsd/160193:0'}
 IDENTITY_BOUNDARY_TOUCH_EXCEPTIONS={'landsd/177244:0'}
 PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0':None,'landsd/177244:0':{'landsd/2670:0'}}
-FULL_MESH_NEIGHBOUR_EXCEPTIONS={'landsd/177244:0'}
+FULL_MESH_NEIGHBOUR_EXCEPTIONS={'landsd/177244:0','landsd/160193:0'}
 
 def start():
     selected=read(s.DOC/'runtime-selection.json.gz');r=next(r for r in selected['rows'] if r['uid']==UID);parent=read(ROOT/'3d-viewer/city/data/terrain.json');cells=s.resolution.rectangle_for(r['candidate']['entry']['worldBounds'],parent);bb=s.resolution.extent(cells,parent);region=box(*bb)
@@ -37,9 +37,13 @@ def owned():
     native_by_model={a['modelId']:a['native'] for a in read(s.DOC/'diagnostics.json')['rows']}
     native_by_model.update({a['modelId']:a['native'] for a in adjacent['rows']})
     assert native_by_model[r['native']['model']['modelId']]['passed']
-    sources=read(s.DOC/'recovery.json')['sheets']+adjacent['sources'];bb=plan['bounds'];fragments=[];used=[];parent=read(ROOT/'3d-viewer/city/data/terrain.json');manifest=read(ROOT/'3d-viewer/city/data/manifest.json');group={'uids':[UID],'cells':plan['cells']}
+    sources=read(s.DOC/'recovery.json')['sheets']+adjacent['sources'];bb=plan['bounds'];fragments=[];used=[];parent=read(ROOT/'3d-viewer/city/data/terrain.json');manifest=read(ROOT/'3d-viewer/city/data/manifest.json');replacement=plan.get('replaces');group={'uids':[UID,*(replacement or {}).get('retainedUids',[])],'cells':plan['cells']}
     try:
-        assert not any(s.resolution.terrain.overlap(group['cells'],read(ROOT/'3d-viewer'/p['url'])['coarseCells']) for p in manifest['terrainPatches']),'overlaps-installed-terrain-patch'
+        overlapping=[entry for entry in manifest['terrainPatches'] if s.resolution.terrain.overlap(group['cells'],read(ROOT/'3d-viewer'/entry['url'])['coarseCells'])]
+        if replacement:
+            assert [entry['url'] for entry in overlapping]==[replacement['url']],'replacement-target-mismatch'
+            assert h(ROOT/'3d-viewer'/replacement['url'])==replacement['sha256'],'replacement-source-changed'
+        else:assert not overlapping,'overlaps-installed-terrain-patch'
         for source in sources:
             folder=s.LOCAL/'sheets'/source['sheet']/'terrain'
             for e in source['source']['entries']:
@@ -59,7 +63,11 @@ def owned():
         assert low_projection.intersection(model_projection).area<1e-6,'water-clamped-source-terrain-intersects-model-projection'
         native=native[~low]
         validator=s.resolution.validate_patch;s.resolution.validate_patch=lambda candidate,parent_terrain:None
-        lo,hi=r['candidate']['entry']['worldBounds'];core=[lo[0]-1,lo[2]-1,hi[0]+1,hi[2]+1]
+        core_rows=[r]
+        if replacement:
+            selected_rows=read(s.DOC/'runtime-selection.json.gz')['rows'];core_rows.extend(next(row for row in selected_rows if row['uid']==uid) for uid in replacement['retainedUids'])
+        lows=[row['candidate']['entry']['worldBounds'][0] for row in core_rows];highs=[row['candidate']['entry']['worldBounds'][1] for row in core_rows]
+        core=[min(lo[0] for lo in lows)-1,min(lo[2] for lo in lows)-1,max(hi[0] for hi in highs)+1,max(hi[2] for hi in highs)+1]
         try:patch=s.resolution.make_patch(group,parent,native,used,native_core=core)
         finally:s.resolution.validate_patch=validator
         path=LOCAL/(patch['id']+'.json');save(path,patch);patch=read(path)
@@ -76,7 +84,9 @@ def owned():
         save(DOC/'terrain-resolution.json',{'overlapProof':overlap,'waterClamp':{'droppedTriangles':int(low.sum()),'protectedIntersectionAreaM2':float(low_projection.intersection(model_projection).area),'parentHoleFill':fill},'aiCalls':0,'geometryChanges':0})
     except (AssertionError,ValueError) as error:
         save(DOC/'result.json',{'uid':UID,'passed':False,'stage':'source-terrain-patch','reason':type(error).__name__+': '+str(error),'aiCalls':0});print(json.dumps(read(DOC/'result.json')),flush=True);return
-    patch_entry={'path':rel(path),'sha256':h(path),'uids':[UID],'bounds':bb,'triangles':len(patch['nativeMesh']['index'])//3};save(DOC/'terrain-candidates.json',[patch_entry]);neighbours=read(DOC/'neighbour-inputs.json.gz');neighbours['patches']=[patch_entry];save(DOC/'neighbour-inputs.json.gz',neighbours)
+    patch_entry={'path':rel(path),'sha256':h(path),'uids':[UID],'bounds':bb,'triangles':len(patch['nativeMesh']['index'])//3}
+    if replacement:patch_entry['replaces']=replacement
+    save(DOC/'terrain-candidates.json',[patch_entry]);neighbours=read(DOC/'neighbour-inputs.json.gz');neighbours['patches']=[patch_entry];save(DOC/'neighbour-inputs.json.gz',neighbours)
     catalogue=read(HERE/'accepted/government-xxl-20260911/catalogue.json');catalogue['area']='Government XL original-source imports';catalogue['models']=[r['candidate']['entry']];catalogue['counts']['packedModels']=1;save(LOCAL/'candidates/catalogue.json',catalogue);save(LOCAL/'candidates/catalogue-index.json',{'models':1,'catalogues':['catalogue.json']})
     asset=LOCAL/'candidates'/r['candidate']['entry']['asset'];asset.parent.mkdir(parents=True,exist_ok=True);asset.write_bytes((s.LOCAL/r['candidate']['entry']['asset']).read_bytes());assert h(asset)==r['candidate']['entry']['sha256'];save(LOCAL/'source-forms.json',{UID:r['source']})
     s.call(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(DOC/'selection.json.gz'),'--candidates',rel(LOCAL/'candidates'),'--terrain-candidates',rel(DOC/'terrain-candidates.json'),'--out',rel(DOC/'metrics.json')])
@@ -150,6 +160,12 @@ def owned():
     if validation['outcome']=='validation-exception':reasons.append('runtime-validation-exception')
     remaining=set(read(DOC/'neighbour-checks.json')['patches'][0]['blockedBy'])-set(support_resolved)-set(native_resolved)
     if remaining:reasons.append('terrain-correction-regresses-neighbours')
+    if replacement:
+        native_path=DOC/'native-neighbour-checks.json';native_checks=read(native_path)
+        retained=set(replacement['retainedUids']);checked={row['uid'] for row in native_checks['rows'] if row.get('passed')}
+        if not retained<=checked:reasons.append('replacement-retained-native-check-failed')
+        review={'status':'approved-for-integration' if not reasons else 'held','supersededURL':replacement['url'],'supersededSHA256':replacement['sha256'],'replacementSHA256':patch_entry['sha256'],'retainedUids':sorted(retained),'replacementTargetUids':patch['meta']['targetUids'],'fullMeshCheck':{'path':rel(native_path),'sha256':h(native_path)},'sourceGeometryChanged':False,'aiCalls':0,'modelGeometryChanges':0}
+        save(DOC/'native-replacement-review.json',review);patch_entry['nativeReview']={'path':rel(DOC/'native-replacement-review.json'),'sha256':h(DOC/'native-replacement-review.json')}
     save(DOC/'result.json',{'uid':UID,'passed':not reasons,'stage':'patched-terrain-and-neighbour-checks','reasons':reasons,'patch':patch_entry,'aiCalls':0});print(json.dumps(read(DOC/'result.json')),flush=True)
 
 if __name__=='__main__':owned() if len(sys.argv)>1 else start()

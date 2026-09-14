@@ -17,14 +17,22 @@ CONFIG={
 def configure(key):
  uid=CONFIG[key];w.UID=uid;w.DOC=s.DOC/'third-pass'/('terrain-'+key);w.LOCAL=s.LOCAL/('third-pass-terrain-'+key);return uid,w.DOC,w.LOCAL
 def start(key):
- uid,doc,local=configure(key);selected=read(s.DOC/'runtime-selection.json.gz');row=next(r for r in selected['rows'] if r['uid']==uid);parent=read(ROOT/'3d-viewer/city/data/terrain.json');cells=s.resolution.rectangle_for(row['candidate']['entry']['worldBounds'],parent);bounds=s.resolution.extent(cells,parent);region=box(*bounds)
- manifest=read(ROOT/'3d-viewer/city/data/manifest.json');live={m['uid'] for url in manifest['officialModelCatalogues'] for m in read(ROOT/'3d-viewer'/url)['models']};neighbours=[];hashes={}
+ uid,doc,local=configure(key);selected=read(s.DOC/'runtime-selection.json.gz');row=next(r for r in selected['rows'] if r['uid']==uid);parent=read(ROOT/'3d-viewer/city/data/terrain.json');cells=s.resolution.rectangle_for(row['candidate']['entry']['worldBounds'],parent)
+ manifest=read(ROOT/'3d-viewer/city/data/manifest.json');replacement=None
+ if key=='chung-mei':
+  overlapping=[entry for entry in manifest['terrainPatches'] if s.resolution.terrain.overlap(cells,read(ROOT/'3d-viewer'/entry['url'])['coarseCells'])]
+  assert [entry['url'] for entry in overlapping]==['city/data/government-native-147024-0.json']
+  entry=overlapping[0];old=read(ROOT/'3d-viewer'/entry['url']);assert old['meta']['targetUids']==['landsd/147024:0']
+  a,b,c,d=old['coarseCells'];cells=[min(cells[0],a),min(cells[1],b),max(cells[2],c),max(cells[3],d)]
+  replacement={'url':entry['url'],'sha256':h(ROOT/'3d-viewer'/entry['url']),'retainedUids':['landsd/147024:0']}
+ bounds=s.resolution.extent(cells,parent);region=box(*bounds)
+ live={m['uid'] for url in manifest['officialModelCatalogues'] for m in read(ROOT/'3d-viewer'/url)['models']};neighbours=[];hashes={}
  for tile in manifest['tiles']:
   path=ROOT/'3d-viewer'/tile['url'];raw=path.read_bytes();touched=False
   for building in json.loads(raw)['buildings']:
    if Polygon(building['rings'][0],building['rings'][1:]).intersects(region):neighbours.append({'building':building,'patchIndexes':[0],'existingNative':building['uid'] in live or bool(building.get('modelGeometry'))});touched=True
   if touched:hashes[rel(path)]=s.digest(raw)
- current=h(ROOT/'3d-viewer/city/data/manifest.json');save(doc/'selection.json.gz',{**selected,'manifestSHA256':current,'rows':[row]});save(doc/'neighbour-inputs.json.gz',{'rows':neighbours,'inputHashes':hashes,'candidateIds':[uid],'patches':[]});save(doc/'patch-plan.json',{'cells':cells,'bounds':bounds,'manifestSHA256':current,'uid':uid})
+ current=h(ROOT/'3d-viewer/city/data/manifest.json');save(doc/'selection.json.gz',{**selected,'manifestSHA256':current,'rows':[row]});save(doc/'neighbour-inputs.json.gz',{'rows':neighbours,'inputHashes':hashes,'candidateIds':[uid],'patches':[]});save(doc/'patch-plan.json',{'cells':cells,'bounds':bounds,'manifestSHA256':current,'uid':uid,'replaces':replacement})
  resources=set(['building:'+uid])|{('building:' if item['building']['uid'].startswith('landsd/') else 'source-form:')+item['building']['uid'] for item in neighbours};claim=s.reservations.claim('codex-xl-terrain-'+key+'-'+str(uuid.uuid4()),sorted(resources),batch='government-xl-terrain-'+key+'-20260914');assert claim['ok'];save(local/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(local/'reservation.json'),'--',sys.executable,__file__,key,'owned'],cwd=ROOT,check=True)
 def owned(key):
  configure(key);w.owned()
