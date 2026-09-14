@@ -22,9 +22,10 @@ IDENTITY_FINAL_SCRIPT_EXCEPTIONS={
     'landsd/73140:0',
     'landsd/229481:0',
     'landsd/276686:0',
+    'landsd/264029:0',
 }
 VALIDATION_CONTACT_EXCEPTIONS={'landsd/240527:0'}
-PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0':None,'landsd/177244:0':{'landsd/2670:0'},'landsd/264691:0':None,'landsd/240527:0':None}
+PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0':None,'landsd/177244:0':{'landsd/2670:0'},'landsd/264691:0':None,'landsd/240527:0':None,'landsd/264029:0':None}
 NATIVE_TERRAIN_REPAIR_EXCEPTIONS={'landsd/50009:0'}
 NATIVE_COMPLETE_FACE_EXCEPTIONS={
     'landsd/21915:0',
@@ -32,6 +33,7 @@ NATIVE_COMPLETE_FACE_EXCEPTIONS={
     'landsd/73140:0',
     'landsd/229481:0',
     'landsd/276686:0',
+    'landsd/264029:0',
 }
 FULL_MESH_NEIGHBOUR_EXCEPTIONS={'landsd/177244:0','landsd/160193:0','landsd/264691:0'}
 
@@ -63,7 +65,7 @@ def owned():
         assert final['foundationScriptAccepted'] and foundation['completeTerrainTriangles']==foundation['triangles'] and foundation['fullyBuriedUpwardTriangles']==0 and foundation['fullyBuriedAreaFraction']<=.001
         assert native_check['covered']==native_check['checks']
     else:assert native_check['passed']
-    sources=read(s.DOC/'recovery.json')['sheets']+adjacent['sources'];bb=plan['bounds'];fragments=[];used=[];parent=read(ROOT/'3d-viewer/city/data/terrain.json');manifest=read(ROOT/'3d-viewer/city/data/manifest.json');replacement=plan.get('replaces');group={'uids':[UID,*(replacement or {}).get('retainedUids',[])],'cells':plan['cells']}
+    sources=read(s.DOC/'recovery.json')['sheets']+adjacent['sources'];bb=plan['bounds'];fragments=[];used=[];parent=read(ROOT/'3d-viewer/city/data/terrain.json');manifest=read(ROOT/'3d-viewer/city/data/manifest.json');replacement=plan.get('replaces');group={'uids':[ *plan.get('uids',[UID]), *(replacement or {}).get('retainedUids',[])],'cells':plan['cells']}
     try:
         overlapping=[entry for entry in manifest['terrainPatches'] if s.resolution.terrain.overlap(group['cells'],read(ROOT/'3d-viewer'/entry['url'])['coarseCells'])]
         if replacement:
@@ -93,6 +95,8 @@ def owned():
         if replacement:
             selected_rows=read(s.DOC/'runtime-selection.json.gz')['rows'];core_rows.extend(next(row for row in selected_rows if row['uid']==uid) for uid in replacement['retainedUids'])
         lows=[row['candidate']['entry']['worldBounds'][0] for row in core_rows];highs=[row['candidate']['entry']['worldBounds'][1] for row in core_rows]
+        if plan.get('coreBounds'):
+            lows.append(plan['coreBounds'][0]);highs.append(plan['coreBounds'][1])
         core=[min(lo[0] for lo in lows)-1,min(lo[2] for lo in lows)-1,max(hi[0] for hi in highs)+1,max(hi[2] for hi in highs)+1]
         try:patch=s.resolution.make_patch(group,parent,native,used,native_core=core)
         finally:s.resolution.validate_patch=validator
@@ -110,7 +114,7 @@ def owned():
         save(DOC/'terrain-resolution.json',{'overlapProof':overlap,'waterClamp':{'droppedTriangles':int(low.sum()),'protectedIntersectionAreaM2':float(low_projection.intersection(model_projection).area),'parentHoleFill':fill},'aiCalls':0,'geometryChanges':0})
     except (AssertionError,ValueError) as error:
         save(DOC/'result.json',{'uid':UID,'passed':False,'stage':'source-terrain-patch','reason':type(error).__name__+': '+str(error),'aiCalls':0});print(json.dumps(read(DOC/'result.json')),flush=True);return
-    patch_entry={'path':rel(path),'sha256':h(path),'uids':[UID],'bounds':bb,'triangles':len(patch['nativeMesh']['index'])//3}
+    patch_entry={'path':rel(path),'sha256':h(path),'uids':group['uids'],'bounds':bb,'triangles':len(patch['nativeMesh']['index'])//3}
     if replacement:patch_entry['replaces']=replacement
     save(DOC/'terrain-candidates.json',[patch_entry]);neighbours=read(DOC/'neighbour-inputs.json.gz');neighbours['patches']=[patch_entry];save(DOC/'neighbour-inputs.json.gz',neighbours)
     catalogue=read(HERE/'accepted/government-xxl-20260911/catalogue.json');catalogue['area']='Government XL original-source imports';catalogue['models']=[r['candidate']['entry']];catalogue['counts']['packedModels']=1;save(LOCAL/'candidates/catalogue.json',catalogue);save(LOCAL/'candidates/catalogue-index.json',{'models':1,'catalogues':['catalogue.json']})

@@ -22,11 +22,15 @@ CONFIG={
  'hullett-house': 'landsd/73140:0',
  'tuen-mun-plaza-1': 'landsd/229481:0',
  'woo-phase-two': 'landsd/276686:0',
+ 'greenery-garden': 'landsd/264029:0',
 }
 def configure(key):
  uid=CONFIG[key];w.UID=uid;w.DOC=s.DOC/'third-pass'/('terrain-'+key);w.LOCAL=s.LOCAL/('third-pass-terrain-'+key);return uid,w.DOC,w.LOCAL
 def start(key):
  uid,doc,local=configure(key);selected=read(s.DOC/'runtime-selection.json.gz');row=next(r for r in selected['rows'] if r['uid']==uid);parent=read(ROOT/'3d-viewer/city/data/terrain.json');cells=s.resolution.rectangle_for(row['candidate']['entry']['worldBounds'],parent)
+ assembly_uids=[uid];core_bounds=row['candidate']['entry']['worldBounds']
+ if key=='greenery-garden':
+  support=read(s.LOCAL/'third-pass-greenery-support/support-runtime.json.gz')['rows'][0];other=s.resolution.rectangle_for(support['candidate']['entry']['worldBounds'],parent);cells=[min(cells[0],other[0]),min(cells[1],other[1]),max(cells[2],other[2]),max(cells[3],other[3])];assembly_uids.append(support['uid']);lo=row['candidate']['entry']['worldBounds'][0];hi=row['candidate']['entry']['worldBounds'][1];slo=support['candidate']['entry']['worldBounds'][0];shi=support['candidate']['entry']['worldBounds'][1];core_bounds=[[min(lo[0],slo[0]),min(lo[1],slo[1]),min(lo[2],slo[2])],[max(hi[0],shi[0]),max(hi[1],shi[1]),max(hi[2],shi[2])]]
  manifest=read(ROOT/'3d-viewer/city/data/manifest.json');replacement=None
  if key=='chung-mei':
   overlapping=[entry for entry in manifest['terrainPatches'] if s.resolution.terrain.overlap(cells,read(ROOT/'3d-viewer'/entry['url'])['coarseCells'])]
@@ -41,8 +45,8 @@ def start(key):
   for building in json.loads(raw)['buildings']:
    if Polygon(building['rings'][0],building['rings'][1:]).intersects(region):neighbours.append({'building':building,'patchIndexes':[0],'existingNative':building['uid'] in live or bool(building.get('modelGeometry'))});touched=True
   if touched:hashes[rel(path)]=s.digest(raw)
- current=h(ROOT/'3d-viewer/city/data/manifest.json');save(doc/'selection.json.gz',{**selected,'manifestSHA256':current,'rows':[row]});save(doc/'neighbour-inputs.json.gz',{'rows':neighbours,'inputHashes':hashes,'candidateIds':[uid],'patches':[]});save(doc/'patch-plan.json',{'cells':cells,'bounds':bounds,'manifestSHA256':current,'uid':uid,'replaces':replacement})
- resources=set(['building:'+uid])|{('building:' if item['building']['uid'].startswith('landsd/') else 'source-form:')+item['building']['uid'] for item in neighbours};claim=s.reservations.claim('codex-xl-terrain-'+key+'-'+str(uuid.uuid4()),sorted(resources),batch='government-xl-terrain-'+key+'-20260914');assert claim['ok'];save(local/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(local/'reservation.json'),'--',sys.executable,__file__,key,'owned'],cwd=ROOT,check=True)
+ current=h(ROOT/'3d-viewer/city/data/manifest.json');save(doc/'selection.json.gz',{**selected,'manifestSHA256':current,'rows':[row]});save(doc/'neighbour-inputs.json.gz',{'rows':neighbours,'inputHashes':hashes,'candidateIds':assembly_uids,'patches':[]});save(doc/'patch-plan.json',{'cells':cells,'bounds':bounds,'manifestSHA256':current,'uid':uid,'uids':assembly_uids,'coreBounds':core_bounds,'replaces':replacement})
+ resources={'building:'+candidate_uid for candidate_uid in assembly_uids}|{('building:' if item['building']['uid'].startswith('landsd/') else 'source-form:')+item['building']['uid'] for item in neighbours};claim=s.reservations.claim('codex-xl-terrain-'+key+'-'+str(uuid.uuid4()),sorted(resources),batch='government-xl-terrain-'+key+'-20260914');assert claim['ok'];save(local/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(local/'reservation.json'),'--',sys.executable,__file__,key,'owned'],cwd=ROOT,check=True)
 def owned(key):
  configure(key);w.owned()
 if __name__=='__main__':
