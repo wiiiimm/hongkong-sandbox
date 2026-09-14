@@ -42,7 +42,7 @@ if(replacements)for(const r of read(root,replacements)){const i=manifest.terrain
 const candidateTerrain=option('--terrain-candidate',null);
 if(candidateTerrain)terrainData.patches.push(read(root,candidateTerrain));
 const candidateTerrains=option('--terrain-candidates',null);
-if(candidateTerrains)for(const p of read(root,candidateTerrains)){const patch=read(root,p.path);assert.equal(hashes[p.path],p.sha256,'Staged terrain changed');terrainData.patches.push(patch);}
+if(candidateTerrains){const candidates=read(root,candidateTerrains);for(const p of candidates){if(p.replaces){const i=manifest.terrainPatches.findIndex(row=>row.url===p.replaces.url);assert(i>=0,'Missing terrain replacement parent');terrainData.patches.splice(i,1);}const patch=read(root,p.path);assert.equal(hashes[p.path],p.sha256,'Staged terrain changed');terrainData.patches.push(patch);}}
 const sampler=makeTerrainSampler(terrainData),terrain=makeTerrain(terrainData);terrain.updateMatrixWorld(true);
 const lighting={night:{value:1},activity:{value:new THREE.Vector4(1,1,1,1)},retail:{value:1},elapsed:{value:0},shimmer:{value:0}};
 const results=[],started=performance.now();let terrainRays=0,loaderAccepted=0;

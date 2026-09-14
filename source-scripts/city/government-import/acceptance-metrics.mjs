@@ -25,8 +25,9 @@ const manifest=load('3d-viewer/city/data/manifest.json'),data=load('3d-viewer/ci
 if(args.selection)assert.equal(inputs['3d-viewer/city/data/manifest.json'],selected.manifestSHA256,'Frozen manifest changed');
 inputs[selectionPath]=hash(selectionRaw);
 for(const p of ['source-scripts/city/government-import/acceptance-metrics.mjs','3d-viewer/city/world.js','3d-viewer/city/geo.js','3d-viewer/city/native-terrain.js','3d-viewer/city/official-model-assets.js','3d-viewer/city/official-models.js'])inputs[p]=hash(readFileSync(new URL(p,root)));
-data.patches=(manifest.terrainPatches||[]).map(p=>load('3d-viewer/'+p.url));
-if(args['terrain-candidates'])for(const p of load(args['terrain-candidates'])){const patch=load(p.path);assert.equal(inputs[p.path],p.sha256,'Staged terrain changed');data.patches.push(patch);}
+data.patches=(manifest.terrainPatches||[]).map(p=>({entry:p,data:load('3d-viewer/'+p.url)}));
+if(args['terrain-candidates']){const candidates=load(args['terrain-candidates']),replaced=new Set(candidates.flatMap(p=>p.replaces?[p.replaces.url]:[]));data.patches=data.patches.filter(p=>!replaced.has(p.entry.url));for(const p of candidates){const patch=load(p.path);assert.equal(inputs[p.path],p.sha256,'Staged terrain changed');data.patches.push({entry:null,data:patch});}}
+data.patches=data.patches.map(p=>p.data);
 const terrain=makeTerrain(data);terrain.updateMatrixWorld(true);const sampler=makeTerrainSampler(data);
 const grounds=new Map(rows.map(r=>[r.uid,[]])),identity=new THREE.Matrix4();
 // Keep only actual drawn terrain triangles intersecting this bounded model group.

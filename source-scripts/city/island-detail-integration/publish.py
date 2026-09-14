@@ -43,6 +43,25 @@ def check_patch_overlap(p,others):
  for q in others:
   a,b,c,d=q['coarseCells']
   assert x1<=a or x0>=c or z1<=b or z0>=d,'Overlapping terrain patches require review'
+
+def review_native_top_level_replacement(entry,old,new):
+ ref=entry.get('nativeReview');assert ref,'Native surface replacement needs a separate source review'
+ path=(ROOT/ref['path']).resolve();assert path.is_relative_to(ROOT.resolve())
+ raw=path.read_bytes();assert hashlib.sha256(raw).hexdigest()==ref['sha256'],'Native replacement review changed'
+ decision=json.loads(raw);assert decision['status']=='approved-for-integration'
+ assert decision['supersededURL']==entry['replaces']['url'] and decision['supersededSHA256']==entry['replaces']['sha256']
+ assert decision['replacementSHA256']==entry['sha256'] and decision['sourceGeometryChanged'] is False
+ assert decision['aiCalls']==decision['modelGeometryChanges']==0
+ retained=set(decision['retainedUids']);assert retained and retained<=set(old['meta'].get('targetUids',[]))
+ assert retained<=set(new['meta'].get('targetUids',[])) and set(decision['replacementTargetUids'])==set(new['meta'].get('targetUids',[]))
+ check=decision['fullMeshCheck'];checkpath=(ROOT/check['path']).resolve();assert checkpath.is_relative_to(ROOT.resolve())
+ checkraw=checkpath.read_bytes();assert hashlib.sha256(checkraw).hexdigest()==check['sha256'],'Native replacement mesh check changed'
+ report=json.loads(checkraw);assert report.get('aiCalls')==report.get('modelGeometryChanges')==0
+ rows={row['uid']:row for row in report['rows']}
+ for uid in retained:
+  row=rows.get(uid);assert row and row['passed'],'Retained native model failed full-mesh terrain check'
+  terrain=row['terrain'];assert terrain['newlyWhollyBuried']==terrain['newlyUpwardWhollyBuried']==0
+ return decision
 def stage_top_level_terrain(plan,original,manifest,edits,report):
  entries=plan.get('topLevelTerrainPatches',[])
  if not entries:return
@@ -55,16 +74,20 @@ def stage_top_level_terrain(plan,original,manifest,edits,report):
   matches=[m for m in original.get('terrainPatches',[]) if m['url']==url];assert len(matches)==1,'Terrain replacement must identify one installed patch'
   path=ROOT/'3d-viewer'/url;assert sha(path)==replacement['sha256'],'Installed terrain patch changed since review'
   old=load(path);new=load(ROOT/entry['source']);validate_patch(new,parent)
-  assert not old.get('nativeMesh') and not new.get('nativeMesh'),'Native surface replacement needs a separate source review'
+  native_reviewed=bool(old.get('nativeMesh') or new.get('nativeMesh'))
+  if native_reviewed:
+   assert old.get('nativeMesh') and new.get('nativeMesh'),'Native replacement must retain a native surface'
+   review_native_top_level_replacement(entry,old,new)
   a,b,c,d=old['coarseCells'];x0,z0,x1,z1=new['coarseCells'];assert x0<=a and z0<=b and x1>=c and z1>=d,'Replacement must contain installed extent'
   og=old['meta']['georef'];ng=new['meta']['georef'];assert og['aE']==ng['aE'] and og['aN']==ng['aN'],'Replacement must retain installed grid resolution'
   dx=(og['bE']-ng['bE'])/ng['aE'];dz=(og['bN']-ng['bN'])/ng['aN'];assert dx==int(dx) and dz==int(dz),'Replacement grids must align'
   assert old.get('hydro')==new.get('hydro'),'Replacement cannot alter water metadata'
-  allowed=reviewed_changes(ROOT,entry,old,new)
+  allowed={} if native_reviewed else reviewed_changes(ROOT,entry,old,new)
   for row in range(old['h']):
    for col in range(old['w']):
     i=row*old['w']+col;j=(row+int(dz))*new['w']+col+int(dx)
     assert old['vegetation'][i]==new['vegetation'][j],'Replacement changed installed vegetation'
+    if native_reviewed:continue
     if i in allowed:assert allowed[i]==j,'Correction changed grid identity'
     else:
      assert old['elev'][i]==new['elev'][j],'Replacement changed installed terrain nodes'

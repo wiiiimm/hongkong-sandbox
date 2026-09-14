@@ -75,6 +75,20 @@ class Publication(unittest.TestCase):
    replace(src,dest)
   with patch.object(pub.os,'replace',side_effect=fail_manifest),self.assertRaisesRegex(OSError,'terrain transaction'):self.run_publish()
   self.assertEqual(self.live_snapshot(),before)
+ def native_review_fixture(self,newly=0):
+  old={'meta':{'targetUids':['landsd/1:0']}};new={'meta':{'targetUids':['landsd/1:0','landsd/2:0']}}
+  check=self.write('staged/native-check.json',{'aiCalls':0,'modelGeometryChanges':0,'rows':[{'uid':'landsd/1:0','passed':newly==0,'terrain':{'newlyWhollyBuried':newly,'newlyUpwardWhollyBuried':newly}}]})
+  replacement={'url':'city/data/terrain-old.json','sha256':'old-sha'}
+  decision=self.write('staged/native-review.json',{'status':'approved-for-integration','supersededURL':replacement['url'],'supersededSHA256':replacement['sha256'],'replacementSHA256':'new-sha','retainedUids':['landsd/1:0'],'replacementTargetUids':['landsd/1:0','landsd/2:0'],'fullMeshCheck':{'path':str(check.relative_to(self.root)),'sha256':pub.sha(check)},'sourceGeometryChanged':False,'aiCalls':0,'modelGeometryChanges':0})
+  entry={'replaces':replacement,'sha256':'new-sha','nativeReview':{'path':str(decision.relative_to(self.root)),'sha256':pub.sha(decision)}}
+  return entry,old,new
+ def test_native_top_level_replacement_requires_passing_retained_mesh_check(self):
+  entry,old,new=self.native_review_fixture();self.assertEqual(pub.review_native_top_level_replacement(entry,old,new)['retainedUids'],['landsd/1:0'])
+  entry,old,new=self.native_review_fixture(newly=1)
+  with self.assertRaisesRegex(AssertionError,'full-mesh'):pub.review_native_top_level_replacement(entry,old,new)
+ def test_native_top_level_replacement_rejects_tampered_review(self):
+  entry,old,new=self.native_review_fixture();(self.root/entry['nativeReview']['path']).write_text('{}')
+  with self.assertRaisesRegex(AssertionError,'review changed'):pub.review_native_top_level_replacement(entry,old,new)
  def test_top_level_patch_rejects_malformed_grid_or_reused_destination(self):
   mutations=[('origin',lambda d:d['meta']['georef'].update(bE=121)),('dimensions',lambda d:d['meta']['georef'].update(W=4)),('arrays',lambda d:d['elev'].pop()),('bounds',lambda d:d.update(coarseCells=[2,2,12,4]))]
   for name,mutate in mutations:

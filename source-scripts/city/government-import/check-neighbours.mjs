@@ -8,7 +8,7 @@ const root=new URL('../../../',import.meta.url),doc=process.argv[2]||'docs/astra
 const read=p=>{const raw=readFileSync(new URL(p,root));inputs[p]=hash(raw);return JSON.parse(p.endsWith('.gz')?gunzipSync(raw):raw);};
 const manifest=read('3d-viewer/city/data/manifest.json'),data=read('3d-viewer/city/data/terrain.json'),selection=read(doc+'neighbour-inputs.json.gz');
 for(const [p,h] of Object.entries(selection.inputHashes))assert.equal(hash(readFileSync(new URL(p,root))),h);
-data.patches=manifest.terrainPatches.map(p=>read('3d-viewer/'+p.url));const before=makeTerrainSampler(data),patched={...data,patches:[...data.patches,...selection.patches.map(p=>{const d=read(p.path);assert.equal(inputs[p.path],p.sha256);return d;})]},after=makeTerrainSampler(patched),targets=new Set(selection.candidateIds),rows=[];
+data.patches=manifest.terrainPatches.map(p=>({entry:p,data:read('3d-viewer/'+p.url)}));const before=makeTerrainSampler({...data,patches:data.patches.map(p=>p.data)}),replaced=new Set(selection.patches.flatMap(p=>p.replaces?[p.replaces.url]:[])),patched={...data,patches:[...data.patches.filter(p=>!replaced.has(p.entry.url)).map(p=>p.data),...selection.patches.map(p=>{const d=read(p.path);assert.equal(inputs[p.path],p.sha256);return d;})]},after=makeTerrainSampler(patched),targets=new Set(selection.candidateIds),rows=[];
 for(const {building:b,patchIndexes,existingNative} of selection.rows){
  const points=b.rings.flat().map(p=>[p[0],p[1]]),outer=b.rings[0],xs=outer.map(p=>p[0]),zs=outer.map(p=>p[1]),lo=[Math.min(...xs),Math.min(...zs)],hi=[Math.max(...xs),Math.max(...zs)];
  const step=Math.max(2,Math.sqrt((hi[0]-lo[0])*(hi[1]-lo[1])/2500));

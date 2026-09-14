@@ -19,8 +19,11 @@ const read=p=>{const raw=readFileSync(resolve(root,p));hashes[p]=hash(raw);retur
 
 const manifest=read('3d-viewer/city/data/manifest.json'),base=read('3d-viewer/city/data/terrain.json');
 base.patches=[];
-for(const row of manifest.terrainPatches||[])base.patches.push(read('3d-viewer/'+row.url));
-const before=makeTerrainSampler(base),variant=structuredClone(base),inputs=read(doc+'neighbour-inputs.json.gz');
+const installed=[];
+for(const row of manifest.terrainPatches||[])installed.push({entry:row,data:read('3d-viewer/'+row.url)});
+base.patches=installed.map(row=>row.data);
+const before=makeTerrainSampler(base),variant=structuredClone(base),inputs=read(doc+'neighbour-inputs.json.gz'),replaced=new Set(inputs.patches.flatMap(row=>row.replaces?[row.replaces.url]:[]));
+variant.patches=installed.filter(row=>!replaced.has(row.entry.url)).map(row=>structuredClone(row.data));
 for(const row of inputs.patches){
  const raw=readFileSync(resolve(root,row.path));
  assert.equal(hash(raw),row.sha256);
@@ -29,6 +32,7 @@ for(const row of inputs.patches){
 }
 const after=makeTerrainSampler(variant),standard=read(doc+'neighbour-checks.json');
 const blocked=new Set(standard.rows.filter(row=>row.existingNative&&row.reasons.length).map(row=>row.uid));
+for(const row of inputs.patches)for(const uid of row.replaces?.retainedUids||[])blocked.add(uid);
 const buildings=new Map(inputs.rows.map(row=>[row.building.uid,row.building])),entries=new Map();
 for(const url of manifest.officialModelCatalogues){
  const path='3d-viewer/'+url,cat=read(path),folder=dirname(path);
