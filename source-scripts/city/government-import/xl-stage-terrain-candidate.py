@@ -17,6 +17,11 @@ CONFIG={
  'mongkok-stadium': 'landsd/240527:0',
  'fireboat': 'landsd/57826:0',
  'choi-huen': 'landsd/50009:0',
+ 'gateway-arcade': 'landsd/21915:0',
+ 'jubilee-square': 'landsd/304700:0',
+ 'hullett-house': 'landsd/73140:0',
+ 'tuen-mun-plaza-1': 'landsd/229481:0',
+ 'woo-phase-two': 'landsd/276686:0',
 }
 def configure(key):
  uid=CONFIG[key];w.UID=uid;w.DOC=s.DOC/'third-pass'/('terrain-'+key);w.LOCAL=s.LOCAL/('third-pass-terrain-'+key);return uid,w.DOC,w.LOCAL

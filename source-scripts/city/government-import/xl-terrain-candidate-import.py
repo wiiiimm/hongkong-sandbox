@@ -27,6 +27,66 @@ CONFIG = {
             'terrain pass contact, neighbour and runtime checks.'
         ),
     },
+    "gateway-arcade": {
+        "uid": "landsd/21915:0",
+        "priority": "landmark",
+        "batch": "government-xl-gateway-arcade-20260914",
+        "policy": "original-government-xl-gateway-podium-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "review": (
+            "Exact unchanged Gateway Arcade government podium matched by object ID and Building CSUID. "
+            "The bounded native terrain and source-roof checks retain and support the related Gateway towers. "
+            "Source, neighbour, runtime and browser checks pass."
+        ),
+    },
+    "jubilee-square": {
+        "uid": "landsd/304700:0",
+        "priority": "landmark",
+        "batch": "government-xl-jubilee-square-20260914",
+        "policy": "original-government-xl-jubilee-podium-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "review": (
+            "Exact unchanged Jubilee Square government podium matched by object ID and Building CSUID. "
+            "The complete-face identity proof bounds the source assembly, while native terrain and source-roof "
+            "checks retain and support the related Jubilee Garden towers. Runtime and browser checks pass."
+        ),
+    },
+    "hullett-house": {
+        "uid": "landsd/73140:0",
+        "batch": "government-xl-hullett-house-20260914",
+        "policy": "original-government-xl-hullett-house-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "priority": "landmark",
+        "review": (
+            "Exact unchanged Hullett House government source matched by object ID and Building CSUID. "
+            "The complete-face identity and bounded foundation proofs accept two tiny downward buried faces; "
+            "native terrain, retained related forms, runtime and browser checks pass."
+        ),
+    },
+    "tuen-mun-plaza-1": {
+        "uid": "landsd/229481:0",
+        "priority": "landmark",
+        "batch": "government-xl-tuen-mun-plaza-1-20260914",
+        "policy": "original-government-xl-tuen-mun-plaza-1-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "review": (
+            "Exact unchanged Tuen Mun Town Plaza Phase 1 government podium matched by object ID and Building "
+            "CSUID. The complete-face identity and bounded foundation proofs accept thirteen tiny downward "
+            "buried faces; native terrain and source-roof checks retain the related towers. Runtime and browser checks pass."
+        ),
+    },
+    "woo-phase-two": {
+        "uid": "landsd/276686:0",
+        "priority": "landmark",
+        "batch": "government-xl-woo-phase-two-20260914",
+        "policy": "original-government-xl-woo-phase-two-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "review": (
+            "Exact unchanged +WOO Phase Two government podium matched by object ID and Building CSUID. "
+            "The complete-face identity proof bounds the source assembly; native terrain and source-roof checks "
+            "retain its related tower. Runtime and browser checks pass."
+        ),
+    },
     "chung-kin": {
         "uid": "landsd/147024:0",
         "batch": "government-xl-chung-kin-20260914",

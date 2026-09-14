@@ -17,9 +17,22 @@ IDENTITY_BOUNDARY_TOUCH_EXCEPTIONS={'landsd/177244:0'}
 IDENTITY_SHARED_COMPLEX_OVERHANG_EXCEPTIONS={'landsd/264691:0'}
 IDENTITY_COMPLEX_BOUNDARY_EXCEPTIONS={'landsd/240527:0'}
 IDENTITY_DETACHED_COMPONENT_EXCEPTIONS={'landsd/57826:0'}
+IDENTITY_FINAL_SCRIPT_EXCEPTIONS={
+    'landsd/304700:0',
+    'landsd/73140:0',
+    'landsd/229481:0',
+    'landsd/276686:0',
+}
 VALIDATION_CONTACT_EXCEPTIONS={'landsd/240527:0'}
 PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0':None,'landsd/177244:0':{'landsd/2670:0'},'landsd/264691:0':None,'landsd/240527:0':None}
 NATIVE_TERRAIN_REPAIR_EXCEPTIONS={'landsd/50009:0'}
+NATIVE_COMPLETE_FACE_EXCEPTIONS={
+    'landsd/21915:0',
+    'landsd/304700:0',
+    'landsd/73140:0',
+    'landsd/229481:0',
+    'landsd/276686:0',
+}
 FULL_MESH_NEIGHBOUR_EXCEPTIONS={'landsd/177244:0','landsd/160193:0','landsd/264691:0'}
 
 def start():
@@ -45,6 +58,10 @@ def owned():
     if UID in NATIVE_TERRAIN_REPAIR_EXCEPTIONS:
         assert not native_check['passed'] and native_check['reasons']==['native-source-below-grade']
         assert native_check['covered']==native_check['checks'] and native_check['gapRange'][0]<-.25
+    elif UID in NATIVE_COMPLETE_FACE_EXCEPTIONS:
+        final=next(row for row in read(s.DOC/'final-script-pass/results.json.gz')['rows'] if row['uid']==UID);foundation=final['foundation']
+        assert final['foundationScriptAccepted'] and foundation['completeTerrainTriangles']==foundation['triangles'] and foundation['fullyBuriedUpwardTriangles']==0 and foundation['fullyBuriedAreaFraction']<=.001
+        assert native_check['covered']==native_check['checks']
     else:assert native_check['passed']
     sources=read(s.DOC/'recovery.json')['sheets']+adjacent['sources'];bb=plan['bounds'];fragments=[];used=[];parent=read(ROOT/'3d-viewer/city/data/terrain.json');manifest=read(ROOT/'3d-viewer/city/data/manifest.json');replacement=plan.get('replaces');group={'uids':[UID,*(replacement or {}).get('retainedUids',[])],'cells':plan['cells']}
     try:
@@ -183,8 +200,20 @@ def owned():
         accepted=(identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.99 and identity['sourceExcessMaximumDistanceFromTargetM']<11 and projection['centroidDistance']<.25 and detached)
         acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'identityAccepted':bool(accepted),'detachedComponentAccepted':bool(accepted)}
         save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'policy':'For an exact unique source, accept >99% target coverage, <11m extension and <0.25m centroid offset when every other projected form is a detached <6m2 component, is >99% covered, and has no vertical source-excess intersection. The detached fallback remains present.','detachedForms':adjacent,'coarseHull':metrics['rows'][0]['identity'],'detailedProjection':identity,'projectionMetrics':projection,'evidenceHashes':{rel(final_path):h(final_path),rel(diagnostic_path):h(diagnostic_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
+    if UID in IDENTITY_FINAL_SCRIPT_EXCEPTIONS:
+        entry=r['candidate']['entry'];building=r['source']['building'];matches=r['native']['model']['matching']['viewerMatches'];final_path=s.DOC/'final-script-pass/results.json.gz';final=next(row for row in read(final_path)['rows'] if row['uid']==UID);identity=final['identity']
+        accepted=(final['publicationCandidate'] and final['identityScriptAccepted'] and identity['exactObjectAndCSUID'] and final['scriptedWorkComplete'] and final['aiCalls']==0 and final['modelGeometryChanges']==0)
+        acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'identityAccepted':bool(accepted)}
+        save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'policy':'Accept the exact unique government source after the frozen complete-face projection pass proves the source assembly is bounded: either at least 98% lies inside the target, or excess is at most 10%, reaches at most 10m beyond it, and covers at most 1m2 of unrelated forms.','detailedProjection':identity,'evidenceHashes':{rel(final_path):h(final_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
     reasons=policy.reasons(acceptance_row,metrics['rows'][0],metrics['profiles']['mobile'])
     validation_concerns=list(validation.get('concerns',[]))
+    if UID in NATIVE_COMPLETE_FACE_EXCEPTIONS:
+        final_path=s.DOC/'final-script-pass/results.json.gz';final=next(row for row in read(final_path)['rows'] if row['uid']==UID);foundation=final['foundation']
+        accepted=(final['foundationScriptAccepted'] and foundation['completeTerrainTriangles']==foundation['triangles'] and foundation['fullyBuriedUpwardTriangles']==0 and foundation['fullyBuriedAreaFraction']<=.001 and metrics['rows'][0]['missingTerrain']==0 and metrics['rows'][0]['maxLowGap']<=1 and metrics['rows'][0]['minLowGap']<=.1)
+        if accepted:
+            reasons=[reason for reason in reasons if reason!='terrain-intersects-source-over-0.5m']
+            validation_concerns=[concern for concern in validation_concerns if concern!='sampled-terrain-above-model-bottom']
+        save(DOC/'foundation-resolution.json',{'uid':UID,'accepted':bool(accepted),'completeFaceFoundation':foundation,'metricContact':{key:metrics['rows'][0][key] for key in ('missingTerrain','minSurfaceGap','minLowGap','maxLowGap','maxSamplerDelta')},'policy':'An exact unchanged source may retain shallow or downward-only below-grade foundation faces when every source triangle has native terrain coverage, no upward face is fully buried, fully buried area is at most 0.1%, the low rim contacts terrain without floating more than 1m, and rendered/sampled terrain agree.','evidenceHashes':{rel(final_path):h(final_path),rel(DOC/'metrics.json'):h(DOC/'metrics.json')},'aiCalls':0,'modelGeometryChanges':0})
     if UID in VALIDATION_CONTACT_EXCEPTIONS and validation_concerns==['sampled-terrain-above-model-bottom']:
         contact=metrics['rows'][0]
         accepted=(contact['sourcePreserved'] and contact['missingTerrain']==0 and contact['minSurfaceGap']>=-.5 and contact['minLowGap']<=.1 and contact['maxLowGap']<=1 and contact['maxSamplerDelta']<=.004)
