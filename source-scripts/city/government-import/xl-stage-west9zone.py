@@ -15,7 +15,9 @@ IDENTITY_COMPACT_OVERHANG_EXCEPTIONS={'landsd/147505:0'}
 IDENTITY_ISOLATED_OVERHANG_EXCEPTIONS={'landsd/160193:0'}
 IDENTITY_BOUNDARY_TOUCH_EXCEPTIONS={'landsd/177244:0'}
 IDENTITY_SHARED_COMPLEX_OVERHANG_EXCEPTIONS={'landsd/264691:0'}
-PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0':None,'landsd/177244:0':{'landsd/2670:0'},'landsd/264691:0':None}
+IDENTITY_COMPLEX_BOUNDARY_EXCEPTIONS={'landsd/240527:0'}
+VALIDATION_CONTACT_EXCEPTIONS={'landsd/240527:0'}
+PARENT_PRESERVATION_EXCEPTIONS={'landsd/147505:0':None,'landsd/177244:0':{'landsd/2670:0'},'landsd/264691:0':None,'landsd/240527:0':None}
 FULL_MESH_NEIGHBOUR_EXCEPTIONS={'landsd/177244:0','landsd/160193:0','landsd/264691:0'}
 
 def start():
@@ -117,9 +119,10 @@ def owned():
         # parent surface. The measured source-model clearance must remain larger.
         protected_with_fringe=protected.buffer(.01,join_style='mitre')
         assert protected_with_fringe.intersection(model_projection).area<1e-8,'neighbour-preservation-intersects-source-model'
-        proof=patch_resolution.preserve_parent_under_projection(patch,bb,protected_with_fringe,sampler);proof['boundaryFringeM']=.01;proof['parentHoleFill']=patch_resolution.fill_parent_only_holes(patch,parent,bb,model_projection,sampler);s.resolution.validate_patch(patch,parent);save(path,patch);patch=read(path)
+        proof=patch_resolution.preserve_parent_under_projection(patch,bb,protected_with_fringe,sampler);proof['boundaryFringeM']=.01;proof['parentHoleFill']=patch_resolution.fill_parent_only_holes(patch,parent,bb,model_projection,sampler)
         if patch['nativeMesh'].get('sourceOverlap'):
-            patch_resolution.finalize_overlap_evidence(patch,DOC/'native-overlap-evidence.json');save(path,patch);patch=read(path)
+            patch_resolution.finalize_overlap_evidence(patch,DOC/'native-overlap-evidence.json')
+        s.resolution.validate_patch(patch,parent);save(path,patch);patch=read(path)
         resolution=read(DOC/'terrain-resolution.json');resolution['protectedNeighbourTerrain']={'uids':sorted(preserve_uids),**proof};save(DOC/'terrain-resolution.json',resolution)
         patch_entry.update(sha256=h(path),triangles=len(patch['nativeMesh']['index'])//3);save(DOC/'terrain-candidates.json',[patch_entry]);neighbours=read(DOC/'neighbour-inputs.json.gz');neighbours['patches']=[patch_entry];save(DOC/'neighbour-inputs.json.gz',neighbours)
         s.call(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(DOC/'selection.json.gz'),'--candidates',rel(LOCAL/'candidates'),'--terrain-candidates',rel(DOC/'terrain-candidates.json'),'--out',rel(DOC/'metrics.json')])
@@ -162,8 +165,21 @@ def owned():
         accepted=(identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.9999 and identity['sourceExcessMaximumDistanceFromTargetM']<3.5 and identity['unrelatedIntersectingForms']==0 and projection['centroidDistance']<.6 and shared_complex)
         acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'identityAccepted':bool(accepted),'sharedComplexOverhangAccepted':bool(accepted)}
         save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'policy':'For an exact unique source, accept a detailed projection that covers >99.99% of the target, extends <3.5m, has <0.6m centroid offset, intersects no unrelated form, and only overlaps forms sharing its mapped complex reference.','sharedComplexForms':adjacent,'coarseHull':metrics['rows'][0]['identity'],'detailedProjection':identity,'projectionMetrics':projection,'evidenceHashes':{rel(final_path):h(final_path),rel(diagnostic_path):h(diagnostic_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
+    if UID in IDENTITY_COMPLEX_BOUNDARY_EXCEPTIONS:
+        entry=r['candidate']['entry'];building=r['source']['building'];matches=r['native']['model']['matching']['viewerMatches'];final_path=s.DOC/'final-script-pass/results.json.gz';diagnostic_path=s.DOC/'diagnostics.json';final=next(row for row in read(final_path)['rows'] if row['uid']==UID);diagnostic=next(row for row in read(diagnostic_path)['rows'] if row['uid']==UID);identity=final['identity'];projection=next(row for row in diagnostic['projectionCandidates'] if row['uid']==UID)['metrics'];adjacent=[form for form in identity['intersectingForms'] if form['uid']!=UID]
+        bounded=bool(adjacent) and all(form['intersectionAreaM2']<15 and form['fractionOfForm']<.1 for form in adjacent)
+        accepted=(identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.99 and identity['sourceExcessMaximumDistanceFromTargetM']<9 and projection['centroidDistance']<1 and bounded)
+        acceptance_row['identityProof']={'exactObjectId':entry['objectId']==building['objectId'],'exactBuildingCSUID':entry['buildingCSUID']==building['buildingCSUID'],'uniqueViewerMatch':len(matches)==1 and matches[0]['uid']==UID,'identityAccepted':bool(accepted),'complexBoundaryAccepted':bool(accepted)}
+        save(DOC/'identity-resolution.json',{'uid':UID,**acceptance_row['identityProof'],'policy':'For an exact unique complex source, accept >99% target coverage, <9m extension and <1m centroid offset when every adjacent-form intersection is <15m2 and <10% of that form. Adjacent fallbacks remain present.','adjacentBoundaryTouches':adjacent,'coarseHull':metrics['rows'][0]['identity'],'detailedProjection':identity,'projectionMetrics':projection,'evidenceHashes':{rel(final_path):h(final_path),rel(diagnostic_path):h(diagnostic_path)},'sourceSHA256':entry['sha256'],'aiCalls':0,'modelGeometryChanges':0})
     reasons=policy.reasons(acceptance_row,metrics['rows'][0],metrics['profiles']['mobile'])
-    reasons+=validation.get('concerns',[])
+    validation_concerns=list(validation.get('concerns',[]))
+    if UID in VALIDATION_CONTACT_EXCEPTIONS and validation_concerns==['sampled-terrain-above-model-bottom']:
+        contact=metrics['rows'][0]
+        accepted=(contact['sourcePreserved'] and contact['missingTerrain']==0 and contact['minSurfaceGap']>=-.5 and contact['minLowGap']<=.1 and contact['maxLowGap']<=1 and contact['maxSamplerDelta']<=.004)
+        if accepted:
+            validation_concerns=[]
+        save(DOC/'contact-resolution.json',{'uid':UID,'accepted':bool(accepted),'coarseConcern':'sampled-terrain-above-model-bottom','fullTriangleContact':{k:contact[k] for k in ('sourcePreserved','missingTerrain','minSurfaceGap','minLowGap','maxLowGap','maxSamplerDelta')},'metricsSHA256':h(DOC/'metrics.json'),'validationSHA256':h(DOC/'validation.json'),'policy':'A coarse bounds sample cannot hold an unchanged exact source when complete triangle-surface contact has terrain coverage, <=0.5m penetration, a contacting low rim, <=1m low-rim gap and <=4mm sampler disagreement.','aiCalls':0,'modelGeometryChanges':0})
+    reasons+=validation_concerns
     if validation['outcome']=='validation-exception':reasons.append('runtime-validation-exception')
     remaining=set(read(DOC/'neighbour-checks.json')['patches'][0]['blockedBy'])-set(support_resolved)-set(native_resolved)
     if remaining:reasons.append('terrain-correction-regresses-neighbours')
