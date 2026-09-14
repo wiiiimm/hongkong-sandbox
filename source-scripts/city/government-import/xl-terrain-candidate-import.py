@@ -65,6 +65,20 @@ CONFIG = {
             "neighbour and runtime checks."
         ),
     },
+    "chung-mei": {
+        "uid": "landsd/160193:0",
+        "batch": "government-xl-chung-mei-20260914",
+        "policy": "original-government-xl-isolated-overhang-native-replacement-v1",
+        "classification": "script-verified-original-government-isolated-overhang-native-replacement",
+        "retainedBuildingUids": ["landsd/147024:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.0311% target "
+            "coverage and a 1.11 m detailed-projection centroid offset. The isolated source extends "
+            "at most 7.74 m beyond the simplified footprint and intersects no other viewer form. A "
+            "combined source-terrain replacement retains Chung Kin Building with zero newly buried "
+            "triangles. The unchanged model passes contact, identity, neighbour and runtime checks."
+        ),
+    },
     "goldmark": {
         "uid": "landsd/177244:0",
         "batch": "government-xl-goldmark-20260914",
@@ -200,6 +214,9 @@ def owned(key):
         'resolution': read(patch_destination)['cell'],
         'area': entry['label'] + ' bounded original government terrain',
     }
+    if patch.get('replaces'):
+        terrain['replaces'] = {k: patch['replaces'][k] for k in ('url', 'sha256')}
+        terrain['nativeReview'] = patch['nativeReview']
     catalogue_url = 'city/data/official-models/' + batch + '/catalogue.json'
     plan = {
         'areas': [{
@@ -229,6 +246,7 @@ def owned(key):
         check / 'neighbour-checks.json',
         check / 'terrain-resolution.json',
         check / 'native-overlap-evidence.json',
+        check / 'native-replacement-review.json',
         check / 'identity-resolution.json',
         HERE / 'xl-stage-terrain-candidate.py',
         HERE / 'xl-stage-west9zone.py',
