@@ -138,6 +138,28 @@ test('catalogue accepts an explicit retained basic-form support flag',()=>{
  assert.throws(()=>prepareModelCatalogue({...f.catalogue,models:[{...meta,retainsBasicForm:'yes'}]},'http://localhost/catalogue.json'),/basic-form retention/);
 });
 
+test('bounded vertical placement aligns an unchanged source roof to current LandsD TopHeight',async t=>{
+ const f=fixture(),offset=3,sourceWorldBounds=f.meta.worldBounds;
+ const meta={...f.meta,worldBounds:[[0,5,0],[10,15,10]],sourceWorldBounds,verticalPlacementOffsetHKPD:offset,verticalPlacementBasis:'current-recorded-top-height',recordedTopHeight:15};
+ const building={...f.building,height:13,topHeightHKPD:15};
+ const prepared=prepareModelCatalogue({...f.catalogue,models:[meta]},'http://localhost/catalogue.json')[0];
+ const result=await loadOfficialModel(prepared,building,f.stream.lighting,{fetcher:async()=>new Response(f.compressed)});t.after(()=>disposeOfficialModel(result));
+ assert.deepEqual(result.group.position.toArray(),[-834500,3,816500]);
+ assert.equal(result.bounds.min.y,5);assert.equal(result.bounds.max.y,15);
+ assert.equal(Math.max(...Array.from(result.record.modelGeometry.position).filter((_,i)=>i%3===1)),15);
+ assert.equal(result.record.modelSource.verticalPlacementOffsetHKPD,3);
+ assert.deepEqual(result.record.modelSource.sourceWorldBounds,sourceWorldBounds);
+ for(const edit of [
+  {verticalPlacementOffsetHKPD:21},
+  {verticalPlacementOffsetHKPD:3},
+  {verticalPlacementOffsetHKPD:3,sourceWorldBounds,verticalPlacementBasis:'manual'},
+  {verticalPlacementOffsetHKPD:3,sourceWorldBounds,verticalPlacementBasis:'current-recorded-top-height'},
+ ]){
+  const candidate={...f.meta,...edit};
+  assert.throws(()=>prepareModelCatalogue({...f.catalogue,models:[candidate]},'http://localhost/catalogue.json'),/vertical placement/);
+ }
+});
+
 test('a retained basic form stays rendered under an active government shell',async t=>{
  const f=fixture();f.catalogue.models[0]={...f.meta,retainsBasicForm:true};
  t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);

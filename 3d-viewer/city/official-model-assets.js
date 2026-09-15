@@ -24,11 +24,16 @@ export async function sha256Hex(bytes,subtle=globalThis.crypto?.subtle){
 export function prepareModelCatalogue(data,url){
  if(data?.schemaVersion!==1||!['official-model-catalogue','staged-official-model-catalogue'].includes(data.kind)||data.crs!=='EPSG:2326'||data.verticalDatum!=='Hong Kong Principal Datum'||JSON.stringify(data.rootTranslation)!=='[-834500,0,816500]'||!Array.isArray(data.models)||!data.models.length||data.models.length>2048||data.counts?.packedModels!==data.models.length)throw new Error('Invalid compact model catalogue');
  const seen=new Set();return data.models.map(r=>{
-  const b=r.worldBounds;
+  const b=r.worldBounds,sourceBounds=r.sourceWorldBounds,verticalOffset=r.verticalPlacementOffsetHKPD??0;
   if(typeof r.uid!=='string'||!/^landsd\/\d+:\d+$/.test(r.uid)||seen.has(r.uid)||String(r.objectId)!==r.uid.split('/')[1].split(':')[0]||typeof r.buildingCSUID!=='string'||!r.buildingCSUID||typeof r.modelId!=='string'||!r.modelId||typeof r.sourceTile!=='string'||typeof r.asset!=='string'||!r.asset.endsWith('.glb.gz')||r.encoding!=='gzip'||!HASH.test(r.sha256)||![r.bytes,r.glbBytes,r.decodedGeometryBytes,r.triangles,r.indexedVertices].every(positive)||r.bytes>32*1024*1024||r.glbBytes>128*1024*1024||!Array.isArray(b)||b.length!==2||!b.every(p=>Array.isArray(p)&&p.length===3&&p.every(Number.isFinite))||b[0].some((v,i)=>v>=b[1][i]))throw new Error('Invalid compact model entry '+r?.uid);
   const suppressions=r.suppressesBuildingUids??[];
   if(!Array.isArray(suppressions)||suppressions.length>64||new Set(suppressions).size!==suppressions.length||suppressions.some(uid=>!/^landsd\/\d+:\d+$/.test(uid)||uid===r.uid))throw new Error('Invalid model assembly suppression '+r?.uid);
   if(r.retainsBasicForm!==undefined&&typeof r.retainsBasicForm!=='boolean')throw new Error('Invalid basic-form retention '+r?.uid);
+  if(!Number.isFinite(verticalOffset)||Math.abs(verticalOffset)>20)throw new Error('Invalid vertical placement offset '+r?.uid);
+  if(verticalOffset){
+   if(r.verticalPlacementBasis!=='current-recorded-top-height'||!Array.isArray(sourceBounds)||sourceBounds.length!==2||!sourceBounds.every(p=>Array.isArray(p)&&p.length===3&&p.every(Number.isFinite))||sourceBounds[0].some((v,i)=>v>=sourceBounds[1][i]))throw new Error('Invalid vertical placement evidence '+r?.uid);
+   if(sourceBounds.flat().some((v,i)=>Math.abs(v+(i%3===1?verticalOffset:0)-b.flat()[i])>.002)||Math.abs(b[1][1]-r.recordedTopHeight)>.002)throw new Error('Invalid vertical placement alignment '+r?.uid);
+  }else if(sourceBounds!==undefined||r.verticalPlacementBasis!==undefined)throw new Error('Unexpected vertical placement evidence '+r?.uid);
   seen.add(r.uid);const assetURL=new URL(r.asset,url);
   if(assetURL.origin!==new URL(url).origin)throw new Error('Model assets must share catalogue origin');
   assetURL.searchParams.set('v',r.sha256);
@@ -70,7 +75,7 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
  const bytes=await boundedBytes(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip')),entry.glbBytes,signal),source=nativeGLB(bytes);
  if(signal?.aborted)throw abort();const gltf=await loader.parseAsync(bytes.buffer,'');let result={group:gltf.scene};
  try{
-  if(signal?.aborted)throw abort();const group=gltf.scene;group.position.set(...entry.rootTranslation);group.updateMatrixWorld(true);
+  if(signal?.aborted)throw abort();const group=gltf.scene;group.position.set(entry.rootTranslation[0],entry.rootTranslation[1]+(entry.verticalPlacementOffsetHKPD??0),entry.rootTranslation[2]);group.updateMatrixWorld(true);
   const meshes=[];group.traverse(o=>{if(o.isMesh)meshes.push(o);});if(!meshes.length)throw new Error('Empty official model');
   let vertices=0,triangles=0,geometryBytes=0;
   for(const mesh of meshes){
@@ -88,7 +93,7 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
    for(let i=0;i<indices.length;i++)index[indexOffset+i]=indices[i]+vertexOffset;
    vertexOffset+=p.count;indexOffset+=indices.length;
   }
-  const record={...building,modelId:entry.modelId,modelGeometry:{position,index,triangles,worldBounds:entry.worldBounds},modelSource:{datasetId:entry.datasetId,modelId:entry.modelId,sourceTile:entry.sourceTile,sourceTileRevision:entry.sourceTileRevision,sha256:entry.sha256,catalogueURL:entry.catalogueURL,coordinatePolicy:entry.coordinatePolicy,originalMaterials:source.materials,originalNodes:source.nodes}};
+  const record={...building,modelId:entry.modelId,modelGeometry:{position,index,triangles,worldBounds:entry.worldBounds},modelSource:{datasetId:entry.datasetId,modelId:entry.modelId,sourceTile:entry.sourceTile,sourceTileRevision:entry.sourceTileRevision,sha256:entry.sha256,catalogueURL:entry.catalogueURL,coordinatePolicy:entry.coordinatePolicy,verticalPlacementOffsetHKPD:entry.verticalPlacementOffsetHKPD??0,verticalPlacementBasis:entry.verticalPlacementBasis??null,sourceWorldBounds:entry.sourceWorldBounds??entry.worldBounds,originalMaterials:source.materials,originalNodes:source.nodes}};
   if(describeBuilding(record).modelStatus!=='usable')throw new Error('Official model does not fit its matched footprint');
   const style=buildingLighting(record),night=facadeMaterial('#ffffff',lighting),attachNight=night.onBeforeCompile,materialMap=new Map();night.dispose();
   for(const mesh of meshes){
