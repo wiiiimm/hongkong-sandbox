@@ -107,14 +107,18 @@ export class OfficialModelLayer{
    const box=new THREE.Box3(new THREE.Vector3(...entry.worldBounds[0]),new THREE.Vector3(...entry.worldBounds[1])),distance=box.distanceToPoint(eye),resident=this.cache.entries.has(entry.uid),selected=selectedUid===entry.uid;
    const range=(entry.priority==='landmark'?limits.landmarkDistance:limits.detailDistance)*(resident?1.2:1);
    const extent=box.getSize(new THREE.Vector3()),projected=Math.max(extent.x,extent.y,extent.z)*pixels/(2*Math.tan(fov/2)*Math.max(1,box.getCenter(new THREE.Vector3()).distanceTo(eye)));
-   const visible=frustum.intersectsBox(box);
-   if(!allowNewLoads&&!resident&&!selected||distance>range||!visible&&!resident||!selected&&projected<limits.minPixels*(resident?.75:1)||this.stream.infrastructureBuildingUids?.has(entry.uid))continue;
+   const visible=frustum.intersectsBox(box),visibleResident=resident&&visible;
+   if(this.stream.infrastructureBuildingUids?.has(entry.uid))continue;
+   // Keep decoded detail while it remains in the camera frustum. Distance and
+   // projected-size thresholds decide when to load it, but must not make a
+   // visible government model pop back to its fallback in front of the viewer.
+   if(!selected&&!visibleResident&&(!allowNewLoads&&!resident||distance>range||!visible&&!resident||projected<limits.minPixels*(resident?.75:1)))continue;
    const building=this.stream.getLoadedBuilding(entry.uid);if(!building||building.modelGeometry&&!this.stream.detailedModels.has(entry.uid))continue;
-   candidates.push({entry,distance,selected,projected,visible});
+   candidates.push({entry,distance,selected,projected,visible,resident});
   }
-  candidates.sort((a,b)=>Number(b.selected)-Number(a.selected)||Number(b.visible)-Number(a.visible)||a.distance-b.distance||b.projected-a.projected||a.entry.uid.localeCompare(b.entry.uid));
+  candidates.sort((a,b)=>Number(b.selected)-Number(a.selected)||Number(b.resident&&b.visible)-Number(a.resident&&a.visible)||Number(b.visible)-Number(a.visible)||Number(b.resident)-Number(a.resident)||a.distance-b.distance||b.projected-a.projected||a.entry.uid.localeCompare(b.entry.uid));
   const {wanted,blocked}=supportedModelPlan(candidates.map(c=>c.entry.uid),this.models,limits,modelBudget,(uid,kind,d)=>this.supportAvailable(uid,kind,d),selectedUid);this.supportHolds=blocked;
-  // Release models outside the selected distance/budget set. Fallback restoration
+  // Release models outside the selected visibility/budget set. Fallback restoration
   // completes before each buffer is disposed; no model is silently dropped.
   const keep=new Set(wanted);for(const [uid,entry] of this.cache.entries)if(!keep.has(uid)){this.cache.entries.delete(uid);this.release(entry).catch(()=>{});}
   if(wanted.join('|')!==this.cache.wanted.join('|'))this.cache.plan(wanted);

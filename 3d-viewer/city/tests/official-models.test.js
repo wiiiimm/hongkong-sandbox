@@ -39,14 +39,16 @@ test('wrong hash, truncated body, altered source UID/heights and incorrect place
  await assert.rejects(loadOfficialModel(meta,{...f.building,buildingCSUID:'wrong'},f.stream.lighting,{fetcher}),/does not match/);await assert.rejects(loadOfficialModel(meta,{...f.building,topHeightHKPD:12},f.stream.lighting,{fetcher}),/does not match/);
  assert.equal(f.stream.detailedModels.size,0);assert.equal(f.building.height,8);
 });
-test('progressive detail swaps exact UID rendering/picking/collision and eviction restores its original outline',async t=>{
+test('progressive detail stays resident while visible at distance and restores its fallback after leaving view',async t=>{
  const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});assert.equal(await layer.loadCatalogue('http://localhost/catalogue.json'),true);
  const c=camera();assert.deepEqual(layer.plan(c,{viewportHeight:800,force:true}),[f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);
  assert.equal(f.stream.cache.entries.get('0_0').buildings.group.children.length,0);assert.equal(f.stream.maximumRoof(5,5,1),12);assert.equal(f.stream.getLoadedBuilding(f.meta.uid).modelId,f.meta.modelId);
  entry.group.updateMatrixWorld(true);const ray=new THREE.Raycaster(new THREE.Vector3(5,30,5),new THREE.Vector3(0,-1,0)),hit=ray.intersectObjects(f.stream.pickMeshes(ray.ray))[0];assert.ok(hit);assert.equal(f.stream.featureAt(hit).uid,f.meta.uid);assert.equal(f.stream.featureAt(hit).topHeightHKPD,10);
  f.stream.buildings.visible=false;assert.equal(f.stream.pickMeshes(ray.ray).length,0);f.stream.buildings.visible=true;
- let disposed=0;entry.meshes[0].geometry.addEventListener('dispose',()=>disposed++);c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);
+ let disposed=0;entry.meshes[0].geometry.addEventListener('dispose',()=>disposed++);c.position.set(5,10,5000);c.lookAt(5,7,5);layer.plan(c,{force:true});
+ assert.equal(f.stream.detailedModels.get(f.meta.uid),entry);assert.equal(f.stream.maximumRoof(5,5,1),12);assert.equal(disposed,0);assert.equal(layer.stats.cached,1);
+ c.lookAt(5,10,6000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);
  assert.equal(f.stream.detailedModels.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);assert.equal(disposed,1);assert.equal(layer.stats.cached,0);
 });
 test('failed model download uses Retry and only activates detail after successful verification',async t=>{
@@ -95,7 +97,7 @@ test('abort during asynchronous GLTF parsing disposes the late source geometry',
 });
 test('failed fallback restoration retains source geometry and its memory reservation until Retry succeeds',async t=>{
  const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);let disposed=0;entry.meshes[0].geometry.addEventListener('dispose',()=>disposed++);
- const restore=f.stream.refreshBuildings.bind(f.stream);let fail=true;t.mock.method(f.stream,'refreshBuildings',async()=>{if(fail)throw new Error('fixture bake failure');return restore();});c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});await Promise.allSettled([...layer.retiring.values()]);
+ const restore=f.stream.refreshBuildings.bind(f.stream);let fail=true;t.mock.method(f.stream,'refreshBuildings',async()=>{if(fail)throw new Error('fixture bake failure');return restore();});c.position.set(50000,500,50000);c.lookAt(60000,500,50000);layer.plan(c,{force:true});await Promise.allSettled([...layer.retiring.values()]);
  assert.equal(disposed,0);assert.equal(f.stream.detailedModels.get(f.meta.uid),entry);assert.ok(layer.stats.residentBytes>0);assert.deepEqual(layer.stats.errors,['restore:'+f.meta.uid]);
  fail=false;await layer.retry();assert.equal(disposed,1);assert.equal(f.stream.detailedModels.size,0);assert.equal(layer.stats.residentBytes,0);assert.equal(layer.stats.errors.length,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
 });
@@ -142,7 +144,7 @@ test('real source-tile replacement activates a tower only after its native suppo
  });
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
  const c=camera();assert.deepEqual(layer.plan(c,{force:true,selectedUid:f.meta.uid}),[supportUid,f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.detailedModels.size,2);
- c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.equal(f.stream.detailedModels.size,0);
+ c.position.set(50000,500,50000);c.lookAt(60000,500,50000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.equal(f.stream.detailedModels.size,0);
  assert.deepEqual(events,['add:'+supportUid,'add:'+f.meta.uid,'remove:'+f.meta.uid,'remove:'+supportUid]);
 });
 
@@ -154,5 +156,5 @@ test('an active government assembly hides its bundled fallback forms and restore
  const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
  assert.ok(f.stream.collision(25,5,2,11,1));const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);
  assert.equal(f.stream.collision(25,5,2,11,1),null);assert.equal(f.stream.cache.entries.get('0_0').detailSuppressions.has(bundledUid),true);
- c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.ok(f.stream.collision(25,5,2,11,1));
+ c.position.set(50000,500,50000);c.lookAt(60000,500,50000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.ok(f.stream.collision(25,5,2,11,1));
 });

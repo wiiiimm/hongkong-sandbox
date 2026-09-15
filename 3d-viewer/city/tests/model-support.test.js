@@ -68,7 +68,7 @@ test('slow native support cannot expose a floating tower, and support failure le
 test('retiring a support waits for its tower fallback and retains both when that restoration fails',async t=>{
  let rejectRestore=true,releaseRestore;const f=fixture([meta(1,[support(2)]),meta(2)],{restore:async key=>{if(key===uid(1)){await new Promise(r=>releaseRestore=r);if(rejectRestore)throw new Error('tower fallback failed');}}});t.after(()=>f.layer.dispose());
  const c=camera();f.layer.plan(c,{force:true,selectedUid:uid(1)});await f.layer.cache.waitFor([uid(1)]);
- c.position.set(50000,500,50000);c.lookAt(50000,0,40000);f.layer.plan(c,{force:true});while(!releaseRestore)await tick();
+ c.position.set(50000,500,50000);c.lookAt(60000,500,50000);f.layer.plan(c,{force:true});while(!releaseRestore)await tick();
  assert.ok(f.stream.detailedModels.has(uid(2)));assert.equal(f.log.includes('restore-start:'+uid(2)),false);releaseRestore();await Promise.allSettled([...f.layer.retiring.values()]);
  assert.ok(f.stream.detailedModels.has(uid(1)));assert.ok(f.stream.detailedModels.has(uid(2)));assert.ok(f.layer.stats.residentBytes>0);
  rejectRestore=false;releaseRestore=undefined;const retry=f.layer.retry();while(!releaseRestore)await tick();releaseRestore();await retry;
