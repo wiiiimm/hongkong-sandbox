@@ -1,0 +1,69 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xxl-ocean-park-20260912/plan.json",
+  "areas": [
+    {
+      "area": "Hong Kong Ocean Park Marriott Hotel four-part government assembly",
+      "models": 4,
+      "catalogue": "city/data/official-models/government-xxl-ocean-park-20260912/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-136832-0.json": null,
+    "3d-viewer/city/data/official-models/government-xxl-ocean-park-20260912/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "c982188b4f39e20e11bb6faeca144c9a560a1bad683e2f1b360f16620902ef1e"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-136832-0.json": "5b7a944059470821571c9bfd4e240887d94eb7f1a7e80554c88cda560219cd6a",
+    "3d-viewer/city/data/official-models/government-xxl-ocean-park-20260912/catalogue.json": "908c13ca42076cd8f4bcbbb056acf570d9a466d2538c786a2a2ef41754b30e6b",
+    "3d-viewer/city/data/manifest.json": "af35ca889187febd2d5b1483cd3e4a912800f25fd4c24a3e34aee97571c3cf63"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "a13e36abe15eef7fa96347526076b08ae92826e3",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-136832-0.json",
+      "resolution": 5,
+      "area": "Ocean Park Marriott original native terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "22870d9b4a8c2d53a50510e57125e4835be7a66a06e3df3f8dcd0889d9dae1be",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-SW-25C",
+            "sourceETag": "\"43d7240-655fefbc9f2af\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-SW-25C/terrain/TERRAIN(TB)/T36000120000106E11/T36000120000106E11.bin",
+                "sha256": "97e63961d80f2ea4d2ae36feb0fd2661f3c586f7a0ba6f71ca1f34df17a88110"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-SW-25C/terrain/TERRAIN(TB)/T36000120000106E11/T36000120000106E11.gltf",
+                "sha256": "853e75e00b6a8449183f671baedbc5136bb8cc5c00e7a11b486a400b1dc06db6"
+              }
+            ]
+          }
+        ],
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "5b7a944059470821571c9bfd4e240887d94eb7f1a7e80554c88cda560219cd6a",
+      "bytes": 3441649
+    }
+  ],
+  "estimatedBases": []
+}

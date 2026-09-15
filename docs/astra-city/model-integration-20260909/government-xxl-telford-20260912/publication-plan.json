@@ -1,0 +1,85 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xxl-telford-20260912/plan.json",
+  "areas": [
+    {
+      "area": "Telford estate original government source assembly",
+      "models": 61,
+      "catalogue": "city/data/official-models/government-xxl-telford-20260912/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-226033-0.json": null,
+    "3d-viewer/city/data/official-models/government-xxl-telford-20260912/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "a9799157694ddb8b155e17af7e1098ca1ec9898fb8ef77f09bdb2b7a3018d5e9"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-226033-0.json": "c888b81bfe0483b6f3ffeb0787189bcc021a18d3024add661c59b7b05a29a56e",
+    "3d-viewer/city/data/official-models/government-xxl-telford-20260912/catalogue.json": "e12c10f7feb75be0d21dfbac508f0235340615af7dc5de80a7d27b2e85ef7b06",
+    "3d-viewer/city/data/manifest.json": "033ac6a8d0c81103a168c5d403cdc0b3187bb7b4c77403f826f65ff76648e4c9"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "ed026a1d764c0c6517690154180ed6dfcc9d25ae",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-226033-0.json",
+      "resolution": 5,
+      "area": "Telford estate original native terrain with bounded source-sheet seam",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "37f62d6a9b58ff42a275c4124a4116db0c23c6e8051d5777ebef0df270d06905",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NE-12D",
+            "sourceETag": "\"2d6e7db-65677c3b53afd\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-NE-12D/terrain/TERRAIN(TB)/T39750204000106E11/T39750204000106E11.bin",
+                "sha256": "92b07f25df5c8e1e91da9054a4149aee1ffc59b2bcb7eac1a9306734d90c4d17"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-NE-12D/terrain/TERRAIN(TB)/T39750204000106E11/T39750204000106E11.gltf",
+                "sha256": "193eb1f6d5e57603b6424f29c25dd3947cb31df2bfbafef00632832055561d95"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "3b412b422fecc942578b2b6c4e394a434a331e30d2d54cd23364b1b3dd4481d5",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NE-17B",
+            "sourceETag": "\"2816a3f-65677af40cd0e\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-NE-17B/terrain/TERRAIN(TB)/T39750198000106E11/T39750198000106E11.bin",
+                "sha256": "bbd24af6b531c3606173dcd274eed4257e1c4b262d87f26c0ad39b76bcf11c61"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-NE-17B/terrain/TERRAIN(TB)/T39750198000106E11/T39750198000106E11.gltf",
+                "sha256": "3e2977b4cb630574134b034227b2bf874da99a012a0ff4f93c722bf5efd470a5"
+              }
+            ]
+          }
+        ],
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "c888b81bfe0483b6f3ffeb0787189bcc021a18d3024add661c59b7b05a29a56e",
+      "bytes": 1390075
+    }
+  ],
+  "estimatedBases": []
+}

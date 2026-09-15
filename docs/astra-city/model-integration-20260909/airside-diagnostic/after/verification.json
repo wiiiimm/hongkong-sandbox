@@ -1,0 +1,63 @@
+{
+  "phase": "after",
+  "result": "failed",
+  "started": "2026-09-08T18:30:03.615Z",
+  "areas": [
+    {
+      "area": "foundation-next-native",
+      "models": [],
+      "views": []
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Configured landmark samples; CPU validation covers all candidates. No region completeness claim.",
+    "Mobile viewport emulation on desktop Chrome; physical-phone performance unverified."
+  ],
+  "failure": "page.waitForFunction: Timeout 120000ms exceeded.\n    at focus (/Users/williamli/projects/wiiiimm/hongkong-sandbox-astra-city/source-scripts/city/building-batch/browser.mjs:41:19)\n    at async file:///Users/williamli/projects/wiiiimm/hongkong-sandbox-astra-city/source-scripts/city/building-batch/browser.mjs:52:149",
+  "failureState": {
+    "models": {
+      "profile": "desktop",
+      "catalogues": 24,
+      "available": 2371,
+      "cached": 1,
+      "visible": 1,
+      "pending": 0,
+      "retiring": 0,
+      "wanted": 1,
+      "supportHolds": [
+        {
+          "uid": "landsd/335194:0",
+          "reason": "Native upgrade conflicts with required surveyed support"
+        }
+      ],
+      "errors": [],
+      "geometryBytes": 31674,
+      "residentBytes": 184440,
+      "triangles": 287,
+      "limits": {
+        "count": 48,
+        "concurrency": 2,
+        "geometryBytes": 100663296,
+        "residentBytes": 268435456,
+        "triangles": 900000,
+        "landmarkDistance": 2500,
+        "detailDistance": 500,
+        "minPixels": 18
+      }
+    },
+    "stream": {
+      "wanted": 12,
+      "cached": 16,
+      "loaded": 12,
+      "pending": 0,
+      "errors": [],
+      "forms": 22848,
+      "trees": 10926,
+      "suppressedBuildings": 0,
+      "detailedModels": 1,
+      "infrastructureErrors": []
+    }
+  },
+  "finished": "2026-09-08T18:32:15.157Z"
+}

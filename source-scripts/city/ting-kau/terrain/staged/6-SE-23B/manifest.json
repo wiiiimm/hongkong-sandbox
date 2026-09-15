@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "official-building-model-tile",
+  "datasetId": "landsd_rcd_1742809441342_98380",
+  "datasetTitle": "Lands Department 3D Visualisation Map (Non-textured models)",
+  "datasetMetadataRevision": "2026-08-28",
+  "tile": "6-SE-23B",
+  "tileRevision": "2025-09-28T16:00:00+00:00",
+  "sourceDownload": "https://download.map.gov.hk/api/3d-zip/GLTF0/6-SE-23B.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
+  "sourceArchiveSha256": null,
+  "sourceCacheSha256": "71b8b5e9099562d0fe321a6d45f9461f383cc8fb90b86f88127d213a769574c7",
+  "sourceCacheKind": "Derived compact ZIP containing only selected original unmodified glTF/bin entries",
+  "crs": "EPSG:2326",
+  "verticalDatum": "Hong Kong Principal Datum",
+  "axes": "Source glTF node matrices output [E,HKPD height,-N]. Add root translation [-834500,0,816500] for the city; no rotation, scale or height adjustment is added.",
+  "rootTranslation": [
+    -834500,
+    0,
+    816500
+  ],
+  "officialFootprintDatasetVersion": "Building_Outline_Public_v20260819",
+  "officialFootprintSnapshotSha256": "e9a2e783005742a8d40b090671ab5d6751b5e775f37dc5f36d7e0833dc14c5cf",
+  "matchPolicy": "Exact GeoRefNo match plus source-model projected convex hull overlap >=50% of the smaller footprint and centroid difference <=10m. BuildingCSUIDs come directly from those matched official records. No name-only matching. This is a conservative replacement screen, not detailed architectural acceptance.",
+  "models": [],
+  "terrain": {
+    "id": "T26250246000106E10",
+    "url": "TERRAIN(TB)/T26250246000106E10/T26250246000106E10-geometry.gltf",
+    "worldBounds": [
+      [
+        -8250.0,
+        1.9200001955032349,
+        -8700.0
+      ],
+      [
+        -7500.0,
+        40.5186824798584,
+        -8100.0
+      ]
+    ],
+    "vertices": 10121,
+    "triangles": 3397,
+    "sourceEntry": "TERRAIN(TB)/T26250246000106E10/T26250246000106E10.gltf",
+    "sourceHashes": {
+      "TERRAIN(TB)/T26250246000106E10/T26250246000106E10.gltf": "e4ca5f7ed4458df6a3ffa3dd407f302597bfc3fe61112b3085eca75e081443c3",
+      "TERRAIN(TB)/T26250246000106E10/T26250246000106E10.bin": "87d75750ac715053bf107b176c72cc4f64edc9ceee665feea53eba2ad1b010d9"
+    },
+    "rootTranslation": [
+      -834500,
+      0,
+      816500
+    ],
+    "photoOmitted": true,
+    "omittedPhotoEntries": [
+      "TERRAIN(TB)/T26250246000106E10/T26250246000106E10_001.jpg"
+    ],
+    "originalMaterials": [
+      {
+        "name": "default_material",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.8,
+            0.8,
+            0.8,
+            1
+          ],
+          "roughnessFactor": 0.30000000000000004,
+          "metallicFactor": 0.5
+        }
+      },
+      {
+        "name": "T26250246000106E10_001",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "roughnessFactor": 0.984375,
+          "metallicFactor": 0.5
+        }
+      }
+    ],
+    "derivedSha256": "db37b96f4f38b4c2ee80cf402029bc7980d7d51f0398eaa172fdbbdea4a60272"
+  },
+  "excludedModels": [],
+  "counts": {
+    "buildingModels": 0,
+    "buildingModelsWithVerifiedOfficialMatch": 0,
+    "matchedOfficialBuildingCSUIDs": 0,
+    "modelVertices": 0,
+    "modelTriangles": 0,
+    "terrainVertices": 10121,
+    "terrainTriangles": 3397,
+    "assetBytes": 345775
+  },
+  "limits": [
+    "The source model tile and Building footprint dataset have different revision dates.",
+    "Only explicitly matched BuildingCSUIDs may suppress corresponding extrusions after a successful model load. Unmatched models need source review before production replacement.",
+    "Absolute HKPD source placement is unchanged. Existing70m/5m terrain may intersect source geometry.",
+    "The source terrain photograph is omitted from the derived glTF; building glTF, vertex colours, material facts and binary geometry are unchanged.",
+    "This is one source sheet, not complete territory-wide detailed architecture."
+  ]
+}

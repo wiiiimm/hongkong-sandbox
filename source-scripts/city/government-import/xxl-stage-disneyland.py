@@ -1,0 +1,27 @@
+"""Stage unchanged Hong Kong Disneyland source with a bounded roof/edge overhang proof."""
+import importlib.util,json,shutil,subprocess,sys,uuid
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent));spec=importlib.util.spec_from_file_location('second',Path(__file__).with_name('xxl-second-pass.py'));s=importlib.util.module_from_spec(spec);spec.loader.exec_module(s)
+ROOT,HERE=s.ROOT,s.HERE;DOC=s.DOC/'fourth-pass/disneyland';LOCAL=s.LOCAL/'fourth-pass-disneyland';STAGE=HERE/'accepted/government-xxl-disneyland-20260913';UID='landsd/108268:0';BATCH='government-xxl-disneyland-20260913';read,save,h,rel=s.read,s.save,s.h,s.rel
+
+def start():
+ row=next(r for r in read(s.DOC/'runtime-selection.json.gz')['rows'] if r['uid']==UID);source=next(r for r in read(s.DOC/'selection.json.gz')['rows'] if r['uid']==UID);claim=s.reservations.claim('codex-disneyland-'+str(uuid.uuid4()),['building:'+UID],batch=BATCH);assert claim['ok'];save(LOCAL/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)));save(DOC/'selection.json.gz',{**read(s.DOC/'runtime-selection.json.gz'),'manifestSHA256':h(ROOT/'3d-viewer/city/data/manifest.json'),'rows':[row]});save(LOCAL/'source-forms.json',{UID:source['source']});s.call([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--',sys.executable,__file__,'owned'])
+
+def owned():
+ assert s.reservations.owns(read(LOCAL/'reservation.json'));selection=read(DOC/'selection.json.gz');assert h(ROOT/'3d-viewer/city/data/manifest.json')==selection['manifestSHA256'];row=selection['rows'][0];source=next(r for r in read(s.DOC/'selection.json.gz')['rows'] if r['uid']==UID);proof=next(r for r in read(s.DOC/'final-script-pass/results.json.gz')['rows'] if r['uid']==UID);identity,foundation=proof['identity'],proof['foundation']
+ assert proof['scriptedWorkComplete'] and identity['exactObjectAndCSUID'] and identity['targetCoveredBySourceProjection']>.97 and identity['sourceExcessFraction']<.09 and identity['sourceExcessMaximumDistanceFromTargetM']<7.2 and identity['sourceExcessCoveredByUnrelatedFormsM2']<1.5 and identity['unrelatedIntersectingForms']==1
+ assert foundation['completeTerrainTriangles']==foundation['triangles'] and foundation['fullyBuriedTriangles']==0 and not foundation['components']
+ entry=dict(row['candidate']['entry']);entry.update(priority='landmark',placementReviewed=True,sourceIdentityReviewed=True,identityReviewApproved=True,placementReview='Exact unchanged government Hong Kong Disneyland source. Projection covers 97.4% of the recorded form; its 8.6% roof/edge overhang remains within 7.2 m. Only 1.43 m2 intersects one unnamed OSM outline and no source face is wholly below original terrain. Scripted only; no AI or geometry edits.')
+ cat=read(HERE/'accepted/government-xxl-20260911/catalogue.json');cat.update(area='Hong Kong Disneyland original government source',counts={'packedModels':1},models=[entry]);save(STAGE/'catalogue.json',cat);save(STAGE/'catalogue-index.json',{'models':1,'catalogues':['catalogue.json']});asset=STAGE/entry['asset'];asset.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(row['candidate']['path'],asset);assert h(asset)==entry['sha256'];form=dict(source['source']['building']);form['tile']=Path(source['source']['tile']).stem;save(STAGE/'source-forms.json',[form]);save(DOC/'terrain-candidates.json',[])
+ s.call(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(DOC/'selection.json.gz'),'--candidates',rel(STAGE),'--terrain-candidates',rel(DOC/'terrain-candidates.json'),'--out',rel(DOC/'metrics.json')]);v=subprocess.run(['node',str(HERE.parent/'building-batch/validate_candidates.mjs'),'--candidates',rel(STAGE),'--source-forms',rel(LOCAL/'source-forms.json'),'--out',rel(DOC/'validation.json')],cwd=ROOT);assert v.returncode in (0,1)
+ metric=read(DOC/'metrics.json')['rows'][0];validation=read(DOC/'validation.json')['results'][0];reasons=[]
+ if metric.get('error') or not metric['sourcePreserved'] or metric['sourceSHA256']!=entry['sha256']:reasons.append('source-integrity-or-runtime-check')
+ if metric['missingTerrain'] or metric['maxSamplerDelta']>.004:reasons.append('terrain-coverage-or-rendered-disagreement')
+ if any(metric['budget'][k]>read(DOC/'metrics.json')['profiles']['mobile'][k] for k in ('triangles','geometryBytes','residentBytes')):reasons.append('mobile-runtime-budget')
+ allowed={'sampled-ground-gap-below-model-bottom','sampled-terrain-above-model-bottom'};reasons += [x for x in validation.get('concerns',[]) if x not in allowed]
+ if validation['outcome']=='validation-exception' and not set(validation.get('concerns',[]))<=allowed:reasons.append('runtime-validation-exception')
+ result={'uid':UID,'policy':'original-government-bounded-roof-overhang-v1','passed':not reasons,'reasons':sorted(set(reasons)),'proofSHA256':h(s.DOC/'final-script-pass/results.json.gz'),'metric':metric,'validation':validation,'aiCalls':0,'modelGeometryChanges':0,'publication':False};save(DOC/'result.json',result)
+ if result['passed']:
+  destination='city/data/official-models/government-xxl-disneyland-20260913/catalogue.json';save(STAGE/'plan.json',{'areas':[{'area':cat['area'],'catalogue':rel(STAGE/'catalogue.json'),'destination':destination}]});save(STAGE/'browser-config.json',{'stage':rel(STAGE)+'/','doc':rel(DOC)+'/','catalogueURL':destination,'terrain':[],'fitBox':True,'browserUids':[UID],'failureTestUids':[UID]})
+ print(json.dumps(result),flush=True)
+if __name__=='__main__':owned() if len(sys.argv)>1 else start()

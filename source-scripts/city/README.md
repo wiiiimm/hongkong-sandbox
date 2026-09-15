@@ -1,0 +1,134 @@
+# Hong Kong city import: all 18 districts
+
+Produced by GPT-6 Astra for the isolated `codex/astra-hong-kong-city` comparison.
+
+## Current streaming dataset (v2)
+
+`regions.json` defines twelve bounded regional queries. `snapshots/` contains their
+unmodified Overpass responses in deterministic gzip files, alongside the exact
+queries. The existing `central-osm.json.gz` is a thirteenth source. The OSM base
+snapshots range from **2026-09-06 04:30:21 to 05:52:30 UTC**. Source timestamps,
+query bounds and SHA-256 hashes of the uncompressed responses are recorded in
+`3d-viewer/city/data/manifest.json`.
+
+The source snapshots and derived OSM database are **ODbL 1.0**, attributed to
+[OpenStreetMap contributors](https://www.openstreetmap.org/copyright).
+
+From the repository root:
+
+```sh
+python3 -m venv /tmp/hk-city-import
+/tmp/hk-city-import/bin/pip install -r source-scripts/city/requirements.txt
+# Rebuild entirely from the committed snapshots, without network requests.
+/tmp/hk-city-import/bin/python source-scripts/city/build_tiles.py
+/tmp/hk-city-import/bin/python source-scripts/city/build_activity.py
+/tmp/hk-city-import/bin/python source-scripts/city/build_places.py
+/tmp/hk-city-import/bin/python source-scripts/city/test_import.py
+/tmp/hk-city-import/bin/python source-scripts/city/test_height_estimates.py
+
+# Optional source refresh: bounded queries, performed sequentially.
+/tmp/hk-city-import/bin/python source-scripts/city/fetch_regions.py --region lantau --refresh
+# Omit --region to process all twelve. Without --refresh, cached snapshots are reused.
+```
+
+V2 merges overlapping sources by OSM type/id, with newer snapshot records winning.
+Building outlines substantially covered by mapped parts are suppressed; parent
+names are inherited. A building belongs to exactly one 2 km tile but keeps its
+complete footprint. Tile bounds expand to include it, so streaming and collision
+queries also find geometry crossing a cell edge. Roads and parks are clipped to
+cells. The global catalogue keeps named forms and their owning tile IDs; the
+minimap overview stores compact building centres. Runtime never calls Overpass.
+
+The current output contains **117,062 building forms**, **190,222 road/path
+fragments**, and **1,294 park fragments** in **449 tiles** (84,019,192 bytes of tile
+JSON). There are **2,243 tagged heights**, **56,049 level-derived heights**, and
+**58,770 fallback estimates**. The importer suppressed 955 outlines covered by
+building parts. Form counts include constituent parts, not unique addresses.
+
+Query rectangles now deliberately cover Hong Kong Island, Kowloon, the New
+Territories and outlying islands. They are not administrative district polygons.
+New queries also filter by OSM Hong Kong administrative area; the separately
+cached `hong-kong-boundary.json.gz` clips roads/parks locally and filters full
+buildings by representative point. Its hash is recorded in the manifest. Neither
+the source nor this import is assumed complete. See
+`docs/astra-city/GEOGRAPHY-COVERAGE.md` for the 18-district coverage table and limits.
+
+## Original Central fixture (v1)
+
+`build_city.py`, `central-osm.json.gz`, `data/central.json` and
+`data/provenance.json` remain as the original reproducible Central fixture and
+import-test baseline. The viewer now uses the v2 manifest and tiles. Run
+`build_city.py` to rebuild v1 and the reused terrain dataset; `--fetch` refreshes
+its original bounded query and `--input /path/to/overpass.json` uses a supplied
+response. Follow with `build_tiles.py` when updating the runtime dataset.
+
+The importer:
+
+- Projects WGS84 coordinates to **EPSG:2326** using PROJ, then subtracts a local
+  origin, E 834500 / N 816500. World x is east, z is south, y is metres above datum.
+- Preserves irregular footprints and multipolygon courtyard holes; repairs invalid
+  polygons with Shapely and removes tiny features. V1 clips to its query polygon;
+  v2 retains full buildings intersecting regional coverage.
+- Replaces building outlines substantially covered by detailed building parts and
+  carries parent names into unnamed parts. The renderer does not interpret roof
+  profiles, façade textures or individual roof equipment from OSM.
+- Excludes underground structures and tunnels. Above-ground roads/footways remain;
+  their widths and bridge clearances are illustrative class-based estimates.
+- Uses `height` where present. Otherwise uses `building:levels × 3.2 m`.
+  Untagged fallback: 24 m; footprints over 8,000 m²: 9 m; service/shed/garage: 6 m.
+  Explicit house-like tags use a documented 8 m estimate; bungalows use 4 m.
+  A narrow sourced Tai O street-corridor rule gives 252 compact untyped village
+  forms an 8 m estimate. Raised/partial forms, mapped heights/levels, larger
+  footprints and explicit non-residential Tai O uses retain their prior treatment.
+  `height-rules.json` and manifest `heightEstimates` describe all selectors; each
+  corrected form carries `heightRule` while remaining `heightSource=estimated`.
+  `heightSource` distinguishes `tagged`, `levels` and `estimated` on every feature.
+  A mapped height is not a claim that the source was surveyed or independently verified.
+- Keeps the existing Lands Department 70 m terrain grid and B50K landcover in the
+  same CRS. The source product was 5 m; this committed mesh is **70 m**, with no
+  vertical exaggeration. Coastlines therefore inherit that terrain resolution.
+
+Outputs live in `3d-viewer/city/data/`. Their manifests include counts, origin,
+CRS, bounds, snapshots and height policy. Tree placement is a deterministic,
+illustrative runtime layer based on mapped landcover/parks, not surveyed trees.
+Recent reclamation and small tidal creeks can disagree with the existing terrain;
+see `docs/astra-city/SECTION-CHECKLIST.md` for the pending local accuracy reviews.
+
+Terrain inputs are `3d-viewer/data/hk-dtm5m.json`, `hk-georef.json`,
+`hk-texbb.json` and `hk-b50k-landcover.json`. See the existing terrain pipeline for
+original source provenance. No archival images in `references/lantau-maps/` were
+used or modified for this feature.
+
+References:
+
+- [OSM height semantics and units](https://wiki.openstreetmap.org/wiki/Key:height)
+- [OSM building floor counts](https://wiki.openstreetmap.org/wiki/Key:building:levels)
+- [OSM copyright and ODbL attribution](https://www.openstreetmap.org/copyright)
+
+## Building activity layer
+
+After rebuilding tiles, run `build_activity.py` to regenerate the 13.65 MB
+`3d-viewer/city/data/activity.json` sidecar for their exact form UIDs. This reads
+committed source snapshots and requires no network. Runtime joins the sidecar
+before constructing each tile; no footprint or height changes are introduced.
+
+`fetch_activity.py` captures a bounded, sequential Overpass land-use query and
+reuses its committed cache. `snapshots/activity-landuse.json.gz` and its query
+record 8,194 source records at OSM base time 2026-09-06 05:30:09 UTC. The output
+stores source hashes, tags/references and counts by classification basis.
+`activity-overrides.json` documents the sourced Hysan Place and IFC mixed-use
+corrections. See `docs/astra-city/night-cycle/AREA-RESEARCH.md` for area evidence,
+classification rules, approximate podium boundaries and simulation limits.
+
+The eight new regional snapshots also retain land-use polygons. `build_activity.py`
+merges these with the earlier activity cache using source chronology; overlaps are
+deduplicated by OSM type/id. The expanded output uses 14,979 land-use polygons.
+
+## Sourced neighbourhood destinations
+
+`destinations.json` configures 43 camera presets. `build_places.py` uses retained
+OSM features and nearby public paths to regenerate `city/places.js` and
+`city/data/destinations-provenance.json`. New arrivals must clear the committed
+building collision volumes and lie on the existing terrain. All presets expose
+latitude/longitude for the sky observer. Camera locations are approximate; their
+precision does not imply an administrative centre or surveyed arrival point.

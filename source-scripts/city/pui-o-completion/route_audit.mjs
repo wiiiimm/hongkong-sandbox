@@ -1,0 +1,22 @@
+/** The existing Navigation replay against staged Pui O data; no GPU or live writes. */
+import {readFileSync,writeFileSync} from 'node:fs';
+import {gunzipSync} from 'node:zlib';
+import {createHash} from 'node:crypto';
+import {root,read,routeContext} from '../tai-o-completion/route_context.mjs';
+import {makeRouteNavigation,replayRoute} from '../tai-o-completion/route_navigation.mjs';
+import {makeTerrainSampler,BuildingIndex} from '../../../3d-viewer/city/geo.js';
+import {InfrastructureSurfaces} from '../../../3d-viewer/city/infrastructure-data.js';
+import {PLACES} from '../../../3d-viewer/city/places.js';
+const base='source-scripts/city/pui-o-completion/',doc='docs/astra-city/pui-o-completion/';
+const route=read(doc+'route.json'),ctx=routeContext(route),terrain=read('3d-viewer/city/data/terrain.json');
+terrain.patches=[...(ctx.manifest.terrainPatches||[]).map(p=>read('3d-viewer/'+p.url)),read(base+'terrain-pui-o.json')];
+const sampler=makeTerrainSampler(terrain),geometries=JSON.parse(gunzipSync(readFileSync(root+'/'+base+'model-geometries.json.gz'))).byBuildingUid,updates=new Map(read(doc+'terrain-audit.json').rows.map(r=>[r.uid,r.proposedHeightFields]));
+const buildings=ctx.buildings.map(b=>updates.has(b.uid)?{...b,...updates.get(b.uid),...(geometries[b.uid]?{modelGeometry:geometries[b.uid]}:{})}:b);
+const context={sampler,index:new BuildingIndex(buildings),surfaces:new InfrastructureSurfaces()},line=route.centreline;
+const forward=replayRoute(makeRouteNavigation(context),line),reverse=replayRoute(makeRouteNavigation(context),line,{reverse:true});
+const highWater=Math.max(...line.map(p=>sampler.height(...p)))+3,negative=replayRoute(makeRouteNavigation({...context,waterLevel:highWater}),line);
+const samples=line.map(([x,z],i)=>({sourceNodeId:route.nodeIds[i],world:[x,z],rawGround:sampler.raw(x,z),renderedGround:sampler.height(x,z),mappedWater:sampler.mappedWater(x,z)}));
+const arrivals=Object.fromEntries(['puio','puiobeach'].map(id=>{const p=PLACES[id],nav=makeRouteNavigation(context),ok=nav.setMode('walk',p.spawn);return [id,{source:p.arrivalSource||p.source,originalSpawn:p.spawn,accepted:ok,relocatedMetres:Math.hypot(nav.position.x-p.spawn[0],nav.position.z-p.spawn[1]),ground:sampler.height(...p.spawn)}];}));
+const inputs=[base+'terrain-pui-o.json',base+'model-geometries.json.gz',doc+'route.json'];
+const result={staged:true,passed:forward.passed&&reverse.passed&&!negative.passed,method:'Existing Navigation.setMode once per end then held-W/heading Navigation.update replay with swept collisions at <=1/60s. Zero waypoint teleports or collision bypasses.',lengthMetres:route.lengthMetres,forward,reverse,negativeHighWater:{waterLevelHKPD:highWater,...negative},arrivals,samples,inputs:inputs.map(file=>({file,sha256:createHash('sha256').update(readFileSync(root+'/'+file)).digest('hex')})),limits:['No coastal hydro cut or infrastructure walking floor has been introduced.','This beach-edge footway proves one representative continuous public route; inland road connections and the rest of section 10.7 remain under review.']};
+writeFileSync(root+'/'+doc+'route-navigation.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1;

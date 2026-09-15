@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-fireboat-20260914/plan.json",
+  "areas": [
+    {
+      "area": "Fireboat Alexander Grantham Exhibition Gallery original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-fireboat-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-57826-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-fireboat-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "b2c4cf7a6aa65c018338b8a953593643c67fa0faa68ddddb7c73e3c573c6e9db"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-57826-0.json": "39ebc4d83c8fc1d7ea603314687d3d20ccd815126326d429ad832199ffee7bfc",
+    "3d-viewer/city/data/official-models/government-xl-fireboat-20260914/catalogue.json": "9785afe723e7115ecf5e68873090efba509143198a7afbcd0ed918ac893c355f",
+    "3d-viewer/city/data/manifest.json": "4cbfa8992f2c4f88119f6b750e11f3e1c328e00cbf3f702bab9c8aad007cd4b8"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "38090431f60b6a3b43c3f15aacecf15fadbd3f3a",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-57826-0.json",
+      "resolution": 5,
+      "area": "Fireboat Alexander Grantham Exhibition Gallery bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "2526b301539c717b0672e5f006429992d2b8274328cfdab1cbf6cf5b9f27658d",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "sheet": "11-SE-8A",
+            "sourceETag": "\"2dd55b0-6501c450b91b7\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SE-8A/terrain/TERRAIN(TB)/T40500162000106E11/T40500162000106E11.bin",
+                "sha256": "23bb5b2d1b15e81f6b3d1348cb9165f3322fdb836f45d72e73c405da357ca86e"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SE-8A/terrain/TERRAIN(TB)/T40500162000106E11/T40500162000106E11.gltf",
+                "sha256": "38067ef79bb45548236a22ca8db92060beb82c99885de93ef7c551a603e466a9"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 840,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 1
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "39ebc4d83c8fc1d7ea603314687d3d20ccd815126326d429ad832199ffee7bfc",
+      "bytes": 1570444
+    }
+  ],
+  "estimatedBases": []
+}

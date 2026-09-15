@@ -1,0 +1,99 @@
+{
+  "deployment": "dpl_EfQJXDU9d8W258LoKErEv9xxA9u6",
+  "state": "READY",
+  "commit": "cb666244ce0beae01d885f02c4951f8c30021248",
+  "url": "https://hongkong-sandbox-cscewx4js-stealth-factory.vercel.app/city.html",
+  "checkedAt": "2026-09-11T11:07:38.292990+00:00",
+  "checks": [
+    {
+      "path": "city.html",
+      "status": 200,
+      "bytes": 30855,
+      "sha256": "cb6a43f0762516fa3dab7f7c9e0d6856fcf3f1b9f09f22ab4d23c9a1cba1aee4",
+      "exactMatch": true
+    },
+    {
+      "path": "city/data/manifest.json",
+      "status": 200,
+      "bytes": 163149,
+      "sha256": "c982188b4f39e20e11bb6faeca144c9a560a1bad683e2f1b360f16620902ef1e",
+      "exactMatch": true
+    },
+    {
+      "path": "city/data/building-progress.json",
+      "status": 200,
+      "bytes": 1836,
+      "sha256": "86245fe864f3ecb65631dd92daac790e53fb1a9eb81e1a7b0df5ec8365e3ca76",
+      "exactMatch": true
+    },
+    {
+      "path": "city/data/official-models/government-xxl-saxon-20260911/catalogue.json",
+      "status": 200,
+      "bytes": 2873,
+      "sha256": "4675c4e7cc8e8f9348bf9be18db1dc1117669f8e8be4cf4aee4bc5ec34caa26d",
+      "exactMatch": true
+    },
+    {
+      "path": "city/data/government-native-232025-0.json",
+      "status": 200,
+      "bytes": 228516,
+      "sha256": "a82c90c209bff2c937e066dcb87e5681609a2e36dbd81f5c7c5b14da6cf9e2fa",
+      "exactMatch": true
+    },
+    {
+      "path": "city/data/official-models/government-xxl-saxon-20260911/assets/d97777945a6a87d670408645f97f349a30f7e6855faf1201fd6cb5ec1e026639.glb.gz",
+      "status": 200,
+      "bytes": 67907,
+      "sha256": "d97777945a6a87d670408645f97f349a30f7e6855faf1201fd6cb5ec1e026639",
+      "exactMatch": true
+    },
+    {
+      "path": "city/data/official-models/government-xxl-saxon-20260911/assets/8bfd253dadc232be92540cb20a2d9a7f8615f4b78d3f0d7e2ef5f4020f01b9f6.glb.gz",
+      "status": 200,
+      "bytes": 2636057,
+      "sha256": "8bfd253dadc232be92540cb20a2d9a7f8615f4b78d3f0d7e2ef5f4020f01b9f6",
+      "exactMatch": true
+    }
+  ],
+  "progress": {
+    "version": 3,
+    "status": "available",
+    "government": {
+      "available": 212669,
+      "enhanced": 288,
+      "goodToGo": 0,
+      "ready": 288,
+      "remaining": 212381,
+      "percent": 0.13542171167400985,
+      "noMatchedSource": 133439,
+      "enhancedOutside": 7,
+      "goodToGoOutside": 0
+    },
+    "unit": "source-building-form",
+    "totalForms": 346108,
+    "reviewedEnhancedForms": 295,
+    "percent": 0.08523351092722503,
+    "unreviewedOrBasicForms": 345813,
+    "breakdown": {
+      "enhanced": 295,
+      "goodToGo": 0,
+      "enhancementRequired": 0,
+      "unassessed": 345813
+    },
+    "readyForms": 295,
+    "readyPercent": 0.08523351092722503,
+    "uniquePhysicalBuildings": null,
+    "wholeBuildingCompletion": null,
+    "updatedAt": "2026-09-11T10:57:28.251646+00:00",
+    "reviewSnapshot": "1063980984fc18f3",
+    "screeningPolicy": "good-enough-v1",
+    "governmentSourceRun": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+    "governmentSourceUpdatedAt": "2026-09-10 16:48:36.884198+00",
+    "manifestDigest": "2a19d4d5de59d285e636c2569014a48c57e269a2f6ba9c7ad75784a6f5647459",
+    "inputDigest": "b0db1a48ced6808ca57e659042814e4b5970666ea14e63cef2194e1581331529",
+    "source": "Hong Kong Lands Department and retained OpenStreetMap forms",
+    "countingNote": "Distinct deployed source-form IDs, not whole buildings. Government availability requires an exact current UID/CSUID match to a prepared source. Upgrade progress counts enhanced/good-to-go forms within that subset. Source availability is not placement approval or proof an upgrade is needed.",
+    "reviewPolicy": "Good-to-go and enhancement-required decisions must match current geometry, terrain, renderer and screening policy. Changed or missing decisions remain unassessed. Existing verified source-hash reviews supply enhanced status unless a current screening requests rework."
+  },
+  "qualification": "Hosted files match the locally browser-verified committed runtime byte-for-byte; this is not a physical-device FPS benchmark."
+}

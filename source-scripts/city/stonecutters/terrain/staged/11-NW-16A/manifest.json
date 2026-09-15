@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "kind": "official-building-model-tile",
+  "datasetId": "landsd_rcd_1742809441342_98380",
+  "datasetTitle": "Lands Department 3D Visualisation Map (Non-textured models)",
+  "datasetMetadataRevision": "2026-08-28",
+  "tile": "11-NW-16A",
+  "tileRevision": "2025-09-28T16:00:00+00:00",
+  "sourceDownload": "https://download.map.gov.hk/api/3d-zip/GLTF0/11-NW-16A.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
+  "sourceArchiveSha256": null,
+  "sourceCacheSha256": "6c5f62dacbab88fcec3363fededc619580e649709ae2c2e936429679a4567a25",
+  "sourceCacheKind": "Derived compact ZIP containing only selected original unmodified glTF/bin entries",
+  "crs": "EPSG:2326",
+  "verticalDatum": "Hong Kong Principal Datum",
+  "axes": "Source glTF node matrices output [E,HKPD height,-N]. Add root translation [-834500,0,816500] for the city; no rotation, scale or height adjustment is added.",
+  "rootTranslation": [
+    -834500,
+    0,
+    816500
+  ],
+  "officialFootprintDatasetVersion": "Building_Outline_Public_v20260819",
+  "officialFootprintSnapshotSha256": "e9a2e783005742a8d40b090671ab5d6751b5e775f37dc5f36d7e0833dc14c5cf",
+  "matchPolicy": "Exact GeoRefNo match plus source-model projected convex hull overlap >=50% of the smaller footprint and centroid difference <=10m. BuildingCSUIDs come directly from those matched official records. No name-only matching. This is a conservative replacement screen, not detailed architectural acceptance.",
+  "models": [],
+  "terrain": {
+    "id": "T30000198000106E10",
+    "url": "TERRAIN(TB)/T30000198000106E10/T30000198000106E10-geometry.gltf",
+    "worldBounds": [
+      [
+        -4500.0,
+        0.9999995231628418,
+        -3900.0
+      ],
+      [
+        -3750.0,
+        5.686613082885742,
+        -3300.0
+      ]
+    ],
+    "vertices": 885,
+    "triangles": 295,
+    "sourceEntry": "TERRAIN(TB)/T30000198000106E10/T30000198000106E10.gltf",
+    "sourceHashes": {
+      "TERRAIN(TB)/T30000198000106E10/T30000198000106E10.gltf": "bd33aa4da0554770d6857f3bfc9493648a4f4351811bf98a27718d9c7e5c94ec",
+      "TERRAIN(TB)/T30000198000106E10/T30000198000106E10.bin": "bd974f813f414cbea1eba24859b5c930572e19dbd3acc655a6b31ef44a5ec752"
+    },
+    "rootTranslation": [
+      -834500,
+      0,
+      816500
+    ],
+    "photoOmitted": true,
+    "omittedPhotoEntries": [
+      "TERRAIN(TB)/T30000198000106E10/T30000198000106E10_001.jpg"
+    ],
+    "originalMaterials": [
+      {
+        "name": "default_material",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.8,
+            0.8,
+            0.8,
+            1
+          ],
+          "roughnessFactor": 0.30000000000000004,
+          "metallicFactor": 0.5
+        }
+      },
+      {
+        "name": "T30000198000106E10_001",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "roughnessFactor": 0.984375,
+          "metallicFactor": 0.5
+        }
+      }
+    ],
+    "derivedSha256": "57154550f0468f491a8ea864656b96a0d7f592b7e641779c876e2bd5339cd8fd"
+  },
+  "excludedModels": [],
+  "counts": {
+    "buildingModels": 0,
+    "buildingModelsWithVerifiedOfficialMatch": 0,
+    "matchedOfficialBuildingCSUIDs": 0,
+    "modelVertices": 0,
+    "modelTriangles": 0,
+    "terrainVertices": 885,
+    "terrainTriangles": 295,
+    "assetBytes": 31661
+  },
+  "limits": [
+    "The source model tile and Building footprint dataset have different revision dates.",
+    "Only explicitly matched BuildingCSUIDs may suppress corresponding extrusions after a successful model load. Unmatched models need source review before production replacement.",
+    "Absolute HKPD source placement is unchanged. Existing70m/5m terrain may intersect source geometry.",
+    "The source terrain photograph is omitted from the derived glTF; building glTF, vertex colours, material facts and binary geometry are unchanged.",
+    "This is one source sheet, not complete territory-wide detailed architecture."
+  ]
+}

@@ -1,0 +1,18 @@
+/** Verify the actual complete terrain renderer and immutable live building records. */
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import * as THREE from '../../../3d-viewer/vendor/three.module.js';
+import {makeTerrainSampler} from '../../../3d-viewer/city/geo.js';
+import {makeTerrain} from '../../../3d-viewer/city/world.js';
+const root=new URL('../../../',import.meta.url),read=p=>JSON.parse(readFileSync(new URL(p,root))),hash=p=>createHash('sha256').update(readFileSync(new URL(p,root))).digest('hex');
+const publication=read('docs/astra-city/island-detail-integration/publication.json');assert.ok(publication.published);
+for(const [path,digest] of Object.entries(publication.after))assert.equal(hash(path),digest,'Published input changed: '+path);
+const manifest=read('3d-viewer/city/data/manifest.json'),data=read('3d-viewer/city/data/terrain.json');data.patches=manifest.terrainPatches.map(p=>read('3d-viewer/'+p.url));const terrain=makeTerrain(data),sampler=makeTerrainSampler(data);terrain.updateMatrixWorld(true);const rays=[];
+function checkPatch(p){if(!p.patches)return;for(const child of p.patches){const g=child.meta.georef;for(const [u,v] of [[.19371,.27613],[.51637,.43271],[.79317,.83197],[.00513,.53127],[.99487,.47319]]){const x=g.bE+u*(child.w-1)*g.aE-834500,z=816500-(g.bN+v*(child.h-1)*g.aN);if(sampler.mappedWater(x,z))continue;const ray=new THREE.Raycaster(new THREE.Vector3(x,3000,z),new THREE.Vector3(0,-1,0)),hits=ray.intersectObject(terrain,true).map(h=>h.point.y),expected=sampler.height(x,z);assert.equal(hits.length,1,'Exactly one ground surface at nested '+child.id+' '+JSON.stringify({x,z,hits,expected}));assert.ok(Math.abs(hits[0]-expected)<.004,child.id+' render versus sampler');rays.push({patch:child.id,x,z,expected,rendered:hits[0]});}checkPatch(child);}}
+try{for(const p of data.patches)checkPatch(p);}finally{terrain.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});}
+const changedTiles=Object.keys(publication.after).filter(p=>p.includes('/tiles/')),allowed=new Map(publication.estimatedBases.map(u=>[u.uid,u]));let checked=0,adjusted=0;
+for(const path of changedTiles){const before=JSON.parse(execFileSync('git',['show',publication.beforeCommit+':'+path],{cwd:root,maxBuffer:100*1024*1024})),after=read(path);assert.equal(before.buildings.length,after.buildings.length);for(let i=0;i<before.buildings.length;i++){const a=before.buildings[i],b=structuredClone(after.buildings[i]);if(allowed.has(b.uid)){const u=allowed.get(b.uid);assert.equal(b.base,u.after);assert.equal(a.base,u.before);assert.equal(b.baseHeightHKPD,null);assert.equal(b.topHeightHKPD,null);b.base=a.base;adjusted++;}if(Object.hasOwn(a,'terrainAudit'))b.terrainAudit=a.terrainAudit;else delete b.terrainAudit;assert.deepEqual(b,a,'Original source/foundation/model changed: '+b.uid);checked++;}assert.deepEqual(before.roads,after.roads);assert.deepEqual(before.parks,after.parks);}
+assert.equal(adjusted,allowed.size);const seen=new Set();let progressive=0;for(const url of manifest.officialModelCatalogues){const c=read('3d-viewer/'+url);for(const m of c.models){assert.ok(!seen.has(m.uid),'Duplicate UID');seen.add(m.uid);progressive++;}}
+const report={passed:true,terrainRays:rays.length,rays,checkedBuildingRecords:checked,estimatedBaseUpdates:adjusted,progressiveModels:progressive,cityCounts:manifest.counts};writeFileSync(new URL('docs/astra-city/island-detail-integration/verification.json',root),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({...report,rays:undefined}));
