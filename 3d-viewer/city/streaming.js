@@ -46,7 +46,7 @@ export class CityStreaming {
   // asynchronous tile is baking, discard that bake and use the latest set.
   for(;;){
    const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,suppressions=this.detailSuppressions(models),indices=[];
-   const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid)||suppressions.has(b.uid))return false;indices.push(i);return true;});
+   const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid)&&models.get(b.uid)?.entry?.retainsBasicForm!==true||suppressions.has(b.uid))return false;indices.push(i);return true;});
    const buildings=await makeBuildings(features,null,{lighting:this.lighting,signal});buildings.group.userData.disposableMaterials=buildings.materials;
    if(signal?.aborted||this.cache.closed){disposeGroup(buildings.group);throw new DOMException('Aborted','AbortError');}
    if(exclusions!==this.infrastructureBuildingUids||models!==this.detailedModels){disposeGroup(buildings.group);continue;}

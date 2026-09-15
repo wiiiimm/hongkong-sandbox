@@ -132,6 +132,19 @@ test('catalogue window opt-out preserves geometry and default building lighting'
  }
 });
 
+test('catalogue accepts an explicit retained basic-form support flag',()=>{
+ const f=fixture(),meta={...f.meta,retainsBasicForm:true};
+ assert.equal(prepareModelCatalogue({...f.catalogue,models:[meta]},'http://localhost/catalogue.json')[0].retainsBasicForm,true);
+ assert.throws(()=>prepareModelCatalogue({...f.catalogue,models:[{...meta,retainsBasicForm:'yes'}]},'http://localhost/catalogue.json'),/basic-form retention/);
+});
+
+test('a retained basic form stays rendered under an active government shell',async t=>{
+ const f=fixture();f.catalogue.models[0]={...f.meta,retainsBasicForm:true};
+ t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await layer.cache.waitFor([f.meta.uid]);
+ assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);assert.equal(f.stream.getLoadedBuilding(f.meta.uid).modelId,f.meta.modelId);
+});
+
 test('real source-tile replacement activates a tower only after its native support and retires tower first',async t=>{
  const f=fixture(),supportUid='landsd/2:0';f.meta.supportDependencies=[{uid:supportUid,state:'candidate'}];
  f.catalogue.models.push({...f.meta,uid:supportUid,objectId:2,buildingCSUID:'two',modelId:'B0002',supportDependencies:[]});f.catalogue.counts.packedModels=2;
