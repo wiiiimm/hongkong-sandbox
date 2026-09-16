@@ -57,7 +57,7 @@ def main():
    if r['review_state']=='held':routes.append('resolve-documented-source-or-placement-hold')
    if not r['source_sha256']:routes.append('seed-existing-source-hash-in-new-ledger-snapshot')
    routes.append('verify-and-record-new-installation' if r['source_sha256']==asset['sha256'] and r['review_state']=='approved-for-integration' else 'reconcile-prior-placement-evidence' if asset['placementReviewed']else'existing-native-source-and-visual-review')
-  if not installed and uid not in centre:
+  if not installed and uid not in centre and r['review_state']!='good-to-go':
    if r['review_state']=='approved-for-integration':routes.append('install-approved-source-and-dependencies')
    elif r['review_state']=='held':routes.append('resolve-documented-source-or-placement-hold')
    elif p['sourceProgress'] in ['exact-source-absent-in-checked-sheets','source-checked-unavailable']:routes.append('checked-source-unavailable-use-alternative-or-reconstruction')

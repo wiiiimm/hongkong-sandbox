@@ -63,7 +63,7 @@ def history(uid):
   events=con.execute('SELECT id,snapshot_id,uid,owner,review_state,result,effort,created_at FROM astra_modelling.model_review_events WHERE uid=%s ORDER BY id',(uid,)).fetchall()
  return {'uid':uid,'events':events,'qualification':'Review history only; missing effort is unknown, not zero. Script preparation remains in its existing run ledger.'}
 
-STATES={'held','approved-for-integration','installed-verified','source-unavailable','identity-unresolved'}
+STATES={'held','approved-for-integration','installed-verified','good-to-go','source-unavailable','identity-unresolved'}
 
 def seed(report_path, inherit=None):
  report=json.loads(Path(report_path).read_text()); snapshot=report['snapshotId']
