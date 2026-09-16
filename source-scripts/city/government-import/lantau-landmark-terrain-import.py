@@ -21,6 +21,33 @@ CONFIG = {
         ),
     },
 }
+CONFIG.update({
+    "peaceful-mansion": {
+        "uid": "landsd/108805:0",
+        "batch": "government-lantau-peaceful-mansion-20260916",
+        "policy": "original-government-lantau-landmark-neighbour-preserving-terrain-v1",
+        "classification": "script-verified-original-government-landmark-neighbour-preserving-terrain",
+        "priority": "landmark",
+        "retainedBuildingUids": ["landsd/176915:0", "landsd/108741:0"],
+        "review": (
+            "Exact unchanged Peaceful Mansion government source matched by object ID and Building CSUID. "
+            "The combined native terrain replacement retains The Barion and preserves the neighbouring Joyful "
+            "Mansion footprint. Source, neighbour, runtime and browser checks pass."
+        ),
+    },
+    "disney-east": {
+        "uid": "landsd/108263:0",
+        "batch": "government-lantau-disney-east-20260916",
+        "policy": "original-government-lantau-landmark-native-terrain-v1",
+        "classification": "script-verified-original-government-landmark-native-terrain",
+        "priority": "landmark",
+        "review": (
+            "Exact unchanged Hong Kong Disneyland government source matched by object ID and Building CSUID. "
+            "Detailed projection, complete source-face foundation, bounded native terrain, neighbour, "
+            "runtime and browser checks pass."
+        ),
+    },
+})
 
 spec = importlib.util.spec_from_file_location("terrain_import", HERE / "xl-terrain-candidate-import.py")
 publication = importlib.util.module_from_spec(spec)
