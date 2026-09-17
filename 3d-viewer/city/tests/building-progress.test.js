@@ -5,7 +5,7 @@ test('held, pending, downloaded-only and mismatched sources excluded',()=>{const
 test('new deployed forms included and removed bridge proxies excluded',()=>{const r=countCoverage({forms:[{uid:'bridge'}],models:[{uid:'bridge',sha256:'a'},{uid:'new',sha256:'a'}],reviews:[review('bridge'),review('new')],suppressed:['bridge']});assert.equal(r.totalForms,1);assert.equal(r.reviewedEnhancedForms,1);});
 test('empty data is unknown coverage, never100%; conflicting source IDs rejected',()=>{assert.equal(countCoverage({forms:[],models:[],reviews:[]}).percent,null);assert.throws(()=>countCoverage({forms:[],models:[{uid:'a',sha256:'a'},{uid:'a',sha256:'b'}],reviews:[]}));});
 
-import {SCREENING_POLICY,screeningFingerprint} from '../../scripts/building-progress/screening.mjs';
+import {SCREENING_POLICY,localTerrainContext,screeningFingerprint,terrainHashesForBuilding} from '../../scripts/building-progress/screening.mjs';
 import {coveragePresentation} from '../building-progress.js';
 const screening=(uid,decision='good-to-go',inputHash='current')=>({uid,decision,inputHash,policy:SCREENING_POLICY,reason:'Adequate current silhouette',evidence:'review.json',evidenceHash:'a'.repeat(64),reviewedAt:'2026-09-10T00:00:00Z'});
 test('good enough earns progress without a new model; unknown is not required',()=>{
@@ -21,6 +21,19 @@ test('fingerprints ignore object ordering but change with geometry or context',(
  assert.equal(screeningFingerprint({a:1,b:2},null,'terrain'),screeningFingerprint({b:2,a:1},null,'terrain'));
  assert.notEqual(screeningFingerprint({a:1},null,'terrain'),screeningFingerprint({a:2},null,'terrain'));
  assert.notEqual(screeningFingerprint({a:1},null,'terrain'),screeningFingerprint({a:1},null,'changed terrain'));
+});
+test('bounded terrain context is stable across unrelated patches',()=>{
+ const patches=[
+  {hash:'local',targets:new Set(),bounds:[0,10,0,10]},
+  {hash:'targeted',targets:new Set(['building']),bounds:[20,30,20,30]},
+  {hash:'unrelated',targets:new Set(),bounds:[40,50,40,50]},
+ ];
+ const hashes=terrainHashesForBuilding({uid:'building',rings:[[[2,2],[3,2],[3,3],[2,2]]]},patches);
+ assert.deepEqual(hashes,['local','targeted']);
+ const base='renderer-and-base-terrain',local=localTerrainContext(base,hashes);
+ assert.equal(local,localTerrainContext(base,['targeted','local']));
+ assert.notEqual(local,localTerrainContext(base,[...hashes,'local-change']));
+ assert.notEqual(local,localTerrainContext('renderer-change',hashes));
 });
 test('screened and enhanced categories never double count; removed forms stay removed',()=>{
  const r=countCoverage({forms:[{uid:'a',inputHash:'current'},{uid:'hidden',inputHash:'current'}],models:[{uid:'a',sha256:'a'}],reviews:[review('a')],screenings:[screening('a'),screening('hidden')],suppressed:['hidden']});

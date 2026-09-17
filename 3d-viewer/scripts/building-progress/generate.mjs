@@ -5,7 +5,7 @@ import {gzipSync, gunzipSync} from 'node:zlib';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {countCoverage} from './counts.mjs';
-import {SCREENING_POLICY, digest, screeningFingerprint, validScreening} from './screening.mjs';
+import {SCREENING_POLICY, digest, localTerrainContext, screeningFingerprint, terrainHashesForBuilding, validScreening} from './screening.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const inputs = {}, hash = b => createHash('sha256').update(b).digest('hex');
@@ -28,13 +28,32 @@ for (const url of manifest.officialModelCatalogues || []) {
     native.set(model.uid, {...model, rootTranslation: catalogue.rootTranslation}); models.push(model);
   }
 }
-// Geometry, terrain and rendering changes invalidate old acceptance. Global
-// terrain invalidation is deliberately conservative until local keys are wired in.
+// Geometry, base terrain and rendering changes invalidate every acceptance.
+// Bounded terrain patches only invalidate the source forms named by that patch.
 const context = {origin: manifest.origin, crs: manifest.crs, heightPolicy: manifest.heightPolicy, heightRules: manifest.heightRules};
-for (const path of ['city/data/terrain.json', ...(manifest.terrainPatches || []).map(p => p.url),
+for (const path of ['city/data/terrain.json',
   'city/building-geometry.js', 'city/world.js', 'city/tai-o-estimates.js',
   'city/streaming.js', 'city/official-models.js', 'city/official-model-assets.js',
   'city/geo.js', 'city/native-terrain.js', 'city/lighting.js']) context[path] = hash(readFileSync(resolve(root, path)));
+const boundedTerrain = [];
+for (const patch of manifest.terrainPatches || []) {
+  const terrain = read(patch.url), terrainHash = inputs[patch.url];
+  const targetUids = terrain?.meta?.targetUids, georef = terrain?.meta?.georef;
+  if (!Array.isArray(targetUids) || !targetUids.length || !georef) {
+    context[patch.url] = terrainHash;
+    continue;
+  }
+  const east = [georef.bE, georef.bE + georef.aE * (georef.W - 1)];
+  const north = [georef.bN, georef.bN + georef.aN * (georef.H - 1)];
+  boundedTerrain.push({
+    hash: terrainHash,
+    targets: new Set(targetUids),
+    bounds: [
+      Math.min(...east) - manifest.origin[0], Math.max(...east) - manifest.origin[0],
+      manifest.origin[1] - Math.max(...north), manifest.origin[1] - Math.min(...north),
+    ],
+  });
+}
 function scan(v) {
   if (!v || typeof v !== 'object') return;
   if (Array.isArray(v.suppressesBuildingUids)) suppressed.push(...v.suppressesBuildingUids);
@@ -52,7 +71,8 @@ for (const tile of manifest.tiles) {
     if (seen.has(b.uid)) throw Error('Duplicate source form: ' + b.uid);
     seen.add(b.uid);
     const n = native.get(b.uid);
-    forms.push({uid: b.uid, buildingCSUID:b.buildingCSUID||null, inputHash: screeningFingerprint({...b, activity: activity[b.uid] || null}, n, contextHash),
+    const buildingContextHash = localTerrainContext(contextHash, terrainHashesForBuilding(b, boundedTerrain));
+    forms.push({uid: b.uid, buildingCSUID:b.buildingCSUID||null, inputHash: screeningFingerprint({...b, activity: activity[b.uid] || null}, n, buildingContextHash),
       geometry: n ? 'native' : b.modelGeometry ? 'embedded' : 'footprint'});
     if (b.modelGeometry) {
       const proof = embeddedProof.get(b.uid);
