@@ -4,6 +4,11 @@
 // per-layer vector toggles, and a vertical-exaggeration slider that drives BOTH the
 // terrain and the draped skin so contours stay welded to the ridges.
 import * as THREE from './vendor/three.module.js';
+import { skyColour } from './sky-colour.js';
+import { tideAt } from './tide-series.js';
+import { applyWaterSurfaceShader } from './water-surface.js';
+import { createWaterNoiseTexture, applyShorelineShader } from './shoreline-surface.js';
+import { createMeteorTrails, meteorRateLabel as sharedMeteorRateLabel } from './meteor-trails.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
 import { GLTFLoader } from './vendor/GLTFLoader.js';
 import { createGlass } from './vendor/glass-gl.js';
@@ -569,6 +574,8 @@ function updateNote() {
 // rebuild terrain at the current density, preserving style/VE/camera
 function rebuildTerrain() {
   buildTerrain();
+  // A density change replaces only terrain materials; keep driving the live sea shader.
+  if (sea) tidalMats.push(sea.material);
   if (texTopo) matTopo.map = texTopo;   // re-attach texture to freshly-made material
   applyStyle(surfStyle);
   redrapeSkin();   // HKS-108: drape heights are triangle-matched to the mesh, so a density change moves them
@@ -596,22 +603,7 @@ function axisSamples(n, step) {
 
 // Tileable blotch texture driving the cloud-shadow pass (blobs re-drawn at ±size
 // offsets so the wrap is seamless when it scrolls with the wind)
-const CLOUD_SHADOW_TEX = (() => {
-  const S = 256, c = document.createElement('canvas'); c.width = c.height = S;
-  const x = c.getContext('2d');
-  x.fillStyle = '#000'; x.fillRect(0, 0, S, S);
-  for (let i = 0; i < 26; i++) {
-    const px = Math.random() * S, py = Math.random() * S, r = 26 + Math.random() * 58;
-    for (const ox of [-S, 0, S]) for (const oy of [-S, 0, S]) {
-      const g = x.createRadialGradient(px + ox, py + oy, 0, px + ox, py + oy, r);
-      g.addColorStop(0, 'rgba(255,255,255,.5)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-      x.fillStyle = g; x.fillRect(0, 0, S, S);
-    }
-  }
-  const t = new THREE.CanvasTexture(c);
-  t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  return t;
-})();
+const CLOUD_SHADOW_TEX = createWaterNoiseTexture();
 
 // Surface FX injected into every terrain/sea material (HKS-21/22, composing the
 // original intertidal band):
@@ -657,12 +649,6 @@ function attachTerrainFX(mat, wet, water) {
         uniform float uGlintAmt; uniform vec3 uSunDirV;
         uniform float uSnowAmt; uniform float uSnowLine;`)
       .replace('#include <dithering_fragment>', `#include <dithering_fragment>
-        { float d = vWpos.y - uWaterY; float wet = step(0.0, d) * (1.0 - smoothstep(0.0, uBand, d));
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.29,0.33,0.31), wet * 0.5 * uWetAmt);
-          float foam = step(0.0, d) * (1.0 - smoothstep(0.0, uBand * 0.22, d));
-          float fn = texture2D(uCloudTex, vWpos.xz * uCloudScale * 60.0 + vec2(uTime * 0.02, uTime * 0.013)).r;
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.93,0.96,0.97),
-            foam * smoothstep(0.32, 0.78, fn) * uFoamAmt * uWetAmt); }
         { // snow-caps: higher, colder ground whitens first, mottled by the noise tex
           float sl = smoothstep(uSnowLine, uSnowLine * 1.7, vWpos.y);
           float sn = texture2D(uCloudTex, vWpos.xz * uCloudScale * 24.0).r;
@@ -672,40 +658,8 @@ function attachTerrainFX(mat, wet, water) {
           gl_FragColor.rgb *= 1.0 - smoothstep(0.35, 0.85, s) * uCloudAmt * 0.34; }
         { float hf = (1.0 - smoothstep(0.0, uFogY, vWpos.y)) * uFogAmt;
           gl_FragColor.rgb = mix(gl_FragColor.rgb, uFogCol, hf * 0.8); }`);
-    if (water) {
-      // animated wave normals: three sine octaves' analytic slopes, rotated into
-      // view space — the PBR sun/moon specular then glints off the moving water
-      sh.fragmentShader = sh.fragmentShader.replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
-        { vec2 p = vWpos.xz * uWaveK; float t = uTime;
-          float sx = cos(p.x * 1.00 + t * 1.1) * 1.0
-                   + cos((p.x + p.y) * 1.7 + t * 1.7) * 0.6
-                   + cos(p.x * 3.1 - p.y * 2.2 + t * 2.3) * 0.35;
-          float sz = cos(p.y * 1.13 - t * 0.9) * 1.0
-                   + cos((p.y - p.x) * 1.9 + t * 1.4) * 0.6
-                   + cos(p.y * 2.7 + p.x * 2.4 + t * 2.1) * 0.35;
-          vec3 wn = (viewMatrix * vec4(sx, 0.0, sz, 0.0)).xyz;
-          normal = normalize(normal + wn * uWaveAmp);
-          // rain pocks the surface: fine time-jittered normal noise scatters the
-          // glint while it rains, reading as a roughened, drizzled sea
-          if (uSparkAmt > 0.0) {
-            vec2 rc = floor(vWpos.xz * uWaveK * 60.0) + floor(uTime * 8.0);
-            float rj = fract(sin(dot(rc, vec2(12.9898, 78.233))) * 43758.5453) - 0.5;
-            float rk = fract(sin(dot(rc, vec2(39.3468, 11.135))) * 24634.6345) - 0.5;
-            normal = normalize(normal + (viewMatrix * vec4(rj, 0.0, rk, 0.0)).xyz * uSparkAmt * 0.9);
-          } }`);
-      // sun-glitter: per-cell micro-facets whose normals slowly rotate — each
-      // flashes as it sweeps through alignment between the sun (or moon) and
-      // the eye. Injected before the shared passes so height fog dims it.
-      sh.fragmentShader = sh.fragmentShader.replace('#include <dithering_fragment>', `#include <dithering_fragment>
-        if (uGlintAmt > 0.0) {
-          vec2 gc = floor(vWpos.xz * uWaveK * 80.0);
-          float gr = fract(sin(dot(gc, vec2(127.1, 311.7))) * 43758.5453);
-          float ph = gr * 6.2831 + uTime * (1.0 + gr * 2.5);
-          vec3 mj = normalize(normal + (viewMatrix * vec4(cos(ph) * 0.22, 0.0, sin(ph) * 0.22, 0.0)).xyz);
-          vec3 Hh = normalize(uSunDirV + normalize(vViewPosition));
-          gl_FragColor.rgb += vec3(1.0, 0.97, 0.88) * pow(max(dot(mj, Hh), 0.0), 420.0) * uGlintAmt;
-        }`);
-    }
+    applyShorelineShader(sh);
+    if (water) applyWaterSurfaceShader(sh);
     mat.userData.sh = sh;
   };
   mat.userData.isWater = !!water;
@@ -1078,18 +1032,6 @@ const S01 = t => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); 
 // out. Starts washed so a daytime load never flashes stars before the first
 // renderSky().
 let skyLum = 1;
-
-// sun-altitude → sky colour: deep night, warm dawn/dusk, clear blue day.
-// Chained smoothstep lerps keep the transitions band-free; palette is tunable.
-function skyColour(altD, onPaper) {
-  const P = onPaper
-    ? { day: 0xcfe0f1, dusk: 0xf0a45f, night: 0x121a26 }   // paper: pale blue / soft amber / slate night
-    : { day: 0x6ea3d8, dusk: 0xf4813c, night: 0x070a12 };  // dark: clear blue / warm dusk / deep night
-  const c = new THREE.Color(P.night);
-  c.lerp(new THREE.Color(P.dusk), 0.97 * S01((altD + 14) / 10));   // −14° night → −4° dusk (kept 15% night-blue so the whole dome never goes flat orange)
-  c.lerp(new THREE.Color(P.day), S01((altD - 4) / 8));             // −4° dusk → +12° full day (wide golden hour — intentional)
-  return c;
-}
 
 // clear colour + light levels: celestial sun/moon (when the sim is on) shape
 // the key light and sky brightness; a storm then darkens whatever they chose.
@@ -2297,45 +2239,13 @@ function updateStars(now) {
     starUniforms.uMoonWash.value = 0.5 * cel.frac * Math.sin(cel.moonAlt);
   } else starUniforms.uMoonWash.value = 0;
 }
-// shooting stars: a pool of reusable trails (HKS-85). A toggle arms them and a
-// rate slider scales both spawn frequency and how many streak at once — from a
-// calm sky (one every ~half-minute) through a "romantic" sprinkle to an
-// "apocalypse" meteor storm (a dozen at a time, several a second). They only
-// fall under a properly dark sky, so daylight and the reset paths hide them.
-const METEOR_N = 20, METEOR_POOL = 14;
-let meteorOn = true, meteorRate = 0.18;   // rate 0..1, URL-synced (0.18 = sensible default)
-function makeMeteor() {
-  const pos = new Float32Array(METEOR_N * 3), col = new Float32Array(METEOR_N * 3);
-  for (let j = 0; j < METEOR_N; j++) {   // white-hot head cooling down the tail
-    const w = Math.pow(1 - j / (METEOR_N - 1), 1.6);
-    col[j*3] = (0.75 + 0.25 * w) * w; col[j*3+1] = (0.85 + 0.15 * w) * w; col[j*3+2] = w;
-  }
-  const g = new THREE.BufferGeometry();
-  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  g.setAttribute('color', new THREE.BufferAttribute(col, 3));
-  const m = new THREE.Line(g, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true,
-    opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
-  m.visible = false; m.frustumCulled = false; scene.add(m);
-  return { line: m, t0: 0, dur: 1, active: false, A: new THREE.Vector3(), B: new THREE.Vector3() };
-}
-const meteors = Array.from({ length: METEOR_POOL }, makeMeteor);
-let meteorNext = 0;
-const _mp = new THREE.Vector3(), _mt = new THREE.Vector3();
-function spawnMeteor(mo, tS) {
-  const az = Math.random() * Math.PI * 2, alt = (20 + 45 * Math.random()) * D2R;
-  mo.A.set(Math.sin(az) * Math.cos(alt), Math.sin(alt), -Math.cos(az) * Math.cos(alt));
-  _mt.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
-  _mt.addScaledVector(mo.A, -_mt.dot(mo.A)).normalize();     // tangent to the sky sphere
-  if (_mt.y > 0.15) _mt.multiplyScalar(-1);                  // meteors prefer to fall
-  mo.B.copy(mo.A).addScaledVector(_mt, 0.18 + 0.22 * Math.random()).normalize();
-  mo.t0 = tS; mo.dur = 0.7 + 0.6 * Math.random();
-  mo.active = true; mo.line.visible = true;
-}
-// rate → mean gap between spawns (log-scaled: 30 s calm → ~0.12 s apocalypse)
-// and how many streaks may run concurrently (1 → the whole pool)
-const meteorGap = () => 30 * Math.pow(0.004, meteorRate);
-const meteorCap = () => Math.max(1, Math.round(METEOR_POOL * Math.pow(meteorRate, 1.3)));
-function hideMeteors() { for (const mo of meteors) { mo.active = false; mo.line.visible = false; } meteorNext = 0; }
+// HKS-85 shooting-star pool is shared with the City adapter (HKS-168).
+// Original controls, sky-luminance gate, radius, URL state and test hook remain.
+let meteorOn = true, meteorRate = 0.18;
+const meteorTrails = createMeteorTrails({ parent: scene });
+const meteors = meteorTrails.pool;
+const _mp = new THREE.Vector3();
+function hideMeteors() { meteorTrails.hide(); }
 let celDim = 0;   // HKS-69: eased "overcast over the viewer" 0..1 — dims sun/moon locally
 // star wash thresholds on skyLum (linear-space, what THREE actually renders):
 // at/below DARK the sky hides nothing (full stars), at/above BRIGHT it washes
@@ -2421,34 +2331,9 @@ function stepSky() {   // per-frame sky life: star wash, twinkle clock, meteors,
       _mp.x * e[4] + _mp.y * e[5] + _mp.z * e[6],
       _mp.x * e[0] + _mp.y * e[1] + _mp.z * e[2]);
   }
-  // shooting stars only under a properly dark sky, and only when armed
-  if (!starGroup.visible || starUniforms.uFade.value < 0.55 || !meteorOn || meteorRate <= 0) { hideMeteors(); return; }
-  const R = bounds().span * 1.47;
-  // advance every live streak; retire the ones that have finished their arc
-  let liveN = 0;
-  for (const mo of meteors) {
-    if (!mo.active) continue;
-    const p = (tS - mo.t0) / mo.dur;
-    if (p > 1.4) { mo.active = false; mo.line.visible = false; continue; }
-    liveN++;
-    const arr = mo.line.geometry.attributes.position.array;
-    for (let j = 0; j < METEOR_N; j++) {   // trail vertices chase the head down the arc
-      const pj = Math.max(0, Math.min(1, p - 0.35 * j / (METEOR_N - 1)));
-      _mp.copy(mo.A).lerp(mo.B, pj).normalize().multiplyScalar(R);
-      arr[j*3] = _mp.x; arr[j*3+1] = _mp.y; arr[j*3+2] = _mp.z;
-    }
-    mo.line.geometry.attributes.position.needsUpdate = true;
-    mo.line.material.opacity = 0.85 * Math.min(1, p * 5) * Math.max(0, 1 - Math.max(0, p - 1) / 0.4);
-  }
-  // spawn on schedule; when the gap shrinks to a fraction of a second the loop
-  // naturally bursts several at once, up to the rate-scaled concurrency cap
-  if (!meteorNext) meteorNext = tS + Math.random() * meteorGap();
-  const cap = meteorCap();
-  let guard = 0;
-  while (tS >= meteorNext && guard++ < METEOR_POOL) {
-    if (liveN < cap) { const free = meteors.find(m => !m.active); if (free) { spawnMeteor(free, tS); liveN++; } }
-    meteorNext += meteorGap() * (0.4 + 1.2 * Math.random());
-  }
+  meteorTrails.setOptions({ enabled: meteorOn, rate: meteorRate });
+  meteorTrails.step(tS, { starFade: starGroup.visible ? starUniforms.uFade.value : 0,
+    radius: bounds().span * 1.47 });
 }
 
 function placeCelestial() {
@@ -8116,8 +8001,7 @@ document.getElementById('thunderrate').addEventListener('input', e => {
 // shooting stars (HKS-85): a night-sky cosmetic, independent of the HKO-driven
 // weather locks — it stays adjustable in live mode and under a storm signal.
 function meteorRateLabel(v) {                                // the marking the slider sits at
-  return v <= 0 ? t('meteor.off') : v < 0.42 ? t('meteor.calm')
-       : v < 0.82 ? t('meteor.romantic') : t('meteor.apoc');
+  return t({ Off: 'meteor.off', Calm: 'meteor.calm', Romantic: 'meteor.romantic', Apocalypse: 'meteor.apoc' }[sharedMeteorRateLabel(v)]);
 }
 function syncMeteorUI() {
   const box = document.getElementById('shootstars'), sl = document.getElementById('meteorrate'),
@@ -8134,7 +8018,7 @@ document.getElementById('shootstars').addEventListener('change', e => {
 });
 document.getElementById('meteorrate').addEventListener('input', e => {
   meteorRate = parseInt(e.target.value, 10) / 100;
-  meteorNext = 0;   // reschedule against the new gap so a crank-up feels immediate
+  meteorTrails.reschedule();   // reschedule against the new gap so a crank-up feels immediate
   document.getElementById('meteorratev').textContent = meteorRateLabel(meteorRate);
 });
 syncMeteorUI();
@@ -8178,12 +8062,7 @@ function hkHourFloat() {
 }
 // vals[i] is the predicted height at clock hour (i+1) measured from yesterday 00:00;
 // sample (with linear interpolation) at an absolute window-hour
-function tideAt(vals, absHour) {
-  const idx = absHour - 1, i0 = Math.floor(idx);
-  const cl = i => vals[Math.max(0, Math.min(vals.length - 1, i))];
-  const a = cl(i0), b = cl(i0 + 1);
-  return (isFinite(a) && isFinite(b)) ? a + (b - a) * (idx - i0) : NaN;
-}
+
 
 async function syncLiveTide() {
   const [st, stName] = TIDE_STATION[document.getElementById('src').value] || ['QUB', 'Quarry Bay'];

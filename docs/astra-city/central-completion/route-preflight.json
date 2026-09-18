@@ -1,0 +1,170 @@
+{
+  "status": "preflight-only-not-navigation-acceptance",
+  "stagedTerrainSha256": "4a10d22846c0764bf532e81734811fa9f6f34f197d444f27db4f588aacebbab2",
+  "sampling": "Every original 3D route edge subdivided into intervals no longer than 1 m; no source geometry changes.",
+  "sourceAccuracy": {
+    "horizontalMetres": 1,
+    "verticalMetres": 2
+  },
+  "collisionPolicy": "Existing live BuildingIndex, 0.55 m actor radius, 1.8 m height above each sampled ground; detailed Central meshes not integrated. Contacts identify review work, not proof of private access.",
+  "terrainPerimeter": {
+    "samples": 2436,
+    "maxRenderedHeightDifferenceMetres": 4.285727186470467e-7
+  },
+  "routes": [
+    {
+      "id": "central-core",
+      "samples": 1799,
+      "absoluteGroundToSourceNetworkHeightMetres": {
+        "current": {
+          "median": 1.8123491836579104,
+          "p95": 3.8376291836478185,
+          "max": 4.90355131868813
+        },
+        "staged": {
+          "median": 0.3651977368444612,
+          "p95": 1.0256155999948957,
+          "max": 5.045814000013632
+        }
+      },
+      "wetSamples": {
+        "current": 0,
+        "staged": 0
+      },
+      "buildingContactSamples": {
+        "current": 46,
+        "staged": 46
+      },
+      "stagedBlockerBuildings": [
+        {
+          "uid": "landsd/98394:0",
+          "name": "Bank of China Building",
+          "sample": [
+            25.34596250022878,
+            5.80543437499864,
+            798.4143687502365
+          ],
+          "terrainY": 5.993205637513197
+        },
+        {
+          "uid": "landsd/26576:0",
+          "name": "",
+          "sample": [
+            82.64015454536474,
+            5.087390909093136,
+            758.7261090913618
+          ],
+          "terrainY": 5.544873054549795
+        },
+        {
+          "uid": "landsd/3088:0",
+          "name": "High Block",
+          "sample": [
+            126.34350000042468,
+            3.49199999999837,
+            589.1580999996513
+          ],
+          "terrainY": 3.962362599987533
+        }
+      ]
+    },
+    {
+      "id": "central-waterfront",
+      "samples": 2015,
+      "absoluteGroundToSourceNetworkHeightMetres": {
+        "current": {
+          "median": 0.5117157142759083,
+          "p95": 1.4307312499943692,
+          "max": 3.2811942857183
+        },
+        "staged": {
+          "median": 0.26057526581974955,
+          "p95": 1.4038091238155008,
+          "max": 4.77388560000737
+        }
+      },
+      "wetSamples": {
+        "current": 0,
+        "staged": 0
+      },
+      "buildingContactSamples": {
+        "current": 58,
+        "staged": 58
+      },
+      "stagedBlockerBuildings": [
+        {
+          "uid": "landsd/98226:0",
+          "name": "",
+          "sample": [
+            255.3825187497423,
+            4.328375000005508,
+            168.29839999927208
+          ],
+          "terrainY": 4.362571437502281
+        },
+        {
+          "uid": "landsd/70842:0",
+          "name": "",
+          "sample": [
+            277.9014999996871,
+            3.2030999999988126,
+            234.22030000016093
+          ],
+          "terrainY": 4.538782000001518
+        },
+        {
+          "uid": "landsd/26195:0",
+          "name": "West Wing",
+          "sample": [
+            655.6179999997839,
+            7.945800000001327,
+            573.8845000006258
+          ],
+          "terrainY": 6.051726999925448
+        }
+      ]
+    },
+    {
+      "id": "central-soho",
+      "samples": 1321,
+      "absoluteGroundToSourceNetworkHeightMetres": {
+        "current": {
+          "median": 1.3809939408888785,
+          "p95": 3.85057264018981,
+          "max": 4.997808571398025
+        },
+        "staged": {
+          "median": 0.25978360001882095,
+          "p95": 1.8949105729651912,
+          "max": 3.9286632544370477
+        }
+      },
+      "wetSamples": {
+        "current": 0,
+        "staged": 0
+      },
+      "buildingContactSamples": {
+        "current": 6,
+        "staged": 1
+      },
+      "stagedBlockerBuildings": [
+        {
+          "uid": "landsd/75683:0",
+          "name": "Hollywood House",
+          "sample": [
+            -604.7159500000998,
+            34.76275000000169,
+            587.3545000003651
+          ],
+          "terrainY": 35.26491840006784
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "No continuous Navigation.update replay performed.",
+    "Original 3DPN Z can differ by its stated ±2 m vertical accuracy; it is not a surveyed deck surface.",
+    "Bridge floors, public stairs and mapped coastline require separate source integration.",
+    "Current collision blockers remain; no automatic model/ground shifts or collision suppression."
+  ]
+}

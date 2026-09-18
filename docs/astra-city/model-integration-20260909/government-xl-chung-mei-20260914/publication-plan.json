@@ -1,0 +1,97 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-chung-mei-20260914/plan.json",
+  "areas": [
+    {
+      "area": "Chung Mei Building original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-chung-mei-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-160193-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-chung-mei-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "f5852b34b85489fb54f960488e9252990bcf646e029913ea880dc45e9f1943f6"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-160193-0.json": "f405bc0dd379385ce97ec0aaa64986ad3f2761121f81b17e1f86d233448ec19c",
+    "3d-viewer/city/data/official-models/government-xl-chung-mei-20260914/catalogue.json": "d0ef22b16d86002abed2b202983ca7812d8f62778f374284f19e171f95eb04b6",
+    "3d-viewer/city/data/manifest.json": "e07422e0bd4242730ddf1b17c7cfa61e06f513dbbbd70d24ae8fa2eac1f10364"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "fbdeda3e9d98021832901a7a843510156bf3ff4e",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-147024-0.json",
+      "sha256": "7e04f77d06e70901a91ec2b7862049a542c972b623a0c2e11289ee2e5b26f120",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-160193-0.json",
+      "resolution": 5,
+      "area": "Chung Mei Building bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "472b3c1fbda1edc5be86c7eb24707197b99df00bfd75cb83d137c3ad0da94091",
+            "revision": "2025-10-27T16:00:00+00:00",
+            "sheet": "11-NW-14C",
+            "sourceETag": "\"440d66d-63dcdcfdb585c\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14C/terrain/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.bin",
+                "sha256": "ce8c13bd90c2f911f43525059fdf63d4634f4ef9ddffd7807faee5c5603063a7"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14C/terrain/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.gltf",
+                "sha256": "cbc41e8a0c28e2f60925e15f4dc662f9e9061a674337ffc4e986ddf86d0e631e"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "24525aae8aea614251fb40cbdb5bacff405e8a8adf34470491ff082b68f784ef",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-19A",
+            "sourceETag": "\"3f39f9d-655fee2e7510c\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-19A/terrain/TERRAIN(TB)/T34500198000106E11/T34500198000106E11.bin",
+                "sha256": "b4adb63936fb7e8ed3a055285b8ba8255db5f1d2e529f6fc9a9b17c766fbd537"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-19A/terrain/TERRAIN(TB)/T34500198000106E11/T34500198000106E11.gltf",
+                "sha256": "8e8f5e51b38964631693796eff1449c9fd100cbe447326e2ea60f057e05c4051"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "f405bc0dd379385ce97ec0aaa64986ad3f2761121f81b17e1f86d233448ec19c",
+      "bytes": 725777
+    }
+  ],
+  "estimatedBases": []
+}

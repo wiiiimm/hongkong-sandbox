@@ -1,0 +1,131 @@
+{
+  "issue": "HKS-214",
+  "status": "approved-for-integration",
+  "published": false,
+  "ledgerSnapshot": "7d47a5f3c7362e9b",
+  "approvedNewUids": [
+    "landsd/255200:0",
+    "landsd/255386:0"
+  ],
+  "verticalScale": 1,
+  "rows": [
+    {
+      "uid": "landsd/255200:0",
+      "status": "approved-for-integration",
+      "sourceSHA256": "b02b59d328aa3a7148ba841ea5b279168c56576db990f90061e9d221cbcf07f5",
+      "observation": "Broad curved podium, stepped roof and service volumes remain visible. Native terrain also places 79/486 lowest boundary samples below grade (up to 3.374 m); no complete upward native face or sampled roof is buried in either native terrain or current terrain. This is source-supported below-grade geometry, not a model offset.",
+      "currentTerrainSurfaceCheck": {
+        "uid": "landsd/255200:0",
+        "sourceSHA256": "b02b59d328aa3a7148ba841ea5b279168c56576db990f90061e9d221cbcf07f5",
+        "upwardTriangles": 755,
+        "fullyBuriedUpwardTriangles": [],
+        "projectedRoofSamples": 483,
+        "projectedRoofsBelowTerrain": [],
+        "minimumRoofClearance": 4.594374758398613
+      },
+      "runtimeSupportHolds": [
+        {
+          "uid": "landsd/67579:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/251755:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/105155:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/235860:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/244346:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/263590:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/232907:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/222976:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/230854:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        },
+        {
+          "uid": "landsd/161005:0",
+          "reason": "Model support group exceeds memory or triangle budget"
+        }
+      ],
+      "images": [
+        {
+          "path": "docs/astra-city/residual-support-review/foundation/framing/landsd-255200-0-scene.jpg",
+          "sha256": "1e71aa46a7913abaafd47ccddb2f7a4d943afae8e7da7b46b5012250aeab4c0b"
+        },
+        {
+          "path": "docs/astra-city/residual-support-review/foundation/framing/landsd-255200-0-isolated.jpg",
+          "sha256": "c1f1463302e9a4275d73caeb58067da3eebad78be112ac6de0bb1571cca9af97"
+        }
+      ]
+    },
+    {
+      "uid": "landsd/255386:0",
+      "status": "approved-for-integration",
+      "sourceSHA256": "9fab14d756c15bc5cb14162c436e6f1536d4bea24f2a4cbdd4bd524640fe42bc",
+      "observation": "Office shaft with recessed framed crown; all 9 low-rim samples contact the native podium. Both normal and isolated views are clear.",
+      "currentTerrainSurfaceCheck": {
+        "uid": "landsd/255386:0",
+        "sourceSHA256": "9fab14d756c15bc5cb14162c436e6f1536d4bea24f2a4cbdd4bd524640fe42bc",
+        "upwardTriangles": 721,
+        "fullyBuriedUpwardTriangles": [],
+        "projectedRoofSamples": 371,
+        "projectedRoofsBelowTerrain": [],
+        "minimumRoofClearance": 177.5630590665513
+      },
+      "runtimeSupportHolds": [],
+      "images": [
+        {
+          "path": "docs/astra-city/residual-support-review/foundation/framing/landsd-255386-0-scene.jpg",
+          "sha256": "9c2251d289bda4d48efa63aefd4a2e58598ffcb465d2e1593ca720d2df261904"
+        },
+        {
+          "path": "docs/astra-city/residual-support-review/foundation/framing/landsd-255386-0-isolated.jpg",
+          "sha256": "3f5fce3d9e68137f77a04080c1985b2785b8a2ef2456a40f4915bf84a6fda1fc"
+        }
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/astra-city/residual-support-review/foundation/framing/report.json",
+      "sha256": "b9e8d9df04e1b8fd58917763ac5f74df5cf435a106f9e80f78c3660eb8e3e3ca"
+    },
+    {
+      "path": "docs/astra-city/residual-support-review/foundation/native-terrain-evidence.json",
+      "sha256": "1790372d54410a7e7cf121d1ef79826cf62c97bc4a53cfa871cb063cd838e8ff"
+    },
+    {
+      "path": "docs/astra-city/residual-support-review/foundation/current-terrain-surfaces.json",
+      "sha256": "71bba9779d55797cf544015e6376534d7b3ca87a99da3e1571276060da007369"
+    },
+    {
+      "path": "docs/astra-city/residual-support-review/support-terrain.json",
+      "sha256": "d44f44a9c4ed70d548ebedec160a49176286bd7cf88f81018ea0e0fa2128a0bb"
+    }
+  ],
+  "limits": [
+    "Two source components, not all Convention Plaza or a completed region.",
+    "Window treatment is illustrative. Native source geometry and elevations are unchanged.",
+    "No terrain changes are required for these two; raw source 230686 remains separate pending exact hillside terrain review.",
+    "Elevated wider podium view retains 10 unrelated source groups as fallbacks because the existing memory/triangle budget is full; both reviewed components stay active without errors.",
+    "Parent must verify installed picking/collision/performance after integration."
+  ]
+}

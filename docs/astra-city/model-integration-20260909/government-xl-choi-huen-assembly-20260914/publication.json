@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-choi-huen-assembly-20260914/plan.json",
+  "areas": [
+    {
+      "area": "Choi Huen House original government source assembly",
+      "models": 5,
+      "catalogue": "city/data/official-models/government-xl-choi-huen-assembly-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-choi-huen-assembly.json": null,
+    "3d-viewer/city/data/official-models/government-xl-choi-huen-assembly-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "4cbfa8992f2c4f88119f6b750e11f3e1c328e00cbf3f702bab9c8aad007cd4b8"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-choi-huen-assembly.json": "d4adee9832ceaeb1a1a9d5c5242afa67abfa6bc6fbd224091593fdf31b55e8b8",
+    "3d-viewer/city/data/official-models/government-xl-choi-huen-assembly-20260914/catalogue.json": "79d7811cf14febddb91bc484f33e7e2105643b3ed42be0d623d02a783fe2861c",
+    "3d-viewer/city/data/manifest.json": "ffbad6c83a3be9094ee90cd0e10f562475f89518a4c3676bcd67118fa473eae1"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "4b2f8725676fd90e9c0f13b88b6c4f84d4e3ccaf",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-choi-huen-assembly.json",
+      "resolution": 5,
+      "area": "Choi Huen original native terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "cbcedc8b657bbd9d075f2f010d3216ddf5a2adc60a9935412c14e7c086672d7a",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "11-NE-12B",
+            "sourceETag": "\"2e7323c-63dcd94444f48\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NE-12B/terrain/TERRAIN(TB)/T39750210000106E11/T39750210000106E11.bin",
+                "sha256": "5b2c7137927ab9741d102570b304df4cfab5821c07ad8e744f3853d99ce62c9e"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NE-12B/terrain/TERRAIN(TB)/T39750210000106E11/T39750210000106E11.gltf",
+                "sha256": "e2dd9111c9ee1b56d1db1f93af7dce936312f52a54b88b2c5e73aac6df150563"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "d4adee9832ceaeb1a1a9d5c5242afa67abfa6bc6fbd224091593fdf31b55e8b8",
+      "bytes": 895204
+    }
+  ],
+  "estimatedBases": []
+}

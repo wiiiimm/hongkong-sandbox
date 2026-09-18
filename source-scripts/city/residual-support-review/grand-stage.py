@@ -1,0 +1,26 @@
+import pathlib,json,hashlib,shutil,sys
+from shapely.geometry import Polygon
+ROOT=pathlib.Path(__file__).resolve().parents[3];HERE=pathlib.Path(__file__).resolve().parent;DEST=HERE/'grand';DOC=ROOT/'docs/astra-city/residual-support-review/grand';read=lambda p:json.loads(p.read_bytes());sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();write=lambda p,v:p.write_text(json.dumps(v,indent=2)+'\n');parts=read(DEST/'input.json')['parts'];report=read(DOC/'support.json');rows={r['uid']:r for r in report['rows']};old=read(DOC/'installed-context.json');sources={r['uid']:r for r in read(ROOT/'docs/astra-city/residual-support-review/native-meshes.json')['rows']};cat=read(HERE/'candidates/catalogue.json');cat['models']=[];folder=DEST/'candidates';folder.mkdir(exist_ok=True);changes=[]
+for p in parts:
+ uid=p['uid'];m=p['candidate'].copy();m['priority']='landmark';deps=[]
+ if uid!='landsd/229653:0':
+  points=rows[uid]['rim'];contacts=[next(c for c in pt['contacts']if c['uid']=='landsd/229653:0'and c['state']=='candidate')for pt in points];assert len(contacts)==len(points)and max(c['distance']for c in contacts)<.5;deps=[{'uid':'landsd/229653:0','state':'candidate','csuid':'4118516244P20050602','distance':max(c['distance']for c in contacts)}]
+ m['supportDependencies']=deps
+ if uid in old:
+  src=(ROOT/'3d-viewer'/old[uid]['catalogue']).parent/m['asset'];changes.append({'uid':uid,'modelSHA256':m['sha256'],'modelId':m['modelId'],'buildingCSUID':m['buildingCSUID'],'catalogue':'3d-viewer/'+old[uid]['catalogue'],'oldSupportDependencies':old[uid]['model'].get('supportDependencies',[]),'supportDependencies':deps,'contactEvidenceSHA256':sha(DOC/'support.json')})
+ else:src=pathlib.Path(sources[uid]['sourcePath'])
+ assert sha(src)==m['sha256'];shutil.copyfile(src,folder/m['asset']);cat['models'].append(m)
+cat['counts']['packedModels']=6;write(folder/'catalogue.json',cat);write(DEST/'selection.json',{'snapshot':'f61930a5e4dfa572','parts':[{'uid':p['uid'],'name':p['name'],'landmarks':p['landmarkIds']}for p in parts]});cats=[]
+for url in sorted({c['catalogue']for c in changes}):cats.append({'url':url.removeprefix('3d-viewer/'),'source':url,'oldSHA256':sha(ROOT/url),'models':[c['uid']for c in changes if c['catalogue']==url]})
+write(DEST/'dependency-replacements.json',{'issue':'HKS-214','version':1,'published':False,'catalogues':cats,'changes':changes,'contactReport':'docs/astra-city/residual-support-review/grand/support.json','scope':'Only native supportDependencies change; original source geometry and identity remain unchanged.'})
+sys.path.insert(0,str(ROOT/'source-scripts/city/assembly-support-review'));import terrain_patches as t
+patch=DEST/'terrain-patches/support-native-229653-0.json';sampler=t.fine.DemSampler(read(patch),rendered=True);updates=[];mf=read(ROOT/'3d-viewer/city/data/manifest.json')
+for tile in mf['tiles']:
+ for b in read(ROOT/'3d-viewer'/tile['url'])['buildings']:
+  if b['uid']not in ['landsd/93761:0','landsd/214756:0']:continue
+  assert b['baseHeightHKPD']is None and b['topHeightHKPD']is None and b['heightSource']=='estimated'and b['baseSource']=='terrain-estimated';e=sampler.extrema(Polygon(b['rings'][0],b['rings'][1:]));updates.append({'uid':b['uid'],'objectId':b['objectId'],'buildingCSUID':b['buildingCSUID'],'previousBase':b['base'],'base':e['min'],'height':b['height'],'baseSource':'terrain-estimated','terrain':e,'tile':tile['url']})
+write(DEST/'estimated-bases.json',{'parentSha256':sha(ROOT/'3d-viewer/city/data/terrain.json'),'refinementSha256':sha(patch),'buildings':updates})
+s=(HERE/'browser.mjs').read_text().replace('source-scripts/city/residual-support-review/visual-selection.json','source-scripts/city/residual-support-review/grand/selection.json').replace("base='source-scripts/city/residual-support-review/candidates/'","base='source-scripts/city/residual-support-review/grand/candidates/'").replace('docs/astra-city/residual-support-review/framing/','docs/astra-city/residual-support-review/grand/framing/').replace('docs/astra-city/residual-support-review/terrain-bundle.json','docs/astra-city/residual-support-review/grand/terrain-patches.json');anchor=" await page.goto('http://127.0.0.1:4176/city.html?district=central');";injection="""
+ for(const url of manifest.officialModelCatalogues)await page.route('**/'+url,async r=>{const response=await r.fetch(),c=await response.json();c.models=c.models.filter(m=>!models.has(m.uid));c.counts.packedModels=c.models.length;await r.fulfill({response,json:c});});
+ const estimates=await read('source-scripts/city/residual-support-review/grand/estimated-bases.json');for(const url of new Set(estimates.buildings.map(e=>e.tile)))await page.route('**/'+url,async r=>{const response=await r.fetch(),d=await response.json();for(const b of d.buildings){const e=estimates.buildings.find(e=>e.uid===b.uid);if(e){if(b.base!==e.previousBase||b.height!==e.height||b.baseHeightHKPD!==null||b.topHeightHKPD!==null)throw Error('Estimate changed');b.base=e.base;}}await r.fulfill({response,json:d});});
+""";assert anchor in s;s=s.replace(anchor,injection+anchor);(HERE/'grand-browser.generated.mjs').write_text(s);print(json.dumps({'stagedSourceModels':6,'existingMetadataChanges':3,'canopies':updates}))

@@ -1,0 +1,70 @@
+{
+  "issue": "HKS-214",
+  "published": false,
+  "uids": [
+    "landsd/205478:0",
+    "landsd/297401:0",
+    "landsd/314191:0",
+    "landsd/81387:0",
+    "landsd/93890:0"
+  ],
+  "reviewSHA256": "8b01e85d12041b99f2fede4e96c82e62c4774a60e981ebdb53b40e9b41fce80b",
+  "inputHashes": {
+    "source-scripts/city/identity-hold-review/decisions.json": "1e24163d21f96a96f093e1160a9d86393205ab58472d60ee2a062372e7b5e66e",
+    "source-scripts/city/identity-hold-review/identity-approved/catalogue.json": "d967af9955a523ae095f09cf032dfd4c6d09958e46050bba51416b45b144535e",
+    "docs/astra-city/identity-hold-review/audit.json": "2309a8ddbb9a8a85994d220f4d75ec04828d8048c274265575d5a151266f80c6",
+    "docs/astra-city/identity-hold-review/live-footprints.json": "ddbccacad5f97d5f00e47f3863990c0442d43a5654c2a629ee5003b88097e519",
+    "docs/astra-city/identity-hold-review/cpu-validation.json": "e1e6b78c8629c29bbe714b0a5be0da66b24cdb8cf138117a15628d3babbb15df",
+    "docs/astra-city/identity-hold-review/support.json": "941ab65204f6136f4fb6460e193c726b05bbd12bfe3ed3bafdd21382eb005f6a",
+    "docs/astra-city/identity-hold-review/native-terrain.json": "18b466c6f3abfc8896bd519196411306a13fe865af159c86257bad226d914461",
+    "docs/astra-city/identity-hold-review/support-with-terrain.json": "e50b719e609a63194f4cd5064c857a039e1abb75e4a1941414e7b1a962358492",
+    "docs/astra-city/identity-hold-review/surfaces.json": "4f606520898419d546b4efeb26b2d8203718c3133dd3dbbdace2bf9ce19f76ef",
+    "docs/astra-city/identity-hold-review/terrain-patches.json": "13e14ac2a78b86b04d69a14b791f59c298c350b91a977f01327e5c3d426e6a06",
+    "docs/astra-city/identity-hold-review/browser-terrain/report.json": "f61e965451a0898d42c741c02d2f4d5dc980c6ca47b4898e7e73e325fb58b3f3"
+  },
+  "capturedRuntimeHashes": {
+    "3d-viewer/city/app.js": "eb244062d1bc96a69134d709d500844c9aeeb27da5a465d0a446f65051d0a759",
+    "3d-viewer/city/official-models.js": "397662a50da3a92b60cec7749a659156ad6e79728d220a96c128bb6671ccebd4",
+    "3d-viewer/city/official-model-assets.js": "0664ada978e1b9786180fb101681d4f0ec98a84a770e2162a0755104f79269e2",
+    "3d-viewer/city/data/manifest.json": "f8ec1b9eff665e86a2927853f581a54ab7b6b75ae2725797336c33be2bca841a"
+  },
+  "planSHA256": "04d56cdc5ed6099dbe6863b2b0bfa25c8a3a76998b7ca9306110d0685a4f8b56",
+  "catalogueSHA256": "9db12e76e735701a43d20634af3824bae1554766b10b8c8dc7bc150f7f3a014a",
+  "terrainBundle": "source-scripts/city/identity-hold-review/approved-terrain.json",
+  "terrainBundleSHA256": "625db26b547abbf9403313dc12c32b921415bc66ce78ecab6958fb65048ced59",
+  "modelBytes": 2569464,
+  "nativeTriangles": 92011,
+  "assets": [
+    {
+      "uid": "landsd/205478:0",
+      "source": "source-scripts/city/identity-hold-review/approved/cc58c472eec08a4da6badafa013501b1815330bd8de6b2a1fdd7e4cfa277d0e6.glb.gz",
+      "sha256": "cc58c472eec08a4da6badafa013501b1815330bd8de6b2a1fdd7e4cfa277d0e6",
+      "bytes": 575925
+    },
+    {
+      "uid": "landsd/297401:0",
+      "source": "source-scripts/city/identity-hold-review/approved/06cb198e8c249dc5d359b84856db29aaea51952a20016811b9e2f5fbfd88e21b.glb.gz",
+      "sha256": "06cb198e8c249dc5d359b84856db29aaea51952a20016811b9e2f5fbfd88e21b",
+      "bytes": 1827130
+    },
+    {
+      "uid": "landsd/314191:0",
+      "source": "source-scripts/city/identity-hold-review/approved/76e95894fa7d82f042079b839b1e4bd9a99bc2bd1c500aa76ecfede42f630f4d.glb.gz",
+      "sha256": "76e95894fa7d82f042079b839b1e4bd9a99bc2bd1c500aa76ecfede42f630f4d",
+      "bytes": 83902
+    },
+    {
+      "uid": "landsd/81387:0",
+      "source": "source-scripts/city/identity-hold-review/approved/fe7207c6de500cdd0d0b1d0437034477301076736caef613d21cdd0bcaf0fe78.glb.gz",
+      "sha256": "fe7207c6de500cdd0d0b1d0437034477301076736caef613d21cdd0bcaf0fe78",
+      "bytes": 29136
+    },
+    {
+      "uid": "landsd/93890:0",
+      "source": "source-scripts/city/identity-hold-review/approved/651a362e305f582f6aff0c05db4f49265e9206e286b98f9f9450aa3e3deb6ef6.glb.gz",
+      "sha256": "651a362e305f582f6aff0c05db4f49265e9206e286b98f9f9450aa3e3deb6ef6",
+      "bytes": 53371
+    }
+  ],
+  "requiredNextStep": "Root verifies guard, installs required terrain children and native models together using existing publisher, retains K11 fallback UID256535, then verifies actual installed runtime and neighbour terrain. No deployment or publication performed here."
+}

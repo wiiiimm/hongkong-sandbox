@@ -1,0 +1,54 @@
+{
+  "issue": "HKS-221",
+  "authoritativeRun": "e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8",
+  "pipelineSha": "d3d92c2ab3f45d36acd8ffbd27bf8eee9c695dfb9d55512384a1c971c6de310b",
+  "engineTests": {
+    "passed": 7,
+    "command": "node --test source-scripts/city/citywide-audit/test_engine.mjs"
+  },
+  "liveNeonTests": {
+    "passed": 5,
+    "seconds": 86.991,
+    "command": "MODELLING_INTEGRATION_TEST=1 python -m unittest discover -s source-scripts/city/citywide-audit -p test_store.py -v",
+    "includes": "Final expiry after COPY rolls back all grouped cache rows and other chunk completions; restart, cross-label reuse, selective invalidation, concurrent claims, fingerprint rejection."
+  },
+  "sourceForms": 346115,
+  "tiles": 452,
+  "terrainChecked": {
+    "sampled-source-footprint-envelope": 346115
+  },
+  "newChecksOnRepeat": 0,
+  "cachedOnRepeat": 346115,
+  "visualAcceptance": "not-checked",
+  "nativeTriangleCollision": "not-checked",
+  "sourceDownloads": 0,
+  "aiCallsInsideScripts": 0,
+  "r2ArchiveRoot": "source-scripts/city/citywide-audit/local/e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8",
+  "artefacts": [
+    {
+      "path": "source-scripts/city/citywide-audit/local/e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8/plan.json",
+      "sha256": "a019ddae36a997ff83dccd3b96b7afac79c6c78c09506f008ff1a4f260a977ac",
+      "bytes": 64530
+    },
+    {
+      "path": "source-scripts/city/citywide-audit/local/e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8/plan.jsonl.gz",
+      "sha256": "620c5efe96d577f23d63aca77e3cde06510ff4067db461b774e683015d960de6",
+      "bytes": 27639633
+    },
+    {
+      "path": "source-scripts/city/citywide-audit/local/e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8/results-00e3198aa4ab40ba8b5cc6362652f2f9.jsonl.gz",
+      "sha256": "4d4ee668279688cd0e6097763c9924026a45773f1d48b3c79eea7822482dff27",
+      "bytes": 37738069
+    },
+    {
+      "path": "source-scripts/city/citywide-audit/local/e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8/run-89b13c4b4e3042ce917d169f30097c6c.json",
+      "sha256": "f132e5b362a3f0be231022ccf5a1b44c8b1e0d61dcc3119756fb928626cd0246",
+      "bytes": 1333
+    },
+    {
+      "path": "source-scripts/city/citywide-audit/local/e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8/run-e0db6cd8e2cd4da5966c7ea39f844a68.json",
+      "sha256": "b78c6e59e31410143ddf9eed25fb76bbf14fcdce8481e311bd83c24326301f01",
+      "bytes": 1327
+    }
+  ]
+}

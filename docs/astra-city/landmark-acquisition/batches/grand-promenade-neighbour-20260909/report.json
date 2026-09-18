@@ -1,0 +1,93 @@
+{
+  "issue": "HKS-213",
+  "batchId": "grand-promenade-neighbour-20260909",
+  "generatedAt": "2026-09-08T19:42:31.460705+00:00",
+  "plan": "source-scripts/city/landmark-acquisition/batches/grand-promenade-neighbour-20260909/plan.json",
+  "planSHA256": "84bda6c81679adcbd1d037bdc15ef2bbf603dbafb33623038edb9e1cd3625ad1",
+  "serviceMetadata": "source-scripts/city/landmark-acquisition/batches/grand-promenade-neighbour-20260909/service.json",
+  "sourceIndex": "source-scripts/city/landmark-acquisition/batches/grand-promenade-neighbour-20260909/index.json",
+  "summary": {
+    "acquired-and-staged": 1,
+    "no-exact-model-in-complete-checked-sheets": 0,
+    "deferred": 0
+  },
+  "nativeModelParts": 1,
+  "exactCSUIDMatchedTargets": 1,
+  "sourceTiles": 1,
+  "completedTiles": 1,
+  "reusedDirectories": 1,
+  "reusedNativeMembers": 0,
+  "newNativeMembers": 2,
+  "transfer": {
+    "receivedBytes": 1473863,
+    "newThisInvocationBytes": 1473863,
+    "chargedBytes": 1473863,
+    "capBytes": 10000000,
+    "requests": 6,
+    "ledger": "source-scripts/city/landmark-acquisition/batches/grand-promenade-neighbour-20260909/transfer-ledger.json"
+  },
+  "rows": [
+    {
+      "uid": "landsd/83999:0",
+      "objectId": 83999,
+      "csuid": "4130016288T20050430",
+      "name": "Marine Police Regional Headquarters",
+      "x": 6796.125,
+      "z": 215.578,
+      "landmarks": [],
+      "identityApproved": false,
+      "sheets": [
+        "11-SE-8B"
+      ],
+      "outcome": "acquired-and-staged",
+      "sourceCoverageComplete": true,
+      "standardMatch": true,
+      "models": [
+        {
+          "sheet": "11-SE-8B",
+          "modelId": "B413001628801063C0",
+          "manifest": "source-scripts/city/landmark-acquisition/batches/grand-promenade-neighbour-20260909/staged/11-SE-8B/manifest.json",
+          "exactCSUIDMatch": true,
+          "officialBuildingCSUIDs": [
+            "4130016288T20050430"
+          ],
+          "sourceHashes": {
+            "BUILDING/B413001628801063C0/B413001628801063C0.gltf": "a3a64556bd337e0f28e39553126008acc402118381f370c0b18955588e5c2e74",
+            "BUILDING/B413001628801063C0/B413001628801063C0.bin": "816573de9463e1fae02ffba0b77acad91b5fc31f3cb995a4efb5bcf508a4ad61"
+          },
+          "nativeBounds": [
+            [
+              6754.115234375,
+              3.3540115356445312,
+              179.3251953125
+            ],
+            [
+              6832.8837890625,
+              20.594011306762695,
+              256.048828125
+            ]
+          ],
+          "triangles": 1240
+        }
+      ],
+      "sheetsChecked": [
+        {
+          "sheet": "11-SE-8B",
+          "status": "staged",
+          "exactEntries": [
+            "BUILDING/B413001628801063C0/B413001628801063C0.gltf"
+          ],
+          "directory": {
+            "completeEntries": 21,
+            "centralDirectoryBytes": 2331,
+            "centralDirectoryOffset": 36177393,
+            "directorySHA256": "89a6fd9ae9fce2a428c3cb146de0cc671e132e148fb6c293f1c2f459a566d1c3"
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "qualification": "No-exact-model is only for complete current checked official sheet directories, not a territory-wide absence claim. Source acquisition/staging is not placement acceptance or publication. Native source geometry remains 1x HKPD; no modelling or terrain fixes.",
+  "aiCalls": 0
+}

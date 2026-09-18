@@ -22,7 +22,7 @@
  *
  * Bump VERSION when the app shell changes to evict old caches on activate.
  */
-const VERSION = 'hks-sandbox-v35';   // v33 evicted the NC GLBs from the persistent list (HKS-110); v34 the UFO, v35 its cattle (HKS-113)
+const VERSION = 'hks-sandbox-v36';   // Shared original sky-colour module (HKS-119).
 const CACHE = VERSION;
 
 // The heavy terrain JSON is served from the R2 assets origin on the official
@@ -37,6 +37,7 @@ const ASSET_ORIGIN = self.location.hostname === 'hongkong-sandbox.wiiiimm.codes'
 const SHELL = [
   '/index.html',
   '/main.js',
+  '/sky-colour.js',
   '/audio.js',
   '/analytics.js',
   '/vendor/three.module.js',

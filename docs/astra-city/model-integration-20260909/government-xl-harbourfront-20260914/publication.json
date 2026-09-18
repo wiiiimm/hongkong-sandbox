@@ -1,0 +1,90 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-harbourfront-20260914/plan.json",
+  "areas": [
+    {
+      "area": "HARBOURFRONT HORIZON ALL-SUITE HOTEL original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-harbourfront-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-31275-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-harbourfront-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "58d1473f13c7497f70452237f13bd368fc823aa93d62aeaec5a06bc43c44abfe"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-31275-0.json": "d1772d8a5618deb98294c1a52261e4bb9e141d113a77a0a47ad65482e1c6ab68",
+    "3d-viewer/city/data/official-models/government-xl-harbourfront-20260914/catalogue.json": "a4bc99c588b64e39d566e1b28fdf5fcefceed9a3436af64e0b5dd146d1e67295",
+    "3d-viewer/city/data/manifest.json": "6a4f61f76296d378d0fac5ee028cde050827d31189da633269354ed810a30a6c"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "37c9a4bc7459ac6161358fa246e1458fa611e96b",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-31275-0.json",
+      "resolution": 5,
+      "area": "HARBOURFRONT HORIZON ALL-SUITE HOTEL bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "4cdbba160aa3ceeed42700c9705afb67438effee574b000232fa1202b975cdf4",
+            "revision": "2026-07-29T16:00:00+00:00",
+            "sheet": "11-SW-5B",
+            "sourceETag": "\"e0aac3-65793a48bd2f1\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-5B/terrain/TERRAIN(TB)/T36750174000106E14/T36750174000106E14.bin",
+                "sha256": "86db44cbc1ff1a9cdcdf1df3d00e4a0c2505e85daffed5b0f426ed9b729a332b"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-5B/terrain/TERRAIN(TB)/T36750174000106E14/T36750174000106E14.gltf",
+                "sha256": "bc59c95079d702bea8d544835f5301d45bd2397edfadf497dc4f46f6ba77d8e9"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "83817ca6be6007c1a836935a0e8ca3e402525ece71a4015fed92422f62c7e5bf",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-NW-25D",
+            "sourceETag": "\"2e22a57-63dcdf6ab9e4e\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-25D/terrain/TERRAIN(TB)/T36750180000106E12/T36750180000106E12.bin",
+                "sha256": "9305b317cff40ac7f3f6f174573b7945b1b88f36773b812f0748f8a6ab990eb4"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-25D/terrain/TERRAIN(TB)/T36750180000106E12/T36750180000106E12.gltf",
+                "sha256": "22903683a7604eea7e45cb068818ec434ba9145295b73e73597a89b6fc14b3a8"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2895,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 354
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "d1772d8a5618deb98294c1a52261e4bb9e141d113a77a0a47ad65482e1c6ab68",
+      "bytes": 2520107
+    }
+  ],
+  "estimatedBases": []
+}

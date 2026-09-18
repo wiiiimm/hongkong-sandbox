@@ -1,0 +1,69 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xxl-saxon-20260911/plan.json",
+  "areas": [
+    {
+      "area": "Saxon original tower and podium",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xxl-saxon-20260911/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-232025-0.json": null,
+    "3d-viewer/city/data/official-models/government-xxl-saxon-20260911/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "5cb86f91418b80bbe56b910a95227d42b381e7144cc07a6e8c0d23e967a1828b"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-232025-0.json": "a82c90c209bff2c937e066dcb87e5681609a2e36dbd81f5c7c5b14da6cf9e2fa",
+    "3d-viewer/city/data/official-models/government-xxl-saxon-20260911/catalogue.json": "4675c4e7cc8e8f9348bf9be18db1dc1117669f8e8be4cf4aee4bc5ec34caa26d",
+    "3d-viewer/city/data/manifest.json": "c982188b4f39e20e11bb6faeca144c9a560a1bad683e2f1b360f16620902ef1e"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "09a86fd7a2f4844bcf696a87fb39cb139e03d02a",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-232025-0.json",
+      "resolution": 5,
+      "area": "Saxon original native terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "539c46233dd62080393a37c7bbd60ffee32233b738f2b99d9894f75c0507df8c",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-8C",
+            "sourceETag": "\"3866e9b-655fee3f272ff\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-NW-8C/terrain/TERRAIN(TB)/T33000216000106E13/T33000216000106E13.bin",
+                "sha256": "1e15b64f23348ba5d2a4e339d7161fb5dc45d4ed35ca821fa34eecc5e619889a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-NW-8C/terrain/TERRAIN(TB)/T33000216000106E13/T33000216000106E13.gltf",
+                "sha256": "e33b9f77a1268fc0de1b96e5ce87c252ba45ceacee9b6084cc7eb3994d880062"
+              }
+            ]
+          }
+        ],
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "a82c90c209bff2c937e066dcb87e5681609a2e36dbd81f5c7c5b14da6cf9e2fa",
+      "bytes": 228516
+    }
+  ],
+  "estimatedBases": []
+}

@@ -1,0 +1,84 @@
+{
+  "runOrdinal": 1,
+  "result": "test-fixture-failure",
+  "metadataScope": "Preserved console measurements and failure explanation; the initial detailed verification.json was replaced by the corrected final run. No initial startup/network values are reconstructed.",
+  "failureScreenshotSavedAtUTC": "2026-09-06T08:02:31.105958+00:00",
+  "productionDefect": false,
+  "correction": "The source-picker deliberately prioritises the Mui Wo cooked-food market. Its recorded BaseHeight and TopHeight are null and the UI correctly labels its 3 m open-sided roof as an estimate. The test incorrectly required the recorded-height HKPD sentence. The assertion now distinguishes recorded and estimated heightSource values. No production code or data changed between browser passes.",
+  "visits": [
+    {
+      "id": "central",
+      "forms": 25720,
+      "official": 25356,
+      "medianFrameMs": 16.6,
+      "p95FrameMs": 18.2,
+      "arrivalMs": 336.283,
+      "result": "passed"
+    },
+    {
+      "id": "kowloon",
+      "forms": 19819,
+      "official": 19544,
+      "medianFrameMs": 16.6,
+      "p95FrameMs": 18.4,
+      "arrivalMs": 800.468,
+      "result": "passed"
+    },
+    {
+      "id": "taio",
+      "forms": 2340,
+      "official": 2310,
+      "medianFrameMs": 16.7,
+      "p95FrameMs": 18.5,
+      "arrivalMs": 768.524,
+      "result": "passed"
+    },
+    {
+      "id": "pengchau",
+      "forms": 4685,
+      "official": 4530,
+      "medianFrameMs": 16.7,
+      "p95FrameMs": 18.3,
+      "arrivalMs": 848.346,
+      "result": "passed"
+    },
+    {
+      "id": "cheungchau",
+      "forms": 4138,
+      "official": 4119,
+      "medianFrameMs": 16.6,
+      "p95FrameMs": 18.5,
+      "arrivalMs": 765.088,
+      "result": "passed"
+    },
+    {
+      "id": "shatin",
+      "forms": 14792,
+      "official": 14522,
+      "medianFrameMs": 16.6,
+      "p95FrameMs": 18.3,
+      "arrivalMs": 1765.614,
+      "result": "passed"
+    },
+    {
+      "id": "yuenlong",
+      "forms": 50030,
+      "official": 49947,
+      "medianFrameMs": 16.7,
+      "p95FrameMs": 18.4,
+      "arrivalMs": 3799.006,
+      "result": "passed"
+    },
+    {
+      "id": "muiwo",
+      "forms": 6490,
+      "official": 6420,
+      "medianFrameMs": 16.6,
+      "p95FrameMs": 18.6,
+      "arrivalMs": 1018.72,
+      "result": "overview/performance passed; fixture assertion stopped source/walk checks"
+    }
+  ],
+  "mobile": "passed",
+  "note": "A second complete run was already underway when the root requested narrowing the rerun; no third browser pass was made."
+}
