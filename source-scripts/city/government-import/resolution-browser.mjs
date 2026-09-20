@@ -46,7 +46,7 @@ try{for(const width of [1280,390]){
     return{fullyFramed,active:!!d.active,pick:ray.intersectObjects(d.meshes)[0]?.object.userData.officialBuildingUid,collision:r.stream.collision(roof.x,roof.z,roof.y-.05,roof.y+.05,.05)?.uid,visible:frustum.intersectsBox(new r.THREE.Box3().setFromObject(d.group)),drawnTriangles:r.renderer.info.render.triangles,overflow:document.documentElement.scrollWidth>innerWidth,ground,groundSampler:r.sampler.height(roof.x,roof.z)};
    },model.uid);
    assert(state.active&&state.visible&&state.drawnTriangles>0&&!state.overflow);if(fitBox)assert(state.fullyFramed,'Whole source bounds must fit the viewport');assert.equal(state.pick,model.uid);assert.equal(state.collision,model.uid);const samplerTolerance=config.samplerToleranceByModel?.[model.uid]??.004,allowMissingRenderedGround=config.allowMissingRenderedGroundUids?.includes(model.uid);assert(allowMissingRenderedGround?(!Number.isFinite(state.ground)||Math.abs(state.ground-state.groundSampler)<=samplerTolerance):(Number.isFinite(state.ground)&&Math.abs(state.ground-state.groundSampler)<=samplerTolerance));
-   const file=`${mode}-${model.uid.replaceAll('/','-').replaceAll(':','-')}-${width}-${time.replace(':','')}.png`;await page.screenshot({path:new URL(file,out).pathname});report.views.push({uid:model.uid,width,time,file,retained,suppressed,...state});console.log(file);
+   const file=`${mode}-${model.uid.replaceAll('/','-').replaceAll(':','-')}-${width}-${time.replace(':','')}.png`;await page.screenshot({path:new URL(file,out).pathname,timeout:60000});report.views.push({uid:model.uid,width,time,file,retained,suppressed,...state});console.log(file);
   }
  }
  await context.close();
