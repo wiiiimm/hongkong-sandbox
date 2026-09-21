@@ -132,7 +132,7 @@ def group_counts(rows, sizes, installed):
 
 def write_readme(path, summary):
     lines = [
-        '# Lantau government-model inventory — 14 September 2026', '',
+        '# Lantau government-model inventory — current manifest', '',
         'This report covers the project review sections 10.5–10.11. It includes Discovery Bay, '
         'Mui Wo, Pui O, south and southwest Lantau, Tai O and Ngong Ping. It excludes both Tung '
         'Chung sections, Chek Lap Kok airport and the other islands.', '',
