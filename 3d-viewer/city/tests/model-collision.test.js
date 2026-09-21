@@ -42,10 +42,15 @@ test('true walls outside the footprint block movement and overhead roofs only bl
  const roof=building({modelGeometry:model([[[3,8,-3],[7,10,-3],[7,10,3]],[[3,8,-3],[7,10,3],[3,8,3]]])});
  const index=new BuildingIndex([roof]);assert.equal(index.collision(5,0,1,3,.55),null);assert.equal(index.collision(5,0,8,10,.55),roof);
 });
-test('open-sided structures keep their existing roof/posts and do not acquire closed mesh walls',()=>{
- const b=building({structureType:'Open-sided Structure',modelGeometry:model([[[5,0,-3],[5,8,-3],[5,8,3]],[[5,0,-3],[5,8,3],[5,0,3]],[[4,0,-3],[5,0,-3],[5,0,3]]])});
- assert.ok(describeBuilding(b).parts.every(p=>p.kind==='roof'||p.kind==='post'));
- assert.equal(new BuildingIndex([b]).collision(4.5,0,1,2,.55),null);
+test('open-sided official meshes collide at their true source faces without a synthetic roof or solid interior',()=>{
+ const source=model([triangle,[[5,0,-3],[5,8,-3],[5,8,3]],[[5,0,-3],[5,8,3],[5,0,3]]]);
+ const b=building({structureType:'Open-sided Structure',modelGeometry:source});
+ const parts=describeBuilding(b).parts,index=new BuildingIndex([b]);
+ assert.deepEqual(parts.map(p=>p.kind),['model-surface']);
+ assert.equal(index.collision(0,0,2.9,3.1,.1),b,'sloped source roof blocks its actual height');
+ assert.equal(index.collision(0,0,0,.5,.1),null,'air under roof remains open');
+ assert.equal(index.collision(0,0,9,10,.1),null,'no phantom flat roof at the model top');
+ assert.equal(index.collision(4.5,0,1,2,.55),b,'a real source wall still blocks contact');
 });
 test('invalid actor spans never create contacts',()=>{
  const m=model([triangle]);

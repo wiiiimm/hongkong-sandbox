@@ -69,7 +69,13 @@ export function describeBuilding(building){
  const model=validModel(building),base=estimate?.base??building.base,minimum=building.minimum||0,bottom=model?model.bounds[1]:base+minimum,top=model?model.bounds[4]:base+(estimate?.height??building.height),parts=[];
  if(!finite(bottom)||!finite(top)||top<=bottom||!building.rings?.length)return {parts,openSided:false,illustrativeSupports:0};
  const foundationTop=model?Math.min(base,bottom):base,foundation=finite(building.foundationBase)&&building.foundationBase<foundationTop-.02?building.foundationBase:null,openSided=isOpenSidedBuilding(building);
- if(openSided){
+ if(openSided&&model){
+  // The official mesh supplies its own roof and supports. A synthetic flat
+  // canopy would miss sloped source faces and create an overhead phantom roof.
+  const a=model.bounds;
+  parts.push({kind:'model-surface',model,rings:[[[a[0],a[2]],[a[3],a[2]],[a[3],a[5]],[a[0],a[5]],[a[0],a[2]]]],bottom:a[1],top:a[4],windows:false});
+  if(foundation!==null)parts.push({kind:'foundation',rings:building.rings,bottom:foundation,top:foundationTop,windows:false,illustrative:true});
+ }else if(openSided){
   const thickness=Math.min(.28,(top-bottom)*.16),roofBottom=top-thickness;
   parts.push({kind:'roof',rings:building.rings,bottom:roofBottom,top,windows:false});
   const postBottom=foundation??bottom;
