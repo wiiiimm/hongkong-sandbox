@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-09-21T10:46:14.051133+00:00",
+  "capturedAt": "2026-09-21T13:15:04.185154+00:00",
   "databaseAccess": "read-only transaction",
   "rows": [
     {
@@ -7732,28 +7732,28 @@
       "landmark_ids": [],
       "name": "B080261621201062G0",
       "result": {
-        "commit": "707a5c2b",
+        "commit": "d044fe24",
         "effort": {
           "ai_model": null,
           "issue": "HKS-203",
           "method": "scripted",
-          "output_ref": "docs/astra-city/government-import/government-lantau-final-holds-20260921/decision.json",
+          "output_ref": "docs/astra-city/government-import/government-lantau-final-held-review-20260921/decision.json",
           "reasoning_effort": "not-applicable",
-          "run_id": "lantau-final-holds-20260921"
+          "run_id": "lantau-final-held-review-20260921"
         },
-        "evidence": "docs/astra-city/government-import/government-lantau-final-holds-20260921/decision.json",
-        "observation": "Exact object and CSUID match, 91.4% footprint overlap and 0.16 m centroid offset. Aligning unchanged government geometry to recorded TopHeight still leaves the highest roof 0.45 m below sampled terrain at its roof point and up to 2.50 m below rendered terrain in the surface check. Next: Reconcile official terrain height or obtain a corrected source height; do not raise the mesh arbitrarily.",
+        "evidence": "docs/astra-city/government-import/government-lantau-final-held-review-20260921/decision.json",
+        "observation": "The unchanged government asset is only a flat-roof four-wall prism, with no texture or distinct architectural geometry. Its footprint and recorded height match the current simple form closely; importing the buried prism cannot add useful visible detail. Keep the current form.",
         "productionPublished": false,
-        "sha256": "c12134844255df0690b051f6629741fea9b21899f287203178538bdbd4c5157f",
+        "sha256": "7907acd906ee26c2b5b9f9ed1803509a7186f22412681828b3c1d04a7d25357a",
         "source_sha256": "a25702361af5a07aaed04a44f492f2a72a44e7a416bba5da692459f1d1a56e52",
         "wholeLandmarkComplete": false
       },
-      "review_state": "held",
+      "review_state": "good-to-go",
       "snapshot_id": "f726f8c78d683deb",
       "source_sha256": "a25702361af5a07aaed04a44f492f2a72a44e7a416bba5da692459f1d1a56e52",
       "source_state": "prepared-for-review",
       "uid": "landsd/112959:0",
-      "updated_at": "2026-09-21 10:42:50.466260+00:00"
+      "updated_at": "2026-09-21 12:25:34.152872+00:00"
     },
     {
       "initial_evidence": {
@@ -25858,28 +25858,28 @@
       "landmark_ids": [],
       "name": "B085601449901062G0",
       "result": {
-        "commit": "707a5c2b",
+        "commit": "d044fe2488c20b483be74517142a2e37a2dfcc22",
         "effort": {
           "ai_model": null,
           "issue": "HKS-203",
           "method": "scripted",
-          "output_ref": "docs/astra-city/government-import/government-lantau-final-holds-20260921/decision.json",
+          "output_ref": "docs/astra-city/government-import/government-lantau-ngong-final-20260921/decision.json",
           "reasoning_effort": "not-applicable",
-          "run_id": "lantau-final-holds-20260921"
+          "run_id": "f726f8c78d683deb"
         },
-        "evidence": "docs/astra-city/government-import/government-lantau-final-holds-20260921/decision.json",
-        "observation": "The source has the exact object and CSUID but its horizontal envelope and centroid do not fit the matched building; the official loader rejects it as 'Official model does not fit its matched footprint'. Next: Identify the correct government component or corrected building footprint before import.",
+        "evidence": "docs/astra-city/government-import/government-lantau-ngong-final-20260921/decision.json",
+        "observation": "The exact source file bundles 73 disconnected components across several mapped forms. The one component for this form is a 16-triangle flat-roof shell with six roof-outline corners; the current 19-corner mapped form retains more footprint detail. The other government components overlap an installed station. Keep the current form; no source import or geometry edit adds useful visible detail.",
         "productionPublished": false,
-        "sha256": "c12134844255df0690b051f6629741fea9b21899f287203178538bdbd4c5157f",
+        "sha256": "cea2e23d4e9c3bb2950d150ee467106bc22ccd5615fdcffa35d197adcec0265d",
         "source_sha256": "1f46e6d0567c3d144e662acdb9678a89209f5365ec782d30f04c16a6cbcf5ff7",
         "wholeLandmarkComplete": false
       },
-      "review_state": "held",
+      "review_state": "good-to-go",
       "snapshot_id": "f726f8c78d683deb",
       "source_sha256": "1f46e6d0567c3d144e662acdb9678a89209f5365ec782d30f04c16a6cbcf5ff7",
       "source_state": "prepared-for-review",
       "uid": "landsd/168823:0",
-      "updated_at": "2026-09-21 10:42:50.466512+00:00"
+      "updated_at": "2026-09-21 13:12:44.242089+00:00"
     },
     {
       "initial_evidence": {
@@ -35029,28 +35029,28 @@
       "landmark_ids": [],
       "name": "KWUN YAM TEMPLE",
       "result": {
-        "commit": "707a5c2b",
+        "commit": "d044fe24",
         "effort": {
           "ai_model": null,
           "issue": "HKS-203",
           "method": "scripted",
-          "output_ref": "docs/astra-city/government-import/government-lantau-final-holds-20260921/decision.json",
+          "output_ref": "docs/astra-city/government-import/government-lantau-final-held-review-20260921/decision.json",
           "reasoning_effort": "not-applicable",
-          "run_id": "lantau-final-holds-20260921"
+          "run_id": "lantau-final-held-review-20260921"
         },
-        "evidence": "docs/astra-city/government-import/government-lantau-final-holds-20260921/decision.json",
-        "observation": "Kwun Yam Temple has exact object and CSUID match, 87.3% footprint overlap and 0.21 m centroid offset. Aligning unchanged government geometry to recorded TopHeight still leaves the highest roof 0.90 m below sampled terrain at its roof point and up to 6.23 m below rendered terrain in the surface check. Next: Reconcile official terrain height or obtain corrected source height; do not raise the mesh arbitrarily.",
+        "evidence": "docs/astra-city/government-import/government-lantau-final-held-review-20260921/decision.json",
+        "observation": "The unchanged government asset is only a flat-roof four-wall prism, with no texture or distinct architectural geometry. Its footprint and recorded height match the current simple form closely; importing the buried prism cannot add useful visible detail. Keep the current form.",
         "productionPublished": false,
-        "sha256": "c12134844255df0690b051f6629741fea9b21899f287203178538bdbd4c5157f",
+        "sha256": "7907acd906ee26c2b5b9f9ed1803509a7186f22412681828b3c1d04a7d25357a",
         "source_sha256": "bb7787bc9b8ef033075503f280459fb696e94e10b031267b8724545dfad22880",
         "wholeLandmarkComplete": false
       },
-      "review_state": "held",
+      "review_state": "good-to-go",
       "snapshot_id": "f726f8c78d683deb",
       "source_sha256": "bb7787bc9b8ef033075503f280459fb696e94e10b031267b8724545dfad22880",
       "source_state": "prepared-for-review",
       "uid": "landsd/182471:0",
-      "updated_at": "2026-09-21 10:42:50.466720+00:00"
+      "updated_at": "2026-09-21 12:25:34.152975+00:00"
     },
     {
       "initial_evidence": {
@@ -43513,28 +43513,28 @@
       "landmark_ids": [],
       "name": "Pui O Substation",
       "result": {
-        "commit": "707a5c2b",
+        "commit": "d044fe2488c20b483be74517142a2e37a2dfcc22",
         "effort": {
           "ai_model": null,
           "issue": "HKS-203",
           "method": "scripted",
-          "output_ref": "docs/astra-city/government-import/government-lantau-final-holds-20260921/decision.json",
+          "output_ref": "docs/astra-city/government-import/government-lantau-pui-o-bounded-20260921/installed-acceptance.json",
           "reasoning_effort": "not-applicable",
-          "run_id": "lantau-final-holds-20260921"
+          "run_id": "f726f8c78d683deb"
         },
-        "evidence": "docs/astra-city/government-import/government-lantau-final-holds-20260921/decision.json",
-        "observation": "Pui O Substation source identity and runtime pass after a trial overlap correction, but the Mui Wo and Pui O rendered terrain grids conflict. The trial affects 3,803 vertices and would move some displayed ground by as much as 113.51 m, so it was not published. Next: Repair the regional terrain seam with full-area regression validation before installing the unchanged government model.",
+        "evidence": "docs/astra-city/government-import/government-lantau-pui-o-bounded-20260921/installed-acceptance.json",
+        "observation": "Unchanged exact government mesh installed with a bounded, raw-elevation-preserving regional terrain display repair. Scripted source, terrain, and live browser checks passed; no AI modelling.",
         "productionPublished": false,
-        "sha256": "c12134844255df0690b051f6629741fea9b21899f287203178538bdbd4c5157f",
+        "sha256": "837390c256bc1484c98d700da068646ffd0239982a18dde8f896434388818d51",
         "source_sha256": "2b59af71a90cfbce21ad28193417a89a4bb188c9ab07786afe5d52d0483880b4",
         "wholeLandmarkComplete": false
       },
-      "review_state": "held",
+      "review_state": "installed-verified",
       "snapshot_id": "f726f8c78d683deb",
       "source_sha256": "2b59af71a90cfbce21ad28193417a89a4bb188c9ab07786afe5d52d0483880b4",
       "source_state": "prepared-for-review",
       "uid": "landsd/195308:0",
-      "updated_at": "2026-09-21 10:42:50.466787+00:00"
+      "updated_at": "2026-09-21 13:02:32.215834+00:00"
     },
     {
       "initial_evidence": {

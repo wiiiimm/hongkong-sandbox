@@ -61,7 +61,7 @@ export function makeTerrain(data) {
    for(let r=0;r<patch.h-1;r+=196)for(let c=0;c<patch.w-1;c+=196){
     const w=Math.min(197,patch.w-c),h=Math.min(197,patch.h-r),elev=[],vegetation=[],renderedElev=patch.renderedElev?[]:undefined,g=patch.meta.georef;
     for(let y=0;y<h;y++){if(renderedElev)renderedElev.push(...patch.renderedElev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));elev.push(...patch.elev.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));vegetation.push(...patch.vegetation.slice((r+y)*patch.w+c,(r+y)*patch.w+c+w));}
-    const patchExclusions=(patch.patches||[]).map(p=>{const [x0,z0,x1,z1]=p.coarseCells;return [x0-c,z0-r,x1-c,z1-r];});
+    const patchExclusions=[...(patch.patches||[]).map(p=>p.coarseCells),...(patch.patchExclusions||[])].map(([x0,z0,x1,z1])=>[x0-c,z0-r,x1-c,z1-r]);
     group.add(makeTerrain({w,h,elev,vegetation,renderedElev,patchExclusions,hydro:data.hydro,hydroChunk:true,meta:{georef:{...g,bE:g.bE+c*g.aE,bN:g.bN+r*g.aN}}}));
    }
    for(const child of patch.patches||[])addPatch(child);

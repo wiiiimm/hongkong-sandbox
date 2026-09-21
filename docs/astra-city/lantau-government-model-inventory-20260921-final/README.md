@@ -6,8 +6,8 @@ This report covers the project review sections 10.5–10.11. It includes Discove
 | --- | ---: |
 | All mapped Lantau forms | 10,355 |
 | Matched government model available | 6,775 |
-| Government detail installed | 6,771 |
-| Matched government enhancement remaining | 4 |
+| Government detail installed | 6,772 |
+| Matched government enhancement remaining | 3 |
 | No matched government source | 3,580 |
 
 | Complexity | Available | Installed | Enhancement required |
@@ -15,7 +15,7 @@ This report covers the project review sections 10.5–10.11. It includes Discove
 | XXL | 2 | 2 | 0 |
 | XL | 3 | 3 | 0 |
 | L | 22 | 22 | 0 |
-| M | 193 | 191 | 2 |
+| M | 193 | 192 | 1 |
 | S | 2,516 | 2,516 | 0 |
 | XS | 4,039 | 4,037 | 2 |
 | Unmeasured | 0 | 0 | 0 |
@@ -24,7 +24,7 @@ This report covers the project review sections 10.5–10.11. It includes Discove
 | --- | ---: | ---: | ---: | ---: | ---: |
 | 10.5 Discovery Bay and Nim Shue Wan | 1,830 | 1,133 | 1,133 | 0 | 697 |
 | 10.6 Mui Wo, Silvermine Bay and surrounding villages | 2,366 | 1,597 | 1,597 | 0 | 769 |
-| 10.7 Pui O and Chi Ma Wan peninsula | 1,539 | 1,079 | 1,078 | 1 | 460 |
+| 10.7 Pui O and Chi Ma Wan peninsula | 1,539 | 1,079 | 1,079 | 0 | 460 |
 | 10.8 Cheung Sha, Tong Fuk and Shui Hau | 1,322 | 989 | 989 | 0 | 333 |
 | 10.9 Shek Pik, Fan Lau and south-west Lantau | 496 | 304 | 303 | 1 | 192 |
 | 10.10 Tai O and north-west Lantau villages | 2,024 | 1,144 | 1,143 | 1 | 880 |

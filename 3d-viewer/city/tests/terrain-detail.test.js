@@ -19,3 +19,11 @@ test('retained fine Mui Wo DTM joins every coarse boundary sample without a vert
  }
  assert.equal(patch.meta.source.nativeCellSize,5);assert.match(patch.meta.source.sha256,/^[a-f0-9]{64}$/);
 });
+test('chunked regional terrain omits explicitly excluded overlap cells',()=>{
+ const w=200,h=3,patch={w,h,elev:Array(w*h).fill(2),vegetation:Array(w*h).fill(0),meta:meta(5),coarseCells:[0,0,1,1],patchExclusions:[[195,0,198,2]]};
+ const coarse={w:2,h:2,elev:Array(4).fill(2),vegetation:Array(4).fill(0),meta:meta(10),patches:[patch]};
+ const terrain=makeTerrain(coarse);
+ const drawn=terrain.children.slice(1).reduce((sum,mesh)=>sum+mesh.geometry.index.count,0);
+ assert.equal(drawn,((w-1)*(h-1)-3*2)*6);
+ terrain.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});
+});

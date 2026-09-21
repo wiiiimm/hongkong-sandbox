@@ -70,7 +70,7 @@ def stage_top_level_terrain(plan,original,manifest,edits,report):
  entries=plan.get('topLevelTerrainPatches',[])
  if not entries:return
  parent=load(ROOT/'3d-viewer/city/data/terrain.json');validate_grid(parent)
- replacements={}
+ replacements={};unchanged_overlap={}
  for entry in entries:
   replacement=entry.get('replaces')
   if not replacement:continue
@@ -94,6 +94,9 @@ def stage_top_level_terrain(plan,original,manifest,edits,report):
      else:
       assert old['elev'][i]==new['elev'][j],'Replacement changed installed terrain nodes'
       assert old.get('renderedElev',old['elev'])[i]==new.get('renderedElev',new['elev'])[j],'Replacement changed rendered terrain nodes'
+  if entry.get('reviewedChanges') and new.get('patchExclusions'):
+   assert new['coarseCells']==old['coarseCells'],'Reviewed regional overlap cannot change the patch extent'
+   unchanged_overlap[entry['destination']]=old['coarseCells']
   replacements[url]=replacement['sha256']
  existing=list(parent.get('patches',[]))+[load(ROOT/'3d-viewer'/entry['url']) for entry in original.get('terrainPatches',[]) if entry['url'] not in replacements]
  if replacements:
@@ -107,7 +110,15 @@ def stage_top_level_terrain(plan,original,manifest,edits,report):
   assert not dest.exists() and not dest.is_symlink() and dest not in edits,'Do not overwrite an existing terrain asset'
   raw=(ROOT/entry['source']).read_bytes();digest=hashlib.sha256(raw).hexdigest()
   assert digest==entry['sha256'],'Terrain source hash changed since review'
-  data=json.loads(raw);validate_patch(data,parent);check_patch_overlap(data,existing)
+  data=json.loads(raw);validate_patch(data,parent)
+  if entry['destination'] in unchanged_overlap:
+   assert data['coarseCells']==unchanged_overlap[entry['destination']]
+   # A replacement may retain an already installed regional overlap, but cannot introduce another one.
+   def overlaps(cells,other):
+    x0,z0,x1,z1=cells;a,b,c,d=other['coarseCells']
+    return x1>a and x0<c and z1>b and z0<d
+   assert [overlaps(data['coarseCells'],other) for other in existing]==[overlaps(unchanged_overlap[entry['destination']],other) for other in existing]
+  else:check_patch_overlap(data,existing)
   assert entry['resolution']==data['cell'],'Terrain manifest resolution mismatch'
   assert isinstance(entry['area'],str) and entry['area'].strip(),'Terrain area is required'
   edits[dest]=raw;existing.append(data)
