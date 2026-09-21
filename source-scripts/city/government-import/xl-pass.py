@@ -109,7 +109,9 @@ def start_checks():
 
 
 def check_owned():
-    receipt=read(LOCAL/'reservation.json');assert reservations.owns(receipt)
+    receipts=read(LOCAL/'reservation.json');receipts=receipts if isinstance(receipts,list) else [receipts]
+    assert all(reservations.owns(receipt) for receipt in receipts)
+    receipt=receipts[0]
     frozen=read(LOCAL/'selection.json.gz');assert h(ROOT/'3d-viewer/city/data/manifest.json')==frozen['manifestSHA256']
     recovered=read(LOCAL/'recovered/geometry-inputs.json');by_uid={r['uid']:r for r in recovered['rows']}
     chosen=[]
@@ -132,8 +134,22 @@ def check_owned():
     if chosen:
         cmd=['node',str(HERE.parent/'building-batch/validate_candidates.mjs'),'--candidates',rel(LOCAL/'recovered'),'--source-forms',rel(LOCAL/'source-forms.json'),'--out',rel(DOC/'validation.json')]
         v=subprocess.run(cmd,cwd=ROOT);assert v.returncode in (0,1) and (DOC/'validation.json').exists()
-        command(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(DOC/'check-selection.json.gz'),'--candidates',rel(LOCAL/'recovered'),'--out',rel(DOC/'metrics.json')])
-        metrics=read(DOC/'metrics.json');validation=read(DOC/'validation.json');by_metric={r['uid']:r for r in metrics['rows']};by_validation={r['uid']:r for r in validation['results']}
+        if len(chosen)<=1000:
+            command(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(DOC/'check-selection.json.gz'),'--candidates',rel(LOCAL/'recovered'),'--out',rel(DOC/'metrics.json')])
+            metrics=read(DOC/'metrics.json')
+        else:
+            parts=[]
+            for number,start in enumerate(range(0,len(chosen),1000),1):
+                path=DOC/f'check-selection-part-{number}.json.gz';save(path,{**selection,'rows':chosen[start:start+1000]})
+                output=DOC/f'metrics-part-{number}.json'
+                command(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(path),'--candidates',rel(LOCAL/'recovered'),'--out',rel(output)])
+                parts.append(read(output))
+            metrics={**parts[0],'rows':[row for part in parts for row in part['rows']],
+                     'inputHashes':{key:value for part in parts for key,value in part['inputHashes'].items()},
+                     'boundedParts':len(parts)}
+            assert len(metrics['rows'])==len(chosen)
+            save(DOC/'metrics.json',metrics)
+        validation=read(DOC/'validation.json');by_metric={r['uid']:r for r in metrics['rows']};by_validation={r['uid']:r for r in validation['results']}
         assert set(by_metric)==set(by_validation)=={r['uid'] for r in chosen}
     else:metrics={'inputHashes':{}};by_metric={};by_validation={}
     outcomes=[]
@@ -157,8 +173,8 @@ def check_owned():
     report={'batch':BATCH,'stage':'government-xl-checks-v1','jobId':job_id,'nativeRun':NATIVE_RUN,'models':len(outcomes),'humanCounts':counts,'newlyInstalled':0,'rows':outcomes,'inputHashes':metrics['inputHashes'],'acquisition':{k:v for k,v in recovered.items() if k not in ('rows','errors')},'sourceHashesVerified':True,'aiCalls':0,'geometryChanges':0,'qualification':'Broad first pass; exact installed sources reused and exceptions retained for second pass. No AI modelling or acceptance from triangle counts.'}
     save(DOC/'results.json.gz',report);evidence={'path':rel(DOC/'results.json.gz'),'sha256':h(DOC/'results.json.gz')};result={**report,'evidence':evidence}
     with connect() as c:
-        c.row_factory=dict_row;c.execute('SELECT pg_advisory_xact_lock(%s)',(reservations.LOCK_ID,));group=reservations._current(c,receipt)
-        assert group and {'building:'+r['uid'] for r in frozen['rows'] if r['uid']}<=set(group['resources'])
+        c.row_factory=dict_row;c.execute('SELECT pg_advisory_xact_lock(%s)',(reservations.LOCK_ID,));groups=[reservations._current(c,item) for item in receipts]
+        assert all(groups) and {'building:'+r['uid'] for r in frozen['rows'] if r['uid']}<=set().union(*(set(group['resources']) for group in groups))
         assert c.execute("UPDATE astra_modelling.jobs SET status='complete',result=%s,owner=NULL,token=NULL,lease_until=NULL,updated_at=clock_timestamp() WHERE id=%s AND owner=%s AND token=%s AND status='running' AND lease_until>clock_timestamp()",(Jsonb(result),job_id,job['owner'],job['token'])).rowcount==1
     with connect() as c:
         c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT result FROM astra_modelling.jobs WHERE id=%s',(job_id,)).fetchone()[0]==result
