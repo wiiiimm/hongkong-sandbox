@@ -1,0 +1,65 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-lantau-discovery-native-20260921/plan.json",
+  "areas": [
+    {
+      "area": "Discovery Bay unchanged government building and source terrain",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-lantau-discovery-native-20260921/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-176056-0.json": null,
+    "3d-viewer/city/data/official-models/government-lantau-discovery-native-20260921/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "cd87dff92fbeb818a11cbabcfb9afc52c4bdd5a1bae7db1db1be6d0e197be8d5"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-176056-0.json": "84f1c5de5205accfa242faab7ead1a4a993140bacdb620c35c8a18ed1c1e991a",
+    "3d-viewer/city/data/official-models/government-lantau-discovery-native-20260921/catalogue.json": "96c8da5c101d7fe7aa79b7699df8042775b3d4db1ab2d57ee82e78ed9008ec26",
+    "3d-viewer/city/data/manifest.json": "3b9bae82c648e82dbac2389bf0dceef3585d143279e5c76a8373d6222b498b4a"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "84d570a11f02744d34b4a5e75e8c4f2869fbb1cc",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-176056-0.json",
+      "resolution": 5,
+      "area": "Discovery Bay unchanged government source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "compactArchiveSHA256": "fe7b92e190ab59041fb92890437be68ca61fb277ae6651a3141a579f8a722c70",
+            "directorySHA256": "ebe3f4d9420cb3c3bf29ed89e009e89999f08b94d4e10b942e9f19e6e94c5c85",
+            "revisionDate": "2025-09-28T16:00:00+00:00",
+            "sheet": "10-NW-23B",
+            "sourceETag": "\"10f738b-63dcd77e42951\""
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 435,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "84f1c5de5205accfa242faab7ead1a4a993140bacdb620c35c8a18ed1c1e991a",
+      "bytes": 407221
+    }
+  ],
+  "estimatedBases": []
+}
