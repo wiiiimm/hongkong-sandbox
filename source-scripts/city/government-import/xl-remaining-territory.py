@@ -27,7 +27,7 @@ def run():
     context = read(LANTAU / "context.json")
     outside = read(OUTSIDE / "reconciliation-summary.json")
     assert len(selection["rows"]) == len(first["rows"]) == len(context["rows"]) == 2
-    assert outside["models"] == 352 and outside["installedThisPass"] == 10
+    assert outside["models"] == 352 and outside["installedThisPass"] == 14
     source = {row["uid"]: row for row in selection["rows"]}
     result = {row["uid"]: row for row in first["rows"]}
     rows = []
@@ -51,12 +51,12 @@ def run():
         })
     assert {row["uid"] for row in rows} == {"landsd/290981:0", "landsd/183776:0"}
     summary = {
-        "batch": BATCH, "stage": "territory-xl-reconciliation-v3",
-        "initiallyUninstalled": 354, "installedThisPass": 10,
-        "humanCounts": {"installed": 10, "held-unknown": 344, "in-process": 0,
+        "batch": BATCH, "stage": "territory-xl-reconciliation-v4",
+        "initiallyUninstalled": 354, "installedThisPass": 14,
+        "humanCounts": {"installed": 14, "held-unknown": 340, "in-process": 0,
                         "held-ai": 0, "held-human": 0, "to-do": 0},
         "primaryHoldCounts": {"source-identity-or-assembly": 259,
-                              "terrain-contact": 83, "source-recovery": 2},
+                              "terrain-contact": 79, "source-recovery": 2},
         "outsideJobId": outside["jobId"], "lantauFirstJobId": first["jobId"],
         "lantauRows": rows,
         "inputSHA256": {rel(path): sha(path) for path in
