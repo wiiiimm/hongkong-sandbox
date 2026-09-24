@@ -17,7 +17,7 @@ def ref(path):
 
 def run():
     rows = []
-    for slug in ("citywalk", "parkview", "go-park", "festival-walk"):
+    for slug in ("citywalk", "parkview", "go-park", "festival-walk", "franki-centre"):
         doc = BASE / f"{slug}-terrain-diagnostic-20260925"
         selection = read(doc / "selection.json.gz")
         foundation = {r["uid"]: r for r in read(doc / "foundation.json")["rows"]}
@@ -37,9 +37,13 @@ def run():
         if slug == "festival-walk":
             sources.extend(ref(doc / name) for name in
                            ("native-overlap.json", "acceptance.json", "foundation-resolution.json"))
+        if slug == "franki-centre":
+            sources.extend(ref(doc / name) for name in
+                           ("acceptance.json", "foundation-resolution.json"))
         for row in selection["rows"]:
             uid = row["uid"]
-            reason = ("source-sheet-seam-and-neighbour-regression" if slug == "festival-walk" else
+            reason = ("adjacent-basic-form-burial" if slug == "franki-centre" else
+                      "source-sheet-seam-and-neighbour-regression" if slug == "festival-walk" else
                       "installed-native-neighbour-regression" if native_failed else
                       "related-source-components-terrain-gap" if slug == "go-park" else
                       "adjacent-basic-form-terrain-gap")
@@ -51,7 +55,9 @@ def run():
                          "blockedNeighbourUids": blocked,
                          "failedInstalledNativeUids": native_failed,
                          "installedSupportProofPassed": slug == "parkview",
-                         "nextWork": ("Resolve two-model Festival Walk foundation contact and nine neighbour regressions with a shared source-preserving patch; rerun all gates"
+                         "nextWork": ("Resolve neighbouring landsd/91695:0 terrain burial with a smaller source-preserving patch and review the sampled ground-contact warning; rerun all gates"
+                                      if slug == "franki-centre" else
+                                      "Resolve two-model Festival Walk foundation contact and nine neighbour regressions with a shared source-preserving patch; rerun all gates"
                                       if slug == "festival-walk" else
                                       "Identify and port three neighbouring original GO PARK components with shared terrain, or compute a smaller patch; rerun all gates"
                                       if slug == "go-park" else
@@ -83,10 +89,10 @@ def run():
                      "nextWork": "Build a source-preserving replacement covering existing patches and verify their installed models",
                      "evidence": [ref(BASE / "selection.json.gz"), ref(BASE / "reconciliation.json.gz")],
                      "requiresAI": False, "requiresHuman": False, "aiCalls": 0})
-    assert len(rows) == 12 and len({r["uid"] for r in rows}) == 12
-    report = {"batch": BATCH, "stage": "compute-held-v4", "rows": rows,
-              "humanCounts": {"held-unknown": 12, "held-ai": 0, "held-human": 0, "in-process": 0},
-              "qualification": "These twelve remain held for explicit terrain/assembly compute work; no model geometry was modified or installed. The other XL states remain in the territory reconciliation.",
+    assert len(rows) == 13 and len({r["uid"] for r in rows}) == 13
+    report = {"batch": BATCH, "stage": "compute-held-v5", "rows": rows,
+              "humanCounts": {"held-unknown": 13, "held-ai": 0, "held-human": 0, "in-process": 0},
+              "qualification": "These thirteen remain held for explicit terrain/assembly compute work; no model geometry was modified or installed. The other XL states remain in the territory reconciliation.",
               "aiCalls": 0, "modelGeometryChanges": 0}
     save(OUTPUT, report)
     claim = reservations.claim("codex-xl-terrain-exceptions-" + str(uuid.uuid4()),
