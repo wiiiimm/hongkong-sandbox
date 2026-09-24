@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-mei-ho-house-20260925/plan.json",
+  "areas": [
+    {
+      "area": "YHA Mei Ho House Youth Hostel original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-mei-ho-house-20260925/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-61339-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-mei-ho-house-20260925/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "6ff02fabf842dc214f24e08c51133e5f69c9a8c164248276995a4e05a744e8e8"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-61339-0.json": "1368d0ed53c92d63f3062803e6a18e552d8a078632530bf648230e29b70d0b75",
+    "3d-viewer/city/data/official-models/government-xl-mei-ho-house-20260925/catalogue.json": "d42ab158fc498d9d11eba99243c05aa57478333f18143d4f5116e6d3f57e164a",
+    "3d-viewer/city/data/manifest.json": "a0ef8ecf642a63bc7651678920d7d22fff0e9a8a1eb73dafcbf820faa79d3c38"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "c3d1319c09062a978cda30c3948665a5aed37a62",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-61339-0.json",
+      "resolution": 5,
+      "area": "YHA Mei Ho House Youth Hostel exact government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "3f3d78d4423b21c079d580e1b7e8b70dd1d522f7dfd20b2929eff1e05ccd2831",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-9C",
+            "sourceETag": "\"2d1cc61-655fee4a267bd\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-9C/terrain/TERRAIN(TB)/T34500216000106E11/T34500216000106E11.bin",
+                "sha256": "975779710916c4eda5974646a39065ab1700e13f5253c6ffeb081f22831bfca5"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-9C/terrain/TERRAIN(TB)/T34500216000106E11/T34500216000106E11.gltf",
+                "sha256": "a48a7ae645e98361af1adcdc4e9c073558edce13b7fb8a6764df238ecbc89b58"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "1368d0ed53c92d63f3062803e6a18e552d8a078632530bf648230e29b70d0b75",
+      "bytes": 853284
+    }
+  ],
+  "estimatedBases": []
+}
