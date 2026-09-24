@@ -13,6 +13,8 @@ INITIAL = DOC / "results.json.gz"
 HELD = DOC / "held-second-pass/results.json.gz"
 CONTEXT = DOC / "context.json"
 HELD_CONTEXT = DOC / "context-held.json"
+HTTP_RETRY = DOC / "http-retry-check-20260924/results.json.gz"
+REVISION_CHECK = DOC / "revision-check-20260924/results.json.gz"
 PROOF = DOC / "reconciliation.json.gz"
 
 
@@ -44,20 +46,26 @@ def build():
     by_held = {row["uid"]: row for row in held["rows"]}
     contexts = {row["uid"]: row for path in (CONTEXT, HELD_CONTEXT)
                 for row in read(path)["rows"]}
+    retry_sources = (HTTP_RETRY, REVISION_CHECK)
+    retried = {row["uid"]: (row, path) for path in retry_sources
+               for row in read(path)["rows"]}
     installed = installed_entries()
     assert len(selection["rows"]) == len(by_first) == 352
-    assert len(by_held) == 199 and len(contexts) == 324
+    assert len(by_held) == 199 and len(contexts) == 324 and len(retried) == 26
     rows = []
     for original in selection["rows"]:
         uid = original["uid"]
         if original["source"]:
             assert sha(ROOT / "3d-viewer" / original["source"]["tile"]) == original["source"]["tileSHA256"]
         current = installed.get(uid)
-        context = contexts.get(uid)
+        context = contexts.get(uid) or (retried[uid][0] if uid in retried else None)
         second = by_held.get(uid)
         reasons = set(by_first[uid]["reasons"])
         if second:
             reasons.update(second["reasons"])
+        if uid in retried:
+            reasons.discard("source-recovery-failed")
+            reasons.update(retried[uid][0]["reasons"])
         if current:
             assert current["sha256"] == original["sourceSHA256"]
             status, primary = "installed", None
@@ -85,23 +93,25 @@ def build():
             "reasons": sorted(reasons), "installedProof": current,
             "exactSourceRecovered": context is not None,
             "evidence": [rel(INITIAL), rel(HELD) if second else None,
+                         rel(retried[uid][1]) if uid in retried else
                          rel(HELD_CONTEXT if second else CONTEXT) if context else None],
             "aiCalls": 0,
         })
     counts = dict(Counter(row["humanStatus"] for row in rows))
     holds = dict(Counter(row["primaryHold"] for row in rows if row["primaryHold"]))
     assert counts == {"installed": 10, "held-unknown": 342}, counts
-    assert holds == {"source-identity-or-assembly": 239,
-                     "terrain-contact": 75, "source-recovery": 28}, holds
+    assert holds == {"source-identity-or-assembly": 257,
+                     "terrain-contact": 83, "source-recovery": 2}, holds
     report = {
-        "batch": BATCH, "stage": "installed-and-held-reconciliation-v2",
+        "batch": BATCH, "stage": "installed-and-held-reconciliation-v4",
         "models": 352, "outsideLantau": True, "installedThisPass": 10,
         "humanCounts": {key: counts.get(key, 0) for key in
                         ("installed", "to-do", "held-human", "held-ai", "held-unknown", "in-process")},
         "primaryHoldCounts": holds, "sourceRun": selection["nativeRun"],
         "excludedLantauUids": selection["excludedLantauUids"],
         "inputSHA256": {rel(path): sha(path) for path in
-                        (DOC / "selection.json.gz", INITIAL, HELD, CONTEXT, HELD_CONTEXT)},
+                        (DOC / "selection.json.gz", INITIAL, HELD, CONTEXT, HELD_CONTEXT,
+                         HTTP_RETRY, REVISION_CHECK)},
         "rows": rows, "aiCalls": 0, "geometryChanges": 0,
         "qualification": "Exclusive primary holds are routing labels, not assertions that all other checks passed. Exact source assets and original reasons are retained for each form. No human or AI modelling decision is currently requested.",
     }

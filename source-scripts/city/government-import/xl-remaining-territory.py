@@ -51,12 +51,12 @@ def run():
         })
     assert {row["uid"] for row in rows} == {"landsd/290981:0", "landsd/183776:0"}
     summary = {
-        "batch": BATCH, "stage": "territory-xl-reconciliation-v1",
+        "batch": BATCH, "stage": "territory-xl-reconciliation-v3",
         "initiallyUninstalled": 354, "installedThisPass": 10,
         "humanCounts": {"installed": 10, "held-unknown": 344, "in-process": 0,
                         "held-ai": 0, "held-human": 0, "to-do": 0},
-        "primaryHoldCounts": {"source-identity-or-assembly": 241,
-                              "terrain-contact": 75, "source-recovery": 28},
+        "primaryHoldCounts": {"source-identity-or-assembly": 259,
+                              "terrain-contact": 83, "source-recovery": 2},
         "outsideJobId": outside["jobId"], "lantauFirstJobId": first["jobId"],
         "lantauRows": rows,
         "inputSHA256": {rel(path): sha(path) for path in
