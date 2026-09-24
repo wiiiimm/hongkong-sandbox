@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "kind": "official-building-model-tile",
+  "datasetId": "landsd_rcd_1742809441342_98380",
+  "datasetTitle": "Lands Department 3D Visualisation Map (Non-textured models)",
+  "datasetMetadataRevision": "2026-08-28",
+  "tile": "11-NE-25B",
+  "tileRevision": "2025-09-28T16:00:00+00:00",
+  "sourceDownload": "https://download.map.gov.hk/api/3d-zip/GLTF0/11-NE-25B.zip?key=ad5940a63bd344c48b0351ef1c7a905e",
+  "sourceArchiveSha256": null,
+  "sourceCacheSha256": "1fc515380ff48246e2137450ce27a1dcec6d4882033d8ed2cdb22a5bf7a4e6f2",
+  "sourceCacheKind": "Derived compact ZIP of selected original glTF/bin entries; never a complete source archive",
+  "crs": "EPSG:2326",
+  "verticalDatum": "Hong Kong Principal Datum",
+  "axes": "Source glTF node matrices output [E,HKPD height,-N]. Add root translation [-834500,0,816500] for the city; no rotation, scale or height adjustment is added.",
+  "rootTranslation": [
+    -834500,
+    0,
+    816500
+  ],
+  "officialFootprintDatasetVersion": "Native terrain only",
+  "officialFootprintSnapshotSha256": "60dbe8fda3f81b9da505411521abd26042402321b9e351f6c64a5b3254c20aa2",
+  "matchPolicy": "Exact GeoRefNo match plus source-model projected convex hull overlap >=50% of the smaller footprint and centroid difference <=10m. BuildingCSUIDs come directly from those matched official records. No name-only matching. This is a conservative replacement screen, not detailed architectural acceptance.",
+  "models": [],
+  "terrain": {
+    "id": "T44250186000106E10",
+    "url": "TERRAIN(TB)/T44250186000106E10/T44250186000106E10-geometry.gltf",
+    "worldBounds": [
+      [
+        9750.0,
+        3.5699920654296875,
+        -2700.0
+      ],
+      [
+        10500.0,
+        75.44999694824219,
+        -2100.0
+      ]
+    ],
+    "vertices": 34040,
+    "triangles": 66359,
+    "sourceEntry": "TERRAIN(TB)/T44250186000106E10/T44250186000106E10.gltf",
+    "sourceHashes": {
+      "TERRAIN(TB)/T44250186000106E10/T44250186000106E10.gltf": "3b477ec7b47c0fd32961067bcec48b821726dee2224142a96f58e1d2179551e0",
+      "TERRAIN(TB)/T44250186000106E10/T44250186000106E10.bin": "e017bc76c187eebc1dc8e08ee8c3f9a164d147b71615c698f8cc23335b30dfa6"
+    },
+    "rootTranslation": [
+      -834500,
+      0,
+      816500
+    ],
+    "photoOmitted": true,
+    "omittedPhotoEntries": [
+      "TERRAIN(TB)/T44250186000106E10/T44250186000106E10_001.jpg",
+      "TERRAIN(TB)/T44250186000106E10/T44250186000106E10_002.jpg"
+    ],
+    "originalMaterials": [
+      {
+        "name": "T44250186000106E10_001",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 0,
+            "texCoord": 0
+          },
+          "roughnessFactor": 0.9843750009313226,
+          "metallicFactor": 0.5
+        }
+      },
+      {
+        "name": "T44250186000106E10_002",
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1,
+            "texCoord": 0
+          },
+          "roughnessFactor": 0.9843750009313226,
+          "metallicFactor": 0.5
+        }
+      }
+    ],
+    "derivedSha256": "f24866ac7426e4f8c39bede1dbd969dfa08b710c9e50d1839591e5e028c80813"
+  },
+  "excludedModels": [],
+  "counts": {
+    "buildingModels": 0,
+    "buildingModelsWithVerifiedOfficialMatch": 0,
+    "matchedOfficialBuildingCSUIDs": 0,
+    "modelVertices": 0,
+    "modelTriangles": 0,
+    "terrainVertices": 34040,
+    "terrainTriangles": 66359,
+    "assetBytes": 1489828
+  },
+  "limits": [
+    "The source model tile and Building footprint dataset have different revision dates.",
+    "Only explicitly matched BuildingCSUIDs may suppress corresponding extrusions after a successful model load. Unmatched models need source review before production replacement.",
+    "Absolute HKPD source placement is unchanged. Existing70m/5m terrain may intersect source geometry.",
+    "The source terrain photograph is omitted from the derived glTF; building glTF, vertex colours, material facts and binary geometry are unchanged.",
+    "This is one source sheet, not complete territory-wide detailed architecture."
+  ]
+}

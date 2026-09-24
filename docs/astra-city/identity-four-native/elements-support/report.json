@@ -1,0 +1,106 @@
+{
+  "issue": "HKS-213",
+  "batchId": "identity-four-elements-support",
+  "generatedAt": "2026-09-08T19:48:14.633953+00:00",
+  "plan": "source-scripts/city/identity-four-native/elements-support/plan.json",
+  "planSHA256": "c238ced1fbb4b1d3e397e6029c51acc221a863c1175a5cc1813a0dc1009bf834",
+  "serviceMetadata": "source-scripts/city/identity-four-native/elements-support/service.json",
+  "sourceIndex": "source-scripts/city/identity-four-native/elements-support/index.json",
+  "summary": {
+    "acquired-and-staged": 1,
+    "no-exact-model-in-complete-checked-sheets": 0,
+    "deferred": 0
+  },
+  "nativeModelParts": 1,
+  "exactCSUIDMatchedTargets": 1,
+  "sourceTiles": 2,
+  "completedTiles": 2,
+  "reusedDirectories": 2,
+  "reusedNativeMembers": 2,
+  "newNativeMembers": 0,
+  "transfer": {
+    "receivedBytes": 0,
+    "newThisInvocationBytes": 0,
+    "chargedBytes": 0,
+    "capBytes": 10000000,
+    "requests": 2,
+    "ledger": "source-scripts/city/identity-four-native/elements-support/transfer-ledger.json"
+  },
+  "rows": [
+    {
+      "uid": "landsd/273061:0",
+      "objectId": 273061,
+      "csuid": "3469118345P20050809",
+      "name": "Elements",
+      "x": 226.738,
+      "z": -1912.187,
+      "landmarks": [],
+      "identityApproved": false,
+      "sheets": [
+        "11-NW-24A",
+        "11-NW-24C"
+      ],
+      "outcome": "acquired-and-staged",
+      "sourceCoverageComplete": true,
+      "standardMatch": true,
+      "models": [
+        {
+          "sheet": "11-NW-24C",
+          "modelId": "B346911834502063C0",
+          "manifest": "source-scripts/city/identity-four-native/elements-support/staged/11-NW-24C/manifest.json",
+          "exactCSUIDMatch": true,
+          "officialBuildingCSUIDs": [
+            "3469118345P20050809"
+          ],
+          "sourceHashes": {
+            "BUILDING/B346911834502063C0/B346911834502063C0.gltf": "b5eea39f9737ca5baa0754bd6aede50a916ff63e23289f684ad66a4b4f8691a6",
+            "BUILDING/B346911834502063C0/B346911834502063C0.bin": "e28aa9d65b6a309ff49da35e906d86bbe6bdcdd1ad4d7289d362790fd8898b02"
+          },
+          "nativeBounds": [
+            [
+              3.99609375,
+              4.713596343994141,
+              -2169.9423828125
+            ],
+            [
+              399.783203125,
+              45.29426956176758,
+              -1712.1904296875
+            ]
+          ],
+          "triangles": 203738
+        }
+      ],
+      "sheetsChecked": [
+        {
+          "sheet": "11-NW-24A",
+          "status": "complete-directory-no-exact-model",
+          "exactEntries": [],
+          "directory": {
+            "completeEntries": 271,
+            "centralDirectoryBytes": 30733,
+            "centralDirectoryOffset": 52170359,
+            "directorySHA256": "8996b3cb72b3fb08f18c65306b9cb146a3dfa951f22ba03b06ef4388be70e85e"
+          },
+          "error": null
+        },
+        {
+          "sheet": "11-NW-24C",
+          "status": "staged",
+          "exactEntries": [
+            "BUILDING/B346911834502063C0/B346911834502063C0.gltf"
+          ],
+          "directory": {
+            "completeEntries": 409,
+            "centralDirectoryBytes": 46363,
+            "centralDirectoryOffset": 55264220,
+            "directorySHA256": "7384f1b28c0ffff15f7a5ba2a37b36d8e3be07ac304a9191403151b3f60289a3"
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "qualification": "No-exact-model is only for complete current checked official sheet directories, not a territory-wide absence claim. Source acquisition/staging is not placement acceptance or publication. Native source geometry remains 1x HKPD; no modelling or terrain fixes.",
+  "aiCalls": 0
+}

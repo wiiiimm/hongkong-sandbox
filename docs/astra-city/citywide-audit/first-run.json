@@ -1,0 +1,33 @@
+{
+  "runId": "e3a2bfcaf7a5fca6290f2c1290a7f042e9d4d3b50d19566edac93acb886157a8",
+  "expected": 346115,
+  "cached": 346115,
+  "missing": 0,
+  "flags": {
+    "sampled-base-above-terrain": 25302,
+    "sampled-roof-partly-below-terrain": 35179,
+    "sampled-roof-wholly-below-terrain": 19892
+  },
+  "detail": {
+    "basic": 341852,
+    "embedded": 1859,
+    "native-catalogue": 2404
+  },
+  "terrain": {
+    "sampled-source-footprint-envelope": 346115
+  },
+  "issue": "HKS-221",
+  "batch": "hong-kong-audit-20260909-corrected",
+  "reusedAtStart": 0,
+  "newlyAudited": 346115,
+  "seconds": 234.985,
+  "tiles": 452,
+  "pipelineSha": "d3d92c2ab3f45d36acd8ffbd27bf8eee9c695dfb9d55512384a1c971c6de310b",
+  "scope": "Deterministic source-form metadata and finite footprint-envelope terrain sampling only; no native triangle, collision or visual approval.",
+  "limits": [
+    "Finite footprint boundary/midpoint/interior-centre samples; not exhaustive terrain intersection.",
+    "Native asset identity and local SHA availability only; native triangles, collision, architecture and visual acceptance not checked.",
+    "No source acquisition, model publication, model-review ledger updates or AI calls.",
+    "Terrain dependency hashes include root terrain plus intersecting ordered patches; unrelated sibling patches are excluded."
+  ]
+}

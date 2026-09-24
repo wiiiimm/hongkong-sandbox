@@ -1,0 +1,1428 @@
+{
+  "issue": "HKS-209",
+  "stagedOnly": true,
+  "networkRequests": 0,
+  "networkBytes": 0,
+  "aiCalls": 0,
+  "scriptSeconds": 2.222,
+  "rows": [
+    {
+      "uid": "landsd/322573:0",
+      "stagedOnly": true,
+      "networkBytes": 0,
+      "aiCalls": 0,
+      "candidate": "source-scripts/city/architecture-followup/terrain/terrain-opus.json",
+      "candidateSha256": "d01953db09c07879ebc927860555087b7567d98ccd755cebaf594d84392b40d9",
+      "rootTerrainSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+      "nativeSource": {
+        "provider": "Lands Department / HKSAR Government",
+        "tile": "11-SW-14D",
+        "tileRevision": "2026-04-23T16:00:00+00:00",
+        "manifest": "source-scripts/city/architecture-batch/staged/11-SW-14D/manifest.json",
+        "manifestSha256": "6aceb1a3feef445e276e11ea6ac406aba06a0d08c0c57fa00b56d09013b2a911",
+        "sourceHashes": {
+          "TERRAIN(TB)/T35250144000106E11/T35250144000106E11.gltf": "4c27c8253af90faeea7d5c526e4027eee583123896c111ab6ab480a31492ebb4",
+          "TERRAIN(TB)/T35250144000106E11/T35250144000106E11.bin": "99012cd9974e8e1706b5052e65dafffa66d103d0e261bf1b55f9dc5424d3ecca"
+        },
+        "crs": "EPSG:2326",
+        "verticalDatum": "HKPD"
+      },
+      "dtmSource": {
+        "provider": "Lands Department / Hong Kong SAR Government",
+        "url": "https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip",
+        "file": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+        "sha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+        "nativeCellSize": 5,
+        "crs": "EPSG:2326",
+        "verticalDatum": "HKPD",
+        "note": "Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ."
+      },
+      "coarseCells": [
+        511,
+        475,
+        517,
+        481
+      ],
+      "gridVertices": 7225,
+      "triangles": 14112,
+      "sampleSpacingMetres": 5,
+      "maximumBoundaryErrorMetres": 4.285727186470467e-07,
+      "candidateBytes": 242498,
+      "target": {
+        "uid": "landsd/322573:0",
+        "label": "Opus Hong Kong",
+        "target": true,
+        "sourceBaseTop": [
+          236.8,
+          285.7
+        ],
+        "base": 236.843994140625,
+        "roof": 293.25299072265625,
+        "before": {
+          "min": 230.936,
+          "max": 242.445
+        },
+        "after": {
+          "min": 229.542,
+          "max": 238.495
+        },
+        "beforeFlags": {
+          "roofWhollyBelowTerrain": false,
+          "roofPartlyBelowTerrain": false,
+          "baseWhollyAboveTerrain": false
+        },
+        "afterFlags": {
+          "roofWhollyBelowTerrain": false,
+          "roofPartlyBelowTerrain": false,
+          "baseWhollyAboveTerrain": false
+        },
+        "bottomVertexClearance": {
+          "vertices": 502,
+          "before": [
+            -4.944332013812755,
+            1.0730647495817038,
+            3.0196607317239454,
+            4.697388131276753,
+            6.309530639647619
+          ],
+          "after": [
+            -1.0139678955078182,
+            -0.6285278320312528,
+            -0.11733703613282387,
+            3.0233801447265733,
+            6.795946310742181
+          ]
+        }
+      },
+      "neighbourRows": [
+        {
+          "uid": "landsd/319559:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            236.8,
+            244.8
+          ],
+          "base": 236.8,
+          "roof": 244.8,
+          "before": {
+            "min": 230.842,
+            "max": 235.048
+          },
+          "after": {
+            "min": 226.797,
+            "max": 237.334
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": true
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/322822:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            237.1,
+            242.1
+          ],
+          "base": 237.1,
+          "roof": 242.1,
+          "before": {
+            "min": 238.089,
+            "max": 243.045
+          },
+          "after": {
+            "min": 235.344,
+            "max": 241.889
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/248432:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            233.0,
+            236.8
+          ],
+          "base": 233.0,
+          "roof": 236.8,
+          "before": {
+            "min": 227.809,
+            "max": 243.348
+          },
+          "after": {
+            "min": 226.797,
+            "max": 238.495
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/322573:0",
+          "label": "Opus Hong Kong",
+          "target": true,
+          "sourceBaseTop": [
+            236.8,
+            285.7
+          ],
+          "base": 236.843994140625,
+          "roof": 293.25299072265625,
+          "before": {
+            "min": 230.936,
+            "max": 242.445
+          },
+          "after": {
+            "min": 229.542,
+            "max": 238.495
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "bottomVertexClearance": {
+            "vertices": 502,
+            "before": [
+              -4.944332013812755,
+              1.0730647495817038,
+              3.0196607317239454,
+              4.697388131276753,
+              6.309530639647619
+            ],
+            "after": [
+              -1.0139678955078182,
+              -0.6285278320312528,
+              -0.11733703613282387,
+              3.0233801447265733,
+              6.795946310742181
+            ]
+          }
+        },
+        {
+          "uid": "landsd/322577:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            236.8,
+            245.4
+          ],
+          "base": 236.8,
+          "roof": 245.4,
+          "before": {
+            "min": 240.035,
+            "max": 241.935
+          },
+          "after": {
+            "min": 237.352,
+            "max": 238.016
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        }
+      ],
+      "regressions": [],
+      "outcome": "held-full-patch-and-browser-review",
+      "limits": [
+        "Five-metre terrain sampling may still omit steep retaining edges and substructures.",
+        "Neighbour audit currently covers retained120m neighbourhood records; whole patch coverage must be checked before publication.",
+        "No live integration or source/model height changes."
+      ]
+    },
+    {
+      "uid": "landsd/248218:0",
+      "stagedOnly": true,
+      "networkBytes": 0,
+      "aiCalls": 0,
+      "candidate": "source-scripts/city/architecture-followup/terrain/terrain-peak-tower.json",
+      "candidateSha256": "09639cbeb55fbfa4d80f0c61f7fc06dcab64f885eb823f2bb0ac6fbf0e153d84",
+      "rootTerrainSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+      "nativeSource": null,
+      "dtmSource": {
+        "provider": "Lands Department / Hong Kong SAR Government",
+        "url": "https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip",
+        "file": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+        "sha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+        "nativeCellSize": 5,
+        "crs": "EPSG:2326",
+        "verticalDatum": "HKPD",
+        "note": "Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ."
+      },
+      "coarseCells": [
+        475,
+        473,
+        481,
+        478
+      ],
+      "gridVertices": 6035,
+      "triangles": 11760,
+      "sampleSpacingMetres": 5,
+      "maximumBoundaryErrorMetres": 4.2857237758653355e-07,
+      "candidateBytes": 194977,
+      "target": {
+        "uid": "landsd/248218:0",
+        "label": "The Peak Tower",
+        "target": true,
+        "sourceBaseTop": [
+          378.0,
+          425.4
+        ],
+        "base": 378.50799560546875,
+        "roof": 430.29998779296875,
+        "before": {
+          "min": 386.883,
+          "max": 398.247
+        },
+        "after": {
+          "min": 395.53,
+          "max": 399.261
+        },
+        "beforeFlags": {
+          "roofWhollyBelowTerrain": false,
+          "roofPartlyBelowTerrain": false,
+          "baseWhollyAboveTerrain": false
+        },
+        "afterFlags": {
+          "roofWhollyBelowTerrain": false,
+          "roofPartlyBelowTerrain": false,
+          "baseWhollyAboveTerrain": false
+        },
+        "bottomVertexClearance": {
+          "vertices": 20,
+          "before": [
+            -17.417939104352968,
+            -12.991066196986722,
+            -10.66269356863873,
+            -10.16209019252183,
+            -8.55516008649505
+          ],
+          "after": [
+            -20.05430908203124,
+            -19.43433837890626,
+            -18.84239501953121,
+            -17.677856445312514,
+            -16.668420410156216
+          ]
+        }
+      },
+      "neighbourRows": [
+        {
+          "uid": "landsd/157669:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "base": 396.342,
+          "roof": 399.842,
+          "before": {
+            "min": 396.342,
+            "max": 397.567
+          },
+          "after": {
+            "min": 399.637,
+            "max": 408.9
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/264618:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            397.6,
+            403.5
+          ],
+          "base": 397.6,
+          "roof": 403.5,
+          "before": {
+            "min": 403.14,
+            "max": 403.74
+          },
+          "after": {
+            "min": 405.461,
+            "max": 406.584
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/264616:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            397.0,
+            400.0
+          ],
+          "base": 397.0,
+          "roof": 400.0,
+          "before": {
+            "min": 406.669,
+            "max": 408.268
+          },
+          "after": {
+            "min": 406.388,
+            "max": 407.159
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/157671:0",
+          "label": "The Peak Lookout",
+          "target": false,
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "base": 397.421,
+          "roof": 400.921,
+          "before": {
+            "min": 397.421,
+            "max": 401.749
+          },
+          "after": {
+            "min": 401.441,
+            "max": 406.472
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/94460:0",
+          "label": "Peak Tramways Co., Ltd. Office",
+          "target": false,
+          "sourceBaseTop": [
+            396.9,
+            406.0
+          ],
+          "base": 396.9,
+          "roof": 406.0,
+          "before": {
+            "min": 400.762,
+            "max": 406.993
+          },
+          "after": {
+            "min": 401.99,
+            "max": 407.488
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/45250:0",
+          "label": "The Peak Lookout",
+          "target": false,
+          "sourceBaseTop": [
+            395.5,
+            402.1
+          ],
+          "base": 395.5,
+          "roof": 402.1,
+          "before": {
+            "min": 394.441,
+            "max": 401.172
+          },
+          "after": {
+            "min": 401.069,
+            "max": 409.25
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/281107:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            385.8,
+            400.0
+          ],
+          "base": 385.8,
+          "roof": 400.0,
+          "before": {
+            "min": 393.817,
+            "max": 397.543
+          },
+          "after": {
+            "min": 394.045,
+            "max": 400.363
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/307570:0",
+          "label": "THE PEAK GALLERIA",
+          "target": false,
+          "sourceBaseTop": [
+            395.5,
+            402.1
+          ],
+          "base": 395.5,
+          "roof": 402.1,
+          "before": {
+            "min": 401.342,
+            "max": 402.284
+          },
+          "after": {
+            "min": 404.211,
+            "max": 407.758
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/69406:0",
+          "label": "THE PEAK GALLERIA",
+          "target": false,
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "base": 394.461,
+          "roof": 397.461,
+          "before": {
+            "min": 394.461,
+            "max": 399.687
+          },
+          "after": {
+            "min": 398.025,
+            "max": 399.0
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/234168:0",
+          "label": "THE PEAK GALLERIA",
+          "target": false,
+          "sourceBaseTop": [
+            395.5,
+            409.2
+          ],
+          "base": 395.5,
+          "roof": 409.2,
+          "before": {
+            "min": 401.365,
+            "max": 408.058
+          },
+          "after": {
+            "min": 401.125,
+            "max": 414.522
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/266459:0",
+          "label": "THE PEAK GALLERIA",
+          "target": false,
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "base": 403.399,
+          "roof": 406.399,
+          "before": {
+            "min": 403.399,
+            "max": 406.594
+          },
+          "after": {
+            "min": 403.114,
+            "max": 412.664
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/45065:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            371.3,
+            381.5
+          ],
+          "base": 371.3,
+          "roof": 381.5,
+          "before": {
+            "min": 386.619,
+            "max": 393.275
+          },
+          "after": {
+            "min": 379.629,
+            "max": 384.204
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/246272:0",
+          "label": "THE PEAK TOWER",
+          "target": false,
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "base": 392.67,
+          "roof": 395.67,
+          "before": {
+            "min": 392.484,
+            "max": 394.292
+          },
+          "after": {
+            "min": 398.016,
+            "max": 398.506
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/210680:0",
+          "label": "THE PEAK GALLERIA",
+          "target": false,
+          "sourceBaseTop": [
+            398.3,
+            400.4
+          ],
+          "base": 398.3,
+          "roof": 400.40000000000003,
+          "before": {
+            "min": 400.065,
+            "max": 403.375
+          },
+          "after": {
+            "min": 398.815,
+            "max": 399.99
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/248218:0",
+          "label": "The Peak Tower",
+          "target": true,
+          "sourceBaseTop": [
+            378.0,
+            425.4
+          ],
+          "base": 378.50799560546875,
+          "roof": 430.29998779296875,
+          "before": {
+            "min": 386.883,
+            "max": 398.247
+          },
+          "after": {
+            "min": 395.53,
+            "max": 399.261
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "bottomVertexClearance": {
+            "vertices": 20,
+            "before": [
+              -17.417939104352968,
+              -12.991066196986722,
+              -10.66269356863873,
+              -10.16209019252183,
+              -8.55516008649505
+            ],
+            "after": [
+              -20.05430908203124,
+              -19.43433837890626,
+              -18.84239501953121,
+              -17.677856445312514,
+              -16.668420410156216
+            ]
+          }
+        },
+        {
+          "uid": "landsd/167911:0",
+          "label": "The Peak Galleria (Bus Terminus under)",
+          "target": false,
+          "sourceBaseTop": [
+            397.2,
+            418.2
+          ],
+          "base": 397.2,
+          "roof": 418.2,
+          "before": {
+            "min": 399.439,
+            "max": 419.434
+          },
+          "after": {
+            "min": 405.812,
+            "max": 424.45
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/246271:0",
+          "label": "THE PEAK TOWER",
+          "target": false,
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "base": 393.561,
+          "roof": 396.561,
+          "before": {
+            "min": 393.561,
+            "max": 395.167
+          },
+          "after": {
+            "min": 396.664,
+            "max": 398.668
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/70742:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "base": 417.241,
+          "roof": 420.241,
+          "before": {
+            "min": 417.241,
+            "max": 424.822
+          },
+          "after": {
+            "min": 423.223,
+            "max": 425.714
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/145074:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            337.9,
+            341.2
+          ],
+          "base": 337.9,
+          "roof": 341.2,
+          "before": {
+            "min": 358.179,
+            "max": 359.688
+          },
+          "after": {
+            "min": 353.112,
+            "max": 355.348
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/213129:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            423.3,
+            426.6
+          ],
+          "base": 423.3,
+          "roof": 426.6,
+          "before": {
+            "min": 417.951,
+            "max": 419.249
+          },
+          "after": {
+            "min": 424.209,
+            "max": 425.814
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": true
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/92704:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            null,
+            null
+          ],
+          "base": 423.734,
+          "roof": 426.734,
+          "before": {
+            "min": 423.734,
+            "max": 425.119
+          },
+          "after": {
+            "min": 424.179,
+            "max": 424.917
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/269002:0",
+          "label": "THE PEAK GALLERIA",
+          "target": false,
+          "sourceBaseTop": [
+            400.3,
+            402.9
+          ],
+          "base": 400.3,
+          "roof": 402.90000000000003,
+          "before": {
+            "min": 400.77,
+            "max": 403.493
+          },
+          "after": {
+            "min": 408.207,
+            "max": 414.338
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/266149:0",
+          "label": "CLOUDRIGDE QUARTERS",
+          "target": false,
+          "sourceBaseTop": [
+            421.3,
+            426.9
+          ],
+          "base": 421.3,
+          "roof": 426.90000000000003,
+          "before": {
+            "min": 418.926,
+            "max": 420.461
+          },
+          "after": {
+            "min": 424.355,
+            "max": 426.434
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": true
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/264194:0",
+          "label": "CLOUDRIGDE QUARTERS",
+          "target": false,
+          "sourceBaseTop": [
+            413.5,
+            423.8
+          ],
+          "base": 413.5,
+          "roof": 423.8,
+          "before": {
+            "min": 409.687,
+            "max": 423.532
+          },
+          "after": {
+            "min": 420.719,
+            "max": 432.279
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/336090:0",
+          "label": "Cloudridge Block A",
+          "target": false,
+          "sourceBaseTop": [
+            421.3,
+            433.9
+          ],
+          "base": 421.3,
+          "roof": 433.90000000000003,
+          "before": {
+            "min": 416.376,
+            "max": 422.285
+          },
+          "after": {
+            "min": 423.5,
+            "max": 426.572
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/265942:0",
+          "label": "CLOUDRIGDE QUARTERS",
+          "target": false,
+          "sourceBaseTop": [
+            421.3,
+            426.9
+          ],
+          "base": 421.3,
+          "roof": 426.90000000000003,
+          "before": {
+            "min": 421.574,
+            "max": 423.052
+          },
+          "after": {
+            "min": 426.612,
+            "max": 432.068
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/213237:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            423.5,
+            426.9
+          ],
+          "base": 423.5,
+          "roof": 426.9,
+          "before": {
+            "min": 425.608,
+            "max": 427.402
+          },
+          "after": {
+            "min": 424.0,
+            "max": 424.816
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/213458:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            423.6,
+            427.0
+          ],
+          "base": 423.6,
+          "roof": 427.0,
+          "before": {
+            "min": 425.474,
+            "max": 427.972
+          },
+          "after": {
+            "min": 424.71,
+            "max": 428.638
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/113597:0",
+          "label": "",
+          "target": false,
+          "sourceBaseTop": [
+            392.2,
+            400.8
+          ],
+          "base": 392.2,
+          "roof": 400.8,
+          "before": {
+            "min": 395.218,
+            "max": 405.262
+          },
+          "after": {
+            "min": 396.426,
+            "max": 407.93
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/337042:0",
+          "label": "Cloudridge Block B",
+          "target": false,
+          "sourceBaseTop": [
+            422.1,
+            433.3
+          ],
+          "base": 422.1,
+          "roof": 433.3,
+          "before": {
+            "min": 419.446,
+            "max": 430.0
+          },
+          "after": {
+            "min": 423.5,
+            "max": 427.181
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/248217:0",
+          "label": "EPWORTH LODGE",
+          "target": false,
+          "sourceBaseTop": [
+            361.6,
+            364.7
+          ],
+          "base": 361.6,
+          "roof": 364.70000000000005,
+          "before": {
+            "min": 372.123,
+            "max": 375.505
+          },
+          "after": {
+            "min": 370.817,
+            "max": 376.447
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": true,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/45192:0",
+          "label": "Epworth Lodge",
+          "target": false,
+          "sourceBaseTop": [
+            363.3,
+            369.2
+          ],
+          "base": 363.3,
+          "roof": 369.2,
+          "before": {
+            "min": 367.769,
+            "max": 375.554
+          },
+          "after": {
+            "min": 365.439,
+            "max": 372.108
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        },
+        {
+          "uid": "landsd/94453:0",
+          "label": "The Mount Austin House A",
+          "target": false,
+          "sourceBaseTop": [
+            449.8,
+            466.0
+          ],
+          "base": 449.8,
+          "roof": 466.0,
+          "before": {
+            "min": 434.577,
+            "max": 441.528
+          },
+          "after": {
+            "min": 444.584,
+            "max": 448.606
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": true
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": true
+          }
+        },
+        {
+          "uid": "landsd/45014:0",
+          "label": "Chu Wan",
+          "target": false,
+          "sourceBaseTop": [
+            421.9,
+            428.8
+          ],
+          "base": 421.9,
+          "roof": 428.79999999999995,
+          "before": {
+            "min": 413.488,
+            "max": 426.054
+          },
+          "after": {
+            "min": 421.559,
+            "max": 429.497
+          },
+          "beforeFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": false,
+            "baseWhollyAboveTerrain": false
+          },
+          "afterFlags": {
+            "roofWhollyBelowTerrain": false,
+            "roofPartlyBelowTerrain": true,
+            "baseWhollyAboveTerrain": false
+          }
+        }
+      ],
+      "regressions": [
+        {
+          "uid": "landsd/157669:0",
+          "flag": "roofPartlyBelowTerrain"
+        },
+        {
+          "uid": "landsd/264618:0",
+          "flag": "roofWhollyBelowTerrain"
+        },
+        {
+          "uid": "landsd/157671:0",
+          "flag": "roofWhollyBelowTerrain"
+        },
+        {
+          "uid": "landsd/45250:0",
+          "flag": "roofPartlyBelowTerrain"
+        },
+        {
+          "uid": "landsd/281107:0",
+          "flag": "roofPartlyBelowTerrain"
+        },
+        {
+          "uid": "landsd/307570:0",
+          "flag": "roofWhollyBelowTerrain"
+        },
+        {
+          "uid": "landsd/69406:0",
+          "flag": "roofWhollyBelowTerrain"
+        },
+        {
+          "uid": "landsd/234168:0",
+          "flag": "roofPartlyBelowTerrain"
+        },
+        {
+          "uid": "landsd/246272:0",
+          "flag": "roofWhollyBelowTerrain"
+        },
+        {
+          "uid": "landsd/246272:0",
+          "flag": "roofPartlyBelowTerrain"
+        },
+        {
+          "uid": "landsd/246271:0",
+          "flag": "roofWhollyBelowTerrain"
+        },
+        {
+          "uid": "landsd/246271:0",
+          "flag": "roofPartlyBelowTerrain"
+        },
+        {
+          "uid": "landsd/70742:0",
+          "flag": "roofWhollyBelowTerrain"
+        },
+        {
+          "uid": "landsd/269002:0",
+          "flag": "roofWhollyBelowTerrain"
+        },
+        {
+          "uid": "landsd/264194:0",
+          "flag": "roofPartlyBelowTerrain"
+        },
+        {
+          "uid": "landsd/265942:0",
+          "flag": "roofPartlyBelowTerrain"
+        },
+        {
+          "uid": "landsd/45014:0",
+          "flag": "roofPartlyBelowTerrain"
+        }
+      ],
+      "outcome": "held-neighbour-regression",
+      "limits": [
+        "Five-metre terrain sampling may still omit steep retaining edges and substructures.",
+        "Neighbour audit currently covers retained120m neighbourhood records; whole patch coverage must be checked before publication.",
+        "No live integration or source/model height changes."
+      ]
+    }
+  ]
+}

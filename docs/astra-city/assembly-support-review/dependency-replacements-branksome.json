@@ -1,0 +1,78 @@
+{
+  "issue": "HKS-214",
+  "version": 1,
+  "published": false,
+  "scope": "Only migrate proven native supportDependencies; every other model field and source asset remains unchanged.",
+  "catalogues": [
+    {
+      "url": "city/data/official-models/support-review-20260909/catalogue.json",
+      "source": "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json",
+      "oldSHA256": "5627d81043e782260a81c9f99155b6e2764fd63b0b75087186b34a289b6db10e",
+      "models": [
+        "landsd/222976:0",
+        "landsd/265180:0"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "uid": "landsd/222976:0",
+      "modelSHA256": "e8116c7c9f332996a76def6d15bcca50c61c3d08245b942967530e8bc66becce",
+      "modelId": "B340231490701063C0",
+      "buildingCSUID": "3402314907T20050430",
+      "catalogue": "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json",
+      "oldSupportDependencies": [
+        {
+          "uid": "landsd/232907:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3402214912P20060312",
+          "distance": 0.149993896484375
+        }
+      ],
+      "supportDependencies": [
+        {
+          "uid": "landsd/232907:0",
+          "state": "installed",
+          "csuid": "3402214912P20060312",
+          "distance": 0.02157297073669387
+        }
+      ],
+      "contactEvidenceSHA256": "47aec8867ffaa9f9511aeb81aff3c819e89cdecc6160119c53e9aac08dedba87"
+    },
+    {
+      "uid": "landsd/265180:0",
+      "modelSHA256": "a2de5951075faf210a2710e1c4451e27ea735b70fefe9d2117576826a05bf454",
+      "modelId": "B340061490801063C0",
+      "buildingCSUID": "3400614908T20050430",
+      "catalogue": "3d-viewer/city/data/official-models/support-review-20260909/catalogue.json",
+      "oldSupportDependencies": [
+        {
+          "uid": "landsd/232907:0",
+          "state": "surveyed-footprint-fallback",
+          "csuid": "3402214912P20060312",
+          "distance": 0.1517513150928103
+        }
+      ],
+      "supportDependencies": [
+        {
+          "uid": "landsd/232907:0",
+          "state": "installed",
+          "csuid": "3402214912P20060312",
+          "distance": 0.02333147735460353
+        }
+      ],
+      "contactEvidenceSHA256": "47aec8867ffaa9f9511aeb81aff3c819e89cdecc6160119c53e9aac08dedba87"
+    }
+  ],
+  "contactReport": "docs/astra-city/assembly-support-review/branksome-native-support.json",
+  "contactReportSHA256": "47aec8867ffaa9f9511aeb81aff3c819e89cdecc6160119c53e9aac08dedba87",
+  "requiresNewNativeUids": [
+    "landsd/232907:0"
+  ],
+  "requiresVisualApproval": true,
+  "visualApproval": {
+    "status": "approved-for-integration",
+    "evidence": "docs/astra-city/assembly-support-review/visual-acceptance-exact-next.json",
+    "scope": "Native supporting source model inspected in normal and isolated exported views; installed dependant geometry unchanged and every actual lowest-rim vertex contacts native support within0.5m."
+  }
+}

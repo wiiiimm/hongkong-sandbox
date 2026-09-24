@@ -1,0 +1,780 @@
+{
+  "schemaVersion": 1,
+  "producer": "GPT-6 Astra geography agent",
+  "issues": [
+    "HKS-122",
+    "HKS-123"
+  ],
+  "licence": "ODbL-1.0",
+  "attribution": "© OpenStreetMap contributors",
+  "licenceURL": "https://www.openstreetmap.org/copyright",
+  "generator": "source-scripts/city/regional/islands/build.py",
+  "configuration": "source-scripts/city/regional/islands/config.json",
+  "output": "3d-viewer/city/data/regional/islands.json",
+  "outputSha256": "42dc32b2826173512258d5b14673caa0776f0f2c99fc3f3ceef469303a5c45c7",
+  "outputBytes": 206006,
+  "crs": "EPSG:2326",
+  "origin": [
+    834500,
+    816500
+  ],
+  "axes": "x = easting - 834500; z = 816500 - northing; metres",
+  "counts": {
+    "sections": 19,
+    "places": 31,
+    "walkableArrivals": 29,
+    "aerialOnly": 2,
+    "surfaces": 412,
+    "surfaceKinds": {
+      "apron": 39,
+      "beach": 107,
+      "pier": 94,
+      "pitch": 154,
+      "plaza": 18
+    },
+    "vertices": 5035,
+    "buildingOverrides": 0,
+    "omissions": {
+      "construction-or-inactive": 1,
+      "indoor-or-non-ground-surface": 1,
+      "open-or-empty-source-area": 342,
+      "outside-assigned-islands": 2916
+    }
+  },
+  "sources": [
+    {
+      "file": "source-scripts/city/central-osm.json.gz",
+      "snapshot": "2026-09-06T04:30:21Z",
+      "sha256": "962f68afa4f695566b69a1d52085f7d6a90e39b4628d41a079127bba717718c0",
+      "elements": 32867,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/island-east.json.gz",
+      "snapshot": "2026-09-06T04:57:48Z",
+      "sha256": "62d580a75fa04eac3a375a04d29501220ace5a4eb76c70d4746646c4ec2d61c6",
+      "elements": 31607,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/island-west.json.gz",
+      "snapshot": "2026-09-06T04:58:51Z",
+      "sha256": "979034cc897ca70d624962b41dc8c6ed668427199837aae6d7d35241a37a7553",
+      "elements": 30711,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/kowloon.json.gz",
+      "snapshot": "2026-09-06T04:58:51Z",
+      "sha256": "1fb060bd7692d564ece9c19dbf08f96fd10e5c54468f7e7efc673712fd423b20",
+      "elements": 57861,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/lantau.json.gz",
+      "snapshot": "2026-09-06T04:58:51Z",
+      "sha256": "d98ebe755381361d089c8a24d5cee6077a2002691745dda07d0898ae92bbf403",
+      "elements": 17551,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-central.json.gz",
+      "snapshot": "2026-09-06T05:50:30Z",
+      "sha256": "1f71029b5403ee8a22c9c4b600a3d8fd899e0ca21aa2bedc556d7b0a8ee86230",
+      "elements": 76035,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-north.json.gz",
+      "snapshot": "2026-09-06T05:50:30Z",
+      "sha256": "4a37af67b6036b98d49cf48bd68b38a9f2ac13fb09519601b84d791f7a7d2d94",
+      "elements": 10068,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "snapshot": "2026-09-06T05:50:30Z",
+      "sha256": "ec05ffd5df5a2791b19e2291d329a2342ed81d6b8214175be640e03959e28c83",
+      "elements": 39241,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "snapshot": "2026-09-06T05:51:35Z",
+      "sha256": "876e919f511deda0bc4e3a7a5a02c14cc4dbc9b890c2ffbdb6582dca22ed7aa9",
+      "elements": 5283,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/outlying-south.json.gz",
+      "snapshot": "2026-09-06T05:51:35Z",
+      "sha256": "e750b7e5cf46226a1333c224d259e63187dcb586e29bb05dcb8bdcf39945503b",
+      "elements": 15007,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/outlying-west.json.gz",
+      "snapshot": "2026-09-06T05:51:35Z",
+      "sha256": "b6f971b8080e1bf9f2d6790e294fb2f3572a2359ae6b7f062b25c6d38bb0188f",
+      "elements": 15350,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "snapshot": "2026-09-06T05:52:30Z",
+      "sha256": "9be9330d31c09ab1686d177c047473240f79982ad5f782074d876bcfcbbd8a8c",
+      "elements": 43359,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "snapshot": "2026-09-06T05:52:30Z",
+      "sha256": "6b926e00091b6faf2d11991d9d8358f9f89a41dbce299623635d9be921485e14",
+      "elements": 22977,
+      "role": "existing-city"
+    },
+    {
+      "file": "source-scripts/city/regional/islands/snapshots/northeastern-islands.json.gz",
+      "snapshot": "2026-09-06T06:55:36Z",
+      "sha256": "b61b444e5176194b2309be1c256917861aa3eb4c32d1de8f7e0a4e73be65fd5d",
+      "elements": 88,
+      "role": "island-detail"
+    },
+    {
+      "file": "source-scripts/city/regional/islands/snapshots/western-and-southern-islands.json.gz",
+      "snapshot": "2026-09-06T06:55:36Z",
+      "sha256": "f3b356c2aabb80091f56edb8ea1017a848d1e2deddb6808075cb7e110932f3f6",
+      "elements": 3589,
+      "role": "island-detail"
+    }
+  ],
+  "islandMasks": [
+    {
+      "source": "relation/3676782",
+      "sections": [
+        "10.1",
+        "10.2",
+        "10.5",
+        "10.6",
+        "10.7",
+        "10.8",
+        "10.9",
+        "10.10",
+        "10.11",
+        "11.6",
+        "11.7"
+      ]
+    },
+    {
+      "source": "relation/16105018",
+      "sections": [
+        "10.3",
+        "10.4"
+      ]
+    },
+    {
+      "source": "relation/9279538",
+      "sections": [
+        "10.12"
+      ]
+    },
+    {
+      "source": "relation/12923646",
+      "sections": [
+        "10.12"
+      ]
+    },
+    {
+      "source": "relation/12923464",
+      "sections": [
+        "10.13"
+      ]
+    },
+    {
+      "source": "relation/12926172",
+      "sections": [
+        "10.14",
+        "10.15"
+      ]
+    },
+    {
+      "source": "relation/12927100",
+      "sections": [
+        "10.16"
+      ]
+    },
+    {
+      "source": "relation/14384590",
+      "sections": [
+        "10.16"
+      ]
+    },
+    {
+      "source": "relation/12922891",
+      "sections": [
+        "10.16"
+      ]
+    },
+    {
+      "source": "way/9763721",
+      "sections": [
+        "10.16"
+      ]
+    },
+    {
+      "source": "relation/12926321",
+      "sections": [
+        "10.16"
+      ]
+    },
+    {
+      "source": "way/9561875",
+      "sections": [
+        "10.16"
+      ]
+    },
+    {
+      "source": "relation/9278476",
+      "sections": [
+        "14.8"
+      ]
+    },
+    {
+      "source": "relation/8380055",
+      "sections": [
+        "14.8"
+      ]
+    }
+  ],
+  "precision": "Retained OSM footprints projected into HK1980; simplification at 0.5 m with preserved topology, coordinates rounded to 0.1 m. This is encoding precision, not a claim of survey accuracy. Source island polygons with a 25 m buffer only assign complete features to this package; they do not edit coastline. Section labels use nearest configured anchor on the source island, not official boundaries.",
+  "arrivalPolicy": "Mapped footway/pedestrian/path/living_street, excluding explicit private/no-foot access, underground, bridge and nonzero layer; maximum 1000 m from source feature centre. Rounded spawn and four points 2 m away must lie on fully dry existing terrain triangles with less than 1.5 m elevation difference. The 1.2 m character disc must clear vertically overlapping buildings. Both raw and rendered terrain are checked. A checked point does not establish a complete accessible route.",
+  "limits": [
+    "No new buildings or estimated building heights are invented; existing house/Tai O massing rules remain unchanged.",
+    "Piers are mapped visual surface footprints; no surveyed deck elevation or walking collision is asserted.",
+    "Tai O promenade source way/115584709 carries a note about imagery distortion. Tai O tidal channels remain unresolved by the existing 70 m terrain.",
+    "Existing terrain can smooth narrow coastlines, small islands and beaches. No channel/coastline correction is generated.",
+    "Open pier lines are omitted because their source supplies no closed width footprint. Explicit rooftop, indoor and underground surfaces are omitted because this layer has no sourced structural elevation.",
+    "Construction/inactive surfaces and duplicate multipolygon members are omitted.",
+    "Source sparse village geometry remains sparse; these additions do not complete architectural or route review.",
+    "Historic Lantau map images were not used or modified."
+  ],
+  "arrivals": [
+    {
+      "id": "tungchungpublicpier",
+      "sectionId": "10.1",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/98082723",
+      "arrivalSource": "https://www.openstreetmap.org/way/549536113",
+      "sourceToArrivalMetres": 39.95,
+      "roundingDistanceFromPathMetres": 0.0209,
+      "spawn": [
+        -23191.2,
+        112.0
+      ],
+      "terrainY": 5.349
+    },
+    {
+      "id": "pakmong",
+      "sectionId": "10.2",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/700985402",
+      "arrivalSource": "https://www.openstreetmap.org/way/199999616",
+      "sourceToArrivalMetres": 53.33,
+      "roundingDistanceFromPathMetres": 0.0507,
+      "spawn": [
+        -19401.4,
+        -907.4
+      ],
+      "terrainY": 20.447
+    },
+    {
+      "id": "airportterminal",
+      "sectionId": "10.3",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/772085062",
+      "arrivalSource": "https://www.openstreetmap.org/way/1374665971",
+      "sourceToArrivalMetres": 381.37,
+      "roundingDistanceFromPathMetres": 0.0257,
+      "spawn": [
+        -23272.2,
+        -3358.0
+      ],
+      "terrainY": 6.067
+    },
+    {
+      "id": "asiaworldexpo",
+      "sectionId": "10.4",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/23398992",
+      "arrivalSource": "https://www.openstreetmap.org/way/1322032939",
+      "sourceToArrivalMetres": 113.91,
+      "roundingDistanceFromPathMetres": 0.0287,
+      "spawn": [
+        -22216.4,
+        -3698.8
+      ],
+      "terrainY": 7.0
+    },
+    {
+      "id": "nimshuewan",
+      "sectionId": "10.5",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/243848749",
+      "arrivalSource": "https://www.openstreetmap.org/way/275227013",
+      "sourceToArrivalMetres": 5.21,
+      "roundingDistanceFromPathMetres": 0.0262,
+      "spawn": [
+        -14519.0,
+        -412.1
+      ],
+      "terrainY": 16.154
+    },
+    {
+      "id": "silverminebaybeach",
+      "sectionId": "10.6",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/42391122",
+      "arrivalSource": "https://www.openstreetmap.org/way/204797330",
+      "sourceToArrivalMetres": 32.32,
+      "roundingDistanceFromPathMetres": 0.0094,
+      "spawn": [
+        -16593.1,
+        1933.3
+      ],
+      "terrainY": 4.297
+    },
+    {
+      "id": "chimawanpier",
+      "sectionId": "10.7",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/101704925",
+      "arrivalSource": "https://www.openstreetmap.org/way/893934215",
+      "sourceToArrivalMetres": 307.46,
+      "roundingDistanceFromPathMetres": 0.0079,
+      "spawn": [
+        -16483.5,
+        5592.1
+      ],
+      "terrainY": 45.817
+    },
+    {
+      "id": "puiobeach",
+      "sectionId": "10.7",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/35900298",
+      "arrivalSource": "https://www.openstreetmap.org/way/107501760",
+      "sourceToArrivalMetres": 54.93,
+      "roundingDistanceFromPathMetres": 0.0044,
+      "spawn": [
+        -18777.1,
+        5271.6
+      ],
+      "terrainY": 3.851
+    },
+    {
+      "id": "lowercheungshabeach",
+      "sectionId": "10.8",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/102774743",
+      "arrivalSource": "https://www.openstreetmap.org/way/197995504",
+      "sourceToArrivalMetres": 57.02,
+      "roundingDistanceFromPathMetres": 0.0318,
+      "spawn": [
+        -21046.3,
+        5854.1
+      ],
+      "terrainY": 8.13
+    },
+    {
+      "id": "uppercheungshabeach",
+      "sectionId": "10.8",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/102774742",
+      "arrivalSource": "https://www.openstreetmap.org/way/692542483",
+      "sourceToArrivalMetres": 357.82,
+      "roundingDistanceFromPathMetres": 0.0554,
+      "spawn": [
+        -21732.4,
+        5804.2
+      ],
+      "terrainY": 27.374
+    },
+    {
+      "id": "tongfukbeach",
+      "sectionId": "10.8",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/108069823",
+      "arrivalSource": "https://www.openstreetmap.org/way/448892366",
+      "sourceToArrivalMetres": 57.55,
+      "roundingDistanceFromPathMetres": 0.022,
+      "spawn": [
+        -23111.0,
+        6485.9
+      ],
+      "terrainY": 15.534
+    },
+    {
+      "id": "shekpik",
+      "sectionId": "10.9",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/307414722",
+      "arrivalSource": "https://www.openstreetmap.org/way/1332586339",
+      "sourceToArrivalMetres": 8.72,
+      "roundingDistanceFromPathMetres": 0.0252,
+      "spawn": [
+        -27693.8,
+        6550.5
+      ],
+      "terrainY": 73.037
+    },
+    {
+      "id": "fanlau",
+      "sectionId": "10.9",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/700697669",
+      "arrivalSource": "https://www.openstreetmap.org/way/239150213",
+      "sourceToArrivalMetres": 4.71,
+      "roundingDistanceFromPathMetres": 0.0412,
+      "spawn": [
+        -31968.5,
+        9305.5
+      ],
+      "terrainY": 12.329
+    },
+    {
+      "id": "taiopromenade",
+      "sectionId": "10.10",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/115584709",
+      "arrivalSource": "https://www.openstreetmap.org/way/1187601818",
+      "sourceToArrivalMetres": 2.62,
+      "roundingDistanceFromPathMetres": 0.0272,
+      "spawn": [
+        -30796.6,
+        3830.3
+      ],
+      "terrainY": 2.452
+    },
+    {
+      "id": "shalowan",
+      "sectionId": "10.10",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/101715581",
+      "arrivalSource": "https://www.openstreetmap.org/way/1187601798",
+      "sourceToArrivalMetres": 40.03,
+      "roundingDistanceFromPathMetres": 0.0051,
+      "spawn": [
+        -26338.2,
+        -662.9
+      ],
+      "terrainY": 2.793
+    },
+    {
+      "id": "polinforecourt",
+      "sectionId": "10.11",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/486775883",
+      "arrivalSource": "https://www.openstreetmap.org/way/1232576232",
+      "sourceToArrivalMetres": 42.83,
+      "roundingDistanceFromPathMetres": 0.0115,
+      "spawn": [
+        -25952.3,
+        3626.1
+      ],
+      "terrainY": 451.051
+    },
+    {
+      "id": "pengchaupublicpier",
+      "sectionId": "10.12",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/246580863",
+      "arrivalSource": "https://www.openstreetmap.org/way/1324438780",
+      "sourceToArrivalMetres": 58.71,
+      "roundingDistanceFromPathMetres": 0.0076,
+      "spawn": [
+        -12501.4,
+        310.2
+      ],
+      "terrainY": 3.636
+    },
+    {
+      "id": "heilingchauaerial",
+      "sectionId": "10.12",
+      "result": "aerial-only",
+      "source": "https://www.openstreetmap.org/relation/12923646",
+      "reason": "No public walking arrival requested for this island"
+    },
+    {
+      "id": "cheungchautungwan",
+      "sectionId": "10.13",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/44717226",
+      "arrivalSource": "https://www.openstreetmap.org/way/364730759",
+      "sourceToArrivalMetres": 48.97,
+      "roundingDistanceFromPathMetres": 0.0525,
+      "spawn": [
+        -13401.1,
+        8512.9
+      ],
+      "terrainY": 4.543
+    },
+    {
+      "id": "cheungchaupublicpier",
+      "sectionId": "10.13",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/436984437",
+      "arrivalSource": "https://www.openstreetmap.org/way/532296387",
+      "sourceToArrivalMetres": 0.01,
+      "roundingDistanceFromPathMetres": 0.0316,
+      "spawn": [
+        -13535.0,
+        8785.3
+      ],
+      "terrainY": 2.259
+    },
+    {
+      "id": "hungshingyeh",
+      "sectionId": "10.14",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/52298447",
+      "arrivalSource": "https://www.openstreetmap.org/way/1375817262",
+      "sourceToArrivalMetres": 30.48,
+      "roundingDistanceFromPathMetres": 0.0067,
+      "spawn": [
+        -4120.0,
+        7570.2
+      ],
+      "terrainY": 6.301
+    },
+    {
+      "id": "lososhing",
+      "sectionId": "10.15",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/26519927",
+      "arrivalSource": "https://www.openstreetmap.org/way/26519924",
+      "sourceToArrivalMetres": 34.64,
+      "roundingDistanceFromPathMetres": 0.035,
+      "spawn": [
+        -3802.0,
+        9167.0
+      ],
+      "terrainY": 12.35
+    },
+    {
+      "id": "sokkwuwanpublicpier",
+      "sectionId": "10.15",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/109740650",
+      "arrivalSource": "https://www.openstreetmap.org/way/378602249",
+      "sourceToArrivalMetres": 4.99,
+      "roundingDistanceFromPathMetres": 0.0008,
+      "spawn": [
+        -2963.8,
+        9054.1
+      ],
+      "terrainY": 2.052
+    },
+    {
+      "id": "potoipublicpier",
+      "sectionId": "10.16",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/449056701",
+      "arrivalSource": "https://www.openstreetmap.org/way/143741972",
+      "sourceToArrivalMetres": 13.56,
+      "roundingDistanceFromPathMetres": 0.0087,
+      "spawn": [
+        9629.4,
+        13533.4
+      ],
+      "terrainY": 8.261
+    },
+    {
+      "id": "sokoislandsaerial",
+      "sectionId": "10.16",
+      "result": "aerial-only",
+      "source": "https://www.openstreetmap.org/relation/14384590",
+      "reason": "No public walking arrival requested for this island"
+    },
+    {
+      "id": "sunnybay",
+      "sectionId": "11.6",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/334664293",
+      "arrivalSource": "https://www.openstreetmap.org/way/1372806502",
+      "sourceToArrivalMetres": 8.07,
+      "roundingDistanceFromPathMetres": 0.0254,
+      "spawn": [
+        -13512.8,
+        -4932.7
+      ],
+      "terrainY": 7.0
+    },
+    {
+      "id": "yamolukkeng",
+      "sectionId": "11.6",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/101695604",
+      "arrivalSource": "https://www.openstreetmap.org/way/312366056",
+      "sourceToArrivalMetres": 21.69,
+      "roundingDistanceFromPathMetres": 0.0612,
+      "spawn": [
+        -13971.0,
+        -4948.9
+      ],
+      "terrainY": 7.219
+    },
+    {
+      "id": "inspirationlake",
+      "sectionId": "11.7",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/31858217",
+      "arrivalSource": "https://www.openstreetmap.org/way/100781816",
+      "sourceToArrivalMetres": 123.52,
+      "roundingDistanceFromPathMetres": 0.0056,
+      "spawn": [
+        -12570.9,
+        -4020.6
+      ],
+      "terrainY": 10.327
+    },
+    {
+      "id": "disneylandresortpier",
+      "sectionId": "11.7",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/101695603",
+      "arrivalSource": "https://www.openstreetmap.org/way/642352498",
+      "sourceToArrivalMetres": 28.36,
+      "roundingDistanceFromPathMetres": 0.0318,
+      "spawn": [
+        -11752.2,
+        -2180.4
+      ],
+      "terrainY": 4.73
+    },
+    {
+      "id": "tapmunpier",
+      "sectionId": "14.8",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/134396010",
+      "arrivalSource": "https://www.openstreetmap.org/way/386427049",
+      "sourceToArrivalMetres": 15.7,
+      "roundingDistanceFromPathMetres": 0.0313,
+      "spawn": [
+        20494.0,
+        -20260.2
+      ],
+      "terrainY": 4.312
+    },
+    {
+      "id": "tungpingchaupier",
+      "sectionId": "14.8",
+      "result": "dry-public-path-building-clear",
+      "source": "https://www.openstreetmap.org/way/102306135",
+      "arrivalSource": "https://www.openstreetmap.org/way/386427053",
+      "sourceToArrivalMetres": 40.02,
+      "roundingDistanceFromPathMetres": 0.0234,
+      "spawn": [
+        28105.6,
+        -28500.5
+      ],
+      "terrainY": 3.634
+    }
+  ],
+  "sections": [
+    {
+      "id": "10.1",
+      "places": 1,
+      "surfaces": 55
+    },
+    {
+      "id": "10.2",
+      "places": 1,
+      "surfaces": 3
+    },
+    {
+      "id": "10.3",
+      "places": 1,
+      "surfaces": 42
+    },
+    {
+      "id": "10.4",
+      "places": 1,
+      "surfaces": 5
+    },
+    {
+      "id": "10.5",
+      "places": 1,
+      "surfaces": 56
+    },
+    {
+      "id": "10.6",
+      "places": 1,
+      "surfaces": 14
+    },
+    {
+      "id": "10.7",
+      "places": 2,
+      "surfaces": 17
+    },
+    {
+      "id": "10.8",
+      "places": 3,
+      "surfaces": 16
+    },
+    {
+      "id": "10.9",
+      "places": 2,
+      "surfaces": 21
+    },
+    {
+      "id": "10.10",
+      "places": 2,
+      "surfaces": 14
+    },
+    {
+      "id": "10.11",
+      "places": 1,
+      "surfaces": 2
+    },
+    {
+      "id": "10.12",
+      "places": 2,
+      "surfaces": 26
+    },
+    {
+      "id": "10.13",
+      "places": 2,
+      "surfaces": 33
+    },
+    {
+      "id": "10.14",
+      "places": 1,
+      "surfaces": 24
+    },
+    {
+      "id": "10.15",
+      "places": 2,
+      "surfaces": 31
+    },
+    {
+      "id": "10.16",
+      "places": 2,
+      "surfaces": 18
+    },
+    {
+      "id": "11.6",
+      "places": 2,
+      "surfaces": 5
+    },
+    {
+      "id": "11.7",
+      "places": 2,
+      "surfaces": 18
+    },
+    {
+      "id": "14.8",
+      "places": 2,
+      "surfaces": 12
+    }
+  ]
+}

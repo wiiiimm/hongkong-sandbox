@@ -1,0 +1,72 @@
+{
+  "result": "passed",
+  "scope": "Original viewer meteor extraction: combined evidence from two browser runs",
+  "browser": "152.0.7977.76",
+  "viewport": {
+    "width": 1440,
+    "height": 1000,
+    "deviceScaleFactor": 1
+  },
+  "runs": [
+    {
+      "file": "first-pass.json",
+      "startedAt": "2026-09-06T08:30:25.381Z",
+      "finishedAt": "2026-09-06T08:30:59.558Z",
+      "outcome": "Meteor checks passed before the fixture attempted to use the intentionally disabled sky-mode selector in Stargaze."
+    },
+    {
+      "file": "remaining-verification.json",
+      "startedAt": "2026-09-06T08:33:50.503Z",
+      "finishedAt": "2026-09-06T08:33:51.935Z",
+      "outcome": "passed"
+    }
+  ],
+  "checks": [
+    "Original defaults: enabled and rate 18/100",
+    "Original Off/Calm/Romantic/Apocalypse labels at 0/18/50/100",
+    "Exactly one group with the shared 14-trail pool",
+    "Visible meteor in the original Stargaze sky; screenshot visually inspected",
+    "Disable immediately clears active trails and disables the rate control",
+    "Existing sh/shr URL state retained; re-enable resumes emission",
+    "sky-off hides trails and disables controls",
+    "daylight hides trails but permits controls",
+    "Traditional Chinese rate label retained"
+  ],
+  "night": {
+    "total": 14,
+    "active": 3,
+    "visible": 2,
+    "fade": 1,
+    "groups": 1
+  },
+  "disabled": {
+    "total": 14,
+    "active": 0,
+    "visible": 0,
+    "fade": 1,
+    "groups": 1
+  },
+  "sharedLink": {
+    "sh": "0",
+    "shr": "100"
+  },
+  "skyOff": {
+    "total": 14,
+    "active": 0,
+    "visible": 0,
+    "fade": 1,
+    "groups": 1
+  },
+  "daylight": {
+    "total": 14,
+    "active": 0,
+    "visible": 0,
+    "fade": 0,
+    "groups": 1
+  },
+  "translatedLabel": "末日",
+  "pageOrWebGLErrors": [],
+  "image": "original-apocalypse-1440x1000.png",
+  "fixtureCorrection": "Exit Stargaze before changing the original sky-mode selector; supply lv=0 so the existing curated default does not enable unrelated live weather. The targeted second run covers only the remaining controls. Production code was unchanged between runs.",
+  "diagnostics": "The first run inherited live-weather satellite CORS failures. The remaining run disables live weather explicitly. Both runs logged one non-fatal local 404; neither logged a page exception or WebGL/shader error."
+}

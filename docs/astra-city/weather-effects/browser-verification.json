@@ -1,0 +1,181 @@
+{
+  "result": "passed",
+  "locked": {
+    "contexts": 0,
+    "state": {
+      "supported": true,
+      "enabled": false,
+      "unlocked": false,
+      "audible": false,
+      "masterVolume": 0.6,
+      "status": "gesture-required",
+      "error": null
+    }
+  },
+  "sound": {
+    "state": {
+      "supported": true,
+      "enabled": true,
+      "unlocked": true,
+      "audible": true,
+      "masterVolume": 0.6,
+      "status": "playing",
+      "error": null
+    },
+    "context": "running",
+    "rms": 0.0018633241820664966,
+    "contexts": 1,
+    "currentTime": 0.10666666666666667,
+    "gainCount": 7
+  },
+  "strike": {
+    "triggered": true,
+    "state": {
+      "manual": {
+        "lightning": true,
+        "thunderRate": 1
+      },
+      "mode": "manual",
+      "active": true,
+      "visualSuppressed": false,
+      "flash": 0.996,
+      "strikes": 1,
+      "lastStrike": {
+        "number": 1,
+        "elapsed": 0,
+        "close": true,
+        "source": "Manual storm simulation",
+        "position": {
+          "x": 594.837322292615,
+          "y": 0,
+          "z": -1090.5105495825408
+        }
+      },
+      "source": "Manual storm simulation",
+      "sound": {
+        "supported": true,
+        "enabled": true,
+        "unlocked": true,
+        "audible": true,
+        "masterVolume": 0.6,
+        "status": "playing",
+        "error": null
+      }
+    },
+    "source": {
+      "supported": true,
+      "initialised": true,
+      "contextState": "running",
+      "enabled": true,
+      "masterVolume": 0.6,
+      "activeThunderSources": 2
+    },
+    "difference": {
+      "changed": 252021,
+      "mean": 1.3157253787878789
+    },
+    "calls": 11,
+    "baselineCalls": 10,
+    "vertices": 52,
+    "programs": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "reduced": {
+    "light": {
+      "ambientBoost": 0,
+      "flash": 0
+    },
+    "difference": {
+      "changed": 0,
+      "mean": 0
+    },
+    "bolt": false
+  },
+  "live": {
+    "state": {
+      "manual": {
+        "lightning": true,
+        "thunderRate": 1
+      },
+      "mode": "live",
+      "active": false,
+      "visualSuppressed": false,
+      "flash": 0,
+      "strikes": 1,
+      "lastStrike": {
+        "number": 1,
+        "elapsed": 0,
+        "close": true,
+        "source": "Manual storm simulation",
+        "position": {
+          "x": 594.837322292615,
+          "y": 0,
+          "z": -1090.5105495825408
+        }
+      },
+      "source": "Manual storm simulation",
+      "sound": {
+        "supported": true,
+        "enabled": true,
+        "unlocked": true,
+        "audible": true,
+        "masterVolume": 0.6,
+        "status": "playing",
+        "error": null
+      }
+    },
+    "triggered": false,
+    "audio": {
+      "supported": true,
+      "initialised": true,
+      "contextState": "running",
+      "enabled": true,
+      "masterVolume": 0.6,
+      "activeThunderSources": 0
+    }
+  },
+  "paused": {
+    "state": {
+      "supported": true,
+      "enabled": true,
+      "unlocked": true,
+      "audible": false,
+      "masterVolume": 0.6,
+      "status": "suspended",
+      "error": null
+    },
+    "audio": {
+      "supported": true,
+      "initialised": true,
+      "contextState": "suspended",
+      "enabled": false,
+      "masterVolume": 0.6,
+      "activeThunderSources": 0
+    }
+  },
+  "disposed": {
+    "context": "closed",
+    "stormPresent": false,
+    "state": {
+      "supported": true,
+      "enabled": false,
+      "unlocked": true,
+      "audible": false,
+      "masterVolume": 0.6,
+      "status": "disposed",
+      "error": null
+    }
+  },
+  "errors": [],
+  "notes": [
+    "Headless Chrome: real Web Audio output measured through a test-only analyser; no sound samples or replacement synthesis.",
+    "Fixture uses WebGLRenderer logarithmicDepthBuffer=true and camera far=100000.",
+    "Visibility/mute/disposal race coverage is in focused Node tests; this fixture checks real suspend/resume and context closure."
+  ]
+}

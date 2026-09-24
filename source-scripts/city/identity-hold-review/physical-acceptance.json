@@ -1,0 +1,147 @@
+{
+  "issue": "HKS-214",
+  "executor": "GPT-6 Astra / landmark_visibility_fix",
+  "status": "approved-native-geometry-subset",
+  "verticalScale": 1,
+  "sourceGeometryEdited": false,
+  "published": false,
+  "scope": "Exact native exterior parts and recorded placement dependencies; not complete landmark/campus, photoreal materials, production deployment, universal route traversal or real-device performance acceptance.",
+  "rows": [
+    {
+      "uid": "landsd/205478:0",
+      "name": "The Masterpiece",
+      "status": "approved-for-integration",
+      "architectureObservation": "Actual upper-tower projection aligns within0.235m; curved tower, crown and annexe retained. Exact source identity, not wholeK11 assembly.",
+      "placementObservation": "All66 low-rim vertices are inside surveyedK11 UID256535 volume(46) or within0.139m of its actual runtime extruded walls(20). Retain K11 surveyed4.5\u201319.6m fallback; zero buried source triangles. No terrain or elevation change.",
+      "facadeObservation": "Residential procedural windows retained; no photoreal glazing claim.",
+      "requiresTerrainPatch": false,
+      "landmarkMembershipApproved": true,
+      "wholeLandmarkAccepted": false,
+      "images": [
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/masterpiece-desktop-after-southwest-1500.jpg",
+          "sha256": "6d6e5063167e9e290e5c71b6d88eb24b7b14bb2e1a82916bd32f73d7b0d26941"
+        },
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/masterpiece-mobile-after-southwest-2200.jpg",
+          "sha256": "3c0540f241b82c166ee39dddd511edb2e05f1f860ffdb3036d0f5fbc680cf6d2"
+        }
+      ],
+      "supportDependencies": [
+        "landsd/256535:0"
+      ]
+    },
+    {
+      "uid": "landsd/297401:0",
+      "name": "Hong Kong West Kowloon Station",
+      "status": "approved-for-integration",
+      "architectureObservation": "Indexed projection covers99.89% of source footprint; curved roof and structural openings visible. Native opaque roof has no invented office windows.",
+      "placementObservation": "Install nativeTIN child.175/186 low-rim points within2m; remaining11 are2\u20132.334m below ground. Full indexed geometry has zero wholly buried faces and zero wholly buried upward faces, so preserve lower foundation contacts. Normal desktop/mobile roof views are clear with neighbouring buildings retained.",
+      "facadeObservation": "proceduralWindows:false; true glazing/roof lighting is not present in non-textured source.",
+      "requiresTerrainPatch": true,
+      "landmarkMembershipApproved": true,
+      "wholeLandmarkAccepted": false,
+      "images": [
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/west-kowloon-station-desktop-after-northeast-1500.jpg",
+          "sha256": "edc823de887eb2b2779fcb653a96cbdc641d6ea3ed849a8698506872f0da7c7a"
+        },
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/west-kowloon-station-mobile-after-northeast-2200.jpg",
+          "sha256": "a39ae7ae52dc955b7a4576b18bef23ea58140e64b5243685e37f479604be6845"
+        }
+      ]
+    },
+    {
+      "uid": "landsd/314191:0",
+      "name": "Hong Kong Airport Terminal1 component",
+      "status": "approved-for-integration",
+      "architectureObservation": "Native ribbed roof is a component ofTerminal1;99.86% footprint coverage. Other terminal components remain fallback.",
+      "placementObservation": "Install nativeTIN child from three retained adjacent source sheets.19/19 rim points within2m. Six wholly buried triangles are three tiny vertical foundation strips only0.1506m tall at5.53\u20136.00mHKPD; zero upward faces or sampled interior roofs are buried. Preserve original geometry rather than lifting terminal.",
+      "facadeObservation": "proceduralWindows:false for opaque roof; no real terminal night illumination claim.",
+      "requiresTerrainPatch": true,
+      "landmarkMembershipApproved": true,
+      "wholeLandmarkAccepted": false,
+      "images": [
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/airport-terminal-1-part-desktop-after-northeast-1500.jpg",
+          "sha256": "6123d8fe487f5ac7bda9cf8fe32f20c8e913315d4069e28044262418ba5d800f"
+        },
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/airport-terminal-1-part-mobile-after-northeast-1500.jpg",
+          "sha256": "7b2e76aa18aa373d0e8164582f5395cec4b03059b7f3380f4d9f5035b8e99bc1"
+        },
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/airport-terminal-1-part-desktop-after-northeast-2200.jpg",
+          "sha256": "42263ce6270223d423229c5864a356229c3b368912a97a2775e513a02bbbddd6"
+        },
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/airport-terminal-1-part-mobile-after-northeast-2200.jpg",
+          "sha256": "df01cabb54faf4dbb251be3c2a9e14048b08eaf7313aec95c36c1936efe7d21c"
+        }
+      ]
+    },
+    {
+      "uid": "landsd/81387:0",
+      "name": "Langham Place Hotel ancillary access",
+      "status": "approved-for-integration",
+      "architectureObservation": "Exact government native ancillary access includes landings, stairs and railings. It is not the main Langham office tower; office-tourist membership remains unapproved.",
+      "placementObservation": "Install nativeTIN child:51/51 rim points within0.153m; original15 wholly buried faces become0, including four upward faces restored. SE desktop/mobile views show landings/railings and street contact. Pedestrian route traversal has not been certified.",
+      "facadeObservation": "proceduralWindows:false for open access structure.",
+      "requiresTerrainPatch": true,
+      "landmarkMembershipApproved": false,
+      "wholeLandmarkAccepted": false,
+      "images": [
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/langham-ancillary-desktop-after-southeast-1500.jpg",
+          "sha256": "b0f85a585048910c8e3be8f4b1ebffed04360deb3602d0a5d90300be84ad1f66"
+        },
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/langham-ancillary-mobile-after-southeast-2200.jpg",
+          "sha256": "474d37cc85fafb1e89c83051a7d1bb3a44a5b271feb963331a483145234463eb"
+        }
+      ]
+    },
+    {
+      "uid": "landsd/93890:0",
+      "name": "Aigburth",
+      "status": "approved-for-integration",
+      "architectureObservation": "Upper tower centroid aligns within0.493m; stepped crown, curved lower volume and tall retaining/substructure walls retained.",
+      "placementObservation": "Install nativeTIN child. Patched30/34 rim points within2m; below-grade hillside vertices retained. Deepest29.864m contact belongs to four native tall wall triangles rising from163.151 to202.183mHKPD; upper wall remains above terrain. Original46 wholly buried faces become0; no upward face or sampled interior roof remains buried. Source foundation has not been flattened or shifted.",
+      "facadeObservation": "Residential procedural windows retained; native exterior geometry only.",
+      "requiresTerrainPatch": true,
+      "landmarkMembershipApproved": true,
+      "wholeLandmarkAccepted": false,
+      "images": [
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/aigburth-desktop-after-northeast-1500.jpg",
+          "sha256": "78b679b9800282bc363098094d8b0ecb1fa7d16e158db588a49e79ae9c60805e"
+        },
+        {
+          "path": "docs/astra-city/identity-hold-review/browser-terrain/aigburth-mobile-after-northeast-2200.jpg",
+          "sha256": "eb285150364b213918c52a592f3bc0e242108c8efef0a52193f6e319ca074b1a"
+        }
+      ]
+    }
+  ],
+  "inputHashes": {
+    "source-scripts/city/identity-hold-review/decisions.json": "1e24163d21f96a96f093e1160a9d86393205ab58472d60ee2a062372e7b5e66e",
+    "source-scripts/city/identity-hold-review/identity-approved/catalogue.json": "d967af9955a523ae095f09cf032dfd4c6d09958e46050bba51416b45b144535e",
+    "docs/astra-city/identity-hold-review/audit.json": "2309a8ddbb9a8a85994d220f4d75ec04828d8048c274265575d5a151266f80c6",
+    "docs/astra-city/identity-hold-review/live-footprints.json": "ddbccacad5f97d5f00e47f3863990c0442d43a5654c2a629ee5003b88097e519",
+    "docs/astra-city/identity-hold-review/cpu-validation.json": "e1e6b78c8629c29bbe714b0a5be0da66b24cdb8cf138117a15628d3babbb15df",
+    "docs/astra-city/identity-hold-review/support.json": "941ab65204f6136f4fb6460e193c726b05bbd12bfe3ed3bafdd21382eb005f6a",
+    "docs/astra-city/identity-hold-review/native-terrain.json": "18b466c6f3abfc8896bd519196411306a13fe865af159c86257bad226d914461",
+    "docs/astra-city/identity-hold-review/support-with-terrain.json": "e50b719e609a63194f4cd5064c857a039e1abb75e4a1941414e7b1a962358492",
+    "docs/astra-city/identity-hold-review/surfaces.json": "4f606520898419d546b4efeb26b2d8203718c3133dd3dbbdace2bf9ce19f76ef",
+    "docs/astra-city/identity-hold-review/terrain-patches.json": "13e14ac2a78b86b04d69a14b791f59c298c350b91a977f01327e5c3d426e6a06",
+    "docs/astra-city/identity-hold-review/browser-terrain/report.json": "f61e965451a0898d42c741c02d2f4d5dc980c6ca47b4898e7e73e325fb58b3f3"
+  },
+  "remainingHolds": [
+    "landsd/142159:0",
+    "landsd/143421:0",
+    "landsd/233905:0",
+    "landsd/235988:0"
+  ],
+  "requiredNextStep": "Root installs source terrain dependencies and model subset together, preserves K11 fallback, then checks actual runtime and neighbouring terrain against guarded parents."
+}

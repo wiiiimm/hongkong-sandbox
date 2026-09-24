@@ -1,0 +1,102 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/whampoa-high/plan.json",
+  "areas": [
+    {
+      "area": "Whampoa Garden Site 8 and Site 12",
+      "models": 11,
+      "catalogue": "city/data/official-models/whampoa-estates-high/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-whampoa-estates.json": null,
+    "3d-viewer/city/data/official-models/whampoa-estates-high/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "1a93339bf2daf658c08fe6e009d86226e71445c82c59fe89d933ed2d2e8af8e7"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-whampoa-estates.json": "63e8e0009f072a83ca9cfa2a4b85903da3a388994864f2e54a285e53f33be55d",
+    "3d-viewer/city/data/official-models/whampoa-estates-high/catalogue.json": "8cf37ac9eee9e1c481a9be35ab84f599cd3c1a806ae2520325d6a82c7d1732ee",
+    "3d-viewer/city/data/manifest.json": "6126f059cb5eaf102d1d1c0bf3c7f2143be664cc1fa497081497ab5ffaac831b"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "7d9794541dd2c8e2d6cd3bf8aa2b256b7fd12b4c",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/terrain-whampoa-ship.json",
+      "sha256": "b0d9759de72ad92a5d91c5bd308e76909a898e79bd8a94682ee6eb4c428abba4",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-whampoa-estates.json",
+      "resolution": 1,
+      "area": "Whampoa ship and estate native ground",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "sources": [
+          {
+            "sheet": "11-NE-21A",
+            "manifest": "source-scripts/city/whampoa-high/local/11-NE-21A/converted/native-terrain/60a8858ad53ed5337fcbd196/manifest.json",
+            "manifestSha256": "17b19167fae43c5690756a17309cd76998c7b0f889fadd33fe3b25c061a96853",
+            "worldBounds": [
+              [
+                3000.0003662109375,
+                -0.4866647720336914,
+                -2700.0028076171875
+              ],
+              [
+                3750.000732421875,
+                21.307915687561035,
+                -2099.9993896484375
+              ]
+            ],
+            "sourceHashes": {
+              "TERRAIN(TB)/T37500186000106E10/T37500186000106E10.gltf": "1ae12e30b7fbde67ef92bbe93b3ced265b36bcfbfd6749e4376fb614d9caf3b5",
+              "TERRAIN(TB)/T37500186000106E10/T37500186000106E10.bin": "cbe57f34f583949c40b2c26550b7083cd38e7996b802ef31793c1a3a25056cdc"
+            }
+          },
+          {
+            "sheet": "11-NE-21C",
+            "manifest": "source-scripts/city/whampoa-high/local/11-NE-21C/converted/native-terrain/b39d6a8712b39ef0dc5c6314/manifest.json",
+            "manifestSha256": "7c1b228fc6df4fbfb4bf470874fa8cdbc3fb8164cc7a445dabf3e0e395c2b537",
+            "worldBounds": [
+              [
+                3000.000732421875,
+                1.1515874862670898,
+                -2100.0018310546875
+              ],
+              [
+                3750.000732421875,
+                8.261239051818848,
+                -1500.0003662109375
+              ]
+            ],
+            "sourceHashes": {
+              "TERRAIN(TB)/T37500180000106E10/T37500180000106E10.gltf": "7aa96cd8d030895c79e7fdb18f1904e36eaca9d295be7a803ea43b409f2c55fc",
+              "TERRAIN(TB)/T37500180000106E10/T37500180000106E10.bin": "fe343e3b319cabbf7f001b4a67f8157fb726550e71ded9765a2a0a92b26824fb"
+            }
+          }
+        ],
+        "policy": "Native TIN at 1m spacing; 10m transition to parent and preserved ship patch. Existing nodes/water/vegetation retained. No building elevation changes."
+      },
+      "sha256": "63e8e0009f072a83ca9cfa2a4b85903da3a388994864f2e54a285e53f33be55d",
+      "bytes": 2727572
+    }
+  ],
+  "estimatedBases": []
+}

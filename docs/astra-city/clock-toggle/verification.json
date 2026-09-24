@@ -1,0 +1,52 @@
+{
+  "testedAt": "2026-09-06T18:35:13.227Z",
+  "checks": [
+    "Native click, Space and Enter switch Live/Manual; Live stops playback, follows current HKT and disables/skips the date; Manual holds time",
+    "Exact time, dial, presets and timelapse all restore Manual and re-enable date; manual date editing still works",
+    "Distant light shimmer lives in Weather and still controls the lighting uniform",
+    "Toggle accepts touch at 320, 390 and 1440 px with a 44 px target, no horizontal overflow and reachable Weather shimmer"
+  ],
+  "layouts": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "button": {
+        "left": 139,
+        "right": 319,
+        "width": 180,
+        "height": 44
+      },
+      "overflow": false
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "button": {
+        "left": 190,
+        "right": 370,
+        "width": 180,
+        "height": 44
+      },
+      "overflow": false
+    },
+    {
+      "viewport": [
+        320,
+        667
+      ],
+      "button": {
+        "left": 124,
+        "right": 304,
+        "width": 180,
+        "height": 44
+      },
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "result": "passed"
+}

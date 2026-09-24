@@ -1,0 +1,62 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-lantau-pui-o-bounded-20260921/plan.json",
+  "areas": [
+    {
+      "area": "Pui O Substation unchanged government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-lantau-pui-o-bounded-20260921/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-pui-o-bounded-20260921.json": null,
+    "3d-viewer/city/data/official-models/government-lantau-pui-o-bounded-20260921/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "3b9bae82c648e82dbac2389bf0dceef3585d143279e5c76a8373d6222b498b4a"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-pui-o-bounded-20260921.json": "4451ceb11c0514a2ad8e74ae4b3a53022c8ae2365eae486b5fe2a1b7ca81c75f",
+    "3d-viewer/city/data/official-models/government-lantau-pui-o-bounded-20260921/catalogue.json": "a381cabfe6432baf6558dd0559621d6a212a9d6dfbede82b8af87335955d9731",
+    "3d-viewer/city/data/manifest.json": "c1265f766908b2755cb0f627f66cd39bc251dbd13a81a7736bc1f2432a802cbc"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "d044fe2488c20b483be74517142a2e37a2dfcc22",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/terrain-pui-o.json",
+      "sha256": "e5efbcb86ae24bdc8a913556667d8f6f1e7a19db936bd71f0caa568735b0cb10",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-pui-o-bounded-20260921.json",
+      "resolution": 5,
+      "area": "Pui O bounded source-preserving regional overlap repair",
+      "source": {
+        "provider": "Lands Department / Hong Kong SAR Government",
+        "url": "https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip",
+        "file": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+        "sha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+        "nativeCellSize": 5,
+        "crs": "EPSG:2326",
+        "verticalDatum": "HKPD",
+        "note": "Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ."
+      },
+      "sha256": "4451ceb11c0514a2ad8e74ae4b3a53022c8ae2365eae486b5fe2a1b7ca81c75f",
+      "bytes": 1681168
+    }
+  ],
+  "estimatedBases": []
+}

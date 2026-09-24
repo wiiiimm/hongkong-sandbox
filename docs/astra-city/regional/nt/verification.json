@@ -1,0 +1,3120 @@
+{
+  "producer": "Codex Astra NT subagent",
+  "schemaVersion": 1,
+  "counts": {
+    "places": 66,
+    "verifiedArrivals": 62,
+    "aerialOnly": 4,
+    "sections": 57,
+    "districts": 8,
+    "surfaces": 801,
+    "surfaceKinds": {
+      "beach": 45,
+      "pitch": 677,
+      "pier": 48,
+      "plaza": 31
+    }
+  },
+  "sources": [
+    {
+      "file": "source-scripts/city/snapshots/hong-kong-boundary.json.gz",
+      "sha256": "17f46b61fe5a3dffbf62a9dd864104e1d08f27cdde2e8648cbd3060f40d05d7c",
+      "timestamp": "2026-09-06T05:49:31Z",
+      "elements": 1
+    },
+    {
+      "file": "source-scripts/city/snapshots/island-east.json.gz",
+      "sha256": "1cff7738fd848bcc73f5b340183f6f4f91868467f03c8ff61632055ae3ff2e93",
+      "timestamp": "2026-09-06T04:57:48Z",
+      "elements": 31607
+    },
+    {
+      "file": "source-scripts/city/snapshots/island-west.json.gz",
+      "sha256": "78bfdb84759c7661517d8e0a5bea7d1cfd868f2fbeb5d36e3e237bac0cff89e5",
+      "timestamp": "2026-09-06T04:58:51Z",
+      "elements": 30711
+    },
+    {
+      "file": "source-scripts/city/snapshots/kowloon.json.gz",
+      "sha256": "d8f5fcad209263fa3d9900553c19e987f55a8e0dbc0ea094f4c0286e0ef7d12c",
+      "timestamp": "2026-09-06T04:58:51Z",
+      "elements": 57861
+    },
+    {
+      "file": "source-scripts/city/snapshots/lantau.json.gz",
+      "sha256": "2a43c12af54c5fec94608c0198c58cdb2f8cae90fe2ede7f46873fa1fa387f1b",
+      "timestamp": "2026-09-06T04:58:51Z",
+      "elements": 17551
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sha256": "b0267ff0443671c43294c7c06066ef4e2fdc496825227c85f0429d6b4f43ee6c",
+      "timestamp": "2026-09-06T05:50:30Z",
+      "elements": 76035
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-north.json.gz",
+      "sha256": "fda2ae9edcb13c92308ee867551bc9bd343786f4d3c9c325664ef7c47442ad08",
+      "timestamp": "2026-09-06T05:50:30Z",
+      "elements": 10068
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "sha256": "d035a238f7147936791dde507e9f1776bb7e96174d7de27e3e2252f2d0260320",
+      "timestamp": "2026-09-06T05:51:35Z",
+      "elements": 5283
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sha256": "3a65d423096acb236f97b4ce815b727654697fd0c6697ccb5cecb7496bb7b8c6",
+      "timestamp": "2026-09-06T05:50:30Z",
+      "elements": 39241
+    },
+    {
+      "file": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sha256": "598bea3a17b9386abbdf5f5652c0f3334b41bffdf6327b4d82996c1c9971bce5",
+      "timestamp": "2026-09-06T05:52:30Z",
+      "elements": 43359
+    },
+    {
+      "file": "source-scripts/city/snapshots/outlying-south.json.gz",
+      "sha256": "74ed36ae60b5d66a16c9bd39a29ef7c1c753a6b8d553b353d0ee8b8316122663",
+      "timestamp": "2026-09-06T05:51:35Z",
+      "elements": 15007
+    },
+    {
+      "file": "source-scripts/city/snapshots/outlying-west.json.gz",
+      "sha256": "f648dd46291480f2f9efd113f0d52e40b5b49793ca68846ea78c013028dcd5ff",
+      "timestamp": "2026-09-06T05:51:35Z",
+      "elements": 15350
+    },
+    {
+      "file": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sha256": "d606c8f8bafe893333da63d6a2e1e614d9db14329580844c3ff0e280f510af42",
+      "timestamp": "2026-09-06T05:52:30Z",
+      "elements": 22977
+    },
+    {
+      "file": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sha256": "07416109d0f359230d71edf238d5de8988020f3c635681229bebb198c7628ca1",
+      "timestamp": "2026-09-06T06:55:36Z",
+      "elements": 6753
+    }
+  ],
+  "arrivalChecks": [
+    {
+      "id": "nt-tsuen-wan-park",
+      "sectionId": "11.1",
+      "source": "way/755626377",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "area": "no",
+        "highway": "footway",
+        "leisure": "track",
+        "lit": "yes",
+        "name": "荃灣公園緩跑徑 Tsuen Wan Park Jogging Track",
+        "name:en": "Tsuen Wan Park Jogging Track",
+        "name:zh": "荃灣公園緩跑徑",
+        "surface": "asphalt",
+        "width": "2"
+      },
+      "featureWorld": [
+        -4924.5,
+        -8716.9
+      ],
+      "arrivalSource": "way/755626377",
+      "arrivalWorld": [
+        -4924.5,
+        -8716.9
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 4.97,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "area": "no",
+          "highway": "footway",
+          "leisure": "track",
+          "lit": "yes",
+          "name": "荃灣公園緩跑徑 Tsuen Wan Park Jogging Track",
+          "name:en": "Tsuen Wan Park Jogging Track",
+          "name:zh": "荃灣公園緩跑徑",
+          "surface": "asphalt",
+          "width": "2"
+        }
+      }
+    },
+    {
+      "id": "nt-tsuen-king",
+      "sectionId": "11.2",
+      "source": "way/96197169",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "addr:housenumber": "38",
+        "addr:street": "美環街 Mei Wan Street",
+        "building": "yes",
+        "layer": "1",
+        "leisure": "sports_centre",
+        "name": "荃景圍體育館 Tsuen King Circuit Sports Centre",
+        "name:en": "Tsuen King Circuit Sports Centre",
+        "name:zh": "荃景圍體育館",
+        "wikidata": "Q15912051",
+        "wikimedia_commons": "Category:Tsuen King Circuit Sports Centre",
+        "wikipedia": "zh:荃景圍體育館"
+      },
+      "featureWorld": [
+        -4969.7,
+        -9968.7
+      ],
+      "arrivalSource": "way/1205704231",
+      "arrivalWorld": [
+        -4956.6,
+        -9980.1
+      ],
+      "offsetMetres": 17.4,
+      "terrainY": 12.2,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway",
+          "surface": "paving_stones"
+        }
+      }
+    },
+    {
+      "id": "nt-sham-tseng",
+      "sectionId": "11.3",
+      "source": "way/334676185",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "深井遊樂場 Sham Tseng Playground",
+        "name:en": "Sham Tseng Playground",
+        "name:zh": "深井遊樂場",
+        "not:leisure": "playground",
+        "wikidata": "Q63443420"
+      },
+      "featureWorld": [
+        -10433.5,
+        -8906.7
+      ],
+      "arrivalSource": "way/334676192",
+      "arrivalWorld": [
+        -10421.6,
+        -8914.0
+      ],
+      "offsetMetres": 13.9,
+      "terrainY": 9.9,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-tai-mo-shan-visitor",
+      "sectionId": "11.4",
+      "source": "way/300687210",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "building": "yes",
+        "name": "大帽山郊野公園遊客中心 Tai Mo Shan Country Park Visitor Centre",
+        "name:en": "Tai Mo Shan Country Park Visitor Centre",
+        "name:zh": "大帽山郊野公園遊客中心"
+      },
+      "featureWorld": [
+        -5469.9,
+        -13123.4
+      ],
+      "arrivalSource": "way/1016993753",
+      "arrivalWorld": [
+        -5482.3,
+        -13116.4
+      ],
+      "offsetMetres": 14.3,
+      "terrainY": 500.1,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-ma-wan-park",
+      "sectionId": "11.5",
+      "source": "way/69717322",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "馬灣公園 Ma Wan Park",
+        "name:en": "Ma Wan Park",
+        "name:zh": "馬灣公園",
+        "ownership": "private",
+        "wikidata": "Q3273471",
+        "wikimedia_commons": "Category:Ma Wan Park",
+        "wikipedia": "en:Ma Wan Park"
+      },
+      "featureWorld": [
+        -10435.1,
+        -6814.5
+      ],
+      "arrivalSource": "way/351090911",
+      "arrivalWorld": [
+        -10450.6,
+        -6789.4
+      ],
+      "offsetMetres": 29.5,
+      "terrainY": 18.29,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-central-kwai-chung",
+      "sectionId": "12.1",
+      "source": "way/199756565",
+      "sourceFile": "source-scripts/city/snapshots/kowloon.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "中葵涌公園 Central Kwai Chung Park",
+        "name:en": "Central Kwai Chung Park",
+        "name:zh": "中葵涌公園",
+        "name:zh-Hans": "中葵涌公園",
+        "name:zh-Hant": "中葵涌公園",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署",
+        "wikidata": "Q10876600",
+        "wikimedia_commons": "Category:Central Kwai Chung Park",
+        "wikipedia": "zh:中葵涌公園"
+      },
+      "featureWorld": [
+        -2773.7,
+        -7601.7
+      ],
+      "arrivalSource": "way/755122692",
+      "arrivalWorld": [
+        -2762.1,
+        -7589.1
+      ],
+      "offsetMetres": 17.1,
+      "terrainY": 67.32,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-lai-king-hill",
+      "sectionId": "12.2",
+      "source": "way/199625316",
+      "sourceFile": "source-scripts/city/snapshots/kowloon.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "荔景山路遊樂場 Lai King Hill Road Playground",
+        "name:en": "Lai King Hill Road Playground",
+        "name:zh": "荔景山路遊樂場",
+        "wikidata": "Q63438696"
+      },
+      "featureWorld": [
+        -3300.2,
+        -6484.9
+      ],
+      "arrivalSource": "way/754858052",
+      "arrivalWorld": [
+        -3300.2,
+        -6491.5
+      ],
+      "offsetMetres": 6.6,
+      "terrainY": 51.38,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-kwai-tsing-port",
+      "sectionId": "12.3",
+      "source": "relation/10507292",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "cargo": "container",
+        "industrial": "port",
+        "landuse": "industrial",
+        "name": "葵青貨櫃碼頭 Kwai Tsing Container Terminals",
+        "name:en": "Kwai Tsing Container Terminals",
+        "name:zh": "葵青貨櫃碼頭",
+        "ownership": "government",
+        "port": "cargo",
+        "ref:LOCODE": "HKHKG",
+        "type": "multipolygon",
+        "wikidata": "Q3531754",
+        "wikipedia": "en:Kwai Tsing Container Terminals"
+      },
+      "featureWorld": [
+        -3966.4,
+        -5479.7
+      ],
+      "aerialOnly": true,
+      "reason": "Aerial overview only; operational container terminals are not public walking destinations."
+    },
+    {
+      "id": "nt-tsing-yi-promenade",
+      "sectionId": "12.4",
+      "source": "way/135158476",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "bicycle": "no",
+        "highway": "pedestrian",
+        "kerb:both": "no",
+        "lane_markings": "no",
+        "lanes": "1",
+        "lanes:marked": "1",
+        "lanes:unmarked": "1",
+        "name": "青衣海濱長廊 Tsing Yi Promenade",
+        "name:en": "Tsing Yi Promenade",
+        "name:zh": "青衣海濱長廊",
+        "name:zh-Hans": "青衣海滨长廊",
+        "name:zh-Hant": "青衣海濱長廊",
+        "not:highway": "footway",
+        "oneway": "no",
+        "passing_places": "yes",
+        "sidewalk": "no",
+        "surface": "concrete:lanes"
+      },
+      "featureWorld": [
+        -5592.9,
+        -8388.1
+      ],
+      "arrivalSource": "way/1332801724",
+      "arrivalWorld": [
+        -5637.5,
+        -8353.6
+      ],
+      "offsetMetres": 56.4,
+      "terrainY": 4.48,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-tsing-yi-southwest",
+      "sectionId": "12.5",
+      "source": "way/487423997",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "addr:city": "青衣 Tsing Yi",
+        "addr:housenumber": "70",
+        "addr:street": "涌美路 Chung Mei Road",
+        "building": "civic",
+        "leisure": "sports_centre",
+        "name": "青衣西南康體大樓 Tsing Yi Southwest Leisure Building",
+        "name:en": "Tsing Yi Southwest Leisure Building",
+        "name:zh": "青衣西南康體大樓",
+        "sport": "multi",
+        "wikidata": "Q48889991",
+        "wikipedia": "zh:青衣西南康體大樓"
+      },
+      "featureWorld": [
+        -5934.6,
+        -7097.2
+      ],
+      "arrivalSource": "way/685084541",
+      "arrivalWorld": [
+        -5906.7,
+        -7073.3
+      ],
+      "offsetMetres": 36.8,
+      "terrainY": 41.37,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-lantau-link-view",
+      "sectionId": "12.6",
+      "source": "way/158307216",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "青嶼幹線觀景台",
+        "name:en": "Lantau Link Viewing Platform",
+        "name:zh": "青嶼幹線觀景台"
+      },
+      "featureWorld": [
+        -8108.2,
+        -7861.8
+      ],
+      "arrivalSource": "way/903452946",
+      "arrivalWorld": [
+        -8107.3,
+        -7866.5
+      ],
+      "offsetMetres": 4.8,
+      "terrainY": 59.33,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "pedestrian"
+        }
+      }
+    },
+    {
+      "id": "nt-tai-wai-che-kung",
+      "sectionId": "13.1",
+      "source": "way/138461154",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "車公廟路遊樂場 Che Kung Miu Road Playground",
+        "name:en": "Che Kung Miu Road Playground",
+        "name:zh": "車公廟路遊樂場",
+        "name:zh-Hans": "车公庙路游乐场",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署"
+      },
+      "featureWorld": [
+        1726.1,
+        -9041.7
+      ],
+      "arrivalSource": "way/261065286",
+      "arrivalWorld": [
+        1735.9,
+        -9042.6
+      ],
+      "offsetMetres": 9.9,
+      "terrainY": 15.95,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-sha-tin-park",
+      "sectionId": "13.2",
+      "source": "way/32559006",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "沙田公園 Sha Tin Park",
+        "name:en": "Sha Tin Park",
+        "name:zh": "沙田公園",
+        "name:zh-Hans": "沙田公园",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署",
+        "wikidata": "Q7459877",
+        "wikimedia_commons": "Category:Sha Tin Park",
+        "wikipedia": "en:Sha Tin Park"
+      },
+      "featureWorld": [
+        3095.2,
+        -10214.9
+      ],
+      "arrivalSource": "way/258923617",
+      "arrivalWorld": [
+        3093.9,
+        -10213.4
+      ],
+      "offsetMetres": 2.0,
+      "terrainY": 6.41,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-fo-tan-racecourse",
+      "sectionId": "13.3",
+      "source": "way/163970357",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "dog": "yes",
+        "leisure": "park",
+        "name": "彭福公園 Penfold Park",
+        "name:en": "Penfold Park",
+        "name:zh": "彭福公園",
+        "opening_hours": "Mo-Su 09:00-18:30",
+        "operator": "香港賽馬會 Hong Kong Jockey Club",
+        "wikidata": "Q7162659",
+        "wikimedia_commons": "Category:Penfold Park",
+        "wikipedia": "en:Penfold Park"
+      },
+      "featureWorld": [
+        4843.4,
+        -12414.1
+      ],
+      "arrivalSource": "way/179092824",
+      "arrivalWorld": [
+        4844.1,
+        -12413.7
+      ],
+      "offsetMetres": 0.8,
+      "terrainY": 5.42,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-shek-mun-riverside",
+      "sectionId": "13.4",
+      "source": "way/722719221",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "石門河濱花園 Shek Mun Riverside Garden",
+        "name:en": "Shek Mun Riverside Garden",
+        "name:zh": "石門河濱花園",
+        "wikidata": "Q139249415"
+      },
+      "featureWorld": [
+        5099.4,
+        -10840.0
+      ],
+      "arrivalSource": "way/808469954",
+      "arrivalWorld": [
+        5099.8,
+        -10841.1
+      ],
+      "offsetMetres": 1.1,
+      "terrainY": 2.84,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-wu-kai-sha-village",
+      "sectionId": "13.5",
+      "source": "way/377259846",
+      "sourceFile": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "烏溪沙村第一巷Wu Kai Sha Village First Lane",
+        "name:en": "Wu Kai Sha Village First Lane",
+        "name:zh": "烏溪沙村第一巷"
+      },
+      "featureWorld": [
+        8145.0,
+        -15569.2
+      ],
+      "arrivalSource": "way/377259846",
+      "arrivalWorld": [
+        8141.4,
+        -15565.8
+      ],
+      "offsetMetres": 5.0,
+      "terrainY": 16.73,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "烏溪沙村第一巷Wu Kai Sha Village First Lane",
+          "name:en": "Wu Kai Sha Village First Lane",
+          "name:zh": "烏溪沙村第一巷"
+        }
+      }
+    },
+    {
+      "id": "nt-ma-liu-shui-pier",
+      "sectionId": "13.6",
+      "source": "way/709245126",
+      "sourceFile": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sourceTags": {
+        "access": "yes",
+        "area": "yes",
+        "building": "roof",
+        "building:levels": "1",
+        "covered": "yes",
+        "man_made": "pier",
+        "name": "馬料水渡輪碼頭 Ma Liu Shui Ferry Pier",
+        "name:en": "Ma Liu Shui Ferry Pier",
+        "name:zh": "馬料水渡輪碼頭",
+        "ownership": "government",
+        "pier": "piled",
+        "pier:ref": "NP141",
+        "ref": "NP141",
+        "seamark:name": "Ma Liu Shui Ferry Pier",
+        "seamark:national_name": "馬料水渡輪碼頭",
+        "seamark:shoreline_construction:category": "pier",
+        "seamark:type": "shoreline_construction",
+        "station": "ferry",
+        "station:noref": "yes"
+      },
+      "featureWorld": [
+        5632.9,
+        -14372.4
+      ],
+      "arrivalSource": "way/386427048",
+      "arrivalWorld": [
+        5618.7,
+        -14377.2
+      ],
+      "offsetMetres": 15.0,
+      "terrainY": 4.36,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "access": "yes",
+          "bridge": "pier",
+          "covered": "yes",
+          "footway": "platform",
+          "highway": "footway",
+          "layer": "0"
+        }
+      }
+    },
+    {
+      "id": "nt-shing-mun-lead-mine",
+      "sectionId": "13.7",
+      "source": "way/271203780",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "bicycle": "no",
+        "highway": "track",
+        "lane_markings": "no",
+        "lanes": "1",
+        "lanes:unmarked": "1",
+        "motor_vehicle": "private",
+        "name": "城門林道－鉛礦坳段 Shing Mun Forest Track – Lead Mine Pass Section",
+        "name:en": "Shing Mun Forest Track – Lead Mine Pass Section",
+        "name:zh": "城門林道－鉛礦坳段",
+        "oneway": "no",
+        "ownership": "government",
+        "passing_places": "yes",
+        "sidewalk": "no",
+        "surface": "paved",
+        "tracktype": "grade1"
+      },
+      "featureWorld": [
+        -855.3,
+        -12150.0
+      ],
+      "arrivalSource": "way/94329305",
+      "arrivalWorld": [
+        -857.7,
+        -12152.6
+      ],
+      "offsetMetres": 3.5,
+      "terrainY": 208.56,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "bicycle": "no",
+          "foot:conditional": "no @ (bicycle)",
+          "highway": "footway",
+          "informal": "yes",
+          "name": "四城林徑",
+          "surface": "unpaved",
+          "zone:access": "HK:national_park"
+        }
+      }
+    },
+    {
+      "id": "nt-tai-po-market-garden",
+      "sectionId": "14.1",
+      "source": "way/189410346",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "大埔墟休憩花園 Tai Po Market Rest Garden",
+        "name:en": "Tai Po Market Rest Garden",
+        "name:zh": "大埔墟休憩花園",
+        "wikidata": "Q139197210"
+      },
+      "featureWorld": [
+        577.3,
+        -17852.1
+      ],
+      "arrivalSource": "way/605895922",
+      "arrivalWorld": [
+        577.1,
+        -17852.1
+      ],
+      "offsetMetres": 0.2,
+      "terrainY": 5.36,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-tai-po-waterfront",
+      "sectionId": "14.2",
+      "source": "way/111577520",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "importance": "national",
+        "leisure": "park",
+        "name": "大埔海濱公園 Tai Po Waterfront Park",
+        "name:en": "Tai Po Waterfront Park",
+        "name:yue": "大埔海濱公園",
+        "name:zh": "大埔海濱公園",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署",
+        "park:area": "regional",
+        "park:shape": "linear",
+        "survey:date": "2019-03-03",
+        "wikidata": "Q7675822",
+        "wikimedia_commons": "Category:Tai Po Waterfront Park",
+        "wikipedia": "en:Tai Po Waterfront Park"
+      },
+      "featureWorld": [
+        3118.7,
+        -18237.1
+      ],
+      "arrivalSource": "way/611146815",
+      "arrivalWorld": [
+        3136.9,
+        -18233.2
+      ],
+      "offsetMetres": 18.6,
+      "terrainY": 6.63,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-science-park-waterfront",
+      "sectionId": "14.3",
+      "source": "relation/12638453",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "addr:housename": "香港科學園 Hong Kong Science Park",
+        "addr:housename:en": "Hong Kong Science Park",
+        "addr:housename:zh": "香港科學園",
+        "addr:suburb": "白石角 Pak Shek Kok",
+        "addr:suburb:en": "Pak Shek Kok",
+        "addr:suburb:zh": "白石角",
+        "landuse": "commercial",
+        "name": "香港科學園 Hong Kong Science Park",
+        "name:en": "Hong Kong Science Park",
+        "name:zh": "香港科學園",
+        "name:zh-Hans": "香港科学园",
+        "name:zh-Hant": "香港科學園",
+        "operation": "private",
+        "operator:ownership": "private",
+        "ownership": "public",
+        "type": "multipolygon",
+        "wikidata": "Q839210",
+        "wikipedia": "zh:香港科學園"
+      },
+      "featureWorld": [
+        5301.2,
+        -15384.1
+      ],
+      "arrivalSource": "way/709071770",
+      "arrivalWorld": [
+        5297.0,
+        -15378.3
+      ],
+      "offsetMetres": 7.2,
+      "terrainY": 7.91,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-lam-tsuen-square",
+      "sectionId": "14.4",
+      "source": "way/147224415",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "林村許願廣場 Lam Tsuen Wishing Square",
+        "name:en": "Lam Tsuen Wishing Square",
+        "name:zh": "林村許願廣場"
+      },
+      "featureWorld": [
+        -1757.0,
+        -18743.5
+      ],
+      "arrivalSource": "way/766680983",
+      "arrivalWorld": [
+        -1745.9,
+        -18709.3
+      ],
+      "offsetMetres": 36.0,
+      "terrainY": 39.19,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-tai-mei-tuk-trail",
+      "sectionId": "14.5",
+      "source": "way/308478793",
+      "sourceFile": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "大尾篤家樂徑 Tai Mei Tuk Family Walk",
+        "name:en": "Tai Mei Tuk Family Walk",
+        "name:zh": "大尾篤家樂徑"
+      },
+      "featureWorld": [
+        7659.9,
+        -20102.4
+      ],
+      "arrivalSource": "way/308478793",
+      "arrivalWorld": [
+        7659.9,
+        -20102.4
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 31.89,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "大尾篤家樂徑 Tai Mei Tuk Family Walk",
+          "name:en": "Tai Mei Tuk Family Walk",
+          "name:zh": "大尾篤家樂徑"
+        }
+      }
+    },
+    {
+      "id": "nt-ma-shi-chau-trail",
+      "sectionId": "14.6",
+      "source": "way/134846907",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "馬屎洲自然教育徑 Ma Shi Chau Nature Trail",
+        "surface": "paved"
+      },
+      "featureWorld": [
+        7158.8,
+        -18095.8
+      ],
+      "arrivalSource": "way/134846907",
+      "arrivalWorld": [
+        7171.9,
+        -18103.0
+      ],
+      "offsetMetres": 15.0,
+      "terrainY": 8.8,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "馬屎洲自然教育徑 Ma Shi Chau Nature Trail",
+          "surface": "paved"
+        }
+      }
+    },
+    {
+      "id": "nt-wong-shek-trail",
+      "sectionId": "14.7",
+      "source": "way/423067599",
+      "sourceFile": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "黃石家樂徑 Wong Shek Family Walk",
+        "name:en": "Wong Shek Family Walk",
+        "name:zh": "黃石家樂徑",
+        "trail_visibility": "excellent"
+      },
+      "featureWorld": [
+        18158.7,
+        -15956.8
+      ],
+      "arrivalSource": "way/423067599",
+      "arrivalWorld": [
+        18158.7,
+        -15956.8
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 39.75,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "黃石家樂徑 Wong Shek Family Walk",
+          "name:en": "Wong Shek Family Walk",
+          "name:zh": "黃石家樂徑",
+          "trail_visibility": "excellent"
+        }
+      }
+    },
+    {
+      "id": "nt-tko-waterfront-park",
+      "sectionId": "15.1",
+      "source": "way/311764682",
+      "sourceFile": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sourceTags": {
+        "dog_park": "separate",
+        "importance": "regional",
+        "leisure": "park",
+        "name": "將軍澳海濱公園 Tseung Kwan O Waterfront Park",
+        "name:en": "Tseung Kwan O Waterfront Park",
+        "name:zh": "將軍澳海濱公園",
+        "name:zh-Hans": "将军澳海滨公园",
+        "name:zh-Hant": "將軍澳海濱公園",
+        "park:area": "town",
+        "park:shape": "linear",
+        "toilets": "separate"
+      },
+      "featureWorld": [
+        10753.8,
+        -1743.2
+      ],
+      "arrivalSource": "way/566013427",
+      "arrivalWorld": [
+        10748.0,
+        -1746.2
+      ],
+      "offsetMetres": 6.6,
+      "terrainY": 4.95,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-po-lam-garden",
+      "sectionId": "15.2",
+      "source": "way/657755936",
+      "sourceFile": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "寶琳休憩處 Po Lam Sitting-Out Area",
+        "name:en": "Po Lam Sitting-Out Area",
+        "name:zh": "寶琳休憩處",
+        "wikidata": "Q63430448"
+      },
+      "featureWorld": [
+        9716.0,
+        -4414.6
+      ],
+      "arrivalSource": "way/859104263",
+      "arrivalWorld": [
+        9721.4,
+        -4395.4
+      ],
+      "offsetMetres": 19.9,
+      "terrainY": 10.75,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway",
+          "name": "寶琳北路 Po Lam Road North",
+          "name:en": "Po Lam Road North",
+          "name:zh": "寶琳北路"
+        }
+      }
+    },
+    {
+      "id": "nt-lohas-road-garden",
+      "sectionId": "15.3",
+      "source": "way/1443435540",
+      "sourceFile": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sourceTags": {
+        "addr:city": "將軍澳 Tseung Kwan O",
+        "leisure": "park",
+        "name": "康城路休憩處 Lohas Park Road Sitting-out Area",
+        "name:en": "Lohas Park Road Sitting-out Area",
+        "name:zh": "康城路休憩處",
+        "not:operator:wikidata": "Q2353346",
+        "operator": "康樂及文化事務署",
+        "operator:type": "government",
+        "wikidata": "Q138664670"
+      },
+      "featureWorld": [
+        10756.0,
+        -1220.4
+      ],
+      "arrivalSource": "way/765942656",
+      "arrivalWorld": [
+        10762.2,
+        -1225.7
+      ],
+      "offsetMetres": 8.1,
+      "terrainY": 4.8,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "pedestrian",
+          "kerb:both": "no",
+          "lane_markings": "no",
+          "lanes": "1",
+          "lanes:unmarked": "1",
+          "noname": "yes",
+          "oneway": "no",
+          "passing_places": "yes",
+          "service": "park",
+          "sidewalk": "no"
+        }
+      }
+    },
+    {
+      "id": "nt-sai-kung-waterfront",
+      "sectionId": "15.4",
+      "source": "way/266586309",
+      "sourceFile": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "西貢海濱公園 Sai Kung Waterfront Park",
+        "name:en": "Sai Kung Waterfront Park",
+        "name:zh": "西貢海濱公園",
+        "wikidata": "Q16868531",
+        "wikimedia_commons": "Category:Sai Kung Waterfront Park",
+        "wikipedia": "zh:西貢海濱公園"
+      },
+      "featureWorld": [
+        11811.2,
+        -10514.4
+      ],
+      "arrivalSource": "way/514855094",
+      "arrivalWorld": [
+        11810.8,
+        -10514.7
+      ],
+      "offsetMetres": 0.5,
+      "terrainY": 5.11,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-clear-water-bay-trail",
+      "sectionId": "15.5",
+      "source": "way/809421241",
+      "sourceFile": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "清水灣樹木研習徑 Clear Water Bay Tree Walk",
+        "name:en": "Clear Water Bay Tree Walk",
+        "name:zh": "清水灣樹木研習徑"
+      },
+      "featureWorld": [
+        14702.1,
+        -250.0
+      ],
+      "arrivalSource": "way/809421241",
+      "arrivalWorld": [
+        14702.1,
+        -250.0
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 60.82,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "清水灣樹木研習徑 Clear Water Bay Tree Walk",
+          "name:en": "Clear Water Bay Tree Walk",
+          "name:zh": "清水灣樹木研習徑"
+        }
+      }
+    },
+    {
+      "id": "nt-pak-tam-chung-trail",
+      "sectionId": "15.6",
+      "source": "way/103002865",
+      "sourceFile": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "北潭涌自然教育徑 Pak Tam Chung Nature Trail",
+        "name:en": "Pak Tam Chung Nature Trail",
+        "name:yue": "北潭涌自然教育徑",
+        "name:zh": "北潭涌自然教育徑"
+      },
+      "featureWorld": [
+        16689.6,
+        -11963.3
+      ],
+      "arrivalSource": "way/103002865",
+      "arrivalWorld": [
+        16689.6,
+        -11963.3
+      ],
+      "offsetMetres": 0.1,
+      "terrainY": 21.18,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "北潭涌自然教育徑 Pak Tam Chung Nature Trail",
+          "name:en": "Pak Tam Chung Nature Trail",
+          "name:yue": "北潭涌自然教育徑",
+          "name:zh": "北潭涌自然教育徑"
+        }
+      }
+    },
+    {
+      "id": "nt-ham-tin-beach",
+      "sectionId": "15.7",
+      "source": "way/245413792",
+      "sourceFile": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sourceTags": {
+        "alt_name:zh": "咸田灣",
+        "name": "鹹田灣 Ham Tin Wan",
+        "name:en": "Ham Tin Wan",
+        "name:zh": "鹹田灣",
+        "natural": "beach",
+        "surface": "sand"
+      },
+      "featureWorld": [
+        22208.8,
+        -13503.6
+      ],
+      "arrivalSource": "way/390178989",
+      "arrivalWorld": [
+        22207.1,
+        -13506.3
+      ],
+      "offsetMetres": 3.2,
+      "terrainY": 3.91,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "path"
+        }
+      }
+    },
+    {
+      "id": "nt-sharp-island-trail",
+      "sectionId": "15.8",
+      "source": "way/282307137",
+      "sourceFile": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "橋咀洲地質步道 Sharp Island Geo Trail",
+        "name:en": "Sharp Island Geo Trail",
+        "name:zh": "橋咀洲地質步道"
+      },
+      "featureWorld": [
+        13234.3,
+        -8806.6
+      ],
+      "arrivalSource": "way/282307137",
+      "arrivalWorld": [
+        13234.3,
+        -8806.6
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 4.18,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "橋咀洲地質步道 Sharp Island Geo Trail",
+          "name:en": "Sharp Island Geo Trail",
+          "name:zh": "橋咀洲地質步道"
+        }
+      }
+    },
+    {
+      "id": "nt-tung-lung-pier",
+      "sectionId": "15.9",
+      "source": "way/102303670",
+      "sourceFile": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sourceTags": {
+        "area": "yes",
+        "man_made": "pier",
+        "name": "東龍洲公眾碼頭 Tung Lung Chau Public Pier",
+        "name:en": "Tung Lung Chau Public Pier",
+        "name:zh": "東龍洲公眾碼頭",
+        "name:zh-Hans": "东龙洲公众码头",
+        "name:zh-Hant": "東龍洲公眾碼頭"
+      },
+      "featureWorld": [
+        13322.6,
+        3625.5
+      ],
+      "arrivalSource": "way/386427055",
+      "arrivalWorld": [
+        13322.6,
+        3625.4
+      ],
+      "offsetMetres": 0.1,
+      "terrainY": 6.1,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-tuen-mun-park",
+      "sectionId": "16.1",
+      "source": "way/55444337",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "importance": "regional",
+        "leisure": "park",
+        "name": "屯門公園 Tuen Mun Park",
+        "name:en": "Tuen Mun Park",
+        "name:zh": "屯門公園",
+        "name:zh-Hans": "屯门公园",
+        "name:zh-Hant": "屯門公園",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署",
+        "park:area": "town",
+        "wikidata": "Q7851392",
+        "wikimedia_commons": "Category:Tuen Mun Park",
+        "wikipedia": "en:Tuen Mun Park"
+      },
+      "featureWorld": [
+        -19158.5,
+        -11549.8
+      ],
+      "arrivalSource": "way/516188611",
+      "arrivalWorld": [
+        -19158.0,
+        -11549.2
+      ],
+      "offsetMetres": 0.8,
+      "terrainY": 8.76,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-siu-hong",
+      "sectionId": "16.2",
+      "source": "way/41178206",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "building": "train_station",
+        "layer": "3",
+        "name": "兆康 Siu Hong",
+        "name:en": "Siu Hong",
+        "name:zh": "兆康",
+        "name:zh-Hans": "兆康",
+        "name:zh-Hant": "兆康",
+        "network": "MTR",
+        "operator": "香港鐵路有限公司 MTR Corporation Limited",
+        "operator:en": "MTR Corporation Limited",
+        "operator:loc_name": "港鐵公司 MTR Corporation",
+        "operator:loc_name:en": "MTR Corporation",
+        "operator:loc_name:zh": "港鐵公司",
+        "operator:ref": "MTR",
+        "operator:short": "港鐵 MTRCL",
+        "operator:short:en": "MTRCL",
+        "operator:short:zh": "港鐵",
+        "operator:short_name": "港鐵 MTRCL",
+        "operator:short_name:en": "MTRCL",
+        "operator:short_name:zh": "港鐵",
+        "operator:wikidata": "Q1479375",
+        "operator:zh": "香港鐵路有限公司",
+        "operator:zh-Hans": "香港铁路有限公司",
+        "operator:zh-Hant": "香港鐵路有限公司",
+        "platforms": "2",
+        "public_transport": "station",
+        "railway": "station",
+        "ref": "SIH",
+        "start_date": "2003-12-20",
+        "station": "subway",
+        "subway": "yes",
+        "wheelchair": "yes",
+        "wikidata": "Q996814",
+        "wikipedia": "zh:兆康站 (西鐵綫)"
+      },
+      "featureWorld": [
+        -18634.7,
+        -13804.2
+      ],
+      "arrivalSource": "way/1531244092",
+      "arrivalWorld": [
+        -18638.2,
+        -13848.0
+      ],
+      "offsetMetres": 44.0,
+      "terrainY": 8.5,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-butterfly-beach-park",
+      "sectionId": "16.3",
+      "source": "way/148190099",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "蝴蝶灣公園 Butterfly Beach Park",
+        "name:en": "Butterfly Beach Park",
+        "name:zh": "蝴蝶灣公園",
+        "name:zh-Hans": "蝴蝶湾公园",
+        "name:zh-Hant": "蝴蝶灣公園",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署",
+        "wikidata": "Q16868527",
+        "wikimedia_commons": "Category:Butterfly Beach Park",
+        "wikipedia": "zh:蝴蝶灣公園"
+      },
+      "featureWorld": [
+        -20784.5,
+        -9591.0
+      ],
+      "arrivalSource": "way/257587901",
+      "arrivalWorld": [
+        -20787.3,
+        -9595.4
+      ],
+      "offsetMetres": 5.2,
+      "terrainY": 5.65,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-golden-beach",
+      "sectionId": "16.4",
+      "source": "way/439181304",
+      "sourceFile": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sourceTags": {
+        "name": "黃金泳灘 Golden Beach",
+        "name:en": "Golden Beach",
+        "name:zh": "黃金泳灘",
+        "name:zh-Hans": "黄金泳滩",
+        "name:zh-Hant": "黃金泳灘",
+        "natural": "beach",
+        "surface": "sand",
+        "wikidata": "Q5579194",
+        "wikimedia_commons": "Category:Golden Beach, Hong Kong",
+        "wikipedia": "en:Golden Beach (Hong Kong)"
+      },
+      "featureWorld": [
+        -17632.6,
+        -9299.2
+      ],
+      "arrivalSource": "way/100403716",
+      "arrivalWorld": [
+        -17594.2,
+        -9299.4
+      ],
+      "offsetMetres": 38.4,
+      "terrainY": 5.67,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "access": "yes",
+          "bicycle": "dismount",
+          "highway": "footway",
+          "name": "Dolphin Walk",
+          "name:en": "Dolphin Walk",
+          "surface": "paving_stones",
+          "width": "5"
+        }
+      }
+    },
+    {
+      "id": "nt-lung-kwu-tan-lookout",
+      "sectionId": "16.5",
+      "source": "node/1485618943",
+      "sourceFile": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sourceTags": {
+        "addr:street": "龍鼓灘路 Lung Kwu Tan Road",
+        "name": "龍鼓灘中華白海豚瞭望台 Lung Kwu Tan Chinese White Dolphin Lookout",
+        "name:en": "Lung Kwu Tan Chinese White Dolphin Lookout",
+        "name:zh": "龍鼓灘中華白海豚瞭望台",
+        "tourism": "viewpoint"
+      },
+      "featureWorld": [
+        -24897.2,
+        -11709.0
+      ],
+      "arrivalSource": "way/120521501",
+      "arrivalWorld": [
+        -24896.1,
+        -11709.3
+      ],
+      "offsetMetres": 1.1,
+      "terrainY": 46.79,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-lung-kwu-chau",
+      "sectionId": "16.6",
+      "source": "way/174627731",
+      "sourceFile": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sourceTags": {
+        "area": "yes",
+        "man_made": "pier",
+        "name": "龍鼓洲渡頭 Lung Kwu Chau Pier",
+        "name:en": "Lung Kwu Chau Pier",
+        "name:zh": "龍鼓洲渡頭"
+      },
+      "featureWorld": [
+        -28343.3,
+        -9878.4
+      ],
+      "aerialOnly": true,
+      "reason": "Aerial overview only; no verified public arrival or scheduled public transport is provided for this marine-park island."
+    },
+    {
+      "id": "nt-tsang-tsui",
+      "sectionId": "16.7",
+      "source": "way/691588854",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "highway": "residential",
+        "layer": "1",
+        "name": "曾嘴路 Tsang Tsui Road",
+        "name:en": "Tsang Tsui Road",
+        "name:zh": "曾嘴路"
+      },
+      "featureWorld": [
+        -24216.7,
+        -14599.2
+      ],
+      "arrivalSource": "way/857456766",
+      "arrivalWorld": [
+        -24211.1,
+        -14591.9
+      ],
+      "offsetMetres": 9.2,
+      "terrainY": 18.44,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-yuen-long-park",
+      "sectionId": "17.1",
+      "source": "way/157811032",
+      "sourceFile": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "元朗公園 Yuen Long Park",
+        "name:en": "Yuen Long Park",
+        "name:zh": "元朗公園",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署",
+        "wikidata": "Q8060293",
+        "wikimedia_commons": "Category:Yuen Long Park",
+        "wikipedia": "zh:元朗公園"
+      },
+      "featureWorld": [
+        -14498.7,
+        -17111.2
+      ],
+      "arrivalSource": "way/302153725",
+      "arrivalWorld": [
+        -14499.6,
+        -17112.4
+      ],
+      "offsetMetres": 1.5,
+      "terrainY": 26.09,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-tin-shui-wai-park",
+      "sectionId": "17.2",
+      "source": "way/25637587",
+      "sourceFile": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sourceTags": {
+        "addr:housenumber": "6",
+        "addr:street": "天瑞路 Tin Shui Road",
+        "leisure": "park",
+        "name": "天水圍公園 Tin Shui Wai Park",
+        "name:en": "Tin Shui Wai Park",
+        "name:zh": "天水圍公園",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署",
+        "wikidata": "Q7245533",
+        "wikimedia_commons": "Category:Tin Shui Wai Park",
+        "wikipedia": "en:Tin Shui Wai Park"
+      },
+      "featureWorld": [
+        -16312.6,
+        -18757.6
+      ],
+      "arrivalSource": "way/501106605",
+      "arrivalWorld": [
+        -16310.8,
+        -18751.0
+      ],
+      "offsetMetres": 6.9,
+      "terrainY": 7.38,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-ha-pak-nai",
+      "sectionId": "17.3",
+      "source": "way/318219909",
+      "sourceFile": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sourceTags": {
+        "building": "yes",
+        "name": "下白泥碉堡 The Fortified Structure at Ha Pak Nai",
+        "name:en": "The Fortified Structure at Ha Pak Nai",
+        "name:zh": "下白泥碉堡",
+        "wikidata": "Q10868661",
+        "wikimedia_commons": "Category:Fortified Structure at Ha Pak Nai",
+        "wikipedia": "zh:下白泥碉堡"
+      },
+      "featureWorld": [
+        -22325.5,
+        -15520.3
+      ],
+      "arrivalSource": "way/318219910",
+      "arrivalWorld": [
+        -22329.7,
+        -15509.7
+      ],
+      "offsetMetres": 11.4,
+      "terrainY": 4.4,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-hung-shui-kiu",
+      "sectionId": "17.4",
+      "source": "way/448228055",
+      "sourceFile": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sourceTags": {
+        "addr:street": "洪水橋大街 Hung Shui Kiu Main Street",
+        "addr:street:en": "Hung Shui Kiu Main Street",
+        "addr:street:zh": "洪水橋大街",
+        "addr:suburb": "洪水橋 Hung Shui Kiu",
+        "addr:suburb:en": "Hung Shui Kiu",
+        "addr:suburb:zh": "洪水橋",
+        "amenity": "marketplace",
+        "building": "roof",
+        "construction:addr:suburb": "洪水橋大街 Hung Shui Kiu Main Street",
+        "construction:addr:suburb:en": "Hung Shui Kiu Main Street",
+        "construction:addr:suburb:zh": "洪水橋大街",
+        "construction:addr:town": "洪水橋 Hung Shui Kiu",
+        "construction:addr:town:en": "Hung Shui Kiu",
+        "construction:addr:town:zh": "洪水橋",
+        "name": "洪水橋臨時街市 Hung Shui Kiu Temporary Market",
+        "name:en": "Hung Shui Kiu Temporary Market",
+        "name:zh": "洪水橋臨時街市"
+      },
+      "featureWorld": [
+        -16898.5,
+        -16123.2
+      ],
+      "arrivalSource": "way/495065160",
+      "arrivalWorld": [
+        -16887.6,
+        -16108.3
+      ],
+      "offsetMetres": 18.4,
+      "terrainY": 12.28,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "pedestrian",
+          "surface": "concrete"
+        }
+      }
+    },
+    {
+      "id": "nt-kam-tin-market",
+      "sectionId": "17.5",
+      "source": "way/449876390",
+      "sourceFile": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "錦田街市遊樂場 Kam Tin Market Playground",
+        "name:en": "Kam Tin Market Playground",
+        "name:zh": "錦田街市遊樂場",
+        "not:leisure": "playground",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:ownership": "government",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署",
+        "ownership": "government"
+      },
+      "featureWorld": [
+        -9725.3,
+        -16916.4
+      ],
+      "arrivalSource": "way/1219281774",
+      "arrivalWorld": [
+        -9727.4,
+        -16899.8
+      ],
+      "offsetMetres": 16.8,
+      "terrainY": 7.54,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway",
+          "name": "錦田公路 Kam Tin Road",
+          "name:en": "Kam Tin Road",
+          "name:zh": "錦田公路",
+          "surface": "paved"
+        }
+      }
+    },
+    {
+      "id": "nt-nam-sang-wai",
+      "sectionId": "17.6",
+      "source": "way/103645711",
+      "sourceFile": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sourceTags": {
+        "highway": "unclassified",
+        "lanes": "2",
+        "name": "南生圍路 Nam Sang Wai Road",
+        "name:en": "Nam Sang Wai Road",
+        "name:zh": "南生圍路"
+      },
+      "featureWorld": [
+        -11374.4,
+        -17909.6
+      ],
+      "arrivalSource": "way/552528715",
+      "arrivalWorld": [
+        -11325.8,
+        -17869.9
+      ],
+      "offsetMetres": 62.7,
+      "terrainY": 4.31,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-san-tin-park",
+      "sectionId": "17.7",
+      "source": "way/260760038",
+      "sourceFile": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "新田公園 San Tin Park",
+        "name:en": "San Tin Park",
+        "name:zh": "新田公園",
+        "name:zh-Hans": "新田公园"
+      },
+      "featureWorld": [
+        -8616.4,
+        -23398.6
+      ],
+      "arrivalSource": "way/260760181",
+      "arrivalWorld": [
+        -8620.3,
+        -23399.0
+      ],
+      "offsetMetres": 3.9,
+      "terrainY": 10.26,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-tai-tong-trail",
+      "sectionId": "17.8",
+      "source": "way/95749654",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "bicycle": "no",
+        "foot:conditional": "no @ (bicycle)",
+        "highway": "footway",
+        "name": "大棠自然教育徑 Tai Tong Nature Trail",
+        "name:en": "Tai Tong Nature Trail",
+        "name:zh": "大棠自然教育徑",
+        "zone:access": "HK:national_park"
+      },
+      "featureWorld": [
+        -12379.0,
+        -13084.8
+      ],
+      "arrivalSource": "way/95749654",
+      "arrivalWorld": [
+        -12379.0,
+        -13084.8
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 154.4,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "bicycle": "no",
+          "foot:conditional": "no @ (bicycle)",
+          "highway": "footway",
+          "name": "大棠自然教育徑 Tai Tong Nature Trail",
+          "name:en": "Tai Tong Nature Trail",
+          "name:zh": "大棠自然教育徑",
+          "zone:access": "HK:national_park"
+        }
+      }
+    },
+    {
+      "id": "nt-luen-wo-playground",
+      "sectionId": "18.1",
+      "source": "way/208971157",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "聯和墟兒童遊樂場 Luen Wo Hui Children's Playground",
+        "name:en": "Luen Wo Hui Children's Playground",
+        "name:zh": "聯和墟兒童遊樂場",
+        "operator": "康樂及文化事務署 Leisure and Cultural Services Department",
+        "operator:en": "Leisure and Cultural Services Department",
+        "operator:short": "康文署 LCSD",
+        "operator:short:en": "LCSD",
+        "operator:short:zh": "康文署",
+        "operator:type": "government",
+        "operator:wikidata": "Q2353346",
+        "operator:zh": "康樂及文化事務署",
+        "operator:zh-Hans": "康乐及文化事务署",
+        "operator:zh-Hant": "康樂及文化事務署"
+      },
+      "featureWorld": [
+        -1519.3,
+        -23500.5
+      ],
+      "arrivalSource": "way/780974447",
+      "arrivalWorld": [
+        -1519.8,
+        -23501.5
+      ],
+      "offsetMetres": 1.1,
+      "terrainY": 13.0,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-sheung-shui-garden",
+      "sectionId": "18.2",
+      "source": "way/255289151",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "上水花園第一號 Sheung Shui Garden No.1",
+        "name:en": "Sheung Shui Garden No.1",
+        "name:zh": "上水花園第一號",
+        "wikidata": "Q138664256"
+      },
+      "featureWorld": [
+        -3005.5,
+        -23927.0
+      ],
+      "arrivalSource": "way/800904537",
+      "arrivalWorld": [
+        -3008.2,
+        -23930.1
+      ],
+      "offsetMetres": 4.1,
+      "terrainY": 9.32,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-sha-tau-kok",
+      "sectionId": "18.3",
+      "source": "way/658726215",
+      "sourceFile": "source-scripts/city/snapshots/nt-north.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "沙頭角海濱休憩處 Sha Tau Kok Promenade Sitting-out Area",
+        "name:en": "Sha Tau Kok Promenade Sitting-out Area",
+        "name:zh": "沙頭角海濱休憩處",
+        "name:zh-Hans": "沙头角海滨公园",
+        "name:zh-Hant": "沙頭角海濱休憩處",
+        "wikidata": "Q125557487"
+      },
+      "featureWorld": [
+        6333.7,
+        -28419.3
+      ],
+      "aerialOnly": true,
+      "reason": "Aerial overview only in the viewer; real-world entry to Sha Tau Kok requires a Tourism Closed Area Permit. Chung Ying Street is excluded."
+    },
+    {
+      "id": "nt-ping-che-playground",
+      "sectionId": "18.4",
+      "source": "way/722685062",
+      "sourceFile": "source-scripts/city/snapshots/nt-north.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "坪輋兒童遊樂場 Ping Che Children's Playground",
+        "name:en": "Ping Che Children's Playground",
+        "name:zh": "坪輋兒童遊樂場"
+      },
+      "featureWorld": [
+        -131.8,
+        -26647.1
+      ],
+      "arrivalSource": "way/789239269",
+      "arrivalWorld": [
+        -128.5,
+        -26654.3
+      ],
+      "offsetMetres": 7.9,
+      "terrainY": 15.68,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-lin-ma-hang-border",
+      "sectionId": "18.5",
+      "source": "node/7174065164",
+      "sourceFile": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sourceTags": {
+        "loc_name": "大坪 Tai Ping",
+        "loc_name:en": "Tai Ping",
+        "loc_name:zh": "大坪",
+        "name": "蓮麻坑 Lin Ma Hang",
+        "name:en": "Lin Ma Hang",
+        "name:zh": "蓮麻坑",
+        "place": "village",
+        "wikidata": "Q6550070"
+      },
+      "featureWorld": [
+        2222.6,
+        -29184.9
+      ],
+      "aerialOnly": true,
+      "reason": "Aerial overview only; border access and closed-area restrictions are not modelled as walkable routes."
+    },
+    {
+      "id": "nt-luk-keng-village",
+      "sectionId": "18.6",
+      "source": "way/696281456",
+      "sourceFile": "source-scripts/city/snapshots/nt-north.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "鹿頸村遊樂場 Luk Keng Village Playground"
+      },
+      "featureWorld": [
+        5795.3,
+        -26030.0
+      ],
+      "arrivalSource": "way/180798395",
+      "arrivalWorld": [
+        5801.2,
+        -25961.8
+      ],
+      "offsetMetres": 68.4,
+      "terrainY": 6.32,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "bicycle": "no",
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-lai-chi-wo-trail",
+      "sectionId": "18.7",
+      "source": "way/249657682",
+      "sourceFile": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "sourceTags": {
+        "bridge": "yes",
+        "highway": "path",
+        "informal": "no",
+        "layer": "1",
+        "lwn": "yes",
+        "name": "荔枝窩自然步道 Lai Chi Wo Nature Trail",
+        "name:en": "Lai Chi Wo Nature Trail",
+        "name:zh": "荔枝窩自然步道",
+        "rwn": "yes"
+      },
+      "featureWorld": [
+        10406.0,
+        -26524.8
+      ],
+      "arrivalSource": "way/1050479557",
+      "arrivalWorld": [
+        10402.7,
+        -26526.9
+      ],
+      "offsetMetres": 3.9,
+      "terrainY": 5.83,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "informal": "no",
+          "lwn": "yes",
+          "name": "荔枝窩自然步道 Lai Chi Wo Nature Trail",
+          "name:en": "Lai Chi Wo Nature Trail",
+          "name:zh": "荔枝窩自然步道",
+          "rwn": "yes"
+        }
+      }
+    },
+    {
+      "id": "nt-kat-o-main-street",
+      "sectionId": "18.8",
+      "source": "way/705937307",
+      "sourceFile": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "吉澳大街 Kat O Main Street"
+      },
+      "featureWorld": [
+        13534.9,
+        -28802.1
+      ],
+      "arrivalSource": "way/705937307",
+      "arrivalWorld": [
+        13534.9,
+        -28802.1
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 5.8,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "吉澳大街 Kat O Main Street"
+        }
+      }
+    },
+    {
+      "id": "nt-chuen-lung",
+      "sectionId": "11.4",
+      "source": "way/306476306",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "highway": "steps",
+        "name": "川龍家樂徑 Chuen Lung Family Walk",
+        "name:en": "Chuen Lung Family Walk",
+        "name:zh": "川龍家樂徑"
+      },
+      "featureWorld": [
+        -5571.8,
+        -11832.0
+      ],
+      "arrivalSource": "way/306476307",
+      "arrivalWorld": [
+        -5506.5,
+        -11861.9
+      ],
+      "offsetMetres": 71.9,
+      "terrainY": 321.57,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "川龍家樂徑 Chuen Lung Family Walk",
+          "name:en": "Chuen Lung Family Walk",
+          "name:zh": "川龍家樂徑"
+        }
+      }
+    },
+    {
+      "id": "nt-tsing-yi-nature-trail",
+      "sectionId": "12.6",
+      "source": "way/139958742",
+      "sourceFile": "source-scripts/city/snapshots/nt-southwest.json.gz",
+      "sourceTags": {
+        "fixme": "Verify legal restriction",
+        "fixme:bicycle": "no",
+        "highway": "footway",
+        "informal": "no",
+        "lwn": "yes",
+        "name": "青衣回歸徑 Tsing Yi Reunification Trail",
+        "name:en": "Tsing Yi Reunification Trail",
+        "name:zh": "青衣回歸徑",
+        "surface": "paved"
+      },
+      "featureWorld": [
+        -7209.4,
+        -7738.9
+      ],
+      "arrivalSource": "way/139958742",
+      "arrivalWorld": [
+        -7209.4,
+        -7738.9
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 145.21,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "fixme": "Verify legal restriction",
+          "fixme:bicycle": "no",
+          "highway": "footway",
+          "informal": "no",
+          "lwn": "yes",
+          "name": "青衣回歸徑 Tsing Yi Reunification Trail",
+          "name:en": "Tsing Yi Reunification Trail",
+          "name:zh": "青衣回歸徑",
+          "surface": "paved"
+        }
+      }
+    },
+    {
+      "id": "nt-tai-po-kau-walk",
+      "sectionId": "14.4",
+      "source": "way/58702470",
+      "sourceFile": "source-scripts/city/snapshots/nt-central.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "informal": "no",
+        "name": "大埔滘林徑 Tai Po Kau Forest Walks",
+        "name:en": "Tai Po Kau Forest Walks",
+        "name:yue": "大埔滘林徑"
+      },
+      "featureWorld": [
+        2802.1,
+        -15165.3
+      ],
+      "arrivalSource": "way/58702470",
+      "arrivalWorld": [
+        2802.1,
+        -15165.3
+      ],
+      "offsetMetres": 0.1,
+      "terrainY": 305.67,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "informal": "no",
+          "name": "大埔滘林徑 Tai Po Kau Forest Walks",
+          "name:en": "Tai Po Kau Forest Walks",
+          "name:yue": "大埔滘林徑"
+        }
+      }
+    },
+    {
+      "id": "nt-hoi-ha-trail",
+      "sectionId": "14.7",
+      "source": "way/90793914",
+      "sourceFile": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "sourceTags": {
+        "foot": "yes",
+        "highway": "footway",
+        "name": "海下灣自然教育徑 Hoi Ha Wan Nature Trail / 大灘郊遊徑 Tai Tan Country Trail",
+        "name:en": "Hoi Ha Wan Nature Trail / Tai Tan Country Trail",
+        "name:zh": "海下灣自然教育徑 / 大灘郊遊徑"
+      },
+      "featureWorld": [
+        18015.9,
+        -19340.5
+      ],
+      "arrivalSource": "way/90793914",
+      "arrivalWorld": [
+        18015.9,
+        -19340.5
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 31.04,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "foot": "yes",
+          "highway": "footway",
+          "name": "海下灣自然教育徑 Hoi Ha Wan Nature Trail / 大灘郊遊徑 Tai Tan Country Trail",
+          "name:en": "Hoi Ha Wan Nature Trail / Tai Tan Country Trail",
+          "name:zh": "海下灣自然教育徑 / 大灘郊遊徑"
+        }
+      }
+    },
+    {
+      "id": "nt-high-island-geo-trail",
+      "sectionId": "15.6",
+      "source": "way/133800998",
+      "sourceFile": "source-scripts/city/snapshots/sai-kung.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "萬宜地質步道-破邊洲段 High Island Geo Trail - Po Pin Chau Section",
+        "name:en": "High Island Geo Trail - Po Pin Chau Section",
+        "name:zh": "萬宜地質步道-破邊洲段",
+        "name:zh-Hant": "萬宜地質步道-破邊洲段"
+      },
+      "featureWorld": [
+        22063.7,
+        -7982.2
+      ],
+      "arrivalSource": "way/133800998",
+      "arrivalWorld": [
+        22063.7,
+        -7982.2
+      ],
+      "offsetMetres": 0.0,
+      "terrainY": 27.39,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "萬宜地質步道-破邊洲段 High Island Geo Trail - Po Pin Chau Section",
+          "name:en": "High Island Geo Trail - Po Pin Chau Section",
+          "name:zh": "萬宜地質步道-破邊洲段",
+          "name:zh-Hant": "萬宜地質步道-破邊洲段"
+        }
+      }
+    },
+    {
+      "id": "nt-long-ke-wan",
+      "sectionId": "15.7",
+      "source": "way/85964199",
+      "sourceFile": "source-scripts/city/regional/nt/surfaces-osm.json.gz",
+      "sourceTags": {
+        "name": "浪茄灣 Long Ke Wan",
+        "name:en": "Long Ke Wan",
+        "name:zh": "浪茄灣",
+        "natural": "beach",
+        "surface": "sand",
+        "wikidata": "Q11149305",
+        "wikimedia_commons": "Category:Long Ke Wan",
+        "wikipedia": "en:Long Ke Wan"
+      },
+      "featureWorld": [
+        22316.3,
+        -9633.2
+      ],
+      "arrivalSource": "way/302855822",
+      "arrivalWorld": [
+        22264.1,
+        -9652.9
+      ],
+      "offsetMetres": 55.8,
+      "terrainY": 8.57,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway",
+          "name": "麥理浩徑第2段 MacLehose Trail Section 2",
+          "name:en": "MacLehose Trail Section 2",
+          "name:zh": "麥理浩徑第2段",
+          "short_name": "麥徑2段",
+          "short_name:zh": "麥徑2段",
+          "trail_visibility": "excellent"
+        }
+      }
+    },
+    {
+      "id": "nt-lau-fau-shan",
+      "sectionId": "17.3",
+      "source": "way/144358836",
+      "sourceFile": "source-scripts/city/snapshots/nt-northwest.json.gz",
+      "sourceTags": {
+        "access": "yes",
+        "amenity": "toilets",
+        "building": "toilets",
+        "building:levels": "1",
+        "fee": "no",
+        "name": "流浮山迴旋處公廁 Lau Fau Shan Roundabout Public Toilet",
+        "name:en": "Lau Fau Shan Roundabout Public Toilet",
+        "name:zh": "流浮山迴旋處公廁",
+        "opening_hours": "24/7",
+        "operator": "食物環境衞生署 Food and Environmental Hygiene Department",
+        "operator:en": "Food and Environmental Hygiene Department",
+        "operator:ownership": "government",
+        "operator:short": "食環署 FEHD",
+        "operator:short:en": "FEHD",
+        "operator:short:zh": "食環署",
+        "operator:short:zh-Hans": "食环署",
+        "operator:short:zh-Hant": "食環署",
+        "operator:wikidata": "Q2355063",
+        "operator:zh": "食物環境衞生署",
+        "operator:zh-Hans": "食物环境卫生署",
+        "operator:zh-Hant": "食物環境衞生署",
+        "ownership": "government",
+        "ref": "YL-133",
+        "roof:levels": "1",
+        "roof:shape": "flat",
+        "toilets:disposal": "flush",
+        "toilets:handwashing": "yes",
+        "toilets:position": "seated;urinal",
+        "wheelchair": "yes",
+        "wikimedia_commons": "File:Lau Fau Shan Roundabout Public Toilet (YL-133) 2011 (3).jpg"
+      },
+      "featureWorld": [
+        -18100.4,
+        -19941.8
+      ],
+      "arrivalSource": "way/1531388810",
+      "arrivalWorld": [
+        -18092.9,
+        -19942.7
+      ],
+      "offsetMetres": 7.6,
+      "terrainY": 5.92,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-ta-kwu-ling-playground",
+      "sectionId": "18.4",
+      "source": "way/447880861",
+      "sourceFile": "source-scripts/city/snapshots/nt-north.json.gz",
+      "sourceTags": {
+        "leisure": "park",
+        "name": "打鼓嶺遊樂場 Ta Kwu Ling Playground",
+        "name:en": "Ta Kwu Ling Playground",
+        "name:zh": "打鼓嶺遊樂場",
+        "sport": "yes"
+      },
+      "featureWorld": [
+        -600.3,
+        -26962.8
+      ],
+      "arrivalSource": "way/789144718",
+      "arrivalWorld": [
+        -577.2,
+        -26981.0
+      ],
+      "offsetMetres": 29.4,
+      "terrainY": 14.44,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "footway": "sidewalk",
+          "highway": "footway"
+        }
+      }
+    },
+    {
+      "id": "nt-ap-chau-route",
+      "sectionId": "18.8",
+      "source": "way/337004520",
+      "sourceFile": "source-scripts/city/snapshots/nt-northeast.json.gz",
+      "sourceTags": {
+        "highway": "footway",
+        "name": "鴨洲地質步道 Ap Chau Geo Route"
+      },
+      "featureWorld": [
+        11324.1,
+        -29296.0
+      ],
+      "arrivalSource": "way/762306316",
+      "arrivalWorld": [
+        11304.8,
+        -29283.3
+      ],
+      "offsetMetres": 23.2,
+      "terrainY": 6.88,
+      "checks": {
+        "dryTerrainTriangle": true,
+        "buildingClearanceMetres": 1.2,
+        "terrainNeighbourhoodStepMetres": 2,
+        "maxNeighbourRiseMetres": 1.5,
+        "publicPathTags": {
+          "highway": "footway"
+        }
+      }
+    }
+  ],
+  "surfaceRejections": {
+    "noClosedPolygon": 401,
+    "buildingOverlap": 38,
+    "restrictedOrElevated": 717,
+    "areaOutsideRange": 1
+  },
+  "boundarySource": "https://www.openstreetmap.org/relation/913110",
+  "countsByRegion": {
+    "ntwest": {
+      "places": 29,
+      "verifiedArrivals": 27,
+      "surfaces": 377
+    },
+    "nteast": {
+      "places": 27,
+      "verifiedArrivals": 27,
+      "surfaces": 313
+    },
+    "ntnorth": {
+      "places": 10,
+      "verifiedArrivals": 8,
+      "surfaces": 111
+    }
+  },
+  "terrainSHA256": "4b20b6b9f5f9c54778ced39fc71862c2f9a888420ea566ac45e8c0ef38b4f56a",
+  "tileSHA256": {
+    "city/data/tiles/-10_-1.json": "4050729683697537cd62e7c60be96e2d020c0493b96d55233f0227d169d41e48",
+    "city/data/tiles/-10_-10.json": "7a4500a3816920e69fd2c007d9d503045b8cc9f4e9b53497b7ba8a22deeceecb",
+    "city/data/tiles/-10_-11.json": "8d1f913d314b5a7edbfbcb2354606e44cf1938bdb5716b4c3cf6363b5a7de584",
+    "city/data/tiles/-10_-2.json": "58d8976c328ee3ffbed136eb8a1c81504400145dfb49ddfe463ed572eca6ea7d",
+    "city/data/tiles/-10_-3.json": "8529d8daa809cbcbeeff5d65db16c63326504d30d58db76b49339828384fd93e",
+    "city/data/tiles/-10_-5.json": "de05703d59d04de856c9817659115a7219efb9049fc63e3f01c7df866c03b4e6",
+    "city/data/tiles/-10_-6.json": "74722f868d0a4cd3278c4f60cdc7d5461770428578fee9d46b875602c4d3f3b7",
+    "city/data/tiles/-10_-7.json": "72bc10a26ae2fbfdf572bacf52dff7e12a9d29d2b720cade8068ae90313becfd",
+    "city/data/tiles/-10_-8.json": "d91c68051ad05749072f8c1a63e9294cf0efd6b59350a8adb609a1e87c5855ff",
+    "city/data/tiles/-10_-9.json": "4fd793b3dee00f2bb012a8e3687effa5b0fd7c690c6f92509ab8e220fdea7af2",
+    "city/data/tiles/-10_0.json": "37e32d83a27f9cc3119e1970ec847d503a03c3e53d65724b85b5f696469e8130",
+    "city/data/tiles/-10_1.json": "784d4262844d57346ff3e8081135613b257fb34ad84b57dbf74f91a349d9514a",
+    "city/data/tiles/-10_2.json": "4d5571ae7d802da7fd7183d4b5fd6fe0625e93f0d4770c4f058c7926908d4a5a",
+    "city/data/tiles/-10_3.json": "2cde86770f806d34f70cc3268b386b3a26faf7575f3331ff6ec02c9303649793",
+    "city/data/tiles/-11_-1.json": "66a845e09c1628ff0f3c63bbd3c7dd6be1df01139ffae2647b5c158e5eb8c648",
+    "city/data/tiles/-11_-10.json": "01a7bf20d95494470583988c60e9e4023b2bcbf0ef7745dfd8098310ba6209fd",
+    "city/data/tiles/-11_-11.json": "0a0375f1874fcbdb6cc342be53b30c6fa6c2a352bfcba15c98f1d2100b219a6b",
+    "city/data/tiles/-11_-12.json": "26d8c74534e69bb62cc842f9bd6e7c0f341878e8ce3ddf57017eba901bd1bf56",
+    "city/data/tiles/-11_-2.json": "d7e632dfdb9260e97e5fef5f9a58eb5b04e289c726ad2374225bf906d4faba87",
+    "city/data/tiles/-11_-4.json": "eba589df6782fa2a2ad8cc69be6dd63ec498ece583fd138a740bb92d74aff8a2",
+    "city/data/tiles/-11_-5.json": "ff98412cba4666d9bca8bf48c82b701ffaeabc6e5c6f5b16749a631c5baf86ea",
+    "city/data/tiles/-11_-6.json": "a2d77482d5193438da5cd980c510265d15bee7efc74821227beb61283922da1a",
+    "city/data/tiles/-11_-7.json": "746f9c836d1c87ae3378cfad70b37d494218f7909e907c0b9602313a448d865f",
+    "city/data/tiles/-11_-8.json": "15d636cd933c8034ec912dc769749c3a8fc11c6dd4494ee269c63f8e5adc01a7",
+    "city/data/tiles/-11_-9.json": "b53cdce5e186dd33cd0ba8ef397cfd9bea6f580ebc2cab899d41661e258cac48",
+    "city/data/tiles/-11_0.json": "9cac493f4b33bb7c43747b50ce2dbc81b8652b896adb40a323437ca679f0f2fc",
+    "city/data/tiles/-11_1.json": "788e77118d4d09e296cdd3b83120364144b67a02b9db5ec15c2f35fd60161c68",
+    "city/data/tiles/-11_2.json": "a23b567e386846052f9311d31ee997381f18c81928a7e31dd29d6de2b7df1792",
+    "city/data/tiles/-11_3.json": "61a59b817ba59f4b39ec1e4b2e5ce763b2c8bd7b65a0322a509c84b46d9bb7f7",
+    "city/data/tiles/-12_-1.json": "30ea1939326073d2ad5cc2fe7e2bcda7f09bcbacaa423e4fcbe6cfe12f918c84",
+    "city/data/tiles/-12_-12.json": "4b4ce4f2deaf8e9240f0719e78f5f64a3929b9ac4aed73ef2e531bf0ae8a053a",
+    "city/data/tiles/-12_-2.json": "3816300cbf87cdaea405b64a7f4ce0e5e12c5e8cc905fdd0b8bb35e9e16f96cc",
+    "city/data/tiles/-12_-3.json": "d3997a81e7db744cdf88ad2902dadc6905fa4681ca9e9deff00c33d9a514970b",
+    "city/data/tiles/-12_-4.json": "977d2d42d4e6a1c0b64abf3f8f3f5f6c24e3e6fcf128d2b8d23b7471a6b0b96c",
+    "city/data/tiles/-12_-5.json": "426e737215c0e4ed09405bddfee283507ad50d3d32f7c0b1465f13b1a53d16b1",
+    "city/data/tiles/-12_-6.json": "0c28348996bfcd429d83d2bf791e1583fbf378f969894ee73df8cfe2befd03e0",
+    "city/data/tiles/-12_-7.json": "ba87437668a59bae09ea9b67fda75d66a9136e2621952e443002a39da7a795f2",
+    "city/data/tiles/-12_-8.json": "5f9e32c500e76c0eea2dc6ca39a09a83353348c208fafcf78787f6dc6c708a69",
+    "city/data/tiles/-12_0.json": "72f682e0949f2923abeb12b5d2a8e07ebece2b5e3e2115e2f7c4057027e7cf99",
+    "city/data/tiles/-12_1.json": "715ae593909d61c2161aec33ef7b7a14d89f9e11c80da4422725f527133ec960",
+    "city/data/tiles/-12_2.json": "3cde0c0e9fc41068345acc52e3581429aca6a2fdb0da1d4a817319f8ec3967e6",
+    "city/data/tiles/-12_3.json": "20bc0ded6692c50eff326374e2a2ccc178f92e5bcee1c491afd09a66599df116",
+    "city/data/tiles/-12_4.json": "2af9766e2265c421399f347b000322bbbdd89198c3d038f1c9ccbc100c79e3e5",
+    "city/data/tiles/-13_-1.json": "d3849a353b436ffbfe187dc953d076da323c542940b318eca0b3add3e7f508dd",
+    "city/data/tiles/-13_-2.json": "476ad752caee7d00ebd81329922a1918d46f79f29ff9cdfb0daaedb220493585",
+    "city/data/tiles/-13_-3.json": "4f4a1b316d761711a1f22e27055386a2e0a43e744f47964dbb7ce9a31bf7f002",
+    "city/data/tiles/-13_-5.json": "8cfd51f3b93b05c232e79696f9af9f7265acdec5c013e3bc2ab1e62fb57f355d",
+    "city/data/tiles/-13_-6.json": "72d3bb016543ab6fa9f5e1a5b571e3ccee362bde2ef7082843062a2e7997f799",
+    "city/data/tiles/-13_-7.json": "b4f8a7b21a8e7ded2256d7ae4e66acbcd6f0e85eb63d552b62fb3687a98a830e",
+    "city/data/tiles/-13_-8.json": "a89cd58bec46ca92002c8e471529f0e42d5d63c88f52acc583eec63ec1d9be11",
+    "city/data/tiles/-13_0.json": "38f13a6ba0bb6a3aa47112af344c19ea9d2ac562a235595e7d52a5b1827385c2",
+    "city/data/tiles/-13_1.json": "cc16cb20c4aa017c1374de68c4e0e79dee891a6bda546665bc876d70123a3743",
+    "city/data/tiles/-13_2.json": "f142451d074ad44be555ff6f565e5780d9a0a45aefdccea75e55ada746addf44",
+    "city/data/tiles/-13_3.json": "99ff81fd7cfe989ebe3654e05323717707bc7c414eff8e256b85ccd45b6501a3",
+    "city/data/tiles/-13_4.json": "d2ec9697b5b7956906ca5bdd71063df3e06a017f3039051fc7ef46faf70eaf48",
+    "city/data/tiles/-13_5.json": "290a7d7acee9cb1aaa7098a84b103001c3d3027af5f05cc890cf8990d0ff6f3f",
+    "city/data/tiles/-13_6.json": "223bdffb4b454296e674a1674342f812dc666e05ff3551926b0b9f6a81f547ff",
+    "city/data/tiles/-14_-1.json": "138dfb5291c735d50d84ead9fb175e0ff3c8b26c06b5ec971474df2e51f36726",
+    "city/data/tiles/-14_-2.json": "5a0257cfa58cbe35909f0759c924093a1d87e29a076d0193d7193a1505faa78b",
+    "city/data/tiles/-14_-3.json": "1387cf9a47834ef59a7bd1ae6e2a6845d81ec4ce07c68758c4d4d53215240830",
+    "city/data/tiles/-14_-4.json": "25272b65ab87d6aa65575a8a7f3de5dfc711d1130b31de1bc8989fd506c303f7",
+    "city/data/tiles/-14_-7.json": "d7921417c87855fba4604ebeb95f075c02e75be30b8d541fcc764ea136e8771b",
+    "city/data/tiles/-14_0.json": "13930a3b5d21bd00ec21440f93ba09a7333d73857481135e5ab161669f2acdb7",
+    "city/data/tiles/-14_1.json": "590048ffedfec7bb458ad0c0b8a5403c8362d7654c279057a8a70755921fa5fb",
+    "city/data/tiles/-14_2.json": "83ad0295212b1e555bd0fc3c6238d365cb3956a780a746903e2442ca9872b331",
+    "city/data/tiles/-14_3.json": "99066d0003a8a6d31dc7fcd0bf4a7479da1f15b8441b7401639720ec70019cac",
+    "city/data/tiles/-14_4.json": "9aeb080833c281a6aca38b3c00d2455370a68be91ca7ddebc16486da50974e77",
+    "city/data/tiles/-14_6.json": "f9072a29cf48ae835e1f4736a8d41e6407929a0474052c8c95968fb0cb2bed98",
+    "city/data/tiles/-15_-2.json": "eda94a21e375feddf3e94ca6db4f42af2d44988a16ceae50b404321b0d761bf9",
+    "city/data/tiles/-15_-3.json": "d470cd26674e3e2d75c5e46132cfebc27e1edccb63adcfdbf8adf9357eec8525",
+    "city/data/tiles/-15_-4.json": "4bc973663b1564c227207e0f05f0fcce39f53d3764f711dc81419d8bc73f68b8",
+    "city/data/tiles/-15_-5.json": "4111dacab7fd7d58fe7a278211b165059a1d8b8db89cf5e614f248fc6c460983",
+    "city/data/tiles/-15_-6.json": "9027f75d0a3631f65a9a5b48f734755efd27ec7f98adba6d13410f75a76a8910",
+    "city/data/tiles/-15_0.json": "3fff15496bc9b7c24298cc9914d7d84a8f95f37ac61acf36205cf262df389acf",
+    "city/data/tiles/-15_1.json": "ed4d5375049a82f273759095c276776c927d356ea25c0ca142508a30c40ae67b",
+    "city/data/tiles/-15_2.json": "27fc042b78df34c7907def1c737b7022eff4fbc70b3e9dfe35cc3756ea648670",
+    "city/data/tiles/-15_3.json": "60a0e4ce55a6e7a27157b73fd4aa3e451178bcdf40c0cecb577bd8ed6ff5a04f",
+    "city/data/tiles/-15_4.json": "067aa7d002fb2f8fee1bec2712f17e9d0c75f06730d60018d6710f47664827e8",
+    "city/data/tiles/-16_0.json": "a438ccc6e766f596cf6515a63c41e68a7360064a8f8997abcd3abfea3694e60e",
+    "city/data/tiles/-16_1.json": "a102b6c886e50d225ccaf376501fc2f1b895a6683ffed83ad37e4a03075c3d90",
+    "city/data/tiles/-16_2.json": "fb7308370ff62347065ca2b0cc960782ba4cf4e64d7a3d9373bcd3997f001288",
+    "city/data/tiles/-16_3.json": "fc5ac2121aee043c207bdfe02f59395877dd79ce91414b7f8a1d9ee70c252b2e",
+    "city/data/tiles/-16_4.json": "e54ca5a1a7c4637c9ac8b3b481372321bc630dc9917c8031bdf4f2b3754cb489",
+    "city/data/tiles/-17_3.json": "1e12f7edf16822272c419a0a1e76b446ca89830472ed1d553e808be7f251faea",
+    "city/data/tiles/-17_4.json": "8943d29349abb99a2409bb07c1a551383432f69c9afc67d90e55d6ae44292005",
+    "city/data/tiles/-17_5.json": "891a5f9184c818299e7787d9471d2021466e47db65179ca28f6bdad8df83b72a",
+    "city/data/tiles/-1_-1.json": "8a3baa1a0fa748a937d1cacb177de8142075282605917fbe9640c92dc8e59ab6",
+    "city/data/tiles/-1_-10.json": "00181d32e4a13e3e6c36241c0925100974a45323404f7107d4c5dcda1e9ffcd5",
+    "city/data/tiles/-1_-11.json": "350561793bfb407696b6db4384d8874a59aedc4cb0b60cea60817f29c79847b4",
+    "city/data/tiles/-1_-12.json": "9f941c440ad425199ee0943ef64605a317fbec0b9f5adfebe9feea320d0a1029",
+    "city/data/tiles/-1_-13.json": "924a9f388dc0914d9568b6fe8c88c23a9013905cc0ba8efc2caade90eb6642b5",
+    "city/data/tiles/-1_-14.json": "d31653920cb8b8a730eacacf281a81dfc00a39f39c7eb83adc4411bf34bceb80",
+    "city/data/tiles/-1_-15.json": "2b996fc246b81b7cbe165b72191fa309cfc2d7474e5660d0f052697eaf3b997b",
+    "city/data/tiles/-1_-16.json": "58b30ec7c6123e38a71ffba80c9ef506bd1b24abcd69ea4318e19f7f067263ee",
+    "city/data/tiles/-1_-2.json": "57589788bfccdeaed18c13181a913c1ba8474d7552838aa24c43655e52759308",
+    "city/data/tiles/-1_-3.json": "a35e3aa6cc6b0e51d18c2a18dfbc37dbffd96e3dd2d54e4a0a9342d4a9d2c8ae",
+    "city/data/tiles/-1_-4.json": "94de3af985dc53018341f3732e0e43e82e14a69f67a9394faa18393eac663ff1",
+    "city/data/tiles/-1_-5.json": "1642642589d30b1c82a7e6267bec4078841848abaec77ca474d01786b5f49a9b",
+    "city/data/tiles/-1_-6.json": "350b1a74fd020ce945f6a844caec9ed14a71783ca924f58a07d9c6f0f2602b88",
+    "city/data/tiles/-1_-7.json": "0bdc3e42e080796e2e423feab29fbf8667d982651a52020f3bab30189cb9745d",
+    "city/data/tiles/-1_-8.json": "d86ea371de556621d83acf6a503baf99956bdc162d3f971efc215f42cdf15ed2",
+    "city/data/tiles/-1_-9.json": "216479b730978c4a6ce716c45794ffe59d8446850ebaa5edf3d81b80eaf2d83f",
+    "city/data/tiles/-1_0.json": "fb9f5a6d6f1bee2d1209f2b9fff6f36e6f9e8758255c90730a2c4f891830b0f0",
+    "city/data/tiles/-1_1.json": "596331ecb1fb4185ea5360de91060e65b1f3834e70051153b5afb085e0943797",
+    "city/data/tiles/-1_2.json": "9aaeb3fe11b70fd0f7cc8cc2054a1633517346e0f2ee8b2e0eb02e5eabd1b649",
+    "city/data/tiles/-1_3.json": "e80c553c0ead4c5af3cd5874306883bd5f0f8c50cc47d3f2724d8454d8dc8e9e",
+    "city/data/tiles/-1_4.json": "6cdd6e38d7d5dcc58e73b2da4b93db942b35a1cff3968be241399ca29cdb6f98",
+    "city/data/tiles/-1_5.json": "146b87bba7902e6846069c564735bfdb8bf3608c6daad3962dd9d33943efc80b",
+    "city/data/tiles/-2_-1.json": "83c8215c5c1eccc84b7cf0b6ce958109f9eb20cf53e24e494ac543145b0a07d0",
+    "city/data/tiles/-2_-10.json": "3c2e594c92ddb0d49e265e0e7767caae69e0290ec9b2ad4be07911b879492400",
+    "city/data/tiles/-2_-11.json": "f54bc6479ad8a5ca4d1e7b1fa35a7b71a528990d6fb6c4fccc2fbb56f3599a3c",
+    "city/data/tiles/-2_-12.json": "f190a8f5dc84d6c49051a7d02cfdffc26c6a7d1865bc60850c7a33e812387ac7",
+    "city/data/tiles/-2_-13.json": "eeca206810c98ab3f3db45ed7c3b7480d921593318bb0624ac6fc180a8983fcd",
+    "city/data/tiles/-2_-14.json": "dbab3cc2570f3ca716f6196e5f211646e40cb119deace6a5edddd82962035686",
+    "city/data/tiles/-2_-15.json": "1efd959d24e4d6d2ad463a5cf37ae6800019a82b0e1a38b64c8c30e08f256db6",
+    "city/data/tiles/-2_-2.json": "769f82d7f3da2172da0c4265fa3dbe7fc601bf856129718e5600b6766da8dc03",
+    "city/data/tiles/-2_-3.json": "8f554619607a4bc75f7f3758355cf637c6405e09e105cf903e547b6ca02d2173",
+    "city/data/tiles/-2_-4.json": "94ecfaac05b237ee5ddeef2ddd80440a3337c97b781020470c53cca0364a3d79",
+    "city/data/tiles/-2_-5.json": "cf5d31d8baf706a39115b7f408d759fae336c3432e049e175b4f7bffa58df7f8",
+    "city/data/tiles/-2_-6.json": "91e50d70c7fcab50b4aee4377e9a1acbadd40cebdd24a1b41dfea5fca7d51a8e",
+    "city/data/tiles/-2_-7.json": "c199f267ee85eb3d4733663645863dadbde1dc0522532a9e3e18aee84767b82b",
+    "city/data/tiles/-2_-8.json": "505a3b50ab750873d93f02a7312bf74a129e84529c79d5d6dc0f508b21b30a58",
+    "city/data/tiles/-2_-9.json": "0ed6ed1e743b297277fac866344115b8cf247ac762a4281aec481eadb351e628",
+    "city/data/tiles/-2_0.json": "3abab613a3380b32c2e7b96fac46f96e0297f6946cd7313b952ec09cdafefbeb",
+    "city/data/tiles/-2_1.json": "3248efe47c2731b692d4381ed4b0660b100eaabffd0acaf0a7b24b407230baa4",
+    "city/data/tiles/-2_2.json": "59e7afa4a0903ddd552567f4b78d5476ef72759a27a2b543c3ecc5eb7869af25",
+    "city/data/tiles/-2_3.json": "e25c5088c7abdf22fcdf7913d731d37380752a3271de9a13dc7da9ba5dc8c574",
+    "city/data/tiles/-2_4.json": "0f26fc250c99bfbe49140832a42d025d692d86358428d6599073d11346b7f2c2",
+    "city/data/tiles/-2_5.json": "f0dc329294f17316574456dbd6378b6f93f360317a115be426c699629e665ff7",
+    "city/data/tiles/-3_-10.json": "444798c44cd2405aa35071d13121f74abf19b6a959013cae664b10588a8f1167",
+    "city/data/tiles/-3_-11.json": "9c5022d1f8dc829ffe58e9d10258aab14f120bf0ade5a6d1e652084131d6e2dd",
+    "city/data/tiles/-3_-12.json": "e3488c00bcb2a54157de9086bd295171e212e7c6825bcb6746daa4fd327fb164",
+    "city/data/tiles/-3_-13.json": "544be16bfdb2cf728a2f759a219dbb792f3eff4f198aef0e7b74a9bd9bf2ac90",
+    "city/data/tiles/-3_-14.json": "8cb496a0ea148ac51945df06fde4c181095ee1781cf216b76b21921085a8cd36",
+    "city/data/tiles/-3_-3.json": "a11fabb61ab7041d0156c2c216c94f38836adda813301b95e1d7b70408bb7d72",
+    "city/data/tiles/-3_-4.json": "8ce983d2700250ad2f42aef59b514b66a0618c9d3f65be8de64f68f460aaefed",
+    "city/data/tiles/-3_-5.json": "89523441b4f53e22ee0fe156ad8355ab27853e20883464aab53c7246aaf10eeb",
+    "city/data/tiles/-3_-6.json": "22a3f2351c4558a773e3048289468ed677e7aeff1a6e7b34c00061d1bd4db096",
+    "city/data/tiles/-3_-7.json": "a3dc6903f8640a3edeb733498895632129805d1b7dd61e03d7d6d7ad1d5f427f",
+    "city/data/tiles/-3_-8.json": "eaee93f9f783d686df66aa76c4f87a5c393dceb2460ba8dd985c853ebd960001",
+    "city/data/tiles/-3_-9.json": "04c466f9a232dd82a10b83a597a8c349bb7e2a2a8dce7bef111a465d78b9fa88",
+    "city/data/tiles/-3_0.json": "6ecd5f667dda9b9a8c0dacd29ab03dcca318d9a19e0f9cb873de0164ba90bfc5",
+    "city/data/tiles/-3_2.json": "d2649b6e14988e8435f71f95548bba7bb58e631d28818f15fb61d9f5afa901be",
+    "city/data/tiles/-3_3.json": "7d1ff5bdb8ff03e580e2a11ad87152ca4c24b01c22069a3ca2ffc903870c8bd5",
+    "city/data/tiles/-3_4.json": "fe9e455ffb105fdaf4da6c33384bd4b3805d4e34dcaa769fcde4b49cf3f2334c",
+    "city/data/tiles/-3_5.json": "62168ff04f6759426bab38164167ce0e5c32d02c8a44c380fac48ae3bc569bb3",
+    "city/data/tiles/-4_-10.json": "2ea183fc1c1750a7f843668905a44f287fe7a7db6a5000df74ad22179246c551",
+    "city/data/tiles/-4_-11.json": "230bc04f6435ebb539e8cc3aeac4e51a340d5cb5c774e1fad87db28a07790376",
+    "city/data/tiles/-4_-12.json": "7e287d868cd048e8aa56dd6a5aa9d6d30f6bd7a22ba6a656691739d459557b0b",
+    "city/data/tiles/-4_-13.json": "40711452ab1bf4b72d5b52b4bf7a06c63ba2875fb4f3190e6a8ff4cc69e835b8",
+    "city/data/tiles/-4_-14.json": "d12006bb8aee23c1c524ae79dd70c5152fe134e1d813afad7014b486e30b3471",
+    "city/data/tiles/-4_-3.json": "9a98f72e15e3e2f741555a74d3b7cfa6134d6649fd8b5f3db7083246f61c29be",
+    "city/data/tiles/-4_-4.json": "893a18542c77a6826088866fa9716203cb96474dcd65a06e40b0ba4552e2ff6a",
+    "city/data/tiles/-4_-5.json": "d7cd3a4c56920ab1104cb4072a7765db8eac0705ced621b823348ddf4d5eae54",
+    "city/data/tiles/-4_-6.json": "c571ded2d9840c603967f6463f22eaf12797a4463cd8df56713695f3e232b861",
+    "city/data/tiles/-4_-7.json": "64729202ce053f097cf77aa33973f5945faf4135596dce0bdc11b9e41cbb47a2",
+    "city/data/tiles/-4_-8.json": "2305f5f72294fc26c070953909281ef62aa309ff450af344b6a5e69ef9cc9865",
+    "city/data/tiles/-4_-9.json": "eafd177bd8ac852f8fd7f9e0161a63d565c9c084b81ad6b6ca422729c99df848",
+    "city/data/tiles/-5_-10.json": "bb12f0f569f163744956250121417ce19e2eef5716af38bdd8c22d9c85afcc7c",
+    "city/data/tiles/-5_-11.json": "61d72fce01000e32d13618b1e4dc1f0588de7feee3c171e76d368c3b9a34d93d",
+    "city/data/tiles/-5_-12.json": "e268cfd3de5cc5fc1e1859061f85d12ed6b68b29d236cfcb7814ca7b3b71f18e",
+    "city/data/tiles/-5_-13.json": "18572d11f1045115f2bf8ed21adcb7d43484bf4595af1c9be5a70b78ba1fe3ce",
+    "city/data/tiles/-5_-14.json": "47d75911d83c1df2ecf578721aaab7c7681aa8a80df5735d11340138135843c1",
+    "city/data/tiles/-5_-3.json": "0e65c969809440e33167d82c159a39f7f231dc591bc6179cb3ee1dbe523be654",
+    "city/data/tiles/-5_-4.json": "8dca1910e58475f933aefab3776ce3c8178725d49a8bfc5b2949bfddb29d2c28",
+    "city/data/tiles/-5_-5.json": "17f10e8efd94137f0a26a5acf3d38c266a3d72a72798d87ba04b0ec4dd161741",
+    "city/data/tiles/-5_-6.json": "78d75ef1cf31fe6a521eab672b894bf955c79cc58876a6ec6d39b94cd2a4271d",
+    "city/data/tiles/-5_-7.json": "cad450db2fa215021f21c5d447c5a148ab88dc31092c3c14846e662f8fa04dd4",
+    "city/data/tiles/-5_-8.json": "c3414ad30a59dba00bb83681b524ecb601fd83cb32f96864249f33210feccf18",
+    "city/data/tiles/-5_-9.json": "d38b89fe3732a6a0cbb4a99f2b1c8c7222ca453a3a502b4be51a9c9fb6791f6b",
+    "city/data/tiles/-5_0.json": "ec2c080e96605b9692f7b9c037f4990281dc12b7700cdda393418a01cbd7bef4",
+    "city/data/tiles/-6_-1.json": "49a7b6f493cd4ec1ff92c9dd117738e7827ebaf64c089497998b46ba69b56236",
+    "city/data/tiles/-6_-10.json": "689312cfead8aa4fafa570ad4f574a33e9ca3f490fd767bd889f5022076f3837",
+    "city/data/tiles/-6_-11.json": "071e03eb37665a747baee015dbaf8f952228e909cbba2d3b34f2c3cb72adafc8",
+    "city/data/tiles/-6_-12.json": "e250321834863af757e6588a628dc053863ed6ec1465a6ee8a7de76cc24f0428",
+    "city/data/tiles/-6_-13.json": "05d4166ef424f3dce404cd474deeb3ef0961710c786344cbbfbc13a9cdfdd4ec",
+    "city/data/tiles/-6_-2.json": "b02fe1798dee0e23ede96135191fe1dabebcbebd50f059f14c39ded48f9855d5",
+    "city/data/tiles/-6_-3.json": "3904726884d587645ea2235ee2c9f1946b36acd6deca87a3ed2e6e15127e98ee",
+    "city/data/tiles/-6_-4.json": "24956c85cf6e965cbd31ea5a19110f8701cb30599effd1543aff29a7ed44dcf7",
+    "city/data/tiles/-6_-5.json": "6a7ee0f6580f1a163321d9890cb84525d1abb9df94c939fd1fbc113a11b6c2db",
+    "city/data/tiles/-6_-6.json": "39d7a28ccf2d9251361f87c68fb08d52a7404df50c61da3bc718af3d59fd44bd",
+    "city/data/tiles/-6_-7.json": "8dbc7e54d9fa7f014fbb3adb39e8b15aca52198c865034e134242bfd0f1a5b13",
+    "city/data/tiles/-6_-8.json": "4cd70f29aa14e8ed3d3f9e1dea1da4f02ad5656544667ff3af5ab63a9d563b13",
+    "city/data/tiles/-6_-9.json": "47346991b5e13b5cfd61aceb15d1447a8325861f7a3c2ab2df181753675671fc",
+    "city/data/tiles/-6_0.json": "1f6cec3321ea4bdbbda7bee3e6fdfe804c29fc1212391e96f57e9f25d5d4970d",
+    "city/data/tiles/-6_1.json": "1cc5068d46e230e192815e9bdf9f01a81af6be1d0b7b72a7b3770aebeebe1b3c",
+    "city/data/tiles/-7_-1.json": "0730d3c99c79cc02d318bd6822f53e5457740417791579260e1ba50b9fd88c2c",
+    "city/data/tiles/-7_-10.json": "5434bb089a75d14aa3c297b4f9873a6f638baee11d037ac8730cd5ef7b478776",
+    "city/data/tiles/-7_-11.json": "c25e3a474183619153b5178dcd12a90a90c373e6534fd378be0f5deec6d559e2",
+    "city/data/tiles/-7_-12.json": "e8e17e30162de43598790c2f66512332b4e893745d39523d2426785801fa2496",
+    "city/data/tiles/-7_-2.json": "249156b69c217d56597b8084c345148a9076615890b69bb74df70095cea252e5",
+    "city/data/tiles/-7_-3.json": "ed96317f0a9dababe38bf150f3a07c3838cf4a2619cb0af5fee2339d1608ee0f",
+    "city/data/tiles/-7_-4.json": "3db0f37c25fb65ef816472062b9760c85e435f56b4c380fc122dc12d99ac7c81",
+    "city/data/tiles/-7_-5.json": "22b33122462d2348ac82bb504a9c7fdcbd3ea34e8505d780316e7cbc3337c166",
+    "city/data/tiles/-7_-6.json": "bf3570915624033c91fcb9b65ac86317c282236c2564e961ff5e729239a58825",
+    "city/data/tiles/-7_-7.json": "cd75c8ac21202e2aa8cb855695dbec109349c3e636c36094235a64b8ae8d25ee",
+    "city/data/tiles/-7_-8.json": "1e9355218d714fab746a0518e09114f76843e834991669e19cb057a67749e0ed",
+    "city/data/tiles/-7_-9.json": "afecf6f71f05347fe447066af7968ead11fff29db75178d20f9acbaeb26275f8",
+    "city/data/tiles/-7_0.json": "aa75c04e8b2c20bd1bd2f25e480ddee16e0cb05ee70cfcd71ddee1160e5901e2",
+    "city/data/tiles/-7_1.json": "1a858a75d0e58ea45ef5394cbfcdb579c0f764949e47d7cde7678fc4b61ba0c2",
+    "city/data/tiles/-7_2.json": "2e0ad5985a2d3dcd4e328e3985f7c52841b53cfbc6bbf9f102fd89b2142eec71",
+    "city/data/tiles/-7_3.json": "96fdd37f4f0bd6e9857cbfdd23ef6cc17449f363f878e3fd0de100d825c62996",
+    "city/data/tiles/-7_4.json": "f9c45c39aa877d4558e09d9adf2cd580a3f8abff9ccc7327f578ef7c412369e3",
+    "city/data/tiles/-7_5.json": "66f6f01aff8f817f9e47b2f7b191c46a69fe5d7fd5cf96c34aa0699bf73fe5ab",
+    "city/data/tiles/-8_-1.json": "0468b367da4ce6e542453c23eb12cd8ef8815bf7865de1d985f5bcbef75e96b2",
+    "city/data/tiles/-8_-10.json": "6f6c652b0d2f797507404d3d3669c082754222a6b96ca755b13c23b803221dda",
+    "city/data/tiles/-8_-11.json": "6520c1cd535f4e27831c6be4c526944f0f766c4e6a658e7310f01fc3de610070",
+    "city/data/tiles/-8_-12.json": "442dcb31470619d3c0b698ef7ebfddfc85a59395174c804d9032b5a2613138f2",
+    "city/data/tiles/-8_-2.json": "2ed39200a0bc34f5de9eb3140fefd560b69244a79cd1f6497713b7fe35de4ca0",
+    "city/data/tiles/-8_-3.json": "32bc8fb926fe378debe7e63d7d3aa5eb70f66bffd9f991b7b67815b2eb5d5e85",
+    "city/data/tiles/-8_-4.json": "3bda6256349fb69567e938685df9c7ea5320e739ba50c2cdb46c8f73482b1273",
+    "city/data/tiles/-8_-5.json": "515320beb1be88ad92163cd62e182cb04d8f4848e9c774a8054b0644dad2fe7e",
+    "city/data/tiles/-8_-6.json": "6988005062da980e9525e5c10357ed8ad5e2c0240be0bcad44b2e4af51394f29",
+    "city/data/tiles/-8_-7.json": "5db1b65ad3ff149cc9ab376e244ea782e257843993acd43a2def863f54c49806",
+    "city/data/tiles/-8_-8.json": "07a399feabdda0ab1955e0b53f23f406f582f74bc80e81d73d778e73182cf0c7",
+    "city/data/tiles/-8_-9.json": "ad4018c30fb5399ba8b3408ed1ac845ff6b430faf39fa9e3ef6314349097cb7b",
+    "city/data/tiles/-8_0.json": "46b59a61624d860eb8e99f56329a4cad78498bd2635154d6191a3e938c2333e3",
+    "city/data/tiles/-8_1.json": "fd6ecb1779a03a0d4aa751a72d6bcf245c83e372aa319f37d20142fee9742839",
+    "city/data/tiles/-8_2.json": "3937aa6997378ae39052b417741f2df88d7c2382ce6df52c20e9fa15f85d07eb",
+    "city/data/tiles/-8_3.json": "125df4946a8af537810dd95ddbdbf5d849f2746b892212aa002ca7d4922eb5ee",
+    "city/data/tiles/-8_4.json": "e2f801c6c60c032cff560c172839a7725acaea5173704d84d706c672f0436026",
+    "city/data/tiles/-8_5.json": "06cc8e9174c2a531c9af2f07c0c49d54982439f6a6454a8a22cfd534efd5b095",
+    "city/data/tiles/-9_-1.json": "500748c4b178cfa21a9a62cdeb7f8d44f001869f9b803d836748f6dedb52b520",
+    "city/data/tiles/-9_-10.json": "0bba1ffd7c65e3af09cdf812df5fef29edb9884c2644b9864bbb5a18073601e5",
+    "city/data/tiles/-9_-11.json": "079071ae28d276a71c7d1bd1820a960e19e07a5188097da31e5daed461c540f1",
+    "city/data/tiles/-9_-12.json": "ab6b38cd5a680ad59e52a87511b7560cf571c016f8067287ede3989b7f50fd3e",
+    "city/data/tiles/-9_-2.json": "3f1c9be490f54f4bb67c2baaf08d7a9495570d3b5e2c5ec27f456871916f89c3",
+    "city/data/tiles/-9_-5.json": "28421cedc1908962dca67216b60e017e485f24078eefa0c6fa3c457fc8f925c2",
+    "city/data/tiles/-9_-6.json": "81c994ce5fb49c52ed5183352ff3dd353b8900dc8070b7f023582592937ec747",
+    "city/data/tiles/-9_-7.json": "0815eb4951cdae8b1de2cdbe97e9b6064198f88137b6aadedc06dda9ae9f9c2a",
+    "city/data/tiles/-9_-8.json": "ea3bab339d137c84f1e152de8781cece381622b12ba88c739923f3652beeae25",
+    "city/data/tiles/-9_-9.json": "13ed9b28f34d395509472a7ba53b7f6c06de3788f5ab2e7e2b333e151383731d",
+    "city/data/tiles/-9_0.json": "40aa77580c800f06b14267923fb0850d5748e14eac6fc0074c84dcb391d72c09",
+    "city/data/tiles/-9_1.json": "5b9ed2265361f757beee08b08bcafa015edf7dbf35a75e19bff14b83c5fc8f53",
+    "city/data/tiles/-9_2.json": "2dcb000139f0fe0f34571f861e83dd3fe34f6507c173f85b23edade4716455ce",
+    "city/data/tiles/-9_3.json": "a20cc7bd987e50e5ff49dc395d401398f0ef44803eead9718fdb01d52fb2523b",
+    "city/data/tiles/-9_4.json": "b318395cf770f3cf56b40815b359de55822654b4100fbd4e0ba046e3aaeafdca",
+    "city/data/tiles/-9_5.json": "0ff2a2bcd5db72bbfae6d8cba8ee5255c5749dc0ffdd34f2cfaaa7290fc8f761",
+    "city/data/tiles/0_-1.json": "c75385b54eab9a742cf03df2c45b13e43f3008c988c2b6a8f82fa7f76d7b82da",
+    "city/data/tiles/0_-10.json": "c125eb55f1c608490e19120c4b811325a41997dba85352a126b18c0859e46206",
+    "city/data/tiles/0_-11.json": "8d1318ad0f535568c3c6747efeb5d7482377a7c05c5839d26cba6ed8d6ec7705",
+    "city/data/tiles/0_-12.json": "f0191f1300cee4e5531729c0c213fffd6d2698ff8ef6fb75ee011a4ac84f4028",
+    "city/data/tiles/0_-13.json": "d386cead6719b403bdf086e139a23571786f835eb4d0a654512de8ed7b8908dc",
+    "city/data/tiles/0_-14.json": "0308338731c96a18c5eedd50740e4c503bd354653d80ba2cbc0fdddaae5043a7",
+    "city/data/tiles/0_-15.json": "230f338c8d0a1cfde601da4208f5549965e714d0d1bb59c8a277ae2d6af2580c",
+    "city/data/tiles/0_-16.json": "d419937a2e671ac32b253a1727f1320982df874bb765b390400d6d37d756df20",
+    "city/data/tiles/0_-2.json": "af0648ce5c484a3aec008b26e1ad8373ce4d9cac40519bd07630187fc98ef7db",
+    "city/data/tiles/0_-3.json": "43e767915b36f5cada3b6386d2e988d5a96007484fba5f0e015230fa8eed9956",
+    "city/data/tiles/0_-4.json": "6d13f9e3e38defb18479407528217a3ba311422854c1a1403e6b8310f62a0b9d",
+    "city/data/tiles/0_-5.json": "3f506bf2f702c64d264bae6b807089548558448e01481eec68b56b3322b4b5cd",
+    "city/data/tiles/0_-6.json": "70c997d4348d5b1e82938b76ab71b5e3eb5c105b4cb902c7175bbb679193d9c7",
+    "city/data/tiles/0_-7.json": "c36289f3522193ff8df96001304c49aa9595710765e741d14c5c18743983c228",
+    "city/data/tiles/0_-8.json": "c2ae079ec61206332d9c2ac9b63771a4f4542e994839ac3472b195859b2f3cfb",
+    "city/data/tiles/0_-9.json": "1886c13d4ead6b0d0a642d99934c8b35354cb1e61211e71a5e0e54049f67069d",
+    "city/data/tiles/0_0.json": "94f03b4a6317be5f19047712d1407ec150be563dc3a917f8fc18b0b2bd4c4904",
+    "city/data/tiles/0_1.json": "818412a38eae51dc45ae3c4dc58fc8b6280057f51dafeec8b800f56c1ff386fc",
+    "city/data/tiles/0_2.json": "6b5dc1170fccaafc7610e91e5b20155f2b6b00778e0f4e081029e738899c49c9",
+    "city/data/tiles/0_3.json": "ef89f6e04f7143c6e19b6b829a2a46ae2a8b0bcde5b16a040d530e8dffe08273",
+    "city/data/tiles/0_4.json": "cec1757f224a5c7131a589457fbcac5cf5558fa6ed3ccfe3193cedfcce2d5985",
+    "city/data/tiles/10_-10.json": "35e1c5d0b2d80fc82116b38f701519972ac7abc9a1da3e6678f5ebfd40f90528",
+    "city/data/tiles/10_-11.json": "7c007634ab1094927a52492bad9fa9b92b403c5fc65a3c53ceff834610d582f7",
+    "city/data/tiles/10_-12.json": "ae1f0e44d87ac08b9f8b34afb7b0af66da5327d4a09fda0b8f8cb8491c5b45fa",
+    "city/data/tiles/10_-2.json": "e8f6a2108e05e9aaf95d75d234f7ab503b531e75bc59ab6c48088622dc2f5044",
+    "city/data/tiles/10_-3.json": "e9c63d3d17d251e0822b08d6a9945aa376ba329d621a02dc436af2ce9131a38c",
+    "city/data/tiles/10_-4.json": "8e423b7a5205e1184ce4c9c50bc9049058e606d9ea889005d391fdb234c1e840",
+    "city/data/tiles/10_-5.json": "f265712cf7820b297cbeb7c145f173b01ed7ee283be68040634eeb8bcb91355f",
+    "city/data/tiles/10_-6.json": "3468b89318317382975ef36eab37a7eea44d52ad93f7b58a78acf051b4d9cd44",
+    "city/data/tiles/10_-7.json": "65c6276bc80fd4e36d2ed3bfe32f6bce1d312097a458f55416b04d3e8fa59c98",
+    "city/data/tiles/10_-8.json": "7ecee4170d11998c0ded6a8f80e5c286f05c2f160f045666340dc9fcd19c24a9",
+    "city/data/tiles/10_-9.json": "1602be9ee0325d149f9bde9aa05545999328dd8df0991a1313c46c2d9fa5829a",
+    "city/data/tiles/11_-4.json": "b7acb2426376c30a8822c6130390d523b70440577698223dc545f5aa586548a4",
+    "city/data/tiles/11_-5.json": "736658f8072f15044039852acabab1937cdfa4747a7abbf8452b6fe8f558d77d",
+    "city/data/tiles/11_-6.json": "7da75bd56629fb285eff867c45ab8a97edc8aadfe6743e2678abc496a812415a",
+    "city/data/tiles/11_-7.json": "8dfe71ef45b3f60ed6ca5cbcab567de1265a52e8b6fac8a3a0c265f31a55d608",
+    "city/data/tiles/11_-8.json": "e1c41f73dbd9b74fedaf2f7a9e1897907f9f7f6a84f9f5c5cb9cf717895d2021",
+    "city/data/tiles/11_-9.json": "43f40824f13054fa461025eeef7211409bc54a73f072daf80c67a1f5e76434cf",
+    "city/data/tiles/12_-7.json": "83f41ce5604d2d19681de9b2f98248b84ccabdd9d11da358c724ab0df3128bd4",
+    "city/data/tiles/12_-8.json": "60460bb92433a1186906bbb84f5ada8be609a45cd902c1d09563be8b35c04e69",
+    "city/data/tiles/12_-9.json": "1d438da8d25d6c5e38a053e1ee2e1c3d0138479e86eea3dcb8361e951889903b",
+    "city/data/tiles/13_-10.json": "23502744ab193e856a52e5f5ff1e809b993b35ab4eb96a978ea13d5abca505e7",
+    "city/data/tiles/13_-14.json": "a61cef98ac02e1bf38cc60155306c11126bdee16b535f4b0fe2e5758617093f5",
+    "city/data/tiles/13_-15.json": "d8928a86bb0e042c557f5fee185f4ed3e6e10c8c0207479c7e6521b51b976bac",
+    "city/data/tiles/14_-14.json": "6358f53333ab6f43748c606661a6ea58e760a1e1105cb5af8b7fff6ce96ffcf6",
+    "city/data/tiles/14_-15.json": "4d124da3099ce9b28c75c08aa8d6a102e0c7c365fee8cd029a8f8c1059f8eb68",
+    "city/data/tiles/1_-1.json": "178d232a72d6e9e65fdc7a2a49844bdaef10f79dc056e1dbb81a356fbccc113f",
+    "city/data/tiles/1_-10.json": "a225a327cea5783502b98ed2da4401997c1baff9ea73bac9e36c7c436780a954",
+    "city/data/tiles/1_-11.json": "539c209b6e47150df036227d401a00f750be14e87bb3ed2976a1e738fef283d9",
+    "city/data/tiles/1_-12.json": "a79b76d997553aa5f791d4cbca8fab7893d5e30f00961ed04e3d5a4a4276a45c",
+    "city/data/tiles/1_-13.json": "9c57b05f71bbbc6ad210b3ff63641835be3f841487ff555f29f81c4d428e43d2",
+    "city/data/tiles/1_-14.json": "5cfd11ef4c1132d65edce213675565a32a430f66dbfc09a927e68ad843a37742",
+    "city/data/tiles/1_-15.json": "634e8d1fd22bd4d207610379d9a568ef6a7b0bd7fccca8424376d08cdde567b8",
+    "city/data/tiles/1_-2.json": "8221f62ed412d7171d09aaaf8f4ebe592629dd73fe4ca305d89c329b36737c9d",
+    "city/data/tiles/1_-3.json": "effe79d1cfebcb4ff06569e6e1848c0ed1b25cf7a25753038d5aeb4ee58e1c0b",
+    "city/data/tiles/1_-4.json": "212f280150c4d875bc2eb801ca37fc9de396c585ea224f837b6e76f32e23e857",
+    "city/data/tiles/1_-5.json": "1f565cd025730041786ce317bd0a4787ee3ed4f9babd695523a20061038ff70d",
+    "city/data/tiles/1_-6.json": "3a02d3d8cbd7198242adca94a494bdfee2dcdc925c7986cbe9a792f7fa32a9d0",
+    "city/data/tiles/1_-7.json": "4e90c265ed7f9b3a591259ab9af813010c8a5a8ee65307525730c822cace810c",
+    "city/data/tiles/1_-8.json": "72c3543824c2e78811fae0ff5a05eae034a4fb12fdcd5341bf447eae2cd42ac8",
+    "city/data/tiles/1_-9.json": "6ce14914ef03ee206620995a869cf745d5dcd2eb17115d83a1147117882753e6",
+    "city/data/tiles/1_0.json": "1f26c1119a6b57ab023da896da5231fee7ac4b2715b9b5a9b4dc336a9a381fc7",
+    "city/data/tiles/1_1.json": "561f32c9178bfff1977e07b0c7149b70c290a59ea2e2624a2b1d51fbb409e198",
+    "city/data/tiles/1_2.json": "fa69c25fe9530305118c1d3c1e41e07681b8b94804a57a4c792132f2c2a63591",
+    "city/data/tiles/1_3.json": "e56c886314216c8e574d2fb9f940f96684e684a60f94d8e9ce68e19df2f4fb90",
+    "city/data/tiles/1_4.json": "da68c4c415058103cf93f28ca51cc0745985140cbc48cc7ceda52a4fe09ee455",
+    "city/data/tiles/2_-1.json": "b0775b324ad0c4b600c8ec726f6ef53d44ea91e3a61274ba51988f0ef1b129bb",
+    "city/data/tiles/2_-10.json": "b69c78192386caeb9345e2adcfb6ff9f6d6b3377af9de77e22eb1a7adab5ff11",
+    "city/data/tiles/2_-11.json": "4ab0d4f69ed610b8edad2b72652fef1dacb0ba09e53767f1402826d92cfeb8ff",
+    "city/data/tiles/2_-12.json": "bd166720824e54e9304b39e03ec9b602650ff07fc7fe4e17cd98de8356b592cb",
+    "city/data/tiles/2_-13.json": "2441e8da40799826d0cbdd7d837fbaecc8771f37b29f25bb7a95ddc98d02469b",
+    "city/data/tiles/2_-14.json": "f79aa3b9e2ab2feb09d61bbc18c68f4d4333fe85057ff1097a69d6371d5e2810",
+    "city/data/tiles/2_-15.json": "e1ba42597c69a25acac50f557799ee4eaaedab3b2fdff8acc512bca719699b6b",
+    "city/data/tiles/2_-2.json": "0ff373e5981a54fbb936b3f5e220a0e898c97b5489af7f56529c85f125dad795",
+    "city/data/tiles/2_-3.json": "08c17b28be055024423bc2a8847de6c2e2f0f874808c162576f2592410105b4a",
+    "city/data/tiles/2_-4.json": "5312a412949be0294fef2f0316cbc1c954026c1d5a9a0bd58df40b512d030fe0",
+    "city/data/tiles/2_-5.json": "ccb85b42d4fc58edd8579fd731014409f34e1ab19670d90c3fcc03198128df6c",
+    "city/data/tiles/2_-6.json": "03f21198d10b3f3e9ccb4bc1e078dd17a789162b70377502e4b1070faed5e626",
+    "city/data/tiles/2_-7.json": "9e0c82ae6f04ce0e427917483271daacc714a955f277b3e6b7a98936f45a29a8",
+    "city/data/tiles/2_-8.json": "f858d3e394d024a374806023bbb3671e2c8f9f4f180d37574fa5077178691038",
+    "city/data/tiles/2_-9.json": "8f613c082cae07faaefa8b8ee13f0c8b17130b07653c7e05d9851d34eef5708c",
+    "city/data/tiles/2_0.json": "86465dcdc8abe2ba3897d060c2ad52893a724575c87b64722464373f13e20e0e",
+    "city/data/tiles/2_1.json": "b0ed0993bf5bd63e6ea71b01d54084d696533e002cb311a84b184f54a9e652f8",
+    "city/data/tiles/2_2.json": "12a18790bd1c270de11f0a085fe8aafeb733e88d6fe8a5f9bdea324ed18f7b1a",
+    "city/data/tiles/2_3.json": "0f8849f59030a073781b9b90ae314f823707cf3a2fb50fb23e3cc0717a3c6f8f",
+    "city/data/tiles/2_4.json": "f4f63cf601e5d5888ab8da7b267ad268415a195ba17fc5b7ccd5a91e9490b936",
+    "city/data/tiles/2_5.json": "3390a8e9389c631c347b7132d38355b5c10cffeca4c40b3b67d8e0587e6d8805",
+    "city/data/tiles/3_-1.json": "24ab752520ce397a3dc70fa087a40ded6cb9649f3d8ad94b7f8f868fc388a980",
+    "city/data/tiles/3_-10.json": "167ebfa510f4c0e498e1304823b4ed765a7df869926e67f6e14d9f5829e9f1c0",
+    "city/data/tiles/3_-11.json": "202e8fb9c7e80772c9f06a63547e6f3e5d7d8193f3d104d01326ab230a5df949",
+    "city/data/tiles/3_-12.json": "aa7fd43183a70a7483f32bb212e8a150cffff1c0192823db23fd5cb0e303397f",
+    "city/data/tiles/3_-13.json": "3264f45cb28fbaca7accc39a90c5ba913974faaba2c678fd0f3d5abb3c9e6197",
+    "city/data/tiles/3_-14.json": "e2b2190414ee62e82527d3850373bfc2c127fc5214a564014b1e2f0a7822ed0f",
+    "city/data/tiles/3_-15.json": "04dc731e2d2d252f03842aeeb1114e001d5106ca6e3a24a787cbb9dffb8b4a67",
+    "city/data/tiles/3_-2.json": "d4b04be276cc09628f644976f6e7e5be6fade910cbbd172fdd086cd675b42417",
+    "city/data/tiles/3_-3.json": "088b6f1e53c56550864aea3deeddf351b9726910183fb81f7af5520c355e9a13",
+    "city/data/tiles/3_-4.json": "ff03604a0796939d58a3dd9313f536f3f2fb96bc65373024d3d6f0862ec50cfe",
+    "city/data/tiles/3_-5.json": "ad36fb922b9fde7d09f14dd0d8a69698daa226386bfdea05fd2b83986f55f147",
+    "city/data/tiles/3_-6.json": "588608f53906b9b7fb2cf346439288f3a3983abf1e9e27803460160855823d1e",
+    "city/data/tiles/3_-7.json": "9223ebc30eaac6ac60d470c6124fa397b54c4d76d038311e0cdd1c850805b1a7",
+    "city/data/tiles/3_-8.json": "6bf4915597fbac3dc68d6403fafd1155fdaa991544d2ea4654ff3fa3cab11a08",
+    "city/data/tiles/3_-9.json": "1822a2ba5cbb666c19dfbdc6d65fe8f1a781cfa6a38651bb3239270d7eb859b7",
+    "city/data/tiles/3_0.json": "1d6f14ecbc1e6c8ecf0f2d85ec0a2a9a10c25cf44bc7ca19adb8845e826d397d",
+    "city/data/tiles/3_1.json": "45d8b9aba5f5ce593a0c98f12519ef14e5bf5cb34e3a9361f345f62f48a33209",
+    "city/data/tiles/3_2.json": "445272c3630a4189ffd1329ce24a9943600f273873272013b452b50192ebeafb",
+    "city/data/tiles/3_3.json": "43f491b1d70a58822e5d7850bfae08b831692df4d45f651ad5da32eff3f2b1dd",
+    "city/data/tiles/3_4.json": "287a02e8bdcb2a409884942f79ace7d82496684f5c7dd25c45664f1d6486caa1",
+    "city/data/tiles/3_5.json": "33f33f2e2e5f466fd04c9cf39f8669501ac7463d3fd1f6acb9a0f8ec1cc0a69a",
+    "city/data/tiles/4_-1.json": "79774e9d1983e36af60ae913beab83162f1482f1f17e09bbdb80e29714f07a63",
+    "city/data/tiles/4_-10.json": "531fbba1810b46be2e8e5cbec716ad26f4ff43e46ec3348bfca6fda3a2aafdfb",
+    "city/data/tiles/4_-11.json": "0b5eac2779941583a9b4477347b324b34dbb07949603c50ee24f283cfc77deed",
+    "city/data/tiles/4_-12.json": "d970aab1ce4c05175be72e96f9739542a29315aee0b837d2cf44531e834a0648",
+    "city/data/tiles/4_-13.json": "d23172fa077c1c0938a98cf019a8dbe42de94839e87818d5a4e3669e2692abeb",
+    "city/data/tiles/4_-14.json": "504698ff313a749853965daaf950367eb397d024b462b77e28215c33a74eb476",
+    "city/data/tiles/4_-15.json": "3629d2d190fcfdcd27a8c5932d4620d35397bd7bec9a55ccedbf54b92f3db380",
+    "city/data/tiles/4_-2.json": "8158c854d32e866107c6fea3e20f2c1364fcd04e85d4438d0a678a1b8af27733",
+    "city/data/tiles/4_-3.json": "1a8ff9a5dca067bb7be787cf6f7634f353eaf463378f28e0f8c59fa48be4e95b",
+    "city/data/tiles/4_-4.json": "61f1edc372d17355f9b3609495edee7fc48b6aec851cb792296d7b359b784235",
+    "city/data/tiles/4_-5.json": "48b22ace4d1daec3a1cf6490b038020dff94df284b2f5ba1875381d800e67e20",
+    "city/data/tiles/4_-6.json": "969d25a529d18dd4a91d16f164734b84c1912c2a4c38b140435369d8a7d50c97",
+    "city/data/tiles/4_-7.json": "b0bad42d65deaf5a3910b89c24db37d00867f37423fdf25e7b231bc54bc0a995",
+    "city/data/tiles/4_-8.json": "d1ac998fd7ad3a0181d9a073c5522ca4ee4863b10b6455b51b74c565e0a1b5c1",
+    "city/data/tiles/4_-9.json": "87376261ca06806b6c32f1b7caad3b26ad83fdef06244127ace36d40bd786e51",
+    "city/data/tiles/4_0.json": "9c08268840a6300dcbec6527525d37394e29820da6b3c41560714ad9c8832c24",
+    "city/data/tiles/4_1.json": "e4317709768a6fcdf9deaab06aeea4d190f2982d9438b03d153b1e35c27355d1",
+    "city/data/tiles/4_2.json": "1181c157ed9a3912b48887adea064b0ed81a6a04b7ba0c06c98226ed9a63261a",
+    "city/data/tiles/4_3.json": "e651dc76d75bba89cab0d37f7d97658559ec6a78ba8867be43b2ae9de38e89f0",
+    "city/data/tiles/4_4.json": "a824fbd2dc28f735edb077a74d4e16d734b37455a86687a2eb00849449f65951",
+    "city/data/tiles/4_6.json": "c55b79694b27149d7ccef9ae00698adf4af4d9da99dfc0b1a74f48fbb0077c7c",
+    "city/data/tiles/4_7.json": "552db7163432a761d3cb89e3c1e582ffc34168302253e93b7153606317e0659b",
+    "city/data/tiles/5_-1.json": "2d4ced08a9342a923b9cf81b051016286a2bd8ea108b942d11e344267a4b22cf",
+    "city/data/tiles/5_-10.json": "fe557fedb5073ad3b865bfdc5351ddfde820efe3332f71488b02ce2f1bfffefa",
+    "city/data/tiles/5_-11.json": "3a7050f0622202e68d0cb009d9b96e36ea8dca18156b47594f6b8667d51c3e0a",
+    "city/data/tiles/5_-12.json": "0e8ea69a9422f5200b33ef3c54e461e83ba9b163dbe21d490c8f77b336387d02",
+    "city/data/tiles/5_-13.json": "439847ab68ddb413c15554cd01c2ee5a360c8b78a239b8ffe18ffe04858ef3cd",
+    "city/data/tiles/5_-14.json": "00eceecc95ff3a6f0206e31875af5828b32fb87b50bf80bfbe236dba0e0c2d94",
+    "city/data/tiles/5_-15.json": "ffb74b2fd89691f398ca54dc69b1821e05ebe5550287973a008a44570511a58b",
+    "city/data/tiles/5_-2.json": "949c247d5d8fd380cb17ea7d09dadc099e31922327247b8b55748faf67c5363e",
+    "city/data/tiles/5_-3.json": "5d47e403486c9f4bca1603459c61bb8b843ee4a45b4ab6dddd40d671bd8b35a4",
+    "city/data/tiles/5_-4.json": "e82b7deb128fe57bf47a47babe2159230459ef89f60a4ab3ec3f8739ca063e65",
+    "city/data/tiles/5_-5.json": "e63c2baed82d47ab95b9c0bde24e2675fbb09c359a9f7af2028ac6de1eafcdd6",
+    "city/data/tiles/5_-6.json": "9f48ba6882e1dac21c6e20fcf542ad6a7a5b00873bcfcbc9dd4067d3a9731ec9",
+    "city/data/tiles/5_-7.json": "070690227e9136a7732a6eb9a12276b3974c5e7d511aa7899c8990ff4e7cec60",
+    "city/data/tiles/5_-8.json": "fbb3fcd8a043fdc3b0e334dd57524a13b566cf91bb79f358cf45077d2766decd",
+    "city/data/tiles/5_-9.json": "b150cb2031052a70af01f2d222de1d629d6d0fed86494b92dba1a21693bbe515",
+    "city/data/tiles/5_0.json": "4ab32817e2fe610483ba1cd1c7b3279577a525edc8f641ef80cc4c88b1d1d405",
+    "city/data/tiles/5_1.json": "62fce71d4f823c930cd501205cde0af50ab90f768f820df1b37ed30b538e7be3",
+    "city/data/tiles/5_3.json": "ed69e6f8d40ffaf87b2eaa6a38f9e88e6830d20dfb179aa4d4be0dcb64da1ee0",
+    "city/data/tiles/5_4.json": "2b087945bb7f16ce8f37b31572bfba00d8a3b01401b0e4ecda3a0f673a11b86d",
+    "city/data/tiles/5_6.json": "4a9ad3d544052b5c3cd7936119119535b3c32876620c23105e9967fed5215a50",
+    "city/data/tiles/5_7.json": "99ef0319f19a464e5897e5d64c7af4208b112291db99f232014845b3679e4069",
+    "city/data/tiles/6_-1.json": "1861d1cb4a2cece959d2b2def3c4138e38ae70e6f7283501fe5ea56578b169e4",
+    "city/data/tiles/6_-10.json": "e3b840f97f794f14f18cb1fa9f5ab126912bbe34ce3a343abc0c3149a483fd40",
+    "city/data/tiles/6_-11.json": "2e0f141ed41d198db1755c089f02759b0734cf1a072596294ac919c91fa46d85",
+    "city/data/tiles/6_-12.json": "0bfb2eb740394d2c4b48b8fd4bc750071599ffc2289f37f61d9db323b5bc7be4",
+    "city/data/tiles/6_-13.json": "6bba558d6ea20747518b0fe8b00a590c51d981c8a0c22e38680574592cdd8de4",
+    "city/data/tiles/6_-14.json": "d78dbb063789118eba3ca6e3e705a3151e07b1d1205e33026468c3f7c4a897ae",
+    "city/data/tiles/6_-15.json": "321ee8bc0290588e45395d451ff5feb7fb7575b3ab5e5c7443e7335159546f25",
+    "city/data/tiles/6_-2.json": "dd03e67f64eb22e19c13030d3c713e539d2c8f6ac124a6de5c7cbd546930470d",
+    "city/data/tiles/6_-4.json": "726bb7a4fa3e5cfea13c7392644e0a02e689ac4a39ab463c32d45c286e9d6dde",
+    "city/data/tiles/6_-5.json": "77962afd8e4fbfd8daf118344b8d388e684381b830dbb6c9188961aac8e990d5",
+    "city/data/tiles/6_-6.json": "021904fd4c9e969536a0bdfc35edb80a508a9e5a4d839c0c2b4e6339b9f2fe6a",
+    "city/data/tiles/6_-7.json": "19fc2db93f03f7705918533a0959acdec7cf604f3cbee4a118d6aa7aea02653d",
+    "city/data/tiles/6_-8.json": "81a7b25f83c413ff5cca66008405b02f41a16a9da54e637bc9f2731f5b50dc78",
+    "city/data/tiles/6_-9.json": "29146357139edf61d77704efa5354b9eb2c495269aaf57f4154ce7618e145d51",
+    "city/data/tiles/6_0.json": "2864691ad0237d11c690d0fec5422a58f32b950e5785e86c814de12c12481130",
+    "city/data/tiles/6_1.json": "209c6631ca31bf52a872dc890200a9beccaf21740e46f2bebb73eee69a74ab57",
+    "city/data/tiles/6_2.json": "709ecc69ae8245ce51828a35c437876a539d8b8fc058470df480feeb04c7a688",
+    "city/data/tiles/7_-1.json": "320e28c8f60621a8aaa4f1d726e6270b6ca9c7e9b1bb0c37dd6c45444d1aa507",
+    "city/data/tiles/7_-10.json": "4461a9d61475d228d74a6813694f2c34a66b5c58c983cf9b152764b26282a2e5",
+    "city/data/tiles/7_-11.json": "73f9abf14795907da7d6a36c5478a30d4b695da63a800abd658126b4fd832d12",
+    "city/data/tiles/7_-12.json": "8bce67d47eab8b60eb4e29c60601876c20b933ddd05101f41d2d38394590b0a1",
+    "city/data/tiles/7_-13.json": "2fd11a28572249c527758ca0b9f5947ef6b0dcfb6ab014f65e87677b155af3ea",
+    "city/data/tiles/7_-14.json": "e3cdfa07942058c880860d0661091d4a3f8ccf65445cf31fb0ad6463428d4505",
+    "city/data/tiles/7_-15.json": "6735e08a232566c15d15ab9954c8da535cb50468a992308451bb367c6504342e",
+    "city/data/tiles/7_-2.json": "fd0dadf4f21f228208132baf5dca28fe2c873cfd7b88595dd319404665da4b0f",
+    "city/data/tiles/7_-4.json": "b62ad4ca01c32592bcab5eeb589848d2b3f67b8c52951aa24e080bf549326b96",
+    "city/data/tiles/7_-5.json": "fffdf24a65fbcdd1484363a9ffb92c2a16bd7f4827c02534360378035a4d3c08",
+    "city/data/tiles/7_-6.json": "85637101548cd61bd19452a5f754cef4e81c17dd6d96a5dbaab4602287e86281",
+    "city/data/tiles/7_-7.json": "84b0cc273fa3ab36c41eb47a442875c4728437d32675c4e2d8dfe1d44b65de31",
+    "city/data/tiles/7_-8.json": "a40a5c2fc594d0b66da0061084c6de075357567259590df5fe95a9dc978a95f1",
+    "city/data/tiles/7_-9.json": "169b72d6b619f3ba6406efa2144f30f81b06aebe7d10cc9795562f806b2d0a34",
+    "city/data/tiles/7_0.json": "bc9109dd58a8acfe0c06f64cfbc86d9a1a2c0c347e7b933c00fc96ec6585e3d3",
+    "city/data/tiles/7_1.json": "c77006c425265ea24ac2081c90d09e7e3f4fe2ee6eb4bf6d7ac133d0e3d4e96d",
+    "city/data/tiles/7_2.json": "0980da93b5c77245b21d69c83ba6eb05b9945de333a7cac5767213aaa4c349fd",
+    "city/data/tiles/7_5.json": "f0d1984820f70c4d2bfa2c5c3884aa8ee3981699fddc9b681ea3e0e18c23c881",
+    "city/data/tiles/8_-10.json": "af14f7611e2985ce0b0439d1e28379c8d51701b1969f3d436233b5e31f2b9700",
+    "city/data/tiles/8_-11.json": "8676bc262a2b5e49061daabf285ddbf4531a2c88dcb36d09ca9e05bd233700f7",
+    "city/data/tiles/8_-12.json": "d8a83712c9ef9ba5a4f22f4a9c495a0ac036e43922d82cb0b84d739a621a349e",
+    "city/data/tiles/8_-13.json": "80174fa23ff5da492f53d4e78fcd723370ddc7d3492916522a1a88854d4e1b89",
+    "city/data/tiles/8_-14.json": "553662903c3293483e8a546051ff94e9c6c3115c2621d4a9bee5d752877d5714",
+    "city/data/tiles/8_-15.json": "c11d1d62ca78f12fc402e93829259744a648ddb41f0c83d22231652503906b09",
+    "city/data/tiles/8_-3.json": "791bba6ac35a166abefffeb26b97732c30a7186f99a1965ae1428e6d04d2efc6",
+    "city/data/tiles/8_-4.json": "b478ba80996065cc1c9a4e6ef28357081e14eb6ecb0ed3f3eb869e1599188269",
+    "city/data/tiles/8_-5.json": "48295c1bd4b3053a0ee6b77a403b8d312ea14e6d4a9dec85874627b1b17e173e",
+    "city/data/tiles/8_-6.json": "9a9ba76b994023a084f33e9702ae35d1f8bb5177df4c3cf6d957307505dc229f",
+    "city/data/tiles/8_-7.json": "c06f6857c312f44dddad60e8c224386ed023e0c74b4c3ebd84845346f6e450a1",
+    "city/data/tiles/8_-8.json": "fc30249e873595c0f6ece636de779f9e8fb2c024c3ed2e9bbdb55eb0534b4dbb",
+    "city/data/tiles/8_-9.json": "2eea92f0631ac4711af1fdc12207c880659a87a421e0b85e52c38f8cd5a33cba",
+    "city/data/tiles/9_-10.json": "9e39e44e49c27deeed23a9cf34170c60dad2b69e602d479e7aa4a07956a53dfc",
+    "city/data/tiles/9_-11.json": "a774cd02ca137dfd4ca82711cdb118404ccd1af9500cc42f18f4e996ee408a45",
+    "city/data/tiles/9_-13.json": "ed67301963bd41ce81570bd2d16dbf03c3573677082dc320ec95b174b9a8c084",
+    "city/data/tiles/9_-2.json": "6578be55cec15fbf7ee75b7b89f86a910f682d0b8d8c013c570e07e80f07241f",
+    "city/data/tiles/9_-4.json": "0cda60cd3ce96ea602503f811e49fdef8bb5d64691e8af843ad3f664f302eb9e",
+    "city/data/tiles/9_-5.json": "b6fae5f720359e8ccdef0f9f0b8ee2ea8c00573f32fd16268012634e068f1f68",
+    "city/data/tiles/9_-6.json": "1cf6d5fd228c64752a93cbbee9d8a9cae883334e79d17a959542f6b5c383a7d6",
+    "city/data/tiles/9_-7.json": "9cb64b5bd02bfba4078364d25faacf26b3ee7ecbaeb1969074056941bf416ae9",
+    "city/data/tiles/9_-8.json": "5139053006d59086203762ea6d83a0eaec707fc115a861e80dc15e1d62951a54",
+    "city/data/tiles/9_-9.json": "17af64673b09ac3d4cad1fd7f5dbc028e1320640876c51c044f5849ca2990ee2",
+    "city/data/tiles/9_0.json": "37366a5d5ebab6ec09a03b05bace16196568bcb114af13c45ddc51ce3b00a0a8",
+    "city/data/tiles/9_1.json": "111fd6221e1db21a8d1aa4ca17cb00c7f21327ffd7d0233b0eaad99c0801fae3"
+  }
+}
