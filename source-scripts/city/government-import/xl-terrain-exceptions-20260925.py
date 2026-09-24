@@ -17,7 +17,7 @@ def ref(path):
 
 def run():
     rows = []
-    for slug in ("citywalk", "parkview"):
+    for slug in ("citywalk", "parkview", "go-park"):
         doc = BASE / f"{slug}-terrain-diagnostic-20260925"
         selection = read(doc / "selection.json.gz")
         foundation = {r["uid"]: r for r in read(doc / "foundation.json")["rows"]}
@@ -36,6 +36,7 @@ def run():
         for row in selection["rows"]:
             uid = row["uid"]
             reason = ("installed-native-neighbour-regression" if native_failed else
+                      "related-source-components-terrain-gap" if slug == "go-park" else
                       "adjacent-basic-form-terrain-gap")
             rows.append({"uid": uid, "sourceSHA256": row["candidate"]["entry"]["sha256"],
                          "humanStatus": "held-unknown", "primaryHold": "terrain-contact",
@@ -45,7 +46,9 @@ def run():
                          "blockedNeighbourUids": blocked,
                          "failedInstalledNativeUids": native_failed,
                          "installedSupportProofPassed": slug == "parkview",
-                         "nextWork": "Compute a smaller or support-aware exact-source patch and rerun all neighbour/browser gates",
+                         "nextWork": ("Identify and port three neighbouring original GO PARK components with shared terrain, or compute a smaller patch; rerun all gates"
+                                      if slug == "go-park" else
+                                      "Compute a smaller or support-aware exact-source patch and rerun all neighbour/browser gates"),
                          "evidence": sources, "requiresAI": False, "requiresHuman": False, "aiCalls": 0})
     selection = {row["uid"]: row for row in read(BASE / "selection.json.gz")["rows"]}
     west = [row for row in read(BASE / "reconciliation.json.gz")["rows"]
@@ -73,10 +76,10 @@ def run():
                      "nextWork": "Build a source-preserving replacement covering existing patches and verify their installed models",
                      "evidence": [ref(BASE / "selection.json.gz"), ref(BASE / "reconciliation.json.gz")],
                      "requiresAI": False, "requiresHuman": False, "aiCalls": 0})
-    assert len(rows) == 9 and len({r["uid"] for r in rows}) == 9
-    report = {"batch": BATCH, "stage": "compute-held-v1", "rows": rows,
-              "humanCounts": {"held-unknown": 9, "held-ai": 0, "held-human": 0, "in-process": 0},
-              "qualification": "These nine remain held for explicit terrain/assembly compute work; no model geometry was modified or installed. The other XL states remain in the territory reconciliation.",
+    assert len(rows) == 10 and len({r["uid"] for r in rows}) == 10
+    report = {"batch": BATCH, "stage": "compute-held-v2", "rows": rows,
+              "humanCounts": {"held-unknown": 10, "held-ai": 0, "held-human": 0, "in-process": 0},
+              "qualification": "These ten remain held for explicit terrain/assembly compute work; no model geometry was modified or installed. The other XL states remain in the territory reconciliation.",
               "aiCalls": 0, "modelGeometryChanges": 0}
     save(OUTPUT, report)
     claim = reservations.claim("codex-xl-terrain-exceptions-" + str(uuid.uuid4()),
