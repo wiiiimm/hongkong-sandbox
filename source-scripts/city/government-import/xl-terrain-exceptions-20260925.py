@@ -17,7 +17,8 @@ def ref(path):
 
 def run():
     rows = []
-    for slug in ("citywalk", "parkview", "go-park", "festival-walk", "franki-centre"):
+    for slug in ("citywalk", "parkview", "go-park", "festival-walk", "franki-centre",
+                 "harbourview-horizon"):
         doc = BASE / f"{slug}-terrain-diagnostic-20260925"
         selection = read(doc / "selection.json.gz")
         foundation = {r["uid"]: r for r in read(doc / "foundation.json")["rows"]}
@@ -40,9 +41,13 @@ def run():
         if slug == "franki-centre":
             sources.extend(ref(doc / name) for name in
                            ("acceptance.json", "foundation-resolution.json"))
+        if slug == "harbourview-horizon":
+            sources.extend(ref(doc / name) for name in
+                           ("acceptance.json", "foundation-resolution.json", "source-recovery.json"))
         for row in selection["rows"]:
             uid = row["uid"]
-            reason = ("adjacent-basic-form-burial" if slug == "franki-centre" else
+            reason = ("adjacent-form-terrain-gap" if slug == "harbourview-horizon" else
+                      "adjacent-basic-form-burial" if slug == "franki-centre" else
                       "source-sheet-seam-and-neighbour-regression" if slug == "festival-walk" else
                       "installed-native-neighbour-regression" if native_failed else
                       "related-source-components-terrain-gap" if slug == "go-park" else
@@ -55,7 +60,9 @@ def run():
                          "blockedNeighbourUids": blocked,
                          "failedInstalledNativeUids": native_failed,
                          "installedSupportProofPassed": slug == "parkview",
-                         "nextWork": ("Resolve neighbouring landsd/91695:0 terrain burial with a smaller source-preserving patch and review the sampled ground-contact warning; rerun all gates"
+                         "nextWork": ("Resolve ground gaps beneath neighbouring forms landsd/257058:0, landsd/257059:0 and landsd/259577:0 using source support or a smaller patch; review sampled contact warning; rerun all gates"
+                                      if slug == "harbourview-horizon" else
+                                      "Resolve neighbouring landsd/91695:0 terrain burial with a smaller source-preserving patch and review the sampled ground-contact warning; rerun all gates"
                                       if slug == "franki-centre" else
                                       "Resolve two-model Festival Walk foundation contact and nine neighbour regressions with a shared source-preserving patch; rerun all gates"
                                       if slug == "festival-walk" else
@@ -89,10 +96,10 @@ def run():
                      "nextWork": "Build a source-preserving replacement covering existing patches and verify their installed models",
                      "evidence": [ref(BASE / "selection.json.gz"), ref(BASE / "reconciliation.json.gz")],
                      "requiresAI": False, "requiresHuman": False, "aiCalls": 0})
-    assert len(rows) == 13 and len({r["uid"] for r in rows}) == 13
-    report = {"batch": BATCH, "stage": "compute-held-v5", "rows": rows,
-              "humanCounts": {"held-unknown": 13, "held-ai": 0, "held-human": 0, "in-process": 0},
-              "qualification": "These thirteen remain held for explicit terrain/assembly compute work; no model geometry was modified or installed. The other XL states remain in the territory reconciliation.",
+    assert len(rows) == 14 and len({r["uid"] for r in rows}) == 14
+    report = {"batch": BATCH, "stage": "compute-held-v6", "rows": rows,
+              "humanCounts": {"held-unknown": 14, "held-ai": 0, "held-human": 0, "in-process": 0},
+              "qualification": "These fourteen remain held for explicit terrain/assembly compute work; no model geometry was modified or installed. The other XL states remain in the territory reconciliation.",
               "aiCalls": 0, "modelGeometryChanges": 0}
     save(OUTPUT, report)
     claim = reservations.claim("codex-xl-terrain-exceptions-" + str(uuid.uuid4()),
