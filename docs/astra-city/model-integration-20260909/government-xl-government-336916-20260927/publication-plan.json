@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-government-336916-20260927/plan.json",
+  "areas": [
+    {
+      "area": "government building landsd/336916:0 Youth Hostel original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-government-336916-20260927/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-336916-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-government-336916-20260927/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "19ba49bdf29f730236cd8de7365b18a2337e811e6546dcd27f1520b3045dacef"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-336916-0.json": "b1f348dcec4f760633c673962c1e5f7b5bee268f8ba1d316bf0092982aa60837",
+    "3d-viewer/city/data/official-models/government-xl-government-336916-20260927/catalogue.json": "9f27bd58a1275f8526b3b47f2fb485e733a029878da16b15fd8045755b052646",
+    "3d-viewer/city/data/manifest.json": "6aaf56dd48922a27ce32fd8912c7e7f74a2d11027edc060be11b17e02066c091"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "aa8dbecaf1ad35f59ed70f308803ede572bcffdb",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-336916-0.json",
+      "resolution": 5,
+      "area": "government building landsd/336916:0 Youth Hostel exact government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "4c54f033257d28bd2cc67aa3aa39c95aff01caf42cd2b2b406ac348512e3b78f",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "14-NE-15D",
+            "sourceETag": "\"19dedcf-63dceae3b5d8b\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/14-NE-15D/terrain/TERRAIN(TB)/T29250084000106E10/T29250084000106E10.bin",
+                "sha256": "cfae7228c0b73d429e813134aeaee5dbd484518693c66a37877ccf9836bcbdc4"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/14-NE-15D/terrain/TERRAIN(TB)/T29250084000106E10/T29250084000106E10.gltf",
+                "sha256": "38e8b30b103c3e82bc43b0fc697040535c2989b3f7cb990abd8a94fa32ec73a2"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1653,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "b1f348dcec4f760633c673962c1e5f7b5bee268f8ba1d316bf0092982aa60837",
+      "bytes": 293781
+    }
+  ],
+  "estimatedBases": []
+}
