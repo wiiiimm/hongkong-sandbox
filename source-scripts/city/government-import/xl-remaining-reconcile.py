@@ -99,12 +99,12 @@ def build():
         })
     counts = dict(Counter(row["humanStatus"] for row in rows))
     holds = dict(Counter(row["primaryHold"] for row in rows if row["primaryHold"]))
-    assert counts == {"installed": 26, "held-unknown": 326}, counts
+    assert counts == {"installed": 27, "held-unknown": 325}, counts
     assert holds == {"source-identity-or-assembly": 257,
-                     "terrain-contact": 67, "source-recovery": 2}, holds
+                     "terrain-contact": 66, "source-recovery": 2}, holds
     report = {
-        "batch": BATCH, "stage": "installed-and-held-reconciliation-v11",
-        "models": 352, "outsideLantau": True, "installedThisPass": 26,
+        "batch": BATCH, "stage": "installed-and-held-reconciliation-v12",
+        "models": 352, "outsideLantau": True, "installedThisPass": 27,
         "humanCounts": {key: counts.get(key, 0) for key in
                         ("installed", "to-do", "held-human", "held-ai", "held-unknown", "in-process")},
         "primaryHoldCounts": holds, "sourceRun": selection["nativeRun"],
@@ -127,7 +127,7 @@ def sync():
     receipt = claim["reservation"]
     try:
         payload = {"evidence": rel(PROOF), "sha256": sha(PROOF),
-                   "models": 352, "installed": 26, "aiCalls": 0}
+                   "models": 352, "installed": 27, "aiCalls": 0}
         job_id = jobs.enqueue(BATCH, report["stage"], payload)
         job = jobs.claim(BATCH, receipt["owner"], [report["stage"]], lease_seconds=1800)
         assert job and job["id"] == job_id
