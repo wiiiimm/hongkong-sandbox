@@ -93,7 +93,13 @@ def run():
     by_uid = {row["uid"]: row for path in input_paths for row in read(path)["rows"]}
     for uid in uids:
         row = selected[uid]
-        source_path = Path(by_uid[uid]["candidate"]["path"])
+        if uid in by_uid:
+            source_path = Path(by_uid[uid]["candidate"]["path"])
+        else:
+            candidates = [HERE / "local" / batch / "recovered/assets" / (row["sourceSHA256"] + ".glb.gz")
+                          for batch in ("government-xl-source-revision-20260924",
+                                        "government-xl-source-http-retry-20260924")]
+            source_path = next(path for path in candidates if path.exists() and sha(path) == row["sourceSHA256"])
         assert sha(source_path) == row["sourceSHA256"]
         target = second.LOCAL / "assets" / (row["sourceSHA256"] + ".glb.gz")
         target.parent.mkdir(parents=True, exist_ok=True)

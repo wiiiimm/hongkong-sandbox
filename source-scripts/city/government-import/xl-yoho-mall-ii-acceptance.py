@@ -45,15 +45,21 @@ def run():
     for uid in uids:
         if uid not in inputs:
             original = selection[uid]
-            path = HERE / "local/government-xl-source-revision-20260924/recovered/assets" / (original["sourceSHA256"] + ".glb.gz")
-            assert path.exists() and sha(path) == original["sourceSHA256"]
-            revision_catalogue = read(HERE / "local/government-xl-source-revision-20260924/recovered/catalogue.json")
-            entry = next(model for model in revision_catalogue["models"] if model["uid"] == uid)
+            recovered = [HERE / "local" / batch / "recovered" for batch in
+                         ("government-xl-source-revision-20260924", "government-xl-source-http-retry-20260924")]
+            directory = next(root for root in recovered
+                             if (root / "assets" / (original["sourceSHA256"] + ".glb.gz")).exists())
+            path = directory / "assets" / (original["sourceSHA256"] + ".glb.gz")
+            assert sha(path) == original["sourceSHA256"]
+            catalogue = read(directory / "catalogue.json")
+            entry = next(model for model in catalogue["models"] if model["uid"] == uid)
             assert entry["sha256"] == original["sourceSHA256"]
             inputs[uid] = {"candidate": {"path": str(path), "entry": entry}}
     context = {row["uid"]: row for path in (BASE / "context.json", BASE / "context-held.json")
                for row in read(path)["rows"]}
     context.update({uid: row for uid, row in revision.items() if uid not in context})
+    retry = {row["uid"]: row for row in read(BASE / "http-retry-check-20260924/results.json.gz")["rows"]}
+    context.update({uid: row for uid, row in retry.items() if uid not in context})
     assert len(uids) == 1 and all(uid in inputs and uid in context for uid in uids)
     rows, entries, forms, identity_resolutions = [], [], {}, []
     STAGE.mkdir(parents=True, exist_ok=True)
