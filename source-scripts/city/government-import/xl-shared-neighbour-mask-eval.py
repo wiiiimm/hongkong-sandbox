@@ -27,6 +27,7 @@ patches = module("xl_patch_shared_eval", HERE / "native_patch_resolution.py")
 BASE = ROOT / "docs/astra-city/government-import/government-xl-remaining-20260923"
 SOURCE = BASE / "disjoint-neighbour-mask-eval-20260927.json"
 LOCAL = HERE / "local/government-xl-shared-mask-eval-20260927"
+OUTPUT = BASE / "shared-neighbour-mask-eval-20260927.json"
 
 
 def ref(path):
@@ -54,6 +55,12 @@ def run():
         sampler = second.resolution.terrain.fine.DemSampler(parent, rendered=True)
         proof = patches.preserve_parent_under_projection(candidate, bounds, protected, sampler)
         proof.update(uids=shared, boundaryFringeM=.01)
+        faces = patches._faces(candidate)
+        parent_count = proof["parentTriangles"]
+        parent_surface = shapely.union_all(shapely.polygons(faces[-parent_count:, :, [0, 2]]))
+        earlier_surface = shapely.union_all(shapely.polygons(faces[:-parent_count, :, [0, 2]]))
+        parent_source_overlap = parent_surface.intersection(earlier_surface).area
+        assert parent_source_overlap <= .25, (uid, parent_source_overlap)
         candidate["nativeMesh"]["source"]["finalBoundarySnap"] = patches.snap_boundary_to_parent(candidate, bounds, sampler)
         _, _, missing, excess = patches.projected_context(candidate, bounds)
         maximum_gap = max(.25, (bounds[2] - bounds[0]) * (bounds[3] - bounds[1]) * 1e-3)
@@ -62,17 +69,29 @@ def run():
             "policy": "parent-grid-fallback", "measuredAreaM2": missing.area,
             "maximumAreaM2": maximum_gap, "maximumFraction": 1e-3,
         }
-        assert 0 <= excess <= .25, (uid, excess)
+        original_overlap = candidate["nativeMesh"].get("sourceOverlap", {}).get("measuredProjectedExcessM2", 0)
+        assert 0 <= excess <= max(.25, original_overlap + .25), (uid, excess, original_overlap)
         candidate["nativeMesh"].pop("sourceOverlap", None)
-        candidate["nativeMesh"]["source"]["numericalProjectionOverlap"] = {
-            "policy": "highest-float32-surface", "measuredAreaM2": excess,
-            "maximumAreaM2": .25,
-            "cause": "Float32 source/parent seam after shared neighbour preservation",
-        }
-        second.resolution.validate_patch(candidate, parent)
         folder = LOCAL / name
         folder.mkdir(parents=True, exist_ok=True)
         candidate_path = folder / path.name
+        overlap_evidence = None
+        if excess > .25:
+            assert original_overlap > .25
+            candidate["nativeMesh"]["source"].pop("numericalProjectionOverlap", None)
+            source_files = read(doc / "native-overlap.json")["source"]["files"]
+            overlap_evidence = doc / "shared-masked-source-overlap.json"
+            save(candidate_path, candidate)
+            patches.approve_original_overlap(candidate, candidate_path, overlap_evidence, source_files)
+            candidate["nativeMesh"]["sourceOverlap"]["evidencePath"] = str(overlap_evidence.relative_to(ROOT))
+            patches.finalize_overlap_evidence(candidate, overlap_evidence)
+        else:
+            candidate["nativeMesh"]["source"]["numericalProjectionOverlap"] = {
+                "policy": "highest-float32-surface", "measuredAreaM2": excess,
+                "maximumAreaM2": .25,
+                "cause": "Float32 source/parent seam after shared neighbour preservation",
+            }
+        second.resolution.validate_patch(candidate, parent)
         save(candidate_path, candidate)
         test_inputs = dict(neighbours)
         test_inputs["patches"] = [{**patch, **ref(candidate_path)} for patch in neighbours["patches"]]
@@ -93,6 +112,9 @@ def run():
         row = {"uid": uid, "site": name, "inputPatch": previous["candidatePatch"],
                "candidatePatch": ref(candidate_path), "sharedProtectedUids": shared,
                "parentPreservation": proof, "numericalProjectedOverlapM2": excess,
+               "originalProjectedOverlapM2": original_overlap,
+               "parentSourceOverlapM2": parent_source_overlap,
+               "sourceOverlapEvidence": ref(overlap_evidence) if overlap_evidence else None,
                "numericalCoverageGapM2": missing.area,
                "remainingBlockedUids": blocked,
                "minLowRimGapM": metrics["minLowGap"],
@@ -106,7 +128,7 @@ def run():
         print(json.dumps({"uid": uid, "remainingBlocked": blocked,
                           "minLowRimGapM": metrics["minLowGap"],
                           "maxLowRimGapM": metrics["maxLowGap"]}), flush=True)
-        save(BASE / "shared-neighbour-mask-eval-20260927.json",
+        save(OUTPUT,
              {"stage": "shared-parent-terrain-mask-evaluation-v1", "rows": rows,
               "aiCalls": 0, "modelGeometryChanges": 0, "publication": False})
 
