@@ -29,6 +29,8 @@ BASE = ROOT / "docs/astra-city/government-import/government-xl-remaining-2026092
 LOCAL = HERE / "local/government-xl-disjoint-mask-eval-20260927"
 SITES = (("diocesan-girls-school", "landsd/257352:0"),
          ("yoho-mall-ii", "landsd/273672:0"))
+REQUIRE_SHARED = True
+OUTPUT = BASE / "disjoint-neighbour-mask-eval-20260927.json"
 
 
 def ref(path):
@@ -57,37 +59,55 @@ def run():
             building = by_uid[item]
             footprint = Polygon(building["rings"][0], building["rings"][1:])
             intersection = footprint.intersection(model_projection).area
-            if intersection < 1e-8 and footprint.distance(model_projection) > 1:
+            if intersection < 1e-8 and footprint.distance(model_projection) > (.02 if not REQUIRE_SHARED else 1):
                 disjoint.append(item)
                 forms.append(footprint.buffer(.01, join_style="mitre"))
             else:
                 shared.append({"uid": item, "targetOverlapM2": intersection})
-        assert disjoint and shared
+        assert disjoint and (shared or not REQUIRE_SHARED)
         protected = shapely.union_all(forms)
         assert protected.intersection(model_projection).area < 1e-8
         candidate = read(original_path)
         sampler = second.resolution.terrain.fine.DemSampler(parent, rendered=True)
         proof = patches.preserve_parent_under_projection(candidate, bounds, protected, sampler)
         proof.update(uids=disjoint, boundaryFringeM=.01)
+        faces = patches._faces(candidate)
+        parent_count = proof["parentTriangles"]
+        parent_surface = shapely.union_all(shapely.polygons(faces[-parent_count:, :, [0, 2]]))
+        source_surface = shapely.union_all(shapely.polygons(faces[:-parent_count, :, [0, 2]]))
+        parent_source_overlap = parent_surface.intersection(source_surface).area
+        assert parent_source_overlap <= .25, (uid, parent_source_overlap)
         fill = patches.fill_parent_only_holes(candidate, parent, bounds, model_projection, sampler)
         candidate["nativeMesh"]["source"]["finalBoundarySnap"] = patches.snap_boundary_to_parent(candidate, bounds, sampler)
         excess = patches.projected_context(candidate, bounds)[3]
-        assert 0 <= excess <= .25, (uid, excess)
+        original_overlap = original["nativeMesh"].get("sourceOverlap", {}).get("measuredProjectedExcessM2", 0)
+        assert 0 <= excess <= max(.25, original_overlap + .25), (uid, excess, original_overlap)
         # The original source-overlap hash binds the unmasked TIN and cannot
         # certify this candidate. The clipped Float32 surface is independently
         # bounded here; the viewer samples its highest surface.
         candidate["nativeMesh"].pop("sourceOverlap", None)
-        candidate["nativeMesh"]["source"]["numericalProjectionOverlap"] = {
-            "policy": "highest-float32-surface", "measuredAreaM2": excess,
-            "maximumAreaM2": .25,
-            "cause": "Float32 source/parent seam after disjoint neighbour preservation",
-        }
-        print(json.dumps({"uid": uid, "candidateProjectedExcessM2":
-                          excess}), flush=True)
-        second.resolution.validate_patch(candidate, parent)
         folder = LOCAL / name
         folder.mkdir(parents=True, exist_ok=True)
         candidate_path = folder / original_path.name
+        overlap_evidence = None
+        if excess > .25:
+            assert original_overlap > .25 and parent_source_overlap <= .25
+            audit = read(doc / "native-overlap.json")
+            source_files = audit["source"]["files"]
+            overlap_evidence = doc / "masked-source-overlap.json"
+            save(candidate_path, candidate)
+            patches.approve_original_overlap(candidate, candidate_path, overlap_evidence, source_files)
+            candidate["nativeMesh"]["sourceOverlap"]["evidencePath"] = str(overlap_evidence.relative_to(ROOT))
+            patches.finalize_overlap_evidence(candidate, overlap_evidence)
+        else:
+            candidate["nativeMesh"]["source"]["numericalProjectionOverlap"] = {
+                "policy": "highest-float32-surface", "measuredAreaM2": excess,
+                "maximumAreaM2": .25,
+                "cause": "Float32 source/parent seam after disjoint neighbour preservation",
+            }
+        print(json.dumps({"uid": uid, "candidateProjectedExcessM2":
+                          excess}), flush=True)
+        second.resolution.validate_patch(candidate, parent)
         save(candidate_path, candidate)
         test_inputs = dict(neighbours)
         test_inputs["patches"] = [{**patch, **ref(candidate_path)} for patch in neighbours["patches"]]
@@ -101,12 +121,15 @@ def run():
                "sharedFootprintUids": shared, "parentPreservation": proof,
                "parentHoleFill": fill, "remainingBlockedUids": still_blocked,
                "numericalProjectedOverlapM2": excess,
+               "originalProjectedOverlapM2": original_overlap,
+               "parentSourceOverlapM2": parent_source_overlap,
+               "sourceOverlapEvidence": ref(overlap_evidence) if overlap_evidence else None,
                "neighbourCheck": ref(folder / "neighbour-checks.json"),
                "aiCalls": 0, "modelGeometryChanges": 0, "publication": False}
         rows.append(row)
         print(json.dumps({"uid": uid, "protected": len(disjoint),
                           "remainingBlocked": still_blocked}), flush=True)
-        save(BASE / "disjoint-neighbour-mask-eval-20260927.json",
+        save(OUTPUT,
              {"stage": "disjoint-parent-terrain-mask-evaluation-v1", "rows": rows,
               "aiCalls": 0, "modelGeometryChanges": 0, "publication": False})
 

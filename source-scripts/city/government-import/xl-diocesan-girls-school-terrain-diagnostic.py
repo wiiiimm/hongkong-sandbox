@@ -24,6 +24,8 @@ LOCAL = HERE / "local/government-xl-diocesan-girls-school-terrain-20260927"
 SHEET = "11-NW-24B"
 SOURCE_ROOT = HERE / "local/government-xl-terrain-sources-20260924/sheets"
 TERRAIN_SHEETS = (SHEET, "11-NW-24D")
+UID = "landsd/257352:0"
+LOW_TERRAIN_POLICY = "reject"
 
 
 def sha(path):
@@ -37,7 +39,7 @@ def rel(path):
 def run():
     rows = [row for row in read(BASE / "reconciliation.json.gz")["rows"]
             if row["primaryHold"] == "terrain-contact" and row["sourceSheet"] == SHEET
-            and row["uid"] == "landsd/257352:0"]
+            and row["uid"] == UID]
     assert len(rows) == 1
     uids = [row["uid"] for row in rows]
     selected = {row["uid"]: row for row in read(BASE / "selection.json.gz")["rows"]}
@@ -79,8 +81,7 @@ def run():
                                        (triangles[:, :, 2].min(axis=1) <= bounds[3])])
     native = np.concatenate(fragments)
     low = native[:, :, 1].min(axis=1) < 1.2
-    native = native[~low]
-    assert len(native) and not low.any()
+    assert len(native)
 
     model_fragments = []
     input_paths = [HERE / "local/government-xl-remaining-20260923/recovered/geometry-inputs.json",
@@ -98,6 +99,14 @@ def run():
         model_fragments.append(second.glb_triangles(row))
     model_triangles = np.concatenate(model_fragments)
     model_projection = shapely.union_all(shapely.polygons(model_triangles[:, :, [0, 2]]))
+    low_under_model = 0.0
+    if low.any():
+        assert LOW_TERRAIN_POLICY == "omit-peripheral-below-clamp"
+        low_projection = shapely.union_all(shapely.polygons(native[low][:, :, [0, 2]]))
+        low_under_model = float(low_projection.intersection(model_projection).area)
+        assert low_under_model < 1e-6, (UID, low_under_model)
+        native = native[~low]
+        assert len(native)
     world = [selected[uid]["native"]["model"]["worldBounds"] for uid in uids]
     core = [min(item[0][0] for item in world) - 1, min(item[0][2] for item in world) - 1,
             max(item[1][0] for item in world) + 1, max(item[1][2] for item in world) + 1]
@@ -148,6 +157,8 @@ def run():
     validator(patch, parent)
     save(path, patch)
     result = {"uids": uids, "sourceSheet": SHEET, "terrainSheets": list(TERRAIN_SHEETS),
+              "lowSourceTriangles": int(low.sum()), "lowTerrainPolicy": LOW_TERRAIN_POLICY,
+              "lowSourceIntersectionWithModelM2": low_under_model,
               "sourceDirectorySHA256s": {row["sheet"]: row["directorySHA256"] for row in used},
               "cells": cells, "sourceTerrainTriangles": len(native), "modelTriangles": len(model_triangles),
               "patchTriangles": len(patch["nativeMesh"]["index"]) // 3,
