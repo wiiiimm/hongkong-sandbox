@@ -50,7 +50,7 @@ for(const r of rows){let model;
    for(let edge=0;edge<3;edge++){const a=vertices[edge],b=vertices[(edge+1)%3];if(Math.max(a[1],b[1])>bottom+.35)continue;const steps=Math.ceil(Math.hypot(a[0]-b[0],a[2]-b[2]));for(let j=1;j<steps;j++)check(...a.map((v,k)=>v+(b[k]-v)*j/steps));}
   }
   results.push({uid:r.uid,sourceSHA256:e.sha256,checks:count,lowRimChecks:lowCount,minSurfaceGap:minGap,minLowGap,maxLowGap,maxSamplerDelta,missingDrawnTerrain:{count:missing,minRuntimeClearance:Number.isFinite(minMissingRuntimeClearance)?minMissingRuntimeClearance:null},samplerDisagreement:{count:samplerDisagreementCount,minDelta:Number.isFinite(minSamplerDisagreementDelta)?minSamplerDisagreementDelta:0,maxDelta:maxSamplerDelta,minDrawnClearance:Number.isFinite(minSamplerDisagreementDrawnClearance)?minSamplerDisagreementDrawnClearance:null,minRuntimeClearance:Number.isFinite(minSamplerDisagreementRuntimeClearance)?minSamplerDisagreementRuntimeClearance:null},missingTerrain:missing,terrainTriangles:surface.triangles,budget:model.budget,identity:{overlap:e.overlapOfSmallerFootprint,centroidDistance:e.footprintCentroidDistanceMetres},sourcePreserved:true});
- }catch(error){results.push({uid:r.uid,error:String(error.message)});}finally{disposeOfficialModel(model);}
+ }catch(error){if(process.env.DEBUG_XL_METRICS)console.error(error.stack);results.push({uid:r.uid,error:String(error.message)});}finally{disposeOfficialModel(model);}
 }
 const report={policy:'original-government-import-v1',inputHashes:inputs,profiles:MODEL_PROFILES,rows:results,aiCalls:0,geometryChanges:0,architectureReconstruction:false};
 writeFileSync(output,JSON.stringify(report,null,2)+'\n');

@@ -14,6 +14,7 @@ BASE = ROOT / "docs/astra-city/government-import/government-xl-remaining-2026092
 DOC = BASE / "yoho-mall-ii-terrain-diagnostic-20260927"
 LOCAL = HERE / "local/government-xl-yoho-mall-ii-terrain-20260927"
 STAGE = LOCAL / "candidates"
+ALLOW_UNRELATED_IDENTITY_FOR_DIAGNOSTIC = False
 
 
 def sha(path):
@@ -39,8 +40,20 @@ def run():
     input_paths = [HERE / "local/government-xl-remaining-20260923/recovered/geometry-inputs.json",
                    HERE / "local/government-xl-remaining-held-20260923/recovered/geometry-inputs.json"]
     inputs = {row["uid"]: row for path in input_paths for row in read(path)["rows"]}
+    revision_path = BASE / "revision-check-20260924/results.json.gz"
+    revision = {row["uid"]: row for row in read(revision_path)["rows"]}
+    for uid in uids:
+        if uid not in inputs:
+            original = selection[uid]
+            path = HERE / "local/government-xl-source-revision-20260924/recovered/assets" / (original["sourceSHA256"] + ".glb.gz")
+            assert path.exists() and sha(path) == original["sourceSHA256"]
+            revision_catalogue = read(HERE / "local/government-xl-source-revision-20260924/recovered/catalogue.json")
+            entry = next(model for model in revision_catalogue["models"] if model["uid"] == uid)
+            assert entry["sha256"] == original["sourceSHA256"]
+            inputs[uid] = {"candidate": {"path": str(path), "entry": entry}}
     context = {row["uid"]: row for path in (BASE / "context.json", BASE / "context-held.json")
                for row in read(path)["rows"]}
+    context.update({uid: row for uid, row in revision.items() if uid not in context})
     assert len(uids) == 1 and all(uid in inputs and uid in context for uid in uids)
     rows, entries, forms, identity_resolutions = [], [], {}, []
     STAGE.mkdir(parents=True, exist_ok=True)
@@ -55,13 +68,15 @@ def run():
                                 and unrelated_area <= 2.5
                                 and unrelated_area / identity["sourceProjectionAreaM2"] <= .005
                                 and identity["sourceExcessMaximumDistanceFromTargetM"] <= 1.2)
-        assert identity["unrelatedIntersectingForms"] == 0
+        if not ALLOW_UNRELATED_IDENTITY_FOR_DIAGNOSTIC:
+            assert identity["unrelatedIntersectingForms"] == 0
         identity_resolutions.append({"uid": uid, "exactObjectAndCSUID": True,
                                      "targetCoverage": identity["targetCoveredBySourceProjection"],
                                      "sourceExcessFraction": identity["sourceExcessFraction"],
                                      "unrelatedIntersectingForms": identity["unrelatedIntersectingForms"],
                                      "unrelatedAreaM2": unrelated_area,
-                                     "boundedEdgeContact": bounded_edge_contact})
+                                     "boundedEdgeContact": bounded_edge_contact,
+                                     "identityAccepted": identity["unrelatedIntersectingForms"] == 0})
         candidate = inputs[uid]["candidate"]
         assert sha(candidate["path"]) == original["sourceSHA256"]
         entry = candidate["entry"]
