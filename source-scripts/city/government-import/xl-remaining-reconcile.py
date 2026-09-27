@@ -16,6 +16,7 @@ HELD_CONTEXT = DOC / "context-held.json"
 HTTP_RETRY = DOC / "http-retry-check-20260924/results.json.gz"
 REVISION_CHECK = DOC / "revision-check-20260924/results.json.gz"
 PROOF = DOC / "reconciliation.json.gz"
+DETAILED_HOLDS = {"landsd/264206:0": DOC / "china-merchants-tower-east-terrain-diagnostic-20260927/held.json"}
 
 
 def sha(path):
@@ -84,6 +85,16 @@ def build():
                 reasons.add("current-terrain-contact")
             else:
                 reasons.add("projected-source-identity-or-assembly")
+        detailed_hold = None
+        detail_path = DETAILED_HOLDS.get(uid)
+        if detail_path and detail_path.exists() and not current:
+            detailed_hold = read(detail_path)
+            assert detailed_hold["uid"] == uid and detailed_hold["humanStatus"] == status
+            assert detailed_hold["primaryHold"] == primary
+            assert detailed_hold["aiCalls"] == 0 and detailed_hold["modelGeometryChanges"] == 0
+            for evidence in detailed_hold["evidence"]:
+                assert sha(ROOT / evidence["path"]) == evidence["sha256"]
+            reasons.add(detailed_hold["detailedHold"])
         rows.append({
             "uid": uid, "modelId": original["modelId"], "name": original["name"],
             "sectionId": original["sectionId"], "sourceSHA256": original["sourceSHA256"],
@@ -91,10 +102,13 @@ def build():
             "nativeCacheKey": original["native"]["cacheKey"],
             "humanStatus": status, "primaryHold": primary,
             "reasons": sorted(reasons), "installedProof": current,
+            "detailedHold": detailed_hold["detailedHold"] if detailed_hold else None,
+            "nextWork": detailed_hold["nextWork"] if detailed_hold else None,
             "exactSourceRecovered": context is not None,
             "evidence": [rel(INITIAL), rel(HELD) if second else None,
                          rel(retried[uid][1]) if uid in retried else
-                         rel(HELD_CONTEXT if second else CONTEXT) if context else None],
+                         rel(HELD_CONTEXT if second else CONTEXT) if context else None,
+                         rel(detail_path) if detailed_hold else None],
             "aiCalls": 0,
         })
     counts = dict(Counter(row["humanStatus"] for row in rows))
@@ -102,7 +116,7 @@ def build():
     assert counts.get("installed", 0) >= 30 and sum(counts.values()) == 352, counts
     assert sum(holds.values()) == counts.get("held-unknown", 0), holds
     report = {
-        "batch": BATCH, "stage": "installed-and-held-reconciliation-v15",
+        "batch": BATCH, "stage": "installed-and-held-reconciliation-v16",
         "models": 352, "outsideLantau": True, "installedThisPass": counts.get("installed", 0),
         "humanCounts": {key: counts.get(key, 0) for key in
                         ("installed", "to-do", "held-human", "held-ai", "held-unknown", "in-process")},

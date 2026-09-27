@@ -26,6 +26,7 @@ SOURCE_ROOT = HERE / "local/government-xl-terrain-sources-20260924/sheets"
 TERRAIN_SHEETS = (SHEET, "11-NW-24D")
 UID = "landsd/257352:0"
 LOW_TERRAIN_POLICY = "reject"
+PARENT_URL = "city/data/terrain.json"
 
 
 def sha(path):
@@ -45,16 +46,19 @@ def run():
     selected = {row["uid"]: row for row in read(BASE / "selection.json.gz")["rows"]}
     first = {row["uid"]: row for row in read(BASE / "results.json.gz")["rows"]}
     assert all(first[uid]["humanStatus"] == "held-unknown" for uid in uids)
-    parent = read(ROOT / "3d-viewer/city/data/terrain.json")
+    parent_path = ROOT / "3d-viewer" / PARENT_URL
+    parent = read(parent_path)
     rectangles = [second.resolution.rectangle_for(selected[uid]["native"]["model"]["worldBounds"], parent)
                   for uid in uids]
     cells = [min(row[0] for row in rectangles), min(row[1] for row in rectangles),
              max(row[2] for row in rectangles), max(row[3] for row in rectangles)]
     bounds = second.resolution.extent(cells, parent)
     manifest = read(ROOT / "3d-viewer/city/data/manifest.json")
-    overlap = [item["url"] for item in manifest["terrainPatches"]
+    overlap = [item["url"] for item in manifest["terrainPatches"] if item["url"] != PARENT_URL
                if second.resolution.terrain.overlap(cells, read(ROOT / "3d-viewer" / item["url"])["coarseCells"])]
     assert not overlap, overlap
+    assert not any(second.resolution.terrain.overlap(cells, child["coarseCells"])
+                   for child in parent.get("patches", [])), "overlapping-nested-parent-patch"
 
     source_files = []
     fragments = []
@@ -101,12 +105,14 @@ def run():
     model_projection = shapely.union_all(shapely.polygons(model_triangles[:, :, [0, 2]]))
     low_under_model = 0.0
     if low.any():
-        assert LOW_TERRAIN_POLICY == "omit-peripheral-below-clamp"
         low_projection = shapely.union_all(shapely.polygons(native[low][:, :, [0, 2]]))
         low_under_model = float(low_projection.intersection(model_projection).area)
-        assert low_under_model < 1e-6, (UID, low_under_model)
-        native = native[~low]
-        assert len(native)
+        if LOW_TERRAIN_POLICY == "omit-peripheral-below-clamp":
+            assert low_under_model < 1e-6, (UID, low_under_model)
+            native = native[~low]
+            assert len(native)
+        else:
+            assert LOW_TERRAIN_POLICY == "retain-below-clamp"
     world = [selected[uid]["native"]["model"]["worldBounds"] for uid in uids]
     core = [min(item[0][0] for item in world) - 1, min(item[0][2] for item in world) - 1,
             max(item[1][0] for item in world) + 1, max(item[1][2] for item in world) + 1]
@@ -114,7 +120,9 @@ def run():
     second.resolution.validate_patch = lambda candidate, parent_terrain: None
     try:
         patch = second.resolution.make_patch({"uids": uids, "cells": cells}, parent, native, used,
-                                             native_core=core, terrain_triangle_budget=100000)
+                                             native_core=core, terrain_triangle_budget=100000,
+                                             parent_url=PARENT_URL, parent_sha256=sha(parent_path),
+                                             allow_native_below_clamp=LOW_TERRAIN_POLICY == "retain-below-clamp")
     finally:
         second.resolution.validate_patch = validator
     LOCAL.mkdir(parents=True, exist_ok=True)
