@@ -83,6 +83,19 @@ class NativePatchResolutionTests(unittest.TestCase):
             if protected.contains(shapely.Point(centre[0], centre[2])):
                 self.assertAlmostEqual(centre[1], sampler.ground(centre[0], centre[2]), places=10)
 
+    def test_parent_floor_splits_shoreline_without_bridging_or_changing_source(self):
+        face = [[0, -4, 0], [1, 6, 0], [0, -4, 1]]
+        original = copy.deepcopy(face)
+        faces = m._floor_faces(face, 1.2)
+        self.assertEqual(face, original)
+        self.assertAlmostEqual(sum(shapely.Polygon(np.asarray(f)[:, [0, 2]]).area for f in faces), .5)
+        self.assertGreater(len(faces), 1)
+        for triangle in faces:
+            for weights in ([1/3]*3, [.1, .2, .7], [.8, .1, .1]):
+                x, y, z = np.asarray(weights) @ np.asarray(triangle)
+                self.assertAlmostEqual(y, max(1.2, -4 + 10*x))
+        self.assertEqual(m._floor_faces(face, None), [original])
+
     def test_finalizes_overlap_proof_after_deterministic_patch_changes(self):
         patch = self.patch(0)
         patch['nativeMesh']['sourceOverlap'] = {'policy': 'highest-native-surface', 'evidenceSHA256': 'stale'}

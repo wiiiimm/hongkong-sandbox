@@ -117,6 +117,28 @@ def fill_narrow_source_seam(patch, bounds, protected_projection, sampler, tolera
 
 
 
+def _floor_faces(face, minimum):
+    """Split a parent plane at its height floor before clamping (no ridge bridging)."""
+    if minimum is None:
+        return [face]
+    pieces = []
+    for above in (True, False):
+        clipped = []
+        for a, b in zip(face, face[1:] + face[:1]):
+            inside_a = a[1] >= minimum if above else a[1] < minimum
+            inside_b = b[1] >= minimum if above else b[1] < minimum
+            if inside_a:
+                clipped.append(a)
+            if inside_a != inside_b:
+                t = (minimum - a[1]) / (b[1] - a[1])
+                clipped.append([a[0] + t * (b[0] - a[0]), minimum, a[2] + t * (b[2] - a[2])])
+        for i in range(1, len(clipped) - 1):
+            triangle = [[x, max(minimum, y), z] for x, y, z in (clipped[0], clipped[i], clipped[i + 1])]
+            if shapely.Polygon(np.asarray(triangle)[:, [0, 2]]).area > 1e-10:
+                pieces.append(triangle)
+    return pieces
+
+
 def grid_surface_faces(sampler, protected):
     """Clip a rendered DEM to a polygon without crossing grid diagonals."""
     output = []
@@ -137,7 +159,8 @@ def grid_surface_faces(sampler, protected):
                     if part.geom_type != 'Polygon':
                         continue
                     for candidate in _triangles(part):
-                        output.append([[x, sampler.ground(x, z), z] for x, z in list(candidate.exterior.coords)[:3]])
+                        output.extend(_floor_faces([[x, sampler.ground(x, z), z] for x, z in list(candidate.exterior.coords)[:3]],
+                                                  getattr(sampler, "parent_height_floor", None)))
     return output
 
 
