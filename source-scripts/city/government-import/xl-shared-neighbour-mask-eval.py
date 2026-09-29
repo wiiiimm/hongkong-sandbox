@@ -25,6 +25,8 @@ def module(name, path):
 second = module("xl_second_shared_eval", HERE / "xl-second-pass.py")
 patches = module("xl_patch_shared_eval", HERE / "native_patch_resolution.py")
 BASE = ROOT / "docs/astra-city/government-import/government-xl-remaining-20260923"
+DIAGNOSTIC_DIRS = {}
+SOURCE_ASSET_DIRS = {}
 SOURCE = BASE / "disjoint-neighbour-mask-eval-20260927.json"
 LOCAL = HERE / "local/government-xl-shared-mask-eval-20260927"
 OUTPUT = BASE / "shared-neighbour-mask-eval-20260927.json"
@@ -39,7 +41,7 @@ def run():
     rows = []
     for previous in read(SOURCE)["rows"]:
         uid, name = previous["uid"], previous["site"]
-        doc = BASE / f"{name}-terrain-diagnostic-20260927"
+        doc = DIAGNOSTIC_DIRS.get(name, BASE / f"{name}-terrain-diagnostic-20260927")
         path = ROOT / previous["candidatePatch"]["path"]
         assert ref(path)["sha256"] == previous["candidatePatch"]["sha256"]
         original_result = read(doc / "result.json")
@@ -102,7 +104,7 @@ def run():
         blocked = sorted({item for patch in checks["patches"] for item in patch["blockedBy"]})
         patch_row = {**neighbours["patches"][0], **ref(candidate_path)}
         save(folder / "terrain-candidates.json", [patch_row])
-        source_assets = HERE / "local" / f"government-xl-{name}-terrain-20260927" / "candidates"
+        source_assets = SOURCE_ASSET_DIRS.get(name, HERE / "local" / f"government-xl-{name}-terrain-20260927" / "candidates")
         subprocess.run(["node", str(HERE / "acceptance-metrics.mjs"),
                         "--selection", str((doc / "selection.json.gz").relative_to(ROOT)),
                         "--candidates", str(source_assets.relative_to(ROOT)),

@@ -14,6 +14,7 @@ final = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(final)
 
 BASE = ROOT / "docs/astra-city/government-import/government-xl-remaining-20260923"
+DIAGNOSTIC_DIRS = {}
 SOURCE = BASE / "shared-neighbour-mask-eval-20260927.json"
 OUT = BASE / "masked-foundation-eval-20260927.json"
 
@@ -22,7 +23,7 @@ def run():
     results = []
     for candidate in read(SOURCE)["rows"]:
         uid, name = candidate["uid"], candidate["site"]
-        doc = BASE / f"{name}-terrain-diagnostic-20260927"
+        doc = DIAGNOSTIC_DIRS.get(name, BASE / f"{name}-terrain-diagnostic-20260927")
         selection = read(doc / "selection.json.gz")["rows"]
         assert len(selection) == 1 and selection[0]["uid"] == uid
         row = selection[0]

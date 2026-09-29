@@ -120,7 +120,7 @@ def build():
     assert counts.get("installed", 0) >= 30 and sum(counts.values()) == 352, counts
     assert sum(holds.values()) == counts.get("held-unknown", 0), holds
     report = {
-        "batch": BATCH, "stage": "installed-and-held-reconciliation-v19",
+        "batch": BATCH, "stage": "installed-and-held-reconciliation-v20",
         "models": 352, "outsideLantau": True, "installedThisPass": counts.get("installed", 0),
         "humanCounts": {key: counts.get(key, 0) for key in
                         ("installed", "to-do", "held-human", "held-ai", "held-unknown", "in-process")},
@@ -129,6 +129,8 @@ def build():
         "inputSHA256": {rel(path): sha(path) for path in
                         (DOC / "selection.json.gz", INITIAL, HELD, CONTEXT, HELD_CONTEXT,
                          HTTP_RETRY, REVISION_CHECK)},
+        "scriptedFollowupEvidence": [{"path": rel(path), "sha256": sha(path), "result": read(path)}
+            for path in (DOC / "cached-terrain-foundations-20260929.json", DOC / "beverly-hill-terrain-options-20260929.json")],
         "rows": rows, "aiCalls": 0, "geometryChanges": 0,
         "qualification": "Exclusive primary holds are routing labels, not assertions that all other checks passed. Exact source assets and original reasons are retained for each form. No human or AI modelling decision is currently requested.",
     }
