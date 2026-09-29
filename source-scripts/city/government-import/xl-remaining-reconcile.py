@@ -17,6 +17,7 @@ HTTP_RETRY = DOC / "http-retry-check-20260924/results.json.gz"
 REVISION_CHECK = DOC / "revision-check-20260924/results.json.gz"
 PROOF = DOC / "reconciliation.json.gz"
 DETAILED_HOLDS = {
+    "landsd/104302:0": DOC / "festival-secondary-terrain-diagnostic-20260930/held.json",
     "landsd/264206:0": DOC / "china-merchants-tower-east-terrain-diagnostic-20260927/held.json",
     "landsd/255539:0": DOC / "beverly-hill-pair-terrain-diagnostic-20260928/held.json",
     "landsd/336430:0": DOC / "kowloon-park-administration-terrain-diagnostic-20260927/held.json",
@@ -120,7 +121,7 @@ def build():
     assert counts.get("installed", 0) >= 30 and sum(counts.values()) == 352, counts
     assert sum(holds.values()) == counts.get("held-unknown", 0), holds
     report = {
-        "batch": BATCH, "stage": "installed-and-held-reconciliation-v24",
+        "batch": BATCH, "stage": "installed-and-held-reconciliation-v26",
         "models": 352, "outsideLantau": True, "installedThisPass": counts.get("installed", 0),
         "humanCounts": {key: counts.get(key, 0) for key in
                         ("installed", "to-do", "held-human", "held-ai", "held-unknown", "in-process")},
@@ -130,7 +131,7 @@ def build():
                         (DOC / "selection.json.gz", INITIAL, HELD, CONTEXT, HELD_CONTEXT,
                          HTTP_RETRY, REVISION_CHECK)},
         "scriptedFollowupEvidence": [{"path": rel(path), "sha256": sha(path), "result": read(path)}
-            for path in (DOC / "cached-terrain-foundations-20260929.json", DOC / "beverly-hill-terrain-options-20260929.json", DOC / "complex-mask-foundations-20260929.json")],
+            for path in (DOC / "cached-terrain-foundations-20260929.json", DOC / "beverly-hill-terrain-options-20260929.json", DOC / "complex-mask-foundations-20260929.json", DOC / "festival-secondary-terrain-diagnostic-20260930/held.json")],
         "rows": rows, "aiCalls": 0, "geometryChanges": 0,
         "qualification": "Exclusive primary holds are routing labels, not assertions that all other checks passed. Exact source assets and original reasons are retained for each form. No human or AI modelling decision is currently requested.",
     }
