@@ -120,7 +120,7 @@ def build():
     assert counts.get("installed", 0) >= 30 and sum(counts.values()) == 352, counts
     assert sum(holds.values()) == counts.get("held-unknown", 0), holds
     report = {
-        "batch": BATCH, "stage": "installed-and-held-reconciliation-v23",
+        "batch": BATCH, "stage": "installed-and-held-reconciliation-v24",
         "models": 352, "outsideLantau": True, "installedThisPass": counts.get("installed", 0),
         "humanCounts": {key: counts.get(key, 0) for key in
                         ("installed", "to-do", "held-human", "held-ai", "held-unknown", "in-process")},
