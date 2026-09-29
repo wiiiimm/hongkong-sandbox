@@ -27,6 +27,7 @@ TERRAIN_SHEETS = (SHEET, "11-NW-24D")
 UID = "landsd/257352:0"
 LOW_TERRAIN_POLICY = "reject"
 PARENT_URL = "city/data/terrain.json"
+SUPPORT_SELECTION = None
 
 
 def sha(path):
@@ -46,10 +47,12 @@ def run():
     selected = {row["uid"]: row for row in read(BASE / "selection.json.gz")["rows"]}
     first = {row["uid"]: row for row in read(BASE / "results.json.gz")["rows"]}
     assert all(first[uid]["humanStatus"] == "held-unknown" for uid in uids)
+    support_rows = read(SUPPORT_SELECTION)["rows"] if SUPPORT_SELECTION else []
+    world = [selected[uid]["native"]["model"]["worldBounds"] for uid in uids]
+    world.extend(row["native"]["model"]["worldBounds"] for row in support_rows)
     parent_path = ROOT / "3d-viewer" / PARENT_URL
     parent = read(parent_path)
-    rectangles = [second.resolution.rectangle_for(selected[uid]["native"]["model"]["worldBounds"], parent)
-                  for uid in uids]
+    rectangles = [second.resolution.rectangle_for(item, parent) for item in world]
     cells = [min(row[0] for row in rectangles), min(row[1] for row in rectangles),
              max(row[2] for row in rectangles), max(row[3] for row in rectangles)]
     bounds = second.resolution.extent(cells, parent)
@@ -107,6 +110,17 @@ def run():
             shutil.copyfile(source_path, target)
         assert sha(target) == row["sourceSHA256"]
         model_fragments.append(second.glb_triangles(row))
+    for row in support_rows:
+        entry = row["candidate"]["entry"]
+        source_path = Path(row["candidate"]["path"])
+        assert sha(source_path) == entry["sha256"]
+        target = second.LOCAL / "assets" / (entry["sha256"] + ".glb.gz")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if not target.exists():
+            shutil.copyfile(source_path, target)
+        assert sha(target) == entry["sha256"]
+        model_fragments.append(second.glb_triangles({**row["native"]["model"],
+            "sourceSHA256": entry["sha256"], "modelId": entry["modelId"], "native": row["native"]}))
     model_triangles = np.concatenate(model_fragments)
     model_projection = shapely.union_all(shapely.polygons(model_triangles[:, :, [0, 2]]))
     low_under_model = 0.0
@@ -119,7 +133,6 @@ def run():
             assert len(native)
         else:
             assert LOW_TERRAIN_POLICY == "retain-below-clamp"
-    world = [selected[uid]["native"]["model"]["worldBounds"] for uid in uids]
     core = [min(item[0][0] for item in world) - 1, min(item[0][2] for item in world) - 1,
             max(item[1][0] for item in world) + 1, max(item[1][2] for item in world) + 1]
     validator = second.resolution.validate_patch
@@ -170,7 +183,7 @@ def run():
     save(path, patch)
     validator(patch, parent)
     save(path, patch)
-    result = {"uids": uids, "sourceSheet": SHEET, "terrainSheets": list(TERRAIN_SHEETS),
+    result = {"uids": uids, "supportUids": [row["uid"] for row in support_rows], "sourceSheet": SHEET, "terrainSheets": list(TERRAIN_SHEETS),
               "lowSourceTriangles": int(low.sum()), "lowTerrainPolicy": LOW_TERRAIN_POLICY,
               "lowSourceIntersectionWithModelM2": low_under_model,
               "sourceDirectorySHA256s": {row["sheet"]: row["directorySHA256"] for row in used},

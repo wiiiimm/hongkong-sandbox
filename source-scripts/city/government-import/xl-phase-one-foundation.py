@@ -17,11 +17,11 @@ DOC = BASE / "phase-one-terrain-diagnostic-20260927"
 LOCAL = HERE / "local/government-xl-phase-one-terrain-20260927"
 UID = "landsd/305672:0"
 OUTPUT = BASE / "phase-one-foundation-20260927.json"
-SELECTION = DOC / "selection.json.gz"
+SELECTION = None
 
 
 def run():
-    row = read(SELECTION)["rows"][0]
+    row = read(SELECTION or DOC / "selection.json.gz")["rows"][0]
     assert row["uid"] == UID
     entry = row["candidate"]["entry"]
     final.s.LOCAL = LOCAL

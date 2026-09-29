@@ -18,7 +18,7 @@ REVISION_CHECK = DOC / "revision-check-20260924/results.json.gz"
 PROOF = DOC / "reconciliation.json.gz"
 DETAILED_HOLDS = {
     "landsd/264206:0": DOC / "china-merchants-tower-east-terrain-diagnostic-20260927/held.json",
-    "landsd/255539:0": DOC / "beverly-hill-block-a-terrain-diagnostic-20260927/held.json",
+    "landsd/255539:0": DOC / "beverly-hill-pair-terrain-diagnostic-20260928/held.json",
     "landsd/336430:0": DOC / "kowloon-park-administration-terrain-diagnostic-20260927/held.json",
 }
 
@@ -120,7 +120,7 @@ def build():
     assert counts.get("installed", 0) >= 30 and sum(counts.values()) == 352, counts
     assert sum(holds.values()) == counts.get("held-unknown", 0), holds
     report = {
-        "batch": BATCH, "stage": "installed-and-held-reconciliation-v18",
+        "batch": BATCH, "stage": "installed-and-held-reconciliation-v19",
         "models": 352, "outsideLantau": True, "installedThisPass": counts.get("installed", 0),
         "humanCounts": {key: counts.get(key, 0) for key in
                         ("installed", "to-do", "held-human", "held-ai", "held-unknown", "in-process")},
