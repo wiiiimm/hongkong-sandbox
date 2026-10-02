@@ -15,6 +15,7 @@ DOC = BASE / "yoho-mall-ii-terrain-diagnostic-20260927"
 LOCAL = HERE / "local/government-xl-yoho-mall-ii-terrain-20260927"
 STAGE = LOCAL / "candidates"
 ALLOW_UNRELATED_IDENTITY_FOR_DIAGNOSTIC = False
+PREPARE_MULTIPLE = False
 
 
 def sha(path):
@@ -28,6 +29,11 @@ def rel(path):
 def call(args, allowed=(0,)):
     outcome = subprocess.run(args, cwd=ROOT)
     assert outcome.returncode in allowed, (args, outcome.returncode)
+
+
+def validate_diagnostic_scope(uids, inputs, context, prepare_only):
+    assert (len(uids) == 1 or PREPARE_MULTIPLE and prepare_only and len(uids) > 1)
+    assert len(set(uids)) == len(uids) and all(uid in inputs and uid in context for uid in uids)
 
 
 def run():
@@ -60,7 +66,11 @@ def run():
     context.update({uid: row for uid, row in revision.items() if uid not in context})
     retry = {row["uid"]: row for row in read(BASE / "http-retry-check-20260924/results.json.gz")["rows"]}
     context.update({uid: row for uid, row in retry.items() if uid not in context})
-    assert len(uids) == 1 and all(uid in inputs and uid in context for uid in uids)
+    # Joint diagnostics need all components in candidateIds so the neighbour check
+    # does not mistake the other candidate for a fallback-only neighbour. This
+    # opt-in permits preparation only; publication still uses the single-form gate.
+    prepare_only = len(sys.argv) > 1 and sys.argv[1] == "prepare"
+    validate_diagnostic_scope(uids, inputs, context, prepare_only)
     rows, entries, forms, identity_resolutions = [], [], {}, []
     STAGE.mkdir(parents=True, exist_ok=True)
     for uid in uids:

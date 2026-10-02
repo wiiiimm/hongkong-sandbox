@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {lowRimSamples,supportSurface,measureSupport} from './support-contact.mjs';
+const triangle=(y=0)=>({position:[0,y,0,4,y,0,0,y,4],index:[0,1,2]});
+test('samples edge interiors so supported endpoints do not conceal a missing middle',()=>{const rim=lowRimSamples(triangle(1),1);assert.ok(rim.some(p=>p[0]===2&&p[2]===0));assert.ok(rim.length>3);});
+test('vertical support preserves slopes and works across negative grid coordinates',()=>{const g={position:[-4,0,-4,0,4,-4,-4,0,0],index:[0,1,2]},s=supportSurface(g);assert.equal(s.height(-2,-3),2);assert.equal(s.height(1,1),null);});
+test('nearby wall cannot count as support underneath an unsupported rim',()=>{const s=supportSurface({position:[0,0,0,0,3,0,0,0,4],index:[0,1,2]}),r=measureSupport([[.05,1,1]],s);assert.equal(r.missing,1);assert.equal(r.allSampledContactsPass,false);});
+test('highest overlapping surface cannot be hidden by a lower contact surface',()=>{const low=triangle(),high=triangle(2),s=supportSurface({position:[...low.position,...high.position],index:[0,1,2,3,4,5]});assert.equal(s.height(1,1),2);assert.equal(measureSupport([[1,.2,1]],s).failed[0].reason,'support-above-rim');});
+test('empty rims and coverage holes never pass; one missing sample fails the diagnostic',()=>{const s=supportSurface(triangle());assert.equal(measureSupport([],s).allSampledContactsPass,false);const r=measureSupport([[1,.5,1],[5,.5,5]],s);assert.equal(r.contacts,1);assert.equal(r.missing,1);assert.equal(r.allSampledContactsPass,false);});
+test('sampling and querying leave original buffers unchanged',()=>{const g=triangle(),copy=structuredClone(g);lowRimSamples(g,0);measureSupport([[1,.5,1]],supportSurface(g));assert.deepEqual(g,copy);assert.throws(()=>lowRimSamples(g,0,{spacing:0}));});
