@@ -27,6 +27,13 @@ test('late loads cannot replace the latest selection and cancelled assets are di
  const first=controller.setAircraft('cx747'),second=controller.setAircraft('cx777'),late=cube();let freed=0;late.scene.children[0].geometry.addEventListener('dispose',()=>freed++);
  requests[1](cube());assert.equal(await second,true);requests[0](late);assert.equal(await first,false);assert.equal(controller.state.id,'cx777');assert.equal(controller.state.status,'ready');assert.equal(freed,1);controller.dispose();
 });
+test('a successful selection renders only the detailed aircraft and coalesces repeated loading requests',async()=>{
+ let resolve,calls=0;const target=new THREE.Group(),controller=new AircraftModel({target,loader:{loadAsync:()=>{calls++;return new Promise(r=>resolve=r);}},prepare});
+ const first=controller.setAircraft('a350'),repeat=controller.setAircraft('a350');
+ assert.equal(first,repeat);assert.equal(calls,1);assert.equal(controller.state.status,'loading');assert.equal(target.children.length,0);assert.equal(controller.current,null);
+ resolve(cube());assert.equal(await first,true);assert.equal(target.children.length,1);assert.equal(controller.current.userData.aircraft.metadata.status,'ready');
+ const next=controller.setAircraft('cx777');assert.equal(target.children.length,0);assert.equal(controller.current,null);resolve(cube());assert.equal(await next,true);assert.equal(target.children.length,1);controller.dispose();
+});
 test('failed aircraft loads retain a correctly identified usable fallback and permit retry',async()=>{
  let fail=true;const controller=new AircraftModel({target:new THREE.Group(),loader:{loadAsync:async()=>{if(fail)throw new Error('Offline');return cube();}},prepare});
  assert.equal(await controller.setAircraft('a330'),false);assert.equal(controller.state.status,'fallback');assert.equal(controller.state.id,'a330');assert.match(controller.state.error,/simplified/);assert.ok(controller.current.children.length);

@@ -162,17 +162,21 @@ export function buildAircraftFallback(id){
  root.name=d.label+' · simplified fallback';root.userData.aircraft={definition:d,spinners:[],lights:[],gearMeshes:[],materials:[paint,trim,dark],metadata:{id:d.id,status:'fallback',dimensions:{length:d.length,wingspan:d.wingspan,height:d.length*.2},approximate:true}};return root;
 }
 export class AircraftModel {
- constructor({target,loader=new GLTFLoader(),onChange=()=>{},prepare=prepareAircraft}){this.target=target;this.loader=loader;this.prepare=prepare;this.onChange=onChange;this.token=0;this.elapsed=0;this.night=0;this.reducedMotion=false;this.current=null;this.disposed=false;this.id='prop';this.status='idle';this.error=null;}
+ constructor({target,loader=new GLTFLoader(),onChange=()=>{},prepare=prepareAircraft}){this.target=target;this.loader=loader;this.prepare=prepare;this.onChange=onChange;this.token=0;this.elapsed=0;this.night=0;this.reducedMotion=false;this.current=null;this.pending=null;this.disposed=false;this.id='prop';this.status='idle';this.error=null;}
  get state(){return {id:this.id,status:this.status,error:this.error,...this.current?.userData.aircraft?.metadata,status:this.status};}
- async setAircraft(id){
-  if(this.disposed)return false;const d=aircraftById(id);if(d.id===this.id&&this.status==='ready')return true;
-  const token=++this.token;this.id=d.id;this.status='loading';this.error=null;this.swap(buildAircraftFallback(d.id));this.onChange(this.state);
+ setAircraft(id){
+  if(this.disposed)return Promise.resolve(false);const d=aircraftById(id);if(d.id===this.id&&this.status==='ready')return Promise.resolve(true);
+  if(d.id===this.id&&this.status==='loading')return this.pending;
+  const token=++this.token;this.id=d.id;this.status='loading';this.error=null;this.swap(null);this.onChange(this.state);
+  this.pending=this.loadAircraft(d,token);return this.pending;
+ }
+ async loadAircraft(d,token){
   let gltf;
   try{gltf=await this.loader.loadAsync(new URL('../data/models/'+d.file,import.meta.url).href);if(this.disposed||token!==this.token){disposeAircraft(gltf.scene);return false;}
    const prepared=this.prepare(gltf,d.id);this.swap(prepared);this.status='ready';this.onChange(this.state);return true;
-  }catch(error){if(gltf?.scene)disposeAircraft(gltf.scene);if(this.disposed||token!==this.token)return false;this.status='fallback';this.error='Detailed aircraft unavailable; flying the simplified '+d.label;this.onChange(this.state);return false;}
+  }catch(error){if(gltf?.scene)disposeAircraft(gltf.scene);if(this.disposed||token!==this.token)return false;this.swap(buildAircraftFallback(d.id));this.status='fallback';this.error='Detailed aircraft unavailable; flying the simplified '+d.label;this.onChange(this.state);return false;}
  }
- swap(model){if(this.current){this.target.remove(this.current);disposeAircraft(this.current);}this.current=model;this.target.add(model);}
+ swap(model){if(this.current){this.target.remove(this.current);disposeAircraft(this.current);}this.current=model;if(model)this.target.add(model);}
  setLighting({night=this.night,reducedMotion=this.reducedMotion}={}){this.night=clamp(night,0,1);this.reducedMotion=!!reducedMotion;}
  update(dt){
   if(!this.current)return;const data=this.current.userData.aircraft;if(!this.reducedMotion)this.elapsed+=Math.max(0,Math.min(dt,.1));
