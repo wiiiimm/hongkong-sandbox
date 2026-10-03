@@ -12,3 +12,11 @@ test('sampling and querying leave original buffers unchanged',()=>{const g=trian
 test('layer inspection distinguishes covered contacts while retaining conservative failure',()=>{const low=triangle(),high=triangle(2),s=supportSurface({position:[...low.position,...high.position],index:[0,1,2,3,4,5]});const r=inspectSupportLayers([[1,.05,1],[1,5,1],[5,0,5]],s);assert.equal(r.conservative.allSampledContactsPass,false);assert.deepEqual(r.rows.map(r=>r.classification),['contact-layer-with-higher-overlap','no-layer-in-contact-interval','no-vertical-support']);assert.deepEqual(r.rows[0].contactHeights,[0]);assert.deepEqual(s.intersections(1,1),[0,2]);});
 
 test('unreferenced buffer vertices cannot manufacture a missing rim contact',()=>{const g=triangle();g.position.push(100,-5,100);assert.equal(lowRimSamples(g,0).some(p=>p[0]===100),false);});
+
+test('contact evidence retains original face indices after excluded vertical faces',()=>{
+ const g={position:[0,0,0,0,3,0,0,0,4, 0,2,0,4,4,0,0,2,4],index:[0,1,2,3,4,5]},s=supportSurface(g);
+ const hits=s.intersectionDetails(1,1);assert.equal(hits.length,1);assert.equal(hits[0].faceIndex,1);
+ assert.equal(hits[0].height,2.5);assert.deepEqual(hits[0].barycentric,[.5,.25,.25]);
+ assert.deepEqual(hits.map(h=>h.height),s.intersections(1,1));
+ assert.deepEqual(hits[0].vertices,[[0,2,0],[4,4,0],[0,2,4]]);
+});
