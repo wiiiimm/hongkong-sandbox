@@ -33,13 +33,22 @@ for(const row of inputs.patches){
 const after=makeTerrainSampler(variant),standard=read(doc+'neighbour-checks.json');
 const blocked=new Set(standard.rows.filter(row=>row.existingNative&&row.reasons.length).map(row=>row.uid));
 for(const row of inputs.patches)for(const uid of row.replaces?.retainedUids||[])blocked.add(uid);
-const buildings=new Map(inputs.rows.map(row=>[row.building.uid,row.building])),entries=new Map();
+const buildings=new Map(inputs.rows.map(row=>[row.building.uid,row.building])),entries=new Map(),available=new Map();
 for(const url of manifest.officialModelCatalogues){
  const path='3d-viewer/'+url,cat=read(path),folder=dirname(path);
  for(const entry of prepareModelCatalogue(cat,pathToFileURL(resolve(root,path)).href)){
-  const sameParent=[...blocked].some(uid=>buildings.get(uid)?.parent&&buildings.get(uid).parent===buildings.get(entry.uid)?.parent);
-  if(blocked.has(entry.uid)||sameParent)entries.set(entry.uid,{entry,path:resolve(root,folder,entry.asset)});
+  available.set(entry.uid,{entry,path:resolve(root,folder,entry.asset)});
  }
+}
+const dependencies=new Set();
+for(const uid of blocked)for(const dependency of available.get(uid)?.entry.supportDependencies||[]){
+ const support=available.get(dependency.uid)?.entry;
+ assert(dependency.state==='installed'&&support&&support.buildingCSUID===dependency.csuid,'Pinned installed native dependency unavailable');
+ dependencies.add(dependency.uid);
+}
+for(const [uid,value] of available){
+ const sameParent=[...blocked].some(other=>buildings.get(other)?.parent&&buildings.get(other).parent===buildings.get(uid)?.parent);
+ if(blocked.has(uid)||sameParent||dependencies.has(uid))entries.set(uid,value);
 }
 const lighting={night:{value:0},activity:{value:new THREE.Vector4(1,1,1,1)},retail:{value:1},elapsed:{value:0},shimmer:{value:0}},geometry=new Map();
 for(const [uid,{entry,path}] of entries){
@@ -67,12 +76,14 @@ for(const uid of blocked){
  }
  const low=g.entry.worldBounds[0][1],rim=[];
  for(let i=0;i<g.position.length;i+=3)if(g.position[i+1]<=low+.35)rim.push([g.position[i],g.position[i+1],g.position[i+2]]);
- const supports=[...geometry.entries()].filter(([other,h])=>other!==uid&&buildings.get(other)?.parent===buildings.get(uid)?.parent&&h.entry.worldBounds[0][1]<low);
+ const pinned=new Set((g.entry.supportDependencies||[]).filter(d=>d.state==='installed').map(d=>d.uid));
+ const supports=[...geometry.entries()].filter(([other,h])=>other!==uid&&
+  (buildings.get(uid)?.parent&&buildings.get(other)?.parent===buildings.get(uid).parent||pinned.has(other))&&h.entry.worldBounds[0][1]<low);
  let supported=0;
  for(const [x,y,z] of rim)if(supports.some(([,h])=>{const ys=levels(h,x,z);return ys.length>0&&y<=ys.at(-1)+.5;}))supported++;
  const terrainRelevant=newGap.reduce((value,item)=>Math.min(value,item),Infinity)<=2,supportFraction=rim.length?supported/rim.length:0;
  const passed=nativeNeighbourAccepted({newlyBuried,newlyUpward,terrainRelevant,supportFraction});
- const row={uid,passed,vertices:g.position.length/3,triangles:g.index.length/3,terrain:{minimumGapBefore:oldGap.reduce((value,item)=>Math.min(value,item),Infinity),minimumGapAfter:newGap.reduce((value,item)=>Math.min(value,item),Infinity),maximumBurialIncrease:oldGap.reduce((value,item,i)=>Math.max(value,item-newGap[i]),-Infinity),whollyBuriedBefore:oldBuried,whollyBuriedAfter:newBuried,upwardWhollyBuriedBefore:oldUpward,upwardWhollyBuriedAfter:newUpward,newlyWhollyBuried:newlyBuried,newlyUpwardWhollyBuried:newlyUpward},support:{sameParentNativeUids:supports.map(([u])=>u),lowRimSamples:rim.length,supportedLowRim:supported,supportFraction},policy:'All runtime-loaded indexed vertices and triangles use the exact before/after viewer terrain samplers. No newly wholly buried triangle is allowed. A terrain-distant component also requires >=50% of its native low rim to lie inside a lower same-parent installed native component.'};
+ const row={uid,passed,vertices:g.position.length/3,triangles:g.index.length/3,terrain:{minimumGapBefore:oldGap.reduce((value,item)=>Math.min(value,item),Infinity),minimumGapAfter:newGap.reduce((value,item)=>Math.min(value,item),Infinity),maximumBurialIncrease:oldGap.reduce((value,item,i)=>Math.max(value,item-newGap[i]),-Infinity),whollyBuriedBefore:oldBuried,whollyBuriedAfter:newBuried,upwardWhollyBuriedBefore:oldUpward,upwardWhollyBuriedAfter:newUpward,newlyWhollyBuried:newlyBuried,newlyUpwardWhollyBuried:newlyUpward},support:{sameParentNativeUids:supports.filter(([u])=>buildings.get(uid)?.parent&&buildings.get(u)?.parent===buildings.get(uid).parent).map(([u])=>u),pinnedNativeUids:supports.filter(([u])=>pinned.has(u)).map(([u])=>u),lowRimSamples:rim.length,supportedLowRim:supported,supportFraction},policy:'All runtime-loaded indexed vertices and triangles use the exact before/after viewer terrain samplers. No newly wholly buried triangle is allowed. A terrain-distant component also requires >=50% of its native low rim to lie inside a lower same-parent or explicit CSUID-pinned installed native dependency.'};
  rows.push(row);if(passed)resolved.push(uid);
 }
 const result={rows,resolved:resolved.sort(),blocked:[...blocked].sort(),inputHashes:hashes,aiCalls:0,modelGeometryChanges:0,publication:false};

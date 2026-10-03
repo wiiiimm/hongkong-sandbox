@@ -13,6 +13,7 @@ import shapely
 from shapely.geometry import Polygon
 
 from run import ROOT, HERE, read, save, digest
+from rendered_patch_sampler import RenderedPatchSampler, clip_native_against_retained_facets
 
 
 def module(name, path):
@@ -30,6 +31,7 @@ SOURCE_ASSET_DIRS = {}
 SOURCE = BASE / "disjoint-neighbour-mask-eval-20260927.json"
 LOCAL = HERE / "local/government-xl-shared-mask-eval-20260927"
 OUTPUT = BASE / "shared-neighbour-mask-eval-20260927.json"
+BOUNDARY_FRINGE = .01
 
 
 def ref(path):
@@ -49,23 +51,38 @@ def run():
         neighbours = read(doc / "neighbour-inputs.json.gz")
         by_uid = {row["building"]["uid"]: row["building"] for row in neighbours["rows"]}
         shared = [row["uid"] for row in previous["sharedFootprintUids"]]
+        assert 0 < BOUNDARY_FRINGE <= .02, 'unbounded-neighbour-preservation-fringe'
         protected = shapely.union_all([
-            Polygon(by_uid[item]["rings"][0], by_uid[item]["rings"][1:]).buffer(.01, join_style="mitre")
+            Polygon(by_uid[item]["rings"][0], by_uid[item]["rings"][1:]).buffer(BOUNDARY_FRINGE, join_style="mitre")
             for item in shared
         ])
         candidate = read(path)
         sampler = second.resolution.terrain.fine.DemSampler(parent, rendered=True)
         # geo.js applies this floor AFTER grid interpolation, unlike native TIN.
         sampler.parent_height_floor = 1.2
-        proof = patches.preserve_parent_under_projection(candidate, bounds, protected, sampler)
-        proof.update(uids=shared, boundaryFringeM=.01)
+        edge_sampler = sampler
+        replacements = [p.get('replaces') for p in neighbours['patches'] if p.get('replaces')]
+        assert len(replacements) <= 1, 'ambiguous-current-terrain-replacement'
+        replacement = replacements[0] if replacements else None
+        if replacement:
+            old_path = ROOT / '3d-viewer' / replacement['url']
+            assert digest(old_path.read_bytes()) == replacement['sha256'], 'installed-terrain-changed'
+            old = read(old_path)
+            sampler = RenderedPatchSampler(old, edge_sampler,
+                second.resolution.terrain.fine.DemSampler(old, rendered=True))
+        proof = patches.preserve_parent_under_projection(candidate, bounds, protected, sampler,
+                                                         edge_sampler=edge_sampler)
+        proof['preservedReplacement'] = replacement
+        proof.update(uids=shared, boundaryFringeM=BOUNDARY_FRINGE)
+        if replacement:
+            proof['float32RetainedSeam'] = clip_native_against_retained_facets(candidate, proof['parentTriangles'])
         faces = patches._faces(candidate)
         parent_count = proof["parentTriangles"]
         parent_surface = shapely.union_all(shapely.polygons(faces[-parent_count:, :, [0, 2]]))
         earlier_surface = shapely.union_all(shapely.polygons(faces[:-parent_count, :, [0, 2]]))
         parent_source_overlap = parent_surface.intersection(earlier_surface).area
         assert parent_source_overlap <= .25, (uid, parent_source_overlap)
-        candidate["nativeMesh"]["source"]["finalBoundarySnap"] = patches.snap_boundary_to_parent(candidate, bounds, sampler)
+        candidate["nativeMesh"]["source"]["finalBoundarySnap"] = patches.snap_boundary_to_parent(candidate, bounds, edge_sampler)
         _, _, missing, excess = patches.projected_context(candidate, bounds)
         maximum_gap = max(.25, (bounds[2] - bounds[0]) * (bounds[3] - bounds[1]) * 1e-3)
         assert missing.area <= maximum_gap, (uid, missing.area, maximum_gap)

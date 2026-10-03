@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.8"
+  version: "1.8.9"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,12 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+The 4 October continuation installs unchanged Ocean Pride Tower 2. Resume from `docs/astra-city/government-import/government-xl-remaining-20260923/sol-hold-resolution-20261004/README.md` and its verified Neon receipt. The ten-form pilot now has one Installed and nine technical holds; the wider 352-form XL batch has 39 Installed and 313 Held. Citywalk's terrain, foundation, runtime and staged browser checks pass, but five existing Vision City tower fallback dependencies prevent publication: 294 exact native rim interfaces remain unresolved. Its staged source is not installed or integration approved. No AI modelling or architectural review was used for this continuation. Do not rerun completed installers or historical terrain searches.
+
+For embedded native rim points, `support-interface.mjs` can prove that the bottom sample and actual support contact both lie on the same original vertical wall triangle. It retains the ordinary 0.5m source-clearance cap, requires other strict contacts and rejects horizontal buried floors, unsupported/floating spans and wholly embedded meshes. This is exact source interface evidence, not a larger generic contact tolerance. Festival Walk's unsupported upper assembly still fails it.
+
+When replacing installed native terrain, preserve its exact Float32 TIN planes with `RenderedPatchSampler`, including original grid fallback in TIN holes. Clip new source terrain against retained facets to remove quantised seam overlap; only duplicate coplanar terrain may be deduplicated. Never raise overlap/coverage limits to make a candidate pass. Local restoration of an existing source TIN under failed source-face projections still requires complete drawn-terrain foundation, ordinary contact, runtime and all neighbour checks. Rebuild neighbour context after any nearby installation. Explicit CSUID-pinned installed support dependencies are valid support sources for retained native checks; proximity or unnamed parent equality alone is insufficient. Publish one separately reviewed terrain replacement and retest retained models, rather than appending conflicting patches.
 
 User direction, 11 September 2026: government-model enhancement must run as ordinary local processes with **zero per-model AI calls**. Source lookup/restoration, decoding, conversion, validation, optional measured LOD generation and import orchestration use deterministic scripts. Government downloads and Neon/R2 cache/result syncing are ordinary data transfers, not AI processing. Reuse exact cached assets/results before repeating work; do not run an agent or visual-review loop for every building.
 
