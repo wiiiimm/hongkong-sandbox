@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.7"
+  version: "1.8.8"
 ---
 
 # Hong Kong model improvement
@@ -53,6 +53,8 @@ Run browser/publication checks only for the subset passing the scripted contract
 The bounded 50-model XL pass is complete at `docs/astra-city/government-import/government-xl-50-20260913/README.md`: one unchanged source model (WEST9ZONE) is installed, 49 are held for later local scripted processing, and zero are in process or held for AI/human decisions. Reuse completed Neon job `9963d69f1a4c5c150cb119ba7409204fc9beca9c0ddb49ba2b4e85d9d7334585`, review snapshot `7e5ad5d98b43c2a4` and the frozen per-model reasons. Group future work by blocker rather than reacquiring or rerunning all 50 sources.
 
 Commit each newly verified installed model or coherent group promptly, with its runtime assets, acceptance evidence and refreshed progress. Do not wait for held models or the rest of a batch before committing available models (user direction, 11 September 2026).
+
+The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
 
