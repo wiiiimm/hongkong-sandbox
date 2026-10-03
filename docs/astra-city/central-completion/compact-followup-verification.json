@@ -1,0 +1,26 @@
+{
+  "catalogueSha256": "e2debdce380384691bf9d60ef5a08fdfd38a0adfbb7c624a999011431a84ab41",
+  "checks": [
+    "All catalogue UID/CSUID/OBJECTID and recorded source heights match retained selection",
+    "Gzip and decoded GLB hashes match",
+    "Actual app GLTFLoader parses each packed asset",
+    "Expanded position/normal/colour bits reproduce the original source in triangle order",
+    "Native node/material metadata is unchanged",
+    "City-translated bounds agree within 0.0000001 m",
+    "Decoded byte and triangle counts match catalogue"
+  ],
+  "models": [
+    {
+      "uid": "landsd/26195:0",
+      "modelId": "B351161568102063C1",
+      "triangles": 46918,
+      "compressedBytes": 1401324,
+      "decodedGeometryBytes": 5593944,
+      "maxBoundsError": 2.4868995751603507e-14,
+      "parseAndVerificationMs": 41.16787500000001
+    }
+  ],
+  "limits": [
+    "CPU decoder validation; no claim of GPU frame rate or architectural/terrain acceptance."
+  ]
+}

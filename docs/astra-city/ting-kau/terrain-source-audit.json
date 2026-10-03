@@ -1,0 +1,150 @@
+{
+  "source": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+  "sourceSha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+  "sourceHeader": {
+    "ncols": 12751.0,
+    "nrows": 9601.0,
+    "xllcorner": 799997.5,
+    "yllcorner": 799997.5,
+    "cellsize": 5.0,
+    "NODATA_value": -9999.0
+  },
+  "samples": [
+    {
+      "world": [
+        -8427.765,
+        -8887.478
+      ],
+      "coarseColumn": 372,
+      "coarseRow": 323,
+      "coarseOriginalRaw": 64,
+      "coarseCityRaw": 64,
+      "coarseRenderedAtPoint": 66.74037142855752,
+      "sourceFineRenderedBeforeWaterCut": 4.27,
+      "mappedWater": false,
+      "native14x14Mean": 63.89285659790039,
+      "sourceRawRange": [
+        0.0,
+        80.0
+      ],
+      "nativePositiveSamples": 181
+    },
+    {
+      "world": [
+        -8340,
+        -8710
+      ],
+      "coarseColumn": 373,
+      "coarseRow": 325,
+      "coarseOriginalRaw": 59,
+      "coarseCityRaw": 59,
+      "coarseRenderedAtPoint": 44.178571428572354,
+      "sourceFineRenderedBeforeWaterCut": 3.3149999999999995,
+      "mappedWater": true,
+      "native14x14Mean": 58.90306091308594,
+      "sourceRawRange": [
+        0.0,
+        78.0
+      ],
+      "nativePositiveSamples": 165
+    },
+    {
+      "world": [
+        -8290,
+        -8610
+      ],
+      "coarseColumn": 374,
+      "coarseRow": 327,
+      "coarseOriginalRaw": 57,
+      "coarseCityRaw": 57,
+      "coarseRenderedAtPoint": 52.500000000000455,
+      "sourceFineRenderedBeforeWaterCut": 2.6550000000000002,
+      "mappedWater": true,
+      "native14x14Mean": 56.82143020629883,
+      "sourceRawRange": [
+        0.0,
+        75.0
+      ],
+      "nativePositiveSamples": 160
+    },
+    {
+      "world": [
+        -8229.83,
+        -8485.528
+      ],
+      "coarseColumn": 375,
+      "coarseRow": 328,
+      "coarseOriginalRaw": 49,
+      "coarseCityRaw": 49,
+      "coarseRenderedAtPoint": 40.49088571431537,
+      "sourceFineRenderedBeforeWaterCut": 7.38,
+      "mappedWater": false,
+      "native14x14Mean": 48.78571319580078,
+      "sourceRawRange": [
+        0.0,
+        74.0
+      ],
+      "nativePositiveSamples": 147
+    },
+    {
+      "world": [
+        -8180,
+        -8380
+      ],
+      "coarseColumn": 376,
+      "coarseRow": 330,
+      "coarseOriginalRaw": 47,
+      "coarseCityRaw": 47,
+      "coarseRenderedAtPoint": 28.39285714285637,
+      "sourceFineRenderedBeforeWaterCut": 1.99,
+      "mappedWater": true,
+      "native14x14Mean": 47.20918273925781,
+      "sourceRawRange": [
+        0.0,
+        71.0
+      ],
+      "nativePositiveSamples": 147
+    },
+    {
+      "world": [
+        -8140,
+        -8300
+      ],
+      "coarseColumn": 376,
+      "coarseRow": 331,
+      "coarseOriginalRaw": 55,
+      "coarseCityRaw": 55,
+      "coarseRenderedAtPoint": 49.82142857142975,
+      "sourceFineRenderedBeforeWaterCut": 2.07,
+      "mappedWater": true,
+      "native14x14Mean": 54.89285659790039,
+      "sourceRawRange": [
+        0.0,
+        71.0
+      ],
+      "nativePositiveSamples": 165
+    },
+    {
+      "world": [
+        -8019.633,
+        -8059.256
+      ],
+      "coarseColumn": 378,
+      "coarseRow": 334,
+      "coarseOriginalRaw": 43,
+      "coarseCityRaw": 43,
+      "coarseRenderedAtPoint": 42.522628571398855,
+      "sourceFineRenderedBeforeWaterCut": 3.67,
+      "mappedWater": false,
+      "native14x14Mean": 42.93877410888672,
+      "sourceRawRange": [
+        0.0,
+        67.0
+      ],
+      "nativePositiveSamples": 146
+    }
+  ],
+  "cause": "Inherited 70m cells exactly reproduce 14x14 averages of the original 5m DTM, including elevated bridge samples. The original DTM>1m land heuristic turns these into a channel ridge. Source-mapped water, not a guessed bridge-width cut, determines removal.",
+  "sourceUnchanged": true,
+  "note": "At-point triangle heights are distinguished from nearest coarse node values. Mapped tower foundation sites remain land."
+}

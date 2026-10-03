@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "selectionPolicy": "Hand-reviewed source top-face indices; no inferred geometry or movement of source vertices. Only Tai Chung and Sun Ki receive public walking acceptance from the current official Islands District guide.",
+  "models": {
+    "I038171281003063C1": {
+      "name": "Tai Chung Bridge (Tai O Creek Pedestrian Bridge)",
+      "zh": "大涌橋（大澳涌行人橋）",
+      "kind": "footbridge",
+      "suppresses": [
+        "way/507688251"
+      ],
+      "walkable": true,
+      "publicAccessSource": "https://www.islands.gov.hk/en/explores-tai-o-tai-chung-bridge-tai-o-creek-pedestrian-bridge.php",
+      "publicAccess": "Official Islands District guide describes the pedestrian connection between Tai O Market Street and Tai O Wing On Street and visitor use; retrieved 2026-09-07. Movable bridge is represented in the fixed state of the source mesh.",
+      "walkTriangleRangesInclusive": [
+        [
+          8,
+          23
+        ],
+        [
+          117,
+          120
+        ],
+        [
+          227,
+          230
+        ],
+        [
+          268,
+          286
+        ]
+      ],
+      "floorSelectionNote": "Approach ramps, end landings and central deck top surfaces. Hand-reviewed against source mesh; railing caps, lifting towers, vertical walls and undersides omitted. Source face ordering is protected by entry SHA256.",
+      "routeProxyId": "way/507688251",
+      "reviewedSourceGltfSha256": "d2778c3073bc1f09b586caa992aef14d6ffc64265a01840aaab78d1bfd7eda62"
+    },
+    "I039851299803063C0": {
+      "name": "Sun Ki Bridge",
+      "zh": "新基橋",
+      "kind": "footbridge",
+      "suppresses": [
+        "way/244106712"
+      ],
+      "walkable": true,
+      "publicAccessSource": "https://www.islands.gov.hk/en/explores-tai-o-sun-ki-bridge.php",
+      "publicAccess": "Official Islands District guide describes the Kat Hing Street–Sun Ki Street connection and visitor viewpoint. Retained OSM has access=no with the more specific foot=yes; this payload only accepts pedestrian use. Retrieved 2026-09-07.",
+      "walkTriangleRangesInclusive": [
+        [
+          194,
+          195
+        ],
+        [
+          202,
+          203
+        ],
+        [
+          206,
+          209
+        ]
+      ],
+      "floorSelectionNote": "Deck and ramp top faces only. Suspension portals/cables, rail caps and lower slab faces excluded. OSM centreline has insufficient 0.55m edge clearance in places: use source deck geometry, not an unadjusted guided centreline.",
+      "routeProxyId": "way/244106712",
+      "reviewedSourceGltfSha256": "73e4727a17ede3e84f510b63bf8475db02d64915a251288846268ba3ff093a41"
+    },
+    "I041061300803063C0": {
+      "name": "Surveyed footbridge east of Sun Ki Bridge",
+      "zh": "新基橋以東測繪行人橋",
+      "kind": "footbridge",
+      "suppresses": [],
+      "walkable": false,
+      "publicAccess": "Source mesh establishes this small elevated link; individual public access and a routable connection have not been verified.",
+      "walkTriangleRangesInclusive": [
+        [
+          4,
+          7
+        ]
+      ],
+      "floorSelectionNote": "Four exact deck top faces retained for source review. They are not authorised public walking surfaces.",
+      "reviewedSourceGltfSha256": "8a368657d5fd54fc8f97567882c4cfd92db6bf28bab9a809b83334a19bbd22dc"
+    },
+    "I043291261802063C0": {
+      "name": "Tai O Road bridge near Lung Tin",
+      "zh": "龍田附近大澳道橋樑",
+      "kind": "road-bridge",
+      "suppresses": [
+        "way/820104877",
+        "way/1337775937"
+      ],
+      "walkable": false,
+      "publicAccess": "Road/sidewalk geometry is mapped, but the sidewalk centreline is offset from the source top slab and its pedestrian continuity is not verified in this pass.",
+      "walkTriangleRangesInclusive": [
+        [
+          4,
+          7
+        ]
+      ],
+      "floorSelectionNote": "Road slab top faces only; parapets excluded. Review-only, not public walking acceptance.",
+      "routeProxyId": "way/820104877",
+      "reviewedSourceGltfSha256": "f484e4d3854105632a57d30ee860f6e1e6d11aa92600fef512eab56e4a14cae8"
+    },
+    "I044891273603063C0": {
+      "name": "Eastern Tai O footbridge",
+      "zh": "大澳東側行人橋",
+      "kind": "footbridge",
+      "suppresses": [
+        "way/307417765"
+      ],
+      "walkable": false,
+      "publicAccess": "Retained OSM maps a footway bridge; source model is longer than that bridge way. Whole-model public access/approach continuity has not been independently verified.",
+      "walkTriangleRangesInclusive": [
+        [
+          578,
+          580
+        ],
+        [
+          603,
+          607
+        ]
+      ],
+      "floorSelectionNote": "Deck and approach top faces; exact source piers remain in rendered mesh, but no piers/lamps/undersides are walk surfaces. Review-only, not walking acceptance.",
+      "routeProxyId": "way/307417765",
+      "reviewedSourceGltfSha256": "cbfcadafcbaf669b7747faa7e4aad6a9e2285138f8d6ff96eecdea0bdd970a02"
+    }
+  }
+}

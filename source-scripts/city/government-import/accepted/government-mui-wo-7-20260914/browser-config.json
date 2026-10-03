@@ -1,0 +1,36 @@
+{
+  "stage": "source-scripts/city/government-import/accepted/government-mui-wo-7-20260914/",
+  "doc": "docs/astra-city/government-import/government-mui-wo-23-20260914/resolution/",
+  "catalogueURL": "city/data/official-models/government-mui-wo-20260914/catalogue.json",
+  "terrain": [
+    {
+      "source": "source-scripts/city/government-import/local/government-mui-wo-23-20260914/terrain-mui-wo-with-remainder.json",
+      "destination": "city/data/terrain-mui-wo-staged-20260914.json",
+      "resolution": 5,
+      "area": "Mui Wo staged original terrain",
+      "replaces": {
+        "url": "city/data/terrain-mui-wo.json",
+        "sha256": "adb88f05e5dacce2a901b13a6e8d52efc859bc915f22a3ad0a1a4f836e12c81c"
+      }
+    },
+    {
+      "source": "source-scripts/city/government-import/local/government-mui-wo-23-20260914/terrain-mui-wo-east-remainder.json",
+      "destination": "city/data/terrain-government-mui-wo-east-20260914.json",
+      "resolution": 1,
+      "area": "Mui Wo staged original terrain"
+    }
+  ],
+  "fitBox": true,
+  "browserUids": [
+    "landsd/192816:0",
+    "landsd/195736:0",
+    "landsd/257154:0",
+    "landsd/299367:0",
+    "landsd/299375:0",
+    "landsd/299376:0",
+    "landsd/299384:0"
+  ],
+  "failureTestUids": [
+    "landsd/192816:0"
+  ]
+}

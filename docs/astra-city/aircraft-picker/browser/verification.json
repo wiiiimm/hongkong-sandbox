@@ -1,0 +1,123 @@
+{
+  "result": "passed",
+  "startedUTC": "2026-09-06T22:03:47.014Z",
+  "checks": [
+    "Fly opens a chooser; arrows/Home/End, native Space, Escape and Tab preserve focus; key 3 still flies the current choice",
+    "Opening clears held movement; chooser arrows/W/C never reach Navigation; Escape closes the chooser before leaving Fly",
+    "All seven existing aircraft load through menu choices with calibrated dimensions; in-flight switching preserves heading and position continuity",
+    "Outside mode click dismisses the menu and retained choice survives Explore → key 3",
+    "Late model request cannot replace the latest chosen aircraft",
+    "Cancelling pending Fly arrival with Explore prevents stale asynchronous mode entry",
+    "Key 3 works inside the chooser without changing its selected model; Stargaze dismisses it and choosing an aircraft returns safely to Fly",
+    "390/320 px touch menus fit above the dock, preserve night settings and scroll to every aircraft at 568 px height; city controls and menu dismiss one another",
+    "Failed detailed-model download retains Fly fallback; the menu’s existing Retry loads the selected aircraft"
+  ],
+  "fleet": [
+    {
+      "id": "prop",
+      "label": "Light prop plane",
+      "dimensions": {
+        "length": 9.75,
+        "wingspan": 11.1,
+        "height": 4.741796799004078
+      }
+    },
+    {
+      "id": "betsy",
+      "label": "Betsy · Douglas DC-3",
+      "dimensions": {
+        "length": 19.66,
+        "wingspan": 28.96,
+        "height": 6.183757305145264
+      }
+    },
+    {
+      "id": "cx747",
+      "label": "Cathay · Boeing 747-400",
+      "dimensions": {
+        "length": 70.67,
+        "wingspan": 64.44,
+        "height": 19.58957862854004
+      }
+    },
+    {
+      "id": "cx777",
+      "label": "Cathay · Boeing 777-300ER",
+      "dimensions": {
+        "length": 73.86,
+        "wingspan": 64.8,
+        "height": 18.39097261428833
+      }
+    },
+    {
+      "id": "a330",
+      "label": "Cathay · Airbus A330-300",
+      "dimensions": {
+        "length": 63.66,
+        "wingspan": 60.3,
+        "height": 15.777064323425293
+      }
+    },
+    {
+      "id": "a350",
+      "label": "Cathay · Airbus A350-1000",
+      "dimensions": {
+        "length": 73.78,
+        "wingspan": 64.75,
+        "height": 17.494099140167236
+      }
+    },
+    {
+      "id": "ufo",
+      "label": "UFO · fictional",
+      "dimensions": {
+        "length": 18,
+        "wingspan": 18,
+        "height": 5.188483238220215
+      }
+    }
+  ],
+  "mobile": [
+    {
+      "width": 390,
+      "boxes": {
+        "panel": {
+          "x": 12,
+          "y": 215.5,
+          "width": 366,
+          "height": 537.5
+        },
+        "dock": {
+          "x": 12,
+          "y": 765,
+          "width": 366,
+          "height": 57
+        }
+      },
+      "shortHeight": 568,
+      "clockPreserved": true
+    },
+    {
+      "width": 320,
+      "boxes": {
+        "panel": {
+          "x": 12,
+          "y": 217,
+          "width": 296,
+          "height": 536
+        },
+        "dock": {
+          "x": 12,
+          "y": 765,
+          "width": 296,
+          "height": 57
+        }
+      },
+      "shortHeight": 568,
+      "clockPreserved": true
+    }
+  ],
+  "errors": [],
+  "browser": "152.0.7977.76",
+  "finishedUTC": "2026-09-06T22:04:14.161Z"
+}

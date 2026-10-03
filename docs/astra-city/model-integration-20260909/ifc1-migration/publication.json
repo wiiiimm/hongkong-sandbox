@@ -1,0 +1,40 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/model-integration-20260909/ifc1-migration-plan.json",
+  "areas": [],
+  "before": {
+    "3d-viewer/city/data/official-models/central/catalogue.json": "0f3b7f6e75fb795716dc7cbe63309bc8beb2537cce1595e97c93328e2e850bd2",
+    "3d-viewer/city/data/manifest.json": "9ca76cbe162f9e8b84192b68b72776167b67cdfa1b7e552759118898fefadbbc"
+  },
+  "after": {
+    "3d-viewer/city/data/official-models/central/catalogue.json": "8a5bf9b0fd588f20d81745618a183287735248f2f27136ea6fb6082f03f7aaa3",
+    "3d-viewer/city/data/manifest.json": "9ca76cbe162f9e8b84192b68b72776167b67cdfa1b7e552759118898fefadbbc"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "ae138ef0ec4a77c0c4497284008063078ce1ab1c",
+  "dependencyUpdates": [
+    {
+      "uid": "landsd/161250:0",
+      "assetUnchanged": "08619d248f38cd2b2f48a6cafe8119e00c9e22d9ac58e9e7d1441b35e051a27c",
+      "before": [],
+      "after": [
+        {
+          "uid": "landsd/232441:0",
+          "state": "installed",
+          "csuid": "3421916245P20060312"
+        }
+      ]
+    }
+  ],
+  "estimatedBases": []
+}

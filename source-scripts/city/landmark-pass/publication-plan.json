@@ -1,0 +1,28 @@
+{
+  "areas": [
+    {
+      "area": "Named landmark upgrades",
+      "catalogue": "source-scripts/city/landmark-pass/approved/catalogue.json",
+      "destination": "city/data/official-models/landmark-pass/catalogue.json",
+      "terrainReplacements": [
+        {
+          "bundle": "source-scripts/city/landmark-pass/taio-terrain-replacement.json",
+          "oldChildId": "tai-o-source-refinement-2",
+          "oldChildSha256": "c306901990e36a33b4231ef8e57222455d541d0cb49d367b7e105a89d2acf17d"
+        }
+      ],
+      "estimates": [
+        "source-scripts/city/landmark-pass/taio-terrain-estimates.json"
+      ]
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "source": "source-scripts/city/landmark-pass/terrain-ngong-ping.json",
+      "destination": "city/data/terrain-ngong-ping.json",
+      "sha256": "a3e51405b2a2aec526c22da29c72e395f7d943c4f4f360ffb54d874d3962a620",
+      "area": "Ngong Ping landmarks",
+      "resolution": 5
+    }
+  ]
+}

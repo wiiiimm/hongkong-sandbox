@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-lantau-disney-hotel-pair-20260916/plan.json",
+  "areas": [
+    {
+      "area": "Hong Kong Disneyland paired original government models",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-lantau-disney-hotel-pair-20260916/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-72608-0.json": null,
+    "3d-viewer/city/data/official-models/government-lantau-disney-hotel-pair-20260916/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "5af437d91eca4d11ce84be4366f178acc83b5308ac389ed63f53981694a47aaf"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-72608-0.json": "73811c03f4e38633ece13083c01e78c146887d6225aefe10a149daa42a166566",
+    "3d-viewer/city/data/official-models/government-lantau-disney-hotel-pair-20260916/catalogue.json": "b24225e51c463fd8c3759d01c74709c558ff87670c0abbd1437b9fb2bf76083e",
+    "3d-viewer/city/data/manifest.json": "5b57ad731d6bec4393e9d917642ac33718f1db29276dcc2008feb3fd78bc535e"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "9048b6c2ec1eede4a16b2139c69a66a311fc0d6e",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-72608-0.json",
+      "resolution": 5,
+      "area": "Hong Kong Disneyland paired bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "4cc18feb5d37eea8f578e563a33c4e5fa887b23a27f37d5670ff83d3f478b888",
+            "revision": "2026-05-10T16:00:00+00:00",
+            "sheet": "10-NW-25B",
+            "sourceETag": "\"29a8085-651352305a543\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-lantau-landmarks-16-second-20260916/sheets/10-NW-25B/terrain/TERRAIN(TB)/T21750186000106E11/T21750186000106E11.bin",
+                "sha256": "5ce029537c8e062b0f6d67362fe7e17cdec12bedae0e4fe7d59d7214d2021448"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-lantau-landmarks-16-second-20260916/sheets/10-NW-25B/terrain/TERRAIN(TB)/T21750186000106E11/T21750186000106E11.gltf",
+                "sha256": "09bc21e4c2ec00dbbaaede262064fc96c83487ab616cba27b3cb1835181b60e6"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1653,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "73811c03f4e38633ece13083c01e78c146887d6225aefe10a149daa42a166566",
+      "bytes": 1871343
+    }
+  ],
+  "estimatedBases": []
+}

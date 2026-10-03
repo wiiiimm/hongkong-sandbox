@@ -1,0 +1,7 @@
+[out:json][timeout:150];area(3600913110)->.hk;(
+way["natural"="beach"](area.hk);relation["natural"="beach"]["type"="multipolygon"](area.hk);
+way["leisure"="pitch"](area.hk);way["man_made"="pier"](area.hk);
+way["highway"="pedestrian"]["area"="yes"](area.hk);
+node["place"~"^(island|village|hamlet)$"](area.hk);
+node["tourism"="viewpoint"](area.hk);
+);out geom;

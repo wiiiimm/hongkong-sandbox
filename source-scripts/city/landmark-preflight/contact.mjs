@@ -1,0 +1,16 @@
+/** Compact, self-contained contact gallery from locally generated review captures.
+ * Browser canvas scales screenshots only; it does not alter the 3D scene or models. */
+import {createRequire} from 'node:module';
+import {browserExecutable} from './browser-runtime.mjs';
+import {readFile,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const require=createRequire(new URL('../../../3d-viewer/city/package.json',import.meta.url)),{chromium}=require('playwright');
+const root=new URL('../../../',import.meta.url),report=JSON.parse(await readFile(new URL('docs/astra-city/landmark-preflight/gallery-summary.json',root),'utf8'));
+const base=`docs/astra-city/landmark-preflight/gallery/${report.snapshotId}/`,escape=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+const browser=await chromium.launch({headless:true,executablePath:browserExecutable(chromium),args:['--disable-gpu']}),page=await browser.newPage();let html='';const images=[];
+try{
+ for(const g of report.landmarks){let cards='';for(const v of g.views){const bytes=await readFile(new URL(base+v.file,root));const data=await page.evaluate(async src=>{const image=new Image();image.src=src;await image.decode();const c=document.createElement('canvas');c.width=300;c.height=Math.round(image.height*300/image.width);c.getContext('2d').drawImage(image,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.55);},'data:image/jpeg;base64,'+bytes.toString('base64'));cards+=`<figure><img width="300" src="${data}" alt="${escape(g.name)} ${escape(v.file)}"><figcaption>${escape(v.file)} · ${v.activeUIDs?.length??0} candidate parts active · camera ${v.cameraCheck?.clear?'ray check clear':'UNRESOLVED'}${v.cameraCheck?.reframed?' · reframed':''}</figcaption></figure>`;images.push({file:base+v.file,sha256:createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length});}html+=`<section><h2>${escape(g.name)}</h2><p>${escape(g.result)} · ${escape(g.identityState)} · no acceptance</p><div>${cards}</div></section>`;}
+}finally{await browser.close();}
+await writeFile(new URL('docs/astra-city/landmark-preflight/contact.html',root),`<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Staged landmark evidence — unreviewed</title><style>body{margin:32px;background:#f0f2e9;color:#183a32;font:15px system-ui}h1{max-width:900px}h2{font-size:20px}section{border-top:1px solid #aab5a5;margin-top:28px;padding-top:12px}section>div{display:flex;flex-wrap:wrap}figure{margin:5px 18px 5px 0}figcaption{font-size:11px;max-width:300px}img{display:block;max-width:100%;height:auto}</style><h1>Staged landmark evidence — unreviewed</h1><p>Snapshot ${report.snapshotId}. Normal-scene scripted captures; no architecture, placement, whole-landmark or publication acceptance. Full local JPEG paths and hashes are recorded in gallery-images.json.</p>${html}`);
+await writeFile(new URL('docs/astra-city/landmark-preflight/gallery-images.json',root),JSON.stringify({snapshotId:report.snapshotId,images,fullCapturesTracked:false},null,2)+'\n');
+console.log(JSON.stringify({landmarks:report.landmarks.length,images:images.length,fullImageBytes:images.reduce((sum,i)=>sum+i.bytes,0)}));

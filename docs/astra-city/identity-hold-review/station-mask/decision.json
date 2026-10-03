@@ -1,0 +1,41 @@
+{
+  "issue": "HKS-214",
+  "uid": "landsd/297401:0",
+  "status": "approved-for-integration",
+  "scope": "Station native part ground-mask correction, not whole-landmark or regional completion",
+  "supersedes": "Earlier station terrain approval: interior water-mask omission and west-wing omission",
+  "replacementPatch": "source-scripts/city/identity-hold-review/terrain-patches/support-native-297401-0-station-land-v2.json",
+  "replacementSHA256": "7e5422186d5fdd48879d3f9489a3662172186a4ca70d08cc3a5305362c28d559",
+  "supersededPatch": "3d-viewer/city/data/support-native-297401-0.json",
+  "supersededSHA256": "53be9056f1c4710aaf9d55c87a3c83dbbc19fc680a25672546f0828f906f5ffc",
+  "coarseCells": [
+    498,
+    420,
+    503,
+    425
+  ],
+  "changedNodeEvidence": {
+    "path": "docs/astra-city/identity-hold-review/station-mask/changed-nodes.json",
+    "sha256": "bad10e457e09c48cf6e2998ca194c95771f74bc74834266e2080408d8026ba78",
+    "existingChildNodes": 8787,
+    "newWesternExtensionNodes": 1995
+  },
+  "evidenceHashes": {
+    "docs/astra-city/identity-hold-review/station-mask/report.json": "6e9199224220caf823c9f6834b3c4d7ce45554e136ab302fb6f7596bf4459c8a",
+    "docs/astra-city/identity-hold-review/station-mask/changed-nodes.json": "bad10e457e09c48cf6e2998ca194c95771f74bc74834266e2080408d8026ba78",
+    "docs/astra-city/identity-hold-review/station-mask/surfaces.json": "f56d2bb0541eb2cc58cf50d95b51b348659f37908808e465c13bb470215be706",
+    "docs/astra-city/identity-hold-review/station-mask/browser/report.json": "739af86fc0da769c9b20f41865d15cd89b5f679939c85c7bcb5727f33f1285af"
+  },
+  "inspectedImages": [
+    "browser/desktop-1500.jpg",
+    "browser/mobile-2200.jpg"
+  ],
+  "verticalScale": 1,
+  "nativeBuildingGeometryChanged": false,
+  "runtimePublished": false,
+  "remaining": [
+    "Parent guarded replacement and installed-route confirmation",
+    "Neighbouring non-station mask errors outside this footprint-bounded correction",
+    "Whole station assembly and regional acceptance remain separate"
+  ]
+}

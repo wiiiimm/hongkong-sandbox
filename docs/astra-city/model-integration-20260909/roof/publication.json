@@ -1,0 +1,78 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/model-integration-20260909/roof-plan.json",
+  "areas": [
+    {
+      "area": "Native ancillary parts with source terrain correction",
+      "models": 2,
+      "catalogue": "city/data/official-models/roof-review-20260909/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/roof-review-186982-0.json": null,
+    "3d-viewer/city/data/roof-review-226248-0.json": null,
+    "3d-viewer/city/data/official-models/roof-review-20260909/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "ba238e7935deb1ef8461cf96534a58c14793280c74d9b4c67ad151d096ccd320"
+  },
+  "after": {
+    "3d-viewer/city/data/roof-review-186982-0.json": "36e8458f76f6b6cb6064638d8778ab5506bef5103d6841a56e11f10f26a50826",
+    "3d-viewer/city/data/roof-review-226248-0.json": "4a81afe8e57675044d34befeecc6badc3920f2fa864855613bd43a5167396646",
+    "3d-viewer/city/data/official-models/roof-review-20260909/catalogue.json": "84ae7828b2ed696013d8ee638d2bd1d5bf62d080a0a18f2e6a4e386f7817e602",
+    "3d-viewer/city/data/manifest.json": "5294a19def8108f14f638e65474f6c34dcc531b72e3b215a621eafbf715da511"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "25fe49a26a378b2a1937d71ca020fa52b588cc24",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/roof-review-186982-0.json",
+      "resolution": 1,
+      "area": "Native source terrain for landsd/186982:0",
+      "source": {
+        "provider": "Lands Department / HKSAR Government",
+        "crs": "EPSG:2326",
+        "verticalDatum": "HKPD",
+        "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SE-11A/manifest.json",
+        "manifestSha256": "721887efe36185ee7e64d3ab33a55d804fc836b9a632e6cf35c7f0f1f87cd9f9",
+        "sourceHashes": {
+          "TERRAIN(TB)/T37500150000106E11/T37500150000106E11.gltf": "fb291f40bf31c28ae5945061a2cd8a0ece9a26e78c2c13f280eee965f2dd71bf",
+          "TERRAIN(TB)/T37500150000106E11/T37500150000106E11.bin": "e4ae81a8796b4f7afb6263ae5bb65bd3595a9e21cf11b8fd65a1ae26d8751796"
+        },
+        "policy": "Exact retained native TIN barycentric samples at 1m intervals; interval is not surveyed accuracy. 10m outer display transition to existing parent triangles; absent source and existing water retain prior terrain. Model elevations unchanged."
+      },
+      "sha256": "36e8458f76f6b6cb6064638d8778ab5506bef5103d6841a56e11f10f26a50826",
+      "bytes": 437450
+    },
+    {
+      "url": "city/data/roof-review-226248-0.json",
+      "resolution": 1,
+      "area": "Native source terrain for landsd/226248:0",
+      "source": {
+        "provider": "Lands Department / HKSAR Government",
+        "crs": "EPSG:2326",
+        "verticalDatum": "HKPD",
+        "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-9B/manifest.json",
+        "manifestSha256": "9412a1c00dbd5a6466822ab097ef7534da3a32f90d8efff976a63c9b0a120e12",
+        "sourceHashes": {
+          "TERRAIN(TB)/T35250222000106E11/T35250222000106E11.gltf": "3a6f1e37bc533e289cde608fbd6c2aa4ba99c1cd0db1914fa85bc316cf90de07",
+          "TERRAIN(TB)/T35250222000106E11/T35250222000106E11.bin": "1da5a936e4e84c5c7e09ce1b1b50fcd41956f25e4dfd18d21cd8603f4aa9a700"
+        },
+        "policy": "Exact retained native TIN barycentric samples at 1m intervals; interval is not surveyed accuracy. 10m outer display transition to existing parent triangles; absent source and existing water retain prior terrain. Model elevations unchanged."
+      },
+      "sha256": "4a81afe8e57675044d34befeecc6badc3920f2fa864855613bd43a5167396646",
+      "bytes": 438000
+    }
+  ],
+  "estimatedBases": []
+}

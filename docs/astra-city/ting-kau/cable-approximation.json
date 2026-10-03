@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "illustrative-bridge-cables",
+  "region": "ting-kau",
+  "id": "estimated-ting-kau-fan-stays",
+  "estimatedGeometry": true,
+  "walkable": false,
+  "sourceUrl": "https://www.hyd.gov.hk/en/information_corner/hyd_factsheets/doc/e_Ting_Kau_Bridge.pdf",
+  "sources": [
+    {
+      "url": "https://www.hyd.gov.hk/en/information_corner/hyd_factsheets/doc/e_Ting_Kau_Bridge.pdf",
+      "facts": [
+        "three single-legged towers and four fan planes",
+        "deck anchor centres 13.5 m",
+        "eight longitudinal stabilising stays"
+      ],
+      "use": "Structural arrangement only; no claim of surveyed individual cable attachment coordinates."
+    }
+  ],
+  "anchors": [
+    {
+      "uid": "landsd/219323:0",
+      "point": [
+        -8427.628255208334,
+        173.74100494384766,
+        -8887.521484375
+      ],
+      "method": "Mean of unique highest source infrastructure vertices near the exact matched tower; cable attachment itself is inferred."
+    },
+    {
+      "uid": "landsd/219830:0",
+      "point": [
+        -8229.7744140625,
+        202.2859878540039,
+        -8485.380533854166
+      ],
+      "method": "Mean of unique highest source infrastructure vertices near the exact matched tower; cable attachment itself is inferred."
+    },
+    {
+      "uid": "landsd/221079:0",
+      "point": [
+        -8019.817057291667,
+        163.78400421142578,
+        -8059.4248046875
+      ],
+      "method": "Mean of unique highest source infrastructure vertices near the exact matched tower; cable attachment itself is inferred."
+    }
+  ],
+  "profile": "Straight inclined fan stays from three source towers to source deck faces; a cable-stayed arrangement, not a suspension catenary.",
+  "counts": {
+    "originalSourceModels": 0,
+    "illustrativeFanStays": 334,
+    "illustrativeLongitudinalStays": 8,
+    "illustrativeTriangles": 4104
+  },
+  "limits": [
+    "All cable geometry is explicitly illustrative and separate from the original deck/tower mesh.",
+    "The official published cable inventory is not claimed to be fully reconstructed; these fan anchors are generated for a source-informed visual arrangement.",
+    "Transverse stabilisation cables, exact anchor hardware, dampers and dynamic cable sag are not reconstructed.",
+    "Source geometry, source HKPD elevations and public-access restrictions are unchanged."
+  ],
+  "skippedUnsupportedAnchors": [
+    {
+      "tower": 2,
+      "side": 1,
+      "distance": 108.0,
+      "plane": 3
+    },
+    {
+      "tower": 2,
+      "side": 1,
+      "distance": 121.5,
+      "plane": 3
+    }
+  ]
+}

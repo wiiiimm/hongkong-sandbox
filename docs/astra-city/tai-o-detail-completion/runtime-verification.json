@@ -1,0 +1,108 @@
+{
+  "staged": true,
+  "models": 7,
+  "triangles": 2358,
+  "residentBudgetBytesAllModels": 1157488,
+  "checks": [
+    "Actual shared loadOfficialModel accepts all staged models with source identity and bound guards",
+    "Source roof ray-picking resolves expected UID",
+    "Exact source triangle collision succeeds and space above highest roof is clear"
+  ],
+  "results": [
+    {
+      "uid": "landsd/14899:0",
+      "triangles": 27,
+      "bytes": 1000,
+      "residentBudgetBytes": 73912,
+      "decodeVerifyMs": 21.121916999999996,
+      "terrainAtFootprintCentre": 16.20669999999809,
+      "sourceModelYBounds": [
+        11.835399627685547,
+        15.900500297546387
+      ],
+      "roofBelowCentreTerrain": true
+    },
+    {
+      "uid": "landsd/58930:0",
+      "triangles": 54,
+      "bytes": 1295,
+      "residentBudgetBytes": 82288,
+      "decodeVerifyMs": 1.4724999999999966,
+      "terrainAtFootprintCentre": 5.12319999999599,
+      "sourceModelYBounds": [
+        3.042600154876709,
+        12.482099056243896
+      ],
+      "roofBelowCentreTerrain": false
+    },
+    {
+      "uid": "landsd/94903:0",
+      "triangles": 148,
+      "bytes": 2419,
+      "residentBudgetBytes": 113120,
+      "decodeVerifyMs": 1.1247079999999983,
+      "terrainAtFootprintCentre": 4.522250000003261,
+      "sourceModelYBounds": [
+        1.109799861907959,
+        9.187699794769287
+      ],
+      "roofBelowCentreTerrain": false
+    },
+    {
+      "uid": "landsd/162085:0",
+      "triangles": 10,
+      "bytes": 732,
+      "residentBudgetBytes": 68816,
+      "decodeVerifyMs": 0.754833000000005,
+      "terrainAtFootprintCentre": 5.179350000002884,
+      "sourceModelYBounds": [
+        2.831199884414673,
+        7.290499925613403
+      ],
+      "roofBelowCentreTerrain": false
+    },
+    {
+      "uid": "landsd/211618:0",
+      "triangles": 861,
+      "bytes": 9666,
+      "residentBudgetBytes": 315592,
+      "decodeVerifyMs": 1.8362079999999992,
+      "terrainAtFootprintCentre": 28.987750000070097,
+      "sourceModelYBounds": [
+        17.15959930419922,
+        26.0447998046875
+      ],
+      "roofBelowCentreTerrain": true
+    },
+    {
+      "uid": "landsd/96188:0",
+      "triangles": 18,
+      "bytes": 801,
+      "residentBudgetBytes": 71056,
+      "decodeVerifyMs": 0.8090419999999909,
+      "terrainAtFootprintCentre": 5.206400000007129,
+      "sourceModelYBounds": [
+        4.110899925231934,
+        8.548199653625488
+      ],
+      "roofBelowCentreTerrain": false
+    },
+    {
+      "uid": "landsd/211900:0",
+      "triangles": 1240,
+      "bytes": 13651,
+      "residentBudgetBytes": 432704,
+      "decodeVerifyMs": 2.0994579999999985,
+      "terrainAtFootprintCentre": 5,
+      "sourceModelYBounds": [
+        4.1287994384765625,
+        23.259700775146484
+      ],
+      "roofBelowCentreTerrain": false
+    }
+  ],
+  "limits": [
+    "CPU geometry acceptance, not full architectural or GPU/browser verification",
+    "Terrain centre diagnostic is not whole-footprint/foundation acceptance; source absolute elevations preserved"
+  ]
+}
