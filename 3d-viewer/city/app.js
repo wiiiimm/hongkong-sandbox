@@ -1,3 +1,4 @@
+import {observeCanvasViewport,canvasDimensions} from './canvas-viewport.js';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
 import {bindBuildingProgress} from './building-progress.js?v=20260914-progress5';
 import * as THREE from '../vendor/three.module.js';
@@ -27,6 +28,7 @@ import {worldToWgs84} from './observer.js';
 const meshInspection=new MeshInspection({bounded:true,profile:innerWidth<=760?'mobile':'desktop'});let lastInspection=0;
 const $=id=>document.getElementById(id),motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
 let reduced=motionPreference.matches,aircraftUIStamp;
+let viewportState=canvasDimensions(0,0),modelQuality='auto';
 let place='central',region='island',scene,camera,renderer,controls,nav,sampler,stream,terrain,water,manifest,ferries,sun,ambient,selection,tween,regionalDetail,bridgeLayer,cableLayer,officialModels,modelReveal,modelPreloader;
 let catalogue=[],overview={},cataloguePromise,travel=0,modeRequest=0,pendingModeRequest=0,selectedId=null,selectedIndex=-1,loadingTravel=false,lastHud=0,lastStream=0,startTime=0,interacting=false,modelResumeAt=0;
 let backgroundCataloguesRemaining=0,backgroundDataPromise,modelPreloadRequested=false;
@@ -163,9 +165,9 @@ function makeLabels(){
  for(const p of Object.values(PLACES))if(p!==PLACES.lantaupeaks)add(p.zh,[p.target[0],sampler.height(p.target[0],p.target[2])+70,p.target[2]+150],'district-name');
 }
 function updateLabels(){
- const w=innerWidth,h=innerHeight,occupied=[];
+ const rect=renderer.domElement.getBoundingClientRect(),w=rect.width,h=rect.height,occupied=[];
  for(const {el,pos,kind} of labelEntries){
-  temp.copy(pos).project(camera);const distance=camera.position.distanceTo(pos),x=(temp.x*.5+.5)*w,y=(-temp.y*.5+.5)*h;
+  temp.copy(pos).project(camera);const distance=camera.position.distanceTo(pos),x=rect.left+(temp.x*.5+.5)*w,y=rect.top+(-temp.y*.5+.5)*h;
   const off=nav.mode!=='orbit'||distance>6500||distance<120||temp.z>1||temp.z<0||x<16||x>w-16||y<84||y>h-100||(x<330&&w>760)||(kind==='harbour'&&distance<800);
   const overlap=occupied.some(([xx,yy])=>Math.abs(xx-x)<100&&Math.abs(yy-y)<35);el.style.opacity=off||overlap?'0':'1';if(!off&&!overlap){el.style.left=`${x}px`;el.style.top=`${y}px`;occupied.push([x,y]);}
  }
@@ -214,10 +216,10 @@ function updateModelPreloadUI(){
  const button=$('model-preload'),status=$('model-preload-status');if(!button)return;
  const p=modelPreloader?.stats||{active:false,done:0,total:0,bytesDone:0,totalBytes:0,errors:0,complete:false},number=n=>n.toLocaleString('en-HK'),mb=n=>Math.round(n/1048576);
  button.setAttribute('aria-pressed',String(modelPreloadRequested||p.active));button.disabled=p.complete&&!p.errors&&!p.active;
- if(modelPreloadRequested||p.active){button.textContent='Stop background load';status.textContent=backgroundCataloguesRemaining?`Indexing model locations · ${manifest.officialModelCatalogues.length-backgroundCataloguesRemaining} of ${manifest.officialModelCatalogues.length}`:`Caching nearest first · ${number(p.done)} of ${number(p.total)} · ${mb(p.bytesDone)} of ${mb(p.totalBytes)} MB`;return;}
+ if(modelPreloadRequested||p.active){button.textContent='Stop background load';status.textContent=backgroundCataloguesRemaining?`Indexing model locations · ${manifest.officialModelCatalogues.length-backgroundCataloguesRemaining} of ${manifest.officialModelCatalogues.length}`:`Caching nearest first · ${number(p.done)} of ${number(p.total)} · ${mb(p.bytesDone)} of ${mb(p.totalBytes)} MB downloaded`;return;}
  if(p.complete&&!p.errors){button.textContent='Models ready';status.textContent=`${number(p.done)} compressed model files are prepared in this browser’s cache.`;return;}
  if(p.errors){button.textContent='Retry skipped models';status.textContent=`${number(p.done)} prepared · ${number(p.errors)} will still load normally when visible.`;return;}
- button.textContent=p.done?'Continue background load':'Load models in background';status.textContent=p.done?`${number(p.done)} of ${number(p.total)} models prepared. Continue whenever you like.`:'Caches about 95 MB from your current location outward. Rendering stays adaptive.';
+ button.textContent=p.done?'Continue background load':'Load models in background';status.textContent=p.done?`${number(p.done)} files downloaded. ${p.budgetReached?'Session budget reached. ':''}Continue when needed; decoded detail remains bounded.`:'Downloads up to 32 MB or 96 nearby models per session. Ready detail uses a separate bounded budget.';
 }
 async function startModelPreload(){
  if(modelPreloadRequested||modelPreloader?.stats.active)return;modelPreloadRequested=true;updateStreamStatus();
@@ -278,7 +280,7 @@ function bindUI(){
  $('selection-close').addEventListener('click',closeSelection);$('search').addEventListener('input',search);
  let pointerStart;renderer.domElement.addEventListener('pointerdown',e=>{pointerStart={x:e.clientX,y:e.clientY};});
  renderer.domElement.addEventListener('pointerup',e=>{if(stargazer.active||nav.mode!=='orbit'||!pointerStart||Math.hypot(e.clientX-pointerStart.x,e.clientY-pointerStart.y)>5)return;
-  raycaster.setFromCamera(new THREE.Vector2(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2),camera);const buildings=stream.pickMeshes(raycaster.ray),bridges=bridgeLayer.pickMeshes(),cables=cableLayer.pickMeshes(),hit=raycaster.intersectObjects([...buildings,...bridges,...cables],false)[0];if(hit){if(cables.includes(hit.object))selectBridge(cableLayer.featureAt(hit));else if(bridges.includes(hit.object))selectBridge(bridgeLayer.featureAt(hit));else selectBuilding(stream.featureAt(hit));}else closeSelection();
+  const rect=renderer.domElement.getBoundingClientRect();raycaster.setFromCamera(new THREE.Vector2((e.clientX-rect.left)/rect.width*2-1,1-(e.clientY-rect.top)/rect.height*2),camera);const buildings=stream.pickMeshes(raycaster.ray),bridges=bridgeLayer.pickMeshes(),cables=cableLayer.pickMeshes(),hit=raycaster.intersectObjects([...buildings,...bridges,...cables],false)[0];if(hit){if(cables.includes(hit.object))selectBridge(cableLayer.featureAt(hit));else if(bridges.includes(hit.object))selectBridge(bridgeLayer.featureAt(hit));else selectBuilding(stream.featureAt(hit));}else closeSelection();
  });
  controls.addEventListener('start',()=>{tween=null;++travel;loadingTravel=false;interacting=true;modelResumeAt=Infinity;stream.setLoadingPaused?.(true);officialModels.setLoadingPaused?.(true);});
  controls.addEventListener('end',()=>{interacting=false;modelResumeAt=performance.now()+350;stream.setLoadingPaused?.(false);});
@@ -287,11 +289,11 @@ function bindUI(){
   if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.isContentEditable||$('about').open||e.repeat)return;
   if(e.code==='Slash'){e.preventDefault();controlSheet.open('places',{focusSearch:true});}const m={Digit1:'orbit',Digit2:'walk',Digit3:'fly',Digit4:'star'}[e.code];if(m)chooseMode(m);
  });
- addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<760?1.5:1.75));renderer.setSize(innerWidth,innerHeight);});
+ $('model-quality').addEventListener('change',e=>{modelQuality=e.target.value;officialModels.setProfile(modelQuality==='high'?'desktop':'mobile');applyViewport(viewportState);});
 }
 async function loadJSON(path){const r=await fetch(path);if(!r.ok)throw new Error(`${path}: HTTP ${r.status}`);return r.json();}
 async function backgroundSlot(){
- while(document.hidden||interacting||loadingTravel||pendingModeRequest||tween||officialModels.stats.pending&&!modelPreloadRequested)await new Promise(resolve=>setTimeout(resolve,250));
+ while(document.hidden||!viewportState.active||interacting||loadingTravel||pendingModeRequest||tween||officialModels.stats.pending&&!modelPreloadRequested)await new Promise(resolve=>setTimeout(resolve,250));
  await new Promise(resolve=>globalThis.requestIdleCallback?requestIdleCallback(resolve,{timeout:500}):setTimeout(resolve,16));
 }
 async function loadBackgroundData(){
@@ -300,11 +302,15 @@ async function loadBackgroundData(){
  await backgroundSlot();loadJSON(manifest.overview).then(data=>{overview=data;}).catch(()=>{});
 }
 function ensureBackgroundData(){return backgroundDataPromise??=loadBackgroundData();}
+function applyViewport(state){
+ viewportState=state;if(!state.active){stream?.setLoadingPaused(true);officialModels?.setLoadingPaused(true);modelPreloader?.setPaused(true);return;}const pixels=canvasDimensions(state.width,state.height,devicePixelRatio,{maxDpr:modelQuality==='high'?1.75:1.5,maxPixels:modelQuality==='high'?32000000:4000000});
+ camera.aspect=state.width/state.height;camera.updateProjectionMatrix();renderer.setPixelRatio(pixels.pixelRatio);renderer.setSize(state.width,state.height,false);viewportState={...state,...pixels};stream?.setLoadingPaused(interacting);
+}
 async function init(){
  metrics.observe();
- renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,logarithmicDepthBuffer:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<760?1.5:1.75));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+ renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true,logarithmicDepthBuffer:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
  $('viewport').append(renderer.domElement);renderer.domElement.tabIndex=0;renderer.domElement.setAttribute('aria-label','3D city: drag to orbit, scroll to zoom, click a building for details');renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();toast('Graphics paused. Reload the page to restore the city.');});
- scene=new THREE.Scene();scene.background=new THREE.Color('#d9e3d5');scene.fog=new THREE.Fog('#d9e3d5',8000,36000);camera=new THREE.PerspectiveCamera(44,innerWidth/innerHeight,.5,100000);
+ scene=new THREE.Scene();scene.background=new THREE.Color('#d9e3d5');scene.fog=new THREE.Fog('#d9e3d5',8000,36000);camera=new THREE.PerspectiveCamera(44,innerWidth/innerHeight,.5,100000);renderer.domElement.style.width='100%';renderer.domElement.style.height='100%';observeCanvasViewport($('viewport'),applyViewport);
  controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.07;controls.minDistance=12;controls.maxDistance=65000;controls.maxPolarAngle=Math.PI*.475;controls.screenSpacePanning=false;
  ambient=new THREE.HemisphereLight('#e8f0e6','#6c806a',1.9);scene.add(ambient);sun=new THREE.DirectionalLight('#fff7df',3);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-2200,right:2200,top:2200,bottom:-2200,near:10,far:12000});sun.shadow.bias=-.00007;sun.shadow.normalBias=1.2;sun.shadow.radius=2;scene.add(sun,sun.target);
  const [m,data]=await Promise.all([loadJSON('city/data/manifest.json'),loadJSON('city/data/terrain.json')]);manifest=m;void bindBuildingProgress(manifest);
@@ -314,10 +320,10 @@ async function init(){
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus,inspection:meshInspection});
  cableLayer=new BridgeCables({scene,onChange:updateStreamStatus,inspection:meshInspection});
  modelReveal=new ModelReveal(renderer.domElement);
- officialModels=new OfficialModelLayer({stream,onReveal:entry=>{if(!reduced&&!interacting)modelReveal.start(entry);},profile:innerWidth<=760?'mobile':'desktop',onChange:updateOfficialModels});
+ officialModels=new OfficialModelLayer({stream,onReveal:entry=>{if(!reduced&&!interacting)modelReveal.start(entry);},profile:'mobile',onChange:updateOfficialModels});
  sectionReview=new ReviewSections({scene,sampler,onVisit:visitReviewSection,onSelect:()=>{closeSelection();controlSheet.open('places');$('section-review').scrollIntoView({block:'start'});}});
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,surfaces:bridgeLayer.surfaces,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
- modelPreloader=new ModelPreloader({getOrigin:()=>{const p=nav.mode==='orbit'?controls.target:nav.position;return[p.x,p.z];},onChange:updateStreamStatus});
+ modelPreloader=new ModelPreloader({byteCache:officialModels.byteCache,getDirection:()=>nav.mode==='fly'?[Math.sin(nav.heading),-Math.cos(nav.heading)]:null,getOrigin:()=>{const p=nav.mode==='orbit'?controls.target:nav.position;return[p.x,p.z];},onChange:updateStreamStatus});
  controlSheet=createControlSheet({onExpand:()=>{nav.clearInput();aircraftPicker?.close({restoreFocus:false});},focusMap:()=>renderer.domElement.focus({preventScroll:true})});
  aircraftPicker=createAircraftPicker({aircraft:AIRCRAFT,onOpen:()=>{controlSheet.close({restoreFocus:false});nav.clearInput();syncAircraftUI();},onQuickFly:()=>{if(nav.mode!=='fly'||stargazer.active)void chooseMode('fly');renderer.domElement.focus({preventScroll:true});},onSelect:id=>{void selectAircraft(id);if(nav.mode!=='fly'||stargazer.active)void chooseMode('fly');renderer.domElement.focus({preventScroll:true});}});
  stargazer=new StargazeControls({camera,controls,canvas:renderer.domElement,onPick:point=>{const star=environment.sky.pick(point);$('sky-selection').textContent=star?`Star HR ${star.hr} · ${star.constellations.map(c=>c.en+' '+c.zh).join(', ')||'No figure in this catalogue'} · ${star.altitudeDeg.toFixed(0)}° above the horizon`:'No bright star selected. Try another part of the sky.';}});
@@ -328,7 +334,7 @@ async function init(){
   }return observerCache;
  },onClock:s=>{lightState=s;meshInspection.setNight(s.night>.5);}});makeLabels();
  $('snapshot-date').textContent=manifest.snapshot.slice(0,10);$('loading').style.opacity='0';setTimeout(()=>$('loading').hidden=true,750);
- window.__city={metrics,get ready(){return true;},get state(){return {inspection:meshInspection.state,controls:controlSheet.state,aircraftPicker:aircraftPicker.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,pendingModeRequest,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,cables:cableLayer.stats,models:officialModels.stats,placeCount:Object.keys(PLACES).length,sections:sectionReview.state,layers:{sections:sectionReview.enabled,bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
+ window.__city={metrics,get viewport(){return viewportState;},get ready(){return true;},get state(){return {inspection:meshInspection.state,controls:controlSheet.state,aircraftPicker:aircraftPicker.state,mode:stargazer.active?'star':nav.mode,position:nav.position.toArray(),camera:camera.position.toArray(),distance:nav.distance,speed:nav.speed,firstPerson:nav.firstPerson,aircraft:nav.aircraftState,time:environment.hour,timeLapse:environment.timeLapse,environment:environment.state,ferries:ferries.group.children.map(boat=>({waterline:boat.position.y+ferries.group.position.y})),stargazing:stargazer.state,lighting:{...lightState,uniformActivity:[...stream.lighting.activity.value,stream.lighting.retail.value],shimmer:stream.lighting.shimmer.value,elapsed:stream.lighting.elapsed.value,ambient:ambient.intensity},place,region,selectedId,selectedIndex,loadingTravel,pendingModeRequest,travelling:!!tween,stream:stream.stats,regional:regionalDetail.stats,bridges:bridgeLayer.stats,cables:cableLayer.stats,models:officialModels.stats,placeCount:Object.keys(PLACES).length,sections:sectionReview.state,layers:{sections:sectionReview.enabled,bridges:bridgeLayer.group.visible,surfaces:regionalDetail.group.visible,buildings:stream.buildings.visible,roads:stream.roads.visible,trees:stream.trees.visible,labels:!$('labels').hidden},render:{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles},counts:manifest.counts,trees:stream.stats.trees,actorHeight:new THREE.Box3().setFromObject(nav.walker).getSize(new THREE.Vector3()).y,collision:!!nav.collides(nav.position.x,nav.position.z,nav.position.y,nav.position.y+1.8,.5,nav.mode==='walk'),movementReady:stream.readyAt(nav.position.x,nav.position.z,350),tiles:[...stream.cache.entries.keys()]};}};
  startTime=performance.now();requestAnimationFrame(animate);const initial=new URLSearchParams(location.search).get('district');goPlace(Object.hasOwn(PLACES,initial)?initial:'central',false);
  // Regional surfaces and search are independent of building/terrain readiness.
  for(const name of ['islands','urban','nt'])regionalDetail.load(`city/data/regional/${name}.json`);
@@ -341,16 +347,16 @@ async function init(){
 }
 let lastTime=0;
 function animate(now){
- requestAnimationFrame(animate);if(lastTime&&!document.hidden)metrics.record('frameMs',now-lastTime);const dt=Math.min((now-(lastTime||now))/1000,.05);lastTime=now;const paused=document.hidden||$('about').open;
+ requestAnimationFrame(animate);if(lastTime&&!document.hidden)metrics.record('frameMs',now-lastTime);const dt=Math.min((now-(lastTime||now))/1000,.05);lastTime=now;const paused=document.hidden||!viewportState.active||$('about').open;stream.setLoadingPaused(paused||interacting);
  if(!paused&&!reduced)stream.lighting.elapsed.value+=dt;
  if(tween&&!paused){tween.elapsed+=dt;const u=Math.min(1,tween.elapsed/tween.duration),v=u*u*(3-2*u);camera.position.lerpVectors(tween.from,tween.to,v);controls.target.lerpVectors(tween.targetFrom,tween.targetTo,v);if(u===1)tween=null;}
  const focus=nav.mode==='orbit'?controls.target:nav.position;
  if(now-lastInspection>600){meshInspection.plan(focus);lastInspection=now;}
  // A preset arrival already requests its destination. Do not replace that request
  // with intermediate camera positions while the transition crosses the harbour.
- if(now-lastStream>600&&!loadingTravel&&!pendingModeRequest&&!tween){stream.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(6000,Math.max(2600,camera.position.distanceTo(focus))):3200);regionalDetail.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(5000,Math.max(2600,camera.position.distanceTo(focus))):3200);bridgeLayer.plan(focus.x,focus.z,3000,camera.position);cableLayer.plan(focus.x,focus.z,3000,bridgeLayer.surfaces.models.keys());lastStream=now;}
+ if(!paused&&now-lastStream>600&&!loadingTravel&&!pendingModeRequest&&!tween){stream.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(6000,Math.max(2600,camera.position.distanceTo(focus))):3200);regionalDetail.plan(focus.x,focus.z,nav.mode==='orbit'?Math.min(5000,Math.max(2600,camera.position.distanceTo(focus))):3200);bridgeLayer.plan(focus.x,focus.z,3000,camera.position);cableLayer.plan(focus.x,focus.z,3000,bridgeLayer.surfaces.models.keys());lastStream=now;}
  if(stargazer.active)stargazer.update();else if(nav.mode==='orbit'){controls.update();const ground=Math.max(sampler.height(camera.position.x,camera.position.z),water.state.renderedLevelHKPD);if(camera.position.y<ground+2)camera.position.y=ground+2;}else if(!paused&&!aircraftPicker.state.open&&stream.readyAt(nav.position.x,nav.position.z,350))nav.update(dt);
- if(!paused){const baseReady=!stream.stats.pending&&!loadingTravel&&!pendingModeRequest&&!tween,allowNewLoads=baseReady&&!interacting&&now>=modelResumeAt;officialModels.setLoadingPaused?.(!allowNewLoads);officialModels.plan(camera,{viewportHeight:innerHeight,selectedUid:selectedId,allowNewLoads});modelPreloader.setPaused(!allowNewLoads||officialModels.stats.pending>0);}else modelPreloader.setPaused(true);
+ if(!paused){const baseReady=!stream.stats.pending&&!loadingTravel&&!pendingModeRequest&&!tween,allowNewLoads=baseReady&&!interacting&&now>=modelResumeAt;officialModels.setLoadingPaused?.(!allowNewLoads);officialModels.plan(camera,{viewportWidth:viewportState.width,viewportHeight:viewportState.height,selectedUid:selectedId,collisionPosition:nav.mode==='orbit'?null:nav.position,allowNewLoads});modelPreloader.setPaused(!allowNewLoads||officialModels.stats.pending>0);}else{officialModels.setLoadingPaused(true);modelPreloader.setPaused(true);}
  environment.update(dt,{now,paused,reducedMotion:reduced,stargazing:stargazer.active,position:focus});
  nav.setAircraftLighting({night:lightState.night,reducedMotion:reduced});
  if(!reduced&&!paused)ferries.update(water.time.value);
@@ -363,6 +369,6 @@ function animate(now){
  // Restore the exact environment fog afterwards; manual/live weather state is unchanged.
  const fogDensity=scene.fog.density;
  if(sectionReview.enabled&&nav.mode==='orbit'&&!stargazer.active&&scene.fog.isFogExp2)scene.fog.density*=Math.min(1,12000/Math.max(12000,camera.position.y));
- const renderStart=metrics.start();renderer.render(scene,camera);metrics.end('renderSubmitMs',renderStart);metrics.record('drawCalls',renderer.info.render.calls);metrics.record('renderTriangles',renderer.info.render.triangles);modelReveal.update(camera,now,{reduced,interacting});scene.fog.density=fogDensity;
+ const renderStart=metrics.start();if(viewportState.active&&!document.hidden)renderer.render(scene,camera);metrics.end('renderSubmitMs',renderStart);metrics.record('drawCalls',renderer.info.render.calls);metrics.record('renderTriangles',renderer.info.render.triangles);modelReveal.update(camera,now,{reduced,interacting});scene.fog.density=fogDensity;
 }
 init().catch(error=>{console.error('City failed to load',error);$('loading-detail').textContent=`The city could not load. ${error.message}. Reload to try again.`;$('loading').querySelector('.loading-line').hidden=true;});

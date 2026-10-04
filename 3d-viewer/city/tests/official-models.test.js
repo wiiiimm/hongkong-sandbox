@@ -39,9 +39,9 @@ test('wrong hash, truncated body, altered source UID/heights and incorrect place
  await assert.rejects(loadOfficialModel(meta,{...f.building,buildingCSUID:'wrong'},f.stream.lighting,{fetcher}),/does not match/);await assert.rejects(loadOfficialModel(meta,{...f.building,topHeightHKPD:12},f.stream.lighting,{fetcher}),/does not match/);
  assert.equal(f.stream.detailedModels.size,0);assert.equal(f.building.height,8);
 });
-test('progressive detail stays resident while visible at distance and restores its fallback after leaving view',async t=>{
+test('progressive detail keeps visible grace and restores its fallback when warm retention is disabled',async t=>{
  const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
- const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});assert.equal(await layer.loadCatalogue('http://localhost/catalogue.json'),true);
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});assert.equal(await layer.loadCatalogue('http://localhost/catalogue.json'),true);
  const c=camera();assert.deepEqual(layer.plan(c,{viewportHeight:800,force:true}),[f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);
  assert.equal(f.stream.cache.entries.get('0_0').buildings.group.children.length,0);assert.equal(f.stream.maximumRoof(5,5,1),12);assert.equal(f.stream.getLoadedBuilding(f.meta.uid).modelId,f.meta.modelId);
  entry.group.updateMatrixWorld(true);const ray=new THREE.Raycaster(new THREE.Vector3(5,30,5),new THREE.Vector3(0,-1,0)),hit=ray.intersectObjects(f.stream.pickMeshes(ray.ray))[0];assert.ok(hit);assert.equal(f.stream.featureAt(hit).uid,f.meta.uid);assert.equal(f.stream.featureAt(hit).topHeightHKPD,10);
@@ -53,24 +53,24 @@ test('progressive detail stays resident while visible at distance and restores i
 });
 test('failed model download uses Retry and only activates detail after successful verification',async t=>{
  const f=fixture();let failed=true;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?(failed?new Response('',{status:503}):new Response(f.compressed)):response(f.catalogue));await sourceReady(f);
- const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await assert.rejects(layer.cache.waitFor([f.meta.uid]),/503/);assert.equal(f.stream.detailedModels.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await assert.rejects(layer.cache.waitFor([f.meta.uid]),/503/);assert.equal(f.stream.detailedModels.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
  while(layer.cache.running.size)await tick();failed=false;await layer.retry();await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.maximumRoof(5,5,1),12);assert.equal(layer.stats.errors.length,0);
 });
 test('camera travel cancels a pending source request; late completion cannot replace the fallback',async t=>{
  const f=fixture();let release;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Promise(resolve=>{release=resolve;}):response(f.catalogue));await sourceReady(f);
- const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});while(!release)await tick();c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});release(new Response(f.compressed));while(layer.cache.running.size)await tick();assert.equal(f.stream.detailedModels.size,0);assert.equal(layer.cache.entries.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});while(!release)await tick();c.position.set(50000,500,50000);c.lookAt(50000,0,40000);layer.plan(c,{force:true});release(new Response(f.compressed));while(layer.cache.running.size)await tick();assert.equal(f.stream.detailedModels.size,0);assert.equal(layer.cache.entries.size,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
 });
 test('background gate defers new detail while keeping selected and resident models available',async t=>{
  const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
- const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();
  assert.deepEqual(layer.plan(c,{allowNewLoads:false,force:true}),[]);assert.equal(layer.cache.running.size,0);
  assert.deepEqual(layer.plan(c,{allowNewLoads:false,selectedUid:f.meta.uid,force:true}),[f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);
  assert.deepEqual(layer.plan(c,{allowNewLoads:false,force:true}),[f.meta.uid]);assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);
 });
-test('interaction pause aborts background detail and resumes the current plan',async t=>{
+test('interaction pause preserves an in-flight source instead of downloading it again',async t=>{
  const f=fixture();let release,first=true;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)&&first?(first=false,new Promise(resolve=>{release=resolve;})):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
- const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});while(!release)await tick();
- layer.setLoadingPaused(true);assert.equal(layer.cache.paused,true);release(new Response(f.compressed));while(layer.cache.running.size)await tick();assert.equal(layer.cache.entries.size,0);
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});while(!release)await tick();
+ layer.setLoadingPaused(true);assert.equal(layer.cache.paused,true);release(new Response(f.compressed));await tick();assert.equal(layer.cache.entries.size,0);
  layer.setLoadingPaused(false);await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);
 });
 test('catalogues reject ambiguous duplicate IDs, wrong datum, invalid assembly suppressions and external decoder assets',()=>{
@@ -96,13 +96,13 @@ test('abort during asynchronous GLTF parsing disposes the late source geometry',
  const rejected=assert.rejects(pending,{name:'AbortError'});while(!finish)await tick();let disposed=0;parsed.scene.traverse(o=>{if(o.isMesh)o.geometry.addEventListener('dispose',()=>disposed++);});controller.abort();finish();await rejected;assert.equal(disposed,1);assert.equal(f.stream.detailedModels.size,0);
 });
 test('failed fallback restoration retains source geometry and its memory reservation until Retry succeeds',async t=>{
- const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);let disposed=0;entry.meshes[0].geometry.addEventListener('dispose',()=>disposed++);
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);let disposed=0;entry.meshes[0].geometry.addEventListener('dispose',()=>disposed++);
  const restore=f.stream.refreshBuildings.bind(f.stream);let fail=true;t.mock.method(f.stream,'refreshBuildings',async()=>{if(fail)throw new Error('fixture bake failure');return restore();});c.position.set(50000,500,50000);c.lookAt(60000,500,50000);layer.plan(c,{force:true});await Promise.allSettled([...layer.retiring.values()]);
  assert.equal(disposed,0);assert.equal(f.stream.detailedModels.get(f.meta.uid),entry);assert.ok(layer.stats.residentBytes>0);assert.deepEqual(layer.stats.errors,['restore:'+f.meta.uid]);
  fail=false;await layer.retry();assert.equal(disposed,1);assert.equal(f.stream.detailedModels.size,0);assert.equal(layer.stats.residentBytes,0);assert.equal(layer.stats.errors.length,0);assert.equal(f.stream.maximumRoof(5,5,1),10);
 });
 test('pre-existing baked government models and source infrastructure take precedence over optional compact detail',async t=>{
- const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');await f.stream.suppressInfrastructureBuildings([f.meta.uid]);assert.deepEqual(layer.plan(camera(),{force:true}),[]);
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');await f.stream.suppressInfrastructureBuildings([f.meta.uid]);assert.deepEqual(layer.plan(camera(),{force:true}),[]);
  await f.stream.suppressInfrastructureBuildings([]);f.stream.cache.entries.get('0_0').data.buildings[0].modelGeometry={position:[0,0,0]};assert.deepEqual(layer.plan(camera(),{force:true}),[]);
 });
 test('turning away briefly retains nearby decoded detail without another model or material bake',async t=>{
@@ -163,7 +163,7 @@ test('bounded vertical placement aligns an unchanged source roof to current Land
 test('a retained basic form stays rendered under an active government shell',async t=>{
  const f=fixture();f.catalogue.models[0]={...f.meta,retainsBasicForm:true};
  t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
- const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await layer.cache.waitFor([f.meta.uid]);
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await layer.cache.waitFor([f.meta.uid]);
  assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);assert.equal(f.stream.getLoadedBuilding(f.meta.uid).modelId,f.meta.modelId);
 });
 
@@ -177,7 +177,7 @@ test('real source-tile replacement activates a tower only after its native suppo
   if(uid===supportUid&&!value)assert.equal(f.stream.detailedModels.has(f.meta.uid),false);
   const result=await replace(uid,value,options);events.push((value?'add:':'remove:')+uid);return result;
  });
- const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
  const c=camera();assert.deepEqual(layer.plan(c,{force:true,selectedUid:f.meta.uid}),[supportUid,f.meta.uid]);await layer.cache.waitFor([f.meta.uid]);assert.equal(f.stream.detailedModels.size,2);
  c.position.set(50000,500,50000);c.lookAt(60000,500,50000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.equal(f.stream.detailedModels.size,0);
  assert.deepEqual(events,['add:'+supportUid,'add:'+f.meta.uid,'remove:'+f.meta.uid,'remove:'+supportUid]);
@@ -188,8 +188,30 @@ test('an active government assembly hides its bundled fallback forms and restore
  const f=fixture(),bundledUid='landsd/2:0';f.catalogue.models[0].suppressesBuildingUids=[bundledUid];
  f.data.buildings.push({...f.building,uid:bundledUid,id:'landsd/2',objectId:2,buildingCSUID:'two',rings:[[[20,0],[30,0],[30,10],[20,10],[20,0]]],centre:[25,5]});
  t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
- const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');
  assert.ok(f.stream.collision(25,5,2,11,1));const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);
  assert.equal(f.stream.collision(25,5,2,11,1),null);assert.equal(f.stream.cache.entries.get('0_0').detailSuppressions.has(bundledUid),true);
  c.position.set(50000,500,50000);c.lookAt(60000,500,50000);layer.plan(c,{force:true});await Promise.all([...layer.retiring.values()]);assert.ok(f.stream.collision(25,5,2,11,1));
+});
+
+test('warm reversal and viewport changes reuse decoded source; grace expiry restores fallback',async t=>{
+ const f=fixture();let requests=0;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?(requests++,new Response(f.compressed)):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true,now:0});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);
+ c.lookAt(5,10,1000);layer.plan(c,{force:true,now:200,viewportWidth:844,viewportHeight:390});assert.equal(layer.cache.entries.get(f.meta.uid),entry);assert.ok(f.stream.collision(5,5,2,13,1));
+ c.lookAt(5,7,5);layer.plan(c,{force:true,now:400,viewportWidth:3840,viewportHeight:2160});assert.equal(requests,1);assert.equal(layer.cache.entries.get(f.meta.uid),entry);
+ c.lookAt(5,10,1000);layer.plan(c,{force:true,now:500});layer.plan(c,{now:11000});await Promise.all([...layer.retiring.values()]);assert.equal(layer.cache.entries.size,0);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);
+});
+
+test('in-view demotion keeps native shell visible until fallback is ready, then reuses warm decode',async t=>{
+ const f=fixture();let requests=0;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?(requests++,new Response(f.compressed)):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true,now:0});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);
+ let complete,started=false;const replace=f.stream.setDetailedModel.bind(f.stream);t.mock.method(f.stream,'setDetailedModel',async(uid,value,options)=>{if(!value&&!started){started=true;await new Promise(r=>{complete=r;});}return replace(uid,value,options);});
+ c.position.set(5,10,5000);c.lookAt(5,7,5);layer.plan(c,{force:true,now:200});layer.plan(c,{force:true,now:2300});while(!complete)await tick();
+ assert.equal(entry.group.visible,true);assert.equal(entry.active,true);assert.equal(f.stream.cache.entries.get('0_0').buildings.group.children.length,0);
+ complete();await Promise.all([...layer.activating.values()]);assert.equal(entry.active,false);assert.equal(layer.cache.entries.get(f.meta.uid),entry);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);
+ c.position.copy(camera().position);c.lookAt(5,7,5);layer.plan(c,{force:true,now:2500});await Promise.all([...layer.activating.values()]);assert.equal(entry.active,true);assert.equal(requests,1);
+});
+
+test('a hidden/zero canvas pauses admission without flushing resident models',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);layer.plan(c,{viewportWidth:0,viewportHeight:800,force:true});assert.equal(layer.cache.paused,true);assert.equal(layer.cache.entries.get(f.meta.uid),entry);
 });

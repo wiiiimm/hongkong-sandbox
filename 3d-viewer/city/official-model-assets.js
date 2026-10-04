@@ -1,3 +1,4 @@
+import {yieldModelWork} from './model-byte-cache.js';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {GLTFLoader} from '../vendor/GLTFLoader.js';
@@ -68,13 +69,14 @@ function nativeGLB(bytes){
  return json;
 }
 /** Decodes exact native source geometry. It does not change source node transforms. */
-export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=fetch,loader=new GLTFLoader()}={}){
+export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=fetch,loader=new GLTFLoader(),byteCache=null,beforeDecode=yieldModelWork}={}){
  if(!building||building.uid!==entry.uid||building.objectId!==entry.objectId||building.buildingCSUID!==entry.buildingCSUID||(building.baseHeightHKPD??null)!==entry.recordedBaseHeight||(building.topHeightHKPD??null)!==entry.recordedTopHeight)throw new Error('Model does not match the loaded official building source');
- const fetchStart=metrics.start();metrics.count('modelRequests');
- if(signal?.aborted)throw abort();const response=await fetcher(entry.assetURL,{signal});if(!response.ok)throw new Error('Official model HTTP '+response.status);
- const compressed=await boundedBytes(response.body,entry.bytes,signal);
- if(await sha256Hex(compressed)!==entry.sha256)throw new Error('Official model SHA-256 mismatch');
- metrics.end('modelFetchMs',fetchStart);const decodeStart=metrics.start();
+ const fetchStart=metrics.start();if(!byteCache)metrics.count('modelRequests');
+ if(signal?.aborted)throw abort();let compressed;
+ if(byteCache)compressed=await byteCache.get(entry,{fetcher});
+ else{const response=await fetcher(entry.assetURL,{signal});if(!response.ok)throw new Error('Official model HTTP '+response.status);compressed=await boundedBytes(response.body,entry.bytes,signal);}
+ if(await sha256Hex(compressed)!==entry.sha256){byteCache?.delete(entry);throw new Error('Official model SHA-256 mismatch');}
+ metrics.end('modelFetchMs',fetchStart);await beforeDecode(signal);const decodeStart=metrics.start();
  const bytes=await boundedBytes(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip')),entry.glbBytes,signal),source=nativeGLB(bytes);
  if(signal?.aborted)throw abort();const gltf=await loader.parseAsync(bytes.buffer,'');let result={group:gltf.scene};
  try{
@@ -92,7 +94,7 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
   const position=new Float64Array(vertices*3),index=new Uint32Array(triangles*3),point=new THREE.Vector3();let vertexOffset=0,indexOffset=0;
   for(const mesh of meshes){
    const p=mesh.geometry.attributes.position,indices=mesh.geometry.index.array;
-   for(let i=0;i<p.count;i++){point.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);position.set(point.toArray(),(vertexOffset+i)*3);}
+   for(let i=0;i<p.count;i++){if(i&&i%8192===0)await yieldModelWork(signal);point.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);position.set(point.toArray(),(vertexOffset+i)*3);}
    for(let i=0;i<indices.length;i++)index[indexOffset+i]=indices[i]+vertexOffset;
    vertexOffset+=p.count;indexOffset+=indices.length;
   }
@@ -117,6 +119,6 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
   }
   for(const original of materialMap.keys())original.dispose();
   metrics.end('modelDecodeMs',decodeStart);metrics.count('modelDecodes');
-  result={group,record,meshes,bounds,entry,budget:modelBudget(entry),active:false};group.visible=false;return result;
+  result={group,record,meshes,bounds,entry,budget:{...modelBudget(entry),drawCalls:meshes.length},active:false};group.visible=false;return result;
  }catch(error){disposeOfficialModel(result);throw error;}
 }
