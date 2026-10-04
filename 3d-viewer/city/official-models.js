@@ -1,3 +1,4 @@
+import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {TileCache} from './tile-cache.js?v=20260913-load2';
 import {prepareModelCatalogue,modelBudget,loadOfficialModel,disposeOfficialModel} from './official-model-assets.js';
@@ -72,18 +73,21 @@ export class OfficialModelLayer{
   const meta=this.models.get(uid),building=this.stream.getLoadedBuilding(uid);
   if(!building)throw new Error('Official model source tile is not loaded');
   await this.waitForSupports(meta,signal);
-  const entry=await this.loadAsset(meta,building,this.stream.lighting,{signal});
+  const loadStart=metrics.start();
+  const entry=await this.loadAsset(meta,building,this.stream.lighting,{signal});metrics.end('modelLoadMs',loadStart);
   try{
    if(signal.aborted||this.closed)throw new DOMException('Aborted','AbortError');
    await this.waitForSupports(meta,signal);
    if(this.stream.infrastructureBuildingUids?.has(uid))throw new Error('Official infrastructure already replaces this building');
+   const installStart=metrics.start();
    if(!await this.stream.setDetailedModel(uid,entry,{signal}))throw new DOMException('Aborted','AbortError');
-   this.onReveal(entry);
+   metrics.end('modelInstallMs',installStart);this.onReveal(entry);
    return entry;
   }catch(error){await this.release(entry);throw error;}
  }
  release(entry){
   if(this.retiring.has(entry))return this.retiring.get(entry);
+  const retireStart=metrics.start();
   const promise=(async()=>{
    const supports=modelSupportDependencies(entry.entry||this.models.get(entry.record.uid)).filter(d=>d.kind==='native').map(d=>this.stream.detailedModels.get(d.uid)).filter(Boolean);
    // setDetailedModel removes its map entry before the asynchronous fallback
@@ -95,12 +99,13 @@ export class OfficialModelLayer{
    for(const dependent of dependents){this.cache.entries.delete(dependent.record.uid);await this.release(dependent);}
    if(this.stream.detailedModels.get(entry.record.uid)===entry)await this.stream.setDetailedModel(entry.record.uid,null);
    disposeOfficialModel(entry);for(const support of supports)support.supportVisibilityDependents.delete(entry);this.releaseFailures.delete(entry);
-  })().catch(error=>{this.releaseFailures.set(entry,error.message);throw error;}).finally(()=>{this.retiring.delete(entry);if(!this.closed)this.onChange();});
+  })().catch(error=>{this.releaseFailures.set(entry,error.message);throw error;}).finally(()=>{metrics.end('modelRetireMs',retireStart);this.retiring.delete(entry);if(!this.closed)this.onChange();});
   this.retiring.set(entry,promise);return promise;
  }
  plan(camera,{viewportHeight=800,selectedUid=null,allowNewLoads=true,now=performance.now(),force=false}={}){
   if(this.closed)return [];this.lastCamera=camera;this.lastOptions={viewportHeight,selectedUid,allowNewLoads};
   if(!force&&now-this.lastPlan<180)return this.cache.wanted;this.lastPlan=now;
+  const planStart=metrics.start();metrics.count('plans');metrics.record('plannerCandidates',this.models.size);
   camera.updateMatrixWorld(true);const matrix=new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse),frustum=new THREE.Frustum().setFromProjectionMatrix(matrix),eye=new THREE.Vector3().setFromMatrixPosition(camera.matrixWorld);
   const candidates=[],limits=this.limits,pixels=Math.max(1,Math.min(8192,viewportHeight)),fov=THREE.MathUtils.degToRad(camera.getEffectiveFOV());
   for(const entry of this.models.values()){
@@ -122,7 +127,7 @@ export class OfficialModelLayer{
   // completes before each buffer is disposed; no model is silently dropped.
   const keep=new Set(wanted);for(const [uid,entry] of this.cache.entries)if(!keep.has(uid)){this.cache.entries.delete(uid);this.release(entry).catch(()=>{});}
   if(wanted.join('|')!==this.cache.wanted.join('|'))this.cache.plan(wanted);
-  return wanted;
+  metrics.end('modelPlannerMs',planStart);return wanted;
  }
  async retry(){
   await Promise.allSettled([...this.releaseFailures.keys()].map(entry=>this.release(entry)));

@@ -1,3 +1,4 @@
+import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {BuildingIndex} from './geo.js';
 import {makeBuildings,makeRoads,makeNature} from './world.js?v=20260913-load2';
@@ -47,7 +48,7 @@ export class CityStreaming {
   for(;;){
    const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,suppressions=this.detailSuppressions(models),indices=[];
    const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid)&&models.get(b.uid)?.entry?.retainsBasicForm!==true||suppressions.has(b.uid))return false;indices.push(i);return true;});
-   const buildings=await makeBuildings(features,null,{lighting:this.lighting,signal});buildings.group.userData.disposableMaterials=buildings.materials;
+   const bakeStart=metrics.start();const buildings=await makeBuildings(features,null,{lighting:this.lighting,signal});metrics.end('fallbackBakeMs',bakeStart);buildings.group.userData.disposableMaterials=buildings.materials;
    if(signal?.aborted||this.cache.closed){disposeGroup(buildings.group);throw new DOMException('Aborted','AbortError');}
    if(exclusions!==this.infrastructureBuildingUids||models!==this.detailedModels){disposeGroup(buildings.group);continue;}
    for(const mesh of buildings.group.children){

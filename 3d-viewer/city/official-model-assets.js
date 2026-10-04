@@ -1,3 +1,4 @@
+import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {GLTFLoader} from '../vendor/GLTFLoader.js';
 import {facadeMaterial} from './world.js';
@@ -69,9 +70,11 @@ function nativeGLB(bytes){
 /** Decodes exact native source geometry. It does not change source node transforms. */
 export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=fetch,loader=new GLTFLoader()}={}){
  if(!building||building.uid!==entry.uid||building.objectId!==entry.objectId||building.buildingCSUID!==entry.buildingCSUID||(building.baseHeightHKPD??null)!==entry.recordedBaseHeight||(building.topHeightHKPD??null)!==entry.recordedTopHeight)throw new Error('Model does not match the loaded official building source');
+ const fetchStart=metrics.start();metrics.count('modelRequests');
  if(signal?.aborted)throw abort();const response=await fetcher(entry.assetURL,{signal});if(!response.ok)throw new Error('Official model HTTP '+response.status);
  const compressed=await boundedBytes(response.body,entry.bytes,signal);
  if(await sha256Hex(compressed)!==entry.sha256)throw new Error('Official model SHA-256 mismatch');
+ metrics.end('modelFetchMs',fetchStart);const decodeStart=metrics.start();
  const bytes=await boundedBytes(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip')),entry.glbBytes,signal),source=nativeGLB(bytes);
  if(signal?.aborted)throw abort();const gltf=await loader.parseAsync(bytes.buffer,'');let result={group:gltf.scene};
  try{
@@ -113,6 +116,7 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
    mesh.material=Array.isArray(mesh.material)?mesh.material.map(decorate):decorate(mesh.material);
   }
   for(const original of materialMap.keys())original.dispose();
+  metrics.end('modelDecodeMs',decodeStart);metrics.count('modelDecodes');
   result={group,record,meshes,bounds,entry,budget:modelBudget(entry),active:false};group.visible=false;return result;
  }catch(error){disposeOfficialModel(result);throw error;}
 }
