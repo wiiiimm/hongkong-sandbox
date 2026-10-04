@@ -36,7 +36,7 @@ export class ModelPreloader{
    const entry=this.next();if(!entry)break;
    const controller=new AbortController();this.controller=controller;
    try{
-    let bytes;if(this.byteCache)bytes=await this.byteCache.get(entry,{fetcher:this.fetcher});else{
+    let bytes;if(this.byteCache)bytes=await this.byteCache.get(entry,{fetcher:this.fetcher,signal:controller.signal});else{
     const response=await this.fetcher(entry.assetURL,{signal:controller.signal,cache:'force-cache'});
     if(!response.ok)throw new Error('HTTP '+response.status);
     bytes=await response.arrayBuffer();}if(bytes.byteLength!==entry.bytes)throw new Error('Unexpected byte count');
