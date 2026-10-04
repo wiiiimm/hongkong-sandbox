@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.11"
+  version: "1.8.12"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,28 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+The next-100 XL continuation after the HKS-229 merge is complete at
+`docs/astra-city/government-import/government-xl-next-100-20261005/README.md`.
+Neon job `f2991740721803fd9e0d2380c39042028d8eadae4041efa594affb339c8276ee`
+has exact 100-row readback: zero new installs, 100 technical holds, zero In process.
+The wider selection remains 39 Installed / 313 Held. Reuse the current runtime,
+complete contact, source/context and four original support-pair outcomes; do not
+repeat the completed dated pass. Parkview 5/7/17 still have unresolved original
+native interfaces. Yoho Town 1/2 ground contact does not resolve their assembly
+coverage. Victoria Mall requires its existing fallback-dependent migration proof.
+Pier No. 8's exact R2 bundle is recorded, but this checkout has no R2 credentials;
+that configuration failure is not proof of source absence, corruption or an AI
+requirement. Restore the pinned bundle before considering changed government bytes.
+
+Use `shape_prepare.entry` when creating compact staged entries from native-stage
+outcomes: a raw matching candidate lacks source sheet/root metadata. Reject an
+invalid staging attempt without credit; preserve it separately and use corrected
+outputs. The metrics runner's coarse ground-contact count omits the 0.1m minimum
+contact requirement; apply `acceptance-policy.py` and detailed identity/dependency
+gates before reporting candidates as ready. Passing CPU loader checks alone is
+not installation. A completed bounded technical checkpoint does not claim all
+possible future investigations or the entire enhancement backlog are finished.
 
 User direction, 5 October: use available AI for workflow analysis and reusable
 code improvements to accelerate the held-model work. This is not blanket approval
