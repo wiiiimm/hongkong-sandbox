@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.14"
+  version: "1.8.15"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,28 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+The latest 5 October continuation installs unchanged 1883 Building (118475):
+original 11-NW-24D plus adjoining 11-NW-25C TIN resolves the sheet-edge gap.
+All 51 neighbours, full foundation and staged/live desktop/mobile gates pass.
+Resume from `government-xl-1883-building-contact-20261005/README.md`, installed
+snapshot `b8d42e765476890d` and verified Neon job
+`d7216ff7f8ac3b51d45789cddaa24fe6ddfd182d4e144813dbf0640629ffe1d3`.
+XL352 is now 42 Installed / 310 Held; three historical next-100 holds have been
+installed in subsequent continuations. Do not rerun the historical installers.
+
+HSBC Centre's original terrain/foundation passes with exact installed WEST9ZONE
+planes preserved under disjoint retained geometry, but its two recovered tower
+originals have 31/36 unresolved support samples. Ronsdale Garden Block 2 retains
+ground contact and two basic-neighbour conflicts; Kadoorie retains contact and
+two basic-neighbour conflicts. Its fully passing native neighbour 270867 must
+be subtracted from the coarse diagnostic blocker list. Read their dated source,
+interface and terrain receipts before any fresh continuation. These are technical
+holds, not an established AI or human decision requirement. No source shifts,
+geometry changes, support-cap increases or unchanged broad rechecks are authorised.
+When retaining an installed native terrain patch, prove disjointness from new
+source projection, preserve exact old rendered planes and retest the complete
+retained mesh. A passing retained model does not clear failing basic neighbours.
 
 The next terrain continuation installs unchanged Sun Yat Sen Memorial Park Sports
 Centre (239367). Original 11-SW-2D plus adjoining 11-SW-7B TIN supplies complete

@@ -26,6 +26,7 @@ UIDS = ['landsd/228219:0', 'landsd/250559:0']
 PARENT_URL = 'city/data/terrain.json'
 NESTED_PARENT = False
 ADJACENT_SOURCES = []
+RETAIN_NATIVE_URL = None
 
 
 def module(name, filename):
@@ -98,6 +99,14 @@ def owned():
     world = [r['native']['model']['worldBounds'] for r in rows]
     rects = [second.resolution.rectangle_for(b, parent) for b in world]
     cells = [min(r[0] for r in rects),min(r[1] for r in rects),max(r[2] for r in rects),max(r[3] for r in rects)]
+    retained_patch=None
+    if RETAIN_NATIVE_URL:
+        assert not NESTED_PARENT
+        retained_patch=read(ROOT/'3d-viewer'/RETAIN_NATIVE_URL)
+        assert retained_patch.get('nativeMesh') and not retained_patch.get('patches')
+        old_cells=retained_patch['coarseCells']
+        cells=[min(cells[0],old_cells[0]),min(cells[1],old_cells[1]),
+               max(cells[2],old_cells[2]),max(cells[3],old_cells[3])]
     if NESTED_PARENT:
         cells=[max(0,cells[0]),max(0,cells[1]),min(parent['w']-1,cells[2]),min(parent['h']-1,cells[3])]
         assert 0<=cells[0]<cells[2]<parent['w'] and 0<=cells[1]<cells[3]<parent['h']
@@ -107,6 +116,7 @@ def owned():
     overlaps = []
     for p in manifest['terrainPatches']:
         if NESTED_PARENT and p['url']==PARENT_URL:continue
+        if RETAIN_NATIVE_URL and p['url']==RETAIN_NATIVE_URL:continue
         other=read(ROOT/'3d-viewer'/p['url']);g=other['meta']['georef']
         other_bounds=[g['bE']-834500,816500-g['bN'],g['bE']-834500+(other['w']-1)*g['aE'],816500-g['bN']-(other['h']-1)*g['aN']]
         if box(*bounds).intersection(box(*other_bounds)).area>1e-8:overlaps.append(p['url'])
@@ -163,16 +173,39 @@ def owned():
         second.resolution.validate_patch = validator
     patch_path = LOCAL / (patch['id'] + '.json')
     sampler = second.resolution.terrain.fine.DemSampler(parent,rendered=True)
+    if retained_patch:
+        from rendered_patch_sampler import RenderedPatchSampler
+        old_bounds=patches._patch_bounds(retained_patch)
+        protected=box(*old_bounds).difference(projection.buffer(.1,join_style='mitre'))
+        old_sampler=RenderedPatchSampler(retained_patch,sampler,
+            second.resolution.terrain.fine.DemSampler(retained_patch,rendered=True))
+        retained_uids=retained_patch['meta']['targetUids']
+        entries={m['uid']:m for url in manifest['officialModelCatalogues']
+                 for m in read(ROOT/'3d-viewer'/url)['models'] if m['uid'] in retained_uids}
+        assert set(entries)==set(retained_uids)
+        for entry in entries.values():
+            lo,hi=entry['worldBounds'];assert protected.buffer(1e-6).covers(box(lo[0],lo[2],hi[0],hi[2])), 'Retained model intersects new source projection'
+        preservation=patches.preserve_parent_under_projection(patch,bounds,protected,old_sampler,edge_sampler=sampler)
+        preservation.update(supersededURL=RETAIN_NATIVE_URL,
+            supersededSHA256=sha(ROOT/'3d-viewer'/RETAIN_NATIVE_URL),retainedUids=retained_uids,
+            sourceProjectionIntersectionM2=float(protected.intersection(projection).area),
+            boundsOfEveryRetainedModelInsideProtectedProjection=True)
+        assert preservation['sourceProjectionIntersectionM2']<1e-8
+        save(DOC/'retained-native-proof.json',preservation)
+        for old_source in retained_patch['meta']['source']['nativeSources']:
+            for source_file in old_source['sourceFiles']:
+                assert sha(ROOT/source_file['path'])==source_file['sha256']
+                if source_file not in files:files.append(source_file)
+        patch['meta']['targetUids']=sorted(set(UIDS+retained_uids))
     protected_gap = patches.projected_context(patch,bounds)[2].intersection(projection)
-    if NESTED_PARENT:
-        save(LOCAL/'unfilled-patch.json',patch)
-        source_union=shapely.union_all(shapely.polygons(native[:,:,[0,2]]))
-        save(DOC/'coverage-diagnostic.json',{'bounds':bounds,'core':core,
-            'protectedGapM2':float(protected_gap.area),
-            'sourceMissingUnderModelM2':float(projection.intersection(box(*bounds)).difference(source_union).area),
-            'protectedGapGeoJSON':json.loads(shapely.to_geojson(protected_gap)),
-            'sourceMissingGeoJSON':json.loads(shapely.to_geojson(projection.intersection(box(*bounds)).difference(source_union))),
-            'publication':False,'modelGeometryChanges':0})
+    save(LOCAL/'unfilled-patch.json',patch)
+    source_union=shapely.union_all(shapely.polygons(native[:,:,[0,2]]))
+    missing_source=projection.intersection(box(*bounds)).difference(source_union)
+    save(DOC/'coverage-diagnostic.json',{'bounds':bounds,'core':core,
+        'protectedGapM2':float(protected_gap.area),'sourceMissingUnderModelM2':float(missing_source.area),
+        'protectedGapGeoJSON':json.loads(shapely.to_geojson(protected_gap)),
+        'sourceMissingGeoJSON':json.loads(shapely.to_geojson(missing_source)),
+        'publication':False,'modelGeometryChanges':0})
     fill = (patches.fill_narrow_source_seam(patch,bounds,projection,sampler,tolerance=.02)
             if protected_gap.area > 1e-6 else patches.fill_parent_only_holes(patch,parent,bounds,projection,sampler))
     remaining = float(patches.projected_context(patch,bounds)[2].area)
@@ -190,6 +223,9 @@ def owned():
     save(patch_path,patch)
     patch_row = {'path':rel(patch_path),'sha256':sha(patch_path),'uids':UIDS,'bounds':bounds,
                  'triangles':len(patch['nativeMesh']['index'])//3}
+    if retained_patch:
+        patch_row['replaces']={'url':RETAIN_NATIVE_URL,
+            'sha256':sha(ROOT/'3d-viewer'/RETAIN_NATIVE_URL),'retainedUids':retained_patch['meta']['targetUids']}
     if NESTED_PARENT:
         nested=module('contact_nested_parent','xl-stage-central-nested.py');nested.DOC=DOC
         wrapper=nested.parent_with_nested(parent,patch)
