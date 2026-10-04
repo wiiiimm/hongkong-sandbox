@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.10"
+  version: "1.8.11"
 ---
 
 # Hong Kong model improvement
@@ -76,6 +76,14 @@ original face indices, exact narrow-phase tests and tolerance-expanded bounds.
 Benchmark on actual source pairs and compare complete output against the previous
 checker before replacing expensive loops. Fewer triangle visits do not establish
 whole-pipeline speedup: the first wall-index trial showed no aggregate time gain.
+The subsequent completed `workflow-contact-index-20261005/` stage verifies all
+1,031 real unresolved source samples with identical full incident-face results.
+Local lookup time fell from 6,064ms to 301ms including index build (~20.1× for this
+phase, not whole-pipeline speedup). Use `createSourceFaceQuery` from
+`source-face-query.mjs` once per immutable loaded source in future component/contact
+probes; reuse the query for many points. Do not rebuild its index per point, repeat
+the slow baseline routinely, mutate the source buffers beneath it, or use diagnostic
+face coverage as acceptance. Reuse the verified Neon receipt and frozen evidence.
 Citywalk's 294 unresolved samples now split into 200 same-wall intersections
 outside the existing contract and 94 without same-wall contact; neither grants
 acceptance or permission to enlarge the 0.5m allowance. Keep originals unchanged.
