@@ -78,3 +78,23 @@ Final automated checks: **303/303 unit tests pass**, no failures/cancellations/s
 ## Review publication follow-up
 
 The user subsequently requested creation as a draft followed by marking ready to start the review bot. A branch-specific `git.deploymentEnabled` exclusion in `3d-viewer/vercel.json` prevents automatic Vercel Git deployments from `codex/hks-229-canvas-streaming`; other branches are unaffected. Review readiness does not resolve the performance acceptance gates above and does not authorize merge, auto-merge or deployment.
+
+## PR #332 review corrections
+
+All five findings on `50e4f9d1` were confirmed. The five corresponding new regressions fail against isolated copies of that head's affected modules and pass with these corrections:
+
+| Finding | Correction | Commit |
+| --- | --- | --- |
+| Greptile #4177410158: candidate cap consumed by unavailable/tiny models | Apply source eligibility and CSS projected-detail threshold before consuming the 256-candidate allowance; retain the 1024-node work cap and explicit selected/resident additions. | `b899f304` |
+| Greptile #4177410165: wanted models exceed draw budget | Include decoded draw costs in dependency-closure planning. Learn unknown costs on first decode, replan before attachment, and displace lower-priority residents for selected models. An indivisible oversized closure remains on fallback with a budget hold, without sticky network errors or repeated decode. | `c91bc0b6` |
+| Codex #4177422144: lower profile does not enforce draw cap | Immediately replan resident closures on profile changes and await atomic fallback restoration before installing replacement detail. Shared native supports count once. | `c91bc0b6` |
+| Greptile #4177410173: worker failure strands source forms | Recover construction, clone, loading and execution failures through the original yielding inline bake; dispose partial worker attachment. Cancellation remains terminal. | `0fe14780` |
+| Greptile #4177410176: Stop leaves background download running | Track cancellable shared-cache subscribers. Stop aborts demo-only queued/running transfers, while a foreground subscriber retains its transfer. Identity guards protect immediate same-key restart from old request settlement. | `8ab443df` |
+
+Review validation: **311/311 tests passed** (zero failures, skips or cancellations), using `node --test 3d-viewer/city/tests/*.test.js`, JavaScript syntax checks and `git diff --check`. There is still no configured linter or TypeScript check in this static JavaScript project. Additional regressions cover shared-support draw costs, unknown oversized models, queued Stop cancellation and same-key restart.
+
+`evidence/browser-correctness-review-fixes.json` records eight successful viewport/DPR checks, source picking/collision/support, exact worker buffer/material parity, high-quality render scale and embedded/hidden canvas behavior with zero browser errors. Only two model requests occur across the resize matrix. This is a correctness rerun under cloud SwiftShader; it overlapped the unit suite, so its incidental frame timings are confounded by concurrent CPU work and are not a matched performance comparison.
+
+`evidence/planner-review-fixes.json` preserves the CPU-only rerun separately from earlier evidence. Settled planning remains 2/40 executions at every viewport. Moving-view p95 is 3.55–5.89 ms versus the prior 1.22–4.63 ms: checking eligibility before truncation adds bounded CPU work in exchange for admitting valid source models. These separate runs do not establish physical frame-rate improvement. The full-scene and physical-device performance acceptance gates above remain unverified/not passed; this review round does not change them.
+
+The stacked base, original assets/imports and branch-specific disabled Vercel Git deployment remain unchanged. No merge, auto-merge or deployment is authorized by this review work.
