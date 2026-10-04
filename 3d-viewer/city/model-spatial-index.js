@@ -24,14 +24,14 @@ export class ModelSpatialIndex {
    return {box,left:build(rows.slice(0,middle)),right:build(rows.slice(middle))};
   };this.root=build([...this.entries.values()]);
  }
- query(frustum,eye,{maxCandidates=256,maxNodes=1024}={}){
+ query(frustum,eye,{maxCandidates=256,maxNodes=1024,eligible=()=>true}={}){
   const score=node=>node.box.min.distanceTo(node.box.max)/Math.max(1,node.box.distanceToPoint(eye));
   const push=node=>({node,score:score(node)}),rows=[],queue=this.root?[push(this.root)]:[];let visited=0;
   while(queue.length&&visited<maxNodes&&rows.length<maxCandidates){
    // Queue is bounded by the visit cap, independent of catalogue size.
    let best=0;for(let i=1;i<queue.length;i++)if(queue[i].score>queue[best].score)best=i;
    const {node}=queue.splice(best,1)[0];visited++;if(!frustum.intersectsBox(node.box))continue;
-   if(node.rows){for(const row of node.rows)if(frustum.intersectsBox(row.box)&&rows.length<maxCandidates)rows.push(row);}else queue.push(push(node.left),push(node.right));
+   if(node.rows){for(const row of node.rows)if(rows.length<maxCandidates&&frustum.intersectsBox(row.box)&&eligible(row))rows.push(row);}else queue.push(push(node.left),push(node.right));
   }
   return {rows,visited,truncated:queue.length>0};
  }

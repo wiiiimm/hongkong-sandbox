@@ -17,3 +17,9 @@ test('all canvas sizes have finite pixel cost with fractional DPR independent of
  assert.equal(canvasDimensions(0,900,2).active,false);
  assert.equal(canvasDimensions(3840,2160,2,{maxDpr:1.75,maxPixels:32000000}).pixelRatio,1.75);
 });
+test('ineligible catalogue matches do not consume the visible candidate allowance',()=>{
+ const models=new Map(Array.from({length:600},(_,i)=>[String(i),{uid:String(i),worldBounds:[[-1,-1,-100],[1,1,-90]]}])),index=new ModelSpatialIndex(models),c=new THREE.PerspectiveCamera(60,1,.5,1000),f=new THREE.Frustum().setFromProjectionMatrix(c.projectionMatrix);
+ const unfiltered=index.query(f,c.position,{maxCandidates:256}),eligible=new Set([...models.keys()].filter(uid=>!unfiltered.rows.some(r=>r.entry.uid===uid)));
+ const filtered=index.query(f,c.position,{maxCandidates:256,eligible:row=>eligible.has(row.entry.uid)});
+ assert.equal(filtered.rows.length,256);assert.ok(filtered.rows.every(row=>eligible.has(row.entry.uid)));assert.ok(filtered.visited<=1024);
+});
