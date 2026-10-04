@@ -23,6 +23,9 @@ DOC = ROOT / 'docs/astra-city/government-import' / BATCH
 LOCAL = HERE / 'local' / BATCH
 SOURCE = HERE / 'local/government-xl-50-second-20260913/sheets/11-NW-19A'
 UIDS = ['landsd/228219:0', 'landsd/250559:0']
+PARENT_URL = 'city/data/terrain.json'
+NESTED_PARENT = False
+ADJACENT_SOURCES = []
 
 
 def module(name, filename):
@@ -69,7 +72,8 @@ def owned():
     second.LOCAL = LOCAL
     patches = module('contact_patch', 'native_patch_resolution.py')
     final = module('contact_foundation', 'xl-final-script-pass.py')
-    parent = read(ROOT / '3d-viewer/city/data/terrain.json')
+    parent_path = ROOT / '3d-viewer' / PARENT_URL
+    parent = read(parent_path)
     for r in rows:
         assert r['currentReview'] is None, 'Existing review needs explicit resolution'
         assert sha(ROOT / '3d-viewer' / r['source']['tile']) == r['source']['tileSHA256']
@@ -94,10 +98,18 @@ def owned():
     world = [r['native']['model']['worldBounds'] for r in rows]
     rects = [second.resolution.rectangle_for(b, parent) for b in world]
     cells = [min(r[0] for r in rects),min(r[1] for r in rects),max(r[2] for r in rects),max(r[3] for r in rects)]
+    if NESTED_PARENT:
+        cells=[max(0,cells[0]),max(0,cells[1]),min(parent['w']-1,cells[2]),min(parent['h']-1,cells[3])]
+        assert 0<=cells[0]<cells[2]<parent['w'] and 0<=cells[1]<cells[3]<parent['h']
+        assert not any(second.resolution.terrain.overlap(cells,c['coarseCells']) for c in parent.get('patches',[]))
     bounds = second.resolution.extent(cells, parent)
     manifest = read(ROOT / '3d-viewer/city/data/manifest.json')
-    overlaps = [p['url'] for p in manifest['terrainPatches']
-                if second.resolution.terrain.overlap(cells, read(ROOT / '3d-viewer' / p['url'])['coarseCells'])]
+    overlaps = []
+    for p in manifest['terrainPatches']:
+        if NESTED_PARENT and p['url']==PARENT_URL:continue
+        other=read(ROOT/'3d-viewer'/p['url']);g=other['meta']['georef']
+        other_bounds=[g['bE']-834500,816500-g['bN'],g['bE']-834500+(other['w']-1)*g['aE'],816500-g['bN']-(other['h']-1)*g['aN']]
+        if box(*bounds).intersection(box(*other_bounds)).area>1e-8:overlaps.append(p['url'])
     assert not overlaps, ('Requires retained native patch handling', overlaps)
     proof = read(SOURCE / 'original/download.json')
     assert proof['directorySHA256'] == read(SOURCE / 'directory/result.json')['directorySHA256']
@@ -107,7 +119,23 @@ def owned():
             p = SOURCE / 'terrain' / entry['name']
             assert sha(p) == entry['sha256']
             files.append({'path':rel(p),'sha256':sha(p)})
-    native = np.concatenate([second.terrain_triangles(p) for p in sorted((SOURCE / 'terrain').rglob('*.gltf'))])
+    used = [{'sheet':SOURCE.name,'revision':proof['revisionDate'],'sourceETag':proof['sourceETag'],
+             'directorySHA256':proof['directorySHA256'],'sourceFiles':list(files)}]
+    fragments=[second.terrain_triangles(p) for p in sorted((SOURCE / 'terrain').rglob('*.gltf'))]
+    for adjacent in ADJACENT_SOURCES:
+        adjacent_proof=read(adjacent/'original/download.json')
+        assert adjacent_proof['directorySHA256']==read(adjacent/'directory/result.json')['directorySHA256']
+        adjacent_files=[]
+        for entry in adjacent_proof['entries']:
+            if entry['name'].startswith('TERRAIN') and entry['name'].endswith(('.gltf','.bin')):
+                path=adjacent/'terrain'/entry['name'];assert sha(path)==entry['sha256']
+                adjacent_files.append({'path':rel(path),'sha256':sha(path)})
+        fragments.extend(second.terrain_triangles(p) for p in sorted((adjacent/'terrain').rglob('*.gltf')))
+        used.append({'sheet':adjacent.name,'revision':adjacent_proof['revisionDate'],
+            'sourceETag':adjacent_proof['sourceETag'],'directorySHA256':adjacent_proof['directorySHA256'],
+            'sourceFiles':adjacent_files})
+        files.extend(adjacent_files)
+    native = np.concatenate(fragments)
     native = native[(native[:,:,0].max(axis=1)>=bounds[0])&(native[:,:,0].min(axis=1)<=bounds[2])&
                     (native[:,:,2].max(axis=1)>=bounds[1])&(native[:,:,2].min(axis=1)<=bounds[3])]
     assert len(native)
@@ -123,18 +151,28 @@ def owned():
     retain_below = bool(low.any() and low_under_model >= 1e-6)
     core = [min(b[0][0] for b in world)-1,min(b[0][2] for b in world)-1,
             max(b[1][0] for b in world)+1,max(b[1][2] for b in world)+1]
-    used = [{'sheet':'11-NW-19A','revision':proof['revisionDate'],'sourceETag':proof['sourceETag'],
-             'directorySHA256':proof['directorySHA256'],'sourceFiles':files}]
+    if NESTED_PARENT:
+        core=[max(bounds[0]+1,core[0]),max(bounds[1]+1,core[1]),min(bounds[2]-1,core[2]),min(bounds[3]-1,core[3])]
     validator = second.resolution.validate_patch
     second.resolution.validate_patch = lambda *_: None
     try:
         patch = second.resolution.make_patch({'uids':UIDS,'cells':cells},parent,native,used,
-                    native_core=core,terrain_triangle_budget=100000,allow_native_below_clamp=retain_below)
+                    native_core=core,terrain_triangle_budget=100000,allow_native_below_clamp=retain_below,
+                    parent_url=PARENT_URL,parent_sha256=sha(parent_path))
     finally:
         second.resolution.validate_patch = validator
     patch_path = LOCAL / (patch['id'] + '.json')
     sampler = second.resolution.terrain.fine.DemSampler(parent,rendered=True)
     protected_gap = patches.projected_context(patch,bounds)[2].intersection(projection)
+    if NESTED_PARENT:
+        save(LOCAL/'unfilled-patch.json',patch)
+        source_union=shapely.union_all(shapely.polygons(native[:,:,[0,2]]))
+        save(DOC/'coverage-diagnostic.json',{'bounds':bounds,'core':core,
+            'protectedGapM2':float(protected_gap.area),
+            'sourceMissingUnderModelM2':float(projection.intersection(box(*bounds)).difference(source_union).area),
+            'protectedGapGeoJSON':json.loads(shapely.to_geojson(protected_gap)),
+            'sourceMissingGeoJSON':json.loads(shapely.to_geojson(projection.intersection(box(*bounds)).difference(source_union))),
+            'publication':False,'modelGeometryChanges':0})
     fill = (patches.fill_narrow_source_seam(patch,bounds,projection,sampler,tolerance=.02)
             if protected_gap.area > 1e-6 else patches.fill_parent_only_holes(patch,parent,bounds,projection,sampler))
     remaining = float(patches.projected_context(patch,bounds)[2].area)
@@ -152,6 +190,38 @@ def owned():
     save(patch_path,patch)
     patch_row = {'path':rel(patch_path),'sha256':sha(patch_path),'uids':UIDS,'bounds':bounds,
                  'triangles':len(patch['nativeMesh']['index'])//3}
+    if NESTED_PARENT:
+        nested=module('contact_nested_parent','xl-stage-central-nested.py');nested.DOC=DOC
+        wrapper=nested.parent_with_nested(parent,patch)
+        retained_audits=[]
+        for original,retained in zip(parent.get('patches',[]),wrapper['patches']):
+            assert original.get('elev')==retained.get('elev') and original.get('renderedElev')==retained.get('renderedElev')
+            for key in ('position','index'):assert original.get('nativeMesh',{}).get(key)==retained.get('nativeMesh',{}).get(key)
+            approval=retained.get('nativeMesh',{}).get('sourceOverlap')
+            if approval:
+                audit=read(approval['evidencePath'])
+                for source_file in audit['source']['files']:assert sha(ROOT/source_file['path'])==source_file['sha256']
+                actual_excess=patches.projected_context(retained,patches._patch_bounds(retained))[3]
+                if abs(actual_excess-approval['measuredProjectedExcessM2'])>=1e-6:
+                    before=approval['measuredProjectedExcessM2']
+                    retained['nativeMesh'].pop('sourceOverlap')
+                    raw_path=LOCAL/('retained-'+retained['id']+'.json');save(raw_path,retained)
+                    fresh_audit=DOC/('float32-retained-'+retained['id']+'-native-overlap.json')
+                    patches.approve_original_overlap(retained,raw_path,fresh_audit,audit['source']['files'])
+                    patches.finalize_overlap_evidence(retained,fresh_audit)
+                    retained_audits.append({'id':retained['id'],'oldProjectedExcessM2':before,
+                        'float32ProjectedExcessM2':actual_excess,'evidence':rel(fresh_audit),
+                        'positionsAndIndicesUnchanged':True,'toleranceChanged':False})
+        assert wrapper['elev']==parent['elev'] and wrapper.get('renderedElev')==parent.get('renderedElev')
+        validator(wrapper,read(ROOT/'3d-viewer/city/data/terrain.json'))
+        wrapper_path=LOCAL/'terrain-central-with-sun-yat-sen.json';save(wrapper_path,wrapper)
+        patch_row.update(path=rel(wrapper_path),sha256=sha(wrapper_path),replaces={'url':PARENT_URL,'sha256':sha(parent_path)})
+        save(DOC/'retained-parent-proof.json',{'parentURL':PARENT_URL,'parentSHA256':sha(parent_path),
+            'retainedChildren':[c['id'] for c in parent.get('patches',[])],
+            'gridAndChildCoordinatesAndIndicesUnchanged':True,'newChild':patch['id'],
+            'renewedRetainedFloat32Audits':retained_audits,
+            'nativeRegionBounds':bounds,'sourceOutsideRegionRetainsExistingTerrain':True,
+            'modelGeometryChanges':0,'publication':False})
     save(DOC/'terrain-candidates.json',[patch_row])
     save(DOC/'terrain.json',{'patch':patch_row,'parentHoleFill':fill,'sourceFiles':files,
         'lowSourceIntersectionWithModelM2':low_under_model,'retainSourceBelowClamp':retain_below,'modelGeometryChanges':0})

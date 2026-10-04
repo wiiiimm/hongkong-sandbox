@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.13"
+  version: "1.8.14"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,26 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+The next terrain continuation installs unchanged Sun Yat Sen Memorial Park Sports
+Centre (239367). Original 11-SW-2D plus adjoining 11-SW-7B TIN supplies complete
+coverage. Its replacement Central wrapper retains the grid and all six existing
+child surfaces. Resume from `government-xl-sun-yat-sen-contact-20261005/README.md`,
+installed snapshot `970d9c81790282db` and verified Neon job
+`6c9b2aac34a2bf662e7297d2a4a8d807e0fd02e452112eec15107bb253b216d0`.
+The XL352 cohort is now 41 Installed / 311 Held. Do not rerun the dated installation.
+Validate the whole replacement wrapper before browser work. Inherited overlap
+evidence can predate Float32 validation: when coordinates/indices are unchanged
+but measured excess differs, re-audit the exact retained Float32 facets with pinned
+source hashes; never enlarge the tolerance. Preserve rejected publication evidence
+and use a fresh staged/installation phase for resumed approval.
+
+Fu Tor Loy's four supporting originals are recovered with exact source SHA and
+native transforms. Their interfaces still fail; detailed samples and next steps
+are in `government-xl-fu-tor-loy-supports-20261005/`, verified Neon job
+`98708a5f19a7fe5c3c993f5b21cc59ed88e20aa77f35d2e1f34b15b99c58e62f`.
+Recovery grants no installation credit or AI requirement. Supporting forms are
+outside XL352, acquisition caches local-only, and no active worker remains.
 
 The actual 5 October contact-blocker continuation installs unchanged Lim Por Yen
 Centre, `landsd/250559:0`, with its original terrain and disjoint Kar Wun Court's
