@@ -138,6 +138,7 @@
 <dialog id="building-progress" class="building-progress" aria-labelledby="progress-heading">
  <header><div><p class="progress-eyebrow">A CITY IN PROGRESS</p><h2 id="progress-heading">Model progress</h2></div><button id="progress-close" aria-label="Close building progress">×</button></header>
  <p id="progress-status" role="status">Loading building statistics…</p>
+ <label>Detailed models <select id="model-quality"><option value="auto">Auto · conservative budget</option><option value="low">Fixed · conservative</option><option value="high">Fixed · higher budget</option></select></label>
  <section class="model-preload" aria-labelledby="model-preload-heading">
   <div><b id="model-preload-heading">Prepare detailed models for a demo</b><p id="model-preload-status">Adaptive loading fetches detailed models only when they are needed.</p></div>
   <button id="model-preload" type="button" aria-pressed="false">Load models in background</button>

@@ -1,3 +1,5 @@
+import {streamingMetrics as metrics} from './streaming-metrics.js';
+import {bakeBuildingBuffers} from './building-bake-client.js';
 import * as THREE from '../vendor/three.module.js';
 import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
 import {ORIGIN,inPolygon,random,smoothStep,terrainVertexHeight} from './geo.js';
@@ -131,9 +133,25 @@ export async function makeBuildings(features,onProgress,options={}){
  const group=new THREE.Group();group.name='Source building footprints';const lighting=options.lighting||{night:{value:0},activity:{value:new Float32Array([.8,.6,.9,.7])},retail:{value:.9},elapsed:{value:0},shimmer:{value:0}},night=lighting.night;
  const palette=['#d9d8c5','#ebe7d5','#b6c9c1','#a5bcb8','#c1c3b6','#e0d7bc','#8aafac','#bdc6bf'];
  const materials=palette.map(c=>facadeMaterial(c,lighting)),bins=palette.map(()=>[]);let totalVertices=0,sliceStart=performance.now();
+ const substantial=features.length>=128||features.some(b=>(b.modelGeometry?.position?.length||0)>60000);
+ if(options.worker!==false&&(options.worker===true||substantial)&&typeof Worker!=='undefined'){
+  try{
+   const result=await bakeBuildingBuffers(features,options.signal);
+   if(options.signal?.aborted)throw new DOMException('Aborted','AbortError');
+   const attachStart=metrics.start();for(const row of result.meshes){const geometry=new THREE.BufferGeometry();for(const [name,a] of Object.entries(row.attributes))geometry.setAttribute(name,new THREE.BufferAttribute(a.array,a.itemSize,a.normalized));const mesh=new THREE.Mesh(geometry,materials[row.material]);mesh.castShadow=mesh.receiveShadow=true;group.add(mesh);}
+   metrics.end('fallbackAttachMs',attachStart);return {group,night,materials,totalVertices:result.totalVertices};
+  }catch(error){
+   for(const mesh of group.children)mesh.geometry?.dispose();group.clear();
+   if(options.signal?.aborted||error.name==='AbortError'){for(const m of materials)m.dispose();throw error;}
+   // Workers are an optimization: CSP, startup or execution failure must not
+   // strand source forms. Retain the same yielding, cancellable inline bake.
+   metrics.count('fallbackWorkerRecoveries');
+  }
+ }
  // Geometry generation runs on the renderer thread. Yield by elapsed time so a
  // tile containing a few complex footprints cannot monopolise several frames.
  const yieldForFrame=async(force=false)=>{
+  if(options.yield===false)return;
   if(!force&&performance.now()-sliceStart<4)return;
   if(options.signal?.aborted)throw new DOMException('Aborted','AbortError');
   await new Promise(resolve=>{

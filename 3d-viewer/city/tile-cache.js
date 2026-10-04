@@ -1,7 +1,7 @@
 // Bounded asynchronous asset lifecycle; deliberately independent of Three.js.
 export class TileCache {
-  constructor({load,dispose,limit=30,concurrency=2,onChange=()=>{}}){
-    Object.assign(this,{load,dispose,limit,concurrency,onChange});
+  constructor({load,dispose,limit=30,concurrency=2,onChange=()=>{},abortOnPause=true}){
+    Object.assign(this,{load,dispose,limit,concurrency,onChange,abortOnPause});
     this.entries=new Map();this.running=new Map();this.errors=new Map();this.wanted=[];this.listeners=new Set();this.closed=false;this.paused=false;
   }
   notify(){this.onChange();for(const fn of [...this.listeners])fn();}
@@ -20,7 +20,7 @@ export class TileCache {
   setPaused(paused){
     if(this.closed||this.paused===paused)return;
     this.paused=paused;
-    if(paused)for(const controller of this.running.values())controller.abort();
+    if(paused&&this.abortOnPause)for(const controller of this.running.values())controller.abort();
     this.notify();if(!paused)this.pump();
   }
   pump(){

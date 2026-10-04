@@ -1,3 +1,4 @@
+import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {BuildingIndex} from './geo.js';
 import {makeBuildings,makeRoads,makeNature} from './world.js?v=20260913-load2';
@@ -15,7 +16,7 @@ export class CityStreaming {
   Object.assign(this,{manifest,terrain,sampler,scene,onChange,activity,inspection});this.meta=new Map(manifest.tiles.map(t=>[t.id,t]));
   this.buildings=new THREE.Group();this.roads=new THREE.Group();this.trees=new THREE.Group();scene.add(this.buildings,this.roads,this.trees);
   this.lighting={night:{value:0},activity:{value:new Float32Array(cityLighting(15).activity.slice(0,4))},retail:{value:cityLighting(15).activity[4]},elapsed:{value:0},shimmer:{value:1}};this.surfaceMask=null;this.bridgeRoadIds=new Set();this.infrastructureBuildingUids=new Set();this.infrastructureRoadClips=new Map();this.infrastructureErrors=new Map();this.detailedModels=new Map();this.night=this.lighting.night;this.focus=[0,420];this.detailRadius=2200;this.revision=0;
-  this.cache=new TileCache({limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.suppressInfrastructureBuildings(this.infrastructureBuildingUids).catch(()=>{});this.onChange?.();}});
+  this.cache=new TileCache({abortOnPause:false,limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.suppressInfrastructureBuildings(this.infrastructureBuildingUids).catch(()=>{});this.onChange?.();}});
  }
  async load(id,signal){
   const read=async(url,label)=>{const response=await fetch(url,{signal});if(!response.ok)throw new Error(`${label} ${id}: HTTP ${response.status}`);return response.json();};
@@ -47,7 +48,7 @@ export class CityStreaming {
   for(;;){
    const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,suppressions=this.detailSuppressions(models),indices=[];
    const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid)&&models.get(b.uid)?.entry?.retainsBasicForm!==true||suppressions.has(b.uid))return false;indices.push(i);return true;});
-   const buildings=await makeBuildings(features,null,{lighting:this.lighting,signal});buildings.group.userData.disposableMaterials=buildings.materials;
+   const bakeStart=metrics.start();const buildings=await makeBuildings(features,null,{lighting:this.lighting,signal});metrics.end('fallbackBakeMs',bakeStart);buildings.group.userData.disposableMaterials=buildings.materials;
    if(signal?.aborted||this.cache.closed){disposeGroup(buildings.group);throw new DOMException('Aborted','AbortError');}
    if(exclusions!==this.infrastructureBuildingUids||models!==this.detailedModels){disposeGroup(buildings.group);continue;}
    for(const mesh of buildings.group.children){
@@ -91,7 +92,7 @@ export class CityStreaming {
  }
  getLoadedBuilding(uid){
   const detail=this.detailedModels.get(uid);if(detail?.active)return detail.record;
-  for(const entry of this.cache.entries.values()){const b=entry.data.buildings.find(b=>b.uid===uid);if(b)return b;}return null;
+  for(const entry of this.cache.entries.values()){if(!entry.sourceBuildings||entry.sourceBuildings.size!==entry.data.buildings.length)entry.sourceBuildings=new Map(entry.data.buildings.map(b=>[b.uid,b]));const b=entry.sourceBuildings.get(uid);if(b)return b;}return null;
  }
  async setDetailedModel(uid,detail,{signal}={}){
   if(signal?.aborted)return false;
@@ -136,7 +137,7 @@ export class CityStreaming {
    e.buildings.group.visible=visible;e.roads.visible=e.nature.group.visible=visible&&near;
    for(const mesh of e.buildings.group.children)mesh.castShadow=visible&&near;
   }
-  for(const detail of this.detailedModels.values()){detail.group.visible=detail.active&&wanted.has(detail.record.tile)&&this.cache.entries.has(detail.record.tile);for(const mesh of detail.meshes||[])mesh.castShadow=detail.group.visible&&distanceToBounds(...this.focus,[detail.bounds.min.x,detail.bounds.min.z,detail.bounds.max.x,detail.bounds.max.z])<=this.detailRadius;}
+  for(const detail of this.detailedModels.values()){detail.group.visible=detail.active&&detail.streamingVisible!==false&&wanted.has(detail.record.tile)&&this.cache.entries.has(detail.record.tile);for(const mesh of detail.meshes||[])mesh.castShadow=detail.group.visible&&distanceToBounds(...this.focus,[detail.bounds.min.x,detail.bounds.min.z,detail.bounds.max.x,detail.bounds.max.z])<=this.detailRadius;}
   retainVisibleNativeSupports(this.detailedModels);
  }
  plan(x,z,radius=3200){

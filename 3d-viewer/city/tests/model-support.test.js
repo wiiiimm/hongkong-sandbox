@@ -16,7 +16,7 @@ function fixture(entries,{profile='desktop',download=async()=>{},restore=async()
   if(value){value.active=true;this.detailedModels.set(key,value);log.push('attach:'+key);}
   else{log.push('restore-start:'+key);await restore(key);const old=this.detailedModels.get(key);if(old)old.active=false;this.detailedModels.delete(key);log.push('restore-end:'+key);}return true;
  }};
- const layer=new OfficialModelLayer({stream,profile,loadAsset:async(m)=>{
+ const layer=new OfficialModelLayer({stream,profile,warmMs:0,loadAsset:async(m)=>{
   log.push('download:'+m.uid);await download(m.uid);
   const group=new THREE.Group();group.visible=true;return {entry:m,group,record:{...buildings.get(m.uid),modelGeometry:{}},meshes:[],active:false,budget:modelBudget(m)};
  }});
@@ -90,4 +90,10 @@ test('support stays visible while its tower leaves the lookup map during an asyn
  const tower={active:true,group:{visible:true}},support={entry:meta(2),active:true,group:{visible:false},supportVisibilityDependents:new Set([tower]),meshes:[]};
  const map=new Map([[uid(2),support]]);retainVisibleNativeSupports(map);assert.equal(support.group.visible,true);
  tower.active=false;support.group.visible=false;retainVisibleNativeSupports(map);assert.equal(support.group.visible,false);
+});
+test('draw-call planning counts shared native supports once and rejects whole over-budget closures',()=>{
+ const models=new Map([meta(1,[support(2)]),meta(2),meta(3,[support(2)])].map(m=>[m.uid,m])),budget=entry=>({...modelBudget(entry),drawCalls:50});
+ const limited=supportedModelPlan([uid(1),uid(3)],models,{...MODEL_PROFILES.mobile,drawCalls:128},budget,()=>true);assert.deepEqual(limited.wanted,[uid(2),uid(1)]);assert.equal(limited.used.drawCalls,100);
+ const full=supportedModelPlan([uid(1),uid(3)],models,{...MODEL_PROFILES.mobile,drawCalls:150},budget,()=>true);assert.equal(full.used.drawCalls,150);assert.equal(full.wanted.length,3);
+ assert.deepEqual(supportedModelPlan([uid(1)],models,{...MODEL_PROFILES.mobile,drawCalls:99},budget,()=>true).wanted,[]);
 });
