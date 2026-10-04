@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.12"
+  version: "1.8.13"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,20 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+The actual 5 October contact-blocker continuation installs unchanged Lim Por Yen
+Centre, `landsd/250559:0`, with its original terrain and disjoint Kar Wun Court's
+existing parent planes retained. Resume from
+`docs/astra-city/government-import/government-xl-contact-resolution-20261005/README.md`
+and verified Neon job `bb0c9c75c3465d54364ff0a6d8c324a6453c6e6f339031b62230d7e19938da3c`.
+The wider cohort is now 40 Installed / 312 Held. Reuse installed snapshot
+`e0a9474fb6fad809`; do not rerun the completed terrain/browser/installation.
+The initial two-form terrain patch is rejected for neighbour regressions, not
+installed. Fu Tor Loy's contact passes but its source/support assembly remains
+unfinished. Prefer actual grouped blocker resolution and guarded installation
+over another broad recheck or relabelling of saved holds. Parent preservation
+requires exact disjointness proof and renewed contact/foundation/neighbour checks;
+it is not permission to bury source geometry or enlarge any acceptance tolerance.
 
 The next-100 XL continuation after the HKS-229 merge is complete at
 `docs/astra-city/government-import/government-xl-next-100-20261005/README.md`.
