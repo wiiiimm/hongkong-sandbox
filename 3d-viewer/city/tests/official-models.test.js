@@ -215,3 +215,23 @@ test('in-view demotion keeps native shell visible until fallback is ready, then 
 test('a hidden/zero canvas pauses admission without flushing resident models',async t=>{
  const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([f.meta.uid]);const entry=layer.cache.entries.get(f.meta.uid);layer.plan(c,{viewportWidth:0,viewportHeight:800,force:true});assert.equal(layer.cache.paused,true);assert.equal(layer.cache.entries.get(f.meta.uid),entry);
 });
+function drawBudgetFixture(t){
+ const f=fixture(),base=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0],detailedModels=new Map();
+ const stream={lighting:f.stream.lighting,detailedModels,getLoadedBuilding:uid=>({...f.building,uid}),setDetailedModel:async(uid,entry)=>{const old=detailedModels.get(uid);if(old){old.active=false;old.group.visible=false;}if(entry){entry.active=true;entry.group.visible=true;detailedModels.set(uid,entry);}else detailedModels.delete(uid);return true;}};
+ const layer=new OfficialModelLayer({stream,profile:'desktop',loadAsset:async meta=>({entry:meta,record:{...f.building,uid:meta.uid},group:new THREE.Group(),meshes:[],active:false,budget:{...modelBudget(meta),drawCalls:80}})});
+ for(let i=1;i<=3;i++)layer.models.set(`landsd/${i}:0`,{...base,uid:`landsd/${i}:0`});t.after(async()=>{await layer.dispose();f.stream.cache.close();});return layer;
+}
+test('lower profile replans decoded draw costs and restores excess resident fallbacks',async t=>{
+ const layer=drawBudgetFixture(t);layer.plan(camera(),{force:true});await layer.cache.waitFor([...layer.models.keys()]);assert.equal(layer.stats.drawCalls,240);
+ layer.setProfile('mobile');await Promise.all([...layer.retiring.values()]);assert.equal(layer.cache.entries.size,1);assert.equal(layer.stats.drawCalls,80);assert.ok(layer.stats.drawCalls<=layer.limits.drawCalls);assert.equal(layer.stats.errors.length,0);
+});
+test('selected unknown-cost detail displaces wanted residents without a sticky budget error',async t=>{
+ const layer=drawBudgetFixture(t);layer.setProfile('mobile');const fresh=layer.models.get('landsd/3:0');layer.models.delete(fresh.uid);const c=camera();layer.plan(c,{force:true});while(layer.cache.running.size)await tick();
+ assert.equal(layer.cache.entries.size,1);assert.equal(layer.stats.errors.length,0);const selected='landsd/3:0';layer.models.set(selected,fresh);assert.equal(layer.drawCosts.has(selected),false);
+ layer.plan(c,{selectedUid:selected,force:true});await layer.cache.waitFor([selected]);assert.equal(layer.cache.entries.has(selected),true);assert.equal(layer.stats.drawCalls,80);assert.equal(layer.stats.errors.length,0);
+});
+test('an indivisible oversized detail stays on fallback without sticky errors or repeated decodes',async t=>{
+ const layer=drawBudgetFixture(t),load=layer.loadAsset;let decodes=0;layer.loadAsset=async(...args)=>{decodes++;const entry=await load(...args);entry.budget.drawCalls=300;return entry;};layer.models=new Map([[...layer.models][0]]);layer.setProfile('mobile');const c=camera(),selected=[...layer.models.keys()][0];
+ layer.plan(c,{selectedUid:selected,force:true});while(layer.cache.running.size)await tick();
+ for(let i=0;i<10;i++)layer.plan(c,{selectedUid:selected,force:true});await tick();assert.equal(decodes,1);assert.equal(layer.cache.entries.size,0);assert.equal(layer.stats.errors.length,0);assert.match(layer.supportHolds.get(selected),/draw-call budget/);
+});

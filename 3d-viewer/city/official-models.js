@@ -14,7 +14,7 @@ export const MODEL_PROFILES=Object.freeze({
 export class OfficialModelLayer{
  constructor({stream,profile='mobile',onChange=()=>{},onReveal=()=>{},loadAsset=loadOfficialModel,warmMs=10000}){
   if(!MODEL_PROFILES[profile])throw new Error('Unknown official model profile');
-  Object.assign(this,{stream,profile,onChange,onReveal,loadAsset});this.limits=MODEL_PROFILES[profile];this.warmMs=warmMs;this.byteCache=new ModelByteCache();this.lastUseful=new Map();this.smallSince=new Map();this.activating=new Map();this.activeControllers=new Map();this.changeTail=Promise.resolve();this.signature='';this.nextCheck=Infinity;this.index=null;this.dirty=true;this.drawWanted=new Set();this.matrix=new THREE.Matrix4();this.frustum=new THREE.Frustum();this.eye=new THREE.Vector3();this.models=new Map();this.catalogues=new Map();this.catalogueErrors=new Map();this.requests=new Map();this.retiring=new Map();this.releaseFailures=new Map();this.supportHolds=new Map();this.closed=false;this.lastCheck=-Infinity;this.lastPlan=-Infinity;this.lastCamera=null;this.lastOptions=null;
+  Object.assign(this,{stream,profile,onChange,onReveal,loadAsset});this.limits=MODEL_PROFILES[profile];this.warmMs=warmMs;this.byteCache=new ModelByteCache();this.lastUseful=new Map();this.smallSince=new Map();this.activating=new Map();this.activeControllers=new Map();this.changeTail=Promise.resolve();this.signature='';this.nextCheck=Infinity;this.index=null;this.dirty=true;this.drawWanted=new Set();this.drawCosts=new Map();this.matrix=new THREE.Matrix4();this.frustum=new THREE.Frustum();this.eye=new THREE.Vector3();this.models=new Map();this.catalogues=new Map();this.catalogueErrors=new Map();this.requests=new Map();this.retiring=new Map();this.releaseFailures=new Map();this.supportHolds=new Map();this.closed=false;this.lastCheck=-Infinity;this.lastPlan=-Infinity;this.lastCamera=null;this.lastOptions=null;
   this.cache=new TileCache({abortOnPause:false,limit:this.limits.count,concurrency:this.limits.concurrency,load:(uid,signal)=>this.load(uid,signal),dispose:entry=>{this.release(entry).catch(()=>{});},onChange:()=>{this.dirty=true;if(!this.closed)this.onChange();}});
  }
  async loadCatalogue(input){
@@ -82,6 +82,12 @@ export class OfficialModelLayer{
    await this.waitForSupports(meta,signal);
    if(this.stream.infrastructureBuildingUids?.has(uid))throw new Error('Official infrastructure already replaces this building');
    const installStart=metrics.start();
+   // Catalogue metadata cannot predict GLTF primitive count. Learn the exact
+   // cost before admission, then replan the whole support closure by priority.
+   this.drawCosts.set(uid,entry.budget.drawCalls??entry.meshes?.length??1);
+   if(this.lastCamera)this.plan(this.lastCamera,{...this.lastOptions,force:true});
+   if(signal.aborted||!this.cache.wanted.includes(uid))throw new DOMException('Draw budget deferred','AbortError');
+   await Promise.all([...this.retiring.values()]);
    await this.reserveDrawCalls(entry);
    if(!await this.change(()=>this.stream.setDetailedModel(uid,entry,{signal}),signal))throw new DOMException('Aborted','AbortError');
    metrics.end('modelInstallMs',installStart);this.onReveal(entry);
@@ -127,7 +133,7 @@ export class OfficialModelLayer{
  }
  setProfile(profile){
   if(!MODEL_PROFILES[profile])throw new Error('Unknown official model profile');
-  if(profile===this.profile)return;this.profile=profile;this.limits=MODEL_PROFILES[profile];this.cache.limit=this.limits.count;this.dirty=true;this.cache.retry();
+  if(profile===this.profile)return;this.profile=profile;this.limits=MODEL_PROFILES[profile];this.cache.limit=this.limits.count;this.dirty=true;if(this.lastCamera)this.plan(this.lastCamera,{...this.lastOptions,force:true});this.cache.retry();
  }
  plan(camera,{viewportWidth,viewportHeight=800,selectedUid=null,collisionPosition=null,allowNewLoads=true,now=performance.now(),force=false}={}){
   if(this.closed)return [];viewportWidth??=viewportHeight*(camera.aspect||1);this.lastCamera=camera;this.lastOptions={viewportWidth,viewportHeight,selectedUid,collisionPosition,allowNewLoads};
@@ -140,7 +146,8 @@ export class OfficialModelLayer{
   const planStart=metrics.start();metrics.count('plans');
   if(!this.index||this.index.entries.size!==this.models.size){const start=metrics.start();this.index=new ModelSpatialIndex(this.models);metrics.end('modelIndexMs',start);}
   this.matrix.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);this.frustum.setFromProjectionMatrix(this.matrix);this.eye.setFromMatrixPosition(camera.matrixWorld);
-  const query=this.index.query(this.frustum,this.eye),rows=new Map(query.rows.map(row=>[row.entry.uid,row]));
+  const query=this.index.query(this.frustum,this.eye,{eligible:({entry,box})=>
+   this.supportAvailable(entry.uid,'native')&&projectedBounds(box,this.matrix,viewportWidth,viewportHeight).pixels>=this.limits.minPixels}),rows=new Map(query.rows.map(row=>[row.entry.uid,row]));
   for(const uid of new Set([...this.cache.entries.keys(),...this.cache.running.keys(),selectedUid].filter(Boolean))){const row=this.index.entries.get(uid);if(row)rows.set(uid,row);}
   metrics.record('plannerCandidates',rows.size);metrics.record('plannerNodes',query.visited);
   const candidates=[],warm=[],limits=this.limits,visibleUids=new Set();
@@ -165,8 +172,9 @@ export class OfficialModelLayer{
   }
   candidates.sort((a,b)=>Number(b.selected)-Number(a.selected)||Number(b.collision)-Number(a.collision)||Number(b.resident)-Number(a.resident)||b.projected-a.projected||a.distance-b.distance);
   warm.sort((a,b)=>(this.lastUseful.get(b.entry.uid)||0)-(this.lastUseful.get(a.entry.uid)||0));
-  const support=(uid,kind,d)=>this.supportAvailable(uid,kind,d),draw=supportedModelPlan(candidates.map(c=>c.entry.uid),this.models,limits,modelBudget,support,selectedUid);
-  const {wanted,blocked}=supportedModelPlan([...draw.wanted,...warm.map(c=>c.entry.uid)],this.models,limits,modelBudget,support,selectedUid);this.supportHolds=blocked;this.drawWanted=new Set(draw.wanted);
+  const budget=entry=>({...modelBudget(entry),drawCalls:this.cache.entries.get(entry.uid)?.budget.drawCalls??this.drawCosts.get(entry.uid)??1});
+  const support=(uid,kind,d)=>this.supportAvailable(uid,kind,d),draw=supportedModelPlan(candidates.map(c=>c.entry.uid),this.models,limits,budget,support,selectedUid);
+  const {wanted,blocked}=supportedModelPlan([...draw.wanted,...warm.map(c=>c.entry.uid)],this.models,limits,budget,support,selectedUid);this.supportHolds=new Map([...draw.blocked,...blocked]);this.drawWanted=new Set(draw.wanted);
   const keep=new Set(wanted);
   for(const [uid,entry] of [...this.cache.entries].reverse()){
    if(!keep.has(uid)){this.cache.entries.delete(uid);this.lastUseful.delete(uid);this.smallSince.delete(uid);this.release(entry).catch(()=>{});continue;}
@@ -207,6 +215,6 @@ export class OfficialModelLayer{
   return {profile:this.profile,catalogues:this.catalogues.size,available:this.models.size,cached:entries.length,visible:entries.filter(e=>e.group.visible).length,pending:this.cache.running.size+this.requests.size,loadingPaused:this.cache.paused,retiring:this.retiring.size,wanted:this.cache.wanted.length,supportHolds:[...this.supportHolds].map(([uid,reason])=>({uid,reason})),errors:[...this.catalogueErrors.keys(),...this.cache.errors.keys(),...this.releaseFailures.keys()].map(value=>typeof value==='string'?value:'restore:'+value.record.uid),...cost,limits:this.limits,warm:entries.filter(e=>!this.drawWanted.has(e.record.uid)).length,compressed:this.byteCache.stats,drawCalls:entries.reduce((n,e)=>n+(e.group.visible?(e.budget.drawCalls??e.meshes?.length??1):0),0)};
  }
  async dispose(){
-  if(this.closed)return;this.closed=true;for(const controller of this.activeControllers.values())controller.abort();for(const {controller} of this.requests.values())controller.abort();this.cache.close();this.byteCache.close();await Promise.allSettled([...this.retiring.values()]);this.models.clear();this.catalogues.clear();this.catalogueErrors.clear();
+  if(this.closed)return;this.closed=true;for(const controller of this.activeControllers.values())controller.abort();for(const {controller} of this.requests.values())controller.abort();this.cache.close();this.byteCache.close();await Promise.allSettled([...this.retiring.values()]);this.models.clear();this.drawCosts.clear();this.catalogues.clear();this.catalogueErrors.clear();
  }
 }

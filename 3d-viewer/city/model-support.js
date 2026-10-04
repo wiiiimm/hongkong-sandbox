@@ -17,7 +17,7 @@ export function modelSupportDependencies(entry){
 /** Dependency-first closure. Cycles and unavailable sources keep the original forms. */
 export function supportedModelPlan(candidates,models,limits,budget,available,selectedUid=null){
  const wanted=[],chosen=new Set(),reservedFallbacks=new Set(),blocked=new Map();
- const used={geometryBytes:0,residentBytes:0,triangles:0};
+ const used={geometryBytes:0,residentBytes:0,triangles:0,drawCalls:0};
  for(const root of candidates){
   const ordered=[],complete=new Set(),visiting=new Set(),fallbacks=new Set();
   try{
@@ -35,9 +35,9 @@ export function supportedModelPlan(candidates,models,limits,budget,available,sel
    };
    visit(root);
    if(ordered.some(uid=>fallbacks.has(uid)||reservedFallbacks.has(uid))||[...fallbacks].some(uid=>chosen.has(uid)))throw new Error('Native upgrade conflicts with required surveyed support');
-   const extra=ordered.filter(uid=>!chosen.has(uid)),cost={geometryBytes:0,residentBytes:0,triangles:0};
-   for(const uid of extra){const c=budget(models.get(uid));for(const k of Object.keys(cost))cost[k]+=c[k];}
-   if(wanted.length+extra.length>limits.count||Object.keys(cost).some(k=>used[k]+cost[k]>(k==='residentBytes'&&root===selectedUid?limits.selectedResidentBytes??limits[k]:limits[k])))throw new Error('Model support group exceeds memory or triangle budget');
+   const extra=ordered.filter(uid=>!chosen.has(uid)),cost={geometryBytes:0,residentBytes:0,triangles:0,drawCalls:0};
+   for(const uid of extra){const c=budget(models.get(uid));for(const k of Object.keys(cost))cost[k]+=c[k]??(k==='drawCalls'?1:0);}
+   if(wanted.length+extra.length>limits.count||Object.keys(cost).some(k=>used[k]+cost[k]>(k==='residentBytes'&&root===selectedUid?limits.selectedResidentBytes??limits[k]:limits[k]??Infinity)))throw new Error('Model support group exceeds memory, triangle or draw-call budget');
    for(const uid of extra){chosen.add(uid);wanted.push(uid);}for(const uid of fallbacks)reservedFallbacks.add(uid);for(const k of Object.keys(cost))used[k]+=cost[k];
   }catch(error){blocked.set(root,error.message);}
  }
