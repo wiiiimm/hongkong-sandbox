@@ -1,24 +1,16 @@
 /** Exact vertical-wall contact at the podium surface; no coordinate correction. */
-import * as THREE from '../../../3d-viewer/vendor/three.module.js';
-import {lowRimSamples,measureSupport,supportSurface} from './support-contact.mjs';
-import {trianglePointIndex} from './triangle-point-index.mjs';
+import * as THREE from '../../../../../3d-viewer/vendor/three.module.js';
+import {lowRimSamples,measureSupport,supportSurface} from '../../../../../source-scripts/city/government-import/support-contact.mjs';
 
-export function verifySupportInterface(geometry,bottom,support,{maximumEmbedding=.5,metrics=null}={}){
+export function verifySupportInterface(geometry,bottom,support,{maximumEmbedding=.5}={}){
  if(!(maximumEmbedding>0&&maximumEmbedding<=.5))throw new Error('Embedding exceeds ordinary source clearance allowance');
  const rim=lowRimSamples(geometry,bottom),surface=supportSurface(support),strict=measureSupport(rim,surface);
  const resolved=[],unresolved=[],tri=new THREE.Triangle(),point=new THREE.Vector3(),closest=new THREE.Vector3(),normal=new THREE.Vector3();
- let walls=null,exactTests=0,eligibleSamples=0;
  for(const failure of strict.failed){
   const [x,y,z]=failure.position,deck=surface.height(x,z);
   if(failure.reason!=='support-above-rim'||-failure.gap>maximumEmbedding){unresolved.push(failure);continue;}
-  eligibleSamples++;
-  if(!walls)walls=trianglePointIndex(geometry,{acceptFace(vertices){
-   [tri.a,tri.b,tri.c].forEach((v,k)=>v.fromArray(vertices[k]));tri.getNormal(normal);
-   return Math.abs(normal.y)<=1e-6&&normal.lengthSq()>=.99;
-  }});
   const incident=[];
-  for(const faceIndex of walls.candidates(failure.position)){
-   const i=faceIndex*3;exactTests++;
+  for(let i=0;i<geometry.index.length;i+=3){
    [tri.a,tri.b,tri.c].forEach((v,k)=>v.fromArray(geometry.position,geometry.index[i+k]*3));
    tri.getNormal(normal);if(Math.abs(normal.y)>1e-6||normal.lengthSq()<.99)continue;
    // Both the bottom sample and actual deck contact must lie on this same
@@ -32,7 +24,6 @@ export function verifySupportInterface(geometry,bottom,support,{maximumEmbedding
  }
  // An entirely embedded mesh is not accepted through this bounded wall rule.
  const passed=Boolean(rim.length&&strict.contacts&&unresolved.length===0);
- if(metrics)Object.assign(metrics,{eligibleSamples,totalSourceFaces:geometry.index.length/3,indexedWallFaces:walls?.faces||0,indexCells:walls?.cells||0,largeFaces:walls?.largeFaces||0,exactTriangleTests:exactTests,priorFullScanTriangleVisits:eligibleSamples*geometry.index.length/3});
  return {policy:'exact-native-wall-podium-interface-v1',passed,samples:rim.length,
   strictContacts:strict.contacts,wallIntersections:resolved.length,strictLowRim:strict,
   maximumEmbeddingM:maximumEmbedding,resolved,unresolved,

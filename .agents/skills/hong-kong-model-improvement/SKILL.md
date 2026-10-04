@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.9"
+  version: "1.8.10"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,28 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+User direction, 5 October: use available AI for workflow analysis and reusable
+code improvements to accelerate the held-model work. This is not blanket approval
+for per-building architectural review or AI geometry generation. The completed
+fresh compute stage is `docs/astra-city/government-import/government-xl-remaining-20260923/workflow-optimisation-20261005/`:
+nine held sources routed and eleven exact support pairs checked; all full outputs
+equal the prior checker and no model is newly installed. Reuse its Neon receipt.
+
+Run `dependency_preflight.py` against each new candidate catalogue before costly
+terrain/browser work. Reuse the publisher's dependency-state semantics; investigate
+fallback-to-native support migrations and missing/cyclic native closures first,
+while independent candidates continue. A clean metadata report is not approval.
+Do not manufacture nearby support dependencies or alter current review states.
+
+`triangle-point-index.mjs` is a conservative diagnostic broad phase, preserving
+original face indices, exact narrow-phase tests and tolerance-expanded bounds.
+Benchmark on actual source pairs and compare complete output against the previous
+checker before replacing expensive loops. Fewer triangle visits do not establish
+whole-pipeline speedup: the first wall-index trial showed no aggregate time gain.
+Citywalk's 294 unresolved samples now split into 200 same-wall intersections
+outside the existing contract and 94 without same-wall contact; neither grants
+acceptance or permission to enlarge the 0.5m allowance. Keep originals unchanged.
 
 The 4 October continuation installs unchanged Ocean Pride Tower 2. Resume from `docs/astra-city/government-import/government-xl-remaining-20260923/sol-hold-resolution-20261004/README.md` and its verified Neon receipt. The ten-form pilot now has one Installed and nine technical holds; the wider 352-form XL batch has 39 Installed and 313 Held. Citywalk's terrain, foundation, runtime and staged browser checks pass, but five existing Vision City tower fallback dependencies prevent publication: 294 exact native rim interfaces remain unresolved. Its staged source is not installed or integration approved. No AI modelling or architectural review was used for this continuation. Do not rerun completed installers or historical terrain searches.
 

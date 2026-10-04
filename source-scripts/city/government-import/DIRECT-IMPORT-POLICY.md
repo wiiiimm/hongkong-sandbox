@@ -7,6 +7,14 @@ The user delegated import routing and requires zero per-model AI work.
 
 Required gates:
 
+- Before expensive terrain generation or browser capture, run
+  `dependency_preflight.py --catalogue NEW_STAGE/catalogue.json --out NEW_STAGE/dependencies.json`.
+  It reuses publisher dependency-state semantics to expose existing fallback
+  dependents, missing/transitive native supports and cycles. Route affected source
+  groups to exact interface/migration investigation first; continue independent
+  candidates. This metadata check grants no approval and cannot replace the
+  guarded publisher or fresh source/terrain/browser evidence.
+
 - Previous native decoder, source picking/collision and terrain checks passed.
 - Exact current UID, CSUID, object ID and recorded source heights; one frozen native
   result, identical asset bytes/SHA and original 1× HKPD transforms. Current source
