@@ -168,7 +168,7 @@ function updateLabels(){
  const rect=renderer.domElement.getBoundingClientRect(),w=rect.width,h=rect.height,occupied=[];
  for(const {el,pos,kind} of labelEntries){
   temp.copy(pos).project(camera);const distance=camera.position.distanceTo(pos),x=rect.left+(temp.x*.5+.5)*w,y=rect.top+(-temp.y*.5+.5)*h;
-  const off=nav.mode!=='orbit'||distance>6500||distance<120||temp.z>1||temp.z<0||x<16||x>w-16||y<84||y>h-100||(x<330&&w>760)||(kind==='harbour'&&distance<800);
+  const off=nav.mode!=='orbit'||distance>6500||distance<120||temp.z>1||temp.z<0||x<rect.left+16||x>rect.right-16||y<rect.top+84||y>rect.bottom-100||(x<330&&w>760)||(kind==='harbour'&&distance<800);
   const overlap=occupied.some(([xx,yy])=>Math.abs(xx-x)<100&&Math.abs(yy-y)<35);el.style.opacity=off||overlap?'0':'1';if(!off&&!overlap){el.style.left=`${x}px`;el.style.top=`${y}px`;occupied.push([x,y]);}
  }
 }
