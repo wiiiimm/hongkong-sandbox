@@ -140,7 +140,13 @@ export async function makeBuildings(features,onProgress,options={}){
    if(options.signal?.aborted)throw new DOMException('Aborted','AbortError');
    const attachStart=metrics.start();for(const row of result.meshes){const geometry=new THREE.BufferGeometry();for(const [name,a] of Object.entries(row.attributes))geometry.setAttribute(name,new THREE.BufferAttribute(a.array,a.itemSize,a.normalized));const mesh=new THREE.Mesh(geometry,materials[row.material]);mesh.castShadow=mesh.receiveShadow=true;group.add(mesh);}
    metrics.end('fallbackAttachMs',attachStart);return {group,night,materials,totalVertices:result.totalVertices};
-  }catch(error){for(const m of materials)m.dispose();throw error;}
+  }catch(error){
+   for(const mesh of group.children)mesh.geometry?.dispose();group.clear();
+   if(options.signal?.aborted||error.name==='AbortError'){for(const m of materials)m.dispose();throw error;}
+   // Workers are an optimization: CSP, startup or execution failure must not
+   // strand source forms. Retain the same yielding, cancellable inline bake.
+   metrics.count('fallbackWorkerRecoveries');
+  }
  }
  // Geometry generation runs on the renderer thread. Yield by elapsed time so a
  // tile containing a few complex footprints cannot monopolise several frames.
