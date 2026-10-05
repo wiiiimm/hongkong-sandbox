@@ -12,6 +12,7 @@ from shape_prepare import canonical_bytes,entry,scan,acquire,_convert_one
 GROUP=sys.argv[1]
 CONFIG={'bus-terminus':('landsd/255415:0','11-NW-24A',['landsd/231056:0'],'government-xl-wk-bus-terminus-native-terrain-group-20261005'),
         'west9zone':('landsd/227099:0','11-NW-19A',['landsd/81972:0','landsd/83691:0'],'government-xl-west9zone-227099-native-terrain-group-20261005'),
+        'hampton-loft':('landsd/284938:0','11-NW-18B',['landsd/254726:0'],'government-xl-hampton-loft-indexed-terrain-20261005'),
         'imperial-podium':('landsd/258470:0','11-NW-18B',['landsd/241721:0','landsd/241722:0','landsd/241723:0','landsd/241920:0','landsd/241921:0'],'government-xl-unnamed-258470-native-terrain-group-20261005')}
 UID,SHEET,EXPECTED,CONTACT_BATCH=CONFIG[GROUP]
 BATCH='government-xl-'+GROUP+'-original-support-group-20261005'

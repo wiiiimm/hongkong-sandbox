@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.16"
+  version: "1.8.17"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,30 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+The next seven-source indexed continuation is complete at
+`government-xl-indexed-continuation-checkpoint-20261005/README.md`, verified Neon
+job `b846fe6060af32bf69d2f9a6e164be907ce7a3c94643931477ee4a0d71c20b6e`. Zero installs, seven technical
+holds, three additional original auxiliary meshes, zero In process. XL352 remains
+42 Installed / 310 Held. Reuse exact receipts and narrowed blockers: Science
+Museum has one overlapping form after nine disjoint neighbour regressions are
+cleared; Hampton Loft has one overlapping tower after one regression is cleared.
+That tower's original interface still fails 21 samples. Sol City's exact podium
+is recovered but its original viewer match and bounded projection remain held;
+Star House's podium projection and interface also remain held. A bounded lookup
+finds no Science Museum form 83471 GeoRef in its indexed containing current source
+directory; do not infer global absence, suppress the form or invent an identity.
+
+Use `xl-indexed-terrain-continuation.py` for explicit fresh UID/batch continuations.
+It routes actual sheets and reuses only complete terrain geometry receipts with
+matching sheet/directory/file hashes. Six corruption/incompleteness cache tests
+and 21 existing terrain/index tests pass. `xl-disjoint-parent-preservation.py`
+retains exact parent planes only beneath proven-disjoint failing basic forms,
+using the existing footprint buffer, then reruns full contact, foundation, native
+and basic neighbour/runtime gates. Overlapping/native forms remain subject to
+existing complete checks. Neither runner publishes or grants automatic skip
+credit. This removes ten real regressions without geometry edits or new limits.
+
 
 The next twelve primary XL holds have completed a fresh original terrain/support
 continuation at `government-xl-terrain-support-continuation-20261005/README.md`.
