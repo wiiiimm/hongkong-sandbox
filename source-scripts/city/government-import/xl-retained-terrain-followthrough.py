@@ -9,6 +9,8 @@ indexed=importlib.util.module_from_spec(spec);spec.loader.exec_module(indexed)
 def main():
     p=argparse.ArgumentParser();p.add_argument('--uid',required=True);p.add_argument('--batch',required=True)
     p.add_argument('--base',required=True);p.add_argument('--retained',required=True);p.add_argument('--owned',action='store_true')
+    p.add_argument('--allow-basic-targets',action='store_true',help='Retain declared basic forms with basic-neighbour gates; full native checks remain required for actual installed models')
+    p.add_argument('--model-regions-only',action='store_true',help='Candidate preserving exact old terrain at declared native meshes; original TIN elsewhere must pass all existing neighbour gates')
     args=p.parse_args();assert Path(args.batch).name==args.batch and args.batch.startswith('government-xl-')
     doc=ROOT/'docs/astra-city/government-import'/args.batch;local=HERE/'local'/args.batch
     manifest=read(ROOT/'3d-viewer/city/data/manifest.json')
@@ -21,7 +23,10 @@ def main():
         original=indexed.module
         def configured(name,filename):
             value=original(name,filename)
-            if filename=='xl-contact-resolution-20261005.py':value.RETAIN_NATIVE_URL=args.retained
+            if filename=='xl-contact-resolution-20261005.py':
+                value.RETAIN_NATIVE_URL=args.retained
+                value.ALLOW_BASIC_TERRAIN_TARGETS=args.allow_basic_targets
+                value.RETAIN_NATIVE_MODEL_REGIONS_ONLY=args.model_regions_only
             return value
         indexed.module=configured;indexed.owned(args,doc,local);return
     assert not doc.exists(),'Fresh continuation only'
@@ -35,5 +40,7 @@ def main():
     claim=reservations.claim('codex-xl-retained-'+str(uuid.uuid4()),resources,batch=args.batch);assert claim['ok'],claim
     save(local/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)))
     subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(local/'reservation.json'),
-        '--',sys.executable,__file__,'--uid',args.uid,'--batch',args.batch,'--base',args.base,'--retained',args.retained,'--owned'],cwd=ROOT,check=True)
+        '--',sys.executable,__file__,'--uid',args.uid,'--batch',args.batch,'--base',args.base,'--retained',args.retained,
+        *(['--allow-basic-targets'] if args.allow_basic_targets else []),
+        *(['--model-regions-only'] if args.model_regions_only else []),'--owned'],cwd=ROOT,check=True)
 if __name__=='__main__':main()

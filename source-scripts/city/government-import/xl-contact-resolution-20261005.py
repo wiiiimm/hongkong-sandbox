@@ -27,6 +27,8 @@ PARENT_URL = 'city/data/terrain.json'
 NESTED_PARENT = False
 ADJACENT_SOURCES = []
 RETAIN_NATIVE_URL = None
+ALLOW_BASIC_TERRAIN_TARGETS = False
+RETAIN_NATIVE_MODEL_REGIONS_ONLY = False
 
 
 def module(name, filename):
@@ -179,10 +181,26 @@ def owned():
         protected=box(*old_bounds).difference(projection.buffer(.1,join_style='mitre'))
         old_sampler=RenderedPatchSampler(retained_patch,sampler,
             second.resolution.terrain.fine.DemSampler(retained_patch,rendered=True))
-        retained_uids=retained_patch['meta']['targetUids']
+        declared_uids=retained_patch['meta']['targetUids']
         entries={m['uid']:m for url in manifest['officialModelCatalogues']
-                 for m in read(ROOT/'3d-viewer'/url)['models'] if m['uid'] in retained_uids}
-        assert set(entries)==set(retained_uids)
+                 for m in read(ROOT/'3d-viewer'/url)['models'] if m['uid'] in declared_uids}
+        scope=None
+        if ALLOW_BASIC_TERRAIN_TARGETS:
+            from retained_terrain_scope import retained_scope
+            scope=retained_scope(declared_uids,entries,[b for b,_,_ in final.load_forms(bounds)])
+            retained_uids=scope['nativeUids']
+            assert set(entries)==set(retained_uids)
+        else:
+            retained_uids=declared_uids
+            assert set(entries)==set(retained_uids)
+        if RETAIN_NATIVE_MODEL_REGIONS_ONLY:
+            # Candidate only: preserve exact old terrain around every declared
+            # installed mesh, then subject the fresh original TIN everywhere
+            # else to all basic/native neighbour and complete source gates.
+            protected=shapely.union_all([box(m['worldBounds'][0][0],m['worldBounds'][0][2],
+                m['worldBounds'][1][0],m['worldBounds'][1][2]).buffer(.02,join_style='mitre')
+                for m in entries.values()])
+            assert protected.intersection(projection).area<1e-8, 'Retained source region overlaps new model'
         for entry in entries.values():
             lo,hi=entry['worldBounds'];assert protected.buffer(1e-6).covers(box(lo[0],lo[2],hi[0],hi[2])), 'Retained model intersects new source projection'
         preservation=patches.preserve_parent_under_projection(patch,bounds,protected,old_sampler,edge_sampler=sampler)
@@ -190,13 +208,15 @@ def owned():
             supersededSHA256=sha(ROOT/'3d-viewer'/RETAIN_NATIVE_URL),retainedUids=retained_uids,
             sourceProjectionIntersectionM2=float(protected.intersection(projection).area),
             boundsOfEveryRetainedModelInsideProtectedProjection=True)
+        if scope:preservation['declaredTargetScope']=scope
+        preservation['retentionMode']='installed-model-regions' if RETAIN_NATIVE_MODEL_REGIONS_ONLY else 'complete-existing-terrain-outside-new-source'
         assert preservation['sourceProjectionIntersectionM2']<1e-8
         save(DOC/'retained-native-proof.json',preservation)
         for old_source in retained_patch['meta']['source']['nativeSources']:
             for source_file in old_source['sourceFiles']:
                 assert sha(ROOT/source_file['path'])==source_file['sha256']
                 if source_file not in files:files.append(source_file)
-        patch['meta']['targetUids']=sorted(set(UIDS+retained_uids))
+        patch['meta']['targetUids']=sorted(set(UIDS+declared_uids))
     protected_gap = patches.projected_context(patch,bounds)[2].intersection(projection)
     save(LOCAL/'unfilled-patch.json',patch)
     source_union=shapely.union_all(shapely.polygons(native[:,:,[0,2]]))
@@ -225,7 +245,7 @@ def owned():
                  'triangles':len(patch['nativeMesh']['index'])//3}
     if retained_patch:
         patch_row['replaces']={'url':RETAIN_NATIVE_URL,
-            'sha256':sha(ROOT/'3d-viewer'/RETAIN_NATIVE_URL),'retainedUids':retained_patch['meta']['targetUids']}
+            'sha256':sha(ROOT/'3d-viewer'/RETAIN_NATIVE_URL),'retainedUids':retained_uids}
     if NESTED_PARENT:
         nested=module('contact_nested_parent','xl-stage-central-nested.py');nested.DOC=DOC
         wrapper=nested.parent_with_nested(parent,patch)
