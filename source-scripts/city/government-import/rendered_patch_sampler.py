@@ -13,7 +13,11 @@ class RenderedPatchSampler:
                                  z - (patch['h'] - 1) * g['aN'])
         self.faces = self.polygons = self.tree = None
         if patch.get('nativeMesh'):
-            self.faces = patches._faces(patch)
+            faces = patches._faces(patch)
+            # Match the runtime height field: vertical retaining faces have
+            # no projected area and cannot provide a height at a point.
+            determinant = np.cross(faces[:, 1] - faces[:, 0], faces[:, 2] - faces[:, 0])[:, 1]
+            self.faces = faces[np.abs(determinant) > 1e-10]
             self.polygons = shapely.polygons(self.faces[:, :, [0, 2]])
             self.tree = shapely.STRtree(self.polygons)
 

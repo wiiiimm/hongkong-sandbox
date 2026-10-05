@@ -18,6 +18,18 @@ class RenderedPatchSamplerTest(unittest.TestCase):
             'nativeMesh': {'position': [0, 2, 0, 4, 4, 0, 0, 2, 4], 'index': [0, 1, 2]}}
         return RenderedPatchSampler(patch, Flat(9), Flat(7))
 
+    def test_vertical_retaining_face_does_not_block_height_sampling(self):
+        value = {'w': 2, 'h': 2, 'meta': {'georef':
+            {'bE': 834500, 'bN': 816500, 'aE': 4, 'aN': -4}},
+            'nativeMesh': {'position': [0, 2, 0, 4, 4, 0, 0, 2, 4,
+                                       1, 1, 0, 1, 8, 0, 1, 1, 4],
+                           'index': list(range(6))}}
+        s = RenderedPatchSampler(value, Flat(9), Flat(7))
+        self.assertEqual(s.ground(1, 1), 2.5)
+        self.assertEqual(s.ground(1, 3.5), 7)
+        self.assertEqual(len(s.faces), 1)
+        self.assertEqual(len(value['nativeMesh']['index']), 6)
+
     def test_original_plane_not_coarse_grid_is_sampled(self):
         s = self.sampler()
         self.assertEqual(s.ground(1, 1), 2.5)
