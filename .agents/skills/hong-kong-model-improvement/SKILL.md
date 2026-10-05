@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.17"
+  version: "1.8.18"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,15 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+Latest installed checkpoint: `government-xl-ground-followthrough-checkpoint-20261005/README.md`, verified Neon job `246536c22a0e345d0d24b898e72059c10b3c2bed9556194fc92ad30174a9a096`. XL352 is **44 Installed / 308 Held** (two new actual installations), current installed snapshot `a5f6008d89165229`. Source 327153 beside Aquila Square Mile and West Kowloon Place 102008 are installed unchanged; their neighbouring basic towers and existing native sources remain present. Both staged/live desktop/mobile day/night, framing, picking, collision and failure/retry pass. Public progress: 4,392 enhanced source forms, 4,378 government matches installed, 346,108 total forms.
+
+Use `xl-retained-terrain-followthrough.py` for explicitly pinned native patch replacements, retaining complete old source geometry checks. `xl-retained-parent-preservation.py` and `xl-parent-terrain-followthrough.py` test exact existing terrain planes under basic neighbour footprints; whole-footprint masks are candidates only and still require complete unchanged source contact, foundation, runtime and neighbour gates. Whole-footprint tests reject Science Museum (about 2.09 m burial) and Tower 3 (about 1.59 m burial plus foundation failure); never publish those candidates. Earlier partial/raw phase records are historical; current installed ledger successors determine user-facing progress.
+
+`RenderedPatchSampler` ignores vertical retaining faces for height-field queries, matching the viewer without changing mesh bytes. `terrain_diagnostic_resolution.py` may resolve only the coarse global-bottom warning when same-source complete strict foundation and unchanged detailed contact checks pass. Every other diagnostic, actual burial/gap/coverage/source-hash failure and browser gate remains blocking. Four diagnostic tests and eight rendered sampler tests are included in 23 passing relevant tests. Use `xl-recheck-candidate-evidence.py` after manifest changes; preserve completed prior evidence and rerun current checks instead of repinning stale acceptance hashes.
+
+Beverly Garden block 9 remains a technical contact hold: minimum source gap 0.226635 m exceeds the existing 0.1 m contact limit. Script failure alone does not imply AI or human processing is required. No architectural AI or source geometry edits were used in this continuation.
+
 
 The next seven-source indexed continuation is complete at
 `government-xl-indexed-continuation-checkpoint-20261005/README.md`, verified Neon
