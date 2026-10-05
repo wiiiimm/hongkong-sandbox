@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.15"
+  version: "1.8.16"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,28 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+The next twelve primary XL holds have completed a fresh original terrain/support
+continuation at `government-xl-terrain-support-continuation-20261005/README.md`.
+Verified fenced Neon job
+`52b2b4100f68ba53ab090525f9a14cfd6edeae291329a0d393ad64dfe4679c42`
+links all twelve current primary results and fifteen exact recovered supporting
+originals. Zero new installs, twelve technical holds and zero In process. Two
+support interfaces pass and thirteen fail; none grants installation credit.
+XL352 remains 42 Installed / 310 Held. Reuse the completed evidence and exact
+source hashes; failures do not establish an AI or human decision requirement.
+
+Before new original terrain acquisition, use `terrain_source_preflight.py` with
+the complete government sheet polygon index and frozen source/context hashes.
+Its exact UID/ObjectID/CSUID and existing bounded-projection proof rejects the
+three coarse-clean identity cases before downloads. Its indexed footprint
+intersections select adjoining sheets using northing = 816500 - world z.
+Hanford needs 6-SW-11A/B/C/D; the bus terminus needs only 11-NW-24A. Do not guess
+quadrants or waive actual TIN coverage. This is source routing, not good-enough
+or skip screening, and creates no queue or acceptance credit. Use the existing
+acceptance policy's detailed identity proof only with exact identifiers, unique
+viewer match, source SHA and passing bounded projection. Ordinary contact,
+whole-foundation, runtime, neighbour and publication gates are unchanged.
 
 The latest 5 October continuation installs unchanged 1883 Building (118475):
 original 11-NW-24D plus adjoining 11-NW-25C TIN resolves the sheet-edge gap.

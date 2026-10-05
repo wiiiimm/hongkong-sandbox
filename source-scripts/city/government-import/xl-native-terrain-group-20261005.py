@@ -10,25 +10,26 @@ from run import ROOT,HERE,read,save,digest,reservations,connect,jobs,Jsonb,dict_
 sys.path.insert(0,str(HERE.parent/'enhancement-screening'))
 from shape_prepare import scan,acquire
 
-CASES={'coronation-circle':('landsd/10664:0','11-NW-24A'),
-       'stonecutters-pumping':('landsd/270142:0','11-NW-12D'),
-       'royal-green-3':('landsd/11093:0','3-SW-11B'),
-       'south-hillcrest':('landsd/198440:0','6-NW-21D'),
-       'two-harbourfront':('landsd/118230:0','11-NE-21C'),
-       'ching-hin-house':('landsd/26653:0','3-SW-11B'),
-       'hanford-plaza':('landsd/276187:0','6-SW-11A'),
-       'ssp-swimming-pool':('landsd/265480:0','11-NW-13B')}
-ADJACENT={}
+CASES={'market-in':('landsd/313033:0','11-NW-13A'),
+       'unnamed-258470':('landsd/258470:0','11-NW-18B'),
+       'wk-bus-terminus':('landsd/255415:0','11-NW-24A'),
+       'west9zone-227099':('landsd/227099:0','11-NW-19A')}
+ADJACENT={'wk-bus-terminus':['11-NW-19C']}
 CASE=sys.argv[1];UID,SHEET=CASES[CASE]
-BATCH='government-xl-'+CASE+'-terrain-continuation-v2-20261005'
+BATCH='government-xl-'+CASE+'-native-terrain-group-20261005'
 DOC=ROOT/'docs/astra-city/government-import'/BATCH
 LOCAL=HERE/'local'/BATCH
 PREVIOUS=ROOT/'docs/astra-city/government-import/government-xl-next-100-20261005'
 
 
 def start():
-    claim=reservations.claim('codex-xl-'+CASE+'-'+str(uuid.uuid4()),
-        ['building:'+UID,'terrain-patch:'+UID],batch=BATCH)
+    resources=['building:'+UID,'terrain-patch:'+UID]
+    if CASE=='west9zone-227099':
+        patch=read(ROOT/'3d-viewer/city/data/government-native-229310-0.json')
+        resources.extend('building:'+u for u in patch['meta']['targetUids'])
+        resources.append('terrain-surface:city/data/government-native-229310-0.json')
+    if CASE=='two-harbourfront':resources.append('terrain-surface:city/data/terrain-whampoa-estates.json')
+    claim=reservations.claim('codex-xl-'+CASE+'-'+str(uuid.uuid4()),resources,batch=BATCH)
     assert claim['ok'],claim
     save(LOCAL/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)))
     subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run',
@@ -82,6 +83,8 @@ def owned():
     resolution=importlib.util.module_from_spec(spec);spec.loader.exec_module(resolution)
     resolution.BATCH=BATCH;resolution.BASE=fresh;resolution.DOC=DOC;resolution.LOCAL=LOCAL
     resolution.SOURCE=source;resolution.UIDS=[UID]
+    if CASE=='two-harbourfront':resolution.PARENT_URL='city/data/terrain-whampoa-estates.json';resolution.NESTED_PARENT=True
+    if CASE=='west9zone-227099':resolution.RETAIN_NATIVE_URL='city/data/government-native-229310-0.json'
     for adjacent_sheet in ADJACENT.get(CASE,[]):
         with connect() as con:
             con.execute('SET TRANSACTION READ ONLY')
@@ -116,7 +119,15 @@ def classify(row=None):
     policy=importlib.util.module_from_spec(spec);spec.loader.exec_module(policy)
     metrics=read(DOC/'metrics.json');metric=metrics['rows'][0]
     for path,pinned in metrics['inputHashes'].items():assert digest((ROOT/path).read_bytes())==pinned
-    reasons=policy.reasons({'state':'runtime-validated-awaiting-acceptance','sourceSHA256':row['sourceSHA256']},metric,metrics['profiles']['mobile'])
+    preflight=read(DOC/'identity-preflight.json');identity=preflight['context']['identity']
+    assert preflight['sourceSHA256']==row['sourceSHA256'] and preflight['strictIdentityPassed']
+    matches=row['native']['model']['matching']['viewerMatches'];target=row['source']['building']
+    proof={'exactObjectId':len(matches)==1 and matches[0]['objectId']==target['objectId'],
+        'exactBuildingCSUID':len(matches)==1 and matches[0]['buildingCSUID']==target['buildingCSUID'],
+        'uniqueViewerMatch':len(matches)==1,'detailedProjectionAccepted':identity['exactObjectAndCSUID'] and preflight['strictIdentityPassed']}
+    save(DOC/'identity-proof.json',{'uid':UID,'sourceSHA256':row['sourceSHA256'],'proof':proof,
+        'preflightSHA256':digest((DOC/'identity-preflight.json').read_bytes()),'policy':'existing-bounded-source-projection-v1'})
+    reasons=policy.reasons({'state':'runtime-validated-awaiting-acceptance','sourceSHA256':row['sourceSHA256'],'identityProof':proof},metric,metrics['profiles']['mobile'])
     foundation=read(DOC/'foundation.json')['rows'][0]
     if not foundation['strictFoundationAccepted']:reasons.append('whole-source-foundation')
     reasons.extend(read(DOC/'validation.json')['results'][0].get('concerns',[]))
@@ -132,8 +143,8 @@ def finish(row,reasons):
           for p in sorted(DOC.iterdir()) if p.is_file() and p.name not in ('result.json','neon-sync.json','README.md')]
     payload={'uid':UID,'sourceSHA256':row['sourceSHA256'],'evidenceRefs':refs,
         'pipelineSHA256':digest((HERE/'xl-contact-resolution-20261005.py').read_bytes()),
-        'classificationSHA256':digest((HERE/'xl-terrain-continuation-20261005.py').read_bytes())}
-    stage='exact-original-terrain-continuation-v2'
+        'classificationSHA256':digest((HERE/'xl-native-terrain-group-20261005.py').read_bytes())}
+    stage='exact-original-native-terrain-group-v1'
     jobid=jobs.enqueue(BATCH,stage,payload);job=jobs.claim(BATCH,receipt['owner'],[stage],lease_seconds=1800)
     assert job and job['id']==jobid
     result={**payload,'jobId':jobid,'batch':BATCH,'reasons':sorted(set(reasons)),
