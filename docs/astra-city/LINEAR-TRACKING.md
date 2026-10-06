@@ -809,3 +809,9 @@ Fresh full-cell identity job `d215f15155866833f487812c674edcb3f93263a5bf457f9a35
 Podium72357 fresh original terrain, foundation and runtime pass, but basic neighbour233768 regresses. Outside-source parent preservation leaves the intersecting portion held. Complete-parent trial is stopped when Hoi Wing publication changes the manifest; stale evidence is explicitly unusable. Verified Neon stale-result job `85f1b3913f6de019fc799892241edb664bd33f3fc8d62d70813b4031644f8cf3` retains exact changed hashes and requires full fresh checks. Neither rejected/stale variant grants credit.
 
 Latest actual installation: Hoi Wing `7a9175bf`, pushed;20 new XL /64 installed and288 not installed. Full-cell34 ends with5 installed and29 held; serial Spectra/basic/uncovered57/retained continues.
+
+## 6 October 2026 — The Spectra Tower 5 installed
+
+Codex, 6 October 2026. The Spectra Tower 5 (landsd/265310:0) is installed with unchanged original government geometry. Verified Neon job `a58667de777fbe4fa536fd4888ab1d5134a7e5712cbdb0f8f077f229831677f7`, installed snapshot `aef6ad3e66baf7a9`, source SHA `5546a592045081646ba74102e89758726c94fa35be0f8156b13dd68fa62ca1ec`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+21 new XL installations from44/308: **65 installed / 287 not installed**, 79 further installations required. Public counters: 346,108 total source forms, 4,413 enhanced, 4,399 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

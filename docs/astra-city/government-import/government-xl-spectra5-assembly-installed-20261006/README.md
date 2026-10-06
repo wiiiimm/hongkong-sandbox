@@ -1,0 +1,5 @@
+# The Spectra Tower 5 — verified original installation
+
+Codex, 6 October 2026. The Spectra Tower 5 (landsd/265310:0) is installed with unchanged original government geometry. Verified Neon job `a58667de777fbe4fa536fd4888ab1d5134a7e5712cbdb0f8f077f229831677f7`, installed snapshot `aef6ad3e66baf7a9`, source SHA `5546a592045081646ba74102e89758726c94fa35be0f8156b13dd68fa62ca1ec`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+21 new XL installations from44/308: **65 installed / 287 not installed**, 79 further installations required. Public counters: 346,108 total source forms, 4,413 enhanced, 4,399 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
