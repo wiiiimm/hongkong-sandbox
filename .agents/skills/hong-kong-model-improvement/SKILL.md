@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.63"
+  version: "1.8.64"
 ---
 
 # Hong Kong model improvement
@@ -558,3 +558,7 @@ Codex, 6 October 2026. Cullinan West Tower 1 (landsd/222073:0) is installed with
 Codex, 6 October 2026. The Waterfront Tower II (landsd/204141:0) is installed with unchanged original government geometry. Verified Neon job `223c17a69b49ed6083972c9adbec56740ed9ae3174e049ffb27d0344862e174e`, installed snapshot `47f8acfa20725387`, source hashes `{'landsd/204141:0': '7d0c231df47c7676f96bc9204273776d127b3aaa8f9ec1f7149b9f5c3c4656a8'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 34 new XL installations from44/308: **78 installed / 274 not installed**, 66 further installations required. Public counters: 346,108 total source forms, 4,427 enhanced, 4,413 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Exact recovered original supports — 7 October 2026
+
+Use `xl-closure-current-inputs.py` only for a completed exact support closure: fenced Neon/evidence/native/source checks and no-existing-review guards freeze current inputs while preserving cached identity holds. Identity alone grants zero installation credit. `xl-cell-nested-terrain-followthrough.py` applies the established full-cell identity route inside a composite parent under publication locking; all existing source/contact/foundation/basic/native/runtime gates remain. Never edit completed fenced runners or raise limits. Current support continuation has11 original towers/11 podiums, two passing interfaces but seven podium identity holds; four qualified podiums are undergoing full physical processing. Apex nested source foundation passes but contact/neighbour blockers remain. Current XL78/274,34 new;66 further required. Continue through commits and reports. Evidence: `government-xl-original-support-continuation-20261007/README.md`.

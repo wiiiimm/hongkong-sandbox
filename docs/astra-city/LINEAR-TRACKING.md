@@ -1,3 +1,7 @@
+## 7 October — 34 new XL installations; exact original support continuation active
+
+Cullinan350d7f96 and Waterfront734413e9 are pushed with unchanged original source geometry and complete staged/live browser acceptance. Verified XL78/274,34 new from44/308;66 further required. Source snapshot47f8acfa20725387; Waterfront Neon223c17a69b49ed6083972c9adbec56740ed9ae3174e049ffb27d0344862e174e. Terrain index23e54754 preserves46,812 exact baseline query results and resolves the measured browser stalls. All22 current-ground checks completed held in Neon.11 exact towers/11 original podiums recovered; four podiums pass positive identity and are undergoing full physical gates. Goal remains active; no model AI calls. Details in `government-xl-original-support-continuation-20261007/README.md`.
+
 ## 7 October — Hampton Loft installed; seven provisional physical checks active
 
 Codex pushed6675190f with Hampton's exact installed job53307d5be3fe21c96c1f19c163160650302af43121f378133bf6588af5696ae0 and snapshot8823e33326a09623. Exported mobile day/night inspected; complete source/physical/neighbour/browser/failure-retry gates pass. XL35273/279,29 new from44/308. HKS-203/HKS-215/HKS-199 and milestone writes succeeded. Seven of twelve exact archived provisional holds passed identity; their fresh full physical sequence and five current support-interface checks are active. Historical decisions preserved, no extra installation credit. Goal continues; no user blocker.
