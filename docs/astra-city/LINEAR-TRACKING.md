@@ -865,3 +865,9 @@ Codex, 6 October 2026. CORONATION CIRCLE (landsd/10664:0) is installed with unch
 ## 7 October 2026 — current source revision physical continuation
 
 Coronation Circle is installed and pushed in94880d3b:26 new XL from baseline44;70 installed/282 remaining,74 additional installs required. Central Pier’s separately receipted C1 original passed identity, strict foundation and native neighbour checks, and its nested terrain candidate preserved the Central grid/children. It is still held for ground contact (Neon327793244757cc0b9fb9b7c5d4ae701d78ea15664dcdb8d06d5a1d9399c59b7c), with zero installation credit. The explicit root current-revision installer is syntax checked but has not been run; its unchanged full installation gates remain mandatory. The active goal continues; Fu Wen installation and258470 neighbour preservation are running. No user decision or model AI required by this checkpoint.
+
+## 6 October 2026 — Fu Wen House installed
+
+Codex, 6 October 2026. Fu Wen House (landsd/51764:0) is installed with unchanged original government geometry. Verified Neon job `6076cfce883868f5cb807173a503207fbc4c9c4d35225a39e747a45aa04536e8`, installed snapshot `87f90f0f42295b29`, source hashes `{'landsd/51764:0': 'c14fe0f9567ec046bce60a8bc1812a723666e041003a549b3dd80cbde2422ba3'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+27 new XL installations from44/308: **71 installed / 281 not installed**, 73 further installations required. Public counters: 346,108 total source forms, 4,419 enhanced, 4,405 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

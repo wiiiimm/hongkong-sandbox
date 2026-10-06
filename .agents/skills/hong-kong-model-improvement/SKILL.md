@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.47"
+  version: "1.8.48"
 ---
 
 # Hong Kong model improvement
@@ -478,3 +478,9 @@ Codex, 6 October 2026. CORONATION CIRCLE (landsd/10664:0) is installed with unch
 A missing historical archive member can have a newer original revision. Recover only a unique official ObjectID/CSUID and exact GeoRef coordinate-cell match; pin the actual new archive directory, member CRC and original asset SHA. Never replace old native-stage membership or pretend the old source hash is unchanged. `native_source_receipt.verify` verifies the separately completed Neon acquisition job and every pinned source byte; legacy originals retain their exact existing membership checks.
 
 Use the current-revision identity and terrain runners for these new originals. The nested variant configures the existing cell-contact pipeline to preserve the installed composite parent grid and old native children; a held physical pass earns zero installed credit. Central Pier’s C1 original passes identity and strict foundation/native neighbours, but remains held for ground contact. Resolve the recorded physical blocker before any staged/live installation or progress update. Code and script diagnostics may use AI assistance; importing original assets performs no model AI calls or architectural geometry edits.
+
+## Latest actual XL installation checkpoint
+
+Codex, 6 October 2026. Fu Wen House (landsd/51764:0) is installed with unchanged original government geometry. Verified Neon job `6076cfce883868f5cb807173a503207fbc4c9c4d35225a39e747a45aa04536e8`, installed snapshot `87f90f0f42295b29`, source hashes `{'landsd/51764:0': 'c14fe0f9567ec046bce60a8bc1812a723666e041003a549b3dd80cbde2422ba3'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+27 new XL installations from44/308: **71 installed / 281 not installed**, 73 further installations required. Public counters: 346,108 total source forms, 4,419 enhanced, 4,405 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
