@@ -758,3 +758,11 @@ Codex, 6 October 2026. Royal Green Tower 2 (landsd/9698:0) is installed unchange
 Sixteenth verified new XL installation from 44/308: **60 installed / 292 not installed**; 84 further installations required. Public counters: 346,108 total source forms, 4,408 enhanced; 4,394 / 212,669 government matches installed.
 
 The active serial chain continues: remaining 34-source work, complete Hoi Wing acceptance, Spectra Tower 5 full assembly acceptance, exact basic-neighbour follow-ups, and the further 57 cached original XL sources. The Spectra assembly camera diagnostic passes actual desktop/mobile browser gates but supplies no installation credit until full fresh acceptance. All current source/contact/foundation and browser gates remain required.
+
+## 6 October 2026 — Tsung Tsin Christian Academy installed
+
+Codex, 6 October 2026. Tsung Tsin Christian Academy (landsd/242392:0) is installed with unchanged original government geometry. Verified Neon job `dbe517958166703e3adb9ffa4b369c588126cfe60ba75a30443d11463808770d`, snapshot `c86b6c9b8a4aee8f`, source SHA `cb247c0c5363bf640184aef3e4253941be12af57032d55d6cf5d0640be9eadac`. Full whole-cell identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision, fallback/retry pass; exported live mobile PNG inspected. No geometry edits or architectural/model AI calls; no historical Lantau imagery used.
+
+Seventeenth new XL installation: **61 installed / 291 not installed**, 83 further installations required. Public counters: 346,108 total source forms, 4,409 enhanced, 4,395 / 212,669 government matches installed. Remaining serial batch, fresh Hoi Wing/Spectra acceptance, basic-neighbour follow-ups and further57 continue; no checkpoint pause.
+
+Royal Green commit `5e6e970f` is pushed; HKS-203/HKS-215/HKS-199 current16 checkpoint verified by exact readback.
