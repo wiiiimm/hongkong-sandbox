@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.43"
+  version: "1.8.44"
 ---
 
 # Hong Kong model improvement
@@ -454,3 +454,9 @@ All six root/retained/support importers now call the existing guarded publicatio
 `xl-joint-original-support-install.py` consumes only a fresh fenced two-source physical receipt, revalidates exact identities, source/cache/tile/terrain hashes, complete strict original interface and whole compound foundation, and preserves every other numeric, neighbour and runtime gate. Both parts require staged/live desktop/mobile day/night, picking/collision and failed-download/retry proof before guarded serial publication and current Neon installed credit. `xl-commit-installed.py` verifies one source or an exact pair, counting only members of the frozen XL352 set towards the active target. No installation is credited by code preparation.
 
 Assembly browser acceptance explicitly discovers each required retained source in exactly one current manifest catalogue and loads that unchanged catalogue through the normal loader before testing budgeted activation/visibility. The unrelated155-catalogue background queue is not the acceptance clock. Source metadata and model budgets are unchanged; failure diagnostics preserve actual model registry/cache/tile state.
+
+## 6 October — nested source acquisition and retained runtime fixtures
+
+Exact source acquisition may reuse an existing live reservation only when it owns every required original; the nested utility must not claim competing leases or release the caller’s scope. Four acquisition regression tests cover complete, incomplete, expired and internal scopes. No screening/skip stage is reintroduced. `xl-recover-explicit-originals.py` stores fenced recovery outcomes without changing reviews. The separate `xl-recover-explicit-originals-with-revision.py` preserves the original runner hash and permits only exact member CRC/decoded-size and final packed SHA agreement across a container revision; missing/changed models stay held. Central Pier213352 and122298 are missing in the current archive,0installed; preserve their Neon recovery results for later source recovery.
+
+Assembly browser acceptance pre-caches only unchanged retained compressed originals through the production bounded byte cache before travel; new target sources remain fresh and require mobile failed-download/retry proof. Actual original source activation, normal budgets, frustum visibility, terrain agreement and all staged/live exported views remain mandatory. The setup renderer instance may be suspended, with original rendering explicitly used for every capture. Runtime/image preparation is not installation credit.

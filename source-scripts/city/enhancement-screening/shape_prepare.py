@@ -52,7 +52,7 @@ def entry(outcome,building):
             'rootTranslation':[-834500,0,816500],'priority':'unreviewed'}
 
 
-def prepare(evidence,out,allow_source=False,workers=4,env_file=None):
+def prepare(evidence,out,allow_source=False,workers=4,env_file=None,reservation_receipt=None):
     """Immutable local caches plus read-only source metadata; reserve acquisition scope."""
     out=Path(out);out.mkdir(parents=True,exist_ok=True);start=time.perf_counter()
     if not 1<=workers<=8:raise ValueError('workers must be 1..8')
@@ -103,9 +103,15 @@ def prepare(evidence,out,allow_source=False,workers=4,env_file=None):
         for d in meta['directories'].values():d.pop('models',None)
         for d in meta['stages'].values():d.pop('download',None)
         save(metadata,meta)
-        owned=reservations.claim('codex-shape-screening-'+str(os.getpid()),['building:'+uid for items in missing.values() for uid,_ in items],ttl=3600,batch='shape-screening-pilot')
-        if not owned['ok']:raise ValueError('Source reservation conflict; acquisition not started')
-        receipt=json.loads(json.dumps(owned['reservation'],default=str))
+        resources={'building:'+uid for items in missing.values() for uid,_ in items}
+        if reservation_receipt is not None:
+            if not resources <= set(reservation_receipt['resources']) or not reservations.owns(reservation_receipt):
+                raise ValueError('Existing source reservation does not own all required originals')
+            receipt=reservation_receipt
+        else:
+            owned=reservations.claim('codex-shape-screening-'+str(os.getpid()),sorted(resources),ttl=3600,batch='shape-screening-pilot')
+            if not owned['ok']:raise ValueError('Source reservation conflict; acquisition not started')
+            receipt=json.loads(json.dumps(owned['reservation'],default=str))
         def sheet_work(sheet,items):
             folder=out/'sheets'/sheet;folder.mkdir(parents=True,exist_ok=True);results=[]
             # Prefer exact prepared bytes in the shared bundle. Source fallback is explicit.
@@ -164,7 +170,8 @@ def prepare(evidence,out,allow_source=False,workers=4,env_file=None):
                         else:recovered[uid]=cache/(chosen[uid]['model']['asset']['sha256']+'.glb.gz');methods[method]+=1
                     done+=1
                     if done%25==0:print(json.dumps({'sheetsDone':done,'sheets':len(missing),'assets':len(recovered),'errors':len(errors)}),flush=True)
-        finally:reservations.release(receipt)
+        finally:
+            if reservation_receipt is None:reservations.release(receipt)
     rows=[]
     for uid,p in sorted(recovered.items()):
         b=e['sources'][uid]['building'];rows.append({'uid':uid,'building':b,'candidate':{'path':str(p.resolve()),'entry':entry(chosen[uid],b)},'currentNative':current.get(uid)})
