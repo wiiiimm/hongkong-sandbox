@@ -39,7 +39,14 @@ def main():
     model=catalogue['models'][0];assert digest((staged/model['asset']).read_bytes())==result['sourceSHA256']
     published=ROOT/'3d-viewer/city/data/official-models'/doc.name;assert digest((published/model['asset']).read_bytes())==result['sourceSHA256']
     xl={r['uid'] for r in read(ROOT/'docs/astra-city/government-import/government-xl-remaining-20260923/selection.json.gz')['rows']};assert len(xl)==352 and uid in xl
-    done=len(xl & {m['uid'] for m in models});new=done-44;assert 1<=new<=308
+    deployed={m['uid']:m for m in models if m['uid'] in xl}
+    with connect() as c:
+        c.execute('SET TRANSACTION READ ONLY')
+        verified=c.execute('SELECT uid,review_state,source_sha256 FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=ANY(%s)',
+                           (pointer['snapshotId'],list(deployed))).fetchall()
+    completed={u for u,state,sha in verified if state=='installed-verified' and sha==deployed[u]['sha256']}
+    assert uid in completed, 'This installation must have an exact current installed review'
+    done=len(completed);new=done-44;assert 1<=new<=308
     progress=read(ROOT/'3d-viewer/city/data/building-progress.json');assert progress==result['progress']
     label=model.get('label') or uid;token=uid.split('/')[1].replace(':','-')
     note=(f'Codex, 6 October 2026. {label} ({uid}) is installed with unchanged original government geometry. '
