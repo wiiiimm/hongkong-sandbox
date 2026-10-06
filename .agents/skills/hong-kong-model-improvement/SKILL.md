@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.56"
+  version: "1.8.57"
 ---
 
 # Hong Kong model improvement
@@ -524,3 +524,7 @@ Exact original podium74573 supports Tower2 and Tower3 at every strict sampled in
 Codex, 6 October 2026. Banyan Garden Tower 5 (landsd/78915:0) is installed with unchanged original government geometry. Verified Neon job `797538a7d326cc336a39689ce2735b1f76c1ff2c0e7780631d9e770eb29f7c50`, installed snapshot `b6810a6adbdeaf0e`, source hashes `{'landsd/78915:0': '0e0656fcf6707e7722f58c6ec80a959cfdff8db6469abe9369ba57a1622606ed'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 31 new XL installations from44/308: **75 installed / 277 not installed**, 69 further installations required. Public counters: 346,108 total source forms, 4,424 enhanced, 4,410 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Four positive-identity originals on existing supports
+
+Use the separately scoped `xl-positive-current-support-*` routes for ParkviewBlocks2/16,CullinanWestTower1 andWaterfrontTowerII only. Require actual absence of any existing target review; never fake an undecided or held record as absent. Whole original government identity is rerun, support bytes and current installed review are exact, and original catalogue flags remain unchanged. Legacy false publication flags require the established `installed_source_identity`/`accepted_source_identity` receipt verification, exact accepted source forms/catalogue/pose/source hashes and their pinned evidence. Four existing identity safety tests and four support safety tests pass. `verified_installed_support_acceptance.py` grants identity reuse only, retaining every strict interface, full compound foundation and other physical/runtime gate. `xl-cell-terrain-continuation.py` is a narrowly scoped fenced recorder for those four zero-terrain preflights, not a generic terrain builder or review override. Complete staged/live browser and guarded publication/installed Neon verification before progress credit. See the four-support receipt handoff;3/4 contact matches are candidates, not installations.
