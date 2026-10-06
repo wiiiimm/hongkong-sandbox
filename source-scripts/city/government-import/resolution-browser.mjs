@@ -10,7 +10,7 @@ const browserModels=config.browserUids?catalogue.models.filter(model=>config.bro
 const report={mode,views:[],errors:[],aiCalls:0,architectureReview:false},browser=await chromium.launch({headless:true,executablePath:browserExecutable(chromium),args:['--no-sandbox','--enable-webgl','--ignore-gpu-blocklist']});
 try{for(const width of [1280,390]){
  const context=await browser.newContext({viewport:{width,height:900},hasTouch:width<700}),page=await context.newPage(),allowed=new Set(),cdp=await context.newCDPSession(page);await cdp.send('Network.clearBrowserCache');page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(/THREE.WebGLProgram|GL_INVALID|shader error/i.test(m.text()))report.errors.push(m.text());});
- await page.route('**/city/app.js*',async r=>{const response=await r.fetch();await r.fulfill({response,body:(await response.text())+'\nObject.defineProperty(window,"__port",{get:()=>({scene,terrain,officialModels,stream,camera,controls,renderer,sampler,THREE,visitBuilding,closeSelection,controlSheet})});'});});
+ await page.route('**/city/app.js*',async r=>{const response=await r.fetch();await r.fulfill({response,body:(await response.text())+'\nObject.defineProperty(window,"__port",{get:()=>({scene,terrain,officialModels,stream,camera,controls,renderer,sampler,THREE,visitBuilding,closeSelection,controlSheet})});window.__portOriginalRender=renderer.render.bind(renderer);renderer.render=()=>{};'});});
  if(mode==='staged'){
   await page.route('**/'+url,r=>r.fulfill({json:catalogue}));
   for(const t of config.terrain)await page.route('**/'+t.destination,async r=>r.fulfill({body:await readFile(new URL(t.source,root))}));
@@ -21,7 +21,7 @@ try{for(const width of [1280,390]){
  for(const model of routedModels)await page.route('**/'+assetBase+model.asset+'*',async r=>width===390&&(!config.failureTestUids||config.failureTestUids.includes(model.uid))&&!allowed.has(model.uid)?r.fulfill({status:503,body:'Intentional fallback test'}):mode==='staged'?r.fulfill({body:await readFile(new URL(config.stage+model.asset,root))}):r.continue());
  await page.goto('http://127.0.0.1:4176/city.html');await page.waitForFunction(()=>window.__city?.ready&&window.__port?.stream,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden',timeout:120000});
  await page.evaluate(url=>window.__port.officialModels.loadCatalogue(url),url);
- await page.evaluate(()=>{const r=window.__port.renderer;window.__portDraw=r.render.bind(r);r.render=()=>{};});
+ await page.evaluate(()=>{const r=window.__port.renderer;window.__portDraw=window.__portOriginalRender.bind(r);r.render=()=>{};});
  for(const model of browserModels){
   const fitBox=config.fitBoxByModel?.[model.uid]??!!config.fitBox;
   const building=forms.find(b=>b.uid===model.uid);
