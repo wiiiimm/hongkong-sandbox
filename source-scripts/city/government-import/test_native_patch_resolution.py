@@ -83,6 +83,28 @@ class NativePatchResolutionTests(unittest.TestCase):
             if protected.contains(shapely.Point(centre[0], centre[2])):
                 self.assertAlmostEqual(centre[1], sampler.ground(centre[0], centre[2]), places=10)
 
+    def test_outer_parent_hole_keeps_interior_peak_and_each_grid_plane(self):
+        class ParentGrid:
+            g = {'aE': 1, 'aN': -1, 'bE': 834500, 'bN': 816500}
+            w = 3
+            dem = {'w': 3, 'h': 2, 'elev': [2, 8, 2, 2, 8, 2]}
+            def ground(self, x, z):
+                return 2 + 6 * min(x, 2-x)
+        # Existing tiny source triangle leaves an outer hole spanning both cells.
+        patch = {'nativeMesh': {'position': [0, 2, 0, .1, 2, 0, 0, 2, .1],
+                               'index': [0, 1, 2], 'source': {}}}
+        m.fill_parent_only_holes(patch, {}, [0, 0, 2, 1], shapely.Polygon([(0,0),(.1,0),(0,.1)]), ParentGrid())
+        faces = m._faces(patch);polygons = shapely.polygons(faces[:, :, [0, 2]])
+        self.assertAlmostEqual(shapely.union_all(polygons).area, 2)
+        for x,z,expected in [(.25,.8,3.5),(1,.5,8),(1.75,.8,3.5)]:
+            found=[]
+            for face,poly in zip(faces,polygons):
+                if poly.covers(shapely.Point(x,z)):
+                    a,b,c=face;normal=np.cross(b-a,c-a)
+                    found.append(a[1]-(normal[0]*(x-a[0])+normal[2]*(z-a[2]))/normal[1])
+            self.assertTrue(found)
+            for height in found:self.assertAlmostEqual(height,expected,places=6)
+
     def test_parent_floor_splits_shoreline_without_bridging_or_changing_source(self):
         face = [[0, -4, 0], [1, 6, 0], [0, -4, 1]]
         original = copy.deepcopy(face)

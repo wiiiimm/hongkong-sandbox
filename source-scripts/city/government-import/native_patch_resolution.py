@@ -39,10 +39,15 @@ def fill_parent_only_holes(patch, parent, bounds, protected_projection, sampler)
         proof = {"missingAreaM2": float(missing.area), "triangles": 0, "policy": "No material parent hole; sub-square-millimetre projected slivers are numerical overlay residue."}
         patch["nativeMesh"]["source"]["parentHoleFill"] = proof
         return proof
-    additions = []
-    for candidate in _triangles(missing):
-        coords = list(candidate.exterior.coords)[:3]
-        additions.append([[x, sampler.ground(x, z), z] for x, z in coords])
+    # A hole may cross multiple DEM cells/diagonals or native TIN facets.
+    # Preserve those original planes instead of bridging them with one polygon triangulation.
+    if hasattr(sampler, 'surface_faces'):
+        additions = sampler.surface_faces(missing)
+    elif all(hasattr(sampler, name) for name in ('dem', 'g', 'w')):
+        additions = grid_surface_faces(sampler, missing)
+    else:
+        additions = [[[x, sampler.ground(x, z), z] for x, z in list(candidate.exterior.coords)[:3]]
+                     for candidate in _triangles(missing)]
     assert additions, 'no-parent-hole-fill'
     position = patch['nativeMesh']['position']
     index = patch['nativeMesh']['index']

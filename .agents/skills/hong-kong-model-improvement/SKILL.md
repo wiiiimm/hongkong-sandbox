@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.41"
+  version: "1.8.42"
 ---
 
 # Hong Kong model improvement
@@ -440,3 +440,11 @@ Current completion requires exact installed-verified review in the current Neon 
 Codex, 6 October 2026. Stonecutters Island Sewage Treatment Works Main Pumping Station (landsd/270142:0) is installed with unchanged original government geometry. Verified Neon job `274a83627364dd22d03c5141bb92f8dd70a55383b4b4e7f2dd81f5592951129c`, installed snapshot `452826dbf1b088f2`, source SHA `2ad7fcad5e682c10ee28c5e0460fe673503a61c8092d61b31ee32d41825bea7c`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 25 new XL installations from44/308: **69 installed / 283 not installed**, 75 further installations required. Public counters: 346,108 total source forms, 4,417 enhanced, 4,403 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Exact parent fill and early publication guards
+
+Codex, 6 October 2026, HKS-203. Large parent-only holes previously triangulated their outlines and interpolated over multiple existing coarse terrain planes. The shared helper now clips every rendered parent grid cell/diagonal, or preserves exact native facets when its sampler supplies them. No building source bytes, placement, native metre scale or acceptance thresholds change. A two-cell interior-peak regression test confirms original heights survive inside the hole. Nine native-patch tests, eight retained-facet tests, seven production renderer comparison tests and two real-process publication-lock tests pass.
+
+The fresh retained Fu Wen candidate merges its previously passing root candidate with the complete old Fu Sing native terrain. Verified physical Neon job 8239c59aa2a653b0efa80e603efe24f04096e14c69501e677b68d15ce94b3fc7 passes source/foundation/runtime, all34 neighbours and the old native model. Browser/publication retry uses government-xl-fu-wen-exact-parent-plane-installed-20261006 and the explicit interrupted approval; it earns no installed credit until complete. The failed root overlap attempt and failed broad-hole merge remain intact.
+
+All six root/retained/support importers now call the existing guarded publication dry run before browser work or ledger approval. This catches publisher overlap, source and dependency guards early without changing them. Staged/live browser checks and a second guarded publication check still remain required. Current verified XL status is25 new /69 installed /283 not installed; the100-install goal continues. Zero external modelling AI calls. No historical Lantau imagery used.

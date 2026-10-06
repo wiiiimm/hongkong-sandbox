@@ -213,6 +213,9 @@ def stage():
 
 def owned():
     stage();direct=module('west_kowloon_browser','integrate.py')
+    # Catch publisher overlap/identity/dependency guards before browser work or ledger approval.
+    call([sys.executable,str(HERE.parent/'model-integration-20260909/publish.py'),
+        ref(STAGE/'plan.json')['path'],'--receipt',str(LEASE),'--phase',BATCH])
     call(['node',str(HERE/'resolution-assembly-browser.mjs'),'staged',str((STAGE/'browser-config.json').relative_to(ROOT))])
     browser=direct.browser_verified(DOC/'staged-browser.json',{UID})
     if args.prepare_only:
