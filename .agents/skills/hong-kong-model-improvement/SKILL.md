@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.21"
+  version: "1.8.22"
 ---
 
 # Hong Kong model improvement
@@ -57,6 +57,15 @@ Commit each newly verified installed model or coherent group promptly, with its 
 The 3 October ten-form compute continuation is frozen at `docs/astra-city/government-import/government-xl-remaining-20260923/sol-continuation-20261003/README.md` with verified Neon job `12451159edd9884d65b342808244145a7f8c7268f411541362962250ab726bff`. All ten remain technical holds; zero new installations or active workers. Festival Walk primary terrain clearance is resolved, but its upper neighbour/support dependency remains. Ocean Pride support 175935 is already installed: different packed hashes have exact world-triangle/winding equivalence; reuse the installed asset. Source support layer/connectivity diagnostics do not grant acceptance. Replacing an existing terrain patch requires checking its retained native models; overlapping copies must not be appended. Source-faithful lower-parent selection is available in `native_patch_resolution.py`; include vertical line/point source projections and retain all foundation, runtime and neighbour gates. Reuse completed evidence under a fresh continuation stage instead of rerunning the historical commands.
 
 ## Local processing and AI-token constraint
+
+## 6 October — 100-new-XL target remains active
+
+The user target is 100 new installed XL source forms from the 44/308 baseline: finish at 144 installed / 208 held. Do not treat a bounded diagnostic checkpoint, commit or report as completion of that target. Mount Parker Residences 79608 is the seventh new installation, taking XL352 to **51 installed / 301 held**. Installed snapshot `1cda07c9f23e42e9`; exact Neon installation job `d6dc0136dd8e5ef88741b230c3687257943af4bef14e0444fe9b2dc993d96991`. Its unchanged government source passes full identity/contact/foundation/neighbour checks and staged/live desktop/mobile day/night, picking/collision and failure/retry. Public progress: 346,108 forms, 4,399 enhanced, 4,385/212,669 government matches installed. No architectural AI or geometry edits. Continue independent held sources without asking the user to resume.
+
+`xl-source-face-parent-followthrough.py` selects only lower unchanged parent terrain facets beneath failed original source faces, followed by complete fresh gates. Mount Parker passes and is installed. Block 37 still fails burial/foundation; Uptown East retains contact/gap/neighbour failures; West Kowloon government south tower has no lower original parent available. Never invent lower terrain heights or waive failed foundation/contact gates.
+
+196 recorded-height section diagnostics are retained in `government-xl-source-sections-196-20261006`, with exact recovered sync job `4c643c711032f039678a2dbec2ac87faceab58af1e571cd8ea50f32ba72a48fa`. A post-compute DB row-factory failure was repaired by source/hash/ownership-verified result sync, without rerunning geometry. One closed Alto Tower 7 section fits, two Wave sections fit only ambiguous envelopes, 192 mismatch/empty and one lacks source heights. Sections never grant full-source identity or installation credit. Park Haven has four unresolved original podium contacts; Forum has all 219 original contacts clear, but its exact podium's full-source identity remains held. Receipts explain the next mechanical work; no established AI/human requirement.
+
 
 Sustained 6 October completion: `docs/astra-city/government-import/government-xl-sustained-231-checkpoint-20261006/README.md`, exact Neon job `e286ee62bea12ba508365c4c0f4b2a6d4993af16473d6ebb6a594dd0a6c6d107`, binds 231 original sources and 281 complete verified phase jobs. Six are actually installed; 196 source-fit and 29 terrain/neighbour/support technical holds remain. Zero in process or queued follow-ups; no established AI/human requirement. XL352 is now **50 installed / 302 held**, installed snapshot `ab057b3f9b729ebb`. The six installations are China Taiping 274320, Perseverance Hall A 190916, Tin Shui Wai source 64585, HKMA David Li Kwok Po College 239397, columbarium 270111 and Jubilation Hall B 190440. Each passed complete staged/live browser acceptance and installed ledger checks; original government GLB bytes/geometry unchanged. Public totals: 346,108 source forms, 4,398 enhanced, 4,384 of 212,669 government matches installed. All installation commits are pushed. Read current receipts before resuming; do not duplicate finished stages or count historical passing candidates as installations.
 
