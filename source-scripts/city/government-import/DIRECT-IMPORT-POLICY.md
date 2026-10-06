@@ -114,3 +114,10 @@ support, and no terrain-regression warning on that support. Ambiguous or incompl
 matches stay blocked. This proves unchanged source-form support; it does not grant
 whole-building architecture or structural-engineering certification. The ordinary
 neighbour report is retained, with a separate hashed support proof.
+
+
+## Explicit complete GeoRef-cell identity continuation, 6 October 2026
+
+`original-government-full-georef-cell-identity-v1` additionally replaces cached centroid/overlap shape proxies with a fresh positive identity proof. The original byte/root/complete scene ownership, exact unique ObjectID/CSUID/UID, unchanged 1x HKPD pose, the entire official one-metre GeoRef cell inside both full mesh projection and current target, and freshly recomputed current geometry/context are mandatory. Cached proxy failures remain in the receipt; malformed values are rejected. Full target coverage >=95%, maximum source extent <=10m and unrelated overlap <=1m2 remain mandatory, alongside every existing physical/runtime/publication gate. The pipeline re-decodes original assets and checks current tile hashes again at preparation, contact and publication. No historical approval or completed evidence is overwritten.
+
+The 35-source diagnostic has verified Neon job `c3e8595ddd2060042a054e7d19d5010574a09ba678b5759d42d876b19cc1c9c2`: 34 pass identity only; one fails the complete coordinate-cell check. This grants zero installation credit. The explicit frozen 34-source continuation waits for the existing 57-source sequence to finish, then sequentially runs original terrain, full foundation/contact, retained and basic neighbour checks plus staged/live browser and guarded publication. Ten new identity tests and seven prior identity tests pass. This uses AI for code only; source modelling and architectural judgement remain excluded.

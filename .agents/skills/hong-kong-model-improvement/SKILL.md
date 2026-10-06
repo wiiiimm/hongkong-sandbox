@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.24"
+  version: "1.8.25"
 ---
 
 # Hong Kong model improvement
@@ -59,6 +59,8 @@ The 3 October ten-form compute continuation is frozen at `docs/astra-city/govern
 ## Local processing and AI-token constraint
 
 ## 6 October — 100-new-XL target remains active
+
+The explicit additional identity contract `original-government-full-georef-cell-identity-v1` replaces only cached centroid/overlap and roof-area shape proxies with independently verified exact unique original source/root ownership, unchanged HKPD pose, complete official one-metre coordinate-cell containment and freshly recomputed current full geometry. Coverage >=95%, maximum extent <=10m, unrelated overlap <=1m2 and all original physical/runtime/publication gates remain mandatory. Preserve raw cached proxy failures. The 35-source diagnostic is verified at Neon job `c3e8595ddd2060042a054e7d19d5010574a09ba678b5759d42d876b19cc1c9c2`: 34 identity passes, one whole-cell hold, zero installations. `xl-cell-source-sequence.py` runs the frozen additional 34 only after the active 57-source sequence completes, then uses complete fresh source/terrain/neighbour/staged/live publication checks. Ten new identity tests plus seven prior tests pass. Do not mistake identity or preparation for installation credit.
 
 Spectra Tower 2 265312 and Beverly Garden Block 7 242281 are the eleventh and twelfth new verified XL installations: **56 installed / 296 not installed** of XL352, leaving **88 new installations** to the active 100-new target. Exact installation jobs `4842bdb1d00e4e3333945f8a96058011740fe47e769a730413990be54b89e99e` and `abe0c4599e030f4b60f603d223ad3d2af090b2920260fad2d1dc27dc875fde57`; latest installed snapshot `e30549100f72da64`. All original source/physical/retained-neighbour and staged/live browser gates pass; original geometry is unchanged, zero external AI calls. The 57-source sequence continues; queued/running rows are In process. Checkpoints, commits and status updates do not end the active goal.
 
