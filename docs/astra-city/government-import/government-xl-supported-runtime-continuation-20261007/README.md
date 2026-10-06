@@ -1,0 +1,11 @@
+# Supported original XL runtime continuation
+
+Codex, 7 October 2026. No historical Lantau reference imagery was used.
+
+The Waterfront Tower II (landsd/204141:0) passed unchanged current terrain, whole source identity and compound foundation, five basic neighbours and strict support contact at all 213/213 interfaces on installed Elements (landsd/273061:0). Verified physical Neon job a97efa7e63153e84ca37353346c8b59d65cd8c91d1ae01439dbc7b7f81808979. Its staged desktop browser run timed out waiting for Elements to become active; no ledger approval or publication occurred.
+
+Cullinan West Tower 1 (landsd/222073:0) passed full physical checks and strict contact at 645/645 interfaces on V Walk (landsd/262871:0); verified physical Neon job 25e88e7d22d0cc0a9b27b7b95b98db7b1123c3600ab718b07c71c4459a6b57a5. Staged desktop day/night passed; mobile normal arrival timed out. A separate mobile diagnostic shows the base building loaded and selected, the viewport active and page visible, with the camera tween at 1.1666 of 1.2 seconds after the timeout. This points to very slow frame progression; it does not establish an architectural/source defect. That local diagnostic grants no acceptance credit.
+
+`xl-supported-browser-diagnostic.py` scopes independently fenced diagnostics to these two exact source/support pairs, serializes scene access, hashes current inputs and original staged source bytes, and records diagnostic results in Neon with exact readback. Diagnostic runs never approve, install, change reviews or grant progress. The mobile profiling and support activation scripts preserve the original normal arrival path, production model budgets and timeout limits; their reports are marked diagnosticOnly and cannot substitute for full staged/live acceptance. Completed evidence must remain unchanged. Fix runtime code based on the measured failure, then use fresh complete physical and staged/live acceptance stages before installation.
+
+XL remains 76 installed / 276 not installed; 32 new from the 44/308 baseline, 68 more required for the active goal. Original geometry and terrain are unchanged; zero architectural/model AI calls. The 22-source current-ground sequence continues. Commits and diagnostic results are checkpoints, not goal completion.

@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.59"
+  version: "1.8.60"
 ---
 
 # Hong Kong model improvement
@@ -538,3 +538,7 @@ Codex, 6 October 2026. Hong Kong Parkview Block 2 (landsd/256114:0) is installed
 ## Bounded22-source unchanged-ground pass
 
 `xl_current_ground_scope.py` freezes the exact22 remaining identity-qualified, never-reviewed originals outside the four support candidates. `xl-positive-current-ground-preflight.py` checks each against actual unchanged current rendered terrain under source ownership and publication locking. It reruns positive whole source/cell identity, complete original contact/foundation, basic/native neighbours, loader, sampler and runtime budgets. It applies no installed-support exception, terrain replacement, model edits or contact-tolerance change. `xl-current-ground-result.py` records only exact current no-review originals with fenced native-stage/source/evidence hashes and exact Neon readback; passing physical checks still requires browser/publication/installed verification. The bounded sequence handoff records each command/result and zero installed credit. Generic territory-wide queue construction remains deferred. Keep the100-new-XL goal active and use each fresh current result only against its pinned current scene.
+
+## Supported original runtime diagnostics — 7 October 2026
+
+Waterfront Tower II and Cullinan West Tower 1 passed unchanged physical/support gates but failed staged runtime verification; neither is installed or approved. See `government-xl-supported-runtime-continuation-20261007/README.md`. Use the exact two-source fenced browser diagnostic runner to capture activation state and CPU profiles; diagnostics carry no acceptance/progress credit. Preserve source bytes, production budgets, normal arrival and timeout gates. Fresh full physical/staged/live acceptance remains required after runtime fixes. XL76/276,32 new; active100 target continues.
