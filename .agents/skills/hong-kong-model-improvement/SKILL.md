@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.28"
+  version: "1.8.29"
 ---
 
 # Hong Kong model improvement
@@ -59,6 +59,8 @@ The 3 October ten-form compute continuation is frozen at `docs/astra-city/govern
 ## Local processing and AI-token constraint
 
 ## 6 October — 100-new-XL target remains active
+
+Fu Sing House 282088 is the fifteenth new verified XL install: **59 installed / 293 not installed**, 85 more installs remain to the active goal. Verified Neon job `4ba1a716a31e8c0b1878d4f0a2752db5f1dd4217c637321846984236e43437ff`, snapshot `8fda2c228a8d16ff`. Complete full-cell identity/source/contact/foundation/neighbours and staged/live browser/publication pass, original mesh unchanged. The additional34 sequence continues, then complete-proof Hoi Wing recheck/installation. Keep processing and committing; no per-model AI calls.
 
 Current installed dependency labels may be reused only through `installed-dependency-state.mjs` and the read-only exact source-inventory/Neon acceptance verifier: unique UID/CSUID/ObjectID, source/asset SHA, current installed review and current placement/source approvals. Legacy publication flags require the exact unchanged installed receipt/catalogue and staged/live browser hashes. Historical declarations stay unchanged; full actual native support and terrain checks remain mandatory. Two Cullinan neighbours pass, but four of 652 original source support samples remain held. Stale full computation is preserved with verified Neon job `e7eba25b26b5cba8a51aa41411e6345bafb5d085984fe268e50f78a80e258d1c`, never promoted as current acceptance. Hoi Wing fresh recheck `bc8312c269e00327b3037733d8d48ab7f50511d422c9f6eb3140bd0fb80f58b4` passes; its installer lacked indexed preflight. `xl-owned-installation-recheck.py` emits an independently recomputed preflight plus all fresh gates; the new serial Hoi Wing follow-up runs after the active34 sequence. Do not count it installed yet or ask the user to resume.
 
