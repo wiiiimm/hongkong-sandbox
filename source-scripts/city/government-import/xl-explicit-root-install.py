@@ -115,16 +115,27 @@ def stage():
     destination='city/data/official-models/'+BATCH+'/catalogue.json'
     save(STAGE/'plan.json',{'areas':[{'area':catalogue['area'],'catalogue':ref(STAGE/'catalogue.json')['path'],
         'destination':destination}],'topLevelTerrainPatches':[terrain]})
+    retained=[]
+    preservation=[]
+    if (SOURCE/'parent-preservation.json').exists():preservation.append(SOURCE/'parent-preservation.json')
+    if (SOURCE/'recheck-inputs.json').exists():
+        for prior in read(SOURCE/'recheck-inputs.json')['previousEvidenceRefs']:
+            if Path(prior['path']).name=='parent-preservation.json':
+                assert ref(ROOT/prior['path'])['sha256']==prior['sha256'];preservation.append(ROOT/prior['path'])
+    for prior in preservation:retained.extend(read(prior)['proof'].get('protectedUids',[]))
+    native_uids={m['uid'] for url in read(ROOT/'3d-viewer/city/data/manifest.json')['officialModelCatalogues'] for m in read(ROOT/'3d-viewer'/url)['models']}
+    retained=sorted(set(retained)-native_uids)
     save(STAGE/'browser-config.json',{'stage':str(STAGE.relative_to(ROOT))+'/',
         'doc':str(DOC.relative_to(ROOT))+'/','catalogueURL':destination,'terrain':[terrain],
         'fitBox':True,'browserUids':[UID],'failureTestUids':[UID],
-        'retainedBuildingUidsByModel':{UID:[]},'nativeSupportUidsByModel':{UID:[]}})
+        'retainedBuildingUidsByModel':{UID:retained},'nativeSupportUidsByModel':{UID:[]}})
     dependencies=from_catalogues(ROOT/'3d-viewer/city/data/manifest.json',[STAGE/'catalogue.json'])
     assert not any(r['blockers'] for r in dependencies['rows']);save(DOC/'dependencies.json',dependencies)
     save(DOC/'identity.json',context)
     evidence={name:ref(SOURCE/(name+'.json')) for name in
         ('metrics','validation','foundation','neighbour-checks',
          'native-neighbour-checks','identity-proof','result','neon-sync')}
+    for i,prior in enumerate(preservation):evidence['parent-preservation-'+str(i)]=ref(prior)
     recovery_name='source-recovery' if (SOURCE/'source-recovery.json').exists() else 'recheck-inputs'
     evidence[recovery_name]=ref(SOURCE/(recovery_name+'.json'))
     if (SOURCE/'diagnostic-resolution.json').exists():

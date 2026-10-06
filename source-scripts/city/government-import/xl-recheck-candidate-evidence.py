@@ -17,6 +17,12 @@ def owned(args,doc,local):
     assert digest((ROOT/'3d-viewer'/row['source']['tile']).read_bytes())==row['source']['tileSHA256']
     inputs=read(previous/'neighbour-inputs.json.gz')
     for path,sha in inputs['inputHashes'].items():assert digest((ROOT/path).read_bytes())==sha
+    native_uids={m['uid'] for url in manifest['officialModelCatalogues'] for m in read(ROOT/'3d-viewer'/url)['models']}
+    rebound=[]
+    for neighbour in inputs['rows']:
+        actual=neighbour['building']['uid'] in native_uids
+        if bool(neighbour['existingNative'])!=actual:rebound.append({'uid':neighbour['building']['uid'],'previous':bool(neighbour['existingNative']),'current':actual})
+        neighbour['existingNative']=actual
     patch=read(previous/'terrain-candidates.json')[0];assert digest((ROOT/patch['path']).read_bytes())==patch['sha256']
     raw=(ROOT/row['candidate']['path']).read_bytes();assert digest(raw)==row['sourceSHA256']
     dest=local/'assets'/(row['sourceSHA256']+'.glb.gz');dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw)
@@ -30,7 +36,7 @@ def owned(args,doc,local):
     save(doc/'recheck-inputs.json',{'previousEvidenceRefs':[{'path':str(p.relative_to(ROOT)),'sha256':digest(p.read_bytes())}
         for p in sorted(previous.iterdir()) if p.is_file() and p.name.endswith(('.json','.gz'))],
         'runnerSHA256':digest(Path(__file__).read_bytes()),'diagnosticResolverSHA256':digest((HERE/'terrain_diagnostic_resolution.py').read_bytes()),
-        'candidateModelSHA256':row['sourceSHA256'],'candidateTerrainSHA256':patch['sha256'],'modelGeometryChanges':0,'publication':False})
+        'currentNativeNeighbourRebindings':rebound,'candidateModelSHA256':row['sourceSHA256'],'candidateTerrainSHA256':patch['sha256'],'modelGeometryChanges':0,'publication':False})
     rel=lambda p:str(p.relative_to(ROOT))
     def call(command,allowed=(0,)):
         assert subprocess.run(command,cwd=ROOT).returncode in allowed
