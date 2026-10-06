@@ -2,6 +2,7 @@
 Run with a reviewed plan JSON and --apply. Retains rollback byte hashes and source fields.
 """
 import argparse,copy,hashlib,json,pathlib,os,subprocess,tempfile,math,sys
+from contextlib import nullcontext
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent))
 from native_terrain_validation import validate_native_mesh
 from reviewed_terrain_changes import reviewed_changes
@@ -9,8 +10,17 @@ from model_dependencies import stage_dependencies
 from model_priorities import stage_priorities
 ROOT=pathlib.Path(__file__).resolve().parents[3]
 DOC=ROOT/'docs/astra-city/island-detail-integration'
-def load(p):return json.loads(p.read_bytes())
-def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+PUBLICATION_GUARD=nullcontext
+PINNED_INPUTS={}
+def read_bytes(p):
+ raw=p.read_bytes();digest=hashlib.sha256(raw).hexdigest()
+ assert PINNED_INPUTS.setdefault(p.resolve(),digest)==digest,'Publication input changed during preparation'
+ return raw
+def verify_inputs():
+ for p,digest in PINNED_INPUTS.items():
+  assert hashlib.sha256(p.read_bytes()).hexdigest()==digest,'Publication input changed before commit: '+str(p.relative_to(ROOT))
+def load(p):return json.loads(read_bytes(p))
+def sha(p):return hashlib.sha256(read_bytes(p)).hexdigest()
 def encoded(d):return (json.dumps(d,ensure_ascii=False,separators=(',',':'))+'\n').encode()
 def validate_grid(data):
  # The renderer indexes arrays by w/h and uses georef for sampling; both must agree.
@@ -47,7 +57,7 @@ def check_patch_overlap(p,others):
 def review_native_top_level_replacement(entry,old,new):
  ref=entry.get('nativeReview');assert ref,'Native surface replacement needs a separate source review'
  path=(ROOT/ref['path']).resolve();assert path.is_relative_to(ROOT.resolve())
- raw=path.read_bytes();assert hashlib.sha256(raw).hexdigest()==ref['sha256'],'Native replacement review changed'
+ raw=read_bytes(path);assert hashlib.sha256(raw).hexdigest()==ref['sha256'],'Native replacement review changed'
  decision=json.loads(raw);assert decision['status']=='approved-for-integration'
  assert decision['supersededURL']==entry['replaces']['url'] and decision['supersededSHA256']==entry['replaces']['sha256']
  assert decision['replacementSHA256']==entry['sha256'] and decision['sourceGeometryChanged'] is False
@@ -55,7 +65,7 @@ def review_native_top_level_replacement(entry,old,new):
  retained=set(decision['retainedUids']);assert retained and retained<=set(old['meta'].get('targetUids',[]))
  assert retained<=set(new['meta'].get('targetUids',[])) and set(decision['replacementTargetUids'])==set(new['meta'].get('targetUids',[]))
  check=decision['fullMeshCheck'];checkpath=(ROOT/check['path']).resolve();assert checkpath.is_relative_to(ROOT.resolve())
- checkraw=checkpath.read_bytes();assert hashlib.sha256(checkraw).hexdigest()==check['sha256'],'Native replacement mesh check changed'
+ checkraw=read_bytes(checkpath);assert hashlib.sha256(checkraw).hexdigest()==check['sha256'],'Native replacement mesh check changed'
  report=json.loads(checkraw);assert report.get('aiCalls')==report.get('modelGeometryChanges')==0
  rows={row['uid']:row for row in report['rows']}
  for uid in retained:
@@ -108,7 +118,7 @@ def stage_top_level_terrain(plan,original,manifest,edits,report):
   dest=ROOT/'3d-viewer'/destrel
   assert dest.resolve().is_relative_to((ROOT/'3d-viewer').resolve()),'Terrain destination escapes viewer'
   assert not dest.exists() and not dest.is_symlink() and dest not in edits,'Do not overwrite an existing terrain asset'
-  raw=(ROOT/entry['source']).read_bytes();digest=hashlib.sha256(raw).hexdigest()
+  raw=read_bytes(ROOT/entry['source']);digest=hashlib.sha256(raw).hexdigest()
   assert digest==entry['sha256'],'Terrain source hash changed since review'
   data=json.loads(raw);validate_patch(data,parent)
   if entry['destination'] in unchanged_overlap:
@@ -142,6 +152,7 @@ def stage_terrain_replacement(entry,edits):
  children[i]=replacement;edits[parent]=encoded(data)
  return bundle['parentSha256'],sha(bundlePath)
 def main():
+ PINNED_INPUTS.clear()
  ap=argparse.ArgumentParser();ap.add_argument('plan');ap.add_argument('--apply',action='store_true');args=ap.parse_args();plan=load(ROOT/args.plan)
  manifestPath=ROOT/'3d-viewer/city/data/manifest.json';original=load(manifestPath);manifest=copy.deepcopy(original);edits={};assets=[];allUids=set();report={'published':False,'plan':args.plan,'areas':[],'before':{},'after':{},'counts':original['counts'],'beforeCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()}
  for url in original.get('officialModelCatalogues',[]):allUids.update(m['uid'] for m in load(ROOT/'3d-viewer'/url)['models'])
@@ -220,7 +231,7 @@ def main():
   prepared=dict(edits)
   for src,dest in assets:
    assert dest not in prepared and not dest.exists(),'Asset destination collision'
-   prepared[dest]=src.read_bytes()
+   prepared[dest]=read_bytes(src)
   beforeBytes={p:p.read_bytes() if p.exists() else None for p in prepared}
   def atomic_write(p,value):
    p.parent.mkdir(parents=True,exist_ok=True)
@@ -231,14 +242,19 @@ def main():
    finally:
     if os.path.exists(name):os.unlink(name)
   installed=[]
-  try:
-   order=[dest for _,dest in assets]+[p for p in edits if p!=manifestPath]+[manifestPath]
-   for p in order:atomic_write(p,prepared[p]);installed.append(p)
-  except BaseException:
-   for p in reversed(installed):
-    if beforeBytes[p] is None:p.unlink(missing_ok=True)
-    else:atomic_write(p,beforeBytes[p])
-   raise
+  # Expensive validation is complete. The caller fences only this short commit,
+  # letting reservation heartbeats run throughout preparation.
+  with PUBLICATION_GUARD():
+   verify_inputs()
+   assert all((p.read_bytes() if p.exists() else None)==value for p,value in beforeBytes.items()),'Publication destination changed before commit'
+   try:
+    order=[dest for _,dest in assets]+[p for p in edits if p!=manifestPath]+[manifestPath]
+    for p in order:atomic_write(p,prepared[p]);installed.append(p)
+   except BaseException:
+    for p in reversed(installed):
+     if beforeBytes[p] is None:p.unlink(missing_ok=True)
+     else:atomic_write(p,beforeBytes[p])
+    raise
   report['published']=True
  DOC.mkdir(parents=True,exist_ok=True);(DOC/('publication.json' if args.apply else 'publication-plan.json')).write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'published':report['published'],'areas':report['areas'],'estimatedBases':report['estimatedBases']},indent=2))
 if __name__=='__main__':main()
