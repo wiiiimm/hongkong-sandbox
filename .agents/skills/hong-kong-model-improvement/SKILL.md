@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.27"
+  version: "1.8.28"
 ---
 
 # Hong Kong model improvement
@@ -59,6 +59,8 @@ The 3 October ten-form compute continuation is frozen at `docs/astra-city/govern
 ## Local processing and AI-token constraint
 
 ## 6 October — 100-new-XL target remains active
+
+Current installed dependency labels may be reused only through `installed-dependency-state.mjs` and the read-only exact source-inventory/Neon acceptance verifier: unique UID/CSUID/ObjectID, source/asset SHA, current installed review and current placement/source approvals. Legacy publication flags require the exact unchanged installed receipt/catalogue and staged/live browser hashes. Historical declarations stay unchanged; full actual native support and terrain checks remain mandatory. Two Cullinan neighbours pass, but four of 652 original source support samples remain held. Stale full computation is preserved with verified Neon job `e7eba25b26b5cba8a51aa41411e6345bafb5d085984fe268e50f78a80e258d1c`, never promoted as current acceptance. Hoi Wing fresh recheck `bc8312c269e00327b3037733d8d48ab7f50511d422c9f6eb3140bd0fb80f58b4` passes; its installer lacked indexed preflight. `xl-owned-installation-recheck.py` emits an independently recomputed preflight plus all fresh gates; the new serial Hoi Wing follow-up runs after the active34 sequence. Do not count it installed yet or ask the user to resume.
 
 Tung Mau House 12851 is the fourteenth new verified XL installation: **58 installed / 294 not installed**, 86 more installs remain. Verified job `5b29b4b972e610d78cd128e87cca015612cf382fba56fc25fddad292768dae35`, snapshot `a0e8c820f20dc87c`. All original source/contact/foundation/neighbour and staged/live publication gates pass. Serial publication order is the remaining 57-source sequence, then Hoi Wing fresh recheck/full installation, then the frozen additional 34 complete-cell sources. Keep working through commits and checkpoints; no architectural AI or original geometry edits.
 
