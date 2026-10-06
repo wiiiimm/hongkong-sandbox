@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.25"
+  version: "1.8.26"
 ---
 
 # Hong Kong model improvement
@@ -59,6 +59,8 @@ The 3 October ten-form compute continuation is frozen at `docs/astra-city/govern
 ## Local processing and AI-token constraint
 
 ## 6 October — 100-new-XL target remains active
+
+St. Andrews Christian Centre 253611 is the thirteenth new verified XL installation: **57 installed / 295 not installed** of XL352; **87 more new installs** remain to the active target. Exact verified job `8e84ba8ea5b418531cf56a356341267063e497cdc892eec5aab583cb21e6247f`, snapshot `a3d30f3a07228783`. Original government mesh and existing source 148948 terrain are preserved; all full source/foundation/contact/neighbour/staged/live acceptance gates pass. The 57-source sequence continues; the additional frozen 34-source positive complete-cell sequence is running and waiting for that sequence to finish before sequential publication. Do not stop at this checkpoint.
 
 The explicit additional identity contract `original-government-full-georef-cell-identity-v1` replaces only cached centroid/overlap and roof-area shape proxies with independently verified exact unique original source/root ownership, unchanged HKPD pose, complete official one-metre coordinate-cell containment and freshly recomputed current full geometry. Coverage >=95%, maximum extent <=10m, unrelated overlap <=1m2 and all original physical/runtime/publication gates remain mandatory. Preserve raw cached proxy failures. The 35-source diagnostic is verified at Neon job `c3e8595ddd2060042a054e7d19d5010574a09ba678b5759d42d876b19cc1c9c2`: 34 identity passes, one whole-cell hold, zero installations. `xl-cell-source-sequence.py` runs the frozen additional 34 only after the active 57-source sequence completes, then uses complete fresh source/terrain/neighbour/staged/live publication checks. Ten new identity tests plus seven prior tests pass. Do not mistake identity or preparation for installation credit.
 
