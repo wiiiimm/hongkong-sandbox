@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.48"
+  version: "1.8.49"
 ---
 
 # Hong Kong model improvement
@@ -484,3 +484,7 @@ Use the current-revision identity and terrain runners for these new originals. T
 Codex, 6 October 2026. Fu Wen House (landsd/51764:0) is installed with unchanged original government geometry. Verified Neon job `6076cfce883868f5cb807173a503207fbc4c9c4d35225a39e747a45aa04536e8`, installed snapshot `87f90f0f42295b29`, source hashes `{'landsd/51764:0': 'c14fe0f9567ec046bce60a8bc1812a723666e041003a549b3dd80cbde2422ba3'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 27 new XL installations from44/308: **71 installed / 281 not installed**, 73 further installations required. Public counters: 346,108 total source forms, 4,419 enhanced, 4,405 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Explicit empty-pending original continuations
+
+Four frozen XL originals have existing undecided pending Neon records. Use `pending_original_review.verify` and the separate `xl-pending-*` continuations; retain the exact original record and source hash. Never fake `currentReview=None`, erase a review, admit a held/decided record or grant progress for preparation. Eight safety tests cover unsafe review changes. Whole source identity and all contact/foundation/native/basic/browser/publication limits remain unchanged. Fresh identity passes only Manhattan Mid-Town276331; the other three require source identity resolution. See `docs/astra-city/government-import/government-xl-four-pending-cell-identity-20261007/README.md`. The100-new-install goal remains active.
