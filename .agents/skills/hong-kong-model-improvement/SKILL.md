@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.36"
+  version: "1.8.37"
 ---
 
 # Hong Kong model improvement
@@ -412,3 +412,9 @@ Codex, 6 October 2026. Hoi Wing House (landsd/313032:0) is installed with unchan
 Codex, 6 October 2026. The Spectra Tower 5 (landsd/265310:0) is installed with unchanged original government geometry. Verified Neon job `a58667de777fbe4fa536fd4888ab1d5134a7e5712cbdb0f8f077f229831677f7`, installed snapshot `aef6ad3e66baf7a9`, source SHA `5546a592045081646ba74102e89758726c94fa35be0f8156b13dd68fa62ca1ec`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 21 new XL installations from44/308: **65 installed / 287 not installed**, 79 further installations required. Public counters: 346,108 total source forms, 4,413 enhanced, 4,399 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Latest actual XL installation checkpoint
+
+Codex, 6 October 2026. B336831113101063C0 (landsd/296652:0) is installed with unchanged original government geometry. Verified Neon job `65da83a86b1333536f8e5addb7730f8d3f7c9b64ac2d0919d31aa1babd1ae2ee`, installed snapshot `c2bdd09b2ab93f6d`, source SHA `96e66149b6553d8d3bdd4577870a061f0bb129b18e09c3f11716c03e22c815fb`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+22 new XL installations from44/308: **66 installed / 286 not installed**, 78 further installations required. Public counters: 346,108 total source forms, 4,414 enhanced, 4,400 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
