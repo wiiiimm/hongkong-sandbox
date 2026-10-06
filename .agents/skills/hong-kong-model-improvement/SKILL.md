@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.42"
+  version: "1.8.43"
 ---
 
 # Hong Kong model improvement
@@ -448,3 +448,9 @@ Codex, 6 October 2026, HKS-203. Large parent-only holes previously triangulated 
 The fresh retained Fu Wen candidate merges its previously passing root candidate with the complete old Fu Sing native terrain. Verified physical Neon job 8239c59aa2a653b0efa80e603efe24f04096e14c69501e677b68d15ce94b3fc7 passes source/foundation/runtime, all34 neighbours and the old native model. Browser/publication retry uses government-xl-fu-wen-exact-parent-plane-installed-20261006 and the explicit interrupted approval; it earns no installed credit until complete. The failed root overlap attempt and failed broad-hole merge remain intact.
 
 All six root/retained/support importers now call the existing guarded publication dry run before browser work or ledger approval. This catches publisher overlap, source and dependency guards early without changing them. Staged/live browser checks and a second guarded publication check still remain required. Current verified XL status is25 new /69 installed /283 not installed; the100-install goal continues. Zero external modelling AI calls. No historical Lantau imagery used.
+
+## 6 October — original support pair publication
+
+`xl-joint-original-support-install.py` consumes only a fresh fenced two-source physical receipt, revalidates exact identities, source/cache/tile/terrain hashes, complete strict original interface and whole compound foundation, and preserves every other numeric, neighbour and runtime gate. Both parts require staged/live desktop/mobile day/night, picking/collision and failed-download/retry proof before guarded serial publication and current Neon installed credit. `xl-commit-installed.py` verifies one source or an exact pair, counting only members of the frozen XL352 set towards the active target. No installation is credited by code preparation.
+
+Assembly browser acceptance explicitly discovers each required retained source in exactly one current manifest catalogue and loads that unchanged catalogue through the normal loader before testing budgeted activation/visibility. The unrelated155-catalogue background queue is not the acceptance clock. Source metadata and model budgets are unchanged; failure diagnostics preserve actual model registry/cache/tile state.

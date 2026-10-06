@@ -1,4 +1,4 @@
-"""Commit one actually verified XL installation after coordinator image inspection.
+"""Commit an actually verified XL installation or exact support pair after coordinator image inspection.
 
 Exact source-specific paths only; no broad staging, model processing or approval
 inference. Current snapshot, source bytes, receipts, Neon and goal counts must agree.
@@ -20,39 +20,45 @@ def main():
     branch=subprocess.check_output(['git','branch','--show-current'],cwd=ROOT,text=True).strip()
     assert branch=='codex/astra-hong-kong-city','Only the explicitly authorised non-main branch'
     assert not subprocess.check_output(['git','diff','--cached','--name-only'],cwd=ROOT,text=True).strip(),'Never combine with pre-existing staging'
-    result=read(doc/'result.json');assert result['passed'] and result['newlyInstalled']==1 and len(result['installedUids'])==1
+    result=read(doc/'result.json');assert result['passed'] and result['newlyInstalled']==len(result['installedUids']) and result['newlyInstalled'] in (1,2)
     assert result['publication'] and result['modelGeometryChanges']==result['scriptExternalAICalls']==0 and not result['failures']
-    uid=result['installedUids'][0];assert result['uids']==[uid]
-    assert read(doc/'neon-sync.json')=={'installedUids':[uid],'jobId':result['jobId'],'resultVerified':True,'snapshotId':result['snapshotId']}
+    uids=result['installedUids'];assert result['uids']==uids and len(set(uids))==len(uids)
+    shas=result.get('sourceSHA256s') or {uids[0]:result['sourceSHA256']};assert set(shas)==set(uids)
+    assert read(doc/'neon-sync.json')=={'installedUids':uids,'jobId':result['jobId'],'resultVerified':True,'snapshotId':result['snapshotId']}
     with connect() as c:
         c.execute('SET TRANSACTION READ ONLY')
         assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(result['jobId'],)).fetchone()==('complete',result)
     for ref in [*result['evidenceRefs'],*result['evidence'].values()]:assert digest((ROOT/ref['path']).read_bytes())==ref['sha256']
-    previous=(ROOT/result['evidence']['result']['path']).parent
-    assert previous.parent==doc.parent and read(previous/'result.json')['uid']==uid
+    previous=(ROOT/result['evidence'].get('physical-result',result['evidence'].get('result'))['path']).parent
+    prior=read(previous/'result.json');assert previous.parent==doc.parent and (prior.get('uids')==uids or prior.get('uid')==uids[0] and len(uids)==1)
     pointer=read(ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json');assert pointer['snapshotId']==result['snapshotId']
     manifest=read(ROOT/'3d-viewer/city/data/manifest.json');assert digest((ROOT/result['manifest']['path']).read_bytes())==result['manifest']['sha256']
     models=[m for url in manifest['officialModelCatalogues'] for m in read(ROOT/'3d-viewer'/url)['models']]
-    actual=[m for m in models if m['uid']==uid];assert len(actual)==1 and actual[0]['sha256']==result['sourceSHA256']
+    actual=[m for m in models if m['uid'] in uids];assert len(actual)==len(uids) and {m['uid']:m['sha256'] for m in actual}==shas
     inventory=ROOT/pointer['inventory'];assert inventory.exists()
-    staged=HERE/'accepted'/doc.name;catalogue=read(staged/'catalogue.json');assert [m['uid'] for m in catalogue['models']]==[uid]
-    model=catalogue['models'][0];assert digest((staged/model['asset']).read_bytes())==result['sourceSHA256']
+    staged=HERE/'accepted'/doc.name;catalogue=read(staged/'catalogue.json');assert [m['uid'] for m in catalogue['models']]==uids
+    for model in catalogue['models']:assert digest((staged/model['asset']).read_bytes())==shas[model['uid']]
     published_batch=result.get('recoveredPublishedBatch',doc.name)
     assert Path(published_batch).name==published_batch and published_batch.startswith('government-xl-')
-    published=ROOT/'3d-viewer/city/data/official-models'/published_batch;assert digest((published/model['asset']).read_bytes())==result['sourceSHA256']
-    xl={r['uid'] for r in read(ROOT/'docs/astra-city/government-import/government-xl-remaining-20260923/selection.json.gz')['rows']};assert len(xl)==352 and uid in xl
+    published=ROOT/'3d-viewer/city/data/official-models'/published_batch
+    for model in catalogue['models']:assert digest((published/model['asset']).read_bytes())==shas[model['uid']]
+    xl={r['uid'] for r in read(ROOT/'docs/astra-city/government-import/government-xl-remaining-20260923/selection.json.gz')['rows']};assert len(xl)==352 and set(uids)&xl
     deployed={m['uid']:m for m in models if m['uid'] in xl}
     with connect() as c:
         c.execute('SET TRANSACTION READ ONLY')
         verified=c.execute('SELECT uid,review_state,source_sha256 FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=ANY(%s)',
                            (pointer['snapshotId'],list(deployed))).fetchall()
     completed={u for u,state,sha in verified if state=='installed-verified' and sha==deployed[u]['sha256']}
-    assert uid in completed, 'This installation must have an exact current installed review'
+    assert set(uids)&xl <= completed, 'Every XL installation must have an exact current installed review'
+    with connect() as c:
+        c.execute('SET TRANSACTION READ ONLY')
+        installed=c.execute('SELECT uid,review_state,source_sha256 FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=ANY(%s)',(pointer['snapshotId'],uids)).fetchall()
+    assert {u:sha for u,state,sha in installed if state=='installed-verified'}==shas
     done=len(completed);new=done-44;assert 1<=new<=308
     progress=read(ROOT/'3d-viewer/city/data/building-progress.json');assert progress==result['progress']
-    label=model.get('label') or uid;token=uid.split('/')[1].replace(':','-')
+    label=' and '.join(m.get('label') or m['uid'] for m in catalogue['models']);uid=', '.join(uids)
     note=(f'Codex, 6 October 2026. {label} ({uid}) is installed with unchanged original government geometry. '
-          f'Verified Neon job `{result["jobId"]}`, installed snapshot `{result["snapshotId"]}`, source SHA `{result["sourceSHA256"]}`. '
+          f'Verified Neon job `{result["jobId"]}`, installed snapshot `{result["snapshotId"]}`, source hashes `{shas}`. '
           'Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. '
           'Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. '
           'Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.\n\n'
@@ -66,8 +72,9 @@ def main():
     version=f'{match[1]}.{match[2]}.{int(match[3])+1}'
     skill.write_text(s.replace(match[0],f'version: "{version}"',1)+'\n## Latest actual XL installation checkpoint\n\n'+note)
     tracking=ROOT/'docs/astra-city/LINEAR-TRACKING.md';tracking.write_text(tracking.read_text()+'\n## 6 October 2026 — '+label+' installed\n\n'+note)
-    paths=[doc,previous,staged,published,ROOT/f'3d-viewer/city/data/government-native-{token}.json',
+    paths=[doc,previous,staged,published,
            ROOT/'docs/astra-city/model-integration-20260909'/published_batch,inventory,skill,tracking]
+    paths += [ROOT/'3d-viewer'/patch['destination'] for patch in read(staged/'plan.json').get('topLevelTerrainPatches',[])]
     if result.get('recoveredPublishedBatch'):
         historical=read(previous/'historical-installed-proof.json')
         prior=(ROOT/historical['previousInstalledAcceptance']['path']).parent
@@ -79,5 +86,5 @@ def main():
     call(['git','diff','--cached','--check'])
     call(['git','commit','-m','feat: install original '+label+' (HKS-203)'])
     if a.push:call(['git','push','origin',branch])
-    print({'uid':uid,'newXLInstalled':new,'xlInstalled':done,'xlNotInstalled':352-done,'sourceGeometryChanges':0})
+    print({'uids':uids,'newXLInstalled':new,'xlInstalled':done,'xlNotInstalled':352-done,'sourceGeometryChanges':0})
 if __name__=='__main__':main()
