@@ -1,3 +1,7 @@
+## 7 October — Hampton Loft installed; seven provisional physical checks active
+
+Codex pushed6675190f with Hampton's exact installed job53307d5be3fe21c96c1f19c163160650302af43121f378133bf6588af5696ae0 and snapshot8823e33326a09623. Exported mobile day/night inspected; complete source/physical/neighbour/browser/failure-retry gates pass. XL35273/279,29 new from44/308. HKS-203/HKS-215/HKS-199 and milestone writes succeeded. Seven of twelve exact archived provisional holds passed identity; their fresh full physical sequence and five current support-interface checks are active. Historical decisions preserved, no extra installation credit. Goal continues; no user blocker.
+
 ## 7 October — Fu Wen installed; active XL continuation
 
 Codex pushed efebffd5 after full Fu Wen acceptance and inspection. Verified XL352 is71 installed/281 not installed,27 new from44/308;73 further required. HKS-203/HKS-215/HKS-199 and authorised milestone updated successfully; milestone head read back. Chow Yin Sum/podium is in live acceptance; Hampton physical retry passes but is not installed; Manhattan complete retained-terrain continuation is in process. Four pending original reviews preserved, fresh identity1/4PASS verified in Neon. No user blocker. Goal continues without checkpoint stops.

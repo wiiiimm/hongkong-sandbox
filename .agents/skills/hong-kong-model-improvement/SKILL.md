@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.51"
+  version: "1.8.52"
 ---
 
 # Hong Kong model improvement
@@ -500,3 +500,7 @@ Codex, 6 October 2026. CHOW YIN SUM TRUST FUND BUILDING and Chow Yin Sum Trust F
 Codex, 6 October 2026. Hampton Loft (landsd/284938:0) is installed with unchanged original government geometry. Verified Neon job `53307d5be3fe21c96c1f19c163160650302af43121f378133bf6588af5696ae0`, installed snapshot `8823e33326a09623`, source hashes `{'landsd/284938:0': 'd4f4f75b682f3499a7283141cfe554f5b941626297b87f7877ef2586ef39a4bf'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 29 new XL installations from44/308: **73 installed / 279 not installed**, 71 further installations required. Public counters: 346,108 total source forms, 4,422 enhanced, 4,408 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Twelve explicit provisional placement holds
+
+Only the twelve scoped originals in `provisional_original_review.py` may use the fresh `xl-provisional-*` routes. Verify the exact archived decision SHA, source SHA and complete provisional observation; preserve prior hold records. Reject substantive or changed decisions, dependencies and unscoped sources. Fresh full-cell identity qualifies7/12, not an installation. Do not infer landmark membership or publication from original ownership or support lookup. All current terrain, strict support interfaces, compound foundation, native/basic neighbours, staged/live browser and guarded installed ledger checks remain required. Ten safety tests pass. See `docs/astra-city/government-import/government-xl-twelve-provisional-cell-identity-20261007/README.md`. Continue the active100-new-XL target without checkpoint stops.
