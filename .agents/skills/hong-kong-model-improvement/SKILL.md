@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.45"
+  version: "1.8.46"
 ---
 
 # Hong Kong model improvement
@@ -466,3 +466,9 @@ Assembly browser acceptance pre-caches only unchanged retained compressed origin
 Codex,7 October2026,HKS-203. Exact old C0 pier models are absent, but current sheet11-SW-9A contains unique C1 government originals for the same GeoRefs. The explicit new-revision acquisition recovered both without model edits. Fresh packed sources: Central PierNo.8 landsd/213352:0 SHA79975dbdab4258b5451b051dd861737a1fe5f8627c913ac304b88d87840eb895 (8,224 triangles), Central Pier landsd/122298:0 SHA54c4c993f310f8e6365be32b9206643274cf52e3b90ce1d8bc4d200c0d0cb745 (14,097 triangles). Official CSUID/ObjectID joins and original packing/runtime-format checks pass. Verified Neon job df510679ee23a7bbc50ce7a7a67aafd4c5806aba2d2d33d61213b54bebe32418 stores new revisions separately; old native-stage results/recovery holds remain intact. These are local prepared sources, not installations: complete identity/terrain/foundation/neighbours/staged/live publication remains pending. Zero architecture/model AI calls. No historical Lantau maps used.
 
 Assembly fixture visits the already installed required source through normal navigation before the new model. Fu Wen diagnostic staged desktop/mobile day/night and fallback/retry all pass; retained Fu Sing remains active/visible. Optional camera direction affects inspection only. Source geometry and all budgets/gates unchanged. CurrentXL352 remains69 installed/283 not installed,25 new; goal remains active.
+
+## Latest actual XL installation checkpoint
+
+Codex, 6 October 2026. CORONATION CIRCLE (landsd/10664:0) is installed with unchanged original government geometry. Verified Neon job `566b1639352d7fd8f56751b92517f11928484a0bf5502fd9a10dac5b882f8439`, installed snapshot `607a6b10c075270c`, source hashes `{'landsd/10664:0': '2b1dbaf2f6629e262bfd410ff1c2edc518c995540d076aa63d5956482c4a3b01'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+26 new XL installations from44/308: **70 installed / 282 not installed**, 74 further installations required. Public counters: 346,108 total source forms, 4,418 enhanced, 4,404 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
