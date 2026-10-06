@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.66"
+  version: "1.8.67"
 ---
 
 # Hong Kong model improvement
@@ -578,3 +578,9 @@ Codex, 7 October 2026. B321071647402063C0 (landsd/79882:0) is installed with unc
 34 new XL installations from44/308: **78 installed / 274 not installed**, 66 further installations required. Public counters: 346,108 total source forms, 4,429 enhanced, 4,415 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
 
 This auxiliary original podium is outside XL352 and adds zero XL target credit. Exact source closure: docs/astra-city/government-import/government-xl-current-ground-seven-more-original-supports-20261007.
+
+## Latest actual XL installation checkpoint
+
+Codex, 7 October 2026. Beverly Garden Block 8 (landsd/29943:0) is installed with unchanged original government geometry. Verified Neon job `4a81775afd755d71d92306627d73935097aaa45dff06fe9d2bb22b7d8c3e3462`, installed snapshot `f67d157ab539ed59`, source hashes `{'landsd/29943:0': 'a68e7e7e666eb916ddbf817c8559cc6228215923c00c7c45f719ad2fbd151e57'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+35 new XL installations from44/308: **79 installed / 273 not installed**, 65 further installations required. Public counters: 346,108 total source forms, 4,430 enhanced, 4,416 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
