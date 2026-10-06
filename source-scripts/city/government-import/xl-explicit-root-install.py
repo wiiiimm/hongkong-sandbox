@@ -14,6 +14,7 @@ from dependency_preflight import from_catalogues
 parser=argparse.ArgumentParser(description=__doc__)
 for name in ('uid','batch','source','base'):parser.add_argument('--'+name,required=True)
 parser.add_argument('--prepare-only',action='store_true')
+parser.add_argument('--retry-of',help='Explicit interrupted approval directory; fresh acceptance still required')
 parser.add_argument('--owned',action='store_true',help=argparse.SUPPRESS)
 args=parser.parse_args()
 assert Path(args.batch).name==args.batch and args.batch.startswith('government-xl-')
@@ -71,8 +72,22 @@ def stage():
             'JOIN astra_modelling.native_stage_members m USING(cache_key) WHERE m.run_id=%s AND r.cache_key=%s',
             (NATIVE_RUN,row['native']['cacheKey'])).fetchone()
         assert actual and actual[0]==row['native']['resultSha']
-        review=con.execute('SELECT review_state FROM astra_modelling.model_reviews WHERE uid=%s ORDER BY updated_at DESC LIMIT 1',(UID,)).fetchone()
-        assert review is None,'Review changed since current frozen inputs'
+        review=con.execute('SELECT snapshot_id,review_state,source_sha256,result FROM astra_modelling.model_reviews WHERE uid=%s ORDER BY updated_at DESC LIMIT 1',(UID,)).fetchone()
+        if args.retry_of:
+            from interrupted_acceptance import verify_retry
+            prior=(ROOT/args.retry_of).resolve();assert prior.is_relative_to(ROOT/'docs/astra-city/government-import')
+            acceptance=ref(prior/'acceptance.json');oldlease=read(HERE/'local'/prior.name/'install-reservation.json')
+            released=con.execute('SELECT released_at IS NOT NULL FROM astra_modelling.reservation_groups WHERE token=%s',(oldlease['token'],)).fetchone()
+            pointer=read(ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json')
+            current=con.execute('SELECT review_state FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=%s',(pointer['snapshotId'],UID)).fetchone()
+            assert review
+            retry=verify_retry(dict(zip(('snapshot_id','review_state','source_sha256','result'),review)),uid=UID,source_sha=row['sourceSHA256'],
+                prior_path=acceptance['path'],prior_sha=acceptance['sha256'],prior_decision=read(prior/'acceptance.json'),
+                browser_passed=read(prior/'staged-browser.json')['passed'],prior_installed=(prior/'installed-acceptance.json').exists() or (prior/'result.json').exists(),
+                current_review=current,prior_released=bool(released and released[0]))
+            retry.update(helper=ref(HERE/'interrupted_acceptance.py'),priorStagedBrowser=ref(prior/'staged-browser.json'))
+            save(DOC/'retry-evidence.json',retry)
+        else:assert review is None,'Review changed since current frozen inputs'
     result=read(SOURCE/'result.json');assert result['uid']==UID and result['scriptChecksPassed'] and not result['reasons']
     sync=read(SOURCE/'neon-sync.json');assert sync['resultVerified'] and sync['jobId']==result['jobId']
     for evidence in result['evidenceRefs']:assert ref(ROOT/evidence['path'])['sha256']==evidence['sha256']
@@ -138,6 +153,7 @@ def stage():
     for i,prior in enumerate(preservation):evidence['parent-preservation-'+str(i)]=ref(prior)
     recovery_name='source-recovery' if (SOURCE/'source-recovery.json').exists() else 'recheck-inputs'
     evidence[recovery_name]=ref(SOURCE/(recovery_name+'.json'))
+    if args.retry_of:evidence['retry-evidence']=ref(DOC/'retry-evidence.json')
     if (SOURCE/'diagnostic-resolution.json').exists():
         evidence['diagnostic-resolution']=ref(SOURCE/'diagnostic-resolution.json')
         evidence['diagnostic-resolver']=ref(HERE/'terrain_diagnostic_resolution.py')
