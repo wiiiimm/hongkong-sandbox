@@ -76,16 +76,19 @@ def stage():
         if args.retry_of:
             from interrupted_acceptance import verify_retry
             prior=(ROOT/args.retry_of).resolve();assert prior.is_relative_to(ROOT/'docs/astra-city/government-import')
-            acceptance=ref(prior/'acceptance.json');oldlease=read(HERE/'local'/prior.name/'install-reservation.json')
+            acceptance=ref(prior/'acceptance.json');decision=read(prior/'acceptance.json')
+            assert decision['stagedBrowser']==ref(prior/'staged-browser.json'),'Interrupted browser evidence changed'
+            oldlease=read(HERE/'local'/prior.name/'install-reservation.json')
             released=con.execute('SELECT released_at IS NOT NULL FROM astra_modelling.reservation_groups WHERE token=%s',(oldlease['token'],)).fetchone()
             pointer=read(ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json')
             current=con.execute('SELECT review_state FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=%s',(pointer['snapshotId'],UID)).fetchone()
             assert review
             retry=verify_retry(dict(zip(('snapshot_id','review_state','source_sha256','result'),review)),uid=UID,source_sha=row['sourceSHA256'],
-                prior_path=acceptance['path'],prior_sha=acceptance['sha256'],prior_decision=read(prior/'acceptance.json'),
+                prior_path=acceptance['path'],prior_sha=acceptance['sha256'],prior_decision=decision,
                 browser_passed=read(prior/'staged-browser.json')['passed'],prior_installed=(prior/'installed-acceptance.json').exists() or (prior/'result.json').exists(),
                 current_review=current,prior_released=bool(released and released[0]))
-            retry.update(helper=ref(HERE/'interrupted_acceptance.py'),priorStagedBrowser=ref(prior/'staged-browser.json'))
+            retry.update(helper=ref(HERE/'interrupted_acceptance.py'),priorStagedBrowser=ref(prior/'staged-browser.json'),
+                         priorReservationToken=oldlease['token'],priorReservationReleased=True)
             save(DOC/'retry-evidence.json',retry)
         else:assert review is None,'Review changed since current frozen inputs'
     result=read(SOURCE/'result.json');assert result['uid']==UID and result['scriptChecksPassed'] and not result['reasons']
