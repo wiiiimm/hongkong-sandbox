@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.33"
+  version: "1.8.34"
 ---
 
 # Hong Kong model improvement
@@ -394,3 +394,9 @@ Eighteenth new XL installation from44/308: **62 installed / 290 not installed**,
 
 Codex, 6 October 2026. Two exact supporting originals reused from the verified prior Aqua/Mount closure, with frozen source/context hashes and no existing reviews. Full original geographic-cell identity runs under fresh fenced ownership. Verified Neon job `a32540c3092391bc9507236465db620ffe9bda815beb69804c5568b8361f2318`: Mount Verdant podium75782 passes complete original ownership and current geographic-cell identity; Aqua Marine podium193086 still fails source excess over unrelated form and full-source unrelated overlap. The existing limits stay unchanged. Neither source is installed by this diagnostic. Zero geometry changes, transfers or architectural/model AI calls. Full source support/terrain/foundation/neighbour/runtime/browser/publication acceptance remains required. Original unchanged tower/podium interface results remain in the prior closure; new identity is not support credit.
 Codex, 6 October 2026. Mechanical inspection of45 ground-held sources in completed owned57 and first22 completed rows of full-cell34 finds17 recorded same-parent lower forms whose recorded top is within0.5m of the target recorded base. This recorded adjacency is only a lookup candidate; original model interfaces and all existing gates decide support. Three exact prior Aqua/Mount pair results are verified against Neon and reused. Fourteen unprocessed pairs are running sequentially under per-pair source leases using `xl-exact-support-closure.py`; exact GeoRef/ObjectID/full CSUID joins, unchanged original meshes and full low-rim interfaces are required. No new global queue or semantic building inference; no original source geometry edits or model AI calls. Diagnostics alone provide no installed credit. Missing/ambiguous records or failed interfaces remain explicit for further compute. The publication chain continues independently and serially.
+
+## Latest actual XL installation checkpoint
+
+Codex, 6 October 2026. Kowloon Chest Clinic (landsd/101535:0) is installed with unchanged original government geometry. Verified Neon job `c17cec0d7f06a3aa9e9ceb485016bd748380d538c16d05dc9ed1f048dea2e580`, installed snapshot `5e6c57334d119c89`, source SHA `06c8c1fbad5fb04a2939db6ef278dac867fa6e2265bf9f6471f68e390f9b6003`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+19 new XL installations from44/308: **63 installed / 289 not installed**, 81 further installations required. Public counters: 346,108 total source forms, 4,411 enhanced, 4,397 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
