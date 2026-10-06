@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.58"
+  version: "1.8.59"
 ---
 
 # Hong Kong model improvement
@@ -534,3 +534,7 @@ Use the separately scoped `xl-positive-current-support-*` routes for ParkviewBlo
 Codex, 6 October 2026. Hong Kong Parkview Block 2 (landsd/256114:0) is installed with unchanged original government geometry. Verified Neon job `98f4569328779a2da31aa65fb096b5b21963a46d8c01e57a2b1767e40916b8a4`, installed snapshot `29a22cda9d24d7cd`, source hashes `{'landsd/256114:0': '9f74747cc8606411803a0f699ad98fdcbf82917179e5023798818c9d17fe1e4b'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 32 new XL installations from44/308: **76 installed / 276 not installed**, 68 further installations required. Public counters: 346,108 total source forms, 4,425 enhanced, 4,411 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Bounded22-source unchanged-ground pass
+
+`xl_current_ground_scope.py` freezes the exact22 remaining identity-qualified, never-reviewed originals outside the four support candidates. `xl-positive-current-ground-preflight.py` checks each against actual unchanged current rendered terrain under source ownership and publication locking. It reruns positive whole source/cell identity, complete original contact/foundation, basic/native neighbours, loader, sampler and runtime budgets. It applies no installed-support exception, terrain replacement, model edits or contact-tolerance change. `xl-current-ground-result.py` records only exact current no-review originals with fenced native-stage/source/evidence hashes and exact Neon readback; passing physical checks still requires browser/publication/installed verification. The bounded sequence handoff records each command/result and zero installed credit. Generic territory-wide queue construction remains deferred. Keep the100-new-XL goal active and use each fresh current result only against its pinned current scene.
