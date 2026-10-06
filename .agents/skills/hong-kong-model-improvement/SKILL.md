@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.52"
+  version: "1.8.53"
 ---
 
 # Hong Kong model improvement
@@ -504,3 +504,7 @@ Codex, 6 October 2026. Hampton Loft (landsd/284938:0) is installed with unchange
 ## Twelve explicit provisional placement holds
 
 Only the twelve scoped originals in `provisional_original_review.py` may use the fresh `xl-provisional-*` routes. Verify the exact archived decision SHA, source SHA and complete provisional observation; preserve prior hold records. Reject substantive or changed decisions, dependencies and unscoped sources. Fresh full-cell identity qualifies7/12, not an installation. Do not infer landmark membership or publication from original ownership or support lookup. All current terrain, strict support interfaces, compound foundation, native/basic neighbours, staged/live browser and guarded installed ledger checks remain required. Ten safety tests pass. See `docs/astra-city/government-import/government-xl-twelve-provisional-cell-identity-20261007/README.md`. Continue the active100-new-XL target without checkpoint stops.
+
+## Unchanged current terrain with exact installed original supports
+
+For the exact scoped provisional originals, `xl-provisional-current-support-preflight.py` reruns current source identity, installed support bytes/review, all strict interface contacts and full compound foundation on the actual unchanged current terrain. `current_installed_support_acceptance.py` adapts exact installed catalogue metadata to the established original decoder, checking triangle count and native bounds without changing any geometry. Four contact safety tests retain every non-contact physical/runtime/identity blocker. The separate `xl-explicit-provisional-current-support-install.py` requires zero terrain candidates and zero neighbour ground changes; its publisher plan changes model catalogues only. Browser verification explicitly requires the retained original support active and visible throughout the normal visit; keep that configuration field unique. All source leases, publication locking, staged/live desktop/mobile day/night, picking/collision/failure/retry, installed ledger and Neon readback checks remain required. Do not treat a support probe or physical pass as installed. Preserve every archived provisional decision and do not infer whole-landmark membership.
