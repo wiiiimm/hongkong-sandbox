@@ -24,7 +24,7 @@ const inputs={},load=p=>{const raw=readFileSync(new URL(p,root));inputs[p]=hash(
 const manifest=load('3d-viewer/city/data/manifest.json'),data=load('3d-viewer/city/data/terrain.json');
 if(args.selection)assert.equal(inputs['3d-viewer/city/data/manifest.json'],selected.manifestSHA256,'Frozen manifest changed');
 inputs[selectionPath]=hash(selectionRaw);
-for(const p of ['source-scripts/city/government-import/acceptance-metrics.mjs','3d-viewer/city/world.js','3d-viewer/city/geo.js','3d-viewer/city/native-terrain.js','3d-viewer/city/official-model-assets.js','3d-viewer/city/official-models.js'])inputs[p]=hash(readFileSync(new URL(p,root)));
+for(const p of ['source-scripts/city/government-import/acceptance-metrics.mjs','3d-viewer/city/world.js','3d-viewer/city/geo.js','3d-viewer/city/rendered-patch-height.js','3d-viewer/city/native-terrain.js','3d-viewer/city/official-model-assets.js','3d-viewer/city/official-models.js'])inputs[p]=hash(readFileSync(new URL(p,root)));
 data.patches=(manifest.terrainPatches||[]).map(p=>({entry:p,data:load('3d-viewer/'+p.url)}));
 if(args['terrain-candidates']){const candidates=load(args['terrain-candidates']),replaced=new Set(candidates.flatMap(p=>p.replaces?[p.replaces.url]:[]));data.patches=data.patches.filter(p=>!replaced.has(p.entry.url));for(const p of candidates){const patch=load(p.path);assert.equal(inputs[p.path],p.sha256,'Staged terrain changed');data.patches.push({entry:null,data:patch});}}
 data.patches=data.patches.map(p=>p.data);

@@ -16,6 +16,16 @@ export function makeTerrainSampler(data) {
   const nativeGridFallback=data.nativeMesh?.source?.numericalCoverageGap?.policy==='parent-grid-fallback';
   const patches=(data.patches||[]).map(makeTerrainSampler);
   const patchAt=(x,z)=>patches.find(p=>p.contains(x,z));
+  // Sibling patches are all drawn. Sample their visible top at this point;
+  // a parent's covered coarse grid remains excluded by the child fallback.
+  const patchHeight=(x,z)=>{
+    let top;
+    for(const patch of patches)if(patch.contains(x,z)){
+      const value=patch.height(x,z);
+      top=top===undefined?value:Math.max(top,value);
+    }
+    return top;
+  };
   const hydro=data.hydro,regions=hydro?.region==='composite'?hydro.regions.map(region=>{
     const [start,length]=region.geometryRanges.water;return {...region,water:hydro.water.slice(start,start+length)};
   }):hydro?[hydro]:[];
@@ -32,7 +42,7 @@ export function makeTerrainSampler(data) {
     // Matches mesh triangle diagonal exactly: no feet floating on steep slopes.
     return u+v<=1 ? a+(b-a)*u+(d-a)*v : e+(d-e)*(1-u)+(b-e)*(1-v);
   }
-  return {raw:(x,z)=>patchAt(x,z)?.raw(x,z)??sample(x,z),contains,grid,mappedWater,height:(x,z)=>renderedPatchHeight(patchAt(x,z)?.height(x,z),waterAt(x,z)?.illustrativeBed,()=>native?sample(x,z,true):Math.max(1.2,sample(x,z,true))),resolutionAt:(x,z)=>patchAt(x,z)?.resolutionAt(x,z)??Math.abs(g.aE)};
+  return {raw:(x,z)=>patchAt(x,z)?.raw(x,z)??sample(x,z),contains,grid,mappedWater,height:(x,z)=>renderedPatchHeight(patchHeight(x,z),waterAt(x,z)?.illustrativeBed,()=>native?sample(x,z,true):Math.max(1.2,sample(x,z,true))),resolutionAt:(x,z)=>patchAt(x,z)?.resolutionAt(x,z)??Math.abs(g.aE)};
 }
 export function inRing(x,z,ring) {
   let inside=false;

@@ -74,7 +74,7 @@ def main():
     sys.path.insert(0,str(HERE.parent/'model-review-ledger'));import ledger
     inventory=read(ROOT/pointer['inventory']);parts={r['uid']:r for r in inventory['parts']};previous=parts.get(uid,{})
     parts[uid]={**previous,'uid':uid,'name':model['label'],'objectId':model['objectId'],'csuid':model['buildingCSUID'],
-                'candidate':{'sha256':model['sha256']},'sourceProgress':'prepared-for-review','classification':'script-verified-published-original-current-review-recovery','knownHold':False}
+                'landmarkIds':previous.get('landmarkIds',[]),'candidate':{'sha256':model['sha256']},'sourceProgress':'prepared-for-review','classification':'script-verified-published-original-current-review-recovery','knownHold':False}
     ordered=sorted(parts.values(),key=lambda r:r['uid']);snapshot=digest(jobs.encode([ordered,decision]).encode())[:16]
     inventorypath=pointerpath.parent/('source-review-inventory-'+snapshot+'.json');save(inventorypath,{**inventory,'parts':ordered,'snapshotId':snapshot,'derivedFrom':pointer['snapshotId']})
     ledger.seed(inventorypath,inherit=pointer['snapshotId'])
