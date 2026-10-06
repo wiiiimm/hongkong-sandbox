@@ -1,3 +1,7 @@
+# 6 October 2026 — continuing the active 100-new-XL target
+
+12 new verified XL installs from the 44/308 baseline; XL352 is now 56 installed / 296 not installed. Spectra Tower 2 and Beverly Garden Block 7 have complete original-source, terrain/foundation/neighbour and staged/live desktop/mobile acceptance. Original meshes unchanged; zero external AI modelling calls. Next sources continue in the explicit 57-source sequence. Linear synchronisation follows this installation commit; target is not complete.
+
 ## 6 October — 100-new-XL target remains active
 
 The Spectra Tower 1 265313 is the tenth new installed XL source: **54 installed / 298 not installed** of XL352. Snapshot `42d3aa4f2ab9003e`; verified Neon job `968116dc45fc77dd170be116e3bf7a5783f629b0aee495ce9e3ee8c7248fef2e`. Original bytes/geometry and installed source 265311 terrain/mesh are preserved. Full positive geographic identity, terrain/contact/foundation/neighbours and staged/live desktop/mobile day/night, picking/collision/fallback/retry pass. The next Spectra Tower 2 is running in the active 57-source sequence; queued/running work is In process, not held or installation credit. Independent mechanical support lookup for Nam/Ko/Sung Fung uses exact merged 100/131 inputs after the first lookup omitted Ko Fung; failed lease released, no model source changed. Continue the 100-new-install target without asking the user to resume.

@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.23"
+  version: "1.8.24"
 ---
 
 # Hong Kong model improvement
@@ -59,6 +59,8 @@ The 3 October ten-form compute continuation is frozen at `docs/astra-city/govern
 ## Local processing and AI-token constraint
 
 ## 6 October — 100-new-XL target remains active
+
+Spectra Tower 2 265312 and Beverly Garden Block 7 242281 are the eleventh and twelfth new verified XL installations: **56 installed / 296 not installed** of XL352, leaving **88 new installations** to the active 100-new target. Exact installation jobs `4842bdb1d00e4e3333945f8a96058011740fe47e769a730413990be54b89e99e` and `abe0c4599e030f4b60f603d223ad3d2af090b2920260fad2d1dc27dc875fde57`; latest installed snapshot `e30549100f72da64`. All original source/physical/retained-neighbour and staged/live browser gates pass; original geometry is unchanged, zero external AI calls. The 57-source sequence continues; queued/running rows are In process. Checkpoints, commits and status updates do not end the active goal.
 
 The Spectra Tower 1 265313 is the tenth new installed XL source: **54 installed / 298 not installed** of XL352. Snapshot `42d3aa4f2ab9003e`; verified Neon job `968116dc45fc77dd170be116e3bf7a5783f629b0aee495ce9e3ee8c7248fef2e`. Original bytes/geometry and installed source 265311 terrain/mesh are preserved. Full positive geographic identity, terrain/contact/foundation/neighbours and staged/live desktop/mobile day/night, picking/collision/fallback/retry pass. The next Spectra Tower 2 is running in the active 57-source sequence; queued/running work is In process, not held or installation credit. Independent mechanical support lookup for Nam/Ko/Sung Fung uses exact merged 100/131 inputs after the first lookup omitted Ko Fung; failed lease released, no model source changed. Continue the 100-new-install target without asking the user to resume.
 
