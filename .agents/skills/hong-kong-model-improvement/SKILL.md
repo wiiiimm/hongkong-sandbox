@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.26"
+  version: "1.8.27"
 ---
 
 # Hong Kong model improvement
@@ -59,6 +59,8 @@ The 3 October ten-form compute continuation is frozen at `docs/astra-city/govern
 ## Local processing and AI-token constraint
 
 ## 6 October — 100-new-XL target remains active
+
+Tung Mau House 12851 is the fourteenth new verified XL installation: **58 installed / 294 not installed**, 86 more installs remain. Verified job `5b29b4b972e610d78cd128e87cca015612cf382fba56fc25fddad292768dae35`, snapshot `a0e8c820f20dc87c`. All original source/contact/foundation/neighbour and staged/live publication gates pass. Serial publication order is the remaining 57-source sequence, then Hoi Wing fresh recheck/full installation, then the frozen additional 34 complete-cell sources. Keep working through commits and checkpoints; no architectural AI or original geometry edits.
 
 St. Andrews Christian Centre 253611 is the thirteenth new verified XL installation: **57 installed / 295 not installed** of XL352; **87 more new installs** remain to the active target. Exact verified job `8e84ba8ea5b418531cf56a356341267063e497cdc892eec5aab583cb21e6247f`, snapshot `a3d30f3a07228783`. Original government mesh and existing source 148948 terrain are preserved; all full source/foundation/contact/neighbour/staged/live acceptance gates pass. The 57-source sequence continues; the additional frozen 34-source positive complete-cell sequence is running and waiting for that sequence to finish before sequential publication. Do not stop at this checkpoint.
 
