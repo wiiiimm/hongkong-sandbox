@@ -119,6 +119,9 @@ def owned(args, doc, local):
     assert reservations.owns(read(local / 'reservation.json'))
     base = ROOT / args.base
     selected = read(base / 'check-selection.json.gz')
+    frozen_proof = read(base / 'input-proof.json')
+    for path, pinned in frozen_proof['inputHashes'].items():
+        assert digest((ROOT / path).read_bytes()) == pinned
     row = next(r for r in selected['rows'] if r['uid'] == args.uid)
     context = next(r for r in read(base / 'context.json.gz')['rows'] if r['uid'] == args.uid)
     manifest = read(ROOT / '3d-viewer/city/data/manifest.json')
@@ -151,6 +154,9 @@ def owned(args, doc, local):
                      'primrose_podium_pending_review.py', 'test_primrose_podium_pending_review.py']:
         path = HERE / filename
         routing['inputHashes'][str(path.relative_to(ROOT))] = digest(path.read_bytes())
+    routing['inputHashes'].update({str((base / 'input-proof.json').relative_to(ROOT)): digest((base / 'input-proof.json').read_bytes()),
+        str((HERE / 'primrose_podium_pending_review.py').relative_to(ROOT)): digest((HERE / 'primrose_podium_pending_review.py').read_bytes()),
+        str((HERE / 'test_primrose_podium_pending_review.py').relative_to(ROOT)): digest((HERE / 'test_primrose_podium_pending_review.py').read_bytes())})
     save(doc / 'indexed-preflight.json', routing)
     if not routing['canStartTerrainWork']:
         finish(args, row, doc, local, routing['identity']['reasons'] or ['source-sheet-identity'])
