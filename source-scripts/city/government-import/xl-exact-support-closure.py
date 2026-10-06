@@ -7,6 +7,7 @@ import uuid
 import zipfile
 from pathlib import Path
 from run import ROOT, HERE, read, save, digest, reservations, jobs, connect, Jsonb, dict_row, NATIVE_RUN
+from installed_source_identity import installed_identity
 sys.path.insert(0, str(HERE.parent / 'enhancement-screening'))
 from shape_prepare import canonical_bytes, entry, scan, acquire, _convert_one
 
@@ -179,7 +180,8 @@ def owned():
         neighbours = context.load_forms([lo[0] - 2, lo[2] - 2, hi[0] + 2, hi[2] + 2])
         proof = context.identity_context(row, triangles, neighbours)
         original_matches = row['native']['model']['matching']['viewerMatches']
-        contexts.append({'uid': row['uid'], 'sourceSHA256': row['sourceSHA256'], 'identity': proof,
+        reuse=installed_identity(row,manifest)
+        contexts.append({'acceptedIdentityReuse':reuse,'uid': row['uid'], 'sourceSHA256': row['sourceSHA256'], 'identity': proof,
                          'boundedProjectionPassed': bool(identity.identity_clear(proof)),
                          'originalUniqueViewerMatch': len(original_matches) == 1 and original_matches[0]['uid'] == row['uid'],
                          'neighbourTileHashes': {tile: digest((ROOT / '3d-viewer' / tile).read_bytes()) for _, _, tile in neighbours}})
@@ -193,9 +195,9 @@ def owned():
         support = ctx[pair['supportUid']]; tower = ctx[pair['uid']]
         reasons = []
         if not pair['interface']['passed']: reasons.append('original-support-interface-unresolved')
-        if not support['originalUniqueViewerMatch']: reasons.append('support-original-viewer-match-held')
-        if not support['boundedProjectionPassed']: reasons.append('support-bounded-source-projection-held')
-        if not tower['originalUniqueViewerMatch'] or not tower['boundedProjectionPassed']: reasons.append('tower-source-identity-held')
+        if not support['originalUniqueViewerMatch'] and not support['acceptedIdentityReuse']: reasons.append('support-original-viewer-match-held')
+        if not support['boundedProjectionPassed'] and not support['acceptedIdentityReuse']: reasons.append('support-bounded-source-projection-held')
+        if (not tower['originalUniqueViewerMatch'] or not tower['boundedProjectionPassed']) and not tower['acceptedIdentityReuse']: reasons.append('tower-source-identity-held')
         reasons.append('support-terrain-foundation-runtime-publication-not-complete')
         outcomes.append({**{k: pair[k] for k in ('uid', 'supportUid', 'sourceSHA256', 'supportSHA256')},
                          'humanStatus': 'held-unknown', 'reasons': reasons,
@@ -205,6 +207,7 @@ def owned():
                          'requiresAI': False, 'requiresHumanDecision': False})
     refs = [{'path': str(p.relative_to(ROOT)), 'sha256': digest(p.read_bytes())}
             for p in sorted(DOC.iterdir()) if p.is_file()]
+    refs.extend({'path':str(p.relative_to(ROOT)),'sha256':digest(p.read_bytes())} for p in (HERE/'accepted_source_identity.py',HERE/'installed_source_identity.py'))
     payload = {'evidenceRefs': refs, 'runnerSHA256': digest(Path(__file__).read_bytes()), 'manifestSHA256': digest(manifest_path.read_bytes())}
     stage = 'explicit-exact-original-support-closure-v1'; jobid = jobs.enqueue(BATCH, stage, payload)
     job = jobs.claim(BATCH, lease['owner'], [stage], lease_seconds=1800); assert job and job['id'] == jobid

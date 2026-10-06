@@ -14,6 +14,8 @@ from pathlib import Path
 
 from run import ROOT, HERE, read, save, digest, reservations, connect, jobs, Jsonb, dict_row, NATIVE_RUN
 from terrain_source_preflight import SourceSheetIndex, preflight
+
+TERRAIN_PIPELINE_PATH = HERE / "xl-contact-resolution-20261005.py"
 import sys
 sys.path.insert(0, str(HERE.parent / 'enhancement-screening'))
 from shape_prepare import scan, acquire
@@ -81,7 +83,7 @@ def finish(args, row, doc, local, reasons):
             for p in sorted(doc.iterdir()) if p.is_file() and p.name not in ('result.json', 'neon-sync.json', 'README.md')]
     payload = {'uid': row['uid'], 'sourceSHA256': row['sourceSHA256'], 'evidenceRefs': refs,
                'runnerSHA256': digest(Path(__file__).read_bytes()),
-               'terrainPipelineSHA256': digest((HERE / 'xl-contact-resolution-20261005.py').read_bytes())}
+               'terrainPipelineSHA256': digest(TERRAIN_PIPELINE_PATH.read_bytes())}
     stage = 'indexed-original-terrain-continuation-v1'
     jobid = jobs.enqueue(args.batch, stage, payload)
     job = jobs.claim(args.batch, receipt['owner'], [stage], lease_seconds=1800)

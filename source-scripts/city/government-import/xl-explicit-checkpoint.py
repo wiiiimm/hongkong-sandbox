@@ -17,17 +17,26 @@ def main():
     p.add_argument('--primary',action='append',required=True)
     p.add_argument('--followups',action='append',default=[])
     p.add_argument('--base',action='append',required=True)
+    p.add_argument('--extra-stage',action='append',default=[],help='Fresh completed result directory for an explicit primary UID')
+    p.add_argument('--installation',action='append',default=[],help='Completed installed result directory')
     args=p.parse_args()
     assert Path(args.batch).name==args.batch and args.batch.startswith('government-xl-')
     doc=ROOT/'docs/astra-city/government-import'/args.batch
     assert not doc.exists(),'Completed checkpoints are immutable'
     commands=[];extra=[];references=[];contexts={}
-    for path in args.primary+args.followups+args.base:
+    for path in args.primary+args.followups+args.base+args.extra_stage+args.installation:
         assert (ROOT/path).resolve().is_relative_to(ROOT)
     for path in args.primary:
         file=ROOT/path/'commands.json';commands.extend(read(file)['rows']);references.append(ref(file))
     for path in args.followups:
         file=ROOT/path/'commands.json';extra.extend(read(file)['rows']);references.append(ref(file))
+    for path in args.extra_stage:
+        file=ROOT/path/'result.json';result=read(file)
+        uids={r['uid'] for r in result.get('rows',[])}
+        uid=result.get('uid') or (next(iter(uids)) if len(uids)==1 else None)
+        assert uid, 'Extra stage needs one explicit primary UID'
+        extra.append({'uid':uid,'batch':result['batch'],'returncode':0,'result':result,'log':None})
+        references.append(ref(file))
     assert commands and len({r['uid'] for r in commands})==len(commands)
     for path in args.base:
         for name in ['check-selection.json.gz','context.json.gz','preflight.json','explicit-uids.json']:
@@ -43,7 +52,7 @@ def main():
         target=ROOT/'docs/astra-city/government-import'/command['batch']
         if command['returncode']!=0 or not command['result']:
             failures.append({'uid':uid,'batch':command['batch'],'returncode':command['returncode'],
-                             'log':command['log'],'reason':'incomplete-command-evidence'})
+                             'log':command['log'],'reason':'incomplete-command-evidence','recoveredBy':None})
             continue
         result=read(target/'result.json');sync=read(target/'neon-sync.json')
         assert result==command['result'] and sync['resultVerified'] and sync['jobId']==result['jobId']
@@ -55,7 +64,7 @@ def main():
         tokens.append(read(HERE/'local'/command['batch']/'reservation.json')['token'])
         completed[result['jobId']]=result
         references.extend([ref(target/'result.json'),ref(target/'neon-sync.json')])
-        phase={'uid':uid,'batch':command['batch'],'jobId':result['jobId'],
+        phase={'uid':uid,'batch':command['batch'],'jobId':result['jobId'],'supportRows':result.get('rows',[]),
                'sourceSHA256':result.get('sourceSHA256'), 'reasons':result.get('reasons')}
         phases.append(phase);by_uid[uid].append(phase)
         if result.get('uid')==uid:
@@ -63,7 +72,22 @@ def main():
         else:
             for pair in result.get('rows',[]):
                 if pair.get('supportUid'):scope.add(pair['supportUid'])
-    assert not any(r['returncode']!=0 or not r['result'] for r in commands), 'Primary stage failures require explicit recovery before final checkpoint'
+    for failure in failures:
+        successors=[p for p in by_uid[failure['uid']] if p['sourceSHA256']==contexts[failure['uid']]['sourceSHA256']]
+        if successors:failure['recoveredBy']=successors[-1]['jobId']
+    assert not any((r['returncode']!=0 or not r['result']) and not latest[r['uid']] for r in commands), 'Primary failures need explicit recovered evidence'
+    installations={}
+    for path in args.installation:
+        directory=ROOT/path;result=read(directory/'result.json');sync=read(directory/'neon-sync.json')
+        assert result['publication'] and sync['resultVerified'] and sync['jobId']==result['jobId']
+        assert result['newlyInstalled']==len(result['installedUids']) and not result['activeWorkers'] and not result['queuedFollowups']
+        completed[result['jobId']]=result
+        for evidence in result['evidenceRefs']:assert digest((ROOT/evidence['path']).read_bytes())==evidence['sha256']
+        for uid in result['installedUids']:
+            assert uid in contexts and uid not in installations and result['sourceSHA256']==contexts[uid]['sourceSHA256']
+            installations[uid]={'jobId':result['jobId'],'sourceSHA256':result['sourceSHA256'],'result':ref(directory/'result.json'),'installedAcceptance':ref(directory/'installed-acceptance.json')}
+        references.extend([ref(directory/'result.json'),ref(directory/'neon-sync.json')])
+        tokens.append(read(HERE/'local'/result['batch']/'install-reservation.json')['token'])
     pointer_path=ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json'
     pointer=read(pointer_path);references.append(ref(pointer_path))
     progress_path=ROOT/'3d-viewer/city/data/building-progress.json';references.append(ref(progress_path))
@@ -84,8 +108,15 @@ def main():
         rows=[]
         for command in commands:
             uid=command['uid'];result=latest[uid]
+            if uid in installations:
+                assert reviews.get(uid)=='installed-verified'
+                rows.append({'uid':uid,'name':command['name'],'sourceSHA256':contexts[uid]['sourceSHA256'],
+                    'humanStatus':'installed','installed':True,'reasons':[],'blockerGroup':'installed',
+                    'projectionFailures':[],'phases':by_uid[uid],'installation':installations[uid],
+                    'commandFailures':[f for f in failures if f['uid']==uid],'requiresAI':False,'requiresHumanDecision':False,'nextStep':None})
+                continue
             assert result and result['reasons'], 'Passing candidates must reach guarded installation or an explicit failed acceptance stage first'
-            assert reviews.get(uid)!='installed-verified','Installed successors require installation evidence in the checkpoint'
+            assert reviews.get(uid)!='installed-verified','Installed successors need installation evidence'
             identity=contexts[uid]['identity'];fit=[]
             if identity['targetCoveredBySourceProjection']<.95:fit.append('target-coverage')
             if not (identity['sourceProjectionInsideTarget']>=.98 or
@@ -107,11 +138,11 @@ def main():
             'completedPhaseJobs':len(completed),'phases':phases,'commandFailures':failures,
             'blockerGroups':dict(Counter(r['blockerGroup'] for r in rows)),
             'projectionFailureGroups':dict(Counter(','.join(r['projectionFailures']) for r in rows if r['projectionFailures'])),
-            'newlyInstalled':0,'humanCounts':{'installed':0,'to-do':0,'held-human':0,'held-ai':0,'held-unknown':len(rows),'in-process':0},
+            'newlyInstalled':len(installations),'humanCounts':{'installed':len(installations),'to-do':0,'held-human':0,'held-ai':0,'held-unknown':len(rows)-len(installations),'in-process':0},
             'widerXLCheckpoint':{'models':len(cohort),'installed':installed,'held':len(cohort)-installed},
             'activeWorkers':0,'queuedFollowups':0,'modelGeometryChanges':0,'scriptExternalAICalls':0,
-            'publication':False,'progress':read(progress_path),
-            'qualification':'Completed mechanical continuation only; exact current Neon/readbacks and immutable evidence. Technical blockers do not establish an AI/human requirement. Original payload caches remain local-only. No acceptance, skip or installation credit.'}
+            'publication':bool(installations),'progress':read(progress_path),
+            'qualification':'Exact current Neon/readbacks and immutable completed source phases. Installation credit requires complete installed successor receipts and current installed-verified ledger. Technical holds alone do not establish an AI/human requirement. Original payload caches remain local-only.'}
         with connect() as con:
             con.row_factory=dict_row;con.execute('SELECT pg_advisory_xact_lock(%s)',(reservations.LOCK_ID,));assert reservations._current(con,lease)
             assert con.execute("UPDATE astra_modelling.jobs SET status='complete',result=%s,owner=NULL,token=NULL,lease_until=NULL,updated_at=clock_timestamp() WHERE id=%s AND owner=%s AND token=%s AND status='running' AND lease_until>clock_timestamp()",(Jsonb(result),jobid,job['owner'],job['token'])).rowcount==1
