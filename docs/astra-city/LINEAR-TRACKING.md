@@ -837,3 +837,9 @@ Codex, 6 October 2026. Banyan Garden Tower 1 (landsd/76044:0) is installed with 
 ## 6 October — pending safe-boundary recovery
 
 Current24 new XL /68 verified installed /284 not installed; runtime69 includes270142 awaiting current-pointer reconciliation, no credit yet. Fresh recovery, top-rendered-surface sampler tests and publication lock prepared. Active retained7 follow-ups continue; complete-parent successor PID351105 stopped before claims for safe code/recovery boundary. Resume after recovery;100-install goal remains active. Original meshes/placements unchanged, zero model AI calls.
+
+## 6 October 2026 — Stonecutters Island Sewage Treatment Works Main Pumping Station installed
+
+Codex, 6 October 2026. Stonecutters Island Sewage Treatment Works Main Pumping Station (landsd/270142:0) is installed with unchanged original government geometry. Verified Neon job `274a83627364dd22d03c5141bb92f8dd70a55383b4b4e7f2dd81f5592951129c`, installed snapshot `452826dbf1b088f2`, source SHA `2ad7fcad5e682c10ee28c5e0460fe673503a61c8092d61b31ee32d41825bea7c`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+25 new XL installations from44/308: **69 installed / 283 not installed**, 75 further installations required. Public counters: 346,108 total source forms, 4,417 enhanced, 4,403 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

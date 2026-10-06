@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.40"
+  version: "1.8.41"
 ---
 
 # Hong Kong model improvement
@@ -434,3 +434,9 @@ Codex, 6 October 2026. Banyan Garden Tower 1 (landsd/76044:0) is installed with 
 ## Publication and sampler recovery checkpoint
 
 Current completion requires exact installed-verified review in the current Neon snapshot; runtime presence alone earns no completion credit. Current24 new XL /68 installed /284 not installed. Preserve historical receipts and use fresh physical/browser evidence for pointer recovery. Serial publication is mandatory; the cooperative lock must protect manifest/review-pointer/progress updates, alongside source leases. Higher native terrain must not be hidden from the height sampler by a lower root water bed. Original source assets remain unchanged, AI for code only. See docs/astra-city/government-import/government-xl-sampler-publication-recovery-tools-20261006/README.md; active goal continues.
+
+## Latest actual XL installation checkpoint
+
+Codex, 6 October 2026. Stonecutters Island Sewage Treatment Works Main Pumping Station (landsd/270142:0) is installed with unchanged original government geometry. Verified Neon job `274a83627364dd22d03c5141bb92f8dd70a55383b4b4e7f2dd81f5592951129c`, installed snapshot `452826dbf1b088f2`, source SHA `2ad7fcad5e682c10ee28c5e0460fe673503a61c8092d61b31ee32d41825bea7c`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+25 new XL installations from44/308: **69 installed / 283 not installed**, 75 further installations required. Public counters: 346,108 total source forms, 4,417 enhanced, 4,403 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
