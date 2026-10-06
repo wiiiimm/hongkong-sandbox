@@ -101,4 +101,8 @@ def main():
     save(doc/'result.json',final);save(doc/'neon-sync.json',{'installedUids':[uid],'jobId':jobid,'resultVerified':True,'snapshotId':snapshot})
     print(json.dumps({'uid':uid,'snapshotId':snapshot,'jobId':jobid,'currentReviewRecovered':True,'runtimeAssetsAdded':0}),flush=True)
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    if '--owned' in sys.argv:
+        from publication_lock import locked_publication
+        with locked_publication(ROOT):main()
+    else:main()

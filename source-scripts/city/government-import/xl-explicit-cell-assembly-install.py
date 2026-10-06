@@ -282,4 +282,8 @@ def owned():
     print(json.dumps({'installed':UID,'snapshotId':snapshot,'jobId':jobid,'neonVerified':True}),flush=True)
 
 
-if __name__=='__main__':owned() if args.owned else start()
+if __name__=='__main__':
+    if args.owned:
+        from publication_lock import locked_publication
+        with locked_publication(ROOT):owned()
+    else:start()
