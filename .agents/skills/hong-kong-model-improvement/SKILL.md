@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.22"
+  version: "1.8.23"
 ---
 
 # Hong Kong model improvement
@@ -59,6 +59,10 @@ The 3 October ten-form compute continuation is frozen at `docs/astra-city/govern
 ## Local processing and AI-token constraint
 
 ## 6 October — 100-new-XL target remains active
+
+Alto Residences Tower 7 339119 is the eighth new installed XL source, taking XL352 to **52 installed / 300 held** (target remains 144/208). Exact installed snapshot `b551ea5da619bc39`, Neon job `23c2253c3f09548aa766392429302a68b16c044cbdba1515e114f7c8854fad9a`. It passed the explicit `original-government-owned-georef-identity-v1` positive original mesh/GeoRef identity route, full drawn terrain/contact/foundation, 27 neighbours, staged/live desktop/mobile day/night, picking/collision and fallback/retry. Original geometry is unchanged. Public totals: 346,108 source forms; 4,400 enhanced; 4,386/212,669 government matches installed. Continue without asking the user to resume.
+
+The positive identity route explicitly replaces the roof area-ratio check using original government root/complete mesh ownership and whole geographic coordinate-cell evidence. It preserves cached .98/1 m overlap/centroid, current 95% target coverage, 10 m extent and 1 m² unrelated-overlap limits, every physical/runtime guard and prior-review fencing. Full source is re-decoded and proof re-verified before publication. Ownership and recorded-height section diagnostics alone grant zero credit. Fourteen identity/graph tests pass; concrete real terrain/browser evidence is required for each installation. `xl-owned-retained-terrain-followthrough.py` preserves old native terrain and rechecks every installed neighbour. Alto Tower 5 has a fresh passing retained-terrain job `095828734c69d7ac47e47d8431a5da60d2b8030c926181f2fc435316eb5b5bd2` and is undergoing installation checks. Sung Fung Court retains ground-gap/basic-neighbour failures; no AI/human decision requirement has been established.
 
 The user target is 100 new installed XL source forms from the 44/308 baseline: finish at 144 installed / 208 held. Do not treat a bounded diagnostic checkpoint, commit or report as completion of that target. Mount Parker Residences 79608 is the seventh new installation, taking XL352 to **51 installed / 301 held**. Installed snapshot `1cda07c9f23e42e9`; exact Neon installation job `d6dc0136dd8e5ef88741b230c3687257943af4bef14e0444fe9b2dc993d96991`. Its unchanged government source passes full identity/contact/foundation/neighbour checks and staged/live desktop/mobile day/night, picking/collision and failure/retry. Public progress: 346,108 forms, 4,399 enhanced, 4,385/212,669 government matches installed. No architectural AI or geometry edits. Continue independent held sources without asking the user to resume.
 

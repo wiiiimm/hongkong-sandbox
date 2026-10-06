@@ -53,6 +53,43 @@ publishes under ownership and records installed results. Current tools are expli
 bound to the first 200-form batch. Do not retarget them by editing IDs without a new
 frozen batch/evidence set. Broad skip-screening remains retired.
 
+## Exact owned source and geographic identifier — 6 October 2026
+
+`original-government-owned-georef-identity-v1` is an explicit alternative to the
+whole-roof projection area ratio, implemented by `government_owned_identity.py`.
+It preserves cached overlap >=0.98 and centroid separation <=1 m, current target
+coverage >=95%, maximum full-source extension <=10 m and unrelated-form excess
+overlap <=1 m². All original terrain, contact, foundation, neighbour, runtime,
+prior-review, ownership and publication gates remain required.
+
+Positive identity additionally requires exact original bytes/native provenance,
+one exact named government root with unchanged unit HKPD pose, complete unique
+ownership and face accounting of every source mesh/node, one exact UID/ObjectID/
+CSUID outcome, matching government GeoRef and tower/podium subtype, and the whole
+GeoRef coordinate cell inside both current GIS polygon and actual original mesh
+projection. The decoded world bounds must match original native evidence within
+the existing 2 mm decoder check. Raw projection metrics are recomputed and retained;
+roof-area excess is never rewritten or hidden.
+
+LandsD's [BMS metadata](https://www.hkmapmeta.gov.hk/mcs/home/web/data/lands/b1000.faq.html)
+defines GeoRef by trimming coordinate decimals and the leading 8 from HK1980
+easting/northing. It identifies a one-metre coordinate cell, not a recovered exact
+point. The [3D model specification](https://static.csdi.gov.hk/csdi-webpage/download/common/5fae157cd31d217e580ea22cd65cc3e12f4bd55a26bf26339693b2865204ae1e)
+binds individual model IDs to GeoRef and tower/podium subtype. These provider-defined
+identifiers and complete original mesh ownership supply positive identity evidence
+when a detailed roof projection is larger than the 2D basic footprint. This is a
+faithful source port, not architectural judgement or structural certification.
+
+Use a fresh immutable stage with `xl-owned-indexed-terrain-continuation.py`; it
+retains legacy identity failures and separately records this route. The explicit
+owned contact runner forks the historical terrain algorithm without changing its
+physical guards. `xl-explicit-root-install.py` independently re-decodes the original
+source and verifies the entire positive proof before browser/publication work.
+Diagnostic-only ownership or section reports cannot enter this acceptance route.
+Tests reject shifted sources, wrong or ambiguous identifiers, uncertain coordinate
+cells, stale projection evidence, foreign actors and unowned geometry. A positive
+identity proof alone grants zero installation credit.
+
 ## Supported original pairs — bounded Saxon second pass
 
 The `original-government-supported-pair-v1` path keeps every direct-import gate

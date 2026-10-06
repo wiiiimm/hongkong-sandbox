@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-alto7-owned-installed-20261006/plan.json",
+  "areas": [
+    {
+      "area": "Alto Residences Tower 7 original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-alto7-owned-installed-20261006/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-339119-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-alto7-owned-installed-20261006/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "23015856a2d6b223f429a6db4b347825bd2c71006e38f993d89ae2458a534440"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-339119-0.json": "e37bd570d74b16695cd2b4170a7cbabad1a2993bb2cee7b0546317bbb8e84320",
+    "3d-viewer/city/data/official-models/government-xl-alto7-owned-installed-20261006/catalogue.json": "d50826c4ef640c3c6f89d760309744ad1a572ddef9c7be0ca1d8974cb5c39a7d",
+    "3d-viewer/city/data/manifest.json": "f49e09fff9eba53222cccee172f70aa9fd91ec94b33fa9aba4fc0dd96d11065e"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "5ab7312cd22746c36e2d94cc9e9056259de1cff9",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-339119-0.json",
+      "resolution": 5,
+      "area": "Alto Residences Tower 7 unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "b93f553a584794b4c37b3b56d373b5182dc3b55c7fe775e5bc37670a20ce902e",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "11-NE-25D",
+            "sourceETag": "\"2386398-63dcdb2bbd2b1\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-alto7-owned-terrain-20261006/sheets/11-NE-25D/terrain/TERRAIN(TB)/T44250180000106E10/T44250180000106E10.bin",
+                "sha256": "6ce3363926b3f26a3cc390b87b6a0aa2cd26e89bc44fc0178f380caac8d59efc"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-alto7-owned-terrain-20261006/sheets/11-NE-25D/terrain/TERRAIN(TB)/T44250180000106E10/T44250180000106E10.gltf",
+                "sha256": "9c62387c9fffc23fae36b0f621a19a859e19e292cb2265bcaaf4c6c85845f6aa"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "e37bd570d74b16695cd2b4170a7cbabad1a2993bb2cee7b0546317bbb8e84320",
+      "bytes": 843175
+    }
+  ],
+  "estimatedBases": []
+}

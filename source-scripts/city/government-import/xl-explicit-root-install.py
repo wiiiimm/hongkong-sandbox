@@ -65,7 +65,19 @@ def stage():
     context=next(r for r in source['rows'] if r['uid']==UID)
     assert context['sourceSHA256']==row['sourceSHA256']
     for path,pinned in context['neighbourTileHashes'].items():assert ref(ROOT/'3d-viewer'/path)['sha256']==pinned
-    assert module('west_kowloon_identity','xl-remaining-direct.py').identity_clear(context['identity'])
+    identity_record=read(SOURCE/'identity-proof.json')
+    if identity_record.get('method') == 'original-government-owned-georef-identity-v1':
+        from government_owned_identity import verify_files, POLICY
+        positive=verify_files(row,context,HERE/'local'/BATCH/'identity-publication-recheck')
+        assert positive['policy']==POLICY and positive['passed'], positive['reasons']
+        assert positive==read(SOURCE/'owned-source-identity.json')
+        assert positive==read(SOURCE/'owned-source-identity-contact.json')
+        assert identity_record['ownedSourceProofSHA256']==ref(SOURCE/'owned-source-identity.json')['sha256']
+        assert identity_record['proof']==positive['proof']
+        save(DOC/'positive-identity-publication-recheck.json',positive)
+    else:
+        assert not identity_record.get('method'), 'Unknown identity route'
+        assert module('west_kowloon_identity','xl-remaining-direct.py').identity_clear(context['identity'])
     with connect() as con:
         con.execute('SET TRANSACTION READ ONLY')
         actual=con.execute('SELECT r.result_sha FROM astra_modelling.native_stage_results r '
@@ -117,6 +129,8 @@ def stage():
     entry.update(priority='landmark',proceduralWindows=False,sourceIdentityReviewed=True,
         identityReviewApproved=True,placementReviewed=True,publicationApproved=True,suppressesBuildingUids=[],
         placementReview='Exact original UID/ObjectID/CSUID/SHA, native HKPD transforms and bounded projection proof. Full source contact, foundation, basic/native neighbours and runtime gates pass against pinned current terrain. No AI modelling, geometry edits, height shifts or suppression.')
+    if identity_record.get('method'):
+        entry['placementReview']='Exact original government mesh ownership, unique UID/ObjectID/CSUID/SHA, native HKPD pose and whole GeoRef coordinate-cell proof. Cached spatial and full-source coverage/extent/unrelated-form limits pass. This explicit identity route replaces the roof-area ratio only; full terrain/contact/foundation/neighbour/runtime gates and staged/live browser verification remain required. No geometry edits, height shifts or suppression.'
     asset=STAGE/entry['asset'];asset.parent.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/row['candidate']['path'],asset);assert ref(asset)['sha256']==entry['sha256']
     catalogue.update(area=entry['label']+' original government source',models=[entry],counts={'packedModels':1})
@@ -163,6 +177,12 @@ def stage():
     evidence.update(identity=ref(DOC/'identity.json'),dependencies=ref(DOC/'dependencies.json'),
         selection=ref(SOURCE/'selection.json.gz'),policy=ref(HERE/'acceptance-policy.py'),
         catalogue=ref(STAGE/'catalogue.json'),plan=ref(STAGE/'plan.json'))
+    if identity_record.get('method'):
+        for name in ['owned-source-identity','owned-source-identity-contact','indexed-preflight']:
+            evidence[name]=ref(SOURCE/(name+'.json'))
+        evidence['positive-identity-publication-recheck']=ref(DOC/'positive-identity-publication-recheck.json')
+        for name in ['government_owned_identity.py','original_source_ownership.py','xl-second-pass.py']:
+            evidence[name]=ref(HERE/name)
     save(DOC/'stage.json',{'batch':BATCH,'uids':[UID],'sourceSHA256':entry['sha256'],
         'terrain':ref(patch),'evidence':evidence,'checksPassed':True,'publication':False,
         'scriptExternalAICalls':0,'modelGeometryChanges':0})
