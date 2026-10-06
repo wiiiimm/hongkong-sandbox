@@ -124,7 +124,9 @@ def stage():
     save(DOC/'identity.json',context)
     evidence={name:ref(SOURCE/(name+'.json')) for name in
         ('metrics','validation','foundation','neighbour-checks',
-         'native-neighbour-checks','identity-proof','source-recovery','result','neon-sync')}
+         'native-neighbour-checks','identity-proof','result','neon-sync')}
+    recovery_name='source-recovery' if (SOURCE/'source-recovery.json').exists() else 'recheck-inputs'
+    evidence[recovery_name]=ref(SOURCE/(recovery_name+'.json'))
     if (SOURCE/'diagnostic-resolution.json').exists():
         evidence['diagnostic-resolution']=ref(SOURCE/'diagnostic-resolution.json')
         evidence['diagnostic-resolver']=ref(HERE/'terrain_diagnostic_resolution.py')
