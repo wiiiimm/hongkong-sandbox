@@ -1,3 +1,4 @@
+import {TerrainPatchIndex,terrainGridBounds} from './terrain-patch-index.js';
 import {renderedPatchHeight} from './rendered-patch-height.js';
 import {nativeTerrainSurface} from './native-terrain.js';
 import {collisionVolumes} from './building-geometry.js';
@@ -15,12 +16,13 @@ export function makeTerrainSampler(data) {
   const native=data.nativeMesh?nativeTerrainSurface(data.nativeMesh):null;
   const nativeGridFallback=data.nativeMesh?.source?.numericalCoverageGap?.policy==='parent-grid-fallback';
   const patches=(data.patches||[]).map(makeTerrainSampler);
-  const patchAt=(x,z)=>patches.find(p=>p.contains(x,z));
+  const patchIndex=new TerrainPatchIndex((data.patches||[]).map((patch,i)=>({value:patches[i],bounds:terrainGridBounds(patch,ORIGIN)})));
+  const patchAt=(x,z)=>patchIndex.query(x,z).find(p=>p.contains(x,z));
   // Sibling patches are all drawn. Sample their visible top at this point;
   // a parent's covered coarse grid remains excluded by the child fallback.
   const patchHeight=(x,z)=>{
     let top;
-    for(const patch of patches)if(patch.contains(x,z)){
+    for(const patch of patchIndex.query(x,z))if(patch.contains(x,z)){
       const value=patch.height(x,z);
       top=top===undefined?value:Math.max(top,value);
     }

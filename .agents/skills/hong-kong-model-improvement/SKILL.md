@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.60"
+  version: "1.8.61"
 ---
 
 # Hong Kong model improvement
@@ -542,3 +542,7 @@ Codex, 6 October 2026. Hong Kong Parkview Block 2 (landsd/256114:0) is installed
 ## Supported original runtime diagnostics — 7 October 2026
 
 Waterfront Tower II and Cullinan West Tower 1 passed unchanged physical/support gates but failed staged runtime verification; neither is installed or approved. See `government-xl-supported-runtime-continuation-20261007/README.md`. Use the exact two-source fenced browser diagnostic runner to capture activation state and CPU profiles; diagnostics carry no acceptance/progress credit. Preserve source bytes, production budgets, normal arrival and timeout gates. Fresh full physical/staged/live acceptance remains required after runtime fixes. XL76/276,32 new; active100 target continues.
+
+## Terrain lookup runtime fix — 7 October 2026
+
+Profiled Cullinan/Elements loading stalls traced to exhaustive terrain lookup during road draping. The sampler now uses an order-preserving broad-phase index; 46,812 exact current-territory queries match immutable baseline6c528f97, and22 focused tests pass. Heights/source/terrain/budgets are unchanged. Physical metrics pin the new index code. Cullinan fresh full physical proof d1bd8f2557f89d68ab6a81c20e2948587a357f77f9706993bfd170126870f388 passes; rerun full staged/live acceptance before installed credit. Preserve prior failed browser evidence and distinguish lookup benchmarks from actual browser performance.

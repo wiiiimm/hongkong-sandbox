@@ -3,7 +3,7 @@ import {streamingMetrics as metrics} from './streaming-metrics.js';
 import {bindBuildingProgress} from './building-progress.js?v=20261006-progress-http1';
 import * as THREE from '../vendor/three.module.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
-import {makeTerrainSampler} from './geo.js';
+import {makeTerrainSampler} from './geo.js?v=20261007-terrain-index1';
 import {makeTerrain,makeWater,makeFerries,extrudeBuilding} from './world.js?v=20260913-load2';
 import {Navigation} from './navigation.js';
 import {AIRCRAFT} from './aircraft.js';
