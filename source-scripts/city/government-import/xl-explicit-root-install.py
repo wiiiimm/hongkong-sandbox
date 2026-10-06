@@ -85,7 +85,10 @@ def stage():
     for path,pinned in metrics['inputHashes'].items():assert ref(ROOT/path)['sha256']==pinned
     validation=read(SOURCE/'validation.json')
     assert validation['checksPassed']==validation['loaderAccepted']==1 and validation['exceptions']==0
-    assert not validation['results'][0].get('concerns'), 'Diagnostic warnings require a separately proven recheck'
+    if validation['results'][0].get('concerns'):
+        proof_resolution=module('explicit_install_diagnostics','terrain_diagnostic_resolution.py').resolve_global_bottom_warning(
+            validation['results'][0],metric,read(SOURCE/'foundation.json')['rows'][0])
+        assert proof_resolution==read(SOURCE/'diagnostic-resolution.json') and not proof_resolution['remaining']
     foundation=read(SOURCE/'foundation.json')['rows'][0]
     assert foundation['strictFoundationAccepted'] and foundation['sourceSHA256']==row['sourceSHA256']
     resolved=set(read(SOURCE/'native-neighbour-checks.json')['resolved'])
@@ -122,6 +125,9 @@ def stage():
     evidence={name:ref(SOURCE/(name+'.json')) for name in
         ('metrics','validation','foundation','neighbour-checks',
          'native-neighbour-checks','identity-proof','source-recovery','result','neon-sync')}
+    if (SOURCE/'diagnostic-resolution.json').exists():
+        evidence['diagnostic-resolution']=ref(SOURCE/'diagnostic-resolution.json')
+        evidence['diagnostic-resolver']=ref(HERE/'terrain_diagnostic_resolution.py')
     evidence.update(identity=ref(DOC/'identity.json'),dependencies=ref(DOC/'dependencies.json'),
         selection=ref(SOURCE/'selection.json.gz'),policy=ref(HERE/'acceptance-policy.py'),
         catalogue=ref(STAGE/'catalogue.json'),plan=ref(STAGE/'plan.json'))

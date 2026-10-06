@@ -1,3 +1,7 @@
+## Active 6 October sustained XL work
+
+Use worktree `.claude/worktrees/astra-hong-kong-city`, branch `codex/astra-hong-kong-city`. The first 100 are complete: `government-xl-sustained-100-checkpoint-20261006`, 121 exact Neon phases and checkpoint `52066cf6a30821c93d83d0250f631e0e005b549c27a0764fb26a5f8c66585ba6`. The next 131 primary/follow-up sequence remains active; inspect `government-xl-sustained-sequence-20261006` and `government-xl-sustained-131-20261006/working-commands.json` before launching anything. Completed scripts are immutable evidence and are not installations. China Taiping 274320 has successful staged browser acceptance and awaits guarded publication/live acceptance after the active frozen-input workers finish. XL352 is still 44 installed / 308 held at this checkpoint. The user authorised all non-main commits/pushes and sustained processing across phase boundaries. Do not end a turn merely at a successful intermediate checkpoint.
+
 # Resume on another device
 
 Current policy (11 September 2026): use the latest skill/import order after restoring historical checkpoints. Full skip-screening is retired; government-model handling uses local scripts with zero per-model AI calls. Do not revive old comparison prerequisites or per-building AI review instructions from a restored checkpoint. Existing source/placement/publication guards still apply.

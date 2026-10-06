@@ -47,12 +47,12 @@ def main():
     phases=[];completed={};tokens=[];scope=set(contexts)
     by_uid={r['uid']:[] for r in commands};latest={r['uid']:r['result'] for r in commands}
     failures=[]
-    for command in commands+extra:
+    for ordinal,command in enumerate(commands+extra):
         uid=command['uid'];assert uid in contexts
         target=ROOT/'docs/astra-city/government-import'/command['batch']
         if command['returncode']!=0 or not command['result']:
             failures.append({'uid':uid,'batch':command['batch'],'returncode':command['returncode'],
-                             'log':command['log'],'reason':'incomplete-command-evidence','recoveredBy':None})
+                             'log':command['log'],'reason':'incomplete-command-evidence','recoveredBy':None,'sequenceIndex':ordinal})
             continue
         result=read(target/'result.json');sync=read(target/'neon-sync.json')
         assert result==command['result'] and sync['resultVerified'] and sync['jobId']==result['jobId']
@@ -64,7 +64,7 @@ def main():
         tokens.append(read(HERE/'local'/command['batch']/'reservation.json')['token'])
         completed[result['jobId']]=result
         references.extend([ref(target/'result.json'),ref(target/'neon-sync.json')])
-        phase={'uid':uid,'batch':command['batch'],'jobId':result['jobId'],'supportRows':result.get('rows',[]),
+        phase={'uid':uid,'batch':command['batch'],'jobId':result['jobId'],'sequenceIndex':ordinal,'supportRows':result.get('rows',[]),
                'sourceSHA256':result.get('sourceSHA256'), 'reasons':result.get('reasons')}
         phases.append(phase);by_uid[uid].append(phase)
         if result.get('uid')==uid:
@@ -73,7 +73,7 @@ def main():
             for pair in result.get('rows',[]):
                 if pair.get('supportUid'):scope.add(pair['supportUid'])
     for failure in failures:
-        successors=[p for p in by_uid[failure['uid']] if p['sourceSHA256']==contexts[failure['uid']]['sourceSHA256']]
+        successors=[p for p in by_uid[failure['uid']] if p['sequenceIndex']>failure['sequenceIndex'] and p['sourceSHA256']==contexts[failure['uid']]['sourceSHA256']]
         if successors:failure['recoveredBy']=successors[-1]['jobId']
     assert not any((r['returncode']!=0 or not r['result']) and not latest[r['uid']] for r in commands), 'Primary failures need explicit recovered evidence'
     installations={}

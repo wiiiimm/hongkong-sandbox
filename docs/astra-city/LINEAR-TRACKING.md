@@ -1,3 +1,9 @@
+## 6 October 2026 — sustained XL continuation active
+
+First 100 completed: 121 exact verified Neon phase jobs, 85 footprint-fit holds and 15 terrain/neighbour/support holds; checkpoint `52066cf6a30821c93d83d0250f631e0e005b549c27a0764fb26a5f8c66585ba6`. Fresh Festival Walk seam and Star House retained-child receipts recover historical command failures. Original support checks and Parkview installed-identity reuse retain actual failed contact samples. The next 131 primary/follow-up checks remain active. China Taiping Finance Centre 274320 passes all scripts and staged desktop/mobile day/night, framing, picking, collision and failure/retry checks; it awaits guarded publication/live checks after frozen-input workers finish. No architectural AI or source edits. XL352 remains 44 installed / 308 held until publication.
+
+HKS-203, HKS-215, HKS-199 and Astra milestone progress notes are updated and exact readbacks verified. Issue states remain open; this is not completion of the wider model work. Inputs/sequence pushed in `4419f714` and `9ede5e58`; new mechanics/support evidence pushed in `eca942bb`.
+
 ## 9 September2026 — user-directed pause
 
 269 source components verified (209new+60existing), seven reviewed native components approved for later integration, snapshot7d47a5f3c7362e9b. All source reservations released. Grand integration2802a451; foundation package681ac72f/7f9c9bfd; Cullinan/Elements/CR/Oakhill packagef56f3cf1/5851fb06. HKS-220 implementedc31b72d7 and In Review; UI shows269 of346,108 source forms (0.08%), not physical buildings or whole-landmark completion. No next model batch has started. Read landmark-resume/PAUSED-HANDOFF-20260909.md and final R2 checkpoint before cross-device resume. This is a user-requested pause, not an approval blocker.
