@@ -9,11 +9,25 @@ from run import ROOT, HERE, read, digest, connect
 
 def call(command):
     subprocess.run(command,cwd=ROOT,check=True)
+
+def check_auxiliary_scope(original_inputs,uids,shas,catalogue,xl):
+    original_sources={r['uid']:r for r in original_inputs['sources']}
+    supports={r['supportUid'] for r in original_inputs['pairs']}
+    assert set(uids)<=supports and not set(uids)&xl,'Auxiliary support must not add XL credit'
+    assert {m['uid'] for m in catalogue['models']}==set(uids)
+    for model in catalogue['models']:
+        original=original_sources[model['uid']]
+        assert original['sourceSHA256']==shas[model['uid']]
+        assert original['source']['building']['structureType']=='Podium'
+        for key in ('uid','objectId','buildingCSUID','sha256','worldBounds'):
+            assert model[key]==original['candidate']['entry'][key]
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--source',required=True,help='Exact installed evidence directory within government-import')
     p.add_argument('--browser-inspected',action='store_true',required=True,help='Coordinator has viewed the exported live browser image')
     p.add_argument('--push',action='store_true')
+    p.add_argument('--support-closure',help='Exact verified original closure for a supporting podium outside XL352; gives zero XL credit')
     a=p.parse_args();doc=(ROOT/a.source).resolve()
     assert doc.parent==ROOT/'docs/astra-city/government-import' and doc.name.startswith('government-xl-')
     assert not (doc/'README.md').exists(),'Do not rewrite a completed installation note'
@@ -42,7 +56,20 @@ def main():
     assert Path(published_batch).name==published_batch and published_batch.startswith('government-xl-')
     published=ROOT/'3d-viewer/city/data/official-models'/published_batch
     for model in catalogue['models']:assert digest((published/model['asset']).read_bytes())==shas[model['uid']]
-    xl={r['uid'] for r in read(ROOT/'docs/astra-city/government-import/government-xl-remaining-20260923/selection.json.gz')['rows']};assert len(xl)==352 and set(uids)&xl
+    xl={r['uid'] for r in read(ROOT/'docs/astra-city/government-import/government-xl-remaining-20260923/selection.json.gz')['rows']};assert len(xl)==352
+    support_closure=None
+    if a.support_closure:
+        support_closure=(ROOT/a.support_closure).resolve();assert support_closure.parent==doc.parent
+        closure_result=read(support_closure/'result.json')
+        assert closure_result['publication'] is False and closure_result['newlyInstalled']==0
+        assert closure_result['modelGeometryChanges']==closure_result['scriptExternalAICalls']==0
+        with connect() as c:
+            c.execute('SET TRANSACTION READ ONLY')
+            assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(closure_result['jobId'],)).fetchone()==('complete',closure_result)
+        for ref in closure_result['evidenceRefs']:assert digest((ROOT/ref['path']).read_bytes())==ref['sha256']
+        original_inputs=read(support_closure/'support-inputs.json')
+        check_auxiliary_scope(original_inputs,uids,shas,catalogue,xl)
+    else:assert set(uids)&xl,'Use the exact support-closure route for non-XL podiums'
     deployed={m['uid']:m for m in models if m['uid'] in xl}
     with connect() as c:
         c.execute('SET TRANSACTION READ ONLY')
@@ -57,7 +84,7 @@ def main():
     done=len(completed);new=done-44;assert 1<=new<=308
     progress=read(ROOT/'3d-viewer/city/data/building-progress.json');assert progress==result['progress']
     label=' and '.join(m.get('label') or m['uid'] for m in catalogue['models']);uid=', '.join(uids)
-    note=(f'Codex, 6 October 2026. {label} ({uid}) is installed with unchanged original government geometry. '
+    note=(f'Codex, 7 October 2026. {label} ({uid}) is installed with unchanged original government geometry. '
           f'Verified Neon job `{result["jobId"]}`, installed snapshot `{result["snapshotId"]}`, source hashes `{shas}`. '
           'Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. '
           'Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. '
@@ -66,14 +93,16 @@ def main():
           f'Public counters: {progress["totalForms"]:,} total source forms, {progress["breakdown"]["enhanced"]:,} enhanced, '
           f'{progress["government"]["enhanced"]:,} / {progress["government"]["available"]:,} government matches installed. '
           'Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.\n')
+    if support_closure:note+='\nThis auxiliary original podium is outside XL352 and adds zero XL target credit. Exact source closure: '+str(support_closure.relative_to(ROOT))+'.\n'
     (doc/'README.md').write_text('# '+label+' — verified original installation\n\n'+note)
     skill=ROOT/'.agents/skills/hong-kong-model-improvement/SKILL.md';s=skill.read_text()
     match=re.search(r'version: "(\d+)\.(\d+)\.(\d+)"',s);assert match
     version=f'{match[1]}.{match[2]}.{int(match[3])+1}'
     skill.write_text(s.replace(match[0],f'version: "{version}"',1)+'\n## Latest actual XL installation checkpoint\n\n'+note)
     tracking=ROOT/'docs/astra-city/LINEAR-TRACKING.md';tracking.write_text(tracking.read_text()+'\n## 6 October 2026 — '+label+' installed\n\n'+note)
-    paths=[doc,previous,staged,published,
+    paths=[doc,previous,staged,published,Path(__file__).resolve(),
            ROOT/'docs/astra-city/model-integration-20260909'/published_batch,inventory,skill,tracking]
+    if support_closure:paths += [support_closure,HERE/'test_auxiliary_commit_scope.py']
     paths += [ROOT/'3d-viewer'/patch['destination'] for patch in read(staged/'plan.json').get('topLevelTerrainPatches',[])]
     if result.get('recoveredPublishedBatch'):
         historical=read(previous/'historical-installed-proof.json')
