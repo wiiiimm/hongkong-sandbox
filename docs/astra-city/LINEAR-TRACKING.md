@@ -1,6 +1,6 @@
 # 6 October 2026 — continuing the active 100-new-XL target
 
-12 new verified XL installs from the 44/308 baseline; XL352 is now 56 installed / 296 not installed. Spectra Tower 2 and Beverly Garden Block 7 have complete original-source, terrain/foundation/neighbour and staged/live desktop/mobile acceptance. Original meshes unchanged; zero external AI modelling calls. Next sources continue in the explicit 57-source sequence. Linear synchronisation follows this installation commit; target is not complete.
+12 new verified XL installs from the 44/308 baseline; XL352 is now 56 installed / 296 not installed. Spectra Tower 2 and Beverly Garden Block 7 have complete original-source, terrain/foundation/neighbour and staged/live desktop/mobile acceptance. Original meshes unchanged; zero external AI modelling calls. Next sources continue in the explicit 57-source sequence. Commit c2868772 is pushed. HKS-203, HKS-215, parent HKS-199 and the authorised Astra milestone are synchronised and verified. Target is not complete.
 
 ## 6 October — 100-new-XL target remains active
 
