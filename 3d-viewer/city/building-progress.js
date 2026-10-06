@@ -1,3 +1,4 @@
+import {sha256Hex} from './sha256.js';
 const percentText=value=>value===null?'Not available':`${value.toLocaleString('en-HK',{minimumFractionDigits:2,maximumFractionDigits:2})}%`;
 export function coveragePresentation(data){
  if(data?.version!==3||data.status!=='available'||data.unit!=='source-building-form'||!Number.isSafeInteger(data.totalForms)||data.totalForms<0||!Number.isFinite(Date.parse(data.updatedAt)))return null;
@@ -21,7 +22,7 @@ export async function bindBuildingProgress(manifest,{doc=document,fetcher=fetch}
  try{
   const response=await fetcher('city/data/building-progress.json',{cache:'no-cache'});if(!response.ok)throw Error('Statistics unavailable');
   const data=await response.json(),p=coveragePresentation(data);if(!p)throw Error('Statistics unavailable');
-  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(manifest))),actual=[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  const actual=await sha256Hex(new TextEncoder().encode(JSON.stringify(manifest)));
   if(actual!==data.manifestDigest){unavailable('Statistics are being updated for this map version.');return;}
   const number=n=>n.toLocaleString('en-HK'),compact=n=>n.toLocaleString('en-HK',{notation:'compact',maximumFractionDigits:1}).toLowerCase(),g=p.government;
   doc.getElementById('progress-total').textContent=number(p.total);

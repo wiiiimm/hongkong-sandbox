@@ -1,6 +1,6 @@
 import {observeCanvasViewport,canvasDimensions} from './canvas-viewport.js';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
-import {bindBuildingProgress} from './building-progress.js?v=20260914-progress5';
+import {bindBuildingProgress} from './building-progress.js?v=20261006-progress-http1';
 import * as THREE from '../vendor/three.module.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {makeTerrainSampler} from './geo.js';
