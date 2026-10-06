@@ -750,3 +750,11 @@ Tung Mau installation commit `4f130f2f` is pushed. Current XL352 is 58 installed
 ## 6 October 2026 — Fu Sing House installed
 
 Codex installed unchanged landsd/282088:0 after full positive complete-cell identity, source contact/foundation, neighbours, staged/live browser and publication acceptance. Verified Neon job `4ba1a716a31e8c0b1878d4f0a2752db5f1dd4217c637321846984236e43437ff`, snapshot `8fda2c228a8d16ff`. XL352 is **59 installed / 293 not installed**, 15 new from 44/308 and 85 further installs required. Public total 346,108 forms; 4,407 enhanced; 4,393 / 212,669 government matches installed. Original government geometry unchanged, zero architecture/model AI calls. Additional34 sequence continues; complete Hoi Wing follow-up queued after it. Dependency/handoff fix commit `b41cc34a` preserves every failed/stale check and legacy declaration. Broader issues and 100-new target remain open.
+
+## 6 October 2026 — Royal Green Tower 2 installed; serial acceptance continues
+
+Codex, 6 October 2026. Royal Green Tower 2 (landsd/9698:0) is installed unchanged. Verified Neon job `427f57478ceec5cdb45615b19ff0fd0268aa4f4012e2d8103dd4777f484d7f05`, snapshot `b9daafab24b0229d`, original source SHA `6eab0012f23f1365971879523c57a1acf6f5db4c647ea54540655db62c233da6`. Full whole-cell source identity, contact, foundation, basic/native neighbours, runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected. Zero source geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+Sixteenth verified new XL installation from 44/308: **60 installed / 292 not installed**; 84 further installations required. Public counters: 346,108 total source forms, 4,408 enhanced; 4,394 / 212,669 government matches installed.
+
+The active serial chain continues: remaining 34-source work, complete Hoi Wing acceptance, Spectra Tower 5 full assembly acceptance, exact basic-neighbour follow-ups, and the further 57 cached original XL sources. The Spectra assembly camera diagnostic passes actual desktop/mobile browser gates but supplies no installation credit until full fresh acceptance. All current source/contact/foundation and browser gates remain required.
