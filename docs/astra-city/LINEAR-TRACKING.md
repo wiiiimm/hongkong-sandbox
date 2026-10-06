@@ -766,3 +766,9 @@ Codex, 6 October 2026. Tsung Tsin Christian Academy (landsd/242392:0) is install
 Seventeenth new XL installation: **61 installed / 291 not installed**, 83 further installations required. Public counters: 346,108 total source forms, 4,409 enhanced, 4,395 / 212,669 government matches installed. Remaining serial batch, fresh Hoi Wing/Spectra acceptance, basic-neighbour follow-ups and further57 continue; no checkpoint pause.
 
 Royal Green commit `5e6e970f` is pushed; HKS-203/HKS-215/HKS-199 current16 checkpoint verified by exact readback.
+
+## 6 October 2026 — full-cell retained compatibility follow-up
+
+Codex, 6 October 2026. Serial follow-up after uncovered57 completion; only exact completed owned57/full-cell34/uncovered-qualified XL goal cohorts. Read back previous fenced Neon results and immutable evidence, source hashes and exact current installed state before routing one current simple native patch. Already installed sources require no repeated work. Fresh candidates retain the complete existing native terrain including overlaps; all whole original source contact/burial/foundation/basic/native/runtime checks remain mandatory. Cell installs also use the tested complete-assembly browser framing. No geometry edits, height shifts, threshold increases, architecture inference, new territories or external model AI calls.
+
+New helpers pass Python compilation. Thirty existing native-plane preservation, rendered sampler, declared retained scope and whole-cell identity regression tests pass. Full real-source terrain/browser/installed acceptance remains future work; queue routing and test success supply no new installation credit. Failed attempts retain individual fenced Neon reasons. Previous completed evidence and current running/frozen helpers are unchanged. Active100-install goal remains open, currently17 new / XL61 installed and291 not installed.
