@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.32"
+  version: "1.8.33"
 ---
 
 # Hong Kong model improvement
@@ -389,3 +389,8 @@ Seventeenth new XL installation: **61 installed / 291 not installed**, 83 furthe
 Codex, 6 October 2026. Coble Court (landsd/7110:0) is installed with unchanged original government geometry. Verified Neon job `cc676653d5d9418c50131bc2779471b0b7681b788b0be531258f3bfa4a9ff2e5`, installed snapshot `bb777efbd7c1b780`, source SHA `b6d4076874f1db61add0e850aaa4bbc3003e947679b16ecf6cf22748a25c7375`. Complete whole-cell identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported mobile PNG inspected. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 Eighteenth new XL installation from44/308: **62 installed / 290 not installed**, 82 further installations required. Public counters: 346,108 total source forms, 4,410 enhanced, 4,396 / 212,669 government matches installed. Current34 continues; serial Hoi/Spectra/basic/uncovered57/retained follow-ups remain active/queued. Goal stays open.
+
+## Exact support reuse and continued XL processing
+
+Codex, 6 October 2026. Two exact supporting originals reused from the verified prior Aqua/Mount closure, with frozen source/context hashes and no existing reviews. Full original geographic-cell identity runs under fresh fenced ownership. Verified Neon job `a32540c3092391bc9507236465db620ffe9bda815beb69804c5568b8361f2318`: Mount Verdant podium75782 passes complete original ownership and current geographic-cell identity; Aqua Marine podium193086 still fails source excess over unrelated form and full-source unrelated overlap. The existing limits stay unchanged. Neither source is installed by this diagnostic. Zero geometry changes, transfers or architectural/model AI calls. Full source support/terrain/foundation/neighbour/runtime/browser/publication acceptance remains required. Original unchanged tower/podium interface results remain in the prior closure; new identity is not support credit.
+Codex, 6 October 2026. Mechanical inspection of45 ground-held sources in completed owned57 and first22 completed rows of full-cell34 finds17 recorded same-parent lower forms whose recorded top is within0.5m of the target recorded base. This recorded adjacency is only a lookup candidate; original model interfaces and all existing gates decide support. Three exact prior Aqua/Mount pair results are verified against Neon and reused. Fourteen unprocessed pairs are running sequentially under per-pair source leases using `xl-exact-support-closure.py`; exact GeoRef/ObjectID/full CSUID joins, unchanged original meshes and full low-rim interfaces are required. No new global queue or semantic building inference; no original source geometry edits or model AI calls. Diagnostics alone provide no installed credit. Missing/ambiguous records or failed interfaces remain explicit for further compute. The publication chain continues independently and serially.
