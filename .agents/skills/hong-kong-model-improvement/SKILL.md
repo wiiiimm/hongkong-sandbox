@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.44"
+  version: "1.8.45"
 ---
 
 # Hong Kong model improvement
@@ -460,3 +460,9 @@ Assembly browser acceptance explicitly discovers each required retained source i
 Exact source acquisition may reuse an existing live reservation only when it owns every required original; the nested utility must not claim competing leases or release the caller’s scope. Four acquisition regression tests cover complete, incomplete, expired and internal scopes. No screening/skip stage is reintroduced. `xl-recover-explicit-originals.py` stores fenced recovery outcomes without changing reviews. The separate `xl-recover-explicit-originals-with-revision.py` preserves the original runner hash and permits only exact member CRC/decoded-size and final packed SHA agreement across a container revision; missing/changed models stay held. Central Pier213352 and122298 are missing in the current archive,0installed; preserve their Neon recovery results for later source recovery.
 
 Assembly browser acceptance pre-caches only unchanged retained compressed originals through the production bounded byte cache before travel; new target sources remain fresh and require mobile failed-download/retry proof. Actual original source activation, normal budgets, frustum visibility, terrain agreement and all staged/live exported views remain mandatory. The setup renderer instance may be suspended, with original rendering explicitly used for every capture. Runtime/image preparation is not installation credit.
+
+## 7 October — current source revisions and retained visit fixture
+
+Codex,7 October2026,HKS-203. Exact old C0 pier models are absent, but current sheet11-SW-9A contains unique C1 government originals for the same GeoRefs. The explicit new-revision acquisition recovered both without model edits. Fresh packed sources: Central PierNo.8 landsd/213352:0 SHA79975dbdab4258b5451b051dd861737a1fe5f8627c913ac304b88d87840eb895 (8,224 triangles), Central Pier landsd/122298:0 SHA54c4c993f310f8e6365be32b9206643274cf52e3b90ce1d8bc4d200c0d0cb745 (14,097 triangles). Official CSUID/ObjectID joins and original packing/runtime-format checks pass. Verified Neon job df510679ee23a7bbc50ce7a7a67aafd4c5806aba2d2d33d61213b54bebe32418 stores new revisions separately; old native-stage results/recovery holds remain intact. These are local prepared sources, not installations: complete identity/terrain/foundation/neighbours/staged/live publication remains pending. Zero architecture/model AI calls. No historical Lantau maps used.
+
+Assembly fixture visits the already installed required source through normal navigation before the new model. Fu Wen diagnostic staged desktop/mobile day/night and fallback/retry all pass; retained Fu Sing remains active/visible. Optional camera direction affects inspection only. Source geometry and all budgets/gates unchanged. CurrentXL352 remains69 installed/283 not installed,25 new; goal remains active.
