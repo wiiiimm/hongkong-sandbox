@@ -14,6 +14,7 @@ from dependency_preflight import from_catalogues
 parser=argparse.ArgumentParser(description=__doc__)
 for name in ('uid','batch','source','base'):parser.add_argument('--'+name,required=True)
 parser.add_argument('--prepare-only',action='store_true')
+parser.add_argument('--capture-direction',help='Three finite view direction components; positive height, no model or budget change')
 parser.add_argument('--retry-of',help='Explicit interrupted approval directory; fresh acceptance still required')
 parser.add_argument('--owned',action='store_true',help=argparse.SUPPRESS)
 args=parser.parse_args()
@@ -177,9 +178,12 @@ def stage():
         for axis in range(3):
             bounds[0][axis]=min(bounds[0][axis],matches[0]['worldBounds'][0][axis])
             bounds[1][axis]=max(bounds[1][axis],matches[0]['worldBounds'][1][axis])
+    import math
+    capture_direction=[float(v) for v in args.capture_direction.split(',')] if args.capture_direction else [.5,.5,.707]
+    assert len(capture_direction)==3 and all(math.isfinite(v) for v in capture_direction) and capture_direction[1]>0
     save(STAGE/'browser-config.json',{'stage':str(STAGE.relative_to(ROOT))+'/',
         'doc':str(DOC.relative_to(ROOT))+'/','catalogueURL':destination,'terrain':[terrain],
-        'fitBox':True,'captureBoundsByModel':{UID:bounds},'browserUids':[UID],'failureTestUids':[UID],
+        'fitBox':True,'captureBoundsByModel':{UID:bounds},'captureDirectionByModel':{UID:capture_direction},'browserUids':[UID],'failureTestUids':[UID],
         'retainedBuildingUidsByModel':{UID:retained},'nativeSupportUidsByModel':{UID:replacement['retainedUids']}})
     dependencies=from_catalogues(ROOT/'3d-viewer/city/data/manifest.json',[STAGE/'catalogue.json'])
     assert not any(r['blockers'] for r in dependencies['rows']);save(DOC/'dependencies.json',dependencies)
