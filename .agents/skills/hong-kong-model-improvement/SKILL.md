@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.53"
+  version: "1.8.54"
 ---
 
 # Hong Kong model improvement
@@ -508,3 +508,9 @@ Only the twelve scoped originals in `provisional_original_review.py` may use the
 ## Unchanged current terrain with exact installed original supports
 
 For the exact scoped provisional originals, `xl-provisional-current-support-preflight.py` reruns current source identity, installed support bytes/review, all strict interface contacts and full compound foundation on the actual unchanged current terrain. `current_installed_support_acceptance.py` adapts exact installed catalogue metadata to the established original decoder, checking triangle count and native bounds without changing any geometry. Four contact safety tests retain every non-contact physical/runtime/identity blocker. The separate `xl-explicit-provisional-current-support-install.py` requires zero terrain candidates and zero neighbour ground changes; its publisher plan changes model catalogues only. Browser verification explicitly requires the retained original support active and visible throughout the normal visit; keep that configuration field unique. All source leases, publication locking, staged/live desktop/mobile day/night, picking/collision/failure/retry, installed ledger and Neon readback checks remain required. Do not treat a support probe or physical pass as installed. Preserve every archived provisional decision and do not infer whole-landmark membership.
+
+## Latest actual XL installation checkpoint
+
+Codex, 6 October 2026. Banyan Garden Tower 3 (landsd/78828:0) is installed with unchanged original government geometry. Verified Neon job `028241fa765ef902182f5e4588aa11f2b0189230b9f1bb6996a5920ed07ac0c3`, installed snapshot `7b957de2b1bb8312`, source hashes `{'landsd/78828:0': '8303c21cc40d8df5ba2828e52e1e67bc399cca46185193f6aaa28646bd13347e'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+30 new XL installations from44/308: **74 installed / 278 not installed**, 70 further installations required. Public counters: 346,108 total source forms, 4,423 enhanced, 4,409 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
