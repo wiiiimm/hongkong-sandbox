@@ -14,7 +14,7 @@ from run import ROOT, HERE, read, save, digest, connect
 BATCH = 'government-xl-basic-parent-install-sequence-20261006'
 DOC = ROOT / 'docs/astra-city/government-import' / BATCH
 LOCAL = HERE / 'local' / BATCH
-AFTER = ROOT / 'docs/astra-city/government-import/government-xl-hoi-wing-complete-proof-sequence-20261006/commands.json'
+AFTER = ROOT / 'docs/astra-city/government-import/government-xl-spectra5-assembly-install-sequence-20261006/commands.json'
 COHORTS = [('government-xl-owned-57-sequence-20261006', 'owned'),
            ('government-xl-full-cell-34-sequence-20261006', 'cell')]
 
