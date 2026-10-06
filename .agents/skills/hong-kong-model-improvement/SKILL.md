@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.39"
+  version: "1.8.40"
 ---
 
 # Hong Kong model improvement
@@ -430,3 +430,7 @@ Codex, 6 October 2026. St. Margaret's Co-educational English Secondary and Prima
 Codex, 6 October 2026. Banyan Garden Tower 1 (landsd/76044:0) is installed with unchanged original government geometry. Verified Neon job `0f255317bc9a4f268f65158630bae817cbc1e914051283971ebd8e7e1f55eb41`, installed snapshot `e78a287bc3c5d785`, source SHA `fcdf4caa584b1292eb890b608956060aac563a13ee46b177ac3152aa40ee1252`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 24 new XL installations from44/308: **68 installed / 284 not installed**, 76 further installations required. One runtime-published pumping-station source needs current review-pointer reconciliation before completion credit. Public counters: 346,108 total source forms, 4,416 enhanced, 4,402 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Publication and sampler recovery checkpoint
+
+Current completion requires exact installed-verified review in the current Neon snapshot; runtime presence alone earns no completion credit. Current24 new XL /68 installed /284 not installed. Preserve historical receipts and use fresh physical/browser evidence for pointer recovery. Serial publication is mandatory; the cooperative lock must protect manifest/review-pointer/progress updates, alongside source leases. Higher native terrain must not be hidden from the height sampler by a lower root water bed. Original source assets remain unchanged, AI for code only. See docs/astra-city/government-import/government-xl-sampler-publication-recovery-tools-20261006/README.md; active goal continues.

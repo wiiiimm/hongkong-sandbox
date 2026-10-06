@@ -37,7 +37,9 @@ def main():
     inventory=ROOT/pointer['inventory'];assert inventory.exists()
     staged=HERE/'accepted'/doc.name;catalogue=read(staged/'catalogue.json');assert [m['uid'] for m in catalogue['models']]==[uid]
     model=catalogue['models'][0];assert digest((staged/model['asset']).read_bytes())==result['sourceSHA256']
-    published=ROOT/'3d-viewer/city/data/official-models'/doc.name;assert digest((published/model['asset']).read_bytes())==result['sourceSHA256']
+    published_batch=result.get('recoveredPublishedBatch',doc.name)
+    assert Path(published_batch).name==published_batch and published_batch.startswith('government-xl-')
+    published=ROOT/'3d-viewer/city/data/official-models'/published_batch;assert digest((published/model['asset']).read_bytes())==result['sourceSHA256']
     xl={r['uid'] for r in read(ROOT/'docs/astra-city/government-import/government-xl-remaining-20260923/selection.json.gz')['rows']};assert len(xl)==352 and uid in xl
     deployed={m['uid']:m for m in models if m['uid'] in xl}
     with connect() as c:
@@ -65,7 +67,12 @@ def main():
     skill.write_text(s.replace(match[0],f'version: "{version}"',1)+'\n## Latest actual XL installation checkpoint\n\n'+note)
     tracking=ROOT/'docs/astra-city/LINEAR-TRACKING.md';tracking.write_text(tracking.read_text()+'\n## 6 October 2026 — '+label+' installed\n\n'+note)
     paths=[doc,previous,staged,published,ROOT/f'3d-viewer/city/data/government-native-{token}.json',
-           ROOT/'docs/astra-city/model-integration-20260909'/doc.name,inventory,skill,tracking]
+           ROOT/'docs/astra-city/model-integration-20260909'/published_batch,inventory,skill,tracking]
+    if result.get('recoveredPublishedBatch'):
+        historical=read(previous/'historical-installed-proof.json')
+        prior=(ROOT/historical['previousInstalledAcceptance']['path']).parent
+        assert prior.name==published_batch and prior.parent==doc.parent
+        paths += [prior,HERE/'accepted'/published_batch]
     paths += [ROOT/n for n in ['3d-viewer/city/data/building-progress.json','3d-viewer/city/data/manifest.json','3d-viewer/scripts/building-progress/review-proof.json','3d-viewer/scripts/building-progress/screening-proof.json','docs/astra-city/landmark-completion-audit/neon-snapshot.json','docs/astra-city/model-integration-20260909/current-source-review.json']]
     assert all(x.exists() and x.is_relative_to(ROOT) for x in paths)
     call(['git','add','--',*[str(x.relative_to(ROOT)) for x in paths]])
