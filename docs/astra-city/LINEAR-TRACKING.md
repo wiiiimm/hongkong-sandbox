@@ -921,3 +921,9 @@ Codex, 6 October 2026. Hong Kong Parkview Block 2 (landsd/256114:0) is installed
 ## 7 October 2026 — supported XL runtime continuation
 
 Two fenced diagnostics saved in Neon: Cullinan ac65e3852006ccedac31a4f4ddd6784a79f68b68fab5069c0606157d1ea6808b; Waterfront96ca248efd7a51a683d80e4ad917366fc0fa7f1e2ae0907774fb8227a0b94240. Profile-driven terrain lookup index preserves all46,812 exact baseline queries and22 focused tests; no geometry/budget changes. Cullinan fresh physical d1bd8f2557f89d68ab6a81c20e2948587a357f77f9706993bfd170126870f388 passes. Staged/live rerun pending. XL76/276,32new; active100 target continues.
+
+## 6 October 2026 — Cullinan West Tower 1 installed
+
+Codex, 6 October 2026. Cullinan West Tower 1 (landsd/222073:0) is installed with unchanged original government geometry. Verified Neon job `fdc2205c32d34c5adac8876e4e14bbf9967f88d8e1c5c09e72db47093bd18afc`, installed snapshot `c9302b759d30dc56`, source hashes `{'landsd/222073:0': '261d20200df3f759951c777c1d6d5d194c50d21d344c5991e0fe1fbb1ee8025a'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+33 new XL installations from44/308: **77 installed / 275 not installed**, 67 further installations required. Public counters: 346,108 total source forms, 4,426 enhanced, 4,412 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

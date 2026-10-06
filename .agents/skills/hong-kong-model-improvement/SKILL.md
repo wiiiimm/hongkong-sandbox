@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.61"
+  version: "1.8.62"
 ---
 
 # Hong Kong model improvement
@@ -546,3 +546,9 @@ Waterfront Tower II and Cullinan West Tower 1 passed unchanged physical/support 
 ## Terrain lookup runtime fix — 7 October 2026
 
 Profiled Cullinan/Elements loading stalls traced to exhaustive terrain lookup during road draping. The sampler now uses an order-preserving broad-phase index; 46,812 exact current-territory queries match immutable baseline6c528f97, and22 focused tests pass. Heights/source/terrain/budgets are unchanged. Physical metrics pin the new index code. Cullinan fresh full physical proof d1bd8f2557f89d68ab6a81c20e2948587a357f77f9706993bfd170126870f388 passes; rerun full staged/live acceptance before installed credit. Preserve prior failed browser evidence and distinguish lookup benchmarks from actual browser performance.
+
+## Latest actual XL installation checkpoint
+
+Codex, 6 October 2026. Cullinan West Tower 1 (landsd/222073:0) is installed with unchanged original government geometry. Verified Neon job `fdc2205c32d34c5adac8876e4e14bbf9967f88d8e1c5c09e72db47093bd18afc`, installed snapshot `c9302b759d30dc56`, source hashes `{'landsd/222073:0': '261d20200df3f759951c777c1d6d5d194c50d21d344c5991e0fe1fbb1ee8025a'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+33 new XL installations from44/308: **77 installed / 275 not installed**, 67 further installations required. Public counters: 346,108 total source forms, 4,426 enhanced, 4,412 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
