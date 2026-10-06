@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.55"
+  version: "1.8.56"
 ---
 
 # Hong Kong model improvement
@@ -518,3 +518,9 @@ Codex, 6 October 2026. Banyan Garden Tower 3 (landsd/78828:0) is installed with 
 ## Primrose Hill original podium follow-through
 
 Exact original podium74573 supports Tower2 and Tower3 at every strict sampled interface; diagnostic Neon job9923b7abcabaf157ea3eedd50d98c286d462ac79b03ee203d2fe1731a698f50a grants no installed credit. `primrose_podium_pending_review.py` separately scopes only the unchanged empty-pending podium; eight tests reject substantive decisions, source changes and altered history. Use `xl-primrose-podium-original-inputs.py` to freeze fresh exact current inputs under source ownership and publication locking. The separate podium cell terrain continuations preserve all existing whole-cell identity, original terrain/contact/foundation/neighbour/runtime gates. Original provisional tower decisions must continue through their exact existing verifier. Preparation is not installation; no AI remodelling or fabricated original matching.
+
+## Latest actual XL installation checkpoint
+
+Codex, 6 October 2026. Banyan Garden Tower 5 (landsd/78915:0) is installed with unchanged original government geometry. Verified Neon job `797538a7d326cc336a39689ce2735b1f76c1ff2c0e7780631d9e770eb29f7c50`, installed snapshot `b6810a6adbdeaf0e`, source hashes `{'landsd/78915:0': '0e0656fcf6707e7722f58c6ec80a959cfdff8db6469abe9369ba57a1622606ed'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+31 new XL installations from44/308: **75 installed / 277 not installed**, 69 further installations required. Public counters: 346,108 total source forms, 4,424 enhanced, 4,410 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
