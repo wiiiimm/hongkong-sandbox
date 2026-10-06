@@ -19,12 +19,13 @@ def main():
     p.add_argument('--base',action='append',required=True)
     p.add_argument('--extra-stage',action='append',default=[],help='Fresh completed result directory for an explicit primary UID')
     p.add_argument('--installation',action='append',default=[],help='Completed installed result directory')
+    p.add_argument('--installation-commands',action='append',default=[],help='Completed installation controller directory, including interrupted attempts')
     args=p.parse_args()
     assert Path(args.batch).name==args.batch and args.batch.startswith('government-xl-')
     doc=ROOT/'docs/astra-city/government-import'/args.batch
     assert not doc.exists(),'Completed checkpoints are immutable'
     commands=[];extra=[];references=[];contexts={}
-    for path in args.primary+args.followups+args.base+args.extra_stage+args.installation:
+    for path in args.primary+args.followups+args.base+args.extra_stage+args.installation+args.installation_commands:
         assert (ROOT/path).resolve().is_relative_to(ROOT)
     for path in args.primary:
         file=ROOT/path/'commands.json';commands.extend(read(file)['rows']);references.append(ref(file))
@@ -88,6 +89,24 @@ def main():
             installations[uid]={'jobId':result['jobId'],'sourceSHA256':result['sourceSHA256'],'result':ref(directory/'result.json'),'installedAcceptance':ref(directory/'installed-acceptance.json')}
         references.extend([ref(directory/'result.json'),ref(directory/'neon-sync.json')])
         tokens.append(read(HERE/'local'/result['batch']/'install-reservation.json')['token'])
+    attempts=[]
+    for path in args.installation_commands:
+        file=ROOT/path/'commands.json';controller=read(file);references.append(ref(file))
+        for row in controller['rows']:
+            uid=row['uid'];assert uid in contexts
+            steps=[]
+            for step in row.get('steps',[]):
+                target=ROOT/'docs/astra-city/government-import'/step['batch']
+                result_path=target/'result.json'
+                if step['result']:
+                    assert read(result_path)==step['result']
+                    assert step['result']['jobId'] in completed,'Include completed recheck/installation receipt in checkpoint'
+                log=ROOT/step['log'];assert log.is_relative_to(HERE/'local')
+                steps.append({'phase':step['phase'],'batch':step['batch'],'returncode':step['returncode'],
+                              'result':ref(result_path) if step['result'] else None,
+                              'localLog':ref(log),'logPortable':False})
+            attempts.append({'uid':uid,'steps':steps,'installedSuccessor':installations.get(uid),
+                             'qualification':'Completed controller receipts preserve interruptions. Only installed successor evidence gives completion credit; command logs remain local caches.'})
     pointer_path=ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json'
     pointer=read(pointer_path);references.append(ref(pointer_path))
     progress_path=ROOT/'3d-viewer/city/data/building-progress.json';references.append(ref(progress_path))
@@ -136,6 +155,7 @@ def main():
         job=jobs.claim(args.batch,lease['owner'],[stage],lease_seconds=1800);assert job and job['id']==jobid
         result={**payload,'batch':args.batch,'jobId':jobid,'rows':rows,'primarySources':len(rows),
             'completedPhaseJobs':len(completed),'phases':phases,'commandFailures':failures,
+            'installationAttempts':attempts,
             'blockerGroups':dict(Counter(r['blockerGroup'] for r in rows)),
             'projectionFailureGroups':dict(Counter(','.join(r['projectionFailures']) for r in rows if r['projectionFailures'])),
             'newlyInstalled':len(installations),'humanCounts':{'installed':len(installations),'to-do':0,'held-human':0,'held-ai':0,'held-unknown':len(rows)-len(installations),'in-process':0},

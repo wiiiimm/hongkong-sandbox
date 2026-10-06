@@ -194,8 +194,9 @@ def owned():
     effort={'method':'scripted','ai_model':None,'reasoning_effort':'not-applicable','issue':'HKS-203',
         'run_id':snapshot,'output_ref':ref(DOC/'acceptance.json')['path']}
     observation='Unchanged original '+model['label']+' installed at native coordinates with exact government TIN. Full contact, foundation, source identity, neighbour checks, desktop/mobile day/night, picking, collision and download fallback/retry pass.'
+    approval_observation='Unchanged original '+model['label']+' passes source identity, contact, foundation, neighbour and staged desktop/mobile day/night runtime, picking, collision and fallback/retry checks. Guarded publication and live verification remain pending.'
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-    ledger.record_many(snapshot,LEASE,[(UID,'approved-for-integration',DOC/'acceptance.json',observation,commit)],
+    ledger.record_many(snapshot,LEASE,[(UID,'approved-for-integration',DOC/'acceptance.json',approval_observation,commit)],
         effort=effort,request_id=BATCH+'-approved-'+snapshot)
     publication=[sys.executable,str(HERE.parent/'model-integration-20260909/publish.py'),
         ref(STAGE/'plan.json')['path'],'--receipt',str(LEASE),'--phase',BATCH]
