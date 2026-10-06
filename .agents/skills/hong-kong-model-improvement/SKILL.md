@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.70"
+  version: "1.8.71"
 ---
 
 # Hong Kong model improvement
@@ -602,3 +602,15 @@ Codex, 7 October 2026. Tung Hing House (landsd/12852:0) is installed with unchan
 Codex, 7 October 2026. Tung Yip House (landsd/12854:0) is installed with unchanged original government geometry. Verified Neon job `e841abdac09728f52ed59187d8cc5825b7becd888e77978c39e9c1be801c397b`, installed snapshot `02e82fd21bbc3b2b`, source hashes `{'landsd/12854:0': 'f8e57b0d5dd7b939f348767f641511faf2e3783debe06736441195a18640569f'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
 
 38 new XL installations from44/308: **82 installed / 270 not installed**, 62 further installations required. Public counters: 346,108 total source forms, 4,433 enhanced, 4,419 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+## Pak Shing exact original compound identity
+
+The exact two-source assembly 186864/236490 has a separately evidenced identity contract in `pak_shing_compound_identity.py`, `xl-pak-shing-compound-support-recheck.py` and `xl-pak-shing-compound-support-install.py`. The individual tower covers 88.7% of its approximate GIS footprint, while its same-parent original podium/tower assembly covers98.02%; maximum full-source extent is4.186m, unrelated overlap0, and all206 original strict tower-to-podium contacts pass. Measure the existing95% coverage,10m extent and1m² unrelated-overlap bounds over this complete verified assembly. Preserve the individual raw failures. This explicitly scoped compound route replaces only the per-member target-coverage condition for these two originals; every per-source hard ID, byte/root ownership, world-pose/bounds, whole one-metre GeoRef cell and other identity condition remains required. It is not a generic identity waiver and must not be applied to other pairs by changing module globals or approval flags.
+
+Both full foundations, all80 basic neighbours, actual native/source contact, runtime and staged/live1280/390 day/night, picking/collision and failure/retry checks pass. Original meshes, poses, clearance limits and source SHA values are unchanged; architectural/model AI calls are zero. All51 relevant identity, mask, terrain and sampler tests pass, including9 compound safety tests. Future compound cases require their own complete source/parent/interface/group identity evidence and all existing full physical/runtime/publication checks before credit. Original terrain/other neighbours are never sacrificed to accept an assembly. Continue the active100-new-XL goal through commits and checkpoints.
+
+## Latest actual XL installation checkpoint
+
+Codex, 7 October 2026. PAK SHING BUILDING and Pak Shing Building (landsd/186864:0, landsd/236490:0) is installed with unchanged original government geometry. Verified Neon job `c840cec366127e8d33cc654d6c99d071cd5c3bf91da4973f65ec31d64d804ab4`, installed snapshot `de309a707d64e0d1`, source hashes `{'landsd/186864:0': '9c544892907a7172976301d66252d50ccb7289ede604704303e77e3273a47734', 'landsd/236490:0': '5168549f47e8d51244c4c1d06fe224d54b742ff53d739a66298b54ed1d93e108'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+39 new XL installations from44/308: **83 installed / 269 not installed**, 61 further installations required. Public counters: 346,108 total source forms, 4,435 enhanced, 4,421 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
