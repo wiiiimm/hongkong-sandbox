@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.88"
+  version: "1.8.89"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work only. Use scripts for identity joins, downloads, conversion, validation and reporting; leave AI modelling and architectural judgement pending until explicitly authorised.
 
 ## Resume cheaply
+
+The three provisional original support layer diagnostics are complete in `government-xl-three-provisional-original-support-layers-20261007`, verified Neon job `e4f516bd22a4864e8ab782f082ce9f78def91c394d7362481ac7df61281e06cc`. Startower has 18 failed samples with no original contact layer; Suntower has 15 such failures plus one lower contact layer beneath higher overlap; Langham Place has one lower contact layer beneath higher overlap, one without any layer in the interval and two without vertical support. All original support facets were inspected at those samples, strict historical interface results reproduced, and current exact source/support bytes and poses verified. No interface passes; no acceptance or installation credit. Do not rerun unchanged support layers or waive overlapping higher surfaces on the basis of a lower facet.
 
 Completed additional interpolation checkpoint `government-xl-additional-interpolation-checkpoint-20261007`, verified Neon job `551abff38425c99beb7bb184d3e076a3cc96ad062ae0a1da382a3460f5b49b0b`, archives 109 unchanged source meshes tested against current original TIN, root and both DTM diagonals plus bilinear interpolation. Zero new positives; no installation credit. Its 261-row historical backlog is evidence coverage only, not a ready queue or global impossibility bound. A latest individual job can omit separate support/identity failures: Langham Place's installed original podium supports 370/374 strict rim samples, with four failures saved in job `24f3a3192d0b6b40caf9652762e9f0de5bbb799d6a7885bf3a46a72241158c66`; preserving ancillary terrain grid 81387 alone cannot resolve them. Silvercord freshly fails unrelated overlap (9.655983 m² with Lippo Sun Plaza) before terrain construction. Read all relevant source-matched phases before choosing a new route; do not repeat unchanged failed evidence or equate a reason-free diagnostic with readiness.
 
