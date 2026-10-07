@@ -15,6 +15,7 @@ import numpy as np
 import shapely
 from shapely.geometry import Polygon, box
 from original_source_ownership import evidence
+from georef_projection_coverage import whole_cell_coverage
 
 POLICY = 'original-government-owned-georef-identity-v1'
 SOURCES = [
@@ -78,9 +79,10 @@ def verify(raw, row, context, triangles):
             cell = geographic_cell(row['modelId'], form['buildingCSUID'], form['structureType'])
             target = Polygon(form['rings'][0], form['rings'][1:])
             projection = shapely.union_all(shapely.polygons(tri[:, :, [0, 2]]))
+            source_cell = whole_cell_coverage(tri, cell, projection)
             if not target.is_valid or target.area <= 0 or not target.covers(cell):
                 reasons.append('current-target-does-not-cover-whole-georef-cell')
-            if not projection.is_valid or projection.area <= 0 or not projection.covers(cell):
+            if not projection.is_valid or projection.area <= 0 or not source_cell['coversWholeCell']:
                 reasons.append('original-source-does-not-cover-whole-georef-cell')
             inside = projection.intersection(target).area
             measured = {'sourceProjectionAreaM2': float(projection.area),
@@ -92,7 +94,8 @@ def verify(raw, row, context, triangles):
             cell_proof = {'worldXZBounds': list(cell.bounds), 'precisionMetres': 1,
                           'basis': 'GeoRef truncation of positive HK1980 easting/northing',
                           'targetCoversWholeCell': target.covers(cell),
-                          'originalProjectionCoversWholeCell': projection.covers(cell)}
+                          'originalProjectionCoversWholeCell': source_cell['coversWholeCell'],
+                          'projectionNumericalCoverage': source_cell}
         except (ValueError, KeyError, shapely.errors.GEOSException) as error:
             reasons.append('geographic-cell-proof:' + str(error))
     passed = not reasons

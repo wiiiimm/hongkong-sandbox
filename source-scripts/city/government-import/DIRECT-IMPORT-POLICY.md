@@ -121,3 +121,23 @@ neighbour report is retained, with a separate hashed support proof.
 `original-government-full-georef-cell-identity-v1` additionally replaces cached centroid/overlap shape proxies with a fresh positive identity proof. The original byte/root/complete scene ownership, exact unique ObjectID/CSUID/UID, unchanged 1x HKPD pose, the entire official one-metre GeoRef cell inside both full mesh projection and current target, and freshly recomputed current geometry/context are mandatory. Cached proxy failures remain in the receipt; malformed values are rejected. Full target coverage >=95%, maximum source extent <=10m and unrelated overlap <=1m2 remain mandatory, alongside every existing physical/runtime/publication gate. The pipeline re-decodes original assets and checks current tile hashes again at preparation, contact and publication. No historical approval or completed evidence is overwritten.
 
 The 35-source diagnostic has verified Neon job `c3e8595ddd2060042a054e7d19d5010574a09ba678b5759d42d876b19cc1c9c2`: 34 pass identity only; one fails the complete coordinate-cell check. This grants zero installation credit. The explicit frozen 34-source continuation waits for the existing 57-source sequence to finish, then sequentially runs original terrain, full foundation/contact, retained and basic neighbour checks plus staged/live browser and guarded publication. Ten new identity tests and seven prior identity tests pass. This uses AI for code only; source modelling and architectural judgement remain excluded.
+
+
+## GeoRef projection union roundoff, 8 October 2026
+
+Whole-cell identity retains the complete one-metre cell requirement. GEOS can
+leave topology residues when joining overlapping original triangles. The helper
+`georef_projection_coverage.py` accepts a second computation only when the raw
+missing area is at most 1e-10 square metres, the entire residue is within
+1e-9 metres of the unchanged raw projection, and a full-source union at a
+1e-9-metre precision grid covers the entire cell. Both raw and recomputed
+measurements are recorded. Raw projection measurements remain authoritative for
+coverage, extent and unrelated overlap. Source bytes, vertices, transforms,
+terrain, foundation, support, neighbour, runtime and publication checks are
+unchanged. A real micrometre opening fails the independent distance condition.
+
+Exact originals for The Sparkle, Heya Aqua Tower 1 and Tseung Kwan O Plaza
+Tower 3A reproduce residues of 2.49e-14, 2.25e-16 and 3.31e-24 square metres.
+Fresh identity passes do not grant installation credit: their full terrain
+checks still require original supporting components. The authentic Heya Aqua
+triangle fixture reproduces the union failure without editing original vertices.
