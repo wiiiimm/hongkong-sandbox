@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.93"
+  version: "1.8.94"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+The user replaced the earlier 100-new-XL target with terminal dispositions for **all indexed XL sources**. Completion is verified in `government-xl-terminal-dispositions-20261008`, Neon job `45458a23d2c11f669c52d00c32c9511e91211bc246bc56e9e686244bbf2b9ff2`, snapshot `0bfd3d30d478e6f8`: **521 sources = 190 installed-verified + 331 filed-cannot-install; 0 open, 0 in process**. This full inventory includes453 viewer-matched and68 unmatched sources; the historical XL352 cohort is a subset. Filings preserve exact source hashes, failure evidence and revisit triggers and explicitly are not permanent rejection or installation credit. Court of Final Appeal and Western Market were already published; fresh checks recovered two review records, adding zero new runtime models. Cullinan West Tower5's fresh current-support check still has4/652 unresolved contacts and is filed. Current viewer source-form counters are346,108 total,4,446 verified detailed and4,432/212,669 government matches verified; two of that increase are verification recovery, not new model assets. AI code/non-modelling work is allowed; no new architectural modelling approval follows from this audit. Hoi Tai remains held for later review in its dedicated Neon disposition; reuse the completed AI evidence review. Older checkpoints below are historical, not active installation deficits. Read the final README and per-source filing before any second pass; rerun only when its recorded trigger changes.
 
 The authorised GPT-6.1 Sol Hoi Tai review is complete in `government-xl-hoi-tai-ai-evidence-review-20261007`, verified Neon `59412ca86256a9606117c4161ef2913af0afd3f378632caa74dd6238714875b2`. Outcome unresolved: authentic podium lower elevation agrees with recorded GIS base5.8m, but the evidence does not establish finished ground/foundation semantics at the failing walls. Foundation passes; wall-only sampled clearance and separate235557 tower support evidence remain. Preserve103/189 exact-native unresolved interfaces separately from27 later missing fallback-floor samples. No code defect or supported installation recovery established, no geometry/runtime/review-state changes and zero installation credit. Do not request the same review approval again or extrapolate approval to all261 holds. Hoi Tai means the229881 podium component of海富苑海泰閣D; remaining53 is the target deficit within261 held, not53 extra models.
 
