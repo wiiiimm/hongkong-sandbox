@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.77"
+  version: "1.8.78"
 ---
 
 # Hong Kong model improvement
@@ -654,3 +654,7 @@ This auxiliary original podium is outside XL352 and adds zero XL target credit. 
 ## Original-parent recovery checkpoint, 7 October
 
 Resume `docs/astra-city/government-import/government-xl-original-parent-recovery-checkpoint-20261007/README.md` and its verified Neon job `977c9151e1176cf35fcfbef57a715ff45d2380431a85ecba4b9aff2b1917c404`. Twenty-six complete phases add zero installation credit. The nine untried original-parent XL checks all remain held; do not repeat unchanged attempts. XL352 remains86 installed /266 held,42 new XL and58 more required. Park Haven low podium246270 is installed outside this cohort; upper246467 still fails176 clearance samples under both native and root terrain. Its current-patch route augments target routing metadata only and runs full current retained-native checks; it is not a projection-overlap construction waiver. Retained-source-face lower-parent selection outside the installed original projection does not fix these failures. Preserve original geometry and acceptance limits. South Hillcrest fresh physical recheck/parent continuation proceeds separately. Continue the active goal across checkpoint commits.
+
+## Current clearance orientation diagnostic
+
+Verified Neon job `224842875e9dcb44e036404de806d865cf37e4d8ad470482b46f0f624bc8267b` binds ten current immutable runtime/contact classifications. Hoi Tai229881 and Park Haven upper246467 are wall-only; eight others involve other faces. `xl-contact-face-orientation-diagnostic.py` is diagnostic-only: normal orientation does not establish intentional foundations and grants no clearance/identity/publication exception. Preserve original limits and geometry. South Hillcrest's fresh recheck and original-parent pass still fail clearance/neighbour198440. Green18, WEST9ZONE and Reserved Carpark continue under the distinct-three frozen inputs (`d6176862a11e59eaf6f87be91bec1c1f5e61aa17b6987d92f68895dae4c4a5e2`). Do not stop the active100-new-XL goal at diagnostic commits.
