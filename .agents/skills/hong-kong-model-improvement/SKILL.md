@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.90"
+  version: "1.8.91"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work only. Use scripts for identity joins, downloads, conversion, validation and reporting; leave AI modelling and architectural judgement pending until explicitly authorised.
 
 ## Resume cheaply
+
+Actual open-sided neighbour diagnostic `government-xl-open-sided-neighbour-diagnostic-20261007`, verified Neon `c85efc763cf360e06e060be0227fc6bd6c0a06819bc0af8390383181db7d7c78`, checks the viewer's real roof/post volumes against current terrain and exact proposed terrain. All18 checked neighbour/variant pairs retain increased rendered-post ground gaps; one stale Apex replacement is explicitly skipped. Zero passes, geometry edits, review changes or installation credit. Whole-footprint sampling is conservative, but these actual rendered supports still fail the existing numeric limits. Do not repeat unchanged checks or treat diagnostic sampling as full solid-clearance proof. XL remains91/261,47 new and53 further required.
 
 The remaining-261 exact GeoRef sibling lookup is complete: Neon `35ec6c4b8b6068faef5fc4a0943699ed96dc4b5dc0f3ca13143eab6b7ed4dbee`, `government-xl-held-exact-georef-sibling-inventory-20261007`. Every frozen primary is present; there is one exact matched ObjectID/CSUID alternate, Mount Sterling Mall 289787 `B323332207601063C0`. Hard type qualification rejects its `01` tower type against the current podium/P CSUID; verified Neon `822303e7469d53e089a1bbcac97dce59cb032f45d696a265ceeb532a464cf176`. No acquisition, reclassification, geometry edit or installation credit. Reuse this lookup rather than rescanning unchanged pinned source families; fresh official revisions remain separate work.
 
