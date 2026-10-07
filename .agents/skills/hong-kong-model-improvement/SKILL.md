@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.0"
+  version: "1.9.1"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+8 October **Moontower204144 installed** with original unedited geometry and already installed Elements podium273061. Full current assembly identity, all230 strict support contacts, complete foundation, six clear neighbours, runtime and staged/live desktop/mobile day/night/picking/collision/download-fallback/retry pass. Neon `3d9aae22122abcba3be90d1085bc136d596cea444abfd06e6474966add45e31a`, snapshot `78d280bf364e4231`; live exported mobile image inspected. New generic explicit provisional-assembly preflight/install runners reverify complete original assembly plus exact current installed support; they preserve individual spatial failures and all physical limits.24 relevant identity/receipt tests pass. Full indexed XL **521 =196 installed-verified +325 remaining**; this is one actual new XL installation, not reconciliation. Harbourside Tower2 complete assembly identity now also passes (Neon8748fc1b520ae7ff98812ad579d3bb61a9a9e45545a8c1ae72b2461b0f7d837f); remaining physical/browser/publication checks are required. No model AI. Continue full327-install objective across commits.
 
 8 October typed component recovery: exact tower/podium type resolves Island Industrial lookup ambiguity without altering raw shape matches or granting identity. Its complete original interface retains108 unresolved samples. Eight further exact typed exception pairs recover14 originals, but all8 interfaces fail. Optional installed identity reuse now declines legacy batch/assembly receipt shapes rather than crashing or inventing individual-source approval; supported single-source reuse retains all strict checks. Preserve first failed attempts and recovered receipts. Four Elements interfaces produce two complete positives: Moontower204144 (230/230) and Harbourside Tower2 204154 (134/134); Skytower204146 and Harbourside Tower3 204155 retain10/9 failures. Moontower complete original two-part assembly identity passes99.9527% coverage/7.3119m extent/zero unrelated overlap. These are diagnostic positives, not installation credit. Read `government-xl-four-elements-closures-recovered-20261008` and `government-xl-moontower-original-assembly-20261008`; full physical/browser/publication checks remain required. Do not repeat unchanged failures. Full XL still195/326 at this checkpoint; no model AI.
 
