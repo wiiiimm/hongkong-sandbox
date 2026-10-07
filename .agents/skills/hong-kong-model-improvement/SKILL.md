@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.78"
+  version: "1.8.79"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,12 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work only. Use scripts for identity joins, downloads, conversion, validation and reporting; leave AI modelling and architectural judgement pending until explicitly authorised.
 
 ## Resume cheaply
+
+7 October latest: **87 installed / 265 held** in XL352, **43 new XL installs** from the 44/308 baseline; **57 further installs** remain to the active 100-new target. Yoho Town Block 7 121143 is installed unchanged with original official 5 m DTM and source-disjoint original parent preservation. Full source/whole-cell/contact/foundation, 31 basic neighbours and staged/live desktop/mobile day/night, picking/collision/fallback/retry pass. Neon installation `44ce044a102cbda697d4ee4e0acaa9976571756759a1474bab7eac0e8ef9582f`, snapshot `96caee446eaa5f6d`. Original building geometry unchanged; zero external AI calls.
+
+`xl-original-dtm-contact-preview.py` tested 113 historical exact meshes against original DTM samples; historical hash matches are explicit and diagnostics never grant acceptance. Yoho and Beverly Hill K have positive standalone contact previews. Beverly remains held: source-disjoint parent preserves all but basic 233218, while complete-footprint preservation breaks source contact. Its exact original 233218 source was recovered without transfer, but 21/126 strict interface samples remain unresolved. Continue current-original investigations. Four further original-surface vertex previews (252988, 91827, 265848, 228219) need fresh complete checks; no installation credit.
+
+The DTM follow-through retains original core heights and the established bounded parent-edge transition, with all physical/publication guards. `xl-cell-parent-roundoff-fenced-followthrough.py` uses only existing 0.25m2/2mm roundoff limits and refreshes the final overlap hash after coverage metadata. Prior failed variants are immutable and not accepted. Keep processing after commits; checkpoints and user questions do not end the goal.
 
 Locate the intended checkout with Git and read its `AGENTS.md`. Do not assume the main checkout, a previous machine's absolute paths, or a remembered task status is current. All project paths below are relative to that checkout.
 
