@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.82"
+  version: "1.8.83"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,10 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work only. Use scripts for identity joins, downloads, conversion, validation and reporting; leave AI modelling and architectural judgement pending until explicitly authorised.
 
 ## Resume cheaply
+
+7 October current checkpoint: **88 installed / 264 not installed** in XL352, **44 new installations** from the 44/308 baseline; **56 further installations** remain to the active 100-new target. Central Pier 122298 is installed from its unchanged original official C1 successor. Complete source identity, terrain/contact/foundation, all nine neighbors and staged/live desktop/mobile day/night, picking/collision/failure/retry pass. Installed Neon job `ab89749d2aa1e02447c8ef6da60b4c02284a66e167767cd229e2c2eda3ff338a`, snapshot `5b3d871499d8fe94`, commit `758d8aa2`. The original parent grid and existing terrain children remain unchanged; exact existing regional facets supply the failed contact region. Zero architectural AI or original building geometry edits.
+
+Completed checkpoint `government-xl-pier-and-original-tin-checkpoint-20261007`, verified Neon job `a94e8fb442e7b6fd3c875965a4d9464162146b072bc60fcc3cde983994fcb385`, fences the distinct original terrain and support diagnostics. Six of 33 raw TIN previews fit their individual samples; this is neither a coherent terrain nor acceptance or installation credit. Investigate their current full source, foundation, native/basic neighbors and browser gates before publication. Original support probes do not establish complete support for Hoi Tai or the five Imperial basic towers. A source-surface test at individual points cannot prove absence of solid penetration elsewhere. Do not repeat unchanged completed trials; continue the active goal across commits and status updates.
 
 7 October latest: **87 installed / 265 held** in XL352, **43 new XL installs** from the 44/308 baseline; **57 further installs** remain to the active 100-new target. Yoho Town Block 7 121143 is installed unchanged with original official 5 m DTM and source-disjoint original parent preservation. Full source/whole-cell/contact/foundation, 31 basic neighbours and staged/live desktop/mobile day/night, picking/collision/fallback/retry pass. Neon installation `44ce044a102cbda697d4ee4e0acaa9976571756759a1474bab7eac0e8ef9582f`, snapshot `96caee446eaa5f6d`. Original building geometry unchanged; zero external AI calls.
 
