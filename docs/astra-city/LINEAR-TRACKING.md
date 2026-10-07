@@ -1034,3 +1034,9 @@ This auxiliary original podium is outside XL352 and adds zero XL target credit. 
 
 
 7 October — Yoho Town Block 7 original source installed on original government 5 m DTM after full source/contact/foundation/neighbour and staged/live desktop/mobile gates. XL352 87 installed / 265 held; active target 43/100 new, 57 remaining. Neon `44ce044a102cbda697d4ee4e0acaa9976571756759a1474bab7eac0e8ef9582f`, snapshot `96caee446eaa5f6d`; public enhanced 4,440. No architecture modelling or external AI calls. Further original DTM source investigations continue. Linear connector update remains pending because automatic review rejected the prior detailed payload; local/Neon records are complete.
+
+## 6 October 2026 — Central Pier installed
+
+Codex, 7 October 2026. Central Pier (landsd/122298:0) is installed with unchanged original government geometry. Verified Neon job `ab89749d2aa1e02447c8ef6da60b4c02284a66e167767cd229e2c2eda3ff338a`, installed snapshot `5b3d871499d8fe94`, source hashes `{'landsd/122298:0': '54c4c993f310f8e6365be32b9206643274cf52e3b90ce1d8bc4d200c0d0cb745'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+44 new XL installations from44/308: **88 installed / 264 not installed**, 56 further installations required. Public counters: 346,108 total source forms, 4,441 enhanced, 4,427 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

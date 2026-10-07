@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.81"
+  version: "1.8.82"
 ---
 
 # Hong Kong model improvement
@@ -664,3 +664,9 @@ Resume `docs/astra-city/government-import/government-xl-original-parent-recovery
 ## Current clearance orientation diagnostic
 
 Verified Neon job `224842875e9dcb44e036404de806d865cf37e4d8ad470482b46f0f624bc8267b` binds ten current immutable runtime/contact classifications. Hoi Tai229881 and Park Haven upper246467 are wall-only; eight others involve other faces. `xl-contact-face-orientation-diagnostic.py` is diagnostic-only: normal orientation does not establish intentional foundations and grants no clearance/identity/publication exception. Preserve original limits and geometry. South Hillcrest's fresh recheck and original-parent pass still fail clearance/neighbour198440. Green18, WEST9ZONE and Reserved Carpark continue under the distinct-three frozen inputs (`d6176862a11e59eaf6f87be91bec1c1f5e61aa17b6987d92f68895dae4c4a5e2`). Do not stop the active100-new-XL goal at diagnostic commits.
+
+## Latest actual XL installation checkpoint
+
+Codex, 7 October 2026. Central Pier (landsd/122298:0) is installed with unchanged original government geometry. Verified Neon job `ab89749d2aa1e02447c8ef6da60b4c02284a66e167767cd229e2c2eda3ff338a`, installed snapshot `5b3d871499d8fe94`, source hashes `{'landsd/122298:0': '54c4c993f310f8e6365be32b9206643274cf52e3b90ce1d8bc4d200c0d0cb745'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+44 new XL installations from44/308: **88 installed / 264 not installed**, 56 further installations required. Public counters: 346,108 total source forms, 4,441 enhanced, 4,427 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
