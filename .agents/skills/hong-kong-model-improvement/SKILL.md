@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.75"
+  version: "1.8.76"
 ---
 
 # Hong Kong model improvement
@@ -642,3 +642,11 @@ The thirteen exact tower/podium original closures are fully checked. Elegant Gar
 The historical layer tool rejected normal vectors containing negative zero after JSON persisted it as zero. A separate JSON comparison variant normalizes the recomputed measurement exactly as its saved receipt does; all other fields still require deep equality. Changed height, normal and pass/fail checks reject, and all13 real historical interfaces reproduced. Old tools and completed receipts remain untouched.
 
 The separate current directory audit of all266 held originals across118 sheets continues. Commits and pushes are checkpoints, never an instruction to pause. No source geometry edits or architectural AI calls. No historical map imagery was used.
+
+## Latest actual XL installation checkpoint
+
+Codex, 7 October 2026. B373411542002063C0 (landsd/246270:0) is installed with unchanged original government geometry. Verified Neon job `92a8003c1747795ff5eddd620d0dfdc02d4cb7ad0e55807626c46975559d97b5`, installed snapshot `5399180aaba177d2`, source hashes `{'landsd/246270:0': 'd5284c8d1c3bbe5e6d950660b77ba10e3b4b5e9672df7472137cf201a8de0394'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+42 new XL installations from44/308: **86 installed / 266 not installed**, 58 further installations required. Public counters: 346,108 total source forms, 4,439 enhanced, 4,425 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
+
+This auxiliary original podium is outside XL352 and adds zero XL target credit. Exact source closure: docs/astra-city/government-import/government-xl-eight-remaining-original-supports-20261007.
