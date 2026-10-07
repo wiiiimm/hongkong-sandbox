@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.99"
+  version: "1.9.0"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+8 October typed component recovery: exact tower/podium type resolves Island Industrial lookup ambiguity without altering raw shape matches or granting identity. Its complete original interface retains108 unresolved samples. Eight further exact typed exception pairs recover14 originals, but all8 interfaces fail. Optional installed identity reuse now declines legacy batch/assembly receipt shapes rather than crashing or inventing individual-source approval; supported single-source reuse retains all strict checks. Preserve first failed attempts and recovered receipts. Four Elements interfaces produce two complete positives: Moontower204144 (230/230) and Harbourside Tower2 204154 (134/134); Skytower204146 and Harbourside Tower3 204155 retain10/9 failures. Moontower complete original two-part assembly identity passes99.9527% coverage/7.3119m extent/zero unrelated overlap. These are diagnostic positives, not installation credit. Read `government-xl-four-elements-closures-recovered-20261008` and `government-xl-moontower-original-assembly-20261008`; full physical/browser/publication checks remain required. Do not repeat unchanged failures. Full XL still195/326 at this checkpoint; no model AI.
 
 8 October further component continuation: **16 new explicit tower/support pairs**, **28 unchanged originals** recovered across `government-xl-eight-new-original-closures-20261008` (Neon `8a48578d181ef80692b19fbbef4ccbfb9729709cf4d3cc83571af7e8c3205187`) and `government-xl-eight-further-source-level-closures-20261008` (Neon `05456f9ed44770e15aaeae53a578ea7c48a390c8b1ed9e4c143dad032de0016d`). Fifteen complete interfaces remain failed, Siu Hong 233417 support retains runtime footprint rejection and its contact is explicitly untested. Eight first-group source-specific followups are verified in `government-xl-eight-current-component-followups-20261008`. No new XL installation; full count stays **195 installed-verified / 326 remaining**. Do not repeat unchanged contact work or call same-parent/disjoint components physical supports.
 
