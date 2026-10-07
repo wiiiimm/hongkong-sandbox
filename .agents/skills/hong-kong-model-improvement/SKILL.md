@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.87"
+  version: "1.8.88"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work only. Use scripts for identity joins, downloads, conversion, validation and reporting; leave AI modelling and architectural judgement pending until explicitly authorised.
 
 ## Resume cheaply
+
+Completed additional interpolation checkpoint `government-xl-additional-interpolation-checkpoint-20261007`, verified Neon job `551abff38425c99beb7bb184d3e076a3cc96ad062ae0a1da382a3460f5b49b0b`, archives 109 unchanged source meshes tested against current original TIN, root and both DTM diagonals plus bilinear interpolation. Zero new positives; no installation credit. Its 261-row historical backlog is evidence coverage only, not a ready queue or global impossibility bound. A latest individual job can omit separate support/identity failures: Langham Place's installed original podium supports 370/374 strict rim samples, with four failures saved in job `24f3a3192d0b6b40caf9652762e9f0de5bbb799d6a7885bf3a46a72241158c66`; preserving ancillary terrain grid 81387 alone cannot resolve them. Silvercord freshly fails unrelated overlap (9.655983 m² with Lippo Sun Plaza) before terrain construction. Read all relevant source-matched phases before choosing a new route; do not repeat unchanged failed evidence or equate a reason-free diagnostic with readiness.
 
 7 October current checkpoint: **91 installed / 261 not installed** in XL352, **47 new installations** from the 44/308 baseline; **53 further installations** remain to the active 100-new target. The Orchards Tower 1 (254621) is installed unchanged in `a02962e1`. A coarse remote-footprint minimum warning resolves only with the existing strict full-source contact, complete solid foundation and rendered sampler proof; all 15 neighbors and staged/live browser checks pass. Leung Chi House (132324) is installed unchanged in `c7862890`; all strict source/contact/foundation/neighbors and staged/live browser checks pass. Alto Residences Tower 6 (338637) is installed unchanged in `055fe8e0`; verified Neon job `38ca7a45023dedb21652eb862e247f77f1ebdff3129d2d6ea72f2d186665cad2`, snapshot `a7ebaa558263ec29`. A common original government TIN surface passes the new source and both retained towers' full physical checks. Exact deployed terrain beneath one proven-disjoint basic neighbor is preserved (6.27 m from the source); all 46 neighbors pass. Staged/live desktop/mobile day/night, picking/collision/failure/retry pass. No original model edits or architectural AI. Reuse the completed common-TIN and neighbor-preservation receipts; do not rerun the failed source-disjoint retained constructor.
 
