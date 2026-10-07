@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.89"
+  version: "1.8.90"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work only. Use scripts for identity joins, downloads, conversion, validation and reporting; leave AI modelling and architectural judgement pending until explicitly authorised.
 
 ## Resume cheaply
+
+The remaining-261 exact GeoRef sibling lookup is complete: Neon `35ec6c4b8b6068faef5fc4a0943699ed96dc4b5dc0f3ca13143eab6b7ed4dbee`, `government-xl-held-exact-georef-sibling-inventory-20261007`. Every frozen primary is present; there is one exact matched ObjectID/CSUID alternate, Mount Sterling Mall 289787 `B323332207601063C0`. Hard type qualification rejects its `01` tower type against the current podium/P CSUID; verified Neon `822303e7469d53e089a1bbcac97dce59cb032f45d696a265ceeb532a464cf176`. No acquisition, reclassification, geometry edit or installation credit. Reuse this lookup rather than rescanning unchanged pinned source families; fresh official revisions remain separate work.
 
 The three provisional original support layer diagnostics are complete in `government-xl-three-provisional-original-support-layers-20261007`, verified Neon job `e4f516bd22a4864e8ab782f082ce9f78def91c394d7362481ac7df61281e06cc`. Startower has 18 failed samples with no original contact layer; Suntower has 15 such failures plus one lower contact layer beneath higher overlap; Langham Place has one lower contact layer beneath higher overlap, one without any layer in the interval and two without vertical support. All original support facets were inspected at those samples, strict historical interface results reproduced, and current exact source/support bytes and poses verified. No interface passes; no acceptance or installation credit. Do not rerun unchanged support layers or waive overlapping higher surfaces on the basis of a lower facet.
 
