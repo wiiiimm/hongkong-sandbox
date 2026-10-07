@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.91"
+  version: "1.8.92"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work only. Use scripts for identity joins, downloads, conversion, validation and reporting; leave AI modelling and architectural judgement pending until explicitly authorised.
 
 ## Resume cheaply
+
+Resumed live source header check `government-xl-resumed-source-headers-20261007`, verified Neon `c2977d524d1eb81d3738eead1151a396c484396a502a0a28cc56fa3f99ae85fe`, covers all261 remaining sources in116 archives. All official ETags/sizes are unchanged, with zero request errors or received body bytes; upstream code and installed snapshot are also unchanged. Use `xl-source-header-recheck.py` to detect external revisions without downloading native payloads, then acquire/validate only actual changes. Header equality provides no installation/skip credit. XL remains91/261,47 new,53 required. Hoi Tai architectural review proposal is prepared/pushed but unapproved; resume alone did not grant that review. Do not repeat completed immutable geometry failures.
 
 Actual open-sided neighbour diagnostic `government-xl-open-sided-neighbour-diagnostic-20261007`, verified Neon `c85efc763cf360e06e060be0227fc6bd6c0a06819bc0af8390383181db7d7c78`, checks the viewer's real roof/post volumes against current terrain and exact proposed terrain. All18 checked neighbour/variant pairs retain increased rendered-post ground gaps; one stale Apex replacement is explicitly skipped. Zero passes, geometry edits, review changes or installation credit. Whole-footprint sampling is conservative, but these actual rendered supports still fail the existing numeric limits. Do not repeat unchanged checks or treat diagnostic sampling as full solid-clearance proof. XL remains91/261,47 new and53 further required.
 
