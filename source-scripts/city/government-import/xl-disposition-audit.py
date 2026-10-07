@@ -97,7 +97,7 @@ def audit(doc):
         else:
             phase = individual.get((uid, sha))
             first_row = first_rows.get(uid)
-            if phase:
+            if phase and phase['result']['reasons'] != ['stale-inputs-require-full-fresh-recheck']:
                 result = phase['result']
                 assert not result.get('passed') and not result.get('installationApproved') and not result.get('publication')
                 row.update(disposition='filed-cannot-install', reasons=result['reasons'],
