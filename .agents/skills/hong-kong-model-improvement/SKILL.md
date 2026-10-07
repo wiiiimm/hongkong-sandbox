@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.8.76"
+  version: "1.8.77"
 ---
 
 # Hong Kong model improvement
@@ -650,3 +650,7 @@ Codex, 7 October 2026. B373411542002063C0 (landsd/246270:0) is installed with un
 42 new XL installations from44/308: **86 installed / 266 not installed**, 58 further installations required. Public counters: 346,108 total source forms, 4,439 enhanced, 4,425 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.
 
 This auxiliary original podium is outside XL352 and adds zero XL target credit. Exact source closure: docs/astra-city/government-import/government-xl-eight-remaining-original-supports-20261007.
+
+## Original-parent recovery checkpoint, 7 October
+
+Resume `docs/astra-city/government-import/government-xl-original-parent-recovery-checkpoint-20261007/README.md` and its verified Neon job `977c9151e1176cf35fcfbef57a715ff45d2380431a85ecba4b9aff2b1917c404`. Twenty-six complete phases add zero installation credit. The nine untried original-parent XL checks all remain held; do not repeat unchanged attempts. XL352 remains86 installed /266 held,42 new XL and58 more required. Park Haven low podium246270 is installed outside this cohort; upper246467 still fails176 clearance samples under both native and root terrain. Its current-patch route augments target routing metadata only and runs full current retained-native checks; it is not a projection-overlap construction waiver. Retained-source-face lower-parent selection outside the installed original projection does not fix these failures. Preserve original geometry and acceptance limits. South Hillcrest fresh physical recheck/parent continuation proceeds separately. Continue the active goal across checkpoint commits.
