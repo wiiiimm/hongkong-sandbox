@@ -1,0 +1,81 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-on-ning3-retained-basic-full-browser-installed-20261007/plan.json",
+  "areas": [
+    {
+      "area": "On Ning Garden Block 3 original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-on-ning3-retained-basic-full-browser-installed-20261007/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-31718-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-on-ning3-retained-basic-full-browser-installed-20261007/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "cd20225925d941a9bc366333680708e7add66912a8822f9c92c3ff2b94f45816"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-31718-0.json": "28b327b6e849aad12b505e424732dba5448040d8f2b1e977164ea9f4f14c1373",
+    "3d-viewer/city/data/official-models/government-xl-on-ning3-retained-basic-full-browser-installed-20261007/catalogue.json": "7e2cf9120208292a4b7ac9263f6d97933bfb9ce2dd7dc84ca0fb71cd85b3962a",
+    "3d-viewer/city/data/manifest.json": "9edfacc65cc0e7a4e97e73196afabd7833364c4fe69690e5e09e5bdd079a2112"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "5914747ab891caf89840475b7e5066c03ac5d665",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-31511-0.json",
+      "sha256": "7c5bf971ed8ff93126ea937813896325045ecb7fcbf8d46fa72af2be0bb7efcd",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-31718-0.json",
+      "resolution": 5,
+      "area": "On Ning Garden Block 3 unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "98f431668c755d510c0bd0ec77d53af0509458d49586853e9076429874ef9ef0",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "12-NW-16C",
+            "sourceETag": "\"242196b-63dce843768f4\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/12-NW-16C/terrain/TERRAIN(TB)/T45000192000106E10/T45000192000106E10.bin",
+                "sha256": "d608dcec6e6f4091fa2dfb9ca9ccdababd1be54a059f732b1218ebdafed78e8d"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/12-NW-16C/terrain/TERRAIN(TB)/T45000192000106E10/T45000192000106E10.gltf",
+                "sha256": "ff1b5853284b89f14b008ff59f50d1b220c08e41da75a403eee4f287a32618d5"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 3249,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "28b327b6e849aad12b505e424732dba5448040d8f2b1e977164ea9f4f14c1373",
+      "bytes": 2437752
+    }
+  ],
+  "estimatedBases": []
+}
