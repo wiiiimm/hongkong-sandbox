@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.2"
+  version: "1.9.3"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+8 October post-install continuation: full current521-source manifest/runtime-byte/Neon-review-evidence audit confirms197 installed/324 remaining; saved in `government-xl-harbourside2-installed-20261008/full-xl-current-count.json`. Harbourside commit99192112 pushed. WaterfrontVI203730 original Elements interface is412/417 strict, five unresolved, Neonb0bcff75e21186cb8214dc89def26351a68ac07aee1155f4a08d51921d418bd9; source followup7be2a413f300a4cd2609ffde4ff4f4e80bb2a2fba4dfd692d62edfb5548c788f. CITIC278303 fresh tower identity/runtime/seven unchanged-terrain neighbours pass, but support232579 is an unverified legacy trial entry, not an accepted installed support. First current-support attempt preserves partial checks, no complete receipt. Fresh podium contact/foundation pass, standalone unrelated overlap fails, Neon1d36b1c537fd5d15660add3038976e16de10616808b5aebd550b1375734e1914. Complete same-building assembly also fails1m2 unrelated bound at16.096964m2, Neon383a73b19e08d4f763dd3833a462decfc06bdb6e1a8b637b81885c4c3c538d9f. Current source hold356f0e65c0f054a6b28eda02b87ca92f9a0f2cbe850597aa55832bcf045f8637 binds all work and preserves raw earlier reasons. Do not infer any visible/native catalogue entry is installed-verified; first test actual flags and ledger. Do not repeat unchanged failed contact/identity work or erase raw failures. No model AI. Full goal active; zero installation credit from these diagnostics.
 
 8 October **Harbourside Tower2 204154 installed** unchanged on Elements273061. Complete original assembly identity, all134 strict support contacts, whole foundation, four clear neighbours, runtime and staged/live desktop/mobile day/night/picking/collision/failure-retry pass. Live exported mobile PNG inspected. Neon `c5f1b8a92543bd1c83b6feaa9928464fa997679f0f5802d5ec9466ddec4f0aa0`, snapshot `44814f246e0d4354`. Full indexed XL **521 =197 installed-verified +324 remaining**, two actual new XL installations this continuation. Moontower installation committed/pushed `eb8d0021`; typed recovery `bb8f0d18`. Current-support acceptance has four additional passing tests (28 relevant checks total). A scan of saved complete positive interfaces leaves only uninstalled CITIC278303/installed232579, besides the now installed two Elements towers. CITIC's historical terrain-change neighbour failures do not prove failure on unchanged current terrain: an explicit fresh unreviewed-source/current-support continuation is running. WaterfrontVI203730 exact typed source lookup qualified for a novel strict interface diagnostic; no credit yet. No model AI or relaxed limits; continue full goal.
 
