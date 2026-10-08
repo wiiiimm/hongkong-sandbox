@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.11"
+  version: "1.9.12"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October2026, HKS-203. Six generic loader errors are now classified with current unchanged exact source forms and original bounds, verified Neond8a2f18682cad7a0afbcebfdadd9a0cccb1eb0d07aa5348482898e478ed41340:138091/113733 Cheung Sha Wan Wholesale Vegetable Market,75642/75643/43101 unnamed,99482 Lookout Tower. Original bounds exceed the existing footprint allowance by104.756/5.211/52.838/35.182/6.290/14.820m; all position buffers are below the existing size cap. Read `government-xl-six-loader-footprint-classifications-20261008/README.md`. These are demonstrated spatial-fit rejections, not generic processing exceptions. Investigate authoritative whole-source/component coverage; do not enlarge loader margins or infer corruption/AI need. Historical physical selection had an older manifest: the first invocation rejected before writes; final metadata-only result explicitly binds old/current manifest hashes and verifies current unchanged source forms without claiming old physical checks are current. No installations;521=197 installed-verified+324 remaining. No workers remain. No model AI or geometry/limit edits. All new results/scripts through the Olympian continuations are committed and pushed in48a06998; this six-source checkpoint is separate. Linear remains pending from prior rejection. No historical imagery used.
 
 Codex, 8 October2026, HKS-203. Olympian's basic-ground-retention continuation is COMPLETE, verified Neon64b8182fc914467433965efd43de9ca038900667971903d7f8b4cffc4eefbf2c. All116 basic neighbours and both retained native meshes pass, but the restored ground buries the original source by up to3.391281m and fails its complete foundation. The1.130128m rim gap remains. Do not use this candidate or repeat this unchanged retention attempt. The earlier source-local candidate's foundation passed; retain both distinct results.
 

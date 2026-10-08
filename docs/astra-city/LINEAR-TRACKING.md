@@ -1,3 +1,7 @@
+# 8 October — six exact loader footprint classifications
+
+Codex, HKS-203. Six generic loader failures are now classified and verified Neond8a2f18682cad7a0afbcebfdadd9a0cccb1eb0d07aa5348482898e478ed41340:138091/113733 vegetable market,75642/75643/43101 unnamed and99482 Lookout Tower exceed the loader's unchanged footprint allowance by5.211–104.756m; all buffers are under its size cap. Current exact source forms and original byte hashes are checked. Both old/current manifest hashes are recorded; historical physical checks are not claimed fresh. No enlargement of margins, geometry edits, AI necessity or corruption is inferred. Next work is authoritative whole-source/component coverage or a demonstrated loader/metadata defect. No installations; full521 remains197 installed-verified+324 remaining. Reservation released, no workers remain. Zero modelling AI. Linear remains pending from prior automatic rejection; no retry. No historical imagery used.
+
 # 8 October — complete Olympian ground-retention and original-rim checks
 
 Codex, HKS-203. Ground retention is complete and verified in Neon64b8182fc914467433965efd43de9ca038900667971903d7f8b4cffc4eefbf2c:116 basic neighbours and both installed native meshes pass, but restoring old root planes buries the new source by3.391281m and fails its full foundation. The1.130128m rim gap remains. No publication. Reuse this failed candidate; the preceding source-local candidate separately retained a passing foundation.
