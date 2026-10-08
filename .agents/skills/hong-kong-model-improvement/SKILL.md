@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.3"
+  version: "1.9.4"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,13 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October 2026, HKS-203. Ten previously untested exact original component pairs across eight remaining XL sources are checked. Eighteen unchanged original meshes were recovered; all ten complete interfaces remain failed. The seven-pair closure is verified in Neon job `14a61f1600ddc2fcf206c050a5b25a6d13e1abcc388b97419269a1893b58d11a`; the three lower-component closure is verified in Neon job `a9ca24ac9cbc1f1a6ea5adfc02cb13b457fcc3947e50dd1e695816e2fb4ff049`. Source-specific followups for all eight XL sources are verified in Neon. These results establish measured contact failures, not corruption, permanent impossibility, an AI requirement or installation credit. Full indexed XL remains **521 =197 installed-verified +324 remaining**. No geometry edits, placement shifts, tolerance changes or per-model AI calls.
+
+The lower-component routing inventory rejects172 disjoint shared-parent candidates before physical work. The unresolved-rim lookup covers115 remaining XL originals with saved original-byte-matched rim evidence, locates99 exact lower source records and nominates four untested source pairs by actual world bounds. These are broad-phase lookup candidates only, not support or identity approval. No queues or skip credit were created. Reuse the completed ten failures; proceed with the four new candidates. Uptown East330580 retains its earlier missing exact-source result; unchanged lookup is not repeated.
+
+Linear synchronisation remains pending from the previously reported automatic approval rejection of the exact progress payload. This checkpoint does not retry or bypass that write; local and Neon evidence remain available. No historical Lantau imagery used.
+
 
 8 October post-install continuation: full current521-source manifest/runtime-byte/Neon-review-evidence audit confirms197 installed/324 remaining; saved in `government-xl-harbourside2-installed-20261008/full-xl-current-count.json`. Harbourside commit99192112 pushed. WaterfrontVI203730 original Elements interface is412/417 strict, five unresolved, Neonb0bcff75e21186cb8214dc89def26351a68ac07aee1155f4a08d51921d418bd9; source followup7be2a413f300a4cd2609ffde4ff4f4e80bb2a2fba4dfd692d62edfb5548c788f. CITIC278303 fresh tower identity/runtime/seven unchanged-terrain neighbours pass, but support232579 is an unverified legacy trial entry, not an accepted installed support. First current-support attempt preserves partial checks, no complete receipt. Fresh podium contact/foundation pass, standalone unrelated overlap fails, Neon1d36b1c537fd5d15660add3038976e16de10616808b5aebd550b1375734e1914. Complete same-building assembly also fails1m2 unrelated bound at16.096964m2, Neon383a73b19e08d4f763dd3833a462decfc06bdb6e1a8b637b81885c4c3c538d9f. Current source hold356f0e65c0f054a6b28eda02b87ca92f9a0f2cbe850597aa55832bcf045f8637 binds all work and preserves raw earlier reasons. Do not infer any visible/native catalogue entry is installed-verified; first test actual flags and ledger. Do not repeat unchanged failed contact/identity work or erase raw failures. No model AI. Full goal active; zero installation credit from these diagnostics.
 
