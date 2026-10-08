@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {verifyOriginalSharedRoofEdges as verify} from './original-shared-roof-edges.mjs';
+const mesh=t=>({position:t.flat(2),index:Array.from({length:t.length*3},(_,i)=>i)});
+const wall=[[[0,0,0],[3,0,0],[3,2,0]],[[0,0,0],[3,2,0],[0,2,0]]],ground=[[-10,0,-10],[10,0,-10],[0,0,10]],edge=[[.95,.6,0],[1.4,.6,0],[1,.6,1]];
+test('actual shared roof edge and separate lower contact resolve a wall-only seam',()=>{const p=verify(mesh(wall),0,mesh([ground,edge]));assert.equal(p.rawInterface.passed,false);assert.equal(p.baseInterface.passed,false);assert.equal(p.passed,true);assert(p.sharedRoofEdgeCorrections>0);assert.equal(p.installationApproved,false);});
+test('a higher roof interior covering the wall is not a boundary',()=>assert.equal(verify(mesh(wall),0,mesh([ground,[[0,1,-1],[3,1,-1],[1,1,1]]])).passed,false));
+test('a roof edge extending beyond the actual wall face stays held',()=>assert.equal(verify(mesh(wall),0,mesh([ground,[[-1,1,0],[4,1,0],[1,1,1]]])).passed,false));
+test('source floor incident at the failed wall sample stays held',()=>{const source=[...wall,[[0,0,0],[3,0,0],[1,0,.2]]];assert.equal(verify(mesh(source),0,mesh([ground,edge])).passed,false);});
+test('no separate strict interior lower support remains held',()=>assert.equal(verify(mesh(wall),0,mesh([edge])).passed,false));
+test('wall below roof edge does not prove a shared edge',()=>assert.equal(verify(mesh(wall.map(t=>t.map(([x,y,z])=>[x,y*.25,z]))),0,mesh([ground,edge])).passed,false));
+test('a wall displaced beyond the existing1mm tolerance remains held',()=>{const shifted=wall.map(t=>t.map(([x,y,z])=>[x,y,z+.01]));assert.equal(verify(mesh(shifted),0,mesh([ground,edge])).passed,false);});
+test('empty original source cannot manufacture a contact proof',()=>assert.equal(verify(mesh([]),0,mesh([ground,edge])).passed,false));
