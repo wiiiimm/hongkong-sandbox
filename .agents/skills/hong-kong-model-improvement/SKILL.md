@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.6"
+  version: "1.9.7"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,11 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October 2026, HKS-203. The14-source `government-xl-fourteen-positive-cell-sequence-20261008` is complete:14 physical results verified against Neon and all source evidence hashes; zero new installations. Reuse its completed `commands.json` and README. The Murray265825 and Star House33396 need the existing dedicated nested-parent route for `city/data/terrain-government-xl-central-pier-successor-installed-v2-20261007.json`; the first Murray continuation is started separately, revalidate its actual process/result before reporting activity. No corruption or AI requirement follows from the root overlap guard.
+
+Three exact recovered sources — Olympian City Two265851, China Ferry Terminal285642, Rooftop Garden222781 — pass fresh routed full-cell identity, Neon3ca01d4006605dccc9fbfbfd80f05e05b4a8fd32ccd18971a71ab59dc9894b1d. New `routed_original_cell_identity.py` replaces only empty cached official/viewer shape-match requirements with the existing exact metadata route across all current forms. It requires one original official record and a unique current GeoRef/type/CSUID/ObjectID, retains every raw native failure and rejects nonempty conflicting/ambiguous matches. All original byte/root/pose/whole-cell and current95%/10m/1m² limits remain;21 relevant tests pass. Use `government-xl-three-routed-cell-inputs-20261008`, the verified identity result and `government-xl-three-routed-physical-inputs-20261008`; all physical/runtime/staged/live/publication gates are still mandatory. New explicit cloned runners leave receipt-bound old scripts unchanged. Full521 remains197 installed-verified/324 remaining, original327 goal active. No model AI or geometry edits. Linear writes remain pending; no automatic approval rejection is retried or bypassed. No historical Lantau imagery used.
+
 
 Codex, 8 October 2026, HKS-203. Fourteen further never-reviewed XL originals pass fresh full geographic-coordinate-cell identity, verified Neon job `234523d65b69753b022680de7895350b0a00410c467e719e38ca84e1998e2c17`. All original byte hashes, full current coverage/extent/unrelated-form limits, exact source identifiers and native poses remain unchanged. The earlier routing audit found141 remaining UIDs with recorded same-byte geographic-cell checks and14 further clean-bound, unreviewed sources in the legacy unique-source cohort. Existing checks were reused; these14 new proofs grant no placement or installation credit.
 
