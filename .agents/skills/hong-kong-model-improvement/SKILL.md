@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.29"
+  version: "1.9.30"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. On 8 October the user instructed: "keep working and do not stop. install / fix and install all the models you can. if some are truely blocked, note it in neon and flag the reason", followed by "do not stop for anything". Necessary source-identity/component evidence reviews, including the six prepared original captures, may proceed without repeating the earlier permission question. This permits analysis of unchanged original government sources, not replacement geometry generation or arbitrary validation waivers. Record genuine failures and concrete revisit conditions in Neon; continue other actionable sources. The completed Hoi Tai review remains valid historical evidence.
 
 ## Resume cheaply
+
+Codex,9 October2026. All current320 XL blockers are reconciled and individually queryable in Neon, summary `125fd04bc9968c39740013f1dee8d6f224b579e09a1423f03a4fd065c6aa9847`. Read `government-xl-current-320-blocker-families-20261009/README.md` and `blocked-models.csv`; batch same name, stage `current-original-source-validation-blocker-v1`. Current521=201installed+320not-installed;0positive full physical results awaiting publication,0activeXLworkers. Failure families overlap: identity190,terrain/foundation173,neighbours68,support5,missing archive1,approval1,other1. Four legacy “runtime-budget” entries actually fail runtime footprint fit; no actual resource-budget failure in current reasons. Historical receipts retain original manifest/source bindings. All320 have exact hashes, concrete reasons and changed-evidence revisit conditions; none is falsely called permanently impossible, corrupt or necessarily AI modelling. Siu Ho Wan restoration remains rejected/pending explicit approval; do not retry or bypass. Modelling AI/source geometry edits0.
 
 Codex,9 October2026. Manhattan exact retained-projection v2 is complete, Neon `b6cc98ddfbf5e040719ed22c3eba7abf5e72ea0993ae7d7aab3a32afaa779fd6`: all6 native neighbours pass,166 forms checked; unchanged original podium still fails full foundation/source clearance and7 basic neighbours. `retained_original_projection.py` plus8 tests replace only a false bounding-box overlap guard with complete byte-pinned runtime face projections, including vertical faces. Hoi Fu full239397 retained-parent route is complete, Neon `ec2fc61f02f92804047a8e4e281b1390e21bdf6e30fbf624f92de1fa23a2765e`: retained native model passes,59 neighbours checked; original podium fails source clearance/foundation and basic177605 regresses. Both complete results/README are saved; do not report them running or rerun unchanged. No geometry/tolerance changes or model AI calls. CurrentXL201installed/320remaining; all521-source inventory/current320 dispositions audit continues.
 
