@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.12"
+  version: "1.9.13"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,10 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October 2026, HKS-203. Six original/native source captures are complete, verified Neon `dc1e422e04303d7b9407dbc986c51f4d7992ba32f2ca5ad93d0be435538d91cb`. All six exported 1402×864 PNGs were inspected for framing and legibility only; no architectural/identity acceptance. Reusable source-capture runners bind exact original bytes, poses, current outlines and screenshots. Read `government-xl-six-original-footprint-previews-20261008/README.md`.
+
+The saved exact stable-CSUID official query comparison is complete, verified Neon `8041be36471ac9da56e175b3c3aca6c791537da61d61c3e4000c2b5831f35e58`. All six official polygons still fail the unchanged loader allowance. Their historical/current manifest hashes are explicit; current exact forms and all inputs are checked, without rebinding old physical checks. Do not repeat the unchanged GIS refresh or enlarge margins. Read `government-xl-six-official-footprint-context-20261008/README.md`. These artifacts prepare a possible bounded source/component review; they do not authorise or perform it. Full521 remains197 installed-verified+324 remaining. Zero model geometry edits, model AI or installations. Reservations released; no active workers. Continue the full goal. Linear remains pending from prior automatic rejection; no retry. No historical imagery used.
 
 Codex, 8 October2026, HKS-203. Six generic loader errors are now classified with current unchanged exact source forms and original bounds, verified Neond8a2f18682cad7a0afbcebfdadd9a0cccb1eb0d07aa5348482898e478ed41340:138091/113733 Cheung Sha Wan Wholesale Vegetable Market,75642/75643/43101 unnamed,99482 Lookout Tower. Original bounds exceed the existing footprint allowance by104.756/5.211/52.838/35.182/6.290/14.820m; all position buffers are below the existing size cap. Read `government-xl-six-loader-footprint-classifications-20261008/README.md`. These are demonstrated spatial-fit rejections, not generic processing exceptions. Investigate authoritative whole-source/component coverage; do not enlarge loader margins or infer corruption/AI need. Historical physical selection had an older manifest: the first invocation rejected before writes; final metadata-only result explicitly binds old/current manifest hashes and verifies current unchanged source forms without claiming old physical checks are current. No installations;521=197 installed-verified+324 remaining. No workers remain. No model AI or geometry/limit edits. All new results/scripts through the Olympian continuations are committed and pushed in48a06998; this six-source checkpoint is separate. Linear remains pending from prior rejection. No historical imagery used.
 
