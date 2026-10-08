@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.8"
+  version: "1.9.9"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,10 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October2026, HKS-203. Olympian City Two's first multi-parent run is complete and verified in Neon `d2deae1be86e6a98175154c5e1c26d386ab9df19be29ceaa8633b59880400410`: early original-TIN construction exceeds100,000 triangles before retaining old parent surfaces. No runtime or model budget is waived. A new explicit source-local continuation preserves current root planes outside the full original model projection plus1m, then restores both disjoint installed native parents229310/239397. Its compute-only intermediate cap is1,000,000; a mandatory final100,000-triangle guard precedes terrain candidate/runtime checks. Existing original building bytes, surveyed height, physical limits and full neighbours remain unchanged. Use `government-xl-olympian-two-source-local-terrain-20261008`; revalidate its process/result. No installation credit yet; full521 remains197 installed-verified/324 remaining.
+
+`resolve-pass-indexed-parent-clipping.py` adds a conservative parent-cell bounds broad phase in stable original order and calls the unchanged exact clip on every candidate. Three tests prove full patch equality, including slopes, vertical facets, near-grid-edge points and complete metadata/indices, and preserve the builder's runtime-budget rejection. The bounded450-facet fixture measured0.335s exhaustive/0.147s indexed; this is a fixture measurement, not a production/mobile performance claim. The first test command from the project root had only Python import-discovery failures and passed after using the correct directory. Completed old source-bound runners and receipts are immutable. No model AI calls, source model edits or new approval credit. Linear writes remain pending from the earlier automatic approval rejection; no retry/bypass. No historical map imagery used.
 
 Codex, 8 October 2026, HKS-203. Murray's nested-parent continuation and both Star House continuations are complete. Star House's retained-Hullett route handles the actual installed-child overlap, but retains16.584–20.677m original low-rim ground clearance and neighbour215934 regression (Neon f5e56cd13d6ec70408362d803cc5075a0876bc1026708bf32956fea7f6717246). Its original podium231484 interface was already checked:1,105 samples,1,033 strict contacts,71 unresolved; do not repeat it unchanged. Murray's fresh13.636–17.218m ground gap retains its earlier exact podium248655 failure (328/329 contacts, one3.1865m unresolved). The three routed physical checks are complete, all failed, and all six completed per-phase results/evidence are preserved; no new installations.
 
