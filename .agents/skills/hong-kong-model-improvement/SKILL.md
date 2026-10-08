@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.5"
+  version: "1.9.6"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,11 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October 2026, HKS-203. Fourteen further never-reviewed XL originals pass fresh full geographic-coordinate-cell identity, verified Neon job `234523d65b69753b022680de7895350b0a00410c467e719e38ca84e1998e2c17`. All original byte hashes, full current coverage/extent/unrelated-form limits, exact source identifiers and native poses remain unchanged. The earlier routing audit found141 remaining UIDs with recorded same-byte geographic-cell checks and14 further clean-bound, unreviewed sources in the legacy unique-source cohort. Existing checks were reused; these14 new proofs grant no placement or installation credit.
+
+The explicit serial sequence `government-xl-fourteen-positive-cell-sequence-20261008` is started under the existing physical/runtime/browser/guarded-publication pipeline. Revalidate its process and `working-commands.json` before claiming it is running. Sources: Festival Walk104302; podium195849; Beverly HillA255539; Parkview7/5/17 (255646/256113/256116); Sol City3/2 (260034/273080); The Murray265825; West Kowloon Government Offices South Tower272986; In One Above3/5 (278234/278458); Uptown East289763; Star House33396. Consume each actual result and inspect exported browser images before committing verified installations. Full521-source goal remains active; latest installed count is197/324remaining until a fresh installed-review count proves otherwise. Keep queued/running work in process and retain failed outcomes. No per-model AI calls, geometry edits or tolerance changes. Linear updates remain pending from the earlier automatic approval rejection; local and Neon work continues. No historical Lantau imagery used.
+
 
 Codex, 8 October 2026, HKS-203. The four exact original rim-routed component pairs are complete, verified Neon job `76bf727ce07698ccd4f2ea91a415c3637af7cb2020ed27b6d128bb0d38303f98`. All four full interfaces fail; none adds strict rim contact. Three exact new supporting originals were recovered without geometry edits, and three source-specific followups are verified in Neon. The source-bounds lookup was only a broad phase and is not physical-support approval. Preserve these results rather than repeating them unchanged.
 
