@@ -1,3 +1,4 @@
+import {retainedGroupFootprint} from './official-model-retained-group-footprint.js';
 import {oceanWalkScope} from './official-model-footprint-scopes-ocean-walk.js';
 /** Exact complete market footprint groups; no original model or GIS geometry edits.
  * Source-bound groups are rechecked against every current loaded member before use.
@@ -9,6 +10,7 @@ export const modelFootprintScopeKeys=Object.freeze(Object.keys(scopes));
 const selected = b => b && ({uid:b.uid,objectId:b.objectId,buildingCSUID:b.buildingCSUID,parent:b.parent,osmRefs:b.osmRefs??null,rings:b.rings});
 export function officialModelFootprint(entry,building,getBuilding){
  if(entry.footprintScope===undefined)return null;
+ if(typeof entry.footprintScope==='string'&&entry.footprintScope.startsWith('retained-group:'))return retainedGroupFootprint(entry,building,getBuilding);
  const scope=scopes[entry.footprintScope];
  if(!scope||scope.uid!==entry.uid||scope.modelId!==entry.modelId||scope.sha256!==entry.sha256||building.uid!==scope.uid||typeof getBuilding!=='function')throw new Error('Unverified complete model footprint scope');
  const primary=scope.forms.find(b=>b.uid===scope.uid),suppressed=[...(scope.suppressesBuildingUids??scope.forms.filter(b=>b.uid!==scope.uid).map(b=>b.uid))].sort();
