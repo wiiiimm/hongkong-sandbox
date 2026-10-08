@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.7"
+  version: "1.9.8"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,10 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October 2026, HKS-203. Murray's nested-parent continuation and both Star House continuations are complete. Star House's retained-Hullett route handles the actual installed-child overlap, but retains16.584–20.677m original low-rim ground clearance and neighbour215934 regression (Neon f5e56cd13d6ec70408362d803cc5075a0876bc1026708bf32956fea7f6717246). Its original podium231484 interface was already checked:1,105 samples,1,033 strict contacts,71 unresolved; do not repeat it unchanged. Murray's fresh13.636–17.218m ground gap retains its earlier exact podium248655 failure (328/329 contacts, one3.1865m unresolved). The three routed physical checks are complete, all failed, and all six completed per-phase results/evidence are preserved; no new installations.
+
+New explicit multi-parent terrain runners preserve every disjoint installed native patch's facets outside the new source projection, reserve the expanded source/neighbour scope, bind original parent hashes and require full current physical/runtime gates. Explicit `replacesMany` is validated identically in all four staged metric/runtime/neighbour tools; every replaced native UID gets the full mesh check. Unknown, changed, duplicated, overlapping or ambiguous replacement scopes reject. Receipt-bound old scripts remain unchanged. Five new contract/viewer-sampler tests, ten existing viewer tests and12 retained-facet/scope tests pass; the initial Python test invocation from the repository root failed only import discovery, then passed from the correct directory. No tolerance or model geometry changes. Olympian City Two's fresh `government-xl-olympian-two-multi-retained-terrain-20261008` is started separately; inspect its actual process/result before claiming activity or credit. Full indexed XL remains521 =197 installed-verified +324 remaining. No external modelling AI calls; code development uses AI. Linear writes remain pending from the earlier automatic approval rejection; no retry/bypass. No historical map imagery used.
 
 Codex, 8 October 2026, HKS-203. The14-source `government-xl-fourteen-positive-cell-sequence-20261008` is complete:14 physical results verified against Neon and all source evidence hashes; zero new installations. Reuse its completed `commands.json` and README. The Murray265825 and Star House33396 need the existing dedicated nested-parent route for `city/data/terrain-government-xl-central-pier-successor-installed-v2-20261007.json`; the first Murray continuation is started separately, revalidate its actual process/result before reporting activity. No corruption or AI requirement follows from the root overlap guard.
 
