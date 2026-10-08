@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.30"
+  version: "1.9.31"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. On 8 October the user instructed: "keep working and do not stop. install / fix and install all the models you can. if some are truely blocked, note it in neon and flag the reason", followed by "do not stop for anything". Necessary source-identity/component evidence reviews, including the six prepared original captures, may proceed without repeating the earlier permission question. This permits analysis of unchanged original government sources, not replacement geometry generation or arbitrary validation waivers. Record genuine failures and concrete revisit conditions in Neon; continue other actionable sources. The completed Hoi Tai review remains valid historical evidence.
 
 ## Resume cheaply
+
+Codex,9 October2026. Further frontier audits complete: full Neon top-level and embedded batch-row positive placement/script/installation flag query finds0matches for current320uninstalled source versions, verified `cc7d1ef82fe542c0c789a7dda5619179c29bd117dbdd3e4eda5fd5fc00a9288a`. Companion archive audit scans366 distinct cached directory hashes for all320 identifiers, verified `92304dd8493c15bb0ab7621fb6a655d72d9de5c2094c94d40e4bbf676c4691e6`: sole companion is already known CentralPier8 C1. Fresh direct sharedOSM footprint remains singleton; extent13.6326m stillfails10m. Do not rerun this unchanged; cached archive inventory is not a fresh territory-wide absence claim. Read both new READMEs. No new installations/geometry/modellingAI; all201installed/320blocked flags and resumable conditions are preserved.
 
 Codex,9 October2026. All current320 XL blockers are reconciled and individually queryable in Neon, summary `125fd04bc9968c39740013f1dee8d6f224b579e09a1423f03a4fd065c6aa9847`. Read `government-xl-current-320-blocker-families-20261009/README.md` and `blocked-models.csv`; batch same name, stage `current-original-source-validation-blocker-v1`. Current521=201installed+320not-installed;0positive full physical results awaiting publication,0activeXLworkers. Failure families overlap: identity190,terrain/foundation173,neighbours68,support5,missing archive1,approval1,other1. Four legacy “runtime-budget” entries actually fail runtime footprint fit; no actual resource-budget failure in current reasons. Historical receipts retain original manifest/source bindings. All320 have exact hashes, concrete reasons and changed-evidence revisit conditions; none is falsely called permanently impossible, corrupt or necessarily AI modelling. Siu Ho Wan restoration remains rejected/pending explicit approval; do not retry or bypass. Modelling AI/source geometry edits0.
 
