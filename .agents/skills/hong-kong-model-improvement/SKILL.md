@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.13"
+  version: "1.9.14"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October 2026, HKS-203. The spatial search beyond shared OSM parents is complete: 115 sources with byte-matched rim evidence, 47 metadata pairs, 44 exact lower originals and 30 previously untested pairs across 24 remaining XL targets. All 30 complete original contact checks fail (29 add no strict/wall contacts; Island Industrial adds 10/312). Verified Neon closure `c58733413b3c0e90da5ac460f0850bc6f6a0caeba1eb4018259eeac75aec1dcd` and all 24 source-specific followups are complete and read back. 50 original meshes: 31 verified cache hits and 19 government recoveries. See `government-xl-thirty-spatial-original-closures-20261008/README.md` and `government-xl-spatial-source-followups-20261008/README.md`; do not repeat these unchanged pairs. Results remain held-unknown, with no inferred AI requirement or permanent rejection. No installations, model AI, geometry edits, source pose changes or validation waivers. Full XL 521 = 197 installed-verified + 324 remaining. All reservations released; no active workers from this batch. Six prepared source/component AI reviews remain unapproved. Continue independent exact government revision checks. Linear remains pending after prior automatic rejection; no retry. No historical imagery used.
 
 Codex, 8 October 2026, HKS-203. Six original/native source captures are complete, verified Neon `dc1e422e04303d7b9407dbc986c51f4d7992ba32f2ca5ad93d0be435538d91cb`. All six exported 1402×864 PNGs were inspected for framing and legibility only; no architectural/identity acceptance. Reusable source-capture runners bind exact original bytes, poses, current outlines and screenshots. Read `government-xl-six-original-footprint-previews-20261008/README.md`.
 
