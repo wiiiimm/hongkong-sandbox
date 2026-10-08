@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.10"
+  version: "1.9.11"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,10 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October2026, HKS-203. Olympian's basic-ground-retention continuation is COMPLETE, verified Neon64b8182fc914467433965efd43de9ca038900667971903d7f8b4cffc4eefbf2c. All116 basic neighbours and both retained native meshes pass, but the restored ground buries the original source by up to3.391281m and fails its complete foundation. The1.130128m rim gap remains. Do not use this candidate or repeat this unchanged retention attempt. The earlier source-local candidate's foundation passed; retain both distinct results.
+
+Exact original rim context is COMPLETE, verified Neon94bc8d3f2ad7fd10d5a89a910ca7d3fe52a577fce6965e16149c34631390499a. All107 rim samples match the original government TIN within2.505793e-8m;19 exceed1m in the original source too. The failing region is152m or more from the four neighbours; current root ground would bury that rim3.58–4.07m. Original podium support probes fail all four basic towers (868/869/1245/1969 samples,99/138/150/715 contacts,192/145/526/550 missing). These diagnostics grant no component/architecture approval, no permanent rejection and no AI requirement. Use the two READMEs and new reusable runners; completed scripts/receipts are immutable. No workers remain from these runs. No installations; full521 remains197 installed-verified+324 remaining. Continue other XL holds with changed evidence, rather than repeating this source's demonstrated failures. No model AI, source edits or tolerance changes. Linear writes remain pending from the prior automatic approval rejection; no retry/bypass. No historical imagery used.
 
 Codex,8 October2026,HKS-203. Olympian City Two source-local continuation is COMPLETE, verified Neon53df2b3a79a470d19ea6da909c01bdd9425cd1f19b62af317510b8fbbdb405ca. Intermediate124,055 terrain facets become30,655 final facets under the unchanged100,000 cap. All116 neighbours are checked; both retained native229310/239397 meshes and the complete source foundation pass. No missing terrain or sampler disagreement. Remaining actual blockers: max low-rim gap1.130128m (>1m), four basic-neighbour ground-gap regressions269837/269839/269908/270317, plus the preserved raw global-bottom diagnostic. No new installation, full521=197 installed-verified+324 remaining. No workers remain from the three-source, Star House or Olympian runs. Next scripted step: locate failing rim points relative to the four exact neighbour polygons and compare original current parent planes; no source height edits or tolerance waivers. Do not repeat the unchanged whole-TIN or original podium checks. Source-local proof README records all results. No modelling AI calls; code development used AI. Linear writes remain pending; no rejected disclosure is retried. No historical map imagery used.
 
