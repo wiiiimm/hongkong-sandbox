@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.9"
+  version: "1.9.10"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,8 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex,8 October2026,HKS-203. Olympian City Two source-local continuation is COMPLETE, verified Neon53df2b3a79a470d19ea6da909c01bdd9425cd1f19b62af317510b8fbbdb405ca. Intermediate124,055 terrain facets become30,655 final facets under the unchanged100,000 cap. All116 neighbours are checked; both retained native229310/239397 meshes and the complete source foundation pass. No missing terrain or sampler disagreement. Remaining actual blockers: max low-rim gap1.130128m (>1m), four basic-neighbour ground-gap regressions269837/269839/269908/270317, plus the preserved raw global-bottom diagnostic. No new installation, full521=197 installed-verified+324 remaining. No workers remain from the three-source, Star House or Olympian runs. Next scripted step: locate failing rim points relative to the four exact neighbour polygons and compare original current parent planes; no source height edits or tolerance waivers. Do not repeat the unchanged whole-TIN or original podium checks. Source-local proof README records all results. No modelling AI calls; code development used AI. Linear writes remain pending; no rejected disclosure is retried. No historical map imagery used.
 
 Codex, 8 October2026, HKS-203. Olympian City Two's first multi-parent run is complete and verified in Neon `d2deae1be86e6a98175154c5e1c26d386ab9df19be29ceaa8633b59880400410`: early original-TIN construction exceeds100,000 triangles before retaining old parent surfaces. No runtime or model budget is waived. A new explicit source-local continuation preserves current root planes outside the full original model projection plus1m, then restores both disjoint installed native parents229310/239397. Its compute-only intermediate cap is1,000,000; a mandatory final100,000-triangle guard precedes terrain candidate/runtime checks. Existing original building bytes, surveyed height, physical limits and full neighbours remain unchanged. Use `government-xl-olympian-two-source-local-terrain-20261008`; revalidate its process/result. No installation credit yet; full521 remains197 installed-verified/324 remaining.
 
