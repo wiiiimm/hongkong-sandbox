@@ -51,7 +51,7 @@ test('terrain chunks and sampler use the same optional display heights, includin
    // Covered parent vertices remain in the buffer but have no drawn triangles.
    // Their child surface is verified separately by the nested-terrain tests.
    if(!drawn.has(i))continue;drawnNodes++;
-   const expected=sampler.mappedWater(x,z)?base.hydro.illustrativeBed:Math.max(1.2,y);
+   const expected=sampler.mappedWater(x,z)?base.hydro.illustrativeBed:y;
    assert.ok(Math.abs(expected-sampler.height(x,z))<.011);
   }
  }
