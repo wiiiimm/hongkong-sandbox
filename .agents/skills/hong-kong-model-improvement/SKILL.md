@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.4"
+  version: "1.9.5"
 ---
 
 # Hong Kong model improvement
@@ -10,6 +10,11 @@ metadata:
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. The user additionally authorised one bounded Hoi Tai source/architectural evidence review ("do it with tokens", then "for Hoi Tai"); that review is complete and adds no geometry-edit or validation-waiver authority. Use scripts for identity joins, downloads, conversion, validation and reporting; additional AI modelling and architectural judgement remain pending until explicitly authorised.
 
 ## Resume cheaply
+
+Codex, 8 October 2026, HKS-203. The four exact original rim-routed component pairs are complete, verified Neon job `76bf727ce07698ccd4f2ea91a415c3637af7cb2020ed27b6d128bb0d38303f98`. All four full interfaces fail; none adds strict rim contact. Three exact new supporting originals were recovered without geometry edits, and three source-specific followups are verified in Neon. The source-bounds lookup was only a broad phase and is not physical-support approval. Preserve these results rather than repeating them unchanged.
+
+This continuation has now completed14 previously untested original pairs across11 remaining XL sources, recovered25 source meshes across the three batches and recorded all source-specific followups. Full indexed XL remains **197 installed-verified /324 remaining /521 total**, zero new installation credit. The reusable component/rim routing changes and first ten checks were pushed in `f9d8734f`; nine relevant metadata/followup tests pass and the new scripts compile. Zero per-model AI calls or source geometry edits. Investigation continues into identity holds, reusing already completed unchanged proofs. Linear writes remain pending from the previously reported automatic approval rejection; local/Neon work is unaffected. No historical Lantau imagery used.
+
 
 Codex, 8 October 2026, HKS-203. Ten previously untested exact original component pairs across eight remaining XL sources are checked. Eighteen unchanged original meshes were recovered; all ten complete interfaces remain failed. The seven-pair closure is verified in Neon job `14a61f1600ddc2fcf206c050a5b25a6d13e1abcc388b97419269a1893b58d11a`; the three lower-component closure is verified in Neon job `a9ca24ac9cbc1f1a6ea5adfc02cb13b457fcc3947e50dd1e695816e2fb4ff049`. Source-specific followups for all eight XL sources are verified in Neon. These results establish measured contact failures, not corruption, permanent impossibility, an AI requirement or installation credit. Full indexed XL remains **521 =197 installed-verified +324 remaining**. No geometry edits, placement shifts, tolerance changes or per-model AI calls.
 
