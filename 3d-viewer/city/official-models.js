@@ -76,7 +76,7 @@ export class OfficialModelLayer{
   if(!building)throw new Error('Official model source tile is not loaded');
   await this.waitForSupports(meta,signal);
   const loadStart=metrics.start();
-  const entry=await this.loadAsset(meta,building,this.stream.lighting,{signal,byteCache:this.byteCache,beforeDecode:signal=>this.readyForWork(signal)});metrics.end('modelLoadMs',loadStart);
+  const entry=await this.loadAsset(meta,building,this.stream.lighting,{signal,byteCache:this.byteCache,beforeDecode:signal=>this.readyForWork(signal),getBuilding:uid=>this.stream.getLoadedBuilding(uid)});metrics.end('modelLoadMs',loadStart);
   try{
    if(signal.aborted||this.closed)throw new DOMException('Aborted','AbortError');
    await this.waitForSupports(meta,signal);

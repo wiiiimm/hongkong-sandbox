@@ -8,7 +8,7 @@ Run from the selected repository root with an available Python environment and N
 2. For remaining forms, look up exact cached government assets, then run local identity/component, placement/support and runtime checks. No preliminary good-enough or shape-comparison pass is required.
 3. Integrate validated original detail through the existing fenced acceptance/publisher flow. Leave unresolved or unavailable sources on their current fallback and queue scripted investigation.
 
-All per-model work runs in local scripts with zero AI calls. Data transfers to government sources, Neon and R2 remain supported. Do not launch AI geometry generation, simplification or architectural review for failures; report any need for that work before proceeding with it. Historical screening reports are retained for diagnostics and do not schedule imports or grant acceptance.
+All per-model work runs in local scripts with zero AI calls. Data transfers to government sources, Neon and R2 remain supported. Do not launch AI geometry generation or simplification for failures. The 8 October continuation authorises necessary non-geometry source-identity/component evidence review, including the six prepared captures, without another permission stop. Analysis does not grant physical acceptance or a validation waiver. Historical screening reports are retained for diagnostics and do not schedule imports or grant acceptance.
 
 | Work | Existing entry points and evidence |
 | --- | --- |

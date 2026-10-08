@@ -7,6 +7,7 @@ import {GLTFLoader} from '../vendor/GLTFLoader.js';
 import {facadeMaterial} from './world.js';
 import {buildingLighting} from './lighting.js';
 import {describeBuilding} from './building-geometry.js';
+import {officialModelFootprint} from './official-model-footprint-scopes.js';
 const HASH=/^[a-f0-9]{64}$/;
 const positive=n=>Number.isSafeInteger(n)&&n>0;
 const abort=()=>new DOMException('Aborted','AbortError');
@@ -56,8 +57,9 @@ function nativeGLB(bytes){
  return json;
 }
 /** Decodes exact native source geometry. It does not change source node transforms. */
-export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=fetch,loader=new GLTFLoader(),byteCache=null,beforeDecode=yieldModelWork}={}){
+export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=fetch,loader=new GLTFLoader(),byteCache=null,beforeDecode=yieldModelWork,getBuilding=null}={}){
  if(!building||building.uid!==entry.uid||building.objectId!==entry.objectId||building.buildingCSUID!==entry.buildingCSUID||(building.baseHeightHKPD??null)!==entry.recordedBaseHeight||(building.topHeightHKPD??null)!==entry.recordedTopHeight)throw new Error('Model does not match the loaded official building source');
+ const footprintBoundary=officialModelFootprint(entry,building,getBuilding);
  const fetchStart=metrics.start();if(!byteCache)metrics.count('modelRequests');
  if(signal?.aborted)throw abort();let compressed;
  if(byteCache)compressed=await byteCache.get(entry,{fetcher});
@@ -85,7 +87,7 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
    for(let i=0;i<indices.length;i++)index[indexOffset+i]=indices[i]+vertexOffset;
    vertexOffset+=p.count;indexOffset+=indices.length;
   }
-  const record={...building,modelId:entry.modelId,modelGeometry:{position,index,triangles,worldBounds:entry.worldBounds},modelSource:{datasetId:entry.datasetId,modelId:entry.modelId,sourceTile:entry.sourceTile,sourceTileRevision:entry.sourceTileRevision,sha256:entry.sha256,catalogueURL:entry.catalogueURL,coordinatePolicy:entry.coordinatePolicy,verticalPlacementOffsetHKPD:entry.verticalPlacementOffsetHKPD??0,verticalPlacementBasis:entry.verticalPlacementBasis??null,sourceWorldBounds:entry.sourceWorldBounds??entry.worldBounds,originalMaterials:source.materials,originalNodes:source.nodes}};
+  const record={...building,modelId:entry.modelId,modelGeometry:{position,index,triangles,worldBounds:entry.worldBounds,...(footprintBoundary?{footprintBoundary}:{})},modelSource:{datasetId:entry.datasetId,modelId:entry.modelId,sourceTile:entry.sourceTile,sourceTileRevision:entry.sourceTileRevision,sha256:entry.sha256,catalogueURL:entry.catalogueURL,coordinatePolicy:entry.coordinatePolicy,verticalPlacementOffsetHKPD:entry.verticalPlacementOffsetHKPD??0,verticalPlacementBasis:entry.verticalPlacementBasis??null,sourceWorldBounds:entry.sourceWorldBounds??entry.worldBounds,originalMaterials:source.materials,originalNodes:source.nodes}};
   if(describeBuilding(record).modelStatus!=='usable')throw new Error('Official model does not fit its matched footprint');
   const style=buildingLighting(record),night=facadeMaterial('#ffffff',lighting),attachNight=night.onBeforeCompile,materialMap=new Map();night.dispose();
   for(const mesh of meshes){

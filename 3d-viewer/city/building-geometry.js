@@ -30,7 +30,7 @@ function validModel(building){
   if(index){for(const i of index)if(!Number.isInteger(i)||i<0||i>=vertices){valid=false;break;}}
   else if(p.length%9!==0)valid=false;
   if(valid&&bounds[4]>bounds[1]+.001&&bounds[3]>bounds[0]&&bounds[5]>bounds[2]){
-   const xs=building.rings?.[0]?.map(p=>p[0])||[],zs=building.rings?.[0]?.map(p=>p[1])||[];
+   const boundary=model.footprintBoundary??building.rings?.[0],xs=boundary?.map(p=>p[0])||[],zs=boundary?.map(p=>p[1])||[];
    const minX=Math.min(...xs),maxX=Math.max(...xs),minZ=Math.min(...zs),maxZ=Math.max(...zs),margin=Math.max(20,Math.hypot(maxX-minX,maxZ-minZ));
    if(bounds[0]>=minX-margin&&bounds[3]<=maxX+margin&&bounds[2]>=minZ-margin&&bounds[5]<=maxZ+margin&&bounds[1]>-1000&&bounds[4]<5000)result={...model,bounds};
   }
