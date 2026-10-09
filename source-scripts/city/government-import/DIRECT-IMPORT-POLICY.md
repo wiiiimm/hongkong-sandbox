@@ -141,3 +141,43 @@ Tower 3A reproduce residues of 2.49e-14, 2.25e-16 and 3.31e-24 square metres.
 Fresh identity passes do not grant installation credit: their full terrain
 checks still require original supporting components. The authentic Heya Aqua
 triangle fixture reproduces the union failure without editing original vertices.
+
+
+## Complete unchanged Hoi Fu / Hoi Yu roles — 9 October 2026
+
+This source-specific pair uses the same original meshes and poses. Its legacy
+numeric failures remain recorded. The independent identity, full current source
+and terrain hashes, complete neighbouring actors, mobile budgets, sampler limits,
+staged/live browser checks and guarded publisher still apply.
+
+For Hoi Fu (`landsd/177604:0`, source SHA `bf710f3c82832b8b82b85571bbda7904416ea8743a081e6aa3de321915a21122`),
+`unchanged_closed_column_role_v2_20261009.py` proves exactly one original outward,
+closed, self-intersection-free 24-face narrow vertical column. Every other one of
+14,627 original faces retains continuous ordinary clearance. The column has an
+exposed original cap with positive-length attachment to clear original surfaces;
+its original sides cross the ground. All 59 current forms are accounted for,
+using full current basic footprints, exact paired source mesh, or source-bound
+whole native bounds when strictly disjoint. Intersecting native bounds require
+full geometry, never a GIS footprint substitute. All raw burial measurements,
+including two wholly buried downward column faces, remain. This is an original
+column termination role, not a basement certificate or general burial allowance.
+Verified read-only Neon proof: `aac0f722f7e58cf6bbc1f69145fd3de240287d23f23e1530fbc162ce734a64a5`.
+
+For Hoi Yu (`landsd/177605:0`, source SHA `f328bad9be002308e9fd1b1108feb510ceb56a92a7518e9c5804a5ddcc2684b2`),
+`original_component_support_20261009.py` accounts for all 8,775 faces in 32 exact
+edge-connected components. Two components have complete strict podium interfaces
+(249/249 and 4/4 contacts); all other 30 have exact positive-length original
+contact with a strict anchor. No component is omitted or called decorative.
+Freshly decoded original interfaces and exact attachment witnesses are replayed
+at publication. Full independent tower clearance and foundation remain required,
+with Hoi Fu installed atomically as its pinned native dependency. This resolves
+only its recorded global-rim and remote-ground-bottom flags after the original
+podium's separately proved ground role passes. Read-only Neon support proof:
+`63fda313e87d82766547ea1651c8b266b9ff066e35d6248f9fa68e5dd35e018b`.
+
+`hoi_fu_yu_typed_publication_20261009.py` refuses any additional numeric failure,
+changed source, omitted face or actor, ungrounded support, or unrelated failed gate.
+These proofs alone grant no installation credit. No AI geometry modelling or
+source vertices, attributes, root transforms or terrain edits are authorized by
+this route. Other sources require their own complete independently checked role
+and physical evidence before using a comparable contract.
