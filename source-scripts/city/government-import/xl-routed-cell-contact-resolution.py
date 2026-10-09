@@ -30,6 +30,7 @@ ADJACENT_SOURCES = []
 RETAIN_NATIVE_URL = None
 ALLOW_BASIC_TERRAIN_TARGETS = False
 RETAIN_NATIVE_MODEL_REGIONS_ONLY = False
+OWNED_IDENTITY_PATHS = None
 
 
 def module(name, filename):
@@ -84,7 +85,9 @@ def owned():
         from routed_original_cell_identity import verify_files, POLICY
         owned_identity = verify_files(r, context[r['uid']], LOCAL / 'identity-recheck')
         assert owned_identity['passed'], owned_identity['reasons']
-        assert owned_identity == read(DOC / 'owned-source-identity.json'), 'Positive identity proof changed'
+        identity_path = (DOC / 'owned-source-identity.json' if OWNED_IDENTITY_PATHS is None
+                         else OWNED_IDENTITY_PATHS[r['uid']])
+        assert owned_identity == read(identity_path), 'Positive identity proof changed'
         assert owned_identity['policy'] == POLICY
         save(DOC / 'owned-source-identity-contact.json', owned_identity)
         for path, pinned in context[r['uid']]['neighbourTileHashes'].items():
