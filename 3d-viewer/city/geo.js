@@ -1,6 +1,6 @@
 import {TerrainPatchIndex,terrainGridBounds} from './terrain-patch-index.js';
 import {renderedPatchHeight} from './rendered-patch-height.js';
-import {nativeTerrainSurface} from './native-terrain.js';
+import {nativeTerrainSurface} from './native-terrain.js?v=20261010-finite1';
 import {collisionVolumes} from './building-geometry.js';
 import {modelRoofHeight,modelSurfaceCollision} from './model-collision.js';
 

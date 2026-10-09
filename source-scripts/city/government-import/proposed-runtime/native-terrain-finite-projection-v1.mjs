@@ -1,4 +1,5 @@
-import {withinFiniteTriangleProjection} from './exact-finite-triangle-projection.js';
+// PROPOSED ONLY: shared runtime remains untouched.
+import {withinFiniteTriangleProjection} from './exact-finite-triangle-projection-v1.mjs';
 // Exact source TIN surfaces share Float32 vertices with the rendered terrain.
 // A small spatial index avoids scanning every source triangle during walking.
 const cache=new WeakMap();

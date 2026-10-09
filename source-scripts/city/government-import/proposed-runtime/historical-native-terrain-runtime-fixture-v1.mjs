@@ -1,4 +1,3 @@
-import {withinFiniteTriangleProjection} from './exact-finite-triangle-projection.js';
 // Exact source TIN surfaces share Float32 vertices with the rendered terrain.
 // A small spatial index avoids scanning every source triangle during walking.
 const cache=new WeakMap();
@@ -22,7 +21,7 @@ export function nativeTerrainSurface(mesh) {
   let result=-Infinity;
   for(const id of cells.get(Math.floor(x/cell)+','+Math.floor(z/cell))||[]){
    const t=triangles[id],u=((t.bz-t.cz)*(x-t.cx)+(t.cx-t.bx)*(z-t.cz))/t.determinant,v=((t.cz-t.az)*(x-t.cx)+(t.ax-t.cx)*(z-t.cz))/t.determinant,w=1-u-v;
-   if(withinFiniteTriangleProjection([t.ax,t.az],[t.bx,t.bz],[t.cx,t.cz],[x,z]))result=Math.max(result,u*position[t.a+1]+v*position[t.b+1]+w*position[t.c+1]);
+   if(u>=-1e-8&&v>=-1e-8&&w>=-1e-8)result=Math.max(result,u*position[t.a+1]+v*position[t.b+1]+w*position[t.c+1]);
   }
   return Number.isFinite(result)?result:null;
  }

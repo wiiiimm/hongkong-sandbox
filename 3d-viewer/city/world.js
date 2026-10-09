@@ -6,7 +6,7 @@ import {ORIGIN,inPolygon,random,smoothStep,terrainVertexHeight} from './geo.js';
 import {buildingLighting} from './lighting.js';
 import {createBuildingGeometry} from './building-geometry.js';
 import {createTidalWater} from './tidal-water.js';
-import {nativeTerrainSurface} from './native-terrain.js';
+import {nativeTerrainSurface} from './native-terrain.js?v=20261010-finite1';
 import {drapeRoadTriangle} from './road-surface.js';
 
 const colour = x=>new THREE.Color(x);
