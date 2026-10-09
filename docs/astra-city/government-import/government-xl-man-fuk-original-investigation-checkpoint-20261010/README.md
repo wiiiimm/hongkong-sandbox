@@ -1,0 +1,11 @@
+# Man Fuk original platform and Man Oi investigation
+
+Produced by Codex on 10 October 2026 from unchanged Lands Department sources. No historical Lantau map reference is used. Both original government assets retain their complete indexed graph, pose and compressed hashes: Man Fuk podium B364461960802063C0 has 10,661 faces/93 parts; Man Oi tower B364721945401063C0 has 2,160 faces/4 parts. Exact native run membership and stable government candidate identity were checked during recovery. The already cached platform required no transfer; the tower required 29,925 transfer bytes.
+
+Every original face was tested against every current local form at the captured manifest. The broad platform covers 98.5679396522% of its own current footprint and extends at most 1.8632758971m. Its largest excess is 1.7224253748m² into Man Oi. All 23 positive-area original faces in that overlap belong to the platform's original main component; every smaller foreign overlap remains recorded too.
+
+Complete exact rational source-pair contact enumeration found 12 line contacts, all between the two main components at original height43.375m. These are source interfaces only: they do not establish a ground root, legal ownership, collision exemption or whole-model acceptance. No surface-area contact was found. All 12,821 original faces and97 components remain unchanged.
+
+The official Housing Authority Block A typical 1/F–15/F floor-plan PDF identifies Man Fuk House by name. Its original URL, bytes, hash and request metadata are saved alongside the image. It is not an estate site plan, surveyed placement, platform ownership or support proof. Do not infer a shared-envelope waiver from the estate name.
+
+Actionable hold: obtain exact primary source identity/component coverage for the platform/Man Oi relationship, then complete independent current whole-source terrain, foundation, all neighbouring actors, component support, runtime, staged/live browser and guarded publication gates. None is installed or permanently rejected by this checkpoint. All zero-area contacts, absence results and raw failures stay queryable; do not repeat recovery or contact enumeration without changed inputs. The captured manifest is explicitly archived because a later unrelated installation changed the global manifest.
