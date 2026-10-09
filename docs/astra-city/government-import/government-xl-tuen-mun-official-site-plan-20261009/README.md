@@ -1,0 +1,15 @@
+# Tuen Mun Hospital: independent site context
+
+Produced by Codex on 9 October 2026 for HKS-203. No Lantau map references were used; no source model, placement or terrain was edited.
+
+The [Hospital Authority introduction](https://www3.ha.org.hk/tmh/en/about_us/default.asp?mobile=1) identifies the Main Block and Special Block as parts of Tuen Mun Hospital. The archived [May 2015 government paper](https://www.legco.gov.hk/yr14-15/english/panels/hs/papers/hs20150518cb2-1456-5-e.pdf), enclosure on PDF page 6, explicitly labels the Special Block beside the hospital's other blocks, within the hospital site boundary. The source arrangement matches the distinct Special Block and Main Block podium in the complete government source projections. This is a source identity interpretation, not proof of survey coordinates or structural support.
+
+The enclosure is marked **Not to Scale**. Its pixels must not be used to shift, resize, clip or georegister any model. The proposed relationship concerns only `landsd/191896:0` and `landsd/280350:0`. A matching site name alone must never exempt another nearby actor.
+
+Complete original-source counterpart research found 174 excess-contributing faces in four original components, 80 exact positive-dimensional contacts, and 11.6258018725 square metres of excess projection within the Main Block podium's current footprint. The four components and every original face remain retained. The Special Block is not wholly contained in the carved podium footprint; no occupation-permit relation was returned by the exact government structure lookup. Neither containment nor a common permit is claimed.
+
+The fresh original-cell preflight passes the ordinary full source, whole GeoRef cell and exact current identity routing checks. Its two raw foreign-overlap failures remain recorded in Neon job `7948cbd21f02af9d83d5b0ec16d321fcb55ace27421cc36264dc06cfb7625572`. Source counterpart and full component evidence are in Neon jobs `ec32508281a7623809309ac8a41f61d396a671a5a26ad80f3e886eb17352a7fe` and `342fcaf37a0b4de8d2aa890193762c9d1c3809aec99d19cf7b85793a0c510a32`.
+
+The downloaded PDF was rendered and visually inspected locally. The host omitted an intermediate certificate; the official public intermediate was fetched from its certificate issuer, verified against the system roots with OpenSSL, and supplied to this acquisition's verified TLS context. Certificate and hostname verification remained enabled. The request receipts record source URLs and byte hashes. The unavailable 2023 Hospital Authority PDF and the first unsuccessful TLS attempts earn no source credit.
+
+Current status: source relationship evidence prepared; **not physically accepted or installed**. A narrowly named identity contract must still replay both complete original sources, exact primary identities, full current neighbouring forms, own current/provider coverage and all other foreign actors. Full source support, placement, foundations, retained neighbours, runtime/browser and live publication checks remain independently required.
