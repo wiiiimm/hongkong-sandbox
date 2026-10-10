@@ -1,0 +1,21 @@
+"""Independent genuine grade candidate and bounded path; retain exact coverage gaps."""
+from pathlib import Path
+from fractions import Fraction as F
+import numpy as np,json
+from run import ROOT,HERE,read,save,digest
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from exact_original_triangle_pair_column_gap_20261010 import verify as column
+from exact_original_upper_ground_interfaces_20261009 import exact_upper_ground_interfaces
+from original_bound_facet_wall_context_v3_20261010 import best_original_vertex_exposure
+from exact_original_rational_interface_segment_clearance_20261011 import verify as segment
+B=ROOT/'docs/astra-city/government-import';OLD=B/'government-xl-parkview-block6-bounded-original-clear-cap-probe-v1-20261011';D=B/'government-xl-parkview-block6-complete-original-support-paths-v1-20261011'
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+ d=read(D/'diagnostic.json.gz');r=read(OLD/'diagnostic.json.gz');p=ROOT/next(x['path']for x in r['evidenceRefs']if x['path'].endswith('glb.gz')and x['path']!=r['evidenceRefs'][2]['path']);n=decode_original_world_triangles(p.read_bytes());rp=HERE/'local/government-xl-terrain-recovery-parkview-block11-complete-original-proposed-current-probe-v4-20261011/runtime-geometry.json.gz';rt=next(x for x in read(rp)['rows']if x['uid']=='landsd/254491:0');g=np.asarray(rt['drawnGroundGeometry'],float).reshape(-1,3,3);assert digest(g.tobytes())==d['completePinnedGroundSHA256'] and digest(n.tobytes())==r['completeOriginalNativeWorldSHA256']
+ wall=52248;interfaces=exact_upper_ground_interfaces(n,[wall],g);exposure=best_original_vertex_exposure(n[wall],g);shared=sorted(set(map(tuple,n[wall]))&set(map(tuple,n[45598])));assert len(shared)==2;edge=segment([[str(F(float(v)))for v in p]for p in shared],g)
+ proofs=[];gxz=g[:,:,[0,2]]
+ for row in d['nativePathFacetProofs']:
+  i=row['face'];f=n[i];sxz=f[:,[0,2]];ids=np.flatnonzero(np.all(gxz.max(1)>=sxz.min(0),axis=1)&np.all(gxz.min(1)<=sxz.max(0),axis=1));assert list(map(int,ids))==row['proof']['allProjectedBoundingCandidateOriginalGroundFacets'];pieces=[dict(originalGroundFace=int(j),proof=column(f,g[j]))for j in ids];gaps=[F(x['proof']['exactMinimumFiniteColumnGapM'])for x in pieces if x['proof']['exactClosedHorizontalProjectionsMeet']];assert gaps;lower=min(gaps);coverage=row['proof']['groundProjectionCovered'];proofs.append(dict(face=i,allCompleteFiniteColumnCandidateProofs=pieces,exactMinimumColumnGapM=str(lower),exactProjectionCovered=coverage,strictClearCompleteFacet=coverage and lower>0,priorConservativeProofRef=ref(D/'diagnostic.json.gz')))
+ result=dict(uids=d['uids'],nativeGradeWall=wall,exactPositiveUpperGroundInterfaces=interfaces,completeVertexExposure=exposure,gradeToNextFacetSharedEdge=dict(faces=[52248,45598],proof=edge),completeOriginalNativeRouteFaces=[52248,*d['nativePathFaces']],completeRouteIntermediateFiniteProofs=proofs,otherSharedEdgeProofsRef=ref(D/'diagnostic.json.gz'),strictCapProofRef=ref(OLD/'paired-cap-refinement.json.gz'),wholeRouteQualified=bool(interfaces)and F(exposure['exactExposureLowerBoundM'])>0 and edge['strictlyExposedWholePositiveInterface']and d['nativePathAllSharedEdgesStrictlyExposed']and all(x['strictClearCompleteFacet']for x in proofs),exactGroundProjectionGapsRetained=[x['face']for x in proofs if not x['exactProjectionCovered']],sourceOnly=True,currentAcceptance=False,installationApproved=False,sourceGeometryChanges=0,newlyInstalled=0,evidenceRefs=[ref(p)for p in [Path(__file__),D/'diagnostic.json.gz',OLD/'paired-cap-refinement.json.gz',p,rp,HERE/'exact_original_triangle_pair_column_gap_20261010.py',HERE/'exact_original_upper_ground_interfaces_20261009.py',HERE/'original_bound_facet_wall_context_v3_20261010.py',HERE/'exact_original_rational_interface_segment_clearance_20261011.py']])
+ save(D/'native-grade-route-refinement.json.gz',result);print(json.dumps(dict(gradeInterfaces=len(interfaces),exposure=exposure['exactExposureLowerBoundM'],extraEdgeStrictlyExposed=edge['strictlyExposedWholePositiveInterface'],routeQualified=result['wholeRouteQualified'],facets=[(x['face'],x['exactMinimumColumnGapM'],x['exactProjectionCovered'])for x in proofs])),flush=True)
+if __name__=='__main__':main()
