@@ -1,0 +1,9 @@
+# One Peking fresh finite installed-foreign identity
+
+Identity-only production replay passed on manifest afe71ffa851d82ab2d1350834b5a6cd1484f28e481bd6bf866ca7a6f73e05d0b. Neon 0247298e85996395c8a2ab5d4bc8acaa2c43b7ff8efccaedc8da576f93d39d4d. The 26 source tests plus 32 current-binding actual/adverse tests passed. The complete 4,114-face original is bound to the unique current government cache/native stage. The foreign 32,635-face Hullett original remains an actual installed foreign actor. Fresh exact provider queries, every current regional form and tile, all installed catalogues, root/BIN/attribute streams and both complete literal loader outputs are pinned.
+
+The raw basic proxy excess of 5.270854248362672 m² remains recorded. Its complete actual installed silhouette contributes 0.02172328286055862 m²; all eight original/literal current/provider combinations retain ordinary 1 m² policy and every other foreign form. Only the two explicit footprint-proxy identity reasons are reconsidered. No shared ownership, structural support, terrain, foundation, collision or installation credit. The independent tower current ordinary identity also passes.
+
+The v1 and v2 manual raw replay attempts were strictly rejected. Their distinct archived scripts/diagnostic records remain immutable. The final v3 invokes the unchanged actual exact-cell file pipeline and requires whole raw proof equality, then independently checks complete-record context and all eight silhouette combinations. No float comparison tolerance was added.
+
+Next physical route must account for all 15,784 faces and 38 parts, genuine ground roots, ten disconnected part roles, and the exact installed Hullett child within the Caine composite. Other nine existing children and full current foreign actors remain independently protected.
