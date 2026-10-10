@@ -1,0 +1,23 @@
+"""Prove all78 complete original/runtime ledge shapes; full acceptance withheld."""
+import importlib.util,json
+from pathlib import Path
+import numpy as np
+from run import ROOT,HERE,read,save,digest,connect
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from mei_yat_original_open_ended_ledge_geometry_20261010 import verify
+BATCH='xl-terrain-recovery-20261010-mei-yat-all-original-open-ended-ledges-v1';DOC=ROOT/'docs/astra-city/government-import'/BATCH;assert not DOC.exists()
+BASE=ROOT/'docs/astra-city/government-import';PHYS=BASE/'government-xl-terrain-recovery-mei-yat-original-physical-v3-20261010';SUP=BASE/'xl-terrain-recovery-20261010-mei-yat-complete-original-support-v1';FINITE=BASE/'xl-terrain-recovery-20261010-mei-yat-complete-paired-column-v1';EDGE=BASE/'xl-terrain-recovery-20261010-mei-yat-all-boundary-euclidean-diagnostic-v1';g=read(SUP/'diagnostic.json.gz');finite=read(FINITE/'diagnostic.json.gz')['rows'][0];refs=[]
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+for folder in [PHYS,SUP,FINITE,EDGE]:
+ r=read(folder/'result.json')
+ with connect() as c:c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r)
+ refs.append(ref(folder/'result.json'))
+r=read(PHYS/'selection.json.gz')['rows'][0];asset=ROOT/r['candidate']['path'];assert digest(asset.read_bytes())==r['sourceSHA256'];t=decode_original_world_triangles(asset.read_bytes());runtime=read(HERE/'local'/PHYS.name/'runtime-geometry.json.gz')['rows'][0];world=np.asarray(runtime['position']).reshape(-1,3)[np.asarray(runtime['index']).reshape(-1,3)];ground=np.asarray(runtime['drawnGroundGeometry']).reshape(-1,3,3)
+assert finite['completeOriginalWorldSHA256']==digest(t.tobytes()) and finite['completeActualRenderedWorldSHA256']==digest(world.tobytes()) and finite['completeGroundSHA256']==digest(ground.tobytes());assert not finite['unprovedOriginalFaces'] and not finite['unprovedActualRenderedFaces'];assert g['binding']['completeOriginalWorldTrianglesSHA256']==digest(t.tobytes())
+rooted=set(g['resolvedOriginalComponents']);hosts=sorted(i for k in rooted for i in g['components'][k]['globalOriginalFaces']);wanted=[k for k in range(721,800) if k!=722];assert len(wanted)==78 and not set(wanted)&rooted;results=[]
+for k in wanted:
+ ids=g['components'][k]['globalOriginalFaces'];assert all(finite['allFaces'][i]['sourceFace']==i and finite['allFaces'][i]['completeOriginalBoundProved'] and finite['allFaces'][i]['completeActualRenderedBoundProved'] for i in ids)
+ original=verify(t,ids,hosts,expected_world_sha256=digest(t.tobytes()));rendered=verify(world,ids,hosts,expected_world_sha256=digest(world.tobytes()));results.append(dict(component=k,completeOriginalGeometry=original,completeLiteralRenderedGeometry=rendered,independentWholeFacetOriginalRenderedProof=[finite['allFaces'][i] for i in ids],namedVisualRoleAccepted=False));save(DOC/'partial-diagnostic.json.gz',dict(uids=[r['uid']],complete=False,results=results));print(k,'original/rendered back-U and complete8faces PASS',flush=True)
+refs += [ref(p) for p in [Path(__file__),asset,PHYS/'selection.json.gz',SUP/'diagnostic.json.gz',FINITE/'diagnostic.json.gz',EDGE/'diagnostic.json.gz',HERE/'local'/PHYS.name/'runtime-geometry.json.gz',HERE/'mei_yat_original_open_ended_ledge_geometry_20261010.py',HERE/'test_mei_yat_original_open_ended_ledge_geometry_20261010.py',HERE/'exact_original_edge_finite_facade_distance_band_v2_20261010.py',HERE/'exact_packed_world_geometry_20261009.py']]
+save(DOC/'diagnostic.json.gz',dict(uids=[r['uid']],sourceSHA256=r['sourceSHA256'],completeOriginalWorldSHA256=digest(t.tobytes()),completeLiteralRenderedWorldSHA256=digest(world.tobytes()),completeCurrentGroundSHA256=digest(ground.tobytes()),sourceGeometryChanges=0,results=results,completeOriginalAndRenderedLedges=78,stillUnresolvedComponents=[76,77,722],otherThinPanelsRequireSeparateNamedSourceRole=True,visualRoleAccepted=False,structuralRootCredit=False,fullAcceptance=False,evidenceRefs=refs))
+spec=importlib.util.spec_from_file_location('ledge_freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);m.freeze(BATCH,'complete78original-rendered-open-ended-ledge-geometry-whole-finite-clearance-v1',[ROOT/p['path'] for p in refs],dict(uids=[r['uid']],completeOriginalAndRenderedLedges=78,remainingUnresolvedComponents=[76,77,722],sourceGeometryChanges=0,visualRoleAccepted=False,structuralRootCredit=False,fullAcceptance=False))
