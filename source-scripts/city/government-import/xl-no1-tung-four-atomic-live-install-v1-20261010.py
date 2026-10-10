@@ -129,7 +129,7 @@ def owned(args):
             browser_verify(stage,uids,retained,'live-browser.json')
     except BaseException:
         manifest.write_bytes(before);save(DOC/'live-failure-rollback.json',dict(manifestRestoredSHA256=digest(manifest.read_bytes()),installedCreditGranted=False));raise
-    installed={**decision,'snapshotId':snapshot,'publication':True,'manifest':ref(manifest),'liveBrowsers':[ref(s.DOC/'live-browser.json') for s,_,_,_ in SPECS]}
+    installed={**decision,'snapshotId':snapshot,'publication':True,'newlyInstalled':4,'manifest':ref(manifest),'liveBrowsers':[ref(s.DOC/'live-browser.json') for s,_,_,_ in SPECS]}
     save(DOC/'installed-acceptance.json',installed)
     ledger.record_many(snapshot,LEASE,[(u,'installed-verified',DOC/'installed-acceptance.json','Unchanged original passes all complete current source/physical gates and staged/live desktop/mobile day/night, framing, picking/collision, retained-source views and failed-load retry. Zero AI geometry modelling.',commit) for u in UIDS],effort=effort,request_id=BATCH+'-installed-'+snapshot)
     assert read(pointer_path)==pointer
@@ -160,7 +160,7 @@ def main():
         scope.update(r['building']['uid'] for r in read(s.PHYSICAL/'neighbour-inputs.json.gz')['rows']);scope.update(retained)
         resources.update('terrain-patch:'+u for u in us)
         resources.update('terrain-surface:'+t['replaces']['url'] for t in read(s.STAGE/'plan.json')['topLevelTerrainPatches'])
-    claim=reservations.claim('xl-no1-tung-four-atomic-'+str(uuid.uuid4()),[('building:' if u.startswith('landsd/') else 'source-form:')+u for u in sorted(scope)]+sorted(resources),batch=BATCH,ttl=3600);assert claim['ok'],claim
+    claim=reservations.claim('xl-no1-tung-four-atomic-'+str(uuid.uuid4()),[('building:' if u.startswith('landsd/') else 'foreign-form:')+u for u in sorted(scope)]+sorted(resources),batch=BATCH,ttl=3600);assert claim['ok'],claim
     save(LEASE,json.loads(json.dumps(claim['reservation'],default=str)))
     cmd=[sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--previous-count',args.previous_count,'--owned']
     for c in args.closure:cmd.extend(['--closure',c])
