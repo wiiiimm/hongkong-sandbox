@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-cullinan-west-three-named-original-visual-details-v1.py", line 32, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-cullinan-west-three-named-original-visual-details-v1.py", line 28, in main
+    o,l,f,g,c,b,refs=fixture();result=verify(o,l,f,g,frozen_context=c,expected_binding=b,current_binding=b)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/cullinan_original_named_visual_details_v1_20261010.py", line 45, in verify
+    anchorpoints=[tuple(t[i,j])for i,j in p['anchor']];assert len(set(anchorpoints))==2 and anchorpoints[0][1]==detail[:,:,1].min() and anchorpoints[1][1]==detail[:,:,1].max()
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
