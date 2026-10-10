@@ -1,0 +1,5 @@
+# Parkview Block17: fresh-current-carrier-capture-v1
+
+Source-only unchanged provider geometry and stable manifest ba6399c629e6c8876125a339cc80e0a03974080449cf156438c9fe6c346901f3 after root Block6 installation. No live acceptance, installation, source/terrain edits or whole-native reapproval. Explicit F32 arithmetic is not a universal GPU/camera guarantee. Historical terrain-regresses-neighbour:landsd/256120:0 remains in original held evidence; current no-terrain-change foreign check is a distinct new scope, not a waiver. Complete fresh native carrier ground has25,167 unchanged facets; original/native literal/left/balanced F32 source meshes/matrices/attributes are recorded. This capture supplies no whole-native source or ground reapproval.
+
+Remaining promotion requirements: independent root review of numerical role logic, fully bound current runtime/browser and publisher guards, and guarded installation with unchanged originals. Primary owner/contractor imagery supplies estate context only; exact fixture identity/function remains unknown.
