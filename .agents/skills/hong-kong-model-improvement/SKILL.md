@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.52"
+  version: "1.9.53"
 ---
 
 # Hong Kong model improvement
@@ -18,6 +18,8 @@ For terrain replacements, nominate affected installed actors from the entire par
 Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
 
 ## Resume cheaply
+
+Codex, 12 October 2026, HKS-203. Complete fresh Yoho Town8/podium finite/interface job `693e02926f1181b890f4fb2adb46b0c030ee2e604e585931c8c56f02ca0461b2` is ROOT-verified against exact Neon and all733 references. All22,523 original faces/four arithmetic labels remain; tower99 coverage gaps plus67 covered clearance failures, podium63 plus252. Positive body interfaces are nominations, not roots; qualify the main podium grade seed and exact exposed tower/podium interface before any support credit. Southside current grade job `7269234ae78ade5d10223502841ee35aba9e9d844d72c59d186ae56ee45cda71` is ROOT-verified against all781 refs. The mall/station retain943/513 ordinary failures;187/58 genuine grade-to-whole-exposed-edge-to-strict-cap paths add context only. Vacuous paths, zeros, nonsteep failures and19 historical unresolved parts remain uncredited. Inspect upward-failure source context before a terrain proposal. The historical29,497-facet terrain set filtered projected area >1e-10; future exact terrain comparison must decode untouched sheets, use conservative closed bounds and retain every slope/degeneracy. Read the two new ROOT verification notes and handoff. Zero new installations; XL remains233 catalogue-installed/288 absent. Original acquisition continues independently of optimisation.
 
 Codex, 12 October 2026, HKS-203. GitHub framework and quality-loader updates are integrated on `codex/astra-hong-kong-city`; read the separate `hong-kong-model-optimisation` skill before any optimisation work. The additive Neon migration is already applied. Do not rerun it or create optimisation plans, jobs or variants without a separately authorised batch. Continue original-model acquisition and acceptance independently. Current manifest `2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540` has 6,649 native asset entries; whole-map reporting counts 346,108 source forms and 4,516 enhanced forms, not unique physical buildings.
 
