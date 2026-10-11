@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.51"
+  version: "1.9.52"
 ---
 
 # Hong Kong model improvement
@@ -18,6 +18,14 @@ For terrain replacements, nominate affected installed actors from the entire par
 Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
 
 ## Resume cheaply
+
+Codex, 12 October 2026, HKS-203. GitHub framework and quality-loader updates are integrated on `codex/astra-hong-kong-city`; read the separate `hong-kong-model-optimisation` skill before any optimisation work. The additive Neon migration is already applied. Do not rerun it or create optimisation plans, jobs or variants without a separately authorised batch. Continue original-model acquisition and acceptance independently. Current manifest `2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540` has 6,649 native asset entries; whole-map reporting counts 346,108 source forms and 4,516 enhanced forms, not unique physical buildings.
+
+The fixed 521-source XL reconciliation is **233 catalogue installations / 288 absent**. Of the installed entries, 232 have matching current source-bound installed reviews; West Wing podium26195 remains a documented legacy acceptance follow-up. Nine indexed sources have recovered UIDs, seven installed packed hashes differ, and Central Pier uses a documented successor revision. Preserve those distinctions; do not infer decoded equivalence, uninstall legacy entries, or backfill acceptance. Read `government-xl-fixed-inventory-binding-reconciliation-v1-20261012/summary.json`, its exact reconciliation and West Wing provenance lookup. The earlier strict indexed-UID audit remains historical and is not the complete installed count.
+
+Completed Upton finite-v5, Victoria Mall correspondence, Sparkle body22 and Heya additive-bound diagnostics are recorded in `government-xl-original-installation-followup-20261011/handoff.json`. They add zero installations and retain all actual failures. Fresh Yoho Town8/podium capture is Neon job `6da18fbe3cb5a91c8fa1b24e5f9f6b8ed378eb09607299e0b8aeca4ec3691a1e`, all689 references verified, both original assets and terrain unchanged. Its negative lower-rim diagnostics require complete body/interface/finite qualification; old Block7 support is not Tower8 support. Southside and West Wing current captures are separate continuations; check terminal receipts and reservation ownership before resuming.
+
+Updated capture tools must use the reviewed `exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs`, with exact literal static/dynamic import edges, Acorn bytes and three opaque Draco resources bound before/after execution. Computed imports remain rejected. Preserve older failed captures. Routine invocation fixes, including adding the producer directory to `sys.path` for importlib smoke checks, may proceed autonomously with distinct logs and unchanged producers; an import/schema failure is not model corruption or an AI modelling requirement. ROOT alone publishes and commits; keep the full XL goal active across evidence checkpoints.
 
 Codex, 11 October 2026, HKS-215. **Elements Sun204145 and Star204143 are installed unchanged and pushed in `2c191ecd8`**, verified Neon `80fc8e0842ffea51d83f96086902874c157996faf896bd3fb1409fefdbd01edd`. Current manifest `df35e9ba069dc8445ca873ba1a065cffafcd00e94813a3af040219121469830e`, snapshot `d1e8ae25a53de08b`,6645 installed native source actors. Fixed XL521: **230 installed /291 remaining**. Whole map346108 source forms,4512 enhanced (4494 matched government /212669 plus18 other). Read `government-xl-elements-installed-root-closure-v1-20261011/root-closed-scope.json`; full original23809faces/998 real parts and47 uncredited zeros retained, original terrain and all previously installed source geometry unchanged. Eight owned/eight retained-own views plus two retries passed privately and live; root inspected actual exports. Day/night/mobile harness exports do not certify unobscured mobile framing or global stats UI. Zero AI geometry modelling. These counts supersede the historical checkpoints below.
 
