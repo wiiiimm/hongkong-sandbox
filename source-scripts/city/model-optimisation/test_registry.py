@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -36,31 +37,104 @@ def evidence(variant):
             'gates': {gate: 'passed' for gate in r.GATES}}
 
 
+class SourceRecordTests(unittest.TestCase):
+    def setUp(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        self.root = Path(directory.name).resolve()
+        root_patch = patch.object(r, 'ROOT', self.root)
+        root_patch.start()
+        self.addCleanup(root_patch.stop)
+        self.data = self.root / '3d-viewer/city/data'
+        self.data.mkdir(parents=True)
+        self.asset = self.data / 'source.glb.gz'
+        self.asset.write_bytes(b'synthetic source identity fixture')
+        self.entry = {'uid': 'landsd/42:0', 'asset': self.asset.name,
+                      'sha256': hashlib.sha256(self.asset.read_bytes()).hexdigest()}
+        self.cat = {'schemaVersion': 1, 'kind': 'official-model-catalogue', 'crs': 'EPSG:2326',
+                    'verticalDatum': 'Hong Kong Principal Datum',
+                    'rootTranslation': [-834500, 0, 816500], 'models': [self.entry]}
+        self.catalogue = self.data / 'catalogue.json'
+        self.catalogue.write_text(json.dumps(self.cat))
+        self.manifest = self.data / 'manifest.json'
+        self.manifest.write_text(json.dumps({'officialModelCatalogues': ['city/data/catalogue.json']}))
+        self.git('init', '--quiet')
+        self.commit()
+
+    def git(self, *args):
+        return subprocess.check_output(['git', *args], cwd=self.root, text=True,
+                                       env={**os.environ, 'GIT_AUTHOR_NAME': 'Fixture',
+                                            'GIT_AUTHOR_EMAIL': 'fixture@example.invalid',
+                                            'GIT_COMMITTER_NAME': 'Fixture',
+                                            'GIT_COMMITTER_EMAIL': 'fixture@example.invalid'})
+
+    def commit(self):
+        self.git('add', '--all', '--', '3d-viewer/city/data')
+        self.git('commit', '--quiet', '--allow-empty', '-m', 'test: source fixture')
+
+    def record(self):
+        return r.source_record(self.catalogue, self.entry['uid'])
+
+    def test_accepts_both_installed_catalogue_kinds(self):
+        for kind in ('official-model-catalogue', 'staged-official-model-catalogue'):
+            with self.subTest(kind=kind):
+                self.catalogue.write_text(json.dumps({**self.cat, 'kind': kind}))
+                self.commit()
+                record = self.record()
+                self.assertEqual(record['source']['entry'], self.entry)
+                self.assertEqual(record['sourceSha256'], self.entry['sha256'])
+                self.assertEqual(record['revisionId'], r.digest(record['source']))
+                self.assertEqual(record['sourceCommit'], self.git('rev-parse', 'HEAD').strip())
+        for changes in ({'kind': 'unknown'}, {'rootTranslation': [-834500, 1, 816500]}):
+            self.catalogue.write_text(json.dumps({**self.cat, **changes}))
+            self.commit()
+            with self.subTest(changes=changes), self.assertRaisesRegex(ValueError, 'fixed 1x'):
+                self.record()
+
+    def test_rejects_uninstalled_candidate_and_duplicate_current_uid(self):
+        candidate = self.data / 'candidate.json'
+        candidate.write_text(json.dumps({**self.cat, 'kind': 'staged-official-model-catalogue'}))
+        self.commit()
+        with self.assertRaisesRegex(ValueError, 'not installed'):
+            r.source_record(candidate, self.entry['uid'])
+        self.manifest.write_text(json.dumps({'officialModelCatalogues': [
+            'city/data/catalogue.json', 'city/data/candidate.json']}))
+        self.commit()
+        with self.assertRaisesRegex(ValueError, 'exactly one current'):
+            self.record()
+
+    def test_rejects_uncommitted_inputs_but_ignores_unrelated_edits(self):
+        original = self.record()
+        for path in (self.asset, self.catalogue, self.manifest):
+            content = path.read_bytes()
+            with self.subTest(path=path.name):
+                path.write_bytes(content + b' ')
+                with self.assertRaisesRegex(ValueError, 'uncommitted'):
+                    self.record()
+                self.git('add', str(path.relative_to(self.root)))
+                with self.assertRaisesRegex(ValueError, 'uncommitted'):
+                    self.record()
+                path.write_bytes(content)
+                with self.assertRaisesRegex(ValueError, 'staged'):
+                    self.record()
+                self.git('add', str(path.relative_to(self.root)))
+        (self.root / 'unrelated.txt').write_text('another agent is working')
+        self.assertEqual(self.record(), original)
+
+    def test_rejects_untracked_or_staged_new_asset(self):
+        missing = self.data / 'new.glb.gz'
+        self.catalogue.write_text(json.dumps({**self.cat, 'models': [{**self.entry, 'asset': missing.name}]}))
+        self.commit()
+        missing.write_bytes(self.asset.read_bytes())
+        for staged in (False, True):
+            with self.subTest(staged=staged):
+                if staged:
+                    self.git('add', str(missing.relative_to(self.root)))
+                with self.assertRaisesRegex(ValueError, 'must be committed'):
+                    self.record()
+
+
 class ContractTests(unittest.TestCase):
-    def test_source_record_accepts_both_viewer_catalogue_kinds(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory).resolve()
-            asset = root / 'source.glb.gz'
-            asset.write_bytes(b'synthetic source identity fixture')
-            entry = {'uid': 'landsd/42:0', 'asset': asset.name,
-                     'sha256': hashlib.sha256(asset.read_bytes()).hexdigest()}
-            cat = {'schemaVersion': 1, 'crs': 'EPSG:2326',
-                   'verticalDatum': 'Hong Kong Principal Datum',
-                   'rootTranslation': [-834500, 0, 816500], 'models': [entry]}
-            path = root / 'catalogue.json'
-            with patch.object(r, 'ROOT', root), patch.object(r.subprocess, 'check_output', return_value='fixture-source-commit\n'):
-                for kind in ('official-model-catalogue', 'staged-official-model-catalogue'):
-                    with self.subTest(kind=kind):
-                        cat['kind'] = kind
-                        path.write_text(json.dumps(cat))
-                        record = r.source_record(path, entry['uid'])
-                        self.assertEqual(record['source']['entry'], entry)
-                        self.assertEqual(record['sourceSha256'], entry['sha256'])
-                        self.assertEqual(record['revisionId'], r.digest(record['source']))
-                for changes in ({'kind': 'unknown'}, {'rootTranslation': [-834500, 1, 816500]}):
-                    path.write_text(json.dumps({**cat, **changes}))
-                    with self.subTest(changes=changes), self.assertRaisesRegex(ValueError, 'fixed 1x'):
-                        r.source_record(path, entry['uid'])
 
     def test_recipe_flags_versions_and_original_precision(self):
         self.assertEqual(r.validate_recipe(recipe()), recipe())

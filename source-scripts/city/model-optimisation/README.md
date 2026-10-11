@@ -26,6 +26,8 @@ python source-scripts/city/model-optimisation/registry.py plan \
 
 Source file hashes are verified against catalogue `sha256` (the compressed .glb.gz bytes). Source revision identity includes the complete entry, catalogue path, root translation and coordinate metadata. It excludes the git commit so unchanged model inputs can reuse work across commits. Commit remains provenance. Different sources/poses/recipes create distinct records, never overwrite older outcomes. Unrelated entries in the same catalogue do not invalidate this source's identity. Context outside the selected entry (terrain, neighbours, support assets) must still be revalidated at processing/review/publication time.
 
+Planning requires manifest membership and exactly one UID binding across the currently installed catalogues. The viewer manifest, installed catalogues and selected source asset must be committed with no staged or working-tree changes; their bytes are read from one pinned commit. Uninstalled candidates and ambiguous duplicate UIDs are rejected. Commit source installation first, then plan; unrelated working-tree edits do not block planning. Manifest membership alone is not acceptance evidence.
+
 `plan` is a dry run by default. `--apply` does **not** create jobs. `report --uid landsd/12345:0` shows every registered revision, not a claim about which revision is currently installed. Do not sum revisions as unique buildings; compare `revision_id` to a fresh source plan first.
 
 ## Future adapter contract

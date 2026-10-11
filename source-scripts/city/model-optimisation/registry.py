@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+from urllib.parse import unquote, urlsplit
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
@@ -34,6 +35,44 @@ def read(path):
     return json.loads(Path(path).read_text())
 
 
+def committed_bytes(path, commit):
+    path = path.resolve()
+    if not path.is_relative_to(ROOT) or not path.is_file():
+        raise ValueError('Source inputs must exist inside repository')
+    relative = path.relative_to(ROOT).as_posix()
+    try:
+        data = subprocess.check_output(['git', 'show', f'{commit}:{relative}'], cwd=ROOT,
+                                       stderr=subprocess.DEVNULL)
+    except subprocess.CalledProcessError as error:
+        raise ValueError(f'Source input must be committed: {relative}') from error
+    if data != path.read_bytes():
+        raise ValueError(f'Source input has uncommitted changes: {relative}')
+    return data
+
+
+def installed_catalogue(path, uid, commit):
+    manifest_path = ROOT / '3d-viewer/city/data/manifest.json'
+    manifest = json.loads(committed_bytes(manifest_path, commit))
+    paths = []
+    for reference in manifest.get('officialModelCatalogues', []):
+        url = urlsplit(reference)
+        if url.scheme or url.netloc or url.query or url.fragment or url.path.startswith('/'):
+            raise ValueError('Installed catalogue must use a repository-relative viewer URL')
+        paths.append((ROOT / '3d-viewer' / unquote(url.path)).resolve())
+    if path not in paths:
+        raise ValueError('Catalogue is not installed in the current viewer manifest')
+    bindings = []
+    selected = None
+    for catalogue_path in paths:
+        catalogue = json.loads(committed_bytes(catalogue_path, commit))
+        bindings.extend(catalogue_path for entry in catalogue['models'] if entry['uid'] == uid)
+        if catalogue_path == path:
+            selected = catalogue
+    if bindings != [path]:
+        raise ValueError('Select exactly one current installed source UID binding')
+    return selected, [manifest_path, *paths]
+
+
 def validate_recipe(recipe):
     if recipe.get('schemaVersion') != 1 or recipe.get('tier') not in TIERS:
         raise ValueError('Invalid recipe version or tier')
@@ -57,7 +96,8 @@ def source_record(catalogue, uid):
     path = Path(catalogue).resolve()
     if not path.is_relative_to(ROOT):
         raise ValueError('Catalogue must be in this repository')
-    cat = read(path)
+    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    cat, inputs = installed_catalogue(path, uid, commit)
     if (cat.get('schemaVersion') != 1 or cat.get('kind') not in ('official-model-catalogue', 'staged-official-model-catalogue')
             or cat.get('crs') != 'EPSG:2326' or cat.get('verticalDatum') != 'Hong Kong Principal Datum'
             or cat.get('rootTranslation') != [-834500, 0, 816500]):
@@ -70,15 +110,19 @@ def source_record(catalogue, uid):
     if not asset.is_relative_to(ROOT) or not asset.is_file():
         raise ValueError('Source asset must exist inside repository')
     expected = sha(entry['sha256'])
-    if hashlib.sha256(asset.read_bytes()).hexdigest() != expected:
+    if hashlib.sha256(committed_bytes(asset, commit)).hexdigest() != expected:
         raise ValueError('Source asset hash mismatch')
+    staged = subprocess.run(['git', 'diff', '--cached', '--quiet', commit, '--',
+                             *(str(item.relative_to(ROOT)) for item in [*inputs, asset])], cwd=ROOT)
+    if staged.returncode:
+        raise ValueError('Source inputs must have no staged changes')
     # Placement, assembly, source metadata and bytes all participate in identity.
     source = {'entry': entry, 'catalogue': str(path.relative_to(ROOT)),
               'rootTranslation': cat['rootTranslation'], 'crs': cat['crs'],
               'verticalDatum': cat['verticalDatum'], 'coordinatePolicy': cat.get('coordinatePolicy'),
               'datasetId': cat.get('datasetId')}
     return {'revisionId': digest(source), 'uid': uid, 'sourceSha256': expected,
-            'sourceCommit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+            'sourceCommit': commit,
             'source': source}
 
 
