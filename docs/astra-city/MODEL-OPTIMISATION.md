@@ -40,3 +40,7 @@ No approved presets or optimised assets currently exist in the repository. Publi
 Hash/roundtrip and full-precision equality where promised; finite geometry; surveyed placement and fixed 1x scale; current support/terrain/source dependencies; no incorrect base suppression; shadows and day/night appearance; close-up and distant silhouettes; picking/collision; failed fetch/hash/decode fallback; slider changes during loading; actual mobile frame-time/loading stalls/peak memory. Record environment and untested gaps. Finite visibility sampling and quantisation bits alone are not acceptance.
 
 Related runtime optimisation PR: https://github.com/wiiiimm/hongkong-sandbox/pull/333 . Benchmark context: https://app.devin.ai/sessions/7a81bdca9b0844178241d6788844fec3 . Originals remain the source of truth.
+
+## Offline compression adapter — 12 October 2026
+
+Codex added the explicit lossless Meshopt adapter on `feature/astra-hong-kong-city-compressed`, stacked on `codex/astra-hong-kong-city`. The accepted installed-source batch is frozen at `113625f3fe156b04453814d2cbcb33b78feaeafe`: 6,649 installed UIDs inventoried, 4,272 explicitly accepted sources selected, 2,377 missing/negative acceptance entries held. This is an offline processing slice, with separate content-addressed staging artifacts and Neon optimisation results. It does not provide approved quality presets or change the runtime catalogue. See the batch report in `model-optimisation/accepted-enhanced-meshopt-lossless-v1-20261012/README.md` for final measurements, complete UID lists and remaining gates.

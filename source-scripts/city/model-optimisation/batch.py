@@ -393,7 +393,9 @@ def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1,
         print(json.dumps({k:v for k,v in report.items() if k!='outcomes'}), flush=True)
     finally:
         if lease:
-            reservations.release(lease, connection=connection)
+            # An interrupt can leave the borrowed session mid-transaction.
+            # A fresh pinned session releases only this exact owned token.
+            reservations.release(lease)
         codec.stdin.close(); codec.terminate(); codec.wait(timeout=15)
         pool.shutdown(wait=False, cancel_futures=True)
         connection.close()

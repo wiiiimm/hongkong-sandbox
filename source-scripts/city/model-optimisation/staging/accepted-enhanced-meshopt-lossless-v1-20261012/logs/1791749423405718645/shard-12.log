@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 438, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 434, in main
+    run(args.snapshot, args.recipe, args.output, args.batch, args.shard_index, args.shard_count, args.preflight, args.preflight_sha256)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 316, in run
+    if not jobs.finish(job, result=result, connection=connection):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/shared-modelling/jobs.py", line 66, in finish
+    with connect() if connection is None else transaction(connection) as con:
+  File "/usr/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/shared-modelling/db.py", line 76, in transaction
+    hosts = (CONFIG['host'], CONFIG['host'].replace('.c-', '-pooler.c-', 1))
+  File "/usr/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/tmp/hks-model-compression-venv/lib/python3.12/site-packages/psycopg/connection.py", line 369, in transaction
+    with tx:
+  File "/tmp/hks-model-compression-venv/lib/python3.12/site-packages/psycopg/transaction.py", line 271, in __exit__
+    return self._conn.wait(self._exit_gen(exc_type, exc_val, exc_tb))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/hks-model-compression-venv/lib/python3.12/site-packages/psycopg/connection.py", line 495, in wait
+    return waiting.wait(
+           ^^^^^^^^^^^^^
+  File "psycopg_binary/_psycopg/waiting.pyx", line 236, in psycopg_binary._psycopg.wait_c
+KeyboardInterrupt

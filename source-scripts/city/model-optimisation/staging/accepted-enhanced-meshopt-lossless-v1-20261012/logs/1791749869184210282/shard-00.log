@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 438, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 434, in main
+    run(args.snapshot, args.recipe, args.output, args.batch, args.shard_index, args.shard_count, args.preflight, args.preflight_sha256)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 232, in run
+    keys = sorted(set(k for source in group for k in resources(source)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 232, in <genexpr>
+    keys = sorted(set(k for source in group for k in resources(source)))
+                                                     ^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 160, in resources
+    if dependency.get('uid'):
+       ^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'

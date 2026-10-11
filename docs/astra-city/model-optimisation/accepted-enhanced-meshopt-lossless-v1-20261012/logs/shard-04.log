@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 362, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 358, in main
+    run(args.snapshot, args.recipe, args.output, args.batch, args.shard_index, args.shard_count)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/model-optimisation/batch.py", line 216, in run
+    claim = reservations.claim(ACTOR, keys, ttl=1800, batch=batch, connection=connection)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city-compressed/source-scripts/city/shared-modelling/reservations.py", line 90, in claim
+    con.execute('''INSERT INTO astra_modelling.reservations(resource,token) VALUES(%s,%s)
+  File "/tmp/hks-model-compression-venv/lib/python3.12/site-packages/psycopg/connection.py", line 304, in execute
+    raise ex.with_traceback(None)
+KeyboardInterrupt
