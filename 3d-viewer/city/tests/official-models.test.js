@@ -363,3 +363,18 @@ test('cancellation at replacement install completion restores the base form',asy
  for(let i=0;i<60&&(!triggered||layer.cache.running.size||layer.retiring.size);i++)await tick();await Promise.allSettled([...layer.retiring.values()]);
  assert.equal(triggered,true);assert.equal(layer.quality,'base');assert.equal(layer.cache.entries.size,0);assert.equal(f.stream.detailedModels.has(source.uid),false);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);assert.equal(committed.group.parent,null);assert.equal(layer.cache.errors.size,0);
 });
+test('failed cancellation restoration retains live geometry until Retry restores base',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);
+ const source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];let layer,triggered=false,committed,failRestore=true;
+ const install=f.stream.setDetailedModel.bind(f.stream);
+ f.stream.setDetailedModel=(uid,entry,options)=>{if(triggered&&!entry&&failRestore)throw new Error('Fallback blocked');return install(uid,entry,options);};
+ f.stream.onChange=()=>{const detail=f.stream.detailedModels.get(source.uid);if(!triggered&&layer&&detail?.active&&detail.entry?.variantId){triggered=true;committed=detail;layer.setQuality('base');}};
+ layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta,building)=>{
+  const entry=fakeEntry(meta,building),geometry=new THREE.BufferGeometry(),material=new THREE.MeshBasicMaterial();let disposals=0;
+  const dispose=geometry.dispose.bind(geometry);geometry.dispose=()=>{disposals++;dispose();};entry.group.add(new THREE.Mesh(geometry,material));entry.disposals=()=>disposals;return entry;
+ }});t.after(async()=>{failRestore=false;await layer.dispose();f.stream.cache.close();});layer.models.set(source.uid,source);
+ layer.plan(camera(),{force:true});await layer.cache.waitFor([source.uid]);source.variants=[{...source,variantId:repeat('e'),tier:'balanced',codec:'none',minPixels:0,maxPixels:1000000}];layer.setQuality('balanced');
+ for(let i=0;i<60&&(!triggered||layer.cache.running.size||layer.retiring.size);i++)await tick();await Promise.allSettled([...layer.retiring.values()]);
+ assert.equal(f.stream.detailedModels.get(source.uid),committed);assert.equal(committed.disposals(),0);assert.ok(layer.releaseFailures.has(committed));
+ failRestore=false;await layer.retry();assert.equal(f.stream.detailedModels.has(source.uid),false);assert.equal(layer.releaseFailures.size,0);assert.equal(committed.disposals(),1);
+});

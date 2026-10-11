@@ -136,11 +136,13 @@ export class OfficialModelLayer{
     this.loadingAssets.delete(uid);
     if(entry&&!installed){
      if(this.stream.detailedModels.get(uid)===entry){
-      const selectedNow=this.selectedAssets.get(uid),previousStillAppropriate=previousResident&&this.cache.entries.get(uid)===previousResident&&this.quality!=='base'&&this.cache.wanted.includes(uid)&&selectedNow&&((selectedNow===previousResident.entry)||(selectedNow.variantId??null)===(previousResident.entry.variantId??null));
-      try{await this.change(()=>this.stream.setDetailedModel(uid,previousStillAppropriate?previousResident:null));}
+      try{await this.change(()=>{
+       const previousStillAppropriate=previousResident&&this.cache.entries.get(uid)===previousResident&&this.quality!=='base'&&this.cache.wanted.includes(uid);
+       return this.stream.setDetailedModel(uid,previousStillAppropriate?previousResident:null);
+      });}
       catch(restoreError){this.releaseFailures.set(entry,restoreError.message);}
      }
-     disposeOfficialModel(entry);
+     if(this.stream.detailedModels.get(uid)!==entry)disposeOfficialModel(entry);
     }
     if(error?.name==='AbortError'||error instanceof ModelBudgetDeferred)throw error;
     if(candidate.variantId){this.failedVariants.set(candidate.variantId,error.message);this.selectedAssets.set(uid,source);this.dirty=true;}
