@@ -8,8 +8,11 @@ import {CityStreaming} from '../streaming.js';
 import {OfficialModelLayer,MODEL_PROFILES} from '../official-models.js';
 import {prepareModelCatalogue,modelBudget,loadOfficialModel,disposeOfficialModel} from '../official-model-assets.js';
 const tick=()=>new Promise(resolve=>setTimeout(resolve,0));
-function fixture(){
- const g=new THREE.BoxGeometry(10,10,10);g.translate(5,7,5);const p=g.attributes.position.array,n=g.attributes.normal.array,c=new Float32Array(p.length).fill(.5),index=g.index.array,arrays=[p,n,c,index],offsets=[];let size=0;
+function fixture(copies=1){
+ const g=new THREE.BoxGeometry(10,10,10);g.translate(5,7,5);
+ const p=new Float32Array(g.attributes.position.array.length*copies),n=new Float32Array(p.length),index=new Uint16Array(g.index.count*copies);
+ for(let i=0;i<copies;i++){p.set(g.attributes.position.array,i*g.attributes.position.array.length);n.set(g.attributes.normal.array,i*g.attributes.normal.array.length);index.set(g.index.array.map(v=>v+i*g.attributes.position.count),i*g.index.count);}
+ const c=new Float32Array(p.length).fill(.5),arrays=[p,n,c,index],offsets=[];let size=0;
  for(const a of arrays){offsets.push(size);size+=a.byteLength;}const binary=Buffer.alloc(size);arrays.forEach((a,i)=>Buffer.from(a.buffer,a.byteOffset,a.byteLength).copy(binary,offsets[i]));
  const nodes=[{translation:[834500,0,-816500],mesh:0}],materials=[{pbrMetallicRoughness:{baseColorFactor:[.8,.7,.6,1],roughnessFactor:.7,metallicFactor:.1}}];
  const json={asset:{version:'2.0'},scene:0,scenes:[{nodes:[0]}],nodes,materials,buffers:[{byteLength:size}],bufferViews:arrays.map((a,i)=>({buffer:0,byteOffset:offsets[i],byteLength:a.byteLength})),accessors:arrays.map((a,i)=>({bufferView:i,componentType:i===3?5123:5126,count:i===3?a.length:a.length/3,type:i===3?'SCALAR':'VEC3',...(i===0?{min:[0,2,0],max:[10,12,10]}:{})})),meshes:[{primitives:[{attributes:{POSITION:0,NORMAL:1,COLOR_0:2},indices:3,material:0}]}]};
@@ -24,6 +27,25 @@ const modelRequest=url=>{try{return new URL(url).pathname.endsWith('.gz');}catch
 const response=(data)=>new Response(JSON.stringify(data),{headers:{'Content-Type':'application/json'}});
 const camera=()=>{const c=new THREE.PerspectiveCamera(50,1,1,100000);c.position.set(5,10,100);c.lookAt(5,7,5);c.updateProjectionMatrix();return c;};
 async function sourceReady(f){f.stream.cache.plan(['0_0']);await f.stream.cache.waitFor(['0_0']);}
+
+test('chunked native preparation preserves exact buffers, world bounds and collision coordinates',async t=>{
+ const f=fixture(400);t.after(()=>f.stream.cache.close());let checkpoints=0;
+ const entry=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0],r=await loadOfficialModel(entry,f.building,f.stream.lighting,{fetcher:async()=>new Response(f.compressed),yieldWork:async()=>{checkpoints++;}});t.after(()=>disposeOfficialModel(r));
+ assert.ok(checkpoints>10);const mesh=r.meshes[0],p=mesh.geometry.attributes.position,point=new THREE.Vector3();
+ const expected=new Float64Array(p.count*3);
+ for(let i=0;i<p.count;i++){point.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);expected.set(point.toArray(),i*3);}
+ assert.deepEqual(r.record.modelGeometry.position,expected);
+ assert.deepEqual(r.record.modelGeometry.index,new Uint32Array(mesh.geometry.index.array));
+ assert.deepEqual(r.bounds,new THREE.Box3().setFromObject(r.group,true));
+ assert.equal(r.budget.triangles,f.meta.triangles);assert.deepEqual(r.record.modelSource.originalNodes,f.nodes);
+});
+
+test('cancelling during chunked validation disposes the uninstalled model',async t=>{
+ const f=fixture(400);t.after(()=>f.stream.cache.close());const entry=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0],controller=new AbortController(),loader=new GLTFLoader();let disposed=0;
+ const parseAsync=loader.parseAsync.bind(loader);loader.parseAsync=async(...args)=>{const gltf=await parseAsync(...args);gltf.scene.traverse(o=>o.geometry?.addEventListener('dispose',()=>disposed++));return gltf;};
+ await assert.rejects(loadOfficialModel(entry,f.building,f.stream.lighting,{loader,signal:controller.signal,fetcher:async()=>new Response(f.compressed),yieldWork:async()=>controller.abort()}),{name:'AbortError'});
+ assert.equal(disposed,1);assert.equal(f.stream.detailedModels.size,0);
+});
 
 test('verified native GLB keeps indexed buffers, source transforms/material provenance and shared city night uniforms',async t=>{
  const f=fixture();t.after(()=>f.stream.cache.close());const meta=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];assert.equal(new URL(meta.assetURL).searchParams.get('v'),f.meta.sha256);const r=await loadOfficialModel(meta,f.building,f.stream.lighting,{fetcher:async()=>new Response(f.compressed)});t.after(()=>disposeOfficialModel(r));
