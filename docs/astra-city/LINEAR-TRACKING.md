@@ -1197,3 +1197,9 @@ Framework #334 and loader #335 remain separate, unmerged PRs; the live schema do
 ## 11 October 2026 — HKS-229 loader review maintenance verified
 
 Devin completed two bounded loader review fixes without model processing or database access. Newly admissible first-load budget deferrals now resume even when the wanted UID list is unchanged, and lazy Draco setup now awaits decoder initialisation, disposes a failed loader and permits concurrent callers to retry through a fresh shared factory promise. The two focused name-pattern regressions each passed 1/1; the final `official-models`, `model-codecs` and `streaming` gate passed 55/55, and all four changed JavaScript files passed `node --check`. The preceding migration evidence remains frozen and was not queried, recomputed or modified.
+
+## 11 October 2026 — HKS-229 registry source binding and committed-input guard
+
+Devin hardened `source_record` so planning requires manifest membership and exactly one current installed UID binding. It pins `HEAD`, reads the manifest, installed catalogues and selected asset from that commit, checks their working-tree bytes match, and rejects staged changes to those inputs while allowing unrelated edits. New real temporary-Git regressions cover uninstalled/duplicate bindings, modified or staged inputs, and untracked assets; the three rejection regressions fail against the pre-change registry and pass with this change. The README documents the committed-input policy.
+
+Offline registry tests: 11 run, 7 passed, 4 opt-in database tests skipped. Against the isolated localhost test database: 11 passed. Shared-modelling configure tests: 2 passed. `compileall`, registry `--help`, and whitespace checks passed. No shared Neon access, source/model processing or asset changes.
