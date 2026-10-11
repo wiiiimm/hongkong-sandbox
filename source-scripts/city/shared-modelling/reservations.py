@@ -8,7 +8,7 @@ import uuid
 
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
-from db import connect, HERE
+from db import connect, HERE, transaction
 
 LOCK_ID = 217002
 DEFAULT_TTL = 1800
@@ -58,7 +58,7 @@ def _event(con, action, owner, token, resources, previous, reason=None):
         (action, owner, token, resources, reason, Jsonb(old)))
 
 
-def claim(owner, resources, ttl=DEFAULT_TTL, batch=None, *, expected_tokens=None, reason=None):
+def claim(owner, resources, ttl=DEFAULT_TTL, batch=None, *, expected_tokens=None, reason=None, connection=None):
     """Claim all keys or none. expected_tokens enables explicit compare-and-swap takeover."""
     resources = normalise(resources)
     validate(owner, ttl)
@@ -67,7 +67,7 @@ def claim(owner, resources, ttl=DEFAULT_TTL, batch=None, *, expected_tokens=None
         raise ValueError('Takeover requires an explicit reason (maximum 1000 characters)')
     if override and set(expected_tokens) != set(resources):
         raise ValueError('Expected tokens must cover exactly the requested resource keys')
-    with connect() as con:
+    with connect() if connection is None else transaction(connection) as con:
         con.row_factory = dict_row
         # Serialises only short reservation metadata transactions, never modelling work.
         # A fixed lock makes new-row conflicts and overlapping groups atomic without deadlocks.
@@ -136,16 +136,16 @@ def _current(con, reservation):
     return group
 
 
-def owns(reservation):
-    with connect() as con:
+def owns(reservation, *, connection=None):
+    with connect() if connection is None else transaction(connection) as con:
         con.row_factory = dict_row
         con.execute('SELECT pg_advisory_xact_lock(%s)', (LOCK_ID,))
         return _current(con, reservation) is not None
 
 
-def heartbeat(reservation, ttl=DEFAULT_TTL):
+def heartbeat(reservation, ttl=DEFAULT_TTL, *, connection=None):
     validate(reservation['owner'], ttl)
-    with connect() as con:
+    with connect() if connection is None else transaction(connection) as con:
         con.row_factory = dict_row
         con.execute('SELECT pg_advisory_xact_lock(%s)', (LOCK_ID,))
         group = _current(con, reservation)
@@ -158,8 +158,8 @@ def heartbeat(reservation, ttl=DEFAULT_TTL):
         return {'ok': row is not None, 'reservation': row} if row else {'ok': False, 'error': 'lease-lost'}
 
 
-def release(reservation):
-    with connect() as con:
+def release(reservation, *, connection=None):
+    with connect() if connection is None else transaction(connection) as con:
         con.row_factory = dict_row
         con.execute('SELECT pg_advisory_xact_lock(%s)', (LOCK_ID,))
         group = _current(con, reservation)
