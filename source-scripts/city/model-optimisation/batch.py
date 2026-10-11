@@ -169,15 +169,34 @@ def source_groups(sources, shard_index=0, shard_count=1):
             if index % shard_count == shard_index]
 
 
-def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1):
-    snap = registry.read(snapshot_path)
+def check_snapshot(snap):
     current = snapshot()
-    # Commits can advance with unrelated processor/evidence edits, inputs cannot.
     if (current['sourceManifestSha256'] != snap['sourceManifestSha256']
             or current['catalogueHashes'] != snap['catalogueHashes']
             or [{k: s[k] for k in ('revisionId', 'uid', 'sourceSha256')} for s in current['selected']]
                != [{k: s[k] for k in ('revisionId', 'uid', 'sourceSha256')} for s in snap['selected']]):
         raise ValueError('Selected source inputs changed; select a new immutable batch')
+    return current
+
+
+def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1, preflight=None, preflight_sha=None):
+    snap = registry.read(snapshot_path)
+    # Commits can advance with unrelated processor/evidence edits, inputs cannot.
+    if preflight is None:
+        check_snapshot(snap)
+    else:
+        if hashlib.sha256(preflight.read_bytes()).hexdigest() != preflight_sha:
+            raise ValueError('Preflight receipt hash mismatch')
+        receipt = registry.read(preflight)
+        commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+        if (commit != receipt['workerCommit']
+                or hashlib.sha256(snapshot_path.read_bytes()).hexdigest() != receipt['snapshotSha256']
+                or hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != receipt['workerSha256']):
+            raise ValueError('Launcher preflight no longer matches worker/source snapshot')
+        for path, expected in {**snap['catalogueHashes'],
+                '3d-viewer/city/data/manifest.json': snap['sourceManifestSha256']}.items():
+            if hashlib.sha256((ROOT/path).read_bytes()).hexdigest() != expected:
+                raise ValueError('Current source catalogue/context changed')
     recipe = registry.validate_recipe(registry.read(recipe_path))
     if recipe['lossy'] is not False or recipe['parameters'].get('quantisation') is not False or recipe['parameters'].get('simplification') is not False:
         raise ValueError('Only the explicitly lossless recipe is supported')
@@ -225,8 +244,19 @@ def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1)
             lease = claim['reservation']
             renewed = time.monotonic()
             variants = register_group(connection, group, recipe, batch)
+            with connection.transaction():
+                linked = connection.execute('''SELECT j.id,j.batch FROM astra_modelling.jobs j
+                    JOIN astra_modelling.optimisation_variants v ON v.job_id=j.id
+                    WHERE v.variant_id=ANY(%s)''', (list(variants),)).fetchall()
+            job_ids = [row['id'] for row in linked]
+            batches = sorted({row['batch'] for row in linked})
             while True:
-                job = jobs.claim(batch, ACTOR, [registry.STAGE], lease_seconds=300, connection=connection)
+                job = None
+                for existing_batch in batches:
+                    job = jobs.claim(existing_batch, ACTOR, [registry.STAGE], lease_seconds=300,
+                        connection=connection, job_ids=job_ids)
+                    if job is not None:
+                        break
                 if job is None:
                     break
                 variant = job['payload']['variantId']
@@ -321,7 +351,7 @@ def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1)
         beneficial = [row for row in complete if row['result']['metrics']['beneficial']]
         report = {'schemaVersion': 1, 'batch': batch, 'executor': ACTOR, 'branchId': CONFIG['branch_id'],
             'sourceCommit': snap['sourceCommit'], 'recipeSha256': registry.digest(recipe),
-            'inventoryCount': len(snap['selected']) + len(snap['held']), 'selectedCount': len(snap['selected']),
+            'inventoryCount': len(snap['selected']) + len(snap['held']), 'selectedCount': len(shard_sources),
             'heldCount': len(snap['held']), 'completeCount': len(complete),
             'beneficialCount': len(beneficial), 'nonBeneficialCount': len(complete)-len(beneficial),
             'failedCount': sum(row['status']=='failed' for row in records),
@@ -340,22 +370,68 @@ def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1)
         connection.close()
 
 
+def launch(snapshot_path, recipe_path, output, batch, workers):
+    source_groups([], 0, workers)  # Validate worker bound before launching.
+    snap = registry.read(snapshot_path)
+    current = check_snapshot(snap)
+    receipt = {'workerCommit': current['sourceCommit'],
+        'snapshotSha256': hashlib.sha256(snapshot_path.read_bytes()).hexdigest(),
+        'workerSha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'sourceManifestSha256': current['sourceManifestSha256'], 'workers': workers}
+    preflight = output / 'preflights' / f'{registry.digest(receipt)}.json'
+    preflight_sha = write(preflight, receipt)
+    logs = output / 'logs' / str(time.time_ns())
+    logs.mkdir(parents=True)
+    children = []
+    try:
+        for shard in range(workers):
+            log = (logs / f'shard-{shard:02d}.log').open('w')
+            child = subprocess.Popen([sys.executable, '-u', str(Path(__file__).resolve()), 'run',
+                '--snapshot', str(snapshot_path.resolve()), '--recipe', str(recipe_path.resolve()),
+                '--output', str(output.resolve()), '--batch', batch, '--shard-count', str(workers),
+                '--shard-index', str(shard), '--preflight', str(preflight.resolve()),
+                '--preflight-sha256', preflight_sha], cwd=ROOT, stdout=log, stderr=log)
+            children.append((shard, child, log))
+        print(json.dumps({'workers': workers, 'logs': str(logs), 'preflightSha256': preflight_sha}), flush=True)
+        failures = []
+        for shard, child, log in children:
+            code = child.wait(); log.close()
+            print(json.dumps({'shard': shard, 'exitCode': code}), flush=True)
+            if code:
+                failures.append(shard)
+        if failures:
+            raise RuntimeError(f'Worker failures; inspect retained logs for shards {failures}')
+    finally:
+        for _, child, log in children:
+            if child.poll() is None:
+                child.terminate()
+            child.wait(); log.close()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
     p = sub.add_parser('snapshot'); p.add_argument('--output', type=Path, required=True)
-    p = sub.add_parser('run')
-    for name in ('snapshot', 'recipe', 'output'):
-        p.add_argument('--'+name, type=Path, required=True)
-    p.add_argument('--batch', required=True)
-    p.add_argument('--shard-index', type=int, default=0)
-    p.add_argument('--shard-count', type=int, default=1)
+    for command in ('run', 'launch'):
+        p = sub.add_parser(command)
+        for name in ('snapshot', 'recipe', 'output'):
+            p.add_argument('--'+name, type=Path, required=True)
+        p.add_argument('--batch', required=True)
+        if command == 'launch':
+            p.add_argument('--workers', type=int, default=4)
+        else:
+            p.add_argument('--shard-index', type=int, default=0)
+            p.add_argument('--shard-count', type=int, default=1)
+            p.add_argument('--preflight', type=Path)
+            p.add_argument('--preflight-sha256')
     args = parser.parse_args()
     if args.command == 'snapshot':
         snap = snapshot(); write(args.output, snap)
         print(json.dumps({'selected': len(snap['selected']), 'held': len(snap['held']), 'sourceCommit': snap['sourceCommit']}))
+    elif args.command == 'launch':
+        launch(args.snapshot, args.recipe, args.output, args.batch, args.workers)
     else:
-        run(args.snapshot, args.recipe, args.output, args.batch, args.shard_index, args.shard_count)
+        run(args.snapshot, args.recipe, args.output, args.batch, args.shard_index, args.shard_count, args.preflight, args.preflight_sha256)
 
 
 if __name__ == '__main__':
