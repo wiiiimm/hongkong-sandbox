@@ -1,0 +1,35 @@
+"""Fresh read-only two Elements originals against actual current geometry.
+
+No terrain proposal, grouping, native approval or identity/physical acceptance.
+Complete manifest/catalogue/source/module start-end fences and source leases.
+"""
+from pathlib import Path
+import importlib.util,json,subprocess,sys,uuid
+from run import ROOT,HERE,read,save,digest,connect,reservations
+from exact_packed_world_bounds_v3_20261010 import packed_world_bounds
+BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-terrain-recovery-elements-sun-star-two-original-current-probe-v1-20261011';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;UIDS=['landsd/204145:0','landsd/204143:0'];PRIOR=[BASE/('government-xl-provisional-physical-sequence-20261007-'+u.split('/')[1].replace(':','-'))for u in UIDS]
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def owned():
+ lease=read(LOCAL/'reservation.json');assert reservations.owns(lease)
+ for folder in PRIOR:
+  receipt=read(folder/'result.json')
+  with connect()as c:c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(receipt['jobId'],)).fetchone()==('complete',receipt)
+  assert ref(folder/'selection.json.gz')in receipt['evidenceRefs']
+ manifest=ROOT/'3d-viewer/city/data/manifest.json';start=ref(manifest);assert start['sha256']=='d152dca423d23b3bdb21a06786dd01980a5ab86b8bab75646d2ee6cd0a387c43';current=read(manifest);DOC.mkdir(parents=True,exist_ok=False);(DOC/'historical-current-manifest.json').write_bytes(manifest.read_bytes());forms={};refs=[ref(p)for p in [Path(__file__),manifest,DOC/'historical-current-manifest.json',*[p for folder in PRIOR for p in [folder/'selection.json.gz',folder/'result.json']],HERE/'exact_packed_world_bounds_v3_20261010.py']]
+ for tile in current['tiles']:
+  path=ROOT/'3d-viewer'/tile['url']
+  for b in read(path)['buildings']:
+   if b['uid']in UIDS:assert b['uid']not in forms;forms[b['uid']]=dict(building=b,tile=tile['url'],tileSHA256=digest(path.read_bytes()));refs.append(ref(path))
+ assert set(forms)==set(UIDS);catalogues=[ref(ROOT/'3d-viewer'/p)for p in current['officialModelCatalogues']];assert not any(e['uid']in UIDS for c in catalogues for e in read(ROOT/c['path'])['models']);refs.extend(catalogues);old=[next(r for r in read(folder/'selection.json.gz')['rows']if r['uid']==uid)for folder,uid in zip(PRIOR,UIDS)];rows=[];installed_entries=[e for c in catalogues for e in read(ROOT/c['path'])['models']];assert not any(e['sha256']==r['sourceSHA256']for e in installed_entries for r in old)
+ for prior,uid,count in zip(old,UIDS,[12129,11680]):
+  row=dict(prior);assert row['uid']==uid and row['candidate']['entry']['uid']==uid;assert row['source']['building']['buildingCSUID']==forms[uid]['building']['buildingCSUID']and row['source']['building']['objectId']==forms[uid]['building']['objectId'];asset=ROOT/row['candidate']['path'];raw=asset.read_bytes();assert digest(raw)==row['sourceSHA256']==row['candidate']['entry']['sha256'];original=packed_world_bounds(raw);assert original['completeOriginalTriangles']==row['candidate']['entry']['triangles']==count;dest=LOCAL/row['candidate']['entry']['asset'];dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw);row['candidate']=dict(row['candidate'],path=str(dest.relative_to(ROOT)));row['source']=forms[uid];row['completeOriginalPOSITIONProof']=original;rows.append(row);refs.extend([ref(asset),ref(dest)])
+ save(DOC/'selection.json.gz',dict(rows=rows,manifestSHA256=start['sha256'],sourceGeometryChanges=0,currentAcceptance=False,publication=False,newlyInstalled=0));save(LOCAL/'catalogue.json',dict(models=[r['candidate']['entry']for r in rows]));save(DOC/'terrain-candidates.json',[]);module_snapshot=DOC/'production-module-closure.json';js="import{writeFileSync}from'node:fs';import{snapshotModuleClosure}from'./source-scripts/city/government-import/literal_production_module_dependency_closure_20261010.mjs';const root=new URL('./',import.meta.url);writeFileSync(process.argv[1],JSON.stringify(snapshotModuleClosure(new URL('source-scripts/city/government-import/acceptance-metrics-multi-retained.mjs',root),root)));";subprocess.run(['node','--input-type=module','-e',js,str(module_snapshot)],cwd=ROOT,check=True);closure=read(module_snapshot);assert closure['completeAuditedLiteralImportClosure']is True and closure['unsupportedDynamicImports']==0
+ for path,sha in closure['inputHashes'].items():assert digest((ROOT/path).read_bytes())==sha;refs.append(ref(ROOT/path))
+ refs.extend([ref(module_snapshot),ref(HERE/'literal_production_module_dependency_closure_20261010.mjs')]);subprocess.run(['node',str(HERE/'acceptance-metrics-multi-retained.mjs'),'--selection',str((DOC/'selection.json.gz').relative_to(ROOT)),'--candidates',str(LOCAL.relative_to(ROOT)),'--terrain-candidates',str((DOC/'terrain-candidates.json').relative_to(ROOT)),'--out',str((DOC/'metrics.json').relative_to(ROOT)),'--geometry-out',str((LOCAL/'runtime-geometry.json.gz').relative_to(ROOT))],cwd=ROOT,check=True)
+ assert ref(manifest)==start and reservations.owns(lease);assert all(ref(ROOT/r['path'])==r for r in refs);metrics=read(DOC/'metrics.json');geometry=read(LOCAL/'runtime-geometry.json.gz');assert[r['uid']for r in metrics['rows']]==[r['uid']for r in geometry['rows']]==UIDS;assert not any(r.get('error')for r in metrics['rows'])
+ for path,sha in geometry['inputHashes'].items():assert digest((ROOT/path).read_bytes())==sha;refs.append(ref(ROOT/path))
+ refs.extend([ref(DOC/'selection.json.gz'),ref(DOC/'metrics.json'),ref(LOCAL/'runtime-geometry.json.gz')]);s=importlib.util.spec_from_file_location('freeze_elements_pair_probe',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.freeze(BATCH,'read-only-fresh-two-elements-originals-whole-current-geometry-probe-v1',[ROOT/r['path']for r in {r['path']:r for r in refs}.values()],dict(uids=UIDS,completeOriginalFaces=23809,completeProductionModuleClosure=ref(module_snapshot),noTerrainProposal=True,noGroupingOrNativeApproval=True,diagnosticOnly=True,currentAcceptance=False,sourceGeometryChanges=0,newlyInstalled=0,metrics=[dict(uid=r['uid'],minSurfaceGap=r['minSurfaceGap'],minLowGap=r['minLowGap'],maxLowGap=r['maxLowGap'],maxSamplerDelta=r['maxSamplerDelta'],missingTerrain=r['missingTerrain'])for r in metrics['rows']]))
+def main():
+ if '--owned'in sys.argv:return owned()
+ assert not DOC.exists()and not LOCAL.exists();claim=reservations.claim('elements-sun-star-two-source-current-'+str(uuid.uuid4()),['building:'+u for u in UIDS],batch=BATCH,ttl=3600);assert claim['ok'];save(LOCAL/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+if __name__=='__main__':main()
