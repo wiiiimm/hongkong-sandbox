@@ -7,7 +7,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import batch
-from db import transaction
+from db import transaction, CONFIG
+from types import SimpleNamespace
 
 
 class BatchTests(unittest.TestCase):
@@ -61,6 +62,7 @@ class BatchTests(unittest.TestCase):
             def __enter__(self): events.append('begin')
             def __exit__(self,kind,value,tb): events.append('rollback' if kind else 'commit')
         class Connection:
+            info=SimpleNamespace(host=CONFIG['host'],dbname=CONFIG['database'])
             def transaction(self): return Scope()
         connection=Connection()
         with transaction(connection) as con:
@@ -68,6 +70,9 @@ class BatchTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             with transaction(connection): raise ValueError('fenced failure')
         self.assertEqual(events,['begin','commit','begin','rollback'])
+        connection.info=SimpleNamespace(host='application.example.com',dbname='app')
+        with self.assertRaisesRegex(ValueError,'pinned modelling'):
+            with transaction(connection): self.fail('must not begin a transaction')
 
 
 if __name__ == '__main__': unittest.main()

@@ -73,5 +73,8 @@ def transaction(connection):
     """Borrow a pinned connection for one fenced operation without closing it."""
     # Callers obtain this connection through connect(); transactions still commit
     # or roll back per operation, rather than retaining locks across model work.
+    hosts = (CONFIG['host'], CONFIG['host'].replace('.c-', '-pooler.c-', 1))
+    if connection.info.host not in hosts or connection.info.dbname != CONFIG['database']:
+        raise ValueError('Borrowed connection must use the pinned modelling branch')
     with connection.transaction():
         yield connection

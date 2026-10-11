@@ -86,10 +86,10 @@ def claim(owner, resources, ttl=DEFAULT_TTL, batch=None, *, expected_tokens=None
             (token,owner,batch,resources,lease_until) VALUES(%s,%s,%s,%s,
             clock_timestamp()+make_interval(secs=>%s)) RETURNING *''',
             (token, owner, batch, resources, ttl)).fetchone()
-        for resource in resources:
-            con.execute('''INSERT INTO astra_modelling.reservations(resource,token) VALUES(%s,%s)
+        con.cursor().executemany('''INSERT INTO astra_modelling.reservations(resource,token) VALUES(%s,%s)
                 ON CONFLICT(resource) DO UPDATE SET token=EXCLUDED.token,
-                generation=nextval('astra_modelling.reservation_generation')''', (resource, token))
+                generation=nextval('astra_modelling.reservation_generation')''',
+            [(resource, token) for resource in resources])
         _event(con, 'takeover' if override else ('reclaim' if previous else 'claim'),
                owner, token, resources, previous, reason)
         generations = {row['resource']: row['generation'] for row in _rows(con, resources)}
@@ -139,8 +139,17 @@ def _current(con, reservation):
 def owns(reservation, *, connection=None):
     with connect() if connection is None else transaction(connection) as con:
         con.row_factory = dict_row
-        con.execute('SELECT pg_advisory_xact_lock(%s)', (LOCK_ID,))
-        return _current(con, reservation) is not None
+        # A single MVCC snapshot checks the same all-resources ownership rule.
+        # Read-only checks need not serialise behind unrelated claim writes.
+        row = con.execute('''SELECT
+            (SELECT count(*) FROM astra_modelling.reservations r
+                WHERE r.resource=ANY(g.resources) AND r.token=g.token)
+                = cardinality(g.resources) AS owned
+            FROM astra_modelling.reservation_groups g
+            WHERE g.token=%s AND g.owner=%s AND g.released_at IS NULL
+                AND g.lease_until>clock_timestamp()''',
+            (uuid.UUID(str(reservation['token'])), reservation['owner'])).fetchone()
+        return bool(row and row['owned'])
 
 
 def heartbeat(reservation, ttl=DEFAULT_TTL, *, connection=None):
