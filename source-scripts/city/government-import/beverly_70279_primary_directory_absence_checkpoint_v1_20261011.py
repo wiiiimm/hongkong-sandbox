@@ -1,0 +1,17 @@
+"""DRAFT exact cached provider directory/native name-set comparison, no geometry/acceptance.
+Bounded four-sheet fixed records only; not global original-source absence.
+"""
+from pathlib import Path
+import json
+from run import ROOT,HERE,read,save,digest,connect
+B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-beverly-70279-primary-directory-absence-checkpoint-v1-20261011';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH;PRIOR=B/'government-xl-beverly-podium233218-70279-original-registry-farpoint-attribution-v1-20261011';SHEETS=['11-SW-15A','11-SW-15B','11-SW-15C','11-SW-15D']
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+ assert not DOC.exists()and not LOCAL.exists();receipt=read(PRIOR/'result.json');d=read(PRIOR/'diagnostic.json.gz');refs=[ref(Path(__file__)),ref(PRIOR/'result.json'),ref(PRIOR/'diagnostic.json.gz')];rows=[]
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(receipt['jobId'],)).fetchone()==('complete',receipt);source=c.execute('SELECT DISTINCT ON(sheet) sheet,result FROM astra_modelling.city_source_directories WHERE sheet=ANY(%s) ORDER BY sheet,created_at DESC',(SHEETS,)).fetchall();assert sorted(s for s,_ in source)==SHEETS
+  for sheet,p in source:
+   path=LOCAL/(sheet+'-exact-cached-provider-directory.json.gz');save(path,p);snapshot=ref(path);refs.append(snapshot);old=next(s for s in d['completeFourSheetNativeRegistrySnapshots']if s['sheet']==sheet);n=read(ROOT/old['snapshot']['path'])['exactNativeResult'];assert digest((ROOT/old['snapshot']['path']).read_bytes())==old['snapshot']['sha256'];refs.append(old['snapshot']);provider_names=sorted(m['modelId']for m in p['models']);native_names=sorted(m['modelId']for m in n['models']);assert len(provider_names)==len(set(provider_names))and len(native_names)==len(set(native_names));rows.append(dict(sheet=sheet,directorySHA256=p['directorySHA256'],completeCachedProviderModels=len(provider_names),completeNativeModels=len(native_names),providerNativeNameSetsEqual=provider_names==native_names,providerModelsAbsentFromNative=sorted(set(provider_names)-set(native_names)),allExactNamePrefixProviderModels=[m for m in p['models']if m['modelId'][1:11]=='3716415011'],cachedProviderDirectorySnapshot=snapshot))
+  assert c.execute('SELECT DISTINCT ON(sheet) sheet,result FROM astra_modelling.city_source_directories WHERE sheet=ANY(%s) ORDER BY sheet,created_at DESC',(SHEETS,)).fetchall()==source
+ result=dict(uids=['landsd/70279:0','landsd/233218:0','landsd/255543:0','landsd/255939:0'],sourceOnly=True,currentAcceptance=False,installationApproved=False,sourceGeometryChanges=0,terrainGeometryChanges=0,original70279Recovered=False,exactDoubleReadback=True,allFourRelevantCachedPrimaryProviderDirectories=rows,boundedCachedDirectoryEvidenceNotGlobalOrNewProviderAbsence=True,finding='Checks whether70279 was merely omitted from native-stage processing by comparing complete cached primary provider GLTF directory names to full native-stage names. No source guessed, remote provider freshness claimed, ownership inferred or threshold waived. Full independent original70279/source version plus authoritative Pmainbody extent identity resolution remains required before any recovery proposal; terrain alone cannot remove34 unchanged current building surface intersections.',evidenceRefs=refs);save(DOC/'diagnostic.json.gz',result);print(json.dumps(dict(rows=rows,currentAcceptance=False)))
+if __name__=='__main__':main()

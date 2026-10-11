@@ -1,0 +1,80 @@
+"""Reusable complete unchanged indexed-source ordinary ground-root investigation.
+
+Immutable source-only analysis of an existing hash-pinned physical snapshot.
+No current acceptance, geometry edits, model-review state or publication.
+"""
+import argparse,json,subprocess,sys,uuid,time
+from pathlib import Path
+import numpy as np,shapely
+from run import ROOT,HERE,read,save,digest,reservations,jobs,connect,Jsonb,dict_row
+from xl_source_stream_binding_20261009 import source_stream_binding
+from exact_original_shell_intersections_20261009 import rational_face,intersection_points
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from original_ordinary_ground_root_graph_20261009 import verify
+
+def ref(p):return {'path':str(p.relative_to(ROOT)),'sha256':digest(p.read_bytes())}
+def main():
+ p=argparse.ArgumentParser();p.add_argument('--uid',required=True);p.add_argument('--physical',required=True);p.add_argument('--batch',required=True);args=p.parse_args()
+ doc=ROOT/'docs/astra-city/government-import'/args.batch;assert not doc.exists()
+ prior=ROOT/args.physical;geometry=HERE/'local'/prior.name/'runtime-geometry.json.gz'
+ source=next(r for r in read(prior/'selection.json.gz')['rows'] if r['uid']==args.uid)
+ runtime=next(r for r in read(geometry)['rows'] if r['uid']==args.uid);asset=ROOT/source['candidate']['path'];raw=asset.read_bytes()
+ assert digest(raw)==source['sourceSHA256']==runtime['sourceSHA256'] and read(prior/'neon-sync.json')['resultVerified']
+ positions=np.asarray(runtime['position'],float).reshape(-1,3);indices=np.asarray(runtime['index'],dtype=np.uint32).reshape(-1,3);tri=positions[indices]
+ decoded=decode_original_world_triangles(raw);assert decoded.shape==tri.shape and np.max(np.abs(decoded-tri))<=1e-9
+ ground=np.asarray(runtime['drawnGroundGeometry'],float).reshape(-1,3,3);assert len(tri)==source['native']['model']['triangles']
+ claim=reservations.claim('ordinary-source-support-'+str(uuid.uuid4()),['immutable-source-proof:'+args.batch],batch=args.batch,ttl=3600);assert claim['ok'],claim;lease=json.loads(json.dumps(claim['reservation'],default=str));save(HERE/'local'/args.batch/'reservation.json',lease)
+ try:
+  parent=list(range(len(tri)));edges={}
+  def find(i):
+   while parent[i]!=i:parent[i]=parent[parent[i]];i=parent[i]
+   return i
+  for i,t in enumerate(tri):
+   vertices=[tuple(p) for p in t]
+   for a,b in zip(vertices,vertices[1:]+vertices[:1]):
+    edge=tuple(sorted((a,b)))
+    if edge in edges:parent[find(i)]=find(edges[edge])
+    else:edges[edge]=i
+  groups={}
+  for i in range(len(tri)):groups.setdefault(find(i),[]).append(i)
+  components=[{'actorUID':args.uid,'globalOriginalFaces':faces,'bounds':[tri[faces].min(axis=(0,1)).tolist(),tri[faces].max(axis=(0,1)).tolist()]} for faces in sorted(groups.values(),key=lambda f:min(f))]
+  contacts=[];rational={};tested=0
+  def face(i):
+   if i not in rational:rational[i]=rational_face(tri[i])
+   return rational[i]
+  for a,ca in enumerate(components):
+   for b in range(a+1,len(components)):
+    cb=components[b]
+    if np.any(np.maximum(ca['bounds'][0],cb['bounds'][0])>np.minimum(ca['bounds'][1],cb['bounds'][1])):continue
+    af=np.asarray(ca['globalOriginalFaces'],int);bf=np.asarray(cb['globalOriginalFaces'],int);small,large=(af,bf) if len(af)<=len(bf) else (bf,af)
+    polys=shapely.box(tri[large,:,0].min(axis=1),tri[large,:,2].min(axis=1),tri[large,:,0].max(axis=1),tri[large,:,2].max(axis=1));tree=shapely.STRtree(polys);witness=None
+    for i in small:
+     t=tri[i]
+     for k in tree.query(shapely.box(t[:,0].min(),t[:,2].min(),t[:,0].max(),t[:,2].max())):
+      j=int(large[k]);u=tri[j]
+      if t[:,1].max()<u[:,1].min() or u[:,1].max()<t[:,1].min():continue
+      if not np.any(np.cross(t[1]-t[0],t[2]-t[0])) or not np.any(np.cross(u[1]-u[0],u[2]-u[0])):continue
+      tested+=1
+      if tested%500==0:assert reservations.heartbeat(lease)['ok']
+      if len(intersection_points(face(int(i)),face(j)))>=2:witness=[int(i),j] if int(i) in ca['globalOriginalFaces'] else [j,int(i)];break
+     if witness:break
+    if witness:contacts.append({'components':[a,b],'globalOriginalFaces':witness})
+   assert reservations.heartbeat(lease)['ok'];print(json.dumps({'component':a,'components':len(components),'contacts':len(contacts),'exactPairsTested':tested}),flush=True)
+  actors=[{'uid':args.uid,'sourceSHA256':digest(raw),'originalStreamBindingSHA256':digest(json.dumps(source_stream_binding(raw),sort_keys=True,separators=(',',':')).encode()),'globalFaceRange':[0,len(tri)],'completeOriginalFaceCount':len(tri),'originalWorldTrianglesSHA256':digest(tri.tobytes())}]
+  indexed=[{'uid':args.uid,'sourceSHA256':digest(raw),'position':positions.reshape(-1).tolist(),'index':indices.reshape(-1).tolist()}]
+  binding={'completeOriginalWorldTrianglesSHA256':digest(tri.tobytes()),'currentDrawnGroundSHA256':digest(ground.tobytes()),'groundInterfacesInputSHA256':digest(geometry.read_bytes()),'supportScope':'complete-current-drawn-ground-only','originalIndexedSourcesSHA256':digest(json.dumps(indexed,sort_keys=True,separators=(',',':')).encode())}
+  result=verify(tri,actors,components,contacts,indexed,ground,expected_binding=binding,current_binding=binding)
+  refs=[ref(p) for p in [Path(__file__),geometry,prior/'selection.json.gz',prior/'result.json',asset,HERE/'original_ordinary_ground_root_graph_20261009.py',HERE/'test_original_ordinary_ground_root_graph_20261009.py',HERE/'original_ordinary_rim_accounting_20261009.py',HERE/'test_original_ordinary_rim_accounting_20261009.py',HERE/'original_wall_rim_accounting_20261009.py',HERE/'original_multi_actor_support_graph_20261009.py',HERE/'exact_original_shell_intersections_20261009.py',HERE/'exact_packed_world_geometry_20261009.py',HERE/'xl_source_stream_binding_20261009.py']]
+  result.update(batch=args.batch,uid=args.uid,actors=actors,components=components,contactWitnesses=contacts,binding=binding,exactPairsTested=tested,evidenceRefs=refs,originalPackedWorldMaximumNumericalRoundoffM=float(np.max(np.abs(decoded-tri))),currentRegionalRebindRequired=True,historicalInputHashes=read(geometry)['inputHashes'],installationApproved=False,newlyInstalled=0,scriptExternalAICalls=0,modelGeometryChanges=0,requiresCompute=True)
+  save(doc/'diagnostic.json.gz',result)
+  stage='immutable-original-ordinary-ground-root-support-diagnostic-v1';jid=jobs.enqueue(args.batch,stage,{'evidenceRefs':refs,'diagnostic':ref(doc/'diagnostic.json.gz')});job=jobs.claim(args.batch,lease['owner'],[stage],lease_seconds=1800);assert job and job['id']==jid
+  final={**result,'jobId':jid}
+  with connect() as con:
+   con.row_factory=dict_row;con.execute('SELECT pg_advisory_xact_lock(%s)',(reservations.LOCK_ID,));assert reservations._current(con,lease)
+   for r in refs:assert ref(ROOT/r['path'])==r
+   assert con.execute("UPDATE astra_modelling.jobs SET status='complete',result=%s,owner=NULL,token=NULL,lease_until=NULL,updated_at=clock_timestamp() WHERE id=%s AND owner=%s AND token=%s AND status='running' AND lease_until>clock_timestamp()",(Jsonb(final),jid,job['owner'],job['token'])).rowcount==1
+  with connect() as con:
+   con.execute('SET TRANSACTION READ ONLY');assert con.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(jid,)).fetchone()==('complete',final)
+  save(doc/'result.json',final);save(doc/'neon-sync.json',{'jobId':jid,'resultVerified':True});print(json.dumps({'uid':args.uid,'jobId':jid,'supportInterfaceAccepted':result['supportInterfaceAccepted'],'components':len(components),'roots':result['ordinaryGroundRootComponents'],'reasons':result['reasons'],'publication':False}),flush=True)
+ finally:assert reservations.release(lease)['ok']
+if __name__=='__main__':main()
