@@ -1,0 +1,3 @@
+# Original pair setup guard
+
+Both fresh source identities passed. The first combined pass stopped at a source-form merge guard: Hoi Yu appears both in the podium's verified two-form group and as its own source. This is a valid overlap between groups, rather than a duplicated UID within one source tile. No terrain or installation credit follows from this attempt. Verified Neon job `f3b86e9256848c77e326a41f7eb66286304bb7d0ca860e0e041f9bcdfd8d5cc6` preserves the guard and traceback. A separately versioned v2 accepts only identical records across groups, and still rejects conflicting geometry/tile hashes or duplicates within one group.

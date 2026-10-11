@@ -1,0 +1,70 @@
+✖ mixed coastal grid triangles retain their rendered slopes below 1.2m (5.58254ms)
+✖ a coastal child patch matches rendered heights after replacing its parent (1.64649ms)
+✖ walking rejects a submerged coastal slope even when raw DTM is above zero (0.8169ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 153.239246
+
+✖ failing tests:
+
+test at 3d-viewer/city/tests/terrain-coast.test.js:22:1
+✖ mixed coastal grid triangles retain their rendered slopes below 1.2m (5.58254ms)
+  AssertionError [ERR_ASSERTION]: sampler agrees with coastal triangle at 1,1
+      at checkDrawn (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/tests/terrain-coast.test.js:18:11)
+      at TestContext.<anonymous> (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/tests/terrain-coast.test.js:23:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at 3d-viewer/city/tests/terrain-coast.test.js:26:1
+✖ a coastal child patch matches rendered heights after replacing its parent (1.64649ms)
+  AssertionError [ERR_ASSERTION]: sampler agrees with coastal triangle at 1,1
+      at checkDrawn (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/tests/terrain-coast.test.js:18:11)
+      at TestContext.<anonymous> (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/tests/terrain-coast.test.js:28:2)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at 3d-viewer/city/tests/terrain-coast.test.js:30:1
+✖ walking rejects a submerged coastal slope even when raw DTM is above zero (0.8169ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1.2 !== undefined
+  
+      at TestContext.<anonymous> (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/tests/terrain-coast.test.js:34:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1.2,
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

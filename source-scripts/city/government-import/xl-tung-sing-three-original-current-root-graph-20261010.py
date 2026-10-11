@@ -1,0 +1,39 @@
+"""Every original component, exact interfaces, one genuine current platform root.
+
+No visual component becomes a structural root or bridge. Raw graph failure for
+343/344 stays intact for a separately bound complete mounted visual role.
+"""
+from pathlib import Path
+import json,numpy as np
+from run import ROOT,HERE,read,save,digest
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from xl_source_stream_binding_20261009 import source_stream_binding
+from source_closed_components import components
+from original_multi_actor_support_graph_20261009 import verify as verify_graph
+BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-tung-sing-three-original-current-root-graph-20261010';DOC=BASE/BATCH;PHYSICAL=BASE/'government-xl-tung-sing-three-original-literal-parent-physical-20261010';ANCHOR=BASE/'government-xl-tung-sing-three-original-current-anchor-20261010';OLD=BASE/'government-xl-tung-sing-original-pair-source-anchor-paths-20261010/diagnostic.json.gz';CP=BASE/'government-xl-lei-tung-two-original-complete-component-interfaces-20261010/diagnostic.json.gz';RUNTIME=HERE/'local'/PHYSICAL.name/'runtime-geometry.json.gz'
+ORDER=['landsd/53800:0','landsd/126434:0','landsd/254604:0']
+def canonical(v):return digest(json.dumps(v,sort_keys=True,separators=(',',':'),allow_nan=False).encode())
+def main():
+ assert not DOC.exists();selection=read(PHYSICAL/'selection.json.gz');assert selection['manifestSHA256']==digest((ROOT/'3d-viewer/city/data/manifest.json').read_bytes());rows={r['uid']:r for r in selection['rows']};assert set(rows)==set(ORDER);worlds={};actors=[];parts=[];offsets={};component_keys={};tri=[];streams={};paths=[Path(__file__),OLD,CP,PHYSICAL/'result.json',PHYSICAL/'selection.json.gz',RUNTIME,ANCHOR/'complete-current-original-platform-anchor-input.json.gz',ANCHOR/'complete-current-original-platform-anchor.json.gz',HERE/'original_multi_actor_support_graph_20261009.py',HERE/'exact_original_shell_intersections_20261009.py',HERE/'source_closed_components.py',HERE/'exact_packed_world_geometry_20261009.py',HERE/'xl_source_stream_binding_20261009.py',ROOT/'3d-viewer/city/data/manifest.json']
+ for uid in ORDER:
+  r=rows[uid];p=ROOT/r['candidate']['path'];raw=p.read_bytes();assert digest(raw)==r['sourceSHA256'];a=decode_original_world_triangles(raw);worlds[uid]=a;off=sum(len(t) for t in tri);offsets[uid]=off;tri.append(a);stream=source_stream_binding(raw);streams[uid]=stream;actors.append({'uid':uid,'sourceSHA256':r['sourceSHA256'],'originalStreamBindingSHA256':canonical(stream),'globalFaceRange':[off,off+len(a)],'completeOriginalFaceCount':len(a),'originalWorldTrianglesSHA256':digest(a.astype('<f8').tobytes())});paths.append(p)
+  for i,p in enumerate(components(a)['components']):
+   faces=[off+j for j in p['faceIndices']];component_keys[uid+'#'+str(i)]=len(parts);parts.append({'actorUID':uid,'originalComponent':i,'globalOriginalFaces':faces,'completeOriginalSourceTopology':p})
+ alltri=np.concatenate(tri);assert len(alltri)==12751 and len(parts)==387;old=read(OLD);cp=read(CP);contact_by_pair={};oldface={}
+ for p in old['completeOriginalComponents']:
+  uid=p['uid'];k=component_keys[uid+'#'+str(p['originalComponent'])];assert parts[k]['globalOriginalFaces']==[offsets[uid]+j for j in p['originalFaceIds']]
+  for f,original in zip(p['faceIndices'],p['originalFaceIds']):assert f not in oldface;oldface[f]=offsets[uid]+original
+ assert len(oldface)==11877
+ for r in old['completeExactOriginalInterfaces']:
+  if r['dimension']<=0:continue
+  nodes=[old['completeOriginalComponents'][i] for i in r['originalComponents']];ks=[component_keys[p['uid']+'#'+str(p['originalComponent'])] for p in nodes];key=tuple(sorted(ks));contact_by_pair.setdefault(key,{'components':ks,'globalOriginalFaces':[oldface[i] for i in r['originalFaces']]})
+ for key,p in cp['completeOriginalComponentNodes'].items():
+  k=component_keys[key];assert parts[k]['globalOriginalFaces']==[offsets[p['uid']]+i for i in p['completeOriginalFaceIndices']];assert cp['completeOriginalWorldHashes'][p['uid']]==digest(worlds[p['uid']].astype('<f8').tobytes())
+ for r in cp['completeExactOriginalInterfaces']:
+  if not r['positiveInterfaces']:continue
+  ka,kb=r['componentA'],r['componentB'];a,b=cp['completeOriginalComponentNodes'][ka],cp['completeOriginalComponentNodes'][kb];c=r['positiveInterfaces'][0];ks=[component_keys[ka],component_keys[kb]];contact_by_pair.setdefault(tuple(sorted(ks)),{'components':ks,'globalOriginalFaces':[offsets[a['uid']]+c['sourceFaceA'],offsets[b['uid']]+c['sourceFaceB']]})
+ anchor=read(ANCHOR/'complete-current-original-platform-anchor.json.gz');ainput=read(ANCHOR/'complete-current-original-platform-anchor-input.json.gz');assert anchor['inputSHA256']==digest((ANCHOR/'complete-current-original-platform-anchor-input.json.gz').read_bytes()) and anchor['strictOriginalCurrentGroundAnchor'] and anchor['manifestSHA256']==selection['manifestSHA256'];assert anchor['originalFaceIds']==parts[365]['completeOriginalSourceTopology']['faceIndices']
+ actual=next(r for r in read(RUNTIME)['rows'] if r['uid']=='landsd/126434:0');ground=np.asarray(actual['drawnGroundGeometry']).reshape(-1,3,3);assert np.array_equal(ground.reshape(-1),np.asarray(ainput['terrain']['position'])) and ainput['terrain']['worldTriangleSHA256']==digest(ground.astype('<f8').tobytes());assert np.array_equal(worlds['landsd/126434:0'][anchor['originalFaceIds']].reshape(-1),np.asarray(ainput['part']['position']))
+ interfaces=[{'passed':False} for _ in parts];interfaces[365]=anchor['result'];binding={'completeOriginalWorldTrianglesSHA256':digest(alltri.astype('<f8').tobytes()),'currentDrawnGroundSHA256':digest(ground.astype('<f8').tobytes()),'groundInterfacesInputSHA256':digest((ANCHOR/'complete-current-original-platform-anchor-input.json.gz').read_bytes()),'groundInterfacesSHA256':canonical(interfaces),'supportScope':'complete-current-drawn-ground-only'};proof=verify_graph(alltri,actors,parts,interfaces,list(contact_by_pair.values()),expected_binding=binding,current_binding=binding);print({'actualCurrentRoots':proof['genuineGroundAnchorComponents'],'actualUnresolved':sorted(set(range(387))-set(proof['resolvedOriginalComponents']))},flush=True);assert proof['genuineGroundAnchorComponents']==[365] and set(range(387))-set(proof['resolvedOriginalComponents'])=={343,344}
+ save(DOC/'diagnostic.json.gz',{'completeOriginalActors':actors,'completeOriginalComponents':parts,'completeOriginalStreamBindings':streams,'contactWitnesses':list(contact_by_pair.values()),'currentOriginalGroundInterfaces':interfaces,'completeCurrentOriginalGraph':proof,'binding':binding,'sourceGeometryChanges':0,'physicalAccepted':False,'installationApproved':False,'manifestSHA256':selection['manifestSHA256'],'inputHashes':{str(p.relative_to(ROOT)):digest(p.read_bytes()) for p in paths},'qualification':'All12751 original source faces/387 components retain exact ownership. Every credited graph edge replays positive-dimensional finite original triangle contacts. Only full39/39 original podium0 current-ground footing is a root;385 parts connect,343/344 remain raw graph failures. No visual root/bridge, structural-engineering, clearance, foundation, foreign or installation credit.'});print({'completeFaces':len(alltri),'completeParts':len(parts),'genuineCurrentRoots':proof['genuineGroundAnchorComponents'],'positivePathParts':len(proof['resolvedOriginalComponents']),'rawReasons':proof['reasons']},flush=True)
+if __name__=='__main__':main()

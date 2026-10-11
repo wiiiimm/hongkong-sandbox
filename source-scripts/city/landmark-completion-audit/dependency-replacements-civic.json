@@ -1,0 +1,72 @@
+{
+  "issue": "HKS-214",
+  "version": 1,
+  "published": false,
+  "scope": "Retain existing native Grand Hall and Hopewell podiums; all geometry and other metadata unchanged.",
+  "catalogues": [
+    {
+      "url": "city/data/official-models/landmark-pass/catalogue.json",
+      "source": "3d-viewer/city/data/official-models/landmark-pass/catalogue.json",
+      "oldSHA256": "0497dc4f00549295c8267de63fd023bd1c965ec37f26d2983a9d439c76ef5320",
+      "models": [
+        "landsd/238482:0"
+      ]
+    },
+    {
+      "url": "city/data/official-models/island-corridor/catalogue.json",
+      "source": "3d-viewer/city/data/official-models/island-corridor/catalogue.json",
+      "oldSHA256": "28623e8ca259ae40cdba62b64833a092ca6a6b5d7b276521eeeec9b7003b3c63",
+      "models": [
+        "landsd/265525:0"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "uid": "landsd/238482:0",
+      "catalogue": "3d-viewer/city/data/official-models/landmark-pass/catalogue.json",
+      "modelSHA256": "74f10389d0c19788b655b54f8b6bc3466f1172afb69c4f724f7cdcdf90a1c691",
+      "modelId": "B085751299501063C0",
+      "buildingCSUID": "0857512995T20141029",
+      "oldSupportDependencies": [],
+      "supportDependencies": [
+        {
+          "uid": "landsd/238483:0",
+          "state": "installed",
+          "csuid": "0856412976P20141031"
+        }
+      ],
+      "contactEvidenceSHA256": "f3e768e3df38012ca5d48f402bc03f2c8e3cd7298bbecd654722897af0bc620e"
+    },
+    {
+      "uid": "landsd/265525:0",
+      "catalogue": "3d-viewer/city/data/official-models/island-corridor/catalogue.json",
+      "modelSHA256": "e977ec9df527af158c8a61c7ab4cca6e9d949ca92b940bfeb879826fa18e6095",
+      "modelId": "B357141507201063C0",
+      "buildingCSUID": "3571415072T20050430",
+      "oldSupportDependencies": [],
+      "supportDependencies": [
+        {
+          "uid": "landsd/334311:0",
+          "state": "installed",
+          "csuid": "3568315076P20050726"
+        }
+      ],
+      "contactEvidenceSHA256": "f3e768e3df38012ca5d48f402bc03f2c8e3cd7298bbecd654722897af0bc620e"
+    }
+  ],
+  "contactReport": "docs/astra-city/landmark-completion-audit/civic12-support.json",
+  "contactReportSHA256": "f3e768e3df38012ca5d48f402bc03f2c8e3cd7298bbecd654722897af0bc620e",
+  "requiresNewNativeUids": [],
+  "requiredExistingNativeUids": [
+    "landsd/238483:0",
+    "landsd/334311:0"
+  ],
+  "requiresVisualApproval": true,
+  "visualApproval": {
+    "status": "approved-for-integration",
+    "evidence": "docs/astra-city/landmark-completion-audit/civic12-decisions.json",
+    "evidenceSHA256": "378119ce3ebfc9f93dd18021620d89d63e83a33e56132824d0b987a660cafe6c",
+    "scope": "Exact connected native tower/podium source surfaces and inspected desktop/mobile day/night views."
+  }
+}

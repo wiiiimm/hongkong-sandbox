@@ -1,0 +1,9 @@
+# HKS-214 — 24 existing Ngong Ping and Po Lin native parts
+
+Reviewed 14 remaining Ngong Ping Village parts and 10 Po Lin parts already installed on the feature branch. This adds no models and changes no geometry, terrain, material, scale or catalogue metadata. Source identity/CSUID and every retained source-file hash were checked against the existing government import manifests.
+
+All24 pass actual desktop/mobile day/night capture, picking, camera clearance, UI width and rendered terrain/sampler correspondence (96 individual captures). All24 have ground contact;58870 has one below-grade corner at2.149m, with no wholly buried face and its exposed small building visibly intact. Three tiny side/foundation triangles on183737,186841 and6435 remain below the original government TIN too:1.24133m²/0.03876%,1.08547m²/0.23620%,0.01692m²/0.00092%. None is an upward roof face. Preserve native1x geometry rather than flattening foundations.
+
+These are source-form/placement reviews. Generic windows, colours and absent ornament remain approximate; the evidence does not certify authentic facade materials or complete Ngong Ping/Po Lin/Lantau assemblies. Real-device Safari and sustained mobile performance are not certified by emulated mobile views.
+
+Reproduce with `EXISTING_BATCH=docs/astra-city/landmark-completion-audit/lantau24-batch.json`, the matching `lantau24-catalogue.json`, and the shared first12 support/surfaces/native/browser tools. Set `EXISTING_GROUP_CONFIG` to `lantau24-groups.json` and `EXISTING_VISIBILITY_ALL=1` for individual useful scene views. Native burial comparison also uses `lantau12-native-folders.json`. Run `contact_sheet.py` and inspect captures before `finalise_lantau24.py`. Exact inputs/results/hashes are in the batch, identity proofs, support/surfaces/native-burial reports and decisions; no data route interception is used.

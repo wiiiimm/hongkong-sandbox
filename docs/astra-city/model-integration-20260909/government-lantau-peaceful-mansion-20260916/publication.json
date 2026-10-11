@@ -1,0 +1,81 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-lantau-peaceful-mansion-20260916/plan.json",
+  "areas": [
+    {
+      "area": "Peaceful Mansion original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-lantau-peaceful-mansion-20260916/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-108805-0.json": null,
+    "3d-viewer/city/data/official-models/government-lantau-peaceful-mansion-20260916/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "bd2a3a12835a8dc2ceb88fc4a3207493b6ef5589cc835a038d6abdfdb977795a"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-108805-0.json": "3e2da44d52d5b9c86854464caf83b3f3df2dd46ce596be4e089d62b6f89e2bd4",
+    "3d-viewer/city/data/official-models/government-lantau-peaceful-mansion-20260916/catalogue.json": "ad62b432c81cb75fd410e00eb4efe0c372f93676cf84f8fea1b60b0ebdb3295c",
+    "3d-viewer/city/data/manifest.json": "5af437d91eca4d11ce84be4366f178acc83b5308ac389ed63f53981694a47aaf"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "9048b6c2ec1eede4a16b2139c69a66a311fc0d6e",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-176915-0.json",
+      "sha256": "663dca09eb15683bb9fb5466a0da26df692629d5230c57b55715841dfb5f9a32",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-108805-0.json",
+      "resolution": 5,
+      "area": "Peaceful Mansion bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "ebe3f4d9420cb3c3bf29ed89e009e89999f08b94d4e10b942e9f19e6e94c5c85",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "10-NW-23B",
+            "sourceETag": "\"10f738b-63dcd77e42951\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-lantau-landmarks-16-second-20260916/sheets/10-NW-23B/terrain/TERRAIN(TB)/T18750186000106E10/T18750186000106E10.bin",
+                "sha256": "761894b9efe06c4e77876a634a7ebeca09917f9520637db768ea1f419deef723"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-lantau-landmarks-16-second-20260916/sheets/10-NW-23B/terrain/TERRAIN(TB)/T18750186000106E10/T18750186000106E10.gltf",
+                "sha256": "7b0ca8fc39dd23625eb118b1207abcd5454e37d2a421e64ff4664492a63f3c00"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "3e2da44d52d5b9c86854464caf83b3f3df2dd46ce596be4e089d62b6f89e2bd4",
+      "bytes": 6533696
+    }
+  ],
+  "estimatedBases": []
+}

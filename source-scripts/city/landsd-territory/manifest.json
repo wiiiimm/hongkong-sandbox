@@ -1,0 +1,697 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "landsd_rcd_1637211194312_35158",
+  "datasetVersion": "Building_Outline_Public_v20260819",
+  "sourceURL": "https://portal.csdi.gov.hk/csdi-webpage/file-api?dataset_id=landsd_rcd_1637211194312_35158&format=geojson&layer_name=Building",
+  "serviceURL": "https://portal.csdi.gov.hk/server/rest/services/common/landsd_rcd_1637211194312_35158/MapServer/0",
+  "metadataURL": "https://portal.csdi.gov.hk/csdi-webpage/metadata/landsd_rcd_1637211194312_35158/html",
+  "specificationURL": "https://static.csdi.gov.hk/csdi-webpage/view/common/6eda6a766520bcffe13206378c060a59bdb54a3c6f92480b1f01174d25fd7194",
+  "reuse": {
+    "origin": "Existing original public source bytes reused from the repository comparison worktree cache. No other-model implementation or rendered output was copied.",
+    "originalPath": "/Users/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/hong-kong-3d-city-buildings-b86a93/source-scripts/hk-buildings/cache/Building_Outline_Public_v20260819_Building_converted.geojson",
+    "originalFilesystemModifiedAtUTC": "2026-09-06T04:39:35.680527+00:00",
+    "originalDownloadTimestamp": "Not recorded by the retained cache; file modification time is not asserted to be the download timestamp."
+  },
+  "validationStartedAtUTC": "2026-09-06T07:33:20.906089+00:00",
+  "validatedAtUTC": "2026-09-06T07:33:33.365973+00:00",
+  "sourceCRS": {
+    "name": "OGC:CRS84",
+    "axes": [
+      "longitude",
+      "latitude"
+    ],
+    "units": "degrees",
+    "nativeServiceCRS": "EPSG:2326"
+  },
+  "verticalDatum": {
+    "name": "Hong Kong Principal Datum",
+    "units": "metres",
+    "fields": [
+      "BaseHeight",
+      "TopHeight"
+    ],
+    "precision": "Approximate source elevations, preserved without terrain lifting or substituted values",
+    "source": "https://static.csdi.gov.hk/csdi-webpage/view/common/6eda6a766520bcffe13206378c060a59bdb54a3c6f92480b1f01174d25fd7194"
+  },
+  "snapshot": {
+    "file": "source-scripts/city/landsd-territory/landsd-hong-kong-source.geojson.gz",
+    "originalBytes": 397110838,
+    "uncompressedSHA256": "bafe780408444ad4f7493b1539b5a4a39958d30558c978be64e0db88ffb5b1af",
+    "compressedBytes": 64036960,
+    "compressedSHA256": "4f25701140e090c0a58abb180b5b38a5c57f0a0f0897757032f35af4fa98d4e1"
+  },
+  "completeness": {
+    "sourceCount": 342223,
+    "sourceUniqueIDs": 342223,
+    "liveCount": 342223,
+    "liveUniqueIDs": 342223,
+    "exactIDsMatch": true,
+    "objectIdSHA256": "070ff8d22bd1ae43c3ddd2032f58e5e15c184daba74354ca9c7d0b9026c5b39b",
+    "allTypesAndNullsRetained": true,
+    "bytePreservingCompression": true
+  },
+  "validation": {
+    "featureCount": 342223,
+    "geometryTypes": {
+      "Polygon": 342222,
+      "MultiPolygon": 1
+    },
+    "buildingTypes": {
+      "Tower": 213328,
+      "Temporary Structure": 75117,
+      "Podium": 9026,
+      "Open-sided Structure": 44752
+    },
+    "status": {
+      "Active": 342223
+    },
+    "nullFields": {
+      "BuildingNameEN": 277561,
+      "BuildingNameTC": 278004,
+      "Storeys": 283429,
+      "StoreysInBasement": 336060,
+      "BaseHeight": 106319,
+      "TopHeight": 104917
+    },
+    "invalidGeometries": [
+      {
+        "OBJECTID": 3317,
+        "reason": "Ring Self-intersection[114.0322889073 22.4325675273]"
+      },
+      {
+        "OBJECTID": 9495,
+        "reason": "Ring Self-intersection[114.1174600086 22.3805009256]"
+      },
+      {
+        "OBJECTID": 33416,
+        "reason": "Ring Self-intersection[114.0902661666 22.5118816558]"
+      },
+      {
+        "OBJECTID": 50834,
+        "reason": "Ring Self-intersection[114.148693179 22.4991190631]"
+      },
+      {
+        "OBJECTID": 60684,
+        "reason": "Ring Self-intersection[114.0468184254 22.4468947838]"
+      },
+      {
+        "OBJECTID": 73813,
+        "reason": "Ring Self-intersection[114.1880542107 22.3874345397]"
+      },
+      {
+        "OBJECTID": 82748,
+        "reason": "Ring Self-intersection[113.9592101142 22.386106626]"
+      },
+      {
+        "OBJECTID": 87175,
+        "reason": "Ring Self-intersection[114.1482413482 22.4699821948]"
+      },
+      {
+        "OBJECTID": 89531,
+        "reason": "Ring Self-intersection[114.030571127 22.4532588991]"
+      },
+      {
+        "OBJECTID": 106839,
+        "reason": "Ring Self-intersection[114.2155241511 22.3259885918]"
+      },
+      {
+        "OBJECTID": 109745,
+        "reason": "Ring Self-intersection[113.993208351 22.4274476211]"
+      },
+      {
+        "OBJECTID": 110131,
+        "reason": "Ring Self-intersection[114.0992116207 22.4358272623]"
+      },
+      {
+        "OBJECTID": 116246,
+        "reason": "Ring Self-intersection[114.1425031616 22.4544402546]"
+      },
+      {
+        "OBJECTID": 137059,
+        "reason": "Ring Self-intersection[114.1609319585 22.5147226416]"
+      },
+      {
+        "OBJECTID": 143925,
+        "reason": "Ring Self-intersection[114.0762720848 22.4411393431]"
+      },
+      {
+        "OBJECTID": 160289,
+        "reason": "Ring Self-intersection[114.2438834571 22.2482198302]"
+      },
+      {
+        "OBJECTID": 165216,
+        "reason": "Ring Self-intersection[114.0198827522 22.4362707274]"
+      },
+      {
+        "OBJECTID": 165743,
+        "reason": "Ring Self-intersection[113.9941815718 22.4257150152]"
+      },
+      {
+        "OBJECTID": 169762,
+        "reason": "Ring Self-intersection[114.1366002812 22.3454022145]"
+      },
+      {
+        "OBJECTID": 172333,
+        "reason": "Ring Self-intersection[114.1772572891 22.2496085543]"
+      },
+      {
+        "OBJECTID": 180351,
+        "reason": "Ring Self-intersection[114.1675464624 22.5300331571]"
+      },
+      {
+        "OBJECTID": 182531,
+        "reason": "Ring Self-intersection[114.0912786635 22.4396403951]"
+      },
+      {
+        "OBJECTID": 184335,
+        "reason": "Ring Self-intersection[114.1121527747 22.4333494921]"
+      },
+      {
+        "OBJECTID": 202875,
+        "reason": "Ring Self-intersection[114.0830820889 22.4284269952]"
+      },
+      {
+        "OBJECTID": 225332,
+        "reason": "Ring Self-intersection[114.1239448352 22.3821672509]"
+      },
+      {
+        "OBJECTID": 230823,
+        "reason": "Ring Self-intersection[114.0946375714 22.4886310228]"
+      },
+      {
+        "OBJECTID": 240607,
+        "reason": "Ring Self-intersection[114.1674037251 22.4354568392]"
+      },
+      {
+        "OBJECTID": 241063,
+        "reason": "Ring Self-intersection[114.2291338486 22.3350291475]"
+      },
+      {
+        "OBJECTID": 243147,
+        "reason": "Ring Self-intersection[114.1262331492 22.43982348]"
+      },
+      {
+        "OBJECTID": 246123,
+        "reason": "Ring Self-intersection[114.0306742256 22.4536250752]"
+      },
+      {
+        "OBJECTID": 248380,
+        "reason": "Ring Self-intersection[113.9629405918 22.3895939687]"
+      },
+      {
+        "OBJECTID": 253000,
+        "reason": "Ring Self-intersection[114.1038468411 22.3578927203]"
+      },
+      {
+        "OBJECTID": 259916,
+        "reason": "Ring Self-intersection[114.081848164 22.4477439129]"
+      },
+      {
+        "OBJECTID": 260129,
+        "reason": "Ring Self-intersection[113.9689162709 22.4134316454]"
+      },
+      {
+        "OBJECTID": 264525,
+        "reason": "Ring Self-intersection[113.9950697588 22.4278471833]"
+      },
+      {
+        "OBJECTID": 264647,
+        "reason": "Ring Self-intersection[113.9989451418 22.4321648061]"
+      },
+      {
+        "OBJECTID": 265330,
+        "reason": "Ring Self-intersection[113.9912286773 22.4316919578]"
+      },
+      {
+        "OBJECTID": 265685,
+        "reason": "Ring Self-intersection[114.1188067346 22.4807789584]"
+      },
+      {
+        "OBJECTID": 267690,
+        "reason": "Ring Self-intersection[114.0942109616 22.431770975]"
+      },
+      {
+        "OBJECTID": 267738,
+        "reason": "Ring Self-intersection[113.9866981863 22.4180717534]"
+      },
+      {
+        "OBJECTID": 268703,
+        "reason": "Ring Self-intersection[114.0102345643 22.4391105428]"
+      },
+      {
+        "OBJECTID": 272805,
+        "reason": "Ring Self-intersection[114.1387095111 22.249782559]"
+      },
+      {
+        "OBJECTID": 274019,
+        "reason": "Ring Self-intersection[114.0059943249 22.4851456343]"
+      },
+      {
+        "OBJECTID": 277123,
+        "reason": "Ring Self-intersection[114.0676775736 22.4709598545]"
+      },
+      {
+        "OBJECTID": 280965,
+        "reason": "Ring Self-intersection[114.0209707042 22.4380730377]"
+      },
+      {
+        "OBJECTID": 282177,
+        "reason": "Ring Self-intersection[113.9806121379 22.420106839]"
+      },
+      {
+        "OBJECTID": 282199,
+        "reason": "Ring Self-intersection[114.2278256076 22.3024823794]"
+      },
+      {
+        "OBJECTID": 283009,
+        "reason": "Ring Self-intersection[114.1564760719 22.5044076162]"
+      },
+      {
+        "OBJECTID": 285525,
+        "reason": "Ring Self-intersection[114.0630744711 22.4733243569]"
+      },
+      {
+        "OBJECTID": 286533,
+        "reason": "Ring Self-intersection[114.0201459034 22.417734178]"
+      },
+      {
+        "OBJECTID": 287561,
+        "reason": "Ring Self-intersection[113.9038513484 22.2558950235]"
+      },
+      {
+        "OBJECTID": 289307,
+        "reason": "Ring Self-intersection[114.0830395149 22.4301611717]"
+      },
+      {
+        "OBJECTID": 289391,
+        "reason": "Ring Self-intersection[114.0768209267 22.4412922714]"
+      },
+      {
+        "OBJECTID": 289820,
+        "reason": "Ring Self-intersection[114.1597785401 22.5219217082]"
+      },
+      {
+        "OBJECTID": 290374,
+        "reason": "Ring Self-intersection[114.1617555061 22.5238503586]"
+      },
+      {
+        "OBJECTID": 295300,
+        "reason": "Ring Self-intersection[114.0907573456 22.5065136773]"
+      },
+      {
+        "OBJECTID": 297300,
+        "reason": "Self-intersection[114.19881258856 22.3321699852397]"
+      },
+      {
+        "OBJECTID": 299411,
+        "reason": "Ring Self-intersection[114.0140603247 22.4320489576]"
+      },
+      {
+        "OBJECTID": 301476,
+        "reason": "Ring Self-intersection[114.1556336122 22.4786752704]"
+      },
+      {
+        "OBJECTID": 303865,
+        "reason": "Ring Self-intersection[114.1786096521 22.4618636898]"
+      },
+      {
+        "OBJECTID": 309770,
+        "reason": "Ring Self-intersection[114.1430338228 22.3469098057]"
+      },
+      {
+        "OBJECTID": 311137,
+        "reason": "Ring Self-intersection[114.1930966358 22.3897550717]"
+      },
+      {
+        "OBJECTID": 312717,
+        "reason": "Ring Self-intersection[114.006385617 22.2707624363]"
+      },
+      {
+        "OBJECTID": 313748,
+        "reason": "Ring Self-intersection[114.1427490978 22.283011906]"
+      },
+      {
+        "OBJECTID": 313832,
+        "reason": "Ring Self-intersection[114.0269582946 22.407264105]"
+      },
+      {
+        "OBJECTID": 316693,
+        "reason": "Ring Self-intersection[114.1695095096 22.4590154052]"
+      },
+      {
+        "OBJECTID": 317131,
+        "reason": "Ring Self-intersection[114.0211155816 22.4253519894]"
+      },
+      {
+        "OBJECTID": 318131,
+        "reason": "Ring Self-intersection[114.1499821542 22.4441539532]"
+      },
+      {
+        "OBJECTID": 320101,
+        "reason": "Ring Self-intersection[114.1891072701 22.3870330736]"
+      },
+      {
+        "OBJECTID": 321117,
+        "reason": "Self-intersection[114.17943405706 22.4656866783126]"
+      },
+      {
+        "OBJECTID": 321974,
+        "reason": "Ring Self-intersection[114.1615744907 22.5396792031]"
+      },
+      {
+        "OBJECTID": 324213,
+        "reason": "Ring Self-intersection[113.9908380734 22.4214810421]"
+      },
+      {
+        "OBJECTID": 325740,
+        "reason": "Ring Self-intersection[114.1609146869 22.4561432362]"
+      },
+      {
+        "OBJECTID": 326694,
+        "reason": "Ring Self-intersection[114.073121642 22.431589316]"
+      },
+      {
+        "OBJECTID": 329226,
+        "reason": "Ring Self-intersection[114.0708579326 22.4254570733]"
+      },
+      {
+        "OBJECTID": 330207,
+        "reason": "Ring Self-intersection[113.9907509878 22.4200067482]"
+      },
+      {
+        "OBJECTID": 330250,
+        "reason": "Ring Self-intersection[114.0869845404 22.5054264388]"
+      },
+      {
+        "OBJECTID": 330647,
+        "reason": "Ring Self-intersection[113.9960924746 22.4316389841]"
+      },
+      {
+        "OBJECTID": 335273,
+        "reason": "Self-intersection[114.213529828242 22.2050806566303]"
+      },
+      {
+        "OBJECTID": 335513,
+        "reason": "Nested shells[114.033480616 22.4454068059]"
+      },
+      {
+        "OBJECTID": 339094,
+        "reason": "Ring Self-intersection[114.1622631771 22.51926389]"
+      },
+      {
+        "OBJECTID": 339408,
+        "reason": "Ring Self-intersection[114.1721952689 22.5209936998]"
+      },
+      {
+        "OBJECTID": 341142,
+        "reason": "Ring Self-intersection[114.1013688284 22.4834134128]"
+      }
+    ],
+    "missingGeometries": [],
+    "unclosedRings": [],
+    "nonFiniteCoordinates": [],
+    "rings": 345011,
+    "vertices": 3966251,
+    "holes": 2787,
+    "components": 342224,
+    "nullBaseHeight": 106319,
+    "nullTopHeight": 104917,
+    "bothHeightsPresent": 235759,
+    "nonPositiveHeights": 0,
+    "boundsWGS84": [
+      113.8408754438,
+      22.1568647375,
+      114.4368372796,
+      22.5613021784
+    ],
+    "uniqueIDs": 342223,
+    "idMin": 1,
+    "idMax": 342223,
+    "propertySchemas": [
+      {
+        "fields": [
+          "BaseHeight",
+          "BuildingBlockType",
+          "BuildingCSUID",
+          "BuildingID",
+          "BuildingNameEN",
+          "BuildingNameTC",
+          "DateCreate",
+          "DateStamp",
+          "GeoRefNo",
+          "OBJECTID",
+          "Shape_Area",
+          "Shape_Length",
+          "Status",
+          "Storeys",
+          "StoreysInBasement",
+          "TopHeight"
+        ],
+        "count": 342223
+      }
+    ]
+  },
+  "nativeCoordinateCheck": {
+    "sourceCRS": "OGC:CRS84 (GeoJSON longitude, latitude)",
+    "nativeCRS": "EPSG:2326",
+    "transformer": "Inverse of Hong Kong 1980 to WGS 84 (1) + Hong Kong 1980 Grid (with axis order normalized for visualization)",
+    "samples": [
+      {
+        "OBJECTID": 1,
+        "type": "Tower",
+        "vertices": 9,
+        "hausdorffMetres": 0.00044584980895712926,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 2,
+        "type": "Tower",
+        "vertices": 5,
+        "hausdorffMetres": 0.00044930652849249007,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 3,
+        "type": "Tower",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004488642002628516,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 18,
+        "type": "Temporary Structure",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004742062911838347,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 26,
+        "type": "Temporary Structure",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004533729909140825,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 28,
+        "type": "Podium",
+        "vertices": 12,
+        "hausdorffMetres": 0.0004508569351099653,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 30,
+        "type": "Open-sided Structure",
+        "vertices": 5,
+        "hausdorffMetres": 0.00044826363587959693,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 641,
+        "type": "Open-sided Structure",
+        "vertices": 8,
+        "hausdorffMetres": 0.00045348881453273303,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 938,
+        "type": "Temporary Structure",
+        "vertices": 6,
+        "hausdorffMetres": 0.0004719894881447604,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 1000,
+        "type": "Tower",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004476129201742374,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 1774,
+        "type": "Open-sided Structure",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004708718455083937,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 5639,
+        "type": "Open-sided Structure",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004544625515932936,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 10000,
+        "type": "Temporary Structure",
+        "vertices": 7,
+        "hausdorffMetres": 0.0004505964740097636,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 25988,
+        "type": "Temporary Structure",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004284288695897858,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 50000,
+        "type": "Tower",
+        "vertices": 7,
+        "hausdorffMetres": 0.0004447868016684413,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 100000,
+        "type": "Tower",
+        "vertices": 5,
+        "hausdorffMetres": 0.00044228915243778706,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 150000,
+        "type": "Tower",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004023841321390585,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 200000,
+        "type": "Tower",
+        "vertices": 6,
+        "hausdorffMetres": 0.00046267626224070937,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 250000,
+        "type": "Open-sided Structure",
+        "vertices": 5,
+        "hausdorffMetres": 0.00047024601389646813,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 288718,
+        "type": "Tower",
+        "vertices": 5,
+        "hausdorffMetres": 0.00046647681370771374,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 300000,
+        "type": "Temporary Structure",
+        "vertices": 23,
+        "hausdorffMetres": 0.000466930303596856,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      },
+      {
+        "OBJECTID": 335513,
+        "type": "Podium",
+        "vertices": 318,
+        "hausdorffMetres": 0.5482212959955438,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": true,
+        "comparisonToleranceMetres": 1.0
+      },
+      {
+        "OBJECTID": 342223,
+        "type": "Open-sided Structure",
+        "vertices": 5,
+        "hausdorffMetres": 0.0004279014078487335,
+        "propertyMismatches": [],
+        "nativeRepairForComparison": false,
+        "nativeTrueCurves": false,
+        "comparisonToleranceMetres": 0.02
+      }
+    ],
+    "maximumHausdorffMetres": 0.5482212959955438,
+    "ordinaryPolygonToleranceMetres": 0.02,
+    "curveDensificationToleranceMetres": 1.0,
+    "curveNote": "The retained official GeoJSON and REST polygon response independently linearise native curveRings; the curved sample has a measured sub-metre boundary difference, preserved and identified. This is not a projection-accuracy claim.",
+    "attributeComparison": "Identity, type, status, names, both elevations and storeys; original date strings retained (ArcGIS REST uses epoch milliseconds)."
+  },
+  "integration": "Read compressed features incrementally with iter_features(); project via existing pyproj and reuse source-scripts/city/mui-wo-buildings/build.py stage_feature(). No live city tiles changed."
+}

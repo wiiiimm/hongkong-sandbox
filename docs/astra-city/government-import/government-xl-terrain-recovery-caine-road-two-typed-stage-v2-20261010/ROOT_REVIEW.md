@@ -1,0 +1,7 @@
+# Root staged review — Caine Road original pair
+
+The root agent independently closed 266 explicit files and 930 byte-bound reference versions (80,159,971 bytes), with no historical mismatches, using the unchanged transitive checkpoint verifier. The completed original/current source checkpoint is commit `3cbfd8b2`.
+
+The base staged acceptance covers both unchanged original actors, desktop/mobile day/night views, both failed-load retries and all 40 retained-native own-camera views. The supplementary v2 producer was read in full: it rebinds the complete base acceptance and retained-native views and adds four unobscured podium views and its mobile retry. The actual 1280-day and 390-day supplementary PNG exports and the tower mobile-day export were inspected. The mobile overhead export shows the original podium below the street and tower; its captured neighbourhood loading text is not a claim that all regional details have finished loading. The browser report supplies the actor/support-specific verification.
+
+The supplementary producer and guarded live publisher v2 were read in full. Source bytes, source transforms and building geometry remain unchanged. The supplemental view contributes visual evidence only, with no omitted retained support proof. The live publisher requires independent fresh current roles, unchanged parent numerics and retained children, source leases, all live suites and rollback on browser failure. This checkpoint grants zero installed credit; the root must still run the guarded live publication.

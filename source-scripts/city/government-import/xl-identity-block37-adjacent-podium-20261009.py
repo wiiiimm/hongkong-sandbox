@@ -1,0 +1,8 @@
+"""Exact current provider relationship of Block37 and independently identified Block J."""
+import json,sys
+from run import ROOT,HERE,save
+sys.path.insert(0,str(HERE.parent/'landsd-territory'));from source import BASE,request
+DOC=ROOT/'docs/astra-city/government-import/government-xl-identity-block37-adjacent-podium-20261009'
+def query(table,where,label):
+ params={'f':'json','where':where,'outFields':'*','returnGeometry':'false','resultRecordCount':'1000','orderByFields':'OBJECTID'};raw,receipt=request(f'{BASE}/{table}/query',params);data=json.loads(raw);assert 'features' in data and not data.get('exceededTransferLimit');DOC.mkdir(parents=True,exist_ok=True);(DOC/(label+'.json')).write_bytes(raw);save(DOC/(label+'.request.json'),receipt);return [f['attributes'] for f in data['features']]
+cs=['3406534885P20050804','3393934960P20050804'];where='BuildingCSUID IN ('+','.join("'"+x+"'" for x in cs)+')';rel=query(1002,where,'two-source-relations');ids=sorted({r['BuildingStructureID'] for r in rel});ws='BuildingStructureID IN ('+','.join(map(str,ids))+')' if ids else '1=0';allrel=query(1002,ws,'complete-structure-relations');details=query(1003,ws,'complete-structure-details');names=query(1001,where,'two-source-names');buildings=query(0,where,'two-source-current-buildings');history=query(1000,where,'two-source-works-history');save(DOC/'provider-adjacent-podium-context.json',{'csuids':cs,'relations':rel,'completeRelations':allrel,'structureDetails':details,'names':names,'currentBuildings':buildings,'worksHistory':history,'geometryChanges':0,'identityAccepted':False,'installationApproved':False});print(json.dumps({'relations':rel,'all':allrel,'details':details,'names':names,'current':buildings}),flush=True)

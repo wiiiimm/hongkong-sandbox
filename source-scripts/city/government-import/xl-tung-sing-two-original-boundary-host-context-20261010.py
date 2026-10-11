@@ -1,0 +1,16 @@
+"""Exact original open-boundary loops against complete nearby mainbody surfaces."""
+import importlib.util,collections,numpy as np
+from run import ROOT,HERE,read,save,digest
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from source_closed_components import components
+DOC=ROOT/'docs/astra-city/government-import/government-xl-tung-sing-two-original-boundary-host-context-20261010'
+PRIOR=DOC.parent/'government-xl-tung-sing-two-detached-original-context-20261010/diagnostic.json.gz'
+def main():
+ assert not DOC.exists();d=read(PRIOR);source=next(ROOT/k for k in d['inputHashes'] if k.endswith('.glb.gz'));t=decode_original_world_triangles(source.read_bytes());parts=components(t)['components'];mainids=parts[1]['faceIndices'];main=t[mainids];s=importlib.util.spec_from_file_location('tung_sing_exact_original_distance',HERE/'xl-tung-sing-two-original-continuous-counterparts-20261010.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);rows=[]
+ for q in d['rows']:
+  a=t[q['allOriginalFaces']];counts=collections.Counter(tuple(sorted((tuple(f[i]),tuple(f[j])))) for f in a for i,j in [(0,1),(1,2),(2,0)]);edges=[e for e,c in counts.items() if c==1];lo,hi=a.min(axis=(0,1))-.02,a.max(axis=(0,1))+.02;valid=np.all(main.max(axis=1)>=lo,axis=1)&np.all(main.min(axis=1)<=hi,axis=1);host=main[valid];hostids=[mainids[i] for i in np.flatnonzero(valid)];records=[]
+  for edge in edges:
+   u,v=np.asarray(edge,float);n=512;points=u+(v-u)*np.arange(n+1)[:,None]/n;sample=float(m.distances(points,host).max());diam=float(np.linalg.norm(v-u)/n);records.append({'completeOriginalEdgeVertices':[u.tolist(),v.tolist()],'originalLengthM':float(np.linalg.norm(v-u)),'allPartitionVertices':n+1,'maximumEvaluatedDistanceToOriginalMainbodyWitnessesM':sample,'maximumPartitionIntervalLengthM':diam,'continuousWholeEdgeDistanceUpperBoundM':sample+diam})
+  rows.append({'originalComponent':q['component'],'allOriginalFaces':q['allOriginalFaces'],'allOriginalOpenBoundaryEdges':records,'allNearbyOriginalMainbodyWitnessFaceIds':hostids,'allNearbyOriginalMainbodyWitnessFaces':host.tolist(),'inputOriginalMainbodyFacetCount':len(main),'minimumWholeBoundaryEdgeBoundM':min(r['continuousWholeEdgeDistanceUpperBoundM'] for r in records),'wholeBoundaryEdgesBoundWithinOneCentimetre':sum(r['continuousWholeEdgeDistanceUpperBoundM']<=.01 for r in records)})
+ save(DOC/'diagnostic.json.gz',{'uid':d['uid'],'sourceSHA256':d['sourceSHA256'],'wholeSourceWorldSHA256':d['wholeSourceWorldSHA256'],'rows':rows,'sourceGeometryChanges':0,'exactNoContactFailurePreserved':True,'physicalAccepted':False,'inputHashes':d['inputHashes']|{str(PRIOR.relative_to(ROOT)):digest(PRIOR.read_bytes())},'qualification':'All exact original open boundaries retained and whole finite edges continuously bounded to actual original mainbody witness facets. A witness subset supplies conservative distance upper bounds to the complete original body. No new contact, gap repair, source snapping, load-bearing or mounting credit; source-specific architectural envelope interpretation remains independently reviewable.'});print([{k:r[k] for k in ['originalComponent','minimumWholeBoundaryEdgeBoundM','wholeBoundaryEdgesBoundWithinOneCentimetre']} for r in rows],flush=True)
+if __name__=='__main__':main()

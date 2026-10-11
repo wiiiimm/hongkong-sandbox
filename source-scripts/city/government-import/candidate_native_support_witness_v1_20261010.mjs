@@ -1,0 +1,9 @@
+import assert from 'node:assert/strict';
+export function candidateSupportModels(config,catalogue,modelUid){
+ const models=catalogue.models;assert(Array.isArray(models));const ids=models.map(m=>m.uid);assert.equal(new Set(ids).size,ids.length,'Duplicate candidate UID');assert(ids.includes(modelUid),'Unknown candidate camera');
+ const mapping=config.nativeSupportUidsByModel??{};for(const [uid,supports] of Object.entries(mapping)){assert(ids.includes(uid),'Unknown support-map model');assert(Array.isArray(supports)&&supports.every(u=>typeof u==='string'));assert.equal(new Set(supports).size,supports.length,'Duplicate support UID');assert(!supports.includes(uid),'Self support');}
+ return (mapping[modelUid]??[]).filter(uid=>ids.includes(uid)).map(uid=>{const m=models.find(m=>m.uid===uid);assert(/^[0-9a-f]{64}$/.test(m.sha256));assert(Number.isSafeInteger(m.triangles)&&m.triangles>0);return m;});
+}
+export function verifyCandidateSupportWitness(expected,state){
+ assert.equal(state.sourceSHA256,expected.sha256,'Candidate support source SHA changed');assert.equal(state.originalTriangles,expected.triangles,'Candidate support triangle inventory changed');assert(state.active===true&&state.visible===true,'Candidate support must be active and visible');assert(typeof state.wanted==='boolean');assert(Array.isArray(state.meshVisibility)&&state.meshVisibility.length>0&&state.meshVisibility.every(v=>v===true),'Support meshes must be visible');assert(Array.isArray(state.wireframeFlags)&&state.wireframeFlags.length>0&&state.wireframeFlags.every(v=>v===false),'Support meshes must be solid');assert.equal(state.fallbackFaces,0,'Support fallback must contain no drawn faces');assert(Array.isArray(state.materialOpacities)&&state.materialOpacities.length>0&&state.materialOpacities.every(o=>o===1),'Support original materials must be opaque');return state;
+}

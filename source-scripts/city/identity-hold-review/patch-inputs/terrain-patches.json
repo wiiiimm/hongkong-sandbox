@@ -1,0 +1,153 @@
+{
+  "issue": "HKS-214",
+  "staged": true,
+  "bundles": [
+    {
+      "parentTerrainURL": "city/data/terrain.json",
+      "parentSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+      "patches": [
+        {
+          "path": "source-scripts/city/identity-hold-review/terrain-patches/support-native-297401-0.json",
+          "sha256": "53be9056f1c4710aaf9d55c87a3c83dbbc19fc680a25672546f0828f906f5ffc",
+          "uids": [
+            "landsd/297401:0"
+          ],
+          "coarseCells": [
+            500,
+            420,
+            503,
+            425
+          ]
+        },
+        {
+          "path": "source-scripts/city/identity-hold-review/terrain-patches/support-native-314191-0.json",
+          "sha256": "afebb931519732fd1bcb322b92dffb03f7450fdaa372f961b2e0e008d749bd22",
+          "uids": [
+            "landsd/314191:0"
+          ],
+          "coarseCells": [
+            158,
+            401,
+            165,
+            408
+          ]
+        },
+        {
+          "path": "source-scripts/city/identity-hold-review/terrain-patches/support-native-81387-0.json",
+          "sha256": "1b20230a76e2938b9b3399ed461c5603a5d3184944580c70141af1a75c069624",
+          "uids": [
+            "landsd/81387:0"
+          ],
+          "coarseCells": [
+            504,
+            401,
+            506,
+            403
+          ]
+        }
+      ]
+    },
+    {
+      "parentTerrainURL": "city/data/terrain-central.json",
+      "parentSha256": "4a10d22846c0764bf532e81734811fa9f6f34f197d444f27db4f588aacebbab2",
+      "patches": [
+        {
+          "path": "source-scripts/city/identity-hold-review/terrain-patches/support-native-93890-0.json",
+          "sha256": "f937b624a20f155f57ab735a74fc17363305a5b10781ed98233ccbd6938812bd",
+          "uids": [
+            "landsd/93890:0"
+          ],
+          "coarseCells": [
+            187,
+            518,
+            211,
+            541
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "patch": "source-scripts/city/identity-hold-review/terrain-patches/support-native-297401-0.json",
+      "rows": [
+        {
+          "uid": "landsd/297401:0",
+          "samples": 186,
+          "within2m": 175,
+          "gapRange": [
+            -2.334233643127421,
+            0.15653361901853202
+          ]
+        }
+      ],
+      "gridNodes": 74061,
+      "nativeCoveredNodes": 74061,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": false
+    },
+    {
+      "patch": "source-scripts/city/identity-hold-review/terrain-patches/support-native-314191-0.json",
+      "rows": [
+        {
+          "uid": "landsd/314191:0",
+          "samples": 19,
+          "within2m": 19,
+          "gapRange": [
+            -1.5406428967285066,
+            1.0383105642089445
+          ]
+        }
+      ],
+      "gridNodes": 241081,
+      "nativeCoveredNodes": 225597,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true
+    },
+    {
+      "patch": "source-scripts/city/identity-hold-review/terrain-patches/support-native-81387-0.json",
+      "rows": [
+        {
+          "uid": "landsd/81387:0",
+          "samples": 51,
+          "within2m": 51,
+          "gapRange": [
+            -0.0484976058349611,
+            0.1526898700866708
+          ]
+        }
+      ],
+      "gridNodes": 19881,
+      "nativeCoveredNodes": 13818,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true
+    },
+    {
+      "patch": "source-scripts/city/identity-hold-review/terrain-patches/support-native-93890-0.json",
+      "rows": [
+        {
+          "uid": "landsd/93890:0",
+          "samples": 34,
+          "within2m": 30,
+          "gapRange": [
+            -29.86367174609373,
+            0.06121520996094887
+          ]
+        }
+      ],
+      "gridNodes": 14036,
+      "nativeCoveredNodes": 14036,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": false
+    }
+  ],
+  "held": [],
+  "inputReportSha256": "941ab65204f6136f4fb6460e193c726b05bbd12bfe3ed3bafdd21382eb005f6a",
+  "nativeEvidenceSha256": "e340a97bbbb6ad975a463fefda6ad7801a66e38795c60b2bd86bfa2dc60a9a3a",
+  "integration": "Append children only to hash-matched existing parent. Root coarse children must be manifest terrain patches, not overwritten by app terrainPatches assignment. Parent renderer omits coarseCells exactly once. Run combined roof/foundation and browser checks before publication.",
+  "publicationApproved": false
+}

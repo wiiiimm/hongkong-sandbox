@@ -1,0 +1,25 @@
+{
+  "areas": [
+    {
+      "area": "Capitol source assembly with bounded native terrain",
+      "catalogue": "source-scripts/city/residual-support-review/capitol/approved/catalogue.json",
+      "destination": "city/data/official-models/capitol-native-20260909/catalogue.json",
+      "estimates": [
+        "source-scripts/city/residual-support-review/capitol/estimated-bases.json"
+      ]
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "source": "source-scripts/city/residual-support-review/capitol/terrain.json",
+      "sha256": "8713afcc11298e4125254ab255fd43243dc9b00dc44b3cbcf3eb9e033ebbcb17",
+      "destination": "city/data/terrain-capitol-native-20260909.json",
+      "resolution": 1,
+      "area": "Capitol native terrain retaining every Club Galaxy node",
+      "replaces": {
+        "url": "city/data/terrain-lohas-club-galaxy.json",
+        "sha256": "9af2a457034363f3aa66d449aa1eb901882112b8ab9385a2d1bf289acd087bd2"
+      }
+    }
+  ]
+}

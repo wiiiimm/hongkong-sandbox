@@ -1,0 +1,36 @@
+{
+  "stagedOnly": true,
+  "parentSha256": "95e288a0ad14f8389ed4daaad0a7af8657251b2bc0af9f282233448fbcf06648",
+  "refinementSha256": "0680395f9a50338a435889b48200c7eb41af7c7f8f7b5c9e00840b882f79ba6b",
+  "buildings": [
+    {
+      "uid": "landsd/173217:0",
+      "objectId": 173217,
+      "buildingCSUID": "1799715614T20080104",
+      "tile": "-9_0",
+      "previousBase": 83.834,
+      "base": 76.601,
+      "height": 3.5,
+      "baseSource": "terrain-estimated",
+      "heightSource": "estimated",
+      "sourceBaseHeightHKPD": null,
+      "sourceTopHeightHKPD": null,
+      "reason": "Recompute only the existing estimated base from the corrected source-ground footprint minimum. Both official vertical fields remain null; original footprint/ID/fallback height unchanged."
+    },
+    {
+      "uid": "landsd/173237:0",
+      "objectId": 173237,
+      "buildingCSUID": "1799415618T20071224",
+      "tile": "-9_0",
+      "previousBase": 81.836,
+      "base": 74.932,
+      "height": 3.5,
+      "baseSource": "terrain-estimated",
+      "heightSource": "estimated",
+      "sourceBaseHeightHKPD": null,
+      "sourceTopHeightHKPD": null,
+      "reason": "Recompute only the existing estimated base from the corrected source-ground footprint minimum. Both official vertical fields remain null; original footprint/ID/fallback height unchanged."
+    }
+  ],
+  "policy": "Apply with the staged terrain only after validating each UID, previous base, null recorded fields and lack of source model. Change derived base only; preserve every official field, fallback height and footprint."
+}

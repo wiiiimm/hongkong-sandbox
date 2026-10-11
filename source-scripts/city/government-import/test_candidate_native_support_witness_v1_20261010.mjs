@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {candidateSupportModels,verifyCandidateSupportWitness} from './candidate_native_support_witness_v1_20261010.mjs';
+const podium={uid:'landsd/91827:0',sha256:'a'.repeat(64),triangles:18484},upper={uid:'landsd/104302:0',sha256:'b'.repeat(64),triangles:16522},catalogue={models:[podium,upper]},config={nativeSupportUidsByModel:{[podium.uid]:[],[upper.uid]:[podium.uid,'foreign']}};
+const witness=()=>({sourceSHA256:podium.sha256,originalTriangles:18484,wanted:true,active:true,visible:true,meshVisibility:[true,true],wireframeFlags:[false,false],fallbackFaces:0,materialOpacities:[1,1]});
+test('Owned podium is required only in upper views; foreign supports retain separate route',()=>{assert.deepEqual(candidateSupportModels(config,catalogue,upper.uid),[podium]);assert.deepEqual(candidateSupportModels(config,catalogue,podium.uid),[]);});
+test('Real complete opaque original support passes',()=>assert.equal(verifyCandidateSupportWitness(podium,witness()).active,true));
+for(const [label,patch] of Object.entries({inactive:{active:false},hidden:{visible:false},source:{sourceSHA256:'c'.repeat(64)},inventory:{originalTriangles:18483},mesh:{meshVisibility:[true,false]},wireframe:{wireframeFlags:[true]},fallback:{fallbackFaces:1},opacity:{materialOpacities:[.5]},empty:{meshVisibility:[]},wanted:{wanted:undefined}}))test('Reject '+label,()=>assert.throws(()=>verifyCandidateSupportWitness(podium,{...witness(),...patch})));
+test('Self support rejects',()=>assert.throws(()=>candidateSupportModels({nativeSupportUidsByModel:{[upper.uid]:[upper.uid]}},catalogue,upper.uid)));
+test('Duplicated candidate inventory rejects',()=>assert.throws(()=>candidateSupportModels(config,{models:[podium,podium,upper]},upper.uid)));
+test('Duplicated support declaration rejects',()=>assert.throws(()=>candidateSupportModels({nativeSupportUidsByModel:{[upper.uid]:[podium.uid,podium.uid]}},catalogue,upper.uid)));
+test('Unknown camera rejects',()=>assert.throws(()=>candidateSupportModels(config,catalogue,'unknown')));

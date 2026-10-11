@@ -1,0 +1,858 @@
+{
+  "issue": "HKS-214",
+  "samples": "All affected source ring vertices and midpoints plus interior box centres; finite footprint sampling, not exhaustive triangle-intersection extrema.",
+  "buildings": 43,
+  "boundary": [
+    {
+      "path": "source-scripts/city/residual-support-review/capitol/terrain.json",
+      "sha256": "8713afcc11298e4125254ab255fd43243dc9b00dc44b3cbcf3eb9e033ebbcb17",
+      "points": 1404,
+      "maxChange": 4.285716492802294e-7
+    }
+  ],
+  "regressions": [
+    {
+      "uid": "landsd/109723:0",
+      "name": "",
+      "base": 7,
+      "roof": 10,
+      "baseSource": "terrain-estimated",
+      "heightSource": "estimated",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        5.0188245800082205,
+        5.92185282999845
+      ],
+      "samples": 299,
+      "newFlags": [
+        "baseAbove"
+      ]
+    },
+    {
+      "uid": "landsd/311673:0",
+      "name": "",
+      "base": 7.95,
+      "roof": 10.95,
+      "baseSource": "terrain-estimated",
+      "heightSource": "estimated",
+      "before": [
+        7.949714285713981,
+        8.331714285713815
+      ],
+      "after": [
+        5.003497963000526,
+        5.051485983999811
+      ],
+      "samples": 19,
+      "newFlags": [
+        "baseAbove"
+      ]
+    },
+    {
+      "uid": "landsd/324455:0",
+      "name": "Tseung Kwan O Depot",
+      "base": 5.2,
+      "roof": 17.1,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        5.233414285714787,
+        13.20655714285573
+      ],
+      "after": [
+        4.752235,
+        18.263592
+      ],
+      "samples": 434,
+      "newFlags": [
+        "roofBelow"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "uid": "landsd/6471:0",
+      "name": "",
+      "base": 4.4,
+      "roof": 26.799999999999997,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        7.352214285714695
+      ],
+      "after": [
+        4.499954,
+        7.23738571428521
+      ],
+      "samples": 93,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/12661:0",
+      "name": "Le Prestige Tower 7",
+      "base": 29.7,
+      "roof": 212.89999999999998,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        7.278671428571215
+      ],
+      "after": [
+        4.499954,
+        6.976124522486495
+      ],
+      "samples": 253,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/54170:0",
+      "name": "Club Galaxy",
+      "base": 4.4,
+      "roof": 26.799999999999997,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        4.566605849004598
+      ],
+      "after": [
+        4.499954,
+        4.566605849004598
+      ],
+      "samples": 161,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/88999:0",
+      "name": "",
+      "base": 6.5,
+      "roof": 16.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        6.314276500995985,
+        6.38935745399939
+      ],
+      "samples": 19,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/90984:0",
+      "name": "The Capitol Tower 1",
+      "base": 36.9,
+      "roof": 205.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7.192714285714146
+      ],
+      "after": [
+        5.010008696000002,
+        5.033424312011338
+      ],
+      "samples": 221,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/100061:0",
+      "name": "Club Galaxy",
+      "base": 21.4,
+      "roof": 24.4,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        4.499954
+      ],
+      "after": [
+        4.499954,
+        4.499954
+      ],
+      "samples": 31,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/100073:0",
+      "name": "Le Prestige Tower 11",
+      "base": 29.7,
+      "roof": 185.79999999999998,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        4.499954
+      ],
+      "after": [
+        4.499954,
+        4.499954
+      ],
+      "samples": 175,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/109587:0",
+      "name": "The Capitol Tower 3",
+      "base": 36.9,
+      "roof": 200.4,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        5.009998,
+        5.636352500001472
+      ],
+      "samples": 231,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/109595:0",
+      "name": "The Capitol Tower 6",
+      "base": 36.9,
+      "roof": 194.4,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7.785628571427878,
+        8.858714285715791
+      ],
+      "after": [
+        5.050834420999437,
+        5.764802793000253
+      ],
+      "samples": 231,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/109600:0",
+      "name": "The Capitol Tower 5",
+      "base": 36.9,
+      "roof": 200.4,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7.557599999998388
+      ],
+      "after": [
+        5.009998,
+        5.65367225600085
+      ],
+      "samples": 231,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/109603:0",
+      "name": "The Capitol Tower 2",
+      "base": 36.9,
+      "roof": 205.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        5.009998,
+        5.013845607999565
+      ],
+      "samples": 227,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/109723:0",
+      "name": "",
+      "base": 7,
+      "roof": 10,
+      "baseSource": "terrain-estimated",
+      "heightSource": "estimated",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        5.0188245800082205,
+        5.92185282999845
+      ],
+      "samples": 299,
+      "newFlags": [
+        "baseAbove"
+      ]
+    },
+    {
+      "uid": "landsd/111608:0",
+      "name": "",
+      "base": 24.9,
+      "roof": 34.8,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7.30205714285853,
+        8.039114285716096
+      ],
+      "after": [
+        5.579799209000019,
+        5.929998
+      ],
+      "samples": 19,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/132890:0",
+      "name": "",
+      "base": 5.8,
+      "roof": 19.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        6.982185714286061,
+        18.119400000002145
+      ],
+      "after": [
+        6.982185714286061,
+        18.119400000002145
+      ],
+      "samples": 539,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/149982:0",
+      "name": "Le Prestige Tower 9",
+      "base": 29.7,
+      "roof": 203.6,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        4.5009851100000935
+      ],
+      "after": [
+        4.499954,
+        4.5009851100000935
+      ],
+      "samples": 263,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/150499:0",
+      "name": "Le Prestige Tower 10",
+      "base": 29.7,
+      "roof": 194.7,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        4.499954
+      ],
+      "after": [
+        4.499954,
+        4.499954
+      ],
+      "samples": 179,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/228481:0",
+      "name": "",
+      "base": 5.8,
+      "roof": 7.8,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7.746771428571094,
+        7.781414285714618
+      ],
+      "after": [
+        5.541512653999641,
+        5.577297991000759
+      ],
+      "samples": 9,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/229199:0",
+      "name": "Club Galaxy",
+      "base": 4.4,
+      "roof": 25.700000000000003,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        4.508937592000447
+      ],
+      "after": [
+        4.499954,
+        4.508937592000447
+      ],
+      "samples": 195,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/243510:0",
+      "name": "Le Prestige Tower 6",
+      "base": 29.7,
+      "roof": 212.89999999999998,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.529329587512806,
+        7.3482285714292175
+      ],
+      "after": [
+        4.499954,
+        7.307557142856865
+      ],
+      "samples": 223,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/243511:0",
+      "name": "Le Prestige Tower 8",
+      "base": 29.7,
+      "roof": 212.89999999999998,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        7.099971428571735
+      ],
+      "after": [
+        4.499954,
+        6.888247764989057
+      ],
+      "samples": 145,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/246314:0",
+      "name": "Home Affairs Department Lohas Park Community Hall",
+      "base": 24.9,
+      "roof": 36.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        5.009998,
+        5.061105428011632
+      ],
+      "samples": 199,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/252703:0",
+      "name": "",
+      "base": 5.8,
+      "roof": 16,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        8.854771428570132,
+        9.041471428568968
+      ],
+      "after": [
+        6.6711957939932525,
+        11.129883817001662
+      ],
+      "samples": 9,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/262368:0",
+      "name": "The Capitol",
+      "base": 5.7,
+      "roof": 24.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        8.869685714286106
+      ],
+      "after": [
+        5.009726369999997,
+        5.919078403500107
+      ],
+      "samples": 701,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/265305:0",
+      "name": "Club Galaxy",
+      "base": 4.4,
+      "roof": 22.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        4.499954,
+        7.493014285715049
+      ],
+      "after": [
+        4.499954,
+        7.493014285715049
+      ],
+      "samples": 1087,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/266868:0",
+      "name": "Wan Po Road Substation",
+      "base": 6.5,
+      "roof": 21.5,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        6.443378673998706,
+        6.5022525179955455
+      ],
+      "samples": 61,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/280137:0",
+      "name": "Manor Hill Tower 1",
+      "base": 5.9,
+      "roof": 129.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        6.485728571429263,
+        6.953400000000158
+      ],
+      "after": [
+        6.485728571429263,
+        6.953400000000158
+      ],
+      "samples": 13,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/280138:0",
+      "name": "",
+      "base": 5.9,
+      "roof": 14.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        6.83339999999987,
+        7.0038714285723245
+      ],
+      "after": [
+        6.5165662990051345,
+        7
+      ],
+      "samples": 85,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/280286:0",
+      "name": "Manor Hill Tower 2",
+      "base": 5.9,
+      "roof": 129.9,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        6.059578571428688,
+        6.582057142856399
+      ],
+      "after": [
+        6.059578571428688,
+        6.3161142857146615
+      ],
+      "samples": 34,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/285045:0",
+      "name": "Grand Montara",
+      "base": 38.3,
+      "roof": 217.10000000000002,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7.037614285714767
+      ],
+      "after": [
+        5.010019,
+        12.557331367000776
+      ],
+      "samples": 92,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/285124:0",
+      "name": "The LOHAS",
+      "base": 29.1,
+      "roof": 34.5,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        5.010070240000001,
+        7
+      ],
+      "samples": 11,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/285127:0",
+      "name": "",
+      "base": 11.7,
+      "roof": 15.899999999999999,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7.270071428570191,
+        7.3552000000008775
+      ],
+      "after": [
+        9.377948212997909,
+        12.606220399000344
+      ],
+      "samples": 11,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/296420:0",
+      "name": "",
+      "base": 6.5,
+      "roof": 15.5,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        6.282028571429805,
+        6.71971428571436
+      ],
+      "after": [
+        6.080935,
+        6.448185714286012
+      ],
+      "samples": 33,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/299778:0",
+      "name": "",
+      "base": 6.4,
+      "roof": 17.1,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7.078985764999721
+      ],
+      "after": [
+        7,
+        7.078985764999721
+      ],
+      "samples": 47,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/311673:0",
+      "name": "",
+      "base": 7.95,
+      "roof": 10.95,
+      "baseSource": "terrain-estimated",
+      "heightSource": "estimated",
+      "before": [
+        7.949714285713981,
+        8.331714285713815
+      ],
+      "after": [
+        5.003497963000526,
+        5.051485983999811
+      ],
+      "samples": 19,
+      "newFlags": [
+        "baseAbove"
+      ]
+    },
+    {
+      "uid": "landsd/324455:0",
+      "name": "Tseung Kwan O Depot",
+      "base": 5.2,
+      "roof": 17.1,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        5.233414285714787,
+        13.20655714285573
+      ],
+      "after": [
+        4.752235,
+        18.263592
+      ],
+      "samples": 434,
+      "newFlags": [
+        "roofBelow"
+      ]
+    },
+    {
+      "uid": "landsd/325290:0",
+      "name": "",
+      "base": 5.7,
+      "roof": 18.4,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7.471429,
+        7.568500369998936
+      ],
+      "after": [
+        7.471429,
+        7.568500369998936
+      ],
+      "samples": 9,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/333074:0",
+      "name": "The Lohas ",
+      "base": 13.1,
+      "roof": 28.6,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        5.5618000000017105,
+        7.8177857142856055
+      ],
+      "after": [
+        5.010019,
+        12.761600664007808
+      ],
+      "samples": 319,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/333075:0",
+      "name": "",
+      "base": 14,
+      "roof": 23.5,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        6.878842857142445,
+        7
+      ],
+      "after": [
+        6.878842857142445,
+        18.31262918399994
+      ],
+      "samples": 30,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/337916:0",
+      "name": "",
+      "base": 8.1,
+      "roof": 16.799999999999997,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7.339800000001162,
+        7.868328571429288
+      ],
+      "after": [
+        7.559383,
+        13.510189269005856
+      ],
+      "samples": 53,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/338025:0",
+      "name": "Icon Building",
+      "base": 7.6,
+      "roof": 14.3,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7.59272857142912,
+        8
+      ],
+      "after": [
+        7.518621812998625,
+        8
+      ],
+      "samples": 215,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/338861:0",
+      "name": "",
+      "base": 17.8,
+      "roof": 24.4,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        9.8211142857092
+      ],
+      "after": [
+        4.791131453499958,
+        5.802519149996629
+      ],
+      "samples": 57,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/338862:0",
+      "name": "",
+      "base": 17.8,
+      "roof": 22.8,
+      "baseSource": "landsd",
+      "heightSource": "landsd",
+      "before": [
+        7,
+        7
+      ],
+      "after": [
+        4.798398042999794,
+        6.1256078099927525
+      ],
+      "samples": 21,
+      "newFlags": []
+    },
+    {
+      "uid": "landsd/339345:0",
+      "name": "",
+      "base": 10.772,
+      "roof": 13.772,
+      "baseSource": "terrain-estimated",
+      "heightSource": "estimated",
+      "before": [
+        10.77238571429126,
+        27.18730714284692
+      ],
+      "after": [
+        8.980650275017064,
+        27.18730714284692
+      ],
+      "samples": 37,
+      "newFlags": []
+    }
+  ],
+  "publicationApproved": false
+}

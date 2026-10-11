@@ -10,8 +10,9 @@
 
 let ctx = null, master = null, muffle = null, layers = null, enabled = false;
 let masterVol = 0.6;
+const thunderSources = new Map();
 
-const AC = () => window.AudioContext || window.webkitAudioContext;
+const AC = () => globalThis.AudioContext || globalThis.webkitAudioContext;
 export const audioSupported = () => !!AC();
 
 // 2 s of looping white noise — the raw material for every ambient layer
@@ -43,7 +44,7 @@ function makeLayer(shape) {
 }
 
 export function initAudio() {          // must be called from a user gesture
-  if (ctx) { ctx.resume(); enabled = true; applyMaster(); return; }
+  if (ctx) { const resumed = resumeAudioContext(); enabled = true; applyMaster(); return resumed; }
   ctx = new (AC())();
   master = ctx.createGain(); master.gain.value = 0;      // faded in by applyMaster
   master.connect(ctx.destination);
@@ -71,6 +72,7 @@ export function initAudio() {          // must be called from a user gesture
   layers._waveLfo = lfo(layers.waves.gain, 0, 0, 0.125);
   enabled = true;
   applyMaster();
+  return resumeAudioContext();
 }
 
 function applyMaster() {
@@ -80,13 +82,63 @@ function applyMaster() {
 
 export function setEnabled(on) {
   enabled = on;
-  if (!ctx) { if (on) initAudio(); return; }
-  if (on) ctx.resume();
+  if (!ctx) { if (on) return initAudio(); return; }
+  const resumed = on ? resumeAudioContext() : undefined;
   applyMaster();                                        // fade instead of suspend: clean stop
+  return resumed;
 }
 export function isEnabled() { return enabled; }
 
-export function setMasterVolume(v) { masterVol = Math.max(0, Math.min(1, v)); applyMaster(); }
+export function setMasterVolume(v) { if (!Number.isFinite(v)) return; masterVol = Math.max(0, Math.min(1, v)); applyMaster(); }
+
+// HKS-169: optional lifecycle hooks for the city adapter. Existing callers retain
+// the same synthesis, levels and fade behaviour; only the adapter suspends/closes.
+function resumeAudioContext() {
+  const resumed = ctx.resume();
+  // Older original-game callers ignore the return value. Mark rejection handled,
+  // while returning the original promise so a gesture-aware UI can report it.
+  resumed?.catch(() => {});
+  return resumed;
+}
+function trackThunder(source, ...nodes) {
+  thunderSources.set(source, nodes);
+  source.onended = () => {
+    thunderSources.delete(source);
+    source.disconnect();
+    for (const node of nodes) node.disconnect();
+  };
+}
+export function cancelThunder() {
+  for (const [source, nodes] of thunderSources) {
+    source.onended = null;
+    try { source.stop(); } catch (_) {}
+    source.disconnect();
+    for (const node of nodes) node.disconnect();
+  }
+  thunderSources.clear();
+}
+export function suspendAudio() {
+  cancelThunder();
+  if (!ctx || ctx.state === 'closed') return Promise.resolve();
+  master.gain.cancelScheduledValues(ctx.currentTime);
+  master.gain.setValueAtTime(0, ctx.currentTime);
+  const suspended = ctx.suspend();
+  suspended?.catch(() => {});
+  return suspended;
+}
+export function getAudioState() {
+  return { supported: audioSupported(), initialised: !!ctx, contextState: ctx?.state || 'none',
+    enabled, masterVolume: masterVol, activeThunderSources: thunderSources.size };
+}
+export function disposeAudio() {
+  cancelThunder();
+  const previous = ctx;
+  ctx = null; master = null; muffle = null; layers = null; engine = null; ufoEng = null; enabled = false;
+  if (!previous || previous.state === 'closed') return Promise.resolve();
+  const closed = previous.close();
+  closed?.catch(() => {});
+  return closed;
+}
 
 // mix targets from the scene: { rain, wind, waves, fog } all 0..1-ish.
 // τ = 0.6 s crossfades so live/storm transitions breathe instead of stepping.
@@ -299,6 +351,7 @@ export function thunder(close, vol) {
   g.gain.exponentialRampToValueAtTime((close ? 0.9 : 0.35) * v, t0 + 0.07);
   g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
   src.connect(f); f.connect(g); g.connect(muffle);
+  trackThunder(src, f, g);
   src.start(t0); src.stop(t0 + dur + 0.1);
   if (close) {                                                  // the initial crack
     const c = ctx.createBufferSource(); c.buffer = src.buffer;
@@ -308,6 +361,7 @@ export function thunder(close, vol) {
     cg.gain.exponentialRampToValueAtTime(0.5 * v, t0 + 0.02);
     cg.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.35);
     c.connect(cf); cf.connect(cg); cg.connect(muffle);
+    trackThunder(c, cf, cg);
     c.start(t0); c.stop(t0 + 0.5);
   }
 }

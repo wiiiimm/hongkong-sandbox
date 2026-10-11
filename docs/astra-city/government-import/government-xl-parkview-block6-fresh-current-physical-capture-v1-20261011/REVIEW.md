@@ -1,0 +1,5 @@
+# Parkview Block6: fresh-current-physical-capture-v1
+
+Source-only evidence, unchanged provider geometry and current terrain. No live acceptance or installation. Current own body/host hashes and complete literal/explicit F32 attributes are bound. Explicit F32 arithmetic is not a universal GPU/camera guarantee. Exact current identity passes; strict whole-source foundation passes, 23 foreign forms checked and no neighbour flags. All five relevant retained native forms resolve their existing guards. The two raw warnings remain: ground-contact-unresolved and sampled-ground-gap-below-model-bottom. The numeric ground guard samples model low vertices against runtime captured rendered terrain; the whole-facet finite proof is separate.
+
+Remaining promotion requirements: independent root review of numerical role logic, fully bound current runtime/browser and publisher guards, and guarded installation with unchanged originals. Primary owner/contractor imagery supplies estate context only; exact fixture identity/function remains unknown.

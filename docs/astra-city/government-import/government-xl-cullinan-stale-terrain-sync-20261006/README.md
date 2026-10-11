@@ -1,0 +1,3 @@
+# Terminated Cullinan terrain attempt preserved
+
+Codex, 6 October 2026. Exact current source/native ownership and unchanged raw output hashes were checked under a fresh reservation. Verified Neon job `e7eba25b26b5cba8a51aa41411e6345bafb5d085984fe268e50f78a80e258d1c` records the terminated computation and precise manifest change. All outputs remain historical diagnostics; no previous check is promoted as current acceptance, and a complete fresh recheck is required before publication. Zero installations, zero source geometry edits or model AI calls. The original failed folder is preserved unchanged.

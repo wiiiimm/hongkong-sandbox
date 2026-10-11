@@ -1,0 +1,73 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/landmark-pass/publication-plan.json",
+  "areas": [
+    {
+      "area": "Named landmark upgrades",
+      "models": 59,
+      "catalogue": "city/data/official-models/landmark-pass/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": [
+        {
+          "bundle": "source-scripts/city/landmark-pass/taio-terrain-replacement.json",
+          "oldChildId": "tai-o-source-refinement-2",
+          "oldChildSha256": "c306901990e36a33b4231ef8e57222455d541d0cb49d367b7e105a89d2acf17d"
+        }
+      ]
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-ngong-ping.json": null,
+    "3d-viewer/city/data/official-models/landmark-pass/catalogue.json": null,
+    "3d-viewer/city/data/terrain-tai-o.json": "f1ddfdb96c1403fc63a9eabb998620f85c7d0390bbb89b1f5f55500e39387160",
+    "3d-viewer/city/data/tiles/-16_1.json": "808f4745cbbdb7963d55d8aafb08fea28ea4b86bc494f5bf2adebb0c8a6dc538",
+    "3d-viewer/city/data/manifest.json": "5199c1f7443af8b158f479c56851f48732eec39c146a65c0b27a13d3365c87e6",
+    "3d-viewer/city/data/catalogue.json": "82afa4b86eaa15c9b0bcd1380f9010a804b4030a3c0b661c7e29a731587abff3"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-ngong-ping.json": "a3e51405b2a2aec526c22da29c72e395f7d943c4f4f360ffb54d874d3962a620",
+    "3d-viewer/city/data/official-models/landmark-pass/catalogue.json": "8e0fa82d6079295dd29a7d619207b96dec3f92c3d5984c4a911cfa870392a6bb",
+    "3d-viewer/city/data/terrain-tai-o.json": "b6246e0adab984a9acf22d77fdd0139b142b1b82d68b82451f25678437ac04fb",
+    "3d-viewer/city/data/tiles/-16_1.json": "0f80627755783ebbd77c58c26a1a7aa91e2c82a9dc023d5b69910bd9fbcc3eca",
+    "3d-viewer/city/data/manifest.json": "2152577f0092009485305faf12e911ae74f28375dcdbb56946595cafe0de4f3f",
+    "3d-viewer/city/data/catalogue.json": "784013b5f9c60c53bb649293a45dbd69f4a4fcfef3d4d2480957a2bd5bf6e97d"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "df11cd699475ee25383b6c3fc71fc03e54a37667",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-ngong-ping.json",
+      "resolution": 5,
+      "area": "Ngong Ping landmarks",
+      "source": {
+        "provider": "Lands Department / Hong Kong SAR Government",
+        "url": "https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip",
+        "file": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+        "sha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+        "nativeCellSize": 5,
+        "crs": "EPSG:2326",
+        "verticalDatum": "HKPD",
+        "note": "Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ."
+      },
+      "sha256": "a3e51405b2a2aec526c22da29c72e395f7d943c4f4f360ffb54d874d3962a620",
+      "bytes": 1797459
+    }
+  ],
+  "estimatedBases": [
+    {
+      "uid": "landsd/240278:0",
+      "before": 11.617,
+      "after": 4.184
+    }
+  ]
+}

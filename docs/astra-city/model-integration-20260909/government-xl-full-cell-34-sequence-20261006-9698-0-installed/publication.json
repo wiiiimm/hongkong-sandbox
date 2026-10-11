@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-full-cell-34-sequence-20261006-9698-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "Royal Green Tower 2 original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-full-cell-34-sequence-20261006-9698-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-9698-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-full-cell-34-sequence-20261006-9698-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "4cef3d065514011d10611e40e5271470bc80ee56d5fdf932fcdf21df219e8d9e"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-9698-0.json": "5f272e61b896562e5fb8e9f356d84d77bed79ff1440b54c5ded66057c1fc91d3",
+    "3d-viewer/city/data/official-models/government-xl-full-cell-34-sequence-20261006-9698-0-installed/catalogue.json": "3feaee1ae188952e4d97dd3b383b71e47ce71c6158ce89d20922aa5879e68800",
+    "3d-viewer/city/data/manifest.json": "62bc1dc67ef412334cc136b1b592c61fa2bbd0ff043f65532853b01ea592088c"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "38b015bcada6d014fdd76854aed91738640433cb",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-9698-0.json",
+      "resolution": 5,
+      "area": "Royal Green Tower 2 unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "143150903023f8678d00ac96390fcf9901af524ac6e8645a0b84dc157b936fe1",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "3-SW-11B",
+            "sourceETag": "\"260a004-63dcf8d4804a1\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-ching-hin-house-terrain-continuation-v2-20261005/sheets/3-SW-11B/terrain/TERRAIN(TB)/T30750390000106E10/T30750390000106E10.bin",
+                "sha256": "7bd0ae26f6511c9cfeb183cdca7e5798002fa3620333174af72a89ca753ffdb4"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-ching-hin-house-terrain-continuation-v2-20261005/sheets/3-SW-11B/terrain/TERRAIN(TB)/T30750390000106E10/T30750390000106E10.gltf",
+                "sha256": "6bb73fede1a367d794501957dea815e12c794e85b1e5f03e64dadea094e189ec"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "5f272e61b896562e5fb8e9f356d84d77bed79ff1440b54c5ded66057c1fc91d3",
+      "bytes": 816157
+    }
+  ],
+  "estimatedBases": []
+}

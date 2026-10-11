@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 94, in <module>
+    try:walk(data)
+        ^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 83, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 83, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 83, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 85, in walk
+    for i,c in enumerate(v):walk(c,pointer+"/"+str(i))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 83, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 83, in walk
+    else:walk(c,pointer+"/"+str(k).replace("~","~0").replace("/","~1"))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 78, in walk
+    else:check(v['path'],v['sha256'])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py", line 54, in check
+    assert p.is_file(),rel
+           ^^^^^^^^^^^
+AssertionError: source-scripts/city/landmark-identity-followup/reference-cache/oakhill.html
+Traceback (most recent call last):
+  File "/tmp/root-close-lippo-exact-pending-resume-20261011.py", line 14, in <module>
+    subprocess.run([sys.executable,str(ROOT/'source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py'),str(payload),str(out)],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/verify_lippo_closed_model_checkpoint_typed_embedded_v6_20261011.py', '/tmp/xl-lippo-exact-pending-additive-resume-root-verification-input-v2-20261011.json', '/tmp/xl-lippo-exact-pending-additive-resume-root-verified-20261011.json']' returned non-zero exit status 1.

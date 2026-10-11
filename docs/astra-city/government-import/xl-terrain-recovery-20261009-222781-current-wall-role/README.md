@@ -1,0 +1,7 @@
+# Source-bound current authored wall role
+
+UID `landsd/222781:0`. This immutable replay has verified authored open wall roles for exactly 14 original terrain-crossing walls across the complete 11,598-face source, all ordinary/upward/degenerate faces strict. Four original winding conflicts remain; no closed-body certification. Fresh current identity, exact original source streams/provider receipts/current ground, all 96 neighbours and all 6,590 native original bounds are hash-bound. Original model bytes/root/elevation are unchanged.
+
+Neon verified job: `8f1b4607177063bf92f9e83a9ecb7e6b1ec1aa5537477f804c14761c4eff8fbd`. `typed-role.json.gz` and `result.json` preserve raw clearance and cached bottom warnings and contain no unresolved independent physical failures. Complete strict foundation is asserted separately; whole-source-foundation is never an eligible wall-role exception. A cached bottom warning resolves only if absent from fresh numeric failures, present in cached validation and all strict current rim/sampler/whole-foundation checks pass. No installation or publication is claimed here.
+
+Deterministic readonly recheck callable: `source-scripts/city/government-import/xl-terrain-recovery-20261009-222781-current-wall-role.py::recheck()`. It validates current artefact hashes and source bindings and rejects stale source/manifest/tile/native/ground contexts. The staged adapter calls it before and after desktop/mobile browser checks; guarded live publication must call it again immediately before apply.

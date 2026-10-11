@@ -1,0 +1,30 @@
+"""DRAFT unchanged originals + captured actual ground + all saved783 failures, visual only."""
+from pathlib import Path
+import json,numpy as np,matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib.collections import PolyCollection
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from run import ROOT,HERE,read,save,digest,connect
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+B=ROOT/'docs/astra-city/government-import';OLD=B/'government-xl-mongkok-stadium-complete-original-far-extent-body-attribution-v1-20261011';FINITE=B/'government-xl-mongkok-stadium240332-complete-current-finite-ground-diagnostic-v1-20261011';ATTR=B/'government-xl-mongkok-stadium240332-buried-original-body-plane-attribution-v1-20261011';CAP=B/'government-xl-mongkok-stadium240332-complete-current-ground-capture-v1-20261011';DOC=B/'government-xl-mongkok-stadium240332-original-buried-groups-current-ground-context-v1-20261011'
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+ assert not DOC.exists();refs=[]
+ for folder in [OLD,FINITE,CAP]:
+  r=read(folder/'result.json')
+  with connect()as c:
+   c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r)
+  for e in r['evidenceRefs']:assert ref(ROOT/e['path'])==e
+  refs.append(ref(folder/'result.json'))
+ o=read(OLD/'diagnostic.json.gz');d=read(FINITE/'diagnostic.json.gz');a=read(ATTR/'diagnostic.json.gz');asset=ROOT/o['source']['path'];assert ref(asset)==o['source'];tri=decode_original_world_triangles(asset.read_bytes());assert tri.shape==(15456,3,3)and digest(tri.tobytes())==o['completeOriginalWorldSHA256'];runtime=HERE/'local'/CAP.name/'runtime-geometry.json.gz';rt=next(r for r in read(runtime)['rows']if r['uid']=='landsd/240332:0');ground=np.asarray(rt['drawnGroundGeometry'],float).reshape(-1,3,3);assert len(ground)==217 and digest(ground.tobytes())==d['completeActualCurrentGroundSHA256'];failed=d['allDistinctWholeSourceFiniteProofs'][d['allFourStreamBindings']['original']['proofTupleSHA256']]['ordinaryFailingSourceFaces'];assert len(failed)==783;horizontal=[i for i in failed if a['all15456OriginalLiteralPlaneProfiles'][i]['literalPlaneClass']=='horizontal-up'];assert len(horizontal)==34;colors=[(.55,.65,.75,.13)]*15456
+ for i in failed:colors[i]=(1,.1,.15,.98)
+ for i in horizontal:colors[i]=(.05,.2,1,1)
+ bounds=np.concatenate([tri,ground]);lo=bounds.min((0,1));hi=bounds.max((0,1));DOC.mkdir();outputs=[]
+ for cropped in [False,True]:
+  fig,ax=plt.subplots(figsize=(9,8),dpi=200);ax.add_collection(PolyCollection(ground[:,:,[0,2]],facecolors='tan',edgecolors='brown',linewidths=.35,alpha=.28));ax.add_collection(PolyCollection(tri[:,:,[0,2]],facecolors=colors,edgecolors='none'));ax.add_collection(PolyCollection(tri[horizontal][:,:,[0,2]],facecolors='blue',edgecolors='blue',linewidths=.35));ax.set_xlim(lo[0],hi[0]);ax.set_ylim(hi[2],lo[2]);ax.set_aspect('equal');ax.set_xlabel('Original viewerX / East(m)');ax.set_ylabel('Original viewerZ / North decreasesZ');ax.set_title('Unchanged originals: red=783 saved ordinary failures; blue=34 horizontal-up\nTan=complete217 captured actual-ground facets; '+('LOWER11/12/13 CROP'if cropped else'full source/ground bounds'))
+  if cropped:ax.set_xlim(1323,1341);ax.set_ylim(-4331,-4342)
+  name='original-buried-lower11-13-crop-plan.png'if cropped else'original-buried-complete-plan.png';fig.tight_layout();fig.savefig(DOC/name);plt.close(fig);outputs.append(dict(**ref(DOC/name),width=1800,height=1600,all15456OriginalFacetsSubmitted=True,all217GroundFacetsSubmitted=True,detailCrop=cropped))
+ fig=plt.figure(figsize=(10,8),dpi=200);ax=fig.add_subplot(111,projection='3d');ax.add_collection3d(Poly3DCollection(ground[:,:,[0,2,1]],facecolors='tan',edgecolors='brown',linewidths=.2,alpha=.25));ax.add_collection3d(Poly3DCollection(tri[:,:,[0,2,1]],facecolors=colors,edgecolors='none'));ax.set_xlim(lo[0],hi[0]);ax.set_ylim(lo[2],hi[2]);ax.set_zlim(lo[1],hi[1]);ax.set_box_aspect([hi[0]-lo[0],hi[2]-lo[2],hi[1]-lo[1]]);ax.view_init(elev=22,azim=-60);ax.set_xlabel('OriginalX');ax.set_ylabel('OriginalZ');ax.set_zlabel('OriginalY / HKPD(m)');ax.set_title('Complete unchanged source and actual captured217ground\nRed783 buried-finite failures/blue34 horizontal-up: function/intent unresolved');name='original-buried-complete-3d--60.png';fig.tight_layout();fig.savefig(DOC/name);plt.close(fig);outputs.append(dict(**ref(DOC/name),width=2000,height=1600,all15456OriginalFacetsSubmitted=True,all217GroundFacetsSubmitted=True,completeWholeSceneAxes=True,occlusionNotCertified=True))
+ refs.extend(ref(p)for p in [Path(__file__),asset,runtime,OLD/'diagnostic.json.gz',FINITE/'diagnostic.json.gz',ATTR/'diagnostic.json.gz',HERE/'exact_packed_world_geometry_20261009.py']);assert all(ref(ROOT/r['path'])==r for r in refs);save(DOC/'context.json',dict(uid='landsd/240332:0',completeOriginalFaces=15456,completeCapturedCurrentGroundFaces=217,completeCapturedCurrentGroundSHA256=d['completeActualCurrentGroundSHA256'],all783OriginalFailingFaces=failed,all34OriginalHorizontalUpFailingFaces=horizontal,outputs=outputs,sourceOnly=True,currentAcceptance=False,architectureRoleAccepted=False,foundationIntentInferred=False,gradeRootCredit=False,geometryChanges=0,pixelWarp=False,qualification='Diagnostic colors on unchanged original source and full captured actual ground only. Saved ordinary failures, literal original planes and gross stand/frontage arrangement are visible for source interpretation, not a physical proof or foundation/visible-surface function classification. Every source face and ground facet submitted; lower panel is explicitly cropped, 3D occlusion not certified. No new photograph research, height fitting, surface normal edits, threshold waiver or source role/root/current acceptance.',evidenceRefs=refs));print(json.dumps(dict(outputs=len(outputs),originalFacets=15456,actualGroundFacets=217,failedOriginalFaces=783,currentAcceptance=False)))
+if __name__=='__main__':main()

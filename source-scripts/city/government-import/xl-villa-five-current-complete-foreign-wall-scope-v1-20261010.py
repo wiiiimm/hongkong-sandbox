@@ -1,0 +1,58 @@
+"""Every current third-party basic form and native whole-source bound, no omission.
+
+The mandatory five literal originals keep all authored pair intersections;
+this foreign proof supplies no shared legal ownership, physical or install credit.
+"""
+import importlib.util,json,numpy as np
+from pathlib import Path
+from shapely.geometry import Polygon,LineString,Point
+from shapely.ops import unary_union
+from run import ROOT,HERE,read,save,digest
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from exact_original_shell_intersections_20261009 import rational_face,intersection_points
+from exact_original_component_contacts_20261009 import contact_measure
+BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-villa-five-current-complete-foreign-wall-scope-v1-20261010';DOC=BASE/BATCH;PHYSICAL=BASE/'government-xl-villa-five-original-coupled-physical-v3-20261010';WALL=BASE/'government-xl-villa-five-original-and-rendered-finite-wall-contexts-v3-20261010';RUNTIME=HERE/'local'/PHYSICAL.name/'runtime-geometry.json.gz';UIDS={'landsd/'+str(i)+':0' for i in [89917,58497,63823,121309,148052]}
+def canonical(v):return digest(json.dumps(v,sort_keys=True,separators=(',',':'),allow_nan=False).encode())
+def main():
+ assert not DOC.exists();manifest_path=ROOT/'3d-viewer/city/data/manifest.json';manifest=read(manifest_path);s=read(PHYSICAL/'selection.json.gz');assert digest(manifest_path.read_bytes())==s['manifestSHA256'];rows={r['uid']:r for r in s['rows']};assert set(rows)==UIDS;runtime={r['uid']:r for r in read(RUNTIME)['rows']};assert set(runtime)==UIDS;wall=read(WALL/'diagnostic.json.gz');source={};rendered={};affected={};pieces=[];sourcepins=[];refs=[Path(__file__),manifest_path,PHYSICAL/'selection.json.gz',PHYSICAL/'result.json',PHYSICAL/'neighbour-inputs.json.gz',RUNTIME,WALL/'result.json',WALL/'diagnostic.json.gz'];own=[]
+ for uid,row in rows.items():
+  asset=ROOT/row['candidate']['path'];raw=asset.read_bytes();assert digest(raw)==row['sourceSHA256'];source[uid]=decode_original_world_triangles(raw);r=runtime[uid];rendered[uid]=np.asarray(r['position']).reshape(-1,3)[np.asarray(r['index']).reshape(-1,3)];assert len(source[uid])==len(rendered[uid]);proof=next(x for x in wall['rows'] if x['uid']==uid);a,b=proof['completeOriginal'],proof['actualRendered'];assert not a['unresolvedWallConditions'] and not b['unresolvedWallConditions'] and not a['buriedUpwardFaces'] and not b['buriedUpwardFaces'];ids=a['affectedFaces'];assert ids==b['affectedFaces'];affected[uid]=ids
+  for mode,tri in [('source',source[uid]),('actualRendered',rendered[uid])]:
+   for f in tri[ids]:
+    xz=f[:,[0,2]];poly=Polygon(xz);pieces.append(poly if poly.area else LineString(xz) if len(set(map(tuple,xz)))>1 else Point(xz[0]))
+  own.append({'uid':uid,'sourceSHA256':row['sourceSHA256'],'completeOriginalFaces':len(source[uid]),'completeOriginalWorldSHA256':digest(source[uid].tobytes()),'completeActualRenderedWorldSHA256':digest(rendered[uid].tobytes()),'allAffectedOriginalWalls':ids});refs.append(asset)
+ projection=unary_union(pieces);inputs=read(PHYSICAL/'neighbour-inputs.json.gz');assert set(inputs['candidateIds'])==UIDS;current_forms={}
+ for path,pinned in inputs['inputHashes'].items():
+  tile=ROOT/path;assert digest(tile.read_bytes())==pinned;current_forms.update({r['uid']:r for r in read(tile)['buildings']});refs.append(tile)
+ basics=[];scope=set();retained=[]
+ for r in inputs['rows']:
+  b=r['building'];uid=b['uid'];assert uid not in scope and current_forms[uid]==b;scope.add(uid)
+  if uid in UIDS:continue
+  if r['existingNative']:
+   retained.append({'uid':uid,'completeActualCurrentForm':b,'currentFormSHA256':canonical(b),'requiresCompleteNativeCatalogueBounds':True});continue
+  assert not b.get('modelGeometry'),'Complete runtime foreign export required';poly=Polygon(b['rings'][0],b['rings'][1:]);assert poly.is_valid and poly.area>0;disjoint=poly.disjoint(projection)
+  basics.append({'uid':uid,'completeActualCurrentForm':b,'currentFormSHA256':canonical(b),'completeFootprintStrictlyDisjointFromEveryOriginalAndRenderedWall':disjoint,'requiresCompleteActualForeignMesh':not disjoint,'distanceM':poly.distance(projection)})
+ assert UIDS.issubset(scope);bounds=[];touch=[];walls=np.concatenate([tri[affected[uid]] for uid in rows for tri in [source[uid],rendered[uid]]])
+ for url in manifest['officialModelCatalogues']:
+  cat=ROOT/'3d-viewer'/url;refs.append(cat)
+  for e in read(cat)['models']:
+   b=np.asarray(e['worldBounds'],float);assert b.shape==(2,3) and np.isfinite(b).all() and np.all(b[1]>=b[0]) and e['sha256'];assert e['uid'] not in UIDS,'Mandatory original already installed; capture refresh required';hit=any(not(np.any(b[0]>f.max(0)) or np.any(b[1]<f.min(0))) for f in walls);bounds.append({'uid':e['uid'],'catalogue':url,'sourceSHA256':e['sha256'],'completeWholeSourceBounds':b.tolist(),'strictlyDisjointFromEveryOriginalAndRenderedCrossingWall':not hit})
+   if hit:touch.append(e['uid'])
+ assert {r['uid'] for r in retained}.issubset({r['uid'] for r in bounds}),'Missing retained native actor bounds'
+ mutual=[];mutual_trials=[]
+ for wall_mode,wall_streams in [('source',source),('literalRendered',rendered)]:
+  for uid,tri in wall_streams.items():
+   for other_mode,other_streams in [('source',source),('literalRendered',rendered)]:
+    for other,mesh in other_streams.items():
+     if uid==other:continue
+     lo=mesh.min(1);hi=mesh.max(1);pairs=0;hits=0
+     for i in affected[uid]:
+      face=tri[i];ids=np.flatnonzero(np.all(hi>=face.min(0),axis=1)&np.all(lo<=face.max(0),axis=1));pairs+=len(ids)
+      for j in ids:
+       points=intersection_points(rational_face(face),rational_face(mesh[j]))
+       if points:
+        hits+=1;mutual.append({'wallRepresentation':wall_mode,'otherRepresentation':other_mode,'sourceUID':uid,'otherSourceUID':other,'originalWallFace':i,'otherOriginalFace':int(j),'exactAuthoredIntersectionPoints':[[str(v) for v in p] for p in sorted(points)],'exactDimension':contact_measure(points)['dimension'],'sourceGeometryChanges':0,'thirdPartyForeignExemption':False,'physicalCollisionAcceptanceClaimed':False})
+     mutual_trials.append({'wallUID':uid,'otherOriginalUID':other,'wallRepresentation':wall_mode,'otherRepresentation':other_mode,'wholeOtherOriginalFaces':len(mesh),'allWallFaces':affected[uid],'completeWallWorldSHA256':digest(tri.tobytes()),'completeOtherWorldSHA256':digest(mesh.tobytes()),'completeClosedAABBCandidatePairs':pairs,'exactFiniteIntersections':hits})
+ all_clear=not touch and not mutual and all(b['completeFootprintStrictlyDisjointFromEveryOriginalAndRenderedWall'] for b in basics)
+ save(DOC/'diagnostic.json.gz',{'manifestSHA256':s['manifestSHA256'],'mandatoryCompleteImportedOriginals':own,'completeCurrentNeighbourScopeUIDs':sorted(scope),'completeActualForeignBasicForms':basics,'completeCurrentNativeWholeSourceBounds':bounds,'retainedCurrentNativeFormsIndependentlyWholeBoundChecked':retained,'allCurrentNativeCatalogueEntries':len(bounds),'allCurrentForeignBasicForms':len(basics),'foreignNativeBoundsTouchingWalls':touch,'allThirdPartyForeignSourceAndRenderedCrossingWallsClear':all_clear,'allExactSourceAuthoredMutualWallIntersectionsRetained':mutual,'allProposedOtherOriginalSourceAndLiteralWorldWallTrials':mutual_trials,'everyOtherProposedOriginalCheckedAsForeignForCreditedWalls':True,'completeOriginalAndRenderedWallProjectionWKT':projection.wkt,'sourceGeometryChanges':0,'physicalAccepted':False,'installationApproved':False,'qualification':'Complete five unchanged government originals. Every current basic footprint and current native whole-source bound is examined against every original and actual graded wall. Every other proposed original is independently tested in all four source/rendered combinations. Any closed footprint touch, native bound touch or exact mutual intersection remains an unresolved diagnostic and grants no collision exemption. No geometry, identity, support or installation credit.'});assert digest(manifest_path.read_bytes())==s['manifestSHA256'];sp=importlib.util.spec_from_file_location('foreign_fence',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(sp);sp.loader.exec_module(m);m.freeze(BATCH,'mandatory-complete-original-assembly-all-current-foreign-crossing-wall-scope-v1',refs,{'uids':sorted(UIDS),'currentNativeCatalogueBounds':len(bounds),'currentForeignBasicForms':len(basics),'allThirdPartyForeignWallsClear':all_clear,'allAuthoredMutualWallIntersectionsRetained':len(mutual),'physicalAccepted':False,'installationApproved':False});print({'foreignBasics':len(basics),'allNativeBounds':len(bounds),'authoredMutualWallIntersections':len(mutual),'allForeignClear':all_clear,'basicFootprintsRequiringActualMesh':[b['uid'] for b in basics if b['requiresCompleteActualForeignMesh']],'nativeBoundsRequiringActualMesh':touch},flush=True)
+if __name__=='__main__':main()

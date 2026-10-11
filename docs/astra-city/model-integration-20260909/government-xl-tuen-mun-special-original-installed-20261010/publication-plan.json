@@ -1,0 +1,96 @@
+{
+  "published": false,
+  "plan": "docs/astra-city/government-import/government-xl-tuen-mun-special-original-installed-20261010/atomic-plan.json",
+  "areas": [
+    {
+      "area": "Tuen Mun Hospital unchanged original Special Block",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-tuen-mun-special-original-stage-20261010/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-191896-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-tuen-mun-special-original-stage-20261010/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "28c050db0aa70ab376e25b556a9c42ad3703a666d3aa9f9432cb82d2471b3ee7"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-191896-0.json": "5b7012db653c433cb43bb94a4f5456f3b1eb8e12ca0e894fa1b9905e2ba4e76f",
+    "3d-viewer/city/data/official-models/government-xl-tuen-mun-special-original-stage-20261010/catalogue.json": "8b964b357b6ccae290982930db0689ce6c84207f3c6a9f930094413b80349de8",
+    "3d-viewer/city/data/manifest.json": "55abaf316152f692bd50dca315e0ee6444638a58375b58ff65877a80ed5d84dd"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "0d66ea8d7b50c0817e81a967194352e2b144143c",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-190440-0.json",
+      "sha256": "4b17a180bb5736e209ad524b548b06633c63a2288832e386b84bdb5055eb1cd5",
+      "oldAssetRetained": true
+    },
+    {
+      "url": "city/data/government-native-222781-0.json",
+      "sha256": "c8624c9c91a9b9a54a570301f6af66c901ed219e9a34cf73611d6f79a87a7bae",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-191896-0.json",
+      "resolution": 5,
+      "area": "Tuen Mun Hospital unchanged original Special Block indexed original terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "f9acaac4c7bc79ebab549b8e186f3d9a046e5c99c3420d8a085600352bea516f",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "6-SW-1A",
+            "sourceETag": "\"3e8b1b9-63dd0aedfb356\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-sustained-131-20261006-190916-0/sheets/6-SW-1A/terrain/TERRAIN(TB)/T15000294000106E10/T15000294000106E10.bin",
+                "sha256": "674aca7e3accec4e38fd2f62b66fefd4a3ed408feafa0f9e836a163848acba64"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-sustained-131-20261006-190916-0/sheets/6-SW-1A/terrain/TERRAIN(TB)/T15000294000106E10/T15000294000106E10.gltf",
+                "sha256": "748604cd34ec9e5016496af25fa87e90e65c6e119a33bb07a8a712433547ca20"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 19503,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "5b7012db653c433cb43bb94a4f5456f3b1eb8e12ca0e894fa1b9905e2ba4e76f",
+      "bytes": 8148210
+    }
+  ],
+  "explicitPluralNativeReplacementReviews": [
+    {
+      "path": "docs/astra-city/government-import/government-xl-tuen-mun-special-original-stage-20261010/native-replacement-review-190440-0.json",
+      "sha256": "b1fc6a07b51696f92db29e650d7e10ef7572e308311853e39ebc0913ecae1a22"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-tuen-mun-special-original-stage-20261010/native-replacement-review-222781-0.json",
+      "sha256": "e1d5b8f4ffe11c473f495e1f8c627fcd4ea352ed39ba3b1402e2be2fbd7228ec"
+    }
+  ],
+  "estimatedBases": []
+}

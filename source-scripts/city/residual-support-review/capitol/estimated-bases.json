@@ -1,0 +1,49 @@
+{
+  "issue": "HKS-214",
+  "parentSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+  "refinementSha256": "8713afcc11298e4125254ab255fd43243dc9b00dc44b3cbcf3eb9e033ebbcb17",
+  "terrainSource": "source-scripts/city/residual-support-review/capitol/terrain.json",
+  "buildings": [
+    {
+      "uid": "landsd/109723:0",
+      "objectId": 109723,
+      "buildingCSUID": "4607017412T20090723",
+      "baseSource": "terrain-estimated",
+      "previousBase": 7.0,
+      "height": 3.0,
+      "base": 5.01,
+      "terrain": {
+        "min": 5.01,
+        "max": 5.929,
+        "centre": 5.845,
+        "method": "Exact extrema at footprint/1 m terrain triangle intersections"
+      },
+      "sourceFieldsPreserved": {
+        "baseHeightHKPD": null,
+        "topHeightHKPD": null
+      },
+      "policy": "Unsurveyed 3m canopy retains its estimated height. Base uses the exact minimum of the source footprint intersected with final terrain triangles, preventing floating posts. This remains an explicit estimate, not a survey."
+    },
+    {
+      "uid": "landsd/311673:0",
+      "objectId": 311673,
+      "buildingCSUID": "4606217579T20240314",
+      "baseSource": "terrain-estimated",
+      "previousBase": 7.95,
+      "height": 3.0,
+      "base": 5.003,
+      "terrain": {
+        "min": 5.003,
+        "max": 5.051,
+        "centre": 5.033,
+        "method": "Exact extrema at footprint/1 m terrain triangle intersections"
+      },
+      "sourceFieldsPreserved": {
+        "baseHeightHKPD": null,
+        "topHeightHKPD": null
+      },
+      "policy": "Unsurveyed 3m canopy retains its estimated height. Base uses the exact minimum of the source footprint intersected with final terrain triangles, preventing floating posts. This remains an explicit estimate, not a survey."
+    }
+  ],
+  "published": false
+}

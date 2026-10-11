@@ -1,0 +1,24 @@
+/** Pin the actual unchanged renderer podium and complete current drawn ground. */
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {gunzipSync,gzipSync} from 'node:zlib';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import * as THREE from '../../../3d-viewer/vendor/three.module.js';
+import {createBuildingGeometry} from '../../../3d-viewer/city/building-geometry.js';
+import {makeTerrain} from '../../../3d-viewer/city/world.js';
+const root=new URL('../../../',import.meta.url),hash=b=>createHash('sha256').update(b).digest('hex'),inputHashes={};
+const read=p=>{const bytes=readFileSync(new URL(p,root));inputHashes[p]=hash(bytes);return JSON.parse(p.endsWith('.gz')?gunzipSync(bytes):bytes);};
+const dir='docs/astra-city/government-import/government-xl-miami-three-current-rendered-podium-20261009/';mkdirSync(new URL(dir,root),{recursive:true});assert(!(()=>{try{readFileSync(new URL(dir+'result.json',root));return true;}catch{return false;}})());
+const manifest=read('3d-viewer/city/data/manifest.json'),tile='3d-viewer/city/data/tiles/-10_-5.json',building=read(tile).buildings.find(b=>b.uid==='landsd/232089:0');assert(building&&building.buildingCSUID==='1484725876P20060311');
+const wanted=new Set(['landsd/202599:0','landsd/203438:0','landsd/203441:0']);
+const sourceRows=read('docs/astra-city/government-import/government-xl-miami-fourteen-original-current-diagnostic-20261009/complete-fourteen-original-contact-inputs.json.gz').rows.filter(r=>wanted.has(r.uid));assert.equal(sourceRows.length,3);
+const g=createBuildingGeometry(building),body={position:Array.from(g.attributes.position.array),index:g.index?Array.from(g.index.array):Array.from({length:g.attributes.position.count},(_,i)=>i)};g.dispose();
+const data=read('3d-viewer/city/data/terrain.json');data.patches=(manifest.terrainPatches||[]).map(p=>read('3d-viewer/'+p.url));const ground=makeTerrain(data);ground.updateMatrixWorld(true);
+const bounds=sourceRows.map(r=>r.worldBounds);bounds.push([[Math.min(...body.position.filter((_,i)=>i%3===0)),0,Math.min(...body.position.filter((_,i)=>i%3===2))],[Math.max(...body.position.filter((_,i)=>i%3===0)),0,Math.max(...body.position.filter((_,i)=>i%3===2))]]);
+const lo=[Math.min(...bounds.map(b=>b[0][0]))-1,Math.min(...bounds.map(b=>b[0][2]))-1],hi=[Math.max(...bounds.map(b=>b[1][0]))+1,Math.max(...bounds.map(b=>b[1][2]))+1],positions=[],identity=new THREE.Matrix4();
+ground.traverse(mesh=>{if(!mesh.isMesh)return;assert(mesh.matrixWorld.equals(identity));const p=mesh.geometry.attributes.position,idx=mesh.geometry.index,n=idx?.count??p.count;for(let i=0;i<n;i+=3){const ids=[0,1,2].map(k=>idx?idx.getX(i+k):i+k),v=ids.map(j=>[p.getX(j),p.getY(j),p.getZ(j)]);if(Math.max(...v.map(q=>q[0]))<lo[0]||Math.min(...v.map(q=>q[0]))>hi[0]||Math.max(...v.map(q=>q[2]))<lo[1]||Math.min(...v.map(q=>q[2]))>hi[1])continue;positions.push(...v.flat());}});
+ground.traverse(o=>{o.geometry?.dispose();for(const m of [].concat(o.material||[]))m.dispose();});
+for(const p of ['3d-viewer/city/building-geometry.js','3d-viewer/city/world.js','3d-viewer/city/geo.js','3d-viewer/city/terrain-patch-index.js','3d-viewer/city/native-terrain.js','3d-viewer/city/rendered-patch-height.js','source-scripts/city/government-import/xl-miami-three-current-podium-inputs-20261009.mjs'])inputHashes[p]=hash(readFileSync(new URL(p,root)));
+for(const [p,h] of Object.entries(inputHashes))assert.equal(hash(readFileSync(new URL(p,root))),h,p);
+writeFileSync(new URL(dir+'complete-current-rendered-podium-inputs.json.gz',root),gzipSync(JSON.stringify({currentForm:building,currentRendererBody:body,currentRendererPositionFloat32SHA256:hash(Buffer.from(new Float32Array(body.position).buffer)),rows:sourceRows,drawnGroundGeometry:{position:positions,index:Array.from({length:positions.length/3},(_,i)=>i),worldTriangleSHA256:hash(Buffer.from(new Float64Array(positions).buffer))},inputHashes,sourceGeometryChanges:0,currentActorChanges:0,physicalSupportApproval:false})));
+console.log(JSON.stringify({currentPodiumFaces:body.index.length/3,completeDrawnGroundFaces:positions.length/9,uids:[...wanted],publication:false}));

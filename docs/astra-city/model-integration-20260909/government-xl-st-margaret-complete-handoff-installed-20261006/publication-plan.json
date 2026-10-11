@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-st-margaret-complete-handoff-installed-20261006/plan.json",
+  "areas": [
+    {
+      "area": "St. Margaret's Co-educational English Secondary and Primary School original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-st-margaret-complete-handoff-installed-20261006/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-99395-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-st-margaret-complete-handoff-installed-20261006/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "18c058d525038ed6f609aef25dcb6a574f65e3bc515e11f6eef84f94cad8b3bd"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-99395-0.json": "6bd72a4d4050ec450f4ca4cfe83c5b824baddf093c5d678580d96b6f34075070",
+    "3d-viewer/city/data/official-models/government-xl-st-margaret-complete-handoff-installed-20261006/catalogue.json": "51edabc54a206b6cd7f1042727090b79db380311cc9fd589909fbfbe5e93b5ea",
+    "3d-viewer/city/data/manifest.json": "49d1ebc175e3fa2e1ece9033fab9dfbdb3117113999bf81aa66e674957260de6"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "b194bf100ff7f0f6ddd140cc863428b10b549f10",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-99395-0.json",
+      "resolution": 5,
+      "area": "St. Margaret's Co-educational English Secondary and Primary School unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "3653f1d144f144c9e48909d5850b8168b9f4ad1f01f879e12138f66b6e671fd3",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-NW-13A",
+            "sourceETag": "\"378048f-64e62d580f4f3\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-market-in-native-terrain-group-20261005/sheets/11-NW-13A/terrain/TERRAIN(TB)/T33000210000106E13/T33000210000106E13.bin",
+                "sha256": "7b3875a426c3d9a5c47ebaa3262fb9db561473de8dc504f5b67d1932ad26a29a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-market-in-native-terrain-group-20261005/sheets/11-NW-13A/terrain/TERRAIN(TB)/T33000210000106E13/T33000210000106E13.gltf",
+                "sha256": "be43d9041e9671bc27cd48e83d7b6eaac2f68dae1ab21fc433283748a2c5940d"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6bd72a4d4050ec450f4ca4cfe83c5b824baddf093c5d678580d96b6f34075070",
+      "bytes": 1505666
+    }
+  ],
+  "estimatedBases": []
+}

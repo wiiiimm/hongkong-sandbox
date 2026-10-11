@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-orchards-complete-contact-followthrough-20261007-254621-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "The Orchards Tower 1 original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-orchards-complete-contact-followthrough-20261007-254621-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-254621-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-orchards-complete-contact-followthrough-20261007-254621-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "8528987fa1a6e1e4e787a754bdddb8b6278b64ab5f2df9d64f7d8afc68ab5d3b"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-254621-0.json": "4c37e12c392e9efcdbcf407fe61cb3d2466270b65103cc0a19cc72ecdc3a8237",
+    "3d-viewer/city/data/official-models/government-xl-orchards-complete-contact-followthrough-20261007-254621-0-installed/catalogue.json": "44ec53eeb233c4d68163e4151bf469352aef6bb97b4c10fb5a05d2a4ce4eaeb9",
+    "3d-viewer/city/data/manifest.json": "f5f2bc5d9286545b30ddd2b3aa82eb3d5e68a1521806cec4b6311d573cf2693f"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "c7862890b5f8ea532adb8f759193574183cc6f42",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-254621-0.json",
+      "resolution": 5,
+      "area": "The Orchards Tower 1 unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "a3c5004270842a79422fddfdee68a479c4daf701e611ce56f61e8df796880bdb",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "11-SE-7D",
+            "sourceETag": "\"33a3f4e-63dce322835e3\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-full-cell-34-sequence-20261006-254621-0/sheets/11-SE-7D/terrain/TERRAIN(TB)/T39750156000106E10/T39750156000106E10.bin",
+                "sha256": "02a99240006fec7312b1a575ed8fcfaa6cf6a77c106647f5cd864fd833385beb"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-full-cell-34-sequence-20261006-254621-0/sheets/11-SE-7D/terrain/TERRAIN(TB)/T39750156000106E10/T39750156000106E10.gltf",
+                "sha256": "ccdc041ed1558806cf449fbf0a73d7560f362a9565e148ac2e71d5eeca7822d2"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "4c37e12c392e9efcdbcf407fe61cb3d2466270b65103cc0a19cc72ecdc3a8237",
+      "bytes": 2024217
+    }
+  ],
+  "estimatedBases": []
+}

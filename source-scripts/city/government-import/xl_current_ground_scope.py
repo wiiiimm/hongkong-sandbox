@@ -1,0 +1,2 @@
+"""Explicit22-source current-terrain diagnostic scope; no queue or approval."""
+SCOPED_UIDS=frozenset(['landsd/132324:0', 'landsd/144536:0', 'landsd/175729:0', 'landsd/207957:0', 'landsd/227942:0', 'landsd/254621:0', 'landsd/254815:0', 'landsd/256334:0', 'landsd/261717:0', 'landsd/268032:0', 'landsd/268828:0', 'landsd/269972:0', 'landsd/272788:0', 'landsd/275510:0', 'landsd/300857:0', 'landsd/300897:0', 'landsd/313034:0', 'landsd/318801:0', 'landsd/338637:0', 'landsd/338946:0', 'landsd/6462:0', 'landsd/93417:0'])

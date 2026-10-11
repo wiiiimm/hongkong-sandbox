@@ -1,0 +1,9 @@
+# Garden Terrace current support and walls
+
+Codex, 9 October 2026. Verified Neon checkpoint 37fe1bcd0dcf2a37ba86dd0b0f9a4687668cf5792974dbe864c376ae00a54ed6 retains both originals as held for further source-role/support evidence. No human decision or AI geometry work is requested; no installation credit.
+
+Fresh complete pair ground eliminates all 142 missing samples from the historical podium-only export. Every one of 259 original tower components is inventoried. The 802-face main body has 279 of 389 strict contacts, 110 unresolved samples, zero missing terrain, and gaps from −5.355972 to +34.147011 m. There are no complete strict component anchors. All 56 exact main-body/podium contacts are retained (largest span 4.537328 m); 155 of 258 other components have direct positive-dimensional contact with the main body. Remaining components could have transitive contacts, so they are not labelled detached or corrupt. Contacts alone do not resolve the support failures.
+
+The fresh podium diagnosis continuously covers all 1,418 source faces. Its 29 raw clearance-failing faces are exposed steep walls with exact authored edge paths to clear upward roofs; every upward face clears drawn ground by at least 4.283688 m. This does not yet certify full foreign interactions or installation. Both full foundations, both CPU runtime loaders and all 14 neighbours pass in the independently verified physical checkpoint 23ed8517b4ac29da238ab0d23c71a59be71a7434453d92bbec3c84e8f77edeec.
+
+Actual original pose/footprint/failed-sample captures were inspected. The exact frozen GeoRef-family lookup returns the two known originals, not an extra support part; it is not a fresh territory-wide absence claim. Preserve the full current mesh/ground, contact witnesses and recorded pending checks. Do not repeat the unchanged partial-ground or family lookup. Original source bytes, roots, geometry and acceptance limits stay unchanged.

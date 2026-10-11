@@ -1,0 +1,135 @@
+"""Keep unresolved XL terrain-patch investigations resumable in Neon."""
+
+import json
+import uuid
+from pathlib import Path
+
+from run import ROOT, HERE, read, save, digest, jobs, reservations, connect, Jsonb, dict_row
+
+BASE = ROOT / "docs/astra-city/government-import/government-xl-remaining-20260923"
+OUTPUT = BASE / "terrain-exceptions-20260925.json"
+BATCH = "government-xl-terrain-exceptions-20260925"
+
+
+def ref(path):
+    return {"path": str(path.relative_to(ROOT)), "sha256": digest(path.read_bytes())}
+
+
+def run():
+    rows = []
+    for slug in ("citywalk", "parkview", "go-park", "festival-walk", "franki-centre",
+                 "harbourview-horizon"):
+        doc = BASE / f"{slug}-terrain-diagnostic-20260925"
+        selection = read(doc / "selection.json.gz")
+        foundation = {r["uid"]: r for r in read(doc / "foundation.json")["rows"]}
+        validation = {r["uid"]: r for r in read(doc / "validation.json")["results"]}
+        neighbour = read(doc / "neighbour-checks.json")
+        native_neighbour = read(doc / "native-neighbour-checks.json")
+        blocked = sorted({uid for patch in neighbour["patches"] for uid in patch["blockedBy"]}
+                         - set(native_neighbour.get("resolved", []))
+                         - {r["uid"] for r in selection["rows"]})
+        native_failed = sorted(set(native_neighbour.get("blocked", []))
+                               - set(native_neighbour.get("resolved", [])))
+        sources = [ref(doc / name) for name in ("result.json", "selection.json.gz", "metrics.json",
+                                                "validation.json", "foundation.json", "neighbour-checks.json",
+                                                "native-neighbour-checks.json")]
+        if slug == "parkview":
+            sources.append(ref(doc / "support-proof.json"))
+        if slug == "festival-walk":
+            sources.extend(ref(doc / name) for name in
+                           ("native-overlap.json", "acceptance.json", "foundation-resolution.json"))
+        if slug == "franki-centre":
+            sources.extend(ref(doc / name) for name in
+                           ("acceptance.json", "foundation-resolution.json"))
+        if slug == "harbourview-horizon":
+            sources.extend(ref(doc / name) for name in
+                           ("acceptance.json", "foundation-resolution.json", "source-recovery.json"))
+        for row in selection["rows"]:
+            uid = row["uid"]
+            reason = ("adjacent-form-terrain-gap" if slug == "harbourview-horizon" else
+                      "adjacent-basic-form-burial" if slug == "franki-centre" else
+                      "source-sheet-seam-and-neighbour-regression" if slug == "festival-walk" else
+                      "installed-native-neighbour-regression" if native_failed else
+                      "related-source-components-terrain-gap" if slug == "go-park" else
+                      "adjacent-basic-form-terrain-gap")
+            rows.append({"uid": uid, "sourceSHA256": row["candidate"]["entry"]["sha256"],
+                         "humanStatus": "held-unknown", "primaryHold": "terrain-contact",
+                         "detailedHold": reason,
+                         "strictFoundationAccepted": foundation[uid]["strictFoundationAccepted"],
+                         "runtimeConcerns": validation[uid].get("concerns", []),
+                         "blockedNeighbourUids": blocked,
+                         "failedInstalledNativeUids": native_failed,
+                         "installedSupportProofPassed": slug == "parkview",
+                         "nextWork": ("Resolve ground gaps beneath neighbouring forms landsd/257058:0, landsd/257059:0 and landsd/259577:0 using source support or a smaller patch; review sampled contact warning; rerun all gates"
+                                      if slug == "harbourview-horizon" else
+                                      "Resolve neighbouring landsd/91695:0 terrain burial with a smaller source-preserving patch and review the sampled ground-contact warning; rerun all gates"
+                                      if slug == "franki-centre" else
+                                      "Resolve two-model Festival Walk foundation contact and nine neighbour regressions with a shared source-preserving patch; rerun all gates"
+                                      if slug == "festival-walk" else
+                                      "Identify and port three neighbouring original GO PARK components with shared terrain, or compute a smaller patch; rerun all gates"
+                                      if slug == "go-park" else
+                                      "Compute a smaller or support-aware exact-source patch and rerun all neighbour/browser gates"),
+                         "evidence": sources, "requiresAI": False, "requiresHuman": False, "aiCalls": 0})
+    selection = {row["uid"]: row for row in read(BASE / "selection.json.gz")["rows"]}
+    west = [row for row in read(BASE / "reconciliation.json.gz")["rows"]
+            if row["sourceSheet"] == "11-NW-19A" and row["primaryHold"] == "terrain-contact"
+            and row["uid"] != "landsd/84014:0"]
+    assert len(west) == 4
+    parent = read(ROOT / "3d-viewer/city/data/terrain.json")
+    manifest = read(ROOT / "3d-viewer/city/data/manifest.json")
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("xl_second_exceptions", HERE / "xl-second-pass.py")
+    second = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(second)
+    cells = [second.resolution.rectangle_for(selection[row["uid"]]["native"]["model"]["worldBounds"], parent)
+             for row in west]
+    union = [min(c[0] for c in cells), min(c[1] for c in cells), max(c[2] for c in cells), max(c[3] for c in cells)]
+    overlaps = [item["url"] for item in manifest["terrainPatches"]
+                if second.resolution.terrain.overlap(union, read(ROOT / "3d-viewer" / item["url"])["coarseCells"])]
+    assert overlaps == ["city/data/government-native-229310-0.json",
+                        "city/data/government-native-233970-0.json"], overlaps
+    for row in west:
+        rows.append({"uid": row["uid"], "sourceSHA256": row["sourceSHA256"],
+                     "humanStatus": "held-unknown", "primaryHold": "terrain-contact",
+                     "detailedHold": "overlapping-installed-terrain-patches",
+                     "overlappingPatchURLs": overlaps,
+                     "nextWork": "Build a source-preserving replacement covering existing patches and verify their installed models",
+                     "evidence": [ref(BASE / "selection.json.gz"), ref(BASE / "reconciliation.json.gz")],
+                     "requiresAI": False, "requiresHuman": False, "aiCalls": 0})
+    assert len(rows) == 14 and len({r["uid"] for r in rows}) == 14
+    report = {"batch": BATCH, "stage": "compute-held-v6", "rows": rows,
+              "humanCounts": {"held-unknown": 14, "held-ai": 0, "held-human": 0, "in-process": 0},
+              "qualification": "These fourteen remain held for explicit terrain/assembly compute work; no model geometry was modified or installed. The other XL states remain in the territory reconciliation.",
+              "aiCalls": 0, "modelGeometryChanges": 0}
+    save(OUTPUT, report)
+    claim = reservations.claim("codex-xl-terrain-exceptions-" + str(uuid.uuid4()),
+                               ["building:" + row["uid"] for row in rows], batch=BATCH)
+    assert claim["ok"], claim
+    receipt = claim["reservation"]
+    try:
+        payload = {"evidence": ref(OUTPUT), "uids": [r["uid"] for r in rows], "aiCalls": 0}
+        job_id = jobs.enqueue(BATCH, report["stage"], payload)
+        job = jobs.claim(BATCH, receipt["owner"], [report["stage"]], lease_seconds=1800)
+        assert job and job["id"] == job_id
+        recorded = {**report, "evidence": ref(OUTPUT)}
+        with connect() as connection:
+            connection.row_factory = dict_row
+            connection.execute("SELECT pg_advisory_xact_lock(%s)", (reservations.LOCK_ID,))
+            assert reservations._current(connection, receipt)
+            assert connection.execute(
+                "UPDATE astra_modelling.jobs SET status='complete',result=%s,owner=NULL,token=NULL,lease_until=NULL,updated_at=clock_timestamp() "
+                "WHERE id=%s AND owner=%s AND token=%s AND status='running' AND lease_until>clock_timestamp()",
+                (Jsonb(recorded), job_id, job["owner"], job["token"])).rowcount == 1
+        with connect() as connection:
+            connection.execute("SET TRANSACTION READ ONLY")
+            assert connection.execute("SELECT result FROM astra_modelling.jobs WHERE id=%s",
+                                      (job_id,)).fetchone()[0] == recorded
+        save(BASE / "terrain-exceptions-20260925-neon.json", {"jobId": job_id,
+                                                               "evidence": ref(OUTPUT), "resultVerified": True})
+        print(json.dumps({"jobId": job_id, "held": len(rows), "aiCalls": 0}), flush=True)
+    finally:
+        reservations.release(receipt)
+
+
+if __name__ == "__main__":
+    run()
