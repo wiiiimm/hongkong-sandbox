@@ -1,0 +1,1 @@
+Initial source-context freezer stopped before any Neon job or review-state write: generic declared_refs treated nested historicalRef(path,SHA) as current byte reference. Exact prior alias/archive verification had passed. Preserve original raw held receipt and resolve audited historical tuple via originalPath/historicalSHA256 in distinct v2.
