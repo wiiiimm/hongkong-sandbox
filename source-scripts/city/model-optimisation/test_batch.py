@@ -11,6 +11,13 @@ from db import transaction
 
 
 class BatchTests(unittest.TestCase):
+    def test_worker_partitions_cover_each_source_once(self):
+        sources=list(range(4272))
+        groups=[group for shard in range(16) for group in batch.source_groups(sources,shard,16)]
+        self.assertEqual(sorted(item for group in groups for item in group),sources)
+        self.assertTrue(all(len(group)<=100 for group in groups))
+        with self.assertRaises(ValueError): batch.source_groups(sources,16,16)
+
     def test_explicit_negative_acceptance_wins(self):
         self.assertFalse(batch.accepted({}))
         self.assertFalse(batch.accepted({'placementScreening': 'historical', 'placementReviewed': False}))

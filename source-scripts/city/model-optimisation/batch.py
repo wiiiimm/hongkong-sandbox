@@ -162,7 +162,14 @@ def resources(source):
     return sorted(keys)
 
 
-def run(snapshot_path, recipe_path, output, batch):
+def source_groups(sources, shard_index=0, shard_count=1):
+    if not 1 <= shard_count <= 16 or not 0 <= shard_index < shard_count:
+        raise ValueError('Use 1–16 explicit independent workers')
+    return [sources[offset:offset+100] for index, offset in enumerate(range(0, len(sources), 100))
+            if index % shard_count == shard_index]
+
+
+def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1):
     snap = registry.read(snapshot_path)
     current = snapshot()
     # Commits can advance with unrelated processor/evidence edits, inputs cannot.
@@ -197,11 +204,19 @@ def run(snapshot_path, recipe_path, output, batch):
     outcomes = []
     started = time.monotonic()
     lease = None
+    groups = source_groups(snap['selected'], shard_index, shard_count)
+    shard_sources = [source for group in groups for source in group]
+    if shard_index:
+        batch = f'{batch}-shard-{shard_index}'
     try:
-        for offset in range(0, len(snap['selected']), 100):
-            group = snap['selected'][offset:offset+100]
+        for group in groups:
             keys = sorted(set(k for source in group for k in resources(source)))
-            claim = reservations.claim(ACTOR, keys, ttl=1800, batch=batch, connection=connection)
+            deadline = time.monotonic() + 600
+            while True:
+                claim = reservations.claim(ACTOR, keys, ttl=1800, batch=batch, connection=connection)
+                if claim['ok'] or time.monotonic() > deadline:
+                    break
+                time.sleep(5)
             if not claim['ok']:
                 # No takeover: record each affected source and continue other groups.
                 for source in group:
@@ -224,17 +239,29 @@ def run(snapshot_path, recipe_path, output, batch):
                     entry = source['source']['entry']
                     asset = ROOT / source['source']['catalogue']
                     asset = (asset.parent / entry['asset']).resolve()
-                    request = {'source': str(asset), 'sourceSha256': source['sourceSha256'],
-                        'artifactDirectory': str(output / 'artifacts')}
-                    codec.stdin.write(json.dumps(request) + '\n'); codec.stdin.flush()
-                    pending = pool.submit(codec.stdout.readline)
-                    while True:
-                        try:
-                            response = json.loads(pending.result(timeout=20))
-                            break
-                        except TimeoutError:
-                            if not jobs.heartbeat(job, lease_seconds=300, connection=connection) or not reservations.heartbeat(lease, ttl=1800, connection=connection)['ok']:
-                                raise ValueError('Lease lost during compression')
+                    if result_path.exists():
+                        previous = registry.read(result_path)
+                        if any(previous[key] != value for key, value in
+                                [('variantId', variant), ('revisionId', source['revisionId']),
+                                 ('recipeSha256', registry.digest(recipe)), ('sourceSha256', source['sourceSha256'])]):
+                            raise ValueError('Prior immutable result identity mismatch')
+                        response = {'ok': True, 'artifact': previous['artifact'], 'metrics': previous['metrics']}
+                        response['artifact']['path'] = str(ROOT / response['artifact']['path'])
+                    else:
+                        request = {'source': str(asset), 'sourceSha256': source['sourceSha256'],
+                            'artifactDirectory': str(output / 'artifacts')}
+                        codec.stdin.write(json.dumps(request) + '\n'); codec.stdin.flush()
+                        pending = pool.submit(codec.stdout.readline)
+                        while True:
+                            try:
+                                line = pending.result(timeout=20)
+                                if not line:
+                                    raise RuntimeError('Codec process stopped; abort rather than fail unrelated models')
+                                response = json.loads(line)
+                                break
+                            except TimeoutError:
+                                if not jobs.heartbeat(job, lease_seconds=300, connection=connection) or not reservations.heartbeat(lease, ttl=1800, connection=connection)['ok']:
+                                    raise ValueError('Lease lost during compression')
                     if not response['ok']:
                         raise ValueError(response['error'])
                     if not reservations.owns(lease, connection=connection):
@@ -269,12 +296,14 @@ def run(snapshot_path, recipe_path, output, batch):
                     write(output / 'failures' / f'{variant}.json', failure)
                     jobs.finish(job, error=message, connection=connection)
                     outcomes.append(failure)
+                    if codec.poll() is not None:
+                        raise RuntimeError('Codec process stopped') from error
                 if time.monotonic() - renewed > 60:
                     if not reservations.heartbeat(lease, ttl=1800, connection=connection)['ok']:
                         raise ValueError('Reservation lost between models')
                     renewed = time.monotonic()
                 if len(outcomes) % 100 == 0:
-                    print(json.dumps({'processed': len(outcomes), 'total': len(snap['selected']),
+                    print(json.dumps({'shard': shard_index, 'processed': len(outcomes), 'total': len(shard_sources),
                         'elapsedSeconds': round(time.monotonic()-started, 1)}), flush=True)
             release = reservations.release(lease, connection=connection)
             if not release['ok']:
@@ -287,7 +316,7 @@ def run(snapshot_path, recipe_path, output, batch):
                 JOIN astra_modelling.optimisation_variants v USING(revision_id)
                 JOIN astra_modelling.jobs j ON j.id=v.job_id
                 WHERE v.variant_id=ANY(%s) ORDER BY s.uid''',
-                ([registry.digest([s['revisionId'], registry.digest(recipe)]) for s in snap['selected']],)).fetchall()
+                ([registry.digest([s['revisionId'], registry.digest(recipe)]) for s in shard_sources],)).fetchall()
         complete = [row for row in records if row['status'] == 'complete']
         beneficial = [row for row in complete if row['result']['metrics']['beneficial']]
         report = {'schemaVersion': 1, 'batch': batch, 'executor': ACTOR, 'branchId': CONFIG['branch_id'],
@@ -301,7 +330,7 @@ def run(snapshot_path, recipe_path, output, batch):
             'beneficialOriginalBytes': sum(row['result']['metrics']['originalDownloadBytes'] for row in beneficial),
             'beneficialOutputBytes': sum(row['result']['metrics']['downloadBytes'] for row in beneficial),
             'published': False, 'validationStatus': 'unreviewed', 'outcomes': outcomes}
-        write(output / 'summary.json', report)
+        write(output / 'summaries' / f'{registry.digest(report)}.json', report)
         print(json.dumps({k:v for k,v in report.items() if k!='outcomes'}), flush=True)
     finally:
         if lease:
@@ -319,12 +348,14 @@ def main():
     for name in ('snapshot', 'recipe', 'output'):
         p.add_argument('--'+name, type=Path, required=True)
     p.add_argument('--batch', required=True)
+    p.add_argument('--shard-index', type=int, default=0)
+    p.add_argument('--shard-count', type=int, default=1)
     args = parser.parse_args()
     if args.command == 'snapshot':
         snap = snapshot(); write(args.output, snap)
         print(json.dumps({'selected': len(snap['selected']), 'held': len(snap['held']), 'sourceCommit': snap['sourceCommit']}))
     else:
-        run(args.snapshot, args.recipe, args.output, args.batch)
+        run(args.snapshot, args.recipe, args.output, args.batch, args.shard_index, args.shard_count)
 
 
 if __name__ == '__main__':
