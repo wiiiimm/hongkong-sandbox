@@ -12,6 +12,11 @@ from types import SimpleNamespace
 
 
 class BatchTests(unittest.TestCase):
+    def test_string_and_object_support_dependencies_reserve_identical_uids(self):
+        source={'uid':'landsd/1:0','sourceSha256':'a'*64,
+            'source':{'entry':{'supportDependencies':['landsd/2:0',{'uid':'landsd/3:1'}]}}}
+        self.assertEqual(batch.resources(source),[
+            'building:landsd/1:0','building:landsd/2:0','building:landsd/3:1','model-source:'+'a'*64])
     def test_worker_partitions_cover_each_source_once(self):
         sources=list(range(4272))
         groups=[group for shard in range(16) for group in batch.source_groups(sources,shard,16)]

@@ -157,8 +157,9 @@ def register_group(connection, sources, recipe, batch):
 def resources(source):
     keys = {'building:' + source['uid'], 'model-source:' + source['sourceSha256']}
     for dependency in source['source']['entry'].get('supportDependencies', []):
-        if dependency.get('uid'):
-            keys.add('building:' + dependency['uid'])
+        uid = dependency if isinstance(dependency, str) else dependency.get('uid')
+        if uid:
+            keys.add('building:' + uid)
     return sorted(keys)
 
 
