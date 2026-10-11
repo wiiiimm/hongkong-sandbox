@@ -31,7 +31,7 @@ async function variantDescriptor(f,{asset='variants/quality.glb.gz',bytes=f.comp
  return {uid:f.meta.uid,runtimeVersion:1,status:'approved',sourceSha256:f.meta.sha256,sourceMetadataSha256:await sourceMetadataHash(f.meta,f.catalogue),variantId,revisionId:repeat('c'),recipeSha256:repeat('d'),sha256:createHash('sha256').update(bytes).digest('hex'),tier,codec:'none',collisionPolicy:'validated-variant',lossy:true,bytes:bytes.length,glbBytes,decodedGeometryBytes:f.meta.decodedGeometryBytes,triangles:f.meta.triangles,indexedVertices:f.meta.indexedVertices,encoding:'gzip',asset,minPixels:0,maxPixels:1000000,worldBounds:f.meta.worldBounds,maxPositionErrorMetres:0,approval:{artifactSha256:createHash('sha256').update(bytes).digest('hex'),gates}};
 }
 function fakeEntry(meta,building){
- return {entry:meta,record:{...building,uid:meta.uid,modelSource:{}},group:new THREE.Group(),meshes:[],active:false,budget:{...modelBudget(meta),drawCalls:1}};
+ return {entry:meta,record:{...building,uid:meta.uid,modelGeometry:{position:new Float64Array(),index:new Uint32Array(),triangles:0,worldBounds:meta.worldBounds},modelSource:{}},group:new THREE.Group(),meshes:[],active:false,budget:{...modelBudget(meta),drawCalls:1}};
 }
 function fakeStreamingSwaps(stream){
  stream.sync=()=>{};
@@ -42,9 +42,9 @@ function fakeStreamingSwaps(stream){
   return true;
  };
 }
-function withGLTFExtensions(compressed,used,required=[]){
+function withGLTFExtensions(compressed,used,required=[],images=null){
  const glb=gunzipSync(compressed),jsonLength=glb.readUInt32LE(12),json=JSON.parse(glb.toString('utf8',20,20+jsonLength));
- json.extensionsUsed=used;if(required.length)json.extensionsRequired=required;
+ json.extensionsUsed=used;if(required.length)json.extensionsRequired=required;if(images)json.images=images;
  const jsonText=JSON.stringify(json),jsonChunk=Buffer.from(jsonText+' '.repeat((4-Buffer.byteLength(jsonText)%4)%4)),binaryAt=20+jsonLength,binaryLength=glb.readUInt32LE(binaryAt),binary=glb.subarray(binaryAt+8,binaryAt+8+binaryLength);
  const output=Buffer.alloc(12+8+jsonChunk.length+8+binary.length);output.writeUInt32LE(0x46546c67,0);output.writeUInt32LE(2,4);output.writeUInt32LE(output.length,8);output.writeUInt32LE(jsonChunk.length,12);output.writeUInt32LE(0x4e4f534a,16);jsonChunk.copy(output,20);
  const next=binaryAt+(jsonChunk.length-jsonLength);output.writeUInt32LE(binary.length,next);output.writeUInt32LE(0x004e4942,next+4);binary.copy(output,next+8);return output;
@@ -294,14 +294,15 @@ test('a failed variant GLB falls back to the native entry after one decode failu
 });
 test('variant GLBs allow only declared codecs and mesh quantisation',async t=>{
  const f=fixture(),source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];
- const decode=async(used,codec,required=[])=>{
-  const glb=withGLTFExtensions(f.compressed,used,required),compressed=gzipSync(glb),sha256=createHash('sha256').update(compressed).digest('hex');
+ const decode=async(used,codec,required=[],images=false)=>{
+  const glb=withGLTFExtensions(f.compressed,used,required,images?[{bufferView:0,mimeType:'image/png'}]:null),compressed=gzipSync(glb),sha256=createHash('sha256').update(compressed).digest('hex');
   const entry={...source,variantId:repeat('f'),sourceSha256:source.sha256,sourceMetadataSha256:repeat('a'),tier:'balanced',codec,sha256,bytes:compressed.length,glbBytes:glb.length};
   return loadOfficialModel(entry,f.building,f.stream.lighting,{fetcher:async()=>new Response(compressed)});
  };
  await assert.rejects(decode([],'meshopt'),/missing its declared codec extension/);
  await assert.rejects(decode(['EXT_meshopt_compression','KHR_materials_unlit'],'meshopt'),/unsupported glTF extension/);
  await assert.rejects(decode(['KHR_draco_mesh_compression'],'none'),/unsupported glTF extension/);
+ await assert.rejects(decode([],'none',[],true),/Variants must be self-contained/);
  const meshopt=await decode(['EXT_meshopt_compression'],'meshopt',['EXT_meshopt_compression']);t.after(()=>disposeOfficialModel(meshopt));assert.equal(meshopt.record.modelSource.codec,'meshopt');
  const quantized=await decode(['KHR_mesh_quantization'],'none');t.after(()=>disposeOfficialModel(quantized));assert.equal(quantized.record.modelSource.codec,'none');
 });
@@ -340,4 +341,25 @@ test('peak-budget deferral retains the resident asset without marking the varian
  const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([source.uid]);const old=layer.cache.entries.get(source.uid);source.variants=[{...source,variantId:repeat('e'),tier:'balanced',codec:'none',minPixels:0,maxPixels:1000000}];
  const cost=modelBudget(source);layer.limits={...layer.limits,geometryBytes:Math.floor(cost.geometryBytes*1.5),residentBytes:Math.floor(cost.residentBytes*1.5),triangles:Math.floor(cost.triangles*1.5)};layer.setQuality('balanced');
  for(let i=0;i<30&&layer.cache.running.size;i++)await tick();assert.equal(layer.cache.entries.get(source.uid),old);assert.equal(f.stream.detailedModels.get(source.uid),old);assert.equal(loads,1);assert.equal(layer.failedVariants.size,0);assert.match(layer.cache.errors.get(source.uid).message,/peak device budget/);
+});
+test('an individually oversized desired variant retains its resident detail without decoding',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);fakeStreamingSwaps(f.stream);
+ const source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];let loads=0;
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta,building)=>{loads++;return fakeEntry(meta,building);}});t.after(async()=>{await layer.dispose();f.stream.cache.close();});layer.models.set(source.uid,source);
+ layer.plan(camera(),{force:true});await layer.cache.waitFor([source.uid]);const old=layer.cache.entries.get(source.uid);
+ source.variants=[{...source,variantId:repeat('f'),tier:'balanced',codec:'none',minPixels:0,maxPixels:1000000,decodedGeometryBytes:old.budget.geometryBytes+1,indexedVertices:source.indexedVertices+1,triangles:source.triangles+1}];
+ layer.limits={...layer.limits,geometryBytes:old.budget.geometryBytes,residentBytes:old.budget.residentBytes,triangles:old.budget.triangles};layer.setQuality('balanced');
+ for(let i=0;i<30&&layer.cache.running.size;i++)await tick();assert.equal(layer.cache.entries.get(source.uid),old);assert.equal(f.stream.detailedModels.get(source.uid),old);assert.equal(loads,1);assert.equal(layer.failedVariants.size,0);assert.match(layer.cache.errors.get(source.uid).message,/peak device budget/);
+});
+test('cancellation at replacement install completion restores the base form',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);
+ const source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];let layer,triggered=false,committed;
+ f.stream.onChange=()=>{
+  const detail=f.stream.detailedModels.get(source.uid);
+  if(!triggered&&layer&&detail?.active&&detail.entry?.variantId){triggered=true;committed=detail;layer.setQuality('base');}
+ };
+ layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta,building)=>fakeEntry(meta,building)});t.after(async()=>{await layer.dispose();f.stream.cache.close();});layer.models.set(source.uid,source);
+ layer.plan(camera(),{force:true});await layer.cache.waitFor([source.uid]);source.variants=[{...source,variantId:repeat('e'),tier:'balanced',codec:'none',minPixels:0,maxPixels:1000000}];layer.setQuality('balanced');
+ for(let i=0;i<60&&(!triggered||layer.cache.running.size||layer.retiring.size);i++)await tick();await Promise.allSettled([...layer.retiring.values()]);
+ assert.equal(triggered,true);assert.equal(layer.quality,'base');assert.equal(layer.cache.entries.size,0);assert.equal(f.stream.detailedModels.has(source.uid),false);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);assert.equal(committed.group.parent,null);assert.equal(layer.cache.errors.size,0);
 });

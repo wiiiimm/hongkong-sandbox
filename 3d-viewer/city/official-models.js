@@ -87,11 +87,18 @@ export class OfficialModelLayer{
    const held=[...new Set([...this.cache.entries.values(),...this.retiring.keys()])],costs=held.map(entry=>entry.budget);costs.push(budget);
    const sum=key=>costs.reduce((total,cost)=>total+(cost[key]||0),0);
    const draws=held.reduce((total,entry)=>total+(entry.budget.drawCalls??this.drawCosts.get(entry.record.uid)??1),0)+(budget.drawCalls??this.drawCosts.get(uid)??1);
-   return sum('geometryBytes')<=this.limits.geometryBytes&&sum('residentBytes')<=this.limits.residentBytes&&sum('triangles')<=this.limits.triangles&&(!checkDrawCalls||draws<=this.limits.drawCalls);
+   const residentLimit=this.lastOptions?.selectedUid===uid?(this.limits.selectedResidentBytes??this.limits.residentBytes):this.limits.residentBytes;
+   return sum('geometryBytes')<=this.limits.geometryBytes&&sum('residentBytes')<=residentLimit&&sum('triangles')<=this.limits.triangles&&(!checkDrawCalls||draws<=this.limits.drawCalls);
+  }
+  selectedAsset(uid,pixels=Infinity){
+   if(this.selectedAssets.has(uid))return this.selectedAssets.get(uid);
+   const source=this.models.get(uid);if(!source)return null;
+   const current=this.cache.entries.get(uid)?.entry||null,selected=selectModelVariant(source,{quality:this.quality,profile:this.profile,pixels,current});
+   const result=selected?.variantId&&this.failedVariants.has(selected.variantId)?source:selected;
+   this.selectedAssets.set(uid,result);return result;
   }
   candidateAsset(source,uid){
-   const current=this.cache.entries.get(uid)?.entry||null,selected=this.selectedAssets.get(uid)||selectModelVariant(source,{quality:this.quality,profile:this.profile,pixels:Infinity,current});
-   return selected?.variantId&&this.failedVariants.has(selected.variantId)?source:selected;
+   return this.selectedAsset(uid)||source;
   }
   async load(uid,signal){
   // Retired source geometry remains visible only until its fallback bake swaps.
@@ -102,7 +109,7 @@ export class OfficialModelLayer{
   if(this.releaseFailures.size)throw new Error('Previous model fallback restoration needs Retry');
   const source=this.models.get(uid),building=this.stream.getLoadedBuilding(uid);
   if(!building)throw new Error('Official model source tile is not loaded');
-  const selected=this.candidateAsset(source,uid),candidates=selected===source?[source]:[selected,source],epoch=this.qualityEpoch;
+  const previousResident=this.cache.entries.get(uid),selected=this.candidateAsset(source,uid),candidates=selected===source?[source]:[selected,source],epoch=this.qualityEpoch;
   for(const candidate of candidates){
    this.loadingAssets.set(uid,candidate);
    let entry=null,installed=false;
@@ -127,7 +134,14 @@ export class OfficialModelLayer{
     installed=true;this.loadingAssets.delete(uid);metrics.end('modelInstallMs',installStart);this.onReveal(entry);return entry;
    }catch(error){
     this.loadingAssets.delete(uid);
-    if(entry&&!installed)disposeOfficialModel(entry);
+    if(entry&&!installed){
+     if(this.stream.detailedModels.get(uid)===entry){
+      const selectedNow=this.selectedAssets.get(uid),previousStillAppropriate=previousResident&&this.cache.entries.get(uid)===previousResident&&this.quality!=='base'&&this.cache.wanted.includes(uid)&&selectedNow&&((selectedNow===previousResident.entry)||(selectedNow.variantId??null)===(previousResident.entry.variantId??null));
+      try{await this.change(()=>this.stream.setDetailedModel(uid,previousStillAppropriate?previousResident:null));}
+      catch(restoreError){this.releaseFailures.set(entry,restoreError.message);}
+     }
+     disposeOfficialModel(entry);
+    }
     if(error?.name==='AbortError'||error instanceof ModelBudgetDeferred)throw error;
     if(candidate.variantId){this.failedVariants.set(candidate.variantId,error.message);this.selectedAssets.set(uid,source);this.dirty=true;}
     if(candidate!==source)continue;
@@ -191,32 +205,35 @@ export class OfficialModelLayer{
   const planStart=metrics.start();metrics.count('plans');
   if(!this.index||this.index.entries.size!==this.models.size){const start=metrics.start();this.index=new ModelSpatialIndex(this.models);metrics.end('modelIndexMs',start);}
   this.matrix.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);this.frustum.setFromProjectionMatrix(this.matrix);this.eye.setFromMatrixPosition(camera.matrixWorld);
+  const projectedPixels=new Map(),pixelsFor=(uid,box,visible=true)=>{
+   if(!visible)return Infinity;
+   if(projectedPixels.has(uid))return projectedPixels.get(uid);
+   const pixels=projectedBounds(box,this.matrix,viewportWidth,viewportHeight).pixels;projectedPixels.set(uid,pixels);return pixels;
+  };
   const query=this.index.query(this.frustum,this.eye,{eligible:({entry,box})=>
-   this.supportAvailable(entry.uid,'native')&&projectedBounds(box,this.matrix,viewportWidth,viewportHeight).pixels>=this.limits.minPixels}),rows=new Map(query.rows.map(row=>[row.entry.uid,row]));
+   this.supportAvailable(entry.uid,'native')&&pixelsFor(entry.uid,box)>=this.limits.minPixels}),rows=new Map(query.rows.map(row=>[row.entry.uid,row]));
   for(const uid of new Set([...this.cache.entries.keys(),...this.cache.running.keys(),selectedUid].filter(Boolean))){const row=this.index.entries.get(uid);if(row)rows.set(uid,row);}
   metrics.record('plannerCandidates',rows.size);metrics.record('plannerNodes',query.visited);
   this.selectedAssets.clear();
-  for(const source of this.models.values()){
-   const row=rows.get(source.uid),visible=!!row&&this.frustum.intersectsBox(row.box),pixels=visible?projectedBounds(row.box,this.matrix,viewportWidth,viewportHeight).pixels:Infinity;
-   const current=this.cache.entries.get(source.uid)?.entry||null,asset=selectModelVariant(source,{quality:this.quality,profile:this.profile,pixels,current});
-   this.selectedAssets.set(source.uid,asset?.variantId&&!this.failedVariants.has(asset.variantId)?asset:source);
+  for(const {entry,box} of rows.values()){
+   const visible=this.frustum.intersectsBox(box);this.selectedAsset(entry.uid,pixelsFor(entry.uid,box,visible));
   }
   for(const [uid,candidate] of this.loadingAssets)if(this.selectedAssets.get(uid)?.variantId!==candidate.variantId)this.cache.running.get(uid)?.abort();
-  for(const [uid,error] of this.cache.errors)if(error instanceof ModelBudgetDeferred&&this.canAdmit(uid,modelBudget(this.selectedAssets.get(uid)||this.models.get(uid))))this.cache.errors.delete(uid);
+  for(const [uid,error] of this.cache.errors){const desired=this.selectedAsset(uid);if(error instanceof ModelBudgetDeferred&&desired&&this.canAdmit(uid,modelBudget(desired)))this.cache.errors.delete(uid);}
   const candidates=[],warm=[],limits=this.limits,visibleUids=new Set();
   for(const {entry,box} of rows.values()){
    const uid=entry.uid,resident=this.cache.entries.has(uid),running=this.cache.running.has(uid),selected=selectedUid===uid,visible=this.frustum.intersectsBox(box),distance=box.distanceToPoint(this.eye);
    if(this.stream.infrastructureBuildingUids?.has(uid))continue;
    const building=this.stream.getLoadedBuilding(uid);if(!building||building.modelGeometry&&!this.stream.detailedModels.has(uid)&&!resident)continue;
    const collision=resident&&collisionPosition&&box.distanceToPoint(collisionPosition)<=60;
-   const projected=visible?projectedBounds(box,this.matrix,viewportWidth,viewportHeight).pixels:Infinity;
+   const projected=pixelsFor(uid,box,visible);
    if(visible)visibleUids.add(uid);
    const threshold=limits.minPixels*(resident?.65:1),useful=visible&&projected>=threshold;
    let keepVisible=false;
    if(resident&&visible&&!useful){if(!this.smallSince.has(uid))this.smallSince.set(uid,now);const deadline=this.smallSince.get(uid)+2000;keepVisible=now<deadline;if(keepVisible)this.nextCheck=Math.min(this.nextCheck,deadline);}else this.smallSince.delete(uid);
    if(selected||collision||useful||keepVisible){
     if(!allowNewLoads&&!resident&&!running&&!selected)continue;
-    this.lastUseful.set(uid,now);candidates.push({entry,asset:this.selectedAssets.get(uid),selected,collision,projected,resident,visible,distance});
+    this.lastUseful.set(uid,now);candidates.push({entry,asset:this.selectedAsset(uid),selected,collision,projected,resident,visible,distance});
    }else if(resident||running){
     if(!this.lastUseful.has(uid))this.lastUseful.set(uid,now);
     const deadline=this.lastUseful.get(uid)+(running?Math.min(1500,this.warmMs):this.warmMs);
@@ -225,9 +242,12 @@ export class OfficialModelLayer{
   }
   candidates.sort((a,b)=>Number(b.selected)-Number(a.selected)||Number(b.collision)-Number(a.collision)||Number(b.resident)-Number(a.resident)||b.projected-a.projected||a.distance-b.distance);
   warm.sort((a,b)=>(this.lastUseful.get(b.entry.uid)||0)-(this.lastUseful.get(a.entry.uid)||0));
-  const planningModels=new Map([...this.models].map(([uid,entry])=>[uid,this.selectedAssets.get(uid)||entry]));
+  const planningModels=this.models;
   const support=(uid,kind,d)=>this.supportAvailable(uid,kind,d);
-  const plannedBudget=entry=>({...modelBudget(entry),drawCalls:this.cache.entries.get(entry.uid)?.budget.drawCalls??this.drawCosts.get(entry.uid)??1});
+  const plannedBudget=entry=>{
+   const resident=this.cache.entries.get(entry.uid),budget=resident?.budget||modelBudget(this.selectedAsset(entry.uid)||entry);
+   return {...budget,drawCalls:resident?.budget.drawCalls??this.drawCosts.get(entry.uid)??budget.drawCalls??1};
+  };
   const plannedDraw=supportedModelPlan(candidates.map(c=>c.entry.uid),planningModels,limits,plannedBudget,support,selectedUid);
   const {wanted,blocked}=supportedModelPlan([...plannedDraw.wanted,...warm.map(c=>c.entry.uid)],planningModels,limits,plannedBudget,support,selectedUid);this.supportHolds=new Map([...plannedDraw.blocked,...blocked]);this.drawWanted=new Set(plannedDraw.wanted);
   const keep=new Set(wanted);

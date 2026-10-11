@@ -16,7 +16,7 @@ import {BridgeCables} from './bridge-cables.js';
 import {ModelReveal} from './model-reveal.js?v=20260913-reveal1';
 import {OfficialModelLayer} from './official-models.js?v=20261011-model-quality1';
 import {ModelPreloader} from './model-preloader.js?v=20260913-preload1';
-import {MODEL_QUALITY_LEVELS,MODEL_QUALITY_LABELS} from './model-variants.js';
+import {MODEL_QUALITY_LEVELS,MODEL_QUALITY_LABELS} from './model-variants.js?v=20261011-model-quality1';
 import {ReviewSections} from './review-sections.js';
 import {describeBuilding} from './building-geometry.js';
 import {regionalPlaceMatches} from './regional-data.js';

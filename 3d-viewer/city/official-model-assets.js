@@ -62,7 +62,7 @@ function nativeGLB(bytes){
 }
 function variantGLB(bytes,codec){
  const json=readGLB(new Uint8Array(bytes));
- if(json.buffers?.some(b=>b.uri)||json.images?.some(image=>image.uri))throw new Error('Variants must be self-contained');
+ if(json.buffers?.some(b=>b.uri)||json.images?.length)throw new Error('Variants must be self-contained');
  const codecExtension={none:null,meshopt:'EXT_meshopt_compression',draco:'KHR_draco_mesh_compression'}[codec];
  if(codecExtension===undefined)throw new Error('Unsupported model codec');
  const allowed=new Set(['KHR_mesh_quantization']);if(codecExtension)allowed.add(codecExtension);
@@ -83,8 +83,10 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
  const bytes=await boundedBytes(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip')),entry.glbBytes,signal),source=entry.variantId?variantGLB(bytes,entry.codec):nativeGLB(bytes);
  if(signal?.aborted)throw abort();
  const codec=entry.variantId?await loadModelCodec(entry.codec):null;
+ if(signal?.aborted)throw abort();
  if(codec?.loader&&typeof loader.setDRACOLoader==='function')loader.setDRACOLoader(codec.loader);
  if(codec?.decoder&&typeof loader.setMeshoptDecoder==='function')loader.setMeshoptDecoder(codec.decoder);
+ if(signal?.aborted)throw abort();
  const gltf=await loader.parseAsync(bytes.buffer,'');let result={group:gltf.scene};
  try{
   if(signal?.aborted)throw abort();const group=gltf.scene;group.position.set(entry.rootTranslation[0],entry.rootTranslation[1]+(entry.verticalPlacementOffsetHKPD??0),entry.rootTranslation[2]);group.updateMatrixWorld(true);

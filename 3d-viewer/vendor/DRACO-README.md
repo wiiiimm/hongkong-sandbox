@@ -29,4 +29,6 @@ Further [documentation on GitHub](https://github.com/google/draco/tree/master/ja
 
 ## License
 
-[Apache License 2.0](https://github.com/google/draco/blob/master/LICENSE)
+The complete pinned upstream `1.5.7/LICENSE` file is included in
+`DRACO-LICENSE`. It contains the Apache License 2.0 terms required for
+redistribution and the upstream third-party notices.

@@ -7,8 +7,8 @@ on a runtime CDN:
   `draco_wasm_wrapper.js` come from `three@0.160.0` (`examples/jsm` and its
   glTF Draco build). `DRACOLoader.js` has only its package import adjusted to
   the adjacent vendored `three.module.js`. The Three.js MIT licence is in
-  `THREE-LICENSE`; Draco's Apache License 2.0 is documented by
-  `DRACO-README.md`.
+  `THREE-LICENSE`; Draco's pinned Apache License 2.0 and upstream notices are
+  in `DRACO-LICENSE`, copied from the official `google/draco` `1.5.7/LICENSE`.
 - `meshopt_decoder.module.js` comes from `meshoptimizer@0.24.0`. Its MIT
   licence and upstream README are retained as `MESHOPT-LICENSE.md` and
   `MESHOPT-README.md`.

@@ -16,7 +16,7 @@ test('approved source-bound optional variant inherits placement/support metadata
 });
 test('stale, unapproved, unsupported, cross-origin and incomplete optional entries retain enhanced source',async()=>{
  const {source,cat,variant}=await fixture();
- for(const change of [{sourceSha256:hash('f')},{sourceMetadataSha256:hash('f')},{status:'draft'},{codec:'unknown'},{asset:'https://elsewhere.test/x.glb.gz'},{approval:{}},{worldBounds:[[20,0,0],[30,10,10]]}]){
+ for(const change of [{sourceSha256:hash('f')},{sourceMetadataSha256:hash('f')},{status:'draft'},{codec:'unknown'},{lossy:'yes'},{asset:'https://elsewhere.test/x.glb.gz'},{approval:{}},{worldBounds:[[20,0,0],[30,10,10]]}]){
   const [result]=await attachModelVariants([source],{...cat,optimisedVariants:[{...variant,...change}]},'http://localhost/catalogue.json');assert.equal(result.variants.length,0);assert.equal(selectModelVariant(result,{pixels:100}),result);
  }
  const modified={...source,supportDependencies:['landsd/2:0']};
