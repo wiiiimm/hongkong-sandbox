@@ -2,7 +2,7 @@
 export class TileCache {
   constructor({load,dispose,limit=30,concurrency=2,onChange=()=>{},abortOnPause=true}){
     Object.assign(this,{load,dispose,limit,concurrency,onChange,abortOnPause});
-    this.entries=new Map();this.running=new Map();this.errors=new Map();this.wanted=[];this.listeners=new Set();this.closed=false;this.paused=false;
+    this.entries=new Map();this.running=new Map();this.reloading=new Set();this.reloads=new Set();this.errors=new Map();this.wanted=[];this.listeners=new Set();this.closed=false;this.paused=false;
   }
   notify(){this.onChange();for(const fn of [...this.listeners])fn();}
   plan(ids){
@@ -10,6 +10,11 @@ export class TileCache {
     this.wanted=[...new Set(ids)].slice(0,this.limit);
     for(const [id,c] of this.running)if(!this.wanted.includes(id))c.abort();
     this.evict();this.notify();this.pump();
+  }
+  refresh(id){
+    if(this.closed||!this.wanted.includes(id)||this.running.has(id)||this.reloading.has(id)||this.reloads.has(id)||this.errors.has(id))return false;
+    if(!this.entries.has(id)){this.pump();return false;}
+    this.reloads.add(id);this.notify();this.pump();return true;
   }
   evict(){
     for(const [id,value] of this.entries){
@@ -27,14 +32,20 @@ export class TileCache {
     if(this.closed||this.paused)return;
     for(const id of this.wanted){
       if(this.running.size>=this.concurrency)break;
-      if(this.entries.has(id)||this.running.has(id)||this.errors.has(id))continue;
+      const replacement=this.reloads.has(id);
+      if(this.running.has(id)||this.reloading.has(id)||this.errors.has(id)&&!replacement)continue;
+      if(this.entries.has(id)&&!replacement)continue;
+      if(replacement){this.reloads.delete(id);this.reloading.add(id);}
       const controller=new AbortController();this.running.set(id,controller);this.evict();
       Promise.resolve().then(()=>this.load(id,controller.signal)).then(value=>{
         if(this.closed||controller.signal.aborted||!this.wanted.includes(id))this.dispose(value);
-        else{this.entries.delete(id);this.entries.set(id,value);}
+        else if(replacement){
+          const old=this.entries.get(id);this.entries.set(id,value);if(old&&old!==value)this.dispose(old,{replacedBy:value});
+          this.errors.delete(id);
+        }else{this.entries.delete(id);this.entries.set(id,value);}
       }).catch(error=>{
-        if(!controller.signal.aborted&&!this.closed)this.errors.set(id,error);
-      }).finally(()=>{this.running.delete(id);this.evict();this.notify();this.pump();});
+        if(!controller.signal.aborted&&!this.closed&&error?.name!=='AbortError')this.errors.set(id,error);
+      }).finally(()=>{this.running.delete(id);if(replacement)this.reloading.delete(id);this.evict();this.notify();this.pump();});
     }
   }
   ready(ids){return ids.every(id=>this.entries.has(id));}
@@ -52,7 +63,7 @@ export class TileCache {
     });
   }
   retry(){this.errors.clear();this.notify();this.pump();}
-  close(){this.closed=true;for(const c of this.running.values())c.abort();for(const value of this.entries.values())this.dispose(value);this.entries.clear();this.notify();}
+  close(){this.closed=true;for(const c of this.running.values())c.abort();for(const value of this.entries.values())this.dispose(value);this.entries.clear();this.reloads.clear();this.reloading.clear();this.notify();}
 }
 export function distanceToBounds(x,z,b){return Math.hypot(Math.max(b[0]-x,0,x-b[2]),Math.max(b[1]-z,0,z-b[3]));}
 export function nearbyTiles(tiles,x,z,radius,limit=24){

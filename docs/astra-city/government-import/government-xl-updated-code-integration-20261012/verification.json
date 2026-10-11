@@ -1,0 +1,43 @@
+{
+  "checks": [
+    {
+      "name": "runtime-tests",
+      "command": [
+        "node",
+        "--test",
+        "3d-viewer/city/tests/model-byte-cache.test.js",
+        "3d-viewer/city/tests/model-codecs.test.js",
+        "3d-viewer/city/tests/model-variants.test.js",
+        "3d-viewer/city/tests/official-models.test.js",
+        "3d-viewer/city/tests/streaming.test.js",
+        "3d-viewer/city/tests/model-support.test.js",
+        "3d-viewer/city/tests/model-collision.test.js",
+        "3d-viewer/city/tests/model-integrity.test.js",
+        "3d-viewer/city/tests/model-preloader.test.js",
+        "3d-viewer/city/tests/model-spatial-index.test.js",
+        "3d-viewer/city/tests/official-model-footprint-scopes.test.js",
+        "3d-viewer/city/tests/official-model-direct-osm-group-footprint.test.js",
+        "3d-viewer/city/tests/official-model-retained-group-footprint.test.js"
+      ],
+      "exitCode": 0,
+      "seconds": 23.523
+    },
+    {
+      "name": "registry-offline-tests",
+      "command": [
+        "/tmp/astra-city-venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "source-scripts/city/model-optimisation",
+        "-p",
+        "test_*.py"
+      ],
+      "exitCode": 0,
+      "seconds": 0.621
+    }
+  ],
+  "optimisationBatchRegistered": false,
+  "migrationExecuted": false
+}

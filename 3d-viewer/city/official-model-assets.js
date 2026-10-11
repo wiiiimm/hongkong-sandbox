@@ -1,6 +1,6 @@
 import {sha256Hex} from './sha256.js';
 export {sha256Hex};
-import {yieldModelWork,modelWorkScheduler} from './model-byte-cache.js';
+import {yieldModelWork,modelWorkScheduler} from './model-byte-cache.js?v=20261011-model-quality1';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {GLTFLoader} from '../vendor/GLTFLoader.js';
@@ -8,6 +8,7 @@ import {facadeMaterial} from './world.js';
 import {buildingLighting} from './lighting.js';
 import {describeBuilding,prepareModelGeometry} from './building-geometry.js';
 import {officialModelFootprint} from './official-model-footprint-scopes.js';
+import {loadModelCodec} from './model-codecs.js?v=20261011-model-quality1';
 const HASH=/^[a-f0-9]{64}$/;
 const positive=n=>Number.isSafeInteger(n)&&n>0;
 const abort=()=>new DOMException('Aborted','AbortError');
@@ -48,12 +49,25 @@ async function boundedBytes(stream,expected,signal){
  if(length!==expected)throw new Error('Model response byte count mismatch');
  const bytes=new Uint8Array(length);let at=0;for(const chunk of chunks){bytes.set(chunk,at);at+=chunk.length;}return bytes;
 }
-function nativeGLB(bytes){
+function readGLB(bytes){
  const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
  if(bytes.length<20||view.getUint32(0,true)!==0x46546c67||view.getUint32(4,true)!==2||view.getUint32(8,true)!==bytes.length||view.getUint32(16,true)!==0x4e4f534a)throw new Error('Invalid compact GLB');
  const length=view.getUint32(12,true);if(length>bytes.length-20)throw new Error('Invalid compact GLB JSON');
- const json=JSON.parse(new TextDecoder().decode(bytes.subarray(20,20+length)));
+ return JSON.parse(new TextDecoder().decode(bytes.subarray(20,20+length)));
+}
+function nativeGLB(bytes){
+ const json=readGLB(bytes);
  if(json.buffers?.some(b=>b.uri)||json.images?.length||json.extensionsRequired?.length)throw new Error('Compact models must be self-contained and require no additional decoders');
+ return json;
+}
+function variantGLB(bytes,codec){
+ const json=readGLB(new Uint8Array(bytes));
+ if(json.buffers?.some(b=>b.uri)||json.images?.length)throw new Error('Variants must be self-contained');
+ const codecExtension={none:null,meshopt:'EXT_meshopt_compression',draco:'KHR_draco_mesh_compression'}[codec];
+ if(codecExtension===undefined)throw new Error('Unsupported model codec');
+ const allowed=new Set(['KHR_mesh_quantization']);if(codecExtension)allowed.add(codecExtension);
+ for(const extension of [...(json.extensionsUsed||[]),...(json.extensionsRequired||[])])if(!allowed.has(extension))throw new Error('Variant uses an unsupported glTF extension');
+ if(codecExtension&&!(json.extensionsUsed||[]).includes(codecExtension)&&!(json.extensionsRequired||[]).includes(codecExtension))throw new Error('Variant is missing its declared codec extension');
  return json;
 }
 /** Decodes exact native source geometry. It does not change source node transforms. */
@@ -66,12 +80,18 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
  else{const response=await fetcher(entry.assetURL,{signal});if(!response.ok)throw new Error('Official model HTTP '+response.status);compressed=await boundedBytes(response.body,entry.bytes,signal);}
  if(await sha256Hex(compressed)!==entry.sha256){byteCache?.delete(entry);throw new Error('Official model SHA-256 mismatch');}
  metrics.end('modelFetchMs',fetchStart);await beforeDecode(signal);const decodeStart=metrics.start();
- const bytes=await boundedBytes(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip')),entry.glbBytes,signal),source=nativeGLB(bytes);
- if(signal?.aborted)throw abort();const gltf=await loader.parseAsync(bytes.buffer,'');let result={group:gltf.scene};
+ const bytes=await boundedBytes(new Blob([compressed]).stream().pipeThrough(new DecompressionStream('gzip')),entry.glbBytes,signal),source=entry.variantId?variantGLB(bytes,entry.codec):nativeGLB(bytes);
+ if(signal?.aborted)throw abort();
+ const codec=entry.variantId?await loadModelCodec(entry.codec):null;
+ if(signal?.aborted)throw abort();
+ if(codec?.loader&&typeof loader.setDRACOLoader==='function')loader.setDRACOLoader(codec.loader);
+ if(codec?.decoder&&typeof loader.setMeshoptDecoder==='function')loader.setMeshoptDecoder(codec.decoder);
+ if(signal?.aborted)throw abort();
+ const gltf=await loader.parseAsync(bytes.buffer,'');let result={group:gltf.scene};
  try{
   if(signal?.aborted)throw abort();const group=gltf.scene;group.position.set(entry.rootTranslation[0],entry.rootTranslation[1]+(entry.verticalPlacementOffsetHKPD??0),entry.rootTranslation[2]);group.updateMatrixWorld(true);
   const meshes=[];group.traverse(o=>{if(o.isMesh)meshes.push(o);});if(!meshes.length)throw new Error('Empty official model');
-  let vertices=0,triangles=0,geometryBytes=0;
+  let vertices=0,triangles=0,geometryBytes=0;const countedArrays=new Set();
   for(const mesh of meshes){
    const g=mesh.geometry,p=g.attributes.position,n=g.attributes.normal,c=g.attributes.color,index=g.index;
    if(!p||p.itemSize!==3||!n||n.count!==p.count||!c||c.count!==p.count||!index||index.count%3)throw new Error('Invalid official model attributes');
@@ -85,7 +105,9 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
     for(let at=start,end=Math.min(start+8192,index.count);at<end;at++){const i=index.array[at];if(!Number.isInteger(i)||i<0||i>=p.count)throw new Error('Invalid official model attributes');}
     await yieldWork(signal);
    }
-   vertices+=p.count;triangles+=index.count/3;geometryBytes+=index.array.byteLength+Object.values(g.attributes).reduce((sum,a)=>sum+a.array.byteLength,0);
+   vertices+=p.count;triangles+=index.count/3;
+   if(entry.variantId){if(!countedArrays.has(index.array)){countedArrays.add(index.array);geometryBytes+=index.array.byteLength;}for(const attribute of Object.values(g.attributes))if(!countedArrays.has(attribute.array)){countedArrays.add(attribute.array);geometryBytes+=attribute.array.byteLength;}}
+   else geometryBytes+=index.array.byteLength+Object.values(g.attributes).reduce((sum,a)=>sum+a.array.byteLength,0);
   }
   if(vertices!==entry.indexedVertices||triangles!==entry.triangles||geometryBytes!==entry.decodedGeometryBytes)throw new Error('Official model geometry count mismatch');
   const bounds=new THREE.Box3();
@@ -102,7 +124,7 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
   }
   const flat=[...bounds.min.toArray(),...bounds.max.toArray()];
   if(flat.some((v,i)=>!Number.isFinite(v)||Math.abs(v-entry.worldBounds.flat()[i])>.002))throw new Error('Official model source placement mismatch');
-  const record={...building,modelId:entry.modelId,modelGeometry:{position,index,triangles,worldBounds:entry.worldBounds,...(footprintBoundary?{footprintBoundary}:{})},modelSource:{datasetId:entry.datasetId,modelId:entry.modelId,sourceTile:entry.sourceTile,sourceTileRevision:entry.sourceTileRevision,sha256:entry.sha256,catalogueURL:entry.catalogueURL,coordinatePolicy:entry.coordinatePolicy,verticalPlacementOffsetHKPD:entry.verticalPlacementOffsetHKPD??0,verticalPlacementBasis:entry.verticalPlacementBasis??null,sourceWorldBounds:entry.sourceWorldBounds??entry.worldBounds,originalMaterials:source.materials,originalNodes:source.nodes}};
+  const record={...building,modelId:entry.modelId,modelGeometry:{position,index,triangles,worldBounds:entry.worldBounds,...(footprintBoundary?{footprintBoundary}:{})},modelSource:{datasetId:entry.datasetId,modelId:entry.modelId,sourceTile:entry.sourceTile,sourceTileRevision:entry.sourceTileRevision,sha256:entry.sha256,sourceSha256:entry.sourceSha256??entry.sha256,sourceMetadataSha256:entry.sourceMetadataSha256??null,variantId:entry.variantId??null,tier:entry.tier??'original',codec:entry.codec??'none',catalogueURL:entry.catalogueURL,coordinatePolicy:entry.coordinatePolicy,verticalPlacementOffsetHKPD:entry.verticalPlacementOffsetHKPD??0,verticalPlacementBasis:entry.verticalPlacementBasis??null,sourceWorldBounds:entry.sourceWorldBounds??entry.worldBounds,originalMaterials:source.materials,originalNodes:source.nodes}};
   await prepareModelGeometry(record,{signal,yieldWork});
   if(describeBuilding(record).modelStatus!=='usable')throw new Error('Official model does not fit its matched footprint');
   const style=buildingLighting(record),night=facadeMaterial('#ffffff',lighting),attachNight=night.onBeforeCompile,materialMap=new Map();night.dispose();
