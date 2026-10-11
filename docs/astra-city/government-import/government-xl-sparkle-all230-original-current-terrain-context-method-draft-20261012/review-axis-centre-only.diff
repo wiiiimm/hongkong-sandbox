@@ -1,0 +1,30 @@
+--- before/source-scripts/city/government-import/xl-terrain-recovery-20261012-sparkle-complete-original-current-ground-failure-context-v1.py
++++ after/source-scripts/city/government-import/xl-terrain-recovery-20261012-sparkle-complete-original-current-ground-failure-context-v1.py
+@@ -184,11 +184,13 @@
+   draw(focus,'#cf2c33',.94,.3)
+   display=(np.asarray([lo,hi])-center)[:,[0,2,1]];extent=display[1]-display[0]
+   ax.set_xlim(display[:,0]);ax.set_ylim(display[:,1]);ax.set_zlim(display[:,2]);ax.set_box_aspect(extent);ax.view_init(elevation,azimuth)
+-  ax.set_xlabel('viewer X (m)');ax.set_ylabel('viewer Z (m)');ax.set_zlabel('unchanged source Y (m)')
+-  ax.set_title('Complete original Sparkle T/P + retained market originals + actual current terrain\nRed: exact failed original faces/body; annotation colours only; no roof/floor/foundation/function or root classification')
++  ax.set_xlabel('X relative to diagnostic centre X (m)');ax.set_ylabel('Z relative to diagnostic centre Z (m)');ax.set_zlabel('Y relative to diagnostic centre Y (m)')
++  ax.set_title('Complete original Sparkle T/P + retained market originals + actual current terrain\nRed: exact failed original faces/body; annotation colours only; no roof/floor/foundation/function or root classification\nAbsolute HKPD Y = plotted vertical + diagnostic centre Y ('+repr(float(center[1]))+' m)')
+   path=DOC/(label+'-2200x1200.png');fig.tight_layout();fig.savefig(path);plt.close(fig);images.append(dict(image=ref(path),originalBody=body_id,
+    completeOriginalActors=UIDS,completeOriginalBuildingFacets=60546,completeCurrentDrawnTerrainFacets=3865,
+-   completeSourceMeshArraysRenderedBeforeAxisCrop=True,geographicCropBounds=[lo.tolist(),hi.tolist()],noVisualRoleAcceptance=True));refs.append(ref(path));pulse(True)
++   completeSourceMeshArraysRenderedBeforeAxisCrop=True,geographicCropBounds=[lo.tolist(),hi.tolist()],diagnosticCentreOriginalXYZ=center.tolist(),
++   absoluteHKPDYFromPlottedVertical='plotted vertical + diagnosticCentreOriginalXYZ[1]',allPlotAxesRelativeToRecordedDiagnosticCentre=True,
++   noVisualRoleAcceptance=True));refs.append(ref(path));pulse(True)
+  for pin in refs:verify(pin)
+  assert ref(manifest)==start;pulse(True)
+  save(DOC/'source-gltf-documents-and-provider-poses.json.gz',dict(rows=source_records,providerToViewerOffsetOnly=[-834500,0,816500],sourceCoordinateScaleUnmodified=True))
+--- before/docs/astra-city/government-import/government-xl-sparkle-all230-original-current-terrain-context-method-draft-20261012/METHOD.md
++++ after/docs/astra-city/government-import/government-xl-sparkle-all230-original-current-terrain-context-method-draft-20261012/METHOD.md
+@@ -36,6 +36,8 @@
+ 
+ Export13 PNGs at2200×1200: full pair+retained sources+terrain plan/oblique/side, then plan+oblique of each complete affected podium body19/20/22/23/24. Every diagram submits complete60,546 building facets and3,865 actual terrain facets; close view limits are honest axis crops, not mesh cuts or edited geometry. Whole original contexts and exact mapped facet IDs accompany the cropped views. Annotation colours distinguish actors/failures, not proposed materials or an architectural function. No screenshots/photos/AI construction are substituted for source geometry.
+ 
++All three plotted axes are explicitly relative to the image's recorded diagnostic centre. Every image metadata row stores `diagnosticCentreOriginalXYZ` and the absolute original XYZ crop bounds. The title and metadata state `absolute HKPD Y = plotted vertical + diagnosticCentreOriginalXYZ[1]`. Centre subtraction is a diagnostic camera/axis-frame operation only; it does not mutate any saved original/actual world array, source elevation or provider pose.
++
+ These views and primitive/topology records allow independent review to distinguish actual source roof/floor/wall/appendage possibilities where source geometry supports them. The producer itself assigns NONE of those functions and accepts no body. It retains the exact negative surface positions relative to unchanged terrain and provider elevations.
+ 
+ ## Bounded next decision
