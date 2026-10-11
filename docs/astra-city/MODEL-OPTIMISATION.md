@@ -19,6 +19,16 @@ The registry lives under `source-scripts/city/model-optimisation`. It adds only 
 
 The static viewer must not query Neon. A later guarded publisher will export only source-matching, output-hash-bound approved variants to a deployable catalogue. Include source SHA/context, variant/recipe ID, output SHA, tier, bounds, placement/collision policy, required codec/extensions, compressed/GLB/decoded sizes, vertex/triangle counts and validated screen-space range. Preserve original enhanced entries so fallback remains available. Loader contract/version and supported decoders must be explicit, never inferred from a filename.
 
+### Runtime loading contract
+
+Optional descriptors are read only from the catalogue's top-level `optimisedVariants` array. They bind to the catalogue source bytes and to `sourceMetadataSha256`, computed as SHA-256 over UTF-8 JSON after recursively sorting object keys (array order is retained) for `{entry, rootTranslation, crs, verticalDatum, coordinatePolicy, datasetId}`. This is a JavaScript canonical JSON serialization; it is distinct from the optimisation registry's immutable revision SHA. Invalid or stale optional descriptors are ignored without invalidating the native catalogue. Variant metadata cannot replace source pose, support, or suppression relationships.
+
+The viewer uses the approved selected variant first, then the existing enhanced/native source, and finally leaves the basic form visible if both fail. Base-only mode starts no detail geometry requests while keeping the shared compressed-byte cache alive. Variant decode/fetch failures are remembered by variant ID until explicit Retry. Native-to-variant and variant-to-native changes are same-UID atomic replacements: the current model remains installed until the replacement is fetched, decoded, validated and admitted. Peak admission counts the candidate together with held geometry, including the old resident; a replacement that cannot fit is deferred and the old model is retained. Budget deferral is not classified as a corrupt variant.
+
+Native GLBs remain decoder-free. Selected variants may declare only `none`, Meshopt, or Draco; external buffers, all images (including embedded images), and undeclared extensions are rejected. Variants are geometry-only until texture memory has a separately validated budget. Draco assets are vendored from Three.js r160, Meshopt from meshoptimizer 0.24.0, and codec modules are initialized lazily with a single worker where supported. Decode failure falls back to the source model. Tests exercise synthetic lifecycle/validation cases; browser Draco decoding and actual quantised-asset rendering remain unverified coverage gaps.
+
+No approved presets or optimised assets currently exist in the repository. Publishing remains a future, separately authorised operation; this runtime integration does not generate or process model assets.
+
 ## Delivery sequence
 
 1. Skill + additive Neon registry, tested in isolation. Shared migration requires the pinned direct credential. No bulk plans or source jobs are seeded automatically.
