@@ -22,3 +22,12 @@ test('cancelling background-only reads releases the transfer and queued work wit
  stopShared.abort();await assert.rejects(shared,{name:'AbortError'});assert.equal(networkSignal.aborted,false);release();assert.equal((await foreground).length,4);
  const active=cache.get(meta(4),{fetcher}),stopQueued=new AbortController(),queued=cache.get(meta(5),{fetcher,signal:stopQueued.signal});stopQueued.abort();await assert.rejects(queued,{name:'AbortError'});assert.equal(cache.queue.length,0);release();await active;cache.close();
 });
+test('cancelPending rejects foreground and queued reads but retains completed bytes and cache usability',async()=>{
+ const cache=new ModelByteCache(),completed=await cache.get(meta(0),{fetcher:async()=>new Response(new Uint8Array([1,2,3,4]))});
+ let networkSignal;const active=cache.get(meta(1),{fetcher:(_url,{signal})=>new Promise((resolve,reject)=>{networkSignal=signal;signal.addEventListener('abort',()=>reject(new DOMException('Cancelled','AbortError')),{once:true});})});
+ const queued=cache.get(meta(2),{fetcher:async()=>new Response(new Uint8Array(4))});await new Promise(r=>setTimeout(r,0));
+ assert.equal(cache.queue.length,1);cache.cancelPending();await assert.rejects(active,{name:'AbortError'});await assert.rejects(queued,{name:'AbortError'});assert.equal(networkSignal.aborted,true);
+ while(cache.running)await new Promise(r=>setTimeout(r,0));
+ assert.equal(cache.closed,false);assert.equal(cache.pending.size,0);assert.equal(cache.queue.length,0);assert.equal(cache.entries.get(cache.key(meta(0))),completed);
+ assert.equal(await cache.get(meta(0)),completed);const fresh=await cache.get(meta(3),{fetcher:async()=>new Response(new Uint8Array(4))});assert.equal(fresh.length,4);cache.close();
+});

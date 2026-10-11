@@ -138,7 +138,13 @@
 <dialog id="building-progress" class="building-progress" aria-labelledby="progress-heading">
  <header><div><p class="progress-eyebrow">A CITY IN PROGRESS</p><h2 id="progress-heading">Model progress</h2></div><button id="progress-close" aria-label="Close building progress">×</button></header>
  <p id="progress-status" role="status">Loading building statistics…</p>
- <label>Detailed models <select id="model-quality"><option value="auto">Auto · conservative budget</option><option value="low">Fixed · conservative</option><option value="high">Fixed · higher budget</option></select></label>
+ <section class="model-quality-panel" aria-labelledby="model-quality-heading">
+  <div class="model-quality-heading"><label id="model-quality-heading" for="model-quality">Model quality</label><output id="model-quality-value" for="model-quality">Auto</output></div>
+  <input id="model-quality" type="range" min="0" max="4" step="1" value="2" aria-valuetext="Auto" aria-describedby="model-quality-note">
+  <div class="model-quality-scale" aria-hidden="true"><span>Base only</span><span>Original</span></div>
+  <label class="model-quality-auto"><input id="model-quality-auto" type="checkbox" checked> Auto · adapt to this device</label>
+  <p id="model-quality-note">Visible buildings use approved variants when available, otherwise existing enhanced models. Base only skips detail downloads. Quality levels remain within device budgets.</p>
+ </section>
  <section class="model-preload" aria-labelledby="model-preload-heading">
   <div><b id="model-preload-heading">Prepare detailed models for a demo</b><p id="model-preload-status">Adaptive loading fetches detailed models only when they are needed.</p></div>
   <button id="model-preload" type="button" aria-pressed="false">Load models in background</button>

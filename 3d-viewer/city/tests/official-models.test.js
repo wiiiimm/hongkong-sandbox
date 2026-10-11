@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {gzipSync} from 'node:zlib';
+import {gzipSync,gunzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import * as THREE from '../../vendor/three.module.js';
 import {GLTFLoader} from '../../vendor/GLTFLoader.js';
 import {CityStreaming} from '../streaming.js';
 import {OfficialModelLayer,MODEL_PROFILES} from '../official-models.js';
 import {prepareModelCatalogue,modelBudget,loadOfficialModel,disposeOfficialModel} from '../official-model-assets.js';
+import {sourceMetadataHash} from '../model-variants.js';
 const tick=()=>new Promise(resolve=>setTimeout(resolve,0));
 function fixture(){
  const g=new THREE.BoxGeometry(10,10,10);g.translate(5,7,5);const p=g.attributes.position.array,n=g.attributes.normal.array,c=new Float32Array(p.length).fill(.5),index=g.index.array,arrays=[p,n,c,index],offsets=[];let size=0;
@@ -24,6 +25,30 @@ const modelRequest=url=>{try{return new URL(url).pathname.endsWith('.gz');}catch
 const response=(data)=>new Response(JSON.stringify(data),{headers:{'Content-Type':'application/json'}});
 const camera=()=>{const c=new THREE.PerspectiveCamera(50,1,1,100000);c.position.set(5,10,100);c.lookAt(5,7,5);c.updateProjectionMatrix();return c;};
 async function sourceReady(f){f.stream.cache.plan(['0_0']);await f.stream.cache.waitFor(['0_0']);}
+const repeat=c=>c.repeat(64);
+async function variantDescriptor(f,{asset='variants/quality.glb.gz',bytes=f.compressed,glbBytes=f.meta.glbBytes,tier='balanced',variantId=repeat('b')}={}){
+ const gates=Object.fromEntries(['sourceIdentity','geometry','placement','visual','collision','devicePerformance'].map(g=>[g,'passed']));
+ return {uid:f.meta.uid,runtimeVersion:1,status:'approved',sourceSha256:f.meta.sha256,sourceMetadataSha256:await sourceMetadataHash(f.meta,f.catalogue),variantId,revisionId:repeat('c'),recipeSha256:repeat('d'),sha256:createHash('sha256').update(bytes).digest('hex'),tier,codec:'none',collisionPolicy:'validated-variant',lossy:true,bytes:bytes.length,glbBytes,decodedGeometryBytes:f.meta.decodedGeometryBytes,triangles:f.meta.triangles,indexedVertices:f.meta.indexedVertices,encoding:'gzip',asset,minPixels:0,maxPixels:1000000,worldBounds:f.meta.worldBounds,maxPositionErrorMetres:0,approval:{artifactSha256:createHash('sha256').update(bytes).digest('hex'),gates}};
+}
+function fakeEntry(meta,building){
+ return {entry:meta,record:{...building,uid:meta.uid,modelSource:{}},group:new THREE.Group(),meshes:[],active:false,budget:{...modelBudget(meta),drawCalls:1}};
+}
+function fakeStreamingSwaps(stream){
+ stream.sync=()=>{};
+ stream.setDetailedModel=async(uid,value,{signal}={})=>{
+  if(signal?.aborted)return false;const old=stream.detailedModels.get(uid);
+  if(old&&old!==value){old.active=false;old.group.visible=false;}
+  if(value){value.active=true;value.group.visible=true;stream.detailedModels.set(uid,value);}else stream.detailedModels.delete(uid);
+  return true;
+ };
+}
+function withGLTFExtensions(compressed,used,required=[]){
+ const glb=gunzipSync(compressed),jsonLength=glb.readUInt32LE(12),json=JSON.parse(glb.toString('utf8',20,20+jsonLength));
+ json.extensionsUsed=used;if(required.length)json.extensionsRequired=required;
+ const jsonText=JSON.stringify(json),jsonChunk=Buffer.from(jsonText+' '.repeat((4-Buffer.byteLength(jsonText)%4)%4)),binaryAt=20+jsonLength,binaryLength=glb.readUInt32LE(binaryAt),binary=glb.subarray(binaryAt+8,binaryAt+8+binaryLength);
+ const output=Buffer.alloc(12+8+jsonChunk.length+8+binary.length);output.writeUInt32LE(0x46546c67,0);output.writeUInt32LE(2,4);output.writeUInt32LE(output.length,8);output.writeUInt32LE(jsonChunk.length,12);output.writeUInt32LE(0x4e4f534a,16);jsonChunk.copy(output,20);
+ const next=binaryAt+(jsonChunk.length-jsonLength);output.writeUInt32LE(binary.length,next);output.writeUInt32LE(0x004e4942,next+4);binary.copy(output,next+8);return output;
+}
 
 test('verified native GLB keeps indexed buffers, source transforms/material provenance and shared city night uniforms',async t=>{
  const f=fixture();t.after(()=>f.stream.cache.close());const meta=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];assert.equal(new URL(meta.assetURL).searchParams.get('v'),f.meta.sha256);const r=await loadOfficialModel(meta,f.building,f.stream.lighting,{fetcher:async()=>new Response(f.compressed)});t.after(()=>disposeOfficialModel(r));
@@ -234,4 +259,85 @@ test('an indivisible oversized detail stays on fallback without sticky errors or
  const layer=drawBudgetFixture(t),load=layer.loadAsset;let decodes=0;layer.loadAsset=async(...args)=>{decodes++;const entry=await load(...args);entry.budget.drawCalls=300;return entry;};layer.models=new Map([[...layer.models][0]]);layer.setProfile('mobile');const c=camera(),selected=[...layer.models.keys()][0];
  layer.plan(c,{selectedUid:selected,force:true});while(layer.cache.running.size)await tick();
  for(let i=0;i<10;i++)layer.plan(c,{selectedUid:selected,force:true});await tick();assert.equal(decodes,1);assert.equal(layer.cache.entries.size,0);assert.equal(layer.stats.errors.length,0);assert.match(layer.supportHolds.get(selected),/draw-call budget/);
+});
+
+test('Base mode starts no model downloads and cancels pending shared byte-cache work',async t=>{
+ const f=fixture();let detailRequests=0;t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?(detailRequests++,new Response(f.compressed)):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});layer.setQuality('base');await layer.loadCatalogue('http://localhost/catalogue.json');
+ assert.deepEqual(layer.plan(camera(),{force:true}),[]);await tick();assert.equal(detailRequests,0);assert.equal(layer.stats.quality,'base');
+});
+test('switching to Base aborts an active detail transfer without closing the shared cache',async t=>{
+ const f=fixture();let modelSignal,started;const start=new Promise(resolve=>started=resolve);
+ t.mock.method(globalThis,'fetch',async(url,{signal}={})=>url==='tile'?response(f.data):modelRequest(url)?(modelSignal=signal,started(),new Promise((resolve,reject)=>signal.addEventListener('abort',()=>reject(new DOMException('Aborted','AbortError')),{once:true}))):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await start;
+ layer.setQuality('base');assert.equal(modelSignal.aborted,true);
+ for(let i=0;i<30&&layer.cache.running.size;i++)await tick();
+ assert.equal(layer.cache.running.size,0);assert.equal(layer.byteCache.closed,false);assert.equal(layer.byteCache.stats.pending,0);assert.equal(layer.cache.entries.size,0);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);
+});
+test('an approved self-contained variant loads lazily and records source provenance',async t=>{
+ const f=fixture();f.catalogue.optimisedVariants=[await variantDescriptor(f)];t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(f.compressed):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await layer.cache.waitFor([f.meta.uid]);
+ const entry=layer.cache.entries.get(f.meta.uid);assert.equal(entry.entry.variantId,repeat('b'));assert.equal(entry.record.modelSource.sourceSha256,f.meta.sha256);assert.equal(entry.record.modelSource.sourceMetadataSha256,await sourceMetadataHash(f.meta,f.catalogue));assert.equal(layer.failedVariants.size,0);
+});
+test('a stale optional descriptor is ignored while the native catalogue remains usable',async t=>{
+ const f=fixture(),variant=await variantDescriptor(f);variant.sourceMetadataSha256=repeat('f');f.catalogue.optimisedVariants=[variant];
+ t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);fakeStreamingSwaps(f.stream);
+ const calls=[],layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta,building)=>{calls.push(meta);return fakeEntry(meta,building);}});t.after(async()=>{await layer.dispose();f.stream.cache.close();});
+ assert.equal(await layer.loadCatalogue('http://localhost/catalogue.json'),true);layer.plan(camera(),{force:true});await layer.cache.waitFor([f.meta.uid]);
+ assert.equal(layer.catalogueErrors.size,0);assert.deepEqual(layer.models.get(f.meta.uid).variants,[]);assert.equal(calls.length,1);assert.equal(calls[0].variantId,undefined);
+});
+test('a failed variant GLB falls back to the native entry after one decode failure',async t=>{
+ const f=fixture(),badBytes=gzipSync(Buffer.from('not a glb')),variant=await variantDescriptor(f,{bytes:badBytes,glbBytes:Buffer.byteLength('not a glb')});f.catalogue.optimisedVariants=[variant];
+ t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):modelRequest(url)?new Response(new URL(url).pathname.includes('/variants/')?badBytes:f.compressed):response(f.catalogue));await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});await layer.cache.waitFor([f.meta.uid]);
+ const entry=layer.cache.entries.get(f.meta.uid);assert.equal(entry.entry.variantId,undefined);assert.equal(entry.record.modelSource.variantId,null);assert.equal(layer.failedVariants.get(variant.variantId),'Invalid compact GLB');assert.equal(layer.byteCache.stats.requests,2);
+});
+test('variant GLBs allow only declared codecs and mesh quantisation',async t=>{
+ const f=fixture(),source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];
+ const decode=async(used,codec,required=[])=>{
+  const glb=withGLTFExtensions(f.compressed,used,required),compressed=gzipSync(glb),sha256=createHash('sha256').update(compressed).digest('hex');
+  const entry={...source,variantId:repeat('f'),sourceSha256:source.sha256,sourceMetadataSha256:repeat('a'),tier:'balanced',codec,sha256,bytes:compressed.length,glbBytes:glb.length};
+  return loadOfficialModel(entry,f.building,f.stream.lighting,{fetcher:async()=>new Response(compressed)});
+ };
+ await assert.rejects(decode([],'meshopt'),/missing its declared codec extension/);
+ await assert.rejects(decode(['EXT_meshopt_compression','KHR_materials_unlit'],'meshopt'),/unsupported glTF extension/);
+ await assert.rejects(decode(['KHR_draco_mesh_compression'],'none'),/unsupported glTF extension/);
+ const meshopt=await decode(['EXT_meshopt_compression'],'meshopt',['EXT_meshopt_compression']);t.after(()=>disposeOfficialModel(meshopt));assert.equal(meshopt.record.modelSource.codec,'meshopt');
+ const quantized=await decode(['KHR_mesh_quantization'],'none');t.after(()=>disposeOfficialModel(quantized));assert.equal(quantized.record.modelSource.codec,'none');
+});
+test('if variant and native loading both fail, the surveyed base form remains installed',async t=>{
+ const f=fixture();f.catalogue.optimisedVariants=[await variantDescriptor(f)];t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);
+ fakeStreamingSwaps(f.stream);const calls=[];
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta)=>{calls.push(meta);throw new Error(meta.variantId?'variant decode failed':'native decode failed');}});t.after(async()=>{await layer.dispose();f.stream.cache.close();});await layer.loadCatalogue('http://localhost/catalogue.json');const source=layer.models.get(f.meta.uid);
+ layer.plan(camera(),{force:true});await assert.rejects(layer.cache.waitFor([source.uid]),/native decode failed/);
+ assert.deepEqual(calls.map(entry=>entry.variantId??'native'),[repeat('b'),'native']);assert.equal(f.stream.detailedModels.size,0);assert.ok(f.stream.cache.entries.get('0_0').buildings.group.children.length);assert.equal(layer.failedVariants.get(repeat('b')),'variant decode failed');
+});
+test('same-UID quality swaps keep old entry until replacement is ready in both directions',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);fakeStreamingSwaps(f.stream);
+ const source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];let release,gate=false;
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta,building)=>{if(gate)await new Promise(resolve=>release=resolve);return fakeEntry(meta,building);}});t.after(async()=>{await layer.dispose();f.stream.cache.close();});layer.models.set(source.uid,source);
+ const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([source.uid]);const native=layer.cache.entries.get(source.uid);source.variants=[{...source,variantId:repeat('e'),tier:'balanced',codec:'none',minPixels:0,maxPixels:1000000}];
+ let releases=0;const originalRelease=layer.release.bind(layer);layer.release=entry=>{if(entry===native)releases++;return originalRelease(entry);};gate=true;layer.setQuality('balanced');
+ for(let i=0;i<30&&!release;i++)await tick();assert.equal(layer.cache.entries.get(source.uid),native);assert.equal(f.stream.detailedModels.get(source.uid),native);
+ release();for(let i=0;i<30&&layer.cache.entries.get(source.uid)?.entry.variantId!==repeat('e');i++)await tick();
+ const variant=layer.cache.entries.get(source.uid);assert.equal(variant.entry.variantId,repeat('e'));assert.equal(f.stream.detailedModels.get(source.uid),variant);assert.equal(releases,0);
+ release=null;layer.setQuality('lightweight');for(let i=0;i<30&&!release;i++)await tick();assert.equal(layer.cache.entries.get(source.uid),variant);assert.equal(f.stream.detailedModels.get(source.uid),variant);
+ release();for(let i=0;i<30&&layer.cache.entries.get(source.uid)?.entry.variantId;i++)await tick();
+ assert.equal(layer.cache.entries.get(source.uid).entry.variantId,undefined);assert.equal(f.stream.detailedModels.get(source.uid),layer.cache.entries.get(source.uid));
+});
+test('a stale quality replacement cannot install after switching to Base',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);fakeStreamingSwaps(f.stream);
+ const source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];let release;
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta,building)=>{if(meta.variantId)await new Promise(resolve=>release=resolve);return fakeEntry(meta,building);}});t.after(async()=>{await layer.dispose();f.stream.cache.close();});layer.models.set(source.uid,source);
+ const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([source.uid]);source.variants=[{...source,variantId:repeat('e'),tier:'balanced',codec:'none',minPixels:0,maxPixels:1000000}];layer.setQuality('balanced');
+ for(let i=0;i<30&&!release;i++)await tick();assert.ok(release);layer.setQuality('base');await Promise.all([...layer.retiring.values()]);release();
+ for(let i=0;i<30&&layer.cache.running.size;i++)await tick();assert.equal(layer.cache.entries.size,0);assert.equal(f.stream.detailedModels.has(source.uid),false);assert.equal(layer.cache.errors.size,0);
+});
+test('peak-budget deferral retains the resident asset without marking the variant corrupt',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);fakeStreamingSwaps(f.stream);
+ const source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];let loads=0;
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta,building)=>{loads++;return fakeEntry(meta,building);}});t.after(async()=>{await layer.dispose();f.stream.cache.close();});layer.models.set(source.uid,source);
+ const c=camera();layer.plan(c,{force:true});await layer.cache.waitFor([source.uid]);const old=layer.cache.entries.get(source.uid);source.variants=[{...source,variantId:repeat('e'),tier:'balanced',codec:'none',minPixels:0,maxPixels:1000000}];
+ const cost=modelBudget(source);layer.limits={...layer.limits,geometryBytes:Math.floor(cost.geometryBytes*1.5),residentBytes:Math.floor(cost.residentBytes*1.5),triangles:Math.floor(cost.triangles*1.5)};layer.setQuality('balanced');
+ for(let i=0;i<30&&layer.cache.running.size;i++)await tick();assert.equal(layer.cache.entries.get(source.uid),old);assert.equal(f.stream.detailedModels.get(source.uid),old);assert.equal(loads,1);assert.equal(layer.failedVariants.size,0);assert.match(layer.cache.errors.get(source.uid).message,/peak device budget/);
 });
