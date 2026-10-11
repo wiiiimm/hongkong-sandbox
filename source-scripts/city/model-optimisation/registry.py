@@ -58,7 +58,7 @@ def source_record(catalogue, uid):
     if not path.is_relative_to(ROOT):
         raise ValueError('Catalogue must be in this repository')
     cat = read(path)
-    if (cat.get('schemaVersion') != 1 or cat.get('kind') != 'official-model-catalogue'
+    if (cat.get('schemaVersion') != 1 or cat.get('kind') not in ('official-model-catalogue', 'staged-official-model-catalogue')
             or cat.get('crs') != 'EPSG:2326' or cat.get('verticalDatum') != 'Hong Kong Principal Datum'
             or cat.get('rootTranslation') != [-834500, 0, 816500]):
         raise ValueError('Expected current official source catalogue with fixed 1x coordinates')

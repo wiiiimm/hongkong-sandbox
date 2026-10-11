@@ -1,7 +1,10 @@
 """Offline contracts and opt-in isolated Postgres lifecycle tests; no source models processed."""
 import copy
+import hashlib
+import json
 import os
 from pathlib import Path
+import tempfile
 import unittest
 from unittest.mock import patch
 import uuid
@@ -34,6 +37,31 @@ def evidence(variant):
 
 
 class ContractTests(unittest.TestCase):
+    def test_source_record_accepts_both_viewer_catalogue_kinds(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            asset = root / 'source.glb.gz'
+            asset.write_bytes(b'synthetic source identity fixture')
+            entry = {'uid': 'landsd/42:0', 'asset': asset.name,
+                     'sha256': hashlib.sha256(asset.read_bytes()).hexdigest()}
+            cat = {'schemaVersion': 1, 'crs': 'EPSG:2326',
+                   'verticalDatum': 'Hong Kong Principal Datum',
+                   'rootTranslation': [-834500, 0, 816500], 'models': [entry]}
+            path = root / 'catalogue.json'
+            with patch.object(r, 'ROOT', root), patch.object(r.subprocess, 'check_output', return_value='fixture-source-commit\n'):
+                for kind in ('official-model-catalogue', 'staged-official-model-catalogue'):
+                    with self.subTest(kind=kind):
+                        cat['kind'] = kind
+                        path.write_text(json.dumps(cat))
+                        record = r.source_record(path, entry['uid'])
+                        self.assertEqual(record['source']['entry'], entry)
+                        self.assertEqual(record['sourceSha256'], entry['sha256'])
+                        self.assertEqual(record['revisionId'], r.digest(record['source']))
+                for changes in ({'kind': 'unknown'}, {'rootTranslation': [-834500, 1, 816500]}):
+                    path.write_text(json.dumps({**cat, **changes}))
+                    with self.subTest(changes=changes), self.assertRaisesRegex(ValueError, 'fixed 1x'):
+                        r.source_record(path, entry['uid'])
+
     def test_recipe_flags_versions_and_original_precision(self):
         self.assertEqual(r.validate_recipe(recipe()), recipe())
         for update in [{'tier': 'base'}, {'lossy': True}, {'status': 'unknown'},
