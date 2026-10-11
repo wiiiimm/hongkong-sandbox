@@ -1,0 +1,36 @@
+--- source-scripts/city/government-import/xl-heya-aqua-184286-184285-current-actual-ground-geometry-v1-20261011.mjs
++++ source-scripts/city/government-import/xl-ocean-walk-81743-current-actual-ground-geometry-v1-20261012.mjs
+@@ -1,5 +1,5 @@
+ /** Complete unchanged original attributes/matrices and actual current drawn ground.
+- * No source edits, invented tower/podium bridge or support/acceptance credit.
++ * No source edits, invented assembly bridge or support/acceptance credit.
+  */
+ import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+ import {gunzipSync,gzipSync} from 'node:zlib';
+@@ -8,19 +8,19 @@
+ import {snapshotModuleClosure,verifyModuleClosure} from './literal_production_module_dependency_closure_20261010.mjs';
+ import {actualFloat32ModelMatrixPositions,positionBounds} from './actual_float32_model_matrix_bounds_20261011.mjs';
+ import {appendFiniteOrdered,preflightActualRenderMesh} from './current_geometry_capture_preflight_20261011.mjs';
+-const root=new URL('../../../',import.meta.url),input='docs/astra-city/government-import/government-xl-heya-aqua-184286-current-owned-identity-v1-20261011',doc='docs/astra-city/government-import/government-xl-heya-aqua-184286-184285-current-actual-ground-capture-v1-20261011';
++const root=new URL('../../../',import.meta.url),input='docs/astra-city/government-import/government-xl-ocean-walk-current-actual-ground-capture-v1-20261012',doc=input;
+ const hashes={},sha=b=>createHash('sha256').update(b).digest('hex');
+ function bytes(path,expected){const url=new URL(path,root);assert(url.pathname.startsWith(root.pathname));const b=readFileSync(url);if(expected!==undefined)assert.equal(sha(b),expected,path);hashes[path]=sha(b);return b;}
+ function read(path,expected){const b=bytes(path,expected);return JSON.parse(path.endsWith('.gz')?gunzipSync(b):b);}
+-const actorUID=process.argv[2];assert(['landsd/184286:0','landsd/184285:0'].includes(actorUID));
+-const captureInput=read(doc+'/capture-inputs.json.gz'),selection=read(input+'/selection.json.gz'),context=read(input+'/context.json.gz').rows[0];assert.equal(selection.rows.length,1);
+-assert.deepEqual(captureInput.rows.map(r=>r.uid),['landsd/184286:0','landsd/184285:0']);const row=captureInput.rows.find(r=>r.uid===actorUID);assert.equal(row.triangles,actorUID==='landsd/184286:0'?17910:3844);if(actorUID==='landsd/184286:0')assert.deepEqual(row,selection.rows[0]);
+-const manifest=read('3d-viewer/city/data/manifest.json',selection.manifestSHA256);assert.equal(selection.manifestSHA256,'947f0a3b3a1d7167a9f98074af35d4030ff0245e121ee682eed4f9ab9baedfa6');
++const actorUID=process.argv[2];assert.equal(actorUID,'landsd/81743:0');
++const captureInput=read(doc+'/capture-inputs.json.gz'),selection=read(input+'/selection.json.gz'),context=read(input+'/context.json.gz');assert.equal(selection.rows.length,1);
++assert.deepEqual(captureInput.rows.map(r=>r.uid),['landsd/81743:0']);const row=captureInput.rows[0];assert.equal(row.triangles,15484);assert.deepEqual(row,selection.rows[0]);assert.equal(row.sourceSHA256,'52e0d6b6341f664cc18ee8a894e1c4c5e5dbc1b05729bb43deb8c109e0fac8cb');assert.equal(row.source.building.buildingCSUID,'1463725942P20060311');assert.equal(context.manifestSHA256,selection.manifestSHA256);
++const manifest=read('3d-viewer/city/data/manifest.json',selection.manifestSHA256);assert.equal(selection.manifestSHA256,'2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540');
+ const currentForms=captureInput.completeCurrentForms;assert.equal(new Set(currentForms.map(f=>f.uid)).size,currentForms.length);const byUID=new Map(currentForms.map(f=>[f.uid,f]));assert.deepEqual(byUID.get(row.uid),row.source.building);
+ for(const[path,h]of Object.entries(captureInput.neighbourTileHashes))bytes('3d-viewer/'+path,h);for(const[path,h]of Object.entries(captureInput.inputHashes))bytes(path,h);
+-const catalogueRefs=manifest.officialModelCatalogues.map(path=>{const p='3d-viewer/'+path,c=read(p);return {path:p,sha256:hashes[p],models:c.models};});assert.equal(catalogueRefs.flatMap(c=>c.models.filter(m=>m.uid==='landsd/184286:0')).length,0);const supportEntries=catalogueRefs.flatMap(c=>c.models.filter(m=>m.uid==='landsd/184285:0'));assert.equal(supportEntries.length,1);assert.deepEqual(supportEntries[0],captureInput.rows[1].candidate.entry);assert.deepEqual(catalogueRefs.map(({path,sha256})=>({path,sha256})),captureInput.completeCurrentCatalogueRefs);
++const catalogueRefs=manifest.officialModelCatalogues.map(path=>{const p='3d-viewer/'+path,c=read(p);return {path:p,sha256:hashes[p],models:c.models};});const native=catalogueRefs.flatMap(c=>c.models);assert.equal(native.length,6649);assert.equal(new Set(native.map(m=>m.uid)).size,6649);assert.equal(native.filter(m=>m.uid===actorUID).length,0);assert.deepEqual(catalogueRefs.map(({path,sha256})=>({path,sha256})),captureInput.completeCurrentCatalogueRefs);
+ const loaderClosure=snapshotModuleClosure(new URL('3d-viewer/city/official-model-assets.js',root),root),terrainClosure=snapshotModuleClosure(new URL('3d-viewer/city/world.js',root),root);Object.assign(hashes,loaderClosure.inputHashes,terrainClosure.inputHashes);
+-for(const p of ['source-scripts/city/government-import/xl-heya-aqua-184286-184285-current-actual-ground-geometry-v1-20261011.mjs','source-scripts/city/government-import/actual_float32_model_matrix_bounds_20261011.mjs','source-scripts/city/government-import/literal_production_module_dependency_closure_20261010.mjs','source-scripts/city/government-import/current_geometry_capture_preflight_20261011.mjs'])bytes(p);
++for(const p of ['source-scripts/city/government-import/xl-ocean-walk-81743-current-actual-ground-geometry-v1-20261012.mjs','source-scripts/city/government-import/actual_float32_model_matrix_bounds_20261011.mjs','source-scripts/city/government-import/literal_production_module_dependency_closure_20261010.mjs','source-scripts/city/government-import/current_geometry_capture_preflight_20261011.mjs'])bytes(p);
+ const {loadOfficialModel,disposeOfficialModel}=await import(new URL('3d-viewer/city/official-model-assets.js',root).href),{makeTerrain}=await import(new URL('3d-viewer/city/world.js',root).href),THREE=await import(new URL('3d-viewer/vendor/three.module.js',root).href);
+ const lighting={night:{value:0},activity:{value:new THREE.Vector4()},retail:{value:0},elapsed:{value:0},shimmer:{value:0}},getBuilding=uid=>{assert(byUID.has(uid));return byUID.get(uid);};
+ let model,ground;const position=[],index=[],left=[],balanced=[],meshes=[];let offset=0;
