@@ -1,12 +1,12 @@
 import {sha256Hex} from './sha256.js';
 export {sha256Hex};
-import {yieldModelWork} from './model-byte-cache.js';
+import {yieldModelWork,modelWorkScheduler} from './model-byte-cache.js';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {GLTFLoader} from '../vendor/GLTFLoader.js';
 import {facadeMaterial} from './world.js';
 import {buildingLighting} from './lighting.js';
-import {describeBuilding} from './building-geometry.js';
+import {describeBuilding,prepareModelGeometry} from './building-geometry.js';
 import {officialModelFootprint} from './official-model-footprint-scopes.js';
 const HASH=/^[a-f0-9]{64}$/;
 const positive=n=>Number.isSafeInteger(n)&&n>0;
@@ -57,7 +57,7 @@ function nativeGLB(bytes){
  return json;
 }
 /** Decodes exact native source geometry. It does not change source node transforms. */
-export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=fetch,loader=new GLTFLoader(),byteCache=null,beforeDecode=yieldModelWork,getBuilding=null}={}){
+export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=fetch,loader=new GLTFLoader(),byteCache=null,beforeDecode=yieldModelWork,yieldWork=modelWorkScheduler(),getBuilding=null}={}){
  if(!building||building.uid!==entry.uid||building.objectId!==entry.objectId||building.buildingCSUID!==entry.buildingCSUID||(building.baseHeightHKPD??null)!==entry.recordedBaseHeight||(building.topHeightHKPD??null)!==entry.recordedTopHeight)throw new Error('Model does not match the loaded official building source');
  const footprintBoundary=officialModelFootprint(entry,building,getBuilding);
  const fetchStart=metrics.start();if(!byteCache)metrics.count('modelRequests');
@@ -74,20 +74,36 @@ export async function loadOfficialModel(entry,building,lighting,{signal,fetcher=
   let vertices=0,triangles=0,geometryBytes=0;
   for(const mesh of meshes){
    const g=mesh.geometry,p=g.attributes.position,n=g.attributes.normal,c=g.attributes.color,index=g.index;
-   if(!p||p.itemSize!==3||!n||n.count!==p.count||!c||c.count!==p.count||!index||index.count%3||[p,n,c].some(a=>!a.array.every(Number.isFinite))||!index.array.every(i=>Number.isInteger(i)&&i>=0&&i<p.count))throw new Error('Invalid official model attributes');
+   if(!p||p.itemSize!==3||!n||n.count!==p.count||!c||c.count!==p.count||!index||index.count%3)throw new Error('Invalid official model attributes');
+   for(const attribute of [p,n,c])for(let start=0;start<attribute.array.length;start+=8192){
+    if(signal?.aborted)throw abort();
+    for(let i=start,end=Math.min(start+8192,attribute.array.length);i<end;i++)if(!Number.isFinite(attribute.array[i]))throw new Error('Invalid official model attributes');
+    await yieldWork(signal);
+   }
+   for(let start=0;start<index.count;start+=8192){
+    if(signal?.aborted)throw abort();
+    for(let at=start,end=Math.min(start+8192,index.count);at<end;at++){const i=index.array[at];if(!Number.isInteger(i)||i<0||i>=p.count)throw new Error('Invalid official model attributes');}
+    await yieldWork(signal);
+   }
    vertices+=p.count;triangles+=index.count/3;geometryBytes+=index.array.byteLength+Object.values(g.attributes).reduce((sum,a)=>sum+a.array.byteLength,0);
   }
   if(vertices!==entry.indexedVertices||triangles!==entry.triangles||geometryBytes!==entry.decodedGeometryBytes)throw new Error('Official model geometry count mismatch');
-  const bounds=new THREE.Box3().setFromObject(group,true),flat=[...bounds.min.toArray(),...bounds.max.toArray()];
-  if(flat.some((v,i)=>Math.abs(v-entry.worldBounds.flat()[i])>.002))throw new Error('Official model source placement mismatch');
+  const bounds=new THREE.Box3();
   const position=new Float64Array(vertices*3),index=new Uint32Array(triangles*3),point=new THREE.Vector3();let vertexOffset=0,indexOffset=0;
   for(const mesh of meshes){
    const p=mesh.geometry.attributes.position,indices=mesh.geometry.index.array;
-   for(let i=0;i<p.count;i++){if(i&&i%8192===0)await yieldModelWork(signal);point.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);position.set(point.toArray(),(vertexOffset+i)*3);}
-   for(let i=0;i<indices.length;i++)index[indexOffset+i]=indices[i]+vertexOffset;
+   for(let i=0;i<p.count;i++){
+    if(i%8192===0){await yieldWork(signal);if(signal?.aborted)throw abort();}
+    point.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);const at=(vertexOffset+i)*3;
+    position[at]=point.x;position[at+1]=point.y;position[at+2]=point.z;bounds.expandByPoint(point);
+   }
+   for(let i=0;i<indices.length;i++){if(i%8192===0){await yieldWork(signal);if(signal?.aborted)throw abort();}index[indexOffset+i]=indices[i]+vertexOffset;}
    vertexOffset+=p.count;indexOffset+=indices.length;
   }
+  const flat=[...bounds.min.toArray(),...bounds.max.toArray()];
+  if(flat.some((v,i)=>!Number.isFinite(v)||Math.abs(v-entry.worldBounds.flat()[i])>.002))throw new Error('Official model source placement mismatch');
   const record={...building,modelId:entry.modelId,modelGeometry:{position,index,triangles,worldBounds:entry.worldBounds,...(footprintBoundary?{footprintBoundary}:{})},modelSource:{datasetId:entry.datasetId,modelId:entry.modelId,sourceTile:entry.sourceTile,sourceTileRevision:entry.sourceTileRevision,sha256:entry.sha256,catalogueURL:entry.catalogueURL,coordinatePolicy:entry.coordinatePolicy,verticalPlacementOffsetHKPD:entry.verticalPlacementOffsetHKPD??0,verticalPlacementBasis:entry.verticalPlacementBasis??null,sourceWorldBounds:entry.sourceWorldBounds??entry.worldBounds,originalMaterials:source.materials,originalNodes:source.nodes}};
+  await prepareModelGeometry(record,{signal,yieldWork});
   if(describeBuilding(record).modelStatus!=='usable')throw new Error('Official model does not fit its matched footprint');
   const style=buildingLighting(record),night=facadeMaterial('#ffffff',lighting),attachNight=night.onBeforeCompile,materialMap=new Map();night.dispose();
   for(const mesh of meshes){

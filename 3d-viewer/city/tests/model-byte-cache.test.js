@@ -1,7 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {ModelByteCache} from '../model-byte-cache.js';
+import {ModelByteCache,modelWorkScheduler} from '../model-byte-cache.js';
 const meta=i=>({assetURL:'https://test/'+i,sha256:String(i),bytes:4});
+test('model work only yields after its slice budget and checks cancellation',async()=>{
+ let now=0,yields=0;const work=modelWorkScheduler({now:()=>now,yieldWork:async()=>{yields++;now+=20;}});
+ await work();now=3;await work();assert.equal(yields,0);
+ now=4;await work();assert.equal(yields,1);await work();assert.equal(yields,1);
+ now+=4;await work();assert.equal(yields,2);
+ const controller=new AbortController();controller.abort();await assert.rejects(work(controller.signal),{name:'AbortError'});
+ const during=new AbortController(),abortWork=modelWorkScheduler({now:()=>0,budgetMs:0,yieldWork:async()=>during.abort()});
+ await assert.rejects(abortWork(during.signal),{name:'AbortError'});
+});
 test('source downloads deduplicate, reuse on reversal and evict within finite byte/count caps',async()=>{
  const cache=new ModelByteCache({maxBytes:8,maxEntries:2});let requests=0;const fetcher=async()=>{requests++;return new Response(new Uint8Array(4));};
  const [a,b]=await Promise.all([cache.get(meta(1),{fetcher}),cache.get(meta(1),{fetcher})]);assert.equal(a,b);assert.equal(requests,1);

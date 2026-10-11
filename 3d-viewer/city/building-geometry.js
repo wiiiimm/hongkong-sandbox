@@ -1,6 +1,7 @@
 import * as THREE from '../vendor/three.module.js';
 import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
 import {taiOCanopyEstimate} from './tai-o-estimates.js';
+import {modelWorkScheduler} from './model-byte-cache.js';
 
 const cache=new WeakMap(),modelCache=new WeakMap();
 const finite=Number.isFinite;
@@ -16,7 +17,7 @@ const inside=(x,z,rings)=>insideRing(x,z,rings[0])&&!rings.slice(1).some(r=>insi
 const openRing=ring=>ring.length>1&&ring[0][0]===ring.at(-1)[0]&&ring[0][1]===ring.at(-1)[1]?ring.slice(0,-1):ring;
 export function isOpenSidedBuilding(building){return building.structureType==='Open-sided Structure'||building.sourceAttributes?.BuildingBlockType==='Open-sided Structure'||building.kind==='roof';}
 
-function validModel(building){
+function* validateModel(building){
  const model=building.modelGeometry;if(!model||typeof model!=='object')return null;
  if(modelCache.has(model))return modelCache.get(model);
  const array=a=>Array.isArray(a)||ArrayBuffer.isView(a),p=model.position,n=model.normal,index=model.index;
@@ -24,10 +25,11 @@ function validModel(building){
  if(array(p)&&p.length>=9&&p.length%3===0&&p.length<=3000000&&(!n||(array(n)&&n.length===p.length))&&(!index||(array(index)&&index.length>=3&&index.length%3===0))){
   const vertices=p.length/3,bounds=[Infinity,Infinity,Infinity,-Infinity,-Infinity,-Infinity];let valid=true;
   for(let i=0;i<p.length;i++){
+   if(i&&i%8192===0)yield;
    if(!finite(p[i])||(n&&!finite(n[i]))){valid=false;break;}
    const axis=i%3;bounds[axis]=Math.min(bounds[axis],p[i]);bounds[axis+3]=Math.max(bounds[axis+3],p[i]);
   }
-  if(index){for(const i of index)if(!Number.isInteger(i)||i<0||i>=vertices){valid=false;break;}}
+  if(index){for(let at=0;at<index.length;at++){if(at&&at%8192===0)yield;const i=index[at];if(!Number.isInteger(i)||i<0||i>=vertices){valid=false;break;}}}
   else if(p.length%9!==0)valid=false;
   if(valid&&bounds[4]>bounds[1]+.001&&bounds[3]>bounds[0]&&bounds[5]>bounds[2]){
    const boundary=model.footprintBoundary??building.rings?.[0],xs=boundary?.map(p=>p[0])||[],zs=boundary?.map(p=>p[1])||[];
@@ -36,6 +38,18 @@ function validModel(building){
   }
  }
  modelCache.set(model,result);return result;
+}
+function validModel(building){
+ const work=validateModel(building);let step;do{step=work.next();}while(!step.done);return step.value;
+}
+/** Prime the same validation cache without blocking a frame on a large source. */
+export async function prepareModelGeometry(building,{signal,yieldWork=modelWorkScheduler()}={}){
+ const work=validateModel(building);
+ for(;;){
+  if(signal?.aborted)throw new DOMException('Aborted','AbortError');
+  const step=work.next();if(step.done)return step.value;
+  await yieldWork(signal);
+ }
 }
 
 function supportRings(rings){
