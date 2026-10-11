@@ -1,0 +1,5 @@
+# Youth Square unchanged original source diagnostic
+
+Complete unchanged original source census and historical extent attribution, with all nonzero tower/podium finite contacts. Exact zero faces retained separately. Geometric connectivity and positive contacts neither establish architectural role, solid collision nor support. Grouped foreign0 and exact190 separate podium11.392m2 excess are distinct historical measurements, both preserved. Prior one-sample/zero-strict interface and terrain negatives remain. No refreshed remaining membership, primary-plan identity, footprint exemption, current runtime/ground/native/foreign or acceptance proof. Primary plan registration is a next method, not a completed finding.
+
+{"completeFaces": {"landsd/139415:0": 22, "landsd/173512:0": 13100}, "genuineBodies": {"landsd/139415:0": 2, "landsd/173512:0": 372}, "exactZeros": {"landsd/139415:0": [], "landsd/173512:0": [4236, 9074]}, "farFaces": 286, "exactFiniteContacts": 24, "allBodyObligations": 374, "identitySupportUnqualified": true}
