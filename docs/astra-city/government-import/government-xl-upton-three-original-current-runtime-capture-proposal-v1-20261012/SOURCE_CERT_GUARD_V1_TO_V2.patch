@@ -1,0 +1,90 @@
+--- source-scripts/city/government-import/upton_three_original_complete_current_runtime_capture_draft_v1_20261012.py
++++ source-scripts/city/government-import/upton_three_original_complete_current_runtime_capture_draft_v2_20261012.py
+@@ -7,12 +7,12 @@
+ from run import ROOT,HERE,read,save,digest,connect,reservations,NATIVE_RUN
+ from original_source_ownership import document,graph_reasons
+ from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+-B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-three-original-complete-current-runtime-capture-v1-20261012';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH
++B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-three-original-complete-current-runtime-capture-v2-20261012';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH
+ UIDS=['landsd/338946:0','landsd/12728:0','landsd/12662:0'];PROTECTED='landsd/254809:0'
+ MANIFEST_SHA='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540'
+ PLAN=B/'government-xl-upton-three-original-current-runtime-capture-proposal-v1-20261012/method.json'
+ INPUTS=[B/'government-xl-upton338946-podium12728-fresh-identity-proposal-v1-20261011/source-inputs.json',B/'government-xl-upton-podium12728-12662-original-foreign-conflict-proposal-v1-20261011/source-inputs.json']
+-ATTR=HERE/'upton_three_original_complete_actual_render_attributes_draft_v1_20261012.mjs';CLOSURE=HERE/'upton_three_original_capture_module_closures_draft_v1_20261012.mjs';FREEZER=HERE/'upton_three_original_freeze_complete_current_runtime_capture_draft_v1_20261012.py'
++ATTR=HERE/'upton_three_original_complete_actual_render_attributes_draft_v2_20261012.mjs';CLOSURE=HERE/'upton_three_original_capture_module_closures_draft_v2_20261012.mjs';FREEZER=HERE/'upton_three_original_freeze_complete_current_runtime_capture_draft_v2_20261012.py'
+ def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+ def module(p,name):
+  s=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+@@ -25,12 +25,21 @@
+  assert len(rows)==3
+  for r in sources:assert next(x for x in rows if x[1]['modelId']==r['modelId'])==(r['native']['cacheKey'],r['native']['model'],r['native']['sheet'],r['native']['resultSha'])
+  return rows
++def verified_source_certificate(path,expected_sha):
++ certificate=read(path);assert ref(path)['sha256']==expected_sha
++ required=dict(reviewer='ROOT',independentlyVerified=True,sourceIdentificationOnly=True,identityAccepted=True,currentManifestSHA256=MANIFEST_SHA,currentNativeCount=6649,physicalAccepted=False,installationApproved=False,canStartTerrainWork=False,preservedProperInteriorCrossings=23)
++ for key,value in required.items():assert key in certificate and type(certificate[key])is type(value) and certificate[key]==value, 'ROOT source certificate contract: '+key
++ return ref(path)
++def verified_plan():
++ plan=read(PLAN);assert plan['expectedManifestSHA256']==MANIFEST_SHA and plan['expectedNativeCount']==6649
++ assert plan['sourceAcquisitionSelections']==[ref(p)for p in INPUTS], 'Plan exact acquisition selection path/SHA contract changed'
++ return plan
+ def main():
+- p=argparse.ArgumentParser();p.add_argument('--root-source-certificate',required=True);p.add_argument('--expected-root-certificate-sha',required=True);p.add_argument('--owned',action='store_true');a=p.parse_args();cert=ROOT/a.root_source_certificate;assert ref(cert)['sha256']==a.expected_root_certificate_sha
++ p=argparse.ArgumentParser();p.add_argument('--root-source-certificate',required=True);p.add_argument('--expected-root-certificate-sha',required=True);p.add_argument('--owned',action='store_true');a=p.parse_args();cert=ROOT/a.root_source_certificate;verified_source_certificate(cert,a.expected_root_certificate_sha);verified_plan()
+  if not a.owned:
+   assert not DOC.exists()and not LOCAL.exists();claim=reservations.claim('upton-three-original-runtime-'+str(uuid.uuid4()),['building:'+u for u in UIDS],batch=BATCH,ttl=1800);assert claim['ok'],claim
+   save(LOCAL/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)));code=subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','1800','--',sys.executable,__file__,'--owned','--root-source-certificate',a.root_source_certificate,'--expected-root-certificate-sha',a.expected_root_certificate_sha],cwd=ROOT).returncode;assert code==0,code;return
+- lease=read(LOCAL/'reservation.json');assert reservations.owns(lease)and not DOC.exists();plan=read(PLAN);assert plan['expectedManifestSHA256']==MANIFEST_SHA and plan['expectedNativeCount']==6649
++ lease=read(LOCAL/'reservation.json');assert reservations.owns(lease)and not DOC.exists();plan=verified_plan()
+  source_map={}
+  for f in INPUTS:
+   for row in read(f)['sources']:
+--- source-scripts/city/government-import/upton_three_original_complete_actual_render_attributes_draft_v1_20261012.mjs
++++ source-scripts/city/government-import/upton_three_original_complete_actual_render_attributes_draft_v2_20261012.mjs
+@@ -9,7 +9,7 @@
+ assert(inputPath?.startsWith('docs/astra-city/government-import/')&&outputPath?.startsWith('docs/astra-city/government-import/')&&!existsSync(new URL(outputPath,root)));
+ function bytes(path,expected){const u=new URL(path,root);assert(u.pathname.startsWith(root.pathname));const b=readFileSync(u);if(expected!==undefined)assert.equal(sha(b),expected);hashes[path]=sha(b);return b;}
+ const production=new URL('3d-viewer/city/official-model-assets.js',root),closure=snapshotModuleClosure(production,root);Object.assign(hashes,closure.inputHashes);
+-for(const p of ['source-scripts/city/government-import/upton_three_original_complete_actual_render_attributes_draft_v1_20261012.mjs','source-scripts/city/government-import/actual_float32_model_matrix_bounds_20261011.mjs','source-scripts/city/government-import/literal_production_module_dependency_closure_20261010.mjs'])bytes(p);
++for(const p of ['source-scripts/city/government-import/upton_three_original_complete_actual_render_attributes_draft_v2_20261012.mjs','source-scripts/city/government-import/actual_float32_model_matrix_bounds_20261011.mjs','source-scripts/city/government-import/literal_production_module_dependency_closure_20261010.mjs'])bytes(p);
+ const input=JSON.parse(gunzipSync(bytes(inputPath)));assert.equal(input.rows.length,3);assert.deepEqual(input.rows.map(r=>r.uid),['landsd/338946:0','landsd/12728:0','landsd/12662:0']);const expected={'landsd/338946:0':['91112a4c6ef150da224da45c98064fb68b6a2523f9a45fabace8b2e7ff78e9bf',11657],'landsd/12728:0':['4f177100defad797c23530d4577676041bcbc6f6ee79de026f2af01c112552d2',1655],'landsd/12662:0':['de06028267854749aac25761395c83ccdd4b56c4813c23d14bdfd72a8598e5f0',392]};
+ assert.equal(input.expectedNativeCount,6649);
+ function attribute(a){assert(Array.from(a.array).every(Number.isFinite),'Nonfinite attribute');assert(!a.isInterleavedBufferAttribute,'Unsupported interleaved attribute, preserve failure');return {array:Array.from(a.array),arrayType:a.array.constructor.name,itemSize:a.itemSize,count:a.count,normalized:a.normalized,byteSHA256:sha(Buffer.from(a.array.buffer,a.array.byteOffset,a.array.byteLength))};}
+--- source-scripts/city/government-import/upton_three_original_capture_module_closures_draft_v1_20261012.mjs
++++ source-scripts/city/government-import/upton_three_original_capture_module_closures_draft_v2_20261012.mjs
+@@ -2,8 +2,8 @@
+ import {readFileSync,writeFileSync,existsSync} from 'node:fs';import assert from 'node:assert/strict';
+ import {snapshotModuleClosure,verifyModuleClosure} from './literal_production_module_dependency_closure_20261010.mjs';
+ const root=new URL('../../../',import.meta.url),doc=process.argv[2],verify=process.argv.includes('--verify');
+-assert.equal(doc,'docs/astra-city/government-import/government-xl-upton-three-original-complete-current-runtime-capture-v1-20261012/');
+-for(const [name,path]of Object.entries({'acceptance-module-closure.json':'source-scripts/city/government-import/acceptance-metrics.mjs','runtime-app-module-closure.json':'3d-viewer/city/app.js','runtime-world-module-closure.json':'3d-viewer/city/world.js','runtime-geo-module-closure.json':'3d-viewer/city/geo.js','runtime-native-terrain-module-closure.json':'3d-viewer/city/native-terrain.js','actual-attributes-module-closure.json':'source-scripts/city/government-import/upton_three_original_complete_actual_render_attributes_draft_v1_20261012.mjs'})){
++assert.equal(doc,'docs/astra-city/government-import/government-xl-upton-three-original-complete-current-runtime-capture-v2-20261012/');
++for(const [name,path]of Object.entries({'acceptance-module-closure.json':'source-scripts/city/government-import/acceptance-metrics.mjs','runtime-app-module-closure.json':'3d-viewer/city/app.js','runtime-world-module-closure.json':'3d-viewer/city/world.js','runtime-geo-module-closure.json':'3d-viewer/city/geo.js','runtime-native-terrain-module-closure.json':'3d-viewer/city/native-terrain.js','actual-attributes-module-closure.json':'source-scripts/city/government-import/upton_three_original_complete_actual_render_attributes_draft_v2_20261012.mjs'})){
+  const target=new URL(doc+name,root);if(verify)assert(verifyModuleClosure(JSON.parse(readFileSync(target)),root));else{assert(!existsSync(target));writeFileSync(target,JSON.stringify(snapshotModuleClosure(new URL(path,root),root),null,2)+'\n');}
+ }
+ console.log(JSON.stringify({completeProducerModuleClosuresVerified:true,verifyOnly:verify}));
+--- source-scripts/city/government-import/upton_three_original_freeze_complete_current_runtime_capture_draft_v1_20261012.py
++++ source-scripts/city/government-import/upton_three_original_freeze_complete_current_runtime_capture_draft_v2_20261012.py
+@@ -4,11 +4,11 @@
+ import numpy as np
+ from run import ROOT,HERE,read,save,digest,connect,reservations
+ from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+-from upton_three_original_complete_current_runtime_capture_draft_v1_20261012 import BATCH,DOC,LOCAL,UIDS,MANIFEST_SHA,PLAN,INPUTS,ATTR,CLOSURE,PROTECTED,state,native,module,ref
++from upton_three_original_complete_current_runtime_capture_draft_v1_20261012 import BATCH,DOC,LOCAL,UIDS,MANIFEST_SHA,PLAN,INPUTS,ATTR,CLOSURE,PROTECTED,state,native,module,ref,verified_source_certificate,verified_plan
+ 
+ def main():
+  p=argparse.ArgumentParser();p.add_argument('--lease-file',required=True);a=p.parse_args();lease=read(Path(a.lease_file));assert reservations.owns(lease)and not(DOC/'result.json').exists()
+- scope=read(DOC/'capture-scope.json');expected={r['uid']:r for r in read(PLAN)['actors']};rows=read(DOC/'selection.json.gz')['rows'];rt=read(LOCAL/'runtime-geometry.json.gz')['rows'];actual=read(DOC/'actual-render-geometry.json.gz');original=read(DOC/'original-full-source-root-context.json.gz')['rows'];before=read(DOC/'protected-state-before.json');native_before=read(DOC/'native-source-state-before.json')['rows']
++ scope=read(DOC/'capture-scope.json');verified_source_certificate(ROOT/scope['rootSourceCertificate']['path'],scope['rootSourceCertificate']['sha256']);expected={r['uid']:r for r in verified_plan()['actors']};rows=read(DOC/'selection.json.gz')['rows'];rt=read(LOCAL/'runtime-geometry.json.gz')['rows'];actual=read(DOC/'actual-render-geometry.json.gz');original=read(DOC/'original-full-source-root-context.json.gz')['rows'];before=read(DOC/'protected-state-before.json');native_before=read(DOC/'native-source-state-before.json')['rows']
+  assert scope['currentManifest']==ref(ROOT/'3d-viewer/city/data/manifest.json') and scope['currentManifest']['sha256']==MANIFEST_SHA and scope['expectedNativeCount']==6649
+  assert scope['startEndAllInputsVerified']and scope['allCurrentTerrainPatchesPreserved']and scope['terrainCandidates']==[] and scope['completeFaces']==13704 and not scope['physicalAccepted']and not scope['installationApproved']
+  assert[r['uid']for r in rows]==[r['uid']for r in rt]==[r['uid']for r in actual['rows']]==[r['uid']for r in original]==UIDS
+@@ -22,7 +22,7 @@
+  assert PROTECTED in before['uids'];forms=read(DOC/'complete-current-forms.json.gz')['rows'];native_ids={r['uid']for r in actual['nativeContextRows']};assert native_ids=={r['uid']for r in read(DOC/'native-nomination-inventory.json')['nominees']};basic_ids={r['uid']for r in actual['basicContextRows']};assert basic_ids=={r['building']['uid']for r in forms if not r['installedNative'] and r['building']['uid']not in UIDS}
+  for path,h in scope['inputHashes'].items():assert digest((ROOT/path).read_bytes())==h,path
+  subprocess.run(['node',str(CLOSURE),str(DOC.relative_to(ROOT))+'/','--verify'],cwd=ROOT,check=True)
+- walker=module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','reviewed_closed_source_capture_freezer');paths=set();walker.local_imports(Path(__file__),paths);walker.local_imports(HERE/'upton_three_original_complete_current_runtime_capture_draft_v1_20261012.py',paths)
++ walker=module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','reviewed_closed_source_capture_freezer');paths=set();walker.local_imports(Path(__file__),paths);walker.local_imports(HERE/'upton_three_original_complete_current_runtime_capture_draft_v2_20261012.py',paths)
+  for folder in [DOC,LOCAL]:
+   for p in folder.rglob('*'):
+    if p.is_file():
