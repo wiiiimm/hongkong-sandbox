@@ -1,0 +1,9 @@
+# Bounded source identity/component explanation
+
+Retain completed current podium45779 raw/owned identity failures:83.959291% target coverage and11.492938m source extent. Tower identity positive does not waive podiumidentity. No highest-ray/contact/identity policy rerun is proposed.
+
+First attribute the complete1,461 unchanged original facets to their four genuine shared-edge bodies (1,277/82/70/32 facets), preserving projected-zero and exact original world/source tuples. Record each component's full projected union, unique outside-target area, maximum actual source-vertex distance/facet/Y/bounds, and overlaps with exact saved NamFung79099/SungFung79098/Lee&Man47160 forms. Save complete missing-target/excess geometries, with descriptive binary64 projection area limits stated; missing area is not attributed to a nearby body merely by proximity.
+
+Separately collect two authoritative outline queries (fullCSUID3777116537P20060312 andhistoricalOBJECTID45779), each through two actual readers, plus independently double-read exact fixed nativecache source-input provenance on genuinely covering11-SE-6A. Preserve object renumbering, nullheights, actual source revision fields and any endpoint instability asliteral observations. Do not infer survey/3Dasset age from CSUID suffix or turn revised GIS into automatic original identity approval.
+
+These are separate unexecuted diagnostic drafts for ROOT review. A component explanation must be corroborated by actual original/current maps or primary architecture evidence before any typed identity proposal. If no source-backed explanation accounts for both the whole deficit and excess, retain scopedhold and require authoritative original podiumextent/component/GIS history, then pivot. Original14,522 building facets remain untouched; no placementfit, scaling, extra geometry, architectural function or threshold waiver.
