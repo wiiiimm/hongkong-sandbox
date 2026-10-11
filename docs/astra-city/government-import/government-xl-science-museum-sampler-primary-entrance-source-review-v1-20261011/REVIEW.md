@@ -1,0 +1,5 @@
+The original actor is recoverable from the individualised government product and has source-backed Museum entrance/frontage identity context. Original JPEG material binds the frontage photograph to faces69/70 of body0; photographic steel members provide no structural root. The pinned GLTFLoader uses raw TEXCOORD_0 with flipY=false, consistent with the V-down UV chart. This is not a WebGL/runtime capture.
+
+Independent 2022 site/ground plans support west-frontage entrance context, but supply no UID/CSUID-specific as-built geometry, actor height or five-body role definition. No pixel warp/source pose fit was performed.
+
+The concrete next compute is the complete171-face original cross-body finite contact inventory to resolve bodies1/4 and other mounts, followed only if supported by an exact Museum floor/cap→grade route.53source surface crossings,37boundary/13nonmanifold edges/1orientation conflict,3zero faces and all current/F32/foreign/native/ground/runtime gates remain. No recovered source is installation-qualified yet.
