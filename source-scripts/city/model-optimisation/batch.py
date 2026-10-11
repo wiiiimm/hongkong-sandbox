@@ -166,8 +166,36 @@ def resources(source):
 def source_groups(sources, shard_index=0, shard_count=1):
     if not 1 <= shard_count <= 16 or not 0 <= shard_index < shard_count:
         raise ValueError('Use 1–16 explicit independent workers')
-    return [sources[offset:offset+100] for index, offset in enumerate(range(0, len(sources), 100))
-            if index % shard_count == shard_index]
+    # Keep every shared-support family in one group so independent workers do
+    # not reserve each other's supporting buildings. Sources stay immutable.
+    parent = list(range(len(sources)))
+    owners = {}
+    def find(index):
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+    for index, source in enumerate(sources):
+        for key in resources(source) if isinstance(source, dict) else []:
+            if key in owners:
+                parent[find(index)] = find(owners[key])
+            else:
+                owners[key] = index
+    families = {}
+    for index, source in enumerate(sources):
+        families.setdefault(find(index), []).append(source)
+    groups, current = [], []
+    for family in families.values():
+        if len(family) > 100 and shard_count > 1:
+            raise ValueError('Shared-support family exceeds 100 sources; use one serial worker')
+        for offset in range(0, len(family), 100):
+            part = family[offset:offset+100]
+            if len(current) + len(part) > 100:
+                groups.append(current); current = []
+            current.extend(part)
+    if current:
+        groups.append(current)
+    return [group for index, group in enumerate(groups) if index % shard_count == shard_index]
 
 
 def check_snapshot(snap):

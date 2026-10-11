@@ -24,6 +24,17 @@ class BatchTests(unittest.TestCase):
         self.assertTrue(all(len(group)<=100 for group in groups))
         with self.assertRaises(ValueError): batch.source_groups(sources,16,16)
 
+    def test_support_families_never_overlap_between_workers(self):
+        sources=[{'uid':f'landsd/{i}:0','sourceSha256':str(i).zfill(64),
+            'source':{'entry':{'supportDependencies':['landsd/999:0'] if i in (2,120,210) else []}}}
+            for i in range(1,301)]
+        groups=[batch.source_groups(sources,shard,4) for shard in range(4)]
+        seen=set()
+        for worker in groups:
+            keys={key for group in worker for source in group for key in batch.resources(source)}
+            self.assertFalse(seen & keys)
+            seen.update(keys)
+
     def test_explicit_negative_acceptance_wins(self):
         self.assertFalse(batch.accepted({}))
         self.assertFalse(batch.accepted({'placementScreening': 'historical', 'placementReviewed': False}))
