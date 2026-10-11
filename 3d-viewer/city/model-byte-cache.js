@@ -52,6 +52,14 @@ export class ModelByteCache {
   if(at!==entry.bytes)throw new Error('Model response byte count mismatch');return bytes;
  }
  close(){this.closed=true;for(const job of this.queue)job.reject(new DOMException('Closed','AbortError'));this.queue=[];for(const {controller} of this.pending.values())controller.abort();this.pending.clear();this.entries.clear();this.bytes=0;}
+ cancelPending(){
+  if(this.closed)return;
+  const error=new DOMException('Cancelled','AbortError');
+  for(const job of this.pending.values()){
+   job.controller.abort();job.settled=true;job.reject(error);
+  }
+  this.queue=[];this.pending.clear();
+ }
  get stats(){return {bytes:this.bytes,entries:this.entries.size,pending:this.pending.size,running:this.running,hits:this.hits,requests:this.requests,maxBytes:this.maxBytes,maxEntries:this.maxEntries};}
 }
 /** Yield between indivisible stages; fallback bakes have their own bounded worker queue. */

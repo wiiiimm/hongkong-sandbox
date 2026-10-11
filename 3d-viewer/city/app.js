@@ -14,8 +14,9 @@ import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';
 import {BridgeCables} from './bridge-cables.js';
 import {ModelReveal} from './model-reveal.js?v=20260913-reveal1';
-import {OfficialModelLayer} from './official-models.js?v=20260915-visible-residency1';
+import {OfficialModelLayer} from './official-models.js?v=20261011-model-quality1';
 import {ModelPreloader} from './model-preloader.js?v=20260913-preload1';
+import {MODEL_QUALITY_LEVELS,MODEL_QUALITY_LABELS} from './model-variants.js?v=20261011-model-quality1';
 import {ReviewSections} from './review-sections.js';
 import {describeBuilding} from './building-geometry.js';
 import {regionalPlaceMatches} from './regional-data.js';
@@ -214,6 +215,7 @@ function updateStreamStatus(){
 }
 function updateModelPreloadUI(){
  const button=$('model-preload'),status=$('model-preload-status');if(!button)return;
+ if(modelQuality==='base'){button.disabled=true;button.setAttribute('aria-pressed','false');button.textContent='Base only';status.textContent='Detailed-model downloads are off. Choose a higher quality to prepare models.';return;}
  const p=modelPreloader?.stats||{active:false,done:0,total:0,bytesDone:0,totalBytes:0,errors:0,complete:false},number=n=>n.toLocaleString('en-HK'),mb=n=>Math.round(n/1048576);
  button.setAttribute('aria-pressed',String(modelPreloadRequested||p.active));button.disabled=p.complete&&!p.errors&&!p.active;
  if(modelPreloadRequested||p.active){button.textContent='Stop background load';status.textContent=backgroundCataloguesRemaining?`Indexing model locations · ${manifest.officialModelCatalogues.length-backgroundCataloguesRemaining} of ${manifest.officialModelCatalogues.length}`:`Caching nearest first · ${number(p.done)} of ${number(p.total)} · ${mb(p.bytesDone)} of ${mb(p.totalBytes)} MB downloaded`;return;}
@@ -222,7 +224,7 @@ function updateModelPreloadUI(){
  button.textContent=p.done?'Continue background load':'Load models in background';status.textContent=p.done?`${number(p.done)} files downloaded. ${p.budgetReached?'Session budget reached. ':''}Continue when needed; decoded detail remains bounded.`:'Downloads up to 32 MB or 96 nearby models per session. Ready detail uses a separate bounded budget.';
 }
 async function startModelPreload(){
- if(modelPreloadRequested||modelPreloader?.stats.active)return;modelPreloadRequested=true;updateStreamStatus();
+ if(modelQuality==='base'||modelPreloadRequested||modelPreloader?.stats.active)return;modelPreloadRequested=true;updateStreamStatus();
  await ensureBackgroundData();if(!modelPreloadRequested)return;modelPreloader.setModels([...officialModels.models.values()]);
  await modelPreloader.start();modelPreloadRequested=false;updateStreamStatus();
 }
@@ -289,7 +291,18 @@ function bindUI(){
   if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.isContentEditable||$('about').open||e.repeat)return;
   if(e.code==='Slash'){e.preventDefault();controlSheet.open('places',{focusSearch:true});}const m={Digit1:'orbit',Digit2:'walk',Digit3:'fly',Digit4:'star'}[e.code];if(m)chooseMode(m);
  });
- $('model-quality').addEventListener('change',e=>{modelQuality=e.target.value;officialModels.setProfile(modelQuality==='high'?'desktop':'mobile');applyViewport(viewportState);});
+ let qualityTimer;
+ const applyQuality=()=>{
+  clearTimeout(qualityTimer);modelQuality=$('model-quality-auto').checked?'auto':MODEL_QUALITY_LEVELS[Number($('model-quality').value)];
+  officialModels.setQuality(modelQuality);if(modelQuality==='base')stopModelPreload();updateModelPreloadUI();
+ };
+ const qualityLabel=()=>{
+  const label=$('model-quality-auto').checked?'Auto':MODEL_QUALITY_LABELS[Number($('model-quality').value)];
+  $('model-quality-value').textContent=label;$('model-quality').setAttribute('aria-valuetext',label);
+ };
+ $('model-quality').addEventListener('input',()=>{$('model-quality-auto').checked=false;qualityLabel();clearTimeout(qualityTimer);if($('model-quality').value==='0')applyQuality();else qualityTimer=setTimeout(applyQuality,250);});
+ $('model-quality').addEventListener('change',applyQuality);
+ $('model-quality-auto').addEventListener('change',()=>{qualityLabel();applyQuality();});
 }
 async function loadJSON(path){const r=await fetch(path);if(!r.ok)throw new Error(`${path}: HTTP ${r.status}`);return r.json();}
 async function backgroundSlot(){
@@ -303,7 +316,7 @@ async function loadBackgroundData(){
 }
 function ensureBackgroundData(){return backgroundDataPromise??=loadBackgroundData();}
 function applyViewport(state){
- viewportState=state;if(!state.active){stream?.setLoadingPaused(true);officialModels?.setLoadingPaused(true);modelPreloader?.setPaused(true);return;}const pixels=canvasDimensions(state.width,state.height,devicePixelRatio,{maxDpr:modelQuality==='high'?1.75:1.5,maxPixels:modelQuality==='high'?32000000:4000000});
+ viewportState=state;if(!state.active){stream?.setLoadingPaused(true);officialModels?.setLoadingPaused(true);modelPreloader?.setPaused(true);return;}const pixels=canvasDimensions(state.width,state.height,devicePixelRatio,{maxDpr:1.5,maxPixels:4000000});
  camera.aspect=state.width/state.height;camera.updateProjectionMatrix();renderer.setPixelRatio(pixels.pixelRatio);renderer.setSize(state.width,state.height,false);viewportState={...state,...pixels};stream?.setLoadingPaused(interacting);
 }
 async function init(){
@@ -320,7 +333,8 @@ async function init(){
  bridgeLayer=new BridgeLayer({scene,sampler,onChange:updateStreamStatus,inspection:meshInspection});
  cableLayer=new BridgeCables({scene,onChange:updateStreamStatus,inspection:meshInspection});
  modelReveal=new ModelReveal(renderer.domElement);
- officialModels=new OfficialModelLayer({stream,onReveal:entry=>{if(!reduced&&!interacting)modelReveal.start(entry);},profile:'mobile',onChange:updateOfficialModels});
+ const modelProfile=!matchMedia('(pointer: coarse)').matches&&innerWidth>760&&(navigator.deviceMemory??0)>=8&&(navigator.hardwareConcurrency??0)>=8?'desktop':'mobile';
+ officialModels=new OfficialModelLayer({stream,onReveal:entry=>{if(!reduced&&!interacting)modelReveal.start(entry);},profile:modelProfile,onChange:updateOfficialModels});
  sectionReview=new ReviewSections({scene,sampler,onVisit:visitReviewSection,onSelect:()=>{closeSelection();controlSheet.open('places');$('section-review').scrollIntoView({block:'start'});}});
  nav=new Navigation({camera,controls,scene,canvas:renderer.domElement,sampler,index:stream,surfaces:bridgeLayer.surfaces,toast,onMode,waterLevel:()=>water.state.restingLevelHKPD,waterSurface:()=>water.state.renderedLevelHKPD});
  modelPreloader=new ModelPreloader({byteCache:officialModels.byteCache,getDirection:()=>nav.mode==='fly'?[Math.sin(nav.heading),-Math.cos(nav.heading)]:null,getOrigin:()=>{const p=nav.mode==='orbit'?controls.target:nav.position;return[p.x,p.z];},onChange:updateStreamStatus});

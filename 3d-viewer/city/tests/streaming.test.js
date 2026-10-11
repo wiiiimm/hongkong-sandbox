@@ -34,6 +34,15 @@ test('cache evicts old geometry and never launches more than its concurrency',as
  deferred.get('a').resolve('a');deferred.get('b').resolve('b');await next();deferred.get('c').resolve('c');await cache.waitFor(['a','b','c']);
  cache.plan(['d','e']);await next();assert.ok(cache.entries.size+cache.running.size<=3);deferred.get('d').resolve('d');deferred.get('e').resolve('e');await cache.waitFor(['d','e']);assert.ok(cache.entries.size<=3);assert.ok(disposed.length>=2);cache.close();
 });
+test('same-UID refresh retains old value on failure and swaps only after a concurrency-limited success',async()=>{
+ const calls=[],disposed=[];let active=0,maximum=0;
+ const cache=new TileCache({concurrency:1,limit:3,load:id=>new Promise((resolve,reject)=>{active++;maximum=Math.max(maximum,active);calls.push({id,resolve:value=>{active--;resolve(value);},reject:error=>{active--;reject(error);}});}),dispose:(value,hint)=>disposed.push({value,hint})});
+ cache.plan(['a','b']);await next();calls[0].resolve('a-old');await next();assert.equal(calls[1].id,'b');
+ assert.equal(cache.refresh('a'),true);assert.equal(cache.refresh('a'),false);assert.equal(cache.entries.get('a'),'a-old');
+ calls[1].resolve('b');await next();assert.equal(calls[2].id,'a');assert.equal(cache.entries.get('a'),'a-old');assert.ok(cache.running.size<=1);
+ calls[2].reject(new Error('replacement failed'));await next();assert.equal(cache.entries.get('a'),'a-old');assert.match(cache.errors.get('a').message,/replacement failed/);assert.equal(cache.refresh('a'),false);assert.equal(calls.length,3);
+ cache.retry();assert.equal(cache.refresh('a'),true);await next();const replacement={id:'new'};calls[3].resolve(replacement);await next();assert.equal(cache.entries.get('a'),replacement);assert.ok(disposed.some(item=>item.value==='a-old'&&item.hint?.replacedBy===replacement));assert.equal(maximum,1);cache.close();
+});
 test('large footprints are selected by their bounds across tile edges',()=>{
  const t=[{id:'wide',bounds:[0,0,4500,100],centre:[1000,1000]},{id:'far',bounds:[9000,9000,10000,10000],centre:[9500,9500]}];assert.deepEqual(nearbyTiles(t,4400,40,30),['wide']);
 });
