@@ -1,0 +1,1 @@
+Raw source comparison v2 stopped with KeyError: 5121 while reading an original index accessor. No diagnostic triangle output, identity result or acceptance produced. Source bytes and executed producer remain unchanged. A separately reviewed unsigned-byte index decoder is required.
