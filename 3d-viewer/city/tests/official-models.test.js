@@ -351,6 +351,22 @@ test('an individually oversized desired variant retains its resident detail with
  layer.limits={...layer.limits,geometryBytes:old.budget.geometryBytes,residentBytes:old.budget.residentBytes,triangles:old.budget.triangles};layer.setQuality('balanced');
  for(let i=0;i<30&&layer.cache.running.size;i++)await tick();assert.equal(layer.cache.entries.get(source.uid),old);assert.equal(f.stream.detailedModels.get(source.uid),old);assert.equal(loads,1);assert.equal(layer.failedVariants.size,0);assert.match(layer.cache.errors.get(source.uid).message,/peak device budget/);
 });
+test('cleared first-load budget deferral retries an unchanged wanted model',async t=>{
+ const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);fakeStreamingSwaps(f.stream);
+ const source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];let layer,attempts=0,blocker;
+ layer=new OfficialModelLayer({stream:f.stream,warmMs:0,loadAsset:async(meta,building)=>{
+  attempts++;const entry=fakeEntry(meta,building);
+  if(attempts===1){blocker=fakeEntry(meta,building);layer.retiring.set(blocker,Promise.resolve());}
+  return entry;
+ }});
+ t.after(async()=>{if(blocker){layer.retiring.delete(blocker);disposeOfficialModel(blocker);}await layer.dispose();f.stream.cache.close();});layer.models.set(source.uid,source);
+ const cost=modelBudget(source);layer.limits={...layer.limits,geometryBytes:Math.floor(cost.geometryBytes*1.5),residentBytes:Math.floor(cost.residentBytes*1.5),triangles:Math.floor(cost.triangles*1.5)};
+ const c=camera(),wanted=layer.plan(c,{force:true});while(layer.cache.running.size)await tick();
+ assert.deepEqual(layer.cache.wanted,wanted);assert.equal(layer.cache.entries.has(source.uid),false);assert.match(layer.cache.errors.get(source.uid).message,/device budget/);assert.equal(attempts,1);
+ layer.retiring.delete(blocker);disposeOfficialModel(blocker);blocker=null;assert.deepEqual(layer.plan(c,{force:true}),wanted);
+ for(let i=0;i<30&&!layer.cache.entries.has(source.uid);i++)await tick();
+ assert.equal(layer.cache.entries.has(source.uid),true);assert.equal(layer.cache.errors.size,0);assert.equal(attempts,2);
+});
 test('cancellation at replacement install completion restores the base form',async t=>{
  const f=fixture();t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):response(f.catalogue));await sourceReady(f);
  const source=prepareModelCatalogue(f.catalogue,'http://localhost/catalogue.json')[0];let layer,triggered=false,committed;

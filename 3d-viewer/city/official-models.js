@@ -221,7 +221,11 @@ export class OfficialModelLayer{
    const visible=this.frustum.intersectsBox(box);this.selectedAsset(entry.uid,pixelsFor(entry.uid,box,visible));
   }
   for(const [uid,candidate] of this.loadingAssets)if(this.selectedAssets.get(uid)?.variantId!==candidate.variantId)this.cache.running.get(uid)?.abort();
-  for(const [uid,error] of this.cache.errors){const desired=this.selectedAsset(uid);if(error instanceof ModelBudgetDeferred&&desired&&this.canAdmit(uid,modelBudget(desired)))this.cache.errors.delete(uid);}
+  let clearedDeferred=false;
+  for(const [uid,error] of this.cache.errors){
+   const desired=this.selectedAsset(uid);
+   if(error instanceof ModelBudgetDeferred&&desired&&this.canAdmit(uid,modelBudget(desired))){this.cache.errors.delete(uid);clearedDeferred=true;}
+  }
   const candidates=[],warm=[],limits=this.limits,visibleUids=new Set();
   for(const {entry,box} of rows.values()){
    const uid=entry.uid,resident=this.cache.entries.has(uid),running=this.cache.running.has(uid),selected=selectedUid===uid,visible=this.frustum.intersectsBox(box),distance=box.distanceToPoint(this.eye);
@@ -278,7 +282,7 @@ export class OfficialModelLayer{
 
   }
   this.stream.sync?.();
-  if(wanted.join('|')!==this.cache.wanted.join('|'))this.cache.plan(wanted);
+  if(clearedDeferred||wanted.join('|')!==this.cache.wanted.join('|'))this.cache.plan(wanted);
   for(const uid of this.cache.wanted){
    const current=this.cache.entries.get(uid)?.entry,selected=this.selectedAssets.get(uid);
    if(current&&selected&&current!==selected&&current.variantId!==selected.variantId)this.cache.refresh(uid);

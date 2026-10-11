@@ -4,7 +4,7 @@ export function modelCodecSupported(codec){
  return codec==='none'||codec==='meshopt'||codec==='draco';
 }
 
-export async function loadModelCodec(codec){
+export async function loadModelCodec(codec,{loadDraco=()=>import('../vendor/DRACOLoader.js')}={}){
  if(!codec||codec==='none')return null;
  if(!modelCodecSupported(codec))throw new Error(`Unsupported model codec: ${codec}`);
  if(!codecPromises.has(codec))codecPromises.set(codec,(async()=>{
@@ -14,11 +14,12 @@ export async function loadModelCodec(codec){
    await MeshoptDecoder.ready;
    return {codec,decoder:MeshoptDecoder};
   }
-  const {DRACOLoader}=await import('../vendor/DRACOLoader.js');
+  const {DRACOLoader}=await loadDraco();
   const loader=new DRACOLoader();
   loader.setDecoderPath(new URL('../vendor/',import.meta.url).href);
   loader.setWorkerLimit(1);
-  loader.preload();
+  try{await loader._initDecoder();}
+  catch(error){loader.dispose();throw error;}
   return {codec,loader};
  })());
  try{return await codecPromises.get(codec);}
