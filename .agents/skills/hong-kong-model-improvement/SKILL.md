@@ -2,12 +2,20 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.50"
+  version: "1.9.51"
 ---
 
 # Hong Kong model improvement
 
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. On 8 October the user instructed: "keep working and do not stop. install / fix and install all the models you can. if some are truely blocked, note it in neon and flag the reason", followed by "do not stop for anything". Necessary source-identity/component evidence reviews, including the six prepared original captures, may proceed without repeating the earlier permission question. This permits analysis of unchanged original government sources, not replacement geometry generation or arbitrary validation waivers. Record genuine failures and concrete revisit conditions in Neon; continue other actionable sources. The completed Hoi Tai review remains valid historical evidence.
+
+## Check the actual renderer contract first
+
+Read the production draw, surface-index and height-sampler contracts before adding geometry requirements. Mong Kok recovery established that `makeNativeTerrain` draws every retained triangle, while `nativeTerrainSurface` deliberately excludes projected-vertical faces from its height index and returns the maximum finite nonvertical surface. Preserve and account for all drawn source faces, separately account for excluded verticals, and prove the actual maximum-surface coverage. Requiring every rendered face to be height-indexed, every lower layer centroid to equal the maximum height, or every source surface to be globally watertight would impose additional requirements unrelated to this renderer. This changes no existing runtime threshold or genuine physical/source guard.
+
+For terrain replacements, nominate affected installed actors from the entire parent coarse-cell replacement extent and all actual packed vertices, including unused vertices and the relevant Float32 representations. Derive the coarse extent from the exact parent georef and cells; do not substitute owned building bounds or recorded geographic footprints. Compare with all current actors' actual whole-source/literal/Float32 bounds and current source/entry/form/module tuples. Every touching actor retains its complete before/after terrain regression obligation. A source-only separation certificate does not clear the changed terrain domain.
+
+Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
 
 ## Resume cheaply
 
