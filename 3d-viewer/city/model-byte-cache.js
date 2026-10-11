@@ -54,6 +54,17 @@ export class ModelByteCache {
  close(){this.closed=true;for(const job of this.queue)job.reject(new DOMException('Closed','AbortError'));this.queue=[];for(const {controller} of this.pending.values())controller.abort();this.pending.clear();this.entries.clear();this.bytes=0;}
  get stats(){return {bytes:this.bytes,entries:this.entries.size,pending:this.pending.size,running:this.running,hits:this.hits,requests:this.requests,maxBytes:this.maxBytes,maxEntries:this.maxEntries};}
 }
+/** Check between bounded chunks; only yield a frame once the work slice is spent. */
+export function modelWorkScheduler({now=()=>performance.now(),yieldWork=yieldModelWork,budgetMs=4}={}){
+ let start=now();
+ return async signal=>{
+  if(signal?.aborted)throw new DOMException('Aborted','AbortError');
+  if(now()-start<budgetMs)return;
+  await yieldWork(signal);
+  if(signal?.aborted)throw new DOMException('Aborted','AbortError');
+  start=now();
+ };
+}
 /** Yield between indivisible stages; fallback bakes have their own bounded worker queue. */
 export function yieldModelWork(signal){
  if(signal?.aborted)return Promise.reject(new DOMException('Aborted','AbortError'));

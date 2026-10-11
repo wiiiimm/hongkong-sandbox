@@ -1,9 +1,29 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from '../../vendor/three.module.js';
-import {describeBuilding,createBuildingGeometry,collisionVolumes} from '../building-geometry.js';
+import {describeBuilding,createBuildingGeometry,collisionVolumes,prepareModelGeometry} from '../building-geometry.js';
 const outline=[[-6,-4],[6,-4],[6,4],[-6,4],[-6,-4]];
 const roof=()=>({id:'landsd/1',base:10,height:4,minimum:0,rings:[outline],structureType:'Open-sided Structure'});
+
+test('async geometry validation agrees with synchronous fallback validation across chunks',async()=>{
+ const source=[-2,10,-2,2,10,-2,0,18,0,-2,10,2,2,10,2,0,18,0];
+ for(const bad of [null,'position','index','placement']){
+  const position=new Float64Array(18000);for(let i=0;i<position.length;i++)position[i]=source[i%source.length];
+  const index=Uint32Array.from({length:12000},(_,i)=>i%(position.length/3));
+  if(bad==='position')position[17000]=NaN;if(bad==='index')index[11000]=999999;if(bad==='placement')for(let i=0;i<position.length;i+=3)position[i]+=9000;
+  const b={...roof(),modelGeometry:{position,index}},sync={...roof(),modelGeometry:{position:position.slice(),index:index.slice()}};let checkpoints=0;
+  await prepareModelGeometry(b,{yieldWork:async()=>{checkpoints++;}});
+  assert.ok(checkpoints>0);assert.deepEqual(describeBuilding(b),describeBuilding(sync));
+  assert.equal(describeBuilding(b).modelStatus,bad?'invalid-fallback':'usable');
+ }
+});
+
+test('aborting asynchronous validation does not cache a partially checked source',async()=>{
+ const position=new Float64Array(18000);for(let i=0;i<position.length;i++)position[i]=[-2,10,-2,2,10,-2,0,18,2][i%9];
+ const b={...roof(),modelGeometry:{position}},controller=new AbortController();
+ await assert.rejects(prepareModelGeometry(b,{signal:controller.signal,yieldWork:async()=>controller.abort()}),{name:'AbortError'});
+ position[17000]=NaN;assert.equal(describeBuilding(b).modelStatus,'invalid-fallback');
+});
 
 test('open-sided roofs keep source top and omit walls/windows',()=>{
  const b=roof(),saved=JSON.stringify(b),description=describeBuilding(b),geometry=createBuildingGeometry(b);geometry.computeBoundingBox();
