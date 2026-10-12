@@ -1670,6 +1670,198 @@
         }
       ]
     },
+    "southsideSourceLocalV3V4": {
+      "completedDiagnostics": [
+        {
+          "classificationCounts": {
+            "changed-local-collar": 21362,
+            "retained-parent-exterior": 298,
+            "source-core": 13397
+          },
+          "independentAudit": {
+            "path": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/independent-source-local-construction-audit-v3.json",
+            "sha256": "fc06f53cf47709693649063e85916038009aa55512fdadc8b4b5b9ed5b586987"
+          },
+          "jobId": "974cc1ed914498f8d197c35474f4ce49d4dc269dff168efdbd3b7bd8608681d7",
+          "packedCollapseRecords": [
+            {
+              "classification": "changed-local-collar",
+              "exactAlphaAffine": [
+                "1/10",
+                "0",
+                "-281/4"
+              ],
+              "exactOriginalPoints": [
+                [
+                  "1405/2",
+                  "28510409/1662464",
+                  "30555602301/6649856"
+                ],
+                [
+                  "359687/512",
+                  "4495767/262144",
+                  "9410401/2048"
+                ],
+                [
+                  "1405/2",
+                  "457013587/26648576",
+                  "30612064329/6662144"
+                ]
+              ],
+              "exactProposedPoints": [
+                [
+                  "1405/2",
+                  "9027665539/465489920",
+                  "30555602301/6649856"
+                ],
+                [
+                  "359687/512",
+                  "910965784899/46976204800",
+                  "9410401/2048"
+                ],
+                [
+                  "1405/2",
+                  "9044347831/466350080",
+                  "30612064329/6662144"
+                ]
+              ],
+              "globalOriginalFacetId": 455159,
+              "outputFacet": 21880,
+              "packedZero3DArea": true,
+              "parentFacet": 62,
+              "savedOriginalFragmentOutput": 42291
+            }
+          ],
+          "privateCandidateFacets": 35057,
+          "result": {
+            "path": "docs/astra-city/government-import/government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v3-20261012/result.json",
+            "sha256": "a45776ca5626a9f5ca027184dea05669108c38b06d542011937f72f8214e3443"
+          },
+          "rootAllReferencesVerified": 8140,
+          "rootExactPinnedNeonReadback": true,
+          "triangleBudget": 25000,
+          "triangleBudgetPassed": false,
+          "version": 3,
+          "wholeDomainCoverageApproved": false
+        },
+        {
+          "classificationCounts": {
+            "changed-local-collar": 10868,
+            "retained-parent-exterior": 315,
+            "source-core": 13397
+          },
+          "independentAudit": {
+            "path": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/independent-source-local-construction-audit-v4.json",
+            "sha256": "ae1e8490c5af4274162d127a04d5cd252857d7b7f17243c57984b0fb04457d75"
+          },
+          "jobId": "4e1c5edcc40e59f857f762719b3a6a2561a822099b71bd05e0e0a276ab444edd",
+          "packedCollapseRecords": [
+            {
+              "classification": "changed-local-collar",
+              "exactAlphaAffine": [
+                "1/5",
+                "0",
+                "-321/2"
+              ],
+              "exactOriginalPoints": [
+                [
+                  "411023/512",
+                  "11624099/524288",
+                  "595343/128"
+                ],
+                [
+                  "1605/2",
+                  "5763869565/260046848",
+                  "2362357203/507904"
+                ],
+                [
+                  "1605/2",
+                  "5758067991/259784704",
+                  "2359975881/507392"
+                ]
+              ],
+              "exactProposedPoints": [
+                [
+                  "411023/512",
+                  "170408167233/6710886400",
+                  "595343/128"
+                ],
+                [
+                  "1605/2",
+                  "179/7",
+                  "2362357203/507904"
+                ],
+                [
+                  "1605/2",
+                  "179/7",
+                  "2359975881/507392"
+                ]
+              ],
+              "globalOriginalFacetId": 638485,
+              "outputFacet": 17783,
+              "packedZero3DArea": true,
+              "parentFacet": 65,
+              "savedOriginalFragmentOutput": 54459
+            }
+          ],
+          "privateCandidateFacets": 24580,
+          "result": {
+            "path": "docs/astra-city/government-import/government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v4-20261012/result.json",
+            "sha256": "c534ab04e2d892b49662b33b9f83a147c0d5810af6f02fec4c61fcb7633320a9"
+          },
+          "rootAllReferencesVerified": 8164,
+          "rootExactPinnedNeonReadback": true,
+          "triangleBudget": 25000,
+          "triangleBudgetPassed": true,
+          "version": 4,
+          "wholeDomainCoverageApproved": false
+        }
+      ],
+      "currentManifest": {
+        "path": "3d-viewer/city/data/manifest.json",
+        "sha256": "2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540"
+      },
+      "fixedXLScope": {
+        "absent": 288,
+        "installed": 233,
+        "total": 521
+      },
+      "installationApproved": false,
+      "liveTerrainChanges": 0,
+      "newlyInstalled": 0,
+      "nextAction": "Investigate actual v4 packed collapse and complete actual candidate owned/current/foreign coverage, source roles, support and runtime checks. The new 5 m analytic collar changes private terrain only; v3 failure remains historical evidence, no approval transfer.",
+      "originalBuildingGeometryChanges": 0,
+      "rootReleasedGroups": [
+        {
+          "active": false,
+          "batch": "government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v3-20261012",
+          "releasedAt": "2026-10-12 07:20:27.340259+00:00",
+          "resources": 1,
+          "token": "8d9d5b3d-1d4c-4002-bd74-7fc320798c42"
+        },
+        {
+          "active": false,
+          "batch": "government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v4-20261012",
+          "releasedAt": "2026-10-12 14:01:32.956234+00:00",
+          "resources": 124,
+          "token": "90434995-1ee1-4ebe-93fb-3ba278179d84"
+        },
+        {
+          "active": false,
+          "batch": "government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v4-20261012",
+          "releasedAt": "2026-10-12 14:01:30.778626+00:00",
+          "resources": 1,
+          "token": "949a3373-1344-418c-9ec2-e467231449e2"
+        },
+        {
+          "active": false,
+          "batch": "government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v3-20261012",
+          "releasedAt": "2026-10-12 07:20:29.243932+00:00",
+          "resources": 124,
+          "token": "a8562ebe-d764-4d5b-9d4e-33c2762d72ab"
+        }
+      ]
+    },
     "uptonActualRulingReconciliation": {
       "installationApproved": false,
       "jobId": "0e2e21303c85bf1931bb3634db092af8c48a6cd2d5d678c665d605ea4321a7d6",
