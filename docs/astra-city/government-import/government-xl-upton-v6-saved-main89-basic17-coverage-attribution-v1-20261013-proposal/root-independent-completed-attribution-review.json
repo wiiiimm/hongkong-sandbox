@@ -11,10 +11,32 @@
   "installationApproved": false,
   "aiGeometryModelling": false,
   "geometryEdits": 0,
-  "findings": "Every saved failure is inside the closed captured domain with an exact unambiguous candidate origin. Main89 retains26 interval and63 area failures per world; BASIC79883:17 retains an area failure. Negative conservative lower bounds do not establish actual burial.",
+  "findings": "Every saved failure is inside the closed captured domain with an exact unambiguous candidate origin. Main89 retains26 interval/63 area failures in original, explicitLeftF32 and explicitBalancedF32 worlds, and22 interval/67 area failures in literal world. BASIC79883:17 retains one area failure. Negative conservative lower bounds do not establish actual burial.",
   "nextStep": "Trace saved uncovered-region boundaries to exact packed fragments and source/current ancestor edges before proposing any repair. No whole-actor proof replay.",
   "terminalAudit": {
     "path": "docs/astra-city/government-import/government-xl-upton-v6-saved-main89-basic17-coverage-attribution-v1-20261013-proposal/actual-terminal-neon-allrefs-release-pid-audit.json",
     "sha256": "23601671007c595a5c7981d27a197e79e11db0934710e9cd99f1298c2ba3ec61"
-  }
+  },
+  "savedMethodCountsByWorld": {
+    "landsd/12728:0|original": {
+      "closed-facet-interval-union": 26,
+      "closed-facet-area-union": 63
+    },
+    "landsd/12728:0|literal": {
+      "closed-facet-interval-union": 22,
+      "closed-facet-area-union": 67
+    },
+    "landsd/12728:0|explicitLeftF32": {
+      "closed-facet-interval-union": 26,
+      "closed-facet-area-union": 63
+    },
+    "landsd/12728:0|explicitBalancedF32": {
+      "closed-facet-interval-union": 26,
+      "closed-facet-area-union": 63
+    },
+    "landsd/79883:0|capturedConstructorFloat32World": {
+      "closed-facet-area-union": 1
+    }
+  },
+  "reportingCorrection": "The initial ROOT progress note overgeneralised26interval/63area to all four worlds. Independent saved-record count corrects literal to22interval/67area. No failure row, source geometry or acceptance was changed."
 }

@@ -1,0 +1,58 @@
+--- preserved/METHOD.md
++++ METHOD.md
+@@ -8,9 +8,9 @@
+ 
+ For every candidate origin selected by a saved failed row, save all original ancestor identities/triplets, all three vertex packing displacements and all three edges. Compare each ideal vertex's exact closed membership on each real ancestor edge with the packed vertex's membership on that ancestor's actual Float32 edge. Ruled join sources keep all original cut-edge causes, current surface ancestors and original source ancestors. This can identify loss of a shared ancestor-boundary correspondence from independent fragment rounding; it does not infer that any displaced vertex caused a particular area hole.
+ 
+-The 26 interval failures per main world save exact gap parameters or a final covered reach below1. Use the existing coverage implementation's deterministic longest projected source-pair convention to map those saved gaps to exact midpoint XZ coordinates. When no first interior gap is saved, the final-reach-to1 tail is explicitly marked as derived from the saved reach, not fabricated polygon extraction. Nominate ideal fragments against all11575 exact closed boxes, then evaluate exact point membership using the reviewed rational cross primitive. Packed point memberships are restricted explicitly to saved selected draw origins; the saved whole-ground negative remains verbatim. These point comparisons do not prove whole-facet coverage or claim the original interval tests passed.
++The original, left and balanced worlds each contain26 interval failures; the literal world contains22. They save exact gap parameters or a final covered reach below1. Use the existing coverage implementation's deterministic longest projected source-pair convention to map those saved gaps to exact midpoint XZ coordinates. When no first interior gap is saved, the final-reach-to1 tail is explicitly marked as derived from the saved reach, not fabricated polygon extraction. Nominate ideal fragments against all11575 exact closed boxes, then evaluate exact point membership using the reviewed rational cross primitive. Packed point memberships are restricted explicitly to saved selected draw origins; the saved whole-ground negative remains verbatim. These point comparisons do not prove whole-facet coverage or claim the original interval tests passed.
+ 
+-The 63 area failures per main world and BASIC17 save exact uncovered area and remaining piece counts but **no uncovered polygon coordinates**. Do not fabricate those locations, infer nearest-gap points, or call a new polygon subtraction. They remain explicit unresolved regions while their complete selected fragment/ancestor boundaries are inventoried. A later focused extraction of those polygons would require separate review; it would not be an unchanged full actor rerun.
++The original, left and balanced worlds each contain63 area failures; literal contains67, and BASIC17 has one. They save exact uncovered area and remaining piece counts but **no uncovered polygon coordinates**. Do not fabricate those locations, infer nearest-gap points, or call a new polygon subtraction. They remain explicit unresolved regions while their complete selected fragment/ancestor boundaries are inventoried. A later focused extraction of those polygons would require separate review; it would not be an unchanged full actor rerun.
+ 
+ A possible repair is conditional: if saved rational boundary correspondences exist but independent Float32 fragment packing breaks them, review a common boundary subdivision/packing for the full affected computed fragments on their unchanged ancestor surfaces. No repair vertices or facets are generated here. Whole original source/current protected surfaces and all layered provenance must stay preserved; any later derived terrain repair must pass complete affected coverage, ordinary −0.5, foreign/native protection, production sampler and unchanged validator checks. No tolerance, sourceOverlap approval or installation credit is changed.
+ 
+--- preserved/draft-pins.json
++++ draft-pins.json
+@@ -421,12 +421,12 @@
+     },
+     {
+       "path": "docs/astra-city/government-import/government-xl-upton-saved-uncovered-packed-ancestor-boundary-attribution-v1-20261013-proposal/METHOD.md",
+-      "sha256": "09a77ed5e7176473d3b2ebc51f437a897c991253d8adeafb759adf1ec1015d7f"
++      "sha256": "aec4aa0eba4e2658155a2256f5b3928f8ea428ea556e4cee61eb7f5538ac2994"
+     }
+   ],
+   "method": {
+     "path": "docs/astra-city/government-import/government-xl-upton-saved-uncovered-packed-ancestor-boundary-attribution-v1-20261013-proposal/METHOD.md",
+-    "sha256": "09a77ed5e7176473d3b2ebc51f437a897c991253d8adeafb759adf1ec1015d7f"
++    "sha256": "aec4aa0eba4e2658155a2256f5b3928f8ea428ea556e4cee61eb7f5538ac2994"
+   },
+   "noPreparationOrNumericalExecution": true
+ }
+--- preserved/prepare-actual-boundary-attribution.py
++++ prepare-actual-boundary-attribution-v2.py
+@@ -11,8 +11,8 @@
+ def run(cmd,name):
+  path=P/name;assert not path.exists();r=subprocess.run(cmd,cwd=ROOT,stdout=subprocess.PIPE,stderr=subprocess.STDOUT);path.write_bytes(r.stdout)
+  commands.append(dict(command=cmd,exitCode=r.returncode,log=a.ref(path)));assert r.returncode==0,(cmd,r.returncode,path)
+-run([sys.executable,'-c',"import sys;sys.path.insert(0,'source-scripts/city/government-import');import upton_saved_uncovered_packed_ancestor_boundary_attribution_draft_v1_20261013;print('import PASS; no worker/lease')"],'actual-import.log')
+-run([sys.executable,str(Path(a.__file__)),'--schema-only'],'actual-schema-only.log')
++run([sys.executable,'-c',"import sys;sys.path.insert(0,'source-scripts/city/government-import');import upton_saved_uncovered_packed_ancestor_boundary_attribution_draft_v1_20261013;print('import PASS; no worker/lease')"],'actual-import-v2.log')
++run([sys.executable,str(Path(a.__file__)),'--schema-only'],'actual-schema-only-v2.log')
+ _,receipt,attribution,nomination,raw,provenance,source,current,drawn,transform=a.load()
+ types=Counter();origins=Counter();tail_rows=0;seen=set()
+ for p in provenance:
+@@ -61,10 +61,10 @@
+   assert g['allExactCandidateFaceOrigins']and not g['candidateOriginAmbiguous']and not g['unmatchedCandidateOriginRemainsExplicit']
+   for m in g['allExactCandidateFaceOrigins']:
+    i=m['provenance']['candidateFace'];assert type(i)is int and 0<=i<11575 and m['provenance']==provenance[i]and a.prior.prior.sha(drawn[i])==g['actualDrawTripletSHA256']
+-assert len(seen)==357 and types=={'closed-facet-interval-union':104,'closed-facet-area-union':253}
++assert len(seen)==357 and types=={'closed-facet-interval-union':100,'closed-facet-area-union':257}
+ proof=dict(passed=True,completeSavedNegativeRows=357,completeProvenanceRows=11575,allRealAncestorBoundsAndOriginalTripletHashesMatched=True,coverageKinds=dict(types),explicitTailGapRows=tail_rows,provenanceKinds=dict(origins),allGapTypesAndNeededSourceCurrentJoinKeysValidated=True,noCoverageUnionActorOrProofReplay=True)
+-proof_path=P/'actual-complete-real-schema-validation.json';assert not proof_path.exists();a.save(proof_path,proof)
++proof_path=P/'actual-complete-real-schema-validation-v2.json';assert not proof_path.exists();a.save(proof_path,proof)
+ for q in refs:a.check(q)
+ assert a.ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==a.prior.CURRENT
+ summary=dict(passed=True,caller=a.ref(Path(a.__file__)),driver=a.ref(Path(__file__)),commands=commands,realSchema=a.ref(proof_path),declaredCodePins=len(pins['codeRefs']),declaredInputPins=len(pins['inputRefs']),allPinsVerifiedBeforeAndEnd=True,currentManifestSHA256=a.prior.CURRENT,noWorkerLeaseOrDB=True)
+-path=P/'actual-readonly-preparation.json';assert not path.exists();a.save(path,summary);print(json.dumps(summary,sort_keys=True))
++path=P/'actual-readonly-preparation-v2.json';assert not path.exists();a.save(path,summary);print(json.dumps(summary,sort_keys=True))
