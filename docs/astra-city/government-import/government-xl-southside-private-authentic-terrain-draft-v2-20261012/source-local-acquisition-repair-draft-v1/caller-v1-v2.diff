@@ -1,0 +1,97 @@
+--- source-scripts/city/government-import/xl-southside-315025-300867-source-local-private-terrain-diagnostic-draft-v1-20261012.py
++++ source-scripts/city/government-import/xl-southside-315025-300867-source-local-private-terrain-diagnostic-draft-v2-20261012.py
+@@ -1,5 +1,5 @@
+ """UNEXECUTED acquisition-only local terrain proposal from saved exact lineage."""
+-import importlib.util,json,subprocess,sys,uuid
++import importlib.util,json,subprocess,sys,traceback,uuid
+ from pathlib import Path
+ from run import ROOT,HERE,read,save,digest,connect,reservations
+ import southside_saved_local_core_parent_adapter_v1_20261012 as adapter
+@@ -7,7 +7,7 @@
+ BASE=ROOT/'docs/astra-city/government-import'
+ DRAFT=BASE/'government-xl-southside-private-authentic-terrain-draft-v2-20261012'
+ PLAN=DRAFT/'source-local-acquisition-repair-draft-v1'
+-BATCH='government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v1-20261012'
++BATCH='government-xl-southside-315025-300867-source-local-private-terrain-diagnostic-v2-20261012'
+ DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+ PRIOR=BASE/'government-xl-southside-315025-300867-private-authentic-terrain-diagnostic-v3-20261012'
+ INPUT=BASE/'government-xl-southside-315025-300867-current-actual-ground-capture-v1-20261012'
+@@ -36,7 +36,10 @@
+  assert len(account['allOutsideAlteredDomainOriginalFacetIds'])+len(account['completeSelectedOriginalFacetAccounts'])==774477
+  assert set(account['allOutsideAlteredDomainOriginalFacetIds'])|{q['globalOriginalFacetId']for q in account['completeSelectedOriginalFacetAccounts']}==set(range(774477))
+  old=read(ROOT/account['privateCandidatePath']);assert digest((ROOT/account['privateCandidatePath']).read_bytes())==account['privateCandidateSHA256']
+- worlds=read(INPUT/'complete-two-actor-four-stream-ground-inputs.json.gz');assert set(worlds)==set(UIDS)
++ envelope=read(INPUT/'complete-two-actor-four-stream-ground-inputs.json.gz')
++ assert set(envelope)=={'allSlopesAndZeroProjectionGroundRetained','currentAcceptance','installationApproved','noHistoricalRuntimeProofTransfer','physicalAccepted','rows'}
++ assert envelope['allSlopesAndZeroProjectionGroundRetained']is True and envelope['noHistoricalRuntimeProofTransfer']is True and all(envelope[k]is False for k in ['currentAcceptance','physicalAccepted','installationApproved'])
++ worlds=envelope['rows'];assert set(worlds)==set(UIDS)
+  captures={u:read(INPUT/('complete-current-actual-source-and-ground-'+u.split('/')[1].replace(':','-')+'.json.gz'))for u in UIDS}
+  assert adapter.bind_positions(worlds,captures)and sum(c['completeFaces']for c in captures.values())*4==51560
+  source_inputs=read(INPUT/'capture-inputs.json.gz');assert source_inputs['manifestSHA256']==CURRENT and len(source_inputs['completeCurrentForms'])==46
+@@ -50,7 +53,14 @@
+  assert all(not Path('/proc',str(pid)).exists()for pid in [4139705,4146273,4146343,119538,119531])
+  refs.extend([DRAFT/'immutable-source-local-tests-v1/validation.json',DRAFT/'immutable-source-local-tests-v1/tests.log'])
+  v=read(refs[-2]);assert v['tests']==22 and v['passed']is True and v['exitCode']==0 and digest(refs[-1].read_bytes())==v['testLogSHA256']
+- assert v['codePins']==[dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))for p in code_files()]
++ v1=HERE/'xl-southside-315025-300867-source-local-private-terrain-diagnostic-draft-v1-20261012.py'
++ assert v['codePins']==[dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))for p in [v1,*code_files()[1:]]]
++ links=[v1,Path(__file__),PLAN/'caller-v1-v2.diff',PLAN/'METHOD-v2.md',DRAFT/'immutable-source-local-tests-v1/validation.json',DRAFT/'immutable-source-local-tests-v1/tests.log',DRAFT/'immutable-source-local-preflight-v1/validation.json',DRAFT/'immutable-source-local-preflight-v1/preflight.log',DRAFT/'immutable-source-local-preflight-v1/import.log']
++ binding=PLAN/'caller-only-v2-binding-envelope.json';e=read(binding)
++ assert e['schema']=='southside-tested-v1-unchanged-helper-caller-only-v2-binding'and e['pins']==[dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))for p in links]
++ assert e['helperSHA256']==digest((HERE/'southside_saved_local_core_parent_adapter_v1_20261012.py').read_bytes())and e['testSHA256']==digest((HERE/'test_southside_saved_local_core_parent_adapter_v1_20261012.py').read_bytes())
++ assert e['originalActualTests']==22 and e['newTestsRun']is False and e['numericalKernelChanges']==0
++ refs.extend([binding,*links])
+  pins={str(p.relative_to(ROOT)):digest(p.read_bytes())for p in sorted(set(refs))}
+  return dict(receipts=receipts,refs=sorted(set(refs)),pins=pins,saved=saved,account=account,old=old,worlds=worlds,captures=captures,parent=parent,native=native,resources=resources,contract=contract)
+ def owned(s):
+@@ -68,24 +78,32 @@
+  account['whole6649NativeDomainNomination']=adapter.old.nominate_natives(actual,s['native']);assert not account['whole6649NativeDomainNomination']['nominated']
+  account['all1238OriginalFormsAnd117ActualAffectedRetainedVerbatim']=read(DRAFT/'actual-basic-extent-account.json.gz')
+  candidate=LOCAL/'private-terrain.json';save(candidate,patch)
+- # Existing explicit highest-native-surface evidence. Retain every layer;
+- # its bounded representative samples do not claim whole-domain agreement.
+- bounds=[actual[0][0],actual[0][2],actual[1][0],actual[1][2]]
+- _,_,_,excess=overlap.projected_context(patch,bounds);account['floatingProjectedExcessMeasurementM2']=excess
+- if excess>0:
+-  audit_path=DOC/'highest-native-surface-evidence.json'
+-  sources=[dict(path=str((PRIOR/'source-terrain-inventory-and-proposal-account.json.gz').relative_to(ROOT)),sha256=digest((PRIOR/'source-terrain-inventory-and-proposal-account.json.gz').read_bytes()))]
+-  sources.extend(dict(path=q['sourceGltfPath'],sha256=q['sourceGltfSHA256'])for q in s['saved']['fullOriginalInventoryVerbatim'])
+-  audit=overlap.approve_original_overlap(patch,candidate,audit_path,sources);patch['nativeMesh']['sourceOverlap']['evidencePath']=str(audit_path.relative_to(ROOT))
+-  save(candidate,patch)
+-  ray=subprocess.run(['node',str(HERE/'native_overlap_actual_ray_readonly_20261010.mjs'),str(candidate),str(audit_path)],cwd=ROOT,capture_output=True,text=True)
+-  (DOC/'actual-highest-surface-ray.log').write_text(ray.stdout+ray.stderr);assert ray.returncode==0
+-  audit['actualProductionFloat32SamplerAndDoubleSideRay']=json.loads(ray.stdout);audit['wholeFiniteSeamAndCoverageProof']=False;audit['currentAcceptance']=False;audit_path.write_text(json.dumps(audit,sort_keys=True,separators=(',',':'))+'\n')
+-  overlap.finalize_overlap_evidence(patch,audit_path);save(candidate,patch)
+-  account['explicitHighestNativeSurfaceEvidence']=dict(path=str(audit_path.relative_to(ROOT)),sha256=digest(audit_path.read_bytes()),samples=audit['float32HighestRayAgreement']['samples'],wholeDomainAgreementClaim=False,sourceLayersRemoved=0)
+- validator=module('southside_source_local_unchanged_validator',HERE/'resolve-pass-indexed-parent-clipping.py')
+- try:validator.validate_patch(patch,s['parent']);account['ordinaryPatchValidatorDiagnostic']=dict(passed=True,physicalAccepted=False)
+- except(AssertionError,ValueError)as e:account['ordinaryPatchValidatorDiagnostic']=dict(passed=False,errorType=type(e).__name__,message=str(e),originalGuardUnchanged=True,physicalAccepted=False)
++ # Persist full computed lineage and geometry before any runtime evidence call.
++ save(LOCAL/'private-terrain-before-runtime.json',patch)
++ save(DOC/'computed-candidate-and-full-account-before-runtime.json.gz',dict(account=account,fullOriginalInventoryVerbatim=s['saved']['fullOriginalInventoryVerbatim'],stationForeignAnd34FacetsVerbatim=s['saved']['stationForeignOverlapAnd34FacetsVerbatim'],all46FormsVerbatim=s['saved']['all46FormsVerbatim'],inputHashes=s['pins'],candidatePath=str((LOCAL/'private-terrain-before-runtime.json').relative_to(ROOT)),candidateSHA256=digest((LOCAL/'private-terrain-before-runtime.json').read_bytes()),runtimeProofCompleted=False,currentAcceptance=False,physicalAccepted=False,installationApproved=False))
++ try:
++  # Existing explicit highest-native-surface evidence. Retain every layer;
++  # its bounded representative samples do not claim whole-domain agreement.
++  bounds=[actual[0][0],actual[0][2],actual[1][0],actual[1][2]]
++  _,_,_,excess=overlap.projected_context(patch,bounds);account['floatingProjectedExcessMeasurementM2']=excess
++  if excess>0:
++   audit_path=DOC/'highest-native-surface-evidence.json'
++   sources=[dict(path=str((PRIOR/'source-terrain-inventory-and-proposal-account.json.gz').relative_to(ROOT)),sha256=digest((PRIOR/'source-terrain-inventory-and-proposal-account.json.gz').read_bytes()))]
++   sources.extend(dict(path=q['sourceGltfPath'],sha256=q['sourceGltfSHA256'])for q in s['saved']['fullOriginalInventoryVerbatim'])
++   audit=overlap.approve_original_overlap(patch,candidate,audit_path,sources);patch['nativeMesh']['sourceOverlap']['evidencePath']=str(audit_path.relative_to(ROOT))
++   save(candidate,patch)
++   ray=subprocess.run(['node',str(HERE/'native_overlap_actual_ray_readonly_20261010.mjs'),str(candidate),str(audit_path)],cwd=ROOT,capture_output=True,text=True)
++   (DOC/'actual-highest-surface-ray.log').write_text(ray.stdout+ray.stderr)
++   if ray.returncode!=0:raise subprocess.CalledProcessError(ray.returncode,ray.args,output=ray.stdout,stderr=ray.stderr)
++   audit['actualProductionFloat32SamplerAndDoubleSideRay']=json.loads(ray.stdout);audit['wholeFiniteSeamAndCoverageProof']=False;audit['currentAcceptance']=False;audit_path.write_text(json.dumps(audit,sort_keys=True,separators=(',',':'))+'\n')
++   overlap.finalize_overlap_evidence(patch,audit_path);save(candidate,patch)
++   account['explicitHighestNativeSurfaceEvidence']=dict(path=str(audit_path.relative_to(ROOT)),sha256=digest(audit_path.read_bytes()),samples=audit['float32HighestRayAgreement']['samples'],wholeDomainAgreementClaim=False,sourceLayersRemoved=0)
++  validator=module('southside_source_local_unchanged_validator',HERE/'resolve-pass-indexed-parent-clipping.py')
++  try:validator.validate_patch(patch,s['parent']);account['ordinaryPatchValidatorDiagnostic']=dict(passed=True,physicalAccepted=False)
++  except(AssertionError,ValueError)as e:account['ordinaryPatchValidatorDiagnostic']=dict(passed=False,errorType=type(e).__name__,message=str(e),originalGuardUnchanged=True,physicalAccepted=False)
++ except Exception as error:
++  save(DOC/'runtime-evidence-failure.json',dict(errorType=type(error).__name__,message=str(error),actualExitCode=error.returncode if isinstance(error,subprocess.CalledProcessError)else None,actualCommand=error.cmd if isinstance(error,subprocess.CalledProcessError)else None,traceback=traceback.format_exc(),preservedFullAccountPath=str((DOC/'computed-candidate-and-full-account-before-runtime.json.gz').relative_to(ROOT)),preservedFullAccountSHA256=digest((DOC/'computed-candidate-and-full-account-before-runtime.json.gz').read_bytes()),latestCandidatePath=str(candidate.relative_to(ROOT)),latestCandidateSHA256=digest(candidate.read_bytes()),freezeNotCalled=True,numericalSuccessNotClaimed=True,currentAcceptance=False,physicalAccepted=False,installationApproved=False))
++  raise
+  save(DOC/'saved-source-local-construction-account.json.gz',dict(account=account,fullOriginalInventoryVerbatim=s['saved']['fullOriginalInventoryVerbatim'],prior78016OutputLineageBound=True,stationForeignAnd34FacetsVerbatim=s['saved']['stationForeignOverlapAnd34FacetsVerbatim'],all46FormsVerbatim=s['saved']['all46FormsVerbatim'],all19RoleAndWholeModelQualificationPending=True,face3009Unqualified=True,facet11034Unqualified=True,currentAcceptance=False,physicalAccepted=False,installationApproved=False,privateCandidatePath=str(candidate.relative_to(ROOT)),privateCandidateSHA256=digest(candidate.read_bytes())))
+  assert reservations.owns(lease)and digest((ROOT/'3d-viewer/city/data/manifest.json').read_bytes())==CURRENT
+  for path,sha in s['pins'].items():assert digest((ROOT/path).read_bytes())==sha
