@@ -31,3 +31,25 @@ python source-scripts/city/model-optimisation/run_installed_batch.py \
 Only reuse this frozen batch while input and tool hashes still match. Later changes require a new snapshot/recipe rather than rewriting immutable evidence. Sequential tiers avoid reserving the same source simultaneously; ordinary workers keep connected supports together, scope claims to reserved jobs, heartbeat/fence stale tokens and release only their own leases. The independent audit rereads every source/output byte and derived bufferView and verifies Neon against immutable receipt bytes.
 
 The [historical skip audit](../accepted-enhanced-held-audit-v1-20261012/README.md) explains all original exclusions. The [superseded first pilot](../accepted-enhanced-meshopt-lossy-v1-20261012/README.md) preserves discovered tiny-face failures; the [guarded 39-output pilot](../accepted-enhanced-meshopt-lossy-v2-20261012/README.md) passed before whole-cohort processing.
+
+## Verified delivery
+All **6,649 installed UIDs have four candidates each (26,596 complete variants)**. Review flags excluded zero assets; processing failed for zero assets. All four source/output/derived-decoder/immutable-receipt/Neon audits passed. The final delivery checkpoint has exact readback and zero active batch reservations.
+| Candidate | Smaller files | All candidate gzip bytes | Potential savings using smaller files and retaining other originals | Actual triangles |
+| --- | ---: | ---: | ---: | ---: |
+| original | 504 | 163,612,772 | 12.45 MB / 7.28% | 9,079,962 |
+| high | 1,794 | 108,808,642 | 63.06 MB / 36.89% | 9,079,962 |
+| balanced | 2,342 | 97,782,847 | 73.89 MB / 43.23% | 8,823,516 |
+| lightweight | 3,133 | 86,479,020 | 84.99 MB / 49.72% | 8,723,021 |
+
+The original source corpus is 170,936,997 gzip bytes and 9,079,962 triangles. The displayed savings are offline potential transfer savings; the viewer still uses original assets. All non-beneficial outputs and superseded pilot artifacts are retained. The 4,272 original lossless results were reused; 22,324 additional variants were produced.
+
+Achieved triangle reductions are 2.82% for balanced and 3.93% for lightweight. Seams, border/extrema locks, attribute error and tiny-face protections limit simplification. These candidates primarily reduce download size, rather than establishing major triangle-budget gains.
+
+**Accessor byte estimates do not show a memory reduction:** original 826.62 MB; high 855.08 MB; balanced 846.67 MB; lightweight 843.05 MB. Repacking LOD indices as UInt32 offsets the modest vertex/triangle reductions. These estimates exclude GPU/JS/decoder/temporary overhead and retained collision originals; measured peak memory and frame time remain null. Preserve this limitation when evaluating runtime admission and any future publication.
+
+Every lossy tier has zero new quantisation-collapsed faces, reversed faces or area created from original degenerates. Source poses/materials remain exact. Maximum observed rounding displacement bounds were 1.69 / 6.77 / 27.06 mm for high/balanced/lightweight using Float64 source node matrices; they are not rendered Float32 or visual-error certifications.
+
+- [Final complete-cohort summary](summary.json)
+- [Verified final Neon checkpoint](neon-sync.json)
+- [58 passing tests and 15 isolated-fixture skips](verification.json)
+- [All exact worker log archives](../../../../source-scripts/city/model-optimisation/staging/installed-enhanced-meshopt-variants-v2-20261012/log-archives.json)
