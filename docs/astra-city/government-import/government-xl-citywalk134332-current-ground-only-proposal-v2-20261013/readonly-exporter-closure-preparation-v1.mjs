@@ -1,0 +1,4 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import {snapshotModuleClosure,verifyModuleClosure} from '../../../../source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+const root=new URL('../../../../',import.meta.url);const entry=new URL('source-scripts/city/government-import/citywalk134332_current_ground_only_capture_draft_v2_20261013.mjs',root);const c=snapshotModuleClosure(entry,root);assert(verifyModuleClosure(c,root));writeFileSync(new URL('prepared-complete-ground-exporter-module-closure-v1.json',import.meta.url),JSON.stringify(c,null,2)+'\n');console.log(JSON.stringify({noExporterImport:true,modules:c.modules.length,resources:c.resources.length,files:Object.keys(c.inputHashes).length,completeLiteralClosureVerified:true}));

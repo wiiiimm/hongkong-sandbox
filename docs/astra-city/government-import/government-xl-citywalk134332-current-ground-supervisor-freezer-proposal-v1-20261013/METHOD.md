@@ -1,0 +1,7 @@
+# Citywalk terrain-only maintained acquisition wiring
+
+Draft only, ROOT full read required before import/preflight or worker. Uses unchanged reviewed V2 preflight/exporter and actual 13-test/closure/preflight validation. Canonical 19 building actors plus authentic native-model source and new batch capture context =21 supervised resources; protects exactly19 UID/1704 review rows and all6650 source catalogue/survival inputs before/after. Current pinned DB guard is inherited from run/connect/reservations; no alternate target.
+
+Default claims a new maintained supervisor lease, saving only immutable start bytes inside frozen scope. Capture loads actual current terrain only, reuses exact completed source arrays; no model reload, source decode, contact or finite rerun. Fences before/after child and freezer are actual input() replay +owns, maintained run heartbeat independently. Freeze result is source-only ground metadata/three ground world bindings/complete native exclusion accounting, not ordinary/identity/root/installation approval. Active lease file never frozen; closed logs live outside DOC/LOCAL/proposal until terminal. Existing historical proposed-terrain PASS remains historical.
+
+After terminal independently check actual pinned Neon COMPLETE/all literal refs/state/group release and no owned PIDs. No changed-math retry, geometry/terrain/model review or publication writes. Use explicit --expected-manifest c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7. Actual import/preflight not yet executed for this wiring.
