@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.56"
+  version: "1.9.57"
 ---
 
 # Hong Kong model improvement
@@ -18,6 +18,10 @@ For terrain replacements, nominate affected installed actors from the entire par
 Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
 
 ## Resume cheaply
+
+Codex, 12 October 2026, HKS-203/HKS-215. Upton's actual private original-TIN/current-ring replay v2 is completed and ROOT-verified against pinned Neon and all 8,262 references: job `0514c963b8c79bae794a1bcd2683730f2af78788245e05434ce1a38f66d72427`. It reuses the exact completed v1 nominations, preserves all 8,164,251 exterior drawn facets and all 841 old grid nodes, and records 1,247 actual sampler points without errors. The unchanged terrain validator **fails overlapping height surfaces**. This is an unaccepted private candidate, not an installation or a source-corruption conclusion. Measure overlap causes and whole affected-actor regressions before a revised routing/packing proposal; complete seams and physical/runtime gates before publication. The canonical 11-resource lease is released; captured launcher/caller PIDs are absent. Supervisor/worker PIDs were not captured between polls, so do not claim those exact PIDs were audited. See the new ROOT note in `government-xl-original-installation-followup-20261011/handoff.json`.
+
+Preflight the exact dynamic-import closure before expensive workers: v1's computed imports were correctly rejected, then v2 used literal production imports with the unchanged closure policy. Preserve the failed producer/log and exact completed nomination files; repair orchestration without repeating source partitions or granting acceptance.
 
 Codex, 12 October 2026, HKS-203/HKS-215. Upton whole-parent original-TIN regression v2 is completed and ROOT-verified: job `3046002072e7956b8d862a6a0ed14a66055fa962bfa3ccbef9401286910b4899`, all 8,207 evidence references, pushed in `5c9385d3c`. All 13,704 owned and 616 retained-native facets pass ordinary source-TIN coverage/clearance in all four arithmetic bindings; this is not strict grade, root or whole-native acceptance. Complete 1,911 BASIC rows include 52 affected rows: 584 previously unproved facets become ordinary-positive, nine current-clear facets lack source coverage, and 266 remain unproved on both surfaces. All nine coverage regressions cross the full replacement domain. Protect their whole facets and unchanged exterior in the separately labelled terrain-join proposal. The unchanged source/current complete captures and proofs must not be rerun merely to restate those counts.
 
