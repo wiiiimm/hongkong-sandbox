@@ -1,0 +1,9 @@
+# ROOT ONLY. Stage closure path must name the actual completed ROOT certificate; not yet executed.
+PYTHONPATH=/usr/lib/python3/dist-packages /tmp/astra-city-venv/bin/python source-scripts/city/government-import/nam_fung79099_unchanged_live_install_draft_v1_20261013.py \
+  --previous-count docs/astra-city/government-import/government-xl-heya-aqua-184286-unchanged-installed-v2-20261011/full-xl-current-count.json \
+  --expected-main-snapshot c2ec7c386b468a30 \
+  --expected-result-sha 2893bee6ac4227864a1fb44f974d1d9be454fb73fdf95c453ed026959f5fd0ef \
+  --source-certificate docs/astra-city/government-import/government-xl-original-installation-followup-20261011/root-nam-completed-qualification-verified-20261013.json \
+  --expected-source-certificate-sha bccd91155e873fbe413c7bc1f31d968a49e4d4624edb79348b22b656dc9bdca0 \
+  --closure docs/astra-city/government-import/government-xl-original-installation-followup-20261011/root-nam-completed-qualification-verified-20261013.json \
+  --closure "$NAM_ROOT_ACTUAL_STAGE_CLOSURE_PATH"
