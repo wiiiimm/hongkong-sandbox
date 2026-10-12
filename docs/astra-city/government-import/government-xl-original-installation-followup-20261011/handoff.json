@@ -4545,6 +4545,169 @@
       "rootAllReferencesVerified": 8457,
       "rootExactPinnedNeonReadback": true,
       "sourceGeometryChanges": 0
+    },
+    "uptonSavedSixMaskReplay": {
+      "actualDrawnCandidateFacets": 11214,
+      "actualNativeValidator": {
+        "actualAssertion": "Native terrain contains overlapping height surfaces",
+        "noApprovalOrToleranceChanges": true,
+        "notExactSeamCertificate": true,
+        "passed": false,
+        "unchangedValidator": {
+          "path": "source-scripts/city/island-detail-integration/native_terrain_validation.py",
+          "sha256": "da5798f31d3b60b2e714017a66df7d466dacbee115eeb78da89a557ba011c9ef"
+        }
+      },
+      "actualProductionSixGuards": [
+        {
+          "burialPassed": true,
+          "passed": true,
+          "roofPassed": true,
+          "samplerErrors": 0,
+          "samples": 173,
+          "throwingSampleIDs": [],
+          "uid": "landsd/254809:0",
+          "upperGapPassed": true
+        },
+        {
+          "burialPassed": true,
+          "passed": true,
+          "roofPassed": true,
+          "samplerErrors": 0,
+          "samples": 44,
+          "throwingSampleIDs": [],
+          "uid": "landsd/254810:0",
+          "upperGapPassed": true
+        },
+        {
+          "burialPassed": true,
+          "passed": true,
+          "roofPassed": true,
+          "samplerErrors": 0,
+          "samples": 44,
+          "throwingSampleIDs": [],
+          "uid": "landsd/254813:0",
+          "upperGapPassed": true
+        },
+        {
+          "burialPassed": null,
+          "passed": false,
+          "roofPassed": null,
+          "samplerErrors": 1,
+          "samples": 123,
+          "throwingSampleIDs": [
+            11
+          ],
+          "uid": "landsd/254815:0",
+          "upperGapPassed": null
+        },
+        {
+          "burialPassed": true,
+          "passed": true,
+          "roofPassed": true,
+          "samplerErrors": 0,
+          "samples": 85,
+          "throwingSampleIDs": [],
+          "uid": "landsd/255022:0",
+          "upperGapPassed": true
+        },
+        {
+          "burialPassed": true,
+          "passed": true,
+          "roofPassed": true,
+          "samplerErrors": 0,
+          "samples": 47,
+          "throwingSampleIDs": [],
+          "uid": "landsd/255024:0",
+          "upperGapPassed": true
+        }
+      ],
+      "actualThrowingLocations": [
+        {
+          "actualDrawnFiniteProjectionContainingFaces": 0,
+          "candidateParentCoverage": [
+            {
+              "aabbCandidates": 1,
+              "contains": true,
+              "finiteProjectionContainingFaces": 0,
+              "nativeHeight": null,
+              "path": "3d-viewer/city/data/government-native-79882-0.json"
+            }
+          ],
+          "error": "Error: Native terrain contains an uncovered point",
+          "point": [
+            -2340.259,
+            33.094
+          ],
+          "sample": 11,
+          "uid": "landsd/254815:0"
+        }
+      ],
+      "candidatePackedFacets": 11186,
+      "checkpoints": [
+        {
+          "jobId": "8de67028bf966f19cdb4dce77e8fcea86106e09f48ff84ecac27988b74b06b88",
+          "result": {
+            "path": "docs/astra-city/government-import/government-xl-upton-two-original-six-mask-saved-nomination-replay-v2-20261012/result.json",
+            "sha256": "5f0419ef392f89f2bdda9eddcf7bba9e04efc49a9eae023f5a1ef68b756f6333"
+          },
+          "rootExactPinnedNeonReadback": true,
+          "rootVerifiedReferences": 8262
+        },
+        {
+          "jobId": "1f4fbbc83d9c2f3c86d6a00a555846e8eaab2d49b1fdf3ebe885bb9f5aef81b2",
+          "result": {
+            "path": "docs/astra-city/government-import/government-xl-upton-two-original-six-mask-current-ground-nomination-v1-20261012-failed-execution-archive/result.json",
+            "sha256": "d17421b9c3f8aa16f67310f53909cabef16c09d20fdf39395ad62b322cb2bad0"
+          },
+          "rootExactPinnedNeonReadback": true,
+          "rootVerifiedReferences": 8247
+        }
+      ],
+      "completeOldGridNodes": 841,
+      "currentExteriorXYZOrderedHashMatched": true,
+      "currentManifest": {
+        "path": "3d-viewer/city/data/manifest.json",
+        "sha256": "2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540"
+      },
+      "fixedXLScope": {
+        "absent": 288,
+        "installed": 233,
+        "total": 521
+      },
+      "independentAudit": {
+        "path": "docs/astra-city/government-import/government-xl-upton-two-original-six-mask-saved-nomination-replay-v2-20261012/independent-completed-readback-summary.json",
+        "sha256": "efe104134cbfb1603be909f4f3f1956441252641a58e33ff6acc78fd9c8ae517"
+      },
+      "installationApproved": false,
+      "liveTerrainChanges": 0,
+      "newlyInstalled": 0,
+      "nextAction": "Preserve whole current parent facets across all complete protected masks and attribute the actual new-geometry overlap before another terrain candidate; no point fitting or waiver.",
+      "permanentRejection": false,
+      "physicalAccepted": false,
+      "rootProducerPIDsGone": true,
+      "rootReservationsReleased": [
+        {
+          "active": false,
+          "batch": "government-xl-upton-two-original-six-mask-saved-nomination-replay-v2-20261012",
+          "releasedAt": "2026-10-12 15:33:54.341470+00:00",
+          "token": "1ea2ecd1-3c85-4d81-867f-e3c5fe7fd76f"
+        },
+        {
+          "active": false,
+          "batch": "government-xl-upton-two-original-six-mask-current-ground-nomination-v1-20261012-failed-execution-archive",
+          "releasedAt": "2026-10-12 15:32:42.199378+00:00",
+          "token": "69a3a86a-32ea-40f6-8c03-1dd0d49615d0"
+        },
+        {
+          "active": false,
+          "batch": "government-xl-upton-two-original-six-mask-saved-nomination-replay-v2-20261012",
+          "releasedAt": "2026-10-12 15:33:56.614026+00:00",
+          "token": "e1c1e190-3ac6-4962-aa0b-ad65588bdda5"
+        }
+      ],
+      "rootVerifiedUTC": "2026-10-12T15:52:43.081588+00:00",
+      "sourceGeometryChanges": 0
     }
   },
   "database": {
@@ -4586,7 +4749,7 @@
       "landsd/184286:0"
     ]
   },
-  "lastUpdatedUTC": "2026-10-12T15:19:53.597456+00:00",
+  "lastUpdatedUTC": "2026-10-12T15:52:43.081588+00:00",
   "latestAuthorisedLinearReadback20261012": {
     "allFourExactBodiesIndependentlyReadBack": true,
     "checkpoint": "v7",
