@@ -50,7 +50,8 @@ class BatchTests(unittest.TestCase):
             folder.mkdir(parents=True)
             asset = folder/'model.glb.gz'; asset.write_bytes(b'fixture asset bytes')
             entry = {'uid': 'landsd/123:0', 'asset': asset.name,
-                'sha256': hashlib.sha256(asset.read_bytes()).hexdigest(), 'placementReviewed': True}
+                'sha256': hashlib.sha256(asset.read_bytes()).hexdigest(), 'placementReviewed': False,
+                'publicationApproved': False, 'identityReviewApproved': False}
             catalogue = {'schemaVersion': 1, 'kind': 'official-model-catalogue',
                 'crs': 'EPSG:2326', 'verticalDatum': 'Hong Kong Principal Datum',
                 'rootTranslation': [-834500,0,816500], 'models': [entry]}
@@ -63,6 +64,11 @@ class BatchTests(unittest.TestCase):
             with patch.object(batch, 'ROOT', root):
                 snap = batch.snapshot()
                 self.assertEqual(len(snap['selected']),1)
+                self.assertEqual(snap['held'], [])
+                self.assertEqual(snap['selectionPolicy'], 'installed-v1')
+                historical = batch.snapshot('accepted-v1')
+                self.assertEqual(historical['selected'], [])
+                self.assertEqual(len(historical['held']), 1)
                 self.assertEqual(batch.registry.digest(snap['selected'][0]['source']),snap['selected'][0]['revisionId'])
                 asset.write_bytes(b'changed')
                 with self.assertRaisesRegex(ValueError,'unchanged committed'):
@@ -71,6 +77,11 @@ class BatchTests(unittest.TestCase):
                 catalogue['models'].append(entry);path.write_text(json.dumps(catalogue));git('add','.');git('-c','user.name=Test','-c','user.email=test@example.com','commit','-m','ambiguous')
                 with self.assertRaisesRegex(ValueError,'Ambiguous'):
                     batch.snapshot()
+
+    def test_installed_policy_does_not_filter_review_flags(self):
+        # Unknown policy names must never silently widen a processing cohort.
+        with self.assertRaisesRegex(ValueError, 'Unknown explicit'):
+            batch.snapshot('implicit-waiver')
 
     def test_borrowed_connection_transaction_never_closes_connection(self):
         events=[]

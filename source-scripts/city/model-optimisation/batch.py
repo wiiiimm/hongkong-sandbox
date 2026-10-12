@@ -21,6 +21,24 @@ import registry
 
 ACTOR = 'codex-compression-20261012'
 ADAPTER = 'meshopt-exact-buffer-views-v1'
+LOSSY_ADAPTER = 'meshopt-bounded-lossy-v2'
+
+
+def adapter_file(recipe):
+    """Keep existing exact recipes immutable; lossy recipes pin a distinct producer."""
+    adapter = recipe['parameters'].get('adapter')
+    if adapter == ADAPTER:
+        if (recipe['lossy'] is not False or recipe['parameters'].get('quantisation') is not False
+                or recipe['parameters'].get('simplification') is not False):
+            raise ValueError('Exact adapter requires an explicitly lossless recipe')
+        return HERE / 'codec.mjs'
+    if adapter == LOSSY_ADAPTER:
+        if recipe['lossy'] is not True or recipe['tier'] not in ('high', 'balanced', 'lightweight'):
+            raise ValueError('Lossy adapter requires an explicit candidate tier')
+        if hashlib.sha256((HERE/'codec.mjs').read_bytes()).hexdigest() != recipe['parameters']['baseAdapterSha256']:
+            raise ValueError('Base codec changed')
+        return HERE / 'lossy_codec.mjs'
+    raise ValueError('Unsupported processing adapter')
 
 
 def write(path, value):
@@ -41,7 +59,9 @@ def accepted(entry):
             and entry.get('identityReviewApproved') is not False)
 
 
-def snapshot():
+def snapshot(selection_policy='installed-v1'):
+    if selection_policy not in ('installed-v1', 'accepted-v1'):
+        raise ValueError('Unknown explicit source selection policy')
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     fmt = subprocess.check_output(['git', 'rev-parse', '--show-object-format'], cwd=ROOT, text=True).strip()
     tree = subprocess.check_output(['git', 'ls-tree', '-rz', commit, '--',
@@ -85,7 +105,7 @@ def snapshot():
         for entry in cat['models']:
             uid = entry['uid']
             bindings[uid] = bindings.get(uid, 0) + 1
-            if not accepted(entry):
+            if selection_policy == 'accepted-v1' and not accepted(entry):
                 held.append({'uid': uid, 'catalogue': str(path.relative_to(ROOT)),
                     'reason': 'Source acceptance is missing or explicitly negative; not authorised by historical visibility.',
                     'acceptance': {key: entry.get(key) for key in
@@ -109,17 +129,20 @@ def snapshot():
             *(str(path.relative_to(ROOT)) for path in inputs)], cwd=ROOT).returncode:
         raise ValueError('Source inputs have staged changes')
     return {'schemaVersion': 1, 'executor': ACTOR, 'sourceCommit': commit,
+        'selectionPolicy': selection_policy,
         'sourceManifestSha256': hashlib.sha256(frozen(manifest_path)).hexdigest(),
         'catalogueHashes': catalogue_hashes, 'selected': sorted(selected, key=lambda s: s['uid']),
         'held': sorted(held, key=lambda s: s['uid']),
-        'scope': 'Every installed UID inventoried; process only explicit affirmative source acceptance with no explicit negative.'}
+        'scope': ('User-authorised installed-source cohort. Installation membership and committed source/hash/coordinate identity are required; review flags do not filter processing. Originals/reviews remain unchanged.'
+            if selection_policy == 'installed-v1' else 'Every installed UID inventoried; process only explicit affirmative source acceptance with no explicit negative.')}
 
 
 def register_group(connection, sources, recipe, batch):
     """Same registry identities/queue fencing, pipelined in one bounded transaction."""
     registry.validate_recipe(recipe)
-    if recipe['status'] != 'ready' or recipe['parameters'].get('adapter') != ADAPTER:
+    if recipe['status'] != 'ready':
         raise ValueError('This adapter requires its pinned ready recipe')
+    adapter_file(recipe)
     recipe_sha = registry.digest(recipe)
     variants = {registry.digest([s['revisionId'], recipe_sha]): s for s in sources}
     for source in sources:
@@ -199,7 +222,8 @@ def source_groups(sources, shard_index=0, shard_count=1):
 
 
 def check_snapshot(snap):
-    current = snapshot()
+    # Older immutable batches retain their original selection semantics.
+    current = snapshot(snap.get('selectionPolicy', 'accepted-v1'))
     if (current['sourceManifestSha256'] != snap['sourceManifestSha256']
             or current['catalogueHashes'] != snap['catalogueHashes']
             or [{k: s[k] for k in ('revisionId', 'uid', 'sourceSha256')} for s in current['selected']]
@@ -227,12 +251,11 @@ def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1,
             if hashlib.sha256((ROOT/path).read_bytes()).hexdigest() != expected:
                 raise ValueError('Current source catalogue/context changed')
     recipe = registry.validate_recipe(registry.read(recipe_path))
-    if recipe['lossy'] is not False or recipe['parameters'].get('quantisation') is not False or recipe['parameters'].get('simplification') is not False:
-        raise ValueError('Only the explicitly lossless recipe is supported')
+    producer = adapter_file(recipe)
     version = subprocess.check_output(['node', '--version'], text=True).strip().removeprefix('v')
     if version != recipe['tools']['node']:
         raise ValueError('Node version does not match the recipe')
-    for key, path in [('adapterSha256', HERE/'codec.mjs'), ('npmLockSha256', HERE/'package-lock.json')]:
+    for key, path in [('adapterSha256', producer), ('npmLockSha256', HERE/'package-lock.json')]:
         if hashlib.sha256(path.read_bytes()).hexdigest() != recipe['parameters'][key]:
             raise ValueError('Processing adapter/tool lock changed')
     if registry.read(HERE/'node_modules/meshoptimizer/package.json')['version'] != recipe['tools']['meshoptimizer']:
@@ -246,7 +269,7 @@ def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1,
     connection = connect()
     connection.autocommit = True
     connection.row_factory = dict_row
-    codec = subprocess.Popen(['node', str(HERE / 'codec.mjs')], stdin=subprocess.PIPE,
+    codec = subprocess.Popen(['node', str(producer)], stdin=subprocess.PIPE,
         stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, cwd=ROOT)
     pool = ThreadPoolExecutor(max_workers=1)
     outcomes = []
@@ -308,7 +331,7 @@ def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1,
                         response['artifact']['path'] = str(ROOT / response['artifact']['path'])
                     else:
                         request = {'source': str(asset), 'sourceSha256': source['sourceSha256'],
-                            'artifactDirectory': str(output / 'artifacts')}
+                            'artifactDirectory': str(output / 'artifacts'), 'recipe': recipe}
                         codec.stdin.write(json.dumps(request) + '\n'); codec.stdin.flush()
                         pending = pool.submit(codec.stdout.readline)
                         while True:
@@ -339,7 +362,8 @@ def run(snapshot_path, recipe_path, output, batch, shard_index=0, shard_count=1,
                             'placement': 'untested', 'visual': 'untested', 'collision': 'untested',
                             'devicePerformance': 'untested'},
                         'validationStatus': 'unreviewed', 'published': False,
-                        'qualification': 'Byte-exact offline codec roundtrip; current terrain/runtime/device acceptance is separate.'}
+                        'qualification': ('Bounded lossy candidate with exact derived-mesh decoder roundtrip; simplifier error is estimated, not a Hausdorff/visual guarantee. Current terrain/runtime/device acceptance is separate.'
+                            if recipe['lossy'] else 'Byte-exact offline codec roundtrip; current terrain/runtime/device acceptance is separate.')}
                     report_sha = write(result_path, result)
                     result['report'] = str(result_path.relative_to(ROOT)); result['reportSha256'] = report_sha
                     if not jobs.finish(job, result=result, connection=connection):
@@ -443,6 +467,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
     p = sub.add_parser('snapshot'); p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--selection-policy', choices=['installed-v1', 'accepted-v1'], default='installed-v1')
     for command in ('run', 'launch'):
         p = sub.add_parser(command)
         for name in ('snapshot', 'recipe', 'output'):
@@ -457,7 +482,7 @@ def main():
             p.add_argument('--preflight-sha256')
     args = parser.parse_args()
     if args.command == 'snapshot':
-        snap = snapshot(); write(args.output, snap)
+        snap = snapshot(args.selection_policy); write(args.output, snap)
         print(json.dumps({'selected': len(snap['selected']), 'held': len(snap['held']), 'sourceCommit': snap['sourceCommit']}))
     elif args.command == 'launch':
         launch(args.snapshot, args.recipe, args.output, args.batch, args.workers)

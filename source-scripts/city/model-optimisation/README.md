@@ -71,7 +71,7 @@ Integration tests opt in with `OPTIMISATION_TEST_DATABASE_URL`, require a localh
 
 ## Explicit accepted-model compression (12 October 2026)
 
-`batch.py snapshot` freezes every installed UID and selects only sources with `publicationApproved=true` or `placementReviewed=true`, while any explicit negative publication/identity field takes precedence. Missing acceptance is held, including historically visible/screened models. Full source/coordinate/assembly metadata, catalogue membership and source bytes are verified against a single commit with no staged source changes.
+The original `accepted-v1` snapshot freezes every installed UID and selects only sources with affirmative publication/placement flags and no negative publication/identity flags. User instruction later on 12 October 2026 explicitly changed compression inclusion to **every installed asset, ignoring reviews**. The default is now explicit `installed-v1`, with zero review-based exclusions. Original reviews remain unchanged; older immutable snapshots retain their accepted-v1 selection semantics when re-audited. Full source/coordinate/assembly metadata, catalogue membership and source bytes still require committed hash verification. See the historical 2,377-UID audit in `docs/astra-city/model-optimisation/accepted-enhanced-held-audit-v1-20261012/`.
 
 `codec.mjs` encodes bufferViews using Meshopt 0.24.0 ATTRIBUTES / INDICES, filter NONE, and gzip level 9. It performs no quantisation, simplification, cleanup, welding, triangle rotation or reordering. The independent viewer decoder must reproduce every bufferView byte and unchanged accessors, materials, nodes/scenes and transforms, including unused vertices and degenerate faces. Unsupported/textured/nonfinite sources fail explicitly. Entire GLB.gzip sizes are compared with the existing gzip source. Larger outputs are retained and marked non-beneficial, rather than reported as savings.
 
@@ -94,6 +94,8 @@ The launcher validates the full source snapshot once and hash-binds its prefligh
 Neon results are processing-complete/unreviewed, with source/output hashes and exact measurements. Only sourceIdentity and geometry gates pass these offline checks; current physical placement, visual, collision and devicePerformance gates remain untested. Device frame time and peak memory are null. Accessor bytes are a resident estimate, not measured peak or total GPU/JS memory. Compression savings imply no FPS or resident-memory reduction. No variant catalogue is published.
 
 Current batch evidence: `docs/astra-city/model-optimisation/accepted-enhanced-meshopt-lossless-v1-20261012/`. Original model acceptance and installation ledgers are preserved. No historical-map imagery is used.
+
+The complete installed cohort adds guarded high/balanced/lightweight lossy candidates through `lossy_codec.mjs` and `run_installed_batch.py`; exact recipes and reproducible commands are in `docs/astra-city/model-optimisation/installed-enhanced-meshopt-variants-v2-20261012/`. Each of the four tiers is independently verified in Neon. Position precision and triangle simplification are separate measured settings. Meshopt is exact against the derived mesh, not the original. All outputs and negative attempts are retained; no candidate inherits quality approval or runtime publication merely from installation. `lossy_codec_v1.mjs` is the exact preserved first-pilot producer and is deliberately unsupported by the whole-cohort runner.
 
 After processing, independently read back Neon, receipt hashes and all source/output bufferViews:
 

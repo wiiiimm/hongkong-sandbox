@@ -59,7 +59,8 @@ def audit(snapshot_path, recipe_path, output, checkpoint_batch, apply=False):
             decoder.stdin.write(json.dumps({'source': str(source_path),
                 'artifact': str(artifact_path), 'sourceSha256': source['sourceSha256'],
                 'artifactSha256': result['artifact']['sha256'],
-                'exactBufferViewSha256': metrics['exactBufferViewSha256']})+'\n')
+                'exactBufferViewSha256': metrics['exactBufferViewSha256'],
+                'recipe': recipe, 'metrics': metrics})+'\n')
             decoder.stdin.flush()
             readback = json.loads(decoder.stdout.readline())
             if not readback['ok']:
