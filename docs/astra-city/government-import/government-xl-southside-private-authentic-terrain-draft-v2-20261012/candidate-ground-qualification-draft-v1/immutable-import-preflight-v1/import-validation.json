@@ -1,0 +1,12 @@
+{
+  "actualCommand": [
+    "/tmp/astra-city-venv/bin/python",
+    "-c",
+    "import sys,importlib.util,pathlib; h=pathlib.Path('/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import'); sys.path.insert(0,str(h)); p=h/'xl-southside-source-local-v4-private-ground-capture-v1-20261012.py'; s=importlib.util.spec_from_file_location(\"southside_candidate_ground_import_smoke\",p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);print(\"ACTUAL_IMPORT_PASS; no main, claim, DB, source decode or production JS import\")"
+  ],
+  "exitCode": 0,
+  "logSHA256": "af469c1c8cd2e1ecfa6d103f79ef11220133a66bf99635d60bbe69bfb529c57a",
+  "phase": "import",
+  "stderr": "",
+  "stdout": "ACTUAL_IMPORT_PASS; no main, claim, DB, source decode or production JS import\n"
+}
