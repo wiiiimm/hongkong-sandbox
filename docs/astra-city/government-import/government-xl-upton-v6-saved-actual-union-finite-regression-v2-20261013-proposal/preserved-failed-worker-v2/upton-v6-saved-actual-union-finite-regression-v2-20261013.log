@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py", line 173, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py", line 169, in main
+    if '--owned'in sys.argv:return owned()
+                                   ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py", line 155, in owned
+    results.append(dict(assess(uid,{m:worlds[m]for m in MODES},saved,'owned-whole-original'if uid in OWNED else'secondary-held-foreign'if uid==SECONDARY else'retained-native-regression'),sourceSHA256=source))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py", line 121, in assess
+    face=w[i];selected,binding=complete.select(face.tolist());old_ids,old_binding=before.select(face.tolist());prior=old_records[i]['candidate'];assert prior['sourceFaceSHA256']==sha(face)and prior['completeGroundSHA256']==sha(prior_ground)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_closed_ground_aabb_pruning_v1_20261011.py", line 44, in select
+    exact=[tuple(rational(x) for x in p) for p in points]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_closed_ground_aabb_pruning_v1_20261011.py", line 44, in <genexpr>
+    exact=[tuple(rational(x) for x in p) for p in points]
+                 ^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_original_rational_interface_segment_clearance_20261011.py", line 13, in rational
+    assert isinstance(v,(str,F,int)) and not isinstance(v,bool),'Exact rational coordinates, never rounded floats'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Exact rational coordinates, never rounded floats
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py", line 173, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py", line 172, in main
+    claim=reservations.claim('upton-saved-v6-union-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600);assert claim['ok'];save(LEASE,json.loads(json.dumps(claim['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+                                                                                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-upton-v6-saved-actual-union-finite-regression-v2-20261013/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_v6_saved_actual_union_finite_regression_draft_v2_20261013.py', '--owned']' returned non-zero exit status 1.
