@@ -1,0 +1,34 @@
+"""DRAFT saved-positive-contact typed reconciliation; no root or acceptance."""
+import argparse,json,subprocess,sys,uuid
+from pathlib import Path
+from run import ROOT,HERE,read,save,connect,reservations
+import west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012 as P
+import west_wing26195_remaining_bodies_conditional_typed_graph_draft_v2_20261012 as H
+import west_wing26195_body0_candidate_log_lineage_receipt_recovery_draft_v3_20261012 as L
+BASE=P.R.BASE;BATCH='government-xl-west-wing26195-current-remaining-bodies-existing-contact-policy-v2-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;PROPOSAL=BASE/'government-xl-west-wing26195-remaining-bodies-existing-contact-policy-proposal-v2-20261012';FREEZER=HERE/'west_wing26195_freeze_current_remaining_bodies_existing_contact_policy_draft_v2_20261012.py';TEST=HERE/'test_west_wing26195_remaining_bodies_conditional_typed_graph_draft_v2_20261012.py';POLICY=HERE/'original_ordinary_ground_root_graph_20261009.py';ref=P.ref
+
+def validation():
+ v=read(PROPOSAL/'current-binding-validation-v2.json');assert v['exactTests']==11 and v['exitCode']==0 and v['noDBQueries']and v['noReservations'];assert v['codeRefs']==[ref(p)for p in [Path(H.__file__),TEST,Path(__file__),FREEZER]];assert ref(ROOT/v['testLog']['path'])==v['testLog'];s=(ROOT/v['testLog']['path']).read_text();assert 'Ran 11 tests'in s and s.rstrip().endswith('OK');return [ref(PROPOSAL/'current-binding-validation-v2.json')]+v['codeRefs']+[v['testLog'],ref(PROPOSAL/'METHOD.md'),ref(PROPOSAL/'POLICY_DIFF.patch'),ref(POLICY)]
+
+def inputs(expected_body0_sha):
+ scope,prior,certificate=P.inputs();path=L.DOC/'result.json';assert ref(path)['sha256']==expected_body0_sha;r=read(path);assert r['sourceOnly']and not r['physicalAccepted']and not r['installationApproved']
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r)
+ for e in r['evidenceRefs']:assert ref(ROOT/e['path'])==e
+ old_scope,old_certificate,_=L.inputs();assert old_scope==scope and old_certificate==certificate
+ d=read(L.DOC/'receipt-lineage.json');assert d['currentManifest']==scope['currentManifest']and d['body0CandidateRoleCertificate']==certificate
+ assert d['oldPostfreezeExitCode']==1 and d['exactOld1602UnchangedRefs']and d['noNumericOrSourceRoleRecomputation']and d['soleHistoricalLog']['prefixBytes']==132 and d['soleHistoricalLog']['notRestoredToOriginalPath']
+ _,other_scope,_,_,finite,graph=P.T.inputs();assert other_scope==scope
+ visual=read(P.T.DOC/'diagnostic.json.gz');result=json.loads(json.dumps(H.verify(certificate,graph,finite,visual,expected_binding=H.binding(certificate,graph,finite,visual)),allow_nan=False))
+ assert result['commonConditionalPositiveDimensionalReachableBodies']==[i for i in range(118)if i not in [108,113]]
+ return scope,r,result
+
+def main():
+ parser=argparse.ArgumentParser();parser.add_argument('--expected-body0-result-sha',required=True);parser.add_argument('--owned',action='store_true');args=parser.parse_args();valid=validation();scope,receipt,result=inputs(args.expected_body0_result_sha);assert not(DOC/'diagnostic.json.gz').exists()
+ if not args.owned:
+  claimed=reservations.claim('westwing-existing-positive-contact-'+str(uuid.uuid4()),scope['canonicalReservationResources'],batch=BATCH,ttl=1800);assert claimed['ok'],claimed;save(LOCAL/'reservation.json',json.loads(json.dumps(claimed['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','1800','--',sys.executable,__file__,'--owned','--expected-body0-result-sha',args.expected_body0_result_sha],cwd=ROOT,check=True);return
+ lease=read(LOCAL/'reservation.json');walker=P.T.M.D.S.G.P.F.module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','westwingexistingcontactclosure');paths=set();walker.local_imports(Path(__file__),paths);walker.local_imports(FREEZER,paths);codes=[ref(p)for p in sorted(paths)]+valid+[ref(L.DOC/'result.json'),ref(L.DOC/'receipt-lineage.json'),ref(P.DOC/'diagnostic.json.gz')]
+ P.fence(scope,lease,codes);assert reservations.heartbeat(lease)['ok'];P.fence(scope,lease,codes)
+ save(DOC/'diagnostic.json.gz',dict(sourceOnly=True,physicalAccepted=False,installationApproved=False,modelReviewWrites=0,sourceGeometryChanges=0,terrainGeometryChanges=0,currentManifest=scope['currentManifest'],allFourStreamBindings=result['allFourStreamBindings'],completeSourceFaces=46918,completeSourceBodies=118,noContactOrGroundArithmeticRerun=True,legacyDeliveryAnd15ReviewsUnchanged=True,existingPolicy=ref(POLICY),body0CandidateReceipt=ref(L.DOC/'result.json'),conditionalTypedGraph=result,evidenceRefs=codes))
+ print(json.dumps(dict(conditionalNonvisualReachableBodies=116,actualGroundRootQualified=False,physicalAccepted=False)),flush=True);subprocess.run([sys.executable,str(FREEZER),'--lease-file',str(LOCAL/'reservation.json'),'--expected-body0-result-sha',args.expected_body0_result_sha],cwd=ROOT,check=True)
+if __name__=='__main__':main()
