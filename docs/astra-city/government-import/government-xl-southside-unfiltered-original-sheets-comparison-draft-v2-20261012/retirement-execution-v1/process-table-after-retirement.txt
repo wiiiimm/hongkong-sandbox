@@ -1,0 +1,626 @@
+      1       0       1 /usr/lib/systemd/systemd --system --deserialize=83
+      2       0       0 [kthreadd]
+      3       2       0 [pool_workqueue_release]
+      4       2       0 [kworker/R-rcu_gp]
+      5       2       0 [kworker/R-sync_wq]
+      6       2       0 [kworker/R-kvfree_rcu_reclaim]
+      7       2       0 [kworker/R-slub_flushwq]
+      8       2       0 [kworker/R-netns]
+     10       2       0 [kworker/0:0H-kblockd]
+     13       2       0 [kworker/R-mm_percpu_wq]
+     14       2       0 [ksoftirqd/0]
+     15       2       0 [pr/ttyS0]
+     16       2       0 [rcu_sched]
+     17       2       0 [rcu_exp_par_gp_kthread_worker/0]
+     18       2       0 [rcu_exp_gp_kthread_worker]
+     19       2       0 [migration/0]
+     20       2       0 [kprobe-optimizer]
+     21       2       0 [idle_inject/0]
+     22       2       0 [cpuhp/0]
+     23       2       0 [cpuhp/1]
+     24       2       0 [idle_inject/1]
+     25       2       0 [migration/1]
+     26       2       0 [ksoftirqd/1]
+     28       2       0 [kworker/1:0H-kblockd]
+     29       2       0 [cpuhp/2]
+     30       2       0 [idle_inject/2]
+     31       2       0 [migration/2]
+     32       2       0 [ksoftirqd/2]
+     34       2       0 [kworker/2:0H-kblockd]
+     35       2       0 [cpuhp/3]
+     36       2       0 [idle_inject/3]
+     37       2       0 [migration/3]
+     38       2       0 [ksoftirqd/3]
+     40       2       0 [kworker/3:0H-kblockd]
+     41       2       0 [cpuhp/4]
+     42       2       0 [idle_inject/4]
+     43       2       0 [migration/4]
+     44       2       0 [ksoftirqd/4]
+     46       2       0 [kworker/4:0H-kblockd]
+     47       2       0 [cpuhp/5]
+     48       2       0 [idle_inject/5]
+     49       2       0 [migration/5]
+     50       2       0 [ksoftirqd/5]
+     52       2       0 [kworker/5:0H-kblockd]
+     53       2       0 [cpuhp/6]
+     54       2       0 [idle_inject/6]
+     55       2       0 [migration/6]
+     56       2       0 [ksoftirqd/6]
+     58       2       0 [kworker/6:0H-kblockd]
+     59       2       0 [cpuhp/7]
+     60       2       0 [idle_inject/7]
+     61       2       0 [migration/7]
+     62       2       0 [ksoftirqd/7]
+     64       2       0 [kworker/7:0H-kblockd]
+     65       2       0 [kdevtmpfs]
+     66       2       0 [kworker/R-inet_frag_wq]
+     67       2       0 [rcu_tasks_kthread]
+     68       2       0 [rcu_tasks_rude_kthread]
+     69       2       0 [kauditd]
+     70       2       0 [khungtaskd]
+     71       2       0 [oom_reaper]
+     74       2       0 [kworker/R-writeback]
+     75       2       0 [kcompactd0]
+     76       2       0 [ksmd]
+     77       2       0 [khugepaged]
+     78       2       0 [kworker/R-kblockd]
+     79       2       0 [kworker/R-blkcg_punt_bio]
+     80       2       0 [kworker/R-kintegrityd]
+     81       2       0 [irq/9-acpi]
+     84       2       0 [kworker/R-tpm_dev_wq]
+     85       2       0 [kworker/R-ata_sff]
+     86       2       0 [kworker/R-md_bitmap]
+     87       2       0 [kworker/R-md_llbitmap_io]
+     88       2       0 [kworker/R-md_llbitmap_unplug]
+     89       2       0 [kworker/R-edac-poller]
+     90       2       0 [kworker/R-devfreq_wq]
+     92       2       0 [watchdogd]
+     94       2       0 [kworker/R-quota_events_unbound]
+     95       2       0 [kswapd0]
+     96       2       0 [ecryptfs-kthread]
+     97       2       0 [kworker/R-kthrotld]
+     98       2       0 [kworker/R-acpi_thermal_pm]
+     99       2       0 [hwrng]
+    100       2       0 [scsi_eh_0]
+    101       2       0 [kworker/R-scsi_tmf_0]
+    102       2       0 [kworker/R-nvme-wq]
+    103       2       0 [kworker/R-nvme-reset-wq]
+    104       2       0 [kworker/R-nvme-delete-wq]
+    105       2       0 [kworker/R-nvme-auth-wq]
+    107       2       0 [kworker/R-mld]
+    108       2       0 [kworker/R-ipv6_addrconf]
+    109       2       0 [kworker/R-kstrp]
+    114       2       0 [kworker/u33:0]
+    125       2       0 [kworker/R-charger_manager]
+    126       2       0 [kworker/2:1H-kblockd]
+    127       2       0 [kworker/7:1H-kblockd]
+    128       2       0 [jbd2/sda1-8]
+    129       2       0 [kworker/R-ext4-rsv-conversion]
+    130       2       0 [kworker/4:1H-kblockd]
+    131       2       0 [kworker/5:1H-kblockd]
+    155       2       0 [kworker/3:1H-kblockd]
+    197       2       0 [kworker/R-kmpathd]
+    198       2       0 [kworker/R-kmpath_handlerd]
+    238       1     238 /sbin/multipathd -d -s
+    241       2       0 [kworker/1:1H-kblockd]
+    311       2       0 [kworker/0:1H-kblockd]
+    376       2       0 [kworker/6:1H-kblockd]
+    398       2       0 [jbd2/sda16-8]
+    399       2       0 [kworker/R-ext4-rsv-conversion]
+    580       2       0 [kworker/R-cfg80211]
+    670       1     670 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+    681       1     681 /usr/bin/google_osconfig_agent
+    693       1     693 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+    777       1     776 /usr/sbin/chronyd -F 1
+    779     777     776 /usr/sbin/chronyd -F 1
+    792       1     792 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+    796       1     796 /usr/bin/containerd
+   1162       1    1162 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+   1165       1    1165 /sbin/agetty -o -p -- \u --keep-baud 115200,57600,38400,9600 - vt220
+   1180       1    1180 /sbin/agetty -o -p -- \u --noclear - linux
+   1209       1    1209 /usr/lib/systemd/systemd --user
+   1225    1209    1209 (sd-pam)
+   1233       1    1233 /opt/google-cloud-ops-agent/subagents/opentelemetry-collector/otelopscol --config=/run/google-cloud-ops-agent-opentelemetry-collector/otel.yaml
+   1285    1209    1285 /home/williamli/.local/bin/moshi-hook serve
+   1286    1209    1286 /usr/bin/pipewire
+   1287    1209    1287 /usr/bin/pipewire -c filter-chain.conf
+   1288    1209    1288 /usr/bin/pipewire-pulse
+   1289    1209    1289 /usr/bin/rclone mount gdrive: /home/williamli/GoogleDrive --config=/home/williamli/.config/rclone/rclone.conf --cache-dir=/home/williamli/.cache/rclone --vfs-cache-mode=full --vfs-cache-max-size=10G --vfs-cache-max-age=24h --vfs-write-back=5s --dir-cache-time=10m --poll-interval=15s --umask=002 --log-level=INFO
+   1306    1209    1306 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+   1734       2       0 [kworker/R-tls-strp]
+   2761       1    2761 /home/williamli/.local/bin/herdr server
+   2818    2761    2818 /bin/bash
+   2824    2761    2824 /bin/bash
+   2827    2761    2827 /bin/bash
+   2838    2761    2838 /bin/bash
+   2844    2761    2844 /bin/bash
+   2857    2761    2857 /bin/bash
+   2878    2761    2878 /bin/bash
+   2892    2761    2892 /bin/bash
+   2904    2761    2904 /bin/bash
+   2910    2761    2910 /bin/bash
+   2922    2761    2922 /bin/bash
+   2940    2761    2940 /bin/bash
+   3259    2761    3259 /bin/bash
+   3369    2761    3369 /bin/bash
+   3397    2761    3397 /bin/bash
+   3475    2761    3475 /bin/bash
+   3683    2761    3683 /bin/bash
+   3750    2761    3750 /bin/bash
+   3770    2761    3770 /bin/bash
+   3784    2761    3784 /bin/bash
+   3812    2761    3812 /bin/bash
+   3888    2761    3888 /bin/bash
+   3954    2761    3954 /bin/bash
+   3996    2761    3996 /bin/bash
+   4043    2761    4043 /bin/bash
+   4061    2761    4061 /bin/bash
+   4096    2761    4096 /bin/bash
+   4212    1209    4212 /usr/libexec/xdg-desktop-portal
+   4247    1209    4247 /usr/libexec/xdg-document-portal
+   4300    1209    4300 /usr/libexec/xdg-permission-store
+   4357    4247    4357 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1002/doc
+   9466    2761    9466 /bin/bash
+   9561    2761    9561 /bin/bash
+  10034    2761   10034 /bin/bash
+  10081    2761   10081 /bin/bash
+  10119    2761   10119 /bin/bash
+  10190    2761   10190 /bin/bash
+  10273    2761   10273 /bin/bash
+  10340    2761   10340 /bin/bash
+  10414    2761   10414 /bin/bash
+  10557    2761   10557 /bin/bash
+  10655    2761   10655 /bin/bash
+  10720    2761   10720 /bin/bash
+  10791    2761   10791 /bin/bash
+  10835    2761   10835 /bin/bash
+  10922    2761   10922 /bin/bash
+  10949    2761   10949 /bin/bash
+  16157   10791   16157 codex resume 01a08b0c-d1ac-76d1-bf6c-e0e259d29b91
+  16204   10119   16204 /home/williamli/.local/bin/cursor-agent --use-system-ca /home/williamli/.local/share/cursor-agent/versions/2026.09.10-fd3934a/index.js --resume 64dccfcd-1bf4-4949-ba8f-63a81840a3a0
+  16292   10557   16292 /home/williamli/.local/bin/cursor-agent --use-system-ca /home/williamli/.local/share/cursor-agent/versions/2026.09.10-fd3934a/index.js --resume 39013fb3-ca25-4da4-a84f-15724b99355a
+  18636   16157   18636 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+  18643   16157   18643 /usr/lib/chatgpt/resources/cua_node/bin/node /home/williamli/.codex/plugins/cache/openai-bundled/unified-computer-use/26.903.61454/scripts/launch.mjs
+  19153   18643   18643 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+  25929       1   16292 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+  25942       1   16323 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+  26086       1   16153 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+  26542   16292   16292 npm exec mongodb-mcp-server@<3
+  26570   16292   16292 npm exec shadcn@latest mcp
+  26629   26542   16292 sh -c "mongodb-mcp-server"
+  26630   26629   16292 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+  26640   26570   16292 sh -c "shadcn" mcp
+  26641   26640   16292 node /home/williamli/.npm/_npx/d66c5096c7023bfb/node_modules/.bin/shadcn mcp
+  26753       1   16323 sh -c "mongodb-mcp-server"
+  26754   26753   16323 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+  26868       1   16153 sh -c "mongodb-mcp-server"
+  26869   26868   16153 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+  27031       1   16204 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+  27278   16157   27278 /home/williamli/.codex/packages/standalone/releases/0.154.0-x86_64-unknown-linux-musl/bin/codex-code-mode-host
+  27527   16204   16204 npm exec mongodb-mcp-server@<3
+  27539   16204   16204 npm exec shadcn@latest mcp
+  28214   27527   16204 sh -c "mongodb-mcp-server"
+  28215   27539   16204 sh -c "shadcn" mcp
+  28216   28214   16204 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+  28217   28215   16204 node /home/williamli/.npm/_npx/d66c5096c7023bfb/node_modules/.bin/shadcn mcp
+  63407    2824   63407 npm exec opscope@latest
+  63673   63407   63407 sh -c "opscope"
+  63674   63673   63407 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+  63685   63674   63407 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+  68680    2827   68680 npm exec opscope@latest
+  68719   68680   68680 sh -c "opscope"
+  68721   68719   68680 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+  68728   68721   68680 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+  68778   68728   68680 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/clocks
+  77539   63685   63407 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/github-actions
+ 124436    2761  124436 /bin/bash
+ 124781    2761  124781 /bin/bash
+ 125637  124781  125637 npm exec opscope@latest
+ 125662  125637  125637 sh -c "opscope"
+ 125663  125662  125637 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+ 125672  125663  125637 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+ 125682  125672  125637 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/agent-usage
+ 152231    2857  152231 npm exec opscope@latest agent-usage
+ 152644  152231  152231 sh -c "opscope" agent-usage
+ 152645  152644  152231 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope agent-usage
+ 152652  152645  152231 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope agent-usage
+ 152653  152652  152231 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/agent-usage
+ 194302    4096  194302 npm exec opscope@latest
+ 194492  194302  194302 sh -c "opscope"
+ 194493  194492  194302 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+ 194500  194493  194302 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+ 194739  194500  194302 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/agent-usage
+ 323081 1114136  323081 [codex] <defunct>
+ 486548    2761  486548 /bin/bash
+ 697791   16157  697791 /usr/lib/chatgpt/resources/cua_node/bin/node /home/williamli/.codex/plugins/cache/openai-bundled/unified-computer-use/26.903.61454/scripts/launch.mjs
+ 697792   16157  697792 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 697811   16157  697811 /usr/lib/chatgpt/resources/cua_node/bin/node /home/williamli/.codex/plugins/cache/openai-bundled/unified-computer-use/26.903.61454/scripts/launch.mjs
+ 697812   16157  697812 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 697858  697791  697791 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 697895  697811  697811 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 706029 2061188  706029 codex
+ 706633 3647484  706633 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 706634 3647484  706634 /usr/lib/chatgpt/resources/cua_node/bin/node /usr/lib/chatgpt/resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+ 706681  706634  706634 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 706794 3647484  706794 /usr/lib/chatgpt/resources/cua_node/bin/node /usr/lib/chatgpt/resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+ 706816  706794  706794 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 706836 3647484  706836 /usr/lib/chatgpt/resources/cua_node/bin/node /usr/lib/chatgpt/resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+ 706852 3647484  706852 /usr/lib/chatgpt/resources/cua_node/bin/node /usr/lib/chatgpt/resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+ 706870  706836  706836 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 706880  706852  706852 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 745178    1209  745178 bash /home/williamli/.local/bin/shared-browser
+ 745183  745178  745178 /usr/lib/xorg/Xorg :99 -noreset -nolisten tcp -config /home/williamli/.config/shared-browser/xorg-dummy.conf -logfile /home/williamli/.local/state/shared-browser/Xorg.log -dpi 96
+ 745191  745178  745178 dbus-run-session -- startplasma-x11
+ 745195  745191  745178 dbus-daemon --nofork --print-address 4 --session
+ 745196  745191  745178 startplasma-x11
+ 745235  745196  745178 /usr/bin/plasma_session
+ 745259    1209  745178 /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit
+ 745261    1209  745261 kdeinit5: Running...
+ 745263  745261  745261 /usr/lib/x86_64-linux-gnu/libexec/kf5/klauncher --fd=9
+ 745319  745235  745178 /usr/bin/kded5
+ 745363  745235  745178 /usr/bin/kwin_x11
+ 745375  745178  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --remote-debugging-address=127.0.0.1 --remote-debugging-port=9222 --window-size=1920,1080 --start-minimized --no-first-run --no-default-browser-check --disable-dev-shm-usage --password-store=basic about:blank
+ 745376  745178  745178 x11vnc -display :99 -xrandr resize -forever -shared -localhost -rfbport 5900 -nopw -noxdamage -repeat
+ 745377  745178  745178 /usr/bin/python3 /usr/bin/websockify --web=/home/williamli/.local/share/shared-browser/novnc 127.0.0.1:6080 127.0.0.1:5900
+ 745381    1209  745178 /usr/bin/kglobalaccel5
+ 745386    1209  745385 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome_crashpad_handler --monitor-self --monitor-self-annotation=ptype=crashpad-handler --database=/home/williamli/.config/google-chrome-for-testing/Crash Reports --annotation=lsb-release=Ubuntu 24.04.4 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=151.0.7922.34 --initial-client-fd=5 --shared-client-connection
+ 745388    1209  745387 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome_crashpad_handler --no-periodic-tasks --monitor-self-annotation=ptype=crashpad-handler --database=/home/williamli/.config/google-chrome-for-testing/Crash Reports --annotation=lsb-release=Ubuntu 24.04.4 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=151.0.7922.34 --initial-client-fd=4 --shared-client-connection
+ 745392  745375  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=zygote --no-zygote-sandbox --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable
+ 745393  745375  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=zygote --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable
+ 745395  745393  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=zygote --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable
+ 745429    1209  745178 /usr/lib/x86_64-linux-gnu/libexec/kf5/kscreen_backend_launcher
+ 745435  745235  745178 /usr/bin/ksmserver
+ 745449  745392  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=gpu-process --disable-dev-shm-usage --ozone-platform=x11 --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable --gpu-preferences=YAAAAAAAAAAgAQAEAAAAAAAAAAAAAMAASAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAMAAAAAQAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --metrics-shmem-handle=4,i,8271413434345395727,11878652134327587817,262144 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190708988185955192
+ 745452  745375  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=network --disable-dev-shm-usage --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable --shared-files=network_parent_dirs_pipe:100,v8_context_snapshot_data:101 --metrics-shmem-handle=4,i,13739237689445284468,18049728424333303154,524288 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190708989122997041
+ 745455  745452  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=broker
+ 745456  745395  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=utility --utility-sub-type=storage.mojom.StorageService --lang=en-US --service-sandbox-type=utility --disable-dev-shm-usage --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,7158184328870861808,12409105049969965465,524288 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190708990060038890
+ 745524  745235  745178 /usr/bin/xembedsniproxy
+ 745525  745235  745178 /usr/bin/kaccess
+ 745527  745235  745178 /usr/bin/plasmashell
+ 745528  745235  745178 /usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1
+ 745560  745395  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=renderer --gpu-client-id=6 --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --extension-process --change-stack-guard-on-fork=enable --disable-dev-shm-usage --remote-debugging-port=9222 --ozone-platform=x11 --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=6 --time-ticks-at-unix-epoch=-1789538931766057 --gpu-channel-request-start-time-ticks=730039530408 --launch-time-ticks=730039532341 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,9571316495276546323,12699868383032084989,2097152 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190708991934122588
+ 745567  745235  745178 /usr/bin/gmenudbusmenuproxy
+ 745669  745395  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=renderer --gpu-client-id=15 --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --extension-process --change-stack-guard-on-fork=enable --disable-dev-shm-usage --remote-debugging-port=9222 --ozone-platform=x11 --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=15 --time-ticks-at-unix-epoch=-1789538931766057 --gpu-channel-request-start-time-ticks=730039689770 --launch-time-ticks=730039707168 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,10981605409640969589,7144769902772317046,2097152 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190709000367499229
+ 745732    1209  745178 /usr/libexec/dconf-service
+ 745773    1209  745178 /usr/lib/x86_64-linux-gnu/libexec/kactivitymanagerd
+ 746119  745395  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=renderer --gpu-client-id=37 --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --extension-process --change-stack-guard-on-fork=enable --disable-dev-shm-usage --remote-debugging-port=9222 --ozone-platform=x11 --disable-gpu-compositing --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=37 --time-ticks-at-unix-epoch=-1789538931766057 --gpu-channel-request-start-time-ticks=730041487766 --launch-time-ticks=730041488750 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,10411951462528148322,2319207716520279549,2097152 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190709020982419907
+ 746473  745375  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=utility --utility-sub-type=audio.mojom.AudioService --lang=en-US --service-sandbox-type=none --disable-dev-shm-usage --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,1279402102894001467,12558249512135464399,524288 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190709026604671001
+ 775896 1568449  775896 /bin/bash -c source /home/williamli/.claude/shell-snapshots/snapshot-bash-1791257784846-tlzyea.sh 2>/dev/null || true && shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'pnpm --filter thatspace-web dev' < /dev/null && pwd -P >| /tmp/claude-4939-cwd
+ 775897  775896  775897 node /home/williamli/.nvm/versions/node/v24.18.0/bin/pnpm --filter thatspace-web dev
+ 775908 1568449  775908 /bin/bash -c source /home/williamli/.claude/shell-snapshots/snapshot-bash-1791257784846-tlzyea.sh 2>/dev/null || true && shopt -u extglob 2>/dev/null || true && { \builtin unalias -- 'unsetenv'; \builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'pnpm --filter thatlibrary dev' < /dev/null && pwd -P >| /tmp/claude-0dfb-cwd
+ 775909  775908  775909 node /home/williamli/.nvm/versions/node/v24.18.0/bin/pnpm --filter thatlibrary dev
+ 775940  775897  775897 sh -c next dev -H 0.0.0.0 --port 3000
+ 775941  775940  775897 node /home/williamli/projects/stealth-factory/thatspace-monorepo/apps/thatspace-web/node_modules/.bin/../next/dist/bin/next dev -H 0.0.0.0 --port 3000
+ 775955  775909  775909 sh -c next dev -H 0.0.0.0 --port 3010
+ 775956  775955  775909 node /home/williamli/projects/stealth-factory/thatspace-monorepo/apps/thatlibrary/node_modules/.bin/../next/dist/bin/next dev -H 0.0.0.0 --port 3010
+ 775975  775941  775897 next-server (v16.2.9)
+ 775980  775956  775909 next-server (v16.2.9)
+ 776429  775975  775897 node /home/williamli/projects/stealth-factory/thatspace-monorepo/apps/thatspace-web/.next/dev/build/5d9f54ee92e17e06.js 33689
+ 776445  775980  775909 node /home/williamli/projects/stealth-factory/thatspace-monorepo/apps/thatlibrary/.next/dev/build/05785053b50eb6e5.js 39031
+ 776474  775980  775909 node /home/williamli/projects/stealth-factory/thatspace-monorepo/apps/thatlibrary/.next/dev/build/05785053b50eb6e5.js 34443
+ 776478  775980  775909 node /home/williamli/projects/stealth-factory/thatspace-monorepo/apps/thatlibrary/.next/dev/build/05785053b50eb6e5.js 36229
+ 905866    2838  905866 npm exec opscope@latest
+ 905905  905866  905866 sh -c "opscope"
+ 905907  905905  905866 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+ 905917  905907  905866 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+ 906069  905917  905866 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/herdr-panes
+ 921847 3647484  921847 /usr/lib/chatgpt/resources/cua_node/bin/node /usr/lib/chatgpt/resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+ 921902  921847  921847 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 965522    1209    1306 /usr/bin/gnome-keyring-daemon --start --foreground --components=secrets
+ 965537    1209  965537 /usr/bin/gnome-keyring-daemon --foreground --components=pkcs11,secrets --control-directory=/run/user/1002/keyring
+ 978956   16157  978956 /usr/lib/chatgpt/resources/cua_node/bin/node /home/williamli/.codex/plugins/cache/openai-bundled/unified-computer-use/26.903.61454/scripts/launch.mjs
+ 978962   16157  978962 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+ 979042  978956  978956 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+1037376       1 1037376 /home/williamli/.local/bin/claude daemon run --json-path /home/williamli/.claude/daemon.json --log-file /home/williamli/.claude/daemon.log --origin transient --spawned-by {"label":"claude","cwd":"/home/williamli/projects/stealth-factory","pid":1658397}
+1037432 1037376 1037432 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1002/26401bab/spare/c25fd426.pty.sock 200 50 -- /home/williamli/.local/share/claude/versions/2.1.296 --bg-spare /tmp/cc-daemon-1002/26401bab/spare/c25fd426.claim.sock
+1037443 1037432 1037432 claude bg-spare --bg-spare /tmp/cc-daemon-1002/26401bab/spare/c25fd426.claim.sock
+1114136       1 1114136 /home/williamli/.codex/packages/app-server-daemon/releases/0.162.1-x86_64-unknown-linux-musl/bin/codex app-server daemon pid-update-loop
+1126733 3647484 1126733 /usr/lib/chatgpt/resources/cua_node/bin/node /usr/lib/chatgpt/resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+1126741 1126733 1126733 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+1197308 1797634 1197308 sshd: williamli [priv]
+1197476 1197308 1197308 sshd: williamli@notty
+1197499 1197476 1197499 /home/williamli/.local/bin/herdr remote-client-bridge --idle-timeout-v1
+1255230  745395  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=renderer --gpu-client-id=119559 --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable --disable-dev-shm-usage --remote-debugging-port=9222 --ozone-platform=x11 --disable-gpu-compositing --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=119559 --time-ticks-at-unix-epoch=-1789538931766057 --gpu-channel-request-start-time-ticks=2176984185100 --launch-time-ticks=2176984185770 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,10506715155181705875,14787546657615664238,2097152 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190821018098296085
+1258897       2       0 [kworker/0:2-cgroup_release]
+1330365       2       0 [kworker/6:2-mm_percpu_wq]
+1331305 3647484 1331305 /usr/lib/chatgpt/resources/cua_node/bin/node /usr/lib/chatgpt/resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+1331350 1331305 1331305 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+1538478       1 1538478 /usr/libexec/accounts-daemon
+1540223       1 1540223 /usr/sbin/rsyslogd -n -iNONE
+1541410 1114136 1541410 [codex] <defunct>
+1568449   10949 1568449 claude --resume e3e8d096-68cf-426e-866f-1434dd385453
+1568513 1568449 1568449 npm exec @modelcontextprotocol/server-pdf --stdio
+1568817 1568513 1568449 sh -c "mcp-pdf-server" --stdio
+1568818 1568817 1568449 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+1587838    3475 1587838 claude
+1587897 1587838 1587838 npm exec @modelcontextprotocol/server-pdf --stdio
+1588219 1587897 1587838 sh -c "mcp-pdf-server" --stdio
+1588220 1588219 1587838 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+1600281       1 1596545 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+1601821       1 1596545 sh -c "mongodb-mcp-server"
+1601822 1601821 1596545 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+1619206       2       0 [kworker/3:1-events]
+1645151    2761 1645151 /bin/bash
+1648041    3397 1648041 codex resume 01a08a7c-0354-7531-92b9-1c91d3a23a50
+1656151 3647484 1656151 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+1658397 1645151 1658397 claude
+1658454 1658397 1658397 npm exec @modelcontextprotocol/server-pdf --stdio
+1658510 1658454 1658397 sh -c "mcp-pdf-server" --stdio
+1658511 1658510 1658397 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+1659657    2761 1659657 /bin/bash
+1659930    2761 1659930 /bin/bash
+1659943    2761 1659943 /bin/bash
+1659958    2761 1659958 /bin/bash
+1660035    2761 1660035 /bin/bash
+1660098    2761 1660098 /bin/bash
+1660489    2761 1660489 /bin/bash
+1660706    2761 1660706 /bin/bash
+1662465       1 1662465 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1002/26401bab/pty/5d583e24.sock 113 94 -- /home/williamli/.local/share/claude/versions/2.1.291 --session-id 5d583e24-2f0f-41c0-9422-7459c2a46ecc --fork-session --resume /home/williamli/.claude/projects/-home-williamli-projects-stealth-factory/02de6a1b-a701-4394-be00-ac0225b5f466.jsonl --permission-mode auto
+1662480 1662465 1662480 /home/williamli/.local/share/claude/versions/2.1.291 --session-id 5d583e24-2f0f-41c0-9422-7459c2a46ecc --fork-session --resume /home/williamli/.claude/projects/-home-williamli-projects-stealth-factory/02de6a1b-a701-4394-be00-ac0225b5f466.jsonl --permission-mode auto
+1662660 1662480 1662480 npm exec @modelcontextprotocol/server-pdf --stdio
+1662730 1662660 1662480 sh -c "mcp-pdf-server" --stdio
+1662731 1662730 1662480 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+1664996 1660035 1664996 npm exec opscope@latest
+1665015 1664996 1664996 sh -c "opscope"
+1665016 1665015 1664996 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+1665023 1665016 1664996 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+1665046 1665023 1664996 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/clocks
+1665067 1659943 1665067 npm exec opscope@latest
+1665083 1665067 1665067 sh -c "opscope"
+1665084 1665083 1665067 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+1665091 1665084 1665067 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+1665096 1659958 1665096 npm exec opscope@latest
+1665110 1665096 1665096 sh -c "opscope"
+1665111 1665110 1665096 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+1665118 1665111 1665096 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+1665133 1659657 1665133 npm exec opscope@latest
+1665146 1665133 1665133 sh -c "opscope"
+1665147 1665146 1665133 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+1665154 1665147 1665133 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+1665426 1660098 1665426 npm exec opscope@latest
+1665450 1665426 1665426 sh -c "opscope"
+1665451 1665450 1665426 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+1665458 1665451 1665426 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+1665477 1660706 1665477 npm exec opscope@latest
+1665493 1665477 1665477 sh -c "opscope"
+1665494 1665493 1665477 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+1665501 1665494 1665477 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+1665604 1659930 1665604 htop
+1665659 1660489 1665659 npm exec opscope@latest
+1665671 1665659 1665659 sh -c "opscope"
+1665672 1665671 1665659 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+1665679 1665672 1665659 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+1665746 1665679 1665659 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/netwatch
+1666553    2844 1666553 npm exec opscope@latest
+1666573 1666553 1666553 sh -c "opscope"
+1666574 1666573 1666553 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+1666581 1666574 1666553 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+1666600 1666581 1666553 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/github-prs
+1667895 1665091 1665067 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/github
+1667945 1665118 1665096 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/linear
+1669639 1665154 1665133 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/ports
+1672949 1665501 1665477 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/tailnet
+1674615 1665458 1665426 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/latency
+1674621 1674615 1665426 ping -n -O -i 0.5 8.8.8.8
+1674622 1674615 1665426 ping -n -O -i 0.5 1.1.1.1
+1674623 1674615 1665426 ping -n -O -i 0.5 studio-1.ts.alt-x.systems
+1682570    2761 1682570 /bin/bash
+1684653       1 1684565 next-server (v16.2.9)
+1710879   10414 1710879 codex resume 01a077b8-b1aa-79b0-8f3f-6fc4bfaaf9b1
+1712175       2       0 [kworker/1:1-events]
+1712183       2       0 [kworker/4:0-mm_percpu_wq]
+1714818    2761 1714818 /bin/bash
+1717485   10340 1717485 claude
+1717836 1717485 1717485 npm exec @modelcontextprotocol/server-pdf --stdio
+1717894 1717836 1717485 sh -c "mcp-pdf-server" --stdio
+1717895 1717894 1717485 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+1722325 3647484 1722325 /tmp/astra-city-venv/bin/python -m http.server 4176 --bind 0.0.0.0 --directory 3d-viewer
+1731013   10273 1731013 /home/williamli/.local/bin/cursor-agent --use-system-ca /home/williamli/.local/share/cursor-agent/versions/2026.10.01-e373342/index.js --resume=b786715d-f6f1-4f12-bab4-970eddd424fc
+1731949       1 1731013 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+1733142 1731013 1731013 npm exec mongodb-mcp-server@<3
+1733466 1731013 1731013 npm exec shadcn@latest mcp
+1733478 1733142 1731013 sh -c "mongodb-mcp-server"
+1733479 1733478 1731013 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+1733489 1733466 1731013 sh -c "shadcn" mcp
+1733490 1733489 1731013 node /home/williamli/.npm/_npx/d66c5096c7023bfb/node_modules/.bin/shadcn mcp
+1733584 1731013 1731013 npm exec @xeroapi/xero-mcp-server@latest
+1733591 1731013 1731013 node /home/williamli/.cursor/plugins/cache/cursor-public/cursor-supermemory/83c59685fc15c2940b6900e1b8500932422a4836/dist/cli.js mcp
+1733907 1733584 1731013 sh -c "xero-mcp-server"
+1733908 1733907 1731013 node /home/williamli/.npm/_npx/2b97e4bc92a65d02/node_modules/.bin/xero-mcp-server
+1776533       1 1776533 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1002/26401bab/pty/9a3309d4.sock 167 94 -- /home/williamli/.local/share/claude/versions/2.1.291 --session-id 9a3309d4-32d6-4a20-b5db-1d0aafa3e079 --fork-session --resume /home/williamli/.claude/projects/-home-williamli-projects-stealth-factory-thatspace-monorepo/e3e8d096-68cf-426e-866f-1434dd385453.jsonl --model claude-opus-5-5 --permission-mode auto
+1776560 1776533 1776560 /home/williamli/.local/share/claude/versions/2.1.291 --session-id 9a3309d4-32d6-4a20-b5db-1d0aafa3e079 --fork-session --resume /home/williamli/.claude/projects/-home-williamli-projects-stealth-factory-thatspace-monorepo/e3e8d096-68cf-426e-866f-1434dd385453.jsonl --model claude-opus-5-5 --permission-mode auto
+1777026 1776560 1776560 npm exec @modelcontextprotocol/server-pdf --stdio
+1777464 1777026 1776560 sh -c "mcp-pdf-server" --stdio
+1777465 1777464 1776560 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+1797633       1 1797633 /usr/libexec/udisks2/udisksd
+1797634       1 1797634 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+1797635       1 1797635 /usr/lib/systemd/systemd-journald
+1797646       1 1797646 /usr/lib/systemd/systemd-resolved
+1797654       1 1797654 /usr/lib/systemd/systemd-udevd
+1797655       2       0 [psimon]
+1797656       1 1797656 /usr/lib/systemd/systemd-networkd
+1797659       1 1797659 /usr/bin/google_guest_agent
+1797804       1 1797804 /usr/lib/systemd/systemd-logind
+1797809       1 1797809 /usr/sbin/cron -f -P
+1798156       1 1798156 /opt/google-cloud-ops-agent/libexec/google_cloud_ops_agent_wrapper -config_path /etc/google-cloud-ops-agent/config.yaml -log_path /var/log/google-cloud-ops-agent/subagents/logging-module.log /opt/google-cloud-ops-agent/subagents/fluent-bit/bin/fluent-bit --config /run/google-cloud-ops-agent-fluent-bit/fluent_bit_main.conf --parser /run/google-cloud-ops-agent-fluent-bit/fluent_bit_parser.conf --storage_path /var/lib/google-cloud-ops-agent/fluent-bit/buffers
+1798317 1798156 1798156 /opt/google-cloud-ops-agent/subagents/fluent-bit/bin/fluent-bit --config /run/google-cloud-ops-agent-fluent-bit/fluent_bit_main.conf --parser /run/google-cloud-ops-agent-fluent-bit/fluent_bit_parser.conf --storage_path /var/lib/google-cloud-ops-agent/fluent-bit/buffers
+1871229       2       0 [kworker/u32:4-iou_exit]
+1917375 3747438 3747438 ping -n -O -i 1 100.88.11.62
+1917376 3747381 3747381 ping -n -O -i 1 100.88.11.62
+1929413  745377  745178 /usr/bin/python3 /usr/bin/websockify --web=/home/williamli/.local/share/shared-browser/novnc 127.0.0.1:6080 127.0.0.1:5900
+1932365  745395  745178 /home/williamli/.agent-browser/browsers/chrome-151.0.7922.34/chrome --type=renderer --gpu-client-id=119909 --crashpad-handler-pid=745386 --enable-crash-reporter=, --user-data-dir=/home/williamli/.local/share/shared-browser/chrome-profile --change-stack-guard-on-fork=enable --disable-dev-shm-usage --remote-debugging-port=9222 --ozone-platform=x11 --disable-gpu-compositing --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=119909 --time-ticks-at-unix-epoch=-1789538931766057 --gpu-channel-request-start-time-ticks=2182935763886 --launch-time-ticks=2182935765364 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,17530773649208215171,10252401772037778333,2097152 --field-trial-handle=3,i,12661926460256330150,17820556242935231117,262144 --variations-seed-version --pseudonymization-salt-handle=7,i,5759372787001922880,3810254914337226280,4 --trace-process-track-uuid=3190821346062943235
+1932812  745527  745178 /usr/lib/chatgpt/ChatGPT
+1932817    1209 1932816 /usr/lib/chatgpt/browser_crashpad_handler --monitor-self --monitor-self-annotation=ptype=crashpad-handler --database=/home/williamli/.config/Codex/Crash Reports --annotation=lsb-release=Ubuntu 24.04.4 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=155.0.8059.40 --initial-client-fd=5 --shared-client-connection
+1932819    1209 1932818 /usr/lib/chatgpt/browser_crashpad_handler --no-periodic-tasks --monitor-self-annotation=ptype=crashpad-handler --database=/home/williamli/.config/Codex/Crash Reports --annotation=lsb-release=Ubuntu 24.04.4 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=155.0.8059.40 --initial-client-fd=4 --shared-client-connection
+1932823 1932812  745178 /usr/lib/chatgpt/ChatGPT --type=zygote --no-zygote-sandbox --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --change-stack-guard-on-fork=enable
+1932824 1932812  745178 /usr/lib/chatgpt/ChatGPT --type=zygote --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --change-stack-guard-on-fork=enable
+1932832 1932824  745178 /usr/lib/chatgpt/ChatGPT --type=zygote --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --change-stack-guard-on-fork=enable
+1932911 1932823  745178 /usr/lib/chatgpt/ChatGPT --type=gpu-process --gpu-recent-crash-count=0 --ozone-platform=x11 --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --change-stack-guard-on-fork=enable --gpu-preferences=YAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAASAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAMAAAAAQAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --metrics-shmem-handle=4,i,18097177158054578191,6040977886945181872,262144 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708988185955192
+1932916 1932812  745178 /usr/lib/chatgpt/ChatGPT --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,1318552628861970129,8804330975882482352,524288 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708989122997041
+1932976 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=utility --utility-sub-type=storage.mojom.StorageService --lang=en-US --service-sandbox-type=utility --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,5738637081884508776,5808198882401100322,524288 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708990060038890
+1933014    1209  745178 /usr/bin/kwalletd5
+1933023    1209  745178 /usr/libexec/xdg-desktop-portal
+1933045    1209  745178 /usr/libexec/xdg-permission-store
+1933083    1209  745178 /usr/libexec/xdg-desktop-portal-gtk
+1933818 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=8 --launch-time-ticks=2182943125543 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,15880912732853943155,6578512054978799273,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708993808206286
+1933819 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=7 --launch-time-ticks=2182943132202 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,17995277996837215023,5800283111305831840,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708992871164437
+1933909 1932812  745178 /usr/lib/chatgpt/resources/codex -c features.code_mode_host=true app-server --analytics-default-enabled -c plugins.codex-app-tools@openai-bundled.mcp_servers.codex_app.enabled=true -c plugins.code-review@openai-bundled.mcp_servers.code-review.enabled=true
+1934144 1932812  745178 /usr/lib/chatgpt/ChatGPT --type=utility --utility-sub-type=audio.mojom.AudioService --lang=en-US --service-sandbox-type=none --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,12979987701189729419,16666161342545745235,524288 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708994745248135
+1939080 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=10 --launch-time-ticks=2182984119354 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,13395356310178642002,5150230314133954224,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708995682289984
+1939118 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=11 --launch-time-ticks=2182984375932 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,8129829807906162500,9754402691865804950,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708996619331833
+1939594 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=12 --launch-time-ticks=2182987826049 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,12083004895351483225,11431984534860256784,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190708997556373682
+1940342 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=15 --launch-time-ticks=2182995167028 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,8363830815964267309,11278168218067355303,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190709000367499229
+1940540 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=17 --launch-time-ticks=2182997121717 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,14318018656102737822,244489764659546357,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190709002241582927
+1940638       2       0 [kworker/2:0-events]
+1942533 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=27 --launch-time-ticks=2183007667695 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,15496634443944765992,5954503548234810121,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190709011612001417
+1942636 1933909 1942636 /usr/lib/chatgpt/resources/codex-code-mode-host
+1943238 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=40 --launch-time-ticks=2183013214056 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,12186108717612169112,14626521213436052563,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190709023793545454
+1943349 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=42 --launch-time-ticks=2183014844532 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,6785742133311347164,5043901951280063269,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190709025667629152
+1943549 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=46 --launch-time-ticks=2183015654633 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,832464855715069747,12175484443703353062,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190709029415796548
+1944651 1933909 1944651 /usr/lib/chatgpt/resources/cua_node/bin/node ./server.mjs
+1944855 1932832  745178 /usr/lib/chatgpt/ChatGPT --type=renderer --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --owl-electron-scheme-replay --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --owl-scoped-user-agent-additional-hosts=openai.com,chatgpt.com,chatgpt.site,chatgpt-team.site --owl-scoped-user-agent-prefix=CodexBrowser --change-stack-guard-on-fork=enable --ozone-platform=x11 --disable-gpu-compositing --enable-blink-features=WebMCP --disable-blink-features=ReplacedNormalFlowStackingInlinePaint --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=52 --launch-time-ticks=2183025139975 --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,7163597858476744727,12735452747086021204,1572864 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190709035038047642
+1945295 1933909 1945295 /usr/lib/chatgpt/resources/cua_node/bin/node ./server.mjs
+1945497 1933909 1945497 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+1945503 1933909 1945503 /usr/lib/chatgpt/resources/cua_node/bin/node /usr/lib/chatgpt/resources/cua_node/lib/node_modules/@oai/cua-repl/bin/cua-repl.mjs
+1945555 1945503 1945503 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+1945965 1932812  745178 /usr/lib/chatgpt/resources/codex -c forced_login_method="chatgpt" exec-server --remote https://codex-cloud-environments.chatgpt.com/api --environment-id ccarenv_b64_Y2NhcmVudl82YWNiODFiYTk4OTQ4MTkxYTMxM2I5NzRlZjIxZTVmMg
+1951649  745527  745178 /usr/lib/claude-desktop/claude-desktop
+1951655 1951649  745178 /usr/lib/claude-desktop/claude-desktop --type=zygote --no-zygote-sandbox
+1951660 1951649  745178 /usr/lib/claude-desktop/claude-desktop --type=zygote
+1951664 1951660  745178 /usr/lib/claude-desktop/claude-desktop --type=zygote
+1951725    1209 1951724 /usr/lib/claude-desktop/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --no-rate-limit --database=/home/williamli/.config/Claude/Crashpad --url=https://f.a.k/e --annotation=_productName=Claude --annotation=_version=2.31226.1 --annotation=lsb-release=Ubuntu 24.04.4 LTS --annotation=plat=Linux --annotation=prod=Electron --annotation=ver=44.4.3 --initial-client-fd=39 --shared-client-connection
+1951808 1951655  745178 /usr/lib/claude-desktop/claude-desktop --type=gpu-process --ozone-platform=x11 --crashpad-handler-pid=1951725 --enable-crash-reporter=818a05af-c500-4be4-894a-3c910035c39c,no_channel --user-data-dir=/home/williamli/.config/Claude --gpu-preferences=YAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAASAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAMAAAAAQAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=3,i,15078917038858349993,12327915543681147082,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,GlobalShortcutsPortal,GlobalShortcutsPortalPreferredTrigger,IsolatesPriorityUseProcessPriority,PdfUseShowSaveFilePicker --disable-features=ConnectionAllowlists,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,5109953682153705188,12439815123768259304,4 --trace-process-track-uuid=3190708988185955192 --disable-logging
+1951823 1951649  745178 /usr/lib/claude-desktop/claude-desktop --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --crashpad-handler-pid=1951725 --enable-crash-reporter=818a05af-c500-4be4-894a-3c910035c39c,no_channel --user-data-dir=/home/williamli/.config/Claude --standard-schemes=cowork-artifact,cowork-file,claude-media,claude-simulator,app --secure-schemes=cowork-artifact,cowork-file,claude-media,claude-simulator,app,sentry-ipc --bypasscsp-schemes=claude-media,claude-simulator,sentry-ipc --cors-schemes=claude-simulator,sentry-ipc --fetch-schemes=cowork-artifact,cowork-file,claude-simulator,app,sentry-ipc --service-worker-schemes=app --streaming-schemes=cowork-file,claude-media,claude-simulator --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,15078917038858349993,12327915543681147082,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,GlobalShortcutsPortal,GlobalShortcutsPortalPreferredTrigger,IsolatesPriorityUseProcessPriority,PdfUseShowSaveFilePicker --disable-features=ConnectionAllowlists,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,5109953682153705188,12439815123768259304,4 --trace-process-track-uuid=3190708989122997041 --disable-logging
+1952483 1951664  745178 /usr/lib/claude-desktop/claude-desktop --type=renderer --crashpad-handler-pid=1951725 --enable-crash-reporter=818a05af-c500-4be4-894a-3c910035c39c,no_channel --user-data-dir=/home/williamli/.config/Claude --standard-schemes=cowork-artifact,cowork-file,claude-media,claude-simulator,app --secure-schemes=cowork-artifact,cowork-file,claude-media,claude-simulator,app,sentry-ipc --bypasscsp-schemes=claude-media,claude-simulator,sentry-ipc --cors-schemes=claude-simulator,sentry-ipc --fetch-schemes=cowork-artifact,cowork-file,claude-simulator,app,sentry-ipc --service-worker-schemes=app --streaming-schemes=cowork-file,claude-media,claude-simulator --app-path=/usr/lib/claude-desktop/resources/app.asar --enable-sandbox --blink-settings=dnsPrefetchingEnabled=false --ozone-platform=x11 --disable-gpu-compositing --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=6 --launch-time-ticks=2183092232064 --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,15078917038858349993,12327915543681147082,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,GlobalShortcutsPortal,GlobalShortcutsPortalPreferredTrigger,IsolatesPriorityUseProcessPriority,PdfUseShowSaveFilePicker --disable-features=ConnectionAllowlists,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,5109953682153705188,12439815123768259304,4 --trace-process-track-uuid=3190708991934122588 --disable-logging --desktop-managed-config={"forceLoginOrgUUIDs":null,"loginSsoOrgDomain":null,"disableEssentialTelemetry":false,"disableNonessentialTelemetry":false,"disableMobileSimulatorTools":false,"banner":null,"deploymentDisplayName":null,"dep
+1952501 1951664  745178 /usr/lib/claude-desktop/claude-desktop --type=renderer --crashpad-handler-pid=1951725 --enable-crash-reporter=818a05af-c500-4be4-894a-3c910035c39c,no_channel --user-data-dir=/home/williamli/.config/Claude --standard-schemes=cowork-artifact,cowork-file,claude-media,claude-simulator,app --secure-schemes=cowork-artifact,cowork-file,claude-media,claude-simulator,app,sentry-ipc --bypasscsp-schemes=claude-media,claude-simulator,sentry-ipc --cors-schemes=claude-simulator,sentry-ipc --fetch-schemes=cowork-artifact,cowork-file,claude-simulator,app,sentry-ipc --service-worker-schemes=app --streaming-schemes=cowork-file,claude-media,claude-simulator --app-path=/usr/lib/claude-desktop/resources/app.asar --enable-sandbox --blink-settings=dnsPrefetchingEnabled=false --ozone-platform=x11 --disable-gpu-compositing --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=8 --launch-time-ticks=2183092560055 --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,15078917038858349993,12327915543681147082,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,GlobalShortcutsPortal,GlobalShortcutsPortalPreferredTrigger,IsolatesPriorityUseProcessPriority,PdfUseShowSaveFilePicker --disable-features=ConnectionAllowlists,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,5109953682153705188,12439815123768259304,4 --trace-process-track-uuid=3190708993808206286 --disable-logging --desktop-features={"launch":{"status":"supported"},"coworkBrowser":{"status":"unsupported","reason":"cowork_browser_disabled","unsupportedCode":"unknown"},"artifactsPane":{"status":"unavailable"},"nativeQuickEntry":{"status":"unav
+1952680 1951649  745178 /usr/lib/claude-desktop/resources/cowork-linux-helper -socket /run/user/1002/claude-cowork-vm.sock
+1952722 1951649 1952722 /usr/lib/claude-desktop/resources/disclaimer --pgroup -- /home/williamli/.nvm/versions/node/v24.18.0/bin/npx -y @modelcontextprotocol/server-pdf --stdio
+1952723 1952722 1952722 npm exec @modelcontextprotocol/server-pdf --stdio
+1953112 1952723 1952722 sh -c "mcp-pdf-server" --stdio
+1953124 1953112 1952722 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+1953976 1951649  745178 /usr/lib/claude-desktop/claude-desktop --type=utility --utility-sub-type=audio.mojom.AudioService --lang=en-US --service-sandbox-type=none --crashpad-handler-pid=1951725 --enable-crash-reporter=818a05af-c500-4be4-894a-3c910035c39c,no_channel --user-data-dir=/home/williamli/.config/Claude --standard-schemes=cowork-artifact,cowork-file,claude-media,claude-simulator,app --secure-schemes=cowork-artifact,cowork-file,claude-media,claude-simulator,app,sentry-ipc --bypasscsp-schemes=claude-media,claude-simulator,sentry-ipc --cors-schemes=claude-simulator,sentry-ipc --fetch-schemes=cowork-artifact,cowork-file,claude-simulator,app,sentry-ipc --service-worker-schemes=app --streaming-schemes=cowork-file,claude-media,claude-simulator --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,15078917038858349993,12327915543681147082,262144 --enable-features=DocumentPolicyIncludeJSCallStacksInCrashReports,GlobalShortcutsPortal,GlobalShortcutsPortalPreferredTrigger,IsolatesPriorityUseProcessPriority,PdfUseShowSaveFilePicker --disable-features=ConnectionAllowlists,DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,5109953682153705188,12439815123768259304,4 --trace-process-track-uuid=3190708994745248135 --disable-logging
+1955799 1932823  745178 /usr/lib/chatgpt/ChatGPT --type=utility --utility-sub-type=on_device_model.mojom.OnDeviceModelService --lang=en-US --service-sandbox-type=on_device_model_execution --crashpad-handler-pid=1932817 --enable-crash-reporter=, --user-data-dir=/home/williamli/.config/Codex --standard-schemes=app,codex-sandbox --service-worker-schemes=codex-sandbox --secure-schemes=app,codex-sandbox --fetch-schemes=app,codex-sandbox --cors-schemes=codex-sandbox --streaming-schemes=app,codex-sandbox --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --metrics-shmem-handle=4,i,11758900778783616140,2942378687184750814,524288 --field-trial-handle=3,i,11851546787221084256,1920431822946704971,262144 --enable-features=DevToolsWebMCPSupport,DocumentPolicyIncludeJSCallStacksInCrashReports,ReportStuckThrottle --disable-features=DropInputEventsWhilePaintHolding,WebUIOmniboxAimPopup,WebUIOmniboxPopup --variations-seed-version --pseudonymization-salt-handle=7,i,14484060165397486795,17596444656457096592,4 --trace-process-track-uuid=3190709036912131340
+1955811 1955799  745178 /usr/lib/chatgpt/ChatGPT --type=broker
+1990724  745435  745178 /lib/x86_64-linux-gnu/libexec/kscreenlocker_greet --graceTime 5000 --ksldfd 26
+2000374       2       0 [kworker/7:2-mm_percpu_wq]
+2000485       2       0 [kworker/u32:3-events_unbound]
+2002389       1 2002389 /usr/lib/polkit-1/polkitd --no-debug
+2039405       2       0 [kworker/5:0-mm_percpu_wq]
+2049903       2       0 [kworker/1:0-events]
+2061188    2761 2061188 /bin/bash
+2061452    2761 2061452 /bin/bash
+2065021    9466 2065021 claude agents
+2074209    2761 2074209 /bin/bash
+2094671       2       0 [kworker/u32:1-events_unbound]
+2094672       2       0 [kworker/u32:5-events_unbound]
+2136920       2       0 [kworker/0:0-cgroup_free]
+2161930       2       0 [kworker/6:0-cgroup_free]
+2166399       2       0 [kworker/5:2-cgroup_free]
+2166464       2       0 [kworker/2:1-cgroup_free]
+2173735 1114136 2173735 [codex] <defunct>
+2174575       2       0 [kworker/7:1]
+2179928       2       0 [kworker/3:2]
+2189093 3647484 2189093 /bin/bash -lc /tmp/astra-city-venv/bin/python -u source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v2_20261012.py > /tmp/upton-whole-parent-current-domain-capture-v2-20261012.log 2>&1
+2189100 2189093 2189093 /tmp/astra-city-venv/bin/python -u source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v2_20261012.py
+2189482 2189100 2189093 /tmp/astra-city-venv/bin/python /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py run --lease-file /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-upton-whole-parent-current-domain-capture-v2-20261012/reservation.json --ttl 3600 -- /tmp/astra-city-venv/bin/python /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v2_20261012.py --owned
+2189521 2189482 2189521 /tmp/astra-city-venv/bin/python /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_capture_draft_v2_20261012.py --owned
+2197314 2189521 2189521 node /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/upton_whole_parent_current_domain_actors_draft_v2_20261012.mjs docs/astra-city/government-import/government-xl-upton-whole-parent-current-domain-capture-v2-20261012
+2197802       2       0 [kworker/4:2-cgroup_free]
+2204202       2       0 [kworker/u32:0-events_unbound]
+2212694       2       0 [psimon]
+2223755       2       0 [kworker/5:1-cgroup_free]
+2224551       1 2224551 /usr/libexec/packagekitd
+2230772       2       0 [kworker/u32:2]
+2230773       2       0 [kworker/u32:6-events_power_efficient]
+2230788       2       0 [kworker/0:1-events]
+2235720       2       0 [kworker/6:1]
+2249185   77539   63407 curl --config -
+2249191 1666600 1666553 curl --config -
+2249226 1667945 1665096 curl --config -
+2249232 3647484 2249232 /tmp/astra-city-venv/bin/python /tmp/audit-southside-exact-retirement-20261012.py
+2249244 2249232 2249232 ps -eo pid=,ppid=,pgid=,args=
+2260816    2761 2260816 /bin/bash
+2417704 1714818 2417704 agy --conversation=4d387477-64db-419b-99b6-2fbc1ba42cf4
+2417739 2417704 2417704 npm exec mcp-remote https://mcp.notion.com/mcp
+2417740 2417704 2417704 npm exec mcp-remote https://mcp.linear.app/mcp
+2418008 2417739 2417704 sh -c "mcp-remote" https://mcp.notion.com/mcp
+2418009 2418008 2417704 node /home/williamli/.npm/_npx/705d23756ff7dacc/node_modules/.bin/mcp-remote https://mcp.notion.com/mcp
+2418056 2417740 2417704 sh -c "mcp-remote" https://mcp.linear.app/mcp
+2418058 2418056 2417704 node /home/williamli/.npm/_npx/705d23756ff7dacc/node_modules/.bin/mcp-remote https://mcp.linear.app/mcp
+2554272    2761 2554272 /bin/bash
+2568400    2761 2568400 /bin/bash
+2569457 2568400 2569457 codex
+2569978 3647484 2569978 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+2582670    2761 2582670 /bin/bash
+2584292    2761 2584292 /bin/bash
+2584911    2761 2584911 /bin/bash
+2585402    2761 2585402 /bin/bash
+2585991    2761 2585991 /bin/bash
+2586022       1 2586022 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1002/26401bab/pty/ac71bc43.sock 167 94 -- /home/williamli/.local/share/claude/versions/2.1.292 --session-id ac71bc43-4e47-40fe-9fe6-c3ebe7edb52f --fork-session --resume /home/williamli/.claude/projects/-home-williamli-projects-stealth-factory-stealth-monorepo/055b0a6f-e44f-41ae-a764-f5482233e614.jsonl --permission-mode auto
+2586046 2586022 2586046 /home/williamli/.local/share/claude/versions/2.1.292 --session-id ac71bc43-4e47-40fe-9fe6-c3ebe7edb52f --fork-session --resume /home/williamli/.claude/projects/-home-williamli-projects-stealth-factory-stealth-monorepo/055b0a6f-e44f-41ae-a764-f5482233e614.jsonl --permission-mode auto
+2586536    2761 2586536 /bin/bash
+2586551 2586046 2586046 npm exec @modelcontextprotocol/server-pdf --stdio
+2586677 2586551 2586046 sh -c "mcp-pdf-server" --stdio
+2586678 2586677 2586046 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+2637273       1 2628237 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+2638461       1 2628237 sh -c "mongodb-mcp-server"
+2638462 2638461 2628237 node /home/williamli/.npm/_npx/364f1bc81b0e7c67/node_modules/.bin/mongodb-mcp-server
+2691856 1710879 1710879 [ChatGPT] <defunct>
+2721781       1 2721769 node /home/williamli/.nvm/versions/node/v24.18.0/bin/corepack pnpm dev
+2721801 2721781 2721769 sh -c next dev -H 0.0.0.0 -p ${PORT:-3004}
+2721802 2721801 2721769 node /home/williamli/projects/stealth-factory/virtual-product-studio/.claude/worktrees/claude/swr-836-check-projects-wait-mwp1kj/node_modules/.bin/../next/dist/bin/next dev -H 0.0.0.0 -p 3005
+2721907 2721802 2721769 next-server (v16.2.11)
+2724296 2721907 2721769 node /home/williamli/projects/stealth-factory/virtual-product-studio/.claude/worktrees/claude/swr-836-check-projects-wait-mwp1kj/.next/dev/build/56416d4ae4ce586f.js 36459
+3057186    2818 3057186 npm exec opscope@latest
+3057576 3057186 3057186 sh -c "opscope"
+3057577 3057576 3057186 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope
+3057584 3057577 3057186 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope
+3058020 3057584 3057186 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/vercel-deployments
+3094508 3647484 3094508 /usr/lib/chatgpt/resources/cua_node/bin/node /home/williamli/.codex/plugins/cache/openai-bundled/unified-computer-use/26.903.61454/scripts/launch.mjs
+3094509 3647484 3094509 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+3094534 3094508 3094508 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+3098377       1 3098377 claude bg-pty-host --bg-pty-host /tmp/cc-daemon-1002/26401bab/pty/7157c8a1.sock 167 94 -- /home/williamli/.local/share/claude/versions/2.1.291 --session-id 7157c8a1-a08c-493a-80e8-ac5b04d56a2b --fork-session --resume /home/williamli/.claude/projects/-home-williamli-projects-stealth-factory-virtual-product-studio/96b1f0fa-b773-4ba9-82ad-132ab27b2236.jsonl --permission-mode auto
+3098414 3098377 3098414 /home/williamli/.local/share/claude/versions/2.1.291 --session-id 7157c8a1-a08c-493a-80e8-ac5b04d56a2b --fork-session --resume /home/williamli/.claude/projects/-home-williamli-projects-stealth-factory-virtual-product-studio/96b1f0fa-b773-4ba9-82ad-132ab27b2236.jsonl --permission-mode auto
+3098591 3098414 3098414 npm exec @modelcontextprotocol/server-pdf --stdio
+3098934 3098591 3098414 sh -c "mcp-pdf-server" --stdio
+3098935 3098934 3098414 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+3146189    2761 3146189 /bin/bash
+3147541 3146189 3147541 npm exec opscope
+3148218 3147541 3147541 sh -c "opscope"
+3148219 3148218 3147541 node /home/williamli/.npm/_npx/6f36fef1c328bb6d/node_modules/.bin/opscope
+3148243 3148219 3147541 /home/williamli/.npm/_npx/6f36fef1c328bb6d/node_modules/opscope-linux-x64/bin/opscope
+3148849 3148243 3147541 /home/williamli/.npm/_npx/6f36fef1c328bb6d/node_modules/opscope-linux-x64/bin/ports
+3464403 1114136 3464403 [codex] <defunct>
+3489147   10720 3489147 claude
+3489215 3489147 3489147 npm exec @modelcontextprotocol/server-pdf --stdio
+3489577 3489215 3489147 sh -c "mcp-pdf-server" --stdio
+3489578 3489577 3489147 node /home/williamli/.npm/_npx/6583fba12287d067/node_modules/.bin/mcp-pdf-server --stdio
+3647484 1114136 3647484 /home/williamli/.codex/packages/app-server-daemon/releases/0.162.1-x86_64-unknown-linux-musl/bin/codex app-server --listen unix:// --analytics-default-enabled --managed-daemon
+3648259 3647484 3648259 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+3650253 3647484 3650253 /home/williamli/.codex/packages/app-server-daemon/releases/0.162.1-x86_64-unknown-linux-musl/bin/codex-code-mode-host
+3663935       1 3663919 node /home/williamli/.nvm/versions/node/v24.18.0/bin/corepack pnpm dev
+3664011 3663935 3663919 sh -c next dev -H 0.0.0.0 -p ${PORT:-3004}
+3664012 3664011 3663919 node /home/williamli/projects/stealth-factory/virtual-product-studio/.claude/worktrees/claude/swr-840-uv-island-warning-rb83ro/node_modules/.bin/../next/dist/bin/next dev -H 0.0.0.0 -p 3004
+3664056 3664012 3663919 next-server (v16.2.11)
+3665526 3664056 3663919 node /home/williamli/projects/stealth-factory/virtual-product-studio/.claude/worktrees/claude/swr-840-uv-island-warning-rb83ro/.next/dev/build/56416d4ae4ce586f.js 46585
+3676852 1114136 3676852 [codex] <defunct>
+3747369 2582670 3747369 /home/williamli/projects/stealth-factory/opscope/.claude/worktrees/pr-332/target/release/clocks
+3747376 2584292 3747376 /home/williamli/projects/stealth-factory/opscope/.claude/worktrees/pr-332/target/release/months
+3747381 2584911 3747381 /home/williamli/projects/stealth-factory/opscope/.claude/worktrees/pr-332/target/release/tailnet
+3747422 2585402 3747422 /home/williamli/projects/stealth-factory/opscope/.claude/worktrees/pr-332/target/release/clocks
+3747430 2585991 3747430 /home/williamli/projects/stealth-factory/opscope/.claude/worktrees/pr-332/target/release/months
+3747438 2586536 3747438 /home/williamli/projects/stealth-factory/opscope/.claude/worktrees/pr-332/target/release/tailnet
+3751483       1 3751483 /usr/sbin/tailscaled --state=/var/lib/tailscale/tailscaled.state --socket=/run/tailscale/tailscaled.sock --port=41641
+3752794       1 3752794 /snap/snapd/current/usr/lib/snapd/snapd
+3835785 3647484 3835785 /usr/lib/chatgpt/resources/cua_node/bin/node /home/williamli/.codex/plugins/cache/openai-bundled/unified-computer-use/26.903.61454/scripts/launch.mjs
+3835786 3647484 3835786 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+3835808 3835785 3835785 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+3991707 1114136 3991707 [codex] <defunct>
+4039080 3647484 4039080 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+4039081 3647484 4039081 /usr/lib/chatgpt/resources/cua_node/bin/node /home/williamli/.codex/plugins/cache/openai-bundled/unified-computer-use/26.903.61454/scripts/launch.mjs
+4039120 4039081 4039081 /usr/lib/chatgpt/resources/cua_node/bin/node_repl
+4169388 2074209 4169388 npm exec opscope@latest agent-usage
+4169457 4169388 4169388 sh -c "opscope" agent-usage
+4169458 4169457 4169388 node /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/.bin/opscope agent-usage
+4169465 4169458 4169388 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/opscope agent-usage
+4169466 4169465 4169388 /home/williamli/.npm/_npx/3a85a00d62359eb2/node_modules/opscope-linux-x64/bin/agent-usage

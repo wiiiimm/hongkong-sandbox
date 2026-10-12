@@ -1,0 +1,30 @@
+--- source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v1-20261012.py
++++ source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v2-20261012.py
+@@ -11,8 +11,8 @@
+ BASE=ROOT/'docs/astra-city/government-import'
+ INPUT=BASE/'government-xl-southside-315025-300867-current-actual-ground-capture-v1-20261012'
+ GRADE=BASE/'government-xl-southside-315025-300867-current-grade-source-context-v1-20261012'
+-DRAFT=BASE/'government-xl-southside-upward-current-failures-context-draft-v1-20261012'
+-BATCH='government-xl-southside-315025-300867-upward-current-failures-context-v1-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
++DRAFT=BASE/'government-xl-southside-upward-current-failures-context-draft-v2-20261012'
++BATCH='government-xl-southside-315025-300867-upward-current-failures-context-v2-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+ UIDS=['landsd/315025:0','landsd/300867:0'];COUNTS={UIDS[0]:11699,UIDS[1]:1191};UPCOUNTS={UIDS[0]:100,UIDS[1]:38}
+ MODES=['providerOriginal','actualLiteral','explicitLeftAssociatedF32ModelMatrix','explicitBalancedF32ModelMatrix']
+ MANIFEST='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540'
+@@ -29,7 +29,7 @@
+   files.add(p);queue.extend(v for v in vars(m).values()if isinstance(v,types.ModuleType))
+  return sorted(files)
+ def preflight():
+- assert not DOC.exists();refs=[Path(__file__),DRAFT/'METHOD.md',DRAFT/'no-worker-schema-validation.json',HISTORICAL_TIN/'diagnostic.json.gz',HERE/'xl-southside-station-original-pair-source-tin-context-20261010.py'];receipts=[]
++ assert not DOC.exists();refs=[Path(__file__),DRAFT/'METHOD.md',DRAFT/'no-worker-schema-validation.json',DRAFT/'v1-to-v2-directory-prerequisite.diff']+[p for p in (DRAFT/'preserved-v1-output-directory-failure').iterdir()if p.is_file()]+[HISTORICAL_TIN/'diagnostic.json.gz',HERE/'xl-southside-station-original-pair-source-tin-context-20261010.py'];receipts=[]
+  for folder,job in [(INPUT,'3aa11a60f740759f78677d151fa2f9c34f494d935b7a208958164e23273f84d9'),(GRADE,'7269234ae78ade5d10223502841ee35aba9e9d844d72c59d186ae56ee45cda71')]:
+   receipt=read(folder/'result.json');assert receipt['jobId']==job and not receipt['currentAcceptance'];receipts.append(receipt);refs.append(folder/'result.json')
+   for pin in receipt['evidenceRefs']:
+@@ -66,6 +66,7 @@
+  with connect()as c:
+   c.execute('SET TRANSACTION READ ONLY')
+   for receipt in receipts:assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(receipt['jobId'],)).fetchone()==('complete',receipt)
++ DOC.mkdir(parents=True,exist_ok=False)
+  records=[];plots=[]
+  for uid in UIDS:
+   item=worlds[uid];world=np.asarray(item['completeWorldStreams']['providerOriginal']['completeWorldTriangles'],dtype='<f8');ground=np.asarray(item['completeDrawnGround'],dtype='<f8');provider=rows[uid,'providerOriginal'];upward=[r['sourceFace']for r in provider['allCompleteOriginalFiniteRecords']if r['sourceFace']in provider['allRawFailedFaces']and r['exactOrientationDiagnostic']=='upward-nonsteep'];groups=provider['completeOriginalTopology']['sharedEdgeConnectedComponents'];p,context=plot(uid,world,ground,upward,groups);plots.append(str(p.relative_to(ROOT)));refs.append(p)

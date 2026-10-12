@@ -1,0 +1,70 @@
+--- preserved-before-root-issuer-wiring/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012.py
++++ source-scripts/city/government-import/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012.py
+@@ -6,6 +6,8 @@
+ from southside_proven_coverage_reuse_draft_v1_20261012 import verify as combined
+ import southside_whole_mode_resume_descriptor_draft_v1_20261012 as resume_guard
+ _RESUME_BINDING=None
++ROOT_RESUME_TEST_VALIDATION=ROOT/'docs/astra-city/government-import/government-xl-original-installation-followup-20261011/root-southside-real-whole-mode-resume-tests-verified-20261012.json'
++ROOT_RESUME_TEST_VALIDATION_SHA='1fb191ab0bee17c09cd8fee5e0dd89b0cb971c79391b568b2f72966886e62f7b'
+ BASE=ROOT/'docs/astra-city/government-import'
+ INPUT=BASE/'government-xl-southside-315025-300867-current-actual-ground-capture-v1-20261012'
+ GRADE=BASE/'government-xl-southside-315025-300867-current-grade-source-context-v1-20261012'
+@@ -83,6 +85,13 @@
+  for name,key in [('baseline.log','baselineLogSHA256'),('all-34-tests.log','allTestsLogSHA256')]:
+   path=validation_path.parent/name;assert digest(path.read_bytes())==validation[key];refs.append(path)
+  refs.append(validation_path)
++ report_path=DRAFT/'root-descriptor-issuance-report.json';report=read(report_path)
++ assert report['kind']=='root-issued-southside-resume-descriptor-issuance-v1'and report['rootIssuedContractSHA256']==report['candidateDescriptorSHA256']==digest(trusted_path.read_bytes())==digest(p.read_bytes())
++ assert report['callerSHA256']==digest(Path(__file__).read_bytes())and report['currentAcceptance']is False and report['installationApproved']is False
++ assert report['isolatedCallerRecipe']is True and report['noClearanceRecomputation']is True
++ refs.append(report_path)
++ for pin in report['evidenceRefs']:
++  q=ROOT/pin['path'];assert digest(q.read_bytes())==pin['sha256'];refs.append(q)
+  return {(UIDS[0],MODES[0]):row},refs
+ 
+ def verified_complete_mode(row,uid,mode,world,gsha,old):
+@@ -103,8 +112,9 @@
+  assert row['allCurrentFailuresRetainedVerbatim']==old['allRawFailedFaces']
+  return row
+ 
+-def preflight():
+- assert not DOC.exists();refs=[Path(__file__),DRAFT/'FINAL-WIRING-METHOD.md',DRAFT/'no-worker-schema-validation.json',DRAFT/'RESUME-VALIDATOR-METHOD.md',DRAFT/'resume-validator-no-worker-syntax.json',DRAFT/'preserved-before-validator-wiring/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012.py',DRAFT/'preserved-before-validator-wiring/METHOD.md',DRAFT/'preserved-before-validator-wiring/no-worker-schema-validation.json',ORIGINAL_DRAFT/'original-sheet-input-contract.json',ROOT_VALIDATION,ORIGINAL_DRAFT/'computation-overhead-draft-v1/ROOT-VALIDATION-BINDING.json',DRAFT/'initial-to-corrected-offline-draft.diff',DRAFT/'preserved-initial-unexecuted-draft/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012.py',DRAFT/'preserved-initial-unexecuted-draft/no-worker-schema-validation.json',DRAFT/'preserved-initial-unexecuted-draft/v1-to-v2-caller.diff'];receipts=[]
++def recipe_preflight():
++ assert digest(ROOT_RESUME_TEST_VALIDATION.read_bytes())==ROOT_RESUME_TEST_VALIDATION_SHA
++ assert not DOC.exists();refs=[Path(__file__),ROOT_RESUME_TEST_VALIDATION,HERE/'xl-southside-root-issue-complete-mode-resume-v1-20261012.py',DRAFT/'ROOT-DESCRIPTOR-ISSUER-METHOD.md',DRAFT/'root-issuer-no-worker-syntax.json',DRAFT/'FINAL-WIRING-METHOD.md',DRAFT/'no-worker-schema-validation.json',DRAFT/'RESUME-VALIDATOR-METHOD.md',DRAFT/'resume-validator-no-worker-syntax.json',DRAFT/'preserved-before-validator-wiring/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012.py',DRAFT/'preserved-before-validator-wiring/METHOD.md',DRAFT/'preserved-before-validator-wiring/no-worker-schema-validation.json',ORIGINAL_DRAFT/'original-sheet-input-contract.json',ROOT_VALIDATION,ORIGINAL_DRAFT/'computation-overhead-draft-v1/ROOT-VALIDATION-BINDING.json',DRAFT/'initial-to-corrected-offline-draft.diff',DRAFT/'preserved-initial-unexecuted-draft/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012.py',DRAFT/'preserved-initial-unexecuted-draft/no-worker-schema-validation.json',DRAFT/'preserved-initial-unexecuted-draft/v1-to-v2-caller.diff'];receipts=[]
+  for folder,job in [(INPUT,'3aa11a60f740759f78677d151fa2f9c34f494d935b7a208958164e23273f84d9'),(GRADE,'7269234ae78ade5d10223502841ee35aba9e9d844d72c59d186ae56ee45cda71'),(CONTEXT,'3dbf6e58936ce433ab0d14bd2af45934b71c93c6a5834b41c6b3da09b93aaf0d')]:
+   receipt=read(folder/'result.json');assert receipt['jobId']==job and not receipt['currentAcceptance'];receipts.append(receipt);refs.append(folder/'result.json')
+   for pin in receipt['evidenceRefs']:
+@@ -125,12 +135,19 @@
+   actual=read(INPUT/('complete-current-actual-source-and-ground-'+uid.split('/')[1].replace(':','-')+'.json.gz'));assert actual['completeOriginalPOSITIONProof']['allOriginalPositionVerticesAccounted']and actual['sourceSHA256']==data[uid]['sourceSHA256']==SOURCES[uid];bounds=np.asarray([actual['completeOriginalPOSITIONProof']['originalWholeSourceBounds'],*actual['completeWholeUnusedVertexBounds']],dtype='<f8');assert bounds.shape==(4,2,3)and np.isfinite(bounds).all()
+   for mode in MODES:
+    stream=data[uid]['completeWorldStreams'][mode];world=np.asarray(stream['completeWorldTriangles'],dtype='<f8');q=rows[uid,mode];assert world.shape==(COUNTS[uid],3,3)and digest(world.tobytes())==q['completeWorldSHA256']==stream['completeWorldTriangleSHA256']and len(q['allCompleteOriginalFiniteRecords'])==COUNTS[uid]
+- input_refs=list(refs);resume,resume_refs=load_complete_mode_resume();refs.extend(resume_refs)
++ input_refs=list(refs)
+  decoder=module('southside_unfiltered_sheet_decoder',HERE/'xl-second-pass.py');decoder.LOCAL=LOCAL;freezer=module('southside_unfiltered_freezer',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');refs.extend(imported_files(decoder,freezer));validation=read(DRAFT/'no-worker-schema-validation.json');assert validation['callerSHA256']==digest(Path(__file__).read_bytes())and validation['methodSHA256']==digest((DRAFT/'FINAL-WIRING-METHOD.md').read_bytes())
+- expected_inputs=[dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))for p in sorted(set(input_refs))];assert _RESUME_BINDING['descriptor']['inputPins']==expected_inputs
+- code_files=imported_files(decoder,freezer);code_files.extend([HERE/'test_southside_proven_coverage_reuse_draft_v1_20261012.py',HERE/'test_southside_whole_mode_resume_descriptor_draft_v1_20261012.py',HERE/'xl-southside-315025-300867-unfiltered-original-sheets-comparison-v1-20261012.py']);expected_codes=[dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))for p in sorted(set(code_files))];assert _RESUME_BINDING['descriptor']['codePins']==expected_codes
++ expected_inputs=[dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))for p in sorted(set(input_refs))]
++ code_files=imported_files(decoder,freezer);code_files.extend([HERE/'test_southside_proven_coverage_reuse_draft_v1_20261012.py',HERE/'test_southside_whole_mode_resume_descriptor_draft_v1_20261012.py',HERE/'xl-southside-315025-300867-unfiltered-original-sheets-comparison-v1-20261012.py']);expected_codes=[dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))for p in sorted(set(code_files))]
+  refs.extend(code_files)
+- return receipts,refs,{str(p.relative_to(ROOT)):digest(p.read_bytes())for p in refs},contract,capture,data,rows,decoder,freezer,resume,resources
++ recipe=dict(kind='southside-resume-source-recipe-v1',inputPins=expected_inputs,codePins=expected_codes,callerSHA256=digest(Path(__file__).read_bytes()),currentManifestSHA256=MANIFEST,completeFourSheetDeclaredFacets=sum(s['declaredCompleteSceneTerrainFacets']for s in contract['sheets']),resources=resources,currentAcceptance=False,installationApproved=False)
++ return receipts,refs,{str(p.relative_to(ROOT)):digest(p.read_bytes())for p in refs},contract,capture,data,rows,decoder,freezer,recipe,resources
++
++def preflight():
++ state=list(recipe_preflight());resume,resume_refs=load_complete_mode_resume();recipe=state[9]
++ assert _RESUME_BINDING['descriptor']['inputPins']==recipe['inputPins']and _RESUME_BINDING['descriptor']['codePins']==recipe['codePins']
++ state[1].extend(resume_refs);state[2].update({str(p.relative_to(ROOT)):digest(p.read_bytes())for p in resume_refs});state[9]=resume
++ return tuple(state)
+ 
+ def owned(state):
+  receipts,refs,pins,contract,capture,data,oldrows,decoder,freezer,resume,resources=state;lease=read(LEASE);assert reservations.owns(lease)and lease['resources']==resources;before=(ROOT/'3d-viewer/city/data/manifest.json').read_bytes()
+@@ -171,6 +188,8 @@
+  for path,sha in pins.items():assert digest((ROOT/path).read_bytes())==sha
+  refs.extend(p for p in LOCAL.rglob('*')if p.is_file()and p.name!='reservation.json');refs.extend([DOC/'complete-unfiltered-authenticated-source-ground.json.gz',DOC/'diagnostic.json.gz']);out=freezer.freeze(BATCH,'southside-complete-four-original-sheet-unfiltered-four-stream-comparison-no-current-credit',refs,dict(uids=UIDS,sourceOnly=True,completeAllOriginalSheetFacets=len(whole),currentAcceptance=False,newlyInstalled=0));print(json.dumps(dict(jobId=out['jobId'],currentAcceptance=False)),flush=True)
+ def main():
++ if '--resume-recipe-only'in sys.argv:
++  state=recipe_preflight();print(json.dumps(state[9],sort_keys=True),flush=True);return
+  state=preflight()
+  if '--preflight-only'in sys.argv:print(json.dumps(dict(noWorker=True,noDB=False,readOnlyPriorLeaseCheck=True,noLease=True,noTerrainDecodeOrFinitePredicatesRun=True,completeFourSheetDeclaredFacets=sum(s['declaredCompleteSceneTerrainFacets']for s in state[3]['sheets']),resources=state[-1],currentAcceptance=False)),flush=True);return
+  if '--owned'in sys.argv:return owned(state)

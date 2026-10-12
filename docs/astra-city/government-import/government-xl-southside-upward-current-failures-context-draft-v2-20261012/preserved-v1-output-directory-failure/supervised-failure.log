@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v1-20261012.py", line 85, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v1-20261012.py", line 83, in main
+    if '--owned'in sys.argv:return owned(state)
+                                   ^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v1-20261012.py", line 71, in owned
+    item=worlds[uid];world=np.asarray(item['completeWorldStreams']['providerOriginal']['completeWorldTriangles'],dtype='<f8');ground=np.asarray(item['completeDrawnGround'],dtype='<f8');provider=rows[uid,'providerOriginal'];upward=[r['sourceFace']for r in provider['allCompleteOriginalFiniteRecords']if r['sourceFace']in provider['allRawFailedFaces']and r['exactOrientationDiagnostic']=='upward-nonsteep'];groups=provider['completeOriginalTopology']['sharedEdgeConnectedComponents'];p,context=plot(uid,world,ground,upward,groups);plots.append(str(p.relative_to(ROOT)));refs.append(p)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v1-20261012.py", line 60, in plot
+    fig.suptitle(uid+' — '+str(len(upward))+' saved upward nonsteep failures; magenta diagnostic overlays\nOriginal source / current drawn ground only; no visibility, architectural role or acceptance inference',fontsize=12);fig.tight_layout(rect=[0,0,.99,.94]);p=DOC/(uid.split('/')[1].replace(':','-')+'-upward-source-ground-2400x1800.png');fig.savefig(p,dpi=150);plt.close(fig)
+                                                                                                                                                                                                                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/figure.py", line 3515, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/backend_bases.py", line 2289, in print_figure
+    result = print_method(
+             ^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/backend_bases.py", line 2146, in <lambda>
+    print_method = functools.wraps(meth)(lambda *args, **kwargs: meth(
+                                                                 ^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/backends/backend_agg.py", line 537, in print_png
+    self._print_pil(filename_or_obj, "png", pil_kwargs, metadata)
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/backends/backend_agg.py", line 486, in _print_pil
+    mpl.image.imsave(
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/matplotlib/image.py", line 1729, in imsave
+    image.save(fname, **pil_kwargs)
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/PIL/Image.py", line 2706, in save
+    fp = builtins.open(filename, "w+b")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-southside-315025-300867-upward-current-failures-context-v1-20261012/315025-0-upward-source-ground-2400x1800.png'
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v1-20261012.py", line 85, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v1-20261012.py", line 84, in main
+    assert not LOCAL.exists();claim=reservations.claim('southside-upward-context-'+str(uuid.uuid4()),state[3]['canonicalResources'],batch=BATCH,ttl=3600);assert claim['ok'],claim;save(LEASE,json.loads(json.dumps(claim['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,str(Path(__file__)),'--owned'],cwd=ROOT,check=True)
+                                                                                                                                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-southside-315025-300867-upward-current-failures-context-v1-20261012/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-upward-current-failures-context-v1-20261012.py', '--owned']' returned non-zero exit status 1.
