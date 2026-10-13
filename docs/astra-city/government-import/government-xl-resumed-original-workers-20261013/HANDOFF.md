@@ -1,5 +1,14 @@
 # XL original workers resumed
 
+## Verified finite recovery — 14 October 2026
+
+Explicit resume approval remains active. Upton finite session53967 completed exit0: exact pinned Neon job4b7c8bdc8e1bca20d63fc04f87ccefbfc736fe2f29c8a5776d4686981d5e101d/all16550 evidence refs verified; lease released. Both owned sources11657+1655 complete faces have no uncovered or ordinary-unproved faces in all4worlds. Secondary12662 retains historical34 uncovered/121ordinary-unproved, native79882 retains25; all current-clear/candidate-unproved regression lists are EMPTY, including previous87/205/228. Full1911 BASIC census/6650 scope remains. No structural/source-role/root credit is granted by finite clearance. Area session84202 now runs194fresh pairs with2168exact reused ancestry rows; MAX64 is prepared next serially.
+
+Capture d91af2cf0 is pushed. Its6 actual guards pass and sampler error list is empty; grid sites are sampled, not continuous complete coverage. PolyU bounded all539 face891 V3 test completed13.25s (e7290f084 pushed):1512inside/143outside/3122packed facets,146exact collapses/158runtime projected exclusions. Full ideal source edges covered; actual packed coverage is pending. Live V2 session21971 is unchanged.
+
+38 completed source-only checkpoints;234verified installed/287unfinished of521; zero new installations. No AI geometry modelling, optimisation processing or geometry/pose/source edits.
+
+
 ## Fresh runtime capture and continuations — 14 October 2026
 
 37 source-only checkpoints, not installations. Fixed521 remains234 verified installed/287unfinished.
