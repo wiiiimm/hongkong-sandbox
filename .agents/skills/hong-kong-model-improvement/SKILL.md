@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.64"
+  version: "1.9.65"
 ---
 
 # Hong Kong model improvement
@@ -17,7 +17,17 @@ For terrain replacements, nominate affected installed actors from the entire par
 
 Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
 
+## Use existing viewer acceptance requirements
+
+Uninterpreted authored components and source crossings alone are not holds. Preserve original facets, component accounts, zero facets and crossings as source context. Investigate a component or attachment when it explains a specific current identity, placement, collision, support, runtime or neighbour failure. Do not add engineering, legal/common-ownership, global watertightness or per-component structural-root requirements. This supersedes historical progress notes that treated unqualified component labels or authored crossings as independent admission gates; it does not waive any genuine existing failure, threshold or whole-source obligation.
+
+Use `acceptance-policy.py` (`reasons`), `installed_support_acceptance.py` (`resolve_contact`), `terrain_diagnostic_resolution.py` (`resolve_global_bottom_warning`), `building-batch/validate_candidates.mjs`, `check-neighbours.mjs` and `check-native-neighbours.mjs` as the concrete guard authority. Retain the existing strict original support interface and complete compound-foundation requirements when resolving their actual contact warnings. A contextual marker in a diagnostic wrapper is not a new failure returned by these functions.
+
+Before expensive physical work, preflight every installed UID used by dependency lookup against the exact current form census. A historical census predating a new installation must be reconciled with verified current source/entry/parent evidence; never skip an unknown actor with an empty dictionary. Hash duplicate evidence declarations once per distinct path/SHA within a phase, reject conflicting hashes, and recheck fresh bytes at subsequent phase fences. Keep source-only checkpoints separate from installations.
+
 ## Resume cheaply
+
+Latest ROOT continuation, 14 October 2026: Upton finite `4b7c8bdc`, area `c1a1927f`, MAX `3571b04d` and metadata/edge `e725268e` are complete, exact pinned-Neon/hash-verified and released. Both owned complete sources clear in all four modes; all introduced neighbour regressions are gone. The unchanged native terrain validator and all 860 canonical boundary checks pass. Physical V2 stopped before its first model tool because its archived form census omitted newly installed Nam79099; preserve the failed run and use the prepared exact-current Nam reconciliation before a distinct retry. PolyU's bounded own-plane Float32-cell nomination `c83c19a8` covers all 143 outside projections; a full V3 constructor still needs current qualification and a controlled old-worker terminal/release audit. Follow the latest `government-xl-resumed-original-workers-20261013/HANDOFF.md` and `ROOT-VERIFIED.json`; older running statements below are historical. Fixed XL remains 234 verified installed / 287 unfinished of 521. Zero AI geometry modelling or optimisation work.
 
 Codex ROOT, 14 October 2026, HKS-203. All resumed original numeric workers consumed terminal 0 and released leases. Full Upton finite `16f88f14` (11,928 refs) keeps owned models/BASIC clear but **secondary12662 faces87/205/228 still regress**. The49215-only split was insufficient:87/228 gap areas unchanged;205 goes19→17 pieces but remains uncovered. Fresh location `f80b5da2` (11,968 refs) binds complete current gap boundaries/ancestors; nominate future corrections against every actual whole gap, not nearby/shared aliases. Sixteen-pair `33ea439d` (11,231 refs) has2,125exact reused+16fresh/zero unresolved, but no overlap acceptance. PolyU `d6ebd0cf` (14,805 refs) completed full9mask feasibility: five nominees63758/258381/258681/198620/305626; four original-counterpart investigations72322(21conflictingfaces)/89540(141)/258852(24)/305600(4). All degeneracy counts zero; no terrain restored or physical acceptance. Whole25/51,752negatives/21roles/native59527/full packing/runtime obligations remain. Handoff and ROOT verification govern these18source-only checkpoints. FixedXL521still **234 installed/287remaining**; zero new installations, AI geometry modelling or optimisation. Isolated future selector and receipt-authentication adapter passed16+9ROOT tests; neither is integrated. Source proofs are being checkpointed; continue source-bound repairs and HKUST exact provider-target audit/paired-source context. Older running-worker paragraphs below are historical and must not trigger duplicates.
 

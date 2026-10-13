@@ -1,5 +1,14 @@
 # XL original workers resumed
 
+## Exact current-form retry and existing acceptance authority — 14 October 2026
+
+44source-only checkpoints;234verifiedinstalled/287unfinished of521. PhysicalV2session8751terminal1 before firstmodeltool: archivedCAP completeCurrentForms omitted newlyinstalledNam79099 duringcurrent6650dependency scan. Lease released, no modeldefect/corruption established; ROOTverifiedfailure job40e852d1a36cae309b614920bc65eb790fe55f168d918ddcd1333962aa275593/16639refs. Failedcode/logs/copiedoriginalassets unchanged. DistinctphysicalV3 actualsetupfixture+7adversarialmetadata checksPASS acrossall6650installedUIDs; authenticates completedNam delta2202e626, exactcatalogue/source/tile/parent/fourunusedworldbounds/strictoutside composition andmergesonlyNam. CurrentROOTsession12978runs actualprep→originalphysicalworker, logs /tmp/upton-certified6170-physical-v3-ROOT-{prepare,worker}-20261014.log. Never duplicateeitherphase.
+
+SKILL1.9.65clarifies actualviewer/source/placement/support/runtime/neighbour gates; unlabelleddecorativecomponents/authoredcrossings/contextual737marker doNOTinvent engineering/watertight/percomponentroot requirements. Existingstrictsupport/fullcompoundfoundation/genuineguard thresholds remain. Directactive Upton/PolyUpinsearch foundno skillfile references beforeedit. No originalsource/pose geometry changes or optimisation.
+
+PolyUV3integration8fixturesPASS andhard30s saved891adapterPASS:143regions/753packedpieces, exactorderedSHAfb6b7a468010fceea83b81c8f91ba07328cdcd6bfc014478e790c683f96e8c65 reproducescompletedownplaneenclosure. Agentprepares actualreadonly V3closure/schema; ROOTmustthen auditoldV2session21971terminal/lease/PIDs beforefreshclaim. CurrentV2stillimmutable/live; original832/1485prefix retained. Cellnominationpushed0618098a9; terrainvalidatorcfbe3d1bb.
+
+
 ## Original physical worker running, faster PolyU nomination verified — 14 October 2026
 
 43source-only checkpoints;234verifiedinstalled/287unfinished of521. Upton actualterrainapproval is pushedcfbe3d1bb (e725268e/16595refs); originalmodelphysicalV2session8751actualpreparationPASS172code/16621inputs and itsworkerRUNNING. Do not restart or run duplicateprep. Logs /tmp/upton-certified6170-physical-v2-ROOT-{prepare,worker}-20261014.log. Physicalwrapper keeps2ownedoriginals/12662foreign/mainfoundation/support/currentloader/neighbor gates and sourceidentityhistory exact. Existing agent reviews only realviewer/source/physical defects and existingcontracts, avoiding invented engineering/watertight/eachdecorativecomponent obligations.
