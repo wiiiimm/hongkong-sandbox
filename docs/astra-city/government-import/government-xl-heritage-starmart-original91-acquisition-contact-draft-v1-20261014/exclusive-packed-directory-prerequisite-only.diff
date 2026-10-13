@@ -1,0 +1,10 @@
+--- docs/astra-city/government-import/government-xl-heritage-starmart-original91-acquisition-contact-draft-v1-20261014/preliminary-before-exclusive-packed-directory/heritage-starmart-original91-acquisition-contact-draft-v1.py
++++ docs/astra-city/government-import/government-xl-heritage-starmart-original91-acquisition-contact-draft-v1-20261014/heritage-starmart-original91-acquisition-contact-draft-v1.py
+@@ -61,6 +61,7 @@
+   download.ac.Network=SixHeaderNetwork
+   selected=dict(directory);selected['models']=members
+   acquisition=download.acquire(selected,ROOT/c['directoryBytesPath'],OUT/'original',include_terrain=False);beat()
++  (OUT/'packed').mkdir()
+   converter=module('star_existing_source_packer',ROOT/'source-scripts/city/citywide-native/convert.py')
+   archive=OUT/'original'/('7-SW-15D.zip')
+   with zipfile.ZipFile(archive)as z:

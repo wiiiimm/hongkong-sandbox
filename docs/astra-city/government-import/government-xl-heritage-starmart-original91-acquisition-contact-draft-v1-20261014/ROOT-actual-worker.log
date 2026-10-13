@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage-starmart-original91-acquisition-contact-draft-v1-20261014/heritage-starmart-original91-acquisition-contact-draft-v1.py", line 116, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage-starmart-original91-acquisition-contact-draft-v1-20261014/heritage-starmart-original91-acquisition-contact-draft-v1.py", line 70, in main
+    asset=OUT/'packed'/native['asset']['asset'];assert sha(asset)==c['starSourceSHA256']and asset.stat().st_size==2262
+                                                       ^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage-starmart-original91-acquisition-contact-draft-v1-20261014/heritage-starmart-original91-acquisition-contact-draft-v1.py", line 6, in sha
+    def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+                                     ^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1021, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage-starmart-original91-acquisition-contact-draft-v1-20261014/original-source-contact-output-v1/packed/assets/8aab8a53040a9a21227a307d7ca2c344a783fae8d9274b7c2c1e8317b7766f62.glb.gz'
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}

@@ -1,5 +1,17 @@
 # XL original workers resumed
 
+## Latest completed and live work — 14 October 2026
+
+34 completed source-only checkpoints; **234 verified installed,287 unfinished of521**. No new installations. Government meshes and1x source placement remain immutable; no AI geometry modelling or optimisation.
+
+Museum current typed identity fdbe6836/402refs is complete and ROOT-verified:16 actual/adverse tests PASS, fresh source/current identity accepted, all four raw extent/unrelated-area reasons retained in original result. No physical/publication approval. V1 missing actor scope and V2 incomplete imported-code closure are script setup failures with exact failed logs retained. V3 collected37 actual local imports before testing, adding22 missing transitive paths and preserving initial metadata.
+
+Star Mart original source contact aecbb82d is complete/ROOT-verified. Verified two-member download is reused with network forbidden. Exact gzip transport changes only OS header byte9 from3→255, reproducing inventory8aab8a53 exactly; decoded10440-byte GLB7b5a937c unchanged. Six transport fixtures pass. V1ec6e36ee failure and b90 package remain unchanged; it was an expected-filename/hash packaging disagreement, not source corruption or proved missing directory. Complete original Star91faces/241vertices and Museum15140 produce8 proper noncoplanar triangle crossings in each of four views; current coarse-Star14 crossings remain history. Triangle crossings do not establish a volumetric or structural conclusion. Native source-match/terrain negatives and every current support/runtime gate remain; no BASIC suppressed.
+
+PolyU old63993 was deliberately stopped after independently verified exact-output acceleration: owned child711607 received SIGTERM only. Actual terminal1, all four producer PIDs710093/710138/711507/711607 absent and51resources released. V2 session21971 runs a fresh canonicallease, reusing832 complete partition records and reconstructing exact1485-face prefix; only2382 unfinished facets plus12parents are processed. Its closed logs/readiness live in the distinct v2 proposal. Never restart or edit live inputs. The helper fdac1ab3b is pushed; synthetic15tests and saved-prefix audit pass, timing53x is synthetic only.
+
+Upton certified6170 session52333 runs the new residual enclosure trial. Independent13enclosure tests PASS; three safe original current triangles remain literal and only missing6170 residuals receive source-plane-preserving scripted enclosure. Fresh complete scope checks and later production/physical acceptance remain mandatory. Existing full-counterpart failure05f534b58 is pushed.
+
 ## Current status — 14 October 2026
 
 234 verified installed; 287 unfinished of the fixed 521 XL originals. Catalogue presence is 235, including legacy West Wing26195 awaiting verification; 286 are absent. No new installation in these checks.
