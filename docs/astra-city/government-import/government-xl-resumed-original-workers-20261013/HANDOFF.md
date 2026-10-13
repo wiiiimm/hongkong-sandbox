@@ -1,5 +1,15 @@
 # XL original workers resumed
 
+## Fresh runtime capture and continuations — 14 October 2026
+
+37 source-only checkpoints, not installations. Fixed521 remains234 verified installed/287unfinished.
+
+Upton certified6170 nominee a41bf14e passed wholeactor/BASIC compatibility and12 completepacked targets; no unresolved. Capture b3cdead8/15803refs is ROOTverified/released:11617 native/11645 drawn-domain facets,8164251exterior orderedhash unchanged, runtimeexit0. Bare validator stillrejects overlapping heights. Finite53967 is running fromlatest dbf5 baseline; area194fresh/2168 exactreuse andMAX64 are actual-capture bound and prepared, awaiting serial lease release. Their actualprep logs are named/tmp/upton-certified6170-{finite,area,MAX}-ROOT-prepare-20261014.log. Do notduplicate finite.
+
+Heritage/Star source-diagram49fc87bc iscomplete/released/verified; ROOT inspected3actual3000x1800 exports. V2 uses display[X,Z,Y] so sourceYisvertical; sourcearrays unchanged. Planshows a western/southwestern low-strip terminal meeting originalStar roof/vertical-panel geometry; source views are not GPUvisibility, architecturalfunction, ownership, volumetric/root or physical approval. Eight properoriginal/original crossings remain. Orthographicannotations overlap and one upperfacetlabel is clipped at the panel boundary; exactABC/IDs/rationalsegments remain incontextgzip. Do notinferprecisionfromsmalllabels orprimaryplans unregisteredtosource.
+
+PolyU V2stillcomputesface891 before00896 checkpoint. Its539unique/2415occurrence masks lead to large incidental outside cuts. ROOTV3positive-hit15testsPASS and hardboundedfirst8maskactual891 testPASS: idealregions/firstowners/sourceedges equal; outside8→2/packed29→17 withdistinctrawSHAandnewpackingqualificationmandatory. No full539V3test yet, no V3constructor/approval or liveV2edit. Existingagentprepares timeboundedworstfacetvalidation.
+
 ## Latest completed and live work — 14 October 2026
 
 34 completed source-only checkpoints; **234 verified installed,287 unfinished of521**. No new installations. Government meshes and1x source placement remain immutable; no AI geometry modelling or optimisation.
