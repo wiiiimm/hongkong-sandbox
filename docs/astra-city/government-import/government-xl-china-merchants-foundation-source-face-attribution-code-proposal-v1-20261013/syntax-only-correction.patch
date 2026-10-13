@@ -1,0 +1,11 @@
+--- foundation_source_face_attribution_adapter_v1_20261013.py (unexecuted original)
++++ foundation_source_face_attribution_adapter_v1_20261013.py
+@@ -50,7 +50,7 @@
+  cloned_globals=dict(original_globals);cloned_globals['connected_components']=recording_components
+  clone=FunctionType(function.__code__,cloned_globals,function.__name__,function.__defaults__,function.__closure__)
+  if function.__kwdefaults__ is not None:clone.__kwdefaults__=dict(function.__kwdefaults__)
+- assert clone.__code__is function.__code__and clone.__globals__is not original_globals
++ assert clone.__code__ is function.__code__ and clone.__globals__ is not original_globals
+  metrics=clone(triangles,terrain,target_polygon)
+  assert len(journal)==1
+  assert original_globals.keys()==globals_before.keys()and all(original_globals[k]is v for k,v in globals_before.items())
