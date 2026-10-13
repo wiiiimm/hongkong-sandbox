@@ -1,0 +1,30 @@
+--- source-scripts/city/government-import/test_southside_domain_first_exact_core_union_construction_draft_v1_20261013.py
++++ source-scripts/city/government-import/test_southside_domain_first_exact_core_union_construction_draft_v2_20261013.py
+@@ -1,7 +1,7 @@
+ """UNEXECUTED focused exact boundary fixtures; no actual terrain construction."""
+ import unittest
+ from fractions import Fraction as F
+-import southside_domain_first_exact_core_union_construction_draft_v1_20261013 as m
++import southside_domain_first_exact_core_union_construction_draft_v2_20261013 as m
+ class Boundary(unittest.TestCase):
+  def branches(self,hulls,width=F(1,10)):
+   out=[]
+@@ -45,4 +45,18 @@
+   rows,_=self.partition([(-1,2,0),(3,2,0),(-1,2,3)],[self.rect(0,0,1,1),self.rect(F(1,2),F(1,2),2,2)]);self.assertTrue(rows)
+  def test_positive_intrinsic_area_partition_preserved(self):
+   poly=[(-1,3,-1),(3,3,-1),(-1,3,3)];rows,_=self.partition(poly,[self.rect(0,0,1,1)]);self.assertEqual(sum((m.old.intrinsic_area(q,1)for q,_,_ in rows),F(0)),m.old.intrinsic_area([tuple(map(F,p))for p in poly],1))
++ def test_segment_endpoints_in_disconnected_cores_do_not_certify_gap(self):
++  hs=[self.rect(F(0),F(0),F(1),F(1)),self.rect(F(2),F(0),F(3),F(1))];a=(F(0),F(1,2));b=(F(3),F(1,2));self.assertTrue(all(any(m.contains_closed(p,h)for h in hs)for p in [a,b]));self.assertFalse(m.closed_segment_union_coverage(a,b,hs)['covered'])
++ def test_segment_closed_touching_area_union_complete(self):
++  hs=[self.rect(F(0),F(0),F(1),F(1)),self.rect(F(1),F(0),F(2),F(1))];self.assertTrue(m.closed_segment_union_coverage((F(0),F(1,2)),(F(2),F(1,2)),hs)['covered'])
++ def test_isolated_points_cannot_bridge_projected_segment(self):
++  self.assertFalse(m.closed_segment_union_coverage((F(0),F(0)),(F(2),F(0)),[[(F(0),F(0))],[(F(2),F(0))]])['covered'])
++ def test_collinear_segment_union_retains_closed_point_ties(self):
++  proof=m.closed_segment_union_coverage((F(0),F(0)),(F(2),F(0)),[[(F(0),F(0)),(F(1),F(0))],[(F(1),F(0)),(F(2),F(0))]]);self.assertTrue(proof['covered']);self.assertEqual(len(proof['completeIntervals']),2)
++ def test_collapsed_projection_point_requires_actual_membership(self):
++  p=(F(0),F(0));self.assertTrue(m.closed_segment_union_coverage(p,p,[[p]])['covered']);self.assertFalse(m.closed_segment_union_coverage(p,p,[[(F(1),F(0))]])['covered'])
++ def test_empty_union_and_empty_primitives_never_certify_segment(self):
++  a=(F(0),F(0));b=(F(1),F(0));self.assertFalse(m.closed_segment_union_coverage(a,b,[])['covered']);self.assertFalse(m.closed_segment_union_coverage(a,b,[[]])['covered'])
++ def test_vertical_original_facet_complete_segment_coverage(self):
++  poly=[(F(0),F(0),F(0)),(F(0),F(2),F(0)),(F(0),F(2),F(2))];branches=self.branches([self.rect(-1,0,1,1),self.rect(-1,1,1,2)]);union=m.exact_core_union_boundary(branches);parts=m.partition_complete_core_union(poly,0,union);self.assertTrue(parts);self.assertTrue(all(inside for _,inside in parts));self.assertEqual(sum((m.old.intrinsic_area(p,0)for p,_ in parts),F(0)),m.old.intrinsic_area(poly,0))
+ if __name__=='__main__':unittest.main(verbosity=2)

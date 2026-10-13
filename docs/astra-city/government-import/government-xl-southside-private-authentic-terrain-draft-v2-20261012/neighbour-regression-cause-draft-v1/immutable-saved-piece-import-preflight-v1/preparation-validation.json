@@ -1,0 +1,47 @@
+{
+  "steps": [
+    {
+      "name": "tests",
+      "argv": [
+        "/tmp/astra-city-venv/bin/python",
+        "-m",
+        "unittest",
+        "-v",
+        "test_southside_saved_finite_piece_guard_domain_v1_20261012"
+      ],
+      "exitCode": 0,
+      "logPath": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/neighbour-regression-cause-draft-v1/immutable-saved-piece-import-preflight-v1/tests.log",
+      "logSHA256": "69a2d2ac2b8067a8493449e6f27b046429013900f262d05d3c568e465b5e5cb7"
+    },
+    {
+      "name": "import",
+      "argv": [
+        "/tmp/astra-city-venv/bin/python",
+        "-c",
+        "import sys,importlib.util;from pathlib import Path;p=Path(sys.argv[1]);sys.path.insert(0,str(p.parent));s=importlib.util.spec_from_file_location('southside_saved_piece_readonly_preparation',p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);print('reviewed-caller-import PASS; main not executed')",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-saved-piece-whole-form-compatibility-draft-v1-20261012.py"
+      ],
+      "exitCode": 0,
+      "logPath": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/neighbour-regression-cause-draft-v1/immutable-saved-piece-import-preflight-v1/import.log",
+      "logSHA256": "0153cbc78404979aec63dc4f80368d453bbcb6d8219a8d6ba8fa69998ea79d70"
+    },
+    {
+      "name": "preflight",
+      "argv": [
+        "/tmp/astra-city-venv/bin/python",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-saved-piece-whole-form-compatibility-draft-v1-20261012.py",
+        "--preflight-only"
+      ],
+      "exitCode": 0,
+      "logPath": "docs/astra-city/government-import/government-xl-southside-private-authentic-terrain-draft-v2-20261012/neighbour-regression-cause-draft-v1/immutable-saved-piece-import-preflight-v1/preflight.log",
+      "logSHA256": "a605f214f836b8fd179649dd869016300ac56ab9c231f27b83a1e445cf0a57a8"
+    }
+  ],
+  "allStepsExitZero": true,
+  "exact10FocusedTestsPass": true,
+  "originalReviewedCodeUnchanged": true,
+  "noDB": true,
+  "noLease": true,
+  "noBoundedCalculation": true,
+  "validationSHA256": "2b172c5b936361819ffaefa7e791d50e3d1cf1e025593c650e2aee498531f085"
+}

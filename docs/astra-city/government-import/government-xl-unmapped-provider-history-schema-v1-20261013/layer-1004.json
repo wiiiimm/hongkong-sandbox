@@ -1,0 +1,108 @@
+{
+ "currentVersion": 10.91,
+ "cimVersion": "2.9.0",
+ "id": 1004,
+ "name": "OP",
+ "type": "Table",
+ "description": null,
+ "hasAttachments": false,
+ "htmlPopupType": "esriServerHTMLPopupTypeNone",
+ "displayField": "OPNo",
+ "typeIdField": null,
+ "subtypeFieldName": null,
+ "subtypeField": null,
+ "defaultSubtypeCode": null,
+ "fields": [
+  {
+   "name": "OBJECTID",
+   "type": "esriFieldTypeOID",
+   "alias": "OBJECTID",
+   "domain": null
+  },
+  {
+   "name": "OPNo",
+   "type": "esriFieldTypeString",
+   "alias": "OPNo",
+   "length": 15,
+   "domain": null
+  },
+  {
+   "name": "OPDate",
+   "type": "esriFieldTypeDate",
+   "alias": "OPDate",
+   "length": 8,
+   "domain": null
+  },
+  {
+   "name": "DomesticGFA",
+   "type": "esriFieldTypeDouble",
+   "alias": "DomesticGFA",
+   "domain": null
+  },
+  {
+   "name": "NonDomesticGFA",
+   "type": "esriFieldTypeDouble",
+   "alias": "NonDomesticGFA",
+   "domain": null
+  },
+  {
+   "name": "GFA",
+   "type": "esriFieldTypeDouble",
+   "alias": "GFA",
+   "domain": null
+  }
+ ],
+ "indexes": [
+  {
+   "name": "FDO_OBJECTID",
+   "fields": "OBJECTID",
+   "isAscending": true,
+   "isUnique": true,
+   "description": ""
+  },
+  {
+   "name": "GDB_14_OPNo",
+   "fields": "OPNo",
+   "isAscending": true,
+   "isUnique": false,
+   "description": ""
+  }
+ ],
+ "subtypes": [],
+ "relationships": [],
+ "capabilities": "Map,Query,Data",
+ "maxRecordCount": 3000,
+ "supportsStatistics": true,
+ "supportsExceedsLimitStatistics": true,
+ "supportsAdvancedQueries": true,
+ "supportedQueryFormats": "JSON, PBF",
+ "isDataVersioned": false,
+ "useStandardizedQueries": true,
+ "advancedQueryCapabilities": {
+  "useStandardizedQueries": true,
+  "supportsStatistics": true,
+  "supportsPercentileStatistics": true,
+  "supportsHavingClause": true,
+  "supportsOrderBy": true,
+  "supportsDistinct": true,
+  "supportsCountDistinct": true,
+  "supportsPagination": true,
+  "supportsTrueCurve": false,
+  "supportsReturningQueryExtent": true,
+  "supportsQueryWithDistance": true,
+  "supportsSqlExpression": true,
+  "supportsTimeRelation": true,
+  "supportsSqlFormat": false,
+  "supportsQueryAnalytic": false
+ },
+ "dateFieldsTimeReference": null,
+ "preferredTimeReference": null,
+ "datesInUnknownTimezone": false,
+ "hasMetadata": true,
+ "isDataArchived": false,
+ "archivingInfo": {
+  "supportsQueryWithHistoricMoment": false,
+  "startArchivingMoment": -1
+ },
+ "serviceItemId": "42c82c2d8d4f4605a74c8623ca2ef4f5"
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xml:lang="en-US" lang="en-US">
+	<head>				
+		<meta charset="UTF-8">
+		<meta http-equiv="x-ua-compatible" content="IE=edge" >
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+		<title>Hong Kong Polytechnic University Campus Map</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+		<!-- Bootstrap & JQuery JS -->
+		<!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"-->
+		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script-->		
+		<!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script-->
+		<link rel="stylesheet" href="css/bootstrap-3.4.0/bootstrap.min.css">
+		<script src="js/jquery-3.4.0.min.js"></script>
+		<script src="js/bootstrap-3.4.0.min.js"></script>
+		
+		<!-- Slick CSS -->
+		<link rel="stylesheet" type="text/css" href="slick-1.8.1/slick.css"/>
+		<link rel="stylesheet" type="text/css" href="slick-1.8.1/slick-theme.css"/>		
+
+		<!-- Font Awesome CSS -->
+		<!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"-->
+		<link rel="stylesheet" href="css/font-awesome-4.7.0.min.css">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="./css/map-style.css" />
+
+		<!-- Utility js -->
+		<script src="js/util_mobile.js"></script>
+		<script src="js/util_lang.js"></script>
+		<script src="js/util_url.js"></script>
+		<script src="js/util_string.js"></script>
+		<script src="js/util_photo_gallery.js"></script>
+		<script src="js/logger.js"></script>		
+		<script src="js/label.js"></script>
+		<script src="js/campus-poi.js"></script>
+	</head>
+  	<body onresize="renderPhotoGallery()">
+
+		<div id="map-section-campus-map" class="map-section-campus-map"></div>
+		<div id="modal-form" class="modal-form">
+			<div class="modal-content">
+				<span class="modal-close-btn" onclick="document.getElementById('modal-form').style.display='none';">&times;</span>				
+				<span id="modal-message" class="modal-message">Some text in the Modal..</span>
+			</div>
+		</div>
+		<div id="photo-gallery" class="slick-container">
+		</div>
+
+		<!-- Google Map Javasript API js -->
+		<script src="js/campus-map.js"></script>
+		<script src="slick-1.8.1/slick.js"></script>
+		<!--script src="js/jquery-qrcode-0.14.0.min.js" type="text/javascript"></script-->
+		<script id="application-initialization" type="text/javascript">	
+			var lang = getUrlStringParamByName('lang');
+			if (lang == 'zh_HK') {
+				currentLanguage = languages.zh_HK;
+				document.getElementsByTagName('html')[0].setAttribute('lang', 'zh-HK');
+				document.getElementsByTagName('html')[0].setAttribute('xml:lang', 'zh-HK');
+			} else if (lang == 'zh_CN') {
+				currentLanguage = languages.zh_CN;
+				document.getElementsByTagName('html')[0].setAttribute('lang', 'zh-CN');
+				document.getElementsByTagName('html')[0].setAttribute('xml:lang', 'zh-CN');
+			}
+			gLogger.init();
+			CreateCampusMap();
+			renderPhotoGallery();
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,1 @@
+The original helper is reconstructed byte-for-byte by reversing the one literal syntax correction; the first archive command failed because `python` was absent. Both failed fixture invocations stopped before any fixture or source evaluation. The test file and closed failure logs are copied unchanged. No canonical script or input was edited.

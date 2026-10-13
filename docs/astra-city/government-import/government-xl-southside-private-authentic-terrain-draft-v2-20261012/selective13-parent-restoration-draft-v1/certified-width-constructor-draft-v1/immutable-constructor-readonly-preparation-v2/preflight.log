@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v2-20261013.py", line 101, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v2-20261013.py", line 97, in main
+    s=preflight()
+      ^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v2-20261013.py", line 27, in preflight
+    proof=read(D/'actual-basic-extent-proof.json.gz');assert len(proof['rows'])==1238 and all(r['wholeUnusedPositionVerticesIncluded']for r in proof['rows'])
+                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-selective13-certified-width-private-terrain-draft-v2-20261013.py", line 27, in <genexpr>
+    proof=read(D/'actual-basic-extent-proof.json.gz');assert len(proof['rows'])==1238 and all(r['wholeUnusedPositionVerticesIncluded']for r in proof['rows'])
+                                                                                              ~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'wholeUnusedPositionVerticesIncluded'
