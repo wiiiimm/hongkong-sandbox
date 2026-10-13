@@ -1,5 +1,12 @@
 # XL original workers resumed
 
+## Complete finite, overlap and sampled heights — 14 October 2026
+
+40 completed source-only checkpoints;234verified installed/287unfinished of521. Upton finite recovery pushed79311d92e. Overlap c1a1927f/15815refs and MAX3571b04d/15821refs are complete, ROOT exact-Neon/hash-verified and released. All2362area pairs accounted:2168exact ancestry reuse/194fresh/0unresolved. Fresh classifications95original-TIN/current coexistence,64same-source packedfragment intersections,34 formerly non-area ancestors,1containedancestral; these classifications are evidence, not overlap approval. All64 sampled MAX/raycast rows pass existing bounds, maxerror3.019806626980426e-14,10447height-indexed/11617drawn native triangles. Sampler/MAX samples do not replace continuous support/root/physical acceptance. Existing agent prepares distinct current6650/two-owned/12662foreign edge-validator and physical route; original geometry/poses unchanged.
+
+PolyU V2 session21971 remains running and unchanged. Bounded saved-coverage draft13fixtures initially12PASS/1FAIL due a wrongly claimed enclosing testtriangle; original fixture/log/pins preserved. V2 changes only fixture enclosure and batchpath, helper unchanged. Corrected tests and bounded check are running serially. No source corruption or model failure from that test setup error.
+
+
 ## Verified finite recovery — 14 October 2026
 
 Explicit resume approval remains active. Upton finite session53967 completed exit0: exact pinned Neon job4b7c8bdc8e1bca20d63fc04f87ccefbfc736fe2f29c8a5776d4686981d5e101d/all16550 evidence refs verified; lease released. Both owned sources11657+1655 complete faces have no uncovered or ordinary-unproved faces in all4worlds. Secondary12662 retains historical34 uncovered/121ordinary-unproved, native79882 retains25; all current-clear/candidate-unproved regression lists are EMPTY, including previous87/205/228. Full1911 BASIC census/6650 scope remains. No structural/source-role/root credit is granted by finite clearance. Area session84202 now runs194fresh pairs with2168exact reused ancestry rows; MAX64 is prepared next serially.
