@@ -1,5 +1,12 @@
 # XL original workers resumed
 
+## Actual terrain validator cleared — 14 October 2026
+
+42source-only checkpoints,234verifiedinstalled/287unfinished of521. Upton metadataV2 worker43788 complete0/exactNeon e725268ee835b95b80800ac791bda0b5850fe91a0c099453d6815169e4fffe83/16595refs verified/released. UNCHANGED nativevalidator PASSED and all860 canonicalparent edge checks PASS, maximumgap4.632132686310797e-7m. Removing only new sourceOverlap metadata exactlyreproduces capturedcandidate payload; no geometry/pose/threshold edits. Both owned full4modefinite sourcesclear, neighbourregressionsgone, historicalnegativesretained. PhysicalV2 session8751 is serialactualprep→originalsupport/foundation/currentruntime/neighbourworker. No duplicate prep/worker. It fixes unboundHISTORY and exact per-phase refdedup whilekeeping V1history and actualguards unchanged.
+
+PolyU boundedoutsidecell143experiment passes12fixtures/schema/actual2.235s; all143drawnANDheight-admitted closedprojections covered, ownplane packingYmax2.3819693662648913e-7m. Newpacked geometry/privateonefaceonly, no candidate or physicalacceptance. Existing agentprepares distinctV3 wholeconstructor preserving832/1485prefix/all25/51scope/native59527/protectedcurrentliteralparents. LiveV2session21971 untouched until ROOT controlledserialreplacement.
+
+
 ## Bounded PolyU recovery evidence and pipeline fixes — 14 October 2026
 
 41source-only checkpoints;234verifiedinstalled/287unfinished of521. Neon dd0f66757d6830ff3c93a2019812a40002fbbef5021ae7844683e26f63a39957/58refs stores ROOTverified full539partition and partialcoverage findings; separate source-context lease released. Corrected13coveragefixtures and schemaPASS. Controlled childhit60s/reaped,283complete region rows (all143outside +140inside);128outside same-role exactprojectiongaps,118combined-shadow gaps. Whole1655coverage remains incomplete. No source corruption/permanentnoninstallability/physicalapproval established. Existing liveV2session21971 unchanged. Existing agentprepares boundedown-source-plane Float32-cell remedy fromsaved143outsidefindings; no all1655shadowreplay/perfectinternalregiongate. Original source geometries/poses immutable.
