@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.62"
+  version: "1.9.63"
 ---
 
 # Hong Kong model improvement
@@ -18,6 +18,8 @@ For terrain replacements, nominate affected installed actors from the entire par
 Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
 
 ## Resume cheaply
+
+Codex ROOT, 13 October 2026, HKS-203. Original workers are authorised and continuing; fixed XL remains **234 installed / 287 remaining / 521**. Fresh Upton own-layer capture `e75d2f58` is complete/ROOT-verified (11,180 refs); private 11,580 facets generate 11,608 closed-domain drawn facets, exterior/sampler/six guards pass, bare overlap validator still fails. Fresh full-scope finite session `56698` uses completed `c6b49de5` baseline; serial supervisor `63191` verifies completion/Neon/hashes/lease release before the bounded 16 changed-area-pair diagnostic. Do not duplicate active workers. PolyU full-nine-mask feasibility continues in `52119`; it is not restored terrain. Logs and a byte-identical serial supervisor are in the resumed-workers handoff. Lai Chi Kok main-source context `26011fd1` and far/local diagrams receipt `396d424f` (102 refs) are complete; all 106 flagged facets connect to the main source. Precise function, identity/physical acceptance and seven independent actor checks remain unresolved. Future saved-ground selection continuation passed 16 ROOT tests, including 420 complete-oracle comparisons, but is not integrated: authenticate prior complete receipt/chunk and actor/source-face bindings, retain full scope/all negatives, and fall back to the full selector if any binding is missing. No AI geometry modelling, new installation, optimisation, migration or reset. This paragraph supersedes older running/pending stage statements below.
 
 CodexROOT,13October2026,HKS-203. Upton fullfinitec6b49de5… (11136refs) andfive-pair168154b4… (10424refs) are complete/rootverified/released, superseding19551/24629running statements below. Bothowned13312faces clear fourmodes; BASIC79883face17 introduced regression resolved; remainingsecondary12662faces87/205/228 arestillheld. Own-layer nomination85fed77e… (11149refs) iscomplete: all3computedtargetedges732/734/736 preserve exactownancestorplane andunchangedcommonpackedXZ, no otherlayerY donated. Private11580facets/68protected require freshfullscope renderer/finite/height/seam/MAX/root/actor/browser acceptance. Oldnominationcount/mappingfields stay historical; latestexplicit11577to11580/composed maps governnewcandidate. PolyU fullnine-mask FEASIBILITY continues under25actor/51resource lease,session52119/log/tmp/polyu-nine-parent-restoration-feasibility-supervised-20261013.log; allsourcefaces/fourworlds/wholemask occurrences,not sampled-point restoration. Fullgoal active234installed/287remaining; zero newinstallations/AIgeometry/optimisation. Root serialpublishes; exacthandoffrecords supersede olderpendingsteps.
 
