@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.57"
+  version: "1.9.58"
 ---
 
 # Hong Kong model improvement
@@ -18,6 +18,8 @@ For terrain replacements, nominate affected installed actors from the entire par
 Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
 
 ## Resume cheaply
+
+Codex ROOT, 13 October 2026, HKS-203. China Merchants264206 primary evidence is pushed in `dd3855fb0`; exact source `0ff5adae4dae90e856af6fb6f40112a24198668ca9dfc66e9570b058739b50fb` remains held. Owner circular identifies a real Shun Tak basement, IL8517 / UB11612 / B01–B10, but no failed mesh-face correspondence or datum. ROOT verified33 primary pins/44 combined refs and viewed all4 document exports. Read-only pinned Neon confirms232907/263590 exact hashes installed-verified, matching the current installed CSUID dependency; the old candidate-state guard is stale, not a reason to rewrite proposed-landmark identity flags. All582 buried /102 upward faces and actual current changed-terrain regressions remain required. Exact foundation source-face attribution helper is pushed in `d4414c01a`; ROOT reran16 synthetic tests and verified49 refs unchanged. It clones the unchanged canonical code, journals delegate-order IDs separately from sorted aggregates, and intersects every failure subset with all144 saved complete bodies. No actual-source attribution, worker, DB write, reservation, geometry edit or optimisation work ran. Worker restart approval remains pending after automatic review cited the migration pause. Read `government-xl-original-installation-followup-20261011/root-china-merchants-primary-and-attribution-handoff-20261013.json`; fixed XL remains234 installed /287 remaining /521.
 
 Codex, 13 October 2026, HKS-203/HKS-215. Nam Fung Court79099 is installed unchanged and pushed in `71daf44c89cc37782fff65aa2c598c4bd1bd2497`; fixed XL is **234 installed / 287 remaining / 521**. Current manifest `c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7`, snapshot `5cb980a97466802b`, 6,650 native actors; 346,108 source forms / 4,517 enhanced forms. Fresh Nam-only actual capture job `2202e62655e42b58e4e277e10dc2018be4e69ac99c4ef0b487cf5c98db8d239c` rebinds the unchanged 6,649 baseline actors exactly; it does not transfer terrain acceptance. Southside exact core-distance job `6cddbc4bad9ab9ad3a47440b5bf0f2b50952c3bb4628ebd4cbb2561aacc598af` is ROOT-verified against pinned Neon and all 72 references: 4,784 regions, zero distance-analysis unresolved, minimum 0.1897090643 m. All 3,484 failed five-metre collar negatives and historical source/physical holds remain; this is source evidence, not installation. Reuse these exact results. Read the current ROOT handoff; original acquisition stays separate from optimisation. Zero AI geometry modelling.
 
