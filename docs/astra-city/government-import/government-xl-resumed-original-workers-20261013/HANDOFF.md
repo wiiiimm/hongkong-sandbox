@@ -1,5 +1,17 @@
 # XL original workers resumed
 
+## Current status — 14 October 2026
+
+234 verified installed; 287 unfinished of the fixed 521 XL originals. Catalogue presence is 235, including legacy West Wing26195 awaiting verification; 286 are absent. No new installation in these checks.
+
+Heritage complete source/current Star Mart comparison is verified in pinned Neon job387fac7a (382 evidence references): 14 proper noncoplanar triangle crossings in each of four arithmetic views. Current coarse Star has24 faces; Museum original has15140. Source geometry, pose and1x scale are unchanged. V1 direct-matrix and V2 JSON-normal assertions failed because of capture contract errors; original failures remain. V3 independently passed12 actual/adverse tests and accounts only for18 lost signed-zero NORMAL scalars; distinct hashes remain explicit.
+
+The original Star Mart source B370872650701063C0 is present in native inventory (91 faces,241 vertices,rawgzip8aab8a53). Acquisition and exact original/original comparison are being prepared, not approved or installed. Source-match hold remains. Typed Museum identity V1 failed16 tests at a missing canonical input/resource assertion before numerical identity; it is a script setup failure, not model corruption.
+
+Upton four whole-current triangle trial e6d09e27 completed: all12 new packed target coverage/ordinary checks pass, but full actor compatibility fails; no private nominee emitted. A source-preserving packed-enclosure route is next. PolyU five-mask session63993 is still active; do not duplicate or alter its pinned inputs.
+
+Zero AI geometry modelling, original-source changes or optimisation work. The older dated paragraphs below remain historical; current ROOT-VERIFIED.json and completed receipts govern resumption.
+
 Explicit user reply: **Resume original-model workers**. This supersedes the earlier migration-pause restart restriction for original acquisition/checks; do not ask again. Optimisation remains separate and unapproved for a new batch.
 
 Fixed521 scope: **234 installed /287 remaining**, zero new installations in this checkpoint. Completed source checks and Citywalk recovery are committed/pushed in b28695e0a. ROOT-VERIFIED.json binds eight independently verified exact pinned-Neon source results. All completed leases released; the current Upton finite lease remains active. Source-only diagnostics and the private Upton terrain nomination are not installation credit or permanent non-installability evidence.
