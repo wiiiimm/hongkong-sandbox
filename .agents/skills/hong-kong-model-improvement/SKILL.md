@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.61"
+  version: "1.9.62"
 ---
 
 # Hong Kong model improvement
@@ -18,6 +18,8 @@ For terrain replacements, nominate affected installed actors from the entire par
 Check receipt routing, current versus historical hash resolution, input schemas and candidate paths before claiming a worker or starting expensive geometry computation. A rejected current hash, orchestration recursion or schema mismatch is a script failure; preserve the failed producer/log and fix the specific orchestration error without assigning model-corruption or permanent-hold credit.
 
 ## Resume cheaply
+
+CodexROOT,13October2026,HKS-203. Upton fullfinitec6b49de5… (11136refs) andfive-pair168154b4… (10424refs) are complete/rootverified/released, superseding19551/24629running statements below. Bothowned13312faces clear fourmodes; BASIC79883face17 introduced regression resolved; remainingsecondary12662faces87/205/228 arestillheld. Own-layer nomination85fed77e… (11149refs) iscomplete: all3computedtargetedges732/734/736 preserve exactownancestorplane andunchangedcommonpackedXZ, no otherlayerY donated. Private11580facets/68protected require freshfullscope renderer/finite/height/seam/MAX/root/actor/browser acceptance. Oldnominationcount/mappingfields stay historical; latestexplicit11577to11580/composed maps governnewcandidate. PolyU fullnine-mask FEASIBILITY continues under25actor/51resource lease,session52119/log/tmp/polyu-nine-parent-restoration-feasibility-supervised-20261013.log; allsourcefaces/fourworlds/wholemask occurrences,not sampled-point restoration. Fullgoal active234installed/287remaining; zero newinstallations/AIgeometry/optimisation. Root serialpublishes; exacthandoffrecords supersede olderpendingsteps.
 
 Codex ROOT,13October2026,HKS-203. Resume approval is effective; original workers are running. Upton fresh ring12 renderer capture80546824… verifies10389refs and exterior/sampler/six guards, but bare overlap validator remains failed. Complete finite session19551 preserves6650actors/52affectedBASIC/all1911constructor records; serial followup24629 automatically verifies its completed exactNeon/hash receipt and released lease before five-pair source diagnosis. Both logs are named in government-xl-resumed-original-workers-20261013/HANDOFF.md; do not duplicate them. PolyU saved-height context87d44b33… completed (8847refs,1041context rows), not original guard-site/fullrestoration/physical credit. LCSD three-source primary research334e413d… saved inNeon (45refs); identity still unresolved. Root verified all receipts. FullXL521 still234installed/287remaining; zero installations orAIgeometry/optimisation. Capture/prep pushed0d6dd1819. These newer completed/running stages supersede pending-capture paragraphs below.
 
