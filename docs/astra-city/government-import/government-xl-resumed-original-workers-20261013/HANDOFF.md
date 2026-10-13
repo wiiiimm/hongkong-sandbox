@@ -1,5 +1,12 @@
 # XL original workers resumed
 
+## Bounded PolyU recovery evidence and pipeline fixes — 14 October 2026
+
+41source-only checkpoints;234verifiedinstalled/287unfinished of521. Neon dd0f66757d6830ff3c93a2019812a40002fbbef5021ae7844683e26f63a39957/58refs stores ROOTverified full539partition and partialcoverage findings; separate source-context lease released. Corrected13coveragefixtures and schemaPASS. Controlled childhit60s/reaped,283complete region rows (all143outside +140inside);128outside same-role exactprojectiongaps,118combined-shadow gaps. Whole1655coverage remains incomplete. No source corruption/permanentnoninstallability/physicalapproval established. Existing liveV2session21971 unchanged. Existing agentprepares boundedown-source-plane Float32-cell remedy fromsaved143outsidefindings; no all1655shadowreplay/perfectinternalregiongate. Original source geometries/poses immutable.
+
+Upton area/MAX pushed9773d466b; finite79311d92e/capture d91af2cf0. New metadataV1actual preflightcompleted, but load hashes repeatedsourceinputs4724times. DistinctV2 deduplicates exact(path,sha) authority refs perload, rejects conflicts and retains start/end fences. PhysicalV1also needs correction of undefinedHISTORY to old_physical.HISTORY and repeatedreceipt-refchecks; distinctV2beingprepared. No active code changed/no model or approval threshold changes. ROOTcontinues toward metadata nativevalidator then actual two-original support/foundation/currentruntime checks.
+
+
 ## Complete finite, overlap and sampled heights — 14 October 2026
 
 40 completed source-only checkpoints;234verified installed/287unfinished of521. Upton finite recovery pushed79311d92e. Overlap c1a1927f/15815refs and MAX3571b04d/15821refs are complete, ROOT exact-Neon/hash-verified and released. All2362area pairs accounted:2168exact ancestry reuse/194fresh/0unresolved. Fresh classifications95original-TIN/current coexistence,64same-source packedfragment intersections,34 formerly non-area ancestors,1containedancestral; these classifications are evidence, not overlap approval. All64 sampled MAX/raycast rows pass existing bounds, maxerror3.019806626980426e-14,10447height-indexed/11617drawn native triangles. Sampler/MAX samples do not replace continuous support/root/physical acceptance. Existing agent prepares distinct current6650/two-owned/12662foreign edge-validator and physical route; original geometry/poses unchanged.
