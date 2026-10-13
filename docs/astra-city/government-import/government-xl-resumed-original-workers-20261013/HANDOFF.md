@@ -1,5 +1,12 @@
 # XL original workers resumed
 
+## Original physical worker running, faster PolyU nomination verified — 14 October 2026
+
+43source-only checkpoints;234verifiedinstalled/287unfinished of521. Upton actualterrainapproval is pushedcfbe3d1bb (e725268e/16595refs); originalmodelphysicalV2session8751actualpreparationPASS172code/16621inputs and itsworkerRUNNING. Do not restart or run duplicateprep. Logs /tmp/upton-certified6170-physical-v2-ROOT-{prepare,worker}-20261014.log. Physicalwrapper keeps2ownedoriginals/12662foreign/mainfoundation/support/currentloader/neighbor gates and sourceidentityhistory exact. Existing agent reviews only realviewer/source/physical defects and existingcontracts, avoiding invented engineering/watertight/eachdecorativecomponent obligations.
+
+PolyU ownplane cell-nomination Neon c83c19a8df8cd61da3d25b4d677e9765f5cbd48d8389a57674f0bcb2b4f8cf21/69refs isROOTexactverified/released.12fixtures/schema/143outsideboundedactualPASS2.235s; complete drawn and height-admitted projectedcoverage. Freshpackednomination is not wholecandidate/acceptance; ownplaneYpacking residuals/newmaskexpansions explicit. Existing terrainagent prepares distinctV3 constructor, preservesclosed832/1485prefix/all25/51scope/native59527/protectedliteralcurrent and avoids inside-shadowreplay. LiveV2session21971 remains immutable pendingcontrolledserialreplacement.
+
+
 ## Actual terrain validator cleared — 14 October 2026
 
 42source-only checkpoints,234verifiedinstalled/287unfinished of521. Upton metadataV2 worker43788 complete0/exactNeon e725268ee835b95b80800ac791bda0b5850fe91a0c099453d6815169e4fffe83/16595refs verified/released. UNCHANGED nativevalidator PASSED and all860 canonicalparent edge checks PASS, maximumgap4.632132686310797e-7m. Removing only new sourceOverlap metadata exactlyreproduces capturedcandidate payload; no geometry/pose/threshold edits. Both owned full4modefinite sourcesclear, neighbourregressionsgone, historicalnegativesretained. PhysicalV2 session8751 is serialactualprep→originalsupport/foundation/currentruntime/neighbourworker. No duplicate prep/worker. It fixes unboundHISTORY and exact per-phase refdedup whilekeeping V1history and actualguards unchanged.

@@ -1,0 +1,87 @@
+--- source-scripts/city/government-import/polyu_face891_saved_packed_coverage_caller_v2_draft_20261014.py
++++ source-scripts/city/government-import/polyu_face891_outside_cell_enclosure_caller_v1_draft_20261014.py
+@@ -1,4 +1,4 @@
+-"""UNEXECUTED ROOT-only saved one-face closed-projection coverage, hard60s.
++"""UNEXECUTED ROOT-only saved one-face outside-cell packing nomination, hard60s.
+ 
+ No source decode, repartition, constructor, runtime import, DB, lease or live
+ state. Only a new controlled child group may be stopped; live V2 is untouched.
+@@ -8,7 +8,7 @@
+ 
+ ROOT=Path(__file__).resolve().parents[3]
+ BASE=ROOT/'docs/astra-city/government-import'
+-BATCH='government-xl-polyu-face891-saved-packed-closed-coverage-v2-20261014'
++BATCH='government-xl-polyu-face891-outside-float32-cell-enclosure-v1-20261014'
+ DOC=BASE/BATCH;PROPOSAL=BASE/(BATCH+'-proposal');MAX_SECONDS=60.0
+ 
+ 
+@@ -50,6 +50,14 @@
+     assert packet['idealCompleteSourceEdgesCovered']==[True]*3
+     assert not packet['fullCandidateConstructed']and not packet['currentAcceptance']
+     for pin in packet['inputRefs']:check(pin)
++    journal=[json.loads(line)for line in check(pins['outsideFindingsRef']).read_text().splitlines()]
++    outside=[row for row in journal if row['role']=='outside-retained-source']
++    assert len(journal)==283 and len(outside)==143
++    assert [row['id']for row in outside]==list(range(143))
++    for polygon,row in zip(packet['exactIdealPartition']['outside'],outside):
++        assert [[p[0],p[2]]for p in polygon]==row['points']
++    assert sum(not row['coverage']['same-role-drawn-source-shadow']['completeClosedXZCovered']for row in outside)==128
++    assert sum(not row['coverage']['all-drawn-source-shadow']['completeClosedXZCovered']for row in outside)==118
+     return packet
+ 
+ 
+@@ -63,17 +71,19 @@
+     save(DOC/'child-process.json',dict(pid=os.getpid(),ppid=os.getppid(),pgid=os.getpgid(0)))
+     try:
+         pins=read(check(contract['draftPinsRef']));packet=schema(pins)
+-        import polyu_face891_saved_packed_closed_coverage_v1_draft_20261014 as helper
++        import polyu_face891_outside_float32_cell_enclosure_v1_draft_20261014 as helper
+         with (DOC/'completed-region-progress.jsonl').open('w')as journal:
+             def progress(summary,finding):
+                 journal.write(json.dumps(serial(finding),sort_keys=True,separators=(',',':'))+'\n');journal.flush()
+                 print(json.dumps({**summary,'elapsedSeconds':time.monotonic()-started}),flush=True)
+-            result=helper.inspect(packet,progress)
++            outside=[json.loads(line)for line in check(pins['outsideFindingsRef']).read_text().splitlines()]
++            outside=[row for row in outside if row['role']=='outside-retained-source']
++            result=helper.nominate(packet,outside,progress)
+         for pin in pins['evidenceRefs']:check(pin)
+         check(contract['draftPinsRef'])
+         result['inputRefs']=pins['evidenceRefs'];result['elapsedSeconds']=time.monotonic()-started
+         result['packedSourcePlaneEqualityNotClaimed']=True
+-        save(DOC/'saved-packed-closed-coverage.json.gz',result);complete=True
++        save(DOC/'outside-cell-enclosure-nomination.json.gz',result);complete=True
+     except BaseException as error:
+         save(DOC/'actual-child-error.json',dict(type=type(error).__name__,message=str(error),complete=False,
+              elapsedSeconds=time.monotonic()-started,noAcceptance=True))
+@@ -110,14 +120,14 @@
+             except ProcessLookupError:pass
+             status=proc.wait(timeout=5)
+     assert proc is None or not Path('/proc',str(proc.pid)).exists()
+-    complete=error is None and not timed_out and status==0 and (DOC/'saved-packed-closed-coverage.json.gz').is_file()
++    complete=error is None and not timed_out and status==0 and (DOC/'outside-cell-enclosure-nomination.json.gz').is_file()
+     # End pins are checked even after a genuine geometry deficit or timeout.
+     end_errors=[]
+     for pin in pins['evidenceRefs']:
+         try:check(pin)
+         except (AssertionError,OSError)as failure:end_errors.append(dict(pin=pin,error=str(failure)))
+     complete=complete and not end_errors
+-    if complete:assert read(DOC/'saved-packed-closed-coverage.json.gz')['complete']
++    if complete:assert read(DOC/'outside-cell-enclosure-nomination.json.gz')['complete']
+     summary=dict(complete=complete,actualChildExitCode=status,hardDeadlineTriggered=timed_out,
+         maximumSeconds=MAX_SECONDS,elapsedParentSeconds=time.monotonic()-started,parentError=error,
+         endPinFailures=end_errors,controlledChildReapedAndDirectPIDAbsent=True,
+@@ -131,12 +141,12 @@
+ def main():
+     parser=argparse.ArgumentParser(description=__doc__);modes=parser.add_mutually_exclusive_group(required=True)
+     modes.add_argument('--schema-only',action='store_true')
+-    modes.add_argument('--check-saved-face891-packed-coverage-only',action='store_true')
++    modes.add_argument('--nominate-saved-face891-outside-cells-only',action='store_true')
+     modes.add_argument('--controlled-child-token');args=parser.parse_args()
+     if args.schema_only:
+         pins=read(PROPOSAL/'draft-pins.json');schema(pins)
+         for pin in pins['evidenceRefs']:check(pin)
+-        print(json.dumps(dict(schemaOnly=True,packedFacets=3122,regions=1655,noCoverageMath=True)));return 0
++        print(json.dumps(dict(schemaOnly=True,packedFacets=3122,outsideRegions=143,noNominationMath=True)));return 0
+     if args.controlled_child_token:return child(args.controlled_child_token)
+     return run_once()
+ 
