@@ -1,5 +1,11 @@
 # XL original workers resumed
 
+## Aqua Marine missing arithmetic captured; full guards running — 14 October 2026
+
+**235 XL installed /286 unfinished of521; original catalogue6652.** Two unchanged originals193086(22735faces)/independent138449(116faces) were captured in actual viewer arithmetic. V2 job `0c983d82182d3b6d301d173737d8ef26a1e8b1e34b3c56bb80e989f49449b81e` is complete/released; all894 refs independently verified. Full unused positions, matrices, attributes and left/balanced streams retained. Own literal positions/index and world hash exactly match saved ordinary arrays; saved584ground and both native patches unchanged. V1 failed before assets on the old dependency scanner; exact failure/released lease preserved. V2 changes only namespace and uses reviewed exact20261012 scanner; three adverse source-delta fixtures pass. No model corruption, source geometry or terrain change.
+
+68 source-only checkpoints, zero new installation credit. Full current four-world/independent source-contact worker70400 is running after successful exact-review/kernel/schema preparation; log/tmp/aqua-four-world-v2-ROOT-worker-20261014.log. PolyU84328 complete saved overlap scan remains running; do not duplicate workers or alter pinned code. Narrow ROOT facade review applies only to7525/7526/7527; raw strictFALSE/all278 partials remain. No optimisation or AI geometry modelling.
+
 ## Aqua Marine exact source interpretation reviewed — 14 October 2026
 
 **235 XL installed /286 unfinished; catalogue6652.** Exact authored-context job `ba400fe4f8f85f4ae0764a748628d6a675a096cb5b801446571bb02305710b5e` is complete/released; all894 refs independently verified. ROOT inspected all eleven original/literal source descriptors and the exported2D plan/sides/continuation. Exact three failed faces7525/7526/7527 are accepted as the lower closure of the curved full-height facade for the single existing burial-warning applicability. Exact edge7527/16549 continues toHKPD21.5859. Crowded labels are not identity proof; exact descriptors are. Raw strictFALSE/minimum gap/all278 partial faces remain; no area/normal/proximity waiver or independent support claim. Fresh missing arithmetic arrays for two originals, whole four-world/current foreign collisions and staged/live checks are still required. No installation or publication approval.
