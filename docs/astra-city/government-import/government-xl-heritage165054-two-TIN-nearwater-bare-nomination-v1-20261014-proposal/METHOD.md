@@ -1,0 +1,18 @@
+Museum two-original-TIN near-water bare nomination and bounded18 source context. Prepared by `/root/xl_upton_repair_sol`; ROOT executes.
+
+Bind completed/ROOT-verified/released913ref context `e0dbec8ca24e4ec2757a16936d1bd8f5953fa22f0bd86021c587ffa9bb53ad1d`. Both complete original terrain arrays (101426north+97667south=199093faces) are already saved/authenticated. Use the exact combined6906 selected original facet occurrences (5223north+1683south), without decoding again or adding the north selection twice. Four metadata fixtures protect that provenance mapping, duplicate/unknown/out-of-range occurrences and retained raw22warnings/897nonwater low vertices. No full59406-point audit is repeated.
+
+The remaining22below−.5 source samples belong to18literal source faces: three small sloped lower strips12130/31/32, and15 lower wall/return bands12150/12191–95/12199/12201–03/12249/12288/12290/12292/12293. Their exact original/literal/left/balanced descriptors use the unchanged `aqua_facade_bottom_context:descriptor`; exact shared source edges are authored geometric context only, never a structural/topology/support certificate. Preserve every saved22point/terrain witness and both old raw strict-false/intersection results. No role is accepted or ordinary warning resolved by small area, normal, adjacency or Y alone. ROOT can review the narrow lower-facing context after actual descriptors; no new engineering/legal/watertight/body gate.
+
+Follow the existing `xl-stage-central-nested.py` low-facet proof: source low-facet IDs, original height range, projected low area and owned source projected-intersection area. All897saved low vertices have parentRawWater=false; do not label them old water nodes. Current `native-terrain.js` draws source native heights and returns finite maximum surfaces; `native_terrain_validation.py` enforces actual finite/domain/coverage/overlap/edge constraints, with no minimum1.2native-height requirement. The existing `resolve-pass.make_patch(allow_native_below_clamp=True)` path retains authentic low-HKPD facets and unchanged parent grid water classification. This selects the established source-compatible constructor pathway, without changing source elevations, imposing a terrain floor, arbitrarily lowering terrain to clear22points, or relaxing any viewer threshold.
+
+Use existing default source core/10m parent collar and25k budget, exact source provenance and full coarse cells[528,306,532,309]. Leave the bare existing validator active; preserve its specific failure with no candidate if it fails. No overlap metadata or inherited approval is added. A bare pass creates a private candidate only; actual packed renderer/domain, whole current45actor/91resource BASIC/native before/after, full four-world finite, foundation/MAX/canonical-edge/runtime/browser/publication remain required. Source-only construction itself owns the Museum+two immutable sheets+distinct proof (4keys), preserving all45context/current6653/native392patch fences; no other actor geometry is evaluated or live asset changed.
+
+ROOT-only commands:
+
+```sh
+/tmp/astra-city-venv/bin/python docs/astra-city/government-import/government-xl-heritage165054-two-TIN-nearwater-bare-nomination-v1-20261014-proposal/prepare-readonly.py
+/tmp/astra-city-venv/bin/python source-scripts/city/government-import/heritage165054_two_tin_nearwater_bare_nomination_v1_20261014.py --nominate-original-two-tin-nearwater-bare-only
+```
+
+Preparation verifies code/receipt/schema/provenance metadata only. No production geometry, source decoder, DB, lease, browser or worker execution by the preparing agent. Frozen previous code/results remain unchanged.
