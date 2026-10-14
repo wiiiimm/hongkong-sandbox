@@ -1,5 +1,21 @@
 # XL original workers resumed
 
+
+## Upton source interpretation accepted; final installation gates pending — 14 October 2026
+
+54 source-only checkpoints; still **234 installed /287 unfinished of521 XL**. DisplayV2 job a63f3a97ae19de21251fcc5d1f0a383617b69cd968a67d23d9cb7e926420c749 complete/released; all16,752 references independently verified. ROOT actually inspected all12 exported images. Complete source box is fully framed and plan camera is above the source top; selection outlines are cleared. Exact source/GPU bindings and11645 drawn ground matchV1.
+
+ROOT-FUNCTIONAL-REVIEW.json records accepted applicability for only the exact three contact warnings on the unchanged authored lower facade band, using exact source/world/CSUID/currentground bindings,197 exposed contact lines, both complete compound foundations and whole current four-world/native/BASIC proofs. Strict97/138+41 remains FALSE;13 unmatched samples receive no independent support credit. This is no structural/topology certificate or generic threshold waiver. Existing agent prepares source-scoped adapter and private joint staging with the ordinary final browser/publication path. Physical and installation approvals remain false pending those gates. PolyU complete own-parent-plane packing repair remains in preparation. No original geometry edits or optimisation work.
+
+
+## PolyU packing fault measured; Upton functional packet verified — 14 October 2026
+
+53 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. Zero installations this continuation; exact prior 72-hour additions remain eight (seven XL + one supporting model). Source image checkpoint pushed 1e5870b12.
+
+PolyU job c1e67a81c324a56e4c041f8857fc8f8d7e87ca53b831cf171a52e704c58fdcc5 is complete/released; all 14,989 evidence references independently verified in pinned Neon and on disk. Existing validator missing area 0.008016086737637231 m² exceeds unchanged 0.00294 m² allowance; outside area is zero. All three actual throwing coordinates are in ideal restored parent regions but absent from packed drawn/native terrain. The two eligible neighbour-height drops likewise lie in intended current-parent protection yet receive lower packed collar/source-outside heights. This is a computed terrain packing/protection defect, not a government building source corruption claim. Existing terrain agent prepares complete inside-region own-parent-plane Float32 enclosures, preserving original prefixes and source-plane heights. Exact rectangle/sampler/guards must pass before expensive full actor qualification; no point-fitting or changed tolerances.
+
+Upton exact functional packet job 6f9fcb979b6f4c1773c2066d3b540af2c736e60113e8f5d000fcf569f39e7715 is complete/released; all 16,731 references verified. All 36 facade-band faces are nondegenerate in each world; 12/24/12/12 retain nonzero projected areas, never snapped to vertical. Y range 17.035–25.008 m. Raw strict 97/138 with 41 unresolved and 13 unmatched incident-face samples remains FALSE. Proposed applicability covers only the three exact tower contact reasons; no other reasons are discarded. Private display V2 session38254 is running after reviewed fixtures/preparation: closes existing selection outline and frames the complete indexed source box. ROOT must inspect exports before source-specific disposition, physical adapter, staged/live desktop/mobile/day/night and guarded publication. Original source geometry, 1× pose and optimisation state remain unchanged.
+
 ## Original source views verified; PolyU attribution running — 14 October 2026
 
 51 source-only checkpoints; **234 installed /287 unfinished of521 XL**. Exact72-hour installations remain8=7 XL+1 support (227→234 XL). Original source-preview session6628 is complete0/released; exact pinned-Neon jobb3694f4081686c35bcb8716282d699890a5fac25af20f4e5891df02cbea66611/all16,718 refs verified. Both1655/11657 literal source tuples and actual11645 ground tuples match. ROOT inspected all12 actual1600×1100 source images and3200×2400 saved-array diagram; separateROOT-IMAGE-INSPECTION preserves observations and limits. Do not mutate the already-boundROOT-VERIFIED proof.
