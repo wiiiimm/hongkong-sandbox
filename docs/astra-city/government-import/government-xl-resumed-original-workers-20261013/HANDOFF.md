@@ -1,5 +1,11 @@
 # XL original workers resumed
 
+## Aqua Marine complete current four-world and independent source contacts completed — 14 October 2026
+
+**235 XL installed /286 unfinished of521; catalogue6652.** All four complete owned22735-face source interpretations have the same281 raw unproved faces, entirely within the saved281 context; zero uncovered projections and zero unknown IDs. Independent foreign116faces retain12 raw negatives and no exemption (foreign is not an installation target). All four coherent-arithmetic complete owned/foreign contact lists are empty. Exact reviewed three-face applicability remains scoped; raw strictFALSE/all278 partials/minimum gap preserved. Existing unchanged-current loader/native/BASIC outcomes are bound; staged desktop/mobile day/night/picking/collision/sampler/fallback/retry and actual image review remain. Agent prepares own193086 private integration, with terrain/support/suppression plans empty.
+
+Exact pinned Neon job `8a1002ae824c7ad13f222411e8e70d7f2f7b41237db694ed6fe2539e5f684316` and all929 refs independently ROOT verified; workers terminal0/released. 69 source-only checkpoints remain separate from installations. Zero government geometry edits or AI geometry modelling; no optimisation work.
+
 ## Aqua Marine missing arithmetic captured; full guards running — 14 October 2026
 
 **235 XL installed /286 unfinished of521; original catalogue6652.** Two unchanged originals193086(22735faces)/independent138449(116faces) were captured in actual viewer arithmetic. V2 job `0c983d82182d3b6d301d173737d8ef26a1e8b1e34b3c56bb80e989f49449b81e` is complete/released; all894 refs independently verified. Full unused positions, matrices, attributes and left/balanced streams retained. Own literal positions/index and world hash exactly match saved ordinary arrays; saved584ground and both native patches unchanged. V1 failed before assets on the old dependency scanner; exact failure/released lease preserved. V2 changes only namespace and uses reviewed exact20261012 scanner; three adverse source-delta fixtures pass. No model corruption, source geometry or terrain change.
