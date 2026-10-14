@@ -1,5 +1,17 @@
 # XL original workers resumed
 
+## Completed current workers and next installation checks — 14 October 2026
+
+47 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. No new installation in this continuation. This section supersedes older running-worker statements below.
+
+Upton physical V3 completed and released: job `0f54a6b738ee33b15ad94ecaa71848dbcf981f2a204e2e86c6a0628e1f6aa572`, all 16,663 references independently verified against pinned Neon and local hashes. Both compound foundations and both runtime checks pass. Podium12728 has no model acceptance reasons; tower338946 retains ground-contact-unresolved, sampled-ground-gap-below-model-bottom and original-support-interface-unresolved (97/138 strict samples; 41 unresolved).
+
+Standalone podium fallback completed and released: job `8d471169e854cd487b673744ae46f4cec860ff39c9a0e8e3e89b7a90794f0a46`, all 16,683 references verified. Complete current BASIC tower116 facets have no introduced finite clearance regressions, but the unchanged neighbour guard reports a ground-gap regression. The tower already stood above ground; exact original-podium support must resolve that specific warning. The old unchanged-BASIC-support waiver cannot transfer to a replaced support. Do not stage or publish as passed. Existing Upton agent is preparing the bounded current BASIC tower-to-original-podium strict interface comparison, with no threshold waiver.
+
+PolyU V3 completed and released: job `557755a1a51bd16ff53da201bfb10d5f7792bdc233514b40d7ed6c808d782435`, all 14,926 references verified, zero constructor unresolved. Private candidate has 55,305 facets and 166,158 vertices; original geometry and saved832/1485 prefix unchanged. Old V2 session21971 was deliberately stopped only after readiness; terminal1 consumed, producer1741561/1741861/1741928 absent and canonical51-resource lease released. No active duplicate numeric worker. Existing terrain agent prepares fresh production capture, explicit V3 partitionProofReference resolution, genuine3,366 guard sites and complete25-actor/native59,527/current-BASIC qualification. The nominee is not terrain or model acceptance.
+
+Root remains sole publisher. Original sources, 1x scale and placements remain immutable. No AI geometry modelling, optimisation work, migration or reset. Commit/push completed evidence promptly; continue to actual installation.
+
 ## Exact current-form retry and existing acceptance authority — 14 October 2026
 
 44source-only checkpoints;234verifiedinstalled/287unfinished of521. PhysicalV2session8751terminal1 before firstmodeltool: archivedCAP completeCurrentForms omitted newlyinstalledNam79099 duringcurrent6650dependency scan. Lease released, no modeldefect/corruption established; ROOTverifiedfailure job40e852d1a36cae309b614920bc65eb790fe55f168d918ddcd1333962aa275593/16639refs. Failedcode/logs/copiedoriginalassets unchanged. DistinctphysicalV3 actualsetupfixture+7adversarialmetadata checksPASS acrossall6650installedUIDs; authenticates completedNam delta2202e626, exactcatalogue/source/tile/parent/fourunusedworldbounds/strictoutside composition andmergesonlyNam. CurrentROOTsession12978runs actualprep→originalphysicalworker, logs /tmp/upton-certified6170-physical-v3-ROOT-{prepare,worker}-20261014.log. Never duplicateeitherphase.
