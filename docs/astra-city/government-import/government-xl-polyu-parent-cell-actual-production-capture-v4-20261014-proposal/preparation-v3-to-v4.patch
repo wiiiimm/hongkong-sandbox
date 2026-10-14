@@ -1,0 +1,48 @@
+--- docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/prepare-readonly-v3.py
++++ docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v4-20261014-proposal/prepare-readonly-v4.py
+@@ -5,11 +5,11 @@
+ from pathlib import Path
+ import argparse,hashlib,importlib.util,json,subprocess,sys
+ ROOT=Path(__file__).resolve().parents[4];HERE=ROOT/'source-scripts/city/government-import';PROPOSAL=Path(__file__).resolve().parent
+-CALLER=HERE/'polyu_parent_cell_actual_production_capture_v3_draft_20261014.py'
+-RUNTIME=HERE/'polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs'
++CALLER=HERE/'polyu_parent_cell_actual_production_capture_v4_draft_20261014.py'
++RUNTIME=HERE/'polyu_parent_cell_actual_production_runtime_v4_draft_20261014.mjs'
+ sys.path.insert(0,str(HERE))
+ from exact_distinct_evidence_refs_v1_20261014 import distinct_refs
+-TEST=HERE/'test_polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py';HELPER=HERE/'polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py'
++TEST=HERE/'test_polyu_compact_runtime_mesh_projection_v1_draft_20261014.py';HELPER=HERE/'polyu_compact_runtime_mesh_projection_v1_draft_20261014.py';JSHELPER=HERE/'polyu_compact_runtime_mesh_projection_v1_draft_20261014.mjs'
+ def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=hashlib.sha256(p.read_bytes()).hexdigest())
+ def read(p):return json.loads(p.read_text())
+ def check(q):
+@@ -34,10 +34,10 @@
+   return log
+  try:
+   for q in refs:check(q)
+-  testlog=command('eight-binding-fixtures',[sys.executable,str(TEST)])
++  testlog=command('eight-projection-fixtures',[sys.executable,str(TEST)])
+   text=testlog.read_text();assert 'Ran 8 tests'in text and text.rstrip().endswith('OK')
+-  validation=dict(passedTests=8,failedTests=0,exitCode=0,executedCodeRefs=[ref(HELPER),ref(TEST)],evidenceRefs=[ref(HELPER),ref(TEST),ref(testlog)])
+-  validation_path=PROPOSAL/'binding-validation.json';assert not validation_path.exists();validation_path.write_text(json.dumps(validation,sort_keys=True,indent=2)+'\n')
++  validation=dict(passedTests=8,failedTests=0,exitCode=0,executedCodeRefs=[ref(HELPER),ref(JSHELPER),ref(TEST)],evidenceRefs=[ref(HELPER),ref(JSHELPER),ref(TEST),ref(testlog)])
++  validation_path=PROPOSAL/'projection-validation.json';assert not validation_path.exists();validation_path.write_text(json.dumps(validation,sort_keys=True,indent=2)+'\n')
+   imported=json.loads(command('isolated-import',[sys.executable,__file__,'--import-child']).read_text());assert imported['importPassed'];imports=imported['transitiveLocalCodeRefs']
+   for q in imports:assert known.get(q['path'])==q,'Unexpected unpinned local import '+q['path'];check(q)
+   schema=json.loads(command('schema-only',[sys.executable,str(CALLER),'--schema-only']).read_text());assert schema['passed']and schema['completeNewNativeFacets']==pins['completeNewNativeFacets']and schema['completeNewRawSHA256']==pins['completeNewRawSHA256']
+@@ -53,10 +53,14 @@
+    try:check(q)
+    except (AssertionError,OSError)as error:end_errors.append(dict(ref=q,error=str(error)))
+  passed=failure is None and not end_errors;evidence={q['path']:q for q in imports+[c['logRef']for c in commands]+[ref(PROPOSAL/'draft-pins.json'),ref(Path(__file__).resolve())]}
+- validation_path=PROPOSAL/'binding-validation.json'
++ validation_path=PROPOSAL/'projection-validation.json'
+  if validation_path.exists():evidence[str(validation_path.relative_to(ROOT))]=ref(validation_path)
+  result=dict(passed=passed,caller=ref(CALLER),runtime=ref(RUNTIME),exactSourceActorInputsReusedFromJob=pins['previousCompleteCaptureJob'],commands=commands,schemaVerbatim=schema,completeStrictLiteralRuntimeClosures=closures,transitiveLocalCodeRefs=imports,declaredCodeRefs=len(pins['codeRefs']),declaredInputRefs=len(pins['inputRefs']),endPinFailures=end_errors,actualFailure=failure,beforeEndAllDeclaredPinsVerified=passed,noProductionRuntimeImportOrNativeDecodeOrFiniteDBLease=True,evidenceRefs=[evidence[k]for k in sorted(evidence)])
+- if validation_path.exists():result['bindingValidationRef']=ref(validation_path)
++ if validation_path.exists():result['projectionValidationRef']=ref(validation_path)
++ binding_path=ROOT/'docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/binding-validation.json'
++ binding=read(binding_path);assert binding['passedTests']==8 and binding['failedTests']==0 and binding['exitCode']==0
++ for q in binding['evidenceRefs']:check(q)
++ result['bindingValidationRef']=ref(binding_path);result['evidenceRefs']=distinct_refs(result['evidenceRefs']+[ref(binding_path)]+binding['evidenceRefs'])
+  target=output if passed else PROPOSAL/'actual-readonly-preparation-failure.json';assert not target.exists();target.write_text(json.dumps(result,sort_keys=True,indent=2)+'\n')
+  print(json.dumps(dict(passed=passed,preparationRef=ref(target),actualFailure=failure,endPinFailures=len(end_errors),commands=commands),sort_keys=True));return 0 if passed else 2
+ if __name__=='__main__':
