@@ -540,3 +540,14 @@ Root inspected residuals.png: failing tower samples lie around original perimete
 Point-only authentic-terrain samples understated three crossings. Full-face replay with face_ground_context over the unchanged original 5-SE-15B terrain confirms minima -2.7588945975, -2.6515964655, -2.5742240146, -2.5568845106 m. These reproduce the candidate failures. There is no established patch error to fix by lowering terrain. Both observations retained in context.json and four-face-original-terrain.json.
 
 Next: source-specific grade-wall review at the four faces, and exact facade/source-body context for the 21 tower rim failures. Podium identifier-cell hold remains separate. No corrupt/uninstallable classification. No installation or AI geometry modelling. Fixed XL count remains 236 installed / 285 unfinished / 521.
+
+
+# Esplanade source-role recovery evidence
+
+All21 tower unresolved support sample locations have an exact positive-length shared-edge path, in literal loaded geometry, to source faces incident to the207 ordinary sampled podium contacts. Zero-area source faces are excluded from connectivity. This does not turn sampled contact or tolerant face-incidence into exact rational source contact, engineering support or architectural approval. Original direct-rim negatives remain unchanged.
+
+The existing clear-cap helper finds paths for all four podium near-vertical terrain-crossing faces510,516,518,1276 with positive exposure and no upward-face exception. The existing rational upper-ground interface algorithm returns20 positive-dimensional intervals on the actual upper terrain surface. This is positive recovery evidence. The cap paths currently use floating minimum contexts; complete finite original/literal checking has been launched separately and is not credited yet. No geometry or terrain changes.
+
+Next: complete finite source-role proof, reconcile tower facade overhang roles and podium identity, then current staging/browser/installation checks. These models remain unfinished, not corrupt or permanently uninstallable. No new installation.
+
+Neon source-role receipt: f05e096ca44bb86fd566fb7d7852343c9e77e351ad3a764bfb87e2ca3cfd1171
