@@ -554,3 +554,14 @@ Neon source-role receipt: f05e096ca44bb86fd566fb7d7852343c9e77e351ad3a764bfb87e2
 
 
 Esplanade podium complete finite check finished: Neon `173c513884f11afcc1ac63cf8d851568f4b4449c559007f9503144854f351cf9`. All1476 faces covered in both original and literal worlds; only the same four grade-wall faces510,516,518,1276 fail ordinary clearance. All other1472 faces have certified bounds. No Float32 camera streams or role acceptance claimed. Next replay cap/grade interpretation against these certified contexts; complete tower role/identity/staging remains. Zero installations.
+
+
+# Esplanade reviewed identity and certified wall exposure
+
+Podium source identity is approved for exact source ab5f78c1349cfb01db2d60bb36af0122ec8d374abaa5c8b63eaac63f58cd097c / CSUID1484527460P20191115, through unique explicit original government/official/viewer linkage, exact root ownership and full current footprint evidence. Raw centroid and whole-cell fallback failures remain preserved. This is an AI evidence review, not AI geometry modelling, a generic threshold relaxation, placement approval or publication.
+
+Certified original/literal full-facet contexts retain only four wall failures510,516,518,1276. All four have exact source shared-edge paths to independently clear caps. Coarse highest-vertex exposure bounds were inconclusive because bounding nearby terrain included taller remote points. Exact finite-column verification of the unchanged highest source vertex proves positive exposure for all four in both worlds. No original geometry or terrain edited; no point-only support roots credited. Exact upper-ground positive intervals exist on510,518,1276;516 is linked by the same clear-cap wall network rather than invented direct-grade contact.
+
+Remaining: complete tower/source-specific support-role reconciliation, other required actual render representations, current staged acceptance and browser evidence, then serial publication after PolyU final manifest fence. Do not translate these positive diagnostics into unconditional model acceptance. XL remains236 installed/285unfinished, whole catalogue6653; no installations in this checkpoint.
+
+Neon receipts: 741794347566bf218d7ae88160326c75522570eb3fedb1677b6e7406bf3f6e7a, a0838f6dcf74947cd9cdc5dd7d89c53959bf6a95540ddd335f674586ec8b2ebe, 11c8cf4e35ada6581e943e77855d6641be489fc3c3a9081591229f19a00505b6
