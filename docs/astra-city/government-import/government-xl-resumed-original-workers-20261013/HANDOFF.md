@@ -1,5 +1,9 @@
 # XL original workers resumed
 
+## Corrected exact three-day installation report — 14 October 2026
+
+Read-only Git/current asset/pinned-Neon audit covers11 October00:38:06UTC→14 October00:38:06UTC: **8 added models, all installed-verified;7 XL +1 supporting model**. XL verified227→234; whole native catalogue6642→6650, zero removals. Historical snapshot9fe6762f9efee79e/current5cb980a97466802b. The earlier17 count used the older217 reporting baseline, not this72-hour window. See `government-xl-three-day-installed-delta-readonly-20261014/report.json`. No installation or database/model state changes from this audit; source-only checkpoint count remains50. Current original next actions are PolyU exact failed-point/mask/packing attribution and Upton private marked joint-source review.
+
 ## Fresh PolyU actual coverage failure — 14 October 2026
 
 50 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. PolyU capture97871 is terminal0/released, not running. ROOT verified exact pinned-Neon job `8f204d9c83bc0cc6ca45bb56da6da2fb8b70255c5af6c7dd37f346f73aceae9e` and all14,960 refs. Before40/after55,333 closed-domain drawn faces, ordered exterior unchanged. Full native59,527/135,627 POSITION and all24 BASIC streams captured; canonical provider worldSHA4f527cba verified.
