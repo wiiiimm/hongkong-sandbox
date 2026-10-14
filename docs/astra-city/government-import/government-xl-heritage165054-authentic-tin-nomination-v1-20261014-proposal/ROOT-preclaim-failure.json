@@ -1,0 +1,19 @@
+{
+  "session": 93202,
+  "exitCode": 1,
+  "command": [
+    "/tmp/astra-city-venv/bin/python",
+    "source-scripts/city/government-import/heritage165054_authentic_tin_nomination_v1_20261014.py",
+    "--nominate-authentic-original-tin-only"
+  ],
+  "observedError": "ValueError: Building keys require the complete canonical building:landsd/OBJECTID:PART UID",
+  "stack": [
+    "heritage165054_authentic_tin_nomination_v1_20261014.py:129 main reservations.claim",
+    "shared-modelling/reservations.py:63 claim normalise(resources)",
+    "shared-modelling/reservations.py:26 normalise ValueError"
+  ],
+  "failureBeforeClaimDatabaseConnection": true,
+  "modelCorruption": false,
+  "newlyInstalled": 0,
+  "recordKind": "ROOT tool terminal observation, not redirected process log"
+}
