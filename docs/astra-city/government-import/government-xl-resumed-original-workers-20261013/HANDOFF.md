@@ -493,3 +493,7 @@ Recovery job `ba134fd925c98c0d635f92d050479b67862103ba63fc7430246eea2b40123b63`:
 
 ## 15 October — two unmapped XL viewer bindings
 Recovered station and Grand Stanford sources now have reproducible current CSUID candidate bindings. See `government-xl-unmapped-two-primary-evidence-v1-20261015/README.md` and `viewer-bindings.json`. All three viewer/provider footprints agree above 99.99%; current OBJECTIDs differ from viewer IDs. Original geometry and publication unchanged; full identity/placement replay remains. No new installation credit.
+
+
+## Recovered XL full-source diagnostic, 15 October
+Neon `e0692137da8f78e847bfe219747cc5a0e250cf81e1abd0a74807cb1893fc5b4c` verifies whole-source current identity/terrain context for East TST and Grand Stanford. See `government-xl-unmapped-whole-context-v1-20261015/README.md`. Every-face samples find158 station/280hotel buried faces; coarse station samples missed these. Current identity remains unmatched; exact source unchanged. Next inspect buried components and source roles. No new installations.
