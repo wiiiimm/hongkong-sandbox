@@ -1,0 +1,37 @@
+--- preserved-before-inactive-status-fix/polyu_complete_saved_actor_finite_v2_draft_20261014.py
++++ source-scripts/city/government-import/polyu_complete_saved_actor_finite_v2_draft_20261014.py
+@@ -16,6 +16,15 @@
+ PRIOR_BATCH='government-xl-polyu-complete-saved-actor-finite-v1-20261014'
+ PRIOR_DOC=BASE/PRIOR_BATCH;PRIOR_CALLER=HERE/'polyu_complete_saved_actor_finite_v1_draft_20261014.py'
+ PRIOR_LEASE=HERE/'local'/PRIOR_BATCH/'reservation.json'
++def inactive_status(status,resources):
++ keys=set(resources);rows=status['resources'];assert len({r['resource']for r in rows})==len(rows)
++ expected={key:None for key in keys}
++ for row in rows:
++  assert row['resource']in keys and type(row['active'])is bool and not row['active'],'Active owner remains'
++  expected[row['resource']]=str(row['token'])
++ assert status['expectedTokens']==expected,'Status tokens do not match exact inactive historical rows'
++ return True
++
+ def lifecycle():
+  stop=read(PROPOSAL/'prior-terminal-release.json')
+  assert stop['schema']=='polyu-finite-v1-observed-terminal-release-v1'and stop['priorCaller']==ref(PRIOR_CALLER)and stop['priorReservation']==ref(PRIOR_LEASE)
+@@ -23,8 +32,7 @@
+  assert not(PRIOR_DOC/'result.json').exists(),'Prior completed result exists; do not duplicate'
+  pids=stop['priorPIDs'];assert len(pids)==len(set(pids))==4 and all(type(pid)is int and pid>0 for pid in pids)
+  assert all(not(Path('/proc')/str(pid)).exists()for pid in pids),'Prior process still exists'
+- assert stop['actualResourceStatus']['resources']==[]and all(v is None for v in stop['actualResourceStatus']['expectedTokens'].values())
+- assert set(stop['actualResourceStatus']['expectedTokens'])==set(read(PRIOR_LEASE)['resources'])
++ assert inactive_status(stop['actualResourceStatus'],read(PRIOR_LEASE)['resources'])
+  for q in distinct_refs(stop['evidenceRefs']):check(q)
+  return stop
+ 
+@@ -151,7 +159,7 @@
+  if '--schema-only'in sys.argv:print(json.dumps(schema_only()));return
+  if '--owned'in sys.argv:return owned()
+  assert '--resume-complete-saved-actors-only'in sys.argv and not DOC.exists()and not LOCAL.exists();load();resources=canonical_resources()
+- assert not reservations.owns(read(PRIOR_LEASE));status=reservations.status(read(PRIOR_LEASE)['resources']);assert not status['resources']and all(v is None for v in status['expectedTokens'].values())
++ assert not reservations.owns(read(PRIOR_LEASE));status=reservations.status(read(PRIOR_LEASE)['resources']);assert inactive_status(status,read(PRIOR_LEASE)['resources'])
+  claim=reservations.claim('polyu-complete-finite-v2-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600);assert claim['ok'];lease=claim['reservation']
+  try:
+   save(LEASE,json.loads(json.dumps(lease,default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
