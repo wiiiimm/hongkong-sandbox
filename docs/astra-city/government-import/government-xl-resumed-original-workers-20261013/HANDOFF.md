@@ -334,3 +334,8 @@ Heritage v1 actual capture failure29389076/all323refs is saved in pinnedNeon, al
 ## Aqua Marine original installed — 14 October 2026
 
 One unchanged original landsd/193086:0 installed. ROOT independently verified job a5cb467f8db00847459bf00ae403d7abc4781d02ac49b8f581c53f926f561122, current snapshot be5f7671a989392d, all 1,042 distinct evidence hashes, exact installed Neon review, released lease and all four actual live exports. Fixed XL: 236 installed / 285 remaining / 521; detailed catalogue: 6,653. No geometry modelling or terrain changes. Raw strict foundation false remains explicitly recorded under exact source-functional review. Private stage and staged browser are two source-only checkpoints, now 72; they add no installation credit. PolyU candidate replay remains next; current-scene checks must account for this new snapshot.
+
+
+## PolyU saved candidate MAX/validator passed
+
+Job 7bc85e0b01ff4495ee14cd5f0bb953e70f34c97d2d14ab4e616fad53ef7ef2e4 completed and independently read back from Neon; all16,572 distinct evidence hashes verified and lease released. All64 actual full-candidate ray samples passed (maximum height error2.3092638912203256e-14m). Existing validate_patch passed after fresh geometry-bound overlap metadata; underlying terrain position/index unchanged. No current placement acceptance or installation credit. Four gap actors72322/89540/258852/305600 plus full owned/native/current-scene checks remain. Source-only checkpoint count73; XL stays236/285.
