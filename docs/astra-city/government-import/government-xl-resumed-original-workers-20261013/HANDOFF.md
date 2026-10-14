@@ -1,5 +1,11 @@
 # XL original workers resumed
 
+## PolyU append-only complete outside-source residual regions completed — 14 October 2026
+
+**235 XL installed /286 unfinished of521; original catalogue6652.** PolyU append-only candidate is complete and released. It selects 336 complete authenticated legacy source regions and appends 1,363 facets, with 30 exact existing matches; all 147,096 previous facets and 583,413 position slots remain unchanged. Private candidate now has 148,459 facets. Actual coverage/sampler/guard replay is next using the authenticated historical manifest archive; current Upton snapshot qualification stays separate. No source geometry edit, live terrain publication or installation credit.
+
+Pinned Neon job `22f69c119f28eb85478f89feb6f1b6d8f1fd5ba2d90148052d11ca55dc09dd2e` and all388 distinct evidence references are ROOT verified. 64 source-only checkpoints remain separate from installations. No optimisation or AI geometry modelling.
+
 ## Aqua Marine exact three buried source-face attribution completed — 14 October 2026
 
 **235 XL installed /286 unfinished of521; original catalogue6652.** Aqua Marine attribution is complete and released. Exact source faces 7525/7526/7527 explain the three fully buried upward faces; 278 other partially buried faces remain in the evidence. Indexed incidences are self-only because source vertices are duplicated; this does not establish structural detachment. Source roles remain unassigned, strict foundation result remains false, and full source views are next. No geometry edit or installation credit.
