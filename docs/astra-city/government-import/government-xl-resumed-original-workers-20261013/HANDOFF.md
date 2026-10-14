@@ -1,5 +1,11 @@
 # XL original workers resumed
 
+## Aqua Marine exact three buried source-face attribution completed — 14 October 2026
+
+**235 XL installed /286 unfinished of521; original catalogue6652.** Aqua Marine attribution is complete and released. Exact source faces 7525/7526/7527 explain the three fully buried upward faces; 278 other partially buried faces remain in the evidence. Indexed incidences are self-only because source vertices are duplicated; this does not establish structural detachment. Source roles remain unassigned, strict foundation result remains false, and full source views are next. No geometry edit or installation credit.
+
+Pinned Neon job `c178a7c9e75560f2dc41c2f794b69572d12975d95c7f6724a90a5464ca836458` and all856 distinct evidence references are ROOT verified. 63 source-only checkpoints remain separate from installations. No optimisation or AI geometry modelling.
+
 ## Aqua Marine ordinary outcome measured — 14 October 2026
 
 **235 XL installed /286 unfinished; original catalogue6652.** V3 worker95537 is terminal0/released. Exact pinned-Neon job `277bc12f33e1dc01cefae56fe00973a4e27a2a973cb0fae2e5658bdc345aa052` and all843distinct references are ROOT independently verified. The revised timed lease polling completed the ordinary work; no per-evidence-file DB ownership queries. Six lease, six source/setup and six closure fixtures passed. Both retained native patches remain unchanged.
