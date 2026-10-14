@@ -1,5 +1,15 @@
 # XL original workers resumed
 
+## Current checkpoint — 14 October 2026
+
+**236 verified XL installed / 285 unfinished of 521; detailed catalogue 6,653.** Last installed original is Aqua Marine, commit728ad8beb. No new installation credit for the following checks.
+
+Heritage source comparison V5 completed and released, job `f1fd2d0887c7635b0725f786c9e05a55deb56083e91b95d8415cfed7fe4933c4`; ROOT verified all882 references and exact Neon result. Pushed71a2abb18. Actual clean and marked exports inspected: separate roof-on-posts assembly meets Museum low perimeter at a small connector. All8 original crossings and14 current BASIC crossings remain recorded. This supports authored-junction context only; Star retains its independent matched-footprint rejection and is not an installation target. Existing agent is preparing Museum-only ordinary physical checks without terrain construction or new engineering gates.
+
+PolyU current V2 capture completed and released, job `8f608c0269c10496b67841ea1c50069e73030819a74fcd6e5cb10cc871c0053f`; ROOT verified all7944 references and exact Neon result. Pushed858f27078. Current manifest comparison now correctly preserves Upton replacement at terrain slot361. All25 guard rows retained; grid/sampler errors zero.258852 now passes;72322,89540,305600 still fail increased ground gap at five locations total. Existing native305793 full-mesh obligation and three newly installed native models remain pending. Bare terrain validator still rejects overlapping height surfaces; no approval transferred. Existing terrain agent is diagnosing those five sites from saved candidate evidence before targeted repair.
+
+Both actual workers are terminal; no production process remains running at this checkpoint. Goal remains active. No AI geometry modelling, optimisation work, corruption verdict or permanent rejection was inferred from these results. This section supersedes older current-count and running-process statements below.
+
 ## PolyU complete saved overlap/source-plane ancestry completed — 14 October 2026
 
 **235 XL installed /286 unfinished of521; catalogue6652.** Complete148459 candidate/148350 admitted facets measured missing6.301612086302332e-12m²/outside0, overlap excess3370.637870296836m² against unchanged0.00294 tolerance. Complete deterministic scan retained1571304 positive-area pairs:1544368 same authenticated ideal plane and26936 different/nonaffine; pairwise areas are not union excess. All668 actual parent-edge positions, including unused slots, have maxgap3.814696469817136e-7m under0.01 existing limit. No copied overlap approval/MAX theorem/current acceptance. Four true independent gap holds and retainednative59527/fullowned10536/current-delta gates remain. Existing agent prepares actual highest-source review/support recovery without repeating whole packing/capture.
