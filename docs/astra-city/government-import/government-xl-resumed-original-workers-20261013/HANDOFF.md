@@ -1,5 +1,11 @@
 # XL original workers resumed
 
+## PolyU actual append-only historical production replay completed — 14 October 2026
+
+**235 XL installed /286 unfinished of521; original catalogue6652.** Actual historical replay draws148487 closed-domain facets (148459 candidate plus28 retained exterior). All1247 grid samples and guard sites have zero sampler errors, and exterior ordered bytes remain unchanged. The unchanged validator now passes its parent-rectangle coverage predicate (<0.00294m²) and stops at unapproved overlapping height surfaces; exact union/excess scalars and fresh overlap ancestry are next. Four independent ground-gap holds and native305793 full-mesh check remain. Historical results do not approve current2a4/6652.
+
+Exact pinned Neon job `62d0bea3f201479354bd87fff2ef10b7a1aa14757019f1f4439e6a7d28cf8a37` and all14999 refs are ROOT verified and leases released. 66 source-only checkpoints, zero new installation credit from these checks. No government geometry edits or optimisation.
+
 ## Aqua Marine saved original/literal source views completed — 14 October 2026
 
 **235 XL installed /286 unfinished of521; original catalogue6652.** Seven exported scientific source views were actually inspected. Exact original/literal arrays and all278 partial-below faces remain separate and authenticated. Opaque painter occlusion and hidden detail labels are recorded; these images do not prove absence or grant burial/support approval. V1 plotting setup failure and released lease are preserved; V2 unshaded plot fixture and all coordinate fixtures pass. Exact facade-bottom interpretation is next, then fresh complete current guards.
