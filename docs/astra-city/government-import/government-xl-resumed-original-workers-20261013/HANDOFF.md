@@ -497,3 +497,7 @@ Recovered station and Grand Stanford sources now have reproducible current CSUID
 
 ## Recovered XL full-source diagnostic, 15 October
 Neon `e0692137da8f78e847bfe219747cc5a0e250cf81e1abd0a74807cb1893fc5b4c` verifies whole-source current identity/terrain context for East TST and Grand Stanford. See `government-xl-unmapped-whole-context-v1-20261015/README.md`. Every-face samples find158 station/280hotel buried faces; coarse station samples missed these. Current identity remains unmatched; exact source unchanged. Next inspect buried components and source roles. No new installations.
+
+
+## 15 October — original-terrain recovery for two unmapped sources
+Neon `54febf01df69b000a9fd9399c470bc39cb0c27c19645c63404f78539351b5564` complete and ROOT-verified. GrandStanford original terrain covers10049/10049faces and reduces280buried sampled faces to6(upward,35.69m²); still not accepted. EastTST home-sheet terrain covers3125/10610, so adjacent coverage required before evaluation. Exact current-conflict face IDs and two inspected plots in `government-xl-unmapped-buried-face-context-v1-20261015`. Source/live terrain unchanged; no installations.
