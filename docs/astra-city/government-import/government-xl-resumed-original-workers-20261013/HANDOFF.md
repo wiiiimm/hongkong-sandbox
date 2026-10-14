@@ -474,3 +474,8 @@ PolyU owned PID1136786 confirmed alive at elapsed3:53; retained native305793 pro
 ### ROOT 15 October: exact West Wing extent scope
 
 Job `9332c662682576f9460316cb8358ec79ba07ae6276bdef658252a808b860a063` records the exact160 curved approach and51 elevated connector facets as source-authored site scope. All211 retained, originalworld/source fixed. Two extent keys accounted for in historical source identity; four coverage/overlap keys remain, current identity replay required. Six adverse/independent-failure checks pass. The new extent diagram was inspected alongside the architect plan and paired original source. No physical exemption or installation credit. PolyU PID1136786 confirmed running4:07, providerOriginal33664/59527; Museum waiter62804 still awaiting its verified completion.
+
+
+### ROOT 15 October: CGO/West Wing actual original interface
+
+Verified completed Neon job `0a1110f34544d9bb52425ca3049c8c7609ed932e14cb671831bf6fcf925bcf0b`, all hashes checked, two resources inactive. Existing unmodified original-support-closure-interfaces.mjs produced six no-vertical-support failures, zero strict contacts. All six are on the lowest CGO edge near [557–561,4.94,685], with source-face references146/153/8521/8942. The 95.13% compound projection therefore does not establish the existing strict tower/podium route. No corruption conclusion, threshold change or installation credit. See `government-xl-west-wing26195-cgo-original-interface-v1-20261015/ROOT-DECISION.json`.
