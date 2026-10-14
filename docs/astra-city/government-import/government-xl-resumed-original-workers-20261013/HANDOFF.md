@@ -501,3 +501,7 @@ Neon `e0692137da8f78e847bfe219747cc5a0e250cf81e1abd0a74807cb1893fc5b4c` verifies
 
 ## 15 October — original-terrain recovery for two unmapped sources
 Neon `54febf01df69b000a9fd9399c470bc39cb0c27c19645c63404f78539351b5564` complete and ROOT-verified. GrandStanford original terrain covers10049/10049faces and reduces280buried sampled faces to6(upward,35.69m²); still not accepted. EastTST home-sheet terrain covers3125/10610, so adjacent coverage required before evaluation. Exact current-conflict face IDs and two inspected plots in `government-xl-unmapped-buried-face-context-v1-20261015`. Source/live terrain unchanged; no installations.
+
+
+## 15 October — station four-sheet coverage complete
+Neon `536e0398fb1c422f759a4c55e855e8b1a5350ea802af28936830b0fe24241395` exact readback/hash verified. Original4B/4D acquired, combinedwith5A/5C. EastTST10610/10610faces covered;0fullyburied four-point sampled faces;minimumgap-0.50734m. Continuous clearance and authentic-terrain nomination/current-neighbour checks remain, plus explicit historical identity review. See `government-xl-station-adjoining-terrain-v1-20261015/README.md`. No installations or live changes.
