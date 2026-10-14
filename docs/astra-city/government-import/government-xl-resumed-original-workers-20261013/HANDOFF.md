@@ -1,5 +1,13 @@
 # XL original workers resumed
 
+## Fresh PolyU actual coverage failure — 14 October 2026
+
+50 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. PolyU capture97871 is terminal0/released, not running. ROOT verified exact pinned-Neon job `8f204d9c83bc0cc6ca45bb56da6da2fb8b70255c5af6c7dd37f346f73aceae9e` and all14,960 refs. Before40/after55,333 closed-domain drawn faces, ordered exterior unchanged. Full native59,527/135,627 POSITION and all24 BASIC streams captured; canonical provider worldSHA4f527cba verified.
+
+Actual candidate FAILS unchanged parent-rectangle coverage validator. One grid point(2062.5,-1987.5) and three guard records at two unique sites(2124.76,-1951.503;2077.363,-2000.096) have uncovered sampler errors. Six ground-gap reasons and one native-full-mesh requirement remain. Eligible63758 oldmaxgap8→9.402766329m and305626 old6.1→7.297782381m; these already elevated basic forms are not automatically supported by finite clearance. Do not run an expensive blanket whole-actor replay merely to rediscover known holes. Existing terrain agent now prepares exact failed-point/projection/provenance/height-index attribution, including GIS guard versus Float32 constructor boundaries. Any next nomination preserves own source planes and all original bytes/negatives; no invented buffer or waived thresholds. Whole25-actor finite qualification follows a viable corrected exact candidate.
+
+Upton original41 source attribution and failed BASIC support remain verified/released. Existing agent prepares a private marked joint-original source view for functional surface interpretation, without declaring97/138+41 strict interface passed, publishing live assets or doing AI geometry modelling. Both actual compute continuations are terminal; follow current next-action drafts rather than restarting historical workers.
+
 ## Bounded support results and fresh PolyU capture — 14 October 2026
 
 49 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. All earlier running statements below are historical except PolyU production capture97871.
