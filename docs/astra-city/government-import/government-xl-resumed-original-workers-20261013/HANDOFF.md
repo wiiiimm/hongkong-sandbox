@@ -505,3 +505,7 @@ Neon `54febf01df69b000a9fd9399c470bc39cb0c27c19645c63404f78539351b5564` complete
 
 ## 15 October — station four-sheet coverage complete
 Neon `536e0398fb1c422f759a4c55e855e8b1a5350ea802af28936830b0fe24241395` exact readback/hash verified. Original4B/4D acquired, combinedwith5A/5C. EastTST10610/10610faces covered;0fullyburied four-point sampled faces;minimumgap-0.50734m. Continuous clearance and authentic-terrain nomination/current-neighbour checks remain, plus explicit historical identity review. See `government-xl-station-adjoining-terrain-v1-20261015/README.md`. No installations or live changes.
+
+
+## 15 October — continuous native terrain minima complete
+Neon `fbbaf4ea5d8cbd1d278150ce199b26fc48f8673944140e0c654afbcc3085aac3` exact verified. Station10610faces:18partial-face minima<-0.5m(4upward),min-0.90581m,0uncovered. Hotel10049faces:38partial-face minima<-0.5m(14upward),min-0.95302m,0uncovered;6non-height-field terrain facets retained by index. Fullface contexts in `government-xl-unmapped-continuous-native-ground-v1-20261015`. Prior zero station fully-buried sample count is not clearance. Next source-specific failingface/witness review; no newinstallations.
