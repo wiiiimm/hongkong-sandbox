@@ -1,6 +1,26 @@
 # XL original workers resumed
 
 
+## Bounded integration failures; original geometry unchanged — 14 October 2026
+
+57 source-only checkpoints; still **234 installed /287 unfinished of521 XL**. Both current verification sessions are terminal/released; no live publication or model installation. This section supersedes the running statements below.
+
+Upton staged-only11150 stopped at unchanged publisher DRYRUN before browser: w43/h29 and1247 grids but descriptive georef.W29/H29. ROOT verified reservation release and unchanged c00manifest; partial command000/log and ROOT-TERMINAL remain. Actual city renderer/sampler use data.w/h; no cityJS consumer of descriptiveW/H. Existing agent prepares isolated W29→43 metadata equivalence plus exact bare-overlap approval rebind and V2private-stage/browser bindings. Native geometry/grid/affine georef/source bytes/11645ground remain unchanged; oldV1/proofs stay immutable. No grid-validator waiver or new engineering audit.
+
+PolyU V3 job7c47ad5b4c3f310a347a0701ff3ddfbf5e00ba5c6a850fa4fa6d8ce5c889e9e4 is complete/released; all15,044refs independently verified. InnerNode runtime exited1 before terrain report: ERR_STRING_TOO_LONG while parsing full nominee provenance aboveV8~512MB string limit. Real coverage validator was not executed. This is input representation, not source/model corruption. Existing terrain agent prepares a compact complete mesh-only runtime projection with exact nominee/position/index/world-count hash bindings, while Python/full provenance checks and compressed-byte refs remain. No repacking, geometry edit or approval; fresh real capture still required.
+
+The one malformed ad-hoc handoff Python command failed at parse time with no writes; corrected bookkeeping is above. No worker/model failure came from it. No optimisation work; existing user approval continues to cover routine original-source recovery and non-main commits/pushes.
+
+
+## Two ordinary verification workers running — 14 October 2026
+
+56 source-only checkpoints; **234 installed /287 unfinished of521 XL**. Private-stage job477a562360f6ad1b22de54000f7e7a1e9b3b9c7a52325fb97abfdadc653085f3 is complete/released; all16,799refs independently verified. Exact original assets/copiedf367terrain/acceptedsource-only adapter/dependencies are prepared privately. No installed credit. PolyU packing evidence pushed d1da2300e; V3 current-source reuse prep passes8fixtures/syntax/schema/strictclosure with freshpinsae662cce/endfences.
+
+Upton staged-browser-only session11150 is running after ROOT fullcode review. Logs /tmp/upton-functional-staged-browser-v1-ROOT-worker-20261014.log. Canonical56actor113resource supervisor/globalpublication lock; scoped publisher DRYRUN only, then unchanged solid browser guards preservingterrain slot361. Eightowned/fourretained images and two mobile failure/retries required. ROOT must inspect actual exports; installbranchV1 remains a draft, so separate liveV2 is prepared by existing agent. FrozenactivepublicationV1/PUB/adapter/browser code must not change.
+
+PolyU actualcaptureV3 session85427 is concurrently running after reviewed binder membership fix (onefrozenset perparent, same guards) and actualpreparation. Logs /tmp/polyu-parent-cell-production-v3-ROOT-worker-20261014.log. All147096pieces and583413unused-inclusive positions are bound; immutable complete native59527/24BASIC inputs reused exactly. Actualdraw/rectangle/grid/3366guards/unchangedvalidator determineviability, then freshchanged-ground wholefinite. Do notpublish Upton or change c00manifest until this current-source capture completes. No sourcegeometry,1xpose or optimisation changes; no routine permission needed.
+
+
 ## PolyU parent packing nominee completed — 14 October 2026
 
 55 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. Zero installation credit. Complete saved parent-cell repacking job 8498231ef6c41af333a3d8897cf82fff4bc97532548165a0b184e98e76423aad is independently verified against pinned Neon and all15,018 references; session38063 terminal0, reservation released. Eight synthetic fixtures and pinned read-only preparation passed.
