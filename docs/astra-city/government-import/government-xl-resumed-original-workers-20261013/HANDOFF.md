@@ -1,5 +1,23 @@
 # XL original workers resumed
 
+## Aqua Marine ordinary outcome measured — 14 October 2026
+
+**235 XL installed /286 unfinished; original catalogue6652.** V3 worker95537 is terminal0/released. Exact pinned-Neon job `277bc12f33e1dc01cefae56fe00973a4e27a2a973cb0fae2e5658bdc345aa052` and all843distinct references are ROOT independently verified. The revised timed lease polling completed the ordinary work; no per-evidence-file DB ownership queries. Six lease, six source/setup and six closure fixtures passed. Both retained native patches remain unchanged.
+
+Loader1/checks1/exceptions0, runtimeconcerns[], BASICneighbourreasons[], nativeblocked[]. One real numeric warning remains: terrain-intersects-source-over-0.5m. Wholefoundation strictFALSE: exactly3fully buried upward faces, total0.002202476659993938m²/fraction7.346830535442944e-8, Y5.2232–5.2403under currentflatground6, centroidfootprint-boundary distance0.0113–0.0412m. Fullsource minY4.7749/currentminimumgap−1.2251. These measurements are preserved, not waived by tiny area or source identity. Existing agent prepares exact three-face source/role/ground attribution; do not rebuild terrain before contextual meaning is known, or introduce another per-component engineering gate. Complete four-world/current source collision/finite/browser/publication remain independent. No source geometry edit or installed credit.
+
+62 source-only checkpoints. The preceding V3-running statements are historical; all V2controlled-stop proofs/logs and V1setup failure remain immutable. PolyU targeted residual terrain draft continues. No optimisation or AI geometry modelling.
+
+
+## Aqua Marine ordinary checks running; redundant DB polling removed — 14 October 2026
+
+**235 XL installed /286 unfinished; whole original catalogue6652.** Aqua Marine193086 source unchanged22,735faces. V1 preparation failed only on an existing four-fixed-target dynamic import; no lease/worker. V2 exact import binding passes six closure and six source fixtures but performed ownership DB reads per evidence file. ROOT controlled-stopped the exact supervisor2340196; outer98906 terminal1, supervised130/interrupted/released, PG2340228/allboundPIDs absent, canonical lease released and current2a4manifest unchanged. Partial source/setup DOC exists but no completed physical command; no model failure/corruption credit. Exact log is archived alongside ROOT-CONTROLLED-STOP.
+
+V3 retains every source/current/catalogue/runtime hash and mandatory ownership at each phase boundary; polling/renewal during hash loops is timed20s instead of opening hundreds of Neon connections per phase. Existing lifetime supervisor remains. ROOT full-reviewed helper/caller diff/prep/METHOD; six clock/loss tests, six source/setup and six closure tests all pass. Actual prep49599 terminal0:131codepins296inputpins20canonicalUIDs. Worker95537 now running fresh ordinary unchanged-terrain metrics/loader/picking/collision/wholefoundation/neighbour checks. Both retained patches242392/76044 remain; old unconditional ten-unattached-parts reason is historical unmeasured setup context, not a new component engineering gate. No identity recalculation, source geometry edit or installation/optimisation claim.
+
+61 completed source-only checkpoints remain separate. PolyU existing agent prepares append-only immediate-cell enclosures of complete authenticated legacy source outside regions nominated by saved gaps; no gap vertices as construction points, no arbitrary buffers or repeated24kparent packing. Independent four ground-gap/native full checks remain. Goal active.
+
+
 ## Saved residual coverage located; Aqua Marine next — 14 October 2026
 
 **235 XL installed /286 unfinished; Upton installation pushed26425385f; compact full PolyU runtime input pushedacd5eacf1.** PolyU saved historical complete mesh attribution `0081d773c62c80d053b81406714cad5f6dfec57a61fddf298fd29dce51afe894` is complete/released, pinned-Neon exact and all108refs independently verified. Native147,096facets/583,413full position slots; 54positive-area missing regions total0.0039889964664034565m², outside0, unchanged allowance0.00294m². Detailed provenance distinguishes old prefix/source-outside and parent seams. Tiny GEOS locators contradicted by exact dyadic point membership remain explicit contradictions, no tolerance waiver. Full recorded geometry remains saved; no building/source edits or live terrain change.
