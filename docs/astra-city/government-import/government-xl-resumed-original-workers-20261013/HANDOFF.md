@@ -1,5 +1,13 @@
 # XL original workers resumed
 
+## Original source views verified; PolyU attribution running — 14 October 2026
+
+51 source-only checkpoints; **234 installed /287 unfinished of521 XL**. Exact72-hour installations remain8=7 XL+1 support (227→234 XL). Original source-preview session6628 is complete0/released; exact pinned-Neon jobb3694f4081686c35bcb8716282d699890a5fac25af20f4e5891df02cbea66611/all16,718 refs verified. Both1655/11657 literal source tuples and actual11645 ground tuples match. ROOT inspected all12 actual1600×1100 source images and3200×2400 saved-array diagram; separateROOT-IMAGE-INSPECTION preserves observations and limits. Do not mutate the already-boundROOT-VERIFIED proof.
+
+The solid views show the tower meeting stepped podium roofs. Flags sit on the lower facade band;197 whole source-contact lines are exposed, but13 samples lack an incident-face contact and strict97/138+41 remains FALSE. Yellow selection outlines/canvas marks show occluded geometry. Assembly top and below-top plan camera are not final full-framing acceptance. Existing Upton agent prepares a tightly source-bound functional wall-band packet and display-onlyV2 with real selection clearing and verified source-box framing. No installation approval, structural certificate or numerical threshold waiver.
+
+PolyU exact saved-point/mask attributionV2 is actually running in session1143 after ROOTfull review, with logs `/tmp/polyu-hole-mask-attribution-v2-ROOT-{prepare,worker}-20261014.log`. It retains the prior failed candidate and probes all3 distinct error sites plus76/160 eligible guards against rawGIS, actual constructor streams, ideal regions and packed draw/height admission. Whole25-actor finite remains deferred on known holes. V2 changes only reference hashing/deduplication, rejecting path/SHA conflicts and rechecking fresh bytes per phase; V1/helpers remain intact. Do not duplicate or change pinned code. Original geometry unchanged; no AI modelling or optimisation.
+
 ## Corrected exact three-day installation report — 14 October 2026
 
 Read-only Git/current asset/pinned-Neon audit covers11 October00:38:06UTC→14 October00:38:06UTC: **8 added models, all installed-verified;7 XL +1 supporting model**. XL verified227→234; whole native catalogue6642→6650, zero removals. Historical snapshot9fe6762f9efee79e/current5cb980a97466802b. The earlier17 count used the older217 reporting baseline, not this72-hour window. See `government-xl-three-day-installed-delta-readonly-20261014/report.json`. No installation or database/model state changes from this audit; source-only checkpoint count remains50. Current original next actions are PolyU exact failed-point/mask/packing attribution and Upton private marked joint-source review.
