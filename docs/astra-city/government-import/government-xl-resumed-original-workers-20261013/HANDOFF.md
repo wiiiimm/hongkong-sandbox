@@ -1,5 +1,11 @@
 # XL original workers resumed
 
+## Aqua Marine saved original/literal source views completed — 14 October 2026
+
+**235 XL installed /286 unfinished of521; original catalogue6652.** Seven exported scientific source views were actually inspected. Exact original/literal arrays and all278 partial-below faces remain separate and authenticated. Opaque painter occlusion and hidden detail labels are recorded; these images do not prove absence or grant burial/support approval. V1 plotting setup failure and released lease are preserved; V2 unshaded plot fixture and all coordinate fixtures pass. Exact facade-bottom interpretation is next, then fresh complete current guards.
+
+Exact pinned Neon job `802e52e3ae5ef64bceffff5802b11b7f015d17519ab6837143bef06fcd63dc9b` and all881 refs are ROOT verified and leases released. 65 source-only checkpoints, zero new installation credit from these checks. No government geometry edits or optimisation.
+
 ## PolyU append-only complete outside-source residual regions completed — 14 October 2026
 
 **235 XL installed /286 unfinished of521; original catalogue6652.** PolyU append-only candidate is complete and released. It selects 336 complete authenticated legacy source regions and appends 1,363 facets, with 30 exact existing matches; all 147,096 previous facets and 583,413 position slots remain unchanged. Private candidate now has 148,459 facets. Actual coverage/sampler/guard replay is next using the authenticated historical manifest archive; current Upton snapshot qualification stays separate. No source geometry edit, live terrain publication or installation credit.
