@@ -1,5 +1,11 @@
 # XL original workers resumed
 
+## Aqua Marine exact source interpretation reviewed — 14 October 2026
+
+**235 XL installed /286 unfinished; catalogue6652.** Exact authored-context job `ba400fe4f8f85f4ae0764a748628d6a675a096cb5b801446571bb02305710b5e` is complete/released; all894 refs independently verified. ROOT inspected all eleven original/literal source descriptors and the exported2D plan/sides/continuation. Exact three failed faces7525/7526/7527 are accepted as the lower closure of the curved full-height facade for the single existing burial-warning applicability. Exact edge7527/16549 continues toHKPD21.5859. Crowded labels are not identity proof; exact descriptors are. Raw strictFALSE/minimum gap/all278 partial faces remain; no area/normal/proximity waiver or independent support claim. Fresh missing arithmetic arrays for two originals, whole four-world/current foreign collisions and staged/live checks are still required. No installation or publication approval.
+
+67 source-only checkpoints remain separate from installations. Original government geometry/pose unchanged; zero AI geometry modelling or optimisation.
+
 ## PolyU actual append-only historical production replay completed — 14 October 2026
 
 **235 XL installed /286 unfinished of521; original catalogue6652.** Actual historical replay draws148487 closed-domain facets (148459 candidate plus28 retained exterior). All1247 grid samples and guard sites have zero sampler errors, and exterior ordered bytes remain unchanged. The unchanged validator now passes its parent-rectangle coverage predicate (<0.00294m²) and stops at unapproved overlapping height surfaces; exact union/excess scalars and fresh overlap ancestry are next. Four independent ground-gap holds and native305793 full-mesh check remain. Historical results do not approve current2a4/6652.
