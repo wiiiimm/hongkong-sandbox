@@ -551,3 +551,6 @@ The existing clear-cap helper finds paths for all four podium near-vertical terr
 Next: complete finite source-role proof, reconcile tower facade overhang roles and podium identity, then current staging/browser/installation checks. These models remain unfinished, not corrupt or permanently uninstallable. No new installation.
 
 Neon source-role receipt: f05e096ca44bb86fd566fb7d7852343c9e77e351ad3a764bfb87e2ca3cfd1171
+
+
+Esplanade podium complete finite check finished: Neon `173c513884f11afcc1ac63cf8d851568f4b4449c559007f9503144854f351cf9`. All1476 faces covered in both original and literal worlds; only the same four grade-wall faces510,516,518,1276 fail ordinary clearance. All other1472 faces have certified bounds. No Float32 camera streams or role acceptance claimed. Next replay cap/grade interpretation against these certified contexts; complete tower role/identity/staging remains. Zero installations.
