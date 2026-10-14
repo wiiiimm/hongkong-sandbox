@@ -565,3 +565,12 @@ Certified original/literal full-facet contexts retain only four wall failures510
 Remaining: complete tower/source-specific support-role reconciliation, other required actual render representations, current staged acceptance and browser evidence, then serial publication after PolyU final manifest fence. Do not translate these positive diagnostics into unconditional model acceptance. XL remains236 installed/285unfinished, whole catalogue6653; no installations in this checkpoint.
 
 Neon receipts: 741794347566bf218d7ae88160326c75522570eb3fedb1677b6e7406bf3f6e7a, a0838f6dcf74947cd9cdc5dd7d89c53959bf6a95540ddd335f674586ec8b2ebe, 11c8cf4e35ada6581e943e77855d6641be489fc3c3a9081591229f19a00505b6
+
+
+## Esplanade exact interface and first private browser preview
+
+Neon exact contact receipt ed0f7e79c35bfd20ed2ae9d30d8bee31f339145062e455474e3c37e147f377df: all21 failing rim locations have shared-edge paths to positive-dimensional exact podium contacts in BOTH original and literal geometry. Original335 positive contacts/98 root faces; literal479/238. This is geometric support evidence, not an engineering claim.
+
+Neon private browser receipt006e5ff473275aaa2ffb34cb4a406e00191250339eb3bbe57451510fc7a0537a: exit0, both components desktop/mobile day/night, picking/collision/rendered terrain checks pass. All8 exports actually inspected. These are NOT final visual acceptance: desktop tower top partially behind header, mobile overlays cover scene; tower-first view does not prove detailed podium already active. Next private capture should activate joint pair and frame expanded assembly bounds with controls closed. Failed-load retry was explicitly excluded and must run before installation.
+
+No live manifest changes or installations. Remaining exact source-role/current render/staged acceptance and browser obligations remain. PolyU continues into owned actualLiteral after completing its59527-face retained providerOriginal mode; Museum waits for the full job, not one completed mode.
