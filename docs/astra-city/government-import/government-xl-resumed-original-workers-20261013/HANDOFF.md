@@ -1,5 +1,25 @@
 # XL original workers resumed
 
+## Upton originals installed and verified — 14 October 2026
+
+**235 XL installed /286 unfinished of521. Two originals newly installed: Upton tower338946 and supporting podium12728. Only the tower adds fixed521 XL credit (+1). Whole detailed original catalogue6650→6652.** Current Neon snapshot `518fca8a56d13208`; installed job `f099afe8572e53c2fe16f5a185b475cf21ba8541f6f1bbb2cf148d0ad214d3a0`. All23,341 distinct evidence references independently rehashed, exact completed job and both installed-verified source checksums read back, canonical lease released. All12 live exported images actually inspected; ROOT-IMAGE-INSPECTION records truthful urban/UI and retained-source occlusions plus intentional503fallback screenshots. Both retry tests and existing solid desktop/mobile/day/night/picking/collision/sampler/budget/dependency guards pass. Source bytes, government geometry, 1×metres/HKPD pose unchanged; zero AI geometry modelling.
+
+The descriptive width metadata repair does not edit terrain coordinates/index/grid/affine data. Qualified terrain replaces the original patch at the same slot361; no BASIC suppression. Raw strict97/138+41 and13 unmatched samples remain false/unproved; only three exact authored-facade applicability warnings are resolved by the source-bound ROOT functional disposition. Final installation is independently recorded in pinned Neon and current progress; historical c00manifest/pointer/progress copies remain historical, never restored for stale-proof reuse.
+
+60 source-only checkpoints are separate from this real installation. PolyU V4 sampled holes are fixed but unchanged whole rectangle coverage still fails; saved historical union/provenance attribution continues, no current approval or install credit. Another existing agent is selecting the next bounded recoverable XL original from saved evidence. Earlier72h eight-addition report remains the exact historical window, not updated retroactively. This section supersedes all worker-running and234/287 current claims below. No optimisation work.
+
+
+## Corrected stage passed; live installation running — 14 October 2026
+
+60 source-only checkpoints; currently **234 verified XL installed /287 unfinished of521**, with two Upton originals in live browser verification after successful guarded dry run and apply. Do not claim installation until final live/Neon/count receipts and ROOT image review. Expected fixed521 XL delta is only+1: tower338946 is XL; supporting podium12728 is auxiliary. Source geometry and1×placement unchanged.
+
+Upton metadata V2 stage ce8161fc79fcf757e2ab4467841fc544f3456c8bdc2dc8ebc0fd05dbbc73b861 (16,835refs) and staged browser0a3a605fb0e3a62b589184c7ffd5c63721e36da09b587d44ce2fdca343d5caa5 (16,854refs) completed/released and independently ROOT verified. All12 staged exports actually inspected; exact image-bound ROOT-IMAGE-INSPECTION records honest retained-model/urban occlusions and expected temporary503test banner. Width metadata W29→43 preserves all native/terrain/grid/affine data, ordered11645ground and source bytes; fresh bare audit approves exact new metadata bytes. Raw strict97/138+41 and13unmatched remain false/unproved. Source-specific facade applicability is narrowly bound, no engineering certificate or other gate waiver.
+
+PolyU compact actual capture V4 job59491c7701e48dca8e907808ea8e0b487feaa5f6d8a8b6fbb57ca57fc733c6b2 (15,076refs) completed/released and ROOT verified. Complete147,124actual drawn closed-domain facets, unchanged exterior, all1247grid nodes and3366guard sampler sites now have zero throwing errors. Existing whole parent rectangle validator still FAILS. Sampling success is not area coverage approval. Existing terrain agent prepares saved historical missing/outside union and provenance attribution; no stale current acceptance, source geometry edit, or repeat full qualification on a known failed candidate.
+
+This section supersedes older worker-running/failure-only descriptions below. No optimisation work.
+
+
 
 ## Bounded integration failures; original geometry unchanged — 14 October 2026
 
