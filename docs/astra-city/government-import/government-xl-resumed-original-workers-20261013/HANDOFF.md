@@ -1,5 +1,11 @@
 # XL original workers resumed
 
+## PolyU complete saved overlap/source-plane ancestry completed — 14 October 2026
+
+**235 XL installed /286 unfinished of521; catalogue6652.** Complete148459 candidate/148350 admitted facets measured missing6.301612086302332e-12m²/outside0, overlap excess3370.637870296836m² against unchanged0.00294 tolerance. Complete deterministic scan retained1571304 positive-area pairs:1544368 same authenticated ideal plane and26936 different/nonaffine; pairwise areas are not union excess. All668 actual parent-edge positions, including unused slots, have maxgap3.814696469817136e-7m under0.01 existing limit. No copied overlap approval/MAX theorem/current acceptance. Four true independent gap holds and retainednative59527/fullowned10536/current-delta gates remain. Existing agent prepares actual highest-source review/support recovery without repeating whole packing/capture.
+
+Exact pinned Neon job `ab3f9d0264fb5047ff89185cd8dc7b95eb84e29a7f44df17d8f595dd599e3ece` and all1225 refs independently ROOT verified; workers terminal0/released. 70 source-only checkpoints remain separate from installations. Zero government geometry edits or AI geometry modelling; no optimisation work.
+
 ## Aqua Marine complete current four-world and independent source contacts completed — 14 October 2026
 
 **235 XL installed /286 unfinished of521; catalogue6652.** All four complete owned22735-face source interpretations have the same281 raw unproved faces, entirely within the saved281 context; zero uncovered projections and zero unknown IDs. Independent foreign116faces retain12 raw negatives and no exemption (foreign is not an installation target). All four coherent-arithmetic complete owned/foreign contact lists are empty. Exact reviewed three-face applicability remains scoped; raw strictFALSE/all278 partials/minimum gap preserved. Existing unchanged-current loader/native/BASIC outcomes are bound; staged desktop/mobile day/night/picking/collision/sampler/fallback/retry and actual image review remain. Agent prepares own193086 private integration, with terrain/support/suppression plans empty.
