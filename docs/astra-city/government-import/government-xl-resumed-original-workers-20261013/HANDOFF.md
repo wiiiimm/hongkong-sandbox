@@ -1,6 +1,15 @@
 # XL original workers resumed
 
 
+## PolyU parent packing nominee completed — 14 October 2026
+
+55 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. Zero installation credit. Complete saved parent-cell repacking job 8498231ef6c41af333a3d8897cf82fff4bc97532548165a0b184e98e76423aad is independently verified against pinned Neon and all15,018 references; session38063 terminal0, reservation released. Eight synthetic fixtures and pinned read-only preparation passed.
+
+All24,448 saved inside regions are now enclosed on their own original current-parent planes using immediate Float32 cells. New candidate147,096 facets comprises8,011 unchanged prior facets plus139,085 packed parent facets;583,413 position slots retain the complete old unused-inclusive prefix. All3,214 old mappings, masks/first-owner order and source planes remain. No government building/source/pose edits or live terrain publication. New plane extensions/overlaps require fresh clearance/MAX; old overlap or physical approvals do not transfer.
+
+Existing terrain agent prepares the strict new-schema pointer/account binder and real production capture, deriving new counts and preserving exact before/exterior order. First replay unchanged rectangle validator, grid nodes and3,366 guard sites to check the actual repair. Whole owned/native/BASIC finite qualification follows only a viable actual mesh. Upton exact accepted functional review remains ready for private joint-stage integration; ordinary final browser/publication gates remain. No optimisation work.
+
+
 ## Upton source interpretation accepted; final installation gates pending — 14 October 2026
 
 54 source-only checkpoints; still **234 installed /287 unfinished of521 XL**. DisplayV2 job a63f3a97ae19de21251fcc5d1f0a383617b69cd968a67d23d9cb7e926420c749 complete/released; all16,752 references independently verified. ROOT actually inspected all12 exported images. Complete source box is fully framed and plan camera is above the source top; selection outlines are cleared. Exact source/GPU bindings and11645 drawn ground matchV1.
