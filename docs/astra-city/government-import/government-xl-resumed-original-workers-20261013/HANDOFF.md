@@ -509,3 +509,7 @@ Neon `536e0398fb1c422f759a4c55e855e8b1a5350ea802af28936830b0fe24241395` exact re
 
 ## 15 October — continuous native terrain minima complete
 Neon `fbbaf4ea5d8cbd1d278150ce199b26fc48f8673944140e0c654afbcc3085aac3` exact verified. Station10610faces:18partial-face minima<-0.5m(4upward),min-0.90581m,0uncovered. Hotel10049faces:38partial-face minima<-0.5m(14upward),min-0.95302m,0uncovered;6non-height-field terrain facets retained by index. Fullface contexts in `government-xl-unmapped-continuous-native-ground-v1-20261015`. Prior zero station fully-buried sample count is not clearance. Next source-specific failingface/witness review; no newinstallations.
+
+
+## 15 October — residual original surface review
+Three original source/terrain close-up views inspected. Station4upwardfaces form one horizontal low surface; hotel14upwardfaces form two low perimeter groups. No verified underside/hiddenclosure role. Existing global-bottom underside contract requires downward original sheets and does not apply. Neon `5e66f8bdb2d00447a1f0ddb339c0ffdc0ea6bb6366fc3df2c1995ab8de22e664` exactreadback verified; see `government-xl-unmapped-residual-views-v1-20261015/ROOT-REVIEW.json`. Retain raw failures; need source-specific floor/entrance evidence or justified source-preserving terrain treatment. No corruption/permanentimpossibility claim, geometrychanges or installations.
