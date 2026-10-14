@@ -1,5 +1,15 @@
 # XL original workers resumed
 
+## Bounded support results and fresh PolyU capture — 14 October 2026
+
+49 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. All earlier running statements below are historical except PolyU production capture97871.
+
+Exact current BASIC338946→original12728 support completed/released: `8d7eab4686719b03fc01db4b54ab64354157fac3e3598acc277d7b021bbf724f`, all16,700 refs ROOT verified. It fails:421 samples, zero strict contacts,82 wall resolutions and339 unresolved. Do not rerun unchanged, stage as passed or transfer the old unchanged-BASIC/native50% waiver. Podium remains uninstalled.
+
+Original41 source attribution completed/released: `af4e73ed5152fee5c2020757bb648b3208c4e5f90d261c7a335f34fe007a0dcf`, all16,683 refs verified. Two points have a lower contact layer with higher overlap;39 have no layer in the contact interval. Every incident remains mainbody0/36faces. Complete authenticated original main-contact inventories197/197/199/199 per four source worlds now have fresh current-ground line/chord context; no area-interior, old grade or root approval is transferred. Original97/138 strict support and41 failures remain intact. Next: private marked joint-source view to identify the actual41 surfaces and main attachment under genuine viewer contracts. No invented737-body engineering gate, lower-layer/MAX waiver or geometry change.
+
+PolyU fresh production captureV2 is now actually running in session97871 after ROOT full code review and successful readonly preparation. Logs `/tmp/polyu-five-parent-production-v2-ROOT-{prepare,worker}-20261014.log`. Do not duplicate or edit pinned code. Targeted capture includes full installed native305793 (59,527 faces/135,627 unused-inclusive POSITION), all24 current BASIC streams, actual new55,305-facet terrain draw,1,247 grid nodes and3,366 original guard sites. After exact result/source/hash/lease verification, execute full new-union25-actor finite qualification. Original geometry unchanged; no optimisation or publication.
+
 ## Completed current workers and next installation checks — 14 October 2026
 
 47 source-only checkpoints; **234 installed / 287 unfinished of 521 XL**. No new installation in this continuation. This section supersedes older running-worker statements below.
