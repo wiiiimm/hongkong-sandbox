@@ -1,0 +1,7 @@
+# Villa strict-support correction — 15 October
+
+Supersedes the prior assertion that Villa was ready for private acceptance. All5identity/sourcewall/collision/browser passes remain valid, but the older complete contact graph is NOT the mandatory strict support interface. Fresh canonical support checks fail all4towers:58497 117/162strict45unresolved;63823 137/146strict3wall6unresolved;121309 101/154strict53unresolved;148052 84/140strict56unresolved. All4complete compound foundations pass. Exact all-layer followup finds no hidden contact layer at any failure.65no-surface points;98outofband including3resolvedwallpoints;160unresolved. No thresholds or source geometry changed.
+
+Do not publish the5source assembly. Next actionable routes: authoritative additional/revised support source, or independently qualify podium-only installation against all4actual basic tower neighbours (old5sourcephysical excludes their basicfallbacks). No automatic permanent rejection; exact-source wall-role interpretation does not waive strict contact. This is source/compute investigation, not a user decision or permission to remodel. Save failed outcomes as evidence and continue other XLsources if no source-backed repair is available.
+
+Both strict and layer results are pinned-Neonverified, allrefschecked; workers terminal/leasesreleased. FixedXL243installed/278remaining/521;6662detailedcatalogueentries. Zero newinstallations.
