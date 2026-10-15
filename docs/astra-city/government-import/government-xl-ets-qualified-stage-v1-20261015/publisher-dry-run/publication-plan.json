@@ -1,0 +1,62 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-ets-qualified-stage-v1-20261015/plan.json",
+  "areas": [
+    {
+      "area": "East Tsim Sha Tsui unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-ets-qualified-stage-v1-20261015/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-regional-ets-original-v1-20261015.json": null,
+    "3d-viewer/city/data/official-models/government-xl-ets-qualified-stage-v1-20261015/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "724faa0d447220cefc0204a54ee568b84fe71ae1768735b584e28e627aac03fb"
+  },
+  "after": {
+    "3d-viewer/city/data/government-regional-ets-original-v1-20261015.json": "dffd0f49d426676a7e7d0dee4efab7895838a21149910a68fe1d1948327ab78b",
+    "3d-viewer/city/data/official-models/government-xl-ets-qualified-stage-v1-20261015/catalogue.json": "a216f0614b734db097a63c7df12fa4443d880a74ccdef44983c4ecc4109f468c",
+    "3d-viewer/city/data/manifest.json": "c4c42df9e559529dec09a52282e748fd2628ed79a45a83d56f9ec4add686c25b"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "09cd5be38fa99d98ef14cd7e4b098b2acd1001b6",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/terrain-government-xl-caine-road-original-pair-installed-v2-20261010.json",
+      "sha256": "3a56cb25625313f57e16f8a2059942a15bfd94f6556d729672cdb394e1bf461f",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-regional-ets-original-v1-20261015.json",
+      "resolution": 5,
+      "area": "Regional terrain retaining all children plus East Tsim Sha Tsui original",
+      "source": {
+        "crs": "EPSG:2326",
+        "file": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+        "nativeCellSize": 5,
+        "note": "Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ.",
+        "provider": "Lands Department / Hong Kong SAR Government",
+        "sha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+        "url": "https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "dffd0f49d426676a7e7d0dee4efab7895838a21149910a68fe1d1948327ab78b",
+      "bytes": 23372102
+    }
+  ],
+  "estimatedBases": []
+}
