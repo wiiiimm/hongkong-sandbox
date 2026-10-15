@@ -1,6 +1,7 @@
 import * as THREE from '../vendor/three.module.js';
 import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
 import {taiOCanopyEstimate} from './tai-o-estimates.js';
+import {proceduralFootprintCorrection} from './procedural-footprint-corrections.js';
 import {modelWorkScheduler} from './model-byte-cache.js';
 
 const cache=new WeakMap(),modelCache=new WeakMap();
@@ -78,7 +79,7 @@ function supportRings(rings){
 
 /** Shared visual/collision volumes. Recorded elevations remain immutable. */
 export function describeBuilding(building){
- const estimate=taiOCanopyEstimate(building),signature=[building.base,building.height,building.minimum,building.foundationBase,isOpenSidedBuilding(building),estimate?.base,estimate?.height].join('|'),previous=cache.get(building);
+ const estimate=taiOCanopyEstimate(building),footprintCorrection=proceduralFootprintCorrection(building),signature=[footprintCorrection?.sourceSHA256,building.base,building.height,building.minimum,building.foundationBase,isOpenSidedBuilding(building),estimate?.base,estimate?.height].join('|'),previous=cache.get(building);
  if(previous?.signature===signature&&previous.rings===building.rings&&previous.model===building.modelGeometry)return previous.description;
  const model=validModel(building),base=estimate?.base??building.base,minimum=building.minimum||0,bottom=model?model.bounds[1]:base+minimum,top=model?model.bounds[4]:base+(estimate?.height??building.height),parts=[];
  if(!finite(bottom)||!finite(top)||top<=bottom||!building.rings?.length)return {parts,openSided:false,illustrativeSupports:0};
@@ -91,9 +92,12 @@ export function describeBuilding(building){
   if(foundation!==null)parts.push({kind:'foundation',rings:building.rings,bottom:foundation,top:foundationTop,windows:false,illustrative:true});
  }else if(openSided){
   const thickness=Math.min(.28,(top-bottom)*.16),roofBottom=top-thickness;
-  parts.push({kind:'roof',rings:building.rings,bottom:roofBottom,top,windows:false});
   const postBottom=foundation??bottom;
-  if(roofBottom>postBottom+.02)for(const ring of supportRings(building.rings))parts.push({kind:'post',rings:[ring],bottom:postBottom,top:roofBottom,windows:false,illustrative:true});
+  // The same source-bound correction drives both visible meshes and collision volumes.
+  for(const rings of footprintCorrection?.footprints??[building.rings]){
+   parts.push({kind:'roof',rings,bottom:roofBottom,top,windows:false});
+   if(roofBottom>postBottom+.02)for(const ring of supportRings(rings))parts.push({kind:'post',rings:[ring],bottom:postBottom,top:roofBottom,windows:false,illustrative:true});
+  }
  }else{
   // Native interiors stop at their local source roof, never the model-wide top.
   // The bounds remain conservative for indexing; collision resolves the ceiling.
