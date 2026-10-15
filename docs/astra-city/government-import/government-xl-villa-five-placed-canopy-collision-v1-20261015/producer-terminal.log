@@ -1,0 +1,25 @@
+landsd/89917:0 literal 0
+landsd/89917:0 leftAssociatedPerMultiplyAddFloat32WorldPosition 0
+landsd/89917:0 balancedPerMultiplyAddFloat32WorldPosition 0
+landsd/58497:0 literal 0
+landsd/58497:0 leftAssociatedPerMultiplyAddFloat32WorldPosition 0
+landsd/58497:0 balancedPerMultiplyAddFloat32WorldPosition 0
+landsd/63823:0 literal 0
+landsd/63823:0 leftAssociatedPerMultiplyAddFloat32WorldPosition 0
+landsd/63823:0 balancedPerMultiplyAddFloat32WorldPosition 0
+landsd/121309:0 literal 0
+landsd/121309:0 leftAssociatedPerMultiplyAddFloat32WorldPosition 0
+landsd/121309:0 balancedPerMultiplyAddFloat32WorldPosition 0
+landsd/148052:0 literal 0
+landsd/148052:0 leftAssociatedPerMultiplyAddFloat32WorldPosition 0
+landsd/148052:0 balancedPerMultiplyAddFloat32WorldPosition 0
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_five_placed_canopy_collision_v1_20261015.py", line 26, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/villa_five_placed_canopy_collision_v1_20261015.py", line 23, in main
+    module('villa_placed_freezer',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(NAME,'complete-placed-original-canopy-surfaces',paths,summary)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 15, in freeze
+    paths+=[p for p in doc.rglob('*') if p.is_file()]+[Path(__file__)];refs=[ref(p) for p in sorted(set(paths))];claim=reservations.claim('popcorn-source-checkpoint-'+str(uuid.uuid4()),['source-context:'+batch],batch=batch,ttl=1800);assert claim['ok'],claim;lease=claim['reservation']
+                                                                                                                                                                                                                                                ~~~~~^^^^^^
+AssertionError: {'ok': False, 'error': 'reserved', 'conflicts': [{'resource': 'source-context:government-xl-villa-five-placed-canopy-collision-v1-20261015', 'token': UUID('483574c5-3188-480f-9454-916ee2988c14'), 'generation': 440094, 'owner': 'villa-placed-62b59d78-6c49-445b-8975-b98e79d3b468', 'batch': 'government-xl-villa-five-placed-canopy-collision-v1-20261015', 'heartbeat_at': datetime.datetime(2026, 10, 15, 7, 5, 42, 61419, tzinfo=zoneinfo.ZoneInfo(key='GMT')), 'lease_until': datetime.datetime(2026, 10, 15, 8, 5, 42, 61419, tzinfo=zoneinfo.ZoneInfo(key='GMT')), 'released_at': None, 'active': True}]}
