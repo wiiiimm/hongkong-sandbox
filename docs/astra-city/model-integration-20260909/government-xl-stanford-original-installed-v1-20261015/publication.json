@@ -1,0 +1,61 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-stanford-qualified-stage-v1-20261015/plan.json",
+  "areas": [
+    {
+      "area": "Grand Stanford unchanged combined original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-stanford-qualified-stage-v1-20261015/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-stanford-original-v1-20261015.json": null,
+    "3d-viewer/city/data/official-models/government-xl-stanford-qualified-stage-v1-20261015/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "9fa4035f31a218cec04f418b83e7545148f70e4fa966287e7b4eb67d61007c56"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-stanford-original-v1-20261015.json": "03fe43da2bde0c01c1e7d8c9bdf77eb4bfb407e4347ebdacd967295da43d9aa0",
+    "3d-viewer/city/data/official-models/government-xl-stanford-qualified-stage-v1-20261015/catalogue.json": "2a8e7d91da63fdd8565076145f99825a420d12b2889db7eba60014f44a533a07",
+    "3d-viewer/city/data/manifest.json": "724faa0d447220cefc0204a54ee568b84fe71ae1768735b584e28e627aac03fb"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "fe05286dbfbf3f2d1aaac09f8294d198e222ae13",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-stanford-original-v1-20261015.json",
+      "resolution": 5,
+      "area": "Grand Stanford original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "privateDiagnostic": "repaired"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1246,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 1
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "03fe43da2bde0c01c1e7d8c9bdf77eb4bfb407e4347ebdacd967295da43d9aa0",
+      "bytes": 595613
+    }
+  ],
+  "estimatedBases": []
+}

@@ -2,6 +2,7 @@
 import argparse,json,sys,uuid
 from pathlib import Path
 from collections import defaultdict
+from fixed_xl_source_binding import resolve_uid
 from run import ROOT,HERE,read,save,digest,connect,jobs,reservations,Jsonb,dict_row,NATIVE_RUN
 
 def ref(p):return {'path':str(p.relative_to(ROOT)),'sha256':digest(p.read_bytes())}
@@ -11,7 +12,7 @@ def main():
  doc=ROOT/'docs/astra-city/government-import'/a.batch;assert doc.exists() and not (doc/'full-xl-current-count.json').exists()
  old=read(ROOT/a.previous);assert old['nativeRun']==NATIVE_RUN and len(old['rows'])==old['counts']['total']==521
  manifest=ROOT/'3d-viewer/city/data/manifest.json';pointer_path=ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json';pointer=read(pointer_path)
- runtime=defaultdict(list);refs=[ref(ROOT/a.previous),ref(manifest),ref(pointer_path),ref(Path(__file__))]
+ runtime=defaultdict(list);refs=[ref(ROOT/a.previous),ref(manifest),ref(pointer_path),ref(Path(__file__)),ref(HERE/'fixed_xl_source_binding.py')]
  for url in read(manifest)['officialModelCatalogues']:
   path=ROOT/'3d-viewer'/url;refs.append(ref(path))
   for m in read(path)['models']:runtime[m['uid']].append((m,path.parent))
@@ -20,7 +21,8 @@ def main():
   reviews={u:(s,sha,result) for u,s,sha,result in c.execute('SELECT uid,review_state,source_sha256,result FROM astra_modelling.model_reviews WHERE snapshot_id=%s',(pointer['snapshotId'],)).fetchall()}
  rows=[]
  for prior in old['rows']:
-  uid=prior['uid'];row={**prior,'installedVerified':False,'runtimeSourceSHA256':None}
+  uid=resolve_uid(prior,[m for entries in runtime.values() for m,_ in entries]);row={**prior,'uid':uid,'installedVerified':False,'runtimeSourceSHA256':None}
+  if uid!=prior['uid']:row['previousUnmappedUid']=prior['uid']
   review=reviews.get(uid)
   if review and review[0]=='installed-verified':
    matches=[(m,folder) for m,folder in runtime[uid] if m['sha256']==review[1]];assert len(matches)==1,(uid,'Current verified source must have unique runtime asset')
@@ -31,6 +33,7 @@ def main():
    row.update(installedVerified=True,runtimeSourceSHA256=m['sha256'])
   assert not prior['installedVerified'] or row['installedVerified'],(uid,'Previously verified source was lost')
   rows.append(row)
+ assert len([r['uid'] for r in rows if r['uid'] is not None])==len({r['uid'] for r in rows if r['uid'] is not None}), 'Two fixed sources bound to one runtime UID'
  installed=sum(r['installedVerified'] for r in rows)
  count={'counts':{'total':len(rows),'installedVerified':installed,'remaining':len(rows)-installed},'manifestSHA256':ref(manifest)['sha256'],'snapshotId':pointer['snapshotId'],'nativeRun':NATIVE_RUN,'rows':rows,'qualification':'Fixed 521-source XL inventory; installed credit requires current-snapshot installed-verified review, unique matching current runtime entry and verified runtime asset bytes. New installations additionally require explicit publication/identity/placement flags; historical installed reviews retain their actual legacy flag schema without rewriting it. Previously audited byte-identical gzip-header equivalence retains its recorded source binding. Diagnostics, suppressions and auxiliary sources earn no XL installation credit.'}
  claim=reservations.claim('codex-xl-count-'+str(uuid.uuid4()),['source-count-audit:'+a.batch],batch=a.batch);assert claim['ok'],claim;lease=claim['reservation'];job=None
