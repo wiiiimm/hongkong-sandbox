@@ -1,0 +1,98 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-heritage165054-joint-private-stage-v1-20261015/plan.json",
+  "areas": [
+    {
+      "area": "Hong Kong Heritage Museum unchanged government original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-heritage165054-joint-private-stage-v1-20261015/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-heritage165054-original-v1-20261015.json": null,
+    "3d-viewer/city/data/official-models/government-xl-heritage165054-joint-private-stage-v1-20261015/catalogue.json": null,
+    "3d-viewer/city/data/tiles/1_-6.json": "fa78c4ceb3cf5b4cbb183899a4583feec5c74951f5bcef2588044d90d36aa8dd",
+    "3d-viewer/city/data/manifest.json": "12971667a74b07de90ce5ee29999f44a6bf297de84ec7916a629bc42725cd82c"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-heritage165054-original-v1-20261015.json": "21216b7acafb198484957ce604fa89555df57d7f574930f7a9a28b3b7a508fc1",
+    "3d-viewer/city/data/official-models/government-xl-heritage165054-joint-private-stage-v1-20261015/catalogue.json": "9b49b848c2b7278e8f2977dc900f0d07a54fb32e1e283843a12b87d1befcf8ad",
+    "3d-viewer/city/data/tiles/1_-6.json": "9af8a081534b62afa8f2081579ae4e9041e3903f97ca940eb0a099992cc8560c",
+    "3d-viewer/city/data/manifest.json": "eaa54bee5cd448b465b9df1667df039e977d6b45b0b3a0fa2ae67cbb7f5e59fa"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "03974e9601733b20c94340ddb483ed64fd91279d",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-heritage165054-original-v1-20261015.json",
+      "resolution": 5,
+      "area": "Hong Kong Heritage Museum unchanged government original source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "a7044ac28237e106f7d6deaeab2aeebe2a11d34ca3f05e902c195bec58511be7",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "7-SW-15D",
+            "sourceETag": "\"2ca3455-63dd138119516\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-heritage165054-authentic-terrain-acquisition-v1-20261014/terrain/TERRAIN(TB)/T36750264000106E10/T36750264000106E10.bin",
+                "sha256": "7dbf95a0aad70cdb29a119a92871c3a91fda3d70ba05cbc1ea8d4d86ae2cea61"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-heritage165054-authentic-terrain-acquisition-v1-20261014/terrain/TERRAIN(TB)/T36750264000106E10/T36750264000106E10.gltf",
+                "sha256": "298483dc632499ac949a8bd5c6befa041ceb36b0bfea40a2ee7e401053f7df79"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "6c8d8c9246583ff8214a5b79d2bbed69c51052a4b6b4de7fb6468ba788a731bd",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "7-SW-20B",
+            "sourceETag": "\"2b0ef45-63dd1478cde04\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-heritage165054-south20b-terrain-acquisition-v3-20261014/terrain/TERRAIN(TB)/T36750258000106E10/T36750258000106E10.bin",
+                "sha256": "e30d8b92e7fe55ead8bc819c223acd1550e60fc1e9875a7e9cbaf1502c72d267"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-heritage165054-south20b-terrain-acquisition-v3-20261014/terrain/TERRAIN(TB)/T36750258000106E10/T36750258000106E10.gltf",
+                "sha256": "4c1f9fba6f78aa4a4640f1896c8e599f7586991f26d572af0aa3da3884843aec"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2450,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 1
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "21216b7acafb198484957ce604fa89555df57d7f574930f7a9a28b3b7a508fc1",
+      "bytes": 1299874
+    }
+  ],
+  "estimatedBases": [
+    {
+      "uid": "landsd/128971:0",
+      "before": 7.403,
+      "after": 5.199032035191232
+    }
+  ]
+}
