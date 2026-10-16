@@ -8,6 +8,7 @@ from native_terrain_validation import validate_native_mesh
 from reviewed_terrain_changes import reviewed_changes
 from model_dependencies import stage_dependencies
 from model_priorities import stage_priorities
+from illustrative_foundations import stage_illustrative_foundations
 ROOT=pathlib.Path(__file__).resolve().parents[3]
 DOC=ROOT/'docs/astra-city/island-detail-integration'
 PUBLICATION_GUARD=nullcontext
@@ -207,7 +208,9 @@ def main():
    if b['uid'] in diagnostics:b.setdefault('terrainAudit',{}).update(diagnostics[b['uid']]);changed=True
   if changed:edits[p]=encoded(d);t['bytes']=len(edits[p])
  assert estimatesFound==set(estimateByUid),'Missing estimate update UID'
- assert found==newIds,'Source UID missing from current tiles';assert original['counts']==manifest['counts'];edits[manifestPath]=encoded(manifest)
+ assert found==newIds,'Source UID missing from current tiles';assert original['counts']==manifest['counts']
+ stage_illustrative_foundations(ROOT,plan,manifest,edits,report,load,sha,encoded)
+ edits[manifestPath]=encoded(manifest)
  report['estimatedBases']=[{'uid':u['uid'],'before':u['previousBase'],'after':u['base']} for u in estimateByUid.values()]
  for p,value in edits.items():report['before'][str(p.relative_to(ROOT))]=sha(p) if p.exists() else None;report['after'][str(p.relative_to(ROOT))]=hashlib.sha256(value).hexdigest()
  # Index used by search stores base, so update only the same guarded estimates.
