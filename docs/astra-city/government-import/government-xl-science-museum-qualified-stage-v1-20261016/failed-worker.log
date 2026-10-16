@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/science_museum_qualified_stage_v1_20261016.py", line 50, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/science_museum_qualified_stage_v1_20261016.py", line 45, in main
+    publisher=module('museum_publisher',HERE.parent/'island-detail-integration/publish.py');publisher.DOC=DOC/'publisher-dry-run';sys.argv=['publish.py',str((STAGE/'plan.json').relative_to(ROOT))];publisher.main();dry=read(publisher.DOC/'publication-plan.json');assert not dry['published'] and len(dry['illustrativeFoundations'])==1
+                                                                                                                                                                                                     ^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 160, in main
+    stage_top_level_terrain(plan,original,manifest,edits,report)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 93, in stage_top_level_terrain
+    review_top_level_surface_change(entry,old,new)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 79, in review_top_level_surface_change
+    return review_native_top_level_replacement(entry,old,new) if old_native or new_native else None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 59, in review_native_top_level_replacement
+    ref=entry.get('nativeReview');assert ref,'Native surface replacement needs a separate source review'
+                                         ^^^
+AssertionError: Native surface replacement needs a separate source review
