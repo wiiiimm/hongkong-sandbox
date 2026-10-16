@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/disney_hotel_whole_neighbour_ground_v1_20261016.py", line 71, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/disney_hotel_whole_neighbour_ground_v1_20261016.py", line 47, in main
+    fill=patches.fill_parent_only_holes(patch,parent,domain,complete_projection,sampler)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/native_patch_resolution.py", line 37, in fill_parent_only_holes
+    assert missing.intersection(protected_projection).area < 1e-6, 'missing-native-terrain-intersects-source-model'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: missing-native-terrain-intersects-source-model
