@@ -1,0 +1,11 @@
+# Disneyland Hotel original-model continuation — 16 October 2026
+
+Original workers are authorised after the migration pause. No optimisation or AI geometry modelling was started. No installation is approved by these diagnostics. Fixed XL remains 245 installed / 276 remaining / 521.
+
+All workers below completed and their exact pinned-Neon result bodies and evidence hashes were independently read back. Scope v2 accounts for all 6,664 installed detailed catalogue actors, including unused original positions and four coordinate representations. Four native actors touch the entire changed parent-cell extent. Full BASIC capture preserves all exterior triangle sequences. Private terrain preservation clears two of the five ordinary-neighbour regressions, leaving 178183, 176052 and 176914, whose footprints overlap the original hotel projection.
+
+The whole-source native regression worker checks all four nominated neighbours. 108800 and 176053 pass. Neither 169147 nor 169148 gains a newly buried triangle, but both fail the existing support requirement (support fraction zero against currently installed dependencies). The hotel is still a private candidate and is not present in that installed-support set. Next work must inspect the actual unchanged hotel/podium source interface; this result neither establishes that the podiums are unsupported in reality nor grants them acceptance. Do not bypass the guard.
+
+The hotel itself retains low-rim gap up to 1.790845 m and surface minimum -5.091634 m. These failures, the remaining ordinary neighbours and the precise source-identity extent still require resolution. All government building bytes, pose and scale are unchanged. Numerical overlap follows the existing terrain validation policy; full physical acceptance and publication remain separate.
+
+Failed native scope v1 used a mismatched hardcoded capture UID. Failed preservation v1 lacked exact rectangle coverage; v2 filled source-disjoint holes but failed bare numerical overlap tolerance. Those producers and logs remain archived. V3 uses the established numerical-overlap metadata path, not modified validation thresholds. Do not rerun successful or failed workers unchanged. No worker remains running at this checkpoint.
