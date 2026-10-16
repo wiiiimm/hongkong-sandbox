@@ -1,0 +1,5 @@
+Original-source checks resumed and independently verified against Neon completion records and every evidence hash. No optimisation work or source geometry changes.
+
+The 66-source sheet search nominates one actual additional original source (Chief Executive Office); it supplies only 0.028104 m² of missing footprint. Remaining West Wing footprint is 997.929476 m². Its own target coverage is 94.2299%, below the 95% per-target assembly guard. The combined complex union passing 95% does not clear this hold. Terrain projection coverage does not prove open space or identity. Retain identity coverage/overlap and physical acceptance checks; no permanent rejection.
+
+Frozen XL count remains 250 installed / 271 remaining (521 total). No installation credit for this checkpoint. Next work needs evidence of source/target semantics or other original components; do not repeat the unchanged sheet search. V1 ground worker failed on NumPy plotting API; V2 completed but V3 fixes plot-only viewport clipping. No asset is edited by that clipping.
