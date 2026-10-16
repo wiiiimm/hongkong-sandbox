@@ -1,0 +1,32 @@
+{"models":1,"errors":0,"groundContact":0}
+file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-assets.js:16
+ if(data?.schemaVersion!==1||!['official-model-catalogue','staged-official-model-catalogue'].includes(data.kind)||data.crs!=='EPSG:2326'||data.verticalDatum!=='Hong Kong Principal Datum'||JSON.stringify(data.rootTranslation)!=='[-834500,0,816500]'||!Array.isArray(data.models)||!data.models.length||data.models.length>2048||data.counts?.packedModels!==data.models.length)throw new Error('Invalid compact model catalogue');
+                                                                                                                                                                                                                                                                                                                                                                                         ^
+
+Error: Invalid compact model catalogue
+    at prepareModelCatalogue (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-assets.js:16:378)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/building-batch/validate_candidates.mjs:35:45
+
+Node.js v24.18.0
+{"forms":4,"flagged":0,"clearPatches":0,"clearModels":0}
+{"blocked":0,"resolved":0,"rows":[]}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua272788_current_physical_v1_20261017.py", line 91, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua272788_current_physical_v1_20261017.py", line 89, in main
+    try:owned()
+        ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/aqua272788_current_physical_v1_20261017.py", line 68, in owned
+    save(DOC/'foundation.json',dict(rows=[foundation],modelGeometryChanges=0));metrics=read(DOC/'metrics.json');validation=read(DOC/'validation.json');policy=module('aqua272788_current_policy','acceptance-policy.py');reasons=[]
+                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/run.py", line 25, in read
+    raw = Path(path).read_bytes()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1021, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-aqua272788-current-physical-v1-20261017/validation.json'
