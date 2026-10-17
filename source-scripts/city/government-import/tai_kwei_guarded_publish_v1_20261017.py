@@ -32,7 +32,7 @@ def evidence():
  report=stage.read(BROWSER/'staged-browser.json');assert report['passed'] and not report['errors']
  assert len([v for v in report['views']if 'time'in v])==4
  failed=[v for v in report['views']if v.get('phase')=='failed-download'];assert len(failed)==1 and failed[0]['fallbackRetained']
- finite=stage.read(stage.folder('complete-finite-v1')/'summary.json');assert finite['complete'] and finite['ownAllStrict'] and finite['neighbourNoIntroducedFailures']
+ finite=stage.read(stage.folder('complete-finite-v2')/'summary.json');assert finite['complete'] and finite['ownAllStrict'] and finite['neighbourNoIntroducedFailures']
  uids={r['uid']for r in finite['rows']};assert len(uids)==66
  return {prefix+uid for prefix in ['building:','terrain-patch:']for uid in uids}
 
