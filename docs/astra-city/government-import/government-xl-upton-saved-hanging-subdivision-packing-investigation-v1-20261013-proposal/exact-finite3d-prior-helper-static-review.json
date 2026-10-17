@@ -1,0 +1,12 @@
+{
+  "closedRationalAllDimensionEquality": true,
+  "exactFunctionSource": "def segment_parameter(p,a,b):\n # Exact closed finite membership, including zero-length descriptors.\n d=tuple(b[i]-a[i]for i in range(len(a)));axes=[i for i,v in enumerate(d)if v]\n if not axes:return F(0)if p==a else None\n t=(p[axes[0]]-a[axes[0]])/d[axes[0]]\n return t if 0<=t<=1 and all(p[i]==a[i]+t*d[i]for i in range(len(a)))else None",
+  "function": "segment_parameter",
+  "functionSourceSHA256": "b2dd0f6990d459a1d9498481f591207d625a0656b87706defff7806e39b6bae7",
+  "helper": {
+    "path": "source-scripts/city/government-import/upton_saved_uncovered_packed_ancestor_boundary_attribution_draft_v1_20261013.py",
+    "sha256": "19352b363fd5a9d840d9dde8eb986285ddeaf750fef61e33060195a5b268bef9"
+  },
+  "noRuntimeOrFixtureExecution": true,
+  "zeroLengthExactPointReturns0ExcludedByStrictInterior": true
+}

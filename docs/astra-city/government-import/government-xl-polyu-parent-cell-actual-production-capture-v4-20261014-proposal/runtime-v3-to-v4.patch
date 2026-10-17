@@ -1,0 +1,36 @@
+--- source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs
++++ source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v4_draft_20261014.mjs
+@@ -3,13 +3,14 @@
+ import {gunzipSync} from 'node:zlib';
+ import {createHash} from 'node:crypto';
+ import assert from 'node:assert/strict';
++import {verifyProjection} from './polyu_compact_runtime_mesh_projection_v1_draft_20261014.mjs';
+ import {snapshotModuleClosure,verifyModuleClosure} from './exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+ import {writeExactJsonGzip} from './exact_incremental_json_gzip_v1_20261012.mjs';
+ const root=new URL('../../../',import.meta.url),doc=process.argv[2],hashes={};assert(doc&&!doc.endsWith('/'));
+ const sha=b=>createHash('sha256').update(b).digest('hex');
+ function raw(p){const u=new URL(p,root);assert(u.pathname.startsWith(root.pathname));const b=readFileSync(u),h=sha(b);if(hashes[p])assert.equal(hashes[p],h,p);hashes[p]=h;return b;}
+ function read(p){const b=raw(p);return JSON.parse(p.endsWith('.gz')?gunzipSync(b):b);}
+-const input=read(doc+'/input.json.gz');assert.equal(input.schema,'polyu-parent-cell-actual-production-capture-v3');assert.equal(input.physicalAccepted,false);
++const input=read(doc+'/input.json.gz');assert.equal(input.schema,'polyu-parent-cell-actual-production-capture-v4');assert.equal(input.physicalAccepted,false);
+ for(const q of input.allInputRefs)assert.equal(sha(raw(q.path)),q.sha256,q.path);
+ const closure=snapshotModuleClosure(import.meta.url,root);assert(closure.computedImportsRejected&&closure.completeAuditedLiteralImportClosure);assert.equal(closure.unsupportedDynamicImports,0);
+ for(const[p,h]of Object.entries(closure.inputHashes))assert.equal(sha(raw(p)),h,p);
+@@ -20,12 +21,14 @@
+ const manifest=read('3d-viewer/city/data/manifest.json');assert.equal(hashes['3d-viewer/city/data/manifest.json'],current);assert.equal(input.currentManifestSHA256,current);
+ const base=read('3d-viewer/city/data/terrain.json'),patches=manifest.terrainPatches.map(e=>read('3d-viewer/'+e.url));
+ const old=read(input.previousPrivateCandidate.path);assert.equal(hashes[input.previousPrivateCandidate.path],input.previousPrivateCandidate.sha256);
+-const nominee=read(input.newNomination.path);assert.equal(nominee.schema,'private-source-plane-preserving-five-current-parent-mask-parent-cell-nomination-v4');assert.equal(hashes[input.newNomination.path],input.newNomination.sha256);assert(!nominee.physicalAccepted&&!nominee.installationApproved);
++assert.equal(hashes[input.newNomination.path],input.newNomination.sha256); // compressed full provenance remains hashed, never parsed
++const nominee=read(input.runtimeProjection.path);assert.equal(hashes[input.runtimeProjection.path],input.runtimeProjection.sha256);
++verifyProjection(nominee,input.newNomination,input.completeMeshBinding,input.explicitPreservationCounts);
++assert.deepEqual(nominee.preservationCounts,{unchangedPriorFacets:8011,unchangedOldMappings:3214,unchangedPrefixFacets:1485,retainedPriorPositionVertices:input.explicitPreservationCounts.retainedPriorPositionVertices});
+ const candidate=structuredClone(old);candidate.id='government-native-polyu-five-current-parent-masks-private';candidate.nativeMesh=structuredClone(nominee.newNativeMesh);
+ assert.equal(candidate.nativeMesh.index.length/3,input.completeNewNativeFacets);assert.equal(candidate.nativeMesh.position.length/3,input.completeNewPositionVertices);
+ assert.deepEqual(candidate.nativeMesh.position.slice(0,old.nativeMesh.position.length),old.nativeMesh.position);
+-assert.equal(nominee.all8011PreviousPackedFacetsUnchanged,true);assert.equal(nominee.all3214OldMappingsVerbatim,true);
+-assert.equal(candidate.nativeMesh.index.length,nominee.candidateFaceProvenance.length*3);
++assert.equal(candidate.nativeMesh.index.length,nominee.meshBinding.completeIndexedFaces*3);
+ candidate.nativeMesh.source={kind:'private-authenticated-V4-saved-current-parent-own-plane-cell-repacking',completedNominationJob:input.completedNominationJob,nominationReference:input.newNomination,historicalPrivateCandidateReference:input.previousPrivateCandidate,allPreviousNegativeAndFullScopeGatesRemain:true,physicalAccepted:false};
+ assert(!candidate.nativeMesh.sourceOverlap&&!candidate.nativeMesh.source.numericalCoverageGap);assert(!patches.some(p=>p.id===candidate.id));
+ assert.deepEqual(candidate.meta.georef,old.meta.georef);assert.deepEqual(candidate.coarseCells,[521,420,524,422]);

@@ -1,0 +1,9 @@
+# Ko Fung original tower and podium installed
+
+Produced by Codex on10October2026 for HKS-203, installation commit `9d50640c`. The original Hong Kong Lands Department tower79097 and podium110480 retain their compressed bytes, indexed attributes, provider roots, world pose and all15,561faces. No historical Lantau reference map or AI geometry modelling was used; procedural windows are disabled.
+
+Every one of666parts is accounted:547 structural components independently rooted through603 actual source contacts,118 original open-back façade details with complete continuous authored-edge attachment to real rooted hosts, and one small slanted visual triangle with two distinct exact top-edge mounts. Visual components grant neither roots nor structural bridges. Near-vertical raw numerical minima remain saved; exact finite whole-source/rendered proofs resolve them under the unchanged−0.5m clearance limit without excluding any source facet.
+
+Both complete identities/foundations, all26 surrounding forms, retained landsd/274320:0 and its entire original terrain, runtime and sampler pass. Eight original desktop/mobile day/night views, two deliberate503retries and four retained-own views passed separately in final stagingv3 and live. The earlier failed v1/v2 harness runs remain documented; final mobile retries test the actual podium before its dependent tower.
+
+Verified Neon receipt `70a0736d37ac4ff5515453358933eecb0b2932391240d1b78b7abde6cea55246`, snapshot `14f8ffa92c7a1768`. Its captured counts are210fixedXLinstalled/311remaining and4,474enhanced source forms; later installations supersede these totals. Only tower79097 is fixedXL; podium110480 is auxiliary. Follow `result.json`, `neon-sync.json` and the explicit source/stage/live closure documents; never turn a diagnostic or auxiliary source count into additional XL credit.

@@ -1,0 +1,25 @@
+--- source-scripts/city/government-import/upton_three_original_complete_current_runtime_capture_draft_v2_20261012.py
++++ source-scripts/city/government-import/upton_three_original_complete_current_runtime_capture_draft_v2_20261012.py
+@@ -27,8 +27,12 @@
+  return rows
+ def verified_source_certificate(path,expected_sha):
+  certificate=read(path);assert ref(path)['sha256']==expected_sha
+- required=dict(reviewer='ROOT',independentlyVerified=True,sourceIdentificationOnly=True,identityAccepted=True,currentManifestSHA256=MANIFEST_SHA,currentNativeCount=6649,physicalAccepted=False,installationApproved=False,canStartTerrainWork=False,preservedProperInteriorCrossings=23)
++ required=dict(reviewer='ROOT',independentlyVerified=True,sourceIdentificationOnly=True,identityAccepted=True,currentManifestSHA256=MANIFEST_SHA,currentNativeCount=6649,physicalAccepted=False,installationApproved=False,canStartTerrainWork=False,all23ProperOriginalCrossingsPreserved=True)
+  for key,value in required.items():assert key in certificate and type(certificate[key])is type(value) and certificate[key]==value, 'ROOT source certificate contract: '+key
++ source_id=B/'government-xl-upton12728-12662-current-source-identification-rebind-v1-20261011/source-identification-only.json'
++ source_ref=ref(source_id);assert any(b['originalEvidenceRef']==source_ref and b['actualVerifiedFile']==source_ref for b in certificate['bindings']), 'Actual current source identity missing from ROOT literal closure'
++ identified=read(source_id);assert identified['identityAccepted']is True and identified['physicalAccepted']is False and identified['installationApproved']is False
++ assert len(identified['identityContext']['complete23ProperInteriorCrossingsRetained'])==23
+  return ref(path)
+ def verified_plan():
+  plan=read(PLAN);assert plan['expectedManifestSHA256']==MANIFEST_SHA and plan['expectedNativeCount']==6649
+@@ -50,7 +54,7 @@
+   e=ref(p);assert e['path']not in pins or pins[e['path']]==e['sha256'];pins[e['path']]=e['sha256']
+  manifest=ROOT/'3d-viewer/city/data/manifest.json';start=ref(manifest);assert start['sha256']==MANIFEST_SHA;current=read(manifest);catalogues=[ROOT/'3d-viewer'/x for x in current['officialModelCatalogues']];terrain=[ROOT/'3d-viewer'/x['url']for x in current['terrainPatches']]
+  walker=module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','reviewed_current_source_closure');code=set();walker.local_imports(Path(__file__),code);walker.local_imports(FREEZER,code)
+- for p in list(code)+INPUTS+[PLAN,cert,ATTR,CLOSURE,HERE/'literal_production_module_dependency_closure_20261010.mjs',HERE/'actual_float32_model_matrix_bounds_20261011.mjs',HERE/'acceptance-metrics.mjs',HERE/'xl-final-script-pass.py',manifest,ROOT/'3d-viewer/city/data/terrain.json']+catalogues+terrain:pin(p)
++ for p in list(code)+INPUTS+[PLAN,cert,B/'government-xl-upton12728-12662-current-source-identification-rebind-v1-20261011/source-identification-only.json',ATTR,CLOSURE,HERE/'literal_production_module_dependency_closure_20261010.mjs',HERE/'actual_float32_model_matrix_bounds_20261011.mjs',HERE/'acceptance-metrics.mjs',HERE/'xl-final-script-pass.py',manifest,ROOT/'3d-viewer/city/data/terrain.json']+catalogues+terrain:pin(p)
+  installed={}
+  for cat in catalogues:
+   for e in read(cat)['models']:assert e['uid']not in installed;installed[e['uid']]=(cat,e)

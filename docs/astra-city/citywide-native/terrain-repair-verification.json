@@ -1,0 +1,174 @@
+{
+  "runId": "0a8235777721aadedb888af5bebf62403f0b6bcd71cbbea3879d4bb42b541054",
+  "expected": 284,
+  "cached": 284,
+  "pending": 0,
+  "jobs": {},
+  "outcomes": {
+    "source-empty": 101,
+    "prepared": 183
+  },
+  "qualification": "Mechanical preparation only; not publication or architectural acceptance",
+  "issue": "HKS-222",
+  "originalRunId": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+  "repairRunId": "0a8235777721aadedb888af5bebf62403f0b6bcd71cbbea3879d4bb42b541054",
+  "counts": {
+    "emptyTerrainModels": 101,
+    "failedTerrainModels": 0,
+    "sourceTerrainModels": 284,
+    "preparedTerrainModels": 183
+  },
+  "aiCalls": 0,
+  "published": false,
+  "checkedAt": "2026-09-09T05:12:59.827179+00:00",
+  "supersedesRepairRun": "3f1d8ae1fe9dc527ec21c5bc932ac3d46b816d2ba50bc8fd52f83e4bb21145c7",
+  "tests": {
+    "command": "python -m unittest discover -s source-scripts/city/citywide-native -p test_terrain_repair.py -v",
+    "passed": 9,
+    "seconds": 0.12
+  },
+  "sourceGeometryPreserved": {
+    "vertices": 14430834,
+    "triangles": 8316402,
+    "positionAndIndexBytesUnchanged": true,
+    "addedVerticalScale": 1
+  },
+  "repairActionCounts": {
+    "source-trs-to-equivalent-matrix": 47,
+    "omit-photograph-uv": 189,
+    "omit-material-only-extensions": 47,
+    "omit-photographs-and-texture-references": 183,
+    "regenerate-shading-normals": 136
+  },
+  "r2ArtifactCount": 284,
+  "r2ArtifactBytes": 274795963,
+  "everyR2ArtifactUploadedAndReadBackBeforeNeonFinish": true,
+  "governmentPayloadDownloads": 0,
+  "sourceUnitScaleExample": {
+    "sheet": "2-SE-3C",
+    "sourceEntry": "TERRAIN(TB)/T25500408000106E10/T25500408000106E10.gltf",
+    "state": "prepared-geometry-only",
+    "sourceHashes": {
+      "TERRAIN(TB)/T25500408000106E10/T25500408000106E10.bin": "2f38de06bf14f744cc379476a1155df30c097beca7d85533cfe616147b33d9d1",
+      "TERRAIN(TB)/T25500408000106E10/T25500408000106E10.gltf": "f9999c6654b82753f66c0fb203c74ff5a604e36a5e1a19354cf7a1144872ffa2"
+    },
+    "geometryProof": {
+      "triangles": 39921,
+      "primitives": [
+        {
+          "mesh": 0,
+          "vertices": 79640,
+          "primitive": 0,
+          "triangles": 39921,
+          "indexAccessor": 3,
+          "indexBytesSHA256": "defee22ca250b86f09f4f2636c327fab03f28349c9698236332699ea085ea0b2",
+          "positionAccessor": 0,
+          "positionBytesSHA256": "42374d2a487f736226474fe5d3ccec99afed671b2869f12a866ef29c3b4a28bc",
+          "positionAndIndexAccessorsUnchanged": true
+        }
+      ],
+      "worldBounds": [
+        [
+          -8999.999989608652,
+          0.9929285049438434,
+          -24900.031245592865
+        ],
+        [
+          -8250.000010391348,
+          38.21738054378761,
+          -24300.031262218952
+        ]
+      ],
+      "sourceMeshes": 1,
+      "verticalScale": 1,
+      "rootTranslation": [
+        -834500.0,
+        0.0,
+        816500.0
+      ],
+      "sourcePrimitives": 1,
+      "reachablePrimitives": 1,
+      "sourcePositionsAndIndicesPreserved": true
+    },
+    "repairActions": [
+      {
+        "node": 0,
+        "order": "T * R * S",
+        "action": "source-trs-to-equivalent-matrix",
+        "addedScale": 1,
+        "quaternion": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "sourceScale": [
+          0.02539999969303608,
+          0.02539999969303608,
+          0.02539999969303608
+        ],
+        "translation": [
+          825875.0,
+          0.9929275512695312,
+          -841100.0
+        ]
+      },
+      {
+        "mesh": 0,
+        "action": "omit-photograph-uv",
+        "attribute": "TEXCOORD_0",
+        "primitive": 0
+      },
+      {
+        "action": "omit-material-only-extensions",
+        "extensions": [
+          "KHR_materials_ior",
+          "KHR_materials_specular"
+        ]
+      },
+      {
+        "action": "omit-photographs-and-texture-references"
+      }
+    ],
+    "artifacts": [
+      {
+        "key": "astra-modelling/objects/sha256/77/77964a292c979688ae321a99f9a4cf317b9f12401de72bb0c9da95251cdc42c5",
+        "kind": "terrain-repair-sheet",
+        "bytes": 1232093,
+        "sha256": "77964a292c979688ae321a99f9a4cf317b9f12401de72bb0c9da95251cdc42c5"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "source-scripts/city/citywide-native/local/terrain-repair/runs/0a8235777721aadedb888af5bebf62403f0b6bcd71cbbea3879d4bb42b541054/summary.json",
+      "sha256": "c55dd3163a1ea134caf8f83fb42c1990bee0e50ae3746a0c17b7e3bc8d58f148",
+      "bytes": 737
+    },
+    {
+      "path": "source-scripts/city/citywide-native/local/terrain-repair/runs/0a8235777721aadedb888af5bebf62403f0b6bcd71cbbea3879d4bb42b541054/results.json.gz",
+      "sha256": "3b4d691bc4edd243e9d187253a8476cb6b2ca48c178d596fc21d55804465ba80",
+      "bytes": 150026
+    },
+    {
+      "path": "source-scripts/city/citywide-native/terrain_repair.py",
+      "sha256": "cd384da3a6cbb3abbeccb40e02749881d4177b7a28a22c91695758bc3bf95c24",
+      "bytes": 11620
+    },
+    {
+      "path": "source-scripts/city/citywide-native/repair_terrain_run.py",
+      "sha256": "08ae962a4a25473d2e62e90b54dd861ae018fe71f1a2a6e80f336516a81aaf17",
+      "bytes": 10373
+    }
+  ],
+  "implementationCommits": [
+    "da2b4bc5",
+    "4c1bd7d2"
+  ],
+  "limits": [
+    "Prepared geometry is not published terrain.",
+    "101 zero-primitive source files are explicit source-empty, not reconstructed terrain.",
+    "Source vertex/index bytes are unchanged; shading data and equivalent transform representation are derived.",
+    "Region-level visual and gameplay acceptance are separate work."
+  ]
+}

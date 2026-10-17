@@ -1,0 +1,25 @@
+# Nam Fung tower79099: smallest unchanged-source finite/role follow-up
+
+Draft only; ROOT reviews code and pins before import/current preflight or supervised numerical execution. This is original acquisition work, not optimisation or approval.
+
+Use completed exact current capture ec9dcbc5 (result498c1512) and completed lowerjoin ee2d75ce (resultd3bdc58e), all743/772 literal references and fresh current manifest2dde/native6649/source/native-membership/protected207 review fences. Reserve canonical tower79099 and surviving BASIC45779 only, as prior capture. Original government podium45779 remains identity-held and is not imported or required.
+
+Reuse original13061-face world/census569+75 and three captured literal/explicitF32 world streams with full unused POSITION bindings. Retain original labels separately from each arithmetic stream's actual-zero/incidence census already completed in lowerjoin. Reuse full818 drawn ground from literal+BASIC union broadphase: capture proves all owned arithmetic positions within its declared broadphase. This is not universal GPU/camera visibility proof.
+
+New work is complete owned finite-ground clearance, 256-face atomic checkpoints, using existing exact_original_face_conservative_clearance_v5 and exact_original_triangle_pair_column_gap. Coarse lower<=0 triggers complete finite-column min/max refinement over every existing closed projected AABB candidate. Preserve zero/vertical/oblique source and terrain triangles. Ordinary remains >=−1/2m, strict>0 separately. Missing coverage/empty covered witnesses fail honestly, not deletion or threshold change. Full whole-world+ground tuple equality alone allows memoisation. No unchanged contacts/prisms/BASIC finite/grade/cap recomputation.
+
+Reconcile only explicit source-bound obligation metadata per every569 original body: complete original face IDs, ordinary/coverage/strict results, indices of saved finite BASIC contacts, saved lower/prism facets. Body0 is an unqualified lower-interface source interpretation candidate; all568 other roles remain unqualified independently. No automatic interior ban, all-faces-strict, global watertightness or support-from-contact predicate. Existing mainbody1601-face geometry extends through coarse BASIC roofY20 in ROOT-inspected source context; no engineering joint is established. Saved source/BASIC202 contacts and717 prism fragments remain exact raw evidence.
+
+Carrier context reuses109 qualified grade-wall→whole-exposed-edge→strict-cap paths and107 strict upward top facets, preserving all325 coarse ordinary-unproved BASIC face records. This is availability-only and cannot approve whole BASIC or tower root. Lippo named UID/source/1.5m depth/installation certificate is NOT transferred. Existing ordinary support/contact policies remain potential later qualification paths after genuine source-specific interpretation and full actor gates, not new categorical exclusions.
+
+The saved source context submits every13061 source+432 BASIC facet. ROOT inspected4 actual1800×1500 exports. The lower Y26 axes do not guarantee pixel clipping of tall triangles; occlusion/transparent layering is not visibility proof. Official LandsD consent page5 corroborates ground-floor commercial premises in Harbour Heights/Nam Fung Court; it does not measure the current lower interface. Preserve this bounded primary-source limit.
+
+Installation gates still open: actual independently qualified mainbody lower join and support; every569 source structural/terminal role; unchanged fresh raw+owned identity/current catalogue and source registration; full foundation/foreign forms and actual all6649 native bounds+finite regressions where nominated; loader1/noexceptions/raw concerns and relevant protected neighbour guards. The fresh capture's runtime/form/raw diagnostics remain provenance, not transferred physical approval. This draft records missing gates rather than claiming them or redoing finished arithmetic.
+
+Per-chunk current inputs/code/source/module/terrain/protected state are fenced; complete prior literal refs are verified at start/end and freezer. New numerical outputs/chunks+exact proposal/source views/primary files are all frozen. All stdout lives in source-scripts/city/government-import/execution-logs outside wholesale DOC/LOCAL/proposal folders. Caller/freezer remain sourceOnly with root/physical/installation/native-clearance/role/foreign acceptance false; no review writes.
+
+No new numerical kernel or policy is introduced, so validation is existing unchanged coarse+paired kernel plus saved-data schema/pin validation; do not add tests mirroring this wrapper. Any execution/schema failure is preserved before a distinct ROOT-reviewed correction.
+
+Proposed command after ROOT fullread approval:
+PYTHONPATH=/usr/lib/python3/dist-packages /tmp/astra-city-venv/bin/python source-scripts/city/government-import/nam_fung79099_actual_basic45779_full_owned_finite_role_context_draft_v1_20261012.py --preflight-only
+Then same caller without --preflight-only under its canonical supervisor; stdout external.

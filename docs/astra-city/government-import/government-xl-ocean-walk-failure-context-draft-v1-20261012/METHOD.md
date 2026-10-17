@@ -1,0 +1,19 @@
+Ocean Walk — completed99-facet failure context draft
+
+ROOT review required before execution. This caller makes source-context plots and closes existing records only. It computes no new finite/contact/ground/root certificate and proposes no source role, source modification or current approval.
+
+Inputs are exact capture736c7aff…/grade4f3a1119… completed receipts with their whole byte-bound streams, raw finite proofs, genuine grade contacts, component census and whole-edge/cap certificates. The full original-ID mapping is adjacent in `all99-source-id-failure-breakdown.json`; helper-local IDs are not presented as original IDs.
+
+All four modes have the same ID disposition:15484 original real facets,306 nonzero-shared-edge components,0zero faces,99failed facets=97exact steep +2downward/sloping non-steep6034/6035. Source component0 has10425 full facets and85failures(83steep+2nonsteep); component117 has8full facets/all8failed; components227/228/268/269 each have2full facets with1/2/1/2failures. These are source geometry observations, not engineering parts/functions.
+
+Failed-steep genuine grade contacts:94positive-dimensional contacts across85source faces. Twelve original source faces have neither a positive grade contact nor a positive recorded source-vertex exposure:5366,5367,5946,5947,6038,6039,12928,12929,14307,14325,14326,14327. Their negatives remain unchanged. Downward/sloping6034/6035 are excluded from the wall-path graph and remain failed/uncredited.
+
+The97returned wall-path records contain83nonempty original edge paths and14empty paths. All31raw all-interface flags include14vacuous cases, so there are17nonempty whole-exposed-edge paths. There are59whole strict terminal-cap records. Only15nonempty paths combine genuine grade, a whole strictly clear terminal cap and an exposed whole edge at every recorded interface:15,4723,6057,6058,6066,6069,6120,6121,12921,12924,13425,13429,13876,13877,14302. Even those15 receive no source role/root/whole-model qualification here. The original helper's `allAffectedHavePaths=False` remains preserved.
+
+Three actual2400×1800PNG exports are proposed: complete15484 source/all30current ground context; complete six affected source components; complete10425-face mainbody plus explicitly labelled local closed-AABB context of excluded6034/6035. All input triangles remain unchanged. Provider-original diagrams are labelled rather than claimed as GPU screenshots. Every failure's exact coordinates in all four existing streams and its full recorded finite/grade/path facts are preserved in the context JSON. No scene actor is hidden or changed; these are explanatory source diagrams, not browser approval.
+
+Current2dde manifest and all captured source/module/catalogue/terrain hashes remain strict. Canonical30 resources from the capture and existing active-child reservations supervisor are reused. Exact completed input Neon rows are compared read-only. Output is a separate immutable diagnostic/freezer job with sourceGeometryChanges=0, terrainGeometryChanges=0, currentAcceptance=False and no model-review write. The six historical BASIC regressions and eleven unresolved original interfaces remain verbatim. No future stage/live/identity/physical acceptance is part of this scope.
+
+Executable draft: `source-scripts/city/government-import/xl-ocean-walk-81743-failed99-original-ground-context-v1-20261012.py`.
+
+ROOT can inspect these complete authored surfaces and decide the next narrow source interpretation or genuinely new terrain evidence. In particular,6034/6035 must be seen as their actual downward/sloping surfaces; the twelve no-grade/no-exposure facets cannot be relabelled exposed walls. Detached components117/227/228/268/269 need their own actual source placement account. Existing supplier interfaces are not invented as bridges, and no distance/clearance limit changes.

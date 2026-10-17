@@ -1,0 +1,11 @@
+# Park Haven and HKDI original government installation
+
+Three original model forms are installed: Park Haven podium and upper body, and Hong Kong Design Institute Block B. All 22,766 original source faces and deployed asset bytes are SHA256 verified. No AI building geometry modelling or procedural windows were added. AI was used for code and evidence interpretation.
+
+Immutable Neon job `d41139c888fe0090378b7012b0cbb27c764e221b424656a2e0bb201947f6687b`, snapshot `ee1a41d61d2de0fe`, manifest `3a2f56f7980954ff3493aba5e8a015ca79153f81da55bb580e26bf5b2cdb2ee8`. The fixed 521 XL list has 221 installed and 300 remaining; the XL delta is computed from the full list rather than inferred from three model forms. The final progress export is bound in the receipt.
+
+Both complete current source and terrain-role proofs were replayed before publication. Park Haven uses a checked original terrain replacement and retains its native model. HKDI retains its current terrain and native support. Legacy native diagnostics are preserved without claiming whole-native reacceptance. Twenty live desktop/mobile day/night views, including separate retained model views, and three failed-load retry tests passed before installed credit.
+
+Root independently closed 8,491 frozen reference versions across 97,629,482 bytes and inspected the actual live screenshots listed in the adjacent certificate. Mobile controls and foreground buildings occlude portions of some wide views. Original Park Haven geometry is dark at night against illuminated procedural neighbours. Restricted failed-download tests intentionally show local-load notices for other candidates. Screenshots captured before final progress export show statistics temporarily unavailable; the final generated progress is separately byte-bound. These views do not certify every architectural detail or whole-region mobile performance.
+
+The first publication attempt rolled its manifest back after the old development server stopped. The next attempts stopped before application on existing terrain and catalogue guards. The unreferenced original catalogue directories were archived intact with exact before/after SHA inventories. The successful fourth attempt preserved all source geometry and validation thresholds. All failed attempts and orphan assets remain bound evidence; none grants installed credit.

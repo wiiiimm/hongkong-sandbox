@@ -1,0 +1,5 @@
+# Banyan Garden Tower 3 — verified original installation
+
+Codex, 6 October 2026. Banyan Garden Tower 3 (landsd/78828:0) is installed with unchanged original government geometry. Verified Neon job `028241fa765ef902182f5e4588aa11f2b0189230b9f1bb6996a5920ed07ac0c3`, installed snapshot `7b957de2b1bb8312`, source hashes `{'landsd/78828:0': '8303c21cc40d8df5ba2828e52e1e67bc399cca46185193f6aaa28646bd13347e'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+30 new XL installations from44/308: **74 installed / 278 not installed**, 70 further installations required. Public counters: 346,108 total source forms, 4,423 enhanced, 4,409 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

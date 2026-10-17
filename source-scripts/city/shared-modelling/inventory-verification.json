@@ -1,0 +1,52 @@
+{
+  "verified_at": "2026-09-08T08:40:31.569271+00:00",
+  "source": "source-scripts/city/building-batch/local/buildings.sqlite",
+  "branch": "astra-modelling",
+  "offline_tests": 7,
+  "full_local_roundtrip_seconds": 24.06,
+  "live_fixture": {
+    "snapshot_id": "ef91ba12bf52ce8055851022219a87d6cc101867316c4bc542647fd1ed5aa0ce",
+    "row_count": 6,
+    "import_export_verify_reuse_lookup": true
+  },
+  "stages": {
+    "import": {
+      "snapshot_id": "f26ca1cad7e19b984c78d12877a8b35cca7af8f434ab1c7ec8756983ccdc0008",
+      "row_count": 749546,
+      "reused": false,
+      "seconds": 227.63
+    },
+    "export": {
+      "verified": true,
+      "seconds": 167.9,
+      "sqlite_bytes": 605478912
+    },
+    "verify_source": {
+      "verified": true,
+      "seconds": 157.94
+    },
+    "repeat_import": {
+      "reused": true,
+      "seconds": 158.23
+    }
+  },
+  "snapshot_id": "f26ca1cad7e19b984c78d12877a8b35cca7af8f434ab1c7ec8756983ccdc0008",
+  "row_count": 749546,
+  "historical_jobs_queued": false,
+  "source_sqlite_modified": false,
+  "stream_batch_rows": 1000,
+  "remote_storage_bytes_including_indexes": {
+    "inventory_rows": 1028530176,
+    "inventory_tables": 32768,
+    "inventory_snapshots": 32768
+  },
+  "source_inventory_counts": {
+    "buildings": 346115,
+    "footprint_bounds": 346115,
+    "batch_jobs": 29760,
+    "inputs": 2663,
+    "models": 2195,
+    "sections": 132,
+    "logical_tables": 13
+  }
+}

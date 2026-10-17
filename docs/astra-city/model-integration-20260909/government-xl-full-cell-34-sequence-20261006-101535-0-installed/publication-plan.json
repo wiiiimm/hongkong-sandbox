@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-full-cell-34-sequence-20261006-101535-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "Kowloon Chest Clinic original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-full-cell-34-sequence-20261006-101535-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-101535-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-full-cell-34-sequence-20261006-101535-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "25c3fb61db00c88a9a0fb5e7329050747bc19e6f85cce7097328a92d21047bf0"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-101535-0.json": "4a68cb1d867665e683b131fc6774da787e878a9c2be5711e8eed8a7c4568b36c",
+    "3d-viewer/city/data/official-models/government-xl-full-cell-34-sequence-20261006-101535-0-installed/catalogue.json": "460a66962c529dc55c26dd0eb903392b040cebdcf0ce15aec84ab95e0c57b671",
+    "3d-viewer/city/data/manifest.json": "d67a04e0210c2f6d5054d233546d29c68a597db3d3ba2c7d76b7a4a0e0d4fa4e"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "3e8ab547538204fa4c73ac86d237a64a1928c8ac",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-101535-0.json",
+      "resolution": 5,
+      "area": "Kowloon Chest Clinic unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "50c860f0c3d6abfe8c703160d40c0a18ab9b1b7f32c0f33b0e5086941da33d6c",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-20A",
+            "sourceETag": "\"1438b33-655fee90065d3\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-full-cell-34-sequence-20261006-101535-0/sheets/11-NW-20A/terrain/TERRAIN(TB)/T36000198000106E12/T36000198000106E12.bin",
+                "sha256": "528e2bd43273b5f38d2ef1ee3a9fea23043a59a87cec0824cceb02b5b753eaa1"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-full-cell-34-sequence-20261006-101535-0/sheets/11-NW-20A/terrain/TERRAIN(TB)/T36000198000106E12/T36000198000106E12.gltf",
+                "sha256": "5d93a56d424d309a256f872f0e55752ec49524ef10c723cc2c802e0d9b11b37b"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "4a68cb1d867665e683b131fc6774da787e878a9c2be5711e8eed8a7c4568b36c",
+      "bytes": 571347
+    }
+  ],
+  "estimatedBases": []
+}

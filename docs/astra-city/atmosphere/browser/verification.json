@@ -1,0 +1,902 @@
+{
+  "testedAt": "2026-09-06T19:58:25.747Z",
+  "checks": [
+    "Real scene fog reaches zero in clear weather; intentional weather fog is retained; same-camera Lantau screenshots at 0/50/100",
+    "Stargaze slider remains enabled and reveals more catalogue stars without changing time, astronomy or camera",
+    "Live HKO visibility directly drives fog; independent EPD AQHI is shown; manual override and Stargaze preserve readings and saved haze",
+    "Zero and non-zero settings persist through real page reloads",
+    "320/390 px layouts have no horizontal overflow, 44 px range targets and working keyboard controls"
+  ],
+  "views": [
+    {
+      "name": "lantau-day-50",
+      "atmosphere": {
+        "haze": 0.5,
+        "source": "manual",
+        "fogDensity": 0.00006592944886963257,
+        "limitingMagnitude": 2.8,
+        "nightClearWeight": 0,
+        "nightGlowWeight": 0,
+        "manualHaze": 0.5,
+        "override": false,
+        "air": {
+          "mode": "manual",
+          "disposed": false,
+          "visibilityMetres": null,
+          "visibility": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Hong Kong Observatory",
+            "sourceURL": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&rformat=json&lang=en",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "visibilityMetres": null,
+            "observedVisibilityMetres": null
+          },
+          "aqhi": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Environmental Protection Department / DATA.GOV.HK",
+            "sourceURL": "https://dashboard.data.gov.hk/api/aqhi-individual?format=json",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "aqhi": null,
+            "aqhiLabel": null,
+            "healthRisk": null,
+            "stationKind": null
+          }
+        }
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-07T06:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-07",
+            "time": "14:00",
+            "hour": 14,
+            "hours": 14,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.28919162653269,
+          "lon": 113.9412762301138,
+          "sun": {
+            "azimuth": 1.0342031053803977,
+            "altitude": 1.0746358001931282,
+            "altitudeDeg": 61.572095864730265,
+            "bearing": 239.25547309762032,
+            "direction": {
+              "x": -0.40914586956763344,
+              "y": 0.8794168305114304,
+              "z": 0.24336329967555737
+            }
+          },
+          "moon": {
+            "azimuth": 1.8778826498954413,
+            "altitude": 0.4212363978999373,
+            "distance": 365774.785110761,
+            "altitudeDeg": 24.13506777695982,
+            "bearing": 287.59475025985193,
+            "direction": {
+              "x": -0.8698919158361686,
+              "y": 0.4088890823526592,
+              "z": -0.2758582481922199
+            },
+            "fraction": 0.17674927932333895,
+            "phase": 0.8618842831818059,
+            "angle": 1.7993571282500143
+          },
+          "sunrise": "2026-09-06T22:10:03.202Z",
+          "sunset": "2026-09-07T10:37:52.693Z",
+          "solarNoon": "2026-09-07T04:23:57.948Z",
+          "moonrise": "2026-09-06T17:53:13.034Z",
+          "moonset": "2026-09-07T07:57:55.314Z",
+          "night": 0,
+          "golden": 0,
+          "starVisibility": 0,
+          "phase": "Daylight"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 0,
+        "starFade": 0,
+        "coordinateUpdates": 2,
+        "stargazing": false,
+        "cloudCover": 0,
+        "limitingMagnitude": 2.8,
+        "constellations": true,
+        "selected": null
+      }
+    },
+    {
+      "name": "lantau-day-0",
+      "atmosphere": {
+        "haze": 0,
+        "source": "manual",
+        "fogDensity": 0,
+        "limitingMagnitude": 6,
+        "nightClearWeight": 1,
+        "nightGlowWeight": 0,
+        "manualHaze": 0,
+        "override": false,
+        "air": {
+          "mode": "manual",
+          "disposed": false,
+          "visibilityMetres": null,
+          "visibility": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Hong Kong Observatory",
+            "sourceURL": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&rformat=json&lang=en",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "visibilityMetres": null,
+            "observedVisibilityMetres": null
+          },
+          "aqhi": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Environmental Protection Department / DATA.GOV.HK",
+            "sourceURL": "https://dashboard.data.gov.hk/api/aqhi-individual?format=json",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "aqhi": null,
+            "aqhiLabel": null,
+            "healthRisk": null,
+            "stationKind": null
+          }
+        }
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-07T06:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-07",
+            "time": "14:00",
+            "hour": 14,
+            "hours": 14,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.28919162653269,
+          "lon": 113.9412762301138,
+          "sun": {
+            "azimuth": 1.0342031053803977,
+            "altitude": 1.0746358001931282,
+            "altitudeDeg": 61.572095864730265,
+            "bearing": 239.25547309762032,
+            "direction": {
+              "x": -0.40914586956763344,
+              "y": 0.8794168305114304,
+              "z": 0.24336329967555737
+            }
+          },
+          "moon": {
+            "azimuth": 1.8778826498954413,
+            "altitude": 0.4212363978999373,
+            "distance": 365774.785110761,
+            "altitudeDeg": 24.13506777695982,
+            "bearing": 287.59475025985193,
+            "direction": {
+              "x": -0.8698919158361686,
+              "y": 0.4088890823526592,
+              "z": -0.2758582481922199
+            },
+            "fraction": 0.17674927932333895,
+            "phase": 0.8618842831818059,
+            "angle": 1.7993571282500143
+          },
+          "sunrise": "2026-09-06T22:10:03.202Z",
+          "sunset": "2026-09-07T10:37:52.693Z",
+          "solarNoon": "2026-09-07T04:23:57.948Z",
+          "moonrise": "2026-09-06T17:53:13.034Z",
+          "moonset": "2026-09-07T07:57:55.314Z",
+          "night": 0,
+          "golden": 0,
+          "starVisibility": 0,
+          "phase": "Daylight"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 0,
+        "starFade": 0,
+        "coordinateUpdates": 2,
+        "stargazing": false,
+        "cloudCover": 0,
+        "limitingMagnitude": 6,
+        "constellations": true,
+        "selected": null
+      }
+    },
+    {
+      "name": "lantau-day-100",
+      "atmosphere": {
+        "haze": 1,
+        "source": "manual",
+        "fogDensity": 0.0002637177954785303,
+        "limitingMagnitude": 1,
+        "nightClearWeight": 0,
+        "nightGlowWeight": 0.25,
+        "manualHaze": 1,
+        "override": false,
+        "air": {
+          "mode": "manual",
+          "disposed": false,
+          "visibilityMetres": null,
+          "visibility": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Hong Kong Observatory",
+            "sourceURL": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&rformat=json&lang=en",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "visibilityMetres": null,
+            "observedVisibilityMetres": null
+          },
+          "aqhi": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Environmental Protection Department / DATA.GOV.HK",
+            "sourceURL": "https://dashboard.data.gov.hk/api/aqhi-individual?format=json",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "aqhi": null,
+            "aqhiLabel": null,
+            "healthRisk": null,
+            "stationKind": null
+          }
+        }
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-07T06:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-07",
+            "time": "14:00",
+            "hour": 14,
+            "hours": 14,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.28919162653269,
+          "lon": 113.9412762301138,
+          "sun": {
+            "azimuth": 1.0342031053803977,
+            "altitude": 1.0746358001931282,
+            "altitudeDeg": 61.572095864730265,
+            "bearing": 239.25547309762032,
+            "direction": {
+              "x": -0.40914586956763344,
+              "y": 0.8794168305114304,
+              "z": 0.24336329967555737
+            }
+          },
+          "moon": {
+            "azimuth": 1.8778826498954413,
+            "altitude": 0.4212363978999373,
+            "distance": 365774.785110761,
+            "altitudeDeg": 24.13506777695982,
+            "bearing": 287.59475025985193,
+            "direction": {
+              "x": -0.8698919158361686,
+              "y": 0.4088890823526592,
+              "z": -0.2758582481922199
+            },
+            "fraction": 0.17674927932333895,
+            "phase": 0.8618842831818059,
+            "angle": 1.7993571282500143
+          },
+          "sunrise": "2026-09-06T22:10:03.202Z",
+          "sunset": "2026-09-07T10:37:52.693Z",
+          "solarNoon": "2026-09-07T04:23:57.948Z",
+          "moonrise": "2026-09-06T17:53:13.034Z",
+          "moonset": "2026-09-07T07:57:55.314Z",
+          "night": 0,
+          "golden": 0,
+          "starVisibility": 0,
+          "phase": "Daylight"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 0,
+        "starFade": 0,
+        "coordinateUpdates": 2,
+        "stargazing": false,
+        "cloudCover": 0,
+        "limitingMagnitude": 1,
+        "constellations": true,
+        "selected": null
+      }
+    },
+    {
+      "name": "night-sky-100",
+      "atmosphere": {
+        "haze": 1,
+        "source": "manual",
+        "fogDensity": 0.000048,
+        "limitingMagnitude": 4.6,
+        "nightClearWeight": 0,
+        "nightGlowWeight": 0.25,
+        "manualHaze": 1,
+        "override": false,
+        "air": {
+          "mode": "manual",
+          "disposed": false,
+          "visibilityMetres": null,
+          "visibility": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Hong Kong Observatory",
+            "sourceURL": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&rformat=json&lang=en",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "visibilityMetres": null,
+            "observedVisibilityMetres": null
+          },
+          "aqhi": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Environmental Protection Department / DATA.GOV.HK",
+            "sourceURL": "https://dashboard.data.gov.hk/api/aqhi-individual?format=json",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "aqhi": null,
+            "aqhiLabel": null,
+            "healthRisk": null,
+            "stationKind": null
+          }
+        }
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-06T14:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-06",
+            "time": "22:00",
+            "hour": 22,
+            "hours": 22,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.28919162653269,
+          "lon": 113.9412762301138,
+          "sun": {
+            "azimuth": 2.185792936086112,
+            "altitude": -0.7801510588986176,
+            "altitudeDeg": -44.699363057552894,
+            "bearing": 305.2367101272427,
+            "direction": {
+              "x": -0.5805699135681346,
+              "y": -0.7033868009920733,
+              "z": -0.4101043570234609
+            }
+          },
+          "moon": {
+            "azimuth": -2.7004119495734056,
+            "altitude": -0.6345828430960624,
+            "distance": 364753.54363100324,
+            "altitudeDeg": -36.358918660816904,
+            "bearing": 25.277792342749365,
+            "direction": {
+              "x": 0.3438772137189127,
+              "y": -0.5928416215368648,
+              "z": -0.7282082625584921
+            },
+            "fraction": 0.2408188763005893,
+            "phase": 0.8367290507600218,
+            "angle": 1.7245307815499846
+          },
+          "sunrise": "2026-09-05T22:09:46.486Z",
+          "sunset": "2026-09-06T10:38:50.675Z",
+          "solarNoon": "2026-09-06T04:24:18.581Z",
+          "moonrise": "2026-09-05T16:45:41.407Z",
+          "moonset": "2026-09-06T07:02:34.048Z",
+          "night": 1,
+          "golden": 0,
+          "starVisibility": 1,
+          "phase": "Night"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 669,
+        "starFade": 1,
+        "coordinateUpdates": 3,
+        "stargazing": true,
+        "cloudCover": 0,
+        "limitingMagnitude": 4.6,
+        "constellations": true,
+        "selected": null
+      }
+    },
+    {
+      "name": "night-sky-0",
+      "atmosphere": {
+        "haze": 0,
+        "source": "manual",
+        "fogDensity": 0,
+        "limitingMagnitude": 6,
+        "nightClearWeight": 1,
+        "nightGlowWeight": 0,
+        "manualHaze": 0,
+        "override": false,
+        "air": {
+          "mode": "manual",
+          "disposed": false,
+          "visibilityMetres": null,
+          "visibility": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Hong Kong Observatory",
+            "sourceURL": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&rformat=json&lang=en",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "visibilityMetres": null,
+            "observedVisibilityMetres": null
+          },
+          "aqhi": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Environmental Protection Department / DATA.GOV.HK",
+            "sourceURL": "https://dashboard.data.gov.hk/api/aqhi-individual?format=json",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "aqhi": null,
+            "aqhiLabel": null,
+            "healthRisk": null,
+            "stationKind": null
+          }
+        }
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-06T14:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-06",
+            "time": "22:00",
+            "hour": 22,
+            "hours": 22,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.28919162653269,
+          "lon": 113.9412762301138,
+          "sun": {
+            "azimuth": 2.185792936086112,
+            "altitude": -0.7801510588986176,
+            "altitudeDeg": -44.699363057552894,
+            "bearing": 305.2367101272427,
+            "direction": {
+              "x": -0.5805699135681346,
+              "y": -0.7033868009920733,
+              "z": -0.4101043570234609
+            }
+          },
+          "moon": {
+            "azimuth": -2.7004119495734056,
+            "altitude": -0.6345828430960624,
+            "distance": 364753.54363100324,
+            "altitudeDeg": -36.358918660816904,
+            "bearing": 25.277792342749365,
+            "direction": {
+              "x": 0.3438772137189127,
+              "y": -0.5928416215368648,
+              "z": -0.7282082625584921
+            },
+            "fraction": 0.2408188763005893,
+            "phase": 0.8367290507600218,
+            "angle": 1.7245307815499846
+          },
+          "sunrise": "2026-09-05T22:09:46.486Z",
+          "sunset": "2026-09-06T10:38:50.675Z",
+          "solarNoon": "2026-09-06T04:24:18.581Z",
+          "moonrise": "2026-09-05T16:45:41.407Z",
+          "moonset": "2026-09-06T07:02:34.048Z",
+          "night": 1,
+          "golden": 0,
+          "starVisibility": 1,
+          "phase": "Night"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 768,
+        "starFade": 1,
+        "coordinateUpdates": 3,
+        "stargazing": true,
+        "cloudCover": 0,
+        "limitingMagnitude": 6,
+        "constellations": true,
+        "selected": null
+      }
+    },
+    {
+      "name": "live-visibility-and-aqhi",
+      "atmosphere": {
+        "haze": 0.7905694150420949,
+        "source": "visibility",
+        "fogDensity": 0.0001648236221740814,
+        "limitingMagnitude": 1,
+        "nightClearWeight": 0,
+        "nightGlowWeight": 0.14528470752104744,
+        "manualHaze": 0,
+        "override": false,
+        "air": {
+          "mode": "live",
+          "disposed": false,
+          "visibilityMetres": 12000,
+          "visibility": {
+            "station": "Chek Lap Kok",
+            "updatedAt": "2026-09-07T03:58:00+08:00",
+            "visibilityMetres": 12000,
+            "raw": "12 km",
+            "limit": null,
+            "fresh": true,
+            "ageMs": 30813,
+            "distanceMetres": 2666,
+            "stationKind": "visibility",
+            "stationCoordinatesApproximate": true,
+            "status": "live",
+            "source": "Hong Kong Observatory",
+            "sourceURL": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&rformat=json&lang=en",
+            "error": null,
+            "checkedAt": "2026-09-06T19:58:30.618Z",
+            "receivedAt": "2026-09-06T19:58:30.618Z",
+            "selection": "Nearest usable station with approximate coordinates",
+            "observedVisibilityMetres": 12000
+          },
+          "aqhi": {
+            "station": "Tung Chung",
+            "updatedAt": "2026-09-07T03:58:30+08:00",
+            "aqhi": 8,
+            "aqhiLabel": "8",
+            "healthRisk": "Very High",
+            "limit": null,
+            "fresh": true,
+            "ageMs": 813,
+            "distanceMetres": 332,
+            "stationKind": "general",
+            "stationCoordinatesApproximate": true,
+            "status": "live",
+            "source": "Environmental Protection Department / DATA.GOV.HK",
+            "sourceURL": "https://dashboard.data.gov.hk/api/aqhi-individual?format=json",
+            "error": null,
+            "checkedAt": "2026-09-06T19:58:30.618Z",
+            "receivedAt": "2026-09-06T19:58:30.618Z",
+            "selection": "Nearest usable station with approximate coordinates"
+          }
+        }
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-06T14:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-06",
+            "time": "22:00",
+            "hour": 22,
+            "hours": 22,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.28919162653269,
+          "lon": 113.9412762301138,
+          "sun": {
+            "azimuth": 2.185792936086112,
+            "altitude": -0.7801510588986176,
+            "altitudeDeg": -44.699363057552894,
+            "bearing": 305.2367101272427,
+            "direction": {
+              "x": -0.5805699135681346,
+              "y": -0.7033868009920733,
+              "z": -0.4101043570234609
+            }
+          },
+          "moon": {
+            "azimuth": -2.7004119495734056,
+            "altitude": -0.6345828430960624,
+            "distance": 364753.54363100324,
+            "altitudeDeg": -36.358918660816904,
+            "bearing": 25.277792342749365,
+            "direction": {
+              "x": 0.3438772137189127,
+              "y": -0.5928416215368648,
+              "z": -0.7282082625584921
+            },
+            "fraction": 0.2408188763005893,
+            "phase": 0.8367290507600218,
+            "angle": 1.7245307815499846
+          },
+          "sunrise": "2026-09-05T22:09:46.486Z",
+          "sunset": "2026-09-06T10:38:50.675Z",
+          "solarNoon": "2026-09-06T04:24:18.581Z",
+          "moonrise": "2026-09-05T16:45:41.407Z",
+          "moonset": "2026-09-06T07:02:34.048Z",
+          "night": 1,
+          "golden": 0,
+          "starVisibility": 1,
+          "phase": "Night"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 0,
+        "starFade": 0,
+        "coordinateUpdates": 3,
+        "stargazing": false,
+        "cloudCover": 0.94,
+        "limitingMagnitude": 1,
+        "constellations": true,
+        "selected": null
+      }
+    },
+    {
+      "name": "weather-mobile-390",
+      "atmosphere": {
+        "haze": 0.01,
+        "source": "manual",
+        "fogDensity": 2.637177954785303e-8,
+        "limitingMagnitude": 5.936,
+        "nightClearWeight": 0.98,
+        "nightGlowWeight": 0,
+        "manualHaze": 0.01,
+        "override": false,
+        "air": {
+          "mode": "manual",
+          "disposed": false,
+          "visibilityMetres": null,
+          "visibility": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Hong Kong Observatory",
+            "sourceURL": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&rformat=json&lang=en",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "visibilityMetres": null,
+            "observedVisibilityMetres": null
+          },
+          "aqhi": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Environmental Protection Department / DATA.GOV.HK",
+            "sourceURL": "https://dashboard.data.gov.hk/api/aqhi-individual?format=json",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "aqhi": null,
+            "aqhiLabel": null,
+            "healthRisk": null,
+            "stationKind": null
+          }
+        }
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-07T07:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-07",
+            "time": "15:00",
+            "hour": 15,
+            "hours": 15,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.28919162653269,
+          "lon": 113.9412762301138,
+          "sun": {
+            "azimuth": 1.275258211007736,
+            "altitude": 0.8522328169050754,
+            "altitudeDeg": 48.82934357120625,
+            "bearing": 253.06691328014705,
+            "direction": {
+              "x": -0.6297636227300077,
+              "y": 0.7527521526983573,
+              "z": 0.19173412866249329
+            }
+          },
+          "moon": {
+            "azimuth": 1.9459170161875876,
+            "altitude": 0.202005739652122,
+            "distance": 365853.63724788255,
+            "altitudeDeg": 11.574076319485094,
+            "bearing": 291.49283231023907,
+            "direction": {
+              "x": -0.9115434858202544,
+              "y": 0.2006346882515332,
+              "z": -0.35893480651626664
+            },
+            "fraction": 0.17300523285309843,
+            "phase": 0.8634529873096521,
+            "angle": 1.8036914677115676
+          },
+          "sunrise": "2026-09-06T22:10:03.202Z",
+          "sunset": "2026-09-07T10:37:52.693Z",
+          "solarNoon": "2026-09-07T04:23:57.948Z",
+          "moonrise": "2026-09-06T17:53:13.034Z",
+          "moonset": "2026-09-07T07:57:55.314Z",
+          "night": 0,
+          "golden": 0,
+          "starVisibility": 0,
+          "phase": "Daylight"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 0,
+        "starFade": 0,
+        "coordinateUpdates": 1,
+        "stargazing": false,
+        "cloudCover": 0,
+        "limitingMagnitude": 5.936,
+        "constellations": true,
+        "selected": null
+      }
+    },
+    {
+      "name": "weather-mobile-320",
+      "atmosphere": {
+        "haze": 0.01,
+        "source": "manual",
+        "fogDensity": 2.637177954785303e-8,
+        "limitingMagnitude": 5.936,
+        "nightClearWeight": 0.98,
+        "nightGlowWeight": 0,
+        "manualHaze": 0.01,
+        "override": false,
+        "air": {
+          "mode": "manual",
+          "disposed": false,
+          "visibilityMetres": null,
+          "visibility": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Hong Kong Observatory",
+            "sourceURL": "https://data.weather.gov.hk/weatherAPI/opendata/opendata.php?dataType=LTMV&rformat=json&lang=en",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "visibilityMetres": null,
+            "observedVisibilityMetres": null
+          },
+          "aqhi": {
+            "station": null,
+            "updatedAt": null,
+            "distanceMetres": null,
+            "fresh": false,
+            "status": "idle",
+            "source": "Environmental Protection Department / DATA.GOV.HK",
+            "sourceURL": "https://dashboard.data.gov.hk/api/aqhi-individual?format=json",
+            "error": null,
+            "checkedAt": null,
+            "receivedAt": null,
+            "selection": "Nearest usable station with approximate coordinates",
+            "aqhi": null,
+            "aqhiLabel": null,
+            "healthRisk": null,
+            "stationKind": null
+          }
+        }
+      },
+      "sky": {
+        "astronomy": {
+          "date": "2026-09-07T07:00:00.000Z",
+          "hkt": {
+            "date": "2026-09-07",
+            "time": "15:00",
+            "hour": 15,
+            "hours": 15,
+            "minutes": 0,
+            "seconds": 0
+          },
+          "lat": 22.28919162653269,
+          "lon": 113.9412762301138,
+          "sun": {
+            "azimuth": 1.275258211007736,
+            "altitude": 0.8522328169050754,
+            "altitudeDeg": 48.82934357120625,
+            "bearing": 253.06691328014705,
+            "direction": {
+              "x": -0.6297636227300077,
+              "y": 0.7527521526983573,
+              "z": 0.19173412866249329
+            }
+          },
+          "moon": {
+            "azimuth": 1.9459170161875876,
+            "altitude": 0.202005739652122,
+            "distance": 365853.63724788255,
+            "altitudeDeg": 11.574076319485094,
+            "bearing": 291.49283231023907,
+            "direction": {
+              "x": -0.9115434858202544,
+              "y": 0.2006346882515332,
+              "z": -0.35893480651626664
+            },
+            "fraction": 0.17300523285309843,
+            "phase": 0.8634529873096521,
+            "angle": 1.8036914677115676
+          },
+          "sunrise": "2026-09-06T22:10:03.202Z",
+          "sunset": "2026-09-07T10:37:52.693Z",
+          "solarNoon": "2026-09-07T04:23:57.948Z",
+          "moonrise": "2026-09-06T17:53:13.034Z",
+          "moonset": "2026-09-07T07:57:55.314Z",
+          "night": 0,
+          "golden": 0,
+          "starVisibility": 0,
+          "phase": "Daylight"
+        },
+        "catalogueStars": 1573,
+        "constellationCount": 24,
+        "visibleStars": 0,
+        "starFade": 0,
+        "coordinateUpdates": 1,
+        "stargazing": false,
+        "cloudCover": 0,
+        "limitingMagnitude": 5.936,
+        "constellations": true,
+        "selected": null
+      }
+    }
+  ],
+  "errors": [],
+  "result": "passed"
+}

@@ -1,0 +1,5 @@
+# Tung Yip House — verified original installation
+
+Codex, 7 October 2026. Tung Yip House (landsd/12854:0) is installed with unchanged original government geometry. Verified Neon job `e841abdac09728f52ed59187d8cc5825b7becd888e77978c39e9c1be801c397b`, installed snapshot `02e82fd21bbc3b2b`, source hashes `{'landsd/12854:0': 'f8e57b0d5dd7b939f348767f641511faf2e3783debe06736441195a18640569f'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+38 new XL installations from44/308: **82 installed / 270 not installed**, 62 further installations required. Public counters: 346,108 total source forms, 4,433 enhanced, 4,419 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

@@ -1,0 +1,90 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/model-integration-20260909/foundation-eighteen-plan.json",
+  "areas": [
+    {
+      "area": "foundation reviewed native components",
+      "models": 17,
+      "catalogue": "city/data/official-models/model-pass-20260909-foundation/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    },
+    {
+      "area": "peak reviewed native components",
+      "models": 1,
+      "catalogue": "city/data/official-models/model-pass-20260909-peak/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/support-exact-tin-248218-0.json": null,
+    "3d-viewer/city/data/official-models/model-pass-20260909-foundation/catalogue.json": null,
+    "3d-viewer/city/data/official-models/model-pass-20260909-peak/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "6dae90ad9cfe48d89fee657960e313b28cf464c9bde8e6e9d7168dc752293b81"
+  },
+  "after": {
+    "3d-viewer/city/data/support-exact-tin-248218-0.json": "122ce2f125769792b9f309f326df2d0db9baa7e677c8aac55be1b0951fe8b6f0",
+    "3d-viewer/city/data/official-models/model-pass-20260909-foundation/catalogue.json": "398cba6d97de74f40a36bc3b767f0dbec3dd4846d154fba90ea5b9f2ea97f023",
+    "3d-viewer/city/data/official-models/model-pass-20260909-peak/catalogue.json": "3a6495d2ae401fb5d45b8a28781d37e09a7da3ad8a604892ee74dbd6fd8177d7",
+    "3d-viewer/city/data/manifest.json": "950416015c9ebea20b0183c6741831e3b1def7e282683fc7eb8787c8de6c3566"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "accd1e6c7f127deb6a9be26432c1cb95445aee83",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/support-exact-tin-248218-0.json",
+      "resolution": 1,
+      "area": "Reviewed source terrain support-exact-tin-248218-0",
+      "source": {
+        "nativeSources": [
+          {
+            "sheet": "11-SW-13C",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-13C/manifest.json",
+            "manifestSha256": "0aa6a55fc23968a21d6c2e94701cd9497c60745c3e55eb8ee1df970cd9f0bd78",
+            "worldBounds": [
+              [
+                -1500.5,
+                163.3209991455078,
+                1499.5
+              ],
+              [
+                -749.5,
+                517.0177154541016,
+                2100.5
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-13C/TERRAIN(TB)/T33000144000106E10/T33000144000106E10.bin",
+                "sha256": "d0358e41ff8fced8261cf950159dc889280a3505d00efdbc60262f10aa032ec1",
+                "bytes": 22848372
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-13C/TERRAIN(TB)/T33000144000106E10/T33000144000106E10-geometry.gltf",
+                "sha256": "ee418565cc04b9ed5b522f44e13f40d3a33f9c6030c0ad57c2ec80dbce37be36",
+                "bytes": 1455
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Unchanged parent-sampled extent template only; nativeMesh generated separately."
+      },
+      "sha256": "122ce2f125769792b9f309f326df2d0db9baa7e677c8aac55be1b0951fe8b6f0",
+      "bytes": 3210361
+    }
+  ],
+  "estimatedBases": []
+}

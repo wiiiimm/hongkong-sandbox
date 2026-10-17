@@ -1,0 +1,183 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/model-integration-20260909/hkdi-belowgrade-plan.json",
+  "areas": [
+    {
+      "area": "hkdi native component",
+      "models": 1,
+      "catalogue": "city/data/official-models/model-pass-20260909-hkdi/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    },
+    {
+      "area": "belowgrade native component",
+      "models": 1,
+      "catalogue": "city/data/official-models/model-pass-20260909-belowgrade/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/support-grid-hkdi-22089-0.json": null,
+    "3d-viewer/city/data/official-models/model-pass-20260909-hkdi/catalogue.json": null,
+    "3d-viewer/city/data/official-models/model-pass-20260909-belowgrade/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "9ca76cbe162f9e8b84192b68b72776167b67cdfa1b7e552759118898fefadbbc"
+  },
+  "after": {
+    "3d-viewer/city/data/support-grid-hkdi-22089-0.json": "a310299404fb52e738b2728766fab4bbba83ea153366b1a360630d082a2a4b5a",
+    "3d-viewer/city/data/official-models/model-pass-20260909-hkdi/catalogue.json": "b96416a855e661984e0d9732b60565254c989ec114231c1d1cffc2278ffb5d87",
+    "3d-viewer/city/data/official-models/model-pass-20260909-belowgrade/catalogue.json": "338649a52121d5c2a60f0e44d3d52952d20e63bdc895e825b818932cc9c2fd80",
+    "3d-viewer/city/data/manifest.json": "79c443046d60030070956bbb197872f968a4f655cfc4114d557040d0a462040f"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "d8836a8c48d03390d384b0a0a8bdafc70875c28b",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/support-grid-hkdi-22089-0.json",
+      "resolution": 1,
+      "area": "HKDI sampled source terrain",
+      "source": {
+        "nativeSources": [
+          {
+            "sheet": "11-NE-25C",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NE-25C/manifest.json",
+            "manifestSha256": "71bce490c306bdebe9a26da95ceafbb7041cc73391f10ffa74e876a3f1377e15",
+            "worldBounds": [
+              [
+                8998.77734375,
+                4.379974365234375,
+                -2100.0
+              ],
+              [
+                9749.96875,
+                188.41790771484375,
+                -1499.998046875
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NE-25C/TERRAIN(TB)/T43500180000106E10/T43500180000106E10.bin",
+                "sha256": "2c6299586cee080554ac2b9d6cabd3b82e682e7bfc11540796ee928662eb2aa9",
+                "bytes": 10736592
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NE-25C/TERRAIN(TB)/T43500180000106E10/T43500180000106E10-geometry.gltf",
+                "sha256": "eb4a8bb52660b7c49cad2857086f2a266a591922dae958b3740a89b44824ff3a",
+                "bytes": 3653
+              }
+            ],
+            "sourceFilesVerified": true
+          },
+          {
+            "sheet": "11-NE-25A",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25A/manifest.json",
+            "manifestSha256": "42416614a4a86d37235131fe4ecfbff36134324796162a796c46fb76a617e69d",
+            "worldBounds": [
+              [
+                9000.0,
+                6.27001953125,
+                -2700.0
+              ],
+              [
+                9750.0,
+                229.06002807617188,
+                -2100.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25A/TERRAIN(TB)/T43500186000106E10/T43500186000106E10-geometry.gltf",
+                "sha256": "510d79c3a05d4263e907e34666ba1eb0a15e598e51fd711126939ceebf11b191",
+                "bytes": 4718
+              },
+              {
+                "path": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25A/TERRAIN(TB)/T43500186000106E10/T43500186000106E10.bin",
+                "sha256": "bb8b38854037bfd40364de65a57557ca1296c9c4fefaf8fb5fda05b52623a7e6",
+                "bytes": 14825299
+              }
+            ],
+            "sourceFilesVerified": true
+          },
+          {
+            "sheet": "11-NE-25B",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25B/manifest.json",
+            "manifestSha256": "57063a2ddee4aeddc36f5c16949ec0aff73c8af854953cb4f31447b4fa185738",
+            "worldBounds": [
+              [
+                9750.0,
+                3.5699920654296875,
+                -2700.0
+              ],
+              [
+                10500.0,
+                75.44999694824219,
+                -2100.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25B/TERRAIN(TB)/T44250186000106E10/T44250186000106E10-geometry.gltf",
+                "sha256": "f24866ac7426e4f8c39bede1dbd969dfa08b710c9e50d1839591e5e028c80813",
+                "bytes": 2500
+              },
+              {
+                "path": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25B/TERRAIN(TB)/T44250186000106E10/T44250186000106E10.bin",
+                "sha256": "e017bc76c187eebc1dc8e08ee8c3f9a164d147b71615c698f8cc23335b30dfa6",
+                "bytes": 1487328
+              }
+            ],
+            "sourceFilesVerified": true
+          },
+          {
+            "sheet": "11-NE-25D",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25D/manifest.json",
+            "manifestSha256": "43bc964b7939a8634d182cf8c36455883cebd18b68fb3d8df56f8192f1ca3062",
+            "worldBounds": [
+              [
+                9750.0,
+                -2.239990234375,
+                -2100.0
+              ],
+              [
+                10500.0,
+                18.894548416137695,
+                -1500.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25D/TERRAIN(TB)/T44250180000106E10/T44250180000106E10-geometry.gltf",
+                "sha256": "8c885ab3f911727298a872033d5d0d4c3d7591acfaa40116b0e6a72343923a7d",
+                "bytes": 4597
+              },
+              {
+                "path": "source-scripts/city/assembly-support-review/native-terrain-extra/staged/11-NE-25D/TERRAIN(TB)/T44250180000106E10/T44250180000106E10.bin",
+                "sha256": "6ce3363926b3f26a3cc390b87b6a0aa2cd26e89bc44fc0178f380caac8d59efc",
+                "bytes": 7768470
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "All 1m grid nodes sample verified native source triangles from four adjoining sheets. Interpolation between samples bridges a3cm source-edge quantisation gap;1m spacing is not survey accuracy.10m boundary transition to unchanged parent. Raw water mask preserved. No building shifts."
+      },
+      "sha256": "a310299404fb52e738b2728766fab4bbba83ea153366b1a360630d082a2a4b5a",
+      "bytes": 2194025
+    }
+  ],
+  "estimatedBases": []
+}

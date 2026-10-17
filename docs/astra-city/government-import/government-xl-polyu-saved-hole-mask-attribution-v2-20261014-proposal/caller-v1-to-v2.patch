@@ -1,0 +1,45 @@
+--- source-scripts/city/government-import/polyu_saved_hole_mask_attribution_caller_v1_draft_20261014.py
++++ source-scripts/city/government-import/polyu_saved_hole_mask_attribution_caller_v2_draft_20261014.py
+@@ -6,11 +6,12 @@
+ from run import ROOT,HERE,read,save,connect,reservations
+ import polyu_five_current_parent_actual_production_capture_v2_20261014 as capture
+ import polyu_saved_hole_mask_attribution_v1_draft_20261014 as geometry
++from exact_distinct_evidence_refs_v1_20261014 import distinct_refs
+ from exact_closed_ground_aabb_pruning_v1_20261011 import CompleteGround,enclosing_float
+ from sparkle_current_native_renderer_winding_20261011 import drawn_native_faces
+ from polyu_five_saved_nomination_binding_v2_20261014 import resolve_partition
+ 
+-BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-polyu-saved-hole-mask-attribution-v1-20261014'
++BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-polyu-saved-hole-mask-attribution-v2-20261014'
+ DOC=BASE/BATCH;PROPOSAL=BASE/(BATCH+'-proposal');LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+ JOB='8f204d9c83bc0cc6ca45bb56da6da2fb8b70255c5af6c7dd37f346f73aceae9e'
+ CURRENT=capture.CURRENT;ELIGIBLE=['landsd/63758:0','landsd/305626:0'];ref,check=capture.ref,capture.check
+@@ -21,7 +22,7 @@
+ 
+ def load():
+     pins=read(PROPOSAL/'draft-pins.json');assert pins['caller']==ref(Path(__file__))
+-    for q in pins['codeRefs']+pins['inputRefs']:check(q)
++    for q in distinct_refs(pins['codeRefs']+pins['inputRefs']):check(q)
+     receipt=read(capture.DOC/'result.json');assert receipt['jobId']==JOB
+     inputs=read(capture.DOC/'input.json.gz');replay=read(capture.DOC/'actual-production-replay.json.gz')
+     guards=read(capture.DOC/'all25-original-production-guard-site-replay.json.gz');actors=read(capture.DOC/'complete-fresh-current-native59527-and24-BASIC.json.gz')
+@@ -52,7 +53,7 @@
+     assert validation['executedCodeRefs']==[ref(Path(geometry.__file__)),ref(HERE/'test_polyu_saved_hole_mask_attribution_v1_draft_20261014.py')]
+     refs=pins['codeRefs']+pins['inputRefs']+prep['evidenceRefs']+validation['evidenceRefs']+[prep['helperValidationRef'],ref(PROPOSAL/'draft-pins.json'),ref(PROPOSAL/'METHOD.md'),ref(PROPOSAL/'actual-readonly-preparation.json')]
+     with connect()as db:db.execute('SET TRANSACTION READ ONLY');assert db.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(JOB,)).fetchone()==('complete',receipt)
+-    refs+=receipt['evidenceRefs'];last=time.monotonic()
++    refs=distinct_refs(refs+receipt['evidenceRefs']);last=time.monotonic()
+     def pulse():
+         nonlocal last
+         if time.monotonic()-last>20:assert reservations.heartbeat(lease)['ok']and reservations.owns(lease);last=time.monotonic()
+@@ -153,8 +154,8 @@
+         eligible_projection.append(dict(uid=uid,rawGISProjection=mapping(raw_gis),worlds=modes,scope='completeCapturedBASICConstructorAndRawGISSupportProjectionLocatorOnly'))
+     save(DOC/'complete-two-eligible-support-projection-attribution.json.gz',dict(actors=eligible_projection,noOrdinaryThresholdOrGuardReplay=True,noProviderOriginalGovernmentMeshClaim=True,noGeometryOrAcceptance=True))
+     for index in indices.values():index.verify_binding()
+-    fence();refs+=[ref(p)for p in DOC.rglob('*')if p.is_file()]
+-    capture.prior.module('polyu_saved_hole_mask_freezer',capture.prior.FREEZER).freeze(BATCH,'saved-polyu-hole-mask-packing-causal-attribution-only',[check(q)for q in{(q['path'],q['sha256']):q for q in refs}.values()],dict(uids=capture.prior.UIDS,sourceOnly=True,noConstructionOrAcceptance=True,physicalAccepted=False,newlyInstalled=0))
++    refs=distinct_refs(refs+[ref(p)for p in DOC.rglob('*')if p.is_file()]);fence()
++    capture.prior.module('polyu_saved_hole_mask_freezer',capture.prior.FREEZER).freeze(BATCH,'saved-polyu-hole-mask-packing-causal-attribution-only',[check(q)for q in refs],dict(uids=capture.prior.UIDS,sourceOnly=True,noConstructionOrAcceptance=True,physicalAccepted=False,newlyInstalled=0))
+ 
+ 
+ def main():

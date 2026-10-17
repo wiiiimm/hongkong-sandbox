@@ -1,0 +1,90 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-sustained-131-installation-20261006-270111-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "B097123126401063C0 original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-sustained-131-installation-20261006-270111-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-270111-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-sustained-131-installation-20261006-270111-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "c54994d8d1d2235c3bf33287fd8c5ae9c758ab9243c1e656113cc8495fb53a0f"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-270111-0.json": "548afedf56fc89f9d6862df70ce874e4f0041413c1c50f6c7b2ae950c8b99c9d",
+    "3d-viewer/city/data/official-models/government-xl-sustained-131-installation-20261006-270111-0-installed/catalogue.json": "e67b82ca58567f127b8bb95de2fffc7f184a7fb8a4f52d66a06dd78ebac37c07",
+    "3d-viewer/city/data/manifest.json": "f1b16197118bd06c729645fbd0ba8e0d2d98ac96d7ed45115ef7b50547d33bbd"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "cd636f7c89b9bae2e0d4b979270171c847858a0b",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-270111-0.json",
+      "resolution": 5,
+      "area": "B097123126401063C0 unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "c35bb2d5261d373a893d18ea2d82859080d80e35e42eb9d9a6521129ba0478ea",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "5-NE-17C",
+            "sourceETag": "\"bb04ec-63dcfd4d8c94e\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/5-NE-17C/terrain/TERRAIN(TB)/T09000312000106E10/T09000312000106E10.bin",
+                "sha256": "a25288f10552044a902252c0145dd030f6ffd9e12029437ca5ea7756d6c5532a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/5-NE-17C/terrain/TERRAIN(TB)/T09000312000106E10/T09000312000106E10.gltf",
+                "sha256": "f75b950a451db372f81532d736a210df58eb7b8e78888285853134fdc33a4b91"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "af3b4b10fc7f85a28df017a5a2ad7297ead6abe446c825591a2068e759c61977",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "5-NE-17D",
+            "sourceETag": "\"36f79ed-65677bab2a337\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-sustained-131-20261006-270111-0/sheets/5-NE-17D/terrain/TERRAIN(TB)/T09750312000106E10/T09750312000106E10.bin",
+                "sha256": "9155defcb3e43956c8ab8c83fb49bb438e04138aadf4226dd8c9460c8c8ea199"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-sustained-131-20261006-270111-0/sheets/5-NE-17D/terrain/TERRAIN(TB)/T09750312000106E10/T09750312000106E10.gltf",
+                "sha256": "9881a5d0d39461f064672b4d66f55ad119b519a90359a35ffcc635fb4beee810"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2451,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "548afedf56fc89f9d6862df70ce874e4f0041413c1c50f6c7b2ae950c8b99c9d",
+      "bytes": 773035
+    }
+  ],
+  "estimatedBases": []
+}

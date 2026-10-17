@@ -1,0 +1,5 @@
+# Stonecutters Island Sewage Treatment Works Main Pumping Station — verified original installation
+
+Codex, 6 October 2026. Stonecutters Island Sewage Treatment Works Main Pumping Station (landsd/270142:0) is installed with unchanged original government geometry. Verified Neon job `274a83627364dd22d03c5141bb92f8dd70a55383b4b4e7f2dd81f5592951129c`, installed snapshot `452826dbf1b088f2`, source SHA `2ad7fcad5e682c10ee28c5e0460fe673503a61c8092d61b31ee32d41825bea7c`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+25 new XL installations from44/308: **69 installed / 283 not installed**, 75 further installations required. Public counters: 346,108 total source forms, 4,417 enhanced, 4,403 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

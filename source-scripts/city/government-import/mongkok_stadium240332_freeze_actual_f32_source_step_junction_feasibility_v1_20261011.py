@@ -1,0 +1,22 @@
+"""DRAFT immutable JSON-only source-step feasibility; no candidate or review mutation."""
+from pathlib import Path
+import importlib.util,json
+from run import ROOT,HERE,read,save,digest,connect
+from exact_resumable_projected_inventory_v1_20261011 import decoded
+P='government-xl-mongkok-stadium240332-';NAME=P+'actual-f32-source-step-junction-feasibility-v1-20261011';B=ROOT/'docs/astra-city/government-import';DOC=B/NAME;OLD=B/(P+'faithful-multisurface-transition-candidate-v2-20261011');PRODUCER=HERE/'mongkok_stadium240332_actual_f32_source_step_junction_feasibility_v1_20261011.py'
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def state(uids):
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');return c.execute('SELECT row_to_json(t) FROM astra_modelling.model_reviews t WHERE uid=ANY(%s) ORDER BY uid,snapshot_id',(sorted(uids),)).fetchall()
+VALIDATION=B/(P+'actual-f32-source-step-junction-feasibility-v1-20261011-validation')
+VALIDATED_CODE_NAMES=['exact_faithful_source_step_junction_feasibility_v1_20261011.py', 'test_exact_faithful_source_step_junction_feasibility_v1_20261011.py', 'mongkok_stadium240332_actual_f32_source_step_junction_feasibility_v1_20261011.py', 'mongkok_stadium240332_freeze_actual_f32_source_step_junction_feasibility_v1_20261011.py']
+def validation_gate():
+ v=read(VALIDATION/'validation.json');assert v['testsRun']==15 and v['failures']==v['errors']==0 and v['exitCode']==0 and v['passed']is True
+ assert v['testModule']=='test_exact_faithful_source_step_junction_feasibility_v1_20261011'
+ assert v['log']==ref(VALIDATION/'tests.log');assert len(v['codeRefs'])==4 and v['codeRefs']==[ref(HERE/n)for n in VALIDATED_CODE_NAMES]
+ log=(VALIDATION/'tests.log').read_text();assert 'Ran 15 tests' in log and log.rstrip().endswith('OK')
+ return [ref(VALIDATION/'validation.json'),v['log']]+v['codeRefs']
+def main():
+ validation_refs=validation_gate();assert not(DOC/'result.json').exists();d=decoded(read(DOC/'diagnostic.json.gz'));old=decoded(read(OLD/'diagnostic.json.gz'));assert d['completeOriginalAndJoinFaces']==14801 and d['completeOriginalSourceFaces']==14798 and len(d['allProductionQueriesAndCompleteActualIndexedFootprints'])==6 and len(d['allPositiveLengthOriginalIncidentBranches'])==2;assert d['noCandidate']and d['noMeshOutput']and d['sourceOnly']and not d['currentAcceptance']and d['sourceGeometryChanges']==d['liveTerrainChanges']==0;assert d['currentManifest']==old['currentManifest']==ref(ROOT/d['currentManifest']['path']);assert all(ref(ROOT/e['path'])==e for e in d['evidenceRefs']);uids=old['allProtectedReviewUIDs'];before=state(uids)
+ spec=importlib.util.spec_from_file_location('reviewed_freezer',HERE/'parkview_block17_freeze_current_source_evidence_20261011.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);paths={p for p in DOC.rglob('*')if p.is_file()and not p.name.endswith('.tmp')};m.local_imports(PRODUCER,paths);m.local_imports(Path(__file__),paths);m.declared_refs(d,paths);paths.update(ROOT/e['path']for e in validation_refs);method=B/(NAME+'-method');paths.update(method.glob('*'));note='Complete actual Float32 native indexed-footprint accounting at six prior production queries, separate ideal original positions, and complete two positive-length original branch endpoint incidence. Bounded finite outer-node/band-ray JSON nomination only; vertical junction is explicitly compute-generated and source-core inner termination remains unpaired. Original heights,91crossings,and all raw literal/F32/current failures preserved. No mesh/candidate, whole-seam/role/root/current/installation credit; all6645 whole-routing protected actor gates remain required.';save(DOC/'review.json',dict(sourceOnly=True,currentAcceptance=False,noCandidate=True,installationApproved=False,finding=note,evidenceRefs=[ref(p)for p in sorted(paths)]));(DOC/'REVIEW.md').write_text(note+'\n');paths.update([DOC/'review.json',DOC/'REVIEW.md']);m.F.freeze(NAME,'actual-f32-source-step-json-feasibility-no-acceptance',sorted(paths),dict(uids=['landsd/240332:0','landsd/240527:0'],sourceOnly=True,currentAcceptance=False,noCandidate=True,installationApproved=False,sourceGeometryChanges=0,liveTerrainChanges=0,queries=6,positiveOriginalBranches=2,qualification=note));assert state(uids)==before and ref(ROOT/d['currentManifest']['path'])==old['currentManifest'];print(json.dumps(dict(jobId=read(DOC/'result.json')['jobId'],noCandidate=True,protectedReviewStateUnchanged=True)))
+if __name__=='__main__':main()

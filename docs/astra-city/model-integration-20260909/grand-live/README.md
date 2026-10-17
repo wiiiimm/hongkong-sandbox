@@ -1,0 +1,1 @@
+Historical preliminary capture: all seven installed native models passed, but its walk/flight arrival used section-09-1. It is not the final neighbourhood navigation acceptance. Final correct Sai Wan Ho waterfront checks use grand-waterfront-live/after/verification.json (section-03-3). Retained for audit only.

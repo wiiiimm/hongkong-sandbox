@@ -1,0 +1,38 @@
+import sys,json,hashlib
+from pathlib import Path
+R=Path('/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city');H=R/'source-scripts/city/government-import';sys.path.insert(0,str(H));from run import read,digest,connect,dict_row
+from PIL import Image
+B='government-xl-polyu-sports305582-saved-failure-source-context-v2-20261013';D=R/'docs/astra-city/government-import'/B;P=R/'docs/astra-city/government-import/government-xl-polyu-sports305582-saved-failure-source-context-draft-v2-20261013';CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7'
+r=read(D/'result.json');lease=read(H/'local'/B/'reservation.json');terminal=read(P/'execution-logs-context-v2/terminal.json');assert terminal['exitCode']==0
+with connect()as c:
+ c.row_factory=dict_row;c.execute('SET TRANSACTION READ ONLY');j=c.execute('SELECT status,result,owner,token,lease_until FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone();assert j['status']=='complete'and j['result']==r and j['owner']is None and j['token']is None and j['lease_until']is None
+ groups=c.execute('SELECT token,owner,resources,released_at,(released_at IS NULL AND lease_until>clock_timestamp())AS active FROM astra_modelling.reservation_groups WHERE batch=%s',(B,)).fetchall();assert len(groups)==2 and all(g['released_at']is not None and not g['active']for g in groups)
+ canonical,=[g for g in groups if str(g['token'])==lease['token']];assert canonical['resources']==lease['resources']and canonical['owner']==lease['owner']and len(canonical['resources'])==13
+ rows=c.execute('SELECT resource,token,generation FROM astra_modelling.reservations WHERE resource=ANY(%s)',(lease['resources'],)).fetchall();assert len(rows)==13 and all(str(z['token'])==lease['token']and z['generation']==lease['generations'][z['resource']]for z in rows)
+ freezer,=[g for g in groups if str(g['token'])!=lease['token']];assert freezer['resources']==['source-context:'+B]
+ events=c.execute("SELECT action,actor,token,resources FROM astra_modelling.reservation_events WHERE token=ANY(%s)AND action='release'",([g['token']for g in groups],)).fetchall();assert len(events)==2 and all(any(str(e['token'])==str(g['token'])and e['actor']==g['owner']and e['resources']==g['resources']for e in events)for g in groups)
+refs=r['evidenceRefs'];assert len(refs)==len({x['path']for x in refs})
+for x in refs:assert digest((R/x['path']).read_bytes())==x['sha256'],x['path']
+for x in read(P/'review-file-pins.json')['filePins']:assert digest((R/x['path']).read_bytes())==x['sha256'],x['path']
+for x in read(P/'actual-readonly-preparation-v1/validation.json')['transitiveImportedCodePins']:assert digest((R/x['path']).read_bytes())==x['sha256'],x['path']
+data=read(D/'saved-failure-source-context.json.gz');assert len(data['rows'])==4 and data['sourceSHA256']=='ac9df2e1b9b66b9c120a8638881b5f44fb966f7463b8874c27b040b91d37df15'and data['installedPodiumDependencyVerbatim']['entry']['publicationApproved']is False
+for row in data['rows']:assert len(row['all752FullSavedFailures'])==752 and len(row['fullCompleteFiniteRecordsVerbatim'])==10536 and len(row['all21BodyAnd4ZeroTopologyVerbatim']['sharedEdgeConnectedComponents'])==21
+assert len(data['images'])==3
+for img in data['images']:
+ p=R/img['path'];assert digest(p.read_bytes())==img['sha256'];assert img['dimensions']==[2400,1800]
+ with Image.open(p)as im:assert im.size==(2400,1800);im.verify()
+ assert img['groundFacetsRetained']==list(range(12))and img['notGPUVisibility']is True
+survivors=[]
+for q in Path('/proc').iterdir():
+ if not q.name.isdigit():continue
+ try:a=(q/'cmdline').read_bytes().split(b'\0')
+ except(OSError,PermissionError):continue
+ if any(x.endswith(b'xl-polyu-sports305582-saved-failure-source-context-draft-v2-20261013.py')for x in a):survivors.append(int(q.name))
+assert not survivors and all(not(Path('/proc')/str(pid)).exists()for pid in [1981029,1981055])
+assert digest((R/'3d-viewer/city/data/manifest.json').read_bytes())==CURRENT and r['currentAcceptance']is False and r['physicalAccepted']is False and r['noFiniteContactCensusRerun']is True
+out=dict(allPassed=True,jobId=r['jobId'],resultSHA256=digest((D/'result.json').read_bytes()),evidenceRefVersions=len(refs),contextSHA256=digest((D/'saved-failure-source-context.json.gz').read_bytes()),actualSavedDispositions=[dict(arithmetic=z['arithmetic'],**z['summary'])for z in data['rows']],images=data['images'],groupsReleased=[dict(token=str(g['token']),owner=g['owner'],resources=len(g['resources']),releasedAt=str(g['released_at']),ownsFalse=True)for g in groups],releaseEvents=2,recordedWrapperAndCallerAbsent=True,noMatchingProducerPIDs=True,currentManifestSHA256=CURRENT,currentNativeActors=6650,noRecalculation=True,currentAcceptance=False,physicalAccepted=False,nativePodiumFalsePreserved=True,terminal=terminal)
+O=P/'actual-terminal-readback-v1';O.mkdir();f=O/'audit.json'
+with f.open('x')as q:json.dump(out,q,sort_keys=True,indent=2);q.write('\n')
+script=O/'readonly-terminal-verifier-v2.py'
+with script.open('xb')as q:q.write(Path(__file__).read_bytes())
+print(json.dumps(dict(jobId=out['jobId'],resultSHA256=out['resultSHA256'],evidenceRefs=len(refs),contextSHA256=out['contextSHA256'],auditPath=str(f.relative_to(R)),auditSHA256=digest(f.read_bytes()),auditCodeSHA256=digest(script.read_bytes()),summaries=out['actualSavedDispositions'],images=[dict(path=z['path'],sha256=z['sha256'],dimensions=z['dimensions'])for z in data['images']],groupsReleased=out['groupsReleased'],noPIDs=True,allPassed=True)))

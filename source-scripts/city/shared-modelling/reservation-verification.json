@@ -1,0 +1,59 @@
+{
+  "issue": "HKS-218",
+  "verifiedAt": "2026-09-08T16:18:24.867887+00:00",
+  "branch": "astra-modelling",
+  "policy": {
+    "leaseSeconds": 1800,
+    "heartbeatSeconds": 300,
+    "databaseActionTimeoutSeconds": 20,
+    "historyRetention": "No automatic deletion; at least 24 hours"
+  },
+  "localTests": {
+    "command": "python -m unittest discover -s source-scripts/city/shared-modelling -p 'test_reservation*.py' -v",
+    "discovered": 18,
+    "passed": 12,
+    "skippedLive": 6,
+    "elapsedSeconds": 8.57
+  },
+  "liveTests": {
+    "command": "MODELLING_INTEGRATION_TEST=1 python -m unittest discover -s source-scripts/city/shared-modelling -p test_reservations.py -v",
+    "passedUniqueLiveCases": 6,
+    "qualification": "Five live cases passed in the full run. A deliberately one-second lease test initially asserted a subsequent network round trip fit within one second; corrected to compare server timestamps and passed its targeted rerun. Four validation cases also passed.",
+    "targetedRerun": "MODELLING_INTEGRATION_TEST=1 python -m unittest discover -s source-scripts/city/shared-modelling -p test_reservations.py -k slow_resource -v",
+    "targetedRerunPassed": 1
+  },
+  "liveSupervisorSmoke": {
+    "api": {
+      "exitCode": 0,
+      "released": true,
+      "stillOwned": false
+    },
+    "cli": {
+      "command": "python reservations.py run --lease-file TEMP_FIXTURE_RECEIPT -- python -c \"raise SystemExit(0)\"",
+      "exitCode": 0,
+      "released": true,
+      "stillOwned": false
+    }
+  },
+  "coverage": [
+    "atomic cross-batch full-group claims",
+    "canonical complete LandsD UIDs and no leading-zero aliases",
+    "server-clock expiry after group writes",
+    "expiry reclaim and stale token fencing",
+    "audited takeover compare-and-swap",
+    "partial-group heartbeat failure",
+    "child exit propagation",
+    "refusal to launch without ownership",
+    "heartbeat only while child alive",
+    "bounded renewal failure stops process group",
+    "orphan descendant cleanup",
+    "SIGTERM-ignoring child receives SIGKILL"
+  ],
+  "dataSafety": "Unique fixture resources only. Still-owned fixtures released; expired/superseded fixture history retained. No production writes, real model claims, publication or result changes.",
+  "limitations": [
+    "Cooperative reservations do not atomically fence arbitrary files or R2 writes.",
+    "Manual AI work must heartbeat at checkpoints; only explicitly supervised concrete commands receive automatic heartbeats.",
+    "SIGKILL, machine failure or a child escaping its process group cannot guarantee local process cleanup.",
+    "Process-group supervision currently supports macOS and Linux."
+  ]
+}

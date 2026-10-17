@@ -1,0 +1,5 @@
+# Retained original visit fixture
+
+Codex, 7 October 2026, HKS-203. Assembly acceptance visits required already installed originals through the production `visitBuilding` path before the new target. Pending unrelated base tiles defer non-selected detail; compressed-byte warm-up alone cannot establish actual activation. Required metadata, bytes/SHA, normal runtime budgets, final original activation and visibility remain checked. New candidates still require cold mobile 503/fallback/retry.
+
+Fu Wen staged desktop/mobile day/night passes, with Fu Sing active and visible throughout; coordinator inspected actual desktop/mobile PNGs. This diagnostic is local only and grants no installed credit. Fresh staged/live publication is still required. Config/report/image hashes are in `diagnostic-proof.json`. Optional inspection direction changes only the camera; both originals must remain fully framed. Original building geometry is untouched; no external modelling AI calls. XL remains69 installed /283 not installed,25 new from44/308; active100-new target continues.

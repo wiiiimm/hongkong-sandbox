@@ -1,0 +1,90 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-1883-building-20261005/plan.json",
+  "areas": [
+    {
+      "area": "1883 Building original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-1883-building-20261005/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-118475-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-1883-building-20261005/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "3e377063461b152913b30c36836bcf72d8635f19c1ee265a4b435a6e359ff9cd"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-118475-0.json": "068b57fc53c1201eba79ed510bcde2706938924ae68b9554214bb5d096a395cf",
+    "3d-viewer/city/data/official-models/government-xl-1883-building-20261005/catalogue.json": "084ce35da30158b8b6bf9f1ff492173b1d0ebc5f23ef320fa5d8c76e536dfc40",
+    "3d-viewer/city/data/manifest.json": "c655ff818708dda2d53ecd99e1923aa79fb992b0902ed7d91c8146eed4112830"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "4b3ea703a5ede242b3b69a6a76a8b1ab0728c75b",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-118475-0.json",
+      "resolution": 5,
+      "area": "1883 Building original government terrain from two adjoining source sheets",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "67b1c97ebf94d9c8161ab792d2da3850c68a937c1b7e31fdb66ecb348cf700b7",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-24D",
+            "sourceETag": "\"3680009-655feeb2133cc\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-1883-building-contact-20261005/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.bin",
+                "sha256": "14d8f6360cbcbad50110db738e3db26deb67aca50e879ebc253f318daf9b0b7a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-1883-building-contact-20261005/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.gltf",
+                "sha256": "ee7ec5e5a762ed2078444679ac7b4328bf0db852a80f8210211d9c241a1c993f"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "86d222069465590be2c9e64ef87bf7213b5a4f2f16f8c5722214b004775a6bcb",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-NW-25C",
+            "sourceETag": "\"72af55b-63dcdf594291d\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-1883-building-contact-20261005/sheets/11-NW-25C/terrain/TERRAIN(TB)/T36000180000106E11/T36000180000106E11.bin",
+                "sha256": "be119f9ee1b8f08161e430df037e4fdce4967323abad7cdc835ee79516bfe0bb"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-1883-building-contact-20261005/sheets/11-NW-25C/terrain/TERRAIN(TB)/T36000180000106E11/T36000180000106E11.gltf",
+                "sha256": "593be6d46634f2578a4a315ff189fd82ce32ee37c0d7a9ec98cd7871c1ac3d26"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "068b57fc53c1201eba79ed510bcde2706938924ae68b9554214bb5d096a395cf",
+      "bytes": 3098021
+    }
+  ],
+  "estimatedBases": []
+}

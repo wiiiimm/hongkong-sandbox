@@ -1,0 +1,9 @@
+# Upton captured-ground representation correction, unexecuted v2
+
+The exact failed v1 stopped before any finite computation: captured completeActualDrawnTriplets has shape (9214,9), whereas triangles() correctly requires (N,3,3). The source capture emits nine ordered XYZ scalars per triplet. This is a serialization representation mismatch, not a source or geometry failure.
+
+Retain v1 caller/helper/tests/log, actual release/no-job record and complete capture references. A separate adapter accepts only the observed complete flat-nine JSON schema. It requires exactly 9214 finite number-only rows and the ordered little-endian Float64 SHA b4916dac0a7c911a5b20e7dde729fa9a99fca63fa01896db8380523e6158670a; it verifies the full binary64 tuple multiset against base32 and retained79882 9182 attributed rows before reshaping. It preserves winding, order, multiplicity, signed zeros and degeneracy. Nested/flat alternative shapes are rejected rather than guessed. The reshape must preserve all scalar bytes exactly.
+
+Thirteen representation fixtures cover exact duplication/degeneracy/signed zero, malformed shape/count, nonfinite/coerced values, order, source identity, tuple multiplicity, face IDs and false complete flags. Execution is not authorised yet. A new validation and preflight bind new caller/helper/test/log hashes before a future supervised attempt. Prior thirteen numerical bookkeeping fixtures remain exactly bound to their executed original bytes; they are not relabelled as tests of the representation helper.
+
+All inherited finite kernels, -.5 ordinary predicate, 13704 owned +616 native facets/four streams, 1911 BASIC accounting, 122721 untouched source facets, 9214 current ground, reuse predicates, 17 source zeros/23 crossings/335 prior failures, all source/current/module/end fences and canonical11 resources remain unchanged. No terrain join, source edit, acceptance, grade/root credit or live publication.

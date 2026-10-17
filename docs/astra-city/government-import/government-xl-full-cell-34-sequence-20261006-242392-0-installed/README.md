@@ -1,0 +1,5 @@
+# Tsung Tsin Christian Academy — verified original installation
+
+Codex, 6 October 2026. Tsung Tsin Christian Academy (landsd/242392:0) is installed with unchanged original government geometry. Verified Neon job `dbe517958166703e3adb9ffa4b369c588126cfe60ba75a30443d11463808770d`, snapshot `c86b6c9b8a4aee8f`, source SHA `cb247c0c5363bf640184aef3e4253941be12af57032d55d6cf5d0640be9eadac`. Full whole-cell identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision, fallback/retry pass; exported live mobile PNG inspected. No geometry edits or architectural/model AI calls; no historical Lantau imagery used.
+
+Seventeenth new XL installation: **61 installed / 291 not installed**, 83 further installations required. Public counters: 346,108 total source forms, 4,409 enhanced, 4,395 / 212,669 government matches installed. Remaining serial batch, fresh Hoi Wing/Spectra acceptance, basic-neighbour follow-ups and further57 continue; no checkpoint pause.

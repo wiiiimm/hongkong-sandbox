@@ -1,0 +1,27 @@
+test_closed_line_and_point_contacts_preserve_exact_endpoints (__main__.CoverageFixtures.test_closed_line_and_point_contacts_preserve_exact_endpoints) ... ok
+test_collapsed_or_vertical_projection_gets_no_surface_credit (__main__.CoverageFixtures.test_collapsed_or_vertical_projection_gets_no_surface_credit) ... ok
+test_complete_triangle_and_all_closed_edges (__main__.CoverageFixtures.test_complete_triangle_and_all_closed_edges) ... ok
+test_exact_3d_zero_is_not_projected_zero (__main__.CoverageFixtures.test_exact_3d_zero_is_not_projected_zero) ... ok
+test_height_excluded_only_face_has_drawn_but_not_index_coverage (__main__.CoverageFixtures.test_height_excluded_only_face_has_drawn_but_not_index_coverage) ... ok
+test_height_excluded_redundant_face_is_not_global_failure (__main__.CoverageFixtures.test_height_excluded_redundant_face_is_not_global_failure) ... ok
+test_internal_hole_with_all_outer_edges_retained (__main__.CoverageFixtures.test_internal_hole_with_all_outer_edges_retained) ... ok
+test_non_float32_saved_value_fails_before_coverage (__main__.CoverageFixtures.test_non_float32_saved_value_fails_before_coverage) ... ok
+test_other_role_cannot_certify_retained_outside (__main__.CoverageFixtures.test_other_role_cannot_certify_retained_outside) ... ok
+test_positive_area_near_boundary_is_not_tolerated (__main__.CoverageFixtures.test_positive_area_near_boundary_is_not_tolerated) ... ok
+test_rational_target_not_rounded_to_binary64 (__main__.CoverageFixtures.test_rational_target_not_rounded_to_binary64) ... FAIL
+test_saved_fan_order_and_inputs_immutable (__main__.CoverageFixtures.test_saved_fan_order_and_inputs_immutable) ... ok
+test_signed_zero_ordered_bytes_must_match_saved_digest (__main__.CoverageFixtures.test_signed_zero_ordered_bytes_must_match_saved_digest) ... ok
+
+======================================================================
+FAIL: test_rational_target_not_rounded_to_binary64 (__main__.CoverageFixtures.test_rational_target_not_rounded_to_binary64)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_polyu_face891_saved_packed_closed_coverage_v1_draft_20261014.py", line 44, in test_rational_target_not_rounded_to_binary64
+    self.assertEqual(target[0][0],F(1,3));self.assertTrue(result['completeClosedXZCovered'])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.023s
+
+FAILED (failures=1)

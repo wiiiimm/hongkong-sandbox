@@ -1,0 +1,1 @@
+Scopev1 completed traversal but stopped before constructing its declaration with KeyError: priorV2CurrentManifestHistoricalOnly. The exact inherited Beverlyv4 declaration stores priorV3CurrentManifestHistoricalOnly. Preserve this executed producer unchanged. A separate v2 reads the actual exact inherited field; no new source aliases, metadata leaves or routing exceptions.

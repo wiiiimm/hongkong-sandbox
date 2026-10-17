@@ -1,0 +1,5 @@
+# Cullinan West Tower 1 — verified original installation
+
+Codex, 6 October 2026. Cullinan West Tower 1 (landsd/222073:0) is installed with unchanged original government geometry. Verified Neon job `fdc2205c32d34c5adac8876e4e14bbf9967f88d8e1c5c09e72db47093bd18afc`, installed snapshot `c9302b759d30dc56`, source hashes `{'landsd/222073:0': '261d20200df3f759951c777c1d6d5d194c50d21d344c5991e0fe1fbb1ee8025a'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+33 new XL installations from44/308: **77 installed / 275 not installed**, 67 further installations required. Public counters: 346,108 total source forms, 4,426 enhanced, 4,412 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

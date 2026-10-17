@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {guardSamples,gapBoundary,bits} from './upton_six_basic_guard_samples_v1_20261012.mjs';
+const square={rings:[[[0,0],[4,0],[4,4],[0,4],[0,0]]]};
+test('raw closing duplicate and x-major lattice order retained',()=>assert.deepEqual(guardSamples(square).points,[[0,0],[4,0],[4,4],[0,4],[0,0],[1,1],[1,3],[3,1],[3,3]]));
+test('holes retain all raw vertices and omit only original interior samples',()=>{const q=guardSamples({rings:[square.rings[0],[[.5,.5],[1.5,.5],[1.5,1.5],[.5,1.5],[.5,.5]]]});assert.equal(q.points.length,13);assert(!q.points.slice(10).some(p=>p[0]===1&&p[1]===1));});
+test('adaptive original step remains uncapped and exact',()=>assert.equal(guardSamples({rings:[[[0,0],[200,0],[200,200],[0,200]]]}).step,4));
+test('projected line retains vertices and no fabricated lattice',()=>assert.deepEqual(guardSamples({rings:[[[0,0],[0,2],[0,4]]]}).points,[[0,0],[0,2],[0,4]]));
+test('nonfinite source ring fails closed',()=>assert.throws(()=>guardSamples({rings:[[[0,0],[NaN,1],[1,1]]]})));
+test('empty ring fails closed',()=>assert.throws(()=>guardSamples({rings:[[]]})));
+test('actual254809 boundary retains original JS accept/reject',()=>{const q=gapBoundary(18.3,12.46294137869899);assert(q.base-q.minimumAcceptedBinary64HeightM<=q.existingGapLimitM);assert(q.base-q.previousRejectedHeightM>q.existingGapLimitM);});
+test('rounding near nominal zero is not algebraic equality',()=>{const q=gapBoundary(1.25,0);assert.equal(q.nominalAlgebraicBoundaryM,0);assert(q.minimumAcceptedBinary64HeightM<0);});
+test('negative actual boundary retains finite predecessor',()=>{const q=gapBoundary(9.1,14);assert(q.minimumAcceptedBinary64HeightM<0&&q.previousRejectedHeightM<q.minimumAcceptedBinary64HeightM);});
+test('minimum branch max1 applied unchanged',()=>assert.equal(gapBoundary(3,.2).existingGapLimitM,1.25));
+test('large cancellation still finds actual monotone binary64 boundary',()=>{const q=gapBoundary(1e200,1e200);assert(q.base-q.minimumAcceptedBinary64HeightM<=q.existingGapLimitM&&q.base-q.previousRejectedHeightM>q.existingGapLimitM);});
+test('nonfinite base or old gap fails closed',()=>{assert.throws(()=>gapBoundary(Infinity,2));assert.throws(()=>gapBoundary(2,NaN));});
+test('signed zero exact binary64 description retained',()=>assert.notEqual(bits(-0),bits(0)));

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/twin_tower1_extra_distance_v1_20261017.py", line 23, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/twin_tower1_extra_distance_v1_20261017.py", line 16, in main
+    p=PREV/'gap-candidates.json.gz';assert digest(p.read_bytes())in pins[str(p.relative_to(ROOT))];refs.append(p);extra=read(p)['extraModels'];assert len(extra)==1;m=extra[0];asset=HERE/'local/government-xl-thirty-spatial-original-closures-20261008'/m['asset']['asset'];assert digest(asset.read_bytes())==m['asset']['sha256']and digest(asset.read_bytes())in pins[str(asset.relative_to(ROOT))];refs.append(asset);tri=decode_original_world_triangles(asset.read_bytes());assert len(tri)==m['triangles']==223
+                                                                                                                                                                                                                                                                                                                                                                      ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source-scripts/city/government-import/local/government-xl-thirty-spatial-original-closures-20261008/assets/0100b9dd306d68993d71e12b68b4d275bffddb011ca8f0461c259a3bd027cb54.glb.gz'

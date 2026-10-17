@@ -1,0 +1,35 @@
+{
+  "rows": [
+    {
+      "uid": "landsd/176915:0",
+      "passed": true,
+      "vertices": 10272,
+      "triangles": 6344,
+      "terrain": {
+        "minimumGapBefore": -0.4518556041757833,
+        "minimumGapAfter": -0.4518556041757833,
+        "maximumBurialIncrease": 8.80470757635976e-07,
+        "whollyBuriedBefore": 0,
+        "whollyBuriedAfter": 0,
+        "upwardWhollyBuriedBefore": 0,
+        "upwardWhollyBuriedAfter": 0,
+        "newlyWhollyBuried": 0,
+        "newlyUpwardWhollyBuried": 0
+      },
+      "support": {
+        "sameParentNativeUids": [],
+        "lowRimSamples": 48,
+        "supportedLowRim": 0,
+        "supportFraction": 0
+      },
+      "policy": "All runtime-loaded indexed vertices and triangles use the exact before/after viewer terrain samplers. No newly wholly buried triangle is allowed. A terrain-distant component also requires >=50% of its native low rim to lie inside a lower same-parent installed native component."
+    }
+  ],
+  "aiCalls": 0,
+  "modelGeometryChanges": 0,
+  "derivedFrom": {
+    "path": "docs/astra-city/government-import/government-lantau-landmarks-16-20260916/second-pass/third-pass/terrain-peaceful-mansion/native-neighbour-checks.json",
+    "sha256": "cb6b4db605485ace400ab1e29ff92216356fa9195c99d521ccd15c2fa740fba8"
+  },
+  "policy": "Immutable retained-model full-mesh result extracted after the final neighbour-preserving patch; excludes mutable validation input hashes."
+}

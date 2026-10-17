@@ -1,0 +1,56 @@
+"""Authentic-TIN grade and exposed-cap evidence, never current root credit.
+
+The four complete original bodies account for all129 real-facet negatives.
+The22 raw downward failures stay in the inventory and grade contacts but cannot
+bridge a wall/cap path. The three collapsed negatives also provide no bridge.
+"""
+import importlib.util,json,sys,uuid,subprocess
+from pathlib import Path
+import numpy as np
+from run import ROOT,HERE,read,save,digest,connect,reservations
+from evangel_college_original_wing_extension_identity_20261011 import UID,SOURCE_SHA
+from evangel_college_post_elements_current_bound_wing_extension_identity_v2_20261011 import source_proposal_pin_path
+from original_bound_facet_wall_context_v3_20261010 import contexts
+from original_bound_facet_wall_context_20261010 import canonical
+from original_strict_clear_cap_wall_paths_20261009 import verify as cap_paths
+from exact_original_finite_triangle_contacts_20261010 import exact_finite_contacts
+BASE=ROOT/'docs/astra-city/government-import';INPUT=BASE/'government-xl-evangel-college-91306-current-actual-ground-capture-v1-20261011';TIN=BASE/'government-xl-evangel-college-91306-authentic-tin-source-context-v1-20261011';COMPARE=BASE/'government-xl-evangel-college-91306-authentic-tin-complete-source-comparison-v2-20261011';GRAPH=BASE/'government-xl-evangel-college-91306-complete226-source-component-interfaces-v1-20261011'
+BATCH='government-xl-evangel-college-91306-authentic-four-body-grade-paths-v1-20261011';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+def owned():
+ lease=read(LEASE);assert reservations.owns(lease)and not DOC.exists();refs=[Path(__file__)]
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY')
+  for folder in [INPUT,TIN,COMPARE,GRAPH]:
+   receipt=read(folder/'result.json');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(receipt['jobId'],)).fetchone()==('complete',receipt);refs.append(folder/'result.json')
+   for pin in receipt['evidenceRefs']:
+    p=source_proposal_pin_path(pin);assert digest(p.read_bytes())==pin['sha256'];refs.append(p)
+ data=read(INPUT/'complete-four-stream-ground-inputs.json.gz');comparison=read(COMPARE/'diagnostic.json.gz');graph=read(GRAPH/'diagnostic.json.gz');tin=read(TIN/'complete-authentic-source-tin-ground.json.gz');ground=np.asarray(tin['completeSelectedFacets'],dtype='<f8');assert digest(ground.tobytes())==tin['completeSelectedFacetSHA256']and data['sourceSHA256']==SOURCE_SHA
+ rows=[];cache={}
+ for mode,stream in data['completeWorldStreams'].items():
+  world=np.asarray(stream['completeWorldTriangles'],dtype='<f8');sha=digest(world.tobytes());assert sha==stream['completeWorldTriangleSHA256'];g=next(r for r in graph['rows']if r['arithmetic']==mode);previous=next(r for r in comparison['rows']if r['arithmetic']==mode);assert g['completeWorldSHA256']==previous['completeWholeWorldSHA256']==sha
+  topology=g['completeOriginalTopology'];parts=topology['sharedEdgeConnectedComponents'];ids=sorted(i for c in [13,68,69,223]for i in parts[c]);assert len(ids)==5297 and len(set(ids))==5297
+  failed=set(previous['authenticOriginalTINFailedFaces']);zeros=set(topology['exactNonrenderingOriginalFaces']);assert len(failed)==132 and len(failed&zeros)==3 and failed-zeros<=set(ids)
+  records=previous['complete13960FaceComparisons'];downward=sorted(i for i in ids if i in failed and records[i]['orientationDiagnostic']=='downward');assert len(downward)==22
+  eligible=sorted(set(ids)-set(downward));assert len(eligible)==5275
+  if sha not in cache:
+   adapted=[dict(sourceFace=j,priorCoarseBoundProofVerbatim=dict(sourceFace=j,completeOriginal=records[i]['authenticOriginalTINFinite']['coarse']),pairedExactOriginalFiniteBound=records[i]['authenticOriginalTINFinite']['paired'],completeOriginalBoundProved=records[i]['authenticOriginalTINFinite']['completeFiniteOrdinaryBoundProved'])for j,i in enumerate(eligible)]
+   t=world[eligible];binding=dict(completeOriginalWorldTrianglesSHA256=digest(t.tobytes()),completeDrawnGroundSHA256=digest(ground.tobytes()),completeFiniteFacetProofRowsSHA256=canonical(adapted));ctx=contexts(t,ground,adapted,expected_binding=binding,current_binding=binding)
+   mapping={i:j for j,i in enumerate(eligible)};pairs=set()
+   for pair in g['everyNominatedPairPrimitiveInventory']:
+    for contact in pair['completePrimitiveContactInventory']['contacts']:
+     a,b=contact['sourceFaceA'],contact['sourceFaceB']
+     if a in mapping and b in mapping and contact['dimension']>0 and contact['sourcePrimitiveDimensionA']==contact['sourcePrimitiveDimensionB']==2:pairs.add(tuple(sorted((mapping[a],mapping[b]))))
+   pairs=[list(p)for p in sorted(pairs)];path_binding=dict(completeOriginalWorldTrianglesSHA256=digest(t.tobytes()),completeCurrentFacetContextsSHA256=canonical(ctx),exactOriginalContactListSHA256=canonical(pairs));proof=cap_paths(t,ctx,pairs,expected_binding=path_binding,current_binding=path_binding)
+   complete_grade=exact_finite_contacts(world,ids,ground,range(len(ground)),maximum_pairs=len(ids)*len(ground));assert complete_grade['allPairsExamined']and complete_grade['sourceFacesOmitted']==0
+   wall_ids={eligible[p['sourceFace']]for p in proof['paths']};assert wall_ids=={i for i in failed if records[i]['orientationDiagnostic']=='steep-wall'}and len(wall_ids)==107
+   cache[sha]=dict(completeFourOriginalBodyFaces=ids,all5297RawAuthenticFiniteRecords=[records[i]for i in ids],rawDownwardFacesRetainedAsUncredited=downward,rawZeroFailureFacesRetainedAsUncredited=sorted(failed&zeros),eligibleWallCapPathFaceToSourceFace=eligible,complete5275EligibleFacetContexts=ctx,exactPositiveInterfacePairs=pairs,strictCapPathDiagnostic=proof,complete5297AuthenticGradeContactInventory=complete_grade,all129RealFaceNegativesAccounted=True,noDownwardFailedOrZeroFacetProvidesPath=True,sourceGeometryChanges=0,authenticSourceRootIsNotCurrentGroundRoot=True,foundationInterpretationAccepted=False,currentAcceptance=False)
+  rows.append(dict(arithmetic=mode,completeWorldSHA256=sha,**cache[sha]));save(LOCAL/('completed-'+mode+'.json.gz'),dict(row=rows[-1],sourceOnly=True,currentAcceptance=False));print(json.dumps(dict(arithmetic=mode,all107WallsHaveCapPaths=rows[-1]['strictCapPathDiagnostic']['allAffectedHavePaths'],rawExposureFailures=len(rows[-1]['strictCapPathDiagnostic']['rawExposureFailures']),gradeContacts=len(rows[-1]['complete5297AuthenticGradeContactInventory']['contacts']))),flush=True)
+ save(DOC/'diagnostic.json.gz',dict(uids=[UID],sourceSHA256=SOURCE_SHA,rows=rows,completeAuthenticGroundSHA256=tin['completeSelectedFacetSHA256'],all132RawFiniteFailuresRetained=True,historicalCapturedBaselineOnly=True,terrainReplacementProposed=False,currentAcceptance=False,physicalAccepted=False,newlyInstalled=0))
+ assert reservations.owns(lease)
+ refs.extend(HERE/n for n in ['evangel_college_original_wing_extension_identity_20261011.py','evangel_college_post_elements_current_bound_wing_extension_identity_v2_20261011.py','original_bound_facet_wall_context_v3_20261010.py','original_bound_facet_wall_context_v2_20261010.py','original_bound_facet_wall_context_20261010.py','original_strict_clear_cap_wall_paths_20261009.py','exact_original_finite_triangle_contacts_20261010.py','exact_original_triangle_pair_column_gap_20261010.py','exact_original_projection_coverage_v2_20261010.py']);refs.append(DOC/'diagnostic.json.gz');refs.extend(p for p in LOCAL.rglob('*')if p.is_file()and p.name!='reservation.json')
+ s=importlib.util.spec_from_file_location('evangel_authentic_grade_freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.freeze(BATCH,'four-complete-original-body-authentic-grade-and-wall-cap-path-diagnostic-no-current-root-credit',refs,dict(uids=[UID],all132RawFailuresRetained=True,currentAcceptance=False,newlyInstalled=0))
+def main():
+ if '--owned'in sys.argv:return owned()
+ assert not DOC.exists()and not LOCAL.exists();claim=reservations.claim('evangel-authentic-source-grade-'+str(uuid.uuid4()),['building:'+UID],batch=BATCH,ttl=3600);assert claim['ok'];save(LEASE,json.loads(json.dumps(claim['reservation'],default=str)))
+ subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+if __name__=='__main__':main()

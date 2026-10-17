@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-full-cell-34-sequence-20261006-242392-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "Tsung Tsin Christian Academy original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-full-cell-34-sequence-20261006-242392-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-242392-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-full-cell-34-sequence-20261006-242392-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "62bc1dc67ef412334cc136b1b592c61fa2bbd0ff043f65532853b01ea592088c"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-242392-0.json": "aaee1dc8bf739ab0e459ea49bbd967d4eea4207b15b91a75d2693f62ad03425d",
+    "3d-viewer/city/data/official-models/government-xl-full-cell-34-sequence-20261006-242392-0-installed/catalogue.json": "9f1064ea9f1008a7d05f69b5a7130e63295097d587ed8a094307e5e0df7116fe",
+    "3d-viewer/city/data/manifest.json": "020913c1d25c5c89f2d55e3e4df0a2788d59a73d4bd80d54dfd873295c559084"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "5e6e970ff0bea8e6646dffb213268a0a2c210232",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-242392-0.json",
+      "resolution": 5,
+      "area": "Tsung Tsin Christian Academy unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "3653f1d144f144c9e48909d5850b8168b9f4ad1f01f879e12138f66b6e671fd3",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-NW-13A",
+            "sourceETag": "\"378048f-64e62d580f4f3\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-market-in-native-terrain-group-20261005/sheets/11-NW-13A/terrain/TERRAIN(TB)/T33000210000106E13/T33000210000106E13.bin",
+                "sha256": "7b3875a426c3d9a5c47ebaa3262fb9db561473de8dc504f5b67d1932ad26a29a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-market-in-native-terrain-group-20261005/sheets/11-NW-13A/terrain/TERRAIN(TB)/T33000210000106E13/T33000210000106E13.gltf",
+                "sha256": "be43d9041e9671bc27cd48e83d7b6eaac2f68dae1ab21fc433283748a2c5940d"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "aaee1dc8bf739ab0e459ea49bbd967d4eea4207b15b91a75d2693f62ad03425d",
+      "bytes": 1496441
+    }
+  ],
+  "estimatedBases": []
+}

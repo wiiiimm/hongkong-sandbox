@@ -1,0 +1,350 @@
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+test_actual_complete_baseline (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_actual_complete_baseline) ... FAIL
+test_blanket1106_scope_mutation (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_blanket1106_scope_mutation) ... FAIL
+test_cell_negative_survives (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_cell_negative_survives) ... FAIL
+test_changed_model (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_changed_model) ... FAIL
+test_changed_pose (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_changed_pose) ... FAIL
+test_changed_source_tuple (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_changed_source_tuple) ... FAIL
+test_changed_starmart_form (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_changed_starmart_form) ... FAIL
+test_graph_negative_survives (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_graph_negative_survives) ... FAIL
+test_missing_complete_face (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_missing_complete_face) ... FAIL
+test_missing_far_face (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_missing_far_face) ... FAIL
+test_missing_perimeter_interpretation_face (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_missing_perimeter_interpretation_face) ... FAIL
+test_missing_starmart (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_missing_starmart) ... FAIL
+test_other_raw_guard_survives (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_other_raw_guard_survives) ... FAIL
+test_source_context_false_physics_promoted (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_source_context_false_physics_promoted) ... FAIL
+test_source_world_change (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_source_world_change) ... FAIL
+test_target_hole_removed (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_target_hole_removed) ... FAIL
+
+======================================================================
+FAIL: test_actual_complete_baseline (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_actual_complete_baseline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 17, in test_actual_complete_baseline
+    r=compose(**self.inputs());self.assertTrue(r['passed']);self.assertEqual(r['reasons'],[])
+                ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_blanket1106_scope_mutation (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_blanket1106_scope_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 28, in test_blanket1106_scope_mutation
+    def test_blanket1106_scope_mutation(self):self.rejected(lambda x:x['source_context']['attribution']['overlaps'][0].__setitem__('completeAttributedOriginalFaceIds',[0]))
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_cell_negative_survives (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_cell_negative_survives)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 37, in test_cell_negative_survives
+    x=self.inputs();x['previous']['exactWholeCellCoverage']['covered']=False;x['previous']['reasons'].append('original-source-does-not-cover-whole-georef-cell');r=compose(**x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_changed_model (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_changed_model)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 24, in test_changed_model
+    def test_changed_model(self):self.rejected(lambda x:x['row'].__setitem__('modelId','B371252646702063C0'))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_changed_pose (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_changed_pose)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 25, in test_changed_pose
+    def test_changed_pose(self):self.rejected(lambda x:x['row']['candidate']['entry'].__setitem__('rootTranslation',[0,0,0]))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_changed_source_tuple (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_changed_source_tuple)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 23, in test_changed_source_tuple
+    def test_changed_source_tuple(self):self.rejected(lambda x:x['row'].__setitem__('sourceSHA256','0'*64))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_changed_starmart_form (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_changed_starmart_form)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 31, in test_changed_starmart_form
+    def test_changed_starmart_form(self):self.rejected(lambda x:next(b for b in x['forms']if b['uid']=='landsd/57455:0').__setitem__('height',999))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_graph_negative_survives (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_graph_negative_survives)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 40, in test_graph_negative_survives
+    x=self.inputs();x['previous']['originalOwnership']['sourceGraphVerified']=False;x['previous']['reasons'].append('source-root-name');r=compose(**x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_missing_complete_face (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_missing_complete_face)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 22, in test_missing_complete_face
+    def test_missing_complete_face(self):self.rejected(lambda x:x.__setitem__('world',x['world'][:-1]))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_missing_far_face (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_missing_far_face)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 26, in test_missing_far_face
+    def test_missing_far_face(self):self.rejected(lambda x:x['source_context']['attribution']['farOriginalFaceIds'].pop())
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_missing_perimeter_interpretation_face (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_missing_perimeter_interpretation_face)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 27, in test_missing_perimeter_interpretation_face
+    def test_missing_perimeter_interpretation_face(self):self.rejected(lambda x:x['interpretation']['viewInventoryOnlyNotComponents'][1]['farFaceIds'].pop())
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_missing_starmart (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_missing_starmart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 30, in test_missing_starmart
+    def test_missing_starmart(self):self.rejected(lambda x:x.__setitem__('forms',[b for b in x['forms']if b['uid']!='landsd/57455:0']))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_other_raw_guard_survives (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_other_raw_guard_survives)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 34, in test_other_raw_guard_survives
+    x=self.inputs();x['previous']['reasons'].append('fresh-exact-component-route-not-unique-or-differs');r=compose(**x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_source_context_false_physics_promoted (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_source_context_false_physics_promoted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 29, in test_source_context_false_physics_promoted
+    def test_source_context_false_physics_promoted(self):self.rejected(lambda x:x['source_context'].__setitem__('physicalAccepted',True))
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_source_world_change (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_source_world_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 21, in test_source_world_change
+    def test_source_world_change(self):self.rejected(lambda x:x['world'].__setitem__((0,0,0),x['world'][0,0,0]+1))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+======================================================================
+FAIL: test_target_hole_removed (test_heritage_current_typed_identity_draft_v1.MuseumIdentityTests.test_target_hole_removed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 32, in test_target_hole_removed
+    def test_target_hole_removed(self):self.rejected(lambda x:next(b for b in x['forms']if b['uid']=='landsd/165054:0')['rings'].pop())
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 14, in rejected
+    x=self.inputs();change(x)
+      ^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py", line 12, in inputs
+    def inputs(self):return deepcopy(actual_test_fixture())
+                                     ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 62, in actual_test_fixture
+    def actual_test_fixture():return calculation_inputs()[0]
+                                     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/heritage-current-typed-identity-caller-draft-v1.py", line 48, in calculation_inputs
+    for b,_,tile in forms:assert 'building:'+b['uid']in c['canonicalResources']and '3d-viewer/'+tile in c['filePins'] and sha(ROOT/'3d-viewer'/tile)==c['filePins']['3d-viewer/'+tile]
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+----------------------------------------------------------------------
+Ran 16 tests in 9.969s
+
+FAILED (failures=16)

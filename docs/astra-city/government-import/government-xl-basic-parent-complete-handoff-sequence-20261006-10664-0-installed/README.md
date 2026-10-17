@@ -1,0 +1,5 @@
+# CORONATION CIRCLE — verified original installation
+
+Codex, 6 October 2026. CORONATION CIRCLE (landsd/10664:0) is installed with unchanged original government geometry. Verified Neon job `566b1639352d7fd8f56751b92517f11928484a0bf5502fd9a10dac5b882f8439`, installed snapshot `607a6b10c075270c`, source hashes `{'landsd/10664:0': '2b1dbaf2f6629e262bfd410ff1c2edc518c995540d076aa63d5956482c4a3b01'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+26 new XL installations from44/308: **70 installed / 282 not installed**, 74 further installations required. Public counters: 346,108 total source forms, 4,418 enhanced, 4,404 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

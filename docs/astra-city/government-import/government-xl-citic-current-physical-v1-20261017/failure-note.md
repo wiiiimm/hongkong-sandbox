@@ -1,0 +1,1 @@
+Legacy module closure rejected the current literal dynamic import in model-codecs.js. No physical check ran. V2 uses the existing exact static/dynamic/resource closure helper, retaining computed-import rejection and byte fences. Source geometry unchanged.

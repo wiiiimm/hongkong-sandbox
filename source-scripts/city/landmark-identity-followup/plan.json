@@ -1,0 +1,64 @@
+{
+  "issue": "HKS-213",
+  "batchId": "landmark-identity-followup",
+  "createdAt": "2026-09-08T19:18:17.032232+00:00",
+  "sourceReport": "source-scripts/city/landmark-identity-followup/target-input.json",
+  "sourceReportSHA256": "5eb1c2db097302e08374c0a0d7ce604b0dc6d016ff096a5b5ea394b00138de56",
+  "sourceIndexSHA256": "436b3960382b7dc9271a8b7e618eb857e6e568bbe92e137cae2006241f79e514",
+  "registryEntries": 213,
+  "targetParts": 2,
+  "officialTiles": 2,
+  "targets": [
+    {
+      "uid": "landsd/179500:0",
+      "objectId": 179500,
+      "csuid": "4384214085T20181127",
+      "name": "",
+      "x": 9341.507,
+      "z": 2415.079,
+      "landmarks": [],
+      "identityApproved": false,
+      "sheets": [
+        "11-SE-20A"
+      ]
+    },
+    {
+      "uid": "landsd/272501:0",
+      "objectId": 272501,
+      "csuid": "4620017075T20141126",
+      "name": "",
+      "x": 11699.311,
+      "z": -575.079,
+      "landmarks": [],
+      "identityApproved": false,
+      "sheets": [
+        "12-SW-1D"
+      ]
+    }
+  ],
+  "tiles": {
+    "11-SE-20A": {
+      "attributes": {
+        "OBJECTID": 2632,
+        "SHEETNO": "11-SE-20A",
+        "REVISIONDATE": 1776960000000,
+        "Format_glTF": "https://download.map.gov.hk/api/3d-zip/GLTF0/11-SE-20A.zip?key=ad5940a63bd344c48b0351ef1c7a905e"
+      },
+      "uids": [
+        "landsd/179500:0"
+      ]
+    },
+    "12-SW-1D": {
+      "attributes": {
+        "OBJECTID": 2880,
+        "SHEETNO": "12-SW-1D",
+        "REVISIONDATE": 1759075200000,
+        "Format_glTF": "https://download.map.gov.hk/api/3d-zip/GLTF0/12-SW-1D.zip?key=ad5940a63bd344c48b0351ef1c7a905e"
+      },
+      "uids": [
+        "landsd/272501:0"
+      ]
+    }
+  },
+  "policy": "Exact ten-digit GeoRefNo only; all current official sheets intersecting retained footprint +1m. No identity invention, coordinate change or publication."
+}

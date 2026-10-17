@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-bauhinia-20260924/plan.json",
+  "areas": [
+    {
+      "area": "Bauhinia Garden original government towers",
+      "models": 4,
+      "catalogue": "city/data/official-models/government-xl-bauhinia-20260924/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-114115-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-bauhinia-20260924/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "4ac179051064f7249148616b518dd14ac725fe86477d1733c92b7bd076b3958f"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-114115-0.json": "8671a5a55f27891e4fbb65e2be13b3a8f1338e2d8a809aecd1a5877b94b459e8",
+    "3d-viewer/city/data/official-models/government-xl-bauhinia-20260924/catalogue.json": "160024b8fb75a3f4667e7870987dac5865bb2260f203670ecd8f8bcfbe09ce72",
+    "3d-viewer/city/data/manifest.json": "685d93ac46c3f3511a166f8b9d89fa43b80f18165ae030c80e1fc791b7b53919"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "3315ec842dbe0bac19b653e29f6514056766002b",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-114115-0.json",
+      "resolution": 5,
+      "area": "Bauhinia Garden exact government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "5a48f5294c7a428c572b3fd1673c94cdd29fc196e852666d81ebea1ff71e5f60",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "12-NW-21A",
+            "sourceETag": "\"24d2ec9-63dce87e3dc07\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/12-NW-21A/terrain/TERRAIN(TB)/T45000186000106E10/T45000186000106E10.bin",
+                "sha256": "7843caaa08ae10fa9756e67a4247f25983cdaa4e99f5b3fce93d82d15466e3d9"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/12-NW-21A/terrain/TERRAIN(TB)/T45000186000106E10/T45000186000106E10.gltf",
+                "sha256": "77bb5d7b290233e655539121a6d3150c7b771924b3f88be53a4f96104da3ed81"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "8671a5a55f27891e4fbb65e2be13b3a8f1338e2d8a809aecd1a5877b94b459e8",
+      "bytes": 835447
+    }
+  ],
+  "estimatedBases": []
+}

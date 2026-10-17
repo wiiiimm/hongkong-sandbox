@@ -1,0 +1,47 @@
+{
+  "issue": "HKS-214",
+  "version": 1,
+  "published": false,
+  "scope": "Only add the measured native IFC1 podium dependency; every other model field and all source asset bytes remain unchanged.",
+  "catalogues": [
+    {
+      "url": "city/data/official-models/central/catalogue.json",
+      "source": "3d-viewer/city/data/official-models/central/catalogue.json",
+      "oldSHA256": "0f3b7f6e75fb795716dc7cbe63309bc8beb2537cce1595e97c93328e2e850bd2",
+      "models": [
+        "landsd/161250:0"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "uid": "landsd/161250:0",
+      "modelSHA256": "08619d248f38cd2b2f48a6cafe8119e00c9e22d9ac58e9e7d1441b35e051a27c",
+      "modelId": "B342131624601063C0",
+      "buildingCSUID": "3421316246T20050430",
+      "catalogue": "3d-viewer/city/data/official-models/central/catalogue.json",
+      "oldSupportDependencies": [],
+      "supportDependencies": [
+        {
+          "uid": "landsd/232441:0",
+          "state": "installed",
+          "csuid": "3421916245P20060312"
+        }
+      ],
+      "contactEvidenceSHA256": "6a459002cc64b64fb11ba954816bf966171142561a2136df0a5c1e6547ff1f76"
+    }
+  ],
+  "contactReport": "docs/astra-city/landmark-completion-audit/first12-ifc-support.json",
+  "contactReportSHA256": "6a459002cc64b64fb11ba954816bf966171142561a2136df0a5c1e6547ff1f76",
+  "requiresNewNativeUids": [],
+  "requiredExistingNativeUids": [
+    "landsd/232441:0"
+  ],
+  "requiresVisualApproval": true,
+  "visualApproval": {
+    "status": "approved-for-integration",
+    "evidence": "docs/astra-city/landmark-completion-audit/first12-decisions.json",
+    "evidenceSHA256": "76dcdc22a0a078b9b938aec5e3caf3d45a70325ae18b1e11086a03ea104dfed7",
+    "scope": "Native tower/podium assembled in inspected day/night desktop/mobile views;73 exact rim contacts and17 connected perimeter overhang vertices. Geometry unchanged; no assertion that every rim point is within0.5m."
+  }
+}

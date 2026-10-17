@@ -1,0 +1,35 @@
+# Mui Wo online reference and live city review
+
+GPT-6 Astra independently opened and inspected Google Maps satellite views for all five requested areas on 6 September 2026. `online-reference-check.json` records requested URLs, final URLs, map centres, visible text and capture filenames. The captures preserve provider attribution and map scale. The visible copyright year is **not an imagery acquisition date**. This was ordinary browser navigation; no account, downloaded imagery tiles, source-image extraction or tracing was used.
+
+| Area and inspected reference | Visible pattern | Consequence for this map |
+| --- | --- | --- |
+| [Waterfront](https://www.google.com/maps/@22.266553,113.999241,18z/data=!3m1!1e3) | Ferry pier, bus terminus and developed southern frontage; the municipal/sports complex and river mouth lie west of the bay. The sandy beach curves northwards. Buildings are a mixture of larger blocks and small forms. | The current official footprints restore this mixed pattern. A full river-mouth/channel and detailed waterfront-surface review is still needed; building import alone does not repair hydrology or shoreline sampling. |
+| [Wang Tong](https://www.google.com/maps/@22.2720008,113.9969194,18z/data=!3m1!1e3) | Dense small-roof clusters extend inland north-west of the beach, with a narrow river corridor and open plots between wooded slopes. | The original zero buildings within the source-centred 250 m circle was a substantive omission. The official footprint data supplies the cluster while retaining open land. Its roofs are not part of the single western 3D sample tile. |
+| [Pak Ngan Heung](https://www.google.com/maps/@22.2712245,113.9900245,18z/data=!3m1!1e3) | A compact settlement sits below the wooded hillside, south of the waterfall. Man Mo Temple and the public toilet lie on the eastern edge of the main cluster. Open plots and paths continue southwards. | The official sample and live city now show the compact rows, temple/toilet location and varied roof forms. The 318-form baseline contained only three forms in the corresponding 250 m circle. |
+| [Tai Tei Tong](https://www.google.com/maps/@22.2675564,113.9905141,18z/data=!3m1!1e3) | A larger compact low-rise cluster sits among winding village paths, with school/temple landmarks and open plots around it. | The older OSM coverage was far too sparse. Source outlines improve settlement density without filling all open land. Most of the village still uses sourced footprint extrusion rather than the one sampled detailed-model tile. |
+| [Luk Tei Tong](https://www.google.com/maps/@22.2628142,113.9913277,18z/data=!3m1!1e3) | The settlement follows a winding north-west–south-east path near the wooded hillside, with broad open ground and drainage corridors to the east. | Preserve the linear settlement and open eastern ground. Original coverage was better here than Wang Tong/Pak Ngan Heung, but official data still identifies additional structures. |
+
+These are qualitative appearance and relative-location checks. Roof counts, exact building outlines, ground heights and walking accessibility were **not** inferred from these images. Satellite overhangs, vegetation, shadows and different source dates prevent that degree of certainty. The actual model geometry continues to derive from the retained official/OSM vector sources.
+
+The current city vegetation is still a stylised surface mask plus illustrative trees. The satellite views show much more continuous woodland and different local ground-cover patterns. Detailed vegetation, watercourse, lane widths and village-surface acceptance remain outstanding; the increased building coverage should not be mistaken for completion of those layers.
+
+## Live integration checked
+
+`live_model_check.mjs` used the existing city interface at port 4176, first at Mui Wo and then through building search to the named Pak Ngan Heung Public Toilet and Yick Yuen. The exported overview and both source-card views were opened and inspected.
+
+- All **275** verified detailed building geometries arrived through the existing tile loader, totalling **26,164** source-model triangles. No separate product loader or viewer was introduced.
+- Both searched buildings selected the correct official source UID and showed the official non-textured model attribution, outline-height distinction and source-record link.
+- There were zero page errors and zero failed tile responses. At the close village views the stream held 15 wanted/loaded tiles, 17 cached tiles and 3,561 nearby forms.
+- The scene used 67–70 draw calls and approximately 1.646 million total triangles. Two 90-frame headless Chrome samples had median and 90th-percentile intervals of 16.7 ms. These are local desktop observations, not a mobile performance guarantee.
+- Roof relief and the restored village cluster are visible in `pak-ngan-heung-public-toilet-live-1600x1000.png`. `mui-wo-live-official-overview-1600x1000.png` captures the denser wider settlement.
+
+The source 3D bounds and dated 2D height fields are distinct. `model-outline-height-comparison.json` finds three model minima more than 2 m from source BaseHeight, and 121 maxima more than 2 m from source TopHeight (four more than 5 m). For example, Yick Yuen `landsd/205304:0` has source model vertical bounds 33.22–35.29 m HKPD, while its dated outline fields are 27.7–39.0 m. Both were preserved. The interface appropriately calls the numeric field **outline height**; it must not imply that this number is the measured height of the displayed 3D geometry.
+
+`live-model-check.json` retains exact selected UIDs, source cards, tile/render counts and frame samples. This is representative live appearance, loading and picking verification, not complete collision or architecture acceptance.
+
+## Open3Dhk visual comparison completed
+
+All five locations were also opened in [Open3Dhk](https://3d.map.gov.hk/) at 650 m with a directly overhead camera and inspected after a 45-second loading allowance per location. `online-reference-open3dhk.json` records the exact `flyto` URLs and capture times. The final `reference-open3dhk-*-1600x1000.png` files show the textured official terrain and buildings, with provider attribution retained. Earlier 12-second attempts showed only coarse loading imagery; those attempts are retained in `online-reference-check.json`/`online-reference-access.json` and must not be confused with the final detailed views.
+
+The official views independently show the waterfront pier/river-mouth arrangement, Wang Tong's compact inland cluster, Pak Ngan Heung's closely packed rows and adjoining open plots, Tai Tei Tong's larger compact village, and Luk Tei Tong's linear hillside settlement with open land to the east. These support the qualitative patterns in the table above. The online textured mesh is not the same product as the staged non-textured individual model tile; no claim is made that every colour, roof asset or revision matches between them. Its photographs were not extracted or incorporated into the game.

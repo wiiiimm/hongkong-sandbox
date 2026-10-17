@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/tmp/southside-domain-first-v3-tests-and-import.py", line 24, in <module>
+    collect(helper);collect(test)
+    ^^^^^^^^^^^^^^^
+  File "/tmp/southside-domain-first-v3-tests-and-import.py", line 18, in collect
+    for n in ast.walk(ast.parse(p.read_bytes())):
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/ast.py", line 52, in parse
+    return compile(source, filename, mode, flags,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<unknown>", line 119
+    triangles.extend([[(q[0],F(0),q[1])for q in [h[0],h[i],h[i+1]]]for i in range(1,len(h)-1))
+                                                                                             ^
+SyntaxError: closing parenthesis ')' does not match opening parenthesis '['

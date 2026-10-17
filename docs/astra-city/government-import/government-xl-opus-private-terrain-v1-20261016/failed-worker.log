@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/opus_private_terrain_v1_20261016.py", line 53, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/opus_private_terrain_v1_20261016.py", line 34, in main
+    patch=helper.make_patch(group,parent,np.concatenate(pieces),sources,native_core=core)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/resolve-pass.py", line 98, in make_patch
+    validate_patch(patch,parent)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 40, in validate_patch
+    validate_native_mesh(p,parent)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/native_terrain_validation.py", line 43, in validate_native_mesh
+    assert numerical and numerical.get('policy')=='highest-float32-surface' and numerical.get('maximumAreaM2')<=max(.25,extent.area*1e-3),'Native terrain contains overlapping height surfaces'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Native terrain contains overlapping height surfaces

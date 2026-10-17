@@ -1,0 +1,7 @@
+Codex, 9 October 2026, HKS-203. Exhaustive original open-component contact diagnosis, verified Neon `c48c08061eba26aa9ebcb7e02c3934155878f81dc6f746cfe877c7b43d66187c`.
+
+Every original face in the unresolved components was compared against all other original mall faces with conservative whole-triangle bounds and exact rational intersection tests. The 32-face shaft 14556 and both two-face low panels 14658/14660 have zero external contacts; neither can receive connection credit from the original roof graph. The ten-face low component 13330 has 13 contacts, including two positive-dimensional contacts. All raw below-ground and no-exposure failures remain recorded.
+
+Shaft 14556 has 16 original plan positions, each with exactly two original heights (5.3940010071m and 18.3010005951m HKPD); all 32 faces are exactly vertical. The source's complete height and shape are retained. This is geometric evidence of an open vertical envelope, not a photo-verified architectural label or a structural/support certification. Its worst original-ground minimum is −0.519423m and all faces have exposed upper portions. Original low panels and downward-facing surfaces need their own complete roles.
+
+Continue source-specific original role checks and fresh current identity/ground/foreign/native-neighbour/runtime/browser acceptance. Do not weld gaps, move any original vertices, add caps or infer support from proximity. No installation credit or AI geometry modelling. No historical map is used for this numeric original-source calculation.

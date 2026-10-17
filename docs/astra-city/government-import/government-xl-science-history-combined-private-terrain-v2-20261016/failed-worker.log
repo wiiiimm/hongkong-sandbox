@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/science_history_combined_private_terrain_v2_20261016.py", line 54, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/science_history_combined_private_terrain_v2_20261016.py", line 39, in main
+    core=[bounds[0][0]-2,bounds[0][2]-2,bounds[1][0]+2,bounds[1][2]+2];patch=helper.make_patch(dict(uids=[r['uid'] for r in rows],cells=cells),parent,np.concatenate(parts),sources,native_core=core);patch['id']=BATCH;save(DOC/'private-terrain.json',patch)
+                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/resolve-pass.py", line 98, in make_patch
+    validate_patch(patch,parent)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/science_history_combined_private_terrain_v2_20261016.py", line 35, in measured_validate
+    assert 0<=excess<=.25,'Material source overlap requires separate resolution'
+           ^^^^^^^^^^^^^^
+AssertionError: Material source overlap requires separate resolution

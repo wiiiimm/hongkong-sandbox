@@ -1,0 +1,53 @@
+--- source-scripts/city/government-import/west_wing26195_body0_candidate_log_lineage_receipt_recovery_draft_v1_20261012.py
++++ source-scripts/city/government-import/west_wing26195_body0_candidate_log_lineage_receipt_recovery_draft_v3_20261012.py
+@@ -3,7 +3,7 @@
+ from pathlib import Path
+ from run import ROOT,HERE,read,save,connect,reservations
+ import west_wing26195_current_body0_source_bound_candidate_role_draft_v2_20261012 as P
+-BATCH='government-xl-west-wing26195-body0-candidate-log-lineage-receipt-recovery-v1-20261012';DOC=P.R.BASE/BATCH;LOCAL=HERE/'local'/BATCH;PROPOSAL=P.R.BASE/'government-xl-west-wing26195-body0-candidate-log-lineage-receipt-recovery-proposal-v1-20261012';ref=P.ref
++BATCH='government-xl-west-wing26195-body0-candidate-log-lineage-receipt-recovery-v3-20261012';DOC=P.R.BASE/BATCH;LOCAL=HERE/'local'/BATCH;PROPOSAL=P.R.BASE/'government-xl-west-wing26195-body0-candidate-log-lineage-receipt-recovery-proposal-v3-20261012';ref=P.ref;FREEZER=HERE/'west_wing26195_freeze_body0_candidate_log_lineage_receipt_recovery_draft_v3_20261012.py'
+ OLD_JOB='039aa8ed90b792aad9ed3fb51c408a2e87519e2cea7e06cb1b3960c9df268cef';OLD_SHA='16c71fa79c721a1cd17699ff3c9adb5130ecdd758a0fd3d2d6db444dfcf093b6';LOG_PATH=str((P.PROPOSAL/'actual-supervised-certificate-v2.log').relative_to(ROOT));LOG_SHA='6d3d457a8590b276217d66658a09be0ed994af488ace6eca400b621e69ba8a01';FULL_SHA='21fbf3e62dfce5e334d638b0fabd0488249a1a2180938a02f83f3cd3b7af7c91'
+ def inputs():
+  old=read(P.DOC/'result.json');assert ref(P.DOC/'result.json')['sha256']==OLD_SHA and old['jobId']==OLD_JOB
+@@ -23,18 +23,14 @@
+   c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT released_at FROM astra_modelling.reservation_groups WHERE token=%s',(previous['token'],)).fetchone()[0] is not None
+  assert all(not(Path('/proc')/str(n)).exists()for n in audit['allOwnedPIDsGone'])
+  scope,_,certificate=P.inputs();diagnostic=read(P.DOC/'diagnostic.json.gz');assert diagnostic['body0CandidateRoleCertificate']==certificate and diagnostic['currentManifest']==scope['currentManifest']
+- paths.update([P.DOC/'result.json',P.DOC/'diagnostic.json.gz',P.PROPOSAL/'actual-terminal-reference-audit-v2.json',full,prefix,terminal,P.LOCAL/'reservation.json'])
++ paths.update([P.DOC/'result.json',P.DOC/'diagnostic.json.gz',P.PROPOSAL/'actual-terminal-reference-audit-v2.json',P.PROPOSAL/'actual-log-move-postterminal-stat-provenance-v2.json',full,prefix,terminal,P.LOCAL/'reservation.json'])
+  return scope,certificate,paths
+ 
+ def main():
+  parser=argparse.ArgumentParser();parser.add_argument('--owned',action='store_true');args=parser.parse_args();scope,certificate,paths=inputs();assert not(DOC/'result.json').exists()
+  if not args.owned:
+   claimed=reservations.claim('westwing-body0-log-lineage-'+str(uuid.uuid4()),scope['canonicalReservationResources'],batch=BATCH,ttl=1800);assert claimed['ok'],claimed;save(LOCAL/'reservation.json',json.loads(json.dumps(claimed['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','1800','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True);return
+- lease=read(LOCAL/'reservation.json');walker=P.T.M.D.S.G.P.F.module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','westwingbody0logrecovery');walker.local_imports(Path(__file__),paths);paths.update(ROOT/e['path']for e in P.validation());paths.update(p for p in PROPOSAL.iterdir()if p.is_file());codes=[ref(p)for p in sorted(paths)];P.fence(scope,lease,codes);assert reservations.heartbeat(lease)['ok']
++ lease=read(LOCAL/'reservation.json');walker=P.T.M.D.S.G.P.F.module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','westwingbody0logrecovery');walker.local_imports(Path(__file__),paths);walker.local_imports(FREEZER,paths);paths.update(ROOT/e['path']for e in P.validation());paths.update(p for p in PROPOSAL.iterdir()if p.is_file());codes=[ref(p)for p in sorted(paths)];P.fence(scope,lease,codes);assert reservations.heartbeat(lease)['ok']
+  save(DOC/'receipt-lineage.json',dict(sourceOnly=True,noNumericOrSourceRoleRecomputation=True,oldCompletedReceipt=ref(P.DOC/'result.json'),oldPostfreezeExitCode=1,exactOld1602UnchangedRefs=True,soleHistoricalLog=dict(originalPath=LOG_PATH,historicalSHA256=LOG_SHA,actualStreamPrefix=ref(P.PROPOSAL/'actual-stream-frozen-prefix-evidence-v2.log'),prefixBytes=132,fullTerminalStream=ref(HERE/'execution-logs'/f'{P.BATCH}-terminal.log'),notRestoredToOriginalPath=True),body0CandidateRoleCertificate=certificate,currentManifest=scope['currentManifest'],physicalAccepted=False,installationApproved=False))
+- paths.add(DOC/'receipt-lineage.json');paths.add(LOCAL/'reservation.json');result=walker.F.freeze(BATCH,'receipt-only-actual-stream-prefix-history-recovery-no-new-role-or-physical-credit',sorted(paths),dict(uids=[P.H.UID],sourceOnly=True,noNumericRecomputation=True,oldJobId=OLD_JOB,oldPostfreezeExitCode=1,completeFaces=46918,completeBodies=118,body0SourceRoleCandidateQualified=True,gradeRootAccepted=False,physicalAccepted=False,installationApproved=False,modelReviewWrites=0,sourceGeometryChanges=0,terrainGeometryChanges=0))
+- with connect()as c:
+-  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(result['jobId'],)).fetchone()==('complete',result)
+- for e in result['evidenceRefs']:assert ref(ROOT/e['path'])==e
+- P.fence(scope,lease,codes);inputs();print(json.dumps(dict(jobId=result['jobId'],allRefs=len(result['evidenceRefs']),physicalAccepted=False)),flush=True)
++ subprocess.run([sys.executable,str(FREEZER),'--lease-file',str(LOCAL/'reservation.json')],cwd=ROOT,check=True)
+ if __name__=='__main__':main()
+
+--- /dev/null
++++ source-scripts/city/government-import/west_wing26195_freeze_body0_candidate_log_lineage_receipt_recovery_draft_v3_20261012.py
+@@ -0,0 +1,16 @@
++"""DRAFT v3 receipt-only explicit actual log lineage freezer; no arithmetic."""
++import argparse,json
++from pathlib import Path
++from run import ROOT,HERE,read,connect,reservations
++import west_wing26195_body0_candidate_log_lineage_receipt_recovery_draft_v3_20261012 as Q
++
++def main():
++ parser=argparse.ArgumentParser();parser.add_argument('--lease-file',required=True);args=parser.parse_args();lease=read(Path(args.lease_file));assert reservations.owns(lease);scope,certificate,paths=Q.inputs();d=read(Q.DOC/'receipt-lineage.json');assert d['body0CandidateRoleCertificate']==certificate and d['currentManifest']==scope['currentManifest'];assert d['oldPostfreezeExitCode']==1 and d['exactOld1602UnchangedRefs']and d['sourceOnly']and d['noNumericOrSourceRoleRecomputation']and not d['physicalAccepted']and not d['installationApproved']
++ assert d['oldCompletedReceipt']==Q.ref(Q.P.DOC/'result.json');assert d['soleHistoricalLog']['originalPath']==Q.LOG_PATH and d['soleHistoricalLog']['historicalSHA256']==Q.LOG_SHA and d['soleHistoricalLog']['prefixBytes']==132 and d['soleHistoricalLog']['notRestoredToOriginalPath'];assert d['soleHistoricalLog']['actualStreamPrefix']==Q.ref(Q.P.PROPOSAL/'actual-stream-frozen-prefix-evidence-v2.log') and d['soleHistoricalLog']['fullTerminalStream']==Q.ref(HERE/'execution-logs'/f'{Q.P.BATCH}-terminal.log')
++ walker=Q.P.T.M.D.S.G.P.F.module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','westwingbody0logrecoveryfreeze');walker.local_imports(Path(__file__),paths);walker.local_imports(Path(Q.__file__),paths);paths.update(ROOT/e['path']for e in Q.P.validation());paths.update(p for p in Q.PROPOSAL.iterdir()if p.is_file());codes=[Q.ref(p)for p in sorted(paths)];Q.P.fence(scope,lease,codes);paths.add(Q.DOC/'receipt-lineage.json');paths.add(Path(args.lease_file))
++ result=walker.F.freeze(Q.BATCH,'receipt-only-actual-stream-prefix-history-recovery-no-new-role-or-physical-credit',sorted(paths),dict(uids=[Q.P.H.UID],sourceOnly=True,noNumericRecomputation=True,oldJobId=Q.OLD_JOB,oldPostfreezeExitCode=1,completeFaces=46918,completeBodies=118,body0SourceRoleCandidateQualified=True,gradeRootAccepted=False,physicalAccepted=False,installationApproved=False,modelReviewWrites=0,sourceGeometryChanges=0,terrainGeometryChanges=0))
++ with connect()as c:
++  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(result['jobId'],)).fetchone()==('complete',result)
++ for e in result['evidenceRefs']:assert Q.ref(ROOT/e['path'])==e
++ Q.P.fence(scope,lease,codes);Q.inputs();print(json.dumps(dict(jobId=result['jobId'],allRefs=len(result['evidenceRefs']),physicalAccepted=False)),flush=True)
++if __name__=='__main__':main()
