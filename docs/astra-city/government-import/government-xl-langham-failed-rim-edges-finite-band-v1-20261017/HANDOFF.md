@@ -1,0 +1,5 @@
+Two additional source-only checks completed and independently verified against Neon and all referenced file hashes. Complete installed20260-face support nearest distances for four failed points are0.000917m,0.000313m,0.077097m,0.038548m. Complete954-model frozen sheet11-NW-19B gives no additional source bounds within1m; adjacent sheets are not excluded.
+
+Existing exact whole-edge finite-distance checker passes the low edges of source faces10530,8324,10538 within0.1m, but does not certify the whole low edge of face13146. See exact rational coverage intervals in edges.json.gz. Nearest point and finite-band success do not grant contact/root or installation approval. The four raw interface failures stay recorded. Three edges have usable geometric association evidence; remaining shared-edge geometry must be understood before proposing a complete validated contact interpretation. Preserve the strict foundation pass and unchanged all-source geometry.
+
+No installation, permanent rejection, optimisation or AI geometry modelling. Frozen XL remains250installed/271remaining. Do not rerun this unchanged sheet search or whole-edge diagnostic.
