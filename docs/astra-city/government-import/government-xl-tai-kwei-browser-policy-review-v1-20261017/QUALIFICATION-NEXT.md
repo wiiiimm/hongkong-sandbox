@@ -7,3 +7,11 @@ The existing complete-finite worker (exec session 49473, PID 463590 at verificat
 The qualification command checks the completed pinned Neon receipts and exact input hashes, all four modes for each native actor, all 62 basic actors, source identity, strict foundation, browser image review and mobile policy. It retains existing neighbour baseline failures as historical conditions and requires no introduced failures. It prepares a reviewed replacement for the existing combined terrain and invokes the existing publisher without --apply. A later atomic live installation and verification is still required.
 
 No model is installed by this checkpoint. XL counts remain 250 installed / 271 remaining / 521 total.
+
+## Prepared live installer
+
+`tai_kwei_guarded_publish_v1_20261017.py` and `tai_kwei_original_live_install_v1_20261017.py` adapt the existing fenced original-model publisher and rollback installer. They have not published anything. Qualification now records the current manifest and exact frozen source key.
+
+Read-only checks passed: one new fixed-XL credit for the exact source; rejection of stale manifest, stale snapshot, duplicate installation credit and missing completed qualification. The installer retains the superseded terrain asset, requires exactly one replaced terrain entry, preserves all prior model entries and leaves the base tiles/counts unchanged. It requires completed evidence before claiming leases, then records installation only after live browser checks and pinned Neon read-back.
+
+After the finite worker finishes: inspect and verify its exact receipt, run qualified-stage, verify that result, run original-live-install with --prepare-only, inspect the resulting proposal, then --install. Inspect live exports and commit/push all exact installation outputs. Existing finite worker remains live; do not restart merely because it is slow.

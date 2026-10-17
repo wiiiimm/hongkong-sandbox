@@ -9,9 +9,12 @@ DOC=BASE/BATCH
 STAGE=HERE/'accepted'/BATCH
 UID='landsd/106413:0'
 SHA='797e15e504a549f44c02b55fe11ab769dec45f27f5174c4dc6dc313a7562fe79'
+SOURCES={UID:SHA}
+SOURCE_KEY='adf1d085a79951ff976393a3672cda66812a6fd2482559fc4b7435331c50964b/B346442034301063C0'
 FOLDERS=['complete-finite-v1','candidate-physical-v2','current-native-scope-v1','runtime-capture-v1','browser-policy-review-v1','private-terrain-v1','reviewed-identity-v1','private-browser-v2']
 def folder(n):return BASE/('government-xl-tai-kwei-'+n+'-20261017')
 def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def check(q):assert ref(ROOT/q['path'])==q,q['path']
 def verify():
     pins={}
     with connect() as c:
@@ -68,11 +71,11 @@ def main():
     old=ROOT/'3d-viewer'/candidate['replaces']['url'];assert ref(old)['sha256']==candidate['replaces']['sha256']
     patch=read(terrain)
     DOC.mkdir();STAGE.mkdir()
-    qualification=dict(uid=UID,sourceSHA256=SHA,sourceGeometryChanges=0,sourcePoseChanges=0,privateStageQualified=True,publication=False,completeFiniteEvidence=ref(folder('complete-finite-v1')/'result.json'),inspectedBrowserEvidence=ref(folder('browser-policy-review-v1')/'result.json'),affectedActors=66,affectedNativeUids=scope,existingNeighbourBaselineFailuresNotWaived=True)
+    qualification=dict(currentManifest=ref(ROOT/'3d-viewer/city/data/manifest.json'),uid=UID,sourceSHA256=SHA,sourceGeometryChanges=0,sourcePoseChanges=0,privateStageQualified=True,publication=False,completeFiniteEvidence=ref(folder('complete-finite-v1')/'result.json'),inspectedBrowserEvidence=ref(folder('browser-policy-review-v1')/'result.json'),affectedActors=66,affectedNativeUids=scope,existingNeighbourBaselineFailuresNotWaived=True)
     save(DOC/'qualification.json',qualification)
     review=dict(status='approved-for-integration',supersededURL=candidate['replaces']['url'],supersededSHA256=candidate['replaces']['sha256'],replacementSHA256=candidate['sha256'],sourceGeometryChanged=False,aiCalls=0,modelGeometryChanges=0,retainedUids=candidate['replaces']['retainedUids'],replacementTargetUids=patch['meta']['targetUids'],fullMeshCheck=ref(folder('candidate-physical-v2')/'native-neighbour-checks.json'),completeFiniteCheck=qualification['completeFiniteEvidence'])
     save(DOC/'native-replacement-review.json',review)
-    entry.update(sourceIdentityReviewed=True,identityReviewApproved=True,placementReviewed=True,publicationApproved=True,sourceIdentityReview=ref(folder('reviewed-identity-v1')/'identity-review.json'),placementReview='Unchanged government source at 1x scale; complete original and rendered finite checks, strict foundation, all affected neighbours and desktop/mobile views passed.',sourceFunctionalApplicability=ref(DOC/'qualification.json'),aiGeometryModelling=False,sourceEvidenceInterpretationUsedAI=True)
+    entry.update(originalSourceKey=SOURCE_KEY,sourceIdentityReviewed=True,identityReviewApproved=True,placementReviewed=True,publicationApproved=True,sourceIdentityReview=ref(folder('reviewed-identity-v1')/'identity-review.json'),placementReview='Unchanged government source at 1x scale; complete original and rendered finite checks, strict foundation, all affected neighbours and desktop/mobile views passed.',sourceFunctionalApplicability=ref(DOC/'qualification.json'),aiGeometryModelling=False,sourceEvidenceInterpretationUsedAI=True)
     asset=STAGE/entry['asset'];asset.parent.mkdir(parents=True);shutil.copyfile(prior/entry['asset'],asset);assert ref(asset)['sha256']==SHA
     save(STAGE/'catalogue.json',cat);save(STAGE/'catalogue-index.json',dict(models=1,catalogues=['catalogue.json']))
     shutil.copyfile(prior/'source-forms.json',STAGE/'source-forms.json')
