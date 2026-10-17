@@ -1,0 +1,64 @@
+{
+  "variantId": "d2ce5560b31faf825051d561bbad755899a8d41a31e66a107870a58193be01e0",
+  "revisionId": "ca1eba544008f9cb2b56878692dfe36eb2fdd8f26ed13bfe438181425a7e28b4",
+  "recipeSha256": "bf4fa32eb9e1de2ded77b013a79283a8d7466dc50b2f0f6c7c6be5d3dd5a8d17",
+  "uid": "landsd/76776:0",
+  "sourceSha256": "c2f6c0b1912af14dfe9090478aec4648218141517f057e98692f78ebbcfb6d75",
+  "sourceCommit": "113625f3fe156b04453814d2cbcb33b78feaeafe",
+  "executor": "codex-compression-20261012",
+  "artifact": {
+    "path": "source-scripts/city/model-optimisation/staging/accepted-enhanced-meshopt-lossless-v1-20261012/artifacts/c8cc861644629fa75cf29a930dd8a6f743beee42840a7f05614b21ecd1a29b9f.glb.gz",
+    "sha256": "c8cc861644629fa75cf29a930dd8a6f743beee42840a7f05614b21ecd1a29b9f"
+  },
+  "metrics": {
+    "exactBufferViewSha256": [
+      "544095a8ee4bd6946cb7f932608e7df246e66b0e3f3aae00069d77306bdacbf8",
+      "d80d91d7243f1f1f61e83b1b5be4ccbe7ec5317e091243c120f761577b583a84",
+      "c36866d2afb99fa005757fb8d0515306ceb6a0255ded9ef4c0c95390aa520c54",
+      "ecfdb158314c0c39dfa1817cf4d979e1fe0c0f2a15bb684102d410280de03ba8"
+    ],
+    "decodedAccessorBytes": 4950,
+    "vertices": 125,
+    "triangles": 75,
+    "codecDecodeMs": 0.02147000003606081,
+    "maxAttributeError": 0,
+    "worldPlacementErrorMetres": 0,
+    "indexOrderPreserved": true,
+    "sourceMetadataPreserved": true,
+    "encodeMs": 0.09280000001308508,
+    "roundtripVerificationMs": 0.2526800000050571,
+    "originalDownloadBytes": 1498,
+    "downloadBytes": 1891,
+    "originalGLBBytes": 6148,
+    "glbBytes": 3548,
+    "savedBytes": -393,
+    "beneficial": false,
+    "compressionRatio": 1.2623497997329773,
+    "processingMs": 1.346400000009453,
+    "codec": "meshopt",
+    "codecVersion": "0.24.0",
+    "transportEncoding": "gzip",
+    "residentGeometryBytesEstimate": 4950,
+    "residentMethod": "sum of unchanged bufferView byteLengths; excludes JS, decoder, GPU overhead and temporary peaks",
+    "peakMemoryBytes": null,
+    "deviceFrameTimeMs": null,
+    "timingEnvironment": {
+      "node": "24.18.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "decoderSupported": true,
+      "wasmSIMD": null
+    }
+  },
+  "gates": {
+    "sourceIdentity": "passed",
+    "geometry": "passed",
+    "placement": "untested",
+    "visual": "untested",
+    "collision": "untested",
+    "devicePerformance": "untested"
+  },
+  "validationStatus": "unreviewed",
+  "published": false,
+  "qualification": "Byte-exact offline codec roundtrip; current terrain/runtime/device acceptance is separate."
+}
