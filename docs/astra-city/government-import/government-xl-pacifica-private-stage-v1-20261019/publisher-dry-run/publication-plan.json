@@ -1,0 +1,71 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-pacifica-private-stage-v1-20261019/plan.json",
+  "areas": [
+    {
+      "area": "Pacifica Mall and four unchanged original towers",
+      "models": 5,
+      "catalogue": "city/data/official-models/government-xl-pacifica-private-stage-v1-20261019/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-pacifica-original-v1-20261019.json": null,
+    "3d-viewer/city/data/official-models/government-xl-pacifica-private-stage-v1-20261019/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "0985642d07547fa043a079328e769504a6501e7fdb96045e1a403bd404de8ec4"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-pacifica-original-v1-20261019.json": "c22a64fde7bd82cd3da69bd0a3b4122819a1986a4d17d393e252acdb50a1b909",
+    "3d-viewer/city/data/official-models/government-xl-pacifica-private-stage-v1-20261019/catalogue.json": "09858bc1587f1bd1e184db449bd66965e2fa826738c227e41bcf18b4c1dcace6",
+    "3d-viewer/city/data/manifest.json": "29c121c63cd253d7cd98db15525ab9d6441a5bfd455d6e3848f07dd29863c999"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "741eba35d8469ffa7e7baaf6c1f96d86fb94d468",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/terrain-residual-265478-0.json",
+      "sha256": "0dfe925b36058e76d1c8571c630d3a5ff29f6e7b33c578c7c015a6337d7970db",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-pacifica-original-v1-20261019.json",
+      "resolution": 1,
+      "area": "Pacifica original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "provenanceReceipt": "dbd4f5fea5ec63b78cc22b768ba00d893fcf6689b7dc8de59dc5786aa6b3d26c",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xxl-second-20260911/sheets/11-NW-8C/terrain/TERRAIN(TB)/T33000216000106E13/T33000216000106E13.gltf"
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "c22a64fde7bd82cd3da69bd0a3b4122819a1986a4d17d393e252acdb50a1b909",
+      "bytes": 1356427
+    }
+  ],
+  "estimatedBases": []
+}
