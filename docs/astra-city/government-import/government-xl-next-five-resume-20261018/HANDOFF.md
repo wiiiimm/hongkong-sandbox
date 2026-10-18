@@ -168,3 +168,39 @@ NEXT: createprivate stage fromdesktopV5localcatalogue/forms andnewownershipterra
 
 ## Pacifica installation completed 19 October 2026
 Supervised original installer exited 0 and released its lease. All five original components are installed-verified; frozen XL count is now 268 installed / 253 unfinished of 521. Live desktop/mobile checks passed; final live contact-sheet review recorded alongside result.json. No AI geometry modelling or optimisation. Commit/push verification follows using pacifica_verified_commit_v1_20261019.py. Next candidate: Times Square original three-part assembly; refresh current terrain/neighbour binding before publication.
+
+## Times Square original-source continuation — 19 October 2026
+Pacifica committed/pushed c47f3f302, remote verified. XL remains 268 installed / 253 unfinished. No Times Square installation yet.
+Completed exact failed-face diagnostics: tower254824 94 failed samples on20 vertical faces; tower266146 74 on8 vertical faces. All168 retain strict failures; prior nearest-source distances <4cm. Six corrected V3 whole/front/reverse exports and both failed-face diagrams actually viewed. V2 solid exports have a copied Pacifica caption; retain as diagnostic history, use corrected V3 evidence.
+Historical manifest SHA723b049d... recovered from exact git bytes in each context folder; do not treat as current placement acceptance. All other source pins verified.
+Complete44968originalfaces bound to original/literal/two explicitFloat32 coordinate representations. Twelve full foundation checks completed under systemd astra-times-square-foundations-20261019.service (terminal0). Podium233901 andtower266146 pass allfour; tower254824 rawcompoundfails onone nearverticalface1092, area26.233m2; terrainonly0buried allfour. Exact original podium surfaces account for negatives. Both buried-front/reverse exports actually viewed; sourceoverlapreview binds face1092 and preserves rawfalse.
+Neon verified checkpoint receipts:
+- government-xl-times-square-254824-failed-face-context-v1-20261019: 7767d1f50ede8394d18a9cf7bc7f8919c399b2235b9c9e1766264fa7ec42afd3
+- government-xl-times-square-254824-original-views-v2-20261019: 63bbfcc4b75a7f0cc472ffc716b297f7036a7e6872f0a1de1b530c37c3e220b1
+- government-xl-times-square-254824-original-views-v3-20261019: 7400941ce70b27f64b23d7503547625d9ca18846d668d738a5effe1d0474c63f
+- government-xl-times-square-266146-failed-face-context-v1-20261019: b27899df3e92aef151346f71560dfaa4680f8643df04e662032abd515302e933
+- government-xl-times-square-266146-original-views-v2-20261019: 14aee88f3784f6597dbf8dd1d3efe6a9f1b96bd4438985b31e311024dcb30064
+- government-xl-times-square-266146-original-views-v3-20261019: c4a84e1cfa1a34f5d6010f00b56819e9f5dcdc40267cccf89ed111ec02c3fb21
+- government-xl-times-square-actual-render-attributes-v1-20261019: 312a9981055d22fabcd2e1cc0176f60a5959813ab8ccb1b81a32e9aa81ac617d
+- government-xl-times-square-buried-face-views-v1-20261019: 174ca031fe2ed5bcc25f7f3397657facd0c546d73a2476615fcd8d0ac795f75d
+- government-xl-times-square-four-mode-foundations-v1-20261019: 39c24ef70ea721fe10f9c41048c351c709601bfd9d9e7935e5c01953f16357c8
+- government-xl-times-square-overlap-review-v1-20261019: 111ae6fb52da57a6989279d2464f43de57941e21d53fd8f430240053244f171d
+- government-xl-times-square-source-interpretation-v1-20261019: 4d7cb486d104ca082f3236fb7afa93dc8ec4e86fc1363d15b35d56d2d604efb8
+- government-xl-times-square-tower254824-burial-attribution-v1-20261019: 2c24d7cab35cfbc1fbc630affed6467bd98fd19aea1edf66fe89197f06092efe
+
+NEXT: Refresh whole changed terrain extent [2212.5,872.5,2422.5,1082.5] against current installed actors after Olympian/Pacifica (oldTimes nativeinventory6717; Pacifica scope6719 plus5newcomponents). No source deformation. Reconcile ordinary runtime/source-specific functional applicability, staged/live viewer checks then guarded installation and commit/push. No running worker claimed; all above source-check workers terminal.
+
+## Times Square current-map qualification and browser continuation
+Current branch c47f3f302. Complete current scope6724 installed source actors, zero touching Times Square changed terrain domain, zero overlapping existing patches. Historical mutable inputs authenticated using Pacifica installation snapshots; no stale current-manifest acceptance. Ordinary V1 stopped after basic checks because native scope list omitted; V2 explicitly supplies verified empty requiredNativeUids. V2 all3loader/checks pass,0exceptions,112nearbyforms0flags,0nativeactorsneeded. Four-world wall binding12sources/modes and8facade descriptors complete.
+- current-scope-v2: f9a8b20bef811c75badf4ece957a69e6ca31deeb39cdb3024f213e48cbf3ac17
+- ordinary-validation-v2: eadc2f7777b00fbbaf6b0b3e7340ace875e995c80500359db91901740fd6d62d
+- wall-binding-v1: 2fb6fb7e86d9c22d47f289fadb41c7065e559c5bde70dfe02a1a956b0e186c3e
+- podium-identity-views-v1: c5aa0ff34deb0b5c9562958a64f0bd278f20f6f607d336288edc5e6d4db79462
+- podium-identity-review-v1: 986cf04987a637e3a197f72dba39212f39613e617f34c0d855c85302ec15f0c2
+- physical-reconciliation-v1: 5d6bb550f002a61fba05d5b0cd74f43fc2f2563f2a25d8741198cd3f8681f509
+- functional-applicability-v1: 4ef55bbe0d28749efb5db42b71497e00bb4c4536deec15919b87588024dcbceb
+ROOT actually viewed podium whole/whole-reverse/outer-platform exports and older extent diagram. Fresh source identity proof preserved maximum-extent26.671m warning; exact objectCSUID/fullcell/sourcegraph and complete source platform support identity-only approval. Renderer caption erroneously says two components, actual input/view has3; review explicitly documents greenpodium/purple-orangetowers. Functional qualifier binds all168failedrim samples andexactburiedwall1092, preserves rawfalse;2tests baseline+8negative mutationspass.
+Browser mobileV1 failed only connection-refused4176, saved diagnosticreceipt and releasedlease. Restarted static viewer via systemd astra-city-dev-4176-20261019.service. MobileV2 supervised unit astra-times-square-mobile-v2-20261019.service PID1830533 confirmedactive, mapready selectingpodium; log/tmp/times-square-mobile-v2.log and DOC/browser.log. Do not restart whileactive. Desktop prepared times_square_assembly_browser_desktop_v1_20261019.py; wait mobileterminal/lease release first. No TimesSquareinstallationcredit; counts268/253 unchanged. Continue both stagedviewportchecks, inspectexports,privateapprovedstage/guardedpublish/livechecks/Neoninstalled/commitpush.
+
+## Times Square installed — 19 October 2026
+Three original components completed with pinned Neon installed-verified receipt ca587829345acade4eacb828573dc1ee807db834cf67eeb8fe3400ae2a136a7d. Snapshot c19645733ae10224. Fixed XL 269 installed / 252 unfinished / 521. Desktop/mobile live review complete; commit/push follows. Original worker resume explicitly approved; no optimisation or AI geometry modelling. Next: Ocean Terminal landward source overlaps and four low buried faces, preserving raw diagnostics.
