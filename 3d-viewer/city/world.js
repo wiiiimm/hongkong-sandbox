@@ -1,3 +1,4 @@
+import {applyNativeTerrainDepthBias} from './native-terrain-depth.js';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
 import {bakeBuildingBuffers} from './building-bake-client.js';
 import * as THREE from '../vendor/three.module.js';
@@ -17,7 +18,7 @@ function makeNativeTerrain(data) {
  for(let i=0;i<positions.length;i+=3){const c=Math.max(0,Math.min(data.w-1,Math.round((positions[i]+ORIGIN[0]-g.bE)/g.aE))),r=Math.max(0,Math.min(data.h-1,Math.round((ORIGIN[1]-positions[i+2]-g.bN)/g.aN))),co=data.vegetation[r*data.w+c]?green:urban;colours.set([co.r,co.g,co.b],i);}
  for(let i=0;i<indices.length;i+=3){const a=indices[i]*3,b=indices[i+1]*3,c=indices[i+2]*3,y=(positions[b+2]-positions[a+2])*(positions[c]-positions[a])-(positions[b]-positions[a])*(positions[c+2]-positions[a+2]);if(y<0)[indices[i+1],indices[i+2]]=[indices[i+2],indices[i+1]];}
  const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colours,3));geo.setIndex(new THREE.BufferAttribute(indices,1));geo.computeVertexNormals();
- const mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1}));mesh.receiveShadow=true;mesh.name='Lands Department · native source terrain triangles';return mesh;
+ const mesh=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,metalness:0,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1}));applyNativeTerrainDepthBias(mesh.material);mesh.receiveShadow=true;mesh.name='Lands Department · native source terrain triangles';return mesh;
 }
 export function makeTerrain(data) {
  if(data.nativeMesh)return makeNativeTerrain(data);
