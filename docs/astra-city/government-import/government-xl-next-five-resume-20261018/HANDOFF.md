@@ -954,3 +954,16 @@ All five workers terminal0. Complete production capture preserves83161 faces. Th
 - government-xl-yoho-clubhouse-runtime-finite-contacts-v1-20261020: a5bf665488e2d5fd211684680e824e31bee2258fee1aa7d6a9ba5da97cd3d093
 - government-xl-yoho-clubhouse-runtime-finite-path-verification-v1-20261020: e0c8243cd3212f492a28d7d6bd6acbf6e3aa5c57e86c87facef924f4a76c613a
 - government-xl-yoho-seven-four-mode-foundations-v1-20261020: 82e3d37d1ee57a1d8c233fe1d4de8a65a92d9a40b756ac2fc4e774ad2c8b05c1
+
+
+## YOHO compound acceptance and complete neighbours
+Exact source-specific compound identity now accepts podium301636 plus small301659 only with that exact podium companion; standalone small footprint identity remains rejected. Both named graphs, native records, unique currentGeoRefs and active primary records verified; raw footprint flags retained. Podium canonical26rim samples:12strict+14finite endpoint-bounded source-to-ground paths in fourmodes;10cap samples and4partlyembedded wall samples. Physical review covers all7sources/4modes, retaining2cap+1tower underside whole-face flags with explicit authored-contact interpretation. Loader7/7passes,0exceptions. Full217form current-domain neighbour check0failures. V1neighbour wrapper failed on absent copied terrain-candidates.json; v2uses authenticated original terrain-candidate packet. Not model corruption. XL283/238 unchanged. Desktop/mobile browser running exec37576 via yoho_seven_browser_v1_20261020.py; poll same handle or terminal state before retry. Next inspect full browser outputs and images, then guardedstage/publish/live verification and immediate commitpush. No geometry edits.
+- government-xl-yoho-podium-cap-rim-v1-20261020: 0e46baf36354afb14b38da3957b34c90c05d8707ba2c7efdcc2b1039c811ddf1
+- government-xl-yoho-podium-rim-contacts-v1-20261020: 8671be81795df0b035a658de0b7da72dc0bbf0d8fea7923e1aec72ae6cf0f7c0
+- government-xl-yoho-podium-rim-verification-v1-20261020: e0608f02a789c5d07dca7caa3fbd7b4e225a1d645723abdcfd08427605dfc12e
+- government-xl-yoho-compound-identity-review-v1-20261020: 05c0b64219908dce7d20ef9cfb957c5c714307f3fc8a90e020fb1a1f7e68f503
+- government-xl-yoho-seven-physical-review-v1-20261020: 07cad266eca52b4ec749885c47f2d30512738851483539f1d7bc109b841e32d2
+- government-xl-yoho-seven-current-neighbours-v2-20261020: 0fb17120d7d4a33ba00f62adac81f276818005d7a8bd7952eebf375dae5bd9a3
+- government-xl-yoho-seven-loader-v1-20261020: 92684bc24c6c85a0f023b27c7216eaaa3159aa45a41cdd025fc4f6a14618c870
+
+Browser correction: v1 exec37576 terminal1: existing browser harness accepts exactly one viewport per invocation. Failed receipt preserved; no model failure. Desktop v2 currently exec60439, log/tmp/yoho-seven-browser-desktop-v2.log; poll that handle. Mobile v2 producer prepared but not started. Do not rerun failed v1.
