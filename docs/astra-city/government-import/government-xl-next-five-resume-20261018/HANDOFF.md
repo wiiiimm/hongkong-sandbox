@@ -945,3 +945,12 @@ Identityv4 ad600671 finished: four towers+clubhouse pass, podium extent and30165
 
 ## YOHO clubhouse and fresh identity context
 Clubhouse exact finite contacts8b474936 and path verificationbfc973e9 resolve all3 remaining original samples: finite wall-only paths, bounded by own endpoint heights, contact on source boundaries, residual0. Fresh government recordsb41c51f5 return7 active footprints,2relations/structures.301659 mismatch remains in current primary data, not merely stale viewer data. Compound contextec678ad1: ownsource0% footprint coverage, podium~100%, distance2.979m,45positive original podium contacts. ROOT viewedcontext.png; source-defined small component beside original podium feature at footprint. Next establish narrowly bound compound identity from exact source graph/model IDs/current-primary/source geometry (do not require common legal/engineering ownership), retain raw individual footprint failure, then replay runtime contact/qualification and browser installation gates. No source transforms/geometry changes. Counts283/238.
+
+
+## Seven-part YOHO rendered support replay
+All five workers terminal0. Complete production capture preserves83161 faces. Three rendered representations resolve every tower/small-structure bounded path; clubhouse remaining3/3 finite wall-only endpoint-bounded boundary-contact paths also pass in each representation, residual0. Four-mode whole foundations cover all83161 faces per mode; only known podium2 bottomcap/tower1underside flags remain, no new/upward failures. Exact pinnedNeon results and every distinct evidence hash ROOT-verified. No geometry edits or installations; XL283installed/238unfinished. Next source-specific identity resolution for podium301636 and small301659, exact cap low-rim attribution/physical interpretation, then current neighbours/loader/browser and guarded installation. No workers running.
+- government-xl-yoho-seven-runtime-capture-v1-20261020: 14ed697acfa3392bc00b5a14957968a8ef444a24a069bd036e666223134a7639
+- government-xl-yoho-seven-runtime-paths-v1-20261020: 24eed9396a7bded2f993e60bcacdebcfb9df7d622722c1792ce0f67762bc40fd
+- government-xl-yoho-clubhouse-runtime-finite-contacts-v1-20261020: a5bf665488e2d5fd211684680e824e31bee2258fee1aa7d6a9ba5da97cd3d093
+- government-xl-yoho-clubhouse-runtime-finite-path-verification-v1-20261020: e0c8243cd3212f492a28d7d6bd6acbf6e3aa5c57e86c87facef924f4a76c613a
+- government-xl-yoho-seven-four-mode-foundations-v1-20261020: 82e3d37d1ee57a1d8c233fe1d4de8a65a92d9a40b756ac2fc4e774ad2c8b05c1
