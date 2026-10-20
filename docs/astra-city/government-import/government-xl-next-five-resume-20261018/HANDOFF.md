@@ -911,3 +911,7 @@ All new producers use tower6803_*_v1/v2_20261020.py; corresponding government-xl
 ## Tower 1 installed — 20 October 2026
 
 Original tower landsd/6803:0 and podium landsd/15047:0 installed and live checks passed. XL now 283/521 installed, 238 unfinished. Neon job 8dfdaaebbd6b5a52ff8e1e67fa95c1820e9ab6e37d8f2469ff6faf72385d0d9e; snapshot 46122be622f014da. All eight live exports reviewed; no AI geometry edits. Next bounded work is YOHO landsd/300857:0 with podium landsd/301636:0: finite source-face support paths and podium identity evidence. Goal remains active.
+
+
+## YOHO continuation — 20 October 2026
+Previous turn progressed: Tower 1/podium installed and pushed 490c31191. XL remains 283 installed / 238 unfinished. YOHO300857 original-face paths resolve all 8 remaining samples (41102cc3); diagnostic only. Podium301636 current exact identity (865117c5) retains four footprint extent/foreign overlap reasons. Exact object/CSUID matches; 941 faces extend >1m from target, maximum32.2923m. Finite clipping of all54 foreign-overlap faces clears recorded base+height of300868 by >=3.573m (a6457e92); not current-rendered neighbour acceptance. Next: inspect source extensions with original/provider evidence and source terrain (podium currently buried3.5–3.9m); keep complete physical/runtime checks. Failed extent v1/v2 used nullable HKPD fields; v3 uses the existing base+height contract. No geometry changes or installation approval.
