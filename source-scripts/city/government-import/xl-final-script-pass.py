@@ -154,7 +154,7 @@ def identity_context(row, triangles, forms):
         "sourceExcessFraction": float(excess.area / source_projection.area),
         "sourceExcessMaximumDistanceFromTargetM": distance,
         "sourceExcessCoveredByAnyOtherFormM2": float(excess.intersection(other_union).area),
-        "sourceExcessCoveredByUnrelatedFormsM2": float(excess.intersection(unrelated_union).area),
+        "sourceExcessCoveredByUnrelatedFormsM2": (0.0 if unrelated_union.is_empty else float(excess.intersection(unrelated_union).area)),
         "intersectingForms": intersecting,
         "sameParentIntersectingForms": sum(item["sameParent"] for item in intersecting if item["uid"] != row["uid"]),
         "unrelatedIntersectingForms": sum(not item["sameParent"] and not item["sharedOsmReference"] for item in intersecting if item["uid"] != row["uid"]),
