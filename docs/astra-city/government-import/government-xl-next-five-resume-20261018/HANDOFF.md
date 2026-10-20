@@ -862,3 +862,29 @@ Next identity-cleared sources6803:0(Tower1) and300857:0(YOHO Hub Tower1) have cu
 Block5 commit/push completed and remote verified72461fd7fe079433add36750ddfca70515186dad. HKS203 commentbde280c2-eae5-41d0-bd47-b469e7f8957f. All installation processes terminal; leases explicitly released after parent interruption.
 
 Next two towers source-discovery completed, Neon jobadfd44b588086010fd785b5da89dfc8b12783b939040ccfa61061a145ea64996; script xl_two_tower_support_nomination_v1_20261020.py, DOCgovernment-xl-two-tower-support-nomination-v1-20261020. Exact provider-stage bounds nominate B150432686902063C0 for6803:0. No nominee for300857:0 among same provider stage plus allcurrentinstalledcatalogue bounds; broader provider source lookup is still required. This is discovery only, no contact/identity/publication approval and no permanent rejection. No active handles. FixedXL282/239,6762detailed unchanged. Next authenticate nominated asset, recover exact official target, then source-contact/foundation/currentruntime tests; find YOHO Hub podium from wider provider metadata.
+
+
+### Tower6803 original contacts recovered; remaining complete-foundation review — 20 October
+
+No new installations this continuation: fixedXL282/239, detailed6762. All workers terminal0; current-capture building lease released. ROOT verified all13 exact pinned-Neon results and distinct evidence bytes. No geometry edits/optimisation.
+
+Tower6803 and original podium15047 are already cached from6October; do not re-download. Original wall-only paths account144/196 failures;52residualpoints allincidentonundersides(42onlyundersides). Canonical eligibility unchanged. Separate source-only all-face diagnostic including original undersides gives179/196 endpoint-bounded finite paths. Exact positive-dimensional original podium contacts yield17/17 remaining finite paths;16terminalboundary,1interiorcrossing; only1pathwall-only. Independent verification checks own-contact height and1mmfinite residual. Actual renderer literal/leftF32/balancedF32 differfromoriginal(up to.000978m), so allthree were explicitly checked: same179+17,17/17 finite/heightbounded,16boundary/1interior. No architectural/structural/source-role approval from graph paths.
+
+Whole four-mode foundations remain FALSE: Tower6803 sixfaces12518,12519,12520,12521,12522,12529 (oneupward) belowhigherpodium butclearofgroundatsamples; whole-face/roleinterpretationstillneeded. Podium15047 fourfaces1348,1349,1354,1355 (twoupward) buriedbelowactualcurrentflatground. Do not waiveupwardfaces or copyParkviewvertical-onlyreview. Next inspect exactfullsourcecontext and nativegovernmentterrain for podium footprint, verifywholechangedterrain/affectedactors ifneeded; identity/podium/fullphysical/browser gates remain. Fresh current capture includes23749faces,metrics,completeactualattributes anddrawnground. Reuse theseexactbytes rather than repeating.
+
+YOHO300857: coveringcachedsheet6-NW-10D has499models andonlytowerbboxnearby. Broader known20-source selection supplies originalYuenLongpodium301636 fromanotherstage, overlappingtower. Newexactpairinterface16samples=8strict,8unresolved,no directfinitecontacts. Separate full-source identity/extentflags forpodiumremain; noabsence/permanentunfixableclaim. Next inspecteightpoints andpodiumsourcecontext/identity.
+
+Receipts:
+- government-xl-tower6803-original-wall-paths-v1-20261020: ed6b47e2b308d95b8c9fcfe46a8a4a94972a225aaf2f438a8289728f9d3ce5c9
+- government-xl-tower6803-residual-faces-v1-20261020: 197d6c3d937dac2ab53218de4483911703e61d7a504ec573401bf6b618c897d8
+- government-xl-tower6803-underside-paths-v1-20261020: 6371b28b5bb3ada734b6313324e6996574c25ddf1aa0dc3993a3095f4cc0a03e
+- government-xl-tower6803-finite-contacts-v1-20261020: f7c2e0ccdd43f1b3002f8e70a227212b87ce2ff64f7c0a94f29d57c1bc4bc4b2
+- government-xl-tower6803-finite-path-verification-v1-20261020: 85405492f2a3188672733510e7839fa7e8d3e5b763fb7f43f0c73190aaf1dcff
+- government-xl-tower6803-current-capture-v1-20261020: 4f1282ee11fd3e1619f143a79f081f0b8fabfa9f791751cc71158f545a63abc9
+- government-xl-tower6803-runtime-paths-v1-20261020: a135a994cd72732a59369dfd4b2659fd052215763ac1e6f62d11afe41f0a7602
+- government-xl-tower6803-runtime-finite-contacts-v1-20261020: 3cfa6a93807fcb3082a96a2d7bf689ef95bbfcd477dbef99c1f9077c90f8f537
+- government-xl-tower6803-runtime-finite-verification-v1-20261020: 5822d382f1646d99297b5a6ddbf205e47e3123950a38817a13f7e54941980ba2
+- government-xl-tower6803-four-mode-foundations-v1-20261020: c9d923c5084ea746ebf806462600bfb9da301e5cecc2985a0fc0fda92ee97c13
+- government-xl-tower6803-buried-faces-v1-20261020: d42db9ce011e69dc31248947fd76b15de36bd9ee92d1a23f228bf20b013b8b58
+- government-xl-yoho300857-sheet-sources-v1-20261020: cbfe159ce415a91c08643360e866cff72a2cce3f0175af1898c5bb5c70e91ff1
+- government-xl-yoho300857-original-podium-contacts-v1-20261020: cf331122fd09bbc88d25397d166c311ac9eedaf6fe282532d5626e720caa68e6
