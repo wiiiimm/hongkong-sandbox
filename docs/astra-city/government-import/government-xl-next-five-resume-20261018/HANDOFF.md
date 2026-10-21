@@ -2481,3 +2481,25 @@ Government metadata:277973 separate Podium base26.2/top42 with different recorde
 ## InOne original pair comparison,22October
 
 Completed Neon55d8dd549b98c83daef9b909288d55736befa6a679a1ee19f3d80424414d0b24. Exact flagged843.564456m2region compared original277890/277973; no exacttriangleduplicates, conservativeheightintervals23.707–45.204 and32.211–51.186 overlap. ROOT viewed pair-overlap.png and recorded hash. No identity/physical acceptance; next exactinterface analysis rather than assumingduplicateorverticalseparation. All workers terminal.318/203 unchanged. Checkpoint all bounded22October source diagnostics; pendingclampapproval unanswered.
+
+
+## In One primary layout boundary review, 22 October
+
+Primary official brochure SHA49b3e39cb85eb9399d5ff9246e765b1fa4e053a718f4d7b8e7cbb87697712ecd inspected PDFindices30–33; relevantlayout32/printed31. Primary reviewV1 failed missinguids before enqueue, reservationreleased; V2 completed Neon297128da3b34a322b1ddb35d92bb7739b78b3cad8a2e64762605770d20e73347. North-up context completed3e0863de3da42b2afebf18b67f6799d8c375e17e317b3aa250e9fbc1f2b0a408. ROOT viewed full context and exact PDF boundary crop. Overlap lies near northern podium southeast boundary, ONMANTIN Tower1/clubhouse277974/station277975. Plan excludes station/government accommodation from residential SiteA boundary; contextual match only, no exact facet attribution or acceptance. Next retrieve original277974/277975 components using metadata and inspect boundary surfaces. No new installation;318/203. All workers this continuation terminal; pending template exception unanswered. Scripts and review packets remain uncommitted.
+
+
+## In One clubhouse restored, 22 October
+
+R2 restoreV1 failed missing endpoint config; source lease released. Existing shape_prepare direct-government fallbackV2 successfully restored clubhouse277974 original c228a786763b304643263f101169c559c89d9707cfd7bc06c028c3073244e693 (672faces), byte-exact, no geometry edits or AI modelling. Neon7fcec6ba594d30129f0f249e89cd090a42d3995617ce7e6131ab57c83c3567c2; worker25388 terminal0/released. Adjoining identityV2 worker15700 terminal0, Neon346d90028c634859f9a837f920e5fedd7e6b9dd7e82b64743426fb387d31106c: clubhouse retains unrelated-footprint-overlap flags, podium277973 retains prior overlap/coverage flags. Exact station277975 prefixB3693819041 absent from513models in verified11-NW-25B directory; bounded absence only. Next compare clubhouse overlap against podium originals using V2 selection now containing actual asset paths. All this continuation scripts/packets uncommitted; no new installation318/203.
+
+## Clubhouse identity resolved; physical interface remains, 22 October
+
+ROOT inspected clubhouse original extent image and existing official layout. Exact metadata and complete cell pass; all68.066m2 outward projection lies inside enclosing podium277973, maximum0.77075m. Scoped identity accepted for clubhouse277974 only, retaining raw automatic flags; Neonbb3d769f9ae90cf20c9709a4352d8a180bf7b00d9936b0a3f22ffce8c6177dcc. No podium acceptance or installation transfer. Contextcdf54f9af968156c807596ca2548cb3118f0c41d5132897b9ebb4d3568db9458.
+
+Existing source interface checker completed ef055b3a2507400ed348aa25fcf27fa2076ddef3ad9a0dcb3077231499fd0edb:89samples,32strictcontacts,57unresolved,0wallintersections against277973 alone. Worker36687 terminal/released. Initial wrapper missed sheet field before reservation; corrected to verified11-NW-25B. No geometry edits. Next inspect exact57locations and whether277890 or recorded station structure supplies the missing interface; do not repeat unchanged check or infer corruption. Current scripts/packets uncommitted;318installed/203unfinished. No active workers from this continuation.
+
+## In One compound coverage, 22 October
+
+Southern podium contact check completed3d9eef26d3770a9226e4a0c711fe34461d6037540f92caad43f605ae66e21d0b:0/89strict contacts, so it does not solve clubhouse's57 northern-podium failures. Northern failures45no-vertical-support/12support-above-rim; southern44no-support/44rim-above/1support-above. Keep exact original-source faces in support-checks, no threshold change.
+
+Projection accounting9fb9886c1b8e586b55a48591ae7389335cac732929cef23180bdf8b3015522c1: podium277973 alone missing1003.8877m2; clubhouse original covers882.1641m2 of that, combined99.06389%. Southern podium covers46.8650m2 more, leaving74.8586m2 (about99.4243% total coverage). Residual job425e5acaf163b6a4c05f8b261bdd197e7a7a1585d588e4a8004d8f4b3b58cfb3 completed before local verifier failed tuple/list equality; ROOT recovered existing job read-only, compared normalized persisted JSON and every evidence hash, wrote receipt without rerun. ROOT viewed residual.png: dominant regions are thin perimeter strips, not a building-sized missing part. No compound identity/physical acceptance yet. Next source-specific podium interpretation can use this evidence; full physical and runtime gates remain. All processes terminal;318/203 unchanged.
