@@ -22,8 +22,8 @@ def normalise(resources):
     ):
         raise ValueError('Provide 1–1000 stable resource keys of 1–300 characters')
     for key in result:
-        if key.startswith('building:') and not re.fullmatch(r'building:landsd/[1-9][0-9]*:(?:0|[1-9][0-9]*)', key):
-            raise ValueError('Building keys require the complete canonical building:landsd/OBJECTID:PART UID')
+        if key.startswith('building:') and not re.fullmatch(r'building:(?:landsd|way)/[1-9][0-9]*:(?:0|[1-9][0-9]*)', key):
+            raise ValueError('Building keys require a complete canonical building:landsd/OBJECTID:PART or building:way/OSMID:PART UID')
     return result
 
 

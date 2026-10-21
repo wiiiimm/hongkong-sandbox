@@ -21,6 +21,14 @@ class ValidationTests(unittest.TestCase):
         for key in ('building:landsd/123456', 'building:landsd/123456:', 'building:123456:0', 'building:landsd/abc:0', 'building:landsd/001:0', 'building:landsd/1:00', 'building:landsd/0:0'):
             with self.assertRaises(ValueError): r.normalise([key])
 
+    def test_osm_neighbour_keeps_exact_canonical_lock_key(self):
+        key = 'building:way/1073754070:0'
+        self.assertEqual(r.normalise([key, key]), [key])
+        for bad in ('building:way/1073754070', 'building:way/0:0',
+                    'building:way/010:0', 'building:way/10:00',
+                    'building:way/abc:0', 'building:unknown/10:0'):
+            with self.assertRaises(ValueError): r.normalise([bad])
+
     def test_ttl_and_owner_required(self):
         for owner, ttl in (('', 900), ('owner', 0), ('owner', 3601), ('owner', 1.5), ('owner', True)):
             with self.assertRaises(ValueError): r.validate(owner, ttl)
