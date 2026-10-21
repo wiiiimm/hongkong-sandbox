@@ -1,0 +1,23 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Terrain face crosses parent domain
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_parent_capture_v1.mjs:14:256
+    at Mesh.traverse (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/vendor/three.module.js:7670:3)
+    at Group.traverse (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/vendor/three.module.js:7676:18)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_parent_capture_v1.mjs:13:9
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.18.0
+{'batch': 'government-xl-twelve-bounded-terrain-repairs-v1-20261022-97301-0-terrain', 'jobId': '7012a1df9247aa3ed3284d8f82067741047973303f7161323327718ec085264e', 'neonVerified': True}
+{'uids': ['landsd/97301:0'], 'installationApproved': False, 'publication': False, 'newlyInstalled': 0, 'sourceGeometryChanges': 0, 'scriptExternalAICalls': 0, 'status': 'bounded-inset-investigation', 'reason': "Command '['node', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_parent_capture_v1.mjs', 'docs/astra-city/government-import/government-xl-twelve-bounded-terrain-repairs-v1-20261022-97301-0-terrain/scope.json', 'source-scripts/city/government-import/local/government-xl-twelve-bounded-terrain-repairs-v1-20261022-97301-0-terrain/parent.json']' returned non-zero exit status 1.", 'errorType': 'CalledProcessError', 'permanentRejection': False}
