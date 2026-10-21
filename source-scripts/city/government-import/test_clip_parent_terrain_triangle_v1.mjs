@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {clipParentTriangle as clip} from './clip_parent_terrain_triangle_v1.mjs';
+const bounds=[0,0,1,1];
+const original=[[0,2,0],[1,3,0],[0,4,1]];
+assert.equal(clip(original,bounds)[0],original);
+const cut=clip([[-1,1,0],[2,4,0],[0,4,2]],bounds);
+assert(cut.length>0);
+for(const face of cut)for(const [x,y,z]of face)assert(Math.abs(y-(x+2+z))<1e-12);
+const vertical=clip([[-1,0,.5],[2,0,.5],[.5,3,.5]],bounds);
+assert(vertical.length>0);
+assert(vertical.flat().some(p=>p[1]>0));
+assert(vertical.flat().every(p=>p[2]===.5));
+assert.deepEqual(clip([[2,0,2],[3,0,2],[2,0,3]],bounds),[]);
+const tiny=[[.5,1,.5],[.500000000001,1,.5],[.5,1,.500000000001]];
+assert.equal(clip(tiny,bounds)[0],tiny);
+console.log('parent clipping: whole, crossing-plane, vertical, outside and tiny-face checks passed');
