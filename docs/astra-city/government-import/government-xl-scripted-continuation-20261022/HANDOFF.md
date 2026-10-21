@@ -33,3 +33,21 @@ All helper scripts live in `source-scripts/city/government-import/` and provide 
 - `selected_adjacent_source_terrain_v2.py`: explicit fresh terrain identity when `--allow-new-terrain-revision` is authorised; original building source remains unchanged.
 
 No AI geometry modelling, compression, optimisation queue, source pose/scale changes or validator threshold changes. Script external AI calls: zero; code/evidence work uses this agent. Do not resume historical Astra subagents. Keep pinned Neon guard and original acceptance workflow.
+
+## Subsequent capture preflight correction
+
+The 19-source batch is terminal: Neon `297c9c18de890f2d9ed2f27bdd404bab5e0adb8c2a8947d4856f5be0878545c1`. Twelve terrain constructors failed (seven incomplete coarse rectangles, two overlapping-height surfaces, three near-water clamps); six identity warnings and one existing-terrain overlap remain. **The six per-source runtime checkpoints recorded loader errors, not successful geometry captures.** Do not infer runtime acceptance from their terminal job status. A separate12-source current-ground capture (`686aa16d802f830e68b768c6ed3726a826e7088d1a12993a297a51eaa98e2eb8`) reproduced the common issue: source-selection entries omitted `recordedBaseHeight` and `recordedTopHeight`, required by the production loader. This is an orchestration defect, not corrupt government meshes.
+
+`selected_original_current_capture_v2.py` populates only absent fields from the exact current source form and preserves/rejects any conflicting existing binding. Source SHA, geometry and pose remain unchanged. Actual19-source recapture is running in session **47326**, batch `government-xl-nineteen-current-capture-v2-20261022`. Revalidate handle/receipt before restarting.
+
+Independent first-four scope/neighbour diagnostics completed: job `2352315f590dd6c3530e1a832568c386c21140f1d35c87b2a0ef2b4ee8533d89`. Fook139132 has one increased-burial neighbour174232;51275/50662/158003 need existing-terrain retention. Last-two independent scope/neighbour followthrough runs in session **19459**. These checks remain valid independent terrain diagnostics, not runtime model acceptance. Fook's first bounded-inset attempt stopped on missing geometry; failure preserved. Use the corrected actual capture before retrying.
+
+## Verified actual captures and active bounded repairs
+
+Corrected19-source actual-renderer capture is COMPLETE: job `5732af0916845e04e3c841a581c0e641fd974db28b2935a3bbe39929c72f8147`. All19 originals loaded; no runtime errors. These exact current-ground captures supersede the empty geometry in earlier runtime-error receipts. Fook139132 has all11,515faces covered, zero buried faces,38,910sample checks, no missing terrain/disagreements, low-rim clearance0.548–0.897m. Consider retaining unchanged current terrain for Fook; identity extension interpretation and full acceptance still remain. Do not reuse the failed native-ground candidate's neighbour results as current-ground failures.
+
+Last-two independent scope checks COMPLETE: `2f34123a62879472f3a1533a426137785c224f38b63696c183b33e29d40fa32c`; both17633/84014 require existing-terrain retention for their broad proposed native patches.
+
+**Active bounded repair batch:** `government-xl-twelve-bounded-terrain-repairs-v1-20261022`, exec session **90884**. Twelve terrain-held sources now have real production geometry. New `selected_original_bounded_candidate_batch_v1.py` preflights complete actual capture availability, runs two compute children, applies standard bounded inset/runtime/complete-record identity/full scope/neighbour checks, retains identity warnings while continuing independent physical checks, and stops if actual runtime capture fails. No skip/install/publication credit. Revalidate exact session/result before restarting.
+
+Installed count remains321 / unfinished200 of fixed521. Diagnostics checkpoint commit `fdb102b4f` is pushed.
