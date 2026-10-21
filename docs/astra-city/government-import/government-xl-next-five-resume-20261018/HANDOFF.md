@@ -2418,3 +2418,12 @@ Original-model worker restart is explicitly approved. Mong Kok north stand lands
 Staged browser V1 failed because joint witness lookup searched only the new catalogue for retained240527. Both sources were active; this was a test orchestration failure. Failed logs retained. V2 copies the harness and requires a unique matching new OR actual current retained catalogue record, with every original assertion unchanged. mongkok_staged_browser_v2_20261021.py is running under renewable leases (exec49368); do not duplicate. Await both desktop/mobile reports, inspect all eight exact exported new/retained day/night images, then prepare qualified review and guarded publication/live checks. Fixed XL remains317 installed/204unfinished of521; detailed catalogue actors6832.
 
 Hanford unchanged-parent below-clamp template exception remains pending separate user approval; do not run it under the worker-restart permission.
+
+
+## ROOT continuation — 22 October, final browser readiness hold
+
+Stadium stagedV2 completed/released, Neon5d37eee9; all8exports actually inspected and bound. Source review316703d2 and one-new-source publication plan22ca4cf3 are complete. Live installerV1 session79365 terminal1/released: mobile passed and all4mobileexports actually viewed; desktop timed out at the300s global base-cache readiness wait, before its model assertions. Both stadium originals alreadyactive in log. Allpublicdestinations/currentpointer restored; no derived installed history credited. Failure saved Neon53998106ba1e7dd756efdb5f426b249c40dfa623676a1b78be8dc3fe49693781; NOT an irreparable model. Fixed XL remains317installed/204unfinished/521, detailedcatalogue6832.
+
+Current live workers: stadium stagedV3 session71199 (renewable leases) disables test-camera damping before fit and captures cache state on timeout; all wait budgets/model assertions unchanged. Next-three source runtime session12103 checks255415 WestKowloonStationBusTerminus,258470,285509, each previously identitypassed. Do not duplicate either. No optimisation/AIgeometrymodelling.
+
+Prepared publicationV1 and commit helper are NOT a successful installation; after V3 completes inspect8exports, bind fresh review/plan and distinct guarded installerV2 using that exact harness. Preserve failedV1 and mobile pass. Original publicationplanV1 and currentpointer/manifest were byte-restored. Commit helper expects successful318/203 and8liveimages, so must be pointed to the eventual successful batch. Root still needs to finish desktop/live publication and commit/push a real installation.
