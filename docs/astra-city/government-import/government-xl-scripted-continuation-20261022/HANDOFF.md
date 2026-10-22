@@ -1,3 +1,9 @@
+## Olympic V2 terminal rollback; V3 processing diagnostics prepared
+
+V2 session74071 terminal1/releaseslease. Both retained actors activated with full-bounds camera. Olympic intentional503fallback passed; subsequent retry still pending at60s, no model/page/shader/cacheerror. Report shows bytes cached, geometry budgets clear, pendingmodel1andbase-tile1. No source acceptance failure established. Public destinations restored, no installed ledger history. V3 distinct installer uses phase-timing instrumentation and180sprocessing waits (unchanged model budgets/source/geometry/activation assertions); startup300sunchanged. Syntax check passes. Preflight15203terminal0ready. No blind same-producer restart; V1/V2failures preserved. Prepared d81fc0d9f pushed; current source qualification7a2234c58 pushed. FixedXL324/197still.
+
+157125 private source: continuousall12092covered/no affectedfaces, rim82raised/no buried; strict sharededge paths48pass, complete40unresolvedcomponent-face finite joins107positive, subsequentpaths53/82pass. Remaining29:24on34facecomponent with no finite attachment to grade;5reachablegrade through higherattachment. Raw negatives retained, no rejection/approval or geometry changes. Jobs06ea170e…/5d4c1da6…/e7fb8a5b…/50c7f519… allcomplete. Original whole-source identity diagrams75903running; inspect exact result. Full source-specific identity/currentworld/fourmode/browser gates still required.
+
 ## Olympic live V1 failed and rolled back; V2 prepared
 
 V1 session95326 terminal1, renewable lease released. Browser reached map ready and activated265848, then timed out60000ms waiting for retained265851before Olympic source selection. All public destinations restored, no installed ledger history; authoritative324/197and manifest4061651a… remain. Raw command/failure/browser report and terminal log preserved. This is not source corruption or placement failure.
