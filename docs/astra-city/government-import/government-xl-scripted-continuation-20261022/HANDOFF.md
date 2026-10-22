@@ -249,3 +249,8 @@ Qualified source review6eb16a919817491e6a052d8f665e2d5be42b8bd093e72bd577d07efc5
 
 
 Aquarium live installer V1 session21503 terminal1: mobile viewer readiness timed out before model checks. Exact failure/command evidence retained; rollback restored original manifest d302f7df... and all public destinations, no installed ledger credit. Lease released. Fresh unmodified baseline diagnostic53348 reached ready at60s with no page errors; all413 terrain patches (~647MB) are eagerly loaded under substantial host memory pressure. V2 retries in a distinct batch with only both startup wait allowances raised120->300s, no geometry/physical/runtime assertion changes. V2 read-only preflight29065 passed. Prepared review commit0d8349a7b is pushed.
+
+
+## Grand Aquarium installed, 22 October
+
+Original93424 installed through V2; session45896 terminal0, lease released, exact pinned-Neon job f0c8054b8431548c15eefaddc12b25ffb626027e9fdec122d2fcc9e0c99fe709 readback verified. Snapshotcc5185bb93ff383e; manifest4061651ac496db3a8d76777f632de3e19a76ae6102a834b4183f7fedf4706ac3. FixedXL324installed/197unfinished/521;6841catalogueactors. Complete live390/1280day/night,picking,collision,solid-source/no-fallback,retained-plaza/local-joint and503retry pass; ROOT viewed4source exports and desktopjoint. Source359aa68b... unchanged,1x/sourcepose,no proceduralwindow skin. Final terrain4b2bb2bb... replaces old295518terrain; allretainedsources untouched. All progress exports refreshed. V1failedstartup/rollback retained separately; no duplicate installedcredit. ZeroAIbuildinggeometry/optimisation; AIusedforcode/evidenceinterpretation. Next continue unfinishedXL; never rerun completed Aquarium diagnostics merely to restate them.
