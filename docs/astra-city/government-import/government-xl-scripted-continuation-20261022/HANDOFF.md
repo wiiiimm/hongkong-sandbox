@@ -1,3 +1,9 @@
+## Tung Ping interrupted attempt recovered; V5 retry22October
+
+Preparation committed/pushed69704bf82. V4 installer terminal: supervisor lease-lost-or-renewal-failed; all9public destinations byte-for-byte unchanged, no installed acceptance/result. Fresh-owned exact no-op recovery completed in Neon; see government-xl-tung-ping-interrupted-noop-recovery-v1-20261022/result.json and oldV4 failure-recovery.json. No source corruption or installation credit. Published count remains331/190/521,6848actors.
+
+New immutable V5 guard/installer preserve all V4 checks and explicitly authenticate recovered V4 predecessor. bounded_reserved_runner_v2_20261022.py uses120s observation instead of60; unchanged300s heartbeat/3600TTL/ownership/process-group cleanup. Actual retry session16076, log /tmp/tung-ping-live-install-v5-20261022.log. Never restart on observation timeout; inspect terminal/live handle. Expected332/189/521,6849only after full live/Neon/root proof. Same config/qualifiedsource/all40forms/sevennatives. Actual source/live exports still required; no AIgeometrymodelling/optimisation. Fullgoalactive.
+
 ## Tung Ping physically qualified; installer preflight — latest22October
 
 Published state **331installed/190unfinished/521;6848actors**, latest modelpushd510b07eb (Yoho), branch checkpointae564916f. TungPing97301 fresh current all40forms/seven retained natives and all4foundations/strict-rim modes PASS; worst sample-.226115970m, maxrim+.00000763m. Currentwrapper0f8d70287550f977e62136e878b762e7f344fd983b3f3ce71db2400e1736558f. Original11443faces remainfixed1x/sourcepose, SHA1401822634163c71c14b23c87791896c3e78d13d7362b112fc693eb19c94458d.
