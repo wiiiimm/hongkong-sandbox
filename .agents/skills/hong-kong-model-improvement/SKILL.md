@@ -7,6 +7,10 @@ metadata:
 
 # Hong Kong model improvement
 
+Latest ROOT checkpoint,22October2026: Ching Cheung95643 installed unchanged, pinnedNeon bdf2dc5928ed0433bc26003eb0f29fe5c3ea3f60eb50f1a51be779dfa98abdda, snapshot1891b440a03e7f3f. FixedXL327installed/194unfinished/521;6844detailedcatalogueactors. Read latest government-xl-scripted-continuation-20261022/HANDOFF.md and installed-root-check;8,289references andactual source+native desktop/mobile exports verified. Fullgoalactive, zeroAIgeometrymodelling.
+
+When a bounded original terrain addition touches an installed native neighbour, use the full native-regression and native-aware staged/publisher/installer adapters. Explicit retained-own browser views are required evidence, not a reason to require an empty retained-view list. Preserve every current source/flag/legacy failure and require zero new burial under existing checks. A parent rectangle with absent drawn terrain or an existing face crossing its boundary needs actual domain construction evidence; do not convert that script premise failure into source corruption or a coverage waiver.
+
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. On 8 October the user instructed: "keep working and do not stop. install / fix and install all the models you can. if some are truely blocked, note it in neon and flag the reason", followed by "do not stop for anything". Necessary source-identity/component evidence reviews, including the six prepared original captures, may proceed without repeating the earlier permission question. This permits analysis of unchanged original government sources, not replacement geometry generation or arbitrary validation waivers. Record genuine failures and concrete revisit conditions in Neon; continue other actionable sources. The completed Hoi Tai review remains valid historical evidence.
 
 ## Check the actual renderer contract first
