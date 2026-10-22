@@ -1,3 +1,11 @@
+## Olympic live V1 failed and rolled back; V2 prepared
+
+V1 session95326 terminal1, renewable lease released. Browser reached map ready and activated265848, then timed out60000ms waiting for retained265851before Olympic source selection. All public destinations restored, no installed ledger history; authoritative324/197and manifest4061651a… remain. Raw command/failure/browser report and terminal log preserved. This is not source corruption or placement failure.
+
+V2 browser changes only initial retained navigation camera: uses its complete exact original bounds and the existing retained-own fit calculation before the unchanged selected-plan/60sactivation assertion. Adds exact failed target/camera/wanted/source diagnostics. No forcedactivation, source/runtime/physical limits changes or suppressed checks. V2 installer uses distinct batch and verifies V1terminalrollback before application. Inspect preflight59496/result before running; actual live verification, commit/push still required.
+
+Next unfinished157125 private continuous7c8ed19f1428bf88b87ce59388b7b16bc97bd53c2eadb6ac7115aaa8bd8ced37:all12092sourcefaces covered, no continuous-.5mfailures; upward min4.842m. Private raisedrim attribution is running; inspect exact terminal handle before retry. Historical private terrain only, no current-world approval transfer. Identity retains low target coverage warnings; no acceptance.
+
 ## Olympic Station original acceptance checkpoint — 22 October 2026
 
 Fixed XL remains **324 installed /197 unfinished /521** until guarded installation succeeds. Original Olympic Station81242 sourceSHA d2d1f09a8119649d7ffdfaacc0070a118bd32a16729d9b5ae4d72eea58990ded is unchanged at1x/original pose. New91913face terrain band passes native validation and3619plane anchors; all613base forms and46native regressions pass, HoiYu177605 has1879exactly unchanged oriented terrain facets. All14051source faces covered. Wall5024 has scoped original exposed-wall/clear-roof paths. All53raised rim warnings now have finite source paths to strict grade anchors in all4streams, job99d6044b160fd0fd36922ac629a09ca917e355ad55a9eb51dac9309ea9af3756. No source geometry edits or AI modelling.
