@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.73"
+  version: "1.9.74"
 ---
 
 # Hong Kong model improvement
+
+23October source-work checkpoint:34current terrain-missing XL cases now have16exact historical recoveries and18separate fresh-government terrain compatibility diagnostics. Changed archive revisions/E11toE12 are new terrain identities, never old approval transfer. All187unfinished remain active;no new installation credit. Nam/FuYun exact original pair and protected Cullinan terrain now have completed source evidence; finish support/current guards. Point/line degenerate primitives must remain explicit and get no surface-support credit; new rational primitive-contact helper passes5tests. Protected-retained terrainV4 uses the existing immutable-retained-facecount+25000incremental rule, not an absolute25000limit below the installed baseline; final source/runtime/device checks remain mandatory. Read23OctoberHANDOFF.
 
 Latest ROOT23October2026: FuWong50662 installed unchanged, all12747faces, Neon464a4b7d058a49b7b45988d09ba88b67cc79476f24e0252402156849851ccc4a, snapshot492b620d4313f061. FixedXL334installed/187unfinished/521;6851actors. Independent8377references/fullledger/exact retained FuLoyterrain replacement/all oldmodeltuples and actualsource/native desktop/mobile exports verified. V6 live90s camera-travel timeout safely rolledback; explicit fresh-owned recovery and V7/browserv6 bounded180s travel observation passed, no device/geometry/acceptance waiver or runtime performance claim. NextNamCheong268867 requires retained FuWongterrain,currentfreshscope; standalone coarse seam failure is not source corruption. Fullgoalactive; commit/push every installation. No AIgeometrymodelling/optimisation. Read23OctoberHANDOFF.
 
