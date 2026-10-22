@@ -1,3 +1,9 @@
+## Source118003 control resolved; installer ready —23October
+
+Control liveexec75273 finished terminal0. ROOT directlyviewedall4normal/hidden day/nightcontrolimages; three foreign regions(rightfacade1050,450..1240,820;backdrop900,0..1260,300;leftfacade40,350..300,750) arepixel-identical withtargetvisible/hidden inbothday/night. Neighbour speckles persist withoutsource, notanewimportregression. Sourcegrouprestored immediately, no foreignsuppression ornormalrenderchange. Fullcontrol/image/measurementreceiptb2afc66b1b1f4cad9fb01f9e92e62d5dc6d2fe179fe315e9938c973038259f2d. Earlierpendingvisualobservation retainedashistory; newactualinspectedstagedreviewqualifiesall4normalexports.
+
+Sourcereview7d3a7f90f35795f633403a1c11ea0a9de9ad451af129c44e41bb21958b07c58b. QualifiedstandaloneStageV2(samev1artifactschema)61d3ad070e3cc090f4010cfec27895111cb156e7d7c7ad326d31d0a5787831f7, browserV4/guardV2/installerV2preflightpassed oneexactfixedXLsource. Log/tmp/source118003-installer-preflight-v2.log. Configgovernment-xl-source118003-install-config-v1-20261022/config.json. Next guardedV2--install, actuallive4sourceexports, independentledger/fullcount/rootproof thenimmediatecommit/push. Currentpublished332/189/521,6849actors; expectedONLYafteractualinstallation333/188/521,6850. NoAIgeometrymodelling/optimisation; fullremaininggoalactive.
+
 ## Source118003 physically qualified; visual control pending —23October
 
 PublishedXL remains332installed/189unfinished/521,6849actors, lastinstallationee04af289; latestpushedsourcecheckpoint6cc504f91. Fullgoalactive, noAIgeometrymodelling/optimisation.
