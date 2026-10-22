@@ -1,3 +1,23 @@
+## Yoho8 source-terrain seam recovery — 22 October
+
+Private noded coreV2 fixes both exact residual misses10523/10836, retaining degenerate source terrain facets verbatim;419finite corefaces become424, totalcandidate6662faces. Exact noding is source-terrain processing only; government building bytes/pose remain unchanged. Candidate passes unchanged native terrain/coverage/overlap validators, Neon11b97f650d437b0e4676f81f558c2a1564ccead81a89c721fb40aa67c88d30c9. Broader prior-residual replay now **202/202 exact-covered, zero missing**, Neone066ed6f4cdd918ee53a484326bb3b3c9a0050ad3267fb41e028a0ff7fefb8f1. This is candidate-only historical-source evidence, not current full-source/four-world/neighbour/browser or installation credit.
+
+Resume after Ching Chung's guarded live installation finishes: fresh complete installed actor inventory/current capture, rebind Yoho candidate/source/native obligations, then full runtime/identity/scope/native/prephysical checks. Do not reuse old manifest approval. Construction trials/failures remain stored separately in Neon. V1 noding failed on non-plane facet; V2 retains it unmodified. No acceptance threshold, budget or clamp exception changed.
+
+## Ching Chung qualified for guarded installation — 22 October
+
+Current published state329installed/192unfinished/521,6846actors. Staged retryV2 passed desktop/mobile, all4source exports inspected directly and all44retained exports reviewed via two hash-bound overview sheets. Neon browser7f138237e65b690455db7ea9f9d014ed809619131ba813540be48abe0d375a95, source-review519c20b033602eddba30967fcde2bee67673cbc1e248174ae0101d49c8f74fa2, qualified-stagebf4bae74a32e7b19ceb59117889c691c47eb771466d00d34b606478c3e889feb. Exact config points to successfulV2. Browser harness/guard/liveinstallerV4 committed and pushed9fb26c590. Prepare-only session45374 log `/tmp/ching-chung-installer-preflight-v4-20261022.log`; inspect actual completion, then guarded V4 --install. Expect330/191/521 and6847actors only after actual live/Neon/root proof. No geometry modelling/optimisation. Keep full goal active and commit/push installation.
+
+## Ching Chung retained-capture retry — 22 October
+
+Published state remains **329 XL installed /192 unfinished /521;6846 actors**. Fresh Ching Chung17633 full55-form/11-native checks, all four-world prephysical checks and physical review completed. Physical Neon job a3f30ba5aedc7edaae011c062eec4ea6ff1d1d8e60c3e18a230379f6b37e9ad1. No installation credit yet.
+
+Staged browser V1 passed desktop but failed mobile when retained actor26542 disappeared during the two-second lighting wait. Preserve its failed reports/log; this is not evidence of source corruption. V4 browser harness applies the existing source-capture per-image normal planning/active wait also to retained-own views, then captures synchronously. No product, geometry, residency-budget or acceptance-threshold changes. Staged adapter V3 uses that harness; live installer/guard V4 preserve prior guards and include V3 in duplicate/predecessor checks.
+
+Retry `government-xl-ching-chung-staged-browser-v2-20261022` runs under session76679, log `/tmp/ching-chung-staged-browser-v2-20261022.log`. Poll actual handle before any restart. On success inspect source exports and retained overview sheets, bind image evidence, qualify, guarded-install, inspect live output/root readback and commit/push installation. Source config remains V1 browser until successful replacement evidence is available.
+
+Yoho8 margin.2 candidate validates but exact prior-residual preflight still covers200/202, missing10523/10836, same as .1. Gap-location diagnostic is independently read-back verified Neon1a079e31601b720acf6918ac79437f975ff2122dcc12bfee771d8c88666ea77f: approximate residues .0003878869m²/.0016809226m², nearest candidate facets6578/6579. JSON tuple/list post-write equality failure was reconciled against exact completed Neon fields and all9hash refs without rerunning. This remains diagnostic-only; exact rational failures govern. New job f8c8c21a5b6273380caad316a1b8e8a82386a3009630aedb1da6bb5933ab5502. Do not repeat margin enlargement or waive gaps; source-TIN seam construction and fresh complete checks remain.
+
 ## Post-install continuation — Fu Loy pushed, Ching Chung running
 
 Fu Loy installation is committed and pushed in **fc75a8806**. HKS-199/HKS-203/HKS-215 and the XL milestone were updated with verified329installed/192unfinished/521,6846actors, exact installed job/snapshot and8400-reference ROOT audit. Full192-source remainder stays active.
