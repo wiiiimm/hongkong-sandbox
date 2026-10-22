@@ -1,3 +1,9 @@
+## Ching Cheung live V1 adapter rollback — 22 October 2026
+
+V1 installer session80473 terminal1 with lease released. All source and retained-native browser checks actually passed in mobile and desktop, but the independent-source adapter asserted that retainedNativeOwnViews must be empty. Complete rollback is verified in failure-recovery.json: all public destinations and current pointer restored, no installed history or credit, fixedXL326/195/521 unchanged. Preserve this failed run.
+
+New selected_original_native_guarded_publish_v1.py and selected_original_native_live_install_v1.py require exact staged/live retained UID/hash/triangle/time/viewport evidence instead. They preserve original source/physical/current-world checks, require predecessor rollback before retry, and use distinct original-installed-with-native-v1 batch. Inspect actual preflight66176 before running installation. No rendering/source guard is removed; native visibility obligations are verified explicitly. Old frozen adapters unchanged. Prepared selected_parent_domain_diagnostics_v1.mjs captures whole crossing terrain faces for the four remaining construction investigations; it has only passed syntax checking and has not run yet.
+
 ## Ching Cheung House advanced to browser checks — 22 October 2026
 
 Five-source trial completed terminal 0: pinned Neon `740d3e06a99ccd64cda07213399a2f90b542abc0859d3a981616740d2750bf18`. Four construction investigations and one advanced candidate; no new installation or permanent rejection. Fixed XL remains 326 installed / 195 unfinished / 521. Preparation commit `aa27463c5` is pushed.
