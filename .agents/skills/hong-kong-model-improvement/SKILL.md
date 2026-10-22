@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.65"
+  version: "1.9.66"
 ---
 
 # Hong Kong model improvement
+
+Latest ROOT22October2026: Ching Chung17633 installed unchanged, Neon85d025445c848a0878f6e5f0c59c917fcc9c8195997f66fd93c81fe582966d2d snapshot2e510a84180947ba. FixedXL330installed/191unfinished/521;6847actors. ROOT8403references, all full55forms/11native regressions and actual staged/live desktop/mobile exports verified. Read latest continuation HANDOFF/root proof. Yoho noded original-terrain candidate closes202/202prior residuals but fresh whole-source/current-scene checks remain. No AIgeometrymodelling/optimisation. Commit/push each installation; fullgoalactive.
 
 Latest ROOT checkpoint,22October2026: **Fu Loy51275 installed unchanged**, pinnedNeon `e7c189447ce3b78bba3f641726c37582efa7ba79f3b64440abbb8bb3eacc2c2b`, snapshot `5e392787612440d0`. FixedXL329installed/192unfinished/521;6846detailedcatalogueactors. Independent readback verifies8400references, exact retained terrain replacement, all old model tuples/flags unchanged and actual source/native desktop/mobile exports. Read latest continuation HANDOFF and installed-root proof; commit/push each installation. Fullgoalactive, noAIgeometrymodelling/optimisation. Source-camera framing alone does not prove an unobscured export: inspect actual source images; explicit diagnostic camera direction is allowed without model edits.
 
