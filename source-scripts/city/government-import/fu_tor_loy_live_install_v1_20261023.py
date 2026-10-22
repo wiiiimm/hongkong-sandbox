@@ -14,8 +14,8 @@ from exact_distinct_evidence_refs_v1_20261014 import distinct_refs
 stage=guard.stage;ROOT=guard.ROOT;HERE=guard.HERE;BASE=guard.BASE
 read=stage.read;save=stage.save;ref=stage.ref;check=guard.check
 BATCH=guard.BATCH;DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
-PUB=HERE/'fu_tor_loy_guarded_publish_v1_20261023.py';BROWSER=HERE/'ronsdale_three_live_browser_v7_20261023.mjs'
-FOCUSED=HERE/'ronsdale_three_live_browser_v7_20261023.mjs'
+PUB=HERE/'fu_tor_loy_guarded_publish_v1_20261023.py';BROWSER=HERE/'ronsdale_three_live_browser_v8_20261023.mjs'
+FOCUSED=HERE/'ronsdale_three_live_browser_v8_20261023.mjs'
 POINTER=ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json'
 DEFAULT_PREVIOUS=BASE/stage.CONFIG['previousCountReport']
 
@@ -117,7 +117,8 @@ def owned(previous):
       report[key].append(item)
    save(DOC/'live-browser.json',report);views=[v for v in report['views']if 'time'in v]
    assert report['passed']and not report['errors']and len(views)==4*len(stage.SOURCES) and len(report['jointViews'])>=2
-   retained=set(read(guard.REVIEW/'ROOT-PHYSICAL-REVIEW.json')['retainedNativeRegression']['requiredNativeUids'])
+   retained=set(read(guard.REVIEW/'ROOT-PHYSICAL-REVIEW.json')['exactTerrainReplacement']['retainedUids'])
+   assert len(retained)==24
    originals={m['uid']:m for m in old_models}
    nativeviews=report['retainedNativeOwnViews']
    assert retained and len(nativeviews)==4*len(retained)

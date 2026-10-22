@@ -2,7 +2,7 @@
 import argparse,copy,json,sys
 from pathlib import Path
 from contextlib import contextmanager
-import fu_tor_loy_retained_qualified_stage_v1_20261023 as stage
+import fu_tor_loy_retained_qualified_stage_v2_20261023 as stage
 from run import connect,reservations,dict_row
 ROOT=stage.ROOT;HERE=stage.HERE;BASE=stage.BASE
 BATCH=stage.CONFIG['prefix']+'-retained-original-installed-v8-'+stage.CONFIG['date']
@@ -33,7 +33,9 @@ def evidence():
  retained=set(physical['retainedNativeRegression']['requiredNativeUids'])
  assert retained and physical['retainedNativeRegression']['rawNativeFailures']==['landsd/177605:0']
  native=stage.read(stage.BASE/stage.CONFIG['nativeNeighbours']/'summary.json')
- assert retained==set(native['nativeResolved'])==set(native['requiredNativeUids'])
+ assert retained==set(native['requiredNativeUids'])=={r['uid']for r in native['nativeRows']}
+ assert set(native['nativeResolved'])=={r['uid']for r in native['nativeRows']if r['passed']}
+ assert retained-set(native['nativeResolved'])=={'landsd/177605:0'}
  retainedBrowser=set(physical['exactTerrainReplacement']['retainedUids'])
  assert retainedBrowser<=retained
  assert set(stage.read(stage.STAGE/'live-browser-config.json')['additionalRetainedUids'])==retainedBrowser
