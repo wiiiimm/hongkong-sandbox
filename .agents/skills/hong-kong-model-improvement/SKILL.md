@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.75"
+  version: "1.9.76"
 ---
 
 # Hong Kong model improvement
+
+Latest ROOT23October2026: FuTorLoy mall228219 + four original towers231442/232818/233770/233775 installed unchanged28572faces. Neon24e975c950b673be9f10b1f4c29cba7e33ec29405bd6c2f8b45665df32958619,snapshot2311b29ba8906f61. Full521ROOTaudit/860exactreferences/alloldmodeltuples and24retainedterrain targets verified. All20source+96retained live exports passed and actually inspected; foreground occlusion explicitly qualified, rawlegacy negatives retained. Counts335installed/186unfinished/521;6856actors. LiveV9 mobile/desktop completed; no workers need restart. Original geometry/sourcepose/fixed1x unchanged, no AIgeometrymodelling/optimisation. Commit/push every installation; fullgoalactive. NextIslandIndustrial separate537face original recovered and jointfootprint matches, but finite support/currentterrain/crossing interfaces remain unaccepted. Read23OctoberHANDOFF.
 
 For a single complete retained native patch with an identical coarse envelope, selected_original_retained_replacement_v10_20261023.py and retained_native_template_v3_20261023.py can reuse its exact installed template. Prove the complete production Float32 face multiset including duplicate multiplicities, recompute stale overlap receipts, and preserve every existing below-clamp face exactly outside the edit region. Every new/split face still requires height>=1.2m; allow_native_below_clamp remains disabled/unapproved. Expanded/multiple envelopes are rejected, not silently accepted. Eight adversarial tests cover XZ contact, movement, splitting, removal, one-Float32-step changes and duplicate faces. FuTorLoy private terrain7c7fcfa35ac87443e581e173050b5518558af4f3e38af7d246ea68aaf5d77ca3 passes93661faces(+1748),4changedparentfaces,all7existinglowfaces unchanged; current/fullphysical/browser/publication still required. Do not use exploratory helperV1 or prior failedV8/V9 producers for new work. Read23OctoberHANDOFF.
 
