@@ -1,5 +1,7 @@
 # Original XL continuation — 23 October 2026
 
+Latest authoritative installed state:334installed/187unfinished/521,6851actors. FuWongV7 completed terminal0/released:464a4b7d058a49b7b45988d09ba88b67cc79476f24e0252402156849851ccc4a; snapshot492b620d4313f061, manifest3a479909f4698499b4703165e84546b3c49a889152e32c93a4f54154caf76baa. ROOT8377refs/full521/alloldmodels/exact retained terrain and actual4source/32native exports verified; see government-xl-fu-wong-installed-root-check-v1-20261023/verification.json. BrowserV6 travel180s retry passed unchanged model/runtime guards. Counts below are historical. NamCheong prepared chain now explicitly uses successfulV7. Commit/push installation before launching it.
+
 Authoritative count remains 333 installed / 188 unfinished / 521; 6,850 actors. Source118003 installation is pushed in 9a3e3ba93. Full XL goal remains active. No AI geometry modelling or optimisation.
 
 Fu Wong50662 complete current40forms/eightnatives/four-coordinate foundations/continuous/rims and staged desktop/mobile exports pass. ROOT inspected all four source exports and two hash-bound native context sheets. Source review a9fb149c42757a16e421ab05b170268991cddaf60d3482bb830af9d2383f7b4b; qualified stage93a89d3b693530eea617303d1f755fa1f2d623931c643b8fdd33dfc8ec3000b6. Prep pushed31080ff30. Use install-config-v2; do not rerun completed phases.

@@ -10,7 +10,7 @@ assert not D.exists()and all(not(BASE/n).exists()for n in N.values());D.mkdir();
 retained='city/data/government-native-fu-wong-original-v1-20261023.json';manifest=read(ROOT/'3d-viewer/city/data/manifest.json');assert sum(p['url']==retained for p in manifest['terrainPatches'])==1
 assert {'landsd/147589:0','landsd/51275:0','landsd/50662:0'}<=set(read(ROOT/'3d-viewer'/retained)['meta']['targetUids'])
 steps=[
- ('inventory','refresh_original_bounds_inventory_v1.py',['--prior','government-xl-after-source118003-current-inventory-v1-20261023','--attributes','government-xl-fu-wong-prephysical-v1-20261023-attributes','--installed','government-xl-fu-wong-retained-original-installed-v6-20261023']),
+ ('inventory','refresh_original_bounds_inventory_v1.py',['--prior','government-xl-after-source118003-current-inventory-v1-20261023','--attributes','government-xl-fu-wong-prephysical-v1-20261023-attributes','--installed','government-xl-fu-wong-retained-original-installed-v7-20261023']),
  ('selection','selected_original_refresh_selection_v1.py',['--capture','government-xl-all-200-original-terrain-batch-v2-20261022','--uid',UID]),
  ('capture','selected_original_current_capture_v2.py',['--capture',N['selection'],'--uid',UID]),
  ('terrain','selected_original_retained_replacement_v7.py',['--capture',N['capture'],'--terrain-check','government-xl-all-200-original-terrain-batch-v2-20261022','--uid',UID,'--retain-patch',retained]),
