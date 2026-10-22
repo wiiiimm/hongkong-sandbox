@@ -1,3 +1,11 @@
+## Olympic Station original acceptance checkpoint — 22 October 2026
+
+Fixed XL remains **324 installed /197 unfinished /521** until guarded installation succeeds. Original Olympic Station81242 sourceSHA d2d1f09a8119649d7ffdfaacc0070a118bd32a16729d9b5ae4d72eea58990ded is unchanged at1x/original pose. New91913face terrain band passes native validation and3619plane anchors; all613base forms and46native regressions pass, HoiYu177605 has1879exactly unchanged oriented terrain facets. All14051source faces covered. Wall5024 has scoped original exposed-wall/clear-roof paths. All53raised rim warnings now have finite source paths to strict grade anchors in all4streams, job99d6044b160fd0fd36922ac629a09ca917e355ad55a9eb51dac9309ea9af3756. No source geometry edits or AI modelling.
+
+Complete6841native/allform source scope: native265848 has zero exact source intersections in all distinct stream pairs; all4nominated form polygons separated by32m+. Exact identity-only review4e96fc617f326fc7394217e30b32644ca3241edf4a83fa24dfa8aa7a825ca60f preserves GIS extent negatives. Desktop/mobile staged day/night, original neighbour/local views and mobile503retry pass; ROOT inspected station day/night on both widths, local desktop joint and retained day exports. Source review9c4bdc56d0b59544f01dd31c7865892f89c16721ac57865c33a74b3b1c0c8f1c.
+
+StageV1 dry run stopped on retained HoiYu raw generic support flag; no publication. Its failed producer/log remain. StageV2 binds prior exact-source tower/support acceptance, current source SHA/CSUID dependency and identical numeric guard results plus full unchanged terrain proof; it retains raw failures and changes no publisher guards. Inspect actual V2 terminal/result before proceeding; never repeat a live producer. Installer prepared as olympic_station_live_install_v1_20261022.py, not yet run. Live publication, exact ledger/counts, actual live exports, commit and push remain mandatory. Goal active; continue remaining196after successful Olympic install.
+
 # XL scripted continuation — 22 October 2026
 
 Fixed XL inventory remains **521: 321 installed, 200 unfinished**. South Hillcrest installation commit `acaa314793692dc4fe97bc3a01f388236415470d` is pushed. No new installation or permanent rejection in this continuation.
