@@ -1,6 +1,7 @@
 import {directOsmGroupFootprint} from './official-model-direct-osm-group-footprint.js';
 import {retainedGroupFootprint} from './official-model-retained-group-footprint.js';
 import {oceanWalkScope} from './official-model-footprint-scopes-ocean-walk.js';
+import {reviewedOriginalFeatureFootprint} from './official-model-reviewed-original-feature-footprint.js';
 /** Exact complete market footprint groups; no original model or GIS geometry edits.
  * Source-bound groups are rechecked against every current loaded member before use.
  * Official records and full-projection measurements: government-xl-market-official-group-context-20261008.
@@ -11,6 +12,7 @@ export const modelFootprintScopeKeys=Object.freeze(Object.keys(scopes));
 const selected = b => b && ({uid:b.uid,objectId:b.objectId,buildingCSUID:b.buildingCSUID,parent:b.parent,osmRefs:b.osmRefs??null,rings:b.rings});
 export function officialModelFootprint(entry,building,getBuilding){
  if(entry.footprintScope===undefined)return null;
+ if(typeof entry.footprintScope==='string'&&entry.footprintScope.startsWith('reviewed-original-feature:'))return reviewedOriginalFeatureFootprint(entry,building);
  if(typeof entry.footprintScope==='string'&&entry.footprintScope.startsWith('direct-osm-group:'))return directOsmGroupFootprint(entry,building,getBuilding);
  if(typeof entry.footprintScope==='string'&&entry.footprintScope.startsWith('retained-group:'))return retainedGroupFootprint(entry,building,getBuilding);
  const scope=scopes[entry.footprintScope];

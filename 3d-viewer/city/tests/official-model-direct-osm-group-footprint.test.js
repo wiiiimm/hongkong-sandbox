@@ -17,7 +17,7 @@ for(const [key,scope] of Object.entries(directOsmGroupScopes)){
  });
 }
 test('direct shared-OSM contexts cannot expand the ordinary footprint rule or market key list',()=>{
- assert.equal(Object.keys(directOsmGroupScopes).length,6);assert.equal(modelFootprintScopeKeys.length,3);
+ assert.equal(Object.keys(directOsmGroupScopes).length,7);assert.equal(modelFootprintScopeKeys.length,3);
  assert.equal(officialModelFootprint({}, {}, null),null);
  const key=Object.keys(directOsmGroupScopes)[0],s=directOsmGroupScopes[key],b=s.forms.find(b=>b.uid===s.uid),boundary=officialModelFootprint({...s,footprintScope:key},b,u=>s.forms.find(f=>f.uid===u));
  const maxX=Math.max(...boundary.map(p=>p[0]))+1000,maxZ=Math.max(...boundary.map(p=>p[1]))+1000;
