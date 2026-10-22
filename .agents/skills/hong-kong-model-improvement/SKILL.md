@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.68"
+  version: "1.9.69"
 ---
 
 # Hong Kong model improvement
+
+For future original batches, selected_original_prephysical_suite_v2.py wires the proven V3 four-world checker while preserving all other phase commands. selected_original_retained_qualified_stage_v2.py computes direct-reference membership once and retains the exact same required hash checks; it deliberately preserves the qualified-stage-v1 artifact schema for compatibility with guarded publisher/installerV4. Existing workers/immutable producer files must not be edited or restarted to adopt these helpers.
 
 Latest ROOT22October2026: YohoTownBlock8/146396 installed unchanged, Neon518ffc04414d573ccd07938b061aa58a3299b9eca0daed4b453e53adda0b5289 snapshot3bafe354d4d81730. FixedXL331installed/190unfinished/521;6848actors. Independent ROOT8330references and actual staged/live desktop/mobile exports verified. Full31forms/two natives and all4strict modes pass, including exhaustive14792face fresh proofs for each changedXZ mode. Named42interface tower/podium identity preservesall953components/143unattached originals and allcurrentforms; no collision/terrain exemption. Read latest HANDOFF/rootproof. NextTungPing97301 has matched cached51face adjoining original97300; acquire exactasset and investigate complete originals, no automatic related-identity credit. Commit/push each installation; fullgoalactive, no AIgeometrymodelling/optimisation.
 
