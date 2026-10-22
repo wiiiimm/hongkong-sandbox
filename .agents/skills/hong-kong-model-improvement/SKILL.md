@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.74"
+  version: "1.9.75"
 ---
 
 # Hong Kong model improvement
+
+For a single complete retained native patch with an identical coarse envelope, selected_original_retained_replacement_v10_20261023.py and retained_native_template_v3_20261023.py can reuse its exact installed template. Prove the complete production Float32 face multiset including duplicate multiplicities, recompute stale overlap receipts, and preserve every existing below-clamp face exactly outside the edit region. Every new/split face still requires height>=1.2m; allow_native_below_clamp remains disabled/unapproved. Expanded/multiple envelopes are rejected, not silently accepted. Eight adversarial tests cover XZ contact, movement, splitting, removal, one-Float32-step changes and duplicate faces. FuTorLoy private terrain7c7fcfa35ac87443e581e173050b5518558af4f3e38af7d246ea68aaf5d77ca3 passes93661faces(+1748),4changedparentfaces,all7existinglowfaces unchanged; current/fullphysical/browser/publication still required. Do not use exploratory helperV1 or prior failedV8/V9 producers for new work. Read23OctoberHANDOFF.
 
 23October source-work checkpoint:34current terrain-missing XL cases now have16exact historical recoveries and18separate fresh-government terrain compatibility diagnostics. Changed archive revisions/E11toE12 are new terrain identities, never old approval transfer. All187unfinished remain active;no new installation credit. Nam/FuYun exact original pair and protected Cullinan terrain now have completed source evidence; finish support/current guards. Point/line degenerate primitives must remain explicit and get no surface-support credit; new rational primitive-contact helper passes5tests. Protected-retained terrainV4 uses the existing immutable-retained-facecount+25000incremental rule, not an absolute25000limit below the installed baseline; final source/runtime/device checks remain mandatory. Read23OctoberHANDOFF.
 
