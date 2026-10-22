@@ -1,3 +1,11 @@
+## Active Island Industrial private-scene suite
+
+Currentcapture215409 terminal0;Neon518d20c4596d47279f24f8597d86dc0dbc1f1ec6197107f90a30b4b422326d70. Currentcoarseground tower0buried/minGap4.4276m, podium1buried/minGap-2.2346m. Exactsamecache originalterrain freshchecks06b732098dd928bfa728055846eb6852e53c372b7b961ca4c94e9116caf0913d show both0buried; towergap6.672m(podiumsupportstillrequired),podiumgap-0.045224m. selected_original_source_terrain_check_v1_20261023.py binds actualdonorTIN/bufferbytes/same native result and recomputes fullsources; no oldapproval transfer.
+
+Privatepairterrain97f1ce603a474041c88352b1895f44e650f901885854f1fcff50fdc52e554526 passed3668facets/coarsecells497,391..499,393,corehalo1m. No live terrain writes. Freshcomplete6856actor inventory1144df5f00cf93d7fd9e46c150e28223c3fdfe2d162f970c0af88bb0cbce5d9a adds exact5FuTorLoyfourworldbounds, verifies alloldsourceSHAs/currenttiles. Bothworkers terminal.
+
+Now detachedcurrent-suitePID266370 confirmedlive,log/tmp/island-industrial-pair-current-v1.log,metadataisland-industrial-current-suite-worker-v1.json. Batchgovernment-xl-island-industrial-pair-current-v1-20261023 runs selected_original_pair_current_v1_20261023.py(runtime,identity,scope,neighbours) againstprivatepairterrain/currentcapture/freshinventory. Actualresults authoritative. If oldcandidate-state installeddependencies obstructneighbouradapter, preserve failure and rebind exact current installed support ledger; no sourcecorruption inference/waiver. Nextfullfourworldphysicalsupport/exactidentityafter current rawoutputs. Fullgoalactive335installed/186unfinished/521;6856actors. Commit/pushinstallations; no AIgeometrymodelling/optimisation.
+
 ## Next active Island Industrial current capture
 
 FuTorLoy actual installation pushed8d75e9bdc;HKS199/203/215+XLmilestone updated with335installed/186unfinished/521,6856actors. Exact source-only IslandIndustrial heights e57063035649d7ca1fd280df8d10dfa4f2da0af7653ad39d40b84ea3e9edb6f0 locate all254contacts withinY11.36118698..12.18618774m, including13transversecrossings; no support/identityacceptance. Both sourceimages actually viewed in prior sourceviewsbatch.
