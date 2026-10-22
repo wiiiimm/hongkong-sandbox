@@ -1,3 +1,17 @@
+## Latest: Fu Tor Loy official permit and finite path evidence, 23 October
+
+Authoritative installed totals remain **334 / 521 XL; 187 unfinished**, 6,851 detailed actors. No new installation or geometry changes. All workers launched for this checkpoint are terminal; do not rerun completed checks.
+
+Fresh primary-records-v2 confirms the complete occupation permit **K44/80** comprises the selected podium and four towers (five distinct structure IDs), with podium top/tower bases 10.8m. Keep raw individual identity coverage negatives; whole assembly identity review remains outstanding.
+
+All four tower foundation batches pass actual terrain in original/literal/left/balanced coordinates, complete source faces, zero buried/upward faces. Canonical highest-podium-envelope support negatives remain unchanged, including compound-envelope burial flags; these are not actual-terrain negatives or automatic architectural acceptance.
+
+New `original_endpoint_contact_paths_v2_20261023.py` checks every witness, including direct incident-face contacts. Four completed `government-xl-fu-tor-loy-<id>-four-world-contact-paths-v1-20261023` jobs independently recompute finite original contacts in every coordinate mode: **53/103/114/57 paths per mode, 1,308 total, zero remaining**. Readback batch `government-xl-fu-tor-loy-four-world-path-readback-v1-20261023` independently verifies complete unresolved-witness coverage, source hashes, original nondegenerate face paths, exact shared-edge transitions, finite positive-dimensional source contact endpoints, <=1mm residual and own-endpoint height bound. No degenerate face receives path credit. Canonical support booleans remain false; this is evidence for bounded physical review, not a generic pass or approval.
+
+Secondary-original-contacts-v1 examines every secondary original component: Fu Wong roof14 faces has zero positive surface contact with its main body; Fu Sun roof22 has20, one singleface has0, another has1; Fu Lai's single face is degenerate with0; Fu Tong attachment14 has16. Contacts alone do not prove engineering roles. Retain all original faces. Next inspect source context/finite separation of the Fu Wong roof and Fu Sun lone face, finish bounded assembly identity/physical accounting, then staged/live browser/full521 acceptance and commit/push installations. Do not invent support or waive source preservation.
+
+Attribution V1 rejected obsolete TTL21600; V2 rejected raw datetime lease serialization. V3 fixes only control plumbing (TTL3600 + JSON-safe lease receipt), all four contact batches completed in Neon. No source corruption inferred. Complete primary/attributes/foundations/contact/path receipts are retained; no optimisation or external AI modelling calls.
+
 # Original XL continuation — 23 October 2026
 
 ## Latest Fu Tor Loy five-source investigation
