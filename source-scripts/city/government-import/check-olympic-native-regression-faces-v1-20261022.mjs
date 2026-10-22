@@ -1,0 +1,115 @@
+/** Full indexed-mesh terrain regression check for already-installed neighbours. */
+import assert from 'node:assert/strict';
+import {replacementRows,replacementURLs} from './terrain-replacements.mjs';
+import {verifyCurrentInstalledDependency} from './native_dependency_context_v3_20261022.mjs';
+import {surveyedFallbackGeometry} from './surveyed_fallback_support_geometry_v1.mjs';
+import {snapshotModuleClosure,verifyModuleClosure} from './exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+import {createHash} from 'node:crypto';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {dirname,resolve,relative} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {gunzipSync} from 'node:zlib';
+import * as THREE from '../../../3d-viewer/vendor/three.module.js';
+import {makeTerrainSampler} from '../../../3d-viewer/city/geo.js';
+import {prepareModelCatalogue,loadOfficialModel,disposeOfficialModel} from '../../../3d-viewer/city/official-model-assets.js';
+import {directOsmGroupScopes} from '../../../3d-viewer/city/official-model-direct-osm-group-data.js';
+import {levels} from '../assembly-support-review/triangles.mjs';
+import {nativeNeighbourAccepted} from './native-neighbour-policy.mjs';
+
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'../../..');
+const doc=process.argv[2];
+assert(doc,'Usage: node check-native-neighbours.mjs <document-folder/>');
+const hashes={},hash=raw=>createHash('sha256').update(raw).digest('hex');
+const read=p=>{const raw=readFileSync(resolve(root,p));hashes[p]=hash(raw);return JSON.parse(p.endsWith('.gz')?gunzipSync(raw):raw);};
+
+const closureRoot=new URL('../../../',import.meta.url);
+const closures=['3d-viewer/city/official-model-assets.js','3d-viewer/city/geo.js'].map(p=>snapshotModuleClosure(new URL(p,closureRoot),closureRoot));
+for(const c of closures)Object.assign(hashes,c.inputHashes);
+const manifest=read('3d-viewer/city/data/manifest.json'),base=read('3d-viewer/city/data/terrain.json');
+base.patches=[];
+const installed=[];
+for(const row of manifest.terrainPatches||[])installed.push({entry:row,data:read('3d-viewer/'+row.url)});
+base.patches=installed.map(row=>row.data);
+const before=makeTerrainSampler(base),variant=structuredClone(base),inputs=read(doc+'neighbour-inputs.json.gz'),replaced=replacementURLs(inputs.patches,manifest.terrainPatches,hashes);
+variant.patches=installed.filter(row=>!replaced.has(row.entry.url)).map(row=>structuredClone(row.data));
+for(const row of inputs.patches){
+ const raw=readFileSync(resolve(root,row.path));
+ assert.equal(hash(raw),row.sha256);
+ hashes[row.path]=row.sha256;
+ variant.patches.push(JSON.parse(raw));
+}
+const after=makeTerrainSampler(variant),standard=read(doc+'neighbour-checks.json');
+const blocked=new Set(standard.rows.filter(row=>row.existingNative&&row.reasons.length).map(row=>row.uid));
+for(const row of inputs.patches)for(const parent of replacementRows(row))for(const uid of parent.retainedUids)blocked.add(uid);
+const buildings=new Map(inputs.rows.map(row=>[row.building.uid,row.building])),entries=new Map(),available=new Map();
+for(const url of manifest.officialModelCatalogues){
+ const path='3d-viewer/'+url,cat=read(path),folder=dirname(path);
+ for(const entry of prepareModelCatalogue(cat,pathToFileURL(resolve(root,path)).href)){
+  available.set(entry.uid,{entry,path:resolve(root,folder,entry.asset)});
+ }
+}
+assert(Array.isArray(inputs.requiredNativeUids),'Explicit complete native scope required');
+for(const uid of inputs.requiredNativeUids){assert(buildings.has(uid)&&available.has(uid),'Required native source/form unavailable: '+uid);blocked.add(uid);}
+const bindingProof=read(doc+'installed-dependency-bindings.json');assert.equal(bindingProof.currentManifest.sha256,hashes['3d-viewer/city/data/manifest.json']);
+const dependencies=new Set(),fallbackDependenciesVerified=[],installedDependenciesVerified=[];
+for(const uid of blocked)for(const dependency of available.get(uid)?.entry.supportDependencies||[]){
+ const context=verifyCurrentInstalledDependency(available.get(uid).entry,dependency,available.get(dependency.uid)?.entry,buildings.get(dependency.uid),standard.rows.find(r=>r.uid===dependency.uid),bindingProof.bindings.find(b=>b.owner===uid&&b.uid===dependency.uid));
+ if(context.kind==='native'){dependencies.add(context.uid);installedDependenciesVerified.push({dependentUid:uid,...context});}
+ else fallbackDependenciesVerified.push({dependentUid:uid,...context});
+}
+for(const [uid,value] of available){
+ const sameParent=[...blocked].some(other=>buildings.get(other)?.parent&&buildings.get(other).parent===buildings.get(uid)?.parent);
+ if(blocked.has(uid)||sameParent||dependencies.has(uid))entries.set(uid,value);
+}
+// Resolve every exact footprint member from current source forms, retaining their hashes.
+const neededForms=new Set(entries.keys());
+for(const {entry} of entries.values())for(const form of directOsmGroupScopes[entry.footprintScope]?.forms||[])neededForms.add(form.uid);
+const missingForms=new Set([...neededForms].filter(uid=>!buildings.has(uid)));
+for(const tile of manifest.tiles){if(!missingForms.size)break;for(const building of read('3d-viewer/'+tile.url).buildings){if(missingForms.has(building.uid)){buildings.set(building.uid,building);missingForms.delete(building.uid);}}}
+assert.equal(missingForms.size,0,'Current retained source forms unavailable: '+[...missingForms].join(','));
+const lighting={night:{value:0},activity:{value:new THREE.Vector4(1,1,1,1)},retail:{value:1},elapsed:{value:0},shimmer:{value:0}},geometry=new Map();
+for(const [uid,{entry,path}] of entries){
+ const raw=readFileSync(path),assetPath=relative(root,path);
+ hashes[assetPath]=hash(raw);assert.equal(hashes[assetPath],entry.sha256);
+ const model=await loadOfficialModel(entry,buildings.get(uid),lighting,{fetcher:async()=>new Response(raw),getBuilding:uid=>buildings.get(uid)}),g=model.record.modelGeometry,triangles=[];
+ for(let i=0;i<g.index.length;i+=3){
+  const ids=[g.index[i],g.index[i+1],g.index[i+2]],p=ids.map(v=>[g.position[v*3],g.position[v*3+1],g.position[v*3+2]]);
+  const det=(p[1][0]-p[0][0])*(p[2][2]-p[0][2])-(p[1][2]-p[0][2])*(p[2][0]-p[0][0]);
+  if(Math.abs(det)>1e-9)triangles.push({ax:p[0][0],az:p[0][2],ay:p[0][1],bx:p[1][0],bz:p[1][2],by:p[1][1],cx:p[2][0],cz:p[2][2],cy:p[2][1],det,minX:Math.min(...p.map(v=>v[0])),maxX:Math.max(...p.map(v=>v[0])),minZ:Math.min(...p.map(v=>v[2])),maxZ:Math.max(...p.map(v=>v[2]))});
+ }
+ geometry.set(uid,{entry,position:g.position,index:g.index,triangles});disposeOfficialModel(model);
+}
+for(const d of fallbackDependenciesVerified){assert(!geometry.has(d.uid));geometry.set(d.uid,surveyedFallbackGeometry(buildings.get(d.uid)));}
+const rows=[],resolved=[];
+for(const uid of blocked){
+ if(!['landsd/265848:0','landsd/265851:0'].includes(uid))continue;
+ const newlyBuriedFaces=[];
+ const g=geometry.get(uid);
+ if(!g){rows.push({uid,passed:false,reason:'installed-native-asset-unavailable'});continue;}
+ const oldGap=[],newGap=[];
+ for(let i=0;i<g.position.length;i+=3){const x=g.position[i],y=g.position[i+1],z=g.position[i+2];oldGap.push(y-before.height(x,z));newGap.push(y-after.height(x,z));}
+ let oldBuried=0,newBuried=0,oldUpward=0,newUpward=0,newlyBuried=0,newlyUpward=0;
+ for(let i=0;i<g.index.length;i+=3){
+  const ids=[g.index[i],g.index[i+1],g.index[i+2]],a=new THREE.Vector3().fromArray(g.position,ids[0]*3),b=new THREE.Vector3().fromArray(g.position,ids[1]*3),c=new THREE.Vector3().fromArray(g.position,ids[2]*3),up=new THREE.Triangle(a,b,c).getNormal(new THREE.Vector3()).y>.15;
+  const was=ids.every(v=>oldGap[v]<-.25),now=ids.every(v=>newGap[v]<-.25);
+  if(now&&!was)newlyBuriedFaces.push({faceIndex:i/3,upward:up,vertices:ids.map(v=>Array.from(g.position.slice(v*3,v*3+3))),beforeGaps:ids.map(v=>oldGap[v]),afterGaps:ids.map(v=>newGap[v])});
+  oldBuried+=was;newBuried+=now;oldUpward+=was&&up;newUpward+=now&&up;newlyBuried+=now&&!was;newlyUpward+=now&&!was&&up;
+ }
+ const low=g.entry.worldBounds[0][1],rim=[];
+ for(let i=0;i<g.position.length;i+=3)if(g.position[i+1]<=low+.35)rim.push([g.position[i],g.position[i+1],g.position[i+2]]);
+ const pinned=new Set((g.entry.supportDependencies||[]).filter(d=>d.state==='installed'||installedDependenciesVerified.some(f=>f.dependentUid===uid&&f.uid===d.uid)||fallbackDependenciesVerified.some(f=>f.dependentUid===uid&&f.uid===d.uid)).map(d=>d.uid));
+ const supports=[...geometry.entries()].filter(([other,h])=>other!==uid&&
+  (h.geometryKind!=='surveyed-basic'&&buildings.get(uid)?.parent&&buildings.get(other)?.parent===buildings.get(uid).parent||pinned.has(other))&&h.entry.worldBounds[0][1]<low);
+ let supported=0;
+ for(const [x,y,z] of rim)if(supports.some(([,h])=>{const ys=levels(h,x,z);return ys.length>0&&y<=ys.at(-1)+.5;}))supported++;
+ const terrainRelevant=newGap.reduce((value,item)=>Math.min(value,item),Infinity)<=2,supportFraction=rim.length?supported/rim.length:0;
+ const passed=nativeNeighbourAccepted({newlyBuried,newlyUpward,terrainRelevant,supportFraction});
+ const row={uid,passed,newlyBuriedFaces,vertices:g.position.length/3,triangles:g.index.length/3,terrain:{minimumGapBefore:oldGap.reduce((value,item)=>Math.min(value,item),Infinity),minimumGapAfter:newGap.reduce((value,item)=>Math.min(value,item),Infinity),maximumBurialIncrease:oldGap.reduce((value,item,i)=>Math.max(value,item-newGap[i]),-Infinity),whollyBuriedBefore:oldBuried,whollyBuriedAfter:newBuried,upwardWhollyBuriedBefore:oldUpward,upwardWhollyBuriedAfter:newUpward,newlyWhollyBuried:newlyBuried,newlyUpwardWhollyBuried:newlyUpward},support:{sameParentNativeUids:supports.filter(([u])=>buildings.get(uid)?.parent&&buildings.get(u)?.parent===buildings.get(uid).parent).map(([u])=>u),pinnedNativeUids:supports.filter(([u,h])=>pinned.has(u)&&h.geometryKind!=='surveyed-basic').map(([u])=>u),pinnedSurveyedBasicUids:supports.filter(([u,h])=>pinned.has(u)&&h.geometryKind==='surveyed-basic').map(([u])=>u),lowRimSamples:rim.length,supportedLowRim:supported,supportFraction},policy:'All runtime-loaded indexed vertices and triangles use the exact before/after viewer terrain samplers. No newly wholly buried triangle is allowed. A terrain-distant component also requires >=50% of its native low rim to lie inside a lower same-parent or explicit CSUID-pinned current native or separately verified surveyed-basic dependency. All support fractions and burial thresholds unchanged.'};
+ rows.push(row);if(passed)resolved.push(uid);
+}
+for(const p of ['source-scripts/city/government-import/check-native-neighbours-multi-retained-scoped-v2.mjs','3d-viewer/city/official-model-direct-osm-group-data.js','source-scripts/city/government-import/terrain-replacements.mjs'])hashes[p]=hash(readFileSync(resolve(root,p)));
+for(const c of closures)assert(verifyModuleClosure(c,closureRoot));
+for(const p of ['source-scripts/city/government-import/check-olympic-native-regression-faces-v1-20261022.mjs','source-scripts/city/government-import/native_dependency_context_v1.mjs','source-scripts/city/government-import/native_dependency_context_v3_20261022.mjs','source-scripts/city/government-import/surveyed_fallback_support_geometry_v1.mjs','source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs'])hashes[p]=hash(readFileSync(resolve(root,p)));
+const result={diagnosticOnly:true,wholeNeighbourApproval:false,rows,fallbackDependenciesVerified,installedDependenciesVerified,completeProductionModuleClosures:closures,resolved:resolved.sort(),blocked:[...blocked].sort(),inputHashes:hashes,aiCalls:0,modelGeometryChanges:0,publication:false};
+writeFileSync(resolve(root,doc+'native-neighbour-checks.json'),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({blocked:blocked.size,resolved:resolved.length,rows:rows.map(r=>({uid:r.uid,passed:r.passed,newlyBuried:r.terrain?.newlyWhollyBuried,support:r.support?.supportFraction}))}));
