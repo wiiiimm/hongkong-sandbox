@@ -1,0 +1,77 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-source118003-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Government original building 118003",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-source118003-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-source118003-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-source118003-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "cb8cd2a7cce2ac0a6237fed4eb4e397c26dd2cdf6cf812030f911be67efd81b8"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-source118003-original-v1-20261022.json": "a44571e6813faeb61c6ee2f509f7bc96f30647919b7393455ef954ffcbb1175a",
+    "3d-viewer/city/data/official-models/government-xl-source118003-qualified-stage-v1-20261022/catalogue.json": "1f8cace5f30b9b32736fd9bace0924b161fb7c190ad3ba5b68f6216ba5974aff",
+    "3d-viewer/city/data/manifest.json": "5ce618d21b002cab11306d4e9b0ed95cf5e98643473d93e815ede2bc91a7889f"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "52a35ff40ba89867c4dcfece133d724557f8080e",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-source118003-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "Government original building 118003",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            1029.2781027279175,
+            -2097.5452069901276,
+            1048.4590705279868,
+            -2086.6307774332045
+          ],
+          "outerBounds": [
+            1025.6563562241702,
+            -2101.16715608551,
+            1052.0862821119467,
+            -2082.9889300453183
+          ],
+          "policy": "Original highest source terrain replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-victoria-mall-full-domain-ground-v1-20261020/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.gltf",
+            "sha256": "ee7ec5e5a762ed2078444679ac7b4328bf0db852a80f8210211d9c241a1c993f"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 225,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "a44571e6813faeb61c6ee2f509f7bc96f30647919b7393455ef954ffcbb1175a",
+      "bytes": 202018
+    }
+  ],
+  "estimatedBases": []
+}

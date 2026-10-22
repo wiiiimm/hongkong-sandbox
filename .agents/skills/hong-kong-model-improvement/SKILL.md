@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.71"
+  version: "1.9.72"
 ---
 
 # Hong Kong model improvement
+
+Latest ROOT,23October2026: source118003 installed unchanged; Neon255c45729d8f4f2a7463217e09bd3b2a33533acf50a2542ac0905a35efa5fefc, snapshotc911809dcd517474. FixedXL333installed/188unfinished/521;6850actors. Independent8353references/fullledger/actual source exports/unchanged old models and exact terrain addition verified. Explicit fresh official BuildingStructureID1645937 binds the sole related footprint; no generic identity/physical exemption. Speckled foreign façades persist with new source hidden in same-scene controls; do not infer new-model defects from existing context. Standalone installerV3 directly uses bounded120s runner (V2 accidentally still used default dispatch); preserve failedV2+exact recovery. Four adversarial recovery tests pass. Fullgoalactive; commit/push each installation. No AIgeometrymodelling/optimisation. Read latest HANDOFF.
 
 Latest ROOT22October2026: TungPing97301 installed unchanged, Neon4f8f6a70e34d3887c640cdfed4e985b360a12f478b7fa80a88ba7365fa399bc6 snapshot6fad78de8ae9677c. FixedXL332installed/189unfinished/521;6849actors. Independent8388references and actual source/native desktop/mobile exports verified. V4 interrupted lease observation left all public bytes unchanged; fresh-owned no-op recovery preserved. V5 installer supports recoveredV4 and bounded120s DB observation, unchanged ownership/300s heartbeat/3600TTL/cleanup. Database advisory lock can block renewal during guarded input rehash on slowIO; not model corruption. Eight supervisor tests pass. Fullgoalactive; commit/push each installation, no AIgeometrymodelling/optimisation. Read latest HANDOFF.
 
