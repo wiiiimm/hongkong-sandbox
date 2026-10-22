@@ -1,3 +1,9 @@
+## Tung Ping installed — latest verified22October
+
+**332XL installed/189unfinished/521;6849detailed catalogue actors.** TungPingHouse97301 complete11443face original installed fixed1x/sourcepose with no invented window skin. Neon4f8f6a70e34d3887c640cdfed4e985b360a12f478b7fa80a88ba7365fa399bc6 snapshot6fad78de8ae9677c, manifestcb8cd2a7cce2ac0a6237fed4eb4e397c26dd2cdf6cf812030f911be67efd81b8. Independent ROOT8388references pass, all521ledger rows/currentcatalogue/source/terrainreplacement/sourceflags verified. All40currentforms/sevenretainednative regressions/all4foundations and strict rims passed. Bothlive390/1280 day/night,picking/collision/retry pass, actual4sourceexports and28retainedexports via2hashbound sheets viewed. Some retained actors remain obscured by pre-existing foreground buildings; no new whole-native visual approval implied.
+
+V4 lease-observation interruption changed no public bytes; recovery frozen separately. V5 bounded120s observation succeeds, supervisor terminal0/releasedtrue. SQL observation confirmed heartbeat advisory-lock wait while publication guarded input rehash ran; do not mislabel this source corruption. Eight supervisor unit tests pass. All immutable V4/current/source predicates unchanged. No AIgeometrymodelling/optimisation. Commit/push this installation immediately. Next refresh all6849actor inventory and choose current remaining sources; full189-source goalactive.
+
 ## Tung Ping interrupted attempt recovered; V5 retry22October
 
 Preparation committed/pushed69704bf82. V4 installer terminal: supervisor lease-lost-or-renewal-failed; all9public destinations byte-for-byte unchanged, no installed acceptance/result. Fresh-owned exact no-op recovery completed in Neon; see government-xl-tung-ping-interrupted-noop-recovery-v1-20261022/result.json and oldV4 failure-recovery.json. No source corruption or installation credit. Published count remains331/190/521,6848actors.
