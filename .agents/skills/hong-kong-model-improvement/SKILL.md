@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.69"
+  version: "1.9.70"
 ---
 
 # Hong Kong model improvement
+
+TungPing97301 bounded identity case: raw proof booleans allFalse are a failure summary, not independent ID mismatch facts; derive exact IDs/CSUID/unique currentform facts from qualified route and native entry. Preserve OSM forms that correctly lack government objectId. The exact pair of active official records plus independently official TungPingHouse/BlockF equivalence, complete unchanged originals/current native versions and complete40form/seven-native physical checks establish this one related-record attribution; no source contact, legal ownership or architectural-function inference. Keep generic unrelated-form guards unchanged. selected_original_capture_direction_v2.py can nominate a camera from current native/basic bounds; it is neither visual nor physical approval. Actual exports remain required. See latest HANDOFF.
 
 For future original batches, selected_original_prephysical_suite_v2.py wires the proven V3 four-world checker while preserving all other phase commands. selected_original_retained_qualified_stage_v2.py computes direct-reference membership once and retains the exact same required hash checks; it deliberately preserves the qualified-stage-v1 artifact schema for compatibility with guarded publisher/installerV4. Existing workers/immutable producer files must not be edited or restarted to adopt these helpers.
 
