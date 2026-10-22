@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.66"
+  version: "1.9.67"
 ---
 
 # Hong Kong model improvement
+
+Changed-XZ source representations need fresh whole-source exact coverage/clearance for each actual stream; never transfer a literal-XZ proof or waive the equality premise. original_four_world_exact_rims_v3.py preserves same-XZ guards and exhaustively certifies differing streams under unchanged-.5m/strict-rim limits; Yoho8all4modes pass. Source-specific named provider/related-podium identity can use its existing exact policy bound to fresh source/form/world/native-version evidence and complete current regressions; keep generic unrelated-form guards unchanged. Yoho-specific physicalV2 requires all31currentform tuples exactly, no podium collision/terrain exemption, original14792faces/all953components retained. Browser/live/publication remain separate.
 
 Latest ROOT22October2026: Ching Chung17633 installed unchanged, Neon85d025445c848a0878f6e5f0c59c917fcc9c8195997f66fd93c81fe582966d2d snapshot2e510a84180947ba. FixedXL330installed/191unfinished/521;6847actors. ROOT8403references, all full55forms/11native regressions and actual staged/live desktop/mobile exports verified. Read latest continuation HANDOFF/root proof. Yoho noded original-terrain candidate closes202/202prior residuals but fresh whole-source/current-scene checks remain. No AIgeometrymodelling/optimisation. Commit/push each installation; fullgoalactive.
 
