@@ -166,3 +166,10 @@ Six-source V6 worker remains active under exact runnerPID338244. Completed so fa
 Ten focused regressions pass, including actual boundary mutation rejection and the old raw-edge failure. Diagnosis Neonb4705d2b63b58bf37b369690601a21871105aec3098978f4d094f80aed97ff61 independently binds actual226296 parent/template/source inputs, V7 scripts and test output. No placement or installation approval.
 
 Serial durable continuation: government-xl-validated-parent-return-detached-runner-v1-20261022/runner.json, PID370910/startTicks pinned and live. It waits for the exact first cohort terminal0+Neon receipts, then nominates only final boundary failures and runs bounded batchV5/V7terrain/V2runtime with two compute workers. Uses existing fresh six-source capture, exact immutable source/recovered terrain and full6840actor inventory. Controller scriptxl_validated_parent_return_followthrough_v1_20261022.py. Do not modify either live worker/adapters or renderer inputs. Read terminal/current receipts before any restart. Full goal remains323installed/198unfinished.
+
+
+## Six-source first pass complete and independently verified
+
+First workerPID338244 is terminal0. Root job046392a4d80148eca38cbcf5f6f2587a3883b1f26a111d6122b55c7d4c725d10 and candidate cohort6d231f3ea6ff397bf2297730a0385e02bec44554e564b038cbd9a27a697ef351 are complete. ROOT independently read back eight exact completed Neon records and rehashed587distinct current evidence paths (ROOT-VERIFIED.json). Five final boundary failures226296/254058/79098/81242/93424;235076 exceeds terrain runtime budget. Zero installations or permanent rejections.
+
+The verified serial workerPID370910 is now actually executing allfive applicable V7 boundary repairs via boundedV5; its selection.json binds each exact recovered source terrain and existing fresh capture. Two compute children confirmed running for226296/254058. Do not restart or change renderer/worker inputs. Follow exact runner/terminal receipts. None of the prior first-pass workers remain live. Counts323installed/198unfinished remain unchanged.
