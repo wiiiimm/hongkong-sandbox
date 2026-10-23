@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.76"
+  version: "1.9.77"
 ---
 
 # Hong Kong model improvement
+
+Crossing existing native envelopes is not source corruption. IslandIndustrial pair reaches225173/FuTorLoyboundary. Whole3patch rectangular consolidation correctly failed93100m2existingwater/nonrenderedholes; never relax.25m2roundoff/1.2mnewterrain guard. One-column225173extension preserves32110oldfaces+8actualrootfaces withzeroextensionhole; pairedlocalboundaryproof remainsneeded. Newcoordinated_native_boundary_v1_20261023.py is diagnostic only,11tests coverfiniteupper-envelope crossings/pointspikes/openintervalgaps; productionvalidator/publisher unchanged. Existing0.564mseammismatch farfromedit recordednegativeinNeon. Adjacent269430original1785faces recovered;all3sourceidentity/support/currentchecksstillpending. ReadlatestHANDOFF.
 
 Latest ROOT23October2026: FuTorLoy mall228219 + four original towers231442/232818/233770/233775 installed unchanged28572faces. Neon24e975c950b673be9f10b1f4c29cba7e33ec29405bd6c2f8b45665df32958619,snapshot2311b29ba8906f61. Full521ROOTaudit/860exactreferences/alloldmodeltuples and24retainedterrain targets verified. All20source+96retained live exports passed and actually inspected; foreground occlusion explicitly qualified, rawlegacy negatives retained. Counts335installed/186unfinished/521;6856actors. LiveV9 mobile/desktop completed; no workers need restart. Original geometry/sourcepose/fixed1x unchanged, no AIgeometrymodelling/optimisation. Commit/push every installation; fullgoalactive. NextIslandIndustrial separate537face original recovered and jointfootprint matches, but finite support/currentterrain/crossing interfaces remain unaccepted. Read23OctoberHANDOFF.
 
