@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.81"
+  version: "1.9.82"
 ---
 
 # Hong Kong model improvement
+
+For independent terrain-supported originals, use selected_original_prephysical_suite_v5_20261023.py / original_four_world_exact_rims_v4_20261023.py. The canonical acceptance-policy.py allows minimum contact in [-.5,.1]m with maximum low rim <=1m; do not invent an additional +/-0.1m vertex-anchor admission requirement. Preserve strictGradeAnchorPresent as a diagnostic. Beverly32067 passes complete four-world clearance/contact with rim range[-.459147,-.184085]m; oldV3 failed only its extra anchor. Five production-policy boundary tests pass. This does not relax actual contact failures, original support interfaces, full foundations, identity, neighbour or publication gates. Whole unchanged actor/support terrain multisets may qualify a proposal nonregression while retaining raw installed support failures; use the existing tested terrain_decision contract, never reapprove those supports. Read latest23OctoberHANDOFF for the active full-scope private browser; no Beverly installation credit yet.
 
 Finite-grade diagnostic bindings may hash a filtered terrain subset. Prove that exact historical subset for discovery only; retain the complete ground array for new clearance proofs. ZeroXZprojection does not imply nonrendering: NamCheong has31real verticalfacets among91excluded oldfacets. Check every zero-projection facet with exact rational same-XZ segment/triangle constraints before claiming an upper-grade interval. Preserve non-dyadic intersection coordinates; do not round them toFloat64 before exact verification. Six adversarial tests and four-world Nam wall-path evidence are saved in23OctoberHANDOFF; raw clearance/role/current/publication failures remain separate.
 
