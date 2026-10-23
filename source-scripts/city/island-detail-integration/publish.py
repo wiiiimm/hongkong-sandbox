@@ -110,6 +110,8 @@ def stage_top_level_terrain(plan,original,manifest,edits,report):
    unchanged_overlap[entry['destination']]=old['coarseCells']
   replacements[url]=replacement['sha256']
  existing=list(parent.get('patches',[]))+[load(ROOT/'3d-viewer'/entry['url']) for entry in original.get('terrainPatches',[]) if entry['url'] not in replacements]
+ from coordinated_native_boundary import validate_effective_coordinated_members
+ validate_effective_coordinated_members(existing+[load(ROOT/entry['source'])for entry in entries])
  if replacements:
   manifest['terrainPatches']=[m for m in manifest.get('terrainPatches',[]) if m['url'] not in replacements]
   report['replacedTerrainPatches']=[{'url':url,'sha256':digest,'oldAssetRetained':True} for url,digest in replacements.items()]

@@ -52,4 +52,11 @@ def validate_native_mesh(patch,parent):
    return a if a is not None else max(1.2,parent['elev'][k]) if parent['elev'][k]>0 else -4
   a=at(j*w+i);b=at(j*w+i+1);d=at((j+1)*w+i);e=at((j+1)*w+i+1)
   return a+(b-a)*u+(d-a)*v if u+v<=1 else e+(d-e)*(1-u)+(b-e)*(1-v)
- assert max(abs(y-sample(x,z)) for x,y,z in edge_vertices)<.01,'Native terrain boundary does not join parent heights'
+ coordinated=None
+ if mesh.get('source',{}).get('coordinatedBoundary') is not None:
+  from coordinated_native_boundary import coordinated_boundary
+  coordinated=coordinated_boundary(patch,parent)
+ # Only a fully hash-bound finite mate can replace root height on an internal
+ # shared segment. Every other boundary vertex retains the original root gate.
+ root_edges=[(x,y,z)for x,y,z in edge_vertices if coordinated is None or not coordinated(x,y,z)]
+ assert not root_edges or max(abs(y-sample(x,z))for x,y,z in root_edges)<.01,'Native terrain boundary does not join parent heights'

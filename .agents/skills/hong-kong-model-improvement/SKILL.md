@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.77"
+  version: "1.9.78"
 ---
 
 # Hong Kong model improvement
+
+Opt-in finite-native-shared-boundary-v1 now binds both exact adjacent terrain members, complete finite shared curves and actual indexed strip witnesses; publisher requires both effective members. Prior root edges and all model acceptance gates remain. 84 focused tests pass; historical publisher bytes archived and all860 old ROOT refs/full521 source ledger read back in Neon ac75d2bfbffa3204899ccacbe68238f514bdc76ee8bd5a382eac3e1cba4dba07. Paired IslandIndustrial surface/runtime pass, but strict exact residual coverage still fails35tower/22podium/59adjacent faces; no installation/guard waiver. Complete component scan and lossless four-part archive saved inNeon. Counts335/186/521,6856actors unchanged. Read latest23OctoberHANDOFF and inspect activePID853585 before restarting. Older statements below that productionvalidator is unchanged are superseded by this explicit opt-in contract. No AIgeometrymodelling/optimisation.
+
 
 Crossing existing native envelopes is not source corruption. IslandIndustrial pair reaches225173/FuTorLoyboundary. Whole3patch rectangular consolidation correctly failed93100m2existingwater/nonrenderedholes; never relax.25m2roundoff/1.2mnewterrain guard. One-column225173extension preserves32110oldfaces+8actualrootfaces withzeroextensionhole; pairedlocalboundaryproof remainsneeded. Newcoordinated_native_boundary_v1_20261023.py is diagnostic only,11tests coverfiniteupper-envelope crossings/pointspikes/openintervalgaps; productionvalidator/publisher unchanged. Existing0.564mseammismatch farfromedit recordednegativeinNeon. Adjacent269430original1785faces recovered;all3sourceidentity/support/currentchecksstillpending. ReadlatestHANDOFF.
 
