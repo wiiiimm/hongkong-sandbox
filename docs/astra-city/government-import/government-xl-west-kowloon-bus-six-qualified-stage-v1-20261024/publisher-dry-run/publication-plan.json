@@ -1,0 +1,91 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-west-kowloon-bus-six-qualified-stage-v1-20261024/plan.json",
+  "areas": [
+    {
+      "area": "West Kowloon Station Bus Terminus unchanged six-part government assembly",
+      "models": 6,
+      "catalogue": "city/data/official-models/government-xl-west-kowloon-bus-six-qualified-stage-v1-20261024/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-xl-west-kowloon-bus-six-original-terrain-v1-20261024.json": null,
+    "3d-viewer/city/data/official-models/government-xl-west-kowloon-bus-six-qualified-stage-v1-20261024/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "e18e28cce65e5eb7aaa86a3b0477fce33c341b6f04ee92f374859a6397bd3dad"
+  },
+  "after": {
+    "3d-viewer/city/data/government-xl-west-kowloon-bus-six-original-terrain-v1-20261024.json": "77b7bd3ba98baee79c4c3d91ab99fd1079e39e02ce092614c63687f112698f27",
+    "3d-viewer/city/data/official-models/government-xl-west-kowloon-bus-six-qualified-stage-v1-20261024/catalogue.json": "2694621b23cf6644c751b5c61c18c21c6cf1a49b30f01a02f542ca255f15ee94",
+    "3d-viewer/city/data/manifest.json": "170eca03e551f0395376fde41e36f6c23bcef56d960d2676ad332535cf73b4ae"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "e2a588432ad54a13ab8d12537935a839a1d2bf4f",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-xl-west-kowloon-bus-six-original-terrain-v1-20261024.json",
+      "resolution": 5,
+      "area": "West Kowloon Station Bus Terminus unchanged six-part government assembly",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            473.1370317495514,
+            -2254.124910029765,
+            527.3004984344609,
+            -2168.89283979062
+          ],
+          "outerBounds": [
+            469.86258012320553,
+            -2257.1715715111436,
+            530.4431348093842,
+            -2165.8724895076934
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a piecewise-affine return of at most3m constrained outside exact protected current footprints. Validated coarse-parent edge return retained outside the original inset; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-wk-bus-terminus-native-terrain-group-20261005/sheets/11-NW-24A/terrain/TERRAIN(TB)/T34500186000106E13/T34500186000106E13.gltf",
+            "sha256": "e28ce0a9f3c7efa9d2e330ab1f207170ce7db4b372404e6298f42a7c0bf9c831"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 435,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "77b7bd3ba98baee79c4c3d91ab99fd1079e39e02ce092614c63687f112698f27",
+      "bytes": 473580
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "estimatedBases": []
+}
