@@ -1,3 +1,15 @@
+## Latest: local noding terminal with partial coverage improvement
+
+PID912995 is terminal. Neon `e417f21a6e73a864007c18aacd9aa410283f1997c9405d2ba72f6b7e38da388c` saves the private noding feasibility: closes9/35tower,9/22podium,2/59adjacent previouslyfailed faces; still26/13/57uncovered. Do not publish or treat noding as accepted. All original building geometry unchanged; existing private surfaceV3/currentruntime remain prior diagnostics, not approvals for newcandidate. V2candidate still requires fresh native/shared-boundary and whole-source/four-world/currentnative/base/device/browser checks.
+
+Next extract exact rational gap pieces from original paired runtime before attempting bounded source-backed terrain crack repair; new scriptisland_industrial_exact_gap_pieces_v1_20261023.py, log/tmp/island-industrial-exact-gap-pieces-v1.log, exec56730. It reproduces every prior exact residual area and retains interval/point gaps separately. No production geometry writes or tolerance changes. Fullgoalactive335installed/186unfinished/521.
+
+## Latest: all three prephysical suites terminal; conforming-terrain feasibility running
+
+Checkpoint **940e7b367 pushed**. Supervisor853585 is terminal. All3suite summaries are script-or-physical-investigation at rims: original/literal/explicitLeftF32/explicitBalancedF32 foundations pass; exact continuous residuals remain35/22/59, so no installation. Each suite's completed phase receipts are saved inNeon. Never infer success from supervisor exit0. Complete component scan, archive, source/runtime/transition evidence remains as described below.
+
+ACTIVE conforming local terrain feasibility V2 **PID912995**, log `/tmp/island-industrial-paired-noding-feasibility-v2.log`, metadataisland-industrial-paired-noding-worker-v2.json. It nodes all incident edges of only the local changed terrain faces jointly before Float32 packing, then tests every116previouslyuncovered literal source faces exactly. All government building bytes/pose remain untouched; all faces outside localedit retained. Near-vertical/non-plane terrain facets retained verbatim and receive no height credit. V1 terminal before output/Neon because it attempted plane() on a near-vertical facet; exact log retained, separateV2 excludes abs(projectednormal)<=1e-10 from retriangulation. Feasibility results cannot waive any source/native/finiteboundary/currentneighbour/fourworld/device/browser acceptance. Check actual process/result before next action; full521sourcegoalactive, counts335/186 unchanged.
+
 ## Latest: coordinated terrain pair validated; strict coverage repair remains
 
 Counts remain **335 installed / 186 unfinished / 521 fixed XL sources**, 6,856 detailed catalogue actors. No new installation or permanent rejection this checkpoint. No AI geometry modelling or optimisation.
