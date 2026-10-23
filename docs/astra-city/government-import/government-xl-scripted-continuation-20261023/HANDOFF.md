@@ -1,3 +1,7 @@
+## Latest: exact gap extraction completed
+
+Exec56730 terminal0; Neon `8c44a295e2adad52c3f3debfcdfb950aca9d525cd6794c73909209f716dd651e`. All prior exact positive-area gaps reproduced as rational polygons. Tower32positive-area+3interval/point residual faces, summed facegaparea0.000955179m2; podium22positive-area,0.000473462m2; adjacent56positive-area+3interval/point,0.001998342m2. These sums overlap across model-face projections and are NOT unique terrain-gap areas. No geometry change/acceptance. All workers now terminal; no restart needed. Next use saved exact pieces for bounded source-backed numeric crack repair, preserving original building geometry and existing highest terrain, then recompute paired boundary/whole-source/fourworld/fullcurrentchecks. Fullgoalactive335installed/186unfinished/521. Checkpoints940e7b367/2e95e1824 committed, plus this exactgapreceipt.
+
 ## Latest: local noding terminal with partial coverage improvement
 
 PID912995 is terminal. Neon `e417f21a6e73a864007c18aacd9aa410283f1997c9405d2ba72f6b7e38da388c` saves the private noding feasibility: closes9/35tower,9/22podium,2/59adjacent previouslyfailed faces; still26/13/57uncovered. Do not publish or treat noding as accepted. All original building geometry unchanged; existing private surfaceV3/currentruntime remain prior diagnostics, not approvals for newcandidate. V2candidate still requires fresh native/shared-boundary and whole-source/four-world/currentnative/base/device/browser checks.
