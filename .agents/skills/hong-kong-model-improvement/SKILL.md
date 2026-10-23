@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.79"
+  version: "1.9.80"
 ---
 
 # Hong Kong model improvement
+
+Latest identity review: d52ef5965ee30e8109916f55f45140a211dfbd38bd2600aef5b9c9797656ce7f qualifies exact IslandIndustrial/CheongShing four-original identities only, requiring all4UID/SHA tuples co-installed. Official ModelID subtype01Tower/02Podium disambiguates same-GeoRef cached candidates; full Tower/Podium family covers recorded footprint/cell without filling original holes. All raw foreign/physical failures remain, no generic collision/terrain/support exemption. All52tower attachment targets connect but rise0.46248m; fresh4world finite replay and tiny6mmroof-component proximity are evidence, not physical approval. Compound embedding comes from two original small vertical return faces per tower, never imported terrain. Current4scene worker1478068 running; read latest HANDOFF before restarting. Counts335/186/521,6856actors unchanged; no installation/AIgeometrymodelling/optimisation.
+
 
 IslandIndustrial exactterrain gaps nowclosed by322scripted finite adjacent-surface-minimum Float32caps, alloldterrainfaces retained. Freshpairedsurface596107ec21ee82bd492f829e928d09a6027c57f948f4c5393b58a9e58f3d12a1/fullruntime/continuous/exactcoverage pass; bothpodiums strictfourworldrims pass. Towerraised support stillfails; preserve negatives. Full774form/59nativecheck foundoneordinaryfloatingCheongShing274231; original360face towerrecovered and exactK42/90permit links itto269430podium. Fouroriginaldiagnosticruntime inprogress; noinstallationcredit, counts335/186/521 unchanged. Missing loader recordedheightbindings are diagnosticentrymetadata, never sourcecorruption; populateonlyabsent exactcurrentformfields. Finitepath V2excludesnonrenderingfacetadjacency. ReadlatestHANDOFF for currentPIDs/receipts; noAIgeometrymodelling/optimisation.
 
