@@ -39,7 +39,7 @@ def load(previous):
  keys=guard.evidence();pointer=read(POINTER);manifest=ROOT/'3d-viewer/city/data/manifest.json';models=read(stage.STAGE/'catalogue.json')['models']
  delta=inventory_delta(read(previous),models,manifest_sha=ref(manifest)['sha256'],snapshot=pointer['snapshotId'])
  receipts=[stage.DOC/'result.json',guard.BROWSER/'result.json',guard.REVIEW/'result.json']
- refs=distinct_refs([q for p in receipts for q in read(p)['evidenceRefs']]+[ref(p)for p in receipts+predecessor_refs+[previous,POINTER,PUB,BROWSER,FOCUSED,Path(__file__),HERE/'coordinated_original_publication_contract_v1_20261023.py',HERE/'test_coordinated_original_publication_contract_v1_20261023.py',HERE/'bounded_reserved_runner_v2_20261022.py',HERE.parent/'shared-modelling/reservation_runner.py',stage.DOC/'qualification.json']])
+ refs=distinct_refs([q for p in receipts for q in read(p)['evidenceRefs']]+[ref(p)for p in receipts+predecessor_refs+[previous,POINTER,PUB,BROWSER,FOCUSED,Path(__file__),HERE/'coordinated_original_publication_contract_v1_20261023.py',HERE/'test_coordinated_original_publication_contract_v1_20261023.py',HERE/'reviewed_image_provenance_v1_20261023.py',HERE/'test_reviewed_image_provenance_v1_20261023.py',HERE/'bounded_reserved_runner_v2_20261022.py',HERE.parent/'shared-modelling/reservation_runner.py',stage.DOC/'qualification.json']])
  for q in refs:check(q)
  for model in models:inventory_part(model,{})
  subprocess.run(['node',str(BROWSER),'preflight',str((stage.STAGE/'live-browser-config.json').relative_to(ROOT)),str((stage.PREVIOUS/'source-forms.json').relative_to(ROOT))],cwd=ROOT,check=True)
