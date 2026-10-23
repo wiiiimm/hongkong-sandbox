@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.80"
+  version: "1.9.81"
 ---
 
 # Hong Kong model improvement
+
+Latest ROOT23October: IslandIndustrial/CheongShing four originals159422/20270/269430/274231 installed unchanged13,848faces. Neon9e3cd0572ae3b1c867c53ec4a1836b569783d0ff8e0d0ddc136763d3c6b39c57,snapshot00c4b94f7a2c377a. Independent1,958refs/full521/oldcatalogue/pairterrain/currentledger and all16source+128retainedliveexports verified. Counts336installed/185unfinished/521,6860actors. All prior Island/browser/live workers terminal/released; do not restart. Actual ROOTinspection records foreground/own-tower occlusion and unchanged legacyshader negatives. Two unmapped originals recovered exact22,671faces; official relationship/spatial queries returned no direct originalGeoRef link or omitted currentfootprint, not corruption. Read latest23OctoberHANDOFF; continue all185, commit/push every installation. NoAIgeometrymodelling or optimisation.
 
 Latest current four-source scene and bounded physical review are complete (774forms/59natives; zero newregressions, legacyHoiYuunchanged). Firstprivatebrowser actually timedout at1200s before fullreport; partialimages are NOT acceptance. It isterminal/released and preserved inNeon. DistinctretryPID1947491 is active, samefullchecks,2400s/device and scriptedcamera[1,1.2,0]; read latestHANDOFF/actualprocess before restarting. Atomic2memberstage/publisher/liveinstaller prepared,8adversarialtests pass, integrationdry-run/publication notyetdone. Source16+retained128actualexports/ROOTinspection stillrequired. Current335installed/186unfinished/521; no newcredit or AIgeometrymodelling.
 
