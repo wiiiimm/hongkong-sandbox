@@ -1,3 +1,11 @@
+## Latest: repaired terrain checkpoint pushed; all four actual original captures succeed
+
+Commit **7f17adfda** pushed with exact terrain repair, both strict podium grades, fresh 774form/59native regressions, source/permit/acquisition evidence and ten new focused tests. No installation/credit:335/186/521,6856actors.
+
+PID1096176 terminal: four-original runtimeV2 **99341a2d6718a5ac1dab5fbaf7e060e7d35f18f332506fb151ad5d569852b3db** captures all4 unchanged sources/13848faces. CheongShing360faces0buried/minGap13.1033m (elevated on its original podium, notterrain). Exactmissingrecordedheightbindings filled fromcurrentform, prior runtimeerror preserved. All4actual source/renderer coordinate arrays bound by **c70ff3976e0d0edccd13a5ccbaa47f777e5df244918a1e8a358a7cec7d2686d8**. Explicit fourthsource still diagnostic: notterrain-target/identity/support approval, no productioncatalogue changes.
+
+ACTIVE CheongShing tower274231 -> exactpermitK42/90podium269430 fourworld originalsupport **PID1120883**, log/tmp/cheong-shing-tower-podium-fourworld-support-v1.log, metadata cheong-shing-support-worker-v1.json. Batchgovernment-xl-cheong-shing-tower-podium-fourworld-support-v1-20261023. Inspect actualprocess/resultbeforerestart. IslandIndustrial K28/80 tower still52strict finitepath targets unresolved inall4worlds; bothpublished source-pair and two-podium rawsupport negatives retained. Next finish CheongShing support, then exact source-component/source-identity/foreignjoin review and actual staged/live acceptance. Onebasicgroundgap warning is now accounted for by exactsamepermitacquired tower source, but not automatically cleared until installed/support/placement acceptance. No AIgeometrymodelling/optimisation. Fullgoalactive; commit/push everyactualinstallation.
+
 ## Latest: all exact terrain gaps repaired; two podiums strictly grade-supported; neighbouring original acquired
 
 No installation this checkpoint:335installed/186unfinished/521;6856actors unchanged. Six Float32-cap tests and four finite-path guard tests pass. No AI geometry modelling/optimisation.
