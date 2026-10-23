@@ -20,8 +20,9 @@ def evidence():
  for q in pins.values():check(q)
  q=stage.read(stage.DOC/'qualification.json');assert q['privateStageQualified']and q['originalSourceReviewAccepted']and q['visualAcceptance'];assert q['currentManifest']==stage.ref(ROOT/'3d-viewer/city/data/manifest.json')
  assert len(q['imagesActuallyViewed'])==4*len(stage.SOURCES)
+ from reviewed_image_provenance_v1_20261023 import verify_image
  for image in q['imagesActuallyViewed']:
-  assert set(image)=={'path','sha256'};check(image)
+  verify_image(image,check)
  sources=stage.SOURCES;assert sources==stage.CONFIG['sources']
  for report in q['browserReports']:
   check(report);r=stage.read(ROOT/report['path']);assert r['passed']and not r['errors'];views=[v for v in r['views']if 'time'in v];assert len(views)==2*len(sources)
