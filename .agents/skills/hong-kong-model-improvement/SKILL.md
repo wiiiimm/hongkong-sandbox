@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.98"
+  version: "1.9.99"
 ---
 
 # Hong Kong model improvement
+
+Latest Fung Yip checkpoint (24 October): government-xl-fung-yip-full-native-domain-review-checkpoint-v1-20261024, Neon f92958ceeec060998e891644a7d37b3d83198eb4e779815f982307616a41780e, binds24 completed phases. No new installation:355/166of521,6907actors. Full210x140m old-native replacement validates all56forms/3retained originals. Existing grid fallback conformance is a conservative sampler envelope; never claim its virtual facets are drawn or erase raw tiny projection gaps. Private desktop/mobile automation passes, but retained79882mobile own view is foreground-occluded and needs a new camera before visual acceptance. All20exports were actually inspected. The old named4.1mm boundary proposal really fails, not merely its conservative bound: exact interior witness4.927408mm, Neon2bb98f0550e419cc898471d42f4a213cb579c68d82c16f740e8b36285aeb6dfd. Preserve limits/flags; do not repeat unchanged proposal or label model corrupt. Seek independent identity evidence. Tower faces6520/6525 lie under a higher original podium roof; clear-cap paths do not make those two exposed-top walls. Current source-role/identity/qualification/publication remain pending. Read latest HANDOFF; do not reinstall University Hall.
 
 Latest24October: Royal Green Block8 tower235598, original podium233190 and three exact adjoining originals7521/23480/8602 are installed unchanged (11,857faces). Fixed XL: **355installed /166unfinished /521total**; **6,907detailed actors**. Installed job00a5464dab8fd9d34abfe0ac7df57a1ef2fda8eac50670275e5032c34cd42b86,snapshot80ae9081d2a0ea3c. Independent readback3e5bc9d7d9592b48233437c9a965d0008e77625de8282f3bd305ebb30a04b948 verifies all6902prior asset bytes/catalogueentries, all521rows/only235598changed, both globalretainedBASICguards, unchangedterrain and20actuallyinspected freshV10liveexports. Use fresh6907inventory8182cf65b7eb152f4d5d0063051d4b35f259cb02525d33cb7d600451a583d103 and unfinished166exactsource inventory139f014fb8ae137978a074dca0dcf6c6c942a7350562385ffd4b87701f53179d (still2nullviewerUIDs). Continue all166; no reinstall/optimisation.
 
