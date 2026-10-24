@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.94"
+  version: "1.9.95"
 ---
 
 # Hong Kong model improvement
+
+Harbour Plaza Metropolis259378 is installed unchanged14504faces with exact installed Fortune Metropolis240841 dependency:352installed/169unfinishedof521,6896detailedactors. Live receipt06059d35f29cb6962175d99e347279db1aec1eb1a24c971220a61a87c5f7c07c/snapshot183a5b5e2a4a3f51; independent readback56c8a4ee20f143dd8c57e5f910863432c915fbff3dd44878cb271e19b8f0bc25 verifies all6895oldassets/catalogueentries,all521rows,bothglobalretainedBASICguards,terrain andall8actuallyinspected live source/retainedexports. Use postHarbour6896inventory5b61753606fb54eb4ca53c369375fe24e11fefcd4f901f42f4c7bb03eb71e6f4. All installation workers terminal/released. Do not reinstall hotel. Continue Greenfield258419/Open-sided229852 from saved exact diagnostics, refreshed current bindings required after this manifest change. NoAIgeometrymodelling/optimisation.
 
 Harbour Plaza Metropolis259378 is now privately qualified for one unchanged14504face original with dependency on existing original Fortune Metropolis240841. Exact four-world source/podium paths, bounded extent identity, lower-wall source-role review, one external neighbour zero-contact and all8source/retained desktop/mobile exports are complete and inspected. New closed harbour_metropolis catalogue contract preserves all existing independent-model guards;9adversarial metadata tests pass. Qualified stage fceb1800819159fce411de864041378559164ea6dc8b1de0ef85da773bff7245 and --prepare-only pass; not installed yet. Config government-xl-harbour-metropolis-install-config-v1-20261024.json; use the matching harbour_metropolis guarded publisher/live installer/readback, never the independent zero-contact route. Current count remains351/170of521,6895actors pending live installation. Greenfield73partial low walls have32unresolved cap paths; open229852 has live primary stable IDs and exact whole-cell coverage but different live OBJECTID retained. See latest23OctoberHANDOFF additions; noAIgeometrymodelling/optimisation.
 
