@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.85"
+  version: "1.9.86"
 ---
 
 # Hong Kong model improvement
+
+For a model-only original compound, do not invent a terrain edit to satisfy an older installer. Miu Fat's exact three-source native Hall support and independently covered gateway fallback use `miu_fat_original_catalogue_scope_v1_20261024.py` plus its qualified-stage/guarded-publisher/live-installer/readback adapters. That contract accepts only the pinned three hashes, the measured four-world gateway mapping and Hall-to-main dependency; the generic original-support contract still rejects suppressions. Preserve every global retained-basic support check, all old catalogue bytes/entries, exact source forms and full521 ledger. A private preview keeps approval flags false; schema kind must remain `staged-official-model-catalogue`. Scripted browser success is not visual/source-role approval. Mobile failed-download sequences can show an un-retried companion's coarse fallback in earlier own-source exports; inspect and record this explicitly, then require the final companion export and all-source joint activation rather than claiming every earlier frame already contains the whole upgraded assembly.
 
 For an imported original podium that replaces an existing surveyed fallback, use the existing publisher `dependencyReviews` migration pathway. Bind the exact old catalogue/owner source/old dependencies and a completed source+visual review; change only reviewed `supportDependencies`, preserving all other fields and negative flags. The supported-retained stageV2/publisher/live/readback adapters dated20261024 combine this with exact retained-terrain replacement, source support graph, full current neighbours and global retained-basic guards. Lease keys must equal the completed physical review (including its OSM building namespace); never drop a mismatching resource. Terrain target metadata must stay exactly browser-tested, not expand merely to fit an older adapter.
 
