@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.87"
+  version: "1.9.88"
 ---
 
 # Hong Kong model improvement
+
+For the exact three-source Garden Terrace assembly, the model-only scope/stage/publisher/live-installer/readback adapters dated20261024 preserve all terrain and the retained No1GardenTerrace entry. Both new towers depend only on original162285. Require all12new+4retained desktop/mobile day/night exports and actual ROOT inspection, all6881oldasset bytes/catalogue entries, all521XLrows and both global retained-BASIC bindings. Raw strict-support negatives and the four downward global-minimum closure faces remain archived under the exact-source physical review; do not turn them into a generic buried-floor waiver. No terrain patch or retained dependency is invented to fit an older installer. Latest verified totals349installed/172unfinishedof521,6884actors; use the post-Garden inventory in the23OctoberHANDOFF.
 
 For the exact five-source Yoho assembly, use its pinned catalogue/native scope and qualified-stage V2, guarded-publisher V2, live-installer V2 and installed-readback V2 adapters dated20261024. Preserve the three existing native entries and their absence of dependencies; only three new towers depend on the new original podium. Keep the tested terrain target set limited to231756. The independent-only installer rejects retained-native own exports: the corrected path requires all12 retained desktop/mobile day/night exports alongside20 new-source exports, with exact old SHA/triangle/visibility checks. Do not remove those checks. A failed uncredited publication requires actual readback of every saved destination and removal of newly created files before retry; original_install_rollback_readback_v1_20261024.py has seven adversarial tests. YohoV3 rolled back after both browsers passed; V4 is the verified installation. Original Block6 horizontal yaw is a source-bound unit isometry, not a pose correction. Raw projection, strict-support and compound-envelope negatives stay archived under the bounded source-role review. Latest verified counts:347installed/174unfinished of521;6881actors. Read the latest23October HANDOFF for receipts and the current inventory.
 
