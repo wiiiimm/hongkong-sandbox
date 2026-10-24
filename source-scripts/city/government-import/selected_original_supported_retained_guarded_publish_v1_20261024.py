@@ -2,7 +2,7 @@
 import argparse,copy,json,sys
 from pathlib import Path
 from contextlib import contextmanager
-import selected_original_supported_retained_qualified_stage_v1_20261024 as stage
+import selected_original_supported_retained_qualified_stage_v2_20261024 as stage
 from run import connect,reservations,dict_row
 ROOT=stage.ROOT;HERE=stage.HERE;BASE=stage.BASE
 BATCH=stage.CONFIG['prefix']+'-supported-retained-original-installed-v1-'+stage.CONFIG['date']
