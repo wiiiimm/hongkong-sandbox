@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.105"
+  version: "1.9.106"
 ---
 
 # Hong Kong model improvement
+
+SUCCESS25October EverCourt158003 INSTALLED unchanged10759faces, job577d43844578067fe59203a97a44b8c3c7b2f551881a6075ab76d744dc2b9f18/snapshote93223fec86bf99a. ROOTreadbacke7105aeae10de9c1047696daf8c5699a60b1374483d37ecefa30c8ed1789b0da verifiesall6911oldassetbytes/catalogueentries, all521rows/onlyEverCourtchanged, bothglobalBASICguards, unchangedMongkokterrain/native266918 and8actuallyinspectedfreshliveexports. **358installed/163unfinished/521;6912officialdetailedactors**. Correct source-form: leases required for OSMway1158907334/1158964056; supersededphysicalV1/privateV1/V2 cannotgrantpublication. V3correctedleases/sourceReview/stage andguardedliveinstallationcomplete. OriginalTINinset2630faces/7parentfaces, buildinggeometry/poseunchanged. Do not reinstall. Fresh6912inventory worker68248 is running; older6911headersbelow are historical. ReadlatestHANDOFF and currentreceipt before nextsource. NoAIgeometrymodelling/optimisation.
 
 Current25October6911inventory2c799f6d5c8a5e21ea378bacb02ca39be6461f0de924548b14507c7231441b00 atgovernment-xl-after-podium84014-current-inventory-v1-20261025; manifest52e09e1176dfcbb597b406a641ad2467e73921ad7fb80abd214c7d9b83b2cd0b. Exact164unfinishedsource-keyinventoryacacd5b05879bccafc532ff24aaf7713a9876c71171ead8096e28264a43dcfc4,still2nullviewerUIDs. Actualinstallationa010a4326 PUSHED. Allworkers terminal/released; full164goalactive. ReadlatestHANDOFF before reusing older6908scene bindings.
 
