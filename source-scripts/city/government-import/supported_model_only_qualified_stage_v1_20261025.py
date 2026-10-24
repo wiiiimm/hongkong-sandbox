@@ -6,7 +6,7 @@ from china_ferry_current_foundations_v1_20261020 import authenticate
 from primrose_compound_foundation_v2_20261015 import module
 from dependency_preflight import from_catalogues
 from original_supported_catalogue_scope_v1_20261024 import verify as verify_support_scope
-from original_supported_model_only_contract_v1_20261025 import verify_metadata as metadata_contract,verify_native_scope as native_contract
+from original_supported_model_only_contract_v1_20261025 import verify_metadata as metadata_contract,verify_native_scope as native_contract,verify_browser_native_scope
 from upton_staged_image_review_binding_v1_20261014 import inventory_delta
 BASE=ROOT/'docs/astra-city/government-import'
 CONFIGPATH=(ROOT/os.environ['ORIGINAL_INSTALL_CONFIG']).resolve()
@@ -32,7 +32,8 @@ def main():
  browser=CONFIG['browser'];cat=take(browser,PREVIOUS/'catalogue.json');assert {m['uid']:m['sha256']for m in cat['models']}==sources;cfg=take(browser,PREVIOUS/'browser-config-390.json');forms=take(browser,PREVIOUS/'validation-forms.json');assert cfg['terrain']==[] and not cfg.get('estimatedBaseUpdates')
  scope=take(CONFIG['scope'],BASE/CONFIG['scope']/'summary.json');assert scope['currentManifestSHA256']==ref(manifest)['sha256']and set(sources)<=set(scope['uids'])
  scope={**scope,'uids':sorted(sources),'rows':[r for r in scope['rows']if r['uid']in sources]};assert len(scope['rows'])==len(sources)
- assert set(cfg['additionalRetainedUids'])==set(CONFIG['retainedNativeUids'])
+ browser_reports=[take(browser,BASE/browser/str(w)/'staged-browser.json')for w in [1280,390]]
+ assert verify_browser_native_scope(cfg,SUPPORTS,SOURCES,CONFIG['retainedNativeUids'],browser_reports)
  native=take(CONFIG['nativeContacts'],BASE/CONFIG['nativeContacts']/'summary.json');native={**native,'rows':[r for r in native['rows']if r['uid']in sources]};assert verify_native_scope(scope,native,{m['uid']:m for m in models})
  for url in read(manifest)['officialModelCatalogues']:
   current=ROOT/'3d-viewer'/url

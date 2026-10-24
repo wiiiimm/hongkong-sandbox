@@ -1,7 +1,7 @@
 """Adversarial metadata/graph checks for the supported model-only route."""
 from copy import deepcopy
 import unittest
-from original_supported_model_only_contract_v1_20261025 import verify_metadata
+from original_supported_model_only_contract_v1_20261025 import verify_metadata, verify_browser_native_scope
 
 
 class SupportedModelOnlyContractTests(unittest.TestCase):
@@ -51,6 +51,27 @@ class SupportedModelOnlyContractTests(unittest.TestCase):
     def test_standalone_contract_is_not_relaxed(self):
         self.supports={}
         self.models[0].pop('supportDependencies')
+        with self.assertRaises(AssertionError):self.check()
+
+
+class BrowserNativeScopeTests(unittest.TestCase):
+    def setUp(self):
+        self.supports={'a':'b'};self.sources={'a':'sha-a','b':'sha-b'}
+        self.config={'nativeSupportUidsByModel':{'a':['b']}}
+        self.reports=[{'passed':True,'errors':[],'retainedNativeOwnViews':[]}for _ in range(2)]
+    def check(self):return verify_browser_native_scope(self.config,self.supports,self.sources,[],self.reports)
+    def test_omitted_optional_config_requires_explicit_empty_reports(self):self.assertTrue(self.check())
+    def test_missing_report_evidence_is_rejected(self):
+        self.reports[0].pop('retainedNativeOwnViews')
+        with self.assertRaises(KeyError):self.check()
+    def test_external_native_config_is_rejected(self):
+        self.config['additionalRetainedUids']=['external']
+        with self.assertRaises(AssertionError):self.check()
+    def test_external_support_is_rejected(self):
+        self.config['nativeSupportUidsByModel']['a']=['external']
+        with self.assertRaises(AssertionError):self.check()
+    def test_undeclared_retained_export_is_rejected(self):
+        self.reports[1]['retainedNativeOwnViews']=[{'uid':'external'}]
         with self.assertRaises(AssertionError):self.check()
 
 

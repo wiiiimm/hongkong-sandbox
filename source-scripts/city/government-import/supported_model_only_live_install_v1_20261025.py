@@ -83,7 +83,7 @@ def owned(previous):
   ordered=sorted(parts.values(),key=lambda r:r['uid']);snapshot=hashlib.sha256(jobs.encode([ordered,acceptance]).encode()).hexdigest()[:16];invpath=POINTER.parent/('source-review-inventory-'+snapshot+'.json')
   save(invpath,{**inventory,'snapshotId':snapshot,'derivedFrom':pointer['snapshotId'],'parts':ordered,'qualification':'Unchanged co-imported supported original sources, bounded source-role review and full four-world checks. Every existing native entry and all terrain remain unchanged.'})
   sys.path.insert(0,str(HERE.parent/'model-review-ledger'));import ledger
-  ledger.seed(invpath,inherit=pointer['snapshotId']);commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();effort=dict(method='unknown',ai_model=None,reasoning_effort='unknown',issue='HKS-203',run_id=snapshot,output_ref=ref(DOC/'acceptance.json')['path'])
+  ledger.seed(invpath,inherit=pointer['snapshotId']);commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();effort=dict(method='scripted',ai_model=None,reasoning_effort='not-applicable',issue='HKS-203',run_id=snapshot,output_ref=ref(DOC/'acceptance.json')['path'])
   ledger.record_many(snapshot,LEASE,[(m['uid'],'approved-for-integration',DOC/'acceptance.json','Exact unchanged assembly and current source/physical/browser evidence approved; live checks pending.',commit)for m in models],effort=effort,request_id=BATCH+'-approved-'+snapshot)
   installed_history=False
   def interrupted(signum,frame):

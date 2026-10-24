@@ -31,3 +31,20 @@ def verify_metadata(models, sources, supports, original_entries):
             actual.pop(key, None)
         assert actual == expected, 'Rendering metadata differs from the exact reviewed original entry'
     return True
+
+
+def verify_browser_native_scope(config, supports, sources, retained, reports):
+    """V4 capture omits the optional empty list; require actual empty reports.
+
+    The V10 browser explicitly initialises retainedNativeOwnViews and excludes
+    co-import candidates from retained-native requirements. Never infer this
+    from a missing report or permit an external support through the empty path.
+    """
+    assert retained == []
+    assert 'additionalRetainedUids' not in config or config['additionalRetainedUids'] == []
+    assert config['nativeSupportUidsByModel'] == {u: [v] for u, v in supports.items()}
+    assert set(supports) <= set(sources) and set(supports.values()) <= set(sources)
+    assert len(reports) == 2
+    for report in reports:
+        assert report['passed'] and not report['errors'] and report['retainedNativeOwnViews'] == []
+    return True
