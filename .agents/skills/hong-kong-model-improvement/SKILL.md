@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.120"
+  version: "1.9.121"
 ---
 
 # Hong Kong model improvement
+
+Latest25October school V5 bounded derived-ramp-return passes existing clearance for8upwardramps and all22neighbours; independent readbacke65ecb0301df8ed8a10cf95b9cc3c6062469ed5032621540f18aee033e8a3482 proves3237unchangedfaces/174conservedparentpartitions. This is PRIVATE, notinstalled:362installed/159unfinishedof521,6926actors. Preserve footprint-only closed-edge failures. Source courtyard extent11.3078m and8uncapped grade-crossing panels need bounded source-role review, no genericthreshold/watertightness change. Complete permitKN27/2004(OP) binds3sources. Needactual12qualifyingexports and guardedfullreadback; prior single-sourcepreviewisnotacceptance. Read latest HANDOFF/checkpoint. UniversityHallapprovalalreadyfulfilled;donotreinstall. NoAIgeometrymodelling/optimisation.
 
 Latest25October TVBinstallation4baf8e5dcPUSHED;362installed/159unfinishedof521,6926actors. FreshafterTVBinventory8bc9501d055f3969490d214bd4e4646c3b9840c48b50a7b576fca956f46c4693/exact159inventory1ac78018c5872da49537fc93795199b3beff4877852846b8dafefac69663d3c6 preserve2nullUIDsources. Next3Dragon226794/School244581/PolyU305600+4originalcompanionshavefresh7sourcecapture/attrs/identity/scope/pairs/nativecontacts. School3411faceinset/all22neighborspass,main152wallnegatives/podium45including8nonwallsremainunapproved; exact4worldground187be263e764a50fc6458316e910331cad6754bfb090a964c89a09c2f30de72e mustretainnegatives. Dragon59strict/40finitepathsresolvedbutpodium93.197percentcoverage/pinnedE11terrainmissingincurrentE12transportholdsremain; Neon070194c3ee40e0fc1f53a2169b7afb4674940c47d5956beb484a6e6f985aa97e,notpermanentrejection. PolyUrequiresretainedlibrary/sportsoriginals/fulloldterraindomain. ReadlatestHANDOFFexactreceipts/remainingactions,doNOTrepeatunchangedfailedrecoveries/reinstallTVB. NoAIgeometrymodelling/optimisation.
 
