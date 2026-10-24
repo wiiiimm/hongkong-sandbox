@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.92"
+  version: "1.9.93"
 ---
 
 # Hong Kong model improvement
+
+West Ventilation335494 is installed unchanged10338faces:351installed/170unfinishedof521,6895detailedactors. Exact source-owned extended portal roof identity was corroborated by official ISDphoto/text; raw extent/partial-wall negatives retained. Nine lower walls have complete clear-cap paths in all4worlds, both retained natives have zero finite contacts; no terrain edits. Independent readback dcddc34aa8800b22c33ddf295c4281d18e124a919d8a9850404c06ac8cf2a7df verifies all6894oldassets/all521rows/12actualsource+retainedliveexports/globalretainedBASICbindings. Use postVent6895inventory in latest23OctoberHANDOFF. NextHotel259378haspositive original-podium interfaces: finish actual native support paths and use a support-aware model-only route; never remove the independent-contract zero-contact guard to fit it. All current workers terminal/released. NoAIgeometrymodelling/optimisation.
 
 For legacy installed entries, replay the actual production prepareModelCatalogue before diagnostic loadOfficialModel: rootTranslation belongs to the catalogue even when absent per-entry. selected_original_render_attributes_v2_20261024.mjs plus overlapping-native-contactsV3 authenticate the raw entry and compare all three captured native bounds to the pinned inventory exactly; no current metadata/pose is rewritten. Independent model-only stage/publisher/live/readback adapters dated24October preserve the proven no-terrain path and require every scoped retained native to have zero finite contacts in all4worlds plus own desktop/mobile day/night exports. The closed contract has8adversarialtests; positive native interfaces use the separate support/role adapters. Ventilation335494is privately qualified (official-photo/source-owned extended portal roof,9lower-wall cap paths,2zero-contactretainednatives,12inspectedcanvases), not installed yet. Read latest23OctoberHANDOFF and next-four checkpoint before rerunning sources.
 

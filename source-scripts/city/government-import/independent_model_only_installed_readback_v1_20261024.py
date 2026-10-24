@@ -32,6 +32,9 @@ def main():
     for r in changed:assert r['installedVerified']and r['runtimeSourceSHA256']==r['indexedSourceSHA256']==sources[r['uid']]
     support={};guard=module('supported_assembly_global_retained_readback',HERE.parent/'island-detail-integration/retained_basic_support.py');guard.stage_retained_basic_support(ROOT,m,{},support,read);assert{(r['uid'],r['supportUid'])for r in support['retainedBasicSupportChecks']} >= {('landsd/312858:0','landsd/176739:0'),('landsd/6801:0','landsd/304712:0')}
     inspectionpath=installed/'ROOT-LIVE-EXPORT-INSPECTION.json';inspection=read(inspectionpath);assert inspection['reviewer']=='ROOT'and inspection['visualAcceptance'];images=inspection['imagesActuallyViewed'];assert len(images)==len({q['path']for q in images})==4*len(sources);inspected={q['path']:q['sha256']for q in images};exports=[]
+    producer=ROOT/inspection['producer']['path'];assert digest(producer.read_bytes())==inspection['producer']['sha256'];refs.append(producer)
+    for sheet in inspection['inspectionSheetsActuallyViewed']:
+        path=ROOT/sheet['path'];assert digest(path.read_bytes())==sheet['sha256'];refs.append(path)
     retainedImages=inspection['retainedImagesActuallyViewed'];assert len(retainedImages)==len({q['path']for q in retainedImages})==4*len(RETAINED);retainedInspected={q['path']:q['sha256']for q in retainedImages};retainedExports=[]
     for width in [390,1280]:
         folder=installed/('viewport-'+str(width));report=read(folder/'live-browser.json');assert report['passed']and not report['errors'];views=[v for v in report['views']if 'time'in v];assert len(views)==2*len(sources)
