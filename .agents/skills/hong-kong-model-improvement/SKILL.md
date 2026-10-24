@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.89"
+  version: "1.9.90"
 ---
 
 # Hong Kong model improvement
+
+Hanford24October follow-through: preserve the exact coastal Float32 no-lowering check. `coastal_parent_float32_repair_v1_20261024.py` plus complete-face return-scope proof can raise derived return vertices by at most1mm without touching the protected original-TIN core; the actual repair max0.036mm. Sequential original-TIN inset must preserve the entire inherited low-Float32 face multiset and recheck final exact coastal LP. Terrain installation scopes include ALL coarse-domain forms, not only model footprints: supported-stageV2 merges authenticated model/terrain obligations and leases their full union. Required `sourceTile` metadata missing from a historical candidate must be restored from its exact pinned native input/result, never guessed from the viewer tile. Browser active/frustum flags still need actual canvas inspection; a framing failure warrants a wider private capture box while retaining full-source framing. No automatic source-role or installation approval follows these diagnostics. Read the latest23OctoberHANDOFF for current Hanford state.
 
 For explicit original recovery, use acquire_current_original_sources_v1_20261024.py with --batch and repeated --uid. It reuses exact local/enhancement-screening assets before government range/CRC/conversion; it transfers no acceptance. Hanford now has all10originals locally: old missing-R2/source-access holds are obsolete. The generic unit-yaw context, four-world pairV2(up to16actors) and measured-support-followthrough(up to4localworkers) are diagnostics only. Hanford all45pairs/29basicpairs/8support alternatives are complete; no external basic contacts and every unresolved original support path is verified, but4identitycoverage cases and coastal-safe terrain remain. Its narrow terrain attempt failed on existing low-parent geometry, not model corruption. Preserve the1.2m gate and exact coastal checks; low-parent context does not authorise an exception. Read the latest Hanford checkpoint/HANDOFF before repeating work.
 

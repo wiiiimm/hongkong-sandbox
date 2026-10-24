@@ -1,4 +1,4 @@
-"""Capture a historical private candidate in the current renderer; no review transfers."""
+"""Capture actual renderer geometry for an explicitly scoped private terrain candidate with up to16 companion originals."""
 import argparse
 import subprocess
 from pathlib import Path
@@ -25,24 +25,22 @@ def main():
     _, cp = authenticate(cap)
     refs = [Path(__file__), patchdoc / 'result.json', cap / 'result.json']
     pins = {}
-    # The candidate is a historical experiment, not an approved current patch.
-    # Only the fresh selection's dependencies must all match current bytes.
-    # Authenticate historical candidate/scope bytes separately below; do not
-    # pretend their historical manifest equals the current scene.
-    for name, sha in cp.items():
-        assert digest((ROOT / name).read_bytes()) == sha
-        pins[name] = sha
-        refs.append(ROOT / name)
+    for bound in (pp, cp):
+        for name, sha in bound.items():
+            assert name not in pins or pins[name] == sha
+            assert digest((ROOT / name).read_bytes()) == sha
+            pins[name] = sha
+            refs.append(ROOT / name)
     assert receipt['status'] == 'private-terrain-validator-passed'
     candidate = receipt['candidate']
     patchpath = ROOT / candidate['path']
-    assert digest(patchpath.read_bytes()) == candidate['sha256'] == pp[str(patchpath.relative_to(ROOT))]
+    assert digest(patchpath.read_bytes()) == candidate['sha256']
     refs.append(patchpath)
     sourcepath = cap / 'selection.json.gz'
     assert digest(sourcepath.read_bytes()) == cp[str(sourcepath.relative_to(ROOT))]
     refs.append(sourcepath)
     wanted = set(args.uid or receipt['uids'])
-    assert set(receipt['uids']) <= wanted and len(wanted)==len(args.uid or receipt['uids']) and len(wanted)<=8
+    assert set(receipt['uids']) <= wanted and len(wanted)==len(args.uid or receipt['uids']) and len(wanted)<=16
     rows = [r for r in read(sourcepath)['rows'] if r['uid'] in wanted]
     assert len(rows) == len(wanted)
     manifest = ROOT / '3d-viewer/city/data/manifest.json'
@@ -98,7 +96,7 @@ def main():
         foundation = final.foundation_context(tri, ground, Polygon(b['rings'][0], b['rings'][1:]))
         save(doc / (uid.split('/')[1] + '.json'), dict(uid=uid, foundation=foundation))
         summary.append(dict(uid=uid, status='captured', triangles=len(tri), **{k: foundation[k] for k in ['completeTerrainTriangles', 'fullyBuriedTriangles', 'fullyBuriedUpwardTriangles', 'minimumGapM']}))
-    result = dict(historicalPrivatePatch=args.patch, currentPatchValidationTransferred=False, currentManifestSHA256=current_manifest, uids=sorted(wanted), rows=summary, installationApproved=False, publication=False, newlyInstalled=0, sourceGeometryChanges=0, scriptExternalAICalls=0, qualification='Actual current-renderer geometry over a hash-bound historical private candidate. Historical terrain validation and scope approval do not transfer. Fresh current terrain validation, complete scene neighbours, source support, identity and publication remain separate; this diagnostic never installs assets.')
+    result = dict(uids=sorted(wanted), rows=summary, installationApproved=False, publication=False, newlyInstalled=0, sourceGeometryChanges=0, scriptExternalAICalls=0, qualification='Private actual-renderer geometry and whole-source foundation diagnostics only. Tower support, identity, neighbours and publication remain separate.')
     save(doc / 'summary.json', result)
     refs.extend([geometrypath, HERE / 'acceptance_metrics_multi_retained_v2.mjs', HERE / 'xl-final-script-pass.py'])
     module('selected_runtime_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(args.batch, 'selected-private-original-patch-runtime', list(dict.fromkeys(refs)), result)
