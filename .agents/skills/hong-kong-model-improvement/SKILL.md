@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.103"
+  version: "1.9.104"
 ---
 
 # Hong Kong model improvement
+
+SUCCESS25October: original podium84014 plus original towers155042/269721 INSTALLED unchanged20044faces. FixedXL **357installed/164unfinished/521total**; **6911detailedactors**. Installed79ce4fc60d1c64573402f8997238e34a464d0149824b550912b89805f7c5e31a,snapshotb399c2b1e68101c9. IndependentROOTreadback20b52192fb276efb1feb74653b1ca7d496cc066e5e872acf8abff22db795439d verifiesall6908priorassetbytes/catalogueentries, all521rows/only84014changed, bothglobalretainedBASICguards, no terrain edits and12actuallyinspectedFRESHliveexports. Liveworker8472terminal0/released. Qualification3da4e6a2b pushedbeforeinstallation. Commit/pushactualinstallation next; refresh6911inventory/exact164sourcekeys before nextcurrent-scenequalification. Do not reinstallthisassembly/Skytower/UniversityHall. NoAIgeometrymodelling/optimisation; all164including2nullUIDsources remain in scope.
 
 Latest25October: podium84014 and exact original Towers155042/269721 are PRIVATELYQUALIFIED, notyetinstalled. Stage3cd14e23bcf94627a5d90ec3fcf82819b8d83a50c0184b1b962e51d44dfd0311; sourceReviewd6f548f97eded89c594d9702d4c99bd182d8c8da06c2140afff477644efa6b18. All12actual desktop/mobile exports inspected; dark original night materials retained; early podium mobile frames include coarse companions during failure/retry, finaljoint all3originals active. All18rimwarnings have finite original paths in4worlds; allaffectedwalls have cap paths. Five Tower1 upward deck strips4493/4494/4495/4995/4996 are<3cmwide and their60vertices meet originaldeck within4.7684e-7m; negative interior/parapet gaps remain as bounded source-role review, no generic exemption. New exact-entry contract13testsPASS; corrected typed-exportguard verifiesUID/width/time/path/SHA; installer--prepare-onlyPASS. Configgovernment-xl-podium84014-three-original-install-config-v1-20261025.json, matchingpodium84014_original_* adapters. Current356installed/165unfinished/6908actors unchanged; expected357/164/6911 ONLYafterlive/readback. Needcommit/pushqualification, actualinstall, inspect12newliveexports and independentall521/all6908oldassetbytes/globalBASICguard readback, commit/push. CurrentterrainexperimentsV11/V13/V14 remain unapproved forMainBlock;29unittests do not replaceactualvaliditygate. ReadlatestHANDOFF. NoAIgeometrymodelling/optimisation.
 
