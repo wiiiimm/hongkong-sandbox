@@ -2,10 +2,14 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.84"
+  version: "1.9.85"
 ---
 
 # Hong Kong model improvement
+
+For an imported original podium that replaces an existing surveyed fallback, use the existing publisher `dependencyReviews` migration pathway. Bind the exact old catalogue/owner source/old dependencies and a completed source+visual review; change only reviewed `supportDependencies`, preserving all other fields and negative flags. The supported-retained stageV2/publisher/live/readback adapters dated20261024 combine this with exact retained-terrain replacement, source support graph, full current neighbours and global retained-basic guards. Lease keys must equal the completed physical review (including its OSM building namespace); never drop a mismatching resource. Terrain target metadata must stay exactly browser-tested, not expand merely to fit an older adapter.
+
+Automated active/visible/frustum checks cannot detect foreground occlusion. Inspect exported canvases; Sung V3 mobile was rejected despite passing automated checks. A current-bounds camera nomination plus fresh full V4 exports resolved it without any source edits. Test an installed dependant's basic fallback while its newly imported parent download is deliberately denied, retry that parent before unrelated source checks, then require the dependant's original in final day/night views. Do not weaken retained-original eligibility. Latest handoff: Sung/Lee/podium installed,342/179of521,6873actors; current inventory and receipts are in23OctoberHANDOFF.
 
 Before repeating a held source, inspect its latest source-specific checkpoint and archived raw negatives. A missing packed asset is not yet an R2 access blocker: scan existing government archives for its exact sourceEntry, convert with the existing converter, and require canonical output to match the prepared asset SHA256/bytes/face count. Lee & Man47160 was recovered this way without source edits. Preserve failed setup attempts separately; a missing converter output directory is not source corruption.
 
