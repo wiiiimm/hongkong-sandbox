@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.117"
+  version: "1.9.118"
 ---
 
 # Hong Kong model improvement
+
+Latest25October TVBprivatelyQUALIFIED747eb315d3821fe973122cffba8f9fde939de94a08b16b63677e4667e2c0b25a; sourceReview1b10991b4c21fad31070b37154236cc044108333dc9f936999c06ffe2fcb4cf5 binds8actuallyviewedexports. Originalface60boundedwallspanacceptedwithraw2rimfailuresretained; bothsourcesownTINroots/SUPPORTSempty. Configgovernment-xl-tvb-two-original-install-config-v1-20261025.json usesfreshscopeV2correctterrainUIDorder, allotherfields/obligationbytesidentical. BrowserV7correctsOSMsource-formleasekeyonly. Needprepare-only/qualificationcommitpush/guardedactualinstall/fresh8liveimages/fullreadback/installationcommitpush. Notinstalledyet:361/160of521,6924actors. ReadlatestHANDOFF; oldunknownpredicate/runningnotes historical. NoAIgeometrymodelling/optimisation.
 
 Latest25October TVB: exact current rim diagnostic identifies2 elevated lowEdge samples on original vertical face60, not unknown predicate. All4 streams have2 finite paths entirelyonthatface to its ownstrictgroundvertex; raw3.147/1.567m gaps retained. Authenticated spatial/wall context521f5595c1b23213fb530e15b86250b78377b4a869469d39b17e9828a74d528a passes existingcompound95%/10m/1m2limits(.971351coverage,.879040mextent,0foreign). Fresh complete all-drawn-ground clearance and mainfoundations pass; noTVBphysical/browser/publicationapprovalyet. ReadlatestHANDOFF before older pending/runningnotes. UniversityHallapprovalalreadyfulfilled. Current361/160of521,6924actors. NoAIgeometrymodelling/optimisation.
 
