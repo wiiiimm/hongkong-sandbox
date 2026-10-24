@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.108"
+  version: "1.9.109"
 ---
 
 # Hong Kong model improvement
+
+CURRENT25October SkyToweractualinstallation9ca324d2b PUSHED;359installed/162unfinishedof521,6919officialactors. Freshcomplete6919inventory9f96efe4e30417d4a774ac27c535306420f0280d2355da874abc61fb61339304 atgovernment-xl-after-sky-tower-seven-current-inventory-v1-20261025; exact162source-keyinventorybe16af43924642770bee93656e85fec56352b58c165999025e778c6aaf827017 preserves2nullUIDsources. Manifest e0d064f2415f91733c2478b83a577bda067de2d757724829ae6ce70fb706d0df/snapshot529010da572c4d48. AllSkyTowerworkersreleased. NextMainBlock280350currentselection55d1c33d02ff2722a4b42565ad39d85b4ead80c04847fd8d2fdf5d70ffbf995d; readlatestHANDOFF for3initialworkers/oldexactclippingfailures. Preserve1e-6area/1e-12repair/1.2mcoast/currentnative/oldextentguards; no unchangedfailedretry or modelgeometryediting. OlderSkyTowerrunningnotesbelow are historical. Full162goalactive; no optimisation.
 
 SUCCESS/CURRENT25October: SkyTower244686plus6originaltowers INSTALLED unchanged17217faces, job7b2c8a56d8a2b97d08bc274d03fc3f22912fe60d2338b34a73c66e58b747ebeb/snapshot529010da572c4d48. ROOTreadbackb75afa975d1349336435149ccdfba81ce1e4c02fe041c04aba9076fda82e90cf verifiesall6912oldassetbytes/catalogueentries, all521rows/only244686changed, bothglobalBASICguards and28actuallyinspectedFRESHliveexports. **359installed/162unfinished/521;6919officialactors**. Sixoriginaltowers dependexactlyonoriginal244686;139strictprobes havefinitepaths in4streams; compoundclearance/foundationsordinarylimits pass. Neighbourraw9flagsretained:3externalunchangedBASIC226294roofproofs,6co-importedreplacedBASICproxies independentlycheckedasactualoriginals. No suppressedBASICsupportcredit. Earlymobilecoarsecompanionsareexplicitlyrecorded; finaljoint7originalsactive. OriginalTIN4941faces/22parentfaces, all58forms, fixed1x/sourcepose, noAIgeometrymodelling/optimisation. Do not reinstall. Fresh6919inventory9f96efe4e30417d4a774ac27c535306420f0280d2355da874abc61fb61339304 atgovernment-xl-after-sky-tower-seven-current-inventory-v1-20261025; manifeste0d064f2415f91733c2478b83a577bda067de2d757724829ae6ce70fb706d0df. UsecurrentHANDOFF; older6912/6911/runningSkyTowerevidence headersbelow are historical. Generic supportedV3 adapters retain allglobalguards and correctOSMlease/imagebinding/V10browser for future no-external-native assemblies.
 
