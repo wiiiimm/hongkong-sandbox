@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.88"
+  version: "1.9.89"
 ---
 
 # Hong Kong model improvement
+
+For explicit original recovery, use acquire_current_original_sources_v1_20261024.py with --batch and repeated --uid. It reuses exact local/enhancement-screening assets before government range/CRC/conversion; it transfers no acceptance. Hanford now has all10originals locally: old missing-R2/source-access holds are obsolete. The generic unit-yaw context, four-world pairV2(up to16actors) and measured-support-followthrough(up to4localworkers) are diagnostics only. Hanford all45pairs/29basicpairs/8support alternatives are complete; no external basic contacts and every unresolved original support path is verified, but4identitycoverage cases and coastal-safe terrain remain. Its narrow terrain attempt failed on existing low-parent geometry, not model corruption. Preserve the1.2m gate and exact coastal checks; low-parent context does not authorise an exception. Read the latest Hanford checkpoint/HANDOFF before repeating work.
 
 For the exact three-source Garden Terrace assembly, the model-only scope/stage/publisher/live-installer/readback adapters dated20261024 preserve all terrain and the retained No1GardenTerrace entry. Both new towers depend only on original162285. Require all12new+4retained desktop/mobile day/night exports and actual ROOT inspection, all6881oldasset bytes/catalogue entries, all521XLrows and both global retained-BASIC bindings. Raw strict-support negatives and the four downward global-minimum closure faces remain archived under the exact-source physical review; do not turn them into a generic buried-floor waiver. No terrain patch or retained dependency is invented to fit an older installer. Latest verified totals349installed/172unfinishedof521,6884actors; use the post-Garden inventory in the23OctoberHANDOFF.
 
