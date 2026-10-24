@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.107"
+  version: "1.9.108"
 ---
 
 # Hong Kong model improvement
+
+SUCCESS/CURRENT25October: SkyTower244686plus6originaltowers INSTALLED unchanged17217faces, job7b2c8a56d8a2b97d08bc274d03fc3f22912fe60d2338b34a73c66e58b747ebeb/snapshot529010da572c4d48. ROOTreadbackb75afa975d1349336435149ccdfba81ce1e4c02fe041c04aba9076fda82e90cf verifiesall6912oldassetbytes/catalogueentries, all521rows/only244686changed, bothglobalBASICguards and28actuallyinspectedFRESHliveexports. **359installed/162unfinished/521;6919officialactors**. Sixoriginaltowers dependexactlyonoriginal244686;139strictprobes havefinitepaths in4streams; compoundclearance/foundationsordinarylimits pass. Neighbourraw9flagsretained:3externalunchangedBASIC226294roofproofs,6co-importedreplacedBASICproxies independentlycheckedasactualoriginals. No suppressedBASICsupportcredit. Earlymobilecoarsecompanionsareexplicitlyrecorded; finaljoint7originalsactive. OriginalTIN4941faces/22parentfaces, all58forms, fixed1x/sourcepose, noAIgeometrymodelling/optimisation. Do not reinstall. Fresh6919inventory9f96efe4e30417d4a774ac27c535306420f0280d2355da874abc61fb61339304 atgovernment-xl-after-sky-tower-seven-current-inventory-v1-20261025; manifeste0d064f2415f91733c2478b83a577bda067de2d757724829ae6ce70fb706d0df. UsecurrentHANDOFF; older6912/6911/runningSkyTowerevidence headersbelow are historical. Generic supportedV3 adapters retain allglobalguards and correctOSMlease/imagebinding/V10browser for future no-external-native assemblies.
 
 CURRENT25October afterEverCourt:6912inventoryc8df1c8f8b3d56288542cfe0237bdc237261caa78d5c27aa259d43a7bb6d01a0 atgovernment-xl-after-ever-court-current-inventory-v1-20261025, manifestaaadde8e73eb06fae95151cab175c38c0d946362100179ebc49e55a5d15b8081. Exact163unfinishedsource-keyinventory67a90fdc796e8d665a97124463f93d9342df1f033b5986db3416aff7ce44fd78, still2nullUIDsources; preservewholefixed521scope. EverCourt actualinstallationb24e163bd PUSHED;358installed/163unfinished/6912actors. Older6911headers/runningEverworker notes below are historical. ReadlatestHANDOFF for active244686initialevidence workers and currentbindings; do not rerun installedEverCourt. Candidate244686 is itself a podium, so its own suppressed BASICfallback cannot serve as an unchanged BASICsupport proof for dependent towers. Actualoriginalroof support or originalcompanions require evidence.
 
