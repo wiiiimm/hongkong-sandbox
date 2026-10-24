@@ -1,0 +1,87 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-upton-joint-original-dimension-private-stage-v2-20261014/plan.json",
+  "areas": [
+    {
+      "area": "Upton two unchanged original government sources",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-upton-joint-original-dimension-private-stage-v2-20261014/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-upton-certified6170-joint-original-dimension-v2-20261014.json": null,
+    "3d-viewer/city/data/official-models/government-xl-upton-joint-original-dimension-private-stage-v2-20261014/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-upton-certified6170-joint-original-dimension-v2-20261014.json": "6f7c77730241b13aea4425df2ee4a4cce48f794f5f76efb1bef05f34f05b763e",
+    "3d-viewer/city/data/official-models/government-xl-upton-joint-original-dimension-private-stage-v2-20261014/catalogue.json": "2454b259c2b3dc99f5da6ba1df10e138fbab4d8a46c233116ded3e2803e92224",
+    "3d-viewer/city/data/manifest.json": "2a4c1ee569254ee5b93026e48454241a963feda3b7048856e672dcd0b1c58bcb"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "c78f7d93194977b2ef0f80eaef38812bba7b25b8",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-79882-0.json",
+      "sha256": "1a4944b41e75c6f44f44c9264f7206abb1ce3650a4bf39b26ea29ebc48618587",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-upton-certified6170-joint-original-dimension-v2-20261014.json",
+      "resolution": 5,
+      "area": "Upton two unchanged original government sources qualified computed terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "69d5f9f3635581f732caae3e71ce503c4dd8f50e21053e0042795cd5b78d01aa",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-SW-7A",
+            "sourceETag": "\"272d412-655ff00b73c96\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-7A/terrain/TERRAIN(TB)/T31500162000106E10/T31500162000106E10.bin",
+                "sha256": "26cf991b54c02ab108bb3dc17a9f3a3366e9c1e8eb7234309296b3bee6718b3e"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-7A/terrain/TERRAIN(TB)/T31500162000106E10/T31500162000106E10.gltf",
+                "sha256": "7bab327cc9cd0671667b3975ed95d326fbd326f75a3a1b3a3909797f2febb354"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6f7c77730241b13aea4425df2ee4a4cce48f794f5f76efb1bef05f34f05b763e",
+      "bytes": 1884461
+    }
+  ],
+  "uptonExactCapturedReplacementSlot": {
+    "oldIndex": 361,
+    "replacementIndex": 361,
+    "allOtherPatchMetadataAndOrderPreserved": true,
+    "terrainGeometryChanged": false
+  },
+  "estimatedBases": []
+}

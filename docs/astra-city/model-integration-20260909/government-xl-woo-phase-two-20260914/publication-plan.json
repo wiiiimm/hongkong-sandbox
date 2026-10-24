@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-woo-phase-two-20260914/plan.json",
+  "areas": [
+    {
+      "area": "+WOO Phase Two original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-woo-phase-two-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-276686-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-woo-phase-two-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "ffbad6c83a3be9094ee90cd0e10f562475f89518a4c3676bcd67118fa473eae1"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-276686-0.json": "a7f5f360dcf3f8c603ba796e79800d69b43996553d54d05981bee277cf6a4bba",
+    "3d-viewer/city/data/official-models/government-xl-woo-phase-two-20260914/catalogue.json": "ba7df47d466edb6421c450fe646eadabb6f4d4606222062fe5a3b2df8a2935a1",
+    "3d-viewer/city/data/manifest.json": "27e368081755bec8cbc893fcf6d47d67006f18abb0fd4abc67bb163f5bedde1a"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "190417d8b9ba040957a76c1ec68a8d0aca5f0901",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-276686-0.json",
+      "resolution": 5,
+      "area": "+WOO Phase Two bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "f2319309a1284b7e3743d275afb2260187feb3b8ce093e5898d02a8cd9f33ab4",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "sheet": "6-NW-3C",
+            "sourceETag": "\"3e47ddd-64e629f8188fb\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/6-NW-3C/terrain/TERRAIN(TB)/T18000348000106E10/T18000348000106E10.bin",
+                "sha256": "8d7c9fcbbe22bbd912b905e74a2b7b00080e4b5b5b7ce1dfabc97fbf32a1ab49"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/6-NW-3C/terrain/TERRAIN(TB)/T18000348000106E10/T18000348000106E10.gltf",
+                "sha256": "70892a3e712425e9fc275b42f0a2ec785b131aaecb018a461bf60605ec8854df"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 4047,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "a7f5f360dcf3f8c603ba796e79800d69b43996553d54d05981bee277cf6a4bba",
+      "bytes": 1697739
+    }
+  ],
+  "estimatedBases": []
+}

@@ -1,0 +1,29 @@
+{"forms":11,"flagged":0,"clearPatches":1,"clearModels":1}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Pinned installed native dependency unavailable: landsd/337945:0 -> landsd/233905:0
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/check-native-neighbours-multi-retained-scoped-v4.mjs:58:2
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.18.0
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/ocean_terminal_ordinary_validation_v2_20261019.py", line 38, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/ocean_terminal_ordinary_validation_v2_20261019.py", line 32, in main
+    for name in ['check-neighbours.mjs','check-native-neighbours-multi-retained-scoped-v4.mjs']:subprocess.run(['node',str(HERE/name),str(DOC.relative_to(ROOT))+'/'],cwd=ROOT,check=True);refs.append(HERE/name)
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['node', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/check-native-neighbours-multi-retained-scoped-v4.mjs', 'docs/astra-city/government-import/government-xl-ocean-terminal-ordinary-validation-v2-20261019/']' returned non-zero exit status 1.

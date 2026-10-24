@@ -1,0 +1,22 @@
+--- source-scripts/city/government-import/heritage165054_south20b_terrain_acquisition_v2_20261014.py
++++ source-scripts/city/government-import/heritage165054_south20b_terrain_acquisition_v3_20261014.py
+@@ -5,7 +5,7 @@
+ from timed_owned_lease_pulse_v1_20261014 import TimedOwnedLeasePulse
+ ROOT=Path(__file__).resolve().parents[3]; HERE=Path(__file__).resolve().parent
+ BASE=ROOT/'docs/astra-city/government-import'; UID='landsd/165054:0'
+-BATCH='government-xl-heritage165054-south20b-terrain-acquisition-v2-20261014'
++BATCH='government-xl-heritage165054-south20b-terrain-acquisition-v3-20261014'
+ DOC=BASE/BATCH; PROPOSAL=BASE/(BATCH+'-proposal'); LOCAL=HERE/'local'/BATCH; LEASE=LOCAL/'reservation.json'
+ CURRENT='12971667a74b07de90ce5ee29999f44a6bf297de84ec7916a629bc42725cd82c'; SNAPSHOT='be5f7671a989392d'
+ ORDINARY=BASE/'government-xl-heritage165054-current-ordinary-physical-v1-20261014'
+@@ -52,8 +52,8 @@
+     assert read(NORTH/'diagnostic.json')['construction']['candidate'] is None
+     scope=read(NORTH/'proposal-input.json')['scope']['allActorsForNominationLease']; assert len(scope)==45 and 'way/261065256:0' in scope
+     sheet=next(f for f in read(INDEX)['features'] if f['attributes']['SHEETNO']==PIN['sheet']); assert sheet['attributes']['REVISIONDATE']==PIN['revision'] and sheet['attributes']['Format_glTF']==PIN['sourceURL']
+-    failure=read(PROPOSAL/'preserved-V1-no-owned-lease-conflict.json')
+-    refs=distinct_refs(failure['evidenceRefs']+[ref(PROPOSAL/'preserved-V1-no-owned-lease-conflict.json')]+prior['evidenceRefs']+[ref(NORTH/'result.json'),ref(NORTH/'ROOT-VERIFIED.json'),ref(INDEX)]+r['evidenceRefs']+[ref(p) for p in [ORDINARY/'result.json',ORDINARY/'ROOT-VERIFIED.json',DIRECTORY/'result.json',DIRECTORY/'zip-directory.bin',DIRECTORY/'transfer.json',OLD_DOWNLOAD,OLD_DOWNLOAD.parent/'7-SW-20B.zip',manifest,pointer]])
++    failure=read(PROPOSAL/'preserved-V1-no-owned-lease-conflict.json'); prepFailure=read(PROPOSAL/'preserved-V2-preparation-fence-failure.json')
++    refs=distinct_refs(prepFailure['evidenceRefs']+[ref(PROPOSAL/'preserved-V2-preparation-fence-failure.json')]+failure['evidenceRefs']+[ref(PROPOSAL/'preserved-V1-no-owned-lease-conflict.json')]+prior['evidenceRefs']+[ref(NORTH/'result.json'),ref(NORTH/'ROOT-VERIFIED.json'),ref(INDEX)]+r['evidenceRefs']+[ref(p) for p in [ORDINARY/'result.json',ORDINARY/'ROOT-VERIFIED.json',DIRECTORY/'result.json',DIRECTORY/'zip-directory.bin',DIRECTORY/'transfer.json',OLD_DOWNLOAD,OLD_DOWNLOAD.parent/'7-SW-20B.zip',manifest,pointer]])
+     for q in refs: check(q)
+     return target,scope,refs
+ 

@@ -1,0 +1,18 @@
+"""Render complete untouched original details in their authored local host context."""
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+import numpy as np,importlib.util
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+BATCH='xl-terrain-recovery-20261010-festival-original-three-detail-visual-v1';BASE=ROOT/'docs/astra-city/government-import';DOC=BASE/BATCH
+GRAPH=BASE/'xl-terrain-recovery-20261010-festival-podium-independent-original-support-v1';PHYS=BASE/'government-xl-festival-two-originals-full-physical-20261007';DIST=BASE/'xl-terrain-recovery-20261010-festival-original-three-finite-mount-boundaries-v1'
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+ assert not DOC.exists();g=read(GRAPH/'diagnostic.json.gz');r=next(r for r in read(PHYS/'selection.json.gz')['rows'] if r['uid']=='landsd/91827:0');asset=ROOT/r['candidate']['path'];raw=asset.read_bytes();assert digest(raw)==r['sourceSHA256'];tri=decode_original_world_triangles(raw);assert digest(tri.tobytes())==g['binding']['completeOriginalWorldTrianglesSHA256'];roots=g['resolvedOriginalComponents'];rootids=np.array(sorted(i for k in roots for i in g['components'][k]['globalOriginalFaces']));fig=plt.figure(figsize=(18,7.2),dpi=100);rows=[]
+ for n,k in enumerate([46,53,58]):
+  faces=g['components'][k]['globalOriginalFaces'];piece=tri[faces];lo=piece.min(axis=(0,1));hi=piece.max(axis=(0,1));center=(lo+hi)/2;extent=max(hi-lo)*.8+.3;hosts=rootids[np.all(tri[rootids].max(axis=1)>=lo-.5,axis=1)&np.all(tri[rootids].min(axis=1)<=hi+.5,axis=1)];ax=fig.add_subplot(1,3,n+1,projection='3d');swap=lambda x:x[:,:,[0,2,1]];ax.add_collection3d(Poly3DCollection(swap(tri[hosts]-center),facecolor='#c4cfdb',edgecolor='#68788a',alpha=.45,linewidth=.3));ax.add_collection3d(Poly3DCollection(swap(piece-center),facecolor='#e76f38',edgecolor='#1a1c20',alpha=1,linewidth=1));ax.set_xlim(-extent,extent);ax.set_ylim(-extent,extent);ax.set_zlim(-extent,extent);ax.set_box_aspect((1,1,1));ax.view_init(elev=20,azim=130);ax.set_xlabel('local X (m)');ax.set_ylabel('local Z (m)');ax.set_zlabel('HKPD offset (m)');ax.set_title(f'Original component {k}: {len(faces)} faces\nOrange detail; grey independently rooted source');rows.append(dict(component=k,completeOriginalFaces=faces,vertices=piece.tolist(),normals=np.cross(piece[:,1]-piece[:,0],piece[:,2]-piece[:,0]).tolist(),completeDisplayedRootedSourceFaces=hosts.tolist(),worldCenter=center.tolist()))
+ DOC.mkdir(parents=True);fig.tight_layout();image=DOC/'original-three-details-1800x720.png';fig.savefig(image,dpi=100);plt.close(fig);refs=[ref(p) for p in [Path(__file__),asset,GRAPH/'diagnostic.json.gz',GRAPH/'result.json',DIST/'diagnostic.json.gz',DIST/'result.json',image,HERE/'exact_packed_world_geometry_20261009.py']];save(DOC/'diagnostic.json.gz',dict(uids=['landsd/91827:0'],rows=rows,image=ref(image),pixelDimensions=[1800,720],sourceGeometryChanges=0,visualInterpretationNotAcceptance=True,evidenceRefs=refs));spec=importlib.util.spec_from_file_location('freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);m.freeze(BATCH,'complete-original-three-visual-details-rendered-context-v1',[ROOT/r['path'] for r in refs],dict(uids=['landsd/91827:0'],sourceOnlyVisualContext=True,sourceGeometryChanges=0,visualRoleAccepted=False))
+if __name__=='__main__':main()

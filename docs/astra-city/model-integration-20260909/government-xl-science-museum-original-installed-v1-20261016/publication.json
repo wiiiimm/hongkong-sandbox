@@ -1,0 +1,87 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-science-museum-qualified-stage-v2-20261016/plan.json",
+  "areas": [
+    {
+      "area": "Science Museum original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-science-museum-qualified-stage-v2-20261016/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-xl-science-museum-private-browser-v1-20261016-terrain.json": null,
+    "3d-viewer/city/data/official-models/government-xl-science-museum-qualified-stage-v2-20261016/catalogue.json": null,
+    "3d-viewer/city/data/tiles/0_-1.json": "34524ad093897074208bc560edd863627523e5a38580a5ec359e9aa6b5e08d44",
+    "3d-viewer/city/data/manifest.json": "c118b3ff9f16328b93a651bd564def7c7f4eb337897781f44dd4cc1a96ebca09"
+  },
+  "after": {
+    "3d-viewer/city/data/government-xl-science-museum-private-browser-v1-20261016-terrain.json": "6acece57e4ad6a4260d289e9589072182856dc74c25335b0db134217a6f5aedb",
+    "3d-viewer/city/data/official-models/government-xl-science-museum-qualified-stage-v2-20261016/catalogue.json": "dc1b962ab7c82e500aa0e6deaa7b6466d231f2bf1a847229b360d1d489191e44",
+    "3d-viewer/city/data/tiles/0_-1.json": "437b60a60b1f624adf6921eab4baff72484e1f6950bc8e404ef611b76c73495a",
+    "3d-viewer/city/data/manifest.json": "7356dec5a104e125bd2e01c16ded40e55d9ecfbd6c3fb6f4d45699bf7f0e0d14"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "9d536c72413b36ec529c0bab94d621a7d7852587",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-xl-history-museum-private-browser-v1-20261016-terrain.json",
+      "sha256": "1638b3caa977fe88f2e297c125c384bc885fde5c73a4764188f6e6c853a26821",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-xl-science-museum-private-browser-v1-20261016-terrain.json",
+      "resolution": 5,
+      "area": "Private museum original terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-1883-building-contact-20261005/sheets/11-NW-25C/terrain/TERRAIN(TB)/T36000180000106E11/T36000180000106E11.gltf",
+            "provenance": "docs/astra-city/government-import/government-xl-science-museum-original-terrain-v2-20261016/summary.json",
+            "sha256": "593be6d46634f2578a4a315ff189fd82ce32ee37c0d7a9ec98cd7871c1ac3d26"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-5A/terrain/TERRAIN(TB)/T36000174000106E11/T36000174000106E11.gltf",
+            "provenance": "docs/astra-city/government-import/government-xl-science-museum-original-terrain-v2-20261016/summary.json",
+            "sha256": "3b3f30a7e2b3fa27e5ce2383c371ef8c58f11938fc2f779e14600b6787f9e7b2"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2451,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6acece57e4ad6a4260d289e9589072182856dc74c25335b0db134217a6f5aedb",
+      "bytes": 1435631
+    }
+  ],
+  "illustrativeFoundations": [
+    {
+      "uid": "landsd/83471:0",
+      "foundationBase": 5.185756556146636,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-science-museum-canopy-foundation-review-v1-20261016/summary.json",
+        "sha256": "766ba559f27d6590e0293d3f25ff64daa1b6b34edeaa125107c1348df8086556"
+      }
+    }
+  ],
+  "estimatedBases": []
+}

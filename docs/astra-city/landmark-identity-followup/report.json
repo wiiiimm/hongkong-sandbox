@@ -1,0 +1,153 @@
+{
+  "issue": "HKS-213",
+  "batchId": "landmark-identity-followup",
+  "generatedAt": "2026-09-08T19:18:24.873395+00:00",
+  "plan": "source-scripts/city/landmark-identity-followup/plan.json",
+  "planSHA256": "07528c1a9ab369bcacd1098738106618dbd1046fa35dc17919ff8d5ed0ef5cd6",
+  "serviceMetadata": "source-scripts/city/landmark-identity-followup/service.json",
+  "sourceIndex": "source-scripts/city/landmark-identity-followup/index.json",
+  "summary": {
+    "acquired-and-staged": 2,
+    "no-exact-model-in-complete-checked-sheets": 0,
+    "deferred": 0
+  },
+  "nativeModelParts": 2,
+  "exactCSUIDMatchedTargets": 2,
+  "sourceTiles": 2,
+  "completedTiles": 2,
+  "reusedDirectories": 2,
+  "reusedNativeMembers": 0,
+  "newNativeMembers": 4,
+  "transfer": {
+    "receivedBytes": 3102,
+    "newThisInvocationBytes": 3102,
+    "chargedBytes": 3102,
+    "capBytes": 10000000,
+    "requests": 6,
+    "ledger": "source-scripts/city/landmark-identity-followup/transfer-ledger.json"
+  },
+  "rows": [
+    {
+      "uid": "landsd/179500:0",
+      "objectId": 179500,
+      "csuid": "4384214085T20181127",
+      "name": "",
+      "x": 9341.507,
+      "z": 2415.079,
+      "landmarks": [],
+      "identityApproved": false,
+      "sheets": [
+        "11-SE-20A"
+      ],
+      "outcome": "acquired-and-staged",
+      "sourceCoverageComplete": true,
+      "standardMatch": true,
+      "models": [
+        {
+          "sheet": "11-SE-20A",
+          "modelId": "B438421408501063C1",
+          "manifest": "source-scripts/city/landmark-identity-followup/staged/11-SE-20A/manifest.json",
+          "exactCSUIDMatch": true,
+          "officialBuildingCSUIDs": [
+            "4384214085T20181127"
+          ],
+          "sourceHashes": {
+            "BUILDING/B438421408501063C1/B438421408501063C1.gltf": "7869c0e42210f8908936df488cb9344fde0dc75a991825b9e306349d7a6037e7",
+            "BUILDING/B438421408501063C1/B438421408501063C1.bin": "bac921971b0fc0d58c798eb5a54f7129e9ab3765bc4cf60fe6be064c427e0237"
+          },
+          "nativeBounds": [
+            [
+              9338.375,
+              4.794000148773193,
+              2412.875
+            ],
+            [
+              9343.75,
+              17.0479998588562,
+              2418.3125
+            ]
+          ],
+          "triangles": 54
+        }
+      ],
+      "sheetsChecked": [
+        {
+          "sheet": "11-SE-20A",
+          "status": "staged",
+          "exactEntries": [
+            "BUILDING/B438421408501063C1/B438421408501063C1.gltf"
+          ],
+          "directory": {
+            "completeEntries": 310,
+            "centralDirectoryBytes": 34996,
+            "centralDirectoryOffset": 52554488,
+            "directorySHA256": "28512edeebf2009aa412c9657c08359a33a6b9bb3b17152259a38f90b26dc958"
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "uid": "landsd/272501:0",
+      "objectId": 272501,
+      "csuid": "4620017075T20141126",
+      "name": "",
+      "x": 11699.311,
+      "z": -575.079,
+      "landmarks": [],
+      "identityApproved": false,
+      "sheets": [
+        "12-SW-1D"
+      ],
+      "outcome": "acquired-and-staged",
+      "sourceCoverageComplete": true,
+      "standardMatch": true,
+      "models": [
+        {
+          "sheet": "12-SW-1D",
+          "modelId": "B462001707501062G0",
+          "manifest": "source-scripts/city/landmark-identity-followup/staged/12-SW-1D/manifest.json",
+          "exactCSUIDMatch": true,
+          "officialBuildingCSUIDs": [
+            "4620017075T20141126"
+          ],
+          "sourceHashes": {
+            "BUILDING/B462001707501062G0/B462001707501062G0.gltf": "f3fed8e8fe94290f57d3ff272833c4dfb51506329d3c376c7f8b7b252923dd82",
+            "BUILDING/B462001707501062G0/B462001707501062G0.bin": "e1d7e49ddf05ca68552ae7003d5b9491010116bcdecc435f99b4e2e76583c86c"
+          },
+          "nativeBounds": [
+            [
+              11697.35546875,
+              6.400001525878906,
+              -583.828125
+            ],
+            [
+              11702.64453125,
+              10.260002136230469,
+              -565.919921875
+            ]
+          ],
+          "triangles": 42
+        }
+      ],
+      "sheetsChecked": [
+        {
+          "sheet": "12-SW-1D",
+          "status": "staged",
+          "exactEntries": [
+            "BUILDING/B462001707501062G0/B462001707501062G0.gltf"
+          ],
+          "directory": {
+            "completeEntries": 248,
+            "centralDirectoryBytes": 28094,
+            "centralDirectoryOffset": 30537028,
+            "directorySHA256": "ae6cb12ca9842c1103e04d646d8014a2fc3b4103a14939feea0db3f2fe77419b"
+          },
+          "error": null
+        }
+      ]
+    }
+  ],
+  "qualification": "No-exact-model is only for complete current checked official sheet directories, not a territory-wide absence claim. Source acquisition/staging is not placement acceptance or publication. Native source geometry remains 1x HKPD; no modelling or terrain fixes.",
+  "aiCalls": 0
+}

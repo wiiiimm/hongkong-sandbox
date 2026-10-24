@@ -1,0 +1,23 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Frozen manifest changed
++ actual - expected
+
++ 'dcc4ba9cbd70ae81737d8542bcac94421c76aeb5c2217239f57b7c75877a02a2'
+- undefined
+
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/acceptance-metrics-multi-retained.mjs:26:26
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'dcc4ba9cbd70ae81737d8542bcac94421c76aeb5c2217239f57b7c75877a02a2',
+  expected: undefined,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.18.0

@@ -1,0 +1,53 @@
+{
+  "bundles": [
+    {
+      "parentTerrainURL": "city/data/terrain.json",
+      "parentSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+      "patches": [
+        {
+          "path": "source-scripts/city/residual-support-review/capitol/terrain.json",
+          "sha256": "8713afcc11298e4125254ab255fd43243dc9b00dc44b3cbcf3eb9e033ebbcb17",
+          "uids": [
+            "landsd/111608:0",
+            "landsd/262368:0"
+          ],
+          "coarseCells": [
+            656,
+            433,
+            660,
+            439
+          ],
+          "replacesExistingManifestPatches": [
+            "city/data/terrain-lohas-club-galaxy.json"
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "patch": "source-scripts/city/residual-support-review/capitol/terrain.json",
+      "rows": [
+        {
+          "uid": "landsd/111608:0",
+          "samples": 12,
+          "within2m": 12,
+          "gapRange": [
+            0.0010017558593746756,
+            0.3500606621093745
+          ]
+        },
+        {
+          "uid": "landsd/262368:0",
+          "samples": 280,
+          "within2m": 280,
+          "gapRange": [
+            -1.8111408501586652,
+            0.03800519671631797
+          ]
+        }
+      ],
+      "eligibleForBrowserValidation": true
+    }
+  ]
+}

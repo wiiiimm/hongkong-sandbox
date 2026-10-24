@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-tower6803-private-stage-v2-20261020/plan.json",
+  "areas": [
+    {
+      "area": "Tower 1 and original podium",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-tower6803-private-stage-v2-20261020/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-tower6803-podium15047-v1-20261020.json": null,
+    "3d-viewer/city/data/official-models/government-xl-tower6803-private-stage-v2-20261020/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "3a57464fcc91c172e29c599ebdbfae730f06e355702a2de494dbf939d2e875fc"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-tower6803-podium15047-v1-20261020.json": "75b4cdc3397e899bccbd396aa62b74f3f255f4921795f00170a1f3dcce361a3b",
+    "3d-viewer/city/data/official-models/government-xl-tower6803-private-stage-v2-20261020/catalogue.json": "f91ac7f3cb8d966202fb668b96c3697ee7a993f37c41e3b98dd4d666534f4d32",
+    "3d-viewer/city/data/manifest.json": "9ea9d2f0e7f99eb069344f29d1f4546356c737faf9f8e6da0ce3e680aa5c533b"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "2f0286c21fe75063c75a84830a17dc442dbebeaf",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-tower6803-podium15047-v1-20261020.json",
+      "resolution": 5,
+      "area": "Tower 1 and original podium",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "ffaa936830e7cb6fc338d2c4292c875b9f2c6ab5c727839f059d93d0858a137b",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "6-SW-11C",
+            "sourceETag": "\"18a5759-63dd0a33f9357\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-hanford-plaza-terrain-continuation-v5-20261005/sheets/6-SW-11C/terrain/TERRAIN(TB)/T15000264000106E10/T15000264000106E10.bin",
+                "sha256": "3e2fd0f9fbdbaacab9e9d36fa0097001fa886bd36007690f1b857c6817a5260e"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-hanford-plaza-terrain-continuation-v5-20261005/sheets/6-SW-11C/terrain/TERRAIN(TB)/T15000264000106E10/T15000264000106E10.gltf",
+                "sha256": "3560e7d5d0de618b61aa6cef97b21cfb71224f9c551cc2ef8284f726f4084352"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "75b4cdc3397e899bccbd396aa62b74f3f255f4921795f00170a1f3dcce361a3b",
+      "bytes": 900135
+    }
+  ],
+  "estimatedBases": []
+}

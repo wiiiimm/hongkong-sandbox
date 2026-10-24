@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-harbourview-horizon-mask-20260929/plan.json",
+  "areas": [
+    {
+      "area": "Harbourview Horizon original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-harbourview-horizon-mask-20260929/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-237402-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-harbourview-horizon-mask-20260929/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "610723b35b457fe8bc3e5cada328d392c30b41a39d1da008b89e012e63bf8f31"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-237402-0.json": "d55c4e713b8727f4e0d6d1be4934648a4069c69f8fb1b025aa7550831828099e",
+    "3d-viewer/city/data/official-models/government-xl-harbourview-horizon-mask-20260929/catalogue.json": "0444000dbb5543d4be94d013d625a865dd73cd6dc1168f455619fdfa60e2c4b4",
+    "3d-viewer/city/data/manifest.json": "a0bacbcb85bed0f14685c36d166a537c03ca0e402a3ab91d64f8280878e970e0"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "88632e95945f03e92cec2d27e4263c7538ff4d60",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-237402-0.json",
+      "resolution": 5,
+      "area": "Harbourview Horizon government terrain with retained neighbor ground",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "83817ca6be6007c1a836935a0e8ca3e402525ece71a4015fed92422f62c7e5bf",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-NW-25D",
+            "sourceETag": "\"2e22a57-63dcdf6ab9e4e\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-25D/terrain/TERRAIN(TB)/T36750180000106E12/T36750180000106E12.bin",
+                "sha256": "9305b317cff40ac7f3f6f174573b7945b1b88f36773b812f0748f8a6ab990eb4"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-25D/terrain/TERRAIN(TB)/T36750180000106E12/T36750180000106E12.gltf",
+                "sha256": "22903683a7604eea7e45cb068818ec434ba9145295b73e73597a89b6fc14b3a8"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "d55c4e713b8727f4e0d6d1be4934648a4069c69f8fb1b025aa7550831828099e",
+      "bytes": 1873887
+    }
+  ],
+  "estimatedBases": []
+}

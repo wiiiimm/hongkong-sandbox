@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "docs/astra-city/government-import/government-xl-mount-verdant-two-unchanged-installed-v1-20261011/atomic-plan.json",
+  "areas": [
+    {
+      "area": "Mount Verdant complete unchanged original podium and tower",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-terrain-recovery-mount-verdant-two-typed-stage-v1-20261011/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-government-xl-mount-verdant-original-pair-installed-v1-20261011.json": null,
+    "3d-viewer/city/data/official-models/government-xl-terrain-recovery-mount-verdant-two-typed-stage-v1-20261011/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "b61c0bc2d706793c7d436ef3334ccb41e93675d3d50c29818a2dca3b56f8830e"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-government-xl-mount-verdant-original-pair-installed-v1-20261011.json": "00afbe63bb404dc325923596687ccb398f8c4600703b465cbfcb94dbad13468b",
+    "3d-viewer/city/data/official-models/government-xl-terrain-recovery-mount-verdant-two-typed-stage-v1-20261011/catalogue.json": "bffeffd99b346ca43c8ad524e02d698fed262acafc7be7bd2918c21e1513cdcb",
+    "3d-viewer/city/data/manifest.json": "d152dca423d23b3bdb21a06786dd01980a5ab86b8bab75646d2ee6cd0a387c43"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "9c8aa6bac056052cd28993c46da7b2a60b727cfe",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-government-xl-mount-verdant-original-pair-installed-v1-20261011.json",
+      "resolution": 5,
+      "area": "Mount Verdant complete unchanged original podium and tower complete authentic finite native TIN restoration",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "d02930a43f90e6f506eaf98a0757ca8c4ef13c5ea2bbbb760058976f2eed33b1",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "11-NE-25A",
+            "sourceETag": "\"2be4fda-63dcdb0ae9111\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-full-cell-34-sequence-20261006-261717-0/sheets/11-NE-25A/terrain/TERRAIN(TB)/T43500186000106E10/T43500186000106E10.bin",
+                "sha256": "bb8b38854037bfd40364de65a57557ca1296c9c4fefaf8fb5fda05b52623a7e6"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-full-cell-34-sequence-20261006-261717-0/sheets/11-NE-25A/terrain/TERRAIN(TB)/T43500186000106E10/T43500186000106E10.gltf",
+                "sha256": "e1c86cfe0cd9c726e574b2e217d30e513270151cf8da0aba2949e0fec7473130"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "00afbe63bb404dc325923596687ccb398f8c4600703b465cbfcb94dbad13468b",
+      "bytes": 2076857
+    }
+  ],
+  "estimatedBases": []
+}

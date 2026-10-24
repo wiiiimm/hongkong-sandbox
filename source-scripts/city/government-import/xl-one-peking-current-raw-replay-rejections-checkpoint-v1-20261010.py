@@ -1,0 +1,10 @@
+"""Preserve two strict raw replay rejections without source rejection or acceptance."""
+import json,importlib.util
+from pathlib import Path
+from run import ROOT,HERE,save
+BATCH='government-xl-one-peking-current-raw-replay-rejections-checkpoint-v1-20261010';DOC=ROOT/'docs/astra-city/government-import'/BATCH
+assert not DOC.exists()
+for version,cause in [('v1','Manual replay attached current route fields after exact-cell wrapper, unlike raw file verifier.'),('v2','Route nesting fixed, but manual complete projection and independently loaded legacy projection differed in 14 last-bit metric fields; strict entire proof equality rejected.')]:
+ save(DOC/(version+'-strict-rejection.json'),dict(error='AssertionError: Complete raw full-cell identity changed',cause=cause,identityAccepted=False,physicalAccepted=False,installationApproved=False,sourceCorruptionClaim=False,numericToleranceAdded=False))
+refs=[Path(__file__)]+[HERE/f for f in ['one_peking_current_bound_installed_foreign_identity_20261010.py','one_peking_current_bound_installed_foreign_identity_v2_20261010.py','xl-one-peking-current-bound-installed-foreign-promotion-v1-20261010.py','xl-one-peking-current-bound-installed-foreign-promotion-v2-20261010.py','test_one_peking_current_bound_installed_foreign_identity_v2_20261010.py']]+[DOC.parent/'government-xl-one-peking-current-raw-replay-order-diagnostic-v1-20261010/diagnostic.json']
+s=importlib.util.spec_from_file_location('peking_replay_negative_fence',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.freeze(BATCH,'strict-current-raw-replay-rejections-v1',refs,dict(uids=['landsd/233985:0'],identityAccepted=False,physicalAccepted=False,sourceGeometryChanges=0,numericToleranceAdded=False,qualification='Both failed strict replay attempts are preserved. Separate v3 uses the unchanged real file pipeline and independent complete-record checks; no raw equality weakening, permanent source rejection, model edit or physical credit.'))

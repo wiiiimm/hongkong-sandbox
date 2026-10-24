@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_exact_negative_face_views_v1_20261024.py", line 63, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_exact_negative_face_views_v1_20261024.py", line 53, in main
+    if color=='none':ax.add_collection3d(Line3DCollection([np.vstack([poly,poly[:1]])for poly in polys],colors='#29854a',linewidths=.6))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/mpl_toolkits/mplot3d/axes3d.py", line 2875, in add_collection3d
+    self.auto_scale_xyz(*np.array(col._segments3d).transpose(),
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: setting an array element with a sequence. The requested array has an inhomogeneous shape after 1 dimensions. The detected shape was (90,) + inhomogeneous part.

@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-hoi-wing-complete-proof-installed-20261006/plan.json",
+  "areas": [
+    {
+      "area": "Hoi Wing House original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-hoi-wing-complete-proof-installed-20261006/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-313032-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-hoi-wing-complete-proof-installed-20261006/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "d67a04e0210c2f6d5054d233546d29c68a597db3d3ba2c7d76b7a4a0e0d4fa4e"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-313032-0.json": "355d804c902e1673d0f17b5c8955420f1c588181c9b6ab1582d9a854ae78b57b",
+    "3d-viewer/city/data/official-models/government-xl-hoi-wing-complete-proof-installed-20261006/catalogue.json": "9ac9474baa0a113c1785cc5205cae4f59f03a1226d2613b1655515d058dddb61",
+    "3d-viewer/city/data/manifest.json": "f5f4118106ced0012714dfe93416195816900b55854a0c5708782aff36f72233"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "8ac9e7df1aec9d076f6f0697132d7eb878e5baca",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-313032-0.json",
+      "resolution": 5,
+      "area": "Hoi Wing House unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "3653f1d144f144c9e48909d5850b8168b9f4ad1f01f879e12138f66b6e671fd3",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-NW-13A",
+            "sourceETag": "\"378048f-64e62d580f4f3\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-market-in-native-terrain-group-20261005/sheets/11-NW-13A/terrain/TERRAIN(TB)/T33000210000106E13/T33000210000106E13.bin",
+                "sha256": "7b3875a426c3d9a5c47ebaa3262fb9db561473de8dc504f5b67d1932ad26a29a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-market-in-native-terrain-group-20261005/sheets/11-NW-13A/terrain/TERRAIN(TB)/T33000210000106E13/T33000210000106E13.gltf",
+                "sha256": "be43d9041e9671bc27cd48e83d7b6eaac2f68dae1ab21fc433283748a2c5940d"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "355d804c902e1673d0f17b5c8955420f1c588181c9b6ab1582d9a854ae78b57b",
+      "bytes": 2472086
+    }
+  ],
+  "estimatedBases": []
+}

@@ -1,0 +1,755 @@
+{
+  "actualFailure": null,
+  "beforeEndAllDeclaredPinsVerified": true,
+  "bindingValidationRef": {
+    "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/binding-validation.json",
+    "sha256": "b37902063bebfe0f23d15de33a1d2aeea933a0a1ecbb3fcf7e9a9d42404346a5"
+  },
+  "caller": {
+    "path": "source-scripts/city/government-import/polyu_parent_cell_actual_production_capture_v3_draft_20261014.py",
+    "sha256": "d51bd467f9d5f82698091e8e88c91fe8d253a0c1c3869b10324653a382ae4cfe"
+  },
+  "commands": [
+    {
+      "command": [
+        "/tmp/astra-city-venv/bin/python",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py"
+      ],
+      "exitCode": 0,
+      "label": "eight-binding-fixtures",
+      "logRef": {
+        "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/eight-binding-fixtures.log",
+        "sha256": "fa40884a8f0b4d0d9a0762bc88fdbe66438237d243446772e06e0a8672191e0a"
+      }
+    },
+    {
+      "command": [
+        "/tmp/astra-city-venv/bin/python",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/prepare-readonly-v3.py",
+        "--import-child"
+      ],
+      "exitCode": 0,
+      "label": "isolated-import",
+      "logRef": {
+        "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/isolated-import.log",
+        "sha256": "596e1939e133524cadab866a0979d8dfba531e1a1652c53283b1a12b365577eb"
+      }
+    },
+    {
+      "command": [
+        "/tmp/astra-city-venv/bin/python",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_parent_cell_actual_production_capture_v3_draft_20261014.py",
+        "--schema-only"
+      ],
+      "exitCode": 0,
+      "label": "schema-only",
+      "logRef": {
+        "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/schema-only.log",
+        "sha256": "444836e7bc5c9097f34ab3a3e3654735aece9e705035ef35f3f24d643346b802"
+      }
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs"
+      ],
+      "exitCode": 0,
+      "label": "runtime-syntax",
+      "logRef": {
+        "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/runtime-syntax.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "command": [
+        "node",
+        "--input-type=module",
+        "-e",
+        "import {snapshotModuleClosure,verifyModuleClosure} from './source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';import {pathToFileURL} from 'node:url';import assert from 'node:assert/strict';const root=pathToFileURL(process.cwd()+'/');const rows=process.argv.slice(1).map(p=>snapshotModuleClosure(new URL(p,root),root));for(const c of rows){assert.equal(c.schema,'exact-literal-static-dynamic-resource-closure-v1');assert(c.computedImportsRejected&&c.completeAuditedLiteralImportClosure&&c.opaqueResourcesAreNotParsedModules);assert.equal(c.unsupportedDynamicImports,0);assert.deepEqual(Object.keys(c.inputHashes).sort(),[...c.modules,...c.resources].sort());verifyModuleClosure(c,root);}console.log(JSON.stringify(rows));",
+        "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs"
+      ],
+      "exitCode": 0,
+      "label": "strict-literal-runtime-closures",
+      "logRef": {
+        "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/strict-literal-runtime-closures.log",
+        "sha256": "12f06a2a1b1f19fb22e20ea320f710483e724a7b989e5fa8d14e5647f0dfc18b"
+      }
+    }
+  ],
+  "completeStrictLiteralRuntimeClosures": [
+    {
+      "completeAuditedLiteralImportClosure": true,
+      "computedImportsRejected": true,
+      "entryPath": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+      "importEdges": [
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:fs"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:zlib"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:crypto"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:assert/strict"
+        },
+        {
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "./exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs",
+          "to": "source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:fs"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:crypto"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:assert/strict"
+        },
+        {
+          "from": "source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "./dependency-closure-vendor/acorn-8.8.1/acorn.mjs",
+          "to": "source-scripts/city/government-import/dependency-closure-vendor/acorn-8.8.1/acorn.mjs"
+        },
+        {
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "./exact_incremental_json_gzip_v1_20261012.mjs",
+          "to": "source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:assert/strict"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:fs"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:stream"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:stream/promises"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:zlib"
+        },
+        {
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "literal-dynamic",
+          "specifier": "../../../3d-viewer/city/world.js",
+          "to": "3d-viewer/city/world.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-bake-client.js",
+          "to": "3d-viewer/city/building-bake-client.js"
+        },
+        {
+          "from": "3d-viewer/city/building-bake-client.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/vendor/BufferGeometryUtils.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./terrain-patch-index.js",
+          "to": "3d-viewer/city/terrain-patch-index.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./rendered-patch-height.js",
+          "to": "3d-viewer/city/rendered-patch-height.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/native-terrain.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./exact-finite-triangle-projection.js",
+          "to": "3d-viewer/city/exact-finite-triangle-projection.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/BufferGeometryUtils.js",
+          "to": "3d-viewer/vendor/BufferGeometryUtils.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tai-o-estimates.js",
+          "to": "3d-viewer/city/tai-o-estimates.js"
+        },
+        {
+          "from": "3d-viewer/city/building-geometry.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-byte-cache.js",
+          "to": "3d-viewer/city/model-byte-cache.js"
+        },
+        {
+          "from": "3d-viewer/city/model-byte-cache.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./streaming-metrics.js",
+          "to": "3d-viewer/city/streaming-metrics.js"
+        },
+        {
+          "from": "3d-viewer/city/geo.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./model-collision.js",
+          "to": "3d-viewer/city/model-collision.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./lighting.js",
+          "to": "3d-viewer/city/lighting.js"
+        },
+        {
+          "from": "3d-viewer/city/lighting.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./building-geometry.js",
+          "to": "3d-viewer/city/building-geometry.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./tidal-water.js",
+          "to": "3d-viewer/city/tidal-water.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../water-surface.js",
+          "to": "3d-viewer/water-surface.js"
+        },
+        {
+          "from": "3d-viewer/city/tidal-water.js",
+          "kind": "ImportDeclaration",
+          "specifier": "../shoreline-surface.js",
+          "to": "3d-viewer/shoreline-surface.js"
+        },
+        {
+          "from": "3d-viewer/shoreline-surface.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./vendor/three.module.js",
+          "to": "3d-viewer/vendor/three.module.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./native-terrain.js?v=20261010-finite1",
+          "to": "3d-viewer/city/native-terrain.js"
+        },
+        {
+          "from": "3d-viewer/city/world.js",
+          "kind": "ImportDeclaration",
+          "specifier": "./road-surface.js",
+          "to": "3d-viewer/city/road-surface.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "literal-dynamic",
+          "specifier": "../../../3d-viewer/city/geo.js",
+          "to": "3d-viewer/city/geo.js"
+        },
+        {
+          "from": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+          "kind": "literal-dynamic",
+          "specifier": "./upton_six_basic_guard_samples_v1_20261012.mjs",
+          "to": "source-scripts/city/government-import/upton_six_basic_guard_samples_v1_20261012.mjs"
+        },
+        {
+          "builtin": true,
+          "from": "source-scripts/city/government-import/upton_six_basic_guard_samples_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "node:assert/strict"
+        },
+        {
+          "from": "source-scripts/city/government-import/upton_six_basic_guard_samples_v1_20261012.mjs",
+          "kind": "ImportDeclaration",
+          "specifier": "../../../3d-viewer/city/geo.js",
+          "to": "3d-viewer/city/geo.js"
+        }
+      ],
+      "inputHashes": {
+        "3d-viewer/city/building-bake-client.js": "e296d0b1f982e4562565f9ade1e43b16ef8d514a2149e48d38aaf669a8672f3d",
+        "3d-viewer/city/building-geometry.js": "15b01b5953cb6a413b2eba226178919d023483a950b0003e3e18b962a2c0c46e",
+        "3d-viewer/city/exact-finite-triangle-projection.js": "4fde0c822dfdfc183944cbd2e6aa2bb501494eec7e0782da9c5fa9431542690c",
+        "3d-viewer/city/geo.js": "cd0eace45c6843d5051c023bbff7a5dab5c8fee2a691f5379f23acd14487ede8",
+        "3d-viewer/city/lighting.js": "89dfe234920f7f0acef2b22400565092da46b4c6efc0de3f8d5f85e257889f5c",
+        "3d-viewer/city/model-byte-cache.js": "94b3c2ee7a3c81ec7fa13425ed46f0fd566c789e599c52b4d3ac47563021046a",
+        "3d-viewer/city/model-collision.js": "180f37afd06ddc47af406602ec0b76b50acb8e4f6192d8f4ec3ead69946aba07",
+        "3d-viewer/city/native-terrain.js": "e19c3cbe74a2b44ee62b6df682506f043ff969161eefd6fa252f87c7c60ae607",
+        "3d-viewer/city/rendered-patch-height.js": "b688d3917b0a6223d29da027db7acea560de49b66b01d2eaf27cfa76463c680c",
+        "3d-viewer/city/road-surface.js": "5215a1c01e650a9095e9e443cf11f1fd2165efb7273e30995e86d32f05176ed7",
+        "3d-viewer/city/streaming-metrics.js": "43e8b029c518acf7bfe632e5cbb5d272298292cd20d97ab8b559c09545f48d16",
+        "3d-viewer/city/tai-o-estimates.js": "c8c995786de60bac4465881485cb1769bc78f3de31ccc2160be8aeb58c559938",
+        "3d-viewer/city/terrain-patch-index.js": "1fd3f1f5a7a0f057039b51e5800ff4d8b989f54ae5b059c591ad31bd5cab7f7b",
+        "3d-viewer/city/tidal-water.js": "a756320c9fa61ba71876b20039df2a90e1bafabce204086a3d6cfba8fb6a9dca",
+        "3d-viewer/city/world.js": "395ef41515ace0a26d5f23d5c3ba72efa56aacc4692d2bedf77b5d353d948b32",
+        "3d-viewer/shoreline-surface.js": "561fb16b114611201c7ea7fd404dac249a578e46960eebad10421a15a34842bc",
+        "3d-viewer/vendor/BufferGeometryUtils.js": "26a65843de7e1ea7b8dace9ef153ccaa3f8a77d3fed717641ad33e204674c357",
+        "3d-viewer/vendor/three.module.js": "76dea8151bc9352aef3528b4262e249b2604f62543828328db978d060d61a495",
+        "3d-viewer/water-surface.js": "b5c35573ed7224677224479853324a7d7c565e297d27286080229fb5d7d28008",
+        "source-scripts/city/government-import/dependency-closure-vendor/acorn-8.8.1/acorn.mjs": "a8524d1734aecc543068d3c801aba2b6ad8f68dd7d751bace79d783f8ecd9e55",
+        "source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs": "e5cfacfaf2361a0ce4444ee02f082a1341d8aa033ce8da432ff34b56d13ee6d9",
+        "source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs": "c91ebfa352d1f610c832f882ff1e156ab0c3a4e1c04a9d4d44937e0234238579",
+        "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs": "0fdc5808971c10d3101feede2bc8527a8ba9a24fd501fc5d5edabf610e76de19",
+        "source-scripts/city/government-import/upton_six_basic_guard_samples_v1_20261012.mjs": "af95124db793e5350d8e770fcc59697809e8becdec058a423a3019a95a3b4cb2"
+      },
+      "modules": [
+        "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+        "source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs",
+        "source-scripts/city/government-import/dependency-closure-vendor/acorn-8.8.1/acorn.mjs",
+        "source-scripts/city/government-import/exact_incremental_json_gzip_v1_20261012.mjs",
+        "3d-viewer/city/world.js",
+        "3d-viewer/city/streaming-metrics.js",
+        "3d-viewer/city/building-bake-client.js",
+        "3d-viewer/vendor/three.module.js",
+        "3d-viewer/vendor/BufferGeometryUtils.js",
+        "3d-viewer/city/geo.js",
+        "3d-viewer/city/terrain-patch-index.js",
+        "3d-viewer/city/rendered-patch-height.js",
+        "3d-viewer/city/native-terrain.js",
+        "3d-viewer/city/exact-finite-triangle-projection.js",
+        "3d-viewer/city/building-geometry.js",
+        "3d-viewer/city/tai-o-estimates.js",
+        "3d-viewer/city/model-byte-cache.js",
+        "3d-viewer/city/model-collision.js",
+        "3d-viewer/city/lighting.js",
+        "3d-viewer/city/tidal-water.js",
+        "3d-viewer/water-surface.js",
+        "3d-viewer/shoreline-surface.js",
+        "3d-viewer/city/road-surface.js",
+        "source-scripts/city/government-import/upton_six_basic_guard_samples_v1_20261012.mjs"
+      ],
+      "opaqueResourcesAreNotParsedModules": true,
+      "resourceEdges": [],
+      "resources": [],
+      "schema": "exact-literal-static-dynamic-resource-closure-v1",
+      "unsupportedDynamicImports": 0
+    }
+  ],
+  "declaredCodeRefs": 87,
+  "declaredInputRefs": 14941,
+  "endPinFailures": [],
+  "evidenceRefs": [
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/binding-validation.json",
+      "sha256": "b37902063bebfe0f23d15de33a1d2aeea933a0a1ecbb3fcf7e9a9d42404346a5"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/eight-binding-fixtures.log",
+      "sha256": "fa40884a8f0b4d0d9a0762bc88fdbe66438237d243446772e06e0a8672191e0a"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/isolated-import.log",
+      "sha256": "596e1939e133524cadab866a0979d8dfba531e1a1652c53283b1a12b365577eb"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/runtime-syntax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/schema-only.log",
+      "sha256": "444836e7bc5c9097f34ab3a3e3654735aece9e705035ef35f3f24d643346b802"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/closed-readonly-preparation/strict-literal-runtime-closures.log",
+      "sha256": "12f06a2a1b1f19fb22e20ea320f710483e724a7b989e5fa8d14e5647f0dfc18b"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/draft-pins.json",
+      "sha256": "ae662ccee7ee3d698f7569b7d8aa773c42bfd7b6bd5afbe5fe93ee0a5541ffc4"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/prepare-readonly-v3.py",
+      "sha256": "39c0eb4f5104b5368dab256630cc25b6639dcfa932ea11aac598fc4bd111d2d8"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_distinct_evidence_refs_v1_20261014.py",
+      "sha256": "73f7581d27713aed4695349cc63879d6285c06c54175eb735c886a934d1365c0"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_original_closed_projection_intersection_20261010.py",
+      "sha256": "ca7dd0ea96a32e80e01c56421d53e20e44aeb8c03402062c7545db0c2fdd1fb6"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_original_paired_finite_clearance_v3_20261011.py",
+      "sha256": "360b30103ff0d6556418a20be83423fba1cf8076b94d37701a95a1453e538228"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_original_projection_coverage_20261009.py",
+      "sha256": "d9a309d9bdf10611a4f528b842de954b67d3fe3cf644ee2c4fe433c51ac8ead6"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_original_projection_coverage_v2_20261010.py",
+      "sha256": "5216b2f75054ee005fe5b1d425f8cc4237b6aa87e805fb042b70f247ac7062ef"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_face891_outside_float32_cell_enclosure_v1_draft_20261014.py",
+      "sha256": "cae168b16ecb56cf25f340c8fa467382825bbd0a0da25f83f24c3760a3f26b96"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_face891_saved_packed_closed_coverage_v1_draft_20261014.py",
+      "sha256": "b7853d45fa09c1b0ab1a81a3fd7b5e75b5b904b1b6d3867cebe1590db67875a4"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_five_eligible_current_parent_nomination_v3_20261014.py",
+      "sha256": "1ff5dcdccb81087c09368db5f0913e7433f6a34d4236593c9099175551e8b16d"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_five_mask_positive_hit_partition_v3_draft_20261014.py",
+      "sha256": "86afdbc7bbcdfa2e6076f160e40b5aa6df9f21e90542007ad9e6e9f39c8b297d"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_five_mask_source_plane_partition_fast_v1_20261014.py",
+      "sha256": "21cc57e2706a405ff300ab33052ff7c8c2509c0f8ca332de7aa2597268a378a4"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_five_mask_source_plane_partition_v1_20261014.py",
+      "sha256": "6b954b5402c6a7fbd106ad55d891ef5df433fe24036129b40257b62bf8de7ba3"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_nine_basic_saved_height_context_draft_v1_20261013.py",
+      "sha256": "b201ce3e18c429b233aafc21ed013259506ee72ff2de0475a861b1da9e24623e"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_nine_basic_saved_height_leased_wrapper_v1_20261013.py",
+      "sha256": "4d676240a7357b35f1041e17979078eaf76ee3454171c15958f00cbb4d5c9cff"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_nine_complete_parent_restoration_feasibility_v1_20261013.py",
+      "sha256": "c9117b0c42e95947771ef397fc1fb57f918876891ebca7bed8a67dab2dd2794a"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_parent_cell_actual_production_capture_v3_draft_20261014.py",
+      "sha256": "d51bd467f9d5f82698091e8e88c91fe8d253a0c1c3869b10324653a382ae4cfe"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py",
+      "sha256": "69af2bbd340fa0ffa9805d7eafdc93df0363d12cba6fdaeead0e18e1e4d75da6"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_v3_computed_outside_enclosure_adapter_draft_20261014.py",
+      "sha256": "55f7cba1e7d1f7b7bc364020224f4825d1faaab395c9bf83d84d6bfbae9ad2dd"
+    },
+    {
+      "path": "source-scripts/city/government-import/run.py",
+      "sha256": "ba5afd61d5c6a0415d305b652140e82816dc87ca0b782fa225a2d7faa8ea7c04"
+    },
+    {
+      "path": "source-scripts/city/government-import/southside_exact_private_terrain_adapter_v1_20261012.py",
+      "sha256": "c752dcbda4ca904d3a3b4dd738e29b87f94cf7d7422dcbcbe9b0bf5deca27089"
+    },
+    {
+      "path": "source-scripts/city/government-import/southside_saved_local_core_parent_adapter_v3_20261012.py",
+      "sha256": "012622b4270142d34c06b846bcb2ea1ba0971295b9b5ed3a80d128bee9067414"
+    },
+    {
+      "path": "source-scripts/city/government-import/upton_six_basic_preserved_ground_feasibility_v1_20261012.py",
+      "sha256": "ffd06d47f6fbdd901954c4bbc5aca5415009bfffe685f7cbafcbdf2ee4cd201a"
+    },
+    {
+      "path": "source-scripts/city/shared-modelling/db.py",
+      "sha256": "42b750c758a93c5b286fcca33f3da6c7c4f82004e2b2fc26b9a6d1caf03618f8"
+    },
+    {
+      "path": "source-scripts/city/shared-modelling/jobs.py",
+      "sha256": "78c3fc92200b6232fe8a19250cd26309020249b62ad7e41d394aba6c5a9edcce"
+    },
+    {
+      "path": "source-scripts/city/shared-modelling/reservations.py",
+      "sha256": "6d5a69c4fa8eb10225ccd80aeb269b714ea4b65be79dc1826c62c3e8bb325c9c"
+    }
+  ],
+  "exactSourceActorInputsReusedFromJob": "8f204d9c83bc0cc6ca45bb56da6da2fb8b70255c5af6c7dd37f346f73aceae9e",
+  "noProductionRuntimeImportOrNativeDecodeOrFiniteDBLease": true,
+  "passed": true,
+  "runtime": {
+    "path": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+    "sha256": "0fdc5808971c10d3101feede2bc8527a8ba9a24fd501fc5d5edabf610e76de19"
+  },
+  "schemaVerbatim": {
+    "allOriginalNine3366GuardSitesNeedActualReplay": true,
+    "allOriginalPositionIncludingUnusedPrefixRetained": true,
+    "caller": {
+      "path": "source-scripts/city/government-import/polyu_parent_cell_actual_production_capture_v3_draft_20261014.py",
+      "sha256": "d51bd467f9d5f82698091e8e88c91fe8d253a0c1c3869b10324653a382ae4cfe"
+    },
+    "canonicalResources": [
+      "building:landsd/114494:0",
+      "building:landsd/198620:0",
+      "building:landsd/235076:0",
+      "building:landsd/257998:0",
+      "building:landsd/258381:0",
+      "building:landsd/258382:0",
+      "building:landsd/258679:0",
+      "building:landsd/258680:0",
+      "building:landsd/258681:0",
+      "building:landsd/258682:0",
+      "building:landsd/258851:0",
+      "building:landsd/258852:0",
+      "building:landsd/305582:0",
+      "building:landsd/305585:0",
+      "building:landsd/305600:0",
+      "building:landsd/305626:0",
+      "building:landsd/305627:0",
+      "building:landsd/305643:0",
+      "building:landsd/305644:0",
+      "building:landsd/305649:0",
+      "building:landsd/305793:0",
+      "building:landsd/305828:0",
+      "building:landsd/63758:0",
+      "building:landsd/72322:0",
+      "building:landsd/89540:0",
+      "immutable-source-proof:government-xl-polyu-parent-cell-actual-production-capture-v3-20261014",
+      "terrain-patch:landsd/114494:0",
+      "terrain-patch:landsd/198620:0",
+      "terrain-patch:landsd/235076:0",
+      "terrain-patch:landsd/257998:0",
+      "terrain-patch:landsd/258381:0",
+      "terrain-patch:landsd/258382:0",
+      "terrain-patch:landsd/258679:0",
+      "terrain-patch:landsd/258680:0",
+      "terrain-patch:landsd/258681:0",
+      "terrain-patch:landsd/258682:0",
+      "terrain-patch:landsd/258851:0",
+      "terrain-patch:landsd/258852:0",
+      "terrain-patch:landsd/305582:0",
+      "terrain-patch:landsd/305585:0",
+      "terrain-patch:landsd/305600:0",
+      "terrain-patch:landsd/305626:0",
+      "terrain-patch:landsd/305627:0",
+      "terrain-patch:landsd/305643:0",
+      "terrain-patch:landsd/305644:0",
+      "terrain-patch:landsd/305649:0",
+      "terrain-patch:landsd/305793:0",
+      "terrain-patch:landsd/305828:0",
+      "terrain-patch:landsd/63758:0",
+      "terrain-patch:landsd/72322:0",
+      "terrain-patch:landsd/89540:0"
+    ],
+    "complete832And1485PrefixHashPreserved": true,
+    "completeActors": 25,
+    "completeNewNativeFacets": 147096,
+    "completeNewRawSHA256": "c1dedfab82f84f9ea9030520dcbd245f49ac20d95850e611f0f5b7260656bbae",
+    "completedNominationJob": "8498231ef6c41af333a3d8897cf82fff4bc97532548165a0b184e98e76423aad",
+    "currentParent12MappingComplete": true,
+    "fullParentCellProofReferencesResolved": true,
+    "fullParentGridNodes": 1247,
+    "noProductionImportCaptureSourceCalculationDBLeaseWorker": true,
+    "oldPrivate3214MappingComplete": true,
+    "parentCell8011UnchangedAnd24448RegionsBound": true,
+    "passed": true,
+    "runtime": {
+      "path": "source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs",
+      "sha256": "0fdc5808971c10d3101feede2bc8527a8ba9a24fd501fc5d5edabf610e76de19"
+    },
+    "wholeNative59527BeforeAfterPending": true,
+    "wholeOwned10536FourWorldAnd752Negatives21RolesRetained": true
+  },
+  "transitiveLocalCodeRefs": [
+    {
+      "path": "docs/astra-city/government-import/government-xl-polyu-parent-cell-actual-production-capture-v3-20261014-proposal/prepare-readonly-v3.py",
+      "sha256": "39c0eb4f5104b5368dab256630cc25b6639dcfa932ea11aac598fc4bd111d2d8"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_distinct_evidence_refs_v1_20261014.py",
+      "sha256": "73f7581d27713aed4695349cc63879d6285c06c54175eb735c886a934d1365c0"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_original_closed_projection_intersection_20261010.py",
+      "sha256": "ca7dd0ea96a32e80e01c56421d53e20e44aeb8c03402062c7545db0c2fdd1fb6"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_original_paired_finite_clearance_v3_20261011.py",
+      "sha256": "360b30103ff0d6556418a20be83423fba1cf8076b94d37701a95a1453e538228"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_original_projection_coverage_20261009.py",
+      "sha256": "d9a309d9bdf10611a4f528b842de954b67d3fe3cf644ee2c4fe433c51ac8ead6"
+    },
+    {
+      "path": "source-scripts/city/government-import/exact_original_projection_coverage_v2_20261010.py",
+      "sha256": "5216b2f75054ee005fe5b1d425f8cc4237b6aa87e805fb042b70f247ac7062ef"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_face891_outside_float32_cell_enclosure_v1_draft_20261014.py",
+      "sha256": "cae168b16ecb56cf25f340c8fa467382825bbd0a0da25f83f24c3760a3f26b96"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_face891_saved_packed_closed_coverage_v1_draft_20261014.py",
+      "sha256": "b7853d45fa09c1b0ab1a81a3fd7b5e75b5b904b1b6d3867cebe1590db67875a4"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_five_eligible_current_parent_nomination_v3_20261014.py",
+      "sha256": "1ff5dcdccb81087c09368db5f0913e7433f6a34d4236593c9099175551e8b16d"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_five_mask_positive_hit_partition_v3_draft_20261014.py",
+      "sha256": "86afdbc7bbcdfa2e6076f160e40b5aa6df9f21e90542007ad9e6e9f39c8b297d"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_five_mask_source_plane_partition_fast_v1_20261014.py",
+      "sha256": "21cc57e2706a405ff300ab33052ff7c8c2509c0f8ca332de7aa2597268a378a4"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_five_mask_source_plane_partition_v1_20261014.py",
+      "sha256": "6b954b5402c6a7fbd106ad55d891ef5df433fe24036129b40257b62bf8de7ba3"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_nine_basic_saved_height_context_draft_v1_20261013.py",
+      "sha256": "b201ce3e18c429b233aafc21ed013259506ee72ff2de0475a861b1da9e24623e"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_nine_basic_saved_height_leased_wrapper_v1_20261013.py",
+      "sha256": "4d676240a7357b35f1041e17979078eaf76ee3454171c15958f00cbb4d5c9cff"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_nine_complete_parent_restoration_feasibility_v1_20261013.py",
+      "sha256": "c9117b0c42e95947771ef397fc1fb57f918876891ebca7bed8a67dab2dd2794a"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_parent_cell_actual_production_capture_v3_draft_20261014.py",
+      "sha256": "d51bd467f9d5f82698091e8e88c91fe8d253a0c1c3869b10324653a382ae4cfe"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_saved_parent_cell_capture_binding_v3_draft_20261014.py",
+      "sha256": "69af2bbd340fa0ffa9805d7eafdc93df0363d12cba6fdaeead0e18e1e4d75da6"
+    },
+    {
+      "path": "source-scripts/city/government-import/polyu_v3_computed_outside_enclosure_adapter_draft_20261014.py",
+      "sha256": "55f7cba1e7d1f7b7bc364020224f4825d1faaab395c9bf83d84d6bfbae9ad2dd"
+    },
+    {
+      "path": "source-scripts/city/government-import/run.py",
+      "sha256": "ba5afd61d5c6a0415d305b652140e82816dc87ca0b782fa225a2d7faa8ea7c04"
+    },
+    {
+      "path": "source-scripts/city/government-import/southside_exact_private_terrain_adapter_v1_20261012.py",
+      "sha256": "c752dcbda4ca904d3a3b4dd738e29b87f94cf7d7422dcbcbe9b0bf5deca27089"
+    },
+    {
+      "path": "source-scripts/city/government-import/southside_saved_local_core_parent_adapter_v3_20261012.py",
+      "sha256": "012622b4270142d34c06b846bcb2ea1ba0971295b9b5ed3a80d128bee9067414"
+    },
+    {
+      "path": "source-scripts/city/government-import/upton_six_basic_preserved_ground_feasibility_v1_20261012.py",
+      "sha256": "ffd06d47f6fbdd901954c4bbc5aca5415009bfffe685f7cbafcbdf2ee4cd201a"
+    },
+    {
+      "path": "source-scripts/city/shared-modelling/db.py",
+      "sha256": "42b750c758a93c5b286fcca33f3da6c7c4f82004e2b2fc26b9a6d1caf03618f8"
+    },
+    {
+      "path": "source-scripts/city/shared-modelling/jobs.py",
+      "sha256": "78c3fc92200b6232fe8a19250cd26309020249b62ad7e41d394aba6c5a9edcce"
+    },
+    {
+      "path": "source-scripts/city/shared-modelling/reservations.py",
+      "sha256": "6d5a69c4fa8eb10225ccd80aeb269b714ea4b65be79dc1826c62c3e8bb325c9c"
+    }
+  ]
+}

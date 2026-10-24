@@ -1,0 +1,1 @@
+Additive untouched FBX acquisition, original parser failure, complete successful raw parse and original-format comparison. All584 original triangles exactly equal glTF; the86.27% target coverage hold remains. This is a scope declaration only; root must independently close recursive old/current/provider/source/Neon references. No new metadata leaves or numeric exemptions.

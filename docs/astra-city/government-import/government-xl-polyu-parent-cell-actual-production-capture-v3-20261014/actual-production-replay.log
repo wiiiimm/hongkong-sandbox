@@ -1,0 +1,13 @@
+node:buffer:910
+    return utf8Slice(this, 0, this.length);
+           ^
+
+Error: Cannot create a string longer than 0x1fffffe8 characters
+    at Buffer.toString (node:buffer:910:12)
+    at JSON.parse (<anonymous>)
+    at read (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs:11:45)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/polyu_parent_cell_actual_production_runtime_v3_draft_20261014.mjs:23:15 {
+  code: 'ERR_STRING_TOO_LONG'
+}
+
+Node.js v24.18.0

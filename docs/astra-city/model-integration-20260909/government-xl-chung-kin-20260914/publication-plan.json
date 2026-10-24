@@ -1,0 +1,85 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-chung-kin-20260914/plan.json",
+  "areas": [
+    {
+      "area": "Chung Kin Building original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-chung-kin-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-147024-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-chung-kin-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "ed947c1657c70d8aca4175969e035efba5eda21eb28ed25fae3de35dad3b2c85"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-147024-0.json": "7e04f77d06e70901a91ec2b7862049a542c972b623a0c2e11289ee2e5b26f120",
+    "3d-viewer/city/data/official-models/government-xl-chung-kin-20260914/catalogue.json": "e39a5ad3f9774c23429b6ff156c94f91b949cef4f58a646e47c8adecc0664b35",
+    "3d-viewer/city/data/manifest.json": "58d1473f13c7497f70452237f13bd368fc823aa93d62aeaec5a06bc43c44abfe"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "2219b6d3c74bea5bad44e90ba04fd5edd1cc3298",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-147024-0.json",
+      "resolution": 5,
+      "area": "Chung Kin Building bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "472b3c1fbda1edc5be86c7eb24707197b99df00bfd75cb83d137c3ad0da94091",
+            "revision": "2025-10-27T16:00:00+00:00",
+            "sheet": "11-NW-14C",
+            "sourceETag": "\"440d66d-63dcdcfdb585c\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14C/terrain/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.bin",
+                "sha256": "ce8c13bd90c2f911f43525059fdf63d4634f4ef9ddffd7807faee5c5603063a7"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14C/terrain/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.gltf",
+                "sha256": "cbc41e8a0c28e2f60925e15f4dc662f9e9061a674337ffc4e986ddf86d0e631e"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "24525aae8aea614251fb40cbdb5bacff405e8a8adf34470491ff082b68f784ef",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-19A",
+            "sourceETag": "\"3f39f9d-655fee2e7510c\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-19A/terrain/TERRAIN(TB)/T34500198000106E11/T34500198000106E11.bin",
+                "sha256": "b4adb63936fb7e8ed3a055285b8ba8255db5f1d2e529f6fc9a9b17c766fbd537"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-19A/terrain/TERRAIN(TB)/T34500198000106E11/T34500198000106E11.gltf",
+                "sha256": "8e8f5e51b38964631693796eff1449c9fd100cbe447326e2ea60f057e05c4051"
+              }
+            ]
+          }
+        ],
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "7e04f77d06e70901a91ec2b7862049a542c972b623a0c2e11289ee2e5b26f120",
+      "bytes": 495488
+    }
+  ],
+  "estimatedBases": []
+}

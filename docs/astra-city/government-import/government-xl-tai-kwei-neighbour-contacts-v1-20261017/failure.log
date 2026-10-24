@@ -1,0 +1,15 @@
+{'neighbour': 'landsd/201002:0', 'broadPhasePairs': 3010}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/tai_kwei_neighbour_contacts_v1_20261017.py", line 30, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/tai_kwei_neighbour_contacts_v1_20261017.py", line 25, in main
+    contacts=exact_component_contacts(a,list(range(len(a))),b,list(range(len(b))),maximum_pairs=1000000)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_original_component_contacts_20261009.py", line 44, in exact_component_contacts
+    points = intersection_points(cached_a[fi], cached_b[fj])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_original_shell_intersections_20261009.py", line 63, in intersection_points
+    assert any(na) and any(nb),'Degenerate source triangle'
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: Degenerate source triangle

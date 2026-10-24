@@ -1,0 +1,5 @@
+# Primrose Hill podium: complete physical pass retained
+
+Codex, 7 October 2026. Original podium74573 passed whole government source identity and loader/runtime checks, but remains held. Exact unchanged government terrain buries one non-upward source face (5.714853m2,0.0335746% of surface, gap up to5.838116m). No upward face is wholly buried; the complete strict foundation gate still rejects the buried area. The terrain pass also flags ten basic neighbours, including the three tower source forms. Do not infer installation or architecture acceptance from the two positive tower/support interfaces.
+
+Complete source/terrain hashes,2508 foundation triangle checks,57 neighbour checks and exact reasons are saved in Neon job `2b105eee0b9e1b443d82662258d364de7ac5c58c08056886086628b85905483c`, with exact readback recorded in `neon-sync.json`. Original empty-pending review retained. No geometry changes, height offsets, terrain invention, tolerance increases or external modelling AI calls. Continue independent imports while investigating these recorded physical blockers. Goal remains active.

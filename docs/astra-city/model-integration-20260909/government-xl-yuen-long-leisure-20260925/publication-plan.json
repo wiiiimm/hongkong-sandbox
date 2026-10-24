@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-yuen-long-leisure-20260925/plan.json",
+  "areas": [
+    {
+      "area": "Yuen Long Leisure and Cultural Building original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-yuen-long-leisure-20260925/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-281715-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-yuen-long-leisure-20260925/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "09b41b1b0c57a41fa441502037c4aa65d07f41bcefe1ad044f0fa481dcee5279"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-281715-0.json": "f2aba2ec74614494afb7af2e8840a047a51ded02c0cf8d518723fe8242d162a8",
+    "3d-viewer/city/data/official-models/government-xl-yuen-long-leisure-20260925/catalogue.json": "005023c6d6c000c10d16ece830cc362b90521064b4089fe2b3738f0a817f7645",
+    "3d-viewer/city/data/manifest.json": "6ff02fabf842dc214f24e08c51133e5f69c9a8c164248276995a4e05a744e8e8"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "237f38499c2b1b4e7a5573bbf5c391dbc1c62742",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-281715-0.json",
+      "resolution": 5,
+      "area": "Yuen Long Leisure and Cultural Building exact government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "8acdfab0d019588efe86fb762694f76b61cc04264c7f072df76f124b9d361c86",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "6-NW-14B",
+            "sourceETag": "\"40c1ff7-65677c10cbbcb\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-NW-14B/terrain/TERRAIN(TB)/T20250330000106E10/T20250330000106E10.bin",
+                "sha256": "8ef4a433cd714ddad319beff89e6e44133ec35bd4b82cd5e14c1e8d3abe7e70c"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-NW-14B/terrain/TERRAIN(TB)/T20250330000106E10/T20250330000106E10.gltf",
+                "sha256": "d36204da4cb36c0d37be04f4628ffcc8dfd3cbfd22f29e2109627bd4b7120561"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "f2aba2ec74614494afb7af2e8840a047a51ded02c0cf8d518723fe8242d162a8",
+      "bytes": 423486
+    }
+  ],
+  "estimatedBases": []
+}

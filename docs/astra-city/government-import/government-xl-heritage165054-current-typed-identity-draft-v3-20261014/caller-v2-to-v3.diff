@@ -1,0 +1,41 @@
+--- docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v2-20261014/heritage-current-typed-identity-caller-draft-v2.py
++++ docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v3-20261014/heritage-current-typed-identity-caller-draft-v3.py
+@@ -3,7 +3,7 @@
+ from functools import lru_cache
+ from pathlib import Path
+ PACKET=Path(__file__).resolve().parent;ROOT=PACKET.parents[3];HERE=ROOT/'source-scripts/city/government-import'
+-CONTRACT=PACKET/'input-contract.json';OUTPUT=PACKET/'current-identity-output-v2'
++CONTRACT=PACKET/'input-contract.json';OUTPUT=PACKET/'current-identity-output-v3'
+ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+ def read(p):
+  b=p.read_bytes();return json.loads(gzip.decompress(b)if p.suffix=='.gz'else b)
+@@ -27,13 +27,20 @@
+   actual[key]=sha(path)
+  return actual
+ 
++def require_actual_import_closure(c):
++ path=c['actualImportClosurePath'];assert path in c['filePins'],'ROOT actual import closure must be collected and fully bound before tests'
++ actual=read(ROOT/path);assert actual['completeActualProjectImportClosure']is True and actual['dynamicExecFilesAlsoRecorded']is True
++ assert actual['currentManifestSHA256']==c['currentManifestSHA256']and actual['noDBOrLeaseOrTestExecution']is True
++ for key,h in actual['actualImportedLocalFileHashes'].items():assert key in c['filePins']and c['filePins'][key]==h and sha(ROOT/key)==h,key
++ return actual
++
+ def calculation_inputs():
+  """Unmocked current geometry/whole-cell proof. ROOT tests/normal only; no DB."""
+  import numpy as np
+  sys.path[:0]=[str(PACKET),str(HERE)]
+  from government_georef_cell_identity import verify
+  from exact_original_georef_cell_identity_20261009 import apply_exact_cell
+- c=read(CONTRACT);fence(c,sha(CONTRACT));row=read(ROOT/c['sourceRowPath'])
++ c=read(CONTRACT);fence(c,sha(CONTRACT));require_actual_import_closure(c);row=read(ROOT/c['sourceRowPath'])
+  scope=read(ROOT/c['sourceContextPath']);array=read(ROOT/c['completeArrayPath']);meaning=read(ROOT/c['interpretationPath'])
+  tri=np.asarray(array['completeOrderedOriginalTriangles'],dtype='<f8')
+  assert tri.shape==(15140,3,3)and hashlib.sha256(tri.tobytes()).hexdigest()==c['wholeOriginalWorldSHA256']
+@@ -66,6 +73,7 @@
+  g.add_argument('--preflight-only',action='store_true');g.add_argument('--replay-current-typed-identity-only',action='store_true')
+  p.add_argument('--lease-file',type=Path);p.add_argument('--test-validation',type=Path);p.add_argument('--test-validation-sha256')
+  args=p.parse_args();c=read(CONTRACT);ch=sha(CONTRACT);fence(c,ch)
++ require_actual_import_closure(c)
+  assert not OUTPUT.exists();envelope=read(ROOT/c['resourceEnvelopePath']);assert envelope['canonicalResources']==c['canonicalResources']and envelope['currentManifestSHA256']==c['currentManifestSHA256']
+  for tile,h in envelope['currentTileHashes'].items():assert sha(ROOT/tile)==h
+  scope=read(ROOT/c['sourceContextPath']);meaning=read(ROOT/c['interpretationPath'])

@@ -1,0 +1,23 @@
+"""Source-only checkpoint preserving scoped failures and exact prior job receipts."""
+from pathlib import Path
+import importlib.util,json
+from run import ROOT,HERE,read,save,digest,connect
+B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-parkview-block16-altered-terrain-boundary-obstruction-checkpoint-v1-20261011';DOC=B/BATCH
+NAMES=['government-xl-parkview-block16-fixed-boundary-two-parent-vertex-feasibility-v1-20261011','government-xl-parkview-block16-causal-negative-corner-vertex-star-inventory-v1-20261011','government-xl-parkview-block16-partial-edge-vertex-star-boundary-inventory-v1-20261011']
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+ assert not DOC.exists();paths=[Path(__file__),HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py'];jobs=[]
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');before=c.execute("SELECT row_to_json(t) FROM astra_modelling.model_reviews t WHERE uid='landsd/256319:0'").fetchall();assert before==[]
+  for n in NAMES:
+   r=read(B/n/'result.json');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r);paths.extend([B/n/'result.json',B/n/'diagnostic.json.gz',B/n/'review.json']);jobs.append(dict(batch=n,jobId=r['jobId'],exactResultReadbackMatch=True,result=ref(B/n/'result.json')))
+ fixed=read(B/NAMES[0]/'diagnostic.json.gz');star=read(B/NAMES[1]/'diagnostic.json.gz');partial=read(B/NAMES[2]/'diagnostic.json.gz');assert fixed['eligibleSharedInternalVertexVariables']==0 and len(fixed['exactFixedConstraintViolations'])==13;assert len(star['causalNegativeCornerRows'])==4 and all(r['uniqueRecordedGrade']for r in star['causalNegativeCornerRows']);assert all(not r['starClosedSingleOrientedNondegenerateFan']for r in star['causalNegativeCornerRows']);assert partial['completeCurrentEdge3DAABBCandidatePairs']==96 and not any(e['allOutsidePositive3DEdgeOverlaps']for r in partial['rows']for e in r['unmatchedRadialEdges'])
+ reason='Bounded150TIN/191retained original/current seams cannot close around implicated parent domains. Independent fixed-current-topology route finds allfour negative corners on genuine unmatched boundaries; two-parent stencil haszero eligible internal variables/13exact fixed violations. Four unique recordedTIN gradebounds do not change boundary eligibility. Full94794-facet/284382-edge outside-incidence census addszero exactpositive3D partial-edge or T-junction couplings. No solver or changedmesh; neither route proves global recovery impossible.'
+ nextinput='Independent causally justified source/current domain with a genuine complete exact outside3D frontier or eligible internal current vertex topology, plus unique authoritative gradebounds and complete protected installed17/native/foreign qualified source-support constraints. All actualFloat32/internal topology/whole-source predicates remain mandatory. No arbitrary expansion, invented walls/heights, threshold waiver or boundary-policy change is authorized.'
+ (DOC/'README.md').parent.mkdir(parents=True);(DOC/'README.md').write_text('# Block16 bounded recovery obstruction\n\n'+reason+'\n\nNext input: '+nextinput+'\n\nReview UID rows are absent; no historical approval is overwritten. Nonacceptance is evidenced by immutable diagnostic outcomes and source-only jobs.\n')
+ save(DOC/'checkpoint.json',dict(uid='landsd/256319:0',sourceOnly=True,currentAcceptance=False,installationApproved=False,scriptedAlteredTerrainMethod=True,solverInvoked=False,meshCreated=False,currentReviewRowsAbsent=True,historicalApprovalsUnchanged=True,scopedHeldReason=reason,specificNextInputNeeded=nextinput,globalRecoveryImpossible=False,priorVerifiedJobs=jobs,evidenceRefs=[ref(p)for p in paths]))
+ paths.append(DOC/'checkpoint.json');s=importlib.util.spec_from_file_location('source_checkpoint_freezer',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.freeze(BATCH,'bounded-altered-terrain-boundary-obstruction-and-next-input',paths,dict(uids=['landsd/256319:0','landsd/254491:0'],sourceOnly=True,currentAcceptance=False,currentReviewRowsAbsent=True,historicalApprovalsUnchanged=True,scopedHeldReason=reason,specificNextInputNeeded=nextinput,globalRecoveryImpossible=False,solverInvoked=False,terrainProposalAssetCreated=False))
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');assert c.execute("SELECT row_to_json(t) FROM astra_modelling.model_reviews t WHERE uid='landsd/256319:0'").fetchall()==before
+ print('Verified scoped obstruction/next-input source-only job; no review writes.')
+if __name__=='__main__':main()

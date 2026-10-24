@@ -1,0 +1,49 @@
+{
+  "recordedUTC": "2026-10-13 03:14:46 UTC",
+  "projectId": "billowing-surf-67227217",
+  "branchId": "br-icy-silence-b3wjwz0q",
+  "database": "neondb",
+  "schema": "astra_modelling",
+  "query": "SELECT snapshot_id, uid, source_state, source_sha256, review_state, result, updated_at FROM astra_modelling.model_review_status WHERE snapshot_id = '5cb980a97466802b' AND uid IN ('landsd/232907:0','landsd/263590:0','landsd/264206:0') ORDER BY uid",
+  "rows": [
+    {
+      "snapshot_id": "5cb980a97466802b",
+      "uid": "landsd/232907:0",
+      "source_state": "prepared-for-review",
+      "source_sha256": "bbf9bbe9d208adf6b07a4e62e046cb849e87f7f11554979c8a029defc0d3616d",
+      "review_state": "installed-verified",
+      "result": {
+        "commit": null,
+        "sha256": "dec69c59eecd1c6e385eec2220956cbc18bb5818024789ba0e41338dca179812",
+        "evidence": "docs/astra-city/model-integration-20260909/coherent-migration-live/after/verification.json",
+        "observation": "Actual installed viewer verified source identity, local collision, picking, terrain agreement and bounded native dependency streaming. Native surveyed geometry preserved; source components only, not whole-landmark closure.",
+        "productionPublished": false,
+        "wholeLandmarkComplete": false
+      },
+      "updated_at": "2026-10-12T16:37:52.563Z"
+    },
+    {
+      "snapshot_id": "5cb980a97466802b",
+      "uid": "landsd/263590:0",
+      "source_state": "prepared-for-review",
+      "source_sha256": "7b1e99e0a459b2fda3033a5903533cb58733c97bbc2e403cb16b48ab832c1254",
+      "review_state": "installed-verified",
+      "result": {
+        "commit": null,
+        "sha256": "dec69c59eecd1c6e385eec2220956cbc18bb5818024789ba0e41338dca179812",
+        "evidence": "docs/astra-city/model-integration-20260909/coherent-migration-live/after/verification.json",
+        "observation": "Actual installed viewer verified source identity, local collision, picking, terrain agreement and bounded native dependency streaming. Native surveyed geometry preserved; source components only, not whole-landmark closure.",
+        "productionPublished": false,
+        "wholeLandmarkComplete": false
+      },
+      "updated_at": "2026-10-12T16:37:52.759Z"
+    }
+  ],
+  "missingQueriedUIDs": [
+    "landsd/264206:0"
+  ],
+  "qualification": "Exact-source installed component evidence for the two Branksome dependencies only. The query returns no China Merchants row in this snapshot; absence does not grant approval or terminal rejection. Legacy inventory candidate flags are historical preparation metadata. Proposed landmark identity remains unapproved. This readback does not approve any changed terrain, China Merchants foundation or current rerun.",
+  "readOnly": true,
+  "noDatabaseWrites": true,
+  "noWorkerExecution": true
+}

@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-sustained-131-installation-20261006-274320-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "China Taiping Finance Centre original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-sustained-131-installation-20261006-274320-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-274320-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-sustained-131-installation-20261006-274320-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "709fd8c56114fa58c84b1478503811331d019d463ba6e0893e514ad59850ecca"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-274320-0.json": "00bc71ca1f0196d62161efb31e57a9298bf1a9ba9cb20e611f29f157114e5cfe",
+    "3d-viewer/city/data/official-models/government-xl-sustained-131-installation-20261006-274320-0-installed/catalogue.json": "0fea88f42cf3cae36b6d74340aea9f013585997b59dcdf1bf30fb1ad14593181",
+    "3d-viewer/city/data/manifest.json": "d3b8dccc3bb13b881f2552f1c3f4b6a4d8bf4f6b60d64c7cc25b69551d3965cc"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "6be037e207d0c112d172159125782190d848cb60",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-274320-0.json",
+      "resolution": 5,
+      "area": "China Taiping Finance Centre unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "13fc9baaa5cf7772b5a737992f8fd39f2b3afc10cc4ace0f29774994d9b403a7",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "sheet": "11-SE-6A",
+            "sourceETag": "\"2ff5961-65bf662c3edf7\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-sustained-131-20261006-274320-0/sheets/11-SE-6A/terrain/TERRAIN(TB)/T37500162000106E12/T37500162000106E12.bin",
+                "sha256": "fb74b467c8fecac9ae6c0b23baa58c4f6cab6ddbfabcda5da22cd04eb09e4018"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-sustained-131-20261006-274320-0/sheets/11-SE-6A/terrain/TERRAIN(TB)/T37500162000106E12/T37500162000106E12.gltf",
+                "sha256": "7ae2c74346b52a562de1d478edef56c9fd073946979a1eb54cc6be051dda3b1c"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "00bc71ca1f0196d62161efb31e57a9298bf1a9ba9cb20e611f29f157114e5cfe",
+      "bytes": 1420402
+    }
+  ],
+  "estimatedBases": []
+}

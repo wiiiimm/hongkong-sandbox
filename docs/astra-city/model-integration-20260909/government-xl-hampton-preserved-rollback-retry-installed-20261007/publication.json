@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-hampton-preserved-rollback-retry-installed-20261007/plan.json",
+  "areas": [
+    {
+      "area": "Hampton Loft original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-hampton-preserved-rollback-retry-installed-20261007/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-284938-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-hampton-preserved-rollback-retry-installed-20261007/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "446cdb7cc44ca3ed9bb8219f347007f1d1e15070e14d7cec46c5ce70b232a494"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-284938-0.json": "34c85395853d2f9692dd52749bc734cf4d610a89ddf0c10433488b697d745e7c",
+    "3d-viewer/city/data/official-models/government-xl-hampton-preserved-rollback-retry-installed-20261007/catalogue.json": "c727241fa472683f134006fb18adc4ae05b52c6e8d09d0fa5900a60e8f21318e",
+    "3d-viewer/city/data/manifest.json": "1962528d16e6445ce9817d9339579a61c58a7787a42ee1a4b9d0b341cb601437"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "7a76f632d1f4768dc6e18c545fac97213c004131",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-284938-0.json",
+      "resolution": 5,
+      "area": "Hampton Loft unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "c38d59cd8336b2b6a376d4ff9377e8e983870a160977793dea3344991abb604d",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-NW-18B",
+            "sourceETag": "\"32ba0f1-63dcdd8e8f52e\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-18B/terrain/TERRAIN(TB)/T33750198000106E11/T33750198000106E11.bin",
+                "sha256": "e90b0e825da00c3f8585edd07650786d9809905ebd330c5f15265fca2d15b3a4"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-18B/terrain/TERRAIN(TB)/T33750198000106E11/T33750198000106E11.gltf",
+                "sha256": "2ec5a490e26e02b9b9c7a900788996fcf459ec8617d61f6823866560a5ce07d2"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1246,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 1
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "34c85395853d2f9692dd52749bc734cf4d610a89ddf0c10433488b697d745e7c",
+      "bytes": 787559
+    }
+  ],
+  "estimatedBases": []
+}

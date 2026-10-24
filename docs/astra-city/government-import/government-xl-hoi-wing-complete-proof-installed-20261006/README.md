@@ -1,0 +1,5 @@
+# Hoi Wing House — verified original installation
+
+Codex, 6 October 2026. Hoi Wing House (landsd/313032:0) is installed with unchanged original government geometry. Verified Neon job `a7e62d68bea4dd738416afb62db2d862059bdf917ce53c1b867760f67af13465`, installed snapshot `e1544cd227368df7`, source SHA `2a204e415a000fe9aa8f3ed3b016089a04c82e8216b6a83cd00253d86855df1e`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+20 new XL installations from44/308: **64 installed / 288 not installed**, 80 further installations required. Public counters: 346,108 total source forms, 4,412 enhanced, 4,398 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

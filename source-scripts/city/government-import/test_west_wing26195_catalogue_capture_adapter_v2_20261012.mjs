@@ -1,0 +1,10 @@
+import {prepareModelCatalogue}from '../../../3d-viewer/city/official-model-assets.js';
+import {readFileSync}from 'node:fs';import assert from 'node:assert/strict';import test from 'node:test';
+const url=new URL('../../../3d-viewer/city/data/official-models/central-west-wing/catalogue.json',import.meta.url),data=JSON.parse(readFileSync(url)),raw=data.models[0],before=JSON.stringify(data);
+const prepare=d=>prepareModelCatalogue(d,'https://diagnostic.invalid/city/data/official-models/central-west-wing/catalogue.json')[0];
+test('actual raw legacy row lacks inherited root; catalogue preparation supplies genuine unchanged root',()=>{assert(!Object.hasOwn(raw,'rootTranslation'));assert.deepEqual(prepare(data).rootTranslation,[-834500,0,816500]);assert.equal(JSON.stringify(data),before);});
+test('metrics adapter exact raw fields plus same three actual inherited fields',()=>{const e={...raw,rootTranslation:data.rootTranslation,coordinatePolicy:data.coordinatePolicy,datasetId:data.datasetId},p=prepare(data);for(const k of Object.keys(e))assert.deepEqual(e[k],p[k]);for(const k of Object.keys(raw))assert.deepEqual(p[k],raw[k]);});
+test('complete original source/id/CSUID/faces/heights/bounds untouched',()=>{const p=prepare(data);assert.equal(p.sha256,'50da67a3a009c3c832d2bfdbd08640c89d958ef8cf077d1c172e7059900f8af9');assert.equal(p.uid,'landsd/26195:0');assert.equal(p.triangles,46918);assert.deepEqual(p.worldBounds,raw.worldBounds);assert.equal(p.recordedBaseHeight,4.8);assert.equal(p.recordedTopHeight,16);});
+test('altered catalogue root is rejected rather than shifted',()=>{const d=structuredClone(data);d.rootTranslation[1]=1;assert.throws(()=>prepare(d));});
+test('missing catalogue root is rejected rather than inferred',()=>{const d=structuredClone(data);delete d.rootTranslation;assert.throws(()=>prepare(d));});
+test('actual source mutation remains visible and fails exact source gate',()=>{const d=structuredClone(data);d.models[0].sha256='0'.repeat(64);assert.notEqual(prepare(d).sha256,raw.sha256);assert.throws(()=>assert.equal(prepare(d).sha256,raw.sha256));});

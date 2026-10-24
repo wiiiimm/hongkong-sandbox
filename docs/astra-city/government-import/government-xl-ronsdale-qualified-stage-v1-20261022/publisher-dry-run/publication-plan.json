@@ -1,0 +1,90 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-ronsdale-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Ronsdale Garden original government assembly",
+      "models": 3,
+      "catalogue": "city/data/official-models/government-xl-ronsdale-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-ronsdale-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-ronsdale-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/tiles/1_0.json": "8f50f42ba432c90a669c628fbdf34d2e7775f02d4c8f760c00b99dee980e4f90",
+    "3d-viewer/city/data/manifest.json": "7f9fcf6e5c2273bd566dc67a69c4b0dd59e4351699ae810bd4257fdc21127a86"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-ronsdale-original-v1-20261022.json": "091aef4d124a17020cdf56bb02af0f323840f4d30cc794bc4e98758e1a26e8c8",
+    "3d-viewer/city/data/official-models/government-xl-ronsdale-qualified-stage-v1-20261022/catalogue.json": "4e32ac928108494d30667c6fb1d8bcfd0f94cb718d6cb2588a0d32ceb4bb4e7b",
+    "3d-viewer/city/data/tiles/1_0.json": "e0463c7e120b70a4997d56f7386a73d664ecc6089795ebcb20b55c7eb539e823",
+    "3d-viewer/city/data/manifest.json": "2e543adba825fd27a98976413706d12b6a2b3c386201829a86056532ff60f9be"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "d366576f36f658112d544c2d6c6d09d89d0abaa7",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-ronsdale-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "Ronsdale Garden original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-ronsdale-2-contact-20261005/sheets/11-SE-11A/terrain/TERRAIN(TB)/T37500150000106E11/T37500150000106E11.gltf",
+            "sha256": "fb291f40bf31c28ae5945061a2cd8a0ece9a26e78c2c13f280eee965f2dd71bf"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-ronsdale-adjacent-ground-v1-20261022/sheets/11-SE-11B/terrain/TERRAIN(TB)/T38250150000106E10/T38250150000106E10.gltf",
+            "sha256": "7a1cfdf2a01ea850018f95f1b775974addd36b04db2f7fe3d3189d8fff8f06b5"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "ronsdalePrivateRepair": {
+          "coreBounds": [
+            3660.9206552590626,
+            1358.2049533763334,
+            3762.0718974886427,
+            1425.6528914389453
+          ],
+          "outerBounds": [
+            3657.7998085362515,
+            1355.1254775678335,
+            3766.2954024545706,
+            1428.6838313812236
+          ],
+          "parentSHA256": "86fa791c9cf4a9bc159e4ce1abc9a30a3f6d04924434c115ff9120959dd4e370",
+          "policy": "Private lower original-TIN inset limited to full original-source projection plus one metre, with a shared piecewise-affine three-metre return band; exact old ground outside. No source building geometry or pose changes."
+        },
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "091aef4d124a17020cdf56bb02af0f323840f4d30cc794bc4e98758e1a26e8c8",
+      "bytes": 1323030
+    }
+  ],
+  "estimatedBases": [
+    {
+      "uid": "landsd/307560:0",
+      "before": 112.138,
+      "after": 102.66400146484375
+    }
+  ]
+}

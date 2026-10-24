@@ -1,0 +1,51 @@
+{
+  "issue": "HKS-214",
+  "staged": true,
+  "bundles": [
+    {
+      "parentTerrainURL": "city/data/terrain.json",
+      "parentSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+      "patches": [
+        {
+          "path": "source-scripts/city/whampoa-special/terrain-patches/support-native-225581-0.json",
+          "sha256": "b0d9759de72ad92a5d91c5bd308e76909a898e79bd8a94682ee6eb4c428abba4",
+          "uids": [
+            "landsd/225581:0"
+          ],
+          "coarseCells": [
+            536,
+            422,
+            538,
+            425
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "patch": "source-scripts/city/whampoa-special/terrain-patches/support-native-225581-0.json",
+      "rows": [
+        {
+          "uid": "landsd/225581:0",
+          "samples": 69,
+          "within2m": 69,
+          "gapRange": [
+            -0.1180409968871956,
+            0.10919676092528441
+          ]
+        }
+      ],
+      "gridNodes": 29751,
+      "nativeCoveredNodes": 29751,
+      "boundaryError": 0,
+      "waterMaskChanges": 0,
+      "eligibleForBrowserValidation": true
+    }
+  ],
+  "held": [],
+  "inputReportSha256": "41f5d1e454469b0e459caf8173a40602253a48b43f3ed5c815b65f1e68d9dccc",
+  "nativeEvidenceSha256": "a6602a6e76d188f2636db4dab031427fb651207daf597d2271df3834f5e6373c",
+  "integration": "Append children only to hash-matched existing parent. Root coarse children must be manifest terrain patches, not overwritten by app terrainPatches assignment. Parent renderer omits coarseCells exactly once. Run combined roof/foundation and browser checks before publication.",
+  "publicationApproved": false
+}

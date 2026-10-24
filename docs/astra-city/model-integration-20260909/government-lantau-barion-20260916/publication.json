@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-lantau-barion-20260916/plan.json",
+  "areas": [
+    {
+      "area": "The Barion (Block 2) original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-lantau-barion-20260916/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-176915-0.json": null,
+    "3d-viewer/city/data/official-models/government-lantau-barion-20260916/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "ba73843f1f9bafa118df75a059dd3e98623bd6a96fcd61a3a1b7bd46710d0786"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-176915-0.json": "663dca09eb15683bb9fb5466a0da26df692629d5230c57b55715841dfb5f9a32",
+    "3d-viewer/city/data/official-models/government-lantau-barion-20260916/catalogue.json": "1856e799c97ace83ef173348d93d6bb230f16fb52dd05d057e28d8241a773cc6",
+    "3d-viewer/city/data/manifest.json": "1962a27321b798ed335563ba1cd739b9fc9fb30afb9bfe7ffd54c47f63bf8df0"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "dd80adde100e99eac307a6a426b503417e185907",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-176915-0.json",
+      "resolution": 5,
+      "area": "The Barion (Block 2) bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "ebe3f4d9420cb3c3bf29ed89e009e89999f08b94d4e10b942e9f19e6e94c5c85",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "10-NW-23B",
+            "sourceETag": "\"10f738b-63dcd77e42951\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-lantau-landmarks-16-second-20260916/sheets/10-NW-23B/terrain/TERRAIN(TB)/T18750186000106E10/T18750186000106E10.bin",
+                "sha256": "761894b9efe06c4e77876a634a7ebeca09917f9520637db768ea1f419deef723"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-lantau-landmarks-16-second-20260916/sheets/10-NW-23B/terrain/TERRAIN(TB)/T18750186000106E10/T18750186000106E10.gltf",
+                "sha256": "7b0ca8fc39dd23625eb118b1207abcd5454e37d2a421e64ff4664492a63f3c00"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "663dca09eb15683bb9fb5466a0da26df692629d5230c57b55715841dfb5f9a32",
+      "bytes": 529066
+    }
+  ],
+  "estimatedBases": []
+}

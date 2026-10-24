@@ -1,0 +1,11 @@
+--- source-scripts/city/government-import/southside_domain_first_exact_core_union_construction_draft_v3_20261013.py
++++ source-scripts/city/government-import/southside_domain_first_exact_core_union_construction_draft_v4_20261013.py
+@@ -116,7 +116,7 @@
+    triangles=[]
+    for h in union['completeCoreHulls']:
+     if len(h)>=3:
+-     triangles.extend([[(q[0],F(0),q[1])for q in [h[0],h[i],h[i+1]]]for i in range(1,len(h)-1))
++     triangles.extend([[(q[0],F(0),q[1])for q in [h[0],h[i],h[i+1]]]for i in range(1,len(h)-1)])
+    projected=[(v[0],v[2])for v in p]
+    if signed_area(_hull(projected)):assert rational_closed_coverage(projected,triangles)['covered'],'new-core-piece-not-whole-union-covered'
+    else:

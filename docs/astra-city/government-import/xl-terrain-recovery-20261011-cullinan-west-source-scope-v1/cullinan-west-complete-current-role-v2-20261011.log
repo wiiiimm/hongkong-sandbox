@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-cullinan-west-complete-current-role-v2.py", line 122, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-cullinan-west-complete-current-role-v2.py", line 121, in main
+    assert not DOC.exists();result=recheck();save(DOC/'typed-role.json.gz',result);s=importlib.util.spec_from_file_location('freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.freeze(BATCH,'complete-fresh-current-cullinan-two-original-qualified-native-support-and-named-visual-role-v2',[ROOT/r['path']for r in result['evidenceRefs']]+[DOC/'typed-role.json.gz'],dict(uids=result['uids'],scriptChecksPassed=True,wholeOwnedOriginalFaces=22312,completeOwnedComponents=32,ownedVisualComponents=[270,294,295],nativeReacceptance=False,installationApproved=False,newlyInstalled=0))
+                                   ^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-cullinan-west-complete-current-role-v2.py", line 35, in recheck
+    for p,n in tables:fenced(p,n);refs.append(ref(p/'result.json'));refs.extend([ref(p/n)]if n else[])
+                      ^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-cullinan-west-complete-current-role-v2.py", line 29, in fenced
+    if numeric:assert ref(folder/numeric)in r['evidenceRefs'],'Exact fenced numerical output binding required'
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Exact fenced numerical output binding required

@@ -1,0 +1,5 @@
+# Alto Residences Tower 6 — verified original installation
+
+Codex, 7 October 2026. Alto Residences Tower 6 (landsd/338637:0) is installed with unchanged original government geometry. Verified Neon job `38ca7a45023dedb21652eb862e247f77f1ebdff3129d2d6ea72f2d186665cad2`, installed snapshot `a7ebaa558263ec29`, source hashes `{'landsd/338637:0': '6e7e307e1deaac637cbead226e3d880e59e6c37bcd0c3ff5dd623258aa829e3f'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+45 new XL installations from44/308: **89 installed / 263 not installed**, 55 further installations required. Public counters: 346,108 total source forms, 4,442 enhanced, 4,428 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

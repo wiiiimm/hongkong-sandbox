@@ -1,0 +1,144 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-hanford-ten-original-qualified-stage-v2-20261024/plan.json",
+  "areas": [
+    {
+      "area": "Hanford ten unchanged original government components with two original-TIN podium insets",
+      "models": 10,
+      "catalogue": "city/data/official-models/government-xl-hanford-ten-original-qualified-stage-v2-20261024/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-hanford-ten-original-20261024.json": null,
+    "3d-viewer/city/data/official-models/government-xl-hanford-ten-original-qualified-stage-v2-20261024/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "4ec984e5f6e0c2e078860ebc29a4739842c67825a04f3ed1eb11f8e870993466"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-hanford-ten-original-20261024.json": "45b22147fbb5fa2e39483ef45a8a229f03bd5768111cce6e4125a07914a0ee0e",
+    "3d-viewer/city/data/official-models/government-xl-hanford-ten-original-qualified-stage-v2-20261024/catalogue.json": "13d19fe9d198af2941f651fdcfc716f8bfc00b09d76b4e7346235f889174b18d",
+    "3d-viewer/city/data/manifest.json": "dd4eabf25649f3a9960f819f476c41b5916cdc86174364d34c95b24a26ddad4d"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "59add4e326cfe2263dc70fbd3e98c40e40cfd868",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-hanford-ten-original-20261024.json",
+      "resolution": 5,
+      "area": "Hanford ten unchanged original government components with two original-TIN podium insets",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -18937.906775980806,
+            -10629.536030810965,
+            -18710.119168668316,
+            -10459.2987119692
+          ],
+          "outerBounds": [
+            -18940.90835392323,
+            -10632.620639967492,
+            -18706.090863821202,
+            -10455.179222876806
+          ],
+          "policy": "Original highest source terrain within model projection+1m, bounded 3m return to actual captured current ground. Current parent geometry remains unchanged outside the return. Source-land floor retained; legacy below-floor parent return is never deepened. Original building bytes and pose unchanged."
+        },
+        "coastalParentFloat32Repair": {
+          "path": "docs/astra-city/government-import/government-xl-next-repairs-hanford-ten-original-coastal-roundoff-repair-v2-20261024/repair.json",
+          "sha256": "2c2a58a665e303e04d60df6660a8278dcf44f88afd38053c78c5e795b95516a9"
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-hanford-plaza-terrain-continuation-v2-20261005/sheets/6-SW-11A/terrain/TERRAIN(TB)/T15000270000106E10/T15000270000106E10.gltf",
+            "sha256": "9083faa6f61f60c32648beba22be9cd71af5dae6381f7da3c4dd62cddd3a6b55"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-hanford-support-recovery-v2-20261021/sheets/6-SW-11B/terrain/TERRAIN(TB)/T15750270000106E10/T15750270000106E10.gltf",
+            "sha256": "42c142aef1352b3721d6f9f53cab5c475841a0a787e571b500d3d1f2918addad"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-hanford-plaza-terrain-continuation-v5-20261005/sheets/6-SW-11C/terrain/TERRAIN(TB)/T15000264000106E10/T15000264000106E10.gltf",
+            "sha256": "3560e7d5d0de618b61aa6cef97b21cfb71224f9c551cc2ef8284f726f4084352"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-SW-11D/terrain/TERRAIN(TB)/T15750264000106E10/T15750264000106E10.gltf",
+            "sha256": "792b7cbece321d7ae01a1f033db86ad713ae277880ae1b7dbaff44869bda8c00"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 4046,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 1
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "sequentialOriginalInsets": [
+          {
+            "coreBounds": [
+              -18937.906775980806,
+              -10629.536030810965,
+              -18710.119168668316,
+              -10459.2987119692
+            ],
+            "outerBounds": [
+              -18940.90835392323,
+              -10632.620639967492,
+              -18706.090863821202,
+              -10455.179222876806
+            ],
+            "policy": "Original highest source terrain within model projection+1m, bounded 3m return to actual captured current ground. Current parent geometry remains unchanged outside the return. Source-land floor retained; legacy below-floor parent return is never deepened. Original building bytes and pose unchanged."
+          },
+          {
+            "baseCandidate": {
+              "path": "source-scripts/city/government-import/local/government-xl-next-repairs-hanford-ten-original-coastal-roundoff-repair-v2-20261024/candidate-terrain.json",
+              "sha256": "427fec4eb565467ef74c02237d751998ad31e713cb54320d801e675f571d62eb"
+            },
+            "coreBounds": [
+              -18741.24027517511,
+              -10610.771484375,
+              -18702.509040692083,
+              -10537.299253091545
+            ],
+            "outerBounds": [
+              -18744.28499520118,
+              -10613.771484375,
+              -18699.084990893334,
+              -10529.261465467049
+            ],
+            "policy": "Original highest secondary source terrain within model projection+1m, bounded3m return to the authenticated validated private base. All pre-existing low Float32 faces stay unchanged with exact multiplicity, all new source land retains1.2m floor, and fresh exact coastal LP/final terrain validators pass. Original model geometry and pose unchanged.",
+            "uid": "landsd/203884:0"
+          }
+        ],
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "45b22147fbb5fa2e39483ef45a8a229f03bd5768111cce6e4125a07914a0ee0e",
+      "bytes": 2562799
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "estimatedBases": []
+}

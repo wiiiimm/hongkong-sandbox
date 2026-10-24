@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_adjacent_source_terrain_v4.py", line 146, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_adjacent_source_terrain_v4.py", line 105, in main
+    recovery = decoder.source_sheet(sheet, [], record['directory'], {}, [])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-second-pass.py", line 63, in source_sheet
+    assert directory['etag']==prior['etag'] and directory['directorySHA256']==prior['directorySHA256'],'Pinned source revision changed'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Pinned source revision changed

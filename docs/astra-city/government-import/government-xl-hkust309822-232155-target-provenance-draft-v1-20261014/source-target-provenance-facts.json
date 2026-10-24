@@ -1,0 +1,78 @@
+{
+  "codeFacts": [
+    {
+      "fact": "native_feature transforms every original ring4326\u21922326; shared stage_feature owns validity/containment/packing.",
+      "path": "source-scripts/city/landsd-territory/stage.py"
+    },
+    {
+      "fact": "Adds OSMrefs/parent/kind and fills only empty names. Does not replace official rings.",
+      "path": "source-scripts/city/landsd-territory/integrate.py"
+    },
+    {
+      "fact": "Selects T plus every intersecting/shared OSM-reference form, then unions their actual rings.",
+      "path": "source-scripts/city/government-import/xl-direct-shared-osm-group-diagnostic.py"
+    },
+    {
+      "fact": "Applies whole-group coverage95%, extent10m and unrelated-excess1m\u00b2; this changes the single-source measurement target to that group union.",
+      "path": "source-scripts/city/government-import/direct_shared_osm_geographic_identity.py"
+    }
+  ],
+  "noIdentityOrPhysicalApproval": true,
+  "noSourceArrayFoundInCheckedArchives": [
+    "eight-source closure context (metrics only)",
+    "support-inputs (asset/sourcemetadata only)",
+    "support-checks (227 rim samples only)",
+    "source-sections196 (section statistics only)",
+    "spatial-source-roles (shape/coverage metrics only)",
+    "enhancement-screening geometry inputs (no matching complete source rows)"
+  ],
+  "preserveIndividualTowerCoverageAndForeignFailure": true,
+  "preserveOwnPodium32PercentCoverageFailure": true,
+  "proposedArrayAcquisition": "ROOT-only existing exact_packed_world_geometry_20261009 decoder on the two already cached byte-identical originals once. Persist complete ordered arrays with source/raw/root/code pins. No new official download, component census or geometry change. Subsequent scope/interface diagnostic consumes these saved arrays.",
+  "provenanceAssessment": "3569m\u00b2 P is a genuine provider-published footprint. The shared OSM union target is derived from official current T/P rings, not directly the OSM polygon. Group expansion changes the Tower target, but does not show an erroneous provider polygon. P name is OSM-propagated (raw provider names both null); exact T provider name is genuine.",
+  "providerFootprints": [
+    {
+      "CSUID": "4536922211P20060311",
+      "DateStamp": "20200808",
+      "completeRingCount": 1,
+      "geometryType": "Polygon",
+      "originalObjectID": 232155,
+      "originalRingLengths": [
+        75
+      ],
+      "providerNameEN": null,
+      "providerNameTC": null,
+      "providerShapeAreaM2": 3569.0099766736407
+    },
+    {
+      "CSUID": "4537822209T20050430",
+      "DateStamp": "20210423",
+      "completeRingCount": 1,
+      "geometryType": "Polygon",
+      "originalObjectID": 309822,
+      "originalRingLengths": [
+        68
+      ],
+      "providerNameEN": "Hong Kong University of Science and Technology Staff Quarters Tower 5-7",
+      "providerNameTC": "\u9999\u6e2f\u79d1\u6280\u5927\u5b78\u6559\u8077\u54e1\u5bbf\u820d\u7b2c\uff15\uff0d\uff17\u5ea7",
+      "providerShapeAreaM2": 1226.9983764640115
+    }
+  ],
+  "sourceTuples": [
+    {
+      "CSUID": "4537822209T20050430",
+      "modelId": "B453782220901063C0",
+      "originalFaces": 12943,
+      "sourceSHA256": "56fe512572733202ce049360e08fe0effc15919bec6e296ac667e06f867c957f",
+      "uid": "landsd/309822:0"
+    },
+    {
+      "CSUID": "4536922211P20060311",
+      "modelId": "B453692221102063C0",
+      "originalFaces": 655,
+      "sourceSHA256": "411cf6b0ee4ec5ab1df5fadcb0e62ad79ac41a377df39525f4e63d4a05565732",
+      "uid": "landsd/232155:0"
+    }
+  ],
+  "wrongTargetCorrectionJustified": false
+}

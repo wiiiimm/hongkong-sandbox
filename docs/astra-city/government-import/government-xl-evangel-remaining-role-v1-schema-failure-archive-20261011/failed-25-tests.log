@@ -1,0 +1,101 @@
+FEE....E.EE......E.......
+======================================================================
+ERROR: test_actual_four_world_three_backed_edges (test_evangel_college_named_remaining_source_roles_20261011.RemainingRoles.test_actual_four_world_three_backed_edges)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 34, in test_actual_four_world_three_backed_edges
+    p=strips.verify(**self.stripargs(m));self.assertTrue(p['rawWholeBoundaryFailureRetained']);self.assertEqual(len(p['completeTwoStrips']),2)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_named_two_upper_strips_20261011.py", line 24, in verify
+    near=v['completeHostCandidateFaceIds'];far=v['strictlyOutsideUnchangedBandHostFaces'];assert near and len(near)==len(set(near))and not set(near)&set(far)and set(near)|set(far)==set(qualification_row['completeConditionalHostFaceIds'])and set(near)<=allowed
+                                                                                                                                                     ^^^^^^^^
+TypeError: unhashable type: 'dict'
+
+======================================================================
+ERROR: test_axis_trials_not_omitted (test_evangel_college_named_remaining_source_roles_20261011.RemainingRoles.test_axis_trials_not_omitted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 66, in test_axis_trials_not_omitted
+    self.reject_strip(change)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 28, in reject_strip
+    with self.assertRaises((AssertionError,KeyError,ValueError)):strips.verify(**a)
+                                                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_named_two_upper_strips_20261011.py", line 24, in verify
+    near=v['completeHostCandidateFaceIds'];far=v['strictlyOutsideUnchangedBandHostFaces'];assert near and len(near)==len(set(near))and not set(near)&set(far)and set(near)|set(far)==set(qualification_row['completeConditionalHostFaceIds'])and set(near)<=allowed
+                                                                                                                                                     ^^^^^^^^
+TypeError: unhashable type: 'dict'
+
+======================================================================
+ERROR: test_free_edge_failure_not_erased (test_evangel_college_named_remaining_source_roles_20261011.RemainingRoles.test_free_edge_failure_not_erased)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 58, in test_free_edge_failure_not_erased
+    self.reject_strip(change)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 28, in reject_strip
+    with self.assertRaises((AssertionError,KeyError,ValueError)):strips.verify(**a)
+                                                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_named_two_upper_strips_20261011.py", line 24, in verify
+    near=v['completeHostCandidateFaceIds'];far=v['strictlyOutsideUnchangedBandHostFaces'];assert near and len(near)==len(set(near))and not set(near)&set(far)and set(near)|set(far)==set(qualification_row['completeConditionalHostFaceIds'])and set(near)<=allowed
+                                                                                                                                                     ^^^^^^^^
+TypeError: unhashable type: 'dict'
+
+======================================================================
+ERROR: test_host_census_omission (test_evangel_college_named_remaining_source_roles_20261011.RemainingRoles.test_host_census_omission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 54, in test_host_census_omission
+    def test_host_census_omission(self):self.reject_strip(lambda a:next(v for v in a['qualification_row']['completeFiveVisualDispositions']if v['originalComponent']==221)['strictlyOutsideUnchangedBandHostFaces'].pop())
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 28, in reject_strip
+    with self.assertRaises((AssertionError,KeyError,ValueError)):strips.verify(**a)
+                                                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_named_two_upper_strips_20261011.py", line 24, in verify
+    near=v['completeHostCandidateFaceIds'];far=v['strictlyOutsideUnchangedBandHostFaces'];assert near and len(near)==len(set(near))and not set(near)&set(far)and set(near)|set(far)==set(qualification_row['completeConditionalHostFaceIds'])and set(near)<=allowed
+                                                                                                                                                     ^^^^^^^^
+TypeError: unhashable type: 'dict'
+
+======================================================================
+ERROR: test_host_not_qualified (test_evangel_college_named_remaining_source_roles_20261011.RemainingRoles.test_host_not_qualified)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 53, in test_host_not_qualified
+    def test_host_not_qualified(self):self.reject_strip(lambda a:a['qualified_host_face_ids'].clear())
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 28, in reject_strip
+    with self.assertRaises((AssertionError,KeyError,ValueError)):strips.verify(**a)
+                                                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_named_two_upper_strips_20261011.py", line 24, in verify
+    near=v['completeHostCandidateFaceIds'];far=v['strictlyOutsideUnchangedBandHostFaces'];assert near and len(near)==len(set(near))and not set(near)&set(far)and set(near)|set(far)==set(qualification_row['completeConditionalHostFaceIds'])and set(near)<=allowed
+                                                                                                                                                     ^^^^^^^^
+TypeError: unhashable type: 'dict'
+
+======================================================================
+ERROR: test_mounted_end_not_unqualified (test_evangel_college_named_remaining_source_roles_20261011.RemainingRoles.test_mounted_end_not_unqualified)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 62, in test_mounted_end_not_unqualified
+    self.reject_strip(change)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 28, in reject_strip
+    with self.assertRaises((AssertionError,KeyError,ValueError)):strips.verify(**a)
+                                                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_named_two_upper_strips_20261011.py", line 24, in verify
+    near=v['completeHostCandidateFaceIds'];far=v['strictlyOutsideUnchangedBandHostFaces'];assert near and len(near)==len(set(near))and not set(near)&set(far)and set(near)|set(far)==set(qualification_row['completeConditionalHostFaceIds'])and set(near)<=allowed
+                                                                                                                                                     ^^^^^^^^
+TypeError: unhashable type: 'dict'
+
+======================================================================
+FAIL: test_actual_four_world_lower_roles (test_evangel_college_named_remaining_source_roles_20261011.RemainingRoles.test_actual_four_world_lower_roles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/test_evangel_college_named_remaining_source_roles_20261011.py", line 31, in test_actual_four_world_lower_roles
+    p=lower.verify(**self.args(m));self.assertFalse(p['slopingFacesTreatedAsSteepWalls']);self.assertFalse(p['currentAcceptance']);self.assertEqual(len(p['completeColumnBaseClosureProposals']),2)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_named_lower_source_skin_20261011.py", line 38, in verify
+    w=np.asarray(world,dtype='<f8');g=np.asarray(ground,dtype='<f8');assert w.shape==(13960,3,3)and g.shape==(1848,3,3)and np.isfinite(w).all()and np.isfinite(g).all()
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+----------------------------------------------------------------------
+Ran 25 tests in 27.647s
+
+FAILED (failures=1, errors=6)

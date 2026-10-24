@@ -1,0 +1,11 @@
+# Olympian City Two — complete basic-neighbour ground retention check
+
+Codex, 8 October 2026, HKS-203. This fresh continuation reuses the complete, Neon-verified source-local terrain candidate and exact original building bytes. It restores the existing root's piecewise-linear planes beneath basic forms269837/269839/269908/270317, including their overlap with the new source projection. Both installed native terrain parents remain explicitly retained. No source geometry, surveyed height or acceptance limit changes.
+
+All116 basic-neighbour checks clear and both native229310/239397 full-mesh checks pass. However, restoring that ground introduces source burial: minimum source clearance becomes−3.391281m and the complete source foundation fails. The independent1.130128m low-rim gap remains unchanged. This candidate is **not accepted or installed**; the live terrain and catalogue are unchanged. It is not an improvement over the earlier candidate whose foundation passed.
+
+Verified complete Neon job `64b8182fc914467433965efd43de9ca038900667971903d7f8b4cffc4eefbf2c` binds all evidence and the new runner. The reservation supervisor completed and released its scope. Reuse this failed result rather than repeating the same ground-retention attempt. Whole XL scope remains521=197 installed-verified+324 remaining.
+
+Runner: `source-scripts/city/government-import/xl-reuse-terrain-retain-basic-neighbours.py`, with the previous source-local directory, this batch name and four repeated `--protect landsd/OBJECTID:0` arguments. The runner verifies the completed prior Neon result, every bound current metric input, exact model/source bytes, fresh routed identity, all overlapping source reservations and the unchanged final100,000-triangle budget. It rejects protected basic regions intersecting any existing installed terrain patch rather than substituting root planes for native detail. It reruns runtime/contact, full source foundation and all basic/native neighbours before recording a result. Preparation never grants publication.
+
+No model/architectural AI calls; AI was used to write reusable code. No historical map imagery used. Linear writes remain pending from the previously reported automatic approval rejection; this checkpoint does not retry that disclosure.

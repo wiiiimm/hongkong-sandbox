@@ -1,0 +1,51 @@
+--- source-scripts/city/government-import/xl-southside-315025-300867-authenticated-original-ground-grade-v1-20261012.py
++++ source-scripts/city/government-import/xl-southside-315025-300867-authenticated-original-ground-grade-v2-20261012.py
+@@ -18,11 +18,11 @@
+ FINITE=BASE/'government-xl-southside-315025-300867-unfiltered-original-sheets-comparison-v2-20261012'
+ CURRENT_GRADE=BASE/'government-xl-southside-315025-300867-current-grade-source-context-v1-20261012'
+ DRAFT=BASE/'government-xl-southside-authenticated-original-ground-grade-draft-v1-20261012'
+-BATCH='government-xl-southside-315025-300867-authenticated-original-ground-grade-v1-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
++BATCH='government-xl-southside-315025-300867-authenticated-original-ground-grade-v2-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+ INVENTORY=INPUT/'historical-obligations-verbatim.json'
+ UIDS=['landsd/315025:0','landsd/300867:0'];COUNTS={UIDS[0]:11699,UIDS[1]:1191};SOURCES={UIDS[0]:'85be44e7ab9410c850d3b7d59d05df2cd45fc1072ec2f984ddbb7b43c4d9ff7c',UIDS[1]:'2293ba8925406abcdbd848486a772dfa8baa01caf0cfe96e749d5a3cd51210f1'};MANIFEST='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540'
+ MODES=['providerOriginal','actualLiteral','explicitLeftAssociatedF32ModelMatrix','explicitBalancedF32ModelMatrix']
+-HELPERS=['southside_authenticated_original_grade_scope_v1_20261012.py','test_southside_authenticated_original_grade_scope_v1_20261012.py','run.py','exact_original_face_conservative_clearance_v5_20261010.py','exact_original_paired_finite_clearance_20261010.py','exact_original_shared_edge_component_census_v2_20261011.py','exact_original_finite_triangle_contacts_20261010.py','exact_original_shell_intersections_20261009.py','exact_original_component_contacts_20261009.py','exact_original_projection_coverage_20261009.py','exact_original_projection_coverage_v2_20261010.py','exact_original_closed_projection_intersection_20261010.py','exact_original_triangle_pair_column_gap_20261010.py','original_bound_facet_wall_context_20261010.py','original_bound_facet_wall_context_v2_20261010.py','original_bound_facet_wall_context_v3_20261010.py','original_strict_clear_cap_wall_paths_20261009.py','xl-popcorn-source-investigations-checkpoints-20261009.py']
++HELPERS=['southside_authenticated_original_grade_scope_v1_20261012.py','test_southside_authenticated_original_grade_scope_v2_20261012.py','run.py','exact_original_face_conservative_clearance_v5_20261010.py','exact_original_paired_finite_clearance_20261010.py','exact_original_shared_edge_component_census_v2_20261011.py','exact_original_finite_triangle_contacts_20261010.py','exact_original_shell_intersections_20261009.py','exact_original_component_contacts_20261009.py','exact_original_projection_coverage_20261009.py','exact_original_projection_coverage_v2_20261010.py','exact_original_closed_projection_intersection_20261010.py','exact_original_triangle_pair_column_gap_20261010.py','original_bound_facet_wall_context_20261010.py','original_bound_facet_wall_context_v2_20261010.py','original_bound_facet_wall_context_v3_20261010.py','original_strict_clear_cap_wall_paths_20261009.py','xl-popcorn-source-investigations-checkpoints-20261009.py']
+ def finite(face,ground):
+  a=coarse(face,ground);b=None if a['existingOrdinaryClearanceBoundProved']else paired(face,ground)
+  return dict(coarse=a,paired=b,completeFiniteOrdinaryBoundProved=bool(a['existingOrdinaryClearanceBoundProved']or(b and b['existingOrdinaryClearanceBoundProved'])))
+@@ -43,7 +43,7 @@
+ 
+ 
+ def preflight():
+- assert not DOC.exists();refs=[Path(__file__),DRAFT/'METHOD.md',DRAFT/'current-grade-to-authenticated-grade-caller.diff',DRAFT/'no-worker-schema-validation.json',DRAFT/'preserved-code-preparation-v1.py',DRAFT/'code-preparation-v1-failure.json',DRAFT/'preserved-preflight-ground-routing-draft-v1.py',INVENTORY]+[HERE/n for n in HELPERS]+[HERE.parent/'shared-modelling'/n for n in ['db.py','jobs.py','reservations.py']]
++ assert not DOC.exists();refs=[Path(__file__),DRAFT/'METHOD.md',DRAFT/'current-grade-to-authenticated-grade-caller.diff',DRAFT/'no-worker-schema-validation-v2.json',DRAFT/'preserved-code-preparation-v1.py',DRAFT/'code-preparation-v1-failure.json',DRAFT/'preserved-preflight-ground-routing-draft-v1.py',HERE/'xl-southside-315025-300867-authenticated-original-ground-grade-v1-20261012.py',HERE/'test_southside_authenticated_original_grade_scope_v1_20261012.py',DRAFT/'immutable-test-validation-v1/tests.log',DRAFT/'immutable-test-validation-v1/validation.json',DRAFT/'fixture-v1-to-v2.diff',DRAFT/'caller-v1-to-v2.diff',DRAFT/'caller-import-preflight-v1/import.log',DRAFT/'caller-import-preflight-v1/preflight.log',DRAFT/'caller-import-preflight-v1/validation.json',DRAFT/'caller-import-preflight-v1/adverse-fixture-cause.json',INVENTORY]+[HERE/n for n in HELPERS]+[HERE.parent/'shared-modelling'/n for n in ['db.py','jobs.py','reservations.py']]
+  receipts=[read(folder/'result.json')for folder in [INPUT,FINITE,CURRENT_GRADE]]
+  assert [q['jobId']for q in receipts]==['3aa11a60f740759f78677d151fa2f9c34f494d935b7a208958164e23273f84d9','a3b5b315b784f978ab22d511b638106abb15ec334dc1aeabf428e80ccf83675c','7269234ae78ade5d10223502841ee35aba9e9d844d72c59d186ae56ee45cda71']
+  for folder,receipt in zip([INPUT,FINITE,CURRENT_GRADE],receipts):
+@@ -73,12 +73,12 @@
+    assert len(prepared['failed'])==(300 if uid==UIDS[0]else 163)and len(prepared['nonsteep'])==(12 if uid==UIDS[0]else 0)
+  history=read(INVENTORY);assert history['historicalOnly'] and not history['currentApprovalTransferred'] and history['obligations']['unresolvedOriginalComponents']==19
+  spec=importlib.util.spec_from_file_location('southside_grade_freezer_preflight',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');freezer=importlib.util.module_from_spec(spec);spec.loader.exec_module(freezer);refs.extend(imported_local_files(freezer))
+- validation=read(DRAFT/'no-worker-schema-validation.json');assert validation['callerSHA256']==digest(Path(__file__).read_bytes())and validation['methodSHA256']==digest((DRAFT/'METHOD.md').read_bytes())and validation['diffSHA256']==digest((DRAFT/'current-grade-to-authenticated-grade-caller.diff').read_bytes())
++ validation=read(DRAFT/'no-worker-schema-validation-v2.json');assert validation['callerSHA256']==digest(Path(__file__).read_bytes())and validation['methodSHA256']==digest((DRAFT/'METHOD.md').read_bytes())and validation['diffSHA256']==digest((DRAFT/'current-grade-to-authenticated-grade-caller.diff').read_bytes())
+  pins={str(p.relative_to(ROOT)):digest(p.read_bytes())for p in refs}
+  return receipts,refs,pins,inputs,data,rows,history,prior_rows,grounds,bindings
+ 
+ def owned(state):
+- test_validation=read(DRAFT/'immutable-test-validation-v1/validation.json');assert test_validation['testsRun']==26 and test_validation['exitCode']==0 and test_validation['result']=='OK'
++ test_validation=read(DRAFT/'immutable-test-validation-v2/validation.json');assert test_validation['testsRun']==26 and test_validation['exitCode']==0 and test_validation['result']=='OK'
+  expected_codes={str(p.relative_to(ROOT)):digest(p.read_bytes())for p in [Path(__file__),*[HERE/n for n in HELPERS]]};assert test_validation['codePins']==expected_codes
+  for path,h in test_validation['codePins'].items():assert digest((ROOT/path).read_bytes())==h
+  receipts,refs,pins,inputs,data,saved_rows,history,prior_rows,grounds,bindings=state;lease=read(LEASE);assert lease['resources']==inputs['canonicalResources']and reservations.owns(lease)
+@@ -87,8 +87,8 @@
+   for receipt in receipts:assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(receipt['jobId'],)).fetchone()==('complete',receipt)
+  before=(ROOT/'3d-viewer/city/data/manifest.json').read_bytes();rows=[]
+  for n in ['validation.json','tests.log']:
+-  q=DRAFT/'immutable-test-validation-v1'/n;refs.append(q);pins[str(q.relative_to(ROOT))]=digest(q.read_bytes())
+- assert digest((DRAFT/'immutable-test-validation-v1/tests.log').read_bytes())==test_validation['testLogSHA256']
++  q=DRAFT/'immutable-test-validation-v2'/n;refs.append(q);pins[str(q.relative_to(ROOT))]=digest(q.read_bytes())
++ assert digest((DRAFT/'immutable-test-validation-v2/tests.log').read_bytes())==test_validation['testLogSHA256']
+  for uid in UIDS:
+   item=data[uid];nfaces=COUNTS[uid];ground=np.asarray(grounds[uid]['completeSelectedFacets'],dtype='<f8');gsha=digest(ground.tobytes())
+   for mode in MODES:

@@ -1,0 +1,244 @@
+{
+  "manifestSHA256": "436c9f42fba30136c91625c90e83d94bb73a3a1884d0a67d99ce17b1a1094f39",
+  "manifestKey": "astra-modelling/objects/sha256/43/436c9f42fba30136c91625c90e83d94bb73a3a1884d0a67d99ce17b1a1094f39",
+  "schemaVersion": 1,
+  "issue": "HKS-222",
+  "runId": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+  "gitCommit": "413f517c34121e4521b5e47d5cfd242eee356088",
+  "summary": {
+    "runId": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+    "expected": 3456,
+    "cached": 3456,
+    "pending": 0,
+    "jobs": {},
+    "qualification": "Mechanical preparation only; not publication or architectural acceptance",
+    "sheetOutcomes": {
+      "prepared": 2279,
+      "exceptions": 1177
+    },
+    "issue": "HKS-222",
+    "counts": {
+      "sourceBytes": 10050529801,
+      "packedAssets": 216969,
+      "sourceModels": 216976,
+      "artifactBytes": 19995567007,
+      "candidateModels": 212675,
+      "restoredR2Bytes": 0,
+      "transferredBytes": 9723250191,
+      "sourceTerrainModels": 3458
+    },
+    "outcomes": {
+      "packed-needs-placement-review": 212675,
+      "source-match-held": 4294,
+      "failed": 7
+    },
+    "terrainOutcomes": {
+      "prepared-geometry-only": 3174,
+      "failed": 284
+    },
+    "aiCalls": 0
+  },
+  "auditSummary": {
+    "issue": "HKS-222",
+    "runId": "e98f84fdaeb489b229af3910d80d765bb87dbbdc565ec1794836b04909f370ec",
+    "snapshotAt": "2026-09-09 05:13:39.764691+00",
+    "status": "complete-mechanical-audit",
+    "expectedSheets": 3456,
+    "acceptedSheets": 3456,
+    "unacceptedSheets": 0,
+    "indexedModels": 216976,
+    "indexedModelsInAcceptedSheets": 216976,
+    "modelOutcomeRows": 216976,
+    "indexedModelsWithoutAcceptedOutcomes": 0,
+    "allAcceptedIndexedModelsAccounted": true,
+    "countMismatches": 0,
+    "unknownMechanicalFailures": 0,
+    "confirmedSourceCorruptModels": 7,
+    "modelStates": {
+      "packed-needs-placement-review": 212675,
+      "source-match-held": 4294,
+      "failed": 7
+    },
+    "modelErrorPatterns": [
+      {
+        "state": "failed",
+        "error": "UnicodeDecodeError: 'utf-32-be' codec can't decode byte 0x0a in position 2092: truncated data",
+        "count": 2
+      },
+      {
+        "state": "failed",
+        "error": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "count": 2
+      },
+      {
+        "state": "failed",
+        "error": "UnicodeDecodeError: 'utf-32-be' codec can't decode bytes in position 2124-2125: truncated data",
+        "count": 1
+      },
+      {
+        "state": "failed",
+        "error": "UnicodeDecodeError: 'utf-32-be' codec can't decode byte 0x0a in position 2132: truncated data",
+        "count": 1
+      },
+      {
+        "state": "failed",
+        "error": "UnicodeDecodeError: 'utf-32-be' codec can't decode bytes in position 2044-2045: truncated data",
+        "count": 1
+      }
+    ],
+    "terrainOutcomeRows": 3458,
+    "terrainStates": {
+      "prepared-geometry-only": 3174,
+      "failed": 284
+    },
+    "terrainErrorPatterns": [
+      {
+        "state": "failed",
+        "error": "ValueError: Non-finite or inconsistent primitive attributes",
+        "count": 136
+      },
+      {
+        "state": "failed",
+        "error": "ValueError: need at least one array to concatenate",
+        "count": 101
+      },
+      {
+        "state": "failed",
+        "error": "UnsupportedSource: Textured, skinned, animated or extended source requires its own validated packer",
+        "count": 47
+      }
+    ],
+    "effectiveTerrainStates": {
+      "prepared-geometry-only": 3357,
+      "source-empty": 101
+    },
+    "effectiveTerrainErrorPatterns": [],
+    "terrainRepair": {
+      "runId": "0a8235777721aadedb888af5bebf62403f0b6bcd71cbbea3879d4bb42b541054",
+      "expectedSheets": 284,
+      "acceptedSheets": 284,
+      "pendingSheets": 0,
+      "expectedEntries": 284,
+      "matchedOriginalFailures": 284,
+      "unusedPreparedEntries": 0,
+      "validationErrors": []
+    },
+    "terrainDiagnosticStates": {
+      "diagnostic-complete": 216969,
+      "not-checked": 7
+    },
+    "sampledTerrainIntersectionModels": 174806,
+    "elevatedLowRimModels": 13652,
+    "candidateModels": 212675,
+    "uniqueCandidateUIDs": 212675,
+    "crossSheetUIDCollisions": {
+      "uids": 0,
+      "members": 0,
+      "identicalSourceGroups": 0,
+      "distinctSourceGroups": 0
+    },
+    "absentSelectedFootprintCases": 1650,
+    "absentSelectedFootprintClassifications": {
+      "retained-footprint-identity-absent": 1650
+    },
+    "rawFootprintAudit": {
+      "sourceSHA256": "4f25701140e090c0a58abb180b5b38a5c57f0a0f0897757032f35af4fa98d4e1",
+      "sourceRecordsScanned": 342223,
+      "geoRefValueTypes": {
+        "str": 342223
+      },
+      "queriedGeoRefs": 1650,
+      "matchesExpectedSourceSHA256": true
+    },
+    "exceptionCategories": {
+      "sampled-terrain-intersection-review": 174806,
+      "source-identity-or-geometry-review": 2644,
+      "elevated-support-or-placement-review": 13652,
+      "original-terrain-failure-repaired": 284,
+      "confirmed-source-corrupt": 7,
+      "terrain-diagnostic-blocked-by-source": 7,
+      "retained-footprint-identity-absent": 1650
+    },
+    "published": false,
+    "candidatesAltered": false,
+    "qualification": "Mechanical preparation audit only. Source identity, sampled terrain, supported towers and architectural review remain separate; no placement approval or whole-region completion.",
+    "sourceDefectEvidenceSHA256": "2cfe9ccdee1961a67bb1c7eb2b7154b8a35359fd9fc0247dbb6d8e42b54bb89c",
+    "exceptionLedgerSHA256": "85e867177b380e393a97115563bd7e46c143bb2de184c27b9489945eca713673",
+    "exceptionLedger": "exceptions.jsonl"
+  },
+  "artifact": {
+    "key": "astra-modelling/objects/sha256/4e/4eaf35b0123f93ae93ac34bedecb0a8924f465a762487b86e01af632f35364d1",
+    "sha256": "4eaf35b0123f93ae93ac34bedecb0a8924f465a762487b86e01af632f35364d1",
+    "bytes": 93674398
+  },
+  "files": [
+    {
+      "path": "run/summary.json",
+      "sha256": "c449083dcd9087470382a085fc7a1d27119dc2afb2d59da5b59830b49ca5bf7f",
+      "bytes": 815
+    },
+    {
+      "path": "run/shared-results.json.gz",
+      "sha256": "cfb6d4b69c05b0a2a09b33a59ea12bc5afe20f8163f423d8fe03de64ac443ab2",
+      "bytes": 76704213
+    },
+    {
+      "path": "run/registration.json",
+      "sha256": "fcfa627633045519f538157f650e9f45332daa12a66fc305913ed10fb58aca36",
+      "bytes": 353
+    },
+    {
+      "path": "run/inputs.json",
+      "sha256": "ab3549b51530c7c938531889ec3f5ecaa9b528a7854afc2b62446c2295664c0c",
+      "bytes": 21485115
+    },
+    {
+      "path": "run/terrain-repair-results.json.gz",
+      "sha256": "3b4d691bc4edd243e9d187253a8476cb6b2ca48c178d596fc21d55804465ba80",
+      "bytes": 150026
+    },
+    {
+      "path": "plan.json",
+      "sha256": "7ce7c1ab9017fa79294bb1fe0b9509960a7acd51ff5fdbb321f724a204aefec5",
+      "bytes": 1879629
+    },
+    {
+      "path": "source-defect-audit.json",
+      "sha256": "2cfe9ccdee1961a67bb1c7eb2b7154b8a35359fd9fc0247dbb6d8e42b54bb89c",
+      "bytes": 12257
+    },
+    {
+      "path": "verification/source-restore-pilot.json",
+      "sha256": "bf659ab9e02474de799a9e1eea8813317f547a13197bd584fffba44a00ee28ae",
+      "bytes": 1511
+    },
+    {
+      "path": "verification/shared-cache-reuse.json",
+      "sha256": "18dc45ae97b66e6ec6305971918581f0a67be795ad89e207fb761d903c8cd367",
+      "bytes": 1482
+    },
+    {
+      "path": "verification/terrain-repair-verification.json",
+      "sha256": "74172d99f1a2390a6049ac9e5ac167a7f12123e9cb71e0a492bda4963d00f922",
+      "bytes": 5592
+    },
+    {
+      "path": "verification/converter-pilot.json",
+      "sha256": "4bb788880b5112badca49498a82e3f92bb00b13a66b67750dd405a759131b5bb",
+      "bytes": 3075
+    },
+    {
+      "path": "audit/exceptions.jsonl",
+      "sha256": "85e867177b380e393a97115563bd7e46c143bb2de184c27b9489945eca713673",
+      "bytes": 167107355
+    },
+    {
+      "path": "audit/summary.json",
+      "sha256": "b5c86c67a97603dbd5ef738ff03ce27d0935de702e9cb38fc65e0162171ca0b4",
+      "bytes": 4145
+    }
+  ],
+  "verifiedRemoteReadback": true,
+  "qualification": "Mechanical preparation only; not publication or architectural acceptance",
+  "published": false
+}

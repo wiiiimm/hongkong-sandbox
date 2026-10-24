@@ -1,0 +1,7 @@
+Oi Sin current physical recovery — 17 October 2026
+
+Current unchanged originals: tower 256280 and podium 91128. Neither is in the installed catalogue. Native source hashes revalidated against the pinned run. The current renderer capture loads both with no errors. Tower compound foundation passes; tower identity still fails target coverage (historically the verified same-building assembly provides coverage, but its strict support gate remains unresolved). The canonical interface remains 1,965/2,034 strict contacts and 69 unresolved samples. All 92 affected edges have separate complete fixed-band proofs; these are not contact acceptance.
+
+Podium ordinary identity passes. Current terrain buries 139 podium faces, including 26 upward-facing faces; total buried area 311.5313 m². Authenticated original 11-SE-8D source terrain clears the strict podium foundation: all 7,849 model faces accounted, zero buried faces, minimum sampled gap -0.060202 m. Source directory is authenticated against the retained October 7 receipt; no live-provider freshness claim.
+
+Next: construct a private bounded original-terrain proposal using current coarse-cell extents; nominate all affected basic and installed actors from actual complete bounds, preserve other terrain patches, and complete neighbour/native/renderer guards. Resolve the tower’s source seam interpretation and identity independently; do not waive strict contact using distance alone. No terrain proposal or model was published in this checkpoint. XL remains 250 installed / 271 remaining of 521.

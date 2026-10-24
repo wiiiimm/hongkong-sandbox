@@ -1,0 +1,5 @@
+# Block 37 and adjacent Block J provider context
+
+Fresh primary current Building and occupation-structure queries distinguish active Block37 CSUID3406534885P20050804 from BlockJ CSUID3393934960P20050804. Block37 alone links to occupation structure942359 / NT34/96. BlockJ has a separate active BuildingID1106137436, base9.9/top14HKPD, no returned occupation relation or name. Missing relationship data does not prove different ownership, absence or impossibility.
+
+The terrain agent's exact source packet records 20.4704815617 m² of original Block37 source excess overlapping BlockJ, involving eight original faces at12.138998–13.510998HKPD. It is an adjacent podium/roof edge issue, not evidence that the model is corrupt. No shared provider occupation group or positive precise overhang ownership was established. No group merge, form suppression, coordinate change or unrelated-overlap waiver is approved. Further work needs exact original adjacent source/interface or primary roof/site ownership evidence.

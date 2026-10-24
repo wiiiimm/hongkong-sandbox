@@ -1,0 +1,52 @@
+{
+  "published": true,
+  "areas": [
+    {
+      "area": "Original Olympic Station",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-olympic-station-qualified-stage-v2-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "estimatedBases": []
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_live_install_v2_20261022.py", line 89, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_live_install_v2_20261022.py", line 81, in main
+    if a.owned:return owned()
+                      ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_live_install_v2_20261022.py", line 60, in owned
+    cfg={**config,'viewportWidths':[width],'failureTestUids':[UID],'doc':str((DOC/str(width)).relative_to(ROOT))+'/'};cfgpath=LOCAL/f'live-browser-{width}.json';save(cfgpath,cfg);call(['node',str(BROWSER),'live',str(cfgpath.relative_to(ROOT))]);report=read(DOC/str(width)/'live-browser.json');assert report['passed']and not report['errors'];v=[r for r in report['views']if 'time'in r];assert len(v)==2
+                                                                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_live_install_v2_20261022.py", line 47, in call
+    assert reservations.owns(lease);run=subprocess.run(command,cwd=ROOT,capture_output=True,text=True,env={**os.environ,'CHROME_PATH':'/opt/google/chrome/chrome'},timeout=1200);save(DOC/('command-'+str(len(list(DOC.glob('command-*.json')))).zfill(3)+'.json'),dict(command=command,exitCode=run.returncode,stdout=run.stdout,stderr=run.stderr));assert run.returncode==0,run.stderr;assert reservations.owns(lease)
+                                                                                                                                                                                                                                                                                                                                                             ^^^^^^^^^^^^^^^^^
+AssertionError: node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.waitForFunction: Timeout 60000ms exceeded.
+    at /home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_live_browser_v3_20261022.mjs:51:18 {
+  name: 'TimeoutError'
+}
+
+Node.js v24.18.0
+
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_live_install_v2_20261022.py", line 89, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_live_install_v2_20261022.py", line 85, in main
+    try:subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-olympic-station-original-installed-v2-20261022/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/olympic_station_live_install_v2_20261022.py', '--owned']' returned non-zero exit status 1.

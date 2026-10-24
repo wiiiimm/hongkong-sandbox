@@ -1,0 +1,9 @@
+# Miami Beach Towers 2 and 5 installed
+
+Codex, 9 October 2026, HKS-203. Both complete original government models are installed: `landsd/202994:0` (4,899 triangles) and `landsd/203433:0` (2,412 triangles). Neon installation receipt: `82d2c9bfd7fa9f921e5ebd4d857790c2cabf18e7749a1639bdc08b7ff91b4a76`; review snapshot: `0151d395dce3a355`.
+
+The installation preserves original compressed assets, geometry, attributes and poses. Exact primary occupation-permit relationships establish the sole related podium232089. Its basic model remains visible and retains ordinary terrain/collision checks; no actor is suppressed. Both complete foundations, current runtime limits and all18 neighbours pass. Eight staged and eight live desktop/mobile day/night views, complete framing, picking/collision, sampler parity and two deliberate mobile503 fallback/retry checks pass. Clean exports were inspected independently. Amber lines in earlier exports were normal selection highlighting; those failure and review receipts remain preserved.
+
+These towers are auxiliary sources outside the fixed521 XL inventory. The independently verified `full-xl-current-count.json` reports **205 installed /316 remaining**, not207/314. Whole-map progress now records346108 source building forms and4462 enhanced forms;4445 of212669 matched government forms are enhanced. These figures count source forms, not unique physical buildings.
+
+The guarded `xl-miami-two-original-live-install-20261009.py` replays frozen source/identity/physical/staged/solid evidence, reserves the affected actors, locks publication and restores the prior manifest on live-browser failure before installation credit. Installed reviews and final result were independently reread from Neon. No AI geometry modelling, simplification or acceptance-limit changes occurred. No historical Lantau map imagery was used.

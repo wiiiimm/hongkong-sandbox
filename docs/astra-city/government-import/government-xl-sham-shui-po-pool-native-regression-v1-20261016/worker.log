@@ -1,0 +1,11 @@
+file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-footprint-scopes.js:17
+ if(!scope||scope.uid!==entry.uid||scope.modelId!==entry.modelId||scope.sha256!==entry.sha256||building.uid!==scope.uid||typeof getBuilding!=='function')throw new Error('Unverified complete model footprint scope');
+                                                                                                                                                               ^
+
+Error: Unverified complete model footprint scope
+    at officialModelFootprint (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-footprint-scopes.js:17:160)
+    at loadOfficialModel (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-assets.js:76:26)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/check-native-neighbours.mjs:57:20
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.18.0

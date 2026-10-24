@@ -1,0 +1,69 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-mui-wo-7-20260914/plan.json",
+  "areas": [
+    {
+      "area": "Mui Wo verified original government models \u00b7 September 2026",
+      "models": 7,
+      "catalogue": "city/data/official-models/government-mui-wo-20260914/catalogue.json",
+      "terrainBundles": [
+        "source-scripts/city/government-import/accepted/government-mui-wo-7-20260914/terrain-mui-wo-bundle.json"
+      ],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain-government-mui-wo-east-20260914.json": null,
+    "3d-viewer/city/data/official-models/government-mui-wo-20260914/catalogue.json": null,
+    "3d-viewer/city/data/terrain-mui-wo.json": "adb88f05e5dacce2a901b13a6e8d52efc859bc915f22a3ad0a1a4f836e12c81c",
+    "3d-viewer/city/data/manifest.json": "a93553774208e843dcf508745644b2729a661e1e50ce6399e98d7e9cf76a74a1"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain-government-mui-wo-east-20260914.json": "a5d8973312a3ae9b9a13d71fac4f502f07ffeaba4326ad1a4f867cc534900739",
+    "3d-viewer/city/data/official-models/government-mui-wo-20260914/catalogue.json": "ccaaae9e1609e0f776c56bee766691460d70b08973eacbf20e5ebf18d5ce5e76",
+    "3d-viewer/city/data/terrain-mui-wo.json": "9a782201318f396f34ac8d343856ca1c1dcae2a4a1458f417f0786020202469c",
+    "3d-viewer/city/data/manifest.json": "46af4262e1ad16146af9f9a34f522c7134e30ffcd0635590cd8563380d764047"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "aad76fe1ab33f48c61f65c14e4bc0bb83c3fa80b",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain-government-mui-wo-east-20260914.json",
+      "resolution": 1,
+      "area": "Mui Wo east \u00b7 original government source TIN",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "10-SW-19A",
+            "revision": 1759075200000,
+            "etag": "\"10e15ac-63dcd86c63487\"",
+            "directorySHA256": "2535ec79956bf7b34c1021db3349e0aa0188a97379c6b7c92347d4c9f4da3745",
+            "archiveSHA256": "ac0f3016cdc43a989706aae3a9b351fa0a659b18339fb744a59cf34279ee1d18",
+            "archiveBytes": 17700268
+          }
+        ],
+        "protectedBasicBuildingUids": [
+          "landsd/173368:0",
+          "landsd/261651:0"
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Current parent terrain is retained under non-target basic-building footprints with a 3m retained collar and 3m outward transition. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "a5d8973312a3ae9b9a13d71fac4f502f07ffeaba4326ad1a4f867cc534900739",
+      "bytes": 1573284
+    }
+  ],
+  "estimatedBases": []
+}

@@ -1,0 +1,11 @@
+# Pool original-source continuation — 16 October 2026
+
+No new installation. Fixed XL remains 247 installed / 274 remaining of 521. Original building bytes unchanged; no optimisation or AI geometry modelling.
+
+Current private terrain: preserved-neighbours-v1. Original bounded basin floors/walls correct the terrain; shared patch replaces government-native-138091-0. Pool own source metrics clear. Nine basic-neighbour regressions resolved. Complete native-regression-v3 passes all three sources 113733, 138091, 99395. ROOT-VERIFIED.json checks pinned Neon and every distinct evidence hash.
+
+Remaining basic 271043 is a separately identified pool tower. Exact government source recovered in tower-acquire-v1 (270 triangles, SHA fc1b0d304c3b50903c479cff16789ed94673dbec4ad59b87de8344dbd812991c). Two original components loaded by original-group-v1. Strict interface: 58 samples, 40 strict contacts, 6 wall resolutions, 12 unresolved. All-layer diagnosis gives no acceptance. Contact-segments-v1 finds some triangle intersections for 10/12 locations, but several nearest intersections are metres away: this is diagnostic ONLY, not 10 cleared contacts. Two no-hit locations are local nomination results, not global non-contact proof. Investigate slightly sloped/adjacent source walls without changing thresholds or coordinates. Diagnostic primitive lacks an explicit zero-area check; add that before general reuse, preserve this frozen producer and receipt.
+
+Browser v1/v2 desktop exports completed and v1 day image inspected. Both mobile attempts stopped at whole-bounds initial detail range (about 590m vs mobile 300m); neither is browser acceptance. Do not call the camera harness failure a corrupted model. Need valid real runtime mobile capture path; no fake landmark priority or raised runtime budgets. All listed worker handles terminal.
+
+Next: qualify actual whole original tower/podium contact or a justified alternative; fresh identity and compound foundation; four arithmetic modes and BASIC checks; full loader/browser/collision and failure recovery; guarded publication only when accepted, then commit and push immediately. All earlier failed stages remain evidence. No permanent rejection established.

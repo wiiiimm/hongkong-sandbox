@@ -1,0 +1,22 @@
+import {readFileSync} from 'node:fs';
+import assert from 'node:assert/strict';
+import * as THREE from '../../../3d-viewer/vendor/three.module.js';
+import {nativeTerrainSurface} from '../../../3d-viewer/city/native-terrain.js';
+const [terrainFile,auditFile]=process.argv.slice(2);
+const terrain=JSON.parse(readFileSync(terrainFile)),audit=JSON.parse(readFileSync(auditFile));
+const surface=nativeTerrainSurface(terrain.nativeMesh),geometry=new THREE.BufferGeometry();
+geometry.setAttribute('position',new THREE.BufferAttribute(surface.position,3));
+geometry.setIndex(terrain.nativeMesh.index);
+const mesh=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({side:THREE.DoubleSide}));
+mesh.updateMatrixWorld(true);
+let maximum=-Infinity;
+for(let i=1;i<surface.position.length;i+=3)maximum=Math.max(maximum,surface.position[i]);
+const rows=audit.float32HighestRayAgreement.rows.map(({x,z})=>{
+ const hits=new THREE.Raycaster(new THREE.Vector3(x,maximum+100,z),new THREE.Vector3(0,-1,0)).intersectObject(mesh);
+ assert(hits.length);
+ const samplerHeight=surface.height(x,z),highestRayHeight=hits[0].point.y;
+ assert(samplerHeight!==null&&Math.abs(samplerHeight-highestRayHeight)<1e-5);
+ return {x,z,samplerHeight,highestRayHeight,hits:hits.length,error:Math.abs(samplerHeight-highestRayHeight)};
+});
+assert(rows.length>0);
+console.log(JSON.stringify({samples:rows.length,maxError:Math.max(...rows.map(r=>r.error)),rows,method:'Actual production Float32 nativeTerrainSurface sampler against complete THREE.DoubleSide terrain ray intersections; no geometry edits.'}));

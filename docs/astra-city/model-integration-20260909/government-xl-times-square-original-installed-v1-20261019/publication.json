@@ -1,0 +1,76 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-times-square-private-stage-v1-20261019/plan.json",
+  "areas": [
+    {
+      "area": "Times Square podium and two unchanged original towers",
+      "models": 3,
+      "catalogue": "city/data/official-models/government-xl-times-square-private-stage-v1-20261019/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-times-square-original-v1-20261019.json": null,
+    "3d-viewer/city/data/official-models/government-xl-times-square-private-stage-v1-20261019/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "29c121c63cd253d7cd98db15525ab9d6441a5bfd455d6e3848f07dd29863c999"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-times-square-original-v1-20261019.json": "abd220236eb06edf40f8337e9a37ff161bbbf9818806226abc96f5193e77bcfc",
+    "3d-viewer/city/data/official-models/government-xl-times-square-private-stage-v1-20261019/catalogue.json": "b3a1b9be5a8b496e033a4a95aafda525d0fdc1ec29108ae07ad44eddf0906295",
+    "3d-viewer/city/data/manifest.json": "09d8bbc40fc6929e319dd399e9ae09f78040382fa30e2a511aab5c72d48d9fc0"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "c47f3f302d3318988bc6b9d38ec77b912ab35500",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-times-square-original-v1-20261019.json",
+      "resolution": 5,
+      "area": "Times Square original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "8f3bd48e9199a803860639775fb56e154bc18318e8f1a74c4daf4bb0c9d40ab7",
+            "etag": "\"34d4f2f-65bf66c358f19\"",
+            "sheet": "11-SW-15A",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-next-five-adjoining-ground-v1-20261018/sheets/11-SW-15A/terrain/TERRAIN(TB)/T36000150000106E12/T36000150000106E12.gltf"
+            ],
+            "triangles": 194598
+          },
+          {
+            "directorySHA256": "9a5438b22f76ee881c9bee41108354146ef87e512bc417095550fe5daece4e58",
+            "etag": "\"34b253e-65bf66dad5af9\"",
+            "sheet": "11-SW-15B",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-next-five-adjoining-ground-v1-20261018/sheets/11-SW-15B/terrain/TERRAIN(TB)/T36750150000106E12/T36750150000106E12.gltf"
+            ],
+            "triangles": 192346
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "abd220236eb06edf40f8337e9a37ff161bbbf9818806226abc96f5193e77bcfc",
+      "bytes": 478511
+    }
+  ],
+  "estimatedBases": []
+}

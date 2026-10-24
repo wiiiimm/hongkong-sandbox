@@ -1,0 +1,76 @@
+{
+  "supportUid": "landsd/277890:0",
+  "uid": "landsd/314698:0",
+  "sourceSHA256": "542e82ac375360d425034be0d66d1f8c0e5d4f75c762590342e9a097cf1a48f5",
+  "supportSHA256": "31e137e5024c6caf78d0c0b2b258d8107d9868c6bab65cc0e7876d57f60a5fbb",
+  "interface": {
+    "policy": "exact-original-contact-seams-v1",
+    "passed": false,
+    "samples": 877,
+    "strictContacts": 876,
+    "wallIntersections": 0,
+    "seamCorrections": 0,
+    "resolved": [],
+    "unresolved": [
+      {
+        "position": [
+          2387.703125,
+          49.152000427246094,
+          -2444.86328125
+        ],
+        "gap": -1.285999298095696,
+        "reason": "support-above-rim"
+      }
+    ],
+    "rawInterface": {
+      "policy": "exact-native-wall-podium-interface-v1",
+      "passed": false,
+      "samples": 877,
+      "strictContacts": 876,
+      "wallIntersections": 0,
+      "strictLowRim": {
+        "samples": 877,
+        "contacts": 876,
+        "missing": 0,
+        "minGap": -1.285999298095696,
+        "maxGap": 0.22100067138672586,
+        "minimumGap": -0.1,
+        "maximumGap": 1,
+        "allSampledContactsPass": false,
+        "failed": [
+          {
+            "position": [
+              2387.703125,
+              49.152000427246094,
+              -2444.86328125
+            ],
+            "gap": -1.285999298095696,
+            "reason": "support-above-rim"
+          }
+        ]
+      },
+      "maximumEmbeddingM": 0.5,
+      "resolved": [],
+      "unresolved": [
+        {
+          "position": [
+            2387.703125,
+            49.152000427246094,
+            -2444.86328125
+          ],
+          "gap": -1.285999298095696,
+          "reason": "support-above-rim"
+        }
+      ],
+      "qualification": "Actual same-triangle vertical wall/podium intersection resolves a rim below the deck by at most the existing ordinary 0.5m source-clearance allowance. Requires other strict rim contacts. No horizontal buried floor, floating point, missing support, fully embedded source or coordinate edit is accepted."
+    },
+    "maximumEmbeddingM": 0.5,
+    "exactSeamToleranceM": 0.001,
+    "installationApproved": false,
+    "qualification": "Original support wall upper-edge seams and higher zero-area deck corners only. All original triangles, poses and raw failures retained; strict contact interval and 0.5m wall embedding limit unchanged. Full identity, source terrain/foundation, neighbours, runtime/browser and publication remain separate."
+  },
+  "passed": false,
+  "rawPassed": false,
+  "newlyPasses": false,
+  "installationApproved": false
+}

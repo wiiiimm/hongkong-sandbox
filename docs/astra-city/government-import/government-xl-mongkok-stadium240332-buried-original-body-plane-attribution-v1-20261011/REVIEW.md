@@ -1,0 +1,3 @@
+# Original Stadium buried-face attribution
+
+All15456 original literal planes/Y ranges assigned to14 genuine original bodies with15zero preserved; saved four-stream783 ordinary failures concentrate in body0(743),11(20),13(20), no finite rerun. Original body0 failing planes include34 horizontal-up,700 inclined-up,8 inclined-down,1vertical; detached11/13 failures are20inclined-up each. Literal normals/winding/plane tilts do not supply architectural function or foundations intent; original plane classes are not F32 normal reclassification. No whole-source finite waiver, terrain lowering/source shift, genuine grade root, cap/mount/body/current/identity acceptance. Actual current finite negatives, all source14body/foreign/native/runtime/extent obligations remain unchanged.

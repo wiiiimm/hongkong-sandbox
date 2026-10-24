@@ -1,0 +1,11 @@
+--- source-scripts/city/government-import/upton_three_original_freeze_complete_current_runtime_capture_draft_v2_20261012.py
++++ source-scripts/city/government-import/upton_three_original_freeze_complete_current_runtime_capture_draft_v2_20261012.py
+@@ -4,7 +4,7 @@
+ import numpy as np
+ from run import ROOT,HERE,read,save,digest,connect,reservations
+ from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+-from upton_three_original_complete_current_runtime_capture_draft_v1_20261012 import BATCH,DOC,LOCAL,UIDS,MANIFEST_SHA,PLAN,INPUTS,ATTR,CLOSURE,PROTECTED,state,native,module,ref,verified_source_certificate,verified_plan
++from upton_three_original_complete_current_runtime_capture_draft_v2_20261012 import BATCH,DOC,LOCAL,UIDS,MANIFEST_SHA,PLAN,INPUTS,ATTR,CLOSURE,PROTECTED,state,native,module,ref,verified_source_certificate,verified_plan
+ 
+ def main():
+  p=argparse.ArgumentParser();p.add_argument('--lease-file',required=True);a=p.parse_args();lease=read(Path(a.lease_file));assert reservations.owns(lease)and not(DOC/'result.json').exists()

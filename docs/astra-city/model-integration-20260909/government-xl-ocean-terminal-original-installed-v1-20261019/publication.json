@@ -1,0 +1,62 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-ocean-terminal-private-stage-v1-20261019/plan.json",
+  "areas": [
+    {
+      "area": "Ocean Terminal unchanged original source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-ocean-terminal-private-stage-v1-20261019/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-ocean-terminal-original-v1-20261019.json": null,
+    "3d-viewer/city/data/official-models/government-xl-ocean-terminal-private-stage-v1-20261019/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "09d8bbc40fc6929e319dd399e9ae09f78040382fa30e2a511aab5c72d48d9fc0"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-ocean-terminal-original-v1-20261019.json": "3da9399fddec2e9ab886f387f1ab5151833373b562177769ec44e35629ea95c0",
+    "3d-viewer/city/data/official-models/government-xl-ocean-terminal-private-stage-v1-20261019/catalogue.json": "b6a8c497388f913df811d3cf24d94fca7e0acb8a5d8e9db3c66be3fbf4ea6945",
+    "3d-viewer/city/data/manifest.json": "c4a85d732113a33e7766374392afd11e3945902c1b2167c5be261d56e3a9d7dc"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "1914202b529e72638a4d6dc7d2888bf35babdd3e",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-regional-west-wing-original-v1-20261018.json",
+      "sha256": "b103288b2f7950e59aaf7196ea000df4cfb5364c5a309813b311018caa763c5c",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-ocean-terminal-original-v1-20261019.json",
+      "resolution": 5,
+      "area": "Ocean Terminal original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "file": "references/codex/hongkong-3d-model/data/hk-landsd-5m/Whole_HK_DTM_5m.zip",
+        "nativeCellSize": 5,
+        "note": "Archival official DTM; resampled onto a 5 m grid aligned with existing 70 m cell boundaries. Boundary has a 70 m transition outside the validation area. DTM and building revisions differ.",
+        "provider": "Lands Department / Hong Kong SAR Government",
+        "sha256": "785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab",
+        "url": "https://www.landsd.gov.hk/landsd_psi_data/SMO/data/Whole_HK_DTM_5m.zip",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "3da9399fddec2e9ab886f387f1ab5151833373b562177769ec44e35629ea95c0",
+      "bytes": 32483103
+    }
+  ],
+  "estimatedBases": []
+}

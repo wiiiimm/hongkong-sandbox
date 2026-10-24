@@ -1,0 +1,11 @@
+--- failed-verifier-root-path-v1.py
++++ verify-retirement-readonly-v2.py
+@@ -1,7 +1,7 @@
+ """ROOT-reviewed retirement verification only: no file, lease, job or review writes."""
+ from pathlib import Path
+ import hashlib,json,subprocess,sys
+-R=Path(__file__).resolve().parents[6]
++R=Path(__file__).resolve().parents[5]
+ H=R/'source-scripts/city/government-import';sys.path.insert(0,str(H))
+ from run import ROOT,connect,reservations
+ from psycopg.rows import dict_row

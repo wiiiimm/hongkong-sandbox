@@ -1,0 +1,9 @@
+# Opus widened original terrain — 16 October 2026
+
+All five stages terminal; every exact pinned-Neon result and referenced hash independently ROOT-verified. No installed credit. FixedXL245installed/276remaining/521. No optimisation or government building edits.
+
+Original unblended terrain versus full pair showed only1buried non-upward podium face (8.855246m²), proving19previous burials including6upward were transition-induced. V3 now uses BOTH source bounds+2m as original core:[1462.462890625,1975.8154296875,1523.66015625,2033.8564453125]. Parent extent/cells unchanged. Existing complete overlap proof and validator pass. Actual paired renderer reproduces original-source foundation:13349/13349covered,1buriedsideface,0upwardburials. Minimumgap-4.782584m remains and strict interface failures are not waived.
+
+Complete current native scope freshly verifies saved receipts and all source/catalogue/form/module bytes for6664actors, plus complete original/literal/twoFloat32 bounds. ZERO native actors touch parentextent[1442.5,1922.5,1582.5,2062.5]. This supersedes the generic nativeWholePackedVertexScopeStillRequired marker in the BASIC-only report for this exact current candidate/state; changed sources or domain require fresh qualification.
+
+Five footprint forms checked: basic podium248432 and other319559 show increased ground gaps. Podium is the paired candidate only if its own complete acceptance is achieved; do not simply exempt it.319559 still requires preservation or source repair. Next capture its complete current rendered geometry and old drawn terrain across the parent domain; test preserving exact old ground outside the full pair's source projection, then rerun all paired and BASIC checks. The original buried podium side face and tower/podium strict interface are independent unresolved issues. Do not replay completed diagnostic stages unchanged.

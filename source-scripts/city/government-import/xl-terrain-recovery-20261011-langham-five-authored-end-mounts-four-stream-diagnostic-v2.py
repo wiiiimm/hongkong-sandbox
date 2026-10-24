@@ -1,0 +1,40 @@
+"""Finite whole end-mount facets of four curved source strips and one thin part.
+
+All original faces/topology retained. Only actual original authored end patches
+are tested against one independently identified original host facet. Strict
+existing .1m band; front/free edges get no mount/root/bridge credit. Conditional
+source-only diagnosis, not an architectural function or current role approval.
+"""
+from pathlib import Path
+import importlib.util,time,uuid,json
+import numpy as np
+from run import ROOT,HERE,read,save,digest,connect,reservations
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from exact_original_facet_orthogonal_finite_host_band_diagnostic_v1_20261011 import verify
+BASE=ROOT/'docs/astra-city/government-import';BATCH='xl-terrain-recovery-20261011-langham-five-authored-end-mounts-four-stream-diagnostic-v2';DOC=BASE/BATCH
+PROBE=BASE/'government-xl-terrain-recovery-langham-upper-complete-original-current-probe-v1-20261011';ACTUAL=BASE/'xl-terrain-recovery-20261011-langham-two-current-render-attribute-capture-v1';GRAPH=BASE/'xl-terrain-recovery-20261011-langham-complete-original-edge-contact-graph-v1';CENSUS=BASE/'xl-terrain-recovery-20261011-langham-complete-owned-four-stream-edge-census-v1';FINITE=BASE/'xl-terrain-recovery-20261011-langham-owned-current-four-stream-finite-v1';OLD=BASE/'xl-terrain-recovery-20261011-langham-disconnected-finite-host-diagnostic-v1'
+UID='landsd/79318:0';SPECS=((10,(2818,2819,4368,4369),8430),(20,(2863,4402,4403,4404),8430),(21,(2758,2759,2760,2761),8430),(29,(4437,4438,4439,4440),8430),(95,(1534,1535),8882));MODES=('providerOriginal','actualLiteral','explicitLeftAssociatedF32ModelMatrix','explicitBalancedF32ModelMatrix')
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+    assert not DOC.exists();refs=[ref(Path(__file__))]
+    for folder in(PROBE,ACTUAL,GRAPH,CENSUS,FINITE,OLD):
+        r=read(folder/'result.json')
+        with connect()as c:c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r)
+        refs.extend(ref(folder/n)for n in('result.json','diagnostic.json.gz')if(folder/n).is_file())
+    refs.extend(ref(BASE/'xl-terrain-recovery-20261011-langham-five-authored-end-mounts-four-stream-diagnostic-v1'/n)for n in('result.json','diagnostic.json.gz'));refs.append(ref(HERE/'xl-terrain-recovery-20261011-langham-five-authored-end-mounts-four-stream-diagnostic-v1.py'));oldHostIds=read(OLD/'diagnostic.json.gz')['binding']['completeHostOriginalFaceIds'];assert len(oldHostIds)==17385 and oldHostIds==sorted(set(oldHostIds));
+    row=next(r for r in read(PROBE/'selection.json.gz')['rows']if r['uid']==UID);a=next(r for r in read(ACTUAL/'actual-render-attributes.json.gz')['rows']if r['uid']==UID);asset=ROOT/row['candidate']['path'];assert digest(asset.read_bytes())==row['sourceSHA256']==a['sourceSHA256'];index=np.asarray(a['completeOriginalIndex'],int).reshape(-1,3);worlds=[decode_original_world_triangles(asset.read_bytes())]+[np.asarray(a[key],float).reshape(-1,3)[index]for key in('completeLiteralWorldPosition','completeExplicitLeftAssociatedFloat32WorldPosition','completeExplicitBalancedFloat32WorldPosition')];assert all(w.shape==(18086,3,3)and np.isfinite(w).all()for w in worlds)
+    graph=read(GRAPH/'diagnostic.json.gz');censuses=read(CENSUS/'diagnostic.json.gz');finite=read(FINITE/'diagnostic.json.gz');refs.extend(ref(p)for p in(asset,PROBE/'selection.json.gz',PROBE/'historical-current-manifest.json',ACTUAL/'actual-render-attributes.json.gz',HERE/'exact_packed_world_geometry_20261009.py',HERE/'exact_original_facet_orthogonal_finite_host_band_diagnostic_v1_20261011.py',HERE/'exact_original_surface_coordinate_band_20261010.py',HERE/'exact_original_projection_coverage_20261009.py',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py'))
+    claim=reservations.claim('langham-five-end-mounts-'+str(uuid.uuid4()),['immutable-source-proof:'+BATCH],batch=BATCH,ttl=3600);assert claim['ok'];lease=claim['reservation'];last=time.monotonic()
+    try:
+        rows=[]
+        for mode,w in zip(MODES,worlds):
+            f=next(p for p in finite['rows']if p['mode']==mode);c=next(p for p in censuses['rows']if p['mode']==mode);assert f['completeWorldSHA256']==c['completeOwnedWorldSHA256']==digest(w.tobytes());allproof={p['sourceFace']:p['proof']for p in f['allFaces']};records=[]
+            for body,ends,hostSubsetIndex in SPECS:
+                host=oldHostIds[hostSubsetIndex]
+                ids=graph['components'][body]['globalOriginalFaces'];assert len(ids)==(10 if body==95 else 139)and set(ends)<=set(ids);hostbody=next(i for i,p in enumerate(graph['components'])if host in p['globalOriginalFaces']);assert hostbody==(34 if body==95 else 83);cc=next(p for p in c['completeAll961OriginalBodyRepresentationCensuses']if p['originalBody']==body);assert cc['completeOriginalBodyFaces']==ids and len(cc['recomputedCompleteRepresentationEdgeCensus']['sharedEdgeConnectedComponents'])==1;assert all(allproof[i]['sourceFaceSHA256']==digest(w[i].tobytes())and allproof[i]['groundProjectionCovered']is True and allproof[i]['existingOrdinaryClearanceBoundProved']is True for i in ids)
+                mounts=[dict(sourceFace=i,completeAuthoredFacet=w[i].tolist(),actualHostFace=host,completeHostFacet=w[host].tolist(),completeWholeFacetFiniteHostBand=verify(w[i],w[[host]]))for i in ends];records.append(dict(originalBody=body,completeOriginalFaceInventory=ids,completeRepresentationBodyCensus=cc['recomputedCompleteRepresentationEdgeCensus'],completeAuthoredEndPatchFaces=list(ends),originalHostBody=hostbody,originalHostFace=host,independentlyBoundHistoricalHostSubsetIndex=hostSubsetIndex,completeOriginalHostSubsetInventoryBinding=ref(OLD/'diagnostic.json.gz'),wholeCompleteEndFacetsInExistingBand=all(p['completeWholeFacetFiniteHostBand']['wholeFacetAssociated']for p in mounts),completeEndPatchProofs=mounts,completeAllBodyOrdinaryFiniteFaceProofs=[dict(sourceFace=i,proof=allproof[i])for i in ids],remainingFreeFacesNotClaimedAsMounts=sorted(set(ids)-set(ends)),hostRootNotProvedByThisDiagnosis=True));print(json.dumps(dict(mode=mode,body=body,wholeEndPatchesPositive=records[-1]['wholeCompleteEndFacetsInExistingBand'],actualHostBody=hostbody)),flush=True)
+                if time.monotonic()-last>=20:assert reservations.heartbeat(lease)['ok'];last=time.monotonic()
+            rows.append(dict(mode=mode,completeOwnedWorldSHA256=digest(w.tobytes()),completeBodyEndMountDiagnoses=records,allFiveActualEndPatchSetsAssociated=all(p['wholeCompleteEndFacetsInExistingBand']for p in records)));assert reservations.heartbeat(lease)['ok']
+        assert all(ref(ROOT/r['path'])==r for r in refs);out=dict(uids=[UID],rows=rows,allFiveEndPatchSetsPositiveAllFourStreams=all(r['allFiveActualEndPatchSetsAssociated']for r in rows),completeFrontAndFreeEdgeNegativesRetained=ref(OLD/'diagnostic.json.gz'),originalSourceWorldAndPoseUnchanged=True,strictBandM=.1,sourceOnlyFrozenCurrentBaseline=True,frozenBaselineManifest=ref(PROBE/'historical-current-manifest.json'),noFreshCurrentReacceptance=True,noArchitecturalFunctionInferred=True,authoredVisualRoleAccepted=False,structuralRootCredit=False,structuralBridgeCredit=False,nativeReacceptance=False,currentAcceptance=False,newlyInstalled=0,evidenceRefs=refs);save(DOC/'diagnostic.json.gz',out);s=importlib.util.spec_from_file_location('freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.freeze(BATCH,'complete-langham-five-original-endpatch-four-stream-finite-fixedband-diagnostic-v2',[ROOT/r['path']for r in refs]+[DOC/'diagnostic.json.gz'],dict(uids=[UID],allFiveEndPatchSetsPositiveAllFourStreams=out['allFiveEndPatchSetsPositiveAllFourStreams'],sourceOnly=True,currentAcceptance=False,authoredVisualRoleAccepted=False,newlyInstalled=0))
+    finally:assert reservations.release(lease)['ok']
+if __name__=='__main__':main()

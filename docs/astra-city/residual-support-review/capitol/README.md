@@ -1,0 +1,13 @@
+# Decoupled Capitol assembly — HKS-214
+
+Six source components are approved for integration: the native Capitol podium, four tower shafts, and the neighbouring native service/stair component. The full LOHAS terrain extension remains held; this smaller 280 × 420 m patch excludes the unresolved ancillary building 272501 and all Le Prestige terrain changes.
+
+The patch retains all 29,751 installed Club Galaxy nodes in elevation, rendered elevation and vegetation. Its newly exposed boundary blends to the existing parent without changing protected nodes. All 1,404 boundary samples agree within 0.00000043 m. The 43 affected source footprints produce two unsurveyed canopy estimate flags and one basic depot envelope flag. The latter is cleared by checking 9,640 actual native upward triangles: none becomes newly buried.
+
+The six models pass all 705 low-rim samples: 413 native triangle contacts and 292 terrain contacts. Twelve camera-safe full-scene/isolated views were exported and inspected. The four tower crowns and shaft outlines, shared podium perimeter and service component projections remain unmodified native source geometry. This does not claim the whole estate is complete.
+
+Two open-sided structures have null government base/top elevations and an explicitly estimated height of 3 m. Their bases change from 7.00 to 5.010 m and 7.95 to 5.003 m, using the exact minimum of the existing footprint intersected with final terrain triangles. Height stays 3 m. This keeps the procedural posts grounded without pretending the estimates are surveyed. Canopy 109723 is visible in the normal scene; 311673 is occluded by the existing depot/podium, so it was also inspected in an explicitly labelled isolated view using the actual runtime geometry generator. Neither source government elevation is changed.
+
+The existing publisher dry-run passes: six new models, one replacement terrain asset, two guarded estimate updates. `approval.json` records source hashes, evidence and limits. The plan is `source-scripts/city/residual-support-review/capitol/publication-plan.json`. The parent performs the only live publication and ledger updates; ledger snapshot at hand-off is `f61930a5e4dfa572`.
+
+Reproduce the bounded crop and protected-node assertions with `source-scripts/city/residual-support-review/capitol.py`. The generated camera, neighbour and context adapters reuse the earlier review engines. `finalise_capitol.py` rechecks source identity, actual footprint/terrain extrema, native contacts and exported browser checks before preparing the final package. Run the existing publisher without `--apply` to validate it again.

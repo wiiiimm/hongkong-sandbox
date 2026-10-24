@@ -1,0 +1,11 @@
+--- docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v1-20261014/test_heritage_current_typed_identity_draft_v1.py
++++ docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v2-20261014/test_heritage_current_typed_identity_draft_v2.py
+@@ -4,7 +4,7 @@
+ from pathlib import Path
+ import unittest
+ from heritage_current_typed_identity_draft_v1 import compose,validate_scope
+-_spec=importlib.util.spec_from_file_location('heritage_identity_actual_fixture',Path(__file__).with_name('heritage-current-typed-identity-caller-draft-v1.py'))
++_spec=importlib.util.spec_from_file_location('heritage_identity_actual_fixture',Path(__file__).with_name('heritage-current-typed-identity-caller-draft-v2.py'))
+ _caller=importlib.util.module_from_spec(_spec);_spec.loader.exec_module(_caller)
+ actual_test_fixture=_caller.actual_test_fixture
+ 

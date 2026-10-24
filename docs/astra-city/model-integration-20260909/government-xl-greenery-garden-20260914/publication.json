@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-greenery-garden-20260914/plan.json",
+  "areas": [
+    {
+      "area": "Greenery Garden and Block C original government assembly",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-greenery-garden-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-264029-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-greenery-garden-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "c0813b6fd708a50b7657748d445fb7e583d6c879f101adae8292b6bd4cd7a186"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-264029-0.json": "e2b8cdfef3abdfa0fa84e7e958c2fa4e9904d24c06407cc60afca01ecf27e479",
+    "3d-viewer/city/data/official-models/government-xl-greenery-garden-20260914/catalogue.json": "184263af2fe704c3655950c33807946c0f97f78a53463facbfc245720e7bcaee",
+    "3d-viewer/city/data/manifest.json": "2a8556bf8dbbe5973853556219caca9487b92ed7b01715a08bd3ab27bee10fb0"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "efcf3447414035e7922e87df532ca69fe25bede8",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-264029-0.json",
+      "resolution": 5,
+      "area": "Greenery Garden exact native terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "56a09a64cb6b27b1c05cb0b3dd32f5651916adbda2b886c1670f8182d039c584",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-SW-11B",
+            "sourceETag": "\"3457b32-63dce3a906b54\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-11B/terrain/TERRAIN(TB)/T30750150000106E10/T30750150000106E10.bin",
+                "sha256": "f89f7eb18eedf43be04dd66cf27d14fc85a48d8c1545a90b6df38800dec4dbdb"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-11B/terrain/TERRAIN(TB)/T30750150000106E10/T30750150000106E10.gltf",
+                "sha256": "5e7da0bf0251926c29b5e80718a067fcb2b70650eca6d613b2d2467dd4d29470"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "e2b8cdfef3abdfa0fa84e7e958c2fa4e9904d24c06407cc60afca01ecf27e479",
+      "bytes": 2238279
+    }
+  ],
+  "estimatedBases": []
+}

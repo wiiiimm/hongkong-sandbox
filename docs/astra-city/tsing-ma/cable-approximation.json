@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "kind": "illustrative-bridge-cables",
+  "region": "tsing-ma",
+  "id": "estimated-tsing-ma-main-span-cables",
+  "estimatedGeometry": true,
+  "walkable": false,
+  "sourceUrl": "https://www.hyd.gov.hk/en/information_corner/hyd_factsheets/doc/e_Tsing_Ma_Bridge.pdf",
+  "sources": [
+    {
+      "url": "https://www.hyd.gov.hk/en/information_corner/hyd_factsheets/doc/e_Tsing_Ma_Bridge.pdf",
+      "facts": [
+        "main cables1.1m diameter",
+        "main span1377m",
+        "generally36m erection deck segments"
+      ]
+    },
+    {
+      "url": "https://link.springer.com/article/10.1007/s13349-024-00842-5",
+      "facts": [
+        "main-cable sag ratio0.091 used in the published monitoring model"
+      ],
+      "use": "Only a static visual approximation; not the measured present cable curve or current deflection."
+    }
+  ],
+  "anchors": {
+    "B250112338101063C0": {
+      "modelId": "landsd-infrastructure/B250112338101063C0",
+      "point": [
+        -9488.66015625,
+        209.4419937133789,
+        -6880.314453125
+      ],
+      "method": "Mean of unique source vertices within3cm of the saddle-cover maximum. Exact mesh samples; inferred cable centreline attachment, not a surveyed cable anchor.",
+      "sourceHashes": {
+        "BUILDING/B250112338101063C0/B250112338101063C0.gltf": "88e1d83a5b091437c531226f41e11a137615594aa9e31c16be021004b8aada8d",
+        "BUILDING/B250112338101063C0/B250112338101063C0.bin": "54beef762a86b0a4d4997517dcfbac5befdd347bfbb278f573e94cac27bb10db"
+      }
+    },
+    "B250222334201063C0": {
+      "modelId": "landsd-infrastructure/B250222334201063C0",
+      "point": [
+        -9478.2236328125,
+        209.4419937133789,
+        -6845.01318359375
+      ],
+      "method": "Mean of unique source vertices within3cm of the saddle-cover maximum. Exact mesh samples; inferred cable centreline attachment, not a surveyed cable anchor.",
+      "sourceHashes": {
+        "BUILDING/B250222334201063C0/B250222334201063C0.gltf": "98f877ad39005993226242f9e983416ddf0875e1c3829cda685c87bca52b9e49",
+        "BUILDING/B250222334201063C0/B250222334201063C0.bin": "d6b5f2b4bc89f1517fd4a71f3bb1d6525022a13d2d1d5a79edbc24e0fd0f284c"
+      }
+    },
+    "B263302377501063C0": {
+      "modelId": "landsd-infrastructure/B263302377501063C0",
+      "point": [
+        -8169.078125,
+        209.42998504638672,
+        -7274.40234375
+      ],
+      "method": "Mean of unique source vertices within3cm of the saddle-cover maximum. Exact mesh samples; inferred cable centreline attachment, not a surveyed cable anchor.",
+      "sourceHashes": {
+        "BUILDING/B263302377501063C0/B263302377501063C0.gltf": "8f87190cc694af05af1f2f61e5b6539782d0a0afd492a136297d0b665a15a2d0",
+        "BUILDING/B263302377501063C0/B263302377501063C0.bin": "17aa6bf20ab0bb6aa459e6a915e63581f09aab6aa669b7bb3a7e18c4495e1fad"
+      }
+    },
+    "B263422373701063C0": {
+      "modelId": "landsd-infrastructure/B263422373701063C0",
+      "point": [
+        -8158.552734375,
+        209.19701385498047,
+        -7239.701171875
+      ],
+      "method": "Mean of unique source vertices within3cm of the saddle-cover maximum. Exact mesh samples; inferred cable centreline attachment, not a surveyed cable anchor.",
+      "sourceHashes": {
+        "BUILDING/B263422373701063C0/B263422373701063C0.gltf": "67fa14922ad687de8002146790712c8add1b76186c9ec0985dc0a9f59c4df78f",
+        "BUILDING/B263422373701063C0/B263422373701063C0.bin": "330a12816e6e1d7bd1058767624a43e6301a4d478dbe1aa8714c141af144394b"
+      }
+    }
+  },
+  "profile": "Straight horizontal interpolation between inferred source-saddle anchors; parabolic vertical profile with sag0.091\u00d7horizontal span.",
+  "limits": [
+    "All cable/hanger geometry is illustrative and separate from the six original source meshes.",
+    "No wind, load, temperature or structural analysis is simulated.",
+    "Backstay anchorage geometry and exact hanger layout are not verified and are omitted from this bounded addition.",
+    "The source deck and tower vertices remain unchanged."
+  ],
+  "counts": {
+    "originalSourceModels": 0,
+    "mainCables": 2,
+    "illustrativeHangers": 152,
+    "illustrativeTriangles": 6432
+  },
+  "spans": [
+    {
+      "side": 0,
+      "horizontalSpanMetres": 1377.1717404649057,
+      "sagMetres": 125.32262838230642,
+      "minHeightHKPD": 84.1133609975764
+    },
+    {
+      "side": 1,
+      "horizontalSpanMetres": 1377.4287234831204,
+      "sagMetres": 125.34601383696395,
+      "minHeightHKPD": 83.97348994721574
+    }
+  ],
+  "skippedHangers": []
+}

@@ -1,0 +1,2677 @@
+{
+  "schemaVersion": 1,
+  "scope": "Exactly the 13 documented partial roof flags from HKS-192. No source heights or live data changed.",
+  "inputs": [
+    {
+      "file": "3d-viewer/city/data/terrain-mui-wo.json",
+      "sha256": "95e288a0ad14f8389ed4daaad0a7af8657251b2bc0af9f282233448fbcf06648"
+    },
+    {
+      "file": "3d-viewer/city/data/mui-wo-buildings.json",
+      "sha256": "2fc513d63cf1deb62f8e78ab89106484873a40a1ea910dad6144fca65d7e342f"
+    },
+    {
+      "file": "docs/astra-city/mui-wo-completion/terrain-audit.json",
+      "sha256": "fd666c30a23f859903c8a875515a925daf74c5a2e305919ff772fd32a7b21dad"
+    }
+  ],
+  "sourceTINs": [
+    {
+      "manifest": "docs/astra-city/mui-wo-buildings/review/model-sample/manifest.json",
+      "manifestSha256": "539a9caabdfce5a38ea89d7734f058ed4df702fad964895e4e2d591eed328494",
+      "tile": "10-SW-12C",
+      "revision": "2026-05-10T16:00:00+00:00",
+      "source": "TERRAIN(TB)/T16500144000106E11/T16500144000106E11.gltf",
+      "sourceHashes": {
+        "TERRAIN(TB)/T16500144000106E11/T16500144000106E11.gltf": "a1896da651c69edc9cf358a377a9e3d9294ac0f8987d6529478a1952998f4142",
+        "TERRAIN(TB)/T16500144000106E11/T16500144000106E11.bin": "bce161338bb90e94964e929546996a347861df01a8bc796708c5f9d1dfe4c597"
+      }
+    },
+    {
+      "manifest": "source-scripts/city/mui-wo-models/staged/10-SW-17C/manifest.json",
+      "manifestSha256": "1f442eccd49d37837ebf874b534362e6d6c3464a46f63748376487334188f1da",
+      "tile": "10-SW-17C",
+      "revision": "2026-05-10T16:00:00+00:00",
+      "source": "TERRAIN(TB)/T16500132000106E11/T16500132000106E11.gltf",
+      "sourceHashes": {
+        "TERRAIN(TB)/T16500132000106E11/T16500132000106E11.gltf": "6fb797e6edd3d1df10ce9b9757b3f17369e54b2bfe1c33ed6665d67df85268b6",
+        "TERRAIN(TB)/T16500132000106E11/T16500132000106E11.bin": "d6769f8562bda3455b29d109adf86f5ae8e9b5d0c61651913e09a273b8d1076d"
+      }
+    },
+    {
+      "manifest": "source-scripts/city/mui-wo-models/staged/10-SW-17D/manifest.json",
+      "manifestSha256": "804ba32579ccd865c51f1045902f8929b402dc4bbc6d22cc4d4d0df5f7dc0e4c",
+      "tile": "10-SW-17D",
+      "revision": "2026-05-10T16:00:00+00:00",
+      "source": "TERRAIN(TB)/T17250132000106E11/T17250132000106E11.gltf",
+      "sourceHashes": {
+        "TERRAIN(TB)/T17250132000106E11/T17250132000106E11.gltf": "1e5082079cfa14f573f982e231d38977a78c02c205ea5b31d0a6c1a539e587bc",
+        "TERRAIN(TB)/T17250132000106E11/T17250132000106E11.bin": "5a9096c5d09f689cce24676bec4dd92dc6f3aff0ca1e463236388102c118c666"
+      }
+    },
+    {
+      "manifest": "source-scripts/city/mui-wo-completion/staged/10-SW-12A/manifest.json",
+      "manifestSha256": "5e24a28e2862471ff81003653efd1aef571865b8b4755e3aa4346cb5ae831597",
+      "tile": "10-SW-12A",
+      "revision": "2026-05-10T16:00:00+00:00",
+      "source": "TERRAIN(TB)/T16500150000106E11/T16500150000106E11.gltf",
+      "sourceHashes": {
+        "TERRAIN(TB)/T16500150000106E11/T16500150000106E11.gltf": "121b0184a8b04dbd7b9949c1b87ccb4b704e5169af3c075892069c5f30530af4",
+        "TERRAIN(TB)/T16500150000106E11/T16500150000106E11.bin": "a53c93c48105e60e2f83d7b2ceadb1a973f6cd41a4920c2099026f864263e34d"
+      }
+    },
+    {
+      "manifest": "source-scripts/city/mui-wo-completion/staged/10-SW-13A/manifest.json",
+      "manifestSha256": "a996a7badd93dd3c8386274bdcc418a649f70dc6d59e116908b0158809380bc4",
+      "tile": "10-SW-13A",
+      "revision": "2026-05-10T16:00:00+00:00",
+      "source": "TERRAIN(TB)/T18000150000106E11/T18000150000106E11.gltf",
+      "sourceHashes": {
+        "TERRAIN(TB)/T18000150000106E11/T18000150000106E11.gltf": "9ca115f35d95d156e8335357662e18e5a93128e9131fa32d0befe80c75773a95",
+        "TERRAIN(TB)/T18000150000106E11/T18000150000106E11.bin": "40eb8ad1a8feeb9998f3d55285e89a1d94bc57a53ee360c22f23ef7a295851f5"
+      }
+    },
+    {
+      "manifest": "source-scripts/city/mui-wo-completion/staged/10-SW-13C/manifest.json",
+      "manifestSha256": "6655e9521b6ebb1fd51bf73ec36595cddcb8002d797d52f47686d8c68bf52b3f",
+      "tile": "10-SW-13C",
+      "revision": "2026-05-10T16:00:00+00:00",
+      "source": "TERRAIN(TB)/T18000144000106E11/T18000144000106E11.gltf",
+      "sourceHashes": {
+        "TERRAIN(TB)/T18000144000106E11/T18000144000106E11.gltf": "d3de62fcb467aae3b2942c3b292fcbcf17476129f234f425d0764c2e483c4168",
+        "TERRAIN(TB)/T18000144000106E11/T18000144000106E11.bin": "8213ffb0b7f466a51dbc7b6c4a72ae608d19a1a40dc6c8dc67add291884e66a4"
+      }
+    },
+    {
+      "manifest": "source-scripts/city/mui-wo-completion/staged/10-SW-21B/manifest.json",
+      "manifestSha256": "3a5cd9bd37798560502f2c35c7f390babee359dd3fa2cc6d6b2c24f2143d86d2",
+      "tile": "10-SW-21B",
+      "revision": "2025-09-28T16:00:00+00:00",
+      "source": "TERRAIN(TB)/T15750126000106E10/T15750126000106E10.gltf",
+      "sourceHashes": {
+        "TERRAIN(TB)/T15750126000106E10/T15750126000106E10.gltf": "3cf87cb1bbe74a5cebfb353e8e739af6892aec7394b8f7e665c178807b3fb618",
+        "TERRAIN(TB)/T15750126000106E10/T15750126000106E10.bin": "ec8cd199f9263c5ab8b426c2360a16d9ef0b2f3f8c0c1f1b56607f7e47dea011"
+      }
+    },
+    {
+      "manifest": "source-scripts/city/mui-wo-completion/staged/10-SW-7D/manifest.json",
+      "manifestSha256": "45b2a4d0e85c30e14db3c2a23986e1dbd7f021cb4c08eb45f21fab6455742da1",
+      "tile": "10-SW-7D",
+      "revision": "2025-09-28T16:00:00+00:00",
+      "source": "TERRAIN(TB)/T17250156000106E10/T17250156000106E10.gltf",
+      "sourceHashes": {
+        "TERRAIN(TB)/T17250156000106E10/T17250156000106E10.gltf": "f608f5e20edff61a323d785270435690eb5a799a51ac717c9ffb78867d47c7a8",
+        "TERRAIN(TB)/T17250156000106E10/T17250156000106E10.bin": "114441c2cedd67ddbd66905b6bcc85f1dbe5af8b67737af65902fa5cd0d8b2e0"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "uid": "landsd/108665:0",
+      "name": "YEE YUEN",
+      "centre": [
+        -16200.343,
+        1563.21
+      ],
+      "footprintArea": 110.39383899999379,
+      "rings": [
+        [
+          [
+            -16194.707,
+            1558.146
+          ],
+          [
+            -16197.242,
+            1557.249
+          ],
+          [
+            -16197.563,
+            1558.092
+          ],
+          [
+            -16196.795,
+            1558.347
+          ],
+          [
+            -16197.135,
+            1559.788
+          ],
+          [
+            -16193.402,
+            1560.413
+          ],
+          [
+            -16194.334,
+            1566.835
+          ],
+          [
+            -16194.468,
+            1567.758
+          ],
+          [
+            -16194.587,
+            1568.58
+          ],
+          [
+            -16194.715,
+            1569.462
+          ],
+          [
+            -16194.878,
+            1570.587
+          ],
+          [
+            -16197.176,
+            1570.113
+          ],
+          [
+            -16197.997,
+            1569.944
+          ],
+          [
+            -16198.86,
+            1569.766
+          ],
+          [
+            -16199.806,
+            1569.571
+          ],
+          [
+            -16200.645,
+            1569.398
+          ],
+          [
+            -16201.522,
+            1569.217
+          ],
+          [
+            -16201.616,
+            1569.198
+          ],
+          [
+            -16201.133,
+            1565.935
+          ],
+          [
+            -16202.537,
+            1565.64
+          ],
+          [
+            -16203.09,
+            1569.086
+          ],
+          [
+            -16208.54,
+            1568.321
+          ],
+          [
+            -16207.961,
+            1565.806
+          ],
+          [
+            -16204.956,
+            1566.769
+          ],
+          [
+            -16204.004,
+            1563.53
+          ],
+          [
+            -16207.243,
+            1562.548
+          ],
+          [
+            -16206.211,
+            1557.584
+          ],
+          [
+            -16203.558,
+            1558.366
+          ],
+          [
+            -16204.12,
+            1560.202
+          ],
+          [
+            -16200.726,
+            1561.331
+          ],
+          [
+            -16198.348,
+            1554.162
+          ],
+          [
+            -16202.021,
+            1552.962
+          ],
+          [
+            -16197.816,
+            1553.792
+          ],
+          [
+            -16196.845,
+            1553.979
+          ],
+          [
+            -16195.798,
+            1554.18
+          ],
+          [
+            -16194.868,
+            1554.359
+          ],
+          [
+            -16194.33,
+            1554.462
+          ],
+          [
+            -16194.379,
+            1554.943
+          ],
+          [
+            -16194.47,
+            1555.842
+          ],
+          [
+            -16194.563,
+            1556.752
+          ],
+          [
+            -16194.707,
+            1558.146
+          ]
+        ],
+        [
+          [
+            -16196.063,
+            1566.41
+          ],
+          [
+            -16194.123,
+            1560.847
+          ],
+          [
+            -16198.539,
+            1559.323
+          ],
+          [
+            -16200.429,
+            1564.886
+          ],
+          [
+            -16196.063,
+            1566.41
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Temporary Structure",
+      "sourceAttributes": {
+        "OBJECTID": 108665,
+        "Shape_Length": 110.40131564099279,
+        "Shape_Area": 110.39689349623637,
+        "GeoRefNo": "1829714936",
+        "DateCreate": 1197849600000,
+        "BuildingBlockType": "Temporary Structure",
+        "BuildingCSUID": "1829714936T20071217",
+        "BuildingID": 1103049098,
+        "Status": "Active",
+        "BuildingNameEN": "YEE YUEN",
+        "BuildingNameTC": "\u5b9c\u5712",
+        "BaseHeight": null,
+        "TopHeight": null,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1409788800000
+      },
+      "renderBase": 9.649,
+      "highestRenderRoof": 13.149,
+      "currentTerrain": {
+        "min": 9.649,
+        "max": 16.61,
+        "centre": 13.17,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/108665:0",
+        "name": "YEE YUEN",
+        "locality": {
+          "name": "Tai Wai Yuen",
+          "zh": "\u5927\u5049\u5712",
+          "source": "https://www.openstreetmap.org/node/4472134122",
+          "distance": 568.9,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": null,
+        "sourceBase": null,
+        "modelId": null,
+        "previousWhole": false,
+        "previousPartial": false,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "estimated-roof",
+        "renderTop": 13.149,
+        "fixedPreviousTop": 14.31,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 9.649,
+          "max": 16.61,
+          "centre": 13.17,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 10.81,
+          "max": 13.403,
+          "centre": 11.107,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-completion/staged/10-SW-13C/terrain-source-5m.json",
+            "height": 13.169100837111834
+          }
+        ],
+        "previousBase": 10.81,
+        "proposedBase": 9.649,
+        "missingBaseReestimated": true
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -16202.5,
+            1562.5
+          ],
+          "current": 14.16,
+          "source": 14.159468040422945,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16197.5,
+            1562.5
+          ],
+          "current": 12.59,
+          "source": 12.587680824695116,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16202.5,
+            1567.5
+          ],
+          "current": 11.96,
+          "source": 11.960837382427385,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16197.5,
+            1567.5
+          ],
+          "current": 10.7,
+          "source": 10.704165588528976,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-13C",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 50,
+          "coverageArea": 110.39383899999835,
+          "minimum": 9.488097551557264,
+          "maximum": 16.801438549765404,
+          "maximumPoint": [
+            -16201.85546875,
+            1552.9946732312724
+          ],
+          "centre": 12.46775415952838,
+          "areaAboveHighestRoofPlusTolerance": 61.68022943507726
+        }
+      ],
+      "sourceCoveredArea": 110.39383899999835,
+      "nativeTerrainAboveHighestRoofArea": 61.68022943507726,
+      "sourceCoveredFraction": 1.0000000000000413,
+      "sourceMaximum": 16.801438549765404
+    },
+    {
+      "uid": "landsd/163005:0",
+      "name": "",
+      "centre": [
+        -17254.526,
+        2810.402
+      ],
+      "footprintArea": 201.518097000014,
+      "rings": [
+        [
+          [
+            -17264.363,
+            2804.058
+          ],
+          [
+            -17259.921,
+            2798.875
+          ],
+          [
+            -17245.03,
+            2810.496
+          ],
+          [
+            -17249.164,
+            2815.793
+          ],
+          [
+            -17247.71,
+            2817.639
+          ],
+          [
+            -17250.807,
+            2820.437
+          ],
+          [
+            -17252.689,
+            2822.021
+          ],
+          [
+            -17257.676,
+            2818.829
+          ],
+          [
+            -17259.377,
+            2817.477
+          ],
+          [
+            -17256.969,
+            2814.378
+          ],
+          [
+            -17256.748,
+            2814.525
+          ],
+          [
+            -17255.058,
+            2812.301
+          ],
+          [
+            -17264.777,
+            2804.599
+          ],
+          [
+            -17264.363,
+            2804.058
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Open-sided Structure",
+      "sourceAttributes": {
+        "OBJECTID": 163005,
+        "Shape_Length": 69.57700024678331,
+        "Shape_Area": 201.5230912580546,
+        "GeoRefNo": "1724513688",
+        "DateCreate": 1560470400000,
+        "BuildingBlockType": "Open-sided Structure",
+        "BuildingCSUID": "1724513688T20190614",
+        "BuildingID": 1810188296,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": null,
+        "TopHeight": null,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1560470400000
+      },
+      "renderBase": 4.53,
+      "highestRenderRoof": 7.53,
+      "currentTerrain": {
+        "min": 4.53,
+        "max": 8.497,
+        "centre": 5.78,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/163005:0",
+        "name": "",
+        "locality": {
+          "name": "Luk Tei Tong Village",
+          "zh": "\u9e7f\u5730\u5858\u6751",
+          "source": "https://www.openstreetmap.org/node/13287206330",
+          "distance": 142.9,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": null,
+        "sourceBase": null,
+        "modelId": null,
+        "previousWhole": false,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "estimated-roof",
+        "renderTop": 7.53,
+        "fixedPreviousTop": 7.53,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 4.53,
+          "max": 8.497,
+          "centre": 5.78,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 4.53,
+          "max": 8.497,
+          "centre": 5.78,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-models/staged/10-SW-17C/terrain-source-5m.json",
+            "height": 5.779624174203615
+          }
+        ],
+        "previousBase": 4.53,
+        "proposedBase": 4.53,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -17257.5,
+            2807.5
+          ],
+          "current": 5.79,
+          "source": 5.791239361806702,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17252.5,
+            2807.5
+          ],
+          "current": 4.77,
+          "source": 4.769806020475151,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17257.5,
+            2812.5
+          ],
+          "current": 6.87,
+          "source": 6.8673197266040065,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17252.5,
+            2812.5
+          ],
+          "current": 5.68,
+          "source": 5.6824124594595915,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-17C",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 66,
+          "coverageArea": 171.24836000232906,
+          "minimum": 4.290000915527344,
+          "maximum": 8.47885953369149,
+          "maximumPoint": [
+            -17259.377,
+            2817.477
+          ],
+          "centre": 5.735896271771725,
+          "areaAboveHighestRoofPlusTolerance": 12.981422201052226
+        },
+        {
+          "tile": "10-SW-17D",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 26,
+          "coverageArea": 30.26973699768154,
+          "minimum": 4.44308910883548,
+          "maximum": 6.6789879522547375,
+          "maximumPoint": [
+            -17250.0,
+            2819.7079118501774
+          ],
+          "centre": null,
+          "areaAboveHighestRoofPlusTolerance": 0
+        }
+      ],
+      "sourceCoveredArea": 201.51809700001056,
+      "nativeTerrainAboveHighestRoofArea": 12.981422201052226,
+      "sourceCoveredFraction": 0.9999999999999829,
+      "sourceMaximum": 8.47885953369149
+    },
+    {
+      "uid": "landsd/172595:0",
+      "name": "",
+      "centre": [
+        -15986.557,
+        1260.239
+      ],
+      "footprintArea": 66.72012100000182,
+      "rings": [
+        [
+          [
+            -15987.921,
+            1255.454
+          ],
+          [
+            -15983.853,
+            1255.902
+          ],
+          [
+            -15980.682,
+            1257.923
+          ],
+          [
+            -15986.69,
+            1266.063
+          ],
+          [
+            -15992.093,
+            1262.456
+          ],
+          [
+            -15987.921,
+            1255.454
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Temporary Structure",
+      "sourceAttributes": {
+        "OBJECTID": 172595,
+        "Shape_Length": 32.61702164241859,
+        "Shape_Area": 66.72012099460959,
+        "GeoRefNo": "1851315239",
+        "DateCreate": 1197849600000,
+        "BuildingBlockType": "Temporary Structure",
+        "BuildingCSUID": "1851315239T20071217",
+        "BuildingID": 1103048867,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": null,
+        "TopHeight": null,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1287100800000
+      },
+      "renderBase": 41.997,
+      "highestRenderRoof": 45.497,
+      "currentTerrain": {
+        "min": 41.997,
+        "max": 45.874,
+        "centre": 44.173,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/172595:0",
+        "name": "",
+        "locality": {
+          "name": "Wang Tong",
+          "zh": "\u6a6b\u5858",
+          "source": "https://www.openstreetmap.org/node/2295473896",
+          "distance": 903.2,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": null,
+        "sourceBase": null,
+        "modelId": null,
+        "previousWhole": false,
+        "previousPartial": false,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "estimated-roof",
+        "renderTop": 45.497,
+        "fixedPreviousTop": 56.339,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": false,
+        "terrain": {
+          "min": 41.997,
+          "max": 45.874,
+          "centre": 44.173,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 52.839,
+          "max": 54.302,
+          "centre": 53.614,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-completion/staged/10-SW-13A/terrain-source-5m.json",
+            "height": 44.17702560577875
+          }
+        ],
+        "previousBase": 52.839,
+        "proposedBase": 41.997,
+        "missingBaseReestimated": true
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -15987.5,
+            1257.5
+          ],
+          "current": 45.1,
+          "source": 45.10433610955901,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -15982.5,
+            1257.5
+          ],
+          "current": 43.41,
+          "source": 43.41321620020322,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -15987.5,
+            1262.5
+          ],
+          "current": 43.99,
+          "source": 43.99409953219589,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -15982.5,
+            1262.5
+          ],
+          "current": 41.98,
+          "source": 41.97906502082479,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-13A",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 21,
+          "coverageArea": 66.72012100000475,
+          "minimum": 41.95765456026308,
+          "maximum": 45.817521281469574,
+          "maximumPoint": [
+            -15987.921,
+            1255.454
+          ],
+          "centre": 44.366988893343425,
+          "areaAboveHighestRoofPlusTolerance": 0.506307383671866
+        }
+      ],
+      "sourceCoveredArea": 66.72012100000475,
+      "nativeTerrainAboveHighestRoofArea": 0.506307383671866,
+      "sourceCoveredFraction": 1.000000000000044,
+      "sourceMaximum": 45.817521281469574
+    },
+    {
+      "uid": "landsd/174150:0",
+      "name": "YICK YUEN",
+      "centre": [
+        -17371.575,
+        1688.281
+      ],
+      "footprintArea": 199.96727550001714,
+      "rings": [
+        [
+          [
+            -17361.214,
+            1687.491
+          ],
+          [
+            -17382.71,
+            1705.066
+          ],
+          [
+            -17385.814,
+            1701.921
+          ],
+          [
+            -17366.598,
+            1685.726
+          ],
+          [
+            -17374.253,
+            1676.53
+          ],
+          [
+            -17371.7,
+            1674.395
+          ],
+          [
+            -17365.909,
+            1669.553
+          ],
+          [
+            -17361.979,
+            1674.125
+          ],
+          [
+            -17363.243,
+            1675.253
+          ],
+          [
+            -17365.325,
+            1672.65
+          ],
+          [
+            -17368.233,
+            1675.087
+          ],
+          [
+            -17366.1,
+            1677.664
+          ],
+          [
+            -17368.149,
+            1679.281
+          ],
+          [
+            -17361.214,
+            1687.491
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Open-sided Structure",
+      "sourceAttributes": {
+        "OBJECTID": 174150,
+        "Shape_Length": 111.70991637398652,
+        "Shape_Area": 199.9662131637703,
+        "GeoRefNo": "1712714806",
+        "DateCreate": 1197936000000,
+        "BuildingBlockType": "Open-sided Structure",
+        "BuildingCSUID": "1712714806T20071218",
+        "BuildingID": 1103049249,
+        "Status": "Active",
+        "BuildingNameEN": "YICK YUEN",
+        "BuildingNameTC": "\u5955\u5712",
+        "BaseHeight": null,
+        "TopHeight": null,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1287100800000
+      },
+      "renderBase": 25.219,
+      "highestRenderRoof": 28.219,
+      "currentTerrain": {
+        "min": 25.219,
+        "max": 28.387,
+        "centre": 26.29,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/174150:0",
+        "name": "YICK YUEN",
+        "locality": {
+          "name": "Pak Ngan Heung",
+          "zh": "\u767d\u9280\u9109",
+          "source": "https://www.openstreetmap.org/node/993408542",
+          "distance": 148.8,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": null,
+        "sourceBase": null,
+        "modelId": null,
+        "previousWhole": false,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "estimated-roof",
+        "renderTop": 28.219,
+        "fixedPreviousTop": 28.219,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 25.219,
+          "max": 28.387,
+          "centre": 26.29,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 25.219,
+          "max": 28.387,
+          "centre": 26.29,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "docs/astra-city/mui-wo-buildings/review/model-sample/terrain-source-5m.json",
+            "height": 26.29240319602332
+          }
+        ],
+        "previousBase": 25.219,
+        "proposedBase": 25.219,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -17372.5,
+            1687.5
+          ],
+          "current": 26.32,
+          "source": 26.323562056975536,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17367.5,
+            1687.5
+          ],
+          "current": 26.24,
+          "source": 26.242539935831584,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17372.5,
+            1692.5
+          ],
+          "current": 26.22,
+          "source": 26.22008283521165,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17367.5,
+            1692.5
+          ],
+          "current": 26.27,
+          "source": 26.266512780869252,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-12C",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 59,
+          "coverageArea": 199.96727550002086,
+          "minimum": 25.1669864654541,
+          "maximum": 27.65070385221238,
+          "maximumPoint": [
+            -17374.253,
+            1676.53
+          ],
+          "centre": 26.319687426909404,
+          "areaAboveHighestRoofPlusTolerance": 0
+        }
+      ],
+      "sourceCoveredArea": 199.96727550002086,
+      "nativeTerrainAboveHighestRoofArea": 0.0,
+      "sourceCoveredFraction": 1.0000000000000187,
+      "sourceMaximum": 27.65070385221238
+    },
+    {
+      "uid": "landsd/195964:0",
+      "name": "HOI SHAN YUEN",
+      "centre": [
+        -15887.874,
+        1835.287
+      ],
+      "footprintArea": 15.892486500004777,
+      "rings": [
+        [
+          [
+            -15888.139,
+            1838.522
+          ],
+          [
+            -15889.54,
+            1838.305
+          ],
+          [
+            -15888.626,
+            1831.89
+          ],
+          [
+            -15888.231,
+            1831.944
+          ],
+          [
+            -15886.233,
+            1832.218
+          ],
+          [
+            -15887.095,
+            1838.683
+          ],
+          [
+            -15888.139,
+            1838.522
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Tower",
+      "sourceAttributes": {
+        "OBJECTID": 195964,
+        "Shape_Length": 17.891420458881107,
+        "Shape_Area": 15.89182080183642,
+        "GeoRefNo": "1861214664",
+        "DateCreate": 1114819200000,
+        "BuildingBlockType": "Tower",
+        "BuildingCSUID": "1861214664T20050430",
+        "BuildingID": 1103049615,
+        "Status": "Active",
+        "BuildingNameEN": "HOI SHAN YUEN",
+        "BuildingNameTC": "\u6d77\u5c71\u5712",
+        "BaseHeight": 7,
+        "TopHeight": 9.7,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1362441600000
+      },
+      "renderBase": 7,
+      "highestRenderRoof": 9.7,
+      "currentTerrain": {
+        "min": 7.229,
+        "max": 9.967,
+        "centre": 8.142,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/195964:0",
+        "name": "HOI SHAN YUEN",
+        "locality": {
+          "name": "Tai Wai Yuen",
+          "zh": "\u5927\u5049\u5712",
+          "source": "https://www.openstreetmap.org/node/4472134122",
+          "distance": 792.4,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": 9.7,
+        "sourceBase": 7,
+        "modelId": null,
+        "previousWhole": true,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "source-roof-elevation",
+        "renderTop": 9.7,
+        "fixedPreviousTop": 9.7,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 7.229,
+          "max": 9.967,
+          "centre": 8.142,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 10.157,
+          "max": 11.811,
+          "centre": 10.787,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-completion/staged/10-SW-13C/terrain-source-5m.json",
+            "height": 8.139312028872073
+          }
+        ],
+        "previousBase": 7,
+        "proposedBase": 7,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -15892.5,
+            1832.5
+          ],
+          "current": 6.61,
+          "source": 6.607019487293027,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -15887.5,
+            1832.5
+          ],
+          "current": 8.91,
+          "source": 8.906739953613599,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -15892.5,
+            1837.5
+          ],
+          "current": 6.51,
+          "source": 6.511538312425138,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -15887.5,
+            1837.5
+          ],
+          "current": 7.69,
+          "source": 7.687806372130532,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-13C",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 9,
+          "coverageArea": 15.892486500002011,
+          "minimum": 6.902852909636043,
+          "maximum": 9.720152446051445,
+          "maximumPoint": [
+            -15886.233,
+            1832.218
+          ],
+          "centre": 7.90851583298719,
+          "areaAboveHighestRoofPlusTolerance": 0
+        }
+      ],
+      "sourceCoveredArea": 15.892486500002011,
+      "nativeTerrainAboveHighestRoofArea": 0.0,
+      "sourceCoveredFraction": 0.9999999999998259,
+      "sourceMaximum": 9.720152446051445
+    },
+    {
+      "uid": "landsd/201705:0",
+      "name": "",
+      "centre": [
+        -16504.676,
+        865.625
+      ],
+      "footprintArea": 55.248099000003606,
+      "rings": [
+        [
+          [
+            -16506.346,
+            868.724
+          ],
+          [
+            -16509.856,
+            865.15
+          ],
+          [
+            -16504.855,
+            860.24
+          ],
+          [
+            -16500.0,
+            865.183
+          ],
+          [
+            -16499.869,
+            865.316
+          ],
+          [
+            -16500.0,
+            865.445
+          ],
+          [
+            -16501.939,
+            867.349
+          ],
+          [
+            -16501.022,
+            868.283
+          ],
+          [
+            -16503.953,
+            871.161
+          ],
+          [
+            -16506.346,
+            868.724
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Tower",
+      "sourceAttributes": {
+        "OBJECTID": 201705,
+        "Shape_Length": 30.86638340106028,
+        "Shape_Area": 55.24789942524529,
+        "GeoRefNo": "1799515634",
+        "DateCreate": 1114819200000,
+        "BuildingBlockType": "Tower",
+        "BuildingCSUID": "1799515634T20050430",
+        "BuildingID": 1103048293,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": 78.9,
+        "TopHeight": 85.4,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1362441600000
+      },
+      "renderBase": 78.9,
+      "highestRenderRoof": 85.4,
+      "currentTerrain": {
+        "min": 85.176,
+        "max": 88.966,
+        "centre": 87.105,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/201705:0",
+        "name": "",
+        "locality": {
+          "name": "Tung Hang Mei Tsuen",
+          "zh": "\u6771\u5751\u5c3e\u6751",
+          "source": "https://www.openstreetmap.org/node/6325756275",
+          "distance": 556.3,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": 85.4,
+        "sourceBase": 78.9,
+        "modelId": null,
+        "previousWhole": true,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "source-roof-elevation",
+        "renderTop": 85.4,
+        "fixedPreviousTop": 85.4,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 85.176,
+          "max": 88.966,
+          "centre": 87.105,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 87.241,
+          "max": 90.022,
+          "centre": 88.11,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-completion/staged/10-SW-7D/terrain-source-5m.json",
+            "height": 80.94608382107974
+          }
+        ],
+        "previousBase": 78.9,
+        "proposedBase": 78.9,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -16507.5,
+            862.5
+          ],
+          "current": 86.84,
+          "source": 82.01759712334542,
+          "sourceWeight": 0.3333333333333333
+        },
+        {
+          "world": [
+            -16502.5,
+            862.5
+          ],
+          "current": 89.0,
+          "source": 81.52725289871087,
+          "sourceWeight": 0.0
+        },
+        {
+          "world": [
+            -16507.5,
+            867.5
+          ],
+          "current": 85.19,
+          "source": 80.58289280417215,
+          "sourceWeight": 0.3333333333333333
+        },
+        {
+          "world": [
+            -16502.5,
+            867.5
+          ],
+          "current": 87.75,
+          "source": 80.63040064626966,
+          "sourceWeight": 0.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-7D",
+          "revision": "2025-09-28T16:00:00+00:00",
+          "intersectingTriangles": 21,
+          "coverageArea": 55.23093800000009,
+          "minimum": 78.80241504279768,
+          "maximum": 82.3299041490032,
+          "maximumPoint": [
+            -16504.855,
+            860.24
+          ],
+          "centre": 81.11174081960812,
+          "areaAboveHighestRoofPlusTolerance": 0
+        }
+      ],
+      "sourceCoveredArea": 55.23093800000009,
+      "nativeTerrainAboveHighestRoofArea": 0.0,
+      "sourceCoveredFraction": 0.9996893829776203,
+      "sourceMaximum": 82.3299041490032
+    },
+    {
+      "uid": "landsd/206484:0",
+      "name": "",
+      "centre": [
+        -16779.741,
+        3198.609
+      ],
+      "footprintArea": 74.70851650000517,
+      "rings": [
+        [
+          [
+            -16776.117,
+            3202.238
+          ],
+          [
+            -16778.036,
+            3204.762
+          ],
+          [
+            -16781.085,
+            3202.704
+          ],
+          [
+            -16784.502,
+            3200.399
+          ],
+          [
+            -16785.553,
+            3198.319
+          ],
+          [
+            -16783.023,
+            3194.765
+          ],
+          [
+            -16781.713,
+            3195.759
+          ],
+          [
+            -16779.098,
+            3192.662
+          ],
+          [
+            -16774.513,
+            3195.992
+          ],
+          [
+            -16776.967,
+            3199.488
+          ],
+          [
+            -16775.002,
+            3200.772
+          ],
+          [
+            -16775.412,
+            3201.311
+          ],
+          [
+            -16776.117,
+            3202.238
+          ]
+        ]
+      ],
+      "modelId": "B177191330201063C0",
+      "structureType": "Tower",
+      "sourceAttributes": {
+        "OBJECTID": 206484,
+        "Shape_Length": 37.488894210909415,
+        "Shape_Area": 74.70906363327423,
+        "GeoRefNo": "1771913302",
+        "DateCreate": 1129161600000,
+        "BuildingBlockType": "Tower",
+        "BuildingCSUID": "1771913302T20051013",
+        "BuildingID": 1103051496,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": 63.9,
+        "TopHeight": 78.1,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1362441600000
+      },
+      "renderBase": 63.9,
+      "highestRenderRoof": 68.56880187988281,
+      "currentTerrain": {
+        "min": 63.744,
+        "max": 68.777,
+        "centre": 65.31,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/206484:0",
+        "name": "",
+        "locality": {
+          "name": "Round Table Village",
+          "zh": "\u5713\u684c\u6751",
+          "source": "https://www.openstreetmap.org/node/4794645322",
+          "distance": 526.2,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": 78.1,
+        "sourceBase": 63.9,
+        "modelId": "B177191330201063C0",
+        "previousWhole": false,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "detailed-source-model",
+        "renderTop": 68.56880187988281,
+        "fixedPreviousTop": 68.56880187988281,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 63.744,
+          "max": 68.777,
+          "centre": 65.31,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 63.744,
+          "max": 68.777,
+          "centre": 65.31,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-models/staged/10-SW-17D/terrain-source-5m.json",
+            "height": 65.30977723205662
+          }
+        ],
+        "previousBase": 63.9,
+        "proposedBase": 63.9,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -16782.5,
+            3197.5
+          ],
+          "current": 64.75,
+          "source": 64.75287536825225,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16777.5,
+            3197.5
+          ],
+          "current": 64.54,
+          "source": 64.53638896112857,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16782.5,
+            3202.5
+          ],
+          "current": 67.8,
+          "source": 67.80295964721465,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16777.5,
+            3202.5
+          ],
+          "current": 66.96,
+          "source": 66.96460798998032,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-17D",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 31,
+          "coverageArea": 74.70851650000039,
+          "minimum": 63.73792241498801,
+          "maximum": 68.6319955997813,
+          "maximumPoint": [
+            -16778.036,
+            3204.762
+          ],
+          "centre": 65.13197779287513,
+          "areaAboveHighestRoofPlusTolerance": 0
+        }
+      ],
+      "sourceCoveredArea": 74.70851650000039,
+      "nativeTerrainAboveHighestRoofArea": 0.0,
+      "sourceCoveredFraction": 0.9999999999999359,
+      "sourceMaximum": 68.6319955997813
+    },
+    {
+      "uid": "landsd/206970:0",
+      "name": "",
+      "centre": [
+        -16509.587,
+        874.299
+      ],
+      "footprintArea": 42.480976999999854,
+      "rings": [
+        [
+          [
+            -16506.346,
+            868.724
+          ],
+          [
+            -16503.953,
+            871.161
+          ],
+          [
+            -16512.828,
+            879.875
+          ],
+          [
+            -16515.221,
+            877.438
+          ],
+          [
+            -16506.346,
+            868.724
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Tower",
+      "sourceAttributes": {
+        "OBJECTID": 206970,
+        "Shape_Length": 31.70649356795135,
+        "Shape_Area": 42.48041560538713,
+        "GeoRefNo": "1799115626",
+        "DateCreate": 1114819200000,
+        "BuildingBlockType": "Tower",
+        "BuildingCSUID": "1799115626T20050430",
+        "BuildingID": 1103048302,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": 76.5,
+        "TopHeight": 84.9,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1362441600000
+      },
+      "renderBase": 76.5,
+      "highestRenderRoof": 84.9,
+      "currentTerrain": {
+        "min": 79.819,
+        "max": 86.617,
+        "centre": 82.628,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/206970:0",
+        "name": "",
+        "locality": {
+          "name": "Tung Hang Mei Tsuen",
+          "zh": "\u6771\u5751\u5c3e\u6751",
+          "source": "https://www.openstreetmap.org/node/6325756275",
+          "distance": 546.8,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": 84.9,
+        "sourceBase": 76.5,
+        "modelId": null,
+        "previousWhole": true,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "source-roof-elevation",
+        "renderTop": 84.9,
+        "fixedPreviousTop": 84.9,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 79.819,
+          "max": 86.617,
+          "centre": 82.628,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 85.377,
+          "max": 87.459,
+          "centre": 86.39,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-completion/staged/10-SW-7D/terrain-source-5m.json",
+            "height": 78.21271645838944
+          }
+        ],
+        "previousBase": 76.5,
+        "proposedBase": 76.5,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -16512.5,
+            872.5
+          ],
+          "current": 82.26,
+          "source": 80.01781550770565,
+          "sourceWeight": 0.6666666666666666
+        },
+        {
+          "world": [
+            -16507.5,
+            872.5
+          ],
+          "current": 83.85,
+          "source": 78.04491759928221,
+          "sourceWeight": 0.3333333333333333
+        },
+        {
+          "world": [
+            -16512.5,
+            877.5
+          ],
+          "current": 80.71,
+          "source": 78.1959518570847,
+          "sourceWeight": 0.6666666666666666
+        },
+        {
+          "world": [
+            -16507.5,
+            877.5
+          ],
+          "current": 82.67,
+          "source": 75.49741907620856,
+          "sourceWeight": 0.3333333333333333
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-7D",
+          "revision": "2025-09-28T16:00:00+00:00",
+          "intersectingTriangles": 22,
+          "coverageArea": 42.48097700000171,
+          "minimum": 76.91166266409374,
+          "maximum": 80.21210002986174,
+          "maximumPoint": [
+            -16506.346,
+            868.724
+          ],
+          "centre": 77.92723591499919,
+          "areaAboveHighestRoofPlusTolerance": 0
+        }
+      ],
+      "sourceCoveredArea": 42.48097700000171,
+      "nativeTerrainAboveHighestRoofArea": 0.0,
+      "sourceCoveredFraction": 1.0000000000000437,
+      "sourceMaximum": 80.21210002986174
+    },
+    {
+      "uid": "landsd/226308:0",
+      "name": "",
+      "centre": [
+        -17248.692,
+        2824.309
+      ],
+      "footprintArea": 87.01172049999887,
+      "rings": [
+        [
+          [
+            -17250.807,
+            2820.437
+          ],
+          [
+            -17247.71,
+            2817.639
+          ],
+          [
+            -17245.444,
+            2820.224
+          ],
+          [
+            -17245.73,
+            2820.52
+          ],
+          [
+            -17244.544,
+            2821.761
+          ],
+          [
+            -17241.926,
+            2824.224
+          ],
+          [
+            -17243.439,
+            2825.45
+          ],
+          [
+            -17244.676,
+            2826.445
+          ],
+          [
+            -17248.922,
+            2830.887
+          ],
+          [
+            -17255.464,
+            2824.633
+          ],
+          [
+            -17252.689,
+            2822.021
+          ],
+          [
+            -17250.807,
+            2820.437
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Open-sided Structure",
+      "sourceAttributes": {
+        "OBJECTID": 226308,
+        "Shape_Length": 38.33583747035283,
+        "Shape_Area": 87.0075928411675,
+        "GeoRefNo": "1725113675",
+        "DateCreate": 1560470400000,
+        "BuildingBlockType": "Open-sided Structure",
+        "BuildingCSUID": "1725113675T20190614",
+        "BuildingID": 1810188298,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": null,
+        "TopHeight": null,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1560470400000
+      },
+      "renderBase": 5.469,
+      "highestRenderRoof": 8.469000000000001,
+      "currentTerrain": {
+        "min": 5.469,
+        "max": 9.96,
+        "centre": 7.946,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/226308:0",
+        "name": "",
+        "locality": {
+          "name": "Luk Tei Tong Village",
+          "zh": "\u9e7f\u5730\u5858\u6751",
+          "source": "https://www.openstreetmap.org/node/13287206330",
+          "distance": 156.9,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": null,
+        "sourceBase": null,
+        "modelId": null,
+        "previousWhole": false,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "estimated-roof",
+        "renderTop": 8.469,
+        "fixedPreviousTop": 8.469000000000001,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 5.469,
+          "max": 9.96,
+          "centre": 7.946,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 5.469,
+          "max": 9.96,
+          "centre": 7.946,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [],
+        "previousBase": 5.469,
+        "proposedBase": 5.469,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -17252.5,
+            2822.5
+          ],
+          "current": 8.29,
+          "source": 8.285036823183399,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17247.5,
+            2822.5
+          ],
+          "current": 7.08,
+          "source": 7.081574867607438,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17252.5,
+            2827.5
+          ],
+          "current": 9.97,
+          "source": 9.96553871057812,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17247.5,
+            2827.5
+          ],
+          "current": 8.51,
+          "source": 8.510200931630777,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-17C",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 19,
+          "coverageArea": 27.981321720231424,
+          "minimum": 6.677449341796363,
+          "maximum": 9.956544666402845,
+          "maximumPoint": [
+            -17253.06777956874,
+            2826.9237310573358
+          ],
+          "centre": null,
+          "areaAboveHighestRoofPlusTolerance": 19.081153993166264
+        },
+        {
+          "tile": "10-SW-17D",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 33,
+          "coverageArea": 59.03039877976209,
+          "minimum": 5.465315767094796,
+          "maximum": 9.905823983859383,
+          "maximumPoint": [
+            -17250.0,
+            2829.856457046774
+          ],
+          "centre": 7.943543113398934,
+          "areaAboveHighestRoofPlusTolerance": 10.235166227777261
+        }
+      ],
+      "sourceCoveredArea": 87.01172049999352,
+      "nativeTerrainAboveHighestRoofArea": 29.316320220943524,
+      "sourceCoveredFraction": 0.9999999999999384,
+      "sourceMaximum": 9.956544666402845
+    },
+    {
+      "uid": "landsd/260075:0",
+      "name": "",
+      "centre": [
+        -17290.074,
+        2841.294
+      ],
+      "footprintArea": 80.60416349999718,
+      "rings": [
+        [
+          [
+            -17287.393,
+            2838.326
+          ],
+          [
+            -17283.335,
+            2841.764
+          ],
+          [
+            -17289.362,
+            2848.845
+          ],
+          [
+            -17290.392,
+            2847.969
+          ],
+          [
+            -17288.598,
+            2845.74
+          ],
+          [
+            -17290.959,
+            2843.862
+          ],
+          [
+            -17293.328,
+            2841.916
+          ],
+          [
+            -17295.048,
+            2844.008
+          ],
+          [
+            -17297.412,
+            2841.994
+          ],
+          [
+            -17291.566,
+            2835.125
+          ],
+          [
+            -17290.455,
+            2835.977
+          ],
+          [
+            -17287.393,
+            2838.326
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Open-sided Structure",
+      "sourceAttributes": {
+        "OBJECTID": 260075,
+        "Shape_Length": 45.008481872067684,
+        "Shape_Area": 80.6063078934825,
+        "GeoRefNo": "1721013658",
+        "DateCreate": 1560470400000,
+        "BuildingBlockType": "Open-sided Structure",
+        "BuildingCSUID": "1721013658T20190614",
+        "BuildingID": 1810188294,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": null,
+        "TopHeight": null,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1560470400000
+      },
+      "renderBase": 22.312,
+      "highestRenderRoof": 25.312,
+      "currentTerrain": {
+        "min": 22.312,
+        "max": 26.265,
+        "centre": 24.166,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/260075:0",
+        "name": "",
+        "locality": {
+          "name": "Luk Tei Tong Village",
+          "zh": "\u9e7f\u5730\u5858\u6751",
+          "source": "https://www.openstreetmap.org/node/13287206330",
+          "distance": 146.9,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": null,
+        "sourceBase": null,
+        "modelId": null,
+        "previousWhole": false,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "estimated-roof",
+        "renderTop": 25.312,
+        "fixedPreviousTop": 25.312,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 22.312,
+          "max": 26.265,
+          "centre": 24.166,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 22.312,
+          "max": 26.265,
+          "centre": 24.166,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-models/staged/10-SW-17C/terrain-source-5m.json",
+            "height": 24.165539176049926
+          }
+        ],
+        "previousBase": 22.312,
+        "proposedBase": 22.312,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -17292.5,
+            2837.5
+          ],
+          "current": 23.35,
+          "source": 23.35120780206899,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17287.5,
+            2837.5
+          ],
+          "current": 22.3,
+          "source": 22.3031257246649,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17292.5,
+            2842.5
+          ],
+          "current": 25.27,
+          "source": 25.26704761672008,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17287.5,
+            2842.5
+          ],
+          "current": 23.68,
+          "source": 23.6821180209667,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-17C",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 38,
+          "coverageArea": 80.60416350000571,
+          "minimum": 22.376536103213297,
+          "maximum": 26.341284605021677,
+          "maximumPoint": [
+            -17295.048,
+            2844.008
+          ],
+          "centre": 24.21843314205813,
+          "areaAboveHighestRoofPlusTolerance": 7.933302892610582
+        }
+      ],
+      "sourceCoveredArea": 80.60416350000571,
+      "nativeTerrainAboveHighestRoofArea": 7.933302892610582,
+      "sourceCoveredFraction": 1.0000000000001057,
+      "sourceMaximum": 26.341284605021677
+    },
+    {
+      "uid": "landsd/261605:0",
+      "name": "",
+      "centre": [
+        -18048.95,
+        3883.461
+      ],
+      "footprintArea": 151.59475700000422,
+      "rings": [
+        [
+          [
+            -18041.604,
+            3889.061
+          ],
+          [
+            -18042.895,
+            3889.296
+          ],
+          [
+            -18043.092,
+            3888.139
+          ],
+          [
+            -18051.077,
+            3889.726
+          ],
+          [
+            -18050.823,
+            3890.954
+          ],
+          [
+            -18053.771,
+            3891.567
+          ],
+          [
+            -18056.015,
+            3879.337
+          ],
+          [
+            -18051.354,
+            3878.341
+          ],
+          [
+            -18051.597,
+            3877.071
+          ],
+          [
+            -18044.383,
+            3875.806
+          ],
+          [
+            -18043.767,
+            3878.662
+          ],
+          [
+            -18041.604,
+            3889.061
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Podium",
+      "sourceAttributes": {
+        "OBJECTID": 261605,
+        "Shape_Length": 54.2544926425052,
+        "Shape_Area": 151.59654580198594,
+        "GeoRefNo": "1645112615",
+        "DateCreate": 1142035200000,
+        "BuildingBlockType": "Podium",
+        "BuildingCSUID": "1645112615P20060311",
+        "BuildingID": 1103043381,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": 60.3,
+        "TopHeight": 63.1,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1577750400000
+      },
+      "renderBase": 60.3,
+      "highestRenderRoof": 63.099999999999994,
+      "currentTerrain": {
+        "min": 61.081,
+        "max": 63.395,
+        "centre": 63.303,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/261605:0",
+        "name": "",
+        "locality": {
+          "name": "Luk Tei Tong Village",
+          "zh": "\u9e7f\u5730\u5858\u6751",
+          "source": "https://www.openstreetmap.org/node/13287206330",
+          "distance": 1362.3,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": 63.1,
+        "sourceBase": 60.3,
+        "modelId": null,
+        "previousWhole": true,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "source-roof-elevation",
+        "renderTop": 63.1,
+        "fixedPreviousTop": 63.099999999999994,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 61.081,
+          "max": 63.395,
+          "centre": 63.303,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 64.344,
+          "max": 67.5,
+          "centre": 65.806,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-completion/staged/10-SW-21B/terrain-source-5m.json",
+            "height": 63.29975477977245
+          }
+        ],
+        "previousBase": 60.3,
+        "proposedBase": 60.3,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -18052.5,
+            3882.5
+          ],
+          "current": 63.28,
+          "source": 63.27543262947238,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -18047.5,
+            3882.5
+          ],
+          "current": 63.35,
+          "source": 63.34720770092268,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -18052.5,
+            3887.5
+          ],
+          "current": 63.14,
+          "source": 63.13682149421411,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -18047.5,
+            3887.5
+          ],
+          "current": 63.16,
+          "source": 63.163060819185695,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-21B",
+          "revision": "2025-09-28T16:00:00+00:00",
+          "intersectingTriangles": 47,
+          "coverageArea": 151.59475700000294,
+          "minimum": 60.76417415762246,
+          "maximum": 63.39640366382319,
+          "maximumPoint": [
+            -18042.914576925195,
+            3882.76017270222
+          ],
+          "centre": 63.34627257471316,
+          "areaAboveHighestRoofPlusTolerance": 106.59117608875961
+        }
+      ],
+      "sourceCoveredArea": 151.59475700000294,
+      "nativeTerrainAboveHighestRoofArea": 106.59117608875961,
+      "sourceCoveredFraction": 0.9999999999999916,
+      "sourceMaximum": 63.39640366382319
+    },
+    {
+      "uid": "landsd/296494:0",
+      "name": "",
+      "centre": [
+        -17382.881,
+        1420.439
+      ],
+      "footprintArea": 30.638938499992516,
+      "rings": [
+        [
+          [
+            -17386.708,
+            1423.325
+          ],
+          [
+            -17387.724,
+            1420.133
+          ],
+          [
+            -17379.093,
+            1417.508
+          ],
+          [
+            -17378.093,
+            1420.823
+          ],
+          [
+            -17386.708,
+            1423.325
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Temporary Structure",
+      "sourceAttributes": {
+        "OBJECTID": 296494,
+        "Shape_Length": 24.803774632519122,
+        "Shape_Area": 30.63588230374325,
+        "GeoRefNo": "1711715079",
+        "DateCreate": 1776384000000,
+        "BuildingBlockType": "Temporary Structure",
+        "BuildingCSUID": "1711715079T20260417",
+        "BuildingID": 1910273642,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": 52,
+        "TopHeight": 54.6,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1776384000000
+      },
+      "renderBase": 52,
+      "highestRenderRoof": 54.6,
+      "currentTerrain": {
+        "min": 53.744,
+        "max": 55.685,
+        "centre": 54.553,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/296494:0",
+        "name": "",
+        "locality": {
+          "name": "Wo Tin",
+          "zh": "\u7aa9\u7530",
+          "source": "https://www.openstreetmap.org/node/6065890490",
+          "distance": 196.4,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": 54.6,
+        "sourceBase": 52,
+        "modelId": null,
+        "previousWhole": true,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "source-roof-elevation",
+        "renderTop": 54.6,
+        "fixedPreviousTop": 54.6,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 53.744,
+          "max": 55.685,
+          "centre": 54.553,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 61.196,
+          "max": 63.845,
+          "centre": 62.332,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-completion/staged/10-SW-12A/terrain-source-5m.json",
+            "height": 54.55666522328863
+          }
+        ],
+        "previousBase": 52,
+        "proposedBase": 52,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -17387.5,
+            1417.5
+          ],
+          "current": 57.26,
+          "source": 57.26044229584912,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17382.5,
+            1417.5
+          ],
+          "current": 55.79,
+          "source": 55.79409758590329,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17387.5,
+            1422.5
+          ],
+          "current": 54.19,
+          "source": 54.185881775991575,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -17382.5,
+            1422.5
+          ],
+          "current": 53.61,
+          "source": 53.61451203898973,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-12A",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 13,
+          "coverageArea": 30.638938499992513,
+          "minimum": 53.680481073455994,
+          "maximum": 55.60474102300758,
+          "maximumPoint": [
+            -17387.591796875,
+            1420.0927922369226
+          ],
+          "centre": 54.30219438431404,
+          "areaAboveHighestRoofPlusTolerance": 9.333601309532996
+        }
+      ],
+      "sourceCoveredArea": 30.638938499992513,
+      "nativeTerrainAboveHighestRoofArea": 9.333601309532996,
+      "sourceCoveredFraction": 0.9999999999999999,
+      "sourceMaximum": 55.60474102300758
+    },
+    {
+      "uid": "landsd/336510:0",
+      "name": "",
+      "centre": [
+        -16909.105,
+        2952.784
+      ],
+      "footprintArea": 189.88058750000116,
+      "rings": [
+        [
+          [
+            -16909.316,
+            2943.016
+          ],
+          [
+            -16905.494,
+            2947.654
+          ],
+          [
+            -16903.619,
+            2949.719
+          ],
+          [
+            -16899.391,
+            2954.766
+          ],
+          [
+            -16908.881,
+            2962.656
+          ],
+          [
+            -16913.211,
+            2957.482
+          ],
+          [
+            -16914.856,
+            2955.24
+          ],
+          [
+            -16918.856,
+            2950.525
+          ],
+          [
+            -16909.316,
+            2943.016
+          ]
+        ]
+      ],
+      "modelId": null,
+      "structureType": "Temporary Structure",
+      "sourceAttributes": {
+        "OBJECTID": 336510,
+        "Shape_Length": 55.57592868669445,
+        "Shape_Area": 189.88058749578465,
+        "GeoRefNo": "1759113547",
+        "DateCreate": 1293580800000,
+        "BuildingBlockType": "Temporary Structure",
+        "BuildingCSUID": "1759113547T20101229",
+        "BuildingID": 1810029243,
+        "Status": "Active",
+        "BuildingNameEN": null,
+        "BuildingNameTC": null,
+        "BaseHeight": null,
+        "TopHeight": null,
+        "Storeys": null,
+        "StoreysInBasement": null,
+        "DateStamp": 1685318400000
+      },
+      "renderBase": 15.476,
+      "highestRenderRoof": 18.976,
+      "currentTerrain": {
+        "min": 15.476,
+        "max": 19.18,
+        "centre": 17.375,
+        "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+      },
+      "currentPartial": true,
+      "previousCase": {
+        "uid": "landsd/336510:0",
+        "name": "",
+        "locality": {
+          "name": "Round Table Village",
+          "zh": "\u5713\u684c\u6751",
+          "source": "https://www.openstreetmap.org/node/4794645322",
+          "distance": 460.2,
+          "method": "Nearest mapped settlement point; not a village boundary"
+        },
+        "sourceTop": null,
+        "sourceBase": null,
+        "modelId": null,
+        "previousWhole": false,
+        "previousPartial": true,
+        "whollyBelow": false,
+        "partlyBelow": true,
+        "cause": "estimated-roof",
+        "renderTop": 18.976,
+        "fixedPreviousTop": 18.976,
+        "fixedTopWhollyBelow": false,
+        "fixedTopPartlyBelow": true,
+        "terrain": {
+          "min": 15.476,
+          "max": 19.18,
+          "centre": 17.375,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "previousTerrain": {
+          "min": 15.476,
+          "max": 19.18,
+          "centre": 17.375,
+          "method": "Exact extrema at footprint/5 m terrain triangle intersections"
+        },
+        "sourceTINAtCentre": [
+          {
+            "path": "source-scripts/city/mui-wo-models/staged/10-SW-17D/terrain-source-5m.json",
+            "height": 17.374565938152312
+          }
+        ],
+        "previousBase": 15.476,
+        "proposedBase": 15.476,
+        "missingBaseReestimated": false
+      },
+      "interpolationNodes": [
+        {
+          "world": [
+            -16912.5,
+            2952.5
+          ],
+          "current": 17.38,
+          "source": 17.378986978690364,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16907.5,
+            2952.5
+          ],
+          "current": 17.4,
+          "source": 17.399237963826362,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16912.5,
+            2957.5
+          ],
+          "current": 17.06,
+          "source": 17.05950336264926,
+          "sourceWeight": 1.0
+        },
+        {
+          "world": [
+            -16907.5,
+            2957.5
+          ],
+          "current": 17.52,
+          "source": 17.515816362565975,
+          "sourceWeight": 1.0
+        }
+      ],
+      "sources": [
+        {
+          "tile": "10-SW-17D",
+          "revision": "2026-05-10T16:00:00+00:00",
+          "intersectingTriangles": 63,
+          "coverageArea": 189.88058750000366,
+          "minimum": 15.6815797121791,
+          "maximum": 18.28623909271147,
+          "maximumPoint": [
+            -16899.391,
+            2954.766
+          ],
+          "centre": 17.373079884140907,
+          "areaAboveHighestRoofPlusTolerance": 0
+        }
+      ],
+      "sourceCoveredArea": 189.88058750000366,
+      "nativeTerrainAboveHighestRoofArea": 0.0,
+      "sourceCoveredFraction": 1.000000000000013,
+      "sourceMaximum": 18.28623909271147
+    }
+  ],
+  "counts": {
+    "cases": 13,
+    "currentPartial": 13,
+    "nativeHighestRoofPartial": 7
+  },
+  "limitations": [
+    "Highest roof over the source outline is a conservative screen. Detailed per-roof-face occlusion remains pending; this screen does not certify every roof face.",
+    "Native terrain/outline revisions may differ; a source contradiction is not authority to raise a recorded roof.",
+    "Source footprint detail and model terrain are visualisation data, not surveyed bathymetry or finished architecture."
+  ]
+}

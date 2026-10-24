@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-chow-yin-sum-joint-installed-20261007/plan.json",
+  "areas": [
+    {
+      "area": "Chow Yin Sum Trust Fund Building unchanged original support assembly",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-chow-yin-sum-joint-installed-20261007/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-72357-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-chow-yin-sum-joint-installed-20261007/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "d27e2e71ab9bec2c6268ab60c445ba95f7fb202407cbbba10fc7553b95ddb019"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-72357-0.json": "b082a678668d87e9ffa08111a6bfa04db25cdff6d18b168188aed53714178c9d",
+    "3d-viewer/city/data/official-models/government-xl-chow-yin-sum-joint-installed-20261007/catalogue.json": "c7bcf5cd91a5033e6d2a4fc2220b5b6305082c4818ac0b5f2034cca6bda64697",
+    "3d-viewer/city/data/manifest.json": "446cdb7cc44ca3ed9bb8219f347007f1d1e15070e14d7cec46c5ce70b232a494"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "efebffd5ba8b038741ea84f0a8ecda58fbcba7d1",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-72357-0.json",
+      "resolution": 5,
+      "area": "Chow Yin Sum Trust Fund Building unchanged original support assembly indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "24525aae8aea614251fb40cbdb5bacff405e8a8adf34470491ff082b68f784ef",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-19A",
+            "sourceETag": "\"3f39f9d-655fee2e7510c\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-19A/terrain/TERRAIN(TB)/T34500198000106E11/T34500198000106E11.bin",
+                "sha256": "b4adb63936fb7e8ed3a055285b8ba8255db5f1d2e529f6fc9a9b17c766fbd537"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-19A/terrain/TERRAIN(TB)/T34500198000106E11/T34500198000106E11.gltf",
+                "sha256": "8e8f5e51b38964631693796eff1449c9fd100cbe447326e2ea60f057e05c4051"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "b082a678668d87e9ffa08111a6bfa04db25cdff6d18b168188aed53714178c9d",
+      "bytes": 239039
+    }
+  ],
+  "estimatedBases": []
+}

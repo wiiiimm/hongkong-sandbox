@@ -1,0 +1,64 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-olympian-one-private-stage-v1-20261018/plan.json",
+  "areas": [
+    {
+      "area": "Olympian City One and Bank of China Centre unchanged originals",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-olympian-one-private-stage-v1-20261018/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-olympian-one-original-v1-20261018.json": null,
+    "3d-viewer/city/data/official-models/government-xl-olympian-one-private-stage-v1-20261018/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "723b049d8197d99f2d6bedc908b425af3aee48ac571b8b11bd8e773650d69538"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-olympian-one-original-v1-20261018.json": "51e6f359c9fbdf6152f6478c73e1fb89bacebfb0e56255158740f572e53f99b9",
+    "3d-viewer/city/data/official-models/government-xl-olympian-one-private-stage-v1-20261018/catalogue.json": "32a5728abcfb46901d097d807be763c61b2087b276a04dae3742cb5d0062ff69",
+    "3d-viewer/city/data/manifest.json": "0985642d07547fa043a079328e769504a6501e7fdb96045e1a403bd404de8ec4"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "19b7de23dee2cc52223a3effc75023660c64a3d5",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-olympian-one-original-v1-20261018.json",
+      "resolution": 5,
+      "area": "Olympian City One original-source terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "provenanceReceipt": "dbd4f5fea5ec63b78cc22b768ba00d893fcf6689b7dc8de59dc5786aa6b3d26c",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-unnamed-258470-native-terrain-group-20261005/sheets/11-NW-18B/terrain/TERRAIN(TB)/T33750198000106E11/T33750198000106E11.gltf"
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 5643,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "51e6f359c9fbdf6152f6478c73e1fb89bacebfb0e56255158740f572e53f99b9",
+      "bytes": 775102
+    }
+  ],
+  "estimatedBases": []
+}

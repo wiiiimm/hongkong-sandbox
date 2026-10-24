@@ -1,0 +1,5 @@
+# Block16 finite source/current equality context
+
+Complete bounded150 originalTIN/191 retained-native candidate inventory reproduced exactly;3008 complete projected AABB pairs.174 finite positive-dimensional exact3D equal-height segments,97 isolated equality points,233 no equal-height loci,2504 no positive-area finite overlay. No equal-plane finite overlay in this inventory, hence no whole current facet receives finite original-plane containment context from this census. Exact raw polygons and signed height gaps remain recorded. Segments do not prove closed domain/outside-frontier, qualified seam/topology/support/root, actualF32 incidence or affected17/native/foreign obligation discharge. No new candidate/domain expansion, source or terrain edits, installation or acceptance. Frozen two-parent seam failure and whole-facet frontier exhaustion remain unchanged.
+
+A closed terrain frontier has not been established. Any further topology census must include exact interior segment intersections and collinear overlaps, preserve original pair incidences, and distinguish graph cycles from a qualified source-piece domain.

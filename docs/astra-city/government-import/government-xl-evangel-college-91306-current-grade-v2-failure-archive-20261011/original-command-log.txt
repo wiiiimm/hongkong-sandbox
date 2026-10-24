@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-current-four-body-grade-paths-v2-20261011.py", line 60, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-current-four-body-grade-paths-v2-20261011.py", line 57, in main
+    if '--owned'in sys.argv:return owned()
+                                   ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-current-four-body-grade-paths-v2-20261011.py", line 26, in owned
+    p=source_proposal_pin_path(pin);assert digest(p.read_bytes())==pin['sha256'];refs.append(p)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/evangel_college_post_elements_current_bound_wing_extension_identity_v2_20261011.py", line 18, in source_proposal_pin_path
+    assert pin['sha256']==HISTORICAL_MANIFEST_SHA and digest(HISTORICAL_MANIFEST.read_bytes())==pin['sha256']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-current-four-body-grade-paths-v2-20261011.py", line 60, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-current-four-body-grade-paths-v2-20261011.py", line 59, in main
+    subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-evangel-college-91306-current-four-body-grade-paths-v2-20261011/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-evangel-college-91306-current-four-body-grade-paths-v2-20261011.py', '--owned']' returned non-zero exit status 1.

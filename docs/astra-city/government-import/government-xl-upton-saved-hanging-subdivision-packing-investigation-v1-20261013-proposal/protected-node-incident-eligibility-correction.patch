@@ -1,0 +1,127 @@
+--- preserved/upton_saved_hanging_subdivision_investigation_draft_v1_20261013.py
++++ source-scripts/city/government-import/upton_saved_hanging_subdivision_investigation_draft_v1_20261013.py
+@@ -34,11 +34,11 @@
+ def oriented_sides(point,t):
+  q=[prior.xz(p)for p in t];area=prior.cross(q[0],q[1],q[2])
+  return area,[prior.cross(a,b,point)if area>0 else-prior.cross(a,b,point)for a,b in zip(q,q[1:]+q[:1])]
+-def subdivision_relation(p,a,b,packed,pa,pb,literal_whole):
++def subdivision_relation(p,a,b,packed,pa,pb,literal_whole,protected_node_incident=False):
+  txz=prior.segment_parameter(prior.xz(p),prior.xz(a),prior.xz(b))
+  if txz is None or not 0<txz<1:return None
+  t3=prior.segment_parameter(p,a,b);pt=prior.segment_parameter(prior.xz(packed),prior.xz(pa),prior.xz(pb))
+- return dict(exactInteriorProjectedParameter=txz,exactFinite3DParameter=t3,projectedOnlyDifferentHeightLayer=t3 is None,packedNodeOnLongPackedProjectedEdge=pt is not None,packedParameter=pt,eligibleComputed3DHangingSubdivisionNomination=t3 is not None and pt is None and not literal_whole,noGeometryOrCoverageCredit=True)
++ return dict(exactInteriorProjectedParameter=txz,exactFinite3DParameter=t3,projectedOnlyDifferentHeightLayer=t3 is None,packedNodeOnLongPackedProjectedEdge=pt is not None,packedParameter=pt,protectedWholeCurrentNodeIncident=protected_node_incident,protectedIncidentFamilyConstrainedUnresolved=literal_whole or protected_node_incident,eligibleComputed3DHangingSubdivisionNomination=t3 is not None and pt is None and not literal_whole and not protected_node_incident,noGeometryOrCoverageCredit=True)
+ def owned():
+  lease=read(LEASE);assert reservations.owns(lease)and not DOC.exists();last=time.monotonic()
+  def pulse(force=False):
+@@ -76,7 +76,7 @@
+   for p in vertices:
+    if all(lo[k]<=prior.xz(p)[k]<=hi[k]for k in range(2)):nominated.append(p)
+   for p in sorted(nominated):
+-   packed=packed_for_vertex[p];relation=subdivision_relation(p,a,b,packed,pa,pb,i in protected_ids)
++   packed=packed_for_vertex[p];protected_node_incident=any(q['candidateFace']in protected_ids for q in vertices[p]);relation=subdivision_relation(p,a,b,packed,pa,pb,i in protected_ids,protected_node_incident)
+    if relation is None:continue
+    nodes.append(dict(exactIdealXYZ=p,actualPackedXYZ=packed,**relation,allComplete11575VertexIncidents=[dict(**q,provenanceVerbatim=provenance[q['candidateFace']],literalWholeProtected=q['candidateFace']in protected_ids)for q in vertices[p]]))
+   edge_rows.append(dict(candidateFace=i,edge=e,provenanceVerbatim=provenance[i],exactIdealLongEdgeXYZ=[a,b],actualPackedLongEdgeXYZ=[pa,pb],completeExactClosedBoundsNominatedVertexCount=len(nominated),completeInteriorSubdivisionNodes=nodes,allSavedGapPointRelations=saved_points,longEdgeLiteralWholeProtected=i in protected_ids,literalWholeEdgeCannotBeRetriangulated=True if i in protected_ids else False,completeActualCandidateCensusUsed=True,fullEdgePackingAlreadyAgreesFromPriorEvidence=True,noAutomaticHoldFromExteriorIncidence=True));pulse()
+--- preserved/test_upton_saved_hanging_subdivision_investigation_v1_20261013.py
++++ source-scripts/city/government-import/test_upton_saved_hanging_subdivision_investigation_v1_20261013.py
+@@ -13,9 +13,12 @@
+  def test_whole_literal_facet_never_nominated_for_edit(self):
+   q=subdivision_relation(self.p,self.a,self.b,packed(self.p),packed(self.a),packed(self.b),True)
+   self.assertFalse(q['eligibleComputed3DHangingSubdivisionNomination'])
++ def test_computed_long_edge_with_protected_node_incident_is_constrained(self):
++  q=subdivision_relation(self.p,self.a,self.b,packed(self.p),packed(self.a),packed(self.b),False,protected_node_incident=True)
++  self.assertEqual(q['exactFinite3DParameter'],F(1,3));self.assertFalse(q['projectedOnlyDifferentHeightLayer']);self.assertTrue(q['protectedWholeCurrentNodeIncident']);self.assertTrue(q['protectedIncidentFamilyConstrainedUnresolved']);self.assertFalse(q['eligibleComputed3DHangingSubdivisionNomination'])
+  def test_projected_coincidence_at_other_height_not_subdivision(self):
+   p=(self.p[0],F(1),self.p[2]);q=subdivision_relation(p,self.a,self.b,packed(p),packed(self.a),packed(self.b),False)
+-  self.assertTrue(q['projectedOnlyDifferentHeightLayer']);self.assertFalse(q['eligibleComputed3DHangingSubdivisionNomination'])
++  self.assertTrue(q['projectedOnlyDifferentHeightLayer']);self.assertIsNone(q['exactFinite3DParameter']);self.assertFalse(q['protectedWholeCurrentNodeIncident']);self.assertFalse(q['eligibleComputed3DHangingSubdivisionNomination'])
+  def test_shared_endpoints_are_not_hanging_nodes(self):
+   for p in [self.a,self.b]:self.assertIsNone(subdivision_relation(p,self.a,self.b,packed(p),packed(self.a),packed(self.b),False))
+  def test_detached_collinear_extension_is_not_finite_subdivision(self):
+--- preserved/METHOD.md
++++ docs/astra-city/government-import/government-xl-upton-saved-hanging-subdivision-packing-investigation-v1-20261013-proposal/METHOD.md
+@@ -1,6 +1,6 @@
+ # Upton saved gap: precise hanging/subdivision boundary investigation
+ 
+-Unexecuted caller and eight unexecuted adverse fixtures. This draft changes no geometry and produces no repair. Preserve completed99e1 and all earlier failures, source layers, four worlds, conservative-bound limitations, foreign/native roles and zero credits.
++Unexecuted caller and nine unexecuted adverse fixtures. This draft changes no geometry and produces no repair. Preserve completed99e1 and all earlier failures, source layers, four worlds, conservative-bound limitations, foreign/native roles and zero credits.
+ 
+ The actual completed output has357 labelled rows:100 interval (26original/22literal/26left/26balanced) and257 area (63/67/63/63 plus one BASIC). Deduplicating `(UID, sourceFace, sourceFaceSHA, full saved coverage record)` yields72 interval and192 area *record tuples*, not uncovered-region counts. Area polygon coordinates remain absent; all257 area rows stay unresolved. The prior handoff's253 was erroneous and is archived in an explicit erratum, not silently written into completed outputs.
+ 
+@@ -10,12 +10,14 @@
+ 
+ For each saved interval midpoint, use its completed ideal-containing candidate IDs. Save exact oriented half-plane values for that ideal triangle and its actual packed triangle. Identify precisely which actual edges reject the saved point, or explicitly retain a projected collapse with no surface credit. This is point/edge attribution, not a new whole-facet coverage proof. No packed coordinates are changed and no nearest/epsilon association is used.
+ 
+-Against each rejecting long edge, nominate vertices from the complete11575 ideal mesh using exact inclusive projected boxes. Retain all finite interior projected incidences and separately test exact3D incidence. Save exact parameter, real packed XYZ, all incident candidate/source/current/join identities, and packed membership on the long actual edge. Different-height projected coincidence stays a source layer, never a proposed3D subdivision. Endpoints, detached extensions and already-conforming dyadic subdivisions are not new repair targets. Whole-protected literal long edges are expressly unavailable for retessellation.
++Against each rejecting long edge, nominate vertices from the complete11575 ideal mesh using exact inclusive projected boxes. Retain all finite interior projected incidences and separately test exact3D incidence. Save exact parameter, real packed XYZ, all incident candidate/source/current/join identities, and packed membership on the long actual edge. Different-height projected coincidence stays a source layer, never a proposed3D subdivision. Endpoints, detached extensions and already-conforming dyadic subdivisions are not new repair targets. Whole-protected literal long edges are expressly unavailable for retessellation. A computed long edge is also ineligible if **any** intermediate vertex incident belongs to a protected whole-current facet; retain the complete relation as constrained/unresolved, without geometry or support credit.
++
++The prior `segment_parameter` helper uses rational inputs, chooses a nonzero component of the full dimension to obtain t, requires closed0≤t≤1 and equality in every component. Calling it on XYZ therefore requires exact finite3D membership, not projected membership or an infinite-line match. A zero-length descriptor returns0 only for identical points, and the caller's strict interior0<t<1 excludes that descriptor and endpoints. Calling the same helper separately on XZ preserves projected-only/different-height cases without turning them into3D eligibility. No epsilon, rounding or helper mutation is introduced.
+ 
+ The output names the specific computed long-edge triangles, intermediate nodes and complete incident families that could be considered together. **Conditional proposed mechanism only:** for computed/computed incident boundaries with genuine exact3D hanging nodes, investigate a common finite subdivision and retriangulation of all affected derived fragments on their unchanged ancestor surfaces before their shared Float32 packing. Identical full edges already agree; the missing operation would be subdivision correspondence. A target involving one of the68 literal whole-current facets cannot use this operation to change that facet. Such constraints remain unresolved and require an independently reviewed source-faithful alternative, not shortening old retention or adding overlapping infill.
+ 
+ Before any future construction, establish exact prepacking surface-union preservation within every affected original/current ancestor plane, all source layers retained, and no change to68 protected whole triplets or unrelated cells. After actual packing, prove complete relevant closed coverage (including existing257 area failures if repaired), ordinary−0.5 clearance, all52 BASIC/79882/secondary protection and existing six production guards, renderer/sampler and unchanged validator. Reuse only identical complete tuples. No global watertight/all-indexed/engineering-weld admission gate or blanket sourceOverlap waiver is introduced.
+ 
+-Eight focused fixtures distinguish genuine Float32 hanging nodes, protected literal facets, different-height layers, endpoints, detached extensions, conforming dyadic nodes, ideal-point/packed half-plane rejection including reverse winding, and collapsed projections. They are proposed, not executed or claimed PASS.
++Nine focused fixtures distinguish genuine Float32 hanging nodes, protected literal facets, a computed long edge with a protected whole-current intermediate-node incident, different-height layers, endpoints, detached extensions, conforming dyadic nodes, ideal-point/packed half-plane rejection including reverse winding, and collapsed projections. They are proposed, not executed or claimed PASS.
+ 
+-Proposed preparation: import/schema-only plus these eight fixtures, immutable logs and before/end pins, subject to ROOT review. Proposed maintained metadata command: caller `--inspect-saved-hanging-subdivisions-only` with the existing canonical eleven-resource supervisor/source-context freezer and external stdout. No production repair run is authorised. Terminal pinnedNeon/allrefs/current/released-groups/PID audit remains mandatory.
++Proposed preparation: import/schema-only plus these nine fixtures, immutable logs and before/end pins, subject to ROOT review. Proposed maintained metadata command: caller `--inspect-saved-hanging-subdivisions-only` with the existing canonical eleven-resource supervisor/source-context freezer and external stdout. No production repair run is authorised. Terminal pinnedNeon/allrefs/current/released-groups/PID audit remains mandatory.
+--- preserved/draft-pins.json
++++ docs/astra-city/government-import/government-xl-upton-saved-hanging-subdivision-packing-investigation-v1-20261013-proposal/draft-pins.json
+@@ -1,7 +1,7 @@
+ {
+   "caller": {
+     "path": "source-scripts/city/government-import/upton_saved_hanging_subdivision_investigation_draft_v1_20261013.py",
+-    "sha256": "33360a94f572677325343a1949bb2689098dadd5948bc7f3fa923598d6ffb072"
++    "sha256": "30afddcb0ca48547992846be8990fe43518885db2a5c86f4d57071b2c60aef84"
+   },
+   "codeRefs": [
+     {
+@@ -166,11 +166,11 @@
+     },
+     {
+       "path": "source-scripts/city/government-import/upton_saved_hanging_subdivision_investigation_draft_v1_20261013.py",
+-      "sha256": "33360a94f572677325343a1949bb2689098dadd5948bc7f3fa923598d6ffb072"
++      "sha256": "30afddcb0ca48547992846be8990fe43518885db2a5c86f4d57071b2c60aef84"
+     },
+     {
+       "path": "source-scripts/city/government-import/test_upton_saved_hanging_subdivision_investigation_v1_20261013.py",
+-      "sha256": "355753a93d0ba0f95d67eb56e529b3abc63b014fbfa61726b026e6b8aa066bd2"
++      "sha256": "e95d29374e6e01b10c1e63753df5b6e30146e67d416eef23a04eb3eea42dab6a"
+     }
+   ],
+   "completedInputJob": "99e1e9daa5bde8286df4224360ab17934044b87d13226d7491e8700ca4860b6a",
+@@ -505,7 +505,7 @@
+     },
+     {
+       "path": "docs/astra-city/government-import/government-xl-upton-saved-hanging-subdivision-packing-investigation-v1-20261013-proposal/METHOD.md",
+-      "sha256": "4a4d5fc32d00084508124ff1f461cf04484d197d54bc3af5dd88794d4665e17b"
++      "sha256": "dbe764ce2e73bbcf898f90771c6043b26738efef010d8e72ff2bb2776fab2568"
+     },
+     {
+       "path": "docs/astra-city/government-import/government-xl-upton-saved-uncovered-packed-ancestor-boundary-attribution-v1-20261013/result.json",
+@@ -514,16 +514,20 @@
+     {
+       "path": "docs/astra-city/government-import/government-xl-upton-saved-uncovered-packed-ancestor-boundary-attribution-v1-20261013/complete-saved-failures-packed-ancestor-boundary-attribution.json.gz",
+       "sha256": "2bc2ab5bc4e18b5e5de2c392d2432980f9b6a5cf7d92b82eba48630d0f042923"
++    },
++    {
++      "path": "docs/astra-city/government-import/government-xl-upton-saved-hanging-subdivision-packing-investigation-v1-20261013-proposal/exact-finite3d-prior-helper-static-review.json",
++      "sha256": "798a6a803d0efae0ff7751617fb3b7bd863d75c876921c5b61fed7079931b802"
+     }
+   ],
+   "method": {
+     "path": "docs/astra-city/government-import/government-xl-upton-saved-hanging-subdivision-packing-investigation-v1-20261013-proposal/METHOD.md",
+-    "sha256": "4a4d5fc32d00084508124ff1f461cf04484d197d54bc3af5dd88794d4665e17b"
++    "sha256": "dbe764ce2e73bbcf898f90771c6043b26738efef010d8e72ff2bb2776fab2568"
+   },
+   "noPreparationOrWorkerExecution": true,
+   "test": {
+     "path": "source-scripts/city/government-import/test_upton_saved_hanging_subdivision_investigation_v1_20261013.py",
+-    "sha256": "355753a93d0ba0f95d67eb56e529b3abc63b014fbfa61726b026e6b8aa066bd2"
++    "sha256": "e95d29374e6e01b10c1e63753df5b6e30146e67d416eef23a04eb3eea42dab6a"
+   },
+-  "unexecutedFixtures": 8
++  "unexecutedFixtures": 9
+ }

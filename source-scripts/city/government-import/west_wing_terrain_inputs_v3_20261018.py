@@ -1,0 +1,37 @@
+"""Fresh terrain replacement closure and source context; no terrain mutation."""
+from pathlib import Path
+from shapely.geometry import box
+from run import ROOT,HERE,read,save,digest,connect
+from primrose_compound_foundation_v2_20261015 import module
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-west-wing-terrain-inputs-v3-20261018';DOC=BASE/BATCH;UID='landsd/26195:0'
+def main():
+ assert not DOC.exists();prior=BASE/'government-xl-west-wing-identity-review-v1-20261018/result.json';r=read(prior);pins={e['path']:e['sha256']for e in r['evidenceRefs']};refs=[Path(__file__),prior]
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r)
+ for p,h in pins.items():assert digest((ROOT/p).read_bytes())==h,p
+ manifestpath=ROOT/'3d-viewer/city/data/manifest.json';manifest=read(manifestpath);parenturl='city/data/government-regional-apex-original-v1-20261018.json';parentpath=ROOT/'3d-viewer'/parenturl;parent=read(parentpath);second=module('olympian_current_terrain_scope',HERE/'xl-second-pass.py');final=module('olympian_current_terrain_context',HERE/'xl-final-script-pass.py')
+ row=next(r for r in read(BASE/'government-xl-west-wing-current-identity-v1-20261018/selection.json.gz')['rows']if r['uid']==UID);row['native'].update(cacheKey='828133bbea286a52de1484a5163766bfab7ee42b0b4c07a8be3e756f0cabe7e6',sheet='11-SW-9C');raw=(ROOT/row['candidate']['path']).read_bytes();assert digest(raw)==row['sourceSHA256'];tri=decode_original_world_triangles(raw);bounds=[tri.min((0,1)).tolist(),tri.max((0,1)).tolist()]
+ assembly=read(BASE/'government-xl-west-wing-group-four-world-v1-20261018/selection.json.gz')['rows']
+ for actor in assembly:
+  asset=ROOT/actor['candidate']['path'];assert digest(asset.read_bytes())==actor['sourceSHA256'];refs.append(asset)
+  vertices=decode_original_world_triangles(asset.read_bytes());lo=vertices.min((0,1));hi=vertices.max((0,1));bounds=[[min(bounds[0][k],float(lo[k]))for k in range(3)],[max(bounds[1][k],float(hi[k]))for k in range(3)]]
+ refs.append(BASE/'government-xl-west-wing-group-four-world-v1-20261018/selection.json.gz')
+ cells=second.resolution.rectangle_for(bounds,parent);initial=list(cells);patches=[]
+ for entry in manifest['terrainPatches']:
+  if entry['url']==parenturl:continue
+  path=ROOT/'3d-viewer'/entry['url'];p=read(path);g=p['meta']['georef'];extent=[g['bE']-834500,816500-g['bN'],g['bE']-834500+(p['w']-1)*g['aE'],816500-g['bN']-(p['h']-1)*g['aN']];patches.append((entry,path,p,extent))
+ selected={};changed=True
+ while changed:
+  changed=False;domain=second.resolution.extent(cells,parent)
+  for entry,path,p,extent in patches:
+   if entry['url']in selected or box(*domain).intersection(box(*extent)).area<=1e-8:continue
+   assert p.get('nativeMesh')and not p.get('patches'),entry['url'];c=p['coarseCells'];selected[entry['url']]=dict(url=entry['url'],sha256=digest(path.read_bytes()),coarseCells=c,targetUids=p['meta']['targetUids'],bounds=extent);cells=[min(cells[0],c[0]),min(cells[1],c[1]),max(cells[2],c[2]),max(cells[3],c[3])];changed=True;refs.append(path)
+ domain=second.resolution.extent(cells,parent);assert not selected, 'Cross-parent overlap needs explicit preservation';assert all(box(*domain).intersection(box(*second.resolution.extent(child['coarseCells'],parent))).area<=1e-8 for child in parent.get('patches',[])), 'Existing nested child overlap';near=final.load_forms(domain);tile=ROOT/'3d-viewer'/row['source']['tile'];form=next(b for b in read(tile)['buildings']if b['uid']==UID);row['source']=dict(building=form,tile=row['source']['tile'],tileSHA256=digest(tile.read_bytes()));row['currentReview']=None
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');review=c.execute('SELECT review_state,source_sha256 FROM astra_modelling.model_reviews WHERE uid=%s ORDER BY updated_at DESC LIMIT 1',(UID,)).fetchone();row['currentReview']=dict(state=review[0],sourceSHA256=review[1]) if review else None
+  resultsha,stage=c.execute('SELECT result_sha,result FROM astra_modelling.native_stage_results WHERE cache_key=%s',(row['native']['cacheKey'],)).fetchone();assert row['native']['model']in stage['models'];row['native']['resultSha']=resultsha
+ context=dict(uid=UID,sourceSHA256=row['sourceSHA256'],identity=final.identity_context(row,tri,near),neighbourTileHashes={t:digest((ROOT/'3d-viewer'/t).read_bytes())for _,_,t in near});save(DOC/'check-selection.json.gz',dict(rows=[row],manifestSHA256=digest(manifestpath.read_bytes())));save(DOC/'context.json.gz',dict(rows=[context]));save(DOC/'scope.json',dict(parentURL=parenturl,parentSHA256=digest(parentpath.read_bytes()),nestedParent=True,retainedChildIds=[c.get('id') for c in parent.get('patches',[])],initialCells=initial,replacementCells=cells,fullParentBounds=domain,retainedParents=list(selected.values()),nearbyForms=len(near),allCurrentNativeFourWorldNominationComplete=False,qualification='Local nested child scope within exact regional parent; all existing children are disjoint and must remain byte-equivalent. Complete actual installed actor nomination and final regressions still required. No installation or terrain publication.'))
+ refs.extend([manifestpath,parentpath,HERE/'xl-second-pass.py',HERE/'xl-final-script-pass.py']);refs.extend(ROOT/'3d-viewer'/t for t in context['neighbourTileHashes']);refs.extend(ROOT/p for p in pins)
+ out=module('olympian_current_inputs_freezer',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(BATCH,'west-wing-complete-assembly-regional-nested-terrain-scope-v3',list(set(refs)),dict(uids=[UID],retainedParents=sorted(selected),nearbyForms=len(near),fullAcceptance=False,newlyInstalled=0));print(dict(jobId=out['jobId'],cells=cells,retained=list(selected),nearbyForms=len(near)),flush=True)
+if __name__=='__main__':main()

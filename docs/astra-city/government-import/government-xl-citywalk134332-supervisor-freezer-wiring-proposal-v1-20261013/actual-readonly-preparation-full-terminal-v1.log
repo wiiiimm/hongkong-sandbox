@@ -1,0 +1,22 @@
+{"actualVenvCallerFreezerImportsPassed": true, "pinnedModellingDBGuardPassed": true}
+{"readOnlyCurrentStatePreflightPassed": true, "canonicalActorCount": 19, "observedProtectedReviewRecords": 1704, "uids": ["landsd/134332:0", "landsd/175935:0", "landsd/185721:0", "landsd/215992:0", "landsd/216347:0", "landsd/216868:0", "landsd/216991:0", "landsd/217834:0", "landsd/217880:0", "landsd/218019:0", "landsd/218051:0", "landsd/218095:0", "landsd/218258:0", "landsd/218480:0", "landsd/218567:0", "landsd/260346:0", "landsd/273839:0", "landsd/305615:0", "landsd/87262:0"], "noWorker": true}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-citywalk134332-supervisor-freezer-wiring-proposal-v1-20261013/actual-readonly-preparation-driver-v1.py", line 22, in <module>
+    r2=subprocess.run(['node','--input-type=module','-e',js],cwd=ROOT,capture_output=True,text=True);log2=P/'actual-proposal-exporter-closure-v1.log';assert not log2.exists();log2.write_text(r2.stdout+r2.stderr);print(r2.stdout,end='',flush=True);assert r2.returncode==0,r2.stderr
+                                                                                                                                                                                                                                                              ^^^^^^^^^^^^^^^^
+AssertionError: file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/[eval1]:1
+import {writeFileSync,existsSync} from 'node:fs';import assert from 'node:assert/strict';import {snapshotModuleClosure,verifyModuleClosure} from './source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';const root=new URL('./',import.meta.url);const entry=new URL('source-scripts/city/government-import/citywalk134332_actual_surviving_native_attributes_draft_v1_20261013.mjs',root);const closure=snapshotModuleClosure(entry,root);assert(verifyModuleClosure(closure,root));const out=new URL('docs/astra-city/government-import/government-xl-citywalk134332-supervisor-freezer-wiring-proposal-v1-20261013/actual-proposal-exporter-entry-module-closure-v1.json',root);assert(!existsSync(out));writeFileSync(out,JSON.stringify(closure,null,2)+'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^
+
+SyntaxError: Invalid or unexpected token
+    at compileSourceTextModule (node:internal/modules/esm/utils:318:16)
+    at ModuleLoader.createModuleWrap (node:internal/modules/esm/loader:210:12)
+    at ModuleLoader.eval (node:internal/modules/esm/loader:248:23)
+    at node:internal/process/execution:77:24
+    at asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:11)
+    at Object.runEntryPointWithESMLoader (node:internal/modules/run_main:123:19)
+    at evalModuleEntryPoint (node:internal/process/execution:76:47)
+    at node:internal/main/eval_string:37:3
+
+Node.js v24.18.0
+

@@ -1,0 +1,90 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-diocesan-girls-school-mask-20260927/plan.json",
+  "areas": [
+    {
+      "area": "Diocesan Girls' School original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-diocesan-girls-school-mask-20260927/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-257352-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-diocesan-girls-school-mask-20260927/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "ae70aebe6550098d6c92e599a51e8f46fc45422e73d7d2ed9be4baf70019cc3b"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-257352-0.json": "7717bcb9e51cf48a75aab9dcdac41a9038324c62e57b0e4643b030ac7ba7ef54",
+    "3d-viewer/city/data/official-models/government-xl-diocesan-girls-school-mask-20260927/catalogue.json": "8e80e225b169c377e2437e8d551cca978a95c7235715560e71433083a1034c05",
+    "3d-viewer/city/data/manifest.json": "8606b208e1fa037ee88f6e97ac773b91b02478560db73b42e5ce574307d8178d"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "55397b3226d6280fd61da7bba895cb61b8fc5637",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-257352-0.json",
+      "resolution": 5,
+      "area": "Diocesan Girls' School exact two-sheet source terrain with parent masks under retained neighbours",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "25befaeac1db679e9a7bc961b5a5b4173eacb68f5665aaf120439f21b1e7c517",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "sheet": "11-NW-24B",
+            "sourceETag": "\"38f82fc-63dcded9b7ebd\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-24B/terrain/TERRAIN(TB)/T35250186000106E10/T35250186000106E10.bin",
+                "sha256": "d3cea1ed3ef4f98c08fa288c877cad01a3c87726648f428be6be1cba9a14a420"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-24B/terrain/TERRAIN(TB)/T35250186000106E10/T35250186000106E10.gltf",
+                "sha256": "94624f7e025bfff65b901b4f1738512bb931926659a5b8c75950cc282db1731a"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "67b1c97ebf94d9c8161ab792d2da3850c68a937c1b7e31fdb66ecb348cf700b7",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-24D",
+            "sourceETag": "\"3680009-655feeb2133cc\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.bin",
+                "sha256": "14d8f6360cbcbad50110db738e3db26deb67aca50e879ebc253f318daf9b0b7a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.gltf",
+                "sha256": "ee7ec5e5a762ed2078444679ac7b4328bf0db852a80f8210211d9c241a1c993f"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 3249,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "7717bcb9e51cf48a75aab9dcdac41a9038324c62e57b0e4643b030ac7ba7ef54",
+      "bytes": 3182060
+    }
+  ],
+  "estimatedBases": []
+}

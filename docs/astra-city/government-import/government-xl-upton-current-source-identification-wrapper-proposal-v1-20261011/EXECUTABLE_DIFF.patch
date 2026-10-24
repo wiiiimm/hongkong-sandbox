@@ -1,0 +1,108 @@
+--- source-scripts/city/government-import/upton12728_12662_fresh_adjacent_identity_context_replay_draft_v1_20261011.py
++++ source-scripts/city/government-import/upton12728_12662_current_source_identification_rebind_draft_v1_20261011.py
+@@ -1,7 +1,9 @@
+-"""UNAPPROVED fresh ordinary identity replay + adjacent-context draft assessment only."""
++"""UNEXECUTED ROOT-accepted source-identification-only interpretation, fresh ordinary replay."""
+ from pathlib import Path
+ import importlib.util,json,subprocess,sys,uuid,argparse
+ import upton_adjacent_original_roof_wall_identity_context_draft_v1_20261011 as adjacent
++import upton_adjacent_roof_wall_identity_only_wrapper_v1_20261011 as identity_wrapper
++from upton_exact_actual_history_archive_bindings_draft_v1_20261011 import load_contract,exact_ref
+ import numpy as np
+ from run import ROOT,HERE,read,save,digest,connect,reservations,NATIVE_RUN
+ from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+@@ -9,16 +11,16 @@
+ from government_owned_identity import verify_files,POLICY
+ UID,SUPPORT='landsd/12728:0','landsd/12662:0'
+ PROTECTED=[UID,SUPPORT,'landsd/338946:0']
+-BATCH='government-xl-upton12728-12662-fresh-adjacent-identity-context-replay-draft-v1-20261011'
++BATCH='government-xl-upton12728-12662-current-source-identification-rebind-v1-20261011'
+ DOC=ROOT/'docs/astra-city/government-import'/BATCH
+ LOCAL=HERE/'local'/BATCH
+ INPUT=ROOT/'docs/astra-city/government-import/government-xl-upton-podium12728-12662-original-foreign-conflict-proposal-v1-20261011/source-inputs.json'
+ # Explicit root-provided current pins required on every future invocation; never
+ # inherit an old947f manifest/count after another publication.
+-MANIFEST_SHA=None;NATIVE_COUNT=None
++MANIFEST_SHA=None;NATIVE_COUNT=None;HISTORY=None;HISTORY_REF=None
+ EXPECTED={u:(x[3],x[0],x[2],x[4],x[1])for u,x in adjacent.EXACT.items()}
+ VALIDATION=ROOT/'docs/astra-city/government-import/government-xl-upton-adjacent-original-roof-wall-identity-context-draft-v1-20261011/offline-23-tests-v1-validation.json'
+-MODULE_CAPTURE=HERE/'upton_adjacent_identity_runtime_closures_draft_v1_20261011.mjs'
++MODULE_CAPTURE=HERE/'upton_source_identification_runtime_closures_draft_v1_20261011.mjs'
+ 
+ def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+ def module(name,path):
+@@ -37,12 +39,14 @@
+   result=read(ROOT/'docs/astra-city/government-import'/batch/'result.json')
+   with connect()as c:
+    c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(result['jobId'],)).fetchone()==('complete',result)
+-  for e in result['evidenceRefs']:assert ref(ROOT/e['path'])==e, 'Missing exact historical archive: '+e['path']
++  for e in result['evidenceRefs']:exact_ref(ROOT,e,HISTORY)
+ def main():
+- global MANIFEST_SHA,NATIVE_COUNT
+- parser=argparse.ArgumentParser();parser.add_argument('--expected-manifest',required=True);parser.add_argument('--expected-native-count',required=True,type=int);parser.add_argument('--owned',action='store_true');args=parser.parse_args()
++ global MANIFEST_SHA,NATIVE_COUNT,HISTORY,HISTORY_REF
++ parser=argparse.ArgumentParser();parser.add_argument('--expected-manifest',required=True);parser.add_argument('--expected-native-count',required=True,type=int);parser.add_argument('--actual-history-contract',required=True);parser.add_argument('--expected-history-contract-sha',required=True);parser.add_argument('--owned',action='store_true');args=parser.parse_args()
+  MANIFEST_SHA=args.expected_manifest;NATIVE_COUNT=args.expected_native_count
+- assert len(MANIFEST_SHA)==64 and NATIVE_COUNT>0
++ assert len(MANIFEST_SHA)==64 and NATIVE_COUNT==6649, 'Explicit post-Heya scene required; do not execute against old6648'
++ HISTORY=load_contract(ROOT,args.actual_history_contract,args.expected_history_contract_sha)
++ HISTORY_REF=ref(ROOT/args.actual_history_contract)
+  # No test-code changes after the separately approved offline validation.
+  validation=read(VALIDATION);assert validation['passed']and validation['exitCode']==0 and validation['expectedTests']==23
+  for e in validation['codeRefs']+[validation['log']]:assert ref(ROOT/e['path'])==e
+@@ -50,7 +54,7 @@
+   assert not DOC.exists()and not LOCAL.exists()
+   claim=reservations.claim('upton-pair-current-owned-identity-'+str(uuid.uuid4()),['building:'+u for u in PROTECTED],batch=BATCH,ttl=1800);assert claim['ok'],claim
+   lease=LOCAL/'reservation.json';save(lease,json.loads(json.dumps(claim['reservation'],default=str)))
+-  status=subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(lease),'--ttl','1800','--',sys.executable,__file__,'--owned','--expected-manifest',MANIFEST_SHA,'--expected-native-count',str(NATIVE_COUNT)],cwd=ROOT).returncode
++  status=subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(lease),'--ttl','1800','--',sys.executable,__file__,'--owned','--expected-manifest',MANIFEST_SHA,'--expected-native-count',str(NATIVE_COUNT),'--actual-history-contract',args.actual_history_contract,'--expected-history-contract-sha',args.expected_history_contract_sha],cwd=ROOT).returncode
+   assert status==0,status;return
+  lease=read(LOCAL/'reservation.json');assert reservations.owns(lease)and not DOC.exists()
+  manifest_path=ROOT/'3d-viewer/city/data/manifest.json';manifest_bytes=manifest_path.read_bytes();assert digest(manifest_bytes)==MANIFEST_SHA
+@@ -60,7 +64,7 @@
+  verify_completed_source_context()
+  protected_before=review_state();data=read(INPUT);sources=data['sources'];assert len(sources)==2 and {r['uid']for r in sources}==set(EXPECTED)
+  provenance=data['evidenceRefs']
+- for e in provenance:assert ref(ROOT/e['path'])==e
++ for e in provenance:exact_ref(ROOT,e,HISTORY)
+  native_before=native_rows();assert len(native_before)==2
+  source_refs=[]
+  for r in sources:
+@@ -72,7 +76,7 @@
+  walker=module('reviewed_source_closure',HERE/'parkview_block17_freeze_current_source_evidence_20261011.py');code_paths=set();walker.local_imports(Path(__file__),code_paths)
+  for name in ['xl-final-script-pass.py','xl-second-pass.py','xl-popcorn-source-investigations-checkpoints-20261009.py']:walker.local_imports(HERE/name,code_paths)
+  production=[ROOT/'3d-viewer/city'/p for p in ['app.js','world.js','geo.js','native-terrain.js']];assert all(p.is_file()for p in production)
+- input_pins=[ref(p)for p in sorted(code_paths|set(production)|{INPUT,VALIDATION,MODULE_CAPTURE,HERE/'literal_production_module_dependency_closure_20261010.mjs'})]
++ input_pins=[ref(p)for p in sorted(code_paths|set(production)|{INPUT,VALIDATION,MODULE_CAPTURE,HERE/'literal_production_module_dependency_closure_20261010.mjs',ROOT/HISTORY_REF['path']})]
+  # Snapshot the literal production import closures now; reverify unchanged at end.
+  DOC.mkdir(parents=True);subprocess.run(['node',str(MODULE_CAPTURE),str(DOC.relative_to(ROOT))+'/'],cwd=ROOT,check=True)
+  runtime_paths=[DOC/('runtime-'+name+'-closure.json')for name in ['app','world','geo','native-terrain']]
+@@ -102,12 +106,16 @@
+  own_proof=next(r['rawFullCellIdentity']for r in results if r['uid']==UID)
+  binding=dict(manifestSHA256=MANIFEST_SHA,ordinaryProofCanonicalSHA256=adjacent.digest(adjacent.canonical(own_proof)),completeFormsCanonicalSHA256=adjacent.digest(adjacent.canonical(complete_forms)),requiredFileRefs=dict(manifest=ref(manifest_path),runtimeClosure=ref(DOC/'runtime-closure-bindings.json'),nativeCatalogue=ref(DOC/'complete-current-catalogue-bindings.json'),buildingSourceCatalogue=ref(DOC/'complete-current-original-source-bindings.json')))
+  draft=adjacent.assess_draft(ROOT,own_proof,complete_forms,binding,context,triangles)
++ foreign=next(r for r in results if r['uid']==SUPPORT)
++ identity_only=identity_wrapper.apply_identity_only(ROOT,own_proof,foreign['rawFullCellIdentity'],foreign['ownedIdentity'],complete_forms,binding,context,triangles)
++ save(DOC/'source-identification-only.json',identity_only)
+  assert draft['identityAccepted']is False and draft['installationApproved']is False and draft['physicalAccepted']is False
+  save(DOC/'draft-adjacent-context-assessment.json',draft)
+  subprocess.run(['node',str(MODULE_CAPTURE),str(DOC.relative_to(ROOT))+'/','--verify'],cwd=ROOT,check=True)
+  for e in runtime_refs:assert ref(ROOT/e['path'])==e
+  assert manifest_path.read_bytes()==manifest_bytes and reservations.owns(lease)
+- for e in input_pins+catalogue_refs+source_refs+provenance:assert ref(ROOT/e['path'])==e
++ for e in input_pins+catalogue_refs+source_refs:assert ref(ROOT/e['path'])==e
++ for e in provenance:exact_ref(ROOT,e,HISTORY)
+  for context in contexts:
+   for path,sha in context['neighbourTileHashes'].items():assert digest((ROOT/'3d-viewer'/path).read_bytes())==sha
+  assert native_rows()==native_before and review_state()==protected_before
+@@ -116,8 +124,8 @@
+  save(DOC/'current-input-bindings.json',dict(manifestSHA256=MANIFEST_SHA,nativeCount=NATIVE_COUNT,bothUninstalled=True,catalogues=catalogue_refs,inputPins=input_pins,sourcePins=source_refs,historicalSourceSelectionRefs=provenance,runtimeAcceptance=False))
+  (DOC/'captured-manifest.json').write_bytes(manifest_bytes)
+  freeze=module('identity_source_freezer',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py')
+- paths=list(code_paths|set(production)|{INPUT,VALIDATION,MODULE_CAPTURE,HERE/'literal_production_module_dependency_closure_20261010.mjs'});paths += [ROOT/p for p in adjacent.PINS]+[ROOT/e['path']for e in validation['codeRefs']+[validation['log']]];paths +=[ROOT/e['path']for e in source_refs+provenance]+catalogues+[ROOT/'3d-viewer'/t for t in tiles]+[p for p in LOCAL.rglob('*')if p.is_file()]
+- result=freeze.freeze(BATCH,'upton-fresh-ordinary-identities-and-draft-adjacent-context-no-acceptance',paths,dict(uids=[UID,SUPPORT],manifestSHA256=MANIFEST_SHA,completeOriginalFaces=2047,completeCurrentForms=len(forms_by_uid),identityOutcomes=[dict(uid=r['uid'],rawStrictPassed=r['rawFullCellIdentity']['passed'],rawReasons=r['rawFullCellIdentity']['reasons'],ownedPassed=r['ownedIdentity']['passed'],ownedReasons=r['ownedIdentity']['reasons'])for r in results],draftContextQualified=draft['draftContextQualified'],identityAccepted=False,physicalAccepted=False,scriptFullAcceptancePassed=False,canStartTerrainWork=False,qualification='Fresh unchanged ordinary raw/owned proofs and UNAPPROVED adjacent-context assessment only. Historical selection provenance is not current runtime proof. Earlier podium1.910445m2 foreign overlap and tower737body obligations remain independent. No geometry/source pose edit, support/root/runtime/native approval, installation, terrain, threshold waiver or optimisation.'))
++ paths=list(code_paths|set(production)|{INPUT,VALIDATION,MODULE_CAPTURE,HERE/'literal_production_module_dependency_closure_20261010.mjs'});paths += [ROOT/p for p in adjacent.PINS]+[ROOT/e['path']for e in validation['codeRefs']+[validation['log']]];paths +=[ROOT/e['path']for e in source_refs]+[ROOT/exact_ref(ROOT,e,HISTORY)['actualVerifiedFile']['path']for e in provenance]+catalogues+[ROOT/'3d-viewer'/t for t in tiles]+[p for p in LOCAL.rglob('*')if p.is_file()]
++ result=freeze.freeze(BATCH,'upton-fresh-source-identification-only-no-physical-or-installation',paths,dict(uids=[UID,SUPPORT],manifestSHA256=MANIFEST_SHA,completeOriginalFaces=2047,completeCurrentForms=len(forms_by_uid),identityOutcomes=[dict(uid=r['uid'],rawStrictPassed=r['rawFullCellIdentity']['passed'],rawReasons=r['rawFullCellIdentity']['reasons'],ownedPassed=r['ownedIdentity']['passed'],ownedReasons=r['ownedIdentity']['reasons'])for r in results],draftContextQualified=draft['draftContextQualified'],identityAccepted=identity_only['passed'],physicalAccepted=False,scriptFullAcceptancePassed=False,canStartTerrainWork=False,qualification='Fresh unchanged ordinary raw/owned proofs plus ROOT-accepted source-identification interpretation only. Historical selection provenance is not current runtime proof. Earlier podium1.910445m2 foreign overlap and tower737body obligations remain independent. No geometry/source pose edit, support/root/runtime/native approval, installation, terrain, threshold waiver or optimisation.'))
+  with connect()as c:
+   c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(result['jobId'],)).fetchone()==('complete',result)
+  for e in result['evidenceRefs']:assert ref(ROOT/e['path'])==e

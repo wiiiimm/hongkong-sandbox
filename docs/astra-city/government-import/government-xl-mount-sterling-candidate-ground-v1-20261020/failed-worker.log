@@ -1,0 +1,48 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Retained model scope required
+    at replacementRows (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/terrain-replacements.mjs:13:5)
+    at replacementURLs (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/terrain-replacements.mjs:22:57)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/acceptance-metrics-multi-retained.mjs:30:91
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.18.0
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/mount_sterling_candidate_ground_v1_20261020.py", line 42, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/mount_sterling_candidate_ground_v1_20261020.py", line 37, in main
+    if '--owned' in sys.argv:return owned()
+                                    ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/mount_sterling_candidate_ground_v1_20261020.py", line 22, in owned
+    tool=HERE/'acceptance-metrics-multi-retained.mjs';subprocess.run(['node',str(tool),'--terrain-candidates',str((proposal/'terrain-candidates.json').relative_to(ROOT)),'--selection',str((DOC/'selection.json.gz').relative_to(ROOT)),'--candidates','source-scripts/city/government-import/local/government-xl-mount-sterling-nine-original-recovery-v1-20261020','--out',str((DOC/'metrics.json').relative_to(ROOT)),'--geometry-out',str((LOCAL/'runtime-geometry.json.gz').relative_to(ROOT))],cwd=ROOT,check=True)
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['node', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/acceptance-metrics-multi-retained.mjs', '--terrain-candidates', 'docs/astra-city/government-import/government-xl-mount-sterling-private-surface-v1-20261020/terrain-candidates.json', '--selection', 'docs/astra-city/government-import/government-xl-mount-sterling-candidate-ground-v1-20261020/selection.json.gz', '--candidates', 'source-scripts/city/government-import/local/government-xl-mount-sterling-nine-original-recovery-v1-20261020', '--out', 'docs/astra-city/government-import/government-xl-mount-sterling-candidate-ground-v1-20261020/metrics.json', '--geometry-out', 'source-scripts/city/government-import/local/government-xl-mount-sterling-candidate-ground-v1-20261020/runtime-geometry.json.gz']' returned non-zero exit status 1.
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/mount_sterling_candidate_ground_v1_20261020.py", line 42, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/mount_sterling_candidate_ground_v1_20261020.py", line 39, in main
+    try:subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(path),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-mount-sterling-candidate-ground-v1-20261020/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/mount_sterling_candidate_ground_v1_20261020.py', '--owned']' returned non-zero exit status 1.

@@ -1,0 +1,9 @@
+# Opus original terrain route — 17 October 2026
+
+The recovered original companion319559 passes all208 complete finite-clearance faces on the earlier private-terrain-v3 candidate: zero uncovered/ordinary failures, original/left/balanced/literal geometry byte-identical. Verified Neon1b263492b6be34790589e39b34d527e55510d7c86e916be8647b774ef7969990 and every evidence hash independently.
+
+Preserved-neighbours terrain fails16 companion projections even against all19081 actual drawn patch faces; these are coverage failures, not detected burial. Exact gap locator V2 found15 also uncovered beforeFloat32. V1 locator failed on vertical line-projection schema; preserve producer and log, never assign model corruption. The preservation had protected the basic companion fallback, which the recovered original would replace. Original private-terrain-v3 has18964 drawn faces and clears the companion without geometry edits.
+
+Next full13557-face assembly worker: source-scripts/city/government-import/opus_assembly_original_patch_v1_20261017.py, authoritative session55231, log/tmp/opus-assembly-original-patch-20261017.log. Check process/handle before restart. This worker verifies current remainingXL binding, authenticated sources, actual full-patch renderer capture, all exact finite faces and byte-identical four worlds; it grants no installation approval.
+
+After full result: resolve actual existing support warnings (including companion face140), recertify complete-source foundation/identity, current whole-parent basic/native neighbours, terrain boundaries and desktop/mobile runtime. Do not impose per-component structural-root tests as extra admission gates. Existing component context remains evidence only. No model/terrain geometry edited. No optimisation or AI geometry modelling. FrozenXL521 remains248installed/273remaining; this checkpoint adds no installation.

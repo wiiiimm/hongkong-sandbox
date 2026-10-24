@@ -1,0 +1,94 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-beverly-32067-v2-retained-qualified-stage-v1-20261023/plan.json",
+  "areas": [
+    {
+      "area": "Beverly Garden Block 5 unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-beverly-32067-v2-retained-qualified-stage-v1-20261023/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-beverly-32067-original-v1-20261023.json": null,
+    "3d-viewer/city/data/official-models/government-xl-beverly-32067-v2-retained-qualified-stage-v1-20261023/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "3c1682f2fb1033e127f52ac6cfb7eec8314d2c6aa333dca26f72f610ae18acd8"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-beverly-32067-original-v1-20261023.json": "672ce25604184227f680673b99d65cdc9547910487d338fdd6346466cea83996",
+    "3d-viewer/city/data/official-models/government-xl-beverly-32067-v2-retained-qualified-stage-v1-20261023/catalogue.json": "b8b311eaec3dfe519c81569740fecea91833ad7c355dfba8ba814cf6d7c38980",
+    "3d-viewer/city/data/manifest.json": "5114d2f2bbf23c724f02f339ab7ee17f715b5fa15a23e4694bfe2c1ba8402986"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "46fdf9b2b83a801ed3b492884ee969ff25023f0e",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-tko-grandiose-original-v1-20261021.json",
+      "sha256": "e8d05f993179fe971cce96970642dcc8d235cb71b040646f4c48fef4aad9dbb6",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-beverly-32067-original-v1-20261023.json",
+      "resolution": 5,
+      "area": "Beverly Garden Block 5 unchanged original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            10520.21968802798,
+            -2517.4158483294636,
+            10564.161563553382,
+            -2482.3584723001354
+          ],
+          "outerBounds": [
+            10516.577970861921,
+            -2521.0598776928546,
+            10567.794340127552,
+            -2478.7346704505426
+          ],
+          "policy": "Original highest source terrain replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/12-NW-21A/terrain/TERRAIN(TB)/T45000186000106E10/T45000186000106E10.gltf",
+            "sha256": "77bb5d7b290233e655539121a6d3150c7b771924b3f88be53a4f96104da3ed81"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 9605,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Joint source-ground planes preserved beneath original buildings; scripted transition between protected projections. Private, runtime approval pending.",
+        "provider": "Lands Department/HKSAR",
+        "retainedNativeSources": [
+          {
+            "retainedUids": [
+              "landsd/246824:0",
+              "landsd/265489:0"
+            ],
+            "sha256": "e8d05f993179fe971cce96970642dcc8d235cb71b040646f4c48fef4aad9dbb6",
+            "url": "city/data/government-native-tko-grandiose-original-v1-20261021.json"
+          }
+        ],
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "672ce25604184227f680673b99d65cdc9547910487d338fdd6346466cea83996",
+      "bytes": 7611234
+    }
+  ],
+  "estimatedBases": []
+}

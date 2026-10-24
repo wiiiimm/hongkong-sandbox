@@ -1,5 +1,9 @@
 # Hong Kong & Lantau — Interactive 3D Terrain Viewer
 
+**Astra city comparison:** open [`city.html`](city.html) for the new building layers,
+character exploration and harbour flight. See [`docs/astra-city/README.md`](../docs/astra-city/README.md)
+for scope, controls, data accuracy and reproducible checks. The original viewer remains below.
+
 Open **`index.html`**. One self-contained file (~7.9 MB) with a **4-way View dropdown**:
 
 | View | Extent | Mesh | Skin |

@@ -1,0 +1,94 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-sheung-shui-private-stage-v1-20261020/plan.json",
+  "areas": [
+    {
+      "area": "Sheung Shui Slaughter House unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-sheung-shui-private-stage-v1-20261020/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/terrain/sheung-shui-private-v5.json": null,
+    "3d-viewer/city/data/official-models/government-xl-sheung-shui-private-stage-v1-20261020/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "fbd68126dca7bbe26e00332de77d241333acf26adc7a72c481fe7ff5976a2515"
+  },
+  "after": {
+    "3d-viewer/city/data/terrain/sheung-shui-private-v5.json": "b108d8e0327d353e92d9fc44d4e99be4ca9c73e725cee68bb7f6078bed675a0a",
+    "3d-viewer/city/data/official-models/government-xl-sheung-shui-private-stage-v1-20261020/catalogue.json": "f50c0266171a119f146992cab687bed9c8543419a5ecc2ad78d509377426546c",
+    "3d-viewer/city/data/manifest.json": "7ec3274353aa840efe879ce4c19e783dce0758e780bef4861129ecf81d390164"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "d3868a7c49644a942ae23c927e146e423af33761",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/terrain/sheung-shui-private-v5.json",
+      "resolution": 5,
+      "area": "Private Sheung Shui native ground",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "252619455547e80c1cd72c59e27e5abc1fb65037cc3fb2220a32cd3a44edd008",
+            "etag": "\"2482ff6-63dcf3145950f\"",
+            "sheet": "2-SE-5B",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-sheung-shui-full-domain-ground-v1-20261020/sheets/2-SE-5B/terrain/TERRAIN(TB)/T29250414000106E10/T29250414000106E10.gltf"
+            ],
+            "triangles": 69791
+          },
+          {
+            "directorySHA256": "163b9fe38030c4ff27700603ef7fe36ff9212c3f4e73a965c52101182827551c",
+            "etag": "\"27c5a0e-63dcf331b0858\"",
+            "sheet": "2-SE-5D",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-sheung-shui-full-domain-ground-v1-20261020/sheets/2-SE-5D/terrain/TERRAIN(TB)/T29250408000106E10/T29250408000106E10.gltf"
+            ],
+            "triangles": 69994
+          },
+          {
+            "directorySHA256": "9ae86c168e98d03449e3984f063ab71719aebc82a1a0343a62f8e3276f3d366e",
+            "etag": "\"db37bd-65d14259eb94f\"",
+            "sheet": "3-SW-1A",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-sheung-shui-full-domain-ground-v1-20261020/sheets/3-SW-1A/terrain/TERRAIN(TB)/T30000414000106E11/T30000414000106E11.gltf"
+            ],
+            "triangles": 94409
+          },
+          {
+            "directorySHA256": "ac47e574fa2159cb19f34c283b3e19a7714a957b67e2efd9ce4472ec89530343",
+            "etag": "\"2dcb158-65d1426e6c159\"",
+            "sheet": "3-SW-1C",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-sheung-shui-full-domain-ground-v1-20261020/sheets/3-SW-1C/terrain/TERRAIN(TB)/T30000408000106E10/T30000408000106E10.gltf"
+            ],
+            "triangles": 62346
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 6035,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "b108d8e0327d353e92d9fc44d4e99be4ca9c73e725cee68bb7f6078bed675a0a",
+      "bytes": 995749
+    }
+  ],
+  "estimatedBases": []
+}

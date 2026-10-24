@@ -1,0 +1,31 @@
+--- source-scripts/city/government-import/xl-polyu-sports305582-authentic-local-private-terrain-draft-v1-20261013.py
++++ source-scripts/city/government-import/xl-polyu-sports305582-authentic-local-private-terrain-draft-v2-20261013.py
+@@ -7,15 +7,15 @@
+ import polyu_sports_authentic_local_core_parent_draft_v1_20261013 as adapter
+ from southside_selective13_certified_width_parent_restoration_draft_v2_20261013 import nominate_current_natives,interface_runtime_probes
+ B=ROOT/'docs/astra-city/government-import';D=B/'government-xl-polyu-sports305582-authentic-local-private-terrain-draft-v1-20261013';FEAS=B/'government-xl-polyu-sports305582-authentic-terrain-feasibility-draft-v2-20261013/calculation-v1/feasibility.json.gz';CAP=B/'government-xl-polyu-sports305582-current-four-world-ground-capture-v1-20261013';NAM=B/'government-xl-complete-native-actual-position-post-nam-delta-v1-20261013'
+-BATCH='government-xl-polyu-sports305582-authentic-local-private-terrain-v1-20261013';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json';UID='landsd/305582:0';P='landsd/305793:0';CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7';SOURCE='ac9df2e1b9b66b9c120a8638881b5f44fb966f7463b8874c27b040b91d37df15'
++BATCH='government-xl-polyu-sports305582-authentic-local-private-terrain-v2-20261013';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json';UID='landsd/305582:0';P='landsd/305793:0';CURRENT='c00fd9f731b1bcbf4d2df6067a5cb3231f0eaa8c503a8adea584fec39bf73bf7';SOURCE='ac9df2e1b9b66b9c120a8638881b5f44fb966f7463b8874c27b040b91d37df15'
+ sha=lambda p:digest(p.read_bytes())
+ def canonical(q):return digest(json.dumps(q,sort_keys=True,separators=(',',':')).encode())
+ def module(name,path):
+  s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+ def preflight(require_basic=False,require_tests=False):
+- assert not DOC.exists()and not(LOCAL/'private-terrain.json').exists();c=read(D/'input-contract.json');assert c['schema']=='polyu-original-local-terrain-input-v1'and c['sourceSHA256']==SOURCE and c['currentManifestSHA256']==CURRENT
+- pins={r['path']:r['sha256']for r in c['filePins']};pins.update({str(p.relative_to(ROOT)):sha(p)for p in [Path(__file__),D/'input-contract.json',D/'METHOD.md',D/'review-file-pins.json']})
+- for r in read(D/'review-file-pins.json')['filePins']:assert sha(ROOT/r['path'])==r['sha256'];pins[r['path']]=r['sha256']
++ assert not DOC.exists()and not(LOCAL/'private-terrain.json').exists();c=read(D/'input-contract-v2.json');assert c['schema']=='polyu-original-local-terrain-input-v1'and c['sourceSHA256']==SOURCE and c['currentManifestSHA256']==CURRENT
++ pins={r['path']:r['sha256']for r in c['filePins']};pins.update({str(p.relative_to(ROOT)):sha(p)for p in [Path(__file__),D/'input-contract-v2.json',D/'METHOD-v2.md',D/'review-file-pins-v2.json']})
++ for r in read(D/'review-file-pins-v2.json')['filePins']:assert sha(ROOT/r['path'])==r['sha256'];pins[r['path']]=r['sha256']
+  for p,h in pins.items():assert sha(ROOT/p)==h,p
+  assert sha(ROOT/'3d-viewer/city/data/manifest.json')==CURRENT
+  f=read(FEAS);data=read(CAP/'complete-sports-four-stream-current-ground-inputs.json.gz');cap=read(CAP/'complete-current-actual-source-and-ground-305582-0.json.gz');inputs=read(CAP/'capture-inputs.json.gz')
+@@ -50,7 +50,7 @@
+   if adapter.old.closed_xz_touch(domain,bb):intersections.append(dict(entry=e,completeActualAndUnusedGridDomain=bb,fullExistingPatchObligation=True))
+  assert not intersections,'current-parent-child-closed-touch-requires-explicit-retention-before-construction'
+  if require_tests:
+-  v=read(D/'immutable-boundary-tests-v1/validation.json');assert v['tests']==22 and v['exitCode']==0 and v['passed']is True and sha(D/'immutable-boundary-tests-v1/tests.log')==v['testLogSHA256'];assert v['codePins']==[dict(path=p,sha256=pins[p])for p in c['orderedTestCodePaths']];pins[str((D/'immutable-boundary-tests-v1/validation.json').relative_to(ROOT))]=sha(D/'immutable-boundary-tests-v1/validation.json');pins[str((D/'immutable-boundary-tests-v1/tests.log').relative_to(ROOT))]=sha(D/'immutable-boundary-tests-v1/tests.log')
++  v=read(D/'immutable-boundary-tests-v1/validation.json');assert v['tests']==22 and v['exitCode']==0 and v['passed']is True and sha(D/'immutable-boundary-tests-v1/tests.log')==v['testLogSHA256'];assert v['codePins']==[dict(path=p,sha256=pins[p])for p in c['original22TestCodePaths']];assert sha(D/'immutable-boundary-tests-v1/validation.json')==c['original22ValidationSHA256'];pins[str((D/'immutable-boundary-tests-v1/validation.json').relative_to(ROOT))]=sha(D/'immutable-boundary-tests-v1/validation.json');pins[str((D/'immutable-boundary-tests-v1/tests.log').relative_to(ROOT))]=sha(D/'immutable-boundary-tests-v1/tests.log')
+  proof=None
+  if require_basic:
+   path=D/'actual-basic-protection-proof.json.gz';proof=read(path);assert proof['schema']=='polyu25-complete-actual-basic-protection-v1'and proof['startAndEndInputsVerified']is True and proof['completeScannedForms']==25 and len(proof['rows'])==25 and {q['uid']for q in proof['rows']}=={q['uid']for q in forms}

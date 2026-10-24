@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-langham-upper-current-native-original-interfaces-v1.py", line 36, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-langham-upper-current-native-original-interfaces-v1.py", line 30, in main
+    contacts=exact_component_contacts(worlds[0],list(range(len(worlds[0]))),worlds[1],list(range(len(worlds[1]))));assert contacts['allPairsExamined']is True;assert reservations.heartbeat(lease)['ok']
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_original_component_contacts_20261009.py", line 44, in exact_component_contacts
+    points = intersection_points(cached_a[fi], cached_b[fj])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/exact_original_shell_intersections_20261009.py", line 63, in intersection_points
+    assert any(na) and any(nb),'Degenerate source triangle'
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: Degenerate source triangle

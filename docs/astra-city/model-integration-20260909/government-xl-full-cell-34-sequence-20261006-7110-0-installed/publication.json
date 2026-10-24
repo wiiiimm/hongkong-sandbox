@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-full-cell-34-sequence-20261006-7110-0-installed/plan.json",
+  "areas": [
+    {
+      "area": "Coble Court original government source",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-full-cell-34-sequence-20261006-7110-0-installed/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-7110-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-full-cell-34-sequence-20261006-7110-0-installed/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "020913c1d25c5c89f2d55e3e4df0a2788d59a73d4bd80d54dfd873295c559084"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-7110-0.json": "302693ec60bddfd7bd9e679abdc2daeae278b267a35774cd6018404b800fc4d5",
+    "3d-viewer/city/data/official-models/government-xl-full-cell-34-sequence-20261006-7110-0-installed/catalogue.json": "9894ad32d24d5cbad878eae56ff6ab3bee97f7ce68a2e861bed3b0b587da58fc",
+    "3d-viewer/city/data/manifest.json": "25c3fb61db00c88a9a0fb5e7329050747bc19e6f85cce7097328a92d21047bf0"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "a48b67102ca349ae76ab23b977d9841875909a9a",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-7110-0.json",
+      "resolution": 5,
+      "area": "Coble Court unchanged indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "cfb483a01a9a9d805cc7e9b67df9689dcfbeb6af947462db0e5b90e22b37d373",
+            "revision": "2026-09-07T16:00:00+00:00",
+            "sheet": "15-NW-3B",
+            "sourceETag": "\"30b4b9c-65a904a99c060\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-12851-0/sheets/15-NW-3B/terrain/TERRAIN(TB)/T33750114000106E12/T33750114000106E12.bin",
+                "sha256": "068894806f50bf5b7eb78138469b36f7eaddb43612b54a93f393a9e028448209"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-12851-0/sheets/15-NW-3B/terrain/TERRAIN(TB)/T33750114000106E12/T33750114000106E12.gltf",
+                "sha256": "42282fd71177cb9bbc19f09e9a15fe89e11df4eff8a224502c2f30d51f575d72"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "302693ec60bddfd7bd9e679abdc2daeae278b267a35774cd6018404b800fc4d5",
+      "bytes": 2232539
+    }
+  ],
+  "estimatedBases": []
+}

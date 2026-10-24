@@ -1,0 +1,144 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-new-two-sheet-20260927/plan.json",
+  "areas": [
+    {
+      "area": "Cityplaza and Tin Shui Wai Station original government sources",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-new-two-sheet-20260927/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-91127-0.json": null,
+    "3d-viewer/city/data/government-native-149020-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-new-two-sheet-20260927/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "8606b208e1fa037ee88f6e97ac773b91b02478560db73b42e5ce574307d8178d"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-91127-0.json": "89d09981b502e79ecbc0bce4e4904c987ee50da75471e37558b5a992c8ce634d",
+    "3d-viewer/city/data/government-native-149020-0.json": "176d7397f404a838f06f7508484e32b5289c187c08ab70cb4bda234ca1700399",
+    "3d-viewer/city/data/official-models/government-xl-new-two-sheet-20260927/catalogue.json": "210f9261b2121a6eac31d4cc5ec050689a9f124f053d48ea0704cd64366b89af",
+    "3d-viewer/city/data/manifest.json": "1fab425faf39abca4a2ea7854eeb13081a2c373aa78f7a84d1322ccabf998bf5"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "641231c474e9f531ae0c1c92bfb28b2b02c531b5",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-91127-0.json",
+      "resolution": 5,
+      "area": "Cityplaza exact two-sheet government terrain with current parent under disjoint neighbours",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "4ca7cfa343c1259849ba88fd2de45b8c779c3e20b54b2c160148ba6f3adb922d",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-SE-7B",
+            "sourceETag": "\"2c7e7ac-655fef3e810dd\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-SE-7B/terrain/TERRAIN(TB)/T39750162000106E11/T39750162000106E11.bin",
+                "sha256": "05172dadb3a0c4b73f0d2e43ed54083d9e921f6488d21ef0b0458d4f67f79d62"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-SE-7B/terrain/TERRAIN(TB)/T39750162000106E11/T39750162000106E11.gltf",
+                "sha256": "cd3fcef675085a2a82865e2650f7057bdec192408b5aa232b27f9c400c5dc63f"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "2526b301539c717b0672e5f006429992d2b8274328cfdab1cbf6cf5b9f27658d",
+            "revision": "2026-04-23T16:00:00+00:00",
+            "sheet": "11-SE-8A",
+            "sourceETag": "\"2dd55b0-6501c450b91b7\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-SE-8A/terrain/TERRAIN(TB)/T40500162000106E11/T40500162000106E11.bin",
+                "sha256": "23bb5b2d1b15e81f6b3d1348cb9165f3322fdb836f45d72e73c405da357ca86e"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-SE-8A/terrain/TERRAIN(TB)/T40500162000106E11/T40500162000106E11.gltf",
+                "sha256": "38067ef79bb45548236a22ca8db92060beb82c99885de93ef7c551a603e466a9"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 2451,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "89d09981b502e79ecbc0bce4e4904c987ee50da75471e37558b5a992c8ce634d",
+      "bytes": 2234342
+    },
+    {
+      "url": "city/data/government-native-149020-0.json",
+      "resolution": 5,
+      "area": "Tin Shui Wai Station exact two-sheet government terrain with current parent under disjoint neighbours",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "d329de7d55e79455032eb671c13a589b2cacf5ea6d8be3dfc6cc0eaaeacf1fae",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "6-NW-8A",
+            "sourceETag": "\"40bd602-63dd0796485ba\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-NW-8A/terrain/TERRAIN(TB)/T18000342000106E10/T18000342000106E10.bin",
+                "sha256": "c1bd6435022738b470c0f8ee5e7918bba3ffadef9b0bead370e5a2c48d185977"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-NW-8A/terrain/TERRAIN(TB)/T18000342000106E10/T18000342000106E10.gltf",
+                "sha256": "5ecb1346cd3f5109a90e75a039aebb26da2e770044e2576be04022814066a130"
+              }
+            ]
+          },
+          {
+            "directorySHA256": "15465053f11fd88e5ce3c4916a8ca89f0574e7059da5923a2ccd7a4cfcb4dc34",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "6-NW-8C",
+            "sourceETag": "\"3d8cfed-63dd07b7ffbce\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-NW-8C/terrain/TERRAIN(TB)/T18000336000106E10/T18000336000106E10.bin",
+                "sha256": "2fe863f089a7afa8a6a9d33834c922c401d8c4c7973b62c9e7fa027e370a7819"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-NW-8C/terrain/TERRAIN(TB)/T18000336000106E10/T18000336000106E10.gltf",
+                "sha256": "5cff245d3d53838b1d9e3b45b8dab41d735e89692f938c538e06dac222b6eec2"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 9801,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "176d7397f404a838f06f7508484e32b5289c187c08ab70cb4bda234ca1700399",
+      "bytes": 6509633
+    }
+  ],
+  "estimatedBases": []
+}

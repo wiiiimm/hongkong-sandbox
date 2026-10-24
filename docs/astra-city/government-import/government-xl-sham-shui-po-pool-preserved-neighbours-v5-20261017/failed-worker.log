@@ -1,0 +1,10 @@
+{'protectedM2': 11819.739911231085, 'missingM2': 0.0, 'missingBounds': (nan, nan, nan, nan)}
+{'beforeFaces': 25236, 'afterFaces': 25217}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/pool_preserved_neighbours_v5_20261017.py", line 126, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/pool_preserved_neighbours_v5_20261017.py", line 109, in main
+    assert len(patch['nativeMesh']['index'])//3<=25000, 'Final terrain exceeds existing triangle budget'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Final terrain exceeds existing triangle budget

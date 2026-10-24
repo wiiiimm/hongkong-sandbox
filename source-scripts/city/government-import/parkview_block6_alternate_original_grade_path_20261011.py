@@ -1,0 +1,25 @@
+"""Bounded alternate exact original grade route; no mutable baseline or acceptance."""
+from pathlib import Path
+from fractions import Fraction as F
+import numpy as np,json
+from run import ROOT,HERE,read,save,digest
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from exact_original_triangle_pair_column_gap_20261010 import verify as column
+from exact_original_face_conservative_clearance_v5_20261010 import verify as finite
+from exact_original_upper_ground_interfaces_20261009 import exact_upper_ground_interfaces
+from original_bound_facet_wall_context_v3_20261010 import best_original_vertex_exposure
+B=ROOT/'docs/astra-city/government-import';OLD=B/'government-xl-parkview-block6-bounded-original-clear-cap-probe-v1-20261011';D=B/'government-xl-parkview-block6-complete-original-support-paths-v1-20261011'
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+ r=read(OLD/'diagnostic.json.gz');pr=read(D/'native-grade-route-refinement.json.gz');alt=read(D/'alternate-path-edge-diagnostic.json.gz');npth=ROOT/next(x['path']for x in r['evidenceRefs']if x['path'].endswith('glb.gz')and x['path']!=r['evidenceRefs'][2]['path']);n=decode_original_world_triangles(npth.read_bytes());rp=HERE/'local/government-xl-terrain-recovery-parkview-block11-complete-original-proposed-current-probe-v4-20261011/runtime-geometry.json.gz';rt=next(x for x in read(rp)['rows']if x['uid']=='landsd/254491:0');g=np.asarray(rt['drawnGroundGeometry'],float).reshape(-1,3,3);assert digest(g.tobytes())==r['completeCurrentGroundSHA256'];wall=52249;normal=np.cross(n[wall,1]-n[wall,0],n[wall,2]-n[wall,0]);
+ if normal[1]!=0 or not np.any(normal):
+  save(D/'alternate-grade-candidate-rejection.json',dict(candidateFace=wall,completeOriginalFacet=n[wall].tolist(),exactCrossProduct=[str(F(float(x)))for x in normal],exactVerticalFacet=False,reason='candidate is not an exact vertical wall; no existing exact vertical grade-interface credit inferred',alternatePathOriginalFaces=[52249,52247,54317,54318,54319,54656,54655,58400],existingCompleteEdgeProofsRef=ref(D/'alternate-path-edge-diagnostic.json.gz'),boundedGradePathProved=False,sourceOnly=True,installationApproved=False,currentAcceptance=False,evidenceRefs=[ref(p)for p in [Path(__file__),npth,rp,D/'alternate-path-edge-diagnostic.json.gz']]))
+  print('Candidate52249isnotexactvertical;gradepathremainsunproved',flush=True)
+  return
+ interfaces=exact_upper_ground_interfaces(n,[wall],g);exposure=best_original_vertex_exposure(n[wall],g);proofs=[];gxz=g[:,:,[0,2]]
+ for i in [52247,54317,54318]:
+  prior=finite(n[i],g);f=n[i];sxz=f[:,[0,2]];ids=np.flatnonzero(np.all(gxz.max(1)>=sxz.min(0),axis=1)&np.all(gxz.min(1)<=sxz.max(0),axis=1));assert list(map(int,ids))==prior['allProjectedBoundingCandidateOriginalGroundFacets'];pieces=[dict(originalGroundFace=int(j),proof=column(f,g[j]))for j in ids];gaps=[F(x['proof']['exactMinimumFiniteColumnGapM'])for x in pieces if x['proof']['exactClosedHorizontalProjectionsMeet']];assert gaps;lower=min(gaps);proofs.append(dict(face=i,priorConservativeProofVerbatim=prior,allCompleteFiniteColumnCandidateProofs=pieces,exactMinimumColumnGapM=str(lower),exactProjectionCovered=prior['groundProjectionCovered'],strictClearCompleteFacet=prior['groundProjectionCovered']and lower>0));print(i,str(lower),prior['groundProjectionCovered'],flush=True)
+ reused=[x for x in pr['completeRouteIntermediateFiniteProofs']if x['face']in [54319,54656,54655]];assert len(reused)==3;edges=alt['completeSharedEdgeProofs'][1:];assert all(x['proof']['strictlyExposedWholePositiveInterface']for x in edges)
+ result=dict(uids=r['uids'],genuineGradeFace=wall,exactPositiveUpperGroundInterfaces=interfaces,completeVertexExposure=exposure,completeOriginalNativePath=[52249,52247,54317,54318,54319,54656,54655,58400],completeSharedEdgeProofs=edges,newIntermediateFacetProofs=proofs,reusedStrictIntermediateProofs=reused,strictCapProofRef=ref(OLD/'paired-cap-refinement.json.gz'),wholeBoundedOriginalPathProved=bool(interfaces)and F(exposure['exactExposureLowerBoundM'])>0 and all(x['strictClearCompleteFacet']for x in proofs+reused),failedFacet54320RemainsExcludedAndUnchanged=True,wholeNativeReaccepted=False,currentAcceptance=False,sourceOnly=True,notCurrentBaseline=True,installationApproved=False,newlyInstalled=0,completePinnedGroundSHA256=digest(g.tobytes()),evidenceRefs=[ref(p)for p in [Path(__file__),D/'native-grade-route-refinement.json.gz',D/'alternate-path-edge-diagnostic.json.gz',OLD/'paired-cap-refinement.json.gz',npth,rp,HERE/'exact_original_triangle_pair_column_gap_20261010.py',HERE/'exact_original_face_conservative_clearance_v5_20261010.py',HERE/'exact_original_upper_ground_interfaces_20261009.py',HERE/'original_bound_facet_wall_context_v3_20261010.py']])
+ save(D/'alternate-original-grade-path.json.gz',result);print(json.dumps(dict(gradeInterfaces=len(interfaces),exposure=exposure['exactExposureLowerBoundM'],wholeBoundedOriginalPathProved=result['wholeBoundedOriginalPathProved'])),flush=True)
+if __name__=='__main__':main()

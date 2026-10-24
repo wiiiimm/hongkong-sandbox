@@ -1,0 +1,93 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-yoho-eight-retained-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Yoho Town Block 8 unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-yoho-eight-retained-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-yoho-eight-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-yoho-eight-retained-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "8c3c54ea18912eb2662b37e39c0746f05fcdf1b773da7d9d3f825a502003f70c"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-yoho-eight-original-v1-20261022.json": "1aef411c46642d1317a2652c7810ef7e30a931615715af960b8a7847c69d17cd",
+    "3d-viewer/city/data/official-models/government-xl-yoho-eight-retained-qualified-stage-v1-20261022/catalogue.json": "183e15069426f9f67679fe93d2060be6c1d503a6b007087896b386f20570dc7a",
+    "3d-viewer/city/data/manifest.json": "a141b81efb93ecb782fcbff72715803394ef32ca47894ca451df775c0974aa85"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "52e8e527dd9e3e39e5e1dc3f086a4478381e938f",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-121143-0.json",
+      "sha256": "064d364dd07a3f774403d285479c216baea5d7937a717a48445e7e829b464e41",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-yoho-eight-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "Yoho Town Block 8 unchanged original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -12719.223324880786,
+            -17163.955749686505,
+            -12691.52684426206,
+            -17130.798866747402
+          ],
+          "outerBounds": [
+            -12724.468450740682,
+            -17169.200931230098,
+            -12686.28493211619,
+            -17125.565800094035
+          ],
+          "policy": "Original highest source terrain replacement within explicit source core and a piecewise-affine return carved around authenticated nonintersecting current forms. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-yoho-fu-tor-loy-adjoining-ground-v1-20261018/sheets/6-NW-10D/terrain/TERRAIN(TB)/T21750336000106E10/T21750336000106E10.gltf",
+            "sha256": "789fe5ae7f342475cec23521c605013ffbef9fd539afd068e1adc56f4d3bc4b4"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "retainedNativeSources": [
+          {
+            "retainedUids": [
+              "landsd/121143:0"
+            ],
+            "sha256": "064d364dd07a3f774403d285479c216baea5d7937a717a48445e7e829b464e41",
+            "url": "city/data/government-native-121143-0.json"
+          }
+        ],
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "1aef411c46642d1317a2652c7810ef7e30a931615715af960b8a7847c69d17cd",
+      "bytes": 1019222
+    }
+  ],
+  "estimatedBases": []
+}
