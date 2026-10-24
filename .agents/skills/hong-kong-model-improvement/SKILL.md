@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.104"
+  version: "1.9.105"
 ---
 
 # Hong Kong model improvement
+
+Current25October6911inventory2c799f6d5c8a5e21ea378bacb02ca39be6461f0de924548b14507c7231441b00 atgovernment-xl-after-podium84014-current-inventory-v1-20261025; manifest52e09e1176dfcbb597b406a641ad2467e73921ad7fb80abd214c7d9b83b2cd0b. Exact164unfinishedsource-keyinventoryacacd5b05879bccafc532ff24aaf7713a9876c71171ead8096e28264a43dcfc4,still2nullviewerUIDs. Actualinstallationa010a4326 PUSHED. Allworkers terminal/released; full164goalactive. ReadlatestHANDOFF before reusing older6908scene bindings.
 
 SUCCESS25October: original podium84014 plus original towers155042/269721 INSTALLED unchanged20044faces. FixedXL **357installed/164unfinished/521total**; **6911detailedactors**. Installed79ce4fc60d1c64573402f8997238e34a464d0149824b550912b89805f7c5e31a,snapshotb399c2b1e68101c9. IndependentROOTreadback20b52192fb276efb1feb74653b1ca7d496cc066e5e872acf8abff22db795439d verifiesall6908priorassetbytes/catalogueentries, all521rows/only84014changed, bothglobalretainedBASICguards, no terrain edits and12actuallyinspectedFRESHliveexports. Liveworker8472terminal0/released. Qualification3da4e6a2b pushedbeforeinstallation. Commit/pushactualinstallation next; refresh6911inventory/exact164sourcekeys before nextcurrent-scenequalification. Do not reinstallthisassembly/Skytower/UniversityHall. NoAIgeometrymodelling/optimisation; all164including2nullUIDsources remain in scope.
 
