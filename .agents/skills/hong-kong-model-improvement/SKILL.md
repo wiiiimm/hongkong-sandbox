@@ -2,7 +2,7 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.96"
+  version: "1.9.97"
 ---
 
 # Hong Kong model improvement
@@ -97,6 +97,8 @@ Latest ROOT checkpoint,22October2026: Ching Cheung95643 installed unchanged, pin
 When a bounded original terrain addition touches an installed native neighbour, use the full native-regression and native-aware staged/publisher/installer adapters. Explicit retained-own browser views are required evidence, not a reason to require an empty retained-view list. Preserve every current source/flag/legacy failure and require zero new burial under existing checks. A parent rectangle with absent drawn terrain or an existing face crossing its boundary needs actual domain construction evidence; do not convert that script premise failure into source corruption or a coverage waiver.
 
 Use the existing Astra pipeline. Current user scope permits AI for code and non-modelling work. On 8 October the user instructed: "keep working and do not stop. install / fix and install all the models you can. if some are truely blocked, note it in neon and flag the reason", followed by "do not stop for anything". Necessary source-identity/component evidence reviews, including the six prepared original captures, may proceed without repeating the earlier permission question. This permits analysis of unchanged original government sources, not replacement geometry generation or arbitrary validation waivers. Record genuine failures and concrete revisit conditions in Neon; continue other actionable sources. The completed Hoi Tai review remains valid historical evidence.
+
+For model-only co-imports, use selected_original_model_only_staged_browser_v3_20261024.py: explicit complete joint sets must contain every co-imported UID and hash, including after all mobile failed-download recoveries. Earlier V1/V2 helpers emitted singleton joint sets; individual browser success is not full assembly activation evidence. Keep the source-review guard requiring all joint reports to bind the complete source map. V3 also accepts camera-only --view-direction overrides; inspect every actual export, since geometric framing alone does not establish freedom from foreground occlusion. Never change or hide source geometry to improve inspection.
 
 ## Reuse canonical support anchors before expensive component searches
 
