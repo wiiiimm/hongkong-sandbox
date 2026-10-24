@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.93"
+  version: "1.9.94"
 ---
 
 # Hong Kong model improvement
+
+Harbour Plaza Metropolis259378 is now privately qualified for one unchanged14504face original with dependency on existing original Fortune Metropolis240841. Exact four-world source/podium paths, bounded extent identity, lower-wall source-role review, one external neighbour zero-contact and all8source/retained desktop/mobile exports are complete and inspected. New closed harbour_metropolis catalogue contract preserves all existing independent-model guards;9adversarial metadata tests pass. Qualified stage fceb1800819159fce411de864041378559164ea6dc8b1de0ef85da773bff7245 and --prepare-only pass; not installed yet. Config government-xl-harbour-metropolis-install-config-v1-20261024.json; use the matching harbour_metropolis guarded publisher/live installer/readback, never the independent zero-contact route. Current count remains351/170of521,6895actors pending live installation. Greenfield73partial low walls have32unresolved cap paths; open229852 has live primary stable IDs and exact whole-cell coverage but different live OBJECTID retained. See latest23OctoberHANDOFF additions; noAIgeometrymodelling/optimisation.
 
 West Ventilation335494 is installed unchanged10338faces:351installed/170unfinishedof521,6895detailedactors. Exact source-owned extended portal roof identity was corroborated by official ISDphoto/text; raw extent/partial-wall negatives retained. Nine lower walls have complete clear-cap paths in all4worlds, both retained natives have zero finite contacts; no terrain edits. Independent readback dcddc34aa8800b22c33ddf295c4281d18e124a919d8a9850404c06ac8cf2a7df verifies all6894oldassets/all521rows/12actualsource+retainedliveexports/globalretainedBASICbindings. Use postVent6895inventory in latest23OctoberHANDOFF. NextHotel259378haspositive original-podium interfaces: finish actual native support paths and use a support-aware model-only route; never remove the independent-contract zero-contact guard to fit it. All current workers terminal/released. NoAIgeometrymodelling/optimisation.
 
