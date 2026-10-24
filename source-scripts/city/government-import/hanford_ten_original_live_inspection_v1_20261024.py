@@ -19,8 +19,8 @@ def main():
         report=read(folder/('viewport-'+str(width))/'live-browser.json')
         assert report['passed']and not report['errors']
         source=[v for v in report['views']if'time'in v]
-        assert len(source)==20 and not report['retainedNativeOwnViews']
-        for views,output in [(source,images),(report['retainedNativeOwnViews'],retained)]:
+        assert len(source)==20 and not report.get('retainedNativeOwnViews',[])
+        for views,output in [(source,images),(report.get('retainedNativeOwnViews',[]),retained)]:
             for v in views:
                 assert v['active']and v['visible']and v['fullyFramed']and not v['fallbackFaces']
                 assert all(v['meshVisibility'])and not any(v['wireframeFlags'])

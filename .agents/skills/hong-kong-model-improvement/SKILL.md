@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.90"
+  version: "1.9.91"
 ---
 
 # Hong Kong model improvement
+
+Hanford ten originals are installed unchanged:350installed/171unfinished of521,6894detailedactors. Exact ten-component co-import adds ONLY1XL/276187. Independent ROOTreadback b357a2df9aca00670978002b349faaaa24a62647f1f894a9c8f058d213a2b799 verifies all6884oldassets/catalogueentries,all521rows,globalretainedBASICbindings,exacttwo-podiumterrain and40actual live exports. Use post-Hanford6894inventory from the latest23OctoberHANDOFF; all Hanford workers terminal/released. NoAIgeometrymodelling/optimisation. Continue the remaining171sources after committing/pushing installation.
 
 Hanford24October follow-through: preserve the exact coastal Float32 no-lowering check. `coastal_parent_float32_repair_v1_20261024.py` plus complete-face return-scope proof can raise derived return vertices by at most1mm without touching the protected original-TIN core; the actual repair max0.036mm. Sequential original-TIN inset must preserve the entire inherited low-Float32 face multiset and recheck final exact coastal LP. Terrain installation scopes include ALL coarse-domain forms, not only model footprints: supported-stageV2 merges authenticated model/terrain obligations and leases their full union. Required `sourceTile` metadata missing from a historical candidate must be restored from its exact pinned native input/result, never guessed from the viewer tile. Browser active/frustum flags still need actual canvas inspection; a framing failure warrants a wider private capture box while retaining full-source framing. No automatic source-role or installation approval follows these diagnostics. Read the latest23OctoberHANDOFF for current Hanford state.
 
