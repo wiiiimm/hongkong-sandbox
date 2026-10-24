@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.118"
+  version: "1.9.119"
 ---
 
 # Hong Kong model improvement
+
+SUCCESS25October TVB9778+132578 INSTALLED11197unchangedfaces. FixedXL362installed/159unfinishedof521;6926officialactors. Installedef5682add7c41cb3fe8d45fdbb64744c58e5507c93b71b90ab69a53a57beab43/snapshotdabce1370c763ab0; independentfullreadbackda3fe61c892d09cbde1d2575d7a4f9f5a24bd2c9c1685b49fc70723a11601e30 verifies6924oldassets/entries/full521/only9778changed/bothglobalBASICguards/8actuallyviewedfreshliveexports. Allworkersreleased; donotreinstall. Qualificatione8642b79dpushedbeforelive. Needcommitpushactualinstallationandrefresh6926inventory/exact159sourcekeys, retaining2nullUIDsources. Boundedface60wallspanreviewpreservesraw2rimfailures/sourceheightlabels; noAIgeometrymodelling/optimisation. LatestHANDOFFauthoritative; olderprivate/running361headershistorical.
 
 Latest25October TVBprivatelyQUALIFIED747eb315d3821fe973122cffba8f9fde939de94a08b16b63677e4667e2c0b25a; sourceReview1b10991b4c21fad31070b37154236cc044108333dc9f936999c06ffe2fcb4cf5 binds8actuallyviewedexports. Originalface60boundedwallspanacceptedwithraw2rimfailuresretained; bothsourcesownTINroots/SUPPORTSempty. Configgovernment-xl-tvb-two-original-install-config-v1-20261025.json usesfreshscopeV2correctterrainUIDorder, allotherfields/obligationbytesidentical. BrowserV7correctsOSMsource-formleasekeyonly. Needprepare-only/qualificationcommitpush/guardedactualinstall/fresh8liveimages/fullreadback/installationcommitpush. Notinstalledyet:361/160of521,6924actors. ReadlatestHANDOFF; oldunknownpredicate/runningnotes historical. NoAIgeometrymodelling/optimisation.
 
