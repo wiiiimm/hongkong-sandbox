@@ -13,3 +13,9 @@ Private browser V1 passed individual automation but default podium/23480 cameras
 V3 uses the established V9 browser verifier with explicit full five-model joint sets, including after every mobile failure/retry has completed. All individual checks, source visibility, picking/collision and complete frame requirements remain. Its exports require a fresh actual ROOT inspection before source qualification. No thresholds were relaxed. Earlier physical-wrapper failures were missing optional fields in separated-pair summaries or batch-name routing mistakes; they occurred before freezing and were corrected. They are not source corruption.
 
 Coding and evidence interpretation use AI. No AI geometry modelling or optimisation has been performed.
+
+## Installed and independently verified
+
+Royal Green is installed: 355/521 XL entries, 166 unfinished; 6,907 detailed actors. Installed job `00a5464dab8fd9d34abfe0ac7df57a1ef2fda8eac50670275e5032c34cd42b86`, snapshot `80ae9081d2a0ea3c`. Readback `3e5bc9d7d9592b48233437c9a965d0008e77625de8282f3bd305ebb30a04b948` verifies all prior assets/entries, complete fixed ledger, unchanged terrain and global support guards.
+
+The original V9 live run omitted the empty retained-native array. Automatic review rejected defaulting a missing evidence field; no such adapter or report mutation was performed. V10 fixes the producer by explicitly initialising that list and otherwise preserves the V9 verifier byte for byte. A fresh complete live replay generated both reports with the required field. ROOT inspected all 20 fresh exports; readbackV2 authenticates that replay alongside the original installation and keeps the mandatory retained-native check unchanged. The early missing-field errors grant no credit and do not indicate source corruption. All five original hashes, support dependencies, source positions and ground remain unchanged.
