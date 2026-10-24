@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.91"
+  version: "1.9.92"
 ---
 
 # Hong Kong model improvement
+
+For legacy installed entries, replay the actual production prepareModelCatalogue before diagnostic loadOfficialModel: rootTranslation belongs to the catalogue even when absent per-entry. selected_original_render_attributes_v2_20261024.mjs plus overlapping-native-contactsV3 authenticate the raw entry and compare all three captured native bounds to the pinned inventory exactly; no current metadata/pose is rewritten. Independent model-only stage/publisher/live/readback adapters dated24October preserve the proven no-terrain path and require every scoped retained native to have zero finite contacts in all4worlds plus own desktop/mobile day/night exports. The closed contract has8adversarialtests; positive native interfaces use the separate support/role adapters. Ventilation335494is privately qualified (official-photo/source-owned extended portal roof,9lower-wall cap paths,2zero-contactretainednatives,12inspectedcanvases), not installed yet. Read latest23OctoberHANDOFF and next-four checkpoint before rerunning sources.
 
 Hanford ten originals are installed unchanged:350installed/171unfinished of521,6894detailedactors. Exact ten-component co-import adds ONLY1XL/276187. Independent ROOTreadback b357a2df9aca00670978002b349faaaa24a62647f1f894a9c8f058d213a2b799 verifies all6884oldassets/catalogueentries,all521rows,globalretainedBASICbindings,exacttwo-podiumterrain and40actual live exports. Use post-Hanford6894inventory from the latest23OctoberHANDOFF; all Hanford workers terminal/released. NoAIgeometrymodelling/optimisation. Continue the remaining171sources after committing/pushing installation.
 
