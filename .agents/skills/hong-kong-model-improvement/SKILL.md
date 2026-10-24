@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.106"
+  version: "1.9.107"
 ---
 
 # Hong Kong model improvement
+
+CURRENT25October afterEverCourt:6912inventoryc8df1c8f8b3d56288542cfe0237bdc237261caa78d5c27aa259d43a7bb6d01a0 atgovernment-xl-after-ever-court-current-inventory-v1-20261025, manifestaaadde8e73eb06fae95151cab175c38c0d946362100179ebc49e55a5d15b8081. Exact163unfinishedsource-keyinventory67a90fdc796e8d665a97124463f93d9342df1f033b5986db3416aff7ce44fd78, still2nullUIDsources; preservewholefixed521scope. EverCourt actualinstallationb24e163bd PUSHED;358installed/163unfinished/6912actors. Older6911headers/runningEverworker notes below are historical. ReadlatestHANDOFF for active244686initialevidence workers and currentbindings; do not rerun installedEverCourt. Candidate244686 is itself a podium, so its own suppressed BASICfallback cannot serve as an unchanged BASICsupport proof for dependent towers. Actualoriginalroof support or originalcompanions require evidence.
 
 SUCCESS25October EverCourt158003 INSTALLED unchanged10759faces, job577d43844578067fe59203a97a44b8c3c7b2f551881a6075ab76d744dc2b9f18/snapshote93223fec86bf99a. ROOTreadbacke7105aeae10de9c1047696daf8c5699a60b1374483d37ecefa30c8ed1789b0da verifiesall6911oldassetbytes/catalogueentries, all521rows/onlyEverCourtchanged, bothglobalBASICguards, unchangedMongkokterrain/native266918 and8actuallyinspectedfreshliveexports. **358installed/163unfinished/521;6912officialdetailedactors**. Correct source-form: leases required for OSMway1158907334/1158964056; supersededphysicalV1/privateV1/V2 cannotgrantpublication. V3correctedleases/sourceReview/stage andguardedliveinstallationcomplete. OriginalTINinset2630faces/7parentfaces, buildinggeometry/poseunchanged. Do not reinstall. Fresh6912inventory worker68248 is running; older6911headersbelow are historical. ReadlatestHANDOFF and currentreceipt before nextsource. NoAIgeometrymodelling/optimisation.
 
