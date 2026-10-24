@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.86"
+  version: "1.9.87"
 ---
 
 # Hong Kong model improvement
+
+For the exact five-source Yoho assembly, use its pinned catalogue/native scope and qualified-stage V2, guarded-publisher V2, live-installer V2 and installed-readback V2 adapters dated20261024. Preserve the three existing native entries and their absence of dependencies; only three new towers depend on the new original podium. Keep the tested terrain target set limited to231756. The independent-only installer rejects retained-native own exports: the corrected path requires all12 retained desktop/mobile day/night exports alongside20 new-source exports, with exact old SHA/triangle/visibility checks. Do not remove those checks. A failed uncredited publication requires actual readback of every saved destination and removal of newly created files before retry; original_install_rollback_readback_v1_20261024.py has seven adversarial tests. YohoV3 rolled back after both browsers passed; V4 is the verified installation. Original Block6 horizontal yaw is a source-bound unit isometry, not a pose correction. Raw projection, strict-support and compound-envelope negatives stay archived under the bounded source-role review. Latest verified counts:347installed/174unfinished of521;6881actors. Read the latest23October HANDOFF for receipts and the current inventory.
 
 For a model-only original compound, do not invent a terrain edit to satisfy an older installer. Miu Fat's exact three-source native Hall support and independently covered gateway fallback use `miu_fat_original_catalogue_scope_v1_20261024.py` plus its qualified-stage/guarded-publisher/live-installer/readback adapters. That contract accepts only the pinned three hashes, the measured four-world gateway mapping and Hall-to-main dependency; the generic original-support contract still rejects suppressions. Preserve every global retained-basic support check, all old catalogue bytes/entries, exact source forms and full521 ledger. A private preview keeps approval flags false; schema kind must remain `staged-official-model-catalogue`. Scripted browser success is not visual/source-role approval. Mobile failed-download sequences can show an un-retried companion's coarse fallback in earlier own-source exports; inspect and record this explicitly, then require the final companion export and all-source joint activation rather than claiming every earlier frame already contains the whole upgraded assembly.
 

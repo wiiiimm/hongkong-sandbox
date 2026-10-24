@@ -1,0 +1,95 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-yoho-five-original-assembly-qualified-stage-v2-20261024/plan.json",
+  "areas": [
+    {
+      "area": "Yoho Town four original towers and common original podium",
+      "models": 5,
+      "catalogue": "city/data/official-models/government-xl-yoho-five-original-assembly-qualified-stage-v2-20261024/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-yoho-five-original-v1-20261024.json": null,
+    "3d-viewer/city/data/official-models/government-xl-yoho-five-original-assembly-qualified-stage-v2-20261024/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "9fbf130a2ba5f4fe907cc10f3b6b38eacde17a360ac363168f181d02a5bbb1e1"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-yoho-five-original-v1-20261024.json": "55dae108ab6a787dc303a220b9a7dcbc846f7b66498747c741df5e20d9b1ce25",
+    "3d-viewer/city/data/official-models/government-xl-yoho-five-original-assembly-qualified-stage-v2-20261024/catalogue.json": "193abb3cba3eb3caa46cf5057c843fdfef97f0211e31e901eba9d289bd5d8d0f",
+    "3d-viewer/city/data/manifest.json": "0f9621d13bf1f4c8c17e656b1ef9ecc87d8f0e7a7a3376d9eb1d7b5f5c7869ff"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "a835da4fa5dc9c7738ef0443a1b4697660909af6",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-yoho-five-original-v1-20261024.json",
+      "resolution": 5,
+      "area": "Yoho Town four original towers and common original podium",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -12608.376142391846,
+            -16987.914661667415,
+            -12592.175547030956,
+            -16980.1609851129
+          ],
+          "outerBounds": [
+            -12611.426444567385,
+            -16990.96333416966,
+            -12589.168984998827,
+            -16977.0931592016
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Validated coarse-parent edge return retained outside the original inset; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-121143-0/sheets/6-NW-15B/terrain/TERRAIN(TB)/T21750330000106E10/T21750330000106E10.gltf",
+            "sha256": "86c73c6a02219f75dfb57aaff7972101aa3251b071fd4f0b019ce5988e13ab0a"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/6-NW-10D/terrain/TERRAIN(TB)/T21750336000106E10/T21750336000106E10.gltf",
+            "sha256": "789fe5ae7f342475cec23521c605013ffbef9fd539afd068e1adc56f4d3bc4b4"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 435,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "55dae108ab6a787dc303a220b9a7dcbc846f7b66498747c741df5e20d9b1ce25",
+      "bytes": 82445
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "estimatedBases": []
+}
