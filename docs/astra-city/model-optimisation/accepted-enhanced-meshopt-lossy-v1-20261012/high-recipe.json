@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "tier": "high",
+  "status": "ready",
+  "lossy": true,
+  "tools": {
+    "meshoptimizer": "0.24.0",
+    "node": "24.18.0"
+  },
+  "parameters": {
+    "adapter": "meshopt-bounded-lossy-v1",
+    "geometryCodec": "meshopt",
+    "transportEncoding": "gzip",
+    "gzipLevel": 9,
+    "quantisation": true,
+    "simplification": false,
+    "cleanup": "unused vertices compacted only for LOD; simplifier may remove degenerate faces",
+    "reorder": "vertex compaction only for LOD; preserve primitive/material boundaries",
+    "attributeFilter": "NONE",
+    "indexMode": "INDICES",
+    "runtimeDecoderSha256": "d7ecda608bd766b28abd3009dc740eeae3f4f72414b2eab460bb3c890815d5dd",
+    "adapterSha256": "69a9761c6c939a018f9e3b0d0e4e9b7176056d21adb2b2e9d2e640660fc3c7d3",
+    "npmLockSha256": "2694b2090de35715560ece0eaa2291318d22af425ab03f5ed713a253eb54ae22",
+    "positionErrorMetres": 0.005,
+    "triangleRatio": 1,
+    "simplificationErrorMetres": 0,
+    "attributeBits": 12,
+    "lockBorders": true,
+    "pinPositionExtrema": true,
+    "baseAdapterSha256": "c52af2d4f9e0001e51dedf3a6cc5cf1a9a50d0c87e32cfbf957e4e729ba0dc21"
+  },
+  "acceptance": {
+    "processing": "Measure all position rounding displacements through every source world matrix, cap weighted absolute simplifier estimated error, validate finite geometry and exact derived-buffer runtime-decoder readback. Node transforms/materials unchanged.",
+    "geometryError": "Quantisation budget is measured per original vertex. Simplifier error is an estimate, not exact Hausdorff/visual error. Border/extreme vertices locked; actual triangle ratio recorded and may miss target.",
+    "beneficial": "Whole GLB.gzip smaller than existing gzip original; retain negative results.",
+    "approval": "Candidates only; independent current placement/visual/collision/device review still required.",
+    "publication": "Private staging. Original source models and runtime catalogues unchanged."
+  }
+}
