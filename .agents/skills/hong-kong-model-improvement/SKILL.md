@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.101"
+  version: "1.9.102"
 ---
 
 # Hong Kong model improvement
+
+24October continuation: use selected_original_local_inset_v10_20261024.py for new terrain proposals. V8/V9 discarded the already-validated coarse-parent return; V10 restores the existing V7 validated_template_faces basis while retaining V9 complete native-domain/target obligations and every validator. Beverly30031 measured 1.430403m raw-edge mismatch versus zero on validated template;10 existing boundary/coverage tests pass. Small inset validates but overlaps installed Beverly terrain and leaves4whole faces. Full retained420x560m/48726face domain exceeds25000triangle gate; exact plane census lower bound32862 means ordinary exact-coplanar consolidation cannot meet it. Next investigate coordinated adjacent terrain domains, preserving all3oldtarget obligations/full oldextent. No publication or installation;356installed/165unfinished/6908actors unchanged. EverCourt/Mandarin original crossings are context only, not extra admission gates; original footprint identity remains unresolved. See current continuation checkpoint/HANDOFF.
 
 Latest24October SUCCESS: original Skytower204146 is installed unchanged10887faces, exact Elements dependency and existing Suntower preserved. FixedXL **356installed/165unfinished/521total**; **6908detailedactors**. Installed79f761b352520318491f1aabdaa17d79ceae5b9e05d795c6aa94d56fcdba2b56,snapshot5a7c1015ce9310de. IndependentROOTreadbackd40f51a6487588c6aebdd8a6b25ee37d77457713419e3602e7edfb8b0b366b0d verifiesall6907oldassets/catalogueentries, full521rowsonly204146changed, both globalretainedBASICguards, unchangedterrain andall12actuallyinspectedfreshliveexports. Both devices/liveworker completed/released. Fresh6908inventory05d3ab32c62a800fd0a202a8b3d42a0f3fc54741f2d6a33650c791313652b0a6; manifest85d56851fa2f0631a9f2eab294abc0a285ef140bb91f107e191af5d2d0e4c3e4. Continue all165; refresholdscene bindings before qualification. NeverreinstallSkytower/UniversityHall. NoAIgeometrymodelling/optimisation.
 
