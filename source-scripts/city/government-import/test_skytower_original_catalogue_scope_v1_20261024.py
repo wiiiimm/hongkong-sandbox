@@ -1,4 +1,4 @@
-"""Actual current-source fixtures and adverse retained-source/dependency cases."""
+"""Frozen pre-install UID/SHA census, exact retained entries and adverse cases."""
 import copy,unittest
 from run import ROOT,read
 from skytower_original_catalogue_scope_v1_20261024 import *
@@ -7,7 +7,7 @@ class Scope(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
   r=next(r for r in read(B/(P+'normalized-runtime-v1-20261024')/'selection.json.gz')['rows']if r['uid']==UID);m=copy.deepcopy(r['candidate']['entry']);m.update(proceduralWindows=False,supportDependencies=[dict(uid=PARENT,state='installed',buildingCSUID=PARENT_CSUID,sha256=PARENT_SHA)])
-  cls.model=[m];cls.scope=read(B/(P+'current-scope-v1-20261024')/'summary.json');cls.native=read(B/(P+'current-native-contacts-v1-20261024')/'summary.json');manifest=read(ROOT/'3d-viewer/city/data/manifest.json');cls.current={e['uid']:e for url in manifest['officialModelCatalogues']for e in read(ROOT/'3d-viewer'/url)['models']}
+  cls.model=[m];cls.scope=read(B/(P+'current-scope-v1-20261024')/'summary.json');cls.native=read(B/(P+'current-native-contacts-v1-20261024')/'summary.json');inventory=read(B/'government-xl-after-royal-green8-current-inventory-v1-20261024/complete-bounds.json.gz');cls.current={r['uid']:dict(uid=r['uid'],sha256=r['sourceSHA256'])for r in inventory['rows']};cls.current.update({r['nativeUid']:r['rawCurrentNativeEntry']for r in cls.native['rows']});assert len(cls.current)==6907
  def reject_model(self,mutate):
   models=copy.deepcopy(self.model);mutate(models[0])
   with self.assertRaises((AssertionError,KeyError)):verify_metadata(models)

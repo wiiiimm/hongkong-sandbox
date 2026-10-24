@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.100"
+  version: "1.9.101"
 ---
 
 # Hong Kong model improvement
+
+Latest24October SUCCESS: original Skytower204146 is installed unchanged10887faces, exact Elements dependency and existing Suntower preserved. FixedXL **356installed/165unfinished/521total**; **6908detailedactors**. Installed79f761b352520318491f1aabdaa17d79ceae5b9e05d795c6aa94d56fcdba2b56,snapshot5a7c1015ce9310de. IndependentROOTreadbackd40f51a6487588c6aebdd8a6b25ee37d77457713419e3602e7edfb8b0b366b0d verifiesall6907oldassets/catalogueentries, full521rowsonly204146changed, both globalretainedBASICguards, unchangedterrain andall12actuallyinspectedfreshliveexports. Both devices/liveworker completed/released. Fresh6908inventory05d3ab32c62a800fd0a202a8b3d42a0f3fc54741f2d6a33650c791313652b0a6; manifest85d56851fa2f0631a9f2eab294abc0a285ef140bb91f107e191af5d2d0e4c3e4. Continue all165; refresholdscene bindings before qualification. NeverreinstallSkytower/UniversityHall. NoAIgeometrymodelling/optimisation.
 
 Skytower24October is privatelyQUALIFIED, notyetinstalled: stage3e014fdf62e56b9fdd99635b52d5c2c99d5ed21367a2774cbacb82d468ec1d95; source54798ee89b1f9230c9531792b4772622e162310f5fafa73f2738d704f89d6a9a. Source20414610887faces is immutable; current Elements273061/Suntower204145 retain exact bytes/metadata. New closed skytower_original_* adapters preserve general guards, require both retained actors/all12actual desktop/mobile own exports;14adversarial tests pass. Installer--prepare-only passes. Use government-xl-skytower-connected-install-config-v1-20261024.json; expectedinstalled356/165of521,6908actors ONLYafterlive/fullreadback. Current355/166/6907. Identity bound to exact3connectedoriginals: own98.889percentcoverage; allsourceprojectioninsideassembly; the>10m individual extent is on lower source extensions belowbase38.5m. Existing95percent/10m/1m2 bounds unchanged. All251strict/10finitepaths and6exposed lower-wall cap paths pass4worlds; raw-.563381mcompoundnegative and10direct-probefailures remain. No terrain oroldnative dependency edits. Read latest HANDOFF before publication.
 
