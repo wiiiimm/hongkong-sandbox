@@ -8,7 +8,7 @@ import {makeTerrain,makeWater,makeFerries,extrudeBuilding} from './world.js?v=20
 import {Navigation} from './navigation.js';
 import {AIRCRAFT} from './aircraft.js';
 import {createAircraftPicker} from './aircraft-picker.js';
-import {CityStreaming} from './streaming.js?v=20260913-load2';
+import {CityStreaming} from './streaming.js?v=20261025-basic-fallback1';
 import {MeshInspection,bindMeshInspection} from './mesh-inspection.js';
 import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';

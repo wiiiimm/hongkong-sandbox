@@ -416,3 +416,32 @@ test('failed cancellation restoration retains live geometry until Retry restores
  assert.equal(f.stream.detailedModels.get(source.uid),committed);assert.equal(committed.disposals(),0);assert.ok(layer.releaseFailures.has(committed));
  failRestore=false;await layer.retry();assert.equal(f.stream.detailedModels.has(source.uid),false);assert.equal(layer.releaseFailures.size,0);assert.equal(committed.disposals(),1);
 });
+
+test('a failed independent original retains real BASIC geometry under its reviewed active compound',async t=>{
+ const f=fixture(),parent=fixture(2),parentUid='landsd/2:0',bundledUid='landsd/3:0';
+ f.meta.asset='models/failed-original.glb.gz';
+ const parentMeta={...parent.meta,uid:parentUid,objectId:2,buildingCSUID:'two',modelId:'B0002',asset:'models/parent.glb.gz',publicationApproved:false,suppressesBuildingUids:[f.meta.uid,bundledUid]};
+ f.catalogue.models.push(parentMeta);f.catalogue.counts.packedModels=2;
+ f.data.buildings.push({...f.building,uid:parentUid,objectId:2,buildingCSUID:'two'},
+  {...f.building,uid:bundledUid,objectId:3,buildingCSUID:'three',centre:[25,5],rings:[[[20,0],[30,0],[30,10],[20,10],[20,0]]]});
+ const protections=[{uid:f.meta.uid,buildingCSUID:f.meta.buildingCSUID,sourceSHA256:f.meta.sha256,suppressorUid:parentUid,suppressorSourceSHA256:parentMeta.sha256}];
+ // The fixture stream was constructed before adding its manifest policy.
+ const {prepareBasicFallbackProtections}=await import('../basic-fallback-protections.js');
+ f.stream.basicFallbackProtections=prepareBasicFallbackProtections(protections);
+ let fail=true;
+ t.mock.method(globalThis,'fetch',async url=>url==='tile'?response(f.data):String(url).includes('failed-original')?(fail?new Response('Intentional failure',{status:503}):new Response(f.compressed)):String(url).includes('parent.glb')?new Response(parent.compressed):response(f.catalogue));
+ await sourceReady(f);
+ const layer=new OfficialModelLayer({stream:f.stream,warmMs:0});t.after(async()=>{await layer.dispose();f.stream.cache.close();parent.stream.cache.close();});
+ await layer.loadCatalogue('http://localhost/catalogue.json');layer.plan(camera(),{force:true});
+ await layer.cache.waitFor([parentUid]);await assert.rejects(layer.cache.waitFor([f.meta.uid]),/503/);
+ const hasBasic=uid=>{const e=f.stream.cache.entries.get('0_0'),i=e.data.buildings.findIndex(b=>b.uid===uid);return e.buildings.group.children.some(m=>Array.from(m.geometry.attributes.feature.array).includes(i));};
+ assert.equal(f.stream.detailedModels.get(parentUid)?.active,true);
+ assert.equal(hasBasic(f.meta.uid),true);assert.equal(hasBasic(bundledUid),false);
+ assert.equal(f.stream.cache.entries.get('0_0').detailSuppressions.has(f.meta.uid),false);
+ assert.equal(f.stream.cache.entries.get('0_0').detailSuppressions.has(bundledUid),true);
+ fail=false;await layer.retry();await layer.cache.waitFor([f.meta.uid]);
+ assert.equal(f.stream.detailedModels.get(f.meta.uid)?.active,true);assert.equal(hasBasic(f.meta.uid),false);
+ await f.stream.setDetailedModel(f.meta.uid,null);
+ assert.equal(f.stream.detailedModels.get(parentUid)?.active,true);assert.equal(hasBasic(f.meta.uid),true);
+ assert.equal(parentMeta.publicationApproved,false);
+});

@@ -6,6 +6,7 @@ import {TileCache,distanceToBounds,nearbyTiles} from './tile-cache.js?v=20260913
 import {retainedRoads,validateProxyClips} from './infrastructure-replacements.js';
 import {cityLighting} from './lighting.js';
 import {retainVisibleNativeSupports} from './model-support.js';
+import {prepareBasicFallbackProtections,basicFallbackIsProtected} from './basic-fallback-protections.js';
 export function disposeGroup(group){
  group.removeFromParent();const geometries=new Set(),materials=new Set(group.userData.disposableMaterials||[]);
  group.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const m of o.material?[].concat(o.material):[])materials.add(m);if(o.isInstancedMesh)o.dispose();});
@@ -13,7 +14,7 @@ export function disposeGroup(group){
 }
 export class CityStreaming {
  constructor({manifest,terrain,sampler,scene,onChange,activity,inspection}){
-  Object.assign(this,{manifest,terrain,sampler,scene,onChange,activity,inspection});this.meta=new Map(manifest.tiles.map(t=>[t.id,t]));
+  Object.assign(this,{manifest,terrain,sampler,scene,onChange,activity,inspection});this.basicFallbackProtections=prepareBasicFallbackProtections(manifest.basicFallbackProtections);this.meta=new Map(manifest.tiles.map(t=>[t.id,t]));
   this.buildings=new THREE.Group();this.roads=new THREE.Group();this.trees=new THREE.Group();scene.add(this.buildings,this.roads,this.trees);
   this.lighting={night:{value:0},activity:{value:new Float32Array(cityLighting(15).activity.slice(0,4))},retail:{value:cityLighting(15).activity[4]},elapsed:{value:0},shimmer:{value:1}};this.surfaceMask=null;this.bridgeRoadIds=new Set();this.infrastructureBuildingUids=new Set();this.infrastructureRoadClips=new Map();this.infrastructureErrors=new Map();this.detailedModels=new Map();this.night=this.lighting.night;this.focus=[0,420];this.detailRadius=2200;this.revision=0;
   this.cache=new TileCache({abortOnPause:false,limit:30,concurrency:2,load:(id,signal)=>this.load(id,signal),dispose:entry=>{for(const g of [entry.buildings.group,entry.roads,entry.nature.group])disposeGroup(g);},onChange:()=>{this.revision++;this.sync();this.suppressInfrastructureBuildings(this.infrastructureBuildingUids).catch(()=>{});this.onChange?.();}});
@@ -46,7 +47,7 @@ export class CityStreaming {
   // Each bake uses a stable replacement set. If a package completes while this
   // asynchronous tile is baking, discard that bake and use the latest set.
   for(;;){
-   const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,suppressions=this.detailSuppressions(models),indices=[];
+   const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,suppressions=this.detailSuppressions(models,data.buildings),indices=[];
    const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid)&&models.get(b.uid)?.entry?.retainsBasicForm!==true||suppressions.has(b.uid))return false;indices.push(i);return true;});
    const bakeStart=metrics.start();const buildings=await makeBuildings(features,null,{lighting:this.lighting,signal});metrics.end('fallbackBakeMs',bakeStart);buildings.group.userData.disposableMaterials=buildings.materials;
    if(signal?.aborted||this.cache.closed){disposeGroup(buildings.group);throw new DOMException('Aborted','AbortError');}
@@ -70,7 +71,7 @@ export class CityStreaming {
   if(this.cache.closed)return;
   const jobs=[];
   for(const entry of this.cache.entries.values()){
-   const suppressions=this.detailSuppressions();
+   const suppressions=this.detailSuppressions(this.detailedModels,entry.data.buildings);
    if(!entry.infrastructureUpdate&&entry.data.buildings.some(b=>entry.exclusions.has(b.uid)!==this.infrastructureBuildingUids.has(b.uid)||entry.detailSuppressions?.has(b.uid)!==suppressions.has(b.uid)||entry.models?.get(b.uid)!==this.detailedModels.get(b.uid))){
     entry.infrastructureUpdate=(async()=>{
      const baked=await this.prepareBuildings(entry.data);
@@ -85,9 +86,14 @@ export class CityStreaming {
   }
   await Promise.all(jobs);
  }
- detailSuppressions(models=this.detailedModels){
-  const result=new Set();
-  for(const detail of models.values())for(const uid of detail.entry?.suppressesBuildingUids||[])result.add(uid);
+ detailSuppressions(models=this.detailedModels,buildings){
+  const result=new Set();let byUid;
+  for(const detail of models.values())for(const uid of detail.entry?.suppressesBuildingUids||[]){
+   if(!this.basicFallbackProtections?.has(uid)){result.add(uid);continue;}
+   if(buildings&&!byUid)byUid=new Map(buildings.map(b=>[b.uid,b]));
+   const building=byUid?byUid.get(uid):this.getLoadedBuilding(uid);
+   if(!basicFallbackIsProtected(this.basicFallbackProtections,building,detail))result.add(uid);
+  }
   return result;
  }
  getLoadedBuilding(uid){

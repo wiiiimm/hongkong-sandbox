@@ -8,6 +8,7 @@ from native_terrain_validation import validate_native_mesh
 from reviewed_terrain_changes import reviewed_changes
 from model_dependencies import stage_dependencies
 from retained_basic_support import stage_retained_basic_support
+from basic_fallback_protections import stage_basic_fallback_protections
 from model_priorities import stage_priorities
 from illustrative_foundations import stage_illustrative_foundations
 ROOT=pathlib.Path(__file__).resolve().parents[3]
@@ -214,6 +215,7 @@ def main():
  assert found==newIds,'Source UID missing from current tiles';assert original['counts']==manifest['counts']
  stage_illustrative_foundations(ROOT,plan,manifest,edits,report,load,sha,encoded)
  stage_retained_basic_support(ROOT,manifest,edits,report,load)
+ stage_basic_fallback_protections(ROOT,plan,original,manifest,edits,newModels,report,load,sha)
  edits[manifestPath]=encoded(manifest)
  report['estimatedBases']=[{'uid':u['uid'],'before':u['previousBase'],'after':u['base']} for u in estimateByUid.values()]
  for p,value in edits.items():report['before'][str(p.relative_to(ROOT))]=sha(p) if p.exists() else None;report['after'][str(p.relative_to(ROOT))]=hashlib.sha256(value).hexdigest()
