@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.151"
+  version: "1.9.152"
 ---
 
 # Hong Kong model improvement
+
+26 October — Ferry296699 source review20d61d15e375a1a29aa12e5689ee49e990c56f0ac022d7d559dad84a0434b900 is complete; NOTinstalled. Private hierarchical successor retains14oldchildren/375789gridnodes exactly;0burial/0affectedfaces inall4worlds,5402forms0flags,6966oldassets/10BASICsupports0changed-area intersections, desktop/mobile preview passes/released/all4PNGs ROOTopened. Next guarded exactsingle-source qualification/installation/livechecks/readback; do not blindly reuse323546 exactthree-source publisher. Hierarchical verifier V2 preserves exact prior extension provenance,10tests pass; original V1 frozen. Current385/136/521XL,6966actors unchanged. Read newestHANDOFF and progress-v2 checkpoint for all5source nextactions/receipts and16inspectedimages. YingHoi15wallroot paths pass/rawcapFALSE; PokOi20wallcaps/TuenMun17wallcaps pass; carpark125711faces/realheightdifferences needs terrainconstruction, not waiver. Full136including2nullUIDkeys remains active. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
 26 October — Installation b0adf0f33 is PUSHED;385/136/521XL,6966actors. Next5 checkpoint government-xl-after-marco-next-five-progress-v1-20261026 (f22cae75c30c53b47547284daa29b2b060a44da851377458fe375452806b746f) has20completed phases; all workers terminal0. YingHoi36strict-root paths pass inall4worlds,0endpointovershoot; compound15wallnegatives/capFALSE remain. Its private desktop/mobile preview passes but8individual PNGs NOT YET ROOTinspected. Carpark authentic terrain clearsall2757buried/1219upward faces, but privatecandidate rejects overlappingheights; no repair/publication credit. All106foreignpairs/full4nativeworlds/five4worldfoundation checks done. Read newestHANDOFF/progress for precise queued nextactions and rawfailures; do not restart completedworkers or reacquire sourceassets. Whole136goal including2nullUIDkeys staysactive. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
