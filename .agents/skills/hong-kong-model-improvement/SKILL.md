@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.121"
+  version: "1.9.122"
 ---
 
 # Hong Kong model improvement
+
+Latest25October school3originals privatelyQUALIFIEDe817790df38505c0255538bef6395defa46ad1d85350f6184c87dc9bca067bfa,notinstalled. V6additive155Float32seamcoversretainall4425priorfaces;exactcoverage5675d260300e2392e9108e0ab8551e3a38485d277e6b28349e2368f9ee2e7872 provesall14472facescovered; V5actuallyhad85realprojectiongaps,donottransferitscoverageclaim. All22neighbors/pass12actuallyviewedprivateexports; source-reviewb9512bf99af2bc7a30cef0e62c99a6df909758cf5e93df05a99a0a18f984c097. Originalwing→podiumonly;rawcourtyardextent/8uncappedpanels/ownsourceenvelope/BASICbaselinecontactsretainedunderboundedreview. Needguardedinstall/fresh12liveexports/full6926oldassets/full521/globalBASICreadback/commitpush;current362/159of521,6926actors. ReadlatestHANDOFF/actualprepareworkerbeforecontinuing. NoAIgeometrymodelling/optimisation.
 
 Latest25October school V5 bounded derived-ramp-return passes existing clearance for8upwardramps and all22neighbours; independent readbacke65ecb0301df8ed8a10cf95b9cc3c6062469ed5032621540f18aee033e8a3482 proves3237unchangedfaces/174conservedparentpartitions. This is PRIVATE, notinstalled:362installed/159unfinishedof521,6926actors. Preserve footprint-only closed-edge failures. Source courtyard extent11.3078m and8uncapped grade-crossing panels need bounded source-role review, no genericthreshold/watertightness change. Complete permitKN27/2004(OP) binds3sources. Needactual12qualifyingexports and guardedfullreadback; prior single-sourcepreviewisnotacceptance. Read latest HANDOFF/checkpoint. UniversityHallapprovalalreadyfulfilled;donotreinstall. NoAIgeometrymodelling/optimisation.
 

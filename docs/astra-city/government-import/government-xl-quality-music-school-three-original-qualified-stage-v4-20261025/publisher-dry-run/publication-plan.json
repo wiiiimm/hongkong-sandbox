@@ -1,0 +1,123 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-quality-music-school-three-original-qualified-stage-v4-20261025/plan.json",
+  "areas": [
+    {
+      "area": "International Christian Quality Music school three unchanged originals",
+      "models": 3,
+      "catalogue": "city/data/official-models/government-xl-quality-music-school-three-original-qualified-stage-v4-20261025/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-quality-music-school-three-original-v1-20261025.json": null,
+    "3d-viewer/city/data/official-models/government-xl-quality-music-school-three-original-qualified-stage-v4-20261025/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "fa6bd1f74bbf32884a9f5b6559d56883e49053c3f7f17cbd1d4cf1b3e66768bc"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-quality-music-school-three-original-v1-20261025.json": "7ce28b7ace02835b93679747aa007e4e81c41b95aa13813a5faba29078ed5851",
+    "3d-viewer/city/data/official-models/government-xl-quality-music-school-three-original-qualified-stage-v4-20261025/catalogue.json": "c79958cfb88f678e8c512ec5807af0aef31bf3217555c211fb8c1650441bd136",
+    "3d-viewer/city/data/manifest.json": "80d5ae068818c3df306084e025c4bc2343f69f43f1544b6ec7c80f402db5c3b1"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "e9a2c22b85b38b9bc05a4349a159c6b3a690cba3",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-quality-music-school-three-original-v1-20261025.json",
+      "resolution": 5,
+      "area": "International Christian Quality Music school three unchanged originals",
+      "source": {
+        "authoredRampInset": {
+          "continuousReturnClaimed": false,
+          "originalTerrainCandidate": {
+            "path": "source-scripts/city/government-import/local/government-xl-quality-music-school-three-original-inset-v1-20261025/candidate-terrain.json",
+            "sha256": "173b4c8bbb5d99a975742a88c37084e5a43b1451796c5acd322a83f164c3e8af"
+          },
+          "policy": "Private lower-only terrain field from minimum exact original ramp planes, with1m core extension and shared3m affine-weight return; untouched original building assets. Extrapolation belongs solely to derived terrain. Actual four-world source clearance, native validation, complete neighbours and visible return still require independent checks.",
+          "sha256": "71fe74b86400021233c7e29869de099708f751e04842a9fcd2a3b24746a358e9",
+          "sourceFaceIndices": [
+            2463,
+            2464,
+            2467,
+            2468,
+            2469,
+            2470,
+            2471,
+            2472
+          ],
+          "sourceFaceSHA256": "9eb0ec4145e3fda716c273c3469128b235310fa4c8200004bdb7094ace45334d",
+          "uid": "landsd/244789:0"
+        },
+        "boundedOriginalInset": {
+          "coreBounds": [
+            4681.6328125,
+            -6497.12814672277,
+            4753.98795795835,
+            -6380.035553997861
+          ],
+          "outerBounds": [
+            4678.6328125,
+            -6500.813232919222,
+            4758.111988083402,
+            -6376.028934741445
+          ],
+          "policy": "Original highest source terrain, full grade inset within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "derivedTerrainSeamCover": {
+          "addedDomainAreaM2": 0.05270266532897949,
+          "addedTerrainTriangles": 155,
+          "afterMissingAreaM2": 4.0988410136972455e-12,
+          "beforeMissingAreaM2": 0.0025883771886325846,
+          "maximumSeamDistanceM": 0.002,
+          "policy": "Private additive terrain seam cover. Convex Float32 vertex-cell hulls enclose every missing triangle; nearest existing terrain edge heights used. All original terrain faces preserved. No building geometry or clearance policy edits; actual runtime and neighbours require fresh checks.",
+          "projectedExcessM2": 0.05370354652404785,
+          "sourceGeometryChanges": 0,
+          "unchangedOriginalTerrainTriangles": 4425
+        },
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-school-original-pinned-terrain-v1-20261025/sheets/11-NE-2C/terrain/TERRAIN(TB)/T39000228000106E10/T39000228000106E10.gltf",
+            "sha256": "1dabefc4d80a67929e54c7c362ab623b490cb631d921a2c8e8e27fb06062b387"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "7ce28b7ace02835b93679747aa007e4e81c41b95aa13813a5faba29078ed5851",
+      "bytes": 854460
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "estimatedBases": []
+}
