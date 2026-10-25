@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.150"
+  version: "1.9.151"
 ---
 
 # Hong Kong model improvement
+
+26 October — MarcoPolo215934 INSTALLED unchanged10432faces. Current385installed/136unfinished/521XL,6966detailedactors. Job5cb7636e1dccec255a94c5a27289a76b2660fb347d7a0a58f61d888a4308bc1e/snapshot9506209ff66ada88; independent50dcb16302882c410f6e542f4ca3026f88032fd063e323090610545d4159fc6b verifies all6965oldassets/entries,full521only215934changed,20actualfreshliveimages/globalBASICguards/unchangedterrain. Do not reinstall. Outer8545terminated143 but child1548964 completed; ROOT verified/heartbeated/released its existinglease after terminalreceipt, no restart/rollback. Fresh6966inventory5eecea966b483d7b5fa55a32d809013b2d051bf4f2feae4de7c10db2d325a9be;fresh136exactkeys94199e096beb14ba5600b2847c9f0c94f722dc0d91edbbfd540b3766061b0426 preserves2nullUIDs. Next5 207957/213579/265301/296699/336667 sourceacquisition/currentground/attributes/identity/scope are complete; read newest HANDOFF for pinnedjobs/nextactions. Oldfourpending still need completion with current-map bindings. Commit/push installedunit now; goalactive/incomplete. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
+
 
 26 October follow-up: Marco Polo private preview ae1819afeae3c3f8cd266a828ee0cc86e7fffdb2321f83f8e46d131b0c910bb9 is TERMINAL0/released; desktop1280 andmobile390 both pass. ROOT opened all4primary source day/night exported PNGs. Retained own-view PNGs have NOT all been inspected; no visual/identity/physical/publication acceptance follows. Do not restart47673. Exact remaining source identity and BASIC/native interface review still required. XL counts384/137/521 unchanged. Completed computation/checkpoint6644a6573 is PUSHED. WestKowloon low-face worker exec51769 launched and observed live; poll actualhandle/PID before restart. Source geometry unchanged.
 
