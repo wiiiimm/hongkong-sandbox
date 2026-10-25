@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.123"
+  version: "1.9.124"
 ---
 
 # Hong Kong model improvement
+
+LATEST25October schoolinstallation425f56796PUSHED;363/158of521,6929actors. Freshbounds6b53cd3b1a56e1c87ae7b854cbefca2e7177db04cd03ebf01e654f7dc8c21bbd andexact158inventoryad26b6b814bf6e57797d04e918730ff4a4687096d4551f271ffd820191f9b574 preserve2nullUIDsourcekeys. Allworkersreleased;school/TVB/UniversityHallarecomplete,donotreinstall. ReadlatestHANDOFF;continueother158withfreshcurrentmanifest/scope. Priorneed-commit/refreshnotesbelowhistorical. NoAIgeometrymodelling/optimisation.
 
 SUCCESS25October school3originalsINSTALLED14472immutablefaces;363installed/158unfinishedof521,6929actors. Install4e807d1ee04b4888d9d38f284b609fb5536b6e3051b73fa2d3bfc22166ea8e38/snapshot1df9b5f33818109b;independentreadbackcbf8dfe7a60b3fcc63ab7b55a27ba3fcd2616b0a70d07a6e058099ac2492e194 provesall6926oldassets/entries/full521/only244581XLchanged/globalBASICguards/12actuallyviewedfreshliveexports. Donotreinstall. Qualification3a3fa732fpushedbeforelive;commitpushactualinstallationandrefresh6929inventory/exact158keys(including2nullUIDs). Forproven2mmFloat32terrainseamsonly,newfloat32_native_seam_cover_v1_20261025.py preservesoldfaces/addsrepresentablecovers;requirefullterrainvalidator/newfourworldclearance/exactcoverage/neighbours/browser,nogenericgapwaiver. ReadlatestHANDOFF;oldprivate362headershistorical. NoAIgeometrymodelling/optimisation.
 
