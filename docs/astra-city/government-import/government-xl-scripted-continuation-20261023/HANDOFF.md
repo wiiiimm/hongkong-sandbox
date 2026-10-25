@@ -1,3 +1,13 @@
+## 25 October: PolyU originals installed and independently verified
+
+**364 installed / 157 unfinished / 521 fixed XL; 6,931 official detailed actors.** Only main305600 changes the XL set; companion257998 is an additional source actor. All 10,722 original faces and source pose remain unchanged.
+
+Installed job **2ff0356076c1a209fdb61f64c5e3c60b729e0861dbe87e21aead8db7e5cffa0b**, snapshot **6183b7225ba76e95**. Independent ROOT readback **b0ad8397917d3a3f6222f33d9ec5f4ef090c84aacccc188ee0aa425c85aec9c7** passes all6,929prior asset bytes/catalogue entries, all521rows/only305600changed, both global retained BASIC guards and all16actual live exports. Four hash-bound day/night desktop/mobile sheets were actually opened; original exports remain untouched. Current manifest SHA **87b612d067f5e2bd823a6093500d3829eb9acf5ea4b21805a642b53a176e801e**.
+
+Both live viewport checks pass. Installed entries have exact approved source/placement review bindings. Companion only depends on original library305793. Library's publicationApproved:false and45suppression UIDs remain unchanged, as does Sports305582. The two exact manifest BASIC protections keep real source BASIC geometry during failed download while library stays active. All terrain and source asset bytes unchanged. Installer completed and released its lease. No AI geometry modelling or optimisation.
+
+Never reinstall these two or UniversityHall/school. Continue all157 fixed source keys, including2nullviewerUIDs. Fresh post-PolyU inventory chain is prepared/running; use its completed receipt once available rather than pre-install manifest bindings. See prior section for preserved V1/V2 failures and source-specific reviews.
+
 ## 25 October: PolyU qualified; fallback fix pushed; installation next
 
 Current authoritative scope remains **363 installed / 158 unfinished / 521 XL**, **6,929 official detailed actors**. No new model installation in this checkpoint.

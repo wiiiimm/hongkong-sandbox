@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.125"
+  version: "1.9.126"
 ---
 
 # Hong Kong model improvement
+
+Latest25October SUCCESS: PolyU LeeShauKee305600+companion257998 installed unchanged10722faces. FixedXL **364installed/157unfinished/521total**, **6931detailedactors**. Installed2ff0356076c1a209fdb61f64c5e3c60b729e0861dbe87e21aead8db7e5cffa0b,snapshot6183b7225ba76e95. IndependentROOTreadbackb0ad8397917d3a3f6222f33d9ec5f4ef090c84aacccc188ee0aa425c85aec9c7 verifiesall6929oldassetbytes/catalogueentries, all521rowsonly305600changed, bothglobalretainedBASICguards,unchangedterrain andall16inspectedliveexports. Library305793hold/suppressionsunchanged; companion only depends on it. Two exact BASICfallbackprotections preserve failed-download basegeometry. Currentmanifest87b612d067f5e2bd823a6093500d3829eb9acf5ea4b21805a642b53a176e801e. Allinstallworkerscomplete/released. NeverreinstalltheseorUniversityHall/school. Continue157including2nullUIDs; refreshlocalbindings aftermanifestchange. NoAIgeometrymodelling/optimisation.
 
 Latest25October PolyU two-original proposal is privately QUALIFIED, not installed yet: stage7feb0cb847634f080a026115f39d2ab26aec7beb55dd1a8de219436ae3f3ec77; ROOTreview64871cdfcb4cd9e83c78c6daaa183e78a6829c75366eca43b9fb482453ff226e. MAIN30560010575faces +companion257998147faces; SMALL only depends on unchanged library305793. Retained library publicationApproved:false and45 suppressions stay unchanged. Two exact manifest BASIC fallback protections are mandatory; fix2f4ab5005PUSHED,415runtime/63publisher tests pass. V3/V12private desktop/mobile all16exports actually inspected; both deliberate503failures retain actual BASIC geometry, exactjoint/nativechecks pass. Fresh native-contact rebindb9136ec6f378786cee81c080ce63de116af605dff43433e10352eea193d6bcc3 binds old unchanged contact streams to current6929inventory; do not flatten archived pre-school manifest pin over current manifest. Preserve V1harness/V2real mobile fallback failure and partialstageV1hash failure. Current363installed/158unfinishedof521,6929actors. Config government-xl-polyu-lee-shau-kee-original-install-config-v1-20261025.json; new bounded PolyU stage/publisher/installer use existing globalguards and V12browser. Installer--prepare-only PASSES, expected XLdelta1,2actors. No optimisation/AIgeometrymodelling. See HANDOFF.
 
