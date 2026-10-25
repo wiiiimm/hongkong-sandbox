@@ -1,0 +1,113 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-fung-yip-original-final-supported-retained-unchanged-qualified-stage-v1-20261025/plan.json",
+  "areas": [
+    {
+      "area": "Fung Yip unchanged original tower and podium",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-fung-yip-original-final-supported-retained-unchanged-qualified-stage-v1-20261025/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-fung-yip-original-v1-20261025.json": null,
+    "3d-viewer/city/data/official-models/government-xl-fung-yip-original-final-supported-retained-unchanged-qualified-stage-v1-20261025/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "f31c749ca4c2f3c55c29cc71d8eaacf956a5e80376afb6541801daa4167a6403"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-fung-yip-original-v1-20261025.json": "b344ed259099f66b74976eb8ed8c0e1a8fbfca5da8c560f5a74b8eda6d8fc3af",
+    "3d-viewer/city/data/official-models/government-xl-fung-yip-original-final-supported-retained-unchanged-qualified-stage-v1-20261025/catalogue.json": "0034b4f0675c4a7d09a6156429783329a74463448f2342f5c91dc0d21efe9ce0",
+    "3d-viewer/city/data/manifest.json": "cb8b2bd45e3665c9249ec2036db8ab7ab9d9043ef16af4a98f2005273bdcdd9b"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "bea259d4aff38cdf9bffe4d23a8cca2b0caf3e90",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-upton-certified6170-joint-original-dimension-v2-20261014.json",
+      "sha256": "6f7c77730241b13aea4425df2ee4a4cce48f794f5f76efb1bef05f34f05b763e",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-fung-yip-original-v1-20261025.json",
+      "resolution": 5,
+      "area": "Fung Yip unchanged original tower and podium",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -2385.8045376729565,
+            8.188145744038971,
+            -2329.576941203092,
+            50.82769832056527
+          ],
+          "outerBounds": [
+            -2389.565806941826,
+            4.501606413656118,
+            -2325.836573406117,
+            54.56176984476107
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "derivedTerrainSeamCover": {
+          "addedDomainAreaM2": 0.0700468417578012,
+          "addedTerrainTriangles": 2067,
+          "afterMissingAreaM2": 0.0,
+          "beforeMissingAreaM2": 0.0041806984876266665,
+          "maximumSeamDistanceM": 0.002,
+          "policy": "Private additive terrain seam cover. Convex Float32 vertex-cell hulls enclose every missing triangle; nearest existing terrain edge heights used. All original terrain faces preserved. No building geometry or clearance policy edits; actual runtime and neighbours require fresh checks.",
+          "projectedExcessM2": 6.995059188873711,
+          "sourceGeometryChanges": 0,
+          "unchangedOriginalTerrainTriangles": 16351
+        },
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-SW-7A/terrain/TERRAIN(TB)/T31500162000106E10/T31500162000106E10.gltf",
+            "sha256": "7bab327cc9cd0671667b3975ed95d326fbd326f75a3a1b3a3909797f2febb354"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1247,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "b344ed259099f66b74976eb8ed8c0e1a8fbfca5da8c560f5a74b8eda6d8fc3af",
+      "bytes": 3140030
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}
