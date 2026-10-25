@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.130"
+  version: "1.9.131"
 ---
 
 # Hong Kong model improvement
+
+LATEST25October Caribbean Square290981+ancillary95518 INSTALLED unchanged16784faces/fixed1x/sourcepose. **377installed/144unfinished/521fixedXL;6949officialdetailedactors**. Installed4c4567500f5891d74ad31af625bc79a24a834204c16b2639dd95f8d2166627af/snapshot91e1a099edbc26b2; independent902a9ec0193cdc0966c85ffc46b35705585581eff25e1866a6c82c928da1ac18 verifiesALL6947oldassetbytes/entries/full521ONLY290981XLchanged/globalBASIC/8freshliveexportsROOTactuallyopened/terrainappend. Qualificationa696bbfb0PUSHEDbeforelive. Only95518->290981source dependency; no suppression or source geometry edits. All85neighbours,270main/21companionwallpaths,157finite supportpaths/all4worlds and existingfoundationpolicy pass; preserve tiny downwardbasal16059/raw30.058mextent/two source-excess footprints. FinalconfigV3 and reviewV3 carry exact8canvas image metadata plus4separate diagrams; V1/V2prepare failures preserved without guard changes. Boundsinventory3c2f01ca0ad21f12747553fc4d964dd9d33757e7312efe66a509411951e7d8c4 refreshed; exact144inventory 5573d4307fa8650709442430360b74f016480cf1a9b7d59fbb2cc48c0eb5beaa complete, bothnullUIDkeys retained. ReadlatestHANDOFF. DoNOTreinstallCaribbean/UniversityHall/HighCourt/etc. TuenMunfive originals nowhavecomplete18216facecoverage andpassingcontinuous clearance on6074facederivedterrain, but2BASICprotectedground/currentnative229481regression remain. Priorprivate/376countnotesbelowarehistorical. NoAIgeometrymodelling/optimisation/shared4176restart.
 
 25 October compute continuation (not installed): Caribbean290981+95518 now has a private16120-face derived terrain candidate, current runtime, all85neighbours passing and exact complete source projection coverage. Upward minimum-.495256859m passes unchanged-.5m. All270affected podium wall paths and21companion walls have clear original cap paths in all4worlds; tiny downward basal16059 remains explicit under existing foundation-area policy. Fresh numerical rebind proves exact same source/index/all-drawn-ground arrays after separate guarded seam-producer replay. Read latest HANDOFF for receipts and browser decisions; do NOT count these as installed/qualified yet.
 
