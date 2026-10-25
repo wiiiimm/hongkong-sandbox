@@ -1,0 +1,243 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-tuen-mun-five-original-final-qualified-stage-v4-20261025/plan.json",
+  "areas": [
+    {
+      "area": "Tuen Mun civic podium and four unchanged government originals",
+      "models": 5,
+      "catalogue": "city/data/official-models/government-xl-tuen-mun-five-original-final-qualified-stage-v4-20261025/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-tuen-mun-five-original-v1-20261025.json": null,
+    "3d-viewer/city/data/official-models/government-xl-tuen-mun-five-original-final-qualified-stage-v4-20261025/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "6503fad6863a17c42c2b12d7015b01bb470f645d0c4e116887a38c0a9571cf4d"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-tuen-mun-five-original-v1-20261025.json": "b1c7b627968c2f913538e68a144f2feee00f5ca8328bd3e55e774f6ed0d0382c",
+    "3d-viewer/city/data/official-models/government-xl-tuen-mun-five-original-final-qualified-stage-v4-20261025/catalogue.json": "4301355065532d7283bd881d505b5c9471f11ea55504cc4c872a23e153c7bd19",
+    "3d-viewer/city/data/manifest.json": "7650980e97e1428910a532dbe1985fe92260523c4c3c25f7c8196c809e7cb241"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "ee3856eb48e4eb0ba74763d1185a11f673b9d427",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-tuen-mun-five-original-v1-20261025.json",
+      "resolution": 5,
+      "area": "Tuen Mun civic podium and four unchanged government originals",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -18985.006400071044,
+            -11613.770720644954,
+            -18788.287770598996,
+            -11382.048758313684
+          ],
+          "outerBounds": [
+            -18988.02560028418,
+            -11617.395382579816,
+            -18784.651082388267,
+            -11378.632533254733
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "derivedTerrainSeamCover": {
+          "addedDomainAreaM2": 0.012799263000488281,
+          "addedTerrainTriangles": 5,
+          "afterMissingAreaM2": 1.3695384348261998e-12,
+          "beforeMissingAreaM2": 0.009723663333141962,
+          "maximumSeamDistanceM": 0.002,
+          "policy": "Private additive terrain seam cover. Minimal enclosing Float32 vertex-cell hulls enclose every missing triangle; nearest existing terrain edge heights used. All original terrain faces preserved. No building geometry or clearance policy edits; actual runtime and neighbours require fresh checks.",
+          "projectedExcessM2": 0.04583549499511719,
+          "sourceGeometryChanges": 0,
+          "unchangedOriginalTerrainTriangles": 6330
+        },
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-hanford-plaza-terrain-continuation-v4-20261005/sheets/6-SW-6C/terrain/TERRAIN(TB)/T15000276000106E10/T15000276000106E10.gltf",
+            "sha256": "98f765f7dcfaff1e6a4e609460568f00b7648429285eb0db9fe27564d20b8259"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 3249,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "protectedParentRestoration": {
+          "construction": "Exact current parent inside explicitly bounded footprint bounding-box core; existing3m upper-boundary join returns to prior private terrain. Derived terrain only; no source or publication approval.",
+          "coreMarginsM": {
+            "landsd/290801:0": 4.0,
+            "landsd/290804:0": 1.0
+          },
+          "currentParentCapture": {
+            "path": "source-scripts/city/government-import/local/government-xl-tuen-mun-two-protected-parent-restore-v3-20261025/current-parent.json",
+            "sha256": "3087e55d6cbf69f52ed5c9a8b46c829e7a49f1b70deb687e4d2b81aefaeb6ef4"
+          },
+          "protectedForms": [
+            {
+              "base": 7.0,
+              "baseHeightHKPD": null,
+              "baseSource": "terrain-estimated",
+              "buildingCSUID": "1561228051T20080201",
+              "buildingId": 1108525328,
+              "centre": [
+                -18887.606,
+                -11552.021
+              ],
+              "geometryRepaired": false,
+              "height": 3.0,
+              "heightRule": "landsd-3",
+              "heightSource": "estimated",
+              "id": "landsd/290801",
+              "kind": "roof",
+              "levels": null,
+              "material": "",
+              "minimum": 0,
+              "name": "TUEN MUN TOWN HALL",
+              "objectId": 290801,
+              "part": false,
+              "rings": [
+                [
+                  [
+                    -18883.243,
+                    -11549.123
+                  ],
+                  [
+                    -18885.162,
+                    -11556.665
+                  ],
+                  [
+                    -18891.993,
+                    -11554.901
+                  ],
+                  [
+                    -18890.022,
+                    -11547.374
+                  ],
+                  [
+                    -18883.243,
+                    -11549.123
+                  ]
+                ]
+              ],
+              "sourceDataset": "landsd-territory",
+              "structureType": "Open-sided Structure",
+              "terrainAudit": {
+                "baseWhollyAboveTerrain": false,
+                "resolutions": [
+                  70.0
+                ],
+                "roofPartlyBelowTerrain": false,
+                "roofWhollyBelowTerrain": false,
+                "sampled": true
+              },
+              "tile": "-10_-6",
+              "topHeightHKPD": null,
+              "uid": "landsd/290801:0",
+              "zh": "\u5c6f\u9580\u5927\u6703\u5802"
+            },
+            {
+              "base": 11.6,
+              "baseHeightHKPD": 11.6,
+              "baseSource": "landsd",
+              "buildingCSUID": "1557928033T20211210",
+              "buildingId": 1910218096,
+              "centre": [
+                -18920.854,
+                -11532.543
+              ],
+              "geometryRepaired": false,
+              "height": 7.4,
+              "heightRule": "landsd-0",
+              "heightSource": "landsd",
+              "id": "landsd/290804",
+              "kind": "roof",
+              "levels": null,
+              "material": "",
+              "minimum": 0,
+              "name": "",
+              "objectId": 290804,
+              "part": false,
+              "rings": [
+                [
+                  [
+                    -18923.657,
+                    -11522.518
+                  ],
+                  [
+                    -18913.711,
+                    -11525.574
+                  ],
+                  [
+                    -18917.96,
+                    -11542.368
+                  ],
+                  [
+                    -18928.005,
+                    -11539.74
+                  ],
+                  [
+                    -18923.657,
+                    -11522.518
+                  ]
+                ]
+              ],
+              "sourceDataset": "landsd-territory",
+              "structureType": "Open-sided Structure",
+              "terrainAudit": {
+                "baseWhollyAboveTerrain": true,
+                "resolutions": [
+                  70.0
+                ],
+                "roofPartlyBelowTerrain": false,
+                "roofWhollyBelowTerrain": false,
+                "sampled": true
+              },
+              "tile": "-10_-6",
+              "topHeightHKPD": 19,
+              "uid": "landsd/290804:0",
+              "zh": ""
+            }
+          ]
+        },
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "b1c7b627968c2f913538e68a144f2feee00f5ca8328bd3e55e774f6ed0d0382c",
+      "bytes": 1079508
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.132"
+  version: "1.9.133"
 ---
 
 # Hong Kong model improvement
+
+LATEST25October Tuen Mun5originals290803/196123/200057/200059/34417 INSTALLED18216immutablefaces. XL378installed/143unfinished/521,6954actors. Installed9867ae207a01144e315bffe0a3e6801a785ad148c8610eee9d1b693295fa79a2/snapshotf5e0770dbc0f1468. Full6949oldasset/full521/globalBASIC/source20freshactuallyopened readbackd94c0bbd69f1e49d4aebc827a7d16c56ccb82058c6cde522bf40c8aece10d813; native4freshactuallyopened/allothermanifestfields/exact229481unchanged readbackf9461ddd3db8d7adf0514a0de30ab9171f874bd3345122e53fd110d438d5e4eb. Qualificationee3856eb4PUSHEDbeforelive. Fresh6954boundsc5ec2246c6627df1fdc6665a7301f3c60b071ff8676d13d23abf2ecc8cb3c034 andexact143inventory1216bc944afb140c2c3fe766dc872e9462d03a5683e188ba6e77fb7ea4eaa390 COMPLETE/bothnullUIDkeys retained. ReadlatestHANDOFF. Neverreinstallthese5/UniversityHall/Caribbean. Olderprivateheadershistorical. Allworkersreleased;noAIgeometrymodelling/optimisation/shared4176restart.
 
 Latest Tuen Mun five-source review6938ce6ce880c69ae55b3712259721c641ca95c02144a453a55f5de7afba362a and native-aware additive stagec902a165adaf609a9bca4e3722471dffbf1f82e2f680f603cd2ff750e50a5ade PRIVATELY QUALIFIED, NOTinstalled. Current377/144/521,6949actors. Newinstaller prepare-only PASSES after4retainedviewcontract tests; ALLoldno-native/replacement/source/lease/rollbackguards remain. Configgovernment-xl-tuen-mun-five-original-final-install-config-v1-20261025.json. Qualificationcommitpush BEFOREinstall; then ROOTopen24freshliveexports, recorderV2,standardfull6949/521/globalBASICreadback plusnewnativeownview/allmanifestfieldsreadback. Expected378/143/6954ONLYafterverification. ReadlatestHANDOFF.
 
