@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.127"
+  version: "1.9.128"
 ---
 
 # Hong Kong model improvement
+
+Current25October verified: Airport Island Angle Station originals177765/176472 INSTALLED33884immutablefaces/fixed1x/sourcepose. **375installed/146unfinished/521fixedXL;6946officialdetailedactors**. Installed5b9af1bee0ed7489ffcb14ad6d586210a009fc5692d63d87437a0c1f31560515/snapshot4514d700f2631870; independent878cec41bc6c7570c7e007dc3d33dc33a38952617ec0a3b65553cf14c9649678 verifiesALL6944oldassets/full521only2changes/globalBASIC/exactterrainappend/all8actuallyopenedfreshliveexports. Existing scope collectorV2binds target ordering to actual candidate metadata with unchanged complete obligations; use it when receipt order differs. Raw footprint/extent, basal460 and sourcejunctioncontact flags preserved under bounded source-role review; no genericlimit changes/invented dependencies. Read latest HANDOFF/current146inventory; do not reinstall these or completedmodels. NoAIgeometrymodelling/optimisation/shared4176restart.
 
 Current25October verified: open-sided229852 BlakePierStanley canopy/deck INSTALLED17127unchangedfaces. **373installed/148unfinished/521fixedXL;6944officialdetailedactors**. Installedca845697f4e023e0a168e19c8fd7a7edd303ab4da3c84e077df1c3f732809005; independentall6943oldassets/full521/fresh4liveexports/globalBASIC/terrainunchangedreadback1f8ca4a3b52e07e5df214bedf73ff0edd37d91dfd2afe757594286cfefafe6b8 passes. ReadlatestHANDOFF/exact148inventory;alloldercountheadershistorical. OfficialOpen-sidedStructure/nullheights unchanged; numeric source-specific GeoRef/root/CSUID/stableBuildingID proof preserves genericrouter/extent failures, no Tower coercion/global subtype waiver. Model-only original admission uses explicit empty native-contact bounds proof/all6943actors, zero terrain/dependency edits. GenericpreviewV3 supports explicitmodelOnly; actual-image recorder must only run AFTER ROOT opens every export. NoAIgeometrymodelling/optimisation;doNOTreinstall229852orothercompletedmodels.
 
