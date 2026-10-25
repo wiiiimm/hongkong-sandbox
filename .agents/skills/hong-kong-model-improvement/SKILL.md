@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.135"
+  version: "1.9.136"
 ---
 
 # Hong Kong model improvement
+
+Currentcontinuation: Kinstalledbd8169f9bPUSHED;379installed/142unfinished/521XL,6955actors. READ50phasecheckpoint government-xl-beverly-adf-after-k-progress-v1-20261025/remaining-work.json FIRST (Neon03c1790469344d4864d9914de8b17c56ff4f0da31db33e190ca8a6d18755cae0; code/evidencea4479593a), notoldBeverly12phase/Kpendingnotes. A/D/FandcompanionE256142 remainUNINSTALLED. PriorityF/E: exactoriginalE8527facesrecovered, bothidentitypass/19458faces/emptyinstallednative scope;448roof-only supportpaths replayunderdiagnosticV2,11contracttests. FullF/Epair34contacts includes15transverse crossings; requiresboundedjoint/source-role review, NOTcollisionclear. Need separate multiple-source/empty-native finiteV2admission+completecurrentBASIC/candidatepair/leaseguards beforeprivate/livequalification. K'sone-source/nonempty-nativeV1admissionmustnotbesilentlygeneralised. A/D/F452roofpathsalreadydone; Dfootprintcoverage93.424percentstillfails. All50workersdone/released; doNOTrepeat them orclaimprivate/live acceptance. P233218mustremainBASICforKandfuturedependants. See latestHANDOFF for exactreceipts/commands. NoAIgeometry/optimisation/shared4176restart.
 
 Latest25October: BeverlyHillBlockK255543 INSTALLED unchanged10130faces. Current379installed/142unfinished/521XL;6955actors. Installation7fad3d3e53fb6da6a3cf503ce752ce00a7223c3e5738a51fad974829cbc9c8f4/snapshot71ac7bc1f29973be; independentreadback0c56959ea579b5e9744dcbebf8f5be1ffbdc0952b63debf56ac00cca31f0e20b verifiesall6954oldassets/521rows/globalBASIC3/all8actuallyopenedfreshliveexports/exactheldJ+allothermanifestfields. Canonicalstrictsupport remainsFALSE; separatefiniteBasicprofile replays40paths/.35membedding within existing.5m/1mm. Oldcanonicalpublisher unchanged. TypedBASIC233218mustremainunsuppressed; doNOTimportPwithoutrevalidatingK. Fresh6955boundsd8e4a8ed5ff12e5c6ba808bfba896a5609b7969523d6bc617b84d3a0fc05f141. ReadlatestHANDOFF; doNOTreinstallK/UniversityHall. NextBeverlyA/D/Fsharepodiumlevel but REQUIRE their ownfreshchecks. NoAIgeometry/optimisation/shared4176restart.
 
