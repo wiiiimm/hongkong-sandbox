@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.152"
+  version: "1.9.153"
 ---
 
 # Hong Kong model improvement
+
+26 October — Ferry296699 qualification b46648f164b9229e01266f785cbbec09363a4aa720a3af9e459fc1db5fe2174f and dedicated installer prepare-only PASS/+1XL. NOTinstalled;385/136/521,6966actors unchanged. Read newestHANDOFF: commit/push qualification, then exactsingle-source hierarchical installer --install, inspect4FRESH livePNG exports, recorderV2 and dedicated full6966/521/terrain-retention readback, thencommit/pushinstallation.17retention/catalogue tests pass, existing canonical guards unchanged. Config government-xl-after-marco-next-five-ferry-install-config-v1-20261026.json. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart; fullgoal active.
 
 26 October — Ferry296699 source review20d61d15e375a1a29aa12e5689ee49e990c56f0ac022d7d559dad84a0434b900 is complete; NOTinstalled. Private hierarchical successor retains14oldchildren/375789gridnodes exactly;0burial/0affectedfaces inall4worlds,5402forms0flags,6966oldassets/10BASICsupports0changed-area intersections, desktop/mobile preview passes/released/all4PNGs ROOTopened. Next guarded exactsingle-source qualification/installation/livechecks/readback; do not blindly reuse323546 exactthree-source publisher. Hierarchical verifier V2 preserves exact prior extension provenance,10tests pass; original V1 frozen. Current385/136/521XL,6966actors unchanged. Read newestHANDOFF and progress-v2 checkpoint for all5source nextactions/receipts and16inspectedimages. YingHoi15wallroot paths pass/rawcapFALSE; PokOi20wallcaps/TuenMun17wallcaps pass; carpark125711faces/realheightdifferences needs terrainconstruction, not waiver. Full136including2nullUIDkeys remains active. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
