@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.128"
+  version: "1.9.129"
 ---
 
 # Hong Kong model improvement
+
+Current25October verified: HighCourt263644 INSTALLED15813immutablefaces/fixed1x/sourcepose. **376installed/145unfinished/521fixedXL;6947officialdetailedactors**. Installedaa5cdedf27bfad5f4ba3a03f90cdc195a140b8ee7dc60fc84a55b12079323a78/snapshot1b2ecb2c95496705; independent67bb87c3caab568ef9e30bb7c0d702882146255dfd24ccc0d6f67ce2fcfc8d37 verifiesALL6946oldassets/full521only263644changed/globalBASIC/unchangedterrain/4source+4retainedfreshliveexportsROOTactuallyopened. Allnoncataloguemanifestfields/orderproof8076a3eeedce88da83ff264d177bd37b5f2f160840348bb83721a570fc7deb76. Preserve raw12.2789mextent/199.5528m2HighCourtBASICoverlap and16below-basecolumnwallcappathfailures under boundedsource-role review; no engineeringwatertightness mandate. Queensway181141 unchanged/0finitecontactsall4;all7forms leased, including nativeoutsideold2mregion. Genericscopeexpander adds omitted nativeforms; exactnominatedcompanionrecovery accepts only preparedSHA/bytes/faces. RetainedpreviewV6/liveviewportV2supporttestedperviewportretainedcameras; source/retainedlive recorderV2ONLYafteractualopeningallimages. PriorV2mobileflatocclusionrejected,preserved. TuenMun290803/Caribbean290981remainprivate;5originalcompanionsrecovered+4supportproofscomplete;readlatestHANDOFF/checkpoint/current145inventory beforecontinuing. NoAIgeometrymodelling/optimisation/shared4176restart. DoNOTreinstallHighCourt/Airportpair/UniversityHall/etc.
 
 Current25October verified: Airport Island Angle Station originals177765/176472 INSTALLED33884immutablefaces/fixed1x/sourcepose. **375installed/146unfinished/521fixedXL;6946officialdetailedactors**. Installed5b9af1bee0ed7489ffcb14ad6d586210a009fc5692d63d87437a0c1f31560515/snapshot4514d700f2631870; independent878cec41bc6c7570c7e007dc3d33dc33a38952617ec0a3b65553cf14c9649678 verifiesALL6944oldassets/full521only2changes/globalBASIC/exactterrainappend/all8actuallyopenedfreshliveexports. Existing scope collectorV2binds target ordering to actual candidate metadata with unchanged complete obligations; use it when receipt order differs. Raw footprint/extent, basal460 and sourcejunctioncontact flags preserved under bounded source-role review; no genericlimit changes/invented dependencies. Read latest HANDOFF/current146inventory; do not reinstall these or completedmodels. NoAIgeometrymodelling/optimisation/shared4176restart.
 
