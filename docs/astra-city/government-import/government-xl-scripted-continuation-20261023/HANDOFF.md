@@ -1,3 +1,5 @@
+26 October follow-up: Marco Polo private preview ae1819afeae3c3f8cd266a828ee0cc86e7fffdb2321f83f8e46d131b0c910bb9 is TERMINAL0/released; desktop1280 andmobile390 both pass. ROOT opened all4primary source day/night exported PNGs. Retained own-view PNGs have NOT all been inspected; no visual/identity/physical/publication acceptance follows. Do not restart47673. Exact remaining source identity and BASIC/native interface review still required. XL counts384/137/521 unchanged. Completed computation/checkpoint6644a6573 is PUSHED. WestKowloon low-face worker exec51769 launched and observed live; poll actualhandle/PID before restart. Source geometry unchanged.
+
 ## 26 October: next five exact-source continuation
 
 Authoritative totals remain **384 installed / 137 unfinished / 521 XL; 6,965 official detailed actors**. No next-five installation or permanent rejection. Dragon installation eab4a76f9 remains pushed. University Hall approval is already fulfilled; never reinstall it. Both null viewer UID source keys remain in scope.

@@ -7,6 +7,10 @@ metadata:
 
 # Hong Kong model improvement
 
+26 October follow-up: Marco Polo private preview ae1819afeae3c3f8cd266a828ee0cc86e7fffdb2321f83f8e46d131b0c910bb9 is TERMINAL0/released; desktop1280 andmobile390 both pass. ROOT opened all4primary source day/night exported PNGs. Retained own-view PNGs have NOT all been inspected; no visual/identity/physical/publication acceptance follows. Do not restart47673. Exact remaining source identity and BASIC/native interface review still required. XL counts384/137/521 unchanged. Completed computation/checkpoint6644a6573 is PUSHED. WestKowloon low-face worker exec51769 launched and observed live; poll actualhandle/PID before restart. Source geometry unchanged.
+
+
+
 26 October — Native contact worker85336 is COMPLETED; do not restart it. Next-five Waterfront strict paths V2 a7e856f1f350f1e3ed5cc3c4cba7b74e1d23548d965ffba313970f441e81ca22 accounts all5unresolved witnesses inall4worlds,0endpointovershoot; physical/publication remain unapproved. Its9nonwall compound negatives are real source surfaces against Elements, none terrain. Beverly wider original terrain validates4408faces, but retained-target insetV2 hits terrain-runtime-budget; never bypass that gate or drop old48726faces/3targets. OceanCentre50missingfaces solved by adjacent original terrain; combined terrain still rejects overlapping heights. MarcoPolo private preview47673 desktop passes/mobile last observed running; poll actualhandle before restart. ROOT opened2source desktop PNGs, not retained/mobile acceptance. Counts unchanged384/137/521XL,6965actors. Read newest HANDOFF top and progress-v2 receipt for exact next actions. Shared4176 stays down/private4177 only; UniversityHall already installed. NoAIgeometry/optimisation/newagents/mainmerge. Goal active/incomplete.
 
 
