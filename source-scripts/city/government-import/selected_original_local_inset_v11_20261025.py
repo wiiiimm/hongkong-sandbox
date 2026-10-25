@@ -1,4 +1,4 @@
-"""Bounded original-TIN grade inset retaining the complete validated coarse-parent return.
+"""Bounded original-TIN inset retaining the complete validated coarse-parent return.
 
 Uses the established Ronsdale plane/upper-envelope method, retaining each
 original source plane through clipping instead of refitting tiny derived faces. All existing final
@@ -25,6 +25,8 @@ def main():
         parser.add_argument('--' + key, required=True)
     parser.add_argument('--companion',action='append',default=[],help='Explicit complete original whose footprint needs the same terrain inset')
     parser.add_argument('--cover-native',action='append',default=[],help='Current native terrain URL whose complete coarse extent and target obligations must be retained')
+    parser.add_argument('--clearance-regions',required=True,help='Complete four-stream actual-ground clearance proof for the primary')
+    parser.add_argument('--attributes',required=True)
     parser.add_argument('--parent-capture', help='Completed prior diagnostic with identical current renderer inputs/domain')
     args = parser.parse_args()
     assert args.batch.startswith('government-xl-') and '/' not in args.batch
@@ -75,7 +77,27 @@ def main():
     tri=np.concatenate(complete)
     projection = shapely.union_all([shapely.MultiPoint(f[:, [0, 2]]).convex_hull for f in tri])
     core = projection.buffer(1, join_style='mitre')
-    outer = core.buffer(3, join_style='mitre')
+    # Keep the complete source projection for all later source/coverage checks.
+    # Only the private earth correction domain is chosen from exact negatives.
+    attrs_batch=args.attributes;clearance_batch=args.clearance_regions
+    for name in [attrs_batch,clearance_batch]:
+        _,bound=authenticate(base/name);refs.append(base/name/'result.json')
+        for key,sha in bound.items():
+            if key=='3d-viewer/city/data/manifest.json':
+                assert sha==selection['manifestSHA256']
+            assert key not in pins or pins[key]==sha
+            pins[key]=sha
+    attrs=take(base/attrs_batch/'attributes.json.gz');assert attrs['startEndAllInputsVerified']
+    attr=next(r for r in attrs['rows']if r['uid']==args.uid);assert attr['sourceSHA256']==row['sourceSHA256']
+    from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+    from original_clearance_edit_regions_v1_20261025 import edit_regions
+    ix=np.asarray(attr['completeOriginalIndex']).reshape(-1,3)
+    worlds={'original':decode_original_world_triangles(asset.read_bytes()),**{mode:np.asarray(attr[key],dtype='<f8').reshape(-1,3)[ix]for mode,key in [('literal','completeLiteralWorldPosition'),('left','completeExplicitLeftAssociatedFloat32WorldPosition'),('balanced','completeExplicitBalancedFloat32WorldPosition')]}}
+    ground=np.asarray(g['drawnGroundGeometry'],dtype='<f8').reshape(-1,3,3)
+    proofs={mode:take(base/clearance_batch/(mode+'.json.gz'))for mode in worlds}
+    required_negative_projection,core,outer,region_bindings=edit_regions(worlds,ground,proofs)
+    save(doc/'complete-negative-edit-region-binding.json',dict(uid=args.uid,rows=region_bindings,completeSourceProjectionWKT=projection.wkt,requiredNegativeProjectionWKT=required_negative_projection.wkt,coreWKT=core.wkt,outerWKT=outer.wkt,sourceFacesOmitted=0,clearanceAcceptance=False,qualification='All exact current negative faces in all4streams nominate the private earth edit domain. Complete model projection remains mandatory in final renderer clearance/coverage checks; no terrain publication or source-role approval is granted.'))
+
     rootpath = ROOT / '3d-viewer/city/data/terrain.json'
     parent = read(rootpath)
     refs.append(rootpath)
@@ -181,7 +203,8 @@ def main():
         source = np.asarray(source)
         polygons = shapely.polygons(source[:, :, [0, 2]])
         union = shapely.union_all(polygons)
-        assert projection.difference(union).area < 1e-6, 'Original terrain does not cover the complete model projection'
+        assert core.difference(union).area < 1e-6, 'Original terrain does not cover the complete negative correction core'
+        assert required_negative_projection.difference(union).is_empty, 'Original terrain misses an exact current negative face'
         assert len(source_planes) == len(source)
         planes = source_planes
         tree = shapely.STRtree(polygons)
@@ -234,7 +257,7 @@ def main():
                 intersection = polygon.intersection(polygons[j])
                 if intersection.area <= 1e-10:
                     continue
-                lower = intersection  # Preserve original grade both above and below the parent.
+                lower = lower_region(intersection, parentplane-planes[j])
                 if lower.area <= 1e-10:
                     continue
                 cuts.append(lower)
@@ -266,7 +289,7 @@ def main():
         template['nativeMesh']['position'] = output.reshape(-1).tolist()
         template['nativeMesh']['index'] = list(range(output.size//3))
         template['meta']['source']['nativeSources'] = source_refs
-        policy = 'Original highest source terrain, full grade inset within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged.'
+        policy = 'Original highest source terrain, private lower inset within the complete four-stream negative-face projection+1m and shared piecewise-affine3m return. Exact existing ground elsewhere; full original source bytes/pose and final whole-source clearance/coverage obligations unchanged.'
         for metadata in [template['nativeMesh']['source'], template['meta']['source']]:
             metadata['boundedOriginalInset'] = dict(policy=policy, coreBounds=list(core.bounds), outerBounds=list(outer.bounds))
         from float32_coverage import approve_roundoff
@@ -290,8 +313,8 @@ def main():
     assert digest(manifestpath.read_bytes()) == selection['manifestSHA256']
     save(doc / 'summary.json', result)
     refs.extend(path for path in local.rglob('*') if path.is_file())
-    refs.extend([HERE / 'ronsdale_local_inset_v2_20261022.py', HERE / 'china_merchants_finite_inset_v4_20261021.py', HERE / 'xl-second-pass.py', HERE / 'resolve_pass_indexed_parent_clipping_v2.py', HERE / 'sham_shui_po_pool_shared_terrain_v2_20261016.py', HERE / 'float32_coverage.py', HERE / 'native_patch_resolution.py'])
-    module('selected_inset_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(args.batch, 'bounded-selected-original-signed-grade-terrain-inset', list(dict.fromkeys(refs)), result)
+    refs.extend([HERE/'original_clearance_edit_regions_v1_20261025.py',HERE/'original_clearance_exact_stream_rebind_v1_20261025.py',HERE/'exact_packed_world_geometry_20261009.py',HERE / 'ronsdale_local_inset_v2_20261022.py', HERE / 'china_merchants_finite_inset_v4_20261021.py', HERE / 'xl-second-pass.py', HERE / 'resolve_pass_indexed_parent_clipping_v2.py', HERE / 'sham_shui_po_pool_shared_terrain_v2_20261016.py', HERE / 'float32_coverage.py', HERE / 'native_patch_resolution.py'])
+    module('selected_inset_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(args.batch, 'bounded-selected-original-terrain-inset', list(dict.fromkeys(refs)), result)
     print(result, flush=True)
 
 
