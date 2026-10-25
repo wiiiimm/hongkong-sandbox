@@ -6,7 +6,7 @@ Installed job **2ff0356076c1a209fdb61f64c5e3c60b729e0861dbe87e21aead8db7e5cffa0b
 
 Both live viewport checks pass. Installed entries have exact approved source/placement review bindings. Companion only depends on original library305793. Library's publicationApproved:false and45suppression UIDs remain unchanged, as does Sports305582. The two exact manifest BASIC protections keep real source BASIC geometry during failed download while library stays active. All terrain and source asset bytes unchanged. Installer completed and released its lease. No AI geometry modelling or optimisation.
 
-Never reinstall these two or UniversityHall/school. Continue all157 fixed source keys, including2nullviewerUIDs. Fresh post-PolyU inventory chain is prepared/running; use its completed receipt once available rather than pre-install manifest bindings. See prior section for preserved V1/V2 failures and source-specific reviews.
+Never reinstall these two or UniversityHall/school. Continue all157 fixed source keys, including2nullviewerUIDs. Fresh post-PolyU inventory is complete: `government-xl-after-polyu-current-inventory-v1-20261025`, Neon **8b39401d6b96488844e24fb43c9940b6898c101b03c61f85255e9f973178e791**, binds all6,931actors. Exact157unfinished source-key inventory `government-xl-after-polyu-unfinished-exact-source-inventory-v1-20261025`, Neon **9698d8901198854c49ac9f2b71bcf4e28374e0aa8e352819bef889396e2581f0**, preserves both nullviewerUIDs. Use these completed receipts rather than pre-install manifest bindings. Actual installation3151b2fd2 is PUSHED; fallback fix2f4ab5005 and qualification2687bbeab are also PUSHED. See prior section for preserved V1/V2 failures and source-specific reviews.
 
 ## 25 October: PolyU qualified; fallback fix pushed; installation next
 
