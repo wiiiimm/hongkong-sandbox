@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.153"
+  version: "1.9.154"
 ---
 
 # Hong Kong model improvement
+
+26 October — Ferry296699 INSTALLED unchanged10683faces;386/135/521XL,6967actors. Job57f1cb931c952a2b5f62d26a4c17e85c7c2bfd1cf37e52b9eed55cecf47d27c5/snapshotd63f8fe786a57ac3; independentd6c8241e30a54de1623954cbdd6249db6ae34d3e0eca7656e83e2eaa1f897d33 verifies all6966oldassets/entries,full521only296699changed,4freshactualopenedliveexports/globalBASICguards/exact14oldchildren/375789gridnodes andallothermanifestfields. Commit/pushinstallation; neverreinstall. ReadbackconfigV2adds explicit supportByUid:{} after V1configurationkeyfailure, no guardwaiver. Fresh6967inventorye73e8fca5bd43fa37b0c2ec73dc8338f667c68795764df3f9983dc9b8cbaaed2 and135exactkeys305d3ee477a26eba105c0d3c090df74f83bf6262e6f42b113b44019a0ba48b9a keep2nullUIDkeys. Next4selection85dd29b1e6d78584385b499bb85bd5544b01adccf48749ecc0bd42163cb22671 current;freshground exec98922 launched, verifyactualstatusbefore restart. NewestHANDOFF givesdetails. Goalactive/incomplete; noAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
 26 October — Ferry296699 qualification b46648f164b9229e01266f785cbbec09363a4aa720a3af9e459fc1db5fe2174f and dedicated installer prepare-only PASS/+1XL. NOTinstalled;385/136/521,6966actors unchanged. Read newestHANDOFF: commit/push qualification, then exactsingle-source hierarchical installer --install, inspect4FRESH livePNG exports, recorderV2 and dedicated full6966/521/terrain-retention readback, thencommit/pushinstallation.17retention/catalogue tests pass, existing canonical guards unchanged. Config government-xl-after-marco-next-five-ferry-install-config-v1-20261026.json. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart; fullgoal active.
 
