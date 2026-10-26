@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.159"
+  version: "1.9.160"
 ---
 
 # Hong Kong model improvement
+
+26 October — PokOi V1installTERMINAL1/released/rolledback: oldcanonicalV9browserhardcodes4176. Independentrollbackverify provesall9destinations restored; counts387/134/521,6968actors unchanged. Do NOTrerunV1. Use pok_oi_original_install_v2_20261026.py with SAMEconfigV1, V2publisherphase-original-installed-v2, existingV13private4177browserBOTHentrypoints. AllinstallerfunctionASTs/canonicalguards unchanged;4neworigin/phase/guardtestspass, prepareonlyTERMINAL0/PASS. Source review/qualification unchanged. Commit/pushfix, installV2, inspect8freshlivePNGs, record_root_live_exports_v3_20261026.py --install-version v2, dedicatedreadbackV2/full6968+521/globalBASIC/manifest, commitpushactualinstall. Read newestHANDOFF. Originalscopeactive/2nullUIDkeys; noAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
 26 October — PokOi Main213579+podium71329 source review0d11fa782194489d1a0721723f7783e86b69ba4f1848f0da0c4dced99242b8c9 / stage0460b9ad9b9b843b889e8fe6bc08b56acd15876d85ff2f0fa2df0d408b725bc5 qualified, NOTinstalled. Read newestHANDOFF. Config government-xl-pok-oi-original-install-config-v1-20261026.json; prepareonlyTERMINAL0/PASS expected+1XL/+2actors. Exactpeerfailure6469b4b571274ed928400cf0d499872bb87c47e35ddfffef0b94d58844d43aea PASS/released.24tests pass, canonicalinstaller functionASTs/publicationfencing unchanged. All3thinwall2699verticesbelowground; retainboundedoriginal lowerwallseam, nofakeexposure/physicalsupport. Exact48groundedcolumnwalls+105capwalls/20Maincapwalls acceptedonlyunder2SHA/currentgroundprofile; rawcap/140strictsupport/extentfailures remainfalse. Commit/pushprep, install/new8liveexports/ROOTrecordV2/full6968oldassets+entries/521/globalBASICreadback/commitpushactualinstall. Counts387/134/521,6968actorsunchanged. Fullgoalactive/2nullUIDkeys; noAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 

@@ -1,3 +1,11 @@
+## 26 October: Pok Oi private-origin retry V2 prepared; V1 rolled back
+
+V1 installer is TERMINAL1/released. It copied canonical independent installer's old V9browser globals, which hardcode4176; shared4176is intentionallyDOWN. Dry-run/apply succeeded locally but first live mobile navigation failed; automatic rollback restored publicdestinations/currentpointer and retained no installed review credit. Independent `original_install_rollback_readback_v1_20261024.verify` verified **all9mutable destinations** against historicalbytes/absence. Counts remain387/134/521XL,6968actors. This is a harness routing error, not corrupt source geometry.
+
+Use **`pok_oi_original_install_v2_20261026.py`**, same `government-xl-pok-oi-original-install-config-v1-20261026.json`. V2publisherphase is `government-xl-pok-oi-original-v1-original-installed-v2-20261026`; it reuses the unchanged qualified stage and exact source/peer guards. Installer ALLfunctions still AST-identical to canonical, publisher ALLfunctions identical to reviewed V1; only versioned phase, imports/PUB path and BOTH browser globals change to existing private-origin-capable V13. New4regressiontests PASS; `--prepare-only` TERMINAL0/PASS. Full V1 failedoutput/history/rollback remains untouched and V2load independently revalidates it. Never rerun V1.
+
+After V2install: open all8newliveexports; run `record_root_live_exports_v3_20261026.py --install-version v2 --accept-exports-actually-viewed-by-root --observation ...` with sameconfig, then **`pok_oi_original_installed_readback_v2_20261026.py`**. V3recorder adds explicitphase routing only; actual-source/retainedexport assertions unchanged. Full6968oldassets+entries/521/globalBASIC/terrainmanifest checks remain. Commit/push correctedharness before installing; commit/push actual installation afterreadback. No source/terrain/scale/window geometry edits, AI modelling, optimisation, newagents or shared4176restart. Private4177HTTP200verified. Fullgoalactive.
+
 ## 26 October: Pok Oi exact original pair qualified; installation preflight passes
 
 Still **387 installed / 134 unfinished / 521 XL; 6,968 detailed actors**. No new installed credit yet. `pok_oi_original_install_v1_20261026.py --prepare-only` TERMINAL0, dependency-first Main213579 then podium71329, expected+1fixedXL/+2actors. Do not rerun previous completed diagnostics.
