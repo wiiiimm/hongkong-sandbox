@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.174"
+  version: "1.9.175"
 ---
 
 # Hong Kong model improvement
+
+26October QE311317physical89918aed/sourcec4fd00fd COMPLETE; exact13slopes+peerjunctionreview,allrawfailurespreserved/9adversarialtestsPASS. Stage0755dfc4/prepareonlyPASS/notinstalled. READnewestHANDOFF: commitpushprepthenEXISTINGtung_on_retained_live_install_v1 --install underORIGINAL_INSTALL_CONFIG=docs/astra-city/government-import/government-xl-qe311317-retained-original-install-config-v1-20261026.json. BOTHV15/private4177. AfterinstallinspectALL20freshliveexports/6sheets,recordV4,independentretained_original_installed_readback_v2(config6983oldinventory;ASTallotherguardsidentical),commitpushactualinstall.391/130/521XL/6983untilverified. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
+
 
 26October QEprivatebrowser eef87637 PASS1280/390+failure/retry;ROOTopenedALL6sheets/20exports a1bc03f6/all4retainedvisible. Fourworldpair34851d29 complete:original/left/balanced1crossingsubgrade, literal32crossings/notsubgradeall. Lineage64ecdea0 provesliteralextra31=23originalpoint+8originaledgecontacts/nonewfacetpairs; exactliteralYdeltaQE1/140737488355328m,peer1/562949953421312m. KeeprawFALSE;plane-sideextentNOTfinitepenetration.13UPWARDslopinglowfacetsremainphysicalunreviewed;all31wallcaps/4foundations/73forms/4nativepass. ReadnewestHANDOFF;nextboundedphysical/junctionreview,thenstage/install/fullold6983+521readback.391/130/521XL/6983unchanged. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
 
