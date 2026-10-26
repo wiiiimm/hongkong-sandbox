@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.171"
+  version: "1.9.172"
 ---
 
 # Hong Kong model improvement
+
+26October QE311317 expanded retained terrain PASSED8dc07ead/110238faces; current runtime0buried but identityextent16.992m/foreignBASIC15linecontacts unresolved. Fullscope73forms/4native; sequence6845 running replacementbindingV2/neighbours/fourworldfoundations/lowfaces. Read newestHANDOFF and actualstate before restart. Counts391/130/521XL,6983actors unchanged; TungOnbb4ca887 pushed; UniversityHallalreadyinstalled. Preserve frozen producers and bothnullUIDkeys. Expanded helper proves oldface multiplicity+exactproduction-root additions/oldmetadata, retains allvalidators;16testsPASS. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
+
 
 26 October — TungOn53852 INSTALLED unchanged11629faces.391installed/130unfinished/521XL,6983actors. Installed1b0f4e76/snapshotea7dd871eff7e4cd;independent759fa8fa verifiesall6982oldassets/entries/full521only53852changed/globalBASIC/exactretainedterrain/allothermanifestfields. ROOT inspected36freshliveexports via10unscaled sheets0347b7da;all8retained visible withoverhead126434/254604. COMMIT/PUSHactualinstall, neverrerun. Fresh6983inventory/130exactkeys next;preserve2nullUIDs. QE311317 sourceplots17f9bb65 bothopened;extent16.992m/rawidentityFALSE remains, originalTIN0buried vscurrent158. Read newestHANDOFF. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge;private4177only.
 
