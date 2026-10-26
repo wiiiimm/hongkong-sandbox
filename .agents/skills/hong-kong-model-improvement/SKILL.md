@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.173"
+  version: "1.9.174"
 ---
 
 # Hong Kong model improvement
+
+26October QEprivatebrowser eef87637 PASS1280/390+failure/retry;ROOTopenedALL6sheets/20exports a1bc03f6/all4retainedvisible. Fourworldpair34851d29 complete:original/left/balanced1crossingsubgrade, literal32crossings/notsubgradeall. Lineage64ecdea0 provesliteralextra31=23originalpoint+8originaledgecontacts/nonewfacetpairs; exactliteralYdeltaQE1/140737488355328m,peer1/562949953421312m. KeeprawFALSE;plane-sideextentNOTfinitepenetration.13UPWARDslopinglowfacetsremainphysicalunreviewed;all31wallcaps/4foundations/73forms/4nativepass. ReadnewestHANDOFF;nextboundedphysical/junctionreview,thenstage/install/fullold6983+521readback.391/130/521XL/6983unchanged. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
+
 
 26October QE identityONLYreview49721aee complete; rawextentFALSEpreserved. Exactoriginalpair428contacts includes5sharedplaneareas/1crossing; fd83bf86 proveswholecrossingstrictlysubgradeunderBOTHgroundsets.13slopingUPWARDlowfacesremainphysicalunreviewed; all31wallcappathsPASS/wholefoundation0buried. ROOTopenedall4correctedV2group/junctionplots36168817; V1reverseaxesblank. All13partof9185facecomponent;knowncomponenttuple/listreceipt recovered4d842785/no recompute. Privatebrowser86601running/V7expandedproof/private4177;preparedfourworldpairplanV1/driverV10mustwaitbrowserrelease. ReadnewestHANDOFF.391/130/521XL/6983actors unchanged;noAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
