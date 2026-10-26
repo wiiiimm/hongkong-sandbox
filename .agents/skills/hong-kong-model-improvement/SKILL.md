@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.170"
+  version: "1.9.171"
 ---
 
 # Hong Kong model improvement
+
+26 October — TungOn53852 INSTALLED unchanged11629faces.391installed/130unfinished/521XL,6983actors. Installed1b0f4e76/snapshotea7dd871eff7e4cd;independent759fa8fa verifiesall6982oldassets/entries/full521only53852changed/globalBASIC/exactretainedterrain/allothermanifestfields. ROOT inspected36freshliveexports via10unscaled sheets0347b7da;all8retained visible withoverhead126434/254604. COMMIT/PUSHactualinstall, neverrerun. Fresh6983inventory/130exactkeys next;preserve2nullUIDs. QE311317 sourceplots17f9bb65 bothopened;extent16.992m/rawidentityFALSE remains, originalTIN0buried vscurrent158. Read newestHANDOFF. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge;private4177only.
 
 26 October — TungOn source review866792ce COMPLETE (identity/physical/current40forms/eightretained/visual), NOTinstalled. Overhead[0,8,1] f758082c exposes126434/254604 ondesktop/mobile;ROOT inspected8actual lowactorimages via2overheadsheets, primary4source+24otherretainedimages separately. Allworkers terminal/released. Read newestHANDOFF/current-progress-v3 after-tuen-mun26Oct (49completedjobs). Counts390/131/521XL,6982actors unchanged. NEXT guardedstage schema sourceSHA256/sha256adapter; bothinstallerbrowserglobalsV15/private4177; preserveallglobalBASIC/source/native/lease/rollbackguards. Raw10negatives/capFALSE retained underexactwall/bottomreview. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart;UniversityHallalreadyinstalled.
 
