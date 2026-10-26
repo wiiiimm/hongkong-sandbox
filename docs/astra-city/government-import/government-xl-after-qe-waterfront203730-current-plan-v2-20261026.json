@@ -1,0 +1,63 @@
+{
+  "batch": "government-xl-after-qe-waterfront203730-current-sequence-v2-20261026",
+  "uids": [
+    "landsd/203730:0"
+  ],
+  "resources": [
+    "building:landsd/203730:0",
+    "building:landsd/273061:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-after-qe-waterfront203730-selection-v1-20261026",
+      "args": [
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026",
+        "--capture",
+        "government-xl-after-dragon-next-five-ground-v1-20261026",
+        "--uid",
+        "landsd/203730:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-after-qe-waterfront203730-ground-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-qe-waterfront203730-selection-v1-20261026",
+        "--uid",
+        "landsd/203730:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-after-qe-waterfront203730-attributes-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-qe-waterfront203730-ground-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-after-qe-waterfront203730-identity-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-qe-waterfront203730-ground-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-after-qe-waterfront203730-model-scope-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-qe-waterfront203730-ground-v1-20261026",
+        "--attributes",
+        "government-xl-after-qe-waterfront203730-attributes-v1-20261026",
+        "--inventory",
+        "government-xl-after-qe311317-current-inventory-v1-20261026"
+      ]
+    }
+  ]
+}

@@ -1,3 +1,11 @@
+## Latest live workers / pushed checkpoint, 26 October
+
+Recovery checkpoint **b3638576b PUSHED**. Beverly opposite-angle browser89867 is now TERMINAL0/released, verified Neon35fe86d118c4d175159d2f2899a19144f2d8f78ef7912466dbbf6afd32661c20, both1280/390/fallbackretry PASS. No complete visual approval or installation. Root actually viewed only two source/day exports, one from each browser run; never claim all92 exports reviewed. Ground-contact follow-up remains b58d232f, raw+.2266 to+.571m/480samples. Counts392/129/521 unchanged.
+
+Next source **Waterfront VI203730**: fresh current five-phase sequenceV2 is RUNNING under **session17490**, plan government-xl-after-qe-waterfront203730-current-plan-v2-20261026.json; reuses existing driverV11. V1 hit an overlapping terrain lease BEFORE first phase, completedJobs[]/runningFalse; no source or model failure. V2 started only after Beverly browser explicitly released. Poll17490 before any retry. Phase outputs selection/ground/attributes/identity/modelscope use after-qe-waterfront203730 names. Existing exact originalsupport412/417 +5finite rootpaths and sourceidentityreview remain historical evidence; refresh scene binding, do not silently transfer approval. Specific remaining task: classify/resolve actual nine non-wall source/Elements-podium interactions, preserving raw compound negatives and all source geometry. No need blanket support reacquisition.
+
+Linear HKS-203 comment9b23a438-9442-4c19-bcf2-0d6cd156d7fa records the pushed checkpoint and completed BeverlyV2. Active goal remains incomplete; no human or AI geometry requirement established. Two protected dirty files remain unstaged.
+
 ## 26 October: Beverly terrain recovered; direct ground contact still unresolved
 
 Current fixed XL: **392 installed / 129 unfinished / 521**, with **6,984 detailed actors**. QE installation `af6cb3b9e` is pushed; University Hall approval is already fulfilled. Do not reinstall either. Fresh bounds inventory `af9e39bd31d69aecb0388c3dc301c6af770f9110970b09e6af72a77e7f3aa8c7` and exact unfinished inventory `043c17f177a7be778ad1572775fafe38ca5e19ac20cf7efe7c319fdcb828b3b1` retain all129 keys, including two unmatched/null viewer keys.
