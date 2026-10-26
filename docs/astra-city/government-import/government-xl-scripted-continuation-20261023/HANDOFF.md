@@ -1,3 +1,9 @@
+## 26 October: QE complete terrain regressions finished; original neighbour pair running
+
+Repair checkpoint ddc89ce7656e500befdbc63141e62eecf4e68a3a is PUSHED/remoteverified. Full regressionsequence5cea040227997ad7c11477030cce700d9a71d1cd26b17b01c57469d90ff189ee completed/released; session6845terminal0. Replacementbindingf2031b70, complete73forms+4nativesa8c58edf allPASS, four-worldfoundation1f0474e6 allPASS/0buried. Lowfaces complete inall4representations:44affected faces, allAffectedWallLikeFALSE and allAffectedHaveExposedHighestVertexFALSE. These unresolved raw results remain, no source-role/identity/installation approval.
+
+NOW RUNNING session70096 under frozen original_leased_diagnostic_sequence_v8_20261026.py --plan docs/astra-city/government-import/government-xl-after-tung-on-qe311317-pair161194-plan-v1-20261026.json. Authenticated exact originals QE311317+neighbour161194 merge WITHOUT approval, then private replacement-terrain runtime withboth originals, allrendererattributes, complete exact originalpaircontact+footprintcontext. This tests whether15contacts were coarseBASICartefacts; no automaticwaiver or coinstallation. Poll SAMEhandle/actualstatebefore retry. Count391/130/521XL/6983actors unchanged. UniversityHallalreadyinstalled. NoAIgeometry/optimisation/mainmerge/newagents/shared4176restart;private4177only. Continuefull130/twonullUIDkeys. HKS203updated8cb74390. Protected2dirtyfiles stayunstaged.
+
 ## 26 October: QE311317 expanded retained terrain validated; full regression running
 
 University Hall93417 is already installed (c339a3745); repeated guarded-install approval is fulfilled. Do not reinstall it. TungOn53852 installation bb4ca88709dea7e29903321b32ac4163ce9df865 is PUSHED. Counts391installed/130unfinished/521XL;6983officialactors unchanged by current QE diagnostics. Both nullviewerUID sourcekeys preserved in new130inventory2d78b2a9; new6983boundsinventoryb074d9cc.
