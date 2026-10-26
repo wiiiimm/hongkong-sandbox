@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.166"
+  version: "1.9.167"
 ---
 
 # Hong Kong model improvement
+
+26 October — TuenMun12 INSTALLED:390installed/131unfinished/521XL,6982actors. Job e5a0c953.../snapshot88be36009d3d0580;independent15a1bb33... verifiesall6970oldassets+entries/full521onlyMain336667+podium280350changed/globalBASIC/exactretainedterrain/allothermanifestfields. Worker29846terminal0/released.60freshactualexports inspectedvia16unscaledcontactsheets,ROOTrecordV4;mobileearlycoarseocclusion193881retained,finaljointall12active. Fresh6982boundsb7ed0989... after-tuen-mun-current-inventory-v1. COMMIT/PUSHactualinstall thencontinueall131/twonullUIDkeys. NeverrerunTuenMun/UniversityHall/PokOi installers. Rebindnextsourcesagainst6982;TungOn53852 oldinset rebuilt-templateareaoverlap maybenefit exactretained route;QueenElizabeth311317 remains too. Read newestHANDOFF. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
 26 October — TuenMun12 PREPARED/NOTinstalled: source83ce9547/stageV2 912606dc;canonicaldryrun+prepareonly pass,+2XL/+12actors prospectively. Read newestHANDOFF. Use tuen_mun_original_install_v1_20261026.py with government-xl-tuen-mun-twelve-original-install-config-v1-20261026.json;V15 BOTHprivate4177browsers/canonical lease+rollback functions.16newmulti-parent/guardtestspass. Afteractual install inspect60fresh exports via browser_export_contact_sheets_v2 --mode live, record_root_live_exports_v4 then dedicated tuen_mun_original_installed_readback_v1/full6970oldassets+521/globalBASIC/terrainreplacement;commitpushactualinstall. Counts388/133/521,6970 unchanged until then. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
