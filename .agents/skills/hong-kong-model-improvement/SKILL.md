@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.167"
+  version: "1.9.168"
 ---
 
 # Hong Kong model improvement
+
+26 October — TuenMun12 pushed39bc39b380,390/131/521XL,6982actors. Read newestHANDOFF/current-progress-v1 after-tuen-mun26October. TungOn identityPASS; source-TIN numericunion fixed by exact origin translation (no moved vertices/gate change),6adversarialtestsPASS. FrozenretainedV4 proposal963acb62/candidatea55b963f...107588faces=94695unchanged+12893new;all4foundations0buried,all40forms/8retainednativePASS. TungOnNOTinstalled:23partial-gradefaces incl6upward/4downwardnonwalls requirebounded source/terrain review;rawall-face failures preserved8ad723e4. No browser/source-role approval yet. QE311317 current158buried/105upward vsoriginalTIN0;extent16.992mrawidentitywarning remains. Fresh131exactkeys2bfb9353 retains2nullUIDs. Allworkers terminal; checkpoint0eff1baa... authenticates19currentjobs/8442files/full390/131/521. Read its remaining-work.json FIRST. Avoidhistoric25October similarlyprefixedreceipts in26Octcurrentcheckpoint. Continueall131. NoAIgeometry/externalAIcalls/optimisation/newagents/mainmerge/shared4176restart.
 
 26 October — TuenMun12 INSTALLED:390installed/131unfinished/521XL,6982actors. Job e5a0c953.../snapshot88be36009d3d0580;independent15a1bb33... verifiesall6970oldassets+entries/full521onlyMain336667+podium280350changed/globalBASIC/exactretainedterrain/allothermanifestfields. Worker29846terminal0/released.60freshactualexports inspectedvia16unscaledcontactsheets,ROOTrecordV4;mobileearlycoarseocclusion193881retained,finaljointall12active. Fresh6982boundsb7ed0989... after-tuen-mun-current-inventory-v1. COMMIT/PUSHactualinstall thencontinueall131/twonullUIDkeys. NeverrerunTuenMun/UniversityHall/PokOi installers. Rebindnextsourcesagainst6982;TungOn53852 oldinset rebuilt-templateareaoverlap maybenefit exactretained route;QueenElizabeth311317 remains too. Read newestHANDOFF. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 

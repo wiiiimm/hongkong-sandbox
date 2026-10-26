@@ -1,0 +1,78 @@
+{
+  "batch": "government-xl-after-tuen-mun-tung-on-retained-runtime-sequence-v1-20261026",
+  "uids": [
+    "landsd/53852:0"
+  ],
+  "resources": [
+    "building:landsd/12852:0",
+    "building:landsd/97301:0",
+    "building:landsd/12854:0",
+    "building:landsd/126434:0",
+    "building:landsd/53800:0",
+    "building:landsd/12851:0",
+    "building:landsd/53852:0",
+    "building:landsd/254604:0",
+    "building:landsd/163705:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-tung-ping-original-v1-20261022.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v6_20261024.py",
+      "batch": "government-xl-after-tuen-mun-tung-on-retained-runtime-v1-20261026",
+      "args": [
+        "--patch",
+        "government-xl-after-tuen-mun-tung-on-retained-original-inset-v2-20261026",
+        "--capture",
+        "government-xl-after-tuen-mun-next-two-ground-v1-20261026",
+        "--uid",
+        "landsd/53852:0"
+      ]
+    },
+    {
+      "script": "selected_original_retained_patch_scope_v3_20261026.py",
+      "batch": "government-xl-after-tuen-mun-tung-on-retained-scope-v1-20261026",
+      "args": [
+        "--inventory",
+        "government-xl-after-tuen-mun-current-inventory-v1-20261026",
+        "--patch",
+        "government-xl-after-tuen-mun-tung-on-retained-original-inset-v2-20261026"
+      ]
+    },
+    {
+      "script": "selected_full_native_replacement_binding_v1_20261026.py",
+      "batch": "government-xl-after-tuen-mun-tung-on-replacement-binding-v1-20261026",
+      "args": [
+        "--patch",
+        "government-xl-after-tuen-mun-tung-on-retained-original-inset-v2-20261026",
+        "--runtime",
+        "government-xl-after-tuen-mun-tung-on-retained-runtime-v1-20261026",
+        "--scope",
+        "government-xl-after-tuen-mun-tung-on-retained-scope-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_current_installed_dependency_bindings_v1_20261024.py",
+      "batch": "government-xl-after-tuen-mun-tung-on-dependency-bindings-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-tuen-mun-tung-on-retained-scope-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_retained_native_neighbours_v8_20261024.py",
+      "batch": "government-xl-after-tuen-mun-tung-on-retained-neighbours-v1-20261026",
+      "scopeResources": "government-xl-after-tuen-mun-tung-on-retained-scope-v1-20261026",
+      "args": [
+        "--scope",
+        "government-xl-after-tuen-mun-tung-on-retained-scope-v1-20261026",
+        "--inventory",
+        "government-xl-after-tuen-mun-current-inventory-v1-20261026",
+        "--patch",
+        "government-xl-after-tuen-mun-tung-on-replacement-binding-v1-20261026",
+        "--bindings",
+        "government-xl-after-tuen-mun-tung-on-dependency-bindings-v1-20261026"
+      ]
+    }
+  ]
+}
