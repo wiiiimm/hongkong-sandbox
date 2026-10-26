@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.154"
+  version: "1.9.155"
 ---
 
 # Hong Kong model improvement
+
+26 October — LATEST: allnewworkers TERMINAL/released. Read government-xl-after-ferry-tuen-mun-ying-hoi-progress-v2-20261026/remaining-work.json FIRST (bb583d430c0b102b4ba06ebfca7ccc5331509d035825fd70f9f8e5beb30c8bdb);9newreceipts/356hashes verified.386installed/135unfinished/521XL,6967actors unchanged. TuenMun28pairs/4worldroles complete; rawcrossings/3pairarea contacts remain. A24rimpaths pass. D3sharededgepaths fail37.992mceiling; EXACTlow-height INTERNALsourcejoins recoverall3inall4worlds (36fd01d3acf4bf8e5475369a8ad91773497becd4fad60b7b3de4b46d156153bc), nogeometryedit/limitwaiver. Connectivityisnotroot/physicalapproval. YingHoi freshprivatebrowser+nativefail/retrypass;all8actualsource+205663desktop/mobile/daynightPNGsexported/opened, V2ROOTobservations. NEXTboundedYingHoi15wall+36rimphysical/source review thenexactinstalled-nativefiniteadmission/qualifiedstage/live/full6967+521readback;rawcompoundcapFALSEpreserved. TuenMuncamerasstillpartlyobscureT, only6desktopdayimagesviewed across2runs, notall40. Fullgoalactive;doNOTreinstallUniversityHall/Ferry. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
 26 October — Read newestHANDOFF and government-xl-after-ferry-tuen-mun-eight-progress-v1-20261026/remaining-work.json FIRST (Neon e6005ddd3bba7ec39229a73e8c9dc50eff4ffe2a02ef22df044fc6ebb48439db). 54completed receipts/2445evidencehashes verified;386installed/135unfinished/521XL,6967actors unchanged. Six-stage8source scan complete. Wider campus discovery found original BlockT336672;8originals58982faces cover99.5886% ofMain336667 footprint,4.521m2residual; projection is not acceptance. All8groundfoundation policies pass, A/Dstrictpodium ANDmain+podium support fail. Full28paircontactscan session27911/private8sourcebrowser4267 running: pollactualhandles, do not restart/live-edit. Only2desktopPNG exports opened so far,BlockTpartlyoccluded;no visualapproval. Earlier7sourceimagesnot8sourceacceptance. PositiveviewerZ=SOUTH,notnorth. Preserve191896/222781native metadata,allrawfailures/2nullUIDkeys. UniversityHallapproval fulfilled. Goalactive;noAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
