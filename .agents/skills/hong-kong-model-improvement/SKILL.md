@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.178"
+  version: "1.9.179"
 ---
 
 # Hong Kong model improvement
+
+27October Waterfront203730 physical57259159/source452411ae/privateV3d5df55e2 COMPLETE. ROOTopenedALL8finalprivateexports. Separateinstalled-parentmodel-onlycontract preserveszero/coimportpaths;39tests+3ASTparityguardsPASS. Qualifiedstage6ed7fb03/prepare-onlyPASS;NOTinstalled yet392/129/521/6984. READlatestHANDOFF: commitpushpreparation,theninstalled_support_model_only_live_install_v1 --install underexactWaterfrontconfig;inspectALL8freshliveexports/4sheets,recordV4,full6984oldassets+521readback,commitpushactualinstall. NoAIgeometry/optimisation.
+
 
 27October Waterfront203730 currentcontacts/lineage COMPLETE; fullsourceactualearthclear/3foreignpairs0. ALL984extra literalcrossings traceoriginalpoint/edgepairs;26originalcrossings andrawcompoundnegatives stillrequireexactlowerjunctionreview. ReadlatestHANDOFF; independentbrowserV2session68967LIVE, V1wasabortedafteraccidentalsharedleaserelease andhasNOacceptancecredit. Never share a lease between boundedsupervisors: each releases it onexit. ComponentJSONV2onlycanonicalizes tuple/listpayloads beforefencedreadback; no geometrychanges. Newidentityrevalidationhelper acceptsONLYchangedmanifest/tile-routingbindings, preserving allidentityfacts/failures;16testsPASS.392/129/521XL/6984actorsunchanged. NoAIgeometry/optimisation.
 
