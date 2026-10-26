@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.169"
+  version: "1.9.170"
 ---
 
 # Hong Kong model improvement
+
+26 October — TungOn source review866792ce COMPLETE (identity/physical/current40forms/eightretained/visual), NOTinstalled. Overhead[0,8,1] f758082c exposes126434/254604 ondesktop/mobile;ROOT inspected8actual lowactorimages via2overheadsheets, primary4source+24otherretainedimages separately. Allworkers terminal/released. Read newestHANDOFF/current-progress-v3 after-tuen-mun26Oct (49completedjobs). Counts390/131/521XL,6982actors unchanged. NEXT guardedstage schema sourceSHA256/sha256adapter; bothinstallerbrowserglobalsV15/private4177; preserveallglobalBASIC/source/native/lease/rollbackguards. Raw10negatives/capFALSE retained underexactwall/bottomreview. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart;UniversityHallalreadyinstalled.
 
 26 October — TungOn vertical-parent repairV6 candidate506c85ce/108010faces passes validation/all40forms/eightretained/fourworldfoundations. Originalbuilding unchanged;22testsPASS. Negatives23→10;all9walls have completecap paths, face22downward0.8013m2bottom remains boundedrole qualification/rawcapFALSE. Private1280/390+failure/retryPASS85129f4d;ROOT inspectedall36actualimages via8retainedsheets/mobile sourcesheet/directdesktop2.126434/254604 foregroundoccluded;alternatecamera beforecompletevisualapproval. Read newestHANDOFF/current-progress-v2 after-tuen-mun26Oct;42completedreceipts. Counts390/131/521XL,6982actors unchanged;UniversityHallapprovalalreadyfulfilled. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart;private4177only.
 
