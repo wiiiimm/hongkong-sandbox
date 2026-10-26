@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.160"
+  version: "1.9.161"
 ---
 
 # Hong Kong model improvement
+
+26 October — PokOi213579+71329 INSTALLED exact13505originalfaces.388installed/133unfinished/521XL,6970actors; only213579earnsXLcredit. Job72d1582d54064976546c396471f11564461de2b81ed5faca57eca77904e95cb5/snapshot6b82cc356193230d; independent9ab41fe089bcb42766099313ffbb398274db9b232221900553b1ad668f5d5289 verifiesall6968oldassets+entries/full521only213579changed/8ROOTopenedfreshliveexports/globalBASIC/terrain+othermanifestfields unchanged. V2worker18212TERMINAL0/released. COMMIT/PUSHactualinstall; neverreinstallpair. V1legacy4176browserfailure archived/rollback9destinationsverified; V2V13private4177 succeeds.28focusedtestspass. Fresh6970inventory58b1fdbd3886b10e318fc56436e3c1ae163e97df1518339276617701aa2c5bdc;133exactkeys c980725ac81a4c61339045f8bbe0828173664dedcb7e87d8148c4ea0a4f89e21 preserve2nullUIDs. Read newestHANDOFF; continueTuenMun8/other133 withcurrentbindings, noAIgeometry/optimisation/newagents/mainmerge/shared4176restart. Fullgoalactive/incomplete.
 
 26 October — PokOi V1installTERMINAL1/released/rolledback: oldcanonicalV9browserhardcodes4176. Independentrollbackverify provesall9destinations restored; counts387/134/521,6968actors unchanged. Do NOTrerunV1. Use pok_oi_original_install_v2_20261026.py with SAMEconfigV1, V2publisherphase-original-installed-v2, existingV13private4177browserBOTHentrypoints. AllinstallerfunctionASTs/canonicalguards unchanged;4neworigin/phase/guardtestspass, prepareonlyTERMINAL0/PASS. Source review/qualification unchanged. Commit/pushfix, installV2, inspect8freshlivePNGs, record_root_live_exports_v3_20261026.py --install-version v2, dedicatedreadbackV2/full6968+521/globalBASIC/manifest, commitpushactualinstall. Read newestHANDOFF. Originalscopeactive/2nullUIDkeys; noAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
