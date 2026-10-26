@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.172"
+  version: "1.9.173"
 ---
 
 # Hong Kong model improvement
+
+26October QE identityONLYreview49721aee complete; rawextentFALSEpreserved. Exactoriginalpair428contacts includes5sharedplaneareas/1crossing; fd83bf86 proveswholecrossingstrictlysubgradeunderBOTHgroundsets.13slopingUPWARDlowfacesremainphysicalunreviewed; all31wallcappathsPASS/wholefoundation0buried. ROOTopenedall4correctedV2group/junctionplots36168817; V1reverseaxesblank. All13partof9185facecomponent;knowncomponenttuple/listreceipt recovered4d842785/no recompute. Privatebrowser86601running/V7expandedproof/private4177;preparedfourworldpairplanV1/driverV10mustwaitbrowserrelease. ReadnewestHANDOFF.391/130/521XL/6983actors unchanged;noAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
+
 
 26October QE311317 expanded retained terrain PASSED8dc07ead/110238faces; current runtime0buried but identityextent16.992m/foreignBASIC15linecontacts unresolved. Fullscope73forms/4native; sequence6845 running replacementbindingV2/neighbours/fourworldfoundations/lowfaces. Read newestHANDOFF and actualstate before restart. Counts391/130/521XL,6983actors unchanged; TungOnbb4ca887 pushed; UniversityHallalreadyinstalled. Preserve frozen producers and bothnullUIDkeys. Expanded helper proves oldface multiplicity+exactproduction-root additions/oldmetadata, retains allvalidators;16testsPASS. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
 

@@ -1,0 +1,56 @@
+{
+  "batch": "government-xl-after-tung-on-qe311317-pair161194-four-world-sequence-v1-20261026",
+  "uids": [
+    "landsd/311317:0",
+    "landsd/161194:0"
+  ],
+  "resources": [
+    "building:landsd/311317:0",
+    "building:landsd/161194:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-266063-0.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-after-tung-on-qe311317-pair161194-four-world-contacts-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-tung-on-qe311317-pair161194-runtime-v1-20261026",
+        "--attributes",
+        "government-xl-after-tung-on-qe311317-pair161194-attributes-v1-20261026",
+        "--left",
+        "landsd/311317:0",
+        "--right",
+        "landsd/161194:0"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026"
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-after-tung-on-qe311317-pair161194-four-world-roles-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-tung-on-qe311317-pair161194-runtime-v1-20261026",
+        "--contacts",
+        "government-xl-after-tung-on-qe311317-pair161194-four-world-contacts-v1-20261026",
+        "--attributes",
+        "government-xl-after-tung-on-qe311317-pair161194-attributes-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026"
+    },
+    {
+      "script": "represented_pair_crossing_ground_context_v1_20261026.py",
+      "batch": "government-xl-after-tung-on-qe311317-pair161194-four-world-crossing-ground-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-tung-on-qe311317-pair161194-runtime-v1-20261026",
+        "--contacts",
+        "government-xl-after-tung-on-qe311317-pair161194-four-world-contacts-v1-20261026",
+        "--roles",
+        "government-xl-after-tung-on-qe311317-pair161194-four-world-roles-v1-20261026"
+      ],
+      "scopeResources": "government-xl-after-tung-on-qe311317-retained-scope-v1-20261026"
+    }
+  ]
+}
