@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.179"
+  version: "1.9.180"
 ---
 
 # Hong Kong model improvement
+
+27October Waterfront203730 INSTALLED ec52c359/snapshot809f287f587bc329.393/128/521XL,6985actors. ROOTopenedALL4freshlivesheets/8exports,recordV4;readbackd6777e7a verifiesALL6984oldassets+entries/full521ONLY203730changed/globalBASIC/allterrainunchanged/Neonpointer. ExactElementsparentinstalled-verified unchangedinbothold/newNeonsnapshots. COMMIT/PUSHactualinstallNOW;neverbduplicateWaterfront/QE/UniversityHall. Refresh6985bounds+128exactkeys(twonullUIDs),thenOceanCentre234188originalTIN/MAX/retained-domainroute;oldrectanglecoverage/overlapfailuresmustnotberepeatedunchanged. ReadlatestHANDOFF. NoAIgeometry/optimisation.
+
 
 27October Waterfront203730 physical57259159/source452411ae/privateV3d5df55e2 COMPLETE. ROOTopenedALL8finalprivateexports. Separateinstalled-parentmodel-onlycontract preserveszero/coimportpaths;39tests+3ASTparityguardsPASS. Qualifiedstage6ed7fb03/prepare-onlyPASS;NOTinstalled yet392/129/521/6984. READlatestHANDOFF: commitpushpreparation,theninstalled_support_model_only_live_install_v1 --install underexactWaterfrontconfig;inspectALL8freshliveexports/4sheets,recordV4,full6984oldassets+521readback,commitpushactualinstall. NoAIgeometry/optimisation.
 
