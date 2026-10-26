@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.157"
+  version: "1.9.158"
 ---
 
 # Hong Kong model improvement
+
+26 October — PokOi pair current progress e14538cfa04c9d79af1c8ad1ba9b976606d5e244be76939a2a5d44dd8341d56b authenticates31completedjobs/1147files/12ROOTopenedexports. Counts387installed/134unfinished/521XL,6968actors unchanged. Read newestHANDOFF first. Main21357910794faces+neworiginalpodium713292711faces are NOTinstalled; futurepair+1XL/+2actors. Exact48cap-failing walls form2separate24facet column-like shells, each24directfinitegroundcontacts/allupperverticesexposed/all4worlds; rawcapFALSE and strict140Main-on-podiumfailures stayfalse. Thinwall2699unexposedhighestvertex needsboundedrole. All238sourcepaircontacts/stream transverse,0area; care-home56488has14positiveBASICcontacts,not4. Sourceidentity/interface/typedavailability review remains. AllnewworkersTERMINAL.14focusedtestspass. CorrectedwallviewsoutputV3 supersedesfrozenV2displayaspectbug, no source edits. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart; preserve2protecteddirtyfiles. Fullgoalactive;neverreinstallUniversityHall/YingHoi.
 
 26 October — YingHoi207957 INSTALLED exact10682faces;387installed/134unfinished/521XL,6968actors. Job62b8526aedb36f929982d1b06612d3479167a26835abca774461ad820ce442d6/snapshot49ffc5cf983e67e7; independent2e653b0d508c15c7df572a2ccebff46e3fbeeb1a049a6e74af0ea4309558ac47 verifies6967oldassets+entries/521rowsonly207957changed/8actuallyopenedfreshliveexports/globalBASIC+unchangednative205663/terrain+othermanifestfields. Installer80814TERMINAL0/released. Commit/pushactualinstallationbeforecontinuing;neverreinstallYingHoi. Fresh6968boundsd146536f01c0178d2101ad864ed92fd47db5e9bbc3f34fc67709d4440f6e7a38 and134exactkeysf411c8fba29f6ab25a8eb0756f5fb06905d17d1901558cda204d37b1908b7ec5 preserve2nullUIDkeys. Read newestHANDOFF, rebindremainingPokOi/carpark/TuenMun to6968currentmap without repeatingimmutablegeometry. Ten newguardtests pass; rawcanonical/capFALSEretained underexact15wall/nativefloorprofile, notgenericwaiver. Code/roleinterpretationusedAI;NOAIgeometry/optimisation/newagents/mainmerge/shared4176restart. Fullgoalactive/incomplete. Protected2dirtyfilesunstaged.
 
