@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.165"
+  version: "1.9.166"
 ---
 
 # Hong Kong model improvement
+
+26 October — TuenMun12 PREPARED/NOTinstalled: source83ce9547/stageV2 912606dc;canonicaldryrun+prepareonly pass,+2XL/+12actors prospectively. Read newestHANDOFF. Use tuen_mun_original_install_v1_20261026.py with government-xl-tuen-mun-twelve-original-install-config-v1-20261026.json;V15 BOTHprivate4177browsers/canonical lease+rollback functions.16newmulti-parent/guardtestspass. Afteractual install inspect60fresh exports via browser_export_contact_sheets_v2 --mode live, record_root_live_exports_v4 then dedicated tuen_mun_original_installed_readback_v1/full6970oldassets+521/globalBASIC/terrainreplacement;commitpushactualinstall. Counts388/133/521,6970 unchanged until then. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
 26 October — Read newest HANDOFF and current-progress-v5/remaining-work.json first:8f4ca620...,150completedjobs/3353files/17openedexports;allworkers terminal. Counts388installed/133unfinished/521XL,6970actors unchanged. TuenMun12-source physical review513cac4b is Neon-verified; NOTinstalled. Exact retained terrain f530a9c5 passes64170faces=44360 unchanged+19810 new;25k is new-work generator allowance, not universal native runtime cap. All48earth foundations pass;247forms/3retained native checks bound. B138/D3/A24/Atrium7 paths pass all4. Complete compound table retained; A4upward facets at50.669m are>46m above earth under original peer layers, actual context opened. Private1280/390+12retry pass;60actual exports inspected via16 unscaled contact sheets. New graphV2/mixed fallback48rows min96.2033% pass. V3 physical fixes Atrium actual filenames explicitLeftF32/explicitBalancedF32 after two failed preflights. Next qualified stage/guarded replacement/live/full6970+521/globalBASIC readback; no installed credit until complete. Keep tested candidate terrain metadata/bytes; do not silently extend. UniversityHall approval already fulfilled, never reinstall. Continue all133/two nullUIDs through commits. NoAIgeometry/optimisation/newagents/mainmerge/shared4176 restart.
 
