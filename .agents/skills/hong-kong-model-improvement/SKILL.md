@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.158"
+  version: "1.9.159"
 ---
 
 # Hong Kong model improvement
+
+26 October — PokOi Main213579+podium71329 source review0d11fa782194489d1a0721723f7783e86b69ba4f1848f0da0c4dced99242b8c9 / stage0460b9ad9b9b843b889e8fe6bc08b56acd15876d85ff2f0fa2df0d408b725bc5 qualified, NOTinstalled. Read newestHANDOFF. Config government-xl-pok-oi-original-install-config-v1-20261026.json; prepareonlyTERMINAL0/PASS expected+1XL/+2actors. Exactpeerfailure6469b4b571274ed928400cf0d499872bb87c47e35ddfffef0b94d58844d43aea PASS/released.24tests pass, canonicalinstaller functionASTs/publicationfencing unchanged. All3thinwall2699verticesbelowground; retainboundedoriginal lowerwallseam, nofakeexposure/physicalsupport. Exact48groundedcolumnwalls+105capwalls/20Maincapwalls acceptedonlyunder2SHA/currentgroundprofile; rawcap/140strictsupport/extentfailures remainfalse. Commit/pushprep, install/new8liveexports/ROOTrecordV2/full6968oldassets+entries/521/globalBASICreadback/commitpushactualinstall. Counts387/134/521,6968actorsunchanged. Fullgoalactive/2nullUIDkeys; noAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
 
 26 October — PokOi pair current progress e14538cfa04c9d79af1c8ad1ba9b976606d5e244be76939a2a5d44dd8341d56b authenticates31completedjobs/1147files/12ROOTopenedexports. Counts387installed/134unfinished/521XL,6968actors unchanged. Read newestHANDOFF first. Main21357910794faces+neworiginalpodium713292711faces are NOTinstalled; futurepair+1XL/+2actors. Exact48cap-failing walls form2separate24facet column-like shells, each24directfinitegroundcontacts/allupperverticesexposed/all4worlds; rawcapFALSE and strict140Main-on-podiumfailures stayfalse. Thinwall2699unexposedhighestvertex needsboundedrole. All238sourcepaircontacts/stream transverse,0area; care-home56488has14positiveBASICcontacts,not4. Sourceidentity/interface/typedavailability review remains. AllnewworkersTERMINAL.14focusedtestspass. CorrectedwallviewsoutputV3 supersedesfrozenV2displayaspectbug, no source edits. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart; preserve2protecteddirtyfiles. Fullgoalactive;neverreinstallUniversityHall/YingHoi.
 
