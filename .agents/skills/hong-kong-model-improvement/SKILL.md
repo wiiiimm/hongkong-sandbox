@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.156"
+  version: "1.9.157"
 ---
 
 # Hong Kong model improvement
+
+26 October — YingHoi207957 INSTALLED exact10682faces;387installed/134unfinished/521XL,6968actors. Job62b8526aedb36f929982d1b06612d3479167a26835abca774461ad820ce442d6/snapshot49ffc5cf983e67e7; independent2e653b0d508c15c7df572a2ccebff46e3fbeeb1a049a6e74af0ea4309558ac47 verifies6967oldassets+entries/521rowsonly207957changed/8actuallyopenedfreshliveexports/globalBASIC+unchangednative205663/terrain+othermanifestfields. Installer80814TERMINAL0/released. Commit/pushactualinstallationbeforecontinuing;neverreinstallYingHoi. Fresh6968boundsd146536f01c0178d2101ad864ed92fd47db5e9bbc3f34fc67709d4440f6e7a38 and134exactkeysf411c8fba29f6ab25a8eb0756f5fb06905d17d1901558cda204d37b1908b7ec5 preserve2nullUIDkeys. Read newestHANDOFF, rebindremainingPokOi/carpark/TuenMun to6968currentmap without repeatingimmutablegeometry. Ten newguardtests pass; rawcanonical/capFALSEretained underexact15wall/nativefloorprofile, notgenericwaiver. Code/roleinterpretationusedAI;NOAIgeometry/optimisation/newagents/mainmerge/shared4176restart. Fullgoalactive/incomplete. Protected2dirtyfilesunstaged.
 
 26 October — YingHoi207957 exact native-floor SOURCE/QUALIFIEDV2 complete; NOTinstalled. Use government-xl-ying-hoi-native-floor-original-install-config-v2-20261026.json. Reviewb278181bf35a73fea0b2eb3d7f0c07e5105a667d54325a336bb4eb3818d6f5f0, stage98bae2d0d1de1e2054ccb694b7cf694d394588b05a22706b3f94999b7098f9f8. V1receipt sourceimage metadata superseded before any install; frozenV1s unchanged. New exactallowlist floorprofile replays462strictfloorroots/36rim+15verticalwallpaths in4worlds; rawcanonical/capFALSEpreserved. Samebuilding T/P original floor facets, actualground0burial/min5.595m and all8actuallyopenedprivateexports/failure-retry bound. Ten guards/tests pass. All installer function ASTs and lease/publication fencing match canonical; global oldBASICguards/rollback/full6967+521readback preserved. --prepare-only session98354 TERMINAL0/PASS,+1XL207957. Commit/pushpreparation, then install withV2config/newdedicatedinstaller, open8freshliveexports/recordV2/readback/commitpushactualinstallation. Current386/135/521,6967actors unchanged. Read newestHANDOFF. Never infer floor-role acceptance for another source from this exactsource allowlist. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart; fullgoalactive.
 
