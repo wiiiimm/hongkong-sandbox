@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.161"
+  version: "1.9.162"
 ---
 
 # Hong Kong model improvement
+
+26 October — Tuen Mun current-source checkpoint V2 completed: Neon `1cc3e4b8f215226ad6103418046b5d0b5653d2bfb6b76657e53ce558b299df46`, 29 completed jobs / 1,343 verified evidence files / seven previously opened exports. Read newest HANDOFF and checkpoint remaining-work.json before continuing. Counts unchanged: 388 installed / 133 unfinished / 521 XL, 6,970 actors. Eight unchanged originals remain uninstalled; combined coverage and exact Main-cell coverage by Block D are diagnostic evidence, not identity/physical approval. Preserve raw support failures, source-pair area contacts and external BASIC interfaces. Need source-family/interface decisions, acyclic availability, current source/native desktop/mobile and fallback qualification, then guarded V13/private4177 publication/full readback. Potential delta is two XL/eight actors. Pok Oi d5b45b225 already pushed; University Hall c339a3745 already installed. Never rerun completed installers or frozen diagnostics. No AI geometry/optimisation/new agents/shared4176 restart; all 133 keys including two null UIDs remain in scope.
 
 26 October — PokOi213579+71329 INSTALLED exact13505originalfaces.388installed/133unfinished/521XL,6970actors; only213579earnsXLcredit. Job72d1582d54064976546c396471f11564461de2b81ed5faca57eca77904e95cb5/snapshot6b82cc356193230d; independent9ab41fe089bcb42766099313ffbb398274db9b232221900553b1ad668f5d5289 verifiesall6968oldassets+entries/full521only213579changed/8ROOTopenedfreshliveexports/globalBASIC/terrain+othermanifestfields unchanged. V2worker18212TERMINAL0/released. COMMIT/PUSHactualinstall; neverreinstallpair. V1legacy4176browserfailure archived/rollback9destinationsverified; V2V13private4177 succeeds.28focusedtestspass. Fresh6970inventory58b1fdbd3886b10e318fc56436e3c1ae163e97df1518339276617701aa2c5bdc;133exactkeys c980725ac81a4c61339045f8bbe0828173664dedcb7e87d8148c4ea0a4f89e21 preserve2nullUIDs. Read newestHANDOFF; continueTuenMun8/other133 withcurrentbindings, noAIgeometry/optimisation/newagents/mainmerge/shared4176restart. Fullgoalactive/incomplete.
 

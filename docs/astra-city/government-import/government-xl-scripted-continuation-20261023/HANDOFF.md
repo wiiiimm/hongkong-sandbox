@@ -1,3 +1,15 @@
+## 26 October: Tuen Mun current-source checks archived; qualification remains pending
+
+Current totals remain **388 installed / 133 unfinished / 521 fixed XL; 6,970 detailed actors**. Pok Oi installation is committed and pushed as `d5b45b225`. University Hall approval is already fulfilled by `c339a3745`; do not reinstall it.
+
+Read `government-xl-after-pok-oi-tuen-mun-current-progress-v2-20261026/remaining-work.json` first. Verified Neon receipt **1cc3e4b8f215226ad6103418046b5d0b5653d2bfb6b76657e53ce558b299df46** archives 29 completed jobs, 1,343 verified evidence files and seven previously opened exports. This is computation evidence, not installation or identity/physical approval. All eight original sources remain unchanged, totalling 58,982 faces. Only Main336667 and podium280350 belong to fixed XL; a future successful installation of the whole group would add two XL and eight actors.
+
+Fresh six-stage scene checks bind the current 6,970 actors. Exact numerical equivalence receipt `bc45eb44a71aedd276e6cf39019ba0e46d37af0f570430affea2e4135b4e1bb0` permits reuse of prior pure geometry calculations, without transferring scene acceptance. All eight targets have combined original-source coverage above 99.4%; Main's complete reference cell is covered exactly by companion Block D in all four coordinate representations. Individual identity failures remain recorded. Main residual footprint strips total 4.521 square metres; podium residual after installed Special Block coverage is 34.204 square metres. These measurements alone do not approve source identity.
+
+The five external BASIC contact diagrams and two gap diagrams were opened in the preceding work. Retain the actual contact findings, including podium/Special Block 245 versus 252 transverse contacts across representations and podium's one buried wall. Existing Special Block191896 and RooftopGarden222781 have no registered retained BASIC support dependencies; preserve their existing bytes and review states.
+
+Next: complete bounded source-family identity and interface-role decisions; establish an acyclic availability graph; obtain adequate current desktop/mobile views of all eight sources and retained neighbours, including failure/fallback checks. Preserve old direct-support failures and three source-pair area-contact cases. Then use guarded publication with BOTH browser entry points routed through V13/private4177, followed by full old-asset, 521-row, retained-support and manifest readback. No new installation credit yet. Continue all 133 keys, retaining both null viewer UID keys. No AI geometry, optimisation, new agents, main merge or shared4176 restart. Preserve unrelated dirty files.
+
 ## 26 October: Pok Oi hospital and original podium INSTALLED, full readback passed
 
 **388 installed / 133 unfinished / 521 fixed XL; 6,970 official detailed actors.** Only Main213579 changes XL credit; original podium71329 is an additional actor. All13,505originalfaces/sourceSHAs/fixed1x/nativeHKPD pose unchanged. Two null viewerUID source keys remain in full scope.
