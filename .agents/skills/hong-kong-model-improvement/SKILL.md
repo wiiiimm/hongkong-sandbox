@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.162"
+  version: "1.9.163"
 ---
 
 # Hong Kong model improvement
+
+26 October — Tuen Mun expanded to12 exact originals/66871faces after recovering four missing neighbours. Read newest HANDOFF and current-progress-v3/remaining-work.json FIRST: Neon8dd702988c4926a789245a0b27d2936d4a9f75880f8dc3c0d0c2daf6aaad5bf9,52completedjobs/1847verifiedfiles/12actuallyopeneddiagrams. Counts unchanged388installed/133unfinished/521XL,6970actors; no new installed or corruption credit. All workers terminal. All66pairs/264streams complete (28exact reused,38new); only external projection actor191896 remains. Atrium7strict failures remain rawfalse, but all7have exact shared-edge endpoint-bounded paths inall4worlds (d319fcf0...). A&Efoundationfails0.337percentburiedarea;32negativefaces include3upwardhorizontal466/467/468. Need exactterrain/source investigation, no raised allowance or forced import. Five interface diagrams opened after receipt-only JSONintegerkey recovery406e03b9...; V3producer frozen, never rerun completed work. Nextcompound/source-role decisions, acyclic availability/failure/fallback/private ownviews, then guardedV13/private4177/fulloldassets/521/globalBASICreadback/commitpush actualinstalls. Preserve all133keys/two nullUIDs/protected dirtyfiles; noAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
 
 26 October — Tuen Mun current-source checkpoint V2 completed: Neon `1cc3e4b8f215226ad6103418046b5d0b5653d2bfb6b76657e53ce558b299df46`, 29 completed jobs / 1,343 verified evidence files / seven previously opened exports. Read newest HANDOFF and checkpoint remaining-work.json before continuing. Counts unchanged: 388 installed / 133 unfinished / 521 XL, 6,970 actors. Eight unchanged originals remain uninstalled; combined coverage and exact Main-cell coverage by Block D are diagnostic evidence, not identity/physical approval. Preserve raw support failures, source-pair area contacts and external BASIC interfaces. Need source-family/interface decisions, acyclic availability, current source/native desktop/mobile and fallback qualification, then guarded V13/private4177 publication/full readback. Potential delta is two XL/eight actors. Pok Oi d5b45b225 already pushed; University Hall c339a3745 already installed. Never rerun completed installers or frozen diagnostics. No AI geometry/optimisation/new agents/shared4176 restart; all 133 keys including two null UIDs remain in scope.
 
