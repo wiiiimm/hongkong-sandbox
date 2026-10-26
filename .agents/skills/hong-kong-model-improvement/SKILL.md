@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.175"
+  version: "1.9.176"
 ---
 
 # Hong Kong model improvement
+
+26October QE311317INSTALLED8f39dcbc/snapshotfe60c110cdd6051e;392/129/521XL,6984actors. ROOTopenedALL6freshlive20exports/recordV4;readback72bdf0a1 verifiesall6983oldassets+entries/full521only311317changed/globalBASIC/exactterrain/allothermanifestfields/Neonpointer. COMMIT/PUSHactualinstallNOW;neverrerunQE/UniversityHall/TungOn. Thenrefresh6984bounds+129exactkeys(twonullUIDs),startpreparedBeverly30031planV1/driverV11. PriorBeverlyidentity/contactPASS/authenticwideTIN0burial;old48726faceretentionfailedtotalbudget,newretainedV7mayrecoverusingnew-workbudget. ReadnewestHANDOFF. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
+
 
 26October QE311317physical89918aed/sourcec4fd00fd COMPLETE; exact13slopes+peerjunctionreview,allrawfailurespreserved/9adversarialtestsPASS. Stage0755dfc4/prepareonlyPASS/notinstalled. READnewestHANDOFF: commitpushprepthenEXISTINGtung_on_retained_live_install_v1 --install underORIGINAL_INSTALL_CONFIG=docs/astra-city/government-import/government-xl-qe311317-retained-original-install-config-v1-20261026.json. BOTHV15/private4177. AfterinstallinspectALL20freshliveexports/6sheets,recordV4,independentretained_original_installed_readback_v2(config6983oldinventory;ASTallotherguardsidentical),commitpushactualinstall.391/130/521XL/6983untilverified. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
 
