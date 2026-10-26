@@ -2,10 +2,13 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.176"
+  version: "1.9.177"
 ---
 
 # Hong Kong model improvement
+
+Latest26October: QE actual installation af6cb3b9e pushed;392installed/129unfinished/521,6984actors. UniversityHall approval fulfilled; do not reinstall. Beverly30031 recovered retained originalTIN,4wholefoundations/99BASICs pass;19native strict passes+3 exact unchanged actor AND support terrain proofs grant terrain-only nonregression, never source/support reacceptance. Existing direct contact still FAILS:480lowrim samples+.2266 to+.571m, min>.1m. Preserve raw ground-contact-unresolved; do not waive/move/invent terrain. Pinned pending followup b58d232f. Read latestHANDOFF for browserV2 worker89867/current evidence and untouched protected files. No new installation or geometry modelling credit.
+
 
 26October QE311317INSTALLED8f39dcbc/snapshotfe60c110cdd6051e;392/129/521XL,6984actors. ROOTopenedALL6freshlive20exports/recordV4;readback72bdf0a1 verifiesall6983oldassets+entries/full521only311317changed/globalBASIC/exactterrain/allothermanifestfields/Neonpointer. COMMIT/PUSHactualinstallNOW;neverrerunQE/UniversityHall/TungOn. Thenrefresh6984bounds+129exactkeys(twonullUIDs),startpreparedBeverly30031planV1/driverV11. PriorBeverlyidentity/contactPASS/authenticwideTIN0burial;old48726faceretentionfailedtotalbudget,newretainedV7mayrecoverusingnew-workbudget. ReadnewestHANDOFF. NoAIgeometry/optimisation/newagents/shared4176restart/mainmerge.
 
