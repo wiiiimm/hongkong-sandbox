@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.168"
+  version: "1.9.169"
 ---
 
 # Hong Kong model improvement
+
+26 October — TungOn vertical-parent repairV6 candidate506c85ce/108010faces passes validation/all40forms/eightretained/fourworldfoundations. Originalbuilding unchanged;22testsPASS. Negatives23→10;all9walls have completecap paths, face22downward0.8013m2bottom remains boundedrole qualification/rawcapFALSE. Private1280/390+failure/retryPASS85129f4d;ROOT inspectedall36actualimages via8retainedsheets/mobile sourcesheet/directdesktop2.126434/254604 foregroundoccluded;alternatecamera beforecompletevisualapproval. Read newestHANDOFF/current-progress-v2 after-tuen-mun26Oct;42completedreceipts. Counts390/131/521XL,6982actors unchanged;UniversityHallapprovalalreadyfulfilled. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart;private4177only.
 
 26 October — TuenMun12 pushed39bc39b380,390/131/521XL,6982actors. Read newestHANDOFF/current-progress-v1 after-tuen-mun26October. TungOn identityPASS; source-TIN numericunion fixed by exact origin translation (no moved vertices/gate change),6adversarialtestsPASS. FrozenretainedV4 proposal963acb62/candidatea55b963f...107588faces=94695unchanged+12893new;all4foundations0buried,all40forms/8retainednativePASS. TungOnNOTinstalled:23partial-gradefaces incl6upward/4downwardnonwalls requirebounded source/terrain review;rawall-face failures preserved8ad723e4. No browser/source-role approval yet. QE311317 current158buried/105upward vsoriginalTIN0;extent16.992mrawidentitywarning remains. Fresh131exactkeys2bfb9353 retains2nullUIDs. Allworkers terminal; checkpoint0eff1baa... authenticates19currentjobs/8442files/full390/131/521. Read its remaining-work.json FIRST. Avoidhistoric25October similarlyprefixedreceipts in26Octcurrentcheckpoint. Continueall131. NoAIgeometry/externalAIcalls/optimisation/newagents/mainmerge/shared4176restart.
 
