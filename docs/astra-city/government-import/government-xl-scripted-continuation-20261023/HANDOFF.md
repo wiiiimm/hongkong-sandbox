@@ -1,3 +1,13 @@
+## 27 October: Multi-source original-TIN correction clears all four sources
+
+Private proposal0627a30b8f0103c279b54c6874775fa2270a8ce1400a7a1cf0f6c2423c8e55fa COMPLETE,session6412terminal0/released. North42007faces/1045changedparent/29445exactunchanged;South6775faces/496changedparent/344exactunchanged. Newlyderivedwork19337faces<=25000. Existing coverage/area/untouched-parent checks PASS;buildingoriginalbytesunchanged.
+
+Independent seam+all4sources3da29bc4489995d1c1eae3fa4a68370f38b862ce08d87790acc52e764716d817 COMPLETE,session88762terminal0/released. Raw+Float32full150mseam241checksEACH/MAXgapZERO. ALL4sourcewholefoundationsPASS:23418810353faces,15659910764,2107431271,2314692113;complete/0wholeburied/0upwardburiedinraw+Float32.231469previous6upwardburials now0. Minimumgaps main-.8289212/upper+12.69819655/small210743-.35280244/small231469-.14602249m; partialfaces/sourcejunction/supportstillseparatereview. Fourworldactualrendereracceptance notyetrecomputedagainstnewterrain.
+
+Strict nested construction LIVE session26458,batchgovernment-xl-after-waterfront-ocean-four-nested-pair-surface-v1-20261027. Newocean_four_nested_pair_surface_v1 binds exactthreeground-ownerSHAmap/four-sourceclearance/newunionouterWKT while preserving allsharedvalidators,14otherchildren/allgrid/wholeold30490renderedfacewinding/25kderivedwork. ElevenadversarialnestedcontracttestsPASS andsixkerneltestsPASS. Pollsamehandle beforeanyretry. Ifpasses:actualfour-sourceruntimeviaexistingselected_original_nested_pair_runtime_v1,thennewchanged-domain/fullretainednative+BASICscope/regressions,sourcefourworldfoundation/caps/sourceidentity/intersection/junction/physical+desktopmobileprivateandlivebeforeinstall. Old26actorresults boundOLDterrain; doNOTtransferthemasnewterrainapproval.
+
+Latestpushedpreparation6c2517c85 (recoverya4be0f353). No newinstall393/128/521XL/6985actors. Linearupdatef337d86a-dfa3-4d7d-97f1-187c19fcd9ba predatesthisnewclearance; updateatcheckpoint. Protectedtwofilesunstaged. NoAIgeometry/optimisation/newagents/mainmerge/shared4176restart.
+
 ## 27 October: Six component junctions and all small-part foundations completed
 
 Recovery/junction evidence PUSHED a4be0f353. Junction sequence f6a9a88c7125869728a034558b9ac554488e082c59c493985a85f6353dc412d5 COMPLETE, session5195 terminal0. All6pairs/all4representations measured. Upper156599 contacts with210743/231469 ZERO; small210743/231469 eachother ZERO. Main234188->210743 original765contacts including60transverse (literal253including137transverse); main234188->231469109transverse all4worlds. These are authored source intersections, NOT collision-clear or blanket role approval. Exact source junction review/lineage stillrequired.
