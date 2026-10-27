@@ -1,11 +1,13 @@
 """Freeze review decisions and exact embedded-runtime hashes; read-only Neon refresh."""
 import argparse,json,pathlib,hashlib,subprocess,sys,datetime
-R=pathlib.Path(__file__).resolve().parents[3];S=pathlib.Path(__file__).parent;p=argparse.ArgumentParser();p.add_argument('--refresh',action='store_true');args=p.parse_args();read=lambda p:json.loads(p.read_bytes())
+R=pathlib.Path(__file__).resolve().parents[3];S=pathlib.Path(__file__).parent;p=argparse.ArgumentParser();p.add_argument('--refresh',action='store_true');p.add_argument('--snapshot-path',default='docs/astra-city/landmark-completion-audit/neon-snapshot.json');args=p.parse_args();read=lambda p:json.loads(p.read_bytes())
+snapshot=(R/args.snapshot_path).resolve();assert snapshot.is_relative_to((R/'docs').resolve()) and snapshot.name=='neon-snapshot.json'
 if args.refresh:
  subprocess.run([sys.executable,str(R/'source-scripts/city/enhancement-screening/screen.py'),'export'],check=True)
- sys.path.insert(0,str(R/'source-scripts/city/landmark-completion-audit'));from audit import capture
- capture(read(R/'docs/astra-city/model-integration-20260909/current-source-review.json')['snapshotId'])
-frozen=read(R/'docs/astra-city/landmark-completion-audit/neon-snapshot.json');rows=[{k:r[k] for k in ['uid','source_sha256','review_state']}for r in frozen['rows'] if r['review_state']=='installed-verified'];lookup={r['uid']:r for r in rows};embedded=[]
+ sys.path.insert(0,str(R/'source-scripts/city/landmark-completion-audit'));import audit
+ audit.DOC=snapshot.parent
+ audit.capture(read(R/'docs/astra-city/model-integration-20260909/current-source-review.json')['snapshotId'])
+frozen=read(snapshot);rows=[{k:r[k] for k in ['uid','source_sha256','review_state']}for r in frozen['rows'] if r['review_state']=='installed-verified'];lookup={r['uid']:r for r in rows};embedded=[]
 for t in read(R/'3d-viewer/city/data/manifest.json')['tiles']:
  path=R/'3d-viewer'/t['url']
  for b in read(path)['buildings']:
