@@ -1,5 +1,43 @@
 # Current original-model continuation — 27 October 2026
 
+Newest continuation: North mobile controller3081853 remains live; groups01–08
+passed,55/67actors verified,0held,12remaining. Topology supervisor3319791/session66913
+still waits for its exact process identity. Never restart either.
+
+ROOT inspected48more full-frame mobile exports (groups04–07) on4unscaled sheets.
+Sheet receipt14377202aad1b139ad3275a307b1d1b70aed38a7f4cf9ea896f4242204083279;
+typed observations89d012316a43d3023e1a8787b458227bfce82b2568d14a346a5dc54217ffda1a.
+Together with prior25actors this means49/67mobile actors/98exports actually
+inspected; group08 and later remain to inspect. No architecture/physical approval.
+
+Elegant Garden exact private-inset preflight COMPLETE in Neon
+9aae33b9010c7d23fed04a5f6f3bf98f1c07d9f7f13a11dffea6430beca262e1.
+Domain cells[460,450,462,452], bounds[-2267.5,32.5,-2127.5,172.5]. Exactly3current
+native actors touch:229834,337316,337318. Whole root-native terrain member
+city/data/government-native-kwong-fung-original-v1-20261025.json must be retained
+and explicitly replaced; no coordinated members. Full canonical resource set has8
+keys (3new originals+3retained+oldterrain+rootterrain). First preflight read the
+wrong receipt for terrain hashes; preserved failed source/log in local
+government-xl-elegant-garden-inset-scope-provenance-failure-v1-20261027. Corrected
+preflight uses exact completed runtime terrain hashes, not model-only inventory.
+
+LIVE follow-on: elegant_garden_private_inset_sequence_v2_20261027.py,
+session14222, log /tmp/astra-elegant-private-inset-sequence-v2.log. It waits for
+3081853 terminal before claiming any root/model lease. Then runs existing insetV9
+with both tower companions/fullKwongFung retention, retained-scopeV3, runtimeV6,
+and a separate explicit-flat-replacement form-check adapter. Seven adversarial
+tests prove rejection of extra/unrelated terrain overlap, dropped/extra/duplicate
+targets, partial domains, wrong roots, changed old obligations and ambiguous
+replacements. Canonical/plain/hierarchical checkers and publisher unchanged.
+
+Unstarted V1waiter3536795 was stopped before any lease/phase after inspection
+found the plain scope/form adapters intentionally reject retained overlaps.
+Preserved original source/log/reason in local
+government-xl-elegant-garden-private-inset-unstarted-v1-20261027; do not relaunch it.
+V2requires exactly the pinned old member, full domain/old targets and no other
+positive overlap. All failures remain diagnostics, no terrain/model publication.
+Installation totals unchanged395/126/521XL,6989actors; both nullUIDkeys retained.
+
 Most recent: Elegant Garden native-ground sequence23514 is TERMINAL COMPLETE,
 Neonc0667d85ab56a650ad2b7448a592eb53f866d7b10df087f46029a1ef71ddea4a.
 Podium236170 passes the exact cached government terrain foundation in ALL4worlds:
