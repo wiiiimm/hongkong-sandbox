@@ -1,3 +1,13 @@
+## 27 October: coordinated loading pushed; all five browser lifecycle cases complete
+
+Runtime commit f0043ad36 pushed. Optional explicit activationGroup metadata is separate from physical supportDependencies; complete planning, sequential whole-family decoding under mobile concurrency1, budget reservations, all-tile basic rendering/collision transaction, complete fallback/retry/retirement and cross-tile visibility implemented. No installed catalogue changed. Full city Node suite440/440 PASS;25 new tests. See docs/astra-city/MODEL-ACTIVATION-GROUPS.md.
+
+Private original browser V1 TERMINAL SUCCESS; PID4001982 no longer live. Desktop success plus fresh mobile contexts intentionally failing each of156599/210743/231469/234188 PASSED. Every failed download kept all4BASICs, Retry activated all4, Base-only restored all4, Auto restored all4, eviction removed all4. Render-observer transitions only0or4, zero stale rendering/collision maps, zero pageerrors. Original4SHA/trianglecounts exact. ROOT actually opened all5PNGexports. Mobile selection overlay obscures mostsource; NO sourceappearance acceptance. Continuous GPUrender replaced by observer; NO performance acceptance.
+
+Frozen Neon75faac046936b3a9252b890397bff2e8492d23a4e724f89419aec3933dabf135 verified complete and lease released. Evidence government-xl-ocean-four-atomic-lifecycle-browser-v1-20261027; reproducible model_atomic_lifecycle_browser_v1_20261027.mjs and ocean_atomic_lifecycle_receipt_v1_20261027.py. Do not rerun. All physical/install/publication flags FALSE. No sourcegeometry changes, AIgeometry, optimisation or migration.
+
+Counts unchanged393installed/128unfinished/521XL;6985officialactors. UniversityHall repeated approval already fulfilled c339a3745; do not reinstall. NEXT actual Ocean5upwardfacet/nativeinterface review+fresh retained27visuals and separately typed supported-coimport retained-terrain/no-installed-metadata-update qualification/publisher using newatomicmetadata. Existing source/placement checks mandatory. Northpair still needs multiparent/rootgap terrain route, not unchanged singlecover. Both protected dirtyfiles remain unstaged. Goal active, no human blocker. Older LIVE headings below are historical.
+
 ## 27 October: North Tower identity/landscape decisions completed; original companion recovered
 
 Counts UNCHANGED393installed/128unfinished/521fixedXL/6985detailedactors. No installation or permanent rejection. This goal turn is PROGRESS: two bounded source identities accepted,35 auxiliary landscape-base roles accepted,338-face companion recovered and12current-source phases completed. All our worker handles87601/58482/19823/24804/8433/27501/26735/59034/83238/68778/54410/51139 TERMINAL0/released as applicable; none live. Do not poll/restart them.

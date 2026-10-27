@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27October atomic runtime f0043ad36 PUSHED;440Node tests+all5private desktop/mobile original lifecycle cases PASS. Neon75faac046936b3a9252b890397bff2e8492d23a4e724f89419aec3933dabf135 complete/released. No producer live; do not rerun. No installed catalogue/geometry changes.393/128/521XL,6985actors unchanged. Read latestHANDOFF: NEXT Ocean physical5upwardfaces/nativeinterfaces+fresh retained27visuals, then guarded supported-coimport/retained-terrain publisher. Atomic activation metadata is availability, NOT physicalsupport. No source/performance/installapproval fromsoftwaretest. UniversityHall already installed. NoAIgeometry/optimisation/migrations/newagents/mainmerge/shared4176.
+
 27October Waterfront203730 INSTALLED ec52c359/snapshot809f287f587bc329.393/128/521XL,6985actors. ROOTopenedALL4freshlivesheets/8exports,recordV4;readbackd6777e7a verifiesALL6984oldassets+entries/full521ONLY203730changed/globalBASIC/allterrainunchanged/Neonpointer. ExactElementsparentinstalled-verified unchangedinbothold/newNeonsnapshots. COMMIT/PUSHactualinstallNOW;neverbduplicateWaterfront/QE/UniversityHall. Refresh6985bounds+128exactkeys(twonullUIDs),thenOceanCentre234188originalTIN/MAX/retained-domainroute;oldrectanglecoverage/overlapfailuresmustnotberepeatedunchanged. ReadlatestHANDOFF. NoAIgeometry/optimisation.
 
 
