@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October newest: North physical63edcbf2/visual3cd1b629/terrain-onlyb59fc934 COMPLETE; all67mobile134exports inspected. Prior workers terminal. Guarded stageV2 session9471/PID4089382 is running; read latestHANDOFF/log before acting. Preserve raw20270/177605supportFALSE; terrain-only reviews grant no source/support reapproval.395/126/521XL6989actors unchanged. NoAIgeometry/optimisation.
+
 27 October: selectedmobileb87c8436 COMPLETE7actors/14views+normalBASICfallback; ROOTbothphone sheets inspected. Remaining60mobile controller LIVE89115/log /tmp/astra-north-remaining-mobile-v1.log; group01PASS7bb92f05 ->13/67verified,0held,54remaining. progress.pending=frozen60scope, derive live remainder. Do not edit/restart controller/V18/helper; no sourcegeometry/budget change. Read latestHANDOFF; source+terrain/visual qualification/liveinstall stillrequired,395/126/521XL/6989actorsunchanged.
 
 27 October: Lui baseline comparison07d5f7e7 COMPLETE: same LIVE/STAGED deselected-night inactive/wantedfalse, samecamera/limits/source. Exactbudget135.315MiB exceeds normal128, fits actual UIselected160; production policy testPASS. Selected mobile verification LIVE49828/log /tmp/astra-north-selected-retained-mobile-v1.log, V20keeps actual visit selection for Lui only then REQUIRES normal BASIC fallback; no production/budget change. Read latestHANDOFF; other60mobile controller NOT RUN until7actor+fallback receipt succeeds.395/126/521XL,6989actors unchanged.

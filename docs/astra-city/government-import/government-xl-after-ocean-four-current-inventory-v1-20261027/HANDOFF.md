@@ -1,3 +1,48 @@
+# Latest continuation — North pair review complete, guarded stage running
+
+All prior North mobile/topology workers are TERMINAL; do not restart them.
+All67 mobile actors/134exports and134desktop retained exports (with7corrected
+cameras) were actually inspected, plus8new-source exports. Visual qualification
+3cd1b62904dabbe58bc5d8dbd9f52fc7d076c419435af24a2dde579336842883
+is COMPLETE in Neon. Source physical review63edcbf2 is accepted; current35masked
+facets/10287ordinary faces and freshAux338faces all pass their bounded checks.
+
+New retained-terrain-only receipt
+b59fc934c5b568c0634bacb9ffdb8122f60009ae8026abae5868844373b6e552
+binds67actors/786BASICforms/3members. Both raw combined support negatives
+20270and177605 remain FALSE, unchanged in rawMeshAndSupportReview; exact complete
+actor AND support terrain multisets prove proposal nonregression only. No old
+model/source/support is reapproved. Eight new adversarial tests and63focused
+foundation/availability/publisher tests pass. V1receipt startup lacked required
+uids; failed outputs/source/log preserved, lease cleanup verified in freeze finally.
+V2is a distinct completed receipt. Canonical publisher/checkers unchanged.
+
+CURRENT guarded stage dry run: PID4089382/session9471,
+/tmp/astra-north-qualified-stage-v2.log; last process check CPUactive. Do not
+restart/edit producer while running. Script north_pair_qualified_stage_v1_20261027.py
+prepares qualified-stage-v2, new2originals,3exactterrainmembers and onlySouth
+availability annotation. V1private browser schema lacked publication sha256;
+partial stage/log/source preserved. V2explicitly hashes authenticated tested
+sources and uses new public destinations; no evidence/threshold waiver.
+
+No new installation yet:395installed/126unfinished/521fixedXL,6989actors.
+FutureNorth+aux adds1fixedXL and2actors. BothnullUIDkeys remain in denominator.
+NEXT read actual stage result; prepare exact lease-fenced live installer/readback,
+then install, verify liveHTTP/old6989assets/full521ledger, commit/push.
+
+Elegant Garden private inset is TERMINAL complete02f73ab7;57BASICforms include
+FOUR ground-gap flags (99061,171904,173767,224123), not installation-ready.
+Four-world support sequence239956cd complete; Block2has7unresolvedof119samples.
+Continue support attribution/retained3native checks/fourBASICprotection. Original
+geometry remains unchanged; no optimisation or AI modelling authorised.
+
+Receipt-only jobs may lack summary.json; use authenticate result. freeze merges
+result over payload: rename manual evidenceRefs to rootObservationEvidenceRefs
+before freezing, or manual references shadow the complete machine file binding.
+V2desktop/camera/selected inspection receipts fix this without modifyingV1bytes.
+
+--- Older chronological notes follow; newest section above governs. ---
+
 # Current original-model continuation — 27 October 2026
 
 Newest continuation: North mobile controller3081853 remains live; groups01–08
