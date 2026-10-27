@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October newest: Northlive ALL4atomicPASS; full390Node84057running/worker4168801/session56811, then1280.4mobile sourcePNGsROOTinspected; neveralterliveproducer/observationsinsidefrozendoc. ElegantBlock2exact4wallrole526a9663 COMPLETE:all28originaledgepaths passendpointheight,allother10889facetsordinaryfoundationPASS;raw0.5m/supportnegativesunchanged. Source-roleonly,notwhole/currentmapapproval. ReadHANDOFF;395/126/521XL6989verifiedactorsunchanged.
+
 27 October latest: North qualifiedstagef95f0bb5 and73resource fencedpublisher preflightV2 COMPLETE/terminal;8plan testsPASS. No liveinstallationyet395/126/521XL6989actors. ReadHANDOFF; NEXT dedicated liveinstaller/readback (Ocean template differs:Southavailabilityannotation+3terrainmembers+selectedLui). No currentworker/newAIgeometry/optimisation.
 
 27 October newest: North physical63edcbf2/visual3cd1b629/terrain-onlyb59fc934 COMPLETE; all67mobile134exports inspected. Prior workers terminal. Guarded stageV2 session9471/PID4089382 is running; read latestHANDOFF/log before acting. Preserve raw20270/177605supportFALSE; terrain-only reviews grant no source/support reapproval.395/126/521XL6989actors unchanged. NoAIgeometry/optimisation.

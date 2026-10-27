@@ -1,3 +1,47 @@
+# Latest continuation: North live rendering; Elegant four-wall source role accepted
+
+Northinstaller/session56811 remains LIVE underoriginalsupervisor4168778/worker
+4168801. ActualatomicNode1145 TERMINALSUCCESS:ALL4cases passed,0pageerrors,
+all3sourceSHA/facecounts/groupBase-only/eviction/framecollision-mapchecksPASS.
+CurrentmobilefullNode84057 isLIVE; lastcheck18PNGs(4source+2joint+12retained),
+no rollback/installedacceptance. It previsits ALL67retained before sourcecaptures,
+then captures all67day/night;0PNGs early was not a stall. DO NOTrestart/modify
+producer/V20/helper while running. It will do1280after390, thenNeon/count/export.
+
+ROOT actually opened ALL4mobile source exports (North+aux xday/night). Separate
+hash-bound observations at local/government-xl-west-kowloon-north-pair-after-ocean-root-live-inspection-draft-v1-20261027/mobile.json.
+Do NOTwrite/change manual observations inside liveDOC/LOCAL before its final
+receipt (worker freezes everyexistingfile). Aftercomplete, inspect4desktopsource
+exports, bindall8toactual live report sourceSHA/picking/collision andwrite
+ROOT-LIVE-EXPORT-OBSERVATIONS.json; runprepared independentreadback;commit/push
+actualinstallation. Currentverifiedcounts395/126/521,6989actorsstillunchanged.
+
+ElegantGarden source-only jobs COMPLETED/released under173532/236170leases:
+contacts323e5d38e10dca83bc6af75687d5d293ec14dee92ded81b0c3c56f583f5f2ca5;
+paths c8697fd259d0de86bc5eedd5100ad6bf579a2f3fd00386a360104d022dddca5f;
+corrected3angleview065621ef5d378e3e7363342d74a721fc841604e2f24f0aa694fcd66c5ee96379;
+ordinaryremainderfoundation46e33e83c455506e68aa8dbb5d5caf31eec2696038c35b3474cad918a22c5cc2;
+sourcewallrole526a9663cb5211351a8655bf0044ffd8fae52455bdf0bc450fcee3c0c70e3767.
+All7warnings have finite original-edge paths inALL4worlds,zero riseaboveendpoints,
+maxresidual4.263e-14m. Pathsneedonly10385/10388; allincidentfacets4:
+10385/10388/10389/10506, nearverticalYnormalabs<.003,HKPD21.61–22.649.
+ALLother10889faces PASSunchanged ordinaryfoundationinALL4worlds,min~-1.9e-6m,
+0fullyburied/upward; exact4wallpanelsalso0fullyburied. Raw7supportwarnings and
+0.5membeddingpolicyremainFALSE/unchanged. No facetremoved/edited.
+
+ROOTviewed correctedV2PNG all3angles andaccepted ONLYexact4sourcewallroles.
+V1plotpreserved:Matplotlibmutatedset_box_aspect(size)array,wrong2nd/3rdaxes;
+V2usescopy,notgeometry/datafix. Role isNOTwholephysical/identity/currentterrain/
+companionroot/foreignBASIC/browser/installapproval.7invalidevidencemutations
+rejected;7shared-edge/leasecleanuptestsPASS. Frozenprivateinset+fourworldparent
+receipts checkpointedwithrecoverycode. NoAIgeometry/optimisation.
+NEXT Elegant:resolve4flaggedBASICs99061/171904/173767/224123 plus3retainednative
+regressions;Block1/2identity/originalinterfaces/podiumgroundbinding thenfresh
+currentmapbrowser/guardedinstall. Rootterrainphase waitsNorthpublicationlock;
+source-onlycached computations are separate andno sourceleasecurrentlyheld.
+
+Older notes below are historical; newestsection governs.
+
 # LIVE North original installation — do not restart or edit producer
 
 Live installer session56811, parentPID4167448, lease supervisor4168778,
