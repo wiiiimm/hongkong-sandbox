@@ -1,3 +1,4 @@
+import {activationClosure,activationGroupMembers} from './model-activation-groups.js';
 // Support relationships are source metadata, not an alternative height system.
 const UID=/^landsd\/[1-9]\d*:(?:0|[1-9]\d*)$/;
 export function modelSupportDependencies(entry){
@@ -19,21 +20,8 @@ export function supportedModelPlan(candidates,models,limits,budget,available,sel
  const wanted=[],chosen=new Set(),reservedFallbacks=new Set(),blocked=new Map();
  const used={geometryBytes:0,residentBytes:0,triangles:0,drawCalls:0};
  for(const root of candidates){
-  const ordered=[],complete=new Set(),visiting=new Set(),fallbacks=new Set();
   try{
-   const visit=uid=>{
-    if(complete.has(uid))return;
-    if(visiting.has(uid))throw new Error('Cyclic native model support: '+uid);
-    const entry=models.get(uid);if(!entry||!available(uid,'native'))throw new Error('Native model support unavailable: '+uid);
-    visiting.add(uid);
-    if(visiting.size+complete.size>limits.count)throw new Error('Model support group exceeds count budget');
-    for(const d of modelSupportDependencies(entry)){
-     if(d.kind==='native')visit(d.uid);
-     else{if(!available(d.uid,'fallback',d))throw new Error('Surveyed model support unavailable: '+d.uid);fallbacks.add(d.uid);}
-    }
-    visiting.delete(uid);complete.add(uid);ordered.push(uid);
-   };
-   visit(root);
+   const {ordered,fallbacks}=activationClosure(root,models,modelSupportDependencies,available,limits.count);
    if(ordered.some(uid=>fallbacks.has(uid)||reservedFallbacks.has(uid))||[...fallbacks].some(uid=>chosen.has(uid)))throw new Error('Native upgrade conflicts with required surveyed support');
    const extra=ordered.filter(uid=>!chosen.has(uid)),cost={geometryBytes:0,residentBytes:0,triangles:0,drawCalls:0};
    for(const uid of extra){const c=budget(models.get(uid));for(const k of Object.keys(cost))cost[k]+=c[k]??(k==='drawCalls'?1:0);}
@@ -49,7 +37,8 @@ export function retainVisibleNativeSupports(details){
  for(const detail of queue)detail.group.visible=true;
  for(let i=0;i<queue.length;i++){
   const detail=queue[i];if(seen.has(detail))continue;seen.add(detail);
-  for(const dependency of modelSupportDependencies(detail.entry))if(dependency.kind==='native'){
+  const dependencies=[...modelSupportDependencies(detail.entry),...activationGroupMembers(detail.entry).filter(uid=>uid!==detail.entry?.uid).map(uid=>({uid,kind:'native'}))];
+  for(const dependency of dependencies)if(dependency.kind==='native'){
    const support=details.get(dependency.uid);if(!support?.active)continue;
    support.group.visible=true;for(const mesh of support.meshes||[])mesh.castShadow ||= detail.meshes?.some(m=>m.castShadow)??true;queue.push(support);
   }

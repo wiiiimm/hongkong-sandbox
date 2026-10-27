@@ -1,3 +1,5 @@
+import {activationGroupMembers} from './model-activation-groups.js';
+import {AtomicModelGroups} from './model-group-lifecycle.js';
 import {ModelSpatialIndex,projectedBounds} from './model-spatial-index.js';
 import {ModelByteCache,yieldModelWork} from './model-byte-cache.js?v=20261011-model-quality1';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
@@ -18,6 +20,7 @@ export class OfficialModelLayer{
   if(!MODEL_PROFILES[profile])throw new Error('Unknown official model profile');
   Object.assign(this,{stream,profile,onChange,onReveal,loadAsset,quality:'auto'});this.limits=MODEL_PROFILES[profile];this.warmMs=warmMs;this.byteCache=new ModelByteCache();this.lastUseful=new Map();this.smallSince=new Map();this.activating=new Map();this.activeControllers=new Map();this.changeTail=Promise.resolve();this.signature='';this.nextCheck=Infinity;this.index=null;this.dirty=true;this.drawWanted=new Set();this.drawCosts=new Map();this.selectedAssets=new Map();this.failedVariants=new Map();this.loadingAssets=new Map();this.qualityEpoch=0;this.matrix=new THREE.Matrix4();this.frustum=new THREE.Frustum();this.eye=new THREE.Vector3();this.models=new Map();this.catalogues=new Map();this.catalogueErrors=new Map();this.requests=new Map();this.retiring=new Map();this.releaseFailures=new Map();this.supportHolds=new Map();this.closed=false;this.lastCheck=-Infinity;this.lastPlan=-Infinity;this.lastCamera=null;this.lastOptions=null;
   this.cache=new TileCache({abortOnPause:false,limit:this.limits.count,concurrency:this.limits.concurrency,load:(uid,signal)=>this.load(uid,signal),dispose:(entry,hint)=>{if(hint?.replacedBy)disposeOfficialModel(entry);else this.release(entry).catch(()=>{});},onChange:()=>{this.dirty=true;if(!this.closed)this.onChange();}});
+  this.activationGroups=new AtomicModelGroups(this,ModelBudgetDeferred);
  }
  async loadCatalogue(input){
   if(this.closed)return false;const url=new URL(input,globalThis.location?.href||'http://localhost/').href;
@@ -29,7 +32,7 @@ export class OfficialModelLayer{
     const text=await response.text();if(text.length>1024*1024)throw new Error('Model catalogue exceeds compact inventory budget');
     const raw=JSON.parse(text),entries=await attachModelVariants(prepareModelCatalogue(raw,url),raw,url);
     if(this.closed||controller.signal.aborted)return false;
-    for(const entry of entries){modelSupportDependencies(entry);const old=this.models.get(entry.uid);if(old&&(old.sha256!==entry.sha256||old.modelId!==entry.modelId))throw new Error('Conflicting model UID '+entry.uid);}
+    for(const entry of entries){modelSupportDependencies(entry);activationGroupMembers(entry);const old=this.models.get(entry.uid);if(old&&(old.sha256!==entry.sha256||old.modelId!==entry.modelId))throw new Error('Conflicting model UID '+entry.uid);}
     for(const entry of entries)if(!this.models.has(entry.uid))this.models.set(entry.uid,entry);
     this.catalogues.set(url,{models:entries.length,bytes:new TextEncoder().encode(text).length});this.index=null;this.dirty=true;this.lastPlan=-Infinity;return true;
    }catch(error){if(!this.closed&&!controller.signal.aborted)this.catalogueErrors.set(url,error.message);return false;}
@@ -64,8 +67,8 @@ export class OfficialModelLayer{
    this.cache.notify();
   }else if(this.lastCamera)this.plan(this.lastCamera,{...this.lastOptions,force:true});
  }
-  async waitForSupports(meta,signal){
-  const dependencies=modelSupportDependencies(meta),native=dependencies.filter(d=>d.kind==='native').map(d=>d.uid);
+  async waitForSupports(meta,signal,activationMembers=new Set()){
+  const dependencies=modelSupportDependencies(meta),native=dependencies.filter(d=>d.kind==='native'&&!activationMembers.has(d.uid)).map(d=>d.uid);
   if(native.length){
    if(signal.aborted)throw new DOMException('Aborted','AbortError');
    await new Promise((resolve,reject)=>{
@@ -80,13 +83,14 @@ export class OfficialModelLayer{
    });
   }
   for(const d of dependencies){
+   if(d.kind==='native'&&activationMembers.has(d.uid))continue;
    if(!this.supportAvailable(d.uid,d.kind,d)||d.kind==='fallback'&&this.stream.detailedModels.has(d.uid))throw new Error('Required model support not ready: '+d.uid);
   }
   }
-  canAdmit(uid,budget,{checkDrawCalls=true}={}){
-   const held=[...new Set([...this.cache.entries.values(),...this.retiring.keys()])],costs=held.map(entry=>entry.budget);costs.push(budget);
+  canAdmit(uid,budget,{checkDrawCalls=true,excludeGroupKey}={}){
+   const held=[...new Set([...this.cache.entries.values(),...this.retiring.keys(),...this.releaseFailures.keys()])],costs=held.map(entry=>entry.budget);costs.push(...(this.activationGroups?.reservedCosts(excludeGroupKey)||[]),budget);
    const sum=key=>costs.reduce((total,cost)=>total+(cost[key]||0),0);
-   const draws=held.reduce((total,entry)=>total+(entry.budget.drawCalls??this.drawCosts.get(entry.record.uid)??1),0)+(budget.drawCalls??this.drawCosts.get(uid)??1);
+   const draws=held.reduce((total,entry)=>total+(entry.budget.drawCalls??this.drawCosts.get(entry.record.uid)??1),0)+(this.activationGroups?.reservedCosts(excludeGroupKey)||[]).reduce((n,c)=>n+(c.drawCalls??1),0)+(budget.drawCalls??this.drawCosts.get(uid)??1);
    const residentLimit=this.lastOptions?.selectedUid===uid?(this.limits.selectedResidentBytes??this.limits.residentBytes):this.limits.residentBytes;
    return sum('geometryBytes')<=this.limits.geometryBytes&&sum('residentBytes')<=residentLimit&&sum('triangles')<=this.limits.triangles&&(!checkDrawCalls||draws<=this.limits.drawCalls);
   }
@@ -101,6 +105,7 @@ export class OfficialModelLayer{
    return this.selectedAsset(uid)||source;
   }
   async load(uid,signal){
+  if(activationGroupMembers(this.models.get(uid)).length>1)return this.activationGroups.load(uid,signal);
   // Retired source geometry remains visible only until its fallback bake swaps.
   // Wait for that release before starting another decode; don't accumulate two
   // regions' collision arrays during rapid travel.
@@ -153,6 +158,7 @@ export class OfficialModelLayer{
   throw new Error('Official model candidate failed');
  }
  release(entry){
+  if(activationGroupMembers(entry.entry||this.models.get(entry.record.uid)).length>1)return this.activationGroups.release(entry);
   if(this.retiring.has(entry))return this.retiring.get(entry);
   const retireStart=metrics.start();this.activeControllers.get(entry.record.uid)?.abort();
   const promise=(async()=>{
@@ -261,6 +267,7 @@ export class OfficialModelLayer{
    if(!keep.has(uid)){this.cache.entries.delete(uid);this.lastUseful.delete(uid);this.smallSince.delete(uid);this.release(entry).catch(()=>{});continue;}
    // Offscreen detail remains decoded (and collision-ready) without drawing.
    // In-view tiny detail restores its basic form atomically before detaching.
+   if(activationGroupMembers(entry.entry).length>1)continue;
    const supportsActive=[...this.stream.detailedModels.values()].some(d=>d!==entry&&d.active&&modelSupportDependencies(d.entry).some(dep=>dep.kind==='native'&&dep.uid===uid));
    const wantsDetail=this.drawWanted.has(uid)||visibleUids.has(uid)&&supportsActive;
    // Never hide an in-view active shell until its fallback commit has completed.
@@ -281,6 +288,7 @@ export class OfficialModelLayer{
    }
 
   }
+  this.activationGroups.planVisibility(visibleUids);
   this.stream.sync?.();
   if(clearedDeferred||wanted.join('|')!==this.cache.wanted.join('|'))this.cache.plan(wanted);
   for(const uid of this.cache.wanted){
@@ -300,6 +308,6 @@ export class OfficialModelLayer{
   return {profile:this.profile,quality:this.quality,catalogues:this.catalogues.size,available:this.models.size,cached:entries.length,visible:entries.filter(e=>e.group.visible).length,pending:this.cache.running.size+this.requests.size,loadingPaused:this.cache.paused,retiring:this.retiring.size,wanted:this.cache.wanted.length,supportHolds:[...this.supportHolds].map(([uid,reason])=>({uid,reason})),errors:[...this.catalogueErrors.keys(),...[...this.cache.errors].filter(([,error])=>!(error instanceof ModelBudgetDeferred)).map(([uid])=>uid),...this.releaseFailures.keys()].map(value=>typeof value==='string'?value:'restore:'+value.record.uid),variantErrors:[...this.failedVariants].map(([variantId,diagnostic])=>({variantId,diagnostic})),...cost,limits:this.limits,warm:entries.filter(e=>!this.drawWanted.has(e.record.uid)).length,compressed:this.byteCache.stats,drawCalls:entries.reduce((n,e)=>n+(e.group.visible?(e.budget.drawCalls??e.meshes?.length??1):0),0)};
  }
  async dispose(){
-  if(this.closed)return;this.closed=true;for(const controller of this.activeControllers.values())controller.abort();for(const {controller} of this.requests.values())controller.abort();this.cache.close();this.byteCache.close();await Promise.allSettled([...this.retiring.values()]);this.models.clear();this.drawCosts.clear();this.catalogues.clear();this.catalogueErrors.clear();
+  if(this.closed)return;this.closed=true;for(const controller of this.activeControllers.values())controller.abort();for(const {controller} of this.requests.values())controller.abort();this.cache.close();this.byteCache.close();await Promise.allSettled([...this.activationGroups.flights.values()].map(f=>f.promise));await Promise.allSettled([...this.retiring.values()]);this.models.clear();this.drawCosts.clear();this.catalogues.clear();this.catalogueErrors.clear();
  }
 }

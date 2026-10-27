@@ -1,3 +1,4 @@
+import {activationGroupMembers} from './model-activation-groups.js';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {BuildingIndex} from './geo.js';
@@ -43,15 +44,15 @@ export class CityStreaming {
    return {id,data,...baked,roads,nature};
   }catch(error){disposeGroup(buildings.group);if(roads)disposeGroup(roads);if(nature)disposeGroup(nature.group);throw error;}
  }
- async prepareBuildings(data,signal){
+ async prepareBuildings(data,signal,modelsSnapshot){
   // Each bake uses a stable replacement set. If a package completes while this
   // asynchronous tile is baking, discard that bake and use the latest set.
   for(;;){
-   const exclusions=this.infrastructureBuildingUids,models=this.detailedModels,suppressions=this.detailSuppressions(models,data.buildings),indices=[];
+   const exclusions=this.infrastructureBuildingUids,models=modelsSnapshot??this.detailedModels,suppressions=this.detailSuppressions(models,data.buildings),indices=[];
    const features=data.buildings.filter((b,i)=>{if(exclusions.has(b.uid)||models.has(b.uid)&&models.get(b.uid)?.entry?.retainsBasicForm!==true||suppressions.has(b.uid))return false;indices.push(i);return true;});
    const bakeStart=metrics.start();const buildings=await makeBuildings(features,null,{lighting:this.lighting,signal});metrics.end('fallbackBakeMs',bakeStart);buildings.group.userData.disposableMaterials=buildings.materials;
    if(signal?.aborted||this.cache.closed){disposeGroup(buildings.group);throw new DOMException('Aborted','AbortError');}
-   if(exclusions!==this.infrastructureBuildingUids||models!==this.detailedModels){disposeGroup(buildings.group);continue;}
+   if(exclusions!==this.infrastructureBuildingUids||modelsSnapshot===undefined&&models!==this.detailedModels){disposeGroup(buildings.group);continue;}
    for(const mesh of buildings.group.children){
     mesh.userData.tile=data.id;
     const attribute=mesh.geometry.attributes.feature;
@@ -100,9 +101,71 @@ export class CityStreaming {
   const detail=this.detailedModels.get(uid);if(detail?.active)return detail.record;
   for(const entry of this.cache.entries.values()){if(!entry.sourceBuildings||entry.sourceBuildings.size!==entry.data.buildings.length)entry.sourceBuildings=new Map(entry.data.buildings.map(b=>[b.uid,b]));const b=entry.sourceBuildings.get(uid);if(b)return b;}return null;
  }
+ /** Prepare all fallback geometry before atomically switching a source group. */
+ async setDetailedModels(replacements,{signal}={}){
+  const changes=[...replacements];
+  if(!changes.length)return true;
+  if(changes.length>64||new Set(changes.map(([uid])=>uid)).size!==changes.length)throw new Error('Invalid detailed model replacement group');
+  for(const [uid,detail] of changes){
+   if(typeof uid!=='string'||!uid||detail&&(detail.record.uid!==uid||!detail.group?.isObject3D||!detail.record.modelGeometry))throw new Error('Invalid detailed building replacement');
+  }
+  // Existing asynchronous infrastructure bakes must finish before staging. New
+  // ones are detected below and cannot cause a partially committed group.
+  await Promise.all([...this.cache.entries.values()].map(e=>e.infrastructureUpdate).filter(Boolean));
+  if(signal?.aborted||this.cache.closed)return false;
+  const previous=this.detailedModels,exclusions=this.infrastructureBuildingUids,next=new Map(previous),uids=new Set(changes.map(([uid])=>uid));
+  const replacementMap=new Map(changes);
+  for(const [uid,detail] of changes){
+   const oldMembers=activationGroupMembers(previous.get(uid)?.entry);
+   if(oldMembers.length>1&&oldMembers.some(member=>!replacementMap.has(member)))throw new Error('Incomplete previous model activation group');
+   const members=activationGroupMembers(detail?.entry);
+   if(detail&&members.length>1&&members.some(member=>!replacementMap.get(member)||activationGroupMembers(replacementMap.get(member).entry).join('|')!==members.join('|')))throw new Error('Incomplete next model activation group');
+  }
+  const loadedSources=()=>new Set([...this.cache.entries.values()].flatMap(e=>e.data.buildings.map(b=>b.uid)));
+  const sourceUids=loadedSources();
+  for(const [uid,detail] of changes){
+   if(detail&&!sourceUids.has(uid))return false;
+   for(const item of [detail,previous.get(uid)])for(const other of item?.entry?.suppressesBuildingUids||[]){
+    if(!uids.has(other))throw new Error('Atomic replacement requires every suppressed source in the group: '+other);
+   }
+   if(detail)next.set(uid,detail);else next.delete(uid);
+  }
+  if(changes.every(([uid,detail])=>(previous.get(uid)||null)===(detail||null)))return true;
+  const affected=()=>[...this.cache.entries.values()].filter(e=>e.data.buildings.some(b=>uids.has(b.uid)));
+  const entries=affected(),prepared=[];
+  let committed=false;
+  try{
+   const outcomes=await Promise.allSettled(entries.map(async entry=>{
+    const baked=await this.prepareBuildings(entry.data,signal,next);prepared.push({entry,baked});
+   }));
+   const failure=outcomes.find(r=>r.status==='rejected');if(failure)throw failure.reason;
+   if(signal?.aborted||this.cache.closed||this.detailedModels!==previous||this.infrastructureBuildingUids!==exclusions)return false;
+   if(prepared.some(({entry,baked})=>this.cache.entries.get(entry.id)!==entry||entry.infrastructureUpdate||baked.models!==next||baked.exclusions!==exclusions))return false;
+   if(affected().some(entry=>!entries.includes(entry)))return false;
+   const finalSources=loadedSources();if(changes.some(([uid,detail])=>detail&&!finalSources.has(uid)))return false;
+   // There is deliberately no await between the map, fallback, collision and
+   // detailed-group commits. The renderer can only observe the complete state.
+   this.detailedModels=next;
+   for(const {entry,baked} of prepared){
+    disposeGroup(entry.buildings.group);Object.assign(entry,baked);this.buildings.add(entry.buildings.group);this.infrastructureErrors.delete(entry.id);
+   }
+   for(const [uid,detail] of changes){
+    const old=previous.get(uid);
+    if(old&&old!==detail){old.active=false;old.group.removeFromParent();}
+    if(detail){detail.active=true;this.buildings.add(detail.group);}
+   }
+   committed=true;this.revision++;this.sync();
+   for(const {entry} of prepared)this.inspection?.register(entry.buildings.group,'structures');
+   for(const [,detail] of changes)if(detail)this.inspection?.register(detail.group,'structures');
+   this.onChange?.();return true;
+  }finally{
+   if(!committed)for(const {baked} of prepared)disposeGroup(baked.buildings.group);
+  }
+ }
  async setDetailedModel(uid,detail,{signal}={}){
   if(signal?.aborted)return false;
   const old=this.detailedModels.get(uid);if(old===detail)return true;
+  if(activationGroupMembers(detail?.entry).length>1||activationGroupMembers(old?.entry).length>1)throw new Error('Grouped source requires atomic model replacement');
   if(detail&&(detail.record.uid!==uid||!detail.group||!detail.record.modelGeometry))throw new Error('Invalid detailed building replacement');
   this.detailedModels=new Map(this.detailedModels);if(detail)this.detailedModels.set(uid,detail);else this.detailedModels.delete(uid);
   const cancel=()=>{if((this.detailedModels.get(uid)||null)===(detail||null)){this.detailedModels=new Map(this.detailedModels);if(old)this.detailedModels.set(uid,old);else this.detailedModels.delete(uid);}};
