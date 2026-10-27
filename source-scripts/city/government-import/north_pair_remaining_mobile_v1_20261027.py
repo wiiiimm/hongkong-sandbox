@@ -17,7 +17,7 @@ from primrose_compound_foundation_v2_20261015 import module
 
 PREFIX = 'government-xl-west-kowloon-north-pair-after-ocean-'
 PARENT = PREFIX + 'desktop-complete-mobile-held-v1-20261027'
-CAMERA = PREFIX + 'source-camera-supplement-v1-20261027'
+CAMERA = PREFIX + 'selected-retained-mobile-v1-20261027'
 BATCH = PREFIX + 'remaining-mobile-v1-20261027'
 BASE = ROOT / 'docs/astra-city/government-import'
 
@@ -46,6 +46,8 @@ def main():
     assert inventory['currentNativeActors'] == 6989
     assert parent['desktopDiagnosticsPassed'] and camera['actualSourcePixelsRequired']
     assert camera['sourceGeometryChanges'] == 0 and camera['installationApproved'] is False
+    assert camera['normalDeviceBudgetsUnchanged'] and camera['normalDeselectionFallbackVerified']
+    assert camera['originalSourceCapturesPreserved'] == 8 and camera['retainedMobileViewCount'] == 14
     original = read(BASE / (PREFIX + 'full-existing-peer-browser-v2-20261027') / '1280/staged-browser.json')
     expected = {r['uid']: r['sourceSHA256'] for r in original['retainedNativeOwnViews']}
     assert len(expected) == 67
@@ -53,6 +55,8 @@ def main():
     assert camera_report['passed'] and not camera_report['errors']
     already = sorted({r['uid'] for r in camera_report['retainedNativeOwnViews']})
     assert len(already) == 7 and set(already) <= set(expected)
+    assert len(camera_report['retainedNativeOwnViews']) == 14
+    assert {(r['uid'], r['time']) for r in camera_report['retainedNativeOwnViews']} == {(u, t) for u in already for t in ['15:00', '22:00']}
     for row in camera_report['retainedNativeOwnViews']:
         assert row['sourceSHA256'] == expected[row['uid']] and row['sourcePixelVisibility']['visiblePixels'] >= 32
     pending = sorted(set(expected) - set(already))

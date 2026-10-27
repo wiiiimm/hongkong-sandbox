@@ -1,9 +1,24 @@
 """The availability adapter must retain every pre-existing browser check."""
 from pathlib import Path
+import re
 import unittest
 
 
 class BrowserParity(unittest.TestCase):
+    def test_v20_keeps_all_existing_assertions_and_uses_actual_selection(self):
+        folder = Path(__file__).parent
+        before = (folder / 'ronsdale_three_live_browser_v19_20261027.mjs').read_text()
+        after = (folder / 'ronsdale_three_live_browser_v20_20261027.mjs').read_text()
+        assertions = re.findall(r'assert(?:\.[A-Za-z]+)?\([^;]+?\);', before)
+        self.assertGreater(len(assertions), 40)
+        for assertion in assertions:
+            self.assertIn(assertion, after)
+        self.assertIn("window.__city.state.selectedId!==uid", after)
+        self.assertIn('else r.closeSelection();', after)
+        self.assertIn('report.retainedDeselectionFallbacks.push(fallback)', after)
+        self.assertNotRegex(after, r'\.limits\.[A-Za-z]+\s*=(?!=)')
+        self.assertNotRegex(after, r'window\.__city\.state\.selectedId\s*=(?!=)')
+
     def test_v19_adds_observations_without_changing_checks(self):
         folder = Path(__file__).parent
         before = (folder / 'ronsdale_three_live_browser_v18_20261027.mjs').read_text()

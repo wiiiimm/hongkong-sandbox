@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October: Lui baseline comparison07d5f7e7 COMPLETE: same LIVE/STAGED deselected-night inactive/wantedfalse, samecamera/limits/source. Exactbudget135.315MiB exceeds normal128, fits actual UIselected160; production policy testPASS. Selected mobile verification LIVE49828/log /tmp/astra-north-selected-retained-mobile-v1.log, V20keeps actual visit selection for Lui only then REQUIRES normal BASIC fallback; no production/budget change. Read latestHANDOFF; other60mobile controller NOT RUN until7actor+fallback receipt succeeds.395/126/521XL,6989actors unchanged.
+
 27 October: camera99379 TERMINAL on retainedLui160070night timeout; ALL8new-source desktop/mobile captures passed+ROOTinspected, retaineddesktop14passed. NOoverall/mobile-retention/installapproval. Live-vs-staged same-budget Lui comparison LIVE55399/log /tmp/astra-north-lui-mobile-before-after-v1.log with V19wanted/cache/limits observations. Lui333434faces/38.679MBdecoded; never raise budgets/waive timeout. Read latestHANDOFF; remaining-mobile controller prereq currently missing, do not run blindly.395/126/521XL,6989actors.
 
 27 October: fullV2/session36551 TERMINAL mobile160070night active/visible timeout; desktop134PASS preserved, mobile15partialNOTPASS. Neonf97b42b7 complete desktop/mobile-held receipt. Camera supplement LIVE99379/log /tmp/astra-north-source-camera-supplement-v1.log, new2+retained7 actual-pixel16camera search. Read latestHANDOFF; no rerun complete desktop, no device-budget/timeout waiver, no overall visual/installapproval.395/126/521XL,6989actors.
