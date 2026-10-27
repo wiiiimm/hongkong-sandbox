@@ -1,5 +1,38 @@
 # Current original-model continuation — 27 October 2026
 
+Newest continuation: North mobile controller PID3081853 remains live; groups01–05
+passed, giving37/67 actors verified,0held,30remaining. Sequential eight-face
+topology supervisor PID3319791/session66913 still waits for that exact controller;
+do not launch competing182397 processing. Previous turn was concrete progress:
+36exports/18actors inspected and saved in Neon, six exact-edge diagnostic tests,
+sequential follow-on prepared, commit3785c16b7 pushed.
+
+Independent Elegant Garden work is now live in session1332,
+log `/tmp/astra-elegant-original-sequence-v1.log`. New bounds discovery Neon job
+`3101af2bd33baca3722edf31aaa776b8217b627bc092c5630eef8e45f3340006`
+searched the exact prepared sheet revision and nominated7pairs/6unique originals.
+The principal cached lower structure is236170 (1730faces,
+`fad45b9cd6a3e7a71eeb09832ed70b74f51979f10bd5c4b21428499780d87635`),
+which overlaps both unfinished towers173532/173768. Other nominations are bounds
+only; the24face source with null candidate UID remains unnamed/unapproved.
+
+Older Elegant Garden closure job4954417300bc8fdba72f7b391a52cacf0d87f689aa1ca70032420d7c35b97b31
+already passed126strict support samples for173768-on236170, but old assembly
+identity job91de8f3ee46be402283fd9e7e4a53188c477904c29a976428dc7a202adaf1414
+failed21.2582244m2 of unrelated-form overlap. Preserve both outcomes. Do not repeat
+unchanged support computation or transfer old physical/scene/identity approval.
+
+`elegant_garden_original_sequence_v1_20261027.py` holds fresh independent leases
+for173532/173768/236170, one phase at a time. Three existing strict merge phases
+completed: block2-current-selection, block1-podium-current-selection, and
+three-original-current-selection (all prefixgovernment-xl-elegant-garden-,
+suffix-v1-20261027). Exact current inventory/forms/native records/source bytes
+are rebound without approval transfer. Existing `selected_original_identity_v2.py`
+is now running; existing whole-assembly record/cell context follows automatically.
+Every raw failure stays recorded. Inspect actual session/log/progress before any
+retry; the sequence refuses existing output folders. No installation or corruption
+decision yet; still395/126/521XL and6989actors. Commit/push completed evidence only.
+
 Latest continuation: mobile controller PID3081853 remains live; groups01–03 passed,
 so 25/67 retained mobile actors are verified (7 prior +18 new), with no held
 actors yet and42 remaining. All36 exports from those three groups were actually
