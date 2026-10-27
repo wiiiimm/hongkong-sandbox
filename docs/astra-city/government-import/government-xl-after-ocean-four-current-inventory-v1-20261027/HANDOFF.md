@@ -1,5 +1,40 @@
 # Current original-model continuation — 27 October 2026
 
+Latest: North mobile groups01–06 passed,43/67 verified,0held,24remaining. Controller
+PID3081853 still live, topology supervisor PID3319791/session66913 still waiting.
+No source182397 overlapping work. No new installation;395/126/521XL,6989actors.
+
+Elegant Garden five-phase current identity sequence session1332 is TERMINAL,
+Neon658920e41fa17859a7b15040bb0ea62baeb5530721b782997379deca6fe403be.
+Exact three-source identity job22309bdddb412d7ee2f0ff1d453b78040d2ce326d5aa550f84204f0a36c2c6a4
+retains all three raw failures. All three exact component routes/source graphs
+and full GeoRef cells pass. Assembly coverage is Block1=1.0,
+Block2=0.9994767297713475 (0.16223556m2 uncovered), podium=0.9972096995005797.
+This context is not identity/physical acceptance. ROOT actually inspected the
+source-record PNG; observations pinned in Neon
+cc36958b686571daa9901a0c464005b35a1f0f1ca7861edac1c496c3d5a6aee2.
+The21.2582244m2 podium unrelated-overlap flag includes99061(open-sided structure),
+236367(Louis Heights podium), and173767(Louis Height tower), rather than merely
+the second Elegant Garden tower. These interfaces need bounded review.
+
+Current-ground captureV1 job9784cea98b4a997658784c303b179b0f092649f5751e80dbef2ac44509697e1b
+preserves173532 decoder failure: missing recordedBaseHeight/recordedTopHeight.
+V2 adds only absent fields from exact current source form, rejects existing wrong
+or null bindings, preserves all decoder guards; four focused tests pass. V2 job
+685482d6c7a3e794446b8574dbfed5c0c0726b1461373079ee6f92a7ad4613ba
+captures all3 with zero runtime errors. Tower minimum gaps6.64864458/6.34013454m;
+podium min gap-8.42400442m, low-rim max-5.46810078m. No terrain or source edits.
+
+NEXT live independent compute: session23514,
+log `/tmp/astra-elegant-native-ground-v1.log`. Complete-render-attributes finished;
+podium four-world cached-original-terrain foundations now running under fresh
+173532/173768/236170 leases. Parent is
+government-xl-elegant-garden-native-ground-sequence-v1-20261027; commands.json
+stores reproducible existing CLI calls. Terrain source is exact cached
+T32250162000106E11.gltf from pinned11-SW-7B; no download or terrain publication.
+Read actual process/result before retrying. Geometry/terrain acceptance and
+fresh exact support for Block2 remain pending. Commit857050821 is pushed.
+
 Newest continuation: North mobile controller PID3081853 remains live; groups01–05
 passed, giving37/67 actors verified,0held,30remaining. Sequential eight-face
 topology supervisor PID3319791/session66913 still waits for that exact controller;
