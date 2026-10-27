@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.181"
+  version: "1.9.182"
 ---
 
 # Hong Kong model improvement
+
+28 October newest: Elegant7-original private replay4aee800a COMPLETE, unchanged terrain validator and all7 actual-runtime captures; unnamed224123 retains1downward/0upward. Full foreign sequence dc0a4d10 COMPLETE/released:48directed source/BASIC pairs inbefore+4streams;4positive foreign obligations outside7 are236170→99061,171904→213816,236367→100673/234554. NO automatic clearance/coimport exclusions/installation. Read END of currentHANDOFF; next source/interface roles+3native TERRAIN regression, not duplicate acquisition/captures. All launched workers terminal;396/125/521XL6991actors unchanged. DriverV22 addsONLY existingexact terrain-rebind helper toV21allowlist, otherASTidentical. NoAIgeometry/optimisation.
 
 28 October latest: read END of after-ocean-four-current-inventory-v1-20261027/HANDOFF.md; stale North LIVE notes are superseded.396/521XL installed,6991actors;125non-installed. Southside source-bound single-node23773face validatorPASS; Southland3fixedXL+1companion exact-current-source no-support disposition e0829230 inNeon, NOT corruption/future-revision permanent rejection. Commit10da11fca pushed. Elegant4neighbour originals recovered3534aca1,7currentselection+identity/current-ground sequence344cf2e9 COMPLETE/released. NEXT freshly rebind exact oldprivate terrain under leases, capture7originals then resolve BASIC99061/source identities/support; do not repeat acquisition or claim diagnostic installation. Reusable flagged_neighbour_original_lookup_v1_20261028.py and nominated_neighbour_original_recovery_v1_20261028.py nominate/recover ONLY; no optimisation/AI modelling/approval. All launched workers terminal. Preserve protected dirt and both nullUIDs.
 
