@@ -71,3 +71,16 @@ ROOT actually opened these existing source images this turn (context only, no fr
 - docs/astra-city/government-import/government-xl-west-kowloon-north-original-tin-warning-views-v1-20261027/whole-source-warning-plan.png SHA256 a28192a5791cf2491db1e38d8821d92622d07b9260029dc604b584f828e38f57
 - docs/astra-city/government-import/government-xl-west-kowloon-north-original-tin-warning-views-v1-20261027/original-tin-group-1.png SHA256 caf5dcd07f41d306a06b0ea5abd77d9653bb56462f6f3739bd5ea7259970e265
 - docs/astra-city/government-import/government-xl-west-kowloon-north-original-tin-warning-views-v1-20261027/original-tin-group-2.png SHA256 b87e0612c474f7d6e270d17dff2a79a5e2270dd1194c39c96e6856c860e91feb
+
+
+### Existing South Tower atomic availability fixture
+
+Physical-context V4 and native-fallback sequence are terminal/released. Fallback sequence job d19690992a1e9b9c4c105b16d4e64dffb944127a51179fc8624d6d8030cb2f6a completed. North original meets South Tower BASIC in52 positive line contacts in all four worlds (before0), whereas its installed detailed original has4. Atomic availability therefore needs all three IDs182397/272986/309340. This is not a physical-support declaration or contact approval.
+
+Private availability fixture V1 is prepared. Both new original asset hashes and existing South Tower7c06fb22 are exact. The existing catalogue overlay changes only South Tower activationGroup; all source, pose, support and review fields remain equal, including prior negative flags elsewhere. Its destination is a new filename in the SAME directory so asset resolution stays unchanged and old cached bytes remain valid. The public catalogue, manifest, assets and terrain were not changed. Private fixture is not installed and grants no approval.
+
+New original_availability_overlay_v1 helper stages only the new catalogue bytes and exact manifest URL replacement. It rejects old/source hash drift, asset drift, moved directories, existing destinations, duplicate manifest entries and review changes. Sixteen availability tests and23 independent-root metadata tests passed in this continuation. No canonical publisher guards were modified.
+
+Current LIVE browser: north_pair_atomic_browser_v1_20261027.py, tool session77609, log /tmp/astra-north-atomic-existing-peer-v1.log. It owns its fresh renewing lease and runs model_atomic_lifecycle_browser_v2_20261027.mjs against private4177. Four required cases: desktop success and each of three mobile peer-download failures, then retry, base-only restoration and whole-group eviction. V2 routes both old/new installed-catalogue URLs to the exact annotation and injects the denied peer on BOTH fixture and existing asset URLs. Do not edit/restart a running producer; poll77609 first. Its result is software evidence only, not source/physical/visual/publication acceptance.
+
+Next: inspect this actual run, preserve any failures, then finish bounded source-role/junction review and full source+retained desktop/mobile acceptance, integrate the strict three-member boundary and cache-safe availability overlay with unchanged publication checks, live readback, commit/push. All original geometry remains immutable. Counts395installed/126unfinished/521XL,6989actors unchanged. No AI geometry modelling.
