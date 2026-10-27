@@ -1,3 +1,34 @@
+# Latest: North exact stage and fenced publisher preflight COMPLETE
+
+Prior stage PID4089382/session9471 is TERMINAL SUCCESS; do not restart.
+Qualified-stage-v2 is verified in Neon:
+f95f0bb5ce629695582fd92db27dc3ba546130681591f3926f1aa6683f72eea0.
+Canonical dry run proposes6metadata destinations (new catalogue,3terrain members,
+South same-directory cache-safe catalogue annotation,manifest) plus2unchanged
+source assets. No public writes/installation. Both oldcatalogue andassetsretained.
+
+north_pair_guarded_publish_v1_20261027.py --prepare-only is TERMINAL PASS,
+preflight-v2;73canonicalkeys derived directly from67retained+2newUIDs/4terrain
+resources, rather than trusting unpinned old plan resources. Exact plan tests8PASS;
+combined newterrain/publisher-hooks tests25PASS (earlier63focusedchecks alsoPASS).
+Currentmanifest6989actors unchanged. Guarded --apply requires a live lease and
+publication-time advisory-lock fence; no live installer/ledger call exists yet.
+
+NEXT implement the live installer using existing rollback/publication-lock/ledger
+mechanisms, preserving guards. IMPORTANT Ocean template cannot be used unchanged:
+its all_models==old_models+models assertion must explicitly allow ONLY South's
+activationGroupannotation; its singleterrain andsupport/coimport contracts differ.
+Require exact triple manifest transition, complete old6989asset preservation,
+new2immutableoriginals/full521counts (+1XLonly), live4atomiccases, source desktop/
+mobile picking/collision and67retained captures with corrected cameras and actual
+UI-selected Lui/default-budget fallback. No blind Ocean stage/config import.
+Do not repeat the completed private267+source8exports just to rebuild receipts.
+
+No worker is currently running. Totals395installed/126unfinished/521fixedXL,
+6989actors unchanged. Fullgoalactive;2nullUIDkeysretained. NoAIgeometry/optimisation.
+Review checkpoint4b21a4532 is pushed. Bothprotecteddirtysnapshots remain untouched.
+Earliernotes below are historical; thissection governs.
+
 # Latest continuation — North pair review complete, guarded stage running
 
 All prior North mobile/topology workers are TERMINAL; do not restart them.

@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October latest: North qualifiedstagef95f0bb5 and73resource fencedpublisher preflightV2 COMPLETE/terminal;8plan testsPASS. No liveinstallationyet395/126/521XL6989actors. ReadHANDOFF; NEXT dedicated liveinstaller/readback (Ocean template differs:Southavailabilityannotation+3terrainmembers+selectedLui). No currentworker/newAIgeometry/optimisation.
+
 27 October newest: North physical63edcbf2/visual3cd1b629/terrain-onlyb59fc934 COMPLETE; all67mobile134exports inspected. Prior workers terminal. Guarded stageV2 session9471/PID4089382 is running; read latestHANDOFF/log before acting. Preserve raw20270/177605supportFALSE; terrain-only reviews grant no source/support reapproval.395/126/521XL6989actors unchanged. NoAIgeometry/optimisation.
 
 27 October: selectedmobileb87c8436 COMPLETE7actors/14views+normalBASICfallback; ROOTbothphone sheets inspected. Remaining60mobile controller LIVE89115/log /tmp/astra-north-remaining-mobile-v1.log; group01PASS7bb92f05 ->13/67verified,0held,54remaining. progress.pending=frozen60scope, derive live remainder. Do not edit/restart controller/V18/helper; no sourcegeometry/budget change. Read latestHANDOFF; source+terrain/visual qualification/liveinstall stillrequired,395/126/521XL/6989actorsunchanged.
