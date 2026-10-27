@@ -1,3 +1,45 @@
+# LIVE North original installation — do not restart or edit producer
+
+Live installer session56811, parentPID4167448, lease supervisor4168778,
+ownedworker4168801. ActualHTTPatomicNodePID1145 verifiedlive. Log
+/tmp/astra-north-live-install-v1.log. Preparationcommit30e5c92ee pushed.
+Canonical publication completed; PROVISIONAL files exist, NOT installedcredit.
+Atomic1280success passed:3correctSHA/triangles/all-or-none/Base-only/eviction,
+0frame/collisionmapviolations. Three390peerfailure/retrycases stillcomputing.
+Readactual atomic-live/report.json andoriginalsession before changinganything.
+No rollback or installedacceptance existed at lastcheck; worker lease remains
+supervised. Never run overlappingrootterrain work or edit any liveproducer.
+
+Dedicatedinstaller north_pair_live_install_v1_20261027.py retains publicationlock,
+canonicalfencing, rollbackASTparity, ledgerseed/approved/installed transitions,
+full521count and6989oldassetverification.30guardtestspass. Exact oldentrytransition
+allowsONLYSouthactivationGroupfield;3terrainmanifesttransitionrequired. Liveatomic
+V2checks3originals across2realinstalledcatalogueURLs withoutdata substitution.
+Nextlive full390then1280captures new2+67retained, actualpixelcamera search and
+realUI-selectedLui+normalBASICfallback; budgets unchanged.
+
+Independent fullglobalbefore receipt27ccfe8b8966d9dfccf52268d203eb7fdec38e785cc13eb7172d955db160c187
+COMPLETE before publication:allBASICtiles/rootterrain/catalogue/overview/protected
+snapshot pinned. Progress exporter now supports explicit --snapshot-path; worker
+uses its own DOC/progress/neon-snapshot.json and assertsprotectedfile unchanged.
+Do not touch/stage protected dirty snapshot or working-commands.json.
+
+Prepared independent north_pair_installed_readback_v1_20261027.py, syntaxvalid,
+NOTRUN:requires completedinstalledreceipt and actualROOTinspection8newliveexports.
+Then provesall6989oldassets,Southonlyannotation,full521onlyNorthgain,2nullUIDkeys,
+allBASIC/root/protectedbytesunchanged,currentNeonreviewstate. ROOTmustinspect8live
+sourcePNGs andsave ROOT-LIVE-EXPORT-OBSERVATIONS.json (uid,width,time,imagepath/SHA)
+underinstalledDOC before running readback. Do not fabricate actualinspection.
+Ifworkerfails,preservefailure/recoveryandverifyrollback before retrydistinctbatch.
+
+Totalsstill395installed/126unfinished/521fixedXL,6989verifiedactorsuntilworker
+acceptance. Expected396/125/521,6991afterNorth+aux completes. Commit/pushactual
+installation after successfulindependentreadback; whole521goalremainsactive.
+ElegantGardenexistingBlock2failure narrowedreadonly:all4worlds7same bottom-edge
+witnessesY21.610001,deck1.039mabove;112othercontactsstrictpass. No thresholds waived.
+
+Older notes below are historical; thisLIVEsection governs.
+
 # Latest: North exact stage and fenced publisher preflight COMPLETE
 
 Prior stage PID4089382/session9471 is TERMINAL SUCCESS; do not restart.
