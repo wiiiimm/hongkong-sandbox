@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October: North182397+aux309340 three-member terrain surface PASSED5d330389; all44 boundary tests pass. Regression sequence V17 is LIVE session55061, log /tmp/astra-north-three-member-regressions-v1.log; scope783forms/67native actors. Read current HANDOFF in after-ocean-four-current-inventory-v1 before continuing. Do not rerun acquisition/inset or mutate active producer; canonical integration files unchanged. Counts395/126/521XL,6989actors.
+
 27 October: Ocean installation is pushed in 61b945b09; do not reinstall Ocean or University Hall. Fresh complete6989bounds inventory a5b40e96 and exact126unfinished inventory43629824 are complete and saved in Neon. Current XL395installed/126unfinished/521fixed; preserve both unmatched viewer UIDs. Continue West Kowloon North182397 +aux309340 with fresh current bindings and multi-parent terrain diagnostics; no original geometry edits, optimisation, new agents, main merge or shared4176 restart. Current handoff: docs/astra-city/government-import/government-xl-after-ocean-four-current-inventory-v1-20261027/HANDOFF.md.
 
 27October Ocean source/visual ddb5a03d ACCEPTED; qualifiedstageV2 bc0b2066 COMPLETE; liveinstaller --prepare-only PASS. ROOTall16source+108retained+24supplementviews actuallyinspected.38binding/contract/ASTparitytestsPASS. ReadlatestHANDOFF. NEXTcommitpushpreparation thenocean_coordinated_live_install_v1_20261027.py --install; realHTTP5atomiccases+full27retainedliveviews, rollback/ledgerguards preserved. V1stagehistorical-loaderhashmismatchpreserved; V2freshcurrentruntimeclosure, NOoldapprovaltransfer.393/128/5216985actorsstillUNCHANGEDbeforelive.
