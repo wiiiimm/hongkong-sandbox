@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27October Ocean source/visual ddb5a03d ACCEPTED; qualifiedstageV2 bc0b2066 COMPLETE; liveinstaller --prepare-only PASS. ROOTall16source+108retained+24supplementviews actuallyinspected.38binding/contract/ASTparitytestsPASS. ReadlatestHANDOFF. NEXTcommitpushpreparation thenocean_coordinated_live_install_v1_20261027.py --install; realHTTP5atomiccases+full27retainedliveviews, rollback/ledgerguards preserved. V1stagehistorical-loaderhashmismatchpreserved; V2freshcurrentruntimeclosure, NOoldapprovaltransfer.393/128/5216985actorsstillUNCHANGEDbeforelive.
+
 27October Ocean fullbrowserV2 COMPLETE/released ea50af01:5atomic+1280/390PASS. UniversityHallalreadyinstalled. ROOT16sourcePNGs+desktopretainedsheets1-3actuallyviewed;213822day/nightcameraOCCLUDED despitefullyFramedflag. Nooverallvisual/installapproval.96retainedexportsnotviewed. Preparecamera-onlysupplementaryunobstructedcapture, preservefailedimages; donotrestartsession97758. ReadlatestHANDOFF.393/128/521XL6985actorsunchanged.
 
 27October Ocean publicationREHEARSALd63fa1c5PASS/publishedFALSE,28contract/AST/adaptertestsPASS. Exactnestedvalidatoradapteronlyforpinnedcandidate, oldpublishguardsunchanged; plannedwritesnewcat/newterrain/manifestONLY. FreshbrowserV2session97758stillLIVE:5atomiccasesallPASS, full1280Node521331then390source+27retainedcaptures. ReadlatestHANDOFF. NoimageROOTapproval/installationyet393/128/521XL6985actors; future4actorsincludeONLY2XL(234188/156599). Config+previous521reportlocated. Donotrestart/editlivecode/sharelease.
