@@ -1,3 +1,9 @@
+## 27 October: Strict multi-source nested surface PASSED; actual renderer running
+
+Nestedvalidation2b628149a0d6b585b18329f325fb54f1971e76467dec7982b496d7aed6961ec7 COMPLETE/session26458terminal0/released. Statusprivate-nested-coordinated-surface-validator-passed. Sharedguardsunchanged,threegroundowners/fourcheckedsourcefoundations,19337derivedfaces,other14children/allgrid/oldrenderedfacesretained. Correction/seamevidencePUSHED8cb844b8f. PriorgoalturnPROGRESS: two originalcompanionrecoveries,all6junctions,fourworldsmallfoundations,zero-whole-burialsourceTINcorrection,zero-exact-seamgapandstrictnestedvalidation;countsUNCHANGED393/128/521XL/6985actors.
+
+CURRENT LIVE session28016:government-xl-after-waterfront-ocean-four-corrected-runtime-v1-20261027,existingselected_original_nested_pair_runtime_v1 withnewvalidatedpatchandfour-selection,allfourUIDs. Ownfreshboundedlease andcommandjournal local/...-command/. Pollsamehandle; doNOTrestartonobservationtimeout. Nextfreshchanged-region/fullnative+BASICscopeandregressions againstNEWcandidate,all4actualrepresentedfoundations/caps,identity/sourcejunction/physicalreview/privateandlivebrowser before guardedinstall. Old26actorregressions belongoldterrain andmustnottransfer. No neworiginalgeometry/AIgeometry/optimisation/publication. Keep2protectedfilesunstaged.
+
 ## 27 October: Multi-source original-TIN correction clears all four sources
 
 Private proposal0627a30b8f0103c279b54c6874775fa2270a8ce1400a7a1cf0f6c2423c8e55fa COMPLETE,session6412terminal0/released. North42007faces/1045changedparent/29445exactunchanged;South6775faces/496changedparent/344exactunchanged. Newlyderivedwork19337faces<=25000. Existing coverage/area/untouched-parent checks PASS;buildingoriginalbytesunchanged.
