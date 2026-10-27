@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October: corrected North three-member surface V2 ec3417ea and whole regression24f4f08d COMPLETE;4omitted original boundary facets restored exactly,49focused tests pass. Both raw retained support negatives have exact whole-terrain nonregression proofs. Physical-context V4/session36266 is LIVE; log /tmp/astra-north-physical-context-v4.log. Read after-ocean-four-current-inventory-v1 HANDOFF. Do not rerun acquisition/inset/regressions or unused V3 plan; physical/visual/source-junction acceptance still pending.395/126/521XL,6989actors.
+
 27 October: North182397+aux309340 three-member terrain surface PASSED5d330389; all44 boundary tests pass. Regression sequence V17 is LIVE session55061, log /tmp/astra-north-three-member-regressions-v1.log; scope783forms/67native actors. Read current HANDOFF in after-ocean-four-current-inventory-v1 before continuing. Do not rerun acquisition/inset or mutate active producer; canonical integration files unchanged. Counts395/126/521XL,6989actors.
 
 27 October: Ocean installation is pushed in 61b945b09; do not reinstall Ocean or University Hall. Fresh complete6989bounds inventory a5b40e96 and exact126unfinished inventory43629824 are complete and saved in Neon. Current XL395installed/126unfinished/521fixed; preserve both unmatched viewer UIDs. Continue West Kowloon North182397 +aux309340 with fresh current bindings and multi-parent terrain diagnostics; no original geometry edits, optimisation, new agents, main merge or shared4176 restart. Current handoff: docs/astra-city/government-import/government-xl-after-ocean-four-current-inventory-v1-20261027/HANDOFF.md.
