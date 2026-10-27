@@ -13,6 +13,7 @@ PREFIX = 'government-xl-west-kowloon-north-pair-after-ocean-'
 PARENT = PREFIX + 'full-existing-peer-browser-v2-20261027'
 BATCH = PREFIX + 'source-camera-supplement-v1-20261027'
 BASE = ROOT / 'docs/astra-city/government-import'
+RETAINED = sorted('landsd/' + u + ':0' for u in ['147505', '147996', '159422', '160070', '233970', '337075', '337079'])
 
 
 def main():
@@ -29,7 +30,7 @@ def main():
     config.pop('doc', None)
     # Camera is west/north of North Tower, and west of the small auxiliary.
     # The failed original views remain immutable in the parent evidence.
-    config.update(additionalRetainedUids=[], captureDirectionByModel={
+    config.update(additionalRetainedUids=RETAINED, autoVisibleCamera=True, captureDirectionByModel={
         'landsd/182397:0': [-1, .6, -.7], 'landsd/309340:0': [-1, .7, 0]},
         stage=str(local.relative_to(ROOT)) + '/', fitBox=True)
     refs = [Path(__file__), BASE / PARENT / 'result.json', parent_local / 'catalogue.json', parent_local / 'source-forms.json']
@@ -45,12 +46,26 @@ def main():
         refs.append(ROOT / overlay['source'])
     tool = HERE / 'ronsdale_three_live_browser_v17_20261027.mjs'
     refs.extend([tool, HERE / 'source_pixel_visibility_witness_v1_20261027.mjs', ROOT / '3d-viewer/city/data/manifest.json'])
+    parent_views = read(BASE / PARENT / '1280/staged-browser.json')['retainedNativeOwnViews']
+    expected_retained = {v['uid']: v['sourceSHA256'] for v in parent_views if v['uid'] in RETAINED}
+    assert set(expected_retained) == set(RETAINED)
+    found = set()
+    for url in read(ROOT / '3d-viewer/city/data/manifest.json')['officialModelCatalogues']:
+        path = ROOT / '3d-viewer' / url
+        for entry in read(path)['models']:
+            if entry['uid'] not in RETAINED:
+                continue
+            assert entry['uid'] not in found and entry['sha256'] == expected_retained[entry['uid']]
+            asset = path.parent / entry['asset']
+            assert digest(asset.read_bytes()) == entry['sha256']
+            refs.extend([path, asset]);found.add(entry['uid'])
+    assert found == set(RETAINED)
     refs.extend((ROOT / '3d-viewer/city').glob('*.js'))
     pins = {str(p.relative_to(ROOT)): digest(p.read_bytes()) for p in refs}
     for path, sha in pins.items():
         if path in parent_pins:
             assert parent_pins[path] == sha, 'Supplement must retain the parent evidence inputs'
-    resources = read(BASE / (PREFIX + 'native-fallback-plan-v1-20261027.json'))['resources']
+    resources = sorted(set(read(BASE / (PREFIX + 'native-fallback-plan-v1-20261027.json'))['resources']) | {'building:' + u for u in RETAINED})
     lease = None
     def claim():
         result = reservations.claim('north-source-camera-' + str(uuid.uuid4()), resources, batch=BATCH, ttl=3600)
@@ -71,6 +86,10 @@ def main():
             assert report['passed'] and not report['errors'] and len(report['views']) == 4
             assert {(v['uid'], v['time']) for v in report['views']} == {(u, t) for u in sources for t in ['15:00', '22:00']}
             assert all(v['sourcePixelVisibility']['visiblePixels'] >= 32 for v in report['views'])
+            own = report['retainedNativeOwnViews']
+            assert len(own) == 2 * len(RETAINED)
+            assert {(v['uid'], v['time']) for v in own} == {(u, t) for u in RETAINED for t in ['15:00', '22:00']}
+            assert all(v['sourcePixelVisibility']['visiblePixels'] >= 32 for v in own)
             refs.extend([config_path, doc / str(width) / 'staged-browser.json', doc / f'browser-{width}.log'])
         for path, sha in pins.items():
             assert digest((ROOT / path).read_bytes()) == sha

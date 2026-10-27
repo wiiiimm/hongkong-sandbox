@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October: full-browserV2 desktop PASS134retained/4source; ROOTall12desktop sheets actually inspected. Seven camera exceptions147505/147996/159422/160070/233970/337075/337079 recorded, not corruption. Session36551 LIVE mobile; do not restart. Camera supplement prepared new2+retained7,16-angle actual-pixel search and strict material restoration;5tests pass, realGPU validation pending. Read latestHANDOFF; run supplement only AFTER36551 terminal+parentreceipt. No visual/installapproval,395/126/521XL,6989actors.
+
 27 October: full browserV1/session38717 TERMINAL on renewal failure (lease unexpired/released); no export/approval credit. Fresh identical-check retryV2 LIVE session36551/log /tmp/astra-north-full-existing-peer-v2.log, with sanitized fail-closed lease diagnostics (6tests). Exact publisher hooks preserve canonical terrain/support/commit guards,9tests+real in-memory metadata rehearsalPASS. Read latestHANDOFF; do not repeat4completed atomic cases.395/126/521XL,6989actors unchanged.
 
 27 October: ALL4 North atomic browser cases PASS; wrapper post-release assertion failed, preserved; receipt recovered in Neon37482f16 without rerun. Fresh full source+67retained desktop/mobile browser LIVE session38717/log /tmp/astra-north-full-existing-peer-v1.log. Read latestHANDOFF. Do not edit/restart live worker or rerun atomic77609 (terminal). Counts395/126/521XL,6989actors unchanged; no physical/visual/install approval.

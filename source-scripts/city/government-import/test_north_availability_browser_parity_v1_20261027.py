@@ -14,12 +14,17 @@ class BrowserParity(unittest.TestCase):
         after = ''.join(lines[2:])
         additions = [
             ' await page.evaluate(installSourcePixelWitness);\n',
-            'sourcePixelVisibility:window.__portSourceVisibility(uid),',
+            '  if(config.autoVisibleCamera)await page.evaluate(uid=>window.__portChooseVisibleCamera(uid),model.uid);\n',
+            'if(config.autoVisibleCamera)await page.evaluate(uid=>window.__portChooseVisibleCamera(uid),form.uid);',
             "assert(state.sourcePixelVisibility.visiblePixels>=32,'Original target is occluded in exported view: '+model.uid);",
+            "assert(state.sourcePixelVisibility.visiblePixels>=32,'Retained target is occluded in exported view: '+form.uid);",
         ]
         for addition in additions:
             self.assertEqual(after.count(addition), 1)
             after = after.replace(addition, '')
+        witness = 'sourcePixelVisibility:window.__portSourceVisibility(uid),'
+        self.assertEqual(after.count(witness), 2)
+        after = after.replace(witness, '')
         self.assertEqual(after, before)
 
     def test_v16_retains_v15_verbatim_except_exact_overlay_routes(self):
