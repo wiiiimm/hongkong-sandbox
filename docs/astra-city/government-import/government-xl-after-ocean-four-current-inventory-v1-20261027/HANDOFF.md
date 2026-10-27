@@ -1,5 +1,30 @@
 # Current original-model continuation — 27 October 2026
 
+Latest continuation: mobile controller PID3081853 remains live; groups01–03 passed,
+so 25/67 retained mobile actors are verified (7 prior +18 new), with no held
+actors yet and42 remaining. All36 exports from those three groups were actually
+inspected on three unscaled labelled sheets; exact image/report bindings and
+observations are saved in Neon job
+`de4328f90efcc9f681c83573b8fd63d37ed876d6bc9fcf22f278a86562073e2f`.
+This is retained-context evidence, not new architectural/physical/install approval.
+
+North's source GLB has one unnamed mesh/default material and no node/mesh extras;
+it supplies no roof/wall/floor semantic labels. Eight negative non-wall faces
+remain unresolved:5255,5284,5285,9268,9269,9270,9306,9307. Six face upward, so do
+not call them all undersides. Exact represented-edge diagnostic
+`original_face_edge_context_v1_20261027.py` is prepared; six adversarial tests pass.
+It does not bridge points, near edges, partial edges or degenerate primitives and
+grants no architectural role or acceptable-burial credit.
+
+Sequential follow-on supervisor `north_pair_nonwall_topology_v1_20261027.py` is
+running in session66913, log `/tmp/astra-north-nonwall-topology-v1.log`. It verified
+the exact live controller PID/start identity and waits without claiming a model
+lease. Only after that process is terminal does it claim a fresh182397 source
+lease and run the eight-face diagnostic; no takeover or mobile-worker restart.
+Inspect its actual handle/log before relaunching. The diagnostic still requires
+bounded interpretation and separate physical/source qualification. Current
+installation totals remain395/126/521XL and6989actors.
+
 Ocean original assembly was installed and pushed in `61b945b09`. Current totals: **395 installed / 126 unfinished / 521 fixed XL sources; 6,989 detailed actors**. Only two fixed XL keys were added by Ocean; its other two actors are companions. University Hall is already installed; the later approval reply is stale.
 
 Complete current bounds job `a5b40e96a2b4335ec6a12c2f09e0c28b2ed4b85f5e5e971ce3cd2c346d9809a9` and exact unfinished inventory job `4362982477475f60c7b6c2b7dad3bf368f6ffe487e0fe9c5a77bc3e8162d62ca` completed in Neon. Both unmatched viewer UID keys remain in the 521 denominator. No new installation or rejection is claimed by this inventory refresh.
