@@ -4,6 +4,24 @@ import unittest
 
 
 class BrowserParity(unittest.TestCase):
+    def test_v17_retains_v16_checks_and_adds_only_source_visibility(self):
+        folder = Path(__file__).parent
+        before = (folder / 'ronsdale_three_live_browser_v16_20261027.mjs').read_text()
+        after = (folder / 'ronsdale_three_live_browser_v17_20261027.mjs').read_text()
+        lines = after.splitlines(keepends=True)
+        self.assertTrue(lines[0].startswith('// V17:'))
+        self.assertIn('import {installSourcePixelWitness}', lines[1])
+        after = ''.join(lines[2:])
+        additions = [
+            ' await page.evaluate(installSourcePixelWitness);\n',
+            'sourcePixelVisibility:window.__portSourceVisibility(uid),',
+            "assert(state.sourcePixelVisibility.visiblePixels>=32,'Original target is occluded in exported view: '+model.uid);",
+        ]
+        for addition in additions:
+            self.assertEqual(after.count(addition), 1)
+            after = after.replace(addition, '')
+        self.assertEqual(after, before)
+
     def test_v16_retains_v15_verbatim_except_exact_overlay_routes(self):
         folder = Path(__file__).parent
         before = (folder / 'ronsdale_three_live_browser_v15_20261026.mjs').read_text()
