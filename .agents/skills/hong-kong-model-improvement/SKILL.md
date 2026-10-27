@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.180"
+  version: "1.9.181"
 ---
 
 # Hong Kong model improvement
+
+28 October latest: read END of after-ocean-four-current-inventory-v1-20261027/HANDOFF.md; stale North LIVE notes are superseded.396/521XL installed,6991actors;125non-installed. Southside source-bound single-node23773face validatorPASS; Southland3fixedXL+1companion exact-current-source no-support disposition e0829230 inNeon, NOT corruption/future-revision permanent rejection. Commit10da11fca pushed. Elegant4neighbour originals recovered3534aca1,7currentselection+identity/current-ground sequence344cf2e9 COMPLETE/released. NEXT freshly rebind exact oldprivate terrain under leases, capture7originals then resolve BASIC99061/source identities/support; do not repeat acquisition or claim diagnostic installation. Reusable flagged_neighbour_original_lookup_v1_20261028.py and nominated_neighbour_original_recovery_v1_20261028.py nominate/recover ONLY; no optimisation/AI modelling/approval. All launched workers terminal. Preserve protected dirt and both nullUIDs.
 
 27 October newest: Northlive ALL4atomicPASS; full390Node84057running/worker4168801/session56811, then1280.4mobile sourcePNGsROOTinspected; neveralterliveproducer/observationsinsidefrozendoc. ElegantBlock2exact4wallrole526a9663 COMPLETE:all28originaledgepaths passendpointheight,allother10889facetsordinaryfoundationPASS;raw0.5m/supportnegativesunchanged. Source-roleonly,notwhole/currentmapapproval. ReadHANDOFF;395/126/521XL6989verifiedactorsunchanged.
 

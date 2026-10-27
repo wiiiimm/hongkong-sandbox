@@ -1,0 +1,49 @@
+{
+  "batch": "government-xl-elegant-garden-seven-original-diagnostic-sequence-v1-20261028",
+  "uids": [
+    "landsd/173532:0",
+    "landsd/173768:0",
+    "landsd/236170:0",
+    "landsd/171904:0",
+    "landsd/173767:0",
+    "landsd/224123:0",
+    "landsd/236367:0"
+  ],
+  "resources": [
+    "building:landsd/173532:0",
+    "building:landsd/173768:0",
+    "building:landsd/236170:0",
+    "building:landsd/171904:0",
+    "building:landsd/173767:0",
+    "building:landsd/224123:0",
+    "building:landsd/236367:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-kwong-fung-original-v1-20261025.json"
+  ],
+  "phases": [
+    {
+      "batch": "government-xl-elegant-garden-seven-original-identities-v1-20261028",
+      "script": "selected_original_identity_v3_20261023.py",
+      "args": [
+        "--capture",
+        "government-xl-elegant-garden-seven-original-current-selection-v1-20261028"
+      ]
+    },
+    {
+      "batch": "government-xl-elegant-garden-neighbour-current-runtime-v1-20261028",
+      "script": "selected_original_current_capture_v3.py",
+      "args": [
+        "--capture",
+        "government-xl-elegant-garden-seven-original-current-selection-v1-20261028",
+        "--uid",
+        "landsd/171904:0",
+        "--uid",
+        "landsd/173767:0",
+        "--uid",
+        "landsd/224123:0",
+        "--uid",
+        "landsd/236367:0"
+      ]
+    }
+  ]
+}
