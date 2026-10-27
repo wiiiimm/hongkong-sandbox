@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October: fullV2/session36551 TERMINAL mobile160070night active/visible timeout; desktop134PASS preserved, mobile15partialNOTPASS. Neonf97b42b7 complete desktop/mobile-held receipt. Camera supplement LIVE99379/log /tmp/astra-north-source-camera-supplement-v1.log, new2+retained7 actual-pixel16camera search. Read latestHANDOFF; no rerun complete desktop, no device-budget/timeout waiver, no overall visual/installapproval.395/126/521XL,6989actors.
+
 27 October: full-browserV2 desktop PASS134retained/4source; ROOTall12desktop sheets actually inspected. Seven camera exceptions147505/147996/159422/160070/233970/337075/337079 recorded, not corruption. Session36551 LIVE mobile; do not restart. Camera supplement prepared new2+retained7,16-angle actual-pixel search and strict material restoration;5tests pass, realGPU validation pending. Read latestHANDOFF; run supplement only AFTER36551 terminal+parentreceipt. No visual/installapproval,395/126/521XL,6989actors.
 
 27 October: full browserV1/session38717 TERMINAL on renewal failure (lease unexpired/released); no export/approval credit. Fresh identical-check retryV2 LIVE session36551/log /tmp/astra-north-full-existing-peer-v2.log, with sanitized fail-closed lease diagnostics (6tests). Exact publisher hooks preserve canonical terrain/support/commit guards,9tests+real in-memory metadata rehearsalPASS. Read latestHANDOFF; do not repeat4completed atomic cases.395/126/521XL,6989actors unchanged.

@@ -11,6 +11,7 @@ from china_ferry_current_foundations_v1_20261020 import authenticate
 
 PREFIX = 'government-xl-west-kowloon-north-pair-after-ocean-'
 PARENT = PREFIX + 'full-existing-peer-browser-v2-20261027'
+PARENT_EVIDENCE = PREFIX + 'desktop-complete-mobile-held-v1-20261027'
 BATCH = PREFIX + 'source-camera-supplement-v1-20261027'
 BASE = ROOT / 'docs/astra-city/government-import'
 RETAINED = sorted('landsd/' + u + ':0' for u in ['147505', '147996', '159422', '160070', '233970', '337075', '337079'])
@@ -19,8 +20,9 @@ RETAINED = sorted('landsd/' + u + ':0' for u in ['147505', '147996', '159422', '
 def main():
     doc, local = BASE / BATCH, HERE / 'local' / BATCH
     assert not doc.exists() and not local.exists()
-    assert (BASE / PARENT / 'result.json').exists(), 'Finish full retained run first'
-    parent_pins = authenticate(BASE / PARENT)[1]
+    assert (BASE / PARENT_EVIDENCE / 'result.json').exists(), 'Record complete desktop/held-mobile evidence first'
+    parent_receipt, parent_pins = authenticate(BASE / PARENT_EVIDENCE)
+    assert parent_receipt['desktopDiagnosticsPassed'] and parent_receipt['mobileDiagnosticsPassed'] is False
     parent_local = HERE / 'local' / PARENT
     catalogue = read(parent_local / 'catalogue.json')
     sources = {m['uid']: m['sha256'] for m in catalogue['models']}
@@ -33,7 +35,7 @@ def main():
     config.update(additionalRetainedUids=RETAINED, autoVisibleCamera=True, captureDirectionByModel={
         'landsd/182397:0': [-1, .6, -.7], 'landsd/309340:0': [-1, .7, 0]},
         stage=str(local.relative_to(ROOT)) + '/', fitBox=True)
-    refs = [Path(__file__), BASE / PARENT / 'result.json', parent_local / 'catalogue.json', parent_local / 'source-forms.json']
+    refs = [Path(__file__), BASE / PARENT_EVIDENCE / 'result.json', parent_local / 'catalogue.json', parent_local / 'source-forms.json']
     save(local / 'catalogue.json', catalogue)
     save(local / 'source-forms.json', read(parent_local / 'source-forms.json'))
     for m in catalogue['models']:
@@ -97,7 +99,8 @@ def main():
         refs.extend(doc.rglob('*.png'))
         module('north_source_camera_supplement_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(
             BATCH, 'camera-only-exact-original-source-visibility-supplement', refs,
-            dict(uids=sorted(sources), sourceSHA256ByUid=sources, parentFullRetainedRun=PARENT,
+            dict(uids=sorted(sources), sourceSHA256ByUid=sources, parentDesktopEvidence=PARENT_EVIDENCE,
+                 fullMobileAcceptanceStillRequired=True,
                  actualSourcePixelsRequired=True, cameraOnlyChanges=True, sourceGeometryChanges=0,
                  physicalAcceptance=False, visualAcceptance=False, installationApproved=False, publication=False))
     finally:
