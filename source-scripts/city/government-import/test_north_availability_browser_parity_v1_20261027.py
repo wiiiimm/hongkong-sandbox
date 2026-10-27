@@ -4,6 +4,20 @@ import unittest
 
 
 class BrowserParity(unittest.TestCase):
+    def test_v19_adds_observations_without_changing_checks(self):
+        folder = Path(__file__).parent
+        before = (folder / 'ronsdale_three_live_browser_v18_20261027.mjs').read_text()
+        after = (folder / 'ronsdale_three_live_browser_v19_20261027.mjs').read_text()
+        lines = after.splitlines(keepends=True)
+        self.assertTrue(lines[0].startswith('// V19:'))
+        after = ''.join(lines[1:])
+        start = after.index('.catch(async error=>{report.retainedActorTimeout=')
+        end = after.index('throw error;});', start) + len('throw error;});')
+        after = after[:start] + ';' + after[end:]
+        observation = 'runtimeBudgetObservation:{selectedId:window.__city.state.selectedId,stats:r.officialModels.stats,wanted:r.officialModels.cache.wanted.includes(uid),camera:r.camera.position.toArray(),target:r.controls.target.toArray()},'
+        self.assertEqual(after.count(observation), 1)
+        self.assertEqual(after.replace(observation, ''), before)
+
     def test_v18_retained_only_mode_preserves_all_retained_checks(self):
         folder = Path(__file__).parent
         before = (folder / 'ronsdale_three_live_browser_v17_20261027.mjs').read_text()
