@@ -1,3 +1,11 @@
+## 27 October — Ocean full browser complete; camera occlusion follow-up
+
+Fresh five-case atomic lifecycle and full 1280/390 browser runs completed successfully and released their lease. Neon job `ea50af01ec4258b8a7456e7887ad09c3f3642c3313ecd81bc86c6edb4fa37727`; no worker from session97758 should be restarted. Pixel-preserving 124-export/32-sheet composition completed as `5d72b5ab9b9b6f21a361ddb59b4c88afdc67ded16838bbd7d32b189184205a14` in `government-xl-ocean-coordinated-browser-sheets-v1-20261027`.
+
+ROOT actually opened all 16 source PNGs (8 desktop previously, all 8 mobile now), plus desktop retained sheets1–3 (12 retained exports). Exact observations are adjacent `ocean-coordinated-v2-*-observations-20261027.json`. **No overall visual/installation acceptance**: landsd/213822:0 desktop day/night own-view images are obscured by a neighbouring facade. Bounds framing/active flags do not prove unobstructed visibility. Prepare a supplementary camera-only capture for this exact retained source; do not change geometry or waive visual evidence. Remaining 96 retained exports have not been ROOT-viewed. Preserve all failed/partial observations. Future live installer must use separate fresh atomic-family evidence rather than generic sequential individual failure loop.
+
+University Hall historical approval is already fulfilled (c339a3745); do not reinstall. Counts remain393 installed /128 unfinished /521 XL,6985 official actors. Ocean future4 actors represent only2 fixed XL keys. No new geometry modelling, optimisation or publication.
+
 ## 27 October: coordinated publication rehearsal PASSED; full browser V2 still LIVE
 
 PROGRESS: dry-run d63fa1c50c4fbf8a94c6d747655cc7587cadba7ef889e50c9d12d2de928176c8 COMPLETE/released. RehearsalV2 session48526 TERMINAL0. Exact4original assets+tested44MBnestedterrain successfully pass canonicalpublisher with narrowly scoped nestedvalidator adapter. publishedFALSE, no publicdestinations/pointer/Neoninstallation changes. Plannedafterpaths ONLY newterrain/newcatalogue/manifest; oldterrainassetretained, zeroexistingcatalogue/BASICtile modifications. Rehearsalmodels retain publicationApproved/placementReviewedFALSE, so this is NOT qualifiedstage orapproval. Newcontract12tests+nestedAST11tests+adapter5tests=28PASS. NoJS/sourcegeometry changes.
