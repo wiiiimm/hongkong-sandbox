@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27October Ocean publicationREHEARSALd63fa1c5PASS/publishedFALSE,28contract/AST/adaptertestsPASS. Exactnestedvalidatoradapteronlyforpinnedcandidate, oldpublishguardsunchanged; plannedwritesnewcat/newterrain/manifestONLY. FreshbrowserV2session97758stillLIVE:5atomiccasesallPASS, full1280Node521331then390source+27retainedcaptures. ReadlatestHANDOFF. NoimageROOTapproval/installationyet393/128/521XL6985actors; future4actorsincludeONLY2XL(234188/156599). Config+previous521reportlocated. Donotrestart/editlivecode/sharelease.
+
 27October PHYSICAL7c7b9f11 Ocean4 ACCEPTED/pushed d4aade707. BrowserV2session97758LIVE/ownedPID289012, log /tmp/astra-ocean-coordinated-full-browser-v2.log. PreflightPASS; fresh5atomicfailurecases thenfull1280/390source+27retainedviews. ReadlatestHANDOFF. Donoteditliveproducer/JS/restart/sharelease. V1setupfailed/released; legacyretainedflagsunchanged/notnewapproval. New4installationstillpendingvisual/guarded3owner4sourcepublisher/noinstalledmetadatarewrite.393/128/521XL6985actorsunchanged.
 
 27October Ocean4nativejunction ROLES accepted0bf2a79b; completedreceipt recovered40fa8c29 aftertuple/listreadback mismatch, NOjobmutation. OfficialHarbourCity2023floorplan primarycontext actualpageviewed. Deep5slopewarnings V3resolved0347654a toexactverticalzeroarea seams, shallowgrade retained. ReadlatestHANDOFF. NEXT composeexactsourcephysical+freshretained27browser thenseparate3owner/4source supportedcoimport/retainedterrain/noinstalledmetadataupdate publisher. NOphysical/installapprovalyet,393/128/521XL6985actorsunchanged. Atomicruntimealreadydone; donotrepeat.
