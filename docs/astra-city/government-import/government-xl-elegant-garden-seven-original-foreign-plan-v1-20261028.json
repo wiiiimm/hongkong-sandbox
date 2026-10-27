@@ -1,0 +1,60 @@
+{
+  "batch": "government-xl-elegant-garden-seven-original-foreign-sequence-v1-20261028",
+  "uids": [
+    "landsd/173532:0",
+    "landsd/173768:0",
+    "landsd/236170:0",
+    "landsd/171904:0",
+    "landsd/173767:0",
+    "landsd/224123:0",
+    "landsd/236367:0"
+  ],
+  "resources": [
+    "building:landsd/173532:0",
+    "building:landsd/173768:0",
+    "building:landsd/236170:0",
+    "building:landsd/171904:0",
+    "building:landsd/173767:0",
+    "building:landsd/224123:0",
+    "building:landsd/236367:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-kwong-fung-original-v1-20261025.json"
+  ],
+  "phases": [
+    {
+      "batch": "government-xl-elegant-garden-seven-original-attributes-v1-20261028",
+      "script": "selected_original_render_attributes_v1.py",
+      "args": [
+        "--capture",
+        "government-xl-elegant-garden-seven-original-private-runtime-v1-20261028"
+      ],
+      "scopeResources": "government-xl-elegant-garden-private-inset-scope-v1-20261027"
+    },
+    {
+      "batch": "government-xl-elegant-garden-seven-original-current-foreign-scope-v1-20261028",
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "args": [
+        "--runtime",
+        "government-xl-elegant-garden-seven-original-private-runtime-v1-20261028",
+        "--attributes",
+        "government-xl-elegant-garden-seven-original-attributes-v1-20261028",
+        "--inventory",
+        "government-xl-after-north-pair-current-inventory-v3-20261028"
+      ],
+      "scopeResources": "government-xl-elegant-garden-private-inset-scope-v1-20261027"
+    },
+    {
+      "batch": "government-xl-elegant-garden-seven-original-current-foreign-contacts-v1-20261028",
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "args": [
+        "--scope",
+        "government-xl-elegant-garden-seven-original-current-foreign-scope-v1-20261028",
+        "--runtime",
+        "government-xl-elegant-garden-seven-original-private-runtime-v1-20261028",
+        "--attributes",
+        "government-xl-elegant-garden-seven-original-attributes-v1-20261028"
+      ],
+      "scopeResources": "government-xl-elegant-garden-private-inset-scope-v1-20261027"
+    }
+  ]
+}
