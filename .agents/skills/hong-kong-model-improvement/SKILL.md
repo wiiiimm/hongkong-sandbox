@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October: ALL4 North atomic browser cases PASS; wrapper post-release assertion failed, preserved; receipt recovered in Neon37482f16 without rerun. Fresh full source+67retained desktop/mobile browser LIVE session38717/log /tmp/astra-north-full-existing-peer-v1.log. Read latestHANDOFF. Do not edit/restart live worker or rerun atomic77609 (terminal). Counts395/126/521XL,6989actors unchanged; no physical/visual/install approval.
+
 27 October: North three-original atomic software browser is LIVE session77609, log /tmp/astra-north-atomic-existing-peer-v1.log. Physical-context/fallback workers terminal. Existing272986 detailed original must join182397/309340 availability group because fallback has52contacts versus4 detailed. Exact cache-safe catalogue annotation fixture prepared;39metadata/overlay tests pass. No public files/approval changed. Read latest after-ocean-four-current-inventory-v1 HANDOFF and poll exact handle before restarting.395/126/521XL,6989actors.
 
 27 October: corrected North three-member surface V2 ec3417ea and whole regression24f4f08d COMPLETE;4omitted original boundary facets restored exactly,49focused tests pass. Both raw retained support negatives have exact whole-terrain nonregression proofs. Physical-context V4/session36266 is LIVE; log /tmp/astra-north-physical-context-v4.log. Read after-ocean-four-current-inventory-v1 HANDOFF. Do not rerun acquisition/inset/regressions or unused V3 plan; physical/visual/source-junction acceptance still pending.395/126/521XL,6989actors.

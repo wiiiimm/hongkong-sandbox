@@ -93,3 +93,16 @@ Atomic session77609 remains live. Its saved report now has desktop1280success an
 Prepared north_pair_full_browser_v1_20261027.py. It refuses to start until the current atomic result is complete and all four cases pass, then claims its own fresh lease for all67 retained native actors and the source/terrain scope. It runs full1280+390 source checks and requires134 exact day/night retained-own views PER viewport. Existing flags, original bytes and current manifest are pinned. Physical, visual and publication acceptance remain explicitly false in its final receipt. Run only after verifying77609 is terminal/released.
 
 New ronsdale_three_live_browser_v16_20261027.mjs adds exact old/new catalogue availability aliases and manifest URL replacement. Parity test confirms V15 body is otherwise byte-identical, preserving all prior browser checks. One new parity test passed; prior39 metadata tests remain valid. Private4177 is already running PID1438433 from this worktree's3d-viewer; do not restart shared4176.
+
+
+### Atomic four-case run completed; fresh full-view worker LIVE
+
+Atomic session77609 is terminal exit1 solely because outer wrapper asserted it still owned a lease after bounded_reserved_runner had successfully released it. All FOUR actual browser cases passed; browser.log ends ok:true/exitCode:0/released:true. Original wrapper failure is preserved in atomic-existing-peer-receipt-v1/original-wrapper-failure.log. Do NOT rerun those cases.
+
+Receipt recovery completed/released under a fresh lease, Neon job37482f167de456b3ff83e5ae5f2dc1abb57df548dcdf8757db3a2dac21e53719. It validates every case's exact SHA/triangle counts, all original-only group transitions, no page errors, complete BASIC retention on each failed peer, retry, base-only restoration and full eviction. Source/physical/visual/publication approval remains false. No source asset or public catalogue changed.
+
+Current LIVE: north_pair_full_browser_v1_20261027.py, tool session38717, log /tmp/astra-north-full-existing-peer-v1.log. Desktop log in full-existing-peer-browser-v1/browser-1280.log. Script was corrected BEFORE launch to respect bounded runner release: one fresh lease per viewport, then a fresh receipt-finalisation lease; pins are checked between phases. All city JS files are pinned alongside source/catalogue/terrain assets. Never edit/restart this running script/harness.
+
+Next: verify38717 live status/actual output, inspect full source+retained exported images when terminal, finish explicit source-role/junction review, then strict publisher integration/live readback/commit/push. Do not grant installation credit from these software tests. Current395installed/126unfinished/521XL and6989detailedactors unchanged.
+
+Independent next candidates found: Elegant Garden173532/173768 are already acquired in remaining-178-v3-current-scene-v1 chunk04; their prior minimum ground gaps6.6486/6.3401m indicate supporting-structure discovery, not a burial repair. Intercontinental310787 has124buried/63upward on that old terrain and needs original terrain/context review. These are observations of prior evidence only, not refreshed acceptance or permanent rejection.

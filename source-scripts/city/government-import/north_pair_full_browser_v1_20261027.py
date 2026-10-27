@@ -22,7 +22,8 @@ def main():
     assert not doc.exists() and not local.exists(), 'Never restart a prior browser run'
     atomic_doc = BASE / (PREFIX + 'atomic-existing-peer-browser-v1-20261027')
     atomic_report = read(atomic_doc / 'atomic/report.json')
-    assert (atomic_doc / 'result.json').exists() and atomic_report['passed'] and not atomic_report['pageErrors']
+    atomic_receipt = BASE / (PREFIX + 'atomic-existing-peer-receipt-v1-20261027') / 'result.json'
+    assert atomic_receipt.exists() and atomic_report['passed'] and not atomic_report['pageErrors']
     assert len(atomic_report['cases']) == 4
     fixture_dir = BASE / (PREFIX + 'availability-fixture-v1-20261027')
     fixture, spec = read(fixture_dir / 'summary.json'), read(fixture_dir / 'overlay-spec.json')
@@ -50,7 +51,7 @@ def main():
         save(local / 'catalogue.json', catalogue)
         save(local / 'source-forms.json', [r['source']['building'] for r in selection['rows']])
         refs = [Path(__file__), manifest_path, fixture_dir / 'summary.json', fixture_dir / 'overlay-spec.json',
-                ROOT / spec['source'], atomic_doc / 'result.json', atomic_doc / 'atomic/report.json']
+                ROOT / spec['source'], atomic_receipt, atomic_doc / 'atomic/report.json']
         for m in catalogue['models']:
             source = source_catalogue.parent / m['asset']
             raw = source.read_bytes()
@@ -82,8 +83,19 @@ def main():
                       failureTestUids=[], catalogueReplacements=[], nativeSupportUidsByModel={}, fitBox=True)
         tool = HERE / 'ronsdale_three_live_browser_v16_20261027.mjs'
         refs.append(tool)
+        refs.extend((ROOT / '3d-viewer/city').glob('*.js'))
         pins = {str(p.relative_to(ROOT)): digest(p.read_bytes()) for p in refs}
         for width in [1280, 390]:
+            # Each bounded child releases its lease on completion. The next
+            # viewport is a distinct phase and must claim a fresh lease.
+            if width == 390:
+                assert not reservations.owns(lease)
+                for path, sha in pins.items():
+                    assert digest((ROOT / path).read_bytes()) == sha
+                claim = reservations.claim('north-full-browser-mobile-' + str(uuid.uuid4()), sorted(resources), batch=BATCH, ttl=3600)
+                assert claim.get('ok')
+                lease = claim['reservation']
+                save(lease_path, json.loads(json.dumps(lease, default=str)))
             config_path = local / f'config-{width}.json'
             save(config_path, dict(**config, viewportWidths=[width], doc=str((doc / str(width)).relative_to(ROOT)) + '/'))
             command = ['node', str(tool), 'staged', str(config_path.relative_to(ROOT))]
@@ -100,6 +112,10 @@ def main():
             print('Full browser passed', width, flush=True)
         for path, sha in pins.items():
             assert digest((ROOT / path).read_bytes()) == sha
+        assert not reservations.owns(lease)
+        claim = reservations.claim('north-full-browser-receipt-' + str(uuid.uuid4()), sorted(resources), batch=BATCH, ttl=3600)
+        assert claim.get('ok')
+        lease = claim['reservation']
         assert reservations.owns(lease)
         refs.extend(p for p in doc.rglob('*.png'))
         module('north_full_browser_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(
