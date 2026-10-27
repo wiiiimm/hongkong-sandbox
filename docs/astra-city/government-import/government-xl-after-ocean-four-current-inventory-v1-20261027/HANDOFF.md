@@ -84,3 +84,12 @@ New original_availability_overlay_v1 helper stages only the new catalogue bytes 
 Current LIVE browser: north_pair_atomic_browser_v1_20261027.py, tool session77609, log /tmp/astra-north-atomic-existing-peer-v1.log. It owns its fresh renewing lease and runs model_atomic_lifecycle_browser_v2_20261027.mjs against private4177. Four required cases: desktop success and each of three mobile peer-download failures, then retry, base-only restoration and whole-group eviction. V2 routes both old/new installed-catalogue URLs to the exact annotation and injects the denied peer on BOTH fixture and existing asset URLs. Do not edit/restart a running producer; poll77609 first. Its result is software evidence only, not source/physical/visual/publication acceptance.
 
 Next: inspect this actual run, preserve any failures, then finish bounded source-role/junction review and full source+retained desktop/mobile acceptance, integrate the strict three-member boundary and cache-safe availability overlay with unchanged publication checks, live readback, commit/push. All original geometry remains immutable. Counts395installed/126unfinished/521XL,6989actors unchanged. No AI geometry modelling.
+
+
+### Full source/retained browser prepared while atomic run continues
+
+Atomic session77609 remains live. Its saved report now has desktop1280success and mobile390failed182397 cases passed, each with complete group restoration/eviction and zero per-frame violations; the mobile failure retained all BASIC actors. No page errors. Remaining failed272986 and309340 cases still need completion; do not claim all four passed from this partial report.
+
+Prepared north_pair_full_browser_v1_20261027.py. It refuses to start until the current atomic result is complete and all four cases pass, then claims its own fresh lease for all67 retained native actors and the source/terrain scope. It runs full1280+390 source checks and requires134 exact day/night retained-own views PER viewport. Existing flags, original bytes and current manifest are pinned. Physical, visual and publication acceptance remain explicitly false in its final receipt. Run only after verifying77609 is terminal/released.
+
+New ronsdale_three_live_browser_v16_20261027.mjs adds exact old/new catalogue availability aliases and manifest URL replacement. Parity test confirms V15 body is otherwise byte-identical, preserving all prior browser checks. One new parity test passed; prior39 metadata tests remain valid. Private4177 is already running PID1438433 from this worktree's3d-viewer; do not restart shared4176.
