@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+27 October: full browserV1/session38717 TERMINAL on renewal failure (lease unexpired/released); no export/approval credit. Fresh identical-check retryV2 LIVE session36551/log /tmp/astra-north-full-existing-peer-v2.log, with sanitized fail-closed lease diagnostics (6tests). Exact publisher hooks preserve canonical terrain/support/commit guards,9tests+real in-memory metadata rehearsalPASS. Read latestHANDOFF; do not repeat4completed atomic cases.395/126/521XL,6989actors unchanged.
+
 27 October: ALL4 North atomic browser cases PASS; wrapper post-release assertion failed, preserved; receipt recovered in Neon37482f16 without rerun. Fresh full source+67retained desktop/mobile browser LIVE session38717/log /tmp/astra-north-full-existing-peer-v1.log. Read latestHANDOFF. Do not edit/restart live worker or rerun atomic77609 (terminal). Counts395/126/521XL,6989actors unchanged; no physical/visual/install approval.
 
 27 October: North three-original atomic software browser is LIVE session77609, log /tmp/astra-north-atomic-existing-peer-v1.log. Physical-context/fallback workers terminal. Existing272986 detailed original must join182397/309340 availability group because fallback has52contacts versus4 detailed. Exact cache-safe catalogue annotation fixture prepared;39metadata/overlay tests pass. No public files/approval changed. Read latest after-ocean-four-current-inventory-v1 HANDOFF and poll exact handle before restarting.395/126/521XL,6989actors.
