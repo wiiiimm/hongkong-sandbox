@@ -4,6 +4,24 @@ import unittest
 
 
 class BrowserParity(unittest.TestCase):
+    def test_v18_retained_only_mode_preserves_all_retained_checks(self):
+        folder = Path(__file__).parent
+        before = (folder / 'ronsdale_three_live_browser_v17_20261027.mjs').read_text()
+        after = (folder / 'ronsdale_three_live_browser_v18_20261027.mjs').read_text()
+        lines = after.splitlines(keepends=True)
+        self.assertTrue(lines[0].startswith('// V18:'))
+        after = ''.join(lines[1:])
+        replacements = [
+            ("assert((config.retainedOnly===true&&Array.isArray(config.browserUids)&&config.browserUids.length===0)||(browserModels.length>0&&(!config.browserUids||browserModels.length===config.browserUids.length)));",
+             "assert(browserModels.length>0&&(!config.browserUids||browserModels.length===config.browserUids.length));"),
+            ("if(config.retainedOnly===true)assert(requiredUids.size>0&&Array.isArray(config.failureTestUids)&&config.failureTestUids.length===0);\n", ''),
+            ('const report={mode,retainedOnly:config.retainedOnly===true,newSourceAcceptance:false,views:[]', 'const report={mode,views:[]'),
+        ]
+        for changed, original in replacements:
+            self.assertEqual(after.count(changed), 1)
+            after = after.replace(changed, original)
+        self.assertEqual(after, before)
+
     def test_v17_retains_v16_checks_and_adds_only_source_visibility(self):
         folder = Path(__file__).parent
         before = (folder / 'ronsdale_three_live_browser_v16_20261027.mjs').read_text()
