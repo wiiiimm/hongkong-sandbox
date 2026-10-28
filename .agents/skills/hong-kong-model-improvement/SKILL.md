@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.192"
+  version: "1.9.193"
 ---
 
 # Hong Kong model improvement
+
+Newest Oct28: BASIC213586footing collision-only ROOTreview40d6b21b qualified after80640actualproduction collision probes,unchanged155otherBASICvolumes/roofs,and exact continued three vertical original-wall facets. Visual/fulloriginal placement/publication/install remainFALSE. Old draft remainsunapproved. Next explicit unapproved PRIVATE fullscene2terrain/16original/9retained/3BASICfoundation overlay; existing V5 assumes1terrain and cannot be bypassed. Private4177notserving;shared4176untouched. Read END handoff.396/125/521XL,6991actors,0newinstalls.
 
 Newest footing collision context:219complete surface rows are done (16originals x4streams +155foreignBASICs), all9installed natives bounds-clear. Only WestGrand podium215726 contacts the real footing among candidate originals; all4streams touch exactly vertical source walls65/93/94 already touched by the unchanged BASIC body. This does not approve the continued interface. Two other hits are replaced BASIC counterparts. Do not repeat these clips. Next actual production collision semantics and private full-scene views. Counts396/125/521XL,6991actors unchanged. Read END handoff.
 
