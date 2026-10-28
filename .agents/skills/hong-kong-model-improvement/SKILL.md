@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.189"
+  version: "1.9.190"
 ---
 
 # Hong Kong model improvement
+
+Use exact component/provider tracing to distinguish bearing shells from authored façade details; component topology alone is not an additional blanket ground-contact gate. Keep all original detached details and review their roles without welding/remodelling. Original surface-contact absence, 2D overlap, whole-volume containment and structural acceptance are different claims; do not substitute one for another. Fresh CSDI structure/occupation-permit records can clarify identities and storey counts, but selected records do not prove complete permit membership. Preserve stable viewer UID/CSUID bindings when live OBJECTIDs are reindexed. Read the latest handoff for completed Oct28provenance/Rex-podium diagnostics and the live complete-permit census; do not repeat completed paths or change source geometry from baseline height discrepancies.
 
 28 October latest: read the end of `docs/astra-city/government-import/government-xl-after-ocean-four-current-inventory-v1-20261027/HANDOFF.md`. University Hall is already installed. XL remains 396 installed / 125 non-installed / 521 fixed sources, with 6,991 detailed actors; no new installation was credited in this continuation.
 
