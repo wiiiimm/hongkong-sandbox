@@ -1,0 +1,7 @@
+# Private original preview cameras
+
+An active actor with correct source bytes, correct triangle count, a fully framed bounding box and a successful roof/collision witness can still be completely hidden in an exported image. In the current field, mobile source100673 produced single-colour day/night PNGs while every software assertion passed. Nearby façades also obscure several low podium and retained-component cameras. Preserve these images and obtain camera-only evidence; do not infer corrupt geometry.
+
+Use real production picking and collision APIs to identify blockers. Avoid cameras inside other buildings or below terrain. Sample safe alternate orientations and fit all required bounds, preserving current device budgets and scene contents. Pixel variation is a warning, not an approval rule; image-review utilities must still display bad exports.
+
+The all16mobile joint observation also needs correct test setup. Bounding-sphere fitting put the tiny component below normal mobile detail thresholds. Perspective box-fitting kept the complete joint box framed, and a real first user selection of the tiny actor made it resident before the group observation. Keep both failed records. The successful selected/resident case proves integration, not default cold-load behaviour, performance or atomic availability. No source geometry or production LOD rule was changed.
