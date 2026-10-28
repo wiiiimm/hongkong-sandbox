@@ -2,12 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.199"
+  version: "1.9.200"
 ---
 
 # Hong Kong model improvement
 
-Current Oct28: all16source associations and all14native contact interface roles now bounded-reviewed, plus retained GrandScholar canopy roof/wall case. ROOT inspected28views/4pages; V3job02c4a127, ROOTreview254020ea complete/released. Block1/MainP contacts are Float32-only, preserved; V1/V2 plotting failures terminal/released. Complete120native/288mixed4world matrix and66actual planner cases remain valid,16member availability group. Source-bound99061duplicate suppresses privately onlywhileMainPactive;336456canopy is retained against its native wall. NEXT bind existing exact provider graph/physical support metadata and retained Rex BASIC228592, final private fixture then real failure/retry/Base-only/suppression/collision/browser and guarded publisher. Read END handoff. Allworkers terminal,4177closed,396installed/125non-installed/521XL6991actors,0newinstalls. NoAIgeometry/optimisation.
+Current LIVE Oct28: exec33689/PID1219995 supported-activation-browser-v3 is running, private4177owned; never restart on observation timeout or edit bound runtime. Desktop and first mobile independent source-failure/retry/Base-only/suppression case pass;17total expected. Actual loader blocker fixed/pushed f7db90beb: explicit BASIC suppression targets in atomic stream transactions, original stream guards unchanged;19group+12streaming testsPASS. Supported fixturee85831f5 binds all4world provider graph and fresh exact retainedRexBASIC. V1/V2 negative browser receipts retained, not corruption. Read END handoff and ATOMIC-BASIC-SUPPRESSION-LEARNING-20261028.md. Next finish real17cases, terminal receipt/exports then final source/physical/visual qualification, canonical2member terrain/BASIC stagers, guarded publish/live readback.396installed/125non-installed/521XL6991actors,0newinstalls. NoAIgeometry/optimisation.
 
 Newest Oct28: BASIC213586footing collision-only ROOTreview40d6b21b qualified after80640actualproduction collision probes,unchanged155otherBASICvolumes/roofs,and exact continued three vertical original-wall facets. Visual/fulloriginal placement/publication/install remainFALSE. Old draft remainsunapproved. Next explicit unapproved PRIVATE fullscene2terrain/16original/9retained/3BASICfoundation overlay; existing V5 assumes1terrain and cannot be bypassed. Private4177notserving;shared4176untouched. Read END handoff.396/125/521XL,6991actors,0newinstalls.
 
