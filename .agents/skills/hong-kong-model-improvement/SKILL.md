@@ -2,12 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.196"
+  version: "1.9.197"
 ---
 
 # Hong Kong model improvement
 
-Current Oct28: ALLworkers terminal. DesktopV2+mobileV4softwarePASS16sources/9retained/2terrain/3privatefoundations;100exports actually ROOTinspected,NeonQA619e0717. VisualapprovalFALSE: mobile100673isonecolour, several podium/retainedviewsobstructed,3BASICfoundationsneedcloseups. Do not rerun100goodsoftwarecaptures or waivevisibility. NEXT targeted camera-only CPUray/picking/collision diagnostic on unchangedfixture; read END handoff +ORIGINAL-PREVIEW-CAMERA-LEARNING-20261028.md. V2/V3failedmobilejointrecordsretained;V4realUIselectstinyfirst,tightboxfit,unchangedbudgets/all16assertions. No workerlive;4177closed,4176untouched.396/125/521XL6991actorsunchanged;0newinstalls.
+Current Oct28: all workers terminal/released, private 4177 closed. All three private BASIC foundation changes now have bounded collision and visual reviews; two canopies add 6,300 production collision probes and 438 exact foreign-surface cases with zero contacts. Fresh BASIC-only footing fragment V2 passes the unchanged real stager in memory (job 6cf2ce48); no public file/model installation follows. Old drafts and camera V1 remain rejected. OrbitControls clamps cameras below 12 m: verify actual rendered positions; focused V2 is explicitly private free-camera appearance evidence. Strict source-form hashing caught audit [70] versus live [70.0]; V2 binds the exact live form and proves geometry equality, without weakening guards. Read END handoff and BASIC-FOUNDATION-INTEGRATION-LEARNING-20261028.md. Next original-source boundary/provider/dependency/availability/failure/Base-only and full publication checks. Do not repeat completed census, paths, software captures or foundation proofs unchanged. 396 installed /125 non-installed /521 fixed XL,6991 actors,zero new installs. No AI geometry modelling or optimisation.
 
 Current LIVE fullscene preview:exec36126,batchgovernment-xl-elegant-garden-full-scene-preview-browser-v1-20261028;fixtureffbdf74dCOMPLETE.16unchanged originals/9retained/2terrain/3privatefoundation overlays. Actualdesktop1280thenmobile390. Do not restart/edit liveboundcode/assets; read END handoff and logs. V17preservesallV15assertions plus exact foundation-onlyoverlay; initial availability/failuretestsdeliberatelydeferred. Verify92runtimeclosure hashes afterterminal and inspectallactualexports beforevisualapproval.4177ownedprivate,4176untouched. Counts396/125/521XL6991actors,0newinstall.
 
