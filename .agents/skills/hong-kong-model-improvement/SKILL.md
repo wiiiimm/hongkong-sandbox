@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.184"
+  version: "1.9.185"
 ---
 
 # Hong Kong model improvement
+
+28 October latest: expanded14source terrain de56ad82 PASS18860/8372; fresh1166a920all14renderer0buried, WestGrand/GrandScholar podium gaps-.171/-.031m. Updated all156form/9native regressions COMPLETE,all9nativeResolved; fiveBASICflags99061/173764/213586/224121/336456. BOTHunsurveyedcanopy proposals432839d9/a5d1bc9cPASS fullpostfootprints/unchangedroofs, PRIVATEonly. FourBASIC-vs14original support probeall16rowsFAIL retained, no waiver. Four-world14peer rimsexact56rows COMPLETE, keeprawtower failures. Rex173764/WestGrandTower224121two more originals recovered9ec2023e; currentprivate16source diagnostics0beadd1b COMPLETE, bothnewidentitiesstillfailcoverage/overlap, zero buriedfaces, no acceptance. Missing213586hascandidate-less24facevertical sourceB323061642602063C0 (zero cachedfootprintoverlap), NOT missing/corrupted/replacement-ready; context555f7b22.336456no prefixmatch onpinned7A+7B only. Read END currentHANDOFF for live16arrays/contact sequence. Never duplicateUniversityHall or rerunsuccessfulcaptures. NoAIgeometry/optimisation/installedcredit;396/125/521XL6991actors.
 
 28 October newest: Elegant two-member terrain7e3ec0b1 PASS17873/8465faces; actual10source runtime0buried; full156form/9installed-native terrain regression38d125d5 COMPLETE, ALL9nativeResolved. FourBASICgroundgap flags99061/215726/255031/255231remain. Exact legacy fallback312858→176739binding/reviewer restoresmissingCSUID viaunchanged installedownerledger+currentfulltile/form;8tests/14mutationsPASS, no productionguard/catalogue edits or supportcredit. Threeouter-source currentcontacts22pairs COMPLETE. Fourmore surveyed originals215726/255031/255231/257493recovered unchanged aa92e89c,102436bytes0errors; originalgroup now14privateonly. Read END currentHANDOFF for live14-source diagnostic sequence; no installations/optimisation/AI modelling. Counts396/125/521XL6991actors. Do not repeat completed checks or reinstallUniversityHall.
 
