@@ -1,0 +1,39 @@
+{
+  "batch": "government-xl-peninsula-original-pair-diagnostics-v1-20261029",
+  "uids": [
+    "landsd/159177:0",
+    "landsd/230911:0"
+  ],
+  "resources": [
+    "building:landsd/159177:0",
+    "building:landsd/230911:0"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-peninsula-original-pair-finite-contacts-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-civic-neighbours-peninsula-runtime-evidence-v1-20261029",
+        "--attributes",
+        "government-xl-civic-neighbours-peninsula-runtime-evidence-v1-20261029",
+        "--left",
+        "landsd/159177:0",
+        "--right",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-peninsula-original-pair-contact-roles-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-civic-neighbours-peninsula-runtime-evidence-v1-20261029",
+        "--attributes",
+        "government-xl-civic-neighbours-peninsula-runtime-evidence-v1-20261029",
+        "--contacts",
+        "government-xl-peninsula-original-pair-finite-contacts-v1-20261029"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "batch": "government-xl-sha-tin-civic-five-provider-seam-regression-sequence-v1-20261029",
+  "uids": [
+    "landsd/271344:0",
+    "landsd/231013:0",
+    "landsd/23220:0",
+    "landsd/23759:0",
+    "landsd/23761:0"
+  ],
+  "resources": [
+    "building:landsd/271344:0",
+    "building:landsd/231013:0",
+    "building:landsd/23220:0",
+    "building:landsd/23759:0",
+    "building:landsd/23761:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_current_installed_dependency_bindings_v1_20261024.py",
+      "batch": "government-xl-sha-tin-civic-five-provider-seam-dependency-bindings-v1-20261029",
+      "scopeResources": "government-xl-sha-tin-civic-five-provider-seam-scope-v1-20261029",
+      "args": [
+        "--scope",
+        "government-xl-sha-tin-civic-five-provider-seam-scope-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_retained_native_neighbours_v9_20261029.py",
+      "batch": "government-xl-sha-tin-civic-five-provider-seam-whole-region-regression-v1-20261029",
+      "scopeResources": "government-xl-sha-tin-civic-five-provider-seam-scope-v1-20261029",
+      "args": [
+        "--scope",
+        "government-xl-sha-tin-civic-five-provider-seam-scope-v1-20261029",
+        "--inventory",
+        "government-xl-after-elegant-current-inventory-v1-20261029",
+        "--patch",
+        "government-xl-sha-tin-civic-five-provider-seam-inset-v1-20261029",
+        "--bindings",
+        "government-xl-sha-tin-civic-five-provider-seam-dependency-bindings-v1-20261029"
+      ]
+    }
+  ]
+}
