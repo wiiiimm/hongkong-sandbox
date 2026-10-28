@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.194"
+  version: "1.9.195"
 ---
 
 # Hong Kong model improvement
+
+Newest LIVE:V2fullscene browserexec13342, /tmp/astra-elegant-full-scene-preview-browser-v2.log; fixturec77767c6COMPLETE. V1terminalFAILED because13candidateentries missedsourceTile, NOT meshcorruption. ExactNeonstage cache/result/model/asset binding repairs provenance;5guardtestsPASS,productioncatalogue+all16assethashesPASS. Source-formpreflightaloneisNOTcataloguevalidation. Do not rerunV1/editliveV2inputs. Read END handoff +ORIGINAL-CATALOGUE-PREFLIGHT-LEARNING-20261028.md. Desktopthenmobile;inspectALLexports. Initialavailabilitytestsdeferred;noinstallapproval.396/125/521XL6991actors unchanged.
 
 Current LIVE fullscene preview:exec36126,batchgovernment-xl-elegant-garden-full-scene-preview-browser-v1-20261028;fixtureffbdf74dCOMPLETE.16unchanged originals/9retained/2terrain/3privatefoundation overlays. Actualdesktop1280thenmobile390. Do not restart/edit liveboundcode/assets; read END handoff and logs. V17preservesallV15assertions plus exact foundation-onlyoverlay; initial availability/failuretestsdeliberatelydeferred. Verify92runtimeclosure hashes afterterminal and inspectallactualexports beforevisualapproval.4177ownedprivate,4176untouched. Counts396/125/521XL6991actors,0newinstall.
 
