@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.183"
+  version: "1.9.184"
 ---
 
 # Hong Kong model improvement
+
+28 October newest: Elegant two-member terrain7e3ec0b1 PASS17873/8465faces; actual10source runtime0buried; full156form/9installed-native terrain regression38d125d5 COMPLETE, ALL9nativeResolved. FourBASICgroundgap flags99061/215726/255031/255231remain. Exact legacy fallback312858→176739binding/reviewer restoresmissingCSUID viaunchanged installedownerledger+currentfulltile/form;8tests/14mutationsPASS, no productionguard/catalogue edits or supportcredit. Threeouter-source currentcontacts22pairs COMPLETE. Fourmore surveyed originals215726/255031/255231/257493recovered unchanged aa92e89c,102436bytes0errors; originalgroup now14privateonly. Read END currentHANDOFF for live14-source diagnostic sequence; no installations/optimisation/AI modelling. Counts396/125/521XL6991actors. Do not repeat completed checks or reinstallUniversityHall.
 
 28 October current: read END of after-ocean-four-current-inventory-v1-20261027/HANDOFF.md. University Hall already installed; do not duplicate. Elegant now has10 unchanged recovered originals,21 independently authenticated diagnostic receipts/1069 rehashed inputs. Full original source terrain clears source burial for TungWai/unnamed, but current-map acceptance remains pending. Expanded domain preserves156BASIC/9native actors and BOTH old terrain members. Single-node26338faces and exact consolidation25967 both exceed unchanged25000budget; never repeat unchanged or raise limits. Next private two-member split at root column460 using existing finite-native-shared-boundary-v1, full conservation/outer boundary/current-neighbour/source-role/browser gates. No new installation:396/125/521XL6991actors. Private unsurveyed BASIC99061post extension only; no government geometry changes or roof suppression. No optimisation/AI modelling.
 
