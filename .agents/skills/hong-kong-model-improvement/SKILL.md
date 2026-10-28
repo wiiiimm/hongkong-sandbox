@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.182"
+  version: "1.9.183"
 ---
 
 # Hong Kong model improvement
+
+28 October current: read END of after-ocean-four-current-inventory-v1-20261027/HANDOFF.md. University Hall already installed; do not duplicate. Elegant now has10 unchanged recovered originals,21 independently authenticated diagnostic receipts/1069 rehashed inputs. Full original source terrain clears source burial for TungWai/unnamed, but current-map acceptance remains pending. Expanded domain preserves156BASIC/9native actors and BOTH old terrain members. Single-node26338faces and exact consolidation25967 both exceed unchanged25000budget; never repeat unchanged or raise limits. Next private two-member split at root column460 using existing finite-native-shared-boundary-v1, full conservation/outer boundary/current-neighbour/source-role/browser gates. No new installation:396/125/521XL6991actors. Private unsurveyed BASIC99061post extension only; no government geometry changes or roof suppression. No optimisation/AI modelling.
 
 28 October newest: Elegant7-original private replay4aee800a COMPLETE, unchanged terrain validator and all7 actual-runtime captures; unnamed224123 retains1downward/0upward. Full foreign sequence dc0a4d10 COMPLETE/released:48directed source/BASIC pairs inbefore+4streams;4positive foreign obligations outside7 are236170→99061,171904→213816,236367→100673/234554. NO automatic clearance/coimport exclusions/installation. Read END of currentHANDOFF; next source/interface roles+3native TERRAIN regression, not duplicate acquisition/captures. All launched workers terminal;396/125/521XL6991actors unchanged. DriverV22 addsONLY existingexact terrain-rebind helper toV21allowlist, otherASTidentical. NoAIgeometry/optimisation.
 
