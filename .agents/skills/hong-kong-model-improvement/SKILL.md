@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.190"
+  version: "1.9.191"
 ---
 
 # Hong Kong model improvement
+
+Current Oct28 checkpoint: five exact permit source identities are association-only approved, with every raw spatial failure and mandatory boundary-placement obligation preserved. Complete permit census and source paths are finished; do not repeat them. BASIC-only footing guard now has 76 passing publisher tests and exact local native-owner dependencies; the real footing draft remains collision/visual pending and is rejected without edits. Read the END of the handoff. No installation credit:396/125/521 XL,6991 actors. University Hall is already installed.
 
 Use exact component/provider tracing to distinguish bearing shells from authored façade details; component topology alone is not an additional blanket ground-contact gate. Keep all original detached details and review their roles without welding/remodelling. Original surface-contact absence, 2D overlap, whole-volume containment and structural acceptance are different claims; do not substitute one for another. Fresh CSDI structure/occupation-permit records can clarify identities and storey counts, but selected records do not prove complete permit membership. Preserve stable viewer UID/CSUID bindings when live OBJECTIDs are reindexed. Read the latest handoff for completed Oct28provenance/Rex-podium diagnostics and the live complete-permit census; do not repeat completed paths or change source geometry from baseline height discrepancies.
 

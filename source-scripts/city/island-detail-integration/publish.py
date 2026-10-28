@@ -11,6 +11,7 @@ from retained_basic_support import stage_retained_basic_support
 from basic_fallback_protections import stage_basic_fallback_protections
 from model_priorities import stage_priorities
 from illustrative_foundations import stage_illustrative_foundations
+from basic_podium_footings import stage_basic_podium_footings
 ROOT=pathlib.Path(__file__).resolve().parents[3]
 DOC=ROOT/'docs/astra-city/island-detail-integration'
 PUBLICATION_GUARD=nullcontext
@@ -214,6 +215,7 @@ def main():
  assert estimatesFound==set(estimateByUid),'Missing estimate update UID'
  assert found==newIds,'Source UID missing from current tiles';assert original['counts']==manifest['counts']
  stage_illustrative_foundations(ROOT,plan,manifest,edits,report,load,sha,encoded)
+ stage_basic_podium_footings(ROOT,plan,manifest,edits,report,load,sha,encoded)
  stage_retained_basic_support(ROOT,manifest,edits,report,load)
  stage_basic_fallback_protections(ROOT,plan,original,manifest,edits,newModels,report,load,sha)
  edits[manifestPath]=encoded(manifest)
