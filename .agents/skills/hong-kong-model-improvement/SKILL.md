@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.191"
+  version: "1.9.192"
 ---
 
 # Hong Kong model improvement
+
+Newest footing collision context:219complete surface rows are done (16originals x4streams +155foreignBASICs), all9installed natives bounds-clear. Only WestGrand podium215726 contacts the real footing among candidate originals; all4streams touch exactly vertical source walls65/93/94 already touched by the unchanged BASIC body. This does not approve the continued interface. Two other hits are replaced BASIC counterparts. Do not repeat these clips. Next actual production collision semantics and private full-scene views. Counts396/125/521XL,6991actors unchanged. Read END handoff.
 
 Current Oct28 checkpoint: five exact permit source identities are association-only approved, with every raw spatial failure and mandatory boundary-placement obligation preserved. Complete permit census and source paths are finished; do not repeat them. BASIC-only footing guard now has 76 passing publisher tests and exact local native-owner dependencies; the real footing draft remains collision/visual pending and is rejected without edits. Read the END of the handoff. No installation credit:396/125/521 XL,6991 actors. University Hall is already installed.
 
