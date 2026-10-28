@@ -911,3 +911,14 @@ Next work, without needing user input:
 4. Run the full scene and original-availability desktop/mobile checks, including all nine retained actors, then guarded stage/install/readback. Commit and push an actual installation and only then update installed counts.
 
 The original goal remains active and incomplete. Captured, zero-buried, supported or privately qualified does not mean installed.
+
+
+### Final sixteen-source foundations complete; composed support running
+
+All 16 original sources pass the established foundation check in all four coordinate representations (64 rows): complete drawn-ground coverage, zero wholly buried faces and zero upward burial. Parent job `d8f0f18598ab95bf993ac5bcbfcb8f39739186ff5f603d5cbb3d020459bf04be` is complete and released. This is burial evidence, not a structural root or identity approval; towers above ground still require their podiums.
+
+Both canopy proposals were revalidated against the final sixteen-source terrain. Main canopy 99061: job `e5e9df8e6c36df28baa3ccc25add7b14460767e2a5169b91000124a26e15e399`, two posts, foundation 14.068756194266244. Grand Scholar canopy 336456: job `95c93a8be6e36a7cc62a03c2049fd3cf3b75b8fce7e3236f02de6750db7fef70`, four posts, foundation 13.922978594966732. Full post footprints and unchanged roofs pass; still private proposals, not collision/visual/publication approval.
+
+LIVE next: exec session 78630, `/tmp/astra-elegant-final-sixteen-composed-support-v1.log`, batch `government-xl-elegant-garden-final-sixteen-composed-support-v1-20261028`. `original_collection_rim_contacts_v3_20261028.py` uses the unchanged rim/wall kernel against all OTHER complete original peers plus each model's actual drawn terrain; Rex additionally has its authenticated full surveyed BASIC podium. All resources in the prior complete terrain plan are reserved and renewed. Self/replaced candidate extrusions are excluded. Exact source/world hashes and explicit support face ranges remain bound. This adds missing scene inputs; it does not change tolerances or approve roots, cycles, interfaces or dependencies. Do not edit/restart the live producer or its bound renderer/kernel files. No optimisation or AI geometry modelling.
+
+Linear HKS-203/HKS-199/HKS-215 and the milestone were updated through commit 020b80920; add these newest receipts at the next checkpoint. Counts remain **396 installed / 125 non-installed / 521 XL; 6,991 detailed actors**. No new installation. University Hall is already installed. Both unmatched fixed keys and unrelated dirty files remain preserved.
