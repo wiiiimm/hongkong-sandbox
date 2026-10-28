@@ -2,12 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.198"
+  version: "1.9.199"
 ---
 
 # Hong Kong model improvement
 
-Current Oct28: all16 Elegant source associations qualified; raw coverage/height/cell failures remain physical obligations. Complete4-world matrix21b67968 checks120native/288mixed pairs,14native/28mixed positive. Mixed graph connects16; private activation plan2888249e passes66 actual production-planner cases under unchanged desktop/mobile limits. Conditional BASIC99061 replacement decisionfe97f528 permits private suppression only while exactMainP active, restoring fallback; actual browser failure/Base-only/suppression still pending. Next physical support metadata, remaining original interface/Grand Scholar canopy roles, final private activation fixture then full guarded publication. Read END handoff. All workers terminal/released,4177closed;396installed/125non-installed/521XL6991actors,0newinstalls. No AI geometry modelling or optimisation.
+Current Oct28: all16source associations and all14native contact interface roles now bounded-reviewed, plus retained GrandScholar canopy roof/wall case. ROOT inspected28views/4pages; V3job02c4a127, ROOTreview254020ea complete/released. Block1/MainP contacts are Float32-only, preserved; V1/V2 plotting failures terminal/released. Complete120native/288mixed4world matrix and66actual planner cases remain valid,16member availability group. Source-bound99061duplicate suppresses privately onlywhileMainPactive;336456canopy is retained against its native wall. NEXT bind existing exact provider graph/physical support metadata and retained Rex BASIC228592, final private fixture then real failure/retry/Base-only/suppression/collision/browser and guarded publisher. Read END handoff. Allworkers terminal,4177closed,396installed/125non-installed/521XL6991actors,0newinstalls. NoAIgeometry/optimisation.
 
 Newest Oct28: BASIC213586footing collision-only ROOTreview40d6b21b qualified after80640actualproduction collision probes,unchanged155otherBASICvolumes/roofs,and exact continued three vertical original-wall facets. Visual/fulloriginal placement/publication/install remainFALSE. Old draft remainsunapproved. Next explicit unapproved PRIVATE fullscene2terrain/16original/9retained/3BASICfoundation overlay; existing V5 assumes1terrain and cannot be bypassed. Private4177notserving;shared4176untouched. Read END handoff.396/125/521XL,6991actors,0newinstalls.
 
