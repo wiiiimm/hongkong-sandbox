@@ -7,6 +7,8 @@ metadata:
 
 # Hong Kong model improvement
 
+Current29Oct: read END handoff. All final ShaTin floor replay/foundations/2upward facets/16lower-role and private browser runs complete; no live named workers. Actual BASIC fallback gap found; private unwired lower-envelope adapter preserves every original BASIC attribute and actual gov mesh,14Node testsPASS, Neon005a9a85. V2hint worker99962terminal0; no new coverage allowance. NEXT full-scene collision/conditional canopy+fallback lifecycle and remaining source/interface review, then guarded install.398installed+3terminal+120outstanding unchanged; no AIgeometry/optimisation. UniversityHall alreadyinstalled. Older live-worker notes below are historical.
+
 29Oct latest: twelve exact low-face/cap phases COMPLETE99b2ce02. Onlybus8930/8931are severe upward facets; five other models wall-like cap pathsPASS (not all exactlyvertical). Old derivedreturn24044faces clears2facets/all70neighbours but extrapolates4.15m. New source-floor-bounded alternative24139faces validates, maxlowering2.27m/sourcefloor4.307m;5testsPASS. LIVE final replay+7foundations exec27832; read END handoff, poll samehandle. No installationcredit/AIgeometry;398+3terminal+120outstanding unchanged.
 
 29Oct newest: ordinary rim diagnostics expose actual six-source ground warnings despite all7foundation PASS;23761ordinary PASS. Podium231013 four negative walls2044/2045/2180/2497 all clear-cap paths PASS. Exact12phase low-face/cap sequence LIVE exec68960, busPID3337465 CPUactive; read END handoff and poll same worker. New upward-low-face schema adapter/test4PASS, not yet used. Strict peer-roof support diagnostics are NOT ordinary terrain failure counts.398/3terminal/120outstanding unchanged; no newinstall/AIgeometry.
