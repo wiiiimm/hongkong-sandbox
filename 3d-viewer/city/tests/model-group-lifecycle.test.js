@@ -59,3 +59,23 @@ test('decoded peak over budget cannot partially install a group',async t=>{
 test('Base-only selection cancels and restores the complete source family',async t=>{
  const f=fixture();t.after(()=>f.layer.dispose());f.layer.plan(camera(),{force:true});await f.layer.cache.waitFor(members);f.layer.setQuality('base');await until(()=>!f.layer.retiring.size);assert.equal(f.stream.detailedModels.size,0);assert.deepEqual(f.frames,[members,[]]);
 });
+
+test('atomic activation and Base-only include an external BASIC suppression in the same stream transaction',async t=>{
+ const entries=[meta(1),meta(2)];entries[0].suppressesBuildingUids=[uid(9)];
+ const f=fixture({entries,commit:async changes=>{assert(changes.some(([key,value])=>key===uid(9)&&value===null));return true;}});t.after(()=>f.layer.dispose());
+ const basic={uid:uid(9),tile:'0_0'};f.buildings.set(uid(9),basic);
+ f.layer.plan(camera(),{force:true});await f.layer.cache.waitFor(members);assert.deepEqual(f.frames,[members]);assert.strictEqual(f.buildings.get(uid(9)),basic);
+ f.layer.setQuality('base');await until(()=>!f.layer.retiring.size);assert.deepEqual(f.frames,[members,[]]);assert.strictEqual(f.buildings.get(uid(9)),basic);
+});
+test('an atomic suppression never silently removes another active detailed source',async t=>{
+ const entries=[meta(1),meta(2)];entries[0].suppressesBuildingUids=[uid(9)];const f=fixture({entries});t.after(()=>f.layer.dispose());
+ const existing={record:{uid:uid(9),modelGeometry:{}},active:true};f.stream.detailedModels.set(uid(9),existing);
+ f.layer.plan(camera(),{force:true});await until(()=>!f.layer.cache.running.size);assert.strictEqual(f.stream.detailedModels.get(uid(9)),existing);assert.deepEqual(f.frames,[]);assert.ok(f.layer.cache.errors.get(uid(1)).message.includes('explicit group replacement'));
+});
+test('missing or embedded external suppression targets cannot activate a partial native group',async t=>{
+ for(const embedded of [false,true]){
+  const entries=[meta(1),meta(2)];entries[0].suppressesBuildingUids=[uid(9)];const f=fixture({entries});t.after(()=>f.layer.dispose());
+  if(embedded)f.buildings.set(uid(9),{uid:uid(9),tile:'0_0',modelGeometry:{}});
+  f.layer.plan(camera(),{force:true});await until(()=>!f.layer.cache.running.size);assert.deepEqual(f.frames,[]);assert.equal(f.stream.detailedModels.size,0);assert.ok(f.layer.cache.errors.get(uid(1)).message.includes('BASIC source unavailable'));
+ }
+});

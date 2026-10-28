@@ -9,6 +9,23 @@ export class AtomicModelGroups{
  constructor(layer,BudgetDeferred){this.layer=layer;this.BudgetDeferred=BudgetDeferred;this.flights=new Map();this.retirements=new Map();this.reservations=new Map();}
  reservedCosts(except){return [...this.reservations].filter(([key])=>key!==except).map(([,costs])=>sum(costs.values()));}
  members(entry){return activationGroupMembers(entry);}
+ // The stream transaction requires suppressed BASIC sources explicitly too.
+ // They are affected fallback records, not additional native group members.
+ changesWithBasicSuppressions(replacements){
+  const l=this.layer,changes=new Map(replacements);
+  for(const [uid,detail] of replacements)for(const item of [detail,l.stream.detailedModels.get(uid)]){
+   for(const other of item?.entry?.suppressesBuildingUids||[]){
+    if(changes.has(other))continue;
+    if(l.stream.detailedModels.has(other))throw new Error('Suppressed detailed source requires explicit group replacement: '+other);
+    if(detail?.entry?.suppressesBuildingUids?.includes(other)){
+     const building=l.stream.getLoadedBuilding(other);
+     if(!building||building.modelGeometry)throw new Error('Suppressed BASIC source unavailable: '+other);
+    }
+    changes.set(other,null);
+   }
+  }
+  return [...changes];
+ }
  async load(uid,signal){
   const l=this.layer,members=this.members(l.models.get(uid)),key=members.join('|');
   const retirement=this.retirements.get(key);if(retirement)await retirement;
@@ -67,7 +84,7 @@ export class AtomicModelGroups{
    current();for(const uid of members)await l.waitForSupports(l.models.get(uid),signal,inside);
    await l.reserveDrawCalls({budget:sum(costs.values())});check(true);
    if(members.some(uid=>l.stream.infrastructureBuildingUids?.has(uid)))throw new Error('Official infrastructure already replaces a group member');
-   switched=await l.change(()=>{check(true);return l.stream.setDetailedModels([...decoded],{signal});},signal);
+   switched=await l.change(()=>{check(true);return l.stream.setDetailedModels(this.changesWithBasicSuppressions([...decoded]),{signal});},signal);
    if(!switched)throw aborted();current();
    register();registered=true;for(const entry of decoded.values())l.onReveal(entry);return decoded;
   }catch(error){
@@ -77,7 +94,7 @@ export class AtomicModelGroups{
    if(switched||members.some(uid=>l.stream.detailedModels.get(uid)===decoded.get(uid)&&decoded.has(uid))){
     try{
      const restore=members.map(uid=>[uid,previous.get(uid)?.active&&l.quality!=='base'&&l.cache.wanted.includes(uid)?previous.get(uid):null]);
-     const ok=await l.change(()=>l.stream.setDetailedModels(restore));if(!ok)throw new Error('Atomic source group fallback was deferred');
+     const ok=await l.change(()=>l.stream.setDetailedModels(this.changesWithBasicSuppressions(restore)));if(!ok)throw new Error('Atomic source group fallback was deferred');
     }catch(restoreError){register();for(const entry of decoded.values())l.releaseFailures.set(entry,restoreError.message);}
    }
    for(const [uid,entry]of decoded)if(l.stream.detailedModels.get(uid)!==entry)disposeOfficialModel(entry);
@@ -101,7 +118,7 @@ export class AtomicModelGroups{
    const dependents=[...l.stream.detailedModels.values()].filter(value=>!members.includes(value.record.uid)&&modelSupportDependencies(value.entry).some(d=>d.kind==='native'&&members.includes(d.uid)));
    for(const dependent of dependents){l.cache.entries.delete(dependent.record.uid);await l.release(dependent);}
    const changes=members.map(uid=>[uid,null]);
-   if(members.some(uid=>l.stream.detailedModels.has(uid))){const ok=await l.change(()=>l.stream.setDetailedModels(changes));if(!ok)throw new Error('Atomic source group fallback was deferred');}
+   if(members.some(uid=>l.stream.detailedModels.has(uid))){const ok=await l.change(()=>l.stream.setDetailedModels(this.changesWithBasicSuppressions(changes)));if(!ok)throw new Error('Atomic source group fallback was deferred');}
    for(const value of entries.values()){disposeOfficialModel(value);l.releaseFailures.delete(value);}
   })().catch(error=>{for(const value of entries.values())l.releaseFailures.set(value,error.message);throw error;}).finally(()=>{
    this.retirements.delete(key);for(const value of entries.values())l.retiring.delete(value);l.dirty=true;if(!l.closed)l.onChange();
@@ -123,7 +140,7 @@ export class AtomicModelGroups{
     if(wanted)for(const uid of members)await l.waitForSupports(l.models.get(uid),signal,new Set(members));
     await l.change(async()=>{
      if(signal.aborted||l.closed||members.some((uid,i)=>l.cache.entries.get(uid)!==values[i])||wanted!==wants())return;
-     const ok=await l.stream.setDetailedModels(members.map((uid,i)=>[uid,wanted?values[i]:null]),{signal});if(!ok)throw aborted();
+     const ok=await l.stream.setDetailedModels(this.changesWithBasicSuppressions(members.map((uid,i)=>[uid,wanted?values[i]:null])),{signal});if(!ok)throw aborted();
      for(const value of values)value.streamingVisible=wanted;
     },signal);
    })().catch(error=>{if(!signal.aborted&&error?.name!=='AbortError')for(const uid of members)l.cache.errors.set(uid,error);}).finally(()=>{
