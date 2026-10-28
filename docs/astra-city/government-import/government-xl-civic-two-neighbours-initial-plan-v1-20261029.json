@@ -1,0 +1,58 @@
+{
+  "batch": "government-xl-civic-two-neighbours-initial-diagnostics-v1-20261029",
+  "uids": [
+    "landsd/271344:0",
+    "landsd/159177:0"
+  ],
+  "resources": [
+    "building:landsd/271344:0",
+    "building:landsd/159177:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-civic-two-neighbours-current-selection-v1-20261029",
+      "args": [
+        "--inventory",
+        "government-xl-after-elegant-current-inventory-v1-20261029",
+        "--capture",
+        "government-xl-sha-tin-civic-bus-cached-original-v1-20261029",
+        "--capture",
+        "government-xl-kowloon-city-civic-neighbour-cached-original-v1-20261029",
+        "--uid",
+        "landsd/271344:0",
+        "--uid",
+        "landsd/159177:0"
+      ]
+    },
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-civic-two-neighbours-current-ground-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-civic-two-neighbours-current-selection-v1-20261029",
+        "--uid",
+        "landsd/271344:0",
+        "--uid",
+        "landsd/159177:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-civic-two-neighbours-render-attributes-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-civic-two-neighbours-current-ground-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-civic-two-neighbours-identity-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-civic-two-neighbours-current-ground-v1-20261029"
+      ]
+    }
+  ]
+}
