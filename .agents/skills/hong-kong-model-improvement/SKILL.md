@@ -2,12 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.201"
+  version: "1.9.202"
 ---
 
 # Hong Kong model improvement
 
-Current LIVE Oct28: exec33689/PID1219995 supported lifecycleV3 running,8/17casesPASS (desktop+7mobile),92inputs bound/private4177owned. NEW exec8303 waits for that exact livePID/startTicks, then requires authenticated17/17PASS before reserving/serving clean-context-views-v1 for7obscured source/retained actors in1280/390. No competing lease/server, restart or automatic visual approval. Read END handoff; poll both handles. CRITICAL:16originalactors include ONLY2fixedXLtargets173532/173768 +14companions. Draft exactsourceKey projection gives398/521and7007actors after verifiedinstall only; CURRENT396/125/521XL6991actors,0newinstalls. Loaderfixf7db90beb pushed;19group+12streaming testsPASS. Next completed lifecycle+targetedactualimage review then full qualification/canonical2terrain+BASIC dryrun/guarded publish/live readback. NoAIgeometry/optimisation.
+Current LIVE Oct28: exec33689 lifecycleV3 still running,12/17PASS (desktop+11mobile),noerror,92inputs bound/private4177owned. exec8303 waits exactPID1219995 then requires authenticated17/17PASS before targeted7actor clean unselected1280/390views; no competing lease/server. Read END handoff. Full integration DRAFT now composed via real3BASICstagers IN MEMORY:2canopies+1footing andall8global retained support bindings PASS,zero public/Neon writes. Native reviews PENDING/catalogue flagsFALSE,not publisher approval. Original16actors contribute ONLY2fixedXL173532/173768+14companions;projected398/521and7007afterverifiedinstall only. CURRENT396/125/521XL6991actors,0newinstall. Loaderfixf7db90beb pushed,19group+12streaming testsPASS. Next complete17cases/targetedROOTimages then final source/physical/visual+canonical2terrain/BASIC publisher/live readback. NoAIgeometry/optimisation.
 
 Newest Oct28: BASIC213586footing collision-only ROOTreview40d6b21b qualified after80640actualproduction collision probes,unchanged155otherBASICvolumes/roofs,and exact continued three vertical original-wall facets. Visual/fulloriginal placement/publication/install remainFALSE. Old draft remainsunapproved. Next explicit unapproved PRIVATE fullscene2terrain/16original/9retained/3BASICfoundation overlay; existing V5 assumes1terrain and cannot be bypassed. Private4177notserving;shared4176untouched. Read END handoff.396/125/521XL,6991actors,0newinstalls.
 
