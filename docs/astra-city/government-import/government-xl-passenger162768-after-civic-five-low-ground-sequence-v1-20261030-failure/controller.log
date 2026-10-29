@@ -1,0 +1,12 @@
+Completed diagnostic government-xl-passenger162768-after-civic-five-government-ground-v1-20261030
+Completed diagnostic government-xl-passenger162768-after-civic-five-low-faces-v1-20261030
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_leased_diagnostic_sequence_v34_20261028.py", line 31, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_leased_diagnostic_sequence_v34_20261028.py", line 22, in main
+    with(local/('phase-'+str(index)+'.log')).open('w')as log:subprocess.run([sys.executable,str(HERE/'bounded_reserved_runner_v2_20261022.py'),str(leasepath),*command],cwd=ROOT,env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1','OPENBLAS_NUM_THREADS':'1'},stdout=log,stderr=subprocess.STDOUT,check=True)
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_reserved_runner_v2_20261022.py', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-passenger162768-after-civic-five-low-ground-sequence-v1-20261030/lease-2.json', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_complete_ground_cap_paths_v2_20261024.py', '--batch', 'government-xl-passenger162768-after-civic-five-cap-paths-v1-20261030', '--runtime', 'government-xl-passenger162768-after-civic-five-current-ground-v1-20261030', '--attributes', 'government-xl-passenger162768-after-civic-five-attributes-v1-20261030', '--low-faces', 'government-xl-passenger162768-after-civic-five-low-faces-v1-20261030', '--uid', 'landsd/162768:0']' returned non-zero exit status 1.
