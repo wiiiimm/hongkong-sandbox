@@ -1,3 +1,17 @@
+# Current continuation — 30 October five-source runtime and fallback review
+
+University Hall approval already fulfilled; never reinstall. Counts remain 406 installed + 3 exact-source terminal +112 outstanding /521 XL;7022 detailed actors. FuYing installation and independent audit are pushed; HEAD4f8e13af77 remote confirmed. No new civic installation.
+
+All earlier named workers are terminal, including ten-phase66547. All five original four-world foundation policies PASS. Full-five ordinary form checks have zero flags ONLY when all five counterparts are replaced. All53 Peninsula and76 civic unresolved support samples have finite, endpoint-bounded original self/contact paths in each representation; diagnostics, not structural certification.
+
+Eight-phase foreign sequence COMPLETE5d0828bc: full7022source scope, auxiliary/podium/upper pair contacts and roles, full genuineforeign comparisons. Both civic-to-Peninsula boundary pairs have zero contacts/all4streams. Auxiliary82292 has61 transverse contacts with its own civicpodium/all4streams; role/visual review still required. Sole foreignBASIC262047 has zero contacts/zero projected overlap before and all4original streams. Exact requiredCoRenderedOriginals5 retained.
+
+Base-only guard COMPLETE: all8currentBASICs checked with candidateIds=[]; raw ground-gap flags82290/159177 retained. Actual production BASIC mesh roof diagnostic a0be397d COMPLETE: both upperbottom/podiumroof planes equal exactly, lowerpodiums have zero regressions. Peninsula roof fully covers upperbottom. Civic has pre-existing Float32 triangulation sliver1.02909112e-6m2; exact mesh coverage false retained, no buffer/tolerance or geometry changes. All sampled newterrain stays below upperbottom. V1missing tileinput andV2missing freezeuids failures retained;V3reuses successful actual8meshcapture byte-for-byte rather than rerendering.
+
+LIVE private browser exec40633, log /tmp/astra-kowloon-civic-private-browser-v1-20261030.log; batch government-xl-kowloon-city-civic-five-after-fuying-unapproved-atomic-private-browser-v1-20261030. Private4177 lease/server owned; shared4176 untouched. All5source approvalflags false, activationGroup exact5; actual3658face proposed terrain and current7022catalogues. Source views390/1280day/night; individual failed-download tests intentionally deferred to separate five-peer atomic lifecycle, not acceptance skipped. Poll sameworker, never restart blindly. Prepared lifecycle Python/Node helpers are not run yet; require completed preview receipt first.
+
+NEXT finish actual desktop/mobile preview; review exports; run each of5peerfailure/retry + Base-only/eviction/collision-map atomic checks using kowloon_civic_atomic_lifecycle_v1_20261030.py. Then source-specific identity/auxiliary contact/fallback interpretation, guarded current publisher preserving installed three+five member terrain policies, live installed audit/all521readback before credit. No AIgeometry/optimisation/newagents/publicwrites. Both NULLkeys/protected2dirtyfiles retained. OceanWalk R2 credentials still outstanding but not whole-goalblocking.
+
 # Current continuation — 30 October private civic floor and attachment checks
 
 FuYing install pushed b6a5c69d8f; bounds7022 complete b354726b. Counts406installed+3terminal+112outstanding/521;7022actors. No new civic/Peninsula installation.

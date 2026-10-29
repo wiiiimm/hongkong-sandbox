@@ -1,0 +1,73 @@
+{
+  "batch": "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-sequence-v1-20261030",
+  "uids": [
+    "landsd/82290:0",
+    "landsd/82291:0",
+    "landsd/82292:0",
+    "landsd/159177:0",
+    "landsd/230911:0"
+  ],
+  "resources": [
+    "building:landsd/82290:0",
+    "building:landsd/82291:0",
+    "building:landsd/82292:0",
+    "building:landsd/159177:0",
+    "building:landsd/230911:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "explicit_original_companion_patch_runtime_v1_20261030.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+      "args": [
+        "--patch",
+        "government-xl-kowloon-city-civic-five-after-fuying-upward-floor-return-v4-20261030",
+        "--capture",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--companion",
+        "landsd/159177:0",
+        "--companion",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-159177-0-floor-return-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/159177:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-230911-0-floor-return-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "explicit_cohort_original_patch_form_checks_v1_20261030.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-full-five-form-checks-v1-20261030",
+      "args": [
+        "--scope",
+        "government-xl-kowloon-city-civic-five-after-fuying-floor-return-scope-v1-20261030",
+        "--inventory",
+        "government-xl-after-fuying-native-bounds-v1-20261029",
+        "--patch",
+        "government-xl-kowloon-city-civic-five-after-fuying-upward-floor-return-v4-20261030",
+        "--cohort-runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030"
+      ],
+      "scopeResources": "government-xl-kowloon-city-civic-five-after-fuying-floor-return-scope-v1-20261030"
+    }
+  ]
+}
