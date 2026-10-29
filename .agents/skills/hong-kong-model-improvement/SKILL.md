@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.213"
+  version: "1.9.214"
 ---
 
 # Hong Kong model improvement
+
+29 October current: resume government-xl-peninsula-guarded-install-preparation-v1-20261029/HANDOFF.md. Exact original pair stage4f159e2e/source-physical3c41bd5f/private lifecycle6e12b3ad qualified; 15 admission tests and --prepare-only PASS. Next scoped live installer after preparation commit/push; no live worker or new installation yet. Counts404installed+3terminal+114outstanding/521;7019actors. UniversityHall approval already fulfilled; never reinstall. FuYing five-member numeric proofs pass fa3d71f4/bdab88f5 but effective boundary/renderer/actor/browser qualification remains. NoAIgeometry/optimisation/newagents; protect unrelated dirt.
 
 29 October current: resume docs/astra-city/government-import/government-xl-fuying-peninsula-recovery-checkpoint-v1-20261029/HANDOFF.md and summary.json; Neon67161cd6. Counts404installed+3terminal+114outstanding/521,7019actors unchanged. Peninsula office exact local recovery PASS; all164 warning samples now have finite self-join paths,28 remain above endpoint ceiling. Hotel189lowface clear-cap paths PASS. FuYing native-parent trials failed budget/parent-edge join; no invalid nested native child or overlapping root patch. All launched workers terminal;8kernel testsPASS. No new installation/AIgeometry/optimisation. Full cohort/twoNULLUIDs retained.
 
