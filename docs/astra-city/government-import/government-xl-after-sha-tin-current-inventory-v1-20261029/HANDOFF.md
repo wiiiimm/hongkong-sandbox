@@ -11,3 +11,11 @@ All launched workers are terminal. Landing low-face, cap-path, grade-interface a
 Other three recovered old fit errors are genuine source-fit guards, not corrupt downloads: 75642/75643 are full pier/platform features extending beyond tiny BASIC roofs; 75643 also overlaps way/334029318:0 and needs an explicit duplicate/identity review. Source43101 has TWO roots already present in the provider ZIP; exact original per-root/world triangles equal packed geometry. Its twin covered structures and nearby Dock1A semantic association remain unapproved. No automatic suppression or identity waiver.
 
 Preserve unrelated tracked dirt working-commands.json and landmark-completion-audit/neon-snapshot.json, all historical untracked work, original asset geometry and database guard. Continue all119 outstanding through commits; checkpoint is not goal completion.
+
+## Current installation preparation
+
+Lookout physical c3016662, private browser4c4e2170, ROOT four exported desktop/mobile day/night images actually inspected, generic source-review6dc6d2b9 and qualified stage d99dca7f COMPLETE. Picking/collision/joint activation/failed-download retry PASS. Mobile framing is broad and night dark; hidden-face appearance not proven. Source assets/pose unchanged.
+
+Legacy generic stage-v1 dry run failed on existing coordinated-terrain format; no publication. Corrected generic stageV3 + guardV4 use existing three_member_native_boundary private_validator exactly as ShaTin. Live installerV4 uses existing V19 browser on child-owned private4177. Nine guard/installer functions have identical AST to their predecessors,22 dispatcher/hook regression tests PASS. No generic publisher/dependency/rollback/ledger changes. Failed old stage preserved. Corrected current full plan dry-run and --prepare-only PASS with fixedXLdelta1/399previous.
+
+NEXT run ORIGINAL_INSTALL_CONFIG=docs/astra-city/government-import/government-xl-lookout99482-after-sha-tin-landing-source-review-v1-20261029/install-config.json selected_original_live_install_v4_20261029.py --install. Allworkers currentlyterminal. Installation not yet performed. Preserve full521scope and both NULLUIDs.
