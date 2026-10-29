@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.223"
+  version: "1.9.224"
 ---
 
 # Hong Kong model improvement
+
+30 October CURRENT: western75642 source review297d3aaf,independentpreviewb7335da7,stage191d6508 and liveV8--prepare-only PASS(delta1,full521,previous408). Read TOP after-passenger-current-inventory-v1-20261030/HANDOFF and westernInstallConfig. Commitprep then install/live/readback and immediatecommitpush; no installedcredit yet. Eastern75643/OSM remainsseparate; full110/twoNULLscope persists. StageV7 uses existingcomplete3+5boundary validators andcorrectOSMnamespace;liveV8 protects sharedsnapshot via privateprogresspath. NoAIgeometry/optimisation/newagents/modeldownloads. Allownedworkers terminal. Primarydated/aerial and exactpairrole evidence recorded; do not suppress OSM based on lighthousephoto or deckoverlap alone.
 
 30 October continuation: read TOP after-passenger-current-inventory-v1-20261030/HANDOFF. UniversityHall alreadyinstalled c339a37453; stale approval requires no duplicate work. Counts408+3terminal+110outstanding/521;7028actors unchanged. Piers75642/75643 new all-basic-fallback-coast-inset-v2 preserves OSM and both own fallback ground; all5formchecksPASS. Four-world ordinary burial remains FALSE(26/2nonup facets); exact current104lower-facet checks and75643native/current2facet coversPASS. ROOT8privateexportsviewed; OSMestimated24m tower visibly conflicts, source identity unresolved; do not suppress based on deck overlap. Pair finite-contact sequence COMPLETE e208671d; allownedworkers terminal. Read current handoff for raw pair contacts before any source admission. NoAIgeometry/optimisation/newagents; source geometry unchanged. Full110/twoNULLscope persists.
 
