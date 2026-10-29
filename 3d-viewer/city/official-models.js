@@ -5,7 +5,7 @@ import {ModelByteCache,yieldModelWork} from './model-byte-cache.js?v=20261011-mo
 import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
 import {TileCache} from './tile-cache.js?v=20261011-model-quality1';
-import {prepareModelCatalogue,modelBudget,loadOfficialModel,disposeOfficialModel} from './official-model-assets.js?v=20261011-model-quality1';
+import {prepareModelCatalogue,modelBudget,loadOfficialModel,disposeOfficialModel} from './official-model-assets.js?v=20261029-reviewed-osm-roof1';
 import {modelSupportDependencies,supportedModelPlan} from './model-support.js';
 import {MODEL_QUALITY_LEVELS,selectModelVariant,attachModelVariants} from './model-variants.js?v=20261011-model-quality1';
 const MiB=1024*1024;

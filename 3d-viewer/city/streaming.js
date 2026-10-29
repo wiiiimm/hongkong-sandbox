@@ -1,3 +1,4 @@
+import {reviewedOsmRoofFormMatches} from './official-model-reviewed-osm-roof.js';
 import {activationGroupMembers} from './model-activation-groups.js';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
 import * as THREE from '../vendor/three.module.js';
@@ -90,6 +91,11 @@ export class CityStreaming {
  detailSuppressions(models=this.detailedModels,buildings){
   const result=new Set();let byUid;
   for(const detail of models.values())for(const uid of detail.entry?.suppressesBuildingUids||[]){
+   if(uid.startsWith('way/')){
+    if(buildings&&!byUid)byUid=new Map(buildings.map(b=>[b.uid,b]));
+    const form=byUid?byUid.get(uid):this.getLoadedBuilding(uid);
+    if(!reviewedOsmRoofFormMatches(detail.entry,form))continue;
+   }
    if(!this.basicFallbackProtections?.has(uid)){result.add(uid);continue;}
    if(buildings&&!byUid)byUid=new Map(buildings.map(b=>[b.uid,b]));
    const building=byUid?byUid.get(uid):this.getLoadedBuilding(uid);

@@ -8,13 +8,13 @@ import {makeTerrain,makeWater,makeFerries,extrudeBuilding} from './world.js?v=20
 import {Navigation} from './navigation.js';
 import {AIRCRAFT} from './aircraft.js';
 import {createAircraftPicker} from './aircraft-picker.js';
-import {CityStreaming} from './streaming.js?v=20261025-basic-fallback1';
+import {CityStreaming} from './streaming.js?v=20261029-reviewed-osm-roof1';
 import {MeshInspection,bindMeshInspection} from './mesh-inspection.js';
 import {RegionalDetail} from './regional.js';
 import {BridgeLayer} from './bridges.js';
 import {BridgeCables} from './bridge-cables.js';
 import {ModelReveal} from './model-reveal.js?v=20260913-reveal1';
-import {OfficialModelLayer} from './official-models.js?v=20261011-model-quality1';
+import {OfficialModelLayer} from './official-models.js?v=20261029-reviewed-osm-roof1';
 import {ModelPreloader} from './model-preloader.js?v=20260913-preload1';
 import {MODEL_QUALITY_LEVELS,MODEL_QUALITY_LABELS} from './model-variants.js?v=20261011-model-quality1';
 import {ReviewSections} from './review-sections.js';
