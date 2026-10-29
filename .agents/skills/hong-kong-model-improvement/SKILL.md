@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.228"
+  version: "1.9.229"
 ---
 
 # Hong Kong model improvement
+
+30 October ACTIVE: next3fresh8phase e3ecfb53COMPLETE;session99002exactforeignBASICcontacts/buriedcontext running(51resources). YohoII273672identityPASS;Academic309823/ParkAdmin336430genericoverlap/extentreasons retained,upwardburialneedsoriginalTIN/interfacework. Zero nominatednativeactorsforall3. ReadTOP after-disneyland-piers-current-inventory-v1-20261030/HANDOFF/current-work. Verification95181adcfcPUSHED;410+3terminal+108outstanding/521,7030actorsunchanged. Poll99002;do not repeatcompletedfresh/bounds/installchecks. Full108/twoNULL/protectedfilespreserved;noAIgeometry/optimisation/newagents.
 
 30 October VERIFIED: eastern75643 dc94b9fc87 PUSHED;readback1e3d9e82all7030assets/7029oldactors/all521/twoNULL/global8supports/unchangedterrainPASS;actualHTTP8256dfcbPASS. Fresh7030actualbounds0baf975cCOMPLETE. ReadTOP after-disneyland-piers-current-inventory-v1-20261030/HANDOFF/current-work. Session31908next3(309823/336430/273672)8phase diagnosticsactive. Counts410+3terminal+108outstanding/521,7030actors. HKS203/199/milestoneupdated. Neverreinstallcompletedpiers/UniversityHall/Passenger. NoAIgeometry/optimisation/newagents;protectunrelateddirt.
 

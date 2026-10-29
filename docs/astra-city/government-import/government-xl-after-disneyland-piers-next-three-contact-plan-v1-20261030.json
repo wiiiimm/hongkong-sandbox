@@ -1,0 +1,83 @@
+{
+  "batch": "government-xl-after-disneyland-piers-next-three-contact-sequence-v1-20261030",
+  "uids": [
+    "landsd/309823:0",
+    "landsd/336430:0",
+    "landsd/273672:0"
+  ],
+  "resources": [
+    "building:landsd/112487:0",
+    "building:landsd/127231:0",
+    "building:landsd/147937:0",
+    "building:landsd/209775:0",
+    "building:landsd/210785:0",
+    "building:landsd/211685:0",
+    "building:landsd/232158:0",
+    "building:landsd/232669:0",
+    "building:landsd/243659:0",
+    "building:landsd/26949:0",
+    "building:landsd/273672:0",
+    "building:landsd/2869:0",
+    "building:landsd/29105:0",
+    "building:landsd/29139:0",
+    "building:landsd/2924:0",
+    "building:landsd/29271:0",
+    "building:landsd/2939:0",
+    "building:landsd/298516:0",
+    "building:landsd/298517:0",
+    "building:landsd/3006:0",
+    "building:landsd/3007:0",
+    "building:landsd/300868:0",
+    "building:landsd/309819:0",
+    "building:landsd/309820:0",
+    "building:landsd/309823:0",
+    "building:landsd/309829:0",
+    "building:landsd/309834:0",
+    "building:landsd/309835:0",
+    "building:landsd/309837:0",
+    "building:landsd/309838:0",
+    "building:landsd/309839:0",
+    "building:landsd/309840:0",
+    "building:landsd/31181:0",
+    "building:landsd/31202:0",
+    "building:landsd/31251:0",
+    "building:landsd/31639:0",
+    "building:landsd/329088:0",
+    "building:landsd/329089:0",
+    "building:landsd/33442:0",
+    "building:landsd/335513:0",
+    "building:landsd/336320:0",
+    "building:landsd/336429:0",
+    "building:landsd/336430:0",
+    "building:landsd/339022:0",
+    "building:landsd/339023:0",
+    "building:landsd/339024:0",
+    "building:landsd/49041:0",
+    "building:landsd/5892:0",
+    "building:landsd/82702:0",
+    "source-form:way/725945983:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "batch": "government-xl-after-disneyland-piers-next-three-foreign-contacts-v1-20261030",
+      "args": [
+        "--scope",
+        "government-xl-after-disneyland-piers-next-three-source-scope-v1-20261030",
+        "--runtime",
+        "government-xl-after-disneyland-piers-next-three-current-ground-v1-20261030",
+        "--attributes",
+        "government-xl-after-disneyland-piers-next-three-attributes-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_buried_context_v1.py",
+      "batch": "government-xl-after-disneyland-piers-next-three-buried-context-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-after-disneyland-piers-next-three-current-ground-v1-20261030"
+      ]
+    }
+  ]
+}
