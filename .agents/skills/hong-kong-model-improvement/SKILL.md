@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.215"
+  version: "1.9.216"
 ---
 
 # Hong Kong model improvement
+
+29 October CURRENT: read TOP after-peninsula-current-inventory-v1-20261029/HANDOFF.md/current-work JSON.405installed+3terminal+113outstanding/521;7021actors; pushed09f302ce75. Bounds67bd5c0c complete. FuYing private5node validator5a47cec9/all24foundations43b94c57/40forms+9native352c6172 PASS;19tests; checkpointa86776bd. NOTINSTALLED. LIVE sourcecontacts exec32836/nativePID3236173 with renewing lease; poll same worker, do not restart/edit. Four identity/spatial warnings and source233291context remain unapproved. Native/BASICcontacts then source-role/identity/privatebrowser/5memberpublisher/live gates remain. UniversityHall approval fulfilled; exact current asset+Neon state reconfirmed. NoAIgeometry/optimisation/newagents/shared4176restart. BothNULLkeys/protected dirt retained.
 
 29 October latest: resume government-xl-after-peninsula-current-inventory-v1-20261029/HANDOFF.md/current-work JSON. Peninsula270876+266543 INSTALLED unchanged; c284f4bb/snapshotacaf418cc45df383; independent whole7021assets/7019oldentries/all521/global-support4da4d31c PASS. ROOT8actual live exports viewed d58d755a; all3 installed HTTP atomic pair/roof lifecycle cases PASS.405installed+3terminal+113outstanding/521;7021actors. All workers terminal/released/private4177closed/shared4176untouched. Refresh7021bounds withV5 exact decoder-preserving admission delta then continue FuYing5member effective boundary and full113cohort/twoNULLUIDs. UniversityHall approval fulfilled; never reinstall. NoAIgeometry/optimisation/newagents.
 
