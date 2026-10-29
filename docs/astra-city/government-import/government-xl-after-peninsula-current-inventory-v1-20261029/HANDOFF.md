@@ -1,3 +1,17 @@
+# Latest continuation — Fu Ying source and private views reviewed
+
+Counts unchanged:405installed+3exact-current-source terminal+113outstanding/521;7021actors. UniversityHall93417 already installed; latest approval fulfilled. No reinstallation.
+
+FuYing original source is now source/physical/visual accepted for GUARDED STAGING, not installed. Complete native6pair/four-world and foreign3BASIC contact sequence230908bf complete/released. Raw contacts remain: FuWong50662 has3coplanar-edge+4source-edge+126point contacts at original low canopy junctions;233291 has one illustrative0.22m post crossing source canopy face14034. Keep all actors, no suppression/dependency/remodel. Complete facet clipping224daa4b examines every sourceface: beyond2m max12.611m HKPD, beyond20m max9.927m. These are context, not new acceptance thresholds. Exact source associationa2473f12 plus all4raw spatial warnings retained.
+
+ROOT inspected all40 private390/1280day/night source+9retainednative exports. Privatebrowser68e8869a completed/released;4177closed. Final bounded source/physical/visual review79f665ab saved in Neon, with exact source/currentmanifest/all24foundations/40forms9native regressions/contact evidence and40image hashes. No installation credit yet; ordinary live/readback gates remain.
+
+LIVE terrain-only canonical publisher dry-runV4: exec34710, worker3557988 (CPUactive atlastobservation), log /tmp/astra-fuying-five-terrain-dry-run-v4-20261029.log. Renewing reserved runner; poll same handle, do not edit/restart. Dedicated five-member adapter preserves canonical asset/grid/overlap/budget/global retained BASIC support/input/transaction checks. Complete union replaces one-to-one extent requirement. Existing3member chain verifier also remains strict; grid patches pass canonical verifier.12adapter tests+4complete-facet clipping testsPASS. V1/V2/V3 failed preflights preserved; no public writes. Draft qualified-stage/guard/live-installer helpers are not yet run/approved for apply.
+
+NEXT finish V4dryrun, qualified stage and --prepare-only; commit/push concrete preparation before exact fenced install. Real live source+retained views, failure/retry, all5installed terrain bytes/effective membership, ledger and whole7022asset/7021oldentry/all521/source-key/global-support readback remain mandatory. Derive fresh evidence if source/current inputs change. BothNULLUIDs and113outstanding retained. NoAIgeometry/optimisation/newagents/mainmerge/deploy/shared4176restart. AI used for coding and source-evidence interpretation. Protect unrelated2dirtyfiles.
+
+Older checkpoints below are historical; the sourcecontact worker mentioned there is finished.
+
 # Latest continuation — Fu Ying private ground recovery
 
 Peninsula original pair is installed and pushed09f302ce75. Counts remain405installed+3exact-current-source terminal+113outstanding/521;7021actors. UniversityHall93417 exact current asset and inherited installed-verified Neon state reconfirmed; repeated approval fulfilled, never reinstall.
