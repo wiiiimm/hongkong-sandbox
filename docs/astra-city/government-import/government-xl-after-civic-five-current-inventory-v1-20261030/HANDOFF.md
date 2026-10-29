@@ -1,3 +1,11 @@
+# CURRENT continuation — refined Passenger roof lifecycle complete
+
+Prior checkpoint6cb459dfa8 PUSHED; HKS203 comment11c995cf succeeded. Refined1m-return private preview 5228b6c36ceb7ebac048778c3a6f111a5099e84022938abbe64db0ea4d91f2c8 COMPLETE: both390/1280 day/night pass. Six-roof lifecycle b702c2f7fb8ded2b002f628b18e138c0a71f81924af88ea036ba1583da5bcbcb PASS: both desktop/mobile, exact six surveyed BASIC roof visibility checked through original-active/Base-only/Auto/eviction-return and real failed-download/retry. Both private servers closed and all workers terminal; shared4176 untouched. ROOT actually viewed all4 refined-terrain exports plus2 lifecycle screenshots, frozen 44c576ca4a409efb9e1c702b1d41ac807b578c9645d295cb58959592005ec74e. No installation/physical/identity approval granted by these software checks; source geometry/pose unchanged.
+
+NEXT qualify source-specific surveyed duplicate-roof replacement, exact current government root/CSUID and two retained small-tower contact roles, then guarded stage/live install with complete old3+5 terrain and global support checks. Do not weaken the existing UNSURVEYED estimated-canopy contract or transfer old3m terrain acceptance. Actual surveyed161745 posts retain complete ground contact (see complete-fallback-post-ground3fe9531a); generic1.434646m interior footprint warning remains recorded. Source roof coverage/parent alone is not component identity approval. All111outstanding/521 and twoNULLUID keys remain; no source marked corrupt here.
+
+Additional read-only contact context: retained153422 contacts original only at one source face30668, Y15.3708–15.4678 in all4worlds (126positivepairs); retained332872 contacts17sourcefaces, Y6.7–10.5 (56pairs). Not an accepted physical role yet. Cached31-model native result0835a59e contains neither root1313219762 nor1286119798; not a govt-wide absence assertion. Keep two tower BASICs retained. NoAIgeometry/optimisation/newagents.
+
 # CURRENT continuation — Passenger roof and fallback-post evidence
 
 University Hall approval is already fulfilled. Never reinstall it. XL counts remain 407 installed + 3 exact-source terminal + 111 outstanding / 521; 7,027 detailed actors. No new installation in this checkpoint. No workers or private servers remain running. Shared 4176 untouched.
