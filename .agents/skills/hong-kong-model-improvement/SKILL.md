@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.207"
+  version: "1.9.208"
 ---
 
 # Hong Kong model improvement
+
+29 October newest: resume docs/astra-city/government-import/government-xl-after-fortune-current-inventory-v1-20261029/HANDOFF.md and current-work-20261029.json. Fortune INSTALLED/pushed3edfb4619f;401installed+3exact-source-terminal+117outstanding/521,7016actors. Whole7016asset/all521readback2b746afe PASS. Academyheld7fd59d65 exactterraincoveragegap/sourcejunction; unnamed265269held67ca78b4 canopyinterface, fourworldfoundationPASS. All current launched workers terminal,4177closed/shared4176untouched. NoAIgeometry/optimisation. Storagebelow3GiBfloor; cachedsourcesonly. Do not reinstallcompletedmodels or repeatunchanged successfulchecks.
 
 29 October latest: Fortune242706 INSTALLED, Neon456cf5d2/snapshotbf5882db5deac6c2; independent whole7016assets/7015oldactors/521sourcekeys/support readback2b746afe PASS. ROOT all four live exports inspected.401installed+3exact-source-terminal+117outstanding/521,7016actors. Read END after-lookout-current-inventory-v1-20261029/HANDOFF.md; fresh bounds refresh session42866 running. Do not reinstall Fortune/UniversityHall. Next Academy cachedTIN recovery, freshcurrentcapture required. NoAIgeometry/optimisation.
 
