@@ -1,5 +1,6 @@
 """Read-only installed ledger/evidence audit for an explicit completed source scope."""
 import argparse
+from pathlib import Path
 from run import ROOT, HERE, read, save, digest, connect
 from primrose_compound_foundation_v2_20261015 import module
 
@@ -101,7 +102,9 @@ def main():
     atomic = read(install/'atomic-lifecycle/report.json')
     assert atomic['passed'] and atomic['liveInstalledHTTP'] and not atomic['catalogueAndTerrainSubstitution'] and not atomic['pageErrors']
     assert len(atomic['cases']) == 6 and {c['failedUid'] for c in atomic['cases']} == {None,*final['sourceSHA256ByUid']}
+    assert {(c['width'],c['failedUid']) for c in atomic['cases']} == {(1280,None),*[(390,uid) for uid in final['sourceSHA256ByUid']]}
     for case in atomic['cases']:
+        assert {r['uid']:r['sha256'] for r in case['sources']} == final['sourceSHA256ByUid']
         assert case['baseOnlyRestoredCompleteGroup'] and case['completeGroupEvicted'] and not case['audit']['violations'] and case['audit']['frames'] > 0
         if case['failedUid']: assert case['failureKeptAllBasics']
     oldmodels=[m for url in before['officialModelCatalogues'] for m in read(ROOT/'3d-viewer'/url)['models']]
@@ -114,6 +117,17 @@ def main():
                  newInstallationCredit=0, aiGeometryModelling=False,
                  qualification='Independent read-only exact completed-job/reference/ledger/current-count/catalogue/pointer readback. Explicit new phase scope; historical mutable bytes resolved only through immutable installer archives. No duplicate installation credit or expansion into unrelated historical inventories.')
     save(specpath.parent / 'verification.json', proof)
+    assert spec['readbackBatch'] == specpath.parent.name
+    refs = [specpath, specpath.parent/'verification.json', Path(__file__)]
+    refs += [ROOT/q['resolvedBytes'] for q in checked.values()]
+    refs += [manifest, ROOT/spec['previousCountReport'], HERE.parent/'island-detail-integration/retained_basic_support.py']
+    module('civic_independent_readback_freeze', HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(
+        spec['readbackBatch'], 'whole-installed-civic-five-asset-actor-xl-support-readback', refs,
+        dict(uids=sorted(final['sourceSHA256ByUid']), passed=True, installationIndependentlyVerified=True,
+             sourceSHA256ByUid=final['sourceSHA256ByUid'], installedJobId=final['jobId'],
+             fullXLCurrentCounts=counts['counts'], allCurrentAssetsRehashed=assets,
+             oldCatalogueEntriesPreserved=len(oldmodels), completeFixedXLRowsCompared=521,
+             bothNullUIDKeysPreserved=True, snapshotId=final['snapshotId'], sourceGeometryChanges=0))
     print({k: v for k, v in proof.items() if k not in ['verifiedReferences', 'completedReports', 'imagesActuallyViewed']}, flush=True)
 
 
