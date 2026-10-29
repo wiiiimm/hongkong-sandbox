@@ -1,4 +1,6 @@
-# Latest continuation — Academy and unnamed source recovery
+# Latest continuation — Academy ready for guarded install
+
+Latest: Academy final-source review a35040ae and canonical terrain staging3e60eb3f PASS. Qualified stage5b54951c and installer V5 --prepare-only PASS. Exact current tile has unique object69025/CSUID3545115703T20050430; stale raw cached identity flags remain in evidence. ROOT accepted the original campus junction and153lower-wall roles; no geometry/pose/limits changed. New private publisher context proves canonical checks remain identical and adds nested sibling-membership verification. V5 retains every former installer check, replaces append-only terrain assertion with exact one-for-one parent replacement, and requires8retained day/night views.16new mutation/context tests PASS. NEXT run the prepared install, then inspect12liveexports, freeze separate image review and independent7017asset/all521readback. Not installed at this prep checkpoint.
 
 This section supersedes the older Academy/265269 holds below. University Hall is already installed; the renewed standalone-path approval is fulfilled. Counts remain **401 installed + 3 exact-source terminal + 117 outstanding = 521**, 7,016 detailed actors. No installation this continuation.
 
