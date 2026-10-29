@@ -1,3 +1,7 @@
+# Eastern75643 installed — superseding handoff
+
+Read ../government-xl-after-disneyland-piers-current-inventory-v1-20261030/HANDOFF.md and current-work JSON. V2/v10installedsuccessfully;410+3terminal+108outstanding/521,7030actors. Older attempt/active notes below historical.
+
 # Installer correction ready — prior attempt rolled back
 
 Session35141 TERMINAL1: allactual390/1280views passed but legacy assert forbiddingretainednativeviews failed. All7publicdestinations independently restored, no installedledgerhistory. Do NOTrestartV1/v9. New V2installer/publisherv2 usephasev10 and require4exactwesternownviews pluswanted/active/visible/SHA inall4sourceviews. Actualv9exports satisfystricterguards. V2--prepare-only73047 TERMINAL0/PASS,delta1/full521/previous409. Current source/stage/lifecycle unchangedandvalid. Counts409/3terminal/109outstanding,7029actors. Commitfix/pushthenV2--install; finishactualexports+preparedrealHTTPapronlifecycle+fullreadback/immediatecommitpush. Older active35141note below historical.

@@ -1,0 +1,11 @@
+# Eastern Disneyland pier installed — full XL acquisition continues
+
+410installed+3exact-current-source terminal+108outstanding=521.7,030unique detailed actors. BothNULLsourcekeys and all111noninstalled keys including3terminal preserved in current-work JSON.
+
+Eastern75643 unchanged32,634faces installed by V2 phasev10; Neon d43df0be6ac1c81c4f722c6ab597b6adec10ced750d91a2ba0be22bf84f10a11,snapshota78b572ebeaac3a6. ROOTactuallyviewed all4live390/1280day/night exports. Western original staysinstalled; realnativeown/source views passed. Exact unsupported24mOSMaprongraphic conditionally hides underexact source/form/decisionguard; no source/BASICgeometryedit, supportdependency, proceduralwindows or terrainpatch.
+
+V1phasev9wasfullyrolledbackafterlegacy no-retained-viewsassertion;7destinationsindependentlyverifiedrestoredbeforeV2. V2requires4exactwesternnativeownviews andall4sourceview nativeeligibility/SHA;sourceandnative guardsnotwaived. Prep3cf9532847 andfixd7f58deec9 PUSHED. Commit/pushactualinstallationnow.
+
+Session93109realHTTPapronlifecyclecurrentlyrunning(private4177); no catalogue/terrain substitution. Pollhandle,thenindependent7030asset/all521/twoNULL/globalBASIC/oldactor/unchangedterrain readback. Prepared disneyland75643_installed_root_readback_v1_20261030.py. Currentbounds priorc30f43b6covers7029;afterreadbackuseV6incremental exactcatalogue/runtimeclosure updater withfreshsource2attributes43926fa0. Do not rerun all7030unlesscode/posechanged.
+
+NoAIgeometrymodelling/modeldownloads/optimisation/migration/newagents. AIusedforcodeandboundedsourceevidenceinterpretation. Shared4176untouched; protectunrelatedworking-commands/sharedneon-snapshot andlocal-onlyunknownlicenceportfolioimage. NeverreinstallUniversityHall/Passenger/eitherpier. Continuefull108/twoNULLscopeuntilinstalledorprovennotinstallable.

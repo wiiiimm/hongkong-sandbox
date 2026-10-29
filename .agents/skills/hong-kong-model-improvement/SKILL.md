@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.226"
+  version: "1.9.227"
 ---
 
 # Hong Kong model improvement
+
+30 October LATEST: eastern75643 INSTALLED unchanged32,634faces viaV2phasev10;410installed+3terminal+108outstanding/521,7030actors. Read after-disneyland-piers-current-inventory-v1-20261030/HANDOFF/current-work. Commit/pushactualinstallthenpoll93109realHTTPapronlifecycle/full7030+521readback/boundsV6. ROOT4actualsourceexportsviewed;westernnativeviewsPASS. V1rolledback7destinations beforecorrectedstrictnativeguard. No geometry/terrain edits. Full108/twoNULL/protectedunrelateddirt preserved;neverreinstallcompletedpiers/UniversityHall/Passenger.
 
 30 October CURRENT: eastern75643 exactapron model-onlystage b1379612 qualified; source77ef23b9,fullfallbacklifecycle4e6203dc,realwestern-neighbourpreview4cb8d0ef and12ROOTviewedexports5d190bd5 complete. Fresh7029bounds c30f43b6. ReadTOP after-western-pier-current-inventory-v1-20261030/HANDOFF/current-work; poll54481--prepare-only thencommitprep/install/readback/commitpush. Counts409+3terminal+109outstanding/521,7029actors unchangeduntilactualinstall. Exactsource/formOSMaproncorrection only; no sourcegeometry/terrainchanges. Preservefull109/twoNULL/protectedunrelateddirt; neverreinstallUniversityHall/western.
 

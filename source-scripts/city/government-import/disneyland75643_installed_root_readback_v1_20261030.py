@@ -120,7 +120,7 @@ def main():
     refs += [ROOT/q['resolvedBytes'] for q in checked.values()]
     refs += [manifest, ROOT/spec['previousCountReport'], HERE.parent/'island-detail-integration/retained_basic_support.py']
     module('civic_independent_readback_freeze', HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(
-        spec['readbackBatch'], 'whole-installed-independent-western-pier-asset-actor-xl-support-readback', refs,
+        spec['readbackBatch'], 'whole-installed-independent-eastern-pier-apron-asset-actor-xl-support-readback', refs,
         dict(uids=sorted(final['sourceSHA256ByUid']), passed=True, installationIndependentlyVerified=True,
              sourceSHA256ByUid=final['sourceSHA256ByUid'], installedJobId=final['jobId'],
              fullXLCurrentCounts=counts['counts'], allCurrentAssetsRehashed=assets,
