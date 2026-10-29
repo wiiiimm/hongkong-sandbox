@@ -21,6 +21,10 @@ class Publication(unittest.TestCase):
   p=self.root/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(data));return p
  def run_publish(self):
   with patch.object(sys,'argv',['publish.py','plan.json','--apply']),patch.object(pub.subprocess,'check_output',return_value='abc123\n'):pub.main()
+ def test_unregistered_native_basic_hint_does_not_write(self):
+  self.building['nativeFallbackGround']={};self.write('3d-viewer/city/data/tiles/0_0.json',{'buildings':[self.building],'roads':[],'parks':[]});before=self.live_snapshot()
+  with self.assertRaisesRegex(AssertionError,'Unregistered source-bound BASIC fallback'):self.run_publish()
+  self.assertEqual(self.live_snapshot(),before)
  def test_source_identity_mismatch_does_not_write(self):
   self.meta['buildingCSUID']='wrong';self.write('staged/catalogue.json',{'counts':{'packedModels':1},'models':[self.meta]})
   with self.assertRaisesRegex(AssertionError,'identity'):self.run_publish()

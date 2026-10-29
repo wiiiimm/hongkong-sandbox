@@ -1,6 +1,6 @@
-/** Private proposal primitive; not wired into the viewer or a publisher.
- * Publication must independently authenticate the source/terrain bindings and
- * approve full footprint, geometry, collision and fallback evidence.
+/** Validate source-bound BASIC ground metadata. Publication independently binds
+ * the exact source/terrain and geometry/collision/visual evidence. Native detail
+ * retains its original coordinates and never receives this BASIC continuation.
  */
 const sha=value=>typeof value==='string'&&/^[0-9a-f]{64}$/.test(value);
 export function sourceBoundBasicBottom(building){

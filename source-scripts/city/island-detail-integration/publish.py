@@ -12,6 +12,7 @@ from basic_fallback_protections import stage_basic_fallback_protections
 from model_priorities import stage_priorities
 from illustrative_foundations import stage_illustrative_foundations
 from basic_podium_footings import stage_basic_podium_footings
+from native_basic_fallback_ground import stage_native_basic_fallback_ground
 ROOT=pathlib.Path(__file__).resolve().parents[3]
 DOC=ROOT/'docs/astra-city/island-detail-integration'
 PUBLICATION_GUARD=nullcontext
@@ -200,9 +201,11 @@ def main():
  # Validate all new IDs and preserve every footprint, source field, existing model
  # and unrelated record. Only explicitly guarded null-source base estimates change.
  newModels={m['uid']:m for area in plan['areas'] for m in load(ROOT/area['catalogue'])['models']};newIds=set(newModels);found=set()
+ registeredFallbacks={r['uid']for r in manifest.get('nativeBasicFallbackGrounds',[])}|{r['uid']for r in plan.get('nativeBasicFallbackGrounds',[])}
  for t in manifest['tiles']:
   p=ROOT/'3d-viewer'/t['url'];d=load(p);changed=False
   for b in d['buildings']:
+   if 'nativeFallbackGround'in b:assert b['uid']in registeredFallbacks,'Unregistered source-bound BASIC fallback'
    if b['uid'] in newIds:
     m=newModels[b['uid']];assert not b.get('modelGeometry'),'Embedded model already takes precedence';found.add(b['uid'])
     assert b.get('objectId')==m['objectId'] and b.get('buildingCSUID')==m['buildingCSUID'],'Model identity mismatch'
@@ -216,6 +219,7 @@ def main():
  assert found==newIds,'Source UID missing from current tiles';assert original['counts']==manifest['counts']
  stage_illustrative_foundations(ROOT,plan,manifest,edits,report,load,sha,encoded)
  stage_basic_podium_footings(ROOT,plan,manifest,edits,report,load,sha,encoded)
+ stage_native_basic_fallback_ground(ROOT,plan,manifest,edits,report,load,sha,encoded)
  stage_retained_basic_support(ROOT,manifest,edits,report,load)
  stage_basic_fallback_protections(ROOT,plan,original,manifest,edits,newModels,report,load,sha)
  edits[manifestPath]=encoded(manifest)

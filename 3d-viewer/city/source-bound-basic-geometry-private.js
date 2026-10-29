@@ -4,7 +4,7 @@
  */
 import * as THREE from '../vendor/three.module.js';
 import {mergeGeometries} from '../vendor/BufferGeometryUtils.js';
-import {describeBuilding as originalDescription,createBuildingGeometry as originalGeometry} from './building-geometry.js';
+import {describeBuilding as originalDescription,createBuildingGeometry as originalGeometry} from './building-geometry-core.js';
 import {sourceBoundBasicBottom} from './source-bound-basic-ground.js';
 
 export function describeBuilding(building){
