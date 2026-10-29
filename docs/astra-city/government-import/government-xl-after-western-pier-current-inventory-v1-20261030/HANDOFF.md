@@ -1,3 +1,7 @@
+# Eastern fresh diagnostics complete — current scene ready
+
+All6phases of eastern fresh-sequence COMPLETE,Neona7c9ffb85a76bf35d55795c91ffc54f0b50d2d803c5c1c6dad746240c049fcf7. Noownedworkersremain. Use government-xl-disneyland-eastern75643-after-western-*v1-20261030 for currentselection/runtime/attributes/identity/source-scope/foundations. Source-scope nowincludesinstalledwestern75642native; do not reuseolderzero-native claims. Newterrainconstructionisnotrequiredforwesternalreadyinstalled; easterncurrentgroundcapturesactualinstalledlandpatch. Next fullcurrentnative+OSMfinitecontactbinding, source-specificapronpolicy if justified andmodel-onlystaging; sourcebytes/poseimmutable. All109/twoNULLscope retained; noadditionalinstalledcredit. Older activehandle11520 note below is historical; neverrestartthecompletedsequence.
+
 # Active continuation: eastern current-scene diagnostics
 
 Verificationeb22c04757 PUSHED. Exact workerhandle11520 is live: government-xl-disneyland-eastern75643-after-western-fresh-sequence-v1-20261030,6phases. Selection phaseCOMPLETE; currentgeometrycapture underway. Pollhandle or inspectauthoritative result/state; do not restartsolelybecauseobservationtimesout. All109sourcekeys/twoNULLs remain. No newinstallationbeyondwestern75642. This activeworker supersedes the idle sentence in the completed-installation record below.
