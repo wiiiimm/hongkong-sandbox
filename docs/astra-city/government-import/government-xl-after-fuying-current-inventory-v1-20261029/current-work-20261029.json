@@ -142,13 +142,19 @@
   "activeWorkers": [
     {
       "sessionId": 40493,
-      "script": "source-scripts/city/government-import/kowloon_civic_browser_followthrough_v1_20261030.py",
-      "log": "/tmp/astra-kowloon-civic-browser-followthrough-v1-20261030.log"
+      "log": "/tmp/astra-kowloon-civic-browser-followthrough-v1-20261030.log",
+      "phase": "six-case atomic lifecycle"
+    },
+    {
+      "sessionId": 35571,
+      "log": "/tmp/astra-kowloon-civic-preparation-followthrough-v1-20261030.log",
+      "phase": "wait exact lifecycle, source-review, publisher dry-run, installer preflight"
     }
   ],
-  "nextStep": "Poll40493 same sequential private V2 views then six-case atomic lifecycle;V1desktop/mobile365110f0passed zeroerrors but sourceviewsoccluded, visualapprovalfalse. Review widerV2exports then exact source/fallback physicalreview and guardedinstall.",
+  "nextStep": "Poll existing40493+35571. V2private20exports reviewed;4of6atomiccasesobservedPASS. Source-review/stage/guard/livecode prepared and pinned. OnpreflightPASScommitpushpreparationthenauthorizedliveinstall;independentwhole-mapreadbackandcommitpushafterinstallation. No civiccredityet.",
   "currentBoundsJobId": "b354726b733c2dc7ef77bca98bafe4b863bbafe095b583f1a27169de2813aa6b",
   "foreignSequenceJobId": "5d0828bc876fbe530ec5ac55a0efb34e86faa2a6740dbec6802d11b23bf540d0",
   "basicRoofJobId": "a0be397d84b0c84ce8723900b5570cca91affc6c6f85a8280b31b8b5799c0f7e",
-  "privatePreviewV1JobId": "365110f06769088f40c197476eb2b325c2c4963f93060e8d140f3d9a31f89023"
+  "privatePreviewV1JobId": "365110f06769088f40c197476eb2b325c2c4963f93060e8d140f3d9a31f89023",
+  "privatePreviewV2JobId": "e41d85adb30d8d88b649c37c3b47fe40718c7e42f208d6259e3ab0795208667f"
 }
