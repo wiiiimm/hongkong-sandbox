@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.224"
+  version: "1.9.225"
 ---
 
 # Hong Kong model improvement
+
+30 October LATEST: westernpier75642 INSTALLED unchanged18,007faces and pushed110ef60548.409installed+3terminal+109outstanding/521;7029actors. Read after-western-pier-current-inventory-v1-20261030/HANDOFF/current-work. Installedb2ab4238/snapshotb6d02abd53fdd6e5; independent5e47928arehashedall7029assets,preserved7028oldactors/all521/twoNULL/globalBASICsupports. ROOT4actual liveexportsviewed; realHTTP lifecycle1a35a31ePASS. Bounds9d4c7c6f COMPLETE; do not rerun unchanged. Never reinstallwestern/UniversityHall/Passenger. EasternOSMpolicy stillpending; full109/twoNULLscope persists. NoAIgeometry/optimisation/newagents/modeldownloads; allownedworkers terminal/private4177closed/shared4176untouched. Protectedunrelateddirtyfilesexcluded.
 
 30 October CURRENT: western75642 source review297d3aaf,independentpreviewb7335da7,stage191d6508 and liveV8--prepare-only PASS(delta1,full521,previous408). Read TOP after-passenger-current-inventory-v1-20261030/HANDOFF and westernInstallConfig. Commitprep then install/live/readback and immediatecommitpush; no installedcredit yet. Eastern75643/OSM remainsseparate; full110/twoNULLscope persists. StageV7 uses existingcomplete3+5boundary validators andcorrectOSMnamespace;liveV8 protects sharedsnapshot via privateprogresspath. NoAIgeometry/optimisation/newagents/modeldownloads. Allownedworkers terminal. Primarydated/aerial and exactpairrole evidence recorded; do not suppress OSM based on lighthousephoto or deckoverlap alone.
 

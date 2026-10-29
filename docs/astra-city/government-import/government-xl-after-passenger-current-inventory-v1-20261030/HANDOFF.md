@@ -1,3 +1,7 @@
+# Superseded current pointer
+
+Read ../government-xl-after-western-pier-current-inventory-v1-20261030/HANDOFF.md. Western75642installed/pushed110ef60548; allfinalcheckscomplete,409+3terminal+109outstanding/521;7029actors. Noownedworkers.
+
 # INSTALLED: western pier75642; additional lifecycle/readback running
 
 Western original75642 installed jobb2ab423893253f15a64b462c2d9f8d8fec656199717e80cfbae5556123974380,snapshotb6d02abd53fdd6e5.409installed+3exact-source terminal+109outstanding/521;7029detailedactors. Complete live390/1280day/night/source/collision/failurefallback checksPASS; ROOTactuallyviewedall4liveexports. No sourcegeometry/poseedits,suppression,activationgrouporsupportdependencies. Singleterrain27853c02appended;allold3+5terrainand7028oldactorspreservedbyinstaller. Privateprogresssnapshotkeepsunrelatedsharedsnapshotuntouched. AdditionalrealHTTPBase/Auto/503retry/eviction lifecyclehandle31535running;pollsamehandle. Independentfull7029asset/all521/twoNULL/global-supportreadbackisprepared,notcompleteyet. Commit/pushactualinstallationimmediately,thenfinishverificationandrefresh7029bounds. Eastern75643andOSMpolicyremainin109scope;noAIgeometry/optimisation.

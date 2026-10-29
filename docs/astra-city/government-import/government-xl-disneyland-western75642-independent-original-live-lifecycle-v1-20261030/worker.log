@@ -1,0 +1,10 @@
+file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/disneyland75642_live_lifecycle_browser_v1_20261030.mjs:22
+  for(const terrain of config.terrain){assert.equal(installedManifest.terrainPatches.filter(t=>t.url===terrain.destination).length,1);assert(!installedManifest.terrainPatches.some(t=>t.url===terrain.replaces.url));const response=await page.request.get(origin+'/'+terrain.destination);assert(response.ok());assert.equal(createHash('sha256').update(await response.body()).digest('hex'),terrain.sha256);}
+                                                                                                                                                                                                                ^
+
+TypeError: Cannot read properties of undefined (reading 'url')
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/disneyland75642_live_lifecycle_browser_v1_20261030.mjs:22:209
+    at Array.some (<anonymous>)
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/disneyland75642_live_lifecycle_browser_v1_20261030.mjs:22:176
+
+Node.js v24.18.0
