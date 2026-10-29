@@ -1,3 +1,9 @@
+# Latest continuation — Fu Ying guarded preparation ready
+
+V4terrain-only canonical publisher dryrun93aa1d78 COMPLETE/released. Full original+five-terrain qualified stagea1dab3ce COMPLETE. --prepare-only passed including source-form adapter, exact source/current evidence, all40reviewed private images, dependency preflight and fixedXL+1.12adapter tests+4clipping testsPASS. No live worker/server/publicwrite at this preparation checkpoint. Exact immutable government source unchanged; derived terrain39connectors/all prior positions/indices preserved. Existing3member and ordinary terrain contracts/global retained BASIC support checks remain strict.
+
+NEXT commit/push preparation, then fuying_five_member_live_install_v1_20261029.py --install. This claims all40forms/9retainednative/old+root terrain and private4177, uses canonical guarded atomic publisher with rollback and inherited ledger. Live original+all9retained390/1280day/night, actual5memberHTTP hashes/failure-retry, ROOTall40actual exports and independent whole7022assets/7021oldentries/all521/support readback required. Nothing installed yet:405installed+3terminal+113outstanding/521,7021actors. Do not count FuYing until current installed ledger/live checks/readback agree. BothNULLkeys retained. UniversityHall alreadyinstalled; no reinstallation. NoAIgeometry/optimisation/newagents/shared4176restart. Previous checkpoint below is historical.
+
 # Latest continuation — Fu Ying source and private views reviewed
 
 Counts unchanged:405installed+3exact-current-source terminal+113outstanding/521;7021actors. UniversityHall93417 already installed; latest approval fulfilled. No reinstallation.
