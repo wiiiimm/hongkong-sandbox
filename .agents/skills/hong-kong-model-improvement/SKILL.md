@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.204"
+  version: "1.9.205"
 ---
 
 # Hong Kong model improvement
+
+29 October latest: Lookout99482 INSTALLED, Neon90ac2973 snapshot4f20c8cadcbdc471; independent whole7015asset/7014oldactor/521XL/support readback4585b2b3 PASS. All four live exports ROOT inspected; desktop/mobile picking/collision/failure-retryPASS. FixedXL400installed+3exact-source-terminal+118outstanding/521;7015actors. Resume current-work-20261029.json and END HANDOFF in after-sha-tin-current-inventory-v1-20261029. No workers;4177closed/shared4176untouched. Do not reinstall Lookout/UniversityHall/Elegant/ShaTin. NoAIgeometry/optimisation. Continue all118 including twoNULLUIDs.
 
 29 October recovery: resume `docs/astra-city/government-import/government-xl-after-sha-tin-current-inventory-v1-20261029/current-work-20261029.json` and HANDOFF.md. Lookout99482 landing terrain/four-world foundation/three-neighbour checks PASS; not installed. All workers terminal. Landing exact low-face/cap/grade/source-role account1c6a727a COMPLETE; all43 raw warnings preserved. Next whole identity/physical composition and private browser gates. Counts unchanged399installed+3terminal+119outstanding/521;7014actors. UniversityHall alreadyinstalled. NoAIgeometry/optimisation. This pointer supersedes older resumption pointers below.
 
