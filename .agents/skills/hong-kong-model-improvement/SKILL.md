@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.212"
+  version: "1.9.213"
 ---
 
 # Hong Kong model improvement
+
+29 October current: resume docs/astra-city/government-import/government-xl-fuying-peninsula-recovery-checkpoint-v1-20261029/HANDOFF.md and summary.json; Neon67161cd6. Counts404installed+3terminal+114outstanding/521,7019actors unchanged. Peninsula office exact local recovery PASS; all164 warning samples now have finite self-join paths,28 remain above endpoint ceiling. Hotel189lowface clear-cap paths PASS. FuYing native-parent trials failed budget/parent-edge join; no invalid nested native child or overlapping root patch. All launched workers terminal;8kernel testsPASS. No new installation/AIgeometry/optimisation. Full cohort/twoNULLUIDs retained.
 
 29 October latest: resume docs/astra-city/government-import/government-xl-after-depot120104-current-inventory-v1-20261029/HANDOFF.md/current-work JSON. Depot120104 INSTALLED unchanged14623faces SHA655eb473; Neon17eec0ab/snapshot7828f5e61a95ebd7, independent whole7019assets/7018oldactors/all521/global supports9d52b568 PASS. ROOT4actual live390/1280day/night exports viewed; image995e6cbe. Counts404installed+3terminal+114outstanding/521,7019actors. Three new coastal native patches appended with all old terrain metadata retained;19600m2 absent area/water masks and14whole low facets preserved. Only exact duplicate estimated canopies177363/178180 conditionally hide; full2canopy lifecycle29ee0830 passes. New V6stage/V7guard+installer retain global publisher/support/ledger/rollback checks. All workers terminal/private4177closed/shared4176untouched. Refresh7019bounds from priorafter-unnamed-bounds +depot actualattrs3456c13a +installed/readback receipts. No reinstallation of Depot or prior sources. Keep full114cohort/twoNULLUIDs. NoAIgeometry/optimisation/newagents; OceanWalk neighbour restore still needs R2 credential location.
 
