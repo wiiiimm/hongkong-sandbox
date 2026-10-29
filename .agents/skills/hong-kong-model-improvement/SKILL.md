@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.208"
+  version: "1.9.209"
 ---
 
 # Hong Kong model improvement
+
+29 October newest: resume after-academy-current-inventory-v1-20261029/HANDOFF.md and current-work JSON. Academy69025 INSTALLED Neonfcfd3a93/snapshot8a71fc4a8b94f3ed, independent7017asset/7016oldactor/all521/support readback8e0d2b53 PASS; ROOT12liveexports inspected.402installed+3terminal+116outstanding/521,7017actors. LIVE unnamed265269 canopy lifecycle exec78445/private4177; poll same handle before action. NoAIgeometry/optimisation/new agents. UniversityHall/Fortune/Academy alreadyinstalled; older held/uninstalled notes below historical.
 
 29 October current continuation: read the TOP of after-fortune-current-inventory-v1-20261029/HANDOFF.md and current-work JSON. Academy nested parent/four-world foundations/28native neighbours/private390+1280 preview now PASS; conditional rim account c8244a11 passes all4 without approval. Unnamed265269 canopy preview and lower-role account b8ce8106 complete. Both still uninstalled pending bounded identity/interface/lifecycle and guarded publisher integration.401installed+3terminal+117outstanding/521;7016actors. UniversityHall alreadyinstalled. No live workers/AIgeometry/optimisation; private4177closed. Older Academy coverage/duplicate-parent holds below are historical.
 
