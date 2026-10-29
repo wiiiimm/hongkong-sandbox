@@ -1,3 +1,15 @@
+# Latest continuation — Academy and unnamed source recovery
+
+This section supersedes the older Academy/265269 holds below. University Hall is already installed; the renewed standalone-path approval is fulfilled. Counts remain **401 installed + 3 exact-source terminal + 117 outstanding = 521**, 7,016 detailed actors. No installation this continuation.
+
+Academy69025 nested-parent composition V2 passes: exact old Ocean parent grid and all 16 retained child bodies/order preserved, one disjoint derived terrain child, no original geometry/pose edits. The renderer now replaces the old parent rather than drawing its grid underneath the new patch. Four-world foundation checks have zero buried/upward-buried source faces; 30 neighbouring forms / all28 detailed actors resolved without BASIC flags. Nested private preview V2 passes390/1280 and its12 actual source/retained day/night exports were ROOT inspected. All153 remaining negative faces are wall-like with exact exposed-cap paths. New conditional rim account c8244a11 passes unchanged ordinary limits/all4 worlds, but explicitly grants NO source-role/identity/physical/publication approval. Need bounded wall-role and original Academy337830 authored-interface review; retain original142 transverse-pair lineage. Then implement guarded nested-parent publication integration preserving old proof context and all old supports. Do not use the single-direct-patch Fortune installer unchanged.
+
+Unnamed265269 canopy primary-feature V2 packet and roof/post coverage complete. Private canopy review/preview passes desktop/mobile/failure-retry; all4 actual source exports inspected. Raw uncovered0.123477m2 roof and0.007235m2 post-cap areas remain; no claim of100%coverage. Original geometry unchanged, no terrain changes. Lower-role/rim account V3 b8ce8106 passes all4 worlds with raw warnings retained:86wall roles and2downward closures;8literal shared-edge paths remain unresolved but exact original source role correspondence is recorded. Need whole source identity/interface approval, Base-only/eviction lifecycle, and guarded no-terrain/conditional-canopy publication path. No install credit yet.
+
+All workers launched here are terminal; private4177closed and shared4176untouched.13 exact append mutation tests +10 private canopy tests pass.24 new producers parse. Current-work JSON indexes the durable receipts. Preserve failed V1/V2 attempts as diagnostics, not source corruption. Storage guard remains unchanged; cached originals only. No AI geometry/optimisation/migration/main merge/deploy/new agents.
+
+---
+
 # Current XL original-model continuation
 
 Latest installation: Fortune City One Plus landsd/242706:0, unchanged14439faces; commit3edfb4619f pushed and remote SHA read back. Neon456cf5d2/snapshotbf5882db5deac6c2; independent full7016assets/7015oldactors/all521sourcekeys and existing supports2b746afe PASS. ROOT four actual live390/1280day/night exports inspected.401installed+3exact-current-source terminal+117outstanding=521.7016detailedactors. Do not reinstall Fortune/UniversityHall/Elegant/ShaTin/Lookout.
