@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.203"
+  version: "1.9.204"
 ---
 
 # Hong Kong model improvement
+
+29 October recovery: resume `docs/astra-city/government-import/government-xl-after-sha-tin-current-inventory-v1-20261029/current-work-20261029.json` and HANDOFF.md. Lookout99482 landing terrain/four-world foundation/three-neighbour checks PASS; not installed. All workers terminal. Landing exact low-face/cap/grade/source-role account1c6a727a COMPLETE; all43 raw warnings preserved. Next whole identity/physical composition and private browser gates. Counts unchanged399installed+3terminal+119outstanding/521;7014actors. UniversityHall alreadyinstalled. NoAIgeometry/optimisation. This pointer supersedes older resumption pointers below.
 
 29 October latest: the seven Sha Tin originals are installed and Neon-verified (job 8b2bb1826cd66a9fa1766fe975aa77407b38fbd0602f23fa2dc1fa8ade6b1827; snapshot ee9c9b4ea679d936). Fixed XL: 399 installed, 3 exact-source terminal, 119 outstanding of 521. Runtime: 7,014 detailed actors. Only 231013 adds XL credit; six companions do not. All 7,007 old entries and all 521 source keys/revisions were independently preserved. Both NULL-UID keys remain in scope. No live workers; private 4177 closed, shared 4176 untouched. No AI geometry modelling or optimisation.
 
