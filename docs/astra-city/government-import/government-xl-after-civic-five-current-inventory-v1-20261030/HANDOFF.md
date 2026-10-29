@@ -1,3 +1,13 @@
+# SUPERSEDED — Passenger is installed
+
+Read ../government-xl-after-passenger-current-inventory-v1-20261030/HANDOFF.md. Worker42682 completed; never restart it.
+
+# LIVE Passenger Clearance installation — poll exact worker, never restart on timeout
+
+Prepared/committed/pushed641a6f74a5. Source review cd1313a8, ten source-specific surveyed roof mutation tests, qualified stage1639153c and --prepare-only PASS. LIVE tool session42682; log /tmp/astra-passenger162768-live-install-v1-20261030.log. Actual batch government-xl-passenger162768-original-wave-roof-original-installed-v5-20261030. Child owns private4177 + publication lease; shared4176 untouched. Do not edit running installer/guard/stage/contract/atomic scripts. Verify terminal outcome before any repeat. Counts remain407/3/111 until actual completion/audit.
+
+Config: government-xl-passenger162768-after-civic-five-install-inputs-v1-20261030/install-config.json. Installer passenger162768_live_install_v1_20261030.py retains private progress snapshot/atomic rollback/full521 ledger and all old3+5 terrain/global support checks. Actual HTTP six-roof lifecycle adds primary BASIC fallback visibility too. New independent passenger162768_installed_root_readback_v1_20261030.py is prepared but not run; after terminal result ROOT must actually view all4 live exports, create spec and run complete7028asset/7027oldactor/whole521/twoNULL/global-support readback, then immediately commitpush installed deliverable. Both auxiliary BASICs retained, zero source geometry edits. Next after installation/bounds: Disneyland piers cached originals; oldcompanion74189 roof coverage isZERO over way/334029318 at all5..9m thresholds—do not hide that OSM canopy based on companion. Use actual post footprint tests/foundation process for existing canopy instead. No AI geometry/optimisation/newagents.
+
 # CURRENT continuation — refined Passenger roof lifecycle complete
 
 Prior checkpoint6cb459dfa8 PUSHED; HKS203 comment11c995cf succeeded. Refined1m-return private preview 5228b6c36ceb7ebac048778c3a6f111a5099e84022938abbe64db0ea4d91f2c8 COMPLETE: both390/1280 day/night pass. Six-roof lifecycle b702c2f7fb8ded2b002f628b18e138c0a71f81924af88ea036ba1583da5bcbcb PASS: both desktop/mobile, exact six surveyed BASIC roof visibility checked through original-active/Base-only/Auto/eviction-return and real failed-download/retry. Both private servers closed and all workers terminal; shared4176 untouched. ROOT actually viewed all4 refined-terrain exports plus2 lifecycle screenshots, frozen 44c576ca4a409efb9e1c702b1d41ac807b578c9645d295cb58959592005ec74e. No installation/physical/identity approval granted by these software checks; source geometry/pose unchanged.
