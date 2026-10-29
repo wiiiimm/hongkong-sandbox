@@ -1,3 +1,11 @@
+# Installer correction ready — prior attempt rolled back
+
+Session35141 TERMINAL1: allactual390/1280views passed but legacy assert forbiddingretainednativeviews failed. All7publicdestinations independently restored, no installedledgerhistory. Do NOTrestartV1/v9. New V2installer/publisherv2 usephasev10 and require4exactwesternownviews pluswanted/active/visible/SHA inall4sourceviews. Actualv9exports satisfystricterguards. V2--prepare-only73047 TERMINAL0/PASS,delta1/full521/previous409. Current source/stage/lifecycle unchangedandvalid. Counts409/3terminal/109outstanding,7029actors. Commitfix/pushthenV2--install; finishactualexports+preparedrealHTTPapronlifecycle+fullreadback/immediatecommitpush. Older active35141note below historical.
+
+# Active guarded installation
+
+Preparation3cf9532847 PUSHED. Session35141 owns guarded eastern75643 installation; publication and390live checks passed, finalreceipt pending. Poll existing handle; do not duplicate install. Follow actualliveexports/realHTTPapron lifecycle/full7030asset+521key readback and immediatecommitpush. Currentwork JSON records activehandle. No newinstalledcredituntilsuccessfulterminalreceipt.
+
 # Eastern apron original — qualified model-only preparation
 
 409installed+3exact-source-terminal+109outstanding/521;7029actors. No newinstallation credit. Exact original75643 SHA4c8e5772/32634faces has boundedsource review77ef23b9,fullfallbacklifecycle4e6203dc,real installedwestern-neighbour390/1280preview4cb8d0ef and qualifiedstageb1379612 COMPLETE. ROOTactuallyviewed12privateexports; observation5d190bd5. Fresh7phase97752885 andcontact/shore/lineagea5d1c91e COMPLETE; full7029currentbounds c30f43b6 COMPLETE. Raw genericidentity/foundation failures retained under exactextent and2lower-shore-facet interpretation; no original source changes.
