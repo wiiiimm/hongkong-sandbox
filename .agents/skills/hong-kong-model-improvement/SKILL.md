@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.210"
+  version: "1.9.211"
 ---
 
 # Hong Kong model improvement
+
+29 October latest: resume docs/astra-city/government-import/government-xl-oceanwalk-depot-recovery-checkpoint-v1-20261029/HANDOFF.md. Counts unchanged403installed+3terminal+115outstanding/521;7018actors. UniversityHall already installed. Current7018bounds and two-source fresh evidence complete. OceanWalk lower-rim4world accounting passes; neighbour32653 exact60face/1523byte asset identified but R2 credentials absent, restore pending. Depot120104 private7117face/3domain construction preserves19600m2 omitted water; both seams pass, all4foundations zero buried; exact14lowfacets whole/unchanged lineage proof e6e5e176 passes8mutation tests. Nominal envelope precheck remains recorded false; no patch/renderer/browser acceptance yet. Checkpoint d9739ef8 in Neon; all launched workers terminal. Immutable cache sharing78431f34 recovered1.1GB preserving all paths/bytes; never rewrite hardlinked assets in place. Continue native-patch validation, not another unchanged TIN rebuild. NoAIgeometry/optimisation/newagents; protect unrelated tracked dirt.
 
 29 October newest: resume after-unnamed265269-current-inventory-v1-20261029/HANDOFF.md/current-work JSON. Academy69025 and unnamed265269 INSTALLED; latest Neonde5ec2b0/snapshotbbda1e12e59993a6, independent whole7018assets/7017oldactors/all521/global supports488d61d1 PASS. ROOT4latest live exports inspected.403installed+3terminal+115outstanding/521,7018actors. All workers terminal/private4177closed/shared4176untouched. Refresh7018bounds then continue complete115cohort/twoNULLUIDs. NoAIgeometry/optimisation/newagents. Do not reinstall completed sources; older live/held notes below historical.
 
