@@ -2,12 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.220"
+  version: "1.9.221"
 ---
 
 # Hong Kong model improvement
 
-29 October CURRENT: read TOP government-xl-after-fuying-current-inventory-v1-20261029/HANDOFF.md/current-work. FuYing installed/pushedb6a5c69d8f,406installed+3terminal+112outstanding/521;7022actors. Current7022bounds b354726b COMPLETE. LIVE5sourceKowloon civic/Peninsula diagnostic sequence exec24226 (82290/82291/82292/159177/230911); first selection completed, poll log/state, do not restart/edit. Source5current capture/attributes/identity/scope follow. Historical podium has34upwardburied/nonwallfaces; no wall-only waiver or corruption claim. ShaTin7/UniversityHall/FuYing alreadyinstalled. Preserve full112/twoNULLkeys/global support/protected dirt. NoAIgeometry/optimisation/newagents/shared4176restart; private4177closed.
+30 October CURRENT: read TOP after-fuying-current-inventory-v1-20261029/HANDOFF/current-work.406installed+3terminal+112outstanding/521,7022actors; FuYing pushedb6a5c69d8f/currentboundsb354726b. Civic/Peninsula5diagnostics77fe2789/9pairphasesc616dd25/privategroundreplayb2092bde/layers413c8b84 complete.3smallsourcefoundationsPASS; 2upper support holds53/76 remain diagnostic. NewprivatefloorV4ec0f4d77 validates3658faces/maxlower1.8538m, original47facets unchanged;7gap-checkertestsPASS, existing2mm/.25m2limits retained. LIVE10phase floor+attachment sequence66547; poll log/state, do not restart/edit. No civic installation/AIgeometry/optimisation/newagents/shared4176restart. BothNULLkeys/global supports/protected dirt retained.
 
 29 October latest: resume government-xl-after-peninsula-current-inventory-v1-20261029/HANDOFF.md/current-work JSON. Peninsula270876+266543 INSTALLED unchanged; c284f4bb/snapshotacaf418cc45df383; independent whole7021assets/7019oldentries/all521/global-support4da4d31c PASS. ROOT8actual live exports viewed d58d755a; all3 installed HTTP atomic pair/roof lifecycle cases PASS.405installed+3terminal+113outstanding/521;7021actors. All workers terminal/released/private4177closed/shared4176untouched. Refresh7021bounds withV5 exact decoder-preserving admission delta then continue FuYing5member effective boundary and full113cohort/twoNULLUIDs. UniversityHall approval fulfilled; never reinstall. NoAIgeometry/optimisation/newagents.
 

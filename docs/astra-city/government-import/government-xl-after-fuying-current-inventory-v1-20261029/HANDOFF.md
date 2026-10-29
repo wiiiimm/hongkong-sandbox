@@ -1,3 +1,17 @@
+# Current continuation — 30 October private civic floor and attachment checks
+
+FuYing install pushed b6a5c69d8f; bounds7022 complete b354726b. Counts406installed+3terminal+112outstanding/521;7022actors. No new civic/Peninsula installation.
+
+Five current-source/ground/attributes/identity/scope phases complete77fe2789; all7022actors checked, no nearby native candidates in source scope.3small originals230911/159177/82292 pass all4foundation policies. Civic82290/82291 preserve4spatial warnings each; other3identity scriptpasses. Ground/root82291still627buried/196upward; unchanged privateoldTIN1446faces reproduces54buried/34upward. Exact current private replay b2092bde complete; no historical approvals transferred.
+
+Nine foundation/pair phases complete c616dd25. Peninsula159177->230911:182samples/129strict/53unresolved; civic82290->82291:188samples/109strict/76unresolved(3wallresolved). Full4world original pair contacts/roles preserved. Layer diagnostic413c8b84:Peninsula2lowerlayers with higheroverlap,51no contactlayer; civic4lowerlayers,70no contactlayer,5no verticalsupport. These are diagnostics, not irreparable/corrupt or support acceptance.
+
+Private floor-returnV4 VALIDATED ec0f4d77:3658terrainfacets,362oldfaceschanged, maximumlowering1.8538m, removed/inserted378.170137m2.47original upward low facets nominated by EXACT equality of all4complete source/ground byte streams to earlier census; all226raw negativefaces retained. No government building geometry/pose changes. Existing0.25m2/2mm input coverage policy revalidated for rawANDproductionFloat32 positions.3pre-existing tiny input seams total0.000289m2 remain explicitly recorded (legacy strict missing-set check false). A setidentity avoids subtracting independently rounded GEOS overlays; no coordinates snapped or threshold widened.7new checker counterexample testsPASS. All output native/coverage/boundary/height/25k guards unchanged. V1receipt-init/V2inputcoverage/V3GEOS-overlay failures retained, no acceptance credit.
+
+LIVE ten-phase sequence exec66547: government-xl-kowloon-city-civic-five-after-fuying-floor-and-attachment-sequence-v1-20261030, log /tmp/astra-kowloon-civic-floor-attachment-v1-20261030.log, local/state.json. Newfloor actualrenderer runtime completed, freshscope/3foundations then exactpair-only selection bindings and existing original_pair_rim_attachment_v2 self-contact paths for bothuppers, then all BASICform regressions. Eachphase owns renewing source/root/scope leases. Poll sameworker; do not restart/edit. No browser/server or production change. Exact positive contact paths do not themselves approve structural roots, source roles, identity or publication. Source/foreign interfaces and privatevisual/coavailability/finalguard/live/readback remain after complete numeric checks.
+
+NoAIgeometry/optimisation/newagents/shared4176restart. BothNULLkeys/protected2dirtyfiles retained. Older notes below are historical;24226/28535/95833/2153/37035/96808/61186/37583 are terminal. Only66547live. Keepworking; no human decision needed for this script follow-up.
+
 # Current continuation — five cached Kowloon civic/Peninsula originals
 
 FuYing install pushed b6a5c69d8f; Linear HKS203 progress-only update succeeded. Counts406installed+3terminal+112outstanding/521;7022actors. Current7022bounds COMPLETE b354726b; decoder/geo/scheduling bytes identical to prior. Do not rerun.

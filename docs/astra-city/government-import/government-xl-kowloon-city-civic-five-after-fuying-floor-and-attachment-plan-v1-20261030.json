@@ -1,0 +1,149 @@
+{
+  "batch": "government-xl-kowloon-city-civic-five-after-fuying-floor-and-attachment-sequence-v1-20261030",
+  "uids": [
+    "landsd/82290:0",
+    "landsd/82291:0",
+    "landsd/82292:0",
+    "landsd/159177:0",
+    "landsd/230911:0"
+  ],
+  "resources": [
+    "building:landsd/82290:0",
+    "building:landsd/82291:0",
+    "building:landsd/82292:0",
+    "building:landsd/159177:0",
+    "building:landsd/230911:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-floor-return-runtime-v1-20261030",
+      "args": [
+        "--patch",
+        "government-xl-kowloon-city-civic-five-after-fuying-upward-floor-return-v4-20261030",
+        "--capture",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-floor-return-scope-v1-20261030",
+      "args": [
+        "--patch",
+        "government-xl-kowloon-city-civic-five-after-fuying-upward-floor-return-v4-20261030",
+        "--inventory",
+        "government-xl-after-fuying-native-bounds-v1-20261029"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-82290-0-floor-return-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-floor-return-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/82290:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-82291-0-floor-return-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-floor-return-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/82291:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-82292-0-floor-return-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-floor-return-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/82292:0"
+      ]
+    },
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-peninsula-pair-selection-v1-20261030",
+      "args": [
+        "--inventory",
+        "government-xl-after-fuying-native-bounds-v1-20261029",
+        "--capture",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--uid",
+        "landsd/159177:0",
+        "--uid",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "original_pair_rim_attachment_v2_20261029.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-peninsula-finite-self-attachment-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-peninsula-pair-selection-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--contacts",
+        "government-xl-kowloon-city-civic-five-after-fuying-peninsula-finite-contacts-v1-20261029",
+        "--strict-support",
+        "government-xl-kowloon-city-civic-five-after-fuying-peninsula-support-v1-20261029",
+        "--uid",
+        "landsd/159177:0"
+      ]
+    },
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-civic-pair-selection-v1-20261030",
+      "args": [
+        "--inventory",
+        "government-xl-after-fuying-native-bounds-v1-20261029",
+        "--capture",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--uid",
+        "landsd/82290:0",
+        "--uid",
+        "landsd/82291:0"
+      ]
+    },
+    {
+      "script": "original_pair_rim_attachment_v2_20261029.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-civic-finite-self-attachment-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-civic-pair-selection-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--contacts",
+        "government-xl-kowloon-city-civic-five-after-fuying-civic-finite-contacts-v1-20261029",
+        "--strict-support",
+        "government-xl-kowloon-city-civic-five-after-fuying-civic-support-v1-20261029",
+        "--uid",
+        "landsd/82290:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_form_checks_v1.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-floor-return-form-checks-v1-20261030",
+      "args": [
+        "--scope",
+        "government-xl-kowloon-city-civic-five-after-fuying-floor-return-scope-v1-20261030",
+        "--inventory",
+        "government-xl-after-fuying-native-bounds-v1-20261029",
+        "--patch",
+        "government-xl-kowloon-city-civic-five-after-fuying-upward-floor-return-v4-20261030"
+      ],
+      "scopeResources": "government-xl-kowloon-city-civic-five-after-fuying-floor-return-scope-v1-20261030"
+    }
+  ]
+}

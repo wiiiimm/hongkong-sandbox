@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/kowloon_civic_upward_floor_return_v3_20261030.py", line 71, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/kowloon_civic_upward_floor_return_v3_20261030.py", line 51, in main
+    proof['inputDomainCoverage']=input_gap_context(before,outer,rendered,candidate['sha256'])
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/approved_rendered_terrain_gap_context_v1_20261030.py", line 28, in check
+    assert missing.difference(whole_missing).is_empty,'Input gap is not an existing declared numerical hole'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Input gap is not an existing declared numerical hole
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
