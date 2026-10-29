@@ -1,3 +1,11 @@
+# Latest running follow-through — 30 October
+
+14b61e537c numerical checkpoint PUSHED. First private five-source desktop/mobile runtime365110f0 PASS, zero page errors;20exports retained. ROOT inspected civic82290/82291 desktopday exports: opposite adjacent actor blocks source, so NO visual/install approval. Existing camera problem only; do not alter models. Prepared V2uses actual complete civic-three and Peninsula-two unionbounds, civiccamera[.7,1,-1], Peninsula[-.8,1,1]. V1serverclosed/released.
+
+LIVE sequential script exec40493: kowloon_civic_browser_followthrough_v1_20261030.py, log /tmp/astra-kowloon-civic-browser-followthrough-v1-20261030.log. It authenticatedV1 then waits exactparentexit, runs privateV2log /tmp/astra-kowloon-civic-private-browser-v2-20261030.log, then exactfive-peer lifecyclelog /tmp/astra-kowloon-civic-atomic-lifecycle-v1-20261030.log. ExpectedV2batch government-xl-kowloon-city-civic-five-after-fuying-unapproved-atomic-private-browser-v2-20261030; lifecycle government-xl-kowloon-city-civic-five-after-fuying-atomic-lifecycle-v1-20261030. Poll samecontroller; do not restart/modify its pinned4files. Fresh leases eachphase, current7022root/all5source bytes, private4177only. Lifecycle sixcases:desktop success +each5mobilefailedpeer; atomic allBASICrestore/retry/Base-only/eviction/collisionmap. No canopy suppression/foreigncatalogue edits allowed. All approvals remainfalse. Controller stops on failure without installation.
+
+Next actualV2image inspection/source-specific currentrole/identity/fallback interpretation, finalguard/live/readback. Tiny pre-existing Float32 BASICroofsliver remains recorded; neither floorflag nor contactpath becomes structuralcertification. Counts406installed+3terminal+112outstanding/521;7022actors. UniversityHallalreadyinstalled. NoAIgeometry/optimisation/newagents. Protect2unrelateddirtyfiles andbothNULLkeys. Earlier40633worker terminal; current40493only.
+
 # Current continuation — 30 October five-source runtime and fallback review
 
 University Hall approval already fulfilled; never reinstall. Counts remain 406 installed + 3 exact-source terminal +112 outstanding /521 XL;7022 detailed actors. FuYing installation and independent audit are pushed; HEAD4f8e13af77 remote confirmed. No new civic installation.
