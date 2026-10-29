@@ -1,3 +1,17 @@
+# Verified installation — next three script diagnostics active
+
+Eastern75643installationdc94b9fc87 PUSHED. Independentreadback1e3d9e82PASS: all7030assetsrehashed,7029oldactorentries/all521/twoNULL/global8BASICsupports preserved; terrainunchanged. ActualHTTPapronlifecycle8256dfcbPASS. ROOT4realinstalledsourceexportsviewed. Counts410installed+3terminal+108outstanding/521,7030actors. HKS20360932d0a/parent19976f437f4 andmilestonecurrentoverviewupdated.
+
+Fresh all7030actualruntimebounds0baf975ce9ea31aebea0478c03895eada1a673a9fe5abf36945a2de918e6a3b6 COMPLETE at government-xl-after-disneyland-piers-native-bounds-fresh-v2-20261030. Prior7029cacheprovidesonlyidenticalsourcePOSITIONproofs; ALL7030runtime rowsfresh. RejectedV6incrementaladapter archivedinproposal;V1fullcapturepriorcountfailurepreserved. Neither ismodelcorruption. Do not rerun completedbounds.
+
+Current session31908: government-xl-after-disneyland-piers-next-three-fresh-sequence-v1-20261030,8leasedphases. Sources AcademicBuilding309823,KowloonParkAdministrationBuilding336430,YohoMallII273672; exactcachedindexedSHAverified. Selection/currentground/attrs/identity/currentmodel-onlyscope+3fourworldfoundations. Pollspecifichandle/currentprocess; donot restartsolelyonobservationtimeout. New3arependingdiagnostics,notinstalled/cleared. Full108/twoNULLscopepersists.
+
+All installation/lifecycle/readback/fullboundsworkers terminal/private4177closed;shared4176untouched. NeverreinstallUniversityHall/Passenger/eitherpier. Preserveunrelateddirtyworking-commands/sharedneon-snapshot andlocal-onlyunknownlicenceportfolioimage. NoAIgeometrymodelling/modeldownloads/optimisation/migration/newagents. AIusedforcodeandboundedevidenceinterpretation.
+
+# Actual installation pushed — readback active
+
+Installationdc94b9fc87 PUSHED. ActualHTTPapron lifecycle8256dfcbPASS/released; renderingandcollision BASICrestore checked atfailure/Base/Auto/evictionreturn, no catalogue/terrain substitution. Session89115independent7030asset/all521/twoNULL/globalBASIC/oldactor/unchangedterrainreadback running. Pollhandle;do not reinstall. ThenV6boundsdelta andverificationcommit,continuefull108. Older93109active note below historical.
+
 # Eastern Disneyland pier installed — full XL acquisition continues
 
 410installed+3exact-current-source terminal+108outstanding=521.7,030unique detailed actors. BothNULLsourcekeys and all111noninstalled keys including3terminal preserved in current-work JSON.
