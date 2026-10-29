@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.206"
+  version: "1.9.207"
 ---
 
 # Hong Kong model improvement
+
+29 October continuation: read END of after-lookout-current-inventory-v1-20261029/HANDOFF.md. Fortune242706 final physical and four actually inspected V3 browser exports PASS; qualified stage8008dae9 complete, not installed. Installer prepare-only session99055/log /tmp/astra-fortune-install-preflight-20261029.log launched. No public changes yet.400installed+3terminal+118outstanding/521,7015actors. UniversityHall approval stale/alreadyinstalled. Academy exact local source TIN restored; use current capture before further checks. NoAIgeometry/optimisation.
 
 29 October current: resume `docs/astra-city/government-import/government-xl-after-lookout-current-inventory-v1-20261029/HANDOFF.md`. Lookout is installed; fixed XL400 installed+3 exact-current-source terminal+118 outstanding/521,7015 detailed actors. Disney75642/75643 remain uninstalled: foundation/source checks advanced, but retained BASIC334029318 and common terrain-cell composition remain unresolved. Companion74189 recovered byte-identically via pinned government acquisition; it does not supply the disputed roof. Neon checkpoint7943af88 preserves completed phases and held reasons. No live owned workers;4177closed, shared4176untouched. NoAIgeometry/optimisation. Old immutable private caches have verified hardlinked duplicates: never rewrite them in place; use a new path or atomic replacement for new bytes. Keep the3GiB acquisition floor. Do not reinstall UniversityHall/Elegant/ShaTin/Lookout. Both NULL-UID XL keys remain in scope.
 
