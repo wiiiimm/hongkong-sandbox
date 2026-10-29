@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.225"
+  version: "1.9.226"
 ---
 
 # Hong Kong model improvement
+
+30 October CURRENT: eastern75643 exactapron model-onlystage b1379612 qualified; source77ef23b9,fullfallbacklifecycle4e6203dc,realwestern-neighbourpreview4cb8d0ef and12ROOTviewedexports5d190bd5 complete. Fresh7029bounds c30f43b6. ReadTOP after-western-pier-current-inventory-v1-20261030/HANDOFF/current-work; poll54481--prepare-only thencommitprep/install/readback/commitpush. Counts409+3terminal+109outstanding/521,7029actors unchangeduntilactualinstall. Exactsource/formOSMaproncorrection only; no sourcegeometry/terrainchanges. Preservefull109/twoNULL/protectedunrelateddirt; neverreinstallUniversityHall/western.
 
 30 October LATEST: westernpier75642 INSTALLED unchanged18,007faces and pushed110ef60548.409installed+3terminal+109outstanding/521;7029actors. Read after-western-pier-current-inventory-v1-20261030/HANDOFF/current-work. Installedb2ab4238/snapshotb6d02abd53fdd6e5; independent5e47928arehashedall7029assets,preserved7028oldactors/all521/twoNULL/globalBASICsupports. ROOT4actual liveexportsviewed; realHTTP lifecycle1a35a31ePASS. Bounds9d4c7c6f COMPLETE; do not rerun unchanged. Never reinstallwestern/UniversityHall/Passenger. EasternOSMpolicy stillpending; full109/twoNULLscope persists. NoAIgeometry/optimisation/newagents/modeldownloads; allownedworkers terminal/private4177closed/shared4176untouched. Protectedunrelateddirtyfilesexcluded.
 

@@ -1,3 +1,4 @@
+import {reviewedOsmApronSuppression} from './official-model-reviewed-osm-apron.js';
 import {reviewedOriginalFeatureScopes} from './official-model-reviewed-original-feature-data.js';
 /** Exact source-identity scope for a reviewed complete original feature.
  * Source bytes, pose and the generic geometry validator remain unchanged.
@@ -11,7 +12,7 @@ export function reviewedOriginalFeatureFootprint(entry,building){
   const s=scopes[entry.footprintScope];
   const fail=()=>{throw new Error('Unverified complete original feature scope');};
   if(!s||s.policy!=='reviewed-original-feature-v1'||s.identityReviewed!==true||
-     entry.variantId||(entry.suppressesBuildingUids??[]).length||
+     entry.variantId||((entry.suppressesBuildingUids??[]).length&&!(entry.suppressesBuildingUids.length===1&&reviewedOsmApronSuppression(entry,entry.suppressesBuildingUids[0])))||
      s.uid!==entry.uid||s.modelId!==entry.modelId||s.sha256!==entry.sha256||!hash.test(s.sha256)||
      JSON.stringify(featureForm(building))!==JSON.stringify(featureForm(s.form))||
      JSON.stringify(entry.worldBounds)!==JSON.stringify(s.worldBounds)||

@@ -1,3 +1,4 @@
+import {reviewedOsmApronSuppression,validateReviewedOsmApronDeclaration} from './official-model-reviewed-osm-apron.js';
 import {reviewedOsmRoofSuppression,validateReviewedOsmRoofDeclaration} from './official-model-reviewed-osm-roof.js';
 import {sha256Hex} from './sha256.js';
 export {sha256Hex};
@@ -19,8 +20,9 @@ export function prepareModelCatalogue(data,url){
   const b=r.worldBounds,sourceBounds=r.sourceWorldBounds,verticalOffset=r.verticalPlacementOffsetHKPD??0;
   if(typeof r.uid!=='string'||!/^landsd\/\d+:\d+$/.test(r.uid)||seen.has(r.uid)||String(r.objectId)!==r.uid.split('/')[1].split(':')[0]||typeof r.buildingCSUID!=='string'||!r.buildingCSUID||typeof r.modelId!=='string'||!r.modelId||typeof r.sourceTile!=='string'||typeof r.asset!=='string'||!r.asset.endsWith('.glb.gz')||r.encoding!=='gzip'||!HASH.test(r.sha256)||![r.bytes,r.glbBytes,r.decodedGeometryBytes,r.triangles,r.indexedVertices].every(positive)||r.bytes>32*1024*1024||r.glbBytes>128*1024*1024||!Array.isArray(b)||b.length!==2||!b.every(p=>Array.isArray(p)&&p.length===3&&p.every(Number.isFinite))||b[0].some((v,i)=>v>=b[1][i]))throw new Error('Invalid compact model entry '+r?.uid);
   const suppressions=r.suppressesBuildingUids??[];
-  if(!Array.isArray(suppressions)||suppressions.length>64||new Set(suppressions).size!==suppressions.length||suppressions.some(uid=>(!/^landsd\/\d+:\d+$/.test(uid)&&!reviewedOsmRoofSuppression(r,uid))||uid===r.uid))throw new Error('Invalid model assembly suppression '+r?.uid);
+  if(!Array.isArray(suppressions)||suppressions.length>64||new Set(suppressions).size!==suppressions.length||suppressions.some(uid=>(!/^landsd\/\d+:\d+$/.test(uid)&&!reviewedOsmRoofSuppression(r,uid)&&!reviewedOsmApronSuppression(r,uid))||uid===r.uid))throw new Error('Invalid model assembly suppression '+r?.uid);
   validateReviewedOsmRoofDeclaration(r);
+  validateReviewedOsmApronDeclaration(r);
   if(r.retainsBasicForm!==undefined&&typeof r.retainsBasicForm!=='boolean')throw new Error('Invalid basic-form retention '+r?.uid);
   if(!Number.isFinite(verticalOffset)||Math.abs(verticalOffset)>20)throw new Error('Invalid vertical placement offset '+r?.uid);
   if(verticalOffset){

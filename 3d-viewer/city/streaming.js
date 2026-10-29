@@ -1,3 +1,4 @@
+import {reviewedOsmApronFormMatches} from './official-model-reviewed-osm-apron.js';
 import {reviewedOsmRoofFormMatches} from './official-model-reviewed-osm-roof.js';
 import {activationGroupMembers} from './model-activation-groups.js';
 import {streamingMetrics as metrics} from './streaming-metrics.js';
@@ -94,7 +95,7 @@ export class CityStreaming {
    if(uid.startsWith('way/')){
     if(buildings&&!byUid)byUid=new Map(buildings.map(b=>[b.uid,b]));
     const form=byUid?byUid.get(uid):this.getLoadedBuilding(uid);
-    if(!reviewedOsmRoofFormMatches(detail.entry,form))continue;
+    if(!reviewedOsmRoofFormMatches(detail.entry,form)&&!reviewedOsmApronFormMatches(detail.entry,form))continue;
    }
    if(!this.basicFallbackProtections?.has(uid)){result.add(uid);continue;}
    if(buildings&&!byUid)byUid=new Map(buildings.map(b=>[b.uid,b]));
