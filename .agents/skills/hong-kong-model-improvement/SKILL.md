@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.221"
+  version: "1.9.222"
 ---
 
 # Hong Kong model improvement
+
+30 October LATEST: Passenger Clearance162768 INSTALLED unchanged and pushed ab97a28c54. 408installed+3exact-source terminal+110outstanding/521;7028actors. Installed812074d8/snapshot4b5e3c616e1d3d9b; independent81672a78 rehashed all7028assets, preserved7027oldactors/all521/twoNULLs/globalBASICsupports. ROOT4real-live exports actually viewed; actual HTTP six-roof+primary fallback lifecycle PASS. Source-bound surveyed-roof contract does NOT weaken generic unsurveyed guard; two auxiliary BASICs retained. Complete actual8post-footprint ground overlays resolve broad161745 interior flag without deleting it or moving surveyed posts. Derived1m-return terrain only; source bytes/pose unchanged. Read after-passenger-current-inventory-v1-20261030/HANDOFF/current-work. Bounds b478b763 complete; never rerun unchanged. Passenger/UniversityHall/FuYing/civic5 already installed; never repeat. Continue all110 and twoNULLs, cached Disneyland piers next; companion74189 has ZERO roof coverage of disputed OSM canopy, so retain it. NoAIgeometry/optimisation/newagents; private4177closed/shared4176untouched; protect unrelated dirty files.
 
 30 October CURRENT: civic5INSTALLED ddb6290b/snapshot5d6d61f05d5826b9; independentwhole7027assets/7022oldactors/all521/twoNULLs/global-support readback78e6fa93PASS.407installed+3terminal+111outstanding/521;7027actors. ROOT20actualv5exportsviewed;6actualHTTPatomiccasesPASS. Read after-civic-five-current-inventory-v1-20261030/HANDOFF/current-work. Commitpushactualinstallationthenrefresh7027boundsandcontinue111 (PassengerClearance162768cachednext,parentclampnotcorruption). Allworkersclosed/private4177closed/shared4176untouched. V2privateprogresssnapshotkeepsprotectedsharedaudituntouched/excludedfromrollback;bothprotecteddirtyfilesunchanged. UniversityHall/FuYing/civic5alreadyinstalled;neverrepeat. NoAIgeometry/optimisation/newagents.
 
