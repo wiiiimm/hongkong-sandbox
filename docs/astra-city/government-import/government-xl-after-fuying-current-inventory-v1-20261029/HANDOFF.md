@@ -1,3 +1,13 @@
+# Current continuation — five cached Kowloon civic/Peninsula originals
+
+FuYing install pushed b6a5c69d8f; Linear HKS203 progress-only update succeeded. Counts406installed+3terminal+112outstanding/521;7022actors. Current7022bounds COMPLETE b354726b; decoder/geo/scheduling bytes identical to prior. Do not rerun.
+
+LIVE exact5source diagnostic sequence exec24226, mainlog /tmp/astra-kowloon-civic-five-after-fuying-v1-20261029.log. Batch government-xl-kowloon-city-civic-five-after-fuying-diagnostics-v1-20261029; local/state.json tracks phase and completed jobs. First exact-current-selection merge completed. Sources82290(Kowloon City Government Offices1508faces),82291(unnamed podium15085),82292(10),159177(Peninsula Square808),230911(PENINSULA SQUARE1022). Current ground/attributes/identity/source-only whole7022scope follow under renewed per-phase leases; no archive/download/source changes. Poll sameworker; do not restart/edit. No source or placement approval transferred from historical scenes.
+
+Historical source3private terrain bae49d71 (1446faces) is under government-xl-kowloon-city-civic-three-original-inset-v1-20261029. Its old actual source3 capture retains54buried/34upward podium faces, minimumgap-2.0368; lowface ce7bef8c has226affectedfaces/all4worlds, notwall-only. New230911original was cached exactly; currentoldground check no upwardburied, gap-2.278. Do not call these corrupt or apply wall-only rules to nonwall facets. Original5pair/provider/lowface/source-role and local ground evidence can be reused only with exact source/form/code binding; whole current neighbours still need current scope. All old ShaTin7 already installed, never rerun or include them. Other oldsource analyses in after-ocean-four HANDOFF are historical.
+
+NoAIgeometry/optimisation/newagents/shared4176restart. Private4177closed. BothNULLkeys/protected2dirtyfiles retained. The whole112cohort remains in scope; ordinary script follow-up is In process, not a human/AI hold. Nextfinish current diagnostics then advance source-specific ground/interface checks. OceanWalk32653restore still awaits R2credential location, not broad goalblocking.
+
 # After Fu Ying original installation — 29 October 2026
 
 FuYing landsd/181489:0 INSTALLED with unchanged original14,692faces, SHA bffdf5653f4dd01917b4028e0cd2f0559fcdb3ce960a4d7cabd5a0392b9ae163. Native1x metres/HKPD/source pose; no window skin, suppression or support dependency. Original authored low canopies retained. All4raw footprint/excess warnings and bounded source/contact interpretation retained, not erased.
