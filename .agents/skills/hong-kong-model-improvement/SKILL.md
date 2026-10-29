@@ -2,12 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.218"
+  version: "1.9.219"
 ---
 
 # Hong Kong model improvement
 
-29 October CURRENT: read TOP after-peninsula-current-inventory-v1-20261029/HANDOFF.md/current-work.405installed+3terminal+113outstanding/521;7021actors. FuYing source/physical/visual79f665ab complete, all40privateexports seen. Whole5terrain dry93aa1d78/fullqualifiedstagea1dab3ce/--prepare-only PASS;12adapter+4clippingtestsPASS. No live workers/private4177closed. Next prepared fuying_five_member_live_install_v1_20261029.py --install AFTER preparation commit/push, then all40actual liveimages+independent7022asset/7021oldactor/all521/support readback. NOTINSTALLED yet. NoAIgeometry/optimisation/newagents/shared4176restart. BothNULLkeys/protected dirt preserved; UniversityHall approval fulfilled.
+29 October CURRENT: read government-xl-after-fuying-current-inventory-v1-20261029/HANDOFF.md/current-work. FuYing181489 INSTALLED unchanged14,692faces; Neon8a5c3608/snapshot31159b1f8d5a5b9a, independent7022asset/7021oldactor/all521/global support7f4e186aPASS.406installed+3terminal+112outstanding/521,7022actors. ROOT4source liveexports+36retainedexports via4labelledcontactsheet reviewed3705f109.5actual terrainHTTP hashes/fallback/picking/collisionPASS.39derived terrain connectors preserve priorpositions/indices; no governmentgeometry/pose/skin edits. Workers terminal/private4177closed/shared4176untouched. Commit/push install then refresh7022bounds withV5/priorafter-peninsula/FuYingattributes/newinstalled+readback. BothNULLkeys/protected dirt preserved. NoAIgeometry/optimisation/newagents. UniversityHall approvalfulfilled; never reinstall.
 
 29 October latest: resume government-xl-after-peninsula-current-inventory-v1-20261029/HANDOFF.md/current-work JSON. Peninsula270876+266543 INSTALLED unchanged; c284f4bb/snapshotacaf418cc45df383; independent whole7021assets/7019oldentries/all521/global-support4da4d31c PASS. ROOT8actual live exports viewed d58d755a; all3 installed HTTP atomic pair/roof lifecycle cases PASS.405installed+3terminal+113outstanding/521;7021actors. All workers terminal/released/private4177closed/shared4176untouched. Refresh7021bounds withV5 exact decoder-preserving admission delta then continue FuYing5member effective boundary and full113cohort/twoNULLUIDs. UniversityHall approval fulfilled; never reinstall. NoAIgeometry/optimisation/newagents.
 
