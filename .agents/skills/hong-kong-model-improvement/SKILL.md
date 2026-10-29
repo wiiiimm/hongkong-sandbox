@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.222"
+  version: "1.9.223"
 ---
 
 # Hong Kong model improvement
+
+30 October continuation: read TOP after-passenger-current-inventory-v1-20261030/HANDOFF. UniversityHall alreadyinstalled c339a37453; stale approval requires no duplicate work. Counts408+3terminal+110outstanding/521;7028actors unchanged. Piers75642/75643 new all-basic-fallback-coast-inset-v2 preserves OSM and both own fallback ground; all5formchecksPASS. Four-world ordinary burial remains FALSE(26/2nonup facets); exact current104lower-facet checks and75643native/current2facet coversPASS. ROOT8privateexportsviewed; OSMestimated24m tower visibly conflicts, source identity unresolved; do not suppress based on deck overlap. Pair finite-contact sequence COMPLETE e208671d; allownedworkers terminal. Read current handoff for raw pair contacts before any source admission. NoAIgeometry/optimisation/newagents; source geometry unchanged. Full110/twoNULLscope persists.
 
 30 October LATEST: Passenger Clearance162768 INSTALLED unchanged and pushed ab97a28c54. 408installed+3exact-source terminal+110outstanding/521;7028actors. Installed812074d8/snapshot4b5e3c616e1d3d9b; independent81672a78 rehashed all7028assets, preserved7027oldactors/all521/twoNULLs/globalBASICsupports. ROOT4real-live exports actually viewed; actual HTTP six-roof+primary fallback lifecycle PASS. Source-bound surveyed-roof contract does NOT weaken generic unsurveyed guard; two auxiliary BASICs retained. Complete actual8post-footprint ground overlays resolve broad161745 interior flag without deleting it or moving surveyed posts. Derived1m-return terrain only; source bytes/pose unchanged. Read after-passenger-current-inventory-v1-20261030/HANDOFF/current-work. Bounds b478b763 complete; never rerun unchanged. Passenger/UniversityHall/FuYing/civic5 already installed; never repeat. Continue all110 and twoNULLs, cached Disneyland piers next; companion74189 has ZERO roof coverage of disputed OSM canopy, so retain it. NoAIgeometry/optimisation/newagents; private4177closed/shared4176untouched; protect unrelated dirty files.
 
