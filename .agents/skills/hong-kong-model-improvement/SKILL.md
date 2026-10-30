@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.229"
+  version: "1.9.230"
 ---
 
 # Hong Kong model improvement
+
+30 October CURRENT: all launched workers terminal. Park additive sequence976a5dc4 completed26-form scope and actual four-world checks; still35 upward buried facets plus BASIC725945983 ground-gap regression. Academic V16 bounded clip repair passes8tests/all old limits; later upper-envelope overlap assertion remains held. Yoho adjacent-TIN/MallI obligations pending. Read TOP after-disneyland-piers-current-inventory HANDOFF/current-work and three-terrain-checkpoint-v1-20261030. Counts410+3terminal+108outstanding/521,7030actors unchanged; UniversityHall approval alreadyfulfilled c339a37453. No reinstallation, AI geometry or optimisation. Older running notes historical.
 
 30 October ACTIVE: next3fresh8phase e3ecfb53COMPLETE;session99002exactforeignBASICcontacts/buriedcontext running(51resources). YohoII273672identityPASS;Academic309823/ParkAdmin336430genericoverlap/extentreasons retained,upwardburialneedsoriginalTIN/interfacework. Zero nominatednativeactorsforall3. ReadTOP after-disneyland-piers-current-inventory-v1-20261030/HANDOFF/current-work. Verification95181adcfcPUSHED;410+3terminal+108outstanding/521,7030actorsunchanged. Poll99002;do not repeatcompletedfresh/bounds/installchecks. Full108/twoNULL/protectedfilespreserved;noAIgeometry/optimisation/newagents.
 

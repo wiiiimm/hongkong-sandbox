@@ -1,3 +1,11 @@
+# Current terrain repair checkpoint — all launched checks finished
+
+University Hall approval is already fulfilled by installation c339a37453. Current catalogue still has placementReviewed/publicationApproved/identityReviewApproved=true. Do not reinstall.
+
+Cached original terrain and exact foreign contacts are saved in Neon for Academic309823, ParkAdmin336430 and YohoII273672. Park additive followthrough 976a5dc4 COMPLETE/released: renderer, attributes, four-world foundations and complete26-form scope/checks finished. Zero detailed neighbours/terrain overlaps. Park still has35 upward buried facets and retained BASIC way/725945983:0 gains a ground gap. No installation credit. Academic V16 repairs one invalid rounded clip within all old limits (8 tests pass), but the subsequent upper-envelope overlap assertion still fails. Preserve raw failures; next work is exact overlap instrumentation and source/interface recovery, not tolerance changes. Yoho needs adjacent cached TIN coverage and existing Mall I terrain retention.
+
+All launched workers terminal; private4177 closed/shared4176 untouched. Counts410 installed+3 exact-source terminal+108 outstanding/521;7030 detailed actors unchanged. Full111 noninstalled source keys including both NULL keys remain preserved. No AI geometry, optimisation, downloads or publication. See ../government-xl-after-disneyland-piers-three-terrain-checkpoint-v1-20261030/summary.json. Older running-worker notes below are historical.
+
 # Current continuation: three-source exact contacts running
 
 Verification95181adcfc PUSHED. New3fresh8phase e3ecfb53373b97daba022e226475e40fd70f88cca2a22fe00e9beddcc764a02f COMPLETE. YohoMallII273672 identitypasses; Academic309823 andKowloonParkAdmin336430 preservegenericfootprintoverlap/extentfailures. Scopes14/27/9BASICforms;zero nominatednativeactorsforall3. Academic493buried/61upward andParkAdmin320buried/187upward inall4streams; rawfailures retained. NeedcachedgovernmentTIN/sourceinterfacework,not sourcegeometryedits.
