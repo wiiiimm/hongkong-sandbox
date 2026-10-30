@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.232"
+  version: "1.9.233"
 ---
 
 # Hong Kong model improvement
+
+30 October CURRENT: poll14528 next-five cached XL fresh11phase checks(235568/43101/76610/89917/275446). All earlier workers terminal. Academic33forms ->15 BASIC regressions;6private unsurveyed adjustments pass actual production part checks,6 estimates held,3surveyed untouched. Library/podium recovered exact cached original bytes;336320foundationPASS,3098292buried area0.002322fails. Own fallback source-band proposalrejectpreserved, no waiver. Read TOP current HANDOFF/current-work and academic309823-neighbour-recovery-checkpoint-v1-20261030. Counts410+3terminal+108outstanding/521,7030actors unchanged; full111/twoNULL preserved. No AI geometry/optimisation/newagents.
 
 30 October LATEST: Academic V17 private terrain PASSES(12123terrainfaces,26599unchangedbuildingfaces), e3c9e389 complete. Poll24979 actual renderer/fourworld/scope/form checks; earlier73903terminal. No acceptance/installation credit yet.24helpertestsPASS,fixf1c8ce29acPUSHED. Read TOP after-disneyland-piers-current-inventory HANDOFF/current-work, including plan UID metadata typo (commands target onlyAcademic). Counts410+3terminal+108outstanding/521,7030actors; UniversityHall alreadyfulfilled. NoAIgeometry/optimisation/newagents.
 

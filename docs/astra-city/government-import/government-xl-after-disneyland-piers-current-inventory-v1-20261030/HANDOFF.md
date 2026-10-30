@@ -1,3 +1,11 @@
+# Current — Academic neighbour evidence saved; next five cached XL checks active
+
+Poll14528 next-five-fresh-sequence-v1-20261030 for235568/43101/76610/89917/275446.11 explicit phases: current-source merge,renderer,attrs,identity,scope,5four-world foundations,exact cached TIN. No downloads. All earlier workers24979/27163/32441/8500/10286/59781 terminal; do not restart.
+
+Academic full33-form checks complete492d0429:15 BASIC regressions,0 detailed neighbours,0 terrain overlaps.12 unsurveyed forms measured with full footprint rules;6 eligible estimates pass actual production constructor/part ground checks. No live BASIC changes.6 nonuniform/coverage cases remain;3 surveyed forms retained. Exact raw library/podium originals recovered to existing prepared SHAs(138/63faces),no downloads; joint3source current renderer/attrs/foundations complete05d5df6a. Library336320 foundations pass; podium309829 remains2buried/area0.002322>0.001. Do not waive. Source-bound own BASIC fallback proposal failed existing source-minimum-band assertion; partial evidence and log saved in neighbour-recovery-checkpoint. Carpark26949 original raw GLTF found in cached12-NW-6A but has no new exact current native binding yet. Main identity/finite-contact roles and visual/lifecycle/publisher approval all remain separate.
+
+Read ../government-xl-academic309823-neighbour-recovery-checkpoint-v1-20261030/summary.json. Counts410+3terminal+108outstanding/521;7030actors unchanged. BothNULL/full111 source keys retained. No AI geometry or optimisation; do not label recoverable holds terminal. Older active-worker notes below historical.
+
 # Latest — Academic private terrain passes; actual renderer checks active
 
 V17 Academic309823 private candidate PASSES existing construction validation:12123 terrain faces,53 changed parent faces,all26599 original building faces unchanged; SHA2f3883297e7534624ce7e606de377e7ecb8d9d15b681557f8926434fb7c00775. Sequence e3c9e389 COMPLETE/released. Reversible local partition and exact bounded clip fixes retain old limits;24 helper tests pass. Code f1c8ce29ac PUSHED.
