@@ -1,3 +1,13 @@
+# Current continuation — Academic local-coordinate construction running
+
+University Hall approval remains fulfilled (c339a37453); do not reinstall. All earlier Park/contact/bounds workers terminal. Session73903 is the single current worker: academic309823-local-union-sequence-v1-20261030, using V17 and an existing verified parent capture. Poll it; do not restart on timeout.
+
+Exact envelope probe10985b91 completed: world-coordinate GEOS union loses0.4003383766m² although all input polygons are valid and positive pair overlaps are tiny. Reversible local arithmetic retains every input coordinate exactly. On actual source data, unchanged1e-6m² tests pass: area error2.0373e-10m², original coverage difference2.3208e-10m². V17 changes only those two partition evaluations; all construction, source, placement, seam, budget and runtime checks remain. Full24 exact-helper tests pass. V17 candidate/result not yet accepted or installed.
+
+Yoho adjacent6-NW-10C/10D terrain is ALREADY cached and measured in government-xl-yoho-fu-tor-loy-adjoining-ground-v1-20261018. Exact273672 source SHA matches current7f0845f3; all24004 faces covered,13buried/2upward. Authenticate and bind those existing files before another acquisition; no download needed. Preserve current MallI terrain obligations.
+
+Counts410installed+3terminal+108outstanding/521;7030actors unchanged. BothNULL/full111 keys preserved. No AI geometry, optimisation or new installation. Older all-workers-terminal entries below precede session73903.
+
 # Current terrain repair checkpoint — all launched checks finished
 
 University Hall approval is already fulfilled by installation c339a37453. Current catalogue still has placementReviewed/publicationApproved/identityReviewApproved=true. Do not reinstall.
