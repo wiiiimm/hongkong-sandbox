@@ -1,3 +1,15 @@
+# Current — Villa Premiere five-original physical checks active
+
+Poll38169: villa-premiere89917-five-source-physical-sequence-v1-20261030.12 explicitly preflighted phases: five-source merge/current renderer/attrs/scope,4four-world tower-podium support checks,4complete exact original pair-contact accounts. All originals cached, no downloads. The wrapper runs CLI preflight before the driver; require its success before future drivers (use checked subprocess or set-e). All earlier workers including14528/26507/39914/27768/75285 terminal/released.
+
+Nextfive235568/43101/76610/89917/275446 diagnostics COMPLETE f0bafaaf.43101 actual loader rejects footprint; isolate without modifying source/admission. Four others finished attrs/scope/four-world checks.89917podium passes current-ground foundation; four contact towers58497/63823/121309/148052 are exact cached originals(901/920/928/934faces), f582209b verified. They are not installed/accepted. ROOT viewed ONLY89917oblique35; remaining source plots require relevant visual review. Primary government YuenLong map/index located but no map-based layout approval yet.
+
+Read ../government-xl-next-five-original-recovery-checkpoint-v1-20261030/summary.json for all five raw reasons.76610originalTIN improves to12buried/0up(all19210covered) but identity and66BASIC/one-native obligations remain.275446providerTIN incomplete13815/28751; search existing adjacent caches before downloads.235568stillburiedupward/extent hold. No new installation/terminal credit:410+3terminal+108outstanding/521,7030actors,full111keys/twoNULL retained.
+
+Academic checkpoint1619ee0b saved six actual private BASIC estimates and exact library/podium companions; own fallback source-band rejection, six other unsurveyed forms, three surveyed counterparts and source roles still need work. No live estimated/surveyed/source geometry changed.
+
+Skill1.9.234 now routes here: full old424817-byte skill archived verbatim(SHA verified),15 operating sections in references/operating-rules.md; main5490bytes. Do not append progress or handles to SKILL.md. CLI preflight detects unsupported flags/duplicate reportUIDs,3actual regression testsPASS; never bypass a model acceptance check. No AI geometry, optimisation, newagents, modeldownloads or unrelated-file edits.
+
 # Current — Academic neighbour evidence saved; next five cached XL checks active
 
 Poll14528 next-five-fresh-sequence-v1-20261030 for235568/43101/76610/89917/275446.11 explicit phases: current-source merge,renderer,attrs,identity,scope,5four-world foundations,exact cached TIN. No downloads. All earlier workers24979/27163/32441/8500/10286/59781 terminal; do not restart.
