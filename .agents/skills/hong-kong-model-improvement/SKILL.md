@@ -2,10 +2,12 @@
 name: hong-kong-model-improvement
 description: Resume and run source-backed building and landmark improvements in hongkong-sandbox, including government model acquisition, batch preparation, terrain and assembly review, and cross-device recovery. Use for model-quality work, not ordinary city UI changes.
 metadata:
-  version: "1.9.231"
+  version: "1.9.232"
 ---
 
 # Hong Kong model improvement
+
+30 October LATEST: Academic V17 private terrain PASSES(12123terrainfaces,26599unchangedbuildingfaces), e3c9e389 complete. Poll24979 actual renderer/fourworld/scope/form checks; earlier73903terminal. No acceptance/installation credit yet.24helpertestsPASS,fixf1c8ce29acPUSHED. Read TOP after-disneyland-piers-current-inventory HANDOFF/current-work, including plan UID metadata typo (commands target onlyAcademic). Counts410+3terminal+108outstanding/521,7030actors; UniversityHall alreadyfulfilled. NoAIgeometry/optimisation/newagents.
 
 30 October ACTIVE: poll73903 Academic V17 local-union construction; all previous workers terminal. Envelopeprobe10985b91 found GEOS world-coordinate union loss0.400338m²; exact reversible local frame passes unchanged1e-6 area/coverage with~2e-10 errors.24helpertestsPASS. No candidate/installation credit yet. Yoho adjacent6-NW-10C/10D ALREADY cached in yoho-fu-tor-loy-adjoining-ground-v1-20261018, exact currentSHA/all24004covered; authenticate/reuse before any download. Read TOP current after-disneyland-piers HANDOFF/current-work. Counts410+3terminal+108outstanding/521,7030actors; UniversityHall alreadyfulfilled. NoAIgeometry/optimisation/newagents.
 

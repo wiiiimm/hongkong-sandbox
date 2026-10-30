@@ -1,3 +1,11 @@
+# Latest — Academic private terrain passes; actual renderer checks active
+
+V17 Academic309823 private candidate PASSES existing construction validation:12123 terrain faces,53 changed parent faces,all26599 original building faces unchanged; SHA2f3883297e7534624ce7e606de377e7ecb8d9d15b681557f8926434fb7c00775. Sequence e3c9e389 COMPLETE/released. Reversible local partition and exact bounded clip fixes retain old limits;24 helper tests pass. Code f1c8ce29ac PUSHED.
+
+Poll ONLY session24979: academic309823-additive-followthrough-sequence-v1-20261030 (runtime,attrs,four-world foundation,complete current scope/form checks). Candidate is not accepted/installed. All earlier workers terminal. Plan report-UID list accidentally repeats309823 from template substitution and includes273672; this is metadata only: five actual commands each target ONLY Academic309823. Do not infer processing/acceptance of Yoho or Park from that list. All resource claims retained; form-check phase adds full computed scope resources. Preserve immutable plan/receipt; canonical current-work activeWorker correctly names sole target.
+
+Counts410+3terminal+108outstanding/521;7030actors unchanged. UniversityHall already installed; approval fulfilled. Full111 source keys/twoNULLs preserved. No AI geometry or optimisation. Yoho cached adjacent donor and Park raw holds remain as below.
+
 # Current continuation — Academic local-coordinate construction running
 
 University Hall approval remains fulfilled (c339a37453); do not reinstall. All earlier Park/contact/bounds workers terminal. Session73903 is the single current worker: academic309823-local-union-sequence-v1-20261030, using V17 and an existing verified parent capture. Poll it; do not restart on timeout.
