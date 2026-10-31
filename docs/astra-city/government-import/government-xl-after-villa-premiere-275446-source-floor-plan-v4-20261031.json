@@ -1,0 +1,164 @@
+{
+  "batch": "government-xl-after-villa-premiere-275446-source-floor-sequence-v4-20261031",
+  "uids": [
+    "landsd/275446:0"
+  ],
+  "resources": [
+    "building:landsd/275444:0",
+    "building:landsd/275446:0",
+    "building:landsd/276373:0",
+    "building:landsd/278873:0",
+    "building:landsd/284994:0",
+    "building:landsd/284995:0",
+    "building:landsd/297532:0",
+    "building:landsd/299641:0",
+    "building:landsd/299642:0",
+    "building:landsd/299991:0",
+    "building:landsd/317002:0",
+    "building:landsd/317003:0",
+    "building:landsd/317006:0",
+    "building:landsd/318671:0",
+    "building:landsd/318672:0",
+    "building:landsd/318673:0",
+    "building:landsd/318674:0",
+    "building:landsd/318675:0",
+    "building:landsd/318676:0",
+    "building:landsd/318697:0",
+    "building:landsd/318698:0",
+    "building:landsd/318699:0",
+    "building:landsd/318700:0",
+    "building:landsd/318701:0",
+    "building:landsd/318704:0",
+    "building:landsd/318722:0",
+    "building:landsd/318723:0",
+    "building:landsd/318724:0",
+    "building:landsd/318725:0",
+    "building:landsd/318846:0",
+    "building:landsd/323439:0",
+    "building:landsd/325267:0",
+    "building:landsd/325268:0",
+    "building:landsd/325269:0",
+    "building:landsd/325270:0",
+    "building:landsd/327303:0",
+    "building:landsd/330757:0",
+    "building:landsd/330758:0",
+    "building:landsd/330763:0",
+    "building:landsd/330765:0",
+    "building:landsd/330766:0",
+    "building:landsd/330830:0",
+    "building:landsd/330838:0",
+    "building:landsd/330839:0",
+    "building:landsd/330957:0",
+    "building:landsd/330978:0",
+    "building:landsd/330979:0",
+    "building:landsd/337482:0",
+    "source-form:way/1246070370:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "rendered_native_terrain_input_proof_v1_20261029.py",
+      "batch": "government-xl-after-villa-premiere-275446-expanded-rendered-input-v4-20261031",
+      "args": [
+        "--patch",
+        "government-xl-after-villa-premiere-275446-expanded-original-inset-v3-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_upward_negative_packet_v1_20261029.py",
+      "batch": "government-xl-after-villa-premiere-275446-remaining-upward-packet-v4-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-after-villa-premiere-275446-expanded-runtime-v3-20261031",
+        "--low-faces",
+        "government-xl-after-villa-premiere-275446-expanded-complete-ground-v3-20261031",
+        "--uid",
+        "landsd/275446:0",
+        "--face",
+        "19802",
+        "--face",
+        "19848",
+        "--face",
+        "19866"
+      ]
+    },
+    {
+      "script": "selected_original_upward_floor_terrain_return_v3_20261030.py",
+      "batch": "government-xl-after-villa-premiere-275446-source-floor-return-v4-20261031",
+      "requiredStatus": "private-terrain-validator-passed",
+      "args": [
+        "--previous",
+        "government-xl-after-villa-premiere-275446-expanded-original-inset-v3-20261031",
+        "--ramps",
+        "government-xl-after-villa-premiere-275446-remaining-upward-packet-v4-20261031",
+        "--runtime",
+        "government-xl-after-villa-premiere-275446-expanded-runtime-v3-20261031",
+        "--uid",
+        "landsd/275446:0",
+        "--rendered-proof",
+        "government-xl-after-villa-premiere-275446-expanded-rendered-input-v4-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-after-villa-premiere-275446-floor-return-scope-v4-20261031",
+      "args": [
+        "--patch",
+        "government-xl-after-villa-premiere-275446-source-floor-return-v4-20261031",
+        "--inventory",
+        "government-xl-after-villa-premiere-native-bounds-v1-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_patch_runtime_v7_20261030.py",
+      "batch": "government-xl-after-villa-premiere-275446-floor-return-runtime-v4-20261031",
+      "scopeResources": "government-xl-after-villa-premiere-275446-floor-return-scope-v4-20261031",
+      "args": [
+        "--patch",
+        "government-xl-after-villa-premiere-275446-source-floor-return-v4-20261031",
+        "--capture",
+        "government-xl-after-villa-premiere-275446-expanded-runtime-v3-20261031",
+        "--scope",
+        "government-xl-after-villa-premiere-275446-floor-return-scope-v4-20261031",
+        "--uid",
+        "landsd/275446:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-after-villa-premiere-275446-floor-return-foundations-v4-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-after-villa-premiere-275446-floor-return-runtime-v4-20261031",
+        "--attributes",
+        "government-xl-after-villa-premiere-next-three-attributes-v1-20261031",
+        "--uid",
+        "landsd/275446:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_form_checks_v1.py",
+      "batch": "government-xl-after-villa-premiere-275446-floor-return-basic-checks-v4-20261031",
+      "args": [
+        "--scope",
+        "government-xl-after-villa-premiere-275446-floor-return-scope-v4-20261031",
+        "--inventory",
+        "government-xl-after-villa-premiere-native-bounds-v1-20261031",
+        "--patch",
+        "government-xl-after-villa-premiere-275446-source-floor-return-v4-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v3_20261031.py",
+      "batch": "government-xl-after-villa-premiere-275446-floor-return-complete-ground-v4-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-after-villa-premiere-275446-floor-return-runtime-v4-20261031",
+        "--attributes",
+        "government-xl-after-villa-premiere-next-three-attributes-v1-20261031",
+        "--uid",
+        "landsd/275446:0"
+      ]
+    }
+  ]
+}
