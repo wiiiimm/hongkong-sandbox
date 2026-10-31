@@ -5,7 +5,7 @@ Full goal: finish all521 fixed XL source keys by installing every recoverable im
 ## Active workers — verify actual processes before recovery
 
 1. PID1514792: `government-xl-prosperous235568-finite-attachments-and-ground-sequence-v1-20261031`, matching finite-attachments-and-ground-plan JSON; log `prosperous235568-finite-attachments-and-ground-v1-20261031.log`. V60driver.3 sourceviews complete/actually ROOT-inspected. First3 finite attachment batches complete; remaining2 then exact whole-ground V3 owner census continue. Earlier sampled support warnings are not waived; finite paths are diagnostic only.
-2. PID1547160: `government-xl-after-villa-premiere-275446-coast-recovery-sequence-v2-20261031`, matching coast-recovery-plan-v2 JSON; log `after-villa-premiere-275446-coast-recovery-v2-20261031.log`. V61driver. Repaired private inset25d98061 PASS and fullterrain scope441bc46c COMPLETE; runtime/buried context continue. Fifty canonical current model/terrain resources, no overlap with Prosperous source group. Runtime expands to full newly discovered scope.
+2. PID1577090: `government-xl-after-villa-premiere-275446-coast-acceptance-diagnostics-sequence-v2-20261031`, matching acceptance-diagnostics-plan-v2 JSON; log `after-villa-premiere-275446-coast-acceptance-diagnostics-v2-20261031.log`. Four-world foundations, all22 affected BASIC regressions, complete-ground V3.23 canonical resources incl terrain. Prior PID1547160 recovery sequence0358c588 COMPLETE/released: private inset25d98061PASS, scope441bc46c22forms/0native/0terrainoverlap, runtime88a8e89823buried/0upward(minGap-3.785m), all28751faces accounted. Ground/role acceptance unresolved; do not call installed or infer all23 are harmless.
 
 ## Completed Prosperous Garden evidence
 
