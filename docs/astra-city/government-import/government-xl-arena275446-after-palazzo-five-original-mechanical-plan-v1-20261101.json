@@ -1,0 +1,69 @@
+{
+  "batch": "government-xl-arena275446-after-palazzo-five-original-mechanical-sequence-v1-20261101",
+  "uids": [
+    "landsd/275446:0",
+    "landsd/318697:0",
+    "landsd/318701:0",
+    "landsd/318704:0",
+    "landsd/318722:0"
+  ],
+  "resources": [
+    "building:landsd/275446:0",
+    "building:landsd/318697:0",
+    "building:landsd/318701:0",
+    "building:landsd/318704:0",
+    "building:landsd/318722:0"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-arena275446-after-palazzo-five-original-selection-v1-20261101",
+      "args": [
+        "--inventory",
+        "government-xl-after-palazzo-renderer-bound-inventory-v1-20261101",
+        "--capture",
+        "government-xl-275446-arena-mall-three-original-selection-v1-20261031",
+        "--capture",
+        "government-xl-arena275446-after-palazzo-two-original-recovery-v1-20261101",
+        "--uid",
+        "landsd/275446:0",
+        "--uid",
+        "landsd/318697:0",
+        "--uid",
+        "landsd/318701:0",
+        "--uid",
+        "landsd/318704:0",
+        "--uid",
+        "landsd/318722:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-arena275446-after-palazzo-five-original-attributes-v1-20261101",
+      "args": [
+        "--capture",
+        "government-xl-arena275446-after-palazzo-five-original-selection-v1-20261101"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-arena275446-after-palazzo-five-original-identity-v1-20261101",
+      "args": [
+        "--capture",
+        "government-xl-arena275446-after-palazzo-five-original-selection-v1-20261101"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-arena275446-after-palazzo-five-original-model-scope-v1-20261101",
+      "args": [
+        "--runtime",
+        "government-xl-arena275446-after-palazzo-five-original-selection-v1-20261101",
+        "--attributes",
+        "government-xl-arena275446-after-palazzo-five-original-attributes-v1-20261101",
+        "--inventory",
+        "government-xl-after-palazzo-renderer-bound-inventory-v1-20261101"
+      ]
+    }
+  ]
+}
