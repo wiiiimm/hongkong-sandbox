@@ -1,0 +1,7 @@
+# Completed native-only projection audit
+
+The interrupted v3 left every native chunk complete: 1,797 files covering all 919,570 exact nominated pairs from all 16,297 actual Float32 patch facets. Preserve v3 bytes, the known controlled-stop audit and the incomplete source chunks. No completed source coverage/topology result exists or is claimed.
+
+The audit independently reconstructs the literal full native attributes and checks their captured production hashes. It generates the identical exact polygon/pair plans and invokes the reviewed resumable helper with the original v3 input contract. Missing chunks cannot be recomputed: every expected file must exist, and the cache-only callback raises if called. Original geometry/input/helper/partition/payload hashes and all exact ordered rows must match. Aggregate the actual stored overlap results and pair accounting. All 771 positive old native overlaps remain raw, so the perfect rectangle theorem is false irrespective of uncompleted source steps.
+
+This is historical d152 native-only source evidence. Partial source chunks are attempt context, not proof; original source/height/building geometry, terrain, reviews and main pointers remain untouched. A new actual finite-union method may decode the genuine cached full source directly, select authentic whole facets by actual native contacts and prove complete finite coverage and source topology. Full protected240527/current/foreign/grade/support/water/runtime regressions remain mandatory before any candidate can be approved.

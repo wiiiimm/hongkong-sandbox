@@ -1,0 +1,1 @@
+Completeness assertion correctly rejected v1: original checker selected only retained native160193/147024, omitting touching148321 because its basic proxy passed. No source corruption or installation credit. V2 explicitly nominates all three from the whole-map actual four-world bounds scope and checks every nominated source with unchanged regression policy.

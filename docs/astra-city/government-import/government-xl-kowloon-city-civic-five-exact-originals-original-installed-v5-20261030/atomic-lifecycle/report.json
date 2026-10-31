@@ -1,0 +1,692 @@
+{
+  "diagnosticOnly": true,
+  "liveInstalledHTTP": true,
+  "catalogueAndTerrainSubstitution": false,
+  "physicalAcceptance": false,
+  "installationApproved": false,
+  "publication": false,
+  "cases": [
+    {
+      "name": "1280-success",
+      "width": 1280,
+      "failedUid": null,
+      "failureKeptAllBasics": false,
+      "basicLifecycle": [
+        {
+          "phase": "original-active",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "auto-restored",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "evicted-return-base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        }
+      ],
+      "sources": [
+        {
+          "uid": "landsd/159177:0",
+          "sha256": "36ac7f41e6b6dc0d081817bb0c354b9ce0f28809678cc2ec30698d89f164cb8f",
+          "triangles": 808,
+          "active": true
+        },
+        {
+          "uid": "landsd/230911:0",
+          "sha256": "6d2d6b9f46991cfc5f8e25537795c3154690115136af9fab3e931cc558827477",
+          "triangles": 1022,
+          "active": true
+        },
+        {
+          "uid": "landsd/82290:0",
+          "sha256": "9cb93d4973f79fc031d625cbf63046fa5a37f0db772b1e4d13bfe2266c44496b",
+          "triangles": 1508,
+          "active": true
+        },
+        {
+          "uid": "landsd/82291:0",
+          "sha256": "9fd4f8d93c1b660b103cde3dae66920224e9b7234e4e8148531f172c28b7fb10",
+          "triangles": 15085,
+          "active": true
+        },
+        {
+          "uid": "landsd/82292:0",
+          "sha256": "faccf1c21d883d1cac3cef3469b9f6f5741a30ecf943c6aa9e8241df4e420737",
+          "triangles": 10,
+          "active": true
+        }
+      ],
+      "baseOnlyRestoredCompleteGroup": true,
+      "completeGroupEvicted": true,
+      "testWarmRetentionDisabledForEviction": true,
+      "audit": {
+        "uids": [
+          "landsd/159177:0",
+          "landsd/230911:0",
+          "landsd/82290:0",
+          "landsd/82291:0",
+          "landsd/82292:0"
+        ],
+        "frames": 391,
+        "transitions": [
+          {
+            "frame": 1,
+            "active": []
+          },
+          {
+            "frame": 218,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 240,
+            "active": []
+          },
+          {
+            "frame": 283,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 338,
+            "active": []
+          }
+        ],
+        "violations": [],
+        "last": ""
+      }
+    },
+    {
+      "name": "390-landsd-159177-0",
+      "width": 390,
+      "failedUid": "landsd/159177:0",
+      "failureKeptAllBasics": true,
+      "basicLifecycle": [
+        {
+          "phase": "failed-download",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "original-active",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "auto-restored",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "evicted-return-base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        }
+      ],
+      "sources": [
+        {
+          "uid": "landsd/159177:0",
+          "sha256": "36ac7f41e6b6dc0d081817bb0c354b9ce0f28809678cc2ec30698d89f164cb8f",
+          "triangles": 808,
+          "active": true
+        },
+        {
+          "uid": "landsd/230911:0",
+          "sha256": "6d2d6b9f46991cfc5f8e25537795c3154690115136af9fab3e931cc558827477",
+          "triangles": 1022,
+          "active": true
+        },
+        {
+          "uid": "landsd/82290:0",
+          "sha256": "9cb93d4973f79fc031d625cbf63046fa5a37f0db772b1e4d13bfe2266c44496b",
+          "triangles": 1508,
+          "active": true
+        },
+        {
+          "uid": "landsd/82291:0",
+          "sha256": "9fd4f8d93c1b660b103cde3dae66920224e9b7234e4e8148531f172c28b7fb10",
+          "triangles": 15085,
+          "active": true
+        },
+        {
+          "uid": "landsd/82292:0",
+          "sha256": "faccf1c21d883d1cac3cef3469b9f6f5741a30ecf943c6aa9e8241df4e420737",
+          "triangles": 10,
+          "active": true
+        }
+      ],
+      "baseOnlyRestoredCompleteGroup": true,
+      "completeGroupEvicted": true,
+      "testWarmRetentionDisabledForEviction": true,
+      "audit": {
+        "uids": [
+          "landsd/159177:0",
+          "landsd/230911:0",
+          "landsd/82290:0",
+          "landsd/82291:0",
+          "landsd/82292:0"
+        ],
+        "frames": 396,
+        "transitions": [
+          {
+            "frame": 1,
+            "active": []
+          },
+          {
+            "frame": 216,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 249,
+            "active": []
+          },
+          {
+            "frame": 294,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 346,
+            "active": []
+          }
+        ],
+        "violations": [],
+        "last": ""
+      }
+    },
+    {
+      "name": "390-landsd-230911-0",
+      "width": 390,
+      "failedUid": "landsd/230911:0",
+      "failureKeptAllBasics": true,
+      "basicLifecycle": [
+        {
+          "phase": "failed-download",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "original-active",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "auto-restored",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "evicted-return-base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        }
+      ],
+      "sources": [
+        {
+          "uid": "landsd/159177:0",
+          "sha256": "36ac7f41e6b6dc0d081817bb0c354b9ce0f28809678cc2ec30698d89f164cb8f",
+          "triangles": 808,
+          "active": true
+        },
+        {
+          "uid": "landsd/230911:0",
+          "sha256": "6d2d6b9f46991cfc5f8e25537795c3154690115136af9fab3e931cc558827477",
+          "triangles": 1022,
+          "active": true
+        },
+        {
+          "uid": "landsd/82290:0",
+          "sha256": "9cb93d4973f79fc031d625cbf63046fa5a37f0db772b1e4d13bfe2266c44496b",
+          "triangles": 1508,
+          "active": true
+        },
+        {
+          "uid": "landsd/82291:0",
+          "sha256": "9fd4f8d93c1b660b103cde3dae66920224e9b7234e4e8148531f172c28b7fb10",
+          "triangles": 15085,
+          "active": true
+        },
+        {
+          "uid": "landsd/82292:0",
+          "sha256": "faccf1c21d883d1cac3cef3469b9f6f5741a30ecf943c6aa9e8241df4e420737",
+          "triangles": 10,
+          "active": true
+        }
+      ],
+      "baseOnlyRestoredCompleteGroup": true,
+      "completeGroupEvicted": true,
+      "testWarmRetentionDisabledForEviction": true,
+      "audit": {
+        "uids": [
+          "landsd/159177:0",
+          "landsd/230911:0",
+          "landsd/82290:0",
+          "landsd/82291:0",
+          "landsd/82292:0"
+        ],
+        "frames": 398,
+        "transitions": [
+          {
+            "frame": 1,
+            "active": []
+          },
+          {
+            "frame": 212,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 249,
+            "active": []
+          },
+          {
+            "frame": 293,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 342,
+            "active": []
+          }
+        ],
+        "violations": [],
+        "last": ""
+      }
+    },
+    {
+      "name": "390-landsd-82290-0",
+      "width": 390,
+      "failedUid": "landsd/82290:0",
+      "failureKeptAllBasics": true,
+      "basicLifecycle": [
+        {
+          "phase": "failed-download",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "original-active",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "auto-restored",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "evicted-return-base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        }
+      ],
+      "sources": [
+        {
+          "uid": "landsd/159177:0",
+          "sha256": "36ac7f41e6b6dc0d081817bb0c354b9ce0f28809678cc2ec30698d89f164cb8f",
+          "triangles": 808,
+          "active": true
+        },
+        {
+          "uid": "landsd/230911:0",
+          "sha256": "6d2d6b9f46991cfc5f8e25537795c3154690115136af9fab3e931cc558827477",
+          "triangles": 1022,
+          "active": true
+        },
+        {
+          "uid": "landsd/82290:0",
+          "sha256": "9cb93d4973f79fc031d625cbf63046fa5a37f0db772b1e4d13bfe2266c44496b",
+          "triangles": 1508,
+          "active": true
+        },
+        {
+          "uid": "landsd/82291:0",
+          "sha256": "9fd4f8d93c1b660b103cde3dae66920224e9b7234e4e8148531f172c28b7fb10",
+          "triangles": 15085,
+          "active": true
+        },
+        {
+          "uid": "landsd/82292:0",
+          "sha256": "faccf1c21d883d1cac3cef3469b9f6f5741a30ecf943c6aa9e8241df4e420737",
+          "triangles": 10,
+          "active": true
+        }
+      ],
+      "baseOnlyRestoredCompleteGroup": true,
+      "completeGroupEvicted": true,
+      "testWarmRetentionDisabledForEviction": true,
+      "audit": {
+        "uids": [
+          "landsd/159177:0",
+          "landsd/230911:0",
+          "landsd/82290:0",
+          "landsd/82291:0",
+          "landsd/82292:0"
+        ],
+        "frames": 429,
+        "transitions": [
+          {
+            "frame": 1,
+            "active": []
+          },
+          {
+            "frame": 246,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 281,
+            "active": []
+          },
+          {
+            "frame": 327,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 373,
+            "active": []
+          }
+        ],
+        "violations": [],
+        "last": ""
+      }
+    },
+    {
+      "name": "390-landsd-82291-0",
+      "width": 390,
+      "failedUid": "landsd/82291:0",
+      "failureKeptAllBasics": true,
+      "basicLifecycle": [
+        {
+          "phase": "failed-download",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "original-active",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "auto-restored",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "evicted-return-base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        }
+      ],
+      "sources": [
+        {
+          "uid": "landsd/159177:0",
+          "sha256": "36ac7f41e6b6dc0d081817bb0c354b9ce0f28809678cc2ec30698d89f164cb8f",
+          "triangles": 808,
+          "active": true
+        },
+        {
+          "uid": "landsd/230911:0",
+          "sha256": "6d2d6b9f46991cfc5f8e25537795c3154690115136af9fab3e931cc558827477",
+          "triangles": 1022,
+          "active": true
+        },
+        {
+          "uid": "landsd/82290:0",
+          "sha256": "9cb93d4973f79fc031d625cbf63046fa5a37f0db772b1e4d13bfe2266c44496b",
+          "triangles": 1508,
+          "active": true
+        },
+        {
+          "uid": "landsd/82291:0",
+          "sha256": "9fd4f8d93c1b660b103cde3dae66920224e9b7234e4e8148531f172c28b7fb10",
+          "triangles": 15085,
+          "active": true
+        },
+        {
+          "uid": "landsd/82292:0",
+          "sha256": "faccf1c21d883d1cac3cef3469b9f6f5741a30ecf943c6aa9e8241df4e420737",
+          "triangles": 10,
+          "active": true
+        }
+      ],
+      "baseOnlyRestoredCompleteGroup": true,
+      "completeGroupEvicted": true,
+      "testWarmRetentionDisabledForEviction": true,
+      "audit": {
+        "uids": [
+          "landsd/159177:0",
+          "landsd/230911:0",
+          "landsd/82290:0",
+          "landsd/82291:0",
+          "landsd/82292:0"
+        ],
+        "frames": 404,
+        "transitions": [
+          {
+            "frame": 1,
+            "active": []
+          },
+          {
+            "frame": 224,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 259,
+            "active": []
+          },
+          {
+            "frame": 304,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 348,
+            "active": []
+          }
+        ],
+        "violations": [],
+        "last": ""
+      }
+    },
+    {
+      "name": "390-landsd-82292-0",
+      "width": 390,
+      "failedUid": "landsd/82292:0",
+      "failureKeptAllBasics": true,
+      "basicLifecycle": [
+        {
+          "phase": "failed-download",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "original-active",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        },
+        {
+          "phase": "auto-restored",
+          "allOriginalsActive": true,
+          "allBasicCounterpartsVisible": false
+        },
+        {
+          "phase": "evicted-return-base-only",
+          "allOriginalsActive": false,
+          "allBasicCounterpartsVisible": true
+        }
+      ],
+      "sources": [
+        {
+          "uid": "landsd/159177:0",
+          "sha256": "36ac7f41e6b6dc0d081817bb0c354b9ce0f28809678cc2ec30698d89f164cb8f",
+          "triangles": 808,
+          "active": true
+        },
+        {
+          "uid": "landsd/230911:0",
+          "sha256": "6d2d6b9f46991cfc5f8e25537795c3154690115136af9fab3e931cc558827477",
+          "triangles": 1022,
+          "active": true
+        },
+        {
+          "uid": "landsd/82290:0",
+          "sha256": "9cb93d4973f79fc031d625cbf63046fa5a37f0db772b1e4d13bfe2266c44496b",
+          "triangles": 1508,
+          "active": true
+        },
+        {
+          "uid": "landsd/82291:0",
+          "sha256": "9fd4f8d93c1b660b103cde3dae66920224e9b7234e4e8148531f172c28b7fb10",
+          "triangles": 15085,
+          "active": true
+        },
+        {
+          "uid": "landsd/82292:0",
+          "sha256": "faccf1c21d883d1cac3cef3469b9f6f5741a30ecf943c6aa9e8241df4e420737",
+          "triangles": 10,
+          "active": true
+        }
+      ],
+      "baseOnlyRestoredCompleteGroup": true,
+      "completeGroupEvicted": true,
+      "testWarmRetentionDisabledForEviction": true,
+      "audit": {
+        "uids": [
+          "landsd/159177:0",
+          "landsd/230911:0",
+          "landsd/82290:0",
+          "landsd/82291:0",
+          "landsd/82292:0"
+        ],
+        "frames": 411,
+        "transitions": [
+          {
+            "frame": 1,
+            "active": []
+          },
+          {
+            "frame": 230,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 265,
+            "active": []
+          },
+          {
+            "frame": 310,
+            "active": [
+              "landsd/159177:0",
+              "landsd/230911:0",
+              "landsd/82290:0",
+              "landsd/82291:0",
+              "landsd/82292:0"
+            ]
+          },
+          {
+            "frame": 356,
+            "active": []
+          }
+        ],
+        "violations": [],
+        "last": ""
+      }
+    }
+  ],
+  "pageErrors": [],
+  "performanceAcceptance": false,
+  "passed": true
+}

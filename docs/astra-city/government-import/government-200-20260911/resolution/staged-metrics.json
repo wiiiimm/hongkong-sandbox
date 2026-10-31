@@ -1,0 +1,561 @@
+{
+  "policy": "original-government-import-v1",
+  "inputHashes": {
+    "3d-viewer/city/data/manifest.json": "de943a8b4d69070afcacb44e580b88e3e4cc3d5f72c97ce555ed46945d4bbcac",
+    "3d-viewer/city/data/terrain.json": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+    "docs/astra-city/government-import/government-200-20260911/resolution/candidate-selection.json.gz": "3b7064bdacf032f4fed53b6e6a0a004b28548e4764f31971055393a4bfee7125",
+    "source-scripts/city/government-import/acceptance-metrics.mjs": "a31688d4386999f286461b12a57587391ee8b11eea9ae1f33d88e6851c235f7d",
+    "3d-viewer/city/world.js": "ef5d29aadb91ec7ce157ccb99e74f6219a4220416142a2ae8533a34966a8d18d",
+    "3d-viewer/city/geo.js": "7588f3b00b93abbb1a300f46af8aedfbc313ba25f40b5a7f74ddb61410f18f90",
+    "3d-viewer/city/native-terrain.js": "53afb002403e172226f4e4025e3148598f2d3c1dd624ecfe94d39f4729e4db7e",
+    "3d-viewer/city/official-model-assets.js": "0664ada978e1b9786180fb101681d4f0ec98a84a770e2162a0755104f79269e2",
+    "3d-viewer/city/official-models.js": "c684325ea694a01c96f88b29125546430e8b2d692d1506ce5927e45c754878cc",
+    "3d-viewer/city/data/terrain-mui-wo.json": "adb88f05e5dacce2a901b13a6e8d52efc859bc915f22a3ad0a1a4f836e12c81c",
+    "3d-viewer/city/data/terrain-tai-o.json": "b6246e0adab984a9acf22d77fdd0139b142b1b82d68b82451f25678437ac04fb",
+    "3d-viewer/city/data/terrain-tsing-ma-ting-kau.json": "b2cb47df47252b2c1f15cd10e33cb5b6c58e65c40b2f94ddb96d3a70f3162d8f",
+    "3d-viewer/city/data/terrain-central.json": "2207e6d0e933daf100ea5240b974d7346da96ec169d5c199346fdee1a3a276d7",
+    "3d-viewer/city/data/terrain-pui-o.json": "e5efbcb86ae24bdc8a913556667d8f6f1e7a19db936bd71f0caa568735b0cb10",
+    "3d-viewer/city/data/terrain-ngong-ping.json": "a3e51405b2a2aec526c22da29c72e395f7d943c4f4f360ffb54d874d3962a620",
+    "3d-viewer/city/data/roof-review-186982-0.json": "36e8458f76f6b6cb6064638d8778ab5506bef5103d6841a56e11f10f26a50826",
+    "3d-viewer/city/data/support-native-232804-0.json": "0a96eaecf0f0a973e34e11b506c77679eeedeff549d2f328ee1f4e65c7f15fc8",
+    "3d-viewer/city/data/support-native-242294-0.json": "f554dc3561908cfcde8373d1e08956f84b702ceb162488a777c1c7d9dbf5f4cf",
+    "3d-viewer/city/data/support-native-244779-0.json": "c884b5c2029c909a4c251499562c91fd7d550ba6e5faa47a0dc7ed0cb605d69d",
+    "3d-viewer/city/data/support-native-322191-0.json": "7d31cdebaf661801d77da3d5607fdb90951b0db6b982a3305d3cbd045a96ef7e",
+    "3d-viewer/city/data/support-native-337475-0.json": "61c0ffd3e8f1bd4cb88552588c4d5be50e40de017f09dd0e6332f5b621b73936",
+    "3d-viewer/city/data/support-exact-tin-103538-0.json": "1ca80e16f14816956faddacbf5146aeb8fcf7a81fcffe1d9ae82a4726955c1a3",
+    "3d-viewer/city/data/support-native-314191-0.json": "afebb931519732fd1bcb322b92dffb03f7450fdaa372f961b2e0e008d749bd22",
+    "3d-viewer/city/data/support-native-81387-0.json": "1b20230a76e2938b9b3399ed461c5603a5d3184944580c70141af1a75c069624",
+    "3d-viewer/city/data/support-exact-tin-248218-0.json": "122ce2f125769792b9f309f326df2d0db9baa7e677c8aac55be1b0951fe8b6f0",
+    "3d-viewer/city/data/support-native-297401-0-station-land-v2.json": "7e5422186d5fdd48879d3f9489a3662172186a4ca70d08cc3a5305362c28d559",
+    "3d-viewer/city/data/support-grid-hkdi-22089-0.json": "a310299404fb52e738b2728766fab4bbba83ea153366b1a360630d082a2a4b5a",
+    "3d-viewer/city/data/terrain-residual-234162-0.json": "eadf90431c5ecc1fc1fbd2c169ba48a5024266bcba054552fe2a0b0e83729e75",
+    "3d-viewer/city/data/terrain-residual-265478-0.json": "0dfe925b36058e76d1c8571c630d3a5ff29f6e7b33c578c7c015a6337d7970db",
+    "3d-viewer/city/data/terrain-capitol-native-20260909.json": "8713afcc11298e4125254ab255fd43243dc9b00dc44b3cbcf3eb9e033ebbcb17",
+    "3d-viewer/city/data/terrain-grand-native-20260909.json": "7bd532be7ea9322cff1046e87212fb11441d663884f4d3c6638671d173035794",
+    "3d-viewer/city/data/terrain-whampoa-estates.json": "63e8e0009f072a83ca9cfa2a4b85903da3a388994864f2e54a285e53f33be55d",
+    "docs/astra-city/government-import/government-200-20260911/resolution/terrain-candidates.json": "7169638e6a4bd51f7c0a8e707be1b0884e2501b8778afc76bce81132d728f8e6",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-218894-0.json": "ca9acf136f568550e2258870db8602a4443696d85be959d1d9b2934edb9b50c7",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-206843-0.json": "a308a63aff3b4da3115e5df1f6998610e37334a6a69568f4ebec80bc863be307",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-132227-0.json": "29c9398f6b2a85089d0dab9aeb8282c06b33994c5e5cb64d7031a95b964d2bab",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-78415-0.json": "a93ad78f511b5acc5cd089a2a7b0f0aa7d385b30a7b4e420338c817e8d74c874",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-29053-0.json": "91b82463e1eefa90ef1283a476b5e2247154dd845519a12f4b76b73e6a2a9059",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-339484-0.json": "bf9aea732e2eb0b70b2e043f4479e385bd80f3e376d1500abc677fc7a733c8e1",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-212117-0.json": "3b84dc523df99e02b35930728e7473285d7a0812bbbbc4f4a778d5f9f94ca1e6",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-246794-0.json": "2f6aab061532aaf1aaafc76878944d2f9efe9fbc0559641bf5ca0eeba894221a",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-158101-0.json": "b683269e4a8fd5afa1e29e75334ab4881f45320696602b5a566dbdb44045fbdc",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-159663-0.json": "bb6a43de4feda6db1c49f119c2290ce0d60442300d1817a08bfe665efce621d0",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-247631-0.json": "afb44912b5ef65a0e7495a8df21167084e9831551656cc3d0ce46b4ee5530777",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-262504-0.json": "183e250583b7ab9dd304c0ca91ff2c101a0bc31e57da3a8ae4d15d17ee561a01",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-29575-0.json": "9c33975ae31124318c8b1c59ac34c7551ae90d894c1f9b08afe09bb2d3926d20",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-299814-0.json": "502251ce5f9378f18d8e2fbaeb240b94a913a10bbd8772a74a355e2e89829494",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-211455-0.json": "e49e4a508e088af995eb89e500457b94837b74cb07b4234f0b48b8cbf9464854",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-183106-0.json": "e310870c3c5d2bb853c050a547600c5a633340def6cd5412ee66e46040338f66",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-28820-0.json": "d0c3dee85039d58189f30a7933288f24f8a814653120db5c16505a5749eb6f9e",
+    "source-scripts/city/government-import/local/government-198-resolution-20260911/terrain-patches/government-native-330352-0.json": "893c296b39d2826468ad312affae19f03c3665f622b859a1d10a1009e7b0698d",
+    "3d-viewer/city/data/tiles/-4_-3.json": "8207a51eb482e05b1fcac6f75363f2d6885ae7f2775cd91c62444dc33730329c",
+    "3d-viewer/city/data/tiles/-3_-4.json": "9a7be714beeb0be76a746b53e49cf62ecc54b01b5f43e222d39da797b3220c0b",
+    "3d-viewer/city/data/tiles/-7_-2.json": "a7004993b079c7af9222eca28e0955f48fddb41d7239e52de8f6b89950e5051b",
+    "3d-viewer/city/data/tiles/-8_-1.json": "7c9bb0a178bc40dbf95863058c91387a4b17c32d9fef1672a39e92bd04322cda",
+    "3d-viewer/city/data/tiles/5_-3.json": "b73321e2558f85044c10ec792ed4ac26388cac28e587c69fef13fded069cd947",
+    "3d-viewer/city/data/tiles/2_-3.json": "452d8b3f3c1f25ef19bddc24f103f18fb1567e045f15f5317ce40166e2ca035b",
+    "3d-viewer/city/data/tiles/4_-3.json": "544ef0a8e015799f730fd96cb3129533418fc6080173a89a8709317aceab2119",
+    "3d-viewer/city/data/tiles/1_-2.json": "910d3fdb3833c2dad295b88816af46c0555047112e52890b7029a787ec1db346",
+    "3d-viewer/city/data/tiles/3_-2.json": "adf6eb03c9d5199be5f153428284952c64278a7122f352fa299cea1b5bb363c5",
+    "3d-viewer/city/data/tiles/2_-4.json": "3e3ad8cdef407c1fdd92133a67b7967ca1d27f2d832fbc3d6db7ab72f45082c2",
+    "3d-viewer/city/data/tiles/1_-4.json": "8e33d58340e5c70e2caa798bf7eb5a560df6df08b411ce127938d88c51e0a3ad",
+    "3d-viewer/city/data/tiles/4_-2.json": "f1f7045bb480687711ba07c2da6ed722409325b78095b222dea3a2b7db6ce031",
+    "3d-viewer/city/data/tiles/2_-2.json": "1bfa2d225a2ce719a45f6ab3e86ba493989ecd88568f8ce5c0ead134173b0594",
+    "3d-viewer/city/data/tiles/3_-1.json": "dd844d30b3fd7e5e7b289943c8de77e26a06c542421618137fad3d387cff0a65",
+    "3d-viewer/city/data/tiles/5_-1.json": "d4a787e341989fb7ef1b412607a636910e78a5c8397799210cf2a03a1fde9d47",
+    "3d-viewer/city/data/tiles/4_-4.json": "76fb8b002d25570e0617d4916156b5d1d957a3be0a711ba56c4d0fc4eaa2e549"
+  },
+  "profiles": {
+    "mobile": {
+      "count": 24,
+      "concurrency": 1,
+      "geometryBytes": 50331648,
+      "residentBytes": 134217728,
+      "triangles": 450000,
+      "landmarkDistance": 1800,
+      "detailDistance": 300,
+      "minPixels": 24
+    },
+    "desktop": {
+      "count": 48,
+      "concurrency": 2,
+      "geometryBytes": 100663296,
+      "residentBytes": 268435456,
+      "triangles": 900000,
+      "landmarkDistance": 2500,
+      "detailDistance": 500,
+      "minPixels": 18
+    }
+  },
+  "rows": [
+    {
+      "uid": "landsd/218894:0",
+      "sourceSHA256": "3c015af5685d926c3756fb045ca7c3447d7b563c41e3945a5f33f5e22328b888",
+      "checks": 117,
+      "lowRimChecks": 44,
+      "minSurfaceGap": 0.000005248491206977235,
+      "minLowGap": 0.000005248491206977235,
+      "maxLowGap": 0.0015160658944095573,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 20,
+      "budget": {
+        "geometryBytes": 2280,
+        "residentBytes": 74736,
+        "triangles": 26
+      },
+      "identity": {
+        "overlap": 0.9979466696389488,
+        "centroidDistance": 0.016579303826561618
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/206843:0",
+      "sourceSHA256": "261789eb4568aa0fc0725b43f1ed744d8e14076306b68bf094380ad473aa8ee7",
+      "checks": 732,
+      "lowRimChecks": 43,
+      "minSurfaceGap": -0.00281325324284154,
+      "minLowGap": -0.00281325324284154,
+      "maxLowGap": 0.000024795532228338857,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 46,
+      "budget": {
+        "geometryBytes": 19320,
+        "residentBytes": 140576,
+        "triangles": 196
+      },
+      "identity": {
+        "overlap": 0.9999999999999998,
+        "centroidDistance": 0.5042603691022923
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/132227:0",
+      "sourceSHA256": "6171596bd23f06e50a6c2d52742dd96edc612600ea6c854fb07c35353405be4b",
+      "checks": 128,
+      "lowRimChecks": 38,
+      "minSurfaceGap": -0.26020481373659976,
+      "minLowGap": -0.26020481373659976,
+      "maxLowGap": -0.0014488682935756003,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 44,
+      "budget": {
+        "geometryBytes": 2508,
+        "residentBytes": 76304,
+        "triangles": 34
+      },
+      "identity": {
+        "overlap": 0.996803949301498,
+        "centroidDistance": 0.786941930503254
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/78415:0",
+      "sourceSHA256": "b5dcca1af9d55e1d1e21dd3e205cc003841caaa819df25807d16eabf3d017c74",
+      "checks": 100,
+      "lowRimChecks": 35,
+      "minSurfaceGap": -0.4882272991245138,
+      "minLowGap": -0.4882272991245138,
+      "maxLowGap": -0.37303437295422626,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 22,
+      "budget": {
+        "geometryBytes": 1956,
+        "residentBytes": 73872,
+        "triangles": 26
+      },
+      "identity": {
+        "overlap": 0.9999999999999998,
+        "centroidDistance": 0.5133703117952675
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/29053:0",
+      "sourceSHA256": "9ab54282d859e13bbff64c3f9fac8d4b375a888912ee44e56c3a3dc1214b1c06",
+      "checks": 284,
+      "lowRimChecks": 36,
+      "minSurfaceGap": -0.23849711883278246,
+      "minLowGap": -0.23849711883278246,
+      "maxLowGap": -0.030985831336039382,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 83,
+      "budget": {
+        "geometryBytes": 7020,
+        "residentBytes": 93616,
+        "triangles": 78
+      },
+      "identity": {
+        "overlap": 1,
+        "centroidDistance": 0.5923528151665094
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/339484:0",
+      "sourceSHA256": "a0fec15bb8523a43f9604b39ac2e7acbd078d9141df8d27646ed525de369bab9",
+      "checks": 3747,
+      "lowRimChecks": 273,
+      "minSurfaceGap": -0.18848434869784114,
+      "minLowGap": -0.18848434869784114,
+      "maxLowGap": -0.12823848783477843,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 532,
+      "budget": {
+        "geometryBytes": 98202,
+        "residentBytes": 458328,
+        "triangles": 1091
+      },
+      "identity": {
+        "overlap": 0.9998093796571291,
+        "centroidDistance": 0.2336535372949016
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/212117:0",
+      "sourceSHA256": "8547b60d4e03c84aff0f0bc5d0b33a313e852bd56c5ee013c991aea368d514eb",
+      "checks": 824,
+      "lowRimChecks": 184,
+      "minSurfaceGap": -0.0006700187364883092,
+      "minLowGap": -0.0006700187364883092,
+      "maxLowGap": 0.0009999275207546177,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 42,
+      "budget": {
+        "geometryBytes": 16866,
+        "residentBytes": 143272,
+        "triangles": 273
+      },
+      "identity": {
+        "overlap": 0.9840484943439609,
+        "centroidDistance": 0.4913365418166447
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/246794:0",
+      "sourceSHA256": "0b5ebcd497a8b8d9821c4620d15d2200aaff1504585cdaa4b504b3cc2b8ed456",
+      "checks": 232,
+      "lowRimChecks": 44,
+      "minSurfaceGap": -0.4165649131211637,
+      "minLowGap": -0.4165649131211637,
+      "maxLowGap": -0.23300170898437322,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 60,
+      "budget": {
+        "geometryBytes": 5460,
+        "residentBytes": 87056,
+        "triangles": 58
+      },
+      "identity": {
+        "overlap": 1,
+        "centroidDistance": 0.46975478158819156
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/158101:0",
+      "sourceSHA256": "5977bf3fa0352b546ffcadf4218b875c65186bc59c52b7a8b2f9c7ed77ac8671",
+      "checks": 276,
+      "lowRimChecks": 43,
+      "minSurfaceGap": -0.15006368769356726,
+      "minLowGap": -0.15006368769356726,
+      "maxLowGap": -0.041005758236939194,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 60,
+      "budget": {
+        "geometryBytes": 6012,
+        "residentBytes": 93088,
+        "triangles": 96
+      },
+      "identity": {
+        "overlap": 0.9905759993343907,
+        "centroidDistance": 0.19290958996565313
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/159899:0",
+      "sourceSHA256": "6c1b136ca03456c8391d91a9ab7a9964e916f056268d335ea80d4624146156a1",
+      "checks": 243,
+      "lowRimChecks": 40,
+      "minSurfaceGap": 0.0812880307109447,
+      "minLowGap": 0.0812880307109447,
+      "maxLowGap": 0.1055365967490065,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 71,
+      "budget": {
+        "geometryBytes": 5250,
+        "residentBytes": 89496,
+        "triangles": 83
+      },
+      "identity": {
+        "overlap": 0.9943193995103705,
+        "centroidDistance": 0.23851686692746873
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/159663:0",
+      "sourceSHA256": "aee5fd11cc985a6b97b1fb09e11984218975b5854aeae78ef2ea521c091fb729",
+      "checks": 40,
+      "lowRimChecks": 18,
+      "minSurfaceGap": 0.04278054950043497,
+      "minLowGap": 0.04278054950043497,
+      "maxLowGap": 0.8531332669538614,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 12,
+      "budget": {
+        "geometryBytes": 780,
+        "residentBytes": 68816,
+        "triangles": 10
+      },
+      "identity": {
+        "overlap": 0.9841211087544562,
+        "centroidDistance": 0.20992776180282094
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/247631:0",
+      "sourceSHA256": "0a75de353236614b2e55f86378c50ddbf2cca0f3b480dc242a516f4270242e5b",
+      "checks": 1146,
+      "lowRimChecks": 109,
+      "minSurfaceGap": -0.015213908702506274,
+      "minLowGap": -0.015213908702506274,
+      "maxLowGap": 0.6997646524623562,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 50,
+      "budget": {
+        "geometryBytes": 26352,
+        "residentBytes": 185488,
+        "triangles": 414
+      },
+      "identity": {
+        "overlap": 0.9898520185261682,
+        "centroidDistance": 0.21543292820481474
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/91978:0",
+      "sourceSHA256": "9f6f5e9ab285989e1e754f4073ca3a6e05fb26d7a9996240406878eabce3a311",
+      "checks": 509,
+      "lowRimChecks": 21,
+      "minSurfaceGap": -0.007674305417339156,
+      "minLowGap": -0.007582565706997002,
+      "maxLowGap": 0.0004929183232320611,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 33,
+      "budget": {
+        "geometryBytes": 12996,
+        "residentBytes": 119632,
+        "triangles": 162
+      },
+      "identity": {
+        "overlap": 0.9854969985673132,
+        "centroidDistance": 0.346588444766639
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/92037:0",
+      "sourceSHA256": "fadc2885877960d8b344f9d733f7eb4409f265000c16e6d1da67f3bd1e7369c6",
+      "checks": 230,
+      "lowRimChecks": 20,
+      "minSurfaceGap": -0.045795529378047206,
+      "minLowGap": -0.045795529378047206,
+      "maxLowGap": -0.0030883995854225077,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 23,
+      "budget": {
+        "geometryBytes": 5268,
+        "residentBytes": 89904,
+        "triangles": 86
+      },
+      "identity": {
+        "overlap": 0.9988714234083094,
+        "centroidDistance": 0.8710129049096936
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/262504:0",
+      "sourceSHA256": "fa339aee850789dfe24eeef391363351e537bfeb2adc5cd65c490f90cb8a1e74",
+      "checks": 415,
+      "lowRimChecks": 104,
+      "minSurfaceGap": -0.15960490797678517,
+      "minLowGap": -0.15960490797678517,
+      "maxLowGap": 0.003657246848817408,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 253,
+      "budget": {
+        "geometryBytes": 9546,
+        "residentBytes": 103352,
+        "triangles": 103
+      },
+      "identity": {
+        "overlap": 1,
+        "centroidDistance": 0.5774339361456975
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/29575:0",
+      "sourceSHA256": "10e472690610423bb04359aec707d93ff2d4c1ab402f7d64ef8cd0f3a8ff331d",
+      "checks": 3321,
+      "lowRimChecks": 496,
+      "minSurfaceGap": -0.02711951481045105,
+      "minLowGap": -0.02711951481045105,
+      "maxLowGap": 0.012401223897285263,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 1137,
+      "budget": {
+        "geometryBytes": 83322,
+        "residentBytes": 398968,
+        "triangles": 927
+      },
+      "identity": {
+        "overlap": 0.9956501904665754,
+        "centroidDistance": 0.2931239278262718
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/299814:0",
+      "sourceSHA256": "9bdf0906c985e964d3f984ec24a60401c192e88871c9eddd32041b23e88e90d4",
+      "checks": 270,
+      "lowRimChecks": 60,
+      "minSurfaceGap": -0.20873893255129072,
+      "minLowGap": -0.20873893255129072,
+      "maxLowGap": 0.08946849510387622,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 13,
+      "budget": {
+        "geometryBytes": 5352,
+        "residentBytes": 90368,
+        "triangles": 88
+      },
+      "identity": {
+        "overlap": 0.9813871424465499,
+        "centroidDistance": 0.49353210421428256
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/211455:0",
+      "sourceSHA256": "c5616132014f0a61db99ac549383963bf93826a156c43cd554a9367c9fab3629",
+      "checks": 38,
+      "lowRimChecks": 16,
+      "minSurfaceGap": -0.0035178673216833545,
+      "minLowGap": -0.0035178673216833545,
+      "maxLowGap": -0.00000762939453125,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 21,
+      "budget": {
+        "geometryBytes": 780,
+        "residentBytes": 68816,
+        "triangles": 10
+      },
+      "identity": {
+        "overlap": 0.9915533006243843,
+        "centroidDistance": 0.025495097567539413
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/183106:0",
+      "sourceSHA256": "e6999698ee46aa7ea823db2d47455c453a318489b8142c4d87ada5bf363e6dfc",
+      "checks": 1129,
+      "lowRimChecks": 110,
+      "minSurfaceGap": -0.014994529160125225,
+      "minLowGap": -0.014994529160125225,
+      "maxLowGap": -0.013714736927932236,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 102,
+      "budget": {
+        "geometryBytes": 30252,
+        "residentBytes": 182448,
+        "triangles": 302
+      },
+      "identity": {
+        "overlap": 0.9984889207823286,
+        "centroidDistance": 0.6333970839448282
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/28820:0",
+      "sourceSHA256": "e41a7f21bf1e090a2f80d1b5edd3a10934144ddd071c9ab1ba9ef5a1e5ba82db",
+      "checks": 208,
+      "lowRimChecks": 46,
+      "minSurfaceGap": -0.34755865334723524,
+      "minLowGap": -0.34755865334723524,
+      "maxLowGap": -0.1564393540011082,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 179,
+      "budget": {
+        "geometryBytes": 4890,
+        "residentBytes": 84936,
+        "triangles": 53
+      },
+      "identity": {
+        "overlap": 1.0000000000000004,
+        "centroidDistance": 0.6771143936254103
+      },
+      "sourcePreserved": true
+    },
+    {
+      "uid": "landsd/330352:0",
+      "sourceSHA256": "c9e3f6c38f2685e1faca1d586a99a29c266d8797aab849cc510dcc4e16674848",
+      "checks": 476,
+      "lowRimChecks": 44,
+      "minSurfaceGap": -0.13999938964843928,
+      "minLowGap": -0.13999938964843928,
+      "maxLowGap": 0.14383707776880783,
+      "maxSamplerDelta": 0,
+      "missingTerrain": 0,
+      "terrainTriangles": 107,
+      "budget": {
+        "geometryBytes": 12144,
+        "residentBytes": 113280,
+        "triangles": 128
+      },
+      "identity": {
+        "overlap": 0.9946298011035158,
+        "centroidDistance": 0.5847017171051982
+      },
+      "sourcePreserved": true
+    }
+  ],
+  "aiCalls": 0,
+  "geometryChanges": 0,
+  "architectureReconstruction": false
+}

@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-king-cheung-95691-whole-current-role-acceptance-v2-20261011.py", line 20, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-king-cheung-95691-whole-current-role-acceptance-v2-20261011.py", line 17, in main
+    if '--owned'in sys.argv:return owned()
+                                   ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-king-cheung-95691-whole-current-role-acceptance-v2-20261011.py", line 15, in owned
+    result=m.freeze(BATCH,'king-complete18742-908-four-stream-current-typed-role-acceptance-v2',paths,dict(uids=[UID],completeOriginalFaces=18742,completeOriginalRealComponents=908,currentTypedPhysicalAccepted=True,acceptanceReadyForStaging=True,installationApproved=False,newlyInstalled=0));print(json.dumps(dict(jobId=result['jobId'])),flush=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 15, in freeze
+    paths+=[p for p in doc.rglob('*') if p.is_file()]+[Path(__file__)];refs=[ref(p) for p in sorted(set(paths))];claim=reservations.claim('popcorn-source-checkpoint-'+str(uuid.uuid4()),['source-context:'+batch],batch=batch,ttl=1800);assert claim['ok'],claim;lease=claim['reservation']
+                                                                                             ^^^^^^^^^^^^^^^^^^
+TypeError: '<' not supported between instances of 'str' and 'PosixPath'
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-king-cheung-95691-whole-current-role-acceptance-v2-20261011.py", line 20, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-king-cheung-95691-whole-current-role-acceptance-v2-20261011.py", line 19, in main
+    subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-king-cheung-95691-whole-current-role-acceptance-v2-20261011/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-king-cheung-95691-whole-current-role-acceptance-v2-20261011.py', '--owned']' returned non-zero exit status 1.

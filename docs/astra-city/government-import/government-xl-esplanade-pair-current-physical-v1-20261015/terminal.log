@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-esplanade-original-pair-physical-v1.py", line 143, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-esplanade-original-pair-physical-v1.py", line 132, in main
+    if args.owned:return owned()
+                         ^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-esplanade-original-pair-physical-v1.py", line 73, in owned
+    proof=verify_files(row,context,LOCAL/'identity-precheck'/row['uid'].split('/')[1]);assert proof['passed'],proof['reasons'];identities.append(proof)
+                                                                                              ~~~~~^^^^^^^^^^
+AssertionError: ['current-target-does-not-cover-whole-georef-cell', 'original-source-does-not-cover-whole-georef-cell']
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-esplanade-original-pair-physical-v1.py", line 143, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-esplanade-original-pair-physical-v1.py", line 140, in main
+    subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','3600','--',sys.executable,__file__,*[arg for u in sorted(UIDS) for arg in ['--uid',u]],'--preflight',args.preflight,'--batch',BATCH,'--owned',*[arg for url in RETAINED_URLS for arg in ['--retain-native',url]]],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-esplanade-pair-current-physical-v1-20261015/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261010-esplanade-original-pair-physical-v1.py', '--uid', 'landsd/268828:0', '--uid', 'landsd/309385:0', '--preflight', 'docs/astra-city/government-import/government-xl-esplanade-pair-current-preflight-v1-20261015', '--batch', 'government-xl-esplanade-pair-current-physical-v1-20261015', '--owned']' returned non-zero exit status 1.

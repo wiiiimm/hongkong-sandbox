@@ -1,0 +1,42 @@
+{
+  "batch": "government-xl-sha-tin-citylink-movie-diagnostics-v1-20261029",
+  "uids": [
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "resources": [
+    "building:landsd/92881:0",
+    "building:landsd/238142:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-sha-tin-citylink-movie-current-ground-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-sha-tin-civic-citylink-movie-original-recovery-v1-20261029",
+        "--uid",
+        "landsd/92881:0",
+        "--uid",
+        "landsd/238142:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-sha-tin-citylink-movie-attributes-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-sha-tin-citylink-movie-current-ground-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-sha-tin-citylink-movie-identity-v1-20261029",
+      "args": [
+        "--capture",
+        "government-xl-sha-tin-citylink-movie-current-ground-v1-20261029"
+      ]
+    }
+  ]
+}

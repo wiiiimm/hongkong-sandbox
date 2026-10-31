@@ -1,0 +1,114 @@
+{
+  "batch": "government-xl-275446-arena-mall-three-original-mechanical-sequence-v1-20261031",
+  "uids": [
+    "landsd/275446:0",
+    "landsd/318704:0",
+    "landsd/318722:0"
+  ],
+  "resources": [
+    "building:landsd/275446:0",
+    "building:landsd/318704:0",
+    "building:landsd/318722:0"
+  ],
+  "phases": [
+    {
+      "script": "merge_current_original_selections_v1_20261024.py",
+      "batch": "government-xl-275446-arena-mall-three-original-selection-v1-20261031",
+      "args": [
+        "--inventory",
+        "government-xl-after-villa-premiere-native-bounds-v1-20261031",
+        "--capture",
+        "government-xl-after-villa-premiere-275446-floor-return-runtime-v6-20261031",
+        "--capture",
+        "government-xl-275446-two-new-neighbour-original-recovery-v1-20261031",
+        "--uid",
+        "landsd/275446:0",
+        "--uid",
+        "landsd/318704:0",
+        "--uid",
+        "landsd/318722:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-275446-arena-mall-three-original-attributes-v1-20261031",
+      "args": [
+        "--capture",
+        "government-xl-275446-arena-mall-three-original-selection-v1-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-275446-arena-mall-two-original-identity-v1-20261031",
+      "args": [
+        "--capture",
+        "government-xl-275446-two-new-neighbour-original-recovery-v1-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-275446-arena-mall-three-original-model-scope-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-275446-arena-mall-three-original-selection-v1-20261031",
+        "--attributes",
+        "government-xl-275446-arena-mall-three-original-attributes-v1-20261031",
+        "--inventory",
+        "government-xl-after-villa-premiere-native-bounds-v1-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_patch_runtime_v7_20261030.py",
+      "batch": "government-xl-275446-arena-mall-three-original-runtime-v1-20261031",
+      "scopeResources": "government-xl-after-villa-premiere-275446-floor-return-scope-v6-20261031",
+      "args": [
+        "--capture",
+        "government-xl-275446-arena-mall-three-original-selection-v1-20261031",
+        "--patch",
+        "government-xl-after-villa-premiere-275446-source-floor-return-v6-20261031",
+        "--scope",
+        "government-xl-after-villa-premiere-275446-floor-return-scope-v6-20261031",
+        "--uid",
+        "landsd/275446:0",
+        "--uid",
+        "landsd/318704:0",
+        "--uid",
+        "landsd/318722:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-275446-arena-mall-318704-0-foundations-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-275446-arena-mall-three-original-runtime-v1-20261031",
+        "--attributes",
+        "government-xl-275446-arena-mall-three-original-attributes-v1-20261031",
+        "--uid",
+        "landsd/318704:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-275446-arena-mall-318722-0-foundations-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-275446-arena-mall-three-original-runtime-v1-20261031",
+        "--attributes",
+        "government-xl-275446-arena-mall-three-original-attributes-v1-20261031",
+        "--uid",
+        "landsd/318722:0"
+      ]
+    },
+    {
+      "script": "original_assembly_four_world_pair_context_v2_20261024.py",
+      "batch": "government-xl-275446-arena-mall-three-original-all-pairs-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-275446-arena-mall-three-original-runtime-v1-20261031",
+        "--attributes",
+        "government-xl-275446-arena-mall-three-original-attributes-v1-20261031"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+"""Immutable proposed runtime fix tests, actual ray probes and source cause."""
+import importlib.util,subprocess
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest
+BATCH='xl-terrain-recovery-20261010-festival-proposed-sampler-fix-checkpoint-v1';DOC=ROOT/'docs/astra-city/government-import'/BATCH
+paths=[HERE/'proposed-runtime'/n for n in ['exact-finite-triangle-projection-v1.mjs','native-terrain-finite-projection-v1.mjs','test-native-terrain-finite-projection-v1.mjs','historical-native-terrain-runtime-fixture-v1.mjs']]
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def main():
+ assert not DOC.exists();proc=subprocess.run(['node','--test',str(paths[2])],cwd=ROOT,capture_output=True,text=True);assert proc.returncode==0,proc.stdout+proc.stderr;save(DOC/'tests.json',dict(command=['node','--test',str(paths[2].relative_to(ROOT))],exitCode=proc.returncode,stdout=proc.stdout,stderr=proc.stderr,sharedRuntimeModified=False,strictBandUnchanged=True))
+ for name in ['xl-terrain-recovery-20261010-festival-gap-sampler-ray-v1','xl-terrain-recovery-20261010-festival-gap-sampler-ray-v2']:
+  raw=HERE/'local'/name/'diagnostic.json.gz';r=read(raw);save(DOC/(name+'-actual-probes.json.gz'),r);paths.extend([raw,HERE/(name+'.mjs')])
+ paths.extend([Path(__file__),ROOT/'docs/astra-city/government-import/xl-terrain-recovery-20261010-festival-gap-sampler-finite-membership-v1/diagnostic.json.gz',ROOT/'docs/astra-city/government-import/xl-terrain-recovery-20261010-festival-gap-sampler-finite-membership-v1/result.json',ROOT/'docs/astra-city/government-import/government-xl-terrain-recovery-festival-pair-authentic-multi-facet-current-v3-20261010/result.json'])
+ save(DOC/'diagnostic.json',dict(uids=['landsd/91827:0','landsd/104302:0'],proposedOnly=True,sharedRuntimeModified=False,actualOldPhantomFacetsRejected=7,actualOld441RayProbesMatchWithProposedSampler=True,actualNewCompleteNativeRestorationRayProbes=441,actualNewRestorationMaxSamplerRayDeltaM=read(HERE/'local/xl-terrain-recovery-20261010-festival-gap-sampler-ray-v2/diagnostic.json.gz')['maxDelta'],historicalRuntimeByteSHA256=digest(paths[3].read_bytes()),allExistingHeightFloat32IndexCacheSemanticsRetained=True,existingProjectedDegenerateCutoffUnchanged=True,buildingGeometryChanges=0,fullAcceptance=False,evidenceRefs=[ref(p) for p in paths]));s=importlib.util.spec_from_file_location('freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m);m.freeze(BATCH,'proposed-strict-finite-projection-runtime-fix-13-tests-actual-rays-v1',paths,dict(uids=['landsd/91827:0','landsd/104302:0'],testsPassed=13,actualOldOutsideFacetPicks=7,actualNewRayProbesPassed=441,sharedRuntimeModified=False,fullAcceptance=False))
+if __name__=='__main__':main()

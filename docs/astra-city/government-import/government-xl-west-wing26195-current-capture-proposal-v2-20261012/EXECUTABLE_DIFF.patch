@@ -1,0 +1,128 @@
+--- source-scripts/city/government-import/west_wing26195_complete_current_runtime_capture_draft_v1_20261012.py
++++ source-scripts/city/government-import/west_wing26195_complete_current_runtime_capture_draft_v2_20261012.py
+@@ -5,10 +5,10 @@
+ from run import ROOT,HERE,read,save,digest,connect,reservations
+ from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+ from original_source_ownership import document,graph_reasons
+-B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-west-wing26195-complete-current-runtime-capture-v1-20261012';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH
++B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-west-wing26195-complete-current-runtime-capture-v2-20261012';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH
+ UID='landsd/26195:0';SOURCE_SHA='50da67a3a009c3c832d2bfdbd08640c89d958ef8cf077d1c172e7059900f8af9';MODEL='B351161568102063C1';CSUID='3511615681P20110704';FACES=46918
+-MANIFEST_SHA='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540';PLAN=B/'government-xl-west-wing26195-current-capture-proposal-v1-20261012/method.json'
+-ATTR=HERE/'west_wing26195_complete_actual_render_attributes_draft_v1_20261012.mjs';CLOSURE=HERE/'west_wing26195_capture_module_closures_draft_v1_20261012.mjs';FREEZER=HERE/'west_wing26195_freeze_complete_current_runtime_capture_draft_v1_20261012.py'
++MANIFEST_SHA='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540';PLAN=B/'government-xl-west-wing26195-current-capture-proposal-v2-20261012/method.json'
++ATTR=HERE/'west_wing26195_complete_actual_render_attributes_draft_v2_20261012.mjs';CLOSURE=HERE/'west_wing26195_capture_module_closures_draft_v2_20261012.mjs';FREEZER=HERE/'west_wing26195_freeze_complete_current_runtime_capture_draft_v2_20261012.py'
+ def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+ def module(p,name):
+  spec=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+@@ -21,7 +21,7 @@
+  manifest=ROOT/'3d-viewer/city/data/manifest.json';assert ref(manifest)['sha256']==MANIFEST_SHA;m=read(manifest);cats=[ROOT/'3d-viewer'/url for url in m['officialModelCatalogues']];installed={}
+  for cat in cats:
+   for e in read(cat)['models']:assert e['uid']not in installed;installed[e['uid']]=(cat,e)
+- assert len(installed)==6649;cat,entry=installed[UID];asset=cat.parent/entry['asset'];assert ref(asset)['sha256']==SOURCE_SHA and(entry['modelId'],entry['buildingCSUID'],entry['triangles'])==(MODEL,CSUID,FACES)
++ assert len(installed)==6649;cat,entry=installed[UID];actor_catalogue=cat;asset=cat.parent/entry['asset'];assert ref(asset)['sha256']==SOURCE_SHA and(entry['modelId'],entry['buildingCSUID'],entry['triangles'])==(MODEL,CSUID,FACES)
+  assert not entry.get('variantId')and entry.get('verticalPlacementOffsetHKPD',0)==0 and entry.get('rootTranslation',[-834500,0,816500])==[-834500,0,816500]
+  lo,hi=entry['worldBounds'];window=[lo[0]-30,lo[2]-30,hi[0]+30,hi[2]+30];forms={};tiles={}
+  for tile in m['tiles']:
+@@ -42,7 +42,7 @@
+   for f in read(path)['buildings']:
+    if f['uid']in required and f['uid']not in forms:forms[f['uid']]=(f,tile['url']);tiles[tile['url']]=ref(path)
+  assert required<=set(forms);assert ref(manifest)['sha256']==MANIFEST_SHA
+- return dict(plan=plan,manifest=ref(manifest),current=m,catalogues=cats,installed=installed,entry=entry,asset=asset,forms=forms,tiles=tiles,nominees=nominees,dependencies=sorted(dependencies),window=window,resources=['building:'+u for u in sorted(forms)])
++ return dict(plan=plan,manifest=ref(manifest),current=m,catalogues=cats,installed=installed,entry=entry,catalogue=actor_catalogue,asset=asset,forms=forms,tiles=tiles,nominees=nominees,dependencies=sorted(dependencies),window=window,resources=['building:'+u for u in sorted(forms)])
+ def main():
+  parser=argparse.ArgumentParser();parser.add_argument('--owned',action='store_true');a=parser.parse_args();p=preflight()
+  if not a.owned:
+@@ -54,9 +54,11 @@
+  for path in list(code)+[PLAN,ATTR,CLOSURE,HERE/'exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs',HERE/'actual_float32_model_matrix_bounds_20261011.mjs',HERE/'acceptance-metrics.mjs',ROOT/'3d-viewer/city/data/manifest.json',ROOT/'3d-viewer/city/data/terrain.json',p['asset']]+p['catalogues']+[ROOT/'3d-viewer'/x['url']for x in p['current']['terrainPatches']]+[ROOT/e['path']for e in p['plan']['sourceProvenanceRefs']+p['plan']['productionModulePins']]:pin(path)
+  for e in p['tiles'].values():pin(ROOT/e['path'])
+  raw=p['asset'].read_bytes();tri=decode_original_world_triangles(raw);assert tri.shape==(FACES,3,3)and np.isfinite(tri).all();world_sha=digest(tri.astype('<f8').tobytes());g=document(raw);assert not graph_reasons(g,MODEL,FACES)
+- entry=p['entry'];bounds=np.asarray(entry['worldBounds']);assert np.all(tri.min((0,1))>=bounds[0]-1)and np.all(tri.max((0,1))<=bounds[1]+1)
++ raw_entry=p['entry'];catalogue_context=read(p['catalogue']);assert catalogue_context['rootTranslation']==[-834500,0,816500]
++ # Same three inherited fields supplied by unchanged prepareModelCatalogue; preserve raw entry separately.
++ entry={**raw_entry,'rootTranslation':catalogue_context['rootTranslation'],'coordinatePolicy':catalogue_context.get('coordinatePolicy'),'datasetId':catalogue_context.get('datasetId')};bounds=np.asarray(entry['worldBounds']);assert np.all(tri.min((0,1))>=bounds[0]-1)and np.all(tri.max((0,1))<=bounds[1]+1)
+  dest=LOCAL/entry['asset'];dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw);pin(dest);assert ref(dest)['sha256']==SOURCE_SHA
+- f,tile=p['forms'][UID];row=dict(uid=UID,modelId=MODEL,sourceSHA256=SOURCE_SHA,candidate=dict(entry=entry,path=str(dest.relative_to(ROOT))),source=dict(building=f,tile=tile));literal=dict(uid=UID,path=row['candidate']['path'],entry=entry,building=f,role='owned-original');native=[]
++ f,tile=p['forms'][UID];row=dict(uid=UID,modelId=MODEL,sourceSHA256=SOURCE_SHA,candidate=dict(entry=entry,path=str(dest.relative_to(ROOT))),source=dict(building=f,tile=tile),rawInstalledEntry=raw_entry,actualCatalogue=ref(p['catalogue']),cataloguePreparationContextOnly=True);literal=dict(uid=UID,path=row['candidate']['path'],entry=raw_entry,building=f,role='owned-original');native=[]
+  for cat,e in p['nominees']:
+   asset=cat.parent/e['asset'];pin(asset);assert ref(asset)['sha256']==e['sha256'];bf,bt=p['forms'][e['uid']];native.append(dict(uid=e['uid'],path=str(asset.relative_to(ROOT)),entry=e,building=bf,role='installed-native-context',catalogue=ref(cat),tile=bt))
+  basic=[dict(building=bf,tile=bt,tileSHA256=ref(ROOT/'3d-viewer'/bt)['sha256'])for u,(bf,bt)in p['forms'].items()if u not in p['installed']]
+@@ -65,7 +67,7 @@
+   for path,h in pins.items():assert digest((ROOT/path).read_bytes())==h,path
+   assert json.loads(json.dumps(state(uids),default=str))==json.loads(json.dumps(before,default=str))and reservations.owns(lease)
+  def call(args):fence();assert reservations.heartbeat(lease)['ok'];subprocess.run(args,cwd=ROOT,check=True);fence()
+- rel=lambda path:str(path.relative_to(ROOT));call(['node',str(CLOSURE),rel(DOC)+'/']);call(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(DOC/'selection.json.gz'),'--candidates',rel(LOCAL),'--terrain-candidates',rel(DOC/'terrain-candidates.json'),'--out',rel(DOC/'metrics.json'),'--geometry-out',rel(LOCAL/'runtime-geometry.json.gz')]);call(['node',str(ATTR),rel(DOC/'literal-source-inputs.json.gz'),rel(DOC/'actual-render-geometry.json.gz')]);call(['node',str(CLOSURE),rel(DOC)+'/','--verify'])
++ rel=lambda path:str(path.relative_to(ROOT));call(['node',str(CLOSURE),rel(DOC)+'/']);call(['node',str(HERE/'acceptance-metrics.mjs'),'--selection',rel(DOC/'selection.json.gz'),'--candidates',rel(LOCAL),'--terrain-candidates',rel(DOC/'terrain-candidates.json'),'--out',rel(DOC/'metrics.json'),'--geometry-out',rel(LOCAL/'runtime-geometry.json.gz')]);assert len(read(LOCAL/'runtime-geometry.json.gz')['rows'])==1 and not any(x.get('error')for x in read(DOC/'metrics.json')['rows']);call(['node',str(ATTR),rel(DOC/'literal-source-inputs.json.gz'),rel(DOC/'actual-render-geometry.json.gz')]);call(['node',str(CLOSURE),rel(DOC)+'/','--verify'])
+  rt=read(LOCAL/'runtime-geometry.json.gz')['rows'];actual=read(DOC/'actual-render-geometry.json.gz');assert len(rt)==len(actual['rows'])==1;t=rt[0];a=actual['rows'][0];assert t['uid']==a['uid']==UID and t['index']==a['completeOriginalIndex']and t['position']==a['completeLiteralWorldPosition']and len(t['index'])//3==FACES
+  ground=np.asarray(t['drawnGroundGeometry'],float).reshape(-1,3,3);assert len(ground)>0 and np.isfinite(ground).all()
+  for name in ['completeLiteralWorldPosition','completeExplicitLeftAssociatedFloat32WorldPosition','completeExplicitBalancedFloat32WorldPosition']:
+--- source-scripts/city/government-import/west_wing26195_freeze_complete_current_runtime_capture_draft_v1_20261012.py
++++ source-scripts/city/government-import/west_wing26195_freeze_complete_current_runtime_capture_draft_v2_20261012.py
+@@ -4,7 +4,7 @@
+ import numpy as np
+ from run import ROOT,HERE,read,save,digest,connect,reservations
+ from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+-from west_wing26195_complete_current_runtime_capture_draft_v1_20261012 import BATCH,DOC,LOCAL,UID,SOURCE_SHA,FACES,MANIFEST_SHA,PLAN,ATTR,CLOSURE,FREEZER,ref,module,state,preflight
++from west_wing26195_complete_current_runtime_capture_draft_v2_20261012 import BATCH,DOC,LOCAL,UID,SOURCE_SHA,FACES,MANIFEST_SHA,PLAN,ATTR,CLOSURE,FREEZER,ref,module,state,preflight
+ 
+ def main():
+  parser=argparse.ArgumentParser();parser.add_argument('--lease-file',required=True);args=parser.parse_args();lease=read(Path(args.lease_file));assert reservations.owns(lease)and not(DOC/'result.json').exists();p=preflight();scope=read(DOC/'capture-scope.json');before=read(DOC/'protected-state-before.json');assert json.loads(json.dumps(state(before['uids']),default=str))==before['rows']
+@@ -16,7 +16,7 @@
+  ground=np.asarray(t['drawnGroundGeometry'],float).reshape(-1,3,3);assert len(ground)==scope['completeActualGroundFaces']and digest(ground.astype('<f8').tobytes())==scope['completeActualGroundSHA256']
+  assert {r['uid']for r in a['nativeContextRows']}=={r['uid']for r in read(DOC/'native-nomination-inventory.json')['nominees']};assert {r['uid']for r in a['basicContextRows']}=={u for u in p['forms']if u not in p['installed']}
+  for path,h in scope['inputHashes'].items():assert digest((ROOT/path).read_bytes())==h,path
+- subprocess.run(['node',str(CLOSURE),str(DOC.relative_to(ROOT))+'/','--verify'],cwd=ROOT,check=True);walker=module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','westwing_freeze');paths=set();walker.local_imports(Path(__file__),paths);walker.local_imports(HERE/'west_wing26195_complete_current_runtime_capture_draft_v1_20261012.py',paths)
++ subprocess.run(['node',str(CLOSURE),str(DOC.relative_to(ROOT))+'/','--verify'],cwd=ROOT,check=True);walker=module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','westwing_freeze');paths=set();walker.local_imports(Path(__file__),paths);walker.local_imports(HERE/'west_wing26195_complete_current_runtime_capture_draft_v2_20261012.py',paths)
+  for folder in [DOC,LOCAL]:
+   for path in folder.rglob('*'):
+    if path.is_file():
+--- source-scripts/city/government-import/west_wing26195_complete_actual_render_attributes_draft_v1_20261012.mjs
++++ source-scripts/city/government-import/west_wing26195_complete_actual_render_attributes_draft_v2_20261012.mjs
+@@ -1,4 +1,4 @@
+-import {loadOfficialModel,disposeOfficialModel} from '../../../3d-viewer/city/official-model-assets.js';
++import {loadOfficialModel,disposeOfficialModel,prepareModelCatalogue} from '../../../3d-viewer/city/official-model-assets.js';
+ import * as THREE from '../../../3d-viewer/vendor/three.module.js';
+ import {createBuildingGeometry} from '../../../3d-viewer/city/building-geometry.js';
+ /** Read-only full actual renderer attributes/matrices for existing unchanged installed West Wing source and captured installed-native/BASIC context; no physical credit. */
+@@ -9,14 +9,14 @@
+ assert(inputPath?.startsWith('docs/astra-city/government-import/')&&outputPath?.startsWith('docs/astra-city/government-import/')&&!existsSync(new URL(outputPath,root)));
+ function bytes(path,expected){const u=new URL(path,root);assert(u.pathname.startsWith(root.pathname));const b=readFileSync(u);if(expected!==undefined)assert.equal(sha(b),expected);hashes[path]=sha(b);return b;}
+ const production=new URL('3d-viewer/city/official-model-assets.js',root),closure=snapshotModuleClosure(production,root);Object.assign(hashes,closure.inputHashes);
+-for(const p of ['source-scripts/city/government-import/west_wing26195_complete_actual_render_attributes_draft_v1_20261012.mjs','source-scripts/city/government-import/actual_float32_model_matrix_bounds_20261011.mjs','source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs'])bytes(p);
++for(const p of ['source-scripts/city/government-import/west_wing26195_complete_actual_render_attributes_draft_v2_20261012.mjs','source-scripts/city/government-import/actual_float32_model_matrix_bounds_20261011.mjs','source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs'])bytes(p);
+ const input=JSON.parse(gunzipSync(bytes(inputPath)));assert.equal(input.rows.length,1);assert.deepEqual(input.rows.map(r=>r.uid),['landsd/26195:0']);const expected={'landsd/26195:0':['50da67a3a009c3c832d2bfdbd08640c89d958ef8cf077d1c172e7059900f8af9',46918]};
+ assert.equal(input.expectedNativeCount,6649);
+ function attribute(a){assert(Array.from(a.array).every(Number.isFinite),'Nonfinite attribute');assert(!a.isInterleavedBufferAttribute,'Unsupported interleaved attribute, preserve failure');return {array:Array.from(a.array),arrayType:a.array.constructor.name,itemSize:a.itemSize,count:a.count,normalized:a.normalized,byteSHA256:sha(Buffer.from(a.array.buffer,a.array.byteOffset,a.array.byteLength))};}
+ assert.equal(input.currentManifest.path,'3d-viewer/city/data/manifest.json');const manifest=JSON.parse(bytes(input.currentManifest.path,input.currentManifest.sha256));
+ assert.deepEqual(input.currentCatalogueRefs.map(r=>r.path),manifest.officialModelCatalogues.map(p=>'3d-viewer/'+p));for(const r of input.currentCatalogueRefs)bytes(r.path,r.sha256);
+ for(const r of input.evidenceRefs)bytes(r.path,r.sha256);
+-const installed=new Map();for(const c of input.currentCatalogueRefs){const data=JSON.parse(bytes(c.path,c.sha256));for(const e of data.models){assert(!installed.has(e.uid));installed.set(e.uid,e);}}
++const installed=new Map(),preparedInstalled=new Map();for(const c of input.currentCatalogueRefs){const data=JSON.parse(bytes(c.path,c.sha256));for(const e of data.models){assert(!installed.has(e.uid));installed.set(e.uid,e);}for(const e of prepareModelCatalogue(data,new URL('https://diagnostic.invalid/'+c.path).href))preparedInstalled.set(e.uid,e);}
+ assert.equal(installed.size,6649);for(const r of input.rows)assert.deepEqual(installed.get(r.uid),r.entry);
+ for(const r of input.nativeContextRows){assert.deepEqual(installed.get(r.uid),r.entry);expected[r.uid]=[r.entry.sha256,r.entry.triangles];}
+ const forms=new Map(input.completeCurrentForms.map(f=>[f.uid,f]));assert.equal(forms.size,input.completeCurrentForms.length);
+@@ -24,10 +24,10 @@
+ 
+ const lighting={night:{value:0},activity:{value:new THREE.Vector4()},retail:{value:0},elapsed:{value:0},shimmer:{value:0}},results=[];for(const r of [...input.rows,...input.nativeContextRows]){assert.equal(r.entry.uid,r.uid);assert.equal(r.entry.sha256,expected[r.uid][0]);assert.equal(r.entry.triangles,expected[r.uid][1]);
+ assert.equal(r.entry.buildingCSUID,r.building.buildingCSUID);const raw=bytes(r.path,r.entry.sha256);let model,result;
+-try{model=await loadOfficialModel({...r.entry,assetURL:'https://diagnostic.invalid/original.glb.gz'},r.building,lighting,{fetcher:async()=>new Response(raw),getBuilding:uid=>forms.get(uid)||null});model.group.updateMatrixWorld(true);const actualObjectGraph=[];model.group.traverse(o=>actualObjectGraph.push({name:o.name,type:o.type,position:o.position.toArray(),quaternion:o.quaternion.toArray(),scale:o.scale.toArray(),matrixLocalFloat64:Array.from(o.matrix.elements),matrixWorldFloat64:Array.from(o.matrixWorld.elements),parentName:o.parent?.name??null}));const meshes=[],position=[],index=[],left=[],balanced=[];let offset=0;
++try{model=await loadOfficialModel({...preparedInstalled.get(r.uid),assetURL:'https://diagnostic.invalid/original.glb.gz'},r.building,lighting,{fetcher:async()=>new Response(raw),getBuilding:uid=>forms.get(uid)||null});model.group.updateMatrixWorld(true);const actualObjectGraph=[];model.group.traverse(o=>actualObjectGraph.push({name:o.name,type:o.type,position:o.position.toArray(),quaternion:o.quaternion.toArray(),scale:o.scale.toArray(),matrixLocalFloat64:Array.from(o.matrix.elements),matrixWorldFloat64:Array.from(o.matrixWorld.elements),parentName:o.parent?.name??null}));const meshes=[],position=[],index=[],left=[],balanced=[];let offset=0;
+  for(const mesh of model.meshes){const p=mesh.geometry.attributes.position,idx=mesh.geometry.index.array,m=mesh.matrixWorld.elements;const arithmetic=actualFloat32ModelMatrixPositions(p.array,m);meshes.push({allActualAttributes:Object.fromEntries(Object.entries(mesh.geometry.attributes).map(([name,a])=>[name,attribute(a)])),allActualMorphAttributes:Object.fromEntries(Object.entries(mesh.geometry.morphAttributes).map(([name,arr])=>[name,arr.map(attribute)])),completeGeometryGroups:mesh.geometry.groups,drawRange:{start:mesh.geometry.drawRange.start,count:Number.isFinite(mesh.geometry.drawRange.count)?mesh.geometry.drawRange.count:'Infinity'},indexAttribute:attribute(mesh.geometry.index),matrixLocalFloat64:Array.from(mesh.matrix.elements),actualMaterials:[].concat(mesh.material).map(m=>m.toJSON()),completeOriginalVertexAttribute:Array.from(p.array),completeOriginalIndex:Array.from(idx),completeNormalAttribute:Array.from(mesh.geometry.attributes.normal.array),completeColorAttribute:Array.from(mesh.geometry.attributes.color.array),matrixWorldFloat64:Array.from(m),...arithmetic});const v=new THREE.Vector3();for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);position.push(...v.toArray());}for(const i of idx)index.push(i+offset);offset+=p.count;for(const v of arithmetic.leftAssociatedPerMultiplyAddFloat32WorldPosition)left.push(v);for(const v of arithmetic.balancedPerMultiplyAddFloat32WorldPosition)balanced.push(v);}
+  assert.deepEqual(position,Array.from(model.record.modelGeometry.position));assert.deepEqual(index,Array.from(model.record.modelGeometry.index));assert.equal(index.length/3,expected[r.uid][1]);
+- result={uid:r.uid,role:r.role,actualObjectGraph,originalMaterialMetadata:model.record.modelSource.originalMaterials,originalNodeMetadata:model.record.modelSource.originalNodes,loadedGroupMatrixWorldFloat64:Array.from(model.group.matrixWorld.elements),loadedGroupScale:model.group.scale.toArray(),sourceSHA256:sha(raw),actualRenderMeshes:meshes,completeLiteralWorldPosition:position,completeOriginalIndex:index,completeExplicitLeftAssociatedFloat32WorldPosition:left,completeExplicitBalancedFloat32WorldPosition:balanced,completeLiteralWorldBounds:positionBounds(position),completeExplicitLeftAssociatedFloat32ModelMatrixWorldBounds:positionBounds(left),completeExplicitBalancedFloat32ModelMatrixWorldBounds:positionBounds(balanced),sourceGeometryChanges:0};
++ result={uid:r.uid,rawInstalledEntry:r.entry,cataloguePreparedRootTranslation:preparedInstalled.get(r.uid).rootTranslation,role:r.role,actualObjectGraph,originalMaterialMetadata:model.record.modelSource.originalMaterials,originalNodeMetadata:model.record.modelSource.originalNodes,loadedGroupMatrixWorldFloat64:Array.from(model.group.matrixWorld.elements),loadedGroupScale:model.group.scale.toArray(),sourceSHA256:sha(raw),actualRenderMeshes:meshes,completeLiteralWorldPosition:position,completeOriginalIndex:index,completeExplicitLeftAssociatedFloat32WorldPosition:left,completeExplicitBalancedFloat32WorldPosition:balanced,completeLiteralWorldBounds:positionBounds(position),completeExplicitLeftAssociatedFloat32ModelMatrixWorldBounds:positionBounds(left),completeExplicitBalancedFloat32ModelMatrixWorldBounds:positionBounds(balanced),sourceGeometryChanges:0};
+ }finally{if(model)disposeOfficialModel(model);}results.push(result);}
+ const basicContextRows=[];for(const r of input.basicContextRows){assert(!installed.has(r.building.uid));assert.deepEqual(forms.get(r.building.uid),r.building);const tile=JSON.parse(bytes('3d-viewer/'+r.tile,r.tileSHA256));assert.deepEqual(tile.buildings.find(b=>b.uid===r.building.uid),r.building);let g;try{g=createBuildingGeometry(r.building);assert(g?.attributes.position);const p=g.attributes.position;assert(p.array instanceof Float32Array);basicContextRows.push({uid:r.building.uid,currentForm:r.building,position:Array.from(p.array),index:g.index?Array.from(g.index.array):Array.from({length:p.count},(_,i)=>i),allActualAttributes:Object.fromEntries(Object.entries(g.attributes).map(([name,a])=>[name,attribute(a)])),identityModelMatrix:[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],geometryConstructorContextOnly:true,physicalAccepted:false});}finally{g?.dispose();}}
+ assert(results.filter(r=>r.role==='owned-original').length===1);assert(results.filter(r=>r.role==='owned-original').reduce((n,r)=>n+r.completeOriginalIndex.length/3,0)===46918);
+--- source-scripts/city/government-import/west_wing26195_capture_module_closures_draft_v1_20261012.mjs
++++ source-scripts/city/government-import/west_wing26195_capture_module_closures_draft_v2_20261012.mjs
+@@ -2,8 +2,8 @@
+ import {readFileSync,writeFileSync,existsSync} from 'node:fs';import assert from 'node:assert/strict';
+ import {snapshotModuleClosure,verifyModuleClosure} from './exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+ const root=new URL('../../../',import.meta.url),doc=process.argv[2],verify=process.argv.includes('--verify');
+-assert.equal(doc,'docs/astra-city/government-import/government-xl-west-wing26195-complete-current-runtime-capture-v1-20261012/');
+-for(const [name,path]of Object.entries({'acceptance-module-closure.json':'source-scripts/city/government-import/acceptance-metrics.mjs','runtime-app-module-closure.json':'3d-viewer/city/app.js','runtime-world-module-closure.json':'3d-viewer/city/world.js','runtime-geo-module-closure.json':'3d-viewer/city/geo.js','runtime-native-terrain-module-closure.json':'3d-viewer/city/native-terrain.js','actual-attributes-module-closure.json':'source-scripts/city/government-import/west_wing26195_complete_actual_render_attributes_draft_v1_20261012.mjs'})){
++assert.equal(doc,'docs/astra-city/government-import/government-xl-west-wing26195-complete-current-runtime-capture-v2-20261012/');
++for(const [name,path]of Object.entries({'acceptance-module-closure.json':'source-scripts/city/government-import/acceptance-metrics.mjs','runtime-app-module-closure.json':'3d-viewer/city/app.js','runtime-world-module-closure.json':'3d-viewer/city/world.js','runtime-geo-module-closure.json':'3d-viewer/city/geo.js','runtime-native-terrain-module-closure.json':'3d-viewer/city/native-terrain.js','actual-attributes-module-closure.json':'source-scripts/city/government-import/west_wing26195_complete_actual_render_attributes_draft_v2_20261012.mjs'})){
+  const target=new URL(doc+name,root);if(verify)assert(verifyModuleClosure(JSON.parse(readFileSync(target)),root));else{assert(!existsSync(target));writeFileSync(target,JSON.stringify(snapshotModuleClosure(new URL(path,root),root),null,2)+'\n');}
+ }
+ console.log(JSON.stringify({completeProducerModuleClosuresVerified:true,verifyOnly:verify}));

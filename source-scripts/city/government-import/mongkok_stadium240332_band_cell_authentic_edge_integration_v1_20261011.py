@@ -1,0 +1,24 @@
+"""DRAFT resumable exact unchanged band-cell/source-edge integration context."""
+import json
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest,connect
+from exact_resumable_projected_inventory_v1_20261011 import decoded,encoded,Checkpoints
+from exact_band_cell_authentic_edge_integration_v1_20261011 import complete_graph,source_boundary_integration
+P='government-xl-mongkok-stadium240332-';B=ROOT/'docs/astra-city/government-import';NAME=P+'band-cell-authentic-edge-integration-v1-20261011';DOC=B/NAME;LOCAL=HERE/'local'/NAME;PRIOR=B/(P+'actual-edge-band-local-topology-v2-20261011');OLD=B/(P+'faithful-multisurface-transition-candidate-v2-20261011');VALIDATION=B/(NAME+'-validation')
+VALIDATED_CODE_NAMES=['exact_band_cell_authentic_edge_integration_v1_20261011.py','test_exact_band_cell_authentic_edge_integration_v1_20261011.py','mongkok_stadium240332_band_cell_authentic_edge_integration_v1_20261011.py','mongkok_stadium240332_freeze_band_cell_authentic_edge_integration_v1_20261011.py']
+def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+def validation_gate():
+ v=read(VALIDATION/'validation.json');assert v['testsRun']==17 and v['failures']==v['errors']==0 and v['exitCode']==0 and v['passed']is True;assert v['testModule']=='test_exact_band_cell_authentic_edge_integration_v1_20261011';assert v['log']==ref(VALIDATION/'tests.log')and v['codeRefs']==[ref(HERE/n)for n in VALIDATED_CODE_NAMES];log=(VALIDATION/'tests.log').read_text();assert 'Ran 17 tests'in log and log.rstrip().endswith('OK');return [ref(VALIDATION/'validation.json'),v['log']]+v['codeRefs']
+def main():
+ validation_refs=validation_gate();assert not(DOC/'diagnostic.json.gz').exists();r=read(PRIOR/'result.json')
+ with connect()as c:
+  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(r['jobId'],)).fetchone()==('complete',r)
+ assert all(ref(ROOT/e['path'])==e for e in r['evidenceRefs']);d=decoded(read(PRIOR/'diagnostic.json.gz'));assert d['completeActualSourceAndJoinFaces']==14801 and len(d['allSixUnchangedActualOriginalEdgeProofs'])==6 and d['noCandidate']and d['sourceGeometryChanges']==0;dom=decoded(read(OLD/'exact-source-bound-domain.json.gz'));assert dom['explicitWidthM']==10 and dom['scratchDoesNotReplaceAnyOriginal3DFace'];cells=dom['computeBandPolygons'];assert len(cells)==2666 and len(dom['completeOuterBoundarySegments'])==520;manifest=d['currentManifest'];pins=validation_refs+[ref(PRIOR/'result.json'),ref(PRIOR/'diagnostic.json.gz'),ref(OLD/'exact-source-bound-domain.json.gz'),manifest];assert ref(ROOT/manifest['path'])==manifest
+ def fence():assert all(ref(ROOT/e['path'])==e for e in pins)
+ fence();cp=Checkpoints(LOCAL/'exact-band-pair-checkpoints',cells,pins,fence,chunk_size=32);graph=complete_graph(cells,dom['completeOuterBoundarySegments'],cp);sources=[]
+ for edge in d['allSixUnchangedActualOriginalEdgeProofs']:
+  for ai,atom in enumerate(edge.get('allCompletePositiveEdgeAtoms',[])):
+   if not atom['actualDrawnProjectedExteriorBoundary']:continue
+   membership=atom['completeWholeProjectedAtomBandCoverage'];sources.append(dict(originalSheetAndFacet=edge['originalSheetAndFacet'],sourceFace=edge['sourceFace'],sourceEdge=edge['sourceEdge'],sourceAtom=ai,completeUnchangedActualOriginal3DEdgeEndpoints=edge['actualOriginalEndpoints'],completeSourceAtomicProjectionAndHeightOwners=atom,bandCellIntegration=source_boundary_integration(cells,graph,atom,membership)))
+ assert len(sources)==2;checkpointrefs=[ref(p)for p in sorted((LOCAL/'exact-band-pair-checkpoints').rglob('*'))if p.is_file()and not p.name.endswith('.tmp')];refs=pins+r['evidenceRefs']+checkpointrefs;out=dict(completeExistingBandCells=2666,completeExistingOuterEdges=520,completeOriginalAndJoinFaces=14801,completePositiveSourceExteriorAtoms=2,completeBandGraph=graph,allAuthenticActualEdgeBandIntegrations=sources,bandDomainAndCoreSourceUnchanged=True,finiteSourceOriginalEndpointsPreserved=True,noCandidate=True,noMeshOutput=True,noRouteCredit=True,sourceOnly=True,currentAcceptance=False,installationApproved=False,sourceGeometryChanges=0,liveTerrainChanges=0,underlayOverlapNotWaived=True,wholeCoreMAXAndEveryIntroducedSeamStillUnqualified=True,allOriginal91CrossingsPreserved=True,all6645WholeRoutingAndProtectedActorsStillRequired=True,currentManifest=manifest,evidenceRefs=refs);fence();assert all(ref(ROOT/e['path'])==e for e in r['evidenceRefs']);save(DOC/'diagnostic.json.gz',encoded(out));print(json.dumps(dict(cells=len(cells),candidatePairs=len(graph['completeClosedAABBNominatedCellPairs']),overlaps=len(graph['completePositiveInteriorOverlapPairs']),bandPaths=[x['bandCellIntegration']['deterministicPositiveEdgeBandPathToOuter']for x in sources],directWholeBoundary=[x['bandCellIntegration']['wholeProjectedDirectBoundaryCovered']for x in sources],noCandidate=True)))
+if __name__=='__main__':main()

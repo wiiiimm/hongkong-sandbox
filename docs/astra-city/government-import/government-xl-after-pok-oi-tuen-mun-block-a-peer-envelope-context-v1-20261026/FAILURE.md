@@ -1,0 +1,1 @@
+V1 completed local facet calculations and a plot but failed before receipt creation: the plotting mask overwrote the selection dictionary. Its plot also used the wrong display up-axis. No approval or completed-job credit. V2 fixes both presentation/state bugs; source arrays and numerical gates are unchanged.

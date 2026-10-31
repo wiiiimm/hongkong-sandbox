@@ -1,0 +1,203 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-prosperous235568-qualified-stage-v1-20261031/plan.json",
+  "areas": [
+    {
+      "area": "Prosperous Garden six unchanged government original components",
+      "models": 6,
+      "catalogue": "city/data/official-models/government-xl-prosperous235568-qualified-stage-v1-20261031/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-prosperous-garden-six-original-v1-20261031.json": null,
+    "3d-viewer/city/data/official-models/government-xl-prosperous235568-qualified-stage-v1-20261031/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "c9dbf5f0ac3cad399de48a5403ac341d2ebf09a62ac3fb354119db7e9fb819b7"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-prosperous-garden-six-original-v1-20261031.json": "88524c63747d154b1184688afed7951034f07c84da8688ad98ff418a6965c410",
+    "3d-viewer/city/data/official-models/government-xl-prosperous235568-qualified-stage-v1-20261031/catalogue.json": "2eb0b529f5bf4cd39241b8429ca76d73f376d6c6fe213082fc41c7bb867f4607",
+    "3d-viewer/city/data/manifest.json": "066a4505d6f93dd7cef0552b697d0da7a5ca633bf51c93d1978095f195f5f572"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "896503e16b4f815ad0a700834326ee8cc1ece805",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-prosperous-garden-six-original-v1-20261031.json",
+      "resolution": 5,
+      "area": "Prosperous Garden source-derived ground",
+      "source": {
+        "authoredRampInset": {
+          "continuousReturnClaimed": false,
+          "originalTerrainCandidate": {
+            "path": "source-scripts/city/government-import/local/government-xl-after-villa-premiere-235568-original-inset-v1-20261031/candidate-terrain.json",
+            "sha256": "43c6c5b02ebb066c4a1bd8ba02458a3872f71dcb9eddec8a7e43ce6e4742ef42"
+          },
+          "policy": "Lower-only source-floor-bounded0.25m-clearance return, independently per disconnected domain. Existing1m core/3m return, area/height/25k guards retained. No source edit or acceptance.",
+          "sha256": "ef354fbb79cbbf576a0e146cf019f2a1ae73c75b031dde2ece59dcdee8f78ac2",
+          "sourceFaceIndices": [
+            3079,
+            3080,
+            3081,
+            3082,
+            3083,
+            7758,
+            11283,
+            11284,
+            11285,
+            11286,
+            11287,
+            11288,
+            11289,
+            11290,
+            11291,
+            11292,
+            11293,
+            11294,
+            11295,
+            11296,
+            11297,
+            11298,
+            11299,
+            11300,
+            11301,
+            11302,
+            11303,
+            11304,
+            11344,
+            11345,
+            11346,
+            11347,
+            11348,
+            11349,
+            11350,
+            11351,
+            11352,
+            11353,
+            11354,
+            11355,
+            11356,
+            11357,
+            11358,
+            11359,
+            11360,
+            11991,
+            11999,
+            12000,
+            12001
+          ],
+          "sourceFaceSHA256": "e452a1994e010d02689fe2632033a37370b60ca825be84b11729b2e663db2bea",
+          "uid": "landsd/235568:0"
+        },
+        "boundedOriginalInset": {
+          "coreBounds": [
+            832.4273131715879,
+            -2615.172808033348,
+            964.2753508998868,
+            -2486.5063763561525
+          ],
+          "outerBounds": [
+            828.2424558113515,
+            -2618.3338102583916,
+            968.470544224547,
+            -2482.3860570133324
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-terrain-sources-20260924/sheets/11-NW-24B/terrain/TERRAIN(TB)/T35250186000106E10/T35250186000106E10.gltf",
+            "sha256": "94624f7e025bfff65b901b4f1738512bb931926659a5b8c75950cc282db1731a"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "88524c63747d154b1184688afed7951034f07c84da8688ad98ff418a6965c410",
+      "bytes": 2756369
+    }
+  ],
+  "basicPodiumFootings": [],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "nativeBasicFallbackGrounds": [],
+  "retainedNativeBasicFallbackGroundChecks": [
+    "landsd/271344:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

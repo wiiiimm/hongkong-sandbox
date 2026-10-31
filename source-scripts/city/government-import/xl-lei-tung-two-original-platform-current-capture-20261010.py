@@ -1,0 +1,34 @@
+"""Fresh complete paired original/current/provider capture, identity input only."""
+import importlib.util,json,uuid,numpy as np
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest,connect,reservations,NATIVE_RUN
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from exact_original_georef_cell_identity_20261009 import verify_files as raw_verify
+from lei_tung_lower_platform_current_bound_identity_20261010 import DOC,UID,PLATFORM,MODELS,native_rows,verify_native_rows,module,stream_pin
+LOCAL=HERE/'local'/DOC.name
+BASE=DOC.parent
+INPUTS=[BASE/'government-xl-tung-sing-commercial-current-identity-diagnostic-20261010/selection.json.gz',BASE/'government-xl-tung-sing-interior-current-identity-inputs-v2-20261010/selection.json.gz']
+
+def main():
+ assert not DOC.exists();claim=reservations.claim('lei-tung-complete-platform-identity-'+str(uuid.uuid4()),['building:'+u for u in MODELS],batch=DOC.name,ttl=3600);assert claim['ok'];lease=claim['reservation']
+ try:
+  manifest=ROOT/'3d-viewer/city/data/manifest.json';mraw=manifest.read_bytes();msha=digest(mraw);rows=[r for p in INPUTS for r in read(p)['rows'] if r['uid'] in MODELS];assert len(rows)==2 and {r['uid'] for r in rows}==set(MODELS);worlds={};pins={}
+  for r in rows:
+   mid,sha,count=MODELS[r['uid']];raw=(ROOT/r['candidate']['path']).read_bytes();assert digest(raw)==sha and r['modelId']==mid;worlds[r['uid']]=decode_original_world_triangles(raw);pins[r['uid']]=stream_pin(raw,mid,count)
+  final=module('lei_tung_paired_fresh_current_forms','xl-final-script-pass.py');tri=np.concatenate(list(worlds.values()));lo,hi=tri.min((0,1)),tri.max((0,1));loaded=final.load_forms([lo[0]-2,lo[2]-2,hi[0]+2,hi[2]+2]);forms=[b for b,_,_ in loaded];hashes={t:digest((ROOT/'3d-viewer'/t).read_bytes()) for _,_,t in loaded};contexts=[];raw_proofs={}
+  for r in rows:
+   own=[v for v in loaded if v[0]['uid']==r['uid']];assert len(own)==1;b,_,tile=own[0];assert b['buildingCSUID']==r['source']['building']['buildingCSUID'];r['source']={'building':b,'tile':tile,'tileSHA256':hashes[tile]};r['triangles']=MODELS[r['uid']][2];ctx={'uid':r['uid'],'sourceSHA256':r['sourceSHA256'],'identity':final.identity_context(r,worlds[r['uid']],loaded),'neighbourTileHashes':hashes};contexts.append(ctx);raw_proofs[r['uid']]=raw_verify(r,ctx,LOCAL/r['uid'].split('/')[1])
+  with connect() as c:
+   c.execute('SET TRANSACTION READ ONLY');native=native_rows(c);verify_native_rows(native)
+   for r in rows:
+    n=next(v for v in native if v['model']['modelId']==r['modelId']);assert n['model']==r['native']['model'] and n['resultSHA256']==r['native']['resultSha'] and n['sourceKey'].rsplit('/',1)[0]==r['native']['cacheKey'];assert c.execute('SELECT r.result_sha FROM astra_modelling.native_stage_results r JOIN astra_modelling.native_stage_members m USING(cache_key) WHERE m.run_id=%s AND r.cache_key=%s',(NATIVE_RUN,r['native']['cacheKey'])).fetchone()==(r['native']['resultSha'],)
+  DOC.mkdir(parents=True);query=module('lei_tung_fresh_paired_provider','xl-aqua-marine-fresh-overhead-source-context-v3-20261010.py');query.DOC=DOC;where="BuildingCSUID IN ('3417311416T20050430','3417111358P20060312','3417011358T20050430')";primary=query.query(0,where,'exact-current-primary',True);relations=query.query(1002,where,'exact-current-structure-relations');assert len(primary)==3 and not relations
+  save(DOC/'source-lookup.json.gz',{'rows':native});save(DOC/'complete-original-stream-pins.json.gz',pins);save(DOC/'current-inputs.json.gz',{'manifestSHA256':msha,'forms':forms,'tileHashes':hashes});save(DOC/'selection.json.gz',{'rows':rows,'manifestSHA256':msha});save(DOC/'context.json.gz',{'rows':contexts});save(DOC/'raw-independent-original-identities.json.gz',raw_proofs);(DOC/'captured-manifest.json').write_bytes(mraw)
+  (DOC/'README.md').write_text('Complete unchanged government originals: commercial254604 (874faces/19parts), lower platform126434 (432faces/3parts). Raw commercial standalone94.79% identity failure retained; paired identity is usable only with both originals in runtime. All current nearby forms/tiles, unique native source versions and BOTH current native-run memberships, complete original scene/root/BIN/attribute/world streams, raw full-cell checks and fresh unique provider records are bound. Zero structure/OP relations; no common legal ownership or physical/support/collision/terrain credit. Exact original upward lower-platform part2 supplies every missing upper footprint region, independent rational oriented-boundary and finite-facet/closed-edge proofs required. Tung Sing53800 remains independently checked and never suppressed. No original mesh edits or model AI.\n')
+  refs=INPUTS+[Path(__file__),manifest,*[ROOT/r['candidate']['path'] for r in rows],*[ROOT/'3d-viewer'/u for u in hashes]]+[p for p in LOCAL.rglob('*') if p.is_file()]
+  for file in ['lei_tung_named_original_lower_platform_identity_20261010.py','test_lei_tung_named_original_lower_platform_identity_20261010.py','lei_tung_lower_platform_current_bound_identity_20261010.py','exact_original_polygon_triangle_partition_20261010.py','test_exact_original_polygon_triangle_partition_20261010.py','exact_original_slab_projection_coverage_20261010.py','test_exact_original_slab_projection_coverage_20261010.py','tung_sing_current_bound_identity_20261010.py','xl-aqua-marine-fresh-overhead-source-context-v3-20261010.py']:refs.append(HERE/file)
+  for batch in ['government-xl-tung-sing-commercial-primary-context-20261010','government-xl-tung-sing-three-original-primary-family-20261010','government-xl-tung-sing-commercial-original-assembly-20261010','government-xl-tung-sing-commercial-complete-coverage-context-20261010','government-xl-tung-sing-commercial-missing-original-platform-surfaces-20261010','government-xl-tung-sing-commercial-exact-missing-platform-coverage-20261010']:refs.extend(p for p in (BASE/batch).rglob('*') if p.is_file())
+  assert manifest.read_bytes()==mraw and reservations.owns(lease)
+  result=module('lei_tung_platform_input_fence','xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(DOC.name,'complete-lei-tung-mandatory-two-original-platform-inputs-v1',refs,{'uids':[UID,PLATFORM],'identityAccepted':False,'physicalAccepted':False,'scriptFullAcceptancePassed':False,'completeOriginalFaces':[874,432],'mandatoryOriginalRuntimeUIDs':[UID,PLATFORM],'standaloneOriginalImportAccepted':False,'bothNativeRunMembershipsVerified':True,'rawIndependentOriginalReasons':{u:p['reasons'] for u,p in raw_proofs.items()},'remainingReason':'paired-current-identity-replay-and-independent-three-original-physical-gates'});print(json.dumps({'jobId':result['jobId'],'manifestSHA256':msha,'rawReasons':{u:p['reasons'] for u,p in raw_proofs.items()}}),flush=True)
+ finally:assert reservations.release(lease)['ok']
+if __name__=='__main__':main()

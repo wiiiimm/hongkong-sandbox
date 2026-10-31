@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_five_member_terrain_dry_run_v3_20261029.py", line 42, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_five_member_terrain_dry_run_v3_20261029.py", line 36, in main
+    sys.argv=['publish.py',str(path.relative_to(ROOT))];pub.main()
+                                                        ^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 166, in main
+    stage_top_level_terrain(plan,original,manifest,edits,report)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_five_member_terrain_stage_v1_20261029.py", line 91, in stage
+    ordinary(plan,logical_original,staged_manifest,staged_edits,staged_report)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 118, in stage_top_level_terrain
+    validate_effective_coordinated_members(existing+[load(ROOT/entry['source'])for entry in entries])
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_five_member_terrain_stage_v1_20261029.py", line 50, in effective
+    boundary.validate_effective_coordinated_members([n for n in nodes if not boundary.marker(n)or boundary.marker(n).get('policy')!=three.POLICY])
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_whole_parent_five_boundary_v1_20261029.py", line 165, in validate_effective_coordinated_members
+    assert not any(legacy.canonical_sha(n)==legacy.canonical_sha(old)for n in nodes),'Old whole parent remains effective'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_whole_parent_five_boundary_v1_20261029.py", line 165, in <genexpr>
+    assert not any(legacy.canonical_sha(n)==legacy.canonical_sha(old)for n in nodes),'Old whole parent remains effective'
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/coordinated_native_boundary.py", line 22, in canonical_sha
+    unbound['nativeMesh'].pop('sourceOverlap',None)
+    ~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'nativeMesh'
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_five_member_terrain_dry_run_v3_20261029.py", line 42, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_five_member_terrain_dry_run_v3_20261029.py", line 19, in main
+    try:subprocess.run([sys.executable,str(HERE/'bounded_reserved_runner_v2_20261022.py'),str(LEASE),sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_reserved_runner_v2_20261022.py', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-fuying181489-five-member-terrain-publisher-dry-run-v3-20261029/reservation.json', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/fuying_five_member_terrain_dry_run_v3_20261029.py', '--owned']' returned non-zero exit status 1.

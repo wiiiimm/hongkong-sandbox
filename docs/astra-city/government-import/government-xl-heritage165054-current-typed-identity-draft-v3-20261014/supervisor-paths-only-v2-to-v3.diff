@@ -1,0 +1,31 @@
+--- docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v2-20261014/ROOT-only-current-typed-identity-supervisor-draft-v2.py
++++ docs/astra-city/government-import/government-xl-heritage165054-current-typed-identity-draft-v3-20261014/ROOT-only-current-typed-identity-supervisor-draft-v3.py
+@@ -3,10 +3,10 @@
+ import sys,json,subprocess,uuid,re
+ PACKET=Path(__file__).resolve().parent;ROOT=PACKET.parents[3];HERE=ROOT/'source-scripts/city/government-import';sys.path.insert(0,str(HERE))
+ from run import read,save,reservations,digest
+-CALLER=PACKET/'heritage-current-typed-identity-caller-draft-v2.py';c=read(PACKET/'input-contract.json')
++CALLER=PACKET/'heritage-current-typed-identity-caller-draft-v3.py';c=read(PACKET/'input-contract.json')
+ assert digest(CALLER.read_bytes())==c['callerSHA256']and read(PACKET/'ROOT-PREFLIGHT.json')['passed']
+-assert not(PACKET/'current-identity-output-v2').exists()
+-prep=PACKET/'ROOT-actual-preparation-v2';assert not prep.exists();prep.mkdir()
++assert not(PACKET/'current-identity-output-v3').exists()
++prep=PACKET/'ROOT-actual-preparation-v3';assert not prep.exists();prep.mkdir()
+ def fence():
+  for p,h in c['filePins'].items():assert digest((ROOT/p).read_bytes())==h,p
+  assert digest(CALLER.read_bytes())==c['callerSHA256']
+@@ -16,7 +16,7 @@
+ runner=HERE.parent/'shared-modelling/reservations.py'
+ fence();testlease,testfile=claim('tests');testStatus=None
+ try:
+- cmd=[sys.executable,str(runner),'run','--lease-file',str(testfile),'--ttl','3600','--',sys.executable,'-m','unittest','discover','-s',str(PACKET),'-p','test_heritage_current_typed_identity_draft_v2.py','-v']
++ cmd=[sys.executable,str(runner),'run','--lease-file',str(testfile),'--ttl','3600','--',sys.executable,'-m','unittest','discover','-s',str(PACKET),'-p','test_heritage_current_typed_identity_draft_v3.py','-v']
+  q=subprocess.run(cmd,cwd=ROOT,capture_output=True,text=True);testStatus=q.returncode
+  with (prep/'tests.log').open('x')as f:f.write(q.stdout+q.stderr)
+ finally:
+@@ -37,4 +37,4 @@
+  save(prep/'replay-supervisor-terminal.json',dict(exitCode=replayStatus,leaseReleased=not reservations.owns(replaylease),leaseFile=str(replayfile)))
+ assert replayStatus==0;fence()
+ # ROOT reviews/finally freezes output separately; no historical job/review/event mutation.
+-print(json.dumps(dict(complete=True,tests=16,testLeaseReleased=True,replayLeaseReleased=not reservations.owns(replaylease),result=read(PACKET/'current-identity-output-v2/result.json'))),flush=True)
++print(json.dumps(dict(complete=True,tests=16,testLeaseReleased=True,replayLeaseReleased=not reservations.owns(replaylease),result=read(PACKET/'current-identity-output-v3/result.json'))),flush=True)

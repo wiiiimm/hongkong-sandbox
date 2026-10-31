@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {sourceBoundBasicBottom} from '../source-bound-basic-ground.js';
+const fixture=()=>({uid:'landsd/92881:0',kind:'retail',structureType:'Tower',base:13.1,height:47.9,minimum:0,baseSource:'landsd',heightSource:'landsd',baseHeightHKPD:13.1,topHeightHKPD:61,nativeFallbackGround:{recipe:'original-source-basic-ground-v1',uid:'landsd/92881:0',sourceSHA256:'a'.repeat(64),terrainSHA256:'b'.repeat(64),drawnGroundSHA256:'c'.repeat(64),originalBottom:13.1,sourceMinimumY:4.606986999511719,base:5.1500043869018555}});
+test('legacy fallback and minimum remain unchanged',()=>{assert.equal(sourceBoundBasicBottom({base:13.1,minimum:2}),15.1);});
+test('source-bounded proposal preserves every supplied field and roof height',()=>{const b=fixture(),before=structuredClone(b);assert.equal(sourceBoundBasicBottom(b),5.1500043869018555);assert.deepEqual(b,before);assert.equal(b.base+b.height,61);});
+test('detailed geometry never receives a BASIC continuation',()=>{const b=fixture();b.modelGeometry={};assert.equal(sourceBoundBasicBottom(b),13.1);});
+test('wrong identity or digest rejects',()=>{for(const [key,value]of[['uid','landsd/other:0'],['sourceSHA256','unknown'],['terrainSHA256','']]){const b=fixture();b.nativeFallbackGround[key]=value;assert.throws(()=>sourceBoundBasicBottom(b));}});
+test('changed recorded base and roof reject stale proposals',()=>{for(const key of['base','height','baseHeightHKPD','topHeightHKPD']){const b=fixture();b[key]+=.1;assert.throws(()=>sourceBoundBasicBottom(b));}});
+test('no substitute for an elevated native part or the absolute terrain floor',()=>{for(const mutate of[b=>b.nativeFallbackGround.sourceMinimumY=13.1,b=>b.nativeFallbackGround.base=1,b=>b.nativeFallbackGround.base=14]){const b=fixture();mutate(b);assert.throws(()=>sourceBoundBasicBottom(b));}});
+test('canopy mechanism and existing foundation metadata are not repurposed',()=>{for(const mutate of[b=>b.structureType='Open-sided Structure',b=>b.kind='roof',b=>b.foundationBase=5]){const b=fixture();mutate(b);assert.throws(()=>sourceBoundBasicBottom(b));}});

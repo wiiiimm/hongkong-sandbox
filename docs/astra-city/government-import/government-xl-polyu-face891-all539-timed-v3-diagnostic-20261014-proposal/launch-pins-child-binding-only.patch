@@ -1,0 +1,19 @@
+--- polyu_face891_all539_timed_v3_diagnostic_draft_20261014.py (before child pins binding)
++++ polyu_face891_all539_timed_v3_diagnostic_draft_20261014.py
+@@ -43,7 +43,7 @@
+     save(DOC/'child-process.json',dict(pid=os.getpid(),ppid=os.getppid(),pgid=os.getpgid(0),maximumSeconds=MAX_CHILD_SECONDS))
+     progress_file=None
+     try:
+-        pins=read(PROPOSAL/'draft-pins.json')
++        pins=read(check(contract['inputPinsRef']))
+         for pin in pins['evidenceRefs']:check(pin)
+         # Imports, input checks, whole mask metadata and all one-face work are
+         # inside the same60s child deadline, not separately unbounded phases.
+@@ -94,6 +94,7 @@
+             collapsed+=not any(prior.oracle.normal(prior.oracle.points(t)))
+             residuals.extend(abs(v/n[1])for v in piece['exactPackedSourcePlaneResiduals'])
+         for pin in pins['evidenceRefs']:check(pin)
++        check(contract['inputPinsRef'])
+         packet=dict(scope='ONE source-private face891 V3 only, not a constructor or full physical proof',
+              face=891,completeFaceRelevantUniqueMasks=539,completeFaceRelevantOccurrences=2415,
+              processedUniqueMasks=len(result['maskDecisionAccounting']),

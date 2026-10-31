@@ -1,0 +1,62 @@
+{
+  "batch": "government-xl-after-tung-on-qe311317-current-sequence-v1-20261026",
+  "uids": [
+    "landsd/311317:0"
+  ],
+  "resources": [
+    "building:landsd/311317:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_current_capture_v3.py",
+      "batch": "government-xl-after-tung-on-qe311317-ground-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-tung-on-qe311317-selection-v1-20261026",
+        "--uid",
+        "landsd/311317:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-after-tung-on-qe311317-attributes-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-tung-on-qe311317-ground-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-after-tung-on-qe311317-identity-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-tung-on-qe311317-ground-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-after-tung-on-qe311317-model-scope-v1-20261026",
+      "args": [
+        "--runtime",
+        "government-xl-after-tung-on-qe311317-ground-v1-20261026",
+        "--attributes",
+        "government-xl-after-tung-on-qe311317-attributes-v1-20261026",
+        "--inventory",
+        "government-xl-after-tung-on-current-inventory-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_local_inset_v13_20261024.py",
+      "batch": "government-xl-after-tung-on-qe311317-original-inset-v1-20261026",
+      "args": [
+        "--capture",
+        "government-xl-after-tung-on-qe311317-ground-v1-20261026",
+        "--terrain-check",
+        "government-xl-all-200-original-terrain-batch-v2-20261022",
+        "--uid",
+        "landsd/311317:0"
+      ]
+    }
+  ]
+}

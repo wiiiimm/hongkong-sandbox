@@ -1,0 +1,115 @@
+{
+  "aiGeometryCalls": 0,
+  "policy": "source-preserving-final-lantau-disposition-v1",
+  "rows": [
+    {
+      "alignedBottomDeltaFromCurrentBaseM": 0.273999786376951,
+      "currentFootprintCorners": 4,
+      "footprintCentroidDistanceM": 0.16120794025073518,
+      "footprintOverlapOfSmaller": 0.9141881265976294,
+      "observation": "The unchanged government asset is only a flat-roof four-wall prism, with no texture or distinct architectural geometry. Its footprint and recorded height match the current simple form closely; importing the buried prism cannot add useful visible detail. Keep the current form.",
+      "sourceFootprintCorners": 4,
+      "sourceHorizontalRoofTriangles": 2,
+      "sourceRoofLevels": [
+        26.072,
+        27.898
+      ],
+      "sourceSHA256": "a25702361af5a07aaed04a44f492f2a72a44e7a416bba5da692459f1d1a56e52",
+      "sourceTextures": 0,
+      "sourceTriangles": 10,
+      "state": "good-to-go",
+      "uid": "landsd/112959:0"
+    },
+    {
+      "alignedBottomDeltaFromCurrentBaseM": -0.4583984374999943,
+      "currentFootprintCorners": 4,
+      "footprintCentroidDistanceM": 0.21465073547071772,
+      "footprintOverlapOfSmaller": 0.8725717682367641,
+      "observation": "The unchanged government asset is only a flat-roof four-wall prism, with no texture or distinct architectural geometry. Its footprint and recorded height match the current simple form closely; importing the buried prism cannot add useful visible detail. Keep the current form.",
+      "sourceFootprintCorners": 4,
+      "sourceHorizontalRoofTriangles": 2,
+      "sourceRoofLevels": [
+        165.4,
+        168.258
+      ],
+      "sourceSHA256": "bb7787bc9b8ef033075503f280459fb696e94e10b031267b8724545dfad22880",
+      "sourceTextures": 0,
+      "sourceTriangles": 10,
+      "state": "good-to-go",
+      "uid": "landsd/182471:0"
+    },
+    {
+      "intersectingForms": [
+        {
+          "coveredFraction": 0.9979185737693513,
+          "csuid": "0856014499T20060721",
+          "installedOfficial": false,
+          "uid": "landsd/168823:0"
+        },
+        {
+          "coveredFraction": 0.591054621118359,
+          "csuid": "0854114513T20060725",
+          "installedOfficial": true,
+          "uid": "landsd/181268:0"
+        },
+        {
+          "coveredFraction": 0.9999999999999999,
+          "csuid": "0857214531T20080102",
+          "installedOfficial": false,
+          "uid": "landsd/184559:0"
+        },
+        {
+          "coveredFraction": 1.0000000000000004,
+          "csuid": "0854914506T20060725",
+          "installedOfficial": false,
+          "uid": "landsd/187216:0"
+        }
+      ],
+      "observation": "The source mesh extends across four distinct mapped CSUIDs, including one separately installed government model. Their upward surfaces intersect in 3D; importing the whole complex without an assembly-level replacement would duplicate or obscure it. Component identity and suppression need source-level proof.",
+      "projectedSourceAreaM2": 1495.4484000952225,
+      "sourceBounds": [
+        [
+          -25974.125,
+          559.6744995117188,
+          1957.6875
+        ],
+        [
+          -25916.6875,
+          579.9180297851562,
+          2029.625
+        ]
+      ],
+      "sourceSHA256": "1f46e6d0567c3d144e662acdb9678a89209f5365ec782d30f04c16a6cbcf5ff7",
+      "sourceTriangles": 1122,
+      "state": "held",
+      "surfaceCrossingPairsWithInstalledUid181268": 20,
+      "uid": "landsd/168823:0"
+    },
+    {
+      "observation": "The unchanged model passes a trial terrain alignment, but that correction moves 3,803 rendered vertices and shifts some terrain over 113 m. The regional terrain seam needs bounded source reconciliation before installation.",
+      "regionalOverlapProbe": {
+        "aiCalls": 0,
+        "changedRenderedVertices": 3803,
+        "correctedSHA256": "e7879f33642ff487526fef5d49e5aca88837ff9c3e9c028507e6bd7b48e30b67",
+        "excludedCells": [
+          [
+            182,
+            0,
+            378,
+            14
+          ]
+        ],
+        "maxRenderedHeightAdjustmentM": 113.51347000000001,
+        "muiWoSHA256": "44aca78cfc1c28e1bf9b99a25f3398695ae5db15859473f21fa36a21eb25fdb3",
+        "policy": "deduplicate-aligned-official-regional-terrain-v1",
+        "puiOOriginalSHA256": "e5efbcb86ae24bdc8a913556667d8f6f1e7a19db936bd71f0caa568735b0cb10",
+        "rawElevationUnchanged": true,
+        "sourceGeometryChanged": false,
+        "uid": "landsd/195308:0"
+      },
+      "state": "held",
+      "uid": "landsd/195308:0"
+    }
+  ],
+  "sourceGeometryChanges": 0
+}

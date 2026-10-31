@@ -1,0 +1,238 @@
+ 
+ 
+Page 1 of 4  
+Version 1.0 (September 2025) 
+Survey and Mapping Office (SMO), Lands Department  
+The Government of the Hong Kong Special Administrative Region
+23/F North Point Government Offices, 333 Java Road, North Point, Hong Kong 
+ 
+ 
+Information Sheet on 3D Visualisation Map (Non-textured models) 
+ 
+Introduction 
+The 3D digital map forms a major building block of the Common Spatial Data Infrastructure (CSDI), facilitating the 
+sharing and opening of government geospatial data and meeting digital map applications' needs. To meet the 
+increasing needs of 3D digital map applications and enhance a better understanding of multilevel spaces of a 
+modern city like Hong Kong, the Lands Department of the Hong Kong SAR Government (LandsD) has been actively 
+developing a set of high-quality 3D Digital Map covering the whole territory of Hong Kong since 2020. 
+ 
+The 3D digital map project comprises the generation of a set of high-quality 3D visualisation map showing 
+topographical and exterior features of terrain, buildings and infrastructures over the territory; 3D indoor map showing 
+the accessible interior of buildings and structures for 1 250 buildings; and 3D pedestrian network data over the 
+territory. 
+ 
+The 3D Visualisation Map (Non-textured models) is a set of digital data of 3D models featuring geometry models 
+and terrain texture maps to represent the geometrical shape and position of different types of ground objects, 
+including building, infrastructure and terrain. Following the release of the 3D Visualisation Map of the whole territory 
+of Hong Kong in March 2025, the LandsD prepares non-textured building and infrastructure models. The LandsD 
+will continuously update the 3D Visualisation Map to provide up-to-date information with a view to promoting smart 
+city development. 
+ 
+Classification  
+The 3D Visualisation Map (Non-textured models) is classified into three (3) types, namely Building, Infrastructure 
+and Terrain. Building and Infrastructure (e.g. flyovers / bridges / footbridges) are individualised on feature basis. 
+Terrain is individualised on tile basis. 
+Types 
+Individualized 
+Level of 
+Detail 
+(LOD)
+Description 
+Examples 
+Building  
+(e.g. building 
+and podium)  
+Feature basis 
+LOD1 
+A uniform prism to represent 
+the general footprint and the 
+overall height.  
+- 
+LOD2 
+A polyhedron to represent 
+the general footprint and 
+roof top structures.  
+LOD3  
+A polyhedron to represent a 
+miniature of a building.  
+ 
+ 
+ 
+ 
+
+ 
+ 
+Page 2 of 4  
+Version 1.0 (September 2025) 
+Infrastructure 
+(e.g. flyovers / 
+bridges / 
+footbridges)  
+Feature basis 
+LOD1 
+A polyhedron to represent 
+the general outline of an 
+infrastructure. 
+- 
+LOD2 
+A polyhedron to represent 
+the general outline and 
+major ancillary features of 
+an infrastructure e.g. noise 
+barrier and sign gantries on 
+highways.  
+- 
+LOD3  
+A polyhedron to represent a 
+miniature 
+of 
+an 
+infrastructure 
+with 
+all 
+ancillary features e.g. sign 
+boards on highways.  
+Terrain 
+Tile basis 
+n.a. 
+Terrain Model is in the form 
+of Digital Terrain Model 
+(DTM) which is a surface 
+model to 
+represent 
+the 
+elevation of the bare ground 
+with an orthophoto draped 
+on. Terrain Model is sub-
+divided into standard tiles 
+and referenced in the same 
+manner as the LandsD’s 
+1:1,000 topographic map 
+tiles (i.e. 750m x 600m). 
+ 
+ 
+Data Structure  
+Data files  
+Each 3D model is identified by a unique model identity number (model ID) with 18 alphanumeric characters, and 
+associated with a file folder storing the digital files of its 3D geometry model and texture image(s). The file folder 
+and digital files are named according to the model ID.  
+Model Identity Number of 3D Model
+X9999999999SSDDLLA 
+ 
+ 
+ 
+ 
+ 
+Begin 
+Column 
+Type 
+Remarks 
+Model Type 
+1st 
+String 
+“B” stands for building models, “I” 
+stands for infrastructure models and “T” 
+stands for terrain models 
+Geo-reference No. 
+Department Code 
+Level Code 
+Model Type 
+Version Code 
+Sub-type 
+
+ 
+ 
+Page 3 of 4  
+Version 1.0 (September 2025) 
+Geo-reference 
+No. 
+2nd to 11th 
+10-digit geographic reference number 
+Sub-type 
+12th to 13th 
+Building Models:   
+01 = Tower, 
+02 = Podium 
+ 
+Infrastructure Models: 
+01 = Road 
+02 = Bridge 
+03 = Footbridge 
+04 = Tunnel/Subway 
+05 = Railway 
+06 = Highway 
+07 = Elevated road/Flyover 
+08 = Tunnel portal 
+99 = Miscellaneous  
+ 
+Terrain Models: 
+01 = Terrain 
+99 = Miscellaneous 
+Department 
+Code 
+14th to 15th 
+“06” stands for the models created by the 
+Lands Department 
+Level Code 
+16th to 17th 
+“2G” (LOD2) or “3C” (LOD3) for all 
+exposed models (except terrain model) 
+without photo-realistic texture 
+ 
+“E1” if all exposed terrain model facades 
+are attached with photo-realistic texture, 
+“E2” if none of the exposed terrain 
+model facades are attached with photo-
+realistic texture 
+Version Code 
+18th 
+When the 3D Model or the Photorealistic 
+Texture of the 3D Model is revised, 
+Version Code shall be changed following 
+the below sequence 
+A = 0,1,2,3,…..9,A, B, ….,Z 
+ 
+ 
+ 
+
+ 
+ 
+Page 4 of 4  
+Version 1.0 (September 2025) 
+ 
+File format  
+The 3D Visualisation Map (Non-textured models) are available in the MAX, FBX and glTF formats. The photo-
+realistic texture of the Terrain Model is a single texture image or multiple texture images used to map on the exposed 
+faces of 3D geometry model with the JPEG format.  
+ 
+Accuracy  
+Horizontal accuracy is assessed using root-mean-square-error (RMSE) statistics in the horizontal plane, i.e., 
+RMSEx, RMSEy and RMSEr. Vertical accuracy is assessed in the z dimension only. Absolute accuracy is a 
+measure that accounts for all systematic and random errors in a dataset. Relative accuracy is a measure of variation 
+in point-to-point accuracy in a dataset. 
+Absolute Accuracy 
+Relative Accuracy 
+Horizontal 
+Vertical 
+Horizontal 
+Vertical 
+RMSEx and 
+RMSEy
+RMSEr 
+RMSEz 
+ 
+≤ 0.30 m 
+≤ 1.414x0.30 
+m 
+≤ 0.50 m 
+≤ 0.20 m 
+≤ 0.20 m 
+ 
+Tile Reference  
+The 3D Visualisation Map (Non-textured models) is supplied on tile basis. The whole set of data is sub-divided into 
+standard tiles and referenced in the same manner as the 1:1000 topographic map tiles, i.e. the data of a tile, say 
+No. 11-NE-17A, will include all 3D models which are partly (based on centroid) or completely located within the 
+area as covered by this map tile.  
+ 
+Enquiries  
+For Enquiries, Tel: 2231 3390 or Email: smo3dmap@landsd.gov.hk 

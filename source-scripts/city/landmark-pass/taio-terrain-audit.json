@@ -1,0 +1,206 @@
+{
+  "stagedOnly": true,
+  "parentTerrainURL": "city/data/terrain-tai-o.json",
+  "parentSha256": "f1ddfdb96c1403fc63a9eabb998620f85c7d0390bbb89b1f5f55500e39387160",
+  "sourceManifest": "source-scripts/city/landmark-pass/staged-existing/9-SW-22B/manifest.json",
+  "sourceManifestSha256": "97f72d5e30fa16293c1545b068b2f09d5570d27f87cf73c339a833aaacbbd335",
+  "sourceTile": "9-SW-22B",
+  "sourceRevision": "2026-05-10T16:00:00+00:00",
+  "sourceHashes": {
+    "TERRAIN(TB)/T02250126000106E11/T02250126000106E11.gltf": "04ba3828e5efef35e889cc5b07289c5a43b5258ba1dbe71cd39a4687b4fa5141",
+    "TERRAIN(TB)/T02250126000106E11/T02250126000106E11.bin": "4a81638366bb56620f91c657875ecea2769e465694dc1548d42e26f7f4cf14e2"
+  },
+  "publicationStatus": "held-existing-child-overlap",
+  "newPatches": 0,
+  "reason": "Both terrain defects intersect existing child refinement-2; adding disjoint sibling patches cannot fix its interior transition. Native source also exceeds outbuilding 239278 highest roof by 0.226m over 6.663 square metres. A reviewed replacement of the existing child is required; no ground or model heights are invented.",
+  "existingChildren": [
+    {
+      "id": "tai-o-source-refinement-1",
+      "coarseCells": [
+        198,
+        32,
+        208,
+        42
+      ],
+      "bounds": [
+        -30747.5,
+        3272.5,
+        -30697.5,
+        3322.5
+      ]
+    },
+    {
+      "id": "tai-o-source-refinement-2",
+      "coarseCells": [
+        32,
+        121,
+        47,
+        132
+      ],
+      "bounds": [
+        -31577.5,
+        3717.5,
+        -31502.5,
+        3772.5
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "uid": "landsd/170271:0",
+      "nativeModelBounds": [
+        [
+          -31543.25,
+          20.87929916381836,
+          3738.25
+        ],
+        [
+          -31532.5,
+          21.83180046081543,
+          3741.75
+        ]
+      ],
+      "surveyedBase": 20.3,
+      "surveyedTop": 23.1,
+      "footprintArea": 6.258399999999775,
+      "currentRenderedTerrain": {
+        "min": 20.215,
+        "max": 20.674
+      },
+      "nativeTerrain": {
+        "intersectingTriangles": 3,
+        "coverageArea": 6.25840000000137,
+        "minimum": 20.20623298980886,
+        "maximum": 20.67951556533771,
+        "maximumPoint": [
+          -31542.69,
+          3739.735
+        ],
+        "centre": 20.389823618088077,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "overlappingExistingChildren": [
+        "tai-o-source-refinement-2"
+      ],
+      "roofPartlyBelowCurrent": false,
+      "roofPartlyBelowNative": false
+    },
+    {
+      "uid": "landsd/170357:0",
+      "nativeModelBounds": [
+        [
+          -31555.375,
+          17.33060073852539,
+          3738.8125
+        ],
+        [
+          -31542.875,
+          24.707500457763672,
+          3751.3125
+        ]
+      ],
+      "surveyedBase": 20.3,
+      "surveyedTop": 23,
+      "footprintArea": 16.150964499998132,
+      "currentRenderedTerrain": {
+        "min": 20.422,
+        "max": 20.984
+      },
+      "nativeTerrain": {
+        "intersectingTriangles": 12,
+        "coverageArea": 16.15096449999624,
+        "minimum": 20.421241034580596,
+        "maximum": 21.00663948059082,
+        "maximumPoint": [
+          -31549.767333984375,
+          3741.7509765625
+        ],
+        "centre": 20.95803517586847,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "overlappingExistingChildren": [
+        "tai-o-source-refinement-2"
+      ],
+      "roofPartlyBelowCurrent": false,
+      "roofPartlyBelowNative": false
+    },
+    {
+      "uid": "landsd/239278:0",
+      "nativeModelBounds": [
+        [
+          -31584.5,
+          3.6143999099731445,
+          3770.3125
+        ],
+        [
+          -31569.1875,
+          8.213399887084961,
+          3779.4375
+        ]
+      ],
+      "surveyedBase": 4.1,
+      "surveyedTop": 8.6,
+      "footprintArea": 29.97556000000908,
+      "currentRenderedTerrain": {
+        "min": 11.894,
+        "max": 17.0
+      },
+      "nativeTerrain": {
+        "intersectingTriangles": 12,
+        "coverageArea": 29.975560000010457,
+        "minimum": 4.1764941479659345,
+        "maximum": 8.439173567281383,
+        "maximumPoint": [
+          -31571.72267439083,
+          3773.4501953125
+        ],
+        "centre": 8.129874318958482,
+        "areaAboveHighestRoofPlusTolerance": 6.663103385150128
+      },
+      "overlappingExistingChildren": [
+        "tai-o-source-refinement-2"
+      ],
+      "roofPartlyBelowCurrent": true,
+      "roofPartlyBelowNative": true
+    },
+    {
+      "uid": "landsd/67478:0",
+      "nativeModelBounds": [
+        [
+          -31578.125,
+          17.33060073852539,
+          3740.0
+        ],
+        [
+          -31553.875,
+          28.788999557495117,
+          3755.125
+        ]
+      ],
+      "surveyedBase": 16.9,
+      "surveyedTop": 26.4,
+      "footprintArea": 205.22348500000027,
+      "currentRenderedTerrain": {
+        "min": 17.483,
+        "max": 29.441
+      },
+      "nativeTerrain": {
+        "intersectingTriangles": 44,
+        "coverageArea": 205.22348500000552,
+        "minimum": 17.471155166625977,
+        "maximum": 19.452463209418312,
+        "maximumPoint": [
+          -31554.755439744364,
+          3746.7344069430796
+        ],
+        "centre": 17.711386995886993,
+        "areaAboveHighestRoofPlusTolerance": 0
+      },
+      "overlappingExistingChildren": [
+        "tai-o-source-refinement-2"
+      ],
+      "roofPartlyBelowCurrent": true,
+      "roofPartlyBelowNative": false
+    }
+  ]
+}

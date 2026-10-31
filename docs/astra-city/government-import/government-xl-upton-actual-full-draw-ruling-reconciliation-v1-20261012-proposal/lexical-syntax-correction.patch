@@ -1,0 +1,11 @@
+--- preserved/upton_actual_ruling_reconciliation_v1_20261012.py
++++ upton_actual_ruling_reconciliation_v1_20261012.py
+@@ -59,7 +59,7 @@
+  for lo,hi in zip(breaks,breaks[1:]):
+   mid=(lo+hi)/2;active=[q for q in hits if q['iv'][0]<=mid<=q['iv'][1]];interior=[q['face']for q in active if all(c+s*mid>0 for c,s in q['bary'])];planes=defaultdict(list)
+   for q in active:
+-   nk=normal_key(q['normal']);values=[dot(nk,cross(d,sub(p,a)))for p in q['points']];side=max(values,key=abs);planes[nk].append((q['face'],1 if side>0 else-1 if side<0 else0))
++   nk=normal_key(q['normal']);values=[dot(nk,cross(d,sub(p,a)))for p in q['points']];side=max(values,key=abs);planes[nk].append((q['face'],1 if side>0 else -1 if side<0 else 0))
+   two_sided=[n for n,z in planes.items()if {-1,1}<={v for _,v in z}]
+   if interior:kind='strictInteriorOfSurvivingFacet'
+   elif two_sided:kind='coplanarTwoSidedInternalIncidence'

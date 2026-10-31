@@ -1,0 +1,43 @@
+{
+  "batch": "government-xl-disneyland-piers-after-passenger-all-basic-fallback-coast-sequence-v2-20261030",
+  "uids": [
+    "landsd/75642:0",
+    "landsd/75643:0"
+  ],
+  "resources": [
+    "building:landsd/75642:0",
+    "building:landsd/75643:0",
+    "source-form:way/334029318:0",
+    "terrain:city/data/terrain.json",
+    "source-form:landsd/75642:0",
+    "source-form:landsd/75643:0"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_clamped_coast_partition_inset_v5_20261030.py",
+      "batch": "government-xl-disneyland-piers-after-passenger-all-basic-fallback-coast-inset-v2-20261030",
+      "args": [
+        "--capture",
+        "government-xl-disneyland-piers-after-passenger-joint-current-ground-v1-20261030",
+        "--terrain-check",
+        "government-xl-disneyland-piers-after-passenger-joint-government-ground-v1-20261030",
+        "--context",
+        "government-xl-disneyland-piers-after-passenger-joint-buried-context-v1-20261030",
+        "--uid",
+        "landsd/75642:0",
+        "--uid",
+        "landsd/75643:0",
+        "--preserve-context",
+        "government-xl-disneyland-piers-after-passenger-75642-source-scope-v3-20261030",
+        "--preserve-uid",
+        "way/334029318:0",
+        "--preserve-fallback-uid",
+        "landsd/75642:0",
+        "--preserve-fallback-uid",
+        "landsd/75643:0",
+        "--parent-capture",
+        "government-xl-disneyland-piers-after-passenger-retained-osm-coast-inset-v1-20261030"
+      ]
+    }
+  ]
+}

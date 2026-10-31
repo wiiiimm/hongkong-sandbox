@@ -1,0 +1,22 @@
+staged 1280 initialising
+staged 1280 map ready
+staged 1280 retained asset requested
+staged 1280 retained asset response 200
+staged 1280 landsd/305793:0 retained original bytes cached
+staged 1280 retained asset requested
+staged 1280 retained asset response 200
+staged 1280 landsd/305582:0 retained original bytes cached
+staged 1280 landsd/305793:0 retained original active through visit
+staged 1280 landsd/305582:0 retained original active through visit
+staged 1280 landsd/305600:0 selecting
+ILLUMINATION_DIAGNOSTIC {"at":150706.10000000894,"selected":"landsd/305600:0","running":[],"loading":[],"decodedDrawCosts":["landsd/305793:0","landsd/305582:0","landsd/305600:0"],"activating":[],"detailed":[{"uid":"landsd/305793:0","active":true},{"uid":"landsd/305582:0","active":true},{"uid":"landsd/305600:0","active":true}],"stats":{"profile":"desktop","quality":"auto","catalogues":4,"available":19,"cached":3,"visible":3,"pending":0,"loadingPaused":false,"retiring":0,"wanted":3,"supportHolds":[],"errors":[],"variantErrors":[],"geometryBytes":7589406,"residentBytes":29873476,"triangles":80638,"limits":{"count":48,"concurrency":1,"geometryBytes":100663296,"residentBytes":268435456,"triangles":900000,"landmarkDistance":2500,"detailDistance":500,"minPixels":18,"drawCalls":256},"warm":0,"compressed":{"bytes":1967350,"entries":3,"pending":0,"running":0,"hits":2,"requests":3,"maxBytes":33554432,"maxEntries":96},"drawCalls":3}}
+ILLUMINATION_DIAGNOSTIC {"at":155931.10000000894,"selected":"landsd/305600:0","running":[],"loading":[],"decodedDrawCosts":["landsd/305793:0","landsd/305582:0","landsd/305600:0"],"activating":[],"detailed":[{"uid":"landsd/305793:0","active":true},{"uid":"landsd/305582:0","active":true},{"uid":"landsd/305600:0","active":true}],"stats":{"profile":"desktop","quality":"auto","catalogues":42,"available":2433,"cached":3,"visible":3,"pending":1,"loadingPaused":false,"retiring":0,"wanted":3,"supportHolds":[],"errors":[],"variantErrors":[],"geometryBytes":7589406,"residentBytes":29873476,"triangles":80638,"limits":{"count":48,"concurrency":1,"geometryBytes":100663296,"residentBytes":268435456,"triangles":900000,"landmarkDistance":2500,"detailDistance":500,"minPixels":18,"drawCalls":256},"warm":0,"compressed":{"bytes":1967350,"entries":3,"pending":0,"running":0,"hits":2,"requests":3,"maxBytes":33554432,"maxEntries":96},"drawCalls":3}}
+staged 1280 landsd/305600:0 active
+file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/ronsdale_three_live_browser_v10_20261024.mjs:83
+   for(const witness of joint){const expected=catalogue.models.find(m=>m.uid===witness.uid);assert(witness.active&&witness.visible);assert.equal(witness.sourceSHA256,expected.sha256);assert.equal(witness.originalTriangles,expected.triangles);assert.equal(witness.fallbackFaces,0);}
+                                                                                                                                                                               ^
+
+TypeError: Cannot read properties of undefined (reading 'sha256')
+    at file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/ronsdale_three_live_browser_v10_20261024.mjs:83:176
+
+Node.js v24.18.0

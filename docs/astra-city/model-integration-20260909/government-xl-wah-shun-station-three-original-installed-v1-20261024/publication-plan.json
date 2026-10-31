@@ -1,0 +1,91 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-wah-shun-station-three-qualified-stage-v2-20261024/plan.json",
+  "areas": [
+    {
+      "area": "Wah Shun Gardens and independent Quarry Bay Station originals",
+      "models": 3,
+      "catalogue": "city/data/official-models/government-xl-wah-shun-station-three-qualified-stage-v2-20261024/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-xl-wah-shun-station-three-original-terrain-v1-20261024.json": null,
+    "3d-viewer/city/data/official-models/government-xl-wah-shun-station-three-qualified-stage-v2-20261024/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "a4f255af16022c3c7541893481d41b42540a147897dff5240510dd95b6408b2b"
+  },
+  "after": {
+    "3d-viewer/city/data/government-xl-wah-shun-station-three-original-terrain-v1-20261024.json": "8109259e20455718866b1cf7e9c21c3bb52e9ff4a3cdfc916f83e0d34819d7cc",
+    "3d-viewer/city/data/official-models/government-xl-wah-shun-station-three-qualified-stage-v2-20261024/catalogue.json": "52b0e740b6b2604933d6802dadf62d427285d5274b23279ad100d6b90e379ea5",
+    "3d-viewer/city/data/manifest.json": "c2d89ffebc36ec5205b0abefc2aa8500323e0bd335ce15d711e5b741aaa5ebba"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "86b7f9fea42f8052d72fbcd365aea6e956ade262",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-xl-wah-shun-station-three-original-terrain-v1-20261024.json",
+      "resolution": 5,
+      "area": "Wah Shun Gardens and independent Quarry Bay Station originals",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            5133.13201635,
+            -81.96246053,
+            5193.067689,
+            16.00451542
+          ],
+          "outerBounds": [
+            5129.379627901486,
+            -85.71702962145238,
+            5196.812748186975,
+            19.753240759249874
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-owned-57-sequence-20261006-137130-0/sheets/11-SE-7A/terrain/TERRAIN(TB)/T39000162000106E11/T39000162000106E11.gltf",
+            "sha256": "f81f293bf41a1e3a6aa3ee544e9207bc379685dbb3efdc7b99bd2fd3eaac6561"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "8109259e20455718866b1cf7e9c21c3bb52e9ff4a3cdfc916f83e0d34819d7cc",
+      "bytes": 1840626
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "estimatedBases": []
+}

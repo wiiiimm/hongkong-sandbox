@@ -1,0 +1,93 @@
+--- source-scripts/city/government-import/upton_scoped_subdivision_saved_actual_union_delta_draft_v1_20261013.py
++++ source-scripts/city/government-import/upton_current_ring12_saved_actual_union_delta_draft_v1_20261013.py
+@@ -1,26 +1,29 @@
+-"""UNEXECUTED existing finite kernel on changed complete relevant tuples only."""
++"""Fresh saved-ring12 delta; exact complete relevant tuples only may reuse proofs."""
+ from pathlib import Path
+ from fractions import Fraction as F
+ from collections import defaultdict,deque
+ import sys,json,time,uuid,subprocess
+ import numpy as np
+ import upton_v6_saved_actual_union_finite_regression_draft_v3_20261013 as baseline
+-import upton_source35676_35677_actual_production_capture_draft_v1_20261013 as capture
++import upton_current_ring12_actual_production_capture_draft_v1_20261013 as capture
++import upton_scoped_subdivision_saved_actual_union_delta_draft_v1_20261013 as previous_delta
+ from run import ROOT,HERE,read,save,connect,reservations
+ ref,check=baseline.ref,baseline.check
+ sha,triangles,finite_record,closed_face_scope=baseline.sha,baseline.triangles,baseline.finite_record,baseline.closed_face_scope
+-BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-scoped-subdivision-saved-actual-union-delta-v1-20261013'
++BASE=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-current-ring12-saved-actual-union-delta-v1-20261013'
+ DOC=BASE/BATCH;PROPOSAL=BASE/(BATCH+'-proposal');LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+-GROUND_SHA='13c8ee05d793ff7e7cc530d2ecc1f2f8c4696d10471d6b0fa9aebc7537f47b6f'
+-CAP_JOB='8f0fe445fdc53797987668c1d3f7cde2b643c68625872e7c3d7f1d9aaf201f77'
+-OLD_JOB='60d6359bb99e50906d158651b86827b029c0efcb6b630f0b8e7d9df4a3b3ef14'
++GROUND_SHA='49188567c55f7903d96a8a82e246d7fef436d3b9569858eb3eed45944bda7258'
++CAP_JOB='8054682423db19952e6f6de614c792245a43a601ae363b3055d0e42100a1f06d'
++OLD_JOB='d5ede71c98345b8d3e767d6ac428c29480e20e61b664b8ca01ca8a65577c1e6a'
+ def inputs():
+  pins=read(PROPOSAL/'draft-pins.json');assert pins['caller']==ref(Path(__file__))
+  for q in pins['codeRefs']+pins['inputRefs']:check(q)
+- _,_,before,_,_,attrs,scope,actors=baseline.inputs() # Saved array/schema checks, no finite/source decoding.
+- previous=read(baseline.DOC/'complete-new-union-finite-regression.json.gz');assert previous['newGroundSHA256']==sha(before)==baseline.GROUND_SHA and previous['completeNewDrawnFaces']==11603
++ _,before,_,_,attrs,scope,actors=previous_delta.inputs() # Latest completed delta: saved array/schema checks, no finite/source decoding.
++ previous=read(previous_delta.DOC/'complete-actual-union-finite-delta.json.gz');assert previous['newGroundSHA256']==sha(before)==previous_delta.GROUND_SHA and previous['completeNewDrawnFaces']==11604
++ assert previous['same6650WholeScope']==ref(baseline.V6/'complete-affected-scope.json.gz')and previous['secondaryHeldAsForeignReceivesNoSupportCredit']and not previous['physicalAccepted']and not previous['installationApproved']
++ check(previous['allZerosAnd23CrossingsRetained'])
+  replay=read(capture.DOC/'actual-production-replay.json.gz');ground=triangles(np.asarray(replay['after']['closedDomainDrawnTriplets'],dtype='<f8').reshape(-1,3,3))
+- assert len(ground)==11604 and sha(ground)==GROUND_SHA and replay['startEndAllInputsVerified']and replay['currentExteriorXYZOrderedHashMatched']and replay['currentManifestSHA256']==baseline.CURRENT
++ assert len(ground)==11605 and sha(ground)==GROUND_SHA and replay['startEndAllInputsVerified']and replay['currentExteriorXYZOrderedHashMatched']and replay['currentManifestSHA256']==baseline.CURRENT
+  for p,h in replay['inputHashes'].items():check(dict(path=p,sha256=h))
+  assert ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==baseline.CURRENT
+  assert [r['uid']for r in previous['actors']]==baseline.OWNED+[baseline.SECONDARY,baseline.NATIVE]and len(previous['completeBasicRows'])==1911
+@@ -29,11 +32,15 @@
+   assert [w['mode']for w in actor['worlds']]==list(baseline.MODES)
+   for m,w in worlds.items():
+    row=next(r for r in actor['worlds']if r['mode']==m);assert row['wholeWorldSHA256']==sha(w)and row['completeFaces']==len(w)and row['completeScope']==closed_face_scope(w,baseline.DOMAIN)
+- assert len(scope['affectedBasic'])==52 and scope['secondaryHeldAsForeign']==baseline.SECONDARY
++ assert scope['completeNativeActors']==6650 and len(scope['affectedBasic'])==52 and scope['secondaryHeldAsForeign']==baseline.SECONDARY
++ assert not scope['otherTouchingNativeCompleteActualStreamsUnqualified']and [r['uid']for r in scope['wholeDomainTouchingNativeNominees']]==[baseline.NATIVE]
++ assert scope['allFacetAndBodyRoleObligationsRemain']and scope['secondaryCurrentFormsMustBeIncludedInFreshForeignPhysicalChecks']
++ assert sum(len(worlds['original'])for uid,worlds,_,_ in actors if uid in baseline.OWNED)==13312
++ assert len(next(worlds for uid,worlds,_,_ in actors if uid==baseline.SECONDARY)['original'])==392 and len(next(worlds for uid,worlds,_,_ in actors if uid==baseline.NATIVE)['original'])==616
+  return pins,ground,before,previous,attrs,scope,actors
+ def schema_only():
+  p,g,b,old,attrs,scope,actors=inputs()
+- return dict(passed=True,caller=ref(Path(__file__)),newDrawnFaces=len(g),newGroundSHA256=sha(g),oldDrawnFaces=len(b),oldGroundSHA256=sha(b),completeOwnedFaces=13312,secondaryForeignFaces=392,native79882Faces=616,completeBasicActors=1911,affectedBasicActors=52,noFiniteKernelOrSelectionReplay=True,noLeaseDBOrSourceDecode=True)
++ return dict(passed=True,caller=ref(Path(__file__)),newDrawnFaces=len(g),newGroundSHA256=sha(g),oldDrawnFaces=len(b),oldGroundSHA256=sha(b),completeNativeActorScope=6650,completeOwnedFaces=13312,secondaryForeignFaces=392,native79882Faces=616,completeBasicActors=1911,affectedBasicActors=52,noFiniteKernelOrSelectionReplay=True,noLeaseDBOrSourceDecode=True)
+ def owned():
+  lease=read(LEASE);assert reservations.owns(lease)and not DOC.exists();last=time.monotonic()
+  def pulse(force=False):
+@@ -41,7 +48,7 @@
+   if force or time.monotonic()-last>20:assert reservations.heartbeat(lease)['ok']and reservations.owns(lease);last=time.monotonic()
+  pins,ground,before,old,attrs,scope,actors=inputs();prep=read(PROPOSAL/'actual-readonly-preparation.json');assert prep['passed']and prep['caller']==ref(Path(__file__))
+  refs=pins['codeRefs']+pins['inputRefs']+[ref(PROPOSAL/'draft-pins.json'),ref(PROPOSAL/'METHOD.md'),ref(PROPOSAL/'actual-readonly-preparation.json')]+prep['evidenceRefs']
+- for folder,job in [(capture.DOC,CAP_JOB),(baseline.DOC,OLD_JOB)]:
++ for folder,job in [(capture.DOC,CAP_JOB),(previous_delta.DOC,OLD_JOB)]:
+   receipt=read(folder/'result.json');assert receipt['jobId']==job
+   with connect()as c:
+    c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(job,)).fetchone()==('complete',receipt)
+@@ -98,15 +105,20 @@
+   if uid in affected:row['findings']=assess(uid,{'capturedConstructorFloat32World':w},saved['findings'],'complete-affected-BASIC-regression')
+   basics.append(row);pulse()
+  assert len(basics)==1911 and len(affected)==52 and sum(len(r['completeScope']['selectedFaceIDs'])for r in basics)==2114
+- complete.verify_binding();prior.verify_binding();save(DOC/'complete-actual-union-finite-delta.json.gz',dict(actors=results,completeBasicRows=basics,newGroundSHA256=sha(ground),completeNewDrawnFaces=len(ground),oldGroundSHA256=sha(before),completeOldDrawnFaces=len(before),same6650WholeScope=ref(baseline.V6/'complete-affected-scope.json.gz'),actualSixGuards=ref(capture.DOC/'six-existing-production-protection-guards.json.gz'),rawOverlapValidatorFailure=ref(capture.DOC/'real-validator-outcome.json'),allZerosAnd23CrossingsRetained=old['allZerosAnd23CrossingsRetained'],secondaryHeldAsForeignReceivesNoSupportCredit=True,physicalAccepted=False,installationApproved=False,newlyInstalled=0))
++ complete.verify_binding();prior.verify_binding();save(DOC/'complete-actual-union-finite-delta.json.gz',dict(actors=results,completeBasicRows=basics,newGroundSHA256=sha(ground),completeNewDrawnFaces=len(ground),oldGroundSHA256=sha(before),completeOldDrawnFaces=len(before),previousCompletedDelta=ref(previous_delta.DOC/'result.json'),completeNativeActorScope=scope['completeNativeActors'],allHistoricalZeroAnd23CrossingObligations=scope['allHistoricalZeroAnd23CrossingObligations'],allFacetAndBodyRoleObligationsRemain=scope['allFacetAndBodyRoleObligationsRemain'],secondaryCurrentFormsMustBeIncludedInFreshForeignPhysicalChecks=scope['secondaryCurrentFormsMustBeIncludedInFreshForeignPhysicalChecks'],same6650WholeScope=ref(baseline.V6/'complete-affected-scope.json.gz'),actualSixGuards=ref(capture.DOC/'six-existing-production-protection-guards.json.gz'),rawOverlapValidatorFailure=ref(capture.DOC/'real-validator-outcome.json'),allZerosAnd23CrossingsRetained=old['allZerosAnd23CrossingsRetained'],secondaryHeldAsForeignReceivesNoSupportCredit=True,physicalAccepted=False,installationApproved=False,newlyInstalled=0))
+  refs+=[ref(p)for p in DOC.rglob('*')if p.is_file()]
+  for q in refs:check(q);pulse()
+  assert ref(ROOT/'3d-viewer/city/data/manifest.json')['sha256']==baseline.CURRENT;pulse(True)
+- baseline.module(baseline.FREEZER,'upton_scoped_finite_delta_freezer').freeze(BATCH,'scoped-subdivision-saved-actual-union-finite-regression-only',[check(q)for q in{(q['path'],q['sha256']):q for q in refs}.values()],dict(uids=baseline.OWNED+[baseline.SECONDARY,baseline.NATIVE],sourceOnly=True,physicalAccepted=False,newlyInstalled=0))
++ baseline.module(baseline.FREEZER,'upton_ring12_finite_delta_freezer').freeze(BATCH,'current-ring12-saved-actual-union-finite-regression-only',[check(q)for q in{(q['path'],q['sha256']):q for q in refs}.values()],dict(uids=baseline.OWNED+[baseline.SECONDARY,baseline.NATIVE],sourceOnly=True,physicalAccepted=False,newlyInstalled=0))
+ def main():
+  if '--schema-only'in sys.argv:print(json.dumps(schema_only(),sort_keys=True));return
+  if '--owned'in sys.argv:return owned()
+- assert '--check-saved-actual-union-delta-only'in sys.argv and not DOC.exists()and not LOCAL.exists()
++ assert '--check-saved-current-ring12-actual-union-delta-only'in sys.argv and not DOC.exists()and not LOCAL.exists()
++ inputs();prep=read(PROPOSAL/'actual-readonly-preparation.json');assert prep['passed']and prep['caller']==ref(Path(__file__))
+  uids=baseline.OWNED+[baseline.SECONDARY,baseline.NATIVE,baseline.FOREIGN];resources=['building:'+u for u in uids]+['terrain-patch:'+u for u in uids]+['immutable-source-proof:'+BATCH]
+- claim=reservations.claim('upton-scoped-union-delta-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600);assert claim['ok'];save(LEASE,json.loads(json.dumps(claim['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
++ claim=reservations.claim('upton-ring12-union-delta-'+str(uuid.uuid4()),resources,batch=BATCH,ttl=3600);assert claim['ok'];lease=claim['reservation']
++ try:
++  save(LEASE,json.loads(json.dumps(lease,default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
++ finally:
++  if reservations.owns(lease):assert reservations.release(lease)['ok']
+ if __name__=='__main__':main()

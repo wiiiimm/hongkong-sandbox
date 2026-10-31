@@ -1,0 +1,55 @@
+--- before/xl-southside-315025-300867-current-actual-ground-capture-v1-20261012.py
++++ corrected/xl-southside-315025-300867-current-actual-ground-capture-v1-20261012.py
+@@ -11,10 +11,12 @@
+ BASE=ROOT/'docs/astra-city/government-import'
+ DRAFT=BASE/'government-xl-southside-current-actual-ground-capture-draft-v1-20261012'
+ CONTRACT=DRAFT/'input-contract.json';METHOD=DRAFT/'METHOD.md'
++VALIDATION=DRAFT/'closure-correction-no-worker-validation-v1';SCHEMA=VALIDATION/'closure-schema-validation.json'
++VALIDATION_FILES=['offline-schema-hash-validation.json','closure-schema-validation.json','closure-schema-validation.log','python-ast.log','node-syntax.log','capture-caller.diff','geometry-exporter.diff','method.diff','archive-map.json','validate-closure-schema.mjs']
+ BATCH='government-xl-southside-315025-300867-current-actual-ground-capture-v1-20261012';DOC=BASE/BATCH;LOCAL=HERE/'local'/BATCH;LEASE=LOCAL/'reservation.json'
+ JS=HERE/'xl-southside-315025-300867-current-actual-ground-geometry-v1-20261012.mjs'
+ UIDS=['landsd/315025:0','landsd/300867:0'];MANIFEST='2dde0cfc3c0869963c185c3398e48a1928c76802b2efa6c2d9713183a6ad5540'
+-HELPERS=['run.py','exact_packed_world_geometry_20261009.py','exact_packed_world_bounds_v3_20261010.py','xl-final-script-pass.py','literal_production_module_dependency_closure_20261010.mjs','actual_float32_model_matrix_bounds_20261011.mjs','current_geometry_capture_preflight_20261011.mjs','xl-popcorn-source-investigations-checkpoints-20261009.py']
++HELPERS=['run.py','exact_packed_world_geometry_20261009.py','exact_packed_world_bounds_v3_20261010.py','xl-final-script-pass.py','exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs','actual_float32_model_matrix_bounds_20261011.mjs','current_geometry_capture_preflight_20261011.mjs','xl-popcorn-source-investigations-checkpoints-20261009.py','dependency-closure-vendor/acorn-8.8.1/acorn.mjs','dependency-closure-vendor/acorn-8.8.1/PROVENANCE.json','dependency-closure-vendor/acorn-8.8.1/COPYRIGHT']
+ def ref(p):return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes()))
+ def module(name,path):
+  s=importlib.util.spec_from_file_location(name,HERE/path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+@@ -35,7 +37,13 @@
+  manifest=ROOT/'3d-viewer/city/data/manifest.json';before=manifest.read_bytes();assert digest(before)==MANIFEST
+  contract=read(CONTRACT);assert contract['manifestSHA256']==MANIFEST and contract['completeCurrentNativeActors']==6649 and not contract['currentAcceptance']
+  assert [r['uid']for r in contract['sourceActors']]==UIDS
+- refs=[Path(__file__),JS,CONTRACT,METHOD]+[HERE/n for n in HELPERS]+[HERE.parent/'shared-modelling'/n for n in ['db.py','jobs.py','reservations.py']]
++ validation=read(VALIDATION/'offline-schema-hash-validation.json');assert validation['pythonASTParsed'] and validation['nodeSyntaxPassed'] and validation['noWorker'] and validation['noProductionModuleImported']
++ for pin in validation['codeAndMethodPins']+validation['validationEvidencePins']:assert ref(ROOT/pin['path'])==pin
++ schema=read(SCHEMA);assert schema['schemaValidationPassed'] and schema['noProductionModuleImported']
++ for c in [schema['completeRecursiveLoaderModuleClosure'],schema['completeRecursiveTerrainModuleClosure']]+schema['completeRecursiveCaptureHelperModuleClosures']:
++  assert c['schema']=='exact-literal-static-dynamic-resource-closure-v1' and c['unsupportedDynamicImports']==0 and c['computedImportsRejected'] and c['opaqueResourcesAreNotParsedModules']
++  for p,h in c['inputHashes'].items():assert digest((ROOT/p).read_bytes())==h
++ refs=[Path(__file__),JS,CONTRACT,METHOD,DRAFT/'written-draft-inspection.json']+[VALIDATION/n for n in VALIDATION_FILES]+[p for p in (DRAFT/'before-updated-closure-correction-v1').iterdir()if p.is_file()]+[HERE/n for n in HELPERS]+[HERE.parent/'shared-modelling'/n for n in ['db.py','jobs.py','reservations.py']]
+  for pin in [contract['sourceSelection']]+contract['historicalReceipts']+contract['historicalIdentityDirectRefs']+contract['historicalContextPins']:
+   p=ROOT/pin['path'];assert ref(p)==pin;refs.append(p)
+  historical=[read(ROOT/p['path'])for p in contract['historicalReceipts']]
+@@ -85,19 +93,20 @@
+  save(DOC/'selection.json.gz',dict(batch=BATCH,manifestSHA256=MANIFEST,rows=rows,currentIdentityAccepted=False))
+  save(DOC/'historical-obligations-verbatim.json',dict(receipts=historical,obligations=contract['historicalOnlyObligations'],historicalOnly=True,currentApprovalTransferred=False))
+  save(DOC/'all-current-catalogues.json',dict(rows=catalogues,completeNativeActors=6649))
+- save(DOC/'capture-inputs.json.gz',dict(rows=rows,completeCurrentForms=[f for f,_,_ in forms],completeCurrentFormBounds=region,neighbourTileHashes=tiles,completeCurrentCatalogueRefs=catalogues,inputHashes=pins,manifestSHA256=MANIFEST,canonicalResources=resources,currentAcceptance=False,physicalAccepted=False,installationApproved=False))
+- captures={};streams={}
++ save(DOC/'capture-inputs.json.gz',dict(rows=rows,completeCurrentForms=[f for f,_,_ in forms],completeCurrentFormBounds=region,neighbourTileHashes=tiles,completeCurrentCatalogueRefs=catalogues,inputHashes=pins,manifestSHA256=MANIFEST,canonicalResources=resources,validatedClosurePath=str(SCHEMA.relative_to(ROOT)),currentAcceptance=False,physicalAccepted=False,installationApproved=False))
++ captures={};streams={};schema=read(SCHEMA)
+  for row in rows:
+   uid=row['uid'];slug=uid.split('/')[1].replace(':','-');save(DOC/('whole-original-position-proof-'+slug+'.json'),positions[uid])
+   status=subprocess.run(['node',str(JS),uid],cwd=ROOT,capture_output=True,text=True);save(DOC/('export-'+slug+'-log.json'),dict(exitCode=status.returncode,stdout=status.stdout,stderr=status.stderr));assert status.returncode==0,status.stderr
+   capture=read(DOC/('complete-current-actual-source-and-ground-'+slug+'.json.gz'));n=row['triangles'];assert capture['uid']==uid and capture['sourceSHA256']==row['sourceSHA256'] and capture['entry']==row['candidate']['entry']and capture['completeFaces']==n and capture['startAndEndInputsVerified']and capture['completeOriginalPOSITIONProof']==positions[uid]
++  assert capture['completeRecursiveLoaderModuleClosure']==schema['completeRecursiveLoaderModuleClosure'] and capture['completeRecursiveTerrainModuleClosure']==schema['completeRecursiveTerrainModuleClosure'] and capture['completeRecursiveCaptureHelperModuleClosures']==schema['completeRecursiveCaptureHelperModuleClosures']
+   index=np.asarray(capture['completeOriginalIndex'],dtype=np.int64).reshape(-1,3);worlds={'providerOriginal':originals[uid]}
+   for mode,key in [('actualLiteral','completeLiteralWorldPosition'),('explicitLeftAssociatedF32ModelMatrix','completeExplicitLeftAssociatedFloat32WorldPosition'),('explicitBalancedF32ModelMatrix','completeExplicitBalancedFloat32WorldPosition')]:worlds[mode]=np.asarray(capture[key],dtype='<f8').reshape(-1,3)[index]
+   assert all(w.shape==(n,3,3)and np.isfinite(w).all()for w in worlds.values())
+   ground=np.asarray(capture['currentDrawnGround']['completeRegionalPosition'],dtype='<f8').reshape(-1,3,3);assert len(ground)==capture['currentDrawnGround']['completeRegionalFaces']and np.isfinite(ground).all()and digest(ground.tobytes())==capture['currentDrawnGround']['worldTriangleSHA256']
+   streams[uid]=dict(uid=uid,sourceSHA256=row['sourceSHA256'],completeWorldStreams={m:dict(completeFaces=n,completeWorldTriangleSHA256=digest(w.astype('<f8').tobytes()),completeWorldTriangles=w.tolist())for m,w in worlds.items()},completeDrawnGround=ground.tolist(),completeDrawnGroundSHA256=digest(ground.tobytes()),currentAcceptance=False,physicalAccepted=False,installationApproved=False)
+   captures[uid]=capture;refs.extend(ROOT/p for p in capture['inputHashes'])
+- assert captures[UIDS[0]]['completeRecursiveLoaderModuleClosure']==captures[UIDS[1]]['completeRecursiveLoaderModuleClosure'] and captures[UIDS[0]]['completeRecursiveTerrainModuleClosure']==captures[UIDS[1]]['completeRecursiveTerrainModuleClosure']
++ assert captures[UIDS[0]]['completeRecursiveLoaderModuleClosure']==captures[UIDS[1]]['completeRecursiveLoaderModuleClosure'] and captures[UIDS[0]]['completeRecursiveTerrainModuleClosure']==captures[UIDS[1]]['completeRecursiveTerrainModuleClosure'] and captures[UIDS[0]]['completeRecursiveCaptureHelperModuleClosures']==captures[UIDS[1]]['completeRecursiveCaptureHelperModuleClosures']
+  save(DOC/'complete-two-actor-four-stream-ground-inputs.json.gz',dict(rows=streams,allSlopesAndZeroProjectionGroundRetained=True,noHistoricalRuntimeProofTransfer=True,currentAcceptance=False,physicalAccepted=False,installationApproved=False))
+  assert reservations.owns(lease)and(ROOT/'3d-viewer/city/data/manifest.json').read_bytes()==before
+  for p,h in pins.items():assert digest((ROOT/p).read_bytes())==h

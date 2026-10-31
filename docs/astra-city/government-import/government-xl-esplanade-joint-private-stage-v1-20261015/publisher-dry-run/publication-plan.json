@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-esplanade-joint-private-stage-v1-20261015/plan.json",
+  "areas": [
+    {
+      "area": "The Esplanade unchanged original tower and podium",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-esplanade-joint-private-stage-v1-20261015/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-esplanade-original-v1-20261015.json": null,
+    "3d-viewer/city/data/official-models/government-xl-esplanade-joint-private-stage-v1-20261015/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "12971667a74b07de90ce5ee29999f44a6bf297de84ec7916a629bc42725cd82c"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-esplanade-original-v1-20261015.json": "6d07bab5a12389c21f2d64a080825873097db57626815581d9f16c1d0a678545",
+    "3d-viewer/city/data/official-models/government-xl-esplanade-joint-private-stage-v1-20261015/catalogue.json": "254866ed2bcafb20ff554cb042ff09b7ef2979735d51a24d43acc6cde2148146",
+    "3d-viewer/city/data/manifest.json": "9c04c5ea765012511fa553c8ba67fa0c49c6d3443f3badde10b911822d947649"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "6c9128aa7db7120be2387349c18c4487291e00eb",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-esplanade-original-v1-20261015.json",
+      "resolution": 5,
+      "area": "The Esplanade unchanged original tower and podium",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "54b8307a3f344dad41e65fb5394272b4019e6e3e144a5db35f47ae9abd739017",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "5-SE-15B",
+            "sourceETag": "\"3514c77-63dcfe00c05d4\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-full-cell-34-sequence-20261006-268828-0/sheets/5-SE-15B/terrain/TERRAIN(TB)/T14250270000106E10/T14250270000106E10.bin",
+                "sha256": "9f9edaf15f3d64632b17532ac3830bc997cc2b0f09c15d02169d562ba45ab96f"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-full-cell-34-sequence-20261006-268828-0/sheets/5-SE-15B/terrain/TERRAIN(TB)/T14250270000106E10/T14250270000106E10.gltf",
+                "sha256": "f15a6635390d985cbc9063c5c972dbe7790bd500e7d4d40b070cfc37a330c78e"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "6d07bab5a12389c21f2d64a080825873097db57626815581d9f16c1d0a678545",
+      "bytes": 163119
+    }
+  ],
+  "estimatedBases": []
+}

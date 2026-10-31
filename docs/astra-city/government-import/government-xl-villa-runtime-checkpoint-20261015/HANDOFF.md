@@ -1,0 +1,9 @@
+# Villa original-model continuation — 15 October 2026
+
+V4 private browser completed successfully: five unchanged sources, 1280/390 day/night, joint activation, picking/collision, own fallback suppression and mobile failed-download/retry. ROOT inspected exported podium desktop/mobile daytime PNGs. V1 schema mismatch, V2/V3 mobile camera-range failures preserved in Neon; V4 camera points along the estate long axis, unchanged range guard.
+
+Actual placed collision capture tested every face in literal and two explicit Float32 matrix arithmetic orders against all148 corrected procedural canopy faces:15 comparisons, zero surface contacts. This is not universal GPU/containment/full acceptance. Initial freezer nested lease conflict was recovered after terminal/release without recalculation; producer log preserved. All5 new receipts and distinct referenced hashes read back exactly.
+
+Next: final exact-bound source-role/identity acceptance; current physical V4 already passes loader, complete foundation and172basic neighbours with no affected installed native actor. Geometry rebind allows numerical reuse only. Historical coupled-ground result has supportInterfaceAccepted:true at top level; its nested per-component ground-root failure is an obsolete additional engineering requirement, not an independent renderer gate. Retain actual strict support/complete foundation requirements. Historical24podium wall facets have no unresolved wall conditions/upward buried facets, but no source-functional role approval yet. Inspect primary podium/tower records and actual wall roles before approving. Then private acceptance, guarded publication, live browser, Neon installation and updated counts.
+
+No installation this checkpoint: fixedXL243installed/278remaining/521;6662 detailed catalogue entries. Government geometry immutable. No optimisation or AI geometry modelling. All worker sessions terminal; do not restart completed calculations.

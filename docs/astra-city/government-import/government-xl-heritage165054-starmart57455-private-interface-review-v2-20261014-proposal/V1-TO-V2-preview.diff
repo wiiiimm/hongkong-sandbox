@@ -1,0 +1,41 @@
+--- heritage165054_starmart57455_private_interface_preview_v1
++++ heritage165054_starmart57455_private_interface_preview_v2
+@@ -5,6 +5,7 @@
+ import {createRequire} from 'node:module';
+ import {createHash} from 'node:crypto';
+ import assert from 'node:assert/strict';
++import {installPrivateSourceScheduler} from './heritage_private_source_scheduler_v1_20261014.mjs';
+ import {fitIndexedSourceBox} from './upton_private_indexed_source_framing_v1_20261014.mjs';
+ import {browserExecutable} from '../landmark-preflight/browser-runtime.mjs';
+ import {snapshotModuleClosure,verifyModuleClosure} from './exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+@@ -38,6 +39,10 @@
+ try{
+  for(const scenario of ['current-BASIC','original-Star']){
+   const context=await browser.newContext({viewport:{width:1600,height:1100}}),page=await context.newPage();page.on('pageerror',e=>report.errors.push(e.message));
++  report.loadingDiagnostics??=[];report.assetRequests??=[];
++  page.on('requestfailed',q=>report.assetRequests.push({scenario,url:q.url(),failure:q.failure()}));
++  page.on('response',q=>{if(q.status()>=400)report.assetRequests.push({scenario,url:q.url(),status:q.status()});});
++  async function status(phase,uid){const row=await page.evaluate(({phase,uid})=>{const r=window.__heritageSource,b=r.stream.getLoadedBuilding(uid),m=r.officialModels.models.get(uid),d=r.stream.detailedModels.get(uid);return{phase,uid,modelKnown:!!m,modelSourceSHA256:m?.sha256,buildingLoaded:!!b,buildingTile:b?.tile,selected:window.__city.state.selectedId,state:window.__city.state,official:r.officialModels.stats,stream:r.stream.stats,cacheError:r.officialModels.cache.errors.get(uid)?.stack??String(r.officialModels.cache.errors.get(uid)||''),wanted:r.officialModels.cache.wanted.slice(),detailedActive:!!d?.active,schedulerError:window.__heritageScheduler?.lastError??null};},{phase,uid});report.loadingDiagnostics.push({scenario,...row});return row;}
+   const models=input.sources.filter(s=>scenario==='original-Star'||s.uid==='landsd/165054:0').map(s=>s.entry),catalogue={models},url='city/data/private-source-review/'+input.batch+'/'+scenario+'/catalogue.json',base=url.slice(0,url.lastIndexOf('/')+1);
+   await page.route('**/city/app.js*',async r=>{const response=await r.fetch(),text=await response.text();assert.equal(sha(Buffer.from(text)),input.executionRefs.find(q=>q.path==='3d-viewer/city/app.js').sha256);await r.fulfill({response,body:text+'\nObject.defineProperty(window,"__heritageSource",{get:()=>({scene,terrain,officialModels,stream,camera,controls,renderer,THREE,visitBuilding,controlSheet,environment,closeSelection})});window.__heritageRender=renderer.render.bind(renderer);renderer.render=()=>{};'});});
+   await page.route('**/'+url,r=>r.fulfill({json:catalogue}));
+@@ -46,7 +51,18 @@
+   await page.goto('http://127.0.0.1:4176/city.html');await page.waitForFunction(()=>window.__city?.ready&&window.__heritageSource?.stream,null,{timeout:120000});await page.locator('#loading').waitFor({state:'hidden',timeout:120000});
+   await page.evaluate(()=>window.__heritageSource.environment.setHour(12));await page.evaluate(url=>window.__heritageSource.officialModels.loadCatalogue(url),url);
+   for(const s of input.sources){await page.evaluate(async b=>window.__heritageSource.visitBuilding(b),s.currentForm);await page.waitForFunction(()=>!window.__city.state.loadingTravel&&!window.__city.state.travelling,null,{timeout:90000});}
+-  for(const m of models){await page.evaluate(uid=>{const r=window.__heritageSource;r.officialModels.setLoadingPaused(false);r.officialModels.plan(r.camera,{viewportHeight:innerHeight,selectedUid:uid,allowNewLoads:true,force:true});},m.uid);await page.waitForFunction(uid=>window.__heritageSource.stream.detailedModels.get(uid)?.active,m.uid,{timeout:90000});}
++  // Frame complete unchanged indexed sources before scheduling, so the tiny
++  // neighbouring Star visit cannot leave the Museum outside the fixture camera.
++  const loadingFit=fitIndexedSourceBox(allPoints,{fov:45,aspect:1600/1100,direction:[-1,.65,1],near:.5});
++  await page.evaluate(({fit,installText})=>{const r=window.__heritageSource;r.closeSelection();r.controls.enableDamping=false;r.camera.fov=45;r.camera.near=.5;r.camera.updateProjectionMatrix();r.camera.position.fromArray(fit.camera);r.controls.target.fromArray(fit.target);r.controls.update();r.camera.updateMatrixWorld(true);window.__heritageScheduler=(0,eval)('('+installText+')')(r);},{fit:loadingFit,installText:installPrivateSourceScheduler.toString()});
++  for(const m of models){
++   await status('before-request',m.uid);
++   await page.evaluate(uid=>window.__heritageScheduler.start(uid),m.uid);
++   try{await page.waitForFunction(uid=>window.__heritageSource.stream.detailedModels.get(uid)?.active,m.uid,{timeout:90000});}
++   catch(error){await status('timeout-or-loader-failure',m.uid);throw error;}
++   await status('active',m.uid);
++  }
++  await page.evaluate(()=>window.__heritageScheduler.stop());
+   const bindings=await page.evaluate(async({expected,scenario})=>{const r=window.__heritageSource,hash=async a=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength)))].map(v=>v.toString(16).padStart(2,'0')).join(''),out=[];for(const s of expected.filter(s=>scenario==='original-Star'||s.uid==='landsd/165054:0')){const d=r.stream.detailedModels.get(s.uid);if(r.officialModels.models.get(s.uid)?.sha256!==s.sourceSHA256)throw Error('Source byte binding mismatch '+s.uid);if(!d?.active||!d.group.visible)throw Error('Original inactive '+s.uid);const g=d.record.modelGeometry,values=[];for(const i of g.index)values.push(...g.position.slice(i*3,i*3+3));const h=await hash(new Float64Array(values));if(h!==s.worldTriangleSHA256||g.index.length/3!==s.faces)throw Error('Literal source mismatch '+s.uid);const gpu=[];d.group.updateMatrixWorld(true);for(const m of d.meshes){const materials=Array.isArray(m.material)?m.material:[m.material];if(!m.visible||materials.some(a=>a.wireframe||a.opacity!==1))throw Error('Opaque original required');gpu.push({positionByteSHA256:await hash(m.geometry.attributes.position.array),matrixWorld:m.matrixWorld.elements.slice(),arrayType:m.geometry.attributes.position.array.constructor.name,vertices:m.geometry.attributes.position.count});}out.push({...s,actualGPU:gpu,noManualGPURecast:true});}const basic=r.stream.getLoadedBuilding('landsd/57455:0');if(!basic)throw Error('Star current form unloaded');let drawn=0;for(const e of r.stream.cache.entries.values())for(const mesh of e.buildings.group.children){if(!e.buildings.group.visible||!mesh.visible)continue;const f=mesh.geometry.attributes.feature,ix=mesh.geometry.index;if(!f)continue;for(let i=0;i<(ix?.count??f.count);i+=3){const v=ix?ix.getX(i):i;if(e.data.buildings[Math.round(f.getX(v))]?.uid==='landsd/57455:0')drawn++;}}if(scenario==='current-BASIC'&&(drawn!==24||r.stream.detailedModels.get('landsd/57455:0')?.active||basic.hidden))throw Error('Complete current BASIC24 must be drawn');if(scenario==='original-Star'&&drawn!==0)throw Error('Original comparison must replace only own BASIC');return{sources:out,currentBASICDrawnFaces:drawn,currentStarFormLoaded:true,privateOriginalStarNotIdentityOrInstallationApproval:scenario==='original-Star'};},{expected,scenario});
+ report.scenarios.push({scenario,...bindings});
+   for(const v of [{id:'assembly',direction:[-1,.65,1],points:allPoints},{id:'corner-east',direction:[1,.7,1],points:detailPoints},{id:'corner-west',direction:[-1,.7,-1],points:detailPoints}]){

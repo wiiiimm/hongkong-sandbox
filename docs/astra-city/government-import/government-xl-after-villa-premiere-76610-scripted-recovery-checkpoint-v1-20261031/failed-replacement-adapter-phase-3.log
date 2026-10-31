@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_retained_native_neighbours_v8_20261024.py", line 61, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_retained_native_neighbours_v8_20261024.py", line 18, in main
+    scope=take(base/a.scope/'scope.json');inventory=take(base/a.inventory/'complete-bounds.json.gz');candidate=receipts[a.patch]['candidate'];replacement=candidate.get('replacesMany')or[candidate['replaces']];allowed={p['url']:p for p in replacement};assert len(allowed)==len(replacement)
+                                                                                                                                                                                          ~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'replaces'
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}

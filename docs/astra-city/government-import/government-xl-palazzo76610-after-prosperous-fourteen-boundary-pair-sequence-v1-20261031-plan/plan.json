@@ -1,0 +1,111 @@
+{
+  "batch": "government-xl-palazzo76610-after-prosperous-fourteen-boundary-pair-sequence-v1-20261031",
+  "uids": [
+    "landsd/76610:0",
+    "landsd/252774:0",
+    "landsd/71042:0",
+    "landsd/71045:0",
+    "landsd/71688:0",
+    "landsd/71703:0",
+    "landsd/71709:0",
+    "landsd/71886:0",
+    "landsd/72626:0",
+    "landsd/88303:0",
+    "landsd/88899:0",
+    "landsd/89150:0",
+    "landsd/304541:0",
+    "landsd/340334:0"
+  ],
+  "resources": [
+    "building:landsd/76610:0",
+    "building:landsd/252774:0",
+    "building:landsd/71042:0",
+    "building:landsd/71045:0",
+    "building:landsd/71688:0",
+    "building:landsd/71703:0",
+    "building:landsd/71709:0",
+    "building:landsd/71886:0",
+    "building:landsd/72626:0",
+    "building:landsd/88303:0",
+    "building:landsd/88899:0",
+    "building:landsd/89150:0",
+    "building:landsd/304541:0",
+    "building:landsd/340334:0"
+  ],
+  "phases": [
+    {
+      "script": "merge_unapproved_original_selections_v1_20261024.py",
+      "batch": "government-xl-palazzo76610-after-prosperous-fourteen-original-selection-v1-20261031",
+      "args": [
+        "--selection",
+        "government-xl-palazzo76610-after-prosperous-current-selection-v1-20261031",
+        "--selection",
+        "government-xl-palazzo76610-after-prosperous-two-boundary-original-recovery-v1-20261031",
+        "--uid",
+        "landsd/76610:0",
+        "--uid",
+        "landsd/252774:0",
+        "--uid",
+        "landsd/71042:0",
+        "--uid",
+        "landsd/71045:0",
+        "--uid",
+        "landsd/71688:0",
+        "--uid",
+        "landsd/71703:0",
+        "--uid",
+        "landsd/71709:0",
+        "--uid",
+        "landsd/71886:0",
+        "--uid",
+        "landsd/72626:0",
+        "--uid",
+        "landsd/88303:0",
+        "--uid",
+        "landsd/88899:0",
+        "--uid",
+        "landsd/89150:0",
+        "--uid",
+        "landsd/304541:0",
+        "--uid",
+        "landsd/340334:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-palazzo76610-after-prosperous-fourteen-original-attributes-v1-20261031",
+      "args": [
+        "--capture",
+        "government-xl-palazzo76610-after-prosperous-fourteen-original-selection-v1-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-palazzo76610-after-prosperous-340334-0-original-boundary-pair-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-palazzo76610-after-prosperous-fourteen-original-selection-v1-20261031",
+        "--attributes",
+        "government-xl-palazzo76610-after-prosperous-fourteen-original-attributes-v1-20261031",
+        "--left",
+        "landsd/76610:0",
+        "--right",
+        "landsd/340334:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-palazzo76610-after-prosperous-304541-0-original-boundary-pair-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-palazzo76610-after-prosperous-fourteen-original-selection-v1-20261031",
+        "--attributes",
+        "government-xl-palazzo76610-after-prosperous-fourteen-original-attributes-v1-20261031",
+        "--left",
+        "landsd/76610:0",
+        "--right",
+        "landsd/304541:0"
+      ]
+    }
+  ]
+}

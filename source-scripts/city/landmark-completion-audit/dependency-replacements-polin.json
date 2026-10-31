@@ -1,0 +1,47 @@
+{
+  "issue": "HKS-214",
+  "version": 1,
+  "published": false,
+  "scope": "Add exact native podium retention for Hall of Great Hero; all other source fields/assets unchanged.",
+  "catalogues": [
+    {
+      "url": "city/data/official-models/landmark-pass/catalogue.json",
+      "source": "3d-viewer/city/data/official-models/landmark-pass/catalogue.json",
+      "oldSHA256": "8e0fa82d6079295dd29a7d619207b96dec3f92c3d5984c4a911cfa870392a6bb",
+      "models": [
+        "landsd/238276:0"
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "uid": "landsd/238276:0",
+      "modelSHA256": "cb73219aa8a4b6d5abd166dde9dfc6f1bac8b76a9be348f757a6ddd15d091b88",
+      "modelId": "B085421299501063C0",
+      "buildingCSUID": "0854212995T20050430",
+      "catalogue": "3d-viewer/city/data/official-models/landmark-pass/catalogue.json",
+      "oldSupportDependencies": [],
+      "supportDependencies": [
+        {
+          "uid": "landsd/238483:0",
+          "state": "installed",
+          "csuid": "0856412976P20141031"
+        }
+      ],
+      "contactEvidenceSHA256": "d68b75388debcc9091ff105113dca05d5d532bd20b41b90a3ffc9867d69f05cb"
+    }
+  ],
+  "contactReport": "docs/astra-city/landmark-completion-audit/lantau13-support.json",
+  "contactReportSHA256": "d68b75388debcc9091ff105113dca05d5d532bd20b41b90a3ffc9867d69f05cb",
+  "requiresNewNativeUids": [],
+  "requiredExistingNativeUids": [
+    "landsd/238483:0"
+  ],
+  "requiresVisualApproval": true,
+  "visualApproval": {
+    "status": "approved-for-integration",
+    "evidence": "docs/astra-city/landmark-completion-audit/lantau13-decisions.json",
+    "evidenceSHA256": "c3a37df2a501fe602b2990e9e433c543dc84e93d411db411524b624abc323fe5",
+    "scope": "All14 native hall rim vertices touch the independently reviewed native podium; actual normal scene day/night desktop/mobile views inspected."
+  }
+}

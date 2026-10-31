@@ -1,0 +1,9 @@
+[out:json][timeout:160];area(3600913110)->.hk;(
+way["highway"]["bridge"]["bridge"!="no"](area.hk);
+way["highway"~"^(footway|path|pedestrian|steps|cycleway|corridor)$"]["level"](area.hk);
+way["highway"~"^(footway|path|pedestrian|steps|cycleway|corridor)$"]["layer"~"^[1-9]"](area.hk);
+way["highway"~"^(footway|path|pedestrian|steps|cycleway|corridor)$"]["min_height"](area.hk);
+way["highway"~"^(footway|path|pedestrian|steps|cycleway|corridor)$"]["height"](area.hk);
+way["man_made"="bridge"](area.hk);
+relation["man_made"="bridge"]["type"="multipolygon"](area.hk);
+);out geom;

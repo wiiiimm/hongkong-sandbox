@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/esplanade_render_finite_v1_20261015.py", line 37, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/esplanade_render_finite_v1_20261015.py", line 24, in main
+    captured=read(DOC/'attributes.json.gz');assert captured['startEndAllInputsVerified'];r=next(r for r in captured['rows']if r['uid']=='landsd/309385:0');rt=next(r for r in read(LOCAL/'runtime-geometry.json.gz')['rows']if r['uid']==r['uid']);assert r['completeLiteralWorldPosition']==rt['position']and r['completeOriginalIndex']==rt['index'];ix=np.asarray(r['completeOriginalIndex']).reshape(-1,3);ground=np.asarray(rt['drawnGroundGeometry'],float).reshape(-1,3,3);summary=[]
+                                                                                                                                                                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

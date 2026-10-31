@@ -1,0 +1,50 @@
+{
+  "issue": "HKS-213",
+  "relatedIssue": "HKS-214",
+  "batchId": "terrain-source-refresh",
+  "snapshotSHA256": "1aeda88dd034115917d3d9ccda67c53ecec4100461747dcec6ef1ece677c026b",
+  "generatedAt": "2026-09-08T07:41:06.028383+00:00",
+  "summary": {
+    "sheets": 1,
+    "verified": 1,
+    "deferred": 0
+  },
+  "rows": [
+    {
+      "sheet": "15-NW-3B",
+      "outcome": "native-terrain-acquired-verified",
+      "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-source-refresh/staged/15-NW-3B/manifest.json",
+      "sourceCacheSHA256": "f55aa3baf7807aa17731e2d0f49cac959a5f7cb5485f0d8f08e748c910fc35c0",
+      "sourceETag": "\"30b4b9c-65a904a99c060\"",
+      "directorySHA256": "cfb483a01a9a9d805cc7e9b67df9689dcfbeb6af947462db0e5b90e22b37d373",
+      "nativeMembers": 2,
+      "worldBounds": [
+        [
+          -750.0000305175781,
+          1.0023165941238403,
+          4500.0
+        ],
+        [
+          0.0,
+          141.5825653076172,
+          5100.07177734375
+        ]
+      ],
+      "native1xHKPD": true,
+      "photoOmitted": true,
+      "uids": [
+        "landsd/6946:0",
+        "landsd/7056:0",
+        "landsd/9050:0"
+      ]
+    }
+  ],
+  "transfer": {
+    "receivedBytes": 8096209,
+    "newThisInvocationBytes": 0,
+    "requests": 3,
+    "chargedBytes": 8096209,
+    "capBytes": 100000000
+  },
+  "qualification": "Native source geometry unchanged,1x HKPD. Geometry-only staged glTF omits photograph/material references; no terrain application, reconstruction, placement approval or publication. Existing whole-HK5mDTM not downloaded."
+}

@@ -1,0 +1,283 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/model-integration-20260909/support-terrain-plan.json",
+  "areas": [
+    {
+      "area": "Terrain-supported native source components",
+      "models": 7,
+      "catalogue": "city/data/official-models/support-review-20260909-terrain/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/support-native-232804-0.json": null,
+    "3d-viewer/city/data/support-native-242294-0.json": null,
+    "3d-viewer/city/data/support-native-244779-0.json": null,
+    "3d-viewer/city/data/support-native-322191-0.json": null,
+    "3d-viewer/city/data/support-native-337475-0.json": null,
+    "3d-viewer/city/data/official-models/support-review-20260909-terrain/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "f8ec1b9eff665e86a2927853f581a54ab7b6b75ae2725797336c33be2bca841a"
+  },
+  "after": {
+    "3d-viewer/city/data/support-native-232804-0.json": "0a96eaecf0f0a973e34e11b506c77679eeedeff549d2f328ee1f4e65c7f15fc8",
+    "3d-viewer/city/data/support-native-242294-0.json": "f554dc3561908cfcde8373d1e08956f84b702ceb162488a777c1c7d9dbf5f4cf",
+    "3d-viewer/city/data/support-native-244779-0.json": "c884b5c2029c909a4c251499562c91fd7d550ba6e5faa47a0dc7ed0cb605d69d",
+    "3d-viewer/city/data/support-native-322191-0.json": "7d31cdebaf661801d77da3d5607fdb90951b0db6b982a3305d3cbd045a96ef7e",
+    "3d-viewer/city/data/support-native-337475-0.json": "61c0ffd3e8f1bd4cb88552588c4d5be50e40de017f09dd0e6332f5b621b73936",
+    "3d-viewer/city/data/official-models/support-review-20260909-terrain/catalogue.json": "080f9a6486b8fed29a3703d512be6926f2b535978aaf8d7cfce4a70feb83581e",
+    "3d-viewer/city/data/manifest.json": "c2410445af3ee8e9f4108ed0a490f7a2acd1ef2d2c65eafa32ef3211a8cf5a88"
+  },
+  "counts": {
+    "buildings": 346115,
+    "roads": 190222,
+    "parks": 1294,
+    "heights": {
+      "landsd": 235761,
+      "estimated": 109764,
+      "levels": 502,
+      "tagged": 88
+    }
+  },
+  "beforeCommit": "a44413a0182423b5238f44571d92a93a6a05fc93",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/roof-review-226248-0.json",
+      "sha256": "4a81afe8e57675044d34befeecc6badc3920f2fa864855613bd43a5167396646",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/support-native-232804-0.json",
+      "resolution": 1,
+      "area": "Native source terrain for landsd/232804:0",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-SW-10D",
+            "revision": "2026-07-29T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-10D/manifest.json",
+            "manifestSha256": "f58f0378a4780fc4106f265e5fb2a984d26dd7cb5d5a4c97d63b366ba3b7025f",
+            "worldBounds": [
+              [
+                2249.5,
+                -4.23551082611084,
+                299.5
+              ],
+              [
+                3000.5,
+                12.662226676940918,
+                900.5
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-10D/TERRAIN(TB)/T36750156000106E11/T36750156000106E11.bin",
+                "sha256": "1233ed4af4d076cf71a26857d81034b1a923a185c332dc2a1bfe6b592628eab5",
+                "bytes": 11861964
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-10D/TERRAIN(TB)/T36750156000106E11/T36750156000106E11-geometry.gltf",
+                "sha256": "5fecad7c609d2701c389bc33f5381024f0e6611d49894e91f255b39bf722062b",
+                "bytes": 1436
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "0a96eaecf0f0a973e34e11b506c77679eeedeff549d2f328ee1f4e65c7f15fc8",
+      "bytes": 370858
+    },
+    {
+      "url": "city/data/support-native-242294-0.json",
+      "resolution": 1,
+      "area": "Native source terrain for landsd/242294:0,landsd/263404:0",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-NW-14C",
+            "revision": "2025-10-27T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-14C/manifest.json",
+            "manifestSha256": "52c82ced90b08d4cb0e07e02d564252dab71d3fa6c6ea6e18edfbd3d8a3eb937",
+            "worldBounds": [
+              [
+                0.0,
+                2.1973297595977783,
+                -4500.001953125
+              ],
+              [
+                750.0,
+                6.810802698135376,
+                -3900.0
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-14C/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.bin",
+                "sha256": "ce8c13bd90c2f911f43525059fdf63d4634f4ef9ddffd7807faee5c5603063a7",
+                "bytes": 3789834
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-14C/TERRAIN(TB)/T34500204000106E12/T34500204000106E12-geometry.gltf",
+                "sha256": "cf13f5f94236f75f274eda9a713b3de8ed5be7f4b5d0ef08e0b71e10bafe6e8a",
+                "bytes": 2558
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "f554dc3561908cfcde8373d1e08956f84b702ceb162488a777c1c7d9dbf5f4cf",
+      "bytes": 1168955
+    },
+    {
+      "url": "city/data/support-native-244779-0.json",
+      "resolution": 1,
+      "area": "Native source terrain for landsd/244779:0",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-NW-9B",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-9B/manifest.json",
+            "manifestSha256": "9412a1c00dbd5a6466822ab097ef7534da3a32f90d8efff976a63c9b0a120e12",
+            "worldBounds": [
+              [
+                749.996826171875,
+                20.848617553710938,
+                -6300.002197265625
+              ],
+              [
+                1500.0,
+                186.28509521484375,
+                -5700.000244140625
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-9B/TERRAIN(TB)/T35250222000106E11/T35250222000106E11.bin",
+                "sha256": "1da5a936e4e84c5c7e09ce1b1b50fcd41956f25e4dfd18d21cd8603f4aa9a700",
+                "bytes": 5810940
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-NW-9B/TERRAIN(TB)/T35250222000106E11/T35250222000106E11-geometry.gltf",
+                "sha256": "7ef434db85b4a4d6fcaca75b36ec5da919b64ca27b21d00e819ba24f1aed2ea5",
+                "bytes": 1434
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "c884b5c2029c909a4c251499562c91fd7d550ba6e5faa47a0dc7ed0cb605d69d",
+      "bytes": 654700
+    },
+    {
+      "url": "city/data/support-native-322191-0.json",
+      "resolution": 1,
+      "area": "Native source terrain for landsd/322191:0",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-SW-6D",
+            "revision": "2025-12-21T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-6D/manifest.json",
+            "manifestSha256": "a207d5f0d7825debf1f07b7b471917384eea85e18a4e4462ea369eb2f0336d87",
+            "worldBounds": [
+              [
+                -3750.5,
+                1.2999999523162842,
+                299.5
+              ],
+              [
+                -2999.5,
+                152.39062190055847,
+                900.5
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-6D/TERRAIN(TB)/T30750156000106E10/T30750156000106E10.bin",
+                "sha256": "eb1bdd6e3ca71efdb721427c592ad4a7c01e78b70cfa88a7a0b39f4feb76eb2e",
+                "bytes": 28492344
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SW-6D/TERRAIN(TB)/T30750156000106E10/T30750156000106E10-geometry.gltf",
+                "sha256": "d52be647bcc6f03c026ac081779954f2705616e2d0eb034b133514d477aab9f3",
+                "bytes": 1469
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "7d31cdebaf661801d77da3d5607fdb90951b0db6b982a3305d3cbd045a96ef7e",
+      "bytes": 183509
+    },
+    {
+      "url": "city/data/support-native-337475-0.json",
+      "resolution": 1,
+      "area": "Native source terrain for landsd/337475:0",
+      "source": {
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD",
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "sheet": "11-SE-7D",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "manifest": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SE-7D/manifest.json",
+            "manifestSha256": "3edcb959524fb5499b952441e95e211918a84f9375b506451ff2022f419df47a",
+            "worldBounds": [
+              [
+                5249.5,
+                8.194000244140625,
+                299.5
+              ],
+              [
+                6000.5,
+                145.72006225585938,
+                900.5
+              ]
+            ],
+            "files": [
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SE-7D/TERRAIN(TB)/T39750156000106E10/T39750156000106E10.bin",
+                "sha256": "02a99240006fec7312b1a575ed8fcfaa6cf6a77c106647f5cd864fd833385beb",
+                "bytes": 44466192
+              },
+              {
+                "path": "source-scripts/city/landmark-acquisition/batches/terrain-prerequisites/staged/11-SE-7D/TERRAIN(TB)/T39750156000106E10/T39750156000106E10-geometry.gltf",
+                "sha256": "c5b6fbe95309e42943adba93a15f33f4cbb71851ab067820a0a695f9c6863fc5",
+                "bytes": 1395
+              }
+            ],
+            "sourceFilesVerified": true
+          }
+        ],
+        "policy": "Exact native TIN barycentric sampling at 1m spacing; 10m outer transition to existing parent triangle heights. Raw water mask retained. No building elevation changes. Spacing is not survey accuracy."
+      },
+      "sha256": "61c0ffd3e8f1bd4cb88552588c4d5be50e40de017f09dd0e6332f5b621b73936",
+      "bytes": 411754
+    }
+  ],
+  "estimatedBases": []
+}

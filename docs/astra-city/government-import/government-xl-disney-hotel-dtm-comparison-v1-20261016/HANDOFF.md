@@ -1,0 +1,9 @@
+# Hotel source-support and official DTM checks
+
+Both workers completed; exact pinned-Neon result bodies and all evidence references ROOT-verified. No worker remains running. Fixed XL245 installed/276 remaining of521. No original geometry edits, optimisation or publication.
+
+The complete74-face low component visually resembles columns and overhead beams (a tentative shape description, not verified architectural identity). All other15351 original hotel faces provide zero strict or lower-layer contacts across12 unique low-rim probes;2 probes have no vertical source intersection at all. It cannot currently be accepted as supported by another part of this same source. Full source-face intersections remain in support-context.json.gz.
+
+Cached official5m DTM SHA785718f462ae6de3c9e1fed2bf9fe5affe1c1d739c0a969fd62cf3680b4b33ab was read without editing references. At all12 previously floating points its height is9mHKPD, putting the original5.959m feet3.041m below terrain. Whole-hotel foundation has144 buried faces/200.461m² and6 upward buried faces. This source cannot directly replace current terrain as a solution. Comparison's288 remaining burial samples only counts the384 previously failed samples, not all possible DTM contact failures. The whole foundation result is separate and covers all15425 faces.
+
+Next useful work requires new source evidence for the low-component ground interface or a justified local terrain repair; neither dropping the component nor shifting the original model is authorised. Preserve the latest private whole-neighbour candidate (v2), which clears all five ordinary neighbours; final contact, two native supports and exact source identity remain unresolved. Do not repeat the same all-source support or cachedDTM queries unchanged, and do not infer permanent unfixability from these negatives. Continue other actionable XL sources if independent original source evidence is not immediately available.

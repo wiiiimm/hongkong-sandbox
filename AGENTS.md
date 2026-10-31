@@ -28,6 +28,7 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
   *Reconstruct Old Hong Kong in 3D* — were merged into HK Sandbox Community
   (12 Jul 2026); both are Canceled in Linear with pointer notes.
 - Reference the relevant Linear issue (e.g. `HKS-123`) in commits/PRs when a change maps to one.
+- **Completion includes Linear updates.** After every completed implementation or subagent hand-off, update the relevant existing issues in the authorised milestone, their parent progress and the milestone overview before reporting completion. Include the commit, delivered behaviour, verification/evidence, executor and remaining gaps; synchronise local tracking notes. Use In Review for implemented work awaiting review and close broader issues only when all acceptance criteria pass. Report any failed Linear write as pending rather than claiming it succeeded. For Astra city work, the authorised milestone is **Astra - Living Hong Kong — buildings, regional detail & feature parity** in the main Hong Kong Sandbox project. Standing authorisation is already given; routine updates do not need another permission request.
 
 ## Project Context
 
@@ -55,6 +56,8 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
 
 ## Map And Geography Quality
 
+- **Astra City uses fixed 1× vertical scale.** User decision, 7 September 2026: do not port vertical exaggeration, a vertical multiplier or an “epic mountains” height setting. Terrain, buildings, bridges, water/tides, navigation, collisions and camera altitude share real-world metres/HKPD. Ignore legacy VE settings/URL parameters in City. Preserve surveyed elevations; source-backed terrain corrections and explicitly labelled estimates remain allowed. This is an explicit exception to original-game feature parity.
+
 - Cross-check generated maps against the reference set rather than trusting plausible-looking output.
 - Pay attention to historical naming variants such as Lantau, Lantao, Lan Tao, Lanto, Tai Yue Shan, Tai-ü-shan, Nam-tao/Nam Tau, Tyho, 大嶼山, 爛頭島, 爛頭山, 大庾山, 大虞, and 大奚山.
 - For contour, terrain, coastline, and place-name placement work, verify the shape and relative geography against multiple references when possible.
@@ -73,3 +76,5 @@ This repository builds and renders Hong Kong / Lantau terrain outputs with Codex
 - Codex and Claude should use this file as the shared project instruction source.
 - `CLAUDE.md` should remain a symlink to `AGENTS.md`.
 - Keep task-specific notes close to the generated artefacts so another agent can resume the work without reconstructing decisions from chat history.
+
+- For source-backed building/landmark refinement and cross-device resumption, use the repository skill at `.agents/skills/hong-kong-model-improvement/SKILL.md`; its supporting references route to the existing scripts and portable hand-off.

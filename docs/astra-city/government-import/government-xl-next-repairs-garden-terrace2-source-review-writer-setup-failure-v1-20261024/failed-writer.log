@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/garden_terrace_original_source_review_v1_20261024.py", line 151, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/garden_terrace_original_source_review_v1_20261024.py", line 108, in main
+    r = take(BROWSER, str(Path(report['path']).relative_to(BASE / BROWSER)))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 682, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'docs/astra-city/government-import/government-xl-next-repairs-garden-terrace2-three-unapproved-preview-v2-20261024/1280/staged-browser.json' is not in the subpath of '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/docs/astra-city/government-import/government-xl-next-repairs-garden-terrace2-three-unapproved-preview-v2-20261024'

@@ -1,0 +1,39 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/model-integration-20260909/publish.py", line 41, in <module>
+    module.main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 159, in main
+    stage_top_level_terrain(plan,original,manifest,edits,report)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 120, in stage_top_level_terrain
+    assert not dest.exists() and not dest.is_symlink() and dest not in edits,'Do not overwrite an existing terrain asset'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Do not overwrite an existing terrain asset
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v2-20261010.py", line 209, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v2-20261010.py", line 194, in main
+    with locked_publication(ROOT):return owned(args)
+                                         ^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v2-20261010.py", line 157, in owned
+    call(publication);recheck_all(LOCAL/'before-apply-proof-replay');assert manifest.read_bytes()==before
+    ^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v2-20261010.py", line 64, in call
+    subprocess.run(cmd,cwd=ROOT,check=True,env={**os.environ,'CHROME_PATH':'/opt/google/chrome/chrome'});owns()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/model-integration-20260909/publish.py', 'docs/astra-city/government-import/government-xl-park-haven-hkdi-three-atomic-installed-v2-20261010/atomic-plan.json', '--receipt', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-park-haven-hkdi-three-atomic-installed-v2-20261010/install-reservation.json', '--phase', 'government-xl-park-haven-hkdi-three-atomic-installed-v2-20261010']' returned non-zero exit status 1.
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v2-20261010.py", line 209, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v2-20261010.py", line 207, in main
+    subprocess.run(cmd,cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-park-haven-hkdi-three-atomic-installed-v2-20261010/install-reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-park-haven-hkdi-three-atomic-live-install-v2-20261010.py', '--previous-count', 'docs/astra-city/government-import/government-xl-caine-man-fuk-twelve-atomic-installed-v2-20261010/full-xl-current-count.json', '--owned', '--closure', 'docs/astra-city/government-import/xl-park-hkdi-current-source-root-closure-v1-20261010/closed-scope.json', '--closure', 'docs/astra-city/government-import/xl-park-hkdi-current-stage-root-closure-v1-20261010/closed-scope.json']' returned non-zero exit status 1.

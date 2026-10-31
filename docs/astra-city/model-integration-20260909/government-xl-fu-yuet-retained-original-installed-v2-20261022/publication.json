@@ -1,0 +1,98 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-fu-yuet-retained-qualified-stage-v1-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Fu Yuet House unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-fu-yuet-retained-qualified-stage-v1-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-fu-yuet-original-v1-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-fu-yuet-retained-qualified-stage-v1-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "46f019906a45fc0c4108be4e741f3a08807df22228faa04e28d3aad03bbcff88"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-fu-yuet-original-v1-20261022.json": "e79ca563eabdf9bf592b850e9a02c6bbaf0c342c9436308687b12c02a7783686",
+    "3d-viewer/city/data/official-models/government-xl-fu-yuet-retained-qualified-stage-v1-20261022/catalogue.json": "2663317f0561f37d46a83865d0cc90a543835cb8c47c4f851832b956ac6fbf14",
+    "3d-viewer/city/data/manifest.json": "28052a235dd9f16cca6d1c78ea9551c533a8b3444c6225dd6b233d2b537538b5"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "9e4a14c7e920da015da2c2798fec71c076705563",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-51764-0.json",
+      "sha256": "62b490ef5e172595eae31603b95e8ad6b3bf3921e954db2a539fe7de529cc5ac",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-fu-yuet-original-v1-20261022.json",
+      "resolution": 5,
+      "area": "Fu Yuet House unchanged original",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -490.43641318265264,
+            -4506.289385169575,
+            -412.02843178080025,
+            -4437.875239289972
+          ],
+          "outerBounds": [
+            -494.63432460561086,
+            -4510.541329740802,
+            -408.79146149820116,
+            -4433.6513477848885
+          ],
+          "policy": "Original highest source terrain replacement within model projection+1m and a shared piecewise-affine3m return. Exact existing ground elsewhere; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-ssp-swimming-pool-terrain-continuation-v2-20261005/sheets/11-NW-13B/terrain/TERRAIN(TB)/T33750210000106E14/T33750210000106E14.gltf",
+            "sha256": "63167d76973bd586b9aeb3bb5af3faefe75b17aa2628c22591cf0bb4afd5cf2f"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-13D/terrain/TERRAIN(TB)/T33750204000106E11/T33750204000106E11.gltf",
+            "sha256": "923c2a982dc441d884e0380cc08f7810433b81e3c439e31bd4528660d90733d0"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 4047,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "retainedNativeSources": [
+          {
+            "retainedUids": [
+              "landsd/282088:0",
+              "landsd/51764:0"
+            ],
+            "sha256": "62b490ef5e172595eae31603b95e8ad6b3bf3921e954db2a539fe7de529cc5ac",
+            "url": "city/data/government-native-51764-0.json"
+          }
+        ],
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "e79ca563eabdf9bf592b850e9a02c6bbaf0c342c9436308687b12c02a7783686",
+      "bytes": 2282877
+    }
+  ],
+  "estimatedBases": []
+}

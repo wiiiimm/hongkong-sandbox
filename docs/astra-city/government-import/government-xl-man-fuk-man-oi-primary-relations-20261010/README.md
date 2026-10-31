@@ -1,0 +1,9 @@
+# Man Fuk and Man Oi active primary evidence
+
+Produced by Codex on10October2026 for HKS-203. Exact active primary records for CSUID3644619608P20050726 (Man Fuk podium) and3647219454T20050430 (Man Oi tower) are preserved with original request/response hashes. Their primary-service OBJECTIDs265843/75645 are namespaced to that service; they are not the viewer/native matching-service UID numbers266062/75697. Stable CSUID/BuildingID/type lineage remains explicit. The exact structure-relation query returns zero records; no shared occupation-permit or legal ownership relation is claimed.
+
+Both downloaded official Housing Authority PDFs were rendered and independently inspected. The initially guessed estate URL returned a real titled “Block Plan / Chun Man Court”, showing BlocksA andK inside the illustrated court. The separate typical plan names Man Oi House asBlockK; the prior saved typical plan identifies Man Fuk asBlockA. These are reference plans, not surveyed precision, platform ownership, terrain or support proof. All original bytes, response metadata, page exports and available extracted text remain. No historical Lantau map reference was used.
+
+Current original-source preflights are separately retained. Man Oi passes identity and can start physical checks. Man Fuk retains exactly two projected-overlap reasons against the neighbouring Man Oi form; source/component envelope interpretation remains pending. The previously proved12 mainbody line interfaces at43.375HKPD are source evidence only, not ground roots or whole-source acceptance. All12821faces/97parts are retained.
+
+Next: complete the bounded platform/counterpart identity interpretation and full current original terrain, foundation, all actors, source support, runtime and staged/live publication checks. No user decision or AI remodelling is required by this checkpoint. No model is installed by this evidence pass.

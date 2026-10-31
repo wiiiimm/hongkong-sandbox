@@ -1,0 +1,1222 @@
+{
+  "issue": "HKS-209",
+  "kind": "architecture-exception-bulk-pass",
+  "verticalScale": 1,
+  "nativeDatum": "HKPD",
+  "networkRequests": 0,
+  "networkBytes": 0,
+  "aiCalls": 0,
+  "scriptSeconds": 2.274,
+  "cachedManifestsInspected": 87,
+  "sourceFilesRead": 32,
+  "sourceBytesRead": 5093095,
+  "scope": {
+    "expectedFlaggedParts": 16,
+    "accountedParts": 16,
+    "landmarkRegistryNotDuplicated": true
+  },
+  "counts": {
+    "ready": 3,
+    "held": 11,
+    "missing": 2
+  },
+  "inputHashes": {
+    "3d-viewer/city/data/manifest.json": "565311da952f899e472e5e6866604e98ce9c1baca3b256b03510e59f0f06be50",
+    "3d-viewer/city/data/terrain.json": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+    "docs/astra-city/mui-wo-buildings/review/prepare_model_sample.py": "21573b2b149a62a2a49e0db22ca16c50ba00b69e3bb0132a84e3851192c374ce",
+    "source-scripts/city/architecture-batch/acceptance.json": "a956ec34c43adec17dcdec9041eb8c56af0dee57655a8a4c860753d4b41b07d6",
+    "source-scripts/city/architecture-batch/compact/catalogue.json": "decc48a6c6c41f35342ef716f112f1205da284dfef16a2e100d03a64580ce896",
+    "source-scripts/city/architecture-batch/missing-source-report.json": "1c6d08385a2ea6dd429681cc98f13ae3d152ec9869d8de6c6f84554d16e68c96",
+    "source-scripts/city/architecture-batch/placement-context.json": "56f1c1f4fbbd824b2e67d810d4a0bfe951dd05830592397f7bd26c2752f562c2",
+    "source-scripts/city/architecture-batch/report.json": "d6780c8432c673dfa75261cf4773ab8229cc6b4399def2291240e4466d77b2ce",
+    "source-scripts/city/architecture-batch/sources/acquisition/sources/11-SW-10D/zip-directory.bin": "7c5c7a9362817041e6cd973f107def0eec5838ff2e92304c55cc063214d1bcbb",
+    "source-scripts/city/architecture-batch/sources/acquisition/sources/11-SW-13C/zip-directory.bin": "c58de278ce562b6df3c8c1f284520928839d2d66ffb728a58cfdb34c454b79ed",
+    "source-scripts/city/architecture-batch/sources/acquisition/sources/11-SW-14D/zip-directory.bin": "bd6e2481c5b3f87bd5302fb942fc619d0a032b06f4336f1964d023f9cd079aeb",
+    "source-scripts/city/architecture-batch/sources/acquisition/sources/11-SW-15B/zip-directory.bin": "394cdd0f87e4d1765876d3b7345857d09280a035c751fc3ceea342f093af75b6",
+    "source-scripts/city/architecture-batch/sources/acquisition/sources/11-SW-15C/zip-directory.bin": "925f5649df365f9aa094932b45eb279d2e3d131adcc154f62f2cc2c1a40f758b",
+    "source-scripts/city/architecture-batch/sources/acquisition/sources/11-SW-9C/zip-directory.bin": "d406f80eb261b32473d03243f1f8f62200aeece5035745db89034f2b337bcbfe",
+    "source-scripts/city/architecture-batch/staged/11-SW-13C/BUILDING/B334861471201063C0/B334861471201063C0.bin": "f76a4c616d85c9027ceb5e2fa5400a99b5b8510d3af8b319c9cfde394b8f9490",
+    "source-scripts/city/architecture-batch/staged/11-SW-13C/BUILDING/B334861471201063C0/B334861471201063C0.gltf": "e6b91218ca7f1c794c8551dbda98d43a8cc3edc4d1b9772113a2f04a0d4f8218",
+    "source-scripts/city/architecture-batch/staged/11-SW-13C/manifest.json": "30b4f3b36e158a8fe15fdad06a44afb51846f2742d50415a636f10bb6b3407a2",
+    "source-scripts/city/architecture-batch/staged/11-SW-14D/BUILDING/B359951448601063C0/B359951448601063C0.bin": "424a289ccbdcd8e7e7057542d86ec556a7b9e04ec986a63faed8aae725ea050d",
+    "source-scripts/city/architecture-batch/staged/11-SW-14D/BUILDING/B359951448601063C0/B359951448601063C0.gltf": "09fe66867c4ad0ba856844ac65a59556c348a09dc1c9f6a17e8615a08f9b5fb3",
+    "source-scripts/city/architecture-batch/staged/11-SW-14D/manifest.json": "6aceb1a3feef445e276e11ea6ac406aba06a0d08c0c57fa00b56d09013b2a911",
+    "source-scripts/city/architecture-batch/taikwun-audit.json": "e5c25f2be3e706940d1530a1e1492dbb2f2a1a0c319b42a61f8e237bf93ebc7d",
+    "source-scripts/city/architecture-batch/taikwun-terrain-review.json": "c002f1de42dc159719bc5146fa4ada51610d3bcce799842854f3a2cd17141984",
+    "source-scripts/city/architecture-followup/bulk_pass.py": "d0b2de5f3e7b28f877a91f6f83954ea3ef8bbcb1289df3c7f2786a76fc9ca869",
+    "source-scripts/city/building-batch/cached_models.py": "315ccbcfc02244ae28e12c54b46caf37216e8f8e082d8444c49ded0de14c6bd4",
+    "source-scripts/city/central-completion/sources/11-SW-8D/zip-directory.bin": "091781a4317a4547a29189c8216ada8c37701d3f074e72dbed267a591a550346",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B347841552001063C0/B347841552001063C0.bin": "23968fcd3811763c67b55c3c1a8074643e5fb7afff37c30de13f6a489131af1e",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B347841552001063C0/B347841552001063C0.gltf": "353015c842a9e9e246100adef69ddf21faa1eaf682fd4400dbb03876ad293cb5",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B347951547801063C0/B347951547801063C0.bin": "3306f3d66f848f63e35fcf4d8396d1dcc059516de56f3492b4f761dba7a3168e",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B347951547801063C0/B347951547801063C0.gltf": "9c2153c638b99f0e8230c7a8068df2efdf46d37b1d6128f4ab1d190fa6d9b12f",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350501521101063C0/B350501521101063C0.bin": "1fce0907b9cd485692c2b0a3b5ae3c29ad0846e47433c427761d3f103a21a9d8",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350501521101063C0/B350501521101063C0.gltf": "f0d654c42077c55bbb931602e34198fe58d1507b4e161096f313fa1be4c6d3f0",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350511521801063C0/B350511521801063C0.bin": "f69b0cbe84700844398f3408cc739294330768386bb4ebec013e8312aeb5fe9a",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350511521801063C0/B350511521801063C0.gltf": "c4d19871ff7922f91d9ce288aea385d4202ed64ef866c9be3333ce79968de6d4",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350721521901063C0/B350721521901063C0.bin": "9eb2632117a1401e8980947f2be3da46b786c740187b4d9fedc989519c7af9dc",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350721521901063C0/B350721521901063C0.gltf": "0e63ad01ba04a2d87da8971fffbcfb903d34f18b5da29db8683500ce7cb859e7",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350771516801063C0/B350771516801063C0.bin": "4ff96ada879836e22041acc9d1c55f7d639f7d5860ce482e74221bbfe86ac840",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350771516801063C0/B350771516801063C0.gltf": "9e808074e305b98d6780c74ce548a7bd2cb08cc6a62e296103b687292b539221",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350871509201063C0/B350871509201063C0.bin": "8b4e377a26053422be22ea7d05121de0359fdade4691997783ed789b9de5fb80",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350871509201063C0/B350871509201063C0.gltf": "61186d21031773d4a82da2a6fe95340da837010cf182ae66444498df2d3d8ca1",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350891508801063C0/B350891508801063C0.bin": "65c464a004c7d3df72dc0cf7bfbf2031492f4353d356f32c280374fa2538ddf0",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B350891508801063C0/B350891508801063C0.gltf": "83f29dd200c8f81fe0fb8ffa424b6b6cab9e97fb82aa679fc9dd6eeffc79b25b",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B351061509301063C0/B351061509301063C0.bin": "c2a82eb9ec69c67ef39fb9085452f87ae9deceddf05bb2e09919bfc5b7ca5a71",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B351061509301063C0/B351061509301063C0.gltf": "04d6f3610d64d6749797dae471e822d4eeda5af430f193776fa3984f76db3f72",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B351171518501063C0/B351171518501063C0.bin": "3346416fdd96c2b987034057e887d4e2238db9fff43b002142f885ac6487a311",
+    "source-scripts/city/central-completion/staged/11-SW-14A/BUILDING/B351171518501063C0/B351171518501063C0.gltf": "430be6d670a62216d2a273386f531e5cb0f0d63acb69b6c30246b03eed312dd0",
+    "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json": "4d5b4a88b171d5dd68eb46ed8deee9caa424c0179028175701c819a4cd6dfdbe",
+    "source-scripts/city/central-completion/staged/11-SW-8D/BUILDING/B339331574301063C0/B339331574301063C0.bin": "3af7f54c715671c8764ed7284d692486fefe44155da458a4d47a4996a29836ae",
+    "source-scripts/city/central-completion/staged/11-SW-8D/BUILDING/B339331574301063C0/B339331574301063C0.gltf": "df46f37ab19647646a593b714e92f46f25a5488a041555314ed3e220edfbf82b",
+    "source-scripts/city/central-completion/staged/11-SW-8D/BUILDING/B339381575801063C0/B339381575801063C0.bin": "444b9684bcb2e0141aa2cc5922f4d09058f7c359369362e24091d3081ae25495",
+    "source-scripts/city/central-completion/staged/11-SW-8D/BUILDING/B339381575801063C0/B339381575801063C0.gltf": "a4a9d201235d0431ebd8696368a7ebd539e30d763a4283dfc5435d651b6b68e4",
+    "source-scripts/city/central-completion/staged/11-SW-8D/BUILDING/B339571580901063C0/B339571580901063C0.bin": "5701149144e185feeef53b6ea879ce261521736df3300bde89063b22f40a855c",
+    "source-scripts/city/central-completion/staged/11-SW-8D/BUILDING/B339571580901063C0/B339571580901063C0.gltf": "7e42f55e5f75c6a91e43904d43846e92d678aacd40a7097598990d4d0f5b2662",
+    "source-scripts/city/central-completion/staged/11-SW-8D/BUILDING/B339641585401063C0/B339641585401063C0.bin": "bb4f98aced8c2b62b18ca54aa3c93686dd793743dc6c2ec31cf4d43fcd92082d",
+    "source-scripts/city/central-completion/staged/11-SW-8D/BUILDING/B339641585401063C0/B339641585401063C0.gltf": "9df5a8b2b330f3ee04d9fdbb7e9982400575be86908b25c98411fceb86726800",
+    "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json": "f7db76552f9bb10904d9629d968041c5e2a2be6ea15386db0d2fcb5693803b89",
+    "source-scripts/city/landmark-pass/audit_existing.py": "cdb0f01481cc3d8183c3fe44b507ea5fc2d97b4955240f8714322713895985cc"
+  },
+  "inputRecordSnapshotSha256": "1e81383f98afb93ab22d81ed578c84637d4554dd7ad8868cac2ab182dee7d113",
+  "rows": [
+    {
+      "uid": "landsd/3089:0",
+      "name": "ASIA SOCIETY HONG KONG CENTER",
+      "objectId": 3089,
+      "buildingCSUID": "3508915088T20100330",
+      "sourceBaseTop": [
+        53.2,
+        56.0
+      ],
+      "estimatedBaseHeight": [
+        53.2,
+        2.8
+      ],
+      "structureType": "Tower",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "ready",
+      "classification": "fresh-standard-match-candidate",
+      "nextAction": "Run shared loader and actual browser placement/identity review before publication.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B350891508801063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B350891508801063C0/B350891508801063C0.gltf": "83f29dd200c8f81fe0fb8ffa424b6b6cab9e97fb82aa679fc9dd6eeffc79b25b",
+            "BUILDING/B350891508801063C0/B350891508801063C0.bin": "65c464a004c7d3df72dc0cf7bfbf2031492f4353d356f32c280374fa2538ddf0"
+          },
+          "nativeBounds": [
+            [
+              586.2900390625,
+              53.5260009765625,
+              1407.4404296875
+            ],
+            [
+              593.458984375,
+              56.32699966430664,
+              1419.05859375
+            ]
+          ],
+          "triangles": 12,
+          "existingOfficialMatches": [],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.9806196124792549,
+            "centroidDistanceMetres": 0.375150838155047,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 4,
+            "projectedTriangleCoverageFraction": 0.98062,
+            "interiorSamples": 48,
+            "samplesWithActualTriangle": 47,
+            "minimumSurfaceHeightRangeHKPD": [
+              53.526,
+              53.526
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              56.327,
+              56.327
+            ],
+            "samplesInEstimatedFallbackBand": 47,
+            "estimatedFallbackBandHKPD": [
+              52.2,
+              58.0
+            ],
+            "sourceBaseHeightHKPD": 53.2,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          },
+          "freshStandardMatchPacked": true
+        }
+      ],
+      "supportCandidates": []
+    },
+    {
+      "uid": "landsd/3090:0",
+      "name": "ASIA SOCIETY HONG KONG CENTER",
+      "objectId": 3090,
+      "buildingCSUID": "3508715092T20100330",
+      "sourceBaseTop": [
+        53.2,
+        56.3
+      ],
+      "estimatedBaseHeight": [
+        53.2,
+        3.1
+      ],
+      "structureType": "Tower",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "ready",
+      "classification": "fresh-standard-match-candidate",
+      "nextAction": "Run shared loader and actual browser placement/identity review before publication.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B350871509201063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B350871509201063C0/B350871509201063C0.gltf": "61186d21031773d4a82da2a6fe95340da837010cf182ae66444498df2d3d8ca1",
+            "BUILDING/B350871509201063C0/B350871509201063C0.bin": "8b4e377a26053422be22ea7d05121de0359fdade4691997783ed789b9de5fb80"
+          },
+          "nativeBounds": [
+            [
+              584.1171875,
+              53.5260009765625,
+              1404.8837890625
+            ],
+            [
+              591.2578125,
+              56.731998443603516,
+              1408.7421875
+            ]
+          ],
+          "triangles": 10,
+          "existingOfficialMatches": [],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.9638596754650358,
+            "centroidDistanceMetres": 0.08300993010368381,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 2,
+            "projectedTriangleCoverageFraction": 0.96386,
+            "interiorSamples": 20,
+            "samplesWithActualTriangle": 19,
+            "minimumSurfaceHeightRangeHKPD": [
+              56.732,
+              56.732
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              56.732,
+              56.732
+            ],
+            "samplesInEstimatedFallbackBand": 19,
+            "estimatedFallbackBandHKPD": [
+              52.2,
+              58.300000000000004
+            ],
+            "sourceBaseHeightHKPD": 53.2,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          },
+          "freshStandardMatchPacked": true
+        }
+      ],
+      "supportCandidates": []
+    },
+    {
+      "uid": "landsd/4314:0",
+      "name": "The Asia Society Hong Kong Center Miller Theater",
+      "objectId": 4314,
+      "buildingCSUID": "3510615093T20050430",
+      "sourceBaseTop": [
+        53.2,
+        59.3
+      ],
+      "estimatedBaseHeight": [
+        53.2,
+        6.1
+      ],
+      "structureType": "Tower",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "ready",
+      "classification": "fresh-standard-match-candidate",
+      "nextAction": "Run shared loader and actual browser placement/identity review before publication.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B351061509301063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B351061509301063C0/B351061509301063C0.gltf": "04d6f3610d64d6749797dae471e822d4eeda5af430f193776fa3984f76db3f72",
+            "BUILDING/B351061509301063C0/B351061509301063C0.bin": "c2a82eb9ec69c67ef39fb9085452f87ae9deceddf05bb2e09919bfc5b7ca5a71"
+          },
+          "nativeBounds": [
+            [
+              591.59765625,
+              53.79800033569336,
+              1397.6083984375
+            ],
+            [
+              626.1533203125,
+              59.7130012512207,
+              1418.392578125
+            ]
+          ],
+          "triangles": 120,
+          "existingOfficialMatches": [],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.9767788846787127,
+            "centroidDistanceMetres": 0.9005719214342462,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 80,
+            "projectedTriangleCoverageFraction": 0.972326,
+            "interiorSamples": 453,
+            "samplesWithActualTriangle": 442,
+            "minimumSurfaceHeightRangeHKPD": [
+              56.661,
+              59.703
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              56.661,
+              59.703
+            ],
+            "samplesInEstimatedFallbackBand": 442,
+            "estimatedFallbackBandHKPD": [
+              52.2,
+              61.300000000000004
+            ],
+            "sourceBaseHeightHKPD": 53.2,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          },
+          "freshStandardMatchPacked": true
+        }
+      ],
+      "supportCandidates": []
+    },
+    {
+      "uid": "landsd/70574:0",
+      "name": "ASIA SOCIETY HONG KONG CENTER",
+      "objectId": 70574,
+      "buildingCSUID": "3510115168T20080219",
+      "sourceBaseTop": [
+        null,
+        null
+      ],
+      "estimatedBaseHeight": [
+        59.855,
+        3.0
+      ],
+      "structureType": "Open-sided Structure",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "held",
+      "classification": "possible-shared-source-component",
+      "nextAction": "Review actual triangle coverage and vertical levels before any duplicate suppression; retain fallback.",
+      "exactReferenceCandidates": [],
+      "supportCandidates": [
+        {
+          "modelId": "B350771516801063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "officialBuildingCSUIDs": [
+            "3507715168T20050430"
+          ],
+          "nativeBounds": [
+            [
+              569.9306640625,
+              53.2599983215332,
+              1320.9169921875
+            ],
+            [
+              613.1943359375,
+              59.9379997253418,
+              1350.33203125
+            ]
+          ],
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 67,
+            "projectedTriangleCoverageFraction": 0.994094,
+            "interiorSamples": 131,
+            "samplesWithActualTriangle": 130,
+            "minimumSurfaceHeightRangeHKPD": [
+              53.26,
+              58.43
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              56.895,
+              58.732
+            ],
+            "samplesInEstimatedFallbackBand": 0,
+            "estimatedFallbackBandHKPD": [
+              58.855,
+              64.85499999999999
+            ],
+            "sourceBaseHeightHKPD": null,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ]
+    },
+    {
+      "uid": "landsd/91009:0",
+      "name": "FLAGSTAFF HOUSE MUSEUM OF TEA WARE AND THE K.S. LO GALLERY",
+      "objectId": 91009,
+      "buildingCSUID": "3478115460T20080219",
+      "sourceBaseTop": [
+        null,
+        null
+      ],
+      "estimatedBaseHeight": [
+        31.702,
+        3.0
+      ],
+      "structureType": "Open-sided Structure",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "held",
+      "classification": "possible-shared-source-component",
+      "nextAction": "Review actual triangle coverage and vertical levels before any duplicate suppression; retain fallback.",
+      "exactReferenceCandidates": [],
+      "supportCandidates": [
+        {
+          "modelId": "B347841552001063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "officialBuildingCSUIDs": [
+            "3478415520T20050430"
+          ],
+          "nativeBounds": [
+            [
+              264.8505859375,
+              27.785999298095703,
+              972.43359375
+            ],
+            [
+              303.8994140625,
+              41.56800079345703,
+              1042.0654296875
+            ]
+          ],
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 13,
+            "projectedTriangleCoverageFraction": 0.886582,
+            "interiorSamples": 47,
+            "samplesWithActualTriangle": 40,
+            "minimumSurfaceHeightRangeHKPD": [
+              30.447,
+              32.151
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              30.447,
+              32.151
+            ],
+            "samplesInEstimatedFallbackBand": 31,
+            "estimatedFallbackBandHKPD": [
+              30.702,
+              36.702
+            ],
+            "sourceBaseHeightHKPD": null,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ]
+    },
+    {
+      "uid": "landsd/114964:0",
+      "name": "E Hall",
+      "objectId": 114964,
+      "buildingCSUID": "3393315743T20050430",
+      "sourceBaseTop": [
+        55.4,
+        69.0
+      ],
+      "estimatedBaseHeight": [
+        55.4,
+        13.6
+      ],
+      "structureType": "Tower",
+      "originalClassification": "prepared-placement-hold",
+      "originalReason": "E Hall: current terrain buries the lower facade by up to3.63m.",
+      "outcome": "held",
+      "classification": "rendered-terrain-contact",
+      "nextAction": "Evaluate bounded source terrain/support correction without moving source model elevations.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B339331574301063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+          "sourceRevision": "2026-08-27T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B339331574301063C0/B339331574301063C0.gltf": "df46f37ab19647646a593b714e92f46f25a5488a041555314ed3e220edfbf82b",
+            "BUILDING/B339331574301063C0/B339331574301063C0.bin": "3af7f54c715671c8764ed7284d692486fefe44155da458a4d47a4996a29836ae"
+          },
+          "nativeBounds": [
+            [
+              -581.189453125,
+              50.18899917602539,
+              744.619140625
+            ],
+            [
+              -554.185546875,
+              69.52100372314453,
+              766.255859375
+            ]
+          ],
+          "triangles": 182,
+          "existingOfficialMatches": [
+            "3393315743T20050430"
+          ],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.9999999999999999,
+            "centroidDistanceMetres": 0.8313487329981353,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 126,
+            "projectedTriangleCoverageFraction": 1.0,
+            "interiorSamples": 227,
+            "samplesWithActualTriangle": 227,
+            "minimumSurfaceHeightRangeHKPD": [
+              65.539,
+              68.565
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              65.962,
+              69.509
+            ],
+            "samplesInEstimatedFallbackBand": 227,
+            "estimatedFallbackBandHKPD": [
+              54.4,
+              71.0
+            ],
+            "sourceBaseHeightHKPD": 55.4,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ],
+      "supportCandidates": []
+    },
+    {
+      "uid": "landsd/143421:0",
+      "name": "FLAGSTAFF HOUSE MUSEUM OF TEA WARE AND THE K.S. LO GALLERY",
+      "objectId": 143421,
+      "buildingCSUID": "3479515478T20050430",
+      "sourceBaseTop": [
+        27.9,
+        30.4
+      ],
+      "estimatedBaseHeight": [
+        27.9,
+        2.5
+      ],
+      "structureType": "Tower",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "held",
+      "classification": "exact-reference-fails-current-standard-match",
+      "nextAction": "Review explicit model/footprint correspondence; retain fallback. Do not relax global thresholds.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B347951547801063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B347951547801063C0/B347951547801063C0.gltf": "9c2153c638b99f0e8230c7a8068df2efdf46d37b1d6128f4ab1d190fa6d9b12f",
+            "BUILDING/B347951547801063C0/B347951547801063C0.bin": "3306f3d66f848f63e35fcf4d8396d1dcc059516de56f3492b4f761dba7a3168e"
+          },
+          "nativeBounds": [
+            [
+              291.7763671875,
+              28.04599952697754,
+              1010.544921875
+            ],
+            [
+              302.474609375,
+              32.50899887084961,
+              1019.580078125
+            ]
+          ],
+          "triangles": 30,
+          "existingOfficialMatches": [],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.0,
+            "centroidDistanceMetres": 6.373545078163984,
+            "matchesExistingThresholds": false
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 5,
+            "projectedTriangleCoverageFraction": 0.0,
+            "interiorSamples": 41,
+            "samplesWithActualTriangle": 0,
+            "minimumSurfaceHeightRangeHKPD": null,
+            "maximumSurfaceHeightRangeHKPD": null,
+            "samplesInEstimatedFallbackBand": 0,
+            "estimatedFallbackBandHKPD": [
+              26.9,
+              32.4
+            ],
+            "sourceBaseHeightHKPD": 27.9,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ],
+      "supportCandidates": []
+    },
+    {
+      "uid": "landsd/223348:0",
+      "name": "ASIA SOCIETY HONG KONG CENTER",
+      "objectId": 223348,
+      "buildingCSUID": "3511715185T20100331",
+      "sourceBaseTop": [
+        49.2,
+        58.5
+      ],
+      "estimatedBaseHeight": [
+        49.2,
+        9.3
+      ],
+      "structureType": "Tower",
+      "originalClassification": "prepared-placement-hold",
+      "originalReason": "Asia Society: unexplained7m bottom gap to both current/native terrain; no supporting structure identified.",
+      "outcome": "held",
+      "classification": "component-support-review",
+      "nextAction": "Evaluate bounded source terrain/support correction without moving source model elevations.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B351171518501063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B351171518501063C0/B351171518501063C0.gltf": "430be6d670a62216d2a273386f531e5cb0f0d63acb69b6c30246b03eed312dd0",
+            "BUILDING/B351171518501063C0/B351171518501063C0.bin": "3346416fdd96c2b987034057e887d4e2238db9fff43b002142f885ac6487a311"
+          },
+          "nativeBounds": [
+            [
+              615.552734375,
+              56.027000427246094,
+              1312.259765625
+            ],
+            [
+              619.447265625,
+              59.060001373291016,
+              1316.1162109375
+            ]
+          ],
+          "triangles": 10,
+          "existingOfficialMatches": [
+            "3511715185T20100331"
+          ],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.9878031363248098,
+            "centroidDistanceMetres": 0.028749866275387323,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 2,
+            "projectedTriangleCoverageFraction": 0.987752,
+            "interiorSamples": 12,
+            "samplesWithActualTriangle": 12,
+            "minimumSurfaceHeightRangeHKPD": [
+              59.06,
+              59.06
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              59.06,
+              59.06
+            ],
+            "samplesInEstimatedFallbackBand": 12,
+            "estimatedFallbackBandHKPD": [
+              48.2,
+              60.5
+            ],
+            "sourceBaseHeightHKPD": 49.2,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ],
+      "supportCandidates": []
+    },
+    {
+      "uid": "landsd/223783:0",
+      "name": "ASIA SOCIETY HONG KONG CENTER",
+      "objectId": 223783,
+      "buildingCSUID": "3505115218T20100401",
+      "sourceBaseTop": [
+        43.1,
+        49.2
+      ],
+      "estimatedBaseHeight": [
+        43.1,
+        6.1
+      ],
+      "structureType": "Tower",
+      "originalClassification": "prepared-placement-hold",
+      "originalReason": "Asia Society U-shaped component: support unclear at exposed downhill edge;0.56–2.95m current ground gap.",
+      "outcome": "held",
+      "classification": "component-support-review",
+      "nextAction": "Evaluate bounded source terrain/support correction without moving source model elevations.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B350511521801063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B350511521801063C0/B350511521801063C0.gltf": "c4d19871ff7922f91d9ce288aea385d4202ed64ef866c9be3333ce79968de6d4",
+            "BUILDING/B350511521801063C0/B350511521801063C0.bin": "f69b0cbe84700844398f3408cc739294330768386bb4ebec013e8312aeb5fe9a"
+          },
+          "nativeBounds": [
+            [
+              549.8515625,
+              43.57899856567383,
+              1277.9423828125
+            ],
+            [
+              553.7724609375,
+              46.68199920654297,
+              1283.3076171875
+            ]
+          ],
+          "triangles": 25,
+          "existingOfficialMatches": [
+            "3505115218T20100401"
+          ],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.9197738154701725,
+            "centroidDistanceMetres": 0.7594105369637937,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 7,
+            "projectedTriangleCoverageFraction": 0.919774,
+            "interiorSamples": 11,
+            "samplesWithActualTriangle": 10,
+            "minimumSurfaceHeightRangeHKPD": [
+              46.682,
+              46.682
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              46.682,
+              46.682
+            ],
+            "samplesInEstimatedFallbackBand": 10,
+            "estimatedFallbackBandHKPD": [
+              42.1,
+              51.2
+            ],
+            "sourceBaseHeightHKPD": 43.1,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ],
+      "supportCandidates": [
+        {
+          "modelId": "B350721521901063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-14A/manifest.json",
+          "sourceRevision": "2025-12-21T16:00:00+00:00",
+          "officialBuildingCSUIDs": [
+            "3507215219T20130508"
+          ],
+          "nativeBounds": [
+            [
+              549.7841796875,
+              33.569000244140625,
+              1242.6787109375
+            ],
+            [
+              593.8408203125,
+              59.935001373291016,
+              1320.0703125
+            ]
+          ],
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 4,
+            "projectedTriangleCoverageFraction": 0.077871,
+            "interiorSamples": 11,
+            "samplesWithActualTriangle": 1,
+            "minimumSurfaceHeightRangeHKPD": [
+              43.579,
+              43.579
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              49.343,
+              49.343
+            ],
+            "samplesInEstimatedFallbackBand": 1,
+            "estimatedFallbackBandHKPD": [
+              42.1,
+              51.2
+            ],
+            "sourceBaseHeightHKPD": 43.1,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ]
+    },
+    {
+      "uid": "landsd/242698:0",
+      "name": "Married Inspectors' Quarters",
+      "objectId": 242698,
+      "buildingCSUID": "3396415840T20050430",
+      "sourceBaseTop": [
+        40.3,
+        62.8
+      ],
+      "estimatedBaseHeight": [
+        40.3,
+        22.5
+      ],
+      "structureType": "Tower",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "missing",
+      "classification": "source-not-in-reviewed-cached-directory",
+      "nextAction": "Retain surveyed fallback; no standalone exact-reference member in checked complete11-SW-8Ddirectory. Review future/newer source revision or commission explicit geometry.",
+      "exactReferenceCandidates": [],
+      "supportCandidates": [],
+      "priorCompleteDirectoryEvidence": {
+        "source": "source-scripts/city/architecture-batch/taikwun-audit.json",
+        "directory": {
+          "path": "source-scripts/city/central-completion/sources/11-SW-8D/zip-directory.bin",
+          "entries": 2428,
+          "complete": true,
+          "sha256": "091781a4317a4547a29189c8216ada8c37701d3f074e72dbed267a591a550346"
+        },
+        "matchingMembers": []
+      }
+    },
+    {
+      "uid": "landsd/246271:0",
+      "name": "THE PEAK TOWER",
+      "objectId": 246271,
+      "buildingCSUID": "3353014696T20141126",
+      "sourceBaseTop": [
+        null,
+        null
+      ],
+      "estimatedBaseHeight": [
+        393.561,
+        3.0
+      ],
+      "structureType": "Open-sided Structure",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "held",
+      "classification": "possible-shared-source-component",
+      "nextAction": "Review actual triangle coverage and vertical levels before any duplicate suppression; retain fallback.",
+      "exactReferenceCandidates": [],
+      "supportCandidates": [
+        {
+          "modelId": "B334861471201063C0",
+          "sourceManifest": "source-scripts/city/architecture-batch/staged/11-SW-13C/manifest.json",
+          "sourceRevision": "2025-09-28T16:00:00+00:00",
+          "officialBuildingCSUIDs": [
+            "3348614712T20050430"
+          ],
+          "nativeBounds": [
+            [
+              -1055.9931640625,
+              378.50799560546875,
+              1771.23046875
+            ],
+            [
+              -964.8564453125,
+              430.29998779296875,
+              1806.96484375
+            ]
+          ],
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 95,
+            "projectedTriangleCoverageFraction": 0.999633,
+            "interiorSamples": 22,
+            "samplesWithActualTriangle": 22,
+            "minimumSurfaceHeightRangeHKPD": [
+              397.821,
+              405.754
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              398.744,
+              406.251
+            ],
+            "samplesInEstimatedFallbackBand": 19,
+            "estimatedFallbackBandHKPD": [
+              392.561,
+              398.561
+            ],
+            "sourceBaseHeightHKPD": null,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ]
+    },
+    {
+      "uid": "landsd/246272:0",
+      "name": "THE PEAK TOWER",
+      "objectId": 246272,
+      "buildingCSUID": "3347214700T20141126",
+      "sourceBaseTop": [
+        null,
+        null
+      ],
+      "estimatedBaseHeight": [
+        392.67,
+        3.0
+      ],
+      "structureType": "Open-sided Structure",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "held",
+      "classification": "possible-shared-source-component",
+      "nextAction": "Review actual triangle coverage and vertical levels before any duplicate suppression; retain fallback.",
+      "exactReferenceCandidates": [],
+      "supportCandidates": [
+        {
+          "modelId": "B334861471201063C0",
+          "sourceManifest": "source-scripts/city/architecture-batch/staged/11-SW-13C/manifest.json",
+          "sourceRevision": "2025-09-28T16:00:00+00:00",
+          "officialBuildingCSUIDs": [
+            "3348614712T20050430"
+          ],
+          "nativeBounds": [
+            [
+              -1055.9931640625,
+              378.50799560546875,
+              1771.23046875
+            ],
+            [
+              -964.8564453125,
+              430.29998779296875,
+              1806.96484375
+            ]
+          ],
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 4384,
+            "projectedTriangleCoverageFraction": 1.0,
+            "interiorSamples": 28,
+            "samplesWithActualTriangle": 28,
+            "minimumSurfaceHeightRangeHKPD": [
+              397.557,
+              397.876
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              406.279,
+              427.314
+            ],
+            "samplesInEstimatedFallbackBand": 6,
+            "estimatedFallbackBandHKPD": [
+              391.67,
+              397.67
+            ],
+            "sourceBaseHeightHKPD": null,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ]
+    },
+    {
+      "uid": "landsd/248218:0",
+      "name": "The Peak Tower",
+      "objectId": 248218,
+      "buildingCSUID": "3348614712T20050430",
+      "sourceBaseTop": [
+        378.0,
+        425.4
+      ],
+      "estimatedBaseHeight": [
+        378.0,
+        47.4
+      ],
+      "structureType": "Tower",
+      "originalClassification": "prepared-placement-hold",
+      "originalReason": "Peak Tower: source geometry verified, but lower floors intersect coarse70m terrain.",
+      "outcome": "held",
+      "classification": "rendered-terrain-contact",
+      "nextAction": "Evaluate bounded source terrain/support correction without moving source model elevations.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B334861471201063C0",
+          "sourceManifest": "source-scripts/city/architecture-batch/staged/11-SW-13C/manifest.json",
+          "sourceRevision": "2025-09-28T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B334861471201063C0/B334861471201063C0.gltf": "e6b91218ca7f1c794c8551dbda98d43a8cc3edc4d1b9772113a2f04a0d4f8218",
+            "BUILDING/B334861471201063C0/B334861471201063C0.bin": "f76a4c616d85c9027ceb5e2fa5400a99b5b8510d3af8b319c9cfde394b8f9490"
+          },
+          "nativeBounds": [
+            [
+              -1055.9931640625,
+              378.50799560546875,
+              1771.23046875
+            ],
+            [
+              -964.8564453125,
+              430.29998779296875,
+              1806.96484375
+            ]
+          ],
+          "triangles": 26547,
+          "existingOfficialMatches": [
+            "3348614712T20050430"
+          ],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.9999107640390353,
+            "centroidDistanceMetres": 2.903169804057204,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 17061,
+            "projectedTriangleCoverageFraction": 0.998826,
+            "interiorSamples": 1926,
+            "samplesWithActualTriangle": 1926,
+            "minimumSurfaceHeightRangeHKPD": [
+              378.679,
+              430.04
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              397.055,
+              430.141
+            ],
+            "samplesInEstimatedFallbackBand": 1736,
+            "estimatedFallbackBandHKPD": [
+              377.0,
+              427.4
+            ],
+            "sourceBaseHeightHKPD": 378.0,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ],
+      "supportCandidates": []
+    },
+    {
+      "uid": "landsd/322573:0",
+      "name": "Opus Hong Kong",
+      "objectId": 322573,
+      "buildingCSUID": "3599514486T20120117",
+      "sourceBaseTop": [
+        236.8,
+        285.7
+      ],
+      "estimatedBaseHeight": [
+        236.8,
+        48.9
+      ],
+      "structureType": "Tower",
+      "originalClassification": "prepared-placement-hold",
+      "originalReason": "Opus: source geometry verified, but coarse70m terrain foundations need further review.",
+      "outcome": "held",
+      "classification": "rendered-terrain-contact",
+      "nextAction": "Evaluate bounded source terrain/support correction without moving source model elevations.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B359951448601063C0",
+          "sourceManifest": "source-scripts/city/architecture-batch/staged/11-SW-14D/manifest.json",
+          "sourceRevision": "2026-04-23T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B359951448601063C0/B359951448601063C0.gltf": "09fe66867c4ad0ba856844ac65a59556c348a09dc1c9f6a17e8615a08f9b5fb3",
+            "BUILDING/B359951448601063C0/B359951448601063C0.bin": "424a289ccbdcd8e7e7057542d86ec556a7b9e04ec986a63faed8aae725ea050d"
+          },
+          "nativeBounds": [
+            [
+              1476.119140625,
+              236.843994140625,
+              1986.685546875
+            ],
+            [
+              1513.1728515625,
+              293.25299072265625,
+              2017.076171875
+            ]
+          ],
+          "triangles": 12382,
+          "existingOfficialMatches": [
+            "3599514486T20120117"
+          ],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.999616965364937,
+            "centroidDistanceMetres": 0.3335537895372848,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 10326,
+            "projectedTriangleCoverageFraction": 0.993999,
+            "interiorSamples": 645,
+            "samplesWithActualTriangle": 642,
+            "minimumSurfaceHeightRangeHKPD": [
+              237.338,
+              293.253
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              239.273,
+              293.253
+            ],
+            "samplesInEstimatedFallbackBand": 507,
+            "estimatedFallbackBandHKPD": [
+              235.8,
+              287.7
+            ],
+            "sourceBaseHeightHKPD": 236.8,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ],
+      "supportCandidates": []
+    },
+    {
+      "uid": "landsd/324948:0",
+      "name": "The Henderson",
+      "objectId": 324948,
+      "buildingCSUID": "3474915699T20240424",
+      "sourceBaseTop": [
+        6.5,
+        175.1
+      ],
+      "estimatedBaseHeight": [
+        6.5,
+        168.6
+      ],
+      "structureType": "Tower",
+      "originalClassification": "source-or-match-case",
+      "originalReason": "no-standard-match-in-cache",
+      "outcome": "missing",
+      "classification": "source-not-in-reviewed-cached-directories",
+      "nextAction": "Retain surveyed fallback; previous bounded complete-directory review found no exact-reference source model. No dataset-wide absence claimed.",
+      "exactReferenceCandidates": [],
+      "supportCandidates": [],
+      "priorCompleteDirectoryEvidence": {
+        "source": "source-scripts/city/architecture-batch/missing-source-report.json",
+        "checkedDirectories": [
+          {
+            "sheet": "11-SW-15C",
+            "completeEntries": 439,
+            "directorySHA256": "925f5649df365f9aa094932b45eb279d2e3d131adcc154f62f2cc2c1a40f758b"
+          },
+          {
+            "sheet": "11-SW-9C",
+            "completeEntries": 238,
+            "directorySHA256": "d406f80eb261b32473d03243f1f8f62200aeece5035745db89034f2b337bcbfe"
+          },
+          {
+            "sheet": "11-SW-15B",
+            "completeEntries": 1351,
+            "directorySHA256": "394cdd0f87e4d1765876d3b7345857d09280a035c751fc3ceea342f093af75b6"
+          },
+          {
+            "sheet": "11-SW-10D",
+            "completeEntries": 997,
+            "directorySHA256": "7c5c7a9362817041e6cd973f107def0eec5838ff2e92304c55cc063214d1bcbb"
+          },
+          {
+            "sheet": "11-SW-13C",
+            "completeEntries": 283,
+            "directorySHA256": "c58de278ce562b6df3c8c1f284520928839d2d66ffb728a58cfdb34c454b79ed"
+          },
+          {
+            "sheet": "11-SW-14D",
+            "completeEntries": 361,
+            "directorySHA256": "bd6e2481c5b3f87bd5302fb942fc619d0a032b06f4336f1964d023f9cd079aeb"
+          }
+        ],
+        "matchingMembers": [],
+        "outcome": "no-exact-reference-model-in-checked-source-sheets"
+      }
+    },
+    {
+      "uid": "landsd/330467:0",
+      "name": "JC Cube",
+      "objectId": 330467,
+      "buildingCSUID": "3393815758T20181120",
+      "sourceBaseTop": [
+        58.1,
+        81.0
+      ],
+      "estimatedBaseHeight": [
+        58.1,
+        22.9
+      ],
+      "structureType": "Tower",
+      "originalClassification": "prepared-placement-hold",
+      "originalReason": "JC Cube: current terrain leaves an unsupported3.30–4.24m corner; costly trial patch remains unpublished.",
+      "outcome": "held",
+      "classification": "rendered-terrain-contact",
+      "nextAction": "Evaluate bounded source terrain/support correction without moving source model elevations.",
+      "exactReferenceCandidates": [
+        {
+          "modelId": "B339381575801063C0",
+          "sourceManifest": "source-scripts/city/central-completion/staged/11-SW-8D/manifest.json",
+          "sourceRevision": "2026-08-27T16:00:00+00:00",
+          "sourceHashes": {
+            "BUILDING/B339381575801063C0/B339381575801063C0.gltf": "a4a9d201235d0431ebd8696368a7ebd539e30d763a4283dfc5435d651b6b68e4",
+            "BUILDING/B339381575801063C0/B339381575801063C0.bin": "444b9684bcb2e0141aa2cc5922f4d09058f7c359369362e24091d3081ae25495"
+          },
+          "nativeBounds": [
+            [
+              -578.365234375,
+              53.63999938964844,
+              728.439453125
+            ],
+            [
+              -544.3837890625,
+              80.91200256347656,
+              758.185546875
+            ]
+          ],
+          "triangles": 29,
+          "existingOfficialMatches": [
+            "3393815758T20181120"
+          ],
+          "currentFootprintMatch": {
+            "overlapOfSmallerFootprint": 0.994955437779809,
+            "centroidDistanceMetres": 0.1871914495040961,
+            "matchesExistingThresholds": true
+          },
+          "actualTriangles": {
+            "method": "Native indexed glTF triangles decoded with shared node transforms. Exact horizontal triangle-union intersection and 1m interior vertical-ray samples. No convex-hull proxy.",
+            "trianglesInFootprintBounds": 13,
+            "projectedTriangleCoverageFraction": 0.987715,
+            "interiorSamples": 533,
+            "samplesWithActualTriangle": 528,
+            "minimumSurfaceHeightRangeHKPD": [
+              58.182,
+              80.912
+            ],
+            "maximumSurfaceHeightRangeHKPD": [
+              80.912,
+              80.912
+            ],
+            "samplesInEstimatedFallbackBand": 528,
+            "estimatedFallbackBandHKPD": [
+              57.1,
+              83.0
+            ],
+            "sourceBaseHeightHKPD": 58.1,
+            "qualification": "Triangle presence can be another storey or underside. The canopy has no surveyed height, so correspondence and suppression still require explicit source/visual review."
+          }
+        }
+      ],
+      "supportCandidates": []
+    }
+  ],
+  "limits": [
+    "Ready means staged candidate ready for loader/browser review, not live publication or architectural sign-off.",
+    "No source heights or coordinates changed. No live/catalogue/SQLite writes.",
+    "No network acquisition in this pass. Missing outcomes are qualified to retained sources."
+  ]
+}

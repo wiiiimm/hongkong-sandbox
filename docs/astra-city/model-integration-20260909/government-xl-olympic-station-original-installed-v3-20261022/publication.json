@@ -1,0 +1,79 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-olympic-station-qualified-stage-v2-20261022/plan.json",
+  "areas": [
+    {
+      "area": "Original Olympic Station",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-olympic-station-qualified-stage-v2-20261022/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-olympic-station-original-20261022.json": null,
+    "3d-viewer/city/data/official-models/government-xl-olympic-station-qualified-stage-v2-20261022/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "4061651ac496db3a8d76777f632de3e19a76ae6102a834b4183f7fedf4706ac3"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-olympic-station-original-20261022.json": "198c14bf2ccd05f6c92b80c7da84fb142b39fc5f194ee54b4f97f399671a7af5",
+    "3d-viewer/city/data/official-models/government-xl-olympic-station-qualified-stage-v2-20261022/catalogue.json": "1408fb6050265310be75ae10a722d55101366c5ea9dcefe5180095e1239f40c9",
+    "3d-viewer/city/data/manifest.json": "d665a647c05f37b2d30045846db89008394828cc867387fc205b45e4d9cb9340"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "d8def7f04e0d22eb502acaa86c5eb9338f0d5730",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-folkland-pair-v1-20261020.json",
+      "sha256": "8538339c4af0c6a3e06a9cc123e5c93b2fe238bef40916decc38b7225efdeac3",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-olympic-station-original-20261022.json",
+      "resolution": 5,
+      "area": "Original Olympic Station and retained Tai Kok Tsui terrain",
+      "source": {
+        "boundedOriginalInset": {
+          "path": "docs/astra-city/government-import/government-xl-validated-parent-return-followthrough-v1-20261022-candidates-81242-0-terrain/unapproved-terrain.json",
+          "sha256": "818eb435f07b456f436c861f08a9d16ca04d73427fef157efd3082ef03e5ee1b"
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "provenanceReceipt": "2a40f41e82b0814e0d001a896e4f6480ac7babe74d65f777124bd9a40c59d313",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14C/terrain/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.gltf"
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 30296,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 57
+        },
+        "policy": "Exact current rendered native surface retained outside explicit bounded original inset; all current source faces accounted for. Existing terrain grid/water/vegetation and original building geometry unchanged. Private proposal; all physical/current-neighbour/browser/publication checks remain mandatory.",
+        "provider": "Lands Department/HKSAR",
+        "retainedNativeSurface": {
+          "path": "3d-viewer/city/data/government-native-folkland-pair-v1-20261020.json",
+          "sha256": "8538339c4af0c6a3e06a9cc123e5c93b2fe238bef40916decc38b7225efdeac3"
+        },
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "198c14bf2ccd05f6c92b80c7da84fb142b39fc5f194ee54b4f97f399671a7af5",
+      "bytes": 14026527
+    }
+  ],
+  "estimatedBases": []
+}

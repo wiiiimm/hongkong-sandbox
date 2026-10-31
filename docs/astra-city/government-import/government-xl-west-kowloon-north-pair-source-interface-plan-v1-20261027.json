@@ -1,0 +1,67 @@
+{
+  "batch": "government-xl-west-kowloon-north-pair-source-interface-sequence-v1-20261027",
+  "uids": [
+    "landsd/182397:0",
+    "landsd/309340:0"
+  ],
+  "resources": [
+    "building:landsd/182397:0",
+    "building:landsd/262850:0",
+    "building:landsd/272986:0",
+    "building:landsd/309340:0",
+    "building:landsd/79799:0",
+    "building:landsd/84025:0",
+    "building:landsd/84114:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_source_terrain_check_v1_20261023.py",
+      "batch": "government-xl-west-kowloon-north-pair-original-terrain-v1-20261027",
+      "args": [
+        "--capture",
+        "government-xl-west-kowloon-north-pair-current-runtime-v1-20261027",
+        "--terrain-check",
+        "government-xl-after-dragon-next-five-west-kowloon-wide-terrain-v1-20261026"
+      ]
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-west-kowloon-north-pair-original-contact-roles-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-west-kowloon-north-pair-current-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-west-kowloon-north-pair-attributes-v1-20261027",
+        "--contacts",
+        "government-xl-west-kowloon-north-pair-original-contacts-v1-20261027"
+      ]
+    },
+    {
+      "script": "original_pair_contact_lineage_v1_20261027.py",
+      "batch": "government-xl-west-kowloon-north-pair-original-contact-lineage-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-west-kowloon-north-pair-current-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-west-kowloon-north-pair-attributes-v1-20261027",
+        "--contacts",
+        "government-xl-west-kowloon-north-pair-original-contacts-v1-20261027",
+        "--roles",
+        "government-xl-west-kowloon-north-pair-original-contact-roles-v1-20261027"
+      ]
+    },
+    {
+      "script": "selected_original_native_contact_roles_v1_20261025.py",
+      "batch": "government-xl-west-kowloon-north-pair-native-contact-roles-v1-20261027",
+      "args": [
+        "--runtime",
+        "government-xl-west-kowloon-north-pair-current-runtime-v1-20261027",
+        "--attributes",
+        "government-xl-west-kowloon-north-pair-attributes-v1-20261027",
+        "--contacts",
+        "government-xl-west-kowloon-north-pair-native-contacts-v1-20261027"
+      ]
+    }
+  ]
+}

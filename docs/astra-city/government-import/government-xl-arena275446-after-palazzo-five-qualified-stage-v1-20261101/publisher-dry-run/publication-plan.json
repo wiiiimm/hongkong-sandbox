@@ -1,0 +1,223 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-arena275446-after-palazzo-five-qualified-stage-v1-20261101/plan.json",
+  "areas": [
+    {
+      "area": "Five unchanged government source parts: Kai Tak podium, Arena and malls",
+      "models": 5,
+      "catalogue": "city/data/official-models/government-xl-arena275446-after-palazzo-five-qualified-stage-v1-20261101/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-kai-tak-five-original-v1-20261101.json": null,
+    "3d-viewer/city/data/official-models/government-xl-arena275446-after-palazzo-five-qualified-stage-v1-20261101/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "ff5eabb57c2fd9ff99d04dd856b9577b0c8c04215150ccd2975af3f83f99b34f"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-kai-tak-five-original-v1-20261101.json": "e467b77f52b1191ed85c43a051e0fa53473d12721ced5bc1ed313da3ef59b98d",
+    "3d-viewer/city/data/official-models/government-xl-arena275446-after-palazzo-five-qualified-stage-v1-20261101/catalogue.json": "d4c2cb3f69802af54dfbfbfb2267855f9ac03aa012b1dfe3626cc8a6b96e0af4",
+    "3d-viewer/city/data/manifest.json": "d5e4488ceb4617fd9fdae3a732a764f578e55dfa4909981e4619548bc339bc0e"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "f125f7d068dbaefe397a0762c559f42ab786a605",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-kai-tak-five-original-v1-20261101.json",
+      "resolution": 5,
+      "area": "Kai Tak area original source-derived ground",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            3570.125057805139,
+            -4190.8125,
+            3644.1241800186717,
+            -4170.639546702463
+          ],
+          "outerBounds": [
+            3567.127261906345,
+            -4193.8125,
+            3647.1240693844816,
+            -4167.930965145992
+          ],
+          "policy": "Original highest source terrain with existing1.2m sea-level floor, lower inset within model projection+1m and a shared piecewise-affine3m return. Validated coarse-parent edge return retained outside the original inset; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-200-20260911-pending-context-v1/terrain/11-NE-11C/decoded/TERRAIN(TB)/T37500204000106E12/T37500204000106E12.gltf",
+            "sha256": "b22635be96d52f73ea6b808aaa093904a43b4db7b5ceb08b4034261c5891e5d2"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-200-20260911-pending-context-v1/terrain/11-NE-11D/decoded/TERRAIN(TB)/T38250204000106E12/T38250204000106E12.gltf",
+            "sha256": "e07fd08d3f07ed425b68505d13560b97704539cd8bd4900141bd51f963056393"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-200-20260911-pending-context-v1/terrain/11-NE-16A/decoded/TERRAIN(TB)/T37500198000106E12/T37500198000106E12.gltf",
+            "sha256": "f4132fe4452d9989296bbb50bce5c9c675638ac9e00cde275dcf55d2ae69342e"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-remaining-adjacent-terrain-batch-v1-20261022-275446-0/sheets/11-NE-16B/terrain/TERRAIN(TB)/T38250198000106E12/T38250198000106E12.gltf",
+            "sha256": "5476f4577263684f42da7572f29864da866159aa4489cac2bcc76e5a2b88b54d"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 8023,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "retainedPrivateParent": {
+          "candidate": {
+            "path": "source-scripts/city/government-import/local/government-xl-arena275446-after-palazzo-five-original-terrain-binding-v1-20261101/candidate-terrain.json",
+            "sha256": "868deb811359719c58da44b89a0fe9398ecc89e8c31e7e133ed0a262629e52bb"
+          },
+          "parentCaptureTool": "selected_original_parent_capture_v3.mjs",
+          "sourceMetadata": {
+            "authoredRampInset": {
+              "continuousReturnClaimed": false,
+              "originalTerrainCandidate": {
+                "path": "source-scripts/city/government-import/local/government-xl-after-villa-premiere-275446-expanded-original-inset-v3-20261031/candidate-terrain.json",
+                "sha256": "672dae110d739759d1974afda4b0cbd6ec70a08e05b2a00b583cb7285e0b63a1"
+              },
+              "policy": "Lower-only source-floor-bounded0.25m-clearance return, independently per disconnected domain. Existing1m core/3m return, area/height/25k guards retained. No source edit or acceptance.",
+              "sha256": "8277969df373528689a5bf630bbd60c9b71d547e5951fc3a6eb3aa444c0b6880",
+              "sourceFaceIndices": [
+                19802,
+                19848,
+                19866
+              ],
+              "sourceFaceSHA256": "88229baa7fc5a14faf95df4e03adf88f1f4a898a063480b47cbf540bf6801b93",
+              "uid": "landsd/275446:0"
+            },
+            "boundedOriginalInset": {
+              "coreBounds": [
+                3624.29736062095,
+                -4361.99154187123,
+                4067.181996395126,
+                -4030.755503604874
+              ],
+              "outerBounds": [
+                3622.101285833632,
+                -4364.137642811586,
+                4070.176819514651,
+                -4027.760680485349
+              ],
+              "policy": "Original highest source terrain with existing1.2m sea-level floor, lower inset within model projection+1m and a shared piecewise-affine3m return. Validated coarse-parent edge return retained outside the original inset; original model bytes/pose unchanged."
+            },
+            "crs": "EPSG:2326",
+            "nativeSources": [
+              {
+                "path": "source-scripts/city/government-import/local/government-200-20260911-pending-context-v1/terrain/11-NE-11C/decoded/TERRAIN(TB)/T37500204000106E12/T37500204000106E12.gltf",
+                "sha256": "b22635be96d52f73ea6b808aaa093904a43b4db7b5ceb08b4034261c5891e5d2"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-200-20260911-pending-context-v1/terrain/11-NE-11D/decoded/TERRAIN(TB)/T38250204000106E12/T38250204000106E12.gltf",
+                "sha256": "e07fd08d3f07ed425b68505d13560b97704539cd8bd4900141bd51f963056393"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-200-20260911-pending-context-v1/terrain/11-NE-16A/decoded/TERRAIN(TB)/T37500198000106E12/T37500198000106E12.gltf",
+                "sha256": "f4132fe4452d9989296bbb50bce5c9c675638ac9e00cde275dcf55d2ae69342e"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-remaining-adjacent-terrain-batch-v1-20261022-275446-0/sheets/11-NE-16B/terrain/TERRAIN(TB)/T38250198000106E12/T38250198000106E12.gltf",
+                "sha256": "5476f4577263684f42da7572f29864da866159aa4489cac2bcc76e5a2b88b54d"
+              }
+            ],
+            "parentWaterMask": {
+              "landNodes": 7029,
+              "policy": "Raw parent water/land classification preserved at every refinement node.",
+              "waterNodes": 0
+            },
+            "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+            "provider": "Lands Department/HKSAR",
+            "verticalDatum": "HKPD"
+          },
+          "sourceSHA256ByUid": {
+            "landsd/275446:0": "8277969df373528689a5bf630bbd60c9b71d547e5951fc3a6eb3aa444c0b6880"
+          }
+        },
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "e467b77f52b1191ed85c43a051e0fa53473d12721ced5bc1ed313da3ef59b98d",
+      "bytes": 3844764
+    }
+  ],
+  "basicPodiumFootings": [],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "nativeBasicFallbackGrounds": [],
+  "retainedNativeBasicFallbackGroundChecks": [
+    "landsd/271344:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

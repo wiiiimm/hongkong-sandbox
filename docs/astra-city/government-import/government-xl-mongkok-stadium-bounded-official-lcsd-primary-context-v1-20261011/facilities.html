@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<script> var
+		breadcrumbId = "1166"; </script><head><META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
+<meta content="width=1024" name="viewport"><meta name="keywords" content="Leisure and Cultural Services Department - Mong Kok Stadium - Facilities, 康樂及文化事務署 - 旺角大球場 - 設施, 康乐及文化事务署 - 旺角大球场 - 设施"><meta name="description" content="Leisure and Cultural Services Department - Mong Kok Stadium - Facilities"><title>Leisure and Cultural Services Department - Mong Kok Stadium - Facilities</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<script src="/site_rwd_common/batch3/js/jquery.js"></script><script src="/site_rwd_common/batch3/js/tools.js"></script><script src="/site_rwd_common/batch3/js/nav.js"></script>
+<link type="text/css" rel="stylesheet" media="all" href="/site_rwd_common/batch3/css/style_rwd.css">
+<link href="/site_rwd_common/batch3/css/style_rwd_common.css" rel="stylesheet" type="text/css">
+<link type="text/css" rel="stylesheet" media="all" href="/site_rwd_common/batch3/css/color_style_rwd.css">
+<link type="text/css" rel="stylesheet" media="all" href="/site_rwd_common/batch3/en/css/lang_spec.css">
+<link type="text/css" rel="stylesheet" media="all" href="/site_rwd_common/batch3/css/jquery-ui.custom.css">
+<link type="text/css" rel="stylesheet" media="all" href="/site_rwd_common/batch3/css/touchcarousel.css">
+<link type="text/css" rel="stylesheet" media="all" href="/site_rwd_common/batch3/css/colorbox.css">
+<link type="text/css" rel="stylesheet" media="all" href="/site_rwd_common/batch3/css/jquery.selectBox.css">
+<link type="text/css" rel="stylesheet" media="print" href="/site_rwd_common/batch3/css/print.css">
+<link type="text/css" rel="stylesheet" media="print" href="/site_rwd_common/batch3/en/css/print.css">
+<script src="/site_rwd_common/batch3/js/cookie_function.js"></script><script src="/site_rwd_common/batch3/js/modernizr-custom.js"></script><script type="text/javascript">
+			function goUrlValue(){
+			    var searchurl="http://www2.lcsd.gov.hk/cf/search/culture/search.cfm";
+				var myTextField = document.getElementById('event_keyword');
+				var myStartDay = document.getElementById('date_from');
+				var myDueDay = document.getElementById('date_to');
+				var urlstr = window.location.href;
+				var en_pos = window.location.href.indexOf('/en/');
+				var tc_pos = window.location.href.indexOf('/tc/');
+				var sc_pos = window.location.href.indexOf('/sc/');
+				
+								
+				var lang = "";
+				var firstslash = 0;
+				if ((en_pos > 0) && ((tc_pos == -1) && (sc_pos == -1))) {
+				   lang = 'en';
+				   firstslash = en_pos;
+				} else {
+				   lang = 'ch';
+				   if (tc_urlpath > 0){
+				      firstslash = tc_pos;
+				   } else {
+				      firstslash = tc_pos;
+				   }
+				}
+				firstslash = firstslash - 1;
+				var i=firstslash;
+				while (urlstr.charAt(i) != "/"){
+				  i--;
+				}
+				var venue_name = urlstr.substring(i+1,firstslash+1);
+		        if (venue_name == "KST"){
+				    venue_name="Ko Shan Theatre";
+				}
+				searchurl = searchurl + "?lang=" + lang ;
+				searchurl = searchurl + "pageno=1" ;
+				searchurl = searchurl + "&location=" + venue_name ;
+				
+				if (myTextField.val() != null ){
+				   searchurl = searchurl + "&keyword=" + myTextField.val();
+				}
+				if (myStartDay.val() != null ){
+				   searchurl = searchurl + "&txtStartDate=" + myStartDay.val();
+				}
+			    if (myDueDay.val() != null ){
+				   searchurl = searchurl + "&txtEndDate=" + myDueDay.val();
+				}
+                $(location).attr('href',searchurl);
+				
+			}
+		</script>
+</head><body><div class="wrapper green "><header><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <script type="text/javascript">
+			function goUrlValue() {
+				var searchField = document.getElementById('lcsd_search');
+				var en_lang_posit = location.href.indexOf('/en/');
+				var tc_lang_posit = location.href.indexOf('/tc/');
+				var sc_lang_posit = location.href.indexOf('/sc/');
+				var searchurl = '';
+				if (en_lang_posit != -1)
+					searchurl = "https://www.lcsd.gov.hk/clpss/en/SearchAll.do?keyword=";
+				if (tc_lang_posit != -1)
+					searchurl = "https://www.lcsd.gov.hk/clpss/tc/SearchAll.do?keyword=";
+				if (sc_lang_posit != -1)
+					searchurl = "https://www.lcsd.gov.hk/clpss/sc/SearchAll.do?keyword=";
+				searchurl = searchurl + searchField.value.replace(/[ ]/g, "+");
+				window.location = searchurl;
+			};
+			
+			function goUrlValueMobile() {
+				var searchField = document.getElementById('lcsd_search_mobile');
+				var en_lang_posit = location.href.indexOf('/en/');
+				var tc_lang_posit = location.href.indexOf('/tc/');
+				var sc_lang_posit = location.href.indexOf('/sc/');
+				var searchurl = '';
+				if (en_lang_posit != -1)
+					searchurl = "https://www.lcsd.gov.hk/clpss/en/SearchAll.do?keyword=";
+				if (tc_lang_posit != -1)
+					searchurl = "https://www.lcsd.gov.hk/clpss/tc/SearchAll.do?keyword=";
+				if (sc_lang_posit != -1)
+					searchurl = "https://www.lcsd.gov.hk/clpss/sc/SearchAll.do?keyword=";
+				searchurl = searchurl + searchField.value.replace(/[ ]/g, "+");
+				window.location = searchurl;
+			};
+			
+			
+			function chang_lang(lang) {
+				//console.log(lang);
+				var en_lang_posit = location.href.indexOf('/en/');
+				var tc_lang_posit = location.href.indexOf('/tc/');
+				var sc_lang_posit = location.href.indexOf('/sc/');
+				
+				if (en_lang_posit != -1)
+					window.location = location.href.replace(location.href.substring(en_lang_posit, en_lang_posit + 4), '/' + lang + '/');
+				if (tc_lang_posit != -1)
+					window.location = location.href.replace(location.href.substring(tc_lang_posit, tc_lang_posit + 4), '/' + lang + '/');
+				if (sc_lang_posit != -1)
+					window.location = location.href.replace(location.href.substring(sc_lang_posit, sc_lang_posit + 4), '/' + lang + '/');
+			}
+
+
+			
+   </script>
+<div class="part_upper">
+<div class="container">
+<div id="accessibility-skip-content">
+<a href="#main_content">Skip to content</a>
+</div>
+<div id="topz" class="logos">
+<div tabindex="0" class="main_logo_desktop">
+<a href="/en/stadium/mks/index.html"><img class="lcsd_logo_x1" src="/en/stadium/mks/common/graphics/logo/logo_en.png" alt="Leisure and Cultural Services Department - Mong Kok Stadium" title="Leisure and Cultural Services Department - Mong Kok Stadium"><span class="access name_depart">Leisure and Cultural Services Department - Mong Kok Stadium</span><span class="access name_lcsd">Leisure and Cultural Services Department</span></a>
+</div>
+<div class="main_logo_mobile">
+<a href="/en/stadium/mks/index.html"><img class="lcsd_logo_x1" src="/en/stadium/mks/common/graphics/logo/logo_en.png" alt="Leisure and Cultural Services Department - Mong Kok Stadium" title="Leisure and Cultural Services Department - Mong Kok Stadium"><span class="access name_depart">Leisure and Cultural Services Department - Mong Kok Stadium</span><span class="access name_lcsd">Leisure and Cultural Services Department</span></a>
+</div>
+<div class="site_function">
+<div class="func_enquire">
+<form action="javascript:goUrlValueMobile()">
+<div class="header-right-block dropdown-menu-resp mobile-search">
+<span class="ico-block"><a aria-label="" href="#!"><em class="fa fa-search ico-search" title="Search"></em></a></span>
+<div class="dropdown-content search-block-mb">
+<p style="padding-left:8px;" class="orange_bold">Search</p>
+<form action="/clpss/en/SearchAll.do" id="mobile_search_form_coresite" method="post">
+<div class="btnRow">
+<input onkeydown="if (event.keyCode == 13) javascript:goUrlValueMobile()" type="text" class="search" id="lcsd_search_mobile" name="keyword" placeholder="Please enter keyword(s)" aria-label="Search">
+<div class="btnRow-addon"></div>
+</div>
+</form>
+</div>
+<span class="blk-sep">|</span>
+</div>
+<div class="desk_search">
+<label style="display:none;" for="lcsd_search">Search Input Box</label><input onblur="if (this.value == '') this.value = 'Enter keyword(s)';" onfocus="if(this.value==this.defaultValue) this.value='';" value="Enter keyword(s)" name="p" id="lcsd_search" aria-label="Search Input Box" class="search" type="text" onkeydown="if (event.keyCode == 13) javascript:goUrlValue()"><label style="display:none;" for="butn_lcsd_search">Go</label><input aria-label="Go" name="Search" id="butn_lcsd_search" class="start_search" title="Search" type="button" onClick="javascript:goUrlValue()">
+</div>
+<a class="" title="Sitemap" href="/en/stadium/mks/sitemap.html"><i class="fa fa-sitemap" aria-hidden="true" style="color:#0762a8"></i></a><a class="" title="Contact Us" href="https://www.lcsd.gov.hk/en/contactus.html"><i class="fa fa-phone ico-phone" aria-hidden="true" style="color:#0762a8"></i></a><span class="blk-sep">|</span>
+<div class="lang_switch">
+<a href="#" class="lang_tc" onclick="chang_lang('tc')" title="繁">繁</a><span class="lang_sepr">|</span><a href="#" class="lang_sc" onclick="chang_lang('sc')" title="简">简</a>
+</div>
+<span class="blk-sep">|</span>
+<div class="textsizecontrol">
+<a title="Text Size" href="https://www.lcsd.gov.hk/en/textsize.html"><span class="text-size">Text Size</span></a><span class="blk-sep">|</span>
+</div>
+<div class="header-right-block dropdown-menu-resp share-main-page">
+<span class="ico-block"><a aria-label="" href="#!"><em class="fa fa-share-alt ico-share" title="Share"></em></a></span>
+<div class="dropdown-content share-block-mb">
+<div class="social-icon_container container_resp">
+<a class="social-icon social-mail" alt="E-mail" href="">E-mail</a><a class="social-icon social-facebook share_fb" alt="Facebook" href="">Facebook</a><a class="social-icon social-twitter" alt="Twitter" href="">Twitter</a><a class="social-icon social-sina" alt="Sina Weibo" href="">Sina Weibo</a><a class="social-icon social-whatsapp" alt="Whatsapp" href="">Whatsapp</a>
+</div>
+</div>
+</div>
+<div class="header-right-block dropdown-menu-resp mobile-share">
+<span class="ico-block"><a aria-label="" href="#!"><em class="fa fa-share-alt ico-share" title="Share"></em></a></span>
+<div class="dropdown-content share-block-mb-mobile">
+<div class="social-icon_container container_resp">
+<a class="social-icon social-mail" alt="E-mail" href="">E-mail</a><a class="social-icon social-facebook share_fb" alt="Facebook" href="">Facebook</a><a class="social-icon social-twitter" alt="Twitter" href="">Twitter</a><a class="social-icon social-sina" alt="Sina Weibo" href="">Sina Weibo</a><a class="social-icon social-whatsapp" alt="Whatsapp" href="">Whatsapp</a>
+</div>
+</div>
+</div>
+<div class="mobile-menu header-right-block dropdown-menu-resp menu_s">
+<span class="btn-dropdown-mb-block" role="button" style="padding: 2px;" for="mobile-menu" tabindex="0"><span class="hidden_text">Mobile Menu</span><i class="fa fa-bars"></i></span>
+<div class="dropdown-content menu-block-mb label_new">
+<nav style="background-color: #ffffff;" role="navigation">
+<input id="mobile-menu" type="checkbox"><ul class="main-ul"><li><a href="/en/stadium/mks/index.html"><span>Introduction</span></a></li><li><a href="/en/stadium/mks/event.html"><span>Monthly Event Calendar </span></a></li><li><a href="/en/stadium/mks/facilities.html"><span>Facilities</span></a></li><li><a href="/en/stadium/mks/fee.html"><span>Fees and Charges</span></a></li><li><a href="/en/stadium/mks/book.html"><span>How to Book</span></a></li><li><a href="/en/stadium/mks/locations-directions.html"><span>Location & Access</span></a></li><li><a href="/en/stadium/mks/rule.html"><span>Rules and Regulations</span></a></li><li><a href="https://www.lcsd.gov.hk/en/stadium/hks/index.html" target="_blank"><span>Other Stadia</span></a></li><li><a href="https://www.lcsd.gov.hk/en/index.html" target="_blank"><span>Back to LCSD</span></a></li></ul></nav>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header><div style="display:none;" id="footer_deco_img">
+<img src="/common/batch3/images/footer-deco-orange.png"></div><div class="content_body layout1" ><div class="container"><div class="left-menu">
+<nav class="desktop-menu">
+<a href="javascript://" name="main_content" id="main_content">Press 'Tab' to enter menu</a><ul class="menu_lv1"><li><a href="/en/stadium/mks/index.html"><span>Introduction</span></a></li><li><a href="/en/stadium/mks/event.html"><span>Monthly Event Calendar </span></a></li><li><a href="/en/stadium/mks/facilities.html"><span>Facilities</span></a></li><li><a href="/en/stadium/mks/fee.html"><span>Fees and Charges</span></a></li><li><a href="/en/stadium/mks/book.html"><span>How to Book</span></a></li><li><a href="/en/stadium/mks/locations-directions.html"><span>Location & Access</span></a></li><li><a href="/en/stadium/mks/rule.html"><span>Rules and Regulations</span></a></li><li><a href="https://www.lcsd.gov.hk/en/stadium/hks/index.html" target="_blank"><span>Other Stadia</span></a></li><li><a href="https://www.lcsd.gov.hk/en/index.html" target="_blank"><span>Back to LCSD</span></a></li></ul><div class="left-box richtext"><img class="header_decorative" src="/common/batch3/images/nav-bg-orange.png" alt="header image" /><br />
+<div id="awebChromeHelper"></div></div>
+</nav>
+</div>
+<div class="inner-page">
+<div id="sys_breadcrumbDiv" class="breadcrumbs"></div>
+<div class="richtext">
+<h1>Facilities</h1><p>&nbsp;</p><table class="no-line-table" style="width: 100%;" title="Facilities" role="presentation"><tbody><tr><td style="vertical-align: top; padding: 8px 10px 8px 0px; width: 25%;"><strong>Venue</strong></td><td style="padding: 8px 10px 8px 0px;">Mong Kok Stadium</td></tr><tr><td style="vertical-align: top; padding: 8px 10px 8px 0px;"><strong>Address</strong></td><td style="padding: 8px 10px 8px 0px;">37, Flower Market Road, Mong Kok, Kowloon</td></tr><tr><td style="vertical-align: top; padding: 8px 10px 8px 0px; white-space: nowrap;"><strong>Enquiries Phone No. &nbsp; &nbsp;</strong></td><td style="padding: 8px 10px 8px 0px;">2380 0188 (during office hours) / <a href="mailto:mks@lcsd.gov.hk">mks@lcsd.gov.hk</a></td></tr><tr><td style="vertical-align: top; padding: 8px 10px 8px 0px;"><strong>Facilities</strong></td><td><ul><li>International Standard Natural Grass Pitch with Floodlight System</li><li>Electronic Scoreboard</li><li>Spectator Stands with 6,600 seats</li><li>127 VIP Seatings</li><li>39 Wheelchair Spaces</li><li>4 Players Changing Rooms</li><li>2 Referee Changing Rooms</li><li>1 VIP Room</li><li>1 Multi-Purpose Room</li><li>1 Meeting Room</li><li>1 Media Centre</li><li>1 First Aid Room</li><li>1 Doping Control Room</li><li>2 Event Control Rooms</li><li>8 Ticketing Booths</li><li>1 Refreshment Kiosk</li><li>1 Babycare Room</li><li>Public and Accessible Toilets</li><li>Car Park with 20 Parking Spaces (16 for private cars, 1 designated for person with disabilities, 2 for coaches and 1 for motorcycle)<a href="/en/stadium/mks/common/graphics/locmap.jpg" target="_blank" rel="external noopener" alt="Car Park Location Map">[Car Park Location Map]</a></li></ul></td></tr></tbody></table><p>&nbsp;</p></div>
+</div>
+<div class="footer-deco"></div></div></div><div class="goto_top">
+<div class="container">
+<a class="butn_goto_top" tabindex="0" href="#topz">Top</a>
+</div>
+</div>
+<footer>
+<div class="container">
+<div class="footer-top">
+<div class="flo-left">
+<div class="misc_info">
+<div class="copy_left">
+<p>Copyright &copy; 2025 Leisure and Cultural Services
+		Department. </p>
+<p>All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<div class="flo-right">
+						
+		&nbsp;&nbsp;&nbsp; <div class="wcag">
+<a target="_blank" href="http://www.w3.org/WAI/WCAG2AA-Conformance"><img title="Level Double-A conformance, W3C WAI Web Content Accessibility Guidelines 2.2" alt="Level Double-A conformance, W3C WAI Web Content Accessibility Guidelines 2.2" src="/site_rwd_common/batch3/images/w3c_22_aa.jpg"></a>
+</div>
+<div class="hong_kong">
+<a href="https://www.brandhk.gov.hk/html/en/index.html"><img alt="Brand Hong Kong - Asia's world city" title="Brand Hong Kong - Asia's world city" src="/site_rwd_common/batch3/images/brandhk.jpg"><span class="access">Brand Hong Kong - Asia's world city</span></a>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+						var footer_deco_dum = $('#footer_deco_img');
+						var footer_deco = $('.footer-deco');
+		footer_deco.html(footer_deco_dum.html());
+					</script><div class="footer-bottom"><div class="noti_right"><div class="flo-right"><p><a href="https://www.lcsd.gov.hk/en/notice.html">Important notices</a> | 
+                        <a href="https://www.lcsd.gov.hk/en/info_pdo.html">Privacy policy</a> | 
+				
+		
+	 Last revision date: <span id="last_revision_date">25/3/2025</span></p></div></div></div></div>
+</footer></div><script src="/site_rwd_common/batch3/js/font_set.js"></script><script src="/site_rwd_common/batch3/js/jquery-migrate.js"></script><script src="/site_rwd_common/batch3/js/jquery.colorbox-min.js"></script><script src="/site_rwd_common/batch3/js/jquery-ui.custom.min.js"></script><script src="/site_rwd_common/batch3/js/jquery.easing.js"></script><script src="/site_rwd_common/batch3/js/jquery.touchcarousel.min.js"></script><script src="/site_rwd_common/batch3/js/jquery.cycle2.min.js"></script><script src="/site_rwd_common/batch3/js/jquery.cycle2.carousel.min.js"></script><script src="/site_rwd_common/batch3/js/script_rwd.js"></script><script src="/site_rwd_common/batch3/js/update_last_revision_date.js"></script><script src="/en//stadium/mks/breadcrumb.js"></script><script src="/site_rwd_common/breadcrumb_custom.js"></script><script>load_breadcrumb();</script></body></html>

@@ -1,0 +1,126 @@
+{
+  "readOnlyHistoricalContextOnly": true,
+  "noTerrainMath": true,
+  "noCurrentApprovalTransfer": true,
+  "noNewAdmissionRule": true,
+  "existingActualJoinMAXAndOrdinaryPolicyUnchanged": true,
+  "proposedTerrain": {
+    "path": "source-scripts/city/government-import/accepted/government-xl-citywalk-source-20261004/government-native-citywalk-source-20261004.json",
+    "sha256": "6ee29029c6d5d6ae4aacefba7dc8c4d87c604776eeed923df5960d1d2bb117d6"
+  },
+  "currentTerrain": {
+    "path": "3d-viewer/city/data/government-native-134332-0.json",
+    "sha256": "1d21dc85feb6870c9bdfb1e3b2e8949dff9062a493a87b2bce762c1e827bc8f4"
+  },
+  "sourceFiles": [
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/6-SE-20D/terrain/TERRAIN(TB)/T29250252000106E11/T29250252000106E11.bin",
+      "sha256": "458df4cd94fe0beb8cc998ab0fe7efc1a0fe7964bb55bb1aff8f981ba26d92dc"
+    },
+    {
+      "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/6-SE-20D/terrain/TERRAIN(TB)/T29250252000106E11/T29250252000106E11.gltf",
+      "sha256": "ce0e078631e7a3887d7ce5283f340d961a0f882b12649134919047ea6d5305b3"
+    }
+  ],
+  "originalHistoricalMetadata": {
+    "georef": {
+      "H": 99,
+      "W": 141,
+      "aE": 5,
+      "aN": -5,
+      "bE": 829292.5,
+      "bN": 825777.5
+    },
+    "parentSha256": "add1264387b8db2900e9121bc29d3bd0f71a325eb200fb4ea059ab0cbee6711a",
+    "parentTerrain": "city/data/terrain.json",
+    "source": {
+      "crs": "EPSG:2326",
+      "nativeSources": [
+        {
+          "directorySHA256": "7018b6b569a99a511a61f3aa22c31c3857f42da400c45221927697d2e89963ac",
+          "revision": "2026-02-25T16:00:00+00:00",
+          "sheet": "6-SE-20D",
+          "sourceETag": "\"36d8a3d-649813708872f\"",
+          "sourceFiles": [
+            {
+              "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/6-SE-20D/terrain/TERRAIN(TB)/T29250252000106E11/T29250252000106E11.bin",
+              "sha256": "458df4cd94fe0beb8cc998ab0fe7efc1a0fe7964bb55bb1aff8f981ba26d92dc"
+            },
+            {
+              "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/6-SE-20D/terrain/TERRAIN(TB)/T29250252000106E11/T29250252000106E11.gltf",
+              "sha256": "ce0e078631e7a3887d7ce5283f340d961a0f882b12649134919047ea6d5305b3"
+            }
+          ]
+        }
+      ],
+      "parentWaterMask": {
+        "landNodes": 13930,
+        "policy": "Raw parent water/land classification preserved at every refinement node.",
+        "waterNodes": 29
+      },
+      "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+      "provider": "Lands Department/HKSAR",
+      "verticalDatum": "HKPD"
+    },
+    "targetUids": [
+      "landsd/134332:0",
+      "landsd/305615:0",
+      "landsd/273839:0"
+    ]
+  },
+  "originalNativeMeshSource": {
+    "finalBoundarySnap": {
+      "policy": "All final native boundary vertices join the rendered root parent after clipping and hole filling.",
+      "toleranceM": 0.002,
+      "vertices": 1825
+    },
+    "numericalCoverageGap": {
+      "maximumAreaM2": 343.0,
+      "maximumFraction": 0.001,
+      "measuredAreaM2": 0.37381944793342675,
+      "policy": "parent-grid-fallback"
+    },
+    "parentHoleFill": {
+      "missingAreaM2": 3.270425206999323e-13,
+      "policy": "No material parent hole; sub-square-millimetre projected slivers are numerical overlay residue.",
+      "triangles": 0
+    },
+    "policy": "Original source facets with bounded parent-edge transition; no AI geometry.",
+    "protectedParentProjection": {
+      "areaM2": 2.7806926576024313,
+      "coplanarCleanup": {
+        "passes": [
+          {
+            "coplanarFragmentsClipped": 592,
+            "removedProjectedAreaM2": 0.1443640580036875
+          },
+          {
+            "coplanarFragmentsClipped": 445,
+            "removedProjectedAreaM2": 0.02347050952221714
+          }
+        ],
+        "policy": "Remove only duplicate coplanar terrain; no source model geometry changes or acceptance gate waivers."
+      },
+      "float32RetainedSeam": {
+        "mixedOverlapAfterM2": 0.023701962360107735,
+        "passes": [],
+        "policy": "Clip only new-source facets against exact Float32 retained-facet projection; retained planes unchanged, no overlap or clearance gate waived.",
+        "retainedTriangles": 1532
+      },
+      "parentTriangles": 1532,
+      "policy": "Current rendered parent terrain is retained only beneath the unresolved neighbouring source form; no building geometry or elevation changes.",
+      "removedNativeProjectedAreaM2": 2.780677585886411
+    },
+    "verticalDatum": "HKPD",
+    "verticalScale": 1
+  },
+  "originalNativeMeshSourceOverlap": {
+    "evidencePath": "docs/astra-city/government-import/government-xl-remaining-20260923/sol-hold-resolution-20261004/citywalk-contact-rescue-overlap.json",
+    "evidenceSHA256": "59459294b8edb778bde620579351d09c1c4c3805f6a41ea4c7e704c3c7566f6c",
+    "measuredProjectedExcessM2": 0.2990206255344674,
+    "policy": "highest-native-surface"
+  },
+  "completeTerrainFaces": 39329,
+  "modelGeometryChanges": 0,
+  "terrainGeometryChanges": 0
+}

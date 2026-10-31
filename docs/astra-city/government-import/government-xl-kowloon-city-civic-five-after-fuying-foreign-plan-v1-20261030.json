@@ -1,0 +1,123 @@
+{
+  "batch": "government-xl-kowloon-city-civic-five-after-fuying-foreign-sequence-v1-20261030",
+  "uids": [
+    "landsd/82290:0",
+    "landsd/82291:0",
+    "landsd/82292:0",
+    "landsd/159177:0",
+    "landsd/230911:0"
+  ],
+  "resources": [
+    "building:landsd/82290:0",
+    "building:landsd/82291:0",
+    "building:landsd/82292:0",
+    "building:landsd/159177:0",
+    "building:landsd/230911:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-full-five-source-scope-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--inventory",
+        "government-xl-after-fuying-native-bounds-v1-20261029"
+      ]
+    },
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-auxiliary-finite-contacts-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--left",
+        "landsd/82292:0",
+        "--right",
+        "landsd/82291:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-auxiliary-contact-roles-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--contacts",
+        "government-xl-kowloon-city-civic-five-after-fuying-auxiliary-finite-contacts-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-podium-boundary-finite-contacts-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--left",
+        "landsd/82291:0",
+        "--right",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-podium-boundary-contact-roles-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--contacts",
+        "government-xl-kowloon-city-civic-five-after-fuying-podium-boundary-finite-contacts-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-upper-boundary-finite-contacts-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--left",
+        "landsd/82290:0",
+        "--right",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-upper-boundary-contact-roles-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--contacts",
+        "government-xl-kowloon-city-civic-five-after-fuying-upper-boundary-finite-contacts-v1-20261030"
+      ]
+    },
+    {
+      "script": "explicit_cohort_original_foreign_contacts_v1_20261030.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-full-five-foreign-contacts-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-floor-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--scope",
+        "government-xl-kowloon-city-civic-five-after-fuying-full-five-source-scope-v1-20261030",
+        "--co-rendered-cohort"
+      ]
+    }
+  ]
+}

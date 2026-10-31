@@ -1,0 +1,157 @@
+--- /dev/null
++++ source-scripts/city/government-import/west_wing26195_visual_mounting_interface_draft_v1_20261012.py
+@@ -0,0 +1,52 @@
++"""Exact West Wing source-only visual mounting INTERFACE DIAGNOSIS, no role credit."""
++from fractions import Fraction as Q
++import numpy as np
++from complete_original_lower_opening_mounts_v3_20261011 import binding
++from west_wing26195_body108_113_strict_host_association_draft_v1_20261012 import boundary,lower4_context
++from exact_original_edge_finite_facade_distance_band_v2_20261010 import verify as finite_band,merge
++ORDERS=[[0,1,2],[1,0,2],[0,2,1]]
++
++def host_inventory(t,main_ids,records):
++ eligible=[];excluded=[]
++ for i in main_ids:
++  if records[i]['strictPositiveFiniteProved']:
++   assert records[i]['ordinaryFiniteProved']and records[i]['completeProjectionCovered'];eligible.append(i)
++  else:excluded.append(i)
++ return dict(completeMainBodySourceFaces=main_ids,completeStrictFiniteHostFaces=eligible,completeNotStrictHostFaces=excluded,strictHostGroundedIndependently=False,wholeBody0RootAccepted=False)
++
++def edge_candidates(t,edge,host_ids):
++ a=np.asarray(edge,dtype='<f8');assert a.shape==(2,3)and np.isfinite(a).all()and not np.array_equal(*a)
++ lo=[min(Q(float(x))for x in a[:,k])-Q(.1)for k in range(3)];hi=[max(Q(float(x))for x in a[:,k])+Q(.1)for k in range(3)];selected=[];excluded=[]
++ for i in host_ids:
++  separators=[]
++  for k in range(3):
++   low=min(Q(float(v))for v in t[i,:,k]);high=max(Q(float(v))for v in t[i,:,k])
++   if high<lo[k]:separators.append(dict(axis=k,kind='strictly-below-expanded-segment-box',exactHostExtreme=str(high),exactBandBoundary=str(lo[k])))
++   if low>hi[k]:separators.append(dict(axis=k,kind='strictly-above-expanded-segment-box',exactHostExtreme=str(low),exactBandBoundary=str(hi[k])))
++  if separators:excluded.append(dict(sourceHostFace=i,exactSeparationWitnesses=separators))
++  else:selected.append(i)
++ return dict(allCompleteStrictHostIDs=host_ids,completeFiniteBandCandidateHostIDs=selected,allExactClosed3DAABBExclusions=excluded,fixedBandM=.1,noNearestOrHeightLayerChoice=True)
++
++def diagnose_edge(t,edge,hosts):
++ inventory=edge_candidates(t,edge,hosts);ids=inventory['completeFiniteBandCandidateHostIDs'];assert len(ids)<=512,'Finite interface workload bound exceeded';proofs=[];certified=[]
++ for order in ORDERS:
++  # Exact coordinate permutations only: squared Euclidean distances are unchanged.
++  p=finite_band(np.asarray(edge)[:,order],t[ids][:,:,order])if ids else None;orientation=[]
++  for i in ids:
++   a,b,c=[[Q(float(x))for x in v]for v in t[i][:,order]];u=[b[j]-a[j]for j in range(3)];v=[c[j]-a[j]for j in range(3)];n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];n2=sum(x*x for x in n);assert n2
++   orientation.append(dict(sourceHostFace=i,exactPermutedNormal=list(map(str,n)),eligibleForUnchangedKernelOrientation=n[1]*n[1]<=n2/Q(16)))
++  proofs.append(dict(exactOrthonormalCoordinateOrder=order,allCandidateHostOrientationAccounting=orientation,actualKernelHostIDs=ids,finiteEdgeProof=p))
++  if p:certified.extend(tuple(map(Q,x))for x in p['exactFacetAndEdgeCertifiedMergedIntervals'])
++ union=merge(certified)
++ return dict(unchangedWholeSourceEdge=edge,completeHostInventory=inventory,allThreeExactCoordinateOrderProofs=proofs,exactWholeEdgeCertifiedIntervalUnion=[[str(a),str(b)]for a,b in union],wholePositiveLengthFiniteBandContext=union==[(Q(0),Q(1))],coordinatePermutationsDoNotChangeDistance=True,bandIsNotPhysicalContact=True,visualRoleAccepted=False,structuralRootCredit=False,installationApproved=False)
++
++def diagnose(t,body_ids,main_ids,records,prior,*,expected_binding):
++ t=np.asarray(t,dtype='<f8');assert np.isfinite(t).all()and binding(t,body_ids,main_ids)==expected_binding,'Changed exact source/body/main-host binding';host=host_inventory(t,main_ids,records);topology=boundary(t,body_ids)
++ if len(body_ids)==8:
++  lower=lower4_context(t,body_ids);assert prior['kind']=='body108-minimum-edge-context'and prior['completeBodyFaces']==body_ids and prior['unchangedOpeningV3Rejection']['rejected']and not prior['completeLowerOpeningAssociated'];proofs=prior['allFourMinimumEdgeProofs'];assert len(proofs)==4 and all(p['proof']['verifiedCompleteOriginalEdgeContactBand']for p in proofs)
++  assert [(p['sourceFace'],tuple(map(tuple,p['unchangedOriginalEdge'])))for p in proofs]==[(i,(a,b))for i,a,b in lower['completeMinimumDirectedCycle']]
++  assert set(prior['completeHostFaces'])<=set(host['completeStrictFiniteHostFaces']);assert binding(t,body_ids,prior['completeHostFaces'])==prior['binding']
++  return dict(kind='source-bound-upright-two-open-boundary-visual-surface-minimum-rim-context',binding=expected_binding,completeSourceTopology=topology,completeStrictHostInventory=host,priorFourMinimumEdgeFiniteBandProofsReusedVerbatim=prior,allFourMinimumRimEdgesAssociatedContext=True,higherCompleteBoundaryRetainedUnfilled=True,openingV3RejectionPreserved=True,engineeringFunctionUnknown=True,visualRoleAccepted=False,structuralRootCredit=False,structuralBridgeCredit=False,physicalAccepted=False,installationApproved=False)
++ assert len(body_ids)==2 and len(topology['completeDirectedBoundaryEdges'])==4 and len(topology['completeDirectedBoundaryCycles'])==1;assert prior['kind']=='body113-whole-two-face-surface-context'and prior['completeBodyFaces']==body_ids and prior['literalPointOnlyContactNegativeNotRewritten']
++ edges=[dict(sourceFace=i,interface=diagnose_edge(t,[list(a),list(b)],host['completeStrictFiniteHostFaces']))for i,a,b in topology['completeDirectedBoundaryEdges']]
++ return dict(kind='source-bound-horizontal-projecting-two-facet-perimeter-wedge-complete-boundary-interface-context',binding=expected_binding,completeSourceTopology=topology,completeStrictHostInventory=host,allFourBoundaryEdgeDiagnostics=edges,wholeBandAssociatedBoundaryEdgeIndices=[i for i,e in enumerate(edges)if e['interface']['wholePositiveLengthFiniteBandContext']],allFreeOriginalEdgesRetained=True,priorWholeHostBandAndLiteralPointFailuresReusedVerbatim=prior,mountingEdgeDesignationNotAutomatic=True,engineeringFunctionUnknown=True,visualRoleAccepted=False,structuralRootCredit=False,structuralBridgeCredit=False,physicalAccepted=False,installationApproved=False)
+--- /dev/null
++++ source-scripts/city/government-import/test_west_wing26195_visual_mounting_interface_draft_v1_20261012.py
+@@ -0,0 +1,27 @@
++"""Draft adverse fixtures for exact host inventory and source-bound mounting context."""
++import unittest
++import numpy as np
++import west_wing26195_visual_mounting_interface_draft_v1_20261012 as H
++class Tests(unittest.TestCase):
++ def wall(self,x=0):return np.asarray([[[x,0,0],[x,0,1],[x,1,0]]],float)
++ def test_whole_finite_edge(self):
++  t=self.wall();r=H.diagnose_edge(t,[[0,0,0],[0,1,0]],[0]);self.assertTrue(r['wholePositiveLengthFiniteBandContext']);self.assertFalse(r['visualRoleAccepted'])
++ def test_point_only_not_bridge(self):self.assertFalse(H.diagnose_edge(self.wall(),[[0,1,0],[0,2,0]],[0])['wholePositiveLengthFiniteBandContext'])
++ def test_partial_host_not_complete(self):self.assertFalse(H.diagnose_edge(self.wall(),[[0,0,0],[0,2,0]],[0])['wholePositiveLengthFiniteBandContext'])
++ def test_fixed_band_exceeded(self):self.assertFalse(H.diagnose_edge(self.wall(),[[.101,0,0],[.101,1,0]],[0])['wholePositiveLengthFiniteBandContext'])
++ def test_actual_finite_foot_required(self):self.assertFalse(H.diagnose_edge(self.wall(),[[0,2,0],[0,3,0]],[0])['wholePositiveLengthFiniteBandContext'])
++ def test_exact_closed_pruning_retains_boundary(self):
++  r=H.edge_candidates(self.wall(.1),[[0,0,0],[0,1,0]],[0]);self.assertEqual(r['completeFiniteBandCandidateHostIDs'],[0])
++ def test_higher_plane_exclusion_explicit(self):
++  t=self.wall()+[0,4,0];r=H.edge_candidates(t,[[0,0,0],[0,1,0]],[0]);self.assertEqual(len(r['allExactClosed3DAABBExclusions']),1)
++ def test_all_near_hosts_retained(self):
++  t=np.concatenate([self.wall(),self.wall(.05)]);self.assertEqual(H.edge_candidates(t,[[0,0,0],[0,1,0]],[0,1])['completeFiniteBandCandidateHostIDs'],[0,1])
++ def test_uncertified_host_not_credit(self):
++  p=[dict(strictPositiveFiniteProved=False)];self.assertEqual(H.host_inventory(self.wall(),[0],p)['completeNotStrictHostFaces'],[0])
++ def test_invalid_strict_saved_proof_rejected(self):
++  p=[dict(strictPositiveFiniteProved=True,ordinaryFiniteProved=False,completeProjectionCovered=True)]
++  with self.assertRaises(AssertionError):H.host_inventory(self.wall(),[0],p)
++ def test_permutation_roof_included_without_height_change(self):
++  t=np.asarray([[[0,0,0],[1,0,0],[0,0,1]]],float);r=H.diagnose_edge(t,[[0,0,0],[1,0,0]],[0]);self.assertTrue(r['wholePositiveLengthFiniteBandContext']);self.assertEqual(r['unchangedWholeSourceEdge'],[[0,0,0],[1,0,0]])
++ def test_missing_host_not_complete(self):self.assertFalse(H.diagnose_edge(self.wall(),[[0,0,0],[0,1,0]],[])['wholePositiveLengthFiniteBandContext'])
++if __name__=='__main__':unittest.main()
+--- /dev/null
++++ source-scripts/city/government-import/west_wing26195_visual_mounting_interface_context_draft_v1_20261012.py
+@@ -0,0 +1,43 @@
++"""DRAFT JSON-only strict host context. No opening/body/support/identity acceptance."""
++import argparse,json,subprocess,sys,uuid
++from pathlib import Path
++from run import ROOT,HERE,read,save,digest,connect,reservations
++import west_wing26195_complete_current_body_contact_graph_draft_v1_20261012 as D
++import west_wing26195_visual_mounting_interface_draft_v1_20261012 as H
++import west_wing26195_body108_113_current_strict_host_context_draft_v1_20261012 as OLD
++BATCH='government-xl-west-wing26195-body108-113-visual-mounting-interface-context-v1-20261012';DOC=D.S.G.P.BASE/BATCH;LOCAL=HERE/'local'/BATCH;PROPOSAL=D.S.G.P.BASE/'government-xl-west-wing26195-body108-113-visual-mounting-interface-proposal-v1-20261012';FREEZER=HERE/'west_wing26195_freeze_visual_mounting_interface_context_draft_v1_20261012.py';HELPER=Path(H.__file__);TEST=HERE/'test_west_wing26195_visual_mounting_interface_draft_v1_20261012.py';ref=D.ref;VISUAL=D.S.G.P.BASE/'government-xl-west-wing26195-body108-113-original-host-visual-context-v1-20261012'
++
++def validation():
++ v=read(PROPOSAL/'no-worker-validation.json');assert v['exactTests']==12 and v['testExitCode']==0 and v['noDBQueries']and v['noReservations']and v['noActualSourceAssociationExecution'];assert v['codeRefs']==[ref(p)for p in [HELPER,TEST,Path(__file__),FREEZER]];assert ref(ROOT/v['testLog']['path'])==v['testLog'];s=(ROOT/v['testLog']['path']).read_text();assert 'Ran 12 tests'in s and s.rstrip().endswith('OK');return [ref(PROPOSAL/'no-worker-validation.json')]+v['codeRefs']+[v['testLog'],ref(PROPOSAL/'METHOD.md')]
++def inputs():
++ r,scope,worlds,finite,graph=OLD.inputs();receipt=read(OLD.DOC/'result.json');assert receipt['jobId']=='91a894f8cd279721fa13fa5dfceb667a9a2c87aed789ff66bb126257ac1f0863'and ref(OLD.DOC/'result.json')['sha256']=='50a57d7e5512c92ef45c024401fab010bb09554f79788a4313372a3a53cc3682'
++ with connect()as c:
++  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(receipt['jobId'],)).fetchone()==('complete',receipt)
++ for e in receipt['evidenceRefs']:assert ref(ROOT/e['path'])==e
++ previous=read(OLD.DOC/'diagnostic.json.gz');assert previous['allFourStreamBindings']==finite['allFourStreamBindings'];visual=read(VISUAL/'context.json');assert visual['sourceOnly']and visual['completeOriginalFaces']==46918 and visual['completeOriginalBodies']==118 and len(visual['outputs'])==7 and not visual['architectureRoleAccepted'];observed=read(VISUAL/'actual-export-readback-and-observations.json');assert observed['allSevenActuallyViewed']and observed['actualDimensionAndSHAReadback']
++ for e in visual['evidenceRefs']+visual['outputs']:
++  assert ref(ROOT/e['path'])=={k:e[k]for k in ['path','sha256']}
++ return receipt,scope,worlds,finite,previous
++
++def calculate(world,key,finite,previous):
++ cs=finite['originalBodyCensus']['sharedEdgeConnectedComponents'];records=finite['distinctCompleteFiniteProofs'][key]['allWholeFacetProofs'];old=previous['distinctBodyAssociationContexts'][key]['bodies'];assert cs[108]==list(range(45369,45377))and cs[113]==[46081,46082];out={}
++ for body in [108,113]:out[str(body)]=H.diagnose(world,cs[body],cs[0],records,old[str(body)]['associationContext'],expected_binding=H.binding(world,cs[body],cs[0]))
++ return dict(wholeWorldSHA256=digest(world.tobytes()),bodies=out,all118BodyObligationsRemainUnqualified=True,body0GroundRoleRemainsConditional=True)
++
++def main():
++ p=argparse.ArgumentParser();p.add_argument('--owned',action='store_true');args=p.parse_args();valid=validation();receipt,scope,worlds,finite,graph=inputs();assert not(DOC/'diagnostic.json.gz').exists()
++ if not args.owned:
++  c=reservations.claim('westwing-two-body-host-context-'+str(uuid.uuid4()),scope['canonicalReservationResources'],batch=BATCH,ttl=1800);assert c['ok'],c;save(LOCAL/'reservation.json',json.loads(json.dumps(c['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','1800','--',sys.executable,__file__,'--owned'],cwd=ROOT,check=True);return
++ lease=read(LOCAL/'reservation.json');assert reservations.owns(lease);walker=D.S.G.P.F.module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','westwingtwohostclosure');paths=set();walker.local_imports(Path(__file__),paths);walker.local_imports(FREEZER,paths);codes=[ref(p)for p in sorted(paths)]+valid
++ def fence():
++  assert reservations.owns(lease)and ref(ROOT/'3d-viewer/city/data/manifest.json')==scope['currentManifest']
++  for path,h in scope['inputHashes'].items():assert digest((ROOT/path).read_bytes())==h
++  for e in codes:assert ref(ROOT/e['path'])==e
++  before=read(D.S.G.P.F.CAP/'protected-state-before.json');assert json.loads(json.dumps(D.S.G.P.F.state(before['uids']),default=str))==before['rows']
++ fence();results={}
++ for mode,world in worlds.items():
++  b=finite['allFourStreamBindings'][mode];assert digest(world.tobytes())==b['wholeWorldSHA256'];key=b['proofTupleSHA256']
++  if key in results:continue
++  fence();results[key]=calculate(world,key,finite,graph);save(LOCAL/('completed-'+mode+'.json.gz'),results[key]);fence();assert reservations.heartbeat(lease)['ok'];print(json.dumps(dict(world=mode,body113WholeBandBoundaryEdges=results[key]['bodies']['113']['wholeBandAssociatedBoundaryEdgeIndices'],typedAcceptanceRouteEstablished=False)),flush=True)
++ fence();save(DOC/'diagnostic.json.gz',dict(sourceOnly=True,physicalAccepted=False,bodySupportAccepted=False,gradeRootAccepted=False,installationApproved=False,sourceGeometryChanges=0,terrainGeometryChanges=0,completeFaces=46918,completeOriginalBodies=118,completeGroundFaces=3240,all42OrdinaryFailuresAnd443StrictUncertifiedRetained=True,legacyDeliveryAnd15ReviewsUnchanged=True,allFourStreamBindings=finite['allFourStreamBindings'],currentManifest=scope['currentManifest'],distinctBodyAssociationContexts=results,unchangedOpeningV3TwoCycleRejectionPreserved=True,literalBody113PointOnlyNegativePreserved=True,allPrior17Plus24PlusSeed153PathsPreserved=True,noFiniteGradeCorridorOrContactCensusRerun=True,evidenceRefs=codes+[ref(D.DOC/'result.json'),ref(D.DOC/'diagnostic.json.gz'),ref(D.PROPOSAL/'next-unresolved-body-context.json.gz'),ref(OLD.DOC/'result.json'),ref(OLD.DOC/'diagnostic.json.gz'),ref(VISUAL/'context.json'),ref(VISUAL/'actual-export-readback-and-observations.json')]+[{k:e[k]for k in ['path','sha256']}for e in read(VISUAL/'context.json')['outputs']]));subprocess.run([sys.executable,str(FREEZER),'--lease-file',str(LOCAL/'reservation.json')],cwd=ROOT,check=True)
++if __name__=='__main__':main()
+--- /dev/null
++++ source-scripts/city/government-import/west_wing26195_freeze_visual_mounting_interface_context_draft_v1_20261012.py
+@@ -0,0 +1,23 @@
++"""DRAFT diagnostic freezer. Association context cannot approve any body/root."""
++import argparse,json
++from pathlib import Path
++from run import ROOT,HERE,read,connect,reservations,digest
++import west_wing26195_visual_mounting_interface_context_draft_v1_20261012 as P
++
++def main():
++ parser=argparse.ArgumentParser();parser.add_argument('--lease-file',required=True);args=parser.parse_args();valid=P.validation();lease=read(Path(args.lease_file));assert reservations.owns(lease);receipt,scope,worlds,finite,graph=P.inputs();d=read(P.DOC/'diagnostic.json.gz');assert d['sourceOnly']and d['completeFaces']==46918 and d['completeOriginalBodies']==118 and d['completeGroundFaces']==3240
++ assert all(d[k]for k in ['all42OrdinaryFailuresAnd443StrictUncertifiedRetained','legacyDeliveryAnd15ReviewsUnchanged','unchangedOpeningV3TwoCycleRejectionPreserved','literalBody113PointOnlyNegativePreserved','allPrior17Plus24PlusSeed153PathsPreserved','noFiniteGradeCorridorOrContactCensusRerun']);assert not any(d[k]for k in ['physicalAccepted','bodySupportAccepted','gradeRootAccepted','installationApproved','sourceGeometryChanges','terrainGeometryChanges']);assert d['currentManifest']==scope['currentManifest']and d['allFourStreamBindings']==finite['allFourStreamBindings']and set(d['distinctBodyAssociationContexts'])=={x['proofTupleSHA256']for x in finite['allFourStreamBindings'].values()}
++ checked=set()
++ for mode,world in worlds.items():
++  b=finite['allFourStreamBindings'][mode];assert digest(world.tobytes())==b['wholeWorldSHA256'];key=b['proofTupleSHA256']
++  if key in checked:continue
++  checked.add(key);r=d['distinctBodyAssociationContexts'][key];assert r==json.loads(json.dumps(P.calculate(world,key,finite,graph)));assert r['bodies']['108']['openingV3RejectionPreserved']and r['bodies']['108']['higherCompleteBoundaryRetainedUnfilled'];assert r['bodies']['113']['mountingEdgeDesignationNotAutomatic'];assert not any(x['visualRoleAccepted']or x['structuralRootCredit']or x['structuralBridgeCredit']or x['physicalAccepted']or x['installationApproved']for x in r['bodies'].values())
++ walker=P.D.S.G.P.F.module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','westwingtwohostfreeze');paths=set();walker.local_imports(Path(__file__),paths);walker.local_imports(Path(P.__file__),paths)
++ for e in receipt['evidenceRefs']+d['evidenceRefs']+valid:assert P.ref(ROOT/e['path'])==e;paths.add(ROOT/e['path'])
++ paths.add(P.DOC/'diagnostic.json.gz');paths.add(Path(args.lease_file));paths.update(p for p in P.LOCAL.rglob('*')if p.is_file());paths.update(p for p in P.PROPOSAL.iterdir()if p.is_file());P.inputs();assert reservations.owns(lease)
++ result=walker.F.freeze(P.BATCH,'two-original-visual-surface-mounting-interface-context-no-root-support-credit',sorted(paths),dict(uids=[P.D.S.G.P.F.UID],sourceOnly=True,physicalAccepted=False,bodySupportAccepted=False,gradeRootAccepted=False,installationApproved=False,modelReviewWrites=0,completeFaces=46918,completeBodies=118,completeGroundFaces=3240,allRawNegativesRetained=True))
++ with connect()as c:
++  c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(result['jobId'],)).fetchone()==('complete',result)
++ for e in result['evidenceRefs']:assert P.ref(ROOT/e['path'])==e
++ P.inputs();assert reservations.owns(lease);print(json.dumps(dict(jobId=result['jobId'],allRefs=len(result['evidenceRefs']),typedAcceptanceRouteEstablished=False)),flush=True)
++if __name__=='__main__':main()

@@ -1,0 +1,26 @@
+/** Test the existing BASIC footing volume; no live or government mesh writes. */
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {gzipSync} from 'node:zlib';
+import {describeBuilding,createBuildingGeometry} from '../../../3d-viewer/city/building-geometry.js';
+import {snapshotModuleClosure,verifyModuleClosure} from './exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+const root=new URL('../../../',import.meta.url),dir=process.argv[2],read=p=>JSON.parse(readFileSync(new URL(dir+p,root))),input=read('input.json'),b=input.building;
+assert.equal(b.uid,input.expectedUid);assert.equal(b.structureType,'Podium');assert.equal(b.kind,'yes');
+assert.equal(b.minimum,0);assert.equal(b.baseSource,'landsd');assert.equal(b.heightSource,'landsd');
+assert.equal(b.base,b.baseHeightHKPD);assert.equal(b.base+b.height,b.topHeightHKPD);assert(!b.modelGeometry&&!b.foundationBase);
+const closure=snapshotModuleClosure(new URL('3d-viewer/city/building-geometry.js',root),root);
+assert(closure.completeAuditedLiteralImportClosure&&closure.computedImportsRejected);
+const before=describeBuilding(b),proposal=read('proposal.json');
+assert(!before.model&&!before.openSided&&before.parts.length===1&&before.parts[0].kind==='building');
+assert(proposal.foundationBase<b.base&&proposal.uid===b.uid&&proposal.originalBase===b.base);
+const next={...b,foundationBase:proposal.foundationBase},after=describeBuilding(next);
+assert(after.foundationApplied&&after.parts.length===2);assert.deepEqual(after.parts[0],before.parts[0]);
+const footing=after.parts[1];assert(footing.kind==='foundation'&&footing.illustrative&&footing.windows===false);
+assert.deepEqual(footing.rings,b.rings);assert.equal(footing.top,b.base);assert.equal(footing.bottom,proposal.foundationBase);
+const a=createBuildingGeometry(b),z=createBuildingGeometry(next),ap=Array.from(a.attributes.position.array),zp=Array.from(z.attributes.position.array);
+assert(zp.length>ap.length);assert.deepEqual(zp.slice(0,ap.length),ap,'Original complete BASIC body changed');
+const index=g=>g.index?Array.from(g.index.array):Array.from({length:g.attributes.position.count},(_,i)=>i);
+const ai=index(a),zi=index(z);assert.deepEqual(zi.slice(0,ai.length),ai,'Original complete BASIC indices changed');
+writeFileSync(new URL(dir+'geometry.json.gz',root),gzipSync(JSON.stringify({before:{position:ap,index:ai},after:{position:zp,index:zi},footing})));
+writeFileSync(new URL(dir+'render-proof.json',root),JSON.stringify({uid:b.uid,completeBasicBodyAndIndicesExactlyUnchanged:true,recordedElevationsAndRoofUnchanged:true,footprintExactlyUnchanged:true,onlyOneExistingIllustrativeFoundationAdded:true,bodyVertices:ap.length/3,addedVertices:(zp.length-ap.length)/3,governmentGeometryChanges:0,liveChanges:false,inputHashes:closure.inputHashes}));
+assert(verifyModuleClosure(closure,root));a.dispose();z.dispose();

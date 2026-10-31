@@ -1,0 +1,17 @@
+{'originalBody': 21, 'originalBottomFaces': 54, 'conditionalAllFloorPositive': True}
+{'originalBody': 22, 'originalBottomFaces': 47, 'conditionalAllFloorPositive': True}
+{'originalBody': 25, 'originalBottomFaces': 65, 'conditionalAllFloorPositive': True}
+{'originalBody': 94, 'originalBottomFaces': 13, 'conditionalAllFloorPositive': True}
+{'originalBody': 95, 'originalBottomFaces': 24, 'conditionalAllFloorPositive': True}
+{'originalBody': 100, 'originalBottomFaces': 4, 'conditionalAllFloorPositive': True}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-hoi-shing-six-raised-original-floor-association-v1.py", line 57, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-terrain-recovery-20261011-hoi-shing-six-raised-original-floor-association-v1.py", line 55, in main
+    spec=importlib.util.spec_from_file_location('freeze_hoi_floors',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);m.freeze(BATCH,'six-original-raised-body-whole-floor-existing-band-conditional-source-diagnostic-v1',[ROOT/r['path']for r in refs]+[DOC/'diagnostic.json.gz'],dict(sourceOnly=True,currentAcceptance=False,examinedBodies=BODIES,conditionalPositiveBodies=[r['originalBody']for r in rows if r['conditionalCompleteFloorWithinExistingContactBand']],originalGeometryChanges=0,rootOrBridgeCredit=False,newlyInstalled=0))
+                                                                                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 17, in freeze
+    payload={'uids':result['uids'],'evidenceRefs':refs};jid=jobs.enqueue(batch,stage,payload);job=jobs.claim(batch,lease['owner'],[stage],lease_seconds=1800);assert job and job['id']==jid
+                    ~~~~~~^^^^^^^^
+KeyError: 'uids'

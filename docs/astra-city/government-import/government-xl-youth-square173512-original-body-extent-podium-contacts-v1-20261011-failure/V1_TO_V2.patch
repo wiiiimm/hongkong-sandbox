@@ -1,0 +1,40 @@
+--- youth_square173512_original_body_extent_podium_contacts_v1_20261011.py
++++ youth_square173512_original_body_extent_podium_contacts_v2_20261011.py
+@@ -18,7 +18,7 @@
+ LEDGER = B / 'government-xl-identity-190-actionable-ledger-20261010/ledger.json.gz'
+ DISP = B / 'government-xl-current-320-blocker-families-20261009/dispositions.json.gz'
+ METHOD = B / 'government-xl-youth-square173512-original-source-method-v1-20261011/METHOD.md'
+-DOC = B / 'government-xl-youth-square173512-original-body-extent-podium-contacts-v1-20261011'
++DOC = B / 'government-xl-youth-square173512-original-body-extent-podium-contacts-v2-20261011'
+ EXPECTED = {UID: ('a3905a76856bc0c622d7f09139995fd2429d294771b68e2385317056987fcea1', 13100, 'B424281381401063C0', '4242813814T20100329'), PODIUM: ('1edf63068d903718bec435d4c9426f38192a1e5f32da1c439867a3cd530375a9', 22, 'B424091381802063C0', '4240913818P20080619')}
+ def ref(p):
+     return dict(path=str(p.relative_to(ROOT)), sha256=digest(p.read_bytes()))
+@@ -107,7 +107,7 @@
+             na, nz = cross(sub(a[1], a[0]), sub(a[2], a[0])), cross(sub(z[1], z[0]), sub(z[2], z[0]))
+             cop = not any(cross(na, nz)) and all(dot(na, sub(v, a[0])) == 0 for v in z)
+             mid = tuple(sum(v[k] for v in points) / len(points) for k in range(3))
+-            records.append(dict(towerFace=i, podiumFace=j, towerBody=labels[UID][i], podiumBody=labels[PODIUM][j], exactPoints=[[str(v) for v in q] for q in points], coplanar=cop, bothRelativeInteriorCrossing=not cop and measure['dimension'] > 0 and relative_interior(a, mid) and relative_interior(z, mid), **measure))
++            records.append(dict(towerFace=i, podiumFace=j, towerBody=labels[UID][i], podiumBody=labels[PODIUM][j], coplanar=cop, bothRelativeInteriorCrossing=not cop and measure['dimension'] > 0 and relative_interior(a, mid) and relative_interior(z, mid), **measure))
+     obligations = []
+     for uid in EXPECTED:
+         for k, fs in enumerate(censuses[uid]['sharedEdgeConnectedComponents']):
+--- youth_square173512_freeze_original_body_extent_podium_contacts_v1_20261011.py
++++ youth_square173512_freeze_original_body_extent_podium_contacts_v2_20261011.py
+@@ -3,7 +3,7 @@
+ import importlib.util
+ import json
+ from run import ROOT, HERE, read, save, digest, connect
+-BATCH = 'government-xl-youth-square173512-original-body-extent-podium-contacts-v1-20261011'
++BATCH = 'government-xl-youth-square173512-original-body-extent-podium-contacts-v2-20261011'
+ DOC = ROOT / 'docs/astra-city/government-import' / BATCH
+ METHOD = ROOT / 'docs/astra-city/government-import/government-xl-youth-square173512-original-source-method-v1-20261011/METHOD.md'
+ PROTECTED = ['landsd/173512:0', 'landsd/139415:0']
+@@ -35,7 +35,7 @@
+     spec.loader.exec_module(m)
+     paths = {p for p in DOC.rglob('*') if p.is_file()}
+     paths.add(METHOD)
+-    m.local_imports(HERE / 'youth_square173512_original_body_extent_podium_contacts_v1_20261011.py', paths)
++    m.local_imports(HERE / 'youth_square173512_original_body_extent_podium_contacts_v2_20261011.py', paths)
+     m.local_imports(Path(__file__), paths)
+     m.declared_refs(d, paths)
+     summary = dict(completeFaces=d['completeFaces'], genuineBodies={uid: len(c['sharedEdgeConnectedComponents']) for uid, c in d['originalCensuses'].items()}, exactZeros={uid: c['exactNonrenderingOriginalFaces'] for uid, c in d['originalCensuses'].items()}, farFaces=286, exactFiniteContacts=len(d['allFiniteTowerPodiumContacts']), allBodyObligations=len(d['allBodyObligations']), identitySupportUnqualified=True)

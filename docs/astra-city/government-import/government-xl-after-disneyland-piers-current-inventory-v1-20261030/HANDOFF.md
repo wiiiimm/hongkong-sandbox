@@ -1,0 +1,39 @@
+# Current XL original-model work — 1 November 2026
+
+**413 installed + 3 exact-source terminal + 105 outstanding = 521 fixed XL source keys; 7,061 installed detailed actors.** Both NULL-UID keys remain in scope. No new installation in this checkpoint. Original goal remains active.
+
+## Current execution state
+
+Live exec **28477**: `arena275446_five_qualified_lifecycle_v1_20261101.py`, full91source/terrain/server4177 scope, six exact qualified-stage desktop/mobile cases. Poll this exact handle; do not restart on observation timeout. Prior exec13811 finished successfully and released all leases. Never restart completed52772/69857/contact-sheet work or failed37655/31911; their receipts/failures are preserved. Shared4176 untouched.
+
+University Hall93417 is already installed in `government-xl-university-hall-standalone-qualified-stage-v2-20261024`, sourceSHA debfebe52c8a04231cd20bdbfeaa9057f28af6e9df054769f9c57118f4d5aa60. Current catalogue identity/placement/publication flags are alltrue. The delayed guarded-standalone approval is reconciled; do not reinstall it.
+
+## Five Kai Tak originals — completed current evidence
+
+Prefix: `government-xl-arena275446-after-palazzo-`. Exactly275446/318697/318701/318704/318722, one fixedXL source amongfive actors. Installed stadium318723 remains unchanged. Production manifest ff5eabb57c2fd9ff99d04dd856b9577b0c8c04215150ccd2975af3f83f99b34f, private terrain candidate e467b77f52b1191ed85c43a051e0fa53473d12721ced5bc1ed313da3ef59b98d unchanged.
+
+- Complete current grade wave **48047f804ab46344726a835c4204a501978fcf29ee78deb7cd2d9ba5b424c39a**; below-grade context **f306b39a70c90f8fdf676807a83ff99140de3a36df8c0a3f9eb17de63c53605a**.
+- Exact actual canonical warning paths **e43860004a93176338216bc46f83a5336c3ae67a7e98ab032711d289b1dd2abf**, all16mode/source checks pass. Current indexed/centre/edge samples, exact incidences, independent actual-ground roots, unchanged endpoint/1mm bounds. No deduplicated-count substitution.
+- Bounded lower-source roles **f1138cb4d9fd7f69f8e0b89d9ad2772323d970f7aaa8f5070b0ad3866c58f071**: all5negative partitions accounted,25podium downward lower skins and3zero-area source primitives preserved; allnegative realwalls retain clearcap paths; allcurrent warning routes accounted. Six lower images actually inspected previously. Lower-role only; no physical/publication approval.
+- Private browser V4 **2525dd1945bea47d0f1da673e730caa2267a2199aa0c37072b71f889224cd5de**: complete91source+terrain+server resources, all24individual source/native day/night exports,6atomic cases, deny/retry, Base-only restoration, complete-group eviction and zero partial-group/stale-collision violations. Completed correct-scopeV2desktop/mobile bytes+desktopatomic case reused exactly;5mobile cases runfresh. V3incomplete83scope cases discarded. Failure ledger **7fdc4139a531776f1bae07c4157dfd01dbdce98f26795a647e791a6eb8203856** preserves3earlier browser failures.
+- Eight contact sheets completed; ROOT now actually inspected all24exports plus1podium/stadium contact diagram. Observations and exact hashes in `...private-browser-visual-observations-v1-20261101/ROOT-VISUAL-OBSERVATIONS.json`. Current source bodies and retained stadium visible; no physical-phone FPS claim.
+- Complete90resource interface sequence **69bad19f6428a56616681c1a16a89e4744ae4bd36849d20766e5e7b401bf483d**: all saved original-pair planes **61e2734cc9ba0c0a4e0c12e22238edb2ab14bc38fc464ba22d9b62b23df081f4**, native roles **687bd153f1097916d1e2f947d17d391180449a9121f8d0fbf7239d69bda48bce**, all nonempty native junction views. All703podium/stadium contacts retained,516transverse source crossings included; diagram shows lower ring/deck context, not a new engineering/collision exemption.
+- Interface attemptsV1/V2 failed before classification because legacy pair receipts omit redundant world hashes and use prior runtime cache paths. V3 authenticates the original producer/complete attributes/original selection/old source asset bytes, proves exact current byte equality, then derives represented hashes. No missing-field fallback without authenticated input closure, no recomputed contacts or changed geometry. Failed code/notes retained.
+
+## Qualification and canonical publisher — completed
+
+Five-original qualification **0a8b63218337d9fb50ce75e68f497dce5ca8de3c6ac49d80530caec31cb5b0df** binds all current source identities, lower/foundation/canonical paths, complete57foreign BASIC/10sourcepairs/native interfaces,35terrain forms, full90resource scope,24actually inspected exports and retained stadium. Raw flags preserved. QualificationV1 failed only its equality check after omitting the retained-parent lease superset; full90resources were held and released, no approval. V2 authenticates that existing parent-plan union; no scope reduced or guard removed.
+
+Exact five-qualified-stageV1 full canonical publisher dryrun **f4c49dc7d75822323ad4c72b44b01e8223c37515a5189b084eca6eea7d5b1901** passed, final dependency preflight unblocked. No terrain provenance repair was needed. Original terrain candidate SHA unchanged. All shared publisher/retained-support validators intact. No installation/publication yet.
+
+Prepared `arena275446_five_{installation_contract,guarded_publish,live_install}_v1_20261101.py`. Seven adapters parse; exactbefore413/108/7061 andafter414/107/7066 counts checked. New `sha_tin_live_atomic_browser_v2_20261101.mjs` retains every actual-public-HTTP/asset/manifest/fallback/collision guard and adds the previously tested V4full-bounds/range-aware camera. Six real liveexports still must be inspected before credit. Prepared code has not executed publication.
+
+## Next work
+
+1. Poll live28477; qualification and full canonical publisher dryrun are completed above. Preserve their exact inputs and raw warnings. Do not repeat completed checks.
+2. On exact-stage lifecycle success, run prepared guard/installer prepare-only. Then rollback-protected installation with actual publicHTTPsourcebytes/manifest/terrain checks, sixbrowsercases andROOTsiximage review. All source/terrain and shared retained-support guards remain.
+3. Qualified-stage lifecycle, guarded publish, actual installedHTTP+exports review and unique snapshot/Neonreadback, then immediate commit/push. Expected delta5actors/1XL only after success; no credit now.
+
+All original meshes, node transforms, fixed1x/HKPD pose remain unchanged. Bounded AI evidence interpretation/code work only; zero AI geometry modelling, no optimisation/variant processing, migration, deployment or main merge. Model/effort not inferable from tool-visible metadata.
+
+Prior identity/terrain/foundation/source-native/BASIC receipts and exact adapter routing are preserved in [the prior handoff](HANDOFF-BEFORE-ARENA-INTERFACE-COMPLETE-20261101.md). Protect unrelated working-commands.json, landmark-completion-audit/neon-snapshot.json and pier-lighting-design-photograph.jpg. Evidence checkpoint **0d14d6ad99** is committed and pushed. HKS-203 updated in comment **493ebfcf-73d1-41db-9fc5-17d27a75bb34**.

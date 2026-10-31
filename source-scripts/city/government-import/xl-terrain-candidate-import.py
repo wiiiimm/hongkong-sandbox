@@ -1,0 +1,510 @@
+"""Publish a script-verified XL source model with its bounded native terrain patch."""
+import importlib.util
+import json
+import shutil
+import subprocess
+import sys
+import uuid
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+spec = importlib.util.spec_from_file_location('terrain_stage', Path(__file__).with_name('xl-stage-terrain-candidate.py'))
+stage = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(stage)
+s = stage.s
+ROOT, HERE = s.ROOT, s.HERE
+read, save, h, rel = s.read, s.save, s.h, s.rel
+
+CONFIG = {
+    'spectra-3': {
+        'uid': 'landsd/265311:0',
+        'batch': 'government-xl-spectra-3-20260914',
+        'policy': 'original-government-xl-bounded-native-terrain-v1',
+        'classification': 'script-verified-original-government-bounded-native-terrain',
+        'review': (
+            'Exact government source identity and placement verified by object ID, Building CSUID, '
+            'full footprint overlap and a 0.97 m centroid offset. The unchanged model and bounded native '
+            'terrain pass contact, neighbour and runtime checks.'
+        ),
+    },
+    "gateway-arcade": {
+        "uid": "landsd/21915:0",
+        "priority": "landmark",
+        "batch": "government-xl-gateway-arcade-20260914",
+        "policy": "original-government-xl-gateway-podium-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "review": (
+            "Exact unchanged Gateway Arcade government podium matched by object ID and Building CSUID. "
+            "The bounded native terrain and source-roof checks retain and support the related Gateway towers. "
+            "Source, neighbour, runtime and browser checks pass."
+        ),
+    },
+    "jubilee-square": {
+        "uid": "landsd/304700:0",
+        "priority": "landmark",
+        "batch": "government-xl-jubilee-square-20260914",
+        "policy": "original-government-xl-jubilee-podium-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "review": (
+            "Exact unchanged Jubilee Square government podium matched by object ID and Building CSUID. "
+            "The complete-face identity proof bounds the source assembly, while native terrain and source-roof "
+            "checks retain and support the related Jubilee Garden towers. Runtime and browser checks pass."
+        ),
+    },
+    "hullett-house": {
+        "uid": "landsd/73140:0",
+        "batch": "government-xl-hullett-house-20260914",
+        "policy": "original-government-xl-hullett-house-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "priority": "landmark",
+        "review": (
+            "Exact unchanged Hullett House government source matched by object ID and Building CSUID. "
+            "The complete-face identity and bounded foundation proofs accept two tiny downward buried faces; "
+            "native terrain, retained related forms, runtime and browser checks pass."
+        ),
+    },
+    "tuen-mun-plaza-1": {
+        "uid": "landsd/229481:0",
+        "priority": "landmark",
+        "batch": "government-xl-tuen-mun-plaza-1-20260914",
+        "policy": "original-government-xl-tuen-mun-plaza-1-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "review": (
+            "Exact unchanged Tuen Mun Town Plaza Phase 1 government podium matched by object ID and Building "
+            "CSUID. The complete-face identity and bounded foundation proofs accept thirteen tiny downward "
+            "buried faces; native terrain and source-roof checks retain the related towers. Runtime and browser checks pass."
+        ),
+    },
+    "woo-phase-two": {
+        "uid": "landsd/276686:0",
+        "priority": "landmark",
+        "batch": "government-xl-woo-phase-two-20260914",
+        "policy": "original-government-xl-woo-phase-two-native-terrain-v1",
+        "classification": "script-verified-original-government-supported-complex-podium",
+        "review": (
+            "Exact unchanged +WOO Phase Two government podium matched by object ID and Building CSUID. "
+            "The complete-face identity proof bounds the source assembly; native terrain and source-roof checks "
+            "retain its related tower. Runtime and browser checks pass."
+        ),
+    },
+    "chung-kin": {
+        "uid": "landsd/147024:0",
+        "batch": "government-xl-chung-kin-20260914",
+        "policy": "original-government-xl-exact-id-bounded-native-terrain-v1",
+        "classification": "script-verified-original-government-exact-id-bounded-native-terrain",
+        "review": (
+            "Exact government object ID and Building CSUID, one viewer match, 99.999995% footprint "
+            "overlap and a 1.52 m centroid offset. The unchanged model and complete native terrain "
+            "pass contact, neighbour and runtime checks."
+        ),
+    },
+    "tower-147505": {
+        "uid": "landsd/147505:0",
+        "batch": "government-xl-tower-147505-20260914",
+        "policy": "original-government-xl-compact-overhang-native-terrain-v1",
+        "classification": "script-verified-original-government-compact-overhang-native-terrain",
+        "retainedBuildingUids": ["landsd/147996:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.9986% target "
+            "coverage and a 0.43 m centroid offset. The source extends at most 3.30 m beyond the "
+            "small mapped footprint, intersects no unrelated form, and touches one same-parent form "
+            "over only 4.81 m2 / 6.56%. The unchanged model and neighbour-preserving native terrain "
+            "pass contact, neighbour and runtime checks."
+        ),
+    },
+    "harbourfront": {
+        "uid": "landsd/31275:0",
+        "batch": "government-xl-harbourfront-20260914",
+        "policy": "original-government-xl-detailed-identity-shoreline-terrain-v1",
+        "classification": "script-verified-original-government-detailed-identity-shoreline-terrain",
+        "priority": "landmark",
+        "review": (
+            "Exact government object ID and Building CSUID with a hashed detailed projection proof: "
+            "97.79% target coverage, 4.27% same-complex excess, 0.74 m centroid offset and no unrelated "
+            "intersections. The unchanged model and water-mask-preserving native terrain pass contact, "
+            "neighbour and runtime checks."
+        ),
+    },
+    "chung-mei": {
+        "uid": "landsd/160193:0",
+        "batch": "government-xl-chung-mei-20260914",
+        "policy": "original-government-xl-isolated-overhang-native-replacement-v1",
+        "classification": "script-verified-original-government-isolated-overhang-native-replacement",
+        "retainedBuildingUids": ["landsd/147024:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.0311% target "
+            "coverage and a 1.11 m detailed-projection centroid offset. The isolated source extends "
+            "at most 7.74 m beyond the simplified footprint and intersects no other viewer form. A "
+            "combined source-terrain replacement retains Chung Kin Building with zero newly buried "
+            "triangles. The unchanged model passes contact, identity, neighbour and runtime checks."
+        ),
+    },
+    "mongkok-stadium": {
+        "uid": "landsd/240527:0",
+        "batch": "government-xl-mongkok-stadium-20260914",
+        "policy": "original-government-xl-complex-boundary-native-terrain-v1",
+        "classification": "script-verified-original-government-complex-boundary-native-terrain",
+        "priority": "landmark",
+        "retainedBuildingUids": ["landsd/270154:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.46% target "
+            "coverage and a 0.95 m detailed-projection centroid offset. Every adjacent intersection "
+            "is below 15 m2 and 10% of that form. Complete triangle-surface contact resolves the "
+            "coarse bounds warning, and one non-overlapping neighbour retains its current parent "
+            "terrain. The unchanged model passes contact, identity, neighbour and runtime checks."
+        ),
+    },
+    "fireboat": {
+        "uid": "landsd/57826:0",
+        "batch": "government-xl-fireboat-20260914",
+        "policy": "original-government-xl-detached-display-component-native-terrain-v1",
+        "classification": "script-verified-original-government-detached-display-component-native-terrain",
+        "priority": "landmark",
+        "retainedBuildingUids": ["landsd/97987:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.36% target "
+            "coverage and a 0.19 m detailed-projection centroid offset. The source extends at most "
+            "10.66 m beyond the simplified gallery footprint for the displayed fireboat. Its only "
+            "other projected form is a detached 5.70 m2 component with no vertical source-excess "
+            "intersection, and that fallback remains present. The unchanged model and bounded native "
+            "terrain pass contact, identity, neighbour and runtime checks."
+        ),
+    },
+    "mei-choi": {
+        "uid": "landsd/264691:0",
+        "batch": "government-xl-mei-choi-20260914",
+        "policy": "original-government-xl-shared-complex-overhang-native-terrain-v1",
+        "classification": "script-verified-original-government-shared-complex-overhang-native-terrain",
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, complete target "
+            "coverage and a 0.58 m detailed-projection centroid offset. The source extends at most "
+            "3.47 m beyond the simplified tower footprint and only overlaps the mapped commercial "
+            "complex sharing its OSM reference. Four non-overlapping neighbour footprints retain "
+            "their current parent terrain. The unchanged model passes contact, identity, neighbour "
+            "and runtime checks."
+        ),
+    },
+    "goldmark": {
+        "uid": "landsd/177244:0",
+        "batch": "government-xl-goldmark-20260914",
+        "policy": "original-government-xl-boundary-touch-native-terrain-v1",
+        "classification": "script-verified-original-government-boundary-touch-native-terrain",
+        "retainedBuildingUids": ["landsd/252035:0", "landsd/319803:0"],
+        "review": (
+            "Exact government object ID and Building CSUID with one viewer match, 99.5089% target "
+            "coverage and a 1.05 m centroid offset. The source extends at most 5.45 m beyond the "
+            "mapped footprint and touches the adjacent Hysan assembly over only 6.25 m2 / less than "
+            "0.5% of each form. Full native-mesh checks find no newly buried Hysan triangles, while "
+            "53.8% of its tower low rim remains supported by its installed podium. The unchanged model "
+            "and neighbour-preserving native terrain pass contact, identity and runtime checks."
+        ),
+    },
+}
+
+sys.path.insert(0, str(HERE.parent / 'model-review-ledger'))
+import ledger
+
+direct_spec = importlib.util.spec_from_file_location('direct', HERE / 'integrate.py')
+direct = importlib.util.module_from_spec(direct_spec)
+direct_spec.loader.exec_module(direct)
+
+
+def call(args):
+    subprocess.run(args, cwd=ROOT, check=True)
+
+
+def paths(key):
+    config = CONFIG[key]
+    check = s.DOC / 'third-pass' / ('terrain-' + key)
+    stage_local = s.LOCAL / ('third-pass-terrain-' + key)
+    install_local = s.LOCAL / ('third-pass-terrain-' + key + '-install')
+    accepted = HERE / 'accepted' / config['batch']
+    doc = s.DOC / 'third-pass' / ('terrain-' + key + '-install')
+    return config, check, stage_local, install_local, accepted, doc
+
+
+def start(key):
+    config, check, stage_local, install_local, _, _ = paths(key)
+    result = read(check / 'result.json')
+    assert result['passed'] and result['uid'] == config['uid'] and result['aiCalls'] == 0
+    resources = read(stage_local / 'reservation.json')['resources']
+    claim = s.reservations.claim(
+        'codex-xl-terrain-import-' + key + '-' + str(uuid.uuid4()),
+        resources,
+        batch=config['batch'],
+    )
+    assert claim['ok']
+    receipt = install_local / 'reservation.json'
+    save(receipt, json.loads(json.dumps(claim['reservation'], default=str)))
+    call([
+        sys.executable,
+        str(HERE.parent / 'shared-modelling/reservations.py'),
+        'run',
+        '--lease-file',
+        str(receipt),
+        '--',
+        sys.executable,
+        __file__,
+        key,
+        'owned',
+    ])
+
+
+def owned(key):
+    config, check, stage_local, install_local, accepted, doc = paths(key)
+    uid, batch = config['uid'], config['batch']
+    receipt = install_local / 'reservation.json'
+    assert s.reservations.owns(read(receipt))
+
+    result = read(check / 'result.json')
+    assert result['passed'] and result['uid'] == uid and not result['reasons'] and result['aiCalls'] == 0
+    selection = read(check / 'selection.json.gz')
+    assert len(selection['rows']) == 1 and selection['rows'][0]['uid'] == uid
+    source = selection['rows'][0]
+    metrics = read(check / 'metrics.json')
+    metric = metrics['rows'][0]
+    assert metric['uid'] == uid and metric['sourcePreserved'] and not metric['missingTerrain']
+    assert metrics['aiCalls'] == metrics['geometryChanges'] == 0
+    validation_path = check / 'validation.json'
+    validation = read(validation_path)
+    assert validation['loaderAccepted'] == validation['checksPassed'] == 1
+    concerns = set(validation['results'][0]['concerns'])
+    contact_resolution_path = check / 'contact-resolution.json'
+    if contact_resolution_path.exists():
+        contact_resolution = read(contact_resolution_path)
+        assert contact_resolution['accepted'] and contact_resolution['uid'] == uid
+        assert contact_resolution['metricsSHA256'] == h(check / 'metrics.json')
+        assert contact_resolution['validationSHA256'] == h(validation_path)
+        concerns.discard(contact_resolution['coarseConcern'])
+    assert validation['exceptions'] == 0 and not concerns
+    neighbours = read(check / 'neighbour-checks.json')
+    assert neighbours['aiCalls'] == 0
+    blocked = set(neighbours['patches'][0]['blockedBy'])
+    native_path = check / 'native-neighbour-checks.json'
+    native_neighbours = read(native_path) if native_path.exists() else None
+    resolved = set(native_neighbours['resolved']) if native_neighbours else set()
+    if native_neighbours:
+        assert native_neighbours.get('aiCalls', 0) == 0
+        assert native_neighbours.get('modelGeometryChanges', 0) == 0
+        assert not native_neighbours.get('failed', [])
+    assert blocked - resolved == set()
+
+    source_catalogue = read(stage_local / 'candidates/catalogue.json')
+    assert [model['uid'] for model in source_catalogue['models']] == [uid]
+    entry = source_catalogue['models'][0]
+    entry.update(
+        priority=config.get('priority', 'detail'),
+        placementReviewed=True,
+        sourceIdentityReviewed=True,
+        identityReviewApproved=True,
+        publicationApproved=True,
+        placementReview=config['review'],
+    )
+    asset = accepted / entry['asset']
+    asset.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(stage_local / 'candidates' / entry['asset'], asset)
+    assert h(asset) == entry['sha256']
+    catalogue = {
+        **source_catalogue,
+        'area': entry['label'] + ' original government model',
+        'loadingPolicy': 'Published after deterministic source, terrain, neighbour, runtime and browser checks',
+        'models': [entry],
+    }
+    save(accepted / 'catalogue.json', catalogue)
+    save(accepted / 'catalogue-index.json', {'models': 1, 'catalogues': ['catalogue.json']})
+
+    form = dict(source['source']['building'])
+    form['tile'] = Path(source['source']['tile']).stem
+    save(accepted / 'source-forms.json', [form])
+    patch = result['patch']
+    patch_source = ROOT / patch['path']
+    assert h(patch_source) == patch['sha256']
+    patch_destination = accepted / patch_source.name
+    shutil.copyfile(patch_source, patch_destination)
+    terrain = {
+        'source': rel(patch_destination),
+        'sha256': h(patch_destination),
+        'destination': 'city/data/' + patch_destination.name,
+        'resolution': read(patch_destination)['cell'],
+        'area': entry['label'] + ' bounded original government terrain',
+    }
+    if patch.get('replaces'):
+        terrain['replaces'] = {k: patch['replaces'][k] for k in ('url', 'sha256')}
+        terrain['nativeReview'] = patch['nativeReview']
+    catalogue_url = 'city/data/official-models/' + batch + '/catalogue.json'
+    plan = {
+        'areas': [{
+            'area': catalogue['area'],
+            'catalogue': rel(accepted / 'catalogue.json'),
+            'destination': catalogue_url,
+        }],
+        'topLevelTerrainPatches': [terrain],
+    }
+    save(accepted / 'plan.json', plan)
+    browser_config = {
+        'stage': rel(accepted) + '/',
+        'doc': rel(doc) + '/',
+        'catalogueURL': catalogue_url,
+        'terrain': [terrain],
+        'fitBox': True,
+        'browserUids': [uid],
+        'failureTestUids': [uid],
+        'retainedBuildingUids': config.get('retainedBuildingUids', []),
+    }
+    save(accepted / 'browser-config.json', browser_config)
+
+    evidence_paths = [
+        check / 'result.json',
+        check / 'metrics.json',
+        check / 'validation.json',
+        check / 'neighbour-checks.json',
+        check / 'terrain-resolution.json',
+        check / 'native-overlap-evidence.json',
+        check / 'native-replacement-review.json',
+        check / 'identity-resolution.json',
+        HERE / 'xl-stage-terrain-candidate.py',
+        HERE / 'xl-stage-west9zone.py',
+        HERE / 'native_patch_resolution.py',
+        HERE / 'xl-terrain-candidate-import.py',
+        HERE / 'resolution-browser.mjs',
+    ]
+    contact_resolution = check / 'contact-resolution.json'
+    if contact_resolution.exists():
+        evidence_paths.append(contact_resolution)
+    if native_neighbours:
+        evidence_paths.extend([
+            native_path,
+            HERE / 'check-native-neighbours.mjs',
+            HERE / 'native-neighbour-policy.mjs',
+        ])
+    evidence = {rel(path): h(path) for path in evidence_paths if path.exists()}
+    inputs = {**metrics['inputHashes'], **neighbours['sourceInputHashes']}
+    if native_neighbours:
+        inputs.update(native_neighbours['inputHashes'])
+    for path, sha in inputs.items():
+        assert h(ROOT / path) == sha
+    decision = {
+        'policy': config['policy'],
+        'uid': uid,
+        'sourceSHA256': entry['sha256'],
+        'catalogueSHA256': h(accepted / 'catalogue.json'),
+        'planSHA256': h(accepted / 'plan.json'),
+        'inputHashes': inputs,
+        'evidenceHashes': evidence,
+        'aiCalls': 0,
+        'modelGeometryChanges': 0,
+    }
+    save(doc / 'decision.json', decision)
+    call(['node', str(HERE / 'resolution-browser.mjs'), 'staged', rel(accepted / 'browser-config.json')])
+    direct.browser_verified(doc / 'staged-browser.json', {uid})
+    for path, sha in {**inputs, **evidence}.items():
+        assert h(ROOT / path) == sha, 'Input changed during staged browser checks: ' + path
+
+    with s.connect() as connection:
+        connection.execute('SET TRANSACTION READ ONLY')
+        native = dict(connection.execute(
+            'SELECT cache_key,result_sha FROM astra_modelling.native_stage_results WHERE cache_key=%s',
+            (source['native']['cacheKey'],),
+        ))
+    assert native[source['native']['cacheKey']] == source['native']['resultSha']
+
+    pointer_path = ROOT / 'docs/astra-city/model-integration-20260909/current-source-review.json'
+    pointer = read(pointer_path)
+    inventory = read(ROOT / pointer['inventory'])
+    parts = {part['uid']: part for part in inventory['parts']}
+    previous = parts.get(uid, {})
+    parts[uid] = {
+        'uid': uid,
+        'name': entry['label'],
+        'landmarkIds': previous.get('landmarkIds', []),
+        'objectId': entry['objectId'],
+        'csuid': entry['buildingCSUID'],
+        'candidate': {'sha256': entry['sha256']},
+        'sourceProgress': 'prepared-for-review',
+        'classification': config['classification'],
+        'knownHold': False,
+    }
+    ordered = sorted(parts.values(), key=lambda row: row['uid'])
+    snapshot = s.digest(s.jobs.encode([ordered, decision]).encode())[:16]
+    inventory_path = pointer_path.parent / ('source-review-inventory-' + snapshot + '.json')
+    save(inventory_path, {**inventory, 'snapshotId': snapshot, 'derivedFrom': pointer['snapshotId'], 'parts': ordered})
+    ledger.seed(inventory_path, inherit=pointer['snapshotId'])
+    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    effort = {
+        'method': 'scripted',
+        'ai_model': None,
+        'reasoning_effort': 'not-applicable',
+        'issue': 'HKS-203',
+        'run_id': snapshot,
+        'output_ref': rel(doc / 'decision.json'),
+    }
+    observation = config['review'] + ' No AI modelling, review or model geometry edits.'
+    ledger.record_many(
+        snapshot,
+        receipt,
+        [(uid, 'approved-for-integration', doc / 'decision.json', observation, commit)],
+        effort=effort,
+        request_id=batch + '-approved-' + snapshot,
+    )
+
+    publish = [
+        sys.executable,
+        str(HERE.parent / 'model-integration-20260909/publish.py'),
+        rel(accepted / 'plan.json'),
+        '--receipt',
+        str(receipt),
+        '--phase',
+        batch,
+    ]
+    call(publish)
+    manifest = ROOT / '3d-viewer/city/data/manifest.json'
+    before = manifest.read_bytes()
+    (install_local / 'manifest-before.json').write_bytes(before)
+    call(publish + ['--apply'])
+    try:
+        call(['node', str(HERE / 'resolution-browser.mjs'), 'live', rel(accepted / 'browser-config.json')])
+        direct.browser_verified(doc / 'live-browser.json', {uid})
+    except BaseException:
+        manifest.write_bytes(before)
+        shutil.rmtree(ROOT / '3d-viewer/city/data/official-models' / batch, ignore_errors=True)
+        shutil.rmtree(ROOT / 'docs/astra-city/model-integration-20260909' / batch, ignore_errors=True)
+        raise
+
+    acceptance = {
+        **decision,
+        'snapshot': snapshot,
+        'stagedBrowserSHA256': h(doc / 'staged-browser.json'),
+        'liveBrowserSHA256': h(doc / 'live-browser.json'),
+        'manifestSHA256': h(manifest),
+    }
+    save(doc / 'installed-acceptance.json', acceptance)
+    ledger.record_many(
+        snapshot,
+        receipt,
+        [(uid, 'installed-verified', doc / 'installed-acceptance.json', observation, commit)],
+        effort=effort,
+        request_id=batch + '-installed-' + snapshot,
+    )
+    assert read(pointer_path) == pointer
+    save(pointer_path, {
+        **pointer,
+        'snapshotId': snapshot,
+        'inventory': rel(inventory_path),
+        'previousSnapshots': [*pointer.get('previousSnapshots', []), pointer['snapshotId']],
+    })
+    call([sys.executable, str(HERE.parent / 'building-progress/export.py'), '--refresh'])
+    call(['node', str(ROOT / '3d-viewer/scripts/build_progress.mjs')])
+    save(doc / 'summary.json', {
+        'installedUids': [uid],
+        'snapshot': snapshot,
+        'aiCalls': 0,
+        'modelGeometryChanges': 0,
+        'progress': read(ROOT / '3d-viewer/city/data/building-progress.json'),
+    })
+    print(json.dumps({'installed': uid, 'snapshot': snapshot, 'aiCalls': 0}), flush=True)
+
+
+if __name__ == '__main__':
+    key = sys.argv[1]
+    assert key in CONFIG
+    owned(key) if len(sys.argv) > 2 else start(key)

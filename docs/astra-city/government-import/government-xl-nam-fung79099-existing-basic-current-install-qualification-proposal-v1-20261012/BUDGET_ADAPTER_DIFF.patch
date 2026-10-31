@@ -1,0 +1,41 @@
+--- source-scripts/city/government-import/xl-lippo-tower-current-basic-support-availability-budget-v2-20261011.mjs
++++ source-scripts/city/government-import/nam_fung79099_current_basic_support_availability_budget_draft_v1_20261012.mjs
+@@ -6,21 +6,21 @@
+ import {gunzipSync} from 'node:zlib';
+ import {createHash} from 'node:crypto';
+ import assert from 'node:assert/strict';
+-import {snapshotModuleClosure,verifyModuleClosure} from './literal_production_module_dependency_closure_20261010.mjs';
+-const root=new URL('../../../',import.meta.url),inputPath='docs/astra-city/government-import/government-xl-lippo-tower-only-current-complete-inputs-v5-20261011/input.json.gz',geometryPath=inputPath.replace('input.json.gz','complete-current-geometry.json.gz');
++import {snapshotModuleClosure,verifyModuleClosure} from './exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
++const root=new URL('../../../',import.meta.url),inputPath='docs/astra-city/government-import/government-xl-nam-fung79099-existing-basic-current-install-qualification-v1-20261012/runtime-support-input.json.gz',geometryPath=inputPath.replace('runtime-support-input.json.gz','runtime-support-geometry.json.gz');
+ const hashes={},sha=b=>createHash('sha256').update(b).digest('hex');
+ function bytes(p){const u=new URL(p,root);assert(u.pathname.startsWith(root.pathname));const b=readFileSync(u);hashes[p]=sha(b);return b;}
+ function read(p){const b=bytes(p);return JSON.parse(p.endsWith('.gz')?gunzipSync(b):b);}
+ const closures=['3d-viewer/city/official-models.js','3d-viewer/city/official-model-assets.js'].map(p=>snapshotModuleClosure(new URL(p,root),root));
+ for(const c of closures)Object.assign(hashes,c.inputHashes);
+-bytes('source-scripts/city/government-import/xl-lippo-tower-current-basic-support-availability-budget-v2-20261011.mjs');bytes('source-scripts/city/government-import/literal_production_module_dependency_closure_20261010.mjs');
++bytes('source-scripts/city/government-import/nam_fung79099_current_basic_support_availability_budget_draft_v1_20261012.mjs');bytes('source-scripts/city/government-import/exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs');
+ const inp=read(inputPath),geo=read(geometryPath),entry=JSON.parse(readFileSync(process.argv[2]));
+ assert.equal(sha(bytes(inp.currentManifest.path)),inp.currentManifest.sha256);for(const r of inp.currentCatalogueRefs)assert.equal(sha(bytes(r.path)),r.sha256);for(const [p,h]of Object.entries(geo.inputHashes))assert.equal(sha(bytes(p)),h);
+ const {OfficialModelLayer,MODEL_PROFILES}=await import(new URL('3d-viewer/city/official-models.js',root).href),{supportedModelPlan,modelSupportDependencies}=await import(new URL('3d-viewer/city/model-support.js',root).href),{modelBudget,loadOfficialModel,disposeOfficialModel}=await import(new URL('3d-viewer/city/official-model-assets.js',root).href),THREE=await import(new URL('3d-viewer/vendor/three.module.js',root).href);
+-const uid='landsd/239465:0',carrier='landsd/231645:0',dependency={uid:carrier,csuid:'3551417531P20050812',state:'surveyed-footprint-fallback'};
++const uid='landsd/79099:0',carrier='landsd/45779:0',dependency={uid:carrier,csuid:'3777116537P20060312',state:'surveyed-footprint-fallback'};
+ assert.equal(entry.uid,uid);assert.equal(entry.sha256,inp.rows[0].sourceSHA256);assert.deepEqual(entry.supportDependencies,[dependency]);assert.equal(entry.proceduralWindows,false);
+ assert.deepEqual(modelSupportDependencies(entry),[{...dependency,kind:'fallback'}]);
+-const basic=geo.completeCurrentBasicGeometry.find(r=>r.uid===carrier);assert(basic);assert.equal(basic.index.length/3,284);
++const basic=geo.completeCurrentBasicGeometry.find(r=>r.uid===carrier);assert(basic);assert.equal(basic.index.length/3,432);
+ const forms=inp.currentAllSourceForms,passed=[];
+ function context({missing=false,wrongCSUID=false,wanted=true,infrastructure=false,baked=false,managed=false}={}){
+  const p={...forms[carrier]};if(wrongCSUID)p.buildingCSUID='wrong';if(baked)p.modelGeometry={};
+@@ -30,9 +30,9 @@
+ function check(name,fn){fn();passed.push(name);}
+ check('exact-current-basic-uid-csuid-tile-available',()=>assert(available(context(),carrier,'fallback',dependency)));
+ for(const [name,options]of [['missing-current-carrier',{missing:true}],['wrong-current-csuid',{wrongCSUID:true}],['unwanted-carrier-tile',{wanted:false}],['infrastructure-carrier',{infrastructure:true}],['unmanaged-baked-geometry',{baked:true}]])check(name,()=>assert.equal(available(context(options),carrier,'fallback',dependency),false));
+-const cost=modelBudget(entry);assert.equal(cost.triangles,3597);assert(cost.geometryBytes>0&&cost.residentBytes>cost.geometryBytes);
++const cost=modelBudget(entry);assert.equal(cost.triangles,13061);assert(cost.geometryBytes>0&&cost.residentBytes>cost.geometryBytes);
+ function plan(profile=MODEL_PROFILES.mobile,ctx=context(),candidates=[uid],models=new Map([[uid,entry]])){return supportedModelPlan(candidates,models,profile,modelBudget,(u,k,d)=>available(ctx,u,k,d));}
+-for(const profile of ['mobile','desktop'])check(profile+'-unchanged-production-budget-accepts',()=>{const p=plan(MODEL_PROFILES[profile]);assert.deepEqual(p.wanted,[uid]);assert.equal(p.blocked.size,0);assert.equal(p.used.triangles,3597);});
++for(const profile of ['mobile','desktop'])check(profile+'-unchanged-production-budget-accepts',()=>{const p=plan(MODEL_PROFILES[profile]);assert.deepEqual(p.wanted,[uid]);assert.equal(p.blocked.size,0);assert.equal(p.used.triangles,13061);});
+ for(const k of ['geometryBytes','residentBytes','triangles','drawCalls','count'])check('strict-'+k+'-budget-blocks',()=>{const limit={...MODEL_PROFILES.mobile,[k]:k==='count'?0:k==='drawCalls'?0:cost[k]-1};const p=plan(limit);assert.deepEqual(p.wanted,[]);assert.match(p.blocked.get(uid),/budget/);});
+ check('missing-basic-reserves-no-unsupported-tower',()=>{const p=plan(MODEL_PROFILES.mobile,context({missing:true}));assert.deepEqual(p.wanted,[]);assert.match(p.blocked.get(uid),/Surveyed model support unavailable/);});
+ check('current-basic-native-upgrade-conflict-is-blocked',()=>{const upgrade={...entry,uid:carrier,supportDependencies:[]};const p=plan(MODEL_PROFILES.desktop,context(),[uid,carrier],new Map([[uid,entry],[carrier,upgrade]]));assert.deepEqual(p.wanted,[uid]);assert.match(p.blocked.get(carrier),/conflicts/);});

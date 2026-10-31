@@ -1,0 +1,71 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-folkland-pair-private-stage-v1-20261020/plan.json",
+  "areas": [
+    {
+      "area": "Folkland unchanged original tower and podium",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-folkland-pair-private-stage-v1-20261020/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-folkland-pair-v1-20261020.json": null,
+    "3d-viewer/city/data/official-models/government-xl-folkland-pair-private-stage-v1-20261020/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "7600b96ad6c5f879d13e3553e0050f54ff58e9a897ad56a231e2d0546f161b53"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-folkland-pair-v1-20261020.json": "8538339c4af0c6a3e06a9cc123e5c93b2fe238bef40916decc38b7225efdeac3",
+    "3d-viewer/city/data/official-models/government-xl-folkland-pair-private-stage-v1-20261020/catalogue.json": "adeaad87f20aecf0539deaecf927f7e740585d08dc42b2e74eeb81ce2390abb6",
+    "3d-viewer/city/data/manifest.json": "2597f2a81b1c97587bb1a4134fc8a7d6dbe3bb260e4035f0e2b807b2131f0f7a"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "0381de5bf7c94ac7084c6024e52455ccc2f03734",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/terrain/unnamed147996-private-v1.json",
+      "sha256": "7d58f7f6a90503396fd30993be21d76886918165e5a707586e870d4795eb27a7",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-folkland-pair-v1-20261020.json",
+      "resolution": 5,
+      "area": "Folkland original pair",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "provenanceReceipt": "2a40f41e82b0814e0d001a896e4f6480ac7babe74d65f777124bd9a40c59d313",
+            "terrainPaths": [
+              "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14C/terrain/TERRAIN(TB)/T34500204000106E12/T34500204000106E12.gltf"
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 30296,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 57
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "8538339c4af0c6a3e06a9cc123e5c93b2fe238bef40916decc38b7225efdeac3",
+      "bytes": 11383820
+    }
+  ],
+  "estimatedBases": []
+}

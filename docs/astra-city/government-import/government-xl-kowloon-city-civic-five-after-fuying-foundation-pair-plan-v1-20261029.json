@@ -1,0 +1,136 @@
+{
+  "batch": "government-xl-kowloon-city-civic-five-after-fuying-foundation-pair-sequence-v1-20261029",
+  "uids": [
+    "landsd/82290:0",
+    "landsd/82291:0",
+    "landsd/82292:0",
+    "landsd/159177:0",
+    "landsd/230911:0"
+  ],
+  "resources": [
+    "building:landsd/82290:0",
+    "building:landsd/82291:0",
+    "building:landsd/82292:0",
+    "building:landsd/159177:0",
+    "building:landsd/230911:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-230911-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-159177-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/159177:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-82292-0-foundations-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--uid",
+        "landsd/82292:0"
+      ]
+    },
+    {
+      "script": "original_pair_four_world_support_v2_20261028.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-peninsula-support-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--supported",
+        "landsd/159177:0",
+        "--support",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-peninsula-finite-contacts-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--left",
+        "landsd/159177:0",
+        "--right",
+        "landsd/230911:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-peninsula-contact-roles-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--contacts",
+        "government-xl-kowloon-city-civic-five-after-fuying-peninsula-finite-contacts-v1-20261029"
+      ]
+    },
+    {
+      "script": "original_pair_four_world_support_v2_20261028.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-civic-support-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--supported",
+        "landsd/82290:0",
+        "--support",
+        "landsd/82291:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_finite_contacts_v1_20261025.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-civic-finite-contacts-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--left",
+        "landsd/82290:0",
+        "--right",
+        "landsd/82291:0"
+      ]
+    },
+    {
+      "script": "selected_original_pair_roles_v1_20261026.py",
+      "batch": "government-xl-kowloon-city-civic-five-after-fuying-civic-contact-roles-v1-20261029",
+      "args": [
+        "--runtime",
+        "government-xl-kowloon-city-civic-five-after-fuying-current-ground-v1-20261029",
+        "--attributes",
+        "government-xl-kowloon-city-civic-five-after-fuying-attributes-v1-20261029",
+        "--contacts",
+        "government-xl-kowloon-city-civic-five-after-fuying-civic-finite-contacts-v1-20261029"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-pak-shing-compound-installed-20261007/plan.json",
+  "areas": [
+    {
+      "area": "Pak Shing Building unchanged original support assembly",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-pak-shing-compound-installed-20261007/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-186864-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-pak-shing-compound-installed-20261007/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "685db11103eb2095135cb147bbd2f12a9034063d8b0ecb7bdb94e5abaad5d583"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-186864-0.json": "a6a9c04ac919f609cb51a8acb59e98a867cd22d09d224d1a70c38d4612aec81d",
+    "3d-viewer/city/data/official-models/government-xl-pak-shing-compound-installed-20261007/catalogue.json": "aa85e5d671cdecdbed3c301bd898ccab287fff273796012d5b9c886a9eb8491a",
+    "3d-viewer/city/data/manifest.json": "940183d145f358ca1196e7f78fd339d99060b542f030916b181476963a6b3289"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "94f7cf0f93b1836829ef0bb565820bf74bf2a571",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-186864-0.json",
+      "resolution": 5,
+      "area": "Pak Shing Building unchanged original support assembly indexed government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "67b1c97ebf94d9c8161ab792d2da3850c68a937c1b7e31fdb66ecb348cf700b7",
+            "revision": "2026-07-16T16:00:00+00:00",
+            "sheet": "11-NW-24D",
+            "sourceETag": "\"3680009-655feeb2133cc\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-1883-building-contact-20261005/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.bin",
+                "sha256": "14d8f6360cbcbad50110db738e3db26deb67aca50e879ebc253f318daf9b0b7a"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-1883-building-contact-20261005/sheets/11-NW-24D/terrain/TERRAIN(TB)/T35250180000106E11/T35250180000106E11.gltf",
+                "sha256": "ee7ec5e5a762ed2078444679ac7b4328bf0db852a80f8210211d9c241a1c993f"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "a6a9c04ac919f609cb51a8acb59e98a867cd22d09d224d1a70c38d4612aec81d",
+      "bytes": 439407
+    }
+  ],
+  "estimatedBases": []
+}

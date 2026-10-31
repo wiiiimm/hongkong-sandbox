@@ -1,0 +1,36 @@
+{ faces: 72 }
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/passenger162768_current_parent_context_v1_20261030.py", line 98, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/passenger162768_current_parent_context_v1_20261030.py", line 90, in main
+    result = dict(uids=[UID],sourceSHA256=row['sourceSHA256'],currentManifestSHA256=selection['manifestSHA256'],completeParentFaces=len(faces),minimumParentHeightM=float(faces[:,:,1].min()),parentBelowClampFaces=len(low),rows=low,missingParentAreaM2=missing.area,missingParentWKT=missing.wkt,sourceProjectionInsideMissingAreaM2=projection.intersection(missing).area,outerInsideMissingAreaM2=outer.intersection(missing).area,sourceGeometryChanges=0,terrainEdits=False,physicalAcceptance=False,installationApproved=False,qualification='Actual current rendered parent and all-four-world original projection context only. No source-height exception, water fill, parent mutation, model edit or architectural/placement acceptance. Missing/low coastal domains must remain explicit in the later bounded terrain design.')
+                                                                                                                                                                                                                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/shapely/decorators.py", line 173, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/shapely/geometry/base.py", line 674, in intersection
+    return shapely.intersection(self, other, grid_size=grid_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/shapely/decorators.py", line 173, in wrapper
+    result = func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/shapely/decorators.py", line 88, in wrapped
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/astra-city-venv/lib/python3.12/site-packages/shapely/set_operations.py", line 168, in intersection
+    return lib.intersection(a, b, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+shapely.errors.GEOSException: AssertionFailedException: Should never reach here: Unable to determine overlay result geometry dimension
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/passenger162768_current_parent_context_v1_20261030.py", line 98, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/passenger162768_current_parent_context_v1_20261030.py", line 32, in main
+    subprocess.run([sys.executable,str(HERE/'bounded_reserved_runner_v2_20261022.py'),str(LEASE),sys.executable,__file__,'--owned'],cwd=ROOT,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/bounded_reserved_runner_v2_20261022.py', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-passenger162768-after-civic-five-parent-context-v1-20261030/reservation.json', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/passenger162768_current_parent_context_v1_20261030.py', '--owned']' returned non-zero exit status 1.

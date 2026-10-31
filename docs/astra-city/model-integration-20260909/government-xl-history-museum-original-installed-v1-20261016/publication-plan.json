@@ -1,0 +1,75 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-history-museum-qualified-stage-v1-20261016/plan.json",
+  "areas": [
+    {
+      "area": "Museum of History original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-history-museum-qualified-stage-v1-20261016/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-xl-history-museum-private-browser-v1-20261016-terrain.json": null,
+    "3d-viewer/city/data/official-models/government-xl-history-museum-qualified-stage-v1-20261016/catalogue.json": null,
+    "3d-viewer/city/data/tiles/0_-1.json": "23c74c620c23567ea039f48286fbcff03144022f461c9b4da896cd0263f61341",
+    "3d-viewer/city/data/manifest.json": "c4c42df9e559529dec09a52282e748fd2628ed79a45a83d56f9ec4add686c25b"
+  },
+  "after": {
+    "3d-viewer/city/data/government-xl-history-museum-private-browser-v1-20261016-terrain.json": "1638b3caa977fe88f2e297c125c384bc885fde5c73a4764188f6e6c853a26821",
+    "3d-viewer/city/data/official-models/government-xl-history-museum-qualified-stage-v1-20261016/catalogue.json": "844ad4b1866d1fa16289f7a061a7de12647f9ae8369d4f2e91416b856a1b1a27",
+    "3d-viewer/city/data/tiles/0_-1.json": "34524ad093897074208bc560edd863627523e5a38580a5ec359e9aa6b5e08d44",
+    "3d-viewer/city/data/manifest.json": "c118b3ff9f16328b93a651bd564def7c7f4eb337897781f44dd4cc1a96ebca09"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "3e54431cc2169cfcb01b9e0880bcb619e1a15f70",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-xl-history-museum-private-browser-v1-20261016-terrain.json",
+      "resolution": 5,
+      "area": "Private museum original terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-history-museum-original-terrain-v1-20261016/terrain/TERRAIN(TB)/T36000180000106E11/T36000180000106E11.gltf",
+            "provenance": "docs/astra-city/government-import/government-xl-history-museum-original-terrain-v1-20261016/summary.json",
+            "sha256": "593be6d46634f2578a4a315ff189fd82ce32ee37c0d7a9ec98cd7871c1ac3d26"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1849,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "1638b3caa977fe88f2e297c125c384bc885fde5c73a4764188f6e6c853a26821",
+      "bytes": 893438
+    }
+  ],
+  "illustrativeFoundations": [
+    {
+      "uid": "landsd/4760:0",
+      "foundationBase": 5.1395283534395535,
+      "evidence": {
+        "path": "docs/astra-city/government-import/government-xl-history-museum-canopy-foundation-review-v5-20261016/summary.json",
+        "sha256": "8e909cfec1ef8b445a7250e4659444e6b480aadbaa0b9bb9093501bd255dfcf0"
+      }
+    }
+  ],
+  "estimatedBases": []
+}

@@ -1,0 +1,9 @@
+import{readFileSync,writeFileSync}from'node:fs';import{gunzipSync,gzipSync}from'node:zlib';import{createHash}from'node:crypto';import{supportSurface}from'./support-contact.mjs';
+const root=new URL('../../../',import.meta.url),base='docs/astra-city/government-import/',dest=process.argv[2];const paths=[];function read(p){paths.push(p);let b=readFileSync(new URL(p,root));return JSON.parse(p.endsWith('.gz')?gunzipSync(b):b)}
+const cap=read(base+'government-xl-wave-basic-ground-capture-v1-20261017/after-ground.json.gz'),groundCount=cap.completeRelevantDrawnTriplets.flat(Infinity).length/9;
+const candidate=read(base+'government-xl-wave-verdant-original-support-v1-20261017/input.json.gz'),source=read(base+'government-xl-wave-verdant-source-tin-support-v1-20261017/input.json.gz'),proof=read(base+'government-xl-wave-verdant-original-support-v1-20261017/support.json.gz').rows[0].proof;
+const podiumCount=candidate.podium.length-groundCount;if(podiumCount!==6377)throw Error('Unexpected podium partition '+podiumCount);
+function surface(tri){const position=tri.flat(2);return supportSurface({position,index:Array.from({length:position.length/3},(_,i)=>i)})}
+const sets={candidateGround:surface(candidate.podium.slice(0,groundCount)),originalPodium:surface(candidate.podium.slice(groundCount)),sourceGround:surface(source.podium.slice(0,-podiumCount))};
+const rows=proof.unresolved.map(f=>({...f,surfaces:Object.fromEntries(Object.entries(sets).map(([name,s])=>[name,s.intersectionDetails(f.position[0],f.position[2])]))}));
+paths.push('source-scripts/city/government-import/wave_verdant_surface_hits_v1_20261017.mjs','source-scripts/city/government-import/support-contact.mjs');const inputHashes=Object.fromEntries(paths.map(p=>[p,createHash('sha256').update(readFileSync(new URL(p,root))).digest('hex')]));writeFileSync(new URL(dest+'/hits.json.gz',root),gzipSync(JSON.stringify({rows,inputHashes,groundCount,podiumCount,fullAcceptance:false})));

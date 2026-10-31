@@ -1,0 +1,3 @@
+# Original DTM cell-diagonal diagnostic
+
+Codex, 7 October 2026. All 109 eligible exact historical production meshes completed. Original government 5 m elevations remain unchanged. Each cell must use one consistent diagonal for all its source samples. Only Beverly Hill K passes, with zero changed cell diagonals; it was already a known DTM positive and retains its separate support hold. Zero new opportunities, no geometry edits, no review/installation credit or architectural AI calls. Archived in verified Neon checkpoint `253048e7e50bd54bf3e7b643ffbc9640e1ef6f21d06c5e40914fc41873b2a841`. No historical Lantau imagery used.

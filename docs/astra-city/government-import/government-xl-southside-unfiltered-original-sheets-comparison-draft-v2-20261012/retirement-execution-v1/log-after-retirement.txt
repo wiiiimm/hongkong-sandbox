@@ -1,0 +1,26 @@
+{"uid": "landsd/315025:0", "mode": "providerOriginal", "completedSourceFacets": 0, "unfilteredSelectedTerrainFacets": 25388}
+{"uid": "landsd/315025:0", "mode": "providerOriginal", "completedSourceFacets": 2000, "unfilteredSelectedTerrainFacets": 25388}
+{"uid": "landsd/315025:0", "mode": "providerOriginal", "completedSourceFacets": 4000, "unfilteredSelectedTerrainFacets": 25388}
+{"uid": "landsd/315025:0", "mode": "providerOriginal", "completedSourceFacets": 6000, "unfilteredSelectedTerrainFacets": 25388}
+{"uid": "landsd/315025:0", "mode": "providerOriginal", "completedSourceFacets": 8000, "unfilteredSelectedTerrainFacets": 25388}
+{"uid": "landsd/315025:0", "mode": "providerOriginal", "completedSourceFacets": 10000, "unfilteredSelectedTerrainFacets": 25388}
+{"uid": "landsd/315025:0", "mode": "providerOriginal", "authenticatedFailures": 300, "authenticatedUpwardFailures": 0}
+{"uid": "landsd/315025:0", "mode": "actualLiteral", "completedSourceFacets": 0, "unfilteredSelectedTerrainFacets": 25388}
+{"uid": "landsd/315025:0", "mode": "actualLiteral", "completedSourceFacets": 2000, "unfilteredSelectedTerrainFacets": 25388}
+{"uid": "landsd/315025:0", "mode": "actualLiteral", "completedSourceFacets": 4000, "unfilteredSelectedTerrainFacets": 25388}
+{
+  "ok": false,
+  "error": "interrupted",
+  "exitCode": 130,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v1-20261012.py", line 105, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v1-20261012.py", line 104, in main
+    assert not LOCAL.exists();claim=reservations.claim('southside-unfiltered-source-comparison-'+str(uuid.uuid4()),state[-1],batch=BATCH,ttl=3600);assert claim['ok'],claim;save(LEASE,json.loads(json.dumps(claim['reservation'],default=str)));subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LEASE),'--ttl','3600','--',sys.executable,str(Path(__file__)),'--owned'],cwd=ROOT,check=True)
+                                                                                                                                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/shared-modelling/reservations.py', 'run', '--lease-file', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/local/government-xl-southside-315025-300867-unfiltered-original-sheets-comparison-v1-20261012/reservation.json', '--ttl', '3600', '--', '/tmp/astra-city-venv/bin/python', '/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-southside-315025-300867-unfiltered-original-sheets-comparison-v1-20261012.py', '--owned']' returned non-zero exit status 130.

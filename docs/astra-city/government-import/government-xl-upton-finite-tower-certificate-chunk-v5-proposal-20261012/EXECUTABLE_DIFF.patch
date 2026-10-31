@@ -1,0 +1,81 @@
+--- upton_three_original_complete_current_finite_ground_draft_v4_20261012.py
++++ upton_three_original_complete_current_finite_ground_draft_v5_20261012.py
+@@ -14,7 +14,7 @@
+ from exact_original_triangle_pair_column_gap_20261010 import verify as column
+ from exact_original_shared_edge_component_census_v2_20261011 import census
+ from upton_three_original_complete_current_runtime_capture_draft_v4_20261012 import UIDS,MANIFEST_SHA,state,native,ref,module,verified_plan
+-B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-three-original-complete-current-finite-ground-v4-20261012';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH
++B=ROOT/'docs/astra-city/government-import';BATCH='government-xl-upton-three-original-complete-current-finite-ground-v5-20261012';DOC=B/BATCH;LOCAL=HERE/'local'/BATCH
+ CAP=B/'government-xl-upton-three-original-complete-current-runtime-capture-v4-20261012';RUNTIME=HERE/'local'/CAP.name/'runtime-geometry.json.gz';CHUNK=32
+ 
+ def exact_orientation(face):
+@@ -50,7 +50,7 @@
+ 
+ def main():
+  validation_refs=verified_rectangle_validation()
+- parser=argparse.ArgumentParser();parser.add_argument('--expected-fresh-capture-result-sha',required=True);parser.add_argument('--owned',action='store_true');parser.add_argument('--prior-stop-audit',required=True);parser.add_argument('--expected-prior-stop-sha',required=True);args=parser.parse_args();assert args.expected_fresh_capture_result_sha=='a460d9f7ba768dec6b32d7d8a845c3c6b8775ade98c4476e3e522b3810ec55c5'
++ parser=argparse.ArgumentParser();parser.add_argument('--expected-fresh-capture-result-sha',required=True);parser.add_argument('--prior-v4-stop-audit',required=True);parser.add_argument('--expected-prior-v4-stop-sha',required=True);parser.add_argument('--owned',action='store_true');parser.add_argument('--prior-stop-audit',required=True);parser.add_argument('--expected-prior-stop-sha',required=True);args=parser.parse_args();assert args.expected_fresh_capture_result_sha=='a460d9f7ba768dec6b32d7d8a845c3c6b8775ade98c4476e3e522b3810ec55c5'
+  auditpath=ROOT/args.prior_stop_audit;assert ref(auditpath)['sha256']==args.expected_prior_stop_sha;prior_audit=read(auditpath)
+  assert prior_audit['priorWorkersStopped']is True and prior_audit['priorLeaseReleased']is True and prior_audit['agentInitiatedMethodSwitch']is True
+  assert prior_audit['sourceGeometryChanges']==prior_audit['terrainGeometryChanges']==0 and prior_audit['physicalAccepted']is False
+@@ -58,11 +58,18 @@
+  assert prior_audit['completedPartialChunksImmutable']is True and prior_audit['allCompletedChunkRefs']
+  for e in prior_audit['allCompletedChunkRefs']:assert ref(ROOT/e['path'])==e
+  validation_refs.append(ref(auditpath))
++ v4auditpath=ROOT/args.prior_v4_stop_audit;assert ref(v4auditpath)['sha256']==args.expected_prior_v4_stop_sha;v4audit=read(v4auditpath)
++ assert v4audit['priorWorkersStopped']is True and v4audit['priorLeaseReleased']is True and v4audit['agentInitiatedMethodSwitch']is True
++ assert v4audit['sourceGeometryChanges']==v4audit['terrainGeometryChanges']==0 and v4audit['physicalAccepted']is False
++ assert v4audit['priorProducer']==dict(path=str((HERE/'upton_three_original_complete_current_finite_ground_draft_v4_20261012.py').relative_to(ROOT)),sha256='4a8a6c8da6c2ff79a196cd4b85805654bc483508d961eaa8d0b75bea63bf757a')
++ assert v4audit['completedPartialChunksImmutable']is True and v4audit['allCompletedChunkRefs']
++ for e in v4audit['allCompletedChunkRefs']:assert ref(ROOT/e['path'])==e
++ validation_refs.append(ref(v4auditpath))
+  if not args.owned:
+   assert not(DOC/'diagnostic.json.gz').exists()
+   claim=reservations.claim('upton-three-original-finite-'+str(uuid.uuid4()),['building:'+u for u in UIDS],batch=BATCH,ttl=1800);assert claim['ok'],claim
+   save(LOCAL/'reservation.json',json.loads(json.dumps(claim['reservation'],default=str)))
+-  subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','1800','--',sys.executable,__file__,'--owned','--prior-stop-audit',args.prior_stop_audit,'--expected-prior-stop-sha',args.expected_prior_stop_sha,'--expected-fresh-capture-result-sha',args.expected_fresh_capture_result_sha],cwd=ROOT,check=True);return
++  subprocess.run([sys.executable,str(HERE.parent/'shared-modelling/reservations.py'),'run','--lease-file',str(LOCAL/'reservation.json'),'--ttl','1800','--',sys.executable,__file__,'--owned','--prior-stop-audit',args.prior_stop_audit,'--expected-prior-stop-sha',args.expected_prior_stop_sha,'--expected-fresh-capture-result-sha',args.expected_fresh_capture_result_sha,'--prior-v4-stop-audit',args.prior_v4_stop_audit,'--expected-prior-v4-stop-sha',args.expected_prior_v4_stop_sha],cwd=ROOT,check=True);return
+  lease=read(LOCAL/'reservation.json');assert reservations.owns(lease)and not(DOC/'diagnostic.json.gz').exists()
+  assert ref(CAP/'result.json')['sha256']==args.expected_fresh_capture_result_sha;receipt=read(CAP/'result.json');assert receipt['batch']==CAP.name and receipt['jobId']=='4af6addb43b6b94fd2e5e61c868fbd62c84d06a365dc2e19b79d6856ce054502'and receipt['sourceOnly']and not receipt['physicalAccepted']
+  with connect()as c:
+@@ -71,7 +78,7 @@
+  scope=read(CAP/'capture-scope.json');assert scope['completeFaces']==13704 and scope['expectedNativeCount']==6649 and scope['currentManifest']['sha256']==MANIFEST_SHA and scope['preservedOriginalProperCrossings']==23
+  expected={r['uid']:r for r in verified_plan()['actors']};selections=read(CAP/'selection.json.gz')['rows'];before=read(CAP/'protected-state-before.json');native_before=read(CAP/'native-source-state-before.json')['rows']
+  walker=module(HERE/'parkview_block17_freeze_current_source_evidence_20261011.py','upton_finite_numeric_closure');paths=set();walker.local_imports(Path(__file__),paths)
+- freezer=HERE/'upton_three_original_freeze_complete_current_finite_ground_draft_v4_20261012.py';walker.local_imports(freezer,paths)
++ freezer=HERE/'upton_three_original_freeze_complete_current_finite_ground_draft_v5_20261012.py';walker.local_imports(freezer,paths)
+  code_refs=[ref(p)for p in sorted(paths)];pins=scope['inputHashes'];manifest=ROOT/'3d-viewer/city/data/manifest.json'
+  def fence():
+   assert ref(manifest)==scope['currentManifest']and reservations.owns(lease)
+@@ -99,8 +106,9 @@
+     certificate=whole_world_proof(source,ground,bounds);assert certificate['allWholeSourceFacetsStrictPositiveFiniteProved'],'Whole-tower sufficient proof failed; retain diagnostic and reviewed per-face route, no changed retry';tower_certificates[name]=certificate
+    if sh in proofs:continue
+    rows=[]
+-   for start in range(0,len(source),CHUNK):
+-    stop=min(start+CHUNK,len(source));path=LOCAL/'chunks'/uid.replace('/','-').replace(':','-')/sh/f'{start:05d}-{stop:05d}.json.gz';contract=dict(uid=uid,sourceWorldSHA256=sh,groundSHA256=gh,firstFace=start,exclusiveLastFace=stop,codeRefs=code_refs,ordinaryThresholdM='-1/2')
++   chunk_span=len(source)if certificate is not None else CHUNK
++   for start in range(0,len(source),chunk_span):
++    stop=min(start+chunk_span,len(source));path=LOCAL/'chunks'/uid.replace('/','-').replace(':','-')/sh/f'{start:05d}-{stop:05d}.json.gz';contract=dict(uid=uid,sourceWorldSHA256=sh,groundSHA256=gh,firstFace=start,exclusiveLastFace=stop,codeRefs=code_refs,ordinaryThresholdM='-1/2')
+     fence()
+     if path.exists():chunk=read(path);assert chunk['contract']==contract
+     else:
+@@ -111,7 +119,7 @@
+   actors.append(dict(uid=uid,sourceSHA256=e['sourceSHA256'],completeGroundFaces=len(ground),completeGroundSHA256=gh,wholeOriginalUnusedPOSITIONProof=packed if uid==UIDS[0]else None,wholeTowerSufficientProofByNamedWorld=tower_certificates,originalBodyCensus=topology,completeOriginalPlaneAttribution=orientation,allFourStreamBindings=bindings,distinctCompleteFiniteProofs=proofs,sourceBodyRolesQualified=False,gradeRootProved=False,wholeEdgeCapPathsQualified=False))
+  fence();assert sum(expected[u]['completeFaces']for u in UIDS)==13704 and sum(expected[u]['genuineBodies']for u in UIDS)==749 and sum(expected[u]['zeroFaces']for u in UIDS)==17
+  refs=code_refs+validation_refs+[ref(CAP/n)for n in ['result.json','capture-scope.json','selection.json.gz','actual-render-geometry.json.gz','original-full-source-root-context.json.gz','review.json','native-source-state-before.json','protected-state-before.json']]+[ref(RUNTIME)]+checkpoint_refs
+- save(DOC/'diagnostic.json.gz',dict(uids=UIDS,sourceOnly=True,currentManifest=scope['currentManifest'],currentNativeCount=6649,completeFaces=13704,genuineBodyObligations=749,zeroFaceObligations=17,ordinaryThresholdM='-1/2',actors=actors,all23ProperSourceCrossingsRetained=True,priorV1MethodSwitchAudit=ref(auditpath),priorChunksArePreservedAuditNotAliasedV2NumericalProof=True,physicalAccepted=False,installationApproved=False,sourceGeometryChanges=0,terrainGeometryChanges=0,foreignHoldsDischarged=False,gradeRootProved=False,wholeEdgeCapPathsQualified=False,rawCaptureAndHistoricalObligations=ref(CAP/'review.json'),sourceBodyFunctionAndFoundationIntentUnknown=True,exactWholeWorldAndGroundReuseOnly=True,evidenceRefs=refs))
++ save(DOC/'diagnostic.json.gz',dict(uids=UIDS,sourceOnly=True,currentManifest=scope['currentManifest'],currentNativeCount=6649,completeFaces=13704,genuineBodyObligations=749,zeroFaceObligations=17,ordinaryThresholdM='-1/2',actors=actors,all23ProperSourceCrossingsRetained=True,priorV1MethodSwitchAudit=ref(auditpath),priorV4MethodSwitchAudit=ref(v4auditpath),towerAtomicChunkSpan='complete world, unchanged certificate-bound rows',priorChunksArePreservedAuditNotAliasedV2NumericalProof=True,physicalAccepted=False,installationApproved=False,sourceGeometryChanges=0,terrainGeometryChanges=0,foreignHoldsDischarged=False,gradeRootProved=False,wholeEdgeCapPathsQualified=False,rawCaptureAndHistoricalObligations=ref(CAP/'review.json'),sourceBodyFunctionAndFoundationIntentUnknown=True,exactWholeWorldAndGroundReuseOnly=True,evidenceRefs=refs))
+  subprocess.run([sys.executable,str(freezer),'--lease-file',str(LOCAL/'reservation.json')],cwd=ROOT,check=True)
+  print(json.dumps(dict(batch=BATCH,completeFaces=13704,physicalAccepted=False)),flush=True)
+ if __name__=='__main__':main()
+--- upton_three_original_freeze_complete_current_finite_ground_draft_v4_20261012.py
++++ upton_three_original_freeze_complete_current_finite_ground_draft_v5_20261012.py
+@@ -4,7 +4,7 @@
+ from pathlib import Path
+ from fractions import Fraction as F
+ from run import ROOT,HERE,read,save,connect,reservations
+-from upton_three_original_complete_current_finite_ground_draft_v4_20261012 import DOC,LOCAL,BATCH,CAP,RUNTIME,UIDS,MANIFEST_SHA,state,native,ref,module,verified_rectangle_validation,tower_face_proof,packed_world_bounds,decode_original_world_triangles,whole_world_proof
++from upton_three_original_complete_current_finite_ground_draft_v5_20261012 import DOC,LOCAL,BATCH,CAP,RUNTIME,UIDS,MANIFEST_SHA,state,native,ref,module,verified_rectangle_validation,tower_face_proof,packed_world_bounds,decode_original_world_triangles,whole_world_proof
+ 
+ def main():
+  validation_refs=verified_rectangle_validation()

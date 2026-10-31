@@ -1,0 +1,5 @@
+# On Ning Garden Block 6 — verified original installation
+
+Codex, 7 October 2026. On Ning Garden Block 6 (landsd/34249:0) is installed with unchanged original government geometry. Verified Neon job `e477ffacb22355d128ed5bfd6a4737bdf994578ad0b4bc2efc1323739ddbcc33`, installed snapshot `6dc1dabdad740419`, source hashes `{'landsd/34249:0': 'e45c88505e2a776b0a06947eaecfe58e00f2ffda8bae7eade4caf643c8bea5cd'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+42 new XL installations from44/308: **86 installed / 266 not installed**, 58 further installations required. Public counters: 346,108 total source forms, 4,438 enhanced, 4,424 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

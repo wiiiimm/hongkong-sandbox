@@ -1,0 +1,5 @@
+# Leung Chi House — verified original installation
+
+Codex, 7 October 2026. Leung Chi House (landsd/132324:0) is installed with unchanged original government geometry. Verified Neon job `92812e8fbf74152695550980d9687932a20c5b01cfd5bb5ba68b0930c335ef0e`, installed snapshot `d71149eb336b1488`, source hashes `{'landsd/132324:0': 'c440ae7a77e7c504d0f7d412d98e33ab10e001f84302ebfe7ac13ea5a0fceb20'}`. Complete original source identity/contact/foundation/basic/native/runtime and guarded publication pass. Staged/live desktop/mobile day/night, picking/collision and failed-load/retry pass; exported live mobile PNG inspected by coordinator. Zero model geometry edits or architectural/model AI calls. No historical Lantau imagery used.
+
+46 new XL installations from44/308: **90 installed / 262 not installed**, 54 further installations required. Public counters: 346,108 total source forms, 4,443 enhanced, 4,429 / 212,669 government matches installed. Queued/running rows remain In process. Commits and reports are checkpoints; the active goal continues.

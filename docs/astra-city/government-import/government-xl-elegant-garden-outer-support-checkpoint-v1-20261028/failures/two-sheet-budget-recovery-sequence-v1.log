@@ -1,0 +1,9 @@
+Completed diagnostic government-xl-elegant-garden-two-sheet-expanded-private-export-v1-20261028
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_leased_diagnostic_sequence_v23_20261028.py", line 31, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/original_leased_diagnostic_sequence_v23_20261028.py", line 25, in main
+    assert digest(tool.read_bytes())==read(local/('command-'+str(index)+'.json'))['scriptSHA256'];receipt=read(base/name/'result.json');assert 'requiredStatus' not in phase or receipt.get('status')==phase['requiredStatus'],'Diagnostic status does not meet declared next-phase precondition';state['completedJobs'].append(dict(batch=name,jobId=receipt['jobId']));save(local/'state.json',state);refs.extend([tool,base/name/'result.json',local/('command-'+str(index)+'.json'),local/('phase-'+str(index)+'.log')]);print('Completed diagnostic',name,flush=True)
+                                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic status does not meet declared next-phase precondition

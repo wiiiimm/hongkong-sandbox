@@ -1,0 +1,10 @@
+/** Canonical support contacts in four unchanged source coordinate streams. */
+import{readFileSync,writeFileSync}from'node:fs';import{gunzipSync,gzipSync}from'node:zlib';import{createHash}from'node:crypto';import assert from'node:assert/strict';
+import{verifySupportInterface}from'./support-interface.mjs';
+import{snapshotModuleClosure,verifyModuleClosure}from'./exact_literal_dynamic_production_dependency_closure_v1_20261012.mjs';
+const root=new URL('../../../',import.meta.url),doc=process.argv[2],hashes={},sha=b=>createHash('sha256').update(b).digest('hex');assert(doc?.startsWith('docs/astra-city/government-import/government-xl-')&&!doc.includes('..'));
+const raw=readFileSync(new URL(doc+'/mode-inputs.json.gz',root));hashes[doc+'/mode-inputs.json.gz']=sha(raw);const input=JSON.parse(gunzipSync(raw));for(const e of input.evidenceRefs)assert.equal(sha(readFileSync(new URL(e.path,root))),e.sha256);
+const closure=snapshotModuleClosure(new URL('source-scripts/city/government-import/support-interface.mjs',root),root);Object.assign(hashes,closure.inputHashes);const rows=[];
+for(const r of input.rows)for(const mode of r.modes){const y=mode.geometry.position.filter((_,i)=>i%3===1),proof=verifySupportInterface(mode.geometry,Math.min(...y),r.supportGeometry);rows.push({uid:r.uid,supportUid:r.supportUid,mode:mode.mode,sourceSHA256:r.sourceSHA256,proof});console.log(JSON.stringify({uid:r.uid,mode:mode.mode,passed:proof.passed,samples:proof.samples,unresolved:proof.unresolved.length}))}
+assert(verifyModuleClosure(closure,root));for(const[p,h]of Object.entries(hashes))assert.equal(sha(readFileSync(new URL(p,root))),h);hashes['source-scripts/city/government-import/original_four_world_current_basic_support_v1_20261023.mjs']=sha(readFileSync(new URL('source-scripts/city/government-import/original_four_world_current_basic_support_v1_20261023.mjs',root)));
+writeFileSync(new URL(doc+'/mode-checks.json.gz',root),gzipSync(JSON.stringify({rows,inputHashes:hashes,sourceGeometryChanges:0,installationApproved:false})));

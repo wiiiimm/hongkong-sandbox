@@ -1,0 +1,3 @@
+# Exact original Fung support diagnostic
+
+Produced by Codex, 6 October 2026. Verified Neon job `fa0d8f74b3911d50a7e82b8b808db7097d76761aa568c2727fd297d90475547b`. Exact original Nam Fung, Ko Fung and Sung Fung source/support meshes are decoded without edits. All original unresolved contact samples remain held: topology and boundary diagnostics grant no acceptance or installation credit. The candidate original podiums have no complete closed component that establishes whole-building solid support. No external AI modelling calls. See result.json for the exact source hashes, sample categories, pinned evidence and next mechanical investigation. No historical Lantau images were used.

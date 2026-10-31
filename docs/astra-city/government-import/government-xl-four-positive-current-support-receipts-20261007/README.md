@@ -1,0 +1,7 @@
+# Four positive identity originals: exact current installed supports
+
+Codex, 7 October 2026. Whole original government GeoRef identity was freshly rechecked for all four sources. Exact actual mesh interfaces pass142/142 samples for Parkview Block2,645/645 for Cullinan West Tower1 and213/213 for Waterfront TowerII. Parkview Block16 retains40 unresolved contacts out of122. These are source/support diagnostics, not installation approval. Neon job `7bdf9cc5a02e283c5137163a69b8be9a8ca98a1dd93cfc1a3a582cf942b3bc16` was read back exactly.
+
+Parkview Podium and V Walk have historical false publication flags but exact unchanged installed reviews. Existing `installed_source_identity`/`accepted_source_identity` verification checks the original accepted source form, complete UID/ObjectID/CSUID/model identity, source bytes, native transforms/bounds, acceptance receipt SHA and catalogue SHA. Original flags are preserved; no approvals are invented. Four identity safety tests pass. `legacy-installed-identity-reuse.json` records the exact old evidence and current snapshot. Identity reuse alone grants no physical/support/publication credit.
+
+Current-terrain preflight requires every strict interface, complete compound foundation, all source/terrain/native/basic neighbours and unchanged runtime limits. Three positive interfaces remain candidates until staged/live browser checks, guarded publication, source-installed review and Neon readback finish. No architectural geometry edits or external model AI calls; the100-new-XL goal remains active.

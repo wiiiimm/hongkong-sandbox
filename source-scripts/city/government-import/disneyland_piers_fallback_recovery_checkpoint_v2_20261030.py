@@ -1,0 +1,18 @@
+"""Record exact original pier recovery evidence without installation credit."""
+from pathlib import Path
+from run import ROOT,HERE,read,save,digest
+from china_ferry_current_foundations_v1_20261020 import authenticate
+from primrose_compound_foundation_v2_20261015 import module
+P='government-xl-disneyland-piers-after-passenger-'
+BATCH=P+'fallback-recovery-checkpoint-v2-20261030'
+def main():
+ base=ROOT/'docs/astra-city/government-import';out=base/BATCH;assert not out.exists();refs=[Path(__file__)];jobs={}
+ suffixes=['all-basic-fallback-coast-inset-v2-20261030','all-basic-fallback-validation-followthrough-v2-20261030','all-basic-osm-complete-ground-v2-20261030','all-basic-75642-complete-ground-v2-20261030','all-basic-75643-complete-ground-v2-20261030','75643-current-exact-shore-closure-v2-20261030','75642-fallback-lower-face-cover-v1-20261030','joint-contact-scope-sequence-v1-20261030','all-basic-fallback-private-preview-v2-20261030']
+ for suffix in suffixes:
+  path=base/(P+suffix);receipt,_=authenticate(path);refs.append(path/'result.json');jobs[suffix]=receipt['jobId']
+ imagebase=base/(P+'all-basic-fallback-private-preview-v2-20261030');images=sorted(imagebase.glob('*/*.png'));assert len(images)==8;refs+=images
+ review=dict(actualImagesViewedByROOT=[str(p.relative_to(ROOT))for p in images],privatePreviewOnly=True,sourceGeometryChanges=0,physicalAcceptance=False,installationApproved=False,observations=['Both unchanged original pier components are visible in actual desktop/mobile day/night exports.','Retained OSM way/334029318:0 is a conspicuous estimated-height tower at the pier entrance. Its tags contain building=yes only; no source height. Full original-to-BASIC contacts remain recorded. It is not suppressed or called a proven duplicate roof.','Terrain remains coarse around the shoreline. The proposed patch preserves actual current ground beneath all three fallback footprints; no model or BASIC geometry changed.','All26 residual lower facets of75642 have exact continuous current-ground cover in104 checks; both75643 closure facets have exact native and actual ground cover in four streams. Ordinary numerical burial failures remain false; semantic interface acceptance is still required.'],nextActions=['Review retained OSM identity against source-backed geographic evidence; do not remove it based only on footprint overlap.','Complete original-to-original finite pair scan and bind the final result before publication review.','Source-specific lower-interface physical acceptance, installation adapter, lifecycle tests and final current-state readback remain required.'])
+ save(out/'ROOT-PREVIEW-REVIEW.json',review);refs.append(out/'ROOT-PREVIEW-REVIEW.json')
+ result=dict(uids=['landsd/75642:0','landsd/75643:0'],installedXL=408,exactCurrentSourceTerminalXL=3,outstandingXL=110,fixedXLCohort=521,uniqueDetailedActors=7028,jobs=jobs,sourceGeometryChanges=0,basicGeometryChanges=0,aiGeometryModelling=False,optimisationStarted=False,newlyInstalled=0,installationApproved=False,physicalAcceptance=False,publication=False,status='fallback-ground-recovered-source-interfaces-under-review',qualification='Original acquisition recovery only. Current terrain validator, complete fallback overlays, four-world residual cover and private previews complete; source identity/physical/lifecycle/publisher acceptance is not inferred from these diagnostics.')
+ save(out/'summary.json',result);module('pier_fallback_checkpoint_freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(BATCH,'unchanged-original-piers-fallback-ground-recovery-checkpoint',refs,result)
+if __name__=='__main__':main()

@@ -1,0 +1,13 @@
+--- preserved-before-real-schema-proof-binding/upton_whole_parent_original_tin_regression_draft_v2_20261012.py
++++ upton_whole_parent_original_tin_regression_draft_v2_20261012.py
+@@ -52,8 +52,8 @@
+   if force or time.monotonic()-last>20:assert reservations.heartbeat(lease)['ok']and reservations.owns(lease);last=time.monotonic()
+  pre=read(PREFLIGHT);assert pre['passed']and pre['caller']==ref(Path(__file__))and pre['method']==ref(METHOD)
+  v=read(VALIDATION);assert v['exitCode']==0 and v['passedTests']==13 and v['failedTests']==0 and v['helper']==ref(HELPER)and v['test']==ref(TEST);check(v['log'])
+- rv=read(REP_VALIDATION);assert rv['exitCode']==0 and rv['passedTests']==13 and rv['failedTests']==0 and rv['helper']==ref(REP_HELPER)and rv['test']==ref(REP_TEST);check(rv['log'])
+- refs=[ref(p)for p in code_paths()]+[ref(METHOD),ref(PREFLIGHT),ref(VALIDATION),ref(TEST),v['log'],ref(REP_VALIDATION),ref(REP_TEST),rv['log']]+[ref(p)for p in sorted(FAILED.iterdir())if p.is_file()]
++ rv=read(REP_VALIDATION);assert rv['exitCode']==0 and rv['passedTests']==13 and rv['failedTests']==0 and rv['helper']==ref(REP_HELPER)and rv['test']==ref(REP_TEST);check(rv['log']);check(rv['actualSchemaProof'])
++ refs=[ref(p)for p in code_paths()]+[ref(METHOD),ref(PREFLIGHT),ref(VALIDATION),ref(TEST),v['log'],ref(REP_VALIDATION),ref(REP_TEST),rv['log'],rv['actualSchemaProof']]+[ref(p)for p in sorted(FAILED.iterdir())if p.is_file()]
+  for folder,jid,expected_sha in[(CAP,'69916bb92558c08c4c5c1838f7c34f963f0e888b7ef14cb489d995ab9bc36727','91d90929b7a8f3694239ba7d5ec97ab5bc1018d52e8d205c08542a820735f120'),(OLD,'5cbc9ae94ef9766bce923334408dcfbf55abc75bcabe8c8df1628fe404ce92fd',None),(FINITE,'7b2c30c7df3cca9f42d7d3e8cee90f98525d0939c49ad396d900a256d8f4f325',None)]:
+   receipt=read(folder/'result.json');assert receipt['jobId']==jid
+   if expected_sha:assert ref(folder/'result.json')['sha256']==expected_sha

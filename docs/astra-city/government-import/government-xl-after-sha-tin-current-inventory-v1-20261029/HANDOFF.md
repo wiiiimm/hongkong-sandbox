@@ -1,0 +1,27 @@
+# Current recovery checkpoint — 29 October 2026
+
+Fixed cohort: **399 installed + 3 exact-current-source terminal + 119 outstanding = 521**. Both NULL-UID keys remain in scope. Runtime has 7,014 detailed actors. University Hall, Elegant and Sha Tin seven are already installed; never reinstall them. Last installation is pushed commit 04c595823d. No installation credit in this recovery checkpoint.
+
+Read current-work-20261029.json. Thirty-four completed current recovery receipts were independently compared to exact completed Neon results in ROOT-COMPLETED-PHASE-READBACK-20261029.json. Source bytes/pose/scale unchanged. No optimisation work or AI geometry modelling.
+
+Lookout Tower 99482 already has accepted source identity and a production reviewed-original-feature scope from 22 October. Do not repeat identity/download/scope preparation. The old full-feature coastal inset correctly fails; keep it. The targeted eight-upward-face inset improves burial but still fails foundation area due to two real coarse-ground mismatches. The new landing inset includes those two exact provider-cleared undersides (312/313), retains coastal guards, and passes 946-face terrain validation, four-world foundations and all three affected BASIC neighbours. All 7,014 current actors were checked for scope; zero native neighbours/terrain overlaps. One tiny downward face24653 remains buried identically in original provider terrain. Forty-three canonical sample clearance warnings remain; foundation PASS is not whole physical approval.
+
+All launched workers are terminal. Landing low-face, cap-path, grade-interface and three role-view phases COMPLETE. ROOT actually viewed all three exports. Exact source-specific role account1c6a727a binds all43 warnings in all four streams to28 grade-crossing lower post walls and one tiny provider-authored bottom cap with three exact shared wall edges. It grants no whole physical/publication approval. Next current identity/physical/runtime composition, private full-scene browser/lifecycle and guarded installation. First targeted-ground cap/low-face proofs cannot be transferred to changed landing terrain without revalidation. No server running on private4177; shared4176 untouched.
+
+Other three recovered old fit errors are genuine source-fit guards, not corrupt downloads: 75642/75643 are full pier/platform features extending beyond tiny BASIC roofs; 75643 also overlaps way/334029318:0 and needs an explicit duplicate/identity review. Source43101 has TWO roots already present in the provider ZIP; exact original per-root/world triangles equal packed geometry. Its twin covered structures and nearby Dock1A semantic association remain unapproved. No automatic suppression or identity waiver.
+
+Preserve unrelated tracked dirt working-commands.json and landmark-completion-audit/neon-snapshot.json, all historical untracked work, original asset geometry and database guard. Continue all119 outstanding through commits; checkpoint is not goal completion.
+
+## Current installation preparation
+
+Lookout physical c3016662, private browser4c4e2170, ROOT four exported desktop/mobile day/night images actually inspected, generic source-review6dc6d2b9 and qualified stage d99dca7f COMPLETE. Picking/collision/joint activation/failed-download retry PASS. Mobile framing is broad and night dark; hidden-face appearance not proven. Source assets/pose unchanged.
+
+Legacy generic stage-v1 dry run failed on existing coordinated-terrain format; no publication. Corrected generic stageV3 + guardV4 use existing three_member_native_boundary private_validator exactly as ShaTin. Live installerV4 uses existing V19 browser on child-owned private4177. Nine guard/installer functions have identical AST to their predecessors,22 dispatcher/hook regression tests PASS. No generic publisher/dependency/rollback/ledger changes. Failed old stage preserved. Corrected current full plan dry-run and --prepare-only PASS with fixedXLdelta1/399previous.
+
+NEXT run ORIGINAL_INSTALL_CONFIG=docs/astra-city/government-import/government-xl-lookout99482-after-sha-tin-landing-source-review-v1-20261029/install-config.json selected_original_live_install_v4_20261029.py --install. Allworkers currentlyterminal. Installation not yet performed. Preserve full521scope and both NULLUIDs.
+
+## INSTALLED — Lookout Tower 99482
+
+Lookout is now installed, verified Neon job90ac29736c57a0218dd3ecdd7310213f31e5722e5afbe155d84ad35c6164642c snapshot4f20c8cadcbdc471. Independent whole-map/asset/XL/support readback4585b2b331ed824cc10982a978b995c227ea96ad285c8a970c7fb5177ca008ed PASS: all7014previous catalogue entries identical; all7015current asset hashes checked; all521sourcekeys and indexed revisions preserved; only99482changed fixedXL state. Global retained BASIC supports checked unchanged. All four actual live desktop/mobile day/night exports ROOT inspected. Live picking/collision/failure-retry PASS. Source bytes/pose unchanged.
+
+CURRENT: **400installed +3exact-current-source terminal +118outstanding =521**. Runtime7015actors. Do not reinstall Lookout, UniversityHall, Elegant or ShaTin. All workers terminal/released; private4177closed and shared4176untouched. No AIgeometry/optimisation. Prior text about pending installation is historical. NEXT fresh current bounds via refresh_original_bounds_inventory_v4_20261028 using after-sha-tin-current-inventory, Lookout targeted-attributes, installed receipt and installed-root-readback. Continue remaining118, retaining both NULLUIDs and all raw holds.

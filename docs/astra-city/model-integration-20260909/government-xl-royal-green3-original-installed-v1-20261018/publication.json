@@ -1,0 +1,96 @@
+{
+  "published": true,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-royal-green3-qualified-stage-v2-20261018/plan.json",
+  "areas": [
+    {
+      "area": "Royal Green Tower 3 unchanged original",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-royal-green3-qualified-stage-v2-20261018/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-royal-green3-original-v1-20261018.json": null,
+    "3d-viewer/city/data/official-models/government-xl-royal-green3-qualified-stage-v2-20261018/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "17d39ba18af82374995a1319c82cfc1c64e3e34cde9c2bcda199e3ab7d2b5702"
+  },
+  "after": {
+    "3d-viewer/city/data/government-royal-green3-original-v1-20261018.json": "0b7a8936903435866f87208c254b569a36124f4601d7beed8817592339594c1e",
+    "3d-viewer/city/data/official-models/government-xl-royal-green3-qualified-stage-v2-20261018/catalogue.json": "9b7d90bdaa2e9461391faafcdc3442e6bd229d57965ccb64e99159176df30f48",
+    "3d-viewer/city/data/manifest.json": "c565dfbde630d1cf2a797fb74b3f1933e34b630cde58908220ace90be508b51e"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "03dc5e80feb66c0709a14a587e337f4ae23169ee",
+  "replacedTerrainPatches": [
+    {
+      "url": "city/data/government-native-23004-0.json",
+      "sha256": "2e6ee5f48c66ee3b687dbca31445cf638d7deea5cdee085754ef5a638992db58",
+      "oldAssetRetained": true
+    },
+    {
+      "url": "city/data/government-native-26653-0.json",
+      "sha256": "0cb26d1e8b007aa73bc46d7ff285bc4fef1270f68e708ed35e40a00b31380d7f",
+      "oldAssetRetained": true
+    }
+  ],
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-royal-green3-original-v1-20261018.json",
+      "resolution": 5,
+      "area": "Royal Green Tower 3 original terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "143150903023f8678d00ac96390fcf9901af524ac6e8645a0b84dc157b936fe1",
+            "revision": "2025-09-28T16:00:00+00:00",
+            "sheet": "3-SW-11B",
+            "sourceETag": "\"260a004-63dcf8d4804a1\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-ching-hin-house-terrain-continuation-v2-20261005/sheets/3-SW-11B/terrain/TERRAIN(TB)/T30750390000106E10/T30750390000106E10.bin",
+                "sha256": "7bd0ae26f6511c9cfeb183cdca7e5798002fa3620333174af72a89ca753ffdb4"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-ching-hin-house-terrain-continuation-v2-20261005/sheets/3-SW-11B/terrain/TERRAIN(TB)/T30750390000106E10/T30750390000106E10.gltf",
+                "sha256": "6bb73fede1a367d794501957dea815e12c794e85b1e5f03e64dadea094e189ec"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 5041,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "0b7a8936903435866f87208c254b569a36124f4601d7beed8817592339594c1e",
+      "bytes": 4749069
+    }
+  ],
+  "explicitPluralNativeReplacementReviews": [
+    {
+      "path": "docs/astra-city/government-import/government-xl-royal-green3-qualified-stage-v2-20261018/native-replacement-review-0.json",
+      "sha256": "135c7cef25d17d41a415c688c4dcedae501e9b300819cf4c0e36623c7400f5d1"
+    },
+    {
+      "path": "docs/astra-city/government-import/government-xl-royal-green3-qualified-stage-v2-20261018/native-replacement-review-1.json",
+      "sha256": "a892bab3ba146f9540060770c2ee4e351dccb3850b75db13aa79d983113e2964"
+    }
+  ],
+  "estimatedBases": []
+}

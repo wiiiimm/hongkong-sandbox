@@ -1,0 +1,1085 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <!-- <html class="no-js" lang="en">--> <!--<![endif]-->
+
+
+	<html class="no-js" lang="en"> 
+
+
+
+<head><META http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+ <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<link rel="stylesheet" type="text/css"
+	href="/clpss/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="/clpss/css/bootstrap-theme.min.css" />
+	
+<!-- css for arrow (fa fa-angle-up) in crsp search  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Optional theme -->
+
+<!--  <link rel="stylesheet"
+	href="/clpss/css/jquery-ui.css">
+-->	
+<link rel="stylesheet"
+	href="/clpss/css/jquery-ui.min.css">
+<script type="text/javascript"
+	src="/clpss/scripts/jquery-3.7.1.js"></script>
+<!--
+<script type="text/javascript"
+	src="/clpss/scripts/jquery-ui.js"></script>
+-->	
+<script type="text/javascript"
+	src="/clpss/scripts/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/clpss/css/bootstrap.css" />
+<!-- <link rel="stylesheet"
+	href="/clpss/css/bootstrap-select.css"> -->
+<link rel="stylesheet"
+	href="/clpss/css/bootstrap-select.min.css">
+<!-- <script type="text/javascript"
+	src="/clpss/scripts/bootstrap-select.js"></script> -->
+<script type="text/javascript"  
+	src="/clpss/scripts/bootstrap-select.min.js"></script>
+<script type="text/javascript"
+	src="/clpss/scripts/commonValidateUpdated.js?v=1"></script>
+	<script type="text/javascript"
+	src="/clpss/scripts/bootstrap.min.js"></script>
+<script src="https://www.map.gov.hk/static/gihs_interface.js" type="text/javascript"></script> 
+<!-- Datepicker language pack -->
+<script type="text/javascript" src="/clpss/scripts/datepicker-zh-TW.js"></script>
+<script type="text/javascript" src="/clpss/scripts/datepicker-zh-CN.js"></script>
+
+
+<script type="text/javascript"
+	src="/clpss/scripts/chinese_convert.js?v=7"></script>
+
+
+
+
+<style>
+.inner-page .breadcrumb a { color: #6E6E6E !important; }
+.breadcrumb li.active { color: #6E6E6E !important; }
+
+body {
+	background:
+		url('/clpss/graphics/body-bg-sea.jpg?1424680876')
+		top center  #fcfbff;
+}
+
+.resultTable thead tr th a:hover {
+	cursor: pointer;
+}
+
+.tbl_col {
+	font-size: 10px;
+}
+
+
+.caret.up {
+	border-top: 0;
+	border-bottom: 4px dashed;
+}
+</style>
+
+<style>
+.blockDiv {
+	display: none;
+}
+
+.mobileMenuDiv {
+	display: none;
+}
+
+.blockDiv.mobile {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #000;
+	opacity: 0.6;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	display: initial;
+}
+
+.mobileMenuDiv.mobile {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #FFF;
+	width: 100px;
+	z-index: 110;
+	display: initial;
+}
+
+.loading {
+	background-color: #ffffff;
+	background-image:
+		url("/clpss/graphics/36.gif");
+	background-size: 120px 30px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	min-height:200px;
+	width:100%;
+}
+</style>
+
+<meta charset="utf-8">
+<meta content="width=1024" name="viewport"><meta name="keywords" content="Leisure and Cultural Services Department - Beaches and Swimming Pools - Information on Public Swimming Pools - Southern,康樂及文化事務署 - 泳灘及泳池 - 公眾游泳池資料 - 南區, 康乐及文化事务署 - 泳滩及泳池 - 公众游泳池资料 - 南区"><meta name="description" content="Leisure and Cultural Services Department - Beaches and Swimming Pools- Information on Public Swimming Pools"><title>Leisure and Cultural Services Department - Beaches and Swimming Pools- Information on Public Swimming Pools</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<!-- -<script src="https://www.lcsd.gov.hk/common/batch3/js/jquery-1.10.2.min.js"></script>  --> <!-- 2024.7.4 -->
+<script src="https://www.lcsd.gov.hk/common/batch3/js/tools.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/nav.js"></script>
+<link type="text/css" rel="stylesheet" media="all" href="https://www.lcsd.gov.hk/common/batch3/css/style.css">
+<link type="text/css" rel="stylesheet" media="all" href="https://www.lcsd.gov.hk/common/batch3/css/color_style.css">
+<link type="text/css" rel="stylesheet" media="all" href="https://www.lcsd.gov.hk/common/batch3/en/css/lang_spec.css">
+<link type="text/css" rel="stylesheet" media="all" href="https://www.lcsd.gov.hk/common/batch3/css/jquery-ui-1.10.3.custom.css">
+<link type="text/css" rel="stylesheet" media="all" href="https://www.lcsd.gov.hk/common/batch3/css/touchcarousel.css">
+<link type="text/css" rel="stylesheet" media="all" href="https://www.lcsd.gov.hk/common/batch3/css/colorbox.css">
+<link type="text/css" rel="stylesheet" media="all" href="https://www.lcsd.gov.hk/common/batch3/css/jquery.selectBox.css">
+<link type="text/css" rel="stylesheet" media="print" href="https://www.lcsd.gov.hk/common/batch3/css/print.css">
+<link type="text/css" rel="stylesheet" media="print" href="https://www.lcsd.gov.hk/common/batch3/en/css/print.css">
+<!--  Following reference shows warning insecure content on the browser-->
+<!-- <link type="text/css" rel="stylesheet" href="https://www.lcsd.gov.hk/common/batch3/css/css.css"> -->
+<!--  Following reference shows warning insecure content on the browser-->
+<script type="text/javascript" src="/clpss/scripts/util.js?v=4"></script>
+
+
+<script src="https://www.lcsd.gov.hk/common/batch3/js/cookie_function.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/modernizr-custom-2.6.1.js"></script><script type="text/javascript">
+		</script>
+</head><body><div class="wrapper sea "><header>
+<script type="text/javascript">
+			function goUrlValue(){
+			    var searchField = document.getElementById('lcsd_search');	
+				var en_lang_posit = location.href.indexOf('/en/');
+				var tc_lang_posit = location.href.indexOf('/tc/');
+				var sc_lang_posit = location.href.indexOf('/sc/');
+				
+				var searchurl = '';
+				
+				if (en_lang_posit != -1)
+					   searchurl="https://www.lcsd.gov.hk/clpss/en/SearchAll.do?keyword=";
+				if (tc_lang_posit != -1)
+					searchurl="https://www.lcsd.gov.hk/clpss/tc/SearchAll.do?keyword=";
+				if (sc_lang_posit != -1)
+					searchurl="https://www.lcsd.gov.hk/clpss/sc/SearchAll.do?keyword=";
+				
+				//searchurl = searchurl + searchField.value.replace(/[ ]/g,"+") +"&mainbar8.x=5&mainbar8.y=10";
+				searchurl = searchurl + searchField.value.replace(/[ ]/g,"+") ;
+				//alert(searchurl);
+				window.location = searchurl;
+			
+				
+			};
+			function chang_lang(lang) {
+				//console.log(lang);
+				var en_lang_posit = location.href.indexOf('/en/');
+				var tc_lang_posit = location.href.indexOf('/tc/');
+				var sc_lang_posit = location.href.indexOf('/sc/');
+				
+				if (en_lang_posit != -1)
+					window.location = location.href.replace(location.href.substring(en_lang_posit, en_lang_posit + 4), '/' + lang + '/');
+				if (tc_lang_posit != -1)
+					window.location = location.href.replace(location.href.substring(tc_lang_posit, tc_lang_posit + 4), '/' + lang + '/');
+				if (sc_lang_posit != -1)
+					window.location = location.href.replace(location.href.substring(sc_lang_posit, sc_lang_posit + 4), '/' + lang + '/')
+			}
+
+
+			
+   </script>
+<div class="part_upper">
+<div class="container" style="padding-left:0px; padding-right:0px;">
+<div id="accessibility-skip-content">
+<a href="#main_content" title="Skip to content">Skip to content</a>
+</div>
+<div class="logos">
+<div class="main_logo">
+<a href="https://www.lcsd.gov.hk/en/beach/index.html"><img class="lcsd_logo_x1" src="https://www.lcsd.gov.hk/en/beach/common/graphics/logo/logo_en.gif" alt="Leisure and Cultural Services Department - Beaches and Swimming Pools" title="Leisure and Cultural Services Department - Beaches and Swimming Pools"><span class="access name_depart">Leisure and Cultural Services Department - Beaches and Swimming Pools</span><span class="access name_lcsd">Leisure and Cultural Services Department</span></a>
+</div>
+<div class="hong_kong">
+<a href="https://www.brandhk.gov.hk/brandhk/eindex.htm"><img width="190" alt="Brand Hong Kong - Asia's world city" title="Brand Hong Kong - Asia's world city" src="https://www.lcsd.gov.hk/common/batch3/images/brandhk.gif"><span class="access">Brand Hong Kong - Asia's world city</span></a>
+</div>
+</div>
+<div class="site_function">
+<div class="lang_switch">
+<input id="langToTranslate"  value="en" type="hidden" />
+<a target="_blank" title="GovHK 香港政府一站通" class="link_govhk" href="https://www.gov.hk/en/residents/"><span>GovHK 香港政府一站通</span></a>
+<!-- <a title="繁體版" onclick="chang_lang('tc')" class="lang_tc" href="#"><span>繁體版</span></a><span class="lang_sepr">|</span><a title="简体版" onclick="chang_lang('sc')" class="lang_sc" href="#"><span>简体版</span></a> -->
+
+	
+	    <!-- 2023.08.16  -->
+		<!-- <a onclick="chang_lang('tc')" class="lang_tc" href="#" title="Traditional Chinese"><span>Traditional Chinese</span></a>  -->
+		<a onclick="chang_lang('tc')" class="lang_tc" href="#" title="繁體版"><span>繁體版</span></a>
+		<span class="lang_sepr">|</span>
+	
+	
+		<!-- 2023.08.16  -->
+		<!-- <a onclick="chang_lang('sc')" class="lang_sc" href="#" title="Simplified Chinese"><span>Simplified Chinese</span></a> -->
+		<a onclick="chang_lang('sc')" class="lang_sc" href="#" title="简体版"><span>简体版</span></a>
+	
+<span class="lang_end"></span>
+</div>
+<div class="func_enquire">
+<form action="javascript:goUrlValue()">
+<a title="Search" class="link_search" href="#"><span class="access">Search</span></a>
+<label for="lcsd_search">Search</label>
+<input onblur="if (this.value == '') this.value = 'Enter keyword(s)';" onfocus="if(this.value==this.defaultValue) this.value='';" value="Enter keyword(s)" name="p" id="lcsd_search" class="search" type="text" onkeydown="if (event.keyCode == 13) javascript:goUrlValue()">
+<label for="butn_lcsd_search">Go</label><input value="Go" name="Search" id="butn_lcsd_search" class="start_search" title="Search" type="button" onClick="javascript:goUrlValue()">
+<a title="Sitemap" class="link_sitemap" href="https://www.lcsd.gov.hk/en/beach/sitemap.html"><span class="access">Sitemap</span></a>
+<a title="Contact Us" class="link_contact_us" href="https://www.lcsd.gov.hk/en/contactus/email.php"><span>Contact Us</span></a>
+</form>
+</div>
+</div>
+</div>
+</div>
+<div class="part_lower">
+<div class="container" style="padding-left:0px; padding-right:0px;">
+<div class="site_control">
+<a target="_blank" title="LCSD" class="link_lcsd" style="padding: 12px 20px 20px 30px;" href="https://www.lcsd.gov.hk/en/index.html"><span>LCSD</span></a><a title="Text Size: Smallest" class="span size_small" href="#"><span class="access">Text Size: Smallest ("</span>
+							A
+							<span class="access">")</span></a><a title="Text Size: Default Size" class="span size_middle" href="#"><span class="access">Text Size: Default Size ("</span>
+							A
+							<span class="access">")</span></a><a title="Text Size: Largest" class="span size_large" href="#"><span class="access">Text Size: Largest ("</span>
+							A
+							<span class="access">")</span></a>
+</div>
+</div>
+</div>
+<style>
+.menu_lv2 a{
+	width:185px;
+	height:55px;
+}
+</style>
+</header><div style="display:none;" id="footer_deco_img">
+<img src="https://www.lcsd.gov.hk/common/batch3/images/footer-deco-sea.png" alt="" title=""></div><style> .wrapper.sea { background: url("https://www.lcsd.gov.hk/common/batch3/images/body-bg-sea.jpg") no-repeat 50% 0 white !important; }</style>
+<div class="content_body layout1" >
+<div class="container" style="padding-left:0px; padding-right:0px;">
+<div class="left-menu">
+<nav style="width:209px;">
+<a href="javascript://" name="main_content" id="main_content" style="width:219px;" title="Press 'Tab' to enter menu">Press 'Tab' to enter menu</a>
+<ul class="menu_lv1">
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/index.html" style="width:219px;" title="Beaches"><span>Beaches</span></a>
+<ul class="menu_lv2">
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/index.html" title="Introduction"><span>Introduction</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/index/beach-life.html" title="Lifeguard Service Hours"><span>Lifeguard Service Hours</span></a>
+</li>
+<li>
+<!-- 20220601 -->
+<!-- 
+<a href="https://www.lcsd.gov.hk/en/beach/index/beach-location-hk.html"><span>Information of Beaches</span></a>
+-->
+<a href="https://www.lcsd.gov.hk/en/beach/index/beach-location.html" title="Information of Beaches"><span>Information of Beaches</span></a>
+</li>
+</ul>
+</li>
+<li class="current">
+<a href="https://www.lcsd.gov.hk/en/beach/swim-intro.html" style="width:219px;" title="Swimming Pools"><span>Swimming Pools</span></a>
+<ul class="menu_lv2">
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/swim-intro.html" title="Introduction"><span>Introduction</span></a>
+</li>
+<li>
+<!-- 20220601 -->
+<!-- 
+<a href="https://www.lcsd.gov.hk/en/beach/swim-intro/swim-location-hk.html">
+ -->
+ <a href="https://www.lcsd.gov.hk/en/beach/swim-intro/swimlocation.html">
+<span>
+Information of Swimming Pools
+<br><br>
+Opening Schedules
+<br><br>
+Schedule of Weekly Cleansing Operation
+<br><br>
+Notice of Temporary Closure of Public Swimming Pool Facilities
+</span>
+</a>
+</li>
+
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/swim-intro/swim-admis.html" title="Admission Fee"><span>Admission Fee</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/swim-intro/swim-ticket.html" title="Public Swimming Pool Monthly Ticket Scheme"><span>Public Swimming Pool Monthly Ticket Scheme</span></a>
+</li>
+
+
+<li>
+<a href="https://www.lcsd.gov.hk/en/facilities/facilitieslist/aquatics/beach/swim-admission-figure.html" title="Real-time admission figures"><span>Real-time admission figures</span></a>
+</li>
+
+
+
+
+</ul>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general.html" style="width:219px;" title="For Swimmers' Attention"><span>For Swimmers' Attention</span></a>
+<ul class="menu_lv2">
+<li>
+<a target="_blank" href="https://www.lcsd.gov.hk/en/facilities/facilitieslist/aquatics/beach/do_swim.html" title="Do's and Don'ts at Beaches and Swimming Pools"><span>Do's and Don'ts at Beaches and Swimming Pools</span></a>
+</li>
+<li>
+<a target="_blank" href="https://www.lcsd.gov.hk/en/swimhandbook/index.html" title="Swimmers' Handbook"><span>Swimmers' Handbook</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general.html" title="General Rules on Water Safety"><span>General Rules on Water Safety</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general/atten-warning.html" title="Warning Signals at Beaches"><span>Warning Signals at Beaches</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general/atten-safety.html" title="Safety Advice on How to Avoid Shark Attack"><span>Safety Advice on How to Avoid Shark Attack</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general/atten-clean.html" title="Help Keep Our Pools Clean Enjoy Your Swim in Hygienic Pools"><span>Help Keep Our Pools Clean Enjoy Your Swim in Hygienic Pools</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general/atten-slippers.html" title="Steps of Cleaning Slippers"><span>Steps of Cleaning Slippers</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general/atten-tvclip_list.html" title="TV Announcements"><span>TV Announcements</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general/swim-watqal.html" title="Information on Water Quality of Public Swimming Pools"><span>Information on Water Quality of Public Swimming Pools</span></a>
+</li>
+<li>
+<a href="https://www.lcsd.gov.hk/en/beach/atten-general/atten-stat.html" title="Statistics on Special Incidents"><span>Statistics on Special Incidents</span></a>
+</li>
+</ul>
+</li>
+<li>
+<a target="_blank" href="https://www.lcsd.gov.hk/en/index.html" style="width:219px;" title="Back to LCSD"><span>Back to LCSD</span></a>
+</li>
+</ul>
+<div class="left-box richtext"><img title="Banner" src="https://www.lcsd.gov.hk/common/batch3/images/nav-bg-sea.png" alt="Banner" /></div>
+</nav>
+</div>
+<div class="inner-page" style="width:760px;margin-right:-60px;">
+	<script>
+	$(document).ready(function() {
+		
+	$("#dist").change(function() {
+			
+			$('#changeDistForm').submit();
+		});
+		
+	});
+	
+	
+</script>
+	<style>
+		th {
+		text-align:center;
+		}
+		@-moz-document url-prefix() { /*For firefox to have word break*/
+		  .winter tr td {
+		    word-wrap:break-word;
+		  }
+		}
+	</style>
+	
+	<!--navBar  -->
+	<div class="">
+		<ol class="breadcrumb" style="background: transparent">
+			
+				
+					
+						<li>
+							<a href="https://www.lcsd.gov.hk/en/beach/index.html" title="Home">Home
+							</a>
+						</li>
+										
+				
+										
+				
+										
+				
+			
+				
+										
+				
+					
+						<li>
+							<a href="https://www.lcsd.gov.hk/en/beach/swim-intro.html" title="Swimming Pools">Swimming Pools
+							</a>
+						</li>
+										
+				
+										
+				
+			
+				
+										
+				
+										
+				
+					
+						<li>
+							<a href="https://www.lcsd.gov.hk/en/beach/swim-intro/swimlocation.html" title="Swimming Pools on Hong Kong Island & in Kowloon">Swimming Pools on Hong Kong Island &amp; in Kowloon
+							</a>
+						</li>
+										
+				
+			
+			<li class="active">Information on Public Swimming Pools</li>
+		</ol>
+	</div>
+	<!-- End navBar -->
+	
+	<div class="row">
+		
+	<div class="col-lg-12">
+		<div class="panel" style="box-shadow: 0 0px 0px;">
+			<div class="panel-body" style="box-shadow: 0 0px 0px;">
+				
+					<h1 style="font-weight: bold;margin-top: -30px;">
+							Information on Public Swimming Pools
+					</h1>	
+				<div class="row">
+					<div class="col-lg-8">&nbsp;</div>
+						<FORM class='form-horizontal' name="form0" id="changeDistForm" method="get" action="./Swimming.do">
+							<div class="col-lg-4">
+								<select class="form-control " name="dist" id="dist" title="Please Choose Districts">
+									
+										<option value="loc1" >
+												Eastern
+										</option>
+									
+										<option value="loc2" >
+												Wanchai
+										</option>
+									
+										<option value="loc3" >
+												Central &amp; Western
+										</option>
+									
+										<option value="loc4" >
+												Southern
+										</option>
+									
+										<option value="loc5" >
+												Yau Tsim Mong
+										</option>
+									
+										<option value="loc6" selected>
+												Sham Shui Po
+										</option>
+									
+										<option value="loc7" >
+												Kowloon City
+										</option>
+									
+										<option value="loc8" >
+												Wong Tai Sin
+										</option>
+									
+										<option value="loc9" >
+												Kwun Tong
+										</option>
+									
+										<option value="loc10" >
+												Sha Tin
+										</option>
+									
+										<option value="loc11" >
+												Sai Kung
+										</option>
+									
+										<option value="loc12" >
+												Tuen Mun
+										</option>
+									
+										<option value="loc13" >
+												Kwai Tsing
+										</option>
+									
+										<option value="loc14" >
+												Yuen Long
+										</option>
+									
+										<option value="loc15" >
+												North
+										</option>
+									
+										<option value="loc16" >
+												Tai Po
+										</option>
+									
+										<option value="loc17" >
+												Tsuen Wan
+										</option>
+									
+										<option value="loc18" >
+												Islands
+										</option>
+														
+								</select>				
+							</div>
+						</FORM>
+					</div>
+				<div>
+				<br />
+				
+				
+					<div class="panel panel-primary">
+						<div class="panel-heading"><h3 style="color:#FFFFFF">Lai Chi Kok Park Swimming Pool</h3></div>
+						<div class="panel-body">
+						<table class="table table-bordered">
+							
+							<tr>
+								<td class="info" style="width:20%"><b>Address</b></td>
+								<td>No.1 Lai Wan Road, Lai Chi Kok, Kowloon</td>
+							</tr>
+							<tr>
+								<td class="info"><b>Location</b></td>
+								<td>
+									
+									<a href="javascript:showPopupStaticMap('4Z9dUMH3Zd','en')"><img style="text-align: absmiddle;" title="Location Map" src="/clpss/graphics/gihs_icon_1_en.gif" alt="Location Map" height="23" width="106" border="0"></a>
+									
+									<a href="javascript:showPopupAdvancedMap('4Z9dUMH3Zd','en')"><img style="text-align: absmiddle;" title="Link to GeoInfo Map" src="/clpss/graphics/gihs_advicon_1_en.gif" alt="Link to GeoInfo Map" height="23" width="146" border="0"></a>
+								</td>
+							</tr>
+							<tr>
+								<td class="info"><b>Phone No.</b></td>
+								<td>2745 5234，2742 8387</td>
+							</tr>
+							<tr>
+								<td class="info"><b>Facilities</b></td>
+								<td>Outdoor facilities : <br />^Main pool&nbsp;<span lang="EN-US">(Length 50m x Width 25m, Depth: 1.4m-1.93m)</span><br />Training pool&nbsp;<span lang="EN-US">(Length 25m x Width 11m, Depth: 0.91m-1.22m)</span><br />*Teaching pool 1 (Length 20m x Width 12m, Depth: 0.83m-0.89m)<br />Teaching pool 2 (Length 20m x Width 12m, Depth: 0.68m-0.73m)<br />Diving pool&nbsp;(Length 11.75m x Width 11m, Depth: 4.4m-4.6m)<br />Toddlers' pool&nbsp;(<span lang="EN-US">Irregular shape, Depth: 0.1m-0.37m</span>)<br />Indoor facilities : <br />^Secondary pool&nbsp;<span lang="EN-US">(Length 50m x Width 21m, Depth: 1.1m-1.4m)</span><br />Spectator stand (800 seats), Electronic Scoreboard, Family changing room<br />Barrier Free Facilities: Barrier free access(es) facilitating entrance to the pool deck area, Pool lift (Teaching pool), Shower room(s), Accessible toilet(s) and shower compartments, Braille and tactile floor Plan, Tactile guide path, Visual fire alarm system<br />Public Coaching Area: Secondary pool and Teaching pool 2
+								
+								</td>
+							</tr>
+								
+							
+							<tr><td colspan="2"><br/></td></tr>
+							
+							
+								
+							<!-- Newly Added Lego 2018May28-->
+							<tr>
+								<td class="info" colspan="2">								
+									<h4>Summer Opening Schedule Information</h4>
+								</td>
+								</tr>
+								<tr>
+								<td colspan="2">
+									<table class="table table-bordered" style="table-layout:fixed;text-align:center">
+										<tr>
+										<th style="display:none"></th>										
+															
+											<th colspan="4" style="width:250px;"><b>Apr</b></th>
+											<th colspan="4" ><b>May</b></th>
+											<th colspan="4" ><b>Jun</b></th>
+											<th colspan="4" ><b>Jul</b></th>
+											<th colspan="4" ><b>Aug</b></th>
+											<th colspan="4" ><b>Sep</b></th>
+											<th colspan="4" ><b>Oct</b></th>
+										
+									</tr>
+										<tr>			
+											
+											
+												
+												
+											
+											
+											<td colspan='3'><div style="text-align: center;">1st Session:<br /> 6:30 am -12:00 nn</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;">2nd Session: <br />1:00 -6:00 pm</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;">3rd Session: <br />7:00 -10:00 pm</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;">(Sessionbreaks:<br />12:00 nn -1:00 pm &amp; <br />6:00 -7:00 pm)</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;"><strong><span style="color: #0000ff;">Main pool and secondary pool only</span></strong></div>
+<div style="text-align: center;"><span style="color: #0000ff;">(Maintenance of diving pool, training pool, teaching pools and toddlers&rsquo; pool:<br />1.4.2026 - 15.4.2026)</span></div></td><td colspan='6'><div style="text-align: center;">1st Session:<br />6:30 am - 12:00 nn</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;">2nd Session:<br />1:00 - 6:00 pm</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;">3rd Session:<br />7:00 - 10:00 pm</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;">(Session breaks:<br />12:00 nn - 1:00 pm &amp; <br />6:00 - 7:00 pm)</div>
+<div style="text-align: center;">&nbsp;</div>
+<div style="text-align: center;"><strong><span style="color: #0000ff;">T</span></strong><strong><span style="color: #0000ff;">raining pool, teaching pools and toddlers' pool only</span></strong></div>
+<div style="text-align: center;"><span style="color: #0000ff;">(Maintenance of main pool, secondary pool and diving pool : <br />16.4.2026 - 5.6.2026)</span></div>
+<div style="text-align: center;">&nbsp;</div></td><td colspan='19'><div style="text-align: center;">1st Session:<br /> 6:30 am - 12:00 nn<br /><br /></div>
+<div style="text-align: center;">2nd Session: <br />1:00 - 6:00 pm<br /><br /></div>
+<div style="text-align: center;">3rd Session: <br />7:00 - 10:00 pm<br /><br /></div>
+<div style="text-align: center;">(Session breaks:</div>
+<div style="text-align: center;">12:00 nn - 1:00 pm &amp;</div>
+<div style="text-align: center;">6:00 - 7:00 pm)</div></td>
+											
+											 	
+
+														
+										</tr>										
+																											
+									</table>								
+								</td>
+							</tr>
+							<tr><td colspan="2"><br/></td></tr>
+							
+							
+							
+							<!-- End Newly Added Lego 2018May28-->
+							<!-- Adding Temporary Closure Annual Maintenance -->
+							<tr>
+								<td class="info" colspan="2" >
+									<h4>Temporary Closure for Annual Maintenance</h4> 
+									
+								</td>
+							</tr>
+							<tr>
+							<td colspan="2">
+									<table class="table table-bordered">
+									<tr>
+									<td>
+										
+										
+										
+										
+    											<strong>Diving pool, Training pool, Teaching pools and Toddlers' pool:</strong><br />From 1 November to 15 April of the following year<br /><strong>Main pool, Secondary pool, Diving pool: </strong><br />From 16 April to 5 June
+  										
+										
+										
+									</td>
+									</tr>
+									</table>
+							</td>
+							</tr>
+							<tr>
+								<td class="info" colspan="2" >
+									<h4>Weekly Cleansing Operation</h4> 
+									<p>
+										The weekly cleansing operation is carried out at public swimming pools managed by the LCSD from 10:00 a.m. to the end of the second session. The pools will resume service at the third session on the same day.<br/>※ If the cleansing day falls on a public holiday, the swimming pool will open as usual and the weekly cleansing operation will be rescheduled for another weekday (as shown in the bracket) of the same week.
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<table class="table table-bordered">
+										
+										
+										<tr>										
+											
+											<td>
+												
+												Every Wednesday 
+												
+													
+													<br/>
+														(Tuesday ※)
+													<br/>
+													
+														<i style="color:blue"></i>
+														
+																										
+											
+											</td>
+										</tr>
+														
+				
+									</table>
+								</td>
+							</tr>
+							
+							
+							<tr><td colspan="2"><br/></td></tr>
+							<tr>
+								<td class="info" colspan="2"><h4>Notice of Temporary Closure</h4>Details of the temporary partial closure of facilities at swimming pools:<br />Please contact the officers-in-charge of the respective swimming pools on the phone number(s) listed above for details of the latest arrangements.</td>
+								
+							</tr>
+							<tr>
+								<td colspan="2">
+									<table class="table table-bordered table-striped" style="max-height:200px;">
+													
+													<tr>
+														<th><b>Date &amp; Time</b></th>														
+														<th><b>Facilities</b></th>
+														<th><b>Reason</b></th>
+														<th><b>Remarks</b></th>
+													</tr>
+													
+													
+													
+													<tr style="border: #d9edf7 solid 3px;"> 
+														<td>
+															<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+															2026/06/21 06:30 - Until further notice</td>
+														<td>
+														
+														
+																Diving Pool , Toddlers' Pool
+																
+															
+														
+														</td>
+														<td>
+															
+																Insufficient Lifeguard
+																
+															
+														</td>
+														<td>
+														
+															
+															
+																																	
+																	
+																	
+																		
+																			
+																			
+																				N/A
+																			
+																			
+																	
+																
+																																													
+															
+														
+														</td>
+													</tr>
+													
+													
+													
+													<tr > 
+														<td>
+															
+															2026/10/19 07:00 - 2026/10/19 18:00</td>
+														<td>
+														
+														
+																Main Pool 
+																
+															
+														
+														</td>
+														<td>
+															
+																Swimming Gala
+																
+															
+														</td>
+														<td>
+														
+															
+																<b>Function : </b>Competition<br/>
+																<b>Organization : </b>White Dolphin Sport Association<br/>
+																
+																
+															
+															
+														
+														</td>
+													</tr>
+													
+													
+													
+													<tr > 
+														<td>
+															
+															2026/10/23 07:00 - 2026/10/23 14:00</td>
+														<td>
+														
+														
+																Main Pool 
+																
+															
+														
+														</td>
+														<td>
+															
+																School Swimming Gala
+																
+															
+														</td>
+														<td>
+														
+															
+																<b>Function : </b>Competition<br/>
+																<b>Organization : </b>Buddhist Tai Hung College<br/>
+																
+																
+															
+															
+														
+														</td>
+													</tr>
+													
+													
+													
+													<tr > 
+														<td>
+															
+															2026/10/23 08:00 - 2026/10/23 13:00</td>
+														<td>
+														
+														
+																Training Pool 
+																
+															
+														
+														</td>
+														<td>
+															
+																School Swimming Gala
+																
+															
+														</td>
+														<td>
+														
+															
+																<b>Function : </b>Competition<br/>
+																<b>Organization : </b>Buddhist Tai Hung College<br/>
+																
+																
+															
+															
+														
+														</td>
+													</tr>
+													
+													
+													
+													<tr > 
+														<td>
+															
+															2026/10/30 13:00 - 2026/10/30 18:00</td>
+														<td>
+														
+														
+																Main Pool 
+																
+															
+														
+														</td>
+														<td>
+															
+																School Swimming Gala
+																
+															
+														</td>
+														<td>
+														
+															
+																<b>Function : </b>Competition<br/>
+																<b>Organization : </b>Delia Memorial School (Broadway)<br/>
+																
+																
+															
+															
+														
+														</td>
+													</tr>
+													
+													
+																									
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="info"><b>Photo</b></td>
+								<td> <img src="https://www.lcsd.gov.hk/en/beach/common/graphics/SP/small/Lai%20Chi%20Kok%20Park%20SP.jpg" alt="Photo" title="Photo" height="180" width="240"></td>
+							</tr>
+						</table>
+					</div>
+					</div>
+										
+					
+				
+				
+				<style>
+					.borderless td, .borderless th {
+					    border: none;
+					}
+				</style>
+				
+				<!-- End of Details Section -->
+				<br/>
+				<div class="panel" style="box-shadow: 0 0px 0px;">
+					<div class="panel-body">
+						<b style="font-weight: bold">Remarks</b>					
+						
+						<table class="table table-responsive borderless">
+						<tr>
+								<td style="min-width: 80px;"><b style="font-weight: bold">^</b>
+								</td>
+								<td>
+									Heated swimming pool facilities will be provided from mid-November to mid-April of the following year.
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<td><b style="font-weight: bold">()</b>
+								</td>
+								<td>
+									No. of facilities
+								</td>
+							</tr>
+							<tr>
+								<td><b style="font-weight: bold">*</b>
+								</td>
+								<td>
+									Equipped with a pool lift for use by persons with disabilities
+								</td>
+							</tr>
+							
+					      	
+							<tr><td colspan=2>&nbsp;</td></tr>
+							<tr>
+								<td><b style="font-weight: bold">Note 1</b>
+								</td>
+								<td>
+									The opening schedule of the public swimming pool is for reference only and subject to changes with notices. For the latest opening arrangements, please contact the public swimming pool on the phone number(s) provided in the table above. Information of temporary closure notice of public swimming pools is for today and the next 29 days.
+								</td>
+							</tr>
+							<tr>
+								<td><b style="font-weight: bold">Note 2</b>
+								</td>
+								<td>
+									For the latest information on public swimming pools (such as temporary closure of the whole swimming pool complex due to emergencies), please visit our webpage on <a href='https://www.lcsd.gov.hk/clpss/en/webApp/News.do' title='Press Releases'>Press Releases</a>.
+								</td>
+							</tr>
+							<tr>
+								<td><b style="font-weight: bold">Note 3</b>
+								</td>
+								<td>
+									The weekly cleansing operation is carried out from 10:00 a.m. to the end of the second session. The swimming pool will reopen at the third session on the same day. If the weekly cleansing day falls on a public holiday, the swimming pool will open as usual and the weekly cleansing operation will be rescheduled for another weekday of the same week.
+								</td>
+							</tr>
+							<tr>
+								<td><b style="font-weight: bold">Note 4</b>
+								</td>
+								<td>
+									All public swimming pools are closed on the first three days of the Lunar New Year.
+								</td>
+							</tr>
+							<tr>
+								<td><b style="font-weight: bold">Note 5</b>
+								</td>
+								<td>
+									For the procedure of booking of public swimming pools by organisations,  please refer to <a href='https://www.lcsd.gov.hk/en/facilities/facilitiesbooking/procedure/swimpoolorganisation.html' title='Guide to the Booking Procedure for Use of Public Swimming Pools' target='_blank'>Guide to the Booking Procedure for Use of Public Swimming Pools</a>.
+								</td>
+							</tr>
+						
+						</table>
+					</div>
+				
+				</div>
+				
+	
+			</div>
+		</div>
+	</div>
+	
+	
+	</div>
+	
+	
+	
+	
+	<!-- Content Wording -->
+</div>
+</div>
+<div class="footer-deco"></div></div>
+</div>
+<div class="goto_top">
+<div class="container">
+<a class="butn_goto_top" href="javascript:void(0);" title="Top">Top</a>
+</div>
+</div>
+
+<div style="z-index:10;position: absolute; width:100%;">
+<footer>
+<div class="container">
+<div class="footer-top">
+<div class="flo-left">
+<div class="misc_info">
+<div class="copy_left">
+<p>Copyright &copy; 2014 Leisure and Cultural Services Department.</p>
+<p>All Rights Reserved.</p>
+</div>
+</div>
+</div>
+<div class="flo-right">
+<p class="title">
+<strong>Share</strong>
+</p>
+<div class="icon_social">
+<a href="#" class="share_mail" title="E-mail"><span class="icon_email">E-mail</span></a><a href="#" title="Facebook" class="share_fb"><span class="icon_facebook">Facebook</span></a><a href="#" title="Twitter" class="share_twitter"><span class="icon_twitter">Twitter</span></a><a href="#" class="share_weibo" title="Sina Weibo"><span class="icon_sina_weibo">Sina Weibo</span></a>
+</div>&nbsp;&nbsp;&nbsp;
+
+                            <div class="wcag">
+<a target="_blank" href="https://www.w3.org/WAI/WCAG2AA-Conformance"><img title="W3C WAG" alt="W3C WCAG" src="https://www.lcsd.gov.hk/common/batch3/images/w3c.png"></a>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+				var footer_deco_dum = $('#footer_deco_img');
+				var footer_deco = $('.footer-deco');
+				
+				footer_deco.html(footer_deco_dum.html());
+			</script><div class="footer-bottom"><div class="noti_right"><div class="flo-right"><p><a href="https://www.lcsd.gov.hk/en/notice.html" title="Important Notices">Important Notices</a> | 
+                        <a href="https://www.lcsd.gov.hk/en/info_pdo.html" title="Privacy Policy">Privacy Policy</a> | 
+				
+			
+		<script type="text/javascript">
+			$(document).ready(function() {
+				if(document.getElementById("langToTranslate").value=="sc"){
+					translateBody();
+				}
+				$("ul").each(
+				function() {
+					var elem = $(this);
+						if (elem.children().length == 0 && elem.text()!=' ') {
+							
+							elem.remove();
+						}
+					}
+				);
+				
+				$('.share_fb').attr("href", "https://www.facebook.com/share.php?u="+encodeURIComponent(window.location.href));
+				$('.share_twitter').attr("href", "https://twitter.com/intent/tweet?url="+encodeURIComponent(window.location.href));
+				$('.share_weibo').attr("href", "https://service.weibo.com/share/share.php?appkey=&title=Description&pic=&ralateUid=&language=zh_cn&url="+encodeURIComponent(window.location.href));
+				$('.share_mail').attr("href", "mailto:?body="+encodeURIComponent(window.location.href));
+				
+				
+			});
+			
+			
+		</script>
+
+							Last revision date: 13 October, 2026</p></div></div></div></div>
+</footer></div><script src="https://www.lcsd.gov.hk/common/batch3/js/font_set.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/jquery-migrate-1.2.1.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/jquery.colorbox-min.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/jquery-ui-1.10.3.custom.min.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/jquery.easing.1.3.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/jquery.touchcarousel-1.1.min.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/jquery.cycle2.min.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/jquery.cycle2.carousel.min.js"></script><script src="https://www.lcsd.gov.hk/common/batch3/js/script.js"></script>
+</body></html>
+
+
+
+

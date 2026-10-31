@@ -1,0 +1,1 @@
+These are inspected live exports from the cancelled v4 installation attempt. They do not establish an installed model or independent readback. v4 was rolled back before the progress exporter could touch an unrelated dirty snapshot. Retain the evidence; use v5 and the v2 readback folder for the replacement attempt.

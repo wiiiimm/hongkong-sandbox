@@ -1,0 +1,74 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-mongkok-stadium-20260914/plan.json",
+  "areas": [
+    {
+      "area": "MONGKOK STADIUM original government model",
+      "models": 1,
+      "catalogue": "city/data/official-models/government-xl-mongkok-stadium-20260914/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-240527-0.json": null,
+    "3d-viewer/city/data/official-models/government-xl-mongkok-stadium-20260914/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "cb54f82936e66448787b2fbdcf1009d8575999d1056845daae4aa22a1528f950"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-240527-0.json": "e623471c0037e613221165c3beda0afb3b664a681aa3048d0e6b9ebdbdafaec9",
+    "3d-viewer/city/data/official-models/government-xl-mongkok-stadium-20260914/catalogue.json": "d0384f900375bf3d28e7fcdf47db1aa9c379062b9b61517e966f7b07385002dd",
+    "3d-viewer/city/data/manifest.json": "b2c4cf7a6aa65c018338b8a953593643c67fa0faa68ddddb7c73e3c573c6e9db"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "08622b765979a4aed7289e4496649998a0e8ed5e",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-240527-0.json",
+      "resolution": 5,
+      "area": "MONGKOK STADIUM bounded original government terrain",
+      "source": {
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "directorySHA256": "15448dc177cef3d0608a936a93c8e566ba9e2bed1511b129c3d6faad93a71cbb",
+            "revision": "2026-08-27T16:00:00+00:00",
+            "sheet": "11-NW-14D",
+            "sourceETag": "\"371108f-6598a3054cfee\"",
+            "sourceFiles": [
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14D/terrain/TERRAIN(TB)/T35250204000106E13/T35250204000106E13.bin",
+                "sha256": "0a37a03d073b070845e580f297d923ce248da67eca1e3a66591d8fdabe62f561"
+              },
+              {
+                "path": "source-scripts/city/government-import/local/government-xl-50-second-20260913/sheets/11-NW-14D/terrain/TERRAIN(TB)/T35250204000106E13/T35250204000106E13.gltf",
+                "sha256": "ee380db9d5857d6f78c5a974826a10e8b6adacd9ed38c0f998b3dcb89a4f5a0e"
+              }
+            ]
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 1653,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "e623471c0037e613221165c3beda0afb3b664a681aa3048d0e6b9ebdbdafaec9",
+      "bytes": 2092679
+    }
+  ],
+  "estimatedBases": []
+}

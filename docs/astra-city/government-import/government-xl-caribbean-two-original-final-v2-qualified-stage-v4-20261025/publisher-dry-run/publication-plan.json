@@ -1,0 +1,160 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-caribbean-two-original-final-v2-qualified-stage-v4-20261025/plan.json",
+  "areas": [
+    {
+      "area": "Caribbean Square unchanged government original pair",
+      "models": 2,
+      "catalogue": "city/data/official-models/government-xl-caribbean-two-original-final-v2-qualified-stage-v4-20261025/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-caribbean-two-original-v1-20261025.json": null,
+    "3d-viewer/city/data/official-models/government-xl-caribbean-two-original-final-v2-qualified-stage-v4-20261025/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "a30af32ab47322a26fcf1a3f78710e5f506d7b2a6040929b9816591d82bd2064"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-caribbean-two-original-v1-20261025.json": "0b9dc0adc00a0bae79a33a0feb891f0926f2caab997659e6ea120d5a18d17e1c",
+    "3d-viewer/city/data/official-models/government-xl-caribbean-two-original-final-v2-qualified-stage-v4-20261025/catalogue.json": "8bcbdca248c4b1d7f73cdc93fd577c3f95db7bdd0a9bb748a6bd3e50f07eb892",
+    "3d-viewer/city/data/manifest.json": "0ef430343fedafba1b46708e7a64643dd6046c98d6361e194504a08cc840f3b4"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "fe1e99c054fde289f0cee882036d3831838e7e55",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-caribbean-two-original-v1-20261025.json",
+      "resolution": 5,
+      "area": "Caribbean Square unchanged government original pair",
+      "source": {
+        "authoredRampInset": {
+          "continuousReturnClaimed": false,
+          "originalTerrainCandidate": {
+            "path": "source-scripts/city/government-import/local/government-xl-caribbean-two-after-high-court-inset-v1-20261025/candidate-terrain.json",
+            "sha256": "c1bfdd70d41ece1b1a36473806a17350cb6ba23646adb313b8a6fa6d7226caf5"
+          },
+          "policy": "Existing V1 lower-only1m core/3m affine return, independently per disconnected return domain. Exact original planes never extend into distant disconnected domains. All original V1 guards retained; no acceptance or publication approval.",
+          "sha256": "5d15afc0e09f7975844fbd2bcb0f2943546933a9424d7459f855bb7892ad76a8",
+          "sourceFaceIndices": [
+            261,
+            262,
+            263,
+            264,
+            265,
+            266,
+            267,
+            268,
+            1765,
+            1766,
+            2278,
+            2280,
+            2281,
+            2282,
+            2283,
+            2284,
+            2285,
+            2286,
+            2287,
+            2288,
+            2289,
+            2290,
+            2291,
+            2292,
+            2293,
+            2294,
+            2295,
+            2297,
+            15294,
+            15295,
+            15296,
+            15298,
+            15314,
+            15334,
+            15336,
+            15337,
+            15341
+          ],
+          "sourceFaceSHA256": "de11885c13e41ded29c898dd05127633cae340c7d3d6ee0c78e5dd20abd119f1",
+          "uid": "landsd/290981:0"
+        },
+        "boundedOriginalInset": {
+          "coreBounds": [
+            -21862.565526672213,
+            -606.7853480351201,
+            -21542.21675748188,
+            -435.3127489688212
+          ],
+          "outerBounds": [
+            -21865.76210668885,
+            -609.8913921404812,
+            -21539.117029927525,
+            -432.1259958752838
+          ],
+          "policy": "Original highest source terrain, lower inset within model projection+1m and a shared piecewise-affine3m return. Exact existing low parent facets outside the edit remain unchanged; all original source, water-mask, coverage, boundary and runtime checks apply."
+        },
+        "crs": "EPSG:2326",
+        "derivedTerrainSeamCover": {
+          "addedDomainAreaM2": 0.03899693489074707,
+          "addedTerrainTriangles": 227,
+          "afterMissingAreaM2": 2.481652881954727e-12,
+          "beforeMissingAreaM2": 0.03822749286024149,
+          "maximumSeamDistanceM": 0.002,
+          "policy": "Private additive terrain seam cover. Minimal enclosing Float32 vertex-cell hulls enclose every missing triangle; nearest existing terrain edge heights used. All original terrain faces preserved. No building geometry or clearance policy edits; actual runtime and neighbours require fresh checks.",
+          "projectedExcessM2": 0.042568743228912354,
+          "sourceGeometryChanges": 0,
+          "unchangedOriginalTerrainTriangles": 15893
+        },
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-remaining-adjacent-terrain-batch-v1-20261022-290981-0/sheets/9-SE-4C/terrain/TERRAIN(TB)/T12000168000106E11/T12000168000106E11.gltf",
+            "sha256": "af28a5c369e2330d54d6c3a60582dda0e17bbdd3d3fb166f85f286ccfe1bef06"
+          },
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-missing-original-terrain-restore-v3-20261023/07c5b3c5fff19beef4cf7eb00d3b943f64459866d15c1b19be363b3799fea028/original-terrain/TERRAIN(TB)/T12750168000106E11/T12750168000106E11.gltf",
+            "sha256": "1af08ebfab79625da62d85e34108932889d3455d76bcfc34f8b7952cb3e16e33"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 4047,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "0b9dc0adc00a0bae79a33a0feb891f0926f2caab997659e6ea120d5a18d17e1c",
+      "bytes": 2933505
+    }
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}

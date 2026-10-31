@@ -1,0 +1,10 @@
+file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-assets.js:92
+  if(signal?.aborted)throw abort();const group=gltf.scene;group.position.set(entry.rootTranslation[0],entry.rootTranslation[1]+(entry.verticalPlacementOffsetHKPD??0),entry.rootTranslation[2]);group.updateMatrixWorld(true);
+                                                                                                  ^
+
+TypeError: Cannot read properties of undefined (reading '0')
+    at loadOfficialModel (file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/3d-viewer/city/official-model-assets.js:92:99)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async file:///home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_render_attributes_v1.mjs:22:11
+
+Node.js v24.18.0

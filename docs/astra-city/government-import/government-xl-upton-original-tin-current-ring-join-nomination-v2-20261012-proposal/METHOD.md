@@ -1,0 +1,21 @@
+# Unexecuted exact saved Upton nomination resume v2
+
+The actual v1 worker ended exit1 after 128.325s. Its closure guard correctly rejected two `import(new URL(...))` expressions before any production import, renderer, sampler, candidate write, real validator or freezer. There is no completed v1 Neon job. Original caller/runtime/helper/test/input/log bytes remain in place and have adjacent byte-exact failed archives. The canonical eleven-resource token9c7b5b0b-446b-4f5f-bc9c-1bfbed2e9368 was independently queried released at2026-10-12 02:03:54.646862UTC, inactive; actual four producer PIDs are gone. Current manifest2dde0cfc... remains exact.
+
+V2 changes ONLY the runtime's two imports to literal `../../../3d-viewer/city/world.js` and `../../../3d-viewer/city/geo.js`. Both resolve to exactly the same files as the old constructed URLs. The reviewed dependency closure, computed-import rejection, Acorn pins, geometry/grid/winding/sampler/exterior/validator policies are unchanged. The exact two-line runtime diff is adjacent. No permissive closure fallback is introduced.
+
+The new resume caller binds and copies the actual fully saved v1 input, complete-nominations-before-guards, geometry-nomination and complete-affected-scope gzip files byte-for-byte. It verifies complete original inventories122721/current9214, complete source IDs, all10742 finite raw nominee triangles and corresponding provenance, full boundary results and exact core/domain. It does NOT partition, nominate joins, decode source buildings, or rerun old contact/finite proofs. Copied nominees are historical v1 mathematics under a new orchestration receipt, never relabelled as recomputed v2 proof.
+
+Core[-2408.1162109375,-22.8056640625,-2296.3935546875,54.029296875] and D[-2477.5,-37.5,-2267.5,102.5]/cells[457,449,460,451] remain unchanged. All52 BASIC actors/2114 touching whole facets and nine named source regressions remain complete. The completed native6649 domain nomination has ONLY native79882 touching D; its complete current/source attributes already exist, so this route needs no additional global-native reload. This fact gives no whole-native approval.
+
+Before ROOT authorises a worker, prepare exact syntax/saved-array/hash checks and offline snapshot/verify of the revised literal dependency graph (no production import/terrain construction/lease/DB write). Bind the executed validation/log/helper/Acorn/current dependency pins to `literal-closure-validation.json` and its ref in the required preflight. Existing13 helper tests remain exactly their actual v1 PASS/log; do not repeat or reattribute them.
+
+After separate ROOT FULLREAD approval, proposed command:
+
+```
+/tmp/astra-city-venv/bin/python source-scripts/city/government-import/upton_original_tin_current_ring_join_resume_draft_v2_20261012.py --resume-private-nomination-only
+```
+
+The fresh canonical eleven-resource supervisor verifies old release, exact current manifest, every original completed receipt/Neon result and all actual evidence refs before load and afterward. Both failed v1 lineage and unchanged actual prior proofs remain frozen. Production makeTerrain/sampler replay writes the adjacent private candidate/actual drawn tuples/grid mappings/exterior XYZ hashes/sampler-grid failures. The unchanged validator result is saved, including a real negative; no old overlap/fallback approval or tolerance is transferred. No source model/pose edits, live terrain writes, optimisation, stage/install/modelreview/Git action or acceptance.
+
+After this actual candidate exists, the least-cost next check uses its complete actual proposed-domain ground. Evaluate the existing ordinary -.5 bound and whole projection coverage for all13704 owned +616 native facets/allfour labelled worlds (cache only exact full tuples); compare all52 BASIC touching whole facets to their saved current proofs, including all nine regression IDs and the four extraction limits. Inspect exact packed core boundary/current ring/ruled joins and source/parent routing. Vertical facets need not be height-indexed, global watertightness is not a rendering contract, and no all-face strict positivity is introduced. Genuine body grade/cap/root/visual/foreign/runtime/browser gates remain independently unqualified. No completed source/current census is repeated simply for a new batch.

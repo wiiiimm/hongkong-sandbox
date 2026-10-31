@@ -1,0 +1,75 @@
+"""Plot every exact low-face group and optional original-pair junction, without approval."""
+import argparse
+from pathlib import Path
+from fractions import Fraction
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection,Line3DCollection
+from run import ROOT,HERE,read,save,digest,reservations
+from china_ferry_current_foundations_v1_20261020 import authenticate
+from primrose_compound_foundation_v2_20261015 import module
+from exact_packed_world_geometry_20261009 import decode_original_world_triangles
+from original_assembly_context_plot_v3_20261023 import clipped_faces
+
+
+def groups(tri,ids):
+    remaining=set(ids);out=[]
+    while remaining:
+        seen={min(remaining)};remaining-=seen;vertices=set(map(tuple,tri[min(seen)]))
+        while True:
+            found={i for i in remaining if any(tuple(v) in vertices for v in tri[i])}
+            if not found:break
+            remaining-=found;seen|=found
+            for i in found:vertices.update(map(tuple,tri[i]))
+        out.append(sorted(seen))
+    assert sorted(i for group in out for i in group)==sorted(ids)
+    return out
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__)
+    for k in ['batch','runtime','low-faces','uid','peer','lease']:p.add_argument('--'+k,required=True)
+    p.add_argument('--face',action='append',type=int)
+    a=p.parse_args();lease=read(Path(a.lease));assert reservations.owns(lease) and {'building:'+a.uid,'building:'+a.peer}<=set(lease['resources'])
+    base=ROOT/'docs/astra-city/government-import';out=base/a.batch;assert a.batch.startswith('government-xl-')and '/'not in a.batch and not out.exists()
+    refs=[Path(__file__)];pins={}
+    def take(name,path):
+        if name not in pins:pins[name]=authenticate(base/name)[1];refs.append(base/name/'result.json')
+        assert digest(path.read_bytes())==pins[name][str(path.relative_to(ROOT))];refs.append(path);return read(path)
+    selection=take(a.runtime,base/a.runtime/'selection.json.gz');source=next(r for r in selection['rows']if r['uid']==a.uid)
+    def original(row):
+        path=ROOT/row['candidate']['path'];assert digest(path.read_bytes())==row['sourceSHA256'];refs.append(path);return decode_original_world_triangles(path.read_bytes())
+    tri=original(source);low=take(a.low_faces,base/a.low_faces/'original.json.gz');assert digest(tri.astype('<f8').tobytes())==low['sourceWorldSHA256']
+    geometry=next(r for r in take(a.runtime,HERE/'local'/a.runtime/'runtime-geometry.json.gz')['rows']if r['uid']==a.uid);ground=np.asarray(geometry['drawnGroundGeometry'],dtype='<f8').reshape(-1,3,3);peerrow=next(r for r in selection['rows']if r['uid']==a.peer);peer=original(peerrow);assert digest(np.concatenate([ground,peer]).tobytes())==low['groundSHA256'];assert low['peerSourceSHA256']==peerrow['sourceSHA256']
+    all_ids=[r['sourceFace']for r in low['rows']];ids=all_ids if a.face is None else sorted(a.face);assert len(ids)==len(set(ids)) and set(ids)<=set(all_ids);clusters=groups(tri,ids);exports=[];records=[];out.mkdir()
+    def draw(label,selected,other=None,contact_points=None):
+        points=tri[selected].reshape(-1,3)if contact_points is None else contact_points
+        lo,hi=points.min(0)-[2,1,2],points.max(0)+[2,3,2];size=np.maximum((hi-lo)[[0,2,1]],.1)
+        planes=[(axis,float(lo[axis]),True)for axis in range(3)]+[(axis,float(hi[axis]),False)for axis in range(3)]
+        fig=plt.figure(figsize=(15,7),layout='constrained')
+        for k,angle in enumerate([35,215]):
+            ax=fig.add_subplot(1,2,k+1,projection='3d')
+            meshes=[(tri,'#64748b',.12),(tri[selected],'#d04729',.95)]
+            if other is not None:meshes.append((other,'#2368b6',.4))
+            for mesh,color,alpha in meshes:
+                ix=np.all(mesh.max(1)>=lo,axis=1)&np.all(mesh.min(1)<=hi,axis=1);polys=clipped_faces(mesh[ix],planes)
+                if len(polys):ax.add_collection3d(Poly3DCollection((polys-lo)[:,:,[0,2,1]],facecolors=color,edgecolors=color,alpha=alpha,linewidth=.35))
+            ix=np.all(ground.max(1)>=lo,axis=1)&np.all(ground.min(1)<=hi,axis=1);polys=clipped_faces(ground[ix],planes)
+            if len(polys):ax.add_collection3d(Line3DCollection([np.vstack([v,v[:1]])for v in (polys-lo)[:,:,[0,2,1]]],colors='#16834a',linewidth=.7))
+            for i in selected:
+                c=tri[i].mean(0)-lo
+                if np.all(c>=0)and np.all(c<hi-lo):ax.text(c[0],c[2],c[1],str(i),fontsize=6)
+            ax.set(xlim=(0,size[0]),ylim=(0,size[1]),zlim=(0,size[2]),xlabel='X offset m',ylabel='Z offset m',zlabel='HKPD offset m');ax.set_box_aspect(size.copy());ax.view_init(24,angle)
+        fig.suptitle(f'{a.uid}: {label}\nRed: nominated original facets; grey: source context; green: drawn terrain; blue: original peer. Display crops only.',fontsize=11)
+        path=out/(label+'.png');fig.savefig(path,dpi=140);plt.close(fig);refs.append(path);exports.append(dict(path=str(path.relative_to(ROOT)),sha256=digest(path.read_bytes())))
+    for i,cluster in enumerate(clusters):
+        draw('low-group-'+str(i+1),cluster,peer);t=tri[cluster];n=np.cross(t[:,1]-t[:,0],t[:,2]-t[:,0]);length=np.linalg.norm(n,axis=1)
+        records.append(dict(sourceFaces=cluster,bounds=[t.min((0,1)).tolist(),t.max((0,1)).tolist()],facets=[dict(sourceFace=j,areaM2=float(length[k]/2),signedNormalYRatio=float(n[k,1]/length[k]))for k,j in enumerate(cluster)]))
+    assert reservations.owns(lease)
+    pair=dict(peer=a.peer,peerSourceSHA256=peerrow['sourceSHA256'],completeCompoundGroundSHA256=low['groundSHA256'])
+    result=dict(uids=[a.uid],sourceSHA256=source['sourceSHA256'],completeAffectedFaces=all_ids,displayedNominatedFaces=ids,partialNominatedFaceViewsOnly=a.face is not None,groups=records,pair=pair,exports=exports,sourceGeometryChanges=0,architectureReview=False,physicalAcceptance=False,installationApproved=False,publication=False,qualification='Green wireframes are actual terrain, blue surfaces the exact original peer; their concatenated arrays reproduce the complete compound clearance hash. Every explicitly nominated facet belongs to exactly one displayed shared-vertex group; the complete low partition is retained separately, and a nominated display is not a complete source clearance account. Local plots clip display context only and label original face IDs; no mesh, placement, terrain or contact changes, and no review approval.')
+    save(out/'summary.json',result);refs.extend([HERE/'exact_packed_world_geometry_20261009.py',HERE/'original_assembly_context_plot_v3_20261023.py']);module('low_group_views_freeze',HERE/'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(a.batch,'complete-original-low-face-group-and-pair-junction-views',list(dict.fromkeys(refs)),result);print(dict(groups=len(clusters),faces=len(ids),exports=len(exports)),flush=True)
+
+if __name__=='__main__':main()

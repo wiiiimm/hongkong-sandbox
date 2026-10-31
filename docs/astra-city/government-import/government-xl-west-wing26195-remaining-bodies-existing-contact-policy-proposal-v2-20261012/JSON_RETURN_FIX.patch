@@ -1,0 +1,11 @@
+--- source-scripts/city/government-import/west_wing26195_current_remaining_bodies_existing_contact_policy_draft_v2_20261012.py-before
++++ source-scripts/city/government-import/west_wing26195_current_remaining_bodies_existing_contact_policy_draft_v2_20261012.py
+@@ -16,7 +16,7 @@
+  for e in r['evidenceRefs']:assert ref(ROOT/e['path'])==e
+  d=read(P.DOC/'diagnostic.json.gz');assert d['currentManifest']==scope['currentManifest']and d['body0CandidateRoleCertificate']==certificate
+  _,other_scope,_,_,finite,graph=P.T.inputs();assert other_scope==scope
+- visual=read(P.T.DOC/'diagnostic.json.gz');result=H.verify(certificate,graph,finite,visual,expected_binding=H.binding(certificate,graph,finite,visual))
++ visual=read(P.T.DOC/'diagnostic.json.gz');result=json.loads(json.dumps(H.verify(certificate,graph,finite,visual,expected_binding=H.binding(certificate,graph,finite,visual)),allow_nan=False))
+  assert result['commonConditionalPositiveDimensionalReachableBodies']==[i for i in range(118)if i not in [108,113]]
+  return scope,r,result
+ 
