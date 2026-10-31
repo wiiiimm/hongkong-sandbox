@@ -2,9 +2,11 @@
 
 **413 installed + 3 exact-source terminal + 105 outstanding = 521 fixed XL source keys; 7,061 installed detailed actors.** Both NULL-UID keys remain in scope. No new installation this continuation. Previous turn installed 20 Palazzo parts and pushed 0f960fa1c8; final handoff pushed 8811623212. Original goal remains active.
 
-## Live worker
+## Current execution state
 
-Exec **9758**: `original_leased_diagnostic_sequence_v58_20261031.py`, plan `government-xl-arena275446-after-palazzo-podium-mall3-terrain-plan-v2-20261101.json`. Five preflighted phases: current buried context; joint podium/Mall 3 coast-preserving original-TIN candidate; full new scope; five-source runtime; full affected-form checks. Existing construction/source/coast/height/budget guards unchanged. Complete known source/terrain reservations: 51 resources. Poll exact handle and local sequence state; never restart a timeout. All prior workers including81605/69690/24062/95389 completed and released.
+**No live workers.** All launched phases completed or have a terminal, preserved script failure. Pending next code/compute remains In process (queued), not held for a human or AI modelling decision. No new installation this continuation. Latest pushed checkpoint a87325f67a; update after final continuation checkpoint.
+
+Completed resumed joint terrain sequence **63f8cb40af03dee6bedb453b52f3d371756e6164e666dfc63a134cccb0c1901b**. It is diagnostic, not accepted: Mall3upwardburial4→0 but podium regresses to6upwardburiedfaces. All receipts and raw failures stay.
 
 ## Completed recovery and current evidence
 
@@ -20,11 +22,25 @@ Terrain replay/runtime/full34-form regressions finished **d2fc556311088d8335be01
 
 New cached-only provider-ground adapter verified both malls against exact original four-sheet terrain, independently matching each current native cache/result to authenticated donor source-input revisions. **cb944de14b7243186b0b5a48d461e371266959b8a171b6c76c3d5038fd54559a**: Mall2all2423faces covered/0buried/0up; Mall3all1390covered/0buried/0up. No downloads, new revisions, source/terrain edits or placement credit. Exact old podium and new mall ground diagnostics rebound without recomputation **7b4fd6b2195e22a9ef78e1e17c8728d50731f578b4d7ea63d47e478911370cf2**; this supports next joint terrain producer but grants no current-scene acceptance.
 
+## Composition diagnosis and actual private parent capture
+
+Joint candidate `...podium-mall3-original-inset-v2-20261101` passed construction **7bff5cf14149bb5273019eca8f39bf25a529e3586987ac2d3ba0af203467dd5e**, candidateSHA **8994446e12fdc28d10067542f9e6b67d74712fa24125f8144cfae04eef222347**,11387triangles. Scope5forms/0native/0terrainoverlap, all5BASICchecks unflagged. Mall3now15buried/0up; source275446now57buried/6up. Thus candidate alone is not installable. Earlier corrected podium candidateSHA **868deb811359719c58da44b89a0fe9398ecc89e8c31e7e133ed0a262629e52bb** has23buried/0up but Mall3has46/4up. Buildingbytes/pose never changed. Pair/source-ground receipts remain independent of construction acceptance.
+
+Current v2 buried-facet context complete **492c447c359a5055f79a7ff5d641cf06947b230643a38735872184323094ba67**; source275446upwardIDs **19835,19836,19837,19838,21031,21037**, X3684.9375..3737.75/Z-4245.5..-4201.625. Five of six intersect the new coarse rectangle; one is strictly outside. Do not naively replace that entire rectangle with an original-parent child and lose oldfloorcorrections.
+
+Actual corrected private parent capture complete **5b18916edf7e60ffba8140b63b4cf448845c7d8f221b0d5764c1aaa4426b099b**, batch `...retained-podium-private-parent-v1-20261101`. Existing **selected_original_parent_capture_v3.mjs** already supports a private candidate argument. It rendered ONLY the old corrected podium candidate on current production terrain; newMall3candidate supplied coverage bounds only. Full8845clippedactualfaces and allvertical/degenerate lineage retained, input hashes verified. No new terrain generated or approved. Overcaptured union+one-cell border: cells[542,386,552,393],bounds[3472.5,-4447.5,4172.5,-3957.5],81forms; touchingnativeIDs/resources in its summary. Actual union without extra border is oldcells[544,387,551,392] plusnewcells[543,389,546,391] =>[543,387,551,392]; choose final domain deliberately and reprove full obligations. Overcapture is reusable source evidence, not permission to replace extra terrain.
+
+## Runner and root-binding repairs preserved
+
+Failed V58 run9758 completed buriedcontext355c7164 then rejected coastV6 at allowlist before construction. ExistingV61 already permits it and has unchanged phase/lease/publication logic; no allowlist edited. V3resume skipped completedcontext. Failure/recovery job **60add23e67f1e18a151b4386bd124f56fcde8eb0b73f0261d6cebf9ee9a31172**. New `diagnostic_plan_cli_preflight_v2_20261101.py --runner EXACT_RUNNER.py --plan PLAN` AST-checks ALL phase scripts against the chosen runner before oldCLIhelp checks; actualV58rejection/V61success verified. No leases or model commands execute during preflight.
+
+Private parent capture first stopped prelease because the model-only inventory does not pin terrainroot. Preserved failed code/receipt in its `-proposal` folder. Corrected root binding uses authenticated oldterraincandidate receipt, then proves BOTH private candidates' parentSHA equals current root bytes. No guard relaxed.
+
 ## Next execution
 
-1. Poll exec9758 and read its exact current phase/receipt. It attempts a joint original-TIN correction for the actual Mall3ground mismatch; do not mark source corrupt or waive construction failures.
-2. Every fresh terrain changes the source/ground context: preserve and refresh the complete affected BASIC/native/source obligations, all source pair contacts and true lower-role/support proofs. Old private ground/pair independence must be proven by exact arrays, never assumed.
-3. Resolve three generic source identity extent/overlap failures with positive original-root/geographic/primary and current contact context. Canopy observations and coimport intentions are not approvals. No structure relation was returned; do not infer legal common ownership from absence or OSM names.
-4. Complete dependency/private browser/full publisher/installed HTTP/Neon readback before installation, then commit/push immediately. Continue all105outstandingfixedXL includingbothNULLkeys; full goal remains incomplete.
+1. Build the Mall3 original-TIN edit against the **already corrected private podium parent**, using actual V3 captured baseline and retaining every old parent surface outside the actual Mall3edit. Existing coastV6/localinsetV17 assume a production-parent capture and recompute domain; any new adapter must explicitly bind privateparent, finaldomain, allretainedtargetUIDs and oldsourceprovenance. Do not label V3capture as V2execution or assume an overlap composition already passed. Existing `native_parent_child_flat_composition_20261010.py` is only a candidate helper and requires strict rectangle containment, full seam/outside equivalence and standard guards.
+2. Reuse current immutable source/provider TIN proofs. Keep originalgeometry/fixed1x/HKPD pose. Recheck every affected current BASIC/native actor over the final whole coarse domain, including original/literal/twoF32bounds and complete drawn terrain; source collision scope is wider than terrain edit scope.
+3. Retain three generic identity extent/overlap failures until positive original-root/geographic/primary/currentcontact review resolves them. Sourcecanopy observations, commonOSMrefs and absentstructurerelations are not approvals. Both newmalls normalidentitypass.
+4. Complete lowerrole/support/currentforeign/native/dependency/privatebrowser/fullpublisher/actualinstalledHTTP/Neonreadback before installation, then commit/push immediately. Full goal remains413installed+3terminal+105outstanding, includingbothNULLkeys.
 
-Previous installation evidence and all older recovery notes are preserved in HANDOFF-BEFORE-ARENA-FIVE-20261101.md and prior archives. Protect unrelated working-commands.json, landmark-completion-audit/neon-snapshot.json and pier-lighting-design-photograph.jpg.
+Previous installation evidence and earlier recovery notes: HANDOFF-BEFORE-ARENA-FIVE-20261101.md and prior archives. Protect unrelated working-commands.json, landmark-completion-audit/neon-snapshot.json and pier-lighting-design-photograph.jpg.
