@@ -4,7 +4,9 @@ Full goal: finish all521 fixed XL source keys by installing every recoverable im
 
 ## Active Prosperous Garden recovery
 
-PID1467419 verified live: `government-xl-prosperous235568-six-original-mechanical-sequence-v1-20261031`, plan of same prefix ending mechanical-plan-v1-20261031.json, execution log `prosperous235568-six-original-mechanical-v1-20261031.log`. Existing V59 driver claims renewed source/terrain leases and complete phase scope. Four phases: actual renderer attributes, identity, model-only scope, full corrected-terrain runtime. Poll exact handle/state before restarting.
+PID1482683: `government-xl-prosperous235568-six-original-support-sequence-v1-20261031`; matching support-plan JSON and execution-log `prosperous235568-six-original-support-v1-20261031.log`. Five full four-world original podium-support diagnostics followed by all15 unordered sourcepairs. Observe actual process/state before restarting.
+
+Previous mechanical PID1467419 COMPLETE/released; Neonjob `f7afe148c3c241bea14f9bff4c5ad8677206e02580c78a8801086d79ec2d7c94`. All5tower identitiesPASS; owner retains source-extent warnings. All5towers0buried/0up; owner16down/0up. Complete renderer/scope/runtime receipts retained. No installation/physical approval.
 
 All5 exact Prosperous Garden Blocks1–5 recovered, job `a5e3fdbe751a454b4477e5a62745dd5b397d446d953ee0ba2e059f24a07ec5ea`, no missing/ambiguous source matches. Recovered 438261 transferred bytes across all5 source rows. Full6original selection rebound to fresh7035-actor inventory, job `64cb6049bfb12fda2aa15b1e49a358fe9712715f72ad5490f30d3b81924ea858`. No acceptance/installation credit. Earlier lookup stopped before query because newer terrain-scope schema lacks old UID-forms filename; raw failed log retained, no source-corruption inference. Existing acquisition helper performs broader exact current OBJECTID/CSUID source lookup without that schema dependency.
 
