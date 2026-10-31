@@ -1,3 +1,29 @@
+# Latest — Villa Premiere full private browser running
+
+Poll15917: five-ramp-canopy-private-preview-v1-20261031. Dependency-first five-original preview uses corrected authenticated ramp terrain and one exact data-only canopy overlay via actual production geometry modules; all source approval flags false, no publication. Desktop allfive active at last verified log. Private4177 leased; shared4176 untouched. Earlier contact11588/canopy92658/checkpoint89979 completed, not live workers.
+
+Checkpoint acbc1c8a records exact reuse of all four tower strict-root paths: source/support array hashes AND complete direct-warning tuples unchanged on fresh corrected ground. Every target finite, no endpoint rise; fresh foundations zero buried faces. Podium caps pass allfour worlds. Full23 foreign BASIC pairs show zero positive source contacts outside the co-import forms. Canopy1629a701 full8post footprints and unchanged roof pass: private foundationBase4.590000152587891, original base/roof/source fields unchanged. Raw direct-rim failures retained. Next bind actual new exports/lifecycle, exact assembly identity/pairs and complete 47form terrain obligations before guarded stage/install. No acceptance from this checkpoint alone.
+
+Counts410installed+3terminal+108outstanding/521;7030actors;111noninstalledkeys/twoNULLs retained. Disk currently47GiB available (prior2.5GiB constraint no longer current); no downloads performed. No AI geometry/optimisation/live form/terrain/source edits. Continue all remaining XL sources; do not narrow goal to Villa Premiere.
+
+# Latest — Villa Premiere ramp clearance resolved; five-source contacts running
+
+Session11588 runs the preflighted five-ramp-foreign-sequence-v1-20261030 under existing fenced leases. All previous workers are terminal/released. Actual five-source ramp context completed: all four podium ground-cap proofs pass with zero negative non-wall faces; all four tower compound foundations show zero fully buried faces in all four coordinate modes. Ordinary direct-rim warnings remain preserved; existing strict shared-original-edge root paths independently resolved their warning sets and must be bound to the fresh exact arrays before acceptance.
+
+Next: measure canopy325786 with existing illustrative-post mechanism, then full joint private browser/lifecycle and guarded acceptance. No original source geometry/pose changes, live form/terrain changes, downloads or optimisation. Old standalone browser is OLD terrain evidence only. Counts remain410installed+3terminal+108outstanding/521;7030actors; full111keys/twoNULLs preserved. More computation remains; no terminal credit from diagnostic failures.
+
+# Latest — Villa Premiere standalone preview passes; authentic TIN inset test running
+
+Poll77324 villa-premiere89917-original-inset-sequence-v1-20261030. Seven preflighted leased phases: authenticated cached terrain path binding,next-five donor ->89917 V17 source-TIN inset(required validatorPASS), actual renderer/attrs/four-world foundations/full current domain scope/form checks. Original model immutable; no download. All earlier workers38169/59281/73665 and all next-five/campus workers terminal/released. Private4177 closed; shared4176 untouched.
+
+Standalone89917 preview1b046f2c PASS real390/1280 day/night,picking/collision/failure-retry. ROOTactually inspectedall4actualexports; garden/podium visible among unchangedfourBASICtowers. Dependency preflight reports0assemblyblockers. This is runtime/appearance evidence, not source/physical/publication acceptance.
+
+Current-ground exact62d69514 still has unresolved low faces/caps,including non-wall negatives;365 lowrim samples remain1.410..1.898m below terrain even though ordinary aggregate foundation passes. Do NOT waive these with aggregate/basement labels. Authenticated original providerTIN giveszero fully buried faces,so test it before more component interpretations. Optionalfour-originaltower strict-support tests allFAIL despitezero compound burial; no tower installation/approval. Their failure does not itself block independently reviewed podium-with-current-BASICs.
+
+See ../government-xl-villa-premiere89917-standalone-current-ground-checkpoint-v1-20261030/summary.json. Current5source/4exactcontact,5cache selection and source research leads preserved. Map/index located but no map-layout approval. No AI geometry/optimisation,newsourceposes,suppression or liveBASICchanges. Counts410+3terminal+108outstanding/521;7030actors,full111keys/twoNULLs unchanged.
+
+Skill cleanup0b5c6b031c and pipeline preflight/next-five checkpoint399e88b56f PUSHED;3CLI regression tests and skill validatorPASS. SKILL main5490bytes vs424817-byte verbatim archive. Do not append progress toSKILL. Finish this actual TIN result,then any safe context/acceptance work; preserve all108 rather than narrowing the goal to current sources.
+
 # Current — Villa Premiere five-original physical checks active
 
 Poll38169: villa-premiere89917-five-source-physical-sequence-v1-20261030.12 explicitly preflighted phases: five-source merge/current renderer/attrs/scope,4four-world tower-podium support checks,4complete exact original pair-contact accounts. All originals cached, no downloads. The wrapper runs CLI preflight before the driver; require its success before future drivers (use checked subprocess or set-e). All earlier workers including14528/26507/39914/27768/75285 terminal/released.

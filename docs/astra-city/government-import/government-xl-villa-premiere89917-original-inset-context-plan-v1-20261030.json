@@ -1,0 +1,76 @@
+{
+  "batch": "government-xl-villa-premiere89917-original-inset-context-sequence-v1-20261030",
+  "uids": [
+    "landsd/89917:0"
+  ],
+  "resources": [
+    "building:landsd/1205:0",
+    "building:landsd/121309:0",
+    "building:landsd/121443:0",
+    "building:landsd/148052:0",
+    "building:landsd/278808:0",
+    "building:landsd/325786:0",
+    "building:landsd/335260:0",
+    "building:landsd/44758:0",
+    "building:landsd/58497:0",
+    "building:landsd/6046:0",
+    "building:landsd/63823:0",
+    "building:landsd/89917:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_retained_basic_combined_support_v1_20261030.py",
+      "batch": "government-xl-villa-premiere89917-original-inset-retained-basic-support-v1-20261030",
+      "scopeResources": "government-xl-villa-premiere89917-original-inset-scope-v1-20261030",
+      "args": [
+        "--before-runtime",
+        "government-xl-villa-premiere89917-five-source-current-ground-v1-20261030",
+        "--after-runtime",
+        "government-xl-villa-premiere89917-original-inset-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-original-inset-attributes-v1-20261030",
+        "--scope",
+        "government-xl-villa-premiere89917-original-inset-scope-v1-20261030",
+        "--uid",
+        "landsd/89917:0",
+        "--basic-uid",
+        "landsd/58497:0",
+        "--basic-uid",
+        "landsd/63823:0",
+        "--basic-uid",
+        "landsd/121309:0",
+        "--basic-uid",
+        "landsd/148052:0",
+        "--basic-uid",
+        "landsd/325786:0"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v2_20261027.py",
+      "batch": "government-xl-villa-premiere89917-original-inset-low-faces-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-original-inset-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-original-inset-attributes-v1-20261030",
+        "--uid",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "selected_original_complete_ground_cap_paths_v3_20261029.py",
+      "batch": "government-xl-villa-premiere89917-original-inset-ground-cap-paths-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-original-inset-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-original-inset-attributes-v1-20261030",
+        "--low-faces",
+        "government-xl-villa-premiere89917-original-inset-low-faces-v1-20261030",
+        "--uid",
+        "landsd/89917:0"
+      ]
+    }
+  ]
+}

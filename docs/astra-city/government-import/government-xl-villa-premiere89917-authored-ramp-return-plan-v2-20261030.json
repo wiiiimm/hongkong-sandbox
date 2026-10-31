@@ -1,0 +1,93 @@
+{
+  "batch": "government-xl-villa-premiere89917-authored-ramp-return-sequence-v2-20261030",
+  "uids": [
+    "landsd/89917:0"
+  ],
+  "resources": [
+    "building:landsd/1205:0",
+    "building:landsd/121309:0",
+    "building:landsd/121443:0",
+    "building:landsd/148052:0",
+    "building:landsd/278808:0",
+    "building:landsd/325786:0",
+    "building:landsd/335260:0",
+    "building:landsd/44758:0",
+    "building:landsd/58497:0",
+    "building:landsd/6046:0",
+    "building:landsd/63823:0",
+    "building:landsd/89917:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_upward_floor_terrain_return_v3_20261030.py",
+      "batch": "government-xl-villa-premiere89917-authored-ramp-return-v2-20261030",
+      "args": [
+        "--previous",
+        "government-xl-villa-premiere89917-original-inset-v1-20261030",
+        "--ramps",
+        "government-xl-villa-premiere89917-five-original-ramp-faces-v1-20261030",
+        "--runtime",
+        "government-xl-villa-premiere89917-original-inset-runtime-v1-20261030",
+        "--uid",
+        "landsd/89917:0",
+        "--rendered-proof",
+        "government-xl-villa-premiere89917-inset-rendered-input-v1-20261030"
+      ],
+      "requiredStatus": "private-terrain-validator-passed"
+    },
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-villa-premiere89917-ramp-return-runtime-v1-20261030",
+      "args": [
+        "--patch",
+        "government-xl-villa-premiere89917-authored-ramp-return-v2-20261030",
+        "--capture",
+        "government-xl-villa-premiere89917-original-inset-runtime-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-villa-premiere89917-ramp-return-attributes-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-villa-premiere89917-ramp-return-runtime-v1-20261030"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-villa-premiere89917-ramp-return-foundations-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-ramp-return-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-ramp-return-attributes-v1-20261030",
+        "--uid",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-villa-premiere89917-ramp-return-scope-v1-20261030",
+      "args": [
+        "--patch",
+        "government-xl-villa-premiere89917-authored-ramp-return-v2-20261030",
+        "--inventory",
+        "government-xl-after-disneyland-piers-native-bounds-fresh-v2-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_patch_form_checks_v1.py",
+      "batch": "government-xl-villa-premiere89917-ramp-return-forms-v1-20261030",
+      "scopeResources": "government-xl-villa-premiere89917-ramp-return-scope-v1-20261030",
+      "args": [
+        "--scope",
+        "government-xl-villa-premiere89917-ramp-return-scope-v1-20261030",
+        "--inventory",
+        "government-xl-after-disneyland-piers-native-bounds-fresh-v2-20261030",
+        "--patch",
+        "government-xl-villa-premiere89917-authored-ramp-return-v2-20261030"
+      ]
+    }
+  ]
+}

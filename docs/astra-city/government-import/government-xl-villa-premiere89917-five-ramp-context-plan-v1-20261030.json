@@ -1,0 +1,151 @@
+{
+  "batch": "government-xl-villa-premiere89917-five-ramp-context-sequence-v1-20261030",
+  "uids": [
+    "landsd/89917:0",
+    "landsd/58497:0",
+    "landsd/63823:0",
+    "landsd/121309:0",
+    "landsd/148052:0"
+  ],
+  "resources": [
+    "building:landsd/1205:0",
+    "building:landsd/121309:0",
+    "building:landsd/121443:0",
+    "building:landsd/148052:0",
+    "building:landsd/278808:0",
+    "building:landsd/325786:0",
+    "building:landsd/335260:0",
+    "building:landsd/44758:0",
+    "building:landsd/58497:0",
+    "building:landsd/6046:0",
+    "building:landsd/63823:0",
+    "building:landsd/89917:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v7_20261030.py",
+      "batch": "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+      "args": [
+        "--patch",
+        "government-xl-villa-premiere89917-authored-ramp-return-v2-20261030",
+        "--scope",
+        "government-xl-villa-premiere89917-ramp-return-scope-v1-20261030",
+        "--capture",
+        "government-xl-villa-premiere89917-five-source-selection-v1-20261030",
+        "--uid",
+        "landsd/89917:0",
+        "--uid",
+        "landsd/58497:0",
+        "--uid",
+        "landsd/63823:0",
+        "--uid",
+        "landsd/121309:0",
+        "--uid",
+        "landsd/148052:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030",
+      "args": [
+        "--capture",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-villa-premiere89917-five-ramp-model-scope-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030",
+        "--inventory",
+        "government-xl-after-disneyland-piers-native-bounds-fresh-v2-20261030"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v2_20261027.py",
+      "batch": "government-xl-villa-premiere89917-five-ramp-podium-low-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030",
+        "--uid",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "selected_original_complete_ground_cap_paths_v3_20261029.py",
+      "batch": "government-xl-villa-premiere89917-five-ramp-podium-caps-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030",
+        "--low-faces",
+        "government-xl-villa-premiere89917-five-ramp-podium-low-v1-20261030",
+        "--uid",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "original_pair_four_world_support_v2_20261028.py",
+      "batch": "government-xl-villa-premiere89917-58497-0-ramp-compound-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030",
+        "--supported",
+        "landsd/58497:0",
+        "--support",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "original_pair_four_world_support_v2_20261028.py",
+      "batch": "government-xl-villa-premiere89917-63823-0-ramp-compound-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030",
+        "--supported",
+        "landsd/63823:0",
+        "--support",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "original_pair_four_world_support_v2_20261028.py",
+      "batch": "government-xl-villa-premiere89917-121309-0-ramp-compound-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030",
+        "--supported",
+        "landsd/121309:0",
+        "--support",
+        "landsd/89917:0"
+      ]
+    },
+    {
+      "script": "original_pair_four_world_support_v2_20261028.py",
+      "batch": "government-xl-villa-premiere89917-148052-0-ramp-compound-v1-20261030",
+      "args": [
+        "--runtime",
+        "government-xl-villa-premiere89917-five-ramp-current-runtime-v1-20261030",
+        "--attributes",
+        "government-xl-villa-premiere89917-five-ramp-attributes-v1-20261030",
+        "--supported",
+        "landsd/148052:0",
+        "--support",
+        "landsd/89917:0"
+      ]
+    }
+  ]
+}
