@@ -9,7 +9,7 @@ def main():
     out=BASE/BATCH;assert not out.exists();folder=BASE/INSTALL;assert not(folder/'failure-recovery.json').exists();final=read(folder/'result.json');history=read(folder/'historical-input-context.json');refs=[Path(__file__),folder/'result.json',folder/'historical-input-context.json'];aliases={};checked={};reports=[]
     for r in history['mutableCurrentByteSnapshots']:
         b=r['savedHistoricalBytes'];p=ROOT/b['path'];assert digest(p.read_bytes())==b['sha256']==r['originalSHA256'];aliases[r['originalPath'],r['originalSHA256']]=p;refs.append(p)
-    phases=[P+'qualified-stage-v3-20261031',P+'qualified-stage-lifecycle-v1-20261031',P+'original-qualification-v2-20261031',P+'numerical-ground-context-v1-20261031',P+'ramp-support-checkpoint-v1-20261031',P+'post-status-rollback-readback-v1-20261031']
+    phases=[P+'qualified-stage-v3-20261031',P+'qualified-stage-lifecycle-v1-20261031',P+'original-qualification-v2-20261031',P+'numerical-ground-context-v1-20261031',P+'ramp-support-checkpoint-v1-20261031',P+'post-status-rollback-readback-v1-20261031',P+'distinct-retry-baseline-v1-20261031']
     with locked_publication(ROOT),connect()as db:
         db.execute('SET TRANSACTION READ ONLY')
         for batch in [INSTALL,*phases]:
@@ -21,6 +21,8 @@ def main():
         sources=final['sourceSHA256ByUid'];assert len(sources)==5
         for uid,sha in sources.items():assert db.execute('SELECT review_state,source_sha256 FROM astra_modelling.model_reviews WHERE snapshot_id=%s AND uid=%s',(final['snapshotId'],uid)).fetchone()==('installed-verified',sha)
         pointer=ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json';assert read(pointer)['snapshotId']==final['snapshotId'];refs.append(pointer)
+        from installation_snapshot_identity_v1_20261031 import identity as snapshot_identity
+        acceptance=read(folder/'acceptance.json');inventory=ROOT/read(pointer)['inventory'];assert acceptance['transactionBatch']==INSTALL and snapshot_identity(read(inventory)['parts'],acceptance,INSTALL)==final['snapshotId']!='5507c154c3cc2416';refs.extend([inventory,HERE/'installation_snapshot_identity_v1_20261031.py',HERE/'safe_status_output_v1_20261031.py',HERE/'villa_premiere_distinct_retry_baseline_v1_20261031.py'])
         manifest=ROOT/final['manifest']['path'];assert digest(manifest.read_bytes())==final['manifest']['sha256'];after=read(manifest);refs.append(manifest)
         oldbinding=next(r for r in history['mutableCurrentByteSnapshots']if r['originalPath']==str(manifest.relative_to(ROOT)));before=read(ROOT/oldbinding['savedHistoricalBytes']['path'])
         models=[];oldmodels=[];asset_count=0
