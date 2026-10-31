@@ -12,7 +12,7 @@ Progress exporter used batchlocal snapshot, never unrelatedlegacy audit. Globalf
 
 ## Continue
 
-1. Commit/push current installation immediately (preparedagainst checkpointad00b76df3).
+1. Installation committed and pushed as **0f960fa1c8** on `codex/astra-hong-kong-city`. All 20 committed source blobs match their accepted SHA-256 hashes.
 2. Read latestbatch `full-xl-current-count.json` for105outstandingkeys and3terminals; retainbothNULLUIDkeys. Reuse existingexactsource/terrain checkpoints fornextsafe source group. Do not rerun completedPalazzo/UniversityHall imports.
 3. UniversityHall93417was already installed20261024; delayedapprovalreply was reconciled, no reinstall.
 4. Existinggoal remainsall521terminalorinstalled; do not markcompleteorblockbecauseothersneedmorecompute. Nooptimisation/AIgeometry/productiondeployment authorised bythisbatch.
