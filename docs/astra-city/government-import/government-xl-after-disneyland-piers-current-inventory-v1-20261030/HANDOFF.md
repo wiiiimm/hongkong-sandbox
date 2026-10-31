@@ -4,7 +4,7 @@ Full fixed goal remains all521 XL source keys: **411 installed +3 exact-source t
 
 ## Current worker / next action
 
-PID1887070: `government-xl-275446-arena-mall-three-original-mechanical-sequence-v1-20261031`; matching three-original-mechanical-plan JSON; log `275446-arena-mall-three-original-mechanical-v1-20261031.log`. ExistingV64driver: exact3-source merge,3-source attributes,new2identity,complete modelscope,corrected-ground actual runtime,new2four-world foundations,all3unordered sourcepairs/12worldrows. Source275446 identity remains separately pending; do not transfer it from new companions.
+No live worker at this checkpoint. PID1887070 completed all8mechanical phases and released its leases: three-original sequence d00d0019a51004a66095c2ae5d272861f439e4c387fa263e82a87123015b240d. Exact3-source merge/attributes/new2identity/modelscope/runtime/new2foundations/all3pairs are complete. Both new identities retain extent/unrelated-overlap flags; do not transfer original235568 approval to these sources. Their current exact-source/component context still needs review. Next prioritise the now fully evidenced Prosperous guarded stage rather than repeating finished diagnostics.
 
 Previous Prosperous foreign worker1834760 COMPLETE/released83b6c365:17pairs in all5before/after streams,7retained foreign BASIC pairs all0positive contacts after import;10co-import/BASIC comparisons retained independently. Full six-source foreign contact job68779ee6. Previous recovery1839434 COMPLETE/released036d8c04: exact Kai Tak Arena318704 (4425faces/63812bytes) and Kai Tak Mall1 318722 (918faces/13600bytes);77412downloaded bytes,0unresolved matches. No geometry edits or installation.
 
