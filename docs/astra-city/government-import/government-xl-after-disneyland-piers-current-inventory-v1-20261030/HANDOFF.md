@@ -1,3 +1,11 @@
+# Current: fresh three-source sequence COMPLETE;76610 private terrain recovery running
+
+Fresh sequencefd68589db2960c37acdad16592ddf89ab2c9d51c4caf6f2867ffbc61c7925285 completed all4phases and released leases. Currentcapture1d981564,attributesda033830,scope8357ac9f,exact cachedTIN binding7098d3b2 retained. No repeated oldTIN decode. All3raw currentground failures retained; identitywarnings remain unapproved.
+
+Detached PID817583 now runs government-xl-after-villa-premiere-76610-inset-plan-v1-20261031.json (5phaseCLIpreflightPASS), existing leasedV58driver. Observe execution-logs/after-villa-premiere-76610-inset-v1-20261031.log and local/government-xl-after-villa-premiere-76610-inset-sequence-v1-20261031/state.json. Domainpreflight found no overlapping installednative terrain for any3source. Existing V17inset then complete currentcoarsedomain scope, V7private runtime and buriedface context. Dynamic scopeResources addsALLnewly nominated actors before runtime. No modelbytes/poses or publicmap change. Do not restart live phases.
+
+ROOT viewed prior full76610 oblique35PNG: extensive low multilevel podium with long wings, no roleapproval. Actualraw identity warnings targetcoverage/unrelatedoverlap preserved. Buildingform3853528472P20081126,parentway/255994239,source08812581; later bounded identity must account all66currentforms and native304700. Counts411installed/3terminal/107outstanding,7035actors unchanged. 0d46803a23 audit/census PUSHED; installation10ad414abc alreadyPUSHED. Continue fullgoal, noAIgeometry/optimisation.
+
 # Verified installation audit complete; next three cached sources running
 
 Installation 10ad414abc PUSHED. Independent whole-map readback 3ded960e1fd114ba638e3470286fda2a17bcfe7aef73cc343cb4fa93e4211dd8 COMPLETE: all7035 asset hashes,7030 old entries, all521 fixedXL rows/bothNULLs/global8 supports and exact canopy-only tile delta verified. Fresh full native bounds7035 COMPLETE 0de9f42ab581e6a7223ef00b7ebafde32087ca78c7f9d8bc5bdd43e83ad499da, no old runtime rows reused. Stable current totals411installed+3terminal+107outstanding=521,7035actors, active snapshot786ae1bbed2829ab. UniversityHall approval already fulfilled in c339a37453; do not reinstall.
