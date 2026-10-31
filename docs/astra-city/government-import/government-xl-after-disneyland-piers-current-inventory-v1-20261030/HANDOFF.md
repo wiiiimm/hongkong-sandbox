@@ -4,7 +4,7 @@
 
 ## Current execution state
 
-No active worker or private browser server. Exact exec13811 finished successfully and released all leases. Never restart completed52772/69857/contact-sheet work or failed37655/31911; their receipts/failures are preserved. Shared4176 untouched.
+Live exec **28477**: `arena275446_five_qualified_lifecycle_v1_20261101.py`, full91source/terrain/server4177 scope, six exact qualified-stage desktop/mobile cases. Poll this exact handle; do not restart on observation timeout. Prior exec13811 finished successfully and released all leases. Never restart completed52772/69857/contact-sheet work or failed37655/31911; their receipts/failures are preserved. Shared4176 untouched.
 
 University Hall93417 is already installed in `government-xl-university-hall-standalone-qualified-stage-v2-20261024`, sourceSHA debfebe52c8a04231cd20bdbfeaa9057f28af6e9df054769f9c57118f4d5aa60. Current catalogue identity/placement/publication flags are alltrue. The delayed guarded-standalone approval is reconciled; do not reinstall it.
 
@@ -20,10 +20,18 @@ Prefix: `government-xl-arena275446-after-palazzo-`. Exactly275446/318697/318701/
 - Complete90resource interface sequence **69bad19f6428a56616681c1a16a89e4744ae4bd36849d20766e5e7b401bf483d**: all saved original-pair planes **61e2734cc9ba0c0a4e0c12e22238edb2ab14bc38fc464ba22d9b62b23df081f4**, native roles **687bd153f1097916d1e2f947d17d391180449a9121f8d0fbf7239d69bda48bce**, all nonempty native junction views. All703podium/stadium contacts retained,516transverse source crossings included; diagram shows lower ring/deck context, not a new engineering/collision exemption.
 - Interface attemptsV1/V2 failed before classification because legacy pair receipts omit redundant world hashes and use prior runtime cache paths. V3 authenticates the original producer/complete attributes/original selection/old source asset bytes, proves exact current byte equality, then derives represented hashes. No missing-field fallback without authenticated input closure, no recomputed contacts or changed geometry. Failed code/notes retained.
 
-## Next work — not yet executed
+## Qualification and canonical publisher — completed
 
-1. Compose bounded five-original qualification using all current identities, source/foundation/lower roles, exact current warning paths, full57foreign BASIC before/after streams, complete10sourcepairs/fourworlds and unchanged native source/entry/dependencies. Retain all raw flags. No extra engineering/watertightness/contact-count gate; an actual failure still needs resolution.
-2. Use existing Palazzo guarded installation contracts, adapted exactly to5actors/current7061inventory/413installedXL. Fullsource+terrain scope90resources; private browser/server scope91. Configure exact stage and repeatdependencypreflight/full canonical publisher dryrun. Do not change sharedpublisherguards. If actual terrain audit self-reference fails, preserve frozen producer and use the existing metadata-only immutable preannotation repair pattern with identical renderer payload/fullcanonicalvalidator.
+Five-original qualification **0a8b63218337d9fb50ce75e68f497dce5ca8de3c6ac49d80530caec31cb5b0df** binds all current source identities, lower/foundation/canonical paths, complete57foreign BASIC/10sourcepairs/native interfaces,35terrain forms, full90resource scope,24actually inspected exports and retained stadium. Raw flags preserved. QualificationV1 failed only its equality check after omitting the retained-parent lease superset; full90resources were held and released, no approval. V2 authenticates that existing parent-plan union; no scope reduced or guard removed.
+
+Exact five-qualified-stageV1 full canonical publisher dryrun **f4c49dc7d75822323ad4c72b44b01e8223c37515a5189b084eca6eea7d5b1901** passed, final dependency preflight unblocked. No terrain provenance repair was needed. Original terrain candidate SHA unchanged. All shared publisher/retained-support validators intact. No installation/publication yet.
+
+Prepared `arena275446_five_{installation_contract,guarded_publish,live_install}_v1_20261101.py`. Seven adapters parse; exactbefore413/108/7061 andafter414/107/7066 counts checked. New `sha_tin_live_atomic_browser_v2_20261101.mjs` retains every actual-public-HTTP/asset/manifest/fallback/collision guard and adds the previously tested V4full-bounds/range-aware camera. Six real liveexports still must be inspected before credit. Prepared code has not executed publication.
+
+## Next work
+
+1. Poll live28477; qualification and full canonical publisher dryrun are completed above. Preserve their exact inputs and raw warnings. Do not repeat completed checks.
+2. On exact-stage lifecycle success, run prepared guard/installer prepare-only. Then rollback-protected installation with actual publicHTTPsourcebytes/manifest/terrain checks, sixbrowsercases andROOTsiximage review. All source/terrain and shared retained-support guards remain.
 3. Qualified-stage lifecycle, guarded publish, actual installedHTTP+exports review and unique snapshot/Neonreadback, then immediate commit/push. Expected delta5actors/1XL only after success; no credit now.
 
 All original meshes, node transforms, fixed1x/HKPD pose remain unchanged. Bounded AI evidence interpretation/code work only; zero AI geometry modelling, no optimisation/variant processing, migration, deployment or main merge. Model/effort not inferable from tool-visible metadata.
