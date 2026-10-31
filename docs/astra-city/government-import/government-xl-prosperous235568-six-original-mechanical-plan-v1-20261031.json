@@ -1,0 +1,75 @@
+{
+  "batch": "government-xl-prosperous235568-six-original-mechanical-sequence-v1-20261031",
+  "uids": [
+    "landsd/235568:0",
+    "landsd/234691:0",
+    "landsd/235119:0",
+    "landsd/235888:0",
+    "landsd/236076:0",
+    "landsd/237129:0"
+  ],
+  "resources": [
+    "building:landsd/235568:0",
+    "building:landsd/234691:0",
+    "building:landsd/235119:0",
+    "building:landsd/235888:0",
+    "building:landsd/236076:0",
+    "building:landsd/237129:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-prosperous235568-six-original-attributes-v1-20261031",
+      "args": [
+        "--capture",
+        "government-xl-prosperous235568-six-original-selection-v1-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_identity_v3_20261023.py",
+      "batch": "government-xl-prosperous235568-six-original-identity-v1-20261031",
+      "args": [
+        "--capture",
+        "government-xl-prosperous235568-six-original-selection-v1-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-prosperous235568-six-original-model-scope-v1-20261031",
+      "args": [
+        "--runtime",
+        "government-xl-prosperous235568-six-original-selection-v1-20261031",
+        "--attributes",
+        "government-xl-prosperous235568-six-original-attributes-v1-20261031",
+        "--inventory",
+        "government-xl-after-villa-premiere-native-bounds-v1-20261031"
+      ]
+    },
+    {
+      "script": "selected_original_patch_runtime_v7_20261030.py",
+      "batch": "government-xl-prosperous235568-six-original-patch-runtime-v1-20261031",
+      "scopeResources": "government-xl-after-villa-premiere-235568-floor-return-scope-v1-20261031",
+      "args": [
+        "--capture",
+        "government-xl-prosperous235568-six-original-selection-v1-20261031",
+        "--patch",
+        "government-xl-after-villa-premiere-235568-source-floor-return-v1-20261031",
+        "--scope",
+        "government-xl-after-villa-premiere-235568-floor-return-scope-v1-20261031",
+        "--uid",
+        "landsd/235568:0",
+        "--uid",
+        "landsd/234691:0",
+        "--uid",
+        "landsd/235119:0",
+        "--uid",
+        "landsd/235888:0",
+        "--uid",
+        "landsd/236076:0",
+        "--uid",
+        "landsd/237129:0"
+      ]
+    }
+  ]
+}

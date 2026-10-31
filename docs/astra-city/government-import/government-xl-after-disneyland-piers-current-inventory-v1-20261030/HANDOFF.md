@@ -2,13 +2,23 @@
 
 Full goal: finish all521 fixed XL source keys by installing every recoverable immutable original or recording an evidenced exact-source terminal result. **411 installed +3 terminal +107 outstanding =521;7035 detailed actors.** Current noninstalled key list is110 including bothNULLs and3terminals; current-work JSON was reconciled against the independently audited full521 installation rows. No duplicate credit.
 
-## Live worker
+## Active Prosperous Garden recovery
 
-**PID1161274**, existingV58leaseddriver, five-phase `government-xl-after-villa-premiere-235568-inset-plan-v1-20261031.json` (CLIpreflightPASS). Current13form/source/terrain resource scope14; later runtime adds complete fresh coarse-domain obligations. Uses already verified originalTIN binding, no newdownload. Observe execution-logs/after-villa-premiere-235568-inset-v1-20261031.log and exact local sequence state before restarting. Inset MUST pass existingvalidator before scope/runtime.
+PID1467419 verified live: `government-xl-prosperous235568-six-original-mechanical-sequence-v1-20261031`, plan of same prefix ending mechanical-plan-v1-20261031.json, execution log `prosperous235568-six-original-mechanical-v1-20261031.log`. Existing V59 driver claims renewed source/terrain leases and complete phase scope. Four phases: actual renderer attributes, identity, model-only scope, full corrected-terrain runtime. Poll exact handle/state before restarting.
 
-Palazzo19phase worker1054158 COMPLETE8df56570/released: all11four-world strict interfaces, seven shared-edge routecases, all66unordered sourcepairs/264coordinate rows. Exactpair evidence has positiveoriginalsurface contacts forALL11companions againstpodium (incl4with0directstrict-rimanchors); preservepositivearea/line counts forrole review, no automatic supportapproval.
+All5 exact Prosperous Garden Blocks1–5 recovered, job `a5e3fdbe751a454b4477e5a62745dd5b397d446d953ee0ba2e059f24a07ec5ea`, no missing/ambiguous source matches. Recovered 438261 transferred bytes across all5 source rows. Full6original selection rebound to fresh7035-actor inventory, job `64cb6049bfb12fda2aa15b1e49a358fe9712715f72ad5490f30d3b81924ea858`. No acceptance/installation credit. Earlier lookup stopped before query because newer terrain-scope schema lacks old UID-forms filename; raw failed log retained, no source-corruption inference. Existing acquisition helper performs broader exact current OBJECTID/CSUID source lookup without that schema dependency.
 
-New endpoint-aware strict-anchor selector and exact-source replay d404de25 COMPLETE/released; six unit regressionsPASS, includinggenuineabove-endpoint bridge rejection and oneULPalternateanchor. It reproducedall28prior coordinate proofs, reusedonlyexistingcanonicalstrict roots, no newanchors/joins/tolerance/sourcechanges. Groupingroots byexactterminalheight resolves6literal warningpaths:88899hasall4routesnowPASS;71703literal26->23failures, genuine failures retained. Three sourcecases71688/71709/88899 nowall4shared-edge pathscomplete; no architectural/physical/installation approval. Existingkernel/minimaxfiles unchanged. Newfiles endpoint_aware_strict_anchor_paths_v1_20261031.py / endpoint_aware_strict_roots_context_v1_20261031.py / test_endpoint_aware_strict_anchor_paths_v1_20261031.py. Next complete finite-intersection attachments only forremainingwarnings using cached66pair evidence; do not repeat finishedcontacts or waive realbridge/disconnected cases.
+Tested computation helpers committed/pushed `0f21c99d77`:6 exact-height-bound tests and4 completed-pair binding tests PASS. No geometry edits or relaxed thresholds. Full real Palazzo run certifies259521 of309100 candidate pairs per world by exact height bounds; remaining49579 use unchanged exact solver.
+
+## Latest verified diagnostics — no live worker
+
+Saved PIDs1409443/1409444 are no longer running. Both completed with Neon verification: Palazzo complete-ground sequence `870108b545413dc8ecf80f731515604796d309cd6d5d2176b5ce1b1d5f9a5bce`; 235568 retained-support sequence `56e9798bad7e1f087c41eeae2ccc0609a9632bcd05217123f2c0f97ff680e26e`. Do not restart completed work.
+
+Palazzo all11 companions now have diagnostic attachment routes across all4 coordinate representations: 3 via endpoint-aware strict roots, 6 via finite attachments, 2 via finite endpoint choices. These are not physical/identity/publication acceptance. Complete-ground V3 considers19210 sourcefaces in each mode;309100 candidate pairs =259521 exact height certificates +49579 exact finite checks.531 affected sourcefaces remain in every mode, including non-wall and wholly covered faces: review actual lower-source roles rather than treating the12 sampled downward faces as the complete burial context.
+
+235568 source-floor nine-phase run completed:16 downward buried /0up, aggregate foundation policy passes. All5 retained BASICs genuinely gained unresolved support witness positions in every mode:234691 +262;235119 +18;235888 +342;236076 +499;237129 +285. Existing failures also retained. No acceptance or production changes. Next recover exact original companions via cached source indexes and inspect actual support; do not waive these regressions.
+
+University Hall approval is already fulfilled by installation commit `c339a37453`; do not reinstall.
 
 ## Palazzo76610 recovery
 
