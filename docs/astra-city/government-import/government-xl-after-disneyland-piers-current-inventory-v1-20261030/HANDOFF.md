@@ -2,9 +2,41 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Current worker and next actions — 2 November 2026
+
+**Only session85264 is live**: complete11original Harbour Glory/Alexandra unapproved preview. Desktop passed22source day/night views and11joint checks,0errors; mobile is running. Poll exact handle and `/tmp/astra-harbour-glory-eleven-unapproved-preview-v1-20261102.log`; it owns root terrain and loopback4177. Do not restart or overlap those resources. No installation credit.
+
+Shangri-La session45570 completed successfully: current5cmterrain support/foreign/roles/351endpoint paths all4worlds, Neon sequence `eefadd870f637a8285bdc080b371c0c13a1bdf3e5fc4746c366e86f8bf59047d`. Next after rootlease release: existing self-leased `selected_bounded_native_neighbours_v1.py` using `government-xl-shangrila233824-contact-floor-return-v2-20261102-terrain-scope`, current7074inventory and matching-inset; then actual private preview with committed `government-xl-shangrila-contact-ground-unapproved-preview-config-v2-20261102.json`. Reinspect all8freshsourceexports. FailedphysicalreviewV1 preserved; do not rerun it. Newphysicalreview must consume currentterrain/neighbour/browser and oldexactsource contacts only with explicit currentworld bindings. Existing full-boundary guarded stage/install/live/readback remain required.
+
+Code and evidence pushed **a6f1207aaa** and **4d53e965db**.5terrain tests pass. Counts stay419installed/3terminal/99unfinishedof521,7074detailedactors. Wholegoal and bothNULLsourcekeys unchanged. Previous approval-only turn was no installation progress; this continuation completed new source/terrain proofs and a tested actualcontact fix. No blocker/userdecision/AIgeometry work.
+
+Earlier sections below are superseded routing history.
+
+## Latest live workers — 2 November 2026
+
+**Session45570**: `government-xl-shangrila-contact-ground-mechanical-v2-20261102-sequence`, log `/tmp/astra-shangrila-contact-ground-mechanical-v2-20261102.log`. Rebind original support/foreign/role/endpoint evidence to corrected original-floor terrain. **Session85264**: `government-xl-harbour-glory-eleven-unapproved-preview-v1-20261102`, log `/tmp/astra-harbour-glory-eleven-unapproved-preview-v1-20261102.log`; complete11source private preview, all approval flagsfalse, unrelatedBASICactorsretained. Poll exact handles before overlap.
+
+ShangriLa original endpointchoices completed:351/351paths pass in all4worlds. Physical reviewV1 then correctly stopped: podium raw minLowGap=.25m violated existing min<=.1m contact policy. No physical approval was frozen. New5cm original-floor return passes5tests, unchanged terrain validators, actual podium minLowGap=.04999995m, both four-world foundations and completecurrent scope. Currentphase is evidence rebind; fresh12neighbour/browser/physical acceptance remain. No generic limit or building geometry changed.
+
+Alexandra247461 exact rational coverage now proves all31buriedfaces (including10upward) wholly below fully covering actualdrawnground in all4streams. This is visibility/source context, not a basement/acceptance waiver. New232659neighbour has two buriedwallfaces; complete exact currentground partition and existing cap paths pass all4worlds. Both positive results saved in pinnedNeon. Counts unchanged419/3/99of521,7074actors. HKS-203updated.
+
+The continuation section below records superseded handles; current-work JSON routes exact latest batches.
+
+## Current continuation — 2 November 2026
+
+Previous turn revalidated an already fulfilled University Hall approval; no new installation credit. Session27553 and the other historical handles below are terminal. **Active session44260** runs existing Shangri-La endpoint choices under renewing source leases, plan `government-xl-shangrila-original-joint-endpoint-choices-v1-20261102-plan.json`, log `/tmp/astra-shangrila-original-joint-endpoint-choices-v1-20261102.log`. Poll before overlap. No source edits or acceptance changes.
+
+Shangri-La: exact identity review complete; original floor-return terrain yields clear four-world earth foundations for both originals; all12 neighbours clear. Actual private desktop/mobile loading/picking/collision/retry checks complete; eight exports inspected. Raw compound embedding and 116–126 above-ceiling attachment paths remain unresolved. Saved complete self-contacts are reused by current endpoint-choice diagnostic. No physical/support/publication approval.
+
+Harbour Glory/Alexandra: eleven original actors now captured on shared authenticated E12 terrain. Old ten arrays verified identical in all coordinate streams. Seven tower support diagnostics and five canonical-path recoveries complete; podium247461 still has31 buried/10 upward faces, all ten upward faces below1.2m floor. Keep raw failures and remaining identity/neighbour/contact/browser gates. See current-work JSON for exact batch routing. Counts stay **419 installed +3 terminal +99 unfinished =521**,7074 detailed actors. No AI geometry modelling or optimisation.
+
 ## Active Alexandra / Harbour Glory recovery
 
-**CURRENT: session88652**, existing V74sequence with existing `selected_original_clamped_coast_partition_inset_v8_20261101.py`, plan `government-xl-harbour-glory-three-bodies-shared-e12-trial-v1-20261101-plan.json`, log `/tmp/astra-harbour-glory-three-bodies-shared-e12-trial-v1-20261101.log`. Original247461/28391/92999 sharedE12 private terrain trial under full10source/root lease. Existing1.2floor/parent/coast/all finalvalidators unchanged. Poll before overlap; no acceptance/publication.
+**CURRENT: session27553**, existing V74sequence / existing **root-parent shared V7clamped-coast constructor** (`selected_original_clamped_coast_partition_inset_v7_20261031.py`), plan `government-xl-harbour-glory-three-bodies-shared-e12-trial-v3-20261101-plan.json`, log `/tmp/astra-harbour-glory-three-bodies-shared-e12-trial-v3-20261101.log`. Full10source/root lease, original3body247461/28391/92999 E12binding and exact baselineburiedcontext. No private-parentreuse, geometryedits, floor/guardchanges, installationcredit or publication. Poll handle before overlap.
+
+Preservedrecipefailures: V1session88652parserexit2 missingV8private-parent; V2session44192exit1 V8requires retainedprivate subjects disjointfrom neweditedsubjects, but247461overlaps. Correct existingrecipe is root-parent sharedV7, selectedwithout modifyingV8guard. These are worker-plan errors, not government sourcecorruption. Bothterminal/released. Currentcode/binding push e9d69a77f4; later correctedplans/workerhandoff remain local. Counts419installed/3terminal/99unfinished,7074actors; no installationthiscontinuation.
+
+V1session88652terminalexit2: missingrequiredCLIprivate-parent, no terrainconstructor executed. Failedplan/log/state retained, no sourcefailure/terminalcredit. V2corrects exact missingargument only; frozenV1inputs unedited. Sourcebinding/codeplans pushed **e9d69a77f4**, previousdiagnosticsa69c5fc1a4. No installationthiscontinuation;419installed/3terminal/99unfinished,7074actors. All previoushandlesbelowterminal.
 
 Preflight84268complete32ce6b79a5f1143c754a658e16a035a8548be2822a489d333a1a7afce537a951. Completebaseline10buried context saved. Exact V8locality from authenticatedburiedfaces (not wholebodies) has core[3351.4621522,-271.67637461,3435.97564152,-189.05323604], outer[3347.239607602954,-275.9010315927429,3440.2033473228184,-184.83114048622073], cells[540,445,542,447], domain[3332.5,-317.5,3472.5,-177.5]. Same domain as previouswhole7074inventoryscope:0positiveoldnative terrainoverlap; Sung endsat3332.5. Conservative wholebody20m preflight may nominate falsepositives; keep them until exact eventualscope verifies. No existingSung replacement permission inferred. All earlierhandlesbelowterminal; only88652active.
 
