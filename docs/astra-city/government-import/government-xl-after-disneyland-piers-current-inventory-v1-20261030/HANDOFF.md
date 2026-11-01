@@ -1,3 +1,11 @@
+## Active now — per-peer atomic lifecycle worker44966
+
+V4controller20930is TERMINAL/released. Desktoppassed; mobile correctly retained BASIC under intentional503 but failed retry because generic harness kept the other atomic peer denied. FullnegativeV4evidence frozen to verifiedNeonjob `5d9cc9e9d8f801a25b5e860867a12fc3e18902851c8356e32d525a34a40da1ff`. No source corruption, no terrain regression and no mobile/fullvisual approval.
+
+**Worker44966is running** existing `model_atomic_lifecycle_browser_v4_20261101.mjs` through `one_peking_cycle_atomic_lifecycle_v1_20261101.py`. Log `/tmp/astra-one-peking-per-peer-atomic-lifecycle-v1-20261101.log`; batch `government-xl-one-peking-after-twin-cycle-atomic-lifecycle-v1-20261101`. Source/terrain/server resource set matches old fullV4lease, with a fresh renewing reservation and ownedloopback4177. Initial desktop-success case started. Poll before restart. It tests desktop success and separate mobile denial/retry for EACH source, complete BASIC fallback, frame-audited atomic activation, Base/Auto, and eviction. No production or model edits. It does NOT replace complete mobile source/retained exports or finalphysical/publication checks.
+
+Next after lifecycle passes: separate normal mobile390 preview with source2/all36retained scope, failureTestUids=[] only with explicit consumption of this independent per-peer lifecycle receipt. Preserve existing desktop pass and every failed V4 result; do not repeat numeric36native/84forms/all4foundations or the desktop76export run whose inputs are unchanged. Authenticate all bindings/currentmanifest when reusing. Finalphysical/source review must still combine current identity, original support paths, bounded Hullettinterface, allsource/retained actualexports and runtime/collision checks, followed by typed V2cycle publisher/livechecks/readback. No installedcredit yet:416+3+102=521,7069actors.
+
 ## Latest continuation — desktop pass and bounded Hullett interface review
 
 University Hall93417 is already installed; current catalogue readback confirms identity/placement/publication=true and no supportDependencies. Do not reinstall it.
