@@ -2,6 +2,14 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Current continuation after Harbour installation —2November2026
+
+**Harbour installatione0cdadd1c3pushed**, all HKS-203/199/215andXLmilestone updated.421installed/3terminal/97unfinishedof521,7087actors. Current7087boundsrefresh complete **7ee2ab41e35b67f938f85bab54e4c32653b45e935836b75a9e66301a0efadbcc**, batch `government-xl-after-harbour-glory-current-native-bounds-v1-20261102`; reuses7076exactoldrows andmeasures11additions. Sessions96283/79691terminalsuccess; no liveworker.
+
+Nextactualunfinished source309823withcompanions309829/336320:54saved checkpoint proofs, unapprovedprivate BASIC proposals andrawmargins remain. Newleased exactcapdiagnostic complete **f07407ffcd0ffe24508c5cbeb567601d8b6f3d7c329142cce83fb8e61303855b**, parentsequence3f81ad6b92b640efe98f6141fe292c37c41019c599c86f56f817528e1391cf43. Every4world has534negativefaces: **516wallfaces have clearcap paths;18nonwallfaces remainrawfailed**:7725–7730,8292–8296,8566–8567,8766–8768,8775–8776. No currentground/support/physical/publication approval from this immutable oldprivate scene. Nextinspect `government-xl-academic309823-after-carpark-upward-floor-facets-v1-20261101` for theseexact18IDs and completeground/sourcebindings; reusesavedproofs, preserveunapprovedBASICeligibilityflags. Current7087scene/identity/neighbour/browseracceptance stillrequired. NoAIgeometry/optimisation. Full97andbothNULLscope retained.
+
+Earlier sections below are superseded routing history.
+
 ## Latest verified installation — Harbour Glory / Hotel Alexandra,2November2026
 
 Eleven unchanged original components are installed. Job **20b1785db8d4e32a592a26c5f4df9be29a5433bb6c0d698ab610bf53a3ca2fbf**, snapshot **5f2933dbc5872301**. IndependentV5readback **384369c0793210be93c7900d29fa719d7ed73afee5a6d0d05cdcd4be448cb24f** verifies full521sourcekeys,onlynewXL35148,all7076oldassets/catalogueentriesunchanged,globalretainedsupports and soleintendednewterrain. Bothactual liveviewports passed44day/night sourceexports,loading/picking/collision/failure-retry/jointchecks. All44exports inspected via11labelled sheets regenerated from their exactoriginalPNGhashes; newhonest sheetrecorder retains everyexisting exportguard. Nightdarkness,BASICaliasing,normal lowcomponentocclusion andinitialmobile peerfallbackcaveats preserved. Noeveryfacade,wholelandmark or measuredFPSclaim. NoAIgeometry/optimisation.

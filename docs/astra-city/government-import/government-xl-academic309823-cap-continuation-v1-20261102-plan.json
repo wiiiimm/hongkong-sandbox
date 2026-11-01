@@ -1,0 +1,31 @@
+{
+  "batch": "government-xl-academic309823-cap-continuation-v1-20261102-sequence",
+  "uids": [
+    "landsd/309823:0",
+    "landsd/309829:0",
+    "landsd/336320:0"
+  ],
+  "resources": [
+    "building:landsd/309823:0",
+    "building:landsd/309829:0",
+    "building:landsd/336320:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_complete_ground_cap_paths_v3_20261029.py",
+      "batch": "government-xl-academic309823-complete-cap-paths-v1-20261102",
+      "args": [
+        "--runtime",
+        "government-xl-academic309823-after-carpark-full-tin-complete-basic-ground-runtime-v2-20261101",
+        "--attributes",
+        "government-xl-academic309823-after-carpark-full-tin-attributes-v1-20261101",
+        "--low-faces",
+        "government-xl-academic309823-after-carpark-full-tin-low-faces-v1-20261101",
+        "--uid",
+        "landsd/309823:0"
+      ]
+    }
+  ],
+  "qualification": "Finish complete exact cap paths on frozen prior private scene arrays only. The saved scene includes unapproved BASIC proposals; no current-ground/support/identity/publication approval transfers. Preserve all534negativefaces and raw non-wall/cap failures. Current7087scene/eligibility/neighbour/browser checks remain mandatory before any installation. No geometry edits or optimisation."
+}
