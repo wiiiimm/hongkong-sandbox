@@ -1,5 +1,25 @@
 # Current XL original-model work — 1 November 2026
 
+**416 installed +3existing terminal +102unfinished =521fixedXL keys;7069detailed actors.** BothNULLsource keys remain in scope; goal active. TwinRegency T1(`landsd/223207:0`) newly installed, unchanged original mesh/fixed1x/HKPD pose and original installed podium retained.
+
+## Installation and independent readback complete — COMMIT/PUSH NOW
+
+Installed job `d290eb4e656b1af4e974700bfc9a48f9889290caac3940743ae3c1852d5b5ac2`, snapshot `65cb958eeab203cd`. Receipt in `government-xl-twin-after-aqua-reviewed-original-original-installed-v1-20261101`. Real390/1280day/night loading,picking,collision,failure/retry and retained-native checks passed. ROOT opened all8final LIVE PNGs and recorded `ROOT-LIVE-EXPORT-INSPECTION.json` (also opened all8staged and13exactfaceplots).
+
+Independent readback86384completed/released, job7909378f6266a0e347093e4ff04483d479b74e40a1b903f70af775d79155429e. All7068previous actor assets/entries and all366previous catalogue bytes unchanged;521rowscompared, only223207changed; global retained-support checks passed. No active workers remain. COMMIT/PUSH installation immediately. Installer owned process1010688completed/released after tool-session55329ended143while its child was still alive; no restart occurred. All earlier diagnostics are terminal. No AI geometry edits, terrain edits, optimisation or procedural skin changes.
+
+Frozen distinct config `government-xl-twin-after-aqua-original-install-config-v1-20261101.json`. Aqua frozen config SHA7d1c78d2bcbbca1730b341d420b458d17a9b9b0d10d961625af8f6c2da69d2be remained unchanged. Auto-review misread the initial config generation as in-place overwrite; safer distinct-config construction was accepted and verified. No bypass or approval remains pending.
+
+Exact source ba739fa1425007e305a489fe97738edf800795fbdcc38cc9e11705e6475253af; podium fd67218f6828e36899e689d071c55bf95fa0df159ac2927643be46eead74d347. Raw0strict rim anchors/28warnings retained; all28have single-incident-facet positive original contact paths within unchanged endpoint/residual gates inall4worlds. All12exact compound-negative faces individually inspected:8verticalwalls;3334/3335/4721/4722downward undersides(each<.73m2,below16.357mHKPD). Zero whole sampled compound-buried triangles/upwardfaces. Every source vertex>10m above actual earthmaximum4.8616018295. All546crossings confinedbelow17.772mHKPD. One extraFloat32pair4523/50retains exact adjacent ORIGINAL49/50plane partition; real represented residuals preserved. Bounded original lower-joint interpretation, no generic threshold waiver. Physical761565b5655f032eb3dba2b70248aecf562aa7fe352c4f03cb51e25c77f7a7b9 and guarded stagec703565d0dcec05f92ebe9ac923e5e78ee7a52e1cd2c643a6594cd7ce6bc35c5 complete. All current7068prior actors freshly captured and exact2form scope measured. Full goal remains102unfinished after current verified install; do not reduce scope to this pair.
+
+## Historical continuation notes — superseded counts and worker handles below
+
+## Active continuation — current Twin evidence
+
+Prior30870refresh COMPLETED/released: exact current runtime214d6264850c71a2df66029165520cf6e98dfa7808e81058e574d46f2080f795; identity1d32a7ef7907aa3275c15f8bbd0cbf8b49c2667d94603d14eaefe279bd92bb32. Source attributesd3cf25b76e8e68000a5869b45fc6c051507a74ccd35e2f455a26463a66c49db3 complete. Fresh7068actual-actor bounds4059c2c92ae7576a12ef8298203ecaf4939a803d496a2b8ee14ccc480226457f completed/released24788. Current controller tuple binding26615and Twin joint diagnostic sequence52429are the active handles; exact logs/plan in current-work. Scope/native contacts and support complete; all28warning witnesses have finite original-facet contacts inall4worlds, fully compound-buried triangles0. Complete compound clearance still running. No new approval/installation. ROOT actually reopened exact Twin lower-joint source-view diagram; underside projections against unchanged original podium remain visible. Next actual current preview and bounded exact-joint review after compound result. Preserve all raw warnings; no root/canonical pass claim.
+
+# Current XL original-model work — 1 November 2026
+
 **415 installed + 3 existing terminal + 103 unfinished = 521 fixed XL source keys; 7,068 detailed actors.** Both NULL-UID keys retained. Goal active. Aqua Marine Block 5 (`landsd/175729:0`) is newly installed and independently verified. Original geometry, fixed1x placement and existing support contracts remain unchanged.
 
 ## Completed Aqua installation — committed and pushed
