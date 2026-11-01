@@ -1,0 +1,95 @@
+{
+  "batch": "government-xl-shangrila233824-contact-floor-return-v2-20261102-sequence",
+  "uids": [
+    "landsd/233824:0",
+    "landsd/240962:0"
+  ],
+  "resources": [
+    "building:landsd/233824:0",
+    "building:landsd/240962:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_upward_floor_terrain_return_v7_20261102.py",
+      "batch": "government-xl-shangrila233824-contact-floor-return-v2-20261102-inset",
+      "args": [
+        "--previous",
+        "government-xl-shangrila-original-pair-private-tin-v1-20261101",
+        "--ramps",
+        "government-xl-shangrila233824-original-floor-return-v1-20261101-packet",
+        "--runtime",
+        "government-xl-shangrila-original-pair-private-current-v1-20261101-runtime",
+        "--uid",
+        "landsd/233824:0",
+        "--rendered-proof",
+        "government-xl-shangrila233824-current-exact-floor-context-v1-20261101-rendered-terrain"
+      ]
+    },
+    {
+      "script": "selected_original_patch_runtime_v2.py",
+      "batch": "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime",
+      "args": [
+        "--patch",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-inset",
+        "--capture",
+        "government-xl-shangrila-original-pair-private-current-v1-20261101-runtime"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-shangrila233824-contact-floor-return-v2-20261102-attributes",
+      "args": [
+        "--capture",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-shangrila233824-contact-floor-return-v2-20261102-233824-0-foundations",
+      "args": [
+        "--runtime",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime",
+        "--attributes",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-attributes",
+        "--uid",
+        "landsd/233824:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-shangrila233824-contact-floor-return-v2-20261102-240962-0-foundations",
+      "args": [
+        "--runtime",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime",
+        "--attributes",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-attributes",
+        "--uid",
+        "landsd/240962:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-shangrila233824-contact-floor-return-v2-20261102-terrain-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-harbour-one-current-native-bounds-v1-20261101",
+        "--patch",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-inset"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "batch": "government-xl-shangrila233824-contact-floor-return-v2-20261102-model-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-harbour-one-current-native-bounds-v1-20261101",
+        "--runtime",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-runtime",
+        "--attributes",
+        "government-xl-shangrila233824-contact-floor-return-v2-20261102-attributes"
+      ]
+    }
+  ],
+  "qualification": "Rebuild from the same immutable original terrain and source packet, fixed5cm instead of25cm source-plane clearance. No building changes, no acceptance thresholds changed. Re-run actual renderer, four-world foundations and full affected scopes."
+}
