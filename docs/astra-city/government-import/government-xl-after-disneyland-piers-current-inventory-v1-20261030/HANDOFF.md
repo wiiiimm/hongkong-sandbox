@@ -2,6 +2,18 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Current continuation —2November2026
+
+Shangri-La verifiedinstallation **4677505cf5 pushed**;420installed/3terminal/98unfinishedof521,7076actors. HKS-203/199/215andXLmilestone updated. No furtherShangriLa work required for these exact2components.
+
+**Active session57193**: `government-xl-harbour-glory-eleven-after-shangrila-v2-20261102-sequence`, plan matching`-plan.json`, log `/tmp/astra-harbour-glory-eleven-after-shangrila-v2-20261102.log`. Fresh11source selection completed asfa532d21fee11a84a88e48e9db80baeb9bb67b977958f62ee54ac49ca1920281; unchangedterrain rebind/runtime/attributes complete, then currentidentity/scopes and complete lowface/cap paths for28391/92999/247461. Poll exacthandle. Fullsource/root renewing leases; no publicwrites orAIgeometry.
+
+Current7076bounds **855c737a386b17831686d5b14e83fe0539a23d8c7bb1f61a773116398cb21337**, batch `government-xl-after-shangrila-current-native-bounds-v2-20261102`. Newchainableadapter proves exact7074oldentry/form/source/dependency identity and loads2additions;6census tests pass. HistoricalV1adapter only accepted fullfreshinput, so33109failed on absentinventory.json. Newsource prep6217failed on an invented official-models.js inventorypin assumption. Bothterminal/released, not modelcorruption. Existing basic selectionrefresh is correct when allcurrent renderer streams are recaptured; no missingpin is fabricated and no approvaltransfers.
+
+OldHarbour11identity/browser/55pair/46foreign proofs remain immutable numeric/source readiness evidence. Rebind only against completecurrent input equality; currentground/26neighbour/physical/browser acceptance remains. Twoexternal28391BASICslivers are documented withrawcontacts and0area; no genericcollision waiver. BothNULLkeys/all98unfinished remain scope.
+
+Earlier sections below are superseded routing history.
+
 ## Latest verified installation — Shangri-La,2 November2026
 
 Original tower240962and requiredpodium233824 installed unchanged1x/HKPD, originalgeometry/nodepose intact and no proceduralwindows. Installedjob **88560988047f1dcf7b9a2300b83346afbf8bce564911391c5f000ae903e558ea**, snapshot **d2a3597df102b97d**. IndependentV5ROOTreadback **4a5b93237ad7b75965bf111542ee257659a84637b43dce923eae081b73a3932e** proves all7074oldentries/assets unchanged, full521sourcekeys, globalretainedsupports, sole intendednewterrain and all8actuallyinspected live desktop/mobile day/night exports. Bothlive viewports/loading/picking/collision/retry/joint checks pass. Nightdarkness, neighbourBASICaliasing and initialmobilepodiumviewwithBASICpeer retained as limitations. No measuredFPS/everyfacade/wholehotel claim.
