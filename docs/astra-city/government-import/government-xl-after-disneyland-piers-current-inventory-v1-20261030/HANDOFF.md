@@ -2,6 +2,20 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Current continuation — clearer Harbour views, 2 November 2026
+
+Session19878 completed successfully and released its leases: fresh46foreign comparisons (sequence7d40bf000773e45b1021a8f442cea005e03cd60fcfcfec5446b3782d99c84365) and current28391boundary context f12bd865710b3d14e8c88951afa9aa5b7b2735367d4a950cc6b077460d84270c. Preserve external102335/261967 raw contacts, including new15contacts against261967;0area contacts. No collision approval.
+
+Session60806 also completed. Its44 desktop/mobile day/night exports were reviewed through labelled contact sheets:271909 is obscured by retained BASIC facades;247461/28391 and mobile258158 are substantially occluded. Actor/frustum visibility is not pixel-level visual acceptance. Honest observation record `government-xl-harbour-glory-eleven-occluded-preview-observations-v1-20261102.json` retains visualAcceptance=false.
+
+**Live session7817**, verified process1714004 and node1715836: existing self-leased `selected_original_unapproved_private_server_browser_v2_20261030.py`, batch `government-xl-harbour-glory-eleven-clearer-preview-v3-20261102`, config `government-xl-harbour-glory-eleven-clearer-preview-config-v3-20261102.json`, log `/tmp/astra-harbour-glory-eleven-clearer-preview-v3-20261102.log`. Camera-only elevated direction[.2,5,1] on both viewports; all original geometry, terrain, neighbours and approval flags unchanged. Poll exact handle before source/root overlap.
+
+Explicit shared-edge qualifier implemented with original point fallback retained;13regression tests passed. Replayed context `government-xl-harbour-glory-sung-shared-edge-context-v2-20261102` is complete. New current11component identity review complete as51635c4af2adf23981ab6226f34dd8b2c0dcc0f14dc7683324baa5a7157bb01d, preserving2rawshape failures. Current/historical complete source records and every4world attribute row match exactly; new `harbour_glory_current_pair_binding_v1_20261102.py` prepared to authenticate/reuse all55pairs/220rows under source leases AFTER browser releases. Not executed yet; no approval transfer.
+
+Counts remain420installed/3terminal/98unfinishedof521,7076actors. Previous goal turn only rechecked already installed University Hall (no progress); this turn completes current-contact evidence, tests edge routing and identifies/corrects an actual visual evidence gap. Physical review, clear actual exports, guarded stage/install/live/readback remain. No AI geometry modelling or optimisation.
+
+Earlier sections below are superseded routing history.
+
 ## Current worker and verified Harbour evidence —2November2026
 
 **Live session60806**: `government-xl-harbour-glory-eleven-current-preview-v2-20261102`, config matching`-config-v2-20261102.json`, log `/tmp/astra-harbour-glory-eleven-current-preview-v2-20261102.log`. Fresh11original preview against7076actors, allapprovalflagsfalse/nohide; owns rootandloopback4177. Poll before overlap.
