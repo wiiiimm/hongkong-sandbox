@@ -136,6 +136,12 @@ Before parallel sessions process or edit overlapping model parts, follow `source
 
 If ownership is lost, stop and reacquire before continuing. Expired work can be reclaimed normally; an explicit takeover requires the observed token snapshot and a reason. Keep separate worktrees/outputs, check ownership before shared edits, and retain the publisher's own guards: reservations do not atomically lock arbitrary files or R2 publication. Session/audit history remains after lease expiry. Do not discard expired work's evidence or imply that its models were accepted.
 
+## Preserve the actual nested terrain basis
+
+A standalone inset can pass its root-grid boundary checks yet disagree with an already installed native leaf. Before composing it into a nested parent, compare complete finite before/after seams against the actual captured current surfaces. Rebuild the established bounded original-source return against those surfaces when the standalone metadata template changes their heights. Keep the failed candidate and raw differences; do not widen the boundary tolerance or transfer standalone validation into nested publication approval.
+
+Prefer retaining each affected native leaf’s full rectangle and appending only the required uncovered root rectangle when that avoids cutting distant, unedited surfaces. Independently account for every old face, effective Float32 winding/multiplicity, unchanged faces outside the return, root grid and unrelated children. Validate every resulting finite adjacency. The existing three-member chain contract covers two edges only; a three-edge cycle requires its own complete contract, not a fabricated chain or missing edge. Coverage, runtime, affected actors, source acceptance and real browser/publication checks remain separate.
+
 ## Preserve these invariants
 
 - Native **1× metres/HKPD** throughout terrain, models, water, bridges, collision and cameras. Do not port the old vertical multiplier or move surveyed elevations to hide a terrain problem.
