@@ -2,6 +2,18 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Current Harbour physical review and installation preparation — 2 November 2026
+
+**Live session32572**: explicit shared-edge qualification followed by existing full-boundary `--prepare-only`, config `government-xl-harbour-glory-reviewed-original-install-config-v1-20261102.json`; logs `/tmp/astra-harbour-glory-qualified-stage-v1-20261102.log` and `/tmp/astra-harbour-glory-install-prepare-v1-20261102.log`. Poll before rerun. No installation credit yet.
+
+V4desktop/mobile passed and frozenff0df19ec65beef64519c27c6b96f3107790e85062bc2eb8031f42d9d4857be4. All44V4exports inspected via labelled sheets,28391desktopday also openedfullresolution. Four clearer currentV2 232659views are explicitly bound to identical source/worldbounds/pose/supportgraph (V4smallpartview partlyoccluded). Final48image observation file preserves nightdarkness,BASICaliasing,initialmobile peerfallback and no-everyfacade/FPS/wholelandmark caveats.
+
+PhysicalreviewV1 correctly failed an incomplete contact assumption: additional seven108870/247461horizontal support-facet contacts exist in each explicitFloat32stream. V1code/log/error preserved as runner error, not sourcecorruption. V2binds all6area-interface rows (4adjoining-roof +2supportplane streams) and exact literal planes28.791000366210934/28.791000127792362m coalescing to28.791000366210938mFloat32; that sourcepair already passes strictsupport. Raw31buried/10upward247461faces have exactbelowfloorcoverage;234negativewalls capclear,10nonwalls retainrawcapfalse.232659two buriedwalls capclear. All7supportcompounds and5zero-rise witnessgroups,current27formunion and55pairs/46foreigncases retained.
+
+**PhysicalreviewV2 complete aeb1f81f8e8a4a220bf157bf23652f1188ee69d5230fb297e015fbe275383521**. Currentdependency preflight11rows/0blockers. No source/pose/threshold edits; no publication. Next on successfulstage/preflight: existing `supported_original_full_boundary_owned_loopback_v1_20261101.py --config ...`; inspect all44liveexports, existing liveinspection recorder, independentV5readback full521/all7076oldassets/globalretainedsupports; immediatecommit/push. Expected421installed/3terminal/97unfinished,7087actors onlyAFTERverification. Currentauthority remains420/3/98,7076actors. BothNULLkeys/all98still scope.
+
+Earlier sections below are superseded routing history.
+
 ## Current continuation — clearer Harbour views, 2 November 2026
 
 **Latest:V3full desktop/mobile completed6dc2567ff477704d5ba21e65801acf33fbe268a487b5ff79817297f102721d30; bothviewports passed44exports, mobileexports not yet visually reviewed. Exact current55pair/220row binding completed7cea60503e072ec6a435621c98c4657f7e48c426af0a3c8f67c59e3e208c2c59 and leasesreleased. Session7817terminal. Dependent session20247 has advanced to framedV4browser; log `/tmp/astra-harbour-glory-eleven-framed-preview-v4-20261102.log`. Poll20247before overlap. Camera fix a551a85ee0pushed. No installation/visualacceptance credit yet.**

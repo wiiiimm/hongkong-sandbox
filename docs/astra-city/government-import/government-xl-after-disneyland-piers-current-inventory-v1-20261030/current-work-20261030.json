@@ -1,10 +1,13 @@
 {
   "activeWorker": {
-    "sessionId": 20247,
-    "batch": "government-xl-harbour-glory-eleven-framed-preview-v4-20261102",
-    "state": "live browser started after previous preview and pair binder completed",
-    "log": "/tmp/astra-harbour-glory-eleven-framed-preview-v4-20261102.log",
-    "runner": "bounded_original_camera_preview_v1_20261102.py",
+    "sessionId": 32572,
+    "phase": "qualified shared-edge stage then full-boundary prepare-only",
+    "logs": [
+      "/tmp/astra-harbour-glory-qualified-stage-v1-20261102.log",
+      "/tmp/astra-harbour-glory-install-prepare-v1-20261102.log"
+    ],
+    "config": "government-xl-harbour-glory-reviewed-original-install-config-v1-20261102.json",
+    "state": "verified live",
     "pollBeforeOverlap": true
   },
   "aiGeometryModelling": false,
@@ -508,8 +511,8 @@
   },
   "linearProgressUpdated": "HKS-203,20261102",
   "continuationAudit": {
-    "previousTurn": "no progress: rechecked already installed University Hall",
-    "currentTurn": "progress: fresh foreign/boundary receipts verified,13edge tests pass, actual44image review exposed occlusion and camera-only recapture started",
+    "previousTurn": "progress: shared-edge route tested, current contact/identity/pair evidence completed and camera fixes committed/pushed",
+    "currentTurn": "progress: V4bothviewports complete,48actualexports inspected, corrected six-interface physical review completed in pinnedNeon; qualified stage/preflight running",
     "newInstallations": 0,
     "goalScopeUnchanged": true
   },
@@ -527,7 +530,7 @@
     "foreignSequenceJob": "7d40bf000773e45b1021a8f442cea005e03cd60fcfcfec5446b3782d99c84365",
     "boundaryJob": "f12bd865710b3d14e8c88951afa9aa5b7b2735367d4a950cc6b077460d84270c",
     "previous44ImagesReviewedViaContactSheets": true,
-    "visualAcceptance": false,
+    "visualAcceptance": true,
     "occlusion": [
       "landsd/271909:0",
       "landsd/247461:0",
@@ -545,11 +548,18 @@
     "clearerPreviewCompleted": true,
     "clearerPreviewJob": "6dc2567ff477704d5ba21e65801acf33fbe268a487b5ff79817297f102721d30",
     "currentPairBindingComplete": true,
-    "currentPairBindingJob": "7cea60503e072ec6a435621c98c4657f7e48c426af0a3c8f67c59e3e208c2c59"
+    "currentPairBindingJob": "7cea60503e072ec6a435621c98c4657f7e48c426af0a3c8f67c59e3e208c2c59",
+    "framedPreviewJob": "ff0df19ec65beef64519c27c6b96f3107790e85062bc2eb8031f42d9d4857be4",
+    "framedPreviewCompleted": true,
+    "actualExportsInspected": 48,
+    "physicalReviewJob": "aeb1f81f8e8a4a220bf157bf23652f1188ee69d5230fb297e015fbe275383521",
+    "physicalReviewBatch": "government-xl-harbour-glory-source-physical-review-v2-20261102",
+    "dependencyPreflightBlockers": 0,
+    "rawPhysicalFailuresPreserved": true
   },
   "preparedCameraContinuation": {
     "sessionId": 20247,
-    "state": "previous preview and pair binder complete; framed V4 browser now running",
+    "state": "completed; exact current pair binding and V4bothviewports passed",
     "wait": "timeout1800 tail --pid1714004; require V3result.json before running anything",
     "steps": [
       "harbour_glory_current_pair_binding_v1_20261102.py",
