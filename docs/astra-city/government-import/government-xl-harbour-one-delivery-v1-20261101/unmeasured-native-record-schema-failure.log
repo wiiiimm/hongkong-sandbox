@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_companion_index_context_v1_20261026.py", line 54, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_companion_index_context_v1_20261026.py", line 46, in main
+    grouped.append(dict(uid=uid,name=form.get('name'),buildingCSUID=form.get('buildingCSUID'),prefix=prefix,modelIds=[r['model']['modelId'] for r in matches],records=len(matches),maximumCachedFaces=max((r['model']['triangles'] for r in matches),default=None)))
+                                                                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_companion_index_context_v1_20261026.py", line 46, in <genexpr>
+    grouped.append(dict(uid=uid,name=form.get('name'),buildingCSUID=form.get('buildingCSUID'),prefix=prefix,modelIds=[r['model']['modelId'] for r in matches],records=len(matches),maximumCachedFaces=max((r['model']['triangles'] for r in matches),default=None)))
+                                                                                                                                                                                                           ~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'triangles'
