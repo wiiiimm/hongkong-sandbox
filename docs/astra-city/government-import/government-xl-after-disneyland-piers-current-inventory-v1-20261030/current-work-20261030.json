@@ -1,13 +1,20 @@
 {
   "activeWorker": {
-    "sessionId": 32572,
-    "phase": "qualified shared-edge stage then full-boundary prepare-only",
-    "logs": [
-      "/tmp/astra-harbour-glory-qualified-stage-v1-20261102.log",
-      "/tmp/astra-harbour-glory-install-prepare-v1-20261102.log"
+    "sessionId": 26230,
+    "state": "verified live;V3review complete,final qualification running",
+    "config": "government-xl-harbour-glory-final-original-install-config-v2-20261102.json",
+    "sequence": [
+      "V3physical review",
+      "shared-edge qualified stage",
+      "full-boundary installer prepare-only",
+      "full-boundary owned-loopback installation"
     ],
-    "config": "government-xl-harbour-glory-reviewed-original-install-config-v1-20261102.json",
-    "state": "verified live",
+    "logs": [
+      "/tmp/astra-harbour-glory-source-physical-review-v3-20261102.log",
+      "/tmp/astra-harbour-glory-final-qualified-stage-v2-20261102.log",
+      "/tmp/astra-harbour-glory-final-install-prepare-v2-20261102.log",
+      "/tmp/astra-harbour-glory-final-original-install-v2-20261102.log"
+    ],
     "pollBeforeOverlap": true
   },
   "aiGeometryModelling": false,
@@ -303,7 +310,7 @@
     "pushed": true,
     "commit": "4677505cf5"
   },
-  "latestPushedCommit": "a551a85ee0",
+  "latestPushedCommit": "d99c127347",
   "linearUpdatedAfterInstallation": {
     "installedCommit": "4677505cf5",
     "issues": [
@@ -552,10 +559,14 @@
     "framedPreviewJob": "ff0df19ec65beef64519c27c6b96f3107790e85062bc2eb8031f42d9d4857be4",
     "framedPreviewCompleted": true,
     "actualExportsInspected": 48,
-    "physicalReviewJob": "aeb1f81f8e8a4a220bf157bf23652f1188ee69d5230fb297e015fbe275383521",
-    "physicalReviewBatch": "government-xl-harbour-glory-source-physical-review-v2-20261102",
+    "physicalReviewJob": "4843e08fa933ff169207fb5556bf28ae570860d5719e1fb380f863e032167162",
+    "physicalReviewBatch": "government-xl-harbour-glory-source-physical-review-v3-20261102",
     "dependencyPreflightBlockers": 0,
-    "rawPhysicalFailuresPreserved": true
+    "rawPhysicalFailuresPreserved": true,
+    "primaryViews": 44,
+    "supplementalViews": 4,
+    "firstQualifiedStageJob": "7e6ddfc375ad6b5065b431858d5981b2ea402fa8068dad7ba6e95b8e2f1b214b",
+    "firstInstallerPreflightFailed": "Existing exact44primary-image contract; V2included4supplemental images in same list. No publisher guard changed; V3separates44primary/4supplemental and explicitly records complete4world/27form coverage."
   },
   "preparedCameraContinuation": {
     "sessionId": 20247,
