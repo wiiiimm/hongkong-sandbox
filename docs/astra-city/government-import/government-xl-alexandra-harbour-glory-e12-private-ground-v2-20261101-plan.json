@@ -1,0 +1,70 @@
+{
+  "batch": "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-sequence",
+  "uids": [
+    "landsd/247461:0",
+    "landsd/35148:0"
+  ],
+  "resources": [
+    "building:landsd/247461:0",
+    "building:landsd/35148:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v6_20261024.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-runtime",
+      "args": [
+        "--patch",
+        "government-xl-alexandra-harbour-glory-e12-clamped-private-terrain-trial-v2-20261101-inset",
+        "--capture",
+        "government-xl-harbour-glory-alexandra-after-harbour-one-current-v1-20261101-runtime",
+        "--uid",
+        "landsd/247461:0",
+        "--uid",
+        "landsd/35148:0"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-attributes",
+      "args": [
+        "--capture",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-runtime"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-247461-0-foundations",
+      "args": [
+        "--runtime",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-runtime",
+        "--attributes",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-attributes",
+        "--uid",
+        "landsd/247461:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-35148-0-foundations",
+      "args": [
+        "--runtime",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-runtime",
+        "--attributes",
+        "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-attributes",
+        "--uid",
+        "landsd/35148:0"
+      ]
+    },
+    {
+      "script": "selected_original_patch_scope_v2_20261025.py",
+      "batch": "government-xl-alexandra-harbour-glory-e12-private-ground-v2-20261101-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-harbour-one-current-native-bounds-v1-20261101",
+        "--patch",
+        "government-xl-alexandra-harbour-glory-e12-clamped-private-terrain-trial-v2-20261101-inset"
+      ]
+    }
+  ]
+}
