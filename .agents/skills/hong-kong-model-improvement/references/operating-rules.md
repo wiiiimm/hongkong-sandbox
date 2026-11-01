@@ -150,6 +150,10 @@ A checksum-verified HTTP response or cached asset is not an active rendered acto
 
 Terrain retention must preserve sampler semantics as well as indexed faces. Dropping a retained `numericalCoverageGap` declaration can pass the ordinary rectangle-area tolerance yet make `geo.js` throw while constructing roads or BASIC tiles. Regenerate the existing `approve_roundoff` proof for each exact new member body under its unchanged 0.25 m² and 2 mm limits; never copy a stale geometry hash, add faces, enlarge limits or suppress the error. A real hole outside those bounds still fails. Rerun current native/BASIC regression, actual drawn source foundations and the real browser after restoring the declaration. Baseline / terrain-only / terrain-plus-source browser controls can distinguish a terrain sampling regression from an asset or identity failure.
 
+## Test atomic peer failures independently
+
+The ordinary per-source browser harness initially denies every nominated download. That is incompatible with an atomic group when retry permits just one member: the remaining deliberate HTTP503 prevents the whole group activating. Preserve that negative and its BASIC fallback evidence; do not label the sources corrupt or enlarge the timeout. Use the existing `model_atomic_lifecycle_browser_v4_20261101.mjs` to deny each peer separately, allow all peers on retry, and verify complete BASIC fallback, frame-level atomic transitions, Base/Auto and eviction. A normal full mobile preview may set `failureTestUids=[]` only while explicitly requiring the authenticated complete per-peer lifecycle receipt for the exact source hashes/group. It still must capture every declared source and retained actor and pass ordinary picking/collision/runtime checks. Completed unchanged desktop evidence may be reused only with its exact report/image/catalogue/terrain/production-module bindings; failed mobile evidence remains preserved.
+
 ## Preserve these invariants
 
 - Native **1× metres/HKPD** throughout terrain, models, water, bridges, collision and cameras. Do not port the old vertical multiplier or move surveyed elevations to hide a terrain problem.
