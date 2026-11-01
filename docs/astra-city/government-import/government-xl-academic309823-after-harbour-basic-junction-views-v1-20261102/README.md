@@ -1,0 +1,1 @@
+The first display exporter incorrectly called float on exact rational strings, e.g.1359819/128. It stopped before any acceptance or source change. V1producer/log are preserved. V2parses Fraction before display-only float conversion. All exact contacts/source assets remain unchanged; no model-corruption or terminal credit.
