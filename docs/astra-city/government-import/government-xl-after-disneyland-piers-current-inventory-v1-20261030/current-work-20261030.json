@@ -1,22 +1,5 @@
 {
-  "activeWorker": {
-    "sessionId": 26230,
-    "state": "verified live;final stage and prepare-only passed;owned-loopback installation running",
-    "config": "government-xl-harbour-glory-final-original-install-config-v2-20261102.json",
-    "sequence": [
-      "V3physical review",
-      "shared-edge qualified stage",
-      "full-boundary installer prepare-only",
-      "full-boundary owned-loopback installation"
-    ],
-    "logs": [
-      "/tmp/astra-harbour-glory-source-physical-review-v3-20261102.log",
-      "/tmp/astra-harbour-glory-final-qualified-stage-v2-20261102.log",
-      "/tmp/astra-harbour-glory-final-install-prepare-v2-20261102.log",
-      "/tmp/astra-harbour-glory-final-original-install-v2-20261102.log"
-    ],
-    "pollBeforeOverlap": true
-  },
+  "activeWorker": null,
   "aiGeometryModelling": false,
   "alexandraClampedPrivateTerrain": {
     "affectedBasicForms": 26,
@@ -149,7 +132,7 @@
     "strictRootPathsRiseAboveEndpoints": 0,
     "wholeRegionNeighboursJobId": "5fb23ddd32df928fe6fc96f7f40a76b46b547194a371beb624a022505d2e2502"
   },
-  "completeCurrentCatalogueModels": 7074,
+  "completeCurrentCatalogueModels": 7087,
   "currentNativeBounds": {
     "actors": 7074,
     "batch": "government-xl-after-harbour-one-current-native-bounds-v1-20261101",
@@ -289,26 +272,18 @@
     "scopeJob": "88012164161a504716194c83694ee952949795c52e5b08ee773ef039f6de547e",
     "supportBatch": "government-xl-hkdi88343-after-one-peking-support-v1-20261101"
   },
-  "installedVerified": 420,
-  "inventoryAuthority": "government-xl-shangrila-reviewed-original-original-installed-v1-20261102/full-xl-current-count.json",
+  "installedVerified": 421,
+  "inventoryAuthority": "government-xl-harbour-glory-final-original-original-installed-v1-20261102/full-xl-current-count.json",
   "lastInstallation": {
-    "name": "Shangri-La unchanged original tower/podium",
-    "uids": [
-      "landsd/233824:0",
-      "landsd/240962:0"
-    ],
-    "batch": "government-xl-shangrila-reviewed-original-original-installed-v1-20261102",
-    "jobId": "88560988047f1dcf7b9a2300b83346afbf8bce564911391c5f000ae903e558ea",
-    "readbackJobId": "4a5b93237ad7b75965bf111542ee257659a84637b43dce923eae081b73a3932e",
-    "snapshotId": "d2a3597df102b97d",
-    "liveSourceExportsInspected": 8,
-    "allOldAssetsVerified": 7074,
-    "allOldEntriesUnchanged": true,
+    "batch": "government-xl-harbour-glory-final-original-original-installed-v1-20261102",
+    "installedJobId": "20b1785db8d4e32a592a26c5f4df9be29a5433bb6c0d698ab610bf53a3ca2fbf",
+    "readbackJobId": "384369c0793210be93c7900d29fa719d7ed73afee5a6d0d05cdcd4be448cb24f",
+    "snapshotId": "5f2933dbc5872301",
+    "newXL": 1,
+    "newDetailedActors": 11,
     "sourceGeometryChanges": 0,
-    "terrainChange": "One explicitly reviewed5cm-source-floor local TIN return; all oldterrain files unchanged",
-    "commitPending": false,
-    "pushed": true,
-    "commit": "4677505cf5"
+    "aiGeometryModelling": false,
+    "commitPushRequiredImmediately": true
   },
   "latestPushedCommit": "d99c127347",
   "linearUpdatedAfterInstallation": {
@@ -377,12 +352,12 @@
     "alreadyInstalledVerified": true
   },
   "nextSteps": [
-    "Poll26230 exact installation worker; preserve source/root/loopback leases and do not start manifest-dependent captures.",
-    "On successful installed receipt inspect44liveexports directly, record observation with existing recorder, independentV5full521/7076oldasset/global-support readback, commit/push immediately.",
-    "Refresh full current native inventory after verified installation. Select remaining sources from new complete521 census; savedHKDI88343proposal is already fulfilled.",
-    "Continue all unfinished and bothNULLsourcekeys; no source terminal credit from script/schema failures."
+    "Commit and push this verified original installation immediately.",
+    "Refresh additive native inventory with existing refresh_fresh_native_bounds_additions_v2_20261102.py, prior government-xl-after-shangrila-current-native-bounds-v2-20261102, installed government-xl-harbour-glory-final-original-original-installed-v1-20261102, readback government-xl-harbour-glory-final-original-installed-root-readback-v5-20261102.",
+    "Derive next source from all97unfinished fixed521keys; HKDI88343is already installed and must not be repeated.",
+    "Continue bothNULLsourcekeys and all97unfinished; script failures are not source corruption or terminal credit."
   ],
-  "nonInstalledIncludingTerminal": 101,
+  "nonInstalledIncludingTerminal": 100,
   "nullUIDSourceKeys": [
     "9d831261575c14cefa55303c176b7d4f21585b35a2bcd2d32a794e801de14e4c/B349971856402063C0",
     "3823f924cd3de2e96656b14a0733dfa6df00341df154f8076db5d18d627f542d/B352981210001063C0"
@@ -432,11 +407,11 @@
   },
   "optimisationAuthorised": false,
   "preparedNextRunner": null,
-  "remainingUnresolvedFixedXL": 98,
+  "remainingUnresolvedFixedXL": 97,
   "schemaVersion": 2,
   "scope": "All fixed521 original XL source keys, including both NULL-UID keys",
-  "snapshotId": "d2a3597df102b97d",
-  "totalDetailedCatalogueActors": 7076,
+  "snapshotId": "5f2933dbc5872301",
+  "totalDetailedCatalogueActors": 7087,
   "universityHall": {
     "approvalAlreadyFulfilled": true,
     "currentCatalogueApprovalFlagsVerified": true,
@@ -520,9 +495,10 @@
   },
   "linearProgressUpdated": "HKS-203,20261102",
   "continuationAudit": {
-    "previousTurn": "progress: shared-edge route tested, current contact/identity/pair evidence completed and camera fixes committed/pushed",
-    "currentTurn": "progress: V4bothviewports complete,48actualexports inspected, corrected six-interface physical review completed in pinnedNeon; qualified stage/preflight running",
-    "newInstallations": 0,
+    "previousTurn": "progress: physicalreview,guardedstage/preflight and publication completed; live worker running",
+    "currentTurn": "progress: actualdesktop/mobile live44exports passed/inspected; independent full521/7076oldasset/global-support readback passed; eleven original actors and oneXLsource installed",
+    "newInstallations": 1,
+    "newDetailedActors": 11,
     "goalScopeUnchanged": true
   },
   "currentNativeInventory": {
@@ -570,7 +546,12 @@
     "firstQualifiedStageJob": "7e6ddfc375ad6b5065b431858d5981b2ea402fa8068dad7ba6e95b8e2f1b214b",
     "firstInstallerPreflightFailed": "Existing exact44primary-image contract; V2included4supplemental images in same list. No publisher guard changed; V3separates44primary/4supplemental and explicitly records complete4world/27form coverage.",
     "finalQualifiedStageJob": "44940cc85cb0f497716a2ed45e9bdb7674ec8884f2c3ba6c503b252e34d65f3d",
-    "installerPreflightPassed": true
+    "installerPreflightPassed": true,
+    "installedVerified": true,
+    "liveExportsInspected": 44,
+    "liveInspectionMethod": "11labelled four-view sheets regenerated from all44hashed original PNGs; unchanged original export guards",
+    "independentReadbackComplete": true,
+    "all7076PreviousAssetBytesVerified": true
   },
   "preparedCameraContinuation": {
     "sessionId": 20247,
@@ -585,5 +566,6 @@
       "/tmp/astra-harbour-glory-eleven-framed-preview-v4-20261102.log"
     ],
     "note": "Separate successive leases; no overlap or restart on timeout. New camera bounds affect framing only, preserve every actualsource bound and unchanged browser assertions."
-  }
+  },
+  "nativeInventoryRefreshRequired": true
 }

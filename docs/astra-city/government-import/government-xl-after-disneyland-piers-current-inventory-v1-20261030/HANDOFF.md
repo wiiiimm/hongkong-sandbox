@@ -2,6 +2,14 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Latest verified installation — Harbour Glory / Hotel Alexandra,2November2026
+
+Eleven unchanged original components are installed. Job **20b1785db8d4e32a592a26c5f4df9be29a5433bb6c0d698ab610bf53a3ca2fbf**, snapshot **5f2933dbc5872301**. IndependentV5readback **384369c0793210be93c7900d29fa719d7ed73afee5a6d0d05cdcd4be448cb24f** verifies full521sourcekeys,onlynewXL35148,all7076oldassets/catalogueentriesunchanged,globalretainedsupports and soleintendednewterrain. Bothactual liveviewports passed44day/night sourceexports,loading/picking/collision/failure-retry/jointchecks. All44exports inspected via11labelled sheets regenerated from their exactoriginalPNGhashes; newhonest sheetrecorder retains everyexisting exportguard. Nightdarkness,BASICaliasing,normal lowcomponentocclusion andinitialmobile peerfallbackcaveats preserved. Noeveryfacade,wholelandmark or measuredFPSclaim. NoAIgeometry/optimisation.
+
+**Current421installed +3terminal +97unfinished =521;7087detailedactors.** Authority `government-xl-harbour-glory-final-original-original-installed-v1-20261102/full-xl-current-count.json`. Session26230installation and69815inspection/readback are terminalsuccess/released. Immediatecommit/push required, then refresh current7087nativebounds using existingV2additions helper (prior7076bounds, installed/readback above). Do not reinstall these11parts. All97unfinished andbothNULLsourcekeys remain scope. OldHKDI88343nextproposal alreadyfulfilled; chooseactualremainingkeys fromnewfullcensus.
+
+Earlier sections below are superseded routing history.
+
 ## Current Harbour physical review and installation preparation — 2 November 2026
 
 **Installation now running in session26230**. Finalqualification44940cc85cb0f497716a2ed45e9bdb7674ec8884f2c3ba6c503b252e34d65f3dand existinginstallerpreflight passed. Full owned-loopback installer owns source/root/4177leases; `command-000`publisherdryrun exit0; apply/live stillinprocess. Log `/tmp/astra-harbour-glory-final-original-install-v2-20261102.log`. Count remains420/3/98until installedreceipt+actual44liveinspection+independentV5. Important:oldnextSourceProposalHKDI88343is alreadyinstalled perfull521authority; do not repeat it. Use newfullcensus aftercurrentinstallation for nextsource.
