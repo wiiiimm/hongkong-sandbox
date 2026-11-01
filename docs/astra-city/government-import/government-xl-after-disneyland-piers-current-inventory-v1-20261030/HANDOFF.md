@@ -4,6 +4,8 @@ Read this file and `current-work-20261030.json` first. The exact previous 106KB 
 
 ## Current continuation — clearer Harbour views, 2 November 2026
 
+Update:19e495373a pushed; HKS-203 updated. V3desktop passed and all22exports inspected (contact sheets,247461day also fullresolution).271909nowvisible;28391stillblocked by a tallcompanion,232659also partlyblocked though its V2views were clear. Observation `government-xl-harbour-glory-clearer-desktop-observations-v1-20261102.json`; visualAcceptance remainsfalse. **Dependent session20247** waits on verifiedlive PID1714004, requires V3result, then runs leased exactpairbinder and new camera-only `bounded_original_camera_preview_v1_20261102.py` using framedV4config. V4broadens28391camera to complete11original bounds; actual source/worldbounds and every originalbrowserassertion unchanged. Logs in current-work. Poll7817/20247before anyoverlap.
+
 Session19878 completed successfully and released its leases: fresh46foreign comparisons (sequence7d40bf000773e45b1021a8f442cea005e03cd60fcfcfec5446b3782d99c84365) and current28391boundary context f12bd865710b3d14e8c88951afa9aa5b7b2735367d4a950cc6b077460d84270c. Preserve external102335/261967 raw contacts, including new15contacts against261967;0area contacts. No collision approval.
 
 Session60806 also completed. Its44 desktop/mobile day/night exports were reviewed through labelled contact sheets:271909 is obscured by retained BASIC facades;247461/28391 and mobile258158 are substantially occluded. Actor/frustum visibility is not pixel-level visual acceptance. Honest observation record `government-xl-harbour-glory-eleven-occluded-preview-observations-v1-20261102.json` retains visualAcceptance=false.
