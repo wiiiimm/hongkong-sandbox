@@ -1,0 +1,141 @@
+{
+  "published": false,
+  "plan": "source-scripts/city/government-import/accepted/government-xl-harbour-glory-final-original-qualified-stage-v4-20261102/plan.json",
+  "areas": [
+    {
+      "area": "Harbour Glory and Hotel Alexandra eleven unchanged government components with authentic local terrain",
+      "models": 11,
+      "catalogue": "city/data/official-models/government-xl-harbour-glory-final-original-qualified-stage-v4-20261102/catalogue.json",
+      "terrainBundles": [],
+      "terrainReplacements": []
+    }
+  ],
+  "before": {
+    "3d-viewer/city/data/government-native-harbour-glory-original-v1-20261102.json": null,
+    "3d-viewer/city/data/official-models/government-xl-harbour-glory-final-original-qualified-stage-v4-20261102/catalogue.json": null,
+    "3d-viewer/city/data/manifest.json": "29d7042cac6a54b50a1999626b9498734cbca32b8ea74ee8dba639d832e2f6c8"
+  },
+  "after": {
+    "3d-viewer/city/data/government-native-harbour-glory-original-v1-20261102.json": "a4fc9f9ed35622259986134ea7fa7a08a04acc667da6f99726125ec20460eae2",
+    "3d-viewer/city/data/official-models/government-xl-harbour-glory-final-original-qualified-stage-v4-20261102/catalogue.json": "d22944ff11587114b6e2b2f2847553ed56afa2156b0c90885ef62f22b6feae54",
+    "3d-viewer/city/data/manifest.json": "7af1d8fd67ca844100836dcbed12eb7dc34d784c9cf1ace88b63044412868fc1"
+  },
+  "counts": {
+    "buildings": 346115,
+    "heights": {
+      "estimated": 109764,
+      "landsd": 235761,
+      "levels": 502,
+      "tagged": 88
+    },
+    "parks": 1294,
+    "roads": 190222
+  },
+  "beforeCommit": "d99c1273474b8894fb7bd9bf7a5deefc9e9a947a",
+  "topLevelTerrainPatches": [
+    {
+      "url": "city/data/government-native-harbour-glory-original-v1-20261102.json",
+      "resolution": 5,
+      "area": "Harbour Glory and Hotel Alexandra eleven unchanged government components with authentic local terrain",
+      "source": {
+        "boundedOriginalInset": {
+          "coreBounds": [
+            3351.4621522,
+            -271.67637461,
+            3435.97564152,
+            -189.05323604
+          ],
+          "outerBounds": [
+            3349.144917420769,
+            -273.96981764364335,
+            3438.2748525385728,
+            -186.7340535531421
+          ],
+          "policy": "Original highest source terrain with existing1.2m sea-level floor, lower inset within model projection+1m and a shared piecewise-affine3m return. Validated coarse-parent edge return retained outside the original inset; original model bytes/pose unchanged."
+        },
+        "crs": "EPSG:2326",
+        "nativeSources": [
+          {
+            "path": "source-scripts/city/government-import/local/government-xl-alexandra247461-current-e12-original-terrain-acquisition-v2-20261101/decoded/TERRAIN(TB)/T37500162000106E12/T37500162000106E12.gltf",
+            "sha256": "7ae2c74346b52a562de1d478edef56c9fd073946979a1eb54cc6be051dda3b1c"
+          }
+        ],
+        "parentWaterMask": {
+          "landNodes": 841,
+          "policy": "Raw parent water/land classification preserved at every refinement node.",
+          "waterNodes": 0
+        },
+        "policy": "Original native terrain facets in the core; 10m outer transition split on original parent triangle boundaries. Parent water mask retained. Source building geometry and elevations unchanged.",
+        "provider": "Lands Department/HKSAR",
+        "verticalDatum": "HKPD"
+      },
+      "sha256": "a4fc9f9ed35622259986134ea7fa7a08a04acc667da6f99726125ec20460eae2",
+      "bytes": 1822392
+    }
+  ],
+  "basicPodiumFootings": [],
+  "retainedBasicOnlyFootingChecks": [
+    "landsd/213586:0"
+  ],
+  "nativeBasicFallbackGrounds": [],
+  "retainedNativeBasicFallbackGroundChecks": [
+    "landsd/271344:0",
+    "landsd/92881:0",
+    "landsd/238142:0"
+  ],
+  "retainedBasicSupportChecks": [
+    {
+      "uid": "landsd/312858:0",
+      "supportUid": "landsd/176739:0",
+      "sourceSHA256": "4df1dff01d7dea81fb84e75cca635b82ebbf39e41fc1305f899a835c0209a19d",
+      "completeIndexedBasicGeometrySHA256": "c3018b7d0927d1057309145ab30071c0f4fb78ab37f90558e81f075d133f1cc6"
+    },
+    {
+      "uid": "landsd/6801:0",
+      "supportUid": "landsd/304712:0",
+      "sourceSHA256": "b3bf0457999097ae6a9c09556e66e8e719dfac380e02afdbe1ec599c4339182c",
+      "completeIndexedBasicGeometrySHA256": "b30dd6fdede1afaeb6fcebbc2c551520e31b948077bd807338cced206296bb5f"
+    },
+    {
+      "uid": "landsd/255543:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "a780f09a03f515f9baf33d7d0408f663fe82080d51c1b4290f02dd4121124667",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256334:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "afe9a86cf2ece5a5ed97c39a5e5a7b3e32504e50e4e75172f1114e3e0ddc612e",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/256142:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "acd09dfe8848815ddf542bf530890e90e0bbf3dff8bb68a360f150c161b9414d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255539:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "5a9ae96e9b758dc4269a11021a873a5d2c0499e5b6fc655890789663cd9f8d51",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/255541:0",
+      "supportUid": "landsd/233218:0",
+      "sourceSHA256": "c998eee48b38a47635f3c2344c58cfac3533518b16629c3ab69df1d124ae244d",
+      "completeIndexedBasicGeometrySHA256": "7aff22957ed2ae3adbacf6329c6986efcdf7cc9c971b357e976fbf7e1e5ab20b"
+    },
+    {
+      "uid": "landsd/173764:0",
+      "supportUid": "landsd/228592:0",
+      "sourceSHA256": "1e442ee4cb2edc1edbe1162e10dcdae8aa33a23bde8f86a7459d7c680a76605f",
+      "completeIndexedBasicGeometrySHA256": "f456ae4b6aba14ab5b58a49e50e5044388184467241617679226ddfd96ca4fd9"
+    }
+  ],
+  "basicFallbackProtections": {
+    "retained": 2,
+    "added": []
+  },
+  "estimatedBases": []
+}
