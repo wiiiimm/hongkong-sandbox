@@ -1,0 +1,24 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "elapsedSeconds": 1.138}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/one_peking_fresh_current_identity_review_v1_20261101.py", line 14, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/one_peking_fresh_current_identity_review_v1_20261101.py", line 11, in main
+    cp=BASE/(P+'identity-v1-20261101')/row['uid'].split('/')[1]/'context.json';proof=verify_files(row,read(cp),local/row['uid'].split('/')[1]);assert proof['passed'];save(out/(row['uid'].split('/')[1]+'-identity.json'),proof);results.append(proof);refs.extend(ROOT/r['path']for r in proof['currentBinding']['evidenceRefs'])
+                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/one_peking_fresh_current_identity_v1_20261101.py", line 34, in verify_files
+    old=take(P+'identity-v1-20261101',BASE/(P+'identity-v1-20261101')/row['uid'].split('/')[1]/'identity.json');raw=ordinary(row,context,local);assert raw==old,'Full raw current identity changed'
+                                                                                                                                                       ^^^^^^^^
+AssertionError: Full raw current identity changed
+{"reservationAction": "release", "ok": true, "exitCode": 0, "elapsedSeconds": 1.24}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "<stdin>", line 8, in <module>
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/north_pair_nonwall_topology_v1_20261027.py", line 28, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval
