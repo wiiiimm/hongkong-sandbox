@@ -1,0 +1,1 @@
+Publisher correctly rejected identityProof summary lacking exactObjectId/exactBuildingCSUID/uniqueViewerMatch/identityAccepted. The authenticated full identity.json already contains all four true proofs. New physical/source reviewV3 binds that actual proof, and a new config/prefix preserves every prior frozen stage. No publication occurred; no guard is changed.
