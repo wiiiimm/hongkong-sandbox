@@ -12,7 +12,7 @@ BASE=ROOT/'docs/astra-city/government-import'
 def main():
  p=argparse.ArgumentParser(description=__doc__)
  for key in ['batch','capture','installed','terrain-check']:p.add_argument('--'+key,required=True)
- p.add_argument('--uid',action='append',required=True);p.add_argument('--cover-native',action='append',default=[]);p.add_argument('--owned',action='store_true');a=p.parse_args()
+ p.add_argument('--uid',action='append',required=True);p.add_argument('--cover-native',action='append',default=[]);p.add_argument('--builder',choices=['selected_original_local_full_tin_v22_20261101.py','selected_original_source_bounds_full_tin_v1_20261101.py','selected_original_disjoint_grid_child_tin_v1_20261101.py'],default='selected_original_local_full_tin_v22_20261101.py');p.add_argument('--parent-capture');p.add_argument('--grid-parent');p.add_argument('--owned',action='store_true');a=p.parse_args()
  assert a.batch.startswith('government-xl-')and '/'not in a.batch
  assert 0<len(a.uid)==len(set(a.uid))<=40
  assert not a.cover_native or len(a.uid)==1,'Explicit retention is bound to one new source per run'
@@ -30,13 +30,19 @@ def main():
    assert url in urls
    terrain=read(ROOT/'3d-viewer'/url);assert terrain.get('nativeMesh')and terrain['meta']['parentTerrain']=='city/data/terrain.json'
    resources.add('terrain:'+url);resources.update('building:'+u for u in terrain['meta']['targetUids'])
+  if a.grid_parent:
+   assert len(a.uid)==1 and a.grid_parent in urls and a.builder=='selected_original_disjoint_grid_child_tin_v1_20261101.py'
+   grid=read(ROOT/'3d-viewer'/a.grid_parent);assert not grid.get('nativeMesh')
+   resources.add('terrain:'+a.grid_parent);resources.update('building:'+u for u in grid['meta']['targetUids'])
   resources=sorted(resources)
   c=reservations.claim('remaining-xl-authentic-terrain-'+str(uuid.uuid4()),resources,batch=a.batch,ttl=3600);assert c['ok'],c
   execute_reserved(c['reservation'],lease,[sys.executable,__file__,*sys.argv[1:],'--owned']);return
  outcomes=[]
  for uid in a.uid:
   assert reservations.owns(read(lease));key=uid.split('/')[1].replace(':','-');batch=a.batch+'-'+key
-  command=[sys.executable,str(HERE/'selected_original_local_full_tin_v22_20261101.py'),'--batch',batch,'--capture',a.capture,'--terrain-check',a.terrain_check,'--uid',uid,*[v for url in a.cover_native for v in ['--cover-native',url]]]
+  command=[sys.executable,str(HERE/a.builder),'--batch',batch,'--capture',a.capture,'--terrain-check',a.terrain_check,'--uid',uid,*[v for url in a.cover_native for v in ['--cover-native',url]]]
+  if a.grid_parent:command+=['--grid-parent',a.grid_parent]
+  if a.parent_capture:command+=['--parent-capture',a.parent_capture]
   with (local/(key+'.log')).open('w')as log:
    proc=subprocess.run(command,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,timeout=10800)
   result=dict(uid=uid,batch=batch,exitCode=proc.returncode,installationApproved=False,permanentRejection=False)

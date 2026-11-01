@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_patch_scope_v3_20261026.py", line 119, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_patch_scope_v3_20261026.py", line 43, in main
+    root = take(rootpath)
+           ^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_patch_scope_v3_20261026.py", line 32, in take
+    assert digest(path.read_bytes()) == pins[str(path.relative_to(ROOT))]
+                                        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: '3d-viewer/city/data/terrain.json'
