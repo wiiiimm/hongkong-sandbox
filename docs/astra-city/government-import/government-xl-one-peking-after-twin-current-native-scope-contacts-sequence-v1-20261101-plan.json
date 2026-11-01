@@ -1,0 +1,42 @@
+{
+  "batch": "government-xl-one-peking-after-twin-current-native-scope-contacts-sequence-v1-20261101",
+  "uids": [
+    "landsd/233985:0",
+    "landsd/240487:0"
+  ],
+  "resources": [
+    "building:landsd/233985:0",
+    "building:landsd/240487:0",
+    "building:landsd/73140:0",
+    "building:landsd/211916:0",
+    "building:landsd/225163:0"
+  ],
+  "phases": [
+    {
+      "batch": "government-xl-one-peking-after-twin-complete-source-scope-v1-20261101",
+      "script": "selected_original_model_only_scope_v1_20261023.py",
+      "args": [
+        "--runtime",
+        "government-xl-one-peking-after-twin-runtime-v1-20261101",
+        "--attributes",
+        "government-xl-one-peking-after-twin-attributes-v1-20261101",
+        "--inventory",
+        "government-xl-after-twin-fresh-native-bounds-v1-20261101"
+      ]
+    },
+    {
+      "batch": "government-xl-one-peking-after-twin-installed-native-contacts-v1-20261101",
+      "script": "selected_original_overlapping_native_contacts_v3_20261024.py",
+      "args": [
+        "--runtime",
+        "government-xl-one-peking-after-twin-runtime-v1-20261101",
+        "--attributes",
+        "government-xl-one-peking-after-twin-attributes-v1-20261101",
+        "--inventory",
+        "government-xl-after-twin-fresh-native-bounds-v1-20261101",
+        "--scope",
+        "government-xl-one-peking-after-twin-complete-source-scope-v1-20261101"
+      ]
+    }
+  ]
+}
