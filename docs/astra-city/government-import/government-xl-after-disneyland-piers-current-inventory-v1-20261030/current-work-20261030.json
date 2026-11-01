@@ -1,11 +1,10 @@
 {
   "activeWorker": {
-    "sessionId": 7817,
-    "batch": "government-xl-harbour-glory-eleven-clearer-preview-v3-20261102",
-    "pid": 1714004,
-    "log": "/tmp/astra-harbour-glory-eleven-clearer-preview-v3-20261102.log",
-    "state": "verified live",
-    "purpose": "camera-only elevated actual desktop/mobile recapture; retain all neighbours",
+    "sessionId": 20247,
+    "batch": "government-xl-harbour-glory-eleven-framed-preview-v4-20261102",
+    "state": "live browser started after previous preview and pair binder completed",
+    "log": "/tmp/astra-harbour-glory-eleven-framed-preview-v4-20261102.log",
+    "runner": "bounded_original_camera_preview_v1_20261102.py",
     "pollBeforeOverlap": true
   },
   "aiGeometryModelling": false,
@@ -301,7 +300,7 @@
     "pushed": true,
     "commit": "4677505cf5"
   },
-  "latestPushedCommit": "19e495373a",
+  "latestPushedCommit": "a551a85ee0",
   "linearUpdatedAfterInstallation": {
     "installedCommit": "4677505cf5",
     "issues": [
@@ -536,18 +535,21 @@
       "landsd/258158:0"
     ],
     "sharedEdgeTestsPassed": 13,
-    "pairBindingPreparedNotExecuted": "harbour_glory_current_pair_binding_v1_20261102.py",
     "completeCurrentHistoricalFourWorldRowsIdentical": true,
     "clearerDesktopPassed": true,
     "clearerDesktop22ExportsReviewedViaContactSheets": true,
     "remainingCameraObstruction": [
       "landsd/28391:0",
       "landsd/232659:0"
-    ]
+    ],
+    "clearerPreviewCompleted": true,
+    "clearerPreviewJob": "6dc2567ff477704d5ba21e65801acf33fbe268a487b5ff79817297f102721d30",
+    "currentPairBindingComplete": true,
+    "currentPairBindingJob": "7cea60503e072ec6a435621c98c4657f7e48c426af0a3c8f67c59e3e208c2c59"
   },
   "preparedCameraContinuation": {
     "sessionId": 20247,
-    "state": "verified dependency wait on live PID1714004",
+    "state": "previous preview and pair binder complete; framed V4 browser now running",
     "wait": "timeout1800 tail --pid1714004; require V3result.json before running anything",
     "steps": [
       "harbour_glory_current_pair_binding_v1_20261102.py",
