@@ -1,0 +1,1 @@
+Read-only installer preflight exposed a legacy single-replacement key assumption. The V3 preview authenticated one replacesMany entry; staging had already normalised that exact single native replacement. The guarded adapter now compares all original single-entry URL/hash/target bindings rather than requiring a nonexistent key. No installation or publication occurred.

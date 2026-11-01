@@ -1,0 +1,1 @@
+Staging stopped before publisher execution because an inherited rawReport reference still used summary.json instead of the authenticated qualified-neighbours.json filename. Assets in accepted staging are private only. No publication, installation or government geometry change. V2 corrects this filename binding; existing checks remain unchanged.
