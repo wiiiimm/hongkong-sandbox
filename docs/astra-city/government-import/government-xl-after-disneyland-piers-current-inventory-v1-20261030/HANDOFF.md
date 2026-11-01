@@ -2,11 +2,12 @@
 
 **414 installed + 3 existing terminal + 104 unfinished = 521 fixed XL source keys; 7,067 detailed actors.** Both NULL-UID keys retained. Goal active. This turn made substantive source/physical evidence progress; no new installations or terminal classifications. Worktree `.claude/worktrees/astra-hong-kong-city`, branch `codex/astra-hong-kong-city`. No browser/dev server started.
 
-## Immediate next action: Peak original ground-root paths
+## Current result: Peak original ground-root paths complete
 
 Below-grade context completed and released session92719: child job **34e919caabd4f231d12a9268743430e97fd3dd6ad13d55619ddf4833236b4a03**. All four representations retain1661negative faces:1192walls, of which19lack an exact clear-cap path, plus469nonwalls. These are diagnostic counts, not physical acceptance. No geometry edits or installation credit.
 
-Existing `selected_original_ground_root_paths_v1_20261101.py` is now running under complete renewing affected-resource leases, session21211; log `/tmp/astra-peak-original-ground-root-paths-20261101.log`, batch `government-xl-peak-original-ground-root-paths-v1-20261101`. Check the actual handle before restart. This traces unchanged original edges to actual drawn-ground witnesses; it does not introduce a global engineering/root gate or waive buried faces. Fresh two-basement metadata remains context only.
+Existing `selected_original_ground_root_paths_v1_20261101.py` completed and released session21211. Batch `government-xl-peak-original-ground-root-paths-v1-20261101` records all four representations:11base targets,0independently verified strict roots,0finite attachment paths. No source/pose changes, support/physical/installation approval. This explains the checked base-interface failure; do not invent a universal per-component root requirement. Next work requires actual source-ground/terrain-lineage diagnosis or another unfinished source, not another identical ground-root run. All workers are currently terminal/released.
+
 
 ## Peak Galleria167911: decisive completed evidence
 
@@ -32,6 +33,6 @@ Harbourfront233227 still needs complete source extent/role/physical work. Its au
 
 Readback-verified four-source checkpointV2 **1dd7bd716c72959d4483b10b2116125e61a909cb36198b15db3d5882c6785fa9** verifies30complete proof jobs and persists actionable reasons with zero acceptance credit. Later Peak primary/grade jobs are separately frozen. Failed intermediate logs are preserved in `government-xl-four-original-script-failures-preserved-v1-20261101/`. RuntimeProbeV1 missing parent-evidence binding was repaired inV2, not waived.
 
-All earlier handles2569,63452,50037,53673,85506,18670,24897,97479,41443,53242,14586,22813,85421,32295,33610,35457,85722,49686,51640 are terminal/released. Session92719 is also terminal/released. **Only21211 is active** as last verified. Poll it; do not restart stopped-looking work from old notes. Full104unfinished goal and bothNULLkeys remain intact.
+All earlier handles2569,63452,50037,53673,85506,18670,24897,97479,41443,53242,14586,22813,85421,32295,33610,35457,85722,49686,51640 are terminal/released. Session92719 is also terminal/released. Session21211 also completed/released; **no active workers**. Do not poll/restart old sessions; do not restart stopped-looking work from old notes. Full104unfinished goal and bothNULLkeys remain intact.
 
 Current installation snapshot0da80d925c940537; manifestSHA1b36eedbad357f498d0096c44a1d534c2cf6791356beef56d422ffd37d1c8000. Protected unrelated dirty files: safe-boundary-recovery working-commands.json, landmark-completion-audit/neon-snapshot.json, and pier-lighting-design-photograph.jpg. No broad staging, migrations, deployment, main merge or new agents. Shared4176 untouched. Skill v1.9.235 points to existing reusable diagnostics and records provider-revision/terrain-parent distinctions without loosening guards.
