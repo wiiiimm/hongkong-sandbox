@@ -1,0 +1,26 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "elapsedSeconds": 1.082}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_basic_contact_v1_20261102.py", line 105, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_basic_contact_v1_20261102.py", line 98, in main
+    module('selected_retained_basic_contact_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 17, in freeze
+    payload={'uids':result['uids'],'evidenceRefs':refs};jid=jobs.enqueue(batch,stage,payload);job=jobs.claim(batch,lease['owner'],[stage],lease_seconds=1800);assert job and job['id']==jid
+                    ~~~~~~^^^^^^^^
+KeyError: 'uids'
+{"reservationAction": "release", "ok": true, "exitCode": 0, "elapsedSeconds": 1.15}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_basic_contact_v1_20261102.py", line 105, in <module>
+    main()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/selected_original_retained_basic_contact_v1_20261102.py", line 66, in main
+    return execute_reserved(claim['reservation'], control,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/north_pair_nonwall_topology_v1_20261027.py", line 28, in execute_reserved
+    assert result.returncode == 0, 'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval
