@@ -2,6 +2,22 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Current worker and verified Harbour evidence —2November2026
+
+**Live session60806**: `government-xl-harbour-glory-eleven-current-preview-v2-20261102`, config matching`-config-v2-20261102.json`, log `/tmp/astra-harbour-glory-eleven-current-preview-v2-20261102.log`. Fresh11original preview against7076actors, allapprovalflagsfalse/nohide; owns rootandloopback4177. Poll before overlap.
+
+Fullcurrent11source foundation/support sequence completed **d4b4a9ddf728500315202197997c478fd79f1f3ed1a8efb1b48b2b957dc34c36**; all7strictinterfaces measured,2directpass and5zero-rise canonical-path groups pass all4worlds. Allcompoundfoundations0fullyburied.28391all104negativewallfaces and92999all35 have clearcap paths in4worlds.247461all244negativefaces have paths, but10upwardbelowfloorfaces1970..1979retain rawnonwallfailure; fresh exactbelowdrawnfloor proof shows all31sampledburiedfaces fullycovered belowground.232659allnegativewallpaths also pass. No sourcegeometry edits or numerical limit changes.
+
+Current26neighbours **87b3c3d3d24f65023f9425dafafb4f03ca1dab79657478bac85be757de5621cd**: only7rawBASICincreasedgapflags, all plannedcoimports35148/67682/108870/232659/258158/271909/273684; keeprawflags and bind each replacement's realoriginalphysics.0requirednativeactors.
+
+**Terrain scope has one shared EDGE, not a point**: old`city/data/government-xl-sung-original-assembly-terrain-20261024.json`, fixedX3332.5,Z[-247.5,-177.5],70m;0positiveareaoverlap/0touchingnativeactorbounds. `government-xl-harbour-glory-sung-shared-edge-context-v1-20261102` uses unchangedexisting`coordinated_native_boundary_v1_20261023.seam_segments/seam_comparison_report` and actualrenderedFloat32triangles;93breakpoints/369fullenvelope comparisons, maxerror **3.289809683337808e-7m**, existingstrict1cmguardpasses.11existingkerneltests pass. Bothterrainmeshes unchanged; **admissionGranted=false**.
+
+Nextcodework: V4qualifiedstage's`original_terrain_obligation_union_v2` only routes exactpointcontacts. Do NOT feed thisedge to`original_terrain_point_contact_v1/v2` or widen itsguard. Add/test an explicit closedsharededge qualification route using the existing complete finiteboundary checker, preserving originalpoint path, currentcandidate/parent/oldterrain/source hashes,0positivearea/0touchingnative obligations, all26forms, original nativevalidators and existing full pair/three/five publisher dispatch. Candidate alreadypassesordinary rootnativevalidation; no mesh/terrain/coordinate edits needed by the measured seam. Add no new engineering gates. Fresh11source identity and bounded physical/rawfalse interpretations plus actual44sourceexports/live/readback remain mandatory. Old55pair/46foreign proofs bind exactcurrentworld/source/ground arrays before reuse, never approvals.
+
+Counts420installed/3terminal/98unfinishedof521,7076actors. Installation4677505cf5pushed; all98andbothNULLkeys stillscope. Priorprep57193/77655/2610/5767terminal. NoAIgeometrymodelling/optimisation.
+
+Earlier sections below are superseded routing history.
+
 ## Current continuation —2November2026
 
 Shangri-La verifiedinstallation **4677505cf5 pushed**;420installed/3terminal/98unfinishedof521,7076actors. HKS-203/199/215andXLmilestone updated. No furtherShangriLa work required for these exact2components.
