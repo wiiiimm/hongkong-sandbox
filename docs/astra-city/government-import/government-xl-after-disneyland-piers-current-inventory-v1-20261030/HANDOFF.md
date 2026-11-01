@@ -2,6 +2,26 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Latest verified installation — Shangri-La,2 November2026
+
+Original tower240962and requiredpodium233824 installed unchanged1x/HKPD, originalgeometry/nodepose intact and no proceduralwindows. Installedjob **88560988047f1dcf7b9a2300b83346afbf8bce564911391c5f000ae903e558ea**, snapshot **d2a3597df102b97d**. IndependentV5ROOTreadback **4a5b93237ad7b75965bf111542ee257659a84637b43dce923eae081b73a3932e** proves all7074oldentries/assets unchanged, full521sourcekeys, globalretainedsupports, sole intendednewterrain and all8actuallyinspected live desktop/mobile day/night exports. Bothlive viewports/loading/picking/collision/retry/joint checks pass. Nightdarkness, neighbourBASICaliasing and initialmobilepodiumviewwithBASICpeer retained as limitations. No measuredFPS/everyfacade/wholehotel claim.
+
+**Current420installed +3terminal +98unfinished =521;7076detailedactors.** Authority `government-xl-shangrila-reviewed-original-original-installed-v1-20261102/full-xl-current-count.json`. Allworkers35243/44140and earlierhandles terminal/released. Commit/push this installation immediately; no otheractor is installed by the preparatoryHarbour work.
+
+Next: refresh7076nativebounds using existing verifiedadditions adapter and this V5readback; refresh explicit11sourceHarbourcurrentinputs afterglobalmanifestchange. Retain completed55pair/fourworld and46foreign computations,11identity/privatebrowser readiness,31belowfloor exactcoverage and232659clearcap paths. Numericreuse requires exactcomplete source/world/ground/current-neighbour bindings; no approvaltransfer. Complete current28391/92999/247461lowface/cap contexts and26neighbour checks, then physical/currentbrowser/guardedinstallation. All98unfinished/bothNULLkeys remain scope. NoAIgeometrymodelling or optimisation.
+
+Earlier sections below are superseded routing history.
+
+## Current live installation — 2 November 2026
+
+**Session35243**, `government-xl-shangrila-reviewed-original-original-installed-v1-20261102`, log `/tmp/astra-shangrila-original-install-v1-20261102.log`, config `government-xl-shangrila-reviewed-original-install-config-v1-20261102.json`. SourcephysicalreviewV2 and full-boundary qualifiedstage/preflight pass. Publication global checks passed; live mobilepassed,4mobileexports opened directly; live desktop currently running. Poll exact handle. Do not start other manifest-dependent work or claim installation credit yet. On success inspect4desktopexports, record all8live observations with existing recorder, run independent V5whole521/7074oldassets/global retained-support readback, then commit/push immediately. Expectedverifiedcount420/3terminal/98unfinished,7076actors; lastprovedcount remains419/3/99,7074 until readback.
+
+HarbourGlory/Alexandra: eleven-source componentidentity accepted with2raw shape failures retained; both desktop/mobilepreview pass44day/night exports (not all visually inspected). All55originalpairs/4worlds and46foreigncomparisons complete. Only external contacts:28391against102335(24line/point,0area) and261967(15,0area; beforeBASIC0). Full source projections locate alloverlap in7.726cm/8.141cm supporting-line strips; both diagrams opened directly; rawnewcontact preserved. This is bounded source/proxy context, not generic collision approval. Exact2source diagrams247461/92999 also opened. Allprocesses70292/14677/41317/82043areterminal/released.
+
+AfterShangriLa readback/commit: refresh current7076bounds and explicit11source scene using existing tools. Preserve55pair/strict-path/belowfloor/cap evidence; numericreuse requires complete source/world/ground and currentnomination proofs, never approvaltransfer. Current complete low-face/cap contexts for28391/92999/247461 and26neighbour/physical review remain. Immutable old scenes carry oldmanifest hashes; do not relabel them current. BothNULLkeys/allfixed521scope retained. NoAIgeometrymodelling or optimisation.
+
+Earlier sections below are superseded routing history.
+
 ## Current worker and next actions — 2 November 2026
 
 **Only session85264 is live**: complete11original Harbour Glory/Alexandra unapproved preview. Desktop passed22source day/night views and11joint checks,0errors; mobile is running. Poll exact handle and `/tmp/astra-harbour-glory-eleven-unapproved-preview-v1-20261102.log`; it owns root terrain and loopback4177. Do not restart or overlap those resources. No installation credit.
