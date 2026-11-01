@@ -1,0 +1,32 @@
+{
+  "batch": "government-xl-shangrila-original-joint-endpoint-choices-v1-20261102-sequence",
+  "uids": [
+    "landsd/233824:0",
+    "landsd/240962:0"
+  ],
+  "resources": [
+    "building:landsd/233824:0",
+    "building:landsd/240962:0"
+  ],
+  "phases": [
+    {
+      "script": "original_pair_rim_endpoint_choices_v1_20261029.py",
+      "batch": "government-xl-shangrila-original-joint-endpoint-choices-v1-20261102",
+      "args": [
+        "--runtime",
+        "government-xl-shangrila233824-original-floor-return-v1-20261101-runtime",
+        "--attributes",
+        "government-xl-shangrila233824-original-floor-return-v1-20261101-attributes",
+        "--contacts",
+        "government-xl-shangrila-original-pair-final-mechanical-v1-20261101-pair",
+        "--strict-support",
+        "government-xl-shangrila-original-pair-final-mechanical-v1-20261101-support",
+        "--uid",
+        "landsd/240962:0",
+        "--prior-attachment",
+        "government-xl-shangrila-original-joint-attachment-v1-20261102"
+      ]
+    }
+  ],
+  "qualification": "Exact original finite self-joins and original companion contacts only. Existing endpoint-height ceiling and raw strict warnings retained; contact terminals do not automatically grant support approval."
+}
