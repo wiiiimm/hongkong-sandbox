@@ -1,0 +1,1 @@
+Diagnostic failed before plots: historical complete graph is embedded in authenticated result.json; unpinned sibling diagnostic.json.gz was correctly rejected. Lease released. No model corruption, geometry edit or acceptance. V2 consumes the authenticated complete graph directly.

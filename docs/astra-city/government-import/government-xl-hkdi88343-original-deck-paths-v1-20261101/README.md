@@ -1,0 +1,1 @@
+All four numeric path/deck checks passed and summary written; freezer then rejected a mixed str/Path producer-reference list. No completed receipt or acceptance. V2 normalizes producer Path and retains all numeric gates.

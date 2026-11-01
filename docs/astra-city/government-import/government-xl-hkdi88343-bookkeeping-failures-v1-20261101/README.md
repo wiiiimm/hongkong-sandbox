@@ -1,0 +1,1 @@
+Old bounds helper expected an official-models.js scheduler pin absent from the newer complete fresh production geometry closure. No completed model result or acceptance. V2 additive index checks every actual captured geometry dependency and exact old entries/forms/assets instead.
