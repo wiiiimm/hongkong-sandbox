@@ -1,0 +1,41 @@
+{
+  "batch": "government-xl-academic309823-after-harbour-repaired-floor-cap-and-burial-sequence-v1-20261102",
+  "uids": [
+    "landsd/309823:0",
+    "landsd/309829:0",
+    "landsd/336320:0"
+  ],
+  "resources": [
+    "building:landsd/309823:0",
+    "building:landsd/309829:0",
+    "building:landsd/336320:0",
+    "building:landsd/26949:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-hkust-carpark-original-v1-20261101.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_complete_ground_cap_paths_v3_20261029.py",
+      "batch": "government-xl-academic309823-after-harbour-repaired-floor-cap-paths-v1-20261102",
+      "args": [
+        "--runtime",
+        "government-xl-academic309823-after-harbour-repaired-floor-runtime-v1-20261102",
+        "--attributes",
+        "government-xl-academic309823-after-harbour-repaired-floor-attributes-v1-20261102",
+        "--low-faces",
+        "government-xl-academic309823-after-harbour-repaired-floor-low-faces-v1-20261102",
+        "--uid",
+        "landsd/309823:0"
+      ]
+    },
+    {
+      "script": "selected_original_buried_context_v1.py",
+      "batch": "government-xl-academic309823-after-harbour-repaired-floor-buried-context-v1-20261102",
+      "args": [
+        "--runtime",
+        "government-xl-academic309823-after-harbour-repaired-floor-runtime-v1-20261102"
+      ]
+    }
+  ],
+  "qualification": "Complete current-ground cap paths and remaining buried facet evidence only. Downward orientation is not physical approval. No geometry edits, tolerance changes, support/acceptance transfer, optimisation or installation credit."
+}

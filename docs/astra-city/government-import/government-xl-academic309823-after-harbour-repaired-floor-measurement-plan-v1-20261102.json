@@ -1,0 +1,85 @@
+{
+  "batch": "government-xl-academic309823-after-harbour-repaired-floor-measurement-sequence-v1-20261102",
+  "uids": [
+    "landsd/309823:0",
+    "landsd/309829:0",
+    "landsd/336320:0"
+  ],
+  "resources": [
+    "building:landsd/309823:0",
+    "building:landsd/309829:0",
+    "building:landsd/336320:0",
+    "building:landsd/26949:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-hkust-carpark-original-v1-20261101.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_patch_runtime_v6_20261024.py",
+      "batch": "government-xl-academic309823-after-harbour-repaired-floor-runtime-v1-20261102",
+      "args": [
+        "--patch",
+        "government-xl-academic309823-after-harbour-bounded-floor-v2-20261102",
+        "--capture",
+        "government-xl-academic309823-after-harbour-current-selection-v1-20261102"
+      ]
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-academic309823-after-harbour-repaired-floor-attributes-v1-20261102",
+      "args": [
+        "--capture",
+        "government-xl-academic309823-after-harbour-repaired-floor-runtime-v1-20261102"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-academic309823-after-harbour-repaired-floor-309823-0-foundations-v1-20261102",
+      "args": [
+        "--runtime",
+        "government-xl-academic309823-after-harbour-repaired-floor-runtime-v1-20261102",
+        "--attributes",
+        "government-xl-academic309823-after-harbour-repaired-floor-attributes-v1-20261102",
+        "--uid",
+        "landsd/309823:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-academic309823-after-harbour-repaired-floor-309829-0-foundations-v1-20261102",
+      "args": [
+        "--runtime",
+        "government-xl-academic309823-after-harbour-repaired-floor-runtime-v1-20261102",
+        "--attributes",
+        "government-xl-academic309823-after-harbour-repaired-floor-attributes-v1-20261102",
+        "--uid",
+        "landsd/309829:0"
+      ]
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-academic309823-after-harbour-repaired-floor-336320-0-foundations-v1-20261102",
+      "args": [
+        "--runtime",
+        "government-xl-academic309823-after-harbour-repaired-floor-runtime-v1-20261102",
+        "--attributes",
+        "government-xl-academic309823-after-harbour-repaired-floor-attributes-v1-20261102",
+        "--uid",
+        "landsd/336320:0"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v2_20261027.py",
+      "batch": "government-xl-academic309823-after-harbour-repaired-floor-low-faces-v1-20261102",
+      "args": [
+        "--runtime",
+        "government-xl-academic309823-after-harbour-repaired-floor-runtime-v1-20261102",
+        "--attributes",
+        "government-xl-academic309823-after-harbour-repaired-floor-attributes-v1-20261102",
+        "--uid",
+        "landsd/309823:0"
+      ]
+    }
+  ],
+  "qualification": "Fresh actual runtime capture on current7087scene with explicit pinned carpark terrain replacement. No unapproved BASIC tile/proposal overlay is applied. Newsource/attributes/four-world foundations/full low-face checks only; preserve all failures. No sourcegeometry edits, acceptance transfer, optimisation or installation credit. Full source identity/neighbour/retained/visual/browser/publisher checks remain separate."
+}
