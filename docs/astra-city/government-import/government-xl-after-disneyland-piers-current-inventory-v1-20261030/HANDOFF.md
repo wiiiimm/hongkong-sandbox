@@ -2,13 +2,13 @@
 
 **415 installed + 3 existing terminal + 103 unfinished = 521 fixed XL source keys; 7,068 detailed actors.** Both NULL-UID keys retained. Goal active. Aqua Marine Block 5 (`landsd/175729:0`) is newly installed and independently verified. Original geometry, fixed1x placement and existing support contracts remain unchanged.
 
-## Completed Aqua installation — commit and push now
+## Completed Aqua installation — committed and pushed
 
 Receipt: `government-xl-cohort19-aqua-reviewed-original-original-installed-v1-20261101/result.json`, Neon job `3e15b5f05825ea1ab8d781627bbb09afae8da4dba7eb4cd6c90c126306c00a36`, snapshot `9a05ee1ca5f18186`. Real desktop/mobile day/night loading, picking, collision, failure/retry and retained-podium checks passed. ROOT inspected all eight final live source/retained exports; exact records are in `ROOT-LIVE-EXPORT-INSPECTION.json`.
 
 Independent readback: `government-xl-cohort19-aqua-reviewed-original-installed-root-readback-v2-20261101/ROOT-READBACK.json`, Neon job `c3777b1713c47817a28a17bdbf3d179c21b53abe00de53bfcf4099f45e7ecd05`. All 521 rows compared; only175729changed. Every one of7067previous actor assets/entries and all365previous catalogue bytes remain identical; global retained-support checks passed. V1 audit's filename enumeration failure is preserved; V2 enumerates exact authenticated old manifest URLs, including the valid catalogue-north file.
 
-No active workers or owned servers remain. Installer37422 and readback37129 completed. Commit/push the installation immediately. Preserve pre-existing dirty audit snapshot bytes in the installed batch's `pre-install-dirty-neon-snapshot.json.gz` and `pre-existing-audit-preservation.json`; exclude unrelated working-commands/photo changes.
+Installer37422 and readback37129 completed. Installation committed and pushed as870b43b13a. Current leased Twin selection/runtime/identity refresh is session30870; log `/tmp/astra-xl-twin-after-aqua-current-original-checks-v1-20261101.log`. Poll this handle before restarting. No browser server was started for this refresh. Preserve pre-existing dirty audit snapshot bytes in the installed batch's `pre-install-dirty-neon-snapshot.json.gz` and `pre-existing-audit-preservation.json`; exclude unrelated working-commands/photo changes.
 
 Final immutable config: `government-xl-cohort19-aqua-installed-parent-original-install-config-v2-20261101.json`. Final physical/source reviewsV3 and isolated4177/V15previewV2 remain frozen. Exact single-source subset binding retains full cohort neighbour evidence without changing approval rules. Earlier failed/schema versions remain historical.
 
@@ -50,3 +50,7 @@ Readback-verified four-source checkpointV2 **1dd7bd716c72959d4483b10b2116125e61a
 All earlier handles2569,63452,50037,53673,85506,18670,24897,97479,41443,53242,14586,22813,85421,32295,33610,35457,85722,49686,51640 are terminal/released. Session92719 is also terminal/released. Session21211 also completed/released; **atomic installer37422 is active**. Do not poll/restart old sessions; do not restart stopped-looking work from old notes. Full104unfinished goal and bothNULLkeys remain intact.
 
 Current installation snapshot0da80d925c940537; manifestSHA1b36eedbad357f498d0096c44a1d534c2cf6791356beef56d422ffd37d1c8000. Protected unrelated dirty files: safe-boundary-recovery working-commands.json, landmark-completion-audit/neon-snapshot.json, and pier-lighting-design-photograph.jpg. No broad staging, migrations, deployment, main merge or new agents. Shared4176 untouched. Skill v1.9.235 points to existing reusable diagnostics and records provider-revision/terrain-parent distinctions without loosening guards.
+
+## Twin captured contact context completed
+
+V2diagnostic Neon job `fd472f3474fe5588c5c3e0b043212b1e7d2801d9857065ee489f86481fc6287f` passed and released18511. Original native49/50exactlycoplanar; literal representation has exact residual −4686817467/154742504910672534362390528, whileleft/balanced residuals0. Raw contacts retained. Captured scene is explicitly historical after Aqua; no physical/installationapproval. Current refresh30870prepares fresh scene binding. No geometry changes.
