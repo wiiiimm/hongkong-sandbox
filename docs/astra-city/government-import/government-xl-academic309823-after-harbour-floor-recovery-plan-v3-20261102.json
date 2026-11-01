@@ -1,0 +1,55 @@
+{
+  "batch": "government-xl-academic309823-after-harbour-floor-recovery-sequence-v3-20261102",
+  "uids": [
+    "landsd/309823:0",
+    "landsd/309829:0",
+    "landsd/336320:0"
+  ],
+  "resources": [
+    "building:landsd/309823:0",
+    "building:landsd/309829:0",
+    "building:landsd/336320:0",
+    "building:landsd/26949:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-hkust-carpark-original-v1-20261101.json"
+  ],
+  "phases": [
+    {
+      "script": "rebind_private_original_terrain_v4_20261102.py",
+      "batch": "government-xl-academic309823-after-harbour-full-tin-rebind-v2-20261102",
+      "args": [
+        "--previous",
+        "government-xl-academic309823-after-carpark-private-full-tin-v1-20261101",
+        "--capture",
+        "government-xl-academic309823-after-harbour-current-selection-v1-20261102",
+        "--previous-capture",
+        "government-xl-academic309823-after-carpark-current-runtime-v1-20261101"
+      ]
+    },
+    {
+      "script": "rendered_native_terrain_input_proof_v1_20261029.py",
+      "batch": "government-xl-academic309823-after-harbour-full-tin-rendered-input-v2-20261102",
+      "args": [
+        "--patch",
+        "government-xl-academic309823-after-harbour-full-tin-rebind-v2-20261102"
+      ]
+    },
+    {
+      "script": "selected_original_upward_floor_terrain_return_v8_20261102.py",
+      "batch": "government-xl-academic309823-after-harbour-bounded-floor-v2-20261102",
+      "args": [
+        "--previous",
+        "government-xl-academic309823-after-harbour-full-tin-rebind-v2-20261102",
+        "--ramps",
+        "government-xl-academic309823-after-carpark-upward-floor-facets-v1-20261101",
+        "--runtime",
+        "government-xl-academic309823-after-harbour-current-selection-v1-20261102",
+        "--uid",
+        "landsd/309823:0",
+        "--rendered-proof",
+        "government-xl-academic309823-after-harbour-full-tin-rendered-input-v2-20261102"
+      ]
+    }
+  ],
+  "qualification": "Reuse successful current7087source selection9213e4162d68b0d005e8889454e035c09285ffa1808365581a35ce1a188e32b3. Recover exact old pre-audit input SHAeb0f7fabaeb70710f8c803e6dab6a1b52e7c338846fbc28c054a8cbc91500a86; regenerate ordinary overlap proof and prove every other patch field unchanged. Actual parser representation proof fresh for metadata-rebound candidate. Private floor return retains originalbuildingbytes and all existing numerical/native limits; no unapprovedBASIC/current-ground/support/identity/neighbour/browser/publication approval transfer."
+}

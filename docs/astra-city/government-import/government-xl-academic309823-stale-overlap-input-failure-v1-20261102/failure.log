@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/rebind_private_original_terrain_v3_20261102.py", line 61, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/rebind_private_original_terrain_v3_20261102.py", line 46, in main
+    validator.validate_patch(patch,parent)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/publish.py", line 45, in validate_patch
+    validate_native_mesh(p,parent)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/island-detail-integration/native_terrain_validation.py", line 41, in validate_native_mesh
+    path=(root/source['path']).resolve();assert path.is_relative_to(root) and hashlib.sha256(path.read_bytes()).hexdigest()==source['sha256'],'Native overlap source changed'
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Native overlap source changed
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}

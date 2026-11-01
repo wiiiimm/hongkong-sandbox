@@ -2,6 +2,18 @@
 
 Read this file and `current-work-20261030.json` first. The exact previous 106KB of notes/state is preserved with SHA256s in `history-archive-20261101.json`; search that archive for a specific older case, never treat its worker fields as current.
 
+## Current HKUST numerical recovery — 2 November 2026
+
+Current totals remain **421 installed / 3 terminal / 97 unfinished of 521**, 7,087 detailed actors. Harbour commit `e0cdadd1c3` is pushed. University Hall `landsd/93417:0` was already installed in `c339a37453`; the repeated approval requires no reinstall.
+
+Fresh current-scene HKUST runtime `c02b970d310c78f24c7f1f809af3bb3dd4b4efbd4636aab70241df15183746b1` applies only the unapproved bounded terrain candidate, with explicit retained carpark replacement and no unapproved BASIC proposals. **All three sources309823/309829/336320 pass the existing foundation policy in all four coordinate streams.** Academic buried-upward count is now zero; nine other fully buried faces (22.5846m²; fraction0.000123574) remain raw context. This is diagnostic progress, not physical/publication acceptance.
+
+ClipV2 handles the saved invalid-rounded tiny convex clip only under unchanged exact binary64 1e-12m² area and1e-12m continuous two-direction distance bounds;13 regression tests pass. RebindV4 reconstructs the exact overwritten pre-audit input and reruns the ordinary overlap proof, proving only overlap metadata differs; old failures are preserved. Candidate floor job `4fb0cdc42b7c550d87871b04789090c0a752d58843593ea569fa7b4504528f03`:20,553 terrain faces,164 changed input faces, building bytes/poses unchanged, unapproved only.
+
+**Live confirmed process2341909**, parent2332497: final four-world exact low-face phase of `government-xl-academic309823-after-harbour-repaired-floor-measurement-sequence-v1-20261102`. Log `/tmp/astra-academic309823-after-harbour-repaired-floor-measurement-v1-20261102.log`; local state in same batch. Poll actual process/result before restart. Five earlier phases complete (runtime, attributes, three foundations). Next: complete current terrain-retention scope against7087inventory, preserve oldcarpark and every nominated BASIC/native actor; bind source/support evidence by exact arrays; inspect remaining low faces; identity/neighbour/browser/publisher/readback still required. No source is newly terminal; full97andbothNULLkeys remain scope.
+
+Earlier sections below are superseded routing history.
+
 ## Current continuation after Harbour installation —2November2026
 
 **Harbour installatione0cdadd1c3pushed**, all HKS-203/199/215andXLmilestone updated.421installed/3terminal/97unfinishedof521,7087actors. Current7087boundsrefresh complete **7ee2ab41e35b67f938f85bab54e4c32653b45e935836b75a9e66301a0efadbcc**, batch `government-xl-after-harbour-glory-current-native-bounds-v1-20261102`; reuses7076exactoldrows andmeasures11additions. Sessions96283/79691terminalsuccess; no liveworker.

@@ -1,0 +1,61 @@
+{
+  "batch": "government-xl-academic309823-after-harbour-floor-recovery-sequence-v2-20261102",
+  "uids": [
+    "landsd/309823:0",
+    "landsd/309829:0",
+    "landsd/336320:0"
+  ],
+  "resources": [
+    "building:landsd/309823:0",
+    "building:landsd/309829:0",
+    "building:landsd/336320:0",
+    "building:landsd/26949:0",
+    "terrain:city/data/terrain.json",
+    "terrain:city/data/government-native-hkust-carpark-original-v1-20261101.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_refresh_selection_v1.py",
+      "batch": "government-xl-academic309823-after-harbour-current-selection-v1-20261102",
+      "args": [
+        "--capture",
+        "government-xl-academic309823-after-carpark-current-runtime-v1-20261101",
+        "--uid",
+        "landsd/309823:0",
+        "--uid",
+        "landsd/309829:0",
+        "--uid",
+        "landsd/336320:0"
+      ]
+    },
+    {
+      "script": "rebind_private_original_terrain_v3_20261102.py",
+      "batch": "government-xl-academic309823-after-harbour-full-tin-rebind-v1-20261102",
+      "args": [
+        "--previous",
+        "government-xl-academic309823-after-carpark-private-full-tin-v1-20261101",
+        "--capture",
+        "government-xl-academic309823-after-harbour-current-selection-v1-20261102",
+        "--previous-capture",
+        "government-xl-academic309823-after-carpark-current-runtime-v1-20261101"
+      ]
+    },
+    {
+      "script": "selected_original_upward_floor_terrain_return_v8_20261102.py",
+      "batch": "government-xl-academic309823-after-harbour-bounded-floor-v1-20261102",
+      "args": [
+        "--previous",
+        "government-xl-academic309823-after-harbour-full-tin-rebind-v1-20261102",
+        "--ramps",
+        "government-xl-academic309823-after-carpark-upward-floor-facets-v1-20261101",
+        "--runtime",
+        "government-xl-academic309823-after-harbour-current-selection-v1-20261102",
+        "--uid",
+        "landsd/309823:0",
+        "--rendered-proof",
+        "government-xl-academic309823-after-carpark-full-tin-rendered-input-v1-20261101"
+      ]
+    }
+  ],
+  "qualification": "Private numerical floor recovery only. Current7087manifest/source/form/oldcarpark and exact unchangedTIN revalidated. Existing original source-floor geometry/5cmclearance/1mcore/3mreturn/height/25k/coverage/native validation gates unchanged. Newclipfallback requires exact target area and both continuous Hausdorff directions within the existing1e-12 binary64 repair budgets. Originalbuildinggeometry untouched. Prior private BASIC proposals and every ground/identity/support/neighbour/runtime/browser/publication approval remain unaccepted; no optimisation or installation credit."
+}

@@ -1,0 +1,1 @@
+The first private recovery plan stopped before any lease or source processing: V77 did not register the existing selected_original_refresh_selection_v1.py. V78 registers only that audited unapproved source/form/native recheck. All source, terrain, lease and publication guards remain. This is a runner configuration failure, not government corruption or terminal-source credit.
