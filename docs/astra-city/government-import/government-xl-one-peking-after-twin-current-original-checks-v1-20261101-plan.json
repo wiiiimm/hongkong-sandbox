@@ -1,0 +1,53 @@
+{
+  "batch": "government-xl-one-peking-after-twin-current-original-checks-v1-20261101",
+  "uids": [
+    "landsd/233985:0",
+    "landsd/240487:0"
+  ],
+  "resources": [
+    "building:landsd/233985:0",
+    "building:landsd/240487:0"
+  ],
+  "phases": [
+    {
+      "batch": "government-xl-one-peking-after-twin-selection-v1-20261101",
+      "script": "selected_original_refresh_selection_v1.py",
+      "args": [
+        "--capture",
+        "government-xl-one-peking-original-pair-current-drawn-ground-baseline-v1-20261010",
+        "--uid",
+        "landsd/233985:0",
+        "--uid",
+        "landsd/240487:0"
+      ]
+    },
+    {
+      "batch": "government-xl-one-peking-after-twin-runtime-v1-20261101",
+      "script": "selected_original_current_capture_v3.py",
+      "args": [
+        "--capture",
+        "government-xl-one-peking-after-twin-selection-v1-20261101",
+        "--uid",
+        "landsd/233985:0",
+        "--uid",
+        "landsd/240487:0"
+      ]
+    },
+    {
+      "batch": "government-xl-one-peking-after-twin-identity-v1-20261101",
+      "script": "selected_original_identity_v3_20261023.py",
+      "args": [
+        "--capture",
+        "government-xl-one-peking-after-twin-runtime-v1-20261101"
+      ]
+    },
+    {
+      "batch": "government-xl-one-peking-after-twin-attributes-v1-20261101",
+      "script": "selected_original_render_attributes_v1.py",
+      "args": [
+        "--capture",
+        "government-xl-one-peking-after-twin-runtime-v1-20261101"
+      ]
+    }
+  ]
+}
