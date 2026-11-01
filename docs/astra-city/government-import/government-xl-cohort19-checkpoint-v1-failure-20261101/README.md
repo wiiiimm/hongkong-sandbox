@@ -1,0 +1,1 @@
+V1 checkpoint requested a summary.json that this preview producer does not emit. Its completed result and both per-width browser reports are intact. V2 uses those real frozen records; no model or acceptance failure is implied. Failed source/log retained.
