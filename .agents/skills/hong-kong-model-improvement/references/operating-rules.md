@@ -2,6 +2,10 @@
 
 Extracted verbatim from the archived skill on 30 October 2026, except supporting reference links now resolve from this directory. Historical case counts in examples are not current inventory. Current HANDOFF/current-work and actual repository/Neon state govern progress.
 
+## Look up exact companion identity across available source profiles
+
+Use the existing flagged-neighbour original lookup with exact UID/CSUID and pinned source sheets before declaring a companion unavailable. Search the authenticated native inventory across available model profiles; a hardcoded3Cidentifier can miss an authentic2Goriginal for the same surveyed form. A zero result in one guessed identifier or cached sheet is not government-wide absence. Prefer the highest available authentic detail; do not fabricate a match, simplify geometry or transfer acceptance between assets.
+
 ## Reuse canonical support anchors before expensive component searches
 
 For unchanged sources with remaining rim warnings, first run `original_four_world_strict_root_paths_v1_20261024.py` against the current runtime, attributes and strict-support receipt. It independently reproduces canonical accepted support roots under the existing [-0.1, 1] m gap interval, then seeks paths along shared original edges under the existing endpoint-height ceiling and 1 mm source-incidence limit. It does not add intersections or grant support, physical or publication approval. Retain raw warnings and independently complete identity, ground clearance, neighbours and browser checks. Only investigate component joins when this cheaper shared-edge method leaves unresolved paths.
