@@ -1,6 +1,6 @@
 # Current XL acquisition handoff — 2 November 2026
 
-**424 installed + 3 terminal + 94 unfinished = 521 fixed XL source keys**, including both NULL-UID keys. **7,092 installed detailed actors**. Count authority: `government-xl-harbourfront-horizon233227-original-retained-original-installed-v11-20261102/full-xl-current-count.json`; snapshot `b8c3d47df4453378`. Installation committed/pushed4daf0d10e2; Linear updated.
+**425 installed + 3 terminal + 93 unfinished = 521 fixed XL source keys**, including both NULL-UID keys. **7,094 installed detailed actors**. Count authority: `government-xl-yoho-mall-ii273672-original-atomic-supported-original-installed-v1-20261102/full-xl-current-count.json`; snapshot `91a493d4bac5705c`. Yoho installation/readback passed; commit/push now.
 
 ## Latest installation
 
@@ -9,6 +9,16 @@
 Named identity/physical review preserves raw individual-footprint extent and original tower contacts, including845Float32coplanar pairs per stream; no generic contact/identity exception. The intact E-shaped podium includes a middlewing mapped to same-parent31275. Original model geometry/1xHKPD pose unchanged. Derived terrain uses existing fixed0.05m clearance/1mcore/3mreturn around45exact upward facets;22892terrainfaces/409changed old faces; uncut terrain and seabed retained. All4worlds have0buried/0upwardburied/0faces below-0.5m; complete12form/two-native regression and real staged/live views pass. Existing240841burial remains unchanged, not globally repaired. NoAIgeometry/optimisation.
 
 ## Current action
+
+**Yoho Mall II original podium273672 and rooftop junction3007 are INSTALLED unchanged.** Job `50c15da4affefa4d9a9dc01ad8144fe16eb3e5dcc0bc33aa266a14588f086468`, snapshot `91a493d4bac5705c`. Independent readback `government-xl-yoho-mall-ii273672-original-installed-root-readback-v4-20261102`, jobc015dfa655830655410440ded2e395acc14bee93887e6d2580c6e000931c106aPASS: all521keys,7092oldassets/catalogueentries,8globalretainedsupports, exact one terrain replacement. Both liveviewportsPASS68exports; ROOT actually inspected17hash-bound full-frame sheets. Actual installedHTTP atomic testPASSdesktop/mobile independentfailure of eachpeer, Base/Auto/eviction, nopartialframes/errors.13adversarialcontracttestsPASS.
+
+Outer wrapper7271 exited143 after successful installedreceipt; no liveworkers remained. Sourceinstallationlease alreadyreleased; exact own leftover4177lease explicitlyreleased. Cleanup saved beside liveinspection. No installationrepeat/rollback. Shared4176untouched. Checkpointbd7b244f3dpushed. **Commit/push this installation now**, then refreshcurrent7094nativebounds and continue actual93unfinished keys, including bothNULLUIDkeys. University Hall alreadyinstalled; never repeat. NoAIgeometry/optimisation. Rawsourcewall/contact and oldretainedsupportwarnings stayrecorded; no blanketwaiver.
+
+Earlier routing below is superseded.
+
+**ACTIVE guarded owned installation session7271**, log `/tmp/astra-yoho-original-pair-install-v1-20261102.log`. Qualified stage PASS4c0baaec6beee629b659c6dd731640064f7f3fc06e0b79dfef1f129f593d5dc0; preflightPASS2parts/+1fixedXL. Checkpointbd7b244f3d committed, push9374pending. Counts unchanged until final live/ledger/readback. Next inspect68actual liveexports and run `yoho_original_pair_installed_readback_v1_20261102.py`. Mandatory actual HTTP atomic failure tests run inside installer, existing global retained-support/terrain guards preserved.
+
+Previous routing below superseded.
 
 **Current: qualified-stage session89877 RUNNING**, log `/tmp/astra-yoho-qualified-stage-v1-20261102.log`; CPU active in full publisher validation. Final browser68603 terminalPASS; ROOT inspected all68exports/17sheets, including corrected retained cameras. Final reviewV1failed duplicate dictionary keyword during receipt write; preserved. V2same full checks PASS, Neon28229b9ab2c59cf2fdf70b397c387ab626f1b261266862040581b11baf0bdad4. Next prepare-only and owned guarded installation, actual live atomic lifecycle+68liveviews, ROOTinspection, Yoho-specific independent readback; commit/push. Bothparts unchanged; terrainowner273672/supportdependent3007 separated. Counts still424/3/94,7092actors.
 
