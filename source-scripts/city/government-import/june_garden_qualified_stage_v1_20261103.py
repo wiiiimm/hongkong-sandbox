@@ -22,6 +22,8 @@ def ref(p): return dict(path=str(p.relative_to(ROOT)),sha256=digest(p.read_bytes
 
 def inspected_exports(inspection, expected, root=ROOT):
     assert inspection['allListedExportsActuallyInspected'] is True
+    assert inspection['visualAcceptance'] is True
+    assert inspection['unresolvedVisualFailures'] == []
     assert inspection['inspectionScope'] == 'complete-source-and-retained-desktop-mobile-exports'
     images = inspection['images']
     assert len(images) == len(expected) and len({r['path'] for r in images}) == len(images)

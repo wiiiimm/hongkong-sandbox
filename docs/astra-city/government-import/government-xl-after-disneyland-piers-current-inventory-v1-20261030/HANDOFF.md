@@ -1,3 +1,17 @@
+## Desktop visual follow-through required
+
+The desktop software report passed, but the existing pixel-preserving QA utility flagged3 flat exports. All3 actual files were inspected:159422 night,160070 day,309340 night are single-colour frames. This is insufficient visual evidence, not an established source defect. Hashes and exact paths are saved in `government-xl-june-garden-v4-export-sheets-v1-20261103/flat-capture-inspection.json`;38 desktop sheets cover150 originals.
+
+Keep mobile **session71108** running. After it finishes/releases, obtain camera-only supplementary views for these3 actors/assemblies, with all current geometry/visibility intact.159422 bounds overlap20270 and3 other natives;309340 overlaps182397;160070 overlaps no installed-native bbox and may need current BASIC occluder/camera diagnosis. Actual camera/occluder evidence is still needed; do not infer the cause from flat colour alone. Do not restart the full69 merely for these extra views.
+
+Unexecuted qualified-stage evidence gate now additionally requires explicit positive visual acceptance and zero unresolved visual failures. Eight tests pass, including rejection of seen-but-unaccepted images and unresolved flat captures. Full mobile and clear visual evidence remain before qualification/publication.
+
+## Desktop passed — mobile active, same worker
+
+June Garden V4 desktop report passed with zero errors:12 source views and138 retained views (all69 actors, day/night). Exact report SHA is saved in current-work. Mobile has started in **session71108**, same batch/log and renewing lease. Do not restart or grant whole-batch approval before mobile completes and producer rechecks inputs/freezes its receipt.
+
+Existing pixel-preserving contact-sheet tool is composing desktop exports under `government-xl-june-garden-v4-export-sheets-v1-20261103`; this grants no review credit. Inspect all actual exports through those sheets after completion. Qualified staging remains unexecuted. Checkpoint ce6103a0f6 pushed; HKS203 comment7ca04390-e7ce-4821-a13e-c6b34a161a9d updated. No new installed credit.
+
 ## Additional unfinished source advanced —43101
 
 Fresh official directory job `0a0c2ae1fb2fbf58c6e162a7e9da06cc174c29945214ac177cc7b7ce2c6fb79d` completes all4 package/individualised GLTF/FBX directories with zero errors and968,703 transferred bytes. Initial individualised checks hit the cap because ZIP64 offsets were misread; new bounded ZIP64 reader fixes this without increasing transfer caps or fetching payloads. Seven adversarial tests pass.

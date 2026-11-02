@@ -12,9 +12,15 @@ class ExportEvidence(unittest.TestCase):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
         self.root=Path(self.tmp.name);(self.root/'capture.png').write_bytes(b'actual captured bytes')
         self.expected={'capture.png':digest((self.root/'capture.png').read_bytes())}
-        self.inspection=dict(allListedExportsActuallyInspected=True,
+        self.inspection=dict(allListedExportsActuallyInspected=True,visualAcceptance=True,unresolvedVisualFailures=[],
             inspectionScope='complete-source-and-retained-desktop-mobile-exports',
             images=[dict(path=p,sha256=s) for p,s in self.expected.items()])
+    def test_seen_but_unaccepted_images_rejected(self):
+        self.inspection['visualAcceptance']=False
+        with self.assertRaises(AssertionError):inspected_exports(self.inspection,self.expected,self.root)
+    def test_unresolved_visual_failure_rejected(self):
+        self.inspection['unresolvedVisualFailures']=['flat retained capture']
+        with self.assertRaises(AssertionError):inspected_exports(self.inspection,self.expected,self.root)
     def test_exact_inspected_bytes(self):
         inspected_exports(self.inspection,self.expected,self.root)
     def test_partial_inspection_rejected(self):
