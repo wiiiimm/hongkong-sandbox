@@ -1,3 +1,11 @@
+## Active automatic diagnostic follow-through
+
+**Poll controller session47398 first**, log `/tmp/astra-june-garden-diagnostic-followthrough-v1-20261103.log`, state `government-xl-june-garden-diagnostic-followthrough-v1-20261103/state.json`. It is confirmed waiting on exact live outer mobile PID3160141/start ticks. Mobile session8456 continues; last observed12 source/8 retained captures with source-pixel witnesses.
+
+After that concrete worker exits, the controller authenticates its completed combined receipt; if it failed or evidence is missing, it stops and preserves logs. On success it automatically runs the already prepared V20 camera supplement for159422/160070/309340 under a new complete-scope lease, then composes inspection sheets. It holds no lease while waiting, restarts nothing, and never accepts, stages or publishes. Existing desktop sheets are reused only when their exact report/image hashes match the copied successful desktop evidence. Final controller status is review-pending.
+
+Do not start a competing supplement while this controller is live. To pause the task, stop the follow-through controller before stopping the concrete mobile/owned worker, otherwise it would attempt its next authorised phase. Checkpoint af0f342f57 pushed; no new installations. Both the full521 goal and all92 unfinished keys remain in scope.
+
 ## Current worker — mobile-only recovery, desktop preserved
 
 V4 session71108 is terminal/released. Seven renewal observations passed; the actual mobile failure was V16 waitForFunction timeout after the160070 day capture, not a renewed lease problem. Desktop12 source/138 retained exports remain complete. Existing V20 has normal selected-actor capture for160070 and target-pixel evidence, with unchanged runtime budgets.

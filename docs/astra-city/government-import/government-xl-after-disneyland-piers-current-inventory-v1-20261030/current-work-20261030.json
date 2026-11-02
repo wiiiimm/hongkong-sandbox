@@ -271,10 +271,10 @@
     "unapprovedBasicProposalsApplied": false
   },
   "activeWorker": {
-    "batch": "government-xl-june-garden-mobile-recovery-v1-20261103",
-    "sessionId": 8456,
-    "log": "/tmp/astra-june-garden-mobile-recovery-v1-20261103.log",
-    "work": "Full mobile-only V20 source-pixel/normal selected-capture checks; completed desktop reused under exact current-asset binding",
+    "batch": "government-xl-june-garden-diagnostic-followthrough-v1-20261103",
+    "sessionId": 47398,
+    "log": "/tmp/astra-june-garden-diagnostic-followthrough-v1-20261103.log",
+    "work": "Wait on exact live outer mobile PID3160141, authenticate completed mobile, then run prepared V20 camera-only supplement and pixel-preserving sheets. No publication.",
     "publication": false
   },
   "aiGeometryModelling": false,
@@ -1127,7 +1127,7 @@
       "inventorySnapshot": "20f3d4a83cbbf6aa"
     }
   },
-  "latestPushedCheckpointCommit": "ce6103a0f6",
+  "latestPushedCheckpointCommit": "af0f342f57",
   "yoho273672Current20261102": {
     "preparation": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102",
     "preparationJobId": "680098a43c92e78bc44a5ad2be706421517cf0e13ac734dcb62c83c9ccb6f797",
@@ -1776,5 +1776,21 @@
     "reason": "V16 waitForFunction timeout on retained mobile capture after 160070 day; existing V20 supports ordinary selected capture for this actor",
     "sourceFailureEstablished": false,
     "desktopRepeated": false
+  },
+  "juneGardenMobileWorker20261103": {
+    "batch": "government-xl-june-garden-mobile-recovery-v1-20261103",
+    "sessionId": 8456,
+    "pid": 3160141,
+    "log": "/tmp/astra-june-garden-mobile-recovery-v1-20261103.log"
+  },
+  "juneGardenAutomaticDiagnosticFollowthrough20261103": {
+    "script": "source-scripts/city/government-import/june_garden_diagnostic_followthrough_v1_20261103.py",
+    "sessionId": 47398,
+    "predecessorPid": 3160141,
+    "verifiedWaiting": true,
+    "holdsNoLeaseWhileWaiting": true,
+    "automaticPredecessorRestart": false,
+    "automaticAcceptance": false,
+    "automaticPublication": false
   }
 }
