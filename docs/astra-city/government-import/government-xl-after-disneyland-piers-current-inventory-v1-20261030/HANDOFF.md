@@ -8,11 +8,13 @@ Original `landsd/252988:0` installed unchanged, SHA `65a071eb71ff421ba33ea7dc681
 
 Physical source account: all94negative original walls have clear-cap source paths;16negative nonwalls are downward lower skins. All6opposite-perspective plots inspected. All124actual lowest-rim warnings reach actual exposed-wall ground interfaces in each4coordinate streams,230replayed roots/stream,0endpoint failures, unchanged1mm incidence. Raw warnings retained. Foundation policy passes14non-upward buried facets/.000511fraction,0upward. Only formerly embedded upward floors11997/11998 required the bounded terrain return. Full53BASIC/retained118475regressions passed. No source geometry/pose edits, AI modelling, new engineering gates or threshold widening. Original review `c997bf8ee6509d976e7948348087a53f9f3e8adfbffa7c3c5bf6d30042017ee8`; root-path diagnostic `eccb6d7ad7e40492e213ff26c8e3529a25ac92ee8705cbb4ab98fdc41f48824c`.
 
-Exact terrain replacement of `city/data/government-native-118475-0.json`:312old faces changed,24,328retained literal,756new work,25,084total. Existing retained-work budget keeps unchanged25,000new-work limit. All56focused terrain/column/attachment tests passed. Code/evidence checkpoint `faa8f3df4f` pushed; commit/push the verified Observatory installation next.
+Exact terrain replacement of `city/data/government-native-118475-0.json`:312old faces changed,24,328retained literal,756new work,25,084total. Existing retained-work budget keeps unchanged25,000new-work limit. All56focused terrain/column/attachment tests passed. Code/evidence checkpoint `faa8f3df4f` and verified installation **`21a66c27e2` pushed**. Linear HKS203/199/215 and Astra XL milestone updated; comment IDs in machine state.
 
-## Active continuation
+## Continuation
 
-**Fresh native bounds session39970**, log `/tmp/astra-after-observatory-current-native-bounds-v1-20261102.log`; batch `government-xl-after-observatory-current-native-bounds-v1-20261102`. Poll exact handle before restart. Refresh reuses7094exact old actor rows and adds the Observatory; no acceptance/installation credit. After completion update Linear HKS203/199/215 and Astra XL milestone, commit/push; continue92unfinished keys. Other source checks below predate this installation: refresh their exact current manifest/terrain bindings before further acceptance.
+**No live workers or own leases remain. Goal stays active; remaining92sources are queued, not held for a human/AI-modelling decision.** Fresh complete7,095native inventory `government-xl-after-observatory-current-native-bounds-v1-20261102`, Neon `e45309da1ab150622bf56bca6153d37966d336c0d9b0013fc9d68b09ddce4e06`, completed and released session39970. Reused7,094exact old rows; one addition. No diagnostic installation credit.
+
+Next: Tower3 `landsd/227380:0` bounded coordinated terrain repair, preserving existing north-pair SOUTH/MIDDLE meshes/shared boundaries/all targets. Use exact existing source and saved numeric proofs; refresh current bindings against this inventory. Other source checks below predate Observatory installation and must not be called current acceptance without rebinding. All92unfinished and both NULL-UID source keys remain in scope. No optimisation, AI geometry modelling or new agents. Commit/push each verified installation.
 
 ## Other unfinished sources advanced this continuation
 
