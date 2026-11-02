@@ -1,3 +1,7 @@
+## Compose installed terrain-policy validators exactly once
+
+A private original-import dry run must validate every already-installed terrain policy, including finite pairs, three-member chains and five-member groups. Reuse `complete_boundary_validators` from the existing five-member stage when those groups coexist. Enter that context exactly once around the canonical terrain call inside the source hook; nesting the exclusive three-member `private_validator` inside it is an orchestration error. Keep all ordinary and group-specific membership/byte checks, reject unknown policies and propagate canonical failures. Test context restoration and run the canonical dry run against the actual current manifest before publication. Preserve failed attempts; neither dispatch failure establishes corrupt government geometry.
+
 ## Hash runtime files as bytes, parse only declared structured data
 
 A pinned JavaScript, GLB or other runtime asset needs a raw-byte hash check, not the generic JSON reader. Separate format parsing from reference verification: check the exact declared path/SHA for every file, and call `read` only for JSON or gzip-JSON inputs. June Garden desktop rebind and its later camera supplement exposed this same orchestration mistake in two producers; neither failure was source corruption. Preserve failed attempts, repair only the erroneous parsing call, and reuse completed unchanged browser evidence. Do not weaken input hashes, remove files from the proof, or rerun a completed whole batch for a pre-browser parser error.

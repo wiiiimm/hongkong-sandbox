@@ -271,10 +271,11 @@
     "unapprovedBasicProposalsApplied": false
   },
   "activeWorker": {
-    "batch": "government-xl-june-garden-diagnostic-followthrough-v1-20261103",
-    "sessionId": 47398,
-    "log": "/tmp/astra-june-garden-diagnostic-followthrough-v1-20261103.log",
-    "work": "Wait on exact live outer mobile PID3160141, authenticate completed mobile, then run prepared V20 camera-only supplement and pixel-preserving sheets. No publication.",
+    "sessionId": 58907,
+    "script": "source-scripts/city/government-import/june_garden_qualified_stage_v4_20261103.py",
+    "batch": "government-xl-june-garden-qualified-stage-v4-20261103",
+    "work": "Canonical private dry run; exactly one existing complete terrain-policy validator context inside V3hook",
+    "status": "running-confirmed-session58907",
     "publication": false
   },
   "aiGeometryModelling": false,
@@ -1848,13 +1849,53 @@
     "parentJobId": "ee94b3143d1905b8e30c40cdefddacbfa44f4052ec02e3c930750b627b05ef1e",
     "fullResourceLease": true,
     "publication": false,
-    "newlyInstalled": 0
+    "newlyInstalled": 0,
+    "status": "complete",
+    "jobId": "7d9d03ac5f0e0c1d1cfc356de9469351a019ac1cbc00c09da889e984a66e806d",
+    "leaseReleased": true,
+    "imagesActuallyInspected": 28
   },
   "juneGardenLiveInstallPrepared20261103": {
     "script": "source-scripts/city/government-import/june_garden_live_install_v1_20261103.py",
     "independentReadback": "source-scripts/city/government-import/june_garden_installed_readback_v1_20261103.py",
-    "testsPassed": 33,
+    "testsPassed": 39,
     "actualLiveInspectionRequiredBeforeInstalledCredit": true,
     "executed": false
+  },
+  "continuationAudit20261103": {
+    "priorGoalTurn": "progress",
+    "currentScope": 521,
+    "installedVerified": 426,
+    "terminal": 3,
+    "unfinished": 92,
+    "desktopSupplementImagesActuallyInspected": 14,
+    "desktopSupplementInspection": "docs/astra-city/government-import/government-xl-june-garden-supplement-export-sheets-v3-20261103/ROOT-DESKTOP-SUPPLEMENT-INSPECTION.json",
+    "next": "Finish same mobile supplement, authenticate final receipt, inspect remaining fourteen mobile exports, qualify exact328 staged exports, run guarded live installation and actual307live export review, independent full521readback, commit/push installation."
+  },
+  "juneGardenCompleteStagedReview20261103": {
+    "jobId": "74c2360d83ff8916859bdcd0a40873edf5a3eb33dff22cec03e45ffaf4a1ea06",
+    "imagesActuallyInspected": 328,
+    "visualAcceptance": true,
+    "publication": false,
+    "installationApproved": false
+  },
+  "juneGardenQualifiedStageV2Failure20261103": {
+    "preserved": true,
+    "sourceFailureEstablished": false,
+    "publicManifestChanged": false,
+    "reason": "Private dry run omitted the existing complete multi-policy boundary wrapper; V3 uses exactly the wrapper already used by the live publisher.",
+    "nextAttempt": "government-xl-june-garden-qualified-stage-v3-20261103"
+  },
+  "juneGardenCanonicalValidatorComposition20261103": {
+    "failedAttemptsPreserved": [
+      "government-xl-june-garden-qualified-stage-v2-20261103",
+      "government-xl-june-garden-qualified-stage-v3-20261103"
+    ],
+    "hook": "source-scripts/city/government-import/june_garden_publisher_hooks_v3_20261103.py",
+    "qualifiedAttempt": "government-xl-june-garden-qualified-stage-v4-20261103",
+    "focusedTestsPassed": 56,
+    "unknownPolicyRejected": true,
+    "canonicalFailuresPropagated": true,
+    "publicManifestChanged": false
   }
 }

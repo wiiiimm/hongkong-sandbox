@@ -12,13 +12,13 @@ from run import ROOT, HERE, read, save, digest, connect, reservations, dict_row
 from china_ferry_current_foundations_v1_20261020 import authenticate
 from primrose_compound_foundation_v2_20261015 import module
 from original_coordinated_retained_contract_v1_20261027 import verify_metadata
-from june_garden_publisher_hooks_v2_20261103 import SOURCES, SUPPORTS, P, SMALL, DESTINATIONS, install
-from june_garden_qualified_stage_v2_20261103 import PHYSICAL, TERRAIN, PATCH, ATOMIC
+from june_garden_publisher_hooks_v3_20261103 import SOURCES, SUPPORTS, P, SMALL, DESTINATIONS, install
+from june_garden_qualified_stage_v4_20261103 import PHYSICAL, TERRAIN, PATCH, ATOMIC
 
 BASE = ROOT/'docs/astra-city/government-import'
 BROWSER = 'government-xl-june-garden-mobile-recovery-v1-20261103'
 SUPPLEMENT = 'government-xl-june-garden-retained-camera-supplement-v3-20261103'
-QUALIFIED = 'government-xl-june-garden-qualified-stage-v2-20261103'
+QUALIFIED = 'government-xl-june-garden-qualified-stage-v4-20261103'
 STAGE = HERE/'accepted'/QUALIFIED
 BATCH = 'government-xl-june-garden-original-installed-v1-20261103'
 PLAN = BASE/'government-xl-tower3-june-garden-six-originals-current-v1-20261102-plan.json'
@@ -131,9 +131,7 @@ def main():
     publisher.PUBLICATION_GUARD = fence
     publisher.DOC = ROOT/'docs/astra-city/model-integration-20260909'/BATCH
     sys.argv = ['publish.py', str((STAGE/'plan.json').relative_to(ROOT))] + (['--apply'] if args.apply else [])
-    from fuying_five_member_terrain_stage_v1_20261029 import complete_boundary_validators
-    with complete_boundary_validators():
-        publisher.main()
+    publisher.main()
 
 
 if __name__ == '__main__':

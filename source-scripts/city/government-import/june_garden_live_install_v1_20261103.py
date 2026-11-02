@@ -53,7 +53,7 @@ def load(previous):
  assert not DOC.exists() and read(previous)['counts']==dict(total=521,installedVerified=426,remaining=95)
  delta=inventory_delta(read(previous),models,manifest_sha=manifest['sha256'],snapshot=pointer['snapshotId'])
  assert delta['previousInstalled']==426 and delta['expectedFixedXLDelta']==1 and set(delta['newFixedXLUids'])=={guard.P}
- paths=[previous,POINTER,PUB,BROWSER,ATOMIC,Path(__file__),HERE/'june_garden_publisher_hooks_v2_20261103.py',HERE/'june_garden_qualified_stage_v2_20261103.py',HERE/'observed_reserved_runner_v2_20261103.py',HERE.parent/'shared-modelling/reservation_runner.py',HERE.parent/'building-progress/export.py']
+ paths=[previous,POINTER,PUB,BROWSER,ATOMIC,Path(__file__),HERE/'june_garden_publisher_hooks_v3_20261103.py',HERE/'june_garden_qualified_stage_v4_20261103.py',HERE/'observed_reserved_runner_v2_20261103.py',HERE.parent/'shared-modelling/reservation_runner.py',HERE.parent/'building-progress/export.py']
  refs=distinct_refs([dict(path=p,sha256=h)for p,h in pins.items()]+[ref(p)for p in paths])
  for q in refs:check(q)
  subprocess.run(['node',str(BROWSER),'preflight',str((stage.STAGE/'live-browser-config.json').relative_to(ROOT))],cwd=ROOT,check=True)

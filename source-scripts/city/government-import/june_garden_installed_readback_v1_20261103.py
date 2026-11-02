@@ -15,6 +15,24 @@ import june_garden_guarded_publish_v1_20261103 as guard
 from june_garden_live_install_v1_20261103 import DEFAULT_PREVIOUS, verify_atomic
 
 
+def verify_fixed_cohort(previous, current):
+    assert previous['counts'] == dict(total=521, installedVerified=426, remaining=95)
+    assert current['counts'] == dict(total=521, installedVerified=427, remaining=94)
+    assert len(previous['rows']) == len(current['rows']) == 521
+    a = {r['sourceKey']:r for r in previous['rows']}; b = {r['sourceKey']:r for r in current['rows']}
+    assert len(a) == len(b) == 521 and set(a) == set(b)
+    for report in [previous,current]:
+        assert all(type(r['installedVerified']) is bool for r in report['rows'])
+        assert sum(r['installedVerified'] for r in report['rows']) == report['counts']['installedVerified']
+        assert sum(r['uid'] is None for r in report['rows']) == 2
+    changed = [(key,r) for key,r in b.items() if r != a[key]]
+    assert len(changed) == 1
+    key,row = changed[0]
+    assert a[key]['uid'] == row['uid'] == P and not a[key]['installedVerified'] and row['installedVerified']
+    assert a[key]['indexedSourceSHA256'] == row['runtimeSourceSHA256'] == row['indexedSourceSHA256'] == SOURCES[P]
+    return row
+
+
 def main():
     installed = guard.BASE/guard.BATCH
     out = guard.BASE/'government-xl-june-garden-installed-root-readback-v1-20261103'
@@ -63,12 +81,7 @@ def main():
             path = ROOT/'3d-viewer'/url; assert digest(path.read_bytes()) == sha; refs.append(path)
         assert read(ROOT/'3d-viewer'/entry['destination']) == read(ROOT/entry['source'])
     previous = read(DEFAULT_PREVIOUS); counts = read(installed/'full-xl-current-count.json')
-    a = {r['sourceKey']:r for r in previous['rows']}; b = {r['sourceKey']:r for r in counts['rows']}
-    assert len(a) == len(b) == 521 and set(a) == set(b)
-    assert sum(r['uid'] is None for r in a.values()) == sum(r['uid'] is None for r in b.values()) == 2
-    changed = [r for key,r in b.items() if r != a[key]]
-    assert len(changed) == 1 and changed[0]['uid'] == P and changed[0]['installedVerified']
-    assert changed[0]['runtimeSourceSHA256'] == changed[0]['indexedSourceSHA256'] == SOURCES[P]
+    verify_fixed_cohort(previous,counts)
     expected = {r['path']:r['sha256'] for r in read(installed/'live-export-inspection-request.json')['images']}
     assert len(expected) == 307
     inspection = read(installed/'ROOT-LIVE-EXPORT-INSPECTION.json')

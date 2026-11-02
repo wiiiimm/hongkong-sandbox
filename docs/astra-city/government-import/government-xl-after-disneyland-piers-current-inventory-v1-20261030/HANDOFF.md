@@ -1,3 +1,15 @@
+## Active corrected qualification — single complete validator context
+
+**Poll session58907**, `june_garden_qualified_stage_v4_20261103.py`, qualified batchV4. V3 dry run exposed nested exclusive validator contexts. New publisher hooksV3 use the already-existing complete_boundary_validators exactly once INSIDE the terrain hook; outer qualification/publisher contexts removed. All canonical current three/five/pair membership checks remain;56 focused tests pass including unknown policies and canonical exception propagation. Both V2/V3failed attempts preserved, manifest unchanged. Guard binds QUALIFIEDV4; actual installer still unexecuted. Combined328actual-export review Neon74c2360d83ff8916859bdcd0a40873edf5a3eb33dff22cec03e45ffaf4a1ea06 complete.
+
+## Current qualification after completed actual export review
+
+SupplementV3 COMPLETED/released, Neon **7d9d03ac5f0e0c1d1cfc356de9469351a019ac1cbc00c09da889e984a66e806d**. All28 supplement exports actually viewed. Combined328 actual staged exports inspected/hash-bound and frozen **74c2360d83ff8916859bdcd0a40873edf5a3eb33dff22cec03e45ffaf4a1ea06**, `government-xl-june-garden-staged-root-export-review-v1-20261103/ROOT-STAGED-EXPORT-INSPECTION.json`. No unresolved visible failure.
+
+**Poll session70239**: `june_garden_qualified_stage_v3_20261103.py`, fresh batchV3. Private V2 dry run failed because it omitted the existing complete_boundary_validators wrapper, letting a legacy verifier see another-policy installed group. Failed V2 outputs/failure.json preserved, manifest unchanged. V3 uses precisely the wrapper already used in guarded live publisher; no numerical guard changed. Guard now binds QUALIFIEDV3.21 affected publisher/live/readback tests pass; complete39 previous checks remain. Independent readback verifies exact521rows/both NULLs and only primary gain.
+
+After successful qualification: publisher/installer prepare-only, then authorised live installation and actual307live-export inspection/readback. Existing300staged parent and28supplement review are complete; do not repeat them. Nothing installed yet;426 installed /3terminal /92unfinished.
+
 ## Active six-target supplement after full mobile success
 
 **Poll session57568**, script `june_garden_retained_camera_supplement_v2_20261103.py`, batch `government-xl-june-garden-retained-camera-supplement-v3-20261103`, log `/tmp/astra-june-garden-retained-camera-supplement-v3-20261103.log`. Same six targets147505/147996/159422/160070/233970/309340, full original resource lease and owned4197server. No controller is active. Both controller sessions47398/94822 returned143; their reasons are unknown. Do not repeat either controller or the completed full mobile run.
