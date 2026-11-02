@@ -1,3 +1,9 @@
+## Active live installation — June Garden six original actors
+
+**Poll session89224**, `june_garden_live_install_v1_20261103.py --install`, log `/tmp/astra-june-garden-original-install-v1-20261103.log`. QualificationV4 COMPLETED, Neon **cee85882a60da7428353d6ad236c19d7d4bd8ce753db95db9cd83068b1754656**; both publisher/installer prepare-only passed,790resources,+6actors,+1fixedXLonly227380. Complete original300staged+28supplementactualexport review done.56affected tests pass. Code/evidencecheckpoint **5a863ea9d4 pushed**.
+
+Installer runs canonical dry/apply under exact leases/advisory guard, atomic7cases, full300live day/night source+69retained exports. Then waits1800seconds for actual307ROOTexport review `government-xl-june-garden-original-installed-v1-20261103/ROOT-LIVE-EXPORT-INSPECTION.json` (307includes7atomicimages). Do not fabricate review, restart a live handle or claim credit before completed ledger/readback. Use prepared independent `june_garden_installed_readback_v1_20261103.py` after success; exact521rows/bothNULLs,only227380gain,allold7095assets. Commit/push actual installation promptly. No AIgeometry/optimisation.
+
 ## Active corrected qualification — single complete validator context
 
 **Poll session58907**, `june_garden_qualified_stage_v4_20261103.py`, qualified batchV4. V3 dry run exposed nested exclusive validator contexts. New publisher hooksV3 use the already-existing complete_boundary_validators exactly once INSIDE the terrain hook; outer qualification/publisher contexts removed. All canonical current three/five/pair membership checks remain;56 focused tests pass including unknown policies and canonical exception propagation. Both V2/V3failed attempts preserved, manifest unchanged. Guard binds QUALIFIEDV4; actual installer still unexecuted. Combined328actual-export review Neon74c2360d83ff8916859bdcd0a40873edf5a3eb33dff22cec03e45ffaf4a1ea06 complete.
