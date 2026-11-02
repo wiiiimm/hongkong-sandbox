@@ -1,3 +1,17 @@
+## Prepared next gate — qualified staging
+
+`june_garden_qualified_stage_v1_20261103.py` is prepared, not executed. Six adversarial export-evidence tests pass. It requires authenticated complete browser receipts for both viewports (24 source and276 retained exports), all300 actual exports inspected with exact hashes, the existing seven atomic cases, exact source physical/identity and all69 terrain context proofs, and unchanged current manifest. It preserves immutable assets and source/support metadata, creates scoped nativeReview files, and runs only the existing canonical publisher dry run under the tested June Garden hooks. It cannot publish.
+
+Same live worker **52560** remains authoritative. Last observed V3 lease renewals succeeded and10 desktop source captures were complete; no final browser or staging approval. `landsd/43101:0` remains genuinely unfinished: saved two-provider-root identity conflicts and terrain burial evidence require source-specific investigation, not automatic terminal credit.
+
+## 3 November — lease failure preserved, fresh browser attempt
+
+Session48253 terminated with exit2 after heartbeat subprocess exit1. The runner correctly failed closed and released the lease; browser closure was a consequence. V2 produced12 source and26 retained images but no complete acceptance. Seven actual source exports inspected and hashed in `government-xl-tower3-june-garden-v2-partial-source-export-inspection-20261103.json`. No source/model rejection or approval follows. Pinned Neon read-only health check now passes, and old run owns no lease.
+
+Fresh identical checks: **session52560**, batch `government-xl-tower3-june-garden-six-original-full-browser-v3-20261103`, log `/tmp/astra-june-garden-six-full-browser-v3-20261103.log`. Poll this handle; no guard or TTL change. Checkpoint ea2b273915 pushed; HKS203 comment2ff2a0b9-d530-4428-a18a-ba2b7f5cd4e0. Whole cohort unchanged426 installed /3 terminal /92 unfinished.
+
+Verified current Harbourfront Horizon233227 runtime asset bytes and unique catalogue entry; corrected its stale pending-install route. Do not reinstall it.
+
 ## 3 November continuation — browser wrapper repaired
 
 Full browser V1 terminated with a wrapper-schema error before browser tests: unchanged ronsdale V16 requires one viewport per invocation. Lease released; failure preserved, no source rejection. V2 runs desktop and mobile sequentially under the live renewing lease. **Poll session48253**, log `/tmp/astra-june-garden-six-full-browser-v2-20261102.log`; doc batch `government-xl-tower3-june-garden-six-original-full-browser-v2-20261102`. Production parser accepts all six; desktop actual browser is active and caching the69 retained original assets.

@@ -271,10 +271,10 @@
     "unapprovedBasicProposalsApplied": false
   },
   "activeWorker": {
-    "sessionId": 48253,
-    "batch": "government-xl-tower3-june-garden-six-original-full-browser-v2-20261102",
-    "log": "/tmp/astra-june-garden-six-full-browser-v2-20261102.log",
-    "work": "Private six-source/all69-retained desktop then mobile day/night; actual browser started",
+    "batch": "government-xl-tower3-june-garden-six-original-full-browser-v3-20261103",
+    "sessionId": 52560,
+    "log": "/tmp/astra-june-garden-six-full-browser-v3-20261103.log",
+    "work": "Fresh leased exact same full desktop/mobile browser verification after V2 renewal failure",
     "publication": false
   },
   "aiGeometryModelling": false,
@@ -1112,13 +1112,20 @@
     "originalReviewV1Job": "750640f5c5bdd7b4088b5597682db9a65be69bf0584d11a3b4a0496687a562af",
     "originalReviewV2Job": "2584396bf4b10f1e62d82b8d63bba7857564eb9f4b94fcb3f2a4050082d13a79",
     "identityAndPhysicalAndVisualReviewAccepted": true,
-    "guardedStagePending": true,
+    "guardedStagePending": false,
     "metadataNormalizationTestsPassed": 6,
     "snapshotIdentityTestsPassed": 3,
     "qualifiedStageJob": "4e57c5e38f466b958a437b71171b75e455db352d8ac3ec6430edb441f1188f4b",
     "installerPreflightPassed": true,
     "installerConfig": "government-xl-harbourfront-horizon233227-original-install-config-v2-20261102.json",
-    "nextInstaller": "owned_loopback_retained_install_v3_20261102.py"
+    "nextInstaller": null,
+    "installedVerified": true,
+    "remaining": "None for exact landsd/233227:0 source; current runtime entry and bytes verified on 3 November, do not reinstall.",
+    "currentRuntimeVerified": {
+      "catalogue": "3d-viewer/city/data/official-models/government-xl-harbourfront-horizon233227-original-retained-qualified-stage-v4-20261102/catalogue.json",
+      "sourceSHA256": "b59787a14f989eae55dcb47cafdc4f076215e9190ebcb2136a2277d10f4203a0",
+      "inventorySnapshot": "20f3d4a83cbbf6aa"
+    }
   },
   "latestPushedCheckpointCommit": "4f00c85deb",
   "yoho273672Current20261102": {
@@ -1656,5 +1663,24 @@
       "batch": "government-xl-tower3-june-garden-six-original-private-atomic-browser-v2-20261102",
       "reason": "Added production parser preflight detected legacy recovered entry missing sourceTile; V3 derives exact sheet from pinned guarded native input/result query."
     }
-  ]
+  ],
+  "juneGardenFullBrowserV2LeaseFailure20261103": {
+    "workerExitCode": 2,
+    "reason": "lease-lost-or-renewal-failed; heartbeat subprocess exited1; runner closed browser",
+    "leaseReleased": true,
+    "pinnedDatabaseHealthReadPassed": true,
+    "oldRunOwnsLease": false,
+    "sourceFailureEstablished": false,
+    "completedSourceViews": 12,
+    "completedRetainedViews": 26,
+    "failedAttemptReceivesNoAcceptance": true
+  },
+  "juneGardenQualifiedStagePrepared20261103": {
+    "script": "source-scripts/city/government-import/june_garden_qualified_stage_v1_20261103.py",
+    "testsPassed": 6,
+    "executed": false,
+    "requiresCompleteBrowserReceipt": true,
+    "requiresAll300ExportsInspectedAndHashBound": true,
+    "publication": false
+  }
 }
