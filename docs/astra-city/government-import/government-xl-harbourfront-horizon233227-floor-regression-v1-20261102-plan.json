@@ -1,0 +1,72 @@
+{
+  "batch": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102",
+  "uids": [
+    "landsd/233227:0"
+  ],
+  "resources": [
+    "building:landsd/233227:0",
+    "building:landsd/290628:0",
+    "building:landsd/290629:0",
+    "building:landsd/290677:0",
+    "building:landsd/31275:0",
+    "terrain:city/data/government-native-31275-0.json",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_retained_patch_scope_v3_20261026.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-scope",
+      "args": [
+        "--inventory",
+        "government-xl-after-hkust-staff-current-native-bounds-v1-20261102",
+        "--patch",
+        "government-xl-harbourfront-horizon233227-source-floor-runtime-binding-v2-20261102"
+      ]
+    },
+    {
+      "script": "selected_original_patch_runtime_v6_20261024.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-runtime",
+      "args": [
+        "--patch",
+        "government-xl-harbourfront-horizon233227-source-floor-runtime-binding-v2-20261102",
+        "--capture",
+        "government-xl-harbourfront-horizon233227-after-hkust-staff-v1-20261102-runtime",
+        "--uid",
+        "landsd/233227:0"
+      ],
+      "scopeResources": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-scope"
+    },
+    {
+      "script": "selected_original_render_attributes_v1.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-attributes",
+      "args": [
+        "--capture",
+        "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-runtime"
+      ],
+      "scopeResources": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-scope"
+    },
+    {
+      "script": "original_four_world_foundation_context_v1_20261025.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-foundations",
+      "args": [
+        "--runtime",
+        "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-attributes",
+        "--uid",
+        "landsd/233227:0"
+      ],
+      "scopeResources": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-scope"
+    },
+    {
+      "script": "selected_current_installed_dependency_bindings_v2_20261028.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-dependencies",
+      "args": [
+        "--scope",
+        "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-scope"
+      ],
+      "scopeResources": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-scope"
+    }
+  ],
+  "qualification": "Private exact validated candidate runtime and full retained-domain diagnostics only; unchanged original models; no acceptance or publication."
+}
