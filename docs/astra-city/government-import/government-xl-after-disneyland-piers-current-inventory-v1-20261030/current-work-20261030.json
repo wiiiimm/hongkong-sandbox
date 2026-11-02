@@ -1781,7 +1781,11 @@
     "batch": "government-xl-june-garden-mobile-recovery-v1-20261103",
     "sessionId": 8456,
     "pid": 3160141,
-    "log": "/tmp/astra-june-garden-mobile-recovery-v1-20261103.log"
+    "log": "/tmp/astra-june-garden-mobile-recovery-v1-20261103.log",
+    "status": "complete",
+    "jobId": "ee94b3143d1905b8e30c40cdefddacbfa44f4052ec02e3c930750b627b05ef1e",
+    "ownedPid3166997Exited": true,
+    "oldLeaseReleased": true
   },
   "juneGardenAutomaticDiagnosticFollowthrough20261103": {
     "script": "source-scripts/city/government-import/june_garden_diagnostic_followthrough_v1_20261103.py",
@@ -1799,7 +1803,7 @@
     "script": "source-scripts/city/government-import/june_garden_diagnostic_followthrough_v2_20261103.py",
     "sessionId": 94822,
     "predecessorPid": 3160141,
-    "verifiedWaiting": true,
+    "verifiedWaiting": false,
     "supplementBatch": "government-xl-june-garden-retained-camera-supplement-v2-20261103",
     "uids": [
       "landsd/147505:0",
@@ -1810,7 +1814,9 @@
       "landsd/309340:0"
     ],
     "automaticAcceptance": false,
-    "automaticPublication": false
+    "automaticPublication": false,
+    "status": "terminal-exit143",
+    "cause": "unknown; no automatic followthrough remains active"
   },
   "juneGardenDesktopCompleteInspection20261103": {
     "inspection": "docs/astra-city/government-import/government-xl-june-garden-v4-export-sheets-v1-20261103/ROOT-DESKTOP-EXPORT-INSPECTION-20261103.json",
@@ -1827,5 +1833,28 @@
     "oldImmutableTerrainPreserved": true,
     "executed": false,
     "newlyInstalled": 0
+  },
+  "juneGardenMobileROOTReview20261103": {
+    "jobId": "f06f2176ed11388f120a8340dfb2170617729222bd9167feb5365b6d2ea7cee1",
+    "actualExportsViewed": 150,
+    "sheetsViewed": 38,
+    "visualAcceptance": false,
+    "desktopSixTargetSupplementPending": true
+  },
+  "juneGardenActiveCameraSupplement20261103": {
+    "sessionId": 57568,
+    "script": "source-scripts/city/government-import/june_garden_retained_camera_supplement_v2_20261103.py",
+    "batch": "government-xl-june-garden-retained-camera-supplement-v3-20261103",
+    "parentJobId": "ee94b3143d1905b8e30c40cdefddacbfa44f4052ec02e3c930750b627b05ef1e",
+    "fullResourceLease": true,
+    "publication": false,
+    "newlyInstalled": 0
+  },
+  "juneGardenLiveInstallPrepared20261103": {
+    "script": "source-scripts/city/government-import/june_garden_live_install_v1_20261103.py",
+    "independentReadback": "source-scripts/city/government-import/june_garden_installed_readback_v1_20261103.py",
+    "testsPassed": 33,
+    "actualLiveInspectionRequiredBeforeInstalledCredit": true,
+    "executed": false
   }
 }

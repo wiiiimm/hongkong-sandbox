@@ -1,3 +1,7 @@
+## Hash runtime files as bytes, parse only declared structured data
+
+A pinned JavaScript, GLB or other runtime asset needs a raw-byte hash check, not the generic JSON reader. Separate format parsing from reference verification: check the exact declared path/SHA for every file, and call `read` only for JSON or gzip-JSON inputs. June Garden desktop rebind and its later camera supplement exposed this same orchestration mistake in two producers; neither failure was source corruption. Preserve failed attempts, repair only the erroneous parsing call, and reuse completed unchanged browser evidence. Do not weaken input hashes, remove files from the proof, or rerun a completed whole batch for a pre-browser parser error.
+
 # Model acquisition and acceptance operating rules
 
 Extracted verbatim from the archived skill on 30 October 2026, except supporting reference links now resolve from this directory. Historical case counts in examples are not current inventory. Current HANDOFF/current-work and actual repository/Neon state govern progress.

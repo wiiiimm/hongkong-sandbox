@@ -17,7 +17,7 @@ from june_garden_qualified_stage_v2_20261103 import PHYSICAL, TERRAIN, PATCH, AT
 
 BASE = ROOT/'docs/astra-city/government-import'
 BROWSER = 'government-xl-june-garden-mobile-recovery-v1-20261103'
-SUPPLEMENT = 'government-xl-june-garden-retained-camera-supplement-v2-20261103'
+SUPPLEMENT = 'government-xl-june-garden-retained-camera-supplement-v3-20261103'
 QUALIFIED = 'government-xl-june-garden-qualified-stage-v2-20261103'
 STAGE = HERE/'accepted'/QUALIFIED
 BATCH = 'government-xl-june-garden-original-installed-v1-20261103'

@@ -79,7 +79,7 @@ def main():
     assert supplement['cameraOnlyChanges'] and supplement['actualSourcePixelsRequired']
     assert supplement['sourceGeometryChanges'] == supplement['sourcePoseChanges'] == 0
     repaired = set(supplement['retainedUids'])
-    assert {'landsd/159422:0','landsd/160070:0','landsd/309340:0'} <= repaired <= retained
+    assert {'landsd/147505:0','landsd/147996:0','landsd/159422:0','landsd/160070:0','landsd/233970:0','landsd/309340:0'} <= repaired <= retained
     assert supplement['retainedSourceSHA256ByUid'] == {u:retained_hashes[u] for u in repaired}
     for width in [1280,390]:
         report = take(a.visibility_supplement,str(width)+'/staged-browser.json')
