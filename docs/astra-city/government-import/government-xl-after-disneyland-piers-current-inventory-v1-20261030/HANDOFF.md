@@ -2,10 +2,10 @@
 
 ## Confirmed active worker — continue, do not restart
 
-**Poll session89224**: `june_garden_live_install_v1_20261103.py --install`.
+**Observation session89224 ended; poll actual live processes**: `june_garden_live_install_v1_20261103.py --install`.
 Batch `government-xl-june-garden-original-installed-v1-20261103`.
 Log `/tmp/astra-june-garden-original-install-v1-20261103.log`.
-Owned installer PID3895080, its isolated supervisor3895042; owned server4197.
+Owned installer PID3895080, current bounded reattached supervisor187649; owned server4197. Prior wrapper3895042 ended; same lease verified/renewed. No installer/browser restart. New supervisor log `/tmp/astra-june-garden-reattached-supervisor-v1-20261103.log`.
 Current child4073361 is V20 **live mobile** browser, confirmed via ps.
 All790resources remain leased/renewed. Shared4176 untouched.
 
@@ -13,7 +13,7 @@ Canonical fenced dry run AND apply passed. The six originals/three terrain repla
 
 **All7 installed atomic cases passed**: desktop success, each of6mobile peer failures, complete BASIC retention/retry, Base/Auto, group eviction, no partial-native/stale collision-map violations, no page errors. ROOT actually viewed all7whole-page screenshots through3pixel-preserving sheets. `government-xl-june-garden-live-export-sheets-v1-20261103/ROOT-ATOMIC-LIVE-EXPORT-INSPECTION.json` binds that actual review. The mobile selection UI covers much of these lifecycle images; source appearance is separately checked in the mandatory300canvas views.
 
-Full V20 browser visits/activates69retained originals BEFORE producing source captures. This explains its initial zero screenshots. All69retained asset requests returned200; prewarm completed and actual mobile exports have started (19at last observation). These are progress observations, not complete acceptance. No old controllers or supplement workers remain live.
+Full V20 browser visits/activates69retained originals BEFORE producing source captures. This explains its initial zero screenshots. All69retained asset requests returned200; prewarm completed and actual mobile exports have started (86at last observation). These are progress observations, not complete acceptance. No old controllers or supplement workers remain live.
 
 ## Complete scope and counts
 
@@ -30,8 +30,8 @@ Full V20 browser visits/activates69retained originals BEFORE producing source ca
 
 ## Next mandatory live review and installation readback
 
-1. Continue exact worker89224. It runs mobile then desktop150views each, day/night6new sources+69retained originals, real picking/collision/loading/target-pixel witnesses under unchanged runtime budgets.
-2. After EACH viewport completes, use `original_browser_contact_sheets_v2_20261103.py --source DOC/viewport-390 --out .../mobile --width 390 --report-name live-browser.json`, and analogously1280/desktop. Existing V1 untouched. V2preserves original pixels, supports completed live/atomic schemas, grants NO review credit. Actually view every image through the sheets. Preserve any real failure and obtain exact camera-only evidence if necessary; no automatic acceptance from successful software counts.
+1. Continue exact installer3895080 under supervisor187649 (old observation handle89224 ended). It runs mobile then desktop150views each, day/night6new sources+69retained originals, real picking/collision/loading/target-pixel witnesses under unchanged runtime budgets.
+2. ROOT has actually inspected62new live mobile images in `mobile-partial-01` through `03`. Partial reviews grant no software/installation acceptance. Exact same capture AND byte SHA from the frozen328staged review may reuse image inspection only; helper rejects changed UID/view/time/role/bytes and11tests pass. Full live software must still run all300views. After EACH viewport completes, use `original_browser_contact_sheets_v2_20261103.py --source DOC/viewport-390 --out .../mobile --width 390 --report-name live-browser.json`, and analogously1280/desktop. Existing V1 untouched. V2preserves original pixels, supports completed live/atomic schemas, grants NO review credit. Actually view every image through the sheets. Preserve any real failure and obtain exact camera-only evidence if necessary; no automatic acceptance from successful software counts.
 3. Worker writes `DOC/live-export-inspection-request.json` after both viewports: **307exact images**,300canvas+7atomic. Its1800second actual ROOT review deadline starts then. Required `DOC/ROOT-LIVE-EXPORT-INSPECTION.json`: reviewer ROOT, allListedExportsActuallyInspected true, inspectionScope complete-source-and-retained-desktop-mobile-exports, visualAcceptance true, unresolvedVisualFailures [], exact images/path/SHA set equal to request. All7atomic already actually inspected;300live canvases still pending. Do not fabricate this receipt.
 4. After supervised worker completes/final ledger+progress+count+Neon result succeeds, run `june_garden_installed_readback_v1_20261103.py`. It independently checks all521rows/bothNULLkeys, only primary gain, all7095oldassets/metadata,7101actors, exact source/support graph, three immutable terrain transitions/oldassets kept,307actual exports, global retained BASICsupports and pinned Neon snapshot.
 5. **Commit and push the actual installation immediately after verified readback.** Include its six public assets/catalogue,3newterrainassets/manifest, review/progress pointer+inventory/current outputs and exact installation/readback evidence. No broad staging; preserve unrelated dirty working-commands.json. No production deploy/main merge.
