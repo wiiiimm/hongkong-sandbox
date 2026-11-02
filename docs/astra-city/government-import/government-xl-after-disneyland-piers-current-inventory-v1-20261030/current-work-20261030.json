@@ -274,10 +274,15 @@
     "script": "source-scripts/city/government-import/june_garden_live_install_v3_20261103.py",
     "batch": "government-xl-june-garden-original-installed-v3-20261103",
     "log": "/tmp/astra-june-garden-original-install-v3-20261103.log",
-    "status": "prepared-not-launched",
+    "status": "running-confirmed-exact-pids-first-renewal",
     "newlyInstalled": 0,
     "preflightPassed": true,
-    "completeReusableMetadataPreflightPassed": true
+    "completeReusableMetadataPreflightPassed": true,
+    "launcherPid": 1284489,
+    "supervisorPid": 1293832,
+    "installerPid": 1293876,
+    "resources": 792,
+    "leaseOwnershipVerifiedAndRenewed": true
   },
   "aiGeometryModelling": false,
   "alexandraClampedPrivateTerrain": {
@@ -1129,7 +1134,7 @@
       "inventorySnapshot": "20f3d4a83cbbf6aa"
     }
   },
-  "latestPushedCheckpointCommit": "01c663b1ab",
+  "latestPushedCheckpointCommit": "bb43f00c54",
   "yoho273672Current20261102": {
     "preparation": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102",
     "preparationJobId": "680098a43c92e78bc44a5ad2be706421517cf0e13ac734dcb62c83c9ccb6f797",
@@ -2015,7 +2020,7 @@
     "HKS199": "20bd1bb9-9001-4e50-8d4e-020d8bb0501f",
     "HKS215": "d4b9e7ac-f686-4fd6-8ca5-5192c7365a49",
     "milestone": "60594493-a117-4231-9a57-aa2071f1187d",
-    "updatePending": true
+    "updatePending": false
   },
   "juneGardenLiveMobileComplete20261103": {
     "report": "docs/astra-city/government-import/government-xl-june-garden-original-installed-v1-20261103/viewport-390/live-browser.json",
@@ -2228,7 +2233,7 @@
     "installationApproved": false
   },
   "juneGardenRecoveryV320261103": {
-    "status": "prepared-not-launched",
+    "status": "running-confirmed-exact-pids-first-renewal",
     "preflightPassed": true,
     "completeActualReusableMetadataPreflightPassed": true,
     "actualApplyPublicationReceiptVerified": true,
@@ -2237,7 +2242,10 @@
     "newFullDesktopViewsRequired": 150,
     "allLiveImageReviewRequired": 307,
     "reuseTestsPassed": 8,
-    "installationApproved": false
+    "installationApproved": false,
+    "launcherPid": 1284489,
+    "supervisorPid": 1293832,
+    "installerPid": 1293876
   },
   "silvercordLippoPositiveIdentity20261103": {
     "freshCompleteOriginalIdentitiesReplayed": 2,
@@ -2250,5 +2258,14 @@
     "completedGeometryReusedAfterMetadataOnlyFailure": true,
     "installationApproved": false,
     "remaining": "Current terrain/foundations, complete affected retained Academy parent actors/supports and full runtime/browser/publisher gates."
+  },
+  "silvercordLippoCurrentFloorWorker20261103": {
+    "launcherPid": 1304950,
+    "supervisorPid": 1305403,
+    "status": "running-confirmed-first-renewal-source-refresh-passed",
+    "script": "source-scripts/city/government-import/silvercord_lippo_current_floor_sequence_v1_20261103.py",
+    "log": "/tmp/astra-silvercord-lippo-current-floor-sequence-v1-20261103.log",
+    "batch": "government-xl-silvercord-lippo-current-floor-sequence-v1-20261103",
+    "newlyInstalled": 0
   }
 }

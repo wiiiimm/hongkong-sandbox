@@ -1,10 +1,10 @@
 # Current XL original-model handoff
 
-## June Garden V1/V2 terminal; corrected V3 prepared
+## Corrected June Garden V3 live; V1/V2 terminal
 
 V1 stopped on Neon57P01; all16public destinations restored and no installed history. V2 launcher1159420/supervisor1168238/installer1168279 are now absent and released. Its fenced dry/apply passed, then reuse failed because the helper expected published=true in publication-plan.json. That file remains a dry plan; the correct publication.json and command-001 prove the successful apply. All16destinations independently verified restored again; no installed credit/source corruption.
 
-Fresh `june_garden_live_install_v3_20261103.py --install` is prepared, not yet launched. Full preflight passes, including actual successful apply receipt, identical mobile/atomic configurations, complete mobile150/atomic7 reports and all committedPNGbytes, and unchanged historical immutable inputs. Eight reuse adversarial tests pass. Old V2failure is preserved. Bounded V3supervisor/validated partial checkpoints stay unchanged; all full new desktop150and actual307review/readback gates remain.
+Fresh `june_garden_live_install_v3_20261103.py --install` is live: launcher1284489/supervisor1293832/owned installer1293876, first renewal succeeded. Log `/tmp/astra-june-garden-original-install-v3-20261103.log`. Poll exact handles before any restart. Full preflight passes, including actual successful apply receipt, identical mobile/atomic configurations, complete mobile150/atomic7 reports and all committedPNGbytes, and unchanged historical immutable inputs. Eight reuse adversarial tests pass. Old V2failure is preserved. Bounded V3supervisor/validated partial checkpoints stay unchanged; all full new desktop150and actual307review/readback gates remain.
 
 ## Complete scope and counts
 
@@ -12,7 +12,7 @@ Fresh `june_garden_live_install_v3_20261103.py --install` is prepared, not yet l
 
 ## Required next actions
 
-1. Launch fresh V3 under its full792resource lease and save/poll actual process/log. Never restart on observation timeout. Do not edit pinned producers while live. It uses owned4197; shared4176 untouched.
+1. Continue current V3launcher1284489/supervisor1293832/installer1293876 under its full792resource lease; poll actual handles. Never restart on observation timeout. Do not edit pinned producers while live. It uses owned4197; shared4176 untouched.
 2. Reuse prior mobile150/atomic7 only after exact current-source/config/public byte revalidation. Do not reuse the incomplete V1desktop as passing software. Observe new desktop150 and inspect its actual PNGs; samecapture+exactbyte prior reviewed PNGs may reuse visual inspection only.
 3. Worker writes `government-xl-june-garden-original-installed-v3-20261103/live-export-inspection-request.json` after complete live software;1800s ROOTdeadline begins then. Actual307images =300canvas+7atomic. Required `ROOT-LIVE-EXPORT-INSPECTION.json` reviewerROOT/allListedExportsActuallyInspected/complete-source-and-retained-desktop-mobile-exports/visualAcceptance true/unresolvedVisualFailures[] and exact path+SHA set. Do not manufacture approval from image counts or partial checkpoints.
 4. On complete success run independent `june_garden_installed_readback_v3_20261103.py`: full521/bothNULL/onlyprimarydelta,7095oldassets and metadata/7101actors, source/support graph,3immutable terrain transitions and originalassets retained,307actualexports, globalretainedBASICsupports and exactpinnedNeon rows.
@@ -20,7 +20,7 @@ Fresh `june_garden_live_install_v3_20261103.py --install` is prepared, not yet l
 
 ## Silvercord/Lippo identity-only route completed
 
-Fresh complete-record original identity replay passed for both exact podiums, frozen pinnedNeon a560e234da6b1c5750ff9120e6bb9d977721f205da7760ca744114e98cb39ad9. Explicit `silvercord_lippo_reviewed_identity_v2_20261103.py` retains exact source/route/cell/full foreign metrics and distinct provider/cachedObjectIDs; five adversarial tests pass. General checker unchanged; no physical/publication approval. V1wrong producer schema and V2missingUIDmetadata failures preserved. Completed geometry was revalidated/frozen without repetition. Next: terrain/foundations and all27retained Academy parent actors/fullcurrent scope.
+Fresh complete-record original identity replay passed for both exact podiums, frozen pinnedNeon a560e234da6b1c5750ff9120e6bb9d977721f205da7760ca744114e98cb39ad9. Explicit `silvercord_lippo_reviewed_identity_v2_20261103.py` retains exact source/route/cell/full foreign metrics and distinct provider/cachedObjectIDs; five adversarial tests pass. General checker unchanged; no physical/publication approval. V1wrong producer schema and V2missingUIDmetadata failures preserved. Completed geometry was revalidated/frozen without repetition. Current floor sequence is live: launcher1304950/supervisor1305403, first renewal/source-refresh passed. Log `/tmp/astra-silvercord-lippo-current-floor-sequence-v1-20261103.log`. It captures actual current ground and checks all potentially negative original faces in4representations, including partially buried upward faces. Next: source-floor/terrain repair and all27retained Academy parent actors/fullcurrent scope.
 
 ## Source43101 latest bounded context
 
