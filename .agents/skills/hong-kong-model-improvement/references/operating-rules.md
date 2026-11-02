@@ -8,6 +8,10 @@ For unchanged sources with remaining rim warnings, first run `original_four_worl
 
 Royal Green Block 8 proves this distinction: all 18 remaining tower warnings reach existing strict roots along shared source edges in all four coordinate streams, with no rise above their endpoints and no intercomponent joins. Neither the source geometry nor support thresholds changed. Eight adversarial kernel tests cover raised paths, point-only contact, forged strict acceptance and off-source roots. Current installation totals remain 354 / 167 / 521 until actual publication and readback.
 
+## Plan source-floor terrain from all current upward negatives
+
+Before constructing a bounded lower-only terrain return, inspect exact initial source/ground contacts for partially as well as wholly buried upward facets. Wholly buried counts alone can miss a partially embedded floor and cause repeated candidate construction. Bind every nominated facet to the exact unchanged source and current ground arrays. Disconnected domains retain the existing clearance/core/return constants; preserve pre-existing low terrain outside the edit domain exactly and run complete affected-scope regressions after any candidate change. A passing foundation count alone grants no physical or publication approval.
+
 ## Check the actual renderer contract first
 
 Read the production draw, surface-index and height-sampler contracts before adding geometry requirements. Mong Kok recovery established that `makeNativeTerrain` draws every retained triangle, while `nativeTerrainSurface` deliberately excludes projected-vertical faces from its height index and returns the maximum finite nonvertical surface. Preserve and account for all drawn source faces, separately account for excluded verticals, and prove the actual maximum-surface coverage. Requiring every rendered face to be height-indexed, every lower layer centroid to equal the maximum height, or every source surface to be globally watertight would impose additional requirements unrelated to this renderer. This changes no existing runtime threshold or genuine physical/source guard.
