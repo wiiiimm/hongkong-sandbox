@@ -1,0 +1,53 @@
+{
+  "batch": "government-xl-harbourfront-horizon233227-floor-neighbours-v2-20261102",
+  "uids": [
+    "landsd/233227:0"
+  ],
+  "resources": [
+    "building:landsd/159738:0",
+    "building:landsd/233227:0",
+    "building:landsd/239546:0",
+    "building:landsd/240841:0",
+    "building:landsd/290628:0",
+    "building:landsd/290629:0",
+    "building:landsd/290634:0",
+    "building:landsd/290677:0",
+    "building:landsd/290679:0",
+    "building:landsd/290681:0",
+    "building:landsd/31275:0",
+    "building:landsd/80915:0",
+    "terrain:city/data/government-native-31275-0.json",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_full_native_replacement_binding_v2_20261026.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-neighbours-v2-20261102-binding",
+      "scopeResources": "government-xl-harbourfront-horizon233227-floor-regression-v2-20261102-scope",
+      "args": [
+        "--patch",
+        "government-xl-harbourfront-horizon233227-source-floor-runtime-binding-v4-20261102",
+        "--runtime",
+        "government-xl-harbourfront-horizon233227-floor-regression-v2-20261102-runtime",
+        "--scope",
+        "government-xl-harbourfront-horizon233227-floor-regression-v2-20261102-scope"
+      ]
+    },
+    {
+      "script": "selected_retained_native_neighbours_v8_20261024.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-neighbours-v2-20261102-checks",
+      "scopeResources": "government-xl-harbourfront-horizon233227-floor-regression-v2-20261102-scope",
+      "args": [
+        "--scope",
+        "government-xl-harbourfront-horizon233227-floor-regression-v2-20261102-scope",
+        "--inventory",
+        "government-xl-after-hkust-staff-current-native-bounds-v1-20261102",
+        "--patch",
+        "government-xl-harbourfront-horizon233227-floor-neighbours-v2-20261102-binding",
+        "--bindings",
+        "government-xl-harbourfront-horizon233227-floor-regression-v2-20261102-dependencies"
+      ]
+    }
+  ],
+  "qualification": "Full current retained terrain boundary and installed-native regressions for exact unchanged candidate; no acceptance or production writes."
+}

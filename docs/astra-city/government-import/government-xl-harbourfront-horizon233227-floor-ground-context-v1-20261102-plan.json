@@ -1,0 +1,46 @@
+{
+  "batch": "government-xl-harbourfront-horizon233227-floor-ground-context-v1-20261102",
+  "uids": [
+    "landsd/233227:0"
+  ],
+  "workers": 2,
+  "runtime": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-runtime",
+  "attributes": "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-attributes",
+  "resources": [
+    "building:landsd/233227:0",
+    "building:landsd/240841:0",
+    "building:landsd/290628:0",
+    "building:landsd/290629:0",
+    "building:landsd/290677:0",
+    "building:landsd/31275:0",
+    "terrain:city/data/government-native-31275-0.json",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "original_source_ground_contacts_v2_20261031.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-ground-context-v1-20261102-grade",
+      "args": [
+        "--runtime",
+        "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-attributes",
+        "--uid",
+        "landsd/233227:0"
+      ]
+    },
+    {
+      "script": "selected_original_four_world_low_face_context_v3_20261031.py",
+      "batch": "government-xl-harbourfront-horizon233227-floor-ground-context-v1-20261102-clearance",
+      "args": [
+        "--runtime",
+        "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbourfront-horizon233227-floor-regression-v1-20261102-attributes",
+        "--uid",
+        "landsd/233227:0"
+      ]
+    }
+  ],
+  "qualification": "Immutable complete captured-source ground and negative-face diagnostics only. No geometry edits or physical approval."
+}

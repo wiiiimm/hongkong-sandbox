@@ -271,10 +271,10 @@
     "unapprovedBasicProposalsApplied": false
   },
   "activeWorker": {
-    "sessionId": 17491,
-    "batch": "government-xl-harbourfront-horizon233227-floor-neighbours-v1-20261102",
-    "log": "/tmp/astra-harbourfront-horizon233227-floor-neighbours-v1-20261102.log",
-    "status": "running complete affected BASIC and installed-native terrain regression; poll before restart",
+    "sessionId": 43070,
+    "batch": "government-xl-harbourfront-horizon233227-retained-terrain-preview-v1-20261102",
+    "log": "/tmp/astra-harbourfront-horizon233227-retained-terrain-preview-v1-20261102.log",
+    "status": "running unapproved desktop/mobile preview with exact retained-terrain replacement and both installed neighbours; poll first",
     "publication": false
   },
   "aiGeometryModelling": false,
@@ -886,9 +886,11 @@
     "uid": "landsd/233227:0"
   },
   "nextSteps": [
-    "Finish exact7090 native bounds refresh without rerunning unchanged7087 source geometry.",
-    "Select actual unfinished sources from the full521 audit; retain96 unfinished and both NULL-UID keys.",
-    "Commit/push each verified installation immediately. HKUST is already installed and pushed0b40032d33."
+    "Poll exact live preview session43070 and inspect its regular log; do not restart while live.",
+    "After success inspect and record actual source/retained desktop/mobile day/night exports.",
+    "Complete exact source-component identity and authored native-interface interpretation with raw failures preserved.",
+    "Use existing fenced stage/publication/live/independent readback; commit and push only verified new installation credit.",
+    "Continue all95unfinished XL including both NULL keys; no optimisation or AI geometry modelling."
   ],
   "nonInstalledIncludingTerminal": 98,
   "nullUIDSourceKeys": [
@@ -1102,6 +1104,34 @@
       "landsd/31275:0"
     ],
     "regressionSequenceComplete": true,
-    "testsPassed": 16
-  }
+    "testsPassed": 16,
+    "neighbourJob": "2c6d063c6f268c155f67fe315309b7db7eb36c6102c1896a0cb918eb3965f1cc",
+    "affectedForms": 12,
+    "basicRegressionFlags": [],
+    "retainedNativeRegressionPassed": true,
+    "exactNegativeFaces": 47,
+    "negativeWallFaces": 26,
+    "negativeWallsWithClearCapPaths": 26,
+    "negativeUpwardNonwallFaces": 21,
+    "secondFloorTrialRequired": true,
+    "secondTrial": {
+      "batch": "government-xl-harbourfront-horizon233227-source-floor-trial-v4-20261102",
+      "jobId": "4e6065e03c2add6737b757e80caccad92e5103cd4f32a4a0babb79795092ea62",
+      "status": "private-terrain-validator-passed",
+      "terrainFaces": 22892,
+      "changedOldTerrainFaces": 409,
+      "sourceFaces": 45,
+      "sourceGeometryChanges": 0,
+      "installationApproved": false,
+      "regressionJob": "ce671e44dc0faee7109939f8e1d38f453faeead6a8a176bda5fb638652cf7f56",
+      "neighbourSequenceJob": "596c949dbe8b409b621bdc138ceb1fb28cb1f2d156eea997f0185d17436688a8",
+      "belowGradeJob": "48aba696a491c8ef223077f7f7477d9587f6ef664ffcdb343d233fa59a7d8553",
+      "allFourWorldBuriedFaces": 0,
+      "allFourWorldNegativeFacesOverHalfMetre": 0,
+      "minimumSurfaceGapM": -0.3004224248594003,
+      "all12FormsBasicRegressionFlags": [],
+      "bothInstalledNativeRegressionsPassed": true
+    }
+  },
+  "latestPushedCheckpointCommit": "31f178d522"
 }
