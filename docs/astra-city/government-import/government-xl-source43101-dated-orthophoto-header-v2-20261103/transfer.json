@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "issue": "HKS-213",
+  "startedAt": "2026-11-02T21:02:46.109186+00:00",
+  "chargedBytes": 1467,
+  "receivedBytes": 1467,
+  "requests": [
+    {
+      "url": "https://www1.ecert.gov.hk/root/ecert_ssl_ca_3-17.crt",
+      "method": "GET",
+      "range": null,
+      "reservedBytes": 65536,
+      "startedAt": "2026-11-02T21:02:46.109806+00:00",
+      "status": "complete",
+      "finishedAt": "2026-11-02T21:02:46.300167+00:00",
+      "httpStatus": 200,
+      "receivedBytes": 1467,
+      "sha256": "cb730c3a5fe958b8bdc5b363892c9f530b33f98a43ce3c2578fce096b4ae233c",
+      "headers": {
+        "Date": "Mon, 02 Nov 2026 21:02:46 GMT",
+        "Last-Modified": "Thu, 20 Mar 2025 07:32:10 GMT",
+        "ETag": "\"5bb-630c122be9280\"",
+        "Accept-Ranges": "bytes",
+        "Content-Length": "1467",
+        "Content-Type": "application/x-x509-ca-cert"
+      }
+    },
+    {
+      "url": "https://open.hkmapservice.gov.hk/OpenData/directDownload?productName=TDOP&sheetName=T8-SW-C&productFormat=TIFF",
+      "method": "HEAD",
+      "range": null,
+      "reservedBytes": 0,
+      "startedAt": "2026-11-02T21:02:46.414155+00:00",
+      "status": "failed-reservation-retained",
+      "finishedAt": "2026-11-02T21:03:46.583665+00:00",
+      "error": "TimeoutError: The read operation timed out"
+    }
+  ],
+  "capBytes": 200000
+}
