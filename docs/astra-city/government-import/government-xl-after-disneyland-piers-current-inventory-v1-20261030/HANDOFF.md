@@ -10,6 +10,12 @@ Named identity/physical review preserves raw individual-footprint extent and ori
 
 ## Current action
 
+**Yoho installation7141d56297 is pushed.** LinearHKS203/199/215 and AstraXLmilestone updated. Fresh current7094nativebounds COMPLETE9e4e7f4f24a6a49c749ffaf7efa137e24a5eae93f6c854be5d858aa4e1beaddc, session97778terminal/released.
+
+**ACTIVE next source session69953**, batch `government-xl-uptown-east289763-after-yoho-current-v1-20261102`, log `/tmp/astra-uptown-east-after-yoho-current-v1-20261102.log`. Existing leased current-original runner reuses exact cached sourceSHA00c1b36f0874fd5dda65fa942bc9ca336af8edf1cb2ffaedf4bf9051c4a24e4c; no modelling/publication. Poll before restart. Saved `priorUptownEastRecovery20261102` retains source-faithful terrain candidate and raw330514groundgap/330580burial warnings. Do not declare missing330580government-wide from one pinned-sheet search. Full93unfinished/twoNULLkeys remain.
+
+Earlier routing below superseded.
+
 **Yoho Mall II original podium273672 and rooftop junction3007 are INSTALLED unchanged.** Job `50c15da4affefa4d9a9dc01ad8144fe16eb3e5dcc0bc33aa266a14588f086468`, snapshot `91a493d4bac5705c`. Independent readback `government-xl-yoho-mall-ii273672-original-installed-root-readback-v4-20261102`, jobc015dfa655830655410440ded2e395acc14bee93887e6d2580c6e000931c106aPASS: all521keys,7092oldassets/catalogueentries,8globalretainedsupports, exact one terrain replacement. Both liveviewportsPASS68exports; ROOT actually inspected17hash-bound full-frame sheets. Actual installedHTTP atomic testPASSdesktop/mobile independentfailure of eachpeer, Base/Auto/eviction, nopartialframes/errors.13adversarialcontracttestsPASS.
 
 Outer wrapper7271 exited143 after successful installedreceipt; no liveworkers remained. Sourceinstallationlease alreadyreleased; exact own leftover4177lease explicitlyreleased. Cleanup saved beside liveinspection. No installationrepeat/rollback. Shared4176untouched. Checkpointbd7b244f3dpushed. **Commit/push this installation now**, then refreshcurrent7094nativebounds and continue actual93unfinished keys, including bothNULLUIDkeys. University Hall alreadyinstalled; never repeat. NoAIgeometry/optimisation. Rawsourcewall/contact and oldretainedsupportwarnings stayrecorded; no blanketwaiver.
