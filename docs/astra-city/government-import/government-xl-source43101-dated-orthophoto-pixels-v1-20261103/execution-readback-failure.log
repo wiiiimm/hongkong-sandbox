@@ -1,0 +1,25 @@
+{"reservationAction": "heartbeat", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.179}
+{"extracted": "TDOP_TIFF_8SWC/tdop8swc20250009.tif", "bytes": 545216766}
+{"extracted": "TDOP_TIFF_8SWC/tdop8swc20250009.tfw", "bytes": 57}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/source43101_dated_orthophoto_pixels_v1_20261103.py", line 126, in <module>
+    owned()
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/source43101_dated_orthophoto_pixels_v1_20261103.py", line 120, in owned
+    module('source43101_dated_pixels_freeze', HERE / 'xl-popcorn-source-investigations-checkpoints-20261009.py').freeze(BATCH, 'unfitted-dated-primary-raster-context-for-both-original-roots', list(dict.fromkeys(refs)), result)
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/xl-popcorn-source-investigations-checkpoints-20261009.py", line 24, in freeze
+    c.execute('SET TRANSACTION READ ONLY');assert c.execute('SELECT status,result FROM astra_modelling.jobs WHERE id=%s',(jid,)).fetchone()==('complete',result)
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+{"reservationAction": "release", "ok": true, "exitCode": 0, "leaseLost": false, "elapsedSeconds": 1.238}
+{
+  "ok": false,
+  "exitCode": 1,
+  "released": true
+}
+Traceback (most recent call last):
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/source43101_dated_orthophoto_pixels_v1_20261103.py", line 131, in <module>
+    execute_reserved(claim['reservation'], HERE / 'local' / BATCH / 'reservation.json', [sys.executable, __file__, '--owned'])
+  File "/home/williamli/projects/wiiiimm/hongkong-sandbox/.claude/worktrees/astra-hong-kong-city/source-scripts/city/government-import/observed_reserved_runner_v2_20261103.py", line 32, in execute_reserved
+    assert result.returncode==0,'Diagnostic failed; preserve evidence, no approval'
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: Diagnostic failed; preserve evidence, no approval
