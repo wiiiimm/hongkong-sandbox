@@ -1,3 +1,11 @@
+## Additional unfinished source advanced —43101
+
+Fresh official directory job `0a0c2ae1fb2fbf58c6e162a7e9da06cc174c29945214ac177cc7b7ce2c6fb79d` completes all4 package/individualised GLTF/FBX directories with zero errors and968,703 transferred bytes. Initial individualised checks hit the cap because ZIP64 offsets were misread; new bounded ZIP64 reader fixes this without increasing transfer caps or fetching payloads. Seven adversarial tests pass.
+
+Selective A0 original probe `1e981395878a6bee719cd69f11698cf03bb8cace9be8bd0eb4e4f2394da2292e` acquired455,854 bytes and zero textures under a1 MB cap. Valid unsigned-byte indices required a separate V2 geometry decoder; four tests pass, V1 untouched. Original A0 still has2 provider-authored roots/24,308 faces, same bounds as C0; named-root world hash matches C0 exactly, other-root world hash differs and geometric equality has not been proved. No automatic identity, source-corruption, permanent rejection or installation credit. Next is whole-assembly identity/current Dock1A interface review; do not delete roots, move geometry or repeat unchanged directory searches. Failed V1 decoder attempt preserved as software error.
+
+Current June Garden session71108 remains live, with3 successful renewal observations and12 source/66 retained desktop captures at last poll. No complete browser receipt yet.
+
 ## Current browser attempt — safe renewal classification
 
 V3 session52560 terminated at renewal: heartbeat subprocess exit1, runner exit2, lease released. The error cause is still unknown; do not call it source corruption, renderer failure or a confirmed database outage. Twelve isolated immediate renewal calls passed and their diagnostic lease was released. Nine adversarial tests pass for new credential-free classification; no retry, TTL or fail-closed policy changes. Prior safe worker logs and probe facts are preserved in `government-xl-june-garden-renewal-diagnostics-v1-20261103`.
