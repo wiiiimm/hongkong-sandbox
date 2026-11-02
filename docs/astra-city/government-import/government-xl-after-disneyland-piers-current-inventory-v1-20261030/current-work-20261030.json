@@ -271,13 +271,13 @@
     "unapprovedBasicProposalsApplied": false
   },
   "activeWorker": {
-    "sessionId": null,
-    "script": "source-scripts/city/government-import/june_garden_live_install_v2_20261103.py",
-    "batch": "government-xl-june-garden-original-installed-v2-20261103",
-    "log": "/tmp/astra-june-garden-original-install-v2-20261103.log",
+    "script": "source-scripts/city/government-import/june_garden_live_install_v3_20261103.py",
+    "batch": "government-xl-june-garden-original-installed-v3-20261103",
+    "log": "/tmp/astra-june-garden-original-install-v3-20261103.log",
     "status": "prepared-not-launched",
     "newlyInstalled": 0,
-    "preflightPassed": true
+    "preflightPassed": true,
+    "completeReusableMetadataPreflightPassed": true
   },
   "aiGeometryModelling": false,
   "alexandraClampedPrivateTerrain": {
@@ -1129,7 +1129,7 @@
       "inventorySnapshot": "20f3d4a83cbbf6aa"
     }
   },
-  "latestPushedCheckpointCommit": "95751ea654",
+  "latestPushedCheckpointCommit": "01c663b1ab",
   "yoho273672Current20261102": {
     "preparation": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102",
     "preparationJobId": "680098a43c92e78bc44a5ad2be706421517cf0e13ac734dcb62c83c9ccb6f797",
@@ -2011,10 +2011,11 @@
     "next": "Revalidate the exact named current source identity and complete original terrain/retained scope, preserving every raw pair contact. Existing source-only junction review does not waive foreign, collision, support or runtime gates."
   },
   "latestAcquisitionProgressLinearComments20261103": {
-    "HKS-203": "b75e9792-50fd-4182-82c0-1cb0a1d846b9",
-    "HKS-199": "20bd1bb9-9001-4e50-8d4e-020d8bb0501f",
-    "HKS-215": "d4b9e7ac-f686-4fd6-8ca5-5192c7365a49",
-    "milestone": "60594493-a117-4231-9a57-aa2071f1187d"
+    "HKS203": "b75e9792-50fd-4182-82c0-1cb0a1d846b9",
+    "HKS199": "20bd1bb9-9001-4e50-8d4e-020d8bb0501f",
+    "HKS215": "d4b9e7ac-f686-4fd6-8ca5-5192c7365a49",
+    "milestone": "60594493-a117-4231-9a57-aa2071f1187d",
+    "updatePending": true
   },
   "juneGardenLiveMobileComplete20261103": {
     "report": "docs/astra-city/government-import/government-xl-june-garden-original-installed-v1-20261103/viewport-390/live-browser.json",
@@ -2189,7 +2190,7 @@
     "evidenceCommit": "3f28d11bc2"
   },
   "juneGardenRecoveryV220261103": {
-    "status": "prepared-not-launched",
+    "status": "terminal-rolled-back-lease-released",
     "preflightPassed": true,
     "models": 6,
     "fixedXLDelta": 1,
@@ -2202,7 +2203,13 @@
     "allLiveImageReviewRequired": 307,
     "testsPassed": 16,
     "installationApproved": false,
-    "sourceGeometryChanges": 0
+    "sourceGeometryChanges": 0,
+    "launcherPid": 1159420,
+    "supervisorPid": 1168238,
+    "installerPid": 1168279,
+    "resources": 792,
+    "failure": "Reuse helper incorrectly expected published=true in publication-plan.json; actual successful publication.json and command-001 preserved",
+    "all16PublicDestinationsIndependentlyVerifiedRestored": true
   },
   "source43101DockContactContext20261103": {
     "jobId": "ca798682ec8a645d86c33645e420ab47c6e42656b3ef5323cd7c6c174260c2ce",
@@ -2219,5 +2226,29 @@
     "identityAccepted": false,
     "physicalAcceptance": false,
     "installationApproved": false
+  },
+  "juneGardenRecoveryV320261103": {
+    "status": "prepared-not-launched",
+    "preflightPassed": true,
+    "completeActualReusableMetadataPreflightPassed": true,
+    "actualApplyPublicationReceiptVerified": true,
+    "all150MobilePNGsCommitted": true,
+    "completeAtomicCases": 7,
+    "newFullDesktopViewsRequired": 150,
+    "allLiveImageReviewRequired": 307,
+    "reuseTestsPassed": 8,
+    "installationApproved": false
+  },
+  "silvercordLippoPositiveIdentity20261103": {
+    "freshCompleteOriginalIdentitiesReplayed": 2,
+    "positiveIdentityAdapterImplemented": true,
+    "generalIdentityCheckerChanged": false,
+    "jobId": "a560e234da6b1c5750ff9120e6bb9d977721f205da7760ca744114e98cb39ad9",
+    "adapter": "source-scripts/city/government-import/silvercord_lippo_reviewed_identity_v2_20261103.py",
+    "testsPassed": 5,
+    "providerRevisionStillExplicitlyDistinct": true,
+    "completedGeometryReusedAfterMetadataOnlyFailure": true,
+    "installationApproved": false,
+    "remaining": "Current terrain/foundations, complete affected retained Academy parent actors/supports and full runtime/browser/publisher gates."
   }
 }

@@ -1,12 +1,10 @@
 # Current XL original-model handoff
 
-## June Garden V1 terminal; fresh guarded V2 prepared
+## June Garden V1/V2 terminal; corrected V3 prepared
 
-V1 installer3895080/browser399567/supervisor187649 are absent. Neon AdminShutdown SQLSTATE57P01 interrupted heartbeat; the supervisor stopped the exact child group and released the lease. Do not restart V1. All16mutable public destinations were independently verified restored, no installed-review history was created, source is not deemed corrupt. Frozen rollback readback job549bb8b97ddb28021bcfa92790a32dced3dd98a54a78e49e362c0b61f4c80ee6 (`government-xl-june-garden-original-installed-v1-20261103-interruption-readback`). Owned4197 stopped; shared4176 untouched.
+V1 stopped on Neon57P01; all16public destinations restored and no installed history. V2 launcher1159420/supervisor1168238/installer1168279 are now absent and released. Its fenced dry/apply passed, then reuse failed because the helper expected published=true in publication-plan.json. That file remains a dry plan; the correct publication.json and command-001 prove the successful apply. All16destinations independently verified restored again; no installed credit/source corruption.
 
-V1 completed150mobile and7atomic software checks remain committed. Its122desktop PNGs have no complete software report;120changed PNGs were actually inspected through desktop-partial01..10, with2exact-byte staged matches. Partial desktop evidence grants no software/installation credit.
-
-New `june_garden_live_install_v2_20261103.py --install` is prepared, not yet live. Fresh preflight passed for6unchanged originals and790canonical resources. RunnerV3 retries only explicit57P01/57P02/57P03 with3bounded20s attempts and2/5s backoff; lease loss/unknown errors fail closed. V21 writes partial validated checkpoints, never passing acceptance. Exact mobile/atomic reuse verifies full original current inputs/configs/committed reports and all75asset hashes after fenced reapplication; any mismatch must roll back. Full new desktop150software checks remain mandatory. Six retry+five evidence reuse+five partial-checkpoint tests pass. No model/terrain geometry changed by this recovery code.
+Fresh `june_garden_live_install_v3_20261103.py --install` is prepared, not yet launched. Full preflight passes, including actual successful apply receipt, identical mobile/atomic configurations, complete mobile150/atomic7 reports and all committedPNGbytes, and unchanged historical immutable inputs. Eight reuse adversarial tests pass. Old V2failure is preserved. Bounded V3supervisor/validated partial checkpoints stay unchanged; all full new desktop150and actual307review/readback gates remain.
 
 ## Complete scope and counts
 
@@ -14,11 +12,15 @@ New `june_garden_live_install_v2_20261103.py --install` is prepared, not yet liv
 
 ## Required next actions
 
-1. Launch fresh V2 under its own full canonical lease and concrete V3supervisor; save and poll exact live PID/log. Never restart on observation timeout. Do not edit pinned producers while live. It uses owned4197; shared4176 untouched.
+1. Launch fresh V3 under its full792resource lease and save/poll actual process/log. Never restart on observation timeout. Do not edit pinned producers while live. It uses owned4197; shared4176 untouched.
 2. Reuse prior mobile150/atomic7 only after exact current-source/config/public byte revalidation. Do not reuse the incomplete V1desktop as passing software. Observe new desktop150 and inspect its actual PNGs; samecapture+exactbyte prior reviewed PNGs may reuse visual inspection only.
-3. Worker writes `government-xl-june-garden-original-installed-v2-20261103/live-export-inspection-request.json` after complete live software;1800s ROOTdeadline begins then. Actual307images =300canvas+7atomic. Required `ROOT-LIVE-EXPORT-INSPECTION.json` reviewerROOT/allListedExportsActuallyInspected/complete-source-and-retained-desktop-mobile-exports/visualAcceptance true/unresolvedVisualFailures[] and exact path+SHA set. Do not manufacture approval from image counts or partial checkpoints.
-4. On complete success run independent `june_garden_installed_readback_v2_20261103.py`: full521/bothNULL/onlyprimarydelta,7095oldassets and metadata/7101actors, source/support graph,3immutable terrain transitions and originalassets retained,307actualexports, globalretainedBASICsupports and exactpinnedNeon rows.
+3. Worker writes `government-xl-june-garden-original-installed-v3-20261103/live-export-inspection-request.json` after complete live software;1800s ROOTdeadline begins then. Actual307images =300canvas+7atomic. Required `ROOT-LIVE-EXPORT-INSPECTION.json` reviewerROOT/allListedExportsActuallyInspected/complete-source-and-retained-desktop-mobile-exports/visualAcceptance true/unresolvedVisualFailures[] and exact path+SHA set. Do not manufacture approval from image counts or partial checkpoints.
+4. On complete success run independent `june_garden_installed_readback_v3_20261103.py`: full521/bothNULL/onlyprimarydelta,7095oldassets and metadata/7101actors, source/support graph,3immutable terrain transitions and originalassets retained,307actualexports, globalretainedBASICsupports and exactpinnedNeon rows.
 5. Commit/push verified installation immediately, including publicassets/catalogue/terrainmanifest/reviewprogress/current outputs+exactevidence. Update existing Linear progress and continue all91remaining. No broad staging; protect unrelated working-commands.json. No optimisation, new agents, AIgeometry or mainmerge.
+
+## Silvercord/Lippo identity-only route completed
+
+Fresh complete-record original identity replay passed for both exact podiums, frozen pinnedNeon a560e234da6b1c5750ff9120e6bb9d977721f205da7760ca744114e98cb39ad9. Explicit `silvercord_lippo_reviewed_identity_v2_20261103.py` retains exact source/route/cell/full foreign metrics and distinct provider/cachedObjectIDs; five adversarial tests pass. General checker unchanged; no physical/publication approval. V1wrong producer schema and V2missingUIDmetadata failures preserved. Completed geometry was revalidated/frozen without repetition. Next: terrain/foundations and all27retained Academy parent actors/fullcurrent scope.
 
 ## Source43101 latest bounded context
 
