@@ -10,6 +10,16 @@ Named identity/physical review preserves raw individual-footprint extent and ori
 
 ## Current action
 
+**Current: qualified-stage session89877 RUNNING**, log `/tmp/astra-yoho-qualified-stage-v1-20261102.log`; CPU active in full publisher validation. Final browser68603 terminalPASS; ROOT inspected all68exports/17sheets, including corrected retained cameras. Final reviewV1failed duplicate dictionary keyword during receipt write; preserved. V2same full checks PASS, Neon28229b9ab2c59cf2fdf70b397c387ab626f1b261266862040581b11baf0bdad4. Next prepare-only and owned guarded installation, actual live atomic lifecycle+68liveviews, ROOTinspection, Yoho-specific independent readback; commit/push. Bothparts unchanged; terrainowner273672/supportdependent3007 separated. Counts still424/3/94,7092actors.
+
+Previous continuation below is superseded.
+
+Latest continuation: **active private final browser session68603**, log `/tmp/astra-yoho-mall-ii273672-two-originals-private-preview-v3-20261102.log`. Poll before restart. Desktop report PASS; mobile still running at this update. V2generic mobile retry blocked both atomic peers and is preserved as harness failure; V3successful view capture separately requires the unchanged dedicated per-peer failure/Base/Auto/eviction atomic test to pass. Source/terrain/approval guards remain intact.
+
+Prepared exact-source Yoho adapters distinguish terrain owner273672 from rooftop dependent3007;13 adversarial contract tests PASS. No new installation yet:424installed/3terminal/94unfinished,7092actors. Next inspect all68final exports, run final review, guarded stage/preflight/install/live checks and independent readback, then commit/push. Do not reinstall University Hall; approval already fulfilled. No AI geometry modelling or optimisation.
+
+Earlier routing below is superseded where it conflicts with this active continuation.
+
 Harbourfront installation committed/pushed4daf0d10e2. Yoho first recovery checkpoint014858c49cpushed. University Hall approval already fulfilled c339a37453; never reinstall. Counts unchanged424installed/3terminal/94unfinishedof521,7092actors. No new installation in this continuation.
 
 **Yoho Mall II273672 now has an authentic original companion3007.** Exact UID/CSUID source lookup found **B216803399101062G0**,59faces,2454packedbytes, SHA0d07a1036de51674287e9c6b970b257d15fc98af127e67b92bc37b74144affb7. Earlier manual3Csuffix-only lookup missed this2Gsource; not missing government data. Existing guarded acquisition recovered exact original bytes, Neon994adef06a8aedfa3ff025a621f97cba76c700efc66ef64b54d354829318ac0d. No geometry edits or simplification.
