@@ -10,6 +10,10 @@ Named identity/physical review preserves raw individual-footprint extent and ori
 
 ## Current action
 
+**Next-source69953 is now terminal success/released**, not active. Uptown East289763 freshcurrentidentityPASS7ec1dd7cc1844b704e3103cee6ff5bac8873ccec5b5f18763c16a6357a30d25a; runtime4e1014647870a3262f3a039c5e494697ad9edd23cef2516de8e9999494c061ecsourcepreserved/allgroundcovered, minsurfacegap2.1937446m/maxlowgap11.4689678m. No installationcredit. Continue saved exactoriginal podium/terrain recovery and330514gap/330580burial context; no geometry/threshold changes. Allworkers terminal; no humanapproval blocker. Yoho7141d56297pushed, counts425/3/93/521and7094actors.
+
+Earlier active-worker routing below superseded.
+
 **Yoho installation7141d56297 is pushed.** LinearHKS203/199/215 and AstraXLmilestone updated. Fresh current7094nativebounds COMPLETE9e4e7f4f24a6a49c749ffaf7efa137e24a5eae93f6c854be5d858aa4e1beaddc, session97778terminal/released.
 
 **ACTIVE next source session69953**, batch `government-xl-uptown-east289763-after-yoho-current-v1-20261102`, log `/tmp/astra-uptown-east-after-yoho-current-v1-20261102.log`. Existing leased current-original runner reuses exact cached sourceSHA00c1b36f0874fd5dda65fa942bc9ca336af8edf1cb2ffaedf4bf9051c4a24e4c; no modelling/publication. Poll before restart. Saved `priorUptownEastRecovery20261102` retains source-faithful terrain candidate and raw330514groundgap/330580burial warnings. Do not declare missing330580government-wide from one pinned-sheet search. Full93unfinished/twoNULLkeys remain.
