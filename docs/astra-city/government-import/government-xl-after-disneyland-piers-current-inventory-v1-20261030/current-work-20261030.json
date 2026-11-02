@@ -274,7 +274,7 @@
     "script": "source-scripts/city/government-import/june_garden_live_install_v3_20261103.py",
     "batch": "government-xl-june-garden-original-installed-v3-20261103",
     "log": "/tmp/astra-june-garden-original-install-v3-20261103.log",
-    "status": "running-confirmed-exact-pids-first-renewal",
+    "status": "running-confirmed-full-desktop-prewarm",
     "newlyInstalled": 0,
     "preflightPassed": true,
     "completeReusableMetadataPreflightPassed": true,
@@ -282,7 +282,13 @@
     "supervisorPid": 1293832,
     "installerPid": 1293876,
     "resources": 792,
-    "leaseOwnershipVerifiedAndRenewed": true
+    "leaseOwnershipVerifiedAndRenewed": true,
+    "browserPid": 1355364,
+    "reusedMobileAtomicProofJobId": "b6934619e7db7de97e6f7b9a0532c9cb87b9303a5528ee56a2a0823dbce579f9",
+    "mobileViewsReused": 150,
+    "atomicCasesReused": 7,
+    "desktopInputsCheckpointWritten": true,
+    "desktopValidatedCaptures": 0
   },
   "aiGeometryModelling": false,
   "alexandraClampedPrivateTerrain": {
@@ -1134,7 +1140,7 @@
       "inventorySnapshot": "20f3d4a83cbbf6aa"
     }
   },
-  "latestPushedCheckpointCommit": "bb43f00c54",
+  "latestPushedCheckpointCommit": "af77a76828",
   "yoho273672Current20261102": {
     "preparation": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102",
     "preparationJobId": "680098a43c92e78bc44a5ad2be706421517cf0e13ac734dcb62c83c9ccb6f797",
@@ -2020,7 +2026,7 @@
     "HKS199": "20bd1bb9-9001-4e50-8d4e-020d8bb0501f",
     "HKS215": "d4b9e7ac-f686-4fd6-8ca5-5192c7365a49",
     "milestone": "60594493-a117-4231-9a57-aa2071f1187d",
-    "updatePending": false
+    "updatePending": true
   },
   "juneGardenLiveMobileComplete20261103": {
     "report": "docs/astra-city/government-import/government-xl-june-garden-original-installed-v1-20261103/viewport-390/live-browser.json",
@@ -2233,7 +2239,7 @@
     "installationApproved": false
   },
   "juneGardenRecoveryV320261103": {
-    "status": "running-confirmed-exact-pids-first-renewal",
+    "status": "running-full-new-desktop-after-exact-reuse",
     "preflightPassed": true,
     "completeActualReusableMetadataPreflightPassed": true,
     "actualApplyPublicationReceiptVerified": true,
@@ -2245,7 +2251,9 @@
     "installationApproved": false,
     "launcherPid": 1284489,
     "supervisorPid": 1293832,
-    "installerPid": 1293876
+    "installerPid": 1293876,
+    "browserPid": 1355364,
+    "reusedLiveProofJobId": "b6934619e7db7de97e6f7b9a0532c9cb87b9303a5528ee56a2a0823dbce579f9"
   },
   "silvercordLippoPositiveIdentity20261103": {
     "freshCompleteOriginalIdentitiesReplayed": 2,
@@ -2260,12 +2268,55 @@
     "remaining": "Current terrain/foundations, complete affected retained Academy parent actors/supports and full runtime/browser/publisher gates."
   },
   "silvercordLippoCurrentFloorWorker20261103": {
-    "launcherPid": 1304950,
-    "supervisorPid": 1305403,
-    "status": "running-confirmed-first-renewal-source-refresh-passed",
+    "launcherPid": null,
+    "supervisorPid": null,
+    "status": "complete-all-four-phases-lease-released",
     "script": "source-scripts/city/government-import/silvercord_lippo_current_floor_sequence_v1_20261103.py",
     "log": "/tmp/astra-silvercord-lippo-current-floor-sequence-v1-20261103.log",
     "batch": "government-xl-silvercord-lippo-current-floor-sequence-v1-20261103",
-    "newlyInstalled": 0
+    "newlyInstalled": 0,
+    "runtimeJobId": "3c40c8673afe89cc543745cc5633dfeaf521c636371e78bd3ba18244d47ebae9",
+    "exactSilvercordJobId": "255bdfde8c91a19c3b422858fef855fc7742707e9674a2312943cf9f0af96f28",
+    "exactLippoJobId": "2f7456ac15a2cc4c1f9c3b04d46acbd69583f610b1c60e79ecfaf5dc62577d99",
+    "silvercordUpwardNegatives": [],
+    "lippoUpwardNegatives": [
+      7995,
+      7996,
+      8239,
+      8240,
+      8241
+    ],
+    "sourceNegativeCounts": [
+      450,
+      273
+    ],
+    "fourModesAgree": true
+  },
+  "silvercordLippoSourceFloorTrial20261103": {
+    "status": "complete-private-derived-ground-only",
+    "jobId": "96672dbc29667fb33e8e72f8f18205faa39a982efad66f1332ab6b45b55769a0",
+    "originalGroundFaces": 1140,
+    "privateGroundFaces": 1660,
+    "changedFaces": 33,
+    "sourceFloors": 5,
+    "outsideWorkFacesLiteral": true,
+    "nativeOnlyMappingJobId": "bd1b554c8204ed9f621039c055c949bb059655e394c6edf4b9c6a41b6899f2ce",
+    "completeProductionMappingJobId": "17b5f821f13beb5c8c35520a115e60a10c608bcb71120c4027d3a0b26a3c8d81",
+    "currentRenderedOwnersUnique": 33,
+    "unmatched": 0,
+    "ambiguous": 0,
+    "currentParent": "city/data/government-xl-one-peking-cycle-original-terrain-20261101.json",
+    "gridFaces": 17,
+    "nativeFaces": 16,
+    "nativeChildIndices": [
+      15,
+      17
+    ],
+    "declaredParentTargetUids": 29,
+    "oldAcademy27TargetNominationSuperseded": true,
+    "fullCurrentAffectedActorCensusStillRequired": true,
+    "capturedSceneApprovalTransferred": false,
+    "installationApproved": false,
+    "next": "Coordinated exact lower-only return across the existing grid plus child15/17 boundaries. Preserve all other parent grid/children and immutable old asset; avoid flattening 687x547 grid into a huge native mesh. Bind current full parent/closed footprint/Float32 bounds to every touching native/BASIC actor, preserve all current support contracts and run complete runtime/browser/publication gates."
   }
 }
