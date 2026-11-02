@@ -1787,10 +1787,45 @@
     "script": "source-scripts/city/government-import/june_garden_diagnostic_followthrough_v1_20261103.py",
     "sessionId": 47398,
     "predecessorPid": 3160141,
-    "verifiedWaiting": true,
+    "verifiedWaiting": false,
     "holdsNoLeaseWhileWaiting": true,
     "automaticPredecessorRestart": false,
     "automaticAcceptance": false,
+    "automaticPublication": false,
+    "status": "terminal-exit143",
+    "cause": "unknown; empty log; concrete mobile session8456 remains live"
+  },
+  "juneGardenAutomaticDiagnosticFollowthroughV220261103": {
+    "script": "source-scripts/city/government-import/june_garden_diagnostic_followthrough_v2_20261103.py",
+    "sessionId": 94822,
+    "predecessorPid": 3160141,
+    "verifiedWaiting": true,
+    "supplementBatch": "government-xl-june-garden-retained-camera-supplement-v2-20261103",
+    "uids": [
+      "landsd/147505:0",
+      "landsd/147996:0",
+      "landsd/159422:0",
+      "landsd/160070:0",
+      "landsd/233970:0",
+      "landsd/309340:0"
+    ],
+    "automaticAcceptance": false,
     "automaticPublication": false
+  },
+  "juneGardenDesktopCompleteInspection20261103": {
+    "inspection": "docs/astra-city/government-import/government-xl-june-garden-v4-export-sheets-v1-20261103/ROOT-DESKTOP-EXPORT-INSPECTION-20261103.json",
+    "imagesActuallyInspected": 150,
+    "sheetsActuallyInspected": 38,
+    "visualAcceptance": false,
+    "additionalCameraEvidenceRequired": true
+  },
+  "juneGardenCanonicalDestinationRepair20261103": {
+    "qualifiedStage": "source-scripts/city/government-import/june_garden_qualified_stage_v2_20261103.py",
+    "publisherHooks": "source-scripts/city/government-import/june_garden_publisher_hooks_v2_20261103.py",
+    "guardedPublisher": "source-scripts/city/government-import/june_garden_guarded_publish_v1_20261103.py",
+    "testsPassed": 24,
+    "oldImmutableTerrainPreserved": true,
+    "executed": false,
+    "newlyInstalled": 0
   }
 }
