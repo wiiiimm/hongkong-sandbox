@@ -1,0 +1,55 @@
+{
+  "batch": "government-xl-harbourfront-horizon233227-current-interfaces-v1-20261102",
+  "uids": [
+    "landsd/233227:0"
+  ],
+  "resources": [
+    "building:landsd/233227:0",
+    "building:landsd/290628:0",
+    "building:landsd/290629:0",
+    "building:landsd/290677:0",
+    "building:landsd/31275:0",
+    "terrain:city/data/terrain.json"
+  ],
+  "phases": [
+    {
+      "script": "selected_original_buried_context_v1.py",
+      "batch": "government-xl-harbourfront-horizon233227-current-interfaces-v1-20261102-buried",
+      "args": [
+        "--runtime",
+        "government-xl-harbourfront-horizon233227-after-hkust-staff-v1-20261102-runtime"
+      ]
+    },
+    {
+      "script": "selected_original_overlapping_native_contacts_v3_20261024.py",
+      "batch": "government-xl-harbourfront-horizon233227-current-interfaces-v1-20261102-native-contacts",
+      "args": [
+        "--scope",
+        "government-xl-harbourfront-horizon233227-after-hkust-staff-v1-20261102-scope",
+        "--runtime",
+        "government-xl-harbourfront-horizon233227-after-hkust-staff-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbourfront-horizon233227-after-hkust-staff-v1-20261102-attributes",
+        "--inventory",
+        "government-xl-after-hkust-staff-current-native-bounds-v1-20261102"
+      ]
+    },
+    {
+      "script": "selected_original_model_only_foreign_contacts_v3_20261024.py",
+      "batch": "government-xl-harbourfront-horizon233227-current-interfaces-v1-20261102-foreign",
+      "args": [
+        "--scope",
+        "government-xl-harbourfront-horizon233227-after-hkust-staff-v1-20261102-scope",
+        "--runtime",
+        "government-xl-harbourfront-horizon233227-after-hkust-staff-v1-20261102-runtime",
+        "--attributes",
+        "government-xl-harbourfront-horizon233227-after-hkust-staff-v1-20261102-attributes",
+        "--native-contacts",
+        "government-xl-harbourfront-horizon233227-current-interfaces-v1-20261102-native-contacts",
+        "--uid",
+        "landsd/233227:0"
+      ]
+    }
+  ],
+  "qualification": "Immediate existing-script original-source computation. Bind28buried facets and exact current interfaces with installed31275and all other scopedBASICs; no geometry/terrain edits, acceptance or optimisation."
+}
