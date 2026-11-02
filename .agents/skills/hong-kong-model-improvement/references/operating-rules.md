@@ -12,6 +12,12 @@ For unchanged sources with remaining rim warnings, first run `original_four_worl
 
 Royal Green Block 8 proves this distinction: all 18 remaining tower warnings reach existing strict roots along shared source edges in all four coordinate streams, with no rise above their endpoints and no intercomponent joins. Neither the source geometry nor support thresholds changed. Eight adversarial kernel tests cover raised paths, point-only contact, forged strict acceptance and off-source roots. Current installation totals remain 354 / 167 / 521 until actual publication and readback.
 
+## Retry existing endpoints before treating a minimax path as a hold
+
+A minimum absolute-height route can end at a lower strict root and exceed its own endpoint ceiling, even when another already verified root gives a valid path. An endpoint failure from that selected route does not prove that every original route fails. Use `original_endpoint_root_retry_v1_20261102.py` to retry only failed targets against the authenticated existing strict roots, prioritising roots on an incident source face and stopping after the first complete passing witness. Preserve the original failed rows; reuse passing rows without more search.
+
+Do not create or move a root, change its gap, raise the endpoint ceiling, bridge through zero-area primitives, or loosen the existing 1 mm source-incidence check. `original_exposed_grade_endpoint_retry_v1_20261102.py` binds the exact original/ground arrays and independently verified root receipts. Five adversarial geometry tests cover alternate endpoints, absent valid alternatives, unchanged passing witnesses, off-source roots and the strict gap interval. The result is path evidence only; identity, actual source roles, neighbours, collision, browser and publication checks remain separate.
+
 ## Plan source-floor terrain from all current upward negatives
 
 Before constructing a bounded lower-only terrain return, inspect exact initial source/ground contacts for partially as well as wholly buried upward facets. Wholly buried counts alone can miss a partially embedded floor and cause repeated candidate construction. Bind every nominated facet to the exact unchanged source and current ground arrays. Disconnected domains retain the existing clearance/core/return constants; preserve pre-existing low terrain outside the edit domain exactly and run complete affected-scope regressions after any candidate change. A passing foundation count alone grants no physical or publication approval.
