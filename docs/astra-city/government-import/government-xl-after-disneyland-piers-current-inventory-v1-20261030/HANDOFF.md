@@ -1,3 +1,9 @@
+## Current browser attempt — safe renewal classification
+
+V3 session52560 terminated at renewal: heartbeat subprocess exit1, runner exit2, lease released. The error cause is still unknown; do not call it source corruption, renderer failure or a confirmed database outage. Twelve isolated immediate renewal calls passed and their diagnostic lease was released. Nine adversarial tests pass for new credential-free classification; no retry, TTL or fail-closed policy changes. Prior safe worker logs and probe facts are preserved in `government-xl-june-garden-renewal-diagnostics-v1-20261103`.
+
+**Poll session71108**, batch `government-xl-tower3-june-garden-six-original-full-browser-v4-20261103`, log `/tmp/astra-june-garden-six-full-browser-v4-20261103.log`. Browser wrapper V3 uses `observed_reserved_runner_v2_20261103.py` and `reservation_action_diagnostic_v1_20261103.py` to report only exception class/SQLSTATE. It retains the same canonical runner, ownership check,3600-second TTL and full browser checks. If it fails, investigate the new safe classification before retrying. Do not weaken ownership or skip the69 retained actors.
+
 ## Prepared next gate — qualified staging
 
 `june_garden_qualified_stage_v1_20261103.py` is prepared, not executed. Six adversarial export-evidence tests pass. It requires authenticated complete browser receipts for both viewports (24 source and276 retained exports), all300 actual exports inspected with exact hashes, the existing seven atomic cases, exact source physical/identity and all69 terrain context proofs, and unchanged current manifest. It preserves immutable assets and source/support metadata, creates scoped nativeReview files, and runs only the existing canonical publisher dry run under the tested June Garden hooks. It cannot publish.
