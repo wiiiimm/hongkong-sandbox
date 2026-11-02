@@ -1,3 +1,21 @@
+## Current worker — mobile-only recovery, desktop preserved
+
+V4 session71108 is terminal/released. Seven renewal observations passed; the actual mobile failure was V16 waitForFunction timeout after the160070 day capture, not a renewed lease problem. Desktop12 source/138 retained exports remain complete. Existing V20 has normal selected-actor capture for160070 and target-pixel evidence, with unchanged runtime budgets.
+
+Desktop rebind V2 passed and froze Neon `b616ee5dcbf60da78195b8bede082cd65dc711bff4e404c5b223ab407045319b`: all7,095 current original asset bytes and authenticated source/terrain/runtime inputs match, desktop data preserved, failed mobile explicitly retained, no acceptance. Rebind V1 only failed by JSON-parsing a hash-verified JavaScript file; raw-byte V2 check preserves that hash requirement. Both failures preserved.
+
+**Poll session8456**, batch `government-xl-june-garden-mobile-recovery-v1-20261103`, log `/tmp/astra-june-garden-mobile-recovery-v1-20261103.log`. This reruns only full mobile6-source/69-retained checks with existing V20 autoVisibleCamera and ordinary selected160070 capture. It copies desktop exports byte-for-byte and rechecks all archived current inputs before freezing a combined, still-unapproved receipt.
+
+After it completes/releases, run prepared `june_garden_retained_camera_supplement_v1_20261103.py` using **parent government-xl-june-garden-mobile-recovery-v1-20261103**, original full resource plan, and UID159422/160070/309340 (add any other actual insufficient captures). It uses existing V20/source-pixel witness in both viewports, follows the authenticated desktop archive, and rechecks all referenced bytes. Do not execute it against the incomplete V4 parent. Qualified stage now requires `--visibility-supplement` and all original+supplemental exports inspected, positive visual decision and zero unresolved visual failures. No installation yet; full521 scope unchanged.
+
+## Next ready script — existing source-pixel camera recovery
+
+Prepared, syntax checked but NOT executed: `june_garden_retained_camera_supplement_v1_20261103.py`. After same live **session71108** completes, freezes and releases, run with `--batch government-xl-june-garden-retained-camera-supplement-v1-20261103 --parent government-xl-tower3-june-garden-six-original-full-browser-v4-20261103 --resources-plan docs/astra-city/government-import/government-xl-tower3-june-garden-six-originals-current-v1-20261102-plan.json --uid landsd/159422:0 --uid landsd/160070:0 --uid landsd/309340:0`. Add any additional actual mobile capture failures to the UID arguments before starting a new immutable attempt.
+
+It reuses existing ronsdale V17 autoVisibleCamera and source-pixel witness (at least32 actual target pixels, other geometry retained as opaque occluders for diagnostic measurement; original materials/background restored before real export). No new camera algorithm or geometry edits. Tests only primary source and requested retained actors in both viewports; complete69 checks remain in the parent. Full parent resource plan and current hashes mandatory. The producer refuses an incomplete/unfrozen parent and returns no visual/publication approval. Same isolated4197server with owned lease. Original flat exports remain immutable.
+
+Mobile160070 daytime actual export was also inspected: foreground buildings dominate the frame; exact target visibility still needs the source-pixel witness. This does not establish a model/source defect. Numeric/software checks alone remain insufficient visual evidence.
+
 ## Desktop visual follow-through required
 
 The desktop software report passed, but the existing pixel-preserving QA utility flagged3 flat exports. All3 actual files were inspected:159422 night,160070 day,309340 night are single-colour frames. This is insufficient visual evidence, not an established source defect. Hashes and exact paths are saved in `government-xl-june-garden-v4-export-sheets-v1-20261103/flat-capture-inspection.json`;38 desktop sheets cover150 originals.

@@ -271,10 +271,10 @@
     "unapprovedBasicProposalsApplied": false
   },
   "activeWorker": {
-    "batch": "government-xl-tower3-june-garden-six-original-full-browser-v4-20261103",
-    "sessionId": 71108,
-    "log": "/tmp/astra-june-garden-six-full-browser-v4-20261103.log",
-    "work": "Desktop passed; mobile verification active. Same full leased browser run, no publication.",
+    "batch": "government-xl-june-garden-mobile-recovery-v1-20261103",
+    "sessionId": 8456,
+    "log": "/tmp/astra-june-garden-mobile-recovery-v1-20261103.log",
+    "work": "Full mobile-only V20 source-pixel/normal selected-capture checks; completed desktop reused under exact current-asset binding",
     "publication": false
   },
   "aiGeometryModelling": false,
@@ -1743,5 +1743,38 @@
     "qualifiedStageBlockedUntilVisualEvidenceResolved": true,
     "stageEvidenceTestsPassed": 8,
     "mobileWorkerUnchanged": 71108
+  },
+  "juneGardenRetainedCameraSupplementPrepared20261103": {
+    "script": "source-scripts/city/government-import/june_garden_retained_camera_supplement_v1_20261103.py",
+    "parent": "government-xl-june-garden-mobile-recovery-v1-20261103",
+    "requiredParentCompletedAndFrozen": true,
+    "executed": false,
+    "uidArguments": [
+      "landsd/159422:0",
+      "landsd/160070:0",
+      "landsd/309340:0"
+    ],
+    "reuses": "ronsdale_three_live_browser_v20_20261027.mjs with existing source_pixel_visibility_witness_v1_20261027.mjs and normal selected capture for mobile160070",
+    "requiresSourcePixels": 32,
+    "fullParentResourcePlanRequired": true,
+    "sourceGeometryChanges": 0,
+    "publication": false
+  },
+  "juneGardenDesktopRebind20261103": {
+    "batch": "government-xl-june-garden-desktop-complete-mobile-held-v2-20261103",
+    "jobId": "b616ee5dcbf60da78195b8bede082cd65dc711bff4e404c5b223ab407045319b",
+    "all7095OriginalAssetsVerified": true,
+    "desktopSourceViews": 12,
+    "desktopRetainedViews": 138,
+    "mobileDiagnosticsPassed": false,
+    "visualAcceptance": false
+  },
+  "juneGardenV4MobileFailure20261103": {
+    "terminal": true,
+    "leaseReleased": true,
+    "leaseRenewalsPassed": 7,
+    "reason": "V16 waitForFunction timeout on retained mobile capture after 160070 day; existing V20 supports ordinary selected capture for this actor",
+    "sourceFailureEstablished": false,
+    "desktopRepeated": false
   }
 }

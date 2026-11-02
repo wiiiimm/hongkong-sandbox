@@ -36,8 +36,9 @@ def inspected_exports(inspection, expected, root=ROOT):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--batch',required=True); ap.add_argument('--browser-batch',required=True)
-    ap.add_argument('--inspection',required=True); a = ap.parse_args()
-    for name in [a.batch,a.browser_batch]: assert name.startswith('government-xl-') and '/' not in name
+    ap.add_argument('--inspection',required=True)
+    ap.add_argument('--visibility-supplement',required=True); a = ap.parse_args()
+    for name in [a.batch,a.browser_batch,a.visibility_supplement]: assert name.startswith('government-xl-') and '/' not in name
     doc, stage = BASE/a.batch, HERE/'accepted'/a.batch
     assert not doc.exists() and not stage.exists()
     refs, pins = [Path(__file__)], {}
@@ -57,17 +58,40 @@ def main():
     assert atomic['passed'] and atomic['cases'] == 7
     assert terrain['proposalTerrainNonRegressionPassed'] and terrain['retainedNativeActors'] == 69
     retained = {r['uid'] for r in terrain['rows']}; assert len(retained) == 69
-    images = {}
+    images = {}; retained_hashes = {}
     for width in [1280,390]:
         report = take(a.browser_batch,str(width)+'/staged-browser.json')
         assert report['passed'] and not report['errors']
         own = report['views']; views = report['retainedNativeOwnViews']
         assert len(own) == 12 and {(r['uid'],r['time']) for r in own} == {(u,t) for u in SOURCES for t in ['15:00','22:00']}
         assert len(views) == 138 and {(r['uid'],r['time']) for r in views} == {(u,t) for u in retained for t in ['15:00','22:00']}
+        for row in views:
+            assert row['uid'] not in retained_hashes or retained_hashes[row['uid']] == row['sourceSHA256']
+            retained_hashes[row['uid']] = row['sourceSHA256']
         for row in [*own,*views]:
             assert row['active'] and row['visible'] and row['fallbackFaces'] == 0
             path = BASE/a.browser_batch/str(width)/row['file']
             assert ref(path)['sha256'] == pins[a.browser_batch][str(path.relative_to(ROOT))]
+            refs.append(path); images[str(path.relative_to(ROOT))] = ref(path)['sha256']
+    supplement = take(a.visibility_supplement,'summary.json')
+    assert supplement['parentBrowserBatch'] == a.browser_batch
+    assert supplement['sourceSHA256ByUid'] == SOURCES and supplement['desktopMobileDiagnosticsPassed']
+    assert supplement['cameraOnlyChanges'] and supplement['actualSourcePixelsRequired']
+    assert supplement['sourceGeometryChanges'] == supplement['sourcePoseChanges'] == 0
+    repaired = set(supplement['retainedUids'])
+    assert {'landsd/159422:0','landsd/160070:0','landsd/309340:0'} <= repaired <= retained
+    assert supplement['retainedSourceSHA256ByUid'] == {u:retained_hashes[u] for u in repaired}
+    for width in [1280,390]:
+        report = take(a.visibility_supplement,str(width)+'/staged-browser.json')
+        assert report['passed'] and not report['errors']
+        assert len(report['views']) == 2 and {(r['uid'],r['time']) for r in report['views']} == {(P,t) for t in ['15:00','22:00']}
+        own = report['retainedNativeOwnViews']
+        assert len(own) == 2*len(repaired) and {(r['uid'],r['time']) for r in own} == {(u,t) for u in repaired for t in ['15:00','22:00']}
+        for row in [*report['views'],*own]:
+            assert row['sourcePixelVisibility']['visiblePixels'] >= 32 and row['active'] and row['visible'] and row['fallbackFaces'] == 0
+            assert row['sourceSHA256'] == (SOURCES if row['uid'] in SOURCES else retained_hashes)[row['uid']]
+            path = BASE/a.visibility_supplement/str(width)/row['file']
+            assert ref(path)['sha256'] == pins[a.visibility_supplement][str(path.relative_to(ROOT))]
             refs.append(path); images[str(path.relative_to(ROOT))] = ref(path)['sha256']
     inspection = (ROOT/a.inspection).resolve(); assert inspection.is_relative_to(BASE)
     inspected_exports(read(inspection),images); refs.append(inspection)
