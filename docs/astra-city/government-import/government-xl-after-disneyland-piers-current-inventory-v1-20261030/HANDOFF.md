@@ -2,6 +2,8 @@
 
 ## Latest VERIFIED installation: original Silvercord/Lippo assembly
 
+Installation commit **4ac5c0fe6a is PUSHED** to codex/astra-hong-kong-city. All four authorised existing Linear progress comments were successfully updated with this installed/readback checkpoint. No worker remains live.
+
 **429installed +3exact-source terminal +89unfinished =521fixedXLkeys**, including bothNULL-UIDkeys. **7106verified detailed actors.** Five complete original parts231645/233997/237843/238659/239032 installed unchanged; only the two podiums are fixedXLkeys. Source actor239465 retains its original asset and every field except the reviewed fallback-to-native supportDependencies migration.
 
 Installed Neon **e94c3215aa0c14eca34865d8af43f2a5eae78a668fb293dc6e3f1188d220b133**, distinct snapshot **34cafe9a89363525**. Independent full521/all7101oldassets/two-descriptor/owner/global-support/36live-export readback **7be56d3e200b08a70f4e025c167b23fa44edac31a22d31b9ce60daa37ea16427** PASSED. Counts authority `government-xl-silvercord-lippo-original-installed-v1-20261103/full-xl-current-count.json`; currentmanifest **78bd5642ed77227e873065e36f598c4077160f8afd874bbd31a338c7a6fc8ea5**. All11registered support FORM records match exactly; all8strict retained-BASIC dependency rows are unchanged. The sole separately approved fallback-to-native migration is explicit. The earlier readback's11-versus8schema assumption failed without altering installation, was preserved, corrected to exhaustive actual pre/post comparisons and then passed.
