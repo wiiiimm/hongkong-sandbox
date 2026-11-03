@@ -1,5 +1,13 @@
 # Current XL original-model handoff
 
+## Current full source qualification: five originals ready for guarded staging
+
+**427 installed + 3 terminal + 91 unfinished = 521** remains authoritative; no installation credit yet. Full physical review `0d75f1239c198aa2a79173a5f2154fbb64a28311adb50eea3e4161a99dc680db` and source/visual review `7862bbcc72eb595b508cf786d88c04f3be8b7c59057b3a804d6407640e80c37d` are COMPLETE/released on pinned Neon. The reviews bind all five exact original sources, three authentic podium dependencies, the retained239465 support-only proposal, all ten source pairs, every current source/native/BASIC nomination and full5408form/1228native terrain obligations. Silvercord's raw ordinary burial failure and every support warning remain preserved with bounded original-wall/skin/interface interpretations; no threshold or geometry changed.
+
+The source review rechecks all53previously inspected PNG bytes/dimensions and ten sheets against the completed exact desktop/mobile/six-case lifecycle receipts and all direct browser inputs. It records four observed retained actors separately from1227exact unchanged terrain contexts, preserving all1228obligations without inventing fresh mesh measurements or1228new browser views. No physical-phone FPS/full-facet-visibility claim. Approval is for guarded private integration only, not installed/publication credit. Failed read-only preflights were mode-label/filename schema mismatches, now corrected against actual authenticated source-world hashes; no model corruption.
+
+Qualified two-descriptor stage is currently running in exact process session93709, log `/tmp/astra-silvercord-two-descriptor-qualified-stage-v1-attempt2-20261103.log`. Poll that handle before restart. The initial invocation failed BEFORE claim because the descriptor does not carryretainedUids; the corrected runner derives exact29retained targets from the authenticated parent. Current worker owns its existing bounded lease. No public writes are authorised by this dry-run stage. After terminal success, record its receipt and continue distinct fenced publication/live/readback. Do not rerun completed source math or browser captures.
+
 ## Current integration checkpoint: registered terrain and fresh identity bindings
 
 Counts remain **427 installed + 3 terminal + 91 unfinished = 521**; 7,101 verified detailed actors. No new installation credit. Previous goal continuation made concrete progress; the intervening model-availability question did not change model state.
