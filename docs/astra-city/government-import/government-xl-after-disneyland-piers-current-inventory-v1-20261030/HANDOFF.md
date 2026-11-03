@@ -1,5 +1,15 @@
 # Current XL original-model handoff
 
+## Latest VERIFIED installation: original Silvercord/Lippo assembly
+
+**429installed +3exact-source terminal +89unfinished =521fixedXLkeys**, including bothNULL-UIDkeys. **7106verified detailed actors.** Five complete original parts231645/233997/237843/238659/239032 installed unchanged; only the two podiums are fixedXLkeys. Source actor239465 retains its original asset and every field except the reviewed fallback-to-native supportDependencies migration.
+
+Installed Neon **e94c3215aa0c14eca34865d8af43f2a5eae78a668fb293dc6e3f1188d220b133**, distinct snapshot **34cafe9a89363525**. Independent full521/all7101oldassets/two-descriptor/owner/global-support/36live-export readback **7be56d3e200b08a70f4e025c167b23fa44edac31a22d31b9ce60daa37ea16427** PASSED. Counts authority `government-xl-silvercord-lippo-original-installed-v1-20261103/full-xl-current-count.json`; currentmanifest **78bd5642ed77227e873065e36f598c4077160f8afd874bbd31a338c7a6fc8ea5**. All11registered support FORM records match exactly; all8strict retained-BASIC dependency rows are unchanged. The sole separately approved fallback-to-native migration is explicit. The earlier readback's11-versus8schema assumption failed without altering installation, was preserved, corrected to exhaustive actual pre/post comparisons and then passed.
+
+Live desktop/mobile20source+16retained ownviews and10jointchecks pass; actualROOT opened all10unaltered1x inspection sheets, covering every36PNG. Source-loaded picking/collision/visibility/solid flags passed, with foreground occlusion and dark original nighttime surfaces explicitly recorded; no complete-facet visibility/as-built certification or physical-phone FPS promise. The exact six-case per-peer/owner denial/retry/Base-only/eviction receipt is authenticated/reused; everyfull5408form/1228native terrain obligation remains. NoAIgeometry modelling or optimisation.
+
+Installer session87809/owned4164245/supervisor4163855 and sheet/readback workers are TERMINAL/released. Do not restart/reinstall. Historical mutable inputs are portable through the installed batch's `historical-context-archive/restore-map.json`; accepted-stage metadata/original archives remain separately available. Restore only exact missing private paths after bothhash checks. Continue the remaining89fixedXLkeys; do not count the three auxiliary tower sources as additionalXLkeys. The current goal continuation made installation progress; fullgoal remains active.
+
 ## Current completed canonical stage and publication evidence
 
 Two-descriptor qualified stage **3a0368fc2fe736331947d56c0a48788bd9dde4436d5add6762fa3667fb7d466c** is COMPLETE/released. Full canonical publisher dry-run passed with five new original assets, both exact terrain descriptors and one retained-owner support-only update; zero public writes. The exact process93709/PID4086313 and supervisor4086293 are terminal; do not restart. Portable accepted-stage metadata is in `government-xl-silvercord-lippo-qualified-stage-portable-inputs-v1-20261103/restore-map.json`, reusing existing original asset/parent archives rather than producing variants.

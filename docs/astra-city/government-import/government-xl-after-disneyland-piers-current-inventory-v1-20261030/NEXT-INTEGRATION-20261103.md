@@ -1,5 +1,7 @@
 # Five original parts and the retained Lippo tower
 
+COMPLETE: five unchanged originals installed e94c3215, snapshot34cafe9a89363525; independent full521/7101oldasset/36live-export/two-descriptor/owner/support readback7be56d3e PASSED. Counts429installed+3terminal+89unfinished/521;7106actors. Allworkers terminal/released. Do not rerun the historical integration steps below or reinstall these sources. The canonical HANDOFF top routes remaining89work.
+
 Canonical qualified stage3a0368fc is COMPLETE/released; full stock publisher dry-run passed. Guarded publisher read-only preflight passes695inputs/38resources. No liveworkers/publicwrites/installedcredit. Next: two-descriptor atomic installer/live/independent readback, distinct transaction snapshot, exact four observed actors plus all1227unchanged terrain contexts, and completed six-case lifecycle receipt. Use the top of HANDOFF for the current state; older running-stage notes are historical.
 
 Full physical review0d75f123 and source/visual review7862bbcc are COMPLETE/released. All five originals and exact retained-owner migration are qualified for guarded integration; raw failures remain preserved. Stage worker session93709 is currently running (exact log/current-work), using the stock publisher dry run plus registered complete validators. Poll before restart; no installed credit yet.

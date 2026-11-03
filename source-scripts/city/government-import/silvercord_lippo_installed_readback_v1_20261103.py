@@ -121,7 +121,26 @@ def main():
     assert source_review['fullTerrainNativeActors']==1228 and source_review['unchangedNativeTerrainEvidenceCount']==1227
     support={};checker=module('silvercord_independent_global_basic_support_check',HERE.parent/'island-detail-integration/retained_basic_support.py')
     checker.stage_retained_basic_support(ROOT,after,{},support,read)
-    assert len(support['retainedBasicSupportChecks'])==11
+    scope=BASE/'government-xl-silvercord-lippo-full-current-parent-scope-v3-20261103'
+    _,support_pins=authenticate(scope)
+    support_path=scope/'all-registered-basic-supports.json.gz'
+    assert digest(support_path.read_bytes())==support_pins[str(support_path.relative_to(ROOT))]
+    registered=read(support_path)
+    assert len(registered['forms'])==len(registered['owners'])==11
+    # Eleven support forms span multiple metadata types. The strict retained-
+    # BASIC helper owns eight dependency rows, not eleven form records.
+    prior_strict=checker.validate_retained_basic_support(old_models,registered['forms'])
+    assert support['retainedBasicSupportChecks']==prior_strict and len(prior_strict)==8
+    current_forms={}
+    for tile in after['tiles']:
+        for form in read(ROOT/'3d-viewer'/tile['url'])['buildings']:
+            if form['uid']in registered['forms']:
+                assert form['uid']not in current_forms
+                current_forms[form['uid']]=form
+    assert current_forms==registered['forms'],'A registered support form changed'
+    assert update['beforeEntry']['supportDependencies']!=update['afterEntry']['supportDependencies']
+    assert update['ownerUid']in registered['owners']['landsd/231645:0']
+    refs.append(support_path)
     pointer=ROOT/'docs/astra-city/model-integration-20260909/current-source-review.json';assert read(pointer)['snapshotId']==receipt['snapshotId']
     with connect() as db:
         db.execute('SET TRANSACTION READ ONLY')
@@ -130,7 +149,9 @@ def main():
     result=dict(uids=sorted(sources),passed=True,installationIndependentlyVerified=True,installedJobId=receipt['jobId'],snapshotId=receipt['snapshotId'],
         fullXLCurrentCounts=counts['counts'],completeFixedXLRowsCompared=521,unmatchedUIDKeysRetained=2,onlyNewFixedXLUids=sorted(GROUND),
         completeCurrentCatalogueModels=7106,oldOriginalAssetsVerified=7101,allOldActorsPreservedExceptReviewedSupportDependencies=True,
-        rootLiveExportsActuallyInspected=36,atomicLifecycle=atomic,retainedBasicSupportChecks=support['retainedBasicSupportChecks'],
+        rootLiveExportsActuallyInspected=36,atomicLifecycle=atomic,registeredSupportFormsVerified=11,
+        strictRetainedBasicRowsVerified=8,onlyApprovedFallbackToNativeMigration=update,
+        retainedBasicSupportChecks=support['retainedBasicSupportChecks'],
         sourceGeometryChanges=0,sourcePoseChanges=0,aiGeometryModelling=False)
     save(out/'ROOT-READBACK.json',result)
     refs += [old_path,manifest,pointer,BASE/PREVIOUS,installed/'ROOT-LIVE-EXPORT-INSPECTION.json',installed/'full-xl-current-count.json',STAGE/'plan.json',ROOT/atomic['path']]
