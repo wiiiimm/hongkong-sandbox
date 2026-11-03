@@ -1,5 +1,7 @@
 # Five original parts and the retained Lippo tower
 
+Current update: ground-roleb4457fd8 and canonical two-descriptor terrain staging50c0e897 COMPLETE/released. Private V4desktop/mobile success COMPLETE Neon427274ff:20source+16retained day/nightviews/10jointchecks,0errors. All36exports inspected via6sheets, with dense foregroundocclusion retained. Atomic/owner six-case diagnostic is LIVE session81421, worker3564439/browser3564912: desktopcasepassed,5mobile denial/retry cases running. Poll exacthandle before restart. V3failed only proposal-wrapper schema; V4corrects header/counts and uses actual production parser preflight. Full physical/source, full publisher and installed readback remain separate. Counts427+3+91/521 unchanged.
+
 This is original-model acquisition/integration, not optimisation. Full scope stays521XLkeys:427installed,3terminal,91unfinished. Five new original parts are now captured together; only podiums231645/233997 belong to fixed521. Towers237843/238659/239032 are necessary auxiliary originals. Existing239465 remains installed. No new installation credit yet.
 
 All workers from this continuation are terminal/released. The remaining work is code/integration; no user decision or AI geometry modelling is currently required. Read current-work for exact job IDs rather than rerunning completed math.
