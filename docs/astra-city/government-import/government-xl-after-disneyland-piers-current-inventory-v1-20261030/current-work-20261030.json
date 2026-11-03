@@ -474,16 +474,18 @@
     "unfinishedXL": 96
   },
   "currentNativeBounds": {
-    "batch": "government-xl-after-yoho-current-native-bounds-v1-20261102",
-    "jobId": "9e4e7f4f24a6a49c749ffaf7efa137e24a5eae93f6c854be5d858aa4e1beaddc",
-    "actors": 7094,
-    "all7092PriorExactInputRowsReused": true
+    "batch": "government-xl-after-june-current-native-bounds-reused-v1-20261103",
+    "jobId": "9176735c86bcb2f10e8215519a82347c06f84616b261bdb2ed8367bb238f36fb",
+    "actors": 7101,
+    "allPriorExactInputRowsAndAdditionBoundsReused": true
   },
   "currentNativeInventory": {
-    "batch": "government-xl-after-yoho-current-native-bounds-v1-20261102",
-    "jobId": "9e4e7f4f24a6a49c749ffaf7efa137e24a5eae93f6c854be5d858aa4e1beaddc",
-    "currentNativeActors": 7094,
-    "status": "complete"
+    "batch": "government-xl-after-june-current-native-bounds-reused-v1-20261103",
+    "jobId": "9176735c86bcb2f10e8215519a82347c06f84616b261bdb2ed8367bb238f36fb",
+    "currentNativeActors": 7101,
+    "status": "complete",
+    "newActorLoads": 0,
+    "newBoundsComputations": 0
   },
   "currentSkillVersion": "1.9.249",
   "exactCurrentSourceTerminalXL": 3,
@@ -782,7 +784,7 @@
     "HKS-215": "70a38221-03bf-4707-ad30-4577e40dd92a",
     "Astra XL milestone": "0d180db5-9728-4f8f-a60c-44f077724123"
   },
-  "latestPushedCommit": "7141d56297",
+  "latestPushedCommit": "6f0ab298da",
   "latestVerifiedInstallation20261102": {
     "batch": "government-xl-june-garden-original-installed-v4-20261103",
     "jobId": "1a806165d3f905494e79784c86372e325aa1198b9c839634b8f273b87329cfd2",
@@ -795,7 +797,7 @@
   },
   "linearProgressUpdated": true,
   "linearUpdatedAfterInstallation": true,
-  "nativeInventoryRefreshRequired": true,
+  "nativeInventoryRefreshRequired": false,
   "nextCompanionPreparation": {
     "acquisitionJob": "94760236186ad214a559d030b575d1bbb8adbc9f4315399c5a7b591d96cc8431",
     "alexandraCurrentE12AcquisitionJob": "4dbdf4c998f9c2d5975b5e7784cb9603e68b31c19fd5a9580ccde23a1523d1b8",
@@ -1119,7 +1121,7 @@
       "inventorySnapshot": "20f3d4a83cbbf6aa"
     }
   },
-  "latestPushedCheckpointCommit": "3cd0032684",
+  "latestPushedCheckpointCommit": "6f0ab298da",
   "yoho273672Current20261102": {
     "preparation": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102",
     "preparationJobId": "680098a43c92e78bc44a5ad2be706421517cf0e13ac734dcb62c83c9ccb6f797",
@@ -1400,7 +1402,7 @@
     "currentNativeActors": 7095,
     "reusedExactOldActors": 7094
   },
-  "latestInstallationCommit": "21a66c27e2",
+  "latestInstallationCommit": "6f0ab298da",
   "nextScriptedWork20261102": {
     "uid": "landsd/227380:0",
     "status": "in-process-queued",
@@ -2002,7 +2004,9 @@
   },
   "latestAcquisitionProgressLinearComments20261103": {
     "allFourConfirmedSuccessful": true,
-    "commit": "3cd0032684",
+    "commit": "6f0ab298da",
+    "installedVerified": 427,
+    "unfinishedXL": 91,
     "commentIds": [
       "b75e9792-50fd-4182-82c0-1cb0a1d846b9",
       "20bd1bb9-9001-4e50-8d4e-020d8bb0501f",
@@ -2453,7 +2457,286 @@
     "lowerPatchFiniteContactsJobId": "775750d5e43678c49e18dcdbd1ce345f996b113ae1bcde6772a37bfcd6f56570",
     "lowerPatchContactGeometryReruns": 0,
     "lowerPatchContactReadbackRecovered": true,
-    "lowerPatchContacts": "All4streams: Silvercord6downwardfaces have38externalpointcontacts and1positive-length contact via6241tooriginalwall11663; Lippo3downwardfaces have16externalpointcontacts and1positive-length contact via8233tooriginalwall11518. Rawcompleteproofs preserved. No architectural-purpose, per-component root gate or physical acceptance inferred."
+    "lowerPatchContacts": "All4streams: Silvercord6downwardfaces have38externalpointcontacts and1positive-length contact via6241tooriginalwall11663; Lippo3downwardfaces have16externalpointcontacts and1positive-length contact via8233tooriginalwall11518. Rawcompleteproofs preserved. No architectural-purpose, per-component root gate or physical acceptance inferred.",
+    "completeCurrentRimDiagnostics": {
+      "233997-0": {
+        "batch": "government-xl-silvercord-lippo-complete-floor-rims-v1-20261103-233997-0",
+        "jobId": "9dd3beca548802b3ba5bebf1309be47b2e3b3afea305f10edbdfe8cd007af9a4",
+        "summary": [
+          {
+            "completeDrawnGroundFacets": 342,
+            "groundContactResolved": false,
+            "groundSHA256": "b0a215d77c6753453ad02c03100e25de7db43e835e3f8e61ae75a8186465d9f8",
+            "lowRimSamples": 505,
+            "maximumRimGapM": -0.985951222572476,
+            "minimumRimGapM": -4.324604456765311,
+            "minimumSampleGapM": -4.383815343039377,
+            "mode": "original",
+            "samples": 39845,
+            "sourceWorldSHA256": "ca03c51e5b14030a6671f691b92fad931cce781a0a0a06c35bbbba66a17c815e",
+            "zeroXZDrawnGroundFacets": 0
+          },
+          {
+            "completeDrawnGroundFacets": 342,
+            "groundContactResolved": false,
+            "groundSHA256": "b0a215d77c6753453ad02c03100e25de7db43e835e3f8e61ae75a8186465d9f8",
+            "lowRimSamples": 505,
+            "maximumRimGapM": -0.9859512225724858,
+            "minimumRimGapM": -4.324604456765305,
+            "minimumSampleGapM": -4.383815343039367,
+            "mode": "literal",
+            "samples": 39845,
+            "sourceWorldSHA256": "b7e6548efb4ab0c45030037cba027a57a53722a687155e3dd4553e2f8e396104",
+            "zeroXZDrawnGroundFacets": 0
+          },
+          {
+            "completeDrawnGroundFacets": 342,
+            "groundContactResolved": false,
+            "groundSHA256": "b0a215d77c6753453ad02c03100e25de7db43e835e3f8e61ae75a8186465d9f8",
+            "lowRimSamples": 505,
+            "maximumRimGapM": -0.985951222572476,
+            "minimumRimGapM": -4.324604456765311,
+            "minimumSampleGapM": -4.383815343039377,
+            "mode": "leftF32",
+            "samples": 39845,
+            "sourceWorldSHA256": "afef63a228bb4cb042b46782feda0172d3e896aca66a908f4f7eb7d38c653812",
+            "zeroXZDrawnGroundFacets": 0
+          },
+          {
+            "completeDrawnGroundFacets": 342,
+            "groundContactResolved": false,
+            "groundSHA256": "b0a215d77c6753453ad02c03100e25de7db43e835e3f8e61ae75a8186465d9f8",
+            "lowRimSamples": 505,
+            "maximumRimGapM": -0.985951222572476,
+            "minimumRimGapM": -4.324604456765311,
+            "minimumSampleGapM": -4.383815343039377,
+            "mode": "balancedF32",
+            "samples": 39845,
+            "sourceWorldSHA256": "afef63a228bb4cb042b46782feda0172d3e896aca66a908f4f7eb7d38c653812",
+            "zeroXZDrawnGroundFacets": 0
+          }
+        ]
+      },
+      "231645-0": {
+        "batch": "government-xl-silvercord-lippo-complete-floor-rims-v1-20261103-231645-0",
+        "jobId": "9da67cc995bd2a23e1e5829700cbb6426e4fa7bd61ee11b2a9a181b0813565e8",
+        "summary": [
+          {
+            "completeDrawnGroundFacets": 1625,
+            "groundContactResolved": false,
+            "groundSHA256": "358009a4266bba992481edbc8bdafaf847157fcb742143a311ffc8ce3a088b77",
+            "lowRimSamples": 400,
+            "maximumRimGapM": 0.06499969959259033,
+            "minimumRimGapM": -1.0821896814741194,
+            "minimumSampleGapM": -1.0821896814741194,
+            "mode": "original",
+            "samples": 44878,
+            "sourceWorldSHA256": "208fa1dbc15e358584b0d81389b5afe6222997a4f3e2ed72106cc52b14363bd0",
+            "zeroXZDrawnGroundFacets": 0
+          },
+          {
+            "completeDrawnGroundFacets": 1625,
+            "groundContactResolved": false,
+            "groundSHA256": "358009a4266bba992481edbc8bdafaf847157fcb742143a311ffc8ce3a088b77",
+            "lowRimSamples": 400,
+            "maximumRimGapM": 0.06499969959258767,
+            "minimumRimGapM": -1.0821896814741097,
+            "minimumSampleGapM": -1.0821896814741097,
+            "mode": "literal",
+            "samples": 44878,
+            "sourceWorldSHA256": "58dcea81d1b6a09407c2da951458fab76d87ac2f8ea28512a29122ab8182b8f6",
+            "zeroXZDrawnGroundFacets": 0
+          },
+          {
+            "completeDrawnGroundFacets": 1625,
+            "groundContactResolved": false,
+            "groundSHA256": "358009a4266bba992481edbc8bdafaf847157fcb742143a311ffc8ce3a088b77",
+            "lowRimSamples": 400,
+            "maximumRimGapM": 0.06499969959259033,
+            "minimumRimGapM": -1.0821896814741194,
+            "minimumSampleGapM": -1.0821896814741194,
+            "mode": "leftF32",
+            "samples": 44878,
+            "sourceWorldSHA256": "f6bea26e0af7d7eea31a9a8ad86adcf8fd0f9e95b673faab4f0af7be15560a8c",
+            "zeroXZDrawnGroundFacets": 0
+          },
+          {
+            "completeDrawnGroundFacets": 1625,
+            "groundContactResolved": false,
+            "groundSHA256": "358009a4266bba992481edbc8bdafaf847157fcb742143a311ffc8ce3a088b77",
+            "lowRimSamples": 400,
+            "maximumRimGapM": 0.06499969959259033,
+            "minimumRimGapM": -1.0821896814741194,
+            "minimumSampleGapM": -1.0821896814741194,
+            "mode": "balancedF32",
+            "samples": 44878,
+            "sourceWorldSHA256": "f6bea26e0af7d7eea31a9a8ad86adcf8fd0f9e95b673faab4f0af7be15560a8c",
+            "zeroXZDrawnGroundFacets": 0
+          }
+        ]
+      }
+    },
+    "exposedActualGradePaths": {
+      "landsd/233997:0": {
+        "batch": "government-xl-silvercord-exposed-grade-paths-v1-20261103",
+        "jobId": "ea1c9bcfba8e0f291808e0f646cfa696bf967233ebce62bdcfec2e8bb528676d",
+        "rows": [
+          {
+            "actualExposedWallRoots": 433,
+            "allPathsPass": false,
+            "endpointFailures": 179,
+            "finitePaths": 487,
+            "mode": "original",
+            "nonrenderingOnlyWarnings": 0,
+            "rawWarnings": 505,
+            "renderingWarnings": 505
+          },
+          {
+            "actualExposedWallRoots": 433,
+            "allPathsPass": false,
+            "endpointFailures": 179,
+            "finitePaths": 487,
+            "mode": "literal",
+            "nonrenderingOnlyWarnings": 0,
+            "rawWarnings": 505,
+            "renderingWarnings": 505
+          },
+          {
+            "actualExposedWallRoots": 433,
+            "allPathsPass": false,
+            "endpointFailures": 179,
+            "finitePaths": 487,
+            "mode": "leftF32",
+            "nonrenderingOnlyWarnings": 0,
+            "rawWarnings": 505,
+            "renderingWarnings": 505
+          },
+          {
+            "actualExposedWallRoots": 433,
+            "allPathsPass": false,
+            "endpointFailures": 179,
+            "finitePaths": 487,
+            "mode": "balancedF32",
+            "nonrenderingOnlyWarnings": 0,
+            "rawWarnings": 505,
+            "renderingWarnings": 505
+          }
+        ]
+      },
+      "landsd/231645:0": {
+        "batch": "government-xl-lippo-exposed-grade-paths-v1-20261103",
+        "jobId": "1dfcc01697b135ea54d40f87e9bb41c21de1208f525b162df83fbe04562fc5b6",
+        "rows": [
+          {
+            "actualExposedWallRoots": 357,
+            "allPathsPass": true,
+            "endpointFailures": 0,
+            "finitePaths": 345,
+            "mode": "original",
+            "nonrenderingOnlyWarnings": 0,
+            "rawWarnings": 345,
+            "renderingWarnings": 345
+          },
+          {
+            "actualExposedWallRoots": 357,
+            "allPathsPass": true,
+            "endpointFailures": 0,
+            "finitePaths": 345,
+            "mode": "literal",
+            "nonrenderingOnlyWarnings": 0,
+            "rawWarnings": 345,
+            "renderingWarnings": 345
+          },
+          {
+            "actualExposedWallRoots": 357,
+            "allPathsPass": true,
+            "endpointFailures": 0,
+            "finitePaths": 345,
+            "mode": "leftF32",
+            "nonrenderingOnlyWarnings": 0,
+            "rawWarnings": 345,
+            "renderingWarnings": 345
+          },
+          {
+            "actualExposedWallRoots": 357,
+            "allPathsPass": true,
+            "endpointFailures": 0,
+            "finitePaths": 345,
+            "mode": "balancedF32",
+            "nonrenderingOnlyWarnings": 0,
+            "rawWarnings": 345,
+            "renderingWarnings": 345
+          }
+        ]
+      }
+    },
+    "sourcePrimaryBasementContextNote": "docs/astra-city/government-import/government-xl-silvercord-primary-below-grade-context-v1-20261103/PRIMARY-NOTES.md",
+    "groupedEndpointRecovery": {
+      "batch": "government-xl-silvercord-existing-grade-endpoint-retry-grouped-v1-20261103",
+      "sessionId": 94299,
+      "log": "/tmp/astra-silvercord-existing-grade-endpoint-retry-grouped-v1-20261103.log",
+      "actualHandleMustBePolledBeforeRestart": true,
+      "testsPassed": 12,
+      "newRoots": 0,
+      "sourceGeometryChanges": 0,
+      "installationApproved": false,
+      "terminal": true,
+      "jobId": "c0d54690571a5251c0b8577cab05da9855c5a56ad4ef1ce67e79494b812920bc",
+      "rows": [
+        {
+          "allPathsPass": false,
+          "mode": "original",
+          "previousEndpointFailures": 197,
+          "remainingEndpointFailures": 18,
+          "renderingWarnings": 505,
+          "rootAttempts": 358,
+          "sharedGraphBuilds": 2
+        },
+        {
+          "allPathsPass": false,
+          "mode": "literal",
+          "previousEndpointFailures": 197,
+          "remainingEndpointFailures": 18,
+          "renderingWarnings": 505,
+          "rootAttempts": 358,
+          "sharedGraphBuilds": 2
+        },
+        {
+          "allPathsPass": false,
+          "mode": "leftF32",
+          "previousEndpointFailures": 197,
+          "remainingEndpointFailures": 18,
+          "renderingWarnings": 505,
+          "rootAttempts": 358,
+          "sharedGraphBuilds": 2
+        },
+        {
+          "allPathsPass": false,
+          "mode": "balancedF32",
+          "previousEndpointFailures": 197,
+          "remainingEndpointFailures": 18,
+          "renderingWarnings": 505,
+          "rootAttempts": 358,
+          "sharedGraphBuilds": 2
+        }
+      ],
+      "all179EndpointHeightFailuresRecoveredInAllFourWorlds": true,
+      "remaining18WarningsOnlyOnDownwardFaces": [
+        1347,
+        1348,
+        1349
+      ],
+      "sharedGraphBuildsPerWorld": 2
+    },
+    "completeLowerSourceViews": {
+      "batch": "government-xl-silvercord-lippo-complete-lower-source-views-v1-20261103",
+      "sessionId": 45271,
+      "log": "/tmp/astra-silvercord-lippo-complete-lower-source-views-v1-20261103.log",
+      "actualHandleMustBePolledBeforeRestart": true,
+      "actualROOTInspectionPending": true,
+      "sourceRoleAccepted": false,
+      "physicalAcceptance": false
+    }
   },
   "continuationAudit20261103CurrentFloorRecovery": {
     "previousGoalTurn": "no progress: answered model-selection question only",
