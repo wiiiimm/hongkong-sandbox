@@ -1,6 +1,18 @@
 # Current XL original-model handoff
 
-Full-negative-facet context plots are now computing in exactsession45271 (`silvercord_lippo_complete_lower_source_views_v1_20261103.py`), log `/tmp/astra-silvercord-lippo-complete-lower-source-views-v1-20261103.log`. Expected4PNGs(twofull-source/twograde-band,eachwithtwoangles); inspectactualexports before anyROOTvisual/roledecision. Source-only diagnostics, no acceptance.
+## Latest current source-neighbour follow-through
+
+Five-original private runtime214e65390f6027ef1c36e24bfa63ff9b357900e6a554fe71813faa7089a4e5c6 is COMPLETE/released: bothpodium source/index/entiregroundarrays equal the completed prior capture exactly,0repeatedpodiumfoundationcalculations; all3new towers have0buriedfaces. Exact attribute reuse134a2493b4e249eb85c5546112f32822870d14654abcfaf87a506510ab9ad18c is COMPLETE/released. Old helper correctly refused conflicting historical manifest references; failedV1sequence26538is terminal/released. New V2 retains each historical receipt while verifying all5completecurrentforms/entries/sourceassets, literalarrays/indices and everyotherdeclaredbyte unchanged;3adversarialtestmethods pass. No source/placement/publication approval transfers.
+
+Seven remaining scope/support/root-path phases run in exactsession23791, log `/tmp/astra-silvercord-lippo-five-original-support-sequence-v2-20261103.log`. Latest checkpoint4/7complete: full5source collisionscope and3strict/compound support diagnostics. All3towers have0compoundburials; Langham70strictcontacts/8warnings, Tower2 207/2, Tower1 2846/0 inall4worlds. Existing strict-root path phases running; pollactualhandle before retry. No installed credit. Exact acquisition/private renderer inputs are now portable through `government-xl-silvercord-lippo-companion-restorable-payloads-v1-20261103/restore-map.json` (29localpaths,23uniquepayloads,3.68MBnewarchivaltransport), not runtimevariants.
+
+Bounded lower-skin role review43fdbeffcade64d0a1fe519ec2d220411825a24ef06cd61e18896c3c24cea409 is COMPLETE/released:644wallskins and9downward originalfacets accounted, no root/bridgecredit. It leaves Silvercord's rawfoundationfail/18rimwarnings and wholephysicalapproval false.
+
+Actual ROOT inspection of all4 complete lower-source exports is frozen in Neon3df77dfc3d26a7151856ff90c8dd5d721532d272bbcab8089b7a2f02f81b12ec. Plot producer89fb07d53d299b73b5d0c3a0ef3f51386f38e5c69feafc6a6afc0d66a106617a is COMPLETE/released. No source-role/physical approval follows from these transparent context views.
+
+Fresh whole-source collision scope fd6038e4738c335c5bac0bc77b63ab31b3da131967c6f1d22acab0420940597b checks all7101 current actors and nominates4native pairs. Four existing compute phases completed and released in sequence29fa043b85be0a4153c9d1b90c49dd13b9146c8aa4720a2a6754c2d503b44f4c: full four-world native contacts, native BASIC fallbacks, exact native contact roles and all scoped foreign BASIC contacts. Three unrelated native pairs have ZERO finite contacts. Existing Lippo tower239465 retains its genuine native interface/migration and fallback obligations.
+
+Real BASIC conflicts now identify Silvercord Tower2 landsd/238659:0, Tower1 landsd/239032:0 and Langham landsd/237843:0 as original companion candidates; do not waive these conflicts or import the podium pair alone. All3 exact originals are now recovered889fc178a780ce5b93db604e4552db1ddaa218071c645ca373fb95f4268af049 and prepared0f913749bdf593f10f33a704a340de3ea32c1f255535909faae2d894a600d5c3; all3 identities PASS and all4stream attributes captured. Langham reused localbytes; Tower2 downloaded193146bytes and Tower1 downloaded181864bytes. All acquisition/preparation workers are terminal/released. No acceptance/installed credit. Full521scope stays427installed+3terminal+91unfinished,7101verifiedactors. Silvercord rawfoundationlimit and all remaining source/native-owner/stage/browser/publisher/readback gates remain.
 
 ## Current post-install continuation
 
