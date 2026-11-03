@@ -1,3 +1,9 @@
+## Preflight the actual runtime catalogue before browser capture
+
+Run `original_private_catalogue_preflight_v1_20261103.mjs` against the exact staged catalogue before starting expensive browser work. It calls the production `prepareModelCatalogue` and dependency/activation closure. A private proposal wrapper is not a runtime catalogue: preserve exact model entries and approval flags while supplying the supported staged kind and correct `counts.packedModels`. Never weaken the production parser to accept a diagnostic wrapper. Assert that the browser's explicit catalogue load succeeds before visiting actors.
+
+For a retained owner whose native dependency is being staged, explicitly load its exact current catalogue through the private support-only replacement route before observing either native activation or BASIC fallback. Verify the original owner SHA and proposed dependency metadata. An unloaded catalogue is an observer setup error, not failed geometry/support or a corrupt source. Preserve failed runs; reuse only completed cases whose entire source/owner/configuration/production input bindings still match.
+
 ## Compose installed terrain-policy validators exactly once
 
 A private original-import dry run must validate every already-installed terrain policy, including finite pairs, three-member chains and five-member groups. Reuse `complete_boundary_validators` from the existing five-member stage when those groups coexist. Enter that context exactly once around the canonical terrain call inside the source hook; nesting the exclusive three-member `private_validator` inside it is an orchestration error. Keep all ordinary and group-specific membership/byte checks, reject unknown policies and propagate canonical failures. Test context restoration and run the canonical dry run against the actual current manifest before publication. Preserve failed attempts; neither dispatch failure establishes corrupt government geometry.
