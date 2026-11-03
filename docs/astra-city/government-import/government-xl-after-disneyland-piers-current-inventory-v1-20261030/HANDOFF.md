@@ -1,5 +1,15 @@
 # Current XL original-model handoff
 
+## Current integration checkpoint: registered terrain and fresh identity bindings
+
+Counts remain **427 installed + 3 terminal + 91 unfinished = 521**; 7,101 verified detailed actors. No new installation credit. Previous goal continuation made concrete progress; the intervening model-availability question did not change model state.
+
+- Registered the exact existing sixteen-member/22-edge terrain policy in the shared validator context, preserving ordinary policies and archiving the old guard bytes. Canonical two-descriptor staging passed on pinned Neon job `8b154a947d1e6178770c402535d0d64eb8eae6e14dab16f209ce099d1ec38b68`; zero public writes. Seven adverse/restoration tests pass.
+- Confirmed the existing coordinated-import contract already requires terrain targets to be old targets plus **ground owners**. The current 31 targets (29 retained + two podiums) are correct. The three supported towers must not be added as ground owners; no terrain metadata or geometry rewrite is required.
+- Both podium identities are now bound to the current manifest by a complete scan of all 452 current tiles, exact complete records/routes and unchanged historical non-manifest inputs. Neon `efee48312983c7a45dda53b3c7daf61d1812c3742d79f434dbb1616b1384fda6` is complete/released. No projection/geometry calculations repeated; old reviews and differing provider OBJECTIDs remain explicit. Three adverse test methods pass.
+- The exact browser-tested five-model catalogue passes an adapter to the unchanged strict original-entry contract. Its `candidate` dependencies are already native in both production publisher and viewer; only an in-memory validation copy normalizes this spelling and empty dependencies. Tested bytes remain untouched. Four adverse test methods pass; total 14 tests pass.
+- These are integration prerequisites, not whole-source physical/publication acceptance. Next: aggregate complete physical/support/owner/neighbour/full-terrain evidence, then qualified two-descriptor stage, fenced publication/live checks and independent full-scope readback. No active worker remains from this checkpoint; no AI modelling or optimisation occurred. Do not rerun the completed browser/math receipts.
+
 ## Current continuation: exact buried-wall role resolved; runtime activation under investigation
 
 Full scope remains **427installed +3terminal +91unfinished =521**,7101verified detailed actors, bothNULLkeys retained. No installation or source corruption credit this continuation. No AIgeometry modelling or optimisation.

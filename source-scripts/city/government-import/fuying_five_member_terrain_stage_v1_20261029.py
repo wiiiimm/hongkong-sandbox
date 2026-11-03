@@ -51,7 +51,9 @@ def complete_boundary_validators():
         # All grid patches still pass the unchanged canonical verifier above.
         boundary.validate_effective_coordinated_members([n for n in nodes if n.get('nativeMesh')and (not boundary.marker(n)or boundary.marker(n).get('policy')!=three.POLICY)])
     legacy.coordinated_boundary=dispatch;legacy.validate_effective_coordinated_members=effective
-    try:yield
+    try:
+        from silvercord_lippo_registered_boundary_v1_20261103 import registered_validator
+        with registered_validator(legacy):yield
     finally:legacy.coordinated_boundary=old_boundary;legacy.validate_effective_coordinated_members=old_effective
 
 @contextmanager
