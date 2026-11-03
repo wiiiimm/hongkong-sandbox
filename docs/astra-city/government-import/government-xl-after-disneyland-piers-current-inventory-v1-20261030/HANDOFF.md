@@ -1,5 +1,15 @@
 # Current XL original-model handoff
 
+## Current continuation: exact buried-wall role resolved; runtime activation under investigation
+
+Full scope remains **427installed +3terminal +91unfinished =521**,7101verified detailed actors, bothNULLkeys retained. No installation or source corruption credit this continuation. No AIgeometry modelling or optimisation.
+
+- Exact29facet burial reproduction c227d786ddb80a626bf097d0127430bf4c47802e56fb70244515c7bdd4536880: all23buried wall facets reach actual-grade-contacting original walls through nonzero exact original wall edges inALL4worlds;6downward lower skins remain preserved.
+- Bounded source-ground role b4457fd8bf46f50ef623de51987cde40fd3a27d4ef49c03a208432be364823cf is COMPLETE/released. It accepts only the represented lower surfaces, preserving the raw0.00351565>0.001 foundation failure,505rim warnings,487valid paths and18warnings on the previously reviewed tiny3face skin. No whole-source physical, neighbour, support migration or publication approval follows.
+- Private six-part browserV2 is TERMINAL/released: first retained21915activated; retained239465failed the unchanged120s activation wait after its exact support-only proposal. Public files unchanged. Preserve `government-xl-silvercord-lippo-private-six-part-browser-v2-20261103` and its producer. V1failed beforeclaim on the unchanged1000resource limit; preserved separately, no lease/source failure. V2locks actual new/observed sources and retained parent targets; all other5408form/1228native obligations remain read-only evidence with byte fences.
+- Canonical two-descriptor terrain dry-run50c0e8977824147dc157e584514de492b3a04db24ee57a9845af2949c0b5697c PASSED and released:16exactmembers/22finiteedges, two in-memory assets, every ordinary grid/native/coverage/overlap/coarse/boundary gate retained, context restored, ZEROpublicwrites. This is not a fullpublisher/sourceapproval or productionpolicyregistration. Three adverse/restoration tests pass.
+- BrowserV3 is LIVE session35298, launcher3428943/supervisor3429453/worker3429483/browser3430790, exactlog `/tmp/astra-silvercord-lippo-private-six-part-browser-v3-20261103.log`. Poll actualhandle before restart. It preserves the exact activation assertion and writes complete loader/support/group state on a retained timeout. No user decision needed.
+
 ## Latest completed five-original assembly diagnostics
 
 Counts stay **427installed +3exact-source terminal +91unfinished =521**,7101verifieddetailedactors, bothNULLkeysretained. Three recovered towercompanions are OUTSIDE fixed521; only the two newpodiums would addXLcredit. No newinstallation in this continuation. Checkpoints44ce00a2f2,2b978c17c1 andb7249dab87 are PUSHED; all4existingLinearcomments confirmed updated after44ce00a2f2. No AIgeometrymodelling or optimisation.
