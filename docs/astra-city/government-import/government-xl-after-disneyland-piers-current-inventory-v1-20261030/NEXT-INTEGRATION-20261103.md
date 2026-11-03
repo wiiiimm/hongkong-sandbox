@@ -1,5 +1,7 @@
 # Five original parts and the retained Lippo tower
 
+Canonical qualified stage3a0368fc is COMPLETE/released; full stock publisher dry-run passed. Guarded publisher read-only preflight passes695inputs/38resources. No liveworkers/publicwrites/installedcredit. Next: two-descriptor atomic installer/live/independent readback, distinct transaction snapshot, exact four observed actors plus all1227unchanged terrain contexts, and completed six-case lifecycle receipt. Use the top of HANDOFF for the current state; older running-stage notes are historical.
+
 Full physical review0d75f123 and source/visual review7862bbcc are COMPLETE/released. All five originals and exact retained-owner migration are qualified for guarded integration; raw failures remain preserved. Stage worker session93709 is currently running (exact log/current-work), using the stock publisher dry run plus registered complete validators. Poll before restart; no installed credit yet.
 
 Latest: exact16 policy registration/canonical two-descriptor dry-run `8b154a94` and current whole-map identity binding `efee4831` are complete/released. All14 adverse/strict-contract tests pass. The existing ground-owner target rule already proves the31 terrain targets correct; do not add auxiliary towers or alter terrain metadata. The tested candidate-native catalogue representation now passes strict original metadata verification without changing browser-tested bytes. Remaining work is full physical/source aggregation and guarded installation.
