@@ -1,5 +1,13 @@
 # Current XL original-model handoff
 
+## Latest terrain and source-contact completion
+
+Private complete terrain admission14c0ae301e5ac064f9cabaef1a7a26f30a2668510de3cf4fbf924d73717e526c PASSED: entire retained687x547grid, all30children,15exact nested members plusactualnorthrootcell,22finiteedges, unchanged native/grid/coverage/overlap/coarse-cell/boundary validators and existing top-level effective terrain policies. Six adverse tests reject missing/duplicate/altered/stale/unknown members and prove context restoration. No publisher registration or source approval. The41MiB exact private successor is archived bySHA in the existing restore-map; its raw path is locally retained and batch-ignored, never deployed.
+
+Nine low-downward-facet full finite-contact calculations completed in all4streams. Original readback failed solely because Python integer category keys become JSONBstrings AFTER Neon markedcomplete. Read-only exact-job/payload/reference recovery775750d5e43678c49e18dcdbd1ce345f996b113ae1bcde6772a37bfcd6f56570 verified every byte and recovered the local receipt with ZERO repeated geometry or DB writes; original failedlog preserved. Silvercord has38externalpointcontacts andonepositive-length contact from6241towall11663; Lippo16points andonepositive-length8233towall11518. Keep all rawcontacts; no extra engineering gate or source-role acceptance follows. Silvercord rawfoundationlimit still unresolved.
+
+Checkpoint3cd0032684 is pushed; all4existing Linear comments successfully updated. JuneV4 remains live, latest150/150desktopcaptures,78changedactualdesktopimagesinspected inpartials01..04. Allprevious mobile/atomic proof reuse remains exact-byte-only. No newinstalledcredit;426+3+92stillauthoritative.
+
 ## Latest verified continuation: original Lippo native support and lower-source context
 
 All foundation/low-face/grade/cap/component/plot workers described below are now terminal and released. Exact completed jobs are saved in current-work.silvercordLippoCompleteFloorRecovery20261103.completedLowerSourceDiagnostics. ROOT actually opened all three lower-patch plots (two obliques each); the saved inspection grants no source-role/physical credit. Silvercord remains above the unchanged buried-area limit (0.00351564926 > 0.001). All410negative walls have clear-cap paths; its6remaining downward facets are two tiny3-face patches, one separate component and one in the main10126-face component. Lippo foundation passes; all234negative walls have clear-cap paths and its3downward facets are in the main12177-face component. Neither shape nor disconnectedness alone is a new engineering gate.
