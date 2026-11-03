@@ -2,7 +2,7 @@
 
 ## Latest completed five-original assembly diagnostics
 
-Counts stay **427installed +3exact-source terminal +91unfinished =521**,7101verifieddetailedactors, bothNULLkeysretained. Three recovered towercompanions are OUTSIDE fixed521; only the two newpodiums would addXLcredit. No newinstallation in this continuation. Checkpoint2b978c17c1 andb7249dab87 are PUSHED; all4existingLinearcomments updated. No AIgeometrymodelling or optimisation.
+Counts stay **427installed +3exact-source terminal +91unfinished =521**,7101verifieddetailedactors, bothNULLkeysretained. Three recovered towercompanions are OUTSIDE fixed521; only the two newpodiums would addXLcredit. No newinstallation in this continuation. Checkpoints44ce00a2f2,2b978c17c1 andb7249dab87 are PUSHED; all4existingLinearcomments confirmed updated after44ce00a2f2. No AIgeometrymodelling or optimisation.
 
 Allworkers below are nowterminal/released; no liveworker is implied. Nextwork is queued code/integration, not a human/AI-modelling hold.
 
