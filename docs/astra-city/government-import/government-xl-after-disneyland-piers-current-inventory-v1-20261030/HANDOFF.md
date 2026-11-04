@@ -1,5 +1,21 @@
 # Current XL original-model handoff
 
+## Current continuation: fresh full census and Parkview16 original recovery
+
+**430 installed + 3 exact-source terminal + 88 unfinished = 521**, both NULL-UID keys retained; **7,108 verified detailed actors**. Tung Cheong installation **8628fd67e6 is PUSHED**; all four authorised Linear comments were updated after its push. No new installation credit in this checkpoint. No AI geometry modelling or optimisation.
+
+Complete7108 census **78b94611b6805a237fd1ccc46a5d4a225d2a5a57d12bd2ff783af913c80223c5** reuses all7106unchanged actors and freshly loads only the2additions. Full521source reconciliation **7468fc8c4efdbbfeffc295df99fbf019e8b978ab6f3b98b46f63c17acee64ed2** retains91uninstalled including3terminal and88unfinished; its raw field `unfinished=91` includes terminal rows. Historical acquisition states are not current eligibility.
+
+Parkview16 `landsd/256319:0`, exact originalSHA **b57eab82a53c67a40eb0f94e64215ca5acbd8f4808fb90610c15425aa21c4193**,11351faces: fresh preparation **f9402ca3054522d182730d6de0def9e24303031630fa6c1427111789b62dc06f**, complete current native-array/contact rebind and support sequence **c97a68f8217c6fd16391a989f5bbecfbf095b237d9fc5ea80f39cd7df0ea4411**, complete compound context **ce221c27e8f7d4b154f0b75e83d3f52d9e7bd21ef747cceb0ce351a021fb0c70**. Each world has82strict contacts and40raw unresolved warnings with40finite original attachment paths. All42compound-negative faces are walls, all have clear-cap paths;5fully buried faces are vertical, zero upward floors. Raw strict and compound-foundation failures remain; these diagnostics do not grant physical acceptance.
+
+Private desktop/mobile browser **7e9259c01caec5cf39397604c7ba485c0a9a9d8a5207f8eb7666c9acf3dc6883** passes actual source/retained loading,picking,collision,failure/retry/fallback. ROOT actually opened all6unchanged-pixel sheets covering every12day/night source+retained export. Night darkness and lower-geometry/foreground occlusion remain explicit; no all-facet/asbuilt/physical-phone-FPS claim. Three-form/two-native current neighbour sequence **e6a67d646a723d3a802b26d717c15927858cb706abe93b7e8f8649deb237fec8** finds zero additional foreign BASIC actors; both raw native-contact contexts remain unapproved.
+
+All these workers are TERMINAL/released. Native-seam V1 failed only while plotting exact rational coordinate strings; preserve its producer, partial files and `preserved-failure.log`. Distinct V2 is COMPLETE/released, Neon **adad804d9890852a065c1ba95f01474969f68eeba2fad234cf26be4e15e11479**; session90189 terminated successfully and its log confirms release. All8four-world source/native role rows were matched to current complete arrays and every raw contact. ROOT actually opened both original interface diagrams. Do not restart these successful checks. No completed contact math is repeated. Source-specific contact interpretation, negative podium-flag evidence reconciliation, whole-source review and guarded publication/live/full521readback remain required before any installation credit.
+
+Portable private inputs: `government-xl-parkview256319-private-evidence-archive-v1-20261104/restore-map.json`,11paths/10payloads/326278archivebytes. Exact archival transport only: verify archiveSHA, decompress, verify originalSHA/size, restore only missing declared private paths and refuse differing existing bytes. Public runtime assets are unchanged.
+
+NEXT: finish exact Parkview native seam/context and guarded review/installation, then continue all88unfinished sources. Goal remains active; no human input required for current code/evidence work.
+
 ## Current continuation: Tung Cheong exact original pair is installed and independently verified
 
 **430 installed + 3 exact-source terminal + 88 unfinished = 521 fixed XL keys**, both NULL-UID source keys retained. **7,108 verified detailed actors.** Two unchanged originals are installed atomically: tower53799 is one fixedXLkey; adjoining component223636 is outside the fixedXLcohort. No AI geometry modelling, simplification, surveyed pose change or optimisation.
