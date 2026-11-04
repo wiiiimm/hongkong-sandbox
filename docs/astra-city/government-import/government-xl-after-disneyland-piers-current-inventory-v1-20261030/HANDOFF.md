@@ -1,5 +1,15 @@
 # Current XL original-model handoff
 
+## Current next work: Southside original terrain/support followthrough
+
+Parkview installation **4196034788 is delivered**. Full goal **431installed+3terminal+87unfinished=521**, bothNULLkeys retained;7109verified detailed actors. Fresh7109census **c9a7978f0605a372fe7b85ee0a6b20892291cd9d04fb3884671ce6036239b4a4** reused7108unchanged actors and decoded1addition. Exact-source reconciliation **2474eb4596cded4e43766e658208b34ee02291563de6b5401904077c3cb2aa79** retains90uninstalled including3terminal+87unfinished, bothNULLkeys; raw acquisition labels remain historical, not eligibility.
+
+Southside six-strip current scope **b35dd9f1ecb14288ebdd8c264654d56dd7e41d84c8d137e7918e677c4d597a2d** completes against all7109actors:84current BASIC forms, zero installed natives and zero installed terrain overlaps. OldV2 failed because it guessed `private-node.json.gz`; exact saved/hash-pinned output is `unapproved-terrain.json`. V3 fixes only the filename, reuses every existing private validated face/strip and retains all boundary/scope checks. Preserve failedV2producer/log; no corruption/terminal credit.
+
+Complete84-form conservative regressions **db16c3550bdfe5743645359033f7c1b328600202973375c4fd6c4d8f1ab242e0**:64pass;20raw increased-neighbour-ground-gap flags, including the five unfinished Southland/LaMarina XL towers. The exact source315025and six original terrain strips remain unchanged and uninstalled. No flag is waived or new source approved. Both scope85530and regression43977workers TERMINAL/released; no live model worker.
+
+NEXT is original-support/current-runtime work: inspect `southside_basic_podium_support_diagnostic_v1_20261028.py` and the old three-original/six-strip runtime receipts. Reuse completed finite projections only after current complete source-array/form identity; otherwise refresh the actual source runtime. Preserve every84form obligation and all20raw warnings, then whole-source identity/physical/browser/canonical-publication/readback before credit. No AI geometry modelling or optimisation; no human building decision needed. Continue the full87unfinished roster after this group.
+
 ## Current verified installation: Hong Kong Parkview Block 16
 
 **431 installed + 3 exact-source terminal + 87 unfinished = 521 fixedXLkeys**, bothNULLsource keys retained. **7,109 verified detailed actors.** Exact original `landsd/256319:0` is installed with immutable geometry/pose and the exact installed podium dependency. No terrain or parent metadata changes, no AI geometry modelling or optimisation.
@@ -8,7 +18,7 @@ Installed Neon **38c8b3e50401f4ba31dea85de7dc0ac20db93dc9fef0cbbccf61729480f16ce
 
 Installer15775/owned1947122/supervisor1947055, server1946263/supervisor1946204, readback66159 are TERMINAL/released. Do not restart/reinstall.9adverse contract tests also pass against the exact authenticated pre-install catalogue-map fixture, so tests remain reproducible after installation. Source-specific parent/seam adapter preserves every raw crossing, numeric failure and the parent's negative catalogue flag; fresh installed approval provenance is explicitly bound. Generic contracts unchanged.
 
-DELIVERY: commit/push this verified installation immediately. Codecheckpoint **ee3e681479 is committed but NOT yet pushed**: SSH rejected publickey; authenticated HTTPS returned two GitHub Internal Server Errors. API confirms repository write access; actual remote tip was9f8a33c657. Continue safe transport recovery; do not force history or modify main. Git and actual push readback govern delivery status.
+DELIVERY CONFIRMED: installation commit **4196034788** and its predecessor **ee3e681479** are on the remote non-main branch with their exact original commit/tree/blob hashes, using authenticated GitHub API transport with force=false. Proof `government-xl-parkview16-delivery-recovery-v1-20261104/verified-delivery.json`. All four authorised existing Linear comments updated. The following failed-Git-transport note is historical: commit/push was retried immediately. Codecheckpoint **ee3e681479 is committed but NOT yet pushed**: SSH rejected publickey; authenticated HTTPS returned two GitHub Internal Server Errors. API confirms repository write access; actual remote tip was9f8a33c657. Continue safe transport recovery; do not force history or modify main. Git and actual push readback govern delivery status.
 
 Portable installed inputs: `government-xl-parkview256319-installed-private-archive-v3-20261104/restore-map.json`, reusing exact V2/V1payloads. Verify archiveSHA then decompressed originalSHA/size; restore missing declared private paths only and refuse differing existing bytes. Archival transport, never runtime variants. Public runtime asset/catalogue are committed directly.
 

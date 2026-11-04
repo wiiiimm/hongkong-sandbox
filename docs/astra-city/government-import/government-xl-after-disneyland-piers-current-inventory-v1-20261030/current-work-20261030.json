@@ -453,25 +453,23 @@
     "unfinishedXL": 96
   },
   "currentNativeBounds": {
-    "batch": "government-xl-after-tung-cheong-current-native-bounds-v1-20261104",
-    "jobId": "78b94611b6805a237fd1ccc46a5d4a225d2a5a57d12bd2ff783af913c80223c5",
-    "actors": 7108,
-    "exactOldActorsReused": 7106,
-    "freshAdditionActors": 2,
+    "batch": "government-xl-after-parkview16-current-native-bounds-v1-20261104",
+    "jobId": "c9a7978f0605a372fe7b85ee0a6b20892291cd9d04fb3884671ce6036239b4a4",
+    "actors": 7109,
+    "exactOldActorsReused": 7108,
+    "freshAdditionActors": 1,
     "status": "complete-released",
-    "current": false,
-    "qualification": "Complete authenticated7108pre-Parkview census; refresh by exact reuse plus1newactor after installed readback."
+    "current": true
   },
   "currentNativeInventory": {
-    "batch": "government-xl-after-tung-cheong-current-native-bounds-v1-20261104",
-    "jobId": "78b94611b6805a237fd1ccc46a5d4a225d2a5a57d12bd2ff783af913c80223c5",
-    "actors": 7108,
-    "exactOldActorsReused": 7106,
-    "freshAdditionActors": 2,
+    "batch": "government-xl-after-parkview16-current-native-bounds-v1-20261104",
+    "jobId": "c9a7978f0605a372fe7b85ee0a6b20892291cd9d04fb3884671ce6036239b4a4",
+    "actors": 7109,
+    "exactOldActorsReused": 7108,
+    "freshAdditionActors": 1,
     "status": "complete-released",
-    "currentNativeActors": 7108,
-    "current": false,
-    "qualification": "Complete authenticated7108pre-Parkview census; refresh by exact reuse plus1newactor after installed readback."
+    "current": true,
+    "currentNativeActors": 7109
   },
   "currentSkillVersion": "1.9.249",
   "exactCurrentSourceTerminalXL": 3,
@@ -750,28 +748,51 @@
   "installedVerified": 431,
   "inventoryAuthority": "docs/astra-city/government-import/government-xl-silvercord-lippo-original-installed-v1-20261103/full-xl-current-count.json",
   "lastInstallation": {
-    "batch": "government-xl-silvercord-lippo-original-installed-v1-20261103",
-    "uids": [
-      "landsd/231645:0",
-      "landsd/233997:0",
-      "landsd/237843:0",
-      "landsd/238659:0",
-      "landsd/239032:0"
-    ],
-    "jobId": "e94c3215aa0c14eca34865d8af43f2a5eae78a668fb293dc6e3f1188d220b133",
-    "readbackJobId": "7be56d3e200b08a70f4e025c167b23fa44edac31a22d31b9ce60daa37ea16427",
-    "snapshotId": "34cafe9a89363525",
-    "fixedXLDelta": 2,
-    "actorDelta": 5,
-    "pushedCommit": "4ac5c0fe6a"
+    "uid": "landsd/256319:0",
+    "jobId": "38c8b3e50401f4ba31dea85de7dc0ac20db93dc9fef0cbbccf61729480f16ce0",
+    "snapshotId": "8bf30ddff34a2e1d",
+    "manifest": {
+      "path": "3d-viewer/city/data/manifest.json",
+      "sha256": "ba7e1bbd497574d4fa536df0f0ae2efd5e5b494724219c4414fbfb00ee55bb48"
+    },
+    "independentReadback": {
+      "batch": "government-xl-parkview256319-reviewed-current-original-installed-root-readback-v3-20261104",
+      "jobId": "e29e4eeb6f9a0dfc053d4f2bc519ab5ad944f504a8f661433f22976c13af5c99",
+      "passed": true,
+      "allPreviousAssets": 7108,
+      "fixedXLRows": 521,
+      "sourceLiveImages": 4,
+      "retainedLiveImages": 8
+    },
+    "installed": true,
+    "counts": {
+      "installed": 431,
+      "terminal": 3,
+      "unfinished": 87,
+      "total": 521,
+      "detailedActors": 7109
+    },
+    "aiGeometryModelling": false,
+    "sourceGeometryChanges": 0,
+    "sourcePoseChanges": 0,
+    "terrainEdits": false,
+    "privateArchive": "docs/astra-city/government-import/government-xl-parkview256319-installed-private-archive-v3-20261104/restore-map.json",
+    "delivery": {
+      "commit": "41960347882aa34875283f9d42bddb28178c2e4f",
+      "verifiedRemoteBranch": "codex/astra-hong-kong-city",
+      "method": "Exact original Git object transport via authenticated GitHub API after Git receive-pack server failures",
+      "force": false,
+      "allCommitTreeBlobSHAsPreserved": true,
+      "proof": "docs/astra-city/government-import/government-xl-parkview16-delivery-recovery-v1-20261104/verified-delivery.json"
+    }
   },
   "latestInstallationLinearComments": {
-    "HKS-203": "c7822c61-5ed9-4839-8b65-dab9a5ac73e7",
-    "HKS-199": "0ffe83f6-5f0c-47ba-8771-196628e825c1",
-    "HKS-215": "70a38221-03bf-4707-ad30-4577e40dd92a",
-    "Astra XL milestone": "0d180db5-9728-4f8f-a60c-44f077724123"
+    "HKS-203": "b75e9792-50fd-4182-82c0-1cb0a1d846b9",
+    "HKS-199": "20bd1bb9-9001-4e50-8d4e-020d8bb0501f",
+    "HKS-215": "d4b9e7ac-f686-4fd6-8ca5-5192c7365a49",
+    "Astra XL milestone": "60594493-a117-4231-9a57-aa2071f1187d"
   },
-  "latestPushedCommit": "9f8a33c657",
+  "latestPushedCommit": "4196034788",
   "latestVerifiedInstallation20261102": {
     "batch": "government-xl-june-garden-original-installed-v4-20261103",
     "jobId": "1a806165d3f905494e79784c86372e325aa1198b9c839634b8f273b87329cfd2",
@@ -784,7 +805,7 @@
   },
   "linearProgressUpdated": true,
   "linearUpdatedAfterInstallation": true,
-  "nativeInventoryRefreshRequired": true,
+  "nativeInventoryRefreshRequired": false,
   "nextCompanionPreparation": {
     "acquisitionJob": "94760236186ad214a559d030b575d1bbb8adbc9f4315399c5a7b591d96cc8431",
     "alexandraCurrentE12AcquisitionJob": "4dbdf4c998f9c2d5975b5e7784cb9603e68b31c19fd5a9580ccde23a1523d1b8",
@@ -842,9 +863,10 @@
     "maxLowGapM": 11.468967819213864
   },
   "nextSteps": [
-    "Commit/push verified installation immediately; investigate authenticated push transport errors without changing main or forcing branch history",
-    "Refresh complete7109native census by exact7108reuse+1freshaddition; reconcile allremaining90uninstalledkeys including3terminal",
-    "Continue every87unfinished fixedXLkey and bothNULLsource keys; no model optimisation or AI geometry modelling"
+    "Bind or refresh exact current three-original Southside/LaMarina runtime against the already validated six strips",
+    "Reuse completed twenty-form finite podium projection diagnostics only after exact source-array and complete current-form identity checks; preserve every raw gap flag",
+    "Resolve actual original-support/source applicability and all84neighbours, then complete identity/runtime/browser/canonical staging before installation credit",
+    "Continue all87unfinished fixedXLkeys and bothNULLsource keys; goal remains active"
   ],
   "nonInstalledIncludingTerminal": 90,
   "nullUIDSourceKeys": [
@@ -1108,7 +1130,7 @@
       "inventorySnapshot": "20f3d4a83cbbf6aa"
     }
   },
-  "latestPushedCheckpointCommit": "d9ec872e71",
+  "latestPushedCheckpointCommit": "4196034788",
   "yoho273672Current20261102": {
     "preparation": "government-xl-yoho-mall-ii273672-after-harbourfront-v1-20261102",
     "preparationJobId": "680098a43c92e78bc44a5ad2be706421517cf0e13ac734dcb62c83c9ccb6f797",
@@ -1389,7 +1411,7 @@
     "currentNativeActors": 7095,
     "reusedExactOldActors": 7094
   },
-  "latestInstallationCommit": "8628fd67e6",
+  "latestInstallationCommit": "4196034788",
   "nextScriptedWork20261102": {
     "uid": "landsd/227380:0",
     "status": "in-process-queued",
@@ -3320,7 +3342,7 @@
     "permanentRejection": false,
     "remaining": "Named exact-source association review for the unmatched44face low/canopy-like original and its authored high/low roof interface. Retain the raw1.65%cached/1.26%fresh footprint coverage and differing providerOBJECTIDs; no automatic UID assignment, CSUID coalescence, suppression or contact waiver. After qualified association: paired private scene/foreign scope, canonical guarded publication/live/readback. Existing high-only terrain/foundation/neighbour/browser proofs are complete; do not rerun unchanged work."
   },
-  "workerState": "All installation/server/inspection/readback workers TERMINAL/released; do not reinstall or repeat completed checks",
+  "workerState": "All Parkview installation/readback/census and Southside current-scope/84-form regression workers complete and released. No live model worker.",
   "tungCheongPortableEvidence20261103": {
     "map": "docs/astra-city/government-import/government-xl-tung-cheong-all-portable-evidence-v2-20261103/restore-map.json",
     "priorMap": "docs/astra-city/government-import/government-xl-tung-cheong53799-portable-evidence-v1-20261103/restore-map.json",
@@ -3379,16 +3401,16 @@
     "portableEvidence": "docs/astra-city/government-import/government-xl-tung-cheong-installed-portable-evidence-v1-20261104/restore-map.json"
   },
   "currentUninstalledSourceInventory20261104": {
-    "batch": "government-xl-after-tung-cheong-uninstalled-source-inventory-v1-20261104",
-    "jobId": "7468fc8c4efdbbfeffc295df99fbf019e8b978ab6f3b98b46f63c17acee64ed2",
+    "batch": "government-xl-after-parkview16-uninstalled-source-inventory-v1-20261104",
+    "jobId": "2474eb4596cded4e43766e658208b34ee02291563de6b5401904077c3cb2aa79",
     "fixedXLTotal": 521,
-    "installed": 430,
-    "uninstalledIncludingTerminal": 91,
+    "installed": 431,
+    "uninstalledIncludingTerminal": 90,
     "terminal": 3,
-    "unfinished": 88,
+    "unfinished": 87,
     "nullUidSourceKeys": 2,
-    "historicalSourceStatesAreNotCurrentEligibility": true,
-    "current": false
+    "current": true,
+    "historicalSourceStatesAreNotCurrentEligibility": true
   },
   "parkview256319CurrentRecovery20261104": {
     "uid": "landsd/256319:0",
@@ -3546,6 +3568,193 @@
     "sourcePoseChanges": 0,
     "terrainEdits": false,
     "privateArchive": "docs/astra-city/government-import/government-xl-parkview256319-installed-private-archive-v3-20261104/restore-map.json",
-    "delivery": "Commit/push verified installation immediately; codecheckpointee3e681479 also awaits successful remote delivery. SSH publickey failed and HTTPS returned two server errors; normal authenticated GitHub repository API confirms write access."
+    "delivery": {
+      "commit": "41960347882aa34875283f9d42bddb28178c2e4f",
+      "verifiedRemoteBranch": "codex/astra-hong-kong-city",
+      "method": "Exact original Git object transport via authenticated GitHub API after Git receive-pack server failures",
+      "force": false,
+      "allCommitTreeBlobSHAsPreserved": true,
+      "proof": "docs/astra-city/government-import/government-xl-parkview16-delivery-recovery-v1-20261104/verified-delivery.json"
+    }
+  },
+  "previousUninstalledSourceInventory20261104": {
+    "batch": "government-xl-after-tung-cheong-uninstalled-source-inventory-v1-20261104",
+    "jobId": "7468fc8c4efdbbfeffc295df99fbf019e8b978ab6f3b98b46f63c17acee64ed2",
+    "fixedXLTotal": 521,
+    "installed": 430,
+    "uninstalledIncludingTerminal": 91,
+    "terminal": 3,
+    "unfinished": 88,
+    "nullUidSourceKeys": 2,
+    "historicalSourceStatesAreNotCurrentEligibility": true,
+    "current": false
+  },
+  "linearUpdatedAfterParkviewInstallation20261104": {
+    "commit": "4196034788",
+    "allFourAuthorisedExistingCommentsUpdated": true
+  },
+  "southsideCurrentContinuation20261104": {
+    "sourceUid": "landsd/315025:0",
+    "relatedUnfinishedFixedXLUids": [
+      "landsd/315025:0",
+      "landsd/311758:0",
+      "landsd/311759:0",
+      "landsd/311761:0",
+      "landsd/311763:0",
+      "landsd/330243:0"
+    ],
+    "scope": {
+      "batch": "government-xl-southside-six-partition-current-scope-v3-20261104",
+      "jobId": "b35dd9f1ecb14288ebdd8c264654d56dd7e41d84c8d137e7918e677c4d597a2d",
+      "currentActors": 7109,
+      "forms": 84,
+      "installedNativeObligations": 0,
+      "installedTerrainOverlaps": 0
+    },
+    "basicRegressions": {
+      "batch": "government-xl-southside-six-partition-basic-regressions-v2-20261104",
+      "jobId": "db16c3550bdfe5743645359033f7c1b328600202973375c4fd6c4d8f1ab242e0",
+      "forms": 84,
+      "passed": 64,
+      "flagged": 20,
+      "rawFlags": [
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/104514:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/255631:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/311758:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/311759:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/311760:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/311761:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/311762:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/311763:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/313810:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/313811:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/315026:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/315027:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/315028:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/328110:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/328306:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/328308:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/328309:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/328310:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/330243:0"
+        },
+        {
+          "reasons": [
+            "increased-neighbour-ground-gap"
+          ],
+          "uid": "landsd/330244:0"
+        }
+      ]
+    },
+    "sixOriginalTerrainStripsUnchanged": true,
+    "existingPrivateValidatorsReused": true,
+    "sourceGeometryChanges": 0,
+    "aiGeometryModelling": false,
+    "installationApproved": false,
+    "newlyInstalled": 0,
+    "status": "Compute/evidence followthrough; all listed workers complete and released",
+    "preservedSoftwareFailure": {
+      "batch": "government-xl-southside-six-partition-current-scope-v2-20261104",
+      "reason": "Legacy scope requested private-node.json.gz; actual authenticated saved output is unapproved-terrain.json. V3 fixes only that path, verifies all6hashes and retains all existing scope/boundary checks."
+    },
+    "nextSteps": [
+      "Bind or refresh exact current three-original Southside/LaMarina runtime against the already validated six strips",
+      "Reuse completed twenty-form finite podium projection diagnostics only after exact source-array and complete current-form identity checks; preserve every raw gap flag",
+      "Resolve actual original-support/source applicability and all84neighbours, then complete identity/runtime/browser/canonical staging before installation credit"
+    ]
   }
 }
